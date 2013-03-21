@@ -12,9 +12,14 @@
 #
 
 from distutils.core import setup
+from glob import glob
 
 setup(name='burnet',
       version='0.1',
       package_dir={'': 'src'},
       packages=['burnet'],
-      scripts=['bin/burnetd'])
+      scripts=['bin/burnetd'],
+      data_files=[('share/burnet/js', glob('js/*.js')),
+                  ('share/burnet/css', glob('css/*.css')),
+                  ('share/burnet/css/fonts', glob('css/fonts/*')),
+                  ('share/burnet/images', glob('images/*'))])
