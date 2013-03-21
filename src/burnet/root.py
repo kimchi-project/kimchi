@@ -11,5 +11,10 @@
 # See the COPYING file in the top-level directory.
 #
 
+import cherrypy
+import template
+
 class Root(object):
-    pass
+    @cherrypy.expose
+    def index(self):
+        return template.render('index', { 'hostname': 'localhost' })

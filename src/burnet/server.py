@@ -13,6 +13,7 @@
 
 from argparse import ArgumentParser
 from root import Root
+import config
 import cherrypy
 
 def set_no_cache():
@@ -31,8 +32,21 @@ def set_no_cache():
 class Server(object):
     CONFIG = {
         '/': { 'tools.trailing_slash.on': False,
+               'tools.staticdir.root': config.get_prefix(),
                'request.methods_with_bodies': ('POST', 'PUT'),
                'tools.nocache.on': True },
+        '/css': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'css',
+            'tools.nocache.on': False },
+        '/js': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'js',
+            'tools.nocache.on': False },
+        '/images': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'images',
+            'tools.nocache.on': False },
         }
 
     def __init__(self, args):

@@ -22,4 +22,5 @@ setup(name='burnet',
       data_files=[('share/burnet/js', glob('js/*.js')),
                   ('share/burnet/css', glob('css/*.css')),
                   ('share/burnet/css/fonts', glob('css/fonts/*')),
-                  ('share/burnet/images', glob('images/*'))])
+                  ('share/burnet/images', glob('images/*')),
+                  ('share/burnet/templates', glob('templates/*.tmpl'))])
