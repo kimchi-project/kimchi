@@ -16,5 +16,5 @@ from distutils.core import setup
 setup(name='burnet',
       version='0.1',
       package_dir={'': 'src'},
-      py_modules=['burnet', 'burnet.server', 'burnet.root'],
+      packages=['burnet'],
       scripts=['bin/burnetd'])
