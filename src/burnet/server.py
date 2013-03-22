@@ -44,6 +44,9 @@ class Server(object):
     def start(self):
         cherrypy.quickstart(self.app)
 
+    def stop(self):
+        cherrypy.engine.exit()
+
 def main(args):
     parser = ArgumentParser()
     parser.add_argument('--host', type=str, default="localhost",
