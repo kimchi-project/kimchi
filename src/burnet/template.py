@@ -33,7 +33,7 @@ def can_accept(mime):
 def render(resource, data):
     if can_accept('application/json'):
         return json.dumps(data, indent=2,
-                          separators=(',', ';'),
+                          separators=(',', ':'),
                           encoding='iso-8859-1')
     elif can_accept('text/html'):
         filename = config.get_template_path(resource)

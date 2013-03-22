@@ -10,6 +10,7 @@
 # See the COPYING file in the top-level directory.
 
 import unittest
+import json
 
 import utils
 
@@ -26,7 +27,9 @@ class ServerTests(unittest.TestCase):
             port = utils.get_free_port()
             s = utils.run_server(host, port)
             resp = utils.request(host, port, '/')
+            data = json.loads(resp.read())
             self.assertEquals(200, resp.status)
+            self.assertEquals('localhost', data['hostname'])
         finally:
             s.stop()
 
