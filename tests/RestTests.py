@@ -54,7 +54,7 @@ class RestTests(unittest.TestCase):
         """
         A non-existent path should return HTTP:404
         """
-        url_list = ['/doesnotexist']
+        url_list = ['/doesnotexist', '/vms/blah']
         for url in url_list:
             self.assertHTTPStatus(404, host, port, url)
 
@@ -92,3 +92,37 @@ class RestTests(unittest.TestCase):
 
         h = {'Accept': 'text/plain'}
         self.assertHTTPStatus(406, host, port, "/", None, 'GET', h)
+
+    def test_parse_error(self):
+        """
+        Request parse errors should return HTTP:400
+        """
+        self.assertHTTPStatus(400, host, port, "/vms", '{', 'POST')
+
+    def test_missing_required_parameter(self):
+        """
+        When a POST request is missing a required parameter, HTTP:400 should be
+        returned, never HTTP:500.
+        """
+        url_list = ['/vms']
+        req = json.dumps({})
+        for url in url_list:
+            self.assertHTTPStatus(400, host, port, url, req, 'POST')
+
+    def test_get_vms(self):
+        vms = json.loads(request(host, port, '/vms').read())
+        self.assertEquals(0, len(vms))
+
+        # Now add a couple of VMs to the mock model
+        for i in xrange(10):
+            name = 'vm-%i' % i
+            req = json.dumps({'name': name, 'memory': 1024})
+            resp = request(host, port, '/vms', req, 'POST')
+            self.assertEquals(201, resp.status)
+
+        vms = json.loads(request(host, port, '/vms').read())
+        self.assertEquals(10, len(vms))
+
+        vm = json.loads(request(host, port, '/vms/vm-1').read())
+        self.assertEquals('vm-1', vm['name'])
+        self.assertEquals('shutoff', vm['state'])

@@ -200,3 +200,20 @@ class Collection(object):
                 raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
             except burnet.model.InvalidParameter, param:
                 raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
+
+
+class VMs(Collection):
+    def __init__(self, model):
+        super(VMs, self).__init__(model)
+        self.resource = VM
+
+
+class VM(Resource):
+    def __init__(self, model, ident):
+        super(VM, self).__init__(model, ident)
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'memory': self.info['memory'],
+                'state': self.info['state']}

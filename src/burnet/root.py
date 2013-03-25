@@ -18,6 +18,7 @@ import controller
 class Root(controller.Resource):
     def __init__(self, model):
         controller.Resource.__init__(self, model)
+        self.vms = controller.VMs(model)
 
     def get(self):
         return template.render('index', { 'hostname': 'localhost' })
