@@ -18,17 +18,26 @@ from contextlib import closing
 
 import burnet.server
 
+_port = None
+
 def get_free_port():
+    global _port
+    if _port is not None:
+        return _port
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     with closing(sock):
         try:
             sock.bind(("0.0.0.0", 0))
         except:
             raise Exception("Could not find a free port")
-        return sock.getsockname()[1]
+        _port = sock.getsockname()[1]
+        return _port
 
-def run_server(host, port):
-    args = type('_', (object,), {'host': host, 'port': port})()
+def run_server(host, port, test_mode, model=None):
+    args = type('_', (object,),
+                {'host': host, 'port': port, 'test': test_mode})()
+    if model is not None:
+        setattr(args, 'model', model)
     s = burnet.server.Server(args)
     t = threading.Thread(target=s.start)
     t.setDaemon(True)

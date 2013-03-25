@@ -13,8 +13,11 @@
 
 import cherrypy
 import template
+import controller
 
-class Root(object):
-    @cherrypy.expose
-    def index(self):
+class Root(controller.Resource):
+    def __init__(self, model):
+        controller.Resource.__init__(self, model)
+
+    def get(self):
         return template.render('index', { 'hostname': 'localhost' })

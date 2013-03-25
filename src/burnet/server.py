@@ -13,6 +13,7 @@
 
 from argparse import ArgumentParser
 from root import Root
+import mockmodel
 import config
 import cherrypy
 
@@ -53,7 +54,16 @@ class Server(object):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.server.socket_host = args.host
         cherrypy.server.socket_port = args.port
-        self.app = cherrypy.tree.mount(Root(), config=self.CONFIG)
+
+        if hasattr(args, 'model'):
+            model = args.model
+        elif args.test:
+            model = mockmodel.get_mock_environment()
+        else:
+            # All we have is MockModel so far :(
+            model = mockmodel.MockModel()
+
+        self.app = cherrypy.tree.mount(Root(model), config=self.CONFIG)
 
     def start(self):
         cherrypy.quickstart(self.app)
@@ -67,6 +77,8 @@ def main(args):
                         help="Hostname to listen on")
     parser.add_argument('--port', type=int, default=8000,
                         help="Port to listen on")
+    parser.add_argument('--test', action='store_true',
+                        help="Run server in testing mode")
 
     args = parser.parse_args(args)
     srv = Server(args)
