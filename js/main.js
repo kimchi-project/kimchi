@@ -35,17 +35,23 @@ function genPeer(name)
     return "<li class=\"project\"><a href=\"#\" title=\"titi\">titi</a></li>";
 }
 
+function load_vms(data)
+{
+    var html = "";
+    var i;
+
+    for (i = 0; i < data.length; i++) {
+        html += genTile(data[i].name, data[i].screenshot,
+                        data[i].state != 'running', false);
+    }
+    $("#vms").append(html);
+}
+
 function load(data)
 {
     var html = "";
     var i;
 
-    for (i = 0; i < data.vms.length; i++) {
-        html += genTile(data.vms[i].name, data.vms[i].image, !data.vms[i].running, false);
-    }
-    $("#vms").append(html);
-
-    html = "";
     for (i = 0; i < data.templates.length; i++) {
         html += genTile(data.templates[i].name, data.templates[i].image, false, true);
     }
@@ -70,6 +76,11 @@ function start()
 
     html = genTile("Create Guest", "images/image-missing.svg", false, true);
     $("#custom").append(html);
+
+    $.ajax({
+	url: "/vms",
+	dataType: "json"
+    }).done(load_vms);
 
     $.ajax({
 	url: "rest/guests",
