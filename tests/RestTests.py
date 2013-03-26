@@ -126,3 +126,27 @@ class RestTests(unittest.TestCase):
         vm = json.loads(request(host, port, '/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
         self.assertEquals('shutoff', vm['state'])
+
+    def test_vm_lifecycle(self):
+        # Create a VM
+        req = json.dumps({'name': 'test-vm', 'memory': 128})
+        resp = request(host, port, '/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the VM
+        vm = json.loads(request(host, port, '/vms/test-vm').read())
+        self.assertEquals('shutoff', vm['state'])
+
+        # Start the VM
+        resp = request(host, port, '/vms/test-vm/start', '{}', 'POST')
+        vm = json.loads(request(host, port, '/vms/test-vm').read())
+        self.assertEquals('running', vm['state'])
+
+        # Force stop the VM
+        resp = request(host, port, '/vms/test-vm/stop', '{}', 'POST')
+        vm = json.loads(request(host, port, '/vms/test-vm').read())
+        self.assertEquals('shutoff', vm['state'])
+
+        # Delete the VM
+        resp = request(host, port, '/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)

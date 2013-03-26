@@ -11,6 +11,7 @@
 
 import cherrypy
 import json
+from functools import wraps
 
 import burnet.model
 import burnet.template
@@ -62,6 +63,24 @@ def parse_request():
     else:
         raise cherrypy.HTTPError(415, "This API only supports"
                                       " 'application/json'")
+
+
+def action(f):
+    @wraps(f)
+    @cherrypy.expose
+    def wrapper(*args, **kwargs):
+        validate_method(('POST'))
+        try:
+            f(*args, **kwargs)
+        except burnet.model.MissingParameter, param:
+            raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
+        except burnet.model.InvalidParameter, param:
+            raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
+        except burnet.model.InvalidOperation, msg:
+            raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
+        except burnet.model.OperationFailed, msg:
+            raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
+    return wrapper
 
 
 class Resource(object):
@@ -211,6 +230,16 @@ class VMs(Collection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
+
+    @action
+    def start(self):
+        getattr(self.model, model_fn(self, 'start'))(self.ident)
+        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
+
+    @action
+    def stop(self):
+        getattr(self.model, model_fn(self, 'stop'))(self.ident)
+        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
 
     @property
     def data(self):

@@ -20,3 +20,6 @@ class MissingParameter(Exception):
 
 class InvalidParameter(Exception):
     pass
+
+class InvalidOperation(Exception):
+    pass

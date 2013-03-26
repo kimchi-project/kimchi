@@ -26,6 +26,12 @@ class MockModel(object):
         vm = self._get_vm(name)
         del self._mock_vms[vm.name]
 
+    def vm_start(self, name):
+        self._get_vm(name).info['state'] = 'running'
+
+    def vm_stop(self, name):
+        self._get_vm(name).info['state'] = 'shutoff'
+
     def vms_create(self, params):
         try:
             name = params['name']
@@ -33,7 +39,7 @@ class MockModel(object):
         except KeyError, item:
             raise burnet.model.MissingParameter(item)
         if name in self._mock_vms:
-            raise burnet.model.OperationFailed("VM already exists")
+            raise burnet.model.InvalidOperation("VM already exists")
         vm = MockVM(name)
         vm.info['memory'] = mem
         self._mock_vms[name] = vm
