@@ -7,8 +7,7 @@
 #  Anthony Liguori <aliguori@us.ibm.com>
 #  Adam Litke <agl@linux.vnet.ibm.com>
 #
-# This work is licensed under the terms of the GNU GPLv2.
-# See the COPYING file in the top-level directory.
+# All Rights Reserved.
 #
 
 import os, os.path
