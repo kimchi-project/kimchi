@@ -7,11 +7,14 @@
 #  Adam Litke <agl@linux.vnet.ibm.com>
 #
 # All Rights Reserved.
+#
 
 import httplib
 import cherrypy
 import threading
 import time
+import os
+import sys
 import socket
 from contextlib import closing
 
@@ -50,6 +53,9 @@ def silence_server():
     """
     cherrypy.config.update({"environment": "embedded"})
 
+def running_as_root():
+    return os.geteuid() == 0
+
 def request(host, port, path, data=None, method='GET', headers=None):
     if headers is None:
         headers = {'Content-Type': 'application/json',
@@ -58,3 +64,46 @@ def request(host, port, path, data=None, method='GET', headers=None):
     conn = httplib.HTTPConnection(host, port)
     conn.request(method, path, data, headers)
     return conn.getresponse()
+
+
+class RollbackContext(object):
+    '''
+    A context manager for recording and playing rollback.
+    The first exception will be remembered and re-raised after rollback
+
+    Sample usage:
+    with RollbackContext() as rollback:
+        step1()
+        rollback.prependDefer(lambda: undo step1)
+        def undoStep2(arg): pass
+        step2()
+        rollback.prependDefer(undoStep2, arg)
+    '''
+    def __init__(self, *args):
+        self._finally = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        firstException = exc_value
+
+        for undo, args, kwargs in self._finally:
+            try:
+                undo(*args, **kwargs)
+            except Exception as e:
+                # keep the earliest exception info
+                if not firstException:
+                    firstException = e
+                    # keep the original traceback info
+                    traceback = sys.exc_info()[2]
+
+        # re-raise the earliest exception
+        if firstException is not None:
+            raise firstException, None, traceback
+
+    def defer(self, func, *args, **kwargs):
+        self._finally.append((func, args, kwargs))
+
+    def prependDefer(self, func, *args, **kwargs):
+        self._finally.insert(0, (func, args, kwargs))

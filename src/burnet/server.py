@@ -12,6 +12,7 @@
 
 from argparse import ArgumentParser
 from root import Root
+import model
 import mockmodel
 import config
 import cherrypy
@@ -19,7 +20,7 @@ import cherrypy
 def set_no_cache():
     from time import strftime, gmtime
     h = [('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT'),
-         ('Cache-Control', 
+         ('Cache-Control',
           'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'),
          ('Pragma', 'no-cache'),
          ('Last-Modified', strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime()))]
@@ -55,14 +56,13 @@ class Server(object):
         cherrypy.server.socket_port = args.port
 
         if hasattr(args, 'model'):
-            model = args.model
+            model_instance = args.model
         elif args.test:
-            model = mockmodel.get_mock_environment()
+            model_instance = mockmodel.get_mock_environment()
         else:
-            # All we have is MockModel so far :(
-            model = mockmodel.MockModel()
+            model_instance = model.Model()
 
-        self.app = cherrypy.tree.mount(Root(model), config=self.CONFIG)
+        self.app = cherrypy.tree.mount(Root(model_instance), config=self.CONFIG)
 
     def start(self):
         cherrypy.quickstart(self.app)
