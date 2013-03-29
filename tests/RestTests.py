@@ -137,6 +137,11 @@ class RestTests(unittest.TestCase):
         vm = json.loads(request(host, port, '/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
 
+        # Test screenshot
+        resp = request(host, port, vm['screenshot'], method='HEAD')
+        self.assertEquals(200, resp.status)
+        self.assertTrue(resp.getheader('Content-type').startswith('image'))
+
         # Start the VM
         resp = request(host, port, '/vms/test-vm/start', '{}', 'POST')
         vm = json.loads(request(host, port, '/vms/test-vm').read())

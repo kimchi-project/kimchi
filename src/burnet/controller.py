@@ -245,4 +245,5 @@ class VM(Resource):
     def data(self):
         return {'name': self.ident,
                 'memory': self.info['memory'],
-                'state': self.info['state']}
+                'state': self.info['state'],
+                'screenshot': self.info['screenshot']}

@@ -57,7 +57,8 @@ class MockModel(object):
 class MockVM(object):
     def __init__(self, name):
         self.name = name
-        self.info = {'state': 'shutoff', 'memory': 1024}
+        self.info = {'state': 'shutoff', 'memory': 1024,
+                     'screenshot': '/images/image-missing.svg'}
 
 def get_mock_environment():
     model = MockModel()
