@@ -10,6 +10,7 @@
 # See the COPYING file in the top-level directory.
 
 import burnet.model
+import burnet.vmtemplate
 
 
 class MockModel(object):
@@ -18,6 +19,7 @@ class MockModel(object):
 
     def reset(self):
         self._mock_vms = {}
+        self._mock_templates = {}
         self._mock_storagepools = {}
 
     def vm_lookup(self, name):
@@ -48,6 +50,32 @@ class MockModel(object):
 
     def vms_get_list(self):
         return self._mock_vms.keys()
+
+    def template_lookup(self, name):
+        t = self._get_template(name)
+        return t.info
+
+    def template_delete(self, name):
+        try:
+            del self._mock_templates[name]
+        except KeyError:
+            raise burnet.model.NotFoundError()
+
+    def templates_create(self, params):
+        name = params['name']
+        if name in self._mock_templates:
+            raise burnet.model.InvalidOperation("Template already exists")
+        t = burnet.vmtemplate.VMTemplate(params)
+        self._mock_templates[name] = t
+
+    def templates_get_list(self):
+        return self._mock_templates.keys()
+
+    def _get_template(self, name):
+        try:
+            return self._mock_templates[name]
+        except KeyError:
+            raise burnet.model.NotFoundError()
 
     def _get_vm(self, name):
         try:
@@ -167,6 +195,12 @@ def get_mock_environment():
         name = 'test-vm-%i' % i
         vm = MockVM(name)
         model._mock_vms[name] = vm
+
+    for i in xrange(5):
+        name = 'test-template-%i' % i
+        params = {'name': name}
+        t = burnet.vmtemplate.VMTemplate(params)
+        model._mock_templates[name] = t
 
     #mock storagepool
     for i in xrange(5):

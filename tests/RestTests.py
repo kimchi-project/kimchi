@@ -309,3 +309,20 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/templates')
         self.assertEquals(200, resp.status)
         self.assertEquals(0, len(json.loads(resp.read())))
+
+        # Create a template
+        req = json.dumps({'name': 'test', 'os_distro': 'ImagineOS',
+                          'os_version': 1.0})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the template
+        t = json.loads(request(host, port, '/templates/test').read())
+        self.assertEquals('test', t['name'])
+        self.assertEquals('ImagineOS', t['os_distro'])
+        self.assertEquals(1.0, t['os_version'])
+        self.assertEquals(1024, t['memory'])
+
+        # Delete the template
+        resp = request(host, port, '/templates/test', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)

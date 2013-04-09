@@ -18,6 +18,7 @@ osinfo = OrderedDict([
         'os_distro': 'unknown', 'os_version': 'unknown',
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
+        'cdrom': '',
         'disks': [{'index': 0, 'size': 10}],
         'disk_bus': 'ide', 'nic_model': 'ne2k_pci'
   }),
