@@ -114,10 +114,15 @@ class RestTests(unittest.TestCase):
         vms = json.loads(request(host, port, '/vms').read())
         self.assertEquals(0, len(vms))
 
+        # Create a template as a base for our VMs
+        req = json.dumps({'name': 'test'})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
         # Now add a couple of VMs to the mock model
         for i in xrange(10):
             name = 'vm-%i' % i
-            req = json.dumps({'name': name, 'memory': 1024})
+            req = json.dumps({'name': name, 'template': '/templates/test'})
             resp = request(host, port, '/vms', req, 'POST')
             self.assertEquals(201, resp.status)
 
@@ -129,8 +134,13 @@ class RestTests(unittest.TestCase):
         self.assertEquals('shutoff', vm['state'])
 
     def test_vm_lifecycle(self):
+        # Create a Template
+        req = json.dumps({'name': 'test'})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
         # Create a VM
-        req = json.dumps({'name': 'test-vm', 'memory': 128})
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         resp = request(host, port, '/vms', req, 'POST')
         self.assertEquals(201, resp.status)
 

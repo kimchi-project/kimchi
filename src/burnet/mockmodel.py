@@ -39,13 +39,12 @@ class MockModel(object):
     def vms_create(self, params):
         try:
             name = params['name']
-            mem = params['memory']
+            t_name = burnet.model.template_name_from_uri(params['template'])
         except KeyError, item:
             raise burnet.model.MissingParameter(item)
         if name in self._mock_vms:
             raise burnet.model.InvalidOperation("VM already exists")
-        vm = MockVM(name)
-        vm.info['memory'] = mem
+        vm = MockVM(name, self.template_lookup(t_name))
         self._mock_vms[name] = vm
 
     def vms_get_list(self):
@@ -162,10 +161,11 @@ class MockModel(object):
 
 
 class MockVM(object):
-    def __init__(self, name):
+    def __init__(self, name, template_info):
         self.name = name
-        self.info = {'state': 'shutoff', 'memory': 1024,
-                     'screenshot': '/images/image-missing.svg'}
+        self.info = {'state': 'shutoff',
+                     'screenshot': '/images/image-missing.svg',
+                     'memory': template_info['memory']}
 
 
 class MockStoragePool(object):
@@ -191,16 +191,16 @@ class MockStorageVolume(object):
 
 def get_mock_environment():
     model = MockModel()
-    for i in xrange(10):
-        name = 'test-vm-%i' % i
-        vm = MockVM(name)
-        model._mock_vms[name] = vm
-
     for i in xrange(5):
         name = 'test-template-%i' % i
         params = {'name': name}
         t = burnet.vmtemplate.VMTemplate(params)
         model._mock_templates[name] = t
+
+    for i in xrange(10):
+        name = 'test-vm-%i' % i
+        vm = MockVM(name, model.template_lookup('test-template-0'))
+        model._mock_vms[name] = vm
 
     #mock storagepool
     for i in xrange(5):
