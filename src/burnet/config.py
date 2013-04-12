@@ -26,6 +26,9 @@ def get_prefix():
     else:
         return '%s/share/burnet' % PREFIX
 
+def get_object_store():
+    return os.path.join(get_prefix(), 'data', 'objectstore')
+
 def get_template_path(resource):
     return '%s/templates/%s.tmpl' % (get_prefix(), resource)
 

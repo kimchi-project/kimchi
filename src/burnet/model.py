@@ -14,8 +14,13 @@ import threading
 import logging
 import libvirt
 import functools
+import sqlite3
+import os
+import json
+from collections import OrderedDict
 
 import vmtemplate
+import config
 
 class NotFoundError(Exception):
     pass
@@ -40,6 +45,84 @@ def template_name_from_uri(uri):
     return m.group(1)
 
 
+class ObjectStoreSession(object):
+    def __init__(self, conn):
+        self.conn = conn
+
+    def get_list(self, obj_type):
+        c = self.conn.cursor()
+        res = c.execute('SELECT id FROM objects WHERE type=?', (obj_type,))
+        return [x[0] for x in res]
+
+    def get(self, obj_type, ident):
+        c = self.conn.cursor()
+        res = c.execute('SELECT json FROM objects WHERE type=? AND id=?',
+                        (obj_type, ident))
+        try:
+            jsonstr = res.fetchall()[0][0]
+        except IndexError:
+            raise NotFoundError(ident)
+        return json.loads(jsonstr)
+
+    def delete(self, obj_type, ident):
+        c = self.conn.cursor()
+        c.execute('DELETE FROM objects WHERE type=? AND id=?',
+                  (obj_type, ident))
+        if c.rowcount != 1:
+            raise NotFoundError(ident)
+        self.conn.commit()
+
+    def store(self, obj_type, ident, data):
+        jsonstr = json.dumps(data)
+        c = self.conn.cursor()
+        c.execute('DELETE FROM objects WHERE type=? AND id=?',
+                  (obj_type, ident))
+        c.execute('INSERT INTO objects (id, type, json) VALUES (?,?,?)',
+                  (ident, obj_type, jsonstr))
+        self.conn.commit()
+
+
+class ObjectStore(object):
+    def __init__(self, location=None):
+        self._lock = threading.Semaphore()
+        self._connections = OrderedDict()
+        self.location = location or config.get_object_store()
+        with self._lock:
+            self._init_db()
+
+    def _init_db(self):
+        conn = self._get_conn()
+        c = conn.cursor()
+        c.execute('''SELECT * FROM sqlite_master WHERE type='table' AND
+                     tbl_name='objects'; ''')
+        res = c.fetchall()
+        if len(res) == 1:
+            return
+
+        c.execute('''CREATE TABLE objects
+                     (id TEXT, type TEXT, json TEXT, PRIMARY KEY (id, type))''')
+        conn.commit()
+
+    def _get_conn(self):
+        ident = threading.currentThread().ident
+        try:
+            return self._connections[ident]
+        except KeyError:
+            self._connections[ident] = sqlite3.connect(self.location, timeout=10)
+            if len(self._connections.keys()) > 10:
+                id, conn = self._connections.popitem(last=False)
+                conn.interrupt()
+                del conn
+            return self._connections[ident]
+
+    def __enter__(self):
+        self._lock.acquire()
+        return ObjectStoreSession(self._get_conn())
+
+    def __exit__(self, type, value, tb):
+        self._lock.release()
+
+
 class Model(object):
     dom_state_map = {0: 'nostate',
                      1: 'running',
@@ -49,13 +132,10 @@ class Model(object):
                      5: 'shutoff',
                      6: 'crashed' }
 
-    def __init__(self, libvirt_uri=None):
+    def __init__(self, libvirt_uri=None, objstore_loc=None):
         self.libvirt_uri = libvirt_uri or 'qemu:///system'
         self.conn = LibvirtConnection(self.libvirt_uri)
-
-        # TODO: Replace this with persistent storage
-        self.shelf = {}
-        self.shelf.setdefault('templates', {})
+        self.objstore = ObjectStore(objstore_loc)
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
@@ -105,20 +185,20 @@ class Model(object):
         return t.info
 
     def template_delete(self, name):
-        try:
-            del self.shelf['templates'][name]
-        except KeyError:
-            raise NotFoundError()
+        with self.objstore as session:
+            session.delete('template', name)
 
     def templates_create(self, params):
         name = params['name']
-        if name in self.shelf['templates']:
-            raise InvalidOperation("Template already exists")
-        t = vmtemplate.VMTemplate(params)
-        self.shelf['templates'][name] = t.info
+        with self.objstore as session:
+            if name in session.get_list('template'):
+                raise InvalidOperation("Template already exists")
+            t = vmtemplate.VMTemplate(params)
+            session.store('template', name, t.info)
 
     def templates_get_list(self):
-        return self.shelf['templates'].keys()
+        with self.objstore as session:
+            return session.get_list('template')
 
     def _get_vm(self, name):
         conn = self.conn.get()
@@ -131,10 +211,8 @@ class Model(object):
                 raise
 
     def _get_template(self, name):
-        try:
-            params = self.shelf['templates'][name]
-        except KeyError:
-            raise NotFoundError()
+        with self.objstore as session:
+            params = session.get('template', name)
         return vmtemplate.VMTemplate(params)
 
 
