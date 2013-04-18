@@ -45,6 +45,14 @@ function load_vms(data)
                         data[i].state != 'running', false);
     }
     $("#vms").append(html);
+
+    $(".icon").click(function() {
+        if (this.className.indexOf("selected") == -1) {
+            this.className = this.className + " selected"
+        } else {
+            this.className = this.className.replace(/selected/g, "")
+        }
+    });
 }
 
 function load(data)
