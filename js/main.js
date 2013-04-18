@@ -55,17 +55,22 @@ function load_vms(data)
     });
 }
 
+function load_templates(data)
+{
+    var html = "";
+    var i;
+
+    for (i = 0; i < data.length; i++) {
+        html += genTile(data[i].name, data[i].icon, false, true);
+    }
+    $("#templates").prepend(html);
+}
+
 function load(data)
 {
     var html = "";
     var i;
 
-    for (i = 0; i < data.templates.length; i++) {
-        html += genTile(data.templates[i].name, data.templates[i].image, false, true);
-    }
-    $("#templates").prepend(html);
-
-    html = "";
     for (i = 0; i < data.peers.length; i++) {
 	html += genPeer(data.peers[i]);
     }
@@ -102,6 +107,12 @@ function start()
 	url: "/vms",
 	dataType: "json"
     }).done(load_vms);
+
+    $.ajax({
+	url: "/templates",
+	dataType: "json"
+    }).done(load_templates);
+
 
     $.ajax({
 	url: "rest/guests",

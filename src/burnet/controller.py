@@ -151,7 +151,7 @@ class Collection(object):
     Collection type, subclass this and make the following changes to the child
     class:
 
-    - Set self.Resource to the type of Resource that this Collection contains
+    - Set self.resource to the type of Resource that this Collection contains
 
     - Set self.resource_args.  This can remain an empty list if the Resources
       can be initialized with only one identifier.  Otherwise, include
@@ -248,6 +248,28 @@ class VM(Resource):
                 'memory': self.info['memory'],
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot']}
+
+
+class Templates(Collection):
+    def __init__(self, model):
+        super(Templates, self).__init__(model)
+        self.resource = Template
+
+
+class Template(Resource):
+    def __init__(self, model, ident):
+        super(Template, self).__init__(model, ident)
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'icon': self.info['icon'],
+                'os_distro': self.info['os_distro'],
+                'os_version': self.info['os_version'],
+                'cpus': self.info['cpus'],
+                'memory': self.info['memory'],
+                'cdrom': self.info['cdrom'],
+                'disks': self.info['disks']}
 
 
 class StorageVolume(Resource):

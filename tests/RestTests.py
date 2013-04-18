@@ -304,3 +304,8 @@ class RestTests(unittest.TestCase):
         # Delete the storage pool
         resp = request(host, port, '/storagepools/%s' % name, '{}', 'DELETE')
         self.assertEquals(204, resp.status)
+
+    def test_templates(self):
+        resp = request(host, port, '/templates')
+        self.assertEquals(200, resp.status)
+        self.assertEquals(0, len(json.loads(resp.read())))
