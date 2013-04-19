@@ -22,7 +22,7 @@ function genTile(title, image, gray, small)
         style += " small";
     }
 
-    html += "<div class=\"" + style + "\">\n";
+    html += "<div class=\"" + style + "\" id=\"" + title + "\">\n";
     html += "<img src=\"" + image + "\"/>\n";
     html += "<h3>" + title + "</h3></a>\n";
     html += "</div>";
@@ -74,6 +74,19 @@ function load(data)
     $("div.icon").draggable({ revert: true });
 }
 
+function getSelectedVMs()
+{
+    var names = []
+    var vms = document.getElementById("vms");
+    var selectedVMs = vms.getElementsByClassName("selected");
+
+    for (i = 0; i < selectedVMs.length; i++) {
+        names[i] = selectedVMs[i].id
+    }
+
+    return names
+}
+
 function start()
 {
     var html = "";
@@ -94,6 +107,27 @@ function start()
 	url: "rest/guests",
 	dataType: "json"
     }).done(load);
+
+    $(".icon-play").click(function() {
+        vms = getSelectedVMs();
+
+        for (i = 0; i < vms.length; i++) {
+            $.ajax({
+                url: "/vms/" + vms[i]  + "/start",
+                type: "POST",
+                dataType: "json",
+                context: document.getElementById(vms[i]),
+            }).complete(function(context, status) {
+                if (status == "success") {
+                    vm = $(this).context
+                    vm.className = vm.className.replace(/stopped/g, "");
+                } else {
+                    alert ("Failed to start " + $(this).context.id);
+                }
+            });
+
+        }
+    });
 
     $(".btn").button();
 }
