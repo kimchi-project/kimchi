@@ -125,7 +125,26 @@ function start()
                     alert ("Failed to start " + $(this).context.id);
                 }
             });
+        }
+    });
 
+    $(".icon-off").click(function() {
+        vms = getSelectedVMs();
+
+        for (i = 0; i < vms.length; i++) {
+            $.ajax({
+                url: "/vms/" + vms[i]  + "/stop",
+                type: "POST",
+                dataType: "json",
+                context: document.getElementById(vms[i]),
+            }).complete(function(context, status) {
+                if (status == "success") {
+                    vm = $(this).context
+                    vm.className = vm.className + " stopped"
+                } else {
+                    alert ("Failed to power off " + $(this).context.id);
+                }
+            });
         }
     });
 
