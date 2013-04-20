@@ -67,3 +67,83 @@ the following general conventions:
 
 * start: Power on a VM
 * stop: Power off forcefully
+
+### Collection: Storage Pools
+
+**URI:** /storagepools
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all defined Storage Pools
+* **POST**: Create a new Storage Pool
+    * name: The name of the Storage Pool
+    * path: The path of the defined Storage Pool
+    * type: The type of the defined Storage Pool
+    * capacity: The total space which can be used to store volumes
+                The unit is MBytes
+
+### Resource: Storage Pool
+
+**URI:** /storagepools/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Storage Pool
+    * name: The name of the Storage Pool
+            Used to identify the Storage Pool in this API
+    * state: Indicates the current state of the Storage Pool
+        * active: The Storage Pool is ready for use
+        * inactive: The Storage Pool is not available
+    * path: The path of the defined Storage Pool
+    * type: The type of the Storage Pool
+    * capacity: The total space which can be used to store volumes
+                The unit is MBytes
+    * allocated: The amount of space which is being used to store volumes
+                The unit is MBytes
+
+* **DELETE**: Remove the Storage Pool
+* **POST**: *See Storage Pool Actions*
+
+**Actions (POST):**
+
+* activate: Activate an inactive Storage Pool
+* deactivate: Deactivate an active Storage Pool
+
+### Collection: Storage Volumes
+
+**URI:** /storagepools/*:poolname*/storagevolumes
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all defined Storage Volumes
+           in the defined Storage Pool
+* **POST**: Create a new Storage Volume in the Storage Pool
+    * name: The name of the Storage Volume
+    * type: The type of the defined Storage Volume
+    * capacity: The total space which can be used to store volumes
+                The unit is MBytes
+    * format: The format of the defined Storage Volume
+
+### Resource: Storage Volume
+
+**URI:** /storagepools/*:poolname*/storagevolumes/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Storage Volume
+    * name: The name of the Storage Volume
+            Used to identify the Storage Volume in this API
+    * type: The type of the Storage Volume
+    * capacity: The total space which can be used to store data
+                The unit is MBytes
+    * allocation: The amount of space which is being used to store data
+                The unit is MBytes
+    * format: The format of the file or volume
+
+* **DELETE**: Remove the Storage Volume
+* **POST**: *See Storage Volume Actions*
+
+**Actions (POST):**
+
+* resize: Resize a Storage Volume
+* wipe: Wipe a Storage Volume
