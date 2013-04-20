@@ -24,6 +24,7 @@ def get_class_name(cls):
         sub_class = cls.__class__.__name__
     return sub_class.lower()
 
+
 def model_fn(cls, fn_name):
     return '%s_%s' % (get_class_name(cls), fn_name)
 
@@ -247,3 +248,80 @@ class VM(Resource):
                 'memory': self.info['memory'],
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot']}
+
+
+class StorageVolume(Resource):
+    def __init__(self, model, pool, ident):
+        super(StorageVolume, self).__init__(model, ident)
+        self.pool = pool
+        self.ident = ident
+        self.info = {}
+        self.model_args = [self.pool, self.ident]
+
+    @action
+    def resize(self):
+        params = parse_request()
+        size = params['size']
+        getattr(self.model, model_fn(self, 'resize'))(self.pool,
+                                                      self.ident, size)
+        raise cherrypy.HTTPRedirect('/storagepools/%s/storagevolumes/%s'
+                                    % (self.pool, self.ident), 303)
+
+    @action
+    def wipe(self):
+        getattr(self.model, model_fn(self, 'wipe'))(self.pool, self.ident)
+        raise cherrypy.HTTPRedirect('/storagepools/%s/storagevolumes/%s'
+                                    % (self.pool, self.ident), 303)
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'type': self.info['type'],
+                'capacity': self.info['capacity'],
+                'allocation': self.info['allocation'],
+                'format': self.info['format']}
+
+
+class StorageVolumes(Collection):
+    def __init__(self, model, pool):
+        super(StorageVolumes, self).__init__(model)
+        self.resource = StorageVolume
+        self.pool = pool
+        self.resource_args = [self.pool, ]
+        self.model_args = [self.pool, ]
+
+
+class StoragePool(Resource):
+    def __init__(self, model, ident):
+        super(StoragePool, self).__init__(model, ident)
+
+    @action
+    def activate(self):
+        getattr(self.model, model_fn(self, 'activate'))(self.ident)
+        raise cherrypy.HTTPRedirect('/storagepools/%s' % self.ident, 303)
+
+    @action
+    def deactivate(self):
+        getattr(self.model, model_fn(self, 'deactivate'))(self.ident)
+        raise cherrypy.HTTPRedirect('/storagepools/%s' % self.ident, 303)
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'state': self.info['state'],
+                'capacity': self.info['capacity'],
+                'allocated': self.info['allocated'],
+                'path': self.info['path'],
+                'type': self.info['type']}
+
+    def _cp_dispatch(self, vpath):
+        if vpath:
+            subcollection = vpath.pop(0)
+            if subcollection == 'storagevolumes':
+                return StorageVolumes(self.model, self.ident)
+
+
+class StoragePools(Collection):
+    def __init__(self, model):
+        super(StoragePools, self).__init__(model)
+        self.resource = StoragePool
