@@ -23,6 +23,7 @@ port = None
 
 #utils.silence_server()
 
+
 def setUpModule():
     global test_server, model, host, port
 
@@ -154,4 +155,152 @@ class RestTests(unittest.TestCase):
 
         # Delete the VM
         resp = request(host, port, '/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+    def test_get_storagepools(self):
+        storagepools = json.loads(request(host, port, '/storagepools').read())
+        self.assertEquals(0, len(storagepools))
+
+        # Now add a couple of StoragePools to the mock model
+        for i in xrange(5):
+            name = 'storagepool-%i' % i
+            req = json.dumps({'name': name,
+                              'capacity': 1024,
+                              'allocated': 512,
+                              'path': '/var/lib/libvirt/images/%i' % i,
+                              'type': 'dir'})
+            resp = request(host, port, '/storagepools', req, 'POST')
+            self.assertEquals(201, resp.status)
+
+        storagepools = json.loads(request(host, port, '/storagepools').read())
+        self.assertEquals(5, len(storagepools))
+
+        storagepool = json.loads(request(host, port,
+                                '/storagepools/storagepool-1').read())
+        self.assertEquals('storagepool-1', storagepool['name'])
+        self.assertEquals('inactive', storagepool['state'])
+
+    def test_storagepool_action(self):
+        # Create a storage pool
+        req = json.dumps({'name': 'test-pool',
+                          'capacity': 1024,
+                          'allocated': 512,
+                          'path': '/var/lib/libvirt/images/',
+                          'type': 'dir'})
+        resp = request(host, port, '/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the storage pool
+        storagepool = json.loads(request(host, port,
+                        '/storagepools/test-pool').read())
+        self.assertEquals('inactive', storagepool['state'])
+
+        # activate the storage pool
+        resp = request(host, port,
+                       '/storagepools/test-pool/activate', '{}', 'POST')
+        storagepool = json.loads(request(host, port,
+                        '/storagepools/test-pool').read())
+        self.assertEquals('active', storagepool['state'])
+
+        # Deactivate the storage pool
+        resp = request(host, port,
+                       '/storagepools/test-pool/deactivate', '{}', 'POST')
+        storagepool = json.loads(request(host, port,
+                                '/storagepools/test-pool').read())
+        self.assertEquals('inactive', storagepool['state'])
+
+        # Delete the storage pool
+        resp = request(host, port, '/storagepools/test-pool', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+    def test_get_storagevolumes(self):
+        # Now add a StoragePool to the mock model
+        self._create_pool('pool-1')
+
+        # Now add a couple of storage volumes to the mock model
+        for i in xrange(5):
+            name = 'volume-%i' % i
+            req = json.dumps({'name': name,
+                              'capacity': 1024,
+                              'allocation': 512,
+                              'type': 'disk',
+                              'format': 'raw'})
+            resp = request(host, port, '/storagepools/pool-1/storagevolumes',
+                           req, 'POST')
+            self.assertEquals(201, resp.status)
+
+        storagevolumes = json.loads(request(host, port,
+                                '/storagepools/pool-1/storagevolumes').read())
+        self.assertEquals(5, len(storagevolumes))
+
+        storagevolume = json.loads(request(host, port,
+                    '/storagepools/pool-1/storagevolumes/volume-1').read())
+        self.assertEquals('volume-1', storagevolume['name'])
+        self.assertEquals('raw', storagevolume['format'])
+
+        # Now remove the StoragePool from mock model
+        self._delete_pool('pool-1')
+
+    def test_storagevolume_action(self):
+        # Now add a storage pool to the mock model
+        self._create_pool('pool-2')
+        # Create a storage volume
+        req = json.dumps({'name': 'test-volume',
+                          'capacity': 1024,
+                          'allocation': 512,
+                          'type': 'disk',
+                          'format': 'raw'})
+        resp = request(host, port,
+                       '/storagepools/pool-2/storagevolumes/', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the storage volume
+        storagevolume = json.loads(request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume').read())
+        self.assertEquals('raw', storagevolume['format'])
+
+        # Resize the storage volume
+        req = json.dumps({'size': 768})
+        resp = request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume/resize',
+                    req, 'POST')
+        storagevolume = json.loads(request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume').read())
+        self.assertEquals(768, storagevolume['capacity'])
+
+        # Wipe the storage volume
+        resp = request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume/wipe',
+                    '{}', 'POST')
+        storagevolume = json.loads(request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume').read())
+        self.assertEquals(0, storagevolume['allocation'])
+
+        # Delete the storage volume
+        resp = request(host, port,
+                    '/storagepools/pool-2/storagevolumes/test-volume',
+                    '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Now remove the StoragePool from mock model
+        self._delete_pool('pool-2')
+
+    def _create_pool(self, name):
+        req = json.dumps({'name': name,
+                          'capacity': 10240,
+                          'allocated': 5120,
+                          'path': '/var/lib/libvirt/images/',
+                          'type': 'dir'})
+        resp = request(host, port, '/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the storage pool
+        storagepool = json.loads(request(host, port,
+                        '/storagepools/%s' % name).read())
+        self.assertEquals('inactive', storagepool['state'])
+        return name
+
+    def _delete_pool(self, name):
+        # Delete the storage pool
+        resp = request(host, port, '/storagepools/%s' % name, '{}', 'DELETE')
         self.assertEquals(204, resp.status)
