@@ -44,7 +44,7 @@ the following general conventions:
 * **GET**: Retrieve a summarized list of all defined Virtual Machines
 * **POST**: Create a new Virtual Machine
     * name: The name of the VM.  Used to identify the VM in this API
-    * memory: The amount of memory assigned to the VM (in MB)
+    * template: The URI of a Template to use when building the VM
 
 ### Resource: Virtual Machine
 
@@ -67,6 +67,43 @@ the following general conventions:
 
 * start: Power on a VM
 * stop: Power off forcefully
+
+### Collection: Templates
+
+**URI:** /templates
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all defined Templates
+* **POST**: Create a new Template
+    * name: The name of the Template.  Used to identify the Template in this API
+
+
+### Resource: Template
+
+**URI:** /templates/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Template
+    * name: A name for this template
+    * icon: A URI to a PNG image representing this template
+    * os_distro: The operating system distribution
+    * os_version: The version of the operating system distribution
+    * cpus: The number of CPUs assigned to the VM
+    * memory: The amount of memory assigned to the VM
+    * cdrom: A volume name or URI to an ISO image
+    * disks: An array of requested disks with the following optional fields
+      (either *size* or *volume* must be specified):
+        * index: The device index
+        * size: The device size in GB
+        * volume: A volume name that contains the initial disk contents
+* **DELETE**: Remove the Template
+* **POST**: *See Template Actions*
+
+**Actions (POST):**
+
+* *No actions defined*
 
 ### Collection: Storage Pools
 
