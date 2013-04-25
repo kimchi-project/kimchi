@@ -185,6 +185,11 @@ function start()
     });
 
     $(".btn").button();
+    $('#localLang').change(function() {
+        var selection = $('#localLang option:selected').val();
+        document.cookie = 'burnetLang' + "=" + selection;
+        window.location.reload()
+    });
 }
 
 $(document).ready(function(){ start(); });

@@ -9,6 +9,11 @@ a,
 	text-decoration: none;
 }
 
+#Lang {
+	float: right;
+	color: #FFFFFF;
+}
+
 #content a:hover {
 	color: #333;
 }
