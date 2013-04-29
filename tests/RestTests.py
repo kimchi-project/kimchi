@@ -59,6 +59,9 @@ class RestTests(unittest.TestCase):
         for url in url_list:
             self.assertHTTPStatus(404, host, port, url)
 
+        # Verify it works for DELETE too
+        self.assertHTTPStatus(404, host, port, '/templates/blah', '', 'DELETE')
+
     def test_wrong_method(self):
         """
         Using the wrong HTTP method should return HTTP:405

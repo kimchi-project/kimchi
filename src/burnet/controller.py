@@ -130,7 +130,10 @@ class Resource(object):
             except burnet.model.NotFoundError:
                 raise cherrypy.HTTPError(404)
         elif method == 'DELETE':
-            return self.delete()
+            try:
+                return self.delete()
+            except burnet.model.NotFoundError:
+                raise cherrypy.HTTPError(404)
 
     def get(self):
         self.lookup()
