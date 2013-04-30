@@ -68,6 +68,16 @@ the following general conventions:
 * start: Power on a VM
 * stop: Power off forcefully
 
+### Sub-resource: Virtual Machine Screenshot
+
+**URI:** /vms/*:name*/screenshot
+
+Represents a snapshot of the Virtual Machine's primary monitor.
+
+**Methods:**
+
+* **GET**: Redirect to the latest screenshot of a Virtual Machine in PNG format
+
 ### Collection: Templates
 
 **URI:** /templates
