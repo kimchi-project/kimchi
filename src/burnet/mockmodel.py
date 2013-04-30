@@ -8,9 +8,13 @@
 #
 # This work is licensed under the terms of the GNU GPLv2.
 # See the COPYING file in the top-level directory.
+import random
+import Image
+import ImageDraw
 
 import burnet.model
 import burnet.vmtemplate
+from burnet.screenshot import VMScreenshot
 
 
 class MockModel(object):
@@ -19,19 +23,26 @@ class MockModel(object):
 
     def reset(self):
         self._mock_vms = {}
+        self._mock_screenshots = {}
         self._mock_templates = {}
         self._mock_storagepools = {}
 
     def vm_lookup(self, name):
         vm = self._get_vm(name)
+        if vm.info['state'] == 'running':
+            vm.info['screenshot'] = self.vmscreenshot_lookup(name)
+        else:
+            vm.info['screenshot'] = '/images/image-missing.svg'
         return vm.info
 
     def vm_delete(self, name):
+        self._vmscreenshot_delete(name)
         vm = self._get_vm(name)
         del self._mock_vms[vm.name]
 
     def vm_start(self, name):
         self._get_vm(name).info['state'] = 'running'
+        info = self._get_vm(name).info
 
     def vm_stop(self, name):
         self._get_vm(name).info['state'] = 'shutoff'
@@ -49,6 +60,19 @@ class MockModel(object):
 
     def vms_get_list(self):
         return self._mock_vms.keys()
+
+    def vmscreenshot_lookup(self, name):
+        if self._get_vm(name).info['state'] != 'running':
+            raise burnet.model.NotFoundError('No screenshot for stopped vm')
+        screenshot = self._mock_screenshots.setdefault(
+            name, MockVMScreenshot(name))
+        return screenshot.lookup()
+
+    def _vmscreenshot_delete(self, name):
+        screenshot = self._mock_screenshots.get(name)
+        if screenshot:
+            screenshot.delete()
+            del self._mock_screenshots[name]
 
     def template_lookup(self, name):
         t = self._get_template(name)
@@ -164,7 +188,6 @@ class MockVM(object):
     def __init__(self, name, template_info):
         self.name = name
         self.info = {'state': 'shutoff',
-                     'screenshot': '/images/image-missing.svg',
                      'memory': template_info['memory']}
 
 
@@ -187,6 +210,31 @@ class MockStorageVolume(object):
                      'capacity': 1024,
                      'allocation': 512,
                      'format': 'raw'}
+
+
+class MockVMScreenshot(VMScreenshot):
+    OUTDATED_SECS = 5
+    BACKGROUND_COLOR = ['blue', 'green', 'purple', 'red', 'yellow']
+    BOX_COORD = (50, 115, 206, 141)
+    BAR_COORD = (50, 115, 50, 141)
+
+    def __init__(self, vm_name):
+        VMScreenshot.__init__(self, vm_name)
+        self.coord = MockVMScreenshot.BAR_COORD
+        self.background = random.choice(MockVMScreenshot.BACKGROUND_COLOR)
+
+    def _generate_scratch(self, thumbnail):
+        self.coord = (self.coord[0],
+                      self.coord[1],
+                      min(MockVMScreenshot.BOX_COORD[2],
+                          self.coord[2]+random.randrange(50)),
+                      self.coord[3])
+
+        image = Image.new("RGB", (256, 256), self.background)
+        d = ImageDraw.Draw(image)
+        d.rectangle(MockVMScreenshot.BOX_COORD, outline='black')
+        d.rectangle(self.coord, outline='black', fill='black')
+        image.save(thumbnail)
 
 
 def get_mock_environment():
