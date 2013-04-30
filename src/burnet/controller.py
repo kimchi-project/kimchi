@@ -246,12 +246,18 @@ class VM(Resource):
         getattr(self.model, model_fn(self, 'stop'))(self.ident)
         raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
 
+    @action
+    def connect(self):
+        getattr(self.model, model_fn(self, 'connect'))(self.ident)
+        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
+
     @property
     def data(self):
         return {'name': self.ident,
                 'memory': self.info['memory'],
                 'state': self.info['state'],
-                'screenshot': self.info['screenshot']}
+                'screenshot': self.info['screenshot'],
+                'vnc_port': self.info['vnc_port']}
 
 
 class VMScreenShot(Resource):

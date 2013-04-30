@@ -18,6 +18,7 @@ import subprocess
 import burnet.model
 import burnet.vmtemplate
 from burnet.screenshot import VMScreenshot
+import burnet.vnc
 
 
 class MockModel(object):
@@ -36,6 +37,7 @@ class MockModel(object):
         self._mock_screenshots = {}
         self._mock_templates = {}
         self._mock_storagepools = {}
+        self._mock_vnc_ports = {}
 
     def vm_lookup(self, name):
         vm = self._get_vm(name)
@@ -43,6 +45,7 @@ class MockModel(object):
             vm.info['screenshot'] = self.vmscreenshot_lookup(name)
         else:
             vm.info['screenshot'] = '/images/image-missing.svg'
+        vm.info['vnc_port'] = self._mock_vnc_ports.get(name, None)
         return vm.info
 
     def vm_delete(self, name):
@@ -56,6 +59,10 @@ class MockModel(object):
 
     def vm_stop(self, name):
         self._get_vm(name).info['state'] = 'shutoff'
+
+    def vm_connect(self, name):
+        vnc_port = burnet.vnc.new_ws_proxy(self.vnc_port)
+        self._mock_vnc_ports[name] = vnc_port
 
     def vms_create(self, params):
         try:
