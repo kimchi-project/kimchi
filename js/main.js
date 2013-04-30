@@ -135,6 +135,13 @@ function selectVMs(names)
     }
 }
 
+function deselectIcons(names)
+{
+    for (i = 0; i < names.length; i++) {
+        $("#" + names[i]).removeClass("selected")
+    }
+}
+
 function start()
 {
     var html = "";
@@ -162,6 +169,8 @@ function start()
                 }
             });
         }
+
+        deselectIcons(vms)
     });
 
     $(".icon-off").click(function() {
@@ -182,6 +191,8 @@ function start()
                 }
             });
         }
+
+        deselectIcons(vms)
     });
 
     $(".btn").button();
