@@ -12,6 +12,9 @@ import random
 import Image
 import ImageDraw
 
+import platform
+import subprocess
+
 import burnet.model
 import burnet.vmtemplate
 from burnet.screenshot import VMScreenshot
@@ -20,6 +23,13 @@ from burnet.screenshot import VMScreenshot
 class MockModel(object):
     def __init__(self):
         self.reset()
+        self.vnc_port = 5999
+
+        # open vnc port
+        # make it here to make sure it will be available on server startup
+        cmd = "qemu-system-%s"  % platform.machine()
+        args = [cmd, "-vnc", ":99"]
+        p = subprocess.Popen(args, close_fds=True)
 
     def reset(self):
         self._mock_vms = {}
