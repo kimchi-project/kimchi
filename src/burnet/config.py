@@ -32,5 +32,9 @@ def get_object_store():
 def get_template_path(resource):
     return '%s/templates/%s.tmpl' % (get_prefix(), resource)
 
+def get_screenshot_path():
+    return "%s/data/screenshots" % get_prefix()
+
+
 if __name__ == '__main__':
     print get_prefix()

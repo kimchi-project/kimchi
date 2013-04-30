@@ -48,6 +48,10 @@ class Server(object):
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'images',
             'tools.nocache.on': False },
+        '/data/screenshots': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'data/screenshots',
+            'tools.nocache.on': False },
         }
 
     def __init__(self, args):
