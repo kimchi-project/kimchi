@@ -234,6 +234,7 @@ class VMs(Collection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
+        self.screenshot = VMScreenShot(model, ident)
 
     @action
     def start(self):
@@ -252,6 +253,14 @@ class VM(Resource):
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot']}
 
+
+class VMScreenShot(Resource):
+    def __init__(self, model, ident):
+        super(VMScreenShot, self).__init__(model, ident)
+
+    def get(self):
+        self.lookup()
+        raise cherrypy.HTTPRedirect(self.info, 303)
 
 class Templates(Collection):
     def __init__(self, model):
