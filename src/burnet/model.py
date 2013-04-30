@@ -21,6 +21,8 @@ from collections import OrderedDict
 
 import vmtemplate
 import config
+import xmlutils
+import vnc
 
 class NotFoundError(Exception):
     pass
@@ -136,13 +138,15 @@ class Model(object):
         self.libvirt_uri = libvirt_uri or 'qemu:///system'
         self.conn = LibvirtConnection(self.libvirt_uri)
         self.objstore = ObjectStore(objstore_loc)
+        self.vnc_ports = {}
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
         return {'state': Model.dom_state_map[info[0]],
                 'memory': info[2] >> 10,
-                'screenshot': 'images/image-missing.svg'}
+                'screenshot': 'images/image-missing.svg',
+                'vnc_port': self.vnc_ports.get(name, None)}
 
     def vm_delete(self, name):
         dom = self._get_vm(name)
@@ -155,6 +159,19 @@ class Model(object):
     def vm_stop(self, name):
         dom = self._get_vm(name)
         dom.destroy()
+
+    def vm_connect(self, name):
+        dom = self._get_vm(name)
+        xml = dom.XMLDesc(0)
+        expr = "/domain/devices/graphics[@type='vnc']/@port"
+        res = xmlutils.xpath_get_text(xml, expr)
+
+        if len(res) < 1:
+            raise OperationFailed("Unable to find VNC port in %s" % name)
+
+        vnc_port = int(res[0])
+        vnc_port = vnc.new_ws_proxy(vnc_port)
+        self.vnc_ports[name] = vnc_port
 
     def vms_create(self, params):
         try:
