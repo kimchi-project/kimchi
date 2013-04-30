@@ -233,6 +233,30 @@ function start()
         deselectIcons(vms)
     });
 
+    $(".icon-desktop").click(function() {
+        if ($(this).hasClass("disabled")) {
+            return
+        }
+
+        vm = getSelectedVMs();
+
+        $.ajax({
+            url: "/vms/" + vm[0]  + "/connect",
+            type: "POST",
+            dataType: "json",
+        }).done(function(data, textStatus, xhr) {
+            url = "/static/vnc_auto.html?port=" + data.vnc_port + "&logging=debug"
+            popup = window.open(url, "", "target=_blank,height=600,width=800");
+            if (popup) {
+                popup.focus()
+            } else {
+                alert("A popup blocker may have prevented the console from displaying properly.")
+            }
+        });
+
+        deselectIcons(vm)
+    });
+
     $(".btn").button();
     $('#localLang').change(function() {
         var selection = $('#localLang option:selected').val();
