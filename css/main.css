@@ -67,3 +67,10 @@ hr {
 .icon h3 {
     text-align: center;
 }
+
+a.disabled,
+a.disabled:before {
+    color: gray !important;
+    cursor: default !important;
+    text-decoration: none !important;
+}

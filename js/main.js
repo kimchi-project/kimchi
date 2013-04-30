@@ -57,7 +57,41 @@ function load_vms(data)
         } else {
             this.className = this.className.replace(/selected/g, "")
         }
+
+        updateVMToolbar();
     });
+}
+
+function updateVMToolbar()
+{
+    selectedVMs = getSelectedVMs()
+    toolbar = $(".vm-toolbar > li > a")
+
+    if (selectedVMs.length > 1) {
+        for (i = 0; i < toolbar.length; i++) {
+            toolbar[i].className = toolbar[i].className + " disabled"
+        }
+
+        $(".icon-play").removeClass("disabled")
+        $(".icon-off").removeClass("disabled")
+
+        return
+    }
+
+    if (selectedVMs.length <= 1) {
+        for (i = 0; i < toolbar.length; i++) {
+            toolbar[i].className = toolbar[i].className.replace(/disabled/g, "")
+        }
+    }
+
+    if (selectedVMs.length == 1) {
+        if ($("#" + selectedVMs[0]).hasClass("stopped")) {
+            $(".icon-desktop").addClass("disabled")
+        }
+        else {
+            $(".icon-desktop").removeClass("disabled")
+        }
+    }
 }
 
 function load_templates(data)
