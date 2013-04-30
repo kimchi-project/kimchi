@@ -195,6 +195,8 @@ function start()
                 dataType: "json",
                 context: document.getElementById(vms[i]),
             }).complete(function(context, status) {
+                updateVMToolbar();
+
                 if (status == "success") {
                     vm = $(this).context
                     vm.className = vm.className.replace(/stopped/g, "");
@@ -217,6 +219,8 @@ function start()
                 dataType: "json",
                 context: document.getElementById(vms[i]),
             }).complete(function(context, status) {
+                updateVMToolbar();
+
                 if (status == "success") {
                     vm = $(this).context
                     vm.className = vm.className + " stopped"
