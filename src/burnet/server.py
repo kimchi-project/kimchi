@@ -52,6 +52,12 @@ class Server(object):
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'data/screenshots',
             'tools.nocache.on': False },
+        '/static': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'static',
+            'tools.nocache.on': False},
+        '/static/include': {
+            'tools.nocache.on': True},
         }
 
     def __init__(self, args):
