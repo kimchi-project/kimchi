@@ -151,11 +151,6 @@ class RestTests(unittest.TestCase):
         vm = json.loads(request(host, port, '/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
 
-        # Test screenshot
-        resp = request(host, port, vm['screenshot'], method='HEAD')
-        self.assertEquals(200, resp.status)
-        self.assertTrue(resp.getheader('Content-type').startswith('image'))
-
         # Start the VM
         resp = request(host, port, '/vms/test-vm/start', '{}', 'POST')
         vm = json.loads(request(host, port, '/vms/test-vm').read())
@@ -339,3 +334,48 @@ class RestTests(unittest.TestCase):
         # Delete the template
         resp = request(host, port, '/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
+
+    def test_screenshot_refresh(self):
+        # Create a VM
+        req = json.dumps({'name': 'test'})
+        request(host, port, '/templates', req, 'POST')
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        request(host, port, '/vms', req, 'POST')
+
+        # Test screenshot for shut-off state vm
+        resp = request(host, port, '/vms/test-vm/screenshot')
+        self.assertEquals(404, resp.status)
+
+        # Test screenshot for running vm
+        request(host, port, '/vms/test-vm/start', '{}', 'POST')
+        vm = json.loads(request(host, port, '/vms/test-vm').read())
+        resp = request(host, port, vm['screenshot'], method='HEAD')
+        self.assertEquals(200, resp.status)
+        self.assertTrue(resp.getheader('Content-type').startswith('image'))
+
+        # Test screenshot sub-resource redirect
+        resp = request(host, port, '/vms/test-vm/screenshot')
+        self.assertEquals(303, resp.status)
+        url_1 = resp.getheader('Location')
+        self.assertNotEquals(url_1.find(vm['screenshot']), -1)
+
+        # Take another screenshot instantly and compare the content
+        resp = request(host, port, '/vms/test-vm/screenshot')
+        url_2 = resp.getheader('Location')
+        self.assertEquals(url_1, url_2)
+
+        resp = request(host, port, '/vms/test-vm/screenshot', '{}', 'DELETE')
+        self.assertEquals(405, resp.status)
+
+        # No screenshot after stopped the VM
+        request(host, port, '/vms/test-vm/stop', '{}', 'POST')
+        resp = request(host, port, '/vms/test-vm/screenshot')
+        self.assertEquals(404, resp.status)
+
+        # Picture link not available after VM deleted
+        request(host, port, '/vms/test-vm/start', '{}', 'POST')
+        vm = json.loads(request(host, port, '/vms/test-vm').read())
+        img_lnk = vm['screenshot']
+        request(host, port, '/vms/test-vm', '{}', 'DELETE')
+        resp = request(host, port, img_lnk)
+        self.assertEquals(404, resp.status)
