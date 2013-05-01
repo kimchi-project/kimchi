@@ -35,13 +35,22 @@ function genPeer(name)
     return "<li class=\"project\"><a href=\"#\" title=\"titi\">titi</a></li>";
 }
 
+function selectIcon()
+{
+    if (this.className.indexOf("selected") == -1) {
+        this.className = this.className + " selected"
+    } else {
+        this.className = this.className.replace(/selected/g, "")
+    }
+}
+
 function load_vms(data)
 {
     var sel_vms;
     var html = "";
     var i;
 
-    sel_vms = getSelectedVMs();
+    sel_vms = getSelectedItems("vms");
 
     $("#vms").empty();
     for (i = 0; i < data.length; i++) {
@@ -49,22 +58,14 @@ function load_vms(data)
                         data[i].state != 'running', false);
     }
     $("#vms").append(html);
-    selectVMs(sel_vms);
+    selectItems("vms", sel_vms);
 
-    $(".icon").click(function() {
-        if (this.className.indexOf("selected") == -1) {
-            this.className = this.className + " selected"
-        } else {
-            this.className = this.className.replace(/selected/g, "")
-        }
-
-        updateVMToolbar();
-    });
+    $("#vms .icon").click(selectIcon);
 }
 
 function updateVMToolbar()
 {
-    selectedVMs = getSelectedVMs()
+    selectedVMs = getSelectedItems("vms")
     toolbar = $(".vm-toolbar > li > a")
 
     if (selectedVMs.length > 1) {
@@ -99,6 +100,8 @@ function load_templates(data)
     var html = "";
     var i;
 
+    sel_templates = getSelectedItems("templates");
+
     $("#templates").empty();
     for (i = 0; i < data.length; i++) {
         html += genTile(data[i].name, data[i].icon, false, true);
@@ -106,6 +109,9 @@ function load_templates(data)
     html += genTile("Create New Templates from ISOS", "images/image-missing.svg", false, true);
     html += genTile("Create New Template from Guests", "images/image-missing.svg", false, true);
     $("#templates").append(html);
+    selectItems("templates", sel_templates)
+
+    $("#templates .icon").click(selectIcon);
 }
 
 function load_peers(data)
@@ -143,22 +149,22 @@ function load(data)
     window.setTimeout("load();", 5000);
 }
 
-function getSelectedVMs()
+function getSelectedItems(id)
 {
     var names = []
-    var vms = document.getElementById("vms");
-    var selectedVMs = vms.getElementsByClassName("selected");
+    var items = document.getElementById(id);
+    var selectedItems = items.getElementsByClassName("selected");
 
-    for (i = 0; i < selectedVMs.length; i++) {
-        names[i] = selectedVMs[i].id
+    for (i = 0; i < selectedItems.length; i++) {
+        names[i] = selectedItems[i].id;
     }
 
-    return names
+    return names;
 }
 
-function selectVMs(names)
+function selectItems(id, names)
 {
-    var icons = $("#vms .icon");
+    var icons = $("#" + id + " .icon");
     var i;
 
     for (i = 0; i < icons.length; i++) {
@@ -185,8 +191,8 @@ function start()
 
     load();
 
-    $(".icon-play").click(function() {
-        vms = getSelectedVMs();
+    $("#vm-toolbar .icon-play").click(function() {
+        vms = getSelectedItems("vms");
 
         for (i = 0; i < vms.length; i++) {
             $.ajax({
@@ -209,8 +215,8 @@ function start()
         deselectIcons(vms)
     });
 
-    $(".icon-off").click(function() {
-        vms = getSelectedVMs();
+    $("#vm-toolbar .icon-off").click(function() {
+        vms = getSelectedItems("vms");
 
         for (i = 0; i < vms.length; i++) {
             $.ajax({
@@ -238,7 +244,7 @@ function start()
             return
         }
 
-        vm = getSelectedVMs();
+        vm = getSelectedItems("vms");
 
         $.ajax({
             url: "/vms/" + vm[0]  + "/connect",
@@ -255,6 +261,29 @@ function start()
         });
 
         deselectIcons(vm)
+    });
+
+    $("#template-toolbar .icon-plus").click(function() {
+        templates = getSelectedItems("templates");
+        if (templates.length != 1) {
+            return;
+        }
+        var req = {"template": "/templates/" + templates[0]};
+        $.ajax({
+            url: "/vms",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(req),
+            dataType: "json",
+            context: document.getElementById(templates[0]),
+        }).done(function() {
+            $.ajax({
+                url: "/vms",
+                dataType: "json"
+            }).done(load_vms);
+        }).fail(function(context) {
+            alert("Failed to create VM from Template: " + $(this).context.id);
+        });
     });
 
     $(".btn").button();
