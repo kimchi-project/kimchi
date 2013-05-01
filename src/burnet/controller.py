@@ -178,9 +178,9 @@ class Collection(object):
             raise cherrypy.HTTPError(405)
         params = parse_request()
         args = self.model_args + [params]
-        create(*args)
+        name = create(*args)
         cherrypy.response.status = 201
-        args = self.resource_args + [params['name']]
+        args = self.resource_args + [name]
         res = self.resource(self.model, *args)
         return res.get()
 

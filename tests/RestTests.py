@@ -213,6 +213,19 @@ class RestTests(unittest.TestCase):
         # Verify the volume was deleted
         self.assertHTTPStatus(404, host, port, vol_uri)
 
+    def test_unnamed_vms(self):
+        # Create a Template
+        req = json.dumps({'name': 'test'})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Create 5 unnamed vms from this template
+        for i in xrange(1, 6):
+            req = json.dumps({'template': '/templates/test'})
+            vm = json.loads(request(host, port, '/vms', req, 'POST').read())
+            self.assertEquals('test-vm-%i' % i, vm['name'])
+        count = len(json.loads(request(host, port, '/vms').read()))
+        self.assertEquals(5, count)
 
     def test_get_storagepools(self):
         storagepools = json.loads(request(host, port, '/storagepools').read())

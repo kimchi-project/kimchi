@@ -43,7 +43,8 @@ the following general conventions:
 
 * **GET**: Retrieve a summarized list of all defined Virtual Machines
 * **POST**: Create a new Virtual Machine
-    * name: The name of the VM.  Used to identify the VM in this API
+    * name *(optional)*: The name of the VM.  Used to identify the VM in this
+      API.  If omitted, a name will be chosen based on the template used.
     * template: The URI of a Template to use when building the VM
     * storagepool *(optional)*: Assign a specific Storage Pool to the new VM
 

@@ -69,10 +69,12 @@ class MockModel(object):
 
     def vms_create(self, params):
         try:
-            name = params['name']
             t_name = burnet.model.template_name_from_uri(params['template'])
         except KeyError, item:
             raise burnet.model.MissingParameter(item)
+
+        name = burnet.model.get_vm_name(params.get('name'), t_name,
+                                        self._mock_vms.keys())
         if name in self._mock_vms:
             raise burnet.model.InvalidOperation("VM already exists")
         t = self._get_template(t_name)
@@ -89,6 +91,7 @@ class MockModel(object):
         vm = MockVM(name, t.info)
         vm.disk_paths = disk_paths
         self._mock_vms[name] = vm
+        return name
 
     def vms_get_list(self):
         return self._mock_vms.keys()
@@ -122,6 +125,7 @@ class MockModel(object):
             raise burnet.model.InvalidOperation("Template already exists")
         t = burnet.vmtemplate.VMTemplate(params)
         self._mock_templates[name] = t
+        return name
 
     def templates_get_list(self):
         return self._mock_templates.keys()
@@ -150,6 +154,7 @@ class MockModel(object):
         if name in self._mock_storagepools:
             raise burnet.model.InvalidOperation("StoragePool already exists")
         self._mock_storagepools[name] = pool
+        return name
 
     def storagepool_lookup(self, name):
         storagepool = self._get_storagepool(name)
@@ -187,6 +192,7 @@ class MockModel(object):
         if name in self._get_storagepool(pool)._volumes:
             raise burnet.model.InvalidOperation("StorageVolume already exists")
         self._get_storagepool(pool)._volumes[name] = volume
+        return name
 
     def storagevolume_lookup(self, pool, name):
         storagevolume = self._get_storagevolume(pool, name)

@@ -53,6 +53,16 @@ def template_name_from_uri(uri):
 def pool_name_from_uri(uri):
     return _uri_to_name('storagepools', uri)
 
+def get_vm_name(vm_name, t_name, name_list):
+    if vm_name:
+        return vm_name
+    for i in xrange(1, 1000):
+        vm_name = "%s-vm-%i" % (t_name, i)
+        if vm_name not in name_list:
+            return vm_name
+    raise OperationFailed("Unable to choose a VM name")
+
+
 class ObjectStoreSession(object):
     def __init__(self, conn):
         self.conn = conn
@@ -194,11 +204,13 @@ class Model(object):
 
     def vms_create(self, params):
         try:
-            name = params['name']
             t_name = template_name_from_uri(params['template'])
         except KeyError, item:
             raise MissingParameter(item)
-        if name in self.vms_get_list():
+
+        vm_list = self.vms_get_list()
+        name = get_vm_name(params.get('name'), t_name, vm_list)
+        if name in vm_list:
             raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
 
@@ -217,6 +229,7 @@ class Model(object):
 
         xml = t.to_vm_xml(name, storage_path)
         dom = conn.defineXML(xml)
+        return name
 
     def vms_get_list(self):
         conn = self.conn.get()
@@ -240,6 +253,7 @@ class Model(object):
                 raise InvalidOperation("Template already exists")
             t = vmtemplate.VMTemplate(params)
             session.store('template', name, t.info)
+        return name
 
     def templates_get_list(self):
         with self.objstore as session:
