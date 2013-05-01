@@ -63,6 +63,7 @@ class ObjectStoreSession(object):
         try:
             jsonstr = res.fetchall()[0][0]
         except IndexError:
+            self.conn.rollback()
             raise NotFoundError(ident)
         return json.loads(jsonstr)
 
@@ -71,6 +72,7 @@ class ObjectStoreSession(object):
         c.execute('DELETE FROM objects WHERE type=? AND id=?',
                   (obj_type, ident))
         if c.rowcount != 1:
+            self.conn.rollback()
             raise NotFoundError(ident)
         self.conn.commit()
 
