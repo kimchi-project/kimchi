@@ -263,6 +263,34 @@ function start()
         deselectIcons(vm)
     });
 
+    $("#vm-toolbar .icon-trash").click(function() {
+         $("#dialog-delete-confirm").dialog({
+            resizable: false,
+            height:220,
+            modal: true,
+            buttons: {
+                "Delete": function() {
+                    vms = getSelectedItems("vms");
+                    for (i = 0; i < vms.length; i++) {
+                        $.ajax({
+                            url: "/vms/" + vms[i],
+                            type: "DELETE",
+                            context: document.getElementById(vms[i])
+                        }).done(function(data, textStatus, context) {
+                            $("#" + $(this).context.id).remove();
+                        }).fail(function(context) {
+                            alert("Failed to delete " + $(this).context.id);
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
     $("#template-toolbar .icon-plus").click(function() {
         templates = getSelectedItems("templates");
         if (templates.length != 1) {
