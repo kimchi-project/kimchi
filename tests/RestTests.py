@@ -138,7 +138,7 @@ class RestTests(unittest.TestCase):
 
     def test_vm_lifecycle(self):
         # Create a Template
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'disks': [{'size': 1}]})
         resp = request(host, port, '/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -150,6 +150,17 @@ class RestTests(unittest.TestCase):
         # Verify the VM
         vm = json.loads(request(host, port, '/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
+
+        # Verify the volume was created
+        vol_uri = '/storagepools/default/storagevolumes/test-vm-0.img'
+        resp = request(host, port, vol_uri)
+        vol = json.loads(resp.read())
+        self.assertEquals(1, vol['capacity'])
+
+        # Test screenshot
+        resp = request(host, port, vm['screenshot'], method='HEAD')
+        self.assertEquals(200, resp.status)
+        self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
         # Start the VM
         resp = request(host, port, '/vms/test-vm/start', '{}', 'POST')
@@ -165,9 +176,48 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+        # Verify the volume was deleted
+        self.assertHTTPStatus(404, host, port, vol_uri)
+
+    def test_vm_on_alt_storage(self):
+        # Create a Template
+        req = json.dumps({'name': 'test', 'disks': [{'size': 1}]})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Create alternate storage
+        req = json.dumps({'name': 'alt',
+                          'capacity': 1024,
+                          'allocated': 512,
+                          'path': '/tmp',
+                          'type': 'dir'})
+        resp = request(host, port, '/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Create a VM
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'storagepool': '/storagepools/alt'})
+        resp = request(host, port, '/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the volume was created
+        vol_uri = '/storagepools/alt/storagevolumes/test-vm-0.img'
+        resp = request(host, port, vol_uri)
+        vol = json.loads(resp.read())
+        self.assertEquals(1, vol['capacity'])
+
+        # Delete the VM
+        resp = request(host, port, '/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Verify the volume was deleted
+        self.assertHTTPStatus(404, host, port, vol_uri)
+
+
     def test_get_storagepools(self):
         storagepools = json.loads(request(host, port, '/storagepools').read())
-        self.assertEquals(0, len(storagepools))
+        self.assertEquals(1, len(storagepools))
+        self.assertEquals('default', storagepools[0]['name'])
 
         # Now add a couple of StoragePools to the mock model
         for i in xrange(5):
@@ -181,7 +231,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(201, resp.status)
 
         storagepools = json.loads(request(host, port, '/storagepools').read())
-        self.assertEquals(5, len(storagepools))
+        self.assertEquals(6, len(storagepools))
 
         storagepool = json.loads(request(host, port,
                                 '/storagepools/storagepool-1').read())

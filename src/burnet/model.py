@@ -40,12 +40,18 @@ class InvalidOperation(Exception):
     pass
 
 
-def template_name_from_uri(uri):
-    m = re.match('/templates/(.*?)/?$', uri)
+def _uri_to_name(collection, uri):
+    expr = '/%s/(.*?)/?$' % collection
+    m = re.match(expr, uri)
     if not m:
         raise InvalidParameter(uri)
     return m.group(1)
 
+def template_name_from_uri(uri):
+    return _uri_to_name('templates', uri)
+
+def pool_name_from_uri(uri):
+    return _uri_to_name('storagepools', uri)
 
 class ObjectStoreSession(object):
     def __init__(self, conn):
@@ -150,9 +156,20 @@ class Model(object):
                 'screenshot': 'images/image-missing.svg',
                 'vnc_port': self.vnc_ports.get(name, None)}
 
+    def _vm_get_disk_paths(self, dom):
+        xml = dom.XMLDesc(0)
+        xpath = "/domain/devices/disk[@device='disk']/source/@file"
+        return xmlutils.xpath_get_text(xml, xpath)
+
     def vm_delete(self, name):
+        conn = self.conn.get()
         dom = self._get_vm(name)
+        paths = self._vm_get_disk_paths(dom)
         dom.undefine()
+
+        for path in paths:
+            vol = conn.storageVolLookupByPath(path)
+            vol.delete(0)
 
     def vm_start(self, name):
         dom = self._get_vm(name)
@@ -183,13 +200,22 @@ class Model(object):
             raise MissingParameter(item)
         if name in self.vms_get_list():
             raise InvalidOperation("VM already exists")
-
-        # TODO: Lookup Storage path using the libvirt API once Pools are modeled
-        storage_path = "/var/lib/libvirt/images"
-
         t = self._get_template(t_name)
-        xml = t.to_vm_xml(name, storage_path)
+
         conn = self.conn.get()
+        pool_uri = params.get('storagepool', t.info['storagepool'])
+        pool_name = pool_name_from_uri(pool_uri)
+        pool = conn.storagePoolLookupByName(pool_name)
+        xml = pool.XMLDesc(0)
+        storage_path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
+
+        # Provision storage:
+        # TODO: Rebase on the storage API once upstream
+        vol_list = t.to_volume_list(name, storage_path)
+        for v in vol_list:
+            pool.createXML(v['xml'], 0)
+
+        xml = t.to_vm_xml(name, storage_path)
         dom = conn.defineXML(xml)
 
     def vms_get_list(self):

@@ -36,7 +36,7 @@ class MockModel(object):
         self._mock_vms = {}
         self._mock_screenshots = {}
         self._mock_templates = {}
-        self._mock_storagepools = {}
+        self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_vnc_ports = {}
 
     def vm_lookup(self, name):
@@ -51,6 +51,9 @@ class MockModel(object):
     def vm_delete(self, name):
         self._vmscreenshot_delete(name)
         vm = self._get_vm(name)
+        for disk in vm.disk_paths:
+            self.storagevolume_delete(disk['pool'], disk['volume'])
+
         del self._mock_vms[vm.name]
 
     def vm_start(self, name):
@@ -72,7 +75,19 @@ class MockModel(object):
             raise burnet.model.MissingParameter(item)
         if name in self._mock_vms:
             raise burnet.model.InvalidOperation("VM already exists")
-        vm = MockVM(name, self.template_lookup(t_name))
+        t = self._get_template(t_name)
+
+        pool_uri = params.get('storagepool', t.info['storagepool'])
+        pool_name = burnet.model.pool_name_from_uri(pool_uri)
+        p = self._get_storagepool(pool_name)
+        volumes = t.to_volume_list(name, p.info['path'])
+        disk_paths = []
+        for vol_info in volumes:
+            self.storagevolumes_create(pool_name, vol_info)
+            disk_paths.append({'pool': pool_name, 'volume': vol_info['name']})
+
+        vm = MockVM(name, t.info)
+        vm.disk_paths = disk_paths
         self._mock_vms[name] = vm
 
     def vms_get_list(self):

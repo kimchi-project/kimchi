@@ -73,7 +73,7 @@ isolinks = {
     },
 }
 
-defaults = {'network': 'default', 'storagepool': 'default'}
+defaults = {'network': 'default', 'storagepool': '/storagepools/default'}
 
 def lookup(distro, version):
     ret = None

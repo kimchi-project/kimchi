@@ -63,6 +63,23 @@ class ModelTests(unittest.TestCase):
         vms = inst.vms_get_list()
         self.assertFalse('burnet-vm' in vms)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_storage_provisioning(self):
+        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            params = {'name': 'test', 'disks': [{'size': 1}]}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'test-vm-1', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'test-vm-1')
+
+            disk_path = '/var/lib/libvirt/images/test-vm-1-0.img'
+            self.assertTrue(os.access(disk_path, os.F_OK))
+        self.assertFalse(os.access(disk_path, os.F_OK))
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):

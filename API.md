@@ -45,6 +45,7 @@ the following general conventions:
 * **POST**: Create a new Virtual Machine
     * name: The name of the VM.  Used to identify the VM in this API
     * template: The URI of a Template to use when building the VM
+    * storagepool *(optional)*: Assign a specific Storage Pool to the new VM
 
 ### Resource: Virtual Machine
 

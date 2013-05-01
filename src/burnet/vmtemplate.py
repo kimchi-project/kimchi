@@ -32,11 +32,12 @@ class VMTemplate(object):
         bus_to_dev = {'ide': 'hd', 'virtio': 'vd'}
 
         ret = ""
-        for disk in self.info['disks']:
-            volume = "%s-%s.img" % (vm_name, disk['index'])
+        for i, disk in enumerate(self.info['disks']):
+            index = disk.get('index', i)
+            volume = "%s-%s.img" % (vm_name, index)
             src = os.path.join(storage_path, volume)
             dev = "%s%s" % (bus_to_dev[self.info['disk_bus']],
-                            string.lowercase[disk['index']])
+                            string.lowercase[index])
             params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus']}
             ret += """
             <disk type='file' device='disk'>
@@ -45,6 +46,32 @@ class VMTemplate(object):
               <target dev='%(dev)s' bus='%(bus)s' />
             </disk>
             """ % params
+        return ret
+
+    def to_volume_list(self, vm_name, storage_path):
+        ret = []
+        for i, d in enumerate(self.info['disks']):
+            index = d.get('index', i)
+            volume = "%s-%s.img" % (vm_name, index)
+
+            info = {'name': volume,
+                    'capacity': d['size'],
+                    'type': 'disk',
+                    'format': 'qcow2',
+                    'path': '%s/%s' % (storage_path, volume)}
+
+            info['xml'] = """
+            <volume>
+              <name>%(name)s</name>
+              <allocation>0</allocation>
+              <capacity unit="G">%(capacity)s</capacity>
+              <target>
+                <format type='%(format)s'/>
+                <path>%(path)s</path>
+              </target>
+            </volume>
+            """ % info
+            ret.append(info)
         return ret
 
     def to_vm_xml(self, vm_name, storage_path):
