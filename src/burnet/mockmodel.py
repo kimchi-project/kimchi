@@ -210,7 +210,6 @@ class MockModel(object):
     def storagevolume_resize(self, pool, name, size):
         volume = self._get_storagevolume(pool, name)
         volume.info['capacity'] = size
-        pass
 
     def storagevolumes_get_list(self, pool):
         return self._get_storagepool(pool)._volumes.keys()
