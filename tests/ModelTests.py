@@ -80,6 +80,86 @@ class ModelTests(unittest.TestCase):
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_storagepool(self):
+        inst = burnet.model.Model('qemu:///system', self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            path = '/tmp/burnet-images'
+            name = 'test-pool'
+            if not os.path.exists(path):
+                os.mkdir(path)
+
+            pools = inst.storagepools_get_list()
+            num = len(pools) + 1
+
+            args = {'name': name,
+                    'path': path,
+                    'type': 'dir'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_delete, name)
+
+            pools = inst.storagepools_get_list()
+            self.assertEquals(num, len(pools))
+
+            poolinfo = inst.storagepool_lookup(name)
+            self.assertEquals(path, poolinfo['path'])
+            self.assertEquals('inactive', poolinfo['state'])
+
+            inst.storagepool_activate(name)
+            rollback.prependDefer(inst.storagepool_deactivate, name)
+
+            poolinfo = inst.storagepool_lookup(name)
+            self.assertEquals('active', poolinfo['state'])
+
+        pools = inst.storagepools_get_list()
+        self.assertEquals((num - 1), len(pools))
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_storagevolume(self):
+        inst = burnet.model.Model('qemu:///system', self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            path = '/tmp/burnet-images'
+            pool = 'test-pool'
+            vol = 'test-volume.img'
+            if not os.path.exists(path):
+                os.mkdir(path)
+
+            args = {'name': pool,
+                    'path': path,
+                    'type': 'dir'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_delete, pool)
+
+            # Activate the pool before adding any volume
+            inst.storagepool_activate(pool)
+            rollback.prependDefer(inst.storagepool_deactivate, pool)
+
+            vols = inst.storagevolumes_get_list(pool)
+            num = len(vols) + 1
+            params = {'name': vol,
+                      'capacity': 1024,
+                      'allocation': 512,
+                      'format': 'raw'}
+            inst.storagevolumes_create(pool, params)
+            rollback.prependDefer(inst.storagevolume_delete, pool, vol)
+
+            vols = inst.storagevolumes_get_list(pool)
+            self.assertEquals(num, len(vols))
+
+            inst.storagevolume_wipe(pool, vol)
+            volinfo = inst.storagevolume_lookup(pool, vol)
+            self.assertEquals(0, volinfo['allocation'])
+
+            volinfo = inst.storagevolume_lookup(pool, vol)
+            # Define the size = capacity + 16M
+            size = volinfo['capacity'] + 16
+            inst.storagevolume_resize(pool, vol, size)
+
+            volinfo = inst.storagevolume_lookup(pool, vol)
+            self.assertEquals(size, volinfo['capacity'])
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):
