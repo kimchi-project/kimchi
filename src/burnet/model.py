@@ -150,7 +150,18 @@ class Model(object):
                      3: 'paused',
                      4: 'shutdown',
                      5: 'shutoff',
-                     6: 'crashed' }
+                     6: 'crashed'}
+
+    pool_state_map = {0: 'inactive',
+                      1: 'initializing',
+                      2: 'active',
+                      3: 'degraded',
+                      4: 'inaccessible'}
+
+    volume_type_map = {0: 'file',
+                       1: 'block',
+                       2: 'directory',
+                       3: 'network'}
 
     def __init__(self, libvirt_uri=None, objstore_loc=None):
         self.libvirt_uri = libvirt_uri or 'qemu:///system'
@@ -273,6 +284,150 @@ class Model(object):
         with self.objstore as session:
             params = session.get('template', name)
         return vmtemplate.VMTemplate(params)
+
+    def storagepools_create(self, params):
+        conn = self.conn.get()
+        try:
+            xml = _get_pool_xml(**params)
+        except KeyError, key:
+            raise MissingParameter(key)
+        pool = conn.storagePoolDefineXML(xml, 0)
+
+    def storagepool_lookup(self, name):
+        pool = self._get_storagepool(name)
+        info = pool.info()
+        xml = pool.XMLDesc(0)
+        path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
+        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        return {'state': Model.pool_state_map[info[0]],
+                'path': path,
+                'type': pool_type,
+                'capacity': info[1] >> 20,
+                'allocated': info[2] >> 20,
+                'available': info[3] >> 20}
+
+    def storagepool_activate(self, name):
+        pool = self._get_storagepool(name)
+        pool.create(0)
+
+    def storagepool_deactivate(self, name):
+        pool = self._get_storagepool(name)
+        pool.destroy()
+
+    def storagepool_delete(self, name):
+        pool = self._get_storagepool(name)
+        if pool.isActive():
+            raise InvalidOperation(
+                        "Unable to delete the active storagepool %s" % name)
+        pool.undefine()
+
+    def storagepools_get_list(self):
+        conn = self.conn.get()
+        names = conn.listStoragePools()
+        names += conn.listDefinedStoragePools()
+        return names
+
+    def _get_storagepool(self, name):
+        conn = self.conn.get()
+        try:
+            return conn.storagePoolLookupByName(name)
+        except libvirt.libvirtError as e:
+            if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_POOL:
+                raise NotFoundError("Storage Pool '%s' not found" % name)
+            else:
+                raise
+
+    def storagevolumes_create(self, pool, params):
+        info = self.storagepool_lookup(pool)
+        params['path'] = info['path'] + '/' + params['name']
+        try:
+            xml = _get_volume_xml(**params)
+        except KeyError, key:
+            raise MissingParameter(key)
+        pool = self._get_storagepool(pool)
+        pool.createXML(xml, 0)
+
+    def storagevolume_lookup(self, pool, name):
+        vol = self._get_storagevolume(pool, name)
+        path = vol.path()
+        info = vol.info()
+        xml = vol.XMLDesc(0)
+        fmt = xmlutils.xpath_get_text(xml, "/volume/target/format/@type")[0]
+        return {'type': Model.volume_type_map[info[0]],
+                'capacity': info[1] >> 20,
+                'allocation': info[2] >> 20,
+                'path': path,
+                'format': fmt}
+
+    def storagevolume_wipe(self, pool, name):
+        volume = self._get_storagevolume(pool, name)
+        volume.wipePattern(libvirt.VIR_STORAGE_VOL_WIPE_ALG_ZERO, 0)
+
+    def storagevolume_delete(self, pool, name):
+        volume = self._get_storagevolume(pool, name)
+        volume.delete(0)
+
+    def storagevolume_resize(self, pool, name, size):
+        size = size << 20
+        volume = self._get_storagevolume(pool, name)
+        volume.resize(size, 0)
+
+    def storagevolumes_get_list(self, pool):
+        pool = self._get_storagepool(pool)
+        return pool.listVolumes()
+
+    def _get_storagevolume(self, pool, name):
+        pool = self._get_storagepool(pool)
+        try:
+            return pool.storageVolLookupByName(name)
+        except libvirt.libvirtError as e:
+            if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_VOL:
+                raise NotFoundError("Storage Volume '%s' not found" % name)
+            else:
+                raise
+
+
+def _get_pool_xml(**kwargs):
+    # Required parameters
+    # name:
+    # type:
+    # path:
+    xml = """
+    <pool type='%(type)s'>
+      <name>%(name)s</name>
+      <target>
+        <path>%(path)s</path>
+      </target>
+    </pool>
+    """ % kwargs
+    return xml
+
+
+def _get_volume_xml(**kwargs):
+    # Required parameters
+    # name:
+    # capacity:
+    #
+    # Optional:
+    # allocation:
+    # format:
+    kwargs.setdefault('allocation', 0)
+    kwargs.setdefault('format', 'qcow2')
+
+    xml = """
+    <volume>
+      <name>%(name)s</name>
+      <allocation unit="MiB">%(allocation)s</allocation>
+      <capacity unit="MiB">%(capacity)s</capacity>
+      <source>
+      </source>
+      <target>
+        <path>%(path)s</path>
+        <format type='%(format)s'/>
+      </target>
+    </volume>
+    """ % kwargs
+    return xml
 
 
 class LibvirtConnection(object):
