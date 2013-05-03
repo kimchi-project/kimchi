@@ -24,22 +24,24 @@ class VMScreenshot(object):
     THUMBNAIL_SIZE = (256, 256)
     LIVE_WINDOW = 60
 
-    def __init__(self, vm_name):
-        self.vm_name = vm_name
-        self.thumbnail = os.path.join(config.get_screenshot_path(), '%s-%s.png' %
-                                      (vm_name, str(uuid.uuid4())))
+    def __init__(self, args):
+        self.vm_name = args['name']
+        args.setdefault('thumbnail',
+            os.path.join(config.get_screenshot_path(),
+                '%s-%s.png' % (self.vm_name, str(uuid.uuid4()))))
+        self.info = args
 
     def lookup(self):
         now = time.time()
         try:
-            last_update = os.path.getmtime(self.thumbnail)
+            last_update = os.path.getmtime(self.info['thumbnail'])
         except OSError:
             last_update = 0
 
         if now - last_update > self.OUTDATED_SECS:
             self._clean_extra(self.LIVE_WINDOW)
             self._generate_thumbnail()
-        return '/data/screenshots/%s' % os.path.basename(self.thumbnail)
+        return '/data/screenshots/%s' % os.path.basename(self.info['thumbnail'])
 
 
     def _clean_extra(self, window=-1):
@@ -75,4 +77,4 @@ class VMScreenshot(object):
         im = Image.open(thumbnail)
         im.thumbnail(self.THUMBNAIL_SIZE)
         im.save(thumbnail, "PNG")
-        self.thumbnail = thumbnail
+        self.info['thumbnail'] = thumbnail
