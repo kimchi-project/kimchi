@@ -282,6 +282,9 @@ def get_mock_environment():
         t = burnet.vmtemplate.VMTemplate(params)
         model._mock_templates[name] = t
 
+    for name in ('test-template-1', 'test-template-3'):
+        model._mock_templates[name].info.update({'folder': ['rhel', '6']})
+
     for i in xrange(10):
         name = 'test-vm-%i' % i
         vm = MockVM(name, model.template_lookup('test-template-0'))

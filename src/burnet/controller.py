@@ -287,7 +287,8 @@ class Template(Resource):
                 'cpus': self.info['cpus'],
                 'memory': self.info['memory'],
                 'cdrom': self.info['cdrom'],
-                'disks': self.info['disks']}
+                'disks': self.info['disks'],
+                'folder': self.info.get('folder', [])}
 
 
 class StorageVolume(Resource):

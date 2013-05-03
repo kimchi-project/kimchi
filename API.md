@@ -101,6 +101,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 
 * **GET**: Retrieve the full description of a Template
     * name: A name for this template
+    * folder: A virtual path which can be used to organize Templates in a user
+      interface.  The format is an array of path components.
     * icon: A URI to a PNG image representing this template
     * os_distro: The operating system distribution
     * os_version: The version of the operating system distribution
