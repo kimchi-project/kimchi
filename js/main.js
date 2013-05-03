@@ -9,7 +9,7 @@
  * All Rights Reserved.
  */
 
-function genTile(title, image, gray, small)
+function genTile(title, image, gray, small, folder)
 {
     var html = "";
     var style = "icon";
@@ -20,6 +20,10 @@ function genTile(title, image, gray, small)
 
     if (small) {
         style += " small";
+    }
+
+    if (folder) {
+        style += " folder";
     }
 
     html += "<div class=\"" + style + "\" id=\"" + title + "\">\n";
@@ -97,21 +101,67 @@ function updateVMToolbar()
 
 function load_templates(data)
 {
+
+    var paths = []
+    var hidden = []
+    var folders = []
     var html = "";
     var i;
+    var j;
 
     sel_templates = getSelectedItems("templates");
-
     $("#templates").empty();
-    for (i = 0; i < data.length; i++) {
-        html += genTile(data[i].name, data[i].icon, false, true);
+
+    // get all bread-crumbs paths
+    breadcrumbs = $("#breadcrumbs > li > a")
+    for (i = 1; i < breadcrumbs.length; i++) {
+        paths.push(breadcrumbs[i].textContent)
     }
-    html += genTile("Create New Templates from ISOS", "images/image-missing.svg", false, true);
-    html += genTile("Create New Template from Guests", "images/image-missing.svg", false, true);
+
+    for (i = 0; i < data.length; i++) {
+        folder = data[i].folder
+
+        // verify which templates are in the current path
+        for (j = 0; j < paths.length; j++ ) {
+
+            // first path matched: shift to the next one
+            if (folder[0] == paths[j]) {
+                folder.shift()
+            } else {
+                // template not in current folder view: hide it
+                hidden.push(data[i].name)
+                break;
+            }
+        }
+
+        // template must be hidden: do not show it
+        if ($.inArray(data[i].name, hidden) != -1) {
+            continue
+        }
+
+        // folder field is empty: display template
+        if (folder.length == 0) {
+            html += genTile(data[i].name, data[i].icon, false, true, false);
+            continue
+        }
+
+        // folder still not displayed: show it
+        if ($.inArray(folder[0], folders) == -1) {
+            folders.push(folder[0])
+            html += genTile(folder[0], "images/gtk-directory.svg", false, true, true);
+        }
+    }
+
     $("#templates").append(html);
     selectItems("templates", sel_templates)
+}
 
-    $("#templates .icon").click(selectIcon);
+function updateTemplatesView()
+{
+    $.ajax({
+        url: "/templates",
+        dataType: "json"
+    }).done(load_templates);
 }
 
 function load_peers(data)
@@ -312,6 +362,26 @@ function start()
         }).fail(function(context) {
             alert("Failed to create VM from Template: " + $(this).context.id);
         });
+    });
+
+    // enable selection for templates
+    $("#templates").on("click", ":not(.folder)", selectIcon);
+
+    // handle click in template folder
+    $("#templates").on("click", ".folder", function() {
+        name = $(this).attr("id")
+
+        html = "<li><a class=\"icon-angle-right\">" + name  + "</a></li>"
+        $("#breadcrumbs").append(html)
+
+        updateTemplatesView();
+    });
+
+    // handle click in bread-crumbs fields
+    $("#breadcrumbs").on("click", "li", function() {
+        // remove all next siblings and update templates view
+        $(this).nextAll().remove();
+        updateTemplatesView();
     });
 
     $(".btn").button();
