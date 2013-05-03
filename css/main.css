@@ -74,3 +74,36 @@ a.disabled:before {
     cursor: default !important;
     text-decoration: none !important;
 }
+
+#breadcrumbs {
+    border: none;
+    height:2.3em;
+}
+
+#breadcrumbs li {
+    float:left;
+    line-height:2.3em;
+    padding-left:.75em;
+    color:#777;
+}
+
+#breadcrumbs li a {
+    display: inline;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+#breadcrumbs li a:link, #breadcrumbs li a:visited {
+    text-decoration:none;
+    color:#777;
+}
+
+.icon-angle-right:after {
+    content: "\f105";
+    padding: 3px;
+}
+
+.icon-angle-right:before {
+    content: "" !important;
+    font-size: 0px;
+}
