@@ -100,7 +100,7 @@ class MockModel(object):
         if self._get_vm(name).info['state'] != 'running':
             raise burnet.model.NotFoundError('No screenshot for stopped vm')
         screenshot = self._mock_screenshots.setdefault(
-            name, MockVMScreenshot(name))
+            name, MockVMScreenshot({'name': name}))
         return screenshot.lookup()
 
     def _vmscreenshot_delete(self, name):
