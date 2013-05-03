@@ -53,7 +53,6 @@ div.icon.selected {
 
 .stopped img {
     opacity: 0.4;
-    background-color: rgb(0, 0, 0);
 }
 
 .stopped h3 {

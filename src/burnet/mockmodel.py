@@ -93,6 +93,10 @@ class MockModel(object):
             disk_paths.append({'pool': pool_name, 'volume': vol_info['name']})
 
         vm = MockVM(name, t.info)
+        icon = t.info.get('icon')
+        if icon:
+            vm.info['icon'] = icon
+
         vm.disk_paths = disk_paths
         self._mock_vms[name] = vm
         return name
@@ -230,7 +234,8 @@ class MockVM(object):
         self.name = name
         self.disk_paths = []
         self.info = {'state': 'shutoff',
-                     'memory': template_info['memory']}
+                     'memory': template_info['memory'],
+                     'icon': 'images/icon-vm.svg'}
 
 
 class MockStoragePool(object):

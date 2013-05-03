@@ -138,7 +138,8 @@ class RestTests(unittest.TestCase):
 
     def test_vm_lifecycle(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'disks': [{'size': 1}]})
+        req = json.dumps({'name': 'test', 'disks': [{'size': 1}],
+                          'icon': 'images/icon-debian.png'})
         resp = request(host, port, '/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -150,6 +151,7 @@ class RestTests(unittest.TestCase):
         # Verify the VM
         vm = json.loads(request(host, port, '/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
+        self.assertEquals('images/icon-debian.png', vm['icon'])
 
         # Verify the volume was created
         vol_uri = '/storagepools/default/storagevolumes/test-vm-0.img'

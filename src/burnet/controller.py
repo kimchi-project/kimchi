@@ -257,6 +257,7 @@ class VM(Resource):
                 'memory': self.info['memory'],
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot'],
+                'icon': self.info['icon'],
                 'vnc_port': self.info['vnc_port']}
 
 

@@ -58,7 +58,13 @@ function load_vms(data)
 
     $("#vms").empty();
     for (i = 0; i < data.length; i++) {
-        html += genTile(data[i].name, data[i].screenshot,
+        var image;
+        if (data[i].state == 'running') {
+            image = data[i].screenshot;
+        } else {
+            image = data[i].icon;
+        }
+        html += genTile(data[i].name, image,
                         data[i].state != 'running', false);
     }
     $("#vms").append(html);

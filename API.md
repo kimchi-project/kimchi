@@ -62,7 +62,8 @@ the following general conventions:
         * shutoff: The VM is powered off
     * memory: The amount of memory assigned to the VM (in MB)
     * screenshot: A link to a recent capture of the screen in PNG format
-    * vnc_port: VNC port number.  The port number exposed will support the 
+    * icon: A link to an icon that represents the VM
+    * vnc_port: VNC port number.  The port number exposed will support the
                 websockets protocol and may support vnc over plain TCP as well.
 * **DELETE**: Remove the Virtual Machine
 * **POST**: *See Virtual Machine Actions*

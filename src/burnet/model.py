@@ -181,9 +181,17 @@ class Model(object):
         except NotFoundError:
             pass
 
+        with self.objstore as session:
+            try:
+                extra_info = session.get('vm', name)
+            except NotFoundError:
+                extra_info = {}
+        icon = extra_info.get('icon', 'images/icon-vm.svg')
+
         return {'state': state,
                 'memory': info[2] >> 10,
                 'screenshot': screenshot,
+                'icon': icon,
                 'vnc_port': self.vnc_ports.get(name, None)}
 
     def _vm_get_disk_paths(self, dom):
@@ -201,6 +209,9 @@ class Model(object):
         for path in paths:
             vol = conn.storageVolLookupByPath(path)
             vol.delete(0)
+
+        with self.objstore as session:
+            session.delete('vm', name)
 
     def vm_start(self, name):
         dom = self._get_vm(name)
@@ -247,6 +258,12 @@ class Model(object):
         vol_list = t.to_volume_list(name, storage_path)
         for v in vol_list:
             pool.createXML(v['xml'], 0)
+
+        # Store the icon for displaying later
+        icon = t.info.get('icon')
+        if icon:
+            with self.objstore as session:
+                session.store('vm', name, {'icon': icon})
 
         xml = t.to_vm_xml(name, storage_path)
         dom = conn.defineXML(xml)
