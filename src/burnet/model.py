@@ -23,6 +23,7 @@ import vmtemplate
 import config
 import xmlutils
 import vnc
+from screenshot import VMScreenshot
 
 class NotFoundError(Exception):
     pass
@@ -172,9 +173,17 @@ class Model(object):
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
-        return {'state': Model.dom_state_map[info[0]],
+        state = Model.dom_state_map[info[0]]
+        screenshot = 'images/image-missing.svg'
+        try:
+            if state == 'running':
+                screenshot = self.vmscreenshot_lookup(name)
+        except NotFoundError:
+            pass
+
+        return {'state': state,
                 'memory': info[2] >> 10,
-                'screenshot': 'images/image-missing.svg',
+                'screenshot': screenshot,
                 'vnc_port': self.vnc_ports.get(name, None)}
 
     def _vm_get_disk_paths(self, dom):
@@ -183,6 +192,7 @@ class Model(object):
         return xmlutils.xpath_get_text(xml, xpath)
 
     def vm_delete(self, name):
+        self._vmscreenshot_delete(name)
         conn = self.conn.get()
         dom = self._get_vm(name)
         paths = self._vm_get_disk_paths(dom)
@@ -248,6 +258,25 @@ class Model(object):
         names = map(lambda x: conn.lookupByID(x).name(), ids)
         names += conn.listDefinedDomains()
         return names
+
+    def vmscreenshot_lookup(self, name):
+        dom = self._get_vm(name)
+        d_info = dom.info()
+        if Model.dom_state_map[d_info[0]] != 'running':
+            raise NotFoundError('No screenshot for stopped vm')
+
+        screenshot = self._get_screenshot(name)
+        img_path = screenshot.lookup()
+        # screenshot info changed after scratch generation
+        with self.objstore as session:
+            session.store('screenshot', name, screenshot.info)
+        return img_path
+
+    def _vmscreenshot_delete(self, name):
+        screenshot = self._get_screenshot(name)
+        screenshot.delete()
+        with self.objstore as session:
+            session.delete('screenshot', name)
 
     def template_lookup(self, name):
         t = self._get_template(name)
@@ -385,6 +414,40 @@ class Model(object):
                 raise NotFoundError("Storage Volume '%s' not found" % name)
             else:
                 raise
+
+    def _get_screenshot(self, name):
+        with self.objstore as session:
+            try:
+                params = session.get('screenshot', name)
+            except NotFoundError:
+                params = {'name': name}
+                session.store('screenshot', name, params)
+        return LibvirtVMScreenshot(params, self.conn)
+
+
+class LibvirtVMScreenshot(VMScreenshot):
+    def __init__(self, vm_name, conn):
+        VMScreenshot.__init__(self, vm_name)
+        self.conn = conn
+
+    def _generate_scratch(self, thumbnail):
+        def handler(stream, buf, opaque):
+            fd = opaque
+            os.write(fd, buf)
+
+        try:
+            conn = self.conn.get()
+            dom = conn.lookupByName(self.vm_name)
+            stream = conn.newStream(0)
+            mimetype = dom.screenshot(stream, 0, 0)
+            fd = os.open(thumbnail,
+                         os.O_WRONLY | os.O_TRUNC | os.O_CREAT,
+                         0644)
+            stream.recvAll(handler, fd)
+            os.close(fd)
+        except libvirt.libvirtError:
+            raise NotFoundError("Screenshot not supported for %s" %
+                                self.vm_name)
 
 
 def _get_pool_xml(**kwargs):
