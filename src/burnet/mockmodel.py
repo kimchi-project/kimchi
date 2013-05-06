@@ -224,6 +224,7 @@ class MockModel(object):
 class MockVM(object):
     def __init__(self, name, template_info):
         self.name = name
+        self.disk_paths = []
         self.info = {'state': 'shutoff',
                      'memory': template_info['memory']}
 
