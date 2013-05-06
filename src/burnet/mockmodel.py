@@ -30,7 +30,10 @@ class MockModel(object):
         # make it here to make sure it will be available on server startup
         cmd = "qemu-system-%s"  % platform.machine()
         args = [cmd, "-vnc", ":99"]
-        p = subprocess.Popen(args, close_fds=True)
+
+        proc = subprocess.Popen(["pgrep"] + args, stdout=subprocess.PIPE)
+        if len(proc.stdout.readlines()) == 0:
+            p = subprocess.Popen(args, close_fds=True)
 
     def reset(self):
         self._mock_vms = {}
