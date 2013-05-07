@@ -60,6 +60,9 @@
             $D('noVNC_status_bar').setAttribute("class", "noVNC_status_warn");
             $D('noVNC_status').innerHTML = msg;
         }
+        function onFBResize(rfb, width, height){
+            window.resizeTo(width, height + 90)
+        }
         function setPassword() {
             rfb.sendPassword($D('password_input').value);
             return false;
@@ -128,6 +131,7 @@
                            'shared':       WebUtil.getQueryVar('shared', true),
                            'view_only':    WebUtil.getQueryVar('view_only', false),
                            'updateState':  updateState,
+                           'onFBResize':  onFBResize,
                            'onPasswordRequired':  passwordRequired});
             rfb.connect(host, port, password, path);
         };
