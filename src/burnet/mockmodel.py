@@ -31,7 +31,8 @@ class MockModel(object):
         cmd = "qemu-system-%s"  % platform.machine()
         args = [cmd, "-vnc", ":99"]
 
-        proc = subprocess.Popen(["pgrep"] + args, stdout=subprocess.PIPE)
+        proc = subprocess.Popen(["ps", "-C", "".join(args), "-o", "pid", "h"], stdout=subprocess.PIPE)
+
         if len(proc.stdout.readlines()) == 0:
             p = subprocess.Popen(args, close_fds=True)
 
