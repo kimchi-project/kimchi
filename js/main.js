@@ -39,12 +39,12 @@ function genPeer(name)
     return "<li class=\"project\"><a href=\"#\" title=\"titi\">titi</a></li>";
 }
 
-function selectIcon()
+function selectIcon(node)
 {
-    if (this.className.indexOf("selected") == -1) {
-        this.className = this.className + " selected"
+    if (node.className.indexOf("selected") == -1) {
+        node.className = node.className + " selected"
     } else {
-        this.className = this.className.replace(/selected/g, "")
+        node.className = node.className.replace(/selected/g, "")
     }
 }
 
@@ -64,13 +64,16 @@ function load_vms(data)
     $("#vms").append(html);
     selectItems("vms", sel_vms);
 
-    $("#vms .icon").click(selectIcon);
+    $("#vms .icon").click(function() {
+        selectIcon(this);
+        updateVMToolbar();
+    });
 }
 
 function updateVMToolbar()
 {
     selectedVMs = getSelectedItems("vms")
-    toolbar = $(".vm-toolbar > li > a")
+    toolbar = $("#vm-toolbar > li > a")
 
     if (selectedVMs.length > 1) {
         for (i = 0; i < toolbar.length; i++) {
@@ -365,7 +368,9 @@ function start()
     });
 
     // enable selection for templates
-    $("#templates").on("click", ":not(.folder)", selectIcon);
+    $("#templates").on("click", ":not(.folder)", function() {
+        selectIcon(this);
+    });
 
     // handle click in template folder
     $("#templates").on("click", ".folder", function() {
