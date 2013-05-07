@@ -318,9 +318,11 @@ class Model(object):
         conn = self.conn.get()
         try:
             xml = _get_pool_xml(**params)
+            name = params['name']
         except KeyError, key:
             raise MissingParameter(key)
         pool = conn.storagePoolDefineXML(xml, 0)
+        return name
 
     def storagepool_lookup(self, name):
         pool = self._get_storagepool(name)
@@ -368,13 +370,15 @@ class Model(object):
 
     def storagevolumes_create(self, pool, params):
         info = self.storagepool_lookup(pool)
-        params['path'] = info['path'] + '/' + params['name']
         try:
+            name = params['name']
+            params['path'] = os.path.join(info['path'], name)
             xml = _get_volume_xml(**params)
         except KeyError, key:
             raise MissingParameter(key)
         pool = self._get_storagepool(pool)
         pool.createXML(xml, 0)
+        return name
 
     def storagevolume_lookup(self, pool, name):
         vol = self._get_storagevolume(pool, name)
