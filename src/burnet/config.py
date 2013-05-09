@@ -11,9 +11,11 @@
 #
 
 import os, os.path
+import sys
 
-# FIXME
-PREFIX="/usr/local"
+
+PREFIX = sys.prefix
+
 
 def get_prefix():
     if __file__[0] == '/':
