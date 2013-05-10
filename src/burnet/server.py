@@ -10,7 +10,7 @@
 # All Rights Reserved.
 #
 
-from argparse import ArgumentParser
+from optparse import OptionParser
 from root import Root
 import model
 import mockmodel
@@ -60,14 +60,14 @@ class Server(object):
             'tools.nocache.on': True},
         }
 
-    def __init__(self, args):
+    def __init__(self, options):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
-        cherrypy.server.socket_host = args.host
-        cherrypy.server.socket_port = args.port
+        cherrypy.server.socket_host = options.host
+        cherrypy.server.socket_port = options.port
 
-        if hasattr(args, 'model'):
-            model_instance = args.model
-        elif args.test:
+        if hasattr(options, 'model'):
+            model_instance = options.model
+        elif options.test:
             model_instance = mockmodel.get_mock_environment()
         else:
             model_instance = model.Model()
@@ -81,16 +81,16 @@ class Server(object):
         cherrypy.engine.exit()
 
 def main(args):
-    parser = ArgumentParser()
-    parser.add_argument('--host', type=str, default="localhost",
-                        help="Hostname to listen on")
-    parser.add_argument('--port', type=int, default=8000,
-                        help="Port to listen on")
-    parser.add_argument('--test', action='store_true',
-                        help="Run server in testing mode")
+    parser = OptionParser()
+    parser.add_option('--host', type="string", default="localhost",
+                      help="Hostname to listen on")
+    parser.add_option('--port', type="int", default=8000,
+                      help="Port to listen on")
+    parser.add_option('--test', action='store_true',
+                      help="Run server in testing mode")
+    (options, args) = parser.parse_args()
 
-    args = parser.parse_args(args)
-    srv = Server(args)
+    srv = Server(options)
     srv.start()
 
 if __name__ == '__main__':
