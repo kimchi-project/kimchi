@@ -17,7 +17,10 @@ import functools
 import sqlite3
 import os
 import json
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 import vmtemplate
 import config

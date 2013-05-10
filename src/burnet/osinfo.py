@@ -9,9 +9,8 @@
 # All Rights Reserved.
 
 import copy
-from collections import OrderedDict
 
-osinfo = OrderedDict([
+osinfo = [
     ('unknown', {
         'version': lambda d,v: True,
         'icon': 'images/image-missing.svg',
@@ -54,7 +53,7 @@ osinfo = OrderedDict([
         'disks': [{'index': 0, 'size': 10}],
         'disk_bus': 'virtio', 'nic_model': 'virtio'
     }),
-])
+]
 
 isolinks = {
     'debian': {
@@ -77,7 +76,7 @@ defaults = {'network': 'default', 'storagepool': '/storagepools/default'}
 
 def lookup(distro, version):
     ret = None
-    for name, entry in osinfo.items():
+    for name, entry in osinfo:
         # Test if this entry is a valid match
         if entry['version'](distro, version):
             params = copy.copy(entry)
