@@ -241,6 +241,35 @@ function deselectIcons(names)
     }
 }
 
+function deleteSelectedItems(Collection)
+{
+    $("#dialog-delete-" + Collection + "-confirm").dialog({
+       resizable: false,
+       height:220,
+       modal: true,
+       buttons: {
+           "Delete": function() {
+               item = getSelectedItems(Collection);
+               for (i = 0; i < item.length; i++) {
+                   $.ajax({
+                       url: "/" + Collection + "/" + item[i],
+                       type: "DELETE",
+                       context: document.getElementById(item[i])
+                   }).done(function(data, textStatus, context) {
+                       $("#" + $(this).context.id).remove();
+                   }).fail(function(context) {
+                       alert("Failed to delete " + $(this).context.id);
+                   });
+               }
+               $(this).dialog("close");
+           },
+           Cancel: function() {
+               $(this).dialog("close");
+           }
+       }
+    });
+}
+
 function start()
 {
     var html = "";
@@ -323,31 +352,7 @@ function start()
     });
 
     $("#vm-toolbar .icon-trash").click(function() {
-         $("#dialog-delete-confirm").dialog({
-            resizable: false,
-            height:220,
-            modal: true,
-            buttons: {
-                "Delete": function() {
-                    vms = getSelectedItems("vms");
-                    for (i = 0; i < vms.length; i++) {
-                        $.ajax({
-                            url: "/vms/" + vms[i],
-                            type: "DELETE",
-                            context: document.getElementById(vms[i])
-                        }).done(function(data, textStatus, context) {
-                            $("#" + $(this).context.id).remove();
-                        }).fail(function(context) {
-                            alert("Failed to delete " + $(this).context.id);
-                        });
-                    }
-                    $(this).dialog("close");
-                },
-                Cancel: function() {
-                    $(this).dialog("close");
-                }
-            }
-        });
+        deleteSelectedItems('vms')
     });
 
     $("#template-toolbar .icon-plus").click(function() {
@@ -373,6 +378,9 @@ function start()
         });
     });
 
+    $("#template-toolbar .icon-trash").click(function() {
+        deleteSelectedItems('templates')
+    });
     // enable selection for templates
     $("#templates").on("click", ":not(.folder)", function() {
         selectIcon(this);
