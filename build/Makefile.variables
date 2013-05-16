@@ -1,0 +1,15 @@
+# -----------------------------------------------------------------------------
+# Build parameters
+# -----------------------------------------------------------------------------
+
+# Project name
+PROJECT_NAME := burnet
+
+# Package version
+VERSION = $(shell git describe --abbrev=0)
+
+# Package release
+RELEASE = 1
+
+# Path to rpmbuild topdir structure
+RPMBUILD_DIR = $(HOME)/rpmbuild
