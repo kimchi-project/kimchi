@@ -21,7 +21,12 @@ Requires:	python-cherrypy
 Requires:	python-cheetah
 %endif
 
-%if 0%{?rhel} == 6
+%if %([[ %{_vendor} == "suse" ]] && echo 1 || echo 0)
+Requires:	python-CherryPy
+Requires:	python-Cheetah
+%endif
+
+%if 0%{?rhel} == 6 || %([[ %{_vendor} == "suse" ]] && echo 1 || echo 0)
 Requires:	python-ordereddict
 Requires:	python-imaging
 %endif

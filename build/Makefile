@@ -9,12 +9,16 @@ all: help
 .PHONY: all
 
 help:
-	@echo "Usage: make [devel] <redhat>"
+	@echo "Usage: make [devel] <redhat|suse>"
 .PHONY: help
 
 redhat: \
 	setup \
 	redhat_rpm \
+
+suse: \
+	setup \
+	suse_rpm \
 
 devel:
 	$(eval VERSION := $(shell git describe | sed -r "s/-/./g"))
@@ -36,3 +40,15 @@ redhat_rpm:
 		--define 'custom_release $(RELEASE)' \
 		--define 'project_name $(PROJECT_NAME)' \
 		--define '_topdir $(RPMBUILD_DIR)' \
+
+suse_rpm:
+	mkdir -p $(TMP_BUILD_DIR)/etc/init.d/
+	cp ../system/sysvinit/$(PROJECT_NAME)d $(TMP_BUILD_DIR)/etc/init.d/
+	mkdir -p $(RPMBUILD_DIR)/SOURCES $(RPMBUILD_DIR)/BUILD $(RPMBUILD_DIR)/RPMS
+	cd $(TMP_BUILD_DIR) && tar -czf $(RPMBUILD_DIR)/SOURCES/$(PROJECT_NAME).tar.gz .
+	rpmbuild -bb --target noarch $(PROJECT_NAME).spec \
+		--define 'custom_version $(VERSION)' \
+		--define 'custom_release $(RELEASE)' \
+		--define 'project_name $(PROJECT_NAME)' \
+		--define '_topdir $(RPMBUILD_DIR)' \
+
