@@ -9,7 +9,7 @@ all: help
 .PHONY: all
 
 help:
-	@echo "Usage: make [devel] <redhat|suse>"
+	@echo "Usage: make [devel] <redhat|suse|deb>"
 .PHONY: help
 
 redhat: \
@@ -52,3 +52,10 @@ suse_rpm:
 		--define 'project_name $(PROJECT_NAME)' \
 		--define '_topdir $(RPMBUILD_DIR)' \
 
+deb:
+	mkdir -p $(TMP_BUILD_DIR)/etc/$(PROJECT_NAME)/ $(TMP_BUILD_DIR)/etc/init/
+	(cd ../ && python setup.py install --install-layout=deb --root=build/$(TMP_BUILD_DIR))
+	cp ../system/upstart/debian/$(PROJECT_NAME)d.conf $(TMP_BUILD_DIR)/etc/init/
+	cp ../system/common/$(PROJECT_NAME).conf $(TMP_BUILD_DIR)/etc/$(PROJECT_NAME)/
+	cp -r ../build/DEBIAN $(TMP_BUILD_DIR)
+	dpkg-deb -b $(TMP_BUILD_DIR) $(PROJECT_NAME)-$(VERSION)-$(RELEASE).noarch.deb

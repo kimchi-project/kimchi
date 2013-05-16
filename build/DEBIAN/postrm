@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+case "$1" in
+    remove)
+        rm -rf /var/log/burnet /var/run/burnet.pid
+    ;;
+    purge)
+        rm -rf /var/log/burnet /var/run/burnet.pid /usr/share/burnet/
+    ;;
+esac
