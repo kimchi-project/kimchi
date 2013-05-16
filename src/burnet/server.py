@@ -12,6 +12,9 @@
 
 from optparse import OptionParser
 from root import Root
+
+import logging.handlers
+import logging
 import model
 import mockmodel
 import config
@@ -64,6 +67,18 @@ class Server(object):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.server.socket_host = options.host
         cherrypy.server.socket_port = options.port
+        cherrypy.log.screen = True
+        cherrypy.log.access_file = options.logfile
+        cherrypy.log.error_file = options.logfile
+
+        # Create hanlder to rotate log file
+        h = logging.handlers.RotatingFileHandler(options.logfile, 'a', 10000000, 1000)
+        h.setLevel(logging.DEBUG)
+        h.setFormatter(cherrypy._cplogging.logfmt)
+
+        # Add rotating log file to cherrypy configuration
+        cherrypy.log.error_log.addHandler(h)
+        cherrypy.log.access_log.addHandler(h)
 
         if hasattr(options, 'model'):
             model_instance = options.model
@@ -86,6 +101,7 @@ def main(args):
                       help="Hostname to listen on")
     parser.add_option('--port', type="int", default=8000,
                       help="Port to listen on")
+    parser.add_option('--logfile', default="burnet.log", help="Log file")
     parser.add_option('--test', action='store_true',
                       help="Run server in testing mode")
     (options, args) = parser.parse_args()
