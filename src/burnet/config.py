@@ -28,6 +28,14 @@ def get_prefix():
     else:
         return '%s/share/burnet' % PREFIX
 
+def get_default_log_dir():
+    prefix = get_prefix()
+
+    if prefix.endswith("/share/burnet"):
+        return "/var/log/burnet"
+
+    return os.path.join(prefix, 'log')
+
 def get_object_store():
     return os.path.join(get_prefix(), 'data', 'objectstore')
 

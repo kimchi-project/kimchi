@@ -22,7 +22,7 @@ from ConfigParser import SafeConfigParser
 from optparse import OptionParser
 
 CONFIG_FILE="/etc/burnet/burnet.conf"
-DEFAULT_LOG_DIR="/var/log/burnet"
+DEFAULT_LOG_DIR=burnet.config.get_default_log_dir()
 LOG_FILE="burnet.log"
 
 def main(options):
