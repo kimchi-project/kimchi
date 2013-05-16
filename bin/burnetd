@@ -7,9 +7,51 @@
 # Authors:
 #  Anthony Liguori <aliguori@us.ibm.com>
 #  Adam Litke <agl@linux.vnet.ibm.com>
+#  Aline Manera <alinefm@br.ibm.com>
 #
 # All Rights Reserved.
 
-import burnet.server, sys
+import logging
+import os
+import sys
 
-sys.exit(burnet.server.main(sys.argv[1:]))
+import burnet.server
+import burnet.config
+
+from ConfigParser import SafeConfigParser
+from optparse import OptionParser
+
+CONFIG_FILE="/etc/burnet/burnet.conf"
+DEFAULT_LOG_DIR="/var/log/burnet"
+LOG_FILE="burnet.log"
+
+def main(options):
+    config = SafeConfigParser()
+    config.add_section("server")
+    config.set("server", "host", "localhost")
+    config.set("server", "port", "8000")
+    config.add_section("logging")
+    config.set("logging", "log_dir", DEFAULT_LOG_DIR)
+
+    if os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+
+    host = config.get("server", "host")
+    port = config.get("server", "port")
+    logDir = config.get("logging", "log_dir")
+
+    parser = OptionParser()
+    parser.add_option('--host', type="string", default=host, help="Hostname to listen on")
+    parser.add_option('--port', type="int", default=port, help="Port to listen on")
+    parser.add_option('--logfile', default=os.path.join(logDir,LOG_FILE), help="Log file")
+    parser.add_option('--test', action='store_true', help="Run server in testing mode")
+    (options, args) = parser.parse_args()
+
+    directory = os.path.dirname(os.path.abspath(options.logfile))
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+
+    burnet.server.main(options)
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

@@ -95,20 +95,7 @@ class Server(object):
     def stop(self):
         cherrypy.engine.exit()
 
-def main(args):
-    parser = OptionParser()
-    parser.add_option('--host', type="string", default="localhost",
-                      help="Hostname to listen on")
-    parser.add_option('--port', type="int", default=8000,
-                      help="Port to listen on")
-    parser.add_option('--logfile', default="burnet.log", help="Log file")
-    parser.add_option('--test', action='store_true',
-                      help="Run server in testing mode")
-    (options, args) = parser.parse_args()
-
+def main(options):
     srv = Server(options)
     srv.start()
 
-if __name__ == '__main__':
-    import sys
-    sys.exit(main(sys.argv[1:]))
