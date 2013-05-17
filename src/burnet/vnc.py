@@ -29,7 +29,7 @@ def _getFreePort():
 def new_ws_proxy(target_port):
     src_port = _getFreePort()
     cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
-    args = [cmd, str(src_port), '--timeout', '10',
+    args = ['python', cmd, str(src_port), '--timeout', '10',
             '--idle-timeout', '10', 'localhost:%s' % target_port]
     p = subprocess.Popen(args, close_fds=True)
 
