@@ -20,7 +20,7 @@ import config
 
 
 class VMScreenshot(object):
-    OUTDATED_SECS = 15
+    OUTDATED_SECS = 5
     THUMBNAIL_SIZE = (256, 256)
     LIVE_WINDOW = 60
 
