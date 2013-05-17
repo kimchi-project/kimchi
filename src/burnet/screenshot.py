@@ -74,7 +74,11 @@ class VMScreenshot(object):
                                  (self.vm_name, str(uuid.uuid4())))
         self._generate_scratch(thumbnail)
 
-        im = Image.open(thumbnail)
-        im.thumbnail(self.THUMBNAIL_SIZE)
-        im.save(thumbnail, "PNG")
+        if os.path.getsize(thumbnail) == 0:
+            image = Image.new("RGB", self.THUMBNAIL_SIZE, 'black')
+            image.save(thumbnail)
+        else:
+            im = Image.open(thumbnail)
+            im.thumbnail(self.THUMBNAIL_SIZE)
+            im.save(thumbnail, "PNG")
         self.info['thumbnail'] = thumbnail
