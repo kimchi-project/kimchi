@@ -165,7 +165,7 @@ class burnet_build(build):
         build.run(self)
 
 
-i18n_files = [(v.rsplit("/", 1)[0], [v])
+i18n_files = [("share/burnet/%s" % v.rsplit("/", 1)[0], [v])
               for v in glob("i18n/mo/*/LC_MESSAGES/burnet.mo")]
 
 
