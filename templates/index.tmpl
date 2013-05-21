@@ -2,6 +2,7 @@
 #import gettext
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
+#silent _t = t.gettext
 <!doctype html>
 <html class="no-js" lang=$lang.lang[0]>
 <head>
@@ -31,7 +32,7 @@
             <nav>
                 <div class="constrain">
                     <ul id="projects" class="projects">
-                        <li class="project selected"><a href="#" title="$data.hostname">$_($data.hostname)</a></li>
+                        <li class="project selected"><a href="#" title="$data.hostname">$_t($data.hostname)</a></li>
                     </ul>
                     <ul class="links">
                         <li class="dropdown"><a href="#">$_("Host")</a>
