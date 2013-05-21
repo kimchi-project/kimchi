@@ -9,6 +9,7 @@ msgstr ""
 "PO-Revision-Date: 2013-04-18 22:44+0800\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,6 +18,80 @@ msgstr ""
 "X-Poedit-Country:  United States\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: src/burnet/root.py:27
 msgid "localhost"
+msgstr ""
+
+msgid "Host"
+msgstr ""
+
+msgid "Reboot"
+msgstr ""
+
+msgid "Shutdown"
+msgstr ""
+
+msgid "SOS Report"
+msgstr ""
+
+msgid "Project Burnet"
+msgstr ""
+
+msgid "Language:"
+msgstr ""
+
+msgid "Guests"
+msgstr ""
+
+msgid "Storage"
+msgstr ""
+
+msgid "Networks"
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Virtual Machines"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Power On"
+msgstr ""
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "More..."
+msgstr ""
+
+msgid "Templates"
+msgstr ""
+
+msgid "Create VM"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Forum"
+msgstr ""
+
+msgid "API"
+msgstr ""
+
+msgid "Twitter"
+msgstr ""
+
+msgid "IRC"
 msgstr ""

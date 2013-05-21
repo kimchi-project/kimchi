@@ -9,6 +9,7 @@ msgstr ""
 "PO-Revision-Date: 2013-04-18 22:44+0800\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,6 +18,80 @@ msgstr ""
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: src/burnet/root.py:27
 msgid "localhost"
 msgstr "本地主机"
+
+msgid "Host"
+msgstr "主机"
+
+msgid "Reboot"
+msgstr "重启"
+
+msgid "Shutdown"
+msgstr "关机"
+
+msgid "SOS Report"
+msgstr "SOS报告"
+
+msgid "Project Burnet"
+msgstr "Burnet项目"
+
+msgid "Language:"
+msgstr "语言："
+
+msgid "Guests"
+msgstr "客户机"
+
+msgid "Storage"
+msgstr "存储"
+
+msgid "Networks"
+msgstr "网络"
+
+msgid "Statistics"
+msgstr "统计"
+
+msgid "About"
+msgstr "关于"
+
+msgid "Virtual Machines"
+msgstr "虚拟机"
+
+msgid "Display"
+msgstr "显示"
+
+msgid "Power On"
+msgstr "开机"
+
+msgid "Power Off"
+msgstr "关机"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "More..."
+msgstr "更多"
+
+msgid "Templates"
+msgstr "模版"
+
+msgid "Create VM"
+msgstr "创建虚机"
+
+msgid "Custom"
+msgstr "定制"
+
+msgid "Forum"
+msgstr "论坛"
+
+msgid "API"
+msgstr "API"
+
+msgid "Twitter"
+msgstr "推特"
+
+msgid "IRC"
+msgstr "IRC"
