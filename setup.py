@@ -124,6 +124,32 @@ class cmd_make_po(Command):
         self.make_po()
 
 
+class cmd_info_po(Command):
+    description = "get the infomation of po files"
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def info_po(self):
+        print "get the summary of po files"
+        for pofile in iglob("i18n/po/*/LC_MESSAGES/*.po"):
+            po = polib.pofile(pofile)
+            total = len(po.fuzzy_entries() + po.untranslated_entries() +
+                        po.translated_entries() + po.obsolete_entries())
+            print "%s:" % pofile
+            print "  total:%s\t" % total,
+            print "untranslated: %s\t" % len(po.untranslated_entries()),
+            print "fuzzy: %s\t" % len(po.fuzzy_entries()),
+            print "obsolete: %s\t" % len(po.obsolete_entries())
+
+    def run(self):
+        self.info_po()
+
+
 class burnet_build(build):
     def run(self):
         make_mo()
@@ -137,6 +163,7 @@ setup(name='burnet',
       scripts=['bin/burnetd'],
       cmdclass={'make_mo': cmd_make_mo,
                 'make_po': cmd_make_po,
+                'info_po': cmd_info_po,
                 'build': burnet_build},
       data_files=[('share/burnet/js', glob('js/*.js')),
                   ('share/burnet/css', glob('css/*.css')),
