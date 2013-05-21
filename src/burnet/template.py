@@ -16,6 +16,13 @@ from Cheetah.Template import Template
 import config
 
 
+def N_(message):
+    return message
+
+
+_ = N_
+
+
 def get_lang():
     cookie = cherrypy.request.cookie
     if "burnetLang" in cookie.keys():
