@@ -13,6 +13,7 @@
 import cherrypy
 import template
 import controller
+from template import _
 
 
 class Root(controller.Resource):
@@ -23,4 +24,4 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
 
     def get(self):
-        return template.render('index', {'hostname': 'localhost'})
+        return template.render('index', {'hostname': _('localhost')})

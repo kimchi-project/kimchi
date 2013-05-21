@@ -16,3 +16,7 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: src/burnet/root.py:27
+msgid "localhost"
+msgstr ""

@@ -16,3 +16,7 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: src/burnet/root.py:27
+msgid "localhost"
+msgstr "本地主机"
