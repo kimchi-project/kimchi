@@ -61,6 +61,9 @@ class cmd_make_po(Command):
         ('langs=', None,
          "language list to support new po files, delimited by comma"), ]
     file_list = ['src/burnet/', 'templates/*.tmpl']
+    pygettext_dir = ['/usr/bin/pygettext',
+                     '/usr/bin/pygettext.py',
+                     '/usr/share/doc/packages/python/Tools/i18n/pygettext.py']
 
     def initialize_options(self):
         self.langs = ''
@@ -68,9 +71,15 @@ class cmd_make_po(Command):
     def finalize_options(self):
         self.langs = self.langs.split(",") if self.langs else []
 
+    def find_pygettext(self):
+        for f in self.pygettext_dir:
+            if os.access(f, os.F_OK):
+                return f
+        raise Exception("Unable to find pygettext, please install it")
+
     def make_pot(self):
         files = " ".join(self.file_list)
-        command = 'pygettext.py %s' % files
+        command = 'python %s %s' % (self.find_pygettext(), files)
         print command
         retcode = subprocess.call(command, shell=True)
         if retcode == 0:
