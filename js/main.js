@@ -208,6 +208,12 @@ function load(data)
     window.setTimeout("load();", 5000);
 }
 
+function init_lang_select()
+{
+    var lang = $("html").attr("lang")
+    $("#localLang").val(lang)
+}
+
 function getSelectedItems(id)
 {
     var names = []
@@ -278,6 +284,7 @@ function start()
     $("#custom").append(html);
 
     load();
+    init_lang_select();
 
     $("#vm-toolbar .icon-play").click(function() {
         vms = getSelectedItems("vms");
