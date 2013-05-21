@@ -26,8 +26,10 @@ function genTile(title, image, gray, small, folder)
         style += " folder";
     }
 
+    visible = " active";
+
     html += "<div class=\"" + style + "\" id=\"" + title + "\">\n";
-    html += "<img src=\"" + image + "\"/>\n";
+    html += "<img class=\"" + visible + "\" src=\"" + image + "\"/>\n";
     html += "<h3>" + title + "</h3></a>\n";
     html += "</div>";
 
@@ -48,6 +50,46 @@ function selectIcon(node)
     }
 }
 
+function load_image(src, name)
+{
+    var newImage = new Image();
+
+    newImage.onload = function(){
+        old_pic = $("#"+name+' img');
+        new_pic = $('<img src="' + src + '"/>');
+        old_pic.after(new_pic);
+        old_pic.removeClass('active');
+        new_pic.addClass('active');
+        old_pic.remove();
+    }
+    newImage.src = src;
+}
+
+function getCurrentImgs()
+{
+    var images = new Array();
+    var i = 0;
+    var activeImgs = document.getElementsByClassName("active");
+
+    for (i = 0; i < activeImgs.length; i++) {
+        var image = new Object();
+        image.name = activeImgs[i].parentNode.id;
+        image.src = activeImgs[i].src;
+        images[i] = image;
+    }
+    return images;
+}
+
+function findOldImg(imgs, name)
+{
+    for (i = 0; i < imgs.length; i++) {
+        if (name==imgs[i].name) {
+            return imgs[i].src;
+        }
+    }
+    return null;
+}
+
 function load_vms(data)
 {
     var sel_vms;
@@ -55,19 +97,27 @@ function load_vms(data)
     var i;
 
     sel_vms = getSelectedItems("vms");
-
+    active_imgs = getCurrentImgs();
     $("#vms").empty();
     for (i = 0; i < data.length; i++) {
         var image;
         if (data[i].state == 'running') {
-            image = data[i].screenshot;
+            new_img = data[i].screenshot;
         } else {
-            image = data[i].icon;
+            new_img = data[i].icon;
         }
-        html += genTile(data[i].name, image,
-                        data[i].state != 'running', false);
+        old_img = findOldImg(active_imgs, data[i].name);
+        if (old_img!=null)
+            image = old_img;
+        else
+            image = new_img;
+        html = genTile(data[i].name, image,
+                       data[i].state != 'running', false);
+        $("#vms").append(html);
+        if (new_img != old_img)
+            load_image(new_img, data[i].name);
     }
-    $("#vms").append(html);
+
     selectItems("vms", sel_vms);
 
     $("#vms .icon").click(function() {
