@@ -11,6 +11,7 @@
 #
 
 import os, os.path
+from glob import iglob
 import sys
 
 
@@ -47,6 +48,10 @@ def get_screenshot_path():
 
 def get_mo_path():
     return '%s/i18n/mo' % get_prefix()
+
+def get_support_language():
+    mopath = "%s/*" % get_mo_path()
+    return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
 
 if __name__ == '__main__':
     print get_prefix()

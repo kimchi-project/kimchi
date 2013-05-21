@@ -37,6 +37,14 @@ def get_lang():
     return langs
 
 
+def validate_language(langs):
+    supportLangs = config.get_support_language()
+    for lang in langs:
+        if lang in supportLangs:
+            return lang
+    return "en_US"
+
+
 def can_accept(mime):
     if not cherrypy.request.headers.has_key('Accept'):
         accepts = 'text/html'
@@ -59,7 +67,13 @@ def render(resource, data):
     elif can_accept('text/html'):
         filename = config.get_template_path(resource)
         try:
-            return Template(file=filename, searchList=[data]).respond()
+            params = {'data': data}
+            lang = validate_language(get_lang())
+            gettext_conf = {'domain': 'burnet',
+                            'localedir': config.get_mo_path(),
+                            'lang': [lang]}
+            params['lang'] = gettext_conf
+            return Template(file=filename, searchList=params).respond()
         except OSError, e:
             if e.errno != errno.ENOENT:
                 raise

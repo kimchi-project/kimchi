@@ -1,4 +1,7 @@
 #encoding UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
 <!doctype html>
 <html class="no-js" lang="en-US">
 <head>
