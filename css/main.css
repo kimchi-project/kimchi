@@ -38,19 +38,8 @@ div.icon.selected {
     background-color: silver;
 }
 
-#vms div img {
-    display: none;
-    margin-left: auto;
-    margin-right: auto;
-    width: 128px;
-    height: 128px;
-}
-
-#vms div img.active {
-    display: block;
-}
-
 .icon img {
+    display: block;
     margin-left: auto;
     margin-right: auto;
     width: 128px;
