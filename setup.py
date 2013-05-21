@@ -156,6 +156,10 @@ class burnet_build(build):
         build.run(self)
 
 
+i18n_files = [(v.rsplit("/", 1)[0], [v])
+              for v in glob("i18n/mo/*/LC_MESSAGES/burnet.mo")]
+
+
 setup(name='burnet',
       version=VERSION,
       package_dir={'': 'src'},
@@ -168,12 +172,11 @@ setup(name='burnet',
       data_files=[('share/burnet/js', glob('js/*.js')),
                   ('share/burnet/css', glob('css/*.css')),
                   ('share/burnet/css/fonts', glob('css/fonts/*')),
-                  ('share/burnet/data', []),
                   ('share/burnet/static', glob('static/*.html')),
                   ('share/burnet/static/include', glob('static/include/*.*')),
                   ('share/burnet/static/include/web-socket-js',
                    glob('static/include/web-socket-js/*')),
-                  ('share/burnet/data/screenshots', []),
                   ('share/burnet/images', glob('images/*')),
                   ('share/burnet/templates', glob('templates/*.tmpl')),
-                  ('share/burnet/i18n', glob('i18n/*'))])
+                  ('share/burnet/data', []),
+                  ('share/burnet/data/screenshots', [])] + i18n_files)
