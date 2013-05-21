@@ -16,9 +16,12 @@ from distutils.core import setup
 from glob import glob, iglob
 import polib
 import os
+import subprocess
+import time
 
 
 PROJECT = 'burnet'
+VERSION = '0.1'
 
 
 def make_mo():
@@ -52,6 +55,75 @@ class cmd_make_mo(Command):
         make_mo()
 
 
+class cmd_make_po(Command):
+    description = "merge po or create new po files"
+    user_options = [
+        ('langs=', None,
+         "language list to support new po files, delimited by comma"), ]
+    file_list = ['src/burnet/', 'templates/*.tmpl']
+
+    def initialize_options(self):
+        self.langs = ''
+
+    def finalize_options(self):
+        self.langs = self.langs.split(",") if self.langs else []
+
+    def make_pot(self):
+        files = " ".join(self.file_list)
+        command = 'pygettext.py %s' % files
+        print command
+        retcode = subprocess.call(command, shell=True)
+        if retcode == 0:
+            print "generate messages.pot successfully"
+            return True
+        print "generate messages.pot failed"
+        return False
+
+    def make_po(self):
+        potfile = "messages.pot"
+        if not self.make_pot():
+            return
+
+        support_langs = [path.rsplit('/', 1)[1]
+                         for path in iglob("./i18n/po/*")]
+        new_langs = [lang for lang in self.langs if lang not in support_langs]
+
+        for lang in new_langs:
+            popath = "./i18n/po/%s/LC_MESSAGES/" % lang
+            os.makedirs(popath)
+
+        pot = polib.pofile(potfile)
+        pot.metadata["Content-Type"] = 'text/plain; charset=UTF-8'
+        pot.metadata["Content-Transfer-Encoding"] = '8bit'
+        pot.metadata["Project-Id-Version"] = '%s %s' % (PROJECT,
+                                                        VERSION)
+
+        for path in iglob("i18n/po/*/LC_MESSAGES/"):
+            pofile = os.path.join(path,  PROJECT + '.po')
+            lang = pofile.split("/")[2]
+            pot.metadata["Language"] = lang
+            podata = time.strftime('%Y-%m-%d %H:%M+0000', time.gmtime())
+            if not os.path.isfile(pofile):
+                print "Create new po file:\t %s" % pofile
+                pot.metadata['PO-Revision-Date'] = podata
+                percent = pot.percent_translated()
+                pot.save(pofile)
+            else:
+                print "Update exist po file:\t %s" % pofile
+                po = polib.pofile(pofile)
+                po.merge(pot)
+                po.metadata['PO-Revision-Date'] = podata
+                po.metadata["Project-Id-Version"] = '%s %s' % (PROJECT,
+                                                               VERSION)
+                percent = po.percent_translated()
+                po.save()
+
+            print "Percentage of translated messages is: %s%%" % percent
+
+    def run(self):
+        self.make_po()
+
+
 class burnet_build(build):
     def run(self):
         make_mo()
@@ -59,11 +131,12 @@ class burnet_build(build):
 
 
 setup(name='burnet',
-      version='0.1',
+      version=VERSION,
       package_dir={'': 'src'},
       packages=['burnet'],
       scripts=['bin/burnetd'],
       cmdclass={'make_mo': cmd_make_mo,
+                'make_po': cmd_make_po,
                 'build': burnet_build},
       data_files=[('share/burnet/js', glob('js/*.js')),
                   ('share/burnet/css', glob('css/*.css')),
