@@ -45,6 +45,8 @@ def get_template_path(resource):
 def get_screenshot_path():
     return "%s/data/screenshots" % get_prefix()
 
+def get_mo_path():
+    return '%s/i18n/mo' % get_prefix()
 
 if __name__ == '__main__':
     print get_prefix()
