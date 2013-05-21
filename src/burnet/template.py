@@ -15,6 +15,28 @@ import json
 from Cheetah.Template import Template
 import config
 
+
+def get_lang():
+    cookie = cherrypy.request.cookie
+    if "burnetLang" in cookie.keys():
+        return [cookie["burnetLang"].value]
+
+    lang = cherrypy.request.headers.get("Accept-Language", "en_US")
+
+    if lang and lang.find(';') != -1:
+        lang, _ = lang.split(';', 1)
+    # the language from Accept-Language is the format as en-us
+    # convert it into en_US
+    langs = lang.split(',')
+    for idx, val in enumerate(langs):
+        if "-" in val:
+            langCountry = val.split('-')
+            langCountry[1] = langCountry[1].upper()
+            langs[idx] = "_".join(langCountry)
+
+    return langs
+
+
 def can_accept(mime):
     if not cherrypy.request.headers.has_key('Accept'):
         accepts = 'text/html'
