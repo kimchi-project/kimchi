@@ -41,15 +41,15 @@ class Server(object):
                'tools.nocache.on': True },
         '/css': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'css',
+            'tools.staticdir.dir': 'ui/css',
             'tools.nocache.on': False },
         '/js': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'js',
+            'tools.staticdir.dir': 'ui/js',
             'tools.nocache.on': False },
         '/images': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'images',
+            'tools.staticdir.dir': 'ui/images',
             'tools.nocache.on': False },
         '/data/screenshots': {
             'tools.staticdir.on': True,

@@ -24,4 +24,4 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
 
     def get(self):
-        return template.render('index', {'hostname': _('localhost')})
+        return template.render('burnet-ui', {'hostname': 'localhost'})

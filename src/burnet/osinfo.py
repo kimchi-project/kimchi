@@ -13,7 +13,7 @@ import copy
 osinfo = [
     ('unknown', {
         'version': lambda d,v: True,
-        'icon': 'images/image-missing.svg',
+        'icon': 'images/icon-vm.svg',
         'os_distro': 'unknown', 'os_version': 'unknown',
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
