@@ -57,10 +57,8 @@ class Server(object):
             'tools.nocache.on': False },
         '/static': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'static',
+            'tools.staticdir.dir': 'ui',
             'tools.nocache.on': False},
-        '/static/include': {
-            'tools.nocache.on': True},
         }
 
     def __init__(self, options):
