@@ -41,7 +41,7 @@ def get_object_store():
     return os.path.join(get_prefix(), 'data', 'objectstore')
 
 def get_template_path(resource):
-    return '%s/ui/%s.tmpl' % (get_prefix(), resource)
+    return '%s/ui/pages/%s.tmpl' % (get_prefix(), resource)
 
 def get_screenshot_path():
     return "%s/data/screenshots" % get_prefix()

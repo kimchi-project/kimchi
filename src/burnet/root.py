@@ -13,7 +13,6 @@
 import cherrypy
 import template
 import controller
-from template import _
 
 
 class Root(controller.Resource):
@@ -24,4 +23,10 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
 
     def get(self):
-        return template.render('burnet-ui', {'hostname': 'localhost'})
+        return self.default('burnet-ui.html')
+
+    @cherrypy.expose
+    def default(self, page):
+        if page.endswith('.html'):
+            return template.render(page, {'hostname': 'localhost'})
+        raise cherrypy.HTTPError(404)

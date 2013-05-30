@@ -59,6 +59,10 @@ class RestTests(unittest.TestCase):
         for url in url_list:
             self.assertHTTPStatus(404, host, port, url)
 
+        # Make sure it fails for bad HTML requests
+        self.assertHTTPStatus(404, host, port, url, None, 'GET',
+                              {'Accept': 'text/html'})
+
         # Verify it works for DELETE too
         self.assertHTTPStatus(404, host, port, '/templates/blah', '', 'DELETE')
 

@@ -11,16 +11,10 @@
 #
 
 import errno, cherrypy
+import os
 import json
 from Cheetah.Template import Template
 import config
-
-
-def N_(message):
-    return message
-
-
-_ = N_
 
 
 def get_lang():
