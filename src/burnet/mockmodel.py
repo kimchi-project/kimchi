@@ -235,7 +235,7 @@ class MockVM(object):
         self.disk_paths = []
         self.info = {'state': 'shutoff',
                      'memory': template_info['memory'],
-                     'icon': 'images/icon-vm.svg'}
+                     'icon': None}
 
 
 class MockStoragePool(object):

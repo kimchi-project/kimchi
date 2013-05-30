@@ -64,6 +64,9 @@ function load_vms(data)
         } else {
             image = data[i].icon;
         }
+        if (!image) {
+            image = "images/icon-vm.svg";
+        }
         html += genTile(data[i].name, image,
                         data[i].state != 'running', false);
     }

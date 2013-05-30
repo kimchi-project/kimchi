@@ -189,7 +189,7 @@ class Model(object):
                 extra_info = session.get('vm', name)
             except NotFoundError:
                 extra_info = {}
-        icon = extra_info.get('icon', 'images/icon-vm.svg')
+        icon = extra_info.get('icon')
 
         return {'state': state,
                 'memory': info[2] >> 10,

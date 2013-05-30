@@ -34,7 +34,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('running', info['state'])
         self.assertEquals(2048, info['memory'])
-        self.assertEquals('images/icon-vm.svg', info['icon'])
+        self.assertEquals(None, info['icon'])
 
         self.assertRaises(burnet.model.NotFoundError,
                           inst.vm_lookup, 'nosuchvm')
