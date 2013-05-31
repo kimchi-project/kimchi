@@ -41,6 +41,23 @@ def make_mo():
             print "compile: %s" % mofile
 
 
+def make_ui():
+    def merge_files(src_glob, dst_file):
+        with open(dst_file, "w") as outf:
+            for path in sorted(glob(src_glob)):
+                with open(path) as inf:
+                    outf.write(inf.read() + "\n")
+
+    print "Installing unified js and css files"
+    merge_files("ui/js/src/*.js", "ui/js/burnet.min.js")
+
+    for path in next(os.walk('ui/css'))[1]:
+        if not path.startswith('theme-'):
+            continue
+        theme = path.split('/')[-1]
+        merge_files("ui/css/%s/*.css" % theme, "ui/css/%s.min.css" % theme)
+
+
 class cmd_make_mo(Command):
     description = "compile po files to mo files"
     user_options = []
@@ -60,7 +77,7 @@ class cmd_make_po(Command):
     user_options = [
         ('langs=', None,
          "language list to support new po files, delimited by comma"), ]
-    file_list = ['src/burnet/', 'templates/*.tmpl']
+    file_list = ['ui/pages/*.tmpl']
     pygettext_dir = ['/usr/bin/pygettext',
                      '/usr/bin/pygettext.py',
                      '/usr/share/doc/packages/python/Tools/i18n/pygettext.py']
@@ -159,15 +176,32 @@ class cmd_info_po(Command):
         self.info_po()
 
 
+class cmd_make_ui(Command):
+    description = "Build the UI"
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        make_ui()
+
+
 class burnet_build(build):
     def run(self):
         make_mo()
+        make_ui()
         build.run(self)
 
 
 i18n_files = [("share/burnet/%s" % v.rsplit("/", 1)[0], [v])
               for v in glob("i18n/mo/*/LC_MESSAGES/burnet.mo")]
 
+def all_files(path):
+    return ["%s/%s" % (path, f) for f in next(os.walk(path))[2]]
 
 setup(name='burnet',
       version=VERSION,
@@ -177,15 +211,22 @@ setup(name='burnet',
       cmdclass={'make_mo': cmd_make_mo,
                 'make_po': cmd_make_po,
                 'info_po': cmd_info_po,
+                'make_ui': cmd_make_ui,
                 'build': burnet_build},
-      data_files=[('share/burnet/js', glob('js/*.js')),
-                  ('share/burnet/css', glob('css/*.css')),
-                  ('share/burnet/css/fonts', glob('css/fonts/*')),
-                  ('share/burnet/static', glob('static/*.html')),
-                  ('share/burnet/static/include', glob('static/include/*.*')),
-                  ('share/burnet/static/include/web-socket-js',
-                   glob('static/include/web-socket-js/*')),
-                  ('share/burnet/images', glob('images/*')),
-                  ('share/burnet/templates', glob('templates/*.tmpl')),
+      data_files=[('share/burnet/ui/css', glob('ui/css/*.css')),
+                  ('share/burnet/ui/css/fonts', all_files('ui/css/fonts')),
+                  ('share/burnet/ui/css/fonts/novnc',
+                        all_files('ui/css/fonts/novnc')),
+                  ('share/burnet/ui/css/novnc', all_files('ui/css/novnc')),
+                  ('share/burnet/ui/images/theme-default',
+                        all_files('ui/images/theme-default')),
+                  ('share/burnet/ui/images', all_files('ui/images')),
+                  ('share/burnet/ui/js', glob('ui/js/*.js')),
+                  ('share/burnet/ui/js/novnc', glob('ui/js/novnc/*.js')),
+                  ('share/burnet/ui/js/novnc/web-socket-js',
+                        all_files('ui/js/novnc/web-socket-js')),
+                  ('share/burnet/ui/libs', glob('ui/libs/*.js')),
+                  ('share/burnet/ui/pages', glob('ui/pages/*.tmpl')),
+                  ('share/burnet/ui', glob('ui/*.html')),
                   ('share/burnet/data', []),
                   ('share/burnet/data/screenshots', [])] + i18n_files)

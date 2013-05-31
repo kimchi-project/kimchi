@@ -76,7 +76,9 @@ def render(resource, data):
             params['lang'] = gettext_conf
             return Template(file=filename, searchList=params).respond()
         except OSError, e:
-            if e.errno != errno.ENOENT:
+            if e.errno == errno.ENOENT:
+                raise cherrypy.HTTPError(404)
+            else:
                 raise
     else:
         raise cherrypy.HTTPError(406)

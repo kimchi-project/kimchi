@@ -47,6 +47,10 @@ class Server(object):
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/js',
             'tools.nocache.on': False },
+        '/libs': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'ui/libs',
+            'tools.nocache.on': False },
         '/images': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/images',

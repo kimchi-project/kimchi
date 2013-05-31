@@ -23,7 +23,7 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
 
     def get(self):
-        return self.default('dev-ui.html')
+        return self.default('burnet-ui.html')
 
     @cherrypy.expose
     def default(self, page, **kwargs):
