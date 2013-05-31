@@ -1,0 +1,102 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.bgmask {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: url(../images/theme-default/bg-mask.png);
+	z-index: 100;
+	overflow: hidden;
+}
+
+.window {
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	box-shadow: 2px 2px 6px #000;
+	border: 2px solid #0f71b4;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #eee;
+	box-sizing: border-box;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.window>header {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 48px;
+	z-index: 100;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.window>footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 48px;
+	z-index: 100;
+	box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.window .content {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	overflow: auto;
+	margin: 48px 0;
+}
+
+.window .close {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 7px;
+	right: 7px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	border: 2px solid #ccc;
+	color: #ccc;
+	font-size: 24px;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+	background: #eee;
+	cursor: pointer;
+}
+
+.window>header>.close:HOVER {
+	border: 2px solid #444;
+	color: #444;
+}
+
+.window>header>.title {
+	font-size: 18px;
+	height: 48px;
+	line-height: 48px;
+	color: #06C;
+	margin: 0 10px;
+	font-weight: bold;
+	text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
+}

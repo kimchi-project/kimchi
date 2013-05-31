@@ -1,0 +1,37 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.form-section {
+	padding: 10px;
+}
+
+.form-section>h2 {
+	font-size: 14px;
+	padding: 5px;
+}
+
+.form-section .field {
+	padding: 5px 5px 5px 20px;
+	overflow: hidden;
+}
+
+.form-section .field .text-help {
+	font-size: 12px;
+	color: #333;
+	margin: 0 0 5px 5px;
+}
+
+.form-section .field input.text {
+	border: 1px solid #ccc;
+	font-size: 16px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 5px;
+}

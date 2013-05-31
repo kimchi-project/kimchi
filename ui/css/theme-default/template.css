@@ -1,0 +1,72 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.tile-template>li>label:hover .summary {
+	opacity: 0.1;
+}
+
+.tile-template>li>label:hover .list-info {
+	top: 0;
+}
+
+.tile-template .summary {
+	-webkit-transition: opacity 0.25s;
+	-moz-transition: opacity 0.25s;
+	transition: opacity 0.25s;
+}
+
+.tile-template .list-info {
+	-webkit-transition: top 0.25s;
+	-moz-transition: top 0.25s;
+	transition: top 0.25s;
+	position: absolute;
+	top: 100%;
+}
+
+.tile-template .list-info>li {
+	border-bottom: 1px dotted #ccc;
+	padding: 5px;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+.tile-template .list-info>li>label {
+	display: inline-block;
+	color: #111;
+	width: 80px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.tile-template .list-info>li>span {
+	float: right;
+	color: #444693;
+	width: 100px;
+	text-align: right;
+}
+
+.os-icon {
+	text-align: center;
+}
+
+.os-icon .title {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 5px;
+	width: 190px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.os-icon img {
+	margin-top: 7px;
+	width: 64px;
+	height: 64px;
+}

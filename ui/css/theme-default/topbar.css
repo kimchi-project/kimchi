@@ -1,0 +1,128 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.topbar {
+	height: 48px;
+	background: #4a4a4a; /* Old browsers */
+	background: -moz-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4a4a4a), color-stop(100%, #272727));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #4a4a4a 0%, #272727 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a4a4a', endColorstr='#272727', GradientType=0);
+	border-top: 1px solid #6b6868;
+	boder-bottom: 1px solid #151718;
+	position: relative;
+}
+
+#logo {
+	height: 48px;
+	line-height: 48px;
+	padding: 0 10px;
+	font-size: 20px;
+	font-weight: normal;
+	color: #eee;
+	text-shadow: -1px -1px 1px #000, 1px 1px 1px #555;
+	vertical-align: top;
+	max-width: 250px;
+	overflow: hidden;
+}
+
+.nav-top {
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-left: 1px solid #000;
+	border-right: 1px solid #585858;
+}
+
+.nav-top>li {
+	float: left;
+	border-left: 1px solid #585858;
+	border-right: 1px solid #000;
+}
+
+.nav-top .icon {
+	display: block;
+	position: relative;
+	width: 58px;
+	height: 48px;
+}
+
+.nav-top .icon .count {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	height: 16px;
+	line-height: 17px;
+	padding: 0 5px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	font-size: 10px;
+	color: #fff;
+	text-align: center;
+	background: #06C;
+	text-shadow: none;
+}
+
+.icon.setting {
+	background: url(../images/theme-default/icon-setting.png) no-repeat center center;
+}
+
+.icon.tool {
+	background: url(../images/theme-default/icon-tool.png) no-repeat center center;
+}
+
+.icon.event {
+	background: url(../images/theme-default/icon-event.png) no-repeat center center;
+}
+
+.icon.alert {
+	background: url(../images/theme-default/icon-alert.png) no-repeat center center;
+}
+
+#user {
+	display: block;
+	position: relative;
+	height: 48px;
+}
+
+#user .arrow {
+	position: absolute;
+	width: 15px;
+	height: 48px;
+	right: 10px;
+	top: 0;
+	background: url(../images/theme-default/arrow-down.png) no-repeat center center;
+}
+
+#username {
+	display: block;
+	max-width: 120px;
+	padding: 0 30px 0 10px;
+	line-height: 48px;
+	color: #eee;
+	text-shadow: -1px -1px 1px #000, 1px 1px 1px #555;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-shadow: -1px -1px 1px #000, 1px 1px 1px #555;
+}
+
+@media ( max-width : 640px) {
+	#logo {
+		display: none;
+	}
+}

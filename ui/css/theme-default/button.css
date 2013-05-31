@@ -1,0 +1,288 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+
+ /* Generated at http://colorzilla.com/gradient-editor/ */
+.btn {
+	display: inline-block;
+	height: 42px;
+	margin: 3px;
+	vertical-align: top;
+	border: 1px solid #aaa;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	box-shadow: -2px -2px 2px #eaeaea, 2px 2px 2px #fff, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+	line-height: 42px;
+	color: #333;
+	font-size: 13px;
+	text-shadow: -1px -1px 1px #aaa, 1px 1px 1px #fff;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.btn .text {
+	padding: 0 10px;
+}
+
+.btn .icon {
+	display: block;
+	width: 42px;
+	height: 42px;
+}
+
+.btn.dropdown {
+	text-align: left;
+	position: relative;
+	padding-right: 25px;
+}
+
+.btn.dropdown .arrow {
+	position: absolute;
+	width: 15px;
+	height: 42px;
+	line-height: 42px;
+	top: 0;
+	right: 10px;
+	background: url(../images/theme-default/arrow-down-black.png) no-repeat center center;
+	right: 10px;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.btn-tool {
+	display: inline-block;
+	height: 38px;
+	margin: 6px 3px;
+	vertical-align: top;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	box-shadow: -1px -1px 1px #777, 1px 1px 1px #eee, 2px 2px 2px #ddd inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
+	background: #f3f3f3;
+	background: -moz-linear-gradient(top, #f3f3f3 0%, #dddddd 50%, #d8d8d8 51%, #cccccc 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(50%, #dddddd),
+		color-stop(51%, #d8d8d8), color-stop(100%, #cccccc));
+	background: -webkit-linear-gradient(top, #f3f3f3 0%, #dddddd 50%, #d8d8d8 51%, #cccccc 100%);
+	background: -o-linear-gradient(top, #f3f3f3 0%, #dddddd 50%, #d8d8d8 51%, #cccccc 100%);
+	background: -ms-linear-gradient(top, #f3f3f3 0%, #dddddd 50%, #d8d8d8 51%, #cccccc 100%);
+	background: linear-gradient(to bottom, #f3f3f3 0%, #dddddd 50%, #d8d8d8 51%, #cccccc 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f3f3f3', endColorstr='#cccccc', GradientType=0);
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.btn-tool:hover {
+	box-shadow: -1px -1px 1px #777, 1px 1px 1px #eee, 2px 2px 2px rgba(0, 0, 0, .25) inset, -3px -3px 3px rgba(0, 0, 0, .25)
+		inset;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.btn-tool.left,.btn-tool.right {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background: #dddddd;
+	background: -moz-linear-gradient(top, #dddddd 0%, #999999 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #999999));
+	background: -webkit-linear-gradient(top, #dddddd 0%, #999999 100%);
+	background: -o-linear-gradient(top, #dddddd 0%, #999999 100%);
+	background: -ms-linear-gradient(top, #dddddd 0%, #999999 100%);
+	background: linear-gradient(to bottom, #dddddd 0%, #999999 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(         startColorstr='#dddddd', endColorstr='#999999', GradientType=0);
+}
+
+.btn-tool:active,.btn-tool.active {
+	box-shadow: -1px -1px 1px #777, 1px 1px 1px #eee, 3px 3px 3px rgba(0, 0, 0, .35) inset;
+}
+
+.btn-tool.left {
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.btn-tool.right {
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.btn-tool .icon {
+	display: block;
+	width: 48px;
+	height: 38px;
+}
+
+.icon.reset {
+	background: url(../images/theme-default/icon-reset.png) center center no-repeat;
+}
+
+.icon.power-up {
+	background: url(../images/theme-default/icon-power-up.png) center center no-repeat;
+}
+
+.icon.power-down {
+	background: url(../images/theme-default/icon-power-down.png) center center no-repeat;
+}
+
+.icon.search {
+	background: url(../images/theme-default/icon-search.png) no-repeat center center;
+}
+
+.icon.sort {
+	background: url(../images/theme-default/icon-sort.png) no-repeat center center;
+}
+
+.icon.design {
+	background: url(../images/theme-default/icon-design.png) no-repeat center center;
+}
+
+.icon.list {
+	background: url(../images/theme-default/icon-list.png) no-repeat center center;
+}
+
+.icon.detail {
+	background: url(../images/theme-default/icon-detail.png) no-repeat center center;
+}
+
+.icon.add {
+	line-height: 32px;
+	text-align: center;
+	text-shadow: -1px -1px 1px #aaa, 1px 1px 1px #eee;
+	font-size: 38px;
+	font-weight: bold;
+	color: #7cae0a;
+}
+
+.icon.tree {
+	width: 42px;
+	background: url(../images/theme-default/icon-tree.png) no-repeat center center;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.btn-tool.tree {
+	width: 42px;
+	margin: 5px 10px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+	box-shadow: -1px -1px 1px #03385c, 1px 1px 1px #09F, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
+}
+
+.btn-select {
+	display: inline-block;
+	position: relative;
+	height: 38px;
+	padding-right: 20px;
+	margin: 5px;
+	vertical-align: top;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #eee;
+	box-shadow: -1px -1px 1px #666, 1px 1px 1px #f1f1f1, 3px 3px 3px rgba(0, 0, 0, .25) inset;
+	font-size: 13px;
+	line-height: 38px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.btn-select .text {
+	padding: 0 10px;
+}
+
+.btn-select .arrow {
+	position: absolute;
+	width: 15px;
+	height: 38px;
+	line-height: 38px;
+	top: 0;
+	right: 5px;
+	background: url(../images/theme-default/arrow-down-black.png) no-repeat center center;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.button-big {
+	display: block;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	box-shadow: -1px -1px 1px #ccc, 1px 1px 1px #eee;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+	-webkit-border-radius: 05px;
+	-moz-border-radius: 05px;
+	border-radius: 05px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(     startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+	text-align: center;
+	font-size: 13px;
+	line-height: 38px;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.button-big.red {
+	text-shadow: -1px -1px 1px #9e0505, 1px 1px 1px #fc5d4c;
+	border: 1px solid #b10f14;
+	background: #ff3019;
+	background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404));
+	background: -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	background: -o-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	background: -ms-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(     startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0);
+	color: #fff;
+}
+
+.btn-normal {
+	display: inline-block;
+	height: 38px;
+	margin: 6px 3px;
+	vertical-align: top;
+	background: #06C;
+	line-height: 38px;
+	padding: 0 20px;
+	color: #EEE;
+}
+
+.btn-group {
+	float: right;
+	padding: 0 10px;
+}

@@ -1,0 +1,44 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.toolbar {
+	position: relative;
+	height: 48px;
+	padding: 0 5px;
+	overflow: hidden;
+	background: #e5e5e5;
+	background: -moz-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5e5e5), color-stop(100%, #c4c4c4));
+	background: -webkit-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
+	background: -o-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
+	background: -ms-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
+	background: linear-gradient(to bottom, #e5e5e5 0%, #c4c4c4 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#e5e5e5', endColorstr='#c4c4c4', GradientType=0);
+	border-bottom: 1px solid #aaa;
+}
+
+.toolbar .filters {
+	float: left;
+}
+
+.toolbar .tools {
+	float: right;
+}
+
+.toolbar .divide {
+	display: inline-block;
+	height: 42px;
+	margin: 3px;
+	vertical-align: top;
+	border-left: 1px solid #999;
+	border-right: 1px solid #eee;
+}

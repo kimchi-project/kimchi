@@ -1,0 +1,201 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.list-vm {
+	margin: 10px;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.list-vm>li {
+	margin-bottom: 10px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+	border: 1px solid #ccc;
+	color: #333;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.list-vm li>* {
+	height: 130px;
+	display: table-cell;
+	vertical-align: top;
+	position: relative;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #fff;
+}
+
+.list-vm li>*:FIRST-CHILD {
+	border-left: none;
+}
+
+.list-vm li>*:LAST-CHILD {
+	border-right: none;
+}
+
+.list-vm .handle {
+	display: block;
+	width: 50px;
+	height: 130px;
+	box-sizing: border-box;
+	box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
+	background: #0b6bad url(../images/theme-default/arrow_out.png) center center no-repeat;
+	border-top-right: 1px solid #CCC;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-top-right-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right: 1px solid #CCC;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-bottom-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.list-vm .subtitle {
+	color: #666;
+	font-size: 13px;
+	text-align: center;
+	line-height: 10px;
+	font-weight: bold;
+}
+
+.guest-type {
+	width: 257px;
+}
+
+.guest-cpu {
+	width: 91px;
+}
+
+.guest-memory {
+	width: 91px;
+}
+
+.guest-storage {
+	width: 91px;
+}
+
+.guest-tile {
+	width: 190px;
+}
+
+.guest-users {
+	width: 93px;
+}
+
+.guest-actions {
+	width: 125px;
+	min-width: 125px;
+}
+
+.guest-handle {
+	width: 50px;
+}
+
+.guest-general {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.guest-ip {
+	padding: 0 10px;
+	border-top: 1px solid #fff;
+}
+
+.guest-general .title {
+	color: #666;
+	font-size: 16px;
+	font-weight: normal;
+	height: 25px;
+	line-height: 25px;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+}
+
+.guest-general .title .alert {
+	font-weight: bold;
+	color: #f10d4d;
+	font-size: 28px;
+}
+
+.guest-general .text {
+	font-weight: bold;
+	color: #999;
+	font-size: 11px;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+}
+
+.guest-users .top {
+	border-bottom: 1px solid #ccc;
+	padding: 3px 10px;
+}
+
+.guest-users .bottom {
+	border-top: 1px solid #fff;
+	padding: 3px 10px;
+}
+
+.guest-users .users {
+	height: 45px;
+	line-height: 45px;
+	background: url(../images/theme-default/icon-user.png) left center no-repeat;
+	padding-left: 50px;
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.guest-users .snapshots {
+	height: 40px;
+	line-height: 40px;
+	background: url(../images/theme-default/icon-camera.png) left center no-repeat;
+	padding-left: 50px;
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.guest-users .mini-text {
+	font-size: 11px;
+	font-weight: normal;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+}
+
+.guest-actions .top {
+	padding: 7px 10px;
+}
+
+.guest-actions .bottom {
+	padding: 0 10px;
+}
+
+.list-vm .tile {
+	width: 170px;
+	height: 110px;
+	background: #222;
+	box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
+	margin: 10px;
+}
+
+.list-title {
+	color: #666;
+	font-weight: 600;
+	font-size: 10px;
+	overflow: hidden;
+	margin: 10px;
+}
+
+.list-title li {
+	display: table-cell;
+	padding: 0 1px;
+}

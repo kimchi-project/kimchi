@@ -1,0 +1,106 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.nav-tree {
+	overflow: hidden;
+	border-bottom: 1px solid #000;
+}
+
+.nav-tree .item {
+	overflow: hidden;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #444;
+	background: #222;
+	*vertical-align: top;
+}
+
+.nav-tree .item .arrow {
+	float: left;
+	width: 42px;
+	height: 48px;
+	border-right: 1px solid #000;
+	background: transparent url("../images/theme-default/folder-arrow-right.png") center center no-repeat;
+}
+
+.nav-tree .item.on .arrow {
+	background: transparent url("../images/theme-default/folder-arrow-down.png") center center no-repeat;
+}
+
+.nav-tree .item.nochild .arrow {
+	background: none;
+}
+
+.nav-tree .item .arrow+.item-link {
+	border-left: 1px solid #444;
+}
+
+.nav-tree .sub {
+	display: none;
+}
+
+.nav-tree .item.on+.sub {
+	display: block;
+}
+
+.nav-tree .sub .item {
+	padding-left: 44px;
+}
+
+.nav-tree .item-link {
+	display: block;
+	position: relative;
+	height: 48px;
+	overflow: hidden;
+	line-height: 48px;
+	color: #eee;
+}
+
+.nav-tree .item-link .count {
+	position: absolute;
+	height: 24px;
+	right: 10px;
+	margin: 12px 0;
+	padding: 0 9px;
+	background: #900;
+	box-shadow: 1px 1px 1px #333, -1px -1px 1px #000, 1px 1px 1px #600 inset;
+	-webkit-border-radius: 24px;
+	-moz-border-radius: 24px;
+	border-radius: 24px;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
+	line-height: 24px;
+}
+
+.nav-tree .item-link .title {
+	position: absolute;
+	left: 42px;
+	right: 42px;
+	overflow: hidden;
+	color: #fff;
+	font-size: 13px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.nav-tree .item-link .thumb {
+	position: absolute;
+	width: 42px;
+	height: 48px;
+}
+
+.nav-tree .item-link .thumb.host {
+	background: url("../images/theme-default/thumb-host.png") center center no-repeat;
+}
+
+.nav-tree .item-link .thumb.guest {
+	background: url("../images/theme-default/thumb-guest.png") center center no-repeat;
+}

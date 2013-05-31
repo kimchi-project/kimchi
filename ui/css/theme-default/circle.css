@@ -1,0 +1,16 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.circle {
+	position: relative;
+	margin: 30px 10px 10px 10px;
+	width: 70px;
+	height: 70px;
+}

@@ -1,0 +1,161 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+/*   STORAGE   */
+.storage_box {
+	height: 55px;
+	width: 1004px;
+	margin: 10px 10px 0 10px;
+	margin-top: 10px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	float: left;
+	clear: both;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	color: #666;
+}
+
+.storage_name {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 120px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	padding-left: 10px;
+}
+
+.storage_type {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 80px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.storage_used {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 120px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.storage_reserved {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 70px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.storage_free {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 70px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.storage_total {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 70px;
+	margin: 0;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.storage_unique {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 208px;
+	margin: 0;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #ccc;
+	padding-left: 10px;
+}
+
+.storage_shared {
+	height: 55px;
+	line-height: 55px;
+	font-size: 13px;
+	float: left;
+	width: 120px;
+	margin: 0;
+	border-left: 1px solid #fff;
+	border-left: 1px solid #fff;
+	padding-left: 10px;
+}
+
+.handle {
+	width: 49px;
+	height: 55px;;
+	background: #0b6bad;
+	float: right;
+	border-top-right: 1px solid #CCC;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-top-right-radius: 8px;
+	border-top-right-radius: 8px;
+	box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
+	border-bottom-right: 1px solid #CCC;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-bottom-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	display: block;
+	overflow: hidden;
+}
+
+.white_box {
+	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+	border: 1px solid #CCCCCC;
+	color: #333333;
+	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+}
+
+.storage_heading_box {
+	border-width: 1px;
+	color: black;
+	font-weight: bold;
+	height: 55px;
+	width: 1004px;
+	margin: 0 0 0 11px;
+	float: left;
+	clear: both;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+/* END OF Storage */

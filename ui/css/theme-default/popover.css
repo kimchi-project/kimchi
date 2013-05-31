@@ -1,0 +1,106 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.popover {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #eee;
+	border: 2px solid #096aad;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+	z-index: 9999;
+	position: absolute;
+	top: 125%;
+	left: 0;
+	display: none;
+	cursor: default;
+}
+
+.popover::BEFORE {
+	content: "";
+	display: block;
+	border: 12px solid rgba(0, 0, 0, 0);
+	border-bottom-color: #096aad;
+	position: absolute;
+	top: -24px;
+	left: 20px;
+}
+
+.popover::AFTER {
+	content: "";
+	display: block;
+	border: 10px solid rgba(0, 0, 0, 0);
+	border-bottom-color: #eee;
+	position: absolute;
+	top: -20px;
+	left: 22px;
+}
+
+.popover.right-side {
+	left: auto;
+	right: 0;
+}
+
+.popover.right-side::BEFORE {
+	left: auto;
+	right: 20px;
+}
+
+.popover.right-side::AFTER {
+	left: auto;
+	right: 22px;
+}
+.open>.popover {
+	display: block;
+}
+
+/* Generated at http://colorzilla.com/gradient-editor/ */
+.actionsheet {
+	background: rgb(238, 238, 238);
+	background: -moz-linear-gradient(top, rgba(238, 238, 238, 1) 0%, rgba(204, 204, 204, 1) 10px, rgba(204, 204, 204, 1) 96%,
+		rgba(165, 165, 165, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238, 238, 238, 1)),
+		color-stop(10px, rgba(204, 204, 204, 1)), color-stop(96%, rgba(204, 204, 204, 1)),
+		color-stop(100%, rgba(165, 165, 165, 1)));
+	background: -webkit-linear-gradient(top, rgba(238, 238, 238, 1) 0%, rgba(204, 204, 204, 1) 10px, rgba(204, 204, 204, 1)
+		96%, rgba(165, 165, 165, 1) 100%);
+	background: -o-linear-gradient(top, rgba(238, 238, 238, 1) 0%, rgba(204, 204, 204, 1) 10px, rgba(204, 204, 204, 1) 96%,
+		rgba(165, 165, 165, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(238, 238, 238, 1) 0%, rgba(204, 204, 204, 1) 10px, rgba(204, 204, 204, 1) 96%,
+		rgba(165, 165, 165, 1) 100%);
+	background: linear-gradient(to bottom, rgba(238, 238, 238, 1) 0%, rgba(204, 204, 204, 1) 10px, rgba(204, 204, 204, 1)
+		96%, rgba(165, 165, 165, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#eeeeee', endColorstr='#a5a5a5', GradientType=0);
+	padding: 10px 10px 0 10px;
+}
+
+.select-list>li {
+	height: 48px;
+	padding: 0 20px 0 40px;
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0px 1px 1px #fff;
+	text-shadow: -1px -1px 1px #ddd, 1px 1px 1px #fff;
+	color: #222;
+	font-size: 12px;
+	line-height: 48px;
+}
+
+.select-list>li:LAST-CHILD {
+	border-bottom: none;
+	box-shadow: inherit;
+}
+
+.select-list>li:hover {
+	background: #f8f8f8 url(../images/theme-default/check-grey.png) no-repeat 10px center;
+}
+
+.select-list>li.active {
+	background: #f8f8f8 url(../images/theme-default/check-green.png) no-repeat 10px center;
+}

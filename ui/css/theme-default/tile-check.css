@@ -1,0 +1,38 @@
+/*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Lise Noble <lwnoble@us.ibm.com>
+ *
+ * All Rights Reserved.
+ */
+.tile-check {
+	overflow: hidden;
+}
+
+.tile-check>li {
+	float: left;
+	padding: 5px;
+}
+
+.tile-check>li>label {
+	display: block;
+	cursor: pointer;
+}
+
+.tile-check>li>label>input[type="radio"] {
+	display: none;
+}
+
+.tile-check>li>label>.info {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	border: 4px solid #ccc;
+}
+
+.tile-check>li>label>input[type="radio"]:CHECKED+.info {
+	border: 4px solid #06C;
+}
