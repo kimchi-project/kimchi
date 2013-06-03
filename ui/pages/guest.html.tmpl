@@ -1,0 +1,87 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *
+ * All Rights Reserved.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+<!DOCTYPE html>
+<html>
+<body>
+<div class="toolbar">
+	<div class="tools">
+		<a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+	</div>
+</div>
+<div>
+	<ul class="list-title">
+		<li class="guest-type">$_("Name")</li>
+		<li class="guest-cpu">$_("CPU")</li>
+		<li class="guest-memory">$_("Memory")</li>
+		<li class="guest-storage">$_("Storage")</li>
+		<li class="guest-tile">$_("Livetile")</li>
+		<li class="guest-actions">$_("Actions")</li>
+	</ul>
+	<ul id="guestList" class="list-vm">
+	</ul>
+	<ul id="tmpl-guest" class="tmpl-html">
+		<li>
+			<div class="sortable guest-type">
+				<div class="guest-general">
+					<h2 class="title"><span class="alert">!</span> {name}</h2>
+				</div>
+			</div>
+			<div class="sortable guest-cpu">
+				<div class="circle" data-value="15"></div>
+			</div>
+			<div class="sortable guest-memory">
+				<div class="circle" data-value="35"></div>
+				<div class="subtitle">{memory}M</div>
+			</div>
+			<div class="sortable guest-storage">
+				<div class="circle" data-value="65"></div>
+				<div class="subtitle"></div>
+			</div>
+			<div class="sortable guest-tile">
+				<div class="tile"><img alt="" src="{screenshot}" width="170px" height="110px"></div>
+			</div>
+			<div class="sortable guest-actions">
+				<div class="top">
+					<a class="btn vm-reset" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);"><span class="icon reset"></span></a>
+					<a class="btn vm-start" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);"><span class="icon power-down"></span></a>
+					<a class="btn vm-stop" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);"><span class="icon power-up"></span></a>
+				</div>
+				<div class="bottom">
+					<div class="btn dropdown popable" style="width: 70px">
+						<span class="text">$_("Actions")</span><span class="arrow"></span>
+						<div class="popover actionsheet right-side" style="width: 250px">
+							<a class="button-big vm-vnc" data-vm="{name}">VNC</a>
+							<a class="button-big red vm-delete" data-vm="{name}">$_("Delete")</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+<script>
+	burnet.guest_main();
+</script>
+</body>
+</html>

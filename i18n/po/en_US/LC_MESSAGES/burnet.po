@@ -6,92 +6,173 @@ msgid ""
 msgstr ""
 "Project-Id-Version: burnet 0.1\n"
 "POT-Creation-Date: 2013-04-18 22:35+CST\n"
-"PO-Revision-Date: 2013-04-18 22:44+0800\n"
+"PO-Revision-Date: 2013-05-30 18:06+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: en_US\n"
+"X-Poedit-Country: United States\n"
 "X-Poedit-Language: English\n"
-"X-Poedit-Country:  United States\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-msgid "localhost"
-msgstr ""
-
+#: ui/pages/dev-ui.html.tmpl:46
 msgid "Host"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:48
 msgid "Reboot"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:49
 msgid "Shutdown"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:50
 msgid "SOS Report"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:61
 msgid "Project Burnet"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:63
 msgid "Language:"
 msgstr ""
 
+#: ui/pages/burnet-ui.html.tmpl:39 ui/pages/dev-ui.html.tmpl:75
 msgid "Guests"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:76 ui/pages/guest.html.tmpl:27
 msgid "Storage"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:77
 msgid "Networks"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:78
 msgid "Statistics"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:79
 msgid "About"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:88
 msgid "Virtual Machines"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:90
 msgid "Display"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:91
 msgid "Power On"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:92
 msgid "Power Off"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:93 ui/pages/dev-ui.html.tmpl:106
 msgid "Settings"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:94 ui/pages/dev-ui.html.tmpl:105
+#: ui/pages/guest.html.tmpl:65
 msgid "Delete"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:95
 msgid "More..."
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:102
 msgid "Templates"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:104
 msgid "Create VM"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:117
 msgid "Custom"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:145
 msgid "Forum"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:146
 msgid "API"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:147
 msgid "Twitter"
 msgstr ""
 
+#: ui/pages/dev-ui.html.tmpl:148
 msgid "IRC"
+msgstr ""
+
+#: ui/pages/guest.html.tmpl:24
+msgid "Name"
+msgstr ""
+
+#: ui/pages/guest.html.tmpl:25
+msgid "CPU"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:54 ui/pages/guest.html.tmpl:26
+msgid "Memory"
+msgstr ""
+
+#: ui/pages/guest.html.tmpl:28
+msgid "Livetile"
+msgstr ""
+
+#: ui/pages/guest.html.tmpl:29 ui/pages/guest.html.tmpl:62
+msgid "Actions"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:19
+msgid "Create a New Virtual Machine"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:25
+msgid "Virtual Machine Name"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:28
+msgid ""
+"The name used to identify the VM. If omitted, a name will be chosen based on"
+" the template used."
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:34
+msgid "Template"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:37
+msgid "Please choose a template."
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:51
+msgid "OS"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:52
+msgid "OS Version"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:53
+msgid "CPUS"
+msgstr ""
+
+#: ui/pages/guest-add.html.tmpl:66
+msgid "Create"
 msgstr ""

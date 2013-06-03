@@ -124,7 +124,7 @@ var burnet = {
 			type : "POST",
 			dataType : "json",
 		}).done(function(data, textStatus, xhr) {
-			url = "/static/vnc_auto.html?port=" + data.vnc_port;
+			url = "/vnc_auto.html?port=" + data.vnc_port;
 			window.open(url);
 		});
 	},

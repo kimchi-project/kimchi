@@ -1,0 +1,65 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *
+ * All Rights Reserved.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Burnet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="css/theme-default.min.css">
+<script src="libs/modernizr.custom.76777.js"></script>
+</head>
+<body>
+<div class="container">
+<header class="topbar">
+	<h1 id="logo"><img alt="Project Burnet" src="images/theme-default/logo-white.png"></h1>
+	<ul class="nav-top">
+		<li>
+			<a id="user" href="javascript:void(0);">
+				<span id="username">Lise W. Noble</span>
+			</a>
+		</li>
+	</ul>
+</header>
+<div class="content">
+	<nav class="navbar">
+		<ul id="nav-menu" class="nav-menu">
+			<li>
+				<a class="item current" href="guest.html">$_("Guests")</a>
+			</li>
+			<li class="menu-arrow"></li>
+		</ul>
+	</nav>
+	<div id="main">
+
+	</div>
+</div>
+</div>
+<script src="libs/jquery-1.10.0.min.js"></script>
+<script src="js/burnet.min.js"></script>
+<script>
+burnet.main();
+</script>
+</body>
+</html>
