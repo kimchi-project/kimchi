@@ -13,6 +13,7 @@ BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
 Group:		System Environment/Base
 License:	IBM
 Source0:	%{name}.tar.gz
+BuildRequires:	python-polib
 Requires:	libvirt
 Requires:	libvirt-python
 
