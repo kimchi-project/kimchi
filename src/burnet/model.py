@@ -459,19 +459,24 @@ class LibvirtVMScreenshot(VMScreenshot):
             fd = opaque
             os.write(fd, buf)
 
+        fd = os.open(thumbnail, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0644)
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(self.vm_name)
             stream = conn.newStream(0)
             mimetype = dom.screenshot(stream, 0, 0)
-            fd = os.open(thumbnail,
-                         os.O_WRONLY | os.O_TRUNC | os.O_CREAT,
-                         0644)
             stream.recvAll(handler, fd)
-            os.close(fd)
         except libvirt.libvirtError:
+            try:
+                stream.abort()
+            except:
+                pass
             raise NotFoundError("Screenshot not supported for %s" %
                                 self.vm_name)
+        else:
+            stream.finish()
+        finally:
+            os.close(fd)
 
 
 def _get_pool_xml(**kwargs):
