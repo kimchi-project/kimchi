@@ -8,6 +8,12 @@
  *
  * All Rights Reserved.
  */
+
+/* Hide the "Build Me" warning */
+#buildme {
+	display: none;
+}
+
 .bgmask {
 	position: fixed;
 	left: 0;
