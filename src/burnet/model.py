@@ -11,6 +11,7 @@
 
 import re
 import threading
+import time
 import logging
 import libvirt
 import functools
@@ -172,15 +173,36 @@ class Model(object):
         self.conn = LibvirtConnection(self.libvirt_uri)
         self.objstore = ObjectStore(objstore_loc)
         self.vnc_ports = {}
+        self.cpu_stats = {}
+
+    def _get_cpu_stats(self, name, info):
+        timestamp = time.time()
+        prevCpuTime = 0
+        prevTimestamp = 0
+
+        prevStats = self.cpu_stats.get(name, None)
+        if prevStats is not None:
+            prevTimestamp = prevStats["timestamp"]
+            prevCpuTime = prevStats["cputime"]
+
+        self.cpu_stats[name] = {'timestamp': timestamp, 'cputime': info[4]}
+
+        cpus = info[3]
+        cpuTime = info[4] - prevCpuTime
+        base = (((cpuTime) * 100.0) / ((timestamp - prevTimestamp) * 1000.0 * 1000.0 * 1000.0))
+
+        return max(0.0, min(100.0, base / cpus))
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
         state = Model.dom_state_map[info[0]]
         screenshot = 'images/image-missing.svg'
+        cpu_stats = 0
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
+                cpu_stats = self._get_cpu_stats(name, info)
         except NotFoundError:
             pass
 
@@ -192,6 +214,7 @@ class Model(object):
         icon = extra_info.get('icon')
 
         return {'state': state,
+                'cpu_stats': str(cpu_stats),
                 'memory': info[2] >> 10,
                 'screenshot': screenshot,
                 'icon': icon,

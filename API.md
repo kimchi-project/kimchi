@@ -60,6 +60,7 @@ the following general conventions:
         * running: The VM is powered on
         * paused: The VMs virtual CPUs are paused
         * shutoff: The VM is powered off
+    * cpu_stats: The percentage of CPU usage in the VM
     * memory: The amount of memory assigned to the VM (in MB)
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
