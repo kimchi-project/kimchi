@@ -78,6 +78,7 @@ class VMTemplate(object):
         params = dict(self.info)
         params['name'] = vm_name
         params['disks'] = self._get_disks_xml(vm_name, storage_path)
+        params['arch'] = os.uname()[4]
 
         xml = """
         <domain type='kvm'>
@@ -85,7 +86,7 @@ class VMTemplate(object):
           <memory unit='MiB'>%(memory)s</memory>
           <vcpu>%(cpus)s</vcpu>
           <os>
-            <type arch='x86_64'>hvm</type>
+            <type arch='%(arch)s'>hvm</type>
           </os>
           <features>
             <acpi/>
