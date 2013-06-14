@@ -31,7 +31,8 @@ osinfo = [
         'memory': 1024,
         'cdrom': '',
         'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'ne2k_pci'
+        'disk_bus': 'ide', 'nic_model': 'ne2k_pci',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
     ('debian', {
         'version': lambda d,v: bool(d == 'debian' and v in ('squeeze',)),
@@ -39,7 +40,8 @@ osinfo = [
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
         'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio'
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
     ('ubuntu', {
         'version': lambda d,v: bool(d == 'ubuntu' and v in ('raring',)),
@@ -47,7 +49,8 @@ osinfo = [
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
         'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio'
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
     ('opensuse-12.3', {
         'version': lambda d,v: bool(d == 'opensuse' and v in ('12.3',)),
@@ -55,7 +58,8 @@ osinfo = [
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
         'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio'
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
     ('fedora-18', {
         'version': lambda d,v: bool(d == 'fedora' and v in ('16', '17', '18',)),
@@ -63,7 +67,8 @@ osinfo = [
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
         'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio'
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
 ]
 

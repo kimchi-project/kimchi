@@ -26,7 +26,7 @@ import string
 import osinfo
 
 class VMTemplate(object):
-    _bus_to_dev = {'ide': 'hd', 'virtio': 'vd'}
+    _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 
     def __init__(self, args):
         self.name = args['name']
@@ -40,6 +40,22 @@ class VMTemplate(object):
 
         # Override with the passed in parameters
         self.info.update(args)
+
+    def _get_cdrom_xml(self):
+        bus = self.info['cdrom_bus']
+        dev = "%s%s" % (self._bus_to_dev[bus],
+                        string.lowercase[self.info['cdrom_index']])
+        params = {'src': self.info['cdrom'], 'dev': dev, 'bus': bus}
+
+        xml = """
+            <disk type='file' device='cdrom'>
+              <driver name='qemu' type='raw'/>
+              <source file='%(src)s' />
+              <target dev='%(dev)s' bus='%(bus)s'/>
+              <readonly/>
+            </disk>
+        """ % (params)
+        return xml
 
     def _get_disks_xml(self, vm_name, storage_path):
         ret = ""
@@ -89,6 +105,7 @@ class VMTemplate(object):
         params = dict(self.info)
         params['name'] = vm_name
         params['disks'] = self._get_disks_xml(vm_name, storage_path)
+        params['cdroms'] = self._get_cdrom_xml()
         params['arch'] = os.uname()[4]
 
         xml = """
@@ -110,12 +127,7 @@ class VMTemplate(object):
           <on_crash>restart</on_crash>
           <devices>
             %(disks)s
-            <disk type='file' device='cdrom'>
-              <driver name='qemu' type='raw'/>
-              <source file='%(cdrom)s' />
-              <target dev='hdc' bus='ide'/>
-              <readonly/>
-            </disk>
+            %(cdroms)s
             <interface type='network'>
               <source network='%(network)s'/>
               <model type='%(nic_model)s'/>
