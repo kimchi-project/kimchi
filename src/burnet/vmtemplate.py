@@ -26,6 +26,8 @@ import string
 import osinfo
 
 class VMTemplate(object):
+    _bus_to_dev = {'ide': 'hd', 'virtio': 'vd'}
+
     def __init__(self, args):
         self.name = args['name']
         self.info = {}
@@ -40,14 +42,12 @@ class VMTemplate(object):
         self.info.update(args)
 
     def _get_disks_xml(self, vm_name, storage_path):
-        bus_to_dev = {'ide': 'hd', 'virtio': 'vd'}
-
         ret = ""
         for i, disk in enumerate(self.info['disks']):
             index = disk.get('index', i)
             volume = "%s-%s.img" % (vm_name, index)
             src = os.path.join(storage_path, volume)
-            dev = "%s%s" % (bus_to_dev[self.info['disk_bus']],
+            dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
                             string.lowercase[index])
             params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus']}
             ret += """
