@@ -1,2 +1,5 @@
 *.pyc
 *~
+i18n/mo/*
+log/*
+data/*
