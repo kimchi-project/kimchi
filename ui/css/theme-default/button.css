@@ -286,10 +286,12 @@
 	height: 38px;
 	margin: 6px 3px;
 	vertical-align: top;
-	background: #06C;
+	background: #06F;
 	line-height: 38px;
 	padding: 0 20px;
 	color: #EEE;
+        border-radius: 8px;
+        font-size: 13px;
 }
 
 .btn-group {
