@@ -91,6 +91,15 @@ burnet.listVmsAuto = function() {
 			var listHtml='';
 			var guestTemplate = $('#tmpl-guest').html();
 			$.each(result, function(index, value) {
+				if (value.state == 'running') {
+					image = value.screenshot;
+				} else {
+					image = value.icon;
+				}
+				if (!image) {
+					image = "images/icon-vm.svg";
+				}
+				value['tile-src'] = image
 				listHtml+=burnet.template(guestTemplate, value);
 			});
 			$('#guestList').html(listHtml);

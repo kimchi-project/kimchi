@@ -208,7 +208,7 @@ class Model(object):
         dom = self._get_vm(name)
         info = dom.info()
         state = Model.dom_state_map[info[0]]
-        screenshot = 'images/image-missing.svg'
+        screenshot = None
         cpu_stats = 0
         try:
             if state == 'running':

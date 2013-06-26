@@ -192,9 +192,16 @@
 .list-vm .tile {
 	width: 170px;
 	height: 110px;
-	background: #222;
 	box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
 	margin: 10px;
+}
+
+.list-vm .shutoff {
+	box-shadow: none !important;
+}
+
+.list-vm .shutoff img {
+	opacity: 0.4;
 }
 
 .list-title {

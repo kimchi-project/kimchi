@@ -60,7 +60,7 @@ class MockModel(object):
         if vm.info['state'] == 'running':
             vm.info['screenshot'] = self.vmscreenshot_lookup(name)
         else:
-            vm.info['screenshot'] = '/images/image-missing.svg'
+            vm.info['screenshot'] = None
         vm.info['vnc_port'] = self._mock_vnc_ports.get(name, None)
         return vm.info
 
