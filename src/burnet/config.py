@@ -25,9 +25,12 @@
 import os, os.path
 from glob import iglob
 import sys
+from distutils.dist import Distribution
 
-
-PREFIX = sys.prefix
+d = Distribution()
+d.parse_config_files()
+opt = d.get_option_dict('install').get('prefix')
+PREFIX = opt[1] if opt is not None else sys.prefix
 
 
 def get_prefix():
