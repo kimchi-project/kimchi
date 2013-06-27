@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: burnet 0.1\n"
 "POT-Creation-Date: 2013-04-18 22:35+CST\n"
-"PO-Revision-Date: 2013-06-27 06:46+0000\n"
+"PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "MIME-Version: 1.0\n"
@@ -138,12 +138,12 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ui/pages/guest.html.tmpl:45
+#: ui/pages/guest.html.tmpl:45 ui/pages/template-edit.html.tmpl:71
 msgid "CPU"
 msgstr ""
 
 #: ui/pages/guest-add.html.tmpl:64 ui/pages/guest.html.tmpl:46
-#: ui/pages/template.html.tmpl:75
+#: ui/pages/template-edit.html.tmpl:79 ui/pages/template.html.tmpl:75
 msgid "Memory"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Create a New Virtual Machine"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:35
+#: ui/pages/guest-add.html.tmpl:35 ui/pages/template-add.html.tmpl:35
 msgid "Virtual Machine Name"
 msgstr ""
 
@@ -190,7 +190,8 @@ msgstr ""
 msgid "CPUS"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:76
+#: ui/pages/guest-add.html.tmpl:76 ui/pages/template-add.html.tmpl:79
+#: ui/pages/template-add.html.tmpl:90
 msgid "Create"
 msgstr ""
 
@@ -202,7 +203,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ui/pages/template.html.tmpl:70
+#: ui/pages/template-edit.html.tmpl:63 ui/pages/template.html.tmpl:70
 msgid "Version"
 msgstr ""
 
@@ -212,4 +213,96 @@ msgstr ""
 
 #: ui/pages/template.html.tmpl:74
 msgid "CPUs"
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:41
+msgid "Add Template"
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:49
+msgid "What would you like to do?"
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:53
+msgid "Select a specific ISO to create a template."
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:60
+msgid "Where is the ISO file?"
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:64
+msgid "The ISO is on my server."
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:68
+msgid "I want to stream an ISO from the Internet."
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:75
+msgid "Select the ISO you\\342\\200\\231d like to use to create a template:"
+msgstr ""
+
+#: ui/pages/template-add.html.tmpl:86
+msgid "Please enter a URL:"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:38
+msgid "Edit Template"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:47
+msgid "ID"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:55
+msgid "Vendor"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:89
+msgid "Icon Default or Custom"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:94
+msgid "Icon Default"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:98
+msgid "Icon Custom"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:104
+msgid "Background Color"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:112
+msgid "Overlay Type"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:116
+msgid "Overlay Type Icon"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:118
+msgid "Overlay Type Text"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:123
+msgid "Button Finish Style"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:127
+msgid "Button Finish Style Gloss"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:129
+msgid "Button Finish Style Gradient"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:137
+msgid "Cancel"
+msgstr ""
+
+#: ui/pages/template-edit.html.tmpl:138
+msgid "Save"
 msgstr ""

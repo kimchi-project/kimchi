@@ -1,0 +1,144 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+
+<div id="template-edit-window" class="window">
+	<header>
+		<h1 class="title">$_("Edit Template")</h1>
+		<div class="close">X</div>
+	</header>
+	<div class="content">
+		<form id="form-template-edit">
+			<input type="hidden" id="template-name" name="templateName" />
+			<fieldset class="template-edit-fieldset">
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-id-textbox">$_("ID")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-id-textbox" name="name" type="text" />
+					</div>
+				</div>
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-vendor-textbox">$_("Vendor")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-vendor-textbox" name="os_distro" type="text" readonly="readonly" />
+					</div>
+				</div>
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-version-textbox">$_("Version")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-version-textbox" name="os_version" type="text" readonly="readonly" />
+					</div>
+				</div>
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-cpu-textbox">$_("CPU")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-cpu-textbox" name="cpus" type="text" />
+					</div>
+				</div>
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-memory-textbox">$_("Memory")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-memory-textbox" name="memory" type="text" />
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="template-edit-fieldset">
+				<div>
+					<div class="template-edit-wrapper-label">
+						<label>$_("Icon Default or Custom")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<div>
+							<input id="template-edit-icon-radiobox-default" name="iconDefaultOrCustom" type="radio" disabled="disabled" />
+							<label for="template-edit-icon-radiobox-default">$_("Icon Default")</label>
+						</div>
+						<div>
+							<input id="template-edit-icon-radiobox-custom" name="iconDefaultOrCustom" type="radio" disabled="disabled" />
+							<label for="template-edit-icon-radiobox-custom">$_("Icon Custom")</label>
+						</div>
+					</div>
+				</div>
+				<div class="hidden-area">
+					<div class="template-edit-wrapper-label">
+						<label for="template-edit-backgroundcolor-radiobox">$_("Background Color")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-backgroundcolor-radiobox" name="bgcolor" type="text" />
+					</div>
+				</div>
+				<div class="hidden-area">
+					<div class="template-edit-wrapper-label">
+						<label>$_("Overlay Type")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-overlaytype-radiobox-icon" name="overlayIconOrText" type="radio" />
+						<label for="template-edit-overlaytype-radiobox-icon">$_("Overlay Type Icon")</label>
+						<input id="template-edit-overlaytype-radiobox-text" name="overlayIconOrText" type="radio" />
+						<label for="template-edit-overlaytype-radiobox-text">$_("Overlay Type Text")</label>
+					</div>
+				</div>
+				<div class="hidden-area">
+					<div class="template-edit-wrapper-label">
+						<label>$_("Button Finish Style")</label>
+					</div>
+					<div class="template-edit-wrapper-controls">
+						<input id="template-edit-buttonfinishstyle-radiobox-gloss" name="btnstyle" type="radio" />
+						<label for="template-edit-buttonfinishstyle-radiobox-gloss">$_("Button Finish Style Gloss")</label>
+						<input id="template-edit-buttonfinishstyle-radiobox-gradient" name="btnstyle" type="radio" />
+						<label for="template-edit-buttonfinishstyle-radiobox-gradient">$_("Button Finish Style Gradient")</label>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<footer>
+		<div class="btn-group">
+			<a id="tmpl-edit-button-cancel" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Cancel")</span></a>
+			<a id="tmpl-edit-button-save" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Save")</span></a>
+		</div>
+	</footer>
+</div>
+<script>
+	burnet.template_edit_main();
+</script>

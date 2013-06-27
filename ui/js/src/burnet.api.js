@@ -82,6 +82,33 @@ var burnet = {
 	},
 
 	/**
+	 * Retrieve the information of a template by the given name.
+	 */
+	retrieveTemplate : function(templateName, suc, err) {
+                $.ajax({
+                        url : burnet.url + "templates/" + templateName,
+                        type : 'GET',
+                        contentType : 'application/json',
+                        dataType : 'json'
+                }).done(suc);
+        },
+
+	/**
+	 * Update a template with new information.
+	 * TODO: Update me when the RESTful API is available.
+	 * Now work it around by remove the template and then
+	 * recreate it with new information.
+	 */
+	updateTemplate : function(name, settings, suc, err) {
+		burnet.retrieveTemplate(name, function(template) {
+			$.extend(template, settings);
+			burnet.deleteTemplate(name, function() {
+				burnet.createTemplate(template, suc, err);
+			}, err);
+		}, err);
+	},
+
+	/**
 	 * Create a new Storage Pool. settings name: The name of the Storage Pool
 	 * path: The path of the defined Storage Pool type: The type of the defined
 	 * Storage Pool capacity: The total space which can be used to store volumes
