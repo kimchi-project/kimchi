@@ -1,0 +1,85 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Mei Na Zhou <zhmeina@cn.ibm.com>
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+<!DOCTYPE html>
+<html>
+<body>
+<div class="toolbar">
+    <div class="tools">
+        <a id="template-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+    </div>
+</div>
+<div>
+    <ul id ="templateTitle" class="list-title"></ul>
+
+	<ul id="titleTmpl" class="tmpl-html">
+		<div class='template-results-title'>
+			$_("Templates")<span>({tempnum}$_("Results"))</span>
+		</div>
+    </ul>
+
+    <ul id="templateList"></ul>
+
+    <ul id="templateTmpl" class="tmpl-html">
+
+    <div class="template-box white-box template-border">
+        <div class="btn dropdown popable" style="width: 70px">
+            <span class="text">$_("Actions")</span><span class="arrow"></span>
+            <div class="popover actionsheet right-side" style="width: 250px">
+                <a class="button-big template-edit" data-template='{name}'>$_("Edit")</a>
+                <a class="button-big red template-delete" data-template='{name}'>$_("Delete")</a>
+            </div>
+        </div>
+
+		<div class="mini-line"></div>
+		<div class="template-icon template-icon-position"></div>
+		<div class="template-title template-title-position">{name}</div>
+		<div class="template-os-position">
+			<div class="template-text">$_("OS"):{os_distro}</div>
+			<div class="template-text">$_("Version"):{os_version}</div>
+		</div>
+		<div class="template-cpu-position">
+			<div class="template-text">$_("Default Settings")</div>
+			<div class="template-text">$_("CPUs"):{cpus}</div>
+			<div class="template-text">$_("Memory"):{memory}</div>
+		</div>
+	</div>
+</div>
+</ul>
+</div>
+<script>
+    burnet.template_main();
+</script>
+</body>
+</html>

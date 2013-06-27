@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: burnet 0.1\n"
 "POT-Creation-Date: 2013-04-18 22:35+CST\n"
-"PO-Revision-Date: 2013-05-30 18:06+0000\n"
+"PO-Revision-Date: 2013-06-27 06:46+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "MIME-Version: 1.0\n"
@@ -56,11 +56,11 @@ msgstr ""
 msgid "Language:"
 msgstr ""
 
-#: ui/pages/burnet-ui.html.tmpl:39 ui/pages/dev-ui.html.tmpl:75
+#: ui/pages/burnet-ui.html.tmpl:86 ui/pages/dev-ui.html.tmpl:75
 msgid "Guests"
 msgstr ""
 
-#: ui/pages/dev-ui.html.tmpl:76 ui/pages/guest.html.tmpl:27
+#: ui/pages/dev-ui.html.tmpl:76 ui/pages/guest.html.tmpl:47
 msgid "Storage"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgid "Settings"
 msgstr ""
 
 #: ui/pages/dev-ui.html.tmpl:94 ui/pages/dev-ui.html.tmpl:105
-#: ui/pages/guest.html.tmpl:65
+#: ui/pages/guest.html.tmpl:85 ui/pages/template.html.tmpl:61
 msgid "Delete"
 msgstr ""
 
@@ -105,7 +105,8 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
-#: ui/pages/dev-ui.html.tmpl:102
+#: ui/pages/burnet-ui.html.tmpl:89 ui/pages/dev-ui.html.tmpl:102
+#: ui/pages/template.html.tmpl:48
 msgid "Templates"
 msgstr ""
 
@@ -133,60 +134,82 @@ msgstr ""
 msgid "IRC"
 msgstr ""
 
-#: ui/pages/guest.html.tmpl:24
+#: ui/pages/guest.html.tmpl:44
 msgid "Name"
 msgstr ""
 
-#: ui/pages/guest.html.tmpl:25
+#: ui/pages/guest.html.tmpl:45
 msgid "CPU"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:54 ui/pages/guest.html.tmpl:26
+#: ui/pages/guest-add.html.tmpl:64 ui/pages/guest.html.tmpl:46
+#: ui/pages/template.html.tmpl:75
 msgid "Memory"
 msgstr ""
 
-#: ui/pages/guest.html.tmpl:28
+#: ui/pages/guest.html.tmpl:48
 msgid "Livetile"
 msgstr ""
 
-#: ui/pages/guest.html.tmpl:29 ui/pages/guest.html.tmpl:62
+#: ui/pages/guest.html.tmpl:49 ui/pages/guest.html.tmpl:82
+#: ui/pages/template.html.tmpl:58
 msgid "Actions"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:19
+#: ui/pages/guest-add.html.tmpl:29
 msgid "Create a New Virtual Machine"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:25
+#: ui/pages/guest-add.html.tmpl:35
 msgid "Virtual Machine Name"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:28
+#: ui/pages/guest-add.html.tmpl:38
 msgid ""
 "The name used to identify the VM. If omitted, a name will be chosen based on"
 " the template used."
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:34
+#: ui/pages/guest-add.html.tmpl:44
 msgid "Template"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:37
+#: ui/pages/guest-add.html.tmpl:47
 msgid "Please choose a template."
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:51
+#: ui/pages/guest-add.html.tmpl:61 ui/pages/template.html.tmpl:69
 msgid "OS"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:52
+#: ui/pages/guest-add.html.tmpl:62
 msgid "OS Version"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:53
+#: ui/pages/guest-add.html.tmpl:63
 msgid "CPUS"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:66
+#: ui/pages/guest-add.html.tmpl:76
 msgid "Create"
+msgstr ""
+
+#: ui/pages/template.html.tmpl:48
+msgid "Results"
+msgstr ""
+
+#: ui/pages/template.html.tmpl:60
+msgid "Edit"
+msgstr ""
+
+#: ui/pages/template.html.tmpl:70
+msgid "Version"
+msgstr ""
+
+#: ui/pages/template.html.tmpl:73
+msgid "Default Settings"
+msgstr ""
+
+#: ui/pages/template.html.tmpl:74
+msgid "CPUs"
 msgstr ""

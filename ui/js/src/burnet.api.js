@@ -59,6 +59,28 @@ var burnet = {
 		}).done(suc).fail(err);
 	},
 
+	deleteTemplate : function(tem, suc, err) {
+		$.ajax({
+			url : burnet.url + 'templates/' + tem,
+			type : 'DELETE',
+			contentType : 'application/json',
+			dataType : 'json',
+			success : suc,
+			error : err
+		});
+	},
+
+	listTemplates : function(suc, err) {
+		$.ajax({
+			url : burnet.url + 'templates',
+			type : 'GET',
+			contentType : 'application/json',
+			dataType : 'json',
+			success : suc,
+			error : err
+		});
+	},
+
 	/**
 	 * Create a new Storage Pool. settings name: The name of the Storage Pool
 	 * path: The path of the defined Storage Pool type: The type of the defined
