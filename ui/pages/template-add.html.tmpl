@@ -1,0 +1,102 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Xin Ding <xinding@cn.ibm.com>
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+$_("Virtual Machine Name")
+<!DOCTYPE html>
+<html>
+<body>
+<div class="window" style="width: 1004px;height: 700px;">
+	<header>
+		<h1 class="title">$_("Add Template")</h1>
+		<div class="close">X</div>
+	</header>
+	<div class="content" style="margin-bottom: 0">
+
+		<div class="step-field">
+			<!-- 1 -->
+			<div class="step-box" id="iso_type_box">
+				<h2 class="step-title">$_("What would you like to do?")</h2>
+				<div>
+					<label class="step-option">
+						<input type="radio" id="iso_specify" name="iso_type" value="specify">
+						<span>$_("Select a specific ISO to create a template.")</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- 1-1 -->
+			<div class="step-box" id="iso_location_box" style="display: none;">
+				<h2 class="step-title">$_("Where is the ISO file?")</h2>
+				<div>
+					<label class="step-option">
+						<input type="radio" id="iso_local" name="iso_location" value="local">
+						<span>$_("The ISO is on my server.")</span>
+					</label>
+					<label class="step-option">
+						<input type="radio" id="iso_internet" name="iso_location" value="internet">
+						<span>$_("I want to stream an ISO from the Internet.")</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- 1-1-1 -->
+			<div class="step-box" id="iso_file_box" style="display: none;">
+				<h2 class="step-title">$_("Select the ISO you’d like to use to create a template:")</h2>
+				<div>
+					<input type="text" class="text" style="width: 92%" id="iso_file" name="iso_file" value="">
+					<div class="btn-group">
+						<button class="btn-normal" id="btn-template-iso-create" style="display: none;"><span class="text">$_("Create")</span></button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 1-1-2 -->
+			<div class="step-box" id="iso_url_box" style="display: none;">
+				<h2 class="step-title">$_("Please enter a URL:")</h2>
+				<div>
+					<input type="text" class="text" style="width: 92%" id="iso_url" name="iso_url" value="">
+					<div class="btn-group">
+						<button class="btn-normal" id="btn-template-url-create" style="display: none;"><span class="text">$_("Create")</span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+burnet.template_add_main();
+</script>
+</body>
+</html>
