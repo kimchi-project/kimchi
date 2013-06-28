@@ -50,6 +50,10 @@
 	width: 48px;
 }
 
+.template-icon img {
+	width: 58px;
+}
+
 .template-text {
 	color: #999999;
 	float: left;
