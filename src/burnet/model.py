@@ -345,7 +345,7 @@ class Model(object):
         with self.objstore as session:
             if name in session.get_list('template'):
                 raise InvalidOperation("Template already exists")
-            t = vmtemplate.VMTemplate(params)
+            t = vmtemplate.VMTemplate(params, scan=True)
             session.store('template', name, t.info)
         return name
 

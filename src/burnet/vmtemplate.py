@@ -24,24 +24,33 @@ import os
 import string
 
 import osinfo
+import isoinfo
 
 class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 
-    def __init__(self, args):
+    def __init__(self, args, scan=False):
         """
         Construct a VM Template from a widely variable amount of information.
         The only required parameter is a name for the VMTemplate.  If present,
         the os_distro and os_version fields are used to lookup recommended
         settings.  Any parameters provided by the caller will override the
-        defaults.
+        defaults.  If scan is True and a cdrom is present, the operating system
+        will be detected by probing the installation media.
         """
         self.name = args['name']
         self.info = {}
 
+        # Identify the cdrom if present
+        iso_distro = iso_version = None
+        if scan:
+            iso = args.get('cdrom')
+            if iso is not None and iso.startswith('/'):
+                iso_distro, iso_version = isoinfo.probe_one(iso)
+
         # Fetch defaults based on the os distro and version
-        os_distro = args.get('os_distro')
-        os_version = args.get('os_version')
+        os_distro = args.get('os_distro', iso_distro)
+        os_version = args.get('os_version', iso_version)
         name, entry = osinfo.lookup(os_distro, os_version)
         self.info.update(entry)
 

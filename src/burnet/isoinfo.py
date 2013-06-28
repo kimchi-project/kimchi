@@ -267,6 +267,10 @@ def probe_iso(status_helper, params):
         status_helper('', True)
 
 
+def probe_one(iso):
+    return _probe_iso(iso)
+
+
 if __name__ == '__main__':
     iso_list = []
     def updater(iso_info):

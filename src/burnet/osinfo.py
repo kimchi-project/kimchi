@@ -144,6 +144,8 @@ def lookup(distro, version):
         # Test if this entry is a valid match
         if entry['version'](distro, version):
             params = copy.copy(defaults)
+            params['os_distro'] = distro
+            params['os_version'] = version
             params.update(entry)
             params['cdrom'] = isolinks.get(distro, {}).get(version, '')
             del params['version']  # Don't pass around the version function

@@ -143,7 +143,7 @@ class MockModel(object):
         name = params['name']
         if name in self._mock_templates:
             raise burnet.model.InvalidOperation("Template already exists")
-        t = burnet.vmtemplate.VMTemplate(params)
+        t = burnet.vmtemplate.VMTemplate(params, scan=True)
         self._mock_templates[name] = t
         return name
 
