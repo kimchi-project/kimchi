@@ -30,7 +30,7 @@ class VMTemplateTests(unittest.TestCase):
         fields = (('name', 'test'), ('os_distro', 'unknown'),
                   ('os_version', 'unknown'), ('cpus', 1),
                   ('memory', 1024), ('cdrom', ''), ('network', 'default'),
-                  ('disk_bus', 'ide'), ('nic_model', 'ne2k_pci'))
+                  ('disk_bus', 'ide'), ('nic_model', 'e1000'))
 
         args = {'name': 'test'}
         t = VMTemplate(args)
