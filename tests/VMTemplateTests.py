@@ -29,7 +29,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_minimal_construct(self):
         fields = (('name', 'test'), ('os_distro', 'unknown'),
                   ('os_version', 'unknown'), ('cpus', 1),
-                  ('memory', 1024), ('cdrom', ''),
+                  ('memory', 1024), ('cdrom', ''), ('network', 'default'),
                   ('disk_bus', 'ide'), ('nic_model', 'ne2k_pci'))
 
         args = {'name': 'test'}
@@ -50,3 +50,17 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals('/tmp/test-vm-0.img', xpath_get_text(xml, expr)[0])
         expr = "/domain/devices/disk[@device='disk']/target/@dev"
         self.assertEquals('hda', xpath_get_text(xml, expr)[0])
+
+    def test_arg_merging(self):
+        """
+        Make sure that default parameters from osinfo do not override user-
+        provided parameters.
+        """
+        args = {'name': 'test', 'os_distro': 'opensuse', 'os_version': '12.3',
+                'cpus': 2, 'memory': 2048, 'network': 'foo',
+                'cdrom': '/cd.iso'}
+        t = VMTemplate(args)
+        self.assertEquals(2, t.info.get('cpus'))
+        self.assertEquals(2048, t.info.get('memory'))
+        self.assertEquals('foo', t.info.get('network'))
+        self.assertEquals('/cd.iso', t.info.get('cdrom'))

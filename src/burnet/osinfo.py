@@ -92,14 +92,19 @@ isolinks = {
 defaults = {'network': 'default', 'storagepool': '/storagepools/default'}
 
 def lookup(distro, version):
+    """
+    Lookup all parameters needed to run a VM of a known or unknown operating
+    system type and version.  The data is constructed by starting with the
+    'defaults' and merging the parameters given for the identified OS.  If
+    known, a link to a remote install CD is added.
+    """
     ret = None
     for name, entry in osinfo:
         # Test if this entry is a valid match
         if entry['version'](distro, version):
-            params = copy.copy(entry)
+            params = copy.copy(defaults)
+            params.update(entry)
             params['cdrom'] = isolinks.get(distro, {}).get(version, '')
             del params['version']  # Don't pass around the version function
             ret = (name, params)
-    if ret:
-        ret[1].update(defaults)
     return ret

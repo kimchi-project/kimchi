@@ -29,6 +29,13 @@ class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 
     def __init__(self, args):
+        """
+        Construct a VM Template from a widely variable amount of information.
+        The only required parameter is a name for the VMTemplate.  If present,
+        the os_distro and os_version fields are used to lookup recommended
+        settings.  Any parameters provided by the caller will override the
+        defaults.
+        """
         self.name = args['name']
         self.info = {}
 
