@@ -26,6 +26,7 @@ import os, os.path
 from glob import iglob
 import sys
 from distutils.dist import Distribution
+import platform
 
 d = Distribution()
 d.parse_config_files()
@@ -67,6 +68,15 @@ def get_mo_path():
 def get_support_language():
     mopath = "%s/*" % get_mo_path()
     return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
+
+def find_qemu_binary():
+    locations = ['/usr/bin/qemu-system-%s' % platform.machine(),
+                    '/usr/libexec/qemu-kvm']
+    for location in locations:
+        if os.path.exists(location):
+            return location
+    raise Exception("Unable to locate qemu binary")
+
 
 if __name__ == '__main__':
     print get_prefix()

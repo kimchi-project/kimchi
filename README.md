@@ -13,6 +13,10 @@ Install Dependencies
     $ sudo yum install python-cherrypy python-cheetah \
                        python-imaging python-polib
 
+Install Dependecies for RHEL6
+----------------------------
+    $ sudo yum install python-unittest2 python-ordereddict
+
 Build and Install
 -----------------
 

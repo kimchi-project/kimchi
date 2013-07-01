@@ -21,8 +21,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import random
-import platform
 import subprocess
+import os
 
 try:
     from PIL import Image
@@ -35,6 +35,7 @@ import burnet.model
 import burnet.vmtemplate
 from burnet.screenshot import VMScreenshot
 import burnet.vnc
+import config
 
 
 class MockModel(object):
@@ -44,7 +45,7 @@ class MockModel(object):
 
         # open vnc port
         # make it here to make sure it will be available on server startup
-        cmd = "qemu-system-%s"  % platform.machine()
+        cmd = config.find_qemu_binary()
         args = [cmd, "-vnc", ":99"]
 
         proc = subprocess.Popen(["ps", "-C", '"%s"' % " ".join(args), "-o", "pid", "h"], stdout=subprocess.PIPE)

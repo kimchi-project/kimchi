@@ -32,6 +32,10 @@ Requires:	python-ordereddict
 Requires:	python-imaging
 %endif
 
+%if 0%{?rhel} == 6
+BuildRequires:    python-unittest2
+%endif
+
 %if 0%{?with_systemd}
 Requires:	systemd
 %endif
