@@ -435,14 +435,16 @@ class RestTests(unittest.TestCase):
 
         # Test screenshot sub-resource redirect
         resp = request(host, port, '/vms/test-vm/screenshot')
-        self.assertEquals(303, resp.status)
-        url_1 = resp.getheader('Location')
-        self.assertNotEquals(url_1.find(vm['screenshot']), -1)
+        self.assertEquals(200, resp.status)
+        self.assertEquals('image/png', resp.getheader('content-type'))
+        lastMod1 = resp.getheader('last-modified')
 
-        # Take another screenshot instantly and compare the content
+
+        # Take another screenshot instantly and compare the last Modified date
         resp = request(host, port, '/vms/test-vm/screenshot')
-        url_2 = resp.getheader('Location')
-        self.assertEquals(url_1, url_2)
+        lastMod2 = resp.getheader('last-modified')
+        self.assertEquals(lastMod2, lastMod1)
+
 
         resp = request(host, port, '/vms/test-vm/screenshot', '{}', 'DELETE')
         self.assertEquals(405, resp.status)

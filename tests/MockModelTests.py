@@ -86,14 +86,17 @@ class MockModelTests(unittest.TestCase):
         # Test screenshot refresh for running vm
         request(host, port, '/vms/test-vm/start', '{}', 'POST')
         resp = request(host, port, '/vms/test-vm/screenshot')
-        url_1 = resp.getheader('Location')
-        time.sleep(5)
-        resp = request(host, port, '/vms/test-vm/screenshot')
-        url_2 = resp.getheader('Location')
-        self.assertNotEqual(url_1, url_2)
-
-        # screenshots within 1 min is stored for slow user
-        resp = request(host, port, url_1)
         self.assertEquals(200, resp.status)
+        self.assertEquals('image/png', resp.getheader('content-type'))
+        resp1 = request(host, port, '/vms/test-vm')
+        rspBody=resp1.read()
+        testvm_Data=json.loads(rspBody)
+        screenshotURL = testvm_Data['screenshot']
+        time.sleep(5)
+        resp2 = request(host, port, screenshotURL)
+        self.assertEquals(200, resp2.status)
+        self.assertEquals(resp2.getheader('content-type'), resp.getheader('content-type'))
+        self.assertEquals(resp2.getheader('content-length'), resp.getheader('content-length'))
+        self.assertEquals(resp2.getheader('last-modified'), resp.getheader('last-modified'))
 
         test_server.stop()
