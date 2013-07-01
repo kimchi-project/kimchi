@@ -108,7 +108,7 @@ class cmd_make_po(Command):
 
     def make_pot(self):
         files = " ".join(self.file_list)
-        command = 'python %s %s' % (self.find_pygettext(), files)
+        command = 'python %s -v %s' % (self.find_pygettext(), files)
         print command
         retcode = subprocess.call(command, shell=True)
         if retcode == 0:
