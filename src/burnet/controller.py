@@ -250,17 +250,17 @@ class VM(Resource):
     @action
     def start(self):
         getattr(self.model, model_fn(self, 'start'))(self.ident)
-        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
+        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
 
     @action
     def stop(self):
         getattr(self.model, model_fn(self, 'stop'))(self.ident)
-        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
+        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
 
     @action
     def connect(self):
         getattr(self.model, model_fn(self, 'connect'))(self.ident)
-        raise cherrypy.HTTPRedirect('/vms/%s' % self.ident, 303)
+        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
 
     @property
     def data(self):
@@ -279,7 +279,7 @@ class VMScreenShot(Resource):
 
     def get(self):
         self.lookup()
-        raise cherrypy.HTTPRedirect(self.info, 303)
+        raise cherrypy.InternalRedirect(self.info)
 
 class Templates(Collection):
     def __init__(self, model):
@@ -318,14 +318,14 @@ class StorageVolume(Resource):
         size = params['size']
         getattr(self.model, model_fn(self, 'resize'))(self.pool,
                                                       self.ident, size)
-        raise cherrypy.HTTPRedirect('/storagepools/%s/storagevolumes/%s'
-                                    % (self.pool, self.ident), 303)
+        raise cherrypy.InternalRedirect('/storagepools/%s/storagevolumes/%s'
+                                    % (self.pool, self.ident))
 
     @action
     def wipe(self):
         getattr(self.model, model_fn(self, 'wipe'))(self.pool, self.ident)
-        raise cherrypy.HTTPRedirect('/storagepools/%s/storagevolumes/%s'
-                                    % (self.pool, self.ident), 303)
+        raise cherrypy.InternalRedirect('/storagepools/%s/storagevolumes/%s'
+                                    % (self.pool, self.ident))
 
     @property
     def data(self):
@@ -352,12 +352,12 @@ class StoragePool(Resource):
     @action
     def activate(self):
         getattr(self.model, model_fn(self, 'activate'))(self.ident)
-        raise cherrypy.HTTPRedirect('/storagepools/%s' % self.ident, 303)
+        raise cherrypy.InternalRedirect('/storagepools/%s' % self.ident)
 
     @action
     def deactivate(self):
         getattr(self.model, model_fn(self, 'deactivate'))(self.ident)
-        raise cherrypy.HTTPRedirect('/storagepools/%s' % self.ident, 303)
+        raise cherrypy.InternalRedirect('/storagepools/%s' % self.ident)
 
     @property
     def data(self):
