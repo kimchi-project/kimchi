@@ -32,6 +32,12 @@ import mockmodel
 import config
 import cherrypy
 
+LOGGING_LEVEL = {"debug": logging.DEBUG,
+                 "info": logging.INFO,
+                 "warning": logging.WARNING,
+                 "error": logging.ERROR,
+                 "critical": logging.CRITICAL}
+
 def set_no_cache():
     from time import strftime, gmtime
     h = [('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT'),
@@ -81,9 +87,11 @@ class Server(object):
         cherrypy.log.access_file = options.access_log
         cherrypy.log.error_file = options.error_log
 
+        logLevel = LOGGING_LEVEL.get(options.log_level, logging.DEBUG)
+
         # Create handler to rotate access log file
         h = logging.handlers.RotatingFileHandler(options.access_log, 'a', 10000000, 1000)
-        h.setLevel(logging.DEBUG)
+        h.setLevel(logLevel)
         h.setFormatter(cherrypy._cplogging.logfmt)
 
         # Add access log file to cherrypy configuration
@@ -91,7 +99,7 @@ class Server(object):
 
         # Create handler to rotate error log file
         h = logging.handlers.RotatingFileHandler(options.error_log, 'a', 10000000, 1000)
-        h.setLevel(logging.DEBUG)
+        h.setLevel(logLevel)
         h.setFormatter(cherrypy._cplogging.logfmt)
 
         # Add rotating log file to cherrypy configuration

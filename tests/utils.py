@@ -50,7 +50,8 @@ def get_free_port():
 def run_server(host, port, test_mode, model=None):
     args = type('_', (object,),
                 {'host': host, 'port': port, 'test': test_mode,
-                 'access_log': '/dev/null', 'error_log': '/dev/null'})()
+                 'access_log': '/dev/null', 'error_log': '/dev/null',
+                 'log_level': 'debug'})()
     if model is not None:
         setattr(args, 'model', model)
     s = burnet.server.Server(args)
