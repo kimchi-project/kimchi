@@ -78,17 +78,24 @@ class Server(object):
         cherrypy.server.socket_host = options.host
         cherrypy.server.socket_port = options.port
         cherrypy.log.screen = True
-        cherrypy.log.access_file = options.logfile
-        cherrypy.log.error_file = options.logfile
+        cherrypy.log.access_file = options.access_log
+        cherrypy.log.error_file = options.error_log
 
-        # Create hanlder to rotate log file
-        h = logging.handlers.RotatingFileHandler(options.logfile, 'a', 10000000, 1000)
+        # Create handler to rotate access log file
+        h = logging.handlers.RotatingFileHandler(options.access_log, 'a', 10000000, 1000)
+        h.setLevel(logging.DEBUG)
+        h.setFormatter(cherrypy._cplogging.logfmt)
+
+        # Add access log file to cherrypy configuration
+        cherrypy.log.access_log.addHandler(h)
+
+        # Create handler to rotate error log file
+        h = logging.handlers.RotatingFileHandler(options.error_log, 'a', 10000000, 1000)
         h.setLevel(logging.DEBUG)
         h.setFormatter(cherrypy._cplogging.logfmt)
 
         # Add rotating log file to cherrypy configuration
         cherrypy.log.error_log.addHandler(h)
-        cherrypy.log.access_log.addHandler(h)
 
         if hasattr(options, 'model'):
             model_instance = options.model

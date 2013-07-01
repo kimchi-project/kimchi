@@ -33,9 +33,10 @@ import burnet.config
 from ConfigParser import SafeConfigParser
 from optparse import OptionParser
 
+ACCESS_LOG = "burnet-access.log"
+ERROR_LOG = "burnet-error.log"
 CONFIG_FILE="/etc/burnet/burnet.conf"
 DEFAULT_LOG_DIR=burnet.config.get_default_log_dir()
-LOG_FILE="burnet.log"
 
 def main(options):
     config = SafeConfigParser()
@@ -55,11 +56,16 @@ def main(options):
     parser = OptionParser()
     parser.add_option('--host', type="string", default=host, help="Hostname to listen on")
     parser.add_option('--port', type="int", default=port, help="Port to listen on")
-    parser.add_option('--logfile', default=os.path.join(logDir,LOG_FILE), help="Log file")
+    parser.add_option('--access-log', default=os.path.join(logDir,ACCESS_LOG), help="Access log file")
+    parser.add_option('--error-log', default=os.path.join(logDir,ERROR_LOG), help="Error log file")
     parser.add_option('--test', action='store_true', help="Run server in testing mode")
     (options, args) = parser.parse_args()
 
-    directory = os.path.dirname(os.path.abspath(options.logfile))
+    directory = os.path.dirname(os.path.abspath(options.access_log))
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+
+    directory = os.path.dirname(os.path.abspath(options.error_log))
     if not os.path.isdir(directory):
         os.makedirs(directory)
 
