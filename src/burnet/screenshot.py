@@ -23,10 +23,14 @@
 
 import os
 import time
-import Image
 import random
 import uuid
 import glob
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
 import config
 
