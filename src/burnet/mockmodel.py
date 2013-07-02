@@ -21,11 +21,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import random
-import Image
-import ImageDraw
-
 import platform
 import subprocess
+
+try:
+    from PIL import Image
+    from PIL import ImageDraw
+except ImportError:
+    import Image
+    import ImageDraw
 
 import burnet.model
 import burnet.vmtemplate
