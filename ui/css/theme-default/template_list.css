@@ -218,13 +218,6 @@ template-hidden {
 	width: 1014px;
 }
 
-.template-drop {
-	background: url("../images/drop.png") no-repeat scroll center center transparent;
-	float: right;
-	height: 42px;
-	width: 28px;
-}
-
 .select-row-action {
 	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
 	border: 1px solid #CCCCCC;
