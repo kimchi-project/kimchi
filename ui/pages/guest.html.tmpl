@@ -31,26 +31,7 @@
     #silent _ = t.gettext
     #silent _t = t.gettext
 #end if
-<!DOCTYPE html>
-<html>
-<body>
-<div class="toolbar">
-	<div class="tools">
-		<a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
-	</div>
-</div>
-<div>
-	<ul class="list-title">
-		<li class="guest-type">$_("Name")</li>
-		<li class="guest-cpu">$_("CPU")</li>
-		<li class="guest-memory">$_("Memory")</li>
-		<li class="guest-storage">$_("Storage")</li>
-		<li class="guest-tile">$_("Livetile")</li>
-		<li class="guest-actions">$_("Actions")</li>
-	</ul>
-	<ul id="guestList" class="list-vm">
-	</ul>
-	<ul id="tmpl-guest" class="tmpl-html">
+
 		<li>
 			<div class="sortable guest-type">
 				<div class="guest-general">
@@ -88,10 +69,3 @@
 				</div>
 			</div>
 		</li>
-	</ul>
-</div>
-<script>
-	burnet.guest_main();
-</script>
-</body>
-</html>

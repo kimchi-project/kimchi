@@ -1,0 +1,48 @@
+#*
+ * Project Burnet
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *
+ * All Rights Reserved.
+ *#
+#encoding UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+<!DOCTYPE html>
+<html>
+<body>
+<div class="toolbar">
+	<div class="tools">
+		<a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+	</div>
+</div>
+<div>
+	<ul class="list-title">
+		<li class="guest-type">$_("Name")</li>
+		<li class="guest-cpu">$_("CPU")</li>
+		<li class="guest-memory">$_("Memory")</li>
+		<li class="guest-storage">$_("Storage")</li>
+		<li class="guest-tile">$_("Livetile")</li>
+		<li class="guest-actions">$_("Actions")</li>
+	</ul>
+	<ul id="guestList" class="list-vm">
+	</ul>
+</div>
+<script>
+	burnet.guest_main();
+</script>
+</body>
+</html>
