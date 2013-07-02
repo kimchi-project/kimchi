@@ -89,7 +89,7 @@ burnet.listVmsAuto = function() {
 	burnet.listVMs(function(result) {
 		if(result && result.length) {
 			var listHtml='';
-			var guestTemplate = $('#tmpl-guest').html();
+			var guestTemplate = burnet.guestTemplate;
 			$.each(result, function(index, value) {
 				if (value.state == 'running') {
 					image = value.screenshot;
@@ -111,9 +111,24 @@ burnet.listVmsAuto = function() {
 	burnet.vmTimeout = window.setTimeout("burnet.listVmsAuto();", 5000);
 };
 
+burnet.guestSetRequestHeader=function(xhr) {
+        xhr.setRequestHeader('Accept', 'text/html');
+};
+
 burnet.guest_main = function() {
 	$("#vm-add").on("click", function(event) {
 		burnet.window.open('guest-add.html');
 	});
-	burnet.listVmsAuto();
+    $.ajax({
+        headers: {
+                Accept: "text/html"
+            },
+        url: 'guest.html',
+        type: 'GET',
+        dataType: 'html',
+        accepts : 'text/html',
+        success: function(response) { burnet.guestTemplate=response; burnet.listVmsAuto()},
+        error: function() { console.error('Could not get guest.html'); },
+        });
+
 };
