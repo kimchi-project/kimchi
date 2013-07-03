@@ -379,3 +379,19 @@ class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)
         self.resource = StoragePool
+
+class Task(Resource):
+    def __init__(self, model, id):
+        super(Task, self).__init__(model, id)
+
+    @property
+    def data(self):
+        return {'id': self.ident,
+                'status': self.info['status'],
+                'message': self.info['message']}
+
+
+class Tasks(Collection):
+    def __init__(self, model):
+        super(Tasks, self).__init__(model)
+        self.resource = Task

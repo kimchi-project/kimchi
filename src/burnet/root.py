@@ -25,13 +25,13 @@ import cherrypy
 import template
 import controller
 
-
 class Root(controller.Resource):
     def __init__(self, model):
         controller.Resource.__init__(self, model)
         self.vms = controller.VMs(model)
         self.templates = controller.Templates(model)
         self.storagepools = controller.StoragePools(model)
+        self.tasks = controller.Tasks(model)
 
     def get(self):
         return self.default('burnet-ui.html')

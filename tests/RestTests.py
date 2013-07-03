@@ -22,10 +22,13 @@
 
 import unittest
 import json
+import time
+import os
 
 import burnet.mockmodel
 import burnet.server
 from utils import *
+from burnet.asynctask import AsyncTask
 
 test_server = None
 model = None
@@ -38,7 +41,7 @@ port = None
 def setUpModule():
     global test_server, model, host, port
 
-    model = burnet.mockmodel.MockModel()
+    model = burnet.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port()
     test_server = run_server(host, port, test_mode=True, model=model)
@@ -46,9 +49,23 @@ def setUpModule():
 
 def tearDownModule():
     test_server.stop()
+    os.unlink('/tmp/obj-store-test')
 
 
 class RestTests(unittest.TestCase):
+    def _async_op(self, cb, opaque):
+        time.sleep(1)
+        cb('success', True)
+
+    def _except_op(self, cb, opaque):
+        time.sleep(1)
+        raise Exception("Oops")
+        cb('success', True)
+
+    def _intermid_op(self, cb, opaque):
+        time.sleep(1)
+        cb('in progress')
+
     def setUp(self):
         model.reset()
 
@@ -461,3 +478,23 @@ class RestTests(unittest.TestCase):
         request(host, port, '/vms/test-vm', '{}', 'DELETE')
         resp = request(host, port, img_lnk)
         self.assertEquals(404, resp.status)
+
+    def _wait_task(self, taskid, timeout=5):
+        for i in range(0, timeout):
+            task = json.loads(request(host, port, '/tasks/%s' % taskid).read())
+            if task['status'] == 'running':
+                time.sleep(1)
+
+    def test_tasks(self):
+        model.add_task('', self._async_op)
+        model.add_task('', self._except_op)
+        model.add_task('', self._intermid_op)
+        tasks = json.loads(request(host, port, '/tasks').read())
+        self.assertEquals(3, len(tasks))
+        self._wait_task('2')
+        foo2 = json.loads(request(host, port, '/tasks/%s' % '2').read())
+        self.assertEquals('failed', foo2['status'])
+        self._wait_task('3')
+        foo3 = json.loads(request(host, port, '/tasks/%s' % '3').read())
+        self.assertEquals('in progress', foo3['message'])
+        self.assertEquals('running', foo3['status'])

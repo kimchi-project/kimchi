@@ -36,11 +36,14 @@ import burnet.vmtemplate
 from burnet.screenshot import VMScreenshot
 import burnet.vnc
 import config
+from burnet.objectstore import ObjectStore
+from burnet.asynctask import AsyncTask
 
 
 class MockModel(object):
-    def __init__(self):
+    def __init__(self, objstore_loc=None):
         self.reset()
+        self.objstore = ObjectStore(objstore_loc)
         self.vnc_port = 5999
 
         # open vnc port
@@ -59,6 +62,7 @@ class MockModel(object):
         self._mock_templates = {}
         self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_vnc_ports = {}
+        self.next_taskid = 1
 
     def vm_lookup(self, name):
         vm = self._get_vm(name)
@@ -239,6 +243,21 @@ class MockModel(object):
     def storagevolumes_get_list(self, pool):
         return self._get_storagepool(pool)._volumes.keys()
 
+    def tasks_get_list(self):
+        with self.objstore as session:
+            return session.get_list('task')
+
+    def task_lookup(self, id):
+        with self.objstore as session:
+            return session.get('task', str(id))
+
+    def add_task(self, target_uri, fn, opaque=None):
+        id = self.next_taskid
+        self.next_taskid = self.next_taskid + 1
+        task = AsyncTask(id, target_uri, fn, self.objstore, opaque)
+
+        return id
+
     def _get_storagevolume(self, pool, name):
         try:
             return self._get_storagepool(pool)._volumes[name]
@@ -266,6 +285,9 @@ class MockStoragePool(object):
                      'type': 'dir'}
         self._volumes = {}
 
+class MockTask(object):
+    def __init__(self, id):
+        self.id = id
 
 class MockStorageVolume(object):
     def __init__(self, pool, name):
