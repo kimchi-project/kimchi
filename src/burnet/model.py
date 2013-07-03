@@ -39,6 +39,7 @@ import xmlutils
 import vnc
 from screenshot import VMScreenshot
 from burnet.objectstore import ObjectStore
+from burnet.asynctask import AsyncTask
 
 class NotFoundError(Exception):
     pass
@@ -104,6 +105,7 @@ class Model(object):
         self.objstore = ObjectStore(objstore_loc)
         self.vnc_ports = {}
         self.cpu_stats = {}
+        self.next_taskid = 1
 
     def _get_cpu_stats(self, name, info):
         timestamp = time.time()
@@ -271,6 +273,22 @@ class Model(object):
     def templates_get_list(self):
         with self.objstore as session:
             return session.get_list('template')
+
+    def add_task(self, target_uri, fn, opaque=None):
+        id = self.next_taskid
+        self.next_taskid = self.next_taskid + 1
+
+        task = AsyncTask(id, target_uri, fn, self.objstore, opaque)
+
+        return id
+
+    def tasks_get_list(self):
+        with self.objstore as session:
+            return session.get_list('task')
+
+    def task_lookup(self, id):
+        with self.objstore as session:
+            return session.get('task', str(id))
 
     def _get_vm(self, name):
         conn = self.conn.get()

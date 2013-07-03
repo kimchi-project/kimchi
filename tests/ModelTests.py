@@ -23,6 +23,7 @@
 import unittest
 import threading
 import os
+import time
 
 import burnet.model
 import burnet.objectstore
@@ -241,3 +242,45 @@ class ModelTests(unittest.TestCase):
         with store as session:
             self.assertEquals(50, len(session.get_list('foo')))
             self.assertEquals(10, len(store._connections.keys()))
+
+    def test_async_tasks(self):
+        class task_except(Exception):
+            pass
+        def wait_task(model, taskid, timeout=5):
+            for i in range(0, timeout):
+                if model.task_lookup(taskid)['status'] == 'running':
+                    time.sleep(1)
+
+        def quick_op(cb, message):
+            cb(message, True)
+
+        def long_op(cb, params):
+            time.sleep(params.get('delay', 3))
+            cb(params.get('message', ''), params.get('result', False))
+
+        def abnormal_op(cb, params):
+            try:
+                raise task_except
+            except:
+                cb("Exception raised", False)
+
+        inst = burnet.model.Model('test:///default', objstore_loc=self.tmp_store)
+        taskid = inst.add_task('', quick_op, 'Hello')
+        wait_task(inst, taskid)
+        self.assertEquals(1, taskid)
+        self.assertEquals('finished', inst.task_lookup(taskid)['status'])
+        self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
+
+        taskid = inst.add_task('', long_op,
+                                     {'delay': 3, 'result': False,
+                                      'message': 'It was not meant to be'})
+        self.assertEquals(2, taskid)
+        self.assertEquals('running', inst.task_lookup(taskid)['status'])
+        self.assertEquals('OK', inst.task_lookup(taskid)['message'])
+        wait_task(inst, taskid)
+        self.assertEquals('failed', inst.task_lookup(taskid)['status'])
+        self.assertEquals('It was not meant to be', inst.task_lookup(taskid)['message'])
+        taskid = inst.add_task('', abnormal_op, {})
+        wait_task(inst, taskid)
+        self.assertEquals('Exception raised', inst.task_lookup(taskid)['message'])
+        self.assertEquals('failed', inst.task_lookup(taskid)['status'])
