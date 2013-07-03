@@ -26,7 +26,6 @@ import time
 import logging
 import libvirt
 import functools
-import sqlite3
 import os
 import json
 try:
@@ -39,6 +38,7 @@ import config
 import xmlutils
 import vnc
 from screenshot import VMScreenshot
+from burnet.objectstore import ObjectStore
 
 class NotFoundError(Exception):
     pass
@@ -77,87 +77,6 @@ def get_vm_name(vm_name, t_name, name_list):
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("Unable to choose a VM name")
-
-
-class ObjectStoreSession(object):
-    def __init__(self, conn):
-        self.conn = conn
-
-    def get_list(self, obj_type):
-        c = self.conn.cursor()
-        res = c.execute('SELECT id FROM objects WHERE type=?', (obj_type,))
-        return [x[0] for x in res]
-
-    def get(self, obj_type, ident):
-        c = self.conn.cursor()
-        res = c.execute('SELECT json FROM objects WHERE type=? AND id=?',
-                        (obj_type, ident))
-        try:
-            jsonstr = res.fetchall()[0][0]
-        except IndexError:
-            self.conn.rollback()
-            raise NotFoundError(ident)
-        return json.loads(jsonstr)
-
-    def delete(self, obj_type, ident):
-        c = self.conn.cursor()
-        c.execute('DELETE FROM objects WHERE type=? AND id=?',
-                  (obj_type, ident))
-        if c.rowcount != 1:
-            self.conn.rollback()
-            raise NotFoundError(ident)
-        self.conn.commit()
-
-    def store(self, obj_type, ident, data):
-        jsonstr = json.dumps(data)
-        c = self.conn.cursor()
-        c.execute('DELETE FROM objects WHERE type=? AND id=?',
-                  (obj_type, ident))
-        c.execute('INSERT INTO objects (id, type, json) VALUES (?,?,?)',
-                  (ident, obj_type, jsonstr))
-        self.conn.commit()
-
-
-class ObjectStore(object):
-    def __init__(self, location=None):
-        self._lock = threading.Semaphore()
-        self._connections = OrderedDict()
-        self.location = location or config.get_object_store()
-        with self._lock:
-            self._init_db()
-
-    def _init_db(self):
-        conn = self._get_conn()
-        c = conn.cursor()
-        c.execute('''SELECT * FROM sqlite_master WHERE type='table' AND
-                     tbl_name='objects'; ''')
-        res = c.fetchall()
-        if len(res) == 1:
-            return
-
-        c.execute('''CREATE TABLE objects
-                     (id TEXT, type TEXT, json TEXT, PRIMARY KEY (id, type))''')
-        conn.commit()
-
-    def _get_conn(self):
-        ident = threading.currentThread().ident
-        try:
-            return self._connections[ident]
-        except KeyError:
-            self._connections[ident] = sqlite3.connect(self.location, timeout=10)
-            if len(self._connections.keys()) > 10:
-                id, conn = self._connections.popitem(last=False)
-                conn.interrupt()
-                del conn
-            return self._connections[ident]
-
-    def __enter__(self):
-        self._lock.acquire()
-        return ObjectStoreSession(self._get_conn())
-
-    def __exit__(self, type, value, tb):
-        self._lock.release()
-
 
 class Model(object):
     dom_state_map = {0: 'nostate',

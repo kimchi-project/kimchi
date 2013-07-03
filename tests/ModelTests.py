@@ -25,6 +25,7 @@ import threading
 import os
 
 import burnet.model
+import burnet.objectstore
 import utils
 
 class ModelTests(unittest.TestCase):
@@ -189,7 +190,7 @@ class ModelTests(unittest.TestCase):
             t.join()
 
     def test_object_store(self):
-        store = burnet.model.ObjectStore(self.tmp_store)
+        store = burnet.objectstore.ObjectStore(self.tmp_store)
 
         with store as session:
             # Test create
@@ -227,7 +228,7 @@ class ModelTests(unittest.TestCase):
             with store as session:
                 session.store('foo', ident, {})
 
-        store = burnet.model.ObjectStore(self.tmp_store)
+        store = burnet.objectstore.ObjectStore(self.tmp_store)
 
         threads = []
         for i in xrange(50):
