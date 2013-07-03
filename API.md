@@ -202,3 +202,33 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 
 * resize: Resize a Storage Volume
 * wipe: Wipe a Storage Volume
+
+### Collection: Tasks
+
+**URI:** /tasks
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of current Tasks
+
+### Resource: Task
+
+**URI:** /tasks/*:id*
+
+A task represents an asynchronous operation that is being performed by the
+server.
+
+**Methods:**
+
+* **GET**: Retrieve the full description of the Task
+    * id: The Task ID is used to identify this Task in the API.
+    * status: The current status of the Task
+        * running: The task is running
+        * finished: The task has finished successfully
+        * failed: The task failed
+    * message: Human-readable details about the Task status
+* **POST**: *See Task Actions*
+
+**Actions (POST):**
+
+*No actions defined*
