@@ -19,6 +19,38 @@
  * limitations under the License.
  */
 burnet.initVmButtonsAction = function() {
+
+	var vmstart = function (event) {
+		if (!$(this).hasClass('loading')) {
+			$(this).addClass('loading');
+			burnet.startVM($(this).data('vm'), function(result) {
+				burnet.listVmsAuto();
+			},function() {
+				burnet.message.error('Failed to start');
+			});
+		}
+		else {
+			event.preventDefault();
+			event.stopPropagation();
+			return;
+		}
+	};
+
+	var vmstop = function (event) {
+		if (!$(this).hasClass('loading')) {
+			$(this).addClass('loading');
+			burnet.stopVM($(this).data('vm'), function(result) {
+				burnet.listVmsAuto();
+			},function() {
+				burnet.message.error('Failed to stop');
+			});
+		}
+		else {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	};
+
 	$('.circle').circle();
 
 	$(".vm-start").each(function(index) {
@@ -37,20 +69,13 @@ burnet.initVmButtonsAction = function() {
 		}
 	});
 
-	$(".vm-start").on("click", function(event) {
-		burnet.startVM($(this).data('vm'), function(result) {
-			burnet.listVmsAuto();
-		},function() {
-			burnet.message.error('Failed to start');
-		});
+	$(".vm-start").on({
+		click: vmstart,
 	});
 
-	$(".vm-stop").on("click", function(event) {
-		burnet.stopVM($(this).data('vm'), function(result) {
-			burnet.listVmsAuto();
-		},function() {
-			burnet.message.error('Failed to stop');
-		});
+
+	$(".vm-stop").on({
+		click: vmstop,
 	});
 
 	$(".vm-reset").on("click", function(event) {
