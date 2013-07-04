@@ -50,6 +50,15 @@
 	cursor: pointer;
 }
 
+.btn.loading {
+    box-shadow: none;
+    cursor: default;
+}
+
+.btn.loading .icon {
+       background: url(../images/theme-default/icon-load.png) center center no-repeat;
+}
+
 .btn .text {
 	padding: 0 10px;
 }
