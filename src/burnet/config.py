@@ -71,7 +71,8 @@ def get_support_language():
 
 def find_qemu_binary():
     locations = ['/usr/bin/qemu-system-%s' % platform.machine(),
-                    '/usr/libexec/qemu-kvm']
+                    '/usr/libexec/qemu-kvm',
+                    '/usr/bin/qemu-kvm']
     for location in locations:
         if os.path.exists(location):
             return location
