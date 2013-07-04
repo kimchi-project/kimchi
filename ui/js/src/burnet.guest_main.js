@@ -82,6 +82,14 @@ burnet.initVmButtonsAction = function() {
 	});
 };
 
+burnet.getVmsOldImg = function() {
+	var res = new Object();
+	$('#guestList').children().each(function() {
+		res[$(this).attr('id')] = $(this).find('img').attr('src');
+	})
+	return res;
+}
+
 burnet.listVmsAuto = function() {
 	if(burnet.vmTimeout) {
 		clearTimeout(burnet.vmTimeout);
@@ -90,19 +98,23 @@ burnet.listVmsAuto = function() {
 		if(result && result.length) {
 			var listHtml='';
 			var guestTemplate = burnet.guestTemplate;
+			var oldImages = burnet.getVmsOldImg();
+
 			$.each(result, function(index, value) {
-				if (value.state == 'running') {
-					image = value.screenshot;
-				} else {
-					image = value.icon;
-				}
-				if (!image) {
-					image = "images/icon-vm.svg";
-				}
-				value['tile-src'] = image
+				var oldImg = oldImages[value.name];
+				curImg = value.state == 'running' ?
+					value.screenshot : value.icon;
+				value['load-src'] = curImg || 'images/icon-vm.svg';
+				value['tile-src'] = oldImg || value['load-src'];
 				listHtml+=burnet.template(guestTemplate, value);
 			});
 			$('#guestList').html(listHtml);
+			$('#guestList').find('.imgload').each(function(){
+				this.onload = function() {
+					$(this).prev('.imgactive').remove();
+					$(this).show();
+				}
+			})
 			burnet.initVmButtonsAction();
 		}
 	},function() {

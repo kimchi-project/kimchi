@@ -31,8 +31,7 @@
     #silent _ = t.gettext
     #silent _t = t.gettext
 #end if
-
-		<li>
+		<li id="{name}">
 			<div class="sortable guest-type">
 				<div class="guest-general">
 					<h2 class="title"><span class="alert">{alert}</span> {name}</h2>
@@ -50,7 +49,10 @@
 				<div class="subtitle"></div>
 			</div>
 			<div class="sortable guest-tile">
-				<div class="tile {state}"><img alt="" src="{tile-src}" width="170px" height="110px"></div>
+				<div class="tile {state}">
+					<img class="imgactive" alt="" src="{tile-src}" width="170px" height="110px">
+					<img class="imgload" alt="" src="{load-src}" width="170px" height="110px">
+				</div>
 			</div>
 			<div class="sortable guest-actions">
 				<div class="top">

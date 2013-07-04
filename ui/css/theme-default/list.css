@@ -82,6 +82,10 @@
 	font-weight: bold;
 }
 
+.list-vm .tile .imgload {
+	display: none;
+}
+
 .guest-type {
 	width: 257px;
 }

@@ -56,6 +56,19 @@ div.icon.selected {
     height: 128px;
 }
 
+#vms div img {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 128px;
+    height: 128px;
+}
+
+#vms div img.active {
+    display: block;
+}
+
+
 .small img {
     width: 64px;
     height: 64px;

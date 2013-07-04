@@ -36,8 +36,10 @@ function genTile(title, image, gray, small, folder)
         style += " folder";
     }
 
+    visible = "active";
+
     html += "<div class=\"" + style + "\" id=\"" + title + "\">\n";
-    html += "<img src=\"" + image + "\"/>\n";
+    html += "<img class=\"" + visible + "\" src=\"" + image + "\"/>\n";
     html += "<h3>" + title + "</h3></a>\n";
     html += "</div>";
 
@@ -58,6 +60,31 @@ function selectIcon(node)
     }
 }
 
+function load_image(src, name)
+{
+    var newImage = new Image();
+
+    newImage.onload = function(){
+        old_pic = $("#"+name+' img');
+        new_pic = $('<img src="' + src + '"/>');
+        old_pic.after(new_pic);
+        old_pic.remove();
+        new_pic.addClass('active');
+    }
+    newImage.src = src;
+}
+
+function getCurrentImgs()
+{
+    var curImgs = new Object();
+    var activeImgs = $("img.active");
+
+    activeImgs.each(function(){
+        curImgs[$(this).parent().attr('id')] = $(this).attr('src');
+    });
+    return curImgs;
+}
+
 function load_vms(data)
 {
     var sel_vms;
@@ -65,6 +92,7 @@ function load_vms(data)
     var i;
 
     sel_vms = getSelectedItems("vms");
+    active_imgs = getCurrentImgs();
 
     $("#vms").empty();
     for (i = 0; i < data.length; i++) {
@@ -77,10 +105,12 @@ function load_vms(data)
         if (!image) {
             image = "images/icon-vm.svg";
         }
-        html += genTile(data[i].name, image,
-                        data[i].state != 'running', false);
+        old_img = active_imgs[data[i].name];
+        html = genTile(data[i].name, old_img ? old_img : image,
+                       data[i].state != 'running', false);
+        $("#vms").append(html);
+        load_image(image, data[i].name);
     }
-    $("#vms").append(html);
     selectItems("vms", sel_vms);
 
     $("#vms .icon").click(function() {
