@@ -51,7 +51,8 @@ class MockModel(object):
         cmd = config.find_qemu_binary()
         args = [cmd, "-vnc", ":99"]
 
-        proc = subprocess.Popen(["ps", "-C", '"%s"' % " ".join(args), "-o", "pid", "h"], stdout=subprocess.PIPE)
+        cmd  = "ps aux | grep '%s' | grep -v grep" % " ".join(args)
+        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
         if len(proc.stdout.readlines()) == 0:
             p = subprocess.Popen(args, close_fds=True)
