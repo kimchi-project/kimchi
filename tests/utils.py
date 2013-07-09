@@ -41,6 +41,7 @@ if sys.version_info[:2] == (2, 6):
     def skipUnless(condition, reason):
         if not condition:
             sys.stderr.write('[expected failure] ')
+            raise Exception(reason)
         return lambda obj: obj
 
     unittest.skipUnless = skipUnless
