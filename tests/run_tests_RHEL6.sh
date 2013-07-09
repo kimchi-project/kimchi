@@ -22,5 +22,5 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 PYTHONPATH=../src \
-  unit2 discover -p '*.py'
+  unit2 discover -p 'test_*.py'
 
