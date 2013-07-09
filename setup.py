@@ -208,9 +208,13 @@ class burnet_build(build):
         make_ui()
         build.run(self)
 
+i18n_languages = [v.split('/')[2]
+                  for v in glob("i18n/po/*/LC_MESSAGES/%s.po" % PROJECT)]
 
-i18n_files = [("share/burnet/%s" % v.rsplit("/", 1)[0], [v])
-              for v in glob("i18n/mo/*/LC_MESSAGES/burnet.mo")]
+i18n_files = [("share/burnet/i18n/mo/%s/LC_MESSAGES/%s.mo" % (v, PROJECT),
+               ["i18n/mo/%s/LC_MESSAGES/%s.mo" % (v, PROJECT)])
+              for v in i18n_languages]
+
 
 def all_files(path):
     return ["%s/%s" % (path, f) for f in next(os.walk(path))[2]]
