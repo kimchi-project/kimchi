@@ -143,7 +143,10 @@ class RollbackContext(object):
 
         # re-raise the earliest exception
         if firstException is not None:
-            raise firstException, None, traceback
+            if type(firstException) is str:
+                sys.stderr.write(firstException)
+            else:
+                raise firstException, None, traceback
 
     def defer(self, func, *args, **kwargs):
         self._finally.append((func, args, kwargs))
