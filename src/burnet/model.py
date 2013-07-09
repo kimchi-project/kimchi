@@ -158,26 +158,29 @@ class Model(object):
         return xmlutils.xpath_get_text(xml, xpath)
 
     def vm_delete(self, name):
-        self._vmscreenshot_delete(name)
-        conn = self.conn.get()
-        dom = self._get_vm(name)
-        paths = self._vm_get_disk_paths(dom)
-        dom.undefine()
+        if self._vm_exists(name):
+            self._vmscreenshot_delete(name)
+            conn = self.conn.get()
+            dom = self._get_vm(name)
+            paths = self._vm_get_disk_paths(dom)
+            info = self.vm_lookup(name)
+            dom.undefine()
 
-        for path in paths:
-            vol = conn.storageVolLookupByPath(path)
-            vol.delete(0)
+            for path in paths:
+                vol = conn.storageVolLookupByPath(path)
+                vol.delete(0)
 
-        with self.objstore as session:
-            session.delete('vm', name)
+            with self.objstore as session:
+                session.delete('vm', name)
 
     def vm_start(self, name):
         dom = self._get_vm(name)
         dom.create()
 
     def vm_stop(self, name):
-        dom = self._get_vm(name)
-        dom.destroy()
+        if self._vm_exists(name):
+            dom = self._get_vm(name)
+            dom.destroy()
 
     def vm_connect(self, name):
         dom = self._get_vm(name)
@@ -289,6 +292,15 @@ class Model(object):
     def task_lookup(self, id):
         with self.objstore as session:
             return session.get('task', str(id))
+
+    def _vm_exists(self, name):
+        try:
+            self._get_vm(name)
+            return True
+        except NotFoundError:
+            return False
+        except:
+            raise
 
     def _get_vm(self, name):
         conn = self.conn.get()
