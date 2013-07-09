@@ -321,3 +321,23 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
 
             self.assertEquals(vms, sorted(vms, key=unicode.lower))
+
+    def test_use_test_host(self):
+        inst = burnet.model.Model('test:///default', objstore_loc=self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            params = {'name': 'test', 'disks': [],
+                       'storagepool': '/storagepools/default-pool',
+                       'domain': 'test',
+                       'arch': 'i686'}
+
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'burnet-vm', 'template': '/templates/test',}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+
+            vms = inst.vms_get_list()
+
+            self.assertTrue('burnet-vm' in vms)

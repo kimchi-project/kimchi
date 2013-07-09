@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import copy
+import os
 
 osinfo = [
     # Entries are searched in order and the first match will be returned
@@ -131,7 +132,9 @@ isolinks = {
     },
 }
 
-defaults = {'network': 'default', 'storagepool': '/storagepools/default'}
+defaults = {'network': 'default', 'storagepool': '/storagepools/default',
+        'domain': 'kvm', 'arch': os.uname()[4]
+}
 
 def lookup(distro, version):
     """
