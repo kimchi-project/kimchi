@@ -284,3 +284,24 @@ class ModelTests(unittest.TestCase):
         wait_task(inst, taskid)
         self.assertEquals('Exception raised', inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_delete_running_vm(self):
+        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            params = {'name': 'test', 'disks': []}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'burnet-vm', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+
+            inst.vm_start('burnet-vm')
+            rollback.prependDefer(inst.vm_stop, 'burnet-vm')
+
+            inst.vm_delete('burnet-vm')
+
+            vms = inst.vms_get_list()
+            self.assertFalse('burnet-vm' in vms)

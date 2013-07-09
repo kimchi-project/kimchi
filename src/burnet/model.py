@@ -164,6 +164,10 @@ class Model(object):
             dom = self._get_vm(name)
             paths = self._vm_get_disk_paths(dom)
             info = self.vm_lookup(name)
+
+            if info['state'] == 'running':
+                self.vm_stop(name)
+
             dom.undefine()
 
             for path in paths:
@@ -301,6 +305,7 @@ class Model(object):
             return False
         except:
             raise
+
 
     def _get_vm(self, name):
         conn = self.conn.get()
