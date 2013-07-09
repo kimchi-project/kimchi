@@ -215,6 +215,9 @@ i18n_files = [("share/burnet/i18n/mo/%s/LC_MESSAGES/%s.mo" % (v, PROJECT),
                ["i18n/mo/%s/LC_MESSAGES/%s.mo" % (v, PROJECT)])
               for v in i18n_languages]
 
+extra_css_files = ["ui/css/theme-default.min.css"]
+extra_js_files = ["ui/js/burnet.min.js"]
+
 
 def all_files(path):
     return ["%s/%s" % (path, f) for f in next(os.walk(path))[2]]
@@ -229,7 +232,8 @@ setup(name='burnet',
                 'info_po': cmd_info_po,
                 'make_ui': cmd_make_ui,
                 'build': burnet_build},
-      data_files=[('share/burnet/ui/css', glob('ui/css/*.css')),
+      data_files=[('share/burnet/ui/css',
+                        glob('ui/css/*.css') + extra_css_files),
                   ('share/burnet/ui/css/fonts', all_files('ui/css/fonts')),
                   ('share/burnet/ui/css/fonts/novnc',
                         all_files('ui/css/fonts/novnc')),
@@ -237,7 +241,7 @@ setup(name='burnet',
                   ('share/burnet/ui/images/theme-default',
                         all_files('ui/images/theme-default')),
                   ('share/burnet/ui/images', all_files('ui/images')),
-                  ('share/burnet/ui/js', glob('ui/js/*.js')),
+                  ('share/burnet/ui/js', glob('ui/js/*.js') + extra_js_files),
                   ('share/burnet/ui/js/novnc', glob('ui/js/novnc/*.js')),
                   ('share/burnet/ui/js/novnc/web-socket-js',
                         all_files('ui/js/novnc/web-socket-js')),
