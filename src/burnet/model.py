@@ -240,7 +240,7 @@ class Model(object):
         names = map(lambda x: conn.lookupByID(x).name(), ids)
         names += conn.listDefinedDomains()
         names = map(lambda x: unicode(x), names)
-        return names
+        return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
         dom = self._get_vm(name)

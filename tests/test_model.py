@@ -305,3 +305,19 @@ class ModelTests(unittest.TestCase):
 
             vms = inst.vms_get_list()
             self.assertFalse('burnet-vm' in vms)
+
+    def test_vm_list_sorted(self):
+        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            params = {'name': 'test', 'disks': []}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'burnet-vm', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+
+            vms = inst.vms_get_list()
+
+            self.assertEquals(vms, sorted(vms, key=unicode.lower))

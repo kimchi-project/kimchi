@@ -100,3 +100,24 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(resp2.getheader('last-modified'), resp.getheader('last-modified'))
 
         test_server.stop()
+
+    def test_vm_list_sorted(self):
+        model = burnet.mockmodel.MockModel()
+        port = get_free_port()
+        host = '127.0.0.1'
+        test_server = run_server(host, port, test_mode=True, model=model)
+
+        req = json.dumps({'name': 'test'})
+        request(host, port, '/templates', req, 'POST')
+        def add_vm(name):
+
+            # Create a VM
+            req = json.dumps({'name': name, 'template': '/templates/test'})
+            request(host, port, '/vms', req, 'POST')
+
+        add_vm('bca')
+        add_vm('xba')
+        add_vm('abc')
+        add_vm('cab')
+
+        self.assertEqual(model.vms_get_list(), ['abc', 'bca', 'cab', 'xba'])
