@@ -306,6 +306,7 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
             self.assertFalse('burnet-vm' in vms)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_list_sorted(self):
         inst = burnet.model.Model(objstore_loc=self.tmp_store)
 
