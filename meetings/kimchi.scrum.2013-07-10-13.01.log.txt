@@ -1,0 +1,285 @@
+13:01:19 <aglitke> #startmeeting
+13:01:19 <kimchi-bot> Meeting started Wed Jul 10 13:01:19 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:33 <hlwanghl_> It added a _ after my nick name
+13:01:53 * hlwanghl_ slaps shaohef around a bit with a large fishbot
+13:01:55 <aglitke> FYI, the meeting will be logged and minutes will be uploaded to the kimchi website
+13:02:18 <aglitke> #meetingname scrum
+13:02:18 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:43 <aglitke> #info Agenda: 1) 1.0 Features and planning
+13:02:55 <aglitke> #info 2) Roundtable / Open Discussion
+13:03:00 <aglitke> any other items?
+13:03:31 <AdamKingIT> Customer user study, though we can hit that during the round table
+13:03:38 <aglitke> ok
+13:03:38 <shaohef> char in name？
+13:04:13 <aglitke> shaohef: Let's do that in the round table too.  There is a good discussion going on on the list as well.
+13:04:24 <shaohef> aglitke: yes.
+13:04:33 <aglitke> aliguori: do you have anything to add?
+13:05:10 <aglitke> heh, guess not :)
+13:05:20 <AdamKingIT> I think it was something you said
+13:05:26 <aglitke> #topic 1.0 Features and planning
+13:05:27 <shaohef> aliguori_: left the room :)
+13:05:43 <aglitke> #link https://github.com/kimchi-project/kimchi/issues?labels=enhancement&milestone=&page=1&state=open
+13:06:18 <aglitke> The above link will take you to a list of all the enhancements we have planned.
+13:06:29 <aglitke> You can filter by sprint and release.
+13:06:35 <AdamKingIT> I owe creating an enhancement to add  "login"
+13:06:42 <aglitke> As of now, no major features are tracked.
+13:07:01 <AdamKingIT> I think we also need one to finish the ISO scanning in the template creation flow
+13:07:09 <aglitke> 1.0 will be released on 9/30
+13:07:13 <sming> It seems that most of the features in the page are UI enhancement.
+13:07:27 <lvroyce> AdamKingIT, agree
+13:07:52 <aglitke> #action AdamKingIT add enhancement for login
+13:08:07 <aglitke> #action aglitke add enhancement for iso scanning flow
+13:08:08 <zhoumeina> that because UI is not strong enough
+13:08:14 <sming> Federation and debugreports?
+13:08:35 <aglitke> #link https://github.com/kimchi-project/kimchi/wiki/Todo
+13:08:42 <aglitke> Here is our rough TODO list
+13:08:59 <aglitke> both federation and debugreports are represented.
+13:09:02 <AdamKingIT> I have another action...
+13:09:08 <lvroyce> In fact, I'm wandering if bing_bu's get static config and my change static config are still on list of interest?
+13:09:19 <aglitke> Right now we have about 20 days left in sprint one
+13:09:34 <AdamKingIT> AdamKingIT #action Add other user stories to the GitHub wiki
+13:09:35 <aglitke> AdamKingIT: just go ahead and use #action to add it
+13:09:49 <aglitke> put #action first
+13:10:08 <AdamKingIT> #action AdamKingIT  Add other user stories to the GitHub wik
+13:10:15 <aglitke> :)
+13:10:22 <bing_bu> lvroyce: your vm-rename still not merged?
+13:10:46 <sming> guests: migration to remote system.  Does this feature reach outside of Kimchi scope?
+13:10:55 <shaohef> aglitke: hlwanghl_ need the template update
+13:11:13 <aglitke> So in sprint 1 the only major enhancement we have is to complete the rename to Kimchi
+13:11:15 <hlwanghl_> edit template
+13:11:32 <aglitke> shaohef: I don't really understand that.  I can edit the template in the ui now.
+13:11:35 <lvroyce> bing_bu, I guess they are depending on yours, I want to make it commonly used for config change...
+13:12:42 <zhoumeina> aglitke: that is because hongliang delete the template and add a new one ,but not edit api from back end
+13:12:45 <sming> agiltke, sprint 1 will end in 9/30, the same as realease 1.0?
+13:12:53 <hlwanghl_> aglitke: I worked it around by 1) remove it 2) recreate it
+13:13:06 <lvroyce> aglitke, I'm doing the template create flow in dev-ui, do we still need that before release 1.0?
+13:13:13 <aglitke> sming: https://github.com/kimchi-project/kimchi/wiki/Planning-1.0
+13:13:18 <aglitke> Kimchi 1.0 - Sprint 1: 7/30/13
+13:13:23 <aglitke> Kimchi 1.0 - Sprint 2: 8/30/13
+13:13:27 <aglitke> Kimchi 1.0 - GA: 9/30/13
+13:13:30 <shaohef> aglitke: yes. I also mentioned, combine GET, DELETE, CTEATE method, UI can edit template. But I have discusses with hlwanghl_, he need just one method.
+13:14:00 <aglitke> shaohef: ok.  Your patches may need to be resubmitted.
+13:14:11 <aglitke> Hopefully we can support update in a generic fashion.
+13:14:29 <aglitke> lvroyce: THat is not as important.
+13:14:30 <zhoumeina> 7/30 we mainly focus on rename to kimchi, right?
+13:14:32 <sming> shaohef: we need add the first update method.
+13:14:34 <hlwanghl_> shaohef Combine?
+13:14:37 <AdamKingIT> Additional enhancements I suggest we add to sprint 1:
+13:14:38 <AdamKingIT> Create template by scanning for ISOs
+13:14:38 <AdamKingIT> Create template by selecting distro/versoin then stream ISO in the backend
+13:14:42 <aglitke> I would rather see the template scanning via tasks done in the design ui
+13:14:52 <lvroyce> about the iso scanning feature... When I making up the dev-ui, no /iso exported really bothers, I think
+13:14:59 <shaohef> aglitke: ok. need more  discussion
+13:15:26 <aglitke> AdamKingIT: One thing I don't understand from the design UI is how we can organize newly imported templates.
+13:15:35 <lvroyce> people need to input string of server path
+13:15:48 <aglitke> In the dev UI we had folders so the new templates could be placed in a folder called 'Import'
+13:16:07 <aglitke> and the user could then move them around or delete the ones that were not needed,.
+13:16:20 <aglitke> With the design UI they all appear in a flat namespace.
+13:16:29 <hlwanghl_> aglitke: templates can be imported from server side?
+13:16:36 <AdamKingIT> They are, thouhg new ones are to be marked new: pending
+13:17:07 <AdamKingIT> After that. there are a number of search/filter mechanisms to be implemented
+13:17:13 <aglitke> ok so we need some enhancements to support tagging in the backend and UI
+13:17:31 <lvroyce> :)I like that
+13:17:52 <AdamKingIT> While I like the idea of tagging, we may be ok w/ filers based on distro/version
+13:18:05 <aglitke> lvroyce: regarding /isos... I think reserving a storage domain for isos only is a mistake.
+13:18:07 <AdamKingIT> I think tags would be easy enough to add on top
+13:18:46 <sming> aglitke, I would argue that dispersing ISO images around is also a mistake.
+13:18:58 <aglitke> sming: why?
+13:19:19 <sming> aglitke, there is no benifit to disperse the images to different directories.
+13:19:28 <AdamKingIT> do we still want a user story for upload an iso?
+13:19:29 <shaohef> sming: agree
+13:19:30 <aglitke> But that is where they happen to be.
+13:19:42 <lvroyce> aglitke, but input long string path is error prone, if only we had way to tell users what iso we've got and make them choose
+13:19:49 <aglitke> Kimchi should not require users to relocate their files just so they can work with this software,.
+13:20:04 <aglitke> lvroyce: scan uses a path '/'
+13:20:10 <aglitke> or something else.
+13:20:21 <aglitke> We can default it to '/'
+13:20:29 <hlwanghl_> Uploading ISO files is slow through HTTP
+13:20:40 <zhoumeina> yes
+13:20:46 <aglitke> hlwanghl_: We are just talking about scanning the local server for what may be on the box.
+13:20:56 <sming> aglitke, but we can require the user to upload the iso images to a specific Kimchi directory if they want to use Kimchi.
+13:21:01 <aglitke> Rather than requiring a user to add specific isos
+13:21:10 <aglitke> sming: Why?
+13:21:21 <aglitke> It's just as easy to not have that restriction.
+13:21:21 <hlwanghl_> aglitke: reading
+13:21:33 <sming> aglitke, after they uninstall Kimchi, the iso images also removed.
+13:21:40 <aglitke> no!
+13:21:50 <shaohef> hlwanghl_: we can install the VM from remote ISO by steaming.  aglitke right?
+13:21:57 <aglitke> sming: the iso images are user data
+13:22:04 <aglitke> you should absolutely not remove them :)
+13:22:31 <aglitke> shaohef: / hlwanghl_: eventually that is another feature we are shooting for.
+13:22:35 <aglitke> Hopefully by 1.0
+13:22:51 <aglitke> #action aglitke add an enhancement for web templates
+13:23:02 <hlwanghl_> Local first and then remote
+13:23:08 <aglitke> yes
+13:23:15 <sming> aglitke, uploading the iso images to a specific Kimvhi directory  will clone the iso images and those images belong to Kimchi.
+13:23:22 <aglitke> remote requires very new versions of qemu and libvirt
+13:23:35 <aglitke> sming: cloning wastes space
+13:23:51 <aglitke> since they are readonly there is no reason to clone.
+13:23:55 <AdamKingIT> Can we detect if qemu/libvirt is at a new enough level?
+13:24:14 <aglitke> sming: Have you seen the iso repository we have on ltcphx?  It's 10s of GBs of ISOS
+13:24:25 <aglitke> that would take forever to clone to each individual server.
+13:24:35 <aglitke> AdamKingIT: yes.
+13:24:39 <AdamKingIT> We don't want to offer the user a UI choice only to quickly fail to stream
+13:24:44 <shaohef> AdamKingIT: sure. libvirt support a API
+13:24:54 <aglitke> I believe libvirt capabilities will provide that info to us.
+13:25:24 <AdamKingIT> Great. We'll want to think about a design to query the capability, along w. others...
+13:25:29 <aglitke> AdamKingIT: right.  We will disable the web templates feature when the system is too old to support it.
+13:25:46 <AdamKingIT> should dovetail nicely into an authorization model...
+13:26:21 <AdamKingIT> Eventually some users will be authorized to actions, and some not. Noone will be authorized if the server can't support the action
+13:26:21 <shaohef> aglitke: a new URL for query the capability?
+13:26:29 <aglitke> ok.  I don;t really have anything else for Planning right now.  We are going to add some enhancements and work to assign them to the proper sprints.
+13:26:42 <aglitke> shaohef: maybe.
+13:26:55 <AdamKingIT> Lets start a discussion thread. A new URL may be clumsy
+13:26:57 <aglitke> probably.
+13:27:38 <aglitke> #topic Roundtable / Open Discussion
+13:28:39 <aglitke> Any takers?
+13:28:48 <alinefm> #info alinefm Closed bug https://github.com/kimchi-project/kimchi/issues/21 (get open VNC port in mockmodel)
+13:28:51 <AdamKingIT> David Wang in CDL is arranging a customer visit to get some Kimchi feedback.  I have asked him to take Ming and Xin w/ him...
+13:29:06 <alinefm> #info alinefm Investigated bug https://github.com/kimchi-project/kimchi/issues/6. The problem is with Firefox 10.0.2 ESR. We should list the browsers will be supported by kimchi.
+13:29:17 <alinefm> #info alinefm I am unable to reproduce https://github.com/kimchi-project/kimchi/issues/20. Need more details in how do that.
+13:29:22 <AdamKingIT> Info I hope to get back is documented on the wiki
+13:29:27 <shaohef> #info shaohef test kimchi on FC19. shaohef work with zhoumeina to post her new patch.  shaohef closed bug 16 and 18
+13:29:34 <alinefm> #info alinefm Still need to apply review in the patches to disable 'create' button in create vm window and resend it to review.
+13:29:54 <alinefm> #info alinefm Now I am working on https://github.com/kimchi-project/kimchi/issues/4. I was able to reproduce the bug and the problem seems to be with screenshots.
+13:30:09 <hlwanghl_> #info hlwanghl worked on vm name issue
+13:30:26 <bing_bu> #info BingBu Sent 4 patches:
+13:30:27 <bing_bu> #info BingBu 1.Disable the VNC button and give warning message to prompt user
+13:30:27 <bing_bu> #info BingBu 2.Raise an exception in skipUnless() to abort the test on Python2.6
+13:30:27 <bing_bu> #info BingBu 3.Bug Fix: Get correct exception info when run unittest on Python2.6
+13:30:27 <bing_bu> #info BingBu 4.Add another path for SLES11 to find the qemu binary
+13:30:52 <aglitke> hlwanghl_: Did you originally report https://github.com/kimchi-project/kimchi/issues/20
+13:31:42 <lvroyce_> #info lvroyce fixed some bugs about testcase, template, unicode, are doing the dev-ui for template, screenshot flicker patch merged, did some review
+13:31:51 <aglitke> #info aglitke Reviewed and applied lots of patches.
+13:32:23 <aglitke> #info aglitke is hoping to implement an autotools based build and the iso scanning flow
+13:32:31 <hlwanghl_> aglitke: shaohef and I found the issue
+13:32:42 <shaohef> aglitke: yes.
+13:32:51 <aglitke> hlwanghl_: ok, thanks.  Can you please provide some more information on how to reproduce it.
+13:32:51 <hlwanghl_> But still not resolved
+13:33:20 <aglitke> Is it the first vnc opened when kimchi starts?  Does it need a specific browser?
+13:33:20 <alinefm> hlwanghl_, shaohef, I am not able to reproduce it
+13:33:22 <aglitke> etc.
+13:33:23 <sming> #info sming rebased async task to v9 and debugreports to V7
+13:33:24 <sming> #info sming verified the RPM packages in RHEL 6.4 .
+13:33:25 <hlwanghl_> Ok I'll try. Not happens every time
+13:33:39 <aglitke> alinefm: I see the problem sometimes
+13:33:49 <zhoumeina> #info zhoumeina is hoping to discuss the design UI together, so that everyone can get a good understand of it. and make the UI design better
+13:34:00 <aglitke> Usually if I start a VM and then try to vnc to it quickly.
+13:34:25 <alinefm> aglitke, ok
+13:34:26 <hlwanghl_> aglitke alinefm still don't know the exact steps
+13:34:30 <aglitke> zhoumeina: This is a great place to do that.  Do you have some specific areas to discuss>
+13:34:48 <alinefm> aglitke, do you remember which distro?
+13:35:50 <aglitke> I see it on fedora
+13:36:11 <shaohef> alinefm: FC17 and firefox 13.0 can reproduce.  iterate open noVNC and  close,
+13:36:12 <zhoumeina> aglitke: Some better tools? I think netmeeting is OK..
+13:36:47 <alinefm> shaohef, aglitke, ok! I will try again on Fedora
+13:37:01 <AdamKingIT> zhoumeina: no netmeeting for linux. I can meet you tomorrow and you can show me
+13:37:03 <aglitke> We have found that using skype or netmeeting is not very effective with a global team.  We have network latency and language barriers.
+13:37:11 <zhoumeina> I see
+13:37:49 <aglitke> We can try a google hangout sometime for a small sub-group though.
+13:38:04 <lvroyce_> sorry to interrupt... repost:<lvroyce> aglitke, but input long string path is error prone, if only we had way to tell users what iso we've got and make them choose
+13:38:05 <lvroyce_> <lvroyce> we may also want to add template disable when it can't create vm because of the iso disapeared...
+13:38:20 <aglitke> But just seeing the person doesn't really help to discuss UI look and feel.
+13:38:44 <sming> lvroyce_, good point.
+13:38:52 <aglitke> lvroyce_: Yes, we are going to add scanning.
+13:39:03 <aglitke> All found isos will be added as templates.
+13:39:11 <aglitke> We will tag them as 'new'
+13:39:26 <zhoumeina> no need to see the person, but share the screen, and can operate by everybody
+13:39:28 <aglitke> so the UI can enable a 'new' filter after the scan completes
+13:39:32 <lvroyce_> but we still need a path input or use a default one?
+13:39:41 <AdamKingIT> It would be interesting to add a 'files' selection path, where they remote user can browse, within some scope
+13:39:42 <aglitke> lvroyce_: default is '/'.
+13:39:49 <aglitke> If someone knows a better path, then can use it.
+13:40:16 <aglitke> we can avoid some common bad places to scan (ie. /proc, /sys)
+13:40:21 <shaohef> aglitke: how should we handle the spice display.  you know kimchi can manager  VMs created by other VM manger tool.   https://github.com/kimchi-project/kimchi/issues/35
+13:40:25 <AdamKingIT> scanning / may take longer than we would prefer depending on NFS mounts and such
+13:41:01 <aglitke> shaohef: We don't support spice.  If a vnc port is not found, then the 'vnc_port' field in the VM resource should be blank.
+13:41:11 <aglitke> In that case, the UI should disable the VNC button.
+13:41:15 <lvroyce_> I hope default can be a place like /usr/share/kimchi/iso as we don't want to expose our server directory structure
+13:41:35 <shaohef> aglitke: VNC button change to gray?
+13:41:42 <aglitke> shaohef: yes
+13:41:44 <AdamKingIT> It would be useful if we revist spice
+13:41:59 <shaohef> aglitke: got it.
+13:42:06 <aglitke> AdamKingIT: Until spice supports an HTML5 client we cannot support it.
+13:42:18 <aglitke> supposedly they are working on it.
+13:42:34 <bing_bu> aglitke: I think if spice, we can tell user the port and give some hint how to show the display,such as using 'spicec'
+13:42:34 <sming> AdmaKingIT, some times the nfs mounted path in the Kimchi server is pretty big, I think we should avoid scan that directory.
+13:42:41 <aglitke> One of the design tenets of kimchi is that it requires nothing of the client except for a browser.
+13:42:46 <shaohef> AdamKingIT: maybe spice need a plugin. java plugin.
+13:43:04 <aglitke> sming: THat's where the isos are though sometimes :)
+13:43:21 <aglitke> We can have a 'quick scan' and a deep scan
+13:43:32 <aglitke> maybe quick scan looks only on local fs
+13:43:44 <AdamKingIT> If the client has spice capability, it would be useful to give the user a quick path to launch it
+13:43:46 <aglitke> and deep scan does '/' and searches everything
+13:43:47 <sming> aglitke, also nfs scanning may block the scanning thread and block the whole process.  That is the lesson from VDSM.
+13:44:30 <aglitke> sming: good point.
+13:44:36 <shaohef> AdamKingIT: we can do. but we like HTML5 spice client. aglitke, right?
+13:44:51 <aglitke> shaohef: yes.
+13:45:07 <zhoumeina> aglitke: I don't know if we decided that "spcie" vm can not be show in the list of VMS?
+13:45:13 <aglitke> I think there are much higher priority items than supporting legacy spice clients at the moment.
+13:45:42 <AdamKingIT> IMO we don't have to constrain ourselves to a browser only soln, other applications can be launched from the browser if avail
+13:45:51 <aglitke> and if we make kimchi great, the spice guys will have another reason to accelerate their html5 client work.
+13:46:07 <aglitke> AdamKingIT: I strongly disagree.
+13:46:15 <aglitke> That is why virt-manager currently sucks.
+13:46:23 <aglitke> oVirt spice connectivity sucks
+13:46:51 <zhoumeina> aglitke: I mean the issue "VNC port" can not be found
+13:46:53 <aglitke> because of the need to fetch a plugin and install it.
+13:46:54 <shaohef> aglitke:  which characters should be allowed in VM name?  https://github.com/kimchi-project/kimchi/issues/36
+13:47:02 <AdamKingIT> I also agree that we have higher priority items than adding ANOTHER remote display technology
+13:47:28 <aglitke> shaohef: We should strive to support the same set of chars as libvirt does.
+13:47:33 <zhoumeina> now kimchi can show the spice vms on the list of vms, but can not VNC
+13:47:46 <aglitke> shaohef: Can you try to use virt-manager to create a vm with a chinese name?
+13:47:56 <aglitke> zhoumeina: Yes, and that's ok
+13:48:10 <shaohef> aglitke: not try. I will try it later.
+13:48:34 <aglitke> #action shaohef  use virt-manager to try and create a vm with a chinese name and report results to list
+13:48:40 <aglitke> thanks
+13:55:10 <hlwanghl_> And IE
+13:55:13 <zhoumeina> alinefm: we can make a update package and a tool to clean the catch,after update
+13:55:44 <hlwanghl_> zhoumeina: we can discuss that tomorrow
+13:55:46 <AdamKingIT> yikes, no. You can;t ask people to clean cache because we updated something
+13:56:02 <shaohef> aglitke: kimchi-bot become kimchi-bot`
+13:56:13 <zhoumeina> ok
+13:56:18 <hlwanghl_> Bot quit
+13:56:31 <aglitke1> shaohef: Yes. Strong storms here caused a brief power outage.
+13:56:33 <AdamKingIT> there is a pretty well established pattern to handle. I'll start the discussion on the list
+13:56:41 <aglitke1> The bot and I missed part of this conversation :(
+13:57:17 <dingxin> I think we should to check whether cherrypy supports standard http cache config for static contents or not
+13:57:21 <alinefm> aglitke1, which part did you read?
+13:57:25 <aglitke1> #action AdamKingIT start the discussion on the list about how to handle UI code updates wrt browser caches
+13:57:33 <hlwanghl_> shaohef: you can send the conversation to aglitke
+13:57:42 <aglitke1> I will paste the message before and after the outage:
+13:57:44 <shaohef> aglitke1: sming: can we setup a irc proxy?
+13:57:58 <aglitke1> (09:48:39 AM) aglitke: thanks
+13:58:00 <shaohef> aglitke1: yes. I will
+13:58:07 <aglitke1> (09:54:33 AM) alinefm: sming, in firefox is Ctrl+shift+Del
+13:58:34 <aglitke1> about 6 minutes
+13:58:41 <AdamKingIT> there is always a UI for clearing the cache
+13:59:19 <AdamKingIT> In firefox in under Tools -> options   => advanced , Network
+13:59:48 <AdamKingIT> IE has similar
+13:59:50 <alinefm> aglitke1, sent to you in pvt
+14:00:02 <AdamKingIT> as well as a path in dev tools - F12
+14:00:16 <sming> AdamKingIT, I used that UI before to clean all the caches.
+14:00:27 <shaohef> aglitke1: also send to you.
+14:00:37 <aglitke1> thanks for catching me up guys
+14:00:55 <AdamKingIT> There used to be a FF plugin called Johnny Cache that I loved, but it stopped being maintained
+14:01:01 <aglitke1> Well we are at the top of the hour and I want to respect everyone's time.
+14:01:21 <aglitke1> Feel free to continue discussions here
+14:01:25 <aglitke1> or on the list.
+14:01:31 <aglitke1> Thanks for joining everyone
+14:01:34 <aglitke> #endmeeting
+14:01:40 <AdamKingIT> good luck w/ the storm
+14:01:44 <shaohef> sming: will we setup a irc proxy?
+14:01:47 <aglitke1> thanks.
+14:02:05 <aglitke1> These old power lines aren't as resilient as the underground lines we had in rochester.
+14:02:05 <lvroyce_> aglitke1, do you have a storm now in US?
+14:02:12 <sming> irc proxy for China guys?
+14:02:14 <zhoumeina> hlwanghl_:
+14:02:25 <aglitke1> lvroyce_: Yes, heavy thunderstorms and rain.  Flash Flooding
+14:02:28 <zhoumeina> we can discuss it now
+14:02:28 <shaohef> irc for all?
+14:02:47 <shaohef> aglitke1: take care.
+14:02:59 <lvroyce_> aglitke1, that's scary... take care
+14:03:39 <hlwanghl_> Good luck, aglitke1
+14:03:44 <zhoumeina> hlwanghl_:
+14:04:26 <zhoumeina> you have better ideas?

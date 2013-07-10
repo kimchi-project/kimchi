@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 10 13:01:19 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:33</span><span class="nk"> &lt;hlwanghl_&gt;</span> It added a _ after my nick name
+<a name="l-5"></a><span class="tm">13:01:53 </span><span class="nka">* hlwanghl_</span> <span class="ac">slaps shaohef around a bit with a large fishbot</span>
+<a name="l-6"></a><span class="tm">13:01:55</span><span class="nk"> &lt;aglitke&gt;</span> FYI, the meeting will be logged and minutes will be uploaded to the kimchi website
+<a name="l-7"></a><span class="tm">13:02:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-8"></a><span class="tm">13:02:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-9"></a><span class="tm">13:02:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) 1.0 Features and planning</span>
+<a name="l-10"></a><span class="tm">13:02:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Roundtable / Open Discussion</span>
+<a name="l-11"></a><span class="tm">13:03:00</span><span class="nk"> &lt;aglitke&gt;</span> any other items?
+<a name="l-12"></a><span class="tm">13:03:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> Customer user study, though we can hit that during the round table
+<a name="l-13"></a><span class="tm">13:03:38</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-14"></a><span class="tm">13:03:38</span><span class="nk"> &lt;shaohef&gt;</span> char in name？
+<a name="l-15"></a><span class="tm">13:04:13</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Let's do that in the round table too.  There is a good discussion going on on the list as well.
+<a name="l-16"></a><span class="tm">13:04:24</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-17"></a><span class="tm">13:04:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">aliguori:</span> do you have anything to add?
+<a name="l-18"></a><span class="tm">13:05:10</span><span class="nk"> &lt;aglitke&gt;</span> heh, guess not :)
+<a name="l-19"></a><span class="tm">13:05:20</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think it was something you said
+<a name="l-20"></a><span class="tm">13:05:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">1.0 Features and planning</span>
+<a name="l-21"></a><span class="tm">13:05:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aliguori_:</span> left the room :)
+<a name="l-22"></a><span class="tm">13:05:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/issues?labels=enhancement&amp;milestone=&amp;page=1&amp;state=open</span>
+<a name="l-23"></a><span class="tm">13:06:18</span><span class="nk"> &lt;aglitke&gt;</span> The above link will take you to a list of all the enhancements we have planned.
+<a name="l-24"></a><span class="tm">13:06:29</span><span class="nk"> &lt;aglitke&gt;</span> You can filter by sprint and release.
+<a name="l-25"></a><span class="tm">13:06:35</span><span class="nk"> &lt;AdamKingIT&gt;</span> I owe creating an enhancement to add  "login"
+<a name="l-26"></a><span class="tm">13:06:42</span><span class="nk"> &lt;aglitke&gt;</span> As of now, no major features are tracked.
+<a name="l-27"></a><span class="tm">13:07:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think we also need one to finish the ISO scanning in the template creation flow
+<a name="l-28"></a><span class="tm">13:07:09</span><span class="nk"> &lt;aglitke&gt;</span> 1.0 will be released on 9/30
+<a name="l-29"></a><span class="tm">13:07:13</span><span class="nk"> &lt;sming&gt;</span> It seems that most of the features in the page are UI enhancement.
+<a name="l-30"></a><span class="tm">13:07:27</span><span class="nk"> &lt;lvroyce&gt;</span> AdamKingIT, agree
+<a name="l-31"></a><span class="tm">13:07:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">AdamKingIT add enhancement for login</span>
+<a name="l-32"></a><span class="tm">13:08:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">aglitke add enhancement for iso scanning flow</span>
+<a name="l-33"></a><span class="tm">13:08:08</span><span class="nk"> &lt;zhoumeina&gt;</span> that because UI is not strong enough
+<a name="l-34"></a><span class="tm">13:08:14</span><span class="nk"> &lt;sming&gt;</span> Federation and debugreports?
+<a name="l-35"></a><span class="tm">13:08:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/wiki/Todo</span>
+<a name="l-36"></a><span class="tm">13:08:42</span><span class="nk"> &lt;aglitke&gt;</span> Here is our rough TODO list
+<a name="l-37"></a><span class="tm">13:08:59</span><span class="nk"> &lt;aglitke&gt;</span> both federation and debugreports are represented.
+<a name="l-38"></a><span class="tm">13:09:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> I have another action...
+<a name="l-39"></a><span class="tm">13:09:08</span><span class="nk"> &lt;lvroyce&gt;</span> In fact, I'm wandering if bing_bu's get static config and my change static config are still on list of interest?
+<a name="l-40"></a><span class="tm">13:09:19</span><span class="nk"> &lt;aglitke&gt;</span> Right now we have about 20 days left in sprint one
+<a name="l-41"></a><span class="tm">13:09:34</span><span class="nk"> &lt;AdamKingIT&gt;</span> AdamKingIT #action Add other user stories to the GitHub wiki
+<a name="l-42"></a><span class="tm">13:09:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> just go ahead and use #action to add it
+<a name="l-43"></a><span class="tm">13:09:49</span><span class="nk"> &lt;aglitke&gt;</span> put #action first
+<a name="l-44"></a><span class="tm">13:10:08</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="cmd">#action </span><span class="cmdline">AdamKingIT  Add other user stories to the GitHub wik</span>
+<a name="l-45"></a><span class="tm">13:10:15</span><span class="nk"> &lt;aglitke&gt;</span> :)
+<a name="l-46"></a><span class="tm">13:10:22</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">lvroyce:</span> your vm-rename still not merged?
+<a name="l-47"></a><span class="tm">13:10:46</span><span class="nk"> &lt;sming&gt;</span> <span class="hi">guests:</span> migration to remote system.  Does this feature reach outside of Kimchi scope?
+<a name="l-48"></a><span class="tm">13:10:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> hlwanghl_ need the template update
+<a name="l-49"></a><span class="tm">13:11:13</span><span class="nk"> &lt;aglitke&gt;</span> So in sprint 1 the only major enhancement we have is to complete the rename to Kimchi
+<a name="l-50"></a><span class="tm">13:11:15</span><span class="nk"> &lt;hlwanghl_&gt;</span> edit template
+<a name="l-51"></a><span class="tm">13:11:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> I don't really understand that.  I can edit the template in the ui now.
+<a name="l-52"></a><span class="tm">13:11:35</span><span class="nk"> &lt;lvroyce&gt;</span> bing_bu, I guess they are depending on yours, I want to make it commonly used for config change...
+<a name="l-53"></a><span class="tm">13:12:42</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> that is because hongliang delete the template and add a new one ,but not edit api from back end
+<a name="l-54"></a><span class="tm">13:12:45</span><span class="nk"> &lt;sming&gt;</span> agiltke, sprint 1 will end in 9/30, the same as realease 1.0?
+<a name="l-55"></a><span class="tm">13:12:53</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> I worked it around by 1) remove it 2) recreate it
+<a name="l-56"></a><span class="tm">13:13:06</span><span class="nk"> &lt;lvroyce&gt;</span> aglitke, I'm doing the template create flow in dev-ui, do we still need that before release 1.0?
+<a name="l-57"></a><span class="tm">13:13:13</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> https://github.com/kimchi-project/kimchi/wiki/Planning-1.0
+<a name="l-58"></a><span class="tm">13:13:18</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi 1.0 - Sprint 1: 7/30/13
+<a name="l-59"></a><span class="tm">13:13:23</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi 1.0 - Sprint 2: 8/30/13
+<a name="l-60"></a><span class="tm">13:13:27</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi 1.0 - GA: 9/30/13
+<a name="l-61"></a><span class="tm">13:13:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes. I also mentioned, combine GET, DELETE, CTEATE method, UI can edit template. But I have discusses with hlwanghl_, he need just one method.
+<a name="l-62"></a><span class="tm">13:14:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> ok.  Your patches may need to be resubmitted.
+<a name="l-63"></a><span class="tm">13:14:11</span><span class="nk"> &lt;aglitke&gt;</span> Hopefully we can support update in a generic fashion.
+<a name="l-64"></a><span class="tm">13:14:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">lvroyce:</span> THat is not as important.
+<a name="l-65"></a><span class="tm">13:14:30</span><span class="nk"> &lt;zhoumeina&gt;</span> 7/30 we mainly focus on rename to kimchi, right?
+<a name="l-66"></a><span class="tm">13:14:32</span><span class="nk"> &lt;sming&gt;</span> <span class="hi">shaohef:</span> we need add the first update method.
+<a name="l-67"></a><span class="tm">13:14:34</span><span class="nk"> &lt;hlwanghl_&gt;</span> shaohef Combine?
+<a name="l-68"></a><span class="tm">13:14:37</span><span class="nk"> &lt;AdamKingIT&gt;</span> Additional enhancements I suggest we add to sprint 1:
+<a name="l-69"></a><span class="tm">13:14:38</span><span class="nk"> &lt;AdamKingIT&gt;</span> Create template by scanning for ISOs
+<a name="l-70"></a><span class="tm">13:14:38</span><span class="nk"> &lt;AdamKingIT&gt;</span> Create template by selecting distro/versoin then stream ISO in the backend
+<a name="l-71"></a><span class="tm">13:14:42</span><span class="nk"> &lt;aglitke&gt;</span> I would rather see the template scanning via tasks done in the design ui
+<a name="l-72"></a><span class="tm">13:14:52</span><span class="nk"> &lt;lvroyce&gt;</span> about the iso scanning feature... When I making up the dev-ui, no /iso exported really bothers, I think
+<a name="l-73"></a><span class="tm">13:14:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> ok. need more  discussion
+<a name="l-74"></a><span class="tm">13:15:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> One thing I don't understand from the design UI is how we can organize newly imported templates.
+<a name="l-75"></a><span class="tm">13:15:35</span><span class="nk"> &lt;lvroyce&gt;</span> people need to input string of server path
+<a name="l-76"></a><span class="tm">13:15:48</span><span class="nk"> &lt;aglitke&gt;</span> In the dev UI we had folders so the new templates could be placed in a folder called 'Import'
+<a name="l-77"></a><span class="tm">13:16:07</span><span class="nk"> &lt;aglitke&gt;</span> and the user could then move them around or delete the ones that were not needed,.
+<a name="l-78"></a><span class="tm">13:16:20</span><span class="nk"> &lt;aglitke&gt;</span> With the design UI they all appear in a flat namespace.
+<a name="l-79"></a><span class="tm">13:16:29</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> templates can be imported from server side?
+<a name="l-80"></a><span class="tm">13:16:36</span><span class="nk"> &lt;AdamKingIT&gt;</span> They are, thouhg new ones are to be marked new: pending
+<a name="l-81"></a><span class="tm">13:17:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> After that. there are a number of search/filter mechanisms to be implemented
+<a name="l-82"></a><span class="tm">13:17:13</span><span class="nk"> &lt;aglitke&gt;</span> ok so we need some enhancements to support tagging in the backend and UI
+<a name="l-83"></a><span class="tm">13:17:31</span><span class="nk"> &lt;lvroyce&gt;</span> :)I like that
+<a name="l-84"></a><span class="tm">13:17:52</span><span class="nk"> &lt;AdamKingIT&gt;</span> While I like the idea of tagging, we may be ok w/ filers based on distro/version
+<a name="l-85"></a><span class="tm">13:18:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">lvroyce:</span> regarding /isos... I think reserving a storage domain for isos only is a mistake.
+<a name="l-86"></a><span class="tm">13:18:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think tags would be easy enough to add on top
+<a name="l-87"></a><span class="tm">13:18:46</span><span class="nk"> &lt;sming&gt;</span> aglitke, I would argue that dispersing ISO images around is also a mistake.
+<a name="l-88"></a><span class="tm">13:18:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> why?
+<a name="l-89"></a><span class="tm">13:19:19</span><span class="nk"> &lt;sming&gt;</span> aglitke, there is no benifit to disperse the images to different directories.
+<a name="l-90"></a><span class="tm">13:19:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> do we still want a user story for upload an iso?
+<a name="l-91"></a><span class="tm">13:19:29</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">sming:</span> agree
+<a name="l-92"></a><span class="tm">13:19:30</span><span class="nk"> &lt;aglitke&gt;</span> But that is where they happen to be.
+<a name="l-93"></a><span class="tm">13:19:42</span><span class="nk"> &lt;lvroyce&gt;</span> aglitke, but input long string path is error prone, if only we had way to tell users what iso we've got and make them choose
+<a name="l-94"></a><span class="tm">13:19:49</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi should not require users to relocate their files just so they can work with this software,.
+<a name="l-95"></a><span class="tm">13:20:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">lvroyce:</span> scan uses a path '/'
+<a name="l-96"></a><span class="tm">13:20:10</span><span class="nk"> &lt;aglitke&gt;</span> or something else.
+<a name="l-97"></a><span class="tm">13:20:21</span><span class="nk"> &lt;aglitke&gt;</span> We can default it to '/'
+<a name="l-98"></a><span class="tm">13:20:29</span><span class="nk"> &lt;hlwanghl_&gt;</span> Uploading ISO files is slow through HTTP
+<a name="l-99"></a><span class="tm">13:20:40</span><span class="nk"> &lt;zhoumeina&gt;</span> yes
+<a name="l-100"></a><span class="tm">13:20:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> We are just talking about scanning the local server for what may be on the box.
+<a name="l-101"></a><span class="tm">13:20:56</span><span class="nk"> &lt;sming&gt;</span> aglitke, but we can require the user to upload the iso images to a specific Kimchi directory if they want to use Kimchi.
+<a name="l-102"></a><span class="tm">13:21:01</span><span class="nk"> &lt;aglitke&gt;</span> Rather than requiring a user to add specific isos
+<a name="l-103"></a><span class="tm">13:21:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> Why?
+<a name="l-104"></a><span class="tm">13:21:21</span><span class="nk"> &lt;aglitke&gt;</span> It's just as easy to not have that restriction.
+<a name="l-105"></a><span class="tm">13:21:21</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> reading
+<a name="l-106"></a><span class="tm">13:21:33</span><span class="nk"> &lt;sming&gt;</span> aglitke, after they uninstall Kimchi, the iso images also removed.
+<a name="l-107"></a><span class="tm">13:21:40</span><span class="nk"> &lt;aglitke&gt;</span> no!
+<a name="l-108"></a><span class="tm">13:21:50</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">hlwanghl_:</span> we can install the VM from remote ISO by steaming.  aglitke right?
+<a name="l-109"></a><span class="tm">13:21:57</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> the iso images are user data
+<a name="l-110"></a><span class="tm">13:22:04</span><span class="nk"> &lt;aglitke&gt;</span> you should absolutely not remove them :)
+<a name="l-111"></a><span class="tm">13:22:31</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> / hlwanghl_: eventually that is another feature we are shooting for.
+<a name="l-112"></a><span class="tm">13:22:35</span><span class="nk"> &lt;aglitke&gt;</span> Hopefully by 1.0
+<a name="l-113"></a><span class="tm">13:22:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">aglitke add an enhancement for web templates</span>
+<a name="l-114"></a><span class="tm">13:23:02</span><span class="nk"> &lt;hlwanghl_&gt;</span> Local first and then remote
+<a name="l-115"></a><span class="tm">13:23:08</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-116"></a><span class="tm">13:23:15</span><span class="nk"> &lt;sming&gt;</span> aglitke, uploading the iso images to a specific Kimvhi directory  will clone the iso images and those images belong to Kimchi.
+<a name="l-117"></a><span class="tm">13:23:22</span><span class="nk"> &lt;aglitke&gt;</span> remote requires very new versions of qemu and libvirt
+<a name="l-118"></a><span class="tm">13:23:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> cloning wastes space
+<a name="l-119"></a><span class="tm">13:23:51</span><span class="nk"> &lt;aglitke&gt;</span> since they are readonly there is no reason to clone.
+<a name="l-120"></a><span class="tm">13:23:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> Can we detect if qemu/libvirt is at a new enough level?
+<a name="l-121"></a><span class="tm">13:24:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> Have you seen the iso repository we have on ltcphx?  It's 10s of GBs of ISOS
+<a name="l-122"></a><span class="tm">13:24:25</span><span class="nk"> &lt;aglitke&gt;</span> that would take forever to clone to each individual server.
+<a name="l-123"></a><span class="tm">13:24:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> yes.
+<a name="l-124"></a><span class="tm">13:24:39</span><span class="nk"> &lt;AdamKingIT&gt;</span> We don't want to offer the user a UI choice only to quickly fail to stream
+<a name="l-125"></a><span class="tm">13:24:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> sure. libvirt support a API
+<a name="l-126"></a><span class="tm">13:24:54</span><span class="nk"> &lt;aglitke&gt;</span> I believe libvirt capabilities will provide that info to us.
+<a name="l-127"></a><span class="tm">13:25:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> Great. We'll want to think about a design to query the capability, along w. others...
+<a name="l-128"></a><span class="tm">13:25:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> right.  We will disable the web templates feature when the system is too old to support it.
+<a name="l-129"></a><span class="tm">13:25:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> should dovetail nicely into an authorization model...
+<a name="l-130"></a><span class="tm">13:26:21</span><span class="nk"> &lt;AdamKingIT&gt;</span> Eventually some users will be authorized to actions, and some not. Noone will be authorized if the server can't support the action
+<a name="l-131"></a><span class="tm">13:26:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> a new URL for query the capability?
+<a name="l-132"></a><span class="tm">13:26:29</span><span class="nk"> &lt;aglitke&gt;</span> ok.  I don;t really have anything else for Planning right now.  We are going to add some enhancements and work to assign them to the proper sprints.
+<a name="l-133"></a><span class="tm">13:26:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> maybe.
+<a name="l-134"></a><span class="tm">13:26:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> Lets start a discussion thread. A new URL may be clumsy
+<a name="l-135"></a><span class="tm">13:26:57</span><span class="nk"> &lt;aglitke&gt;</span> probably.
+<a name="l-136"></a><span class="tm">13:27:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Roundtable / Open Discussion</span>
+<a name="l-137"></a><span class="tm">13:28:39</span><span class="nk"> &lt;aglitke&gt;</span> Any takers?
+<a name="l-138"></a><span class="tm">13:28:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Closed bug https://github.com/kimchi-project/kimchi/issues/21 (get open VNC port in mockmodel)</span>
+<a name="l-139"></a><span class="tm">13:28:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> David Wang in CDL is arranging a customer visit to get some Kimchi feedback.  I have asked him to take Ming and Xin w/ him...
+<a name="l-140"></a><span class="tm">13:29:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Investigated bug https://github.com/kimchi-project/kimchi/issues/6. The problem is with Firefox 10.0.2 ESR. We should list the browsers will be supported by kimchi.</span>
+<a name="l-141"></a><span class="tm">13:29:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I am unable to reproduce https://github.com/kimchi-project/kimchi/issues/20. Need more details in how do that.</span>
+<a name="l-142"></a><span class="tm">13:29:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> Info I hope to get back is documented on the wiki
+<a name="l-143"></a><span class="tm">13:29:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef test kimchi on FC19. shaohef work with zhoumeina to post her new patch.  shaohef closed bug 16 and 18</span>
+<a name="l-144"></a><span class="tm">13:29:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Still need to apply review in the patches to disable 'create' button in create vm window and resend it to review.</span>
+<a name="l-145"></a><span class="tm">13:29:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Now I am working on https://github.com/kimchi-project/kimchi/issues/4. I was able to reproduce the bug and the problem seems to be with screenshots.</span>
+<a name="l-146"></a><span class="tm">13:30:09</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="cmd">#info </span><span class="cmdline">hlwanghl worked on vm name issue</span>
+<a name="l-147"></a><span class="tm">13:30:26</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">BingBu Sent 4 patches:</span>
+<a name="l-148"></a><span class="tm">13:30:27</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">BingBu 1.Disable the VNC button and give warning message to prompt user</span>
+<a name="l-149"></a><span class="tm">13:30:27</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">BingBu 2.Raise an exception in skipUnless() to abort the test on Python2.6</span>
+<a name="l-150"></a><span class="tm">13:30:27</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">BingBu 3.Bug Fix: Get correct exception info when run unittest on Python2.6</span>
+<a name="l-151"></a><span class="tm">13:30:27</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">BingBu 4.Add another path for SLES11 to find the qemu binary</span>
+<a name="l-152"></a><span class="tm">13:30:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> Did you originally report https://github.com/kimchi-project/kimchi/issues/20
+<a name="l-153"></a><span class="tm">13:31:42</span><span class="nk"> &lt;lvroyce_&gt;</span> <span class="cmd">#info </span><span class="cmdline">lvroyce fixed some bugs about testcase, template, unicode, are doing the dev-ui for template, screenshot flicker patch merged, did some review</span>
+<a name="l-154"></a><span class="tm">13:31:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">aglitke Reviewed and applied lots of patches.</span>
+<a name="l-155"></a><span class="tm">13:32:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">aglitke is hoping to implement an autotools based build and the iso scanning flow</span>
+<a name="l-156"></a><span class="tm">13:32:31</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> shaohef and I found the issue
+<a name="l-157"></a><span class="tm">13:32:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-158"></a><span class="tm">13:32:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> ok, thanks.  Can you please provide some more information on how to reproduce it.
+<a name="l-159"></a><span class="tm">13:32:51</span><span class="nk"> &lt;hlwanghl_&gt;</span> But still not resolved
+<a name="l-160"></a><span class="tm">13:33:20</span><span class="nk"> &lt;aglitke&gt;</span> Is it the first vnc opened when kimchi starts?  Does it need a specific browser?
+<a name="l-161"></a><span class="tm">13:33:20</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl_, shaohef, I am not able to reproduce it
+<a name="l-162"></a><span class="tm">13:33:22</span><span class="nk"> &lt;aglitke&gt;</span> etc.
+<a name="l-163"></a><span class="tm">13:33:23</span><span class="nk"> &lt;sming&gt;</span> <span class="cmd">#info </span><span class="cmdline">sming rebased async task to v9 and debugreports to V7</span>
+<a name="l-164"></a><span class="tm">13:33:24</span><span class="nk"> &lt;sming&gt;</span> <span class="cmd">#info </span><span class="cmdline">sming verified the RPM packages in RHEL 6.4 .</span>
+<a name="l-165"></a><span class="tm">13:33:25</span><span class="nk"> &lt;hlwanghl_&gt;</span> Ok I'll try. Not happens every time
+<a name="l-166"></a><span class="tm">13:33:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> I see the problem sometimes
+<a name="l-167"></a><span class="tm">13:33:49</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">zhoumeina is hoping to discuss the design UI together, so that everyone can get a good understand of it. and make the UI design better</span>
+<a name="l-168"></a><span class="tm">13:34:00</span><span class="nk"> &lt;aglitke&gt;</span> Usually if I start a VM and then try to vnc to it quickly.
+<a name="l-169"></a><span class="tm">13:34:25</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, ok
+<a name="l-170"></a><span class="tm">13:34:26</span><span class="nk"> &lt;hlwanghl_&gt;</span> aglitke alinefm still don't know the exact steps
+<a name="l-171"></a><span class="tm">13:34:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> This is a great place to do that.  Do you have some specific areas to discuss&gt;
+<a name="l-172"></a><span class="tm">13:34:48</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, do you remember which distro?
+<a name="l-173"></a><span class="tm">13:35:50</span><span class="nk"> &lt;aglitke&gt;</span> I see it on fedora
+<a name="l-174"></a><span class="tm">13:36:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> FC17 and firefox 13.0 can reproduce.  iterate open noVNC and  close,
+<a name="l-175"></a><span class="tm">13:36:12</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> Some better tools? I think netmeeting is OK..
+<a name="l-176"></a><span class="tm">13:36:47</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, aglitke, ok! I will try again on Fedora
+<a name="l-177"></a><span class="tm">13:37:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">zhoumeina:</span> no netmeeting for linux. I can meet you tomorrow and you can show me
+<a name="l-178"></a><span class="tm">13:37:03</span><span class="nk"> &lt;aglitke&gt;</span> We have found that using skype or netmeeting is not very effective with a global team.  We have network latency and language barriers.
+<a name="l-179"></a><span class="tm">13:37:11</span><span class="nk"> &lt;zhoumeina&gt;</span> I see
+<a name="l-180"></a><span class="tm">13:37:49</span><span class="nk"> &lt;aglitke&gt;</span> We can try a google hangout sometime for a small sub-group though.
+<a name="l-181"></a><span class="tm">13:38:04</span><span class="nk"> &lt;lvroyce_&gt;</span> sorry to interrupt... repost:&lt;lvroyce&gt; aglitke, but input long string path is error prone, if only we had way to tell users what iso we've got and make them choose
+<a name="l-182"></a><span class="tm">13:38:05</span><span class="nk"> &lt;lvroyce_&gt;</span> &lt;lvroyce&gt; we may also want to add template disable when it can't create vm because of the iso disapeared...
+<a name="l-183"></a><span class="tm">13:38:20</span><span class="nk"> &lt;aglitke&gt;</span> But just seeing the person doesn't really help to discuss UI look and feel.
+<a name="l-184"></a><span class="tm">13:38:44</span><span class="nk"> &lt;sming&gt;</span> lvroyce_, good point.
+<a name="l-185"></a><span class="tm">13:38:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">lvroyce_:</span> Yes, we are going to add scanning.
+<a name="l-186"></a><span class="tm">13:39:03</span><span class="nk"> &lt;aglitke&gt;</span> All found isos will be added as templates.
+<a name="l-187"></a><span class="tm">13:39:11</span><span class="nk"> &lt;aglitke&gt;</span> We will tag them as 'new'
+<a name="l-188"></a><span class="tm">13:39:26</span><span class="nk"> &lt;zhoumeina&gt;</span> no need to see the person, but share the screen, and can operate by everybody
+<a name="l-189"></a><span class="tm">13:39:28</span><span class="nk"> &lt;aglitke&gt;</span> so the UI can enable a 'new' filter after the scan completes
+<a name="l-190"></a><span class="tm">13:39:32</span><span class="nk"> &lt;lvroyce_&gt;</span> but we still need a path input or use a default one?
+<a name="l-191"></a><span class="tm">13:39:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> It would be interesting to add a 'files' selection path, where they remote user can browse, within some scope
+<a name="l-192"></a><span class="tm">13:39:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">lvroyce_:</span> default is '/'.
+<a name="l-193"></a><span class="tm">13:39:49</span><span class="nk"> &lt;aglitke&gt;</span> If someone knows a better path, then can use it.
+<a name="l-194"></a><span class="tm">13:40:16</span><span class="nk"> &lt;aglitke&gt;</span> we can avoid some common bad places to scan (ie. /proc, /sys)
+<a name="l-195"></a><span class="tm">13:40:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> how should we handle the spice display.  you know kimchi can manager  VMs created by other VM manger tool.   https://github.com/kimchi-project/kimchi/issues/35
+<a name="l-196"></a><span class="tm">13:40:25</span><span class="nk"> &lt;AdamKingIT&gt;</span> scanning / may take longer than we would prefer depending on NFS mounts and such
+<a name="l-197"></a><span class="tm">13:41:01</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> We don't support spice.  If a vnc port is not found, then the 'vnc_port' field in the VM resource should be blank.
+<a name="l-198"></a><span class="tm">13:41:11</span><span class="nk"> &lt;aglitke&gt;</span> In that case, the UI should disable the VNC button.
+<a name="l-199"></a><span class="tm">13:41:15</span><span class="nk"> &lt;lvroyce_&gt;</span> I hope default can be a place like /usr/share/kimchi/iso as we don't want to expose our server directory structure
+<a name="l-200"></a><span class="tm">13:41:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> VNC button change to gray?
+<a name="l-201"></a><span class="tm">13:41:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes
+<a name="l-202"></a><span class="tm">13:41:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> It would be useful if we revist spice
+<a name="l-203"></a><span class="tm">13:41:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> got it.
+<a name="l-204"></a><span class="tm">13:42:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Until spice supports an HTML5 client we cannot support it.
+<a name="l-205"></a><span class="tm">13:42:18</span><span class="nk"> &lt;aglitke&gt;</span> supposedly they are working on it.
+<a name="l-206"></a><span class="tm">13:42:34</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> I think if spice, we can tell user the port and give some hint how to show the display,such as using 'spicec'
+<a name="l-207"></a><span class="tm">13:42:34</span><span class="nk"> &lt;sming&gt;</span> AdmaKingIT, some times the nfs mounted path in the Kimchi server is pretty big, I think we should avoid scan that directory.
+<a name="l-208"></a><span class="tm">13:42:41</span><span class="nk"> &lt;aglitke&gt;</span> One of the design tenets of kimchi is that it requires nothing of the client except for a browser.
+<a name="l-209"></a><span class="tm">13:42:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> maybe spice need a plugin. java plugin.
+<a name="l-210"></a><span class="tm">13:43:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> THat's where the isos are though sometimes :)
+<a name="l-211"></a><span class="tm">13:43:21</span><span class="nk"> &lt;aglitke&gt;</span> We can have a 'quick scan' and a deep scan
+<a name="l-212"></a><span class="tm">13:43:32</span><span class="nk"> &lt;aglitke&gt;</span> maybe quick scan looks only on local fs
+<a name="l-213"></a><span class="tm">13:43:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> If the client has spice capability, it would be useful to give the user a quick path to launch it
+<a name="l-214"></a><span class="tm">13:43:46</span><span class="nk"> &lt;aglitke&gt;</span> and deep scan does '/' and searches everything
+<a name="l-215"></a><span class="tm">13:43:47</span><span class="nk"> &lt;sming&gt;</span> aglitke, also nfs scanning may block the scanning thread and block the whole process.  That is the lesson from VDSM.
+<a name="l-216"></a><span class="tm">13:44:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> good point.
+<a name="l-217"></a><span class="tm">13:44:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> we can do. but we like HTML5 spice client. aglitke, right?
+<a name="l-218"></a><span class="tm">13:44:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes.
+<a name="l-219"></a><span class="tm">13:45:07</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I don't know if we decided that "spcie" vm can not be show in the list of VMS?
+<a name="l-220"></a><span class="tm">13:45:13</span><span class="nk"> &lt;aglitke&gt;</span> I think there are much higher priority items than supporting legacy spice clients at the moment.
+<a name="l-221"></a><span class="tm">13:45:42</span><span class="nk"> &lt;AdamKingIT&gt;</span> IMO we don't have to constrain ourselves to a browser only soln, other applications can be launched from the browser if avail
+<a name="l-222"></a><span class="tm">13:45:51</span><span class="nk"> &lt;aglitke&gt;</span> and if we make kimchi great, the spice guys will have another reason to accelerate their html5 client work.
+<a name="l-223"></a><span class="tm">13:46:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I strongly disagree.
+<a name="l-224"></a><span class="tm">13:46:15</span><span class="nk"> &lt;aglitke&gt;</span> That is why virt-manager currently sucks.
+<a name="l-225"></a><span class="tm">13:46:23</span><span class="nk"> &lt;aglitke&gt;</span> oVirt spice connectivity sucks
+<a name="l-226"></a><span class="tm">13:46:51</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I mean the issue "VNC port" can not be found
+<a name="l-227"></a><span class="tm">13:46:53</span><span class="nk"> &lt;aglitke&gt;</span> because of the need to fetch a plugin and install it.
+<a name="l-228"></a><span class="tm">13:46:54</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  which characters should be allowed in VM name?  https://github.com/kimchi-project/kimchi/issues/36
+<a name="l-229"></a><span class="tm">13:47:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> I also agree that we have higher priority items than adding ANOTHER remote display technology
+<a name="l-230"></a><span class="tm">13:47:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> We should strive to support the same set of chars as libvirt does.
+<a name="l-231"></a><span class="tm">13:47:33</span><span class="nk"> &lt;zhoumeina&gt;</span> now kimchi can show the spice vms on the list of vms, but can not VNC
+<a name="l-232"></a><span class="tm">13:47:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Can you try to use virt-manager to create a vm with a chinese name?
+<a name="l-233"></a><span class="tm">13:47:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Yes, and that's ok
+<a name="l-234"></a><span class="tm">13:48:10</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> not try. I will try it later.
+<a name="l-235"></a><span class="tm">13:48:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">shaohef  use virt-manager to try and create a vm with a chinese name and report results to list</span>
+<a name="l-236"></a><span class="tm">13:48:40</span><span class="nk"> &lt;aglitke&gt;</span> thanks
+<a name="l-237"></a><span class="tm">13:55:10</span><span class="nk"> &lt;hlwanghl_&gt;</span> And IE
+<a name="l-238"></a><span class="tm">13:55:13</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> we can make a update package and a tool to clean the catch,after update
+<a name="l-239"></a><span class="tm">13:55:44</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">zhoumeina:</span> we can discuss that tomorrow
+<a name="l-240"></a><span class="tm">13:55:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> yikes, no. You can;t ask people to clean cache because we updated something
+<a name="l-241"></a><span class="tm">13:56:02</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> kimchi-bot become kimchi-bot`
+<a name="l-242"></a><span class="tm">13:56:13</span><span class="nk"> &lt;zhoumeina&gt;</span> ok
+<a name="l-243"></a><span class="tm">13:56:18</span><span class="nk"> &lt;hlwanghl_&gt;</span> Bot quit
+<a name="l-244"></a><span class="tm">13:56:31</span><span class="nk"> &lt;aglitke1&gt;</span> <span class="hi">shaohef:</span> Yes. Strong storms here caused a brief power outage.
+<a name="l-245"></a><span class="tm">13:56:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> there is a pretty well established pattern to handle. I'll start the discussion on the list
+<a name="l-246"></a><span class="tm">13:56:41</span><span class="nk"> &lt;aglitke1&gt;</span> The bot and I missed part of this conversation :(
+<a name="l-247"></a><span class="tm">13:57:17</span><span class="nk"> &lt;dingxin&gt;</span> I think we should to check whether cherrypy supports standard http cache config for static contents or not
+<a name="l-248"></a><span class="tm">13:57:21</span><span class="nk"> &lt;alinefm&gt;</span> aglitke1, which part did you read?
+<a name="l-249"></a><span class="tm">13:57:25</span><span class="nk"> &lt;aglitke1&gt;</span> <span class="cmd">#action </span><span class="cmdline">AdamKingIT start the discussion on the list about how to handle UI code updates wrt browser caches</span>
+<a name="l-250"></a><span class="tm">13:57:33</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">shaohef:</span> you can send the conversation to aglitke
+<a name="l-251"></a><span class="tm">13:57:42</span><span class="nk"> &lt;aglitke1&gt;</span> I will paste the message before and after the outage:
+<a name="l-252"></a><span class="tm">13:57:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke1:</span> sming: can we setup a irc proxy?
+<a name="l-253"></a><span class="tm">13:57:58</span><span class="nk"> &lt;aglitke1&gt;</span> (09:48:39 AM) aglitke: thanks
+<a name="l-254"></a><span class="tm">13:58:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke1:</span> yes. I will
+<a name="l-255"></a><span class="tm">13:58:07</span><span class="nk"> &lt;aglitke1&gt;</span> (09:54:33 AM) alinefm: sming, in firefox is Ctrl+shift+Del
+<a name="l-256"></a><span class="tm">13:58:34</span><span class="nk"> &lt;aglitke1&gt;</span> about 6 minutes
+<a name="l-257"></a><span class="tm">13:58:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> there is always a UI for clearing the cache
+<a name="l-258"></a><span class="tm">13:59:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> In firefox in under Tools -&gt; options   =&gt; advanced , Network
+<a name="l-259"></a><span class="tm">13:59:48</span><span class="nk"> &lt;AdamKingIT&gt;</span> IE has similar
+<a name="l-260"></a><span class="tm">13:59:50</span><span class="nk"> &lt;alinefm&gt;</span> aglitke1, sent to you in pvt
+<a name="l-261"></a><span class="tm">14:00:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> as well as a path in dev tools - F12
+<a name="l-262"></a><span class="tm">14:00:16</span><span class="nk"> &lt;sming&gt;</span> AdamKingIT, I used that UI before to clean all the caches.
+<a name="l-263"></a><span class="tm">14:00:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke1:</span> also send to you.
+<a name="l-264"></a><span class="tm">14:00:37</span><span class="nk"> &lt;aglitke1&gt;</span> thanks for catching me up guys
+<a name="l-265"></a><span class="tm">14:00:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> There used to be a FF plugin called Johnny Cache that I loved, but it stopped being maintained
+<a name="l-266"></a><span class="tm">14:01:01</span><span class="nk"> &lt;aglitke1&gt;</span> Well we are at the top of the hour and I want to respect everyone's time.
+<a name="l-267"></a><span class="tm">14:01:21</span><span class="nk"> &lt;aglitke1&gt;</span> Feel free to continue discussions here
+<a name="l-268"></a><span class="tm">14:01:25</span><span class="nk"> &lt;aglitke1&gt;</span> or on the list.
+<a name="l-269"></a><span class="tm">14:01:31</span><span class="nk"> &lt;aglitke1&gt;</span> Thanks for joining everyone
+<a name="l-270"></a><span class="tm">14:01:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
