@@ -11,7 +11,8 @@ Install Dependencies
 --------------------
 
     $ sudo yum install python-cherrypy python-cheetah \
-                       python-imaging python-polib
+                       python-imaging python-polib \
+                       libvirt-python libvirt
 
 Install Dependecies for RHEL6
 ----------------------------
