@@ -136,12 +136,10 @@
 	height: 25px;
 	line-height: 25px;
 	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
-}
-
-.guest-general .title .alert {
-	font-weight: bold;
-	color: #f10d4d;
-	font-size: 28px;
+	max-width: 237px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .guest-general .text {
