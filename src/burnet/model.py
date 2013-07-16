@@ -239,7 +239,7 @@ class Model(object):
         ids = conn.listDomainsID()
         names = map(lambda x: conn.lookupByID(x).name(), ids)
         names += conn.listDefinedDomains()
-        names = map(lambda x: unicode(x), names)
+        names = map(lambda x: unicode(x, "utf-8"), names)
         return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
@@ -311,7 +311,7 @@ class Model(object):
     def _get_vm(self, name):
         conn = self.conn.get()
         try:
-            return conn.lookupByName(name)
+            return conn.lookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN:
                 raise NotFoundError("Virtual Machine '%s' not found" % name)
