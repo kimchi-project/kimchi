@@ -53,7 +53,6 @@ burnet.template_add_main = function() {
 
 	$('#iso_specify').click(function() {
 		$('#iso_location_box').slideDown();
-		init_iso_directory_box();
 		init_iso_field();
 	});
 	$('#iso_local').click(function() {
