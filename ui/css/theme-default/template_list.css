@@ -35,11 +35,9 @@
 }
 
 .template-title {
-	float: left;
 	font-size: 16px;
 	height: 25px;
 	line-height: 25px;
-	width: 140px;
 }
 
 .template-icon {
@@ -246,4 +244,17 @@ template-hidden {
 	text-align: center;
 	text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
 	width: 230px;
+}
+
+.template-general .title {
+	color: black;
+	font-size: 16px;
+	font-weight: normal;
+	height: 25px;
+	line-height: 25px;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+	max-width: 130px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
