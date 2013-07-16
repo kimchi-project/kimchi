@@ -307,6 +307,10 @@
         font-size: 13px;
 }
 
+.btn-normal[disabled="disabled"] {
+	background-color: silver;
+}
+
 .btn-group {
 	float: right;
 	padding: 0 10px;
