@@ -105,6 +105,16 @@ burnet.initVmButtonsAction = function() {
 	$(".vm-vnc").on("click", function(event) {
 		burnet.vncToVM($(this).data('vm'));
 	});
+
+	$(".popable").on("click", function(){
+		if ($(this).attr('data-vmstate') === 'running'){
+			$(this).find('.vm-vnc').removeClass('disable');
+		}
+		else {
+			$(this).find('.vm-vnc').addClass('disable');
+		}
+	});
+
 };
 
 burnet.getVmsOldImg = function() {

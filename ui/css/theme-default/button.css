@@ -290,6 +290,10 @@
 	color: #fff;
 }
 
+.button-big.disable {
+	display: none;
+}
+
 .btn-normal {
 	display: inline-block;
 	height: 38px;
