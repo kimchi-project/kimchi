@@ -76,7 +76,9 @@ def render(resource, data):
         return json.dumps(data, indent=2,
                           separators=(',', ':'),
                           encoding='iso-8859-1')
-    elif can_accept('text/html'):
+    elif can_accept('text/html') or \
+        can_accept('application/xaml+xml') or \
+        can_accept('*/*'):
         filename = config.get_template_path(resource)
         try:
             params = {'data': data}
