@@ -133,16 +133,6 @@ template-hidden {
 	background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC 96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
 }
 
-.mini-line {
-	background: none repeat scroll 0 0 #EEEEEE;
-	height: 2px;
-	left: 29px;
-	position: absolute;
-	top: 8px;
-	width: 19px;
-	z-index: 2147483647;
-}
-
 .action-bevel {
 	box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
 }
