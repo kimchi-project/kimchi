@@ -1,0 +1,287 @@
+13:01:44 <aglitke> #startmeeting
+13:01:44 <kimchi-bot> Meeting started Wed Jul 17 13:01:44 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:44 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:50 <zhoumeina> Hi all
+13:01:54 <aglitke> #meetingname scrum
+13:01:54 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:13 <hlwanghl> Not kimchi-scrum?
+13:02:50 <shaohef> hlwanghl: :)
+13:02:51 <aglitke> #info Agenda: * Build process * Open issues * ISO Scanning * Round table
+13:02:59 <aglitke> Who has other topics?
+13:03:17 <shaohef> template update?
+13:03:24 <sming> #info customer trip
+13:03:25 <hlwanghl> +1
+13:03:34 <aglitke> hlwanghl: The only meetings held in #kimchi are for kimchi, so that would be redundant in the meeting name.
+13:03:45 <hlwanghl> aglitke: OK :-)
+13:03:50 <shaohef> #info  template update
+13:03:55 <aglitke> ok
+13:04:02 <aglitke> AdamKingIT: Anything from your end?
+13:04:30 <hlwanghl> Mobile support
+13:04:31 <royce> Maybe IE support should be covered?
+13:04:40 <shaohef> #info i18n  for  customer trip
+13:04:40 <zhoumeina> where is AdamKingIT?
+13:05:08 <AdamKingIT> sorry, on the other mtg I usually have at this hour. ill be more engaged when I get done
+13:05:24 <aglitke> AdamKingIT: Any other topics to add from you?
+13:05:37 <aglitke> we can add them at the end of the agenda
+13:06:15 <aglitke> Ok.  let's get started.
+13:06:17 <shaohef> #info cache? AdamKingIT
+13:06:33 <aglitke> #topic Open Issues
+13:07:06 <aglitke> Thanks to everyone for your hard work on bugs.  It's really making a positive impact.
+13:07:15 <alinefm> aglitke, you can close this one: https://github.com/kimchi-project/kimchi/issues/28
+13:07:15 <zhoumeina> #info I have 5 issues ,3 of them send patchs ,2 left.
+13:07:19 <alinefm> it is already fixed and merged
+13:07:22 <aglitke> Also, I appreciate you filing new issues as you discover them.
+13:07:34 <aglitke> alinefm: thanks.
+13:07:42 <aglitke> I was going to ask about which can be closed.
+13:08:02 <aglitke> Right now only maintainers can close issues but I am working on a way to resolve that.
+13:08:32 <zhoumeina> aglitke: yes ,I think it will be better
+13:08:50 <royce> We can have a fake maintainer with close issue rights only:)
+13:08:53 <aglitke> Feel free to contact me by email directly later if you have issues for me to close.
+13:09:11 <aglitke> royce: The permissions are not that granular
+13:09:22 <aglitke> You can basically have admin or not
+13:09:48 <royce> alright...
+13:10:03 <aglitke> #topic template update
+13:10:08 <aglitke> shaohef: Please go ahead.
+13:10:15 <zhoumeina> #32can be closes
+13:11:35 <shaohef> aglitke:  yes. we should need a template update
+13:11:43 <shaohef> aglitke: also we need vm update
+13:12:05 <hlwanghl> shaohef: your update template patches already reviewed, right?
+13:12:20 <shaohef> aglitke: I think, we need a general PUT method for update
+13:12:25 <shaohef> hlwanghl: yes.
+13:12:37 <shaohef> hlwanghl: I resend the patch.
+13:12:47 <aglitke> shaohef: Yes, I agree.  We need a way for each resource to declare the fields which can be updated.
+13:12:50 <sming> sahohef:+1 user can update the memory of a VM when more memory is needed.
+13:13:17 <aglitke> if a user specifies a field which cannot be updated then we must deny the whole request with 405
+13:13:42 <aglitke> we need to be careful about this because updates can be tricky.
+13:14:04 <AdamKingIT> We may consider what update granularity we want to authorize for...
+13:14:13 <shaohef> aglitke: agree.
+13:14:15 <aglitke> when you reduce the memory amount what does it mean? balloon? or redefine the VM and changes will take place on next reboot?
+13:14:28 <AdamKingIT> Giving a user the auth to update their VMname is one thing, letting them take all the memory is another
+13:14:36 <shaohef> AdamKingIT: agree
+13:15:05 <royce> I think we are talking about static config update, isn't it? aglitke
+13:15:06 <sming> aglitje: I think it is redefing the VM and changes will take place on next reboot.
+13:15:12 <aglitke> I have never been a big fan of the PUT method
+13:15:21 <aglitke> sming: I agree.
+13:15:30 <shaohef> aglitke: about the name for update. should we allow modify the name of resource?
+13:15:41 <hlwanghl> Only do the updating when VM is stopped.
+13:15:53 <aglitke> shaohef: Yes, I think name is fine.
+13:16:09 <AdamKingIT> Do we have room for a comment or notes field?
+13:16:10 <royce> I've already sent patches about vm rename
+13:16:11 <aglitke> Templates can allow all fields to be updates.
+13:16:16 <aglitke> updated/
+13:16:19 <shaohef> aglitke: but the URL will change
+13:16:41 <aglitke> shaohef: Yes, that is why a redirect happens after a put request.
+13:16:48 <zhoumeina> if the vm fields changed, so the template will changed too?
+13:17:05 <royce> zhoumeina, I don't think so...
+13:17:16 <shaohef> aglitke: yes, it will change permanently
+13:17:16 <aglitke> zhoumeina: No.  Once a VM is created from a template, the vm no longer has any relationship with the template.
+13:17:26 <zhoumeina> ok
+13:17:47 <zhoumeina> so they are seperate
+13:18:14 <zhoumeina> got it , go ahead all
+13:18:23 <aglitke> shaohef: First I would like to see a generic design in the Resource class that allows child clases to declare the changeable fields
+13:18:37 <AdamKingIT> I would think of the template as a cookie cutter. Once you cut the cookie out of the dough, you can reshape it w. your fingers without affecting the shape of the cutter
+13:18:47 <aglitke> AdamKingIT: yep
+13:19:05 <aglitke> and if you reshape the cutter, the already cut cookies wont change either.
+13:19:27 <AdamKingIT> yep
+13:19:36 <zhoumeina> great , very clear
+13:19:37 <sming> AdamKingIT: not sure what is cookie cutter.
+13:19:42 <royce> good metaphor:)
+13:19:51 <AdamKingIT> let me find a pic
+13:20:21 <AdamKingIT> https://en.wikipedia.org/wiki/Cookie_cutter
+13:20:22 <hlwanghl> I guess, it's a tool to shape cookie
+13:20:32 <sming> AdamKingIT: Got it.
+13:20:46 <aglitke> shaohef: For the design, the backend will be called with the dict of new values only if all values are allowed to be changed.
+13:20:49 <zhoumeina> can
+13:21:08 <shaohef> aglitke: agree
+13:21:40 <aglitke> the backend will then make the requested changes and then return the identifier of the resource (since it may or may not have changed).
+13:21:49 <hlwanghl> aglitke: It's a validation step. Both server- and client-side need it.
+13:22:11 <hlwanghl> We can think it together for backend and frontend.
+13:22:28 <zhoumeina> yeah, I want to join too
+13:22:41 <aglitke> ok
+13:22:51 <royce> aglitke, I'm little bit worried when fields become a lot, the dict in resource are difficult to maintain, and we may need to validate the field
+13:22:54 <aglitke> are we good on that topic.
+13:22:58 <AdamKingIT> As we get to authorization checks, I'd rather not let the user enter data that the backend isn't going to accept from them
+13:23:20 <hlwanghl> Make the dict be easy to convert to JSON should be helpful
+13:23:27 <shaohef> aglitke: how about the authority on the change fields？
+13:23:33 <aglitke> yes, always json
+13:23:51 <hlwanghl> cool
+13:23:51 <aglitke> shaohef: Right now, any authenticated user can change anything.
+13:24:20 <shaohef> aglitke: got it
+13:24:28 <AdamKingIT> at present that is true, but we don't want it to always be true. Trying to think ahead a little
+13:24:30 <hlwanghl> shaohef: Authority is another topic.
+13:24:56 <hlwanghl> Should map users/roles to resources, etc.
+13:25:17 <aglitke> yeah... Not ready for that discussion right now.
+13:25:21 <AdamKingIT> y. Will get interesting as we try to define granularity on those resources
+13:25:41 <aglitke> can we shift gears to another topic now?
+13:25:51 <zhoumeina> OK
+13:25:54 <aglitke> Now that AdamKingIT is here I want to discuss the build process
+13:25:57 <sming> aglitke: please
+13:26:02 <aglitke> #topic Build process
+13:26:31 <aglitke> I have been working hard on revamping the build system in kimchi to make it uniform and standard
+13:26:46 <aglitke> The first patch set I sent had some issues and todos
+13:26:56 <aglitke> The next one will be much better.
+13:27:20 <aglitke> But I would first like to see if anyone has any concerns with adopting an autotools based build
+13:27:22 <shaohef> aglitke: the patch is too huge.
+13:27:40 <aglitke> shaohef: It is a lot of boiler-plate generated code.
+13:27:49 <aglitke> I can try to break it up better for final submission.
+13:27:53 <shaohef> aglitke: split it?
+13:27:58 <aglitke> But there will be a lot of code imported.
+13:28:05 <aglitke> shaohef: Yes, not a problem.
+13:28:06 <shaohef> aglitke: that's fine.
+13:28:23 <AdamKingIT> If you would indulge my ignorance. Can you describe advantages/disadvantages?
+13:28:45 <aglitke> Advantages of autotools build is automatic discovery of dependencies in the build.
+13:28:57 <aglitke> ./configure can give you an error if your cherrypy is too old
+13:29:07 <aglitke> etc/
+13:29:08 <aglitke> ...
+13:29:13 <royce> AdamKingIT, I think it can handle different build env easily
+13:29:15 <aglitke> Another + is:
+13:29:25 <aglitke> ./configure && make && make install
+13:29:30 <aglitke> a standard build
+13:29:31 <shaohef> aglitke:   setup.py also can automatic discovery of dependencies
+13:29:46 <aglitke> instead of the distutils build + some Makefiles for generating packages.
+13:30:14 <shaohef> aglitke: ./configure && make && make install,   GNU standard build?
+13:30:15 <aglitke> Also, trying to write python code for dependency tracking seems strange when there is a tool that does it natively.
+13:30:23 <alinefm> aglitke, will we still use makefiles to create rpm/deb packages or not?
+13:30:26 <aglitke> make knows when things need to be rebuilt or cleaned.
+13:30:47 <aglitke> alinefm: That is a different topic that I want to address separately.
+13:30:56 <alinefm> ok
+13:30:57 <shaohef> alinefm:  we need automake? aglitke, right?
+13:30:57 <aglitke> right after this.
+13:31:04 <aglitke> yes
+13:31:44 <AdamKingIT> disadvantages?
+13:31:45 <shaohef> aglitke:  what can I help for the autotools?
+13:32:00 <aglitke> AdamKingIT: Another advantage is that autotools-enabled projects have standardized make rules that can be useful
+13:32:14 <aglitke> AdamKingIT: eg. make dist
+13:32:25 <aglitke> and it has builtin gettext support
+13:32:42 <aglitke> disadvantages: another build system to learn
+13:32:53 <aglitke> can be more complex than distutils
+13:33:23 <royce> I have done mom autobuild system, I can help if you need~
+13:33:27 <aglitke> those are the main ones I can think of./
+13:33:46 <sming> AdamKingIT:  I think one of the advantages is the makefile and ./configure files generated are quite complex and hard to understand.
+13:33:47 <aglitke> yep, we have some experience with it/
+13:33:56 <aglitke> Many other example projects that use it.
+13:34:19 <aglitke> sming: you should only read configure.ac and Makefile.am
+13:34:29 <shaohef> aglitke: I have learned the autotools, autoconf and automake.  :)
+13:34:31 <aglitke> the Makefile.in and Makefile files are considered output files.
+13:34:42 <aglitke> they are not meant to be read
+13:35:04 <sming> aglitke: Sometimes, I need read the final files to understand the errors.
+13:35:14 <AdamKingIT> Sorry to have to ask. I have a lot of recent experience with Ant (and derivatives) but haven't used make in this millenium
+13:35:33 <shaohef> aglitke: sming: AdamKingIT: also, a lot of macro, we should to learn
+13:35:56 <aglitke> shaohef: We may be able to avoid writing our own m4 macros
+13:36:09 <aglitke> AdamKingIT: No worries, what is your question about make?
+13:36:23 <shaohef> sming: yes. we need to read the final files some times.
+13:37:17 <AdamKingIT> I guess I would summarize the proposal as advantage: allow more developers can contribute/build without making adjustments to t heir env. disadvantage: anyone needing to make build updates will face a higher hurdle
+13:37:32 <AdamKingIT> fair?
+13:38:17 <aglitke> Yeah, I'd say so.  Once the infrastructure is in place, it's pretty easy to understand how to modify the Makefile.am files for common tasks.
+13:38:38 <aglitke> usually we are just adding a new file to the system
+13:38:42 <sming> AdamKingIT: another advantage is it is platform-independent.
+13:38:52 <AdamKingIT> k. Seems like an easy decision
+13:39:21 <aglitke> I will keep plugging away at these patches and try to break them up a bit.
+13:39:27 <hlwanghl> sming: platform-independant?
+13:39:48 <aglitke> Then, just like coding style patches. when they go in it is a bit disruptive at first.
+13:40:05 <aglitke> People may experience some issues with building or rebasing patches, etc.
+13:40:44 <aglitke> alinefm: I would like to talk about packaging.
+13:40:48 <sming> hlwanghl: Yes, you can use the same .ac, .am files to generate makefiles in different Linux/Unix distos.
+13:40:55 <royce> hlwanghl, I think sming means it can compatible with multiple linux distro.
+13:41:16 <alinefm> aglitke, sure
+13:41:19 <aglitke> For mature projects, the packaging artifacts are not stored in the upstream package
+13:41:23 <hlwanghl> royce: sming: OK :)
+13:41:40 <aglitke> ie. for mom, the spec file we use for fedora is maintained in a fedora-specific git repo
+13:41:56 <aglitke> I believe the same holds true for debian/ubuntu.
+13:42:08 <aglitke> We are not a mature project _yet_.
+13:42:36 <aglitke> In this situation, I believe we should place all of the platform/packaging files in a contrib directory
+13:42:50 <shaohef> aglitke: we just generate the tar ball without the rpm or deb package?
+13:42:56 <aglitke> I think we should split the spec file into a redhat file and a suse file
+13:43:24 <sming> aglitke: creating another contrib directory under Kimchi?
+13:43:28 <aglitke> for rpm building here is how the process should work.
+13:43:39 <aglitke> ./configure && make dist
+13:43:47 <aglitke> this generates a tarball of the current code.
+13:43:57 <aglitke> copy tarball to ~/rpmbuild/SOURCES
+13:44:17 <aglitke> copy contrib/kimchi-redhat.spec to ~/rpmbuild/SPEC
+13:44:32 <aglitke> rpmbuild -ba ~/rpmbuild/SPEC/kimchi.spec
+13:44:44 <alinefm> aglitke, those steps will be manual?
+13:44:46 <aglitke> this is how kimchi will be made in fedora
+13:45:11 <aglitke> until we are officially part of fedora we can make this easier by creating a shell script in contrib
+13:45:59 <aglitke> then to build rpms you would just run ./contrib/make-rpm.sh <distro>
+13:46:16 <AdamKingIT> if I understand the flow, it seems like a lot of steps. Can we not have a target to accomplish same?
+13:46:40 <alinefm> I also would like a single target to create the package
+13:46:44 <aglitke> AdamKingIT: Sure.  We can add targets in the top-level Makefile to call this script
+13:47:10 <aglitke> but eventually those would go away once packaging is taken over by the official packagers.
+13:47:42 <aglitke> if you look at qemu / libvirt / ... none of these projects have package building infrastructure that is used anymore.
+13:47:56 <aglitke> but we need to bridge the gap
+13:48:36 <aglitke> So for now, we will make it easy to build packages but we will use the process that the distros themselves will eventually use.
+13:48:48 <aglitke> to make the transition easier
+13:48:51 <AdamKingIT> seems like its worth it during startup mode. Present the lowest barrier to contributing until we have enough momentum to be picked up by the distros
+13:49:13 <alinefm> aglitke, got it
+13:49:20 <aglitke> I already have a good start on the scripts we'll need for this.
+13:49:27 <alinefm> aglitke, I can help on that
+13:49:27 <shaohef> aglitke: seems a manual configure in qemu
+13:49:28 <aglitke> Will submit as part of the next series.
+13:49:50 <alinefm> aglitke, is it blocked for autotools scritps?
+13:50:09 <aglitke> alinefm: Yeah.  you need the build infra in place first.
+13:50:17 <aglitke> I will send something out soon.
+13:50:36 <aglitke> Hope to squeeze it in today yet.
+13:50:50 <aglitke> ok... next topic (running out of time quickly!)
+13:50:54 <alinefm> aglitke, ok
+13:50:57 <aglitke> #topic ISO Scanning
+13:51:26 <aglitke> shaohef / hlwanghl: You guys submitted a poc for iso scanning some time ago
+13:51:51 <aglitke> I was wondering if you could rebase on top of the merged async tasks API.
+13:52:19 <aglitke> I think we have some design issues to work out with how it should work (especially the front ens)
+13:52:20 <hlwanghl> Let me check. It's about template creation?
+13:52:23 <aglitke> front end
+13:52:26 <shaohef> aglitke: sure.
+13:52:35 <royce> aglitke, its dingxin...
+13:52:42 <aglitke> hlwanghl: yes, create multiple templates from a search for isos
+13:52:52 <aglitke> royce: Oh sorry.  Bad memory.
+13:53:06 <sming> royce: I think you also post something about ISO scanning?
+13:53:11 <hlwanghl> aglitke: royce: I'll tell Xin
+13:53:23 <royce> aglitke, it works with previous design of expose /ISO
+13:53:24 <aglitke> We would like to use an asynctask to scan for isos and create templates
+13:53:35 <royce> I have already tested and rebased
+13:53:39 <aglitke> royce: Yes, I am concerned about exposing /iso
+13:54:01 <aglitke> what are the rules for expiration of the ISOs collection?
+13:54:08 <aglitke> are iso images moved to a directory?
+13:54:13 <royce> I rebased with automatically template generating, front end seems not done
+13:54:45 <royce> As last time we decided not to expose /iso
+13:54:55 <aglitke> ok.
+13:55:12 <aglitke> so now templates will be created automatically from all found isos
+13:55:12 <royce> I rebased this series to be scan and auto template generating
+13:55:15 <aglitke> ok
+13:55:17 <hlwanghl> royce: Then you can work with Xin about that. I remember Xin had code dealing with it.
+13:55:37 <aglitke> The next issue is to decide how the user can manage all of the newly created templates.
+13:55:57 <AdamKingIT> Getting this working will be better than not having it, but I am less comfortable with the autogeneration without user input as we had mocked earlier
+13:55:57 <aglitke> Maybe they want an intermediate step where then can select the templates that they would like to keep
+13:56:02 <royce> I discussed with dingxin this Monday, I can work with him if guys agree with these design
+13:57:16 <royce> aglitke, and dingxin and I really think for single iso the input of full path is painfull...
+13:57:20 <sming> aglitke:  +1,  we should manage the automatically created templates and mark the necessary ones.
+13:57:43 <aglitke> I am not sure what the best way to converge on an API design is.
+13:58:02 <aglitke> I can think of a way to handle /isos collections as well but I am not sure if I want to do it.
+13:58:07 <AdamKingIT> I prefer the intermediate step as well. It will require some "progress" feedback  to the user though
+13:58:13 <sming> royce: agree.  I like to have a file browser.
+13:58:31 <aglitke> file browsers can reveal too much information about the internals of the server
+13:58:36 <aglitke> a scan is better
+13:58:45 <AdamKingIT> There are a couple places where a 'file browser' motif through the browser would be handy, including this
+13:59:00 <royce> If taged as necessary, it means newly created template are deleted imediately...
+13:59:14 <alinefm> file browser is useful and the admin knows which iso he/she would like to include
+13:59:29 <royce> necessary/unnecessary
+13:59:30 <alinefm> if it is only one/two isos why yse san?
+14:00:04 <AdamKingIT> the 'file browser' could be used to select a specific dir, to scope the scan as well
+14:00:47 <aglitke> I am trying to think of a RESTful way to expose a directory hierarchy
+14:00:56 <AdamKingIT> obvious negative being the complication of dealing with all the permissions
+14:01:18 <AdamKingIT> Have you used GSA tools?
+14:01:19 <aglitke> Yes, it's a potential security nightmare
+14:01:28 <aglitke> AdamKingIT: yes
+14:01:47 <royce> and will you pls review my patchset about scan? aglitke?
+14:01:58 <aglitke> royce: sure
+14:02:32 <royce> after that I can work with front end to make it work~
+14:02:36 <aglitke> How should we have a discussion about the frontend design for approving found isos?
+14:03:04 <AdamKingIT> There is a design mockup posted on the community. comments?
+14:03:07 <aglitke> I think we need to agree on an API before we waste too much time writing throw-away implementations.
+14:03:17 <aglitke> Is that public
+14:03:31 <royce> absolutely, aglitke
+14:03:53 <AdamKingIT> n, though it will get more public this week if not public public.
+14:04:07 <aglitke> Ok, then we can not use it for the discussion
+14:04:35 <aglitke> If it can be posted in a wiki page on github, then we could try to start there.
+14:04:53 <royce> the mock is based on exposing /iso, by the way...
+14:05:16 <aglitke> alright... we have reached the top of the hour now.  thanks everyone
+14:05:20 <aglitke> #endmeeting
