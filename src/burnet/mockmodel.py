@@ -124,7 +124,8 @@ class MockModel(object):
         return name
 
     def vms_get_list(self):
-        return sorted(self._mock_vms.keys(), key=unicode.lower)
+        names = map(lambda x: unicode(x), self._mock_vms.keys())
+        return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
         if self._get_vm(name).info['state'] != 'running':
