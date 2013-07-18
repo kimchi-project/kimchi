@@ -232,10 +232,10 @@ def _probe_iso(fname):
         iso = IsoImage(fname)
     except Exception, e:
         log.warning("Error processing ISO image: %s\n%s" % (fname, e))
-        return None
+        raise IsoFormatError(e)
 
     if not iso.bootable:
-        return None
+        raise IsoFormatError("ISO %s not bootable" % fname)
 
     matcher = Matcher(iso.volume_id)
 
@@ -249,6 +249,7 @@ def _probe_iso(fname):
             return (distro, version)
     log.debug("Unable to identify ISO %s with Volume ID: %s" %
                 (fname, iso.volume_id))
+    return (None, None)
 
 def probe_iso(status_helper, params):
     logging.basicConfig()
@@ -259,8 +260,11 @@ def probe_iso(status_helper, params):
             if not name.lower().endswith('.iso'):
                 continue
             iso = os.path.join(root, name)
-            ret = _probe_iso(iso)
-            if ret:
+            try:
+                ret = _probe_iso(iso)
+            except:
+                continue
+            if ret != (None, None):
                 updater({'path':iso, 'distro':ret[0], 'version':ret[1]})
 
     if status_helper != None:
@@ -268,6 +272,8 @@ def probe_iso(status_helper, params):
 
 
 def probe_one(iso):
+    if not os.path.isfile(iso):
+        raise IsoFormatError('ISO %s does not exist' % iso)
     return _probe_iso(iso)
 
 

@@ -25,6 +25,7 @@ import string
 
 import osinfo
 import isoinfo
+import burnet.model
 
 class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -46,7 +47,10 @@ class VMTemplate(object):
         if scan:
             iso = args.get('cdrom')
             if iso is not None and iso.startswith('/'):
-                iso_distro, iso_version = isoinfo.probe_one(iso)
+                try:
+                    iso_distro, iso_version = isoinfo.probe_one(iso)
+                except isoinfo.IsoFormatError, e:
+                    raise burnet.model.InvalidParameter(e)
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)

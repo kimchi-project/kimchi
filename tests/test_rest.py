@@ -432,6 +432,16 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+        # Test non-exist path return 400
+        req = json.dumps({'name': 'test', 'cdrom': '/imagine.iso'})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(400, resp.status)
+
+        # Test non-iso path return 400
+        req = json.dumps({'name': 'test', 'cdrom': os.path.abspath(__file__)})
+        resp = request(host, port, '/templates', req, 'POST')
+        self.assertEquals(400, resp.status)
+
     def test_screenshot_refresh(self):
         # Create a VM
         req = json.dumps({'name': 'test'})
