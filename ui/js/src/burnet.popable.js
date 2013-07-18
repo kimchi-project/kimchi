@@ -19,16 +19,22 @@
  * limitations under the License.
  */
 burnet.popable = function() {
-	$(document).click(function(e) {
-		$('.popable').removeClass('open');
-	});
-	$(document).on("click", ".popable", function(e) {
-		var isOpen = $(this).hasClass('open');
-		$(".popable").removeClass('open');
-		if (!isOpen) {
-			$(this).addClass('open');
-		}
-		e.preventDefault();
-		e.stopPropagation();
-	});
+    $(document).click(function(e) {
+        $('.popable').removeClass('open');
+    });
+    $(document).on("click", ".popable", function(e) {
+        var isOpen = $(this).hasClass('open');
+        $(".popable").removeClass('open');
+        if (!isOpen) {
+            $(this).addClass('open');
+        }
+
+        // Scroll the popup menu into viewport if invisible.
+        var popMenu = $('.popover', this).get(0);
+        false === burnet.isElementInViewport(popMenu) &&
+            popMenu.scrollIntoView();
+
+        e.preventDefault();
+        e.stopPropagation();
+    });
 };
