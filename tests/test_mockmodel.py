@@ -23,6 +23,7 @@
 import unittest
 import cherrypy
 import json
+import os
 
 import burnet.mockmodel
 import burnet.controller
@@ -30,13 +31,25 @@ import burnet.controller
 from utils import *
 
 #utils.silence_server()
+test_server = None
+model = None
+host = None
+port = None
 
 class MockModelTests(unittest.TestCase):
     def setUp(self):
+        global port, host, model, test_server
         cherrypy.request.headers = {'Accept': 'application/json'}
+        model = burnet.mockmodel.MockModel('/tmp/obj-store-test')
+        port = get_free_port()
+        host = '127.0.0.1'
+        test_server = run_server(host, port, test_mode=True, model=model)
+
+    def tearDown(self):
+        test_server.stop()
+        os.unlink('/tmp/obj-store-test')
 
     def test_collection(self):
-        model = burnet.mockmodel.MockModel()
         c = burnet.controller.Collection(model)
 
         # The base Collection is always empty
@@ -54,7 +67,6 @@ class MockModelTests(unittest.TestCase):
                 self.fail("Expected exception not raised")
 
     def test_resource(self):
-        model = burnet.mockmodel.MockModel()
         r = burnet.controller.Resource(model)
 
         # Test the base Resource representation
@@ -72,11 +84,6 @@ class MockModelTests(unittest.TestCase):
                 self.fail("Expected exception not raised")
 
     def test_screenshot_refresh(self):
-        model = burnet.mockmodel.MockModel()
-        port = get_free_port()
-        host = '127.0.0.1'
-        test_server = run_server(host, port, test_mode=True, model=model)
-
         # Create a VM
         req = json.dumps({'name': 'test'})
         request(host, port, '/templates', req, 'POST')
@@ -99,14 +106,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(resp2.getheader('content-length'), resp.getheader('content-length'))
         self.assertEquals(resp2.getheader('last-modified'), resp.getheader('last-modified'))
 
-        test_server.stop()
-
     def test_vm_list_sorted(self):
-        model = burnet.mockmodel.MockModel()
-        port = get_free_port()
-        host = '127.0.0.1'
-        test_server = run_server(host, port, test_mode=True, model=model)
-
         req = json.dumps({'name': 'test'})
         request(host, port, '/templates', req, 'POST')
         def add_vm(name):
