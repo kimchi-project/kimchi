@@ -381,7 +381,6 @@ class Model(object):
         info = self.storagepool_lookup(pool)
         try:
             name = params['name']
-            params['path'] = os.path.join(info['path'], name)
             xml = _get_volume_xml(**params)
         except KeyError, key:
             raise MissingParameter(key)
@@ -503,7 +502,6 @@ def _get_volume_xml(**kwargs):
       <source>
       </source>
       <target>
-        <path>%(path)s</path>
         <format type='%(format)s'/>
       </target>
     </volume>
