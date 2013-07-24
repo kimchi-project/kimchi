@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep -Poh '\$_\(\".*?\"\)' $@ | tr -d '$' | xgettext -o kimchi.pot -L Python -

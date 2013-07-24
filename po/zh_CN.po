@@ -1,0 +1,340 @@
+# i18n portable object for burnet.
+# Copyright (C) IBM, Corp. 2013
+# ShaoHe Feng <shaohef@linux.vnet.ibm.com>, 2013-04-18.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: burnet 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-30 09:11-0400\n"
+"PO-Revision-Date: 2013-06-27 10:48+0000\n"
+"Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
+"Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: standard input:1 input:9
+msgid "Guests"
+msgstr "客户机"
+
+#: standard input:2 input:21 input:76
+msgid "Templates"
+msgstr "模版"
+
+#: standard input:3
+msgid "Host"
+msgstr "主机"
+
+#: standard input:4
+msgid "Reboot"
+msgstr "重启"
+
+#: standard input:5
+msgid "Shutdown"
+msgstr "关机"
+
+#: standard input:6
+msgid "SOS Report"
+msgstr "SOS报告"
+
+#: standard input:7
+msgid "Project Burnet"
+msgstr "Burnet项目"
+
+#: standard input:8
+msgid "Language:"
+msgstr "语言："
+
+#: standard input:10 input:45
+msgid "Storage"
+msgstr "存储"
+
+#: standard input:11
+msgid "Networks"
+msgstr "网络"
+
+#: standard input:12
+msgid "Statistics"
+msgstr "统计"
+
+#: standard input:13
+msgid "About"
+msgstr "关于"
+
+#: standard input:14
+msgid "Virtual Machines"
+msgstr "虚拟机"
+
+#: standard input:15
+msgid "Display"
+msgstr "显示"
+
+#: standard input:16
+msgid "Power On"
+msgstr "开机"
+
+#: standard input:17
+msgid "Power Off"
+msgstr "关机"
+
+#: standard input:18 input:24
+msgid "Settings"
+msgstr "设置"
+
+#: standard input:19 input:23 input:41 input:80
+msgid "Delete"
+msgstr "删除"
+
+#: standard input:20
+msgid "More..."
+msgstr "更多"
+
+#: standard input:22
+msgid "Create VM"
+msgstr "创建虚机"
+
+#: standard input:25
+msgid "Custom"
+msgstr "定制"
+
+#: standard input:26
+msgid "Forum"
+msgstr "论坛"
+
+#: standard input:27
+msgid "API"
+msgstr "API"
+
+#: standard input:28
+msgid "Twitter"
+msgstr "推特"
+
+#: standard input:29
+msgid "IRC"
+msgstr "IRC"
+
+#: standard input:30
+msgid "Create a New Virtual Machine"
+msgstr ""
+
+#: standard input:31
+msgid "Virtual Machine Name"
+msgstr ""
+
+#: standard input:32
+msgid ""
+"The name used to identify the VM. If omitted, a name will be chosen based on "
+"the template used."
+msgstr ""
+
+#: standard input:33
+msgid "Template"
+msgstr ""
+
+#: standard input:34
+msgid "Please choose a template."
+msgstr ""
+
+#: standard input:35 input:81
+msgid "OS"
+msgstr ""
+
+#: standard input:36
+msgid "OS Version"
+msgstr ""
+
+#: standard input:37
+msgid "CPUS"
+msgstr ""
+
+#: standard input:38 input:44 input:63 input:85
+msgid "Memory"
+msgstr "内存"
+
+#: standard input:39 input:55 input:57
+msgid "Create"
+msgstr ""
+
+#: standard input:40 input:47 input:78
+msgid "Actions"
+msgstr "操作"
+
+#: standard input:42
+msgid "Name"
+msgstr "名称"
+
+#: standard input:43 input:62
+msgid "CPU"
+msgstr "处理器"
+
+#: standard input:46
+msgid "Livetile"
+msgstr "屏幕"
+
+#: standard input:48
+msgid "Add Template"
+msgstr ""
+
+#: standard input:49
+msgid "What would you like to do?"
+msgstr ""
+
+#: standard input:50
+msgid "Select a specific ISO to create a template."
+msgstr ""
+
+#: standard input:51
+msgid "Where is the ISO file?"
+msgstr ""
+
+#: standard input:52
+msgid "The ISO is on my server."
+msgstr ""
+
+#: standard input:53
+msgid "I want to stream an ISO from the Internet."
+msgstr ""
+
+#: standard input:54
+msgid "Select the ISO you would like to use to create a template:"
+msgstr ""
+
+#: standard input:56
+msgid "Please enter a URL:"
+msgstr ""
+
+#: standard input:58
+msgid "Edit Template"
+msgstr ""
+
+#: standard input:59
+msgid "ID"
+msgstr ""
+
+#: standard input:60
+msgid "Vendor"
+msgstr ""
+
+#: standard input:61 input:82
+msgid "Version"
+msgstr ""
+
+#: standard input:64
+msgid "Icon Default or Custom"
+msgstr ""
+
+#: standard input:65
+msgid "Icon Default"
+msgstr ""
+
+#: standard input:66
+msgid "Icon Custom"
+msgstr ""
+
+#: standard input:67
+msgid "Background Color"
+msgstr ""
+
+#: standard input:68
+msgid "Overlay Type"
+msgstr ""
+
+#: standard input:69
+msgid "Overlay Type Icon"
+msgstr ""
+
+#: standard input:70
+msgid "Overlay Type Text"
+msgstr ""
+
+#: standard input:71
+msgid "Button Finish Style"
+msgstr ""
+
+#: standard input:72
+msgid "Button Finish Style Gloss"
+msgstr ""
+
+#: standard input:73
+msgid "Button Finish Style Gradient"
+msgstr ""
+
+#: standard input:74
+msgid "Cancel"
+msgstr ""
+
+#: standard input:75
+msgid "Save"
+msgstr ""
+
+#: standard input:77
+msgid "Results"
+msgstr ""
+
+#: standard input:79
+msgid "Edit"
+msgstr ""
+
+#: standard input:83
+msgid "Default Settings"
+msgstr ""
+
+#: standard input:84
+msgid "CPUs"
+msgstr ""
+
+#: standard input:86
+msgid "temp.msg.fail.list"
+msgstr "展示模板列表失败"
+
+#: standard input:87
+msgid "temp.msg.choose.temp"
+msgstr "请选择模板"
+
+#: standard input:88
+msgid "vm.msg.fail.create.vm"
+msgstr "新建虚拟机失败"
+
+#: standard input:89
+msgid "msg.fail.start"
+msgstr "启动失败"
+
+#: standard input:90
+msgid "msg.fail.stop"
+msgstr "停止失败"
+
+#: standard input:91
+msgid "msg.fail.reset"
+msgstr "重置失败"
+
+#: standard input:92
+msgid "msg.fail.delete"
+msgstr "删除失败"
+
+#: standard input:93
+msgid "msg.fail.list.guests"
+msgstr "展示客户机失败"
+
+#: standard input:94
+msgid "msg.fail.create.template"
+msgstr "新建模板失败"

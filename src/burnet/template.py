@@ -83,7 +83,7 @@ def render(resource, data):
         try:
             params = {'data': data}
             lang = validate_language(get_lang())
-            gettext_conf = {'domain': 'burnet',
+            gettext_conf = {'domain': 'kimchi',
                             'localedir': config.get_mo_path(),
                             'lang': [lang]}
             params['lang'] = gettext_conf

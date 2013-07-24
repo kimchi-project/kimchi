@@ -63,7 +63,7 @@ def get_screenshot_path():
     return "%s/data/screenshots" % get_prefix()
 
 def get_mo_path():
-    return '%s/i18n/mo' % get_prefix()
+    return '%s/mo' % get_prefix()
 
 def get_support_language():
     mopath = "%s/*" % get_mo_path()
