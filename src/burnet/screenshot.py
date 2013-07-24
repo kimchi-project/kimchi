@@ -22,10 +22,13 @@
 #
 
 import os
+import tempfile
 import time
 import random
 import uuid
 import glob
+import signal
+import logging
 
 try:
     from PIL import Image
@@ -34,11 +37,14 @@ except ImportError:
 
 import config
 
+(fd, pipe) = tempfile.mkstemp()
+stream_test_result = None
 
 class VMScreenshot(object):
     OUTDATED_SECS = 5
     THUMBNAIL_SIZE = (256, 256)
     LIVE_WINDOW = 60
+    MAX_STREAM_ATTEMPTS = 10
 
     def __init__(self, args):
         self.vm_name = args['name']
@@ -85,16 +91,84 @@ class VMScreenshot(object):
         """
         pass
 
+    def _create_black_image(self, thumbnail):
+        image = Image.new("RGB", self.THUMBNAIL_SIZE, 'black')
+        image.save(thumbnail)
+
+    def _watch_stream_creation(self, thumbnail):
+        """
+        This is a verification test for libvirt stream functionality.
+
+        It is necessary to avoid the server hangs while creating the screenshot
+        image using libvirt stream API.
+
+        This problem was found in libvirt 0.9.6 for SLES11 SP2.
+
+        This test consists in running the screeshot creation with a timeout.
+        If timeout occurs, the libvirt is taking too much time to create the
+        screenshot image and the stream must be disabled it if happens
+        successively (to avoid blocking server requests).
+        """
+        pid = os.fork()
+        if pid == 0:
+            try:
+                self._generate_scratch(thumbnail)
+                os._exit(0)
+            except:
+                os._exit(1)
+        else:
+            counter = 0
+            ret = os.waitpid(pid, os.WNOHANG)
+            while ret == (0,0) and counter < 3:
+                counter += 1
+                time.sleep(1)
+                ret = os.waitpid(pid, os.WNOHANG)
+
+            fd = open(pipe, "a")
+            if ret != (pid, 0):
+                fd.write("-")
+                if ret[0] != pid:
+                    os.kill(int(pid), signal.SIGKILL)
+                    os.waitpid(pid, 0)
+            else:
+                fd.write("+")
+            fd.close()
+
+    def _get_test_result(self):
+        if not os.path.exists(pipe):
+            return
+
+        fd = open(pipe, "r")
+        data = fd.read()
+        fd.close()
+
+        if len(data) >= self.MAX_STREAM_ATTEMPTS or bool('+' in data):
+            global stream_test_result
+            stream_test_result = bool('+' in data)
+            os.remove(pipe)
+
     def _generate_thumbnail(self):
         thumbnail = os.path.join(config.get_screenshot_path(), '%s-%s.png' %
                                  (self.vm_name, str(uuid.uuid4())))
-        self._generate_scratch(thumbnail)
+
+        self._get_test_result()
+        if stream_test_result is None:
+            self._watch_stream_creation(thumbnail)
+        elif stream_test_result:
+            try:
+                self._generate_scratch(thumbnail)
+            except:
+                logging.basicConfig()
+                log = logging.getLogger("screenshot_creation")
+                log.error("Unable to create screenshot image %s." % thumbnail)
+        else:
+            self._create_black_image(thumbnail)
 
         if os.path.getsize(thumbnail) == 0:
-            image = Image.new("RGB", self.THUMBNAIL_SIZE, 'black')
-            image.save(thumbnail)
+            self._create_black_image(thumbnail)
         else:
             im = Image.open(thumbnail)
             im.thumbnail(self.THUMBNAIL_SIZE)
             im.save(thumbnail, "PNG")
+
         self.info['thumbnail'] = thumbnail
