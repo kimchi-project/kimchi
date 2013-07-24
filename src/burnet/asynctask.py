@@ -21,6 +21,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import threading
+import cherrypy
+import traceback
 
 class NotProperOps(Exception):
     pass
@@ -34,7 +36,6 @@ class AsyncTask(object):
         self.fn = fn
         self.objstore = objstore
         self.status = 'running'
-
         self.message = 'OK'
         self._save_helper()
         self.thread = threading.Thread(target=self._run_helper,
@@ -66,4 +67,6 @@ class AsyncTask(object):
         try:
             self.fn(cb, opaque)
         except Exception, e:
+            cherrypy.log.error_log.error("Error in async_task %s " % self.id)
+            cherrypy.log.error_log.error(traceback.format_exc())
             cb("Unexpected exception: %s" % str(e), False)
