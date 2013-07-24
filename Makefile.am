@@ -35,5 +35,47 @@ all-local:
 		ln -sf ../../../po/$$L.gmo $$dir/kimchi.mo ;   \
 	done < po/LINGUAS
 
+#
+# Packaging helpers
+#
+
+install-deb: install
+	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
+	$(MKDIR_P) $(DESTDIR)/etc/init
+	cp -R $(top_srcdir)/contrib/kimchid-upstart.conf.debian \
+		$(DESTDIR)/etc/init/kimchid.conf
+
+
+deb: contrib/make-deb.sh
+	$(top_srcdir)/contrib/make-deb.sh
+
+kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
+	@if test -e /etc/redhat-release; then                   \
+		ln -sf contrib/kimchi.spec.fedora $@ ;              \
+	elif test -e /etc/SuSE-release; then                    \
+		ln -sf contrib/kimchi.spec.suse $@ ;                \
+	else                                                    \
+		echo "Unable to select a spec file for RPM build" ; \
+		/bin/false ;                                        \
+	fi
+
+rpm: dist kimchi.spec
+	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
+	cp $(top_srcdir)/kimchi.spec rpm/SPECS/kimchi.spec
+	cp $(DIST_ARCHIVES) rpm/SOURCES
+	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
+
+fedora-rpm: contrib/kimchi.spec.fedora
+	ln -sf contrib/kimchi.spec.fedora kimchi.spec
+	$(MAKE) rpm
+
+suse-rpm: contrib/kimchi.spec.suse
+	ln -sf contrib/kimchi.spec.suse kimchi.spec
+	$(MAKE) rpm
+
+.PHONY: deb install-deb rpm fedora-rpm suse-rpm
+
 clean-local:
-	rm -rf mo
+	rm -rf mo rpm
+
+CLEANFILES = kimchi.spec

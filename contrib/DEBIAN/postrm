@@ -1,7 +1,8 @@
-# Copyright IBM Corp, 2013
+#!/bin/sh -e
 #
-# Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+# Project Burnet
+#
+# Copyright IBM, Corp. 2013
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,24 +18,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = DEBIAN
-
-EXTRA_DIST = \
-	kimchid.sysvinit \
-	kimchid.service.fedora \
-	kimchi.spec.fedora.in \
-	kimchid-upstart.conf.debian \
-	kimchid-upstart.conf.fedora \
-	make-deb.sh.in \
-	$(NULL)
-
-make-deb.sh: make-deb.sh.in $(top_builddir)/config.status
-	$(AM_V_GEN)sed						\
-	    -e 's|[@]PACKAGE_VERSION[@]|$(PACKAGE_VERSION)|g'	\
-	    -e 's|[@]PACKAGE_RELEASE[@]|$(PACKAGE_RELEASE)|g'	\
-	    < $< > $@-t &&					\
-	    chmod a+x $@-t &&					\
-	    mv $@-t $@
-BUILT_SOURCES = make-deb.sh
-
-CLEANFILES = kimchi.spec.fedora kimchi.spec.suse kimchi.spec make-deb.sh
+case "$1" in
+    remove)
+        rm -rf /var/log/burnet /var/run/burnet.pid
+    ;;
+    purge)
+        rm -rf /var/log/burnet /var/run/burnet.pid /usr/share/burnet/
+    ;;
+esac

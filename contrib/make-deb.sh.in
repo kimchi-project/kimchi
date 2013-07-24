@@ -1,0 +1,15 @@
+#!/bin/bash
+
+VERSION="@PACKAGE_VERSION@"
+RELEASE="@PACKAGE_RELEASE@"
+
+if [ ! -f configure ]; then
+    echo "Please run this script from the top of the package tree"
+    exit 1
+fi
+
+TMPDIR=`mktemp -d`
+
+make DESTDIR=$TMPDIR install-deb
+dpkg-deb -b $TMPDIR kimchi-${VERSION}-${RELEASE}.noarch.deb
+rm -rf $TMPDIR

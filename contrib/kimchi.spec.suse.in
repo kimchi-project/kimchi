@@ -1,0 +1,83 @@
+Name:		kimchi
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@%{?dist}
+Summary:	Kimchi server application
+BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+Group:		System Environment/Base
+License:	LGPL/ASL2
+Source0:	%{name}-%{version}.tar.gz
+Requires:	libvirt
+Requires:	libvirt-python
+Requires:	python-CherryPy
+Requires:	python-Cheetah
+Requires:	python-ordereddict
+Requires:	python-imaging
+
+%description
+Web server application application to manage KVM/Qemu virtual machines
+
+%prep
+%setup
+
+%build
+%configure
+make
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+
+# Install the SysV init scripts
+install -Dm 0755 contrib/kimchid.sysvinit %{buildroot}%{_initrddir}/kimchid
+
+
+%post
+service kimchid start
+
+%preun
+service kimchid stop
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%attr(-,root,root)
+%{_bindir}/burnetd
+%{python_sitelib}/burnet/*.py*
+%{_datadir}/burnet/doc/API.md
+%{_datadir}/burnet/doc/README.md
+%{_datadir}/burnet/doc/kimchi-guest.png
+%{_datadir}/burnet/doc/kimchi-templates.png
+%{_datadir}/burnet/mo/*/LC_MESSAGES/kimchi.mo
+%{_datadir}/burnet/ui/css/dev.*.css
+%{_datadir}/burnet/ui/css/fonts/fontawesome-webfont.*
+%{_datadir}/burnet/ui/css/fonts/novnc/Orbitron700.*
+%{_datadir}/burnet/ui/css/novnc/base.css
+%{_datadir}/burnet/ui/css/theme-default.min.css
+%{_datadir}/burnet/ui/images/*.jpg
+%{_datadir}/burnet/ui/images/*.png
+%{_datadir}/burnet/ui/images/*.svg
+%{_datadir}/burnet/ui/images/*.ico
+%{_datadir}/burnet/ui/images/theme-default/*.png
+%{_datadir}/burnet/ui/js/burnet.min.js
+%{_datadir}/burnet/ui/js/dev.main.js
+%{_datadir}/burnet/ui/js/jquery-ui.js
+%{_datadir}/burnet/ui/js/jquery.min.js
+%{_datadir}/burnet/ui/js/modernizr.custom.2.6.2.min.js
+%{_datadir}/burnet/ui/js/novnc/*.js
+%{_datadir}/burnet/ui/js/novnc/web-socket-js/WebSocketMain.swf
+%{_datadir}/burnet/ui/js/novnc/web-socket-js/swfobject.js
+%{_datadir}/burnet/ui/js/novnc/web-socket-js/web_socket.js
+%{_datadir}/burnet/ui/libs/jquery-1.10.0.min.js
+%{_datadir}/burnet/ui/libs/modernizr.custom.76777.js
+%{_datadir}/burnet/ui/pages/*.html.tmpl
+%{_sysconfdir}/burnet/burnet.conf
+%{_initrddir}/kimchid
+
+%changelog
+* Thu Jul 18 2013 Adam Litke <agl@us.ibm.com> 0.1.0-1
+- Adapted for autotools build
+- Split Suse and Fedora spec files
+
+* Thu Apr 04 2013 Aline Manera <alinefm@br.ibm.com> 0.0-1
+- First build

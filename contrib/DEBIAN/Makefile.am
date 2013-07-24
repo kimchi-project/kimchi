@@ -17,24 +17,4 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = DEBIAN
-
-EXTRA_DIST = \
-	kimchid.sysvinit \
-	kimchid.service.fedora \
-	kimchi.spec.fedora.in \
-	kimchid-upstart.conf.debian \
-	kimchid-upstart.conf.fedora \
-	make-deb.sh.in \
-	$(NULL)
-
-make-deb.sh: make-deb.sh.in $(top_builddir)/config.status
-	$(AM_V_GEN)sed						\
-	    -e 's|[@]PACKAGE_VERSION[@]|$(PACKAGE_VERSION)|g'	\
-	    -e 's|[@]PACKAGE_RELEASE[@]|$(PACKAGE_RELEASE)|g'	\
-	    < $< > $@-t &&					\
-	    chmod a+x $@-t &&					\
-	    mv $@-t $@
-BUILT_SOURCES = make-deb.sh
-
-CLEANFILES = kimchi.spec.fedora kimchi.spec.suse kimchi.spec make-deb.sh
+CLEANFILES = control
