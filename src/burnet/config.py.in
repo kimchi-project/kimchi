@@ -25,13 +25,7 @@
 import os, os.path
 from glob import iglob
 import sys
-from distutils.dist import Distribution
 import platform
-
-d = Distribution()
-d.parse_config_files()
-opt = d.get_option_dict('install').get('prefix')
-PREFIX = opt[1] if opt is not None else sys.prefix
 
 
 def get_prefix():
@@ -43,7 +37,7 @@ def get_prefix():
     if os.access('%s/../../src/burnet/config.py' % base, os.F_OK):
         return '%s/../..' % base
     else:
-        return '%s/share/burnet' % PREFIX
+        return '@prefix@/share/burnet'
 
 def get_default_log_dir():
     prefix = get_prefix()

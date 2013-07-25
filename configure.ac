@@ -48,6 +48,7 @@ AC_CONFIG_FILES([
     docs/Makefile
     src/Makefile
     src/burnet/Makefile
+    src/burnet/config.py
     ui/Makefile
     ui/css/Makefile
     ui/css/novnc/Makefile

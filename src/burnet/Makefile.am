@@ -40,6 +40,8 @@ SOURCE = \
 	websockify.py     \
 	xmlutils.py
 
+EXTRA_DIST = config.py.in
+
 kimchi_PYTHON = $(SOURCE)
 
 kimchidir = $(pythondir)/burnet
