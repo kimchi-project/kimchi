@@ -39,5 +39,5 @@ class Root(controller.Resource):
     @cherrypy.expose
     def default(self, page, **kwargs):
         if page.endswith('.html'):
-            return template.render(page, {'hostname': 'localhost'})
+            return template.render(page, None)
         raise cherrypy.HTTPError(404)
