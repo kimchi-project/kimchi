@@ -38,6 +38,7 @@ burnet.main = function() {
 	var width = currentMenu.parent().width();
 	$('.menu-arrow').css('left', left+width/2-10);
 
-	$('#main').load('i18n.html');
-	$('#main').load('guestTab.html');
+	$('#main').load('i18n.html', function() {
+	    $(this).load('guestTab.html');
+	});
 };
