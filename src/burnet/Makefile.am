@@ -1,8 +1,7 @@
-#!/bin/bash
 #
-# Project Burnet
+# Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM Corp, 2013
 #
 # Authors:
 #  Adam Litke <agl@linux.vnet.ibm.com>
@@ -21,9 +20,26 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-if [ $# -ne 0 ]
-  then
-      PYTHONPATH=../src python -m unittest $@
-  else
-      PYTHONPATH=../src  python -m unittest discover -p 'test_*.py'
-fi
+SOURCE = \
+	asynctask.py      \
+	config.py         \
+	controller.py     \
+	__init__.py       \
+	isoinfo.py        \
+	mockmodel.py      \
+	model.py          \
+	objectstore.py    \
+	osinfo.py         \
+	root.py           \
+	screenshot.py     \
+	server.py         \
+	template.py       \
+	vmtemplate.py     \
+	vnc.py            \
+	websocket.py      \
+	websockify.py     \
+	xmlutils.py
+
+kimchi_PYTHON = $(SOURCE)
+
+kimchidir = $(pythondir)/burnet

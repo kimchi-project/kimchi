@@ -26,6 +26,7 @@
 import logging
 import os
 import sys
+sys.path.insert(1, '@pythondir@')
 
 import burnet.server
 import burnet.config
@@ -65,13 +66,15 @@ def main(options):
     parser.add_option('--test', action='store_true', help="Run server in testing mode")
     (options, args) = parser.parse_args()
 
-    directory = os.path.dirname(os.path.abspath(options.access_log))
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
-
-    directory = os.path.dirname(os.path.abspath(options.error_log))
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
+    make_dirs = [
+        os.path.dirname(os.path.abspath(options.access_log)),
+        os.path.dirname(os.path.abspath(options.error_log)),
+        os.path.dirname(os.path.abspath(burnet.config.get_object_store())),
+        os.path.abspath(burnet.config.get_screenshot_path())
+    ]
+    for directory in make_dirs:
+        if not os.path.isdir(directory):
+            os.makedirs(directory)
 
     burnet.server.main(options)
 

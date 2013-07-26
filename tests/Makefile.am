@@ -20,8 +20,31 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = src ui docs contrib tests
+EXTRA_DIST = \
+	Makefile.am \
+	run_tests.sh.in \
+	test_mockmodel.py \
+	test_model.py \
+	test_osinfo.py \
+	test_rest.py \
+	test_server.py \
+	test_vmtemplate.py \
+	utils.py \
+	$(NULL)
 
-ACLOCAL_AMFLAGS = --install -I m4
+noinst_SCRIPTS = run_tests.sh
 
-EXTRA_DIST = config.rpath
+do_substitution = \
+	sed -e 's,[@]HAVE_PYMOD_UNITTEST[@],$(HAVE_PYMOD_UNITTEST),g'
+
+
+run_tests.sh: run_tests.sh.in Makefile
+	$(do_substitution) < $(srcdir)/run_tests.sh.in > run_tests.sh
+	chmod +x run_tests.sh
+
+
+check-local:
+	$(MKDIR_P) $(top_srcdir)/data/screenshots
+	./run_tests.sh
+
+CLEANFILES = run_tests.sh

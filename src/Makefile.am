@@ -20,8 +20,23 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = src ui docs contrib tests
+SUBDIRS = burnet
 
-ACLOCAL_AMFLAGS = --install -I m4
+EXTRA_DIST = burnetd.in
 
-EXTRA_DIST = config.rpath
+bin_SCRIPTS = burnetd
+
+confdir = $(sysconfdir)/burnet
+dist_conf_DATA = burnet.conf
+
+do_substitution = \
+	sed -e 's,[@]pythondir[@],$(pythondir),g' \
+	-e 's,[@]PACKAGE[@],$(PACKAGE),g'         \
+	-e 's,[@]VERSION[@],$(VERSION),g'
+
+
+burnetd: burnetd.in Makefile
+	$(do_substitution) < $(srcdir)/burnetd.in > burnetd
+	chmod +x burnetd
+
+CLEANFILES = $(bin_SCRIPTS)

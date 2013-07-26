@@ -1,7 +1,8 @@
+#!/bin/bash
 #
-# Kimchi
+# Project Burnet
 #
-# Copyright IBM Corp, 2013
+# Copyright IBM, Corp. 2013
 #
 # Authors:
 #  Adam Litke <agl@linux.vnet.ibm.com>
@@ -20,8 +21,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = src ui docs contrib tests
+HAVE_UNITTEST=@HAVE_PYMOD_UNITTEST@
 
-ACLOCAL_AMFLAGS = --install -I m4
+if [ $# -ne 0 ]; then
+    ARGS="$@"
+else
+    ARGS="discover"
+fi
 
-EXTRA_DIST = config.rpath
+if [ "$HAVE_UNITTEST" == "yes" ]; then
+    PYTHONPATH=../src python -m unittest $ARGS
+else
+    PYTHONPATH=../src:./ unit2 $ARGS
+fi

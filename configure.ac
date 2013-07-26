@@ -37,9 +37,28 @@ AS_IF([test "x$PACKAGE_RELEASE" = x],
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability])
 AM_PATH_PYTHON([2.6])
+AC_PYTHON_MODULE([unittest])
+AC_SUBST([HAVE_PYMOD_UNITTEST])
 
 AC_CONFIG_FILES([
     Makefile
+    docs/Makefile
+    src/Makefile
+    src/burnet/Makefile
+    ui/Makefile
+    ui/css/Makefile
+    ui/css/novnc/Makefile
+    ui/css/fonts/Makefile
+    ui/css/fonts/novnc/Makefile
+    ui/images/Makefile
+    ui/images/theme-default/Makefile
+    ui/js/Makefile
+    ui/js/novnc/Makefile
+    ui/js/novnc/web-socket-js/Makefile
+    ui/libs/Makefile
+    ui/pages/Makefile
+    contrib/Makefile
+    tests/Makefile
 ])
 
 AC_OUTPUT
