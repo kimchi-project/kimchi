@@ -73,7 +73,7 @@ burnet.template_add_main = function() {
 			burnet.doListTemplates();
 			burnet.window.close();
 		}, function() {
-			burnet.message.error('Failed to create template');
+			burnet.message.error(i18n['msg.fail.create.template']);
 		});
 	});
 
@@ -86,7 +86,7 @@ burnet.template_add_main = function() {
 			burnet.doListTemplates();
 			burnet.window.close();
 		}, function() {
-			burnet.message.error('Failed to create template');
+			burnet.message.error(i18n['msg.fail.create.template']);
 		});
 	});
 

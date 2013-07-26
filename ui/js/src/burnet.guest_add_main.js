@@ -29,21 +29,21 @@ burnet.guest_add_main = function() {
 			$('#templateTile').html(html);
 		}
 	},function() {
-		burnet.message.error('Failed to list templates');
+		burnet.message.error(i18n['temp.msg.fail.list']);
 	});
 
 	$('#vm-doAdd').on('click', function(event) {
 		var formData = $('#form-vm-add').serializeObject();
 
 		if(!formData.template) {
-			burnet.message.warn('Please choose a template!');
+			burnet.message.warn(i18n['temp.msg.choose.temp']);
 			return;
 		}
 		burnet.createVM(formData,function() {
 			burnet.listVmsAuto();
 			burnet.window.close();
 		},function() {
-			burnet.message.error('Failed to create vm');
+			burnet.message.error(i18n['vm.msg.fail.create.vm']);
 		});
 	});
 };

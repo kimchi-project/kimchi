@@ -26,7 +26,7 @@ burnet.initVmButtonsAction = function() {
 			burnet.startVM($(this).data('vm'), function(result) {
 				burnet.listVmsAuto();
 			},function() {
-				burnet.message.error('Failed to start');
+				burnet.message.error(i18n['msg.fail.start']);
 			});
 		}
 		else {
@@ -42,7 +42,7 @@ burnet.initVmButtonsAction = function() {
 			burnet.stopVM($(this).data('vm'), function(result) {
 				burnet.listVmsAuto();
 			},function() {
-				burnet.message.error('Failed to stop');
+				burnet.message.error(i18n['msg.fail.stop']);
 			});
 		}
 		else {
@@ -83,13 +83,13 @@ burnet.initVmButtonsAction = function() {
 			burnet.resetVM($(this).data('vm'), function(result) {
 				burnet.listVmsAuto();
 			},function() {
-				burnet.message.error('Failed to reset');
+				burnet.message.error(i18n['msg.fail.reset']);
 			});
 		} else {
 			burnet.startVM($(this).data('vm'), function(result) {
 				burnet.listVmsAuto();
 			},function() {
-				burnet.message.error('Failed to start');
+				burnet.message.error(i18n['msg.fail.start']);
 			});
 		}
 	});
@@ -98,7 +98,7 @@ burnet.initVmButtonsAction = function() {
 		burnet.deleteVM($(this).data('vm'), function(result) {
 			burnet.listVmsAuto();
 		},function() {
-			burnet.message.error('Failed to delete');
+			burnet.message.error(i18n['msg.fail.delete']);
 		});
 	});
 
@@ -153,7 +153,7 @@ burnet.listVmsAuto = function() {
 			burnet.initVmButtonsAction();
 		}
 	},function() {
-		burnet.message.error('Failed to list guests');
+		burnet.message.error(i18n['msg.fail.list.guests']);
 	});
 	burnet.vmTimeout = window.setTimeout("burnet.listVmsAuto();", 5000);
 };

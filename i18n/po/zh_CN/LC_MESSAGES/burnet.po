@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: burnet 0.1\n"
 "POT-Creation-Date: 2013-04-18 22:35+CST\n"
-"PO-Revision-Date: 2013-06-27 10:48+0000\n"
+"PO-Revision-Date: 2013-07-19 03:01+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "MIME-Version: 1.0\n"
@@ -56,11 +56,11 @@ msgstr "Burnet项目"
 msgid "Language:"
 msgstr "语言："
 
-#: ui/pages/burnet-ui.html.tmpl:86 ui/pages/dev-ui.html.tmpl:75
+#: ui/pages/burnet-ui.html.tmpl:87 ui/pages/dev-ui.html.tmpl:75
 msgid "Guests"
 msgstr "客户机"
 
-#: ui/pages/dev-ui.html.tmpl:76 ui/pages/guest.html.tmpl:47
+#: ui/pages/dev-ui.html.tmpl:76 ui/pages/guestTab.html.tmpl:49
 msgid "Storage"
 msgstr "存储"
 
@@ -97,7 +97,7 @@ msgid "Settings"
 msgstr "设置"
 
 #: ui/pages/dev-ui.html.tmpl:94 ui/pages/dev-ui.html.tmpl:105
-#: ui/pages/guest.html.tmpl:85 ui/pages/template.html.tmpl:61
+#: ui/pages/guest.html.tmpl:68 ui/pages/template.html.tmpl:61
 msgid "Delete"
 msgstr "删除"
 
@@ -105,7 +105,7 @@ msgstr "删除"
 msgid "More..."
 msgstr "更多"
 
-#: ui/pages/burnet-ui.html.tmpl:89 ui/pages/dev-ui.html.tmpl:102
+#: ui/pages/burnet-ui.html.tmpl:90 ui/pages/dev-ui.html.tmpl:102
 #: ui/pages/template.html.tmpl:48
 msgid "Templates"
 msgstr "模版"
@@ -134,24 +134,24 @@ msgstr "推特"
 msgid "IRC"
 msgstr "IRC"
 
-#: ui/pages/guest.html.tmpl:44
+#: ui/pages/guestTab.html.tmpl:46
 msgid "Name"
 msgstr "名称"
 
-#: ui/pages/guest.html.tmpl:45 ui/pages/template-edit.html.tmpl:71
+#: ui/pages/guestTab.html.tmpl:47 ui/pages/template-edit.html.tmpl:71
 msgid "CPU"
 msgstr "处理器"
 
-#: ui/pages/guest-add.html.tmpl:64 ui/pages/guest.html.tmpl:46
-#: ui/pages/template-edit.html.tmpl:79 ui/pages/template.html.tmpl:75
+#: ui/pages/guest-add.html.tmpl:64 ui/pages/guestTab.html.tmpl:48
+#: ui/pages/template-edit.html.tmpl:79 ui/pages/template.html.tmpl:78
 msgid "Memory"
 msgstr "内存"
 
-#: ui/pages/guest.html.tmpl:48
+#: ui/pages/guestTab.html.tmpl:50
 msgid "Livetile"
 msgstr "屏幕"
 
-#: ui/pages/guest.html.tmpl:49 ui/pages/guest.html.tmpl:82
+#: ui/pages/guest.html.tmpl:65 ui/pages/guestTab.html.tmpl:51
 #: ui/pages/template.html.tmpl:58
 msgid "Actions"
 msgstr "操作"
@@ -160,7 +160,7 @@ msgstr "操作"
 msgid "Create a New Virtual Machine"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:35 ui/pages/template-add.html.tmpl:35
+#: ui/pages/guest-add.html.tmpl:35
 msgid "Virtual Machine Name"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Please choose a template."
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:61 ui/pages/template.html.tmpl:69
+#: ui/pages/guest-add.html.tmpl:61 ui/pages/template.html.tmpl:72
 msgid "OS"
 msgstr ""
 
@@ -190,8 +190,8 @@ msgstr ""
 msgid "CPUS"
 msgstr ""
 
-#: ui/pages/guest-add.html.tmpl:76 ui/pages/template-add.html.tmpl:79
-#: ui/pages/template-add.html.tmpl:90
+#: ui/pages/guest-add.html.tmpl:76 ui/pages/template-add.html.tmpl:78
+#: ui/pages/template-add.html.tmpl:89
 msgid "Create"
 msgstr ""
 
@@ -203,47 +203,47 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ui/pages/template-edit.html.tmpl:63 ui/pages/template.html.tmpl:70
+#: ui/pages/template-edit.html.tmpl:63 ui/pages/template.html.tmpl:73
 msgid "Version"
 msgstr ""
 
-#: ui/pages/template.html.tmpl:73
+#: ui/pages/template.html.tmpl:76
 msgid "Default Settings"
 msgstr ""
 
-#: ui/pages/template.html.tmpl:74
+#: ui/pages/template.html.tmpl:77
 msgid "CPUs"
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:41
+#: ui/pages/template-add.html.tmpl:40
 msgid "Add Template"
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:49
+#: ui/pages/template-add.html.tmpl:48
 msgid "What would you like to do?"
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:53
+#: ui/pages/template-add.html.tmpl:52
 msgid "Select a specific ISO to create a template."
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:60
+#: ui/pages/template-add.html.tmpl:59
 msgid "Where is the ISO file?"
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:64
+#: ui/pages/template-add.html.tmpl:63
 msgid "The ISO is on my server."
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:68
+#: ui/pages/template-add.html.tmpl:67
 msgid "I want to stream an ISO from the Internet."
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:75
+#: ui/pages/template-add.html.tmpl:74
 msgid "Select the ISO you\\342\\200\\231d like to use to create a template:"
 msgstr ""
 
-#: ui/pages/template-add.html.tmpl:86
+#: ui/pages/template-add.html.tmpl:85
 msgid "Please enter a URL:"
 msgstr ""
 
@@ -306,3 +306,39 @@ msgstr ""
 #: ui/pages/template-edit.html.tmpl:138
 msgid "Save"
 msgstr ""
+
+#: ui/pages/i18n.html.tmpl:40
+msgid "temp.msg.fail.list"
+msgstr "展示模板列表失败"
+
+#: ui/pages/i18n.html.tmpl:41
+msgid "temp.msg.choose.temp"
+msgstr "请选择模板"
+
+#: ui/pages/i18n.html.tmpl:42
+msgid "vm.msg.fail.create.vm"
+msgstr "新建虚拟机失败"
+
+#: ui/pages/i18n.html.tmpl:43
+msgid "msg.fail.start"
+msgstr "启动失败"
+
+#: ui/pages/i18n.html.tmpl:44
+msgid "msg.fail.stop"
+msgstr "停止失败"
+
+#: ui/pages/i18n.html.tmpl:45
+msgid "msg.fail.reset"
+msgstr "重置失败"
+
+#: ui/pages/i18n.html.tmpl:46
+msgid "msg.fail.delete"
+msgstr "删除失败"
+
+#: ui/pages/i18n.html.tmpl:47
+msgid "msg.fail.list.guests"
+msgstr "展示客户机失败"
+
+#: ui/pages/i18n.html.tmpl:48
+msgid "msg.fail.create.template"
+msgstr "新建模板失败"
