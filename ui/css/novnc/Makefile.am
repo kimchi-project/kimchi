@@ -18,6 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cssdir = $(datadir)/burnet/ui/css/novnc
+cssdir = $(datadir)/kimchi/ui/css/novnc
 
 dist_css_DATA = base.css

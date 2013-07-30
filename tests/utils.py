@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -31,7 +31,7 @@ import socket
 from contextlib import closing
 import unittest
 
-import burnet.server
+import kimchi.server
 
 _port = None
 
@@ -83,7 +83,7 @@ def run_server(host, port, test_mode, model=None):
                  'log_level': 'debug'})()
     if model is not None:
         setattr(args, 'model', model)
-    s = burnet.server.Server(args)
+    s = kimchi.server.Server(args)
     t = threading.Thread(target=s.start)
     t.setDaemon(True)
     t.start()

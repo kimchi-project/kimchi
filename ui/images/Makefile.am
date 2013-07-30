@@ -20,6 +20,6 @@
 
 SUBDIRS = theme-default
 
-imagedir = $(datadir)/burnet/ui/images
+imagedir = $(datadir)/kimchi/ui/images
 
 dist_image_DATA = *.jpg *.png *.svg *.ico

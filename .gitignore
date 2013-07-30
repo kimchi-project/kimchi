@@ -16,7 +16,7 @@ config.status
 *.gmo
 stamp-po
 kimchi-*.tar.gz
-src/burnetd
+src/kimchid
 po/POTFILES
 *.orig
 *.rej

@@ -18,6 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-fontdir = $(datadir)/burnet/ui/css/fonts/novnc
+fontdir = $(datadir)/kimchi/ui/css/fonts/novnc
 
 dist_font_DATA = Orbitron700.*

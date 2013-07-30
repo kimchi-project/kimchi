@@ -42,8 +42,8 @@ msgid "SOS Report"
 msgstr "SOS Report"
 
 #: standard input:7
-msgid "Project Burnet"
-msgstr "Project Burnet"
+msgid "Project Kimchi"
+msgstr "Project Kimchi"
 
 #: standard input:8
 msgid "Language:"

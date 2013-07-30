@@ -5,9 +5,9 @@ After=libvirtd.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/burnetd
+ExecStart=/usr/bin/kimchid
 ExecStop=/bin/kill -TERM $MAINPID
-EnvironmentFile=/etc/burnet/burnet.conf
+EnvironmentFile=/etc/kimchi/kimchi.conf
 
 [Install]
 WantedBy=multi-user.target

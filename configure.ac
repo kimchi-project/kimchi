@@ -47,8 +47,8 @@ AC_CONFIG_FILES([
     Makefile
     docs/Makefile
     src/Makefile
-    src/burnet/Makefile
-    src/burnet/config.py
+    src/kimchi/Makefile
+    src/kimchi/config.py
     ui/Makefile
     ui/css/Makefile
     ui/css/novnc/Makefile

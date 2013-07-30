@@ -20,14 +20,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = burnet
+SUBDIRS = kimchi
 
-EXTRA_DIST = burnetd.in
+EXTRA_DIST = kimchid.in
 
-bin_SCRIPTS = burnetd
+bin_SCRIPTS = kimchid
 
-confdir = $(sysconfdir)/burnet
-dist_conf_DATA = burnet.conf
+confdir = $(sysconfdir)/kimchi
+dist_conf_DATA = kimchi.conf
 
 do_substitution = \
 	sed -e 's,[@]pythondir[@],$(pythondir),g' \
@@ -35,8 +35,8 @@ do_substitution = \
 	-e 's,[@]VERSION[@],$(VERSION),g'
 
 
-burnetd: burnetd.in Makefile
-	$(do_substitution) < $(srcdir)/burnetd.in > burnetd
-	chmod +x burnetd
+kimchid: kimchid.in Makefile
+	$(do_substitution) < $(srcdir)/kimchid.in > kimchid
+	chmod +x kimchid
 
 CLEANFILES = $(bin_SCRIPTS)

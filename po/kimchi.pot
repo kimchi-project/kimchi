@@ -42,7 +42,7 @@ msgid "SOS Report"
 msgstr ""
 
 #: standard input:7
-msgid "Project Burnet"
+msgid "Project Kimchi"
 msgstr ""
 
 #: standard input:8

@@ -1,5 +1,5 @@
 #
-# burnetd - Burnet Web Server
+# kimchid - Kimchi Web Server
 #
 # Copyright IBM, Corp. 2013
 #
@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-description	"Burnet Web Server"
+description	"Kimchi Web Server"
 
 start on started libvirt-bin
 stop on stopped libvirt-bin
@@ -31,4 +31,4 @@ pre-start script
     start libvirt-bin || exit 1
 end script
 
-exec /usr/bin/burnetd
+exec /usr/bin/kimchid

@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -25,8 +25,8 @@ import cherrypy
 import json
 import os
 
-import burnet.mockmodel
-import burnet.controller
+import kimchi.mockmodel
+import kimchi.controller
 
 from utils import *
 
@@ -40,7 +40,7 @@ class MockModelTests(unittest.TestCase):
     def setUp(self):
         global port, host, model, test_server
         cherrypy.request.headers = {'Accept': 'application/json'}
-        model = burnet.mockmodel.MockModel('/tmp/obj-store-test')
+        model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
         port = get_free_port()
         host = '127.0.0.1'
         test_server = run_server(host, port, test_mode=True, model=model)
@@ -50,7 +50,7 @@ class MockModelTests(unittest.TestCase):
         os.unlink('/tmp/obj-store-test')
 
     def test_collection(self):
-        c = burnet.controller.Collection(model)
+        c = kimchi.controller.Collection(model)
 
         # The base Collection is always empty
         cherrypy.request.method = 'GET'
@@ -67,7 +67,7 @@ class MockModelTests(unittest.TestCase):
                 self.fail("Expected exception not raised")
 
     def test_resource(self):
-        r = burnet.controller.Resource(model)
+        r = kimchi.controller.Resource(model)
 
         # Test the base Resource representation
         cherrypy.request.method = 'GET'

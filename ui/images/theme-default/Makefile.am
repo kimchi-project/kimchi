@@ -18,6 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-imagedir = $(datadir)/burnet/ui/images/theme-default
+imagedir = $(datadir)/kimchi/ui/images/theme-default
 
 dist_image_DATA = *.png

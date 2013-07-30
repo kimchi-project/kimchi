@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# burnetd		Burnet Web Server
+# kimchid		Kimchi Web Server
 #
 # Copyright IBM, Corp. 2013
 #
@@ -21,12 +21,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 ### BEGIN INIT INFO
-# Provides: burnetd
+# Provides: kimchid
 # Required-Start: libvirtd
 # Required-Stop:
 # Default-Start: 3 5
 # Default-Stop: 0 1 2 6
-# Description: Start the burnetd daemon
+# Description: Start the kimchid daemon
 ### END INIT INFO
 
 . /etc/rc.status
@@ -45,21 +45,21 @@ rc_reset
 
 case "$1" in
     start)
-	echo -n "Starting burnetd daemon"
+	echo -n "Starting kimchid daemon"
 	## Start daemon with startproc(8). If this fails
 	## the echo return value is set appropriate.
 
-	startproc -f /usr/bin/burnetd > /dev/null 2>&1
+	startproc -f /usr/bin/kimchid > /dev/null 2>&1
 
 	# Remember status and be verbose
 	rc_status -v
 	;;
     stop)
-	echo -n "Shutting down burnetd daemon"
+	echo -n "Shutting down kimchid daemon"
 	## Stop daemon with killproc(8) and if this fails
 	## set echo the echo return value.
 
-	killproc -TERM /usr/bin/burnetd
+	killproc -TERM /usr/bin/kimchid
 
 	# Remember status and be verbose
 	rc_status -v
@@ -82,7 +82,7 @@ case "$1" in
         rc_status
         ;;
     status)
-	echo -n "Checking for service burnetd "
+	echo -n "Checking for service kimchid "
         ## Check status with checkproc(8), if process is running
         ## checkproc will return with exit status 0.
 
@@ -92,7 +92,7 @@ case "$1" in
         # 2 - service dead, but /var/lock/ lock file exists
         # 3 - service not running
 
-	checkproc /usr/bin/burnetd
+	checkproc /usr/bin/kimchid
 
 	rc_status -v
 	;;

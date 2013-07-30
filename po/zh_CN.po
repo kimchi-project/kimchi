@@ -1,4 +1,4 @@
-# i18n portable object for burnet.
+# i18n portable object for kimchi.
 # Copyright (C) IBM, Corp. 2013
 # ShaoHe Feng <shaohef@linux.vnet.ibm.com>, 2013-04-18.
 #
@@ -18,7 +18,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: burnet 0.1\n"
+"Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-30 09:11-0400\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
@@ -58,8 +58,8 @@ msgid "SOS Report"
 msgstr "SOS报告"
 
 #: standard input:7
-msgid "Project Burnet"
-msgstr "Burnet项目"
+msgid "Project Kimchi"
+msgstr "Kimchi项目"
 
 #: standard input:8
 msgid "Language:"

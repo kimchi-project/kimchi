@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -22,8 +22,8 @@
 
 import unittest
 
-from burnet.vmtemplate import *
-from burnet.xmlutils import xpath_get_text
+from kimchi.vmtemplate import *
+from kimchi.xmlutils import xpath_get_text
 
 class VMTemplateTests(unittest.TestCase):
     def test_minimal_construct(self):

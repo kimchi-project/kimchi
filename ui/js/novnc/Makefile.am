@@ -20,7 +20,7 @@
 
 SUBDIRS = web-socket-js
 
-jsdir = $(datadir)/burnet/ui/js/novnc
+jsdir = $(datadir)/kimchi/ui/js/novnc
 
 dist_js_DATA = \
 	base64.js \

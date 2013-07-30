@@ -1,6 +1,6 @@
-## Project Burnet REST API Specification
+## Project Kimchi REST API Specification
 
-The Burnet API provides all functionality to the application and may be used
+The Kimchi API provides all functionality to the application and may be used
 directly by external tools.  In the following sections you will find the
 specification of all Collections and Resource types that are supported and the
 URIs where they can be accessed.  In order to use the API effectively, please

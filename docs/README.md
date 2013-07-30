@@ -26,7 +26,7 @@ Build and Install
 Run
 ---
 
-    $ sudo burnetd --host=0.0.0.0
+    $ sudo kimchid --host=0.0.0.0
 
 Usage
 -----

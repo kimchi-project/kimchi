@@ -18,10 +18,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-htmldir = $(datadir)/burnet/ui/pages
+htmldir = $(datadir)/kimchi/ui/pages
 
 dist_html_DATA = \
-	burnet-ui.html.tmpl \
+	kimchi-ui.html.tmpl \
 	dev-ui.html.tmpl \
 	guest-add.html.tmpl \
 	guest.html.tmpl \

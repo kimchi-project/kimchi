@@ -1,0 +1,113 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#def _($arg1)
+    $arg1
+#end def
+#def _t($arg1)
+    $arg1
+#end def
+#if $lang.lang[0] != "en_US"
+    #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+    #silent _ = t.gettext
+    #silent _t = t.gettext
+#end if
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kimchi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="icon" type="image/x-icon" href="images/logo.ico">
+<link rel="stylesheet" href="css/theme-default.min.css">
+<script src="libs/modernizr.custom.76777.js"></script>
+
+<!-- This is used for detecting if the UI needs to be built -->
+<style type="text/css">
+#buildme {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+}
+
+#buildme div {
+    background-color: #FFB2C0;
+    border-style: solid;
+    border-color: #FF0000;
+    padding: 30px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="topbar">
+	<h1 id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></h1>
+	<ul class="nav-top">
+		<li>
+			<a id="user" href="javascript:void(0);">
+				<span id="username"></span>
+			</a>
+		</li>
+	</ul>
+</header>
+<div class="content">
+	<nav class="navbar">
+		<ul id="nav-menu" class="nav-menu">
+			<li>
+				<a class="item current" href="guestTab.html">$_("Guests")</a>
+			</li>
+			<li>
+				<a class="item current" href="template.html">$_("Templates")</a>
+			</li>
+			<li class="menu-arrow"></li>
+		</ul>
+	</nav>
+	<div id="main">
+
+	</div>
+</div>
+</div>
+<script src="libs/jquery-1.10.0.min.js"></script>
+<script src="js/kimchi.min.js"></script>
+
+<div id="buildme">
+<div>Oops!  It looks like I am running from a source tree and you forgot to build!
+Please run the following command and reload this page:
+<p><code>python setup.py build</code></p>
+</div>
+</div>
+<script>
+kimchi.main();
+</script>
+</body>
+</html>

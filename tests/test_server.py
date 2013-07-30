@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -26,7 +26,7 @@ import os
 
 import utils
 
-import burnet.mockmodel
+import kimchi.mockmodel
 
 #utils.silence_server()
 
@@ -37,7 +37,7 @@ class ServerTests(unittest.TestCase):
         """
         host = '127.0.0.1'
         port = utils.get_free_port()
-        model = burnet.mockmodel.MockModel('/tmp/obj-store-test')
+        model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
         s = utils.run_server(host, port, test_mode=True, model=model)
         try:
             resp = utils.request(host, port, '/')

@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -21,7 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import unittest
-from burnet.osinfo import *
+from kimchi.osinfo import *
 
 class OSInfoTests(unittest.TestCase):
     def test_default_lookup(self):

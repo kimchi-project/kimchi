@@ -22,17 +22,17 @@ SUBDIRS = novnc
 
 EXTRA_DIST = src
 
-jsdir = $(datadir)/burnet/ui/js
+jsdir = $(datadir)/kimchi/ui/js
 
 dist_js_DATA = \
-	burnet.min.js \
+	kimchi.min.js \
 	dev.main.js \
 	jquery.min.js \
 	jquery-ui.js \
 	modernizr.custom.2.6.2.min.js \
 	$(NULL)
 
-burnet.min.js: src/*.js
+kimchi.min.js: src/*.js
 	cat $(sort $^) > $@
 
-CLEANFILES = burnet.min.js
+CLEANFILES = kimchi.min.js

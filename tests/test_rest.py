@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -25,10 +25,10 @@ import json
 import time
 import os
 
-import burnet.mockmodel
-import burnet.server
+import kimchi.mockmodel
+import kimchi.server
 from utils import *
-from burnet.asynctask import AsyncTask
+from kimchi.asynctask import AsyncTask
 
 test_server = None
 model = None
@@ -41,7 +41,7 @@ port = None
 def setUpModule():
     global test_server, model, host, port
 
-    model = burnet.mockmodel.MockModel('/tmp/obj-store-test')
+    model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port()
     test_server = run_server(host, port, test_mode=True, model=model)

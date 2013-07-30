@@ -1,5 +1,5 @@
 /*
- * Project Burnet
+ * Project Kimchi
  *
  * Copyright IBM, Corp. 2013
  *
@@ -456,7 +456,7 @@ function start()
     $(".btn").button();
     $('#localLang').change(function() {
         var selection = $('#localLang option:selected').val();
-        document.cookie = 'burnetLang' + "=" + selection;
+        document.cookie = 'kimchiLang' + "=" + selection;
         window.location.reload()
     });
 }

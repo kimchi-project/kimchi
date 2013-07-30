@@ -1,5 +1,5 @@
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -25,19 +25,19 @@ import threading
 import os
 import time
 
-import burnet.model
-import burnet.objectstore
+import kimchi.model
+import kimchi.objectstore
 import utils
 
 class ModelTests(unittest.TestCase):
     def setUp(self):
-        self.tmp_store = '/tmp/burnet-store-test'
+        self.tmp_store = '/tmp/kimchi-store-test'
 
     def tearDown(self):
         os.unlink(self.tmp_store)
 
     def test_vm_info(self):
-        inst = burnet.model.Model('test:///default', self.tmp_store)
+        inst = kimchi.model.Model('test:///default', self.tmp_store)
         vms = inst.vms_get_list()
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
@@ -49,37 +49,37 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2048, info['memory'])
         self.assertEquals(None, info['icon'])
 
-        self.assertRaises(burnet.model.NotFoundError,
+        self.assertRaises(kimchi.model.NotFoundError,
                           inst.vm_lookup, 'nosuchvm')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_lifecycle(self):
-        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'burnet-vm', 'template': '/templates/test'}
+            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
-            self.assertTrue('burnet-vm' in vms)
+            self.assertTrue('kimchi-vm' in vms)
 
-            inst.vm_start('burnet-vm')
-            rollback.prependDefer(inst.vm_stop, 'burnet-vm')
+            inst.vm_start('kimchi-vm')
+            rollback.prependDefer(inst.vm_stop, 'kimchi-vm')
 
-            info = inst.vm_lookup('burnet-vm')
+            info = inst.vm_lookup('kimchi-vm')
             self.assertEquals('running', info['state'])
 
         vms = inst.vms_get_list()
-        self.assertFalse('burnet-vm' in vms)
+        self.assertFalse('kimchi-vm' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
-        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [{'size': 1}]}
@@ -96,10 +96,10 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagepool(self):
-        inst = burnet.model.Model('qemu:///system', self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
         with utils.RollbackContext() as rollback:
-            path = '/tmp/burnet-images'
+            path = '/tmp/kimchi-images'
             name = 'test-pool'
             if not os.path.exists(path):
                 os.mkdir(path)
@@ -131,10 +131,10 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagevolume(self):
-        inst = burnet.model.Model('qemu:///system', self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
         with utils.RollbackContext() as rollback:
-            path = '/tmp/burnet-images'
+            path = '/tmp/kimchi-images'
             pool = 'test-pool'
             vol = 'test-volume.img'
             if not os.path.exists(path):
@@ -180,7 +180,7 @@ class ModelTests(unittest.TestCase):
                 ret = inst.vms_get_list()
                 self.assertEquals('test', ret[0])
 
-        inst = burnet.model.Model('test:///default', self.tmp_store)
+        inst = kimchi.model.Model('test:///default', self.tmp_store)
         threads = []
         for i in xrange(100):
             t = threading.Thread(target=worker)
@@ -191,7 +191,7 @@ class ModelTests(unittest.TestCase):
             t.join()
 
     def test_object_store(self):
-        store = burnet.objectstore.ObjectStore(self.tmp_store)
+        store = kimchi.objectstore.ObjectStore(self.tmp_store)
 
         with store as session:
             # Test create
@@ -212,11 +212,11 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(1, len(session.get_list('foo')))
 
             # Test get non-existent item
-            self.assertRaises(burnet.model.NotFoundError, session.get,
+            self.assertRaises(kimchi.model.NotFoundError, session.get,
                               'a', 'b')
 
             # Test delete non-existent item
-            self.assertRaises(burnet.model.NotFoundError, session.delete,
+            self.assertRaises(kimchi.model.NotFoundError, session.delete,
                               'foo', 'test2')
 
             # Test refresh existing item
@@ -229,7 +229,7 @@ class ModelTests(unittest.TestCase):
             with store as session:
                 session.store('foo', ident, {})
 
-        store = burnet.objectstore.ObjectStore(self.tmp_store)
+        store = kimchi.objectstore.ObjectStore(self.tmp_store)
 
         threads = []
         for i in xrange(50):
@@ -264,7 +264,7 @@ class ModelTests(unittest.TestCase):
             except:
                 cb("Exception raised", False)
 
-        inst = burnet.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
         taskid = inst.add_task('', quick_op, 'Hello')
         wait_task(inst, taskid)
         self.assertEquals(1, taskid)
@@ -287,44 +287,44 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_delete_running_vm(self):
-        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'burnet-vm', 'template': '/templates/test'}
+            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
-            inst.vm_start('burnet-vm')
-            rollback.prependDefer(inst.vm_stop, 'burnet-vm')
+            inst.vm_start('kimchi-vm')
+            rollback.prependDefer(inst.vm_stop, 'kimchi-vm')
 
-            inst.vm_delete('burnet-vm')
+            inst.vm_delete('kimchi-vm')
 
             vms = inst.vms_get_list()
-            self.assertFalse('burnet-vm' in vms)
+            self.assertFalse('kimchi-vm' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_list_sorted(self):
-        inst = burnet.model.Model(objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'burnet-vm', 'template': '/templates/test'}
+            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
 
             self.assertEquals(vms, sorted(vms, key=unicode.lower))
 
     def test_use_test_host(self):
-        inst = burnet.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [],
@@ -335,10 +335,10 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'burnet-vm', 'template': '/templates/test',}
+            params = {'name': 'kimchi-vm', 'template': '/templates/test',}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'burnet-vm')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
 
-            self.assertTrue('burnet-vm' in vms)
+            self.assertTrue('kimchi-vm' in vms)

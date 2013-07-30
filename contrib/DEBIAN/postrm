@@ -1,6 +1,6 @@
 #!/bin/sh -e
 #
-# Project Burnet
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013
 #
@@ -20,9 +20,9 @@
 
 case "$1" in
     remove)
-        rm -rf /var/log/burnet /var/run/burnet.pid
+        rm -rf /var/log/kimchi /var/run/kimchi.pid
     ;;
     purge)
-        rm -rf /var/log/burnet /var/run/burnet.pid /usr/share/burnet/
+        rm -rf /var/log/kimchi /var/run/kimchi.pid /usr/share/kimchi/
     ;;
 esac

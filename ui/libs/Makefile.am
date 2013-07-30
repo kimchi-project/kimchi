@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-jsdir = $(datadir)/burnet/ui/libs
+jsdir = $(datadir)/kimchi/ui/libs
 
 dist_js_DATA = \
 	jquery-1.10.0.min.js \

@@ -1,5 +1,5 @@
 # List of source files which contain translatable strings.
-ui/pages/burnet-ui.html.tmpl
+ui/pages/kimchi-ui.html.tmpl
 ui/pages/dev-ui.html.tmpl
 ui/pages/guest-add.html.tmpl
 ui/pages/guest.html.tmpl

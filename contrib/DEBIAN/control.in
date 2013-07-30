@@ -6,4 +6,4 @@ Architecture: all
 Depends: python-cherrypy3, python-cheetah, libvirt-bin, python-libvirt, python-libxml2, python-imaging, qemu-kvm
 Build-Depends: python-polib
 Maintainer: Aline Manera <alinefm@br.ibm.com>
-Description: Burnet web server
+Description: Kimchi web server

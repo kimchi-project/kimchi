@@ -20,6 +20,6 @@
 
 SUBDIRS = novnc
 
-fontdir = $(datadir)/burnet/ui/css/fonts
+fontdir = $(datadir)/kimchi/ui/css/fonts
 
 dist_font_DATA = fontawesome-webfont.*

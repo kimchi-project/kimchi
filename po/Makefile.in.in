@@ -26,7 +26,7 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 datarootdir = @datarootdir@
 datadir = @datadir@
-localedir = @datadir@/burnet/mo
+localedir = @datadir@/kimchi/mo
 gettextsrcdir = $(datadir)/gettext/po
 
 INSTALL = @INSTALL@
