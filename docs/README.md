@@ -11,8 +11,8 @@ Install Dependencies
 --------------------
 
     $ sudo yum install python-cherrypy python-cheetah \
-                       python-imaging python-polib \
-                       libvirt-python libvirt
+                       python-imaging libvirt-python libvirt \
+                       gettext-devel
 
 Install Dependecies for RHEL6
 ----------------------------
@@ -21,7 +21,9 @@ Install Dependecies for RHEL6
 Build and Install
 -----------------
 
-    $ sudo python setup.py install
+    $ ./autogen.sh --system
+    $ make
+    $ sudo make install   # Optional if running from the source tree
 
 Run
 ---
