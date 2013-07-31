@@ -30,4 +30,5 @@ dist_html_DATA = \
 	template-edit.html.tmpl \
 	template.html.tmpl \
 	vnc_auto.html.tmpl \
+	i18n.html.tmpl \
 	$(NULL)
