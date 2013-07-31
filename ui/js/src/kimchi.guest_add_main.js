@@ -32,18 +32,24 @@ kimchi.guest_add_main = function() {
 		kimchi.message.error(i18n['temp.msg.fail.list']);
 	});
 
-	$('#vm-doAdd').on('click', function(event) {
+	var addGuest = function(event) {
 		var formData = $('#form-vm-add').serializeObject();
 
 		if(!formData.template) {
 			kimchi.message.warn(i18n['temp.msg.choose.temp']);
-			return;
+			return false;
 		}
+
 		kimchi.createVM(formData,function() {
 			kimchi.listVmsAuto();
 			kimchi.window.close();
 		},function() {
 			kimchi.message.error(i18n['vm.msg.fail.create.vm']);
 		});
-	});
+
+		return false;
+	};
+
+	$('#form-vm-add').on('submit', addGuest);
+	$('#vm-doAdd').on('click', addGuest);
 };
