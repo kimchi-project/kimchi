@@ -57,6 +57,11 @@
 	border-right: none;
 }
 
+.list-vm li>.guest-tile{
+	text-align: center;
+	vertical-align: middle;
+}
+
 .list-vm .handle {
 	display: block;
 	width: 50px;
@@ -84,6 +89,17 @@
 
 .list-vm .tile .imgload {
 	display: none;
+	max-height: 110px;
+	max-width: 170px;
+	height: auto;
+	width: auto;
+}
+
+.list-vm .tile .imgactive {
+	max-height: 110px;
+	max-width: 170px;
+	height: auto;
+	width: auto;
 }
 
 .guest-type {
@@ -192,10 +208,15 @@
 }
 
 .list-vm .tile {
-	width: 170px;
-	height: 110px;
-	box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
+	max-width: 170px;
+	max-height: 110px;
+	width: auto;
+	height: auto;
 	margin: 10px;
+}
+
+.list-vm .tile:not(.shutoff) img {
+	box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
 }
 
 .list-vm .shutoff {
