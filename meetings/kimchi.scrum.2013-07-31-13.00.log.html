@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:10</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 31 13:00:10 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:10</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:17</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> Yes. I made the req, I'll fup and get it
+<a name="l-7"></a><span class="tm">13:00:46</span><span class="nk"> &lt;aglitke&gt;</span> Hi everyone :)  Thanks for joining the scrum.
+<a name="l-8"></a><span class="tm">13:00:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-9"></a><span class="tm">13:01:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Build system and rename changes</span>
+<a name="l-10"></a><span class="tm">13:01:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Planning for the September Release</span>
+<a name="l-11"></a><span class="tm">13:01:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Roundtable / Open Discussion</span>
+<a name="l-12"></a><span class="tm">13:01:49</span><span class="nk"> &lt;aglitke&gt;</span> Anything else?
+<a name="l-13"></a><span class="tm">13:02:05</span><span class="nk"> &lt;zhoumeina&gt;</span> can we talk about what browser we support?
+<a name="l-14"></a><span class="tm">13:02:22</span><span class="nk"> &lt;zhoumeina&gt;</span> and version
+<a name="l-15"></a><span class="tm">13:02:36</span><span class="nk"> &lt;aglitke&gt;</span> sure... added.
+<a name="l-16"></a><span class="tm">13:02:45</span><span class="nk"> &lt;alinefm&gt;</span> more people reviewing patches
+<a name="l-17"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-18"></a><span class="tm">13:02:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Yes.  I might as well just mention that now.
+<a name="l-19"></a><span class="tm">13:03:25</span><span class="nk"> &lt;aglitke&gt;</span> Right now our model for the most part is that everyone submits patches and I review and apply them when I have time.
+<a name="l-20"></a><span class="tm">13:03:43</span><span class="nk"> &lt;aglitke&gt;</span> There are some exceptions and a few people who are reviewing more code.
+<a name="l-21"></a><span class="tm">13:03:59</span><span class="nk"> &lt;aglitke&gt;</span> What I would like to see is more patch series being reviewed by multiple people.
+<a name="l-22"></a><span class="tm">13:04:14</span><span class="nk"> &lt;aglitke&gt;</span> Especially the more complex series that implement larger features.
+<a name="l-23"></a><span class="tm">13:04:33</span><span class="nk"> &lt;aglitke&gt;</span> It's hard for me to catch everything and review everything.
+<a name="l-24"></a><span class="tm">13:04:51</span><span class="nk"> &lt;sming&gt;</span> aglitke, agree.
+<a name="l-25"></a><span class="tm">13:05:00</span><span class="nk"> &lt;zhoumeina&gt;</span> there is a problem that we UI developers don't understand the backend logic,
+<a name="l-26"></a><span class="tm">13:05:05</span><span class="nk"> &lt;alinefm&gt;</span> as with more people reviewing patches they can come upstream faster
+<a name="l-27"></a><span class="tm">13:05:08</span><span class="nk"> &lt;aglitke&gt;</span> So I will ask everyone to give me a hand with reviews.  It will make all of our patches flow into the tree faster.
+<a name="l-28"></a><span class="tm">13:05:12</span><span class="nk"> &lt;zhoumeina&gt;</span> can we do something about it?
+<a name="l-29"></a><span class="tm">13:05:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Reviewing patches is one of the best ways to begin to understand new code.
+<a name="l-30"></a><span class="tm">13:05:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Start with simple ones.
+<a name="l-31"></a><span class="tm">13:05:50</span><span class="nk"> &lt;aglitke&gt;</span> and you can work to the more complex ones.
+<a name="l-32"></a><span class="tm">13:06:00</span><span class="nk"> &lt;sming&gt;</span> aglitke, do we have a way to honor the people who comments the code but not signed with reviewed-by.
+<a name="l-33"></a><span class="tm">13:06:10</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">zhoumeina:</span> I do not think the UI developers should struggling to review the backend code.
+<a name="l-34"></a><span class="tm">13:06:15</span><span class="nk"> &lt;aglitke&gt;</span> I have learned a lot about UI design and code since reviewing lots of patches.
+<a name="l-35"></a><span class="tm">13:06:18</span><span class="nk"> &lt;sming&gt;</span> aglitke, you know give negative comments may take more time.
+<a name="l-36"></a><span class="tm">13:07:17</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> I am not really going to be tracking it like with ovirt.  In general, when I see someone very actively reviewing code I am more likely to focus review on their work.
+<a name="l-37"></a><span class="tm">13:07:31</span><span class="nk"> &lt;aglitke&gt;</span> So that is one way we can all encourage each other to review more.
+<a name="l-38"></a><span class="tm">13:08:01</span><span class="nk"> &lt;aglitke&gt;</span> If someone reviews your patch, try to find one or more of their patches to review in return.
+<a name="l-39"></a><span class="tm">13:08:37</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> A positive Reviewed-by should take as much time as negative comments because you are making sure the code will work if it is applied.
+<a name="l-40"></a><span class="tm">13:09:21</span><span class="nk"> &lt;aglitke&gt;</span> ok... I think that covers that topic.
+<a name="l-41"></a><span class="tm">13:09:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Build system and rename changes</span>
+<a name="l-42"></a><span class="tm">13:10:00</span><span class="nk"> &lt;zhoumeina&gt;</span> what about review by pairs, and take turns
+<a name="l-43"></a><span class="tm">13:10:03</span><span class="nk"> &lt;aglitke&gt;</span> Thanks for bearing with the large changes.  They are behind us now :)
+<a name="l-44"></a><span class="tm">13:10:22</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> If that works for you guys then give it a try.
+<a name="l-45"></a><span class="tm">13:10:23</span><span class="nk"> &lt;zhoumeina&gt;</span> hehe
+<a name="l-46"></a><span class="tm">13:10:45</span><span class="nk"> &lt;aglitke&gt;</span> I have pushed two follow-up patches this morning to resolve issues.
+<a name="l-47"></a><span class="tm">13:11:02</span><span class="nk"> &lt;aglitke&gt;</span> One from me to update the readme.  One from shaohef to distribute a missing file.
+<a name="l-48"></a><span class="tm">13:11:47</span><span class="nk"> &lt;aglitke&gt;</span> If anyone else encounters issues feel free to ask here in IRC and we'll find the solution and get the patch merged.
+<a name="l-49"></a><span class="tm">13:11:47</span><span class="nk"> &lt;zhoumeina&gt;</span> I send a patch to update readme
+<a name="l-50"></a><span class="tm">13:12:19</span><span class="nk"> &lt;aglitke&gt;</span> Now that the renames are behind us I will consider some of the other pending patches.
+<a name="l-51"></a><span class="tm">13:12:48</span><span class="nk"> &lt;aglitke&gt;</span> Anything else on this topic?
+<a name="l-52"></a><span class="tm">13:13:13</span><span class="nk"> &lt;aglitke&gt;</span> 1...
+<a name="l-53"></a><span class="tm">13:13:16</span><span class="nk"> &lt;aglitke&gt;</span> 2...
+<a name="l-54"></a><span class="tm">13:13:19</span><span class="nk"> &lt;aglitke&gt;</span> 3...
+<a name="l-55"></a><span class="tm">13:13:21</span><span class="nk"> &lt;aglitke&gt;</span> ok :)
+<a name="l-56"></a><span class="tm">13:13:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Planning for the September Release</span>
+<a name="l-57"></a><span class="tm">13:13:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/wiki/Todo</span>
+<a name="l-58"></a><span class="tm">13:13:55</span><span class="nk"> &lt;aglitke&gt;</span> Everyone, please see the above link.  I would like to step through it.
+<a name="l-59"></a><span class="tm">13:14:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">Category:</span> Guests
+<a name="l-60"></a><span class="tm">13:14:23</span><span class="nk"> &lt;aglitke&gt;</span> display storage usage
+<a name="l-61"></a><span class="tm">13:14:59</span><span class="nk"> &lt;aglitke&gt;</span> As per discussions on the mailing list, since the storage stat is not meaningful we are proposing to remove it.
+<a name="l-62"></a><span class="tm">13:15:01</span><span class="nk"> &lt;alinefm&gt;</span> after our discussion in the mail list I sent a patch to remove it from UI
+<a name="l-63"></a><span class="tm">13:15:13</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> ACK.
+<a name="l-64"></a><span class="tm">13:15:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> Please respond with that in reply to alinefm's patch
+<a name="l-65"></a><span class="tm">13:15:43</span><span class="nk"> &lt;AdamKingIT&gt;</span> The goal of the KPI section of the UI is to give the admin an idea how the VM is behaving
+<a name="l-66"></a><span class="tm">13:15:51</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, I could review it as well. It is UI related
+<a name="l-67"></a><span class="tm">13:15:52</span><span class="nk"> &lt;aglitke&gt;</span> I would like to call on others to participate in this as well.
+<a name="l-68"></a><span class="tm">13:16:01</span><span class="nk"> &lt;shaohef&gt;</span> bing_bu is expert on storage
+<a name="l-69"></a><span class="tm">13:16:16</span><span class="nk"> &lt;AdamKingIT&gt;</span> removing rather than replacing will negativly affect the goal as well as the symetry
+<a name="l-70"></a><span class="tm">13:16:26</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> OK
+<a name="l-71"></a><span class="tm">13:16:30</span><span class="nk"> &lt;royce&gt;</span> Sorry for late, caught in the rain...
+<a name="l-72"></a><span class="tm">13:16:36</span><span class="nk"> &lt;aglitke&gt;</span> But the current pegged stats are not suitable for a 1.0 release.
+<a name="l-73"></a><span class="tm">13:16:46</span><span class="nk"> &lt;aglitke&gt;</span> nor is a misleading one.
+<a name="l-74"></a><span class="tm">13:16:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> ie I'd rather replace it than cut it off
+<a name="l-75"></a><span class="tm">13:17:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> It's easy to carve out the space again for the box when we have something to put there.
+<a name="l-76"></a><span class="tm">13:17:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> the rain is so heavy.
+<a name="l-77"></a><span class="tm">13:17:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> I come home just now.
+<a name="l-78"></a><span class="tm">13:17:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> so we go back to the 1st goal of presenting the admin an idea of how the VM is performing,. Are there other ways we can achieve that goal?
+<a name="l-79"></a><span class="tm">13:17:50</span><span class="nk"> &lt;royce&gt;</span> shaohef, yes, thunder storm
+<a name="l-80"></a><span class="tm">13:17:55</span><span class="nk"> &lt;aglitke&gt;</span> cpu and screenshots are pretty good.
+<a name="l-81"></a><span class="tm">13:17:59</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, thinking...
+<a name="l-82"></a><span class="tm">13:18:21</span><span class="nk"> &lt;aglitke&gt;</span> libvirt provides other stats APIs
+<a name="l-83"></a><span class="tm">13:18:52</span><span class="nk"> &lt;aglitke&gt;</span> But I wonder if that's the right amount of space allocated to this in the UI anyway.
+<a name="l-84"></a><span class="tm">13:19:21</span><span class="nk"> &lt;AdamKingIT&gt;</span> I suspect cutting down to 1 kpi will throw the symmetry off, but we can look at it if there isn't a better way to communicate an overview
+<a name="l-85"></a><span class="tm">13:19:27</span><span class="nk"> &lt;aglitke&gt;</span> We could divide one of those boxes into thirds and present three bars to indicate the same info in much less space.
+<a name="l-86"></a><span class="tm">13:20:02</span><span class="nk"> &lt;bing_bu&gt;</span> I think the space can be filled with icons of disks
+<a name="l-87"></a><span class="tm">13:20:04</span><span class="nk"> &lt;aglitke&gt;</span> Actually, I miss the compact icon display from the dev ui.
+<a name="l-88"></a><span class="tm">13:20:05</span><span class="nk"> &lt;AdamKingIT&gt;</span> The design has a 'list view' that when implemented will minimize screen real estate consumption, for the more text oriented admin
+<a name="l-89"></a><span class="tm">13:20:11</span><span class="nk"> &lt;zhoumeina&gt;</span> can we make some report about that,  to give a performance score
+<a name="l-90"></a><span class="tm">13:20:39</span><span class="nk"> &lt;royce&gt;</span> what about provide like network flow instead of disk cosupution?
+<a name="l-91"></a><span class="tm">13:20:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> That is an option
+<a name="l-92"></a><span class="tm">13:21:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> the difficulty w/ scores is that you have to explain the score calculation if its not a standard metric to people
+<a name="l-93"></a><span class="tm">13:21:01</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">royce:</span> network flow is too complex
+<a name="l-94"></a><span class="tm">13:21:04</span><span class="nk"> &lt;aglitke&gt;</span> storage bandwidth (like a disk led)
+<a name="l-95"></a><span class="tm">13:21:23</span><span class="nk"> &lt;aglitke&gt;</span> maybe we could have disk and network activity lights
+<a name="l-96"></a><span class="tm">13:21:31</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> do you mean the disk usage activity?
+<a name="l-97"></a><span class="tm">13:21:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> Yes, IO
+<a name="l-98"></a><span class="tm">13:21:44</span><span class="nk"> &lt;aglitke&gt;</span> not capacitty
+<a name="l-99"></a><span class="tm">13:21:57</span><span class="nk"> &lt;AdamKingIT&gt;</span> Sounds promising. The blinky disk light is one of the best user feedback devices ever (IMO)
+<a name="l-100"></a><span class="tm">13:21:57</span><span class="nk"> &lt;bing_bu&gt;</span> Good option, like LED on laptop
+<a name="l-101"></a><span class="tm">13:22:29</span><span class="nk"> &lt;aglitke&gt;</span> but ours would only refresh every 5 sec so we would use a meter instead of a light
+<a name="l-102"></a><span class="tm">13:22:42</span><span class="nk"> &lt;AdamKingIT&gt;</span> right, we'd want to put a # to it
+<a name="l-103"></a><span class="tm">13:23:00</span><span class="nk"> &lt;aglitke&gt;</span> So maybe for now we should blank the boxes for storage and memory kpi
+<a name="l-104"></a><span class="tm">13:23:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> which could be graphed, or shown numerically in the list view mode
+<a name="l-105"></a><span class="tm">13:23:05</span><span class="nk"> &lt;aglitke&gt;</span> but keep them in place?
+<a name="l-106"></a><span class="tm">13:23:40</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> AdamKingIT: maybe can be a disk histogram
+<a name="l-107"></a><span class="tm">13:24:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> I would leave  them alone until we swap them for something meaningful sometime in the aug iteration
+<a name="l-108"></a><span class="tm">13:24:59</span><span class="nk"> &lt;aglitke&gt;</span> So...I think we should set people off on working this via two angles:  1) blank the current meaningless KPI slots but keep them in the UI 2) Add a 1.0 task for discovering and adding 2 new KPI measures.
+<a name="l-109"></a><span class="tm">13:25:53</span><span class="nk"> &lt;AdamKingIT&gt;</span> by blank, you mean white out that spot in the UI?
+<a name="l-110"></a><span class="tm">13:26:09</span><span class="nk"> &lt;aglitke&gt;</span> Right, no circle with fake number and no title
+<a name="l-111"></a><span class="tm">13:26:15</span><span class="nk"> &lt;aglitke&gt;</span> just the box with background
+<a name="l-112"></a><span class="tm">13:26:26</span><span class="nk"> &lt;aglitke&gt;</span> as if no KPI was selected to occupy that slot yet.
+<a name="l-113"></a><span class="tm">13:26:33</span><span class="nk"> &lt;sming&gt;</span> There?
+<a name="l-114"></a><span class="tm">13:27:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> Selfishly, can we do them in reverse order... Identify the useful KPIs we think we can implement w/out a guest agent, then swap the mocked KPI for the new ones?
+<a name="l-115"></a><span class="tm">13:27:58</span><span class="nk"> &lt;aglitke&gt;</span> OK.  I will defer to the UI team on leaving the mocked numbers in place.
+<a name="l-116"></a><span class="tm">13:28:06</span><span class="nk"> &lt;bing_bu&gt;</span> sorry,what is KPI? ")
+<a name="l-117"></a><span class="tm">13:28:09</span><span class="nk"> &lt;bing_bu&gt;</span> :)
+<a name="l-118"></a><span class="tm">13:28:21</span><span class="nk"> &lt;AdamKingIT&gt;</span> np Key Performance Indicators
+<a name="l-119"></a><span class="tm">13:28:34</span><span class="nk"> &lt;shaohef&gt;</span> got it
+<a name="l-120"></a><span class="tm">13:28:38</span><span class="nk"> &lt;royce&gt;</span> I think the IO and network activity make sense, if we add tune in place, we can see the tune result...
+<a name="l-121"></a><span class="tm">13:28:39</span><span class="nk"> &lt;aglitke&gt;</span> Ok.  On to Templates section
+<a name="l-122"></a><span class="tm">13:28:56</span><span class="nk"> &lt;aglitke&gt;</span> The main one here is local iso scanning,
+<a name="l-123"></a><span class="tm">13:29:08</span><span class="nk"> &lt;aglitke&gt;</span> I want to briefly share an idea I have on how to do this better.
+<a name="l-124"></a><span class="tm">13:29:16</span><span class="nk"> &lt;aglitke&gt;</span> Royce is already working on it.
+<a name="l-125"></a><span class="tm">13:29:19</span><span class="nk"> &lt;aglitke&gt;</span> for the backend.
+<a name="l-126"></a><span class="tm">13:29:47</span><span class="nk"> &lt;aglitke&gt;</span> The idea is that (at first) we only scan Storage Pools for iso images.
+<a name="l-127"></a><span class="tm">13:30:18</span><span class="nk"> &lt;aglitke&gt;</span> The Storage Volume Resource will be extended to include os_distro and os_version and bootable info for volumes that are iso images.
+<a name="l-128"></a><span class="tm">13:30:51</span><span class="nk"> &lt;aglitke&gt;</span> so the UI can synchronously fetch /storagepools/poolid/storagevolumes
+<a name="l-129"></a><span class="tm">13:31:01</span><span class="nk"> &lt;aglitke&gt;</span> and display a UI of found iso images.
+<a name="l-130"></a><span class="tm">13:31:41</span><span class="nk"> &lt;aglitke&gt;</span> in this mode, the user would highlight the iso images (with distro icons) for the isos to be made into templates and click OK
+<a name="l-131"></a><span class="tm">13:31:59</span><span class="nk"> &lt;aglitke&gt;</span> all of those selected will be added as templates and the process is done.
+<a name="l-132"></a><span class="tm">13:32:12</span><span class="nk"> &lt;aglitke&gt;</span> We still want to have a scan mode.
+<a name="l-133"></a><span class="tm">13:32:16</span><span class="nk"> &lt;aglitke&gt;</span> For this.
+<a name="l-134"></a><span class="tm">13:32:37</span><span class="nk"> &lt;aglitke&gt;</span> The UI can call a new API which creates a temporary Storage Pool
+<a name="l-135"></a><span class="tm">13:32:59</span><span class="nk"> &lt;aglitke&gt;</span> The backend will create symlinks to all found ISOs in the the temp Storage Pool Directoryt.
+<a name="l-136"></a><span class="tm">13:33:29</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> yeah, I discussed with royce about this, it make sense adding some optional additional information for storagevol if it is a ISO.
+<a name="l-137"></a><span class="tm">13:33:34</span><span class="nk"> &lt;aglitke&gt;</span> When this process completes, (or concurrently) the UI can display the same dialog as above but using the temp storage pool instead.
+<a name="l-138"></a><span class="tm">13:33:34</span><span class="nk"> &lt;royce&gt;</span> aglitke, I tried fedora and RHEL6.3 for slnk today, fedora works fine creating vm with slnk iso, but RHEL6.3 fails
+<a name="l-139"></a><span class="tm">13:33:37</span><span class="nk"> &lt;sming&gt;</span> I was wondering if a installed os image can be scanned as a iso image.
+<a name="l-140"></a><span class="tm">13:34:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> I think we'll just identify iso images by filename extension and then by the isoinfo scanner.
+<a name="l-141"></a><span class="tm">13:34:21</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">royce:</span> maybe a issue of libvirt
+<a name="l-142"></a><span class="tm">13:34:31</span><span class="nk"> &lt;aglitke&gt;</span> It's an SELinux issue.
+<a name="l-143"></a><span class="tm">13:34:48</span><span class="nk"> &lt;royce&gt;</span> bing_bu, the same parameter with qemu
+<a name="l-144"></a><span class="tm">13:35:05</span><span class="nk"> &lt;aglitke&gt;</span> I wonder if we can install a selinux policy extension or something.
+<a name="l-145"></a><span class="tm">13:35:08</span><span class="nk"> &lt;royce&gt;</span> aglitke, but I have selinux enforced for fedora too?
+<a name="l-146"></a><span class="tm">13:35:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> The policy is probably different.
+<a name="l-147"></a><span class="tm">13:35:27</span><span class="nk"> &lt;aglitke&gt;</span> less hardened.
+<a name="l-148"></a><span class="tm">13:36:00</span><span class="nk"> &lt;aglitke&gt;</span> Anyway... AdamKingIT zhoumeina what do you guys think about this proposal from a UI perspective?
+<a name="l-149"></a><span class="tm">13:36:10</span><span class="nk"> &lt;royce&gt;</span> I'm not sure, I started with qemu-kvm --cdrom symlink, it works
+<a name="l-150"></a><span class="tm">13:36:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> I think libvirt might be configured to drop permissions.
+<a name="l-151"></a><span class="tm">13:36:37</span><span class="nk"> &lt;royce&gt;</span> but with the parameter formed by our template, qemu fails
+<a name="l-152"></a><span class="tm">13:36:38</span><span class="nk"> &lt;zhoumeina&gt;</span> Ui should show a brief information about each ISO just like cpu memory ,so the user will easily select the one he wants
+<a name="l-153"></a><span class="tm">13:37:03</span><span class="nk"> &lt;sming&gt;</span> aglitke, not sure what is the temp storage pool.  When will the pool be removed.
+<a name="l-154"></a><span class="tm">13:37:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I was thinking we could show distro and version plus the icon.
+<a name="l-155"></a><span class="tm">13:37:13</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think the approach will work pretty well
+<a name="l-156"></a><span class="tm">13:37:26</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I agree
+<a name="l-157"></a><span class="tm">13:37:35</span><span class="nk"> &lt;AdamKingIT&gt;</span> Seems like we can use it to implement the mockup as is
+<a name="l-158"></a><span class="tm">13:37:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> We can have the UI remove it and maybe also have a timeout when it will be removed.
+<a name="l-159"></a><span class="tm">13:37:52</span><span class="nk"> &lt;sming&gt;</span> aglitke, When will the pool be removed if it is a temp one?
+<a name="l-160"></a><span class="tm">13:38:05</span><span class="nk"> &lt;AdamKingIT&gt;</span> Only issue I can think is how the temp storage pool gets cleaned up
+<a name="l-161"></a><span class="tm">13:38:35</span><span class="nk"> &lt;royce&gt;</span> remove and rescan is time consuming
+<a name="l-162"></a><span class="tm">13:38:58</span><span class="nk"> &lt;aglitke&gt;</span> interesting.
+<a name="l-163"></a><span class="tm">13:38:59</span><span class="nk"> &lt;royce&gt;</span> We can rescan when forced by user
+<a name="l-164"></a><span class="tm">13:39:00</span><span class="nk"> &lt;AdamKingIT&gt;</span> We could/should clean up the temp pool when the user session ends
+<a name="l-165"></a><span class="tm">13:39:13</span><span class="nk"> &lt;aglitke&gt;</span> maybe we can just have a "special" storage pool called kimchi-isos
+<a name="l-166"></a><span class="tm">13:39:22</span><span class="nk"> &lt;bing_bu&gt;</span> why not reserve the temp pool but invisible for user?
+<a name="l-167"></a><span class="tm">13:39:25</span><span class="nk"> &lt;aglitke&gt;</span> that never goes away
+<a name="l-168"></a><span class="tm">13:39:30</span><span class="nk"> &lt;aglitke&gt;</span> a scan just refreshes it.
+<a name="l-169"></a><span class="tm">13:39:44</span><span class="nk"> &lt;bing_bu&gt;</span> yeah, refresh the pool
+<a name="l-170"></a><span class="tm">13:39:45</span><span class="nk"> &lt;aglitke&gt;</span> to refresh, first you remove any links that are broken
+<a name="l-171"></a><span class="tm">13:39:47</span><span class="nk"> &lt;royce&gt;</span> +1
+<a name="l-172"></a><span class="tm">13:39:50</span><span class="nk"> &lt;aglitke&gt;</span> then you scan for new ones.
+<a name="l-173"></a><span class="tm">13:39:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> The nice think about the temp pool is that 2 admins can scan diff areas and get diff results
+<a name="l-174"></a><span class="tm">13:40:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> 2 scans, 2 temp pools
+<a name="l-175"></a><span class="tm">13:40:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> true
+<a name="l-176"></a><span class="tm">13:40:17</span><span class="nk"> &lt;aglitke&gt;</span> also you can have concurrent scanning.
+<a name="l-177"></a><span class="tm">13:41:05</span><span class="nk"> &lt;royce&gt;</span> scan diff areas? I assume we don't give user the choice about what directories they will scan
+<a name="l-178"></a><span class="tm">13:41:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> maybe you can implement it in a way that allows us to decide later if we want the temp pool model or the special pool model.
+<a name="l-179"></a><span class="tm">13:41:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> For now, I think we don't
+<a name="l-180"></a><span class="tm">13:41:40</span><span class="nk"> &lt;royce&gt;</span> got u, aglitke
+<a name="l-181"></a><span class="tm">13:41:47</span><span class="nk"> &lt;AdamKingIT&gt;</span> Scan would always scan the whole file system?
+<a name="l-182"></a><span class="tm">13:41:48</span><span class="nk"> &lt;aglitke&gt;</span> There may be two options: 1) scan only local filesystems 2) scan local and network filesystems
+<a name="l-183"></a><span class="tm">13:42:03</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> I think the feature you mentioned is advanced one :)
+<a name="l-184"></a><span class="tm">13:42:18</span><span class="nk"> &lt;royce&gt;</span> temporarily, yes ,AdamKingIT
+<a name="l-185"></a><span class="tm">13:42:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I can't think of a better way to do it without exposing filesystem heirarchy details to the user.
+<a name="l-186"></a><span class="tm">13:42:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> by net filesystems I mean only those which are currently mounted,.
+<a name="l-187"></a><span class="tm">13:43:00</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">royce:</span> no deep scan or shallow scan?
+<a name="l-188"></a><span class="tm">13:43:02</span><span class="nk"> &lt;aglitke&gt;</span> we would not try to discover or mount new ones.
+<a name="l-189"></a><span class="tm">13:43:08</span><span class="nk"> &lt;sming&gt;</span> I think we can look iso images as system resources. And two users scanning process should be serialized .
+<a name="l-190"></a><span class="tm">13:43:10</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> got it
+<a name="l-191"></a><span class="tm">13:43:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> k, I suggest we design for either, which should be minimal overhead.. and we can decide later...
+<a name="l-192"></a><span class="tm">13:43:33</span><span class="nk"> &lt;aglitke&gt;</span> a shallow scan is the one the UI can do by just looking in existing storage pools
+<a name="l-193"></a><span class="tm">13:43:56</span><span class="nk"> &lt;aglitke&gt;</span> a deep scan is the one that uses the whole fs and a temp storage pool
+<a name="l-194"></a><span class="tm">13:44:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> if scan always scans the whole system, then the special pool will work, If we want to allow diff concurrent scans, then temp pool will be required
+<a name="l-195"></a><span class="tm">13:44:33</span><span class="nk"> &lt;aglitke&gt;</span> the nice thing about a persisting the scan pool is that a future "shallow scan" could look in that pool and benefit from the deep scan.
+<a name="l-196"></a><span class="tm">13:45:00</span><span class="nk"> &lt;aglitke&gt;</span> So royce, I think we need to design with some flexibility in mind.
+<a name="l-197"></a><span class="tm">13:45:15</span><span class="nk"> &lt;aglitke&gt;</span> make it easy to switch between multiple temp pools or a single special pool
+<a name="l-198"></a><span class="tm">13:45:35</span><span class="nk"> &lt;royce&gt;</span> that's reasonable
+<a name="l-199"></a><span class="tm">13:45:56</span><span class="nk"> &lt;zhoumeina&gt;</span> sorry to interrupt, why not share a open folder for iso files? all?
+<a name="l-200"></a><span class="tm">13:46:03</span><span class="nk"> &lt;aglitke&gt;</span> for now I think we start with a special pool that we create in /var/kimchi/kimchi-iso-pool
+<a name="l-201"></a><span class="tm">13:46:22</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Because we cannot move isos around.
+<a name="l-202"></a><span class="tm">13:46:32</span><span class="nk"> &lt;aglitke&gt;</span> we need to leave them where the admin has placed them.
+<a name="l-203"></a><span class="tm">13:47:14</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> oh, got it
+<a name="l-204"></a><span class="tm">13:47:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Also, when you convert an iso from the special pool to the template, the template should use the target of the link, not the special pool for the iso filename.
+<a name="l-205"></a><span class="tm">13:47:28</span><span class="nk"> &lt;aglitke&gt;</span> that way we can delete the special pool without breaking the templates.
+<a name="l-206"></a><span class="tm">13:47:43</span><span class="nk"> &lt;royce&gt;</span> aglitke, yes, of course, some isos with wrong permission also be ignored
+<a name="l-207"></a><span class="tm">13:47:54</span><span class="nk"> &lt;aglitke&gt;</span> ok... We should move on... Looking forward to some patches!
+<a name="l-208"></a><span class="tm">13:48:31</span><span class="nk"> &lt;aglitke&gt;</span> These minutes will be uploaded to the web so we can reference the discussion there.
+<a name="l-209"></a><span class="tm">13:48:57</span><span class="nk"> &lt;aglitke&gt;</span> Is anyone working on authentication?
+<a name="l-210"></a><span class="tm">13:49:16</span><span class="nk"> &lt;zhoumeina&gt;</span> I think not yet
+<a name="l-211"></a><span class="tm">13:49:22</span><span class="nk"> &lt;aglitke&gt;</span> That is a dependency for language selection.
+<a name="l-212"></a><span class="tm">13:49:38</span><span class="nk"> &lt;aglitke&gt;</span> I think we need to start on it if we have any hope of completing it in time for 1.0
+<a name="l-213"></a><span class="tm">13:49:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> would you mind leading the charge on this one?
+<a name="l-214"></a><span class="tm">13:51:02</span><span class="nk"> &lt;aglitke&gt;</span> Hmm, no objection! :)
+<a name="l-215"></a><span class="tm">13:51:05</span><span class="nk"> &lt;AdamKingIT&gt;</span> The idea here is that any req to access Kimchi would be met with a forms based authentication chalenge
+<a name="l-216"></a><span class="tm">13:51:35</span><span class="nk"> &lt;AdamKingIT&gt;</span> Authentication would occur through PAM (which I can only spell)
+<a name="l-217"></a><span class="tm">13:51:44</span><span class="nk"> &lt;aglitke&gt;</span> ok.  Will that work in the REST API?
+<a name="l-218"></a><span class="tm">13:51:46</span><span class="nk"> &lt;sming&gt;</span> I think authentication have several meanings,  authentication to REST APIs. authentication on VM operations
+<a name="l-219"></a><span class="tm">13:51:54</span><span class="nk"> &lt;sming&gt;</span> &amp;etc
+<a name="l-220"></a><span class="tm">13:52:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> Authentication is separate from authorization...
+<a name="l-221"></a><span class="tm">13:52:20</span><span class="nk"> &lt;AdamKingIT&gt;</span> For Sept we are just talking about authentication. Authorization is more complicated...
+<a name="l-222"></a><span class="tm">13:52:34</span><span class="nk"> &lt;aglitke&gt;</span> ACK
+<a name="l-223"></a><span class="tm">13:52:49</span><span class="nk"> &lt;bing_bu&gt;</span> authentication means user/passwd, right? ;-)
+<a name="l-224"></a><span class="tm">13:52:56</span><span class="nk"> &lt;sming&gt;</span> So is is just a login authentication to Kimchi UI?
+<a name="l-225"></a><span class="tm">13:53:00</span><span class="nk"> &lt;AdamKingIT&gt;</span> The idea is that to use Kimchi you would have to authenticate with a uid/pwd known to the linux install, and in the admins group
+<a name="l-226"></a><span class="tm">13:53:02</span><span class="nk"> &lt;aglitke&gt;</span> so any authenticated user (in the admin group) has access to do anything on kimchi
+<a name="l-227"></a><span class="tm">13:53:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">sming:</span> REST and UI
+<a name="l-228"></a><span class="tm">13:53:32</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> we need session for  authentication？
+<a name="l-229"></a><span class="tm">13:53:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> if the linux install is configured to authenticate against LDAP then the uid/pwd would be authenticated against that through PAM
+<a name="l-230"></a><span class="tm">13:53:54</span><span class="nk"> &lt;AdamKingIT&gt;</span> Not necessarily, though you need some token...
+<a name="l-231"></a><span class="tm">13:54:05</span><span class="nk"> &lt;sming&gt;</span> <span class="hi">aglitke:</span> Thanks. So we need not to consider libvirt authentication to manage VM now.
+<a name="l-232"></a><span class="tm">13:54:21</span><span class="nk"> &lt;AdamKingIT&gt;</span> My xp here is in the J2EE space, but a similar approach could apply here...
+<a name="l-233"></a><span class="tm">13:54:54</span><span class="nk"> &lt;AdamKingIT&gt;</span> Once authenticated the server issues the user a token (stored in a cookie) which must be presented w/ each request for the duration of the token validity
+<a name="l-234"></a><span class="tm">13:55:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Is that how poster works?
+<a name="l-235"></a><span class="tm">13:55:26</span><span class="nk"> &lt;aglitke&gt;</span> The FF extension?
+<a name="l-236"></a><span class="tm">13:55:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> if the token is expired, or not present, the user  is challenged again
+<a name="l-237"></a><span class="tm">13:55:43</span><span class="nk"> &lt;aglitke&gt;</span> I assume the authentication works via a cookie
+<a name="l-238"></a><span class="tm">13:55:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> Not familiar, but I can read up
+<a name="l-239"></a><span class="tm">13:55:52</span><span class="nk"> &lt;aglitke&gt;</span> I can test it out.
+<a name="l-240"></a><span class="tm">13:56:12</span><span class="nk"> &lt;aglitke&gt;</span> Would be cool if you could hack something up and post to the list for us to try.
+<a name="l-241"></a><span class="tm">13:56:14</span><span class="nk"> &lt;alinefm&gt;</span> yeap. I've already implemented it using cookie
+<a name="l-242"></a><span class="tm">13:56:30</span><span class="nk"> &lt;alinefm&gt;</span> when cookie expired the session will finished
+<a name="l-243"></a><span class="tm">13:56:35</span><span class="nk"> &lt;sming&gt;</span> AdamKingIT, how to companion the PAM credentials with REST API calls? How kimchi check those credentials for each REST API?
+<a name="l-244"></a><span class="tm">13:56:39</span><span class="nk"> &lt;aglitke&gt;</span> Once we have this, then we need SSL to avoid sending machine passwords in clear text
+<a name="l-245"></a><span class="tm">13:57:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Wouldn't a REST API user be able to pass credentials as HTTP headers?
+<a name="l-246"></a><span class="tm">13:57:38</span><span class="nk"> &lt;AdamKingIT&gt;</span> The PAM check could be isolated to the authenticate flow, all the other flows look for a valid token
+<a name="l-247"></a><span class="tm">13:57:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Putting the credentials in the header is basic auth, and generally not considered secure
+<a name="l-248"></a><span class="tm">13:57:59</span><span class="nk"> &lt;aglitke&gt;</span> That's how the BSO challenge works I believe
+<a name="l-249"></a><span class="tm">13:58:14</span><span class="nk"> &lt;aglitke&gt;</span> but if it happens over SSL then it is ok
+<a name="l-250"></a><span class="tm">13:58:52</span><span class="nk"> &lt;AdamKingIT&gt;</span> I am fairly sure that BSO issues you a token
+<a name="l-251"></a><span class="tm">13:59:14</span><span class="nk"> &lt;aglitke&gt;</span> But the first challenge just returns 400 Not authorized
+<a name="l-252"></a><span class="tm">13:59:21</span><span class="nk"> &lt;aglitke&gt;</span> when I use wget
+<a name="l-253"></a><span class="tm">13:59:23</span><span class="nk"> &lt;AdamKingIT&gt;</span> Even over SSL its not considered safe I think because proxies can cache it
+<a name="l-254"></a><span class="tm">13:59:30</span><span class="nk"> &lt;aglitke&gt;</span> hmm
+<a name="l-255"></a><span class="tm">13:59:46</span><span class="nk"> &lt;aglitke&gt;</span> ok... I guess the best thing is for you to send us a prototype to play with
+<a name="l-256"></a><span class="tm">13:59:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> You overestimate my PAM knowledge
+<a name="l-257"></a><span class="tm">14:00:10</span><span class="nk"> &lt;aglitke&gt;</span> I am mostly concerned with the HTTP side
+<a name="l-258"></a><span class="tm">14:00:23</span><span class="nk"> &lt;aglitke&gt;</span> your pam check can just be a 'return True' for now
+<a name="l-259"></a><span class="tm">14:00:52</span><span class="nk"> &lt;aglitke&gt;</span> or 'if user == root and password == passw0rd return true
+<a name="l-260"></a><span class="tm">14:01:01</span><span class="nk"> &lt;aglitke&gt;</span> just to demo the http tech
+<a name="l-261"></a><span class="tm">14:01:08</span><span class="nk"> &lt;aglitke&gt;</span> then we can wire in the pam support next
+<a name="l-262"></a><span class="tm">14:01:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> They'll never crack that one ;-)
+<a name="l-263"></a><span class="tm">14:01:27</span><span class="nk"> &lt;AdamKingIT&gt;</span> Let me look at it and see what I can come up w/
+<a name="l-264"></a><span class="tm">14:01:40</span><span class="nk"> &lt;aglitke&gt;</span> I just want to see how the authentication scheme behaves with standard tools
+<a name="l-265"></a><span class="tm">14:01:44</span><span class="nk"> &lt;aglitke&gt;</span> cool.
+<a name="l-266"></a><span class="tm">14:02:03</span><span class="nk"> &lt;AdamKingIT&gt;</span> I may need a little advice on the server side, the http bits I am good
+<a name="l-267"></a><span class="tm">14:02:06</span><span class="nk"> &lt;aglitke&gt;</span> Well, that brings us to the end of the meeting.  Anyone want to bring up any quick topics?
+<a name="l-268"></a><span class="tm">14:02:25</span><span class="nk"> &lt;zhoumeina&gt;</span> oh
+<a name="l-269"></a><span class="tm">14:02:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> for browser support.
+<a name="l-270"></a><span class="tm">14:02:35</span><span class="nk"> &lt;zhoumeina&gt;</span> yeah
+<a name="l-271"></a><span class="tm">14:02:39</span><span class="nk"> &lt;aglitke&gt;</span> I think we can add a section in the readme.
+<a name="l-272"></a><span class="tm">14:02:47</span><span class="nk"> &lt;zhoumeina&gt;</span> what kind of , and version
+<a name="l-273"></a><span class="tm">14:02:49</span><span class="nk"> &lt;aglitke&gt;</span> Perhaps it can be:
+<a name="l-274"></a><span class="tm">14:02:57</span><span class="nk"> &lt;aglitke&gt;</span> Supported browsers
+<a name="l-275"></a><span class="tm">14:02:58</span><span class="nk"> &lt;aglitke&gt;</span> ----------------------
+<a name="l-276"></a><span class="tm">14:03:12</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> what the RFD V2 new adding iscsi and nfs storage support ?https://groups.google.com/forum/#!topic/project-kimchi/2MUTewMEJzg
+<a name="l-277"></a><span class="tm">14:03:12</span><span class="nk"> &lt;aglitke&gt;</span> The following browsers are tested and known to work well with kimchi
+<a name="l-278"></a><span class="tm">14:03:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Then set the list to ones we know about
+<a name="l-279"></a><span class="tm">14:03:37</span><span class="nk"> &lt;AdamKingIT&gt;</span> FF 17ESR +, IE 8(?) +, Chrome (version changes so rapidly its hard to pick), Safari (a little less rapid change)
+<a name="l-280"></a><span class="tm">14:03:38</span><span class="nk"> &lt;aglitke&gt;</span> you can send a patch for this
+<a name="l-281"></a><span class="tm">14:03:52</span><span class="nk"> &lt;AdamKingIT&gt;</span> Do we have any constraints from jQuery?
+<a name="l-282"></a><span class="tm">14:03:57</span><span class="nk"> &lt;aglitke&gt;</span> Just say CHrome 56+ :)
+<a name="l-283"></a><span class="tm">14:04:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> I don't know if that is really high prio for 1.0
+<a name="l-284"></a><span class="tm">14:04:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> The Dojo project I work with is constrained by the Dojo version
+<a name="l-285"></a><span class="tm">14:04:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I am not sure.
+<a name="l-286"></a><span class="tm">14:04:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> not sure if jQuery imposes similar
+<a name="l-287"></a><span class="tm">14:04:46</span><span class="nk"> &lt;aglitke&gt;</span> would be good to check.
+<a name="l-288"></a><span class="tm">14:04:55</span><span class="nk"> &lt;zhoumeina&gt;</span> I will check it
+<a name="l-289"></a><span class="tm">14:05:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Perhaps you can just add a conservative list to start with and we can modify it later as more info comes in.
+<a name="l-290"></a><span class="tm">14:05:19</span><span class="nk"> &lt;bing_bu&gt;</span> I think it is easier to add than network, so I do this first..
+<a name="l-291"></a><span class="tm">14:06:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> I think we are going to want a UI to manage the storage domains first.
+<a name="l-292"></a><span class="tm">14:06:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> let me look at the patches.
+<a name="l-293"></a><span class="tm">14:06:38</span><span class="nk"> &lt;aglitke&gt;</span> If they are backend only and safe, then they may be mergeable.
+<a name="l-294"></a><span class="tm">14:07:01</span><span class="nk"> &lt;aglitke&gt;</span> ok...  Want to respect everyone's time.  This was a very productive meeting.  Thanks for joining everyone!
+<a name="l-295"></a><span class="tm">14:07:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

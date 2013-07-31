@@ -1,0 +1,295 @@
+13:00:10 <aglitke> #startmeeting
+13:00:10 <kimchi-bot> Meeting started Wed Jul 31 13:00:10 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:10 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:17 <aglitke> #meetingname scrum
+13:00:17 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:33 <AdamKingIT> Yes. I made the req, I'll fup and get it
+13:00:46 <aglitke> Hi everyone :)  Thanks for joining the scrum.
+13:00:52 <aglitke> #info Agenda
+13:01:06 <aglitke> #info Build system and rename changes
+13:01:27 <aglitke> #info Planning for the September Release
+13:01:44 <aglitke> #info Roundtable / Open Discussion
+13:01:49 <aglitke> Anything else?
+13:02:05 <zhoumeina> can we talk about what browser we support?
+13:02:22 <zhoumeina> and version
+13:02:36 <aglitke> sure... added.
+13:02:45 <alinefm> more people reviewing patches
+13:02:47 <alinefm> ?
+13:02:59 <aglitke> alinefm: Yes.  I might as well just mention that now.
+13:03:25 <aglitke> Right now our model for the most part is that everyone submits patches and I review and apply them when I have time.
+13:03:43 <aglitke> There are some exceptions and a few people who are reviewing more code.
+13:03:59 <aglitke> What I would like to see is more patch series being reviewed by multiple people.
+13:04:14 <aglitke> Especially the more complex series that implement larger features.
+13:04:33 <aglitke> It's hard for me to catch everything and review everything.
+13:04:51 <sming> aglitke, agree.
+13:05:00 <zhoumeina> there is a problem that we UI developers don't understand the backend logic,
+13:05:05 <alinefm> as with more people reviewing patches they can come upstream faster
+13:05:08 <aglitke> So I will ask everyone to give me a hand with reviews.  It will make all of our patches flow into the tree faster.
+13:05:12 <zhoumeina> can we do something about it?
+13:05:34 <aglitke> zhoumeina: Reviewing patches is one of the best ways to begin to understand new code.
+13:05:40 <aglitke> zhoumeina: Start with simple ones.
+13:05:50 <aglitke> and you can work to the more complex ones.
+13:06:00 <sming> aglitke, do we have a way to honor the people who comments the code but not signed with reviewed-by.
+13:06:10 <bing_bu> zhoumeina: I do not think the UI developers should struggling to review the backend code.
+13:06:15 <aglitke> I have learned a lot about UI design and code since reviewing lots of patches.
+13:06:18 <sming> aglitke, you know give negative comments may take more time.
+13:07:17 <aglitke> sming: I am not really going to be tracking it like with ovirt.  In general, when I see someone very actively reviewing code I am more likely to focus review on their work.
+13:07:31 <aglitke> So that is one way we can all encourage each other to review more.
+13:08:01 <aglitke> If someone reviews your patch, try to find one or more of their patches to review in return.
+13:08:37 <aglitke> sming: A positive Reviewed-by should take as much time as negative comments because you are making sure the code will work if it is applied.
+13:09:21 <aglitke> ok... I think that covers that topic.
+13:09:40 <aglitke> #topic Build system and rename changes
+13:10:00 <zhoumeina> what about review by pairs, and take turns
+13:10:03 <aglitke> Thanks for bearing with the large changes.  They are behind us now :)
+13:10:22 <aglitke> zhoumeina: If that works for you guys then give it a try.
+13:10:23 <zhoumeina> hehe
+13:10:45 <aglitke> I have pushed two follow-up patches this morning to resolve issues.
+13:11:02 <aglitke> One from me to update the readme.  One from shaohef to distribute a missing file.
+13:11:47 <aglitke> If anyone else encounters issues feel free to ask here in IRC and we'll find the solution and get the patch merged.
+13:11:47 <zhoumeina> I send a patch to update readme
+13:12:19 <aglitke> Now that the renames are behind us I will consider some of the other pending patches.
+13:12:48 <aglitke> Anything else on this topic?
+13:13:13 <aglitke> 1...
+13:13:16 <aglitke> 2...
+13:13:19 <aglitke> 3...
+13:13:21 <aglitke> ok :)
+13:13:30 <aglitke> #topic Planning for the September Release
+13:13:39 <aglitke> #link https://github.com/kimchi-project/kimchi/wiki/Todo
+13:13:55 <aglitke> Everyone, please see the above link.  I would like to step through it.
+13:14:15 <aglitke> Category: Guests
+13:14:23 <aglitke> display storage usage
+13:14:59 <aglitke> As per discussions on the mailing list, since the storage stat is not meaningful we are proposing to remove it.
+13:15:01 <alinefm> after our discussion in the mail list I sent a patch to remove it from UI
+13:15:13 <bing_bu> aglitke: ACK.
+13:15:33 <aglitke> bing_bu: Please respond with that in reply to alinefm's patch
+13:15:43 <AdamKingIT> The goal of the KPI section of the UI is to give the admin an idea how the VM is behaving
+13:15:51 <alinefm> zhoumeina, I could review it as well. It is UI related
+13:15:52 <aglitke> I would like to call on others to participate in this as well.
+13:16:01 <shaohef> bing_bu is expert on storage
+13:16:16 <AdamKingIT> removing rather than replacing will negativly affect the goal as well as the symetry
+13:16:26 <zhoumeina> alinefm: OK
+13:16:30 <royce> Sorry for late, caught in the rain...
+13:16:36 <aglitke> But the current pegged stats are not suitable for a 1.0 release.
+13:16:46 <aglitke> nor is a misleading one.
+13:16:46 <AdamKingIT> ie I'd rather replace it than cut it off
+13:17:12 <aglitke> AdamKingIT: It's easy to carve out the space again for the box when we have something to put there.
+13:17:13 <shaohef> royce: the rain is so heavy.
+13:17:26 <shaohef> royce: I come home just now.
+13:17:31 <AdamKingIT> so we go back to the 1st goal of presenting the admin an idea of how the VM is performing,. Are there other ways we can achieve that goal?
+13:17:50 <royce> shaohef, yes, thunder storm
+13:17:55 <aglitke> cpu and screenshots are pretty good.
+13:17:59 <alinefm> AdamKingIT, thinking...
+13:18:21 <aglitke> libvirt provides other stats APIs
+13:18:52 <aglitke> But I wonder if that's the right amount of space allocated to this in the UI anyway.
+13:19:21 <AdamKingIT> I suspect cutting down to 1 kpi will throw the symmetry off, but we can look at it if there isn't a better way to communicate an overview
+13:19:27 <aglitke> We could divide one of those boxes into thirds and present three bars to indicate the same info in much less space.
+13:20:02 <bing_bu> I think the space can be filled with icons of disks
+13:20:04 <aglitke> Actually, I miss the compact icon display from the dev ui.
+13:20:05 <AdamKingIT> The design has a 'list view' that when implemented will minimize screen real estate consumption, for the more text oriented admin
+13:20:11 <zhoumeina> can we make some report about that,  to give a performance score
+13:20:39 <royce> what about provide like network flow instead of disk cosupution?
+13:20:51 <aglitke> royce: That is an option
+13:21:01 <AdamKingIT> the difficulty w/ scores is that you have to explain the score calculation if its not a standard metric to people
+13:21:01 <bing_bu> royce: network flow is too complex
+13:21:04 <aglitke> storage bandwidth (like a disk led)
+13:21:23 <aglitke> maybe we could have disk and network activity lights
+13:21:31 <bing_bu> aglitke: do you mean the disk usage activity?
+13:21:40 <aglitke> bing_bu: Yes, IO
+13:21:44 <aglitke> not capacitty
+13:21:57 <AdamKingIT> Sounds promising. The blinky disk light is one of the best user feedback devices ever (IMO)
+13:21:57 <bing_bu> Good option, like LED on laptop
+13:22:29 <aglitke> but ours would only refresh every 5 sec so we would use a meter instead of a light
+13:22:42 <AdamKingIT> right, we'd want to put a # to it
+13:23:00 <aglitke> So maybe for now we should blank the boxes for storage and memory kpi
+13:23:01 <AdamKingIT> which could be graphed, or shown numerically in the list view mode
+13:23:05 <aglitke> but keep them in place?
+13:23:40 <bing_bu> aglitke: AdamKingIT: maybe can be a disk histogram
+13:24:07 <AdamKingIT> I would leave  them alone until we swap them for something meaningful sometime in the aug iteration
+13:24:59 <aglitke> So...I think we should set people off on working this via two angles:  1) blank the current meaningless KPI slots but keep them in the UI 2) Add a 1.0 task for discovering and adding 2 new KPI measures.
+13:25:53 <AdamKingIT> by blank, you mean white out that spot in the UI?
+13:26:09 <aglitke> Right, no circle with fake number and no title
+13:26:15 <aglitke> just the box with background
+13:26:26 <aglitke> as if no KPI was selected to occupy that slot yet.
+13:26:33 <sming> There?
+13:27:01 <AdamKingIT> Selfishly, can we do them in reverse order... Identify the useful KPIs we think we can implement w/out a guest agent, then swap the mocked KPI for the new ones?
+13:27:58 <aglitke> OK.  I will defer to the UI team on leaving the mocked numbers in place.
+13:28:06 <bing_bu> sorry,what is KPI? ")
+13:28:09 <bing_bu> :)
+13:28:21 <AdamKingIT> np Key Performance Indicators
+13:28:34 <shaohef> got it
+13:28:38 <royce> I think the IO and network activity make sense, if we add tune in place, we can see the tune result...
+13:28:39 <aglitke> Ok.  On to Templates section
+13:28:56 <aglitke> The main one here is local iso scanning,
+13:29:08 <aglitke> I want to briefly share an idea I have on how to do this better.
+13:29:16 <aglitke> Royce is already working on it.
+13:29:19 <aglitke> for the backend.
+13:29:47 <aglitke> The idea is that (at first) we only scan Storage Pools for iso images.
+13:30:18 <aglitke> The Storage Volume Resource will be extended to include os_distro and os_version and bootable info for volumes that are iso images.
+13:30:51 <aglitke> so the UI can synchronously fetch /storagepools/poolid/storagevolumes
+13:31:01 <aglitke> and display a UI of found iso images.
+13:31:41 <aglitke> in this mode, the user would highlight the iso images (with distro icons) for the isos to be made into templates and click OK
+13:31:59 <aglitke> all of those selected will be added as templates and the process is done.
+13:32:12 <aglitke> We still want to have a scan mode.
+13:32:16 <aglitke> For this.
+13:32:37 <aglitke> The UI can call a new API which creates a temporary Storage Pool
+13:32:59 <aglitke> The backend will create symlinks to all found ISOs in the the temp Storage Pool Directoryt.
+13:33:29 <bing_bu> aglitke: yeah, I discussed with royce about this, it make sense adding some optional additional information for storagevol if it is a ISO.
+13:33:34 <aglitke> When this process completes, (or concurrently) the UI can display the same dialog as above but using the temp storage pool instead.
+13:33:34 <royce> aglitke, I tried fedora and RHEL6.3 for slnk today, fedora works fine creating vm with slnk iso, but RHEL6.3 fails
+13:33:37 <sming> I was wondering if a installed os image can be scanned as a iso image.
+13:34:19 <aglitke> sming: I think we'll just identify iso images by filename extension and then by the isoinfo scanner.
+13:34:21 <bing_bu> royce: maybe a issue of libvirt
+13:34:31 <aglitke> It's an SELinux issue.
+13:34:48 <royce> bing_bu, the same parameter with qemu
+13:35:05 <aglitke> I wonder if we can install a selinux policy extension or something.
+13:35:08 <royce> aglitke, but I have selinux enforced for fedora too?
+13:35:20 <aglitke> royce: The policy is probably different.
+13:35:27 <aglitke> less hardened.
+13:36:00 <aglitke> Anyway... AdamKingIT zhoumeina what do you guys think about this proposal from a UI perspective?
+13:36:10 <royce> I'm not sure, I started with qemu-kvm --cdrom symlink, it works
+13:36:35 <aglitke> royce: I think libvirt might be configured to drop permissions.
+13:36:37 <royce> but with the parameter formed by our template, qemu fails
+13:36:38 <zhoumeina> Ui should show a brief information about each ISO just like cpu memory ,so the user will easily select the one he wants
+13:37:03 <sming> aglitke, not sure what is the temp storage pool.  When will the pool be removed.
+13:37:03 <aglitke> zhoumeina: I was thinking we could show distro and version plus the icon.
+13:37:13 <AdamKingIT> I think the approach will work pretty well
+13:37:26 <zhoumeina> aglitke: I agree
+13:37:35 <AdamKingIT> Seems like we can use it to implement the mockup as is
+13:37:49 <aglitke> sming: We can have the UI remove it and maybe also have a timeout when it will be removed.
+13:37:52 <sming> aglitke, When will the pool be removed if it is a temp one?
+13:38:05 <AdamKingIT> Only issue I can think is how the temp storage pool gets cleaned up
+13:38:35 <royce> remove and rescan is time consuming
+13:38:58 <aglitke> interesting.
+13:38:59 <royce> We can rescan when forced by user
+13:39:00 <AdamKingIT> We could/should clean up the temp pool when the user session ends
+13:39:13 <aglitke> maybe we can just have a "special" storage pool called kimchi-isos
+13:39:22 <bing_bu> why not reserve the temp pool but invisible for user?
+13:39:25 <aglitke> that never goes away
+13:39:30 <aglitke> a scan just refreshes it.
+13:39:44 <bing_bu> yeah, refresh the pool
+13:39:45 <aglitke> to refresh, first you remove any links that are broken
+13:39:47 <royce> +1
+13:39:50 <aglitke> then you scan for new ones.
+13:39:51 <AdamKingIT> The nice think about the temp pool is that 2 admins can scan diff areas and get diff results
+13:40:04 <AdamKingIT> 2 scans, 2 temp pools
+13:40:07 <aglitke> AdamKingIT: true
+13:40:17 <aglitke> also you can have concurrent scanning.
+13:41:05 <royce> scan diff areas? I assume we don't give user the choice about what directories they will scan
+13:41:07 <aglitke> royce: maybe you can implement it in a way that allows us to decide later if we want the temp pool model or the special pool model.
+13:41:20 <aglitke> royce: For now, I think we don't
+13:41:40 <royce> got u, aglitke
+13:41:47 <AdamKingIT> Scan would always scan the whole file system?
+13:41:48 <aglitke> There may be two options: 1) scan only local filesystems 2) scan local and network filesystems
+13:42:03 <bing_bu> aglitke: I think the feature you mentioned is advanced one :)
+13:42:18 <royce> temporarily, yes ,AdamKingIT
+13:42:32 <aglitke> AdamKingIT: I can't think of a better way to do it without exposing filesystem heirarchy details to the user.
+13:42:49 <aglitke> bing_bu: by net filesystems I mean only those which are currently mounted,.
+13:43:00 <bing_bu> royce: no deep scan or shallow scan?
+13:43:02 <aglitke> we would not try to discover or mount new ones.
+13:43:08 <sming> I think we can look iso images as system resources. And two users scanning process should be serialized .
+13:43:10 <bing_bu> aglitke: got it
+13:43:24 <AdamKingIT> k, I suggest we design for either, which should be minimal overhead.. and we can decide later...
+13:43:33 <aglitke> a shallow scan is the one the UI can do by just looking in existing storage pools
+13:43:56 <aglitke> a deep scan is the one that uses the whole fs and a temp storage pool
+13:44:02 <AdamKingIT> if scan always scans the whole system, then the special pool will work, If we want to allow diff concurrent scans, then temp pool will be required
+13:44:33 <aglitke> the nice thing about a persisting the scan pool is that a future "shallow scan" could look in that pool and benefit from the deep scan.
+13:45:00 <aglitke> So royce, I think we need to design with some flexibility in mind.
+13:45:15 <aglitke> make it easy to switch between multiple temp pools or a single special pool
+13:45:35 <royce> that's reasonable
+13:45:56 <zhoumeina> sorry to interrupt, why not share a open folder for iso files? all?
+13:46:03 <aglitke> for now I think we start with a special pool that we create in /var/kimchi/kimchi-iso-pool
+13:46:22 <aglitke> zhoumeina: Because we cannot move isos around.
+13:46:32 <aglitke> we need to leave them where the admin has placed them.
+13:47:14 <zhoumeina> aglitke: oh, got it
+13:47:15 <aglitke> royce: Also, when you convert an iso from the special pool to the template, the template should use the target of the link, not the special pool for the iso filename.
+13:47:28 <aglitke> that way we can delete the special pool without breaking the templates.
+13:47:43 <royce> aglitke, yes, of course, some isos with wrong permission also be ignored
+13:47:54 <aglitke> ok... We should move on... Looking forward to some patches!
+13:48:31 <aglitke> These minutes will be uploaded to the web so we can reference the discussion there.
+13:48:57 <aglitke> Is anyone working on authentication?
+13:49:16 <zhoumeina> I think not yet
+13:49:22 <aglitke> That is a dependency for language selection.
+13:49:38 <aglitke> I think we need to start on it if we have any hope of completing it in time for 1.0
+13:49:59 <aglitke> AdamKingIT: would you mind leading the charge on this one?
+13:51:02 <aglitke> Hmm, no objection! :)
+13:51:05 <AdamKingIT> The idea here is that any req to access Kimchi would be met with a forms based authentication chalenge
+13:51:35 <AdamKingIT> Authentication would occur through PAM (which I can only spell)
+13:51:44 <aglitke> ok.  Will that work in the REST API?
+13:51:46 <sming> I think authentication have several meanings,  authentication to REST APIs. authentication on VM operations
+13:51:54 <sming> &etc
+13:52:04 <AdamKingIT> Authentication is separate from authorization...
+13:52:20 <AdamKingIT> For Sept we are just talking about authentication. Authorization is more complicated...
+13:52:34 <aglitke> ACK
+13:52:49 <bing_bu> authentication means user/passwd, right? ;-)
+13:52:56 <sming> So is is just a login authentication to Kimchi UI?
+13:53:00 <AdamKingIT> The idea is that to use Kimchi you would have to authenticate with a uid/pwd known to the linux install, and in the admins group
+13:53:02 <aglitke> so any authenticated user (in the admin group) has access to do anything on kimchi
+13:53:16 <aglitke> sming: REST and UI
+13:53:32 <shaohef> AdamKingIT: we need session for  authentication？
+13:53:41 <AdamKingIT> if the linux install is configured to authenticate against LDAP then the uid/pwd would be authenticated against that through PAM
+13:53:54 <AdamKingIT> Not necessarily, though you need some token...
+13:54:05 <sming> aglitke: Thanks. So we need not to consider libvirt authentication to manage VM now.
+13:54:21 <AdamKingIT> My xp here is in the J2EE space, but a similar approach could apply here...
+13:54:54 <AdamKingIT> Once authenticated the server issues the user a token (stored in a cookie) which must be presented w/ each request for the duration of the token validity
+13:55:16 <aglitke> AdamKingIT: Is that how poster works?
+13:55:26 <aglitke> The FF extension?
+13:55:33 <AdamKingIT> if the token is expired, or not present, the user  is challenged again
+13:55:43 <aglitke> I assume the authentication works via a cookie
+13:55:44 <AdamKingIT> Not familiar, but I can read up
+13:55:52 <aglitke> I can test it out.
+13:56:12 <aglitke> Would be cool if you could hack something up and post to the list for us to try.
+13:56:14 <alinefm> yeap. I've already implemented it using cookie
+13:56:30 <alinefm> when cookie expired the session will finished
+13:56:35 <sming> AdamKingIT, how to companion the PAM credentials with REST API calls? How kimchi check those credentials for each REST API?
+13:56:39 <aglitke> Once we have this, then we need SSL to avoid sending machine passwords in clear text
+13:57:24 <aglitke> AdamKingIT: Wouldn't a REST API user be able to pass credentials as HTTP headers?
+13:57:38 <AdamKingIT> The PAM check could be isolated to the authenticate flow, all the other flows look for a valid token
+13:57:59 <AdamKingIT> Putting the credentials in the header is basic auth, and generally not considered secure
+13:57:59 <aglitke> That's how the BSO challenge works I believe
+13:58:14 <aglitke> but if it happens over SSL then it is ok
+13:58:52 <AdamKingIT> I am fairly sure that BSO issues you a token
+13:59:14 <aglitke> But the first challenge just returns 400 Not authorized
+13:59:21 <aglitke> when I use wget
+13:59:23 <AdamKingIT> Even over SSL its not considered safe I think because proxies can cache it
+13:59:30 <aglitke> hmm
+13:59:46 <aglitke> ok... I guess the best thing is for you to send us a prototype to play with
+13:59:59 <AdamKingIT> You overestimate my PAM knowledge
+14:00:10 <aglitke> I am mostly concerned with the HTTP side
+14:00:23 <aglitke> your pam check can just be a 'return True' for now
+14:00:52 <aglitke> or 'if user == root and password == passw0rd return true
+14:01:01 <aglitke> just to demo the http tech
+14:01:08 <aglitke> then we can wire in the pam support next
+14:01:15 <AdamKingIT> They'll never crack that one ;-)
+14:01:27 <AdamKingIT> Let me look at it and see what I can come up w/
+14:01:40 <aglitke> I just want to see how the authentication scheme behaves with standard tools
+14:01:44 <aglitke> cool.
+14:02:03 <AdamKingIT> I may need a little advice on the server side, the http bits I am good
+14:02:06 <aglitke> Well, that brings us to the end of the meeting.  Anyone want to bring up any quick topics?
+14:02:25 <zhoumeina> oh
+14:02:28 <aglitke> zhoumeina: for browser support.
+14:02:35 <zhoumeina> yeah
+14:02:39 <aglitke> I think we can add a section in the readme.
+14:02:47 <zhoumeina> what kind of , and version
+14:02:49 <aglitke> Perhaps it can be:
+14:02:57 <aglitke> Supported browsers
+14:02:58 <aglitke> ----------------------
+14:03:12 <bing_bu> aglitke: what the RFD V2 new adding iscsi and nfs storage support ?https://groups.google.com/forum/#!topic/project-kimchi/2MUTewMEJzg
+14:03:12 <aglitke> The following browsers are tested and known to work well with kimchi
+14:03:30 <aglitke> zhoumeina: Then set the list to ones we know about
+14:03:37 <AdamKingIT> FF 17ESR +, IE 8(?) +, Chrome (version changes so rapidly its hard to pick), Safari (a little less rapid change)
+14:03:38 <aglitke> you can send a patch for this
+14:03:52 <AdamKingIT> Do we have any constraints from jQuery?
+14:03:57 <aglitke> Just say CHrome 56+ :)
+14:04:26 <aglitke> bing_bu: I don't know if that is really high prio for 1.0
+14:04:31 <AdamKingIT> The Dojo project I work with is constrained by the Dojo version
+14:04:41 <aglitke> AdamKingIT: I am not sure.
+14:04:44 <AdamKingIT> not sure if jQuery imposes similar
+14:04:46 <aglitke> would be good to check.
+14:04:55 <zhoumeina> I will check it
+14:05:11 <aglitke> zhoumeina: Perhaps you can just add a conservative list to start with and we can modify it later as more info comes in.
+14:05:19 <bing_bu> I think it is easier to add than network, so I do this first..
+14:06:04 <aglitke> bing_bu: I think we are going to want a UI to manage the storage domains first.
+14:06:25 <aglitke> bing_bu: let me look at the patches.
+14:06:38 <aglitke> If they are backend only and safe, then they may be mergeable.
+14:07:01 <aglitke> ok...  Want to respect everyone's time.  This was a very productive meeting.  Thanks for joining everyone!
+14:07:05 <aglitke> #endmeeting
