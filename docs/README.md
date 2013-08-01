@@ -12,7 +12,7 @@ Install Dependencies
 
     $ sudo yum install python-cherrypy python-cheetah \
                        python-imaging libvirt-python libvirt \
-                       gettext-devel
+                       gettext-devel automake autoconf
 
 Install Dependecies for RHEL6
 ----------------------------
