@@ -175,7 +175,7 @@ class Model(object):
                 vol.delete(0)
 
             with self.objstore as session:
-                session.delete('vm', name)
+                session.delete('vm', name, ignore_missing=True)
 
     def vm_start(self, name):
         dom = self._get_vm(name)

@@ -51,11 +51,11 @@ class ObjectStoreSession(object):
             raise kimchi.model.NotFoundError(ident)
         return json.loads(jsonstr)
 
-    def delete(self, obj_type, ident):
+    def delete(self, obj_type, ident, ignore_missing=False):
         c = self.conn.cursor()
         c.execute('DELETE FROM objects WHERE type=? AND id=?',
                   (obj_type, ident))
-        if c.rowcount != 1:
+        if c.rowcount != 1 and not ignore_missing:
             self.conn.rollback()
             raise kimchi.model.NotFoundError(ident)
         self.conn.commit()
