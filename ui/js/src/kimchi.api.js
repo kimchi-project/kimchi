@@ -183,7 +183,7 @@ var kimchi = {
 			type : "POST",
 			dataType : "json",
 		}).done(function(data, textStatus, xhr) {
-			url = "/vnc_auto.html?port=" + data.vnc_port;
+			url = "/vnc_auto.html?port=" + data.graphics.port;
 			window.open(url);
 		});
 	},

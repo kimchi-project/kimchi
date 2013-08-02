@@ -389,7 +389,7 @@ function start()
             type: "POST",
             dataType: "json",
         }).done(function(data, textStatus, xhr) {
-            url = "/vnc_auto.html?port=" + data.vnc_port + "&logging=debug"
+            url = "/vnc_auto.html?port=" + data.graphics.port + "&logging=debug"
             popup = window.open(url, "", "target=_blank,height=600,width=800,scrollbars=1");
             if (popup) {
                 popup.focus()
