@@ -103,7 +103,7 @@ class Model(object):
         self.libvirt_uri = libvirt_uri or 'qemu:///system'
         self.conn = LibvirtConnection(self.libvirt_uri)
         self.objstore = ObjectStore(objstore_loc)
-        self.vnc_ports = {}
+        self.graphics_ports = {}
         self.cpu_stats = {}
         self.next_taskid = 1
 
@@ -131,6 +131,10 @@ class Model(object):
         state = Model.dom_state_map[info[0]]
         screenshot = None
         cpu_stats = 0
+        graphics_type, _ = self._vm_get_graphics(name)
+        # 'port' must remain None until a connect call is issued
+        graphics_port = (self.graphics_ports.get(name, None) if state == 'running'
+                      else None)
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
@@ -150,7 +154,7 @@ class Model(object):
                 'memory': info[2] >> 10,
                 'screenshot': screenshot,
                 'icon': icon,
-                'vnc_port': self.vnc_ports.get(name, None)}
+                'graphics': {"type": graphics_type, "port": graphics_port}}
 
     def _vm_get_disk_paths(self, dom):
         xml = dom.XMLDesc(0)
@@ -186,18 +190,30 @@ class Model(object):
             dom = self._get_vm(name)
             dom.destroy()
 
-    def vm_connect(self, name):
+    def _vm_get_graphics(self, name):
         dom = self._get_vm(name)
         xml = dom.XMLDesc(0)
-        expr = "/domain/devices/graphics[@type='vnc']/@port"
+        expr = "/domain/devices/graphics/@type"
         res = xmlutils.xpath_get_text(xml, expr)
+        graphics_type = res[0] if res else None
+        port = None
+        if graphics_type:
+            expr = "/domain/devices/graphics[@type='%s']/@port" % graphics_type
+            res = xmlutils.xpath_get_text(xml, expr)
+            port = int(res[0]) if res else None
+        # FIX ME
+        # graphics_type should be 'vnc' or None.  'spice' should only be
+        # returned if we support it in the future.
+        graphics_type = None if graphics_type != "vnc" else graphics_type
+        return graphics_type, port
 
-        if len(res) < 1:
+    def vm_connect(self, name):
+        graphics, port = self._vm_get_graphics(name)
+        if graphics == "vnc" and port != None:
+            port = vnc.new_ws_proxy(port)
+            self.graphics_ports[name] = port
+        else:
             raise OperationFailed("Unable to find VNC port in %s" % name)
-
-        vnc_port = int(res[0])
-        vnc_port = vnc.new_ws_proxy(vnc_port)
-        self.vnc_ports[name] = vnc_port
 
     def vms_create(self, params):
         try:

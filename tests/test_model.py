@@ -42,7 +42,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
 
-        keys = set(('state', 'cpu_stats', 'memory', 'screenshot', 'icon', 'vnc_port'))
+        keys = set(('state', 'cpu_stats', 'memory', 'screenshot', 'icon', 'graphics'))
         info = inst.vm_lookup('test')
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('running', info['state'])

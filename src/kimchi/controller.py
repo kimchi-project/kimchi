@@ -270,7 +270,8 @@ class VM(Resource):
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot'],
                 'icon': self.info['icon'],
-                'vnc_port': self.info['vnc_port']}
+                'graphics': {'type': self.info['graphics']['type'],
+                             'port': self.info['graphics']['port']}}
 
 
 class VMScreenShot(Resource):
