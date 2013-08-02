@@ -62,7 +62,7 @@ class MockModel(object):
         self._mock_screenshots = {}
         self._mock_templates = {}
         self._mock_storagepools = {'default': MockStoragePool('default')}
-        self._mock_vnc_ports = {}
+        self._mock_graphics_ports = {}
         self.next_taskid = 1
 
     def vm_lookup(self, name):
@@ -71,7 +71,7 @@ class MockModel(object):
             vm.info['screenshot'] = self.vmscreenshot_lookup(name)
         else:
             vm.info['screenshot'] = None
-        vm.info['vnc_port'] = self._mock_vnc_ports.get(name, None)
+        vm.info['graphics']['port'] = self._mock_graphics_ports.get(name, None)
         return vm.info
 
     def vm_delete(self, name):
@@ -91,7 +91,7 @@ class MockModel(object):
 
     def vm_connect(self, name):
         vnc_port = kimchi.vnc.new_ws_proxy(self.vnc_port)
-        self._mock_vnc_ports[name] = vnc_port
+        self._mock_graphics_ports[name] = vnc_port
 
     def vms_create(self, params):
         try:
@@ -274,7 +274,8 @@ class MockVM(object):
         self.info = {'state': 'shutoff',
                      'cpu_stats': "35",
                      'memory': template_info['memory'],
-                     'icon': None}
+                     'icon': None,
+                     'graphics': {'type': 'vnc', 'port': None}}
 
 
 class MockStoragePool(object):
