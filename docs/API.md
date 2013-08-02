@@ -64,8 +64,15 @@ the following general conventions:
     * memory: The amount of memory assigned to the VM (in MB)
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
-    * vnc_port: VNC port number.  The port number exposed will support the
-                websockets protocol and may support vnc over plain TCP as well.
+    * graphics: A dict to show detail of VM graphics.
+        * type: The type of graphics, It can be VNC or None.
+            * vnc: Graphical display using the Virtual Network
+                   Computing protocol
+            * null: Graphics is disabled or type not supported
+        * port: The port number of graphics. It will remain None until a connect
+                call is issued.
+                The port number exposed will support the websockets protocol and
+                may support graphics type over plain TCP as well.
 * **DELETE**: Remove the Virtual Machine
 * **POST**: *See Virtual Machine Actions*
 
