@@ -61,10 +61,10 @@
 					<a class="btn vm-stop" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);"><span class="icon power-up"></span></a>
 				</div>
 				<div class="bottom">
-					<div class="btn dropdown popable" data-vmstate="{state}" data-vm="{name}" style="width: 70px">
+					<div class="btn dropdown popable vm-action" data-vmstate="{state}" data-graphics="{graphics.type}" data-vm="{name}" style="width: 70px">
 						<span class="text">$_("Actions")</span><span class="arrow"></span>
 						<div class="popover actionsheet right-side" style="width: 250px">
-							<a class="button-big vm-vnc" data-vm="{name}">VNC</a>
+							<button class="button-big vm-vnc" data-vm="{name}"><span class="text">VNC</span></button>
 							<a class="button-big red vm-delete" data-vm="{name}">$_("Delete")</a>
 						</div>
 					</div>

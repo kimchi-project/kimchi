@@ -106,14 +106,16 @@ kimchi.initVmButtonsAction = function() {
 		kimchi.vncToVM($(this).data('vm'));
 	});
 
-	$(".popable").on("click", function(){
-		if ($(this).attr('data-vmstate') === 'running'){
-			$(this).find('.vm-vnc').removeClass('disable');
-		}
-		else {
-			$(this).find('.vm-vnc').addClass('disable');
-		}
-	});
+    $(".vm-action").on('click', function() {
+        var vm_action = $(this);
+        var vm_vnc = vm_action.find('.vm-vnc');
+        if ((vm_action.data('graphics') === 'vnc')
+                && (vm_action.data('vmstate') === 'running')) {
+            vm_vnc.removeAttr('disabled');
+        } else {
+            vm_vnc.attr('disabled', 'disabled');
+        }
+    });
 
 };
 
