@@ -44,6 +44,11 @@
 	text-align: center;
 	font-size: 13px;
 	color: #eee;
+	outline: none;
+}
+
+.nav-menu .item.current:focus {
+	outline: white dotted thin;
 }
 
 .menu-arrow {
