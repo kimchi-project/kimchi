@@ -24,8 +24,21 @@
 import cherrypy
 import template
 import controller
+import json
+
+
+def error_page_handler(status, message, traceback, version):
+    data = {'reason': message, 'call_stack': cherrypy._cperror.format_exc()}
+    return json.dumps(data, indent=2,
+                          separators=(',', ':'),
+                          encoding='iso-8859-1')
 
 class Root(controller.Resource):
+    _handled_error = ['error_page.400',
+        'error_page.404', 'error_page.405',
+        'error_page.406', 'error_page.415', 'error_page.500']
+    _cp_config = dict(map(lambda(x): (x, error_page_handler), _handled_error))
+
     def __init__(self, model):
         controller.Resource.__init__(self, model)
         self.vms = controller.VMs(model)
