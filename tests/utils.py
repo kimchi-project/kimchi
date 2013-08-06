@@ -76,11 +76,11 @@ def get_free_port():
         _port = sock.getsockname()[1]
         return _port
 
-def run_server(host, port, test_mode, model=None):
+def run_server(host, port, test_mode, model=None, environment='development'):
     args = type('_', (object,),
                 {'host': host, 'port': port, 'test': test_mode,
                  'access_log': '/dev/null', 'error_log': '/dev/null',
-                 'log_level': 'debug'})()
+                 'environment': environment, 'log_level': 'debug'})()
     if model is not None:
         setattr(args, 'model', model)
     s = kimchi.server.Server(args)

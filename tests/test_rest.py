@@ -94,12 +94,6 @@ class RestTests(unittest.TestCase):
         # Verify it works for DELETE too
         self.assertHTTPStatus(404, host, port, '/templates/blah', '', 'DELETE')
 
-    def test_wrong_method(self):
-        """
-        Using the wrong HTTP method should return HTTP:405
-        """
-        self.assertHTTPStatus(405, host, port, "/", None, 'DELETE')
-
     def test_accepts(self):
         """
         Verify the following expectations regarding the client Accept header:
@@ -128,22 +122,6 @@ class RestTests(unittest.TestCase):
 
         h = {'Accept': 'text/plain'}
         self.assertHTTPStatus(406, host, port, "/", None, 'GET', h)
-
-    def test_parse_error(self):
-        """
-        Request parse errors should return HTTP:400
-        """
-        self.assertHTTPStatus(400, host, port, "/vms", '{', 'POST')
-
-    def test_missing_required_parameter(self):
-        """
-        When a POST request is missing a required parameter, HTTP:400 should be
-        returned, never HTTP:500.
-        """
-        url_list = ['/vms']
-        req = json.dumps({})
-        for url in url_list:
-            self.assertHTTPStatus(400, host, port, url, req, 'POST')
 
     def test_get_vms(self):
         vms = json.loads(request(host, port, '/vms').read())

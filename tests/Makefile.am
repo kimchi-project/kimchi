@@ -23,6 +23,7 @@
 EXTRA_DIST = \
 	Makefile.am \
 	run_tests.sh.in \
+	test_exception.py \
 	test_mockmodel.py \
 	test_model.py \
 	test_osinfo.py \
