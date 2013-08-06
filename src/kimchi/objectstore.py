@@ -28,7 +28,7 @@ try:
 except ImportError:
     from ordereddict import OrderedDict
 import config
-import kimchi.model
+from kimchi.exception import *
 
 
 class ObjectStoreSession(object):
@@ -48,7 +48,7 @@ class ObjectStoreSession(object):
             jsonstr = res.fetchall()[0][0]
         except IndexError:
             self.conn.rollback()
-            raise kimchi.model.NotFoundError(ident)
+            raise NotFoundError(ident)
         return json.loads(jsonstr)
 
     def delete(self, obj_type, ident, ignore_missing=False):
@@ -57,7 +57,7 @@ class ObjectStoreSession(object):
                   (obj_type, ident))
         if c.rowcount != 1 and not ignore_missing:
             self.conn.rollback()
-            raise kimchi.model.NotFoundError(ident)
+            raise NotFoundError(ident)
         self.conn.commit()
 
     def store(self, obj_type, ident, data):

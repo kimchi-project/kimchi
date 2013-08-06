@@ -28,13 +28,16 @@ import sys
 
 from contextlib import closing
 
+from kimchi.exception import *
+
+
 def _getFreePort():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     with closing(sock):
         try:
             sock.bind(("0.0.0.0", 0))
         except:
-            raise Exception("Could not find a free port")
+            raise OperationFailed("Could not find a free port")
 
         return sock.getsockname()[1]
 

@@ -27,6 +27,7 @@ import time
 
 import kimchi.model
 import kimchi.objectstore
+from kimchi.exception import *
 import utils
 
 class ModelTests(unittest.TestCase):
@@ -49,8 +50,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2048, info['memory'])
         self.assertEquals(None, info['icon'])
 
-        self.assertRaises(kimchi.model.NotFoundError,
-                          inst.vm_lookup, 'nosuchvm')
+        self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_lifecycle(self):
@@ -212,11 +212,11 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(1, len(session.get_list('foo')))
 
             # Test get non-existent item
-            self.assertRaises(kimchi.model.NotFoundError, session.get,
+            self.assertRaises(NotFoundError, session.get,
                               'a', 'b')
 
             # Test delete non-existent item
-            self.assertRaises(kimchi.model.NotFoundError, session.delete,
+            self.assertRaises(NotFoundError, session.delete,
                               'foo', 'test2')
 
             # Test refresh existing item

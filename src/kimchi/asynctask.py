@@ -24,13 +24,12 @@ import threading
 import cherrypy
 import traceback
 
-class NotProperOps(Exception):
-    pass
+from kimchi.exception import *
 
 class AsyncTask(object):
     def __init__(self, id, target_uri, fn, objstore, opaque=None):
         if objstore == None:
-            raise NotProperOps("Initiate datastore in the model object")
+            raise OperationFailed("Datastore is not initiated in the model object")
         self.id = str(id)
         self.target_uri = target_uri
         self.fn = fn

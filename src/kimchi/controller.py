@@ -24,9 +24,8 @@ import cherrypy
 import json
 from functools import wraps
 
-import kimchi.model
+from kimchi.exception import *
 import kimchi.template
-
 
 def get_class_name(cls):
     try:
@@ -84,13 +83,13 @@ def action(f):
         validate_method(('POST'))
         try:
             f(*args, **kwargs)
-        except kimchi.model.MissingParameter, param:
+        except MissingParameter, param:
             raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
-        except kimchi.model.InvalidParameter, param:
+        except InvalidParameter, param:
             raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
-        except kimchi.model.InvalidOperation, msg:
+        except InvalidOperation, msg:
             raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-        except kimchi.model.OperationFailed, msg:
+        except OperationFailed, msg:
             raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
     return wrapper
 
@@ -138,12 +137,12 @@ class Resource(object):
         if method == 'GET':
             try:
                 return self.get()
-            except kimchi.model.NotFoundError:
+            except NotFoundError:
                 raise cherrypy.HTTPError(404)
         elif method == 'DELETE':
             try:
                 return self.delete()
-            except kimchi.model.NotFoundError:
+            except NotFoundError:
                 raise cherrypy.HTTPError(404)
 
     def get(self):
@@ -230,9 +229,9 @@ class Collection(object):
         elif method == 'POST':
             try:
                 return self.create(*args)
-            except kimchi.model.MissingParameter, param:
+            except MissingParameter, param:
                 raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
-            except kimchi.model.InvalidParameter, param:
+            except InvalidParameter, param:
                 raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
 
 

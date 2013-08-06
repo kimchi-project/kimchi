@@ -4,7 +4,7 @@
 # Copyright IBM Corp, 2013
 #
 # Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+#  Royce Lv <lvroyce@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,29 +20,17 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SOURCE = \
-	asynctask.py      \
-	config.py         \
-	controller.py     \
-	exception.py      \
-	__init__.py       \
-	isoinfo.py        \
-	mockmodel.py      \
-	model.py          \
-	objectstore.py    \
-	osinfo.py         \
-	root.py           \
-	screenshot.py     \
-	server.py         \
-	template.py       \
-	vmtemplate.py     \
-	vnc.py            \
-	websocket.py      \
-	websockify.py     \
-	xmlutils.py
+class NotFoundError(Exception):
+    pass
 
-EXTRA_DIST = config.py.in
+class OperationFailed(Exception):
+    pass
 
-kimchi_PYTHON = $(SOURCE)
+class MissingParameter(Exception):
+    pass
 
-kimchidir = $(pythondir)/kimchi
+class InvalidParameter(Exception):
+    pass
+
+class InvalidOperation(Exception):
+    pass

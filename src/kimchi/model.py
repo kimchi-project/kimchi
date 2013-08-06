@@ -40,21 +40,7 @@ import vnc
 from screenshot import VMScreenshot
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
-
-class NotFoundError(Exception):
-    pass
-
-class OperationFailed(Exception):
-    pass
-
-class MissingParameter(Exception):
-    pass
-
-class InvalidParameter(Exception):
-    pass
-
-class InvalidOperation(Exception):
-    pass
+from kimchi.exception import *
 
 
 def _uri_to_name(collection, uri):

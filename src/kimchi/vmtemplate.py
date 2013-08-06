@@ -25,7 +25,7 @@ import string
 
 import osinfo
 import isoinfo
-import kimchi.model
+from kimchi.exception import *
 
 class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -50,7 +50,7 @@ class VMTemplate(object):
                 try:
                     iso_distro, iso_version = isoinfo.probe_one(iso)
                 except isoinfo.IsoFormatError, e:
-                    raise kimchi.model.InvalidParameter(e)
+                    raise InvalidParameter(e)
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)

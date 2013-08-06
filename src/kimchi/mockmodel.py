@@ -38,6 +38,7 @@ import kimchi.vnc
 import config
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
+from kimchi.exception import *
 
 
 class MockModel(object):
@@ -97,12 +98,12 @@ class MockModel(object):
         try:
             t_name = kimchi.model.template_name_from_uri(params['template'])
         except KeyError, item:
-            raise kimchi.model.MissingParameter(item)
+            raise MissingParameter(item)
 
         name = kimchi.model.get_vm_name(params.get('name'), t_name,
                                         self._mock_vms.keys())
         if name in self._mock_vms:
-            raise kimchi.model.InvalidOperation("VM already exists")
+            raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
 
         pool_uri = params.get('storagepool', t.info['storagepool'])
@@ -129,7 +130,7 @@ class MockModel(object):
 
     def vmscreenshot_lookup(self, name):
         if self._get_vm(name).info['state'] != 'running':
-            raise kimchi.model.NotFoundError('No screenshot for stopped vm')
+            raise NotFoundError('No screenshot for stopped vm')
         screenshot = self._mock_screenshots.setdefault(
             name, MockVMScreenshot({'name': name}))
         return screenshot.lookup()
@@ -148,12 +149,12 @@ class MockModel(object):
         try:
             del self._mock_templates[name]
         except KeyError:
-            raise kimchi.model.NotFoundError()
+            raise NotFoundError()
 
     def templates_create(self, params):
         name = params['name']
         if name in self._mock_templates:
-            raise kimchi.model.InvalidOperation("Template already exists")
+            raise InvalidOperation("Template already exists")
         t = kimchi.vmtemplate.VMTemplate(params, scan=True)
         self._mock_templates[name] = t
         return name
@@ -165,13 +166,13 @@ class MockModel(object):
         try:
             return self._mock_templates[name]
         except KeyError:
-            raise kimchi.model.NotFoundError()
+            raise NotFoundError()
 
     def _get_vm(self, name):
         try:
             return self._mock_vms[name]
         except KeyError:
-            raise kimchi.model.NotFoundError()
+            raise NotFoundError()
 
     def storagepools_create(self, params):
         try:
@@ -181,9 +182,9 @@ class MockModel(object):
             pool.info['type'] = params['type']
             pool.info['path'] = params['path']
         except KeyError, item:
-            raise kimchi.model.MissingParameter(item)
+            raise MissingParameter(item)
         if name in self._mock_storagepools:
-            raise kimchi.model.InvalidOperation("StoragePool already exists")
+            raise InvalidOperation("StoragePool already exists")
         self._mock_storagepools[name] = pool
         return name
 
@@ -209,7 +210,7 @@ class MockModel(object):
         try:
             return self._mock_storagepools[name]
         except KeyError:
-            raise kimchi.model.NotFoundError()
+            raise NotFoundError()
 
     def storagevolumes_create(self, pool, params):
         try:
@@ -219,9 +220,9 @@ class MockModel(object):
             volume.info['type'] = params['type']
             volume.info['format'] = params['format']
         except KeyError, item:
-            raise kimchi.model.MissingParameter(item)
+            raise MissingParameter(item)
         if name in self._get_storagepool(pool)._volumes:
-            raise kimchi.model.InvalidOperation("StorageVolume already exists")
+            raise InvalidOperation("StorageVolume already exists")
         self._get_storagepool(pool)._volumes[name] = volume
         return name
 
@@ -264,7 +265,7 @@ class MockModel(object):
         try:
             return self._get_storagepool(pool)._volumes[name]
         except KeyError:
-            raise kimchi.model.NotFoundError()
+            raise NotFoundError()
 
 
 class MockVM(object):
