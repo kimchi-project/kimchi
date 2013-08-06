@@ -129,7 +129,7 @@ class Resource(object):
             fn(*self.model_args)
             cherrypy.response.status = 204
         except AttributeError:
-            raise cherrypy.HTTPError(405)
+            raise cherrypy.HTTPError(405, 'Delete is not allowed for %s' % get_class_name(self))
 
     @cherrypy.expose
     def index(self):
@@ -138,12 +138,14 @@ class Resource(object):
             try:
                 return self.get()
             except NotFoundError:
-                raise cherrypy.HTTPError(404)
+                raise cherrypy.HTTPError(404,
+                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
         elif method == 'DELETE':
             try:
                 return self.delete()
             except NotFoundError:
-                raise cherrypy.HTTPError(404)
+                raise cherrypy.HTTPError(404,
+                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
 
     def get(self):
         self.lookup()
@@ -185,7 +187,8 @@ class Collection(object):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
-            raise cherrypy.HTTPError(405)
+            raise cherrypy.HTTPError(405,
+                'Create is not allowed for %s' % get_class_name(self))
         params = parse_request()
         args = self.model_args + [params]
         name = create(*args)
