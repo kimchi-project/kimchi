@@ -24,20 +24,15 @@
 import cherrypy
 import template
 import controller
-import json
 
 
 def error_production_handler(status, message, traceback, version):
     data = {'code': status, 'reason': message}
-    return json.dumps(data, indent=2,
-                          separators=(',', ':'),
-                          encoding='iso-8859-1')
+    return template.render('error.html', data)
 
 def error_development_handler(status, message, traceback, version):
     data = {'code': status, 'reason': message, 'call_stack': cherrypy._cperror.format_exc()}
-    return json.dumps(data, indent=2,
-                          separators=(',', ':'),
-                          encoding='iso-8859-1')
+    return template.render('error.html', data)
 
 
 class Root(controller.Resource):

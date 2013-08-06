@@ -21,6 +21,7 @@
 htmldir = $(datadir)/kimchi/ui/pages
 
 dist_html_DATA = \
+	error.html.tmpl \
 	kimchi-ui.html.tmpl \
 	dev-ui.html.tmpl \
 	guest-add.html.tmpl \
