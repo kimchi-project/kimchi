@@ -13,5 +13,9 @@ fi
 if [ "x$1" == "x--system" ]; then
     ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 else
-    ./configure --prefix=/usr/local
+   if [ $# > 0 ]; then
+        ./configure $@
+   else
+        ./configure --prefix=/usr/local
+   fi
 fi
