@@ -32,13 +32,21 @@ kimchi.guest_add_main = function() {
 		kimchi.message.error(i18n['temp.msg.fail.list']);
 	});
 
+    function validateForm() {
+        if (!$('input[name=template]:checked', '#templateTile').val()) {
+            return false;
+        }
+        return true;
+    }
+
+    $('#form-vm-add').change(function () {
+        if (validateForm()) {
+            $('#vm-doAdd').removeAttr('disabled');
+        }
+    });
+
 	var addGuest = function(event) {
 		var formData = $('#form-vm-add').serializeObject();
-
-		if(!formData.template) {
-			kimchi.message.warn(i18n['temp.msg.choose.temp']);
-			return false;
-		}
 
 		kimchi.createVM(formData,function() {
 			kimchi.listVmsAuto();
