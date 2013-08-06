@@ -25,8 +25,6 @@
 #silent _ = t.gettext
 #silent _t = t.gettext
 
-#set $q = "'"
-#set $dq = '"'
 <!DOCTYPE html>
 <html class="no-js" lang=$lang.lang[0]>
 <head>
@@ -37,15 +35,15 @@
 <body>
 <script>
 var i18n = {
-    'temp.msg.fail.list': $dq$_("temp.msg.fail.list")$dq,
-    'temp.msg.choose.temp': $dq$_("temp.msg.choose.temp")$dq,
-    'vm.msg.fail.create.vm': $dq$_("vm.msg.fail.create.vm")$dq,
-    'msg.fail.start': $dq$_("msg.fail.start")$dq,
-    'msg.fail.stop': $dq$_("msg.fail.stop")$dq,
-    'msg.fail.reset': $dq$_("msg.fail.reset")$dq,
-    'msg.fail.delete': $dq$_("msg.fail.delete")$dq,
-    'msg.fail.list.guests': $dq$_("msg.fail.list.guests")$dq,
-    'msg.fail.create.template': $dq$_("msg.fail.create.template")$dq};
+    'temp.msg.fail.list': "$_("Failed to list the template")",
+    'temp.msg.choose.temp': "$_("Please choose a template")",
+    'vm.msg.fail.create.vm': "$_("Failed to create vm")",
+    'msg.fail.start': "$_("Failed to start")",
+    'msg.fail.stop': "$_("Failed to stop")",
+    'msg.fail.reset': "$_("Failed to reset")",
+    'msg.fail.delete': "$_("Failed to delete")",
+    'msg.fail.list.guests': "$_("Failed to list guests")",
+    'msg.fail.create.template': "$_("Failed to create template")"};
 </script>
 </body>
 </html>

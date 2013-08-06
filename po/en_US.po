@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-30 09:11-0400\n"
+"POT-Creation-Date: 2013-08-06 14:01+0800\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Adam Litke <agl@us.ibm.com>\n"
 "Language-Team: English\n"
@@ -97,7 +97,7 @@ msgstr "More..."
 msgid "Create VM"
 msgstr "Create VM"
 
-#: standard input:25
+#: standard input:25 input:66
 msgid "Custom"
 msgstr "Custom"
 
@@ -165,7 +165,7 @@ msgstr "Create"
 msgid "Actions"
 msgstr "Actions"
 
-#: standard input:42
+#: standard input:42 input:59
 msgid "Name"
 msgstr "Name"
 
@@ -202,9 +202,8 @@ msgid "I want to stream an ISO from the Internet."
 msgstr "I want to stream an ISO from the Internet."
 
 #: standard input:54
-#, fuzzy
 msgid "Select the ISO you would like to use to create a template:"
-msgstr "Select the ISO you’d like to use to create a template:"
+msgstr "Select the ISO you would like to use to create a template:"
 
 #: standard input:56
 msgid "Please enter a URL:"
@@ -213,10 +212,6 @@ msgstr "Please enter a URL:"
 #: standard input:58
 msgid "Edit Template"
 msgstr "Edit Template"
-
-#: standard input:59
-msgid "ID"
-msgstr "ID"
 
 #: standard input:60
 msgid "Vendor"
@@ -227,16 +222,12 @@ msgid "Version"
 msgstr "Version"
 
 #: standard input:64
-msgid "Icon Default or Custom"
-msgstr "Icon Default or Custom"
+msgid "Icon"
+msgstr "Icon"
 
 #: standard input:65
-msgid "Icon Default"
-msgstr "Icon Default"
-
-#: standard input:66
-msgid "Icon Custom"
-msgstr "Icon Custom"
+msgid "Default"
+msgstr "Default"
 
 #: standard input:67
 msgid "Background Color"
@@ -291,37 +282,37 @@ msgid "CPUs"
 msgstr "CPUs"
 
 #: standard input:86
-msgid "temp.msg.fail.list"
+msgid "Failed to list the template"
 msgstr "Failed to list the template"
 
 #: standard input:87
-msgid "temp.msg.choose.temp"
+msgid "Please choose a template"
 msgstr "Please choose a template"
 
 #: standard input:88
-msgid "vm.msg.fail.create.vm"
+msgid "Failed to create vm"
 msgstr "Failed to create vm"
 
 #: standard input:89
-msgid "msg.fail.start"
+msgid "Failed to start"
 msgstr "Failed to start"
 
 #: standard input:90
-msgid "msg.fail.stop"
+msgid "Failed to stop"
 msgstr "Failed to stop"
 
 #: standard input:91
-msgid "msg.fail.reset"
+msgid "Failed to reset"
 msgstr "Failed to reset"
 
 #: standard input:92
-msgid "msg.fail.delete"
+msgid "Failed to delete"
 msgstr "Failed to delete"
 
 #: standard input:93
-msgid "msg.fail.list.guests"
+msgid "Failed to list guests"
 msgstr "Failed to list guests"
 
 #: standard input:94
-msgid "msg.fail.create.template"
+msgid "Failed to create template"
 msgstr "Failed to create template"

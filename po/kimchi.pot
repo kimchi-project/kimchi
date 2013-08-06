@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-30 09:11-0400\n"
+"POT-Creation-Date: 2013-08-06 14:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Create VM"
 msgstr ""
 
-#: standard input:25
+#: standard input:25 standard input:66
 msgid "Custom"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: standard input:42
+#: standard input:42 standard input:59
 msgid "Name"
 msgstr ""
 
@@ -211,10 +211,6 @@ msgstr ""
 msgid "Edit Template"
 msgstr ""
 
-#: standard input:59
-msgid "ID"
-msgstr ""
-
 #: standard input:60
 msgid "Vendor"
 msgstr ""
@@ -224,15 +220,11 @@ msgid "Version"
 msgstr ""
 
 #: standard input:64
-msgid "Icon Default or Custom"
+msgid "Icon"
 msgstr ""
 
 #: standard input:65
-msgid "Icon Default"
-msgstr ""
-
-#: standard input:66
-msgid "Icon Custom"
+msgid "Default"
 msgstr ""
 
 #: standard input:67
@@ -288,37 +280,37 @@ msgid "CPUs"
 msgstr ""
 
 #: standard input:86
-msgid "temp.msg.fail.list"
+msgid "Failed to list the template"
 msgstr ""
 
 #: standard input:87
-msgid "temp.msg.choose.temp"
+msgid "Please choose a template"
 msgstr ""
 
 #: standard input:88
-msgid "vm.msg.fail.create.vm"
+msgid "Failed to create vm"
 msgstr ""
 
 #: standard input:89
-msgid "msg.fail.start"
+msgid "Failed to start"
 msgstr ""
 
 #: standard input:90
-msgid "msg.fail.stop"
+msgid "Failed to stop"
 msgstr ""
 
 #: standard input:91
-msgid "msg.fail.reset"
+msgid "Failed to reset"
 msgstr ""
 
 #: standard input:92
-msgid "msg.fail.delete"
+msgid "Failed to delete"
 msgstr ""
 
 #: standard input:93
-msgid "msg.fail.list.guests"
+msgid "Failed to list guests"
 msgstr ""
 
 #: standard input:94
-msgid "msg.fail.create.template"
+msgid "Failed to create template"
 msgstr ""
