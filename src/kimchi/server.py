@@ -88,6 +88,7 @@ class Server(object):
         cherrypy.log.error_file = options.error_log
 
         logLevel = LOGGING_LEVEL.get(options.log_level, logging.DEBUG)
+        dev_env = options.environment != 'production'
 
         # Create handler to rotate access log file
         h = logging.handlers.RotatingFileHandler(options.access_log, 'a', 10000000, 1000)
@@ -105,6 +106,10 @@ class Server(object):
         # Add rotating log file to cherrypy configuration
         cherrypy.log.error_log.addHandler(h)
 
+        # Handling running mode
+        if not dev_env:
+            cherrypy.config.update({'environment': 'production'})
+
         if hasattr(options, 'model'):
             model_instance = options.model
         elif options.test:
@@ -112,7 +117,7 @@ class Server(object):
         else:
             model_instance = model.Model()
 
-        self.app = cherrypy.tree.mount(Root(model_instance), config=self.CONFIG)
+        self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.CONFIG)
 
     def start(self):
         cherrypy.quickstart(self.app)
