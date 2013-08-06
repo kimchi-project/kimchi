@@ -38,7 +38,7 @@ kimchi.main = function() {
 
         /*
          * We use the HTML file name for hash, like:
-         * guestTab for guestTab.html, template for template.html.
+         * guests for guests.html, templates for templates.html.
          * Retrieve hash from the given URL and update URL hash
          * value to put an item in browsing history to make pages
          * be bookmark-able.
@@ -95,7 +95,7 @@ kimchi.main = function() {
          * 2) If user types a URL with hash, we load that page, e.g.,
          *    http://kimchi.company.com:8000/#template.
          */
-        var hashString = (location.hash && location.hash.substr(1)) || 'guestTab';
+        var hashString = (location.hash && location.hash.substr(1)) || 'guests';
         loadPage(hashString + '.html');
     });
 };

@@ -26,10 +26,10 @@ dist_html_DATA = \
 	dev-ui.html.tmpl \
 	guest-add.html.tmpl \
 	guest.html.tmpl \
-	guestTab.html.tmpl \
+	guests.html.tmpl \
 	template-add.html.tmpl \
 	template-edit.html.tmpl \
-	template.html.tmpl \
+	templates.html.tmpl \
 	vnc_auto.html.tmpl \
 	i18n.html.tmpl \
 	$(NULL)
