@@ -125,7 +125,7 @@ class MockModel(object):
         return name
 
     def vms_get_list(self):
-        names = map(lambda x: unicode(x), self._mock_vms.keys())
+        names = self._mock_vms.keys()
         return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
@@ -340,7 +340,7 @@ def get_mock_environment():
         model._mock_templates[name].info.update({'folder': ['rhel', '6']})
 
     for i in xrange(10):
-        name = 'test-vm-%i' % i
+        name = u'test-vm-%i' % i
         vm = MockVM(name, model.template_lookup('test-template-0'))
         model._mock_vms[name] = vm
 
