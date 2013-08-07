@@ -41,9 +41,9 @@ class Root(controller.Resource):
         'error_page.406', 'error_page.415', 'error_page.500']
     def __init__(self, model, dev_env):
         if not dev_env:
-            self._cp_config = {key: error_production_handler for key in self._handled_error}
+            self._cp_config = dict([(key, error_production_handler) for key in self._handled_error])
         else:
-            self._cp_config = {key: error_development_handler for key in self._handled_error}
+            self._cp_config = dict([(key, error_development_handler) for key in self._handled_error])
         controller.Resource.__init__(self, model)
         self.vms = controller.VMs(model)
         self.templates = controller.Templates(model)
