@@ -209,6 +209,7 @@ class Model(object):
 
         vm_list = self.vms_get_list()
         name = get_vm_name(params.get('name'), t_name, vm_list)
+        # incoming text, from js json, is unicode, do not need decode
         if name in vm_list:
             raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
@@ -224,7 +225,8 @@ class Model(object):
         # TODO: Rebase on the storage API once upstream
         vol_list = t.to_volume_list(name, storage_path)
         for v in vol_list:
-            pool.createXML(v['xml'], 0)
+            # outgoing text to libvirt, encode('utf-8')
+            pool.createXML(v['xml'].encode('utf-8'), 0)
 
         # Store the icon for displaying later
         icon = t.info.get('icon')
@@ -233,7 +235,8 @@ class Model(object):
                 session.store('vm', name, {'icon': icon})
 
         xml = t.to_vm_xml(name, storage_path)
-        dom = conn.defineXML(xml)
+        # outgoing text to libvirt, encode('utf-8')
+        dom = conn.defineXML(xml.encode('utf-8'))
         return name
 
     def vms_get_list(self):
@@ -241,7 +244,7 @@ class Model(object):
         ids = conn.listDomainsID()
         names = map(lambda x: conn.lookupByID(x).name(), ids)
         names += conn.listDefinedDomains()
-        names = map(lambda x: unicode(x, "utf-8"), names)
+        names = map(lambda x: x.decode('utf-8'), names)
         return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
@@ -313,6 +316,7 @@ class Model(object):
     def _get_vm(self, name):
         conn = self.conn.get()
         try:
+            # outgoing text to libvirt, encode('utf-8')
             return conn.lookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN:
@@ -452,7 +456,8 @@ class LibvirtVMScreenshot(VMScreenshot):
         fd = os.open(thumbnail, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0644)
         try:
             conn = self.conn.get()
-            dom = conn.lookupByName(self.vm_name)
+            # outgoing text to libvirt, encode('utf-8')
+            dom = conn.lookupByName(self.vm_name.encode('utf-8'))
             stream = conn.newStream(0)
             mimetype = dom.screenshot(stream, 0, 0)
             stream.recvAll(handler, fd)

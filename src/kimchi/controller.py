@@ -74,6 +74,8 @@ def parse_request():
     else:
         raise cherrypy.HTTPError(415, "This API only supports"
                                       " 'application/json'")
+def internal_redirect(url):
+    raise cherrypy.InternalRedirect(url.encode("utf-8"))
 
 
 def action(f):
@@ -203,6 +205,7 @@ class Collection(object):
             idents = get_list(*self.model_args)
             res_list = []
             for ident in idents:
+                # internal text, get_list changes ident to unicode for sorted
                 args = self.resource_args + [ident]
                 res = self.resource(self.model, *args)
                 res.lookup()
@@ -214,7 +217,8 @@ class Collection(object):
     def _cp_dispatch(self, vpath):
         if vpath:
             ident = vpath.pop(0)
-            args = self.resource_args + [ident]
+            # incoming text, from URL, is not unicode, need decode
+            args = self.resource_args + [ident.decode("utf-8")]
             return self.resource(self.model, *args)
 
     def get(self):
@@ -252,17 +256,17 @@ class VM(Resource):
     @action
     def start(self):
         getattr(self.model, model_fn(self, 'start'))(self.ident)
-        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
+        raise internal_redirect('/vms/%s' % self.ident)
 
     @action
     def stop(self):
         getattr(self.model, model_fn(self, 'stop'))(self.ident)
-        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
+        raise internal_redirect('/vms/%s' % self.ident)
 
     @action
     def connect(self):
         getattr(self.model, model_fn(self, 'connect'))(self.ident)
-        raise cherrypy.InternalRedirect('/vms/%s' % self.ident)
+        raise internal_redirect('/vms/%s' % self.ident)
 
     @property
     def data(self):
@@ -282,7 +286,7 @@ class VMScreenShot(Resource):
 
     def get(self):
         self.lookup()
-        raise cherrypy.InternalRedirect(self.info)
+        raise internal_redirect(self.info)
 
 class Templates(Collection):
     def __init__(self, model):
@@ -321,13 +325,13 @@ class StorageVolume(Resource):
         size = params['size']
         getattr(self.model, model_fn(self, 'resize'))(self.pool,
                                                       self.ident, size)
-        raise cherrypy.InternalRedirect('/storagepools/%s/storagevolumes/%s'
+        raise internal_redirect('/storagepools/%s/storagevolumes/%s'
                                     % (self.pool, self.ident))
 
     @action
     def wipe(self):
         getattr(self.model, model_fn(self, 'wipe'))(self.pool, self.ident)
-        raise cherrypy.InternalRedirect('/storagepools/%s/storagevolumes/%s'
+        raise internal_redirect('/storagepools/%s/storagevolumes/%s'
                                     % (self.pool, self.ident))
 
     @property
@@ -355,12 +359,12 @@ class StoragePool(Resource):
     @action
     def activate(self):
         getattr(self.model, model_fn(self, 'activate'))(self.ident)
-        raise cherrypy.InternalRedirect('/storagepools/%s' % self.ident)
+        raise internal_redirect('/storagepools/%s' % self.ident)
 
     @action
     def deactivate(self):
         getattr(self.model, model_fn(self, 'deactivate'))(self.ident)
-        raise cherrypy.InternalRedirect('/storagepools/%s' % self.ident)
+        raise internal_redirect('/storagepools/%s' % self.ident)
 
     @property
     def data(self):
@@ -375,7 +379,8 @@ class StoragePool(Resource):
         if vpath:
             subcollection = vpath.pop(0)
             if subcollection == 'storagevolumes':
-                return StorageVolumes(self.model, self.ident)
+                # incoming text, from URL, is not unicode, need decode
+                return StorageVolumes(self.model, self.ident.decode("utf-8"))
 
 
 class StoragePools(Collection):
