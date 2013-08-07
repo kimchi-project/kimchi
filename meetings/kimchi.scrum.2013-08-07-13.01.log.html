@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-3"></a><span class="tm">14:30:59</span><span class="nk"> &lt;hlwanghl&gt;</span> seems the bot hasnt joined
+<a name="l-4"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) Roundtable / Open Discussion</span>
+<a name="l-5"></a><span class="tm">14:30:59</span><span class="nk"> &lt;hlwanghl left the room (quit&gt;</span> Remote host closed the connection).
+<a name="l-6"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Other topics?
+<a name="l-7"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> (the bot is out sick)
+<a name="l-8"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Chicken soup?
+<a name="l-9"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> I hope to be out sick too
+<a name="l-10"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> haha,
+<a name="l-11"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> indeed :)
+<a name="l-12"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Ok no other topics...
+<a name="l-13"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Roundtable / Open Discussion</span>
+<a name="l-14"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">aglitke has been trying to clear the backlog of patches.  Making good progress.</span>
+<a name="l-15"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We have two overdue issues: https://github.com/kimchi-project/kimchi/issues?milestone=2&amp;state=open
+<a name="l-16"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> ahh, one
+<a name="l-17"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent patch to fix bug https://github.com/kimchi-project/kimchi/issues/74 (remove vm from local database only if it added from Kimchi UI)</span>
+<a name="l-18"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> https://github.com/kimchi-project/kimchi/issues/24 &lt;-- any progress?
+<a name="l-19"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent patch to fix bug https://github.com/kimchi-project/kimchi/issues/71 (keep image ratio)</span>
+<a name="l-20"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="cmd">#info </span><span class="cmdline">bingbu sent RFD v2 of adding ISCSI and NFS StoragePool and review several patches</span>
+<a name="l-21"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Get patches to disable 'create' button in create vm window merged</span>
+<a name="l-22"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Working on clone feature</span>
+<a name="l-23"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, do I need to open bugs for it ^?
+<a name="l-24"></a><span class="tm">14:30:59</span><span class="nk"> &lt;hlwanghl left the room (quit&gt;</span> Remote host closed the connection).
+<a name="l-25"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Actually that would help if you would open an enhancement or two
+<a name="l-26"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is doing shallow scan patches, settelled down with design, submitted v2, exception series merged, thanks aglitke, shaohef,bing_bu for your review</span>
+<a name="l-27"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">alinefm:</span> For issue 74, did you prevent the VM from being deleted, or avoid the error report even though the delete was successful?
+<a name="l-28"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, the vm was already been deleted from libvirt and it failed when deleting it from local database (objstore)
+<a name="l-29"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> sorry,  have not check it on F19  these days.
+<a name="l-30"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> alinefm, by clone feature, do you mean clone vm using the same backing file?
+<a name="l-31"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">alinefm:</span> ok, so you just fixed/avoided the error report for the local database delete?
+<a name="l-32"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> I added a parameter to ignore (does not display error) when the vm is being deleted and it is not on local database
+<a name="l-33"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> cool
+<a name="l-34"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, from first discussion with aglitke we decided to create a template from a vm (creating a qemu base image) and then allow create a vm from the template
+<a name="l-35"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> one thing we should look at is enumerating the storage volumes used by a vm when deleting.  We should parse the domain xml so we can properly handle vms created outside of kimchi
+<a name="l-36"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="cmd">#info </span><span class="cmdline">I posted a presentation to cattail that I will be using today with some customers, and in the future. Comments welcome</span>
+<a name="l-37"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, it is already working
+<a name="l-38"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> How long until we think we can have iso scanning in the UI using the shallow method&gt;
+<a name="l-39"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> merged?
+<a name="l-40"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yes! at least it worked in my tests
+<a name="l-41"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> ok, good
+<a name="l-42"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> the only problem while deleting vm's added outside kimchi was related to the local database
+<a name="l-43"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> you can send patch, and I will test it
+<a name="l-44"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">re:</span> shallow scan. Let me talk to DingXin. He had scan UI code working based on the old design. I suspect it won't take him a long time though
+<a name="l-45"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> excellent.
+<a name="l-46"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> That's great!  He can use royce's patches
+<a name="l-47"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> until they are merged
+<a name="l-48"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, for what?
+<a name="l-49"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> #74
+<a name="l-50"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, it is already merged =)
+<a name="l-51"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> OK， I'll corporate with xinding on the scan UI
+<a name="l-52"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> ok, great
+<a name="l-53"></a><span class="tm">14:30:59</span><span class="nk"> &lt;xinding&gt;</span> The shallow method has been merged?
+<a name="l-54"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">alinefm:</span> The volume used by VM created outside of kimchi maybe can not accessed(removed) because of permission, maybe.
+<a name="l-55"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> It is close, but not merged yet.
+<a name="l-56"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> bing_bu, it worked well for me. I used virt-manager to add a vm and delete it from kimchi UI
+<a name="l-57"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> we have to redesign the ui of iso scan?
+<a name="l-58"></a><span class="tm">14:30:59</span><span class="nk"> &lt;xinding&gt;</span> I'll work on it from tommorow
+<a name="l-59"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I do think the UI should pop up a confirmation dialog when deleting a VM
+<a name="l-60"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> ^
+<a name="l-61"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We are deleting disks permanently and it's easy mis-click
+<a name="l-62"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> yes ,it is needed
+<a name="l-63"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> especially on a tablet with my fat fingers.
+<a name="l-64"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I don't THINK much if any redesign is required, but we'll find out
+<a name="l-65"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">alinefm:</span> maybe you can try to create a VM using virsh under root, I am not sure about that.
+<a name="l-66"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">aglitke:</span> I bet you wear your seatbelt too ;-)
+<a name="l-67"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> heh
+<a name="l-68"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> I think we need a shallow scan button , deep scan button, can stop scan button, at least
+<a name="l-69"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I agree, its pretty bad if you misclick. I will open a bug report
+<a name="l-70"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I assigned you https://github.com/kimchi-project/kimchi/issues/85
+<a name="l-71"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> maybe the UI should tip the user whether to delete the using image or images ?
+<a name="l-72"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> feel free to reassign as needed.
+<a name="l-73"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> If they don't delete them then we have orphaned files with no way to delete them.
+<a name="l-74"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> the path of iso file is no needed to keep,
+<a name="l-75"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I just opened one
+<a name="l-76"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> sometimes the user just want to remove the vm from list but do not want remove the data.
+<a name="l-77"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> a grid poped or  something else instead
+<a name="l-78"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> we cannot support that until we have volume management interfaces.
+<a name="l-79"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> ok, I will work on it
+<a name="l-80"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> You mean creating a vm from an existing image file will not supported by kimchi.
+<a name="l-81"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> not at the moment.
+<a name="l-82"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We are focusing on the common features first
+<a name="l-83"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">bing_bu:</span> why we can not create a VM from an existing image file?
+<a name="l-84"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We want to do really well on the tasks a user will first want to accomplish
+<a name="l-85"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I dont understand, I thought the user want to create a VM via iso images, not right?
+<a name="l-86"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">shaohef:</span> create lot of same VMs easily
+<a name="l-87"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> exactly
+<a name="l-88"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">bing_bu:</span> yes. so why can not create?
+<a name="l-89"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> bing_bu is asking for a feature to create a vm from some existing disk image.
+<a name="l-90"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I am saying that is not a common feature and is low priority.
+<a name="l-91"></a><span class="tm">14:30:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> oh
+<a name="l-92"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I do think its worth "Create VM from existing VM" - aka Clone, thuogh that is simpler than "Create from Disk Image"
+<a name="l-93"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> alinefm,  clone in kimchi we generate different volumes for cloned vm, seems not the usual way we do in other virtual management...
+<a name="l-94"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> The way we are approaching that one is allowing any VM to be converted into a template
+<a name="l-95"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> and then you use the normal flow for create vm to create clones from that template.
+<a name="l-96"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> WOuld that just create a template like what was used for the original VM?
+<a name="l-97"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> so cloning a vm is just creating a vm from a template with a common disk defined.
+<a name="l-98"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Meaning you would lose any 'live' changes
+<a name="l-99"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> No
+<a name="l-100"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> !
+<a name="l-101"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> good!
+<a name="l-102"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We lock the VM and copy the disk to a new file for the template and make that file readonly.
+<a name="l-103"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> I do think clone is more simple than create a new guest OS by install it from ISO.
+<a name="l-104"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then we use qemu-img to create a new leaf image to reassign to the original vm
+<a name="l-105"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Handy too
+<a name="l-106"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, we will have the same content in 2 disk images
+<a name="l-107"></a><span class="tm">14:30:59</span><span class="nk"> &lt;royce&gt;</span> normally we use the same volume and make them depend on the same backing file
+<a name="l-108"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then new vms can be created by creating leaf images from that base.
+<a name="l-109"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">bing_bu:</span> I think we should make a VM temple from an exist vms.
+<a name="l-110"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We will require the VM to be powered off during this process.
+<a name="l-111"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes, agree.
+<a name="l-112"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">shaohef:</span> same
+<a name="l-113"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">bing_bu:</span> so we do not need to install a VM again. It will take a long time.
+<a name="l-114"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> maybe we can called this as "creating a VM based on existing image" = copy the image file,rename it to the new name,create template,define.
+<a name="l-115"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> if you can take a look at that default network and default pool bug we will be done with the July Sprint items
+<a name="l-116"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Are there any other topics that people would like to bring up?
+<a name="l-117"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> OK. I will do it.
+<a name="l-118"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Reflections... Thanks for the good ideas. Keep them coming, we'll discuss at next week's scrum
+<a name="l-119"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> About storagepool, do we still make lots of check before creating a 'default' storagepool  or just create a 'default' pool if no pool?
+<a name="l-120"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> I think some distros have separated the creation of the default net and default pool into another package.
+<a name="l-121"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> So we just need to figure out which one it is.
+<a name="l-122"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> cacheBust. I want to generate the html.tmpl form html.tmpl.in
+<a name="l-123"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes
+<a name="l-124"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> add &lt;file&gt;.html.tmpl into the list of output files in configure.ac
+<a name="l-125"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then you need to have a html.tmpl.in file
+<a name="l-126"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> autoconf will replace @VAR@ with VAR
+<a name="l-127"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-128"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> but actually that may not be what we want
+<a name="l-129"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> because the value needs to change when files change.  That is automake, not autoconf
+<a name="l-130"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> do we need a Makefile.subs?
+<a name="l-131"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I don't know...
+<a name="l-132"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I don't think so.
+<a name="l-133"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> You will probably use the Makefile do_substitution trick like we do for several other files.
+<a name="l-134"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> As I know, virt-install and virt-manager can do that
+<a name="l-135"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  yes.
+<a name="l-136"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> virt-manager just create default if no pool, do not create any other pool out of '/var/lib/libvirt/images'
+<a name="l-137"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> yes, so the best way to figure it out is to find the package dependencies of virt-manager and see which package contains the /etc/libvirt/networks/default.xml file
+<a name="l-138"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> rpm -qf /etc/libvirt/networks/default.xml
+<a name="l-139"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> ^
+<a name="l-140"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I think storage pools have a similar xml file.
+<a name="l-141"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-142"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then we will require that rpm in the spec file for the appropriate distro
+<a name="l-143"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I will look into it.
+<a name="l-144"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> great'
+<a name="l-145"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> is F19 the only distro affected by this?
+<a name="l-146"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> to check whether a similar xml file for storage pool
+<a name="l-147"></a><span class="tm">14:30:59</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> yeah, you are right
+<a name="l-148"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> just test F19 distro
+<a name="l-149"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> ok.  Mom is also affected... I need to change my package dependencies for that package too
+<a name="l-150"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, there is a similar problem to it when the pool and network exists but they are not active
+<a name="l-151"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> it happened sometimes to me
+<a name="l-152"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> and I needed to active it manually to get kimchi works properly
+<a name="l-153"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> ok, that is easier... We can pretty safely enable those.
+<a name="l-154"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> at daemon startup
+<a name="l-155"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I think we can active it
+<a name="l-156"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> that is just a libvirt API call
+<a name="l-157"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, shaohef, yeap
+<a name="l-158"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> we can do it in the Model constructor.
+<a name="l-159"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> but if it failed?
+<a name="l-160"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> If it fails then kimchi should report an error and exit.
+<a name="l-161"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> or maybe just display an error page to the user.
+<a name="l-162"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> right! I will send a patch for it
+<a name="l-163"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> thanks!
+<a name="l-164"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I was thinking and show a error while starting up the kimchi service
+<a name="l-165"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> instead of display a page error
+<a name="l-166"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> we might want to do both.
+<a name="l-167"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> one issue is that the end user may not be looking at the server logs
+<a name="l-168"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> they will try to open the web interface and it will be down
+<a name="l-169"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Would be nice if it was up but displayed a banner with more information about the error.
+<a name="l-170"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> And the interface is disabled.
+<a name="l-171"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We could do this with royce's error handling
+<a name="l-172"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> have the server always raise HTTPError(500, details)
+<a name="l-173"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> for all requests if there is a global error condition.
+<a name="l-174"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yes! you are right
+<a name="l-175"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Maybe something non-generic
+<a name="l-176"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Yeah.  We need a translatable user error message
+<a name="l-177"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Trying to think if things could be partially functional in this state
+<a name="l-178"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span>  when will we integrate PAM for authentication?
+<a name="l-179"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi could not activate the libvirt 'default' network which is needed for proper network connectivity of virtual machines.
+<a name="l-180"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> What if the virtual machines had no network defined? (I know we don';t allow this now, but its not incobceivable
+<a name="l-181"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I think we still want some basic sanity in the system
+<a name="l-182"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> We have some basic ground rules:
+<a name="l-183"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> default network available
+<a name="l-184"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> sanity good. One the one hand I like that the server won't even start if the world doesn't make sense
+<a name="l-185"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> default storage pool available
+<a name="l-186"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Its simple, clean
+<a name="l-187"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> Yeah, but I worry that a user won't get feedback
+<a name="l-188"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> On the other, of there are no current VMs making use of the default network or storage pool, why shouldn't I be able to work?
+<a name="l-189"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I'd actually like to allow the debugreports feature to still work from this error page.
+<a name="l-190"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> so we display an error and then have a button to collect a Debug report package.
+<a name="l-191"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I need to get more familiar w/ the debugreports
+<a name="l-192"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then the user is empowered to do something about the error instead of just getting a server not found error.
+<a name="l-193"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> It just calls 'sosreport' under the covers and will allow the user to download a collected tar.gz file that they can forward to support.
+<a name="l-194"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> yeah, so the next smallest step on the continuum is allow the server to start, but the users all get an error page saying to call aglitke and have him fix his server
+<a name="l-195"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> heh
+<a name="l-196"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> yep
+<a name="l-197"></a><span class="tm">14:30:59</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-198"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Did you have a chance to play with Auth yet?
+<a name="l-199"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I haven't. Was out of town this weekend, and didn't have time during the week...
+<a name="l-200"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> My thought is to break it into small enough pieces that we can all get on the same page, then break out the impl of the parts
+<a name="l-201"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> yep.  for starters the two I see are:
+<a name="l-202"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> HTTP challenge
+<a name="l-203"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> backend PAM auth engine
+<a name="l-204"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> the PAM part can initially be :
+<a name="l-205"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> return True
+<a name="l-206"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> that will allow us to get the UI and REST API working
+<a name="l-207"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I had it at:
+<a name="l-208"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Create a login form that"validates" the user and issues the magic cookie (where uid/pwd is hard coded to start. or always passes the check)
+<a name="l-209"></a><span class="tm">14:30:59</span><span class="nk"> &lt;shaohef&gt;</span> HTTP challenge -&gt; HTTP respons -&gt; backend PAM auth engine
+<a name="l-210"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> then we can make the PAM part a little more difficult to pass.
+<a name="l-211"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Then put protection on some URLs to send to the auth form if the user doesn't have a valid token
+<a name="l-212"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> If that works ok, we can add the constraint to the URLs
+<a name="l-213"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> I want a quick and dirty impl of the HTTP Form and redirection stuff so I can see how it works with the REST API
+<a name="l-214"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> implement actual PAM auth
+<a name="l-215"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> and work on generating a secure token
+<a name="l-216"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> You want to take point on the initial bits?
+<a name="l-217"></a><span class="tm">14:30:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> y I think I still have pt on the initial bits,
+<a name="l-218"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> ok.  top o' the hour. Thanks for joining everyone!
+<a name="l-219"></a><span class="tm">14:30:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

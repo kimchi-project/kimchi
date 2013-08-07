@@ -1,0 +1,225 @@
+<aglitke> #startmeeting
+<aglitke> #meetingname scrum
+<hlwanghl> seems the bot hasnt joined
+<aglitke> #info Agenda: 1) Roundtable / Open Discussion
+<hlwanghl left the room (quit> Remote host closed the connection).
+<aglitke> Other topics?
+<bing_bu [~mars@114.66.4.98] entered the room.
+<aglitke> (the bot is out sick)
+<AdamKingIT> Chicken soup?
+<royce> I hope to be out sick too
+<hlwanghl [~oftc-webi@117.136.0.196] entered the room.
+<zhoumeina> haha,
+<aglitke> AdamKingIT: indeed :)
+<aglitke> Ok no other topics...
+<aglitke> #topic Roundtable / Open Discussion
+<aglitke> #info aglitke has been trying to clear the backlog of patches.  Making good progress.
+<aglitke> We have two overdue issues: https://github.com/kimchi-project/kimchi/issues?milestone=2&state=open
+<aglitke> ahh, one
+<alinefm> #info alinefm Sent patch to fix bug https://github.com/kimchi-project/kimchi/issues/74 (remove vm from local database only if it added from Kimchi UI)
+<xinding [~dingxin@211.155.95.28] entered the room.
+<aglitke> shaohef: https://github.com/kimchi-project/kimchi/issues/24 <-- any progress?
+<alinefm> #info alinefm Sent patch to fix bug https://github.com/kimchi-project/kimchi/issues/71 (keep image ratio)
+<bing_bu> #info bingbu sent RFD v2 of adding ISCSI and NFS StoragePool and review several patches
+<alinefm> #info alinefm Get patches to disable 'create' button in create vm window merged 
+<alinefm> #info alinefm Working on clone feature
+<alinefm> aglitke, do I need to open bugs for it ^?
+<hlwanghl left the room (quit> Remote host closed the connection).
+<aglitke> alinefm: Actually that would help if you would open an enhancement or two
+<royce> #info royce is doing shallow scan patches, settelled down with design, submitted v2, exception series merged, thanks aglitke, shaohef,bing_bu for your review
+<AdamKingIT> alinefm: For issue 74, did you prevent the VM from being deleted, or avoid the error report even though the delete was successful?
+<alinefm> AdamKingIT, the vm was already been deleted from libvirt and it failed when deleting it from local database (objstore)
+<shaohef> aglitke: sorry,  have not check it on F19  these days. 
+<royce> alinefm, by clone feature, do you mean clone vm using the same backing file?
+<AdamKingIT> alinefm: ok, so you just fixed/avoided the error report for the local database delete?
+<alinefm> I added a parameter to ignore (does not display error) when the vm is being deleted and it is not on local database
+<AdamKingIT> cool
+<fm 
+<alinefm> royce, from first discussion with aglitke we decided to create a template from a vm (creating a qemu base image) and then allow create a vm from the template
+<aglitke> alinefm: one thing we should look at is enumerating the storage volumes used by a vm when deleting.  We should parse the domain xml so we can properly handle vms created outside of kimchi
+<AdamKingIT> #info I posted a presentation to cattail that I will be using today with some customers, and in the future. Comments welcome
+<alinefm> aglitke, it is already working
+<aglitke> How long until we think we can have iso scanning in the UI using the shallow method>
+<fm 
+<aglitke> alinefm: merged?
+<alinefm> aglitke, yes! at least it worked in my tests
+<aglitke> ok, good
+<alinefm> the only problem while deleting vm's added outside kimchi was related to the local database
+<zhoumeina> alinefm: you can send patch, and I will test it
+<AdamKingIT> re: shallow scan. Let me talk to DingXin. He had scan UI code working based on the old design. I suspect it won't take him a long time though
+<aglitke> excellent.
+<aglitke> AdamKingIT: That's great!  He can use royce's patches 
+<aglitke> until they are merged
+<alinefm> zhoumeina, for what?
+<zhoumeina> alinefm: #74
+<alinefm> zhoumeina, it is already merged =)
+<royce> OK， I'll corporate with xinding on the scan UI
+<zhoumeina> alinefm: ok, great
+<xinding> The shallow method has been merged?
+<bing_bu> alinefm: The volume used by VM created outside of kimchi maybe can not accessed(removed) because of permission, maybe.
+<aglitke> xinding: It is close, but not merged yet.
+<alinefm> bing_bu, it worked well for me. I used virt-manager to add a vm and delete it from kimchi UI
+<zhoumeina> AdamKingIT: we have to redesign the ui of iso scan?
+<xinding> I'll work on it from tommorow
+<aglitke> I do think the UI should pop up a confirmation dialog when deleting a VM
+<aglitke> AdamKingIT: ^
+<aglitke> We are deleting disks permanently and it's easy mis-click 
+<zhoumeina> aglitke: yes ,it is needed
+<aglitke> especially on a tablet with my fat fingers.
+<AdamKingIT> I don't THINK much if any redesign is required, but we'll find out
+<bing_bu> alinefm: maybe you can try to create a VM using virsh under root, I am not sure about that.
+<AdamKingIT> aglitke: I bet you wear your seatbelt too ;-)
+<aglitke> heh
+<zhoumeina> AdamKingIT: I think we need a shallow scan button , deep scan button, can stop scan button, at least
+<AdamKingIT> I agree, its pretty bad if you misclick. I will open a bug report
+<aglitke> zhoumeina: I assigned you https://github.com/kimchi-project/kimchi/issues/85
+<bing_bu> aglitke: maybe the UI should tip the user whether to delete the using image or images ?
+<aglitke> feel free to reassign as needed.
+<aglitke> bing_bu: If they don't delete them then we have orphaned files with no way to delete them.
+<zhoumeina> AdamKingIT: the path of iso file is no needed to keep,
+<aglitke> AdamKingIT: I just opened one
+<bing_bu> aglitke: sometimes the user just want to remove the vm from list but do not want remove the data.
+<zhoumeina> AdamKingIT: a grid poped or  something else instead
+<aglitke> bing_bu: we cannot support that until we have volume management interfaces.
+<zhoumeina> aglitke: ok, I will work on it
+<bing_bu> aglitke: You mean creating a vm from an existing image file will not supported by kimchi.
+<aglitke> not at the moment.
+<aglitke> We are focusing on the common features first
+<shaohef> bing_bu: why we can not create a VM from an existing image file?
+<aglitke> We want to do really well on the tasks a user will first want to accomplish
+<zhoumeina> aglitke: I dont understand, I thought the user want to create a VM via iso images, not right?
+<bing_bu> shaohef: create lot of same VMs easily 
+<aglitke> zhoumeina: exactly
+<shaohef> bing_bu: yes. so why can not create?
+<aglitke> bing_bu is asking for a feature to create a vm from some existing disk image.
+<aglitke> I am saying that is not a common feature and is low priority.
+<zhoumeina> aglitke: oh
+<AdamKingIT> I do think its worth "Create VM from existing VM" - aka Clone, thuogh that is simpler than "Create from Disk Image"
+<royce> alinefm,  clone in kimchi we generate different volumes for cloned vm, seems not the usual way we do in other virtual management...
+<aglitke> AdamKingIT: The way we are approaching that one is allowing any VM to be converted into a template
+<aglitke> and then you use the normal flow for create vm to create clones from that template.
+<AdamKingIT> WOuld that just create a template like what was used for the original VM?
+<aglitke> so cloning a vm is just creating a vm from a template with a common disk defined.
+<AdamKingIT> Meaning you would lose any 'live' changes
+<aglitke> No
+<aglitke> !
+<AdamKingIT> good!
+<aglitke> We lock the VM and copy the disk to a new file for the template and make that file readonly.
+<bing_bu> I do think clone is more simple than create a new guest OS by install it from ISO.
+<aglitke> then we use qemu-img to create a new leaf image to reassign to the original vm
+<AdamKingIT> Handy too
+<alinefm> royce, we will have the same content in 2 disk images
+<royce> normally we use the same volume and make them depend on the same backing file
+<aglitke> then new vms can be created by creating leaf images from that base.
+<shaohef> bing_bu: I think we should make a VM temple from an exist vms.  
+<aglitke> We will require the VM to be powered off during this process.
+<shaohef> aglitke: yes, agree. 
+<bing_bu> shaohef: same
+<shaohef> bing_bu: so we do not need to install a VM again. It will take a long time. 
+<bing_bu> aglitke: maybe we can called this as "creating a VM based on existing image" = copy the image file,rename it to the new name,create template,define.
+<aglitke> shaohef: if you can take a look at that default network and default pool bug we will be done with the July Sprint items
+<aglitke> Are there any other topics that people would like to bring up?
+<shaohef> aglitke: OK. I will do it. 
+<AdamKingIT> Reflections... Thanks for the good ideas. Keep them coming, we'll discuss at next week's scrum
+<bing_bu> About storagepool, do we still make lots of check before creating a 'default' storagepool  or just create a 'default' pool if no pool?
+<aglitke> bing_bu: I think some distros have separated the creation of the default net and default pool into another package.
+<aglitke> So we just need to figure out which one it is.
+<shaohef> aglitke: cacheBust. I want to generate the html.tmpl form html.tmpl.in 
+<aglitke> shaohef: yes
+<aglitke> add <file>.html.tmpl into the list of output files in configure.ac
+<aglitke> then you need to have a html.tmpl.in file
+<aglitke> autoconf will replace @VAR@ with VAR
+<shaohef> aglitke: yes. 
+<aglitke> but actually that may not be what we want
+<aglitke> because the value needs to change when files change.  That is automake, not autoconf
+<shaohef> aglitke: do we need a Makefile.subs?
+<aglitke> I don't know...
+<aglitke> I don't think so.
+<aglitke> You will probably use the Makefile do_substitution trick like we do for several other files.
+<bing_bu> aglitke: As I know, virt-install and virt-manager can do that
+<shaohef> aglitke:  yes. 
+<bing_bu> aglitke: virt-manager just create default if no pool, do not create any other pool out of '/var/lib/libvirt/images'
+<aglitke> bing_bu: yes, so the best way to figure it out is to find the package dependencies of virt-manager and see which package contains the /etc/libvirt/networks/default.xml file
+<aglitke> rpm -qf /etc/libvirt/networks/default.xml
+<aglitke> shaohef: ^
+<aglitke> I think storage pools have a similar xml file.
+<shaohef> aglitke: yes. 
+<aglitke> then we will require that rpm in the spec file for the appropriate distro
+<shaohef> aglitke: I will look into it. 
+<aglitke> great'
+<aglitke> is F19 the only distro affected by this?
+<shaohef> aglitke: to check whether a similar xml file for storage pool
+<bing_bu> aglitke: yeah, you are right
+<shaohef> aglitke: just test F19 distro
+<aglitke> ok.  Mom is also affected... I need to change my package dependencies for that package too
+<alinefm> aglitke, there is a similar problem to it when the pool and network exists but they are not active
+<alinefm> it happened sometimes to me
+<alinefm> and I needed to active it manually to get kimchi works properly
+<aglitke> alinefm: ok, that is easier... We can pretty safely enable those.
+<aglitke> at daemon startup
+<shaohef> alinefm: I think we can active it 
+<aglitke> that is just a libvirt API call
+<alinefm> aglitke, shaohef, yeap
+<aglitke> we can do it in the Model constructor.
+<alinefm> but if it failed?
+<aglitke> If it fails then kimchi should report an error and exit.
+<aglitke> or maybe just display an error page to the user.
+<alinefm> right! I will send a patch for it
+<aglitke> alinefm: thanks!
+<alinefm> aglitke, I was thinking and show a error while starting up the kimchi service
+<alinefm> instead of display a page error
+<aglitke> alinefm: we might want to do both.
+<aglitke> one issue is that the end user may not be looking at the server logs
+<aglitke> they will try to open the web interface and it will be down
+<aglitke> Would be nice if it was up but displayed a banner with more information about the error.
+<aglitke> And the interface is disabled.
+<aglitke> We could do this with royce's error handling
+<aglitke> have the server always raise HTTPError(500, details)
+<aglitke> for all requests if there is a global error condition.
+<alinefm> aglitke, yes! you are right
+<AdamKingIT> Maybe something non-generic 
+<aglitke> Yeah.  We need a translatable user error message
+<AdamKingIT> Trying to think if things could be partially functional in this state
+<shaohef> AdamKingIT:  when will we integrate PAM for authentication? 
+<aglitke> Kimchi could not activate the libvirt 'default' network which is needed for proper network connectivity of virtual machines.
+<AdamKingIT> What if the virtual machines had no network defined? (I know we don';t allow this now, but its not incobceivable
+<aglitke> I think we still want some basic sanity in the system
+<aglitke> We have some basic ground rules: 
+<aglitke> default network available
+<AdamKingIT> sanity good. One the one hand I like that the server won't even start if the world doesn't make sense
+<aglitke> default storage pool available
+<AdamKingIT> Its simple, clean
+<aglitke> Yeah, but I worry that a user won't get feedback
+<AdamKingIT> On the other, of there are no current VMs making use of the default network or storage pool, why shouldn't I be able to work?
+<aglitke> I'd actually like to allow the debugreports feature to still work from this error page.
+<aglitke> so we display an error and then have a button to collect a Debug report package.
+<AdamKingIT> I need to get more familiar w/ the debugreports
+<aglitke> then the user is empowered to do something about the error instead of just getting a server not found error.
+<aglitke> AdamKingIT: It just calls 'sosreport' under the covers and will allow the user to download a collected tar.gz file that they can forward to support.
+<AdamKingIT> yeah, so the next smallest step on the continuum is allow the server to start, but the users all get an error page saying to call aglitke and have him fix his server 
+<aglitke> heh
+<aglitke> yep
+<alinefm> hehehe
+<aglitke> AdamKingIT: Did you have a chance to play with Auth yet?
+<deepakcs [~dpkshetty@59.92.156.112] entered the room.
+<AdamKingIT> I haven't. Was out of town this weekend, and didn't have time during the week...
+<AdamKingIT> My thought is to break it into small enough pieces that we can all get on the same page, then break out the impl of the parts
+<aglitke> yep.  for starters the two I see are:
+<aglitke> HTTP challenge
+<aglitke> backend PAM auth engine
+<aglitke> the PAM part can initially be :
+<aglitke> return True
+<aglitke> that will allow us to get the UI and REST API working
+<AdamKingIT> I had it at:
+<AdamKingIT> Create a login form that"validates" the user and issues the magic cookie (where uid/pwd is hard coded to start. or always passes the check)
+<shaohef> HTTP challenge -> HTTP respons -> backend PAM auth engine 
+<aglitke> then we can make the PAM part a little more difficult to pass.
+<AdamKingIT> Then put protection on some URLs to send to the auth form if the user doesn't have a valid token
+<AdamKingIT> If that works ok, we can add the constraint to the URLs 
+<aglitke> I want a quick and dirty impl of the HTTP Form and redirection stuff so I can see how it works with the REST API
+<AdamKingIT> implement actual PAM auth
+<AdamKingIT> and work on generating a secure token
+<aglitke> AdamKingIT: You want to take point on the initial bits?
+<AdamKingIT> y I think I still have pt on the initial bits,
+<aglitke> ok.  top o' the hour. Thanks for joining everyone!
+<aglitke> #endmeeting
