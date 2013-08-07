@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Project Kimchi
 #
@@ -195,34 +196,35 @@ class ModelTests(unittest.TestCase):
 
         with store as session:
             # Test create
-            session.store('foo', 'test1', {'a': 1})
-            session.store('foo', 'test2', {'b': 2})
+            session.store('fǒǒ', 'těst1', {'α': 1})
+            session.store('fǒǒ', 'těst2', {'β': 2})
 
             # Test list
-            items = session.get_list('foo')
-            self.assertTrue('test1' in items)
-            self.assertTrue('test2' in items)
+            items = session.get_list('fǒǒ')
+            self.assertTrue(u'těst1' in items)
+            self.assertTrue(u'těst2' in items)
 
             # Test get
-            item = session.get('foo', 'test1')
-            self.assertEquals(1, item['a'])
+            item = session.get('fǒǒ', 'těst1')
+            self.assertEquals(1, item[u'α'])
 
             # Test delete
-            session.delete('foo', 'test2')
-            self.assertEquals(1, len(session.get_list('foo')))
+            session.delete('fǒǒ', 'těst2')
+            self.assertEquals(1, len(session.get_list('fǒǒ')))
 
             # Test get non-existent item
+
             self.assertRaises(NotFoundError, session.get,
-                              'a', 'b')
+                              'α', 'β')
 
             # Test delete non-existent item
             self.assertRaises(NotFoundError, session.delete,
-                              'foo', 'test2')
+                              'fǒǒ', 'těst2')
 
             # Test refresh existing item
-            session.store('foo', 'test1', {'a': 2})
-            item = session.get('foo', 'test1')
-            self.assertEquals(2, item['a'])
+            session.store('fǒǒ', 'těst1', {'α': 2})
+            item = session.get('fǒǒ', 'těst1')
+            self.assertEquals(2, item[u'α'])
 
     def test_object_store_threaded(self):
         def worker(ident):

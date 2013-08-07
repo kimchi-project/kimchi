@@ -34,6 +34,8 @@ from kimchi.exception import *
 class ObjectStoreSession(object):
     def __init__(self, conn):
         self.conn = conn
+        self.conn.text_factory = lambda x: unicode(x, "utf-8", "ignore")
+
 
     def get_list(self, obj_type):
         c = self.conn.cursor()
