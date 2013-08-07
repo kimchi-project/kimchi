@@ -292,21 +292,21 @@ class ModelTests(unittest.TestCase):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
         with utils.RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': []}
+            params = {'name': u'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
+            params = {'name': u'kīмkhī-∨м', 'template': u'/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
+            rollback.prependDefer(inst.vm_delete, u'kīмkhī-∨м')
 
-            inst.vm_start('kimchi-vm')
-            rollback.prependDefer(inst.vm_stop, 'kimchi-vm')
+            inst.vm_start(u'kīмkhī-∨м')
+            rollback.prependDefer(inst.vm_stop, u'kīмkhī-∨м')
 
-            inst.vm_delete('kimchi-vm')
+            inst.vm_delete(u'kīмkhī-∨м')
 
             vms = inst.vms_get_list()
-            self.assertFalse('kimchi-vm' in vms)
+            self.assertFalse(u'kīмkhī-∨м' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_list_sorted(self):
