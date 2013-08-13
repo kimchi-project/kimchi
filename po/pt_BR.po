@@ -34,225 +34,225 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "Guests"
-msgstr ""
+msgstr "Máquinas Virtuais"
 
 msgid "Templates"
-msgstr ""
+msgstr "Modelos"
 
 msgid "Host"
-msgstr ""
+msgstr "Hospedeiro"
 
 msgid "Reboot"
-msgstr ""
+msgstr "Reiniciar"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Desligar"
 
 msgid "SOS Report"
-msgstr ""
+msgstr "Relatório SOS"
 
 msgid "Project Kimchi"
-msgstr ""
+msgstr "Projeto Kimchi"
 
 msgid "Language:"
-msgstr ""
+msgstr "Idioma:"
 
 msgid "Storage"
-msgstr ""
+msgstr "Discos"
 
 msgid "Networks"
-msgstr ""
+msgstr "Redes"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Estatísticas"
 
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 msgid "Virtual Machines"
-msgstr ""
+msgstr "Máquinas Virtuais"
 
 msgid "Display"
-msgstr ""
+msgstr "Visor"
 
 msgid "Power On"
-msgstr ""
+msgstr "Ligar"
 
 msgid "Power Off"
-msgstr ""
+msgstr "Desligar"
 
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 msgid "Delete"
-msgstr ""
+msgstr "Remover"
 
 msgid "More..."
-msgstr ""
+msgstr "Mais..."
 
 msgid "Create VM"
-msgstr ""
+msgstr "Criar máquina virtual"
 
 msgid "Custom"
-msgstr ""
+msgstr "Personalizar"
 
 msgid "Forum"
-msgstr ""
+msgstr "Fórum"
 
 msgid "API"
-msgstr ""
+msgstr "API"
 
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 msgid "IRC"
-msgstr ""
+msgstr "IRC"
 
 msgid "Create a New Virtual Machine"
-msgstr ""
+msgstr "Criar nova Máquina Virtual"
 
 msgid "Virtual Machine Name"
-msgstr ""
+msgstr "Nome da máquina virtual"
 
 msgid ""
 "The name used to identify the VM. If omitted, a name will be chosen based on "
 "the template used."
-msgstr ""
+msgstr "O nome usado para identificar a máquina virtual. Se omitido, o nome será escolhido baseado no modelo usado."
 
 msgid "Template"
-msgstr ""
+msgstr "Modelo"
 
 msgid "Please choose a template."
-msgstr ""
+msgstr "Por favor, escolha um modelo"
 
 msgid "OS"
-msgstr ""
+msgstr "Sistema Operacional"
 
 msgid "OS Version"
-msgstr ""
+msgstr "Versão do sistema operacional"
 
 msgid "CPUS"
-msgstr ""
+msgstr "CPUS"
 
 msgid "Memory"
-msgstr ""
+msgstr "Memória"
 
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 msgid "Actions"
-msgstr ""
+msgstr "Ações"
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 msgid "CPU"
-msgstr ""
+msgstr "CPU"
 
 msgid "Livetile"
-msgstr ""
+msgstr "Tela ao vivo"
 
 msgid "Add Template"
-msgstr ""
+msgstr "Adicionar Modelo"
 
 msgid "What would you like to do?"
-msgstr ""
+msgstr "O que você gostaria de fazer?"
 
 msgid "Select a specific ISO to create a template."
-msgstr ""
+msgstr "Selecione uma ISO específica para criar o modelo."
 
 msgid "Where is the ISO file?"
-msgstr ""
+msgstr "Onde está o arquivo ISO?"
 
 msgid "The ISO is on my server."
-msgstr ""
+msgstr "A ISO está no meu servidor."
 
 msgid "I want to stream an ISO from the Internet."
-msgstr ""
+msgstr "Eu quero transmitir uma ISO da Internet."
 
 msgid "Select the ISO you would like to use to create a template:"
-msgstr ""
+msgstr "Selecione a ISO que você gostaria de usar para criar o modelo:"
 
 msgid "Please enter a URL:"
-msgstr ""
+msgstr "Por favor, entre a URL:"
 
 msgid "Edit Template"
-msgstr ""
+msgstr "Editar Modelo"
 
 msgid "Vendor"
-msgstr ""
+msgstr "Vendor"
 
 msgid "Version"
-msgstr ""
+msgstr "Versão"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 msgid "Default"
-msgstr ""
+msgstr "Padrão"
 
 msgid "Background Color"
-msgstr ""
+msgstr "Cor de fundo"
 
 msgid "Overlay Type"
-msgstr ""
+msgstr "Tipo de sobreposição"
 
 msgid "Overlay Type Icon"
-msgstr ""
+msgstr "Tipo do ícone de sobreposição"
 
 msgid "Overlay Type Text"
-msgstr ""
+msgstr "Tipo do texto de sobreposição"
 
 msgid "Button Finish Style"
-msgstr ""
+msgstr "Estilo final do botão"
 
 msgid "Button Finish Style Gloss"
-msgstr ""
+msgstr "Estilo gloss final do botão"
 
 msgid "Button Finish Style Gradient"
-msgstr ""
+msgstr "Estilo gradiente final do botão"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 msgid "Results"
-msgstr ""
+msgstr "Resultados"
 
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 msgid "Default Settings"
-msgstr ""
+msgstr "Configurações padrões"
 
 msgid "CPUs"
-msgstr ""
+msgstr "CPUs"
 
 msgid "Failed to list the template"
-msgstr ""
+msgstr "Erro ao listar os modelos"
 
 msgid "Please choose a template"
-msgstr ""
+msgstr "Por favor, escolha um modelo"
 
 msgid "Failed to create vm"
-msgstr ""
+msgstr "Erro ao criar a máquina virtual"
 
 msgid "Failed to start"
-msgstr ""
+msgstr "Erro ao iniciar"
 
 msgid "Failed to stop"
-msgstr ""
+msgstr "Erro ao parar"
 
 msgid "Failed to reset"
-msgstr ""
+msgstr "Erro ao reiniciar"
 
 msgid "Failed to delete"
-msgstr ""
+msgstr "Erro ao remover"
 
 msgid "Failed to list guests"
-msgstr ""
+msgstr "Erro ao listar as máquinas virtuais"
 
 msgid "Failed to create template"
-msgstr ""
+msgstr "Erro ao criar modelo"
