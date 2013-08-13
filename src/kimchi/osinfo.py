@@ -105,7 +105,7 @@ osinfo = [
     ('rhel', {
         'version': lambda d,v: bool(d == 'rhel' and
             v.startswith('6.')),
-        'icon': 'images/icon-vm.svg',
+        'icon': 'images/icon-vm.png',
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,
         'disks': [{'index': 0, 'size': 10}],
@@ -123,7 +123,7 @@ osinfo = [
     }),
     ('unknown', {
         'version': lambda d,v: True,
-        'icon': 'images/icon-vm.svg',
+        'icon': 'images/icon-vm.png',
         'os_distro': 'unknown', 'os_version': 'unknown',
         'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
         'memory': 1024,

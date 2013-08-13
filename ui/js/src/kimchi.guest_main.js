@@ -141,7 +141,7 @@ kimchi.listVmsAuto = function() {
 				var oldImg = oldImages[value.name];
 				curImg = value.state == 'running' ?
 					value.screenshot : value.icon;
-				value['load-src'] = curImg || 'images/icon-vm.svg';
+				value['load-src'] = curImg || 'images/icon-vm.png';
 				value['tile-src'] = oldImg || value['load-src'];
 				listHtml+=kimchi.template(guestTemplate, value);
 			});

@@ -103,7 +103,7 @@ function load_vms(data)
             image = data[i].icon;
         }
         if (!image) {
-            image = "images/icon-vm.svg";
+            image = "images/icon-vm.png";
         }
         old_img = active_imgs[data[i].name];
         html = genTile(data[i].name, old_img ? old_img : image,
@@ -200,7 +200,7 @@ function load_templates(data)
         // folder still not displayed: show it
         if ($.inArray(folder[0], folders) == -1) {
             folders.push(folder[0])
-            html += genTile(folder[0], "images/gtk-directory.svg", false, true, true);
+            html += genTile(folder[0], "images/gtk-directory.png", false, true, true);
         }
     }
 
@@ -323,7 +323,7 @@ function start()
 {
     var html = "";
 
-    html = genTile("Create Guest", "images/image-missing.svg", false, true);
+    html = genTile("Create Guest", "images/image-missing.png", false, true);
     $("#custom").append(html);
 
     load();

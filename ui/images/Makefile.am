@@ -22,4 +22,4 @@ SUBDIRS = theme-default
 
 imagedir = $(datadir)/kimchi/ui/images
 
-dist_image_DATA = *.jpg *.png *.svg *.ico
+dist_image_DATA = *.jpg *.png *.ico
