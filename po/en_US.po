@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 14:01+0800\n"
+"POT-Creation-Date: 2013-08-14 14:51-0400\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Adam Litke <agl@us.ibm.com>\n"
 "Language-Team: English\n"
@@ -17,115 +17,87 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: standard input:1 input:9
 msgid "Guests"
 msgstr "Guests"
 
-#: standard input:2 input:21 input:76
 msgid "Templates"
 msgstr "Templates"
 
-#: standard input:3
 msgid "Host"
 msgstr "Host"
 
-#: standard input:4
 msgid "Reboot"
 msgstr "Reboot"
 
-#: standard input:5
 msgid "Shutdown"
 msgstr "Shutdown"
 
-#: standard input:6
 msgid "SOS Report"
 msgstr "SOS Report"
 
-#: standard input:7
 msgid "Project Kimchi"
 msgstr "Project Kimchi"
 
-#: standard input:8
 msgid "Language:"
 msgstr "Language:"
 
-#: standard input:10 input:45
 msgid "Storage"
 msgstr "Storage"
 
-#: standard input:11
 msgid "Networks"
 msgstr "Networks"
 
-#: standard input:12
 msgid "Statistics"
 msgstr "Statistics"
 
-#: standard input:13
 msgid "About"
 msgstr "About"
 
-#: standard input:14
 msgid "Virtual Machines"
 msgstr "Virtual Machines"
 
-#: standard input:15
 msgid "Display"
 msgstr "Display"
 
-#: standard input:16
 msgid "Power On"
 msgstr "Power On"
 
-#: standard input:17
 msgid "Power Off"
 msgstr "Power Off"
 
-#: standard input:18 input:24
 msgid "Settings"
 msgstr "Settings"
 
-#: standard input:19 input:23 input:41 input:80
 msgid "Delete"
 msgstr "Delete"
 
-#: standard input:20
 msgid "More..."
 msgstr "More..."
 
-#: standard input:22
 msgid "Create VM"
 msgstr "Create VM"
 
-#: standard input:25 input:66
 msgid "Custom"
 msgstr "Custom"
 
-#: standard input:26
 msgid "Forum"
 msgstr "Forum"
 
-#: standard input:27
 msgid "API"
 msgstr "API"
 
-#: standard input:28
 msgid "Twitter"
 msgstr "Twitter"
 
-#: standard input:29
 msgid "IRC"
 msgstr "IRC"
 
-#: standard input:30
 msgid "Create a New Virtual Machine"
 msgstr "Create a New Virtual Machine"
 
-#: standard input:31
 msgid "Virtual Machine Name"
 msgstr "Virtual Machine Name"
 
-#: standard input:32
 msgid ""
 "The name used to identify the VM. If omitted, a name will be chosen based on "
 "the template used."
@@ -133,186 +105,140 @@ msgstr ""
 "The name used to identify the VM. If omitted, a name will be chosen based on "
 "the template used."
 
-#: standard input:33
 msgid "Template"
 msgstr "Template"
 
-#: standard input:34
 msgid "Please choose a template."
 msgstr "Please choose a template."
 
-#: standard input:35 input:81
 msgid "OS"
 msgstr "OS"
 
-#: standard input:36
 msgid "OS Version"
 msgstr "OS Version"
 
-#: standard input:37
 msgid "CPUS"
 msgstr "CPUS"
 
-#: standard input:38 input:44 input:63 input:85
 msgid "Memory"
 msgstr "Memory"
 
-#: standard input:39 input:55 input:57
 msgid "Create"
 msgstr "Create"
 
-#: standard input:40 input:47 input:78
 msgid "Actions"
 msgstr "Actions"
 
-#: standard input:42 input:59
 msgid "Name"
 msgstr "Name"
 
-#: standard input:43 input:62
 msgid "CPU"
 msgstr "CPU"
 
-#: standard input:46
 msgid "Livetile"
 msgstr "Livetile"
 
-#: standard input:48
 msgid "Add Template"
 msgstr "Add Template"
 
-#: standard input:49
 msgid "What would you like to do?"
 msgstr "What would you like to do?"
 
-#: standard input:50
 msgid "Select a specific ISO to create a template."
 msgstr "Select a specific ISO to create a template."
 
-#: standard input:51
 msgid "Where is the ISO file?"
 msgstr "Where is the ISO file?"
 
-#: standard input:52
 msgid "The ISO is on my server."
 msgstr "The ISO is on my server."
 
-#: standard input:53
 msgid "I want to stream an ISO from the Internet."
 msgstr "I want to stream an ISO from the Internet."
 
-#: standard input:54
 msgid "Select the ISO you would like to use to create a template:"
 msgstr "Select the ISO you would like to use to create a template:"
 
-#: standard input:56
 msgid "Please enter a URL:"
 msgstr "Please enter a URL:"
 
-#: standard input:58
 msgid "Edit Template"
 msgstr "Edit Template"
 
-#: standard input:60
 msgid "Vendor"
 msgstr "Vendor"
 
-#: standard input:61 input:82
 msgid "Version"
 msgstr "Version"
 
-#: standard input:64
 msgid "Icon"
 msgstr "Icon"
 
-#: standard input:65
 msgid "Default"
 msgstr "Default"
 
-#: standard input:67
 msgid "Background Color"
 msgstr "Background Color"
 
-#: standard input:68
 msgid "Overlay Type"
 msgstr "Overlay Type"
 
-#: standard input:69
 msgid "Overlay Type Icon"
 msgstr "Overlay Type Icon"
 
-#: standard input:70
 msgid "Overlay Type Text"
 msgstr "Overlay Type Text"
 
-#: standard input:71
 msgid "Button Finish Style"
 msgstr "Button Finish Style"
 
-#: standard input:72
 msgid "Button Finish Style Gloss"
 msgstr "Button Finish Style Gloss"
 
-#: standard input:73
 msgid "Button Finish Style Gradient"
 msgstr "Button Finish Style Gradient"
 
-#: standard input:74
 msgid "Cancel"
 msgstr "Cancel"
 
-#: standard input:75
 msgid "Save"
 msgstr "Save"
 
-#: standard input:77
 msgid "Results"
 msgstr "Results"
 
-#: standard input:79
 msgid "Edit"
 msgstr "Edit"
 
-#: standard input:83
 msgid "Default Settings"
 msgstr "Default Settings"
 
-#: standard input:84
 msgid "CPUs"
 msgstr "CPUs"
 
-#: standard input:86
 msgid "Failed to list the template"
 msgstr "Failed to list the template"
 
-#: standard input:87
 msgid "Please choose a template"
 msgstr "Please choose a template"
 
-#: standard input:88
 msgid "Failed to create vm"
 msgstr "Failed to create vm"
 
-#: standard input:89
 msgid "Failed to start"
 msgstr "Failed to start"
 
-#: standard input:90
 msgid "Failed to stop"
 msgstr "Failed to stop"
 
-#: standard input:91
 msgid "Failed to reset"
 msgstr "Failed to reset"
 
-#: standard input:92
 msgid "Failed to delete"
 msgstr "Failed to delete"
 
-#: standard input:93
 msgid "Failed to list guests"
 msgstr "Failed to list guests"
 
-#: standard input:94
 msgid "Failed to create template"
 msgstr "Failed to create template"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 14:01+0800\n"
+"POT-Creation-Date: 2013-08-14 14:51-0400\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -33,300 +33,226 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: standard input:1 input:9
 msgid "Guests"
 msgstr "客户机"
 
-#: standard input:2 input:21 input:76
 msgid "Templates"
 msgstr "模板"
 
-#: standard input:3
 msgid "Host"
 msgstr "主机"
 
-#: standard input:4
 msgid "Reboot"
 msgstr "重启"
 
-#: standard input:5
 msgid "Shutdown"
 msgstr "关机"
 
-#: standard input:6
 msgid "SOS Report"
 msgstr "SOS报告"
 
-#: standard input:7
 msgid "Project Kimchi"
 msgstr "Kimchi项目"
 
-#: standard input:8
 msgid "Language:"
 msgstr "语言："
 
-#: standard input:10 input:45
 msgid "Storage"
 msgstr "存储"
 
-#: standard input:11
 msgid "Networks"
 msgstr "网络"
 
-#: standard input:12
 msgid "Statistics"
 msgstr "统计"
 
-#: standard input:13
 msgid "About"
 msgstr "关于"
 
-#: standard input:14
 msgid "Virtual Machines"
 msgstr "虚拟机"
 
-#: standard input:15
 msgid "Display"
 msgstr "显示"
 
-#: standard input:16
 msgid "Power On"
 msgstr "开机"
 
-#: standard input:17
 msgid "Power Off"
 msgstr "关机"
 
-#: standard input:18 input:24
 msgid "Settings"
 msgstr "设置"
 
-#: standard input:19 input:23 input:41 input:80
 msgid "Delete"
 msgstr "删除"
 
-#: standard input:20
 msgid "More..."
 msgstr "更多"
 
-#: standard input:22
 msgid "Create VM"
 msgstr "创建虚机"
 
-#: standard input:25 input:66
 msgid "Custom"
 msgstr "定制"
 
-#: standard input:26
 msgid "Forum"
 msgstr "论坛"
 
-#: standard input:27
 msgid "API"
 msgstr "API"
 
-#: standard input:28
 msgid "Twitter"
 msgstr "推特"
 
-#: standard input:29
 msgid "IRC"
 msgstr "IRC"
 
-#: standard input:30
 msgid "Create a New Virtual Machine"
 msgstr "创建一个新的虚拟机"
 
-#: standard input:31
 msgid "Virtual Machine Name"
 msgstr "虚拟机名称"
 
-#: standard input:32
 msgid ""
 "The name used to identify the VM. If omitted, a name will be chosen based on "
 "the template used."
 msgstr "该名称用来唯一标识虚拟机，如果不指定，将会基于模板自动生成一个名称。"
 
-#: standard input:33
 msgid "Template"
 msgstr "模板"
 
-#: standard input:34
 msgid "Please choose a template."
 msgstr "请选择模板。"
 
-#: standard input:35 input:81
 msgid "OS"
 msgstr "操作系统"
 
-#: standard input:36
 msgid "OS Version"
 msgstr "操作系统版本"
 
-#: standard input:37
 msgid "CPUS"
 msgstr "处理器"
 
-#: standard input:38 input:44 input:63 input:85
 msgid "Memory"
 msgstr "内存"
 
-#: standard input:39 input:55 input:57
 msgid "Create"
 msgstr "创建"
 
-#: standard input:40 input:47 input:78
 msgid "Actions"
 msgstr "操作"
 
-#: standard input:42 input:59
 msgid "Name"
 msgstr "名称"
 
-#: standard input:43 input:62
 msgid "CPU"
 msgstr "处理器"
 
-#: standard input:46
 msgid "Livetile"
 msgstr "屏幕"
 
-#: standard input:48
 msgid "Add Template"
 msgstr "创建模板"
 
-#: standard input:49
 msgid "What would you like to do?"
 msgstr "选择创建方式。"
 
-#: standard input:50
 msgid "Select a specific ISO to create a template."
 msgstr "指定ISO文件的位置来创建。"
 
-#: standard input:51
 msgid "Where is the ISO file?"
 msgstr "请选择ISO文件位置？"
 
-#: standard input:52
 msgid "The ISO is on my server."
 msgstr "本地"
 
-#: standard input:53
 msgid "I want to stream an ISO from the Internet."
 msgstr "互联网"
 
-#: standard input:54
 msgid "Select the ISO you would like to use to create a template:"
 msgstr "选择你想要的ISO来创建模板："
 
-#: standard input:56
 msgid "Please enter a URL:"
 msgstr "请输入URL"
 
-#: standard input:58
 msgid "Edit Template"
 msgstr "编辑模板"
 
-#: standard input:60
 msgid "Vendor"
 msgstr "厂商"
 
-#: standard input:61 input:82
 msgid "Version"
 msgstr "版本"
 
-#: standard input:64
 msgid "Icon"
 msgstr "图标"
 
-#: standard input:65
 msgid "Default"
 msgstr "默认"
 
-#: standard input:67
 msgid "Background Color"
 msgstr "背景颜色"
 
-#: standard input:68
 msgid "Overlay Type"
 msgstr "叠层类型"
 
-#: standard input:69
 msgid "Overlay Type Icon"
 msgstr "图标"
 
-#: standard input:70
 msgid "Overlay Type Text"
 msgstr "文本"
 
-#: standard input:71
 msgid "Button Finish Style"
 msgstr "完成按钮样式"
 
-#: standard input:72
 msgid "Button Finish Style Gloss"
 msgstr "纯色"
 
-#: standard input:73
 msgid "Button Finish Style Gradient"
 msgstr "渐变色"
 
-#: standard input:74
 msgid "Cancel"
 msgstr "取消"
 
-#: standard input:75
 msgid "Save"
 msgstr "保存"
 
-#: standard input:77
 msgid "Results"
 msgstr "结果"
 
-#: standard input:79
 msgid "Edit"
 msgstr "编辑"
 
-#: standard input:83
 msgid "Default Settings"
 msgstr "默认设置"
 
-#: standard input:84
 msgid "CPUs"
 msgstr "处理器"
 
-#: standard input:86
 msgid "Failed to list the template"
 msgstr "展示模板列表失败"
 
-#: standard input:87
 msgid "Please choose a template"
 msgstr "请选择模板"
 
-#: standard input:88
 msgid "Failed to create vm"
 msgstr "虚拟机创建失败"
 
-#: standard input:89
 msgid "Failed to start"
 msgstr "启动失败"
 
-#: standard input:90
 msgid "Failed to stop"
 msgstr "停止失败"
 
-#: standard input:91
 msgid "Failed to reset"
 msgstr "重启失败"
 
-#: standard input:92
 msgid "Failed to delete"
 msgstr "删除失败"
 
-#: standard input:93
 msgid "Failed to list guests"
 msgstr "客户机列表加载失败"
 
-#: standard input:94
 msgid "Failed to create template"
 msgstr "模板创建失败"
