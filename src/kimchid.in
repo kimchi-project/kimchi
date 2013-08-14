@@ -36,8 +36,8 @@ from optparse import OptionParser
 
 ACCESS_LOG = "kimchi-access.log"
 ERROR_LOG = "kimchi-error.log"
-CONFIG_FILE="/etc/kimchi/kimchi.conf"
-DEFAULT_LOG_DIR=kimchi.config.get_default_log_dir()
+CONFIG_FILE = "%s/kimchi.conf" % kimchi.config.get_config_dir()
+DEFAULT_LOG_DIR = kimchi.config.get_default_log_dir()
 DEFAULT_LOG_LEVEL = "debug"
 
 def main(options):

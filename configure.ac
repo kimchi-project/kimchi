@@ -48,7 +48,6 @@ AC_CONFIG_FILES([
     docs/Makefile
     src/Makefile
     src/kimchi/Makefile
-    src/kimchi/config.py
     ui/Makefile
     ui/css/Makefile
     ui/css/novnc/Makefile

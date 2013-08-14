@@ -37,13 +37,21 @@ def get_prefix():
     if os.access('%s/../../src/kimchi/config.py' % base, os.F_OK):
         return '%s/../..' % base
     else:
-        return '@prefix@/share/kimchi'
+        return '@pkgdatadir@'
+
+def get_config_dir():
+    prefix = get_prefix()
+
+    if prefix == '@pkgdatadir@':
+        return '@sysconfdir@/kimchi'
+    else:
+        return os.path.join(prefix, 'src')
 
 def get_default_log_dir():
     prefix = get_prefix()
 
-    if prefix.endswith("/share/kimchi"):
-        return "/var/log/kimchi"
+    if prefix == '@pkgdatadir@':
+        return "@localstatedir@/log/kimchi"
 
     return os.path.join(prefix, 'log')
 

@@ -4,17 +4,17 @@
 
 [server]
 # Hostname or IP address to listen on
-host = 0.0.0.0
+#host = 0.0.0.0
 
 # Port to listen on
-port = 8000
+#port = 8000
 
 # Running environment of the server
-environment = development
+#environment = development
 
 [logging]
 # Log directory
-log_dir = /var/log/kimchi
+#log_dir = @localstatedir@/log/kimchi
 
 # Logging level: debug, info, warning, error or critical
-log_level = debug
+#log_level = debug

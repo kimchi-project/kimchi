@@ -46,3 +46,16 @@ EXTRA_DIST = config.py.in
 kimchi_PYTHON = $(SOURCE)
 
 kimchidir = $(pythondir)/kimchi
+
+do_substitution = \
+	sed -e 's,[@]prefix[@],$(prefix),g'             \
+	-e 's,[@]sysconfdir[@],$(sysconfdir),g'         \
+	-e 's,[@]localstatedir[@],$(localstatedir),g'   \
+	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'
+
+
+config.py: config.py.in Makefile
+	$(do_substitution) < $(srcdir)/config.py.in > config.py
+
+BUILT_SOURCES = config.py
+CLEANFILES = config.py
