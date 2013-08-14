@@ -1,0 +1,430 @@
+13:01:13 <aglitke> #startmeeting
+13:01:13 <kimchi-bot> Meeting started Wed Aug 14 13:01:13 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:13 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:19 <aglitke> #meetingname scrum
+13:01:19 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:21 <ming> tify: Welcome to this promising project.
+13:01:25 <tify> Dash, it is a dashboard server based on portlet technology
+13:01:31 <ming> :)
+13:01:32 <aglitke> tify: Yes, welcome!
+13:01:49 <aglitke> #topic Agenda
+13:02:09 <aglitke> Today I would like to talk about the authentication ideas that AdamKingIT1 and I have been thinking about.
+13:02:17 <aglitke> Today I would like to talk about the authentication ideas that AdamKingIT1 and I have been thinking about.
+13:02:19 <shaohef> AdamKingIT1: morning
+13:02:31 <aglitke> AdamKingIT1: Would you be willing to describe it a bit later?
+13:02:32 <AdamKingIT1> Good evening.
+13:02:35 <zhoumeina> AdamKingIT1: GM
+13:02:46 <ming> aglitke, we were talking about this aftternoon.
+13:02:57 <AdamKingIT1> sure...
+13:03:04 <aglitke> ming: good.  We can have a discussion about it..
+13:03:18 <aglitke> Other than that I just want to do a round table / open discussion.
+13:03:26 <aglitke> Any other topics to go over todat?
+13:03:29 <ming> aglitke,  I would also like to talk about ISO canning APIs.
+13:03:29 <aglitke> today?
+13:03:39 <aglitke> ming: ok, great
+13:03:44 <aglitke> we'll add that too
+13:03:48 <AdamKingIT1> Can we take a min to talk about some of the reflections, or should we have a separate mtg?
+13:03:56 <ming> Dingxin got a request to simplify the iso scanning API
+13:04:03 <shaohef> aglitke: ming: update?
+13:04:04 <aglitke> AdamKingIT1: that's good too
+13:04:20 <aglitke> #info Authentication feature
+13:04:33 <aglitke> #info ISO Scanning feature
+13:04:42 <aglitke> #info Reflections
+13:04:49 <aglitke> #info Open discussion
+13:04:54 <aglitke> Let's get started
+13:05:06 <aglitke> #topic Authentication feature
+13:05:22 <aglitke> AdamKingIT1: Would you like to introduce the framework we have been rolling around?
+13:05:42 <AdamKingIT1> Sure, let me see if I can recap what we talked about. Jump in when I miss something...
+13:05:47 <aglitke> sure
+13:06:08 <AdamKingIT1> 1st we are talking about authentication, leaving aside the topic of authorization...
+13:06:41 <AdamKingIT1> Meaning if you have a valid userid/pwd on the host system in the administrators group, you can perform any Kimchi operation
+13:07:11 <AdamKingIT1> We want to protect both the GUI as well as the REST APIs...
+13:07:15 <shaohef> aliguori: morning
+13:08:16 <AdamKingIT1> To allow the REST APIs to be stateless, we are thinking they should accept basic auth over SSL as an auth protocol
+13:08:35 <ming> AdamKingIT1: SSL or HTTPS?
+13:08:49 <aglitke> ming: yes
+13:08:59 <shaohef> SSL means https
+13:09:05 <aglitke> in order to prevent clear text passwords
+13:09:07 <AdamKingIT1> I am using them interchangeably
+13:09:13 <ming> AdamKingIT1: Okay.
+13:09:23 <aliguori> shaohef, good evening
+13:09:30 <AdamKingIT1> right, basic auth does nothing more than a base64 encoding, which isn't too hard to decode
+13:09:50 <ming> AdamKingIT1: Understand
+13:10:05 <AdamKingIT1> however basic auth isn't considered secure from a browser app, as the browser will cache the credentials and supply them whenever necessary
+13:10:08 <shaohef> AdamKingIT1: yes. digest auth?
+13:10:30 <royce> the authentication is validated by host system?
+13:10:47 <AdamKingIT1> Digest is not used very commonly afaik, and as I understand it you need to have access to the pwd in the clear on the host side
+13:10:51 <shaohef> royce: yes.
+13:10:51 <aglitke> royce: Yes.  We will use PAM on the server to test the supplied credentials.
+13:11:08 <ming> AdamKingIT1: I think the issue is how we map the credentials from the front to the Kimchi saving from PAM
+13:11:33 <royce> Ok, shaohef, aglitke
+13:11:34 <aglitke> There is a python library that I played with which can do this for us.
+13:11:39 <AdamKingIT1> Not sure I followed, but see if I get there as I describe
+13:11:41 <aglitke> the pam auth
+13:11:47 <ming> AdamKingIT1: the credentials in the front is not necessary the same as the one from PAM
+13:11:56 <shaohef> aglitke: pypam?
+13:12:29 <aglitke> ming: We don't want to create an additional layer of userids... We want to pass through to pam
+13:12:41 <aglitke> shaohef: yes, I believe that
+13:12:43 <aglitke> 's the name
+13:12:49 <aglitke> AdamKingIT1: Please continue... :)
+13:12:55 <AdamKingIT1> for browser security, we thought to add an authentication form in from of the UI that would take credentials and issue a secure token(in the form of a cookie). Any request presented which included the token would be processed ad requested\
+13:13:09 <ming> AdamKingIT1: I mean Kimchi get credentials from the PAM and return to the front, not necessary the same.
+13:13:44 <AdamKingIT1> I see my fingers didn't keep up w/ my brain on that last one. Let me correct...
+13:14:20 <AdamKingIT1> or browser security, we thought to add an authentication form in front of the UI that would take credentials and issue a secure token(in the form of a cookie). Any request presented which included the token would be processed as requested
+13:14:50 <hlwanghl_> aglitke: does cherrypy have session
+13:14:55 <AdamKingIT1> REST API would accept either basic auth or token, UI would require token
+13:14:55 <aglitke> hlwanghl_: Yes
+13:15:28 <AdamKingIT1> we'll need some expiration policy on the token, so that it can't be reused later
+13:15:43 <AdamKingIT1> aglitke: did I miss anything?
+13:15:49 <hlwanghl_> aglitke: ok. Then we can take advantage of session for active logined user
+13:15:55 <aglitke> I don't think so.  Seems pretty complete to me.
+13:16:11 <aglitke> hlwanghl_: The idea with sessions is they'd only be used for UI users.
+13:16:24 <aglitke> Nothing in the REST API will depend on them.
+13:16:38 <shaohef> hlwanghl_:  http://docs.cherrypy.org/stable/refman/lib/sessions.html?highlight=session
+13:17:12 <ming> AdamKingIT1: Why we should reuse the token? I think the credentials will expire for some times if http request is not raised for a while
+13:18:10 <aglitke> ming: The credentials are only passed via the form
+13:18:13 <aglitke> not via simple auth
+13:18:19 <aglitke> so they are passed once
+13:18:20 <ming> that will cause credentials checking on PAM freezing for a while and make PAM invalid the crdentials.
+13:18:27 <aglitke> if auth succeeds then a cookie is set
+13:18:37 <hlwanghl_> shaohef: thx
+13:18:44 <AdamKingIT1> The session will expire but the token will remain valid unless we have some timeout on the token itself
+13:18:47 <aglitke> the cookie takes the place of the credentials for awhile
+13:19:40 <aglitke> I have a patch series to enable HTTPS for kimchi.  Just finishing up the test case updates this morning
+13:19:58 <aglitke> then I will submit it.
+13:20:30 <aglitke> Next. we need to add the Authentication machinery to the UI and REST API
+13:20:44 <aglitke> we can make the PAM check fake and always succeed at first.
+13:20:59 <aglitke> finally, we can wire the check in the backend up to the real PAM.
+13:21:13 <ming> AdamKingIT1: Not sure why we need a token in addition to an existing credentials.  Is the Token the same as credentials?
+13:21:31 <aglitke> ming: It is not secure to have the browser cache the credentials.
+13:21:35 <hlwanghl_> aglitke: Fake check is useful so UI part can start , too
+13:21:40 <aglitke> Then you can not log out without closing the browser.
+13:21:42 <AdamKingIT1> The token allows the server to recognize the user w/out the credentials flowing on every req
+13:21:46 <ming> Or is the token the same as the cookie?
+13:21:56 <aglitke> ming: yes, token == cookeie
+13:22:09 <ming> aglitke: thans.
+13:22:34 <aglitke> The REST API will accept the cookie or basic auth
+13:22:35 <ming> then we need map the token into the credentials in the Kimchi server?
+13:22:47 <AdamKingIT1> The nice benefit of using PAM is it will allow us to supoprt any user repository that linux supports, including LDAP w/out writing any unique code
+13:22:52 <aglitke> ming: yes,. we will use cherrypy sessions to do that
+13:23:21 <aglitke> so we will look up the token to find the session for this user.
+13:23:34 <ming> aglitke:  That's the same as I have thought.
+13:23:34 <aglitke> if there is no match, we take the user to the login page.
+13:23:35 <shaohef> aglitke: credential is for https or auth?
+13:23:35 <AdamKingIT1> Once issued the token will need to map to the userid (so we can later do authorizations), but will never see the pwd
+13:23:56 <aglitke> for auth
+13:24:04 <aglitke> https is just encryption
+13:24:10 <royce> So Pam is just the interface but the user repository is not integrated in it, can be anything, right?
+13:24:15 <aglitke> to prevent passwords from being snooped on the wire.
+13:24:20 <aglitke> royce:
+13:24:22 <aglitke> yes
+13:24:30 <aglitke> usually it is just the system passwords
+13:24:35 <aglitke> but you can configure ldap
+13:24:39 <aglitke> bluepages
+13:24:43 <aglitke> etc
+13:24:51 <royce> aglitke, now clear~
+13:24:53 <aglitke> active directory
+13:25:00 <AdamKingIT1> (bluepages is actually a gigantic LDAP btw)
+13:25:05 <aglitke> yeah
+13:25:32 <royce> thanks
+13:25:43 <aglitke> ok... Any further discussion on this?  Want to move on if it's clear.
+13:26:34 <aglitke> If anyone has a better design I want to hear it too :)  This is just an initial proposal.
+13:26:55 <ming> I think using the session of Cherrypy is not the right choice.
+13:27:07 <ming> PAM also get session concept.
+13:27:29 <ming> How we can keep these two session aligned is a issue.
+13:27:35 <aglitke> The session in cherrypy just connects one client to a persistent login
+13:27:47 <aglitke> we do not use pam to "log in"
+13:27:56 <aglitke> only to verify a username/password combination
+13:28:32 <ming> But PAM may invalidate its session while the cherrypy keep its session.
+13:28:33 <aglitke> the "login" is handled in the application by using cherrypy sessions
+13:28:59 <aglitke> Right... but that is typically pretty rare and will be handled by the token expiration
+13:29:10 <xinding> Does it means that for each REST API request, a session id must be attached?
+13:29:38 <ming> agltke, i will do more investigation
+13:29:43 <aglitke> xinding: Either the Simple Auth HTTP headers or the cookie
+13:29:55 <aglitke> xinding: the UI will have a cookie in the session
+13:30:01 <hlwanghl_> Requests will take cookie values together to the server I think
+13:30:10 <aglitke> the UI will have a cookie and the rest api will accept that
+13:30:14 <AdamKingIT1> For the UI, the cookie will automatically be attached to each req by the browser
+13:30:38 <royce> Is the cookie used for keeping the session alive?
+13:30:40 <aglitke> for developers using the rest api, they can use simple auth
+13:31:02 <aglitke> royce: yes.  It keeps you from having to re-enter your password continuously.
+13:31:13 <shaohef> AdamKingIT1: yes, like the language cookie in Kimchi
+13:31:41 <AdamKingIT1> yes
+13:31:59 <shaohef> aglitke: some web framework use cookie to implement the session
+13:32:09 <ming> aglitke, what do you mean by using simple auth instead of cookie?
+13:32:14 <aglitke> shaohef: Yes, it's a pretty common pattern.
+13:32:31 <royce> ok, so cherrypy session management also validate the cookie?
+13:32:36 <hlwanghl_> Rest Apis can be used for second dev
+13:32:43 <aglitke> ming: For REST API requests, the HTTP headers for simple auth will also be accepted.
+13:32:56 <aglitke> ming: This is to support things like Firefox Poster
+13:33:09 <shaohef> aglitke: just the bask auth?
+13:33:20 <ming> HTTP headers with userid and password?
+13:33:39 <royce> I see, the cookie is managed by cherrypy and used to pass through pam
+13:33:51 <aglitke> The only disadvantage with basic auth over https is that you cannot expire the login from the server because the client can resend the cached credentials at any time.
+13:34:17 <hlwanghl_> Royce: Pam is not supposed to know cookie I think
+13:34:34 <aglitke> but this disadvantage is not a problem for rest api consumers because there is no concept of logging out of a rest api
+13:34:36 <ming> agltke, sure, and the REST APIs are not protected.
+13:34:47 <aglitke> ming: yes they will be protected.
+13:35:27 <ming> aglitke: I can write my own scripts to call the REST APIs not using Kimchi UIs.
+13:35:37 <aglitke> but the rest api will accept both forms of authentication in order to make it easy to use from non-browser consumers.
+13:35:46 <aglitke> ming: yes
+13:36:00 <aglitke> but you will still need to supply credentials.
+13:36:18 <aglitke> but yes, they are open for external use.
+13:36:32 <aglitke> ok... I want to ensure we have some time for other topics...
+13:36:36 <aglitke> #topic ISO Scanning feature
+13:36:51 <aglitke> ming: Can you switch gears and talk about ISO scanning ?
+13:37:16 <ming> Sure, xinding request to change the ISO scanning APIs.
+13:37:22 <shaohef> aglitke: seems most support a /iso path for shallow scan, and upload iso
+13:37:29 <royce> xinding, will you pls elaborate your thoughts on the shallow scanning?
+13:38:07 <xinding> Currently too many requests are required to obtain the iso list
+13:38:11 <zhoumeina> We discuss this topic together and UI want just a api to get all the images.
+13:38:34 <xinding> I think one simple api is enough
+13:38:55 <shaohef> xinding: aglitke: yes. One API, it is better to be atom manipulation。 So it can avoid multil usr to get the iso info simultaneously.
+13:39:11 <AdamKingIT1> The issue w/ many serial requests is that it can really seem slugging on a high latency network, even if the amount of data flowing is small
+13:39:18 <xinding> Regardless of how the backend implements the iso scanning, the result wanted is just a list of isos
+13:39:33 <aglitke> ok.  Can you describe the flow?
+13:40:35 <ming> xinding:  I think a url like http://kimchi-server/isos to the UI.  UI only need to do a GET to the URL to get all the ISO image list.
+13:40:48 <xinding> Yes
+13:40:59 <aglitke> How would you support shallow and deep scans from that single URL?
+13:41:11 <aglitke> ie. parameters
+13:41:12 <ming> The shallow scanning is done in the backend by kimchi server.
+13:41:37 <AdamKingIT1> One of the proposals on the list created a temporary pool w/ all the discovered isos, which seemed workable. I think it was Royce's proposal?
+13:42:23 <xinding> We just need to distinguish shallow or deep scans, maybe one url with parameters or two url
+13:42:24 <royce> So we are thinking about hide this query and filter in the backend, the UI just issue a pool refresh and get or so...Does that make sense?
+13:42:40 <ming> AdamKingIT1: I think from the UI developers' perspective, the ISO storage pool always exists.
+13:42:55 <aglitke> How about this:
+13:43:46 <royce> AdamKingIT1, that is for deep scan, but I think it can be used to shallow scan to
+13:44:33 <xinding> Exactly I don't care about the ISO storage pool or something else, I just need a list of isos which would be obtained by shallow scanning or deep scanning
+13:44:34 <aglitke> royce: Are you thinking we have a 'virtual iso pool' /storagepools/kimchi-isos ?
+13:44:52 <royce> yes, aglitke...
+13:44:55 <AdamKingIT1> I guess I think of deep scan as a slow, more thorough shallow scan
+13:45:01 <aglitke> a GET on that URI will do a shallow scan and return the results across all other pools
+13:45:48 <royce> That is all xinding request, isn't it?:)
+13:46:03 <aglitke> I am trying to think how we can handle deep scans later.
+13:46:04 <ming> We can pass parameters with the GET request to customize deep scanning.
+13:46:24 <aglitke> ming: GET: cannot return a task though
+13:46:26 <aglitke> only POST
+13:46:46 <aglitke> GET should always return a representation of the resource being queried.
+13:46:57 <royce> how about an action refresh
+13:47:07 <xinding> Yes, one request is enough
+13:47:07 <aglitke> so a deep scan will need to be implemented as a special kind of storagepool create
+13:47:36 <aglitke> so maybe the UI would create a new storage pool of type 'kimchi-scan'
+13:47:47 <aglitke> it will get a task back
+13:48:06 <aglitke> when the task is complete then a GET /storagepools/new-pool would have the results
+13:48:09 <shaohef> xinding: do you think it convenient to put iso to the pool? you should get the pool list first， and then copy the iso to the pool, right?
+13:48:13 <aglitke> UI would need to clean up that pool
+13:48:20 <ming> so we have two URLs for deep  and shallow scanning pool?
+13:48:23 <xinding> I don't think exposing implement detail to UI
+13:48:35 <aglitke> ming: two different methods.
+13:48:54 <xinding> I don't think exposing implement detail to UI is a good way
+13:48:55 <aglitke> xinding: For UI here is all you'd need to know:
+13:49:01 <aglitke> Shallow scan:
+13:49:12 <AdamKingIT1> If we have sessions for the UI, any deep scan pool created could be cleaned up on session termination
+13:49:13 <aglitke> GET /storagepools/kimchi-isos
+13:49:34 <aglitke> Deep scan:
+13:50:15 <aglitke> POST {'name': <uuid>, 'type': 'kimchi-scan', 'pattern': '*.iso'} /storagepools
+13:50:49 <aglitke> <-- (TASK) {'name': '1', 'status': 'running'}
+13:50:59 <aglitke> when this is finished:
+13:51:06 <ming> Then, how do you to do the second time deep scan?
+13:51:10 <royce> Involves change of the storage pool create semantics...
+13:51:12 <aglitke> GET /storagepools/<uuid>
+13:51:32 <xinding> where can I get the <uuid>?
+13:51:38 <aglitke> royce: Some storage pools can be created instantly
+13:51:49 <ming> xinding: UUID is generated by UI.
+13:51:49 <aglitke> xinding: js has a function to generate a uuid
+13:51:52 <AdamKingIT1> I would suggest uuid == sessionid
+13:52:10 <aglitke> AdamKingIT1: A user may do multiple scans
+13:52:24 <ming> AdamKingIT1: A user can do mutliple scans in one session.
+13:52:50 <aglitke> royce: So when you create a storage pool you need to see if you receive a 201: Created or a 202: Accepted
+13:52:52 <AdamKingIT1> that would pose a problem for multiple concurrent scans
+13:53:11 <aglitke> We can refine the multiple scans part
+13:53:32 <hlwanghl_> One scan after another, or at the same time?
+13:53:53 <aglitke> I would also have the backend clean up all 'kimchi-*' type pools at startup.
+13:53:54 <xinding> I think it should be generated by the backend for each time the POST request
+13:53:57 <ming> aglitke, we talked about the deep scan, but I think we should focus on shallow scan first
+13:54:05 <royce> That's acceptable,aglitke
+13:54:07 <aglitke> ming: shallow scan is simple
+13:54:15 <xinding> then the backend can return it to ui
+13:54:21 <aglitke> we always have a virtual storagepool called kimchi-isos
+13:54:40 <aglitke> There is no corresponding libvirt pool
+13:54:52 <aglitke> this is purely a kimchi construction
+13:55:06 <ming> Right, a virtual one
+13:55:11 <aglitke> you cannot delete it.
+13:55:14 <aglitke> It is always there
+13:55:16 <shaohef> aglitke: agree, kimchi-isos
+13:55:46 <aglitke> a GET on it returns a list of isos
+13:56:05 <shaohef> aglitke: then we can easily remember the name of this pool, and easily put ISO into this pool
+13:56:10 <royce> every GET will refresh the pool
+13:56:17 <aglitke> each item in the list must link to the actual location of the resource (ie. /storagepools/default/storagevolumes/os.iso)
+13:56:24 <aglitke> royce: yes
+13:56:47 <aglitke> each item will also contain the os_distro, and os_version fields
+13:56:49 <aglitke> also bootable
+13:56:52 <ming> also, I think we should allow the user to delete the storage pools for deep scan.
+13:56:54 <royce> Nice!
+13:57:04 <ming> I mean manully.
+13:57:20 <aglitke> if you want full details, you must GET from the actual resource uri
+13:57:44 <aglitke> but we will try to put all of the useful things in the main request
+13:57:54 <royce> deep scan pool need maybe a timeout?
+13:58:06 <aglitke> We can also put an 'icon' field in there too.
+13:58:16 <aglitke> royce: probably.
+13:58:27 <aglitke> that would be a good idea.
+13:58:38 <aglitke> But then we need a cleanup thread running in the backend.
+13:58:54 <aglitke> let's focus on implementing the backend for shallow first.
+13:59:00 <aglitke> royce: Are you comfortable with it?
+13:59:00 <royce> right
+13:59:07 <royce> of course, aglitke
+13:59:08 <AdamKingIT1> (broken record) what about tying the pool cleanup to the user session?
+13:59:29 <ming> agltitke, both clean thread and manual deletion.
+13:59:44 <aglitke> AdamKingIT1: Can certainly look into that.
+13:59:47 <AdamKingIT1> even if we don't name it after the session, we should be able to register a callback to cleanup whatever we need on session end
+13:59:52 <royce> is there a hook for user session? AdamKingIT1
+13:59:54 <aglitke> We need a backup in case kimchi fails.
+14:00:08 <aglitke> that's why delete on shutdown and startup is also necessary.
+14:00:36 <aglitke> but the kimchi-isos pool (shallow scans) ill only exist in memory
+14:00:40 <aglitke> so that is easy
+14:00:51 <AdamKingIT1> I am not yet familiar w/ cheerypy session, but call-back on session destroy is a common need. I'll be surprised if cherrypy session doesn't have it
+14:01:12 <aglitke> It can be added easily I am sure.
+14:01:19 <royce> OK, that's cool
+14:01:40 <aglitke> ok.  We are out of time (did not get to reflections or open discussion).
+14:02:02 <aglitke> AdamKingIT1: Do we want to tack on reflections now or do we need a substantial amount of time?
+14:02:40 <ming> AdamKingIT1: seems time is out.
+14:02:48 <AdamKingIT1> hmm, I am open to either.
+14:03:21 <AdamKingIT1> Any preferences?
+14:03:39 <aglitke> If you need to leave it's ok.  Let's see if we still have a quorum.
+14:03:52 <aglitke> We should try to process these reflections before it's too late.
+14:04:16 <aglitke> Let's try to keep it to 20 minutes max
+14:04:23 <aglitke> #topic Reflections
+14:04:23 <zhoumeina> ok
+14:04:26 <royce> we can stay longer to listen to them:)
+14:04:33 <aglitke> AdamKingIT1: Please go ahead.
+14:04:55 <zhoumeina> I'm free too
+14:05:04 <AdamKingIT1> I'll try to summarize my interpretation, but this is really abuot us getting more effective as a team so chime in...
+14:05:28 <AdamKingIT1> We are an ambitious lot, with few things we want to discontinue and a lot of things we wnat to start doing
+14:06:00 <AdamKingIT1> under continue doing/expand we have
+14:06:00 <AdamKingIT1> code reviews
+14:06:00 <AdamKingIT1> test automation
+14:06:29 <AdamKingIT1> Seems all comments are positive on both, with a desire to expand both
+14:06:45 <AdamKingIT1> for code reviewers we want to get more people involved
+14:06:57 <AdamKingIT1> Test automation, we just want more of
+14:07:16 <AdamKingIT1> Anyone have additional continue/expand comments?
+14:07:21 <aglitke> For test automation, I would love to see some proposals for automating UI testing
+14:07:43 <alinefm> for UI I've already worked with Selenium tests
+14:07:43 <aglitke> I have no experience of this.  Is this something that the SWG folks typically do?
+14:07:50 <alinefm> it works pretty well
+14:07:53 <AdamKingIT1> There are ways to do it, but they can be even harder to maintain.
+14:08:12 <aglitke> ok
+14:08:12 <AdamKingIT1> The best framework I am familar with is Selenium based as well
+14:08:21 <alinefm> in a previous project, we had Selenium tests running from Jenkins
+14:08:39 <alinefm> so at each commit a build process was started and then the backend and UI tests running
+14:08:43 <AdamKingIT1> We did something similar internally, though our driver was some home rolled python
+14:08:59 <AdamKingIT1> yeah, that's abuot what we did too, just home grown
+14:09:16 <ming> One thing I want to add, I would like we can have more times to communicate on the code
+14:09:18 <hlwanghl_> We used an internal tool based on selenium
+14:09:21 <aglitke> ok.  This might be worth investigating as a side project for someone
+14:09:25 <ming> design ideas,
+14:09:27 <AdamKingIT1> Ok, I think that may be a topic unto itself, HOW to do it
+14:09:41 <ming> UI and backend interactions.
+14:09:46 <aglitke> ming: Can you elaborate?
+14:10:45 <ming> aglitke: really, I think the text is not efficient to explain the details.
+14:11:15 <aglitke> But given our timezone differences it is very difficult to discuss design in real time.
+14:11:42 <aglitke> It is also exclusive because only those invited to the phone call or conference room are allowed to contribute their ideas.
+14:12:16 <ming> aglitke, I notice that even in our IRC scrum, some people don't say much.
+14:12:21 <aglitke> it's okay to talk face to face, but all results from those discussions should still appear on the list to include everyone else.
+14:12:24 <AdamKingIT1> This kinda moves into the area of things we want to start doing
+14:12:54 <AdamKingIT1> One of my 'start doing' thoughts was to try to have design discussions at a higher level...
+14:12:59 <ming> I think it is because English efficiency or typing speed.
+14:13:14 <royce> aglitke, that's what Opensource way to do things, I think
+14:13:21 <aglitke> ming: Yes, also true.  I hope we can encourage more participation from everyone.  I hope the kimchi project is a welcoming place where everyone feels comfortable sharing their ideas.
+14:13:29 <AdamKingIT1> I sometimes feel that I can see the forest for the trees (to use an expression I hope translates ok)
+14:13:46 <royce> heh
+14:14:35 <aglitke> ming: Is IRC okay?  I think it is better than phone because text is easier to translate than speech.
+14:15:10 <aglitke> One thing we could do (for complex features) is schedule an IRC meeting to talk in detail about the design.  We can send an invite to the development mailing list.
+14:15:12 <ming> aglitke: I think IRC is okay. But I think we need more time overlap.
+14:15:16 <AdamKingIT1> Sometimes it my lack of familiarity with a particular piece of technology. Other times I think we have unidentified assumptions that I missed
+14:15:21 <aglitke> Anyone who wants to attend can.
+14:15:35 <hlwanghl_> For designs, it will be better if there is graph
+14:16:04 <AdamKingIT1> Sorry to be repeating my own reflections, but I would also like to find a way to incorporate pictures...
+14:16:06 <aglitke> hlwanghl_: The challenge is choosing a tool that everyone can access.
+14:16:26 <AdamKingIT1> Its so much easier to understand a UI defect with a picture than a lot of text
+14:16:28 <hlwanghl_> Yes.
+14:16:28 <aglitke> I've seen people use google hangouts before,
+14:16:38 <AdamKingIT1> Are there tools that are commonly accepted?
+14:16:42 <aglitke> this is a common open source challenge.
+14:16:45 <hlwanghl_> We can try to find
+14:17:09 <aglitke> That is a good start.
+14:17:24 <zhoumeina> Some times we discuss RFD in the mail list  but we can not get a conclusion, I will we have to find a way to solve this.
+14:17:25 <aglitke> Let's try to identify some collaboration tools that are open source and free
+14:17:33 <AdamKingIT1> OK, so under this reflection I think we can say we want to communicate more often, and more effectively
+14:18:00 <aglitke> I don't think many of us really like to meet at 10pm or later in our timezone.
+14:18:12 <ming> aglitke: IRC is an interactive session, someone may not keep up with the thread because of English efficiency.  Collaboration tool may allow this people to express his idea in a relative longer time.
+14:18:18 <aglitke> So I want to make most meetings optional.
+14:18:28 <aglitke> Maybe one per week that is required.
+14:18:45 <AdamKingIT1> seems reasonable.
+14:19:15 <aglitke> As a new parent, night time meetings are very disruptive to my family life.
+14:19:18 <AdamKingIT1> More frequent communication might be interactive, or might be some shared document designs that we work on iteratively?
+14:19:29 <aglitke> yep.
+14:19:37 <aglitke> We should make more use of the github wiki
+14:20:02 <AdamKingIT1> Does it have some graphic capabilities?
+14:20:16 <royce> Sometimes I think we haven't fulfill our team's potential, I saw we really want to do some features but features on his hand finally becomes low priority...Such as bingbu's iscsi storagepool, he is trying to find something interesting
+14:20:20 <aglitke> yep, you can upload images into the page
+14:20:22 <AdamKingIT1> I have used it, but I haven't tried to put a picture in it
+14:20:25 <hlwanghl_> For the meeting time, I think we can move it to one morning this week and one evening next week
+14:21:04 <zhoumeina> that is great
+14:21:05 <aliguori> the problem with phone calls (in general) is that unless rigorous minutes are kept, there's a certain amount of knowledge that gets lost from the rest of the world
+14:21:37 <xinding> Why can't we use pictures in mails?
+14:22:00 <aglitke> mailing lists are usually text only.  But you can attach a picture
+14:22:01 <ming> xinding, the email client is not good enough.
+14:22:37 <AdamKingIT1> Another start doing suggestion was to use enhancement issue IDs for most (all) changes submitted.
+14:23:07 <aglitke> I like what people have been doing to preface the subject of their patch email with the issue id
+14:23:24 <zhoumeina> For the meeting time, what about one morning this week, and one evening next week?
+14:23:25 <aglitke> As long as full details are still provided in the commit message.
+14:24:01 <shaohef> aglitke: yes, commit message is important
+14:24:29 <aglitke> zhoumeina: That is probably more fair, but could get confusing as to what time the meeting is on a given week,.
+14:24:38 <AdamKingIT1> I know we are running long, so let me put the last 2 I remember out here...
+14:24:41 <aglitke> What happens when there is a holiday?
+14:24:51 <aglitke> let's revisit that one another time.
+14:25:20 <hlwanghl_> Notes calendar can remind us of the time
+14:25:22 <AdamKingIT1> There is a proposal to identify peers for review, so more than one person is familar with a given piece of code
+14:25:28 <aglitke> maybe we can try to hold more of the extra design discussions during your daytime.
+14:25:38 <aglitke> the community does not use Notes.
+14:25:40 <aglitke> only IBM
+14:25:47 <aglitke> Remember this is a public meeting.
+14:26:02 <AdamKingIT1> And one to adopt a style tool, such as pep8
+14:26:34 <aglitke> for pep8. I'd welcome it.  We can let one of our former vdsm developers introduce it into the build system.
+14:26:38 <AdamKingIT1> Anyone have suggestions I missed? Anyone love or hate either of those last two?
+14:27:12 <aglitke> For review peers, I don't know how to enforce that
+14:27:28 <aglitke> I think the best solution is for everyone to just review more.
+14:27:33 <AdamKingIT1> I think it would be more a protocol than a rule
+14:27:45 <AdamKingIT1> at least that;s the way I thought of it
+14:27:47 <alinefm> I have the idea everyone must review every patch
+14:28:07 <alinefm> that way all team will realize what is happening on the project
+14:28:21 <aglitke> alinefm: That might not be very practical though/
+14:28:32 <royce> I think it is good, but when the feature at hand is in a hurry....
+14:28:48 <hlwanghl_> We can try to review as many as we can, but time is limited
+14:28:51 <aglitke> or what if someone is on vacation and there is a simple fix?
+14:28:57 <alinefm> aglitke, yes! I agree but we need to try
+14:29:07 <aglitke> I think you should spend some time each day reviewing code.
+14:29:13 <alinefm> there are patches that become on the list for many days
+14:29:29 <aglitke> let's see if some of these problems lessen after we all start increasing our reviews.
+14:29:49 <royce> I think declare you as the peer means you will continue to follow every version of the patch until merge
+14:29:55 <aglitke> Try at first to spend at least 30-60 minutes per day reviewing code.
+14:29:58 <AdamKingIT1> what if we had some specialists, and include in the patch which specialties  need to review?
+14:30:21 <aglitke> AdamKingIT1: hat is a common practice in communities
+14:30:39 <aglitke> You add peoples names to an Authors file with the area of code they are specialists int.
+14:30:57 <aglitke> you can ask someone to review specifically by including them in the CC: of the patch.
+14:31:33 <aglitke> I can start to ask people to review some patches I am not sure about.
+14:31:42 <AdamKingIT1> ok, maybe one approach is to add an authors file so we are all more aware of who we want to nag to review our patched :-)
+14:31:45 <royce> go ahead!
+14:32:00 <aglitke> We already have an AUTHORS file at the root of the source tree.
+14:32:10 <aglitke> Right now it doesn't include specialties.
+14:32:13 <AdamKingIT1> sweet, maybe someone will review my patch to it
+14:32:34 <aglitke> ok... I think we need to stop here.
+14:32:41 <aglitke> I think this was a great discussion
+14:32:46 <AdamKingIT1> the discussion can continue on the list
+14:33:08 <aglitke> I want to remind everyone that if at any time you have a reccomendation for a process improvement you can bring it up on the mailing list.
+14:33:13 <AdamKingIT1> as well as at the next scrum, or a special mtg inbetween
+14:33:21 <aglitke> No topics are off limits on the list.
+14:33:33 <hlwanghl_> That's true
+14:33:50 <aglitke> As long as your company is okay with you posting it then kimchi is too.
+14:33:58 <aglitke> thanks everyone!
+14:34:01 <aglitke> #endmeeting

@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:13</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 14 13:01:13 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:21</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">tify:</span> Welcome to this promising project.
+<a name="l-7"></a><span class="tm">13:01:25</span><span class="nk"> &lt;tify&gt;</span> Dash, it is a dashboard server based on portlet technology
+<a name="l-8"></a><span class="tm">13:01:31</span><span class="nk"> &lt;ming&gt;</span> :)
+<a name="l-9"></a><span class="tm">13:01:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">tify:</span> Yes, welcome!
+<a name="l-10"></a><span class="tm">13:01:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Agenda</span>
+<a name="l-11"></a><span class="tm">13:02:09</span><span class="nk"> &lt;aglitke&gt;</span> Today I would like to talk about the authentication ideas that AdamKingIT1 and I have been thinking about.
+<a name="l-12"></a><span class="tm">13:02:17</span><span class="nk"> &lt;aglitke&gt;</span> Today I would like to talk about the authentication ideas that AdamKingIT1 and I have been thinking about.
+<a name="l-13"></a><span class="tm">13:02:19</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT1:</span> morning
+<a name="l-14"></a><span class="tm">13:02:31</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Would you be willing to describe it a bit later?
+<a name="l-15"></a><span class="tm">13:02:32</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Good evening.
+<a name="l-16"></a><span class="tm">13:02:35</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT1:</span> GM
+<a name="l-17"></a><span class="tm">13:02:46</span><span class="nk"> &lt;ming&gt;</span> aglitke, we were talking about this aftternoon.
+<a name="l-18"></a><span class="tm">13:02:57</span><span class="nk"> &lt;AdamKingIT1&gt;</span> sure...
+<a name="l-19"></a><span class="tm">13:03:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> good.  We can have a discussion about it..
+<a name="l-20"></a><span class="tm">13:03:18</span><span class="nk"> &lt;aglitke&gt;</span> Other than that I just want to do a round table / open discussion.
+<a name="l-21"></a><span class="tm">13:03:26</span><span class="nk"> &lt;aglitke&gt;</span> Any other topics to go over todat?
+<a name="l-22"></a><span class="tm">13:03:29</span><span class="nk"> &lt;ming&gt;</span> aglitke,  I would also like to talk about ISO canning APIs.
+<a name="l-23"></a><span class="tm">13:03:29</span><span class="nk"> &lt;aglitke&gt;</span> today?
+<a name="l-24"></a><span class="tm">13:03:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> ok, great
+<a name="l-25"></a><span class="tm">13:03:44</span><span class="nk"> &lt;aglitke&gt;</span> we'll add that too
+<a name="l-26"></a><span class="tm">13:03:48</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Can we take a min to talk about some of the reflections, or should we have a separate mtg?
+<a name="l-27"></a><span class="tm">13:03:56</span><span class="nk"> &lt;ming&gt;</span> Dingxin got a request to simplify the iso scanning API
+<a name="l-28"></a><span class="tm">13:04:03</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> ming: update?
+<a name="l-29"></a><span class="tm">13:04:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> that's good too
+<a name="l-30"></a><span class="tm">13:04:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Authentication feature</span>
+<a name="l-31"></a><span class="tm">13:04:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">ISO Scanning feature</span>
+<a name="l-32"></a><span class="tm">13:04:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Reflections</span>
+<a name="l-33"></a><span class="tm">13:04:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Open discussion</span>
+<a name="l-34"></a><span class="tm">13:04:54</span><span class="nk"> &lt;aglitke&gt;</span> Let's get started
+<a name="l-35"></a><span class="tm">13:05:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Authentication feature</span>
+<a name="l-36"></a><span class="tm">13:05:22</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Would you like to introduce the framework we have been rolling around?
+<a name="l-37"></a><span class="tm">13:05:42</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Sure, let me see if I can recap what we talked about. Jump in when I miss something...
+<a name="l-38"></a><span class="tm">13:05:47</span><span class="nk"> &lt;aglitke&gt;</span> sure
+<a name="l-39"></a><span class="tm">13:06:08</span><span class="nk"> &lt;AdamKingIT1&gt;</span> 1st we are talking about authentication, leaving aside the topic of authorization...
+<a name="l-40"></a><span class="tm">13:06:41</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Meaning if you have a valid userid/pwd on the host system in the administrators group, you can perform any Kimchi operation
+<a name="l-41"></a><span class="tm">13:07:11</span><span class="nk"> &lt;AdamKingIT1&gt;</span> We want to protect both the GUI as well as the REST APIs...
+<a name="l-42"></a><span class="tm">13:07:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aliguori:</span> morning
+<a name="l-43"></a><span class="tm">13:08:16</span><span class="nk"> &lt;AdamKingIT1&gt;</span> To allow the REST APIs to be stateless, we are thinking they should accept basic auth over SSL as an auth protocol
+<a name="l-44"></a><span class="tm">13:08:35</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> SSL or HTTPS?
+<a name="l-45"></a><span class="tm">13:08:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> yes
+<a name="l-46"></a><span class="tm">13:08:59</span><span class="nk"> &lt;shaohef&gt;</span> SSL means https
+<a name="l-47"></a><span class="tm">13:09:05</span><span class="nk"> &lt;aglitke&gt;</span> in order to prevent clear text passwords
+<a name="l-48"></a><span class="tm">13:09:07</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I am using them interchangeably
+<a name="l-49"></a><span class="tm">13:09:13</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> Okay.
+<a name="l-50"></a><span class="tm">13:09:23</span><span class="nk"> &lt;aliguori&gt;</span> shaohef, good evening
+<a name="l-51"></a><span class="tm">13:09:30</span><span class="nk"> &lt;AdamKingIT1&gt;</span> right, basic auth does nothing more than a base64 encoding, which isn't too hard to decode
+<a name="l-52"></a><span class="tm">13:09:50</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> Understand
+<a name="l-53"></a><span class="tm">13:10:05</span><span class="nk"> &lt;AdamKingIT1&gt;</span> however basic auth isn't considered secure from a browser app, as the browser will cache the credentials and supply them whenever necessary
+<a name="l-54"></a><span class="tm">13:10:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT1:</span> yes. digest auth?
+<a name="l-55"></a><span class="tm">13:10:30</span><span class="nk"> &lt;royce&gt;</span> the authentication is validated by host system?
+<a name="l-56"></a><span class="tm">13:10:47</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Digest is not used very commonly afaik, and as I understand it you need to have access to the pwd in the clear on the host side
+<a name="l-57"></a><span class="tm">13:10:51</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> yes.
+<a name="l-58"></a><span class="tm">13:10:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Yes.  We will use PAM on the server to test the supplied credentials.
+<a name="l-59"></a><span class="tm">13:11:08</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> I think the issue is how we map the credentials from the front to the Kimchi saving from PAM
+<a name="l-60"></a><span class="tm">13:11:33</span><span class="nk"> &lt;royce&gt;</span> Ok, shaohef, aglitke
+<a name="l-61"></a><span class="tm">13:11:34</span><span class="nk"> &lt;aglitke&gt;</span> There is a python library that I played with which can do this for us.
+<a name="l-62"></a><span class="tm">13:11:39</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Not sure I followed, but see if I get there as I describe
+<a name="l-63"></a><span class="tm">13:11:41</span><span class="nk"> &lt;aglitke&gt;</span> the pam auth
+<a name="l-64"></a><span class="tm">13:11:47</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> the credentials in the front is not necessary the same as the one from PAM
+<a name="l-65"></a><span class="tm">13:11:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> pypam?
+<a name="l-66"></a><span class="tm">13:12:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> We don't want to create an additional layer of userids... We want to pass through to pam
+<a name="l-67"></a><span class="tm">13:12:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes, I believe that
+<a name="l-68"></a><span class="tm">13:12:43</span><span class="nk"> &lt;aglitke&gt;</span> 's the name
+<a name="l-69"></a><span class="tm">13:12:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Please continue... :)
+<a name="l-70"></a><span class="tm">13:12:55</span><span class="nk"> &lt;AdamKingIT1&gt;</span> for browser security, we thought to add an authentication form in from of the UI that would take credentials and issue a secure token(in the form of a cookie). Any request presented which included the token would be processed ad requested\
+<a name="l-71"></a><span class="tm">13:13:09</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> I mean Kimchi get credentials from the PAM and return to the front, not necessary the same.
+<a name="l-72"></a><span class="tm">13:13:44</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I see my fingers didn't keep up w/ my brain on that last one. Let me correct...
+<a name="l-73"></a><span class="tm">13:14:20</span><span class="nk"> &lt;AdamKingIT1&gt;</span> or browser security, we thought to add an authentication form in front of the UI that would take credentials and issue a secure token(in the form of a cookie). Any request presented which included the token would be processed as requested
+<a name="l-74"></a><span class="tm">13:14:50</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> does cherrypy have session
+<a name="l-75"></a><span class="tm">13:14:55</span><span class="nk"> &lt;AdamKingIT1&gt;</span> REST API would accept either basic auth or token, UI would require token
+<a name="l-76"></a><span class="tm">13:14:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> Yes
+<a name="l-77"></a><span class="tm">13:15:28</span><span class="nk"> &lt;AdamKingIT1&gt;</span> we'll need some expiration policy on the token, so that it can't be reused later
+<a name="l-78"></a><span class="tm">13:15:43</span><span class="nk"> &lt;AdamKingIT1&gt;</span> <span class="hi">aglitke:</span> did I miss anything?
+<a name="l-79"></a><span class="tm">13:15:49</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> ok. Then we can take advantage of session for active logined user
+<a name="l-80"></a><span class="tm">13:15:55</span><span class="nk"> &lt;aglitke&gt;</span> I don't think so.  Seems pretty complete to me.
+<a name="l-81"></a><span class="tm">13:16:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> The idea with sessions is they'd only be used for UI users.
+<a name="l-82"></a><span class="tm">13:16:24</span><span class="nk"> &lt;aglitke&gt;</span> Nothing in the REST API will depend on them.
+<a name="l-83"></a><span class="tm">13:16:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">hlwanghl_:</span>  http://docs.cherrypy.org/stable/refman/lib/sessions.html?highlight=session
+<a name="l-84"></a><span class="tm">13:17:12</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> Why we should reuse the token? I think the credentials will expire for some times if http request is not raised for a while
+<a name="l-85"></a><span class="tm">13:18:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> The credentials are only passed via the form
+<a name="l-86"></a><span class="tm">13:18:13</span><span class="nk"> &lt;aglitke&gt;</span> not via simple auth
+<a name="l-87"></a><span class="tm">13:18:19</span><span class="nk"> &lt;aglitke&gt;</span> so they are passed once
+<a name="l-88"></a><span class="tm">13:18:20</span><span class="nk"> &lt;ming&gt;</span> that will cause credentials checking on PAM freezing for a while and make PAM invalid the crdentials.
+<a name="l-89"></a><span class="tm">13:18:27</span><span class="nk"> &lt;aglitke&gt;</span> if auth succeeds then a cookie is set
+<a name="l-90"></a><span class="tm">13:18:37</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">shaohef:</span> thx
+<a name="l-91"></a><span class="tm">13:18:44</span><span class="nk"> &lt;AdamKingIT1&gt;</span> The session will expire but the token will remain valid unless we have some timeout on the token itself
+<a name="l-92"></a><span class="tm">13:18:47</span><span class="nk"> &lt;aglitke&gt;</span> the cookie takes the place of the credentials for awhile
+<a name="l-93"></a><span class="tm">13:19:40</span><span class="nk"> &lt;aglitke&gt;</span> I have a patch series to enable HTTPS for kimchi.  Just finishing up the test case updates this morning
+<a name="l-94"></a><span class="tm">13:19:58</span><span class="nk"> &lt;aglitke&gt;</span> then I will submit it.
+<a name="l-95"></a><span class="tm">13:20:30</span><span class="nk"> &lt;aglitke&gt;</span> Next. we need to add the Authentication machinery to the UI and REST API
+<a name="l-96"></a><span class="tm">13:20:44</span><span class="nk"> &lt;aglitke&gt;</span> we can make the PAM check fake and always succeed at first.
+<a name="l-97"></a><span class="tm">13:20:59</span><span class="nk"> &lt;aglitke&gt;</span> finally, we can wire the check in the backend up to the real PAM.
+<a name="l-98"></a><span class="tm">13:21:13</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> Not sure why we need a token in addition to an existing credentials.  Is the Token the same as credentials?
+<a name="l-99"></a><span class="tm">13:21:31</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> It is not secure to have the browser cache the credentials.
+<a name="l-100"></a><span class="tm">13:21:35</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">aglitke:</span> Fake check is useful so UI part can start , too
+<a name="l-101"></a><span class="tm">13:21:40</span><span class="nk"> &lt;aglitke&gt;</span> Then you can not log out without closing the browser.
+<a name="l-102"></a><span class="tm">13:21:42</span><span class="nk"> &lt;AdamKingIT1&gt;</span> The token allows the server to recognize the user w/out the credentials flowing on every req
+<a name="l-103"></a><span class="tm">13:21:46</span><span class="nk"> &lt;ming&gt;</span> Or is the token the same as the cookie?
+<a name="l-104"></a><span class="tm">13:21:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> yes, token == cookeie
+<a name="l-105"></a><span class="tm">13:22:09</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> thans.
+<a name="l-106"></a><span class="tm">13:22:34</span><span class="nk"> &lt;aglitke&gt;</span> The REST API will accept the cookie or basic auth
+<a name="l-107"></a><span class="tm">13:22:35</span><span class="nk"> &lt;ming&gt;</span> then we need map the token into the credentials in the Kimchi server?
+<a name="l-108"></a><span class="tm">13:22:47</span><span class="nk"> &lt;AdamKingIT1&gt;</span> The nice benefit of using PAM is it will allow us to supoprt any user repository that linux supports, including LDAP w/out writing any unique code
+<a name="l-109"></a><span class="tm">13:22:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> yes,. we will use cherrypy sessions to do that
+<a name="l-110"></a><span class="tm">13:23:21</span><span class="nk"> &lt;aglitke&gt;</span> so we will look up the token to find the session for this user.
+<a name="l-111"></a><span class="tm">13:23:34</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span>  That's the same as I have thought.
+<a name="l-112"></a><span class="tm">13:23:34</span><span class="nk"> &lt;aglitke&gt;</span> if there is no match, we take the user to the login page.
+<a name="l-113"></a><span class="tm">13:23:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> credential is for https or auth?
+<a name="l-114"></a><span class="tm">13:23:35</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Once issued the token will need to map to the userid (so we can later do authorizations), but will never see the pwd
+<a name="l-115"></a><span class="tm">13:23:56</span><span class="nk"> &lt;aglitke&gt;</span> for auth
+<a name="l-116"></a><span class="tm">13:24:04</span><span class="nk"> &lt;aglitke&gt;</span> https is just encryption
+<a name="l-117"></a><span class="tm">13:24:10</span><span class="nk"> &lt;royce&gt;</span> So Pam is just the interface but the user repository is not integrated in it, can be anything, right?
+<a name="l-118"></a><span class="tm">13:24:15</span><span class="nk"> &lt;aglitke&gt;</span> to prevent passwords from being snooped on the wire.
+<a name="l-119"></a><span class="tm">13:24:20</span><span class="nk"> &lt;aglitke&gt;</span> royce:
+<a name="l-120"></a><span class="tm">13:24:22</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-121"></a><span class="tm">13:24:30</span><span class="nk"> &lt;aglitke&gt;</span> usually it is just the system passwords
+<a name="l-122"></a><span class="tm">13:24:35</span><span class="nk"> &lt;aglitke&gt;</span> but you can configure ldap
+<a name="l-123"></a><span class="tm">13:24:39</span><span class="nk"> &lt;aglitke&gt;</span> bluepages
+<a name="l-124"></a><span class="tm">13:24:43</span><span class="nk"> &lt;aglitke&gt;</span> etc
+<a name="l-125"></a><span class="tm">13:24:51</span><span class="nk"> &lt;royce&gt;</span> aglitke, now clear~
+<a name="l-126"></a><span class="tm">13:24:53</span><span class="nk"> &lt;aglitke&gt;</span> active directory
+<a name="l-127"></a><span class="tm">13:25:00</span><span class="nk"> &lt;AdamKingIT1&gt;</span> (bluepages is actually a gigantic LDAP btw)
+<a name="l-128"></a><span class="tm">13:25:05</span><span class="nk"> &lt;aglitke&gt;</span> yeah
+<a name="l-129"></a><span class="tm">13:25:32</span><span class="nk"> &lt;royce&gt;</span> thanks
+<a name="l-130"></a><span class="tm">13:25:43</span><span class="nk"> &lt;aglitke&gt;</span> ok... Any further discussion on this?  Want to move on if it's clear.
+<a name="l-131"></a><span class="tm">13:26:34</span><span class="nk"> &lt;aglitke&gt;</span> If anyone has a better design I want to hear it too :)  This is just an initial proposal.
+<a name="l-132"></a><span class="tm">13:26:55</span><span class="nk"> &lt;ming&gt;</span> I think using the session of Cherrypy is not the right choice.
+<a name="l-133"></a><span class="tm">13:27:07</span><span class="nk"> &lt;ming&gt;</span> PAM also get session concept.
+<a name="l-134"></a><span class="tm">13:27:29</span><span class="nk"> &lt;ming&gt;</span> How we can keep these two session aligned is a issue.
+<a name="l-135"></a><span class="tm">13:27:35</span><span class="nk"> &lt;aglitke&gt;</span> The session in cherrypy just connects one client to a persistent login
+<a name="l-136"></a><span class="tm">13:27:47</span><span class="nk"> &lt;aglitke&gt;</span> we do not use pam to "log in"
+<a name="l-137"></a><span class="tm">13:27:56</span><span class="nk"> &lt;aglitke&gt;</span> only to verify a username/password combination
+<a name="l-138"></a><span class="tm">13:28:32</span><span class="nk"> &lt;ming&gt;</span> But PAM may invalidate its session while the cherrypy keep its session.
+<a name="l-139"></a><span class="tm">13:28:33</span><span class="nk"> &lt;aglitke&gt;</span> the "login" is handled in the application by using cherrypy sessions
+<a name="l-140"></a><span class="tm">13:28:59</span><span class="nk"> &lt;aglitke&gt;</span> Right... but that is typically pretty rare and will be handled by the token expiration
+<a name="l-141"></a><span class="tm">13:29:10</span><span class="nk"> &lt;xinding&gt;</span> Does it means that for each REST API request, a session id must be attached?
+<a name="l-142"></a><span class="tm">13:29:38</span><span class="nk"> &lt;ming&gt;</span> agltke, i will do more investigation
+<a name="l-143"></a><span class="tm">13:29:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> Either the Simple Auth HTTP headers or the cookie
+<a name="l-144"></a><span class="tm">13:29:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> the UI will have a cookie in the session
+<a name="l-145"></a><span class="tm">13:30:01</span><span class="nk"> &lt;hlwanghl_&gt;</span> Requests will take cookie values together to the server I think
+<a name="l-146"></a><span class="tm">13:30:10</span><span class="nk"> &lt;aglitke&gt;</span> the UI will have a cookie and the rest api will accept that
+<a name="l-147"></a><span class="tm">13:30:14</span><span class="nk"> &lt;AdamKingIT1&gt;</span> For the UI, the cookie will automatically be attached to each req by the browser
+<a name="l-148"></a><span class="tm">13:30:38</span><span class="nk"> &lt;royce&gt;</span> Is the cookie used for keeping the session alive?
+<a name="l-149"></a><span class="tm">13:30:40</span><span class="nk"> &lt;aglitke&gt;</span> for developers using the rest api, they can use simple auth
+<a name="l-150"></a><span class="tm">13:31:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> yes.  It keeps you from having to re-enter your password continuously.
+<a name="l-151"></a><span class="tm">13:31:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT1:</span> yes, like the language cookie in Kimchi
+<a name="l-152"></a><span class="tm">13:31:41</span><span class="nk"> &lt;AdamKingIT1&gt;</span> yes
+<a name="l-153"></a><span class="tm">13:31:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> some web framework use cookie to implement the session
+<a name="l-154"></a><span class="tm">13:32:09</span><span class="nk"> &lt;ming&gt;</span> aglitke, what do you mean by using simple auth instead of cookie?
+<a name="l-155"></a><span class="tm">13:32:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Yes, it's a pretty common pattern.
+<a name="l-156"></a><span class="tm">13:32:31</span><span class="nk"> &lt;royce&gt;</span> ok, so cherrypy session management also validate the cookie?
+<a name="l-157"></a><span class="tm">13:32:36</span><span class="nk"> &lt;hlwanghl_&gt;</span> Rest Apis can be used for second dev
+<a name="l-158"></a><span class="tm">13:32:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> For REST API requests, the HTTP headers for simple auth will also be accepted.
+<a name="l-159"></a><span class="tm">13:32:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> This is to support things like Firefox Poster
+<a name="l-160"></a><span class="tm">13:33:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> just the bask auth?
+<a name="l-161"></a><span class="tm">13:33:20</span><span class="nk"> &lt;ming&gt;</span> HTTP headers with userid and password?
+<a name="l-162"></a><span class="tm">13:33:39</span><span class="nk"> &lt;royce&gt;</span> I see, the cookie is managed by cherrypy and used to pass through pam
+<a name="l-163"></a><span class="tm">13:33:51</span><span class="nk"> &lt;aglitke&gt;</span> The only disadvantage with basic auth over https is that you cannot expire the login from the server because the client can resend the cached credentials at any time.
+<a name="l-164"></a><span class="tm">13:34:17</span><span class="nk"> &lt;hlwanghl_&gt;</span> <span class="hi">Royce:</span> Pam is not supposed to know cookie I think
+<a name="l-165"></a><span class="tm">13:34:34</span><span class="nk"> &lt;aglitke&gt;</span> but this disadvantage is not a problem for rest api consumers because there is no concept of logging out of a rest api
+<a name="l-166"></a><span class="tm">13:34:36</span><span class="nk"> &lt;ming&gt;</span> agltke, sure, and the REST APIs are not protected.
+<a name="l-167"></a><span class="tm">13:34:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> yes they will be protected.
+<a name="l-168"></a><span class="tm">13:35:27</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> I can write my own scripts to call the REST APIs not using Kimchi UIs.
+<a name="l-169"></a><span class="tm">13:35:37</span><span class="nk"> &lt;aglitke&gt;</span> but the rest api will accept both forms of authentication in order to make it easy to use from non-browser consumers.
+<a name="l-170"></a><span class="tm">13:35:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> yes
+<a name="l-171"></a><span class="tm">13:36:00</span><span class="nk"> &lt;aglitke&gt;</span> but you will still need to supply credentials.
+<a name="l-172"></a><span class="tm">13:36:18</span><span class="nk"> &lt;aglitke&gt;</span> but yes, they are open for external use.
+<a name="l-173"></a><span class="tm">13:36:32</span><span class="nk"> &lt;aglitke&gt;</span> ok... I want to ensure we have some time for other topics...
+<a name="l-174"></a><span class="tm">13:36:36</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">ISO Scanning feature</span>
+<a name="l-175"></a><span class="tm">13:36:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Can you switch gears and talk about ISO scanning ?
+<a name="l-176"></a><span class="tm">13:37:16</span><span class="nk"> &lt;ming&gt;</span> Sure, xinding request to change the ISO scanning APIs.
+<a name="l-177"></a><span class="tm">13:37:22</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> seems most support a /iso path for shallow scan, and upload iso
+<a name="l-178"></a><span class="tm">13:37:29</span><span class="nk"> &lt;royce&gt;</span> xinding, will you pls elaborate your thoughts on the shallow scanning?
+<a name="l-179"></a><span class="tm">13:38:07</span><span class="nk"> &lt;xinding&gt;</span> Currently too many requests are required to obtain the iso list
+<a name="l-180"></a><span class="tm">13:38:11</span><span class="nk"> &lt;zhoumeina&gt;</span> We discuss this topic together and UI want just a api to get all the images.
+<a name="l-181"></a><span class="tm">13:38:34</span><span class="nk"> &lt;xinding&gt;</span> I think one simple api is enough
+<a name="l-182"></a><span class="tm">13:38:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">xinding:</span> aglitke: yes. One API, it is better to be atom manipulation。 So it can avoid multil usr to get the iso info simultaneously.
+<a name="l-183"></a><span class="tm">13:39:11</span><span class="nk"> &lt;AdamKingIT1&gt;</span> The issue w/ many serial requests is that it can really seem slugging on a high latency network, even if the amount of data flowing is small
+<a name="l-184"></a><span class="tm">13:39:18</span><span class="nk"> &lt;xinding&gt;</span> Regardless of how the backend implements the iso scanning, the result wanted is just a list of isos
+<a name="l-185"></a><span class="tm">13:39:33</span><span class="nk"> &lt;aglitke&gt;</span> ok.  Can you describe the flow?
+<a name="l-186"></a><span class="tm">13:40:35</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">xinding:</span>  I think a url like http://kimchi-server/isos to the UI.  UI only need to do a GET to the URL to get all the ISO image list.
+<a name="l-187"></a><span class="tm">13:40:48</span><span class="nk"> &lt;xinding&gt;</span> Yes
+<a name="l-188"></a><span class="tm">13:40:59</span><span class="nk"> &lt;aglitke&gt;</span> How would you support shallow and deep scans from that single URL?
+<a name="l-189"></a><span class="tm">13:41:11</span><span class="nk"> &lt;aglitke&gt;</span> ie. parameters
+<a name="l-190"></a><span class="tm">13:41:12</span><span class="nk"> &lt;ming&gt;</span> The shallow scanning is done in the backend by kimchi server.
+<a name="l-191"></a><span class="tm">13:41:37</span><span class="nk"> &lt;AdamKingIT1&gt;</span> One of the proposals on the list created a temporary pool w/ all the discovered isos, which seemed workable. I think it was Royce's proposal?
+<a name="l-192"></a><span class="tm">13:42:23</span><span class="nk"> &lt;xinding&gt;</span> We just need to distinguish shallow or deep scans, maybe one url with parameters or two url
+<a name="l-193"></a><span class="tm">13:42:24</span><span class="nk"> &lt;royce&gt;</span> So we are thinking about hide this query and filter in the backend, the UI just issue a pool refresh and get or so...Does that make sense?
+<a name="l-194"></a><span class="tm">13:42:40</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> I think from the UI developers' perspective, the ISO storage pool always exists.
+<a name="l-195"></a><span class="tm">13:42:55</span><span class="nk"> &lt;aglitke&gt;</span> How about this:
+<a name="l-196"></a><span class="tm">13:43:46</span><span class="nk"> &lt;royce&gt;</span> AdamKingIT1, that is for deep scan, but I think it can be used to shallow scan to
+<a name="l-197"></a><span class="tm">13:44:33</span><span class="nk"> &lt;xinding&gt;</span> Exactly I don't care about the ISO storage pool or something else, I just need a list of isos which would be obtained by shallow scanning or deep scanning
+<a name="l-198"></a><span class="tm">13:44:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Are you thinking we have a 'virtual iso pool' /storagepools/kimchi-isos ?
+<a name="l-199"></a><span class="tm">13:44:52</span><span class="nk"> &lt;royce&gt;</span> yes, aglitke...
+<a name="l-200"></a><span class="tm">13:44:55</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I guess I think of deep scan as a slow, more thorough shallow scan
+<a name="l-201"></a><span class="tm">13:45:01</span><span class="nk"> &lt;aglitke&gt;</span> a GET on that URI will do a shallow scan and return the results across all other pools
+<a name="l-202"></a><span class="tm">13:45:48</span><span class="nk"> &lt;royce&gt;</span> That is all xinding request, isn't it?:)
+<a name="l-203"></a><span class="tm">13:46:03</span><span class="nk"> &lt;aglitke&gt;</span> I am trying to think how we can handle deep scans later.
+<a name="l-204"></a><span class="tm">13:46:04</span><span class="nk"> &lt;ming&gt;</span> We can pass parameters with the GET request to customize deep scanning.
+<a name="l-205"></a><span class="tm">13:46:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> GET: cannot return a task though
+<a name="l-206"></a><span class="tm">13:46:26</span><span class="nk"> &lt;aglitke&gt;</span> only POST
+<a name="l-207"></a><span class="tm">13:46:46</span><span class="nk"> &lt;aglitke&gt;</span> GET should always return a representation of the resource being queried.
+<a name="l-208"></a><span class="tm">13:46:57</span><span class="nk"> &lt;royce&gt;</span> how about an action refresh
+<a name="l-209"></a><span class="tm">13:47:07</span><span class="nk"> &lt;xinding&gt;</span> Yes, one request is enough
+<a name="l-210"></a><span class="tm">13:47:07</span><span class="nk"> &lt;aglitke&gt;</span> so a deep scan will need to be implemented as a special kind of storagepool create
+<a name="l-211"></a><span class="tm">13:47:36</span><span class="nk"> &lt;aglitke&gt;</span> so maybe the UI would create a new storage pool of type 'kimchi-scan'
+<a name="l-212"></a><span class="tm">13:47:47</span><span class="nk"> &lt;aglitke&gt;</span> it will get a task back
+<a name="l-213"></a><span class="tm">13:48:06</span><span class="nk"> &lt;aglitke&gt;</span> when the task is complete then a GET /storagepools/new-pool would have the results
+<a name="l-214"></a><span class="tm">13:48:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">xinding:</span> do you think it convenient to put iso to the pool? you should get the pool list first， and then copy the iso to the pool, right?
+<a name="l-215"></a><span class="tm">13:48:13</span><span class="nk"> &lt;aglitke&gt;</span> UI would need to clean up that pool
+<a name="l-216"></a><span class="tm">13:48:20</span><span class="nk"> &lt;ming&gt;</span> so we have two URLs for deep  and shallow scanning pool?
+<a name="l-217"></a><span class="tm">13:48:23</span><span class="nk"> &lt;xinding&gt;</span> I don't think exposing implement detail to UI
+<a name="l-218"></a><span class="tm">13:48:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> two different methods.
+<a name="l-219"></a><span class="tm">13:48:54</span><span class="nk"> &lt;xinding&gt;</span> I don't think exposing implement detail to UI is a good way
+<a name="l-220"></a><span class="tm">13:48:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> For UI here is all you'd need to know:
+<a name="l-221"></a><span class="tm">13:49:01</span><span class="nk"> &lt;aglitke&gt;</span> Shallow scan:
+<a name="l-222"></a><span class="tm">13:49:12</span><span class="nk"> &lt;AdamKingIT1&gt;</span> If we have sessions for the UI, any deep scan pool created could be cleaned up on session termination
+<a name="l-223"></a><span class="tm">13:49:13</span><span class="nk"> &lt;aglitke&gt;</span> GET /storagepools/kimchi-isos
+<a name="l-224"></a><span class="tm">13:49:34</span><span class="nk"> &lt;aglitke&gt;</span> Deep scan:
+<a name="l-225"></a><span class="tm">13:50:15</span><span class="nk"> &lt;aglitke&gt;</span> POST {'name': &lt;uuid&gt;, 'type': 'kimchi-scan', 'pattern': '*.iso'} /storagepools
+<a name="l-226"></a><span class="tm">13:50:49</span><span class="nk"> &lt;aglitke&gt;</span> &lt;-- (TASK) {'name': '1', 'status': 'running'}
+<a name="l-227"></a><span class="tm">13:50:59</span><span class="nk"> &lt;aglitke&gt;</span> when this is finished:
+<a name="l-228"></a><span class="tm">13:51:06</span><span class="nk"> &lt;ming&gt;</span> Then, how do you to do the second time deep scan?
+<a name="l-229"></a><span class="tm">13:51:10</span><span class="nk"> &lt;royce&gt;</span> Involves change of the storage pool create semantics...
+<a name="l-230"></a><span class="tm">13:51:12</span><span class="nk"> &lt;aglitke&gt;</span> GET /storagepools/&lt;uuid&gt;
+<a name="l-231"></a><span class="tm">13:51:32</span><span class="nk"> &lt;xinding&gt;</span> where can I get the &lt;uuid&gt;?
+<a name="l-232"></a><span class="tm">13:51:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Some storage pools can be created instantly
+<a name="l-233"></a><span class="tm">13:51:49</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">xinding:</span> UUID is generated by UI.
+<a name="l-234"></a><span class="tm">13:51:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> js has a function to generate a uuid
+<a name="l-235"></a><span class="tm">13:51:52</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I would suggest uuid == sessionid
+<a name="l-236"></a><span class="tm">13:52:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> A user may do multiple scans
+<a name="l-237"></a><span class="tm">13:52:24</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> A user can do mutliple scans in one session.
+<a name="l-238"></a><span class="tm">13:52:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> So when you create a storage pool you need to see if you receive a 201: Created or a 202: Accepted
+<a name="l-239"></a><span class="tm">13:52:52</span><span class="nk"> &lt;AdamKingIT1&gt;</span> that would pose a problem for multiple concurrent scans
+<a name="l-240"></a><span class="tm">13:53:11</span><span class="nk"> &lt;aglitke&gt;</span> We can refine the multiple scans part
+<a name="l-241"></a><span class="tm">13:53:32</span><span class="nk"> &lt;hlwanghl_&gt;</span> One scan after another, or at the same time?
+<a name="l-242"></a><span class="tm">13:53:53</span><span class="nk"> &lt;aglitke&gt;</span> I would also have the backend clean up all 'kimchi-*' type pools at startup.
+<a name="l-243"></a><span class="tm">13:53:54</span><span class="nk"> &lt;xinding&gt;</span> I think it should be generated by the backend for each time the POST request
+<a name="l-244"></a><span class="tm">13:53:57</span><span class="nk"> &lt;ming&gt;</span> aglitke, we talked about the deep scan, but I think we should focus on shallow scan first
+<a name="l-245"></a><span class="tm">13:54:05</span><span class="nk"> &lt;royce&gt;</span> That's acceptable,aglitke
+<a name="l-246"></a><span class="tm">13:54:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> shallow scan is simple
+<a name="l-247"></a><span class="tm">13:54:15</span><span class="nk"> &lt;xinding&gt;</span> then the backend can return it to ui
+<a name="l-248"></a><span class="tm">13:54:21</span><span class="nk"> &lt;aglitke&gt;</span> we always have a virtual storagepool called kimchi-isos
+<a name="l-249"></a><span class="tm">13:54:40</span><span class="nk"> &lt;aglitke&gt;</span> There is no corresponding libvirt pool
+<a name="l-250"></a><span class="tm">13:54:52</span><span class="nk"> &lt;aglitke&gt;</span> this is purely a kimchi construction
+<a name="l-251"></a><span class="tm">13:55:06</span><span class="nk"> &lt;ming&gt;</span> Right, a virtual one
+<a name="l-252"></a><span class="tm">13:55:11</span><span class="nk"> &lt;aglitke&gt;</span> you cannot delete it.
+<a name="l-253"></a><span class="tm">13:55:14</span><span class="nk"> &lt;aglitke&gt;</span> It is always there
+<a name="l-254"></a><span class="tm">13:55:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> agree, kimchi-isos
+<a name="l-255"></a><span class="tm">13:55:46</span><span class="nk"> &lt;aglitke&gt;</span> a GET on it returns a list of isos
+<a name="l-256"></a><span class="tm">13:56:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> then we can easily remember the name of this pool, and easily put ISO into this pool
+<a name="l-257"></a><span class="tm">13:56:10</span><span class="nk"> &lt;royce&gt;</span> every GET will refresh the pool
+<a name="l-258"></a><span class="tm">13:56:17</span><span class="nk"> &lt;aglitke&gt;</span> each item in the list must link to the actual location of the resource (ie. /storagepools/default/storagevolumes/os.iso)
+<a name="l-259"></a><span class="tm">13:56:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> yes
+<a name="l-260"></a><span class="tm">13:56:47</span><span class="nk"> &lt;aglitke&gt;</span> each item will also contain the os_distro, and os_version fields
+<a name="l-261"></a><span class="tm">13:56:49</span><span class="nk"> &lt;aglitke&gt;</span> also bootable
+<a name="l-262"></a><span class="tm">13:56:52</span><span class="nk"> &lt;ming&gt;</span> also, I think we should allow the user to delete the storage pools for deep scan.
+<a name="l-263"></a><span class="tm">13:56:54</span><span class="nk"> &lt;royce&gt;</span> Nice!
+<a name="l-264"></a><span class="tm">13:57:04</span><span class="nk"> &lt;ming&gt;</span> I mean manully.
+<a name="l-265"></a><span class="tm">13:57:20</span><span class="nk"> &lt;aglitke&gt;</span> if you want full details, you must GET from the actual resource uri
+<a name="l-266"></a><span class="tm">13:57:44</span><span class="nk"> &lt;aglitke&gt;</span> but we will try to put all of the useful things in the main request
+<a name="l-267"></a><span class="tm">13:57:54</span><span class="nk"> &lt;royce&gt;</span> deep scan pool need maybe a timeout?
+<a name="l-268"></a><span class="tm">13:58:06</span><span class="nk"> &lt;aglitke&gt;</span> We can also put an 'icon' field in there too.
+<a name="l-269"></a><span class="tm">13:58:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> probably.
+<a name="l-270"></a><span class="tm">13:58:27</span><span class="nk"> &lt;aglitke&gt;</span> that would be a good idea.
+<a name="l-271"></a><span class="tm">13:58:38</span><span class="nk"> &lt;aglitke&gt;</span> But then we need a cleanup thread running in the backend.
+<a name="l-272"></a><span class="tm">13:58:54</span><span class="nk"> &lt;aglitke&gt;</span> let's focus on implementing the backend for shallow first.
+<a name="l-273"></a><span class="tm">13:59:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Are you comfortable with it?
+<a name="l-274"></a><span class="tm">13:59:00</span><span class="nk"> &lt;royce&gt;</span> right
+<a name="l-275"></a><span class="tm">13:59:07</span><span class="nk"> &lt;royce&gt;</span> of course, aglitke
+<a name="l-276"></a><span class="tm">13:59:08</span><span class="nk"> &lt;AdamKingIT1&gt;</span> (broken record) what about tying the pool cleanup to the user session?
+<a name="l-277"></a><span class="tm">13:59:29</span><span class="nk"> &lt;ming&gt;</span> agltitke, both clean thread and manual deletion.
+<a name="l-278"></a><span class="tm">13:59:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Can certainly look into that.
+<a name="l-279"></a><span class="tm">13:59:47</span><span class="nk"> &lt;AdamKingIT1&gt;</span> even if we don't name it after the session, we should be able to register a callback to cleanup whatever we need on session end
+<a name="l-280"></a><span class="tm">13:59:52</span><span class="nk"> &lt;royce&gt;</span> is there a hook for user session? AdamKingIT1
+<a name="l-281"></a><span class="tm">13:59:54</span><span class="nk"> &lt;aglitke&gt;</span> We need a backup in case kimchi fails.
+<a name="l-282"></a><span class="tm">14:00:08</span><span class="nk"> &lt;aglitke&gt;</span> that's why delete on shutdown and startup is also necessary.
+<a name="l-283"></a><span class="tm">14:00:36</span><span class="nk"> &lt;aglitke&gt;</span> but the kimchi-isos pool (shallow scans) ill only exist in memory
+<a name="l-284"></a><span class="tm">14:00:40</span><span class="nk"> &lt;aglitke&gt;</span> so that is easy
+<a name="l-285"></a><span class="tm">14:00:51</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I am not yet familiar w/ cheerypy session, but call-back on session destroy is a common need. I'll be surprised if cherrypy session doesn't have it
+<a name="l-286"></a><span class="tm">14:01:12</span><span class="nk"> &lt;aglitke&gt;</span> It can be added easily I am sure.
+<a name="l-287"></a><span class="tm">14:01:19</span><span class="nk"> &lt;royce&gt;</span> OK, that's cool
+<a name="l-288"></a><span class="tm">14:01:40</span><span class="nk"> &lt;aglitke&gt;</span> ok.  We are out of time (did not get to reflections or open discussion).
+<a name="l-289"></a><span class="tm">14:02:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Do we want to tack on reflections now or do we need a substantial amount of time?
+<a name="l-290"></a><span class="tm">14:02:40</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">AdamKingIT1:</span> seems time is out.
+<a name="l-291"></a><span class="tm">14:02:48</span><span class="nk"> &lt;AdamKingIT1&gt;</span> hmm, I am open to either.
+<a name="l-292"></a><span class="tm">14:03:21</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Any preferences?
+<a name="l-293"></a><span class="tm">14:03:39</span><span class="nk"> &lt;aglitke&gt;</span> If you need to leave it's ok.  Let's see if we still have a quorum.
+<a name="l-294"></a><span class="tm">14:03:52</span><span class="nk"> &lt;aglitke&gt;</span> We should try to process these reflections before it's too late.
+<a name="l-295"></a><span class="tm">14:04:16</span><span class="nk"> &lt;aglitke&gt;</span> Let's try to keep it to 20 minutes max
+<a name="l-296"></a><span class="tm">14:04:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Reflections</span>
+<a name="l-297"></a><span class="tm">14:04:23</span><span class="nk"> &lt;zhoumeina&gt;</span> ok
+<a name="l-298"></a><span class="tm">14:04:26</span><span class="nk"> &lt;royce&gt;</span> we can stay longer to listen to them:)
+<a name="l-299"></a><span class="tm">14:04:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> Please go ahead.
+<a name="l-300"></a><span class="tm">14:04:55</span><span class="nk"> &lt;zhoumeina&gt;</span> I'm free too
+<a name="l-301"></a><span class="tm">14:05:04</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I'll try to summarize my interpretation, but this is really abuot us getting more effective as a team so chime in...
+<a name="l-302"></a><span class="tm">14:05:28</span><span class="nk"> &lt;AdamKingIT1&gt;</span> We are an ambitious lot, with few things we want to discontinue and a lot of things we wnat to start doing
+<a name="l-303"></a><span class="tm">14:06:00</span><span class="nk"> &lt;AdamKingIT1&gt;</span> under continue doing/expand we have
+<a name="l-304"></a><span class="tm">14:06:00</span><span class="nk"> &lt;AdamKingIT1&gt;</span> code reviews
+<a name="l-305"></a><span class="tm">14:06:00</span><span class="nk"> &lt;AdamKingIT1&gt;</span> test automation
+<a name="l-306"></a><span class="tm">14:06:29</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Seems all comments are positive on both, with a desire to expand both
+<a name="l-307"></a><span class="tm">14:06:45</span><span class="nk"> &lt;AdamKingIT1&gt;</span> for code reviewers we want to get more people involved
+<a name="l-308"></a><span class="tm">14:06:57</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Test automation, we just want more of
+<a name="l-309"></a><span class="tm">14:07:16</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Anyone have additional continue/expand comments?
+<a name="l-310"></a><span class="tm">14:07:21</span><span class="nk"> &lt;aglitke&gt;</span> For test automation, I would love to see some proposals for automating UI testing
+<a name="l-311"></a><span class="tm">14:07:43</span><span class="nk"> &lt;alinefm&gt;</span> for UI I've already worked with Selenium tests
+<a name="l-312"></a><span class="tm">14:07:43</span><span class="nk"> &lt;aglitke&gt;</span> I have no experience of this.  Is this something that the SWG folks typically do?
+<a name="l-313"></a><span class="tm">14:07:50</span><span class="nk"> &lt;alinefm&gt;</span> it works pretty well
+<a name="l-314"></a><span class="tm">14:07:53</span><span class="nk"> &lt;AdamKingIT1&gt;</span> There are ways to do it, but they can be even harder to maintain.
+<a name="l-315"></a><span class="tm">14:08:12</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-316"></a><span class="tm">14:08:12</span><span class="nk"> &lt;AdamKingIT1&gt;</span> The best framework I am familar with is Selenium based as well
+<a name="l-317"></a><span class="tm">14:08:21</span><span class="nk"> &lt;alinefm&gt;</span> in a previous project, we had Selenium tests running from Jenkins
+<a name="l-318"></a><span class="tm">14:08:39</span><span class="nk"> &lt;alinefm&gt;</span> so at each commit a build process was started and then the backend and UI tests running
+<a name="l-319"></a><span class="tm">14:08:43</span><span class="nk"> &lt;AdamKingIT1&gt;</span> We did something similar internally, though our driver was some home rolled python
+<a name="l-320"></a><span class="tm">14:08:59</span><span class="nk"> &lt;AdamKingIT1&gt;</span> yeah, that's abuot what we did too, just home grown
+<a name="l-321"></a><span class="tm">14:09:16</span><span class="nk"> &lt;ming&gt;</span> One thing I want to add, I would like we can have more times to communicate on the code
+<a name="l-322"></a><span class="tm">14:09:18</span><span class="nk"> &lt;hlwanghl_&gt;</span> We used an internal tool based on selenium
+<a name="l-323"></a><span class="tm">14:09:21</span><span class="nk"> &lt;aglitke&gt;</span> ok.  This might be worth investigating as a side project for someone
+<a name="l-324"></a><span class="tm">14:09:25</span><span class="nk"> &lt;ming&gt;</span> design ideas,
+<a name="l-325"></a><span class="tm">14:09:27</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Ok, I think that may be a topic unto itself, HOW to do it
+<a name="l-326"></a><span class="tm">14:09:41</span><span class="nk"> &lt;ming&gt;</span> UI and backend interactions.
+<a name="l-327"></a><span class="tm">14:09:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Can you elaborate?
+<a name="l-328"></a><span class="tm">14:10:45</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> really, I think the text is not efficient to explain the details.
+<a name="l-329"></a><span class="tm">14:11:15</span><span class="nk"> &lt;aglitke&gt;</span> But given our timezone differences it is very difficult to discuss design in real time.
+<a name="l-330"></a><span class="tm">14:11:42</span><span class="nk"> &lt;aglitke&gt;</span> It is also exclusive because only those invited to the phone call or conference room are allowed to contribute their ideas.
+<a name="l-331"></a><span class="tm">14:12:16</span><span class="nk"> &lt;ming&gt;</span> aglitke, I notice that even in our IRC scrum, some people don't say much.
+<a name="l-332"></a><span class="tm">14:12:21</span><span class="nk"> &lt;aglitke&gt;</span> it's okay to talk face to face, but all results from those discussions should still appear on the list to include everyone else.
+<a name="l-333"></a><span class="tm">14:12:24</span><span class="nk"> &lt;AdamKingIT1&gt;</span> This kinda moves into the area of things we want to start doing
+<a name="l-334"></a><span class="tm">14:12:54</span><span class="nk"> &lt;AdamKingIT1&gt;</span> One of my 'start doing' thoughts was to try to have design discussions at a higher level...
+<a name="l-335"></a><span class="tm">14:12:59</span><span class="nk"> &lt;ming&gt;</span> I think it is because English efficiency or typing speed.
+<a name="l-336"></a><span class="tm">14:13:14</span><span class="nk"> &lt;royce&gt;</span> aglitke, that's what Opensource way to do things, I think
+<a name="l-337"></a><span class="tm">14:13:21</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Yes, also true.  I hope we can encourage more participation from everyone.  I hope the kimchi project is a welcoming place where everyone feels comfortable sharing their ideas.
+<a name="l-338"></a><span class="tm">14:13:29</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I sometimes feel that I can see the forest for the trees (to use an expression I hope translates ok)
+<a name="l-339"></a><span class="tm">14:13:46</span><span class="nk"> &lt;royce&gt;</span> heh
+<a name="l-340"></a><span class="tm">14:14:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Is IRC okay?  I think it is better than phone because text is easier to translate than speech.
+<a name="l-341"></a><span class="tm">14:15:10</span><span class="nk"> &lt;aglitke&gt;</span> One thing we could do (for complex features) is schedule an IRC meeting to talk in detail about the design.  We can send an invite to the development mailing list.
+<a name="l-342"></a><span class="tm">14:15:12</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> I think IRC is okay. But I think we need more time overlap.
+<a name="l-343"></a><span class="tm">14:15:16</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Sometimes it my lack of familiarity with a particular piece of technology. Other times I think we have unidentified assumptions that I missed
+<a name="l-344"></a><span class="tm">14:15:21</span><span class="nk"> &lt;aglitke&gt;</span> Anyone who wants to attend can.
+<a name="l-345"></a><span class="tm">14:15:35</span><span class="nk"> &lt;hlwanghl_&gt;</span> For designs, it will be better if there is graph
+<a name="l-346"></a><span class="tm">14:16:04</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Sorry to be repeating my own reflections, but I would also like to find a way to incorporate pictures...
+<a name="l-347"></a><span class="tm">14:16:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl_:</span> The challenge is choosing a tool that everyone can access.
+<a name="l-348"></a><span class="tm">14:16:26</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Its so much easier to understand a UI defect with a picture than a lot of text
+<a name="l-349"></a><span class="tm">14:16:28</span><span class="nk"> &lt;hlwanghl_&gt;</span> Yes.
+<a name="l-350"></a><span class="tm">14:16:28</span><span class="nk"> &lt;aglitke&gt;</span> I've seen people use google hangouts before,
+<a name="l-351"></a><span class="tm">14:16:38</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Are there tools that are commonly accepted?
+<a name="l-352"></a><span class="tm">14:16:42</span><span class="nk"> &lt;aglitke&gt;</span> this is a common open source challenge.
+<a name="l-353"></a><span class="tm">14:16:45</span><span class="nk"> &lt;hlwanghl_&gt;</span> We can try to find
+<a name="l-354"></a><span class="tm">14:17:09</span><span class="nk"> &lt;aglitke&gt;</span> That is a good start.
+<a name="l-355"></a><span class="tm">14:17:24</span><span class="nk"> &lt;zhoumeina&gt;</span> Some times we discuss RFD in the mail list  but we can not get a conclusion, I will we have to find a way to solve this.
+<a name="l-356"></a><span class="tm">14:17:25</span><span class="nk"> &lt;aglitke&gt;</span> Let's try to identify some collaboration tools that are open source and free
+<a name="l-357"></a><span class="tm">14:17:33</span><span class="nk"> &lt;AdamKingIT1&gt;</span> OK, so under this reflection I think we can say we want to communicate more often, and more effectively
+<a name="l-358"></a><span class="tm">14:18:00</span><span class="nk"> &lt;aglitke&gt;</span> I don't think many of us really like to meet at 10pm or later in our timezone.
+<a name="l-359"></a><span class="tm">14:18:12</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> IRC is an interactive session, someone may not keep up with the thread because of English efficiency.  Collaboration tool may allow this people to express his idea in a relative longer time.
+<a name="l-360"></a><span class="tm">14:18:18</span><span class="nk"> &lt;aglitke&gt;</span> So I want to make most meetings optional.
+<a name="l-361"></a><span class="tm">14:18:28</span><span class="nk"> &lt;aglitke&gt;</span> Maybe one per week that is required.
+<a name="l-362"></a><span class="tm">14:18:45</span><span class="nk"> &lt;AdamKingIT1&gt;</span> seems reasonable.
+<a name="l-363"></a><span class="tm">14:19:15</span><span class="nk"> &lt;aglitke&gt;</span> As a new parent, night time meetings are very disruptive to my family life.
+<a name="l-364"></a><span class="tm">14:19:18</span><span class="nk"> &lt;AdamKingIT1&gt;</span> More frequent communication might be interactive, or might be some shared document designs that we work on iteratively?
+<a name="l-365"></a><span class="tm">14:19:29</span><span class="nk"> &lt;aglitke&gt;</span> yep.
+<a name="l-366"></a><span class="tm">14:19:37</span><span class="nk"> &lt;aglitke&gt;</span> We should make more use of the github wiki
+<a name="l-367"></a><span class="tm">14:20:02</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Does it have some graphic capabilities?
+<a name="l-368"></a><span class="tm">14:20:16</span><span class="nk"> &lt;royce&gt;</span> Sometimes I think we haven't fulfill our team's potential, I saw we really want to do some features but features on his hand finally becomes low priority...Such as bingbu's iscsi storagepool, he is trying to find something interesting
+<a name="l-369"></a><span class="tm">14:20:20</span><span class="nk"> &lt;aglitke&gt;</span> yep, you can upload images into the page
+<a name="l-370"></a><span class="tm">14:20:22</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I have used it, but I haven't tried to put a picture in it
+<a name="l-371"></a><span class="tm">14:20:25</span><span class="nk"> &lt;hlwanghl_&gt;</span> For the meeting time, I think we can move it to one morning this week and one evening next week
+<a name="l-372"></a><span class="tm">14:21:04</span><span class="nk"> &lt;zhoumeina&gt;</span> that is great
+<a name="l-373"></a><span class="tm">14:21:05</span><span class="nk"> &lt;aliguori&gt;</span> the problem with phone calls (in general) is that unless rigorous minutes are kept, there's a certain amount of knowledge that gets lost from the rest of the world
+<a name="l-374"></a><span class="tm">14:21:37</span><span class="nk"> &lt;xinding&gt;</span> Why can't we use pictures in mails?
+<a name="l-375"></a><span class="tm">14:22:00</span><span class="nk"> &lt;aglitke&gt;</span> mailing lists are usually text only.  But you can attach a picture
+<a name="l-376"></a><span class="tm">14:22:01</span><span class="nk"> &lt;ming&gt;</span> xinding, the email client is not good enough.
+<a name="l-377"></a><span class="tm">14:22:37</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Another start doing suggestion was to use enhancement issue IDs for most (all) changes submitted.
+<a name="l-378"></a><span class="tm">14:23:07</span><span class="nk"> &lt;aglitke&gt;</span> I like what people have been doing to preface the subject of their patch email with the issue id
+<a name="l-379"></a><span class="tm">14:23:24</span><span class="nk"> &lt;zhoumeina&gt;</span> For the meeting time, what about one morning this week, and one evening next week?
+<a name="l-380"></a><span class="tm">14:23:25</span><span class="nk"> &lt;aglitke&gt;</span> As long as full details are still provided in the commit message.
+<a name="l-381"></a><span class="tm">14:24:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes, commit message is important
+<a name="l-382"></a><span class="tm">14:24:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> That is probably more fair, but could get confusing as to what time the meeting is on a given week,.
+<a name="l-383"></a><span class="tm">14:24:38</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I know we are running long, so let me put the last 2 I remember out here...
+<a name="l-384"></a><span class="tm">14:24:41</span><span class="nk"> &lt;aglitke&gt;</span> What happens when there is a holiday?
+<a name="l-385"></a><span class="tm">14:24:51</span><span class="nk"> &lt;aglitke&gt;</span> let's revisit that one another time.
+<a name="l-386"></a><span class="tm">14:25:20</span><span class="nk"> &lt;hlwanghl_&gt;</span> Notes calendar can remind us of the time
+<a name="l-387"></a><span class="tm">14:25:22</span><span class="nk"> &lt;AdamKingIT1&gt;</span> There is a proposal to identify peers for review, so more than one person is familar with a given piece of code
+<a name="l-388"></a><span class="tm">14:25:28</span><span class="nk"> &lt;aglitke&gt;</span> maybe we can try to hold more of the extra design discussions during your daytime.
+<a name="l-389"></a><span class="tm">14:25:38</span><span class="nk"> &lt;aglitke&gt;</span> the community does not use Notes.
+<a name="l-390"></a><span class="tm">14:25:40</span><span class="nk"> &lt;aglitke&gt;</span> only IBM
+<a name="l-391"></a><span class="tm">14:25:47</span><span class="nk"> &lt;aglitke&gt;</span> Remember this is a public meeting.
+<a name="l-392"></a><span class="tm">14:26:02</span><span class="nk"> &lt;AdamKingIT1&gt;</span> And one to adopt a style tool, such as pep8
+<a name="l-393"></a><span class="tm">14:26:34</span><span class="nk"> &lt;aglitke&gt;</span> for pep8. I'd welcome it.  We can let one of our former vdsm developers introduce it into the build system.
+<a name="l-394"></a><span class="tm">14:26:38</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Anyone have suggestions I missed? Anyone love or hate either of those last two?
+<a name="l-395"></a><span class="tm">14:27:12</span><span class="nk"> &lt;aglitke&gt;</span> For review peers, I don't know how to enforce that
+<a name="l-396"></a><span class="tm">14:27:28</span><span class="nk"> &lt;aglitke&gt;</span> I think the best solution is for everyone to just review more.
+<a name="l-397"></a><span class="tm">14:27:33</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I think it would be more a protocol than a rule
+<a name="l-398"></a><span class="tm">14:27:45</span><span class="nk"> &lt;AdamKingIT1&gt;</span> at least that;s the way I thought of it
+<a name="l-399"></a><span class="tm">14:27:47</span><span class="nk"> &lt;alinefm&gt;</span> I have the idea everyone must review every patch
+<a name="l-400"></a><span class="tm">14:28:07</span><span class="nk"> &lt;alinefm&gt;</span> that way all team will realize what is happening on the project
+<a name="l-401"></a><span class="tm">14:28:21</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> That might not be very practical though/
+<a name="l-402"></a><span class="tm">14:28:32</span><span class="nk"> &lt;royce&gt;</span> I think it is good, but when the feature at hand is in a hurry....
+<a name="l-403"></a><span class="tm">14:28:48</span><span class="nk"> &lt;hlwanghl_&gt;</span> We can try to review as many as we can, but time is limited
+<a name="l-404"></a><span class="tm">14:28:51</span><span class="nk"> &lt;aglitke&gt;</span> or what if someone is on vacation and there is a simple fix?
+<a name="l-405"></a><span class="tm">14:28:57</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yes! I agree but we need to try
+<a name="l-406"></a><span class="tm">14:29:07</span><span class="nk"> &lt;aglitke&gt;</span> I think you should spend some time each day reviewing code.
+<a name="l-407"></a><span class="tm">14:29:13</span><span class="nk"> &lt;alinefm&gt;</span> there are patches that become on the list for many days
+<a name="l-408"></a><span class="tm">14:29:29</span><span class="nk"> &lt;aglitke&gt;</span> let's see if some of these problems lessen after we all start increasing our reviews.
+<a name="l-409"></a><span class="tm">14:29:49</span><span class="nk"> &lt;royce&gt;</span> I think declare you as the peer means you will continue to follow every version of the patch until merge
+<a name="l-410"></a><span class="tm">14:29:55</span><span class="nk"> &lt;aglitke&gt;</span> Try at first to spend at least 30-60 minutes per day reviewing code.
+<a name="l-411"></a><span class="tm">14:29:58</span><span class="nk"> &lt;AdamKingIT1&gt;</span> what if we had some specialists, and include in the patch which specialties  need to review?
+<a name="l-412"></a><span class="tm">14:30:21</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT1:</span> hat is a common practice in communities
+<a name="l-413"></a><span class="tm">14:30:39</span><span class="nk"> &lt;aglitke&gt;</span> You add peoples names to an Authors file with the area of code they are specialists int.
+<a name="l-414"></a><span class="tm">14:30:57</span><span class="nk"> &lt;aglitke&gt;</span> you can ask someone to review specifically by including them in the CC: of the patch.
+<a name="l-415"></a><span class="tm">14:31:33</span><span class="nk"> &lt;aglitke&gt;</span> I can start to ask people to review some patches I am not sure about.
+<a name="l-416"></a><span class="tm">14:31:42</span><span class="nk"> &lt;AdamKingIT1&gt;</span> ok, maybe one approach is to add an authors file so we are all more aware of who we want to nag to review our patched :-)
+<a name="l-417"></a><span class="tm">14:31:45</span><span class="nk"> &lt;royce&gt;</span> go ahead!
+<a name="l-418"></a><span class="tm">14:32:00</span><span class="nk"> &lt;aglitke&gt;</span> We already have an AUTHORS file at the root of the source tree.
+<a name="l-419"></a><span class="tm">14:32:10</span><span class="nk"> &lt;aglitke&gt;</span> Right now it doesn't include specialties.
+<a name="l-420"></a><span class="tm">14:32:13</span><span class="nk"> &lt;AdamKingIT1&gt;</span> sweet, maybe someone will review my patch to it
+<a name="l-421"></a><span class="tm">14:32:34</span><span class="nk"> &lt;aglitke&gt;</span> ok... I think we need to stop here.
+<a name="l-422"></a><span class="tm">14:32:41</span><span class="nk"> &lt;aglitke&gt;</span> I think this was a great discussion
+<a name="l-423"></a><span class="tm">14:32:46</span><span class="nk"> &lt;AdamKingIT1&gt;</span> the discussion can continue on the list
+<a name="l-424"></a><span class="tm">14:33:08</span><span class="nk"> &lt;aglitke&gt;</span> I want to remind everyone that if at any time you have a reccomendation for a process improvement you can bring it up on the mailing list.
+<a name="l-425"></a><span class="tm">14:33:13</span><span class="nk"> &lt;AdamKingIT1&gt;</span> as well as at the next scrum, or a special mtg inbetween
+<a name="l-426"></a><span class="tm">14:33:21</span><span class="nk"> &lt;aglitke&gt;</span> No topics are off limits on the list.
+<a name="l-427"></a><span class="tm">14:33:33</span><span class="nk"> &lt;hlwanghl_&gt;</span> That's true
+<a name="l-428"></a><span class="tm">14:33:50</span><span class="nk"> &lt;aglitke&gt;</span> As long as your company is okay with you posting it then kimchi is too.
+<a name="l-429"></a><span class="tm">14:33:58</span><span class="nk"> &lt;aglitke&gt;</span> thanks everyone!
+<a name="l-430"></a><span class="tm">14:34:01</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
