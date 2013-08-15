@@ -28,6 +28,7 @@ import libvirt
 import functools
 import os
 import json
+import copy
 try:
     from collections import OrderedDict
 except ImportError:
@@ -282,6 +283,20 @@ class Model(object):
             t = vmtemplate.VMTemplate(params, scan=True)
             session.store('template', name, t.info)
         return name
+
+    def template_update(self, name, params):
+        old_t = self.template_lookup(name)
+        new_t = copy.copy(old_t)
+        new_t.update(params)
+        ident = name
+
+        self.template_delete(name)
+        try:
+            ident = self.templates_create(new_t)
+        except:
+            ident = self.templates_create(old_t)
+            raise
+        return ident
 
     def templates_get_list(self):
         with self.objstore as session:
