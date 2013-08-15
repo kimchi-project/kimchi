@@ -125,6 +125,21 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * volume: A volume name that contains the initial disk contents
 * **DELETE**: Remove the Template
 * **POST**: *See Template Actions*
+* **PUT**: update the parameters of existed template
+    * name: A name for this template
+    * folder: A virtual path which can be used to organize Templates in the user
+      interface.  The format is an array of path components.
+    * icon: A URI to a PNG image representing this template
+    * os_distro: The operating system distribution
+    * os_version: The version of the operating system distribution
+    * cpus: The number of CPUs assigned to the VM
+    * memory: The amount of memory assigned to the VM
+    * cdrom: A volume name or URI to an ISO image
+    * disks: An array of requested disks with the following optional fields
+      (either *size* or *volume* must be specified):
+        * index: The device index
+        * size: The device size in GB
+        * volume: A volume name that contains the initial disk contents
 
 **Actions (POST):**
 
