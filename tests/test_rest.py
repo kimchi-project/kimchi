@@ -389,25 +389,55 @@ class RestTests(unittest.TestCase):
         self.assertEquals(204, resp.status)
 
     def test_templates(self):
+        def verify_template(t, res):
+            for field in ('name', 'os_distro', 'os_version', 'memory'):
+                self.assertEquals(t[field], res[field])
+
         resp = request(host, port, '/templates')
         self.assertEquals(200, resp.status)
         self.assertEquals(0, len(json.loads(resp.read())))
 
         # Create a template
-        req = json.dumps({'name': 'test', 'os_distro': 'ImagineOS',
-                          'os_version': 1.0})
+        t = {'name': 'test', 'os_distro': 'ImagineOS',
+             'os_version': 1.0, 'memory': 1024}
+        req = json.dumps(t)
         resp = request(host, port, '/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
         # Verify the template
-        t = json.loads(request(host, port, '/templates/test').read())
-        self.assertEquals('test', t['name'])
-        self.assertEquals('ImagineOS', t['os_distro'])
-        self.assertEquals(1.0, t['os_version'])
-        self.assertEquals(1024, t['memory'])
+        res = json.loads(request(host, port, '/templates/test').read())
+        verify_template(t, res)
+
+        # Update the template
+        t['os_distro'] = 'Linux.ISO'
+        t['os_version'] = 1.1
+        req = json.dumps(t)
+        resp = request(host, port, '/templates/%s' % t['name'], req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        # Verify the template
+        res = json.loads(request(host, port, '/templates/test').read())
+        verify_template(t, res)
+
+        # Update the template name
+        oldname = t['name']
+        t['name'] = "test1"
+        req = json.dumps(t)
+        resp = request(host, port, '/templates/%s' % oldname, req, 'PUT')
+        self.assertEquals(301, resp.status)
+
+        # Verify the template
+        res = json.loads(request(host, port, '/templates/%s' % t['name']).read())
+        verify_template(t, res)
+
+        # Test unallowed fields, specify a field 'foo' isn't in the Template
+        t['foo'] = "bar"
+        req = json.dumps(t)
+        resp = request(host, port, '/templates/%s' % oldname, req, 'PUT')
+        self.assertEquals(405, resp.status)
 
         # Delete the template
-        resp = request(host, port, '/templates/test', '{}', 'DELETE')
+        resp = request(host, port, '/templates/%s' % t['name'], '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
         # Test non-exist path return 400
