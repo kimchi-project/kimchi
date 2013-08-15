@@ -21,6 +21,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import random
+import copy
+
 import subprocess
 import os
 
@@ -158,6 +160,20 @@ class MockModel(object):
         t = kimchi.vmtemplate.VMTemplate(params, scan=True)
         self._mock_templates[name] = t
         return name
+
+    def template_update(self, name, params):
+        old_t = self.template_lookup(name)
+        new_t = copy.copy(old_t)
+        new_t.update(params)
+        ident = name
+
+        self.template_delete(name)
+        try:
+            ident = self.templates_create(new_t)
+        except:
+            ident = self.templates_create(old_t)
+            raise
+        return ident
 
     def templates_get_list(self):
         return self._mock_templates.keys()
