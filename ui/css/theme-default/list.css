@@ -138,6 +138,7 @@
 .guest-general {
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
+	width: 237px;
 }
 
 .guest-ip {
