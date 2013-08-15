@@ -117,6 +117,7 @@ class Resource(object):
         self.model = model
         self.ident = ident
         self.model_args = (ident,)
+        self.update_params = []
 
     def lookup(self):
         try:
@@ -135,7 +136,7 @@ class Resource(object):
 
     @cherrypy.expose
     def index(self):
-        method = validate_method(('GET', 'DELETE'))
+        method = validate_method(('GET', 'DELETE', 'PUT'))
         if method == 'GET':
             try:
                 return self.get()
@@ -148,6 +149,35 @@ class Resource(object):
             except NotFoundError:
                 raise cherrypy.HTTPError(404,
                     'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
+        elif method == 'PUT':
+            try:
+                return self.update()
+            except InvalidOperation, msg:
+                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
+            except NotFoundError:
+                raise cherrypy.HTTPError(404,
+                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
+
+    def update(self):
+        try:
+            update = getattr(self.model, model_fn(self, 'update'))
+        except AttributeError:
+            raise cherrypy.HTTPError(405, "%s does not implement update "
+                                     "method" % get_class_name(self))
+        params = parse_request()
+        if self.update_params != None:
+            invalids = [v for v in params.keys() if
+                        v not in self.update_params]
+            if invalids:
+                raise cherrypy.HTTPError(405, "%s are not allowed to be updated" %
+                                         invalids)
+        ident = update(self.ident, params)
+        if ident != self.ident:
+            raise cherrypy.HTTPRedirect(self.uri_fmt %
+                                        tuple(list(self.model_args[:-1]) + [ident]),
+                                        301)
+        return self.get()
+
 
     def get(self):
         self.lookup()
@@ -297,6 +327,9 @@ class Templates(Collection):
 class Template(Resource):
     def __init__(self, model, ident):
         super(Template, self).__init__(model, ident)
+        self.update_params = ["name", "folder", "icon", "os_distro",
+                              "os_version", "cpus", "memory", "cdrom", "disks"]
+        self.uri_fmt = "/templates/%s"
 
     @property
     def data(self):
