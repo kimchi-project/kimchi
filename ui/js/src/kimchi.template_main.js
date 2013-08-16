@@ -54,9 +54,18 @@ kimchi.bindClick=function() {
 		kimchi.window.open("template-edit.html");
 	});
 	$('.template-delete').on('click', function(event) {
-		var templateName = $(this).data('template');
-		kimchi.deleteTemplate(templateName,"","");
-		kimchi.doListTemplates();
+        var $template = $(this);
+        var settings = {
+                title: i18n['msg.confirm.delete.title'],
+                content: i18n['msg.template.confirm.delete'],
+                confirm: i18n['msg.confirm.delete.confirm'],
+                cancel: i18n['msg.confirm.delete.cancel']
+            };
+        kimchi.confirm(settings,function() {
+            var templateName = $template.data('template');
+            kimchi.deleteTemplate(templateName,"","");
+            kimchi.doListTemplates();
+        },function() {});
 	});
 }
 kimchi.hideTitle = function() {

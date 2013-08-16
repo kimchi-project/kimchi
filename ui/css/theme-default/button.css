@@ -400,3 +400,16 @@
 	float: right;
 	padding: 0 10px;
 }
+
+.btn-small {
+    display: inline-block;
+    height: 25px;
+    margin: 6px 3px;
+    vertical-align: top;
+    background: #06F;
+    line-height: 25px;
+    padding: 0 10px;
+    color: #EEE;
+    border-radius: 8px;
+    font-size: 10px;
+}

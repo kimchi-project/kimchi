@@ -95,12 +95,21 @@ kimchi.initVmButtonsAction = function() {
 	});
 
 	$(".vm-delete").on("click", function(event) {
-		kimchi.deleteVM($(this).data('vm'), function(result) {
-			kimchi.listVmsAuto();
-		},function() {
-			kimchi.message.error(i18n['msg.fail.delete']);
-		});
-	});
+	    var vm = $(this);
+	    var settings = {
+	            title: i18n['msg.confirm.delete.title'],
+	            content: i18n['msg.vm.confirm.delete'],
+	            confirm: i18n['msg.confirm.delete.confirm'],
+	            cancel: i18n['msg.confirm.delete.cancel']
+	        };
+        kimchi.confirm(settings,function() {
+            kimchi.deleteVM(vm.data('vm'), function(result) {
+                kimchi.listVmsAuto();
+            },function() {
+                kimchi.message.error(i18n['msg.fail.delete']);
+            });
+        }, function() {});
+    });
 
 	$(".vm-vnc").on("click", function(event) {
 		kimchi.vncToVM($(this).data('vm'));
