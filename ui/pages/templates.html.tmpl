@@ -35,42 +35,42 @@
 <div>
     <ul id ="templateTitle" class="list-title"></ul>
 
-	<ul id="titleTmpl" class="tmpl-html">
-		<div class='template-results-title'>
-			$_("Templates")<span>({tempnum}$_("Results"))</span>
-		</div>
+    <ul id="titleTmpl" class="tmpl-html">
+        <div class='template-results-title'>
+            $_("Templates")<span>({tempnum}$_("Results"))</span>
+        </div>
     </ul>
 
     <ul id="templateList"></ul>
 
     <script id="templateTmpl" type="html/text">
 
-    <div class="template-box white-box template-border">
-        <div class="btn dropdown popable" style="width: 70px">
-            <span class="text">$_("Actions")</span><span class="arrow"></span>
-            <div class="popover actionsheet right-side" style="width: 250px">
-                <a class="button-big template-edit" data-template='{name}'>$_("Edit")</a>
-                <a class="button-big red template-delete" data-template='{name}'>$_("Delete")</a>
+        <div class="template-box white-box template-border">
+            <div class="btn dropdown popable" style="width: 70px">
+                <span class="text">$_("Actions")</span><span class="arrow"></span>
+                <div class="popover actionsheet right-side" style="width: 250px">
+                    <a class="button-big template-edit" data-template='{name}'>$_("Edit")</a>
+                    <a class="button-big red template-delete" data-template='{name}'>$_("Delete")</a>
+                </div>
+            </div>
+
+            <div class="template-icon template-icon-position">
+                <img alt="" src="{icon}">
+            </div>
+            <div class="template-general template-title template-title-position">
+                <h2 class="title" title="{name}">{name}</h2>
+            </div>
+            <div class="template-os-position">
+                <div class="template-text">$_("OS"):{os_distro}</div>
+                <div class="template-text">$_("Version"):{os_version}</div>
+            </div>
+            <div class="template-cpu-position">
+                <div class="template-text">$_("Default Settings")</div>
+                <div class="template-text">$_("CPUs"):{cpus}</div>
+                <div class="template-text">$_("Memory"):{memory}M</div>
             </div>
         </div>
-
-		<div class="template-icon template-icon-position">
-		    <img alt="" src="{icon}">
-		</div>
-		<div class="template-general template-title template-title-position">
-			<h2 class="title" title="{name}">{name}</h2>
-		</div>
-		<div class="template-os-position">
-			<div class="template-text">$_("OS"):{os_distro}</div>
-			<div class="template-text">$_("Version"):{os_version}</div>
-		</div>
-		<div class="template-cpu-position">
-			<div class="template-text">$_("Default Settings")</div>
-			<div class="template-text">$_("CPUs"):{cpus}</div>
-			<div class="template-text">$_("Memory"):{memory}M</div>
-		</div>
-	</div>
-	</script>
+    </script>
 </div>
 <script>
     kimchi.template_main();
