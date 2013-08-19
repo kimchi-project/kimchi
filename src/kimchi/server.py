@@ -52,6 +52,8 @@ def set_no_cache():
         hList = h
 
 class Server(object):
+    # expires is one year.
+    CACHEEXPIRES = 31536000
     CONFIG = {
         '/': { 'tools.trailing_slash.on': False,
                'tools.staticdir.root': config.get_prefix(),
@@ -60,14 +62,20 @@ class Server(object):
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/css',
+            'tools.expires.on': True,
+            'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False },
         '/js': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/js',
+            'tools.expires.on': True,
+            'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False },
         '/libs': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/libs',
+            'tools.expires.on': True,
+            'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False },
         '/images': {
             'tools.staticdir.on': True,
