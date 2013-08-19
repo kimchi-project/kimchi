@@ -54,6 +54,12 @@
 	width: 100%;
 }
 
+.template-edit-wrapper-controls input[type="text"][disabled] {
+	color: #bbb;
+	background-color: #fafafa;
+	cursor: not-allowed;
+}
+
 .hidden-area {
 	display: none;
 }
