@@ -63,7 +63,14 @@
 }
 
 .white-box {
-	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
 	border: 1px solid #CCCCCC;
 	color: #333333;
 	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
