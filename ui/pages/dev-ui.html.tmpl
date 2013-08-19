@@ -20,6 +20,7 @@
  *#
 #unicode UTF-8
 #import gettext
+#from kimchi.cachebust import href
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
@@ -33,17 +34,17 @@
 
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="css/dev.base.css">
-    <link rel="stylesheet" href="css/dev.style.css">
-    <link rel="stylesheet" href="css/dev.jquery-ui.css">
-    <link rel="stylesheet" href="css/dev.main.css">
+    <link rel="stylesheet" href="$href("css/dev.base.css")">
+    <link rel="stylesheet" href="$href("css/dev.style.css")">
+    <link rel="stylesheet" href="$href("css/dev.jquery-ui.css")">
+    <link rel="stylesheet" href="$href("css/dev.main.css")">
 
-    <script src="js/modernizr.custom.2.6.2.min.js"></script>
+    <script src="$href("js/modernizr.custom.2.6.2.min.js")"></script>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <script src="$href("js/jquery.min.js")"></script>
+    <script src="$href("js/jquery-ui.js")"></script>
 
-    <script src="js/dev.main.js"></script>
+    <script src="$href("js/dev.main.js")"></script>
 </head>
 
 <body class="theme-blue home page page-id-33 page-template-default page-slug-index single-author singular">

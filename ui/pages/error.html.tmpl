@@ -22,6 +22,7 @@
 
 #encoding UTF-8
 #import gettext
+#from kimchi.cachebust import href
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
@@ -31,7 +32,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Kimchi</title>
-    <link rel="stylesheet" href="/css/theme-default.min.css">
+    <link rel="stylesheet" href="$href("/css/theme-default.min.css")">
 </head>
 
 

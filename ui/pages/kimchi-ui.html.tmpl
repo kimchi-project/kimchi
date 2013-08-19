@@ -21,6 +21,7 @@
  *#
 #unicode UTF-8
 #import gettext
+#from kimchi.cachebust import href
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
@@ -31,8 +32,8 @@
 <title>Kimchi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="icon" type="image/x-icon" href="images/logo.ico">
-<link rel="stylesheet" href="css/theme-default.min.css">
-<script src="libs/modernizr.custom.76777.js"></script>
+<link rel="stylesheet" href="$href("css/theme-default.min.css")">
+<script src="$href("libs/modernizr.custom.76777.js")"></script>
 
 <!-- This is used for detecting if the UI needs to be built -->
 <style type="text/css">
@@ -89,8 +90,8 @@
 	</div>
 </div>
 </div>
-<script src="libs/jquery-1.10.0.min.js"></script>
-<script src="js/kimchi.min.js"></script>
+<script src="$href("libs/jquery-1.10.0.min.js")"></script>
+<script src="$href("js/kimchi.min.js")"></script>
 
 <div id="buildme">
 <div>Oops!  It looks like I am running from a source tree and you forgot to build!
