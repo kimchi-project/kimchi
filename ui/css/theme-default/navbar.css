@@ -56,7 +56,7 @@
 	width: 0;
 	bottom: -1px;
 	left: 0;
-	border: 10px solid rgba(0, 0, 0, 0);
+	border: 10px solid transparent;
 	border-top: none;
 	border-bottom-color: #e4e4e4;
 }
