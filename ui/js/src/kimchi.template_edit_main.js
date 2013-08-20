@@ -19,29 +19,29 @@
  * limitations under the License.
  */
 kimchi.template_edit_main = function() {
-	var templateEditForm = $('#form-template-edit');
-	$('#template-name', templateEditForm).val(kimchi.selectedTemplate);
-	kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
-		for(var prop in template) {
-			$('input[name="' + prop + '"]', templateEditForm).val(template[prop]);
-		}
-	});
+    var templateEditForm = $('#form-template-edit');
+    $('#template-name', templateEditForm).val(kimchi.selectedTemplate);
+    kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
+        for ( var prop in template) {
+            $('input[name="' + prop + '"]', templateEditForm).val(template[prop]);
+        }
+    });
 
-	$('#tmpl-edit-button-cancel').on('click', function() {
-		kimchi.window.close();
-	});
+    $('#tmpl-edit-button-cancel').on('click', function() {
+        kimchi.window.close();
+    });
 
-	$('#tmpl-edit-button-save').on('click', function() {
-		var editableFields = ['name', 'cpus', 'memory'];
-		var data = {};
-		$.each(editableFields, function(i, field) {
-			data[field] = $('#form-template-edit [name="' + field + '"]').val();
-		});
-		kimchi.updateTemplate($('#template-name').val(), data, function() {
-			kimchi.doListTemplates();
-			kimchi.window.close();
-		}, function() {
-			// TODO: Error message.
-		});
-	});
+    $('#tmpl-edit-button-save').on('click', function() {
+        var editableFields = [ 'name', 'cpus', 'memory' ];
+        var data = {};
+        $.each(editableFields, function(i, field) {
+            data[field] = $('#form-template-edit [name="' + field + '"]').val();
+        });
+        kimchi.updateTemplate($('#template-name').val(), data, function() {
+            kimchi.doListTemplates();
+            kimchi.window.close();
+        }, function() {
+            // TODO: Error message.
+        });
+    });
 };

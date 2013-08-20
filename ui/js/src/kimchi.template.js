@@ -19,21 +19,21 @@
  * limitations under the License.
  */
 kimchi.template = function(templateStr, data, tag) {
-	tag = tag || /\{([^\}]+)\}/g;
+    tag = tag || /\{([^\}]+)\}/g;
 
-	return templateStr.replace(tag, function(matchResult, express) {
-		var propertyArray = express.split('!');
-		var defaultValue = propertyArray[1] || '';
-		propertyArray = propertyArray[0].split('.');
-		var value = data, i = 0, l = propertyArray.length, property;
-		for (; i < l; i++) {
-			property = propertyArray[i];
-			if (value) {
-				value = value[property];
-			} else {
-				break;
-			}
-		}
-		return value || defaultValue;
-	});
+    return templateStr.replace(tag, function(matchResult, express) {
+        var propertyArray = express.split('!');
+        var defaultValue = propertyArray[1] || '';
+        propertyArray = propertyArray[0].split('.');
+        var value = data, i = 0, l = propertyArray.length, property;
+        for (; i < l; i++) {
+            property = propertyArray[i];
+            if (value) {
+                value = value[property];
+            } else {
+                break;
+            }
+        }
+        return value || defaultValue;
+    });
 };

@@ -20,74 +20,74 @@
  */
 kimchi.template_add_main = function() {
 
-	function init_iso_location_box() {
-		$('#iso_location_box').hide();
-		$('#iso_local').prop('checked', false);
-		$('#iso_internet').prop('checked', false);
-	}
-	function init_iso_file_box() {
-		$('#iso_file_box').hide();
-		$('#iso_file').val('');
-		$('#btn-template-iso-create').attr('disabled', 'disabled');
-	}
-	function init_iso_url_box() {
-		$('#iso_url_box').hide();
-		$('#iso_url').val('');
-		$('#btn-template-url-create').attr('disabled', 'disabled');
-	}
+    function init_iso_location_box() {
+        $('#iso_location_box').hide();
+        $('#iso_local').prop('checked', false);
+        $('#iso_internet').prop('checked', false);
+    }
+    function init_iso_file_box() {
+        $('#iso_file_box').hide();
+        $('#iso_file').val('');
+        $('#btn-template-iso-create').attr('disabled', 'disabled');
+    }
+    function init_iso_url_box() {
+        $('#iso_url_box').hide();
+        $('#iso_url').val('');
+        $('#btn-template-url-create').attr('disabled', 'disabled');
+    }
 
-	$('#iso_file').on('input', function() {
-		if ($('#iso_file').val()) {
-			$('#btn-template-iso-create').removeAttr('disabled');
-		} else {
-			$('#btn-template-iso-create').attr('disabled', 'disabled');
-		}
-	});
-	$('#iso_url').on('input', function() {
-		if ($('#iso_url').val()) {
-			$('#btn-template-url-create').removeAttr('disabled');
-		} else {
-			$('#btn-template-url-create').attr('disabled', 'disabled');
-		}
-	});
+    $('#iso_file').on('input', function() {
+        if ($('#iso_file').val()) {
+            $('#btn-template-iso-create').removeAttr('disabled');
+        } else {
+            $('#btn-template-iso-create').attr('disabled', 'disabled');
+        }
+    });
+    $('#iso_url').on('input', function() {
+        if ($('#iso_url').val()) {
+            $('#btn-template-url-create').removeAttr('disabled');
+        } else {
+            $('#btn-template-url-create').attr('disabled', 'disabled');
+        }
+    });
 
-	$('#iso_specify').click(function() {
-		$('#iso_location_box').slideDown();
-		init_iso_field();
-	});
-	$('#iso_local').click(function() {
-		$('#iso_file_box').slideDown();
-		init_iso_url_box();
-	});
-	$('#iso_internet').click(function() {
-		init_iso_file_box();
-		$('#iso_url_box').slideDown();
-	});
+    $('#iso_specify').click(function() {
+        $('#iso_location_box').slideDown();
+        init_iso_field();
+    });
+    $('#iso_local').click(function() {
+        $('#iso_file_box').slideDown();
+        init_iso_url_box();
+    });
+    $('#iso_internet').click(function() {
+        init_iso_file_box();
+        $('#iso_url_box').slideDown();
+    });
 
-	$('#btn-template-iso-create').click(function() {
-		var data = {
-			"name" : 'Template' + new Date().getTime(),
-			"cdrom" : $('#iso_file').val()
-		};
-		kimchi.createTemplate(data, function() {
-			kimchi.doListTemplates();
-			kimchi.window.close();
-		}, function() {
-			kimchi.message.error(i18n['msg.fail.create.template']);
-		});
-	});
+    $('#btn-template-iso-create').click(function() {
+        var data = {
+            "name" : 'Template' + new Date().getTime(),
+            "cdrom" : $('#iso_file').val()
+        };
+        kimchi.createTemplate(data, function() {
+            kimchi.doListTemplates();
+            kimchi.window.close();
+        }, function() {
+            kimchi.message.error(i18n['msg.fail.create.template']);
+        });
+    });
 
-	$('#btn-template-url-create').click(function() {
-		var data = {
-			"name" : 'Template' + new Date().getTime(),
-			"cdrom" : $('#iso_url').val()
-		};
-		kimchi.createTemplate(data, function() {
-			kimchi.doListTemplates();
-			kimchi.window.close();
-		}, function() {
-			kimchi.message.error(i18n['msg.fail.create.template']);
-		});
-	});
+    $('#btn-template-url-create').click(function() {
+        var data = {
+            "name" : 'Template' + new Date().getTime(),
+            "cdrom" : $('#iso_url').val()
+        };
+        kimchi.createTemplate(data, function() {
+            kimchi.doListTemplates();
+            kimchi.window.close();
+        }, function() {
+            kimchi.message.error(i18n['msg.fail.create.template']);
+        });
+    });
 
 };

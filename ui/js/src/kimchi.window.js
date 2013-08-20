@@ -19,18 +19,18 @@
  * limitations under the License.
  */
 kimchi.window = {
-	open : function(url) {
-		if ($("#windowField").size() < 1) {
-			$(document.body).append('<div id="windowField" class="bgmask" style="display: none;"></div>');
-			$('#windowField').on('click', '.window .close', function(event) {
-				kimchi.window.close();
-			});
-		}
-		$("#windowField").load(url).fadeIn(100);
-	},
-	close : function() {
-		$("#windowField").fadeOut(100, function() {
-			$(this).empty();
-		});
-	}
+    open : function(url) {
+        if ($("#windowField").size() < 1) {
+            $(document.body).append('<div id="windowField" class="bgmask" style="display: none;"></div>');
+            $('#windowField').on('click', '.window .close', function(event) {
+                kimchi.window.close();
+            });
+        }
+        $("#windowField").load(url).fadeIn(100);
+    },
+    close : function() {
+        $("#windowField").fadeOut(100, function() {
+            $(this).empty();
+        });
+    }
 };

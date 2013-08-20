@@ -21,20 +21,20 @@
 (function($) {
     $.fn.circle = function(options) {
         var settings = $.extend({
-            color: '#87C004',
-            fillColor: '#87C004',
-            fontFamily: 'Geneva, sans-serif',
-            fontSize: 13,
-            radius: 35,
-            lineWidth: 20
+            color : '#87C004',
+            fillColor : '#87C004',
+            fontFamily : 'Geneva, sans-serif',
+            fontSize : 13,
+            radius : 35,
+            lineWidth : 20
         }, options);
 
         $(this).each(function() {
-			var that = $(this);
-			var percentage = parseInt(that.data('value'));
-			that.empty();
-			var canvas = document.createElement('canvas');
-			that.append($(canvas));
+            var that = $(this);
+            var percentage = parseInt(that.data('value'));
+            that.empty();
+            var canvas = document.createElement('canvas');
+            that.append($(canvas));
             var ctx = canvas.getContext('2d');
             var lineWidth = settings['lineWidth'];
             var radius = settings['radius'];
@@ -44,8 +44,8 @@
             $(canvas).attr('height', height);
             $(canvas).attr('width', width);
             $(canvas).css({
-                'boxShadow': shadowSize + 'px ' + shadowSize + 'px ' + shadowSize + 'px #fff, -' + shadowSize + 'px -' + shadowSize + 'px ' + shadowSize + 'px #eaeaea',
-                borderRadius: radius + 'px'
+                'boxShadow' : shadowSize + 'px ' + shadowSize + 'px ' + shadowSize + 'px #fff, -' + shadowSize + 'px -' + shadowSize + 'px ' + shadowSize + 'px #eaeaea',
+                borderRadius : radius + 'px'
             });
             ctx.clearRect(0, 0, width, height);
 
@@ -53,7 +53,7 @@
             ctx.font = 'bold ' + fontSize + 'px ' + settings['fontFamily'];
             ctx.textAlign = 'center';
             var originPos = radius;
-            ctx.textBaseline='middle';
+            ctx.textBaseline = 'middle';
             ctx.fillText(percentage + '%', originPos, originPos);
             ctx.strokeStyle = settings['color'];
             ctx.lineWidth = lineWidth;
@@ -67,5 +67,5 @@
 }(jQuery));
 
 kimchi.circle = function(selector) {
-	$(selector).circle();
+    $(selector).circle();
 };

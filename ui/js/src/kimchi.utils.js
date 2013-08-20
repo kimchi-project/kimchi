@@ -30,7 +30,7 @@
  *     undefined if the given parameter is invalid.
  */
 kimchi.isElementInViewport = function(el) {
-    if(!el || !el.getBoundingClientRect) {
+    if (!el || !el.getBoundingClientRect) {
         return undefined;
     }
 

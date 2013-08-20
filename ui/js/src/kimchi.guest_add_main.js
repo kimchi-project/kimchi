@@ -19,18 +19,18 @@
  * limitations under the License.
  */
 kimchi.guest_add_main = function() {
-	kimchi.listTemplates(function(result) {
-		if(result && result.length) {
-			var html='';
-			var tmpl = $('#tmpl-template').html();
-			$.each(result, function(index, value) {
-				html+=kimchi.template(tmpl, value);
-			});
-			$('#templateTile').html(html);
-		}
-	},function() {
-		kimchi.message.error(i18n['temp.msg.fail.list']);
-	});
+    kimchi.listTemplates(function(result) {
+        if (result && result.length) {
+            var html = '';
+            var tmpl = $('#tmpl-template').html();
+            $.each(result, function(index, value) {
+                html += kimchi.template(tmpl, value);
+            });
+            $('#templateTile').html(html);
+        }
+    }, function() {
+        kimchi.message.error(i18n['temp.msg.fail.list']);
+    });
 
     function validateForm() {
         if (!$('input[name=template]:checked', '#templateTile').val()) {
@@ -39,25 +39,25 @@ kimchi.guest_add_main = function() {
         return true;
     }
 
-    $('#form-vm-add').change(function () {
+    $('#form-vm-add').change(function() {
         if (validateForm()) {
             $('#vm-doAdd').removeAttr('disabled');
         }
     });
 
-	var addGuest = function(event) {
-		var formData = $('#form-vm-add').serializeObject();
+    var addGuest = function(event) {
+        var formData = $('#form-vm-add').serializeObject();
 
-		kimchi.createVM(formData,function() {
-			kimchi.listVmsAuto();
-			kimchi.window.close();
-		},function() {
-			kimchi.message.error(i18n['vm.msg.fail.create.vm']);
-		});
+        kimchi.createVM(formData, function() {
+            kimchi.listVmsAuto();
+            kimchi.window.close();
+        }, function() {
+            kimchi.message.error(i18n['vm.msg.fail.create.vm']);
+        });
 
-		return false;
-	};
+        return false;
+    };
 
-	$('#form-vm-add').on('submit', addGuest);
-	$('#vm-doAdd').on('click', addGuest);
+    $('#form-vm-add').on('submit', addGuest);
+    $('#vm-doAdd').on('click', addGuest);
 };

@@ -22,14 +22,13 @@ kimchi.main = function() {
     kimchi.popable();
 
     /**
-     * Use Ajax to dynamically load a page without a page refreshing.
-     * Handle arrow cursor animation, DOM node focus, and page content
-     * rendering.
+     * Use Ajax to dynamically load a page without a page refreshing. Handle
+     * arrow cursor animation, DOM node focus, and page content rendering.
      */
     var loadPage = function(url) {
         /*
-         * We setup an periodly reloading of VM list, which should be
-         * removed when switching to non-guest pages.
+         * We setup an periodly reloading of VM list, which should be removed
+         * when switching to non-guest pages.
          */
         kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
 
@@ -37,24 +36,23 @@ kimchi.main = function() {
         $('#main').load(url);
 
         /*
-         * We use the HTML file name for hash, like:
-         * guests for guests.html, templates for templates.html.
-         * Retrieve hash from the given URL and update URL hash
-         * value to put an item in browsing history to make pages
-         * be bookmark-able.
+         * We use the HTML file name for hash, like: guests for guests.html,
+         * templates for templates.html. Retrieve hash from the given URL and
+         * update URL hash value to put an item in browsing history to make
+         * pages be bookmark-able.
          */
         var hashString = url.substring(0, url.length - 5);
         location.hash = hashString;
 
         /*
-         * Find the corresponding tab DOM node and animate the arrow
-         * cursor to point to the tab.
+         * Find the corresponding tab DOM node and animate the arrow cursor to
+         * point to the tab.
          */
         var tab = $('#nav-menu a[href="' + url + '"]');
         var left = $(tab).parent().position().left;
         var width = $(tab).parent().width();
         $('.menu-arrow').stop().animate({
-            left: left + width / 2 - 10
+            left : left + width / 2 - 10
         });
 
         // Update the visual style of tabs; focus the selected one.
@@ -64,8 +62,8 @@ kimchi.main = function() {
     };
 
     /*
-     * Register click listener of tabs. Replace the default reloading
-     * page behavior of <a> with Ajax loading.
+     * Register click listener of tabs. Replace the default reloading page
+     * behavior of <a> with Ajax loading.
      */
     $('#nav-menu a.item').on('click', function() {
         loadPage($(this).attr('href'));
@@ -73,12 +71,12 @@ kimchi.main = function() {
     });
 
     /*
-     * If hash value is changed, then we know the user is intended to
-     * load another page.
+     * If hash value is changed, then we know the user is intended to load
+     * another page.
      */
     window.onhashchange = function() {
         var hashString = location.hash.substr(1);
-        if(!hashString) {
+        if (!hashString) {
             return;
         }
 

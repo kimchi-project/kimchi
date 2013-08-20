@@ -19,28 +19,28 @@
  * limitations under the License.
  */
 kimchi.message = function(msg, level) {
-	if ($('#messageField').size() < 1) {
-		$(document.body).append('<div id="messageField"></div>');
-	}
-	var message = '<div class="message ' + (level || '') + '" style="display: none;">';
-	message += '<div class="close">X</div>';
-	message += '<div class="content">' + msg + '</div>';
-	message += '</div>';
-	var $message = $(message);
-	$('#messageField').append($message);
-	$message.fadeIn(100);
+    if ($('#messageField').size() < 1) {
+        $(document.body).append('<div id="messageField"></div>');
+    }
+    var message = '<div class="message ' + (level || '') + '" style="display: none;">';
+    message += '<div class="close">X</div>';
+    message += '<div class="content">' + msg + '</div>';
+    message += '</div>';
+    var $message = $(message);
+    $('#messageField').append($message);
+    $message.fadeIn(100);
 
-	setTimeout(function() {
-		$message.fadeOut(2000, function() {
-			$(this).remove();
-		});
-	}, 2000);
+    setTimeout(function() {
+        $message.fadeOut(2000, function() {
+            $(this).remove();
+        });
+    }, 2000);
 
-	$('#messageField').on("click", ".close", function(e) {
-		$(this).parent().fadeOut(200, function() {
-			$(this).remove();
-		});
-	});
+    $('#messageField').on("click", ".close", function(e) {
+        $(this).parent().fadeOut(200, function() {
+            $(this).remove();
+        });
+    });
 };
 
 /**
@@ -67,9 +67,9 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     confirmboxHtml += '<footer>';
     confirmboxHtml += '<div class="btn-group">';
     confirmboxHtml += '<button id="button-confirm" class="btn-small"><span class="text">'
-            + settings.confirm + '</span></button>';
+        + settings.confirm + '</span></button>';
     confirmboxHtml += '<button id="button-cancel" class="btn-small cancel"><span class="text">'
-            + settings.cancel + '</span></button>';
+        + settings.cancel + '</span></button>';
     confirmboxHtml += '</div>';
     confirmboxHtml += '</footer>';
     confirmboxHtml += '</div>';
@@ -79,24 +79,24 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
 
     $('#confirmbox-container').on("click", "#button-confirm", function(e) {
         confirmCallback();
-        confirmboxNode.fadeOut(1,function() {
+        confirmboxNode.fadeOut(1, function() {
             $('#confirmbox-container').remove();
         });
     });
     $('#confirmbox-container').on("click", ".cancel", function(e) {
         cancelCallback();
-        confirmboxNode.fadeOut(1,function() {
+        confirmboxNode.fadeOut(1, function() {
             $('#confirmbox-container').remove();
         });
     });
 };
 
 kimchi.message.warn = function(msg) {
-	kimchi.message(msg, 'warn');
+    kimchi.message(msg, 'warn');
 };
 kimchi.message.error = function(msg) {
-	kimchi.message(msg, 'error');
+    kimchi.message(msg, 'error');
 };
 kimchi.message.success = function(msg) {
-	kimchi.message(msg, 'success');
+    kimchi.message(msg, 'success');
 };
