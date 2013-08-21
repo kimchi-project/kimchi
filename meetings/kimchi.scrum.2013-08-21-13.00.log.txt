@@ -1,0 +1,238 @@
+13:00:28 <aglitke> #startmeeting
+13:00:28 <kimchi-bot> Meeting started Wed Aug 21 13:00:28 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:28 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:40 <aglitke> #meetingname scrum
+13:00:40 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:41 <bing_bu> Hi,all
+13:00:56 <aglitke> #info Agenda:
+13:01:11 <aglitke> #info Roundtable / Open Discussion
+13:01:15 <aglitke> others?
+13:01:24 <aglitke> I will also add:
+13:01:33 <aglitke> #info September Release
+13:02:22 <royce> arrangement next week?
+13:02:41 <aglitke> yep.  AdamKingIT will host the scrum next week in my absense
+13:03:14 <ming> upstream maintain in aglitke's vacation?
+13:03:36 <aglitke> There will be no commits to the tree next week,
+13:03:46 <ming> Why?
+13:04:19 <aglitke> It's a good time to dive into those deep features and get the code into great shape.  You all can review each other's code on the list without me.
+13:04:21 <zhoumeina> I dont know too
+13:04:48 <aglitke> Because I said so :)
+13:05:16 <aglitke> I believe that is the best option.
+13:05:19 <ming> aglitke, then let's define what are those deep features.
+13:05:28 <zhoumeina> But I think the code also need to be merged. Can Adam King take that?
+13:05:39 <aglitke> #topic September Release
+13:05:54 <alinefm> we can get the code ready to merge this week and work in new code next week
+13:05:56 <aglitke> Here are the main things that I want to see upstream for the Sept release
+13:06:01 <alinefm> then we will need to review a lot of patches =)
+13:06:09 <aglitke> You can reference https://github.com/kimchi-project/kimchi/wiki/Todo
+13:06:25 <aglitke> #info ISO Streaming
+13:06:36 <aglitke> #info ISO Scanning
+13:06:55 <aglitke> #info SSL and Authentication
+13:06:58 <AdamKingIT> #info Storage
+13:07:08 <AdamKingIT> #info Network
+13:07:19 <aglitke> yes, agree
+13:07:47 <aglitke> That seems like a big enough list so the extended is all out the window in my opinion,.
+13:07:51 <AdamKingIT> #info "cleanup" for lack of a better term
+13:08:16 <ming> Storage and network don't define specific features.
+13:08:36 <zhoumeina> the mock up of storage is ready
+13:08:37 <ming> I think we need define what are those specific features for storage and network.
+13:08:43 <aglitke> ming: We are looking for a basic storage mgmt ui
+13:08:56 <aglitke> zhoumeina: Looked nice by the way :)
+13:09:20 <AdamKingIT> zhoumeina has a mockup of the basics for storage
+13:09:20 <aglitke> I also want to add:
+13:09:26 <aglitke> #info KPI replacement
+13:09:28 <zhoumeina> I think I will send a patch of the feature of storage pools.
+13:09:50 <AdamKingIT> I was lumping KPI replacement under cleanup :-)
+13:09:57 <aglitke> ok
+13:10:31 <AdamKingIT> But agreed, we need that.
+13:10:41 <zhoumeina> ming:I will send you the mockup , so that you can know the feature of that.
+13:11:04 <royce> what is the iso streaming one? I assume we already have it ,don't we?
+13:11:30 <ming> zhoumeina: thanks
+13:11:31 <aglitke> My goal is to have feature freeze by Sept 15 to allow 2 weeks for testing and bug fixing.
+13:11:41 <aglitke> This is going to be our first widely used release.
+13:11:45 <aglitke> hopefully.
+13:12:38 <aglitke> We will want to start packaging this up for official inclusion into distrros.
+13:12:58 <aglitke> royce: alinefm is working on streaming.
+13:13:14 <royce> aglitke, I'll try to have shallow scan ready in this week before your vacation, may ping you constantly for review in next two days, hope you don't mind:P
+13:13:20 <alinefm> aglitke, about iso streaming: the libvirt patch is ready! I will send to  the libvirt list after our meeting
+13:13:27 <aglitke> It's being able to pass a http://... url in as the cdrom and have qemu streaming the iso on demand.
+13:13:32 <alinefm> after that, I will make the changes need in kimchi
+13:13:39 <alinefm> as the xml will be a little bit different
+13:13:47 <aglitke> royce: Not at all.  Whatever it takes to get it merged.
+13:14:04 <aglitke> alinefm: any idea on how to support legacy libvirt?
+13:14:20 <zhoumeina> aglitke:I wonder How long of your vocation? one week?
+13:14:34 <aglitke> should we use a qemu command line hack if libvirt cannot support your schema?
+13:14:46 <aglitke> zhoumeina: It's a 1 week furlough.
+13:14:53 <aglitke> not my choice.
+13:15:24 <alinefm> aglitke, I will investigate if we can get the iso stream support info easily from qemu/libvirt capacities
+13:15:30 <alinefm> then we can decide on that
+13:15:38 <royce> so it is libvirt support shortage prevent us from using iso streaming, I assume?
+13:15:46 <alinefm> maybe we need to disable this option when the qemu does not have this support
+13:16:09 <ming> alinefm, that need a qemu interface to query that.
+13:16:09 <aglitke> royce: Yes, the feature will have to be disabled.
+13:16:28 <aglitke> we actually need to query qemu and libvirt.
+13:16:50 <aglitke> So we are going to need a flexible mechanism for doing runtime feature checks.
+13:17:20 <aglitke> almost like a set of functional tests that run when kimchi starts up.
+13:17:48 <alinefm> aglitke, yeap! it will be needed
+13:17:59 <royce> Ok
+13:18:02 <ming> I hope qemu can have a capability report interface.
+13:18:18 <aglitke> ming: check how libvirt does it.
+13:18:43 <alinefm> libvirt has an API getCapacities or something like that
+13:18:46 <aglitke> In the beginning we could have a features section in the config file
+13:18:50 <ming> aglitke: sure. Bothe Qemu and libvit must have.
+13:19:10 <aglitke> and streaming could be off by default
+13:19:21 <aglitke> and you would have to enable it in the config file.
+13:19:47 <aglitke> Eventually we'd want the capabilities tests to be able to select the proper default based on what software is available.
+13:19:59 <alinefm> right! and we need to remove the iso stream option from UI when it is disabled
+13:20:07 <aglitke> yep.
+13:20:20 <aglitke> so we need a capabilities REST API
+13:20:28 <aglitke> #info capabilities REST API
+13:20:30 <AdamKingIT> I was about to say that
+13:20:49 <aglitke> lots of work ahead!
+13:20:59 <alinefm> If I am not making a mistake I've already seen some patches related to it
+13:21:09 <AdamKingIT> I thought so too
+13:21:19 <AdamKingIT> but I haven't reviewed them
+13:21:20 <aglitke> I have submitted a /config patch
+13:21:30 <aglitke> it shows the server http_port
+13:21:41 <aglitke> It can be extended to /config/capabilities
+13:22:52 <aglitke> Any other discussion on the Sept release?
+13:23:34 <ming> About the storage, I think bingbug submitted iSCSI storage support.
+13:23:39 <alinefm> the storage usage
+13:23:42 <alinefm> https://github.com/kimchi-project/kimchi/issues/12
+13:23:49 <ming> s/bingbug/bingbu
+13:23:56 <alinefm> I have suggested to replace it to disk IO rate
+13:24:00 <alinefm> but any comments up to now =)
+13:24:45 <aglitke> alinefm: could you resend your post to the list.  This time I am sure you will get some better discussion :)
+13:25:00 <alinefm> sure!
+13:25:10 <aglitke> ming: I don't think iSCSI is on the list of important features for the Sept release.
+13:25:27 <aglitke> bing_bu: Please hold onto those patches for later.
+13:25:41 <bing_bu> aglitke: ok
+13:26:05 <aglitke> anything else for September release?
+13:26:37 <ming> For network support, I think we should support NAT and bridge network at least.
+13:26:44 <alinefm> display network traffic?
+13:26:49 <zhoumeina> yuxin still doesn't know who can take the back end of network
+13:26:49 <alinefm> anyone working on that?
+13:26:50 <aglitke> That won't make it for September.
+13:27:02 <aglitke> ming: ^ network configuration
+13:27:09 <YuXin> for network, 2 levels of configuration
+13:27:10 <bing_bu> aglitke: I have finished the code and testcase, so always need rebase
+13:27:43 <aglitke> bing_bu: I understand.  Best to wait a bit and do one rebase when it is a better time to submit,.
+13:27:46 <ming> aglitke: ^?
+13:27:50 <shaohef> I can take  the back end of network
+13:28:00 <shaohef> aglitke: ^ means not?
+13:28:02 <YuXin> host level: libvert has a default virtual network which is NAT based
+13:28:05 <shaohef> :)
+13:28:11 <aglitke> ming: Network config is too complex to make it in time for september.
+13:28:24 <aglitke> We need to focus on the items outlined above first.
+13:28:43 <YuXin> Bridged network need some special configuration
+13:28:58 <aglitke> YuXin: Yes and it's highly distro specific.
+13:29:12 <aglitke> and error prone.
+13:29:23 <YuXin> at guest level, when create a VM, the network need to be selected
+13:29:50 <AdamKingIT> we want some network capability that will cover the most basic case for sept, and not be too distro unique
+13:29:55 <shaohef> YuXin: we can just use the default network now.
+13:30:10 <YuXin> it can be used
+13:30:15 <ming> aglitke: I think we can add some level support of NAT and bridge network, not necessary a perfect  implementaion.
+13:30:24 <aglitke> I don't think we have time for any network stuff for sept.  I think it is going to be hard enough to get the current list done.
+13:30:46 <royce> which is infrastructure provided by libvirt, YuXin
+13:31:10 <YuXin> http://wiki.libvirt.org/page/Networking#Host_configuration
+13:31:21 <aglitke> YuXin: That only works on Fedora
+13:31:47 <AdamKingIT> we have networking as part of our base content, and one of the STG projects needs something there. What could we reasonably do?
+13:32:16 <aglitke> AdamKingIT: I've thought about it and based on the number of people working on the project -- nothing.
+13:32:24 <aglitke> Unless we drop something else.
+13:33:19 <aglitke> We have just over 3 weeks until code freeze.
+13:34:03 <AdamKingIT> maybe if we step back and look at our project plan, we might find a path
+13:34:49 <AdamKingIT> I can think on it and make a suggestion... 1st stop is the things we already have inflight
+13:34:51 <aglitke> I am not sure I agree that networking config is higher priority than any of the basic vm operations that we have in plan.
+13:35:32 <aglitke> Anyway... We won't solve that here so let's move on.
+13:35:34 <AdamKingIT> Did I not mention I am a feature pig?
+13:35:41 <aglitke> heh
+13:35:59 <royce> feature pig?
+13:36:05 <zhoumeina> hehe
+13:36:39 <ming> aglitke, if we don't support those networking config, the user can not use the VM well on his network.
+13:36:42 <AdamKingIT> a joke. Means I always want one more feature
+13:37:14 <royce> got u, AdamKingIT:D
+13:37:14 <aglitke> ming: It works pretty well with NAT right now.
+13:37:48 <ming> AdamKingIT,  user always want one more feature.
+13:38:16 <aglitke> I think networking is important but I am being realistic on what I think this team can accomplish in 3 weeks.
+13:39:18 <YuXin> so now, when a VM is created in Kimchi, NAT is used by default for network?
+13:39:23 <aglitke> #topic Round table / Open DIscussion
+13:39:36 <aglitke> YuXin: Yes, however the 'default' network is configured.
+13:40:50 <zhoumeina> #info: UI needs better format
+13:41:07 <ming> Even for NAT network support, we need allow the user to create his own NAT network besides default one.
+13:41:22 <ming> And the user can attach the VM to the new network.
+13:41:30 <aglitke> eventually, but not in September
+13:42:15 <zhoumeina> I think may be we can talk about network next meeting.
+13:42:30 <aglitke> Templates can already specify alternate networks via the rest api
+13:42:37 <zhoumeina> Since it not urgent
+13:42:53 <aglitke> We can talk on list about it as much as we like.
+13:43:02 <aglitke> That is the most inclusive place.
+13:44:02 <AdamKingIT> One last question about network before moving on. Is there any REST API already implemented for network creation?
+13:44:12 <aglitke> nope.  not yet
+13:44:32 <ming> AdamKingIT, that's what I talked just now.
+13:44:39 <aglitke> Virtual network apis won't be hard.  It's basically wrapping the libvirt api
+13:45:01 <aglitke> but the UI will be harder
+13:45:19 <aglitke> Host networking will be one of the hardest kimchi features to get right.
+13:45:30 <royce> I want to mention something we discussed last week, to export remote links as net-template, ming's good idea
+13:46:11 <AdamKingIT> Meaning if something in network were containable, it would be guest network definition.
+13:46:19 <AdamKingIT> k. I think I got it
+13:46:20 <aglitke> Can you explain the idea in a bit more detail?
+13:46:30 <aglitke> royce: ^
+13:46:41 <aglitke> this is a different topic from networking
+13:47:12 <royce> Ok, we specify the os_distro and version now uses the remote isolink provided by osinfo.py
+13:47:15 <shaohef> aglitke: what does  ^ mean？
+13:47:36 <royce> ming suggests we make them to be net-template at the startup of kimchi
+13:47:40 <aglitke> shaohef: it points to the line above (indicating I was saying it to royce)
+13:47:54 <royce> so that users can use them directly to create vm
+13:48:33 <aglitke> yep.  It's a good idea.  I am trying to think of how to store them.  Maybe the DB is not the best place.
+13:49:01 <aglitke> It would be nice if administrators could install their own net-templates onto the system for deployment.
+13:49:02 <royce> yeah, I saw you proposed the /etc/...
+13:49:20 <aglitke> In fact, maybe all templates should be stored this way.
+13:49:45 <aglitke> so even when a rest api creates a template, a file gets written to disk in /etc/
+13:49:52 <royce> to avoid crash ?
+13:50:02 <aglitke> That is what libvirt does for domain xmls
+13:50:31 <ming> royce, thanks for bring it up.  I almost forgot that.
+13:51:01 <shaohef> aglitke: seem libvirt has two xml path. static path, and runtime path.
+13:51:06 <aglitke> The disadvantage is that file IO might be more error prone and have less performance.
+13:51:25 <aglitke> but the advantage is that templates can be "installed"
+13:53:19 <aglitke> The UI would have to filter out streaming templates if the iso streaming feature is off though.
+13:53:59 <royce> the advantage of "install" is? may I ask? since we just store vm config now
+13:54:04 <AdamKingIT> would we ever want to see a streaming template if qemu didn't support streamng?
+13:54:15 <aglitke> AdamKingIT: No.
+13:54:18 <aglitke> it would fail
+13:55:09 <ming> aglitke, We can classify templates in the backend.
+13:55:13 <AdamKingIT> k, so the REST API could/should filter them out, like it might for templates a user isn't authorized to use (pending a resource based authorization model)
+13:55:24 <aglitke> royce: Someone could create a distro package that just installs some templates for a given site.  For example, IBM could create kimchi-templates.rpm that depends on kimchi.  It would only install some templates that are accessible to IBM employees on the intranet.
+13:55:37 <aglitke> you just install the package and you have access to those templates in kimchi.
+13:56:04 <aglitke> AdamKingIT: True
+13:56:15 <AdamKingIT> sounds kinda cool. Something we want to tackle for Sept?
+13:56:33 <royce> aglitke, that make sense
+13:56:54 <aglitke> AdamKingIT: I don;t know.  Royce is already looking at it as a part of her local scanning patches.
+13:57:48 <aglitke> It means we need to change the model logic for storing templates to writing external .json files instead of using the ObjectStore
+13:58:24 <AdamKingIT> could we eliminate the use of the objectstore?
+13:58:30 <AdamKingIT> less is always more
+13:58:51 <aglitke> We may be able to.  Right now we also use it for storing vm metadata.
+13:59:06 <aglitke> but we could write files in a similar manner for that too.
+13:59:26 <aglitke> royce: Maybe you could just replace the ObjectStore implementation with a file writing backend.
+13:59:53 <aglitke> Then the code can continue to use the object store like a db interface but files are read and written behind the scenes.
+13:59:58 <ming> aglitke, external .json files will be mess if we don't have a right directory arch.
+14:00:08 <AdamKingIT> Which would put is in better long term position if we later wanted to support small "clusters"
+14:00:08 <aglitke> yep.
+14:00:11 <royce> OK, that would be in net-template I think
+14:00:22 <aglitke> /etc/kimchi/json
+14:00:29 <aglitke> under that you have
+14:00:39 <aglitke> <object>/
+14:00:41 <aglitke> ie.
+14:00:47 <aglitke> vm / template / etc
+14:00:54 <aglitke> under each of those you have:
+14:01:04 <aglitke> <ident>.json
+14:01:32 <aglitke> It is the same data model as we have in the db today
+14:01:46 <royce> true
+14:01:48 <aglitke> should be easy to rewrite objectstore to use a filewriter backend.
+14:02:27 <aglitke> Then kimchi can just ship some example files to drop into /etc/kimchi/json/templates/
+14:02:46 <ming> I do find bugs in objectstore in multi-threading environment.
+14:03:23 <aglitke> We'll still need to be careful with locking for this approach too.
+14:04:01 <aglitke> ok...
+14:04:04 <ming> It seems time is out.
+14:04:09 <aglitke> Thanks for bringing that up
+14:04:27 <aglitke> I will end the meeting now but feel free to continue the discussions...
+14:04:29 <aglitke> #endmeeting

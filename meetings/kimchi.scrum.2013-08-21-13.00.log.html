@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:28</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 21 13:00:28 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:28</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:40</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:41</span><span class="nk"> &lt;bing_bu&gt;</span> Hi,all
+<a name="l-7"></a><span class="tm">13:00:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda:</span>
+<a name="l-8"></a><span class="tm">13:01:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Roundtable / Open Discussion</span>
+<a name="l-9"></a><span class="tm">13:01:15</span><span class="nk"> &lt;aglitke&gt;</span> others?
+<a name="l-10"></a><span class="tm">13:01:24</span><span class="nk"> &lt;aglitke&gt;</span> I will also add:
+<a name="l-11"></a><span class="tm">13:01:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">September Release</span>
+<a name="l-12"></a><span class="tm">13:02:22</span><span class="nk"> &lt;royce&gt;</span> arrangement next week?
+<a name="l-13"></a><span class="tm">13:02:41</span><span class="nk"> &lt;aglitke&gt;</span> yep.  AdamKingIT will host the scrum next week in my absense
+<a name="l-14"></a><span class="tm">13:03:14</span><span class="nk"> &lt;ming&gt;</span> upstream maintain in aglitke's vacation?
+<a name="l-15"></a><span class="tm">13:03:36</span><span class="nk"> &lt;aglitke&gt;</span> There will be no commits to the tree next week,
+<a name="l-16"></a><span class="tm">13:03:46</span><span class="nk"> &lt;ming&gt;</span> Why?
+<a name="l-17"></a><span class="tm">13:04:19</span><span class="nk"> &lt;aglitke&gt;</span> It's a good time to dive into those deep features and get the code into great shape.  You all can review each other's code on the list without me.
+<a name="l-18"></a><span class="tm">13:04:21</span><span class="nk"> &lt;zhoumeina&gt;</span> I dont know too
+<a name="l-19"></a><span class="tm">13:04:48</span><span class="nk"> &lt;aglitke&gt;</span> Because I said so :)
+<a name="l-20"></a><span class="tm">13:05:16</span><span class="nk"> &lt;aglitke&gt;</span> I believe that is the best option.
+<a name="l-21"></a><span class="tm">13:05:19</span><span class="nk"> &lt;ming&gt;</span> aglitke, then let's define what are those deep features.
+<a name="l-22"></a><span class="tm">13:05:28</span><span class="nk"> &lt;zhoumeina&gt;</span> But I think the code also need to be merged. Can Adam King take that?
+<a name="l-23"></a><span class="tm">13:05:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">September Release</span>
+<a name="l-24"></a><span class="tm">13:05:54</span><span class="nk"> &lt;alinefm&gt;</span> we can get the code ready to merge this week and work in new code next week
+<a name="l-25"></a><span class="tm">13:05:56</span><span class="nk"> &lt;aglitke&gt;</span> Here are the main things that I want to see upstream for the Sept release
+<a name="l-26"></a><span class="tm">13:06:01</span><span class="nk"> &lt;alinefm&gt;</span> then we will need to review a lot of patches =)
+<a name="l-27"></a><span class="tm">13:06:09</span><span class="nk"> &lt;aglitke&gt;</span> You can reference https://github.com/kimchi-project/kimchi/wiki/Todo
+<a name="l-28"></a><span class="tm">13:06:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">ISO Streaming</span>
+<a name="l-29"></a><span class="tm">13:06:36</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">ISO Scanning</span>
+<a name="l-30"></a><span class="tm">13:06:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">SSL and Authentication</span>
+<a name="l-31"></a><span class="tm">13:06:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="cmd">#info </span><span class="cmdline">Storage</span>
+<a name="l-32"></a><span class="tm">13:07:08</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="cmd">#info </span><span class="cmdline">Network</span>
+<a name="l-33"></a><span class="tm">13:07:19</span><span class="nk"> &lt;aglitke&gt;</span> yes, agree
+<a name="l-34"></a><span class="tm">13:07:47</span><span class="nk"> &lt;aglitke&gt;</span> That seems like a big enough list so the extended is all out the window in my opinion,.
+<a name="l-35"></a><span class="tm">13:07:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="cmd">#info </span><span class="cmdline">"cleanup" for lack of a better term</span>
+<a name="l-36"></a><span class="tm">13:08:16</span><span class="nk"> &lt;ming&gt;</span> Storage and network don't define specific features.
+<a name="l-37"></a><span class="tm">13:08:36</span><span class="nk"> &lt;zhoumeina&gt;</span> the mock up of storage is ready
+<a name="l-38"></a><span class="tm">13:08:37</span><span class="nk"> &lt;ming&gt;</span> I think we need define what are those specific features for storage and network.
+<a name="l-39"></a><span class="tm">13:08:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> We are looking for a basic storage mgmt ui
+<a name="l-40"></a><span class="tm">13:08:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Looked nice by the way :)
+<a name="l-41"></a><span class="tm">13:09:20</span><span class="nk"> &lt;AdamKingIT&gt;</span> zhoumeina has a mockup of the basics for storage
+<a name="l-42"></a><span class="tm">13:09:20</span><span class="nk"> &lt;aglitke&gt;</span> I also want to add:
+<a name="l-43"></a><span class="tm">13:09:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">KPI replacement</span>
+<a name="l-44"></a><span class="tm">13:09:28</span><span class="nk"> &lt;zhoumeina&gt;</span> I think I will send a patch of the feature of storage pools.
+<a name="l-45"></a><span class="tm">13:09:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> I was lumping KPI replacement under cleanup :-)
+<a name="l-46"></a><span class="tm">13:09:57</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-47"></a><span class="tm">13:10:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> But agreed, we need that.
+<a name="l-48"></a><span class="tm">13:10:41</span><span class="nk"> &lt;zhoumeina&gt;</span> ming:I will send you the mockup , so that you can know the feature of that.
+<a name="l-49"></a><span class="tm">13:11:04</span><span class="nk"> &lt;royce&gt;</span> what is the iso streaming one? I assume we already have it ,don't we?
+<a name="l-50"></a><span class="tm">13:11:30</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">zhoumeina:</span> thanks
+<a name="l-51"></a><span class="tm">13:11:31</span><span class="nk"> &lt;aglitke&gt;</span> My goal is to have feature freeze by Sept 15 to allow 2 weeks for testing and bug fixing.
+<a name="l-52"></a><span class="tm">13:11:41</span><span class="nk"> &lt;aglitke&gt;</span> This is going to be our first widely used release.
+<a name="l-53"></a><span class="tm">13:11:45</span><span class="nk"> &lt;aglitke&gt;</span> hopefully.
+<a name="l-54"></a><span class="tm">13:12:38</span><span class="nk"> &lt;aglitke&gt;</span> We will want to start packaging this up for official inclusion into distrros.
+<a name="l-55"></a><span class="tm">13:12:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> alinefm is working on streaming.
+<a name="l-56"></a><span class="tm">13:13:14</span><span class="nk"> &lt;royce&gt;</span> aglitke, I'll try to have shallow scan ready in this week before your vacation, may ping you constantly for review in next two days, hope you don't mind:P
+<a name="l-57"></a><span class="tm">13:13:20</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, about iso streaming: the libvirt patch is ready! I will send to  the libvirt list after our meeting
+<a name="l-58"></a><span class="tm">13:13:27</span><span class="nk"> &lt;aglitke&gt;</span> It's being able to pass a http://... url in as the cdrom and have qemu streaming the iso on demand.
+<a name="l-59"></a><span class="tm">13:13:32</span><span class="nk"> &lt;alinefm&gt;</span> after that, I will make the changes need in kimchi
+<a name="l-60"></a><span class="tm">13:13:39</span><span class="nk"> &lt;alinefm&gt;</span> as the xml will be a little bit different
+<a name="l-61"></a><span class="tm">13:13:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Not at all.  Whatever it takes to get it merged.
+<a name="l-62"></a><span class="tm">13:14:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> any idea on how to support legacy libvirt?
+<a name="l-63"></a><span class="tm">13:14:20</span><span class="nk"> &lt;zhoumeina&gt;</span> aglitke:I wonder How long of your vocation? one week?
+<a name="l-64"></a><span class="tm">13:14:34</span><span class="nk"> &lt;aglitke&gt;</span> should we use a qemu command line hack if libvirt cannot support your schema?
+<a name="l-65"></a><span class="tm">13:14:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> It's a 1 week furlough.
+<a name="l-66"></a><span class="tm">13:14:53</span><span class="nk"> &lt;aglitke&gt;</span> not my choice.
+<a name="l-67"></a><span class="tm">13:15:24</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I will investigate if we can get the iso stream support info easily from qemu/libvirt capacities
+<a name="l-68"></a><span class="tm">13:15:30</span><span class="nk"> &lt;alinefm&gt;</span> then we can decide on that
+<a name="l-69"></a><span class="tm">13:15:38</span><span class="nk"> &lt;royce&gt;</span> so it is libvirt support shortage prevent us from using iso streaming, I assume?
+<a name="l-70"></a><span class="tm">13:15:46</span><span class="nk"> &lt;alinefm&gt;</span> maybe we need to disable this option when the qemu does not have this support
+<a name="l-71"></a><span class="tm">13:16:09</span><span class="nk"> &lt;ming&gt;</span> alinefm, that need a qemu interface to query that.
+<a name="l-72"></a><span class="tm">13:16:09</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Yes, the feature will have to be disabled.
+<a name="l-73"></a><span class="tm">13:16:28</span><span class="nk"> &lt;aglitke&gt;</span> we actually need to query qemu and libvirt.
+<a name="l-74"></a><span class="tm">13:16:50</span><span class="nk"> &lt;aglitke&gt;</span> So we are going to need a flexible mechanism for doing runtime feature checks.
+<a name="l-75"></a><span class="tm">13:17:20</span><span class="nk"> &lt;aglitke&gt;</span> almost like a set of functional tests that run when kimchi starts up.
+<a name="l-76"></a><span class="tm">13:17:48</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yeap! it will be needed
+<a name="l-77"></a><span class="tm">13:17:59</span><span class="nk"> &lt;royce&gt;</span> Ok
+<a name="l-78"></a><span class="tm">13:18:02</span><span class="nk"> &lt;ming&gt;</span> I hope qemu can have a capability report interface.
+<a name="l-79"></a><span class="tm">13:18:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> check how libvirt does it.
+<a name="l-80"></a><span class="tm">13:18:43</span><span class="nk"> &lt;alinefm&gt;</span> libvirt has an API getCapacities or something like that
+<a name="l-81"></a><span class="tm">13:18:46</span><span class="nk"> &lt;aglitke&gt;</span> In the beginning we could have a features section in the config file
+<a name="l-82"></a><span class="tm">13:18:50</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> sure. Bothe Qemu and libvit must have.
+<a name="l-83"></a><span class="tm">13:19:10</span><span class="nk"> &lt;aglitke&gt;</span> and streaming could be off by default
+<a name="l-84"></a><span class="tm">13:19:21</span><span class="nk"> &lt;aglitke&gt;</span> and you would have to enable it in the config file.
+<a name="l-85"></a><span class="tm">13:19:47</span><span class="nk"> &lt;aglitke&gt;</span> Eventually we'd want the capabilities tests to be able to select the proper default based on what software is available.
+<a name="l-86"></a><span class="tm">13:19:59</span><span class="nk"> &lt;alinefm&gt;</span> right! and we need to remove the iso stream option from UI when it is disabled
+<a name="l-87"></a><span class="tm">13:20:07</span><span class="nk"> &lt;aglitke&gt;</span> yep.
+<a name="l-88"></a><span class="tm">13:20:20</span><span class="nk"> &lt;aglitke&gt;</span> so we need a capabilities REST API
+<a name="l-89"></a><span class="tm">13:20:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">capabilities REST API</span>
+<a name="l-90"></a><span class="tm">13:20:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> I was about to say that
+<a name="l-91"></a><span class="tm">13:20:49</span><span class="nk"> &lt;aglitke&gt;</span> lots of work ahead!
+<a name="l-92"></a><span class="tm">13:20:59</span><span class="nk"> &lt;alinefm&gt;</span> If I am not making a mistake I've already seen some patches related to it
+<a name="l-93"></a><span class="tm">13:21:09</span><span class="nk"> &lt;AdamKingIT&gt;</span> I thought so too
+<a name="l-94"></a><span class="tm">13:21:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> but I haven't reviewed them
+<a name="l-95"></a><span class="tm">13:21:20</span><span class="nk"> &lt;aglitke&gt;</span> I have submitted a /config patch
+<a name="l-96"></a><span class="tm">13:21:30</span><span class="nk"> &lt;aglitke&gt;</span> it shows the server http_port
+<a name="l-97"></a><span class="tm">13:21:41</span><span class="nk"> &lt;aglitke&gt;</span> It can be extended to /config/capabilities
+<a name="l-98"></a><span class="tm">13:22:52</span><span class="nk"> &lt;aglitke&gt;</span> Any other discussion on the Sept release?
+<a name="l-99"></a><span class="tm">13:23:34</span><span class="nk"> &lt;ming&gt;</span> About the storage, I think bingbug submitted iSCSI storage support.
+<a name="l-100"></a><span class="tm">13:23:39</span><span class="nk"> &lt;alinefm&gt;</span> the storage usage
+<a name="l-101"></a><span class="tm">13:23:42</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues/12
+<a name="l-102"></a><span class="tm">13:23:49</span><span class="nk"> &lt;ming&gt;</span> s/bingbug/bingbu
+<a name="l-103"></a><span class="tm">13:23:56</span><span class="nk"> &lt;alinefm&gt;</span> I have suggested to replace it to disk IO rate
+<a name="l-104"></a><span class="tm">13:24:00</span><span class="nk"> &lt;alinefm&gt;</span> but any comments up to now =)
+<a name="l-105"></a><span class="tm">13:24:45</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> could you resend your post to the list.  This time I am sure you will get some better discussion :)
+<a name="l-106"></a><span class="tm">13:25:00</span><span class="nk"> &lt;alinefm&gt;</span> sure!
+<a name="l-107"></a><span class="tm">13:25:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I don't think iSCSI is on the list of important features for the Sept release.
+<a name="l-108"></a><span class="tm">13:25:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> Please hold onto those patches for later.
+<a name="l-109"></a><span class="tm">13:25:41</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> ok
+<a name="l-110"></a><span class="tm">13:26:05</span><span class="nk"> &lt;aglitke&gt;</span> anything else for September release?
+<a name="l-111"></a><span class="tm">13:26:37</span><span class="nk"> &lt;ming&gt;</span> For network support, I think we should support NAT and bridge network at least.
+<a name="l-112"></a><span class="tm">13:26:44</span><span class="nk"> &lt;alinefm&gt;</span> display network traffic?
+<a name="l-113"></a><span class="tm">13:26:49</span><span class="nk"> &lt;zhoumeina&gt;</span> yuxin still doesn't know who can take the back end of network
+<a name="l-114"></a><span class="tm">13:26:49</span><span class="nk"> &lt;alinefm&gt;</span> anyone working on that?
+<a name="l-115"></a><span class="tm">13:26:50</span><span class="nk"> &lt;aglitke&gt;</span> That won't make it for September.
+<a name="l-116"></a><span class="tm">13:27:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> ^ network configuration
+<a name="l-117"></a><span class="tm">13:27:09</span><span class="nk"> &lt;YuXin&gt;</span> for network, 2 levels of configuration
+<a name="l-118"></a><span class="tm">13:27:10</span><span class="nk"> &lt;bing_bu&gt;</span> <span class="hi">aglitke:</span> I have finished the code and testcase, so always need rebase
+<a name="l-119"></a><span class="tm">13:27:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">bing_bu:</span> I understand.  Best to wait a bit and do one rebase when it is a better time to submit,.
+<a name="l-120"></a><span class="tm">13:27:46</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> ^?
+<a name="l-121"></a><span class="tm">13:27:50</span><span class="nk"> &lt;shaohef&gt;</span> I can take  the back end of network
+<a name="l-122"></a><span class="tm">13:28:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> ^ means not?
+<a name="l-123"></a><span class="tm">13:28:02</span><span class="nk"> &lt;YuXin&gt;</span> host level: libvert has a default virtual network which is NAT based
+<a name="l-124"></a><span class="tm">13:28:05</span><span class="nk"> &lt;shaohef&gt;</span> :)
+<a name="l-125"></a><span class="tm">13:28:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Network config is too complex to make it in time for september.
+<a name="l-126"></a><span class="tm">13:28:24</span><span class="nk"> &lt;aglitke&gt;</span> We need to focus on the items outlined above first.
+<a name="l-127"></a><span class="tm">13:28:43</span><span class="nk"> &lt;YuXin&gt;</span> Bridged network need some special configuration
+<a name="l-128"></a><span class="tm">13:28:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> Yes and it's highly distro specific.
+<a name="l-129"></a><span class="tm">13:29:12</span><span class="nk"> &lt;aglitke&gt;</span> and error prone.
+<a name="l-130"></a><span class="tm">13:29:23</span><span class="nk"> &lt;YuXin&gt;</span> at guest level, when create a VM, the network need to be selected
+<a name="l-131"></a><span class="tm">13:29:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> we want some network capability that will cover the most basic case for sept, and not be too distro unique
+<a name="l-132"></a><span class="tm">13:29:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> we can just use the default network now.
+<a name="l-133"></a><span class="tm">13:30:10</span><span class="nk"> &lt;YuXin&gt;</span> it can be used
+<a name="l-134"></a><span class="tm">13:30:15</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> I think we can add some level support of NAT and bridge network, not necessary a perfect  implementaion.
+<a name="l-135"></a><span class="tm">13:30:24</span><span class="nk"> &lt;aglitke&gt;</span> I don't think we have time for any network stuff for sept.  I think it is going to be hard enough to get the current list done.
+<a name="l-136"></a><span class="tm">13:30:46</span><span class="nk"> &lt;royce&gt;</span> which is infrastructure provided by libvirt, YuXin
+<a name="l-137"></a><span class="tm">13:31:10</span><span class="nk"> &lt;YuXin&gt;</span> http://wiki.libvirt.org/page/Networking#Host_configuration
+<a name="l-138"></a><span class="tm">13:31:21</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> That only works on Fedora
+<a name="l-139"></a><span class="tm">13:31:47</span><span class="nk"> &lt;AdamKingIT&gt;</span> we have networking as part of our base content, and one of the STG projects needs something there. What could we reasonably do?
+<a name="l-140"></a><span class="tm">13:32:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I've thought about it and based on the number of people working on the project -- nothing.
+<a name="l-141"></a><span class="tm">13:32:24</span><span class="nk"> &lt;aglitke&gt;</span> Unless we drop something else.
+<a name="l-142"></a><span class="tm">13:33:19</span><span class="nk"> &lt;aglitke&gt;</span> We have just over 3 weeks until code freeze.
+<a name="l-143"></a><span class="tm">13:34:03</span><span class="nk"> &lt;AdamKingIT&gt;</span> maybe if we step back and look at our project plan, we might find a path
+<a name="l-144"></a><span class="tm">13:34:49</span><span class="nk"> &lt;AdamKingIT&gt;</span> I can think on it and make a suggestion... 1st stop is the things we already have inflight
+<a name="l-145"></a><span class="tm">13:34:51</span><span class="nk"> &lt;aglitke&gt;</span> I am not sure I agree that networking config is higher priority than any of the basic vm operations that we have in plan.
+<a name="l-146"></a><span class="tm">13:35:32</span><span class="nk"> &lt;aglitke&gt;</span> Anyway... We won't solve that here so let's move on.
+<a name="l-147"></a><span class="tm">13:35:34</span><span class="nk"> &lt;AdamKingIT&gt;</span> Did I not mention I am a feature pig?
+<a name="l-148"></a><span class="tm">13:35:41</span><span class="nk"> &lt;aglitke&gt;</span> heh
+<a name="l-149"></a><span class="tm">13:35:59</span><span class="nk"> &lt;royce&gt;</span> feature pig?
+<a name="l-150"></a><span class="tm">13:36:05</span><span class="nk"> &lt;zhoumeina&gt;</span> hehe
+<a name="l-151"></a><span class="tm">13:36:39</span><span class="nk"> &lt;ming&gt;</span> aglitke, if we don't support those networking config, the user can not use the VM well on his network.
+<a name="l-152"></a><span class="tm">13:36:42</span><span class="nk"> &lt;AdamKingIT&gt;</span> a joke. Means I always want one more feature
+<a name="l-153"></a><span class="tm">13:37:14</span><span class="nk"> &lt;royce&gt;</span> got u, AdamKingIT:D
+<a name="l-154"></a><span class="tm">13:37:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> It works pretty well with NAT right now.
+<a name="l-155"></a><span class="tm">13:37:48</span><span class="nk"> &lt;ming&gt;</span> AdamKingIT,  user always want one more feature.
+<a name="l-156"></a><span class="tm">13:38:16</span><span class="nk"> &lt;aglitke&gt;</span> I think networking is important but I am being realistic on what I think this team can accomplish in 3 weeks.
+<a name="l-157"></a><span class="tm">13:39:18</span><span class="nk"> &lt;YuXin&gt;</span> so now, when a VM is created in Kimchi, NAT is used by default for network?
+<a name="l-158"></a><span class="tm">13:39:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Round table / Open DIscussion</span>
+<a name="l-159"></a><span class="tm">13:39:36</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> Yes, however the 'default' network is configured.
+<a name="l-160"></a><span class="tm">13:40:50</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info: </span><span class="cmdline">UI needs better format</span>
+<a name="l-161"></a><span class="tm">13:41:07</span><span class="nk"> &lt;ming&gt;</span> Even for NAT network support, we need allow the user to create his own NAT network besides default one.
+<a name="l-162"></a><span class="tm">13:41:22</span><span class="nk"> &lt;ming&gt;</span> And the user can attach the VM to the new network.
+<a name="l-163"></a><span class="tm">13:41:30</span><span class="nk"> &lt;aglitke&gt;</span> eventually, but not in September
+<a name="l-164"></a><span class="tm">13:42:15</span><span class="nk"> &lt;zhoumeina&gt;</span> I think may be we can talk about network next meeting.
+<a name="l-165"></a><span class="tm">13:42:30</span><span class="nk"> &lt;aglitke&gt;</span> Templates can already specify alternate networks via the rest api
+<a name="l-166"></a><span class="tm">13:42:37</span><span class="nk"> &lt;zhoumeina&gt;</span> Since it not urgent
+<a name="l-167"></a><span class="tm">13:42:53</span><span class="nk"> &lt;aglitke&gt;</span> We can talk on list about it as much as we like.
+<a name="l-168"></a><span class="tm">13:43:02</span><span class="nk"> &lt;aglitke&gt;</span> That is the most inclusive place.
+<a name="l-169"></a><span class="tm">13:44:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> One last question about network before moving on. Is there any REST API already implemented for network creation?
+<a name="l-170"></a><span class="tm">13:44:12</span><span class="nk"> &lt;aglitke&gt;</span> nope.  not yet
+<a name="l-171"></a><span class="tm">13:44:32</span><span class="nk"> &lt;ming&gt;</span> AdamKingIT, that's what I talked just now.
+<a name="l-172"></a><span class="tm">13:44:39</span><span class="nk"> &lt;aglitke&gt;</span> Virtual network apis won't be hard.  It's basically wrapping the libvirt api
+<a name="l-173"></a><span class="tm">13:45:01</span><span class="nk"> &lt;aglitke&gt;</span> but the UI will be harder
+<a name="l-174"></a><span class="tm">13:45:19</span><span class="nk"> &lt;aglitke&gt;</span> Host networking will be one of the hardest kimchi features to get right.
+<a name="l-175"></a><span class="tm">13:45:30</span><span class="nk"> &lt;royce&gt;</span> I want to mention something we discussed last week, to export remote links as net-template, ming's good idea
+<a name="l-176"></a><span class="tm">13:46:11</span><span class="nk"> &lt;AdamKingIT&gt;</span> Meaning if something in network were containable, it would be guest network definition.
+<a name="l-177"></a><span class="tm">13:46:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> k. I think I got it
+<a name="l-178"></a><span class="tm">13:46:20</span><span class="nk"> &lt;aglitke&gt;</span> Can you explain the idea in a bit more detail?
+<a name="l-179"></a><span class="tm">13:46:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> ^
+<a name="l-180"></a><span class="tm">13:46:41</span><span class="nk"> &lt;aglitke&gt;</span> this is a different topic from networking
+<a name="l-181"></a><span class="tm">13:47:12</span><span class="nk"> &lt;royce&gt;</span> Ok, we specify the os_distro and version now uses the remote isolink provided by osinfo.py
+<a name="l-182"></a><span class="tm">13:47:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> what does  ^ mean？
+<a name="l-183"></a><span class="tm">13:47:36</span><span class="nk"> &lt;royce&gt;</span> ming suggests we make them to be net-template at the startup of kimchi
+<a name="l-184"></a><span class="tm">13:47:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> it points to the line above (indicating I was saying it to royce)
+<a name="l-185"></a><span class="tm">13:47:54</span><span class="nk"> &lt;royce&gt;</span> so that users can use them directly to create vm
+<a name="l-186"></a><span class="tm">13:48:33</span><span class="nk"> &lt;aglitke&gt;</span> yep.  It's a good idea.  I am trying to think of how to store them.  Maybe the DB is not the best place.
+<a name="l-187"></a><span class="tm">13:49:01</span><span class="nk"> &lt;aglitke&gt;</span> It would be nice if administrators could install their own net-templates onto the system for deployment.
+<a name="l-188"></a><span class="tm">13:49:02</span><span class="nk"> &lt;royce&gt;</span> yeah, I saw you proposed the /etc/...
+<a name="l-189"></a><span class="tm">13:49:20</span><span class="nk"> &lt;aglitke&gt;</span> In fact, maybe all templates should be stored this way.
+<a name="l-190"></a><span class="tm">13:49:45</span><span class="nk"> &lt;aglitke&gt;</span> so even when a rest api creates a template, a file gets written to disk in /etc/
+<a name="l-191"></a><span class="tm">13:49:52</span><span class="nk"> &lt;royce&gt;</span> to avoid crash ?
+<a name="l-192"></a><span class="tm">13:50:02</span><span class="nk"> &lt;aglitke&gt;</span> That is what libvirt does for domain xmls
+<a name="l-193"></a><span class="tm">13:50:31</span><span class="nk"> &lt;ming&gt;</span> royce, thanks for bring it up.  I almost forgot that.
+<a name="l-194"></a><span class="tm">13:51:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> seem libvirt has two xml path. static path, and runtime path.
+<a name="l-195"></a><span class="tm">13:51:06</span><span class="nk"> &lt;aglitke&gt;</span> The disadvantage is that file IO might be more error prone and have less performance.
+<a name="l-196"></a><span class="tm">13:51:25</span><span class="nk"> &lt;aglitke&gt;</span> but the advantage is that templates can be "installed"
+<a name="l-197"></a><span class="tm">13:53:19</span><span class="nk"> &lt;aglitke&gt;</span> The UI would have to filter out streaming templates if the iso streaming feature is off though.
+<a name="l-198"></a><span class="tm">13:53:59</span><span class="nk"> &lt;royce&gt;</span> the advantage of "install" is? may I ask? since we just store vm config now
+<a name="l-199"></a><span class="tm">13:54:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> would we ever want to see a streaming template if qemu didn't support streamng?
+<a name="l-200"></a><span class="tm">13:54:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> No.
+<a name="l-201"></a><span class="tm">13:54:18</span><span class="nk"> &lt;aglitke&gt;</span> it would fail
+<a name="l-202"></a><span class="tm">13:55:09</span><span class="nk"> &lt;ming&gt;</span> aglitke, We can classify templates in the backend.
+<a name="l-203"></a><span class="tm">13:55:13</span><span class="nk"> &lt;AdamKingIT&gt;</span> k, so the REST API could/should filter them out, like it might for templates a user isn't authorized to use (pending a resource based authorization model)
+<a name="l-204"></a><span class="tm">13:55:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Someone could create a distro package that just installs some templates for a given site.  For example, IBM could create kimchi-templates.rpm that depends on kimchi.  It would only install some templates that are accessible to IBM employees on the intranet.
+<a name="l-205"></a><span class="tm">13:55:37</span><span class="nk"> &lt;aglitke&gt;</span> you just install the package and you have access to those templates in kimchi.
+<a name="l-206"></a><span class="tm">13:56:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> True
+<a name="l-207"></a><span class="tm">13:56:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> sounds kinda cool. Something we want to tackle for Sept?
+<a name="l-208"></a><span class="tm">13:56:33</span><span class="nk"> &lt;royce&gt;</span> aglitke, that make sense
+<a name="l-209"></a><span class="tm">13:56:54</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I don;t know.  Royce is already looking at it as a part of her local scanning patches.
+<a name="l-210"></a><span class="tm">13:57:48</span><span class="nk"> &lt;aglitke&gt;</span> It means we need to change the model logic for storing templates to writing external .json files instead of using the ObjectStore
+<a name="l-211"></a><span class="tm">13:58:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> could we eliminate the use of the objectstore?
+<a name="l-212"></a><span class="tm">13:58:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> less is always more
+<a name="l-213"></a><span class="tm">13:58:51</span><span class="nk"> &lt;aglitke&gt;</span> We may be able to.  Right now we also use it for storing vm metadata.
+<a name="l-214"></a><span class="tm">13:59:06</span><span class="nk"> &lt;aglitke&gt;</span> but we could write files in a similar manner for that too.
+<a name="l-215"></a><span class="tm">13:59:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Maybe you could just replace the ObjectStore implementation with a file writing backend.
+<a name="l-216"></a><span class="tm">13:59:53</span><span class="nk"> &lt;aglitke&gt;</span> Then the code can continue to use the object store like a db interface but files are read and written behind the scenes.
+<a name="l-217"></a><span class="tm">13:59:58</span><span class="nk"> &lt;ming&gt;</span> aglitke, external .json files will be mess if we don't have a right directory arch.
+<a name="l-218"></a><span class="tm">14:00:08</span><span class="nk"> &lt;AdamKingIT&gt;</span> Which would put is in better long term position if we later wanted to support small "clusters"
+<a name="l-219"></a><span class="tm">14:00:08</span><span class="nk"> &lt;aglitke&gt;</span> yep.
+<a name="l-220"></a><span class="tm">14:00:11</span><span class="nk"> &lt;royce&gt;</span> OK, that would be in net-template I think
+<a name="l-221"></a><span class="tm">14:00:22</span><span class="nk"> &lt;aglitke&gt;</span> /etc/kimchi/json
+<a name="l-222"></a><span class="tm">14:00:29</span><span class="nk"> &lt;aglitke&gt;</span> under that you have
+<a name="l-223"></a><span class="tm">14:00:39</span><span class="nk"> &lt;aglitke&gt;</span> &lt;object&gt;/
+<a name="l-224"></a><span class="tm">14:00:41</span><span class="nk"> &lt;aglitke&gt;</span> ie.
+<a name="l-225"></a><span class="tm">14:00:47</span><span class="nk"> &lt;aglitke&gt;</span> vm / template / etc
+<a name="l-226"></a><span class="tm">14:00:54</span><span class="nk"> &lt;aglitke&gt;</span> under each of those you have:
+<a name="l-227"></a><span class="tm">14:01:04</span><span class="nk"> &lt;aglitke&gt;</span> &lt;ident&gt;.json
+<a name="l-228"></a><span class="tm">14:01:32</span><span class="nk"> &lt;aglitke&gt;</span> It is the same data model as we have in the db today
+<a name="l-229"></a><span class="tm">14:01:46</span><span class="nk"> &lt;royce&gt;</span> true
+<a name="l-230"></a><span class="tm">14:01:48</span><span class="nk"> &lt;aglitke&gt;</span> should be easy to rewrite objectstore to use a filewriter backend.
+<a name="l-231"></a><span class="tm">14:02:27</span><span class="nk"> &lt;aglitke&gt;</span> Then kimchi can just ship some example files to drop into /etc/kimchi/json/templates/
+<a name="l-232"></a><span class="tm">14:02:46</span><span class="nk"> &lt;ming&gt;</span> I do find bugs in objectstore in multi-threading environment.
+<a name="l-233"></a><span class="tm">14:03:23</span><span class="nk"> &lt;aglitke&gt;</span> We'll still need to be careful with locking for this approach too.
+<a name="l-234"></a><span class="tm">14:04:01</span><span class="nk"> &lt;aglitke&gt;</span> ok...
+<a name="l-235"></a><span class="tm">14:04:04</span><span class="nk"> &lt;ming&gt;</span> It seems time is out.
+<a name="l-236"></a><span class="tm">14:04:09</span><span class="nk"> &lt;aglitke&gt;</span> Thanks for bringing that up
+<a name="l-237"></a><span class="tm">14:04:27</span><span class="nk"> &lt;aglitke&gt;</span> I will end the meeting now but feel free to continue the discussions...
+<a name="l-238"></a><span class="tm">14:04:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
