@@ -28,8 +28,7 @@ import random
 import uuid
 import glob
 import signal
-import logging
-
+from utils import kimchi_log
 try:
     from PIL import Image
 except ImportError:
@@ -158,9 +157,8 @@ class VMScreenshot(object):
             try:
                 self._generate_scratch(thumbnail)
             except:
-                logging.basicConfig()
-                log = logging.getLogger("screenshot_creation")
-                log.error("Unable to create screenshot image %s." % thumbnail)
+                kimchi_log.error("screenshot_creation: Unable to create "
+                                 "screenshot image %s." % thumbnail)
         else:
             self._create_black_image(thumbnail)
 

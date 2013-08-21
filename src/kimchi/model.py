@@ -23,7 +23,6 @@
 import re
 import threading
 import time
-import logging
 import libvirt
 import functools
 import os
@@ -541,7 +540,6 @@ class LibvirtConnection(object):
         """
         Return current connection to libvirt or open a new one.
         """
-        log = logging.getLogger('LibvirtConnection')
 
         with self._connectionLock:
             conn = self._connections.get(conn_id)

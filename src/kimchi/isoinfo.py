@@ -23,8 +23,8 @@
 import sys
 import os
 import re
-import logging
 import struct
+from utils import kimchi_log
 
 
 iso_dir = [
@@ -227,11 +227,11 @@ class Matcher(object):
         return self.lastmatch.group(num)
 
 def _probe_iso(fname):
-    log = logging.getLogger('probe_iso')
     try:
         iso = IsoImage(fname)
     except Exception, e:
-        log.warning("Error processing ISO image: %s\n%s" % (fname, e))
+        kimchi_log.warning("probe_iso: Error processing ISO image: %s\n%s" %
+                           (fname, e))
         raise IsoFormatError(e)
 
     if not iso.bootable:
@@ -247,12 +247,11 @@ def _probe_iso(fname):
             else:
                 version = v
             return (distro, version)
-    log.debug("Unable to identify ISO %s with Volume ID: %s" %
-                (fname, iso.volume_id))
+    kimchi_log.debug("probe_iso: Unable to identify ISO %s with Volume ID: %s"
+                     % (fname, iso.volume_id))
     return (None, None)
 
 def probe_iso(status_helper, params):
-    logging.basicConfig()
     loc = params['path']
     updater = params['updater']
     for root, dirs, files in os.walk(loc):
