@@ -22,6 +22,7 @@
 
 SOURCE = \
 	asynctask.py      \
+	auth.py           \
 	config.py         \
 	controller.py     \
 	exception.py      \
