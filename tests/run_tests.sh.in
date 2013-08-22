@@ -22,6 +22,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 HAVE_UNITTEST=@HAVE_PYMOD_UNITTEST@
+PYTHON_VER=@PYTHON_VERSION@
 
 if [ $# -ne 0 ]; then
     ARGS="$@"
@@ -29,8 +30,8 @@ else
     ARGS="discover"
 fi
 
-if [ "$HAVE_UNITTEST" == "yes" ]; then
-    PYTHONPATH=../src python -m unittest $ARGS
-else
+if [ "$HAVE_UNITTEST" != "yes" -o "$PYTHON_VER" == "2.6" ]; then
     PYTHONPATH=../src:./ unit2 $ARGS
+else
+    PYTHONPATH=../src python -m unittest $ARGS
 fi

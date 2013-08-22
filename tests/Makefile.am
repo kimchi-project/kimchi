@@ -36,7 +36,8 @@ EXTRA_DIST = \
 noinst_SCRIPTS = run_tests.sh
 
 do_substitution = \
-	sed -e 's,[@]HAVE_PYMOD_UNITTEST[@],$(HAVE_PYMOD_UNITTEST),g'
+	sed -e 's,[@]HAVE_PYMOD_UNITTEST[@],$(HAVE_PYMOD_UNITTEST),g' \
+	-e 's,[@]PYTHON_VERSION[@],$(PYTHON_VERSION),g'
 
 
 run_tests.sh: run_tests.sh.in Makefile
