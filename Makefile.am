@@ -24,7 +24,13 @@ SUBDIRS = src ui docs contrib tests po
 
 ACLOCAL_AMFLAGS = --install -I m4
 
-EXTRA_DIST = config.rpath
+EXTRA_DIST = \
+	config.rpath \
+	autogen.sh \
+	COPYING.ASL2 \
+	COPYING.LGPL \
+	CONTRIBUTE.md \
+	$(NULL)
 
 # Link built mo files in the source tree to enable use of translations from
 # within the source tree
