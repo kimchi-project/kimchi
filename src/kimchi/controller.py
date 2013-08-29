@@ -262,7 +262,10 @@ class Collection(object):
     def index(self, *args):
         method = validate_method(('GET', 'POST'))
         if method == 'GET':
-            return self.get()
+            try:
+                return self.get()
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
         elif method == 'POST':
             try:
                 return self.create(*args)
@@ -270,6 +273,8 @@ class Collection(object):
                 raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
             except InvalidParameter, param:
                 raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
 
 
 class VMs(Collection):
