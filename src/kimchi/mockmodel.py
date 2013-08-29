@@ -260,7 +260,11 @@ class MockModel(object):
         volume.info['capacity'] = size
 
     def storagevolumes_get_list(self, pool):
-        return self._get_storagepool(pool)._volumes.keys()
+        res = self._get_storagepool(pool)
+        if res.info['state'] == 'inactive':
+            raise InvalidOperation(
+                "Unable to list volumes of inactive storagepool %s" % pool)
+        return res._volumes.keys()
 
     def tasks_get_list(self):
         with self.objstore as session:

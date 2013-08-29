@@ -324,6 +324,12 @@ class RestTests(unittest.TestCase):
                            req, 'POST')
             self.assertEquals(201, resp.status)
 
+        # Test storagevolumes can't be listed with inactive pool
+        resp = self.request('/storagepools/pool-1/storagevolumes')
+        self.assertEquals(400, resp.status)
+
+        resp = self.request('/storagepools/pool-1/activate', '{}', 'POST')
+        self.assertEquals(200, resp.status)
         resp = self.request('/storagepools/pool-1/storagevolumes')
         storagevolumes = json.loads(resp.read())
         self.assertEquals(5, len(storagevolumes))

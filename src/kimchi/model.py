@@ -434,8 +434,12 @@ class Model(object):
         volume.resize(size, 0)
 
     def storagevolumes_get_list(self, pool):
-        pool = self._get_storagepool(pool)
-        return pool.listVolumes()
+        res = self._get_storagepool(pool)
+        if res.isActive():
+            return res.listVolumes()
+        else:
+            raise InvalidOperation(
+                "Unable to list volumes of inactive storagepool %s" % pool)
 
     def _get_storagevolume(self, pool, name):
         pool = self._get_storagepool(pool)
