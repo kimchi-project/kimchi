@@ -188,6 +188,11 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
 
+        # Test create VM with same name fails with 400
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
@@ -258,6 +263,14 @@ class RestTests(unittest.TestCase):
                               'type': 'dir'})
             resp = self.request('/storagepools', req, 'POST')
             self.assertEquals(201, resp.status)
+
+        req = json.dumps({'name': 'storagepool-1',
+                          'capacity': 1024,
+                          'allocated': 512,
+                          'path': '/var/lib/libvirt/images/%i' % i,
+                          'type': 'dir'})
+        resp = self.request('/storagepools', req, 'POST')
+        self.assertEquals(400, resp.status)
 
         storagepools = json.loads(self.request('/storagepools').read())
         self.assertEquals(6, len(storagepools))
@@ -401,6 +414,13 @@ class RestTests(unittest.TestCase):
         # Verify the template
         res = json.loads(self.request('/templates/test').read())
         verify_template(t, res)
+
+        # Create a template with same name fails with 400
+        t = {'name': 'test', 'os_distro': 'ImagineOS',
+             'os_version': 1.0, 'memory': 1024}
+        req = json.dumps(t)
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(400, resp.status)
 
         # Update the template
         t['os_distro'] = 'Linux.ISO'
