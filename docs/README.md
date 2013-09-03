@@ -10,7 +10,7 @@ Getting Started
 Install Dependencies
 --------------------
 
-    $ sudo yum install python-cherrypy python-cheetah \
+    $ sudo yum install gcc make python-cherrypy python-cheetah \
                        python-imaging libvirt-python libvirt \
                        gettext-devel automake autoconf
 
