@@ -40,7 +40,9 @@ SOURCE = \
 	vnc.py            \
 	websocket.py      \
 	websockify.py     \
-	xmlutils.py
+	xmlutils.py       \
+	utils.py          \
+	cachebust.py
 
 EXTRA_DIST = config.py.in
 
