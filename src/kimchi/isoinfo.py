@@ -264,6 +264,7 @@ def probe_iso(status_helper, params):
             except:
                 continue
             if ret != (None, None):
+                iso = os.path.abspath(iso)
                 updater({'path':iso, 'distro':ret[0], 'version':ret[1]})
 
     if status_helper != None:
