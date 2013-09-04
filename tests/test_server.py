@@ -38,7 +38,7 @@ class ServerTests(unittest.TestCase):
         host = '127.0.0.1'
         port = utils.get_free_port()
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
-        s = utils.run_server(host, port, test_mode=True, model=model)
+        s = utils.run_server(host, port, None, test_mode=True, model=model)
         try:
             resp = utils.request(host, port, '/')
             self.assertEquals(200, resp.status)

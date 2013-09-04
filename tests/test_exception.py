@@ -40,7 +40,8 @@ def setup_server(environment='development'):
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port()
-    test_server = run_server(host, port, test_mode=True, model=model, environment=environment)
+    test_server = run_server(host, port, None, test_mode=True, model=model,
+                             environment=environment)
 
 
 class ExceptionTests(unittest.TestCase):

@@ -43,7 +43,7 @@ class MockModelTests(unittest.TestCase):
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
         port = get_free_port()
         host = '127.0.0.1'
-        test_server = run_server(host, port, test_mode=True, model=model)
+        test_server = run_server(host, port, None, test_mode=True, model=model)
 
     def tearDown(self):
         test_server.stop()

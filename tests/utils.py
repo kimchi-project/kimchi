@@ -33,7 +33,7 @@ import unittest
 
 import kimchi.server
 
-_port = None
+_ports = {}
 
 # provide missing unittest decorators and API for python 2.6; these decorators
 # do not actually work, just avoid the syntax failure
@@ -63,24 +63,26 @@ if sys.version_info[:2] == (2, 6):
     unittest.TestCase.assertGreater = assertGreater
     unittest.TestCase.assertIsInstance = assertIsInstance
 
-def get_free_port():
-    global _port
-    if _port is not None:
-        return _port
+def get_free_port(name='http'):
+    global _ports
+    if _ports.get(name) is not None:
+        return _ports[name]
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     with closing(sock):
         try:
             sock.bind(("0.0.0.0", 0))
         except:
             raise Exception("Could not find a free port")
-        _port = sock.getsockname()[1]
-        return _port
+        _ports[name] = sock.getsockname()[1]
+        return _ports[name]
 
-def run_server(host, port, test_mode, model=None, environment='development'):
+def run_server(host, port, ssl_port, test_mode, model=None, environment='development'):
     args = type('_', (object,),
-                {'host': host, 'port': port, 'test': test_mode,
-                 'access_log': '/dev/null', 'error_log': '/dev/null',
-                 'environment': environment, 'log_level': 'debug'})()
+                {'host': host, 'port': port, 'ssl_port': ssl_port,
+                 'ssl_cert': '', 'ssl_key': '',
+                 'test': test_mode, 'access_log': '/dev/null',
+                 'error_log': '/dev/null', 'environment': environment,
+                 'log_level': 'debug'})()
     if model is not None:
         setattr(args, 'model', model)
     s = kimchi.server.Server(args)
@@ -99,14 +101,23 @@ def silence_server():
 def running_as_root():
     return os.geteuid() == 0
 
-def request(host, port, path, data=None, method='GET', headers=None):
+
+def _request(conn, path, data, method, headers):
     if headers is None:
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
-
-    conn = httplib.HTTPConnection(host, port)
     conn.request(method, path, data, headers)
     return conn.getresponse()
+
+
+def request(host, port, path, data=None, method='GET', headers=None):
+    conn = httplib.HTTPConnection(host, port)
+    return _request(conn, path, data, method, headers)
+
+
+def https_request(host, port, path, data=None, method='GET', headers=None):
+    conn = httplib.HTTPSConnection(host, port)
+    return _request(conn, path, data, method, headers)
 
 
 class RollbackContext(object):
