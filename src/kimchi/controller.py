@@ -436,3 +436,12 @@ class Tasks(Collection):
     def __init__(self, model):
         super(Tasks, self).__init__(model)
         self.resource = Task
+
+
+class Config(Resource):
+    def __init__(self, model, id=None):
+        super(Config, self).__init__(model, id)
+
+    @property
+    def data(self):
+        return {'http_port': cherrypy.server.socket_port}

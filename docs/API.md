@@ -254,3 +254,19 @@ server.
 **Actions (POST):**
 
 *No actions defined*
+
+### Resource: Configuration
+
+**URI:** /config
+
+Contains information about the application environment and configuration.
+
+**Methods:**
+
+* **GET**: Retrieve configuration information
+    * http_port: The port number on which the server is listening
+* **POST**: *See Configuration Actions*
+
+**Actions (POST):**
+
+*No actions defined*

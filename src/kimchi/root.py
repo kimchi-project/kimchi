@@ -49,6 +49,7 @@ class Root(controller.Resource):
         self.templates = controller.Templates(model)
         self.storagepools = controller.StoragePools(model)
         self.tasks = controller.Tasks(model)
+        self.config = controller.Config(model)
 
     def get(self):
         return self.default('kimchi-ui.html')

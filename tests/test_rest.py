@@ -516,3 +516,8 @@ class RestTests(unittest.TestCase):
         foo3 = json.loads(request(host, port, '/tasks/%s' % '3').read())
         self.assertEquals('in progress', foo3['message'])
         self.assertEquals('running', foo3['status'])
+
+    def test_config(self):
+        resp = request(host, port, '/config').read()
+        conf = json.loads(resp)
+        self.assertEquals(port, conf['http_port'])
