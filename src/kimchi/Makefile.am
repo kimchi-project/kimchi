@@ -35,6 +35,7 @@ SOURCE = \
 	root.py           \
 	screenshot.py     \
 	server.py         \
+	sslcert.py        \
 	template.py       \
 	vmtemplate.py     \
 	vnc.py            \

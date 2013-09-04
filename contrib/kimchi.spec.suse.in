@@ -8,10 +8,11 @@ License:	LGPL/ASL2
 Source0:	%{name}-%{version}.tar.gz
 Requires:	libvirt
 Requires:	libvirt-python
-Requires:	python-CherryPy
+Requires:	python-CherryPy >= 3.2.0
 Requires:	python-Cheetah
 Requires:	python-ordereddict
 Requires:	python-imaging
+Requires:	python-M2Crypto
 
 %description
 Web server application application to manage KVM/Qemu virtual machines

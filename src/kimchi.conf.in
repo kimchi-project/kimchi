@@ -9,6 +9,17 @@
 # Port to listen on
 #port = 8000
 
+# If present, start an SSL-enabled server on the given port
+#ssl_port = 8001
+
+# The full path to an SSL Certificate in PEM format.  If left unspecified,
+# Kimchi will generate a self-signed certificate automatically.
+#ssl_cert =
+
+# The corresponding private key in PEM format for the SSL Certificate supplied
+# above.  If left blank, Kimchi will generate a self-signed certificate.
+#ssl_key =
+
 # Running environment of the server
 #environment = development
 

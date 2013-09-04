@@ -32,3 +32,4 @@ tests/run_tests.sh
 po/POTFILES
 *.orig
 *.rej
+*.pem

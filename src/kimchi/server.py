@@ -30,6 +30,8 @@ import logging
 import model
 import mockmodel
 import config
+import sslcert
+import os
 import cherrypy
 
 LOGGING_LEVEL = {"debug": logging.DEBUG,
@@ -91,6 +93,14 @@ class Server(object):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.server.socket_host = options.host
         cherrypy.server.socket_port = options.port
+
+        # SSL Server
+        try:
+            if options.ssl_port and options.ssl_port > 0:
+                self._init_ssl(options)
+        except AttributeError, e:
+            pass
+
         cherrypy.log.screen = True
         cherrypy.log.access_file = options.access_log
         cherrypy.log.error_file = options.error_log
@@ -126,6 +136,30 @@ class Server(object):
             model_instance = model.Model()
 
         self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.CONFIG)
+
+    def _init_ssl(self, options):
+        ssl_server = cherrypy._cpserver.Server()
+        ssl_server.socket_port = options.ssl_port
+        ssl_server._socket_host = options.host
+        ssl_server.ssl_module = 'builtin'
+
+        cert = options.ssl_cert
+        key = options.ssl_key
+        if not cert or not key:
+            config_dir = config.get_config_dir()
+            cert = '%s/kimchi-cert.pem' % config_dir
+            key = '%s/kimchi-key.pem' % config_dir
+
+            if not os.path.exists(cert) or not os.path.exists(key):
+                ssl_gen = sslcert.SSLCert()
+                with open(cert, "w") as f:
+                    f.write(ssl_gen.cert_pem())
+                with open(key, "w") as f:
+                    f.write(ssl_gen.key_pem())
+
+        ssl_server.ssl_certificate = cert
+        ssl_server.ssl_private_key = key
+        ssl_server.subscribe()
 
     def start(self):
         cherrypy.quickstart(self.app)

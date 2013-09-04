@@ -187,6 +187,31 @@ var kimchi = {
         });
     },
 
+    vncToVM : function(vm) {
+        $.ajax({
+            url : '/config',
+            type : 'GET',
+            dataType : 'json'
+        }).done(function(data, textStatus, xhr) {
+            http_port = data['http_port'];
+            $.ajax({
+                url : "/vms/" + vm + "/connect",
+                type : "POST",
+                dataType : "json"
+            }).done(function(data, textStatus, xhr) {
+                /**
+                 * Due to problems with web sockets and self-signed
+                 * certificates, for now we will always redirect to http
+                 */
+                url = 'http://' + location.hostname + ':' + http_port;
+                url += "/vnc_auto.html?port=" + data.graphics.port;
+                window.open(url);
+            });
+        }).error(function() {
+            kimchi.message.error(i18n['msg.fail.get.config']);
+        });
+    },
+
     listVMs : function(suc, err) {
         $.ajax({
             url : kimchi.url + 'vms',
@@ -219,5 +244,4 @@ var kimchi = {
             error : err
         });
     }
-
 };
