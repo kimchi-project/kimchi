@@ -1,0 +1,361 @@
+13:00:18 <aglitke> #startmeeting
+13:00:18 <kimchi-bot> Meeting started Wed Sep  4 13:00:18 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:18 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:24 <aglitke> #meetingname scrum
+13:00:24 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:38 <aglitke> #info Agenda
+13:01:03 <aglitke> #info Feature rundown for Sept release
+13:01:20 <aglitke> Anything else?
+13:01:30 <aglitke> hi royce xinding zhoumeina
+13:01:33 <aglitke> hi hlwanghl
+13:01:38 <ming> hi aglitke
+13:01:42 <royce> hi adam!
+13:01:43 <hlwanghl> good morning
+13:01:47 <aglitke> hi ming :)
+13:01:51 <zhoumeina> :)
+13:01:53 <xinding> hi
+13:01:57 <aglitke> Any other topic besides feature rundown?
+13:02:23 <royce> looks good for me, seem we have new fellow, apporc
+13:02:27 <ming> rundown means freezing.
+13:02:28 <aglitke> I really want to focus on nailing down what is required to get the outstanding features merged soon
+13:02:34 <ming> ?
+13:02:42 <apporc> yeah, hi
+13:02:49 <aglitke> means getting the last important features in.
+13:03:05 <ming> approc, could you introduce yourself first?
+13:03:07 <aglitke> apporc: Welcome
+13:03:48 <zhoumeina> apporc: welcom
+13:03:52 <shaohef> hi all
+13:04:01 <alinefm> hi people! =)
+13:04:03 <ming> aglitke, we have ISO scanning and authentication on going now. I think these two are in the top priority list
+13:04:12 <alinefm> missed you last week
+13:04:19 <aglitke> yeah let's open the topic up...
+13:04:25 <aglitke> #topic eature rundown for Sept release
+13:04:32 <aglitke> #topic Feature rundown for Sept release
+13:04:39 <hlwanghl> vm edit ready or not？
+13:04:44 <aglitke> These are the ones I am aware of:
+13:04:45 <AdamKingIT> https://github.com/kimchi-project/kimchi/wiki/Todo-September-Base
+13:05:02 <aglitke> These are the most complex ones that need the most attention:
+13:05:07 <aglitke> 1) ISO Scanning
+13:05:11 <aglitke> 2) ISO Streaming
+13:05:18 <aglitke> 3) Authentication
+13:05:26 <aglitke> I would like to start with these.
+13:05:55 <aglitke> I think we should try to break these up to get small pieces merged.
+13:06:02 <aglitke> 1) ISO Scanning
+13:06:15 <aglitke> royce: Can you summarize where we stand?
+13:06:38 <royce> depend on multi-fix for shallow, depends on refresh and iso generator for deep scan
+13:06:51 <royce> shallow's ready I would say
+13:06:52 <apporc> just another programmer, love open source  ,linux. btw, iam using an android.  it is too slow to type . please take easy to discuss,and i will just listen.
+13:07:13 <royce> deep scan's rfc I'll say
+13:08:10 <aglitke> royce: Can you give me the patch subjects for the dependencies?
+13:08:20 <aglitke> I am going to add them to the wiki
+13:08:21 <ming> royce about the storage pool refersh, we need to split Bingbu's patch
+13:08:39 <royce> Of course aglitke, one sec
+13:09:19 <aglitke> Are the refresh and iso generator patches ready?  Have they been reviewed?
+13:09:34 <aglitke> Is there a UI piece?
+13:09:34 <royce> shallow:[project-kimchi][PATCHv3 0/4] Misc bug fix for scan preparation
+13:09:42 <ming> royce, based on the discussion we had, there will be no stand-alone refresh API, just list
+13:10:01 <royce> right, ming
+13:10:06 <shaohef> ming: agree
+13:10:13 <hlwanghl> Sorry, connection lost just now
+13:10:32 <royce> xingding, could you pleas direct us to the UI patch u sent?
+13:10:35 <aglitke> ming: So bingbu's refresh series will need to be reposted?
+13:10:53 <ming> aglitek: the patch include other features.
+13:10:58 <xinding> I sent out a patch about shallow scan
+13:11:05 <ming> agiltke: i will split out it.
+13:11:12 <aglitke> xinding: Can you find the patch subject?
+13:11:17 <royce> aglitke, iso generator's ready I think
+13:11:17 <aglitke> ming: ok, thanks.
+13:11:22 <xinding> [PATCH] Create templates by shallow scan
+13:11:27 <aglitke> royce: So far I have:
+13:11:32 <aglitke> [PATCHv3 0/4] Misc bug fix for scan preparation
+13:11:41 <aglitke> Which other series are needed?
+13:11:47 <royce> deep: Add pseudo iso generator
+13:11:55 <aglitke> I will focus my energy on those
+13:12:00 <royce> deep : Update storagepool:
+13:12:00 <royce> add refresh action,get vol numbers and available space of a pool
+13:12:23 <aglitke> deep is RFC right?  So iso gen is not needed for shallow
+13:12:29 <royce> but the refresh one is not ready according to our discussion, need rebase
+13:12:35 <royce> right, aglitke
+13:12:55 <aglitke> What is the subject for the Shallow scan series?
+13:13:06 <aglitke> Then all I need is the UI patch
+13:13:21 <royce> [project-kimchi][PATCHv10 0/7] shallow scan support
+13:13:26 <ming> royce, no refresh API, just make sure list will refresh the list automatically.
+13:13:44 <royce> true, ming
+13:14:13 <royce> let me check xingding's UI patch name
+13:14:18 <ming> royce, are you requesting to merge deep ISO scan also?
+13:14:27 <xinding> There is only one UI patch, [PATCH] Create templates by shallow scan
+13:14:46 <aglitke> ok, great.
+13:14:46 <xinding> It depends several backend patches
+13:14:54 <royce> aglitke:[project-kimchi] [PATCH] Create templates by shallow scan
+13:15:30 <aglitke> I am going to put deep scan on a somewhat lower priority while we get shallow working.
+13:16:03 <ming> aglitke, deep scanning patchs are there.
+13:16:07 <aglitke> I would ask the team to please focus review and testing efforts on the specific patch series we identify in this discussion.
+13:16:25 <aglitke> ming: royce has said they are still in RFC condition.
+13:16:47 <aglitke> I want to reduce the backlog of outstanding patches and that means taking what is ready first.
+13:16:48 <ming> aglitke: NP
+13:16:56 <aglitke> 2) ISO Streaming
+13:17:03 <aglitke> From my understanding we need:
+13:17:13 <royce> aglitke, it is tested, but I'm not sure you guys like the design, but since your effort is limited I can wait until proper time
+13:17:19 <aglitke> * Capabilities detection
+13:17:32 <royce> s/effort/time
+13:17:47 <aglitke> * File-based template storage
+13:18:26 <aglitke> * API to list known iso templates
+13:18:56 <aglitke> * UI to create a template from a known network iso
+13:19:18 <aglitke> * UI to create a template from a user provided URL
+13:19:44 <alinefm> this last one already exist
+13:19:45 <ming> aglitke:File-based template storage?
+13:19:50 <aglitke> * Backend code to generate the proper domain xml for streamed isos
+13:20:01 <royce> aglitke, For file based template storage, is that one change from object store to file?
+13:20:14 <aglitke> yes, but that needs more discussion here.
+13:20:22 <royce> right, aglitke
+13:20:57 <aglitke> I think there is a difference between templates and known iso links
+13:21:08 <aglitke> even though both have the same json format
+13:21:35 <aglitke> Templates are user created and can be deleted
+13:22:04 <aglitke> they can also be installed by an external package into /etc/kimchi/templates/
+13:22:44 <ming> what the user can do with known iso links?
+13:22:54 <aglitke> Templates are accessed by /templates/* URI
+13:22:59 <ming> creating VM by iso links directly?
+13:23:04 <aglitke> for iso links:
+13:23:24 <aglitke> They are supplied by the kimchi package or an add-on package only.
+13:23:32 <royce> so with installable templates we still expose iso links?
+13:23:37 <aglitke> Then cannot be added by the API or deleted.
+13:24:04 <aglitke> They might be located at: /etc/kimchi/distros
+13:24:22 <aglitke> they can be accessed by the URI: /config/distros
+13:24:33 <aglitke> they can only be listed
+13:24:52 <royce> and update? aglitke
+13:24:55 <aglitke> to create a template from a known distro the ui would fetch the appropriate distro
+13:25:21 <aglitke> and use the json to construct a template json object to post to /templates
+13:25:28 <aglitke> no updates to distros via the api
+13:25:46 <aglitke> it is static application configuration
+13:25:52 <ming> isos are pre-installed before Kimchi by admin?
+13:26:00 <aglitke> can be edited by an external package or by the administrator.
+13:26:09 <aglitke> ming: Just the iso information
+13:26:22 <royce> what if we want to use a local mirror iso link? I assume we need to change the default official one?
+13:26:25 <aglitke> like links to the remote file, icon, and recommended vm settings.
+13:26:36 <ming> aglitke, so we need tools to create iso information.
+13:26:44 <aglitke> we would drop a new file into /etc/kimchi/distros
+13:27:07 <aglitke> ming: These would not be commonly edited by end users.
+13:27:16 <alinefm> the iso link wil be what? a xm file with the information or only the iso file itself/
+13:27:17 <alinefm> ?
+13:27:39 <aglitke> in /etc/kimchi/distros would be a series of .json files
+13:27:49 <ming> aglitke, I think even administrator need a handy tool to change those distro informations.
+13:28:00 <aglitke> the format is a list of json objects:
+13:28:02 <aglitke> [
+13:28:53 <aglitke> { 'name': 'Fedora 19', 'os_distro': 'fedora', 'os_version': '19', 'cdrom': 'http://...', ... },
+13:28:54 <aglitke> ]
+13:29:13 <aglitke> Notice the format of the json object matches the format of a VM Template.
+13:29:42 <aglitke> to make a template from a distro, the UI just echos the object into a new json object and substitutes 'name' with the desired template name.
+13:29:46 <alinefm> right! so the ui will be able to list those iso links and then the user can select one to create a template from?
+13:29:49 <royce> OK, read only iso info does not need to care about locks, but template file need, I think we need to tackle the issue of transaction write and r/w serialization of file
+13:29:58 <aglitke> alinefm: yes
+13:29:59 <alinefm> or the user will be able to create a vm from the iso link directly?
+13:30:34 <aglitke> alinefm: If the user specifies a link by themselves, they also need to select a distro and version (or unknown)
+13:31:12 <AdamKingIT> But that would be to create a template from a link directly. I don;t think we are contemplating creating VMs through any path other than template
+13:31:15 <royce> xingding, AdamKingIT so the UI will still needed for this one for creating template
+13:31:30 <aglitke> royce: I responded to your question on the list... The ObjectStore already uses a session / transaction lock that is global to the objectstore.
+13:31:48 <shaohef> aglitke:  the cdrom can be several links? for http://iso.us.com http://iso.cn.com   ftp:// ?
+13:31:49 <ming> royce, are you talking abot the administrator can change the template with writing operations?
+13:31:58 <aglitke> AdamKingIT: Right, create template from link. then create vm from template.
+13:32:15 <aglitke> shaohef: For now it is one link.
+13:32:22 <royce> ming, yes
+13:32:59 <aglitke> royce: class ObjectStoreSession(object):
+13:33:26 <royce> aglitke, let me take a look...
+13:33:30 <aglitke> This gives you safe, exclusive access to the ObjectStore.
+13:33:42 <xinding> royce: Got it.
+13:33:51 <AdamKingIT> The UI for this as a baseline will need to cover creating a template from the avail 'known distros', where the use picks from the distros
+13:34:26 <AdamKingIT> After we have that, we'll eventually want to add 'create a temple from a URL' where the user has to input the URL
+13:34:38 <aglitke> yep
+13:35:06 <xinding> create a temple from a URL, we already have this
+13:35:33 <aglitke> maybe that UI could redirect right to the template edit window
+13:35:42 <aglitke> after it is created.
+13:36:06 <alinefm> AdamKingIT, the UI create template passing an url already exists
+13:36:15 <xinding> But maybe not only one templates could be created one time
+13:36:24 <royce> aglitke, so one time for a r/w access from the user of objstore?acceptable, for transaction write we still want to make sure it never writes part of the file
+13:37:16 <xinding> If user select several isos, it's difficult to decide to redirect to which edit window
+13:37:41 <aglitke> xinding: I only mean to do the redirect when adding an iso from a single custom URL
+13:37:59 <xinding> aglitke: got it
+13:38:04 <aglitke> for the UI where the user selects known distros there is no need to redirect.
+13:38:05 <shaohef> royce: aglitke: a tool to write the iso json file?  such as the ajax shell ?
+13:38:23 <aglitke> Maybe eventually but it's not important for September.
+13:39:08 <shaohef> aglitke: yes. this can avoid the user to write the file directly.
+13:39:20 <royce> I think that transaction can be gaurenteed by copy and update instead of write lines
+13:39:30 <aglitke> royce: You may need to improve the locking for the FileStore class.  I would suggest a threading.Semaphore per FileStore object.
+13:40:04 <aglitke> to work with the filestore you must create a session (as with ObjectStore) and that session takes the semaphore.
+13:40:05 <royce> aglitke, mark suggested each for a template too
+13:40:31 <aglitke> then while holding the session you can safely manipulate date.
+13:40:33 <aglitke> data.
+13:40:45 <aglitke> I think it needs to be global per object type.
+13:40:46 <royce> got it, agitke
+13:41:09 <aglitke> otherwise you could get an inconsistent list of objects if someone else is removing one.
+13:41:22 <royce> right
+13:41:50 <aglitke> Do we have agreement on the design?
+13:41:53 <aglitke> alinefm: ?
+13:42:25 <alinefm> aglitke, yeap
+13:42:27 <royce> let's see if UI guys agree with this?:)
+13:42:35 <aglitke> royce: agree!
+13:42:47 <alinefm> we need to assign people to it
+13:43:01 <aglitke> yes, that will be the next step once everyone agrees with this plan.
+13:43:03 <ming> I assume the session is cherrypy session here.
+13:43:10 <aglitke> ming: no
+13:43:23 <aglitke> it's like ObjectStoreSession in the current code
+13:43:37 <aglitke> it's a python ContextManager context
+13:43:37 <shaohef> aglitke: just for the file operation session？
+13:44:13 <ming> aglitke, not sure why we need that context.
+13:44:28 <aglitke> It's for entering a critical section
+13:44:34 <ming> It is easy to maintain a global lock across differnt cherrypy sessions.
+13:44:51 <aglitke> the context is bounded by a lock acquire and release
+13:45:11 <aglitke> with FIleSession(...) as ctx:
+13:45:17 <aglitke> do first op
+13:45:20 <aglitke> do second op
+13:45:26 <aglitke> return
+13:45:44 <aglitke> before entering the sub-block, the lock will be taken
+13:45:56 <aglitke> after exiting the block, the lock will be released.
+13:46:13 <aglitke> first op and second op are guaranteed to happen sequentially.
+13:46:29 <aglitke> without any interleaving operations to corrupt data.
+13:46:30 <ming> so you protect each file with one context ?
+13:46:46 <royce> aglitke, it means vm/screenshot will also use file backend after that?
+13:46:48 <ming> or multiple files with one context?
+13:46:56 <aglitke> You can either do one global one (for all types) or one per type.
+13:47:06 <aglitke> I think one per type is ok for our API right now,.
+13:47:30 <royce> means templates hold a lock and vm hold a lock
+13:47:37 <AdamKingIT> I don't know that we want screenshot to get more entangled with files
+13:47:38 <aglitke> royce: I am ok with keeping ObjectStore for VM metadata
+13:48:00 <aglitke> It does not need to be altered by external packages.
+13:48:17 <ming> royce, so as to the state for the async threads.
+13:48:45 <ming> s/so/the same/
+13:49:15 <ming> next item?
+13:49:32 <aglitke> I guess the FileStore will be simpler to implement if each file can contain only a single json object (not a list as I said before)
+13:49:44 <aglitke> It means we will have a lot of files in that dir.
+13:50:01 <aglitke> in /etc/kimchi/distros
+13:50:12 <shaohef> aglitke:  ming: same with the sqilt3 session
+13:50:31 <aglitke> I want to go down the list of tasks for this feature to make sure we are working on them all.
+13:51:04 <alinefm> 1) create backend to list iso links
+13:51:11 <royce> the KPI feature of alinefm
+13:51:12 <ming> like { 'name': 'Fedora 19'} in one file?
+13:51:19 <alinefm> 2) create UI do list iso links
+13:51:24 <aglitke> * Capabilities detection
+13:51:25 <aglitke> * File-based template storage
+13:51:25 <aglitke> * API to list known iso templates
+13:51:25 <aglitke> * UI to create a template from a known network iso
+13:51:25 <aglitke> * UI to create a template from a user provided URL
+13:51:38 <aglitke> oh... sorry :)
+13:51:53 <alinefm> np! =) you have it ready
+13:52:06 <aglitke> * Capabilities detection (alinefm) ?
+13:52:16 <alinefm> yeap! =P
+13:52:20 <aglitke> * File-based template storage (royce) ?
+13:52:29 <aglitke> This is what we discussed above
+13:52:33 <royce> right~
+13:52:42 <aglitke> * API to list known iso templates (royce)?
+13:52:54 <aglitke> This will read the files in /etc/kinchi/distros
+13:52:57 <alinefm> this is related to iso links?
+13:53:07 <ming> I think royce is overloading...
+13:53:15 <xinding> * UI to create a template from a known network iso
+13:53:16 <xinding> * UI to create a template from a user provided URL
+13:53:16 <xinding> For these two, add the feature to redirect to edit window after creating
+13:53:20 <aglitke> And will present them at the uri /config/distros
+13:53:47 <shaohef> then what will I do？
+13:53:49 <royce> maybe shaohef can help with this one if he wants:)
+13:53:53 <aglitke> API to list known iso templates  depends on the file based storage api
+13:54:12 <aglitke> sure, you guys can break it up however it works.
+13:54:24 <shaohef> royce: aglitke:  yes. I can take one
+13:54:35 <royce> thanks,shaohef~
+13:54:38 <aglitke> xinding: You have the UI pieces covered?
+13:55:15 <AdamKingIT> Can we chat a bit more about the redirect to edit after create?
+13:55:17 <xinding> * UI to create a template from know isos list
+13:55:24 <aglitke> maybe shaohef can give you a MockModel implementation of /config/distros that is fake so you can test the UI part
+13:55:51 <shaohef> aglitke:  sure.
+13:55:55 <aglitke> it is easy to mock up the backend using MockModel to enable UI testing.
+13:56:18 <aglitke> shaohef: Cool.  Then when royce is ready with the backend stuff you can implement the real model.
+13:56:22 <aglitke> AdamKingIT: Sure.
+13:56:35 <shaohef> aglitke: yes.
+13:56:36 <aglitke> I think the redirect to edit should only happen for custom URLs
+13:57:02 <royce> OK, aglitke I will trying not block shaohef
+13:57:02 <aglitke> Because we have no way of knowing which distro they point to.
+13:57:07 <ming> editing the URLs for correction?
+13:57:18 <AdamKingIT> Do we still plan to read the first few sectors of a custom URL like we do w./ local ISO?
+13:57:27 <aglitke> royce: no problem.  shaohef can add a list of fake distro entries for the MockModel
+13:57:33 <AdamKingIT> So we can detect distro?
+13:57:39 <royce> oh! that one...
+13:57:46 <aglitke> AdamKingIT: Maybe later.
+13:58:08 <aglitke> You need to read 16 sectors
+13:58:28 <AdamKingIT> The thing w/ edit is we do not presently allow anyone to edit the distro/version of a template, nor the icon...
+13:58:35 <aglitke> oh, ok
+13:58:44 <aglitke> maybe we should try to get the read working then.
+13:58:56 <aglitke> Also, we can detect if the url is valid or not,
+13:59:03 <AdamKingIT> So the edit would just be to edit cpu/memory (+storage pool and template when those come in)
+13:59:12 <royce> I saw alinefm did change to use urlopen to validate it, maybe it can be added there
+13:59:13 <alinefm> aglitke, my patch already does that
+13:59:31 <ming> we already get the ISO generator patches
+13:59:35 <aglitke> alinefm: Really?  Awesome!
+13:59:55 <aglitke> ming: Those aren't needed for any of this,
+14:00:02 <royce> alinefm validated the url , I think read sectors can be added there
+14:00:24 <alinefm> yes, I mean validating the url
+14:00:26 <ming> aglitke, I mean we can extend that to get the 16 first sector to know the distros.
+14:00:30 <aglitke> ok... Then we pass the raw data to the same scanning code to do the checks.,
+14:00:32 <royce> ming, generator is for test logic related isos
+14:00:35 <shaohef> alinefm:  read 16 sectors
+14:01:34 <shaohef> ming: you means read the  16 first sector  from the remote iso?
+14:01:35 <aglitke> ok.  So... I think iso streaming is the largest feature by far.
+14:01:40 <alinefm> right! so we need to read 16 sectors of iso streaming and use iso_info to detect?
+14:01:45 <aglitke> But everyone has a piece of it.
+14:01:58 <royce> alinefm, you pass it to probe_is
+14:02:01 <AdamKingIT> agiltke, you going to update the wiki?
+14:02:06 <royce> probe_iso
+14:02:10 <aglitke> The last feature is the auth... I am making the suggested changes based on your reviews.  It should be ready to merge after that.
+14:02:20 <aglitke> AdamKingIT: Sure.
+14:02:31 <AdamKingIT> great...
+14:02:55 <AdamKingIT> We have a few more features in flight. Not everyone is coding ISO streaming, yet anyway :-D
+14:03:01 <aglitke> I don't want to consider other patches (except for bug fixes) other than these patches we have talked about.  We need to focus on these features.
+14:03:15 <ming> agltike, I am enhancing some of the authentication method.
+14:03:16 <royce> aglitke, the KPI one
+14:03:35 <aglitke> royce: Who is working on that one?
+14:03:49 <royce> alinefm, but I have some suggestion:)
+14:04:00 <aglitke> ok, let's tackle it quickly.
+14:04:11 <royce> I wish it could be put in single thread collected periodically
+14:04:15 <AdamKingIT> aglitke: Once you get through authentication you can spend more time reviewing others
+14:04:29 <aglitke> AdamKingIT: yep
+14:04:41 <alinefm> royce, yes! good point
+14:04:46 <ming> I would suggest aglitke put more effort on patch merging.
+14:04:58 <aglitke> #action aglitke update wiki with current feature state
+14:05:17 <royce> In the future we may need jurnal or history of these data which can not depend on browser access
+14:05:17 <alinefm> royce, I resent the patchset yesterday. did you have a chance to see it?
+14:05:19 <aglitke> ming: I can only merge when patches are ready
+14:05:27 <aglitke> quality first, then merge
+14:05:29 <royce> Thanks alinefm:) Haven't yet
+14:05:44 <YuXin> AdamKingIT: is there any license issue of introducing jquery UI to Kimchi?
+14:05:53 <royce> I'll review tomorrow, alinefm
+14:06:05 <aglitke> YuXin: I do not think so.  Just include it into ui/lib
+14:06:20 <YuXin> ok
+14:06:21 <alinefm> royce, I've just recorded the max rate value to fill the circle properly
+14:06:22 <aglitke> If it's the same license as jQuery itself then we should be ok.
+14:06:24 <AdamKingIT> I don't think so either, but I forgot to discuss w/ Frank when we talked yesterday
+14:06:37 <alinefm> maybe UI guys would like to change how this data is shown
+14:07:33 <aglitke> royce: It's a good idea... We don't want to collect stats for each connected client.
+14:07:33 <AdamKingIT> I am sure we will love it. :-) I'll check it our this afternoon
+14:07:45 <AdamKingIT> out
+14:07:54 <ming> alinefm, about the max rate.  Can we make the max rate dynamatically?
+14:08:35 <ming> alinefm, you don't have exact the max rate of a network device.
+14:08:47 <alinefm> ming, I did it
+14:09:00 <ming> then, what is that?
+14:09:01 <alinefm> ming, I check the max rate in each request and update it
+14:09:02 <aglitke> I am not sure we want to calculate a max rate at all.  It will be misleading.  I think we should just display the actual value.
+14:09:27 <alinefm> aglitke, the max rate is only to fill the circle
+14:09:28 <aglitke> otherwise 1kb/s might be 100% if that's as high as it's ever been
+14:09:38 <alinefm> and the center the actual value is displayed
+14:09:44 <aglitke> oh, ok
+14:09:46 <ming> alinefm, I will read it.
+14:09:51 <aglitke> Maybe that is ok then.
+14:10:09 <aglitke> ok... We have run 10 minutes over time.
+14:10:18 <aglitke> Any last quick items before we end?
+14:10:20 <alinefm> for example: if the max rate is 250 and the current rate is 100, the portion of circle filled will be 100/250
+14:10:20 <royce> that is lovely, center actual value idea:)
+14:10:34 <alinefm> but  in the center the value will be 100KB.s
+14:10:42 <aglitke> alinefm: good
+14:10:48 <ming> But how you know the max rate?
+14:10:59 <ming> Is it static?
+14:11:01 <aglitke> ming: stored in the model?
+14:11:03 <royce> ming, update on every request
+14:11:10 <alinefm> update in each request
+14:11:41 <ming> K, let's talk off line.
+14:12:07 <aglitke> ok, thanks everyone for joining!  Let's close out these features and have a great Sept release!
+14:12:09 <aglitke> #endmeeting

@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep  4 13:00:18 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Feature rundown for Sept release</span>
+<a name="l-8"></a><span class="tm">13:01:20</span><span class="nk"> &lt;aglitke&gt;</span> Anything else?
+<a name="l-9"></a><span class="tm">13:01:30</span><span class="nk"> &lt;aglitke&gt;</span> hi royce xinding zhoumeina
+<a name="l-10"></a><span class="tm">13:01:33</span><span class="nk"> &lt;aglitke&gt;</span> hi hlwanghl
+<a name="l-11"></a><span class="tm">13:01:38</span><span class="nk"> &lt;ming&gt;</span> hi aglitke
+<a name="l-12"></a><span class="tm">13:01:42</span><span class="nk"> &lt;royce&gt;</span> hi adam!
+<a name="l-13"></a><span class="tm">13:01:43</span><span class="nk"> &lt;hlwanghl&gt;</span> good morning
+<a name="l-14"></a><span class="tm">13:01:47</span><span class="nk"> &lt;aglitke&gt;</span> hi ming :)
+<a name="l-15"></a><span class="tm">13:01:51</span><span class="nk"> &lt;zhoumeina&gt;</span> :)
+<a name="l-16"></a><span class="tm">13:01:53</span><span class="nk"> &lt;xinding&gt;</span> hi
+<a name="l-17"></a><span class="tm">13:01:57</span><span class="nk"> &lt;aglitke&gt;</span> Any other topic besides feature rundown?
+<a name="l-18"></a><span class="tm">13:02:23</span><span class="nk"> &lt;royce&gt;</span> looks good for me, seem we have new fellow, apporc
+<a name="l-19"></a><span class="tm">13:02:27</span><span class="nk"> &lt;ming&gt;</span> rundown means freezing.
+<a name="l-20"></a><span class="tm">13:02:28</span><span class="nk"> &lt;aglitke&gt;</span> I really want to focus on nailing down what is required to get the outstanding features merged soon
+<a name="l-21"></a><span class="tm">13:02:34</span><span class="nk"> &lt;ming&gt;</span> ?
+<a name="l-22"></a><span class="tm">13:02:42</span><span class="nk"> &lt;apporc&gt;</span> yeah, hi
+<a name="l-23"></a><span class="tm">13:02:49</span><span class="nk"> &lt;aglitke&gt;</span> means getting the last important features in.
+<a name="l-24"></a><span class="tm">13:03:05</span><span class="nk"> &lt;ming&gt;</span> approc, could you introduce yourself first?
+<a name="l-25"></a><span class="tm">13:03:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> Welcome
+<a name="l-26"></a><span class="tm">13:03:48</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">apporc:</span> welcom
+<a name="l-27"></a><span class="tm">13:03:52</span><span class="nk"> &lt;shaohef&gt;</span> hi all
+<a name="l-28"></a><span class="tm">13:04:01</span><span class="nk"> &lt;alinefm&gt;</span> hi people! =)
+<a name="l-29"></a><span class="tm">13:04:03</span><span class="nk"> &lt;ming&gt;</span> aglitke, we have ISO scanning and authentication on going now. I think these two are in the top priority list
+<a name="l-30"></a><span class="tm">13:04:12</span><span class="nk"> &lt;alinefm&gt;</span> missed you last week
+<a name="l-31"></a><span class="tm">13:04:19</span><span class="nk"> &lt;aglitke&gt;</span> yeah let's open the topic up...
+<a name="l-32"></a><span class="tm">13:04:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">eature rundown for Sept release</span>
+<a name="l-33"></a><span class="tm">13:04:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Feature rundown for Sept release</span>
+<a name="l-34"></a><span class="tm">13:04:39</span><span class="nk"> &lt;hlwanghl&gt;</span> vm edit ready or not？
+<a name="l-35"></a><span class="tm">13:04:44</span><span class="nk"> &lt;aglitke&gt;</span> These are the ones I am aware of:
+<a name="l-36"></a><span class="tm">13:04:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-September-Base
+<a name="l-37"></a><span class="tm">13:05:02</span><span class="nk"> &lt;aglitke&gt;</span> These are the most complex ones that need the most attention:
+<a name="l-38"></a><span class="tm">13:05:07</span><span class="nk"> &lt;aglitke&gt;</span> 1) ISO Scanning
+<a name="l-39"></a><span class="tm">13:05:11</span><span class="nk"> &lt;aglitke&gt;</span> 2) ISO Streaming
+<a name="l-40"></a><span class="tm">13:05:18</span><span class="nk"> &lt;aglitke&gt;</span> 3) Authentication
+<a name="l-41"></a><span class="tm">13:05:26</span><span class="nk"> &lt;aglitke&gt;</span> I would like to start with these.
+<a name="l-42"></a><span class="tm">13:05:55</span><span class="nk"> &lt;aglitke&gt;</span> I think we should try to break these up to get small pieces merged.
+<a name="l-43"></a><span class="tm">13:06:02</span><span class="nk"> &lt;aglitke&gt;</span> 1) ISO Scanning
+<a name="l-44"></a><span class="tm">13:06:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Can you summarize where we stand?
+<a name="l-45"></a><span class="tm">13:06:38</span><span class="nk"> &lt;royce&gt;</span> depend on multi-fix for shallow, depends on refresh and iso generator for deep scan
+<a name="l-46"></a><span class="tm">13:06:51</span><span class="nk"> &lt;royce&gt;</span> shallow's ready I would say
+<a name="l-47"></a><span class="tm">13:06:52</span><span class="nk"> &lt;apporc&gt;</span> just another programmer, love open source  ,linux. btw, iam using an android.  it is too slow to type . please take easy to discuss,and i will just listen.
+<a name="l-48"></a><span class="tm">13:07:13</span><span class="nk"> &lt;royce&gt;</span> deep scan's rfc I'll say
+<a name="l-49"></a><span class="tm">13:08:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Can you give me the patch subjects for the dependencies?
+<a name="l-50"></a><span class="tm">13:08:20</span><span class="nk"> &lt;aglitke&gt;</span> I am going to add them to the wiki
+<a name="l-51"></a><span class="tm">13:08:21</span><span class="nk"> &lt;ming&gt;</span> royce about the storage pool refersh, we need to split Bingbu's patch
+<a name="l-52"></a><span class="tm">13:08:39</span><span class="nk"> &lt;royce&gt;</span> Of course aglitke, one sec
+<a name="l-53"></a><span class="tm">13:09:19</span><span class="nk"> &lt;aglitke&gt;</span> Are the refresh and iso generator patches ready?  Have they been reviewed?
+<a name="l-54"></a><span class="tm">13:09:34</span><span class="nk"> &lt;aglitke&gt;</span> Is there a UI piece?
+<a name="l-55"></a><span class="tm">13:09:34</span><span class="nk"> &lt;royce&gt;</span> shallow:[project-kimchi][PATCHv3 0/4] Misc bug fix for scan preparation
+<a name="l-56"></a><span class="tm">13:09:42</span><span class="nk"> &lt;ming&gt;</span> royce, based on the discussion we had, there will be no stand-alone refresh API, just list
+<a name="l-57"></a><span class="tm">13:10:01</span><span class="nk"> &lt;royce&gt;</span> right, ming
+<a name="l-58"></a><span class="tm">13:10:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> agree
+<a name="l-59"></a><span class="tm">13:10:13</span><span class="nk"> &lt;hlwanghl&gt;</span> Sorry, connection lost just now
+<a name="l-60"></a><span class="tm">13:10:32</span><span class="nk"> &lt;royce&gt;</span> xingding, could you pleas direct us to the UI patch u sent?
+<a name="l-61"></a><span class="tm">13:10:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> So bingbu's refresh series will need to be reposted?
+<a name="l-62"></a><span class="tm">13:10:53</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitek:</span> the patch include other features.
+<a name="l-63"></a><span class="tm">13:10:58</span><span class="nk"> &lt;xinding&gt;</span> I sent out a patch about shallow scan
+<a name="l-64"></a><span class="tm">13:11:05</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">agiltke:</span> i will split out it.
+<a name="l-65"></a><span class="tm">13:11:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> Can you find the patch subject?
+<a name="l-66"></a><span class="tm">13:11:17</span><span class="nk"> &lt;royce&gt;</span> aglitke, iso generator's ready I think
+<a name="l-67"></a><span class="tm">13:11:17</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> ok, thanks.
+<a name="l-68"></a><span class="tm">13:11:22</span><span class="nk"> &lt;xinding&gt;</span> [PATCH] Create templates by shallow scan
+<a name="l-69"></a><span class="tm">13:11:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> So far I have:
+<a name="l-70"></a><span class="tm">13:11:32</span><span class="nk"> &lt;aglitke&gt;</span> [PATCHv3 0/4] Misc bug fix for scan preparation
+<a name="l-71"></a><span class="tm">13:11:41</span><span class="nk"> &lt;aglitke&gt;</span> Which other series are needed?
+<a name="l-72"></a><span class="tm">13:11:47</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">deep:</span> Add pseudo iso generator
+<a name="l-73"></a><span class="tm">13:11:55</span><span class="nk"> &lt;aglitke&gt;</span> I will focus my energy on those
+<a name="l-74"></a><span class="tm">13:12:00</span><span class="nk"> &lt;royce&gt;</span> deep : Update storagepool:
+<a name="l-75"></a><span class="tm">13:12:00</span><span class="nk"> &lt;royce&gt;</span> add refresh action,get vol numbers and available space of a pool
+<a name="l-76"></a><span class="tm">13:12:23</span><span class="nk"> &lt;aglitke&gt;</span> deep is RFC right?  So iso gen is not needed for shallow
+<a name="l-77"></a><span class="tm">13:12:29</span><span class="nk"> &lt;royce&gt;</span> but the refresh one is not ready according to our discussion, need rebase
+<a name="l-78"></a><span class="tm">13:12:35</span><span class="nk"> &lt;royce&gt;</span> right, aglitke
+<a name="l-79"></a><span class="tm">13:12:55</span><span class="nk"> &lt;aglitke&gt;</span> What is the subject for the Shallow scan series?
+<a name="l-80"></a><span class="tm">13:13:06</span><span class="nk"> &lt;aglitke&gt;</span> Then all I need is the UI patch
+<a name="l-81"></a><span class="tm">13:13:21</span><span class="nk"> &lt;royce&gt;</span> [project-kimchi][PATCHv10 0/7] shallow scan support
+<a name="l-82"></a><span class="tm">13:13:26</span><span class="nk"> &lt;ming&gt;</span> royce, no refresh API, just make sure list will refresh the list automatically.
+<a name="l-83"></a><span class="tm">13:13:44</span><span class="nk"> &lt;royce&gt;</span> true, ming
+<a name="l-84"></a><span class="tm">13:14:13</span><span class="nk"> &lt;royce&gt;</span> let me check xingding's UI patch name
+<a name="l-85"></a><span class="tm">13:14:18</span><span class="nk"> &lt;ming&gt;</span> royce, are you requesting to merge deep ISO scan also?
+<a name="l-86"></a><span class="tm">13:14:27</span><span class="nk"> &lt;xinding&gt;</span> There is only one UI patch, [PATCH] Create templates by shallow scan
+<a name="l-87"></a><span class="tm">13:14:46</span><span class="nk"> &lt;aglitke&gt;</span> ok, great.
+<a name="l-88"></a><span class="tm">13:14:46</span><span class="nk"> &lt;xinding&gt;</span> It depends several backend patches
+<a name="l-89"></a><span class="tm">13:14:54</span><span class="nk"> &lt;royce&gt;</span> aglitke:[project-kimchi] [PATCH] Create templates by shallow scan
+<a name="l-90"></a><span class="tm">13:15:30</span><span class="nk"> &lt;aglitke&gt;</span> I am going to put deep scan on a somewhat lower priority while we get shallow working.
+<a name="l-91"></a><span class="tm">13:16:03</span><span class="nk"> &lt;ming&gt;</span> aglitke, deep scanning patchs are there.
+<a name="l-92"></a><span class="tm">13:16:07</span><span class="nk"> &lt;aglitke&gt;</span> I would ask the team to please focus review and testing efforts on the specific patch series we identify in this discussion.
+<a name="l-93"></a><span class="tm">13:16:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> royce has said they are still in RFC condition.
+<a name="l-94"></a><span class="tm">13:16:47</span><span class="nk"> &lt;aglitke&gt;</span> I want to reduce the backlog of outstanding patches and that means taking what is ready first.
+<a name="l-95"></a><span class="tm">13:16:48</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> NP
+<a name="l-96"></a><span class="tm">13:16:56</span><span class="nk"> &lt;aglitke&gt;</span> 2) ISO Streaming
+<a name="l-97"></a><span class="tm">13:17:03</span><span class="nk"> &lt;aglitke&gt;</span> From my understanding we need:
+<a name="l-98"></a><span class="tm">13:17:13</span><span class="nk"> &lt;royce&gt;</span> aglitke, it is tested, but I'm not sure you guys like the design, but since your effort is limited I can wait until proper time
+<a name="l-99"></a><span class="tm">13:17:19</span><span class="nk"> &lt;aglitke&gt;</span> * Capabilities detection
+<a name="l-100"></a><span class="tm">13:17:32</span><span class="nk"> &lt;royce&gt;</span> s/effort/time
+<a name="l-101"></a><span class="tm">13:17:47</span><span class="nk"> &lt;aglitke&gt;</span> * File-based template storage
+<a name="l-102"></a><span class="tm">13:18:26</span><span class="nk"> &lt;aglitke&gt;</span> * API to list known iso templates
+<a name="l-103"></a><span class="tm">13:18:56</span><span class="nk"> &lt;aglitke&gt;</span> * UI to create a template from a known network iso
+<a name="l-104"></a><span class="tm">13:19:18</span><span class="nk"> &lt;aglitke&gt;</span> * UI to create a template from a user provided URL
+<a name="l-105"></a><span class="tm">13:19:44</span><span class="nk"> &lt;alinefm&gt;</span> this last one already exist
+<a name="l-106"></a><span class="tm">13:19:45</span><span class="nk"> &lt;ming&gt;</span> aglitke:File-based template storage?
+<a name="l-107"></a><span class="tm">13:19:50</span><span class="nk"> &lt;aglitke&gt;</span> * Backend code to generate the proper domain xml for streamed isos
+<a name="l-108"></a><span class="tm">13:20:01</span><span class="nk"> &lt;royce&gt;</span> aglitke, For file based template storage, is that one change from object store to file?
+<a name="l-109"></a><span class="tm">13:20:14</span><span class="nk"> &lt;aglitke&gt;</span> yes, but that needs more discussion here.
+<a name="l-110"></a><span class="tm">13:20:22</span><span class="nk"> &lt;royce&gt;</span> right, aglitke
+<a name="l-111"></a><span class="tm">13:20:57</span><span class="nk"> &lt;aglitke&gt;</span> I think there is a difference between templates and known iso links
+<a name="l-112"></a><span class="tm">13:21:08</span><span class="nk"> &lt;aglitke&gt;</span> even though both have the same json format
+<a name="l-113"></a><span class="tm">13:21:35</span><span class="nk"> &lt;aglitke&gt;</span> Templates are user created and can be deleted
+<a name="l-114"></a><span class="tm">13:22:04</span><span class="nk"> &lt;aglitke&gt;</span> they can also be installed by an external package into /etc/kimchi/templates/
+<a name="l-115"></a><span class="tm">13:22:44</span><span class="nk"> &lt;ming&gt;</span> what the user can do with known iso links?
+<a name="l-116"></a><span class="tm">13:22:54</span><span class="nk"> &lt;aglitke&gt;</span> Templates are accessed by /templates/* URI
+<a name="l-117"></a><span class="tm">13:22:59</span><span class="nk"> &lt;ming&gt;</span> creating VM by iso links directly?
+<a name="l-118"></a><span class="tm">13:23:04</span><span class="nk"> &lt;aglitke&gt;</span> for iso links:
+<a name="l-119"></a><span class="tm">13:23:24</span><span class="nk"> &lt;aglitke&gt;</span> They are supplied by the kimchi package or an add-on package only.
+<a name="l-120"></a><span class="tm">13:23:32</span><span class="nk"> &lt;royce&gt;</span> so with installable templates we still expose iso links?
+<a name="l-121"></a><span class="tm">13:23:37</span><span class="nk"> &lt;aglitke&gt;</span> Then cannot be added by the API or deleted.
+<a name="l-122"></a><span class="tm">13:24:04</span><span class="nk"> &lt;aglitke&gt;</span> They might be located at: /etc/kimchi/distros
+<a name="l-123"></a><span class="tm">13:24:22</span><span class="nk"> &lt;aglitke&gt;</span> they can be accessed by the URI: /config/distros
+<a name="l-124"></a><span class="tm">13:24:33</span><span class="nk"> &lt;aglitke&gt;</span> they can only be listed
+<a name="l-125"></a><span class="tm">13:24:52</span><span class="nk"> &lt;royce&gt;</span> and update? aglitke
+<a name="l-126"></a><span class="tm">13:24:55</span><span class="nk"> &lt;aglitke&gt;</span> to create a template from a known distro the ui would fetch the appropriate distro
+<a name="l-127"></a><span class="tm">13:25:21</span><span class="nk"> &lt;aglitke&gt;</span> and use the json to construct a template json object to post to /templates
+<a name="l-128"></a><span class="tm">13:25:28</span><span class="nk"> &lt;aglitke&gt;</span> no updates to distros via the api
+<a name="l-129"></a><span class="tm">13:25:46</span><span class="nk"> &lt;aglitke&gt;</span> it is static application configuration
+<a name="l-130"></a><span class="tm">13:25:52</span><span class="nk"> &lt;ming&gt;</span> isos are pre-installed before Kimchi by admin?
+<a name="l-131"></a><span class="tm">13:26:00</span><span class="nk"> &lt;aglitke&gt;</span> can be edited by an external package or by the administrator.
+<a name="l-132"></a><span class="tm">13:26:09</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Just the iso information
+<a name="l-133"></a><span class="tm">13:26:22</span><span class="nk"> &lt;royce&gt;</span> what if we want to use a local mirror iso link? I assume we need to change the default official one?
+<a name="l-134"></a><span class="tm">13:26:25</span><span class="nk"> &lt;aglitke&gt;</span> like links to the remote file, icon, and recommended vm settings.
+<a name="l-135"></a><span class="tm">13:26:36</span><span class="nk"> &lt;ming&gt;</span> aglitke, so we need tools to create iso information.
+<a name="l-136"></a><span class="tm">13:26:44</span><span class="nk"> &lt;aglitke&gt;</span> we would drop a new file into /etc/kimchi/distros
+<a name="l-137"></a><span class="tm">13:27:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> These would not be commonly edited by end users.
+<a name="l-138"></a><span class="tm">13:27:16</span><span class="nk"> &lt;alinefm&gt;</span> the iso link wil be what? a xm file with the information or only the iso file itself/
+<a name="l-139"></a><span class="tm">13:27:17</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-140"></a><span class="tm">13:27:39</span><span class="nk"> &lt;aglitke&gt;</span> in /etc/kimchi/distros would be a series of .json files
+<a name="l-141"></a><span class="tm">13:27:49</span><span class="nk"> &lt;ming&gt;</span> aglitke, I think even administrator need a handy tool to change those distro informations.
+<a name="l-142"></a><span class="tm">13:28:00</span><span class="nk"> &lt;aglitke&gt;</span> the format is a list of json objects:
+<a name="l-143"></a><span class="tm">13:28:02</span><span class="nk"> &lt;aglitke&gt;</span> [
+<a name="l-144"></a><span class="tm">13:28:53</span><span class="nk"> &lt;aglitke&gt;</span> { 'name': 'Fedora 19', 'os_distro': 'fedora', 'os_version': '19', 'cdrom': 'http://...', ... },
+<a name="l-145"></a><span class="tm">13:28:54</span><span class="nk"> &lt;aglitke&gt;</span> ]
+<a name="l-146"></a><span class="tm">13:29:13</span><span class="nk"> &lt;aglitke&gt;</span> Notice the format of the json object matches the format of a VM Template.
+<a name="l-147"></a><span class="tm">13:29:42</span><span class="nk"> &lt;aglitke&gt;</span> to make a template from a distro, the UI just echos the object into a new json object and substitutes 'name' with the desired template name.
+<a name="l-148"></a><span class="tm">13:29:46</span><span class="nk"> &lt;alinefm&gt;</span> right! so the ui will be able to list those iso links and then the user can select one to create a template from?
+<a name="l-149"></a><span class="tm">13:29:49</span><span class="nk"> &lt;royce&gt;</span> OK, read only iso info does not need to care about locks, but template file need, I think we need to tackle the issue of transaction write and r/w serialization of file
+<a name="l-150"></a><span class="tm">13:29:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-151"></a><span class="tm">13:29:59</span><span class="nk"> &lt;alinefm&gt;</span> or the user will be able to create a vm from the iso link directly?
+<a name="l-152"></a><span class="tm">13:30:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> If the user specifies a link by themselves, they also need to select a distro and version (or unknown)
+<a name="l-153"></a><span class="tm">13:31:12</span><span class="nk"> &lt;AdamKingIT&gt;</span> But that would be to create a template from a link directly. I don;t think we are contemplating creating VMs through any path other than template
+<a name="l-154"></a><span class="tm">13:31:15</span><span class="nk"> &lt;royce&gt;</span> xingding, AdamKingIT so the UI will still needed for this one for creating template
+<a name="l-155"></a><span class="tm">13:31:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> I responded to your question on the list... The ObjectStore already uses a session / transaction lock that is global to the objectstore.
+<a name="l-156"></a><span class="tm">13:31:48</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  the cdrom can be several links? for http://iso.us.com http://iso.cn.com   ftp:// ?
+<a name="l-157"></a><span class="tm">13:31:49</span><span class="nk"> &lt;ming&gt;</span> royce, are you talking abot the administrator can change the template with writing operations?
+<a name="l-158"></a><span class="tm">13:31:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Right, create template from link. then create vm from template.
+<a name="l-159"></a><span class="tm">13:32:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> For now it is one link.
+<a name="l-160"></a><span class="tm">13:32:22</span><span class="nk"> &lt;royce&gt;</span> ming, yes
+<a name="l-161"></a><span class="tm">13:32:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> class ObjectStoreSession(object):
+<a name="l-162"></a><span class="tm">13:33:26</span><span class="nk"> &lt;royce&gt;</span> aglitke, let me take a look...
+<a name="l-163"></a><span class="tm">13:33:30</span><span class="nk"> &lt;aglitke&gt;</span> This gives you safe, exclusive access to the ObjectStore.
+<a name="l-164"></a><span class="tm">13:33:42</span><span class="nk"> &lt;xinding&gt;</span> <span class="hi">royce:</span> Got it.
+<a name="l-165"></a><span class="tm">13:33:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> The UI for this as a baseline will need to cover creating a template from the avail 'known distros', where the use picks from the distros
+<a name="l-166"></a><span class="tm">13:34:26</span><span class="nk"> &lt;AdamKingIT&gt;</span> After we have that, we'll eventually want to add 'create a temple from a URL' where the user has to input the URL
+<a name="l-167"></a><span class="tm">13:34:38</span><span class="nk"> &lt;aglitke&gt;</span> yep
+<a name="l-168"></a><span class="tm">13:35:06</span><span class="nk"> &lt;xinding&gt;</span> create a temple from a URL, we already have this
+<a name="l-169"></a><span class="tm">13:35:33</span><span class="nk"> &lt;aglitke&gt;</span> maybe that UI could redirect right to the template edit window
+<a name="l-170"></a><span class="tm">13:35:42</span><span class="nk"> &lt;aglitke&gt;</span> after it is created.
+<a name="l-171"></a><span class="tm">13:36:06</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, the UI create template passing an url already exists
+<a name="l-172"></a><span class="tm">13:36:15</span><span class="nk"> &lt;xinding&gt;</span> But maybe not only one templates could be created one time
+<a name="l-173"></a><span class="tm">13:36:24</span><span class="nk"> &lt;royce&gt;</span> aglitke, so one time for a r/w access from the user of objstore?acceptable, for transaction write we still want to make sure it never writes part of the file
+<a name="l-174"></a><span class="tm">13:37:16</span><span class="nk"> &lt;xinding&gt;</span> If user select several isos, it's difficult to decide to redirect to which edit window
+<a name="l-175"></a><span class="tm">13:37:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> I only mean to do the redirect when adding an iso from a single custom URL
+<a name="l-176"></a><span class="tm">13:37:59</span><span class="nk"> &lt;xinding&gt;</span> <span class="hi">aglitke:</span> got it
+<a name="l-177"></a><span class="tm">13:38:04</span><span class="nk"> &lt;aglitke&gt;</span> for the UI where the user selects known distros there is no need to redirect.
+<a name="l-178"></a><span class="tm">13:38:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> aglitke: a tool to write the iso json file?  such as the ajax shell ?
+<a name="l-179"></a><span class="tm">13:38:23</span><span class="nk"> &lt;aglitke&gt;</span> Maybe eventually but it's not important for September.
+<a name="l-180"></a><span class="tm">13:39:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes. this can avoid the user to write the file directly.
+<a name="l-181"></a><span class="tm">13:39:20</span><span class="nk"> &lt;royce&gt;</span> I think that transaction can be gaurenteed by copy and update instead of write lines
+<a name="l-182"></a><span class="tm">13:39:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> You may need to improve the locking for the FileStore class.  I would suggest a threading.Semaphore per FileStore object.
+<a name="l-183"></a><span class="tm">13:40:04</span><span class="nk"> &lt;aglitke&gt;</span> to work with the filestore you must create a session (as with ObjectStore) and that session takes the semaphore.
+<a name="l-184"></a><span class="tm">13:40:05</span><span class="nk"> &lt;royce&gt;</span> aglitke, mark suggested each for a template too
+<a name="l-185"></a><span class="tm">13:40:31</span><span class="nk"> &lt;aglitke&gt;</span> then while holding the session you can safely manipulate date.
+<a name="l-186"></a><span class="tm">13:40:33</span><span class="nk"> &lt;aglitke&gt;</span> data.
+<a name="l-187"></a><span class="tm">13:40:45</span><span class="nk"> &lt;aglitke&gt;</span> I think it needs to be global per object type.
+<a name="l-188"></a><span class="tm">13:40:46</span><span class="nk"> &lt;royce&gt;</span> got it, agitke
+<a name="l-189"></a><span class="tm">13:41:09</span><span class="nk"> &lt;aglitke&gt;</span> otherwise you could get an inconsistent list of objects if someone else is removing one.
+<a name="l-190"></a><span class="tm">13:41:22</span><span class="nk"> &lt;royce&gt;</span> right
+<a name="l-191"></a><span class="tm">13:41:50</span><span class="nk"> &lt;aglitke&gt;</span> Do we have agreement on the design?
+<a name="l-192"></a><span class="tm">13:41:53</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> ?
+<a name="l-193"></a><span class="tm">13:42:25</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yeap
+<a name="l-194"></a><span class="tm">13:42:27</span><span class="nk"> &lt;royce&gt;</span> let's see if UI guys agree with this?:)
+<a name="l-195"></a><span class="tm">13:42:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> agree!
+<a name="l-196"></a><span class="tm">13:42:47</span><span class="nk"> &lt;alinefm&gt;</span> we need to assign people to it
+<a name="l-197"></a><span class="tm">13:43:01</span><span class="nk"> &lt;aglitke&gt;</span> yes, that will be the next step once everyone agrees with this plan.
+<a name="l-198"></a><span class="tm">13:43:03</span><span class="nk"> &lt;ming&gt;</span> I assume the session is cherrypy session here.
+<a name="l-199"></a><span class="tm">13:43:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> no
+<a name="l-200"></a><span class="tm">13:43:23</span><span class="nk"> &lt;aglitke&gt;</span> it's like ObjectStoreSession in the current code
+<a name="l-201"></a><span class="tm">13:43:37</span><span class="nk"> &lt;aglitke&gt;</span> it's a python ContextManager context
+<a name="l-202"></a><span class="tm">13:43:37</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> just for the file operation session？
+<a name="l-203"></a><span class="tm">13:44:13</span><span class="nk"> &lt;ming&gt;</span> aglitke, not sure why we need that context.
+<a name="l-204"></a><span class="tm">13:44:28</span><span class="nk"> &lt;aglitke&gt;</span> It's for entering a critical section
+<a name="l-205"></a><span class="tm">13:44:34</span><span class="nk"> &lt;ming&gt;</span> It is easy to maintain a global lock across differnt cherrypy sessions.
+<a name="l-206"></a><span class="tm">13:44:51</span><span class="nk"> &lt;aglitke&gt;</span> the context is bounded by a lock acquire and release
+<a name="l-207"></a><span class="tm">13:45:11</span><span class="nk"> &lt;aglitke&gt;</span> with FIleSession(...) as ctx:
+<a name="l-208"></a><span class="tm">13:45:17</span><span class="nk"> &lt;aglitke&gt;</span> do first op
+<a name="l-209"></a><span class="tm">13:45:20</span><span class="nk"> &lt;aglitke&gt;</span> do second op
+<a name="l-210"></a><span class="tm">13:45:26</span><span class="nk"> &lt;aglitke&gt;</span> return
+<a name="l-211"></a><span class="tm">13:45:44</span><span class="nk"> &lt;aglitke&gt;</span> before entering the sub-block, the lock will be taken
+<a name="l-212"></a><span class="tm">13:45:56</span><span class="nk"> &lt;aglitke&gt;</span> after exiting the block, the lock will be released.
+<a name="l-213"></a><span class="tm">13:46:13</span><span class="nk"> &lt;aglitke&gt;</span> first op and second op are guaranteed to happen sequentially.
+<a name="l-214"></a><span class="tm">13:46:29</span><span class="nk"> &lt;aglitke&gt;</span> without any interleaving operations to corrupt data.
+<a name="l-215"></a><span class="tm">13:46:30</span><span class="nk"> &lt;ming&gt;</span> so you protect each file with one context ?
+<a name="l-216"></a><span class="tm">13:46:46</span><span class="nk"> &lt;royce&gt;</span> aglitke, it means vm/screenshot will also use file backend after that?
+<a name="l-217"></a><span class="tm">13:46:48</span><span class="nk"> &lt;ming&gt;</span> or multiple files with one context?
+<a name="l-218"></a><span class="tm">13:46:56</span><span class="nk"> &lt;aglitke&gt;</span> You can either do one global one (for all types) or one per type.
+<a name="l-219"></a><span class="tm">13:47:06</span><span class="nk"> &lt;aglitke&gt;</span> I think one per type is ok for our API right now,.
+<a name="l-220"></a><span class="tm">13:47:30</span><span class="nk"> &lt;royce&gt;</span> means templates hold a lock and vm hold a lock
+<a name="l-221"></a><span class="tm">13:47:37</span><span class="nk"> &lt;AdamKingIT&gt;</span> I don't know that we want screenshot to get more entangled with files
+<a name="l-222"></a><span class="tm">13:47:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> I am ok with keeping ObjectStore for VM metadata
+<a name="l-223"></a><span class="tm">13:48:00</span><span class="nk"> &lt;aglitke&gt;</span> It does not need to be altered by external packages.
+<a name="l-224"></a><span class="tm">13:48:17</span><span class="nk"> &lt;ming&gt;</span> royce, so as to the state for the async threads.
+<a name="l-225"></a><span class="tm">13:48:45</span><span class="nk"> &lt;ming&gt;</span> s/so/the same/
+<a name="l-226"></a><span class="tm">13:49:15</span><span class="nk"> &lt;ming&gt;</span> next item?
+<a name="l-227"></a><span class="tm">13:49:32</span><span class="nk"> &lt;aglitke&gt;</span> I guess the FileStore will be simpler to implement if each file can contain only a single json object (not a list as I said before)
+<a name="l-228"></a><span class="tm">13:49:44</span><span class="nk"> &lt;aglitke&gt;</span> It means we will have a lot of files in that dir.
+<a name="l-229"></a><span class="tm">13:50:01</span><span class="nk"> &lt;aglitke&gt;</span> in /etc/kimchi/distros
+<a name="l-230"></a><span class="tm">13:50:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  ming: same with the sqilt3 session
+<a name="l-231"></a><span class="tm">13:50:31</span><span class="nk"> &lt;aglitke&gt;</span> I want to go down the list of tasks for this feature to make sure we are working on them all.
+<a name="l-232"></a><span class="tm">13:51:04</span><span class="nk"> &lt;alinefm&gt;</span> 1) create backend to list iso links
+<a name="l-233"></a><span class="tm">13:51:11</span><span class="nk"> &lt;royce&gt;</span> the KPI feature of alinefm
+<a name="l-234"></a><span class="tm">13:51:12</span><span class="nk"> &lt;ming&gt;</span> like { 'name': 'Fedora 19'} in one file?
+<a name="l-235"></a><span class="tm">13:51:19</span><span class="nk"> &lt;alinefm&gt;</span> 2) create UI do list iso links
+<a name="l-236"></a><span class="tm">13:51:24</span><span class="nk"> &lt;aglitke&gt;</span> * Capabilities detection
+<a name="l-237"></a><span class="tm">13:51:25</span><span class="nk"> &lt;aglitke&gt;</span> * File-based template storage
+<a name="l-238"></a><span class="tm">13:51:25</span><span class="nk"> &lt;aglitke&gt;</span> * API to list known iso templates
+<a name="l-239"></a><span class="tm">13:51:25</span><span class="nk"> &lt;aglitke&gt;</span> * UI to create a template from a known network iso
+<a name="l-240"></a><span class="tm">13:51:25</span><span class="nk"> &lt;aglitke&gt;</span> * UI to create a template from a user provided URL
+<a name="l-241"></a><span class="tm">13:51:38</span><span class="nk"> &lt;aglitke&gt;</span> oh... sorry :)
+<a name="l-242"></a><span class="tm">13:51:53</span><span class="nk"> &lt;alinefm&gt;</span> np! =) you have it ready
+<a name="l-243"></a><span class="tm">13:52:06</span><span class="nk"> &lt;aglitke&gt;</span> * Capabilities detection (alinefm) ?
+<a name="l-244"></a><span class="tm">13:52:16</span><span class="nk"> &lt;alinefm&gt;</span> yeap! =P
+<a name="l-245"></a><span class="tm">13:52:20</span><span class="nk"> &lt;aglitke&gt;</span> * File-based template storage (royce) ?
+<a name="l-246"></a><span class="tm">13:52:29</span><span class="nk"> &lt;aglitke&gt;</span> This is what we discussed above
+<a name="l-247"></a><span class="tm">13:52:33</span><span class="nk"> &lt;royce&gt;</span> right~
+<a name="l-248"></a><span class="tm">13:52:42</span><span class="nk"> &lt;aglitke&gt;</span> * API to list known iso templates (royce)?
+<a name="l-249"></a><span class="tm">13:52:54</span><span class="nk"> &lt;aglitke&gt;</span> This will read the files in /etc/kinchi/distros
+<a name="l-250"></a><span class="tm">13:52:57</span><span class="nk"> &lt;alinefm&gt;</span> this is related to iso links?
+<a name="l-251"></a><span class="tm">13:53:07</span><span class="nk"> &lt;ming&gt;</span> I think royce is overloading...
+<a name="l-252"></a><span class="tm">13:53:15</span><span class="nk"> &lt;xinding&gt;</span> * UI to create a template from a known network iso
+<a name="l-253"></a><span class="tm">13:53:16</span><span class="nk"> &lt;xinding&gt;</span> * UI to create a template from a user provided URL
+<a name="l-254"></a><span class="tm">13:53:16</span><span class="nk"> &lt;xinding&gt;</span> For these two, add the feature to redirect to edit window after creating
+<a name="l-255"></a><span class="tm">13:53:20</span><span class="nk"> &lt;aglitke&gt;</span> And will present them at the uri /config/distros
+<a name="l-256"></a><span class="tm">13:53:47</span><span class="nk"> &lt;shaohef&gt;</span> then what will I do？
+<a name="l-257"></a><span class="tm">13:53:49</span><span class="nk"> &lt;royce&gt;</span> maybe shaohef can help with this one if he wants:)
+<a name="l-258"></a><span class="tm">13:53:53</span><span class="nk"> &lt;aglitke&gt;</span> API to list known iso templates  depends on the file based storage api
+<a name="l-259"></a><span class="tm">13:54:12</span><span class="nk"> &lt;aglitke&gt;</span> sure, you guys can break it up however it works.
+<a name="l-260"></a><span class="tm">13:54:24</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> aglitke:  yes. I can take one
+<a name="l-261"></a><span class="tm">13:54:35</span><span class="nk"> &lt;royce&gt;</span> thanks,shaohef~
+<a name="l-262"></a><span class="tm">13:54:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> You have the UI pieces covered?
+<a name="l-263"></a><span class="tm">13:55:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> Can we chat a bit more about the redirect to edit after create?
+<a name="l-264"></a><span class="tm">13:55:17</span><span class="nk"> &lt;xinding&gt;</span> * UI to create a template from know isos list
+<a name="l-265"></a><span class="tm">13:55:24</span><span class="nk"> &lt;aglitke&gt;</span> maybe shaohef can give you a MockModel implementation of /config/distros that is fake so you can test the UI part
+<a name="l-266"></a><span class="tm">13:55:51</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  sure.
+<a name="l-267"></a><span class="tm">13:55:55</span><span class="nk"> &lt;aglitke&gt;</span> it is easy to mock up the backend using MockModel to enable UI testing.
+<a name="l-268"></a><span class="tm">13:56:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Cool.  Then when royce is ready with the backend stuff you can implement the real model.
+<a name="l-269"></a><span class="tm">13:56:22</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Sure.
+<a name="l-270"></a><span class="tm">13:56:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-271"></a><span class="tm">13:56:36</span><span class="nk"> &lt;aglitke&gt;</span> I think the redirect to edit should only happen for custom URLs
+<a name="l-272"></a><span class="tm">13:57:02</span><span class="nk"> &lt;royce&gt;</span> OK, aglitke I will trying not block shaohef
+<a name="l-273"></a><span class="tm">13:57:02</span><span class="nk"> &lt;aglitke&gt;</span> Because we have no way of knowing which distro they point to.
+<a name="l-274"></a><span class="tm">13:57:07</span><span class="nk"> &lt;ming&gt;</span> editing the URLs for correction?
+<a name="l-275"></a><span class="tm">13:57:18</span><span class="nk"> &lt;AdamKingIT&gt;</span> Do we still plan to read the first few sectors of a custom URL like we do w./ local ISO?
+<a name="l-276"></a><span class="tm">13:57:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> no problem.  shaohef can add a list of fake distro entries for the MockModel
+<a name="l-277"></a><span class="tm">13:57:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> So we can detect distro?
+<a name="l-278"></a><span class="tm">13:57:39</span><span class="nk"> &lt;royce&gt;</span> oh! that one...
+<a name="l-279"></a><span class="tm">13:57:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Maybe later.
+<a name="l-280"></a><span class="tm">13:58:08</span><span class="nk"> &lt;aglitke&gt;</span> You need to read 16 sectors
+<a name="l-281"></a><span class="tm">13:58:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> The thing w/ edit is we do not presently allow anyone to edit the distro/version of a template, nor the icon...
+<a name="l-282"></a><span class="tm">13:58:35</span><span class="nk"> &lt;aglitke&gt;</span> oh, ok
+<a name="l-283"></a><span class="tm">13:58:44</span><span class="nk"> &lt;aglitke&gt;</span> maybe we should try to get the read working then.
+<a name="l-284"></a><span class="tm">13:58:56</span><span class="nk"> &lt;aglitke&gt;</span> Also, we can detect if the url is valid or not,
+<a name="l-285"></a><span class="tm">13:59:03</span><span class="nk"> &lt;AdamKingIT&gt;</span> So the edit would just be to edit cpu/memory (+storage pool and template when those come in)
+<a name="l-286"></a><span class="tm">13:59:12</span><span class="nk"> &lt;royce&gt;</span> I saw alinefm did change to use urlopen to validate it, maybe it can be added there
+<a name="l-287"></a><span class="tm">13:59:13</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, my patch already does that
+<a name="l-288"></a><span class="tm">13:59:31</span><span class="nk"> &lt;ming&gt;</span> we already get the ISO generator patches
+<a name="l-289"></a><span class="tm">13:59:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Really?  Awesome!
+<a name="l-290"></a><span class="tm">13:59:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Those aren't needed for any of this,
+<a name="l-291"></a><span class="tm">14:00:02</span><span class="nk"> &lt;royce&gt;</span> alinefm validated the url , I think read sectors can be added there
+<a name="l-292"></a><span class="tm">14:00:24</span><span class="nk"> &lt;alinefm&gt;</span> yes, I mean validating the url
+<a name="l-293"></a><span class="tm">14:00:26</span><span class="nk"> &lt;ming&gt;</span> aglitke, I mean we can extend that to get the 16 first sector to know the distros.
+<a name="l-294"></a><span class="tm">14:00:30</span><span class="nk"> &lt;aglitke&gt;</span> ok... Then we pass the raw data to the same scanning code to do the checks.,
+<a name="l-295"></a><span class="tm">14:00:32</span><span class="nk"> &lt;royce&gt;</span> ming, generator is for test logic related isos
+<a name="l-296"></a><span class="tm">14:00:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  read 16 sectors
+<a name="l-297"></a><span class="tm">14:01:34</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> you means read the  16 first sector  from the remote iso?
+<a name="l-298"></a><span class="tm">14:01:35</span><span class="nk"> &lt;aglitke&gt;</span> ok.  So... I think iso streaming is the largest feature by far.
+<a name="l-299"></a><span class="tm">14:01:40</span><span class="nk"> &lt;alinefm&gt;</span> right! so we need to read 16 sectors of iso streaming and use iso_info to detect?
+<a name="l-300"></a><span class="tm">14:01:45</span><span class="nk"> &lt;aglitke&gt;</span> But everyone has a piece of it.
+<a name="l-301"></a><span class="tm">14:01:58</span><span class="nk"> &lt;royce&gt;</span> alinefm, you pass it to probe_is
+<a name="l-302"></a><span class="tm">14:02:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> agiltke, you going to update the wiki?
+<a name="l-303"></a><span class="tm">14:02:06</span><span class="nk"> &lt;royce&gt;</span> probe_iso
+<a name="l-304"></a><span class="tm">14:02:10</span><span class="nk"> &lt;aglitke&gt;</span> The last feature is the auth... I am making the suggested changes based on your reviews.  It should be ready to merge after that.
+<a name="l-305"></a><span class="tm">14:02:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Sure.
+<a name="l-306"></a><span class="tm">14:02:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> great...
+<a name="l-307"></a><span class="tm">14:02:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> We have a few more features in flight. Not everyone is coding ISO streaming, yet anyway :-D
+<a name="l-308"></a><span class="tm">14:03:01</span><span class="nk"> &lt;aglitke&gt;</span> I don't want to consider other patches (except for bug fixes) other than these patches we have talked about.  We need to focus on these features.
+<a name="l-309"></a><span class="tm">14:03:15</span><span class="nk"> &lt;ming&gt;</span> agltike, I am enhancing some of the authentication method.
+<a name="l-310"></a><span class="tm">14:03:16</span><span class="nk"> &lt;royce&gt;</span> aglitke, the KPI one
+<a name="l-311"></a><span class="tm">14:03:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Who is working on that one?
+<a name="l-312"></a><span class="tm">14:03:49</span><span class="nk"> &lt;royce&gt;</span> alinefm, but I have some suggestion:)
+<a name="l-313"></a><span class="tm">14:04:00</span><span class="nk"> &lt;aglitke&gt;</span> ok, let's tackle it quickly.
+<a name="l-314"></a><span class="tm">14:04:11</span><span class="nk"> &lt;royce&gt;</span> I wish it could be put in single thread collected periodically
+<a name="l-315"></a><span class="tm">14:04:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">aglitke:</span> Once you get through authentication you can spend more time reviewing others
+<a name="l-316"></a><span class="tm">14:04:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> yep
+<a name="l-317"></a><span class="tm">14:04:41</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes! good point
+<a name="l-318"></a><span class="tm">14:04:46</span><span class="nk"> &lt;ming&gt;</span> I would suggest aglitke put more effort on patch merging.
+<a name="l-319"></a><span class="tm">14:04:58</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">aglitke update wiki with current feature state</span>
+<a name="l-320"></a><span class="tm">14:05:17</span><span class="nk"> &lt;royce&gt;</span> In the future we may need jurnal or history of these data which can not depend on browser access
+<a name="l-321"></a><span class="tm">14:05:17</span><span class="nk"> &lt;alinefm&gt;</span> royce, I resent the patchset yesterday. did you have a chance to see it?
+<a name="l-322"></a><span class="tm">14:05:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I can only merge when patches are ready
+<a name="l-323"></a><span class="tm">14:05:27</span><span class="nk"> &lt;aglitke&gt;</span> quality first, then merge
+<a name="l-324"></a><span class="tm">14:05:29</span><span class="nk"> &lt;royce&gt;</span> Thanks alinefm:) Haven't yet
+<a name="l-325"></a><span class="tm">14:05:44</span><span class="nk"> &lt;YuXin&gt;</span> <span class="hi">AdamKingIT:</span> is there any license issue of introducing jquery UI to Kimchi?
+<a name="l-326"></a><span class="tm">14:05:53</span><span class="nk"> &lt;royce&gt;</span> I'll review tomorrow, alinefm
+<a name="l-327"></a><span class="tm">14:06:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> I do not think so.  Just include it into ui/lib
+<a name="l-328"></a><span class="tm">14:06:20</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-329"></a><span class="tm">14:06:21</span><span class="nk"> &lt;alinefm&gt;</span> royce, I've just recorded the max rate value to fill the circle properly
+<a name="l-330"></a><span class="tm">14:06:22</span><span class="nk"> &lt;aglitke&gt;</span> If it's the same license as jQuery itself then we should be ok.
+<a name="l-331"></a><span class="tm">14:06:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> I don't think so either, but I forgot to discuss w/ Frank when we talked yesterday
+<a name="l-332"></a><span class="tm">14:06:37</span><span class="nk"> &lt;alinefm&gt;</span> maybe UI guys would like to change how this data is shown
+<a name="l-333"></a><span class="tm">14:07:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> It's a good idea... We don't want to collect stats for each connected client.
+<a name="l-334"></a><span class="tm">14:07:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> I am sure we will love it. :-) I'll check it our this afternoon
+<a name="l-335"></a><span class="tm">14:07:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> out
+<a name="l-336"></a><span class="tm">14:07:54</span><span class="nk"> &lt;ming&gt;</span> alinefm, about the max rate.  Can we make the max rate dynamatically?
+<a name="l-337"></a><span class="tm">14:08:35</span><span class="nk"> &lt;ming&gt;</span> alinefm, you don't have exact the max rate of a network device.
+<a name="l-338"></a><span class="tm">14:08:47</span><span class="nk"> &lt;alinefm&gt;</span> ming, I did it
+<a name="l-339"></a><span class="tm">14:09:00</span><span class="nk"> &lt;ming&gt;</span> then, what is that?
+<a name="l-340"></a><span class="tm">14:09:01</span><span class="nk"> &lt;alinefm&gt;</span> ming, I check the max rate in each request and update it
+<a name="l-341"></a><span class="tm">14:09:02</span><span class="nk"> &lt;aglitke&gt;</span> I am not sure we want to calculate a max rate at all.  It will be misleading.  I think we should just display the actual value.
+<a name="l-342"></a><span class="tm">14:09:27</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, the max rate is only to fill the circle
+<a name="l-343"></a><span class="tm">14:09:28</span><span class="nk"> &lt;aglitke&gt;</span> otherwise 1kb/s might be 100% if that's as high as it's ever been
+<a name="l-344"></a><span class="tm">14:09:38</span><span class="nk"> &lt;alinefm&gt;</span> and the center the actual value is displayed
+<a name="l-345"></a><span class="tm">14:09:44</span><span class="nk"> &lt;aglitke&gt;</span> oh, ok
+<a name="l-346"></a><span class="tm">14:09:46</span><span class="nk"> &lt;ming&gt;</span> alinefm, I will read it.
+<a name="l-347"></a><span class="tm">14:09:51</span><span class="nk"> &lt;aglitke&gt;</span> Maybe that is ok then.
+<a name="l-348"></a><span class="tm">14:10:09</span><span class="nk"> &lt;aglitke&gt;</span> ok... We have run 10 minutes over time.
+<a name="l-349"></a><span class="tm">14:10:18</span><span class="nk"> &lt;aglitke&gt;</span> Any last quick items before we end?
+<a name="l-350"></a><span class="tm">14:10:20</span><span class="nk"> &lt;alinefm&gt;</span> for example: if the max rate is 250 and the current rate is 100, the portion of circle filled will be 100/250
+<a name="l-351"></a><span class="tm">14:10:20</span><span class="nk"> &lt;royce&gt;</span> that is lovely, center actual value idea:)
+<a name="l-352"></a><span class="tm">14:10:34</span><span class="nk"> &lt;alinefm&gt;</span> but  in the center the value will be 100KB.s
+<a name="l-353"></a><span class="tm">14:10:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> good
+<a name="l-354"></a><span class="tm">14:10:48</span><span class="nk"> &lt;ming&gt;</span> But how you know the max rate?
+<a name="l-355"></a><span class="tm">14:10:59</span><span class="nk"> &lt;ming&gt;</span> Is it static?
+<a name="l-356"></a><span class="tm">14:11:01</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> stored in the model?
+<a name="l-357"></a><span class="tm">14:11:03</span><span class="nk"> &lt;royce&gt;</span> ming, update on every request
+<a name="l-358"></a><span class="tm">14:11:10</span><span class="nk"> &lt;alinefm&gt;</span> update in each request
+<a name="l-359"></a><span class="tm">14:11:41</span><span class="nk"> &lt;ming&gt;</span> K, let's talk off line.
+<a name="l-360"></a><span class="tm">14:12:07</span><span class="nk"> &lt;aglitke&gt;</span> ok, thanks everyone for joining!  Let's close out these features and have a great Sept release!
+<a name="l-361"></a><span class="tm">14:12:09</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
