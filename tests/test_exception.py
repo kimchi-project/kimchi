@@ -56,9 +56,7 @@ class ExceptionTests(unittest.TestCase):
         setup_server('production')
         # test 404
         resp = json.loads(request(host, port, '/vms/blah').read())
-        msg = 'Resource: vm ID: blah does not exist'
         self.assertEquals('404 Not Found', resp.get('code'))
-        self.assertEquals(msg, resp.get('reason'))
 
         # test 405 wrong method
         resp = json.loads(request(host, port, '/', None, 'DELETE').read())
@@ -88,9 +86,7 @@ class ExceptionTests(unittest.TestCase):
         setup_server()
         # test 404
         resp = json.loads(request(host, port, '/vms/blah').read())
-        msg = 'Resource: vm ID: blah does not exist'
         self.assertEquals('404 Not Found', resp.get('code'))
-        self.assertEquals(msg, resp.get('reason'))
 
         # test 405 wrong method
         resp = json.loads(request(host, port, '/', None, 'DELETE').read())
