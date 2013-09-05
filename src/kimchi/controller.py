@@ -93,6 +93,9 @@ def action(f):
             raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
         except OperationFailed, msg:
             raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
+        except NotFoundError, msg:
+            raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+
     return wrapper
 
 
@@ -133,6 +136,10 @@ class Resource(object):
             cherrypy.response.status = 204
         except AttributeError:
             raise cherrypy.HTTPError(405, 'Delete is not allowed for %s' % get_class_name(self))
+        except OperationFailed, msg:
+            raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
+        except InvalidOperation, msg:
+            raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
 
     @cherrypy.expose
     def index(self):
@@ -140,23 +147,22 @@ class Resource(object):
         if method == 'GET':
             try:
                 return self.get()
-            except NotFoundError:
-                raise cherrypy.HTTPError(404,
-                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
+            except NotFoundError, msg:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+            except InvalidOperation, msg:
+                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
         elif method == 'DELETE':
             try:
                 return self.delete()
-            except NotFoundError:
-                raise cherrypy.HTTPError(404,
-                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
+            except NotFoundError, msg:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
         elif method == 'PUT':
             try:
                 return self.update()
             except InvalidOperation, msg:
                 raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-            except NotFoundError:
-                raise cherrypy.HTTPError(404,
-                    'Resource: %s ID: %s does not exist' % (get_class_name(self), self.ident))
+            except NotFoundError, msg:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
 
     def update(self):
         try:
@@ -264,8 +270,11 @@ class Collection(object):
         if method == 'GET':
             try:
                 return self.get()
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
+            except InvalidOperation, param:
+                raise cherrypy.HTTPError(400,
+                                         "Invalid operation: '%s'" % param)
+            except NotFoundError, param:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % param)
         elif method == 'POST':
             try:
                 return self.create(*args)
@@ -273,8 +282,13 @@ class Collection(object):
                 raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
             except InvalidParameter, param:
                 raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
+            except OperationFailed, param:
+                raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % param)
+            except InvalidOperation, param:
+                raise cherrypy.HTTPError(400,
+                                         "Invalid operation: '%s'" % param)
+            except NotFoundError, param:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % param)
 
 
 class VMs(Collection):

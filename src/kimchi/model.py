@@ -350,7 +350,12 @@ class Model(object):
             name = params['name']
         except KeyError, key:
             raise MissingParameter(key)
-        pool = conn.storagePoolDefineXML(xml, 0)
+        if name in self.storagepools_get_list():
+            raise InvalidOperation("The name %s has been used by a pool.")
+        try:
+            conn.storagePoolDefineXML(xml, 0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
         return name
 
     def storagepool_lookup(self, name):
@@ -368,24 +373,36 @@ class Model(object):
 
     def storagepool_activate(self, name):
         pool = self._get_storagepool(name)
-        pool.create(0)
+        try:
+            pool.create(0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagepool_deactivate(self, name):
         pool = self._get_storagepool(name)
-        pool.destroy()
+        try:
+            pool.destroy()
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagepool_delete(self, name):
         pool = self._get_storagepool(name)
         if pool.isActive():
             raise InvalidOperation(
                         "Unable to delete the active storagepool %s" % name)
-        pool.undefine()
+        try:
+            pool.undefine()
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagepools_get_list(self):
-        conn = self.conn.get()
-        names = conn.listStoragePools()
-        names += conn.listDefinedStoragePools()
-        return names
+        try:
+            conn = self.conn.get()
+            names = conn.listStoragePools()
+            names += conn.listDefinedStoragePools()
+            return names
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def _get_storagepool(self, name):
         conn = self.conn.get()
@@ -405,7 +422,10 @@ class Model(object):
         except KeyError, key:
             raise MissingParameter(key)
         pool = self._get_storagepool(pool)
-        pool.createXML(xml, 0)
+        try:
+            pool.createXML(xml, 0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
         return name
 
     def storagevolume_lookup(self, pool, name):
@@ -422,27 +442,41 @@ class Model(object):
 
     def storagevolume_wipe(self, pool, name):
         volume = self._get_storagevolume(pool, name)
-        volume.wipePattern(libvirt.VIR_STORAGE_VOL_WIPE_ALG_ZERO, 0)
+        try:
+            volume.wipePattern(libvirt.VIR_STORAGE_VOL_WIPE_ALG_ZERO, 0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagevolume_delete(self, pool, name):
         volume = self._get_storagevolume(pool, name)
-        volume.delete(0)
+        try:
+            volume.delete(0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagevolume_resize(self, pool, name, size):
         size = size << 20
         volume = self._get_storagevolume(pool, name)
-        volume.resize(size, 0)
+        try:
+            volume.resize(size, 0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def storagevolumes_get_list(self, pool):
-        res = self._get_storagepool(pool)
-        if res.isActive():
-            return res.listVolumes()
-        else:
+        pool = self._get_storagepool(pool)
+        if not pool.isActive():
             raise InvalidOperation(
-                "Unable to list volumes of inactive storagepool %s" % pool)
+            "Unable to list volumes in inactive storagepool %s" % pool.name())
+        try:
+            return pool.listVolumes()
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
 
     def _get_storagevolume(self, pool, name):
         pool = self._get_storagepool(pool)
+        if not pool.isActive():
+            raise InvalidOperation(
+            "Unable to list volumes in inactive storagepool %s" % pool.name())
         try:
             return pool.storageVolLookupByName(name)
         except libvirt.libvirtError as e:
