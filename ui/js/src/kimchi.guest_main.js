@@ -113,7 +113,12 @@ kimchi.initVmButtonsAction = function() {
         kimchi.vncToVM($(this).data('vm'));
     });
 
-    $(".vm-action").on('click', function() {
+    kimchi.init_button_stat();
+
+};
+
+kimchi.init_button_stat = function() {
+    $('.vm-action').each(function() {
         var vm_action = $(this);
         var vm_vnc = vm_action.find('.vm-vnc');
         if ((vm_action.data('graphics') === 'vnc')
@@ -122,8 +127,7 @@ kimchi.initVmButtonsAction = function() {
         } else {
             vm_vnc.attr('disabled', 'disabled');
         }
-    });
-
+    })
 };
 
 kimchi.getVmsOldImg = function() {
@@ -132,7 +136,19 @@ kimchi.getVmsOldImg = function() {
         res[$(this).attr('id')] = $(this).find('img').attr('src');
     })
     return res;
-}
+};
+
+kimchi.getVmsOldPopStats = function() {
+    var oldSettings = new Object();
+    $('#guestList').children().each(function() {
+        if ($(this).find('.popable').hasClass('open')) {
+            oldSettings[$(this).attr('id')] = true;
+        } else {
+            oldSettings[$(this).attr('id')] = false;
+        }
+    })
+    return oldSettings;
+};
 
 kimchi.listVmsAuto = function() {
     if (kimchi.vmTimeout) {
@@ -143,13 +159,14 @@ kimchi.listVmsAuto = function() {
             var listHtml = '';
             var guestTemplate = kimchi.guestTemplate;
             var oldImages = kimchi.getVmsOldImg();
-
+            var oldSettings = kimchi.getVmsOldPopStats();
             $.each(result, function(index, value) {
                 var oldImg = oldImages[value.name];
                 curImg = value.state == 'running' ? value.screenshot : value.icon;
                 value['load-src'] = curImg || 'images/icon-vm.png';
                 value['tile-src'] = oldImg || value['load-src'];
-                listHtml += kimchi.template(guestTemplate, value);
+                var statusTemplate = kimchi.editTemplate(guestTemplate, oldSettings[value.name]);
+                listHtml += kimchi.template(statusTemplate, value);
             });
             $('#guestList').html(listHtml);
             $('#guestList').find('.imgload').each(function() {
@@ -191,4 +208,11 @@ kimchi.guest_main = function() {
         },
     });
 
+};
+
+kimchi.editTemplate = function(guestTemplate, oldPopStat) {
+    if (oldPopStat != null && oldPopStat) {
+        return guestTemplate.replace("vm-action", "vm-action open");
+    }
+    return guestTemplate;
 };
