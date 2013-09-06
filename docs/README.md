@@ -4,6 +4,26 @@ Kimchi Project
 Kimchi is an HTML5 based management tool for KVM.  It is designed to make it
 as easy as possible to get started with KVM and create your first guest.
 
+Browser Support
+===============
+Desktop Browser Support:
+-----------------------
+* **Internet Explorer:** IE9+ (Partial support for IE8)
+* **Chrome:** Current-1 version
+* **Firefox:** Current-1 version Firefox 17ESR
+* **Safari:** Current-1 version
+* **Opera:** Current-1 version
+
+Mobile Browser Support:
+-----------------------
+* **Safari iOS:** Current-1 version
+* **Android Browser** Current-1 version
+
+Current-1 version denotes that we support the current stable version of the browser and the version
+that preceded it. For example, if the current version of a browser is 24.x, we support the 24.x and
+23.x versions.This does not mean that kimchi cannot be used in other browsers, however, functionality
+and appearance may be diminished and we may not be able to provide support for any problems you find.
+
 Getting Started
 ===============
 
