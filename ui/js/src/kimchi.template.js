@@ -21,6 +21,15 @@
 kimchi.template = function(templateStr, data, tag) {
     tag = tag || /\{([^\}]+)\}/g;
 
+    var escapeHtml = function(html) {
+        return String(html)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    };
+
     return templateStr.replace(tag, function(matchResult, express) {
         var propertyArray = express.split('!');
         var defaultValue = propertyArray[1] || '';
@@ -34,6 +43,6 @@ kimchi.template = function(templateStr, data, tag) {
                 break;
             }
         }
-        return value || defaultValue;
+        return escapeHtml(value || defaultValue);
     });
 };
