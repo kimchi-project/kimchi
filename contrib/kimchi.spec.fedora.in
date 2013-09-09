@@ -29,6 +29,10 @@ Requires(preun): systemd
 Requires(postun): systemd
 %endif
 
+%if 0%{?with_systemd}
+BuildRequires: systemd-units
+%endif
+
 %description
 Web server application application to manage KVM/Qemu virtual machines
 
@@ -48,7 +52,7 @@ make DESTDIR=%{buildroot} install
 
 %if 0%{?with_systemd}
 # Install the systemd scripts
-install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}/lib/systemd/system/kimchid.service
+install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}%{_unitdir}/kimchid.service
 %endif
 
 %if 0%{?rhel} == 6
@@ -124,7 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
 %if 0%{?with_systemd}
-/lib/systemd/system/kimchid.service
+%{_unitdir}/kimchid.service
 %endif
 %if 0%{?rhel} == 6
 /etc/init/kimchid.conf
