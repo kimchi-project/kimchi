@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-21 12:09-0400\n"
+"POT-Creation-Date: 2013-09-04 15:22+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -271,5 +271,12 @@ msgstr ""
 msgid "msg.template.confirm.delete"
 msgstr ""
 
+
 msgid "Failed to get application configuration"
+msgstr ""
+
+msgid "This is not a valid linux path."
+msgstr ""
+
+msgid "This is not a valid url."
 msgstr ""

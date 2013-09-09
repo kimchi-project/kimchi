@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-21 12:09-0400\n"
+"POT-Creation-Date: 2013-09-04 15:22+0800\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Adam Litke <agl@us.ibm.com>\n"
 "Language-Team: English\n"
@@ -259,3 +259,9 @@ msgstr "This will permanently delete the Template. Would you like to continue?"
 
 msgid "Failed to get application configuration"
 msgstr "Failed to get application configuration"
+
+msgid "This is not a valid linux path."
+msgstr "This is not a valid linux path."
+
+msgid "This is not a valid url."
+msgstr "This is not a valid url."

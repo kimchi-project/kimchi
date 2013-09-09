@@ -65,29 +65,72 @@ kimchi.template_add_main = function() {
     });
 
     $('#btn-template-iso-create').click(function() {
+        var iso_file = $('#iso_file').val();
+        if (!kimchi.template_check_path(iso_file)) {
+            kimchi.message.error(i18n['msg.invalid.path']);
+            return;
+        }
         var data = {
-            "name" : 'Template' + new Date().getTime(),
-            "cdrom" : $('#iso_file').val()
+            "name" : kimchi.get_iso_name(iso_file),
+            "cdrom" : iso_file
         };
         kimchi.createTemplate(data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
-        }, function() {
-            kimchi.message.error(i18n['msg.fail.create.template']);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         });
     });
 
     $('#btn-template-url-create').click(function() {
+        var iso_url = $('#iso_url').val();
+        if (!kimchi.template_check_url(iso_url)) {
+            kimchi.message.error(i18n['msg.invalid.url']);
+            return;
+        }
         var data = {
-            "name" : 'Template' + new Date().getTime(),
-            "cdrom" : $('#iso_url').val()
+            "name" : kimchi.get_iso_name(iso_url),
+            "cdrom" : iso_url
         };
         kimchi.createTemplate(data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
         }, function() {
-            kimchi.message.error(i18n['msg.fail.create.template']);
+            burnet.message.error(data.responseJSON.reason);
         });
     });
 
+};
+kimchi.template_check_url = function(url) {
+    var strRegex = "^((https|http|ftp|ftps|tftp)?://)"
+        + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?"
+        + "(([0-9]{1,3}\.){3}[0-9]{1,3}"
+        + "|" + "([0-9a-z_!~*'()-]+\.)*"
+        + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\."
+        + "[a-z]{2,6})"
+        + "(:[0-9]{1,4})?"
+        + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)$";
+    var re = new RegExp(strRegex);
+    if (url.constructor === String) {
+        return re.test(url);
+    }
+    return false;
+};
+
+kimchi.template_check_path = function(filePath) {
+    var reg = /((\/([0-9a-zA-Z-_ \.]+))+[\.]iso)$/;
+    if (filePath.constructor === String) {
+        return reg.test(filePath);
+    }
+    return false;
+};
+
+kimchi.get_iso_name = function(isoPath) {
+    if (/.iso$/.test(isoPath)) {
+        return isoPath.substring(isoPath.lastIndexOf("/") + 1,
+                isoPath.lastIndexOf(".")) + new Date().getTime();
+    } else {
+        return isoPath.substring(isoPath.lastIndexOf("/") + 1) +
+        new Date().getTime();
+    }
 };
