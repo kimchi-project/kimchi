@@ -175,6 +175,17 @@ class ModelTests(unittest.TestCase):
             volinfo = inst.storagevolume_lookup(pool, vol)
             self.assertEquals(size, volinfo['capacity'])
 
+    def test_template_create(self):
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        # Test non-exist path raises InvalidParameter
+        params = {'name': 'test',
+                  'cdrom': '/non-exsitent.iso'}
+        self.assertRaises(InvalidParameter, inst.templates_create, params)
+
+        # Test non-iso path raises InvalidParameter
+        params['cdrom'] = os.path.abspath(__file__)
+        self.assertRaises(InvalidParameter, inst.templates_create, params)
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):

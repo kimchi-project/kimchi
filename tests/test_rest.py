@@ -250,8 +250,9 @@ class RestTests(unittest.TestCase):
 
     def test_get_storagepools(self):
         storagepools = json.loads(self.request('/storagepools').read())
-        self.assertEquals(1, len(storagepools))
+        self.assertEquals(2, len(storagepools))
         self.assertEquals('default', storagepools[0]['name'])
+        self.assertEquals('kimchi_isos', storagepools[1]['name'])
 
         # Now add a couple of StoragePools to the mock model
         for i in xrange(5):
@@ -272,8 +273,17 @@ class RestTests(unittest.TestCase):
         resp = self.request('/storagepools', req, 'POST')
         self.assertEquals(400, resp.status)
 
+        # Reserved pool return 400
+        req = json.dumps({'name': 'kimchi_isos',
+                          'capacity': 1024,
+                          'allocated': 512,
+                          'path': '/var/lib/libvirt/images/%i' % i,
+                          'type': 'dir'})
+        resp = request(host, port, '/storagepools', req, 'POST')
+        self.assertEquals(400, resp.status)
+
         storagepools = json.loads(self.request('/storagepools').read())
-        self.assertEquals(6, len(storagepools))
+        self.assertEquals(7, len(storagepools))
 
         resp = self.request('/storagepools/storagepool-1')
         storagepool = json.loads(resp.read())
@@ -461,15 +471,56 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates/%s' % t['name'], '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
-        # Test non-exist path return 400
-        req = json.dumps({'name': 'test', 'cdrom': '/imagine.iso'})
-        resp = self.request('/templates', req, 'POST')
-        self.assertEquals(400, resp.status)
+    def test_iso_scan_shallow(self):
+        # fake environment preparation
+        self._create_pool('pool-3')
+        params = {'name': 'fedora.iso',
+                  'capacity': 1024,
+                  'type': 'file',
+                  'format': 'iso'}
+        model.storagevolumes_create('pool-3', params)
 
-        # Test non-iso path return 400
-        req = json.dumps({'name': 'test', 'cdrom': os.path.abspath(__file__)})
+        self.request('/storagepools/pool-3/activate', '{}', 'POST')
+        storagevolume = json.loads(self.request(
+            '/storagepools/kimchi_isos/storagevolumes/').read())[0]
+        self.assertEquals('pool-3-fedora.iso', storagevolume['name'])
+        self.assertEquals('iso', storagevolume['format'])
+        self.assertEquals('/var/lib/libvirt/images/fedora.iso',storagevolume['path'])
+        self.assertEquals(storagevolume['allocation'], storagevolume['capacity'])
+        self.assertEquals('17', storagevolume['os_version'])
+        self.assertEquals('fedora',storagevolume['os_distro'])
+        self.assertEquals(True,storagevolume['bootable'])
+
+        # Create a template
+        # In real model os distro/version can be omitted as we will scan the iso
+        req = json.dumps({'name': 'test',
+                          'cdrom': storagevolume['path'],
+                          'os_distro': storagevolume['os_distro'],
+                          'os_version': storagevolume['os_version']})
         resp = self.request('/templates', req, 'POST')
-        self.assertEquals(400, resp.status)
+        self.assertEquals(201, resp.status)
+
+        # Verify the template
+        t = json.loads(self.request('/templates/test').read())
+        self.assertEquals('test', t['name'])
+        self.assertEquals('fedora', t['os_distro'])
+        self.assertEquals('17', t['os_version'])
+        self.assertEquals(1024, t['memory'])
+
+        # Deactivate or destroy scan pool return 405
+        resp = self.request('/storagepools/kimchi_isos/storagevolumes/deactivate',
+                            '{}', 'POST')
+        self.assertEquals(405, resp.status)
+
+        resp = self.request('/storagepools/kimchi_isos/storagevolumes',
+                            '{}', 'DELETE')
+        self.assertEquals(405, resp.status)
+
+        # Delete the template
+        resp = self.request('/templates/%s' % t['name'], '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        self._delete_pool('pool-3')
 
     def test_screenshot_refresh(self):
         # Create a VM
