@@ -157,7 +157,7 @@ class MockModel(object):
         name = params['name']
         if name in self._mock_templates:
             raise InvalidOperation("Template already exists")
-        t = kimchi.vmtemplate.VMTemplate(params, scan=True)
+        t = kimchi.vmtemplate.VMTemplate(params, scan=False)
         self._mock_templates[name] = t
         return name
 
@@ -199,7 +199,7 @@ class MockModel(object):
             pool.info['path'] = params['path']
         except KeyError, item:
             raise MissingParameter(item)
-        if name in self._mock_storagepools:
+        if name in self._mock_storagepools or name in (kimchi.model.ISO_POOL_NAME,):
             raise InvalidOperation("StoragePool already exists")
         self._mock_storagepools[name] = pool
         return name
@@ -231,7 +231,7 @@ class MockModel(object):
     def storagevolumes_create(self, pool, params):
         try:
             name = params['name']
-            volume = MockStorageVolume(pool, name)
+            volume = MockStorageVolume(pool, name, params['format'])
             volume.info['capacity'] = params['capacity']
             volume.info['type'] = params['type']
             volume.info['format'] = params['format']
@@ -267,6 +267,28 @@ class MockModel(object):
             raise InvalidOperation(
                 "Unable to list volumes of inactive storagepool %s" % pool)
         return res._volumes.keys()
+
+    def isopool_lookup(self, name):
+        return {'state': 'active',
+                'type': 'iso'}
+
+    def isovolumes_get_list(self):
+        iso_volumes = []
+        pools = self.storagepools_get_list()
+
+        for pool in pools:
+            try:
+                volumes = self.storagevolumes_get_list(pool)
+            except InvalidOperation:
+                # Skip inactive pools
+                continue
+            for volume in volumes:
+                res = self.storagevolume_lookup(pool, volume)
+                if res['format'] == 'iso':
+                    # prevent iso from different pool having same volume name
+                    res['name'] = '%s-%s' % (pool, volume)
+                    iso_volumes.append(res)
+        return iso_volumes
 
     def tasks_get_list(self):
         with self.objstore as session:
@@ -316,13 +338,18 @@ class MockTask(object):
         self.id = id
 
 class MockStorageVolume(object):
-    def __init__(self, pool, name):
+    def __init__(self, pool, name, fmt='raw'):
         self.name = name
         self.pool = pool
         self.info = {'type': 'disk',
                      'capacity': 1024,
                      'allocation': 512,
-                     'format': 'raw'}
+                     'format': fmt}
+        if fmt == 'iso':
+            self.info['allocation'] = self.info['capacity']
+            self.info['os_version'] = '17'
+            self.info['os_distro'] = 'fedora'
+            self.info['bootable'] = True
 
 
 class MockVMScreenshot(VMScreenshot):
@@ -379,5 +406,11 @@ def get_mock_environment():
                 defaultstoragepool.info['path'], vol_name)
             mockpool = model._mock_storagepools[name]
             mockpool._volumes[vol_name] = defaultstoragevolume
+        vol_name = 'Fedora17.iso'
+        defaultstoragevolume = MockStorageVolume(name, vol_name, 'iso')
+        defaultstoragevolume.info['path'] = '%s/%s' % (
+            defaultstoragepool.info['path'], vol_name)
+        mockpool = model._mock_storagepools[name]
+        mockpool._volumes[vol_name] = defaultstoragevolume
 
     return model
