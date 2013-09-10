@@ -235,6 +235,8 @@ class MockModel(object):
             volume.info['capacity'] = params['capacity']
             volume.info['type'] = params['type']
             volume.info['format'] = params['format']
+            volume.info['path'] = os.path.join(
+                self._get_storagepool(pool).info['path'], name)
         except KeyError, item:
             raise MissingParameter(item)
         if name in self._get_storagepool(pool)._volumes:
@@ -373,6 +375,8 @@ def get_mock_environment():
         for j in xrange(5):
             vol_name = 'volume-%i' % j
             defaultstoragevolume = MockStorageVolume(name, vol_name)
+            defaultstoragevolume.info['path'] = '%s/%s' % (
+                defaultstoragepool.info['path'], vol_name)
             mockpool = model._mock_storagepools[name]
             mockpool._volumes[vol_name] = defaultstoragevolume
 

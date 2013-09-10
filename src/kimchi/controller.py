@@ -392,6 +392,7 @@ class StorageVolume(Resource):
                 'type': self.info['type'],
                 'capacity': self.info['capacity'],
                 'allocation': self.info['allocation'],
+                'path': self.info['path'],
                 'format': self.info['format']}
 
 

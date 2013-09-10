@@ -338,6 +338,7 @@ class RestTests(unittest.TestCase):
         storagevolume = json.loads(resp.read())
         self.assertEquals('volume-1', storagevolume['name'])
         self.assertEquals('raw', storagevolume['format'])
+        self.assertEquals('/var/lib/libvirt/images/volume-1', storagevolume['path'])
 
         # Now remove the StoragePool from mock model
         self._delete_pool('pool-1')
