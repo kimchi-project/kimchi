@@ -247,9 +247,10 @@ def _probe_iso(fname):
             else:
                 version = v
             return (distro, version)
+
     kimchi_log.debug("probe_iso: Unable to identify ISO %s with Volume ID: %s"
                      % (fname, iso.volume_id))
-    return (None, None)
+    return ('unknown', 'unknown')
 
 def probe_iso(status_helper, params):
     loc = params['path']
@@ -263,7 +264,7 @@ def probe_iso(status_helper, params):
                 ret = _probe_iso(iso)
             except:
                 continue
-            if ret != (None, None):
+            if ret != ('unknown', 'unknown'):
                 iso = os.path.abspath(iso)
                 updater({'path':iso, 'distro':ret[0], 'version':ret[1]})
 

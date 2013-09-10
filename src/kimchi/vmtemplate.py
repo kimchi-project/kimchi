@@ -43,7 +43,7 @@ class VMTemplate(object):
         self.info = {}
 
         # Identify the cdrom if present
-        iso_distro = iso_version = None
+        iso_distro = iso_version = 'unknown'
         if scan:
             iso = args.get('cdrom')
             if iso is not None and iso.startswith('/'):
