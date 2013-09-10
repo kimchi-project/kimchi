@@ -28,7 +28,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div class="window" style="width: 1004px;height: 700px;">
+<div class="window" style="width: 1004px;height: 660px;">
 	<header>
 		<h1 class="title">$_("Add Template")</h1>
 		<div class="close">X</div>
@@ -43,6 +43,14 @@
 					<label class="step-option">
 						<input type="radio" id="iso_specify" name="iso_type" value="specify">
 						<span>$_("Select a specific ISO to create a template.")</span>
+					</label>
+					<label class="step-option">
+						<input type="radio" id="iso_scan" name="iso_type" value="scan">
+						<span>$_("Scan the server to discover ISOs to create templates.")</span>
+					</label>
+					<label class="step-option">
+						<input type="radio" id="iso_distr" name="iso_type" value="distr">
+						<span>$_("Choose from a list of known network ISO distribution.")</span>
 					</label>
 				</div>
 			</div>
@@ -59,6 +67,24 @@
 						<input type="radio" id="iso_internet" name="iso_location" value="internet">
 						<span>$_("I want to stream an ISO from the Internet.")</span>
 					</label>
+				</div>
+			</div>
+
+			<!-- 1-2 -->
+			<div class="step-box" id="iso_scan_box" style="display: none;">
+				<h2 class="step-title">$_("Please specify a scan type:")</h2>
+				<div>
+					<label class="step-option">
+						<input type="radio" id="iso_scan_shallow" name="iso_scan_type" value="shallow">
+						<span>$_("Shallow scan")</span>
+					</label>
+					<label class="step-option">
+						<input type="radio" id="iso_scan_deep" name="iso_scan_type" value="deep">
+						<span>$_("Deep scan")</span>
+					</label>
+					<div class="btn-group">
+						<button class="btn-normal" id="btn-iso-scan" disabled="disabled"><span class="text">$_("Scan")</span></button>
+					</div>
 				</div>
 			</div>
 
@@ -82,6 +108,45 @@
 						<button class="btn-normal" id="btn-template-url-create" disabled="disabled"><span class="text">$_("Create")</span></button>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div id="iso-field" class="iso-field" style="display: none;">
+			<h2 class="iso-field-title">$_("Discovered ISO Files")</h2>
+			<div class="toolbar">
+				<label class="check-all">
+					<input type="checkbox" id="select_all_iso">$_("All")
+				</label>
+			</div>
+
+			<div>
+				<form id="form-iso">
+				<ul id="list-iso" class="list-iso">
+				</ul>
+				</form>
+				<script id="tmpl-list-iso" type="text/html">
+					<li>
+						<div class="box box-iso">
+							<h3 class="iso-title">
+								<label title="{name}">
+									<input type="checkbox" name="iso" value="{isoId}">{name}
+								</label>
+							</h3>
+							<div class="ios-info">
+								<div class="ios-info-col">
+									<div class="info-item"><label>$_("OS: ")</label><span>{os_distro}</span></div>
+									<div class="info-item"><label>$_("Version: ")</label><span>{os_version}</span></div>
+								</div>
+								<div class="ios-info-col">
+									<div class="info-item"><label>$_("Size: ")</label><span>{capacity!Known} M</span></div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</script>
+			</div>
+			<div class="btn-group">
+				<button class="btn-normal" id="btn-template-iso-selecte-create" disabled="disabled"><span class="text">$_("Create Templates from Selected ISO")</span></button>
 			</div>
 		</div>
 

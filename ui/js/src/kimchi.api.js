@@ -243,5 +243,68 @@ var kimchi = {
             success : suc,
             error : err
         });
+    },
+
+    listIsos : function(suc, err) {
+        $.ajax({
+            url : kimchi.url + 'storagepools/kimchi_isos/storagevolumes',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    listDistros : function(suc, err) {
+        $.ajax({
+            url : kimchi.url + 'config/distros',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    listDeepScanIsos : function(suc, err) {
+        var isoPool = 'iso' + new Date().getTime();
+        kimchi.createStoragePool({
+            name : isoPool,
+            type : 'iso'
+        }, function(result) {
+            var taskId = result.task_id;
+            function monitorTask() {
+                kimchi.getTask(taskId, function(result) {
+                    var status = result.status;
+                    if (status === "finished") {
+                        $.ajax({
+                            url : kimchi.url + 'storagepools/' + isoPool + '/storagevolumes',
+                            type : 'GET',
+                            contentType : 'application/json',
+                            dataType : 'json',
+                            success : suc,
+                            error : err
+                        });
+                    } else if (status === "running") {
+                        setTimeout(monitorTask, 50);
+                    } else if (status === "failed") {
+                        err(result.message);
+                    }
+                }, err);
+            }
+            monitorTask();
+        }, err);
+    },
+
+    getTask : function(taskId, suc, err) {
+        $.ajax({
+            url : kimchi.url + 'tasks/' + taskId,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
     }
 };

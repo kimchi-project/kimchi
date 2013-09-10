@@ -39,7 +39,7 @@
 	color: #333;
 	font-size: 14px;
 	font-weight: normal;
-	padding: 10px 0 20px 0;
+	padding: 10px 0 16px 0;
 }
 
 .step-option {
@@ -70,4 +70,107 @@
 	box-shadow: 2px 2px 2px #eee inset;
 	border-top: 1px solid #bbb;
 	border-left: 1px solid #bbb;
+}
+
+.iso-field-title {
+	font-size: 18px;
+	height: 48px;
+	line-height: 48px;
+	color: #06C;
+	margin: 0 10px;
+	font-weight: bold;
+	text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
+}
+
+.check-all {
+	display: inline-block;
+	position: relative;
+	height: 38px;
+	line-height: 38px;
+	margin: 5px;
+	font-size: 13px;
+}
+
+.check-all input {
+	margin: 0 5px 0 0;
+}
+
+.box {
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+	border: 1px solid #ccc;
+	color: #333;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.box:HOVER {
+	border: 1px solid rgb(11, 107, 173);
+	-webkit-box-shadow: rgb(11, 107, 173) 0px 0px 5px;
+	box-shadow: rgb(11, 107, 173) 0px 0px 5px;
+}
+
+.box-iso {
+	padding: 10px;
+	margin: 5px;
+}
+
+.list-iso {
+	overflow: hidden;
+	margin: 5px;
+}
+
+.list-iso li {
+	float: left;
+	width: 320px;
+}
+
+.iso-title>label {
+	display: inline-block;
+	position: relative;
+	height: 18px;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: normal;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.iso-title>label>input {
+	margin: 0 10px 0 0;
+}
+
+.ios-info {
+	margin-top: 5px;
+	overflow: hidden;
+}
+
+.ios-info-col {
+	float: left;
+	width: 50%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+}
+
+.ios-info-col:FIRST-CHILD {
+	padding: 0 9px 0 0;
+	border-right: 1px solid #999;
+}
+
+.info-item {
+	font-weight: bold;
+	color: #999;
+	font-size: 11px;
+	line-height: 18px;
 }
