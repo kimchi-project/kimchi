@@ -37,11 +37,14 @@ import vmtemplate
 import config
 import xmlutils
 import vnc
+import isoinfo
 from screenshot import VMScreenshot
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
 
+
+ISO_POOL_NAME = u'kimchi_isos'
 
 def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
@@ -343,11 +346,35 @@ class Model(object):
             params = session.get('template', name)
         return vmtemplate.VMTemplate(params)
 
+    def isopool_lookup(self, name):
+        return {'state': 'active',
+                'type': 'kimchi-iso'}
+
+    def isovolumes_get_list(self):
+        iso_volumes = []
+        pools = self.storagepools_get_list()
+
+        for pool in pools:
+            try:
+                volumes = self.storagevolumes_get_list(pool)
+            except InvalidOperation:
+                # Skip inactive pools
+                continue
+            for volume in volumes:
+                res = self.storagevolume_lookup(pool, volume)
+                if res['format'] == 'iso':
+                    # prevent iso from different pool having same volume name
+                    res['name'] = '%s-%s' % (pool, volume)
+                    iso_volumes.append(res)
+        return iso_volumes
+
     def storagepools_create(self, params):
         conn = self.conn.get()
         try:
-            xml = _get_pool_xml(**params)
             name = params['name']
+            if name in (ISO_POOL_NAME, ):
+                raise InvalidOperation("StoragePool already exists")
+            xml = _get_pool_xml(**params)
         except KeyError, key:
             raise MissingParameter(key)
         if name in self.storagepools_get_list():
@@ -434,11 +461,24 @@ class Model(object):
         info = vol.info()
         xml = vol.XMLDesc(0)
         fmt = xmlutils.xpath_get_text(xml, "/volume/target/format/@type")[0]
-        return {'type': Model.volume_type_map[info[0]],
-                'capacity': info[1] >> 20,
-                'allocation': info[2] >> 20,
-                'path': path,
-                'format': fmt}
+        res = dict(type=Model.volume_type_map[info[0]],
+                   capacity=info[1]>>20,
+                   allocation=info[2]>>20,
+                   path=path,
+                   format=fmt)
+        if fmt == 'iso':
+            if os.path.islink(path):
+                path = os.readlink(path)
+            os_distro = os_version = 'unknown'
+            try:
+                os_distro, os_version = isoinfo.probe_one(path)
+                bootable = True
+            except isoinfo.IsoFormatError:
+                bootable = False
+            res.update(
+                dict(os_distro=os_distro, os_version=os_version, path=path, bootable=bootable))
+
+        return res
 
     def storagevolume_wipe(self, pool, name):
         volume = self._get_storagevolume(pool, name)
