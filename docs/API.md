@@ -168,6 +168,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **GET**: Retrieve the full description of a Storage Pool
     * name: The name of the Storage Pool
             Used to identify the Storage Pool in this API
+            'kimchi_isos' is a reserved storage pool
+            which aggregates all ISO images
+            across all active storage pools into a single view.
     * state: Indicates the current state of the Storage Pool
         * active: The Storage Pool is ready for use
         * inactive: The Storage Pool is not available
@@ -216,6 +219,10 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * allocation: The amount of space which is being used to store data
                 The unit is MBytes
     * format: The format of the file or volume
+    * path: Full path of the volume on the host filesystem.
+    * os_distro *(optional)*: os distribution of the volume, for iso volume only.
+    * os_version *(optional)*: os version of the volume, for iso volume only.
+    * bootable *(optional)*: True if iso image is bootable and not corrupted.
 
 * **DELETE**: Remove the Storage Volume
 * **POST**: *See Storage Volume Actions*
