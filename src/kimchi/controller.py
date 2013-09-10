@@ -26,6 +26,7 @@ from functools import wraps
 
 from kimchi.exception import *
 import kimchi.template
+from kimchi.model import ISO_POOL_NAME
 
 def get_class_name(cls):
     try:
@@ -388,12 +389,32 @@ class StorageVolume(Resource):
 
     @property
     def data(self):
-        return {'name': self.ident,
-                'type': self.info['type'],
-                'capacity': self.info['capacity'],
-                'allocation': self.info['allocation'],
-                'path': self.info['path'],
-                'format': self.info['format']}
+        res = {'name': self.ident,
+               'type': self.info['type'],
+               'capacity': self.info['capacity'],
+               'allocation': self.info['allocation'],
+               'path': self.info['path'],
+               'format': self.info['format']}
+        for key in ('os_version', 'os_distro', 'bootable'):
+            val = self.info.get(key)
+            if val:
+                res[key] = val
+        return res
+
+
+class IsoVolumes(Collection):
+    def __init__(self, model, pool):
+        super(IsoVolumes, self).__init__(model)
+        self.pool = pool
+
+    def get(self):
+        res_list = []
+        try:
+            get_list = getattr(self.model, model_fn(self, 'get_list'))
+            res_list = get_list(*self.model_args)
+        except AttributeError:
+            pass
+        return kimchi.template.render(get_class_name(self), res_list)
 
 
 class StorageVolumes(Collection):
@@ -436,10 +457,42 @@ class StoragePool(Resource):
                 return StorageVolumes(self.model, self.ident.decode("utf-8"))
 
 
+class IsoPool(Resource):
+    def __init__(self, model):
+        super(IsoPool, self).__init__(model, ISO_POOL_NAME)
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'state': self.info['state'],
+                'type': self.info['type']}
+
+    def _cp_dispatch(self, vpath):
+        if vpath:
+            subcollection = vpath.pop(0)
+            if subcollection == 'storagevolumes':
+                # incoming text, from URL, is not unicode, need decode
+                return IsoVolumes(self.model, self.ident.decode("utf-8"))
+
+
 class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)
         self.resource = StoragePool
+        isos = IsoPool(model)
+        isos.exposed = True
+        setattr(self, ISO_POOL_NAME, isos)
+
+    def _get_resources(self):
+        try:
+            res_list = super(StoragePools, self)._get_resources()
+            # Append reserved pools
+            isos = getattr(self, ISO_POOL_NAME)
+            isos.lookup()
+            res_list.append(isos)
+        except AttributeError:
+            pass
+        return res_list
 
 class Task(Resource):
     def __init__(self, model, id):
