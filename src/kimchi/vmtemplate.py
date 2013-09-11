@@ -22,10 +22,14 @@
 
 import os
 import string
+import urllib
+import urlparse
 
 import osinfo
 import isoinfo
 from kimchi.exception import *
+
+MAP_PROTOCOL_PORT = {'http': '80', 'ftp': '21'}
 
 class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -44,13 +48,24 @@ class VMTemplate(object):
 
         # Identify the cdrom if present
         iso_distro = iso_version = 'unknown'
-        if scan:
-            iso = args.get('cdrom')
-            if iso is not None and iso.startswith('/'):
+        iso = args.get('cdrom', '')
+        if scan and len(iso) > 0:
+            if iso.startswith('/'):
                 try:
                     iso_distro, iso_version = isoinfo.probe_one(iso)
                 except isoinfo.IsoFormatError, e:
                     raise InvalidParameter(e)
+            elif iso.startswith('http://') or iso.startswith('ftp://'):
+                try:
+                    code = urllib.urlopen(iso).getcode()
+                    if code != 200:
+                        raise InvalidParameter("The URL specified for iso streaming does not exist.")
+
+                    self.info.update({'iso_stream': True})
+                except IOError, e:
+                    raise InvalidParameter(e)
+            else:
+                InvalidParameter("Invalid parameter specified to cdrom.")
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)
@@ -65,17 +80,44 @@ class VMTemplate(object):
         bus = self.info['cdrom_bus']
         dev = "%s%s" % (self._bus_to_dev[bus],
                         string.lowercase[self.info['cdrom_index']])
-        params = {'src': self.info['cdrom'], 'dev': dev, 'bus': bus}
 
-        xml = """
+        local_file = """
             <disk type='file' device='cdrom'>
               <driver name='qemu' type='raw'/>
               <source file='%(src)s' />
               <target dev='%(dev)s' bus='%(bus)s'/>
               <readonly/>
             </disk>
-        """ % (params)
-        return xml
+        """
+
+        network_file = """
+            <disk type='network' device='cdrom'>
+              <driver name='qemu' type='raw'/>
+              <source protocol='%(protocol)s' name='%(url_path)s'>
+                <host name='%(hostname)s' port='%(port)s'/>
+              </source>
+              <target dev='%(dev)s' bus='%(bus)s'/>
+              <readonly/>
+            </disk>
+        """
+
+        if not self.info.get('iso_stream', False):
+            params = {'src': self.info['cdrom'], 'dev': dev, 'bus': bus}
+            return local_file % (params)
+
+        output = urlparse.urlparse(self.info['cdrom'])
+        port = output.port
+        protocol = output.scheme
+        hostname = output.hostname
+        url_path = output.path
+
+        if port is None:
+            port = MAP_PROTOCOL_PORT.get(protocol)
+
+        params = {'protocol': protocol, 'url_path': url_path,
+                  'hostname': hostname, 'port': port, 'dev': dev, 'bus': bus}
+
+        return network_file % (params)
 
     def _get_disks_xml(self, vm_name, storage_path):
         ret = ""
