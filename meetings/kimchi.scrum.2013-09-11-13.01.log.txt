@@ -1,0 +1,228 @@
+13:01:33 <aglitke> #startmeeting
+13:01:33 <kimchi-bot> Meeting started Wed Sep 11 13:01:33 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:33 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:39 <aglitke> #meetingname scrum
+13:01:39 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:04 <aglitke> #info Agenda: 1) September release
+13:02:09 <aglitke> anything else?
+13:02:20 <ming> storagepool delete and undefine
+13:02:34 <aglitke> yes...
+13:02:48 <ming> authentication session timeout...
+13:03:21 <aglitke> anything else?
+13:03:39 <royce> looks good to me
+13:03:44 <aglitke> ok...
+13:03:50 <aglitke> #topic September release
+13:03:55 <aglitke> #link https://github.com/kimchi-project/kimchi/wiki/Todo-September-Base
+13:04:06 <zhoumeina> we have festival next thursday. so we have to make to good plan to ensure that we can finish them.I think.
+13:04:15 <aglitke> AdamKingIT and I made sure this was updated yesterday
+13:04:22 <zhoumeina> yes
+13:04:27 <aglitke> yes.  This was one thing I wanted to talk about.
+13:04:51 <aglitke> Is everyone here up to next Wednesday?
+13:05:38 <alinefm> I will =)
+13:05:52 <royce> seems we'll have holiday from Thursday, hopefully we can have Wed scrum
+13:05:52 <AdamKingIT> I will be on vacation, but I'll think of you all
+13:05:53 <aglitke> Actually if the backend team could send me an email with vacation plans and the ui team could discuss with AdamKingIT that would be great.
+13:05:56 <zhoumeina> me too
+13:06:16 <aglitke> How long does the holiday last?
+13:06:24 <royce> 3 days
+13:06:31 <zhoumeina> 19th ~21th
+13:06:32 <hlwanghl> 19-21
+13:06:35 <aglitke> ok, so everyone is back on Monday?
+13:06:43 <royce> we go back to work on Sunday:P
+13:06:49 <zhoumeina> some one want to take vocation I think
+13:06:52 <hlwanghl> Sunday actually
+13:06:55 <aglitke> oh, wow.  OK.
+13:07:08 <ming> Also, we have a long vacation from oct.1
+13:07:19 <ming> lasting for seven days.
+13:07:20 <aglitke> Let's see what we can accomplish prior to next Thursday
+13:07:27 <aglitke> ok,
+13:07:29 <zhoumeina> Oct 1st~7th
+13:07:30 <royce> right, this month is the vocation month:)
+13:07:38 <aglitke> Nice :)
+13:07:41 <AdamKingIT> I have UI teams plans except Yu Xin
+13:08:03 <zhoumeina> yuxin will take vocation from tomorrow
+13:08:04 <aglitke> The link I sent has updated feature status for the Sept releae
+13:08:14 <AdamKingIT> I'll create a way to share
+13:08:15 <royce> I can collect ours for you, aglitke
+13:08:22 <aglitke> royce: Thanks!
+13:08:34 <royce> yw, aglitke
+13:08:44 <AdamKingIT> Royce, I'll share a "files" w/ you
+13:08:48 <ming> Also, please remove Bingbu from the owner.
+13:09:06 <aglitke> So, we have made progress on ISO scanning.  Thanks for all of the hard work on that feature.
+13:09:20 <aglitke> There is still some work to be done to polish the UI flow.
+13:09:21 <ming> I can take some of the tasks for him.
+13:10:00 <aglitke> ming: Is bingbu still working with us?
+13:10:09 <ming> aglitke: no
+13:10:23 <aglitke> oh :(
+13:10:46 <royce> many thanks to dingxin, changed it for many times with me...:P
+13:10:55 <zhoumeina> some of his patch have not been merged
+13:11:10 <aglitke> AdamKingIT / zhoumeina / hlwanghl: Did you get a chance to review my UI redesign proposal?
+13:11:38 <ming> Royce will take the refresh patch out from Bingbu's patch series.
+13:11:40 <aglitke> zhoumeina: Yes, deep scan has not been fully reviewed.  Neither has streaming.  These two may push out to the next release.
+13:11:55 <aglitke> shallow scan was the most important for first release.
+13:12:17 <zhoumeina> aglitke: yes
+13:12:21 <AdamKingIT> No more since yesterday PM. I will go through it today and ping zhoumeina and dingxin tonight
+13:12:33 <hlwanghl> aglitke: which one?I can review it tomorrow
+13:13:17 <aglitke> hlwanghl: [project-kimchi] [PATCH] Create templates by shallow scan, deep scan and distros
+13:13:23 <hlwanghl> Ok
+13:13:27 <aglitke> I replied to this with my ideas.
+13:13:33 <zhoumeina> Ok, I can help too
+13:14:01 <ming> aglitke: I think it is your comments on the patch sent by others?
+13:14:09 <aglitke> ming: yes
+13:14:41 <aglitke> my idea is to have a wizard that advances when the user makes choices.
+13:15:08 <aglitke> And we need to reword some language to make it understandable by regular users.
+13:15:31 <aglitke> I wanted to take the patch as-is because it was close enough and serves as a good baseline.
+13:15:34 <ming> That is fine. deep and shallow scan make no sense to the user.
+13:16:14 <aglitke> For auth, I just sent some comments on a few small UI bugs I found when testing.
+13:16:41 <ming> aglitke: yest I and Hongliang are working on this bugs
+13:16:47 <aglitke> great
+13:16:57 <ming> agltke: we saw those bugs
+13:17:36 <ming> Still get a session timeout problem cause big change.
+13:17:37 <hlwanghl> y
+13:17:53 <aglitke> There is no portable way with PAM to check if the user is an admin.  So for now we will need to allow all users full access.
+13:18:27 <ming> That is bad.
+13:18:36 <aglitke> We will need to do some more work to figure out how to handle this.
+13:18:46 <aglitke> but that can wait until after the first release.
+13:18:50 <shaohef> aglitke: not sure account mange can check the user is an admin
+13:18:50 <ming> Absolutely
+13:18:52 <aglitke> september release
+13:18:59 <hlwanghl> I fixed some bugs and sent the patches. Waiting for reviews
+13:19:27 <aglitke> hlwanghl: did you send them just now?
+13:19:40 <royce> aglitke, do you mean every one would have same view ？
+13:19:41 <ming> I initiated a session timeout issue in the mailing list.
+13:19:43 <hlwanghl> Before I came home
+13:19:54 <aglitke> ok
+13:19:57 <hlwanghl> RFC PATCH b
+13:20:01 <hlwanghl> v3
+13:20:16 <hlwanghl> 2 hours before
+13:20:38 <aglitke> royce: Yes.  and any user is allowed to perform all operations.
+13:22:00 <royce> is this limit of PAM? forgive my ignorance:)
+13:22:01 <shaohef> aglitke: auth sufficient pam_rootok.so — This line uses the pam_rootok.so  module to check whether the current user is root, by verifying that  their UID is 0. If this test succeeds, no other modules are consulted  and the command is executed. If this test fails, the next module is  consulted.
+13:22:30 <aglitke> What if the system is configured to log in via ldap?
+13:22:31 <ming> We need keep the session time out behavior the same idling at different pages
+13:22:54 <aglitke> I think we can fix this in the future with authorization.
+13:23:25 <aglitke> I will post a message to the list with some ideas and we can discuss there.
+13:23:47 <hlwanghl> Firstly, we allow only root user to log in. And root user to grant access to other users
+13:23:49 <aglitke> #action aglitke to start a discussion about authorization.
+13:24:04 <aglitke> hlwanghl: Yes, basically that's it.
+13:24:42 <ming> user can define what the layout of the user information in ldap and to know who is the admin in ldap.
+13:24:43 <aglitke> ok... let's move on...
+13:24:57 <hlwanghl> Anyway, in our future plan. Currently we don't handle this
+13:25:13 <aglitke> For Storage Pool APIs
+13:25:37 <aglitke> AdamKingIT has suggested some constraints that I think make sense for us.,
+13:25:38 <zhoumeina> ok, I already drop the create and delete volumes
+13:25:52 <aglitke> kimchi can work with any existing storage pools
+13:25:55 <aglitke> But...
+13:26:19 <aglitke> when creating new pools, kimchi will only create new, empty directories.
+13:26:23 <ming> aglitke, we need re-iterate the basic assumption of Kimchi.
+13:26:45 <aglitke> You cannot use kimchi to create a pool over an existing directory.
+13:27:13 <aglitke> A pool can only be deleted if it contains zero volumes.
+13:27:18 <ming> How about the directory with ISO images?
+13:27:27 <royce> what if we had a iso directory?
+13:27:49 <royce> and what about future nfs pool?
+13:27:53 <ming> That is what shallow scan try to scan.
+13:28:03 <aglitke> AdamKingIT: Would you like to address this part?
+13:28:30 <zhoumeina> I think kimchi can create a new pool by an empty folder, or create a new folder.
+13:28:42 <AdamKingIT> Pool's created by virsh would be recognized and used
+13:29:25 <AdamKingIT> After creating a pool, user could link or create ISOs in the pool
+13:29:46 <aglitke> what would be the interface for doing that?
+13:30:04 <ming> How to create ISOs? by coping the files to the directory manully?
+13:30:20 <shaohef> ming: link？
+13:30:22 <AdamKingIT> That would work. We had also talked abuot (eventually) allowing ISO upload
+13:31:02 <shaohef> AdamKingIT: that's great, iso upload
+13:31:24 <ming> So we are almost near the proposal before to have a special ISO pool for kimchi.  The admin can copy all the required ISOs to the directory.
+13:31:25 <royce> In most cases our admin stores all his isos in a directory or nfs directory
+13:31:46 <hlwanghl> Upload ISO through HTTP may take long time. Though anyway, it's a choice
+13:32:16 <aglitke> I am still uncertain about the iso use cases
+13:32:45 <AdamKingIT> I have lost track of deep scan, but we had talked about implicitly creating a pool w/ links to  the discovered ISOs at one pt
+13:33:00 <ming> We abandoned the proposal and got a new idea to scan the storage pools for ISOs which are dispersed around.
+13:33:13 <royce> AdamKingIT, that is deep scan do
+13:33:35 <aglitke> There are some issues for upcoming NFS pools.
+13:33:48 <AdamKingIT> royce: deep scan creates a pool with links to discovered ISOs?
+13:33:56 <royce> but leave shallow scan useless if we have a directory of isos
+13:34:05 <royce> right, AdamKingIT
+13:34:18 <aglitke> If I want deep scan over nfs to work I'd need to have the remote iso directory mounted.  The only way to do that is to create a pool.
+13:34:21 <AdamKingIT> k, so once we do 1 deep scan, shallow scan will be quick
+13:34:28 <aglitke> But we cannot create a pool on a non-empty dir,.
+13:34:38 <royce> right, aglitke
+13:35:11 <AdamKingIT> you need a pool to mount nfs? (sorry my NFS days are a but rusty)
+13:35:16 <AdamKingIT> *bit
+13:35:25 <aglitke> I think this needs further discussion on-list.  Here, we should try to help clarify what should be in place for September release.
+13:35:57 <aglitke> AdamKingIT: THat is the sanest way to do it.  Have libvirt handle the mounting and unmounting of the nfs filesystem
+13:36:11 <ming> aglitke. It seems we will have a a bit broken storage pool in Kimchi in this release.
+13:36:33 <aglitke> ming: why?
+13:37:14 <ming> aglitke: It seems the constraints proposed here is not applicable.
+13:39:08 <AdamKingIT> I think we are trying to handle 2 different scenarios. The constraints proposed handle one well, the other less well...
+13:39:09 <aglitke> Maybe for the first release we just need no constraints
+13:39:12 <ming> aglitke: But if we don't have the constraints, the syntax of storagepool like delete operations is broken for a pool created by Kimchi on a directory containing others' files.
+13:40:07 <AdamKingIT> The main scenario of concern is creating a pool to "manage" the ISOs correct?
+13:40:34 <AdamKingIT> which for local ISOs we can handle via deep scan
+13:40:53 <AdamKingIT> for NFS mounted ones, we'd have to revert to virsh to handle
+13:41:02 <aglitke> which is terrible
+13:41:04 <AdamKingIT> given current constraints.
+13:41:21 <aglitke> it's probably the most likely use of NFS with kimchi
+13:41:36 <ming> AdamKingIT:  Do you mean the user to use virsh to handle the pool?
+13:41:39 <shaohef> AdamKingIT: why do we need virsh to handle?
+13:42:03 <AdamKingIT> I mean the user could use virst to create a pool for the nfs mount, then Kimchi could handle everything else
+13:42:51 <shaohef> AdamKingIT: IMO, why not kimchi  create a pool  for nfs mount directly ?
+13:43:23 <AdamKingIT> That gets into the constraints of create pool always creates a new dir...
+13:43:30 <hlwanghl> simplify work
+13:43:36 <royce> BTW, the iscsi pool should always containing volume, not empty, because virsh does not create volume from iscsi pool
+13:43:58 <ming> shaohef: the issue here how can Kimchi handle the pool created by itself with other's files under.
+13:44:19 <aglitke> ming: I'd say that is the user's problem if there are other files under.
+13:44:35 <aglitke> right now we are not supporting attaching volumes to vms or anything like that.
+13:44:59 <aglitke> so at the moment the only consequence is a bit of noise in the UI for arbitrary files.
+13:45:25 <AdamKingIT> and the security vulnerability that the user can delete anything as root, which is worse the virsh IMO
+13:46:07 <AdamKingIT> I think deep scan is a decent soln for local ISO pools...
+13:46:30 <ming> aglitke: also the issue is if Kimchi can delete the pool created by itself. especially the pool containing others' files.
+13:46:38 <AdamKingIT> Question is how can we deal w/ NFS. What if we had a 'create network pool' scenario?
+13:47:06 <aglitke> ming: deleting a pool does not delete the contained files.
+13:47:07 <AdamKingIT> can we tell if its NFS, and contains ISOs exclusively?
+13:47:29 <aglitke> AdamKingIT: We could, but special cases confuse users.
+13:47:42 <ming> aglitke: It is pool undefine other than delete.
+13:47:56 <AdamKingIT> I am not thinking of it as a special case...
+13:48:37 <shaohef> aglitke: ming: IMO, undefine means for delete pool.delete means delete the dir.
+13:48:44 <AdamKingIT> A new virtualization user will be very confused by 'unmanaged' volumes being stranded by kimchi
+13:48:49 <aglitke> I think this discussion needs to move back to the list.
+13:48:56 <ming> RFC:Several things made me headache in storage pool, needs discuss with all of you.
+13:48:57 <zhoumeina> but if user put some files in the pool. and the pool will be can not delete. This is a problem for our design in this release.
+13:49:12 <aglitke> I don't see us reaching consensus in the next 12 minutes.
+13:49:21 <royce> heh
+13:49:29 <AdamKingIT> if the user is smart enough to use the sh to copy files in, user can move files out
+13:49:51 <aglitke> that requires a user to log into the host (which violates a core kimchi principle)
+13:49:56 <zhoumeina> AdamKingIT: that make sense
+13:50:15 <AdamKingIT> the files wouldn't be moved in if the user hadn't loged into the host
+13:50:27 <hlwanghl> To keep simple is a good direction
+13:50:32 <ming> aglitke: I think we need list out the basic core principle out somewhere.
+13:50:44 <aglitke> ok.  I strongly feel this needs to move to the list.  Who wants to start/restart the thread there?
+13:51:01 <ming> Meina already started one.
+13:51:15 <ming> RFC:Several things made me headache in storage pool, needs discuss with all of you.
+13:51:22 <AdamKingIT> I would say my rply to your comments is where we stand, I can repeat it on meina's thread
+13:51:50 <aglitke> ok.  I'll ask everyone with ideas on this topic to reengage in that thread.  There are too many ideas and issues so this may take some time to resolve.
+13:52:06 <royce> we can start a single thread for this
+13:52:30 <aglitke> ming: authentication session timeout
+13:54:01 <ming> I initiated a thread in the list.
+13:54:32 <hlwanghl> You sin introduced a user scenario: custom wants session never time out
+13:55:00 <ming> The basic idea is how we can make the timeout behavior the same if the user stays idle on different pages
+13:55:34 <ming> especially on the pages with/without AJAX request.
+13:56:03 <alinefm_> we can have a counter internally that is reset on each server request
+13:56:19 <alinefm_> if counter is equal the timeout value the session needs to expire
+13:57:20 <ming> alinefm: cherrypy make the session timeout automatically if there is not request for a while.
+13:58:04 <AdamKingIT> we need that behavior to clean up from users just closing the browser
+13:58:21 <ming> alinefm: But the guest pages in Kimchi do AJAX request every five minutes which keep the session live for ever even if the user doesn't input anything.
+13:58:25 <zhoumeina> for user scenario I think time out is needed. So the main problem is the guest page. I advise to make it in a certain configuration.
+13:58:51 <aglitke> Can we reset the counter only for html pages?
+13:59:22 <aglitke> or any static content I guess.
+13:59:35 <AdamKingIT> we have a number of interactions where the user is interacting, but only dynamic content will be fetched
+13:59:58 <alinefm_> aglitke, I was thinking that way
+14:00:12 <alinefm_> only reset the counter according to user-agent
+14:00:48 <hlwanghl> If we decide to enable timeout for guests page, we can add special processing
+14:01:18 <AdamKingIT> the way i have handled in the past is to have authentication timeout separate from session timeout
+14:01:19 <zhoumeina> What special processing?
+14:01:28 <royce> I suggest using cookie timeout together with session timeout, if cookie timeout than session time out occurs, since cookie is just for sessionid
+14:01:33 <ming> alinefm_:  I believe cherrpy get internal counter for that.
+14:01:48 <hlwanghl> The problem is it's possible that user wants to see guests "forever"
+14:02:30 <ming> Please follow my thread to add your ideas.
+14:02:45 <hlwanghl> So probably we need add a configuration to allow user enable it or disable it
+14:02:58 <aglitke> ok, time is up today.  Let's participate in the discussion on the mailing list.
+14:03:06 <aglitke> #endmeeting
