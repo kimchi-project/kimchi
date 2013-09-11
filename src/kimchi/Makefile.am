@@ -43,7 +43,8 @@ SOURCE = \
 	websockify.py     \
 	xmlutils.py       \
 	utils.py          \
-	cachebust.py
+	cachebust.py      \
+	featuretests.py
 
 EXTRA_DIST = config.py.in
 
