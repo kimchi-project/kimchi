@@ -65,7 +65,7 @@ class VMTemplate(object):
                 except IOError, e:
                     raise InvalidParameter(e)
             else:
-                InvalidParameter("Invalid parameter specified to cdrom.")
+                raise InvalidParameter("Invalid parameter specified to cdrom.")
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)
