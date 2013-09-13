@@ -34,7 +34,8 @@ SESSION_USER = 'userid'
 
 
 def debug(msg):
-    cherrypy.log.error(msg)
+    pass
+    # cherrypy.log.error(msg)
 
 
 def authenticate(username, password, service="passwd"):
