@@ -515,10 +515,24 @@ class Tasks(Collection):
 class Config(Resource):
     def __init__(self, model, id=None):
         super(Config, self).__init__(model, id)
+        self.capabilities = Capabilities(self.model)
+        self.capabilities.exposed = True
 
     @property
     def data(self):
         return {'http_port': cherrypy.server.socket_port}
+
+class Capabilities(Resource):
+    def __init__(self, model, id=None):
+        super(Capabilities, self).__init__(model, id)
+        self.model = model
+
+    @property
+    def data(self):
+        caps = ['stream_protocols', 'screenshot']
+        ret = dict([(x, None) for x in caps])
+        ret.update(self.model.get_capabilities())
+        return ret
 
 @cherrypy.expose
 def login(*args):

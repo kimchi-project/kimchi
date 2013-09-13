@@ -60,6 +60,10 @@ class MockModel(object):
         if len(proc.stdout.readlines()) == 0:
             p = subprocess.Popen(args, close_fds=True)
 
+    def get_capabilities(self):
+        return {'stream_protocols': ['http', 'https', 'ftp', 'ftps', 'tftp'],
+                'screenshot': True}
+
     def reset(self):
         self._mock_vms = {}
         self._mock_screenshots = {}

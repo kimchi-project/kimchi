@@ -39,6 +39,7 @@ import xmlutils
 import vnc
 import isoinfo
 from screenshot import VMScreenshot
+from kimchi.featuretests import FeatureTests
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
@@ -95,6 +96,15 @@ class Model(object):
         self.graphics_ports = {}
         self.cpu_stats = {}
         self.next_taskid = 1
+
+    def get_capabilities(self):
+        protocols = []
+        for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
+            if FeatureTests.is_iso_stream_supported(p):
+                protocols.append(p)
+
+        return {'stream_protocols': protocols,
+                'screenshot': VMScreenshot.get_stream_test_result()}
 
     def _get_cpu_stats(self, name, info):
         timestamp = time.time()
