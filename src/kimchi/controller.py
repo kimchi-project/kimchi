@@ -183,7 +183,7 @@ class Resource(object):
         if ident != self.ident:
             raise cherrypy.HTTPRedirect(self.uri_fmt %
                                         tuple(list(self.model_args[:-1]) + [ident]),
-                                        301)
+                                        303)
         return self.get()
 
 
