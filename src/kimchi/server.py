@@ -31,8 +31,10 @@ import model
 import mockmodel
 import config
 import sslcert
+import auth
 import os
 import cherrypy
+
 
 LOGGING_LEVEL = {"debug": logging.DEBUG,
                  "info": logging.INFO,
@@ -60,37 +62,54 @@ class Server(object):
         '/': { 'tools.trailing_slash.on': False,
                'tools.staticdir.root': config.get_prefix(),
                'request.methods_with_bodies': ('POST', 'PUT'),
-               'tools.nocache.on': True },
+               'tools.nocache.on': True,
+               'tools.sessions.on': True,
+               'tools.sessions.name': 'kimchi',
+               'tools.sessions.storage_type': 'file',
+               'tools.sessions.storage_path': config.get_session_path(),
+               'tools.kimchiauth.on': False
+        },
+        '/vms': {'tools.kimchiauth.on': True},
+        '/templates': {'tools.kimchiauth.on': True},
+        '/storagepools': {'tools.kimchiauth.on': True},
+        '/tasks': {'tools.kimchiauth.on': True},
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/css',
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False },
+            'tools.nocache.on': False
+        },
         '/js': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/js',
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False },
+            'tools.nocache.on': False
+        },
         '/libs': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/libs',
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False },
+            'tools.nocache.on': False,
+        },
         '/images': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/images',
-            'tools.nocache.on': False },
+            'tools.nocache.on': False
+        },
         '/data/screenshots': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'data/screenshots',
-            'tools.nocache.on': False },
+            'tools.nocache.on': False
         }
+    }
 
     def __init__(self, options):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
+        cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
+                                                  auth.kimchiauth)
         cherrypy.server.socket_host = options.host
         cherrypy.server.socket_port = options.port
 
@@ -136,6 +155,7 @@ class Server(object):
             model_instance = model.Model()
 
         self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.CONFIG)
+        cherrypy.lib.sessions.init()
 
     def _init_ssl(self, options):
         ssl_server = cherrypy._cpserver.Server()
