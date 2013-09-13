@@ -124,12 +124,13 @@ var kimchi = {
      * recreate it with new information.
      */
     updateTemplate : function(name, settings, suc, err) {
-        kimchi.retrieveTemplate(name, function(template) {
-            $.extend(template, settings);
-            kimchi.deleteTemplate(name, function() {
-                kimchi.createTemplate(template, suc, err);
-            }, err);
-        }, err);
+        $.ajax({
+            url : kimchi.url + "templates/" + name,
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json'
+        }).done(suc).fail(err);
     },
 
     /**
