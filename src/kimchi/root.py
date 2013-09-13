@@ -50,6 +50,8 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
+        self.login = controller.login
+        self.logout = controller.logout
 
     def get(self):
         return self.default('kimchi-ui.html')

@@ -32,7 +32,7 @@ Install Dependencies
 
     $ sudo yum install gcc make python-cherrypy python-cheetah \
                        python-imaging libvirt-python libvirt \
-                       gettext-devel automake autoconf
+                       gettext-devel automake autoconf python-m2crypto
 
 Install Dependecies for RHEL6
 ----------------------------

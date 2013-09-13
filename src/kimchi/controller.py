@@ -27,6 +27,7 @@ from functools import wraps
 from kimchi.exception import *
 import kimchi.template
 from kimchi.model import ISO_POOL_NAME
+import auth
 
 def get_class_name(cls):
     try:
@@ -518,3 +519,19 @@ class Config(Resource):
     @property
     def data(self):
         return {'http_port': cherrypy.server.socket_port}
+
+@cherrypy.expose
+def login(*args):
+    params = parse_request()
+    try:
+        userid = params['userid']
+        password = params['password']
+    except KeyError, key:
+        raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % key)
+    auth.login(userid, password)
+    return '{}'
+
+@cherrypy.expose
+def logout():
+    auth.logout()
+    return '{}'

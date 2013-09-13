@@ -82,7 +82,8 @@ def main(options):
         os.path.dirname(os.path.abspath(options.access_log)),
         os.path.dirname(os.path.abspath(options.error_log)),
         os.path.dirname(os.path.abspath(kimchi.config.get_object_store())),
-        os.path.abspath(kimchi.config.get_screenshot_path())
+        os.path.abspath(kimchi.config.get_screenshot_path()),
+        os.path.abspath(kimchi.config.get_session_path())
     ]
     for directory in make_dirs:
         if not os.path.isdir(directory):

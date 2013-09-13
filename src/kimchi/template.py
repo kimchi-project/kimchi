@@ -71,14 +71,17 @@ def can_accept(mime):
 
     return False
 
+def can_accept_html():
+    return can_accept('text/html') or \
+           can_accept('application/xaml+xml') or \
+           can_accept('*/*')
+
 def render(resource, data):
     if can_accept('application/json'):
         return json.dumps(data, indent=2,
                           separators=(',', ':'),
                           encoding='iso-8859-1')
-    elif can_accept('text/html') or \
-        can_accept('application/xaml+xml') or \
-        can_accept('*/*'):
+    elif can_accept_html():
         filename = config.get_template_path(resource)
         try:
             params = {'data': data}

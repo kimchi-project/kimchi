@@ -55,6 +55,17 @@ def get_default_log_dir():
 
     return os.path.join(prefix, 'log')
 
+def get_state_path():
+    prefix = get_prefix()
+
+    if prefix == '@pkgdatadir@':
+        return "@localstatedir@/lib/kimchi"
+
+    return os.path.join(prefix, 'data')
+
+def get_session_path():
+    return os.path.join(get_state_path(), 'sessions')
+
 def get_object_store():
     return os.path.join(get_prefix(), 'data', 'objectstore')
 
