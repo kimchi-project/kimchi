@@ -466,7 +466,7 @@ class RestTests(unittest.TestCase):
         t['name'] = "test1"
         req = json.dumps(t)
         resp = self.request('/templates/%s' % oldname, req, 'PUT')
-        self.assertEquals(301, resp.status)
+        self.assertEquals(303, resp.status)
 
         # Verify the template
         res = json.loads(self.request('/templates/%s' % t['name']).read())
