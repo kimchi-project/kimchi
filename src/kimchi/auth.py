@@ -69,6 +69,13 @@ def authenticate(username, password, service="passwd"):
 
     return True
 
+def from_browser():
+    # Enable Basic Authentication for REST tools.
+    # Ajax request sent from jQuery in browser will have "X-Requested-With"
+    # header. We will check it to determine whether enable BA.
+    requestHeader = cherrypy.request.headers.get("X-Requested-With", None)
+    return (requestHeader == "XMLHttpRequest")
+
 def check_auth_session():
     """
     A user is considered authenticated if we have an established session open
@@ -91,7 +98,7 @@ def check_auth_httpba():
     for the UI because web browsers would cache the credentials and make it
     impossible for the user to log out without closing their browser completely.
     """
-    if not template.can_accept('application/json'):
+    if from_browser() or not template.can_accept('application/json'):
         return False
 
     authheader = cherrypy.request.headers.get('AUTHORIZATION')
@@ -133,12 +140,7 @@ def kimchiauth(*args, **kwargs):
     if check_auth_httpba():
         return
 
-    # Enable Basic Authentication for REST tools.
-    # Ajax request sent from jQuery in browser will have "X-Requested-With"
-    # header. We will check it to determine whether enable BA.
-    requestHeader = cherrypy.request.headers.get("X-Requested-With", None)
-    fromBrowser = (requestHeader == "XMLHttpRequest")
-    if not fromBrowser:
+    if not from_browser():
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=kimchi'
 
     raise cherrypy.HTTPError("401 Unauthorized")
