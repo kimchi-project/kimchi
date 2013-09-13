@@ -277,3 +277,24 @@ Contains information about the application environment and configuration.
 **Actions (POST):**
 
 *No actions defined*
+
+### Resource: Capabilities
+
+**URI:** /config/capabilities
+
+Contains information about the host capabilities: iso streaming, screenshot
+creation.
+
+**Methods:**
+
+* **GET**: Retrieve capabilities information
+    * stream_protocols: list of which network protocols are accepted for iso
+      streaming
+    * screenshot: True, if libvirt stream functionality can create screenshot
+      file without problems; False, otherwise or None if the functionality was
+      not tested yet
+* **POST**: *See Configuration Actions*
+
+**Actions (POST):**
+
+*No actions defined*
