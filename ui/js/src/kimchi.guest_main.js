@@ -177,10 +177,11 @@ kimchi.listVmsAuto = function() {
             })
             kimchi.initVmButtonsAction();
         }
+
+        kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     }, function() {
         kimchi.message.error(i18n['msg.fail.list.guests']);
     });
-    kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
 };
 
 kimchi.guestSetRequestHeader = function(xhr) {
@@ -191,6 +192,7 @@ kimchi.guest_main = function() {
     $("#vm-add").on("click", function(event) {
         kimchi.window.open('guest-add.html');
     });
+
     $.ajax({
         headers : {
             Accept : "text/html"

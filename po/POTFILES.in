@@ -9,3 +9,4 @@ ui/pages/template-edit.html.tmpl
 ui/pages/templates.html.tmpl
 ui/pages/vnc_auto.html.tmpl
 ui/pages/i18n.html.tmpl
+ui/pages/login-window.html.tmpl

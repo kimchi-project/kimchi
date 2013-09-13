@@ -104,31 +104,60 @@
 }
 
 #user {
+	color: white;
+	cursor: pointer;
 	display: block;
 	position: relative;
 	height: 48px;
+	margin: 0 12px;
+}
+
+#user span {
+	display: inline-block;
+	margin-top: 16px;
+}
+
+#user:hover #user-name {
+	border-bottom: 1px solid white;
+}
+
+#user.not-logged-in {
+	display: none;
+}
+
+#user-icon {
+	background: url("/images/theme-default/user-icon.png") no-repeat left top;
+	height: 16px;
+	width: 16px;
+}
+
+#user-name {
+	height: 16px;
+	line-height: 16px;
 }
 
 #user .arrow {
-	position: absolute;
-	width: 15px;
-	height: 48px;
-	right: 10px;
-	top: 0;
-	background: url(../images/theme-default/arrow-down.png) no-repeat center center;
+	border: 6px solid transparent;
+	border-bottom: none;
+	border-top-color: white;
+	display: inline-block;
+	width: 0;
 }
 
-#username {
-	display: block;
-	max-width: 120px;
-	padding: 0 30px 0 10px;
-	line-height: 48px;
-	color: #eee;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #555;
-	text-overflow: ellipsis;
+#user .action-panel {
+	top: 45px;
+	color: black;
+	padding: 12px 18px;
 	white-space: nowrap;
-	overflow: hidden;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #555;
+}
+
+#btn-logout {
+	color: black;
+	font-size: 14px;
+}
+
+a#btn-logout:hover {
+	text-decoration: underline;
 }
 
 @media ( max-width : 640px) {

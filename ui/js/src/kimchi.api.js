@@ -23,6 +23,29 @@ var kimchi = {
     url : "../../../",
 
     /**
+     * A wrapper of jQuery.ajax function to allow custom bindings.
+     *
+     * @param settings an extended object to jQuery Ajax settings object
+     *   with some extra properties (see below)
+     *
+     *   resend: if the XHR has failed due to 401, the XHR can be resent
+     *     after user being authenticated successfully by setting resend
+     *     to true: settings = {resend: true}. It's useful for switching
+     *     pages (Guests, Templates, etc.).
+     *       e.g., the user wants to list guests by clicking Guests tab,
+     *     but he is told not authorized and a login window will pop up.
+     *     After login, the Ajax request for /vms will be resent without
+     *     user clicking the tab again.
+     *       Default to false.
+     */
+    requestJSON: function(settings) {
+        settings['originalError'] = settings['error'];
+        settings['error'] = null;
+        settings['kimchi'] = true;
+        return $.ajax(settings);
+    },
+
+    /**
      *
      * Create a new Virtual Machine. Usage: kimchi.createVM({ name: 'MyUbuntu',
      * template: '/templates/ubuntu_base' }, creationSuc, creationErr);
@@ -34,7 +57,7 @@ var kimchi = {
      * suc: callback if succeed err: callback if failed
      */
     createVM : function(settings, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : "/vms",
             type : "POST",
             contentType : "application/json",
@@ -50,17 +73,19 @@ var kimchi = {
      * if failed
      */
     createTemplate : function(settings, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : "/templates",
             type : "POST",
             contentType : "application/json",
             data : JSON.stringify(settings),
-            dataType : "json"
-        }).done(suc).fail(err);
+            dataType : "json",
+            success: suc,
+            error: err
+        });
     },
 
     deleteTemplate : function(tem, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'templates/' + tem,
             type : 'DELETE',
             contentType : 'application/json',
@@ -71,7 +96,7 @@ var kimchi = {
     },
 
     listTemplates : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'templates',
             type : 'GET',
             contentType : 'application/json',
@@ -85,7 +110,7 @@ var kimchi = {
      * Retrieve the information of a template by the given name.
      */
     retrieveTemplate : function(templateName, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + "templates/" + templateName,
             type : 'GET',
             contentType : 'application/json',
@@ -114,7 +139,7 @@ var kimchi = {
      * The unit is MBytes suc: callback if succeed err: callback if failed
      */
     createStoragePool : function(settings, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : '/storagepools',
             type : 'POST',
             contentType : 'application/json',
@@ -124,7 +149,7 @@ var kimchi = {
     },
 
     startVM : function(vm, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'vms/' + vm + '/start',
             type : 'POST',
             contentType : 'application/json',
@@ -135,7 +160,7 @@ var kimchi = {
     },
 
     stopVM : function(vm, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'vms/' + vm + '/stop',
             type : 'POST',
             contentType : 'application/json',
@@ -146,13 +171,13 @@ var kimchi = {
     },
 
     resetVM : function(vm, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'vms/' + vm + '/stop',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
             success : function() {
-                $.ajax({
+                kimchi.requestJSON({
                     url : kimchi.url + 'vms/' + vm + '/start',
                     type : 'POST',
                     contentType : 'application/json',
@@ -166,7 +191,7 @@ var kimchi = {
     },
 
     deleteVM : function(vm, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'vms/' + vm,
             type : 'DELETE',
             contentType : 'application/json',
@@ -177,7 +202,7 @@ var kimchi = {
     },
 
     vncToVM : function(vm) {
-        $.ajax({
+        kimchi.requestJSON({
             url : "/vms/" + vm + "/connect",
             type : "POST",
             dataType : "json",
@@ -188,13 +213,13 @@ var kimchi = {
     },
 
     vncToVM : function(vm) {
-        $.ajax({
+        kimchi.requestJSON({
             url : '/config',
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
             http_port = data['http_port'];
-            $.ajax({
+            kimchi.requestJSON({
                 url : "/vms/" + vm + "/connect",
                 type : "POST",
                 dataType : "json"
@@ -213,29 +238,31 @@ var kimchi = {
     },
 
     listVMs : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'vms',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
+            resend: true,
             success : suc,
             error : err
         });
     },
 
     listTemplates : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'templates',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
+            resend: true,
             success : suc,
             error : err
         });
     },
 
     listStoragePools : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'storagepools',
             type : 'GET',
             contentType : 'application/json',
@@ -246,7 +273,7 @@ var kimchi = {
     },
 
     listIsos : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'storagepools/kimchi_isos/storagevolumes',
             type : 'GET',
             contentType : 'application/json',
@@ -257,7 +284,7 @@ var kimchi = {
     },
 
     listDistros : function(suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'config/distros',
             type : 'GET',
             contentType : 'application/json',
@@ -278,7 +305,7 @@ var kimchi = {
                 kimchi.getTask(taskId, function(result) {
                     var status = result.status;
                     if (status === "finished") {
-                        $.ajax({
+                        kimchi.requestJSON({
                             url : kimchi.url + 'storagepools/' + isoPool + '/storagevolumes',
                             type : 'GET',
                             contentType : 'application/json',
@@ -298,9 +325,30 @@ var kimchi = {
     },
 
     getTask : function(taskId, suc, err) {
-        $.ajax({
+        kimchi.requestJSON({
             url : kimchi.url + 'tasks/' + taskId,
             type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    login : function(settings, suc, err) {
+        kimchi.requestJSON({
+            url : "/login",
+            type : "POST",
+            contentType : "application/json",
+            data : JSON.stringify(settings),
+            dataType : "json"
+        }).done(suc).fail(err);
+    },
+
+    logout : function(suc, err) {
+        kimchi.requestJSON({
+            url : '/logout',
+            type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
             success : suc,

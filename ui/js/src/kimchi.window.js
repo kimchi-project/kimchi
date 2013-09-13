@@ -4,7 +4,8 @@
  * Copyright IBM, Corp. 2013
  *
  * Authors:
- *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *  Xin Ding <xinding@linux.vnet.ibm.com>
+ *  Hongliang Wang <hlwanghl@linux.vnet.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +19,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.window = {
-    open : function(url) {
-        if ($("#windowField").size() < 1) {
-            $(document.body).append('<div id="windowField" class="bgmask" style="display: none;"></div>');
-            $('#windowField').on('click', '.window .close', function(event) {
-                kimchi.window.close();
-            });
+kimchi.window = (function() {
+    var _windows = [];
+    var open = function(settings) {
+        var settings = jQuery.type(settings) === 'object' ? settings : {
+            url: settings
+        };
+
+        if (_windows.length) {
+            var lastZIndex = parseInt($('#' + _windows[_windows.length - 1]).css('zIndex'));
+            if (settings['style']) {
+                settings['style']['zIndex'] = lastZIndex + 1;
+            }
+            else {
+                settings['style'] = {
+                    zIndex: lastZIndex + 1
+                };
+            }
         }
-        $("#windowField").load(url).fadeIn(100);
-    },
-    close : function() {
-        $("#windowField").fadeOut(100, function() {
-            $(this).empty();
+
+        var windowID = settings['id'] || 'window-' + _windows.length;
+
+        if ($('#' + windowID).length) {
+            $('#' + windowID).remove();
+        }
+
+        _windows.push(windowID);
+        var windowNode = $('<div></div>', {
+            id: windowID,
+            'class': settings['class'] ? settings['class'] + ' bgmask' : 'bgmask'
         });
-    }
-};
+
+        $(windowNode).css(settings['style'] || '');
+
+        $(windowNode).appendTo('body').on('click', '.window .close', function() {
+            kimchi.window.close();
+        });
+
+        if (settings['url']) {
+            $(windowNode).load(settings['url']).fadeIn(100);
+            return;
+        }
+
+        settings['content'] && $(windowNode).html(settings['content']);
+    };
+
+    var close = function() {
+        $('#' + _windows.pop()).fadeOut(100, function() {
+            $(this).remove();
+        });
+    };
+
+    return {
+        open: open,
+        close: close
+    };
+})();

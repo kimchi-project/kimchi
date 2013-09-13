@@ -32,4 +32,5 @@ dist_html_DATA = \
 	templates.html.tmpl \
 	vnc_auto.html.tmpl \
 	i18n.html.tmpl \
+	login-window.html.tmpl \
 	$(NULL)
