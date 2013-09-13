@@ -605,6 +605,12 @@ class RestTests(unittest.TestCase):
         conf = json.loads(resp)
         self.assertEquals(port, conf['http_port'])
 
+    def test_capabilities(self):
+        resp = self.request('/config/capabilities').read()
+        conf = json.loads(resp)
+        self.assertIn('stream_protocols', conf)
+        self.assertIn('screenshot', conf)
+
 class HttpsRestTests(RestTests):
     """
     Run all of the same tests as above, but use https instead
