@@ -52,6 +52,10 @@ class VMScreenshot(object):
                 '%s-%s.png' % (self.vm_name, str(uuid.uuid4()))))
         self.info = args
 
+    @staticmethod
+    def get_stream_test_result():
+        return stream_test_result
+
     def lookup(self):
         now = time.time()
         try:
