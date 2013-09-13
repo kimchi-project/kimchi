@@ -37,6 +37,7 @@ port = None
 def setup_server(environment='development'):
     global test_server, model, host, port
 
+    patch_auth()
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port()

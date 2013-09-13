@@ -41,6 +41,7 @@ class MockModelTests(unittest.TestCase):
         global port, host, model, test_server
         cherrypy.request.headers = {'Accept': 'application/json'}
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
+        patch_auth()
         port = get_free_port()
         host = '127.0.0.1'
         test_server = run_server(host, port, None, test_mode=True, model=model)

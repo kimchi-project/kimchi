@@ -30,10 +30,13 @@ import sys
 import socket
 from contextlib import closing
 import unittest
+import base64
 
 import kimchi.server
 
 _ports = {}
+
+fake_user = {'admin': 'letmein!'}
 
 # provide missing unittest decorators and API for python 2.6; these decorators
 # do not actually work, just avoid the syntax failure
@@ -106,9 +109,11 @@ def _request(conn, path, data, method, headers):
     if headers is None:
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
+    user, pw = fake_user.items()[0]
+    hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
+    headers['AUTHORIZATION'] = hdr
     conn.request(method, path, data, headers)
     return conn.getresponse()
-
 
 def request(host, port, path, data=None, method='GET', headers=None):
     conn = httplib.HTTPConnection(host, port)
@@ -164,3 +169,17 @@ class RollbackContext(object):
 
     def prependDefer(self, func, *args, **kwargs):
         self._finally.insert(0, (func, args, kwargs))
+
+def patch_auth():
+    """
+    Override the authenticate function with a simple test against an
+    internal dict of users and passwords.
+    """
+    def _authenticate(username, password, service="passwd"):
+        try:
+            return fake_user[username] == password
+        except KeyError:
+            return False
+
+    import kimchi.auth
+    kimchi.auth.authenticate = _authenticate

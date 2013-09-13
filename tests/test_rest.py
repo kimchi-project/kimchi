@@ -43,6 +43,7 @@ ssl_port = None
 def setUpModule():
     global test_server, model, host, port, ssl_port
 
+    patch_auth()
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port('http')
@@ -92,8 +93,18 @@ class RestTests(unittest.TestCase):
             self.assertHTTPStatus(404, url)
 
         # Make sure it fails for bad HTML requests
+        # We must be authenticated first.  Otherwise all requests will return
+        # HTTP:401.  Since HTTP Simple Auth is not allowed for text/html, we
+        # need to use the login API and establish a session.
+        user, pw = fake_user.items()[0]
+        req = json.dumps({'userid': user, 'password': pw})
+        resp = self.request('/login', req, 'POST')
+        self.assertEquals(200, resp.status)
+        cookie = resp.getheader('set-cookie')
+
         self.assertHTTPStatus(404, url, None, 'GET',
-                              {'Accept': 'text/html'})
+                              {'Accept': 'text/html',
+                               'Cookie': cookie})
 
         # Verify it works for DELETE too
         self.assertHTTPStatus(404, '/templates/blah', '', 'DELETE')
