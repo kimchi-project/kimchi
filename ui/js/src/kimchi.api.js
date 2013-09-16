@@ -272,6 +272,17 @@ var kimchi = {
         });
     },
 
+    listStorageVolumes : function(poolName, suc, err) {
+        $.ajax({
+            url : kimchi.url + 'storagepools/' + poolName + '/storagevolumes',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     listIsos : function(suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'storagepools/kimchi_isos/storagevolumes',
@@ -349,10 +360,31 @@ var kimchi = {
         kimchi.requestJSON({
             url : '/logout',
             type : 'POST',
+            contentType : "application/json",
+            dataType : "json"
+        }).done(suc).fail(err);
+    },
+
+    deleteStoragePool : function(poolName, suc, err) {
+        $.ajax({
+            url : kimchi.url + 'storagepools/' + poolName,
+            type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
             success : suc,
             error : err
         });
+    },
+
+    changePoolState : function(poolName, state, suc, err) {
+        if (state === 'activate' || state === 'deactivate')
+            $.ajax({
+                url : kimchi.url + 'storagepools/' + poolName + '/' + state,
+                type : 'POST',
+                contentType : 'application/json',
+                dataType : 'json',
+                success : suc,
+                error : err
+            });
     }
 };

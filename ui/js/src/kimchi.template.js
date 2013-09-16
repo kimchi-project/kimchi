@@ -43,6 +43,6 @@ kimchi.template = function(templateStr, data, tag) {
                 break;
             }
         }
-        return escapeHtml(value || defaultValue);
+        return escapeHtml((value || value === 0) ? value : defaultValue);
     });
 };

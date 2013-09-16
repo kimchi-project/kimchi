@@ -45,13 +45,21 @@ kimchi.message = function(msg, level) {
 
 /**
  * A public function of confirm box.
- * @param msg  type:[object]
- * @param msg.title The title of the confirm box.
- * @param msg.content The main text of the confirm box.
- * @param msg.confirm The text of the confirm button.
- * @param msg.cancel the text of the cancel button.
- * @param confirmCallback the callback function of click the confirm button.
- * @param cancelCallback The callback function of click the cancel and X button.
+ *
+ * @param msg
+ *            type:[object]
+ * @param msg.title
+ *            The title of the confirm box.
+ * @param msg.content
+ *            The main text of the confirm box.
+ * @param msg.confirm
+ *            The text of the confirm button.
+ * @param msg.cancel
+ *            the text of the cancel button.
+ * @param confirmCallback
+ *            the callback function of click the confirm button.
+ * @param cancelCallback
+ *            The callback function of click the cancel and X button.
  */
 kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     if ($('#confirmbox-container ').size() < 1) {
@@ -66,10 +74,8 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     confirmboxHtml += settings.content + '</div>';
     confirmboxHtml += '<footer>';
     confirmboxHtml += '<div class="btn-group">';
-    confirmboxHtml += '<button id="button-confirm" class="btn-small"><span class="text">'
-        + settings.confirm + '</span></button>';
-    confirmboxHtml += '<button id="button-cancel" class="btn-small cancel"><span class="text">'
-        + settings.cancel + '</span></button>';
+    confirmboxHtml += '<button id="button-confirm" class="btn-small"><span class="text">' + settings.confirm + '</span></button>';
+    confirmboxHtml += '<button id="button-cancel" class="btn-small cancel"><span class="text">' + settings.cancel + '</span></button>';
     confirmboxHtml += '</div>';
     confirmboxHtml += '</footer>';
     confirmboxHtml += '</div>';
@@ -78,13 +84,17 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     confirmboxNode.fadeIn();
 
     $('#confirmbox-container').on("click", "#button-confirm", function(e) {
-        confirmCallback();
+        if (confirmCallback) {
+            confirmCallback();
+        }
         confirmboxNode.fadeOut(1, function() {
             $('#confirmbox-container').remove();
         });
     });
     $('#confirmbox-container').on("click", ".cancel", function(e) {
-        cancelCallback();
+        if (cancelCallback) {
+            cancelCallback();
+        }
         confirmboxNode.fadeOut(1, function() {
             $('#confirmbox-container').remove();
         });
