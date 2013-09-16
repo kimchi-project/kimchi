@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-04 15:22+0800\n"
+"POT-Creation-Date: 2013-09-13 13:34+0800\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Adam Litke <agl@us.ibm.com>\n"
 "Language-Team: English\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -22,6 +22,9 @@ msgstr "Guests"
 
 msgid "Templates"
 msgstr "Templates"
+
+msgid "Storage"
+msgstr "Storage"
 
 msgid "Host"
 msgstr "Host"
@@ -40,9 +43,6 @@ msgstr "Project Kimchi"
 
 msgid "Language:"
 msgstr "Language:"
-
-msgid "Storage"
-msgstr "Storage"
 
 msgid "Networks"
 msgstr "Networks"
@@ -260,8 +260,90 @@ msgstr "This will permanently delete the Template. Would you like to continue?"
 msgid "Failed to get application configuration"
 msgstr "Failed to get application configuration"
 
-msgid "This is not a valid linux path."
+msgid "This is not a valid linux path"
 msgstr "This is not a valid linux path."
 
 msgid "This is not a valid url."
 msgstr "This is not a valid url."
+
+msgid ""
+"This will permanently delete the Storage Pool. Would you like to continue?"
+msgstr ""
+"This will permanently delete the Storage Pool. Would you like to continue?"
+
+msgid "The storage pool name can not be blank."
+msgstr "The storage pool name can not be blank."
+
+msgid "The storage pool path can not be blank."
+msgstr "The storage pool path can not be blank."
+
+msgid ""
+"The Storage Pool Name should be at least one of word characters, "
+"underscores, or hyphens."
+msgstr ""
+
+msgid "This is not a real linux path."
+msgstr "This is not a real linux path."
+
+msgid "This storage pool is empty."
+msgstr "This storage pool is empty."
+
+msgid "Failed to list the storage pool."
+msgstr "Failed to list the storage pool"
+
+msgid "The storage pool is not active now."
+msgstr "The storage pool is not active now."
+
+msgid "State"
+msgstr "State"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Capacity"
+msgstr "Capacity"
+
+msgid "Allocate"
+msgstr "Allocate"
+
+msgid "active"
+msgstr "active"
+
+msgid "inactive"
+msgstr "inactive"
+
+msgid "Deactivate"
+msgstr "Deactivate"
+
+msgid "Activate"
+msgstr "Activate"
+
+msgid "Undefine"
+msgstr "Undefine"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Allocation"
+msgstr "Allocation"
+
+msgid "Define a New Storage Pool"
+msgstr "Define a New Storage Pool"
+
+msgid "Storage Pool Name"
+msgstr "Storage Pool Name"
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+"The name used to identify the storage pools, and it should not be empty."
+
+msgid "Storage Path"
+msgstr "Storage Path"
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""

@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-04 15:22+0800\n"
+"POT-Creation-Date: 2013-09-13 13:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,6 +20,9 @@ msgid "Guests"
 msgstr ""
 
 msgid "Templates"
+msgstr ""
+
+msgid "Storage"
 msgstr ""
 
 msgid "Host"
@@ -39,9 +41,6 @@ msgid "Project Kimchi"
 msgstr ""
 
 msgid "Language:"
-msgstr ""
-
-msgid "Storage"
 msgstr ""
 
 msgid "Networks"
@@ -256,8 +255,88 @@ msgstr ""
 msgid "Failed to get application configuration"
 msgstr ""
 
-msgid "This is not a valid linux path."
+msgid "This is not a valid linux path"
 msgstr ""
 
 msgid "This is not a valid url."
+msgstr ""
+
+msgid ""
+"This will permanently delete the Storage Pool. Would you like to continue?"
+msgstr ""
+
+msgid "The storage pool name can not be blank."
+msgstr ""
+
+msgid "The storage pool path can not be blank."
+msgstr ""
+
+msgid ""
+"The Storage Pool Name should be at least one of word characters, "
+"underscores, or hyphens."
+msgstr ""
+
+msgid "This is not a real linux path."
+msgstr ""
+
+msgid "This storage pool is empty."
+msgstr ""
+
+msgid "Failed to list the storage pool."
+msgstr ""
+
+msgid "The storage pool is not active now."
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "Allocate"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "inactive"
+msgstr ""
+
+msgid "Deactivate"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "Undefine"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Allocation"
+msgstr ""
+
+msgid "Define a New Storage Pool"
+msgstr ""
+
+msgid "Storage Pool Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+
+msgid "Storage Path"
+msgstr ""
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""

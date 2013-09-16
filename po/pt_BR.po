@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-04 15:22+0800\n"
+"POT-Creation-Date: 2013-09-13 13:46+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-Language: Portuguese\n"
@@ -38,6 +38,9 @@ msgstr "Máquinas Virtuais"
 
 msgid "Templates"
 msgstr "Modelos"
+
+msgid "Storage"
+msgstr "Discos"
 
 msgid "Host"
 msgstr "Hospedeiro"
@@ -56,9 +59,6 @@ msgstr "Projeto Kimchi"
 
 msgid "Language:"
 msgstr "Idioma:"
-
-msgid "Storage"
-msgstr "Discos"
 
 msgid "Networks"
 msgstr "Redes"
@@ -271,12 +271,93 @@ msgstr ""
 msgid "msg.template.confirm.delete"
 msgstr ""
 
-
 msgid "Failed to get application configuration"
 msgstr ""
 
-msgid "This is not a valid linux path."
+msgid "This is not a valid linux path"
 msgstr ""
 
 msgid "This is not a valid url."
+msgstr ""
+
+msgid ""
+"This will permanently delete the Storage Pool. Would you like to continue?"
+msgstr ""
+
+msgid "The storage pool name can not be blank."
+msgstr ""
+
+msgid "The storage pool path can not be blank."
+msgstr ""
+
+msgid ""
+"The Storage Pool Name should be at least one of word characters, "
+"underscores, or hyphens."
+msgstr ""
+
+msgid "This is not a real linux path."
+msgstr ""
+
+msgid "This storage pool is empty."
+msgstr ""
+
+msgid "Failed to list the storage pool."
+msgstr ""
+
+msgid "The storage pool is not active now."
+msgstr ""
+
+msgid "State"
+msgstr "Discos"
+
+msgid "Location"
+msgstr "Ações"
+
+msgid "Type"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "Allocate"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "inactive"
+msgstr ""
+
+msgid "Deactivate"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "Undefine"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Allocation"
+msgstr ""
+
+msgid "Define a New Storage Pool"
+msgstr ""
+
+msgid "Storage Pool Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+"O nome usado para identificar a máquina virtual. Se omitido, o nome será "
+"escolhido baseado no modelo usado."
+
+msgid "Storage Path"
+msgstr ""
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""

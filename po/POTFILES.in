@@ -10,3 +10,5 @@ ui/pages/templates.html.tmpl
 ui/pages/vnc_auto.html.tmpl
 ui/pages/i18n.html.tmpl
 ui/pages/login-window.html.tmpl
+ui/pages/storage.html.tmpl
+ui/pages/storagepool-add.html.tmpl
