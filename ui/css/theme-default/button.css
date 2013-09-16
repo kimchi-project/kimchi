@@ -324,7 +324,7 @@
 }
 
 /* Generated at http://colorzilla.com/gradient-editor/ */
-.button-big.red {
+.button-big.red:not([disabled]) {
 	text-shadow: -1px -1px 1px #9e0505, 1px 1px 1px #fc5d4c;
 	border: 1px solid #b10f14;
 	background: #ff3019;

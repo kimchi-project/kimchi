@@ -4,7 +4,7 @@
  * Copyright IBM, Corp. 2013
  *
  * Authors:
- *  Lise Noble <lwnoble@us.ibm.com>
+ *  Mei Na Zhou <zhoumein@linux.vnet.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,153 +19,499 @@
  * limitations under the License.
  */
 /*   STORAGE   */
-.storage_box {
-	height: 55px;
-	width: 1004px;
-	margin: 10px 10px 0 10px;
-	margin-top: 10px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	float: left;
-	clear: both;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	color: #666;
-}
-
-.storage_name {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 120px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	padding-left: 10px;
-}
-
-.storage_type {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 80px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
-.storage_used {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 120px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
-.storage_reserved {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 70px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
-.storage_free {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 70px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
-.storage_total {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 70px;
-	margin: 0;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
-.storage_unique {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 208px;
-	margin: 0;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #ccc;
-	padding-left: 10px;
-}
-
-.storage_shared {
-	height: 55px;
-	line-height: 55px;
-	font-size: 13px;
-	float: left;
-	width: 120px;
-	margin: 0;
-	border-left: 1px solid #fff;
-	border-left: 1px solid #fff;
-	padding-left: 10px;
-}
-
 .handle {
-	width: 49px;
-	height: 55px;;
-	background: #0b6bad;
-	float: right;
-	border-top-right: 1px solid #CCC;
-	-webkit-border-top-right-radius: 8px;
-	-moz-border-top-right-radius: 8px;
-	border-top-right-radius: 8px;
-	box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
-	border-bottom-right: 1px solid #CCC;
-	-webkit-border-bottom-right-radius: 8px;
-	-moz-border-bottom-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	display: block;
-	overflow: hidden;
+    width: 5%;
+    height: 55px;
+    background: #0b6bad;
+    border-top-right: 1px solid #CCC;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-top-right-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
+    border-bottom-right: 1px solid #CCC;
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-bottom-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: block;
+    overflow: hidden;
 }
 
-.white_box {
-	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
-	border: 1px solid #CCCCCC;
-	color: #333333;
-	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+.storagelist-title {
+    color: #666;
+    font-weight: 600;
+    font-size: 13px;
+    overflow: hidden;
+    margin: 10px;
 }
 
-.storage_heading_box {
-	border-width: 1px;
-	color: black;
-	font-weight: bold;
-	height: 55px;
-	width: 1004px;
-	margin: 0 0 0 11px;
-	float: left;
-	clear: both;
-	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
+.storagelist-title li {
+    display: table-cell;
+    padding: 0 1px;
 }
-/* END OF Storage */
+
+.storage-title {
+    font-size: 13px;
+    height: 18px;
+    padding: 10px;
+    color: #666;
+    float: left;
+    max-width: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.usage {
+    font-size: 13px;
+    height: 18px;
+    padding: 10px;
+    color: #666;
+    float: right;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.storage-text {
+    font-size: 12px;
+    height: 18px;
+    padding: 10px;
+    color: #999999;
+    font-weight: bold;
+    line-height: 18px;
+    padding-left: 2px;
+}
+
+.list-storage {
+    margin: 10px;
+}
+
+.list-storage .storage-li {
+    width: 1004px;
+    margin-top: 10px;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
+        color-stop(100%, #e5e5e5));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+        endColorstr='#e5e5e5', GradientType=0);
+    border: 1px solid #ccc;
+    color: #333;
+    -moz-border-top-left-radius: 8px;
+    -moz-border-top-right-radius: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-bottom-left-radius: 8px;
+    -moz-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.list-storage .storage-li>* {
+    height: 25px;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #fff;
+}
+
+.list-storage .storage-li>*:FIRST-CHILD {
+    border-left: none;
+}
+
+.list-storage .storage-li>*:LAST-CHILD {
+    border-right: none;
+}
+
+.list-storage .storage-li[data-stat="active"]:hover {
+    border: 1px solid rgb(11, 107, 173);
+    box-shadow: 0px 0px 5px rgb(11, 107, 173);
+    cursor: default;
+}
+
+.list-storage .storage-li>.guest-tile {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.list-storage .subtitle {
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+    line-height: 10px;
+    font-weight: bold;
+}
+
+.list-storage .tile .imgload {
+    display: none;
+    max-height: 110px;
+    max-width: 170px;
+    height: auto;
+    width: auto;
+}
+
+.list-storage .tile .imgactive {
+    max-height: 110px;
+    max-width: 170px;
+    height: auto;
+    width: auto;
+}
+
+.storage-volum {
+    height: 40px;
+    width: 186px;
+    display: table-cell;
+    vertical-align: top;
+    position: relative;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #fff;
+}
+
+.storage-name {
+    width: 20%;
+}
+
+.storage-state {
+    width: 5%;
+}
+
+.storage-location {
+    width: 29%;
+}
+
+.storage-type {
+    width: 10%;
+}
+
+.storage-capacity {
+    width: 10%;
+}
+
+.storage-allocate {
+    width: 10%;
+}
+
+
+.storage-button {
+    width: 11%;
+}
+
+.title-name {
+    width: 210px;
+}
+
+.title-state {
+    width: 50px;
+}
+
+.title-location {
+    width: 300px;
+}
+
+.title-type {
+    width: 100px;
+}
+
+.title-capacity {
+    width: 100px;
+}
+
+.title-allocate {
+    width: 100px;
+}
+
+
+.title-action {
+    width: 100px;
+}
+
+.status-dot {
+    background: #72AA00;
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%, #72AA00 51%, #9ECB2D
+        100%) repeat scroll 0 0 transparent;
+    border: 1px solid #72AA00;
+    border-radius: 13px;
+    box-shadow: 3px 3px 3px #FFFFFF, -3px -3px 3px #DDDDDD;
+    height: 13px;
+    margin: 20px 18px;
+    width: 13px;
+}
+
+.toolable {
+    position: relative;
+}
+
+.toolable .tooltip {
+    display: none;
+    border: 2px solid #0B6BAD;
+    background: #fff;
+    padding: 6px;
+    position: absolute;
+    color: #666666;
+    font-weight: bold;
+    font-size: 11px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 100;
+    top: -300%;
+    left: -140%;
+}
+
+.toolable:hover .tooltip {
+    display: block;
+}
+
+.toolable .tooltip:after {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #fff transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 7px;
+    content: "";
+    display: block;
+    left: 15px;
+    position: absolute;
+    bottom: -14px;
+}
+
+.toolable .tooltip:before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #0B6BAD transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 8px;
+    content: "";
+    display: block;
+    left: 14px;
+    position: absolute;
+    bottom: -18px;
+}
+
+.inactive {
+    background: #E80501;
+    background: linear-gradient(to bottom, #E88692 0%, #E84845 50%, #E80501 51%, #E84845
+        100%) repeat scroll 0 0 transparent;
+    border: 1px solid #FF340C;
+}
+
+.storage-volumes {
+    width: 90px;
+}
+
+.storage-actions {
+    width: 125px;
+}
+
+.storage-action {
+    width: 70px;
+}
+
+.detail-view-icon {
+    background: url(../images/large_details_icon.png) no-repeat center
+        center;
+    height: 30px;
+    width: 42px;
+}
+
+.volumes {
+    background: #73716F;
+    width: 1004px;
+    display: inline-block;
+    margin-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+.hide-content {
+    display: none;
+}
+
+.volumeslist {
+    padding: 7px;
+    max-height: 272px;
+    overflow: auto;
+}
+
+.volumes>.footer {
+    height: 48px;
+    z-index: 100;
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.volume-title {
+    float: left;
+    padding: 4px;
+    margin-bottom: 5px;
+    height: 40px;
+    width: 130px;
+}
+
+.volume-title>.volume-name {
+    font-size: 14px;
+    font-weight: normal;
+    padding-bottom: 5px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.volume-box {
+    border-radius: 8px;
+    background: white;
+    color: #666666;
+    float: left;
+    height: 100px;
+    margin: 7px;
+    padding: 10px;
+    width: 205px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+.volume-box .volume-state {
+    font-size: 75%;
+}
+
+.volume-box .label {
+    color: white;
+    font-weight: bold;
+    padding: 1px 5px;
+    text-shadow: none;
+}
+
+.volume-box .used {
+    background-color: #FF7121;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.volume-box .free {
+    background: none repeat scroll 0 0 #72AA00;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.volume-setting {
+    float: right;
+    padding: 5px;
+}
+
+.volume-setting>* {
+    height: 16px;
+    width: 16px;
+    border: none;
+    float: left;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.field>select {
+    height: 30px;
+    width: 160px;
+    font-size: 14px;
+    padding-left: 8px;
+}
+
+.clear {
+    clear: both;
+}
+
+.volume-text {
+    color: #999999;
+    float: left;
+    font-size: 10px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    width: 142px;
+    max-width: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.volume-textquota {
+    color: #999999;
+    float: left;
+    font-size: 10px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    width: 142px;
+    max-width: 95px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.volume-type-position {
+    display: inline;
+    padding-right: 5px;
+    clear: both;
+    width: 90px;
+    border-right: 1px solid #999;
+    float: left;
+}
+
+.volume-quota-position {
+    display: inline;
+    width: 90px;
+    padding-left: 5px;
+    float: left;
+    border-left: 1px solid #eee;
+}
+
+.arrow-down {
+    background: url(../images/theme-default/arrow-down.png) no-repeat center
+        center;
+    height: 52px;
+    width: 45px;
+}
+
+.arrow-up {
+    background: url(../images/theme-default/arrow-up.png) no-repeat center
+        center;
+    height: 52px;
+    width: 45px;
+}
+
+.storage-icon {
+    border: 1px solid #CCCCCC;
+    border-radius: 8px 8px 8px 8px;
+    height: 40px;
+    width: 40px;
+    margin: 0 10px 10px 0;
+    float: left;
+    display: inline;
+}
+
+.volume-default {
+    background: url(../images/theme-default/icon-volume-default.png)
+        no-repeat center center;
+}
+
+.icon-raw {
+    background: url(../images/theme-default/icon-raw.png) no-repeat center
+        center;
+}
+
+.icon-qcow2 {
+    background: url(../images/theme-default/icon-qcow2.png) no-repeat center
+        center;
+}
+
+.icon-iso {
+    background: url(../images/theme-default/icon-iso.png) no-repeat center
+        center;
+}
