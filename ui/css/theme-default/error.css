@@ -45,3 +45,42 @@
 .error-text {
     margin: 10px 0 10px 10px;
 }
+
+#error-404-window {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    border: none;
+}
+
+#error-404-window .content {
+    margin: 0;
+}
+.error-msg>a.btn-normal {
+    background: black;
+    border-radius: 0 0 36px;
+    box-shadow: -2px -2px 2px #eee, 2px 2px 2px #ccc;
+    color: white;
+    font-size: 18px;
+    height: 36px;
+    padding-right: 36px;
+}
+
+.error-msg>a.btn-normal:hover {
+    background: #333;
+}
+
+.error-msg>a.btn-normal:active {
+    box-shadow: -1px -1px 1px #eee, 1px 1px 1px #ccc, 1px 1px 1px #ccc inset, -1px -1px 1px #aaa inset;
+    background: -moz-linear-gradient(top, black 0%, #888 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, black), color-stop(100%, #888));
+    background: -webkit-linear-gradient(top, black 0%, #888 100%);
+    background: -o-linear-gradient(top, black 0%, #888 100%);
+    background: -ms-linear-gradient(top, black 0%, #888 100%);
+    background: linear-gradient(to bottom, black 0%, #888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='black', endColorstr='#888', GradientType=0);
+}
