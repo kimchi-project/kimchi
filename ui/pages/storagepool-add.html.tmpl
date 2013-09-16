@@ -1,0 +1,68 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Mei Na Zhou <zhoumein@linux.vnet.ibm.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<div class="window" style="width: 600px;height: 450px;">
+    <header>
+        <h1 class="title">$_("Define a New Storage Pool")</h1>
+        <div class="close">X</div>
+    </header>
+    <div class="content">
+        <form id="form-pool-add">
+            <section class="form-section">
+                <h2>1. $_("Storage Pool Name")</h2>
+                <div class="field">
+                    <p class="text-help">
+                        $_("The name used to identify the storage pools, and it should not be empty.")
+                    </p>
+                    <input id="poolId" type="text" class="text" style="width: 300px" name="name">
+                    <input type="hidden" class="text" style="width: 300px" name="type" value="dir">
+                </div>
+            </section>
+            <section class="form-section">
+                <h2>2. $_("Storage Path")</h2>
+                <div class="field">
+                    <p class="text-help">
+                        $_("The path of the Storage Pool. Each Storage Pool must have a unique path.")
+                    </p>
+                    <input id="pathId" type="text" class="text" style="width: 300px" name="path">
+                </div>
+                <div class="clear"></div>
+            </section>
+        </form>
+    </div>
+    <footer>
+        <div class="btn-group">
+            <button id="pool-doAdd" class="btn-normal"><span class="text">$_("Create")</span></button>
+        </div>
+    </footer>
+</div>
+<script>
+    kimchi.storagepool_add_main();
+</script>
+</body>
+</html>

@@ -33,4 +33,6 @@ dist_html_DATA = \
 	vnc_auto.html.tmpl \
 	i18n.html.tmpl \
 	login-window.html.tmpl \
+	storage.html.tmpl \
+	storagepool-add.html.tmpl \
 	$(NULL)
