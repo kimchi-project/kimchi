@@ -115,6 +115,7 @@ iso_dir = [
 class IsoFormatError(Exception):
     pass
 
+
 class IsoImage(object):
     """
     Scan an iso9660 image to extract the Volume ID and check for boot-ability
@@ -140,7 +141,7 @@ class IsoImage(object):
     def _unpack(self, s, data):
         return s.unpack(data[:s.size])
 
-    def _scan_el_torito(self, fd):
+    def _scan_el_torito(self, data, fd):
         """
         Search the Volume Descriptor Table for an El Torito boot record.  If
         found, the boot record will provide a link to a boot catalogue.  The
@@ -149,14 +150,15 @@ class IsoImage(object):
         whether the image is considered bootable.
         """
         vd_type = -1
-        while True:
-            data = fd.read(IsoImage.SECTOR_SIZE)
-            if len(data) != IsoImage.SECTOR_SIZE:
+        for i in xrange(1, 4):
+            fmt = IsoImage.EL_TORITO_BOOT_RECORD
+            ptr = i * IsoImage.SECTOR_SIZE
+            tmp_data = data[ptr:ptr+fmt.size]
+            if len(tmp_data) < fmt.size:
                 return
 
-            fmt = IsoImage.EL_TORITO_BOOT_RECORD
             (vd_type, vd_ident, vd_ver,
-             et_ident, pad0, boot_cat) = self._unpack(fmt, data)
+             et_ident, pad0, boot_cat) = self._unpack(fmt, tmp_data)
             if vd_type == 255:  # Volume record terminator
                 return
             if vd_type == 0:  # Found El-Torito Boot Record
@@ -165,22 +167,20 @@ class IsoImage(object):
             raise IsoFormatError("Invalid El Torito boot record")
 
         fd.seek(IsoImage.SECTOR_SIZE * boot_cat)
+        data = fd.read(IsoImage.EL_TORITO_VALIDATION_ENTRY.size + IsoImage.EL_TORITO_BOOT_ENTRY.size)
 
         fmt = IsoImage.EL_TORITO_VALIDATION_ENTRY
-        data = fd.read(fmt.size)
-        if len(data) != fmt.size:
-            return
+        tmp_data = data[0:fmt.size]
+        ptr = fmt.size
         (hdr_id, platform_id, pad0,
-         ident, csum, key55, keyAA) = self._unpack(fmt, data)
+         ident, csum, key55, keyAA) = self._unpack(fmt, tmp_data)
         if key55 != 0x55 or keyAA != 0xaa:
             raise IsoFormatError("Invalid El Torito validation entry")
 
         fmt = IsoImage.EL_TORITO_BOOT_ENTRY
-        data = fd.read(fmt.size)
-        if len(data) != fmt.size:
-            return
+        tmp_data = data[ptr:ptr+fmt.size]
         (boot, media_type, load_seg, sys_type,
-         pad0, sectors, load_rba) = self._unpack(fmt, data)
+         pad0, sectors, load_rba) = self._unpack(fmt, tmp_data)
         if boot == 0x88:
             self.bootable = True
         elif boot == 0:
@@ -193,8 +193,9 @@ class IsoImage(object):
         Scan one sector for a Primary Volume Descriptor and extract the
         Volume ID from the table
         """
+        primary_vol_data = data[0: -1]
         (vd_type, vd_ident, vd_ver,
-         pad0, sys_id, vol_id) = self._unpack(IsoImage.VOL_DESC, data)
+         pad0, sys_id, vol_id) = self._unpack(IsoImage.VOL_DESC, primary_vol_data)
         if vd_type != 1:
             raise IsoFormatError("Unexpected volume type for primary volume")
         if vd_ident != 'CD001' or vd_ver != 1:
@@ -204,12 +205,13 @@ class IsoImage(object):
     def _scan(self):
         with open(self.path) as fd:
             fd.seek(16 * IsoImage.SECTOR_SIZE)
-            data = fd.read(IsoImage.SECTOR_SIZE)
-            if len(data) != IsoImage.SECTOR_SIZE:
+            data = fd.read(4 * IsoImage.SECTOR_SIZE)
+            if len(data) < 2 * IsoImage.SECTOR_SIZE:
                 return
 
             self._scan_primary_vol(data)
-            self._scan_el_torito(fd)
+            self._scan_el_torito(data, fd)
+
 
 class Matcher(object):
     """
@@ -225,6 +227,7 @@ class Matcher(object):
 
     def group(self, num):
         return self.lastmatch.group(num)
+
 
 def _probe_iso(fname):
     try:
@@ -252,6 +255,7 @@ def _probe_iso(fname):
                      % (fname, iso.volume_id))
     return ('unknown', 'unknown')
 
+
 def probe_iso(status_helper, params):
     loc = params['path']
     updater = params['updater']
@@ -266,7 +270,7 @@ def probe_iso(status_helper, params):
                 continue
             if ret != ('unknown', 'unknown'):
                 iso = os.path.abspath(iso)
-                updater({'path':iso, 'distro':ret[0], 'version':ret[1]})
+                updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
 
     if status_helper != None:
         status_helper('', True)
