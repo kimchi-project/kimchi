@@ -264,6 +264,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(2, len(storagepools))
         self.assertEquals('default', storagepools[0]['name'])
         self.assertEquals('kimchi_isos', storagepools[1]['name'])
+        self.assertEquals('kimchi-iso', storagepools[1]['type'])
 
         # Now add a couple of StoragePools to the mock model
         for i in xrange(5):

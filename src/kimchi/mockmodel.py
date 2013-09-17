@@ -274,7 +274,7 @@ class MockModel(object):
 
     def isopool_lookup(self, name):
         return {'state': 'active',
-                'type': 'iso'}
+                'type': 'kimchi-iso'}
 
     def isovolumes_get_list(self):
         iso_volumes = []
