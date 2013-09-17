@@ -253,7 +253,7 @@ kimchi.template_check_url = function(url) {
         + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\."
         + "[a-z]{2,6})"
         + "(:[0-9]{1,4})?"
-        + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)$";
+        + "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)$";
     var re = new RegExp(strRegex);
     if (url.constructor === String) {
         return re.test(url);
