@@ -76,12 +76,6 @@ kimchi.main = function() {
                 var htmlStr = [
                   '<div id="error-404-window-content" class="content">',
                     responseText,
-                    '<div class="error-msg">',
-                      '<a id="btn-homepage" class="btn-normal" href="/#guests">',
-                        i18n['msg.404.gotohomepage'],
-                        ' >',
-                      '</a>',
-                    '</div>',
                   '</div>',
                 ].join('');
                 var errorWindow = $('<div/>', {
