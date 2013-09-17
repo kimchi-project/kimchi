@@ -33,6 +33,7 @@ import unittest
 import base64
 
 import kimchi.server
+import kimchi.model
 
 _ports = {}
 
@@ -109,9 +110,10 @@ def _request(conn, path, data, method, headers):
     if headers is None:
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
-    user, pw = fake_user.items()[0]
-    hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
-    headers['AUTHORIZATION'] = hdr
+    if 'AUTHORIZATION' not in headers.keys():
+        user, pw = fake_user.items()[0]
+        hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
+        headers['AUTHORIZATION'] = hdr
     conn.request(method, path, data, headers)
     return conn.getresponse()
 
@@ -179,7 +181,7 @@ def patch_auth():
         try:
             return fake_user[username] == password
         except KeyError:
-            return False
+            raise kimchi.model.OperationFailed('Bad login')
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate

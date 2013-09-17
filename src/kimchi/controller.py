@@ -542,8 +542,10 @@ def login(*args):
         password = params['password']
     except KeyError, key:
         raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % key)
-    auth.login(userid, password)
-    return '{}'
+    try:
+        auth.login(userid, password)
+    except OperationFailed:
+        raise cherrypy.HTTPError(403)
 
 @cherrypy.expose
 def logout():

@@ -66,7 +66,7 @@ def authenticate(username, password, service="passwd"):
     try:
         auth.authenticate()
     except PAM.error, (resp, code):
-        raise InvalidOperation(resp, code)
+        raise OperationFailed(resp, code)
 
     return True
 

@@ -612,6 +612,86 @@ class RestTests(unittest.TestCase):
         self.assertIn('stream_protocols', conf)
         self.assertIn('screenshot', conf)
 
+    def test_auth_unprotected(self):
+        hdrs = {'AUTHORIZATION': ''}
+        uris = ['/js/kimchi.min.js',
+                '/css/theme-default.min.css',
+                '/libs/jquery-1.10.0.min.js',
+                '/images/icon-vm.png',
+                '/kimchi-ui.html',
+                '/login-window.html',
+                '/logout']
+        for uri in uris:
+            resp = self.request(uri, None, 'HEAD', hdrs)
+            self.assertEquals(200, resp.status)
+
+        user, pw = fake_user.items()[0]
+        req = json.dumps({'userid': user, 'password': pw})
+        resp = self.request('/login', req, 'POST', hdrs)
+        self.assertEquals(200, resp.status)
+
+    def test_auth_protected(self):
+        hdrs = {'AUTHORIZATION': ''}
+        uris = ['/vms',
+                '/vms/doesnotexist',
+                '/tasks']
+        for uri in uris:
+            resp = self.request(uri, None, 'GET', hdrs)
+            self.assertEquals(401, resp.status)
+
+    def test_auth_bad_creds(self):
+        # Test HTTPBA
+        hdrs = {'AUTHORIZATION': "Basic " + base64.b64encode("nouser:badpass")}
+        resp = self.request('/vms', None, 'GET', hdrs)
+        self.assertEquals(401, resp.status)
+
+        # Test REST API
+        hdrs = {'AUTHORIZATION': ''}
+        req = json.dumps({'userid': 'nouser', 'password': 'badpass'})
+        resp = self.request('/login', req, 'POST', hdrs)
+        self.assertEquals(403, resp.status)
+
+    def test_auth_browser_no_httpba(self):
+        # Kimchi detects REST requests from the browser by looking for a
+        # specific header
+        hdrs = {"X-Requested-With": "XMLHttpRequest"}
+
+        # Try our request (Note that request() will add a valid HTTPBA header)
+        resp = self.request('/vms', None, 'GET', hdrs)
+        self.assertEquals(401, resp.status)
+        self.assertEquals(None, resp.getheader('WWW-Authenticate'))
+
+    def test_auth_session(self):
+        hdrs = {'AUTHORIZATION': '',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'}
+
+        # Test we are logged out
+        resp = self.request('/tasks', None, 'GET', hdrs)
+        self.assertEquals(401, resp.status)
+
+        # Execute a login call
+        user, pw = fake_user.items()[0]
+        req = json.dumps({'userid': user, 'password': pw})
+        resp = self.request('/login', req, 'POST', hdrs)
+        self.assertEquals(200, resp.status)
+        cookie = resp.getheader('set-cookie')
+        hdrs['Cookie'] = cookie
+
+        # Test we are logged in with the cookie
+        resp = self.request('/tasks', None, 'GET', hdrs)
+        self.assertEquals(200, resp.status)
+
+        # Execute a logout call
+        resp = self.request('/logout', '{}', 'POST', hdrs)
+        self.assertEquals(200, resp.status)
+        del hdrs['Cookie']
+
+        # Test we are logged out
+        resp = self.request('/tasks', None, 'GET', hdrs)
+        self.assertEquals(401, resp.status)
+
+
 class HttpsRestTests(RestTests):
     """
     Run all of the same tests as above, but use https instead
