@@ -169,7 +169,7 @@ kimchi.main = function() {
                 return;
             }
 
-            ajaxSettings['originalError'] && ajaxSettings['originalError']();
+            ajaxSettings['originalError'] && ajaxSettings['originalError'](jqXHR);
         });
 
         kimchi.user.showUser(true);
