@@ -60,6 +60,7 @@
     text-overflow: ellipsis;
     font-weight: bold;
     line-height: 18px;
+    white-space: nowrap;
 }
 
 .usage {
