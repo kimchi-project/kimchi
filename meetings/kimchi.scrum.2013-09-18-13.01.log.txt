@@ -1,0 +1,183 @@
+13:01:02 <aglitke> #startmeeting
+13:01:02 <kimchi-bot> Meeting started Wed Sep 18 13:01:02 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:02 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:08 <aglitke> #meetingname scrum
+13:01:08 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:12 <ming> aglitke, we will come back to work on Sunday.
+13:01:28 <aglitke> #info Agenda: 1) Remaining items for next release
+13:01:34 <aglitke> that's all I have.
+13:01:41 <aglitke> I want to do a quick review of what remains.
+13:02:01 <aglitke> anything else?
+13:02:29 <aglitke> #topic 1.0 outstanding patches
+13:02:30 <ming> looks good to me, I think we have accomplished all the feature lists in this reales.
+13:02:36 <aglitke> Here is my list
+13:02:44 <aglitke> (Aline) KPIs -- Awaiting next set of patches
+13:02:44 <aglitke> (XD) Streamline template creation flows
+13:02:44 <aglitke> Are you working on this?  When might we have patches to look at?
+13:02:44 <aglitke> (XD) Allow a user editing a template to specify a custom storage pool
+13:02:44 <aglitke> (HLW) Update UI to make use of enriched responses
+13:02:45 <aglitke> (HLW) Add languange selector to login screen, set in session, update i18 to be sensitive to session setting
+13:02:45 <aglitke> (Bing Bu) REST API to manage storage pools
+13:02:57 <aglitke> alinefm: I await your next patch series for KPI
+13:03:21 <alinefm> aglitke, yeap! I will send them out after this meeting
+13:03:30 <aglitke> I see XinDing is not on today
+13:03:39 <aglitke> nor hlw
+13:03:42 <zhoumeina> he is on vocation
+13:04:19 <royce> bing bu's storagepool refresh patch depend on apporc's autostart patch, if the "REST API for storage pool" are referring to this.
+13:04:24 <aglitke> zhoumeina: Can you answer for them?  Do you know if xinding is working on the UI flow redesign and adding the storage pool selector to the template edit page?
+13:05:00 <aglitke> royce: ok.  Maybe someone can line those patches up together in one series.
+13:05:12 <zhoumeina> aglitke: I think not yet
+13:05:21 <aglitke> I know bing bu has moved on so hopefully someone can pick them up.
+13:05:27 <royce> I have rebased it, can be sent after the auto start's merged
+13:05:51 <royce> I can take them if we all agree :P
+13:05:52 <aglitke> zhoumeina: ok... We need to have it completed for the release.  Hopefully it can be started soon.
+13:05:52 <shaohef> royce: I will call apporc
+13:06:00 <aglitke> royce: Fine for me
+13:06:15 <aglitke> it's not urgent and can wait until next week,.
+13:06:27 <aglitke> Next week is our last week for new feature development.
+13:06:28 <royce> aglitke, so when are they due?
+13:06:35 <ming> zhoumeina: Can you reiterate the issues for REST API to manage storage pools. ?
+13:06:47 <royce> shaohef, that's really nice of you
+13:06:53 <zhoumeina> aglitke: I will tell him about the UI redesign of template soon.
+13:07:02 <aglitke> zhoumeina: ok, thanks.
+13:07:27 <aglitke> Finally, we have the language selector at login.  Hope to see it next week.
+13:07:37 <ming> default storage pool fix is not in yet?
+13:07:56 <royce> right, ming, but I think it is ready
+13:07:57 <aglitke> ming: adding one when missing?
+13:08:10 <ming> aglitke: yes.
+13:08:10 <aglitke> has it been recently sent?
+13:08:20 <shaohef> ming:  no one take default storage pool
+13:08:22 <royce> aglitke, the patch seems reviewed by you..
+13:08:35 <royce> but not merged yet, seems
+13:08:38 <aglitke> hmm... I will try to find it.
+13:08:51 <aglitke> Sometimes patches can fall through the cracks.
+13:08:52 <zhoumeina> 1) the mock model and model should check the same parameter
+13:09:00 <ming> another one is the storage pool refresh removal.
+13:09:37 <aglitke> ming: Is that one of bing bu's patches?  if so, royce will bundle them and submit a series.
+13:09:57 <ming> zhoumeina: Absolutely. we need keep them the same behaviour.
+13:10:42 <royce> zhoumeina, ming, they are in the pending patch of refresh which can be sent after auto start
+13:10:48 <aglitke> yep... I just replied to your patch with a suggested fix./
+13:10:49 <shaohef> $ ls /home/shhfeng/iso/test/
+13:10:50 <shaohef> ubuntu-12.04-dvd-amd64.iso
+13:10:50 <shaohef> I create a storage pool, path is  /home/shhfeng/iso/, it reports test is directory， and capital is 0
+13:11:14 <shaohef> not sure this is right.
+13:11:32 <aglitke> shaohef: I don't understand
+13:11:38 <shaohef> s/capital/capability
+13:11:43 <ming> capacity?
+13:11:58 <royce> you mean dir pool reports capacity 0?
+13:12:04 <shaohef> s/capital/capacity
+13:12:06 <aglitke> in test mode?
+13:12:06 <shaohef> yes
+13:12:10 <zhoumeina> create pool can not support "capacity" now.
+13:12:11 <shaohef> no
+13:12:19 <shaohef> really mode
+13:12:25 <ming> aglitke: I think the issue how can we report capacity for both file directory pool and iSCSI pool.
+13:12:29 <royce> zhoumeina, but should be reported
+13:12:50 <ming> capacity actually make no sense for file directory pool.
+13:13:00 <royce> I mean you don't pass it as a param in create, but it will reported in lookup
+13:13:03 <aglitke> shaohef: It should have the same capacity as  'df -h' reports for the filesystem where that directory is located.
+13:13:05 <zhoumeina> support capacity for dir is hard>
+13:13:23 <aglitke> zhoumeina: libvirt reports capacity
+13:13:29 <aglitke> it should work fine.
+13:13:49 <aglitke> if it is not, then we might have a bug
+13:13:55 <zhoumeina> so why we don't support capacity for dir?? confused
+13:14:11 <ming> aglitke: Let me check if that capacity works.
+13:14:15 <royce> supported by libvirt
+13:14:25 <royce> virsh # pool-info home-pool
+13:14:25 <royce> Name:           home-pool
+13:14:25 <royce> UUID:           3cb9f467-bbd2-3db9-74bf-fff04390186c
+13:14:25 <royce> State:          running
+13:14:25 <royce> Persistent:     yes
+13:14:26 <royce> Autostart:      yes
+13:14:27 <royce> Capacity:       269.09 GiB
+13:14:29 <royce> Allocation:     21.50 GiB
+13:14:31 <royce> Available:      247.59 GiB
+13:14:33 <zhoumeina> not work, bing bu told me that when I do the UI design
+13:14:33 <aglitke> yep
+13:14:42 <zhoumeina> so I drop the design of capacity
+13:14:55 <aglitke> zhoumeina: it should work.  You cannot specify it during create
+13:14:57 <ming> I believe Bingbu tested that and found something wrong.
+13:14:59 <aglitke> but it will be reported
+13:15:28 <ming> aglitke: You refreshed my memory about that.
+13:15:31 <aglitke> There is a bug in the MockModel.  It should not expect capacity as a parameter for create.
+13:15:48 <royce> right, aglitke
+13:15:48 <aglitke> I think the Model works correctly.
+13:16:17 <ming> Let's fix mock model bug and keep capacity
+13:16:19 <shaohef> aglitke:  do you means
+13:16:19 <shaohef> $ du -h /home/shhfeng/iso/test
+13:16:19 <shaohef> 1.6G	/home/shhfeng/iso/test
+13:16:23 <aglitke> shaohef: If you are still having problems with the display of capacity you should open an issue.
+13:17:00 <aglitke> ming: Yep.  See my recent reply to zhoumeina on the ML
+13:17:00 <shaohef> aglitke: OK. I'm not sure the capacity should be 0 for dir
+13:17:16 <aglitke> shaohef: Right,  it should be > 0
+13:17:29 <shaohef> aglitke: OK, got it.
+13:17:37 <royce> shaohef, mine is a dir too
+13:17:39 <Guest7019> what does capacity mean? if the dir is not the mnt point of a fs, then the space of the fs could be stolen by other files except the vm volumes.  so the capacity for dir is not exact
+13:17:49 <aglitke> shaohef: du reports allocated space.  df reports filesystem stats
+13:18:15 <aglitke> Guest7019: That is true.  It's a small limitation
+13:18:27 <aglitke> But it still gives you an idea of how much space you could use.
+13:18:41 <Guest7019> yep, I agree
+13:19:09 <aglitke> we can't currently put a quota on the directory.
+13:19:44 <shaohef> aglitke: should we support quota on the directory in future?
+13:20:10 <royce> Guest7019, according to my test, capacity is my whole mounted space in libvirt
+13:20:11 <aglitke> shaohef: No
+13:20:17 <aglitke> it's not that important
+13:20:29 <aglitke> All: We also have this bug list https://github.com/kimchi-project/kimchi/issues?labels=bug&page=1&state=open
+13:20:44 <aglitke> I have tried to close all of the ones we've fixed.
+13:20:58 <ming> Let's move the discussion in the bug list.
+13:21:17 <aglitke> I have created some local vms for Fedora 19, Ubuntu 13.04, openSUSE 12.3 and RHEL-6.4
+13:21:46 <ming> aglitke: for demo?
+13:21:48 <aglitke> I would encourage everyone else to test kimchi on other distros so we can fix build and install issues.
+13:21:54 <shaohef> aglitke: so we can use your vms for test kimchi
+13:21:59 <aglitke> nope. just for testing and development.
+13:22:10 <aglitke> shaohef: No.  You'll need to create your owm
+13:22:12 <aglitke> own
+13:22:21 <Guest7019> royce, yes, but that is inaccurate,  because some of space could be used for other purpose rather than vm volumes.
+13:22:32 <royce> aglitke, we'll do and we have env
+13:22:38 <aglitke> ming: of course I am not going to review the bug list.  I hope everyone will help to fix them before release though.
+13:22:43 <royce> right, Guest7019
+13:22:47 <aglitke> royce: great, thanks.
+13:22:48 <shaohef> aglitke: guess, Your vms  are not clean for kimchi
+13:23:18 <aglitke> shaohef: They are clean, but you can recreate them locally faster than you could download them from me.
+13:23:35 <aglitke> they are just clean installs so I can test the kimchi install process.
+13:23:59 <aglitke> royce: Did you see: https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+13:24:31 <shaohef> aglitke: so the next week is test week, test bugs and fix bugs?
+13:24:36 <royce> that's great
+13:24:39 <aglitke> I think it will help us track and fix install issues across supported distros.
+13:24:55 <aglitke> shaohef: No.  Next week is the last week for new features.
+13:25:01 <ming> aglitke: I think we need list the extra packages which are not in the standard distro realese
+13:25:01 <aglitke> we have to finish the above list.
+13:25:12 <aglitke> Then we have 2 weeks for bug fixing and release prep.
+13:25:34 <ming> for example. we need epel repo to install external packages for RHEL 6.4
+13:25:48 <aglitke> ming: Yes -- a good idea.
+13:25:58 <ming> I think our final goal is to remove all these external packages.
+13:26:03 <royce> right
+13:26:07 <ming> Now just list them.
+13:26:14 <aglitke> I am glad we are creating individual sections for each distro in the dependencies section of the readme.
+13:26:42 <shaohef> ming: epel repo ? what is it?
+13:26:52 <aglitke> there should be nothing that kimchi requires that requires unpackaged software.
+13:26:58 <aglitke> epel is ok to require.
+13:27:18 <royce> shaohef, they are not included in the official repo, but supplied by fedora
+13:27:28 <aglitke> shaohef: Extra Packages for Enterprise Linux
+13:27:33 <ming> epel is not a official site maintained by Redhat?
+13:27:38 <aglitke> ut us
+13:27:40 <aglitke> it is
+13:28:01 <aglitke> but the packages do not get the same level of support as the core distro
+13:28:16 <aglitke> but many people use the epel repos
+13:28:32 <ming> Okay, we can treat epel packages as native packages.
+13:28:46 <aglitke> yes
+13:29:11 <shaohef> aglitke:  epel is not stable
+13:29:13 <aglitke> ok.  I want to get you all off to your vacation.  Any other topics to cover?
+13:29:21 <shaohef> aglitke: right?
+13:29:30 <aglitke> shaohef: It is good enough for our needs right now.
+13:29:46 <shaohef> aglitke:no other topics
+13:29:47 <aglitke> In future releases, kimchi might be a part of base rhel
+13:29:57 <aglitke> ok... anyone else?
+13:30:07 <shaohef> aglitke: that's great
+13:30:09 <ming> All for me today.
+13:30:12 <royce> Good for me now:P I'm eating my moon cake when we are done
+13:30:26 <aglitke> ok... Enjoy your holiday!  See you next week.
+13:30:32 <aglitke> royce: yum!
+13:30:34 <ming> See u.
+13:30:37 <royce> :)
+13:30:39 <aglitke> #endmeeting
