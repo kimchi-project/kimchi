@@ -33,6 +33,9 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+msgid "Log out"
+msgstr ""
+
 msgid "Guests"
 msgstr "客户机"
 
@@ -161,6 +164,12 @@ msgstr "选择创建方式。"
 msgid "Select a specific ISO to create a template."
 msgstr "指定ISO文件的位置来创建。"
 
+msgid "Scan the server to discover ISOs to create templates."
+msgstr "通过扫描服务器来发现ISO创建模板"
+
+msgid "Choose from a list of known network ISO distribution."
+msgstr "从已有的网络配置列表中分配"
+
 msgid "Where is the ISO file?"
 msgstr "请选择ISO文件位置？"
 
@@ -170,11 +179,41 @@ msgstr "本地"
 msgid "I want to stream an ISO from the Internet."
 msgstr "互联网"
 
+msgid "Please specify a scan type:"
+msgstr "请指定扫描类型"
+
+msgid "Shallow scan"
+msgstr "浅表扫描"
+
+msgid "Deep scan"
+msgstr "深度扫描"
+
+msgid "Scan"
+msgstr "扫描"
+
 msgid "Select the ISO you would like to use to create a template:"
 msgstr "选择你想要的ISO来创建模板："
 
 msgid "Please enter a URL:"
 msgstr "请输入URL"
+
+msgid "Discovered ISO Files"
+msgstr "发现的ISO文件"
+
+msgid "All"
+msgstr "所有"
+
+msgid "OS: "
+msgstr "操作系统： "
+
+msgid "Version: "
+msgstr "版本： "
+
+msgid "Size: "
+msgstr "大小："
+
+msgid "Create Templates from Selected ISO"
+msgstr "从选中的ISO中创建模板"
 
 msgid "Edit Template"
 msgstr "编辑模板"
@@ -239,6 +278,21 @@ msgstr "请选择模板"
 msgid "Failed to create vm"
 msgstr "虚拟机创建失败"
 
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr "用户名或密码错误，请重新输入。"
+
+msgid "This field is required."
+msgstr "需要填写此处"
+
+msgid "Log in"
+msgstr "登录"
+
+msgid "Logging in..."
+msgstr "登录中..."
+
+msgid "Go to Homepage"
+msgstr "返回主页"
+
 msgid "Failed to start"
 msgstr "启动失败"
 
@@ -256,6 +310,15 @@ msgstr "客户机列表加载失败"
 
 msgid "Failed to create template"
 msgstr "模板创建失败"
+
+msgid "No iso found"
+msgstr ""
+
+msgid "Failed to scan"
+msgstr "扫描失败"
+
+msgid "Failed to list iso distributions"
+msgstr "加载ISO列表失败"
 
 msgid "Delete Confirmation"
 msgstr "删除确认"
@@ -357,3 +420,12 @@ msgstr "存储路径"
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr "存储池的路径.每个存储池的路径是唯一的。"
+
+msgid "Log In"
+msgstr "登录"
+
+msgid "User Name"
+msgstr "用户名"
+
+msgid "Password"
+msgstr "密码"

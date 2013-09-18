@@ -33,6 +33,9 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+msgid "Log out"
+msgstr ""
+
 msgid "Guests"
 msgstr "Máquinas Virtuais"
 
@@ -163,6 +166,12 @@ msgstr "O que você gostaria de fazer?"
 msgid "Select a specific ISO to create a template."
 msgstr "Selecione uma ISO específica para criar o modelo."
 
+msgid "Scan the server to discover ISOs to create templates."
+msgstr ""
+
+msgid "Choose from a list of known network ISO distribution."
+msgstr ""
+
 msgid "Where is the ISO file?"
 msgstr "Onde está o arquivo ISO?"
 
@@ -172,11 +181,41 @@ msgstr "A ISO está no meu servidor."
 msgid "I want to stream an ISO from the Internet."
 msgstr "Eu quero transmitir uma ISO da Internet."
 
+msgid "Please specify a scan type:"
+msgstr ""
+
+msgid "Shallow scan"
+msgstr ""
+
+msgid "Deep scan"
+msgstr ""
+
+msgid "Scan"
+msgstr ""
+
 msgid "Select the ISO you would like to use to create a template:"
 msgstr "Selecione a ISO que você gostaria de usar para criar o modelo:"
 
 msgid "Please enter a URL:"
 msgstr "Por favor, entre a URL:"
+
+msgid "Discovered ISO Files"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "OS: "
+msgstr ""
+
+msgid "Version: "
+msgstr "Versão: "
+
+msgid "Size: "
+msgstr ""
+
+msgid "Create Templates from Selected ISO"
+msgstr ""
 
 msgid "Edit Template"
 msgstr "Editar Modelo"
@@ -241,6 +280,21 @@ msgstr "Por favor, escolha um modelo"
 msgid "Failed to create vm"
 msgstr "Erro ao criar a máquina virtual"
 
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Go to Homepage"
+msgstr ""
+
 msgid "Failed to start"
 msgstr "Erro ao iniciar"
 
@@ -258,6 +312,15 @@ msgstr "Erro ao listar as máquinas virtuais"
 
 msgid "Failed to create template"
 msgstr "Erro ao criar modelo"
+
+msgid "No iso found"
+msgstr ""
+
+msgid "Failed to scan"
+msgstr ""
+
+msgid "Failed to list iso distributions"
+msgstr ""
 
 msgid "Delete Confirmation"
 msgstr ""
@@ -360,4 +423,13 @@ msgstr ""
 
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+
+msgid "Log In"
+msgstr ""
+
+msgid "User Name"
+msgstr ""
+
+msgid "Password"
 msgstr ""

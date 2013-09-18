@@ -17,6 +17,9 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Log out"
+msgstr ""
+
 msgid "Guests"
 msgstr "Guests"
 
@@ -147,6 +150,12 @@ msgstr "What would you like to do?"
 msgid "Select a specific ISO to create a template."
 msgstr "Select a specific ISO to create a template."
 
+msgid "Scan the server to discover ISOs to create templates."
+msgstr "Scan the server to discover ISOs to create templates."
+
+msgid "Choose from a list of known network ISO distribution."
+msgstr "Choose from a list of known network ISO distribution."
+
 msgid "Where is the ISO file?"
 msgstr "Where is the ISO file?"
 
@@ -156,11 +165,41 @@ msgstr "The ISO is on my server."
 msgid "I want to stream an ISO from the Internet."
 msgstr "I want to stream an ISO from the Internet."
 
+msgid "Please specify a scan type:"
+msgstr "Please specify a scan type:"
+
+msgid "Shallow scan"
+msgstr "Shallow scan"
+
+msgid "Deep scan"
+msgstr "Deep scan"
+
+msgid "Scan"
+msgstr "Scan"
+
 msgid "Select the ISO you would like to use to create a template:"
 msgstr "Select the ISO you would like to use to create a template:"
 
 msgid "Please enter a URL:"
 msgstr "Please enter a URL:"
+
+msgid "Discovered ISO Files"
+msgstr "Discovered ISO Files"
+
+msgid "All"
+msgstr "All"
+
+msgid "OS: "
+msgstr "OS: "
+
+msgid "Version: "
+msgstr "Version: "
+
+msgid "Size: "
+msgstr ""
+
+msgid "Create Templates from Selected ISO"
+msgstr "Create Templates from Selected ISO"
 
 msgid "Edit Template"
 msgstr "Edit Template"
@@ -225,6 +264,21 @@ msgstr "Please choose a template"
 msgid "Failed to create vm"
 msgstr "Failed to create vm"
 
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr "The username or password you entered is incorrect. Please try again."
+
+msgid "This field is required."
+msgstr "This field is required."
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Logging in..."
+msgstr "Logging in..."
+
+msgid "Go to Homepage"
+msgstr "Go to Homepage"
+
 msgid "Failed to start"
 msgstr "Failed to start"
 
@@ -242,6 +296,15 @@ msgstr "Failed to list guests"
 
 msgid "Failed to create template"
 msgstr "Failed to create template"
+
+msgid "No iso found"
+msgstr ""
+
+msgid "Failed to scan"
+msgstr "Failed to scan"
+
+msgid "Failed to list iso distributions"
+msgstr "Failed to list iso distributions"
 
 msgid "Delete Confirmation"
 msgstr "Delete Confirmation"
@@ -347,3 +410,12 @@ msgstr "Storage Path"
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""
+
+msgid "Log In"
+msgstr "Log In"
+
+msgid "User Name"
+msgstr "Name"
+
+msgid "Password"
+msgstr "Password"

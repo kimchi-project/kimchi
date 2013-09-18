@@ -16,6 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Log out"
+msgstr ""
+
 msgid "Guests"
 msgstr ""
 
@@ -144,6 +147,12 @@ msgstr ""
 msgid "Select a specific ISO to create a template."
 msgstr ""
 
+msgid "Scan the server to discover ISOs to create templates."
+msgstr ""
+
+msgid "Choose from a list of known network ISO distribution."
+msgstr ""
+
 msgid "Where is the ISO file?"
 msgstr ""
 
@@ -153,10 +162,40 @@ msgstr ""
 msgid "I want to stream an ISO from the Internet."
 msgstr ""
 
+msgid "Please specify a scan type:"
+msgstr ""
+
+msgid "Shallow scan"
+msgstr ""
+
+msgid "Deep scan"
+msgstr ""
+
+msgid "Scan"
+msgstr ""
+
 msgid "Select the ISO you would like to use to create a template:"
 msgstr ""
 
 msgid "Please enter a URL:"
+msgstr ""
+
+msgid "Discovered ISO Files"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "OS: "
+msgstr ""
+
+msgid "Version: "
+msgstr ""
+
+msgid "Size: "
+msgstr ""
+
+msgid "Create Templates from Selected ISO"
 msgstr ""
 
 msgid "Edit Template"
@@ -222,6 +261,21 @@ msgstr ""
 msgid "Failed to create vm"
 msgstr ""
 
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Go to Homepage"
+msgstr ""
+
 msgid "Failed to start"
 msgstr ""
 
@@ -238,6 +292,15 @@ msgid "Failed to list guests"
 msgstr ""
 
 msgid "Failed to create template"
+msgstr ""
+
+msgid "No iso found"
+msgstr ""
+
+msgid "Failed to scan"
+msgstr ""
+
+msgid "Failed to list iso distributions"
 msgstr ""
 
 msgid "Delete Confirmation"
@@ -339,4 +402,13 @@ msgstr ""
 
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+
+msgid "Log In"
+msgstr ""
+
+msgid "User Name"
+msgstr ""
+
+msgid "Password"
 msgstr ""
