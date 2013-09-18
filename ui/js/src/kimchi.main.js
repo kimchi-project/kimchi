@@ -124,9 +124,11 @@ kimchi.main = function() {
          * Register click listener of tabs. Replace the default reloading page
          * behavior of <a> with Ajax loading.
          */
-        $('#nav-menu a.item').on('click', function() {
+        $('#nav-menu a.item').on('click', function(event) {
             redirectToURL($(this).attr('href'));
-            return false;
+
+            // Prevent <a> causing browser redirecting to other page.
+            event.preventDefault();
         });
 
         $('#btn-logout').on('click', function() {
