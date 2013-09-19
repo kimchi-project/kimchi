@@ -60,7 +60,15 @@ the following general conventions:
         * running: The VM is powered on
         * paused: The VMs virtual CPUs are paused
         * shutoff: The VM is powered off
-    * cpu_stats: The percentage of CPU usage in the VM
+    * stats: Virtual machine statistics:
+        * cpu_utilization: A number between 0 and 100 which indicates the
+          percentage of CPU utilization.
+        * net_throughput: Expresses total network throughput for reads and
+          writes across all virtual interfaces (kb/s).
+        * net_throughput_peak: The highest recent value of 'net_throughput'.
+        * io_throughput: Expresses the total IO throughput for reads and
+          writes across all virtual disks (kb/s).
+        * io_throughput_peak: The highest recent value of 'io_throughput'.
     * memory: The amount of memory assigned to the VM (in MB)
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
