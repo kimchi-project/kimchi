@@ -545,7 +545,8 @@ def login(*args):
     try:
         auth.login(userid, password)
     except OperationFailed:
-        raise cherrypy.HTTPError(403)
+        raise cherrypy.HTTPError(401)
+    return '{}'
 
 @cherrypy.expose
 def logout():

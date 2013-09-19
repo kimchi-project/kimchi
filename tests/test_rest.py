@@ -649,7 +649,7 @@ class RestTests(unittest.TestCase):
         hdrs = {'AUTHORIZATION': ''}
         req = json.dumps({'userid': 'nouser', 'password': 'badpass'})
         resp = self.request('/login', req, 'POST', hdrs)
-        self.assertEquals(403, resp.status)
+        self.assertEquals(401, resp.status)
 
     def test_auth_browser_no_httpba(self):
         # Kimchi detects REST requests from the browser by looking for a
