@@ -32,6 +32,7 @@ try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
+from cherrypy.process.plugins import BackgroundTask
 
 import vmtemplate
 import config
@@ -46,6 +47,7 @@ from kimchi.exception import *
 
 
 ISO_POOL_NAME = u'kimchi_isos'
+STATS_INTERVAL = 5
 
 def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
@@ -94,8 +96,10 @@ class Model(object):
         self.conn = LibvirtConnection(self.libvirt_uri)
         self.objstore = ObjectStore(objstore_loc)
         self.graphics_ports = {}
-        self.cpu_stats = {}
         self.next_taskid = 1
+        self.stats = {}
+        self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
+        self.statsThread.start()
 
     def get_capabilities(self):
         protocols = []
@@ -106,30 +110,46 @@ class Model(object):
         return {'stream_protocols': protocols,
                 'screenshot': VMScreenshot.get_stream_test_result()}
 
-    def _get_cpu_stats(self, name, info):
-        timestamp = time.time()
-        prevCpuTime = 0
-        prevTimestamp = 0
+    def _update_stats(self):
+        vm_list = self.vms_get_list()
 
-        prevStats = self.cpu_stats.get(name, None)
-        if prevStats is not None:
-            prevTimestamp = prevStats["timestamp"]
-            prevCpuTime = prevStats["cputime"]
+        for name in vm_list:
+            dom = self._get_vm(name)
+            info = dom.info()
+            state = Model.dom_state_map[info[0]]
 
-        self.cpu_stats[name] = {'timestamp': timestamp, 'cputime': info[4]}
+            if state != 'running':
+                self.stats[name] = {}
+                continue
+
+            if self.stats.get(name, None) is None:
+                self.stats[name] = {}
+
+            timestamp = time.time()
+            prevStats = self.stats.get(name, {})
+            seconds = timestamp - prevStats.get('timestamp', 0)
+            self.stats[name].update({'timestamp': timestamp})
+
+            self._get_percentage_cpu_usage(name, info, seconds)
+            self._get_network_io_rate(name, dom, seconds)
+            self._get_disk_io_rate(name, dom, seconds)
+
+    def _get_percentage_cpu_usage(self, name, info, seconds):
+        prevCpuTime = self.stats[name].get('cputime', 0)
 
         cpus = info[3]
         cpuTime = info[4] - prevCpuTime
-        base = (((cpuTime) * 100.0) / ((timestamp - prevTimestamp) * 1000.0 * 1000.0 * 1000.0))
 
-        return max(0.0, min(100.0, base / cpus))
+        base = (((cpuTime) * 100.0) / (seconds * 1000.0 * 1000.0 * 1000.0))
+        percentage = max(0.0, min(100.0, base / cpus))
+
+        self.stats[name].update({'cputime': info[4], 'cpu': percentage})
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
         state = Model.dom_state_map[info[0]]
         screenshot = None
-        cpu_stats = 0
         graphics_type, _ = self._vm_get_graphics(name)
         # 'port' must remain None until a connect call is issued
         graphics_port = (self.graphics_ports.get(name, None) if state == 'running'
@@ -137,7 +157,6 @@ class Model(object):
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
-                cpu_stats = self._get_cpu_stats(name, info)
         except NotFoundError:
             pass
 
@@ -148,8 +167,12 @@ class Model(object):
                 extra_info = {}
         icon = extra_info.get('icon')
 
+        vm_stats = self.stats.get(name, {})
+        stats = {}
+        stats['cpu_utilization'] = vm_stats.get('cpu', 0)
+
         return {'state': state,
-                'cpu_stats': str(cpu_stats),
+                'stats': str(stats),
                 'memory': info[2] >> 10,
                 'screenshot': screenshot,
                 'icon': icon,

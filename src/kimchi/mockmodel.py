@@ -321,7 +321,7 @@ class MockVM(object):
         self.name = name
         self.disk_paths = []
         self.info = {'state': 'shutoff',
-                     'cpu_stats': "35",
+                     'stats': "{'cpu_utilization': 20}",
                      'memory': template_info['memory'],
                      'icon': None,
                      'graphics': {'type': 'vnc', 'port': None}}

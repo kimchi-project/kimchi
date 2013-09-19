@@ -31,7 +31,18 @@
 
         $(this).each(function() {
             var that = $(this);
-            var percentage = parseInt(that.data('value'));
+            var json = eval("(" + that.data('value') + ")");
+            var parentNode = that.parent()
+            var type = '';
+            var display = 0;
+            var circle = 0;
+
+            if (parentNode.hasClass('guest-cpu')) {
+                display = parseInt(json['cpu_utilization']);
+                circle = display;
+                type = '%';
+            }
+
             that.empty();
             var canvas = document.createElement('canvas');
             that.append($(canvas));
@@ -54,11 +65,11 @@
             ctx.textAlign = 'center';
             var originPos = radius;
             ctx.textBaseline = 'middle';
-            ctx.fillText(percentage + '%', originPos, originPos);
+            ctx.fillText(display + type, originPos, originPos);
             ctx.strokeStyle = settings['color'];
             ctx.lineWidth = lineWidth;
             ctx.beginPath();
-            ctx.arc(originPos, originPos, radius, -.5 * Math.PI, (percentage / 50 - .5) * Math.PI);
+            ctx.arc(originPos, originPos, radius, -.5 * Math.PI, (circle / 50 - .5) * Math.PI);
             ctx.stroke();
         });
 
