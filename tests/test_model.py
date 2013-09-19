@@ -44,12 +44,16 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
 
-        keys = set(('state', 'cpu_stats', 'memory', 'screenshot', 'icon', 'graphics'))
+        keys = set(('state', 'stats', 'memory', 'screenshot', 'icon', 'graphics'))
+        stats_keys = set(('cpu_utilization',
+                          'net_throughput', 'net_throughput_peak',
+                          'io_throughput', 'io_throughput_peak'))
         info = inst.vm_lookup('test')
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('running', info['state'])
         self.assertEquals(2048, info['memory'])
         self.assertEquals(None, info['icon'])
+        self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
 
         self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
 

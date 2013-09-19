@@ -122,3 +122,22 @@ class MockModelTests(unittest.TestCase):
         add_vm('cab')
 
         self.assertEqual(model.vms_get_list(), ['abc', 'bca', 'cab', 'xba'])
+
+    def test_vm_info(self):
+        tmpl = model.templates_create({'name': u'test'})
+        vm = model.vms_create({'name': u'test', 'template': '/templates/test'})
+        vms = model.vms_get_list()
+        self.assertEquals(1, len(vms))
+        self.assertEquals(u'test', vms[0])
+
+        keys = set(('state', 'stats', 'memory', 'screenshot', 'icon', 'graphics'))
+        stats_keys = set(('cpu_utilization',
+                          'net_throughput', 'net_throughput_peak',
+                          'io_throughput', 'io_throughput_peak'))
+
+        info = model.vm_lookup(u'test')
+        self.assertEquals(keys, set(info.keys()))
+        self.assertEquals('shutoff', info['state'])
+        self.assertEquals(1024, info['memory'])
+        self.assertEquals('images/icon-vm.png', info['icon'])
+        self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
