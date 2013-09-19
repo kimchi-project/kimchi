@@ -348,7 +348,7 @@ var kimchi = {
     },
 
     login : function(settings, suc, err) {
-        kimchi.requestJSON({
+        $.ajax({
             url : "/login",
             type : "POST",
             contentType : "application/json",
