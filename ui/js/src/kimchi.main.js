@@ -19,6 +19,8 @@
  * limitations under the License.
  */
 kimchi.main = function() {
+    var DEFAULT_HASH = 'guests';
+
     kimchi.popable();
 
     /**
@@ -27,7 +29,7 @@ kimchi.main = function() {
      *   2) Update URL hash to new page.
      *   3) Update page tabs indicator.
      */
-    var redirectToURL = function(url) {
+    var onKimchiRedirect = function(url) {
         /*
          * We setup an periodly reloading of VM list, which should be removed
          * when switching to non-guest pages.
@@ -41,7 +43,10 @@ kimchi.main = function() {
          * pages be bookmark-able.
          */
         var hashString = url.substring(0, url.length - 5);
-        location.hash = hashString;
+
+        if (location.hash != hashString) {
+            location.hash = hashString;
+        }
 
         /*
          * Find the corresponding tab DOM node and animate the arrow cursor to
@@ -69,6 +74,8 @@ kimchi.main = function() {
      * arrow cursor animation, DOM node focus, and page content rendering.
      */
     var loadPage = function(url) {
+        kimchi.topic('redirect').publish(url);
+
         // Get the page content through Ajax and render it.
         $('#main').load(url, function(responseText, textStatus, jqXHR) {
             switch(jqXHR['status']) {
@@ -97,9 +104,9 @@ kimchi.main = function() {
         });
     };
 
-    var initPage = function() {
+    var updatePage = function() {
         /*
-         * Initialize page content.
+         * Update page content.
          * 1) If user types in the main page URL without hash, then we load
          *    VM list page by default, e.g., http://kimchi.company.com:8000;
          * 2) If user types a URL with hash, we load that page, e.g.,
@@ -107,25 +114,31 @@ kimchi.main = function() {
          */
         var hashString = (location.hash && location.hash.substr(1));
 
-        redirectToURL((hashString || 'guests') + '.html');
-        hashString && loadPage(hashString + '.html');
-    };
-
-    /**
-     * Only known pages are allowed to load.
-     *   Allowed pages are listed in tablist.
-     */
-    var isValidURL = function(page) {
-        return $('#nav-menu a[href="' + page + '"]').length > 0;
+        if (!hashString) {
+            location.hash = DEFAULT_HASH;
+        }
+        else {
+            loadPage(hashString + '.html');
+        }
     };
 
     var initListeners = function() {
+        kimchi.topic('redirect').subscribe(onKimchiRedirect);
+
+        /*
+         * If hash value is changed, then we know the user is intended to load
+         * another page.
+         */
+        window.onhashchange = function() {
+            updatePage();
+        };
+
         /*
          * Register click listener of tabs. Replace the default reloading page
          * behavior of <a> with Ajax loading.
          */
         $('#nav-menu a.item').on('click', function(event) {
-            redirectToURL($(this).attr('href'));
+            loadPage($(this).attr('href'));
 
             // Prevent <a> causing browser redirecting to other page.
             event.preventDefault();
@@ -133,26 +146,13 @@ kimchi.main = function() {
 
         $('#btn-logout').on('click', function() {
             kimchi.logout(function() {
-                initPage();
+                updatePage();
             }, function() {
                 kimchi.message.error(i18n['msg.logout.failed']);
             });
         });
     };
 
-    /*
-     * If hash value is changed, then we know the user is intended to load
-     * another page.
-     */
-    window.onhashchange = function() {
-        var hashString = location.hash.substr(1);
-        if (!hashString) {
-            return;
-        }
-
-        var url = hashString + '.html';
-        loadPage(url);
-    };
 
     // Load i18n translation strings first and then render the page.
     $('#main').load('i18n.html', function() {
@@ -176,6 +176,6 @@ kimchi.main = function() {
 
         kimchi.user.showUser(true);
         initListeners();
-        initPage();
+        updatePage();
     });
 };
