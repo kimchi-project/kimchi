@@ -173,6 +173,33 @@ class Model(object):
         self.stats[name].update({'net_io': rate, 'max_net_io': max_net_io,
                                  'netRxKB': netRxKB, 'netTxKB': netTxKB})
 
+    def _get_disk_io_rate(self, name, dom, seconds):
+        prevDiskRdKB = self.stats[name].get('diskRdKB', 0)
+        prevDiskWrKB = self.stats[name].get('diskWrKB', 0)
+        currentMaxDiskRate = self.stats[name].get('max_disk_io', 100)
+
+        rd_bytes = 0
+        wr_bytes = 0
+
+        tree = ElementTree.fromstring(dom.XMLDesc(0))
+        for target in tree.findall("devices/disk/target"):
+            dev = target.get("dev")
+            io = dom.blockStats(dev)
+            rd_bytes += io[1]
+            wr_bytes += io[3]
+
+        diskRdKB = float(rd_bytes / 1024)
+        diskWrKB = float(wr_bytes / 1024)
+
+        rd_stats = float((diskRdKB - prevDiskRdKB) / seconds)
+        wr_stats = float((diskWrKB - prevDiskWrKB) / seconds)
+
+        rate = float(rd_stats + wr_stats)
+        max_disk_io = max(currentMaxDiskRate, int(rate))
+
+        self.stats[name].update({'disk_io': rate, 'max_disk_io': max_disk_io,
+                                 'diskRdKB': diskRdKB, 'diskWrKB': diskWrKB})
+
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
@@ -200,6 +227,8 @@ class Model(object):
         stats['cpu_utilization'] = vm_stats.get('cpu', 0)
         stats['net_throughput'] = vm_stats.get('net_io', 0)
         stats['net_throughput_peak'] = vm_stats.get('max_net_io', 100)
+        stats['io_throughput'] = vm_stats.get('disk_io', 0)
+        stats['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
 
         return {'state': state,
                 'stats': str(stats),

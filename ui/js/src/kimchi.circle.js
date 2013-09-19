@@ -44,6 +44,9 @@
             } else if (parentNode.hasClass('guest-network')) {
                     display = parseInt(json['net_throughput']);
                     circle = (display * 100) / parseInt(json['net_throughput_peak']);
+            } else if (parentNode.hasClass('guest-storage')) {
+                        display = parseInt(json['io_throughput']);
+                        circle = (display * 100) / parseInt(json['io_throughput_peak']);
             }
 
             that.empty();
