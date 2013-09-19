@@ -41,6 +41,9 @@
                 display = parseInt(json['cpu_utilization']);
                 circle = display;
                 type = '%';
+            } else if (parentNode.hasClass('guest-network')) {
+                    display = parseInt(json['net_throughput']);
+                    circle = (display * 100) / parseInt(json['net_throughput_peak']);
             }
 
             that.empty();

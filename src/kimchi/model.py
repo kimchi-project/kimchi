@@ -32,6 +32,7 @@ try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
+from xml.etree import ElementTree
 from cherrypy.process.plugins import BackgroundTask
 
 import vmtemplate
@@ -145,6 +146,33 @@ class Model(object):
 
         self.stats[name].update({'cputime': info[4], 'cpu': percentage})
 
+    def _get_network_io_rate(self, name, dom, seconds):
+        prevNetRxKB = self.stats[name].get('netRxKB', 0)
+        prevNetTxKB = self.stats[name].get('netTxKB', 0)
+        currentMaxNetRate = self.stats[name].get('max_net_io', 100)
+
+        rx_bytes = 0
+        tx_bytes = 0
+
+        tree = ElementTree.fromstring(dom.XMLDesc(0))
+        for target in tree.findall('devices/interface/target'):
+            dev = target.get('dev')
+            io = dom.interfaceStats(dev)
+            rx_bytes += io[0]
+            tx_bytes += io[4]
+
+        netRxKB = float(rx_bytes / 1000)
+        netTxKB = float(tx_bytes / 1000)
+
+        rx_stats = float((netRxKB - prevNetRxKB) / seconds)
+        tx_stats = float((netTxKB - prevNetTxKB) / seconds)
+
+        rate = float(rx_stats + tx_stats)
+        max_net_io = max(currentMaxNetRate, int(rate))
+
+        self.stats[name].update({'net_io': rate, 'max_net_io': max_net_io,
+                                 'netRxKB': netRxKB, 'netTxKB': netTxKB})
+
     def vm_lookup(self, name):
         dom = self._get_vm(name)
         info = dom.info()
@@ -170,6 +198,8 @@ class Model(object):
         vm_stats = self.stats.get(name, {})
         stats = {}
         stats['cpu_utilization'] = vm_stats.get('cpu', 0)
+        stats['net_throughput'] = vm_stats.get('net_io', 0)
+        stats['net_throughput_peak'] = vm_stats.get('max_net_io', 100)
 
         return {'state': state,
                 'stats': str(stats),
