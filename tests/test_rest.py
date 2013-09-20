@@ -225,6 +225,8 @@ class RestTests(unittest.TestCase):
                           'type': 'dir'})
         resp = self.request('/storagepools', req, 'POST')
         self.assertEquals(201, resp.status)
+        resp = self.request('/storagepools/alt/activate', req, 'POST')
+        self.assertEquals(200, resp.status)
 
         # Create a VM
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
@@ -335,6 +337,13 @@ class RestTests(unittest.TestCase):
         # Now add a StoragePool to the mock model
         self._create_pool('pool-1')
 
+        # Test storagevolumes can't be listed with inactive pool
+        resp = self.request('/storagepools/pool-1/storagevolumes')
+        self.assertEquals(400, resp.status)
+
+        resp = self.request('/storagepools/pool-1/activate', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+
         # Now add a couple of storage volumes to the mock model
         for i in xrange(5):
             name = 'volume-%i' % i
@@ -347,12 +356,6 @@ class RestTests(unittest.TestCase):
                            req, 'POST')
             self.assertEquals(201, resp.status)
 
-        # Test storagevolumes can't be listed with inactive pool
-        resp = self.request('/storagepools/pool-1/storagevolumes')
-        self.assertEquals(400, resp.status)
-
-        resp = self.request('/storagepools/pool-1/activate', '{}', 'POST')
-        self.assertEquals(200, resp.status)
         resp = self.request('/storagepools/pool-1/storagevolumes')
         storagevolumes = json.loads(resp.read())
         self.assertEquals(5, len(storagevolumes))
@@ -367,14 +370,18 @@ class RestTests(unittest.TestCase):
         self._delete_pool('pool-1')
 
     def test_storagevolume_action(self):
-        # Now add a storage pool to the mock model
         self._create_pool('pool-2')
-        # Create a storage volume
+
+        # Create a storage volume can only be successful for active pool
         req = json.dumps({'name': 'test-volume',
                           'capacity': 1024,
                           'allocation': 512,
                           'type': 'disk',
                           'format': 'raw'})
+        resp = self.request('/storagepools/pool-2/storagevolumes/', req, 'POST')
+        self.assertEquals(400, resp.status)
+        resp = self.request('/storagepools/pool-2/activate', '{}', 'POST')
+        self.assertEquals(200, resp.status)
         resp = self.request('/storagepools/pool-2/storagevolumes/', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -487,13 +494,13 @@ class RestTests(unittest.TestCase):
     def test_iso_scan_shallow(self):
         # fake environment preparation
         self._create_pool('pool-3')
+        self.request('/storagepools/pool-3/activate', '{}', 'POST')
         params = {'name': 'fedora.iso',
                   'capacity': 1024,
                   'type': 'file',
                   'format': 'iso'}
         model.storagevolumes_create('pool-3', params)
 
-        self.request('/storagepools/pool-3/activate', '{}', 'POST')
         storagevolume = json.loads(self.request(
             '/storagepools/kimchi_isos/storagevolumes/').read())[0]
         self.assertEquals('pool-3-fedora.iso', storagevolume['name'])
