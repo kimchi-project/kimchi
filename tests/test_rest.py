@@ -263,6 +263,7 @@ class RestTests(unittest.TestCase):
         storagepools = json.loads(self.request('/storagepools').read())
         self.assertEquals(2, len(storagepools))
         self.assertEquals('default', storagepools[0]['name'])
+        self.assertEquals('active', storagepools[0]['state'])
         self.assertEquals('kimchi_isos', storagepools[1]['name'])
         self.assertEquals('kimchi-iso', storagepools[1]['type'])
 

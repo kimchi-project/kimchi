@@ -71,6 +71,7 @@ class MockModel(object):
         self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_graphics_ports = {}
         self.next_taskid = 1
+        self.storagepool_activate('default')
 
     def vm_lookup(self, name):
         vm = self._get_vm(name)
