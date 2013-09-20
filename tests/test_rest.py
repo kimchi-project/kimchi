@@ -343,6 +343,8 @@ class RestTests(unittest.TestCase):
 
         resp = self.request('/storagepools/pool-1/activate', '{}', 'POST')
         self.assertEquals(200, resp.status)
+        nr_vols = json.loads(self.request('/storagepools/pool-1').read())['nr_volumes']
+        self.assertEquals(0, nr_vols)
 
         # Now add a couple of storage volumes to the mock model
         for i in xrange(5):
@@ -356,6 +358,8 @@ class RestTests(unittest.TestCase):
                            req, 'POST')
             self.assertEquals(201, resp.status)
 
+        nr_vols = json.loads(self.request('/storagepools/pool-1').read())['nr_volumes']
+        self.assertEquals(5, nr_vols)
         resp = self.request('/storagepools/pool-1/storagevolumes')
         storagevolumes = json.loads(resp.read())
         self.assertEquals(5, len(storagevolumes))

@@ -25,6 +25,7 @@ import unittest
 import threading
 import os
 import time
+import tempfile
 
 import kimchi.model
 import kimchi.objectstore
@@ -154,12 +155,15 @@ class ModelTests(unittest.TestCase):
             inst.storagepools_create(args)
             rollback.prependDefer(inst.storagepool_delete, pool)
 
+            self.assertRaises(InvalidOperation, inst.storagevolumes_get_list, pool)
+            poolinfo = inst.storagepool_lookup(pool)
+            self.assertEquals(0, poolinfo['nr_volumes'])
             # Activate the pool before adding any volume
             inst.storagepool_activate(pool)
             rollback.prependDefer(inst.storagepool_deactivate, pool)
 
             vols = inst.storagevolumes_get_list(pool)
-            num = len(vols) + 1
+            num = len(vols) + 2
             params = {'name': vol,
                       'capacity': 1024,
                       'allocation': 512,
@@ -167,7 +171,11 @@ class ModelTests(unittest.TestCase):
             inst.storagevolumes_create(pool, params)
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
 
+            fd, path = tempfile.mkstemp(dir=path)
+            name = os.path.basename(path)
+            rollback.prependDefer(inst.storagevolume_delete, pool, name)
             vols = inst.storagevolumes_get_list(pool)
+            self.assertIn(name, vols)
             self.assertEquals(num, len(vols))
 
             inst.storagevolume_wipe(pool, vol)
@@ -181,6 +189,8 @@ class ModelTests(unittest.TestCase):
 
             volinfo = inst.storagevolume_lookup(pool, vol)
             self.assertEquals(size, volinfo['capacity'])
+            poolinfo = inst.storagepool_lookup(pool)
+            self.assertEquals(len(vols), poolinfo['nr_volumes'])
 
     def test_template_create(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
