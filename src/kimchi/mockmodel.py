@@ -233,7 +233,10 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError()
 
-    def storagevolumes_create(self, pool, params):
+    def storagevolumes_create(self, pool_name, params):
+        pool = self._get_storagepool(pool_name)
+        if pool.info['state'] == 'inactive':
+            raise InvalidOperation("StoragePool not active")
         try:
             name = params['name']
             volume = MockStorageVolume(pool, name, params['format'])
@@ -241,12 +244,12 @@ class MockModel(object):
             volume.info['type'] = params['type']
             volume.info['format'] = params['format']
             volume.info['path'] = os.path.join(
-                self._get_storagepool(pool).info['path'], name)
+                pool.info['path'], name)
         except KeyError, item:
             raise MissingParameter(item)
-        if name in self._get_storagepool(pool)._volumes:
+        if name in pool._volumes:
             raise InvalidOperation("StorageVolume already exists")
-        self._get_storagepool(pool)._volumes[name] = volume
+        pool._volumes[name] = volume
         return name
 
     def storagevolume_lookup(self, pool, name):
