@@ -508,6 +508,7 @@ class Model(object):
     def storagepool_lookup(self, name):
         pool = self._get_storagepool(name)
         info = pool.info()
+        nr_volumes = self._get_storagepool_vols_num(pool)
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
@@ -516,7 +517,8 @@ class Model(object):
                 'type': pool_type,
                 'capacity': info[1] >> 20,
                 'allocated': info[2] >> 20,
-                'available': info[3] >> 20}
+                'available': info[3] >> 20,
+                'nr_volumes': nr_volumes}
 
     def storagepool_activate(self, name):
         pool = self._get_storagepool(name)
@@ -529,6 +531,22 @@ class Model(object):
         pool = self._get_storagepool(name)
         try:
             pool.destroy()
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
+
+    def _pool_refresh(self, pool):
+        try:
+            pool.refresh(0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
+
+    def _get_storagepool_vols_num(self, pool):
+        try:
+            if pool.isActive():
+                self._pool_refresh(pool)
+                return pool.numOfVolumes()
+            else:
+                return 0
         except libvirt.libvirtError as e:
             raise OperationFailed(e.get_error_message())
 
@@ -628,6 +646,7 @@ class Model(object):
             raise InvalidOperation(
             "Unable to list volumes in inactive storagepool %s" % pool.name())
         try:
+            self._pool_refresh(pool)
             return pool.listVolumes()
         except libvirt.libvirtError as e:
             raise OperationFailed(e.get_error_message())
