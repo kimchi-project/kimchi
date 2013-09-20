@@ -164,8 +164,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * name: The name of the Storage Pool
     * path: The path of the defined Storage Pool
     * type: The type of the defined Storage Pool
-    * capacity: The total space which can be used to store volumes
-                The unit is MBytes
 
 ### Resource: Storage Pool
 
@@ -188,6 +186,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
                 The unit is MBytes
     * allocated: The amount of space which is being used to store volumes
                 The unit is MBytes
+    * available: Free space available for creating new volumes in the pool
+    * nr_volumes: The number of storage volumes for active pools, 0 for inactive pools
 
 * **DELETE**: Remove the Storage Pool
 * **POST**: *See Storage Pool Actions*
