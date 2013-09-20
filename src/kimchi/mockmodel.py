@@ -199,7 +199,6 @@ class MockModel(object):
         try:
             name = params['name']
             pool = MockStoragePool(name)
-            pool.info['capacity'] = params['capacity']
             pool.info['type'] = params['type']
             pool.info['path'] = params['path']
         except KeyError, item:
@@ -211,6 +210,7 @@ class MockModel(object):
 
     def storagepool_lookup(self, name):
         storagepool = self._get_storagepool(name)
+        storagepool.refresh()
         return storagepool.info
 
     def storagepool_activate(self, name):
@@ -253,6 +253,8 @@ class MockModel(object):
         return name
 
     def storagevolume_lookup(self, pool, name):
+        if self._get_storagepool(pool).info['state'] != 'active':
+            raise InvalidOperation("StoragePool %s is not active" % pool)
         storagevolume = self._get_storagevolume(pool, name)
         return storagevolume.info
 
@@ -339,9 +341,17 @@ class MockStoragePool(object):
         self.info = {'state': 'inactive',
                      'capacity': 1024,
                      'allocated': 512,
+                     'available': 512,
                      'path': '/var/lib/libvirt/images',
-                     'type': 'dir'}
+                     'type': 'dir',
+                     'nr_volumes': 0}
         self._volumes = {}
+
+    def refresh(self):
+        state = self.info['state']
+        self.info['nr_volumes'] = len(self._volumes) \
+            if state == 'active' else 0
+
 
 class MockTask(object):
     def __init__(self, id):
