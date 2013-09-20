@@ -447,8 +447,10 @@ class StoragePool(Resource):
                 'state': self.info['state'],
                 'capacity': self.info['capacity'],
                 'allocated': self.info['allocated'],
+                'available': self.info['available'],
                 'path': self.info['path'],
-                'type': self.info['type']}
+                'type': self.info['type'],
+                'nr_volumes': self.info['nr_volumes']}
 
     def _cp_dispatch(self, vpath):
         if vpath:
