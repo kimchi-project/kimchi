@@ -101,6 +101,34 @@ class Model(object):
         self.stats = {}
         self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
         self.statsThread.start()
+        if 'qemu:///' in self.libvirt_uri:
+            self._default_pool_check()
+
+    def _default_pool_check(self):
+        default_pool = {'name': 'default',
+                        'path': '/var/lib/libvirt/images',
+                        'type': 'dir'}
+        try:
+            self.storagepools_create(default_pool)
+        except InvalidOperation:
+            # ignore error when pool existed
+            pass
+        except OperationFailed as e:
+            # path used by other pool or other reasons of failure, exit
+            cherrypy.log.error(
+                "Fatal: Cannot create default because of %s, exit kimchid",
+                e.message,
+                serverity=logging.ERROR)
+            sys.exit(1)
+
+        if self.storagepool_lookup('default')['state'] == 'inactive':
+            try:
+                self.storagepool_activate('default')
+            except OperationFailed:
+                cherrypy.log.error(
+                    "Fatal: Default pool cannot be activated, exit kimchid",
+                    severity=logging.ERROR)
+                sys.exit(1)
 
     def get_capabilities(self):
         protocols = []
