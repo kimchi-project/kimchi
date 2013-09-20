@@ -268,6 +268,7 @@ var kimchi = {
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
+            resend: true,
             success : suc,
             error : err
         });
