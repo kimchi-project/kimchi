@@ -74,34 +74,16 @@ kimchi.main = function() {
      * arrow cursor animation, DOM node focus, and page content rendering.
      */
     var loadPage = function(url) {
+        if (0 === $('#nav-menu a[href="' + url + '"]').length) {
+            kimchi.message.error(i18n['msg.err.uri.invalid']);
+            location.hash = '';
+            return;
+        }
+
         kimchi.topic('redirect').publish(url);
 
         // Get the page content through Ajax and render it.
-        $('#main').load(url, function(responseText, textStatus, jqXHR) {
-            switch(jqXHR['status']) {
-            case 404:
-                var htmlStr = [
-                  '<div id="error-404-window-content" class="content">',
-                    responseText,
-                  '</div>',
-                ].join('');
-                var errorWindow = $('<div/>', {
-                    id: 'error-404-window',
-                    'class': 'window'
-                }).html(htmlStr).on('click', '#btn-homepage', function(event) {
-                    kimchi.window.close();
-                    return true;
-                });
-
-                kimchi.window.open({
-                    id: 'error-404-window-wrapper',
-                    content: errorWindow
-                });
-                break;
-            default:
-                break;
-            }
-        });
+        $('#main').load(url, function(responseText, textStatus, jqXHR) {});
     };
 
     var updatePage = function() {
