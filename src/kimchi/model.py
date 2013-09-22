@@ -606,7 +606,7 @@ class Model(object):
                    format=fmt)
         if fmt == 'iso':
             if os.path.islink(path):
-                path = os.readlink(path)
+                path = os.path.join(os.path.dirname(path), os.readlink(path))
             os_distro = os_version = 'unknown'
             try:
                 os_distro, os_version = isoinfo.probe_one(path)
