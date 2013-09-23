@@ -140,18 +140,20 @@ kimchi.doListVolumes = function(poolObj) {
     var handleArrow = poolObj.children().last().children();
     kimchi.listStorageVolumes(poolObj.data('name'), function(result) {
         var volumeHtml = $('#volumeTmpl').html();
-        if (result && result.length) {
-            var listHtml = '';
-            $.each(result, function(index, value) {
-                value.poolname = poolObj.data('name');
-                listHtml += kimchi.template(volumeHtml, value);
-            });
-            volumeDiv.html(listHtml);
+        if (result) {
+            if (result.length) {
+                var listHtml = '';
+                $.each(result, function(index, value) {
+                    value.poolname = poolObj.data('name');
+                    listHtml += kimchi.template(volumeHtml, value);
+                });
+                volumeDiv.html(listHtml);
+            } else {
+                volumeDiv.html("<div class='pool-empty'>" + i18n['msg.kimchi.storage.pool.empty'] + "</div>");
+            }
             poolObj.removeClass('in');
             kimchi.changeArrow(handleArrow);
             slide.slideDown('slow');
-        } else {
-            kimchi.message.error(i18n['msg.kimchi.storage.pool.empty']);
         }
     }, function() {
         kimchi.message.error(i18n['msg.kimchi.list.volume.fail']);

@@ -345,7 +345,9 @@
 .volumeslist {
     padding: 7px;
     max-height: 272px;
+    min-height: 136px;
     overflow: auto;
+    color: #ffffff;
 }
 
 .volumes>.footer {
@@ -362,6 +364,10 @@
     width: 130px;
 }
 
+.pool-empty {
+    text-align:center;
+    line-height:136px;
+}
 .volume-title>.volume-name {
     font-size: 14px;
     font-weight: normal;
