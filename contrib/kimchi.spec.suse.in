@@ -10,9 +10,12 @@ Requires:	libvirt
 Requires:	libvirt-python
 Requires:	python-CherryPy >= 3.2.0
 Requires:	python-Cheetah
-Requires:	python-ordereddict
 Requires:	python-imaging
 Requires:	python-M2Crypto
+
+%if 0%{?sles_version} == 11
+Requires:       python-ordereddict
+%endif
 
 %description
 Web server application application to manage KVM/Qemu virtual machines
