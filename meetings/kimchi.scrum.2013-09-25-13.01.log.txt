@@ -1,0 +1,277 @@
+13:01:37 <aglitke> #startmeeting
+13:01:37 <kimchi-bot> Meeting started Wed Sep 25 13:01:37 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:37 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:42 <shaohef> aglitke:  let me fix it.
+13:01:42 <aglitke> #meetingname scrum
+13:01:42 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:54 <aglitke> Good day everyone!
+13:02:02 <zhoumeina> hi all
+13:02:08 <shaohef> aglitke: morning aglitke
+13:02:18 <alinefm> hi team
+13:02:27 <royce> Hey! Do we have important things today?
+13:02:31 <aglitke> We have a decent amount of things to cover so let's get started.
+13:02:44 <aglitke> royce: Yes.  It's the last meeting before code freeze
+13:03:02 <aglitke> #info Agenda: Outstanding release features
+13:03:15 <royce> oh, right... I saw frank is with us, that's why I ask:)
+13:03:16 <aglitke> #info 2) Distro testing
+13:03:27 <aglitke> ahh fnovak... welcome!
+13:03:33 <shaohef> fnovak:  morning
+13:03:48 <ming> In the demo recently, the iso streaming can not work properly.
+13:04:00 <ming> I think we should have a good discussion.
+13:04:12 <aglitke> ming: streaming of discover
+13:04:22 <aglitke> streaming or discovery?
+13:04:29 <ming> remote iso to create a VM
+13:04:34 <royce> streaming, aglitke
+13:04:45 <aglitke> ok... That is not expected to be supported until after the release.
+13:05:09 <shaohef> aglitke: yes. today's demo always report error.
+13:05:10 <royce> we have documented some issues about this one, and I'm willing to investigate them with alinefm
+13:05:27 <ming> But we have a bunch of paches integrated for that feature.
+13:05:31 <aglitke> ok, but let's make sure we handle this current release first.
+13:05:40 <alinefm> royce, I checked them but I could not reproduce some of them
+13:06:15 <aglitke> Let's start with the release stuff first because I am worried I have not seen patches for some of it.
+13:06:17 <royce> I saw your reply alinefm, I'll find out if it is related with fc19 or libvirt
+13:06:28 <aglitke> #topic Outstanding release features
+13:06:47 <ming> alinefm, can you summary how we can test iso streaming feature partially off line.
+13:06:50 <aglitke> (XD) Streamline template creation flows
+13:07:11 <xinding> I have sent out the patch
+13:07:12 <alinefm> ming, royce, we can talk about it after meeting
+13:07:23 <aglitke> xinding: I have not seen any patches from you yet concerning the UI flow for ISO scanning
+13:07:36 <aglitke> xinding: today?
+13:07:43 <xinding> I sent it just now
+13:08:05 <xinding> [project-kimchi] [PATCH] Streamline template creation flows
+13:08:06 <aglitke> ok.  I will review ASAP.  When does your next holiday begin?
+13:08:23 <xinding> 28/9
+13:08:50 <aglitke> ok.  So we'll need to work hard to get this one nailed down before then.
+13:08:57 <xinding> I'll come back on 8/10
+13:09:06 <aglitke> Next is: XD) Allow a user editing a template to specify a custom storage pool
+13:09:41 <xinding> I sent out the Patch [project-kimchi] [PATCH] Set a custom pool for a template
+13:09:50 <aglitke> xinding: It seems that you have more items than others on the team.  Maybe we can spread work out to zhoumeina or hlw
+13:09:55 <xinding> But the backend api is not ready
+13:10:07 <aglitke> what is missing in the backend?
+13:10:11 <royce> aglitke, shall I send backend patch with this one to check before create?
+13:10:24 <zhoumeina> xinding: yes, maybe I can help with some item
+13:10:43 <xinding> no storagePool property in Template
+13:10:54 <aglitke> it has the storagepool property
+13:10:58 <aglitke> all lowercase.
+13:11:27 <aglitke> well... you can specify it when creating a template but it is not listed when you GET a template
+13:11:31 <aglitke> we need to fix that
+13:11:39 <aglitke> royce: Can you check that?
+13:11:50 <royce> of course, aglitke
+13:11:56 <xinding> I have not see it in API.md. I'll modify it
+13:12:02 <aglitke> you should be able to add a template with a custom storage pool via the REST API today
+13:12:18 <shaohef> xinding:  not sure you need a update method like template .
+13:12:29 <royce> so storage pool are specified by both vm and template create, right?
+13:12:50 <aglitke> royce: today, yes.  But let's only promote it for templates.
+13:13:00 <ming> Can we ceate a Vm without template?
+13:13:02 <aglitke> for vms we don't need to document it yet.
+13:13:07 <aglitke> ming:  no
+13:13:28 <aglitke> but when creating a VM from a template, you can override anything in the template.
+13:13:39 <aglitke> we just don't use that feature today.
+13:13:42 <ming> Okay.
+13:13:44 <royce> I see, aglitke, I plan to move the storage provisioning for vm to template class
+13:14:06 <royce> planned
+13:14:23 <ming> Actually, we don't have storage provisioning yet.
+13:14:34 <ming> Tough we have storage pool.
+13:14:34 <aglitke> hmm... Can we do that after release and still implement this single feature?
+13:14:49 <royce> Ok, aglitke
+13:14:55 <aglitke> royce: We only have 2 more days before feature freeze.
+13:15:07 <aglitke> we need to be careful to finish what we have started.
+13:15:33 <aglitke> so:  royce will handle all backend changes and xinding will handle frontend,.
+13:15:51 <aglitke> please work together and submit a single patch series with backend first, then frontent.
+13:16:03 <royce> Deal!
+13:16:06 <xinding> ok
+13:16:10 <ming> aglitke, I got patch to block the login after too many passs word check failure
+13:16:12 <aglitke> thanks guys!
+13:16:28 <aglitke> ming: Yeah, I don't think that needs to go in for release.
+13:16:43 <ming> I saw some comment from Aline.
+13:16:45 <aglitke> I think there was still some open discussion on it
+13:17:06 <ming> aglitke, I think it is quite common for normal login
+13:17:25 <ming> To protect the system from attack.
+13:17:50 <aglitke> But you are using a delayed server response to implement it.
+13:17:58 <aglitke> that's not protecting the server.
+13:18:14 <aglitke> an attacker can use the rest api from multiple clients to work around your delay.
+13:18:43 <aglitke> to implement properly, you'd have to implement a timer in the login rest api and simply deny new login attempts until the timer expires.
+13:18:49 <ming> That's another problem.
+13:19:08 <aglitke> then you'd need to enhance the client side to respect the timer and delay the form reset on the client.
+13:19:47 <ming> The attacker can use their own client
+13:20:06 <aglitke> right... that's why you have the server side timer in the rest api
+13:20:28 <aglitke> you deny all logins from a given user (regardless of correct or incorrect pw) for a period of time.
+13:20:44 <aglitke> then the attacker won't gain anything by bypassing the client side logic./
+13:21:24 <aglitke> the client-side logic just enforces the delay for the normal user so he doesn't get confused
+13:21:55 <aglitke> anyway... this is not a priority for the 1.0 release so I'd like to move on.  We can discuss on the list.
+13:21:58 <aglitke> (HLW) Update UI to make use of enriched responses
+13:22:15 <aglitke> it seems hlw is out... Does anyone have any info on this one?
+13:22:56 <aglitke> zhoumeina: royce: ?
+13:22:59 <zhoumeina> aglitke: I only know that hongliang is working on the language selecting this week
+13:23:19 <aglitke> ok.  I think this one is going to slip... Maybe...
+13:23:40 <royce> aglitke, is enriched response means exception with reason and stack?
+13:24:16 <aglitke> I was going to work on creating error message codes from the rest api so the UI could display a translated detailed message.
+13:24:43 <aglitke> royce: I believe so.
+13:24:54 <aglitke> RIght now we say "Template creation failed"
+13:24:56 <aglitke> no reason
+13:25:02 <royce> If it is, I'll check with him and debug with him
+13:25:38 <aglitke> I think we will need a message catalog and then pass the error number or key when creating the exception
+13:26:20 <royce> so the msg content in frontend, and error number in backend? Is that detailed enough?
+13:26:24 <aglitke> royce: You did the error screen refactoring.  I think we want to pass a reason key in the response body of an error page when it's json
+13:26:28 <ming> aglitke, most of the exception raised will be handled by cherrypy.
+13:26:29 <zhoumeina> So we need to do the translation in the front?
+13:26:54 <aglitke> here is what I am thinking (probably too big for 1.0):
+13:27:13 <aglitke> 1. All backend exceptions need to decend from a common KimchiError class
+13:27:24 <shaohef> I'm back
+13:27:49 <shaohef> zhoumeina: you means we  should translation the exception error？
+13:27:49 <aglitke> all exceptions must be passed a reason key.  Like the keys in i18n.html
+13:27:53 <aglitke> then...
+13:28:14 <aglitke> i18n.html will have translation strings for each possible reason key
+13:28:33 <royce> OK
+13:28:51 <aglitke> so when an exception happens in a rest api, the UI can translate the reason using the JS i18n scheme we have.
+13:29:19 <aglitke> we need to declare all reason keys in the backend
+13:29:23 <aglitke> exception.py
+13:29:38 <royce> but can that be detailed enough for the reason? such as template invalid because remote iso xxx cannot be accessed?
+13:30:15 <ming> Not sure, cherrpy will intercept the exception and translate the exception to its own.
+13:30:19 <aglitke> gettext understands parameterized strings.  We should find out if we can make those work in our current scheme
+13:30:36 <aglitke> the rest api can return a reason key and reason data
+13:31:00 <aglitke> then gettext needs to do translate(reason_key % reason_data)
+13:31:26 <aglitke> shaohef can help here... gettext supports using printf-style msg strings
+13:31:37 <royce> the granuity of the key is as big as InvalidParameter or TemplateinvalidforVm?
+13:31:38 <aglitke> and it can accept data to fill into the translated string
+13:32:02 <aglitke> granularity is one key per specific failure reason
+13:32:10 <shaohef> aglitke:  do you means _("msg") in python code?
+13:32:11 <zhoumeina> so we have to make i18n.html support parameters.
+13:32:14 <aglitke> MissingParameter
+13:32:51 <aglitke> shaohef: yes.... _("Cannot find %s", data)
+13:32:56 <aglitke> or something
+13:33:13 <shaohef> aglitke: not only in html, right.
+13:33:19 <shaohef> aglitke: yes, it is easy to me.
+13:33:22 <aglitke> zhoumeina: Yes... But I think this is not possible for 1.0
+13:34:00 <aglitke> shaohef: Are you working on any release features?
+13:34:01 <ming> Let's move on
+13:34:20 <zhoumeina> I have no feature now , so I can help with this
+13:34:32 <shaohef> aglitke: no
+13:34:45 <shaohef> aglitke: no release features for me
+13:34:46 <aglitke> Let's see what else is outstanding.  We can try for this one as a stretch.  shaohef you can look at backend then.
+13:35:11 <shaohef> aglitke: we should list the outstanding, both UI and backend.
+13:35:13 <aglitke> (hlw) Add languange selector to login screen, set in session, update i18 to be sensitive to session setting
+13:35:31 <aglitke> I am just running down https://github.com/kimchi-project/kimchi/wiki/Todo-September-Base
+13:35:46 <aglitke> and listing items of priority 1,2,3 that are not listed as complete.
+13:35:58 <shaohef> aglitke: and everyone to take some  of the
+13:36:01 <shaohef> aglitke: yes
+13:36:44 <aglitke> zhoumeina: I wonder why hlw is not at the scrum... You say he is working on this?  Any patches forthcoming?
+13:37:12 <zhoumeina> yes , he is ready to send patch, but I don't know why he is absent
+13:37:38 <aglitke> ok... hopefully we'll see that one soon.
+13:37:55 <aglitke> That is all of the outstanding features on my list.
+13:38:00 <zhoumeina> sure , he promise it will be sent this week
+13:38:18 <aglitke> shaohef: and zhoumeina:  Will you guys take a look at the i18n item?
+13:38:25 <zhoumeina> sure
+13:38:32 <zhoumeina> I will take the front end
+13:38:33 <alinefm> aglitke, I sent patches to probe remote iso while creating a template
+13:38:37 <aglitke> We need patches sent out before friday to allow for reviews.
+13:38:44 <alinefm> I think it will be interesting to have it merged to the release
+13:38:59 <aglitke> zhoumeina: I expect you'll need to work closely with shaohef.
+13:39:08 <ming> alinefm, is that deep scan?
+13:39:11 <shaohef> aglitke: sure. but we should not  send error message  in error.html
+13:39:23 <aglitke> this is a complex feature so it may not be ready in time but we should try.
+13:39:25 <shaohef> aglitke:  but we should not  put error message  in error.html
+13:39:25 <zhoumeina> aglitke: no problem
+13:39:46 <royce> no, ming, it is for remote iso distro/version probe
+13:39:54 <royce> I think that one is ready
+13:40:11 <shaohef> aglitke: we can not do translation every html file, but not  error.html
+13:40:12 <alinefm> ming, no! It is only to identify distro and version from an url
+13:40:21 <ming> so it is diso/version info detection.
+13:40:25 <aglitke> shaohef: We need to think about how to implement this best.  I think the error reason keys need to be defined in the backend, but they need to be translated in the frontend.
+13:40:32 <xinding> Is anyone reviewing this patch? [project-kimchi] [PATCH V5 0/7] support distros
+13:40:50 <aglitke> xinding: Not yet... That will not make it before the release.
+13:41:14 <aglitke> xinding: shaohef and I agreed to delay it.
+13:41:15 <xinding> But the template creation needs it
+13:41:29 <xinding> So I should remove it from UI?
+13:41:32 <aglitke> What form of template creation?
+13:41:44 <alinefm> xinding, just disabled it in UI
+13:41:54 <xinding> create template from remote iso images
+13:42:02 <alinefm> I think deep scan should be disabled as well
+13:42:04 <aglitke> yes, that needs to be disabled in the UI
+13:42:15 <aglitke> deep scan and remote iso are not supported yet
+13:42:21 <aglitke> so they should not be choices.
+13:42:38 <xinding> Ok, so there is only shallow scan
+13:42:48 <aglitke> shallow scan and direct specify
+13:42:55 <aglitke> we will enable the others for 1.1
+13:43:13 <aglitke> xinding: I will still review the current patch to see how the UI will be laid out.
+13:43:21 <alinefm> aglitke, xinding, maybe disable iso streaming too?
+13:43:43 <alinefm> I don't think we are verifying the iso streaming support to enable/disable it
+13:43:44 <xinding> OK, I'll disable these features from UI and resent a patch
+13:43:44 <aglitke> xinding: But you can use display:none to hide the parts that aren't ready
+13:44:16 <aglitke> alinefm: it will always be disabled in this release.
+13:44:40 <alinefm> ok
+13:44:54 <aglitke> alright... any other items for release features?
+13:45:40 <aglitke> ok
+13:45:46 <alinefm> aglitke,  my patches to probe remote iso is for now?
+13:45:52 <royce> alinefm, I saw libvirt patch is not released, so users need to compile libvirt themselves for that one...Maybe after released we can enable it
+13:45:55 <alinefm> or will be integrated in next release?
+13:46:05 <aglitke> alinefm: I think that can wait, right?
+13:46:16 <ming> It is not in FC 19 upgrade package yet?
+13:46:44 <alinefm> aglitke, it is ready! and royce has already reviewed =)
+13:46:48 <alinefm> but it is up to you
+13:47:05 <aglitke> ok... I will look at it.
+13:47:10 <royce> I like the probe remote iso feature, we wish that can be merged:)
+13:47:12 <ming> I mean the ISO streaming support in libvirt.
+13:47:17 <royce> right, ming
+13:47:18 <aglitke> ok
+13:47:33 <aglitke> #topic testing
+13:47:39 <ming> In today's demo, I feel deeply we don' have much killer feature yet.
+13:47:45 <aglitke> #link https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+13:48:03 <ming> ISO streaming should be one, but can't work.
+13:48:27 <aglitke> ming: 1.1 will bring that.  We decided to delay it because it was not ready and it can't be supported on many distros.
+13:48:59 <aglitke> for 1.1 we are going to add a workaround to make streaming work even if libvirt cannot support it natively.
+13:49:00 <royce> RHEL6.4 service problem,  we shall switch to sysV script, I think
+13:49:24 <aglitke> royce: this is for testing topic?
+13:49:26 <alinefm> royce, why? rhel6 does not use systemd? ou upstart?
+13:49:47 <aglitke> royce: Is there an issue to track it?
+13:49:47 <ming> aglitke, no systemd in RHEL6
+13:49:52 <royce> yeah, aglitke, alinefm, we add upstart script
+13:50:19 <royce> but the service and initctl can not match in rhel6.4
+13:50:34 <royce> s/match/map
+13:50:42 <alinefm> royce, to use upstart you should run: start <service-name>
+13:50:46 <aglitke> royce: please open an issue and mark it in the table on the testing page
+13:50:49 <alinefm> like: start kimchid
+13:51:05 <ming> aglitke I find it is pretty annoying after I file a bug without the permission to mark it as a bug or enhancement.
+13:51:30 <ming> Or we don't have a way to tag the issue.
+13:51:45 <aglitke> ming: Yes, that is annoying.  I don't think I can change permissions on that.
+13:51:52 <ming> A bunch of issues are out of track.
+13:51:57 <royce> I mean in rhel docs, it says running: service xxx start, I know their are mapping in new version of upstart
+13:52:28 <aglitke> can others tag?
+13:52:36 <aglitke> It seems others can tag and close issues.
+13:52:47 <ming> aglitke, I don't think so.
+13:52:47 <aglitke> royce: shaohef ?  Do you have access?
+13:52:52 <alinefm> aglitke, I only can close bugs that were created by me
+13:53:06 <aglitke> alinefm: can you tag your own bugs?
+13:53:12 <royce> right, aglitke
+13:53:33 <royce> I mean we can just close, not tag
+13:54:00 <ming> Just close the bug created by yourself.
+13:54:21 <shaohef> aglitke: yes I can.
+13:54:21 <ming> even you can not tag the issue created by yourself.
+13:55:17 <alinefm> aglitke, no! only close
+13:55:25 <shaohef> aglitke: but I can not tag the issue created by yourself. I can just close it
+13:55:55 <aglitke> ming: I notice you are not in the collaborators group
+13:56:19 <aglitke> I found a way to maybe allow better access,   I will look into it but it may take some time.
+13:56:21 <ming> aglitke: Can you add me into that group?
+13:56:32 <aglitke> what is your github userid?
+13:56:38 <ming> sming56
+13:57:19 <aglitke> ming: ok, you've been added.
+13:57:28 <ming> Cool.
+13:57:50 <aglitke> royce: please track that RHEL6.4 issue in a new issue and log it in the test matrix.
+13:58:16 <aglitke> starting next week we will be focusing on testing
+13:58:30 <aglitke> any other last minute topics?
+13:58:57 <shaohef> aglitke: the session directory need fixed before code freezing?
+13:59:03 <aglitke> yes
+13:59:15 <aglitke> that should allow the test cases to run
+13:59:36 <shaohef> aglitke: got it.
+13:59:40 <aglitke> thanks
+13:59:59 <ming> I think we should have tag like this,  distro/component at least.  For example RHEL6.4/network
+14:00:01 <aglitke> alright.  Thanks for your help everyone!
+14:00:27 <alinefm> royce, ming, would you like to talk about iso streaming?
+14:00:30 <aglitke> ming: I am not sure... I think we can add multiple tags.
+14:00:39 <aglitke> bug + RHEL6.4
+14:00:57 <aglitke> but I don't want to get too complicated with the tags.
+14:01:05 <royce_> sure, alinefm
+14:01:11 <aglitke> It can get unwieldy pretty quickly
+14:01:12 <ming> sure, alinefm
+14:01:23 <aglitke> ok... let me end the official meeting.
+14:01:26 <aglitke> #endmeeting

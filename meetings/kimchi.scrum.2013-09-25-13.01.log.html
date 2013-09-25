@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:37</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:37</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 25 13:01:37 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:37</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  let me fix it.
+<a name="l-5"></a><span class="tm">13:01:42</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-6"></a><span class="tm">13:01:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-7"></a><span class="tm">13:01:54</span><span class="nk"> &lt;aglitke&gt;</span> Good day everyone!
+<a name="l-8"></a><span class="tm">13:02:02</span><span class="nk"> &lt;zhoumeina&gt;</span> hi all
+<a name="l-9"></a><span class="tm">13:02:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> morning aglitke
+<a name="l-10"></a><span class="tm">13:02:18</span><span class="nk"> &lt;alinefm&gt;</span> hi team
+<a name="l-11"></a><span class="tm">13:02:27</span><span class="nk"> &lt;royce&gt;</span> Hey! Do we have important things today?
+<a name="l-12"></a><span class="tm">13:02:31</span><span class="nk"> &lt;aglitke&gt;</span> We have a decent amount of things to cover so let's get started.
+<a name="l-13"></a><span class="tm">13:02:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Yes.  It's the last meeting before code freeze
+<a name="l-14"></a><span class="tm">13:03:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: Outstanding release features</span>
+<a name="l-15"></a><span class="tm">13:03:15</span><span class="nk"> &lt;royce&gt;</span> oh, right... I saw frank is with us, that's why I ask:)
+<a name="l-16"></a><span class="tm">13:03:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Distro testing</span>
+<a name="l-17"></a><span class="tm">13:03:27</span><span class="nk"> &lt;aglitke&gt;</span> ahh fnovak... welcome!
+<a name="l-18"></a><span class="tm">13:03:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">fnovak:</span>  morning
+<a name="l-19"></a><span class="tm">13:03:48</span><span class="nk"> &lt;ming&gt;</span> In the demo recently, the iso streaming can not work properly.
+<a name="l-20"></a><span class="tm">13:04:00</span><span class="nk"> &lt;ming&gt;</span> I think we should have a good discussion.
+<a name="l-21"></a><span class="tm">13:04:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> streaming of discover
+<a name="l-22"></a><span class="tm">13:04:22</span><span class="nk"> &lt;aglitke&gt;</span> streaming or discovery?
+<a name="l-23"></a><span class="tm">13:04:29</span><span class="nk"> &lt;ming&gt;</span> remote iso to create a VM
+<a name="l-24"></a><span class="tm">13:04:34</span><span class="nk"> &lt;royce&gt;</span> streaming, aglitke
+<a name="l-25"></a><span class="tm">13:04:45</span><span class="nk"> &lt;aglitke&gt;</span> ok... That is not expected to be supported until after the release.
+<a name="l-26"></a><span class="tm">13:05:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes. today's demo always report error.
+<a name="l-27"></a><span class="tm">13:05:10</span><span class="nk"> &lt;royce&gt;</span> we have documented some issues about this one, and I'm willing to investigate them with alinefm
+<a name="l-28"></a><span class="tm">13:05:27</span><span class="nk"> &lt;ming&gt;</span> But we have a bunch of paches integrated for that feature.
+<a name="l-29"></a><span class="tm">13:05:31</span><span class="nk"> &lt;aglitke&gt;</span> ok, but let's make sure we handle this current release first.
+<a name="l-30"></a><span class="tm">13:05:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, I checked them but I could not reproduce some of them
+<a name="l-31"></a><span class="tm">13:06:15</span><span class="nk"> &lt;aglitke&gt;</span> Let's start with the release stuff first because I am worried I have not seen patches for some of it.
+<a name="l-32"></a><span class="tm">13:06:17</span><span class="nk"> &lt;royce&gt;</span> I saw your reply alinefm, I'll find out if it is related with fc19 or libvirt
+<a name="l-33"></a><span class="tm">13:06:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Outstanding release features</span>
+<a name="l-34"></a><span class="tm">13:06:47</span><span class="nk"> &lt;ming&gt;</span> alinefm, can you summary how we can test iso streaming feature partially off line.
+<a name="l-35"></a><span class="tm">13:06:50</span><span class="nk"> &lt;aglitke&gt;</span> (XD) Streamline template creation flows
+<a name="l-36"></a><span class="tm">13:07:11</span><span class="nk"> &lt;xinding&gt;</span> I have sent out the patch
+<a name="l-37"></a><span class="tm">13:07:12</span><span class="nk"> &lt;alinefm&gt;</span> ming, royce, we can talk about it after meeting
+<a name="l-38"></a><span class="tm">13:07:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> I have not seen any patches from you yet concerning the UI flow for ISO scanning
+<a name="l-39"></a><span class="tm">13:07:36</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> today?
+<a name="l-40"></a><span class="tm">13:07:43</span><span class="nk"> &lt;xinding&gt;</span> I sent it just now
+<a name="l-41"></a><span class="tm">13:08:05</span><span class="nk"> &lt;xinding&gt;</span> [project-kimchi] [PATCH] Streamline template creation flows
+<a name="l-42"></a><span class="tm">13:08:06</span><span class="nk"> &lt;aglitke&gt;</span> ok.  I will review ASAP.  When does your next holiday begin?
+<a name="l-43"></a><span class="tm">13:08:23</span><span class="nk"> &lt;xinding&gt;</span> 28/9
+<a name="l-44"></a><span class="tm">13:08:50</span><span class="nk"> &lt;aglitke&gt;</span> ok.  So we'll need to work hard to get this one nailed down before then.
+<a name="l-45"></a><span class="tm">13:08:57</span><span class="nk"> &lt;xinding&gt;</span> I'll come back on 8/10
+<a name="l-46"></a><span class="tm">13:09:06</span><span class="nk"> &lt;aglitke&gt;</span> Next is: XD) Allow a user editing a template to specify a custom storage pool
+<a name="l-47"></a><span class="tm">13:09:41</span><span class="nk"> &lt;xinding&gt;</span> I sent out the Patch [project-kimchi] [PATCH] Set a custom pool for a template
+<a name="l-48"></a><span class="tm">13:09:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> It seems that you have more items than others on the team.  Maybe we can spread work out to zhoumeina or hlw
+<a name="l-49"></a><span class="tm">13:09:55</span><span class="nk"> &lt;xinding&gt;</span> But the backend api is not ready
+<a name="l-50"></a><span class="tm">13:10:07</span><span class="nk"> &lt;aglitke&gt;</span> what is missing in the backend?
+<a name="l-51"></a><span class="tm">13:10:11</span><span class="nk"> &lt;royce&gt;</span> aglitke, shall I send backend patch with this one to check before create?
+<a name="l-52"></a><span class="tm">13:10:24</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">xinding:</span> yes, maybe I can help with some item
+<a name="l-53"></a><span class="tm">13:10:43</span><span class="nk"> &lt;xinding&gt;</span> no storagePool property in Template
+<a name="l-54"></a><span class="tm">13:10:54</span><span class="nk"> &lt;aglitke&gt;</span> it has the storagepool property
+<a name="l-55"></a><span class="tm">13:10:58</span><span class="nk"> &lt;aglitke&gt;</span> all lowercase.
+<a name="l-56"></a><span class="tm">13:11:27</span><span class="nk"> &lt;aglitke&gt;</span> well... you can specify it when creating a template but it is not listed when you GET a template
+<a name="l-57"></a><span class="tm">13:11:31</span><span class="nk"> &lt;aglitke&gt;</span> we need to fix that
+<a name="l-58"></a><span class="tm">13:11:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Can you check that?
+<a name="l-59"></a><span class="tm">13:11:50</span><span class="nk"> &lt;royce&gt;</span> of course, aglitke
+<a name="l-60"></a><span class="tm">13:11:56</span><span class="nk"> &lt;xinding&gt;</span> I have not see it in API.md. I'll modify it
+<a name="l-61"></a><span class="tm">13:12:02</span><span class="nk"> &lt;aglitke&gt;</span> you should be able to add a template with a custom storage pool via the REST API today
+<a name="l-62"></a><span class="tm">13:12:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">xinding:</span>  not sure you need a update method like template .
+<a name="l-63"></a><span class="tm">13:12:29</span><span class="nk"> &lt;royce&gt;</span> so storage pool are specified by both vm and template create, right?
+<a name="l-64"></a><span class="tm">13:12:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> today, yes.  But let's only promote it for templates.
+<a name="l-65"></a><span class="tm">13:13:00</span><span class="nk"> &lt;ming&gt;</span> Can we ceate a Vm without template?
+<a name="l-66"></a><span class="tm">13:13:02</span><span class="nk"> &lt;aglitke&gt;</span> for vms we don't need to document it yet.
+<a name="l-67"></a><span class="tm">13:13:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span>  no
+<a name="l-68"></a><span class="tm">13:13:28</span><span class="nk"> &lt;aglitke&gt;</span> but when creating a VM from a template, you can override anything in the template.
+<a name="l-69"></a><span class="tm">13:13:39</span><span class="nk"> &lt;aglitke&gt;</span> we just don't use that feature today.
+<a name="l-70"></a><span class="tm">13:13:42</span><span class="nk"> &lt;ming&gt;</span> Okay.
+<a name="l-71"></a><span class="tm">13:13:44</span><span class="nk"> &lt;royce&gt;</span> I see, aglitke, I plan to move the storage provisioning for vm to template class
+<a name="l-72"></a><span class="tm">13:14:06</span><span class="nk"> &lt;royce&gt;</span> planned
+<a name="l-73"></a><span class="tm">13:14:23</span><span class="nk"> &lt;ming&gt;</span> Actually, we don't have storage provisioning yet.
+<a name="l-74"></a><span class="tm">13:14:34</span><span class="nk"> &lt;ming&gt;</span> Tough we have storage pool.
+<a name="l-75"></a><span class="tm">13:14:34</span><span class="nk"> &lt;aglitke&gt;</span> hmm... Can we do that after release and still implement this single feature?
+<a name="l-76"></a><span class="tm">13:14:49</span><span class="nk"> &lt;royce&gt;</span> Ok, aglitke
+<a name="l-77"></a><span class="tm">13:14:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> We only have 2 more days before feature freeze.
+<a name="l-78"></a><span class="tm">13:15:07</span><span class="nk"> &lt;aglitke&gt;</span> we need to be careful to finish what we have started.
+<a name="l-79"></a><span class="tm">13:15:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">so:</span>  royce will handle all backend changes and xinding will handle frontend,.
+<a name="l-80"></a><span class="tm">13:15:51</span><span class="nk"> &lt;aglitke&gt;</span> please work together and submit a single patch series with backend first, then frontent.
+<a name="l-81"></a><span class="tm">13:16:03</span><span class="nk"> &lt;royce&gt;</span> Deal!
+<a name="l-82"></a><span class="tm">13:16:06</span><span class="nk"> &lt;xinding&gt;</span> ok
+<a name="l-83"></a><span class="tm">13:16:10</span><span class="nk"> &lt;ming&gt;</span> aglitke, I got patch to block the login after too many passs word check failure
+<a name="l-84"></a><span class="tm">13:16:12</span><span class="nk"> &lt;aglitke&gt;</span> thanks guys!
+<a name="l-85"></a><span class="tm">13:16:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Yeah, I don't think that needs to go in for release.
+<a name="l-86"></a><span class="tm">13:16:43</span><span class="nk"> &lt;ming&gt;</span> I saw some comment from Aline.
+<a name="l-87"></a><span class="tm">13:16:45</span><span class="nk"> &lt;aglitke&gt;</span> I think there was still some open discussion on it
+<a name="l-88"></a><span class="tm">13:17:06</span><span class="nk"> &lt;ming&gt;</span> aglitke, I think it is quite common for normal login
+<a name="l-89"></a><span class="tm">13:17:25</span><span class="nk"> &lt;ming&gt;</span> To protect the system from attack.
+<a name="l-90"></a><span class="tm">13:17:50</span><span class="nk"> &lt;aglitke&gt;</span> But you are using a delayed server response to implement it.
+<a name="l-91"></a><span class="tm">13:17:58</span><span class="nk"> &lt;aglitke&gt;</span> that's not protecting the server.
+<a name="l-92"></a><span class="tm">13:18:14</span><span class="nk"> &lt;aglitke&gt;</span> an attacker can use the rest api from multiple clients to work around your delay.
+<a name="l-93"></a><span class="tm">13:18:43</span><span class="nk"> &lt;aglitke&gt;</span> to implement properly, you'd have to implement a timer in the login rest api and simply deny new login attempts until the timer expires.
+<a name="l-94"></a><span class="tm">13:18:49</span><span class="nk"> &lt;ming&gt;</span> That's another problem.
+<a name="l-95"></a><span class="tm">13:19:08</span><span class="nk"> &lt;aglitke&gt;</span> then you'd need to enhance the client side to respect the timer and delay the form reset on the client.
+<a name="l-96"></a><span class="tm">13:19:47</span><span class="nk"> &lt;ming&gt;</span> The attacker can use their own client
+<a name="l-97"></a><span class="tm">13:20:06</span><span class="nk"> &lt;aglitke&gt;</span> right... that's why you have the server side timer in the rest api
+<a name="l-98"></a><span class="tm">13:20:28</span><span class="nk"> &lt;aglitke&gt;</span> you deny all logins from a given user (regardless of correct or incorrect pw) for a period of time.
+<a name="l-99"></a><span class="tm">13:20:44</span><span class="nk"> &lt;aglitke&gt;</span> then the attacker won't gain anything by bypassing the client side logic./
+<a name="l-100"></a><span class="tm">13:21:24</span><span class="nk"> &lt;aglitke&gt;</span> the client-side logic just enforces the delay for the normal user so he doesn't get confused
+<a name="l-101"></a><span class="tm">13:21:55</span><span class="nk"> &lt;aglitke&gt;</span> anyway... this is not a priority for the 1.0 release so I'd like to move on.  We can discuss on the list.
+<a name="l-102"></a><span class="tm">13:21:58</span><span class="nk"> &lt;aglitke&gt;</span> (HLW) Update UI to make use of enriched responses
+<a name="l-103"></a><span class="tm">13:22:15</span><span class="nk"> &lt;aglitke&gt;</span> it seems hlw is out... Does anyone have any info on this one?
+<a name="l-104"></a><span class="tm">13:22:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> royce: ?
+<a name="l-105"></a><span class="tm">13:22:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I only know that hongliang is working on the language selecting this week
+<a name="l-106"></a><span class="tm">13:23:19</span><span class="nk"> &lt;aglitke&gt;</span> ok.  I think this one is going to slip... Maybe...
+<a name="l-107"></a><span class="tm">13:23:40</span><span class="nk"> &lt;royce&gt;</span> aglitke, is enriched response means exception with reason and stack?
+<a name="l-108"></a><span class="tm">13:24:16</span><span class="nk"> &lt;aglitke&gt;</span> I was going to work on creating error message codes from the rest api so the UI could display a translated detailed message.
+<a name="l-109"></a><span class="tm">13:24:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> I believe so.
+<a name="l-110"></a><span class="tm">13:24:54</span><span class="nk"> &lt;aglitke&gt;</span> RIght now we say "Template creation failed"
+<a name="l-111"></a><span class="tm">13:24:56</span><span class="nk"> &lt;aglitke&gt;</span> no reason
+<a name="l-112"></a><span class="tm">13:25:02</span><span class="nk"> &lt;royce&gt;</span> If it is, I'll check with him and debug with him
+<a name="l-113"></a><span class="tm">13:25:38</span><span class="nk"> &lt;aglitke&gt;</span> I think we will need a message catalog and then pass the error number or key when creating the exception
+<a name="l-114"></a><span class="tm">13:26:20</span><span class="nk"> &lt;royce&gt;</span> so the msg content in frontend, and error number in backend? Is that detailed enough?
+<a name="l-115"></a><span class="tm">13:26:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> You did the error screen refactoring.  I think we want to pass a reason key in the response body of an error page when it's json
+<a name="l-116"></a><span class="tm">13:26:28</span><span class="nk"> &lt;ming&gt;</span> aglitke, most of the exception raised will be handled by cherrypy.
+<a name="l-117"></a><span class="tm">13:26:29</span><span class="nk"> &lt;zhoumeina&gt;</span> So we need to do the translation in the front?
+<a name="l-118"></a><span class="tm">13:26:54</span><span class="nk"> &lt;aglitke&gt;</span> here is what I am thinking (probably too big for 1.0):
+<a name="l-119"></a><span class="tm">13:27:13</span><span class="nk"> &lt;aglitke&gt;</span> 1. All backend exceptions need to decend from a common KimchiError class
+<a name="l-120"></a><span class="tm">13:27:24</span><span class="nk"> &lt;shaohef&gt;</span> I'm back
+<a name="l-121"></a><span class="tm">13:27:49</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zhoumeina:</span> you means we  should translation the exception error？
+<a name="l-122"></a><span class="tm">13:27:49</span><span class="nk"> &lt;aglitke&gt;</span> all exceptions must be passed a reason key.  Like the keys in i18n.html
+<a name="l-123"></a><span class="tm">13:27:53</span><span class="nk"> &lt;aglitke&gt;</span> then...
+<a name="l-124"></a><span class="tm">13:28:14</span><span class="nk"> &lt;aglitke&gt;</span> i18n.html will have translation strings for each possible reason key
+<a name="l-125"></a><span class="tm">13:28:33</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-126"></a><span class="tm">13:28:51</span><span class="nk"> &lt;aglitke&gt;</span> so when an exception happens in a rest api, the UI can translate the reason using the JS i18n scheme we have.
+<a name="l-127"></a><span class="tm">13:29:19</span><span class="nk"> &lt;aglitke&gt;</span> we need to declare all reason keys in the backend
+<a name="l-128"></a><span class="tm">13:29:23</span><span class="nk"> &lt;aglitke&gt;</span> exception.py
+<a name="l-129"></a><span class="tm">13:29:38</span><span class="nk"> &lt;royce&gt;</span> but can that be detailed enough for the reason? such as template invalid because remote iso xxx cannot be accessed?
+<a name="l-130"></a><span class="tm">13:30:15</span><span class="nk"> &lt;ming&gt;</span> Not sure, cherrpy will intercept the exception and translate the exception to its own.
+<a name="l-131"></a><span class="tm">13:30:19</span><span class="nk"> &lt;aglitke&gt;</span> gettext understands parameterized strings.  We should find out if we can make those work in our current scheme
+<a name="l-132"></a><span class="tm">13:30:36</span><span class="nk"> &lt;aglitke&gt;</span> the rest api can return a reason key and reason data
+<a name="l-133"></a><span class="tm">13:31:00</span><span class="nk"> &lt;aglitke&gt;</span> then gettext needs to do translate(reason_key % reason_data)
+<a name="l-134"></a><span class="tm">13:31:26</span><span class="nk"> &lt;aglitke&gt;</span> shaohef can help here... gettext supports using printf-style msg strings
+<a name="l-135"></a><span class="tm">13:31:37</span><span class="nk"> &lt;royce&gt;</span> the granuity of the key is as big as InvalidParameter or TemplateinvalidforVm?
+<a name="l-136"></a><span class="tm">13:31:38</span><span class="nk"> &lt;aglitke&gt;</span> and it can accept data to fill into the translated string
+<a name="l-137"></a><span class="tm">13:32:02</span><span class="nk"> &lt;aglitke&gt;</span> granularity is one key per specific failure reason
+<a name="l-138"></a><span class="tm">13:32:10</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  do you means _("msg") in python code?
+<a name="l-139"></a><span class="tm">13:32:11</span><span class="nk"> &lt;zhoumeina&gt;</span> so we have to make i18n.html support parameters.
+<a name="l-140"></a><span class="tm">13:32:14</span><span class="nk"> &lt;aglitke&gt;</span> MissingParameter
+<a name="l-141"></a><span class="tm">13:32:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes.... _("Cannot find %s", data)
+<a name="l-142"></a><span class="tm">13:32:56</span><span class="nk"> &lt;aglitke&gt;</span> or something
+<a name="l-143"></a><span class="tm">13:33:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> not only in html, right.
+<a name="l-144"></a><span class="tm">13:33:19</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes, it is easy to me.
+<a name="l-145"></a><span class="tm">13:33:22</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> Yes... But I think this is not possible for 1.0
+<a name="l-146"></a><span class="tm">13:34:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Are you working on any release features?
+<a name="l-147"></a><span class="tm">13:34:01</span><span class="nk"> &lt;ming&gt;</span> Let's move on
+<a name="l-148"></a><span class="tm">13:34:20</span><span class="nk"> &lt;zhoumeina&gt;</span> I have no feature now , so I can help with this
+<a name="l-149"></a><span class="tm">13:34:32</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> no
+<a name="l-150"></a><span class="tm">13:34:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> no release features for me
+<a name="l-151"></a><span class="tm">13:34:46</span><span class="nk"> &lt;aglitke&gt;</span> Let's see what else is outstanding.  We can try for this one as a stretch.  shaohef you can look at backend then.
+<a name="l-152"></a><span class="tm">13:35:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> we should list the outstanding, both UI and backend.
+<a name="l-153"></a><span class="tm">13:35:13</span><span class="nk"> &lt;aglitke&gt;</span> (hlw) Add languange selector to login screen, set in session, update i18 to be sensitive to session setting
+<a name="l-154"></a><span class="tm">13:35:31</span><span class="nk"> &lt;aglitke&gt;</span> I am just running down https://github.com/kimchi-project/kimchi/wiki/Todo-September-Base
+<a name="l-155"></a><span class="tm">13:35:46</span><span class="nk"> &lt;aglitke&gt;</span> and listing items of priority 1,2,3 that are not listed as complete.
+<a name="l-156"></a><span class="tm">13:35:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> and everyone to take some  of the
+<a name="l-157"></a><span class="tm">13:36:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes
+<a name="l-158"></a><span class="tm">13:36:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I wonder why hlw is not at the scrum... You say he is working on this?  Any patches forthcoming?
+<a name="l-159"></a><span class="tm">13:37:12</span><span class="nk"> &lt;zhoumeina&gt;</span> yes , he is ready to send patch, but I don't know why he is absent
+<a name="l-160"></a><span class="tm">13:37:38</span><span class="nk"> &lt;aglitke&gt;</span> ok... hopefully we'll see that one soon.
+<a name="l-161"></a><span class="tm">13:37:55</span><span class="nk"> &lt;aglitke&gt;</span> That is all of the outstanding features on my list.
+<a name="l-162"></a><span class="tm">13:38:00</span><span class="nk"> &lt;zhoumeina&gt;</span> sure , he promise it will be sent this week
+<a name="l-163"></a><span class="tm">13:38:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> and zhoumeina:  Will you guys take a look at the i18n item?
+<a name="l-164"></a><span class="tm">13:38:25</span><span class="nk"> &lt;zhoumeina&gt;</span> sure
+<a name="l-165"></a><span class="tm">13:38:32</span><span class="nk"> &lt;zhoumeina&gt;</span> I will take the front end
+<a name="l-166"></a><span class="tm">13:38:33</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I sent patches to probe remote iso while creating a template
+<a name="l-167"></a><span class="tm">13:38:37</span><span class="nk"> &lt;aglitke&gt;</span> We need patches sent out before friday to allow for reviews.
+<a name="l-168"></a><span class="tm">13:38:44</span><span class="nk"> &lt;alinefm&gt;</span> I think it will be interesting to have it merged to the release
+<a name="l-169"></a><span class="tm">13:38:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I expect you'll need to work closely with shaohef.
+<a name="l-170"></a><span class="tm">13:39:08</span><span class="nk"> &lt;ming&gt;</span> alinefm, is that deep scan?
+<a name="l-171"></a><span class="tm">13:39:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> sure. but we should not  send error message  in error.html
+<a name="l-172"></a><span class="tm">13:39:23</span><span class="nk"> &lt;aglitke&gt;</span> this is a complex feature so it may not be ready in time but we should try.
+<a name="l-173"></a><span class="tm">13:39:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  but we should not  put error message  in error.html
+<a name="l-174"></a><span class="tm">13:39:25</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> no problem
+<a name="l-175"></a><span class="tm">13:39:46</span><span class="nk"> &lt;royce&gt;</span> no, ming, it is for remote iso distro/version probe
+<a name="l-176"></a><span class="tm">13:39:54</span><span class="nk"> &lt;royce&gt;</span> I think that one is ready
+<a name="l-177"></a><span class="tm">13:40:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> we can not do translation every html file, but not  error.html
+<a name="l-178"></a><span class="tm">13:40:12</span><span class="nk"> &lt;alinefm&gt;</span> ming, no! It is only to identify distro and version from an url
+<a name="l-179"></a><span class="tm">13:40:21</span><span class="nk"> &lt;ming&gt;</span> so it is diso/version info detection.
+<a name="l-180"></a><span class="tm">13:40:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> We need to think about how to implement this best.  I think the error reason keys need to be defined in the backend, but they need to be translated in the frontend.
+<a name="l-181"></a><span class="tm">13:40:32</span><span class="nk"> &lt;xinding&gt;</span> Is anyone reviewing this patch? [project-kimchi] [PATCH V5 0/7] support distros
+<a name="l-182"></a><span class="tm">13:40:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> Not yet... That will not make it before the release.
+<a name="l-183"></a><span class="tm">13:41:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> shaohef and I agreed to delay it.
+<a name="l-184"></a><span class="tm">13:41:15</span><span class="nk"> &lt;xinding&gt;</span> But the template creation needs it
+<a name="l-185"></a><span class="tm">13:41:29</span><span class="nk"> &lt;xinding&gt;</span> So I should remove it from UI?
+<a name="l-186"></a><span class="tm">13:41:32</span><span class="nk"> &lt;aglitke&gt;</span> What form of template creation?
+<a name="l-187"></a><span class="tm">13:41:44</span><span class="nk"> &lt;alinefm&gt;</span> xinding, just disabled it in UI
+<a name="l-188"></a><span class="tm">13:41:54</span><span class="nk"> &lt;xinding&gt;</span> create template from remote iso images
+<a name="l-189"></a><span class="tm">13:42:02</span><span class="nk"> &lt;alinefm&gt;</span> I think deep scan should be disabled as well
+<a name="l-190"></a><span class="tm">13:42:04</span><span class="nk"> &lt;aglitke&gt;</span> yes, that needs to be disabled in the UI
+<a name="l-191"></a><span class="tm">13:42:15</span><span class="nk"> &lt;aglitke&gt;</span> deep scan and remote iso are not supported yet
+<a name="l-192"></a><span class="tm">13:42:21</span><span class="nk"> &lt;aglitke&gt;</span> so they should not be choices.
+<a name="l-193"></a><span class="tm">13:42:38</span><span class="nk"> &lt;xinding&gt;</span> Ok, so there is only shallow scan
+<a name="l-194"></a><span class="tm">13:42:48</span><span class="nk"> &lt;aglitke&gt;</span> shallow scan and direct specify
+<a name="l-195"></a><span class="tm">13:42:55</span><span class="nk"> &lt;aglitke&gt;</span> we will enable the others for 1.1
+<a name="l-196"></a><span class="tm">13:43:13</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> I will still review the current patch to see how the UI will be laid out.
+<a name="l-197"></a><span class="tm">13:43:21</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, xinding, maybe disable iso streaming too?
+<a name="l-198"></a><span class="tm">13:43:43</span><span class="nk"> &lt;alinefm&gt;</span> I don't think we are verifying the iso streaming support to enable/disable it
+<a name="l-199"></a><span class="tm">13:43:44</span><span class="nk"> &lt;xinding&gt;</span> OK, I'll disable these features from UI and resent a patch
+<a name="l-200"></a><span class="tm">13:43:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">xinding:</span> But you can use display:none to hide the parts that aren't ready
+<a name="l-201"></a><span class="tm">13:44:16</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> it will always be disabled in this release.
+<a name="l-202"></a><span class="tm">13:44:40</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-203"></a><span class="tm">13:44:54</span><span class="nk"> &lt;aglitke&gt;</span> alright... any other items for release features?
+<a name="l-204"></a><span class="tm">13:45:40</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-205"></a><span class="tm">13:45:46</span><span class="nk"> &lt;alinefm&gt;</span> aglitke,  my patches to probe remote iso is for now?
+<a name="l-206"></a><span class="tm">13:45:52</span><span class="nk"> &lt;royce&gt;</span> alinefm, I saw libvirt patch is not released, so users need to compile libvirt themselves for that one...Maybe after released we can enable it
+<a name="l-207"></a><span class="tm">13:45:55</span><span class="nk"> &lt;alinefm&gt;</span> or will be integrated in next release?
+<a name="l-208"></a><span class="tm">13:46:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> I think that can wait, right?
+<a name="l-209"></a><span class="tm">13:46:16</span><span class="nk"> &lt;ming&gt;</span> It is not in FC 19 upgrade package yet?
+<a name="l-210"></a><span class="tm">13:46:44</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, it is ready! and royce has already reviewed =)
+<a name="l-211"></a><span class="tm">13:46:48</span><span class="nk"> &lt;alinefm&gt;</span> but it is up to you
+<a name="l-212"></a><span class="tm">13:47:05</span><span class="nk"> &lt;aglitke&gt;</span> ok... I will look at it.
+<a name="l-213"></a><span class="tm">13:47:10</span><span class="nk"> &lt;royce&gt;</span> I like the probe remote iso feature, we wish that can be merged:)
+<a name="l-214"></a><span class="tm">13:47:12</span><span class="nk"> &lt;ming&gt;</span> I mean the ISO streaming support in libvirt.
+<a name="l-215"></a><span class="tm">13:47:17</span><span class="nk"> &lt;royce&gt;</span> right, ming
+<a name="l-216"></a><span class="tm">13:47:18</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-217"></a><span class="tm">13:47:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">testing</span>
+<a name="l-218"></a><span class="tm">13:47:39</span><span class="nk"> &lt;ming&gt;</span> In today's demo, I feel deeply we don' have much killer feature yet.
+<a name="l-219"></a><span class="tm">13:47:45</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/wiki/Testing-1.0</span>
+<a name="l-220"></a><span class="tm">13:48:03</span><span class="nk"> &lt;ming&gt;</span> ISO streaming should be one, but can't work.
+<a name="l-221"></a><span class="tm">13:48:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> 1.1 will bring that.  We decided to delay it because it was not ready and it can't be supported on many distros.
+<a name="l-222"></a><span class="tm">13:48:59</span><span class="nk"> &lt;aglitke&gt;</span> for 1.1 we are going to add a workaround to make streaming work even if libvirt cannot support it natively.
+<a name="l-223"></a><span class="tm">13:49:00</span><span class="nk"> &lt;royce&gt;</span> RHEL6.4 service problem,  we shall switch to sysV script, I think
+<a name="l-224"></a><span class="tm">13:49:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> this is for testing topic?
+<a name="l-225"></a><span class="tm">13:49:26</span><span class="nk"> &lt;alinefm&gt;</span> royce, why? rhel6 does not use systemd? ou upstart?
+<a name="l-226"></a><span class="tm">13:49:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Is there an issue to track it?
+<a name="l-227"></a><span class="tm">13:49:47</span><span class="nk"> &lt;ming&gt;</span> aglitke, no systemd in RHEL6
+<a name="l-228"></a><span class="tm">13:49:52</span><span class="nk"> &lt;royce&gt;</span> yeah, aglitke, alinefm, we add upstart script
+<a name="l-229"></a><span class="tm">13:50:19</span><span class="nk"> &lt;royce&gt;</span> but the service and initctl can not match in rhel6.4
+<a name="l-230"></a><span class="tm">13:50:34</span><span class="nk"> &lt;royce&gt;</span> s/match/map
+<a name="l-231"></a><span class="tm">13:50:42</span><span class="nk"> &lt;alinefm&gt;</span> royce, to use upstart you should run: start &lt;service-name&gt;
+<a name="l-232"></a><span class="tm">13:50:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> please open an issue and mark it in the table on the testing page
+<a name="l-233"></a><span class="tm">13:50:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">like:</span> start kimchid
+<a name="l-234"></a><span class="tm">13:51:05</span><span class="nk"> &lt;ming&gt;</span> aglitke I find it is pretty annoying after I file a bug without the permission to mark it as a bug or enhancement.
+<a name="l-235"></a><span class="tm">13:51:30</span><span class="nk"> &lt;ming&gt;</span> Or we don't have a way to tag the issue.
+<a name="l-236"></a><span class="tm">13:51:45</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Yes, that is annoying.  I don't think I can change permissions on that.
+<a name="l-237"></a><span class="tm">13:51:52</span><span class="nk"> &lt;ming&gt;</span> A bunch of issues are out of track.
+<a name="l-238"></a><span class="tm">13:51:57</span><span class="nk"> &lt;royce&gt;</span> I mean in rhel docs, it says running: service xxx start, I know their are mapping in new version of upstart
+<a name="l-239"></a><span class="tm">13:52:28</span><span class="nk"> &lt;aglitke&gt;</span> can others tag?
+<a name="l-240"></a><span class="tm">13:52:36</span><span class="nk"> &lt;aglitke&gt;</span> It seems others can tag and close issues.
+<a name="l-241"></a><span class="tm">13:52:47</span><span class="nk"> &lt;ming&gt;</span> aglitke, I don't think so.
+<a name="l-242"></a><span class="tm">13:52:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> shaohef ?  Do you have access?
+<a name="l-243"></a><span class="tm">13:52:52</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I only can close bugs that were created by me
+<a name="l-244"></a><span class="tm">13:53:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> can you tag your own bugs?
+<a name="l-245"></a><span class="tm">13:53:12</span><span class="nk"> &lt;royce&gt;</span> right, aglitke
+<a name="l-246"></a><span class="tm">13:53:33</span><span class="nk"> &lt;royce&gt;</span> I mean we can just close, not tag
+<a name="l-247"></a><span class="tm">13:54:00</span><span class="nk"> &lt;ming&gt;</span> Just close the bug created by yourself.
+<a name="l-248"></a><span class="tm">13:54:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes I can.
+<a name="l-249"></a><span class="tm">13:54:21</span><span class="nk"> &lt;ming&gt;</span> even you can not tag the issue created by yourself.
+<a name="l-250"></a><span class="tm">13:55:17</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, no! only close
+<a name="l-251"></a><span class="tm">13:55:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> but I can not tag the issue created by yourself. I can just close it
+<a name="l-252"></a><span class="tm">13:55:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I notice you are not in the collaborators group
+<a name="l-253"></a><span class="tm">13:56:19</span><span class="nk"> &lt;aglitke&gt;</span> I found a way to maybe allow better access,   I will look into it but it may take some time.
+<a name="l-254"></a><span class="tm">13:56:21</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> Can you add me into that group?
+<a name="l-255"></a><span class="tm">13:56:32</span><span class="nk"> &lt;aglitke&gt;</span> what is your github userid?
+<a name="l-256"></a><span class="tm">13:56:38</span><span class="nk"> &lt;ming&gt;</span> sming56
+<a name="l-257"></a><span class="tm">13:57:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> ok, you've been added.
+<a name="l-258"></a><span class="tm">13:57:28</span><span class="nk"> &lt;ming&gt;</span> Cool.
+<a name="l-259"></a><span class="tm">13:57:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> please track that RHEL6.4 issue in a new issue and log it in the test matrix.
+<a name="l-260"></a><span class="tm">13:58:16</span><span class="nk"> &lt;aglitke&gt;</span> starting next week we will be focusing on testing
+<a name="l-261"></a><span class="tm">13:58:30</span><span class="nk"> &lt;aglitke&gt;</span> any other last minute topics?
+<a name="l-262"></a><span class="tm">13:58:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> the session directory need fixed before code freezing?
+<a name="l-263"></a><span class="tm">13:59:03</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-264"></a><span class="tm">13:59:15</span><span class="nk"> &lt;aglitke&gt;</span> that should allow the test cases to run
+<a name="l-265"></a><span class="tm">13:59:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> got it.
+<a name="l-266"></a><span class="tm">13:59:40</span><span class="nk"> &lt;aglitke&gt;</span> thanks
+<a name="l-267"></a><span class="tm">13:59:59</span><span class="nk"> &lt;ming&gt;</span> I think we should have tag like this,  distro/component at least.  For example RHEL6.4/network
+<a name="l-268"></a><span class="tm">14:00:01</span><span class="nk"> &lt;aglitke&gt;</span> alright.  Thanks for your help everyone!
+<a name="l-269"></a><span class="tm">14:00:27</span><span class="nk"> &lt;alinefm&gt;</span> royce, ming, would you like to talk about iso streaming?
+<a name="l-270"></a><span class="tm">14:00:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I am not sure... I think we can add multiple tags.
+<a name="l-271"></a><span class="tm">14:00:39</span><span class="nk"> &lt;aglitke&gt;</span> bug + RHEL6.4
+<a name="l-272"></a><span class="tm">14:00:57</span><span class="nk"> &lt;aglitke&gt;</span> but I don't want to get too complicated with the tags.
+<a name="l-273"></a><span class="tm">14:01:05</span><span class="nk"> &lt;royce_&gt;</span> sure, alinefm
+<a name="l-274"></a><span class="tm">14:01:11</span><span class="nk"> &lt;aglitke&gt;</span> It can get unwieldy pretty quickly
+<a name="l-275"></a><span class="tm">14:01:12</span><span class="nk"> &lt;ming&gt;</span> sure, alinefm
+<a name="l-276"></a><span class="tm">14:01:23</span><span class="nk"> &lt;aglitke&gt;</span> ok... let me end the official meeting.
+<a name="l-277"></a><span class="tm">14:01:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
