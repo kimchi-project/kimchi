@@ -107,6 +107,17 @@ class Server(object):
     }
 
     def __init__(self, options):
+        make_dirs = [
+            os.path.dirname(os.path.abspath(options.access_log)),
+            os.path.dirname(os.path.abspath(options.error_log)),
+            os.path.dirname(os.path.abspath(config.get_object_store())),
+            os.path.abspath(config.get_screenshot_path()),
+            os.path.abspath(config.get_session_path())
+        ]
+        for directory in make_dirs:
+            if not os.path.isdir(directory):
+                os.makedirs(directory)
+
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
                                                   auth.kimchiauth)
