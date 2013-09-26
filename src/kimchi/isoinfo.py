@@ -94,7 +94,7 @@ iso_dir = [
     ('sles', '10', 'SLES10|SUSE-Linux-Enterprise-Server.001'),
     ('sles', '11', 'SUSE_SLES-11-0-0'),
     ('sles', lambda m: "11sp%s" % m.group(1), 'SLES-11-SP(\d+)'),
-    ('opensuse', lambda m: m.group(1), 'openSUSE-(\d+\.\d+)'),
+    ('opensuse', lambda m: m.group(1), 'openSUSE[ -](\d+\.\d+)'),
     ('opensuse', '11.1', 'SU1110.001'),
     ('opensuse', '11.3',
         'openSUSE-DVD-i586-Build0702..001|openSUSE-DVD-x86_64.0702..001'),
