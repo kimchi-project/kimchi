@@ -311,7 +311,7 @@ kimchi.template_add_main = function() {
 
 kimchi.template_check_url = function(url) {
     var strRegex = "^((https|http|ftp|ftps|tftp)?://)"
-        + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?"
+        + "?(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-z_!~*'().&=+$%-]+@)?"
         + "(([0-9]{1,3}\.){3}[0-9]{1,3}"
         + "|" + "([0-9a-z_!~*'()-]+\.)*"
         + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\."
