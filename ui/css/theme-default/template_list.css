@@ -28,7 +28,7 @@
 	box-shadow: none;
 	color: #666666;
 	float: left;
-	height: 126px;
+	height: auto;
 	margin: 0 11px 10px 0;
 	padding: 10px;
 	width: 308px;
@@ -60,6 +60,7 @@
 	height: 18px;
 	line-height: 18px;
 	width: 142px;
+	display: table;
 }
 
 .white-box {
