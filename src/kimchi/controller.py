@@ -430,6 +430,8 @@ class StorageVolumes(Collection):
 class StoragePool(Resource):
     def __init__(self, model, ident):
         super(StoragePool, self).__init__(model, ident)
+        self.update_params = ["autostart"]
+        self.uri_fmt = "/storagepools/%s"
 
     @action
     def activate(self):
@@ -450,7 +452,8 @@ class StoragePool(Resource):
                 'available': self.info['available'],
                 'path': self.info['path'],
                 'type': self.info['type'],
-                'nr_volumes': self.info['nr_volumes']}
+                'nr_volumes': self.info['nr_volumes'],
+                'autostart': self.info['autostart']}
 
     def _cp_dispatch(self, vpath):
         if vpath:

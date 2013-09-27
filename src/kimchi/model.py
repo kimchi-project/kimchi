@@ -500,7 +500,13 @@ class Model(object):
         if name in self.storagepools_get_list():
             raise InvalidOperation("The name %s has been used by a pool.")
         try:
-            conn.storagePoolDefineXML(xml, 0)
+            pool = conn.storagePoolDefineXML(xml, 0)
+            if params['type'] == 'dir':
+                # autostart dir storage pool created from kimchi
+                pool.setAutostart(1)
+            else:
+                # disable autostart for others
+                pool.setAutostart(0)
         except libvirt.libvirtError as e:
             raise OperationFailed(e.get_error_message())
         return name
@@ -509,16 +515,30 @@ class Model(object):
         pool = self._get_storagepool(name)
         info = pool.info()
         nr_volumes = self._get_storagepool_vols_num(pool)
+        autostart = True if pool.autostart() else False
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
         return {'state': Model.pool_state_map[info[0]],
                 'path': path,
                 'type': pool_type,
+                'autostart': autostart,
                 'capacity': info[1] >> 20,
                 'allocated': info[2] >> 20,
                 'available': info[3] >> 20,
                 'nr_volumes': nr_volumes}
+
+    def storagepool_update(self, name, params):
+        autostart = params['autostart']
+        if autostart not in [True, False]:
+            raise InvalidOperation("Autostart flag must be true or false")
+        pool = self._get_storagepool(name)
+        if autostart:
+            pool.setAutostart(1)
+        else:
+            pool.setAutostart(0)
+        ident = pool.name()
+        return ident
 
     def storagepool_activate(self, name):
         pool = self._get_storagepool(name)

@@ -188,7 +188,11 @@ Represents a snapshot of the Virtual Machine's primary monitor.
                 The unit is MBytes
     * available: Free space available for creating new volumes in the pool
     * nr_volumes: The number of storage volumes for active pools, 0 for inactive pools
-
+    * autostart: Whether the storage pool will be enabled
+                 automatically when the system boots
+* **PUT**: Set whether the Storage Pool should be enabled automatically when the
+           system boots
+    * autostart: Toggle the autostart flag of the VM
 * **DELETE**: Remove the Storage Pool
 * **POST**: *See Storage Pool Actions*
 

@@ -201,6 +201,10 @@ class MockModel(object):
             pool = MockStoragePool(name)
             pool.info['type'] = params['type']
             pool.info['path'] = params['path']
+            if params['type'] == 'dir':
+                pool.info['autostart'] = True
+            else:
+                pool.info['autostart'] = False
         except KeyError, item:
             raise MissingParameter(item)
         if name in self._mock_storagepools or name in (kimchi.model.ISO_POOL_NAME,):
@@ -212,6 +216,15 @@ class MockModel(object):
         storagepool = self._get_storagepool(name)
         storagepool.refresh()
         return storagepool.info
+
+    def storagepool_update(self, name, params):
+        autostart = params['autostart']
+        if autostart not in [True, False]:
+            raise InvalidOperation("Autostart flag must be true or false")
+        storagepool = self._get_storagepool(name)
+        storagepool.info['autostart'] = autostart
+        ident = storagepool.name
+        return ident
 
     def storagepool_activate(self, name):
         self._get_storagepool(name).info['state'] = 'active'
@@ -344,7 +357,8 @@ class MockStoragePool(object):
                      'available': 512,
                      'path': '/var/lib/libvirt/images',
                      'type': 'dir',
-                     'nr_volumes': 0}
+                     'nr_volumes': 0,
+                     'autostart': 0}
         self._volumes = {}
 
     def refresh(self):

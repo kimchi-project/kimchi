@@ -318,6 +318,10 @@ class RestTests(unittest.TestCase):
         # Verify the storage pool
         storagepool = json.loads(self.request('/storagepools/test-pool').read())
         self.assertEquals('inactive', storagepool['state'])
+        if storagepool['type'] == 'dir':
+            self.assertEquals(True, storagepool['autostart'])
+        else:
+            self.assertEquals(False, storagepool['autostart'])
 
         # activate the storage pool
         resp = self.request('/storagepools/test-pool/activate', '{}', 'POST')
@@ -328,6 +332,15 @@ class RestTests(unittest.TestCase):
         resp = self.request('/storagepools/test-pool/deactivate', '{}', 'POST')
         storagepool = json.loads(self.request('/storagepools/test-pool').read())
         self.assertEquals('inactive', storagepool['state'])
+
+        # Set autostart flag of the storage pool
+        for autostart in [True, False]:
+            t = {'autostart': autostart}
+            req = json.dumps(t)
+            resp = self.request('/storagepools/test-pool', req, 'PUT')
+            storagepool = json.loads(
+                    self.request('/storagepools/test-pool').read())
+            self.assertEquals(autostart, storagepool['autostart'])
 
         # Delete the storage pool
         resp = self.request('/storagepools/test-pool', '{}', 'DELETE')

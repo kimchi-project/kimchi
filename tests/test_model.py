@@ -125,12 +125,27 @@ class ModelTests(unittest.TestCase):
             poolinfo = inst.storagepool_lookup(name)
             self.assertEquals(path, poolinfo['path'])
             self.assertEquals('inactive', poolinfo['state'])
+            if poolinfo['type'] == 'dir':
+                self.assertEquals(True, poolinfo['autostart'])
+            else:
+                self.assertEquals(False, poolinfo['autostart'])
 
             inst.storagepool_activate(name)
             rollback.prependDefer(inst.storagepool_deactivate, name)
 
             poolinfo = inst.storagepool_lookup(name)
             self.assertEquals('active', poolinfo['state'])
+
+            autostart = poolinfo['autostart']
+            ori_params = {'autostart': True} if autostart else {'autostart': False}
+            for i in [True, False]:
+                params = {'autostart': i}
+                inst.storagepool_update(name, params)
+                rollback.prependDefer(inst.storagepool_update, name,
+                        ori_params)
+                poolinfo = inst.storagepool_lookup(name)
+                self.assertEquals(i, poolinfo['autostart'])
+            inst.storagepool_update(name, ori_params)
 
         pools = inst.storagepools_get_list()
         self.assertIn('default', pools)
