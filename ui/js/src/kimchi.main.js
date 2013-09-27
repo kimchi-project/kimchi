@@ -23,6 +23,11 @@ kimchi.main = function() {
 
     kimchi.popable();
 
+    var onLanguageChanged = function(lang) {
+        kimchi.lang.set(lang);
+        location.reload();
+    };
+
     /**
      * Do the following setup:
      *   1) Clear any timing events.
@@ -108,6 +113,7 @@ kimchi.main = function() {
      * 4) Log-out button click event
      */
     var initListeners = function() {
+        kimchi.topic('languageChanged').subscribe(onLanguageChanged);
         kimchi.topic('redirect').subscribe(onKimchiRedirect);
 
         /*

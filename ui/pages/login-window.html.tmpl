@@ -28,6 +28,7 @@
   <header>
     <h1 class="title">$_("Log In")</h1>
   </header>
+
   <div class="content login-panel">
     <form id="form-login" action="/login" method="POST">
       <div id="message-container" class="row error-message"></div>
@@ -44,6 +45,14 @@
       </div>
     </form>
   </div>
+  <footer>
+    <form id="form-language" action="" method="GET">
+      <div id="lang-selection-wrapper">
+        <label for="language">$_("Language:")</label>
+        <select id="language"></select>
+      </div>
+    </form>
+  </footer>
 </div>
 
 <script type="text/javascript">

@@ -21,6 +21,23 @@
  */
 kimchi.login_main = function() {
 
+    var selectedLanguage = kimchi.lang.get();
+    var languages = kimchi.lang.all();
+    for(var k in languages) {
+        var opt = $([
+            '<option value="',
+            k,
+            '">',
+            languages[k],
+            '</option>'
+        ].join('')).appendTo($('#language'));
+        $(opt).prop('selected', selectedLanguage === k);
+    }
+
+    $('#language').on('change', function() {
+        kimchi.topic('languageChanged').publish($(this).val());
+    });
+
     var validateNonEmpty = function(idsArray) {
         for(var i = 0; i < idsArray.length; i++) {
             var id = idsArray[i];

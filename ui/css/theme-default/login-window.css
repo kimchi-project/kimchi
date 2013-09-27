@@ -19,12 +19,19 @@
  * limitations under the License.
  */
 #login-window {
-    height: 400px;
+    height: 430px;
     width: 400px;
 }
 
-#login-window .login-panel {
-    margin-bottom: 0;
+#login-window footer {
+    background: #E0E0E0;
+}
+
+#login-window footer #form-language {
+    height: 48px;
+    line-height: 48px;
+    padding-right: 10px;
+    text-align: right;
 }
 
 #login-window .login-panel #form-login {
