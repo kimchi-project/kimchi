@@ -193,7 +193,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(len(vols), poolinfo['nr_volumes'])
 
     def test_template_create(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
         # Test non-exist path raises InvalidParameter
         params = {'name': 'test',
                   'cdrom': '/non-exsitent.iso'}
