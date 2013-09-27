@@ -152,9 +152,9 @@
 }
 
 .box:HOVER {
-	border: 1px solid rgb(11, 107, 173);
-	-webkit-box-shadow: rgb(11, 107, 173) 0px 0px 5px;
-	box-shadow: rgb(11, 107, 173) 0px 0px 5px;
+	border: 1px solid #aaa;
+	-webkit-box-shadow: #bbb 0px 0px 5px;
+	box-shadow: #bbb 0px 0px 5px;
 }
 
 .box-iso {
@@ -204,11 +204,23 @@
 	width: 320px;
 }
 
-.iso-title {
-	margin: 0;
+.list-iso>li>label {
+	display: block;
+	cursor: pointer;
 }
 
-.iso-title>label {
+.list-iso>li>label>input[type="checkbox"] {
+	display: none;
+}
+
+.list-iso>li>label>input[type="checkbox"]:CHECKED+.box-iso {
+	border: 1px solid rgb(11, 107, 173);
+	-webkit-box-shadow: rgb(11, 107, 173) 0px 0px 4px;
+	box-shadow: rgb(11, 107, 173) 0px 0px 4px;
+}
+
+.iso-title {
+	margin: 0;
 	display: block;
 	position: relative;
 	height: 23px;
@@ -219,7 +231,6 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	padding-right: 20px;
 }
 
 .iso-title>label>input {

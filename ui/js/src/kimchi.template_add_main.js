@@ -160,6 +160,8 @@ kimchi.template_add_main = function() {
     });
 
     //1-2 remote iso
+    $('#iso-remote').css('opacity', 0.3).css('cursor', 'not-allowed');
+    /*
     $('#iso-remote').click(function() {
         kimchi.switchPage('iso-type-box', 'iso-remote-box');
         initRemoteIsoField();
@@ -170,6 +172,7 @@ kimchi.template_add_main = function() {
             kimchi.message.error(err.responseJSON.reason);
         });
     });
+    */
 
     $('#iso-remote-box-back').click(function() {
         kimchi.switchPage('iso-remote-box', 'iso-type-box', 'right');
