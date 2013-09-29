@@ -313,17 +313,19 @@ kimchi.template_add_main = function() {
 };
 
 kimchi.template_check_url = function(url) {
-    var strRegex = "^((https|http|ftp|ftps|tftp)?://)"
-        + "?(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-z_!~*'().&=+$%-]+@)?"
-        + "(([0-9]{1,3}\.){3}[0-9]{1,3}"
-        + "|" + "([0-9a-z_!~*'()-]+\.)*"
-        + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\."
-        + "[a-z]{2,6})"
-        + "(:[0-9]{1,4})?"
-        + "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)$";
-    var re = new RegExp(strRegex);
+    var protocols = "((https|http|ftp|ftps|tftp)?://)?",
+        userinfo = "(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-z_!~*'().&=+$%-]+@)?",
+        ip = "(\\d{1,3}\.){3}\\d{1,3}",
+        domain = "([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}",
+        port = "(:\\d{1,5})?",
+        address = "(/[\\w!~*'().;?:@&=+$,%#-]+)+",
+        domaintype = [ protocols, userinfo, domain, port, address ],
+        ipType = [ protocols, userinfo, ip, port, address ],
+        validate = function(type) {
+            return new RegExp('^' + type.join('') + '$');
+        };
     if (url.constructor === String) {
-        return re.test(url);
+        return validate(domaintype).test(url) || validate(iptype).test(url);
     }
     return false;
 };
@@ -337,6 +339,9 @@ kimchi.template_check_path = function(filePath) {
 };
 
 kimchi.get_iso_name = function(isoPath) {
+    if ((isoPath.charAt(isoPath.length - 1) == "/") == true) {
+        isoPath = isoPath.substring(0, isoPath.length - 1)
+    }
     if (/.iso$/.test(isoPath)) {
         return isoPath.substring(isoPath.lastIndexOf("/") + 1,
                 isoPath.lastIndexOf(".")) + new Date().getTime();
