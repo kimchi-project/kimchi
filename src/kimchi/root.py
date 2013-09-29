@@ -28,11 +28,17 @@ import controller
 
 def error_production_handler(status, message, traceback, version):
     data = {'code': status, 'reason': message}
-    return template.render('error.html', data)
+    res = template.render('error.html', data)
+    if type(res) is unicode:
+        res = res.encode("utf-8")
+    return res
 
 def error_development_handler(status, message, traceback, version):
     data = {'code': status, 'reason': message, 'call_stack': cherrypy._cperror.format_exc()}
-    return template.render('error.html', data)
+    res = template.render('error.html', data)
+    if type(res) is unicode:
+        res = res.encode("utf-8")
+    return res
 
 
 class Root(controller.Resource):
