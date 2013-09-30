@@ -78,6 +78,7 @@ def can_accept_html():
 
 def render(resource, data):
     if can_accept('application/json'):
+        cherrypy.response.headers['Content-Type'] = 'application/json;charset=utf-8'
         return json.dumps(data, indent=2,
                           separators=(',', ':'),
                           encoding='iso-8859-1')
