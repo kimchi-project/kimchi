@@ -19,12 +19,20 @@
  * limitations under the License.
  */
 #login-window {
-    height: 430px;
+    height: 400px;
     width: 400px;
+    background:#fffffc;
+    border:2px solid #ffffff;
+    border-radius: 3px;
 }
 
-#login-window footer {
-    background: #E0E0E0;
+#login-window>header>.title-text {
+    front: #000000;
+    font-size: 18px;
+	height: 48px;
+	line-height: 48px;
+	font-weight: bold;
+	text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
 }
 
 #login-window footer #form-language {
@@ -38,18 +46,26 @@
     padding: 40px 40px 0;
 }
 
+#login-window>header>.logo {
+    display:inline;
+    margin: 11px 0 0 2px;
+    float: left;
+    width: 25px;
+    height: 25px;
+    background: url(../images/logo.ico) no-repeat center center;
+}
+
 #login-window .login-panel .row {
-    margin-bottom: 20px;
+    margin-bottom: 28px;
 }
 
 #login-window .login-panel input[type="text"],
-#login-window .login-panel input[type="password"],
-#login-window .login-panel button {
+#login-window .login-panel input[type="password"] {
     font-size: 18px;
     height: 40px;
     padding-left: 10px;
     padding-right: 10px;
-    width: 280px;
+    width: 290px;
 }
 
 #login-window .login-panel .msg-required {
@@ -58,9 +74,10 @@
 
 #login-window .login-panel button {
     font-size: 18px;
-    height: 46px;
-    width: 302px;
-    border-radius: 0 46px;
+    height: 40px;
+    width: 160px;
+    float: right;
+    background: none repeat scroll 0 0 #55ccFF;
 }
 
 #login-window .login-panel button[disabled] {
@@ -75,9 +92,13 @@
     width: 306px;
 }
 
-#login-window .footer {
-    border-top: 1px dashed #AAA;
-    bottom: 0;
-    height: 100px;
-    position: absolute;
+.language {
+    display:inline-block;
+    float:right;
+    margin:11px 5px 0 0;
+}
+
+.i18n-selector {
+    padding:2px 0;
+    background: #FFFBF0;
 }
