@@ -63,9 +63,19 @@ if sys.version_info[:2] == (2, 6):
         if not isinstance(obj, cls):
             self.fail('%s is not an instance of %r' % (repr(obj), cls))
 
+    def assertIn(self, a, b, msg=None):
+        if not a in b:
+            self.fail("%s is not in %b" % (repr(a), repr(b)))
+
+    def assertNotIn(self, a, b, msg=None):
+        if a in b:
+            self.fail("%s is in %b" % (repr(a), repr(b)))
+
     unittest.TestCase.assertGreaterEqual = assertGreaterEqual
     unittest.TestCase.assertGreater = assertGreater
     unittest.TestCase.assertIsInstance = assertIsInstance
+    unittest.TestCase.assertIn = assertIn
+    unittest.TestCase.assertNotIn = assertNotIn
 
 def get_free_port(name='http'):
     global _ports
