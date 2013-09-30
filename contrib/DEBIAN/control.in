@@ -3,7 +3,15 @@ Version: @PACKAGE_VERSION@
 Section: base
 Priority: optional
 Architecture: all
-Depends: python-cherrypy3 (>= 3.2.0), python-cheetah, libvirt-bin, python-libvirt, python-libxml2, python-imaging, qemu-kvm, python-m2crypto
+Depends: python-cherrypy3 (>= 3.2.0),
+         python-cheetah,
+         python-imaging,
+         python-libvirt,
+         libvirt-bin,
+         python-m2crypto,
+         python-libxml2,
+         qemu-kvm,
+         python-pam
 Build-Depends:
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server

@@ -30,13 +30,34 @@ Getting Started
 Install Dependencies
 --------------------
 
-    $ sudo yum install gcc make python-cherrypy python-cheetah \
-                       python-imaging libvirt-python libvirt \
-                       gettext-devel automake autoconf python-m2crypto
+**For fedora and RHEL:**
 
-Install Dependecies for RHEL6
-----------------------------
-    $ sudo yum install python-unittest2 python-ordereddict
+     $ sudo yum install gcc make autoconf automake gettext-devel git \
+                        python-cherrypy python-cheetah libvirt-python \
+                        libvirt libxml2-python python-imaging \
+                        PyPAM m2crypto rpm-build qemu-kvm
+     # If using RHEL6, install the following additional packages:
+     $ sudo yum install python-unittest2 python-ordereddict
+
+*Note for RHEL users*: Some of the above packages are located in the Red Hat
+EPEL repositories.  See
+[this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
+for more information on how to configure your system to access this repository.
+
+**For debian:**
+
+    $ sudo apt-get install gcc make autoconf automake gettext git \
+                           python-cherrypy3 python-cheetah python-libvirt \
+                           libvirt-bin python-libxml2 python-imaging \
+                           python-pam python-m2crypto qemu-kvm libtool
+
+**For openSUSE:**
+
+    $ sudo zypper install gcc make autoconf automake gettext-tools git \
+                          python-CherryPy python-Cheetah libvirt-python \
+                          libvirt python-libxml2 python-imaging \
+                          python-pam python-M2Crypto rpm-build kvm
+
 
 Build and Install
 -----------------
@@ -53,7 +74,13 @@ Run
 Usage
 -----
 
-Connect your browser to localhost:8000.  You should see a screen like:
+Connect your browser to https://localhost:8001.  You should see a screen like:
+
+![Kimchi Login Screen](/docs/kimchi-login.png)
+
+Kimchi uses PAM to authenticate users so you can log in with the same username
+and password that you would use to log in to the machine itself.  Once logged in
+you will see a screen like:
 
 ![Kimchi Guest View](/docs/kimchi-guest.png)
 
