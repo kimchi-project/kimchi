@@ -38,6 +38,8 @@ Install Dependencies
                         PyPAM m2crypto rpm-build qemu-kvm
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
+     # Restart libvirt to allow configuration changes to take effect
+     $ sudo service libvirtd restart
 
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
 EPEL repositories.  See
