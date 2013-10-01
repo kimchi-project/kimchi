@@ -28,6 +28,9 @@ import functools
 import os
 import json
 import copy
+import cherrypy
+import sys
+import logging
 try:
     from collections import OrderedDict
 except ImportError:
