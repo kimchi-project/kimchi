@@ -119,8 +119,7 @@ class Model(object):
         except OperationFailed as e:
             # path used by other pool or other reasons of failure, exit
             cherrypy.log.error(
-                "Fatal: Cannot create default because of %s, exit kimchid",
-                e.message,
+                "Fatal: Cannot create default pool because of %s, exit kimchid" % e.message,
                 severity=logging.ERROR)
             sys.exit(1)
 
