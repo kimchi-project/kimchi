@@ -121,7 +121,7 @@ class Model(object):
             cherrypy.log.error(
                 "Fatal: Cannot create default because of %s, exit kimchid",
                 e.message,
-                serverity=logging.ERROR)
+                severity=logging.ERROR)
             sys.exit(1)
 
         if self.storagepool_lookup('default')['state'] == 'inactive':
