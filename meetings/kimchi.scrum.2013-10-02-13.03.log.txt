@@ -1,0 +1,170 @@
+13:03:30 <aglitke> #startmeeting
+13:03:30 <kimchi-bot> Meeting started Wed Oct  2 13:03:30 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:30 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:47 <aglitke> #meetingname scrum
+13:03:47 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:09 <aglitke> #info Agenda: 1) Testing status 2) Open Floor
+13:04:23 <aglitke> anything else?  I know we have a smaller than usual crew this week.
+13:04:52 <aglitke> ok
+13:05:13 <aglitke> Anyone else here?
+13:05:28 <AdamKingIT> I am
+13:05:29 <alinefm> o/
+13:05:33 <aglitke> ok, good :)
+13:05:45 <AdamKingIT> afraid you were talking to yourself?
+13:05:48 <aglitke> wanted to make sure I wasn't just talking to the wind :)
+13:05:48 <alinefm> the 3 'A'! =)
+13:06:11 <AdamKingIT> funny
+13:06:18 <aglitke> #topic Testing status
+13:06:24 <aglitke> https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+13:06:37 <aglitke> https://github.com/kimchi-project/kimchi/issues?labels=bug&state=open
+13:06:52 <aglitke> We have 9 open bugs
+13:08:15 <AdamKingIT> Should we take them from top to bottom?
+13:08:20 <aglitke> Most of the remaining ones are not very severe:
+13:08:21 <aglitke> sure
+13:08:30 <aglitke> https://github.com/kimchi-project/kimchi/issues/145
+13:08:59 <aglitke> This will be fixed by the UI work to transform storage sizes into the proper units.
+13:09:13 <aglitke> zhoumeina was working on this
+13:09:32 <aglitke> https://github.com/kimchi-project/kimchi/issues/134
+13:10:02 <aglitke> There is a bug in libvirt as packaged on RHEL6.4 where it doesn't create a needed dir.
+13:10:24 <aglitke> We could just create that directory when the server starts up if it's missing.
+13:10:33 <alinefm> agree
+13:10:48 <aglitke> But that will require a libvirt restart to take effect I think
+13:10:55 <alinefm> or during the install
+13:11:20 <aglitke> Yeah... maybe we can create it in the packaging
+13:11:46 <aglitke> It's a RHEL6.4 bug that we are working around
+13:12:01 <aglitke> lvroyce is assigned
+13:12:15 <aglitke> https://github.com/kimchi-project/kimchi/issues/130
+13:12:42 <aglitke> This is a harmless deprecation warning.  We should fix it but it won't have any impact for this release.
+13:13:05 <AdamKingIT> Seems it can wait
+13:13:13 <aglitke> https://github.com/kimchi-project/kimchi/issues/122
+13:13:24 <aglitke> I would like to have someone re-test this
+13:13:37 <aglitke> alinefm: can you take it?
+13:13:43 <alinefm> aglitke, yes
+13:13:46 <aglitke> f17 isn't really supported anymore
+13:13:55 <alinefm> may I test on FC19?
+13:14:26 <aglitke> actually can you try 18
+13:14:36 <aglitke> will that be too hard?  Do you have an iso?
+13:14:45 <aglitke> I have been testing on 19
+13:14:49 <aglitke> and it works there
+13:15:04 <alinefm> no problem, I can test on 18
+13:15:07 <aglitke> I just want to make sure this works on 18 and later since 17 is EOL
+13:15:11 <aglitke> thanks
+13:15:26 <aglitke> ok I've assigned you
+13:15:34 <alinefm> great
+13:15:36 <aglitke> https://github.com/kimchi-project/kimchi/issues/118
+13:15:44 <aglitke> I have patches on the list to fix this.
+13:15:58 <aglitke> Has anyone reviewed them?
+13:16:17 <AdamKingIT> I'll confess I haven't
+13:16:23 <alinefm> I did
+13:16:46 <aglitke> ok thanks alinefm
+13:16:58 <aglitke> I will take a look at your comments and keep working on it
+13:17:08 <aglitke> https://github.com/kimchi-project/kimchi/issues/116
+13:17:30 <aglitke> I think this one can wait to be fixed
+13:17:41 <alinefm> I guess I saw some patch in list to it
+13:18:01 <aglitke> alinefm: Can you dig up the subject?
+13:18:06 <aglitke> Is it a complex patch?
+13:18:33 <alinefm> aglitke, let me find here - one minute
+13:18:44 <aglitke> in the meantime, we can move onto the next one
+13:18:53 <aglitke> https://github.com/kimchi-project/kimchi/issues/93
+13:19:15 <aglitke> This is probably a very simple javascript fix
+13:19:15 <AdamKingIT> Not a very severe issue, but an annoyance
+13:19:24 <AdamKingIT> I can look at it
+13:19:35 <aglitke> I think we are just not building any html if the list of vms is empty
+13:19:38 <alinefm> aglitke, [Issue #116]Parameters which contain unsafe characters break the REST url
+13:19:58 <aglitke> we need to unconditionally build the html for the guest list as long as the http response code is OK
+13:20:13 <aglitke> alinefm: Can you review it>?
+13:20:39 <alinefm> aglitke, sure
+13:20:44 <aglitke> thanks
+13:20:48 <aglitke> https://github.com/kimchi-project/kimchi/issues/77
+13:21:01 <AdamKingIT> agreed 116 should be a simple fix
+13:21:18 <aglitke> This is an SELinux issue.  On RH6, you cannot use ISO images that are outside of storage pools.
+13:21:42 <alinefm> aglitke, I faced the same problem on F19
+13:21:57 <aglitke> The proper way to fix this is by using the capabilities API...
+13:22:06 <alinefm> I tried to use an iso on /root/file.iso and could not start the VM because os permission denied
+13:22:12 <aglitke> We can test if a VM can be started with a disk image outside of a storage pool
+13:22:40 <aglitke> if not, the UI should grey out the "specify a custom location" options
+13:23:06 <AdamKingIT> something else for capabilities?
+13:23:16 <aglitke> This will also affect Deep Scan since those images would not be usable until moved into a storage pool
+13:23:26 <aglitke> AdamKingIT: yes
+13:23:40 <aglitke> Sadly I think this is too complex for 1.9
+13:23:41 <aglitke> 1.0
+13:24:27 <alinefm> aglitke, maybe we just need to change the files permissions to get it working
+13:24:29 <AdamKingIT> We are hoping people use the scan anyway. Shuold be fixed, but less likely to be hit now
+13:24:55 <aglitke> I wonder if we can detect the error and at least report a better error message.
+13:25:28 <aglitke> unfortunately we don't allow multiple error messages for failed rest requests
+13:25:50 <AdamKingIT> We dont hit the error until we try to start the VM, correct?
+13:25:57 <alinefm> AdamKingIT, yes
+13:26:10 <aglitke> so even if we can differentiate between the error causes we have no way to communicate it.
+13:26:32 <AdamKingIT> Odd zhoumeina says "But use this iso file create vm by virt-manager it is ok."
+13:26:53 <AdamKingIT> why would it work w virt-manager but not kimchi?
+13:27:04 <aglitke> Maybe virt-manager is using the chcon program to set the proper selinux context on the file.
+13:27:38 <aglitke> I'll take this bug and investigate the virt-manager code to see what trick it uses
+13:27:58 <AdamKingIT> would be worth it if its a small trick
+13:28:20 <aglitke> https://github.com/kimchi-project/kimchi/issues/75
+13:28:57 <aglitke> We could add some verification into the backend and into the JS
+13:29:04 <AdamKingIT> kinda ugly we can delete the VM name
+13:29:17 <AdamKingIT> both are probably called for
+13:29:39 <alinefm> we can verify if the value is a number for memory and cpu
+13:29:41 <aglitke> Yeah, it should at least be rejecting bad names
+13:30:08 <AdamKingIT> I thought we had code in there to reject invalid chars in names...
+13:30:24 <AdamKingIT> If so, would be easy enough to enhance it to reject blank names
+13:30:42 <aglitke> I'll have to take a look.  This is the PUT request which may take a different path.
+13:31:10 <aglitke> alinefm: Is your plate full or do you want to take this one
+13:31:21 <AdamKingIT> i was thinking it was in the UI, but it could be in the API
+13:31:41 <alinefm> aglitke, I can take this too
+13:31:48 <aglitke> This is a good opportunity to do some test driven development... Write some tests and then write code to make them pass
+13:32:04 <aglitke> AdamKingIT: alinefm can do the backend.
+13:32:05 <AdamKingIT> This one kinda brings us to a discussion of the edit template patch for storage
+13:32:21 <aglitke> At least we will guard against invalid data
+13:32:30 <aglitke> then xinding can do the front-end work
+13:33:06 <AdamKingIT> probably safe enough code change to wait, though I'll try to look at it ahead of time
+13:33:46 <alinefm> aglitke, AdamKingIT, I would like to include this issue to 1.0 too: https://github.com/kimchi-project/kimchi/issues/171
+13:34:23 <aglitke> yes, indeed
+13:34:37 <AdamKingIT> lets go ahead and mark it a bug. I will review your patch
+13:34:39 <aglitke> Just tagged it in
+13:35:31 <alinefm> aglitke, when will we update the translations files?
+13:35:35 <aglitke> any others that should be included?
+13:35:44 <aglitke> alinefm: I'd say next week
+13:36:09 <AdamKingIT> we should discuss the template edit patch for storage pool
+13:36:19 <aglitke> We will freeze the translation files and then ask you and a Chinese speaker to finalize.
+13:36:32 <aglitke> AdamKingIT: Sure, what are your thoughts on it?
+13:37:30 <AdamKingIT> I would have to go back and look, but I am thinking we really have no new capability in the release w/out it. We have done a lot of work and made a lot of stuff real, but nothing is new beyond ISO scan
+13:38:04 <AdamKingIT> which is only kinda new, in that its a better version of "enter the path to an ISO"
+13:38:28 <aglitke> I am just worried that the code isn't ready
+13:38:41 <aglitke> The UI code has bugs and the backend code is missing tests.
+13:39:08 <AdamKingIT> y, I know. The question becomes do we have a viable release w/out
+13:39:29 <AdamKingIT> found UI bugs are smallish so far
+13:39:31 <aglitke> Sure!  It may not have as many features as we'd like to be sure...
+13:40:07 <aglitke> At the very least it would need to be resubmitted with the display:hidden removed from the select box
+13:40:35 <AdamKingIT> yeah, the UI patch definitly needs to be resubmitted w/ the CRs removed and the hidden removed
+13:41:20 <aglitke> So if you can do that I will take another look at royce's code and see if I am comfortable picking it up and resubmitting it.
+13:41:44 <AdamKingIT> One thing I didn't try is the UI patch w/out Royce's patch
+13:42:15 <AdamKingIT> What was she enhancing? I though the basic edit template code was already in
+13:42:25 <aglitke> I don't think it will work well.  For one thing, the current storage pool won't be in the Template resource
+13:42:39 <aglitke> so the UI can't display the current pool
+13:42:41 <AdamKingIT> that would be a problem, ok
+13:43:03 <AdamKingIT> How many tests do you think the API patch needs written?
+13:43:15 <aglitke> also, the backend requires that we specifically enable certain fields to be modifyable
+13:43:32 <aglitke> just a few more to test some of the PUT corner cases.
+13:44:20 <AdamKingIT> k
+13:44:48 <aglitke> ok I will summarize our actions...
+13:44:54 <aglitke> #action alinefm https://github.com/kimchi-project/kimchi/issues/122
+13:45:17 <aglitke> #action alinefm review [Issue #116]Parameters which contain unsafe characters break the REST url
+13:45:43 <aglitke> #action AdamKingIT  https://github.com/kimchi-project/kimchi/issues/93
+13:46:20 <aglitke> #action aglitke https://github.com/kimchi-project/kimchi/issues/77
+13:46:41 <aglitke> #action alinefm https://github.com/kimchi-project/kimchi/issues/75
+13:47:10 <aglitke> #action alinefm https://github.com/kimchi-project/kimchi/issues/171
+13:47:18 <aglitke> #action AdamKingIT review https://github.com/kimchi-project/kimchi/issues/171
+13:47:54 <aglitke> #action aglitke pick up royce's custom storage pool backend series and resubmit
+13:48:20 <aglitke> #action AdamKingIT Pick up xinding's UI patch for selecting a new storage pool and resubmit
+13:48:26 <aglitke> anything I missed?
+13:49:40 <AdamKingIT> not that I can think of
+13:49:48 <alinefm> aglitke, about #75, I will do the backend and AdamKingIT the front end? or I take both?
+13:50:24 <aglitke> you do the backend
+13:50:38 <aglitke> We will save the frontend for when xinding returns next week
+13:50:47 <aglitke> if we miss that it's not as big of a deal
+13:50:55 <aglitke> the backend will still report an error
+13:51:09 <aglitke> alright.  I think we're done?
+13:51:24 <AdamKingIT> i'm done
+13:51:32 <aglitke> ok thanks guys!
+13:51:35 <aglitke> #endmeeting
