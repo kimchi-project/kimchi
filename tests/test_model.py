@@ -218,6 +218,30 @@ class ModelTests(unittest.TestCase):
         params['cdrom'] = os.path.abspath(__file__)
         self.assertRaises(InvalidParameter, inst.templates_create, params)
 
+    def test_template_update(self):
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+
+        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
+        inst.templates_create(orig_params)
+
+        params = {'name': '   '}
+        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+        params = {'memory': ' invalid-value '}
+        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+        params = {'memory': '   '}
+        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+        params = {'cpus': ' invalid-value '}
+        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+        params = {'cpus': '   '}
+        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+        params = {'name': 'new-test'}
+        self.assertEquals('new-test', inst.template_update('test', params))
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):

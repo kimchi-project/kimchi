@@ -451,7 +451,7 @@ class RestTests(unittest.TestCase):
 
     def test_templates(self):
         def verify_template(t, res):
-            for field in ('name', 'os_distro', 'os_version', 'memory'):
+            for field in ('name', 'os_distro', 'os_version', 'memory', 'cpus'):
                 self.assertEquals(t[field], res[field])
 
         resp = self.request('/templates')
@@ -460,7 +460,7 @@ class RestTests(unittest.TestCase):
 
         # Create a template
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': 1.0, 'memory': 1024}
+             'os_version': '1.0', 'memory': '1024', 'cpus': '1'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -471,14 +471,14 @@ class RestTests(unittest.TestCase):
 
         # Create a template with same name fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': 1.0, 'memory': 1024}
+             'os_version': '1.0', 'memory': '1024', 'cpus': '1'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(400, resp.status)
 
         # Update the template
         t['os_distro'] = 'Linux.ISO'
-        t['os_version'] = 1.1
+        t['os_version'] = '1.1'
         req = json.dumps(t)
         resp = self.request('/templates/%s' % t['name'], req, 'PUT')
         self.assertEquals(200, resp.status)
@@ -498,6 +498,37 @@ class RestTests(unittest.TestCase):
         res = json.loads(self.request('/templates/%s' % t['name']).read())
         verify_template(t, res)
 
+        # Try to change template name to empty string
+        tmpl_name = t['name']
+        t['name'] = '   '
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to change template memory to a non-number value
+        t['memory'] = 'invalid-value'
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to clean up template memory value
+        t['memory'] = '    '
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to change template cpus to a non-number value
+        t['cpus'] = 'invalid-value'
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to clean up template cpus value
+        t['cpus'] = '    '
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
         # Test unallowed fields, specify a field 'foo' isn't in the Template
         t['foo'] = "bar"
         req = json.dumps(t)
@@ -505,7 +536,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(405, resp.status)
 
         # Delete the template
-        resp = self.request('/templates/%s' % t['name'], '{}', 'DELETE')
+        resp = self.request('/templates/%s' % tmpl_name, '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
     def test_iso_scan_shallow(self):
