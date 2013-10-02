@@ -40,8 +40,8 @@ kimchi.template_edit_main = function() {
         kimchi.updateTemplate($('#template-name').val(), data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
-        }, function() {
-            // TODO: Error message.
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         });
     });
 };

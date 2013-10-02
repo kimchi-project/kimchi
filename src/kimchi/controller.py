@@ -161,6 +161,8 @@ class Resource(object):
         elif method == 'PUT':
             try:
                 return self.update()
+            except InvalidParameter, msg:
+                raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % msg)
             except InvalidOperation, msg:
                 raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
             except NotFoundError, msg:

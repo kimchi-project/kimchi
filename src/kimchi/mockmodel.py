@@ -169,8 +169,24 @@ class MockModel(object):
     def template_update(self, name, params):
         old_t = self.template_lookup(name)
         new_t = copy.copy(old_t)
+
+        for key in params.keys():
+            params[key] = params[key].strip()
+
         new_t.update(params)
         ident = name
+
+        new_name = new_t.get(u'name', '')
+        if len(new_name) == 0:
+            raise InvalidParameter("You must specify a template name.")
+
+        new_memory = new_t.get(u'memory', '')
+        if not new_memory.isdigit():
+            raise InvalidParameter("You must specify a number for memory.")
+
+        new_ncpus = new_t.get(u'cpus', '')
+        if not new_ncpus.isdigit():
+            raise InvalidParameter("You must specify a number for cpus.")
 
         self.template_delete(name)
         try:
