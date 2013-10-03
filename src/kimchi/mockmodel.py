@@ -119,6 +119,7 @@ class MockModel(object):
         volumes = t.to_volume_list(name, p.info['path'])
         disk_paths = []
         for vol_info in volumes:
+            vol_info['capacity'] = vol_info['capacity'] << 10
             self.storagevolumes_create(pool_name, vol_info)
             disk_paths.append({'pool': pool_name, 'volume': vol_info['name']})
 
