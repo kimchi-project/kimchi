@@ -242,6 +242,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 **Actions (POST):**
 
 * resize: Resize a Storage Volume
+    * size: resize the total space which can be used to store data
+            The unit is MBytes
 * wipe: Wipe a Storage Volume
 
 ### Collection: Tasks
