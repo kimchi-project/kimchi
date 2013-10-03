@@ -25,6 +25,8 @@ kimchi.doListStoragePools = function() {
             var listHtml = '';
             $.each(result, function(index, value) {
                 value.usage = parseInt(value.allocated / value.capacity * 100) || 0;
+                value.capacity = kimchi.changetoProperUnit(value.capacity,1);
+                value.allocated = kimchi.changetoProperUnit(value.allocated,1);
                 var templateNew = kimchi.changeTemplate(storageHtml, value.type);
                 listHtml += kimchi.template(templateNew, value);
             });
@@ -145,6 +147,8 @@ kimchi.doListVolumes = function(poolObj) {
                 var listHtml = '';
                 $.each(result, function(index, value) {
                     value.poolname = poolObj.data('name');
+                    value.capacity = kimchi.changetoProperUnit(value.capacity,1);
+                    value.allocation = kimchi.changetoProperUnit(value.allocation,1);
                     listHtml += kimchi.template(volumeHtml, value);
                 });
                 volumeDiv.html(listHtml);
@@ -177,8 +181,6 @@ kimchi.changeArrow = function(obj) {
 
 kimchi.changeTemplate = function(template, type) {
     if (type === 'kimchi-iso') {
-        template = template.replace("{capacity}M", "");
-        template = template.replace("{allocated}M", "");
         template = template.replace("storage-action\"","storage-action\" style='display:none;'");
         return template;
     }
