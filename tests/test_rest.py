@@ -182,7 +182,7 @@ class RestTests(unittest.TestCase):
         vol_uri = '/storagepools/default/storagevolumes/test-vm-0.img'
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
-        self.assertEquals(1, vol['capacity'])
+        self.assertEquals(1 << 30, vol['capacity'])
 
         # Start the VM
         resp = self.request('/vms/test-vm/start', '{}', 'POST')
@@ -238,7 +238,7 @@ class RestTests(unittest.TestCase):
         vol_uri = '/storagepools/alt/storagevolumes/test-vm-0.img'
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
-        self.assertEquals(1, vol['capacity'])
+        self.assertEquals(1 << 30, vol['capacity'])
 
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
@@ -554,7 +554,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals('pool-3-fedora.iso', storagevolume['name'])
         self.assertEquals('iso', storagevolume['format'])
         self.assertEquals('/var/lib/libvirt/images/fedora.iso',storagevolume['path'])
-        self.assertEquals(storagevolume['allocation'], storagevolume['capacity'])
+        self.assertEquals(1024 << 20, storagevolume['capacity'])
+        self.assertEquals(1024 << 20, storagevolume['allocation'])
         self.assertEquals('17', storagevolume['os_version'])
         self.assertEquals('fedora',storagevolume['os_distro'])
         self.assertEquals(True,storagevolume['bootable'])

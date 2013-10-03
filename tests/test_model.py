@@ -199,11 +199,12 @@ class ModelTests(unittest.TestCase):
 
             volinfo = inst.storagevolume_lookup(pool, vol)
             # Define the size = capacity + 16M
-            size = volinfo['capacity'] + 16
+            capacity = volinfo['capacity'] >> 20
+            size = capacity + 16
             inst.storagevolume_resize(pool, vol, size)
 
             volinfo = inst.storagevolume_lookup(pool, vol)
-            self.assertEquals(size, volinfo['capacity'])
+            self.assertEquals((1024 + 16) << 20, volinfo['capacity'])
             poolinfo = inst.storagepool_lookup(pool)
             self.assertEquals(len(vols), poolinfo['nr_volumes'])
 
