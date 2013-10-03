@@ -393,7 +393,7 @@ class MockStorageVolume(object):
         fmt = params.get('format', 'raw')
         capacity = params.get('capacity', 1024)
         self.info = {'type': 'disk',
-                     'capacity': capacity,
+                     'capacity': capacity << 20,
                      'allocation': 512,
                      'format': fmt}
         if fmt == 'iso':
