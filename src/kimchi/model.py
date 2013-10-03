@@ -576,9 +576,9 @@ class Model(object):
                 'path': path,
                 'type': pool_type,
                 'autostart': autostart,
-                'capacity': info[1] >> 20,
-                'allocated': info[2] >> 20,
-                'available': info[3] >> 20,
+                'capacity': info[1],
+                'allocated': info[2],
+                'available': info[3],
                 'nr_volumes': nr_volumes}
 
     def storagepool_update(self, name, params):
@@ -673,8 +673,8 @@ class Model(object):
         xml = vol.XMLDesc(0)
         fmt = xmlutils.xpath_get_text(xml, "/volume/target/format/@type")[0]
         res = dict(type=Model.volume_type_map[info[0]],
-                   capacity=info[1]>>20,
-                   allocation=info[2]>>20,
+                   capacity=info[1],
+                   allocation=info[2],
                    path=path,
                    format=fmt)
         if fmt == 'iso':

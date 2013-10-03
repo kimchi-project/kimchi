@@ -368,9 +368,9 @@ class MockStoragePool(object):
     def __init__(self, name):
         self.name = name
         self.info = {'state': 'inactive',
-                     'capacity': 1024,
-                     'allocated': 512,
-                     'available': 512,
+                     'capacity': 1024 << 20,
+                     'allocated': 512 << 20,
+                     'available': 512 << 20,
                      'path': '/var/lib/libvirt/images',
                      'type': 'dir',
                      'nr_volumes': 0,

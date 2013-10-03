@@ -183,9 +183,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: The path of the defined Storage Pool
     * type: The type of the Storage Pool
     * capacity: The total space which can be used to store volumes
-                The unit is MBytes
+                The unit is Bytes
     * allocated: The amount of space which is being used to store volumes
-                The unit is MBytes
+                The unit is Bytes
     * available: Free space available for creating new volumes in the pool
     * nr_volumes: The number of storage volumes for active pools, 0 for inactive pools
     * autostart: Whether the storage pool will be enabled
@@ -227,9 +227,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
             Used to identify the Storage Volume in this API
     * type: The type of the Storage Volume
     * capacity: The total space which can be used to store data
-                The unit is MBytes
+                The unit is Bytes
     * allocation: The amount of space which is being used to store data
-                The unit is MBytes
+                The unit is Bytes
     * format: The format of the file or volume
     * path: Full path of the volume on the host filesystem.
     * os_distro *(optional)*: os distribution of the volume, for iso volume only.
