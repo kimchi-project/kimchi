@@ -268,8 +268,7 @@ class MockModel(object):
             raise InvalidOperation("StoragePool not active")
         try:
             name = params['name']
-            volume = MockStorageVolume(pool, name, params['format'])
-            volume.info['capacity'] = params['capacity']
+            volume = MockStorageVolume(pool, name, params)
             volume.info['type'] = params['type']
             volume.info['format'] = params['format']
             volume.info['path'] = os.path.join(
@@ -388,11 +387,13 @@ class MockTask(object):
         self.id = id
 
 class MockStorageVolume(object):
-    def __init__(self, pool, name, fmt='raw'):
+    def __init__(self, pool, name, params={}):
         self.name = name
         self.pool = pool
+        fmt = params.get('format', 'raw')
+        capacity = params.get('capacity', 1024)
         self.info = {'type': 'disk',
-                     'capacity': 1024,
+                     'capacity': capacity,
                      'allocation': 512,
                      'format': fmt}
         if fmt == 'iso':
