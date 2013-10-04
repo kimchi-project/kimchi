@@ -35,7 +35,6 @@ import auth
 import os
 import cherrypy
 
-
 LOGGING_LEVEL = {"debug": logging.DEBUG,
                  "info": logging.INFO,
                  "warning": logging.WARNING,

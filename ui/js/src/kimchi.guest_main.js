@@ -181,6 +181,7 @@ kimchi.listVmsAuto = function() {
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     }, function() {
         kimchi.message.error(i18n['msg.fail.list.guests']);
+        kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     });
 };
 
