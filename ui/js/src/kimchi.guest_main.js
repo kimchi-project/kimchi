@@ -154,8 +154,8 @@ kimchi.listVmsAuto = function() {
     if (kimchi.vmTimeout) {
         clearTimeout(kimchi.vmTimeout);
     }
-    kimchi.listVMs(function(result) {
-        if (result && result.length) {
+    kimchi.listVMs(function(result, textStatus, jqXHR) {
+        if (result && textStatus=="success") {
             var listHtml = '';
             var guestTemplate = kimchi.guestTemplate;
             var oldImages = kimchi.getVmsOldImg();
