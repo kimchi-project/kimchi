@@ -459,7 +459,8 @@ def get_mock_environment():
             mockpool = model._mock_storagepools[name]
             mockpool._volumes[vol_name] = defaultstoragevolume
         vol_name = 'Fedora17.iso'
-        defaultstoragevolume = MockStorageVolume(name, vol_name, 'iso')
+        defaultstoragevolume = MockStorageVolume(name, vol_name,
+                                                 {'format': 'iso'})
         defaultstoragevolume.info['path'] = '%s/%s' % (
             defaultstoragepool.info['path'], vol_name)
         mockpool = model._mock_storagepools[name]
