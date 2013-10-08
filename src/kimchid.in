@@ -43,7 +43,7 @@ DEFAULT_LOG_LEVEL = "debug"
 def main(options):
     config = SafeConfigParser()
     config.add_section("server")
-    config.set("server", "host", "localhost")
+    config.set("server", "host", "0.0.0.0")
     config.set("server", "port", "8000")
     config.set("server", "ssl_port", "8001")
     config.set("server", "ssl_cert", "")
