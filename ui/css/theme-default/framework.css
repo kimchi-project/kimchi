@@ -30,3 +30,7 @@ body {
 	margin: 0 auto;
 	width: 1024px;
 }
+
+.hidden {
+	display: none;
+}

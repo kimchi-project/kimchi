@@ -19,18 +19,35 @@
  * limitations under the License.
  */
 kimchi.guest_add_main = function() {
-    kimchi.listTemplates(function(result) {
-        if (result && result.length) {
-            var html = '';
-            var tmpl = $('#tmpl-template').html();
-            $.each(result, function(index, value) {
-                html += kimchi.template(tmpl, value);
+    var showTemplates = function() {
+        kimchi.topic('templateCreated').unsubscribe(showTemplates);
+        kimchi.listTemplates(function(result) {
+            if (result && result.length) {
+                $('#prompt-create-template').addClass('hidden');
+                $('#prompt-choose-template').removeClass('hidden');
+                var html = '';
+                var tmpl = $('#tmpl-template').html();
+                $.each(result, function(index, value) {
+                    html += kimchi.template(tmpl, value);
+                });
+                $('#templateTile').html(html);
+                return;
+            }
+
+            $('#btn-create-template').on('click', function(event) {
+                kimchi.topic('templateCreated').subscribe(showTemplates);
+
+                kimchi.window.open('template-add.html');
+
+                event.preventDefault();
             });
-            $('#templateTile').html(html);
-        }
-    }, function() {
-        kimchi.message.error(i18n['temp.msg.fail.list']);
-    });
+
+            $('#prompt-choose-template').addClass('hidden');
+            $('#prompt-create-template').removeClass('hidden');
+        }, function() {
+            kimchi.message.error(i18n['temp.msg.fail.list']);
+        });
+    };
 
     function validateForm() {
         if (!$('input[name=template]:checked', '#templateTile').val()) {
@@ -60,4 +77,6 @@ kimchi.guest_add_main = function() {
 
     $('#form-vm-add').on('submit', addGuest);
     $('#vm-doAdd').on('click', addGuest);
+
+    showTemplates();
 };

@@ -24,6 +24,10 @@ kimchi.doListTemplates = function() {
             'tempnum' : result.length
         };
         var titleTemp = $('#titleTmpl').html();
+        if (!titleTemp) {
+            return;
+        }
+
         var titleHtml = '';
         if (result.length) {
             titleHtml = kimchi.template(titleTemp, titleValue);

@@ -46,9 +46,17 @@
 		<section class="form-section">
 			<h2>2. $_("Template")</h2>
 			<div class="field">
-				<p class="text-help">
-					$_("Please choose a template.")
-				</p>
+				<div class="text-help">
+					<div id="prompt-create-template" class="hidden">
+						<div>$_("Please create a template first.")</div>
+						<a id="btn-create-template" class="btn-normal" href="templates.html">
+							<span class="text">$_("Create a Template")</span>
+						</a>
+					</div>
+					<div id="prompt-choose-template" class="hidden">
+						<span>$_("Please choose a template.")</span>
+					</div>
+				</div>
 				<ul id="templateTile" class="tile-check tile-template">
 				</ul>
 				<script type="html/text" id="tmpl-template" class="tmpl-html">

@@ -79,7 +79,7 @@ kimchi.main = function() {
      */
     var loadPage = function(url) {
         // Get the page content through Ajax and render it.
-        $('#main').load(url, function(responseText, textStatus, jqXHR) {});
+        url && $('#main').load(url, function(responseText, textStatus, jqXHR) {});
     };
 
     /*

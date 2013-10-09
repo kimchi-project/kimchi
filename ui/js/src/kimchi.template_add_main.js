@@ -273,6 +273,7 @@ kimchi.template_add_main = function() {
         kimchi.createTemplate(data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
+            kimchi.topic('templateCreated').publish();
         }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
         });
@@ -295,6 +296,7 @@ kimchi.template_add_main = function() {
                     if (successNum === length) {
                         kimchi.doListTemplates();
                         kimchi.window.close();
+                        kimchi.topic('templateCreated').publish(data);
                     }
                 }, function(err) {
                     kimchi.message.error(err.responseJSON.reason);
