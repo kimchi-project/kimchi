@@ -21,19 +21,6 @@
 /*   STORAGE   */
 .handle {
     width: 5%;
-    height: 55px;
-    background: #0b6bad;
-    border-top-right: 1px solid #CCC;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-top-right-radius: 8px;
-    border-top-right-radius: 8px;
-    box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
-    border-bottom-right: 1px solid #CCC;
-    -webkit-border-bottom-right-radius: 8px;
-    -moz-border-bottom-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    display: block;
-    overflow: hidden;
 }
 
 .storagelist-title {
