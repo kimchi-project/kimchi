@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct  9 13:01:47 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:53</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) Testing and release status 2) Set storage pool for a template 3) ISO Streaming</span>
+<a name="l-7"></a><span class="tm">13:02:36</span><span class="nk"> &lt;aglitke&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> 4) welcome back to all
+<a name="l-9"></a><span class="tm">13:03:03</span><span class="nk"> &lt;ming&gt;</span> Looks good to me.
+<a name="l-10"></a><span class="tm">13:03:23</span><span class="nk"> &lt;ming&gt;</span> Look forward to next release.
+<a name="l-11"></a><span class="tm">13:03:32</span><span class="nk"> &lt;royce&gt;</span> Good for me, seems, maybe zhoumeina and shaohe want to discuss exception
+<a name="l-12"></a><span class="tm">13:03:36</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Yes, I was going to start with that.  Hopefully everyone had an enjoyable holiday
+<a name="l-13"></a><span class="tm">13:04:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">4) 1.1 Planning 5) Open Discussion</span>
+<a name="l-14"></a><span class="tm">13:04:18</span><span class="nk"> &lt;aglitke&gt;</span> lots to cover so let's get started.
+<a name="l-15"></a><span class="tm">13:04:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Testing and release status</span>
+<a name="l-16"></a><span class="tm">13:04:37</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;milestone=1&amp;page=1&amp;state=open</span>
+<a name="l-17"></a><span class="tm">13:04:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#link </span><span class="cmdline">https://github.com/kimchi-project/kimchi/wiki/Testing-1.0</span>
+<a name="l-18"></a><span class="tm">13:05:00</span><span class="nk"> &lt;aglitke&gt;</span> We have three release bugs
+<a name="l-19"></a><span class="tm">13:05:27</span><span class="nk"> &lt;aglitke&gt;</span> All have patches and discussions floating on the list now
+<a name="l-20"></a><span class="tm">13:05:34</span><span class="nk"> &lt;ming&gt;</span> https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;milestone=none&amp;page=1&amp;state=open
+<a name="l-21"></a><span class="tm">13:05:41</span><span class="nk"> &lt;ming&gt;</span> How about those floating ones?
+<a name="l-22"></a><span class="tm">13:05:54</span><span class="nk"> &lt;aglitke&gt;</span> They won'
+<a name="l-23"></a><span class="tm">13:06:03</span><span class="nk"> &lt;aglitke&gt;</span> They won't be fixed for this release probably.
+<a name="l-24"></a><span class="tm">13:06:20</span><span class="nk"> &lt;aglitke&gt;</span> For "UI: Some template information are not displayed in pt_BR when creating a VM"
+<a name="l-25"></a><span class="tm">13:06:30</span><span class="nk"> &lt;ming&gt;</span> Maybe we should mark those as mile stone 1.1.
+<a name="l-26"></a><span class="tm">13:06:30</span><span class="nk"> &lt;aglitke&gt;</span> I think we need some UI expertise on this one.
+<a name="l-27"></a><span class="tm">13:06:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> maybe... I periodically review and tag them
+<a name="l-28"></a><span class="tm">13:07:07</span><span class="nk"> &lt;aglitke&gt;</span> zhoumeina / hlwanghl: Do you have any advice?
+<a name="l-29"></a><span class="tm">13:07:29</span><span class="nk"> &lt;aglitke&gt;</span> the current size of the box cannot contain the pt_BR text
+<a name="l-30"></a><span class="tm">13:07:45</span><span class="nk"> &lt;hlwanghl&gt;</span> I'll take a look at it tomorrow
+<a name="l-31"></a><span class="tm">13:07:46</span><span class="nk"> &lt;aglitke&gt;</span> But expanding the size of the normal box makes it seem too big
+<a name="l-32"></a><span class="tm">13:08:05</span><span class="nk"> &lt;hlwanghl&gt;</span> I was working on some patches today
+<a name="l-33"></a><span class="tm">13:08:10</span><span class="nk"> &lt;aglitke&gt;</span> I was thinking we could expand the box on mouse over and click or something
+<a name="l-34"></a><span class="tm">13:08:23</span><span class="nk"> &lt;aglitke&gt;</span> we have to make sure it works for tablets
+<a name="l-35"></a><span class="tm">13:08:32</span><span class="nk"> &lt;ming&gt;</span> Is the box size fixed now?
+<a name="l-36"></a><span class="tm">13:08:35</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-37"></a><span class="tm">13:08:57</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I faced other problem in that template box
+<a name="l-38"></a><span class="tm">13:09:03</span><span class="nk"> &lt;hlwanghl&gt;</span> It's fixed so large text breaks it
+<a name="l-39"></a><span class="tm">13:09:30</span><span class="nk"> &lt;aglitke&gt;</span> yeah.  It's a major drawback with fixed size UIs
+<a name="l-40"></a><span class="tm">13:09:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> We want the user to be able to read the 'expected text' in their native lang w/out having to take an explicit action... like mouse over
+<a name="l-41"></a><span class="tm">13:09:47</span><span class="nk"> &lt;alinefm&gt;</span> when the template name is longer than the box width it will be broken in 2 lines BUT the box height is not enough to display the second line
+<a name="l-42"></a><span class="tm">13:10:01</span><span class="nk"> &lt;aglitke&gt;</span> ahh... Yeah, it
+<a name="l-43"></a><span class="tm">13:10:08</span><span class="nk"> &lt;AdamKingIT&gt;</span> if the problem w/ the name, or the translatable text?
+<a name="l-44"></a><span class="tm">13:10:13</span><span class="nk"> &lt;alinefm&gt;</span> so the second line is not displayed in all height
+<a name="l-45"></a><span class="tm">13:10:16</span><span class="nk"> &lt;ming&gt;</span> I think the box should be extensible based on the text length.
+<a name="l-46"></a><span class="tm">13:10:20</span><span class="nk"> &lt;alinefm&gt;</span> the text appears in the middle
+<a name="l-47"></a><span class="tm">13:10:20</span><span class="nk"> &lt;aglitke&gt;</span> it's disappointing that I cannot ever see the whole template name
+<a name="l-48"></a><span class="tm">13:10:49</span><span class="nk"> &lt;alinefm&gt;</span> yes and the second appears in part
+<a name="l-49"></a><span class="tm">13:10:55</span><span class="nk"> &lt;alinefm&gt;</span> *second line
+<a name="l-50"></a><span class="tm">13:11:15</span><span class="nk"> &lt;aglitke&gt;</span> ok... So hlwanghl, anything you can do to help would be great.
+<a name="l-51"></a><span class="tm">13:11:22</span><span class="nk"> &lt;hlwanghl&gt;</span> AdamKingIT , maybe we can make it larger or just replace it with list view
+<a name="l-52"></a><span class="tm">13:11:30</span><span class="nk"> &lt;aglitke&gt;</span> I have assigned it to you hlwanghl
+<a name="l-53"></a><span class="tm">13:11:40</span><span class="nk"> &lt;hlwanghl&gt;</span> Ok
+<a name="l-54"></a><span class="tm">13:11:47</span><span class="nk"> &lt;shaohef&gt;</span> hi all
+<a name="l-55"></a><span class="tm">13:11:54</span><span class="nk"> &lt;hlwanghl&gt;</span> Hi
+<a name="l-56"></a><span class="tm">13:11:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">hlwwanghl:</span> I can chat w. you after.
+<a name="l-57"></a><span class="tm">13:12:03</span><span class="nk"> &lt;hlwanghl&gt;</span> Ok
+<a name="l-58"></a><span class="tm">13:12:27</span><span class="nk"> &lt;aglitke&gt;</span> The rest of the issues don't require much discussion here.
+<a name="l-59"></a><span class="tm">13:12:49</span><span class="nk"> &lt;aglitke&gt;</span> Has anyone encountered issues that they feel should block the 1.0 release?
+<a name="l-60"></a><span class="tm">13:13:10</span><span class="nk"> &lt;aglitke&gt;</span> We need to resolve the translation issues.
+<a name="l-61"></a><span class="tm">13:13:24</span><span class="nk"> &lt;aglitke&gt;</span> I am going to apply the zh_CN patch after the meeting.
+<a name="l-62"></a><span class="tm">13:13:32</span><span class="nk"> &lt;zhoumeina&gt;</span> ok,
+<a name="l-63"></a><span class="tm">13:13:41</span><span class="nk"> &lt;aglitke&gt;</span> then alinefm, you can base your patch on upstream?
+<a name="l-64"></a><span class="tm">13:13:48</span><span class="nk"> &lt;zhoumeina&gt;</span> I found an issue with login window
+<a name="l-65"></a><span class="tm">13:14:05</span><span class="nk"> &lt;zhoumeina&gt;</span> I think it should be fixed before 1.0 release
+<a name="l-66"></a><span class="tm">13:14:08</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I saw your patch
+<a name="l-67"></a><span class="tm">13:14:26</span><span class="nk"> &lt;aglitke&gt;</span> I will review after the meeting.
+<a name="l-68"></a><span class="tm">13:14:41</span><span class="nk"> &lt;hlwanghl&gt;</span> I think she meant other issue
+<a name="l-69"></a><span class="tm">13:14:43</span><span class="nk"> &lt;aglitke&gt;</span> if you want it to block the release, please create an issue for it and let me know the #
+<a name="l-70"></a><span class="tm">13:14:49</span><span class="nk"> &lt;aglitke&gt;</span> oh...
+<a name="l-71"></a><span class="tm">13:14:52</span><span class="nk"> &lt;aglitke&gt;</span> what is that?
+<a name="l-72"></a><span class="tm">13:15:00</span><span class="nk"> &lt;ming&gt;</span> Did you guys have chance to test on leagacy OS lick FC17, RHEL6.2, Ubuntu 12.03
+<a name="l-73"></a><span class="tm">13:15:07</span><span class="nk"> &lt;ming&gt;</span> ?
+<a name="l-74"></a><span class="tm">13:15:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I have not.
+<a name="l-75"></a><span class="tm">13:15:18</span><span class="nk"> &lt;shaohef&gt;</span> no
+<a name="l-76"></a><span class="tm">13:15:19</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yes
+<a name="l-77"></a><span class="tm">13:15:21</span><span class="nk"> &lt;aglitke&gt;</span> Only the 4 identified in the matrix
+<a name="l-78"></a><span class="tm">13:15:32</span><span class="nk"> &lt;shaohef&gt;</span> should we support FC17？
+<a name="l-79"></a><span class="tm">13:15:34</span><span class="nk"> &lt;hlwanghl&gt;</span> Zhoumeina, is it login window height or Seth. Else?
+<a name="l-80"></a><span class="tm">13:15:39</span><span class="nk"> &lt;zhoumeina&gt;</span> the language selector will not chose the right language when init.
+<a name="l-81"></a><span class="tm">13:15:59</span><span class="nk"> &lt;ming&gt;</span> aglitke, 4 indentified in the matrix?
+<a name="l-82"></a><span class="tm">13:16:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+<a name="l-83"></a><span class="tm">13:16:29</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, did you see the zhoumeina comment about the string in the po file?
+<a name="l-84"></a><span class="tm">13:16:53</span><span class="nk"> &lt;alinefm&gt;</span> will we keep it as it is and change after the release?
+<a name="l-85"></a><span class="tm">13:16:57</span><span class="nk"> &lt;aglitke&gt;</span> Yes I saw it.  It's just a message key right?
+<a name="l-86"></a><span class="tm">13:17:15</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-87"></a><span class="tm">13:17:22</span><span class="nk"> &lt;aglitke&gt;</span> yeah.  Just add the proper translation for the key and don't worry about replacing it with the english phrase now.
+<a name="l-88"></a><span class="tm">13:17:30</span><span class="nk"> &lt;zhoumeina&gt;</span> that is a common issue about how to deal the long message
+<a name="l-89"></a><span class="tm">13:17:49</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I have give some proposal about this issue
+<a name="l-90"></a><span class="tm">13:17:57</span><span class="nk"> &lt;aglitke&gt;</span> I think for now a key is ok for really long messages.
+<a name="l-91"></a><span class="tm">13:17:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> do you agree?
+<a name="l-92"></a><span class="tm">13:18:12</span><span class="nk"> &lt;aglitke&gt;</span> using python AST is too comples.
+<a name="l-93"></a><span class="tm">13:18:14</span><span class="nk"> &lt;aglitke&gt;</span> complex/
+<a name="l-94"></a><span class="tm">13:18:31</span><span class="nk"> &lt;aglitke&gt;</span> I'd rather us focus on adding features that users will see and love./
+<a name="l-95"></a><span class="tm">13:18:45</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-96"></a><span class="tm">13:18:49</span><span class="nk"> &lt;ming&gt;</span> For, https://github.com/kimchi-project/kimchi/wiki/Testing-1.0, start VM was not tested on RHEL6.4 , ubuntu13.04. And Was it intentional?
+<a name="l-97"></a><span class="tm">13:19:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I am continuing to rerun tests as part of release prep.  A blank means I still need to retest that
+<a name="l-98"></a><span class="tm">13:19:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  yes. how about use xgettext  instead of python AST
+<a name="l-99"></a><span class="tm">13:19:54</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> because it cannot recognize the native python syntax
+<a name="l-100"></a><span class="tm">13:19:58</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> Thanks.
+<a name="l-101"></a><span class="tm">13:20:37</span><span class="nk"> &lt;aglitke&gt;</span> ok... let's continue
+<a name="l-102"></a><span class="tm">13:20:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Set storage pool for a template</span>
+<a name="l-103"></a><span class="tm">13:20:57</span><span class="nk"> &lt;aglitke&gt;</span> This is a feature that missed the freeze date
+<a name="l-104"></a><span class="tm">13:21:33</span><span class="nk"> &lt;aglitke&gt;</span> Since we are getting very close to release I want to withhold it until right after release./
+<a name="l-105"></a><span class="tm">13:21:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I have try to use cheetach-compile to generate html.tmpl to python code. and then let xgettext  scan this python code.
+<a name="l-106"></a><span class="tm">13:21:47</span><span class="nk"> &lt;royce&gt;</span> Did you have chance to see my rebase, aglitke?
+<a name="l-107"></a><span class="tm">13:21:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> it is OK
+<a name="l-108"></a><span class="tm">13:22:01</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> I saw it, but haven't reviewed it yet.
+<a name="l-109"></a><span class="tm">13:22:14</span><span class="nk"> &lt;royce&gt;</span> Today xinding helped to test it
+<a name="l-110"></a><span class="tm">13:22:14</span><span class="nk"> &lt;aglitke&gt;</span> Merging it would be a pretty stark violation of feature freeze.
+<a name="l-111"></a><span class="tm">13:22:26</span><span class="nk"> &lt;AdamKingIT&gt;</span> It would be a big + if we think its stable enough
+<a name="l-112"></a><span class="tm">13:22:52</span><span class="nk"> &lt;aglitke&gt;</span> Honestly I think the only people that will be upset are the PMs.
+<a name="l-113"></a><span class="tm">13:23:13</span><span class="nk"> &lt;aglitke&gt;</span> But the community won't care if it goes out the day after 1.0
+<a name="l-114"></a><span class="tm">13:23:30</span><span class="nk"> &lt;royce&gt;</span> :)
+<a name="l-115"></a><span class="tm">13:23:56</span><span class="nk"> &lt;royce&gt;</span> Sorry for not catching up with this one...
+<a name="l-116"></a><span class="tm">13:24:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> 1000 lashes w/ a wet noodle? (hope that translates ok)
+<a name="l-117"></a><span class="tm">13:24:30</span><span class="nk"> &lt;aglitke&gt;</span> I agree it's an important feature, but life will continue if it goes on next Monday after I cut.
+<a name="l-118"></a><span class="tm">13:24:35</span><span class="nk"> &lt;ming&gt;</span> Is this one [project-kimchi][PATCHv3 0/8] Template storage customization?
+<a name="l-119"></a><span class="tm">13:24:47</span><span class="nk"> &lt;ming&gt;</span> Royce?
+<a name="l-120"></a><span class="tm">13:24:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Yes, plus one UI patch
+<a name="l-121"></a><span class="tm">13:24:47</span><span class="nk"> &lt;royce&gt;</span> Just because I had two more days vacation:(, right, ming
+<a name="l-122"></a><span class="tm">13:25:08</span><span class="nk"> &lt;AdamKingIT&gt;</span> I wouldn't frown about vacation...
+<a name="l-123"></a><span class="tm">13:25:13</span><span class="nk"> &lt;aglitke&gt;</span> It just hasn't received review beyond AdamKingIT and I
+<a name="l-124"></a><span class="tm">13:25:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Don't worry too much about it.
+<a name="l-125"></a><span class="tm">13:25:35</span><span class="nk"> &lt;AdamKingIT&gt;</span> Maybe this is the segui to what &amp; when is the next release...
+<a name="l-126"></a><span class="tm">13:25:53</span><span class="nk"> &lt;aglitke&gt;</span> This isn't a proprietary product release.  It's Open Source.  Things are ready when they are ready.
+<a name="l-127"></a><span class="tm">13:25:56</span><span class="nk"> &lt;AdamKingIT&gt;</span> *segue
+<a name="l-128"></a><span class="tm">13:26:02</span><span class="nk"> &lt;royce&gt;</span> thanks, aglitke
+<a name="l-129"></a><span class="tm">13:26:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> yes...
+<a name="l-130"></a><span class="tm">13:26:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">ISO Streaming</span>
+<a name="l-131"></a><span class="tm">13:26:48</span><span class="nk"> &lt;aglitke&gt;</span> We promised a strong start to open development for 1.1
+<a name="l-132"></a><span class="tm">13:27:02</span><span class="nk"> &lt;aglitke&gt;</span> I want to see ISO streaming merged early (next week if possible)
+<a name="l-133"></a><span class="tm">13:27:10</span><span class="nk"> &lt;aglitke&gt;</span> I would love to demo it in Edinburgh
+<a name="l-134"></a><span class="tm">13:27:36</span><span class="nk"> &lt;royce&gt;</span> do you have a meeting there:D
+<a name="l-135"></a><span class="tm">13:27:43</span><span class="nk"> &lt;aglitke&gt;</span> Yes, KVM Forum
+<a name="l-136"></a><span class="tm">13:27:44</span><span class="nk"> &lt;ming&gt;</span> aglitke, but we should have a repository for the latest libvirt update to test the ISO streaming?
+<a name="l-137"></a><span class="tm">13:28:05</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think out early items for next release would be the template/storage pool feature, ISO streaming, networking
+<a name="l-138"></a><span class="tm">13:28:13</span><span class="nk"> &lt;ming&gt;</span> I think we should maintain several repos for the updating packages.
+<a name="l-139"></a><span class="tm">13:28:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> We are going to add the workaround support so you can test with and without the latest libvirt.
+<a name="l-140"></a><span class="tm">13:28:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> refactor exception?
+<a name="l-141"></a><span class="tm">13:28:43</span><span class="nk"> &lt;aglitke&gt;</span> What I want to do for iso streaming is enumerate the patch series that are needed.
+<a name="l-142"></a><span class="tm">13:28:54</span><span class="nk"> &lt;aglitke&gt;</span> guys, let's talk about the other items next...
+<a name="l-143"></a><span class="tm">13:28:59</span><span class="nk"> &lt;ming&gt;</span> AdamKingIt, host debug information paused for while.
+<a name="l-144"></a><span class="tm">13:29:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">AdamKingIT:</span> https://github.com/kimchi-project/kimchi/wiki/refactor-exception-%5Brelease-1.1%5D
+<a name="l-145"></a><span class="tm">13:29:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> On refactoring, I think we want to look at a number of items...
+<a name="l-146"></a><span class="tm">13:29:30</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I've already resumed the work on that
+<a name="l-147"></a><span class="tm">13:29:58</span><span class="nk"> &lt;aglitke&gt;</span> so, streaming patches.
+<a name="l-148"></a><span class="tm">13:30:06</span><span class="nk"> &lt;aglitke&gt;</span> 1) libvirt workaround : aline
+<a name="l-149"></a><span class="tm">13:30:12</span><span class="nk"> &lt;royce&gt;</span> aglitke, for iso streaming, I want this patch merge for it:issue #166: Destroy storage when vm define fails
+<a name="l-150"></a><span class="tm">13:30:19</span><span class="nk"> &lt;aglitke&gt;</span> 2) Distros enumeration: shaohef
+<a name="l-151"></a><span class="tm">13:30:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> ok.  We can probably merge that this week
+<a name="l-152"></a><span class="tm">13:30:53</span><span class="nk"> &lt;aglitke&gt;</span> 3) Backend support for streaming? alinefm?
+<a name="l-153"></a><span class="tm">13:30:59</span><span class="nk"> &lt;aglitke&gt;</span> what is needed for 3?
+<a name="l-154"></a><span class="tm">13:31:19</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, with libvirt support the backend is already done
+<a name="l-155"></a><span class="tm">13:31:20</span><span class="nk"> &lt;aglitke&gt;</span> 4) UI enablement: zhoumeina?
+<a name="l-156"></a><span class="tm">13:31:25</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-157"></a><span class="tm">13:31:29</span><span class="nk"> &lt;alinefm&gt;</span> just need to added support for libvirt workaround
+<a name="l-158"></a><span class="tm">13:31:34</span><span class="nk"> &lt;ming&gt;</span> 3, qemu support?
+<a name="l-159"></a><span class="tm">13:31:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> it already supports it
+<a name="l-160"></a><span class="tm">13:31:50</span><span class="nk"> &lt;royce&gt;</span> alinefm, are bugs reported previously fixed?
+<a name="l-161"></a><span class="tm">13:31:52</span><span class="nk"> &lt;alinefm&gt;</span> oh and the patch [PATCH 0/3 V3] isoinfo: Probe information from remote ISO file
+<a name="l-162"></a><span class="tm">13:32:07</span><span class="nk"> &lt;ming&gt;</span> aglitke, but it is in the upstream.
+<a name="l-163"></a><span class="tm">13:32:08</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-164"></a><span class="tm">13:32:23</span><span class="nk"> &lt;alinefm&gt;</span> royce, I am resuming the iso streaming work now
+<a name="l-165"></a><span class="tm">13:32:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> It has supported it for ages.
+<a name="l-166"></a><span class="tm">13:32:29</span><span class="nk"> &lt;alinefm&gt;</span> I will investigate them
+<a name="l-167"></a><span class="tm">13:32:49</span><span class="nk"> &lt;alinefm&gt;</span> and with the libvirt workaround the problems may come out
+<a name="l-168"></a><span class="tm">13:32:51</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> How about RHEL 6.4?
+<a name="l-169"></a><span class="tm">13:32:57</span><span class="nk"> &lt;aglitke&gt;</span> So if folks could work on getting these patches ready to go for early next week we can have a strong start to our development for 1.1
+<a name="l-170"></a><span class="tm">13:33:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> not sure... You can check.
+<a name="l-171"></a><span class="tm">13:33:16</span><span class="nk"> &lt;royce&gt;</span> I think I ran into different problems when testing on different distros, I'll help you look into them too
+<a name="l-172"></a><span class="tm">13:33:26</span><span class="nk"> &lt;aglitke&gt;</span> ok, gream
+<a name="l-173"></a><span class="tm">13:33:26</span><span class="nk"> &lt;royce&gt;</span> alinefm^
+<a name="l-174"></a><span class="tm">13:33:28</span><span class="nk"> &lt;aglitke&gt;</span> great
+<a name="l-175"></a><span class="tm">13:33:52</span><span class="nk"> &lt;AdamKingIT&gt;</span> Do we want to cut another release with some of these feature, then tackle some of our structural ideas? YuXin has some thoughts on making more use of jQueryUI, and I have some on using some design patterns in the backend
+<a name="l-176"></a><span class="tm">13:34:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> how close is the UI for streaming?
+<a name="l-177"></a><span class="tm">13:34:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-178"></a><span class="tm">13:34:25</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> We can do all of that concurrently
+<a name="l-179"></a><span class="tm">13:34:34</span><span class="nk"> &lt;aglitke&gt;</span> I agree with all of it.
+<a name="l-180"></a><span class="tm">13:34:44</span><span class="nk"> &lt;aglitke&gt;</span> 1.1 does have a lot of feature development too
+<a name="l-181"></a><span class="tm">13:34:45</span><span class="nk"> &lt;ming&gt;</span> About storage managenment.
+<a name="l-182"></a><span class="tm">13:34:50</span><span class="nk"> &lt;aglitke&gt;</span> It's going to be busy.
+<a name="l-183"></a><span class="tm">13:35:05</span><span class="nk"> &lt;ming&gt;</span> I think we may provide basic snapshots functions for Kimchi in 1.1
+<a name="l-184"></a><span class="tm">13:35:07</span><span class="nk"> &lt;aglitke&gt;</span> I am going to get the list together of things we are committing to work on.
+<a name="l-185"></a><span class="tm">13:35:17</span><span class="nk"> &lt;aglitke&gt;</span> We've already done quite a bit of work in this area.
+<a name="l-186"></a><span class="tm">13:35:32</span><span class="nk"> &lt;aglitke&gt;</span> I'll put up an initial planning page for 1.1 in the next day or two
+<a name="l-187"></a><span class="tm">13:36:13</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> I'm sorry, I think the xinding is working at the streaming.
+<a name="l-188"></a><span class="tm">13:36:21</span><span class="nk"> &lt;shaohef&gt;</span> mi
+<a name="l-189"></a><span class="tm">13:36:23</span><span class="nk"> &lt;aglitke&gt;</span> ahh, right... My mistake
+<a name="l-190"></a><span class="tm">13:36:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> https://github.com/kimchi-project/kimchi/wiki/snapshot
+<a name="l-191"></a><span class="tm">13:36:54</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  https://github.com/kimchi-project/kimchi/wiki/snapshot
+<a name="l-192"></a><span class="tm">13:37:11</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">shaohef:</span> thanks.
+<a name="l-193"></a><span class="tm">13:37:45</span><span class="nk"> &lt;aglitke&gt;</span> snapshots are complex
+<a name="l-194"></a><span class="tm">13:38:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> I will pull the info out of the spreadsheet I've been working with Frank on.
+<a name="l-195"></a><span class="tm">13:38:30</span><span class="nk"> &lt;aglitke&gt;</span> That has a pretty nice list of 1.1 features.
+<a name="l-196"></a><span class="tm">13:38:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> We have quite a bit on the wiki
+<a name="l-197"></a><span class="tm">13:38:35</span><span class="nk"> &lt;AdamKingIT&gt;</span> as well
+<a name="l-198"></a><span class="tm">13:38:44</span><span class="nk"> &lt;aglitke&gt;</span> yep... Lots of work to do
+<a name="l-199"></a><span class="tm">13:38:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> a new developer maybe join Kimchi.
+<a name="l-200"></a><span class="tm">13:39:07</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> zhengsheng. :)
+<a name="l-201"></a><span class="tm">13:39:12</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">shaohef:</span> when?
+<a name="l-202"></a><span class="tm">13:39:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> he can help on some important feature
+<a name="l-203"></a><span class="tm">13:39:43</span><span class="nk"> &lt;aglitke&gt;</span> Yes, that will be great!  Also markwu will be helping on Networking configuration
+<a name="l-204"></a><span class="tm">13:40:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> Yes.  I have send out a Network patch on backend. and help yuxing on his UI patch.
+<a name="l-205"></a><span class="tm">13:40:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> but no one review it.
+<a name="l-206"></a><span class="tm">13:40:46</span><span class="nk"> &lt;aglitke&gt;</span> ok, great
+<a name="l-207"></a><span class="tm">13:40:50</span><span class="nk"> &lt;aglitke&gt;</span> not great
+<a name="l-208"></a><span class="tm">13:41:11</span><span class="nk"> &lt;aglitke&gt;</span> I haven't seen as broad of review activity as I would like.
+<a name="l-209"></a><span class="tm">13:41:20</span><span class="nk"> &lt;aglitke&gt;</span> especially on the more complex patch sets.
+<a name="l-210"></a><span class="tm">13:41:23</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">shaohef:</span> I think you can resend it after 1.0 release, I can help to review
+<a name="l-211"></a><span class="tm">13:41:34</span><span class="nk"> &lt;aglitke&gt;</span> yes, exactly
+<a name="l-212"></a><span class="tm">13:41:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zhoumeina:</span> yes.
+<a name="l-213"></a><span class="tm">13:41:47</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zhoumeina:</span> thank you.
+<a name="l-214"></a><span class="tm">13:41:58</span><span class="nk"> &lt;aglitke&gt;</span> ok... I think we have covered 1.1 planning well enough for today...
+<a name="l-215"></a><span class="tm">13:42:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-216"></a><span class="tm">13:42:13</span><span class="nk"> &lt;zhoumeina&gt;</span> exception
+<a name="l-217"></a><span class="tm">13:42:37</span><span class="nk"> &lt;royce&gt;</span> I'll review it iff we are going to accept Network patches
+<a name="l-218"></a><span class="tm">13:42:38</span><span class="nk"> &lt;aglitke&gt;</span> Yes.  This will allow us to present localized detailed error reasons to the end user.
+<a name="l-219"></a><span class="tm">13:43:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes, it is important to USER.
+<a name="l-220"></a><span class="tm">13:43:20</span><span class="nk"> &lt;aglitke&gt;</span> Are there questions about design or implementation?
+<a name="l-221"></a><span class="tm">13:43:33</span><span class="nk"> &lt;zhoumeina&gt;</span> first, we need to define which kind of error should let user know, not all the backend error should be shown to users
+<a name="l-222"></a><span class="tm">13:43:34</span><span class="nk"> &lt;aglitke&gt;</span> I spent some time with shaohef to explain my thinking on it.
+<a name="l-223"></a><span class="tm">13:43:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> https://github.com/kimchi-project/kimchi/wiki/refactor-exception-%5Brelease-1.1%5D
+<a name="l-224"></a><span class="tm">13:43:54</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I file a wiki about it
+<a name="l-225"></a><span class="tm">13:44:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> include most of our discussion
+<a name="l-226"></a><span class="tm">13:44:52</span><span class="nk"> &lt;zhoumeina&gt;</span> two kind of error: error caused by user operation. another is for code error.
+<a name="l-227"></a><span class="tm">13:45:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Great wiki page!
+<a name="l-228"></a><span class="tm">13:46:22</span><span class="nk"> &lt;aglitke&gt;</span> For unexpected code errors, we will have a default key that will be 'An unexpected error has occurred'
+<a name="l-229"></a><span class="tm">13:47:06</span><span class="nk"> &lt;aglitke&gt;</span> So basically, if a KimchiError is raised and the reason key is not set, we will use the above default.
+<a name="l-230"></a><span class="tm">13:47:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> but zhoumeina does not like this proposal.
+<a name="l-231"></a><span class="tm">13:47:11</span><span class="nk"> &lt;zhoumeina&gt;</span> we use this method implement the exception just like the wiki, but we found that we have to put the map of key and message both in UI and exception .py
+<a name="l-232"></a><span class="tm">13:47:39</span><span class="nk"> &lt;aglitke&gt;</span> That can be solved with a build step.
+<a name="l-233"></a><span class="tm">13:48:10</span><span class="nk"> &lt;aglitke&gt;</span> the keys have to be defined in the backend because the backend needs to know the set of available keys
+<a name="l-234"></a><span class="tm">13:48:16</span><span class="nk"> &lt;zhoumeina&gt;</span> we dont we do the translation at the backend ,aglitke?
+<a name="l-235"></a><span class="tm">13:48:20</span><span class="nk"> &lt;aglitke&gt;</span> but the UI needs to translate them
+<a name="l-236"></a><span class="tm">13:48:43</span><span class="nk"> &lt;aglitke&gt;</span> because how can the backend know the desired language?  We are not bleeding the session info into the rest api
+<a name="l-237"></a><span class="tm">13:49:03</span><span class="nk"> &lt;aglitke&gt;</span> The rest api is always english plus a translation key
+<a name="l-238"></a><span class="tm">13:49:42</span><span class="nk"> &lt;aglitke&gt;</span> so we can add a build step to the code that takes keys from exception.py and writes a javascript file in the UI
+<a name="l-239"></a><span class="tm">13:50:44</span><span class="nk"> &lt;aglitke&gt;</span> It's a little bit complex for my taste, but I don't see a way around it.
+<a name="l-240"></a><span class="tm">13:51:38</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">aglitke:</span> The key---&gt; UI translate it to messages---&gt;translate it to localized message?
+<a name="l-241"></a><span class="tm">13:51:41</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> do you means a extra script to copy the keys to i18n.html.tmpl?
+<a name="l-242"></a><span class="tm">13:51:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> if the full message catalog is preloaded in the UI, we can be sure we have something to show the user
+<a name="l-243"></a><span class="tm">13:52:23</span><span class="nk"> &lt;zhoumeina&gt;</span> sorry, do I miss something?
+<a name="l-244"></a><span class="tm">13:52:40</span><span class="nk"> &lt;zhoumeina&gt;</span> poor network
+<a name="l-245"></a><span class="tm">13:52:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Yes
+<a name="l-246"></a><span class="tm">13:53:14</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> got it.
+<a name="l-247"></a><span class="tm">13:53:15</span><span class="nk"> &lt;aglitke&gt;</span> So the i18n.html.tmpl will be partially auto-generated.
+<a name="l-248"></a><span class="tm">13:53:34</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  I will add it to the wiki.
+<a name="l-249"></a><span class="tm">13:53:36</span><span class="nk"> &lt;aglitke&gt;</span> maybe we need 2 js files and the ui will combine the two lists at runtime
+<a name="l-250"></a><span class="tm">13:53:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> what would be in  the 2 files?
+<a name="l-251"></a><span class="tm">13:53:53</span><span class="nk"> &lt;ming&gt;</span> quite complex.
+<a name="l-252"></a><span class="tm">13:53:53</span><span class="nk"> &lt;aglitke&gt;</span> i18n.html.tmpl is manually created translation strings
+<a name="l-253"></a><span class="tm">13:54:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes. it is  bothersome to write the i18n.html.tmpl manually
+<a name="l-254"></a><span class="tm">13:54:27</span><span class="nk"> &lt;aglitke&gt;</span> errors.html.tmpl is dynamically generated from backend exception.py
+<a name="l-255"></a><span class="tm">13:54:43</span><span class="nk"> &lt;aglitke&gt;</span> then some utility function in the js
+<a name="l-256"></a><span class="tm">13:54:56</span><span class="nk"> &lt;aglitke&gt;</span> function i18ntable() {
+<a name="l-257"></a><span class="tm">13:55:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> put it in errors.html.tmpl instead of i18n.html.tmpl
+<a name="l-258"></a><span class="tm">13:55:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> when it comes to JS files, more is usually worse for performance. If we are generating the JS on the server, we can roll in into .min.js at build time
+<a name="l-259"></a><span class="tm">13:55:22</span><span class="nk"> &lt;aglitke&gt;</span> return i18n.html + errors.html;
+<a name="l-260"></a><span class="tm">13:55:23</span><span class="nk"> &lt;aglitke&gt;</span> }
+<a name="l-261"></a><span class="tm">13:55:31</span><span class="nk"> &lt;aglitke&gt;</span> obviously it's bad psuedocode,.
+<a name="l-262"></a><span class="tm">13:55:36</span><span class="nk"> &lt;AdamKingIT&gt;</span> err, no need to combine the messages
+<a name="l-263"></a><span class="tm">13:55:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Yes
+<a name="l-264"></a><span class="tm">13:55:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> but not roll it in w./ the functional js
+<a name="l-265"></a><span class="tm">13:56:03</span><span class="nk"> &lt;aglitke&gt;</span> it can all be rolled in at build timne
+<a name="l-266"></a><span class="tm">13:56:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> what is psuedocode?
+<a name="l-267"></a><span class="tm">13:56:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> It's code written in plain english
+<a name="l-268"></a><span class="tm">13:56:54</span><span class="nk"> &lt;aglitke&gt;</span> almost code
+<a name="l-269"></a><span class="tm">13:57:00</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">shaohef:</span> you said that backend can do the translation. any method about this?
+<a name="l-270"></a><span class="tm">13:57:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zhoumeina:</span> yes.  backend can do the translation.
+<a name="l-271"></a><span class="tm">13:57:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> maybe you should explain why we not let  backend  do the translation to zhoumeina
+<a name="l-272"></a><span class="tm">13:58:59</span><span class="nk"> &lt;zhoumeina&gt;</span> yes, I want to know that, since the backend can get the language from session, why we don't want to do the translation at the back end?
+<a name="l-273"></a><span class="tm">13:59:00</span><span class="nk"> &lt;aglitke&gt;</span> We are trying to decouple the REST API from user session data
+<a name="l-274"></a><span class="tm">13:59:16</span><span class="nk"> &lt;aglitke&gt;</span> REST APIs are supposed to be session-less by definition.
+<a name="l-275"></a><span class="tm">13:59:22</span><span class="nk"> &lt;aglitke&gt;</span> Each request is independent
+<a name="l-276"></a><span class="tm">13:59:28</span><span class="nk"> &lt;aglitke&gt;</span> and stateless
+<a name="l-277"></a><span class="tm">14:00:06</span><span class="nk"> &lt;aglitke&gt;</span> the REST API is a machine interface. not a human one.
+<a name="l-278"></a><span class="tm">14:00:18</span><span class="nk"> &lt;aglitke&gt;</span> So translation in an API does not make sense.
+<a name="l-279"></a><span class="tm">14:00:44</span><span class="nk"> &lt;aglitke&gt;</span> Translation is the responsibility of the presentation layer (the UI)
+<a name="l-280"></a><span class="tm">14:00:51</span><span class="nk"> &lt;zhoumeina&gt;</span> but if anyone who want to use the rest api, but only can get the key and value, how can he know what happens
+<a name="l-281"></a><span class="tm">14:01:17</span><span class="nk"> &lt;AdamKingIT&gt;</span> We may want the API keys to be numerical, like HTTP response codes
+<a name="l-282"></a><span class="tm">14:01:20</span><span class="nk"> &lt;aglitke&gt;</span> The API will return the key and the expanded message in English
+<a name="l-283"></a><span class="tm">14:01:36</span><span class="nk"> &lt;AdamKingIT&gt;</span> UI can use the #s to choose a msg to display
+<a name="l-284"></a><span class="tm">14:01:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Numerical reason codes are terrible to understand in the code.
+<a name="l-285"></a><span class="tm">14:01:56</span><span class="nk"> &lt;aglitke&gt;</span> so I am suggesting a short string word
+<a name="l-286"></a><span class="tm">14:02:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> constant definitions are awesome for that
+<a name="l-287"></a><span class="tm">14:02:08</span><span class="nk"> &lt;ramonn_&gt;</span> AdamKingIT, alinefm is out because her connection has some trouble
+<a name="l-288"></a><span class="tm">14:02:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> you propose the API return both the code AND an English string?
+<a name="l-289"></a><span class="tm">14:02:32</span><span class="nk"> &lt;zhoumeina&gt;</span> let me think about it.
+<a name="l-290"></a><span class="tm">14:03:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Yes.
+<a name="l-291"></a><span class="tm">14:03:23</span><span class="nk"> &lt;aglitke&gt;</span> it makes it the most useful
+<a name="l-292"></a><span class="tm">14:03:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> hmm, we generally don't like to show preference for a particular language
+<a name="l-293"></a><span class="tm">14:03:53</span><span class="nk"> &lt;aglitke&gt;</span> The keys in the api are already in english
+<a name="l-294"></a><span class="tm">14:04:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">'name':</span> 'template-1'
+<a name="l-295"></a><span class="tm">14:04:04</span><span class="nk"> &lt;aglitke&gt;</span> etc
+<a name="l-296"></a><span class="tm">14:04:10</span><span class="nk"> &lt;zhoumeina&gt;</span> seems there are no better method than what we do now
+<a name="l-297"></a><span class="tm">14:04:10</span><span class="nk"> &lt;aglitke&gt;</span> The uris are english words
+<a name="l-298"></a><span class="tm">14:04:33</span><span class="nk"> &lt;aglitke&gt;</span> the code is written in english.  Python uses english keywords
+<a name="l-299"></a><span class="tm">14:05:01</span><span class="nk"> &lt;zhoumeina&gt;</span> but I still think it would be not a better code.
+<a name="l-300"></a><span class="tm">14:05:51</span><span class="nk"> &lt;aglitke&gt;</span> I am going to end here but will stick around to continue discussing this.
+<a name="l-301"></a><span class="tm">14:05:53</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

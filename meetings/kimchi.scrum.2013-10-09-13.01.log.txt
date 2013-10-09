@@ -1,0 +1,301 @@
+13:01:47 <aglitke> #startmeeting
+13:01:47 <kimchi-bot> Meeting started Wed Oct  9 13:01:47 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:47 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:53 <aglitke> #meetingname scrum
+13:01:53 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:32 <aglitke> #info Agenda: 1) Testing and release status 2) Set storage pool for a template 3) ISO Streaming
+13:02:36 <aglitke> anything else?
+13:03:02 <AdamKingIT> 4) welcome back to all
+13:03:03 <ming> Looks good to me.
+13:03:23 <ming> Look forward to next release.
+13:03:32 <royce> Good for me, seems, maybe zhoumeina and shaohe want to discuss exception
+13:03:36 <aglitke> AdamKingIT: Yes, I was going to start with that.  Hopefully everyone had an enjoyable holiday
+13:04:10 <aglitke> #info 4) 1.1 Planning 5) Open Discussion
+13:04:18 <aglitke> lots to cover so let's get started.
+13:04:29 <aglitke> #topic Testing and release status
+13:04:37 <aglitke> #link https://github.com/kimchi-project/kimchi/issues?labels=bug&milestone=1&page=1&state=open
+13:04:51 <aglitke> #link https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+13:05:00 <aglitke> We have three release bugs
+13:05:27 <aglitke> All have patches and discussions floating on the list now
+13:05:34 <ming> https://github.com/kimchi-project/kimchi/issues?labels=bug&milestone=none&page=1&state=open
+13:05:41 <ming> How about those floating ones?
+13:05:54 <aglitke> They won'
+13:06:03 <aglitke> They won't be fixed for this release probably.
+13:06:20 <aglitke> For "UI: Some template information are not displayed in pt_BR when creating a VM"
+13:06:30 <ming> Maybe we should mark those as mile stone 1.1.
+13:06:30 <aglitke> I think we need some UI expertise on this one.
+13:06:52 <aglitke> ming: maybe... I periodically review and tag them
+13:07:07 <aglitke> zhoumeina / hlwanghl: Do you have any advice?
+13:07:29 <aglitke> the current size of the box cannot contain the pt_BR text
+13:07:45 <hlwanghl> I'll take a look at it tomorrow
+13:07:46 <aglitke> But expanding the size of the normal box makes it seem too big
+13:08:05 <hlwanghl> I was working on some patches today
+13:08:10 <aglitke> I was thinking we could expand the box on mouse over and click or something
+13:08:23 <aglitke> we have to make sure it works for tablets
+13:08:32 <ming> Is the box size fixed now?
+13:08:35 <aglitke> yes
+13:08:57 <alinefm> aglitke, I faced other problem in that template box
+13:09:03 <hlwanghl> It's fixed so large text breaks it
+13:09:30 <aglitke> yeah.  It's a major drawback with fixed size UIs
+13:09:30 <AdamKingIT> We want the user to be able to read the 'expected text' in their native lang w/out having to take an explicit action... like mouse over
+13:09:47 <alinefm> when the template name is longer than the box width it will be broken in 2 lines BUT the box height is not enough to display the second line
+13:10:01 <aglitke> ahh... Yeah, it
+13:10:08 <AdamKingIT> if the problem w/ the name, or the translatable text?
+13:10:13 <alinefm> so the second line is not displayed in all height
+13:10:16 <ming> I think the box should be extensible based on the text length.
+13:10:20 <alinefm> the text appears in the middle
+13:10:20 <aglitke> it's disappointing that I cannot ever see the whole template name
+13:10:49 <alinefm> yes and the second appears in part
+13:10:55 <alinefm> *second line
+13:11:15 <aglitke> ok... So hlwanghl, anything you can do to help would be great.
+13:11:22 <hlwanghl> AdamKingIT , maybe we can make it larger or just replace it with list view
+13:11:30 <aglitke> I have assigned it to you hlwanghl
+13:11:40 <hlwanghl> Ok
+13:11:47 <shaohef> hi all
+13:11:54 <hlwanghl> Hi
+13:11:58 <AdamKingIT> hlwwanghl: I can chat w. you after.
+13:12:03 <hlwanghl> Ok
+13:12:27 <aglitke> The rest of the issues don't require much discussion here.
+13:12:49 <aglitke> Has anyone encountered issues that they feel should block the 1.0 release?
+13:13:10 <aglitke> We need to resolve the translation issues.
+13:13:24 <aglitke> I am going to apply the zh_CN patch after the meeting.
+13:13:32 <zhoumeina> ok,
+13:13:41 <aglitke> then alinefm, you can base your patch on upstream?
+13:13:48 <zhoumeina> I found an issue with login window
+13:14:05 <zhoumeina> I think it should be fixed before 1.0 release
+13:14:08 <aglitke> zhoumeina: I saw your patch
+13:14:26 <aglitke> I will review after the meeting.
+13:14:41 <hlwanghl> I think she meant other issue
+13:14:43 <aglitke> if you want it to block the release, please create an issue for it and let me know the #
+13:14:49 <aglitke> oh...
+13:14:52 <aglitke> what is that?
+13:15:00 <ming> Did you guys have chance to test on leagacy OS lick FC17, RHEL6.2, Ubuntu 12.03
+13:15:07 <ming> ?
+13:15:12 <aglitke> ming: I have not.
+13:15:18 <shaohef> no
+13:15:19 <alinefm> aglitke, yes
+13:15:21 <aglitke> Only the 4 identified in the matrix
+13:15:32 <shaohef> should we support FC17？
+13:15:34 <hlwanghl> Zhoumeina, is it login window height or Seth. Else?
+13:15:39 <zhoumeina> the language selector will not chose the right language when init.
+13:15:59 <ming> aglitke, 4 indentified in the matrix?
+13:16:11 <aglitke> ming: https://github.com/kimchi-project/kimchi/wiki/Testing-1.0
+13:16:29 <alinefm> aglitke, did you see the zhoumeina comment about the string in the po file?
+13:16:53 <alinefm> will we keep it as it is and change after the release?
+13:16:57 <aglitke> Yes I saw it.  It's just a message key right?
+13:17:15 <alinefm> yes
+13:17:22 <aglitke> yeah.  Just add the proper translation for the key and don't worry about replacing it with the english phrase now.
+13:17:30 <zhoumeina> that is a common issue about how to deal the long message
+13:17:49 <shaohef> aglitke: I have give some proposal about this issue
+13:17:57 <aglitke> I think for now a key is ok for really long messages.
+13:17:57 <shaohef> aglitke: do you agree?
+13:18:12 <aglitke> using python AST is too comples.
+13:18:14 <aglitke> complex/
+13:18:31 <aglitke> I'd rather us focus on adding features that users will see and love./
+13:18:45 <alinefm> ok
+13:18:49 <ming> For, https://github.com/kimchi-project/kimchi/wiki/Testing-1.0, start VM was not tested on RHEL6.4 , ubuntu13.04. And Was it intentional?
+13:19:24 <aglitke> ming: I am continuing to rerun tests as part of release prep.  A blank means I still need to retest that
+13:19:27 <shaohef> aglitke:  yes. how about use xgettext  instead of python AST
+13:19:54 <aglitke> shaohef: because it cannot recognize the native python syntax
+13:19:58 <ming> aglitke: Thanks.
+13:20:37 <aglitke> ok... let's continue
+13:20:40 <aglitke> #topic Set storage pool for a template
+13:20:57 <aglitke> This is a feature that missed the freeze date
+13:21:33 <aglitke> Since we are getting very close to release I want to withhold it until right after release./
+13:21:46 <shaohef> aglitke: I have try to use cheetach-compile to generate html.tmpl to python code. and then let xgettext  scan this python code.
+13:21:47 <royce> Did you have chance to see my rebase, aglitke?
+13:21:53 <shaohef> aglitke: it is OK
+13:22:01 <aglitke> royce: I saw it, but haven't reviewed it yet.
+13:22:14 <royce> Today xinding helped to test it
+13:22:14 <aglitke> Merging it would be a pretty stark violation of feature freeze.
+13:22:26 <AdamKingIT> It would be a big + if we think its stable enough
+13:22:52 <aglitke> Honestly I think the only people that will be upset are the PMs.
+13:23:13 <aglitke> But the community won't care if it goes out the day after 1.0
+13:23:30 <royce> :)
+13:23:56 <royce> Sorry for not catching up with this one...
+13:24:29 <AdamKingIT> 1000 lashes w/ a wet noodle? (hope that translates ok)
+13:24:30 <aglitke> I agree it's an important feature, but life will continue if it goes on next Monday after I cut.
+13:24:35 <ming> Is this one [project-kimchi][PATCHv3 0/8] Template storage customization?
+13:24:47 <ming> Royce?
+13:24:47 <aglitke> ming: Yes, plus one UI patch
+13:24:47 <royce> Just because I had two more days vacation:(, right, ming
+13:25:08 <AdamKingIT> I wouldn't frown about vacation...
+13:25:13 <aglitke> It just hasn't received review beyond AdamKingIT and I
+13:25:26 <aglitke> royce: Don't worry too much about it.
+13:25:35 <AdamKingIT> Maybe this is the segui to what & when is the next release...
+13:25:53 <aglitke> This isn't a proprietary product release.  It's Open Source.  Things are ready when they are ready.
+13:25:56 <AdamKingIT> *segue
+13:26:02 <royce> thanks, aglitke
+13:26:25 <aglitke> AdamKingIT: yes...
+13:26:33 <aglitke> #topic ISO Streaming
+13:26:48 <aglitke> We promised a strong start to open development for 1.1
+13:27:02 <aglitke> I want to see ISO streaming merged early (next week if possible)
+13:27:10 <aglitke> I would love to demo it in Edinburgh
+13:27:36 <royce> do you have a meeting there:D
+13:27:43 <aglitke> Yes, KVM Forum
+13:27:44 <ming> aglitke, but we should have a repository for the latest libvirt update to test the ISO streaming?
+13:28:05 <AdamKingIT> I think out early items for next release would be the template/storage pool feature, ISO streaming, networking
+13:28:13 <ming> I think we should maintain several repos for the updating packages.
+13:28:28 <aglitke> ming: We are going to add the workaround support so you can test with and without the latest libvirt.
+13:28:38 <shaohef> AdamKingIT: refactor exception?
+13:28:43 <aglitke> What I want to do for iso streaming is enumerate the patch series that are needed.
+13:28:54 <aglitke> guys, let's talk about the other items next...
+13:28:59 <ming> AdamKingIt, host debug information paused for while.
+13:29:08 <shaohef> AdamKingIT: https://github.com/kimchi-project/kimchi/wiki/refactor-exception-%5Brelease-1.1%5D
+13:29:24 <AdamKingIT> On refactoring, I think we want to look at a number of items...
+13:29:30 <alinefm> aglitke, I've already resumed the work on that
+13:29:58 <aglitke> so, streaming patches.
+13:30:06 <aglitke> 1) libvirt workaround : aline
+13:30:12 <royce> aglitke, for iso streaming, I want this patch merge for it:issue #166: Destroy storage when vm define fails
+13:30:19 <aglitke> 2) Distros enumeration: shaohef
+13:30:38 <aglitke> royce: ok.  We can probably merge that this week
+13:30:53 <aglitke> 3) Backend support for streaming? alinefm?
+13:30:59 <aglitke> what is needed for 3?
+13:31:19 <alinefm> aglitke, with libvirt support the backend is already done
+13:31:20 <aglitke> 4) UI enablement: zhoumeina?
+13:31:25 <aglitke> ok
+13:31:29 <alinefm> just need to added support for libvirt workaround
+13:31:34 <ming> 3, qemu support?
+13:31:43 <aglitke> ming: it already supports it
+13:31:50 <royce> alinefm, are bugs reported previously fixed?
+13:31:52 <alinefm> oh and the patch [PATCH 0/3 V3] isoinfo: Probe information from remote ISO file
+13:32:07 <ming> aglitke, but it is in the upstream.
+13:32:08 <aglitke> alinefm: ok
+13:32:23 <alinefm> royce, I am resuming the iso streaming work now
+13:32:23 <aglitke> ming: It has supported it for ages.
+13:32:29 <alinefm> I will investigate them
+13:32:49 <alinefm> and with the libvirt workaround the problems may come out
+13:32:51 <ming> aglitke: How about RHEL 6.4?
+13:32:57 <aglitke> So if folks could work on getting these patches ready to go for early next week we can have a strong start to our development for 1.1
+13:33:11 <aglitke> ming: not sure... You can check.
+13:33:16 <royce> I think I ran into different problems when testing on different distros, I'll help you look into them too
+13:33:26 <aglitke> ok, gream
+13:33:26 <royce> alinefm^
+13:33:28 <aglitke> great
+13:33:52 <AdamKingIT> Do we want to cut another release with some of these feature, then tackle some of our structural ideas? YuXin has some thoughts on making more use of jQueryUI, and I have some on using some design patterns in the backend
+13:34:05 <aglitke> zhoumeina: how close is the UI for streaming?
+13:34:09 <alinefm> royce, thanks
+13:34:25 <aglitke> AdamKingIT: We can do all of that concurrently
+13:34:34 <aglitke> I agree with all of it.
+13:34:44 <aglitke> 1.1 does have a lot of feature development too
+13:34:45 <ming> About storage managenment.
+13:34:50 <aglitke> It's going to be busy.
+13:35:05 <ming> I think we may provide basic snapshots functions for Kimchi in 1.1
+13:35:07 <aglitke> I am going to get the list together of things we are committing to work on.
+13:35:17 <aglitke> We've already done quite a bit of work in this area.
+13:35:32 <aglitke> I'll put up an initial planning page for 1.1 in the next day or two
+13:36:13 <zhoumeina> aglitke: I'm sorry, I think the xinding is working at the streaming.
+13:36:21 <shaohef> mi
+13:36:23 <aglitke> ahh, right... My mistake
+13:36:23 <shaohef> ming: https://github.com/kimchi-project/kimchi/wiki/snapshot
+13:36:54 <shaohef> aglitke:  https://github.com/kimchi-project/kimchi/wiki/snapshot
+13:37:11 <ming> shaohef: thanks.
+13:37:45 <aglitke> snapshots are complex
+13:38:15 <aglitke> AdamKingIT: I will pull the info out of the spreadsheet I've been working with Frank on.
+13:38:30 <aglitke> That has a pretty nice list of 1.1 features.
+13:38:33 <AdamKingIT> We have quite a bit on the wiki
+13:38:35 <AdamKingIT> as well
+13:38:44 <aglitke> yep... Lots of work to do
+13:38:59 <shaohef> aglitke: a new developer maybe join Kimchi.
+13:39:07 <shaohef> aglitke: zhengsheng. :)
+13:39:12 <zhoumeina> shaohef: when?
+13:39:33 <shaohef> aglitke: he can help on some important feature
+13:39:43 <aglitke> Yes, that will be great!  Also markwu will be helping on Networking configuration
+13:40:33 <shaohef> aglitke: Yes.  I have send out a Network patch on backend. and help yuxing on his UI patch.
+13:40:44 <shaohef> aglitke: but no one review it.
+13:40:46 <aglitke> ok, great
+13:40:50 <aglitke> not great
+13:41:11 <aglitke> I haven't seen as broad of review activity as I would like.
+13:41:20 <aglitke> especially on the more complex patch sets.
+13:41:23 <zhoumeina> shaohef: I think you can resend it after 1.0 release, I can help to review
+13:41:34 <aglitke> yes, exactly
+13:41:38 <shaohef> zhoumeina: yes.
+13:41:47 <shaohef> zhoumeina: thank you.
+13:41:58 <aglitke> ok... I think we have covered 1.1 planning well enough for today...
+13:42:07 <aglitke> #topic Open Discussion
+13:42:13 <zhoumeina> exception
+13:42:37 <royce> I'll review it iff we are going to accept Network patches
+13:42:38 <aglitke> Yes.  This will allow us to present localized detailed error reasons to the end user.
+13:43:09 <shaohef> aglitke: yes, it is important to USER.
+13:43:20 <aglitke> Are there questions about design or implementation?
+13:43:33 <zhoumeina> first, we need to define which kind of error should let user know, not all the backend error should be shown to users
+13:43:34 <aglitke> I spent some time with shaohef to explain my thinking on it.
+13:43:45 <shaohef> aglitke: https://github.com/kimchi-project/kimchi/wiki/refactor-exception-%5Brelease-1.1%5D
+13:43:54 <shaohef> aglitke: I file a wiki about it
+13:44:12 <shaohef> aglitke: include most of our discussion
+13:44:52 <zhoumeina> two kind of error: error caused by user operation. another is for code error.
+13:45:11 <aglitke> shaohef: Great wiki page!
+13:46:22 <aglitke> For unexpected code errors, we will have a default key that will be 'An unexpected error has occurred'
+13:47:06 <aglitke> So basically, if a KimchiError is raised and the reason key is not set, we will use the above default.
+13:47:06 <shaohef> aglitke: but zhoumeina does not like this proposal.
+13:47:11 <zhoumeina> we use this method implement the exception just like the wiki, but we found that we have to put the map of key and message both in UI and exception .py
+13:47:39 <aglitke> That can be solved with a build step.
+13:48:10 <aglitke> the keys have to be defined in the backend because the backend needs to know the set of available keys
+13:48:16 <zhoumeina> we dont we do the translation at the backend ,aglitke?
+13:48:20 <aglitke> but the UI needs to translate them
+13:48:43 <aglitke> because how can the backend know the desired language?  We are not bleeding the session info into the rest api
+13:49:03 <aglitke> The rest api is always english plus a translation key
+13:49:42 <aglitke> so we can add a build step to the code that takes keys from exception.py and writes a javascript file in the UI
+13:50:44 <aglitke> It's a little bit complex for my taste, but I don't see a way around it.
+13:51:38 <ming> aglitke: The key---> UI translate it to messages--->translate it to localized message?
+13:51:41 <shaohef> aglitke: do you means a extra script to copy the keys to i18n.html.tmpl?
+13:51:46 <AdamKingIT> if the full message catalog is preloaded in the UI, we can be sure we have something to show the user
+13:52:23 <zhoumeina> sorry, do I miss something?
+13:52:40 <zhoumeina> poor network
+13:52:52 <aglitke> shaohef: Yes
+13:53:14 <shaohef> aglitke: got it.
+13:53:15 <aglitke> So the i18n.html.tmpl will be partially auto-generated.
+13:53:34 <shaohef> aglitke:  I will add it to the wiki.
+13:53:36 <aglitke> maybe we need 2 js files and the ui will combine the two lists at runtime
+13:53:51 <AdamKingIT> what would be in  the 2 files?
+13:53:53 <ming> quite complex.
+13:53:53 <aglitke> i18n.html.tmpl is manually created translation strings
+13:54:26 <shaohef> aglitke: yes. it is  bothersome to write the i18n.html.tmpl manually
+13:54:27 <aglitke> errors.html.tmpl is dynamically generated from backend exception.py
+13:54:43 <aglitke> then some utility function in the js
+13:54:56 <aglitke> function i18ntable() {
+13:55:01 <shaohef> aglitke: put it in errors.html.tmpl instead of i18n.html.tmpl
+13:55:15 <AdamKingIT> when it comes to JS files, more is usually worse for performance. If we are generating the JS on the server, we can roll in into .min.js at build time
+13:55:22 <aglitke> return i18n.html + errors.html;
+13:55:23 <aglitke> }
+13:55:31 <aglitke> obviously it's bad psuedocode,.
+13:55:36 <AdamKingIT> err, no need to combine the messages
+13:55:46 <aglitke> AdamKingIT: Yes
+13:55:55 <AdamKingIT> but not roll it in w./ the functional js
+13:56:03 <aglitke> it can all be rolled in at build timne
+13:56:08 <shaohef> aglitke: what is psuedocode?
+13:56:29 <aglitke> shaohef: It's code written in plain english
+13:56:54 <aglitke> almost code
+13:57:00 <zhoumeina> shaohef: you said that backend can do the translation. any method about this?
+13:57:15 <shaohef> zhoumeina: yes.  backend can do the translation.
+13:57:46 <shaohef> aglitke: maybe you should explain why we not let  backend  do the translation to zhoumeina
+13:58:59 <zhoumeina> yes, I want to know that, since the backend can get the language from session, why we don't want to do the translation at the back end?
+13:59:00 <aglitke> We are trying to decouple the REST API from user session data
+13:59:16 <aglitke> REST APIs are supposed to be session-less by definition.
+13:59:22 <aglitke> Each request is independent
+13:59:28 <aglitke> and stateless
+14:00:06 <aglitke> the REST API is a machine interface. not a human one.
+14:00:18 <aglitke> So translation in an API does not make sense.
+14:00:44 <aglitke> Translation is the responsibility of the presentation layer (the UI)
+14:00:51 <zhoumeina> but if anyone who want to use the rest api, but only can get the key and value, how can he know what happens
+14:01:17 <AdamKingIT> We may want the API keys to be numerical, like HTTP response codes
+14:01:20 <aglitke> The API will return the key and the expanded message in English
+14:01:36 <AdamKingIT> UI can use the #s to choose a msg to display
+14:01:41 <aglitke> AdamKingIT: Numerical reason codes are terrible to understand in the code.
+14:01:56 <aglitke> so I am suggesting a short string word
+14:02:02 <AdamKingIT> constant definitions are awesome for that
+14:02:08 <ramonn_> AdamKingIT, alinefm is out because her connection has some trouble
+14:02:31 <AdamKingIT> you propose the API return both the code AND an English string?
+14:02:32 <zhoumeina> let me think about it.
+14:03:11 <aglitke> AdamKingIT: Yes.
+14:03:23 <aglitke> it makes it the most useful
+14:03:41 <AdamKingIT> hmm, we generally don't like to show preference for a particular language
+14:03:53 <aglitke> The keys in the api are already in english
+14:04:02 <aglitke> 'name': 'template-1'
+14:04:04 <aglitke> etc
+14:04:10 <zhoumeina> seems there are no better method than what we do now
+14:04:10 <aglitke> The uris are english words
+14:04:33 <aglitke> the code is written in english.  Python uses english keywords
+14:05:01 <zhoumeina> but I still think it would be not a better code.
+14:05:51 <aglitke> I am going to end here but will stick around to continue discussing this.
+14:05:53 <aglitke> #endmeeting
