@@ -23,19 +23,6 @@
     width: 5%;
 }
 
-.storagelist-title {
-    color: #666;
-    font-weight: 600;
-    font-size: 13px;
-    overflow: hidden;
-    margin: 10px;
-}
-
-.storagelist-title li {
-    display: table-cell;
-    padding: 0 1px;
-}
-
 .storage-title {
     font-size: 13px;
     height: 18px;
