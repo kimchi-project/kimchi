@@ -397,8 +397,13 @@ class Model(object):
                 session.store('vm', name, {'icon': icon})
 
         xml = t.to_vm_xml(name, storage_path)
-        # outgoing text to libvirt, encode('utf-8')
-        dom = conn.defineXML(xml.encode('utf-8'))
+        try:
+            dom = conn.defineXML(xml.encode('utf-8'))
+        except libvirt.libvirtError as e:
+            for v in vol_list:
+                vol = conn.storageVolLookupByPath(v['path'])
+                vol.delete(0)
+            raise OperationFailed(e.get_error_message())
         return name
 
     def vms_get_list(self):
