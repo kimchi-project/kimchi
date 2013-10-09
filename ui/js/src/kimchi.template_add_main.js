@@ -86,6 +86,7 @@ kimchi.template_add_main = function() {
                 var isoId = volume.os_distro + '*' + volume.name + '*' + volume.os_version;
                 if (!kimchi.isoInfo[isoId]) {
                     volume.isoId = isoId;
+                    volume.capacity = kimchi.changetoProperUnit(volume.capacity, 1);
                     kimchi.isoInfo[isoId] = volume;
                     html += kimchi.template(template, volume);
                 }
