@@ -19,14 +19,20 @@
  * limitations under the License.
  */
 kimchi.cookie = {
-    set: function(key, value) {
-        document.cookie = key + '=' + encodeURIComponent(value);
+    set: function(key, value, expireDays) {
+        value = encodeURIComponent(value);
+        if (expireDays) {
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + expireDays);
+            value += '; expires=' + expireDate.toUTCString();
+        }
+        document.cookie = key + '=' + value;
     },
 
     get: function(key) {
         var cookieRe = new RegExp(';?\\\s*(' + key + ')=(\s*[^;]*);?', 'g');
         var match = cookieRe.exec(document.cookie);
-        return match ? match[2] : undefined;
+        return match ? decodeURIComponent(match[2]) : undefined;
     },
 
     remove: function(key) {

@@ -24,7 +24,7 @@ kimchi.user = (function() {
     };
 
     var setUserID = function(userID) {
-        kimchi.cookie.set('userid', userID);
+        kimchi.cookie.set('userid', userID, 365);
     };
 
     var showUser = function(toShow) {

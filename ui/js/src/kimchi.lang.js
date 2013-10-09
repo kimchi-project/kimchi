@@ -40,6 +40,6 @@ kimchi.lang = {
     },
 
     set: function(lang) {
-        kimchi.cookie.set('kimchiLang', lang);
+        kimchi.cookie.set('kimchiLang', lang, 365);
     }
 };
