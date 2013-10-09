@@ -83,9 +83,11 @@
 
 #login-window .login-panel .error-message {
     color: red;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 15px;
+    line-height: 22px;
     width: 306px;
+    height: 22px;
+    margin-top: -10px;
 }
 
 .language {
