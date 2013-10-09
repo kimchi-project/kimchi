@@ -8,26 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 08:48-0400\n"
+"POT-Creation-Date: 2013-10-09 10:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "Log out"
-msgstr ""
-
-msgid "Guests"
-msgstr ""
-
-msgid "Templates"
-msgstr ""
-
-msgid "Storage"
-msgstr ""
 
 msgid "Host"
 msgstr ""
@@ -45,6 +32,12 @@ msgid "Project Kimchi"
 msgstr ""
 
 msgid "Language:"
+msgstr ""
+
+msgid "Guests"
+msgstr ""
+
+msgid "Storage"
 msgstr ""
 
 msgid "Networks"
@@ -77,6 +70,9 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
+msgid "Templates"
+msgstr ""
+
 msgid "Create VM"
 msgstr ""
 
@@ -93,6 +89,18 @@ msgid "Twitter"
 msgstr ""
 
 msgid "IRC"
+msgstr ""
+
+msgid "ERROR CODE"
+msgstr ""
+
+msgid "REASON"
+msgstr ""
+
+msgid "STACK"
+msgstr ""
+
+msgid "Go to Homepage"
 msgstr ""
 
 msgid "Create a New Virtual Machine"
@@ -127,6 +135,15 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
 msgid "Actions"
 msgstr ""
 
@@ -136,121 +153,13 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
+msgid "Network I/O"
+msgstr ""
+
+msgid "Disk I/O"
+msgstr ""
+
 msgid "Livetile"
-msgstr ""
-
-msgid "Add Template"
-msgstr ""
-
-msgid "What would you like to do?"
-msgstr ""
-
-msgid "Select a specific ISO to create a template."
-msgstr ""
-
-msgid "Scan the server to discover ISOs to create templates."
-msgstr ""
-
-msgid "Choose from a list of known network ISO distribution."
-msgstr ""
-
-msgid "Where is the ISO file?"
-msgstr ""
-
-msgid "The ISO is on my server."
-msgstr ""
-
-msgid "I want to stream an ISO from the Internet."
-msgstr ""
-
-msgid "Please specify a scan type:"
-msgstr ""
-
-msgid "Shallow scan"
-msgstr ""
-
-msgid "Deep scan"
-msgstr ""
-
-msgid "Scan"
-msgstr ""
-
-msgid "Select the ISO you would like to use to create a template:"
-msgstr ""
-
-msgid "Please enter a URL:"
-msgstr ""
-
-msgid "Discovered ISO Files"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "OS: "
-msgstr ""
-
-msgid "Version: "
-msgstr ""
-
-msgid "Size: "
-msgstr ""
-
-msgid "Create Templates from Selected ISO"
-msgstr ""
-
-msgid "Edit Template"
-msgstr ""
-
-msgid "Vendor"
-msgstr ""
-
-msgid "Version"
-msgstr ""
-
-msgid "Icon"
-msgstr ""
-
-msgid "Default"
-msgstr ""
-
-msgid "Background Color"
-msgstr ""
-
-msgid "Overlay Type"
-msgstr ""
-
-msgid "Overlay Type Icon"
-msgstr ""
-
-msgid "Overlay Type Text"
-msgstr ""
-
-msgid "Button Finish Style"
-msgstr ""
-
-msgid "Button Finish Style Gloss"
-msgstr ""
-
-msgid "Button Finish Style Gradient"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Save"
-msgstr ""
-
-msgid "Results"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Default Settings"
-msgstr ""
-
-msgid "CPUs"
 msgstr ""
 
 msgid "Failed to list the template"
@@ -274,7 +183,7 @@ msgstr ""
 msgid "Logging in..."
 msgstr ""
 
-msgid "Go to Homepage"
+msgid "Invalid URL. Redireced to home page."
 msgstr ""
 
 msgid "Failed to start"
@@ -308,6 +217,9 @@ msgid "Delete Confirmation"
 msgstr ""
 
 msgid "OK"
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "msg.vm.confirm.delete"
@@ -352,6 +264,9 @@ msgstr ""
 msgid "The storage pool is not active now."
 msgstr ""
 
+msgid "Log out"
+msgstr ""
+
 msgid "Log In"
 msgstr ""
 
@@ -373,7 +288,7 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-msgid "Allocate"
+msgid "Allocated"
 msgstr ""
 
 msgid "active"
@@ -412,4 +327,91 @@ msgstr ""
 
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+
+msgid "Add Template"
+msgstr ""
+
+msgid "Where is the source media for this template? "
+msgstr ""
+
+msgid "Local ISO Image"
+msgstr ""
+
+msgid "Remote ISO Image"
+msgstr ""
+
+msgid "The following ISOs are available:"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "OS: "
+msgstr ""
+
+msgid "Version: "
+msgstr ""
+
+msgid "Size: "
+msgstr ""
+
+msgid "Create Templates from Selected ISO"
+msgstr ""
+
+msgid "I want to use a specific file"
+msgstr ""
+
+msgid "I want to use a custom URL"
+msgstr ""
+
+msgid "Edit Template"
+msgstr ""
+
+msgid "Vendor"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Background Color"
+msgstr ""
+
+msgid "Overlay Type"
+msgstr ""
+
+msgid "Overlay Type Icon"
+msgstr ""
+
+msgid "Overlay Type Text"
+msgstr ""
+
+msgid "Button Finish Style"
+msgstr ""
+
+msgid "Button Finish Style Gloss"
+msgstr ""
+
+msgid "Button Finish Style Gradient"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Default Settings"
+msgstr ""
+
+msgid "CPUs"
 msgstr ""

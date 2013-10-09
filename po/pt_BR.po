@@ -20,30 +20,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 08:48-0400\n"
+"POT-Creation-Date: 2013-10-09 10:03+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-msgid "Log out"
-msgstr ""
-
-msgid "Guests"
-msgstr "Máquinas Virtuais"
-
-msgid "Templates"
-msgstr "Modelos"
-
-msgid "Storage"
-msgstr "Discos"
 
 msgid "Host"
 msgstr "Hospedeiro"
@@ -62,6 +50,12 @@ msgstr "Projeto Kimchi"
 
 msgid "Language:"
 msgstr "Idioma:"
+
+msgid "Guests"
+msgstr "Máquinas Virtuais"
+
+msgid "Storage"
+msgstr "Discos"
 
 msgid "Networks"
 msgstr "Redes"
@@ -93,6 +87,9 @@ msgstr "Remover"
 msgid "More..."
 msgstr "Mais..."
 
+msgid "Templates"
+msgstr "Modelos"
+
 msgid "Create VM"
 msgstr "Criar máquina virtual"
 
@@ -110,6 +107,18 @@ msgstr "Twitter"
 
 msgid "IRC"
 msgstr "IRC"
+
+msgid "ERROR CODE"
+msgstr ""
+
+msgid "REASON"
+msgstr ""
+
+msgid "STACK"
+msgstr ""
+
+msgid "Go to Homepage"
+msgstr ""
 
 msgid "Create a New Virtual Machine"
 msgstr "Criar nova Máquina Virtual"
@@ -145,6 +154,15 @@ msgstr "Memória"
 msgid "Create"
 msgstr "Criar"
 
+msgid "Reset"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
 msgid "Actions"
 msgstr "Ações"
 
@@ -154,122 +172,14 @@ msgstr "Nome"
 msgid "CPU"
 msgstr "CPU"
 
+msgid "Network I/O"
+msgstr ""
+
+msgid "Disk I/O"
+msgstr ""
+
 msgid "Livetile"
 msgstr "Tela ao vivo"
-
-msgid "Add Template"
-msgstr "Adicionar Modelo"
-
-msgid "What would you like to do?"
-msgstr "O que você gostaria de fazer?"
-
-msgid "Select a specific ISO to create a template."
-msgstr "Selecione uma ISO específica para criar o modelo."
-
-msgid "Scan the server to discover ISOs to create templates."
-msgstr ""
-
-msgid "Choose from a list of known network ISO distribution."
-msgstr ""
-
-msgid "Where is the ISO file?"
-msgstr "Onde está o arquivo ISO?"
-
-msgid "The ISO is on my server."
-msgstr "A ISO está no meu servidor."
-
-msgid "I want to stream an ISO from the Internet."
-msgstr "Eu quero transmitir uma ISO da Internet."
-
-msgid "Please specify a scan type:"
-msgstr ""
-
-msgid "Shallow scan"
-msgstr ""
-
-msgid "Deep scan"
-msgstr ""
-
-msgid "Scan"
-msgstr ""
-
-msgid "Select the ISO you would like to use to create a template:"
-msgstr "Selecione a ISO que você gostaria de usar para criar o modelo:"
-
-msgid "Please enter a URL:"
-msgstr "Por favor, entre a URL:"
-
-msgid "Discovered ISO Files"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "OS: "
-msgstr ""
-
-msgid "Version: "
-msgstr "Versão: "
-
-msgid "Size: "
-msgstr ""
-
-msgid "Create Templates from Selected ISO"
-msgstr ""
-
-msgid "Edit Template"
-msgstr "Editar Modelo"
-
-msgid "Vendor"
-msgstr "Vendor"
-
-msgid "Version"
-msgstr "Versão"
-
-msgid "Icon"
-msgstr "Ícone"
-
-msgid "Default"
-msgstr "Padrão"
-
-msgid "Background Color"
-msgstr "Cor de fundo"
-
-msgid "Overlay Type"
-msgstr "Tipo de sobreposição"
-
-msgid "Overlay Type Icon"
-msgstr "Tipo do ícone de sobreposição"
-
-msgid "Overlay Type Text"
-msgstr "Tipo do texto de sobreposição"
-
-msgid "Button Finish Style"
-msgstr "Estilo final do botão"
-
-msgid "Button Finish Style Gloss"
-msgstr "Estilo gloss final do botão"
-
-msgid "Button Finish Style Gradient"
-msgstr "Estilo gradiente final do botão"
-
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgid "Save"
-msgstr "Salvar"
-
-msgid "Results"
-msgstr "Resultados"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Default Settings"
-msgstr "Configurações padrões"
-
-msgid "CPUs"
-msgstr "CPUs"
 
 msgid "Failed to list the template"
 msgstr "Erro ao listar os modelos"
@@ -292,7 +202,7 @@ msgstr ""
 msgid "Logging in..."
 msgstr ""
 
-msgid "Go to Homepage"
+msgid "Invalid URL. Redireced to home page."
 msgstr ""
 
 msgid "Failed to start"
@@ -327,6 +237,9 @@ msgstr ""
 
 msgid "OK"
 msgstr ""
+
+msgid "Cancel"
+msgstr "Cancelar"
 
 msgid "msg.vm.confirm.delete"
 msgstr ""
@@ -370,6 +283,9 @@ msgstr ""
 msgid "The storage pool is not active now."
 msgstr ""
 
+msgid "Log out"
+msgstr ""
+
 msgid "Log In"
 msgstr ""
 
@@ -391,7 +307,7 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-msgid "Allocate"
+msgid "Allocated"
 msgstr ""
 
 msgid "active"
@@ -433,3 +349,90 @@ msgstr ""
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""
+
+msgid "Add Template"
+msgstr "Adicionar Modelo"
+
+msgid "Where is the source media for this template? "
+msgstr ""
+
+msgid "Local ISO Image"
+msgstr ""
+
+msgid "Remote ISO Image"
+msgstr ""
+
+msgid "The following ISOs are available:"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "OS: "
+msgstr ""
+
+msgid "Version: "
+msgstr "Versão: "
+
+msgid "Size: "
+msgstr ""
+
+msgid "Create Templates from Selected ISO"
+msgstr ""
+
+msgid "I want to use a specific file"
+msgstr ""
+
+msgid "I want to use a custom URL"
+msgstr ""
+
+msgid "Edit Template"
+msgstr "Editar Modelo"
+
+msgid "Vendor"
+msgstr "Vendor"
+
+msgid "Version"
+msgstr "Versão"
+
+msgid "Icon"
+msgstr "Ícone"
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Background Color"
+msgstr "Cor de fundo"
+
+msgid "Overlay Type"
+msgstr "Tipo de sobreposição"
+
+msgid "Overlay Type Icon"
+msgstr "Tipo do ícone de sobreposição"
+
+msgid "Overlay Type Text"
+msgstr "Tipo do texto de sobreposição"
+
+msgid "Button Finish Style"
+msgstr "Estilo final do botão"
+
+msgid "Button Finish Style Gloss"
+msgstr "Estilo gloss final do botão"
+
+msgid "Button Finish Style Gradient"
+msgstr "Estilo gradiente final do botão"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Results"
+msgstr "Resultados"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Default Settings"
+msgstr "Configurações padrões"
+
+msgid "CPUs"
+msgstr "CPUs"

@@ -6,28 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 08:48-0400\n"
+"POT-Creation-Date: 2013-10-09 10:03+0800\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Adam Litke <agl@us.ibm.com>\n"
 "Language-Team: English\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Log out"
-msgstr ""
-
-msgid "Guests"
-msgstr "Guests"
-
-msgid "Templates"
-msgstr "Templates"
-
-msgid "Storage"
-msgstr "Storage"
 
 msgid "Host"
 msgstr "Host"
@@ -46,6 +34,12 @@ msgstr "Project Kimchi"
 
 msgid "Language:"
 msgstr "Language:"
+
+msgid "Guests"
+msgstr "Guests"
+
+msgid "Storage"
+msgstr "Storage"
 
 msgid "Networks"
 msgstr "Networks"
@@ -77,6 +71,9 @@ msgstr "Delete"
 msgid "More..."
 msgstr "More..."
 
+msgid "Templates"
+msgstr "Templates"
+
 msgid "Create VM"
 msgstr "Create VM"
 
@@ -94,6 +91,18 @@ msgstr "Twitter"
 
 msgid "IRC"
 msgstr "IRC"
+
+msgid "ERROR CODE"
+msgstr "ERROR CODE"
+
+msgid "REASON"
+msgstr "REASON"
+
+msgid "STACK"
+msgstr "STACK"
+
+msgid "Go to Homepage"
+msgstr "Go to Homepage"
 
 msgid "Create a New Virtual Machine"
 msgstr "Create a New Virtual Machine"
@@ -129,6 +138,15 @@ msgstr "Memory"
 msgid "Create"
 msgstr "Create"
 
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Stop"
+msgstr "Stop"
+
 msgid "Actions"
 msgstr "Actions"
 
@@ -138,122 +156,14 @@ msgstr "Name"
 msgid "CPU"
 msgstr "CPU"
 
+msgid "Network I/O"
+msgstr "Networks I/O"
+
+msgid "Disk I/O"
+msgstr "Disk I/O"
+
 msgid "Livetile"
 msgstr "Livetile"
-
-msgid "Add Template"
-msgstr "Add Template"
-
-msgid "What would you like to do?"
-msgstr "What would you like to do?"
-
-msgid "Select a specific ISO to create a template."
-msgstr "Select a specific ISO to create a template."
-
-msgid "Scan the server to discover ISOs to create templates."
-msgstr "Scan the server to discover ISOs to create templates."
-
-msgid "Choose from a list of known network ISO distribution."
-msgstr "Choose from a list of known network ISO distribution."
-
-msgid "Where is the ISO file?"
-msgstr "Where is the ISO file?"
-
-msgid "The ISO is on my server."
-msgstr "The ISO is on my server."
-
-msgid "I want to stream an ISO from the Internet."
-msgstr "I want to stream an ISO from the Internet."
-
-msgid "Please specify a scan type:"
-msgstr "Please specify a scan type:"
-
-msgid "Shallow scan"
-msgstr "Shallow scan"
-
-msgid "Deep scan"
-msgstr "Deep scan"
-
-msgid "Scan"
-msgstr "Scan"
-
-msgid "Select the ISO you would like to use to create a template:"
-msgstr "Select the ISO you would like to use to create a template:"
-
-msgid "Please enter a URL:"
-msgstr "Please enter a URL:"
-
-msgid "Discovered ISO Files"
-msgstr "Discovered ISO Files"
-
-msgid "All"
-msgstr "All"
-
-msgid "OS: "
-msgstr "OS: "
-
-msgid "Version: "
-msgstr "Version: "
-
-msgid "Size: "
-msgstr ""
-
-msgid "Create Templates from Selected ISO"
-msgstr "Create Templates from Selected ISO"
-
-msgid "Edit Template"
-msgstr "Edit Template"
-
-msgid "Vendor"
-msgstr "Vendor"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "Icon"
-msgstr "Icon"
-
-msgid "Default"
-msgstr "Default"
-
-msgid "Background Color"
-msgstr "Background Color"
-
-msgid "Overlay Type"
-msgstr "Overlay Type"
-
-msgid "Overlay Type Icon"
-msgstr "Overlay Type Icon"
-
-msgid "Overlay Type Text"
-msgstr "Overlay Type Text"
-
-msgid "Button Finish Style"
-msgstr "Button Finish Style"
-
-msgid "Button Finish Style Gloss"
-msgstr "Button Finish Style Gloss"
-
-msgid "Button Finish Style Gradient"
-msgstr "Button Finish Style Gradient"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Results"
-msgstr "Results"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Default Settings"
-msgstr "Default Settings"
-
-msgid "CPUs"
-msgstr "CPUs"
 
 msgid "Failed to list the template"
 msgstr "Failed to list the template"
@@ -276,8 +186,8 @@ msgstr "Log in"
 msgid "Logging in..."
 msgstr "Logging in..."
 
-msgid "Go to Homepage"
-msgstr "Go to Homepage"
+msgid "Invalid URL. Redireced to home page."
+msgstr "Invalid URL. Redireced to home page."
 
 msgid "Failed to start"
 msgstr "Failed to start"
@@ -298,7 +208,7 @@ msgid "Failed to create template"
 msgstr "Failed to create template"
 
 msgid "No iso found"
-msgstr ""
+msgstr "No iso found"
 
 msgid "Failed to scan"
 msgstr "Failed to scan"
@@ -311,6 +221,9 @@ msgstr "Delete Confirmation"
 
 msgid "OK"
 msgstr "OK"
+
+msgid "Cancel"
+msgstr "Cancel"
 
 msgid "msg.vm.confirm.delete"
 msgstr ""
@@ -344,6 +257,8 @@ msgid ""
 "Invalid Storage Pool name.  It may only contain letters, numbers, "
 "underscores, and hyphens."
 msgstr ""
+"Invalid Storage Pool name.  It may only contain letters, numbers, "
+"underscores, and hyphens."
 
 msgid "This is not a real linux path."
 msgstr "This is not a real linux path."
@@ -356,6 +271,9 @@ msgstr "Failed to list the storage pool"
 
 msgid "The storage pool is not active now."
 msgstr "The storage pool is not active now."
+
+msgid "Log out"
+msgstr "Log out"
 
 msgid "Log In"
 msgstr "Log In"
@@ -378,8 +296,8 @@ msgstr "Type"
 msgid "Capacity"
 msgstr "Capacity"
 
-msgid "Allocate"
-msgstr "Allocate"
+msgid "Allocated"
+msgstr "Allocated"
 
 msgid "active"
 msgstr "active"
@@ -419,3 +337,91 @@ msgstr "Storage Path"
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+
+msgid "Add Template"
+msgstr "Add Template"
+
+msgid "Where is the source media for this template? "
+msgstr "Where is the source media for this template?"
+
+msgid "Local ISO Image"
+msgstr "Local ISO Image"
+
+msgid "Remote ISO Image"
+msgstr "Remote ISO Image"
+
+msgid "The following ISOs are available:"
+msgstr "The following ISOs are available:"
+
+msgid "All"
+msgstr "All"
+
+msgid "OS: "
+msgstr "OS: "
+
+msgid "Version: "
+msgstr "Version: "
+
+msgid "Size: "
+msgstr "Size: "
+
+msgid "Create Templates from Selected ISO"
+msgstr "Create Templates from Selected ISO"
+
+msgid "I want to use a specific file"
+msgstr "I want to use a specific file"
+
+msgid "I want to use a custom URL"
+msgstr "I want to use a custom URL"
+
+msgid "Edit Template"
+msgstr "Edit Template"
+
+msgid "Vendor"
+msgstr "Vendor"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Background Color"
+msgstr "Background Color"
+
+msgid "Overlay Type"
+msgstr "Overlay Type"
+
+msgid "Overlay Type Icon"
+msgstr "Overlay Type Icon"
+
+msgid "Overlay Type Text"
+msgstr "Overlay Type Text"
+
+msgid "Button Finish Style"
+msgstr "Button Finish Style"
+
+msgid "Button Finish Style Gloss"
+msgstr "Button Finish Style Gloss"
+
+msgid "Button Finish Style Gradient"
+msgstr "Button Finish Style Gradient"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Results"
+msgstr "Results"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Default Settings"
+msgstr "Default Settings"
+
+msgid "CPUs"
+msgstr "CPUs"
