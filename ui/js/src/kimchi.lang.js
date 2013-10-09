@@ -27,8 +27,16 @@ kimchi.lang = {
         };
     },
 
+    /**
+     * Language is determined by the following sequence:
+     * 1) Cookie setting; or if not set ->
+     * 2) HTML DOM lang attribute; or if not set ->
+     * 3) DEFAULT (en_US).
+     */
     get: function() {
-        return kimchi.cookie.get('kimchiLang');
+        return kimchi.cookie.get('kimchiLang') ||
+            $('html').prop('lang') ||
+            'en_US';
     },
 
     set: function(lang) {
