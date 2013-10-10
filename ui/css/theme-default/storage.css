@@ -253,6 +253,7 @@
     z-index: 100;
     top: -300%;
     left: -140%;
+    white-space: nowrap;
 }
 
 .toolable:hover .tooltip {
