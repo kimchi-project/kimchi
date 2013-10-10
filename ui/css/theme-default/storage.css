@@ -466,8 +466,15 @@
     border-left: 1px solid #eee;
 }
 
-.arrow-down {
+.list-storage .storage-li[data-stat="active"]>.handle>.arrow-down {
     background: url(../images/theme-default/arrow-down.png) no-repeat center
+        center;
+    height: 52px;
+    width: 45px;
+}
+
+.list-storage .storage-li[data-stat="inactive"]>.handle>.arrow-down {
+    background: url(../images/theme-default/arrow-down-disable.png) no-repeat center
         center;
     height: 52px;
     width: 45px;
