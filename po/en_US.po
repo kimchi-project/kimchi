@@ -157,7 +157,7 @@ msgid "CPU"
 msgstr "CPU"
 
 msgid "Network I/O"
-msgstr "Networks I/O"
+msgstr "Network I/O"
 
 msgid "Disk I/O"
 msgstr "Disk I/O"
