@@ -64,6 +64,7 @@ class Server(object):
                'tools.nocache.on': True,
                'tools.sessions.on': True,
                'tools.sessions.name': 'kimchi',
+               'tools.sessions.httponly': True,
                'tools.sessions.storage_type': 'file',
                'tools.sessions.storage_path': config.get_session_path(),
                'tools.kimchiauth.on': False
