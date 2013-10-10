@@ -44,13 +44,14 @@
 	border-bottom: 1px dotted #ccc;
 	padding: 5px;
 	font-size: 12px;
+	line-height: 20px;
 	overflow: hidden;
 }
 
 .tile-template .list-info>li>label {
 	display: inline-block;
 	color: #111;
-	width: 80px;
+	width: 170px;
 	text-align: left;
 	cursor: pointer;
 }
@@ -58,7 +59,7 @@
 .tile-template .list-info>li>span {
 	float: right;
 	color: #444693;
-	width: 100px;
+	width: 80px;
 	text-align: right;
 }
 
@@ -70,9 +71,12 @@
 	display: block;
 	font-size: 14px;
 	margin-bottom: 5px;
-	width: 190px;
-	height: 20px;
-	line-height: 20px;
+	overflow: hidden;
+	width: 260px;
+	word-break: break-all;
+	word-wrap: break-word;
+	height: 50px;
+	line-height: 25px;
 }
 
 .os-icon img {
