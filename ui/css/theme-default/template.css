@@ -38,6 +38,7 @@
 	transition: top 0.25s;
 	position: absolute;
 	top: 100%;
+	width: 100%;
 }
 
 .tile-template .list-info>li {
@@ -46,12 +47,13 @@
 	font-size: 12px;
 	line-height: 20px;
 	overflow: hidden;
+	width: 96%;
 }
 
 .tile-template .list-info>li>label {
 	display: inline-block;
 	color: #111;
-	width: 170px;
+	width: auto;
 	text-align: left;
 	cursor: pointer;
 }
@@ -59,7 +61,7 @@
 .tile-template .list-info>li>span {
 	float: right;
 	color: #444693;
-	width: 80px;
+	width: auto;
 	text-align: right;
 }
 
