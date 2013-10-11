@@ -23,6 +23,7 @@
 import cherrypy
 import json
 from functools import wraps
+import urllib2
 
 from kimchi.exception import *
 import kimchi.template
@@ -184,7 +185,7 @@ class Resource(object):
         ident = update(self.ident, params)
         if ident != self.ident:
             raise cherrypy.HTTPRedirect(self.uri_fmt %
-                                        tuple(list(self.model_args[:-1]) + [ident]),
+                                        tuple(list(self.model_args[:-1]) + [urllib2.quote(ident.encode('utf8'))]),
                                         303)
         return self.get()
 
