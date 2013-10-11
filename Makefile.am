@@ -79,7 +79,10 @@ suse-rpm: contrib/kimchi.spec.suse
 	ln -sf contrib/kimchi.spec.suse kimchi.spec
 	$(MAKE) rpm
 
-.PHONY: deb install-deb rpm fedora-rpm suse-rpm
+ChangeLog:
+	$(top_srcdir)/build-aux/genChangelog --release > $@
+
+.PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog
 
 clean-local:
 	rm -rf mo rpm
