@@ -49,7 +49,7 @@ from kimchi.featuretests import FeatureTests
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
-from kimchi.utils import kimchi_log
+from kimchi.utils import kimchi_log, is_digit
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -454,22 +454,19 @@ class Model(object):
         old_t = self.template_lookup(name)
         new_t = copy.copy(old_t)
 
-        for key in params.keys():
-            params[key] = params[key].strip()
-
         new_t.update(params)
         ident = name
 
         new_name = new_t.get(u'name', '')
-        if len(new_name) == 0:
+        if len(new_name.strip()) == 0:
             raise InvalidParameter("You must specify a template name.")
 
         new_memory = new_t.get(u'memory', '')
-        if not new_memory.isdigit():
+        if not is_digit(new_memory):
             raise InvalidParameter("You must specify a number for memory.")
 
         new_ncpus = new_t.get(u'cpus', '')
-        if not new_ncpus.isdigit():
+        if not is_digit(new_ncpus):
             raise InvalidParameter("You must specify a number for cpus.")
 
         self.template_delete(name)

@@ -243,6 +243,18 @@ class ModelTests(unittest.TestCase):
         params = {'name': 'new-test'}
         self.assertEquals('new-test', inst.template_update('test', params))
 
+        params = {'name': 'new-test', 'memory': '512', 'cpus': '2'}
+        inst.template_update('new-test', params)
+        info = inst.template_lookup('new-test')
+        for key in params.keys():
+            self.assertEquals(params[key], info[key])
+
+        params = {'name': 'new-test', 'memory': 1024, 'cpus': 1}
+        inst.template_update('new-test', params)
+        info = inst.template_lookup('new-test')
+        for key in params.keys():
+            self.assertEquals(params[key], info[key])
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):

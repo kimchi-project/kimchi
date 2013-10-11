@@ -24,3 +24,12 @@
 import cherrypy
 
 kimchi_log = cherrypy.log.error_log
+
+def is_digit(value):
+    if isinstance(value, int):
+        return True
+    elif isinstance(value, basestring):
+        value = value.strip()
+        return value.isdigit()
+    else:
+        return False

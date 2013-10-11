@@ -487,6 +487,17 @@ class RestTests(unittest.TestCase):
         res = json.loads(self.request('/templates/test').read())
         verify_template(t, res)
 
+        # Update the template with integer values
+        t['memory'] = 512
+        t['cpus'] = 2
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % t['name'], req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        # Verify the template
+        res = json.loads(self.request('/templates/%s' % t['name']).read())
+        verify_template(t, res)
+
         # Update the template name
         oldname = t['name']
         t['name'] = "test1"
@@ -499,11 +510,14 @@ class RestTests(unittest.TestCase):
         verify_template(t, res)
 
         # Try to change template name to empty string
+        t = {"name": "test1"}
         tmpl_name = t['name']
         t['name'] = '   '
         req = json.dumps(t)
         resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
         self.assertEquals(400, resp.status)
+        # Get the right template name back.
+        t['name'] = tmpl_name
 
         # Try to change template memory to a non-number value
         t['memory'] = 'invalid-value'
