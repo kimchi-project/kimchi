@@ -20,21 +20,11 @@
  */
 kimchi.doListTemplates = function() {
     kimchi.listTemplates(function(result) {
-        var titleValue = {
-            'tempnum' : result.length
-        };
-        var titleTemp = $('#titleTmpl').html();
-        if (!titleTemp) {
-            return;
-        }
-
-        var titleHtml = '';
         if (result.length) {
-            titleHtml = kimchi.template(titleTemp, titleValue);
+            $('#templateTitle').hide();
         } else {
-            titleHtml = titleTemp.replace('{tempnum}', '0');
+            $('#templateTitle').show();
         }
-        $('#templateTitle').html(titleHtml);
         var templateHtml = $('#templateTmpl').html();
         if (result && result.length) {
             var listHtml = '';

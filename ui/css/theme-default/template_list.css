@@ -29,7 +29,7 @@
 	color: #666666;
 	float: left;
 	height: auto;
-	margin: 0 11px 10px 0;
+	margin: 10px 11px 10px 0;
 	padding: 10px;
 	width: 308px;
 }
@@ -203,6 +203,8 @@ template-hidden {
 	height: 42px;
 	line-height: 48px;
 	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+	padding-left: 10px;
+	display: none;
 }
 
 .template-results {
