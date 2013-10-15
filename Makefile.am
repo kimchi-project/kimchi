@@ -82,7 +82,9 @@ suse-rpm: contrib/kimchi.spec.suse
 	$(MAKE) rpm
 
 ChangeLog:
-	$(top_srcdir)/build-aux/genChangelog --release > $@
+	@if test -d .git; then                                   \
+		$(top_srcdir)/build-aux/genChangelog --release > $@; \
+	fi
 
 VERSION:
 	@if test -d .git; then                                \
