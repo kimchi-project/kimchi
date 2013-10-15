@@ -328,7 +328,7 @@ kimchi.template_check_url = function(url) {
             return new RegExp('^' + type.join('') + '$');
         };
     if (url.constructor === String) {
-        return validate(domaintype).test(url) || validate(iptype).test(url);
+        return validate(domaintype).test(url) || validate(ipType).test(url);
     }
     return false;
 };
