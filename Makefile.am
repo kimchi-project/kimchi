@@ -30,6 +30,8 @@ EXTRA_DIST = \
 	COPYING.ASL2 \
 	COPYING.LGPL \
 	CONTRIBUTE.md \
+	VERSION \
+	build-aux/pkg-version \
 	$(NULL)
 
 # Link built mo files in the source tree to enable use of translations from
@@ -82,7 +84,12 @@ suse-rpm: contrib/kimchi.spec.suse
 ChangeLog:
 	$(top_srcdir)/build-aux/genChangelog --release > $@
 
-.PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog
+VERSION:
+	@if test -d .git; then                                \
+		git describe --abbrev=0 > $@;                     \
+	fi
+
+.PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog VERSION
 
 clean-local:
 	rm -rf mo rpm

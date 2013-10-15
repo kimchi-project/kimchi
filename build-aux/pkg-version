@@ -42,7 +42,11 @@ AWK_RELEASE='
       else if (NF == 4) print $2, $3, "git" substr($4, 2)
     }'
 
-PKG_VERSION=`cat VERSION 2> /dev/null || git describe --tags --match "kimchi-[0-9]*"`
+if [ ! -d .git ]; then
+    PKG_VERSION=`cat VERSION`
+else
+    PKG_VERSION=`git describe --tags --match "kimchi-[0-9]*" || cat VERSION`
+fi
 
 if test "x$1" = "x--full"; then
     echo $PKG_VERSION | tr -d '[:space:]'
