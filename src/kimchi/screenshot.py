@@ -46,10 +46,10 @@ class VMScreenshot(object):
     MAX_STREAM_ATTEMPTS = 10
 
     def __init__(self, args):
-        self.vm_name = args['name']
+        self.vm_uuid = args['uuid']
         args.setdefault('thumbnail',
             os.path.join(config.get_screenshot_path(),
-                '%s-%s.png' % (self.vm_name, str(uuid.uuid4()))))
+                '%s-%s.png' % (self.vm_uuid, str(uuid.uuid4()))))
         self.info = args
 
     @staticmethod
@@ -77,7 +77,7 @@ class VMScreenshot(object):
         try:
             now = time.time()
             clear_list = glob.glob("%s/%s-*.png" %
-                (config.get_screenshot_path(), self.vm_name))
+                (config.get_screenshot_path(), self.vm_uuid))
             for f in clear_list:
                 if now - os.path.getmtime(f) > window:
                     os.unlink(f)
@@ -152,7 +152,7 @@ class VMScreenshot(object):
 
     def _generate_thumbnail(self):
         thumbnail = os.path.join(config.get_screenshot_path(), '%s-%s.png' %
-                                 (self.vm_name, str(uuid.uuid4())))
+                                 (self.vm_uuid, str(uuid.uuid4())))
 
         self._get_test_result()
         if stream_test_result is None:

@@ -312,9 +312,9 @@ class Model(object):
 
     def vm_delete(self, name):
         if self._vm_exists(name):
-            self._vmscreenshot_delete(name)
             conn = self.conn.get()
             dom = self._get_vm(name)
+            self._vmscreenshot_delete(dom.UUIDString())
             paths = self._vm_get_disk_paths(dom)
             info = self.vm_lookup(name)
 
@@ -419,21 +419,22 @@ class Model(object):
     def vmscreenshot_lookup(self, name):
         dom = self._get_vm(name)
         d_info = dom.info()
+        vm_uuid = dom.UUIDString()
         if Model.dom_state_map[d_info[0]] != 'running':
             raise NotFoundError('No screenshot for stopped vm')
 
-        screenshot = self._get_screenshot(name)
+        screenshot = self._get_screenshot(vm_uuid)
         img_path = screenshot.lookup()
         # screenshot info changed after scratch generation
         with self.objstore as session:
-            session.store('screenshot', name, screenshot.info)
+            session.store('screenshot', vm_uuid, screenshot.info)
         return img_path
 
-    def _vmscreenshot_delete(self, name):
-        screenshot = self._get_screenshot(name)
+    def _vmscreenshot_delete(self, vm_uuid):
+        screenshot = self._get_screenshot(vm_uuid)
         screenshot.delete()
         with self.objstore as session:
-            session.delete('screenshot', name)
+            session.delete('screenshot', vm_uuid)
 
     def template_lookup(self, name):
         t = self._get_template(name)
@@ -743,19 +744,19 @@ class Model(object):
             else:
                 raise
 
-    def _get_screenshot(self, name):
+    def _get_screenshot(self, vm_uuid):
         with self.objstore as session:
             try:
-                params = session.get('screenshot', name)
+                params = session.get('screenshot', vm_uuid)
             except NotFoundError:
-                params = {'name': name}
-                session.store('screenshot', name, params)
+                params = {'uuid': vm_uuid}
+                session.store('screenshot', vm_uuid, params)
         return LibvirtVMScreenshot(params, self.conn)
 
 
 class LibvirtVMScreenshot(VMScreenshot):
-    def __init__(self, vm_name, conn):
-        VMScreenshot.__init__(self, vm_name)
+    def __init__(self, vm_uuid, conn):
+        VMScreenshot.__init__(self, vm_uuid)
         self.conn = conn
 
     def _generate_scratch(self, thumbnail):
@@ -766,8 +767,8 @@ class LibvirtVMScreenshot(VMScreenshot):
         fd = os.open(thumbnail, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0644)
         try:
             conn = self.conn.get()
-            # outgoing text to libvirt, encode('utf-8')
-            dom = conn.lookupByName(self.vm_name.encode('utf-8'))
+            dom = conn.lookupByUUIDString(self.vm_uuid)
+            vm_name = dom.name()
             stream = conn.newStream(0)
             mimetype = dom.screenshot(stream, 0, 0)
             stream.recvAll(handler, fd)
@@ -776,8 +777,7 @@ class LibvirtVMScreenshot(VMScreenshot):
                 stream.abort()
             except:
                 pass
-            raise NotFoundError("Screenshot not supported for %s" %
-                                self.vm_name)
+            raise NotFoundError("Screenshot not supported for %s" % vm_name)
         else:
             stream.finish()
         finally:

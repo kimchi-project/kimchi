@@ -84,8 +84,8 @@ class MockModel(object):
         return vm.info
 
     def vm_delete(self, name):
-        self._vmscreenshot_delete(name)
         vm = self._get_vm(name)
+        self._vmscreenshot_delete(vm.uuid)
         for disk in vm.disk_paths:
             self.storagevolume_delete(disk['pool'], disk['volume'])
 
@@ -139,17 +139,18 @@ class MockModel(object):
         return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
-        if self._get_vm(name).info['state'] != 'running':
+        vm = self._get_vm(name)
+        if vm.info['state'] != 'running':
             raise NotFoundError('No screenshot for stopped vm')
         screenshot = self._mock_screenshots.setdefault(
-            name, MockVMScreenshot({'name': name}))
+            vm.uuid, MockVMScreenshot({'uuid': vm.uuid}))
         return screenshot.lookup()
 
-    def _vmscreenshot_delete(self, name):
-        screenshot = self._mock_screenshots.get(name)
+    def _vmscreenshot_delete(self, vm_uuid):
+        screenshot = self._mock_screenshots.get(vm_uuid)
         if screenshot:
             screenshot.delete()
-            del self._mock_screenshots[name]
+            del self._mock_screenshots[vm_uuid]
 
     def template_lookup(self, name):
         t = self._get_template(name)
