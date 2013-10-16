@@ -184,27 +184,28 @@ class Model(object):
 
         for name in vm_list:
             dom = self._get_vm(name)
+            vm_uuid = dom.UUIDString()
             info = dom.info()
             state = Model.dom_state_map[info[0]]
 
             if state != 'running':
-                self.stats[name] = {}
+                self.stats[vm_uuid] = {}
                 continue
 
-            if self.stats.get(name, None) is None:
-                self.stats[name] = {}
+            if self.stats.get(vm_uuid, None) is None:
+                self.stats[vm_uuid] = {}
 
             timestamp = time.time()
-            prevStats = self.stats.get(name, {})
+            prevStats = self.stats.get(vm_uuid, {})
             seconds = timestamp - prevStats.get('timestamp', 0)
-            self.stats[name].update({'timestamp': timestamp})
+            self.stats[vm_uuid].update({'timestamp': timestamp})
 
-            self._get_percentage_cpu_usage(name, info, seconds)
-            self._get_network_io_rate(name, dom, seconds)
-            self._get_disk_io_rate(name, dom, seconds)
+            self._get_percentage_cpu_usage(vm_uuid, info, seconds)
+            self._get_network_io_rate(vm_uuid, dom, seconds)
+            self._get_disk_io_rate(vm_uuid, dom, seconds)
 
-    def _get_percentage_cpu_usage(self, name, info, seconds):
-        prevCpuTime = self.stats[name].get('cputime', 0)
+    def _get_percentage_cpu_usage(self, vm_uuid, info, seconds):
+        prevCpuTime = self.stats[vm_uuid].get('cputime', 0)
 
         cpus = info[3]
         cpuTime = info[4] - prevCpuTime
@@ -212,12 +213,12 @@ class Model(object):
         base = (((cpuTime) * 100.0) / (seconds * 1000.0 * 1000.0 * 1000.0))
         percentage = max(0.0, min(100.0, base / cpus))
 
-        self.stats[name].update({'cputime': info[4], 'cpu': percentage})
+        self.stats[vm_uuid].update({'cputime': info[4], 'cpu': percentage})
 
-    def _get_network_io_rate(self, name, dom, seconds):
-        prevNetRxKB = self.stats[name].get('netRxKB', 0)
-        prevNetTxKB = self.stats[name].get('netTxKB', 0)
-        currentMaxNetRate = self.stats[name].get('max_net_io', 100)
+    def _get_network_io_rate(self, vm_uuid, dom, seconds):
+        prevNetRxKB = self.stats[vm_uuid].get('netRxKB', 0)
+        prevNetTxKB = self.stats[vm_uuid].get('netTxKB', 0)
+        currentMaxNetRate = self.stats[vm_uuid].get('max_net_io', 100)
 
         rx_bytes = 0
         tx_bytes = 0
@@ -238,13 +239,13 @@ class Model(object):
         rate = float(rx_stats + tx_stats)
         max_net_io = max(currentMaxNetRate, int(rate))
 
-        self.stats[name].update({'net_io': rate, 'max_net_io': max_net_io,
+        self.stats[vm_uuid].update({'net_io': rate, 'max_net_io': max_net_io,
                                  'netRxKB': netRxKB, 'netTxKB': netTxKB})
 
-    def _get_disk_io_rate(self, name, dom, seconds):
-        prevDiskRdKB = self.stats[name].get('diskRdKB', 0)
-        prevDiskWrKB = self.stats[name].get('diskWrKB', 0)
-        currentMaxDiskRate = self.stats[name].get('max_disk_io', 100)
+    def _get_disk_io_rate(self, vm_uuid, dom, seconds):
+        prevDiskRdKB = self.stats[vm_uuid].get('diskRdKB', 0)
+        prevDiskWrKB = self.stats[vm_uuid].get('diskWrKB', 0)
+        currentMaxDiskRate = self.stats[vm_uuid].get('max_disk_io', 100)
 
         rd_bytes = 0
         wr_bytes = 0
@@ -265,7 +266,7 @@ class Model(object):
         rate = float(rd_stats + wr_stats)
         max_disk_io = max(currentMaxDiskRate, int(rate))
 
-        self.stats[name].update({'disk_io': rate, 'max_disk_io': max_disk_io,
+        self.stats[vm_uuid].update({'disk_io': rate, 'max_disk_io': max_disk_io,
                                  'diskRdKB': diskRdKB, 'diskWrKB': diskWrKB})
 
     def vm_lookup(self, name):
