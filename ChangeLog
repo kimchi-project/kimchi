@@ -1,8 +1,16 @@
 CHANGELOG
 =========
 
+#### [kimchi-1.0.1] ####
+ * [9d0c89c] Do not generate ChangeLog when outside a Git repo                              (Crístian Viana)
+ * [c44d03b] Add VERSION file with Kimchi version                                           (Aline Manera)
+ * [51d365f] Get the appropriate Kimchi version from Git tag                                (Crístian Viana)
+ * [d9d4cdd] Fix variable name "iptype"                                                     (Crístian Viana)
+ * [564babe] Issue #97: "Make distclean" does not remove all the intermediate files         (Paulo Vital)
+ * [4a6edb2] Issue #180: Singular/plural noun agreement on "Templates"                      (Crístian Viana)
+
 #### [kimchi-1.0.0] ####
- * [0161a89] Update ChangeLog for the 1.0.0 release                                         (Adam Litke)
+ * [d665854] Update ChangeLog for the 1.0.0 release                                         (Adam Litke)
  * [0448a5a] opensuse: Start kimchid automatically                                          (Adam Litke)
  * [5db3d20] Issue #173: set the correct mime type of Content-Type in HTTP respose header   (ShaoHe Feng)
  * [665406d] Bugfix: Issue #182 int object has no attribute isdigit                         (apporc)
