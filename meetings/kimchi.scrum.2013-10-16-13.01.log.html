@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 16 13:01:05 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:10</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:13</span><span class="nk"> &lt;alinefm&gt;</span> hi all
+<a name="l-7"></a><span class="tm">13:01:13</span><span class="nk"> &lt;zhoumeina1&gt;</span> first meeting after the log vocation
+<a name="l-8"></a><span class="tm">13:01:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) 1.0 Release 2) 1.1 Release Planning and Sprint 1 Tasks</span>
+<a name="l-9"></a><span class="tm">13:01:47</span><span class="nk"> &lt;aglitke&gt;</span> others?
+<a name="l-10"></a><span class="tm">13:02:33</span><span class="nk"> &lt;ming&gt;</span> looks good to me.
+<a name="l-11"></a><span class="tm">13:02:38</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think that's a no
+<a name="l-12"></a><span class="tm">13:02:42</span><span class="nk"> &lt;ming&gt;</span> 2) covers a  lot.
+<a name="l-13"></a><span class="tm">13:02:46</span><span class="nk"> &lt;aglitke&gt;</span> ok... let's start with this agenda and we can add things to the open discussion at the end
+<a name="l-14"></a><span class="tm">13:02:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">1.0 Release</span>
+<a name="l-15"></a><span class="tm">13:03:07</span><span class="nk"> &lt;aglitke&gt;</span> Thanks again to everyone for your hard work on 1.0
+<a name="l-16"></a><span class="tm">13:03:22</span><span class="nk"> &lt;ming&gt;</span> Why thanks? :)
+<a name="l-17"></a><span class="tm">13:03:35</span><span class="nk"> &lt;ming&gt;</span> It is our job.
+<a name="l-18"></a><span class="tm">13:03:35</span><span class="nk"> &lt;aglitke&gt;</span> We are sorting out a few small build issues created by the new tags and ChangeLog
+<a name="l-19"></a><span class="tm">13:03:45</span><span class="nk"> &lt;zhoumeina1&gt;</span> thanks to all of us
+<a name="l-20"></a><span class="tm">13:04:22</span><span class="nk"> &lt;aglitke&gt;</span> If necessary, I will release a 1.0.1 so that a tarball containing the fixes can be downloaded from github
+<a name="l-21"></a><span class="tm">13:04:45</span><span class="nk"> &lt;aglitke&gt;</span> Does anyone have any issues to raise regarding 1.0?
+<a name="l-22"></a><span class="tm">13:04:49</span><span class="nk"> &lt;AdamKingIT&gt;</span> Its an excellent next step on the Kimchi road.
+<a name="l-23"></a><span class="tm">13:05:18</span><span class="nk"> &lt;aglitke&gt;</span> Yes, a good foundation to build upon.
+<a name="l-24"></a><span class="tm">13:05:22</span><span class="nk"> &lt;ming&gt;</span> agltile, from 0.1.0 to 1.0.0 seems a big step.
+<a name="l-25"></a><span class="tm">13:05:26</span><span class="nk"> &lt;AdamKingIT&gt;</span> 1.0 issue:  I spent some time yesterday trying to sort out some of the github issues 'bugs and enhancements'
+<a name="l-26"></a><span class="tm">13:05:54</span><span class="nk"> &lt;AdamKingIT&gt;</span> If you have ones that you know are resolved, would you update them accordingly?
+<a name="l-27"></a><span class="tm">13:06:26</span><span class="nk"> &lt;AdamKingIT&gt;</span> trying to get the list to a managable state
+<a name="l-28"></a><span class="tm">13:06:51</span><span class="nk"> &lt;ming&gt;</span> AdamKingIT, I think we should inform the bug owner or aglitke to close the bug if it is fixed.
+<a name="l-29"></a><span class="tm">13:06:53</span><span class="nk"> &lt;aglitke&gt;</span> ok.
+<a name="l-30"></a><span class="tm">13:07:11</span><span class="nk"> &lt;aglitke&gt;</span> btw, I have added shaohef to the administrators so he can help manage issues.
+<a name="l-31"></a><span class="tm">13:07:21</span><span class="nk"> &lt;aglitke&gt;</span> Thanks for your help shaohef!
+<a name="l-32"></a><span class="tm">13:07:36</span><span class="nk"> &lt;AdamKingIT&gt;</span> y. If you opened it or fixed it, then mark it pls
+<a name="l-33"></a><span class="tm">13:07:52</span><span class="nk"> &lt;aglitke&gt;</span> any other 1.0 things?
+<a name="l-34"></a><span class="tm">13:08:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">1.1 Release Planning and Sprint 1 Tasks</span>
+<a name="l-35"></a><span class="tm">13:08:07</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I'm happy to do it. Thank you.
+<a name="l-36"></a><span class="tm">13:08:08</span><span class="nk"> &lt;ming&gt;</span> I think we also get some duplicate bugs to be closed.
+<a name="l-37"></a><span class="tm">13:08:16</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, just remember to test kimchi outside a git repository to next release
+<a name="l-38"></a><span class="tm">13:08:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> I also cleaned up the 1.0 release todo's yesterday
+<a name="l-39"></a><span class="tm">13:08:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> can you add it to the test matrix?
+<a name="l-40"></a><span class="tm">13:08:42</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I am doing that right now =)
+<a name="l-41"></a><span class="tm">13:08:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm to update the test matrix</span>
+<a name="l-42"></a><span class="tm">13:08:55</span><span class="nk"> &lt;aglitke&gt;</span> ok 1.1
+<a name="l-43"></a><span class="tm">13:08:57</span><span class="nk"> &lt;AdamKingIT&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo
+<a name="l-44"></a><span class="tm">13:09:05</span><span class="nk"> &lt;aglitke&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+<a name="l-45"></a><span class="tm">13:09:14</span><span class="nk"> &lt;aglitke&gt;</span> oops
+<a name="l-46"></a><span class="tm">13:09:34</span><span class="nk"> &lt;aglitke&gt;</span> I did not know about that parent page
+<a name="l-47"></a><span class="tm">13:09:46</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span>  I don't understand:
+<a name="l-48"></a><span class="tm">13:10:11</span><span class="nk"> &lt;AdamKingIT&gt;</span> You don't understand what I did?
+<a name="l-49"></a><span class="tm">13:10:16</span><span class="nk"> &lt;aglitke&gt;</span> 1.1 is the next release we are working on
+<a name="l-50"></a><span class="tm">13:10:16</span><span class="nk"> &lt;zhoumeina1&gt;</span> Dynamically add tabs to the ui by adding new files to the UI very clearly
+<a name="l-51"></a><span class="tm">13:10:31</span><span class="nk"> &lt;zhoumeina1&gt;</span> can you give me more detail
+<a name="l-52"></a><span class="tm">13:10:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> Yes, we have some design work to do on the new features for 1.1, that being one of the more intersting discussions
+<a name="l-53"></a><span class="tm">13:11:27</span><span class="nk"> &lt;aglitke&gt;</span> I want to mention that https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+<a name="l-54"></a><span class="tm">13:11:33</span><span class="nk"> &lt;aglitke&gt;</span> is divided into three sprints again
+<a name="l-55"></a><span class="tm">13:11:44</span><span class="nk"> &lt;aglitke&gt;</span> we have about 26 days left in sprint 1
+<a name="l-56"></a><span class="tm">13:11:57</span><span class="nk"> &lt;aglitke&gt;</span> The page shows the tasks we have scheduled for sprint 1
+<a name="l-57"></a><span class="tm">13:12:24</span><span class="nk"> &lt;aglitke&gt;</span> If you don't have something assigned, let AdamKingIT and/or I know right away so we can make sure to get a good start.
+<a name="l-58"></a><span class="tm">13:13:08</span><span class="nk"> &lt;aglitke&gt;</span> This is a large release with lots of new features but the time is also shorter.
+<a name="l-59"></a><span class="tm">13:13:16</span><span class="nk"> &lt;aglitke&gt;</span> It will be a big challenge
+<a name="l-60"></a><span class="tm">13:13:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> I'll be working on linking todo items to open enhancements today
+<a name="l-61"></a><span class="tm">13:13:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Awesome!  Thanks
+<a name="l-62"></a><span class="tm">13:14:00</span><span class="nk"> &lt;aglitke&gt;</span> Sprint 1 starts with work that slipped 1.0
+<a name="l-63"></a><span class="tm">13:14:13</span><span class="nk"> &lt;aglitke&gt;</span> setting a custom storage pool and iso streaming
+<a name="l-64"></a><span class="tm">13:14:37</span><span class="nk"> &lt;aglitke&gt;</span> We have some new UIs to design
+<a name="l-65"></a><span class="tm">13:15:31</span><span class="nk"> &lt;ming&gt;</span> It is 1&amp;2 in 1.1 todo list
+<a name="l-66"></a><span class="tm">13:15:37</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> is that mean if we add a html file in the page folder, we have to create a new tab dynamically?
+<a name="l-67"></a><span class="tm">13:15:44</span><span class="nk"> &lt;aglitke&gt;</span> yep.  We've sorted by rough priority order.
+<a name="l-68"></a><span class="tm">13:15:56</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> This is what we were thinking
+<a name="l-69"></a><span class="tm">13:15:57</span><span class="nk"> &lt;royce&gt;</span> alinefm's generating template from vm is not in TODO, which is an awesome feature I think
+<a name="l-70"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, good point
+<a name="l-71"></a><span class="tm">13:16:12</span><span class="nk"> &lt;aglitke&gt;</span> It allows the UI to be extended by an independent package.
+<a name="l-72"></a><span class="tm">13:16:17</span><span class="nk"> &lt;alinefm&gt;</span> I would mentioned it too
+<a name="l-73"></a><span class="tm">13:16:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> Lets table designing for the moment, as much fun as it is
+<a name="l-74"></a><span class="tm">13:16:35</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">aglitke:</span> but some of the html files don't need to be putted in the tab
+<a name="l-75"></a><span class="tm">13:17:17</span><span class="nk"> &lt;ming&gt;</span> We should have another word to define these two templates, I think the template word in Kimchi is quite confusing.
+<a name="l-76"></a><span class="tm">13:17:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> What else should we cover to kick-off the sprint
+<a name="l-77"></a><span class="tm">13:17:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> Lets get 'template from a VM' into the backlog page
+<a name="l-78"></a><span class="tm">13:17:20</span><span class="nk"> &lt;AdamKingIT&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog
+<a name="l-79"></a><span class="tm">13:17:40</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="hi">ming:</span> agree
+<a name="l-80"></a><span class="tm">13:18:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I think a template can have either populated disks or new disks
+<a name="l-81"></a><span class="tm">13:18:16</span><span class="nk"> &lt;AdamKingIT&gt;</span> For sprint 1, we also have network...
+<a name="l-82"></a><span class="tm">13:18:37</span><span class="nk"> &lt;AdamKingIT&gt;</span> Patches for the 1st three items were on the list, but just missed 1.0
+<a name="l-83"></a><span class="tm">13:19:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> hopefully we get 1.1 off to a fast start
+<a name="l-84"></a><span class="tm">13:19:29</span><span class="nk"> &lt;aglitke&gt;</span> How much work would it be to get streaming and storage pool selection patches out by tomorrow.
+<a name="l-85"></a><span class="tm">13:19:31</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> the spice feature is in sprint 3. Should it be in sprint1, the patch is on the list too.
+<a name="l-86"></a><span class="tm">13:20:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span>  We are allowed to over-achieve.
+<a name="l-87"></a><span class="tm">13:20:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">apporc:</span> No harm in overachieving :-)
+<a name="l-88"></a><span class="tm">13:20:10</span><span class="nk"> &lt;ming&gt;</span> agltike usually ,user think the template is something he can create a VM without installation process, like Alinefm is working on.
+<a name="l-89"></a><span class="tm">13:20:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> a green light for apporc?
+<a name="l-90"></a><span class="tm">13:20:45</span><span class="nk"> &lt;aglitke&gt;</span> sure, but I don't want to distract from the things that are planned for S1
+<a name="l-91"></a><span class="tm">13:21:11</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, the iso streaming patches are on list just waiting for reviews
+<a name="l-92"></a><span class="tm">13:21:12</span><span class="nk"> &lt;apporc&gt;</span> aglitke, AdamKingIT: there is a problem about spice support. When should we discuss about it? here and now?
+<a name="l-93"></a><span class="tm">13:21:17</span><span class="nk"> &lt;alinefm&gt;</span> maybe they can be merged soon
+<a name="l-94"></a><span class="tm">13:21:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> Let's talk after this topic
+<a name="l-95"></a><span class="tm">13:21:44</span><span class="nk"> &lt;royce&gt;</span> alinefm, have you seen my comments on iso streaming screenshot bug?
+<a name="l-96"></a><span class="tm">13:21:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Can you list the series?  I saw the workaround set you posted.
+<a name="l-97"></a><span class="tm">13:21:59</span><span class="nk"> &lt;aglitke&gt;</span> We also need to reenable in the UI
+<a name="l-98"></a><span class="tm">13:22:02</span><span class="nk"> &lt;aglitke&gt;</span> Anything else?
+<a name="l-99"></a><span class="tm">13:22:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Your "Distros:' patch series...
+<a name="l-100"></a><span class="tm">13:22:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> When can that be re-posted?
+<a name="l-101"></a><span class="tm">13:22:19</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> ?
+<a name="l-102"></a><span class="tm">13:22:25</span><span class="nk"> &lt;apporc&gt;</span> I add a parameter 'listen' in the spice rest, so we can assign the listen ip address for spice and vnc server.
+<a name="l-103"></a><span class="tm">13:22:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I will re-posted it ASAP
+<a name="l-104"></a><span class="tm">13:22:45</span><span class="nk"> &lt;royce&gt;</span> Seems in fc18,19 iso streaming doesn't work because of curl
+<a name="l-105"></a><span class="tm">13:23:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> is it a problem with qemu?
+<a name="l-106"></a><span class="tm">13:23:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, not yet - I will check it
+<a name="l-107"></a><span class="tm">13:23:21</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">royce:</span> you get the latest libvirt and qemu?
+<a name="l-108"></a><span class="tm">13:23:22</span><span class="nk"> &lt;royce&gt;</span> yeah, qemu and curl
+<a name="l-109"></a><span class="tm">13:23:40</span><span class="nk"> &lt;aglitke&gt;</span> ok... I was afraid of that...
+<a name="l-110"></a><span class="tm">13:23:54</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> can we write a runtime test to see if it works?
+<a name="l-111"></a><span class="tm">13:24:01</span><span class="nk"> &lt;alinefm&gt;</span> royce, you do not neet to get the libvirt code and qemu with the patches I sent yesterday
+<a name="l-112"></a><span class="tm">13:24:02</span><span class="nk"> &lt;ming&gt;</span> royce, do you have a bug for that?
+<a name="l-113"></a><span class="tm">13:24:05</span><span class="nk"> &lt;aglitke&gt;</span> does qemu exit or just hang?
+<a name="l-114"></a><span class="tm">13:24:11</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> or we can add the pages we want to show in tabs in another folder.
+<a name="l-115"></a><span class="tm">13:24:19</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> about the parameters validation, I think we should add it recently.
+<a name="l-116"></a><span class="tm">13:24:31</span><span class="nk"> &lt;royce&gt;</span> let me give you the ref:https://github.com/kimchi-project/kimchi/issues/164
+<a name="l-117"></a><span class="tm">13:24:45</span><span class="nk"> &lt;ming&gt;</span> royce, thanks
+<a name="l-118"></a><span class="tm">13:24:46</span><span class="nk"> &lt;royce&gt;</span> aglitke, it's not working
+<a name="l-119"></a><span class="tm">13:24:46</span><span class="nk"> &lt;zhoumeina1&gt;</span> if we add files to this folder, it can be added to tabs dynamically
+<a name="l-120"></a><span class="tm">13:24:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> We can change the name of pages so that extension tabs have a special prefix
+<a name="l-121"></a><span class="tm">13:24:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">zhoumeina1:</span> There are diff approaches we can take..
+<a name="l-122"></a><span class="tm">13:25:18</span><span class="nk"> &lt;alinefm&gt;</span> royce, --cdrom is legacy! you should use -drive and -device
+<a name="l-123"></a><span class="tm">13:25:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> We can discover the extensions by file name or location, we can register them via some API when they are added
+<a name="l-124"></a><span class="tm">13:25:34</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">aglitke:</span> yes
+<a name="l-125"></a><span class="tm">13:26:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> The idea is to provide an extension pt for 'platform unique' capabilities to be added to an installed Kimchi
+<a name="l-126"></a><span class="tm">13:26:18</span><span class="nk"> &lt;Guest2548&gt;</span> alinefm, yes, it's legacy, but still workable
+<a name="l-127"></a><span class="tm">13:26:26</span><span class="nk"> &lt;royce&gt;</span> alinefm, https://bugzilla.redhat.com/show_bug.cgi?id=785594
+<a name="l-128"></a><span class="tm">13:26:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> I will be adding similar extensions to the REST API as well.
+<a name="l-129"></a><span class="tm">13:27:49</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">aglitke:</span> agree
+<a name="l-130"></a><span class="tm">13:27:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> Its near the end of S1 because we expect to need some design discussion for them
+<a name="l-131"></a><span class="tm">13:28:01</span><span class="nk"> &lt;ming&gt;</span> royce, the bug was filed in 2012.03. The iso streaming has never been working.
+<a name="l-132"></a><span class="tm">13:28:31</span><span class="nk"> &lt;aglitke&gt;</span> qemu recently got a better iso streaming backend I believe
+<a name="l-133"></a><span class="tm">13:28:40</span><span class="nk"> &lt;royce&gt;</span> qemu curl backend broke
+<a name="l-134"></a><span class="tm">13:28:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> am I correct?
+<a name="l-135"></a><span class="tm">13:29:12</span><span class="nk"> &lt;zhoumeina1&gt;</span> and I notice that some of the issues of IE8 have not been fixed in release 1.0. should we remove IE8 support from README?
+<a name="l-136"></a><span class="tm">13:29:30</span><span class="nk"> &lt;aglitke&gt;</span> Hmm... I am worried that there is way too many things broken around streaming to have a reliable feature.
+<a name="l-137"></a><span class="tm">13:29:34</span><span class="nk"> &lt;royce&gt;</span> according to the bugzilla, it did not got a patch yet...
+<a name="l-138"></a><span class="tm">13:29:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> I am really tempted to drop IE8 support.
+<a name="l-139"></a><span class="tm">13:29:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, aglitke, I am using 1.2.0+noroms-0ubuntu2.12.10.5 and it works pretty well
+<a name="l-140"></a><span class="tm">13:30:12</span><span class="nk"> &lt;ming&gt;</span> IE8 is installed by default coming with Win7
+<a name="l-141"></a><span class="tm">13:30:12</span><span class="nk"> &lt;aglitke&gt;</span> ok... so Ubuntu seems ok
+<a name="l-142"></a><span class="tm">13:30:16</span><span class="nk"> &lt;Guest2548&gt;</span> it changes to use coroutine in the backend code, but unfortunately  the improvement broke with the curl compiled on fedora19
+<a name="l-143"></a><span class="tm">13:30:22</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, royce, I will try it on fedora
+<a name="l-144"></a><span class="tm">13:30:24</span><span class="nk"> &lt;royce&gt;</span> right, alinefm, ubuntu qemu seems don't have this
+<a name="l-145"></a><span class="tm">13:30:46</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> You could try to run with an upstream curl
+<a name="l-146"></a><span class="tm">13:31:05</span><span class="nk"> &lt;AdamKingIT&gt;</span> I don't object to dropping IE8, as both 9 &amp; 10 are out, and 11 is out in beta...
+<a name="l-147"></a><span class="tm">13:31:19</span><span class="nk"> &lt;ming&gt;</span> royce, so Fedora is much newer than other distors in curl?
+<a name="l-148"></a><span class="tm">13:31:22</span><span class="nk"> &lt;aglitke&gt;</span> Yeah... 8 is now -2
+<a name="l-149"></a><span class="tm">13:31:25</span><span class="nk"> &lt;royce&gt;</span> https://bugzilla.redhat.com/show_bug.cgi?id=971790 according to this, it didn't get fix yet, aglitke, I will try, the REF said upstream curl's working
+<a name="l-150"></a><span class="tm">13:31:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> what info should we list for interface？ just “name ” and  “type:{Bridge| Bond|eth}“
+<a name="l-151"></a><span class="tm">13:31:36</span><span class="nk"> &lt;aglitke&gt;</span> yep
+<a name="l-152"></a><span class="tm">13:31:48</span><span class="nk"> &lt;AdamKingIT&gt;</span> Some of the issues we found on IE8 originally were our own code bugs that broke on IE8, but happened to still function on other browsers
+<a name="l-153"></a><span class="tm">13:31:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> For what part of the API?
+<a name="l-154"></a><span class="tm">13:32:03</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> network
+<a name="l-155"></a><span class="tm">13:32:14</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  we should let user to choose for his in-out network
+<a name="l-156"></a><span class="tm">13:32:22</span><span class="nk"> &lt;aglitke&gt;</span> yes...
+<a name="l-157"></a><span class="tm">13:32:25</span><span class="nk"> &lt;royce&gt;</span> is Guest 2548 Mark:P
+<a name="l-158"></a><span class="tm">13:32:25</span><span class="nk"> &lt;aglitke&gt;</span> mac address
+<a name="l-159"></a><span class="tm">13:32:33</span><span class="nk"> &lt;aglitke&gt;</span> ip address
+<a name="l-160"></a><span class="tm">13:32:44</span><span class="nk"> &lt;aglitke&gt;</span> interface device name
+<a name="l-161"></a><span class="tm">13:32:54</span><span class="nk"> &lt;Guest2548&gt;</span> no, he's a guest
+<a name="l-162"></a><span class="tm">13:33:04</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> but we still can not make VNC run in IE8 without a plugin
+<a name="l-163"></a><span class="tm">13:33:13</span><span class="nk"> &lt;aglitke&gt;</span> and device type (Ethernet, WLAN, Bridge)
+<a name="l-164"></a><span class="tm">13:33:14</span><span class="nk"> &lt;ming&gt;</span> Guest2548 non-IBMer?
+<a name="l-165"></a><span class="tm">13:33:27</span><span class="nk"> &lt;AdamKingIT&gt;</span> IE : IE8 is pickier about good html and JS than the newer browsers. For that its good to help us find our bugs, If we are just fighting lack of capability at this pt then its  probably time to drop it
+<a name="l-166"></a><span class="tm">13:33:28</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> it is mark
+<a name="l-167"></a><span class="tm">13:33:28</span><span class="nk"> &lt;royce&gt;</span> He's definitly MarkWu
+<a name="l-168"></a><span class="tm">13:33:28</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="hi">ming:</span> For browser support, I will go through our code to add feature check to avoid JS errors.
+<a name="l-169"></a><span class="tm">13:33:35</span><span class="nk"> &lt;Guest2548&gt;</span> :)
+<a name="l-170"></a><span class="tm">13:33:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> IE8 lacks websockets support so novnc comes with a flash applet
+<a name="l-171"></a><span class="tm">13:33:47</span><span class="nk"> &lt;aglitke&gt;</span> but it's not good.
+<a name="l-172"></a><span class="tm">13:34:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">Guest2548:</span> Welcome markw
+<a name="l-173"></a><span class="tm">13:34:21</span><span class="nk"> &lt;Guest2548&gt;</span> aglitke, thanks.  sorry for the weird name :)
+<a name="l-174"></a><span class="tm">13:34:39</span><span class="nk"> &lt;royce&gt;</span> Are you cosplaying:/
+<a name="l-175"></a><span class="tm">13:34:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  if interface is inactive, mac address and ip address may not be available
+<a name="l-176"></a><span class="tm">13:34:44</span><span class="nk"> &lt;Guest2548&gt;</span> it refuses me to change the nickname
+<a name="l-177"></a><span class="tm">13:34:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> I didn't know it was a costume IRC meeting
+<a name="l-178"></a><span class="tm">13:34:46</span><span class="nk"> &lt;ming&gt;</span> hlwanghl, It is happy to hear that you don't want to give up on IE8 support.
+<a name="l-179"></a><span class="tm">13:35:22</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="hi">ming:</span> just as AdamKingIT said, it's a good tool to help us improve code quality
+<a name="l-180"></a><span class="tm">13:35:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> really?
+<a name="l-181"></a><span class="tm">13:35:37</span><span class="nk"> &lt;aglitke&gt;</span> I guess we need a device state as well.
+<a name="l-182"></a><span class="tm">13:35:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> If noVNC is our only problem, we could gracefully degrade and not offer remote conn on ie8
+<a name="l-183"></a><span class="tm">13:36:14</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I get it by libvirt interface API
+<a name="l-184"></a><span class="tm">13:36:15</span><span class="nk"> &lt;aglitke&gt;</span> What's wrong with just requiring people to upgrade their browsers?
+<a name="l-185"></a><span class="tm">13:36:25</span><span class="nk"> &lt;aglitke&gt;</span> we don't give special treatment to FF?
+<a name="l-186"></a><span class="tm">13:36:36</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="hi">AdamKingIT:</span> agree. In fact, we need write code defensively to avoid exceptions
+<a name="l-187"></a><span class="tm">13:36:37</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> ok
+<a name="l-188"></a><span class="tm">13:36:49</span><span class="nk"> &lt;ming&gt;</span> shaohef,  how did you deactive the net interface?
+<a name="l-189"></a><span class="tm">13:37:17</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Are you going to have an /interfaces collection?
+<a name="l-190"></a><span class="tm">13:37:41</span><span class="nk"> &lt;zhoumeina1&gt;</span> I think if we decide to support IE8, we have to fix all the bugs before release.
+<a name="l-191"></a><span class="tm">13:37:54</span><span class="nk"> &lt;aglitke&gt;</span> If libvirt provides an api to activate and deactivate interfaces, then you can support those verbs in the REST API too
+<a name="l-192"></a><span class="tm">13:38:01</span><span class="nk"> &lt;Guest2548&gt;</span> aglitke, I suggested shaohef start to get the interface collection before
+<a name="l-193"></a><span class="tm">13:38:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  yes
+<a name="l-194"></a><span class="tm">13:38:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> a interface collection
+<a name="l-195"></a><span class="tm">13:38:25</span><span class="nk"> &lt;AdamKingIT&gt;</span> We need an inventory of the issues, and an understanding if they are browser capability issues, or Kimchi bugs that just don't manifest elsewhere
+<a name="l-196"></a><span class="tm">13:38:26</span><span class="nk"> &lt;bingbu&gt;</span> Guest2548, I think you should change you name to HuaFu9527...
+<a name="l-197"></a><span class="tm">13:38:29</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">Guest2548:</span> yes, it will be easier to present the choices in the UI
+<a name="l-198"></a><span class="tm">13:38:59</span><span class="nk"> &lt;ming&gt;</span> shaohef, /interfaces or /networks
+<a name="l-199"></a><span class="tm">13:39:04</span><span class="nk"> &lt;ming&gt;</span> ?
+<a name="l-200"></a><span class="tm">13:39:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> both
+<a name="l-201"></a><span class="tm">13:39:17</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> today we have the same issue with storage pools so you can solve it in a similar way
+<a name="l-202"></a><span class="tm">13:39:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> if most of our issues are capability, then we drop supoprt . If its mostly our bugs being exposed, then we become better developers
+<a name="l-203"></a><span class="tm">13:39:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span>  virt-manager also list both interfaces and networks
+<a name="l-204"></a><span class="tm">13:40:03</span><span class="nk"> &lt;Guest2548&gt;</span> libvirt can create and destroy a defined network,  it's kind of activate and deactivate
+<a name="l-205"></a><span class="tm">13:40:33</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">Guest2548:</span> can it enable and disable interfaces?
+<a name="l-206"></a><span class="tm">13:40:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span>  for bridge(in-out) networks, it need a interface
+<a name="l-207"></a><span class="tm">13:40:56</span><span class="nk"> &lt;ming&gt;</span> shaohef, Yes.  But, I am not sure if interfaces have real meanings to the user.
+<a name="l-208"></a><span class="tm">13:41:01</span><span class="nk"> &lt;markwu&gt;</span> aglitke, what do you mean by interfaces,  host interface or guest interface
+<a name="l-209"></a><span class="tm">13:41:02</span><span class="nk"> &lt;markwu&gt;</span> ?
+<a name="l-210"></a><span class="tm">13:41:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> host interfaces
+<a name="l-211"></a><span class="tm">13:41:21</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> it is true
+<a name="l-212"></a><span class="tm">13:41:29</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  start and destroy  interface?
+<a name="l-213"></a><span class="tm">13:41:37</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> yes
+<a name="l-214"></a><span class="tm">13:41:43</span><span class="nk"> &lt;aglitke&gt;</span> does it have them?
+<a name="l-215"></a><span class="tm">13:41:55</span><span class="nk"> &lt;markwu&gt;</span> aglitke, it can't. do we need that?
+<a name="l-216"></a><span class="tm">13:41:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes, libvirt support them
+<a name="l-217"></a><span class="tm">13:42:23</span><span class="nk"> &lt;markwu&gt;</span> it has api to configure host network
+<a name="l-218"></a><span class="tm">13:42:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> not necessarily.
+<a name="l-219"></a><span class="tm">13:42:31</span><span class="nk"> &lt;ming&gt;</span> why should the user start and destroy the interface? He can just create and destroy the netwrok.
+<a name="l-220"></a><span class="tm">13:42:57</span><span class="nk"> &lt;markwu&gt;</span> ok,  libvirt can change link status of vm's interface,  set link up and down
+<a name="l-221"></a><span class="tm">13:43:04</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  we let user set up their bridge by themselves?
+<a name="l-222"></a><span class="tm">13:43:08</span><span class="nk"> &lt;zhoumeina1&gt;</span> So we have to mark all the bugs in IE8 and fixed them one by one before 1.1
+<a name="l-223"></a><span class="tm">13:43:13</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">markwu:</span> is /interfaces collection you want to expose host or guest?
+<a name="l-224"></a><span class="tm">13:43:13</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">zhoumeina1:</span> Would you take the task of categorizing all the ie8 issues?
+<a name="l-225"></a><span class="tm">13:43:32</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">AdamKingIT:</span> sure
+<a name="l-226"></a><span class="tm">13:43:48</span><span class="nk"> &lt;markwu&gt;</span> rotru, exposed to UI for user to choose which interface they would like to build up vm netowrk on top of
+<a name="l-227"></a><span class="tm">13:43:50</span><span class="nk"> &lt;zhoumeina1&gt;</span> I will put them on github
+<a name="l-228"></a><span class="tm">13:44:19</span><span class="nk"> &lt;aglitke&gt;</span> Do we have a wiki page with an API proposal for network?
+<a name="l-229"></a><span class="tm">13:44:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> start w. an email to the list? If we decide to drop IE8 as a result, you will have created a bunch of issues for nothing
+<a name="l-230"></a><span class="tm">13:44:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> you can have a look virt-manager.  how to set-up a network.
+<a name="l-231"></a><span class="tm">13:44:32</span><span class="nk"> &lt;aglitke&gt;</span> Really, it could be a patch to API.md
+<a name="l-232"></a><span class="tm">13:45:04</span><span class="nk"> &lt;aglitke&gt;</span> It would be good if someone could write that patch and we discuss on list.
+<a name="l-233"></a><span class="tm">13:45:17</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> https://github.com/kimchi-project/kimchi/wiki/Create-guest-network
+<a name="l-234"></a><span class="tm">13:45:18</span><span class="nk"> &lt;aglitke&gt;</span> Right now I think there is too much confusion to have a productive conversation here.
+<a name="l-235"></a><span class="tm">13:45:24</span><span class="nk"> &lt;markwu&gt;</span> aglitke, before we have some proposals in mailing list.  I think shaohef  will update the api doc in his patch
+<a name="l-236"></a><span class="tm">13:45:43</span><span class="nk"> &lt;YuXin&gt;</span> host interfaces are listed for selection when create a bridged network
+<a name="l-237"></a><span class="tm">13:45:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> Yep
+<a name="l-238"></a><span class="tm">13:45:51</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> markwu: I support support the macvtap.
+<a name="l-239"></a><span class="tm">13:46:09</span><span class="nk"> &lt;zhoumeina1&gt;</span> can not we get a conclution today? It is only a decision
+<a name="l-240"></a><span class="tm">13:46:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> me too.  Use macvtap for networks on eth devices.
+<a name="l-241"></a><span class="tm">13:46:18</span><span class="nk"> &lt;YuXin&gt;</span> so I do not think we need to provide active/deactive of host interfaces
+<a name="l-242"></a><span class="tm">13:46:23</span><span class="nk"> &lt;aglitke&gt;</span> use bridge if it exists in host and was selected.
+<a name="l-243"></a><span class="tm">13:46:32</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> Agree.
+<a name="l-244"></a><span class="tm">13:46:38</span><span class="nk"> &lt;ming&gt;</span> shaohef, I think macvtap is implementation detail.
+<a name="l-245"></a><span class="tm">13:46:49</span><span class="nk"> &lt;aglitke&gt;</span> My question about activate/deactivate was merely in order to get the mac addr and other detauls.
+<a name="l-246"></a><span class="tm">13:47:11</span><span class="nk"> &lt;aglitke&gt;</span> but I guess if the interface is inactive, it wont be useful to kimchi
+<a name="l-247"></a><span class="tm">13:47:42</span><span class="nk"> &lt;YuXin&gt;</span> so filter out inactive interfaces, so it is not exposed in UI for selection
+<a name="l-248"></a><span class="tm">13:47:43</span><span class="nk"> &lt;aglitke&gt;</span> I think you guys have networking figured out
+<a name="l-249"></a><span class="tm">13:47:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> good pt
+<a name="l-250"></a><span class="tm">13:47:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> so not a API to create bridge. we just list the interfaces， such as {name: em1,  type: eth},  {name: kimchibrg, type: bridge}, {name: bond1, type:bond}
+<a name="l-251"></a><span class="tm">13:48:09</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-252"></a><span class="tm">13:48:25</span><span class="nk"> &lt;YuXin&gt;</span> is there any way to attach screen-shot in this chat tool?
+<a name="l-253"></a><span class="tm">13:48:32</span><span class="nk"> &lt;aglitke&gt;</span> no
+<a name="l-254"></a><span class="tm">13:48:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> if user choose em1, that means mavctap bridge network, and kimchibrg means a linux brige network?
+<a name="l-255"></a><span class="tm">13:48:46</span><span class="nk"> &lt;aglitke&gt;</span> you might be able to use an image hosting service
+<a name="l-256"></a><span class="tm">13:48:52</span><span class="nk"> &lt;aglitke&gt;</span> is there a pastebin for images?
+<a name="l-257"></a><span class="tm">13:49:24</span><span class="nk"> &lt;aglitke&gt;</span> http://picpaste.com/
+<a name="l-258"></a><span class="tm">13:49:37</span><span class="nk"> &lt;aglitke&gt;</span> you could use that and share the link for us
+<a name="l-259"></a><span class="tm">13:49:41</span><span class="nk"> &lt;markwu&gt;</span> do you guys think the limitation of no communication between host and guest with macvtap is acceptable for users?
+<a name="l-260"></a><span class="tm">13:49:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> I do
+<a name="l-261"></a><span class="tm">13:50:15</span><span class="nk"> &lt;aglitke&gt;</span> because the goal of kimchi is that users do not need to log in to the host directly
+<a name="l-262"></a><span class="tm">13:50:29</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">markwu:</span> that is quite annoying.
+<a name="l-263"></a><span class="tm">13:50:30</span><span class="nk"> &lt;aglitke&gt;</span> besides, if they need host -&gt; guest access they can add a local management network
+<a name="l-264"></a><span class="tm">13:50:42</span><span class="nk"> &lt;markwu&gt;</span> if that case,  I am definitely fine with that
+<a name="l-265"></a><span class="tm">13:51:10</span><span class="nk"> &lt;aglitke&gt;</span> It's a reasonable limitation in order to gain the configuration flexibility
+<a name="l-266"></a><span class="tm">13:51:31</span><span class="nk"> &lt;markwu&gt;</span> I still think it's confusing for user to access one vm with two different ip addresses
+<a name="l-267"></a><span class="tm">13:51:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I  often log in guest by ssh on host. sometimes I think ssh is more convenience than   VNC
+<a name="l-268"></a><span class="tm">13:51:59</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> that's only if they need to ssh to the kimchi host and from there, ssh to the vm
+<a name="l-269"></a><span class="tm">13:52:16</span><span class="nk"> &lt;aglitke&gt;</span> with macvtap you could ssh from client directly to vm
+<a name="l-270"></a><span class="tm">13:52:22</span><span class="nk"> &lt;markwu&gt;</span> yes
+<a name="l-271"></a><span class="tm">13:52:24</span><span class="nk"> &lt;aglitke&gt;</span> skipping the host altogether
+<a name="l-272"></a><span class="tm">13:52:36</span><span class="nk"> &lt;aglitke&gt;</span> We can even provide a browser based terminal
+<a name="l-273"></a><span class="tm">13:52:52</span><span class="nk"> &lt;YuXin&gt;</span> when to use linux bridge and when to use macvtap?
+<a name="l-274"></a><span class="tm">13:53:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> If the host has bridge devices, we can use them
+<a name="l-275"></a><span class="tm">13:53:25</span><span class="nk"> &lt;aglitke&gt;</span> so if the user picks a bridge, then create a bridge network
+<a name="l-276"></a><span class="tm">13:53:38</span><span class="nk"> &lt;markwu&gt;</span> new created network from kimchi UI use macvtap except they choose an existing bridge
+<a name="l-277"></a><span class="tm">13:54:02</span><span class="nk"> &lt;YuXin&gt;</span> so this means user has a way to know whether it is linux bridge?
+<a name="l-278"></a><span class="tm">13:54:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">YuXin:</span> We will expose the device type
+<a name="l-279"></a><span class="tm">13:54:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> such as {name: em1,  type: eth},  {name: kimchibrg, type: bridge}, {name: bond1, type:bond}
+<a name="l-280"></a><span class="tm">13:54:40</span><span class="nk"> &lt;aglitke&gt;</span> ethernet, bridge, wlan, bond, etc
+<a name="l-281"></a><span class="tm">13:55:03</span><span class="nk"> &lt;markwu&gt;</span> we could do that way.  but I also assume they know what interface is if the bridges is already created there
+<a name="l-282"></a><span class="tm">13:55:04</span><span class="nk"> &lt;shaohef&gt;</span> Yu
+<a name="l-283"></a><span class="tm">13:56:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> Did you have some questions about spice?
+<a name="l-284"></a><span class="tm">13:57:41</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> yes
+<a name="l-285"></a><span class="tm">13:58:08</span><span class="nk"> &lt;zhoumeina1&gt;</span> <span class="hi">aglitke:</span> do you agree to support IE8 in next release?
+<a name="l-286"></a><span class="tm">13:58:24</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> first, i added a parameter to specify 'listen address' of spice/vnc server.
+<a name="l-287"></a><span class="tm">13:58:53</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> And royce said we need to discuss about whether this is necessary.
+<a name="l-288"></a><span class="tm">13:58:55</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina1:</span> It depends on the nature of the oustanding issues
+<a name="l-289"></a><span class="tm">13:59:10</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> Why is it necessary for spice?
+<a name="l-290"></a><span class="tm">14:00:15</span><span class="nk"> &lt;royce&gt;</span> personally I think just listen to 0.0.0.0 as we wish they could be accessed from  outside
+<a name="l-291"></a><span class="tm">14:00:21</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> by default, we assign listen as 127.0.0.1. But i think users will need to visit vm from outside of the host.
+<a name="l-292"></a><span class="tm">14:00:49</span><span class="nk"> &lt;markwu&gt;</span> apporc, isn't fixed by a recent patch from aglitke ?
+<a name="l-293"></a><span class="tm">14:01:09</span><span class="nk"> &lt;AdamKingIT&gt;</span> Can we have it listen to the same addr that Kimci listens to?
+<a name="l-294"></a><span class="tm">14:01:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> so we can just use what we have now and address the listen issue separately?
+<a name="l-295"></a><span class="tm">14:01:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">apporc:</span>  seems aglitke has send a patch set the listen address as 0.0.0.0
+<a name="l-296"></a><span class="tm">14:01:22</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> and though they can visit vm with our html5 vnc/spice client, but they will need to visit vm with usual vnc/spice client, like vncviewer, spicy and so on.
+<a name="l-297"></a><span class="tm">14:01:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> That was for kimchi itself
+<a name="l-298"></a><span class="tm">14:02:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">apporc:</span>  do you means for websocket?
+<a name="l-299"></a><span class="tm">14:02:21</span><span class="nk"> &lt;aglitke&gt;</span> I think we should keep it the way it is for now and we can always open it up more later.
+<a name="l-300"></a><span class="tm">14:02:33</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> No, not websocket. i mean for the real listen address of vnc/spice server in qemu.
+<a name="l-301"></a><span class="tm">14:02:33</span><span class="nk"> &lt;aglitke&gt;</span> spice can work withput changing this first, right?
+<a name="l-302"></a><span class="tm">14:03:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> I don't think that is a priority since we are not emphasizing the use of external clients
+<a name="l-303"></a><span class="tm">14:03:58</span><span class="nk"> &lt;aglitke&gt;</span> I am going to end the official meeting since we are at the end, but I will remain here to discuss this...
+<a name="l-304"></a><span class="tm">14:04:01</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

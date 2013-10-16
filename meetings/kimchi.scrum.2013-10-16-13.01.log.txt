@@ -1,0 +1,304 @@
+13:01:05 <aglitke> #startmeeting
+13:01:05 <kimchi-bot> Meeting started Wed Oct 16 13:01:05 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:05 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:10 <aglitke> #meetingname scrum
+13:01:10 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:13 <alinefm> hi all
+13:01:13 <zhoumeina1> first meeting after the log vocation
+13:01:44 <aglitke> #info Agenda: 1) 1.0 Release 2) 1.1 Release Planning and Sprint 1 Tasks
+13:01:47 <aglitke> others?
+13:02:33 <ming> looks good to me.
+13:02:38 <AdamKingIT> I think that's a no
+13:02:42 <ming> 2) covers a  lot.
+13:02:46 <aglitke> ok... let's start with this agenda and we can add things to the open discussion at the end
+13:02:56 <aglitke> #topic 1.0 Release
+13:03:07 <aglitke> Thanks again to everyone for your hard work on 1.0
+13:03:22 <ming> Why thanks? :)
+13:03:35 <ming> It is our job.
+13:03:35 <aglitke> We are sorting out a few small build issues created by the new tags and ChangeLog
+13:03:45 <zhoumeina1> thanks to all of us
+13:04:22 <aglitke> If necessary, I will release a 1.0.1 so that a tarball containing the fixes can be downloaded from github
+13:04:45 <aglitke> Does anyone have any issues to raise regarding 1.0?
+13:04:49 <AdamKingIT> Its an excellent next step on the Kimchi road.
+13:05:18 <aglitke> Yes, a good foundation to build upon.
+13:05:22 <ming> agltile, from 0.1.0 to 1.0.0 seems a big step.
+13:05:26 <AdamKingIT> 1.0 issue:  I spent some time yesterday trying to sort out some of the github issues 'bugs and enhancements'
+13:05:54 <AdamKingIT> If you have ones that you know are resolved, would you update them accordingly?
+13:06:26 <AdamKingIT> trying to get the list to a managable state
+13:06:51 <ming> AdamKingIT, I think we should inform the bug owner or aglitke to close the bug if it is fixed.
+13:06:53 <aglitke> ok.
+13:07:11 <aglitke> btw, I have added shaohef to the administrators so he can help manage issues.
+13:07:21 <aglitke> Thanks for your help shaohef!
+13:07:36 <AdamKingIT> y. If you opened it or fixed it, then mark it pls
+13:07:52 <aglitke> any other 1.0 things?
+13:08:07 <aglitke> #topic 1.1 Release Planning and Sprint 1 Tasks
+13:08:07 <shaohef> aglitke: I'm happy to do it. Thank you.
+13:08:08 <ming> I think we also get some duplicate bugs to be closed.
+13:08:16 <alinefm> aglitke, just remember to test kimchi outside a git repository to next release
+13:08:28 <AdamKingIT> I also cleaned up the 1.0 release todo's yesterday
+13:08:30 <aglitke> alinefm: can you add it to the test matrix?
+13:08:42 <alinefm> aglitke, I am doing that right now =)
+13:08:52 <aglitke> #action alinefm to update the test matrix
+13:08:55 <aglitke> ok 1.1
+13:08:57 <AdamKingIT> https://github.com/kimchi-project/kimchi/wiki/Todo
+13:09:05 <aglitke> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:09:14 <aglitke> oops
+13:09:34 <aglitke> I did not know about that parent page
+13:09:46 <zhoumeina1> AdamKingIT:  I don't understand:
+13:10:11 <AdamKingIT> You don't understand what I did?
+13:10:16 <aglitke> 1.1 is the next release we are working on
+13:10:16 <zhoumeina1> Dynamically add tabs to the ui by adding new files to the UI very clearly
+13:10:31 <zhoumeina1> can you give me more detail
+13:10:58 <AdamKingIT> Yes, we have some design work to do on the new features for 1.1, that being one of the more intersting discussions
+13:11:27 <aglitke> I want to mention that https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:11:33 <aglitke> is divided into three sprints again
+13:11:44 <aglitke> we have about 26 days left in sprint 1
+13:11:57 <aglitke> The page shows the tasks we have scheduled for sprint 1
+13:12:24 <aglitke> If you don't have something assigned, let AdamKingIT and/or I know right away so we can make sure to get a good start.
+13:13:08 <aglitke> This is a large release with lots of new features but the time is also shorter.
+13:13:16 <aglitke> It will be a big challenge
+13:13:22 <AdamKingIT> I'll be working on linking todo items to open enhancements today
+13:13:33 <aglitke> AdamKingIT: Awesome!  Thanks
+13:14:00 <aglitke> Sprint 1 starts with work that slipped 1.0
+13:14:13 <aglitke> setting a custom storage pool and iso streaming
+13:14:37 <aglitke> We have some new UIs to design
+13:15:31 <ming> It is 1&2 in 1.1 todo list
+13:15:37 <zhoumeina1> AdamKingIT: is that mean if we add a html file in the page folder, we have to create a new tab dynamically?
+13:15:44 <aglitke> yep.  We've sorted by rough priority order.
+13:15:56 <aglitke> zhoumeina1: This is what we were thinking
+13:15:57 <royce> alinefm's generating template from vm is not in TODO, which is an awesome feature I think
+13:16:09 <alinefm> royce, good point
+13:16:12 <aglitke> It allows the UI to be extended by an independent package.
+13:16:17 <alinefm> I would mentioned it too
+13:16:24 <AdamKingIT> Lets table designing for the moment, as much fun as it is
+13:16:35 <zhoumeina1> aglitke: but some of the html files don't need to be putted in the tab
+13:17:17 <ming> We should have another word to define these two templates, I think the template word in Kimchi is quite confusing.
+13:17:18 <aglitke> AdamKingIT: What else should we cover to kick-off the sprint
+13:17:19 <AdamKingIT> Lets get 'template from a VM' into the backlog page
+13:17:20 <AdamKingIT> https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog
+13:17:40 <hlwanghl> ming: agree
+13:18:03 <aglitke> ming: I think a template can have either populated disks or new disks
+13:18:16 <AdamKingIT> For sprint 1, we also have network...
+13:18:37 <AdamKingIT> Patches for the 1st three items were on the list, but just missed 1.0
+13:19:01 <AdamKingIT> hopefully we get 1.1 off to a fast start
+13:19:29 <aglitke> How much work would it be to get streaming and storage pool selection patches out by tomorrow.
+13:19:31 <apporc> aglitke: the spice feature is in sprint 3. Should it be in sprint1, the patch is on the list too.
+13:20:03 <aglitke> apporc:  We are allowed to over-achieve.
+13:20:04 <AdamKingIT> apporc: No harm in overachieving :-)
+13:20:10 <ming> agltike usually ,user think the template is something he can create a VM without installation process, like Alinefm is working on.
+13:20:21 <shaohef> aglitke: a green light for apporc?
+13:20:45 <aglitke> sure, but I don't want to distract from the things that are planned for S1
+13:21:11 <alinefm> aglitke, the iso streaming patches are on list just waiting for reviews
+13:21:12 <apporc> aglitke, AdamKingIT: there is a problem about spice support. When should we discuss about it? here and now?
+13:21:17 <alinefm> maybe they can be merged soon
+13:21:33 <aglitke> apporc: Let's talk after this topic
+13:21:44 <royce> alinefm, have you seen my comments on iso streaming screenshot bug?
+13:21:52 <aglitke> alinefm: Can you list the series?  I saw the workaround set you posted.
+13:21:59 <aglitke> We also need to reenable in the UI
+13:22:02 <aglitke> Anything else?
+13:22:10 <aglitke> shaohef: Your "Distros:' patch series...
+13:22:18 <aglitke> shaohef: When can that be re-posted?
+13:22:19 <zhoumeina1> AdamKingIT: ?
+13:22:25 <apporc> I add a parameter 'listen' in the spice rest, so we can assign the listen ip address for spice and vnc server.
+13:22:42 <shaohef> aglitke: I will re-posted it ASAP
+13:22:45 <royce> Seems in fc18,19 iso streaming doesn't work because of curl
+13:23:05 <aglitke> royce: is it a problem with qemu?
+13:23:14 <alinefm> royce, not yet - I will check it
+13:23:21 <ming> royce: you get the latest libvirt and qemu?
+13:23:22 <royce> yeah, qemu and curl
+13:23:40 <aglitke> ok... I was afraid of that...
+13:23:54 <aglitke> royce: can we write a runtime test to see if it works?
+13:24:01 <alinefm> royce, you do not neet to get the libvirt code and qemu with the patches I sent yesterday
+13:24:02 <ming> royce, do you have a bug for that?
+13:24:05 <aglitke> does qemu exit or just hang?
+13:24:11 <zhoumeina1> AdamKingIT: or we can add the pages we want to show in tabs in another folder.
+13:24:19 <apporc> aglitke: about the parameters validation, I think we should add it recently.
+13:24:31 <royce> let me give you the ref:https://github.com/kimchi-project/kimchi/issues/164
+13:24:45 <ming> royce, thanks
+13:24:46 <royce> aglitke, it's not working
+13:24:46 <zhoumeina1> if we add files to this folder, it can be added to tabs dynamically
+13:24:47 <aglitke> zhoumeina1: We can change the name of pages so that extension tabs have a special prefix
+13:24:58 <AdamKingIT> zhoumeina1: There are diff approaches we can take..
+13:25:18 <alinefm> royce, --cdrom is legacy! you should use -drive and -device
+13:25:29 <AdamKingIT> We can discover the extensions by file name or location, we can register them via some API when they are added
+13:25:34 <zhoumeina1> aglitke: yes
+13:26:07 <AdamKingIT> The idea is to provide an extension pt for 'platform unique' capabilities to be added to an installed Kimchi
+13:26:18 <Guest2548> alinefm, yes, it's legacy, but still workable
+13:26:26 <royce> alinefm, https://bugzilla.redhat.com/show_bug.cgi?id=785594
+13:26:34 <aglitke> zhoumeina1: I will be adding similar extensions to the REST API as well.
+13:27:49 <zhoumeina1> aglitke: agree
+13:27:50 <AdamKingIT> Its near the end of S1 because we expect to need some design discussion for them
+13:28:01 <ming> royce, the bug was filed in 2012.03. The iso streaming has never been working.
+13:28:31 <aglitke> qemu recently got a better iso streaming backend I believe
+13:28:40 <royce> qemu curl backend broke
+13:28:41 <aglitke> royce: am I correct?
+13:29:12 <zhoumeina1> and I notice that some of the issues of IE8 have not been fixed in release 1.0. should we remove IE8 support from README?
+13:29:30 <aglitke> Hmm... I am worried that there is way too many things broken around streaming to have a reliable feature.
+13:29:34 <royce> according to the bugzilla, it did not got a patch yet...
+13:29:47 <aglitke> zhoumeina1: I am really tempted to drop IE8 support.
+13:29:50 <alinefm> royce, aglitke, I am using 1.2.0+noroms-0ubuntu2.12.10.5 and it works pretty well
+13:30:12 <ming> IE8 is installed by default coming with Win7
+13:30:12 <aglitke> ok... so Ubuntu seems ok
+13:30:16 <Guest2548> it changes to use coroutine in the backend code, but unfortunately  the improvement broke with the curl compiled on fedora19
+13:30:22 <alinefm> aglitke, royce, I will try it on fedora
+13:30:24 <royce> right, alinefm, ubuntu qemu seems don't have this
+13:30:46 <aglitke> royce: You could try to run with an upstream curl
+13:31:05 <AdamKingIT> I don't object to dropping IE8, as both 9 & 10 are out, and 11 is out in beta...
+13:31:19 <ming> royce, so Fedora is much newer than other distors in curl?
+13:31:22 <aglitke> Yeah... 8 is now -2
+13:31:25 <royce> https://bugzilla.redhat.com/show_bug.cgi?id=971790 according to this, it didn't get fix yet, aglitke, I will try, the REF said upstream curl's working
+13:31:35 <shaohef> aglitke: what info should we list for interface？ just “name ” and  “type:{Bridge| Bond|eth}“
+13:31:36 <aglitke> yep
+13:31:48 <AdamKingIT> Some of the issues we found on IE8 originally were our own code bugs that broke on IE8, but happened to still function on other browsers
+13:31:51 <aglitke> shaohef: For what part of the API?
+13:32:03 <shaohef> aglitke: network
+13:32:14 <shaohef> aglitke:  we should let user to choose for his in-out network
+13:32:22 <aglitke> yes...
+13:32:25 <royce> is Guest 2548 Mark:P
+13:32:25 <aglitke> mac address
+13:32:33 <aglitke> ip address
+13:32:44 <aglitke> interface device name
+13:32:54 <Guest2548> no, he's a guest
+13:33:04 <zhoumeina1> AdamKingIT: but we still can not make VNC run in IE8 without a plugin
+13:33:13 <aglitke> and device type (Ethernet, WLAN, Bridge)
+13:33:14 <ming> Guest2548 non-IBMer?
+13:33:27 <AdamKingIT> IE : IE8 is pickier about good html and JS than the newer browsers. For that its good to help us find our bugs, If we are just fighting lack of capability at this pt then its  probably time to drop it
+13:33:28 <shaohef> ming: it is mark
+13:33:28 <royce> He's definitly MarkWu
+13:33:28 <hlwanghl> ming: For browser support, I will go through our code to add feature check to avoid JS errors.
+13:33:35 <Guest2548> :)
+13:33:41 <aglitke> zhoumeina1: IE8 lacks websockets support so novnc comes with a flash applet
+13:33:47 <aglitke> but it's not good.
+13:34:05 <aglitke> Guest2548: Welcome markw
+13:34:21 <Guest2548> aglitke, thanks.  sorry for the weird name :)
+13:34:39 <royce> Are you cosplaying:/
+13:34:42 <shaohef> aglitke:  if interface is inactive, mac address and ip address may not be available
+13:34:44 <Guest2548> it refuses me to change the nickname
+13:34:45 <AdamKingIT> I didn't know it was a costume IRC meeting
+13:34:46 <ming> hlwanghl, It is happy to hear that you don't want to give up on IE8 support.
+13:35:22 <hlwanghl> ming: just as AdamKingIT said, it's a good tool to help us improve code quality
+13:35:23 <aglitke> shaohef: really?
+13:35:37 <aglitke> I guess we need a device state as well.
+13:35:44 <AdamKingIT> If noVNC is our only problem, we could gracefully degrade and not offer remote conn on ie8
+13:36:14 <shaohef> aglitke: I get it by libvirt interface API
+13:36:15 <aglitke> What's wrong with just requiring people to upgrade their browsers?
+13:36:25 <aglitke> we don't give special treatment to FF?
+13:36:36 <hlwanghl> AdamKingIT: agree. In fact, we need write code defensively to avoid exceptions
+13:36:37 <aglitke> shaohef: ok
+13:36:49 <ming> shaohef,  how did you deactive the net interface?
+13:37:17 <aglitke> shaohef: Are you going to have an /interfaces collection?
+13:37:41 <zhoumeina1> I think if we decide to support IE8, we have to fix all the bugs before release.
+13:37:54 <aglitke> If libvirt provides an api to activate and deactivate interfaces, then you can support those verbs in the REST API too
+13:38:01 <Guest2548> aglitke, I suggested shaohef start to get the interface collection before
+13:38:15 <shaohef> aglitke:  yes
+13:38:23 <shaohef> aglitke: a interface collection
+13:38:25 <AdamKingIT> We need an inventory of the issues, and an understanding if they are browser capability issues, or Kimchi bugs that just don't manifest elsewhere
+13:38:26 <bingbu> Guest2548, I think you should change you name to HuaFu9527...
+13:38:29 <aglitke> Guest2548: yes, it will be easier to present the choices in the UI
+13:38:59 <ming> shaohef, /interfaces or /networks
+13:39:04 <ming> ?
+13:39:12 <shaohef> ming: both
+13:39:17 <aglitke> shaohef: today we have the same issue with storage pools so you can solve it in a similar way
+13:39:30 <AdamKingIT> if most of our issues are capability, then we drop supoprt . If its mostly our bugs being exposed, then we become better developers
+13:39:58 <shaohef> ming:  virt-manager also list both interfaces and networks
+13:40:03 <Guest2548> libvirt can create and destroy a defined network,  it's kind of activate and deactivate
+13:40:33 <aglitke> Guest2548: can it enable and disable interfaces?
+13:40:36 <shaohef> ming:  for bridge(in-out) networks, it need a interface
+13:40:56 <ming> shaohef, Yes.  But, I am not sure if interfaces have real meanings to the user.
+13:41:01 <markwu> aglitke, what do you mean by interfaces,  host interface or guest interface
+13:41:02 <markwu> ?
+13:41:12 <aglitke> markwu: host interfaces
+13:41:21 <zhoumeina1> AdamKingIT: it is true
+13:41:29 <shaohef> aglitke:  start and destroy  interface?
+13:41:37 <aglitke> shaohef: yes
+13:41:43 <aglitke> does it have them?
+13:41:55 <markwu> aglitke, it can't. do we need that?
+13:41:57 <shaohef> aglitke: yes, libvirt support them
+13:42:23 <markwu> it has api to configure host network
+13:42:24 <aglitke> markwu: not necessarily.
+13:42:31 <ming> why should the user start and destroy the interface? He can just create and destroy the netwrok.
+13:42:57 <markwu> ok,  libvirt can change link status of vm's interface,  set link up and down
+13:43:04 <shaohef> aglitke:  we let user set up their bridge by themselves?
+13:43:08 <zhoumeina1> So we have to mark all the bugs in IE8 and fixed them one by one before 1.1
+13:43:13 <royce> markwu: is /interfaces collection you want to expose host or guest?
+13:43:13 <AdamKingIT> zhoumeina1: Would you take the task of categorizing all the ie8 issues?
+13:43:32 <zhoumeina1> AdamKingIT: sure
+13:43:48 <markwu> rotru, exposed to UI for user to choose which interface they would like to build up vm netowrk on top of
+13:43:50 <zhoumeina1> I will put them on github
+13:44:19 <aglitke> Do we have a wiki page with an API proposal for network?
+13:44:29 <AdamKingIT> start w. an email to the list? If we decide to drop IE8 as a result, you will have created a bunch of issues for nothing
+13:44:30 <shaohef> royce: you can have a look virt-manager.  how to set-up a network.
+13:44:32 <aglitke> Really, it could be a patch to API.md
+13:45:04 <aglitke> It would be good if someone could write that patch and we discuss on list.
+13:45:17 <shaohef> aglitke: https://github.com/kimchi-project/kimchi/wiki/Create-guest-network
+13:45:18 <aglitke> Right now I think there is too much confusion to have a productive conversation here.
+13:45:24 <markwu> aglitke, before we have some proposals in mailing list.  I think shaohef  will update the api doc in his patch
+13:45:43 <YuXin> host interfaces are listed for selection when create a bridged network
+13:45:49 <aglitke> YuXin: Yep
+13:45:51 <shaohef> aglitke: markwu: I support support the macvtap.
+13:46:09 <zhoumeina1> can not we get a conclution today? It is only a decision
+13:46:11 <aglitke> shaohef: me too.  Use macvtap for networks on eth devices.
+13:46:18 <YuXin> so I do not think we need to provide active/deactive of host interfaces
+13:46:23 <aglitke> use bridge if it exists in host and was selected.
+13:46:32 <aglitke> YuXin: Agree.
+13:46:38 <ming> shaohef, I think macvtap is implementation detail.
+13:46:49 <aglitke> My question about activate/deactivate was merely in order to get the mac addr and other detauls.
+13:47:11 <aglitke> but I guess if the interface is inactive, it wont be useful to kimchi
+13:47:42 <YuXin> so filter out inactive interfaces, so it is not exposed in UI for selection
+13:47:43 <aglitke> I think you guys have networking figured out
+13:47:46 <AdamKingIT> good pt
+13:47:56 <shaohef> aglitke: so not a API to create bridge. we just list the interfaces， such as {name: em1,  type: eth},  {name: kimchibrg, type: bridge}, {name: bond1, type:bond}
+13:48:09 <aglitke> yes
+13:48:25 <YuXin> is there any way to attach screen-shot in this chat tool?
+13:48:32 <aglitke> no
+13:48:45 <shaohef> aglitke: if user choose em1, that means mavctap bridge network, and kimchibrg means a linux brige network?
+13:48:46 <aglitke> you might be able to use an image hosting service
+13:48:52 <aglitke> is there a pastebin for images?
+13:49:24 <aglitke> http://picpaste.com/
+13:49:37 <aglitke> you could use that and share the link for us
+13:49:41 <markwu> do you guys think the limitation of no communication between host and guest with macvtap is acceptable for users?
+13:49:49 <aglitke> markwu: I do
+13:50:15 <aglitke> because the goal of kimchi is that users do not need to log in to the host directly
+13:50:29 <ming> markwu: that is quite annoying.
+13:50:30 <aglitke> besides, if they need host -> guest access they can add a local management network
+13:50:42 <markwu> if that case,  I am definitely fine with that
+13:51:10 <aglitke> It's a reasonable limitation in order to gain the configuration flexibility
+13:51:31 <markwu> I still think it's confusing for user to access one vm with two different ip addresses
+13:51:43 <shaohef> aglitke: I  often log in guest by ssh on host. sometimes I think ssh is more convenience than   VNC
+13:51:59 <aglitke> markwu: that's only if they need to ssh to the kimchi host and from there, ssh to the vm
+13:52:16 <aglitke> with macvtap you could ssh from client directly to vm
+13:52:22 <markwu> yes
+13:52:24 <aglitke> skipping the host altogether
+13:52:36 <aglitke> We can even provide a browser based terminal
+13:52:52 <YuXin> when to use linux bridge and when to use macvtap?
+13:53:12 <aglitke> YuXin: If the host has bridge devices, we can use them
+13:53:25 <aglitke> so if the user picks a bridge, then create a bridge network
+13:53:38 <markwu> new created network from kimchi UI use macvtap except they choose an existing bridge
+13:54:02 <YuXin> so this means user has a way to know whether it is linux bridge?
+13:54:19 <aglitke> YuXin: We will expose the device type
+13:54:35 <shaohef> YuXin: such as {name: em1,  type: eth},  {name: kimchibrg, type: bridge}, {name: bond1, type:bond}
+13:54:40 <aglitke> ethernet, bridge, wlan, bond, etc
+13:55:03 <markwu> we could do that way.  but I also assume they know what interface is if the bridges is already created there
+13:55:04 <shaohef> Yu
+13:56:05 <aglitke> apporc: Did you have some questions about spice?
+13:57:41 <apporc> aglitke: yes
+13:58:08 <zhoumeina1> aglitke: do you agree to support IE8 in next release?
+13:58:24 <apporc> aglitke: first, i added a parameter to specify 'listen address' of spice/vnc server.
+13:58:53 <apporc> aglitke: And royce said we need to discuss about whether this is necessary.
+13:58:55 <aglitke> zhoumeina1: It depends on the nature of the oustanding issues
+13:59:10 <aglitke> apporc: Why is it necessary for spice?
+14:00:15 <royce> personally I think just listen to 0.0.0.0 as we wish they could be accessed from  outside
+14:00:21 <apporc> aglitke: by default, we assign listen as 127.0.0.1. But i think users will need to visit vm from outside of the host.
+14:00:49 <markwu> apporc, isn't fixed by a recent patch from aglitke ?
+14:01:09 <AdamKingIT> Can we have it listen to the same addr that Kimci listens to?
+14:01:12 <aglitke> apporc: so we can just use what we have now and address the listen issue separately?
+14:01:13 <shaohef> apporc:  seems aglitke has send a patch set the listen address as 0.0.0.0
+14:01:22 <apporc> aglitke: and though they can visit vm with our html5 vnc/spice client, but they will need to visit vm with usual vnc/spice client, like vncviewer, spicy and so on.
+14:01:30 <aglitke> shaohef: That was for kimchi itself
+14:02:05 <shaohef> apporc:  do you means for websocket?
+14:02:21 <aglitke> I think we should keep it the way it is for now and we can always open it up more later.
+14:02:33 <apporc> aglitke: No, not websocket. i mean for the real listen address of vnc/spice server in qemu.
+14:02:33 <aglitke> spice can work withput changing this first, right?
+14:03:24 <aglitke> apporc: I don't think that is a priority since we are not emphasizing the use of external clients
+14:03:58 <aglitke> I am going to end the official meeting since we are at the end, but I will remain here to discuss this...
+14:04:01 <aglitke> #endmeeting
