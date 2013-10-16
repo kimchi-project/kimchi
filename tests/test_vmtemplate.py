@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import unittest
+import uuid
 
 from kimchi.vmtemplate import *
 from kimchi.xmlutils import xpath_get_text
@@ -43,11 +44,14 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals(2, len(t.info['disks']))
 
     def test_to_xml(self):
+        vm_uuid = str(uuid.uuid4()).replace('-', '')
         t = VMTemplate({'name': 'test-template'})
-        xml = t.to_vm_xml('test-vm', '/tmp')
+        xml = t.to_vm_xml('test-vm', vm_uuid, '/tmp')
+        self.assertEquals(vm_uuid, xpath_get_text(xml, "/domain/uuid")[0])
         self.assertEquals('test-vm', xpath_get_text(xml, "/domain/name")[0])
         expr = "/domain/devices/disk[@device='disk']/source/@file"
-        self.assertEquals('/tmp/test-vm-0.img', xpath_get_text(xml, expr)[0])
+        img_path = '/tmp/%s-0.img' % vm_uuid
+        self.assertEquals(img_path, xpath_get_text(xml, expr)[0])
         expr = "/domain/devices/disk[@device='disk']/target/@dev"
         self.assertEquals('hda', xpath_get_text(xml, expr)[0])
 

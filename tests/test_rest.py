@@ -179,7 +179,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals('images/icon-debian.png', vm['icon'])
 
         # Verify the volume was created
-        vol_uri = '/storagepools/default/storagevolumes/test-vm-0.img'
+        vol_uri = '/storagepools/default/storagevolumes/%s-0.img' % vm['uuid']
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
         self.assertEquals(1 << 30, vol['capacity'])
@@ -233,9 +233,10 @@ class RestTests(unittest.TestCase):
                           'storagepool': '/storagepools/alt'})
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(201, resp.status)
+        vm_info = json.loads(resp.read())
 
         # Verify the volume was created
-        vol_uri = '/storagepools/alt/storagevolumes/test-vm-0.img'
+        vol_uri = '/storagepools/alt/storagevolumes/%s-0.img' % vm_info['uuid']
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
         self.assertEquals(1 << 30, vol['capacity'])

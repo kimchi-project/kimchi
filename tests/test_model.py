@@ -45,7 +45,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
 
-        keys = set(('state', 'stats', 'memory', 'screenshot', 'icon', 'graphics'))
+        keys = set(('state', 'stats', 'uuid', 'memory', 'screenshot', 'icon', 'graphics'))
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))
@@ -96,7 +96,8 @@ class ModelTests(unittest.TestCase):
             inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
-            disk_path = '/var/lib/libvirt/images/test-vm-1-0.img'
+            vm_info = inst.vm_lookup(params['name'])
+            disk_path = '/var/lib/libvirt/images/%s-0.img' % vm_info['uuid']
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
 
