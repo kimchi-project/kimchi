@@ -69,6 +69,7 @@ the following general conventions:
         * io_throughput: Expresses the total IO throughput for reads and
           writes across all virtual disks (kb/s).
         * io_throughput_peak: The highest recent value of 'io_throughput'.
+    * uuid: UUID of the VM.
     * memory: The amount of memory assigned to the VM (in MB)
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM

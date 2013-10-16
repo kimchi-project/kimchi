@@ -301,6 +301,7 @@ class Model(object):
 
         return {'state': state,
                 'stats': str(stats),
+                'uuid': dom.UUIDString(),
                 'memory': info[2] >> 10,
                 'screenshot': screenshot,
                 'icon': icon,

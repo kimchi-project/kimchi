@@ -325,6 +325,7 @@ class VM(Resource):
     @property
     def data(self):
         return {'name': self.ident,
+                'uuid': self.info['uuid'],
                 'stats': self.info['stats'],
                 'memory': self.info['memory'],
                 'state': self.info['state'],

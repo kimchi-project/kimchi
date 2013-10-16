@@ -360,6 +360,7 @@ class MockVM(object):
                      'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
                                 'net_throughput_peak': 100, 'io_throughput': 45, \
                                 'io_throughput_peak': 100}",
+                     'uuid': self.uuid,
                      'memory': template_info['memory'],
                      'icon': None,
                      'graphics': {'type': 'vnc', 'port': None}}
