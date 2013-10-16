@@ -285,7 +285,7 @@ class Model(object):
 
         with self.objstore as session:
             try:
-                extra_info = session.get('vm', name)
+                extra_info = session.get('vm', dom.UUIDString())
             except NotFoundError:
                 extra_info = {}
         icon = extra_info.get('icon')
@@ -328,7 +328,7 @@ class Model(object):
                 vol.delete(0)
 
             with self.objstore as session:
-                session.delete('vm', name, ignore_missing=True)
+                session.delete('vm', dom.UUIDString(), ignore_missing=True)
 
     def vm_start(self, name):
         dom = self._get_vm(name)
@@ -396,7 +396,7 @@ class Model(object):
         icon = t.info.get('icon')
         if icon:
             with self.objstore as session:
-                session.store('vm', name, {'icon': icon})
+                session.store('vm', vm_uuid, {'icon': icon})
 
         xml = t.to_vm_xml(name, vm_uuid, storage_path)
         try:
