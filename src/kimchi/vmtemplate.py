@@ -119,11 +119,11 @@ class VMTemplate(object):
 
         return network_file % (params)
 
-    def _get_disks_xml(self, vm_name, storage_path):
+    def _get_disks_xml(self, vm_uuid, storage_path):
         ret = ""
         for i, disk in enumerate(self.info['disks']):
             index = disk.get('index', i)
-            volume = "%s-%s.img" % (vm_name, index)
+            volume = "%s-%s.img" % (vm_uuid, index)
             src = os.path.join(storage_path, volume)
             dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
                             string.lowercase[index])
@@ -137,11 +137,11 @@ class VMTemplate(object):
             """ % params
         return ret
 
-    def to_volume_list(self, vm_name, storage_path):
+    def to_volume_list(self, vm_uuid, storage_path):
         ret = []
         for i, d in enumerate(self.info['disks']):
             index = d.get('index', i)
-            volume = "%s-%s.img" % (vm_name, index)
+            volume = "%s-%s.img" % (vm_uuid, index)
 
             info = {'name': volume,
                     'capacity': d['size'],
@@ -163,15 +163,17 @@ class VMTemplate(object):
             ret.append(info)
         return ret
 
-    def to_vm_xml(self, vm_name, storage_path):
+    def to_vm_xml(self, vm_name, vm_uuid, storage_path):
         params = dict(self.info)
         params['name'] = vm_name
-        params['disks'] = self._get_disks_xml(vm_name, storage_path)
+        params['uuid'] = vm_uuid
+        params['disks'] = self._get_disks_xml(vm_uuid, storage_path)
         params['cdroms'] = self._get_cdrom_xml()
 
         xml = """
         <domain type='%(domain)s'>
           <name>%(name)s</name>
+          <uuid>%(uuid)s</uuid>
           <memory unit='MiB'>%(memory)s</memory>
           <vcpu>%(cpus)s</vcpu>
           <os>

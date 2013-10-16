@@ -28,6 +28,7 @@ import functools
 import os
 import json
 import copy
+import uuid
 import cherrypy
 import sys
 import logging
@@ -376,6 +377,7 @@ class Model(object):
             raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
 
+        vm_uuid = str(uuid.uuid4())
         conn = self.conn.get()
         pool_uri = params.get('storagepool', t.info['storagepool'])
         pool_name = pool_name_from_uri(pool_uri)
@@ -385,7 +387,7 @@ class Model(object):
 
         # Provision storage:
         # TODO: Rebase on the storage API once upstream
-        vol_list = t.to_volume_list(name, storage_path)
+        vol_list = t.to_volume_list(vm_uuid, storage_path)
         for v in vol_list:
             # outgoing text to libvirt, encode('utf-8')
             pool.createXML(v['xml'].encode('utf-8'), 0)
@@ -396,7 +398,7 @@ class Model(object):
             with self.objstore as session:
                 session.store('vm', name, {'icon': icon})
 
-        xml = t.to_vm_xml(name, storage_path)
+        xml = t.to_vm_xml(name, vm_uuid, storage_path)
         try:
             dom = conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:

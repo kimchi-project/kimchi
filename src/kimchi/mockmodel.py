@@ -25,6 +25,7 @@ import copy
 
 import subprocess
 import os
+import uuid
 
 try:
     from PIL import Image
@@ -113,17 +114,18 @@ class MockModel(object):
             raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
 
+        vm_uuid = str(uuid.uuid4())
         pool_uri = params.get('storagepool', t.info['storagepool'])
         pool_name = kimchi.model.pool_name_from_uri(pool_uri)
         p = self._get_storagepool(pool_name)
-        volumes = t.to_volume_list(name, p.info['path'])
+        volumes = t.to_volume_list(vm_uuid, p.info['path'])
         disk_paths = []
         for vol_info in volumes:
             vol_info['capacity'] = vol_info['capacity'] << 10
             self.storagevolumes_create(pool_name, vol_info)
             disk_paths.append({'pool': pool_name, 'volume': vol_info['name']})
 
-        vm = MockVM(name, t.info)
+        vm = MockVM(vm_uuid, name, t.info)
         icon = t.info.get('icon')
         if icon:
             vm.info['icon'] = icon
@@ -349,7 +351,8 @@ class MockModel(object):
 
 
 class MockVM(object):
-    def __init__(self, name, template_info):
+    def __init__(self, uuid, name, template_info):
+        self.uuid = uuid
         self.name = name
         self.disk_paths = []
         self.info = {'state': 'shutoff',
@@ -439,7 +442,8 @@ def get_mock_environment():
 
     for i in xrange(10):
         name = u'test-vm-%i' % i
-        vm = MockVM(name, model.template_lookup('test-template-0'))
+        vm_uuid = str(uuid.uuid4())
+        vm = MockVM(vm_uuid, name, model.template_lookup('test-template-0'))
         model._mock_vms[name] = vm
 
     #mock storagepool
