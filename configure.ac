@@ -42,9 +42,11 @@ AC_SUBST([HAVE_PYMOD_UNITTEST])
 AC_SUBST([PYTHON_VERSION])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.10])
+AC_PATH_PROG([CHEETAH], [cheetah], [/usr/bin/cheetah])
 
 AC_CONFIG_FILES([
     po/Makefile.in
+    po/gen-pot
     Makefile
     docs/Makefile
     src/Makefile
@@ -67,6 +69,8 @@ AC_CONFIG_FILES([
     contrib/kimchi.spec.fedora
     contrib/kimchi.spec.suse
     tests/Makefile
+],[
+    chmod +x po/gen-pot
 ])
 
 AC_OUTPUT
