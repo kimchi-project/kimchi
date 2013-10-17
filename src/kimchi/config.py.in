@@ -26,6 +26,8 @@ import os, os.path
 from glob import iglob
 import sys
 import platform
+import libvirt
+from xmlutils import xpath_get_text
 
 
 def get_prefix():
@@ -83,13 +85,21 @@ def get_support_language():
     return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
 
 def find_qemu_binary():
-    locations = ['/usr/bin/qemu-system-%s' % platform.machine(),
-                    '/usr/libexec/qemu-kvm',
-                    '/usr/bin/qemu-kvm']
-    for location in locations:
-        if os.path.exists(location):
-            return location
-    raise Exception("Unable to locate qemu binary")
+    try:
+        connect = libvirt.open('qemu:///system')
+    except Exception, e:
+        raise Exception("Unable to get qemu binary location: %s" % e)
+    try:
+        xml = connect.getCapabilities()
+        expr = "/capabilities/guest/arch[@name='%s']\
+                /domain[@type='kvm']/emulator" % platform.machine()
+        res = xpath_get_text(xml, expr)
+        location = res[0]
+    except Exception, e:
+        raise Exception("Unable to get qemu binary location: %s" % e)
+    finally:
+        connect.close()
+    return location
 
 
 if __name__ == '__main__':
