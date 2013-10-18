@@ -204,17 +204,6 @@ var kimchi = {
 
     vncToVM : function(vm) {
         kimchi.requestJSON({
-            url : "/vms/" + encodeURIComponent(vm) + "/connect",
-            type : "POST",
-            dataType : "json",
-        }).done(function(data, textStatus, xhr) {
-            url = "/vnc_auto.html?port=" + data.graphics.port;
-            window.open(url);
-        });
-    },
-
-    vncToVM : function(vm) {
-        kimchi.requestJSON({
             url : '/config',
             type : 'GET',
             dataType : 'json'
