@@ -75,7 +75,7 @@ class VMTemplate(object):
         # Override with the passed in parameters
         self.info.update(args)
 
-    def _get_cdrom_xml(self, libvirt_stream):
+    def _get_cdrom_xml(self, libvirt_stream, qemu_stream_dns):
         bus = self.info['cdrom_bus']
         dev = "%s%s" % (self._bus_to_dev[bus],
                         string.lowercase[self.info['cdrom_index']])
@@ -121,6 +121,11 @@ class VMTemplate(object):
 
         if port is None:
             port = MAP_PROTOCOL_PORT.get(protocol)
+
+        url = self.info['cdrom']
+        if not qemu_stream_dns:
+            hostname = socket.gethostbyname(hostname)
+            url = protocol + "://" + hostname + ":" + port + url_path
 
         if not libvirt_stream:
             return qemu_stream_cmdline % {'url': url, 'bus': bus}
@@ -174,7 +179,7 @@ class VMTemplate(object):
             ret.append(info)
         return ret
 
-    def to_vm_xml(self, vm_name, vm_uuid, storage_path, libvirt_stream = False):
+    def to_vm_xml(self, vm_name, vm_uuid, storage_path, libvirt_stream = False, qemu_stream_dns = False):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
@@ -183,7 +188,7 @@ class VMTemplate(object):
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
 
-        cdrom_xml = self._get_cdrom_xml(libvirt_stream, qemu_stream_hostname)
+        cdrom_xml = self._get_cdrom_xml(libvirt_stream, qemu_stream_dns)
         if not libvirt_stream and params.get('iso_stream', False):
             params['qemu-namespace'] = QEMU_NAMESPACE
             params['qemu-stream-cmdline'] = cdrom_xml

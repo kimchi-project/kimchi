@@ -425,7 +425,7 @@ class Model(object):
 
         libvirt_stream = False if len(self.libvirt_stream_protocols) == 0 else True
 
-        xml = t.to_vm_xml(name, vm_uuid, storage_path, libvirt_stream)
+        xml = t.to_vm_xml(name, vm_uuid, storage_path, libvirt_stream, self.qemu_stream_dns)
         try:
             dom = conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
