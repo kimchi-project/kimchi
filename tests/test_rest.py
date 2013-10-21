@@ -682,6 +682,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/config/capabilities').read()
         conf = json.loads(resp)
         self.assertIn('libvirt_stream_protocols', conf)
+        self.assertIn('qemu_stream', conf)
         self.assertIn('screenshot', conf)
 
     def test_auth_unprotected(self):

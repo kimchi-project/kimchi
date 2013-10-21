@@ -39,6 +39,7 @@ except ImportError:
 from xml.etree import ElementTree
 import cherrypy
 from cherrypy.process.plugins import BackgroundTask
+from cherrypy.process.plugins import SimplePlugin
 
 import vmtemplate
 import config
@@ -106,6 +107,13 @@ class Model(object):
         self.graphics_ports = {}
         self.next_taskid = 1
         self.stats = {}
+        self.qemu_stream = False
+        self.qemu_stream_dns = False
+        self.libvirt_stream_protocols = []
+        # Subscribe function to set host capabilities to be run when cherrypy
+        # server is up
+        # It is needed because some features tests depends on the server
+        cherrypy.engine.subscribe('start', self._set_capabilities)
         self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
         self.statsThread.start()
         self.distros = self._get_distros()
@@ -172,13 +180,23 @@ class Model(object):
                     severity=logging.ERROR)
                 sys.exit(1)
 
-    def get_capabilities(self):
-        libvirt_protocols = []
+    def _set_capabilities(self):
+        kimchi_log.info("*** Running feature tests ***")
+        self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
+        self.qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
+
+        self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
             if FeatureTests.libvirt_supports_iso_stream(p):
-                libvirt_protocols.append(p)
+                self.libvirt_stream_protocols.append(p)
 
-        return {'libvirt_stream_protocols': libvirt_protocols,
+        kimchi_log.info("*** Feature tests completed ***")
+    _set_capabilities.priority = 90
+
+    def get_capabilities(self):
+        return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
+                'qemu_stream': self.qemu_stream,
+                'qemu_stream_dns': self.qemu_stream_dns,
                 'screenshot': VMScreenshot.get_stream_test_result()}
 
     def _update_stats(self):
