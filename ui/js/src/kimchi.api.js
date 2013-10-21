@@ -47,6 +47,22 @@ var kimchi = {
 
     /**
      *
+     * Get host capabilities
+     * suc: callback if succeed err: callback if failed
+     */
+    getCapabilities : function(suc, err) {
+        kimchi.requestJSON({
+            url : "/config/capabilities",
+            type : "GET",
+            contentType : "application/json",
+            dataType : "json",
+            success: suc,
+            error: err
+        });
+    },
+
+    /**
+     *
      * Create a new Virtual Machine. Usage: kimchi.createVM({ name: 'MyUbuntu',
      * template: '/templates/ubuntu_base' }, creationSuc, creationErr);
      *

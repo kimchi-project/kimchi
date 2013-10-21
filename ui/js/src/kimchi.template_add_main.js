@@ -162,18 +162,22 @@ kimchi.template_add_main = function() {
 
     //1-2 remote iso
     $('#iso-remote').css('opacity', 0.3).css('cursor', 'not-allowed');
-    /*
-    $('#iso-remote').click(function() {
-        kimchi.switchPage('iso-type-box', 'iso-remote-box');
-        initRemoteIsoField();
-        initIsoUrlField();
-        kimchi.listDistros(function(isos) {
-            showRemoteIsoField(isos);
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
-        });
+    kimchi.getCapabilities(function(result) {
+        if (result.qemu_stream == true) {
+            $('#iso-remote').css('opacity', 1).css('cursor', 'pointer');
+
+            $('#iso-remote').click(function() {
+                kimchi.switchPage('iso-type-box', 'iso-remote-box');
+                initRemoteIsoField();
+                initIsoUrlField();
+                kimchi.listDistros(function(isos) {
+                    showRemoteIsoField(isos);
+                }, function() {
+                });
+            });
+        }
+    }, function() {
     });
-    */
 
     $('#iso-remote-box-back').click(function() {
         kimchi.switchPage('iso-remote-box', 'iso-type-box', 'right');
