@@ -67,7 +67,7 @@ ISO_STREAM_XML = """
 class FeatureTests(object):
 
     @staticmethod
-    def is_iso_stream_supported(protocol):
+    def libvirt_supports_iso_stream(protocol):
         xml = ISO_STREAM_XML % {'protocol': protocol}
 
         try:

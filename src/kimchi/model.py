@@ -173,12 +173,12 @@ class Model(object):
                 sys.exit(1)
 
     def get_capabilities(self):
-        protocols = []
+        libvirt_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
-            if FeatureTests.is_iso_stream_supported(p):
-                protocols.append(p)
+            if FeatureTests.libvirt_supports_iso_stream(p):
+                libvirt_protocols.append(p)
 
-        return {'stream_protocols': protocols,
+        return {'libvirt_stream_protocols': libvirt_protocols,
                 'screenshot': VMScreenshot.get_stream_test_result()}
 
     def _update_stats(self):

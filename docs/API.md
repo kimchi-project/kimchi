@@ -303,8 +303,8 @@ creation.
 **Methods:**
 
 * **GET**: Retrieve capabilities information
-    * stream_protocols: list of which network protocols are accepted for iso
-      streaming
+    * libvirt_stream_protocols: list of which network protocols are accepted
+      for iso streaming by libvirt
     * screenshot: True, if libvirt stream functionality can create screenshot
       file without problems; False, otherwise or None if the functionality was
       not tested yet

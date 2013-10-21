@@ -681,7 +681,7 @@ class RestTests(unittest.TestCase):
     def test_capabilities(self):
         resp = self.request('/config/capabilities').read()
         conf = json.loads(resp)
-        self.assertIn('stream_protocols', conf)
+        self.assertIn('libvirt_stream_protocols', conf)
         self.assertIn('screenshot', conf)
 
     def test_auth_unprotected(self):
