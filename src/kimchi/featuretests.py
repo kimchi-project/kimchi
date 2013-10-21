@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import libvirt
+import threading
 import subprocess
 import os
 
@@ -88,3 +89,21 @@ class FeatureTests(object):
 
         return len(stderr) == 0
 
+    @staticmethod
+    def qemu_iso_stream_dns():
+        cmd = "qemu-io http://localhost:8000/images/icon-fedora.png -c 'read -v 0 512'"
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, shell=True)
+        thread = threading.Thread(target = proc.communicate)
+        thread.start()
+        thread.join(5)
+
+        if thread.is_alive():
+            proc.terminate()
+            thread.join()
+            return False
+
+        if proc.returncode != 0:
+            return False
+
+        return True
