@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import libvirt
+import subprocess
 import os
 
 import config
@@ -77,3 +78,13 @@ class FeatureTests(object):
             return True
         except libvirt.libvirtError:
             return False
+
+    @staticmethod
+    def qemu_supports_iso_stream():
+        cmd = "qemu-io http://127.0.0.1:8000/images/icon-fedora.png -c 'read -v 0 512'"
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, shell=True)
+        stdout, stderr = proc.communicate()
+
+        return len(stderr) == 0
+
