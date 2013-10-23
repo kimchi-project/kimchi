@@ -62,6 +62,9 @@ AC_CONFIG_FILES([
     ui/js/novnc/Makefile
     ui/js/novnc/web-socket-js/Makefile
     ui/libs/Makefile
+    ui/libs/themes/Makefile
+    ui/libs/themes/base/Makefile
+    ui/libs/themes/base/images/Makefile
     ui/pages/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile
