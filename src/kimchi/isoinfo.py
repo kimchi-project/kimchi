@@ -24,6 +24,7 @@ import sys
 import os
 import re
 import struct
+import urllib2
 from utils import kimchi_log
 
 
@@ -133,16 +134,17 @@ class IsoImage(object):
     EL_TORITO_VALIDATION_ENTRY = struct.Struct("=BBH24sHBB")
     EL_TORITO_BOOT_ENTRY = struct.Struct("=BBHBBHL20x")
 
-    def __init__(self, path):
+    def __init__(self, path, remote = False):
         self.path = path
         self.volume_id = None
         self.bootable = False
+        self.remote = remote
         self._scan()
 
     def _unpack(self, s, data):
         return s.unpack(data[:s.size])
 
-    def _scan_el_torito(self, data, fd):
+    def _scan_el_torito(self, data):
         """
         Search the Volume Descriptor Table for an El Torito boot record.  If
         found, the boot record will provide a link to a boot catalogue.  The
@@ -167,8 +169,9 @@ class IsoImage(object):
         if not et_ident.startswith('EL TORITO SPECIFICATION'):
             raise IsoFormatError("Invalid El Torito boot record")
 
-        fd.seek(IsoImage.SECTOR_SIZE * boot_cat)
-        data = fd.read(IsoImage.EL_TORITO_VALIDATION_ENTRY.size + IsoImage.EL_TORITO_BOOT_ENTRY.size)
+        offset = IsoImage.SECTOR_SIZE * boot_cat
+        size = IsoImage.EL_TORITO_VALIDATION_ENTRY.size + IsoImage.EL_TORITO_BOOT_ENTRY.size
+        data = self._get_iso_data(offset, size)
 
         fmt = IsoImage.EL_TORITO_VALIDATION_ENTRY
         tmp_data = data[0:fmt.size]
@@ -203,15 +206,28 @@ class IsoImage(object):
             raise IsoFormatError("Bad format while reading volume descriptor")
         self.volume_id = vol_id
 
-    def _scan(self):
-        with open(self.path) as fd:
-            fd.seek(16 * IsoImage.SECTOR_SIZE)
-            data = fd.read(4 * IsoImage.SECTOR_SIZE)
-            if len(data) < 2 * IsoImage.SECTOR_SIZE:
-                return
+    def _get_iso_data(self, offset, size):
+        if self.remote:
+            request = urllib2.Request(self.path)
+            request.add_header("range", "bytes=%d-%d" % (offset, offset + size -1))
+            response = urllib2.urlopen(request)
+            data = response.read()
+        else:
+            with open(self.path) as fd:
+                fd.seek(offset)
+                data = fd.read(size)
 
-            self._scan_primary_vol(data)
-            self._scan_el_torito(data, fd)
+        return data
+
+    def _scan(self):
+        offset = 16 * IsoImage.SECTOR_SIZE
+        size = 4 * IsoImage.SECTOR_SIZE
+        data = self._get_iso_data(offset, size)
+        if len(data) < 2 * IsoImage.SECTOR_SIZE:
+            return
+
+        self._scan_primary_vol(data)
+        self._scan_el_torito(data)
 
 
 class Matcher(object):
@@ -230,9 +246,9 @@ class Matcher(object):
         return self.lastmatch.group(num)
 
 
-def _probe_iso(fname):
+def _probe_iso(fname, remote = False):
     try:
-        iso = IsoImage(fname)
+        iso = IsoImage(fname, remote)
     except Exception, e:
         kimchi_log.warning("probe_iso: Error processing ISO image: %s\n%s" %
                            (fname, e))
@@ -276,11 +292,25 @@ def probe_iso(status_helper, params):
     if status_helper != None:
         status_helper('', True)
 
+def _check_url_path(path):
+    try:
+        code = urllib2.urlopen(path).getcode()
+        if code != 200:
+            return False
+    except (urllib2.HTTPError, ValueError):
+        return False
+
+    return True
 
 def probe_one(iso):
-    if not os.path.isfile(iso):
+    if os.path.isfile(iso):
+        remote = False
+    elif _check_url_path(iso):
+        remote = True
+    else:
         raise IsoFormatError('ISO %s does not exist' % iso)
-    return _probe_iso(iso)
+
+    return _probe_iso(iso, remote)
 
 
 if __name__ == '__main__':
