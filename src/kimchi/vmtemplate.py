@@ -49,23 +49,20 @@ class VMTemplate(object):
         # Identify the cdrom if present
         iso_distro = iso_version = 'unknown'
         iso = args.get('cdrom', '')
-        if scan and len(iso) > 0:
-            if iso.startswith('/'):
-                try:
-                    iso_distro, iso_version = isoinfo.probe_one(iso)
-                except isoinfo.IsoFormatError, e:
-                    raise InvalidParameter(e)
-            elif iso.startswith('http://') or iso.startswith('ftp://'):
-                try:
-                    code = urllib.urlopen(iso).getcode()
-                    if code != 200:
-                        raise InvalidParameter("The URL specified for iso streaming does not exist.")
 
-                    self.info.update({'iso_stream': True})
-                except IOError, e:
-                    raise InvalidParameter(e)
-            else:
-                raise InvalidParameter("Invalid parameter specified to cdrom.")
+        if scan and len(iso) > 0:
+
+            iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
+            if len(filter(iso.startswith, iso_prefixes)) == 0:
+                raise InvalidParameter("Invalid parameter specified for cdrom.")
+
+            if not iso.startswith('/'):
+                self.info.update({'iso_stream': True})
+
+            try:
+                iso_distro, iso_version = isoinfo.probe_one(iso)
+            except isoinfo.IsoFormatError, e:
+                raise InvalidParameter(e)
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)
