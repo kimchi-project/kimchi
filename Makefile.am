@@ -38,6 +38,7 @@ EXTRA_DIST = \
 # When fixing a file to conform with pep8, add it to the WL here.
 # So it will be checked from now on.
 PEP8_WHITELIST = \
+	src/kimchi/asynctask.py \
 	src/kimchi/config.py.in \
 	$(NULL)
 
