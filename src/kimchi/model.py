@@ -560,7 +560,9 @@ class Model(object):
         except KeyError, key:
             raise MissingParameter(key)
         if name in self.storagepools_get_list():
-            raise InvalidOperation("The name %s has been used by a pool.")
+            raise InvalidOperation(
+                        "The name %s has been used by a pool" % name)
+
         try:
             pool = conn.storagePoolDefineXML(xml, 0)
             if params['type'] == 'dir':
