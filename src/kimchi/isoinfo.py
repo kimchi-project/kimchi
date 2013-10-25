@@ -20,6 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import glob
 import sys
 import os
 import re
@@ -276,18 +277,26 @@ def _probe_iso(fname, remote = False):
 def probe_iso(status_helper, params):
     loc = params['path']
     updater = params['updater']
-    for root, dirs, files in os.walk(loc):
-        for name in files:
-            if not name.lower().endswith('.iso'):
-                continue
-            iso = os.path.join(root, name)
+
+    def update_result(iso, ret):
+        if ret != ('unknown', 'unknown'):
+            iso = os.path.abspath(iso)
+            updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
+
+    if os.path.isdir(loc):
+        files = glob.glob(loc + "*.iso")
+        for iso in files:
             try:
                 ret = _probe_iso(iso)
+                update_result(iso, ret)
             except:
                 continue
-            if ret != ('unknown', 'unknown'):
-                iso = os.path.abspath(iso)
-                updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
+    elif os.path.isfile(loc):
+        ret = _probe_iso(loc, False)
+        update_result(loc, ret)
+    else:
+        ret = _probe_iso(loc, True)
+        update_result(loc, ret)
 
     if status_helper != None:
         status_helper('', True)
