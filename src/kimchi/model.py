@@ -399,6 +399,9 @@ class Model(object):
             raise InvalidOperation("VM already exists")
         t = self._get_template(t_name)
 
+        if not self.qemu_stream and t.info.get('iso_stream', False):
+            raise InvalidOperation("Remote ISO image is not supported by this server.")
+
         vm_uuid = str(uuid.uuid4())
         conn = self.conn.get()
         pool_uri = params.get('storagepool', t.info['storagepool'])
@@ -420,7 +423,9 @@ class Model(object):
             with self.objstore as session:
                 session.store('vm', vm_uuid, {'icon': icon})
 
-        xml = t.to_vm_xml(name, vm_uuid, storage_path)
+        libvirt_stream = False if len(self.libvirt_stream_protocols) == 0 else True
+
+        xml = t.to_vm_xml(name, vm_uuid, storage_path, libvirt_stream)
         try:
             dom = conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
