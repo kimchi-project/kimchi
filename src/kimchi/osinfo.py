@@ -121,6 +121,25 @@ osinfo = [
         'disk_bus': 'ide', 'nic_model': 'e1000',
         'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
+    ('centos', {
+        'version': lambda d,v: bool(d == 'centos' and
+            (v in ('5.3', '5.4', '5.5') or v.startswith('6.'))),
+        'icon': 'images/icon-centos.png',
+        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
+        'memory': 1024,
+        'disks': [{'index': 0, 'size': 10}],
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
+    }),
+    ('centos-old', {
+        'version': lambda d,v: bool(d == 'centos'),
+        'icon': 'images/icon-centos.png',
+        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
+        'memory': 1024,
+        'disks': [{'index': 0, 'size': 10}],
+        'disk_bus': 'ide', 'nic_model': 'e1000',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
+    }),
     ('unknown', {
         'version': lambda d,v: True,
         'icon': 'images/icon-vm.png',
