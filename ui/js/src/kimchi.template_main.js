@@ -59,7 +59,9 @@ kimchi.bindClick = function() {
             var templateName = $template.data('template');
             kimchi.deleteTemplate(templateName, function() {
                 kimchi.doListTemplates();
-            }, "");
+            }, function() {
+                kimchi.message.error(i18n['fail.delete.template']);
+            });
         }, function() {
         });
     });
