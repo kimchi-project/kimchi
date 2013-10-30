@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:57</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:58</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 30 13:00:57 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:58</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:03</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:05</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) Process note 2) KVM Forum summary 3) Roundtable</span>
+<a name="l-7"></a><span class="tm">13:02:22</span><span class="nk"> &lt;aglitke&gt;</span> Anything else?
+<a name="l-8"></a><span class="tm">13:02:55</span><span class="nk"> &lt;alinefm&gt;</span> I think this is all
+<a name="l-9"></a><span class="tm">13:02:58</span><span class="nk"> &lt;aglitke&gt;</span> The team has been very busy while I was out last week so I am going to ask for some help catching up.
+<a name="l-10"></a><span class="tm">13:03:03</span><span class="nk"> &lt;aglitke&gt;</span> great...
+<a name="l-11"></a><span class="tm">13:03:09</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Process note</span>
+<a name="l-12"></a><span class="tm">13:03:54</span><span class="nk"> &lt;aglitke&gt;</span> As most of you noticed, last week alinefm was very helpful and she collected patches into a staging branch so they could be merged when I returned.
+<a name="l-13"></a><span class="tm">13:04:07</span><span class="nk"> &lt;aglitke&gt;</span> First of all, thanks to her for helping out with that...
+<a name="l-14"></a><span class="tm">13:04:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">Second:</span> I think that worked so well that I'd like to ask her to continue helping share the responsibility of staging and merging patches.
+<a name="l-15"></a><span class="tm">13:05:04</span><span class="nk"> &lt;ming&gt;</span> aglitke, i disagree that.
+<a name="l-16"></a><span class="tm">13:05:10</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, thank you for the opportunity!
+<a name="l-17"></a><span class="tm">13:05:11</span><span class="nk"> &lt;aglitke&gt;</span> It should help us to increase our velocity.
+<a name="l-18"></a><span class="tm">13:05:44</span><span class="nk"> &lt;ming&gt;</span> i think we need one from different timezone
+<a name="l-19"></a><span class="tm">13:06:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> We can look into that in the future.  But this is really my decision about who I want to work with.  It's easier for me to coordinate with someone in my own timezone.
+<a name="l-20"></a><span class="tm">13:06:29</span><span class="nk"> &lt;hlwanghl&gt;</span> we have 9 or 10 guys in China
+<a name="l-21"></a><span class="tm">13:06:49</span><span class="nk"> &lt;shaohef&gt;</span> yes.
+<a name="l-22"></a><span class="tm">13:06:54</span><span class="nk"> &lt;ming&gt;</span> aglitke, that can not help  China team.
+<a name="l-23"></a><span class="tm">13:07:15</span><span class="nk"> &lt;aglitke&gt;</span> markwu Is helping with maintainership of the kimchi-ginger branch.  So I can see that responsibility evolving over time.
+<a name="l-24"></a><span class="tm">13:08:12</span><span class="nk"> &lt;shaohef&gt;</span> we should need a one familiar with kimchi code.
+<a name="l-25"></a><span class="tm">13:08:33</span><span class="nk"> &lt;aglitke&gt;</span> I am happy that shaohef has stepped up to help maintain issues.
+<a name="l-26"></a><span class="tm">13:08:34</span><span class="nk"> &lt;shaohef&gt;</span> to maintainership kimchi branch
+<a name="l-27"></a><span class="tm">13:08:45</span><span class="nk"> &lt;ming&gt;</span> aglitke, you know we need work overtime to catch a maintainer from your time zone. That is not easy.
+<a name="l-28"></a><span class="tm">13:08:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> Going from 1 to 2 will give us a chance to work out the mechanics of &gt;1. Hopefully we get so many contributors, we'll need to go 2+ real soon
+<a name="l-29"></a><span class="tm">13:08:57</span><span class="nk"> &lt;hlwanghl&gt;</span> a major part of patches are from China team, so it will help much if we have one in China
+<a name="l-30"></a><span class="tm">13:09:57</span><span class="nk"> &lt;alinefm&gt;</span> I think the main issue of getting patches merged  in a good time is about reviewing
+<a name="l-31"></a><span class="tm">13:10:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Thanks for your suggestion.  We will continue to work as a team to manage the difficulties with timezones.
+<a name="l-32"></a><span class="tm">13:10:27</span><span class="nk"> &lt;alinefm&gt;</span> if everyone reviews patches I can apply them sooner without having problems with timezones
+<a name="l-33"></a><span class="tm">13:10:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> alinefm, we'll look forward to helping you assume this additional work!
+<a name="l-34"></a><span class="tm">13:10:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Agreed.  The more thoroughly patches are reviewed, the easier and faster they can be merged.
+<a name="l-35"></a><span class="tm">13:11:08</span><span class="nk"> &lt;aglitke&gt;</span> Yes, thank you alinefm!
+<a name="l-36"></a><span class="tm">13:11:25</span><span class="nk"> &lt;pvital&gt;</span> sorry guys, but we are ONE team. I don't care if the commiter is in China, Europe, US or Brazil. The point is submit the patches and get them reviewed
+<a name="l-37"></a><span class="tm">13:11:27</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">KVM Forum summary</span>
+<a name="l-38"></a><span class="tm">13:11:34</span><span class="nk"> &lt;AdamKingIT&gt;</span> tell us about KVM forum?
+<a name="l-39"></a><span class="tm">13:12:03</span><span class="nk"> &lt;shaohef&gt;</span> maybe I can help  with maintain patch.  I'm familiar with git tool. And help most member of  China team for their git manager and Makefile configure.
+<a name="l-40"></a><span class="tm">13:12:31</span><span class="nk"> &lt;ming&gt;</span> agtitke, not that way always.  Even after full review from the others, maintain can block the integration for quite a while.
+<a name="l-41"></a><span class="tm">13:12:33</span><span class="nk"> &lt;aglitke&gt;</span> So kimchi was very well received at KVM Forum!  I presented in a packed room.  The audience was impressed with the clean UI and the ease of use.
+<a name="l-42"></a><span class="tm">13:12:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> you have a guess how many people were packed in?
+<a name="l-43"></a><span class="tm">13:13:12</span><span class="nk"> &lt;aglitke&gt;</span> Several people asked me when/if kimchi would be ready to replace virt-manager.
+<a name="l-44"></a><span class="tm">13:13:59</span><span class="nk"> &lt;pvital&gt;</span> aglitke, did your talk recorded?
+<a name="l-45"></a><span class="tm">13:14:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> We were in a smaller salon but at least 60 I would assume.  aliguori was there and several other maintainers from libvirt, etc.
+<a name="l-46"></a><span class="tm">13:14:11</span><span class="nk"> &lt;AdamKingIT&gt;</span> we have a little ways to go, but cool that are thinking that way
+<a name="l-47"></a><span class="tm">13:14:20</span><span class="nk"> &lt;alinefm&gt;</span> oh very good!
+<a name="l-48"></a><span class="tm">13:14:26</span><span class="nk"> &lt;hlwanghl&gt;</span> a good beginning
+<a name="l-49"></a><span class="tm">13:14:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> Yes it was.  I will let everyone know once the videos for the Forum have been released.
+<a name="l-50"></a><span class="tm">13:14:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> 60 is a pretty good crowd
+<a name="l-51"></a><span class="tm">13:15:02</span><span class="nk"> &lt;aglitke&gt;</span> I was able to demonstrate ISO streaming as a preview feature and people were very excited about it.
+<a name="l-52"></a><span class="tm">13:15:29</span><span class="nk"> &lt;aglitke&gt;</span> One comment that I think we should take seriously is the need to have kimchi packaged in distros.
+<a name="l-53"></a><span class="tm">13:15:48</span><span class="nk"> &lt;aglitke&gt;</span> Most people will try a new project by first installing the distro package.
+<a name="l-54"></a><span class="tm">13:16:03</span><span class="nk"> &lt;aglitke&gt;</span> Only then will they download the source and make improvements.
+<a name="l-55"></a><span class="tm">13:16:15</span><span class="nk"> &lt;aglitke&gt;</span> We have offers of help from the Fedora community already.
+<a name="l-56"></a><span class="tm">13:16:24</span><span class="nk"> &lt;pvital&gt;</span> aglitke, nice! we can use twitter, facebook and google+ to share the video and improve the marketing of kimchi
+<a name="l-57"></a><span class="tm">13:16:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> great
+<a name="l-58"></a><span class="tm">13:16:29</span><span class="nk"> &lt;aglitke&gt;</span> ANd we should really work hard to add Ubuntu and openSUSE to the list.
+<a name="l-59"></a><span class="tm">13:17:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> Yes, very good suggestion.  Anyone should feel free to market kimchi in their own social circles.
+<a name="l-60"></a><span class="tm">13:17:21</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, what is the process to that?
+<a name="l-61"></a><span class="tm">13:17:25</span><span class="nk"> &lt;alinefm&gt;</span> if there is one
+<a name="l-62"></a><span class="tm">13:17:33</span><span class="nk"> &lt;aglitke&gt;</span> Kimchi is seen to directly address a gap we've had in the KVM tools for a long time.
+<a name="l-63"></a><span class="tm">13:17:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Each distro has its own process.
+<a name="l-64"></a><span class="tm">13:18:26</span><span class="nk"> &lt;aglitke&gt;</span> It can be a bit involved, but we have skills in this area already.
+<a name="l-65"></a><span class="tm">13:18:33</span><span class="nk"> &lt;pvital&gt;</span> aglitke, I have some experience with RPM and can help with it
+<a name="l-66"></a><span class="tm">13:18:35</span><span class="nk"> &lt;aglitke&gt;</span> I have done a fedora package for MOM
+<a name="l-67"></a><span class="tm">13:18:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> Excellent.  You could look at openSUSE
+<a name="l-68"></a><span class="tm">13:19:02</span><span class="nk"> &lt;pvital&gt;</span> sure!
+<a name="l-69"></a><span class="tm">13:19:04</span><span class="nk"> &lt;aglitke&gt;</span> we already can build rpms today.  We just need to get our package included in the official repos
+<a name="l-70"></a><span class="tm">13:19:33</span><span class="nk"> &lt;shaohef&gt;</span> but we need more features, then we can  get our package included in the official repos
+<a name="l-71"></a><span class="tm">13:19:40</span><span class="nk"> &lt;aglitke&gt;</span> So... I guess that's all I have to report from KVM Forum.
+<a name="l-72"></a><span class="tm">13:20:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> I think 1.0 is really good enough to start packaging.
+<a name="l-73"></a><span class="tm">13:20:08</span><span class="nk"> &lt;aglitke&gt;</span> It can already do some cool things.
+<a name="l-74"></a><span class="tm">13:20:18</span><span class="nk"> &lt;aglitke&gt;</span> You never want to wait until your finished to start.
+<a name="l-75"></a><span class="tm">13:20:49</span><span class="nk"> &lt;royce&gt;</span> In official repos will push us to evolve
+<a name="l-76"></a><span class="tm">13:21:07</span><span class="nk"> &lt;aglitke&gt;</span> So in summary, great work guys!  People like what they see.
+<a name="l-77"></a><span class="tm">13:21:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="topic">#topic </span><span class="topicline">Roundtable</span>
+<a name="l-78"></a><span class="tm">13:22:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> https://github.com/kimchi-project/kimchi/issues/217
+<a name="l-79"></a><span class="tm">13:22:21</span><span class="nk"> &lt;royce&gt;</span> I'd like to to ask guys about deep scanning and vm edit~
+<a name="l-80"></a><span class="tm">13:22:34</span><span class="nk"> &lt;aglitke&gt;</span> Since I am a bit behind in the patch queue, if you have a series that is really ready to be merged, past the subject line of the patch series here.  I will prioritize review for these sets.
+<a name="l-81"></a><span class="tm">13:22:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> AdamKingIT: can you help to Make Kimchi page at Wikipedia in English?
+<a name="l-82"></a><span class="tm">13:23:20</span><span class="nk"> &lt;royce&gt;</span> [project-kimchi][PATCHv3 0/6] Using vm uuid inside model
+<a name="l-83"></a><span class="tm">13:23:22</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  AdamKingIT: we will  Make Kimchi page at Wikipedia in Chinese.
+<a name="l-84"></a><span class="tm">13:23:23</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I guess shaohef patches about distros are ready
+<a name="l-85"></a><span class="tm">13:23:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> Yes, I'll look into it
+<a name="l-86"></a><span class="tm">13:23:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> that is merged
+<a name="l-87"></a><span class="tm">13:23:44</span><span class="nk"> &lt;alinefm&gt;</span> [PATCH V7 0/7] support distros
+<a name="l-88"></a><span class="tm">13:23:58</span><span class="nk"> &lt;royce&gt;</span> uhhh, sorry, aglitke
+<a name="l-89"></a><span class="tm">13:24:07</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> np :)
+<a name="l-90"></a><span class="tm">13:24:13</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> let's talk deep scanning
+<a name="l-91"></a><span class="tm">13:25:01</span><span class="nk"> &lt;ming&gt;</span> I think debug report V11 is quite ready now.
+<a name="l-92"></a><span class="tm">13:25:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> host monitor?
+<a name="l-93"></a><span class="tm">13:25:20</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> ok... I will take a review.
+<a name="l-94"></a><span class="tm">13:25:30</span><span class="nk"> &lt;royce&gt;</span> that's good, aglitke,  [project-kimchi][PATCHv2 4/4] deep scan: add model support
+<a name="l-95"></a><span class="tm">13:25:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  for CPU usage? we should show every cpu usage?
+<a name="l-96"></a><span class="tm">13:25:46</span><span class="nk"> &lt;ming&gt;</span> I am working with Hong liang to deliver the UI part later. Anyway, the backend can be integrated first.
+<a name="l-97"></a><span class="tm">13:25:49</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> You feel it is ready for merge?
+<a name="l-98"></a><span class="tm">13:26:05</span><span class="nk"> &lt;royce&gt;</span> deep scanning's lacking test because we don't have the psedo iso gen
+<a name="l-99"></a><span class="tm">13:26:19</span><span class="nk"> &lt;royce&gt;</span> I think it is ready, aglitke
+<a name="l-100"></a><span class="tm">13:26:28</span><span class="nk"> &lt;aglitke&gt;</span> ok... I will review.
+<a name="l-101"></a><span class="tm">13:26:51</span><span class="nk"> &lt;aglitke&gt;</span> also... everyone else can help to review these high priority patch sets
+<a name="l-102"></a><span class="tm">13:26:55</span><span class="nk"> &lt;royce&gt;</span> If you like my way wrapping task id in storagepool resource
+<a name="l-103"></a><span class="tm">13:26:57</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> I think [project-kimchi] [PATCH V3 0/5] Add spice support in KIMCHI is ready to be reviewed too.
+<a name="l-104"></a><span class="tm">13:27:13</span><span class="nk"> &lt;aglitke&gt;</span> ok
+<a name="l-105"></a><span class="tm">13:27:14</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> shaohef had tested that .
+<a name="l-106"></a><span class="tm">13:27:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes. seem it is good.
+<a name="l-107"></a><span class="tm">13:27:35</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Where are we at with iso streaming?  I know you've made some progress narrowing down the issues.
+<a name="l-108"></a><span class="tm">13:27:42</span><span class="nk"> &lt;ming&gt;</span> royce, I think we can enhance the task implementation a bit.
+<a name="l-109"></a><span class="tm">13:27:57</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I sent last week the a patchset for review
+<a name="l-110"></a><span class="tm">13:28:02</span><span class="nk"> &lt;alinefm&gt;</span> waiting for review =)
+<a name="l-111"></a><span class="tm">13:28:22</span><span class="nk"> &lt;alinefm&gt;</span> [PATCH 0/7 V2] ISO Streaming
+<a name="l-112"></a><span class="tm">13:28:27</span><span class="nk"> &lt;AdamKingIT&gt;</span> SOME people must have been away at a conference or something :-)
+<a name="l-113"></a><span class="tm">13:28:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> So the feature tests can identify if an out of band DNS resolution is required?
+<a name="l-114"></a><span class="tm">13:28:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> :)
+<a name="l-115"></a><span class="tm">13:29:07</span><span class="nk"> &lt;hlwanghl&gt;</span> host tab: processors, memory dynamic statistics showing a line chart, should we include this?
+<a name="l-116"></a><span class="tm">13:29:14</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I used socket.gethostbyname() to get the ip associated to the hostname
+<a name="l-117"></a><span class="tm">13:29:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-118"></a><span class="tm">13:29:27</span><span class="nk"> &lt;alinefm&gt;</span> not sure it is the best approach
+<a name="l-119"></a><span class="tm">13:29:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">hlwanghl:</span> I am not sure about that history chart...
+<a name="l-120"></a><span class="tm">13:29:45</span><span class="nk"> &lt;ming&gt;</span> alinefm, Can you give a full description about how to test ISO streaming?
+<a name="l-121"></a><span class="tm">13:29:55</span><span class="nk"> &lt;aglitke&gt;</span> It doesn't fit our presentation style very well.
+<a name="l-122"></a><span class="tm">13:29:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> hlwanghl you have a "host" patch ready for review?
+<a name="l-123"></a><span class="tm">13:30:01</span><span class="nk"> &lt;ming&gt;</span> I am really eager to test that feature.
+<a name="l-124"></a><span class="tm">13:30:06</span><span class="nk"> &lt;shaohef&gt;</span> aglitke:https://github.com/kimchi-project/kimchi/issues/198  more want to support spice.
+<a name="l-125"></a><span class="tm">13:30:37</span><span class="nk"> &lt;royce&gt;</span> ming, with alinefm's workaround it can be used I guess
+<a name="l-126"></a><span class="tm">13:30:46</span><span class="nk"> &lt;zhoumeina&gt;</span> we have just sent patchset to support spice
+<a name="l-127"></a><span class="tm">13:30:55</span><span class="nk"> &lt;alinefm&gt;</span> ming, it is on the patch cover letter but basically you just need to applu my patches and specify an URL to creata a template
+<a name="l-128"></a><span class="tm">13:31:05</span><span class="nk"> &lt;ming&gt;</span> royce, I would like a all one on on FC18 or FC19.
+<a name="l-129"></a><span class="tm">13:31:16</span><span class="nk"> &lt;hlwanghl&gt;</span> AdamKingIT most parts are ready, i'll integrate the back end api and thensend out
+<a name="l-130"></a><span class="tm">13:31:19</span><span class="nk"> &lt;ming&gt;</span> a all on ---&gt;all in one
+<a name="l-131"></a><span class="tm">13:31:25</span><span class="nk"> &lt;aglitke&gt;</span> Cool.  I am eager to re-enable the part of the UI where you can create a template from a known remote iso (select from a list).
+<a name="l-132"></a><span class="tm">13:31:28</span><span class="nk"> &lt;pvital&gt;</span> AdamKingIT, hlwanghl, aglitke: I can review the host tab patches once it covers part of kimchi-ginger work!!
+<a name="l-133"></a><span class="tm">13:31:31</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  why do you need to get the hostname? we can get the cherrpy.url to get the ip or hostname
+<a name="l-134"></a><span class="tm">13:31:37</span><span class="nk"> &lt;royce&gt;</span> I think that can do, because it works around libvirt and qemu problem
+<a name="l-135"></a><span class="tm">13:32:17</span><span class="nk"> &lt;royce&gt;</span> shaohef, qemu-io got stucked because the mis-use of curl when resolving the hostname
+<a name="l-136"></a><span class="tm">13:32:18</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> Thanks!
+<a name="l-137"></a><span class="tm">13:32:21</span><span class="nk"> &lt;markwu&gt;</span> aglitke, I can't say the plugin support patch is ready to merge,  but I would like to know if you like the direction.
+<a name="l-138"></a><span class="tm">13:32:28</span><span class="nk"> &lt;hlwanghl&gt;</span> pvital great
+<a name="l-139"></a><span class="tm">13:32:43</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> Yes... I owe you a review on it.  Do you cover the UI piece as well?
+<a name="l-140"></a><span class="tm">13:32:45</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is about the URL for remote ISO
+<a name="l-141"></a><span class="tm">13:33:10</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, on FC19 qemu gets stuck because it could not resolve the hostname, but if we use ip it works fine
+<a name="l-142"></a><span class="tm">13:33:53</span><span class="nk"> &lt;markwu&gt;</span> aglitke, I didn't cover the UI part.
+<a name="l-143"></a><span class="tm">13:33:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> the ip is same with the cherrpy server?
+<a name="l-144"></a><span class="tm">13:34:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> ok.
+<a name="l-145"></a><span class="tm">13:34:19</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> No. this is the IP of the server that hosts the ISO image
+<a name="l-146"></a><span class="tm">13:34:23</span><span class="nk"> &lt;hlwanghl&gt;</span> markwu we can work together on UI part
+<a name="l-147"></a><span class="tm">13:34:24</span><span class="nk"> &lt;aglitke&gt;</span> it can be anywhere
+<a name="l-148"></a><span class="tm">13:34:28</span><span class="nk"> &lt;ming&gt;</span> markwu, I think plugin might not a good word. I think it is just another application, not a plugin.
+<a name="l-149"></a><span class="tm">13:35:05</span><span class="nk"> &lt;aglitke&gt;</span> I prefer plugin.  Application hints that it runs as a separate process.
+<a name="l-150"></a><span class="tm">13:35:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> I remember a patch from meina to cover the UI extension. Did I dream that?
+<a name="l-151"></a><span class="tm">13:35:13</span><span class="nk"> &lt;aglitke&gt;</span> The plugin is extending the rest api
+<a name="l-152"></a><span class="tm">13:35:41</span><span class="nk"> &lt;markwu&gt;</span> and it's 'plug gable' indeed :)
+<a name="l-153"></a><span class="tm">13:35:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> [PATCH 00/13] network related patches   and the UI is ready. UI can create/delete/start/stop/list network.
+<a name="l-154"></a><span class="tm">13:35:59</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> UI extension?
+<a name="l-155"></a><span class="tm">13:36:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> y
+<a name="l-156"></a><span class="tm">13:36:15</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Does the net create use macvtap , etc?
+<a name="l-157"></a><span class="tm">13:36:19</span><span class="nk"> &lt;zhoumeina&gt;</span> yes
+<a name="l-158"></a><span class="tm">13:36:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I will integrate all patches into one, and let every  one try
+<a name="l-159"></a><span class="tm">13:36:36</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, I saw that too
+<a name="l-160"></a><span class="tm">13:36:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> yes
+<a name="l-161"></a><span class="tm">13:36:47</span><span class="nk"> &lt;zhoumeina&gt;</span> I wan to dicuss that UI extension with you too
+<a name="l-162"></a><span class="tm">13:36:53</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> That is excellent.
+<a name="l-163"></a><span class="tm">13:37:02</span><span class="nk"> &lt;aglitke&gt;</span> I am anxious to try it.
+<a name="l-164"></a><span class="tm">13:37:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> I'll look for it and review. We may want to start to incorporate a notion of how auth will work for extensions. I saw an interesting talk by the paypal api arch last week that made me think...
+<a name="l-165"></a><span class="tm">13:37:14</span><span class="nk"> &lt;aglitke&gt;</span> It seems we have patches out for nearly all S1 features.
+<a name="l-166"></a><span class="tm">13:37:30</span><span class="nk"> &lt;royce&gt;</span> sorry to interrupt one more ask, guys do you like my way using sub-resources to deal with vm disks and nics, snapshots and so on?  when referring to vm edit we will not touch its subresources~
+<a name="l-167"></a><span class="tm">13:37:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Yes, I think that is a good idea.
+<a name="l-168"></a><span class="tm">13:37:53</span><span class="nk"> &lt;ming&gt;</span> aglitke, so it is a extension implemented by a seperate application. Extension may be better.
+<a name="l-169"></a><span class="tm">13:37:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  if an ether nic exists create macvtap, or a linux bridge exists ， then create a linux bridge network.
+<a name="l-170"></a><span class="tm">13:38:02</span><span class="nk"> &lt;aglitke&gt;</span> It will allow us to add/remove disks and nics.
+<a name="l-171"></a><span class="tm">13:38:08</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> I wonder what is the orginal purpose of autogenerate tabs by add tab htmls?
+<a name="l-172"></a><span class="tm">13:38:38</span><span class="nk"> &lt;royce&gt;</span> thanks aglitke, then we can move on on those edit features~
+<a name="l-173"></a><span class="tm">13:38:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  .
+<a name="l-174"></a><span class="tm">13:38:46</span><span class="nk"> &lt;pvital&gt;</span> aglitke, I think we need a review from UI side to  [PATCH] StoragePool: Add NFS pool from pradeed
+<a name="l-175"></a><span class="tm">13:38:54</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">zhoumeina:</span> sorry I didn't follow the question. maybe we can chat afterwards, or tomorrow
+<a name="l-176"></a><span class="tm">13:39:13</span><span class="nk"> &lt;royce&gt;</span> shaohef?
+<a name="l-177"></a><span class="tm">13:39:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> hlwanghl: Can you guys review the UI for [PATCH] StoragePool: Add NFS pool
+<a name="l-178"></a><span class="tm">13:39:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  yes. I write my snapshot use subresources as VM already.
+<a name="l-179"></a><span class="tm">13:39:27</span><span class="nk"> &lt;royce&gt;</span> yeah, I know, shaohef
+<a name="l-180"></a><span class="tm">13:39:45</span><span class="nk"> &lt;zhoumeina&gt;</span> We want to make UI customize or just more convient to add tabs?
+<a name="l-181"></a><span class="tm">13:39:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  it is convenience to edit VM
+<a name="l-182"></a><span class="tm">13:40:46</span><span class="nk"> &lt;royce&gt;</span> for the [PATCH] StoragePool: Add NFS pool, this patch melt all changes in a big one seems...
+<a name="l-183"></a><span class="tm">13:40:49</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> ok
+<a name="l-184"></a><span class="tm">13:40:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">zhoumeina:</span> main goal is to support functional extensions, so new capabilities manifest in the UI
+<a name="l-185"></a><span class="tm">13:41:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> The plan is that extensions will just add their own tabs but will not modify existing tabs.
+<a name="l-186"></a><span class="tm">13:41:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  I will  integrate all patches include UI into one, and let every  to try. and then split it for review.
+<a name="l-187"></a><span class="tm">13:41:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> about the network.
+<a name="l-188"></a><span class="tm">13:41:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Is that necessary?  I think it is easy enough to apply a series (as long as it does not need a rebase).
+<a name="l-189"></a><span class="tm">13:42:23</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> that is what I think
+<a name="l-190"></a><span class="tm">13:42:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  someone think it is not convenience to save as so many patches and apply them.
+<a name="l-191"></a><span class="tm">13:42:45</span><span class="nk"> &lt;ming&gt;</span> shaohef, I always like a slef-containe package.  But I am a developer, I can apply you patch into my workspace and install them correctly.
+<a name="l-192"></a><span class="tm">13:43:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span>  thank you.
+<a name="l-193"></a><span class="tm">13:43:32</span><span class="nk"> &lt;aglitke&gt;</span> ok... So we all have a long list of patches to review.
+<a name="l-194"></a><span class="tm">13:43:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  a good way to download  too many patches and apply them.
+<a name="l-195"></a><span class="tm">13:43:52</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="hi">aglitke:</span> sure
+<a name="l-196"></a><span class="tm">13:43:52</span><span class="nk"> &lt;aglitke&gt;</span> Thanks in advance to everyone for helping us clear the patch backlog by reviewing code.
+<a name="l-197"></a><span class="tm">13:43:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> do you use mutt?
+<a name="l-198"></a><span class="tm">13:44:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Yes!
+<a name="l-199"></a><span class="tm">13:44:12</span><span class="nk"> &lt;royce&gt;</span> aglitke, do we have a tool to measure our review?
+<a name="l-200"></a><span class="tm">13:44:15</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> shaohef:we have los of issues in github that have not add tags and send out
+<a name="l-201"></a><span class="tm">13:44:15</span><span class="nk"> &lt;aglitke&gt;</span> it makes managing patches much easuer
+<a name="l-202"></a><span class="tm">13:44:47</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> No not really.  There are tools that can scan Reviewed-by tags on the mailing list.
+<a name="l-203"></a><span class="tm">13:44:50</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zhoumeina:</span>  I will tags them with aglitke
+<a name="l-204"></a><span class="tm">13:44:56</span><span class="nk"> &lt;zhoumeina&gt;</span> some of those issues created long ago
+<a name="l-205"></a><span class="tm">13:45:08</span><span class="nk"> &lt;aglitke&gt;</span> But I have found that when you track that stat it encourages people to do more superfluous reviews.
+<a name="l-206"></a><span class="tm">13:45:10</span><span class="nk"> &lt;royce&gt;</span> sometimes our boss ask us our review activities, I will look for some~
+<a name="l-207"></a><span class="tm">13:45:29</span><span class="nk"> &lt;aglitke&gt;</span> I'd rather people spend more time doing a smaller number of deep. substantive reviews.
+<a name="l-208"></a><span class="tm">13:45:30</span><span class="nk"> &lt;royce&gt;</span> :))))
+<a name="l-209"></a><span class="tm">13:45:45</span><span class="nk"> &lt;royce&gt;</span> that's true
+<a name="l-210"></a><span class="tm">13:45:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> got it. most of us use thunderbird. :) thunderbird it not convenience to manage so many patches.
+<a name="l-211"></a><span class="tm">13:45:59</span><span class="nk"> &lt;aglitke&gt;</span> So it's a hard stat to track.
+<a name="l-212"></a><span class="tm">13:46:11</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Yeah, that is why I do not use it.
+<a name="l-213"></a><span class="tm">13:46:18</span><span class="nk"> &lt;aglitke&gt;</span> Maybe Evolution is better?
+<a name="l-214"></a><span class="tm">13:46:28</span><span class="nk"> &lt;ming&gt;</span> Anyway, gerrit may be better to tack review stats.
+<a name="l-215"></a><span class="tm">13:46:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think it comes under the heading of "be careful what you measure, its what you are going to get"
+<a name="l-216"></a><span class="tm">13:46:40</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  Evolution better than mutt?
+<a name="l-217"></a><span class="tm">13:46:50</span><span class="nk"> &lt;ming&gt;</span> And gerrit can easily apply a set of patches
+<a name="l-218"></a><span class="tm">13:46:57</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> Not for me, but maybe for you.
+<a name="l-219"></a><span class="tm">13:47:06</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> We will not use gerrit.
+<a name="l-220"></a><span class="tm">13:47:12</span><span class="nk"> &lt;AdamKingIT&gt;</span> I didn't have much luck w/ evolution, though I have forgotten what happened
+<a name="l-221"></a><span class="tm">13:47:21</span><span class="nk"> &lt;aglitke&gt;</span> heh
+<a name="l-222"></a><span class="tm">13:47:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> I will have a try Evolution.
+<a name="l-223"></a><span class="tm">13:47:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span> thank you.
+<a name="l-224"></a><span class="tm">13:47:34</span><span class="nk"> &lt;royce&gt;</span> If we are going to being in repo, a jenkins server may help?
+<a name="l-225"></a><span class="tm">13:47:55</span><span class="nk"> &lt;pvital&gt;</span> I heard that gerrit is one of the best tools to review patches
+<a name="l-226"></a><span class="tm">13:49:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">aglitke:</span>  substantive reviews is more important than measure review
+<a name="l-227"></a><span class="tm">13:49:34</span><span class="nk"> &lt;pvital&gt;</span> royce, Jenkins is a powerful CI tool (have worked a lot with Jenkins), but IMHO we need improve a little bit our unit tests to use it
+<a name="l-228"></a><span class="tm">13:49:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> Some people like it.  This team has experience with it from oVirt.  In my opinion, it encourages bad behavior.
+<a name="l-229"></a><span class="tm">13:49:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  yes. apporc can help set up  jenkins server
+<a name="l-230"></a><span class="tm">13:49:47</span><span class="nk"> &lt;aglitke&gt;</span> It is not as inclusive as a mailing list.
+<a name="l-231"></a><span class="tm">13:50:04</span><span class="nk"> &lt;aglitke&gt;</span> Because discussion is hidden from plain sight.
+<a name="l-232"></a><span class="tm">13:50:20</span><span class="nk"> &lt;pvital&gt;</span> aglitke, understand
+<a name="l-233"></a><span class="tm">13:50:34</span><span class="nk"> &lt;royce&gt;</span> right, pvital
+<a name="l-234"></a><span class="tm">13:51:37</span><span class="nk"> &lt;aglitke&gt;</span> Any other topics today?
+<a name="l-235"></a><span class="tm">13:51:54</span><span class="nk"> &lt;pvital&gt;</span> aglitke, yes
+<a name="l-236"></a><span class="tm">13:52:05</span><span class="nk"> &lt;shaohef&gt;</span> ping
+<a name="l-237"></a><span class="tm">13:52:30</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> we have not get a conclution if we want to support IE8 from now on.
+<a name="l-238"></a><span class="tm">13:52:41</span><span class="nk"> &lt;pvital&gt;</span> aglitke, I have engineers to work with backend of the following sprint 2 and 3 tasks that covers kimchi-ginger use cases: Storage: New Storage Pool based on local disk (storage); Add new yum repository (from ISO and from URL) (host); Software update (host); and host: shutdown/reboot (host) from Sprint 3
+<a name="l-239"></a><span class="tm">13:52:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">zhoumeina:</span> I think we should drop it.
+<a name="l-240"></a><span class="tm">13:52:42</span><span class="nk"> &lt;shaohef&gt;</span> anyone can response me?
+<a name="l-241"></a><span class="tm">13:52:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef:</span> I see you
+<a name="l-242"></a><span class="tm">13:52:58</span><span class="nk"> &lt;zhoumeina&gt;</span> I agree
+<a name="l-243"></a><span class="tm">13:53:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">pvital:</span> ok
+<a name="l-244"></a><span class="tm">13:53:19</span><span class="nk"> &lt;pvital&gt;</span> aglitke, Can I assign the engineers to work on them? Someone desagree?
+<a name="l-245"></a><span class="tm">13:53:42</span><span class="nk"> &lt;aglitke&gt;</span> Are the tasks free in https://github.com/kimchi-project/kimchi/wiki/Todo-1.1 ?
+<a name="l-246"></a><span class="tm">13:54:00</span><span class="nk"> &lt;pvital&gt;</span> aglitke, the back-end tasks, yes
+<a name="l-247"></a><span class="tm">13:54:14</span><span class="nk"> &lt;aglitke&gt;</span> ok.  Then yes, feel free to add names by the tasks there
+<a name="l-248"></a><span class="tm">13:54:21</span><span class="nk"> &lt;pvital&gt;</span> I guess hlwanghl and mnz are working in the UI side
+<a name="l-249"></a><span class="tm">13:54:35</span><span class="nk"> &lt;zhoumeina&gt;</span> yuxin and dingxin too
+<a name="l-250"></a><span class="tm">13:54:42</span><span class="nk"> &lt;pvital&gt;</span> aglitke, ok thanks!
+<a name="l-251"></a><span class="tm">13:54:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">pvital:</span> I can work w. you on the items
+<a name="l-252"></a><span class="tm">13:55:01</span><span class="nk"> &lt;pvital&gt;</span> AdamKingIT, sure!
+<a name="l-253"></a><span class="tm">13:55:03</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> Thanks!
+<a name="l-254"></a><span class="tm">13:55:21</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">AdamKingIT:</span> you can assgin me some work at sprint1
+<a name="l-255"></a><span class="tm">13:55:41</span><span class="nk"> &lt;markwu&gt;</span> so all of the tasks listed by pvital can be accepted in kimchi's master branch?
+<a name="l-256"></a><span class="tm">13:55:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> I won't forget you :-)
+<a name="l-257"></a><span class="tm">13:55:49</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">Storage:</span> New Storage Pool based on local disk (storage)--&gt;can I ask what it this one? pvital
+<a name="l-258"></a><span class="tm">13:56:02</span><span class="nk"> &lt;pvital&gt;</span> aglitke, question? How can I proceed with new features requests?
+<a name="l-259"></a><span class="tm">13:56:19</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">markw:</span> where are the tasks you are taking about?
+<a name="l-260"></a><span class="tm">13:56:25</span><span class="nk"> &lt;pvital&gt;</span> aglitke, for example: I requested support to raw type of VM image disks
+<a name="l-261"></a><span class="tm">13:56:37</span><span class="nk"> &lt;markwu&gt;</span> <span class="hi">Storage:</span> New Storage Pool based on local disk (storage); Add new yum repository (from ISO and from URL) (host); Software update (host); and host: shutdown/reboot (host) from Sprint 3
+<a name="l-262"></a><span class="tm">13:57:02</span><span class="nk"> &lt;shaohef1&gt;</span> pingh
+<a name="l-263"></a><span class="tm">13:57:04</span><span class="nk"> &lt;shaohef1&gt;</span> ping
+<a name="l-264"></a><span class="tm">13:57:10</span><span class="nk"> &lt;shaohef1&gt;</span> hello all
+<a name="l-265"></a><span class="tm">13:57:17</span><span class="nk"> &lt;pvital&gt;</span> shaohef, you're alive!
+<a name="l-266"></a><span class="tm">13:57:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">shaohef1:</span> pong
+<a name="l-267"></a><span class="tm">13:57:21</span><span class="nk"> &lt;shaohef1&gt;</span> do I miss some message?
+<a name="l-268"></a><span class="tm">13:57:21</span><span class="nk"> &lt;pvital&gt;</span> :-S
+<a name="l-269"></a><span class="tm">13:57:34</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> Yes, they all should be written in a cross platform, distro-neutral fashion
+<a name="l-270"></a><span class="tm">13:57:50</span><span class="nk"> &lt;pvital&gt;</span> ming, royce: https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+<a name="l-271"></a><span class="tm">13:58:42</span><span class="nk"> &lt;markwu&gt;</span> so the host management is also the coverage of kimchi, right?  that's my understanding.  but fnovak told me it belongs to kimchi-ginger.  I am very confused about the line between kimchi and kimchi-ginger
+<a name="l-272"></a><span class="tm">13:58:56</span><span class="nk"> &lt;ming&gt;</span> pvital, thanks.
+<a name="l-273"></a><span class="tm">13:59:00</span><span class="nk"> &lt;AdamKingIT&gt;</span> that line bears some discussion...
+<a name="l-274"></a><span class="tm">13:59:16</span><span class="nk"> &lt;ming&gt;</span> markwu, we may setup a call with Frank about that.
+<a name="l-275"></a><span class="tm">13:59:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> kimchi doesn't aim to be primarily in the host management business, but some features are useful for the KVM admin
+<a name="l-276"></a><span class="tm">13:59:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> some or more host unique, and belong in ginger
+<a name="l-277"></a><span class="tm">13:59:48</span><span class="nk"> &lt;pvital&gt;</span> markwu, I understood that we have both goals: host and KoP support :-D
+<a name="l-278"></a><span class="tm">13:59:51</span><span class="nk"> &lt;royce&gt;</span> thanks I see, pvital, it is about the LVM pool
+<a name="l-279"></a><span class="tm">13:59:53</span><span class="nk"> &lt;ming&gt;</span> markwu, IMO, ginger is for power platform and most of the tasks are host management.
+<a name="l-280"></a><span class="tm">14:00:08</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> It is confusing.  We need to decide which things belong in the main host tab and which ones will go into the extra tab
+<a name="l-281"></a><span class="tm">14:00:22</span><span class="nk"> &lt;markwu&gt;</span> aglitke, exactly!
+<a name="l-282"></a><span class="tm">14:00:23</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">pvital:</span> what is KoP?
+<a name="l-283"></a><span class="tm">14:00:29</span><span class="nk"> &lt;pvital&gt;</span> royce, yeah! we need support to  add new disks in a LVM pool
+<a name="l-284"></a><span class="tm">14:00:30</span><span class="nk"> &lt;aglitke&gt;</span> One example is the feature for creating a storage pool from a physical disl
+<a name="l-285"></a><span class="tm">14:00:47</span><span class="nk"> &lt;pvital&gt;</span> ming, KVM on Power
+<a name="l-286"></a><span class="tm">14:00:49</span><span class="nk"> &lt;aglitke&gt;</span> that is really beyond the scope of kimchi core
+<a name="l-287"></a><span class="tm">14:00:59</span><span class="nk"> &lt;ming&gt;</span> pvital, are you work on KVM on Power?
+<a name="l-288"></a><span class="tm">14:01:14</span><span class="nk"> &lt;aglitke&gt;</span> So the API to enumerate host disks and convert them to storage pools will probably belong on the ginger tab
+<a name="l-289"></a><span class="tm">14:01:30</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">markwu:</span> We will need to have a review on a per-feature basis.
+<a name="l-290"></a><span class="tm">14:01:47</span><span class="nk"> &lt;markwu&gt;</span> but it's definitely helpful for virutalization management
+<a name="l-291"></a><span class="tm">14:01:50</span><span class="nk"> &lt;pvital&gt;</span> ming, http://www.youtube.com/watch?v=cLQI20LI6EQ&amp;feature=share
+<a name="l-292"></a><span class="tm">14:01:52</span><span class="nk"> &lt;markwu&gt;</span> ok
+<a name="l-293"></a><span class="tm">14:01:53</span><span class="nk"> &lt;aglitke&gt;</span> Basic host mgmt: reboot, update, debugreport,. etc is ginger core and belongs on the kimchi host tab
+<a name="l-294"></a><span class="tm">14:02:13</span><span class="nk"> &lt;royce&gt;</span> pvital, we don't have access of youtube:(
+<a name="l-295"></a><span class="tm">14:02:15</span><span class="nk"> &lt;aglitke&gt;</span> ok guys.  top of the hour.  Thanks for joining.
+<a name="l-296"></a><span class="tm">14:02:16</span><span class="nk"> &lt;pvital&gt;</span> ming, I'm working on kimchi-ginger, that supports KoP and host side operations :-D
+<a name="l-297"></a><span class="tm">14:02:23</span><span class="nk"> &lt;aglitke&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

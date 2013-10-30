@@ -1,0 +1,297 @@
+13:00:57 <aglitke> #startmeeting
+13:00:58 <kimchi-bot> Meeting started Wed Oct 30 13:00:57 2013 UTC.  The chair is aglitke. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:58 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:03 <aglitke> #meetingname scrum
+13:01:03 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:05 <aglitke> #info Agenda: 1) Process note 2) KVM Forum summary 3) Roundtable
+13:02:22 <aglitke> Anything else?
+13:02:55 <alinefm> I think this is all
+13:02:58 <aglitke> The team has been very busy while I was out last week so I am going to ask for some help catching up.
+13:03:03 <aglitke> great...
+13:03:09 <aglitke> #topic Process note
+13:03:54 <aglitke> As most of you noticed, last week alinefm was very helpful and she collected patches into a staging branch so they could be merged when I returned.
+13:04:07 <aglitke> First of all, thanks to her for helping out with that...
+13:04:44 <aglitke> Second: I think that worked so well that I'd like to ask her to continue helping share the responsibility of staging and merging patches.
+13:05:04 <ming> aglitke, i disagree that.
+13:05:10 <alinefm> aglitke, thank you for the opportunity!
+13:05:11 <aglitke> It should help us to increase our velocity.
+13:05:44 <ming> i think we need one from different timezone
+13:06:23 <aglitke> ming: We can look into that in the future.  But this is really my decision about who I want to work with.  It's easier for me to coordinate with someone in my own timezone.
+13:06:29 <hlwanghl> we have 9 or 10 guys in China
+13:06:49 <shaohef> yes.
+13:06:54 <ming> aglitke, that can not help  China team.
+13:07:15 <aglitke> markwu Is helping with maintainership of the kimchi-ginger branch.  So I can see that responsibility evolving over time.
+13:08:12 <shaohef> we should need a one familiar with kimchi code.
+13:08:33 <aglitke> I am happy that shaohef has stepped up to help maintain issues.
+13:08:34 <shaohef> to maintainership kimchi branch
+13:08:45 <ming> aglitke, you know we need work overtime to catch a maintainer from your time zone. That is not easy.
+13:08:46 <AdamKingIT> Going from 1 to 2 will give us a chance to work out the mechanics of >1. Hopefully we get so many contributors, we'll need to go 2+ real soon
+13:08:57 <hlwanghl> a major part of patches are from China team, so it will help much if we have one in China
+13:09:57 <alinefm> I think the main issue of getting patches merged  in a good time is about reviewing
+13:10:15 <aglitke> ming: Thanks for your suggestion.  We will continue to work as a team to manage the difficulties with timezones.
+13:10:27 <alinefm> if everyone reviews patches I can apply them sooner without having problems with timezones
+13:10:30 <AdamKingIT> alinefm, we'll look forward to helping you assume this additional work!
+13:10:49 <aglitke> alinefm: Agreed.  The more thoroughly patches are reviewed, the easier and faster they can be merged.
+13:11:08 <aglitke> Yes, thank you alinefm!
+13:11:25 <pvital> sorry guys, but we are ONE team. I don't care if the commiter is in China, Europe, US or Brazil. The point is submit the patches and get them reviewed
+13:11:27 <aglitke> #topic KVM Forum summary
+13:11:34 <AdamKingIT> tell us about KVM forum?
+13:12:03 <shaohef> maybe I can help  with maintain patch.  I'm familiar with git tool. And help most member of  China team for their git manager and Makefile configure.
+13:12:31 <ming> agtitke, not that way always.  Even after full review from the others, maintain can block the integration for quite a while.
+13:12:33 <aglitke> So kimchi was very well received at KVM Forum!  I presented in a packed room.  The audience was impressed with the clean UI and the ease of use.
+13:12:51 <AdamKingIT> you have a guess how many people were packed in?
+13:13:12 <aglitke> Several people asked me when/if kimchi would be ready to replace virt-manager.
+13:13:59 <pvital> aglitke, did your talk recorded?
+13:14:04 <aglitke> AdamKingIT: We were in a smaller salon but at least 60 I would assume.  aliguori was there and several other maintainers from libvirt, etc.
+13:14:11 <AdamKingIT> we have a little ways to go, but cool that are thinking that way
+13:14:20 <alinefm> oh very good!
+13:14:26 <hlwanghl> a good beginning
+13:14:28 <aglitke> pvital: Yes it was.  I will let everyone know once the videos for the Forum have been released.
+13:14:30 <AdamKingIT> 60 is a pretty good crowd
+13:15:02 <aglitke> I was able to demonstrate ISO streaming as a preview feature and people were very excited about it.
+13:15:29 <aglitke> One comment that I think we should take seriously is the need to have kimchi packaged in distros.
+13:15:48 <aglitke> Most people will try a new project by first installing the distro package.
+13:16:03 <aglitke> Only then will they download the source and make improvements.
+13:16:15 <aglitke> We have offers of help from the Fedora community already.
+13:16:24 <pvital> aglitke, nice! we can use twitter, facebook and google+ to share the video and improve the marketing of kimchi
+13:16:24 <AdamKingIT> great
+13:16:29 <aglitke> ANd we should really work hard to add Ubuntu and openSUSE to the list.
+13:17:00 <aglitke> pvital: Yes, very good suggestion.  Anyone should feel free to market kimchi in their own social circles.
+13:17:21 <alinefm> aglitke, what is the process to that?
+13:17:25 <alinefm> if there is one
+13:17:33 <aglitke> Kimchi is seen to directly address a gap we've had in the KVM tools for a long time.
+13:17:50 <aglitke> alinefm: Each distro has its own process.
+13:18:26 <aglitke> It can be a bit involved, but we have skills in this area already.
+13:18:33 <pvital> aglitke, I have some experience with RPM and can help with it
+13:18:35 <aglitke> I have done a fedora package for MOM
+13:18:47 <aglitke> pvital: Excellent.  You could look at openSUSE
+13:19:02 <pvital> sure!
+13:19:04 <aglitke> we already can build rpms today.  We just need to get our package included in the official repos
+13:19:33 <shaohef> but we need more features, then we can  get our package included in the official repos
+13:19:40 <aglitke> So... I guess that's all I have to report from KVM Forum.
+13:20:00 <aglitke> shaohef: I think 1.0 is really good enough to start packaging.
+13:20:08 <aglitke> It can already do some cool things.
+13:20:18 <aglitke> You never want to wait until your finished to start.
+13:20:49 <royce> In official repos will push us to evolve
+13:21:07 <aglitke> So in summary, great work guys!  People like what they see.
+13:21:20 <aglitke> #topic Roundtable
+13:22:11 <shaohef> aglitke: https://github.com/kimchi-project/kimchi/issues/217
+13:22:21 <royce> I'd like to to ask guys about deep scanning and vm edit~
+13:22:34 <aglitke> Since I am a bit behind in the patch queue, if you have a series that is really ready to be merged, past the subject line of the patch series here.  I will prioritize review for these sets.
+13:22:59 <shaohef> aglitke: AdamKingIT: can you help to Make Kimchi page at Wikipedia in English?
+13:23:20 <royce> [project-kimchi][PATCHv3 0/6] Using vm uuid inside model
+13:23:22 <shaohef> aglitke:  AdamKingIT: we will  Make Kimchi page at Wikipedia in Chinese.
+13:23:23 <alinefm> aglitke, I guess shaohef patches about distros are ready
+13:23:33 <AdamKingIT> Yes, I'll look into it
+13:23:38 <aglitke> royce: that is merged
+13:23:44 <alinefm> [PATCH V7 0/7] support distros
+13:23:58 <royce> uhhh, sorry, aglitke
+13:24:07 <aglitke> royce: np :)
+13:24:13 <aglitke> royce: let's talk deep scanning
+13:25:01 <ming> I think debug report V11 is quite ready now.
+13:25:16 <shaohef> aglitke: host monitor?
+13:25:20 <aglitke> ming: ok... I will take a review.
+13:25:30 <royce> that's good, aglitke,  [project-kimchi][PATCHv2 4/4] deep scan: add model support
+13:25:46 <shaohef> aglitke:  for CPU usage? we should show every cpu usage?
+13:25:46 <ming> I am working with Hong liang to deliver the UI part later. Anyway, the backend can be integrated first.
+13:25:49 <aglitke> royce: You feel it is ready for merge?
+13:26:05 <royce> deep scanning's lacking test because we don't have the psedo iso gen
+13:26:19 <royce> I think it is ready, aglitke
+13:26:28 <aglitke> ok... I will review.
+13:26:51 <aglitke> also... everyone else can help to review these high priority patch sets
+13:26:55 <royce> If you like my way wrapping task id in storagepool resource
+13:26:57 <apporc> aglitke: I think [project-kimchi] [PATCH V3 0/5] Add spice support in KIMCHI is ready to be reviewed too.
+13:27:13 <aglitke> ok
+13:27:14 <apporc> aglitke: shaohef had tested that .
+13:27:33 <shaohef> aglitke: yes. seem it is good.
+13:27:35 <aglitke> alinefm: Where are we at with iso streaming?  I know you've made some progress narrowing down the issues.
+13:27:42 <ming> royce, I think we can enhance the task implementation a bit.
+13:27:57 <alinefm> aglitke, I sent last week the a patchset for review
+13:28:02 <alinefm> waiting for review =)
+13:28:22 <alinefm> [PATCH 0/7 V2] ISO Streaming
+13:28:27 <AdamKingIT> SOME people must have been away at a conference or something :-)
+13:28:28 <aglitke> alinefm: So the feature tests can identify if an out of band DNS resolution is required?
+13:28:43 <aglitke> AdamKingIT: :)
+13:29:07 <hlwanghl> host tab: processors, memory dynamic statistics showing a line chart, should we include this?
+13:29:14 <alinefm> aglitke, I used socket.gethostbyname() to get the ip associated to the hostname
+13:29:26 <aglitke> alinefm: ok
+13:29:27 <alinefm> not sure it is the best approach
+13:29:41 <aglitke> hlwanghl: I am not sure about that history chart...
+13:29:45 <ming> alinefm, Can you give a full description about how to test ISO streaming?
+13:29:55 <aglitke> It doesn't fit our presentation style very well.
+13:29:58 <AdamKingIT> hlwanghl you have a "host" patch ready for review?
+13:30:01 <ming> I am really eager to test that feature.
+13:30:06 <shaohef> aglitke:https://github.com/kimchi-project/kimchi/issues/198  more want to support spice.
+13:30:37 <royce> ming, with alinefm's workaround it can be used I guess
+13:30:46 <zhoumeina> we have just sent patchset to support spice
+13:30:55 <alinefm> ming, it is on the patch cover letter but basically you just need to applu my patches and specify an URL to creata a template
+13:31:05 <ming> royce, I would like a all one on on FC18 or FC19.
+13:31:16 <hlwanghl> AdamKingIT most parts are ready, i'll integrate the back end api and thensend out
+13:31:19 <ming> a all on --->all in one
+13:31:25 <aglitke> Cool.  I am eager to re-enable the part of the UI where you can create a template from a known remote iso (select from a list).
+13:31:28 <pvital> AdamKingIT, hlwanghl, aglitke: I can review the host tab patches once it covers part of kimchi-ginger work!!
+13:31:31 <shaohef> alinefm:  why do you need to get the hostname? we can get the cherrpy.url to get the ip or hostname
+13:31:37 <royce> I think that can do, because it works around libvirt and qemu problem
+13:32:17 <royce> shaohef, qemu-io got stucked because the mis-use of curl when resolving the hostname
+13:32:18 <aglitke> pvital: Thanks!
+13:32:21 <markwu> aglitke, I can't say the plugin support patch is ready to merge,  but I would like to know if you like the direction.
+13:32:28 <hlwanghl> pvital great
+13:32:43 <aglitke> markwu: Yes... I owe you a review on it.  Do you cover the UI piece as well?
+13:32:45 <alinefm> shaohef, it is about the URL for remote ISO
+13:33:10 <alinefm> shaohef, on FC19 qemu gets stuck because it could not resolve the hostname, but if we use ip it works fine
+13:33:53 <markwu> aglitke, I didn't cover the UI part.
+13:33:55 <shaohef> alinefm: the ip is same with the cherrpy server?
+13:34:03 <aglitke> markwu: ok.
+13:34:19 <aglitke> shaohef: No. this is the IP of the server that hosts the ISO image
+13:34:23 <hlwanghl> markwu we can work together on UI part
+13:34:24 <aglitke> it can be anywhere
+13:34:28 <ming> markwu, I think plugin might not a good word. I think it is just another application, not a plugin.
+13:35:05 <aglitke> I prefer plugin.  Application hints that it runs as a separate process.
+13:35:07 <AdamKingIT> I remember a patch from meina to cover the UI extension. Did I dream that?
+13:35:13 <aglitke> The plugin is extending the rest api
+13:35:41 <markwu> and it's 'plug gable' indeed :)
+13:35:56 <shaohef> aglitke: [PATCH 00/13] network related patches   and the UI is ready. UI can create/delete/start/stop/list network.
+13:35:59 <zhoumeina> AdamKingIT: UI extension?
+13:36:04 <AdamKingIT> y
+13:36:15 <aglitke> shaohef: Does the net create use macvtap , etc?
+13:36:19 <zhoumeina> yes
+13:36:36 <shaohef> aglitke: I will integrate all patches into one, and let every  one try
+13:36:36 <alinefm> AdamKingIT, I saw that too
+13:36:39 <shaohef> aglitke: yes
+13:36:47 <zhoumeina> I wan to dicuss that UI extension with you too
+13:36:53 <aglitke> shaohef: That is excellent.
+13:37:02 <aglitke> I am anxious to try it.
+13:37:07 <AdamKingIT> I'll look for it and review. We may want to start to incorporate a notion of how auth will work for extensions. I saw an interesting talk by the paypal api arch last week that made me think...
+13:37:14 <aglitke> It seems we have patches out for nearly all S1 features.
+13:37:30 <royce> sorry to interrupt one more ask, guys do you like my way using sub-resources to deal with vm disks and nics, snapshots and so on?  when referring to vm edit we will not touch its subresources~
+13:37:50 <aglitke> royce: Yes, I think that is a good idea.
+13:37:53 <ming> aglitke, so it is a extension implemented by a seperate application. Extension may be better.
+13:37:55 <shaohef> aglitke:  if an ether nic exists create macvtap, or a linux bridge exists ， then create a linux bridge network.
+13:38:02 <aglitke> It will allow us to add/remove disks and nics.
+13:38:08 <zhoumeina> AdamKingIT: I wonder what is the orginal purpose of autogenerate tabs by add tab htmls?
+13:38:38 <royce> thanks aglitke, then we can move on on those edit features~
+13:38:45 <shaohef> royce:  .
+13:38:46 <pvital> aglitke, I think we need a review from UI side to  [PATCH] StoragePool: Add NFS pool from pradeed
+13:38:54 <AdamKingIT> zhoumeina: sorry I didn't follow the question. maybe we can chat afterwards, or tomorrow
+13:39:13 <royce> shaohef?
+13:39:14 <aglitke> zhoumeina: hlwanghl: Can you guys review the UI for [PATCH] StoragePool: Add NFS pool
+13:39:16 <shaohef> royce:  yes. I write my snapshot use subresources as VM already.
+13:39:27 <royce> yeah, I know, shaohef
+13:39:45 <zhoumeina> We want to make UI customize or just more convient to add tabs?
+13:39:53 <shaohef> royce:  it is convenience to edit VM
+13:40:46 <royce> for the [PATCH] StoragePool: Add NFS pool, this patch melt all changes in a big one seems...
+13:40:49 <zhoumeina> AdamKingIT: ok
+13:40:51 <AdamKingIT> zhoumeina: main goal is to support functional extensions, so new capabilities manifest in the UI
+13:41:11 <aglitke> zhoumeina: The plan is that extensions will just add their own tabs but will not modify existing tabs.
+13:41:12 <shaohef> aglitke:  I will  integrate all patches include UI into one, and let every  to try. and then split it for review.
+13:41:23 <shaohef> aglitke: about the network.
+13:41:47 <aglitke> shaohef: Is that necessary?  I think it is easy enough to apply a series (as long as it does not need a rebase).
+13:42:23 <zhoumeina> AdamKingIT: that is what I think
+13:42:43 <shaohef> aglitke:  someone think it is not convenience to save as so many patches and apply them.
+13:42:45 <ming> shaohef, I always like a slef-containe package.  But I am a developer, I can apply you patch into my workspace and install them correctly.
+13:43:09 <shaohef> ming:  thank you.
+13:43:32 <aglitke> ok... So we all have a long list of patches to review.
+13:43:36 <shaohef> aglitke:  a good way to download  too many patches and apply them.
+13:43:52 <hlwanghl> aglitke: sure
+13:43:52 <aglitke> Thanks in advance to everyone for helping us clear the patch backlog by reviewing code.
+13:43:55 <shaohef> aglitke: do you use mutt?
+13:44:02 <aglitke> shaohef: Yes!
+13:44:12 <royce> aglitke, do we have a tool to measure our review?
+13:44:15 <zhoumeina> aglitke: shaohef:we have los of issues in github that have not add tags and send out
+13:44:15 <aglitke> it makes managing patches much easuer
+13:44:47 <aglitke> royce: No not really.  There are tools that can scan Reviewed-by tags on the mailing list.
+13:44:50 <shaohef> zhoumeina:  I will tags them with aglitke
+13:44:56 <zhoumeina> some of those issues created long ago
+13:45:08 <aglitke> But I have found that when you track that stat it encourages people to do more superfluous reviews.
+13:45:10 <royce> sometimes our boss ask us our review activities, I will look for some~
+13:45:29 <aglitke> I'd rather people spend more time doing a smaller number of deep. substantive reviews.
+13:45:30 <royce> :))))
+13:45:45 <royce> that's true
+13:45:55 <shaohef> aglitke: got it. most of us use thunderbird. :) thunderbird it not convenience to manage so many patches.
+13:45:59 <aglitke> So it's a hard stat to track.
+13:46:11 <aglitke> shaohef: Yeah, that is why I do not use it.
+13:46:18 <aglitke> Maybe Evolution is better?
+13:46:28 <ming> Anyway, gerrit may be better to tack review stats.
+13:46:33 <AdamKingIT> I think it comes under the heading of "be careful what you measure, its what you are going to get"
+13:46:40 <shaohef> aglitke:  Evolution better than mutt?
+13:46:50 <ming> And gerrit can easily apply a set of patches
+13:46:57 <aglitke> shaohef: Not for me, but maybe for you.
+13:47:06 <aglitke> ming: We will not use gerrit.
+13:47:12 <AdamKingIT> I didn't have much luck w/ evolution, though I have forgotten what happened
+13:47:21 <aglitke> heh
+13:47:23 <shaohef> aglitke: I will have a try Evolution.
+13:47:27 <shaohef> aglitke: thank you.
+13:47:34 <royce> If we are going to being in repo, a jenkins server may help?
+13:47:55 <pvital> I heard that gerrit is one of the best tools to review patches
+13:49:12 <shaohef> aglitke:  substantive reviews is more important than measure review
+13:49:34 <pvital> royce, Jenkins is a powerful CI tool (have worked a lot with Jenkins), but IMHO we need improve a little bit our unit tests to use it
+13:49:34 <aglitke> pvital: Some people like it.  This team has experience with it from oVirt.  In my opinion, it encourages bad behavior.
+13:49:43 <shaohef> royce:  yes. apporc can help set up  jenkins server
+13:49:47 <aglitke> It is not as inclusive as a mailing list.
+13:50:04 <aglitke> Because discussion is hidden from plain sight.
+13:50:20 <pvital> aglitke, understand
+13:50:34 <royce> right, pvital
+13:51:37 <aglitke> Any other topics today?
+13:51:54 <pvital> aglitke, yes
+13:52:05 <shaohef> ping
+13:52:30 <zhoumeina> aglitke: we have not get a conclution if we want to support IE8 from now on.
+13:52:41 <pvital> aglitke, I have engineers to work with backend of the following sprint 2 and 3 tasks that covers kimchi-ginger use cases: Storage: New Storage Pool based on local disk (storage); Add new yum repository (from ISO and from URL) (host); Software update (host); and host: shutdown/reboot (host) from Sprint 3
+13:52:41 <aglitke> zhoumeina: I think we should drop it.
+13:52:42 <shaohef> anyone can response me?
+13:52:52 <aglitke> shaohef: I see you
+13:52:58 <zhoumeina> I agree
+13:53:12 <aglitke> pvital: ok
+13:53:19 <pvital> aglitke, Can I assign the engineers to work on them? Someone desagree?
+13:53:42 <aglitke> Are the tasks free in https://github.com/kimchi-project/kimchi/wiki/Todo-1.1 ?
+13:54:00 <pvital> aglitke, the back-end tasks, yes
+13:54:14 <aglitke> ok.  Then yes, feel free to add names by the tasks there
+13:54:21 <pvital> I guess hlwanghl and mnz are working in the UI side
+13:54:35 <zhoumeina> yuxin and dingxin too
+13:54:42 <pvital> aglitke, ok thanks!
+13:54:50 <AdamKingIT> pvital: I can work w. you on the items
+13:55:01 <pvital> AdamKingIT, sure!
+13:55:03 <aglitke> AdamKingIT: Thanks!
+13:55:21 <zhoumeina> AdamKingIT: you can assgin me some work at sprint1
+13:55:41 <markwu> so all of the tasks listed by pvital can be accepted in kimchi's master branch?
+13:55:45 <AdamKingIT> I won't forget you :-)
+13:55:49 <royce> Storage: New Storage Pool based on local disk (storage)-->can I ask what it this one? pvital
+13:56:02 <pvital> aglitke, question? How can I proceed with new features requests?
+13:56:19 <ming> markw: where are the tasks you are taking about?
+13:56:25 <pvital> aglitke, for example: I requested support to raw type of VM image disks
+13:56:37 <markwu> Storage: New Storage Pool based on local disk (storage); Add new yum repository (from ISO and from URL) (host); Software update (host); and host: shutdown/reboot (host) from Sprint 3
+13:57:02 <shaohef1> pingh
+13:57:04 <shaohef1> ping
+13:57:10 <shaohef1> hello all
+13:57:17 <pvital> shaohef, you're alive!
+13:57:19 <AdamKingIT> shaohef1: pong
+13:57:21 <shaohef1> do I miss some message?
+13:57:21 <pvital> :-S
+13:57:34 <aglitke> markwu: Yes, they all should be written in a cross platform, distro-neutral fashion
+13:57:50 <pvital> ming, royce: https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:58:42 <markwu> so the host management is also the coverage of kimchi, right?  that's my understanding.  but fnovak told me it belongs to kimchi-ginger.  I am very confused about the line between kimchi and kimchi-ginger
+13:58:56 <ming> pvital, thanks.
+13:59:00 <AdamKingIT> that line bears some discussion...
+13:59:16 <ming> markwu, we may setup a call with Frank about that.
+13:59:31 <AdamKingIT> kimchi doesn't aim to be primarily in the host management business, but some features are useful for the KVM admin
+13:59:45 <AdamKingIT> some or more host unique, and belong in ginger
+13:59:48 <pvital> markwu, I understood that we have both goals: host and KoP support :-D
+13:59:51 <royce> thanks I see, pvital, it is about the LVM pool
+13:59:53 <ming> markwu, IMO, ginger is for power platform and most of the tasks are host management.
+14:00:08 <aglitke> markwu: It is confusing.  We need to decide which things belong in the main host tab and which ones will go into the extra tab
+14:00:22 <markwu> aglitke, exactly!
+14:00:23 <ming> pvital: what is KoP?
+14:00:29 <pvital> royce, yeah! we need support to  add new disks in a LVM pool
+14:00:30 <aglitke> One example is the feature for creating a storage pool from a physical disl
+14:00:47 <pvital> ming, KVM on Power
+14:00:49 <aglitke> that is really beyond the scope of kimchi core
+14:00:59 <ming> pvital, are you work on KVM on Power?
+14:01:14 <aglitke> So the API to enumerate host disks and convert them to storage pools will probably belong on the ginger tab
+14:01:30 <aglitke> markwu: We will need to have a review on a per-feature basis.
+14:01:47 <markwu> but it's definitely helpful for virutalization management
+14:01:50 <pvital> ming, http://www.youtube.com/watch?v=cLQI20LI6EQ&feature=share
+14:01:52 <markwu> ok
+14:01:53 <aglitke> Basic host mgmt: reboot, update, debugreport,. etc is ginger core and belongs on the kimchi host tab
+14:02:13 <royce> pvital, we don't have access of youtube:(
+14:02:15 <aglitke> ok guys.  top of the hour.  Thanks for joining.
+14:02:16 <pvital> ming, I'm working on kimchi-ginger, that supports KoP and host side operations :-D
+14:02:23 <aglitke> #endmeeting
