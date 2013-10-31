@@ -37,6 +37,7 @@ AS_IF([test "x$PACKAGE_RELEASE" = x],
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability])
 AM_PATH_PYTHON([2.6])
+AC_PATH_PROG([PEP8], [pep8], [/usr/bin/pep8])
 AC_PYTHON_MODULE([unittest])
 AC_SUBST([HAVE_PYMOD_UNITTEST])
 AC_SUBST([PYTHON_VERSION])

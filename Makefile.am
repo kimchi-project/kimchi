@@ -34,6 +34,18 @@ EXTRA_DIST = \
 	build-aux/pkg-version \
 	$(NULL)
 
+
+# When fixing a file to conform with pep8, add it to the WL here.
+# So it will be checked from now on.
+PEP8_WHITELIST = \
+	src/kimchi/config.py.in \
+	$(NULL)
+
+check-local:
+	$(PEP8) --version
+	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
+
+
 # Link built mo files in the source tree to enable use of translations from
 # within the source tree
 all-local:
