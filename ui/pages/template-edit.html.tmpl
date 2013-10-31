@@ -77,49 +77,19 @@
 				</div>
 			</fieldset>
 			<fieldset class="template-edit-fieldset">
-				<div class="hidden-area">
+				<div>
 					<div class="template-edit-wrapper-label">
-						<label>$_("Icon")</label>
+						<label>$_("Storage Pool")</label>
 					</div>
 					<div class="template-edit-wrapper-controls">
-						<div>
-							<input id="template-edit-icon-radiobox-default" name="iconDefaultOrCustom" type="radio" disabled="disabled" />
-							<label for="template-edit-icon-radiobox-default">$_("Default")</label>
+						<div class="btn-select popable">
+							<input id="template-edit-storagePool" name="storagepool" type="hidden" />
+							<span class="text" id="template-edit-storage-label"></span><span class="arrow"></span>
+							<div class="popover" style="width: 100%">
+								<ul class="select-list" id="template-edit-storagePool-list" data-target="template-edit-storagePool" data-label="template-edit-storage-label">
+								</ul>
+							</div>
 						</div>
-						<div>
-							<input id="template-edit-icon-radiobox-custom" name="iconDefaultOrCustom" type="radio" disabled="disabled" />
-							<label for="template-edit-icon-radiobox-custom">$_("Custom")</label>
-						</div>
-					</div>
-				</div>
-				<div class="hidden-area">
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-backgroundcolor-radiobox">$_("Background Color")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-backgroundcolor-radiobox" name="bgcolor" type="text" />
-					</div>
-				</div>
-				<div class="hidden-area">
-					<div class="template-edit-wrapper-label">
-						<label>$_("Overlay Type")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-overlaytype-radiobox-icon" name="overlayIconOrText" type="radio" />
-						<label for="template-edit-overlaytype-radiobox-icon">$_("Overlay Type Icon")</label>
-						<input id="template-edit-overlaytype-radiobox-text" name="overlayIconOrText" type="radio" />
-						<label for="template-edit-overlaytype-radiobox-text">$_("Overlay Type Text")</label>
-					</div>
-				</div>
-				<div class="hidden-area">
-					<div class="template-edit-wrapper-label">
-						<label>$_("Button Finish Style")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-buttonfinishstyle-radiobox-gloss" name="btnstyle" type="radio" />
-						<label for="template-edit-buttonfinishstyle-radiobox-gloss">$_("Button Finish Style Gloss")</label>
-						<input id="template-edit-buttonfinishstyle-radiobox-gradient" name="btnstyle" type="radio" />
-						<label for="template-edit-buttonfinishstyle-radiobox-gradient">$_("Button Finish Style Gradient")</label>
 					</div>
 				</div>
 			</fieldset>

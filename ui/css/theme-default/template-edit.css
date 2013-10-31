@@ -20,8 +20,8 @@
  */
 #template-edit-window {
 	font-size: 13px;
-	height: 380px;
-	width: 420px;
+	height: 400px;
+	width: 1000px;
 }
 
 .template-edit-fieldset {
@@ -31,14 +31,18 @@
 
 .template-edit-wrapper-label, .template-edit-wrapper-controls {
 	display: inline-block;
+	vertical-align: top;
 }
 
 .template-edit-wrapper-label {
-	width: 10em;
+	width: 150px;
+	height: 38px;
+	line-height: 38px;
+	margin-top: 5px;
 }
 
 .template-edit-wrapper-controls {
-	width: 18em;
+	width: 300px;
 }
 
 .template-edit-wrapper-controls input[type="text"] {
@@ -50,8 +54,14 @@
 	box-shadow: 2px 2px 2px #eee inset;
 	border-top: 1px solid #bbb;
 	border-left: 1px solid #bbb;
-	padding-left: 10px;
-	width: 100%;
+	padding: 0 10px;
+	margin-top: 5px;
+	width: 250px;
+}
+
+.template-edit-wrapper-controls>.btn-select {
+	margin: 5px 0 0 1px;
+	width: 250px;
 }
 
 .template-edit-wrapper-controls input[type="text"][disabled] {

@@ -255,7 +255,7 @@
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	background: #eee;
-	box-shadow: -1px -1px 1px #666, 1px 1px 1px #f1f1f1, 3px 3px 3px rgba(0, 0, 0, .25) inset;
+	box-shadow: -1px -1px 1px #666, 1px 1px 1px #fff, 2px 2px 2px rgba(0, 0, 0, .15) inset;
 	font-size: 13px;
 	line-height: 38px;
 	text-align: left;

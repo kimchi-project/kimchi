@@ -25,6 +25,20 @@ kimchi.template_edit_main = function() {
         for ( var prop in template) {
             $('input[name="' + prop + '"]', templateEditForm).val(template[prop]);
         }
+        kimchi.listStoragePools(function(result) {
+            var options = [];
+            if (result && result.length) {
+                $.each(result, function(index, storagePool) {
+                    if(storagePool.type !== 'kimchi-iso') {
+                        options.push({
+                            label: storagePool.name,
+                            value: '/storagepools/' + storagePool.name
+                        });
+                    }
+                });
+            }
+            kimchi.select('template-edit-storagePool-list', options);
+        });
     });
 
     $('#tmpl-edit-button-cancel').on('click', function() {
@@ -32,7 +46,7 @@ kimchi.template_edit_main = function() {
     });
 
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'cpus', 'memory' ];
+        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool' ];
         var data = {};
         $.each(editableFields, function(i, field) {
             data[field] = $('#form-template-edit [name="' + field + '"]').val();
