@@ -8,7 +8,7 @@ Browser Support
 ===============
 Desktop Browser Support:
 -----------------------
-* **Internet Explorer:** IE9+ (Partial support for IE8)
+* **Internet Explorer:** IE9+
 * **Chrome:** Current-1 version
 * **Firefox:** Current-1 version Firefox 17ESR
 * **Safari:** Current-1 version
