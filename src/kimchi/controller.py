@@ -526,6 +526,8 @@ class Config(Resource):
         super(Config, self).__init__(model, id)
         self.capabilities = Capabilities(self.model)
         self.capabilities.exposed = True
+        self.distros = Distros(model)
+        self.distros.exposed = True
 
     @property
     def data(self):
@@ -542,6 +544,22 @@ class Capabilities(Resource):
         ret = dict([(x, None) for x in caps])
         ret.update(self.model.get_capabilities())
         return ret
+
+
+class Distro(Resource):
+    def __init__(self, model, ident):
+        super(Distro, self).__init__(model, ident)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class Distros(Collection):
+    def __init__(self, model):
+        super(Distros, self).__init__(model)
+        self.resource = Distro
+
 
 @cherrypy.expose
 def login(*args):
