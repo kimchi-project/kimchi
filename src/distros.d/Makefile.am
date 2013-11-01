@@ -4,7 +4,7 @@
 # Copyright IBM Corp, 2013
 #
 # Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+#  ShaoHe Feng <shaohef@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,31 +20,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = kimchi distros.d
+distrosdir = $(sysconfdir)/kimchi/distros.d
 
-EXTRA_DIST = kimchid.in \
-	kimchi.conf.in \
-	$(NULL)
-
-bin_SCRIPTS = kimchid
-
-confdir = $(sysconfdir)/kimchi
-dist_conf_DATA = kimchi.conf
-
-BUILT_SOURCES = kimchi.conf
-
-do_substitution = \
-	sed -e 's,[@]pythondir[@],$(pythondir),g'     \
-	-e 's,[@]localstatedir[@],$(localstatedir),g' \
-	-e 's,[@]PACKAGE[@],$(PACKAGE),g'             \
-	-e 's,[@]VERSION[@],$(VERSION),g'
-
-
-kimchid: kimchid.in Makefile
-	$(do_substitution) < $(srcdir)/kimchid.in > kimchid
-	chmod +x kimchid
-
-kimchi.conf: kimchi.conf.in Makefile
-	$(do_substitution) < kimchi.conf.in > kimchi.conf
-
-CLEANFILES = $(bin_SCRIPTS) $(BUILT_SOURCES)
+dist_distros_DATA =  *.json

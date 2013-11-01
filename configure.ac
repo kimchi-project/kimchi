@@ -51,6 +51,7 @@ AC_CONFIG_FILES([
     Makefile
     docs/Makefile
     src/Makefile
+    src/distros.d/Makefile
     src/kimchi/Makefile
     ui/Makefile
     ui/css/Makefile

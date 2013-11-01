@@ -1,0 +1,8 @@
+[
+    {
+        "name": "ubuntu-raring",
+        "os_distro": "ubuntu",
+        "os_version": "13.04",
+        "path": "http://ubuntu-releases.cs.umn.edu/13.04/ubuntu-13.04-desktop-amd64.iso"
+    }
+]

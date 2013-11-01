@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/libs/modernizr.custom.76777.js
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
+%{_sysconfdir}/kimchi/distros.d/debian.json
+%{_sysconfdir}/kimchi/distros.d/fedora.json
+%{_sysconfdir}/kimchi/distros.d/opensuse.json
+%{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_initrddir}/kimchid
 
 %changelog

@@ -77,6 +77,10 @@ def get_object_store():
     return os.path.join(get_prefix(), 'data', 'objectstore')
 
 
+def get_distros_store():
+    return os.path.join(get_config_dir(), 'distros.d')
+
+
 def get_template_path(resource):
     return '%s/ui/pages/%s.tmpl' % (get_prefix(), resource)
 

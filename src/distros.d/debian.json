@@ -1,0 +1,8 @@
+[
+    {
+        "name": "debian-Wheezy",
+        "os_distro": "debian",
+        "os_version": "7.2.0",
+        "path": "http://cdimage.debian.org/debian-cd/7.2.0-live/amd64/iso-hybrid/debian-live-7.2-amd64-gnome-desktop.iso"
+    }
+]

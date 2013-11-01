@@ -112,7 +112,8 @@ class Server(object):
             os.path.dirname(os.path.abspath(options.error_log)),
             os.path.dirname(os.path.abspath(config.get_object_store())),
             os.path.abspath(config.get_screenshot_path()),
-            os.path.abspath(config.get_session_path())
+            os.path.abspath(config.get_session_path()),
+            os.path.abspath(config.get_distros_store())
         ]
         for directory in make_dirs:
             if not os.path.isdir(directory):
