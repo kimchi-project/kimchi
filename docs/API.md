@@ -313,3 +313,31 @@ creation.
 **Actions (POST):**
 
 *No actions defined*
+
+### Collection: Distros
+
+**URI:** /config/distros
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all Distros
+
+### Resource: Distro
+
+**URI:** /config/distros/*:name*
+
+Contains information about the OS distribution.
+
+**Methods:**
+
+* **GET**: Retrieve a OS distribution information.
+    * name: The name of the Distro.
+    * os_distro: The operating system distribution.
+    * os_version: The version of the operating system distribution.
+    * path: A URI to an ISO image.
+
+* **POST**: *See Configuration Actions*
+
+**Actions (POST):**
+
+*No actions defined*
