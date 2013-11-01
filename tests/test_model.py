@@ -425,3 +425,12 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
 
             self.assertTrue('kimchi-vm' in vms)
+
+    def test_get_distros(self):
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        distros = inst._get_distros()
+        for distro in distros.values():
+            self.assertIn('name', distro)
+            self.assertIn('os_distro', distro)
+            self.assertIn('os_version', distro)
+            self.assertIn('path', distro)

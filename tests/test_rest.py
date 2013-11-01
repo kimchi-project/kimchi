@@ -763,6 +763,23 @@ class RestTests(unittest.TestCase):
         resp = self.request('/tasks', None, 'GET', hdrs)
         self.assertEquals(401, resp.status)
 
+    def test_distros(self):
+        resp = self.request('/config/distros').read()
+        distros = json.loads(resp)
+        for distro in distros:
+            self.assertIn('name', distro)
+            self.assertIn('os_distro', distro)
+            self.assertIn('os_version', distro)
+            self.assertIn('path', distro)
+
+        ident = "fedora-19"
+        resp = self.request('/config/distros/%s' % ident).read()
+        distro = json.loads(resp)
+        self.assertEquals(distro['name'], ident)
+        self.assertEquals(distro['os_distro'], "fedora")
+        self.assertEquals(distro['os_version'], "19")
+        self.assertIn('path', distro)
+
 
 class HttpsRestTests(RestTests):
     """
