@@ -43,12 +43,15 @@ from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
 from kimchi.utils import is_digit
+from kimchi.distroloader import DistroLoader
+
 
 class MockModel(object):
     def __init__(self, objstore_loc=None):
         self.reset()
         self.objstore = ObjectStore(objstore_loc)
         self.vnc_port = 5999
+        self.distros = self._get_distros()
 
         # open vnc port
         # make it here to make sure it will be available on server startup
@@ -349,6 +352,19 @@ class MockModel(object):
             return self._get_storagepool(pool)._volumes[name]
         except KeyError:
             raise NotFoundError()
+
+    def _get_distros(self):
+        distroloader = DistroLoader()
+        return distroloader.get()
+
+    def distros_get_list(self):
+        return self.distros.keys()
+
+    def distro_lookup(self, name):
+        try:
+            return self.distros[name]
+        except KeyError:
+            raise NotFoundError("distro '%s' not found" % name)
 
 
 class MockVM(object):

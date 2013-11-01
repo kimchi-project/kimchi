@@ -51,6 +51,7 @@ from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
 from kimchi.utils import kimchi_log, is_digit
+from kimchi.distroloader import DistroLoader
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -107,6 +108,7 @@ class Model(object):
         self.stats = {}
         self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
         self.statsThread.start()
+        self.distros = self._get_distros()
         if 'qemu:///' in self.libvirt_uri:
             self._default_pool_check()
             self._default_network_check()
@@ -756,6 +758,19 @@ class Model(object):
                 params = {'uuid': vm_uuid}
                 session.store('screenshot', vm_uuid, params)
         return LibvirtVMScreenshot(params, self.conn)
+
+    def _get_distros(self):
+        distroloader = DistroLoader()
+        return  distroloader.get()
+
+    def distros_get_list(self):
+        return self.distros.keys()
+
+    def distro_lookup(self, name):
+        try:
+            return self.distros[name]
+        except KeyError:
+            raise NotFoundError("distro '%s' not found" % name)
 
 
 class LibvirtVMScreenshot(VMScreenshot):
