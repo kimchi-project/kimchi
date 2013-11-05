@@ -30,7 +30,8 @@ import osinfo
 import isoinfo
 from kimchi.exception import *
 
-MAP_PROTOCOL_PORT = {'http': '80', 'ftp': '21'}
+MAP_PROTOCOL_PORT = {'http': '80', 'https': '443',
+                     'ftp': '21', 'ftps': '990', 'tftp': '69'}
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
 
 class VMTemplate(object):
