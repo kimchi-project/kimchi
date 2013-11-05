@@ -250,14 +250,14 @@ class Model(object):
             rx_bytes += io[0]
             tx_bytes += io[4]
 
-        netRxKB = float(rx_bytes / 1000)
-        netTxKB = float(tx_bytes / 1000)
+        netRxKB = float(rx_bytes) / 1000
+        netTxKB = float(tx_bytes) / 1000
 
-        rx_stats = float((netRxKB - prevNetRxKB) / seconds)
-        tx_stats = float((netTxKB - prevNetTxKB) / seconds)
+        rx_stats = (netRxKB - prevNetRxKB) / seconds
+        tx_stats = (netTxKB - prevNetTxKB) / seconds
 
-        rate = float(rx_stats + tx_stats)
-        max_net_io = max(currentMaxNetRate, int(rate))
+        rate = rx_stats + tx_stats
+        max_net_io = round(max(currentMaxNetRate, int(rate)), 1)
 
         self.stats[vm_uuid].update({'net_io': rate, 'max_net_io': max_net_io,
                                  'netRxKB': netRxKB, 'netTxKB': netTxKB})
@@ -277,14 +277,14 @@ class Model(object):
             rd_bytes += io[1]
             wr_bytes += io[3]
 
-        diskRdKB = float(rd_bytes / 1024)
-        diskWrKB = float(wr_bytes / 1024)
+        diskRdKB = float(rd_bytes) / 1024
+        diskWrKB = float(wr_bytes) / 1024
 
-        rd_stats = float((diskRdKB - prevDiskRdKB) / seconds)
-        wr_stats = float((diskWrKB - prevDiskWrKB) / seconds)
+        rd_stats = (diskRdKB - prevDiskRdKB) / seconds
+        wr_stats = (diskWrKB - prevDiskWrKB) / seconds
 
-        rate = float(rd_stats + wr_stats)
-        max_disk_io = max(currentMaxDiskRate, int(rate))
+        rate = rd_stats + wr_stats
+        max_disk_io = round(max(currentMaxDiskRate, int(rate)), 1)
 
         self.stats[vm_uuid].update({'disk_io': rate, 'max_disk_io': max_disk_io,
                                  'diskRdKB': diskRdKB, 'diskWrKB': diskWrKB})
