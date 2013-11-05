@@ -311,7 +311,7 @@ class Model(object):
                 extra_info = {}
         icon = extra_info.get('icon')
 
-        vm_stats = self.stats.get(name, {})
+        vm_stats = self.stats.get(dom.UUIDString(), {})
         stats = {}
         stats['cpu_utilization'] = vm_stats.get('cpu', 0)
         stats['net_throughput'] = vm_stats.get('net_io', 0)
