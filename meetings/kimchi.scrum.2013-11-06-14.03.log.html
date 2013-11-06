@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">14:03:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">14:03:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov  6 14:03:18 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">14:03:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">14:03:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">14:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">14:03:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda: 1) Scrum meeting time 2) Review note 3) Sprint 1 status 4) Open discussion</span>
+<a name="l-7"></a><span class="tm">14:03:58</span><span class="nk"> &lt;alinefm&gt;</span> Anything else?
+<a name="l-8"></a><span class="tm">14:04:06</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-9"></a><span class="tm">14:04:20</span><span class="nk"> &lt;aglitke&gt;</span> Let's talk briefly about the Maintainership transition.
+<a name="l-10"></a><span class="tm">14:04:54</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-11"></a><span class="tm">14:04:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Maintainership transition</span>
+<a name="l-12"></a><span class="tm">14:05:46</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> it will be big loss for you leave.
+<a name="l-13"></a><span class="tm">14:05:48</span><span class="nk"> &lt;aglitke&gt;</span> I just want to thank everyone in advance for stepping up and helping review code and supporting Aline.  She is going to take on a lot of extra work to help the success of kimchi
+<a name="l-14"></a><span class="tm">14:06:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> <span class="hi">aglitke:</span> Congrats on the new position. We'll hope to see you here contributing again :-)
+<a name="l-15"></a><span class="tm">14:06:28</span><span class="nk"> &lt;aglitke&gt;</span> I have really enjoyed doing the job and that is also because you have been such a great team.
+<a name="l-16"></a><span class="tm">14:06:39</span><span class="nk"> &lt;aglitke&gt;</span> That is guaranteed!
+<a name="l-17"></a><span class="tm">14:07:16</span><span class="nk"> &lt;AdamKingIT&gt;</span> cool!
+<a name="l-18"></a><span class="tm">14:07:41</span><span class="nk"> &lt;fnovak&gt;</span> aglitke, You need to bring osme of your new friends over to this corner of the world!  and have them contribute as well!
+<a name="l-19"></a><span class="tm">14:07:44</span><span class="nk"> &lt;aglitke&gt;</span> My last request as maintainer is to ask you all to review more code and help Aline as she gets used to this new role.  There will be a few bumps in the road.
+<a name="l-20"></a><span class="tm">14:07:45</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, thanks for all the great job!
+<a name="l-21"></a><span class="tm">14:07:49</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">aglitke:</span> sheldon is willing to help with maintain kimchi.
+<a name="l-22"></a><span class="tm">14:08:03</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> yes.
+<a name="l-23"></a><span class="tm">14:08:10</span><span class="nk"> &lt;AdamKingIT&gt;</span> We all have some code review shoes to fill
+<a name="l-24"></a><span class="tm">14:08:32</span><span class="nk"> &lt;royce&gt;</span> shoes to fill?
+<a name="l-25"></a><span class="tm">14:08:34</span><span class="nk"> &lt;aglitke&gt;</span> Regarding shaohef... Thanks for your offer of help!  Please continue to help alinefm in the way you helped me.
+<a name="l-26"></a><span class="tm">14:08:38</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span>  there are so many patchs pending
+<a name="l-27"></a><span class="tm">14:08:57</span><span class="nk"> &lt;fnovak&gt;</span> shaohef_away,  then help review
+<a name="l-28"></a><span class="tm">14:08:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> Hmm, Let me try to translate an idiom...
+<a name="l-29"></a><span class="tm">14:09:01</span><span class="nk"> &lt;aglitke&gt;</span> Your code reviews are great and you are very good at assembling patches together for easier review and merging.
+<a name="l-30"></a><span class="tm">14:09:20</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> every one can see my contribution
+<a name="l-31"></a><span class="tm">14:09:38</span><span class="nk"> &lt;AdamKingIT&gt;</span> Thankfully there is a website for that:  http://www.idiomeanings.com/idioms/have-big-shoes-to-fill/
+<a name="l-32"></a><span class="tm">14:09:45</span><span class="nk"> &lt;fnovak&gt;</span> shaohef_away,  yes, and keep it up..
+<a name="l-33"></a><span class="tm">14:09:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef_away, our contribution is not under discussion! Everyone knows you have being doing a good job
+<a name="l-34"></a><span class="tm">14:10:07</span><span class="nk"> &lt;alinefm&gt;</span> continue doing that!
+<a name="l-35"></a><span class="tm">14:10:19</span><span class="nk"> &lt;alinefm&gt;</span> It will help kimchi succeed
+<a name="l-36"></a><span class="tm">14:10:30 </span><span class="nka">* pvital</span> <span class="ac">is back!</span>
+<a name="l-37"></a><span class="tm">14:10:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> has been a leading contributor too:
+<a name="l-38"></a><span class="tm">14:10:39</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">alinefm:</span>  I'm the only one who touch all kimchi feature code.
+<a name="l-39"></a><span class="tm">14:10:42</span><span class="nk"> &lt;aglitke&gt;</span> $ git log --format=%ae | sort | uniq -c | sort -nr
+<a name="l-40"></a><span class="tm">14:10:42</span><span class="nk"> &lt;aglitke&gt;</span> 95 agl@linux.vnet.ibm.com
+<a name="l-41"></a><span class="tm">14:10:42</span><span class="nk"> &lt;aglitke&gt;</span> 84 alinefm@br.ibm.com
+<a name="l-42"></a><span class="tm">14:10:42</span><span class="nk"> &lt;aglitke&gt;</span> 78 shaohef@linux.vnet.ibm.com
+<a name="l-43"></a><span class="tm">14:11:08</span><span class="nk"> &lt;aglitke&gt;</span> We need more numbers like that...
+<a name="l-44"></a><span class="tm">14:11:21</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> but I pending more patches than others
+<a name="l-45"></a><span class="tm">14:11:29</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> it is unfair.
+<a name="l-46"></a><span class="tm">14:11:46</span><span class="nk"> &lt;alinefm&gt;</span> shaohef_away, we are going to talk to it in "Review note"
+<a name="l-47"></a><span class="tm">14:11:47</span><span class="nk"> &lt;ming&gt;</span> agltike, statics data is sometimes illusive.
+<a name="l-48"></a><span class="tm">14:11:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> I am sorry you are feeling that way.
+<a name="l-49"></a><span class="tm">14:12:13</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> if I commit more patch, I will be maintainer?
+<a name="l-50"></a><span class="tm">14:12:20</span><span class="nk"> &lt;aglitke&gt;</span> As maintainer I made the best choice and will appreciate your support.
+<a name="l-51"></a><span class="tm">14:12:29</span><span class="nk"> &lt;ming&gt;</span> agltike, only the code contributor know who is helping him to make a better code
+<a name="l-52"></a><span class="tm">14:12:46</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span>  yes.
+<a name="l-53"></a><span class="tm">14:12:58</span><span class="nk"> &lt;ming&gt;</span> agltike, a +1 is sometime nothing to the code contributor.
+<a name="l-54"></a><span class="tm">14:13:00</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> No.  But if you support the maintainer she may want to promote you.
+<a name="l-55"></a><span class="tm">14:13:26</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> and seems no one oppose multi maintainer on the mail-list
+<a name="l-56"></a><span class="tm">14:13:43</span><span class="nk"> &lt;zhoumeina&gt;</span> since we are in community, we should do this by vote by members.
+<a name="l-57"></a><span class="tm">14:13:45</span><span class="nk"> &lt;ming&gt;</span> agltike, we are building a open source community, then we should listen to the whole community.
+<a name="l-58"></a><span class="tm">14:13:45</span><span class="nk"> &lt;aglitke&gt;</span> It is not possible.  You must have one top level maintainer.
+<a name="l-59"></a><span class="tm">14:13:54</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">zhoumeina:</span>  agree
+<a name="l-60"></a><span class="tm">14:14:14</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">ming:</span> yes
+<a name="l-61"></a><span class="tm">14:14:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think we are more on the BD model
+<a name="l-62"></a><span class="tm">14:15:16</span><span class="nk"> &lt;aglitke&gt;</span> If you look at other open source projects there is always a maintainer with veto power: Qemu == Anthony, Linux == Linus
+<a name="l-63"></a><span class="tm">14:15:24</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> also a maintainer in china  is good for chinese  communicate
+<a name="l-64"></a><span class="tm">14:15:34</span><span class="nk"> &lt;aglitke&gt;</span> Patches don't go in because a majority of people vote for them.
+<a name="l-65"></a><span class="tm">14:15:35</span><span class="nk"> &lt;fnovak&gt;</span> and some of us may getting a little lees "B"
+<a name="l-66"></a><span class="tm">14:15:36</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> I
+<a name="l-67"></a><span class="tm">14:15:41</span><span class="nk"> &lt;pvital&gt;</span> in hadoop (or apache) projects, there are more than one PMC, but one of them are the  chair
+<a name="l-68"></a><span class="tm">14:15:52</span><span class="nk"> &lt;pvital&gt;</span> alinefm, is taking this role now
+<a name="l-69"></a><span class="tm">14:16:17</span><span class="nk"> &lt;aglitke&gt;</span> We don't even need two given the size of our community.
+<a name="l-70"></a><span class="tm">14:16:25</span><span class="nk"> &lt;pvital&gt;</span> and if we want increase the number of mantainers, we should also increase the number of +1 in reviews
+<a name="l-71"></a><span class="tm">14:16:26</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span>  I will maintain some fields first.
+<a name="l-72"></a><span class="tm">14:16:28</span><span class="nk"> &lt;aglitke&gt;</span> What we need is more reviews.
+<a name="l-73"></a><span class="tm">14:16:40</span><span class="nk"> &lt;pvital&gt;</span> +1
+<a name="l-74"></a><span class="tm">14:16:41</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> I will first maintain network, host monitoring
+<a name="l-75"></a><span class="tm">14:16:46</span><span class="nk"> &lt;ming&gt;</span> Anthony and Linus do get a lot of respect from the community and they do get the ability.
+<a name="l-76"></a><span class="tm">14:17:03</span><span class="nk"> &lt;ming&gt;</span> That is a total different story.
+<a name="l-77"></a><span class="tm">14:17:07</span><span class="nk"> &lt;pvital&gt;</span> I sent two patches last week and only one was reviewed by royce
+<a name="l-78"></a><span class="tm">14:17:28</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> Yeah, i think we should more strict with patched merged. Everybody can make mistakes.
+<a name="l-79"></a><span class="tm">14:17:31</span><span class="nk"> &lt;pvital&gt;</span> and this was the first reviwed by you guys (talking to China guys now)
+<a name="l-80"></a><span class="tm">14:17:34</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">pvital:</span> yes. I send more patches. but no review
+<a name="l-81"></a><span class="tm">14:17:52</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">pvital:</span> I pending more patches than others
+<a name="l-82"></a><span class="tm">14:18:14</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, do you want to say anything more or we cam move forward?
+<a name="l-83"></a><span class="tm">14:18:17</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">pvital:</span> that's we why need a more maintainer.
+<a name="l-84"></a><span class="tm">14:18:35</span><span class="nk"> &lt;alinefm&gt;</span> I am afraid of the time in China - it is a little bit late and we need to discuss other topics
+<a name="l-85"></a><span class="tm">14:18:52</span><span class="nk"> &lt;fnovak&gt;</span> shaohef_away, Right now, we do not need more maintainers
+<a name="l-86"></a><span class="tm">14:19:17</span><span class="nk"> &lt;fnovak&gt;</span> what we need to do is give support during the transition
+<a name="l-87"></a><span class="tm">14:19:22</span><span class="nk"> &lt;aglitke&gt;</span> Sure... I will just repeat myself.  The decision is made.  If you don't like it you are free to leave the community.  If you want to respect me, please respect Aline.  Thank you.
+<a name="l-88"></a><span class="tm">14:19:30</span><span class="nk"> &lt;fnovak&gt;</span> we will see how things develop afterwards
+<a name="l-89"></a><span class="tm">14:20:17</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, fnovak, thanks!
+<a name="l-90"></a><span class="tm">14:20:21</span><span class="nk"> &lt;pvital&gt;</span> shaohef_away, I don't think so! if you have more patches waiting reviews, it's because nobody is reviewing. we back to what aglitke said: we need more reviwers, not maintainers
+<a name="l-91"></a><span class="tm">14:20:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Scrum meeting time</span>
+<a name="l-92"></a><span class="tm">14:20:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> I know we can all pull together to take Kimchi to  the next level. We have a challenge, but I am sure we are up to it
+<a name="l-93"></a><span class="tm">14:20:43</span><span class="nk"> &lt;fnovak&gt;</span> pvital, Yes
+<a name="l-94"></a><span class="tm">14:21:17</span><span class="nk"> &lt;alinefm&gt;</span> I don't like to change the time the meeting occurs in China
+<a name="l-95"></a><span class="tm">14:21:21</span><span class="nk"> &lt;aglitke&gt;</span> Regarding scrum time, I take the blame this time.
+<a name="l-96"></a><span class="tm">14:21:38</span><span class="nk"> &lt;aglitke&gt;</span> My goal was to keep it at 9pm in Beijing and I made a mistake.
+<a name="l-97"></a><span class="tm">14:21:54</span><span class="nk"> &lt;aglitke&gt;</span> I recommend moving it back one hour for next week
+<a name="l-98"></a><span class="tm">14:22:01</span><span class="nk"> &lt;aglitke&gt;</span> Would that be correct for China?
+<a name="l-99"></a><span class="tm">14:22:31</span><span class="nk"> &lt;AdamKingIT&gt;</span> Time for a plug for my favorite world clock? https://addons.mozilla.org/en-US/firefox/addon/foxclocks/
+<a name="l-100"></a><span class="tm">14:22:53</span><span class="nk"> &lt;aglitke&gt;</span> installed
+<a name="l-101"></a><span class="tm">14:23:23</span><span class="nk"> &lt;aglitke&gt;</span> Ok, sounds like there are no objections.
+<a name="l-102"></a><span class="tm">14:23:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm send out a email to the list informing the correct scrum meeting time</span>
+<a name="l-103"></a><span class="tm">14:24:10</span><span class="nk"> &lt;alinefm&gt;</span> it would be 8AM EST, right?
+<a name="l-104"></a><span class="tm">14:24:15</span><span class="nk"> &lt;AdamKingIT&gt;</span> y
+<a name="l-105"></a><span class="tm">14:24:19</span><span class="nk"> &lt;royce&gt;</span> yeah, 9pm is better for us~
+<a name="l-106"></a><span class="tm">14:24:29</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-107"></a><span class="tm">14:24:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Review note</span>
+<a name="l-108"></a><span class="tm">14:25:12</span><span class="nk"> &lt;alinefm&gt;</span> I am seeing a lot of people complaining about a lot of patches on mail list so I would like to encourage every one to review
+<a name="l-109"></a><span class="tm">14:25:34</span><span class="nk"> &lt;ming&gt;</span> Alinefm, I response to your comments on debugreports and waiting for your reply.
+<a name="l-110"></a><span class="tm">14:25:35</span><span class="nk"> &lt;alinefm&gt;</span> just making clear each one has a method to review patches and no one is correct or wrong
+<a name="l-111"></a><span class="tm">14:25:51</span><span class="nk"> &lt;aglitke&gt;</span> +1 This is the best thing we can do to increase velocity of the project.
+<a name="l-112"></a><span class="tm">14:26:06</span><span class="nk"> &lt;alinefm&gt;</span> we have new members in the team now and of course a deep review will be difficult at the first time
+<a name="l-113"></a><span class="tm">14:26:07</span><span class="nk"> &lt;pvital&gt;</span> +1
+<a name="l-114"></a><span class="tm">14:26:11</span><span class="nk"> &lt;alinefm&gt;</span> but try it from now on
+<a name="l-115"></a><span class="tm">14:26:24</span><span class="nk"> &lt;alinefm&gt;</span> more you review patches more you learn about the project
+<a name="l-116"></a><span class="tm">14:26:33</span><span class="nk"> &lt;alinefm&gt;</span> and then a deep review will be natural
+<a name="l-117"></a><span class="tm">14:27:10</span><span class="nk"> &lt;royce&gt;</span> ok, I will review shaohef_away's network patches, pls review my pending patches every one: )
+<a name="l-118"></a><span class="tm">14:27:30</span><span class="nk"> &lt;alinefm&gt;</span> I will do my best on it as well
+<a name="l-119"></a><span class="tm">14:27:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 1 status</span>
+<a name="l-120"></a><span class="tm">14:28:02</span><span class="nk"> &lt;alinefm&gt;</span> now the fun stuffs! =)
+<a name="l-121"></a><span class="tm">14:28:13</span><span class="nk"> &lt;alinefm&gt;</span> we are getting close to the end of the sprint 1
+<a name="l-122"></a><span class="tm">14:28:13</span><span class="nk"> &lt;ming&gt;</span> alinefm, I think the biggest issue why the create() method should be changed to return a task state back. I explained that in detail and waiting for your response.
+<a name="l-123"></a><span class="tm">14:28:17</span><span class="nk"> &lt;alinefm&gt;</span> so we need to focus on that
+<a name="l-124"></a><span class="tm">14:28:38</span><span class="nk"> &lt;alinefm&gt;</span> ming, yeap! we will talk about it soon =)
+<a name="l-125"></a><span class="tm">14:28:57</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+<a name="l-126"></a><span class="tm">14:29:08</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> Please address my comments on the list.  Your patches still need some work.
+<a name="l-127"></a><span class="tm">14:29:22</span><span class="nk"> &lt;alinefm&gt;</span> 1. Set a custom pool for a template (templates)
+<a name="l-128"></a><span class="tm">14:29:35</span><span class="nk"> &lt;alinefm&gt;</span> I guess we are almost there
+<a name="l-129"></a><span class="tm">14:29:49</span><span class="nk"> &lt;alinefm&gt;</span> royce, Template storage customization
+<a name="l-130"></a><span class="tm">14:29:52</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Are you still on V3?
+<a name="l-131"></a><span class="tm">14:29:54</span><span class="nk"> &lt;royce&gt;</span> I have rebased it to v4, alinefm I have replied your comments, pls see that
+<a name="l-132"></a><span class="tm">14:30:07 </span><span class="nka">* aglitke</span> <span class="ac">will edit</span>
+<a name="l-133"></a><span class="tm">14:30:12</span><span class="nk"> &lt;ming&gt;</span> agltike, I think I have response back to you.
+<a name="l-134"></a><span class="tm">14:30:39</span><span class="nk"> &lt;ming&gt;</span> agtitke, BTW, it is a private message to me.
+<a name="l-135"></a><span class="tm">14:30:56</span><span class="nk"> &lt;aglitke&gt;</span> Do we know how the UI piece of this feature is doing?
+<a name="l-136"></a><span class="tm">14:31:22</span><span class="nk"> &lt;aglitke&gt;</span> I believe I have seen the patch on the list
+<a name="l-137"></a><span class="tm">14:31:36</span><span class="nk"> &lt;royce&gt;</span> Yeah, dingxin had sent it
+<a name="l-138"></a><span class="tm">14:31:39</span><span class="nk"> &lt;alinefm&gt;</span> yes, the UI patch is  on list
+<a name="l-139"></a><span class="tm">14:31:47</span><span class="nk"> &lt;AdamKingIT&gt;</span> DingXin is not on, and I have to confess I am not current on patch reviews
+<a name="l-140"></a><span class="tm">14:32:01</span><span class="nk"> &lt;alinefm&gt;</span> UI part is ready
+<a name="l-141"></a><span class="tm">14:32:08</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, you reviewed that one =)
+<a name="l-142"></a><span class="tm">14:32:09</span><span class="nk"> &lt;aglitke&gt;</span> Yeah... I am going to set an example for the team and review all sprint 1 patches.
+<a name="l-143"></a><span class="tm">14:32:18</span><span class="nk"> &lt;aglitke&gt;</span> I challenge anyone else to join me
+<a name="l-144"></a><span class="tm">14:32:25</span><span class="nk"> &lt;AdamKingIT&gt;</span> I must be reviewing in my sleep
+<a name="l-145"></a><span class="tm">14:32:44</span><span class="nk"> &lt;royce&gt;</span> :O
+<a name="l-146"></a><span class="tm">14:33:01</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, challenge accepted! =)
+<a name="l-147"></a><span class="tm">14:33:02</span><span class="nk"> &lt;apporc&gt;</span> :)
+<a name="l-148"></a><span class="tm">14:33:14</span><span class="nk"> &lt;pvital&gt;</span> aglitke, +1
+<a name="l-149"></a><span class="tm">14:33:26</span><span class="nk"> &lt;pvital&gt;</span> alinefm, ^
+<a name="l-150"></a><span class="tm">14:33:34</span><span class="nk"> &lt;royce&gt;</span> I'll try, don't count me...
+<a name="l-151"></a><span class="tm">14:33:57</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> next feature?
+<a name="l-152"></a><span class="tm">14:34:00</span><span class="nk"> &lt;alinefm&gt;</span> Create with streamed Internet ISO by selecting distro/version (templates)
+<a name="l-153"></a><span class="tm">14:34:03</span><span class="nk"> &lt;alinefm&gt;</span> all merged!
+<a name="l-154"></a><span class="tm">14:34:10</span><span class="nk"> &lt;alinefm&gt;</span> Create guest network
+<a name="l-155"></a><span class="tm">14:34:11 </span><span class="nka">* aglitke</span> <span class="ac">marks it</span>
+<a name="l-156"></a><span class="tm">14:34:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> close out the enhancement?
+<a name="l-157"></a><span class="tm">14:34:23</span><span class="nk"> &lt;alinefm&gt;</span> I was not able to apply this patchset
+<a name="l-158"></a><span class="tm">14:34:44</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> please go ahead.
+<a name="l-159"></a><span class="tm">14:34:49</span><span class="nk"> &lt;AdamKingIT&gt;</span> k
+<a name="l-160"></a><span class="tm">14:35:04</span><span class="nk"> &lt;royce&gt;</span> seems shaohef_away has a tree we can clone for his network
+<a name="l-161"></a><span class="tm">14:35:16</span><span class="nk"> &lt;royce&gt;</span> network patchset
+<a name="l-162"></a><span class="tm">14:35:21</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> Can you share your github fork with the team so we can apply and test?
+<a name="l-163"></a><span class="tm">14:35:46</span><span class="nk"> &lt;pvital&gt;</span> aglitke, I guess shaohef_away sent to list! or here!
+<a name="l-164"></a><span class="tm">14:35:59</span><span class="nk"> &lt;pvital&gt;</span> I saw something a couple of days ago
+<a name="l-165"></a><span class="tm">14:36:08</span><span class="nk"> &lt;aglitke&gt;</span> It is a large patchset and easy for conflicts to creep in
+<a name="l-166"></a><span class="tm">14:36:34</span><span class="nk"> &lt;aglitke&gt;</span> so first we can test his branch to see if it works and review the code
+<a name="l-167"></a><span class="tm">14:36:51</span><span class="nk"> &lt;aglitke&gt;</span> Then once it is good we can ask him to rebase one last time right before merge.
+<a name="l-168"></a><span class="tm">14:36:55</span><span class="nk"> &lt;royce&gt;</span> https://github.com/shaohef/kimchi.git
+<a name="l-169"></a><span class="tm">14:36:59</span><span class="nk"> &lt;royce&gt;</span> it is here
+<a name="l-170"></a><span class="tm">14:37:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Thanks!
+<a name="l-171"></a><span class="tm">14:37:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-172"></a><span class="tm">14:37:10</span><span class="nk"> &lt;royce&gt;</span> yw~
+<a name="l-173"></a><span class="tm">14:37:26</span><span class="nk"> &lt;aglitke&gt;</span> So this feature needs testing and review.
+<a name="l-174"></a><span class="tm">14:37:30</span><span class="nk"> &lt;alinefm&gt;</span> so lets test shaohef_away branch with network stuffs and review
+<a name="l-175"></a><span class="tm">14:37:41</span><span class="nk"> &lt;aglitke&gt;</span> we can evaluate the UI design
+<a name="l-176"></a><span class="tm">14:37:44</span><span class="nk"> &lt;alinefm&gt;</span> next one: Create a template with streamed Internet ISO by entering custom URL (templates)
+<a name="l-177"></a><span class="tm">14:37:46</span><span class="nk"> &lt;alinefm&gt;</span> all merged
+<a name="l-178"></a><span class="tm">14:37:52 </span><span class="nka">* aglitke</span> <span class="ac">marks it</span>
+<a name="l-179"></a><span class="tm">14:38:03</span><span class="nk"> &lt;alinefm&gt;</span> Local ISO discovery (templates)
+<a name="l-180"></a><span class="tm">14:38:12</span><span class="nk"> &lt;alinefm&gt;</span> royce, any update on that?
+<a name="l-181"></a><span class="tm">14:38:33</span><span class="nk"> &lt;royce&gt;</span> I rebased it according to comments, I think it is ready
+<a name="l-182"></a><span class="tm">14:38:47</span><span class="nk"> &lt;aglitke&gt;</span> OK.  Unleash the reviewers :)
+<a name="l-183"></a><span class="tm">14:38:55</span><span class="nk"> &lt;royce&gt;</span> heh
+<a name="l-184"></a><span class="tm">14:39:13</span><span class="nk"> &lt;royce&gt;</span> Is that from the primes?
+<a name="l-185"></a><span class="tm">14:39:34</span><span class="nk"> &lt;aglitke&gt;</span> not sure ;)
+<a name="l-186"></a><span class="tm">14:39:55</span><span class="nk"> &lt;royce&gt;</span> croods
+<a name="l-187"></a><span class="tm">14:40:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, what is the patch?
+<a name="l-188"></a><span class="tm">14:40:22</span><span class="nk"> &lt;alinefm&gt;</span> I am a little bit lost in all those in the list
+<a name="l-189"></a><span class="tm">14:40:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> Deep Scan (I think)
+<a name="l-190"></a><span class="tm">14:40:38</span><span class="nk"> &lt;royce&gt;</span> [project-kimchi][PATCHv3 0/4] Deep scan support
+<a name="l-191"></a><span class="tm">14:40:39</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> do you know the series #
+<a name="l-192"></a><span class="tm">14:40:42</span><span class="nk"> &lt;aglitke&gt;</span> thanks!
+<a name="l-193"></a><span class="tm">14:40:43</span><span class="nk"> &lt;shaohef_away&gt;</span> I will redefine the network API. but every one can try my old network. thanks
+<a name="l-194"></a><span class="tm">14:41:45</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> Thank you!
+<a name="l-195"></a><span class="tm">14:42:05</span><span class="nk"> &lt;alinefm&gt;</span> next one
+<a name="l-196"></a><span class="tm">14:42:05</span><span class="nk"> &lt;alinefm&gt;</span> Basic host management (host)
+<a name="l-197"></a><span class="tm">14:42:15</span><span class="nk"> &lt;aglitke&gt;</span> I have some thoughts about this one
+<a name="l-198"></a><span class="tm">14:42:29</span><span class="nk"> &lt;aglitke&gt;</span> I think the patches on the list aren't making progress because we lack a proper design
+<a name="l-199"></a><span class="tm">14:42:44</span><span class="nk"> &lt;royce&gt;</span> why is it need redefine? shaohef_away
+<a name="l-200"></a><span class="tm">14:42:56</span><span class="nk"> &lt;aglitke&gt;</span> I think we need to start with a UI mockup of what we want to show in the host tab (with fake data at first)
+<a name="l-201"></a><span class="tm">14:43:17</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> yes, i think many patches submitted by markwu should be merged ASAP.
+<a name="l-202"></a><span class="tm">14:43:20</span><span class="nk"> &lt;pvital&gt;</span> +1
+<a name="l-203"></a><span class="tm">14:43:22</span><span class="nk"> &lt;aglitke&gt;</span> Then we can add only things to the API that we need,
+<a name="l-204"></a><span class="tm">14:43:27</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">royce:</span> I define the API before we support macvlan
+<a name="l-205"></a><span class="tm">14:43:30</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> those patches clean much code.
+<a name="l-206"></a><span class="tm">14:43:51</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> Are those patches for host management?
+<a name="l-207"></a><span class="tm">14:44:07</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> not only for host management.
+<a name="l-208"></a><span class="tm">14:44:08</span><span class="nk"> &lt;aglitke&gt;</span> I thought we were talking about the new tab with host statistics on it.
+<a name="l-209"></a><span class="tm">14:44:13</span><span class="nk"> &lt;royce&gt;</span> these are related to json schema, if I'm not wrong?
+<a name="l-210"></a><span class="tm">14:44:26</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">royce:</span> yeah, right.
+<a name="l-211"></a><span class="tm">14:45:08</span><span class="nk"> &lt;aglitke&gt;</span> Have they been reviewed yet?
+<a name="l-212"></a><span class="tm">14:45:35</span><span class="nk"> &lt;alinefm&gt;</span> apporc, now we need to focus on sprint 1 tasks
+<a name="l-213"></a><span class="tm">14:46:11</span><span class="nk"> &lt;apporc&gt;</span> aglitke, alinefm: ok, i just refer to aglitke's "lack a proper desing"
+<a name="l-214"></a><span class="tm">14:46:40</span><span class="nk"> &lt;apporc&gt;</span> <span class="hi">aglitke:</span> i don't know how many review is called "enough"
+<a name="l-215"></a><span class="tm">14:46:57</span><span class="nk"> &lt;alinefm&gt;</span> ming, shaohef_away, any update about host management?
+<a name="l-216"></a><span class="tm">14:47:03</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, anything about UI?
+<a name="l-217"></a><span class="tm">14:47:50</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">apporc:</span> I'd be happy with one or two +1's after deep reviews.
+<a name="l-218"></a><span class="tm">14:47:54</span><span class="nk"> &lt;aglitke&gt;</span> That would be progress.
+<a name="l-219"></a><span class="tm">14:48:38</span><span class="nk"> &lt;alinefm&gt;</span> next one: Debug Reports (host)
+<a name="l-220"></a><span class="tm">14:48:50</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, did you review the ming patches?
+<a name="l-221"></a><span class="tm">14:48:55</span><span class="nk"> &lt;aglitke&gt;</span> I believe there are review comments to address
+<a name="l-222"></a><span class="tm">14:48:57</span><span class="nk"> &lt;aglitke&gt;</span> yes,
+<a name="l-223"></a><span class="tm">14:48:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> I thnk hongliang has a host patch on the list, but I haven't reviewed it yet. I don know that I can meet aglitke's mark to review all, but I will take it to review this one
+<a name="l-224"></a><span class="tm">14:49:00</span><span class="nk"> &lt;alinefm&gt;</span> I could not find your comments
+<a name="l-225"></a><span class="tm">14:49:12</span><span class="nk"> &lt;alinefm&gt;</span> maybe my imap is kidding with me =/
+<a name="l-226"></a><span class="tm">14:49:16</span><span class="nk"> &lt;shaohef_away&gt;</span> I will integrate all host stats into one patch set.
+<a name="l-227"></a><span class="tm">14:49:20</span><span class="nk"> &lt;aglitke&gt;</span> I reviewed yesterday
+<a name="l-228"></a><span class="tm">14:49:38</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> We should have a mockup UI first
+<a name="l-229"></a><span class="tm">14:49:46</span><span class="nk"> &lt;royce&gt;</span> aglitke, you sent review to ming privately...
+<a name="l-230"></a><span class="tm">14:49:49</span><span class="nk"> &lt;pvital&gt;</span> alinefm, AdamKingIT: I reviewed hongliang patches and did some comments about!
+<a name="l-231"></a><span class="tm">14:49:55</span><span class="nk"> &lt;aglitke&gt;</span> And we need to decide how to organize the stats API
+<a name="l-232"></a><span class="tm">14:50:08</span><span class="nk"> &lt;ming&gt;</span> aglitke, I don't agree with some of your comments. I  had response to you. Also, I will send more of my findings to you.
+<a name="l-233"></a><span class="tm">14:50:12</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">royce:</span> Ohm really?  I thought it was on-list
+<a name="l-234"></a><span class="tm">14:50:40</span><span class="nk"> &lt;aglitke&gt;</span> I guess it needs more reviews... I will try to resend my comments to the list too
+<a name="l-235"></a><span class="tm">14:51:01</span><span class="nk"> &lt;royce&gt;</span> yeah
+<a name="l-236"></a><span class="tm">14:51:03</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> yes. in order to not block UI, I send a patch first .
+<a name="l-237"></a><span class="tm">14:51:04</span><span class="nk"> &lt;aglitke&gt;</span> I believe the current approach is not restful
+<a name="l-238"></a><span class="tm">14:51:36</span><span class="nk"> &lt;ming&gt;</span> The 202 response is intentionally non-committal. Its purpose is to allow a server to accept a request for some other process (perhaps a batch-oriented process that is only run once per day) without requiring that the user agent's connection to the server persist until the process is completed. The entity returned with this response SHOULD include an indication of the request's current status...
+<a name="l-239"></a><span class="tm">14:51:38</span><span class="nk"> &lt;ming&gt;</span> ...and either a pointer to a status monitor or some estimate of when the user can expect the request to be fulfilled.
+<a name="l-240"></a><span class="tm">14:51:58</span><span class="nk"> &lt;aglitke&gt;</span> Yep :) The Task object
+<a name="l-241"></a><span class="tm">14:52:13</span><span class="nk"> &lt;aglitke&gt;</span> also contains the status
+<a name="l-242"></a><span class="tm">14:52:26</span><span class="nk"> &lt;ming&gt;</span> Why we should need a full Task object?
+<a name="l-243"></a><span class="tm">14:52:47</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> we still discussion the URL define?
+<a name="l-244"></a><span class="tm">14:52:51</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, I guess your comments are similar to mine
+<a name="l-245"></a><span class="tm">14:53:04</span><span class="nk"> &lt;ming&gt;</span> alinefm, totally different.
+<a name="l-246"></a><span class="tm">14:53:12</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span>  /host/config and /host/stats ?
+<a name="l-247"></a><span class="tm">14:53:30</span><span class="nk"> &lt;alinefm&gt;</span> ming, you do not need to change the basic api to get debug reports returning a different status code
+<a name="l-248"></a><span class="tm">14:54:12</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> what do you means  /host/config and /host/stats or sos report?
+<a name="l-249"></a><span class="tm">14:54:14</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">shaohef_away:</span> We are talking debugreports
+<a name="l-250"></a><span class="tm">14:54:30</span><span class="nk"> &lt;shaohef_away&gt;</span> <span class="hi">aglitke:</span> so we get agreement on  /host/config and /host/stats ?
+<a name="l-251"></a><span class="tm">14:54:31</span><span class="nk"> &lt;ming&gt;</span> alinefm, another issue is I think return a debugreport resource with task id back to POST method is not the right way.
+<a name="l-252"></a><span class="tm">14:54:34</span><span class="nk"> &lt;aglitke&gt;</span> Here's a good comprimise
+<a name="l-253"></a><span class="tm">14:54:50</span><span class="nk"> &lt;aglitke&gt;</span> We can return the URL in the http response headers
+<a name="l-254"></a><span class="tm">14:55:02</span><span class="nk"> &lt;aglitke&gt;</span> We just need to find the header field that is typically used
+<a name="l-255"></a><span class="tm">14:55:12</span><span class="nk"> &lt;aglitke&gt;</span> then we can also place the task object in the body.
+<a name="l-256"></a><span class="tm">14:55:15</span><span class="nk"> &lt;ming&gt;</span> aglike. who care about the http response headers?
+<a name="l-257"></a><span class="tm">14:55:31</span><span class="nk"> &lt;aglitke&gt;</span> All clients
+<a name="l-258"></a><span class="tm">14:56:00</span><span class="nk"> &lt;ming&gt;</span> aglitke, I don't think Kimchi's UI care about http resonse headers now.
+<a name="l-259"></a><span class="tm">14:56:12</span><span class="nk"> &lt;aglitke&gt;</span> then it can use the task object
+<a name="l-260"></a><span class="tm">14:56:31</span><span class="nk"> &lt;ming&gt;</span> aglitke, Kimchi's UI only send REST APIs and get json object back.
+<a name="l-261"></a><span class="tm">14:56:40</span><span class="nk"> &lt;aglitke&gt;</span> I don't understand why you have a problem with being standardized.
+<a name="l-262"></a><span class="tm">14:57:05</span><span class="nk"> &lt;ming&gt;</span> agltike, is it a standard? Where is that?
+<a name="l-263"></a><span class="tm">14:57:06</span><span class="nk"> &lt;aglitke&gt;</span> You want a non-standard response object, I want to use the task representation
+<a name="l-264"></a><span class="tm">14:57:42</span><span class="nk"> &lt;aglitke&gt;</span> And you need to remove the content sub-resource
+<a name="l-265"></a><span class="tm">14:57:45</span><span class="nk"> &lt;alinefm&gt;</span> for me it would be simple: POST /debugreports will return the debugreports ident
+<a name="l-266"></a><span class="tm">14:58:01</span><span class="nk"> &lt;aglitke&gt;</span> it's a terrible way of achieving a static file download
+<a name="l-267"></a><span class="tm">14:58:11</span><span class="nk"> &lt;alinefm&gt;</span> then lookup will return {name: &lt;debug reports name&gt;, file:&lt;file&gt;, task_id:&lt;task_id&gt;}
+<a name="l-268"></a><span class="tm">14:58:19</span><span class="nk"> &lt;ming&gt;</span> aglitke, that is another isssue i need to discuss with you.
+<a name="l-269"></a><span class="tm">14:58:26</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> but the POST returns a Task
+<a name="l-270"></a><span class="tm">14:58:26</span><span class="nk"> &lt;alinefm&gt;</span> so if it easier to find out the task related to the debugreport
+<a name="l-271"></a><span class="tm">14:58:41</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> you have to poll the task to wait for completion of report generation
+<a name="l-272"></a><span class="tm">14:58:45</span><span class="nk"> &lt;aglitke&gt;</span> it can take a long time
+<a name="l-273"></a><span class="tm">14:59:08</span><span class="nk"> &lt;aglitke&gt;</span> the debugreport doesn't exist until the task is finished.
+<a name="l-274"></a><span class="tm">14:59:09</span><span class="nk"> &lt;AdamKingIT&gt;</span> does it know how long it will take?
+<a name="l-275"></a><span class="tm">14:59:28</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">AdamKingIT:</span> not really.
+<a name="l-276"></a><span class="tm">14:59:44</span><span class="nk"> &lt;aglitke&gt;</span> probably less than 30-60s
+<a name="l-277"></a><span class="tm">14:59:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> figured as much, but had to ask
+<a name="l-278"></a><span class="tm">14:59:51</span><span class="nk"> &lt;aglitke&gt;</span> but it could depend on system load.
+<a name="l-279"></a><span class="tm">15:00:10</span><span class="nk"> &lt;ming&gt;</span> aglitke, from the permission control perspective, using sub-resource is better to control the permission to download a report file with senstive data.
+<a name="l-280"></a><span class="tm">15:00:16</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, your idea is in the POST return the Task object and an additional header to refer to debugreports?
+<a name="l-281"></a><span class="tm">15:00:46</span><span class="nk"> &lt;aglitke&gt;</span> We can still require auth on the static dir
+<a name="l-282"></a><span class="tm">15:01:08</span><span class="nk"> &lt;ming&gt;</span> aglitke, with the static dir, Kimchi lose the control, it is the cherrypy to control the permission.
+<a name="l-283"></a><span class="tm">15:01:24</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> yes, but we don't require the http header.  I was suggesting it as a comprimise
+<a name="l-284"></a><span class="tm">15:01:48</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> take a look at how auth works.  It's via a cherrypy hook.
+<a name="l-285"></a><span class="tm">15:01:54</span><span class="nk"> &lt;aglitke&gt;</span> it will still work
+<a name="l-286"></a><span class="tm">15:02:21</span><span class="nk"> &lt;ming&gt;</span> agltike, how about the future authorization support?
+<a name="l-287"></a><span class="tm">15:02:35</span><span class="nk"> &lt;aglitke&gt;</span> that will be added to the hook function
+<a name="l-288"></a><span class="tm">15:02:39</span><span class="nk"> &lt;aglitke&gt;</span> so it will still work
+<a name="l-289"></a><span class="tm">15:03:13</span><span class="nk"> &lt;ming&gt;</span> aglitke, we can not support the authorization in near future, but we still need to consider it.
+<a name="l-290"></a><span class="tm">15:03:29</span><span class="nk"> &lt;aglitke&gt;</span> yep, and it will fit into the plan just fine.
+<a name="l-291"></a><span class="tm">15:03:40</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">alinefm:</span> I guess we took all of the remaining time.  Sorry :(
+<a name="l-292"></a><span class="tm">15:05:02</span><span class="nk"> &lt;scottgar&gt;</span> <span class="hi">agtlitke:</span> I'm confused. Was this the scrum? I thought that was supposed to start now.
+<a name="l-293"></a><span class="tm">15:05:32</span><span class="nk"> &lt;alinefm&gt;</span> aglitke, yes =/
+<a name="l-294"></a><span class="tm">15:06:02</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">scottgar:</span> There was some more confusion... Next week it will start at 8AM EST
+<a name="l-295"></a><span class="tm">15:06:13</span><span class="nk"> &lt;aglitke&gt;</span> Trying to accomodate Beijing since it is late there.
+<a name="l-296"></a><span class="tm">15:06:29</span><span class="nk"> &lt;ming&gt;</span> agltike, alinefm, at least we reach the agreement about we will not return a Debugreport resource with taskid back to POST request.
+<a name="l-297"></a><span class="tm">15:06:31</span><span class="nk"> &lt;scottgar&gt;</span> wow, 5ap pst
+<a name="l-298"></a><span class="tm">15:06:52</span><span class="nk"> &lt;ming&gt;</span> Is that right?
+<a name="l-299"></a><span class="tm">15:06:57</span><span class="nk"> &lt;scottgar&gt;</span> 5am pst/7am cst.  seems like 9am est might be a more reasonable compromise
+<a name="l-300"></a><span class="tm">15:07:17</span><span class="nk"> &lt;ming&gt;</span> aglitke, alinefm, is that right?
+<a name="l-301"></a><span class="tm">15:07:18</span><span class="nk"> &lt;aglitke&gt;</span> DO we have any west coast people on ?
+<a name="l-302"></a><span class="tm">15:07:37</span><span class="nk"> &lt;aglitke&gt;</span> 9est is 10pm beijing time
+<a name="l-303"></a><span class="tm">15:08:04</span><span class="nk"> &lt;aglitke&gt;</span> <span class="hi">ming:</span> I still think the return body of the POST req contains he task resource.
+<a name="l-304"></a><span class="tm">15:08:08</span><span class="nk"> &lt;alinefm&gt;</span> ming, for me you will continue return the task id to the controller and the return Task.lookup(task_id)
+<a name="l-305"></a><span class="tm">15:08:21</span><span class="nk"> &lt;aglitke&gt;</span> yes
+<a name="l-306"></a><span class="tm">15:09:05</span><span class="nk"> &lt;alinefm&gt;</span> we can continue discuss it, but let me end the meeting
+<a name="l-307"></a><span class="tm">15:09:08</span><span class="nk"> &lt;ming&gt;</span> aglitke, alinefm, doublecheck, No debugreport resource returned
+<a name="l-308"></a><span class="tm">15:09:12</span><span class="nk"> &lt;ming&gt;</span> ?
+<a name="l-309"></a><span class="tm">15:09:14</span><span class="nk"> &lt;alinefm&gt;</span> again, focus on patches for sprint 1
+<a name="l-310"></a><span class="tm">15:09:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

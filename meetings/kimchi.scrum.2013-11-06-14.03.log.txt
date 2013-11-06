@@ -1,0 +1,310 @@
+14:03:18 <alinefm> #startmeeting
+14:03:18 <kimchi-bot> Meeting started Wed Nov  6 14:03:18 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+14:03:18 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+14:03:26 <alinefm> #meetingname scrum
+14:03:26 <kimchi-bot> The meeting name has been set to 'scrum'
+14:03:55 <alinefm> #info Agenda: 1) Scrum meeting time 2) Review note 3) Sprint 1 status 4) Open discussion
+14:03:58 <alinefm> Anything else?
+14:04:06 <aglitke> yes
+14:04:20 <aglitke> Let's talk briefly about the Maintainership transition.
+14:04:54 <alinefm> sure
+14:04:59 <alinefm> #topic Maintainership transition
+14:05:46 <zhoumeina> aglitke: it will be big loss for you leave.
+14:05:48 <aglitke> I just want to thank everyone in advance for stepping up and helping review code and supporting Aline.  She is going to take on a lot of extra work to help the success of kimchi
+14:06:22 <AdamKingIT> aglitke: Congrats on the new position. We'll hope to see you here contributing again :-)
+14:06:28 <aglitke> I have really enjoyed doing the job and that is also because you have been such a great team.
+14:06:39 <aglitke> That is guaranteed!
+14:07:16 <AdamKingIT> cool!
+14:07:41 <fnovak> aglitke, You need to bring osme of your new friends over to this corner of the world!  and have them contribute as well!
+14:07:44 <aglitke> My last request as maintainer is to ask you all to review more code and help Aline as she gets used to this new role.  There will be a few bumps in the road.
+14:07:45 <alinefm> aglitke, thanks for all the great job!
+14:07:49 <zhoumeina> aglitke: sheldon is willing to help with maintain kimchi.
+14:08:03 <shaohef_away> aglitke: yes.
+14:08:10 <AdamKingIT> We all have some code review shoes to fill
+14:08:32 <royce> shoes to fill?
+14:08:34 <aglitke> Regarding shaohef... Thanks for your offer of help!  Please continue to help alinefm in the way you helped me.
+14:08:38 <shaohef_away> aglitke:  there are so many patchs pending
+14:08:57 <fnovak> shaohef_away,  then help review
+14:08:59 <AdamKingIT> Hmm, Let me try to translate an idiom...
+14:09:01 <aglitke> Your code reviews are great and you are very good at assembling patches together for easier review and merging.
+14:09:20 <shaohef_away> aglitke: every one can see my contribution
+14:09:38 <AdamKingIT> Thankfully there is a website for that:  http://www.idiomeanings.com/idioms/have-big-shoes-to-fill/
+14:09:45 <fnovak> shaohef_away,  yes, and keep it up..
+14:09:59 <alinefm> shaohef_away, our contribution is not under discussion! Everyone knows you have being doing a good job
+14:10:07 <alinefm> continue doing that!
+14:10:19 <alinefm> It will help kimchi succeed
+14:10:30 * pvital is back!
+14:10:39 <aglitke> alinefm: has been a leading contributor too:
+14:10:39 <shaohef_away> alinefm:  I'm the only one who touch all kimchi feature code.
+14:10:42 <aglitke> $ git log --format=%ae | sort | uniq -c | sort -nr
+14:10:42 <aglitke> 95 agl@linux.vnet.ibm.com
+14:10:42 <aglitke> 84 alinefm@br.ibm.com
+14:10:42 <aglitke> 78 shaohef@linux.vnet.ibm.com
+14:11:08 <aglitke> We need more numbers like that...
+14:11:21 <shaohef_away> aglitke: but I pending more patches than others
+14:11:29 <shaohef_away> aglitke: it is unfair.
+14:11:46 <alinefm> shaohef_away, we are going to talk to it in "Review note"
+14:11:47 <ming> agltike, statics data is sometimes illusive.
+14:11:52 <aglitke> shaohef_away: I am sorry you are feeling that way.
+14:12:13 <shaohef_away> aglitke: if I commit more patch, I will be maintainer?
+14:12:20 <aglitke> As maintainer I made the best choice and will appreciate your support.
+14:12:29 <ming> agltike, only the code contributor know who is helping him to make a better code
+14:12:46 <shaohef_away> aglitke:  yes.
+14:12:58 <ming> agltike, a +1 is sometime nothing to the code contributor.
+14:13:00 <aglitke> shaohef_away: No.  But if you support the maintainer she may want to promote you.
+14:13:26 <shaohef_away> aglitke: and seems no one oppose multi maintainer on the mail-list
+14:13:43 <zhoumeina> since we are in community, we should do this by vote by members.
+14:13:45 <ming> agltike, we are building a open source community, then we should listen to the whole community.
+14:13:45 <aglitke> It is not possible.  You must have one top level maintainer.
+14:13:54 <shaohef_away> zhoumeina:  agree
+14:14:14 <zhoumeina> ming: yes
+14:14:29 <AdamKingIT> I think we are more on the BD model
+14:15:16 <aglitke> If you look at other open source projects there is always a maintainer with veto power: Qemu == Anthony, Linux == Linus
+14:15:24 <shaohef_away> aglitke: also a maintainer in china  is good for chinese  communicate
+14:15:34 <aglitke> Patches don't go in because a majority of people vote for them.
+14:15:35 <fnovak> and some of us may getting a little lees "B"
+14:15:36 <shaohef_away> aglitke: I
+14:15:41 <pvital> in hadoop (or apache) projects, there are more than one PMC, but one of them are the  chair
+14:15:52 <pvital> alinefm, is taking this role now
+14:16:17 <aglitke> We don't even need two given the size of our community.
+14:16:25 <pvital> and if we want increase the number of mantainers, we should also increase the number of +1 in reviews
+14:16:26 <shaohef_away> aglitke:  I will maintain some fields first.
+14:16:28 <aglitke> What we need is more reviews.
+14:16:40 <pvital> +1
+14:16:41 <shaohef_away> aglitke: I will first maintain network, host monitoring
+14:16:46 <ming> Anthony and Linus do get a lot of respect from the community and they do get the ability.
+14:17:03 <ming> That is a total different story.
+14:17:07 <pvital> I sent two patches last week and only one was reviewed by royce
+14:17:28 <apporc> aglitke: Yeah, i think we should more strict with patched merged. Everybody can make mistakes.
+14:17:31 <pvital> and this was the first reviwed by you guys (talking to China guys now)
+14:17:34 <shaohef_away> pvital: yes. I send more patches. but no review
+14:17:52 <shaohef_away> pvital: I pending more patches than others
+14:18:14 <alinefm> aglitke, do you want to say anything more or we cam move forward?
+14:18:17 <shaohef_away> pvital: that's we why need a more maintainer.
+14:18:35 <alinefm> I am afraid of the time in China - it is a little bit late and we need to discuss other topics
+14:18:52 <fnovak> shaohef_away, Right now, we do not need more maintainers
+14:19:17 <fnovak> what we need to do is give support during the transition
+14:19:22 <aglitke> Sure... I will just repeat myself.  The decision is made.  If you don't like it you are free to leave the community.  If you want to respect me, please respect Aline.  Thank you.
+14:19:30 <fnovak> we will see how things develop afterwards
+14:20:17 <alinefm> aglitke, fnovak, thanks!
+14:20:21 <pvital> shaohef_away, I don't think so! if you have more patches waiting reviews, it's because nobody is reviewing. we back to what aglitke said: we need more reviwers, not maintainers
+14:20:39 <alinefm> #topic Scrum meeting time
+14:20:41 <AdamKingIT> I know we can all pull together to take Kimchi to  the next level. We have a challenge, but I am sure we are up to it
+14:20:43 <fnovak> pvital, Yes
+14:21:17 <alinefm> I don't like to change the time the meeting occurs in China
+14:21:21 <aglitke> Regarding scrum time, I take the blame this time.
+14:21:38 <aglitke> My goal was to keep it at 9pm in Beijing and I made a mistake.
+14:21:54 <aglitke> I recommend moving it back one hour for next week
+14:22:01 <aglitke> Would that be correct for China?
+14:22:31 <AdamKingIT> Time for a plug for my favorite world clock? https://addons.mozilla.org/en-US/firefox/addon/foxclocks/
+14:22:53 <aglitke> installed
+14:23:23 <aglitke> Ok, sounds like there are no objections.
+14:23:52 <alinefm> #action alinefm send out a email to the list informing the correct scrum meeting time
+14:24:10 <alinefm> it would be 8AM EST, right?
+14:24:15 <AdamKingIT> y
+14:24:19 <royce> yeah, 9pm is better for us~
+14:24:29 <alinefm> great
+14:24:37 <alinefm> #topic Review note
+14:25:12 <alinefm> I am seeing a lot of people complaining about a lot of patches on mail list so I would like to encourage every one to review
+14:25:34 <ming> Alinefm, I response to your comments on debugreports and waiting for your reply.
+14:25:35 <alinefm> just making clear each one has a method to review patches and no one is correct or wrong
+14:25:51 <aglitke> +1 This is the best thing we can do to increase velocity of the project.
+14:26:06 <alinefm> we have new members in the team now and of course a deep review will be difficult at the first time
+14:26:07 <pvital> +1
+14:26:11 <alinefm> but try it from now on
+14:26:24 <alinefm> more you review patches more you learn about the project
+14:26:33 <alinefm> and then a deep review will be natural
+14:27:10 <royce> ok, I will review shaohef_away's network patches, pls review my pending patches every one: )
+14:27:30 <alinefm> I will do my best on it as well
+14:27:55 <alinefm> #topic Sprint 1 status
+14:28:02 <alinefm> now the fun stuffs! =)
+14:28:13 <alinefm> we are getting close to the end of the sprint 1
+14:28:13 <ming> alinefm, I think the biggest issue why the create() method should be changed to return a task state back. I explained that in detail and waiting for your response.
+14:28:17 <alinefm> so we need to focus on that
+14:28:38 <alinefm> ming, yeap! we will talk about it soon =)
+14:28:57 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+14:29:08 <aglitke> ming: Please address my comments on the list.  Your patches still need some work.
+14:29:22 <alinefm> 1. Set a custom pool for a template (templates)
+14:29:35 <alinefm> I guess we are almost there
+14:29:49 <alinefm> royce, Template storage customization
+14:29:52 <aglitke> royce: Are you still on V3?
+14:29:54 <royce> I have rebased it to v4, alinefm I have replied your comments, pls see that
+14:30:07 * aglitke will edit
+14:30:12 <ming> agltike, I think I have response back to you.
+14:30:39 <ming> agtitke, BTW, it is a private message to me.
+14:30:56 <aglitke> Do we know how the UI piece of this feature is doing?
+14:31:22 <aglitke> I believe I have seen the patch on the list
+14:31:36 <royce> Yeah, dingxin had sent it
+14:31:39 <alinefm> yes, the UI patch is  on list
+14:31:47 <AdamKingIT> DingXin is not on, and I have to confess I am not current on patch reviews
+14:32:01 <alinefm> UI part is ready
+14:32:08 <alinefm> AdamKingIT, you reviewed that one =)
+14:32:09 <aglitke> Yeah... I am going to set an example for the team and review all sprint 1 patches.
+14:32:18 <aglitke> I challenge anyone else to join me
+14:32:25 <AdamKingIT> I must be reviewing in my sleep
+14:32:44 <royce> :O
+14:33:01 <alinefm> aglitke, challenge accepted! =)
+14:33:02 <apporc> :)
+14:33:14 <pvital> aglitke, +1
+14:33:26 <pvital> alinefm, ^
+14:33:34 <royce> I'll try, don't count me...
+14:33:57 <aglitke> alinefm: next feature?
+14:34:00 <alinefm> Create with streamed Internet ISO by selecting distro/version (templates)
+14:34:03 <alinefm> all merged!
+14:34:10 <alinefm> Create guest network
+14:34:11 * aglitke marks it
+14:34:22 <AdamKingIT> close out the enhancement?
+14:34:23 <alinefm> I was not able to apply this patchset
+14:34:44 <aglitke> AdamKingIT: please go ahead.
+14:34:49 <AdamKingIT> k
+14:35:04 <royce> seems shaohef_away has a tree we can clone for his network
+14:35:16 <royce> network patchset
+14:35:21 <aglitke> shaohef_away: Can you share your github fork with the team so we can apply and test?
+14:35:46 <pvital> aglitke, I guess shaohef_away sent to list! or here!
+14:35:59 <pvital> I saw something a couple of days ago
+14:36:08 <aglitke> It is a large patchset and easy for conflicts to creep in
+14:36:34 <aglitke> so first we can test his branch to see if it works and review the code
+14:36:51 <aglitke> Then once it is good we can ask him to rebase one last time right before merge.
+14:36:55 <royce> https://github.com/shaohef/kimchi.git
+14:36:59 <royce> it is here
+14:37:02 <aglitke> royce: Thanks!
+14:37:05 <alinefm> royce, thanks
+14:37:10 <royce> yw~
+14:37:26 <aglitke> So this feature needs testing and review.
+14:37:30 <alinefm> so lets test shaohef_away branch with network stuffs and review
+14:37:41 <aglitke> we can evaluate the UI design
+14:37:44 <alinefm> next one: Create a template with streamed Internet ISO by entering custom URL (templates)
+14:37:46 <alinefm> all merged
+14:37:52 * aglitke marks it
+14:38:03 <alinefm> Local ISO discovery (templates)
+14:38:12 <alinefm> royce, any update on that?
+14:38:33 <royce> I rebased it according to comments, I think it is ready
+14:38:47 <aglitke> OK.  Unleash the reviewers :)
+14:38:55 <royce> heh
+14:39:13 <royce> Is that from the primes?
+14:39:34 <aglitke> not sure ;)
+14:39:55 <royce> croods
+14:40:10 <alinefm> royce, what is the patch?
+14:40:22 <alinefm> I am a little bit lost in all those in the list
+14:40:26 <aglitke> alinefm: Deep Scan (I think)
+14:40:38 <royce> [project-kimchi][PATCHv3 0/4] Deep scan support
+14:40:39 <aglitke> royce: do you know the series #
+14:40:42 <aglitke> thanks!
+14:40:43 <shaohef_away> I will redefine the network API. but every one can try my old network. thanks
+14:41:45 <aglitke> shaohef_away: Thank you!
+14:42:05 <alinefm> next one
+14:42:05 <alinefm> Basic host management (host)
+14:42:15 <aglitke> I have some thoughts about this one
+14:42:29 <aglitke> I think the patches on the list aren't making progress because we lack a proper design
+14:42:44 <royce> why is it need redefine? shaohef_away
+14:42:56 <aglitke> I think we need to start with a UI mockup of what we want to show in the host tab (with fake data at first)
+14:43:17 <apporc> aglitke: yes, i think many patches submitted by markwu should be merged ASAP.
+14:43:20 <pvital> +1
+14:43:22 <aglitke> Then we can add only things to the API that we need,
+14:43:27 <shaohef_away> royce: I define the API before we support macvlan
+14:43:30 <apporc> aglitke: those patches clean much code.
+14:43:51 <aglitke> apporc: Are those patches for host management?
+14:44:07 <apporc> aglitke: not only for host management.
+14:44:08 <aglitke> I thought we were talking about the new tab with host statistics on it.
+14:44:13 <royce> these are related to json schema, if I'm not wrong?
+14:44:26 <apporc> royce: yeah, right.
+14:45:08 <aglitke> Have they been reviewed yet?
+14:45:35 <alinefm> apporc, now we need to focus on sprint 1 tasks
+14:46:11 <apporc> aglitke, alinefm: ok, i just refer to aglitke's "lack a proper desing"
+14:46:40 <apporc> aglitke: i don't know how many review is called "enough"
+14:46:57 <alinefm> ming, shaohef_away, any update about host management?
+14:47:03 <alinefm> AdamKingIT, anything about UI?
+14:47:50 <aglitke> apporc: I'd be happy with one or two +1's after deep reviews.
+14:47:54 <aglitke> That would be progress.
+14:48:38 <alinefm> next one: Debug Reports (host)
+14:48:50 <alinefm> aglitke, did you review the ming patches?
+14:48:55 <aglitke> I believe there are review comments to address
+14:48:57 <aglitke> yes,
+14:48:59 <AdamKingIT> I thnk hongliang has a host patch on the list, but I haven't reviewed it yet. I don know that I can meet aglitke's mark to review all, but I will take it to review this one
+14:49:00 <alinefm> I could not find your comments
+14:49:12 <alinefm> maybe my imap is kidding with me =/
+14:49:16 <shaohef_away> I will integrate all host stats into one patch set.
+14:49:20 <aglitke> I reviewed yesterday
+14:49:38 <aglitke> shaohef_away: We should have a mockup UI first
+14:49:46 <royce> aglitke, you sent review to ming privately...
+14:49:49 <pvital> alinefm, AdamKingIT: I reviewed hongliang patches and did some comments about!
+14:49:55 <aglitke> And we need to decide how to organize the stats API
+14:50:08 <ming> aglitke, I don't agree with some of your comments. I  had response to you. Also, I will send more of my findings to you.
+14:50:12 <aglitke> royce: Ohm really?  I thought it was on-list
+14:50:40 <aglitke> I guess it needs more reviews... I will try to resend my comments to the list too
+14:51:01 <royce> yeah
+14:51:03 <shaohef_away> aglitke: yes. in order to not block UI, I send a patch first .
+14:51:04 <aglitke> I believe the current approach is not restful
+14:51:36 <ming> The 202 response is intentionally non-committal. Its purpose is to allow a server to accept a request for some other process (perhaps a batch-oriented process that is only run once per day) without requiring that the user agent's connection to the server persist until the process is completed. The entity returned with this response SHOULD include an indication of the request's current status...
+14:51:38 <ming> ...and either a pointer to a status monitor or some estimate of when the user can expect the request to be fulfilled.
+14:51:58 <aglitke> Yep :) The Task object
+14:52:13 <aglitke> also contains the status
+14:52:26 <ming> Why we should need a full Task object?
+14:52:47 <shaohef_away> aglitke: we still discussion the URL define?
+14:52:51 <alinefm> aglitke, I guess your comments are similar to mine
+14:53:04 <ming> alinefm, totally different.
+14:53:12 <shaohef_away> aglitke:  /host/config and /host/stats ?
+14:53:30 <alinefm> ming, you do not need to change the basic api to get debug reports returning a different status code
+14:54:12 <shaohef_away> aglitke: what do you means  /host/config and /host/stats or sos report?
+14:54:14 <aglitke> shaohef_away: We are talking debugreports
+14:54:30 <shaohef_away> aglitke: so we get agreement on  /host/config and /host/stats ?
+14:54:31 <ming> alinefm, another issue is I think return a debugreport resource with task id back to POST method is not the right way.
+14:54:34 <aglitke> Here's a good comprimise
+14:54:50 <aglitke> We can return the URL in the http response headers
+14:55:02 <aglitke> We just need to find the header field that is typically used
+14:55:12 <aglitke> then we can also place the task object in the body.
+14:55:15 <ming> aglike. who care about the http response headers?
+14:55:31 <aglitke> All clients
+14:56:00 <ming> aglitke, I don't think Kimchi's UI care about http resonse headers now.
+14:56:12 <aglitke> then it can use the task object
+14:56:31 <ming> aglitke, Kimchi's UI only send REST APIs and get json object back.
+14:56:40 <aglitke> I don't understand why you have a problem with being standardized.
+14:57:05 <ming> agltike, is it a standard? Where is that?
+14:57:06 <aglitke> You want a non-standard response object, I want to use the task representation
+14:57:42 <aglitke> And you need to remove the content sub-resource
+14:57:45 <alinefm> for me it would be simple: POST /debugreports will return the debugreports ident
+14:58:01 <aglitke> it's a terrible way of achieving a static file download
+14:58:11 <alinefm> then lookup will return {name: <debug reports name>, file:<file>, task_id:<task_id>}
+14:58:19 <ming> aglitke, that is another isssue i need to discuss with you.
+14:58:26 <aglitke> alinefm: but the POST returns a Task
+14:58:26 <alinefm> so if it easier to find out the task related to the debugreport
+14:58:41 <aglitke> alinefm: you have to poll the task to wait for completion of report generation
+14:58:45 <aglitke> it can take a long time
+14:59:08 <aglitke> the debugreport doesn't exist until the task is finished.
+14:59:09 <AdamKingIT> does it know how long it will take?
+14:59:28 <aglitke> AdamKingIT: not really.
+14:59:44 <aglitke> probably less than 30-60s
+14:59:51 <AdamKingIT> figured as much, but had to ask
+14:59:51 <aglitke> but it could depend on system load.
+15:00:10 <ming> aglitke, from the permission control perspective, using sub-resource is better to control the permission to download a report file with senstive data.
+15:00:16 <alinefm> aglitke, your idea is in the POST return the Task object and an additional header to refer to debugreports?
+15:00:46 <aglitke> We can still require auth on the static dir
+15:01:08 <ming> aglitke, with the static dir, Kimchi lose the control, it is the cherrypy to control the permission.
+15:01:24 <aglitke> alinefm: yes, but we don't require the http header.  I was suggesting it as a comprimise
+15:01:48 <aglitke> ming: take a look at how auth works.  It's via a cherrypy hook.
+15:01:54 <aglitke> it will still work
+15:02:21 <ming> agltike, how about the future authorization support?
+15:02:35 <aglitke> that will be added to the hook function
+15:02:39 <aglitke> so it will still work
+15:03:13 <ming> aglitke, we can not support the authorization in near future, but we still need to consider it.
+15:03:29 <aglitke> yep, and it will fit into the plan just fine.
+15:03:40 <aglitke> alinefm: I guess we took all of the remaining time.  Sorry :(
+15:05:02 <scottgar> agtlitke: I'm confused. Was this the scrum? I thought that was supposed to start now.
+15:05:32 <alinefm> aglitke, yes =/
+15:06:02 <aglitke> scottgar: There was some more confusion... Next week it will start at 8AM EST
+15:06:13 <aglitke> Trying to accomodate Beijing since it is late there.
+15:06:29 <ming> agltike, alinefm, at least we reach the agreement about we will not return a Debugreport resource with taskid back to POST request.
+15:06:31 <scottgar> wow, 5ap pst
+15:06:52 <ming> Is that right?
+15:06:57 <scottgar> 5am pst/7am cst.  seems like 9am est might be a more reasonable compromise
+15:07:17 <ming> aglitke, alinefm, is that right?
+15:07:18 <aglitke> DO we have any west coast people on ?
+15:07:37 <aglitke> 9est is 10pm beijing time
+15:08:04 <aglitke> ming: I still think the return body of the POST req contains he task resource.
+15:08:08 <alinefm> ming, for me you will continue return the task id to the controller and the return Task.lookup(task_id)
+15:08:21 <aglitke> yes
+15:09:05 <alinefm> we can continue discuss it, but let me end the meeting
+15:09:08 <ming> aglitke, alinefm, doublecheck, No debugreport resource returned
+15:09:12 <ming> ?
+15:09:14 <alinefm> again, focus on patches for sprint 1
+15:09:22 <alinefm> #endmeeting
