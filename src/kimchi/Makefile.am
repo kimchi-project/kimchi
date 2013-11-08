@@ -20,10 +20,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SOURCE = \
+kimchi_PYTHON = \
 	asynctask.py      \
 	auth.py           \
-	config.py         \
 	controller.py     \
 	exception.py      \
 	__init__.py       \
@@ -46,9 +45,9 @@ SOURCE = \
 	cachebust.py      \
 	featuretests.py
 
-EXTRA_DIST = config.py.in
+nodist_kimchi_PYTHON = config.py
 
-kimchi_PYTHON = $(SOURCE)
+EXTRA_DIST = config.py.in
 
 kimchidir = $(pythondir)/kimchi
 
