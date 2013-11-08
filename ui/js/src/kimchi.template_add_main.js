@@ -149,6 +149,10 @@ kimchi.template_add_main = function() {
 
     $('#btn-template-file-create').click(function() {
         var isoFile = $('#iso-file').val();
+        if (!kimchi.is_iso_file(isoFile)) {
+            kimchi.message.error(i18n['msg.invalid.iso']);
+            return;
+        }        
         if (!kimchi.template_check_path(isoFile)) {
             kimchi.message.error(i18n['msg.invalid.path']);
             return;
@@ -341,6 +345,13 @@ kimchi.template_check_path = function(filePath) {
     var reg = /((\/([0-9a-zA-Z-_ \.]+))+[\.]iso)$/;
     if (filePath.constructor === String) {
         return reg.test(filePath);
+    }
+    return false;
+};
+
+kimchi.is_iso_file = function(isoFile) {
+    if (/.iso$/.test(isoFile)) {
+        return true;
     }
     return false;
 };
