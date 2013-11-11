@@ -30,6 +30,7 @@ src/kimchi.conf
 src/kimchi/config.py
 tests/run_tests.sh
 po/POTFILES
+po/gen-pot
 *.orig
 *.rej
 *.pem
