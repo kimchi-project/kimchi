@@ -71,7 +71,7 @@ class FeatureTests(object):
     @staticmethod
     def libvirt_supports_iso_stream(protocol):
         xml = ISO_STREAM_XML % {'protocol': protocol}
-
+        conn = None
         try:
             conn = libvirt.open('qemu:///system')
             dom = conn.defineXML(xml)
@@ -79,6 +79,8 @@ class FeatureTests(object):
             return True
         except libvirt.libvirtError:
             return False
+        finally:
+            conn is None or conn.close()
 
     @staticmethod
     def qemu_supports_iso_stream():
