@@ -75,8 +75,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/WebSocketMain.swf
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/swfobject.js
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/web_socket.js
+%{_datadir}/kimchi/ui/libs/jquery-ui-i18n.min.js
+%{_datadir}/kimchi/ui/libs/jquery-ui.min.js
 %{_datadir}/kimchi/ui/libs/jquery-1.10.0.min.js
 %{_datadir}/kimchi/ui/libs/modernizr.custom.76777.js
+%{_datadir}/kimchi/ui/libs/themes/base/images/*.png
+%{_datadir}/kimchi/ui/libs/themes/base/images/*.gif
+%{_datadir}/kimchi/ui/libs/themes/base/jquery-ui.min.css
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/distros.d/debian.json
