@@ -101,7 +101,7 @@ class FeatureTests(object):
         thread.join(5)
 
         if thread.is_alive():
-            proc.terminate()
+            proc.kill()
             thread.join()
             return False
 
