@@ -1,0 +1,314 @@
+13:01:50 <alinefm> #startmeeting
+13:01:50 <kimchi-bot> Meeting started Wed Nov 13 13:01:50 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:50 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:58 <alinefm> #meetingname scrum
+13:01:58 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:18 <pvital> howdy guys!
+13:02:22 <alinefm> #info Agenda: 1) Sprint 1 2) Open Discussion
+13:02:25 <alinefm> anything else?
+13:02:59 <alinefm> let me add sprint 2
+13:03:09 <alinefm> #info Agenda: 1) Sprint 1 2) Sprint 2 3) Open Discussion
+13:03:29 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:03:43 <alinefm> #topic Sprint 1
+13:04:03 <alinefm> the sprint 1 ends last Monday and we have only 2 from 10 tasks merged upstream
+13:05:06 <alinefm> I would ask everything with tasks from sprint 1 to focus on it
+13:05:16 <alinefm> we need to run against the time
+13:05:41 <alinefm> also I would like to have an stats like: For each patch sent to mail list, one patch reviewed!!
+13:06:08 <alinefm> is it reasonable for you?
+13:06:54 <pradeep> alinefm:  make sense
+13:07:20 <danielhb> maybe we should "freeze" development for a few days and do patch reviews only?
+13:07:22 <alinefm> pradeep, thanks! ( I was thinking I was taking alone hehe)
+13:07:31 <royce> "one patch reviewed"?
+13:07:43 <danielhb> clearly we're falling behind the amount of patches reviewed vs new patches
+13:07:44 <alinefm> royce, for each one you sent to review
+13:07:55 <alinefm> if you send 3 patches to review, review other 3
+13:08:05 <royce> ok, that is cool
+13:08:40 <alinefm> danielhb, yeap!
+13:08:44 <pvital> alinefm, I think danielhb idea is good. we have to much tasks to complete, and most of them have many patches and the number os versions is increasing
+13:08:53 <alinefm> we need more review and also try to address all comments in the next version
+13:09:46 <alinefm> pvital, danielhb, I don' like to freeze right now to do not block people do not have tasks on sprint 1
+13:10:16 <alinefm> let's go quickly through the sprint 1 tasks
+13:10:19 <alinefm> royce, Set a custom pool for a template (templates)
+13:10:26 <alinefm> I guess it is almost done!
+13:10:27 <ming> I prefer a intensive review. And the reviewer should have reasonable and in detail as possible as she/he can.
+13:10:50 <alinefm> royce, do you want to comment anything about it?
+13:11:09 <royce> yep, i think it is ready to merge
+13:11:33 <alinefm> royce, ok
+13:11:35 <alinefm> shaohef, Create guest network
+13:11:42 <royce> maybe one day for development and another day for review, ming?
+13:11:53 <shaohef> I have split this patch
+13:12:01 <shaohef> alinefm: seems it is big
+13:12:06 <alinefm> I am seeing a lot of patches on mail list but seems they do not go further
+13:12:09 <hlwanghl> I think we can't split "dev" and "review" simply
+13:12:32 <ming> royce, it depends on people. hard-splitting will not work.
+13:12:40 <shaohef> alinefm: Yes. need one review it. I think the interface is ready
+13:12:50 <shaohef> alinefm: the network depends on it.
+13:13:06 <shaohef> alinefm: I send a RFC about the network plan.
+13:13:24 <shaohef> alinefm: first interface, then basic network API, and then ....
+13:13:48 <shaohef> alinefm: so any one can give more comments on interface first?
+13:13:50 <alinefm> shaohef, I saw and liked it! we need to focus in small piece of work to get it done faster
+13:14:19 <alinefm> shaohef, I made some comments about UI, anyone addressed it?
+13:14:27 <alinefm> hlwanghl, xinding ^
+13:14:43 <hlwanghl> OK
+13:15:05 <hlwanghl> I think Yu Xin is taking Network, right? shaohef
+13:15:11 <YuXin> yes
+13:15:21 <shaohef> alinefm: Yes, I think  one seldom is  patient with a big patch.
+13:15:28 <YuXin> I will handle the coments about Network UI
+13:15:29 <royce> I will exchange the interface review for my next version of vm-rename:)
+13:15:52 <YuXin> Can anyone first review the network API which impact both front end and back end
+13:15:57 <shaohef> royce:  that's great.
+13:16:52 <alinefm> shaohef, in the last network patches version did you address aglitke's comments?
+13:17:02 <ming> YuXin, I am trying...
+13:17:18 <YuXin> ok
+13:17:27 <shaohef> alinefm: yes.
+13:17:34 <alinefm> shaohef, I will check it
+13:17:37 <alinefm> next: Local ISO discovery (templates)
+13:17:39 <alinefm> royce, ^
+13:17:45 <shaohef> alinefm:  thanks.
+13:17:56 <alinefm> royce, I've just sent you some minor comments.
+13:18:04 <alinefm> I hope we can merge it tomorrow
+13:18:08 <royce> ok, thanks alinefm
+13:18:26 <alinefm> shaohef, Basic host management (host)
+13:18:27 <royce> I'll rebase it now
+13:18:39 <alinefm> royce, thanks!
+13:18:55 <alinefm> shaohef, I think the RFC is done!
+13:19:03 <alinefm> I am missing patches related to it
+13:19:03 <shaohef> alinefm: I have send serval patch set
+13:19:21 <shaohef> alinefm: yes. RFC is done. we have get agreement.
+13:19:30 <shaohef> alinefm:  for static, /host
+13:19:36 <shaohef> alinefm: for stats /host/stats
+13:19:45 <alinefm> shaohef, yeap
+13:19:54 <alinefm> I have made some comments in the first version
+13:20:00 <shaohef> alinefm: no oppose
+13:20:01 <alinefm> did you send the V2?
+13:20:16 <shaohef> alinefm: have seen it. V2 will be soon
+13:20:23 <shaohef> alinefm: still some RFC
+13:20:34 <shaohef> alinefm: which static data we need .
+13:20:44 <shaohef> alinefm: hlwanghl list four.
+13:20:58 <shaohef> alinefm: are they  enough?
+13:20:59 <alinefm> shaohef, I think the four listed on RFC is enough
+13:21:17 <alinefm> when needed we can add more ones
+13:21:20 <AdamKingIT1> we can always add more later if we find need
+13:21:24 <hlwanghl> Yes, we can list 4 for the first version
+13:21:26 <shaohef> alinefm: OK, I need to remove the Vendor of OS.
+13:21:31 <shaohef> alinefm: agree.
+13:21:34 <shaohef> alinefm: ?
+13:21:47 <alinefm> shaohef, yes
+13:21:51 <shaohef> alinefm: for no interface for me to get the  Vendor of OS.
+13:22:00 <AdamKingIT1> does it already work?
+13:22:15 <shaohef> alinefm: and the Vendor of OS is a common sense.
+13:22:32 <hlwanghl> AdamKingIT1 listed CPU, Memory, Network and Disk I/O in widi
+13:23:14 <alinefm> shaohef, in ubuntu I have the file /etc/os-release
+13:23:18 <hlwanghl> So AdamKingIT1, I think we can include CPU, Memory, Disk Size, and OS, right?
+13:23:21 <AdamKingIT1> shaohef: if its already implemented I wouldn't remove it. If its only in the api doc, then remove
+13:23:21 <ming> What will be showed on CPU? core numbers?
+13:23:26 <alinefm> in rhel, fedora, opensuse we have similar files
+13:23:30 <alinefm> with other names
+13:23:37 <shaohef> alinefm: let me check it.
+13:23:44 <shaohef> alinefm: that's good
+13:23:49 <alinefm> but from the OS you can handle the right file
+13:24:10 <apporc> shaohef: seems platform module can give some information about os
+13:24:17 <pvital> shaohef, alinefm: we cant use lsb to get this info?
+13:24:23 <ming> Disk size should be local dissks.
+13:24:33 <shaohef> alinefm:  no vendor for fedora from /etc/os-release
+13:24:36 <apporc> shaohef: including the os type, distributin name and release number
+13:24:44 <ming> We will not shot the shared storage.
+13:24:46 <shaohef> alinefm: seems I have read it before
+13:24:48 <AdamKingIT1> We are agreed that we aren't using the info in the current impl, but tthat doesn't mean the API can't return it.
+13:24:52 <hlwanghl> ming, IMO CPU info means something like Inter(R) Core(TM) i5 CPU M 560 @2.7GHz
+13:25:00 <royce> CPU cores are reasonable, maybe the numa info?
+13:25:18 <royce> future we may want to ping
+13:25:22 <royce> pin
+13:25:23 <shaohef> AdamKingIT1:  not  implemented
+13:25:38 <alinefm> shaohef, did you check platform and lbs? as apporc and pvital suggested
+13:25:52 <alinefm> maybe we can find something in these libraries
+13:26:09 <apporc> shaohef:  platform.system() platform.dist() platform.release()
+13:26:15 <AdamKingIT1> got it. In the interest of sprint 1 I'd say move on without it and come back to it if we find a burning need for it
+13:26:28 <alinefm> AdamKingIT1, agree
+13:26:29 <shaohef> apporc:  let me try.
+13:26:49 <shaohef> AdamKingIT1: agree.
+13:27:29 <alinefm> hlwanghl, I would ask you to disable buttons on host tab until they get a backend function
+13:27:31 <shaohef> apporc: no vendor info
+13:28:23 <hlwanghl> alinefm, I'll remove buttons without backend function
+13:28:31 <shaohef> alinefm:  I have google and  try many methods
+13:28:41 <apporc> shaohef: what do you mean by vendor? for fedora, what do you expect?
+13:29:04 <shaohef> apporc: redhat
+13:29:26 <shaohef> apporc: I think it should be redhat.
+13:29:42 <alinefm> hlwanghl, or just disable them. It is up to you
+13:29:58 <hlwanghl> OK
+13:29:59 <AdamKingIT1> I suggest 'disabled'
+13:30:27 <hlwanghl> Putting them there will give customer an expectation
+13:30:29 <alinefm> shaohef, not sure it should be redhat for fedora
+13:30:37 <apporc> shaohef: why 'fedora' is not enough?
+13:30:47 <alinefm> from vendor I understand who provides it
+13:31:02 <alinefm> shaohef, but anyway, do not let it block you
+13:31:19 <alinefm> if you can find the vendor info display an "--" in it
+13:31:40 <alinefm> hlwanghl, is it "--"  good for UI/
+13:31:50 <alinefm> don't know if have a pattern for that
+13:31:52 <apporc> shaohef:  need the company name? I think some os, it can have no vendor then.
+13:32:15 <pvital> shaohef, http://www.fpaste.org/53713/49506138/ this is the info provided by lsb
+13:32:21 <hlwanghl> alinefm, I'm OK with "--"
+13:32:50 <shaohef> alinefm: can we support the system model, such as "ThinkPad T410" instead of vendor of OS?
+13:33:01 <AdamKingIT1> How often will the vendor be redundant with t he description?
+13:33:45 <hlwanghl> shaohef, can we get Thinkpad model info? If we just install the host within a VM, then the machine type is nothing
+13:34:02 <AdamKingIT1> Fine for the API to return it, but it looks like a bug for the UI to say "Fedora Fedora release 19 (Schrödinger’s Cat)
+13:34:09 <ming> shaohef, To me, OS information is enough like Fedora 19
+13:34:35 <AdamKingIT1> Yes we can label them, but its still redundant to the user
+13:34:45 <shaohef> AdamKingIT1: agree.
+13:35:09 <shaohef> AdamKingIT1: a map for OS and vendor in code?
+13:35:56 <AdamKingIT1> hmm, hard to maintain. Isn't there another project that keeps up w/ this stuff we could use?
+13:36:02 <ming> shaohef, let's move to the next topic. we have too much details here.  I think we can add some and fix them later.
+13:36:10 <hlwanghl> shaohef, I agree with ming on it. OS is enough
+13:36:16 <apporc> For centos, debian, gentoo, what 's the vendor? I think os information should be enough.
+13:36:26 <alinefm> agree
+13:36:34 <zhoumeina> I agree OS enough
+13:36:37 <pvital> agree
+13:36:39 <alinefm> shaohef, for vendor use "--" and we can change later
+13:36:40 <shaohef> OK. go ahead. os information  is enough.
+13:36:54 <alinefm> next one
+13:36:56 <alinefm> ming, Debug Reports (host)
+13:37:04 <alinefm> I sent some comments yesterday
+13:37:15 <alinefm> but I have had chance to see the new version
+13:37:19 <ming> alinefm,  I replied to you.
+13:37:30 <alinefm> did you address aglitke's comments?
+13:37:42 <ming> Your first comments about the get() can not apply.
+13:38:01 <alinefm> ming, of course, it can! =)
+13:38:07 <ming> No.
+13:38:19 <alinefm> you can see the royce patches about deep scan
+13:38:53 <alinefm> there is no need to change the base get() implementation
+13:38:58 <alinefm> do it on debugreports get() function
+13:39:35 <ming> +        resp = res.get()
+13:39:36 <ming> +        if 'task_id' in res.data:
+13:39:38 <ming> +            cherrypy.response.status = 202
+13:39:39 <ming> +        else:
+13:39:41 <ming> +            cherrypy.response.status = 201
+13:39:42 <ming> +        return resp
+13:39:44 <ming> from royce's patch
+13:39:54 <ming> the change in get()
+13:41:47 <alinefm> ming, yes, I suggested her to do it in get() from storagepool as well
+13:41:57 <ming> Also,  royce's create() method of class storage_pool
+13:42:02 <ming> is not right to me
+13:42:14 <alinefm> I do not want to change base API to accommodate mew resources
+13:42:32 <ming> We shouldn't return a storage_pool resource with a task id
+13:43:19 <ming> We have agreed with Adam and you the create() method should return task resource instead of a storage_pool resource with task id contained in it.
+13:43:40 <royce> ming, I refered the redhat doc on their async rest api, they did it in this way
+13:44:02 <royce> we can't return two kinds of resource representations from one api
+13:44:04 <alinefm> ming, right, debugreports and deep scan have the same scenario
+13:44:10 <shaohef> https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Virtualization/3.0/html-single/REST_API_Guide/index.html#sect-REST_API_Guide-Common_Features-Resources-Creating_Resources ?
+13:44:34 <royce> some time storage pool return resource, sometime return task... that is confusing for me
+13:44:38 <alinefm> ming, but in deep scan we create a new storage pool that already exists as resource
+13:44:54 <alinefm> we need to be able to handle both way to create a storagepool
+13:45:05 <royce> thanks shaohef, that is it
+13:45:59 <alinefm> ming, in case of debugreports it always will return a task
+13:46:09 <ming> alinefm, task id should not belong to a resource. It is a just independent resource.
+13:46:13 <alinefm> there is no other of return
+13:46:36 <shaohef> royce:  sos-report just need to  task ID, some different with storage pool？
+13:46:50 <alinefm> ming, you are suggesting to time returning task and time return storagepool data
+13:47:18 <alinefm> as royce said it will confuse the user/dev
+13:47:32 <ming> alinefm. no. Both should return task resource for a time consuming creation operation.
+13:48:08 <alinefm> ming, but when we create a storagepool directly (without deep scan) we do not need a task resource
+13:48:59 <ming> alinefm, if you don't need task resource, why the storagepool resource should have a task id in it?
+13:49:10 <alinefm> ming, for deep scan
+13:49:19 <alinefm> we have multiple ways to create a storagepool
+13:50:04 <ming> alinefm, I mean for direct creation of storagepool, you will get a storagepool resource with task id.
+13:50:18 <alinefm> ming, nope
+13:50:20 <ming> The task id is useless and bug prone.
+13:50:26 <alinefm> only when a task id makes sense
+13:50:33 <alinefm> royce handles it well
+13:50:56 <pradeep> ming: alinefm: task id keeps change it. every time you create it. But its unique.
+13:51:40 <pradeep> ming: alinefm: id or resource any thing should be fine.
+13:52:05 <ming> alinefm, the taskid can be polled by a client even if the task id is not set by direct creation.
+13:52:11 <royce> that task is generated by the post storagepool  request, but after all what we want is a storagepool to get I think
+13:52:19 <royce> but for tasks like migration
+13:52:32 <royce> we don't need any resource for it
+13:52:46 <royce> so just return a task id is enough
+13:53:02 <ming> alinefm, we have agreed to return task resource for a long time.
+13:53:11 <alinefm> ming, yeap! for debugreports
+13:53:47 <alinefm> ming, in the last debugreports version you have already done that
+13:53:49 <alinefm> and I agree
+13:54:06 <alinefm> ming, I just do not want you to change the base API
+13:54:21 <alinefm> ming, as I suggested to royce, move the code to the resource get()
+13:54:44 <ming> alinefm, that is what I have done in resource.get().
+13:54:51 <royce> got u
+13:55:01 <alinefm> resource = its own resource
+13:55:08 <alinefm> ming, in your case in debugreports.get()
+13:55:18 <alinefm> in royce's case, in storagepool.get()
+13:55:27 <ming> alinefm, no.  That is can not be done.
+13:55:40 <alinefm> ming, yes! you can do it! =)
+13:55:44 <ming> I have explained that.
+13:55:54 <alinefm> and I do no agree
+13:56:06 <alinefm> please move it to debugreports.get()
+13:56:12 <ming> But you havn't read my code and comments loud.
+13:56:18 <alinefm> let's move on as your time is short
+13:56:54 <ming> Because royce return a storagepool resource with a task id for both creat()
+13:57:05 <ming> That is a different.
+13:57:33 <alinefm> ming, of course I read. We have discussed it to here in IRC
+13:57:34 <ming> In debugpreport.create() it return task resource only, totally different.
+13:57:53 <ming> I don't think you have understood that.
+13:58:22 <alinefm> ming, I know. I am only saying to you do not move the code you put in Resource.get() to DebugReports.get()
+13:58:33 <alinefm> only that
+13:58:50 <alinefm> I agree in returning a task resource while creating a debugreport
+13:59:11 <ming> Debugreports.get() will not know that.
+13:59:12 <alinefm> everything keeps as you did unless the code
+13:59:29 <alinefm> ming, can we continue if after the meeting?
+13:59:35 <alinefm> I would like to pass through other items
+13:59:37 <ming> Sure.
+13:59:38 <AdamKingIT> alinefm: what is the next function you want to discuss?
+13:59:50 <alinefm> Add extension interface for Advanced host config (host)
+14:00:07 <alinefm> zhoumeina, markwu, I've seen some patches from you
+14:00:17 <alinefm> I made some comments too
+14:00:45 <alinefm> I am missing the V2
+14:00:50 <alinefm> zhoumeina, markwu, any update?
+14:02:13 <alinefm> ok
+14:02:14 <alinefm> next
+14:02:15 <alinefm> VM edit (guest)
+14:02:28 <alinefm> royce, I sent you some comments yesterday
+14:02:54 <alinefm> do you have any point related to it?
+14:02:56 <royce> I'm on v3 rebase, I'm not sure I understood all comments
+14:03:07 <royce> I asked in mailist
+14:03:28 <royce> If there is time left, we can discuss about it
+14:03:28 <alinefm> royce, I will check. If you have time we can discuss after the meeting too
+14:03:34 <alinefm> royce, great
+14:03:34 <royce> sure
+14:03:40 <alinefm> next: NFS Pool :New Storage Pool based on NFS (storage)
+14:03:42 <alinefm> pradeep, ^
+14:03:58 <pradeep> alinefm:  sent  v6 just now. But tests and mock model cannot be added for this.
+14:04:05 <pradeep> For tests: i need to add nfs server IP also in tests. But this should be given by user. If i use same server as nfs server & client, i need to update /etcexports, which is not the right way to do. Any way we have tests to create storage pool. That should be fine. hence no mock model, tests needed for this.
+14:04:15 <pradeep> royce: shaohef: ^^
+14:04:31 <royce> We are on drop the test first
+14:04:56 <royce> we do not want to corrupt host env
+14:05:35 <royce> markwu, did vdsm do nfs pool test in functional test?
+14:06:15 <shaohef> royce:  we should set up a test environment for  functional test later
+14:06:21 <AdamKingIT> You could mock the whole backend if you cant come up w/ a way to avoid permanently altering the host
+14:06:43 <royce> right, a dedicate env for test,shaohef
+14:06:55 <zhoumeina> I made some comment on nfs pool, I think we need to fix some errors
+14:07:26 <pradeep> zhoumeina: fixed it and sent it now
+14:07:39 <zhoumeina> pradeep: ok
+14:07:42 <alinefm> pradeep, can't you do test even for mock model?
+14:07:58 <zhoumeina> I will review it tomorrow.
+14:08:22 <alinefm> pradeep, I will check it out and send suggestions if they come up
+14:08:23 <royce> seems vdsm had done it:P
+14:08:41 <pradeep> alinefm:  nope.  any way we have test/mockmodel  to create storage pool. i dont think we need it
+14:08:50 <alinefm> royce, could you send details about it to pradeep ?
+14:08:57 <zhoumeina> another thing, that is about nfs export path mount.
+14:09:29 <royce> ok,alinefm
+14:10:05 <zhoumeina> if we don't have that export path list, UI can not check if the path is right in the export path list.
+14:10:30 <pradeep> zhoumeina:  listing all exported paths right on server.  shaohef sent RFC for that.
+14:10:43 <pradeep> right?
+14:10:45 <zhoumeina> pradeep: I know
+14:10:48 <alinefm> zhoumeina, we will improve it later
+14:11:02 <alinefm> for know I do not want to block pradeep because that
+14:11:14 <royce> it is also true for LVM pool and iscsi pool, so we have necessity to expose this api in backend, zhoumeina
+14:11:21 <zhoumeina> What I want to point is We will have bugs if we don't use this api in nfs pool
+14:12:02 <pradeep> zhoumeina: got it. We can always improve it later. since we have plans to add other pools also
+14:12:29 <alinefm> we are ahead of the time.
+14:12:45 <alinefm> I will end the meeting but we can continue discussing here.
+14:12:45 <zhoumeina> I we want to improve it later, we need a way to avoid those bug
+14:13:00 <ming> royce, I think we need a detail discussion about the create() return.
+14:13:00 <AdamKingIT> zhoumeina: we have bugs, or we will allow the user to try to create pools that can not succeed?
+14:13:18 <royce> my concern is libvirt will hang and then use the local path if it couldn't mount it
+14:13:21 <alinefm> Also I would like to ask people who has tasks for sprint 2 (and complete all from sprint 1) to start working on it
+14:13:37 <royce> OK, ming
+14:13:43 <zhoumeina> That bugs maybe cause libvit hang
+14:13:59 <ming> I read the readhat docs just not.  It return task status contained in the resource.
+14:14:05 <alinefm> #endmeeting
