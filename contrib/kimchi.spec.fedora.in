@@ -19,6 +19,7 @@ Requires:	m2crypto
 Requires:	python-imaging
 Requires:	libxml2-python
 Requires:	PyPAM
+Requires:	python-psutil
 
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict

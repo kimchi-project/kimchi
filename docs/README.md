@@ -35,7 +35,8 @@ Install Dependencies
      $ sudo yum install gcc make autoconf automake gettext-devel git \
                         python-cherrypy python-cheetah libvirt-python \
                         libvirt libxml2-python python-imaging \
-                        PyPAM m2crypto rpm-build qemu-kvm
+                        PyPAM m2crypto rpm-build qemu-kvm \
+                        python-psutil
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
@@ -51,14 +52,16 @@ for more information on how to configure your system to access this repository.
     $ sudo apt-get install gcc make autoconf automake gettext git \
                            python-cherrypy3 python-cheetah python-libvirt \
                            libvirt-bin python-libxml2 python-imaging \
-                           python-pam python-m2crypto qemu-kvm libtool
+                           python-pam python-m2crypto qemu-kvm libtool \
+                           python-psutil
 
 **For openSUSE:**
 
     $ sudo zypper install gcc make autoconf automake gettext-tools git \
                           python-CherryPy python-Cheetah libvirt-python \
                           libvirt python-libxml2 python-imaging \
-                          python-pam python-M2Crypto rpm-build kvm
+                          python-pam python-M2Crypto rpm-build kvm \
+                          python-psutil
 
 
 Build and Install

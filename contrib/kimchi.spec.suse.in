@@ -15,6 +15,7 @@ Requires:	python-imaging
 Requires:	python-M2Crypto
 Requires:	python-libxml2
 Requires:	python-pam
+Requires:	python-psutil
 
 %if 0%{?sles_version} == 11
 Requires:       python-ordereddict
