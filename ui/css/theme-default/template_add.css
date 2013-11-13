@@ -263,4 +263,22 @@
 	color: #999;
 	font-size: 11px;
 	line-height: 18px;
+	display: inline;
+	clear: both;
+	float: left;
+	padding-right: 5px;
+	width: 90px;
+}
+
+.iso-list-text {
+	color: #999999;
+	float: left;
+	font-size: 10px;
+	font-weight: bold;
+	height: 18px;
+	line-height: 18px;
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

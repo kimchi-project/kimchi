@@ -82,11 +82,17 @@
                                         </h3>
                                         <div class="iso-info">
                                             <div class="iso-info-col">
-                                                <div class="iso-info-item"><label>$_("OS: ")</label><span>{os_distro}</span></div>
-                                                <div class="iso-info-item"><label>$_("Version: ")</label><span>{os_version}</span></div>
+                                                <div class="iso-info-item">
+                                                    <div title="{os_distro}" class="iso-list-text">$_("OS: "){os_distro}</div>
+                                                </div>
+                                                <div class="iso-info-item">
+                                                    <div title="{os_version}" class="iso-list-text">$_("Version: "){os_version}</div>
+                                                </div>
                                             </div>
                                             <div class="iso-info-col">
-                                                <div class="iso-info-item"><label>$_("Size: ")</label><span>{capacity}</span></div>
+                                                <div class="iso-info-item">
+                                                    <div title="{capacity}" class="iso-list-text">$_("Size: "){capacity}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
