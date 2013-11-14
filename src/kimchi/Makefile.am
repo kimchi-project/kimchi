@@ -33,6 +33,7 @@ kimchi_PYTHON = \
 	objectstore.py    \
 	osinfo.py         \
 	root.py           \
+	scan.py           \
 	screenshot.py     \
 	server.py         \
 	sslcert.py        \
