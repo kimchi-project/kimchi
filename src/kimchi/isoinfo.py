@@ -284,7 +284,7 @@ def probe_iso(status_helper, params):
             updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
 
     if os.path.isdir(loc):
-        files = glob.glob(loc + "*.iso")
+        files = glob.glob('%s/*.iso' % os.path.abspath(loc))
         for iso in files:
             try:
                 ret = _probe_iso(iso)
