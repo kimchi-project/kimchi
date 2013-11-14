@@ -163,8 +163,10 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **GET**: Retrieve a summarized list of all defined Storage Pools
 * **POST**: Create a new Storage Pool
     * name: The name of the Storage Pool
-    * path: The path of the defined Storage Pool
-    * type: The type of the defined Storage Pool
+    * path: The path of the defined Storage Pool,
+            For 'kimchi-iso' pool refers to targeted deep scan path.
+    * type: The type of the defined Storage Pool,
+            Supported types: 'dir', 'kimchi-iso'
 
 ### Resource: Storage Pool
 
