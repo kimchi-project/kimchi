@@ -449,15 +449,20 @@ class StoragePool(Resource):
 
     @property
     def data(self):
-        return {'name': self.ident,
-                'state': self.info['state'],
-                'capacity': self.info['capacity'],
-                'allocated': self.info['allocated'],
-                'available': self.info['available'],
-                'path': self.info['path'],
-                'type': self.info['type'],
-                'nr_volumes': self.info['nr_volumes'],
-                'autostart': self.info['autostart']}
+        res = {'name': self.ident,
+               'state': self.info['state'],
+               'capacity': self.info['capacity'],
+               'allocated': self.info['allocated'],
+               'available': self.info['available'],
+               'path': self.info['path'],
+               'type': self.info['type'],
+               'nr_volumes': self.info['nr_volumes'],
+               'autostart': self.info['autostart']}
+        val = self.info.get('task_id')
+        if val:
+            res['task_id'] = val
+        return res
+
 
     def _cp_dispatch(self, vpath):
         if vpath:
@@ -492,6 +497,24 @@ class StoragePools(Collection):
         isos = IsoPool(model)
         isos.exposed = True
         setattr(self, ISO_POOL_NAME, isos)
+
+    def create(self, *args):
+        try:
+            create = getattr(self.model, model_fn(self, 'create'))
+        except AttributeError:
+            raise cherrypy.HTTPError(405,
+                'Create is not allowed for %s' % get_class_name(self))
+        params = parse_request()
+        args = self.model_args + [params]
+        name = create(*args)
+        args = self.resource_args + [name]
+        res = self.resource(self.model, *args)
+        resp = res.get()
+        if 'task_id' in res.data:
+            cherrypy.response.status = 202
+        else:
+            cherrypy.response.status = 201
+        return resp
 
     def _get_resources(self):
         try:
