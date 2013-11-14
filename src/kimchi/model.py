@@ -53,6 +53,7 @@ from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
 from kimchi.utils import kimchi_log, is_digit
 from kimchi.distroloader import DistroLoader
+from kimchi.scan import Scanner
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -114,6 +115,8 @@ class Model(object):
         # server is up
         # It is needed because some features tests depends on the server
         cherrypy.engine.subscribe('start', self._set_capabilities)
+        self.scanner = Scanner(self._clean_scan)
+        self.scanner.delete()
         self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
         self.statsThread.start()
         self.distros = self._get_distros()
@@ -575,6 +578,21 @@ class Model(object):
                     iso_volumes.append(res)
         return iso_volumes
 
+    def _clean_scan(self, pool_name):
+        try:
+            self.storagepool_deactivate(pool_name)
+            with self.objstore as session:
+                session.delete('scanning', pool_name)
+        except Exception, e:
+            kimchi_log.debug("Exception %s occured when cleaning scan result" % e.message)
+
+    def _do_deep_scan(self, params):
+        scan_params = dict()
+        scan_params['scan_path'] = params['path']
+        params['path'] = scan_params['pool_path'] = self.scanner.scan_dir_prepare(
+            params['name'], params['path'])
+        return self.add_task('', self.scanner.start_scan, scan_params)
+
     def storagepools_create(self, params):
         conn = self.conn.get()
         try:
@@ -589,6 +607,19 @@ class Model(object):
                         "The name %s has been used by a pool" % name)
 
         try:
+            if params['type'] == 'kimchi-iso':
+                # Handing deep scan
+                params['type'] = 'dir'
+                # FIXME: make task stopable when create pool fails
+                task_id = self._do_deep_scan(params)
+                xml = _get_pool_xml(**params)
+                # Create transient pool for deep scan
+                conn.storagePoolCreateXML(xml, 0)
+                # Record scanning-task/storagepool mapping for future querying
+                with self.objstore as session:
+                    session.store('scanning', params['name'], task_id)
+                return name
+
             pool = conn.storagePoolDefineXML(xml, 0)
             if params['type'] == 'dir':
                 # autostart dir storage pool created from kimchi
@@ -608,14 +639,26 @@ class Model(object):
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
-        return {'state': Model.pool_state_map[info[0]],
-                'path': path,
-                'type': pool_type,
-                'autostart': autostart,
-                'capacity': info[1],
-                'allocated': info[2],
-                'available': info[3],
-                'nr_volumes': nr_volumes}
+        res = {'state': Model.pool_state_map[info[0]],
+               'path': path,
+               'type': pool_type,
+               'autostart': autostart,
+               'capacity': info[1],
+               'allocated': info[2],
+               'available': info[3],
+               'nr_volumes': nr_volumes}
+
+        if not pool.isPersistent():
+            # Deal with deep scan generated pool
+            try:
+                with self.objstore as session:
+                    task_id = session.get('scanning', name)
+                res['task_id'] = str(task_id)
+                res['type'] = 'kimchi-iso'
+            except NotFoundError:
+                # User created normal pool
+                pass
+        return res
 
     def storagepool_update(self, name, params):
         autostart = params['autostart']
