@@ -235,6 +235,9 @@ class MockModel(object):
         return {'file': file_target,
                 'ctime': ctime}
 
+    def debugreportcontent_lookup(self, name):
+        return self.debugreport_lookup(name)
+
     def debugreport_delete(self, name):
         path = config.get_debugreports_path()
         file_pattern = os.path.join(path, name + '.txt')

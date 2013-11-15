@@ -318,6 +318,15 @@ class AsyncCollection(Collection):
         return kimchi.template.render("Task", task)
 
 
+class DebugReportContent(Resource):
+    def __init__(self, model, ident):
+        super(DebugReportContent, self).__init__(model, ident)
+
+    def get(self):
+        self.lookup()
+        raise internal_redirect(self.info['file'])
+
+
 class VMs(Collection):
     def __init__(self, model):
         super(VMs, self).__init__(model)
@@ -578,6 +587,7 @@ class DebugReport(Resource):
     def __init__(self, model, ident):
         super(DebugReport, self).__init__(model, ident)
         self.ident = ident
+        self.content = DebugReportContent(model, ident)
 
     @property
     def data(self):

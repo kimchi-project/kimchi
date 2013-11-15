@@ -103,6 +103,12 @@ class Server(object):
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'data/screenshots',
             'tools.nocache.on': False
+        },
+        '/data/debugreports': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'data/debugreports',
+            'tools.nocache.on': False,
+            'tools.kimchiauth.on': True
         }
     }
 
