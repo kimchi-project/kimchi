@@ -400,15 +400,19 @@ class Model(object):
         # incoming text, from js json, is unicode, do not need decode
         if name in vm_list:
             raise InvalidOperation("VM already exists")
-        t = self._get_template(t_name)
+
+        vm_overrides = dict()
+        pool_uri = params.get('storagepool')
+        if pool_uri:
+            vm_overrides['storagepool'] = pool_uri
+        t = self._get_template(t_name, vm_overrides)
 
         if not self.qemu_stream and t.info.get('iso_stream', False):
             raise InvalidOperation("Remote ISO image is not supported by this server.")
 
         vm_uuid = str(uuid.uuid4())
         conn = self.conn.get()
-        pool_uri = params.get('storagepool', t.info['storagepool'])
-        pool_name = pool_name_from_uri(pool_uri)
+        pool_name = pool_name_from_uri(t.info['storagepool'])
         pool = conn.storagePoolLookupByName(pool_name)
         xml = pool.XMLDesc(0)
         storage_path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
@@ -551,9 +555,11 @@ class Model(object):
             else:
                 raise
 
-    def _get_template(self, name):
+    def _get_template(self, name, overrides=None):
         with self.objstore as session:
             params = session.get('template', name)
+        if overrides:
+            params.update(overrides)
         return vmtemplate.VMTemplate(params)
 
     def isopool_lookup(self, name):
