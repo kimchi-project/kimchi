@@ -115,11 +115,16 @@ class MockModel(object):
                                         self._mock_vms.keys())
         if name in self._mock_vms:
             raise InvalidOperation("VM already exists")
-        t = self._get_template(t_name)
 
         vm_uuid = str(uuid.uuid4())
-        pool_uri = params.get('storagepool', t.info['storagepool'])
-        pool_name = kimchi.model.pool_name_from_uri(pool_uri)
+        vm_overrides = dict()
+        pool_uri = params.get('storagepool')
+        if pool_uri:
+            vm_overrides['storagepool'] = pool_uri
+
+        t = self._get_template(t_name, vm_overrides)
+
+        pool_name = kimchi.model.pool_name_from_uri(t.info['storagepool'])
         p = self._get_storagepool(pool_name)
         volumes = t.to_volume_list(vm_uuid, p.info['path'])
         disk_paths = []
@@ -203,9 +208,15 @@ class MockModel(object):
     def templates_get_list(self):
         return self._mock_templates.keys()
 
-    def _get_template(self, name):
+    def _get_template(self, name, overrides=None):
         try:
-            return self._mock_templates[name]
+            t = self._mock_templates[name]
+            if overrides:
+                args = copy.copy(t.info)
+                args.update(overrides)
+                return kimchi.vmtemplate.VMTemplate(args)
+            else:
+                return t
         except KeyError:
             raise NotFoundError()
 
