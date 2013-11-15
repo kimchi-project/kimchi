@@ -41,12 +41,12 @@ import cherrypy
 from cherrypy.process.plugins import BackgroundTask
 from cherrypy.process.plugins import SimplePlugin
 
-import vmtemplate
 import config
 import xmlutils
 import vnc
 import isoinfo
 from screenshot import VMScreenshot
+from vmtemplate import VMTemplate
 from kimchi.featuretests import FeatureTests
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
@@ -390,11 +390,13 @@ class Model(object):
             raise OperationFailed("Unable to find VNC port in %s" % name)
 
     def vms_create(self, params):
+        conn = self.conn.get()
         try:
             t_name = template_name_from_uri(params['template'])
         except KeyError, item:
             raise MissingParameter(item)
 
+        vm_uuid = str(uuid.uuid4())
         vm_list = self.vms_get_list()
         name = get_vm_name(params.get('name'), t_name, vm_list)
         # incoming text, from js json, is unicode, do not need decode
@@ -410,19 +412,8 @@ class Model(object):
         if not self.qemu_stream and t.info.get('iso_stream', False):
             raise InvalidOperation("Remote ISO image is not supported by this server.")
 
-        vm_uuid = str(uuid.uuid4())
-        conn = self.conn.get()
-        pool_name = pool_name_from_uri(t.info['storagepool'])
-        pool = conn.storagePoolLookupByName(pool_name)
-        xml = pool.XMLDesc(0)
-        storage_path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
-
-        # Provision storage:
-        # TODO: Rebase on the storage API once upstream
-        vol_list = t.to_volume_list(vm_uuid, storage_path)
-        for v in vol_list:
-            # outgoing text to libvirt, encode('utf-8')
-            pool.createXML(v['xml'].encode('utf-8'), 0)
+        t.validate()
+        vol_list = t.fork_vm_storage(vm_uuid)
 
         # Store the icon for displaying later
         icon = t.info.get('icon')
@@ -432,7 +423,7 @@ class Model(object):
 
         libvirt_stream = False if len(self.libvirt_stream_protocols) == 0 else True
 
-        xml = t.to_vm_xml(name, vm_uuid, storage_path, libvirt_stream, self.qemu_stream_dns)
+        xml = t.to_vm_xml(name, vm_uuid, libvirt_stream, self.qemu_stream_dns)
         try:
             dom = conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
@@ -483,7 +474,7 @@ class Model(object):
         with self.objstore as session:
             if name in session.get_list('template'):
                 raise InvalidOperation("Template already exists")
-            t = vmtemplate.VMTemplate(params, scan=True)
+            t = LibvirtVMTemplate(params, scan=True)
             session.store('template', name, t.info)
         return name
 
@@ -505,6 +496,12 @@ class Model(object):
         new_ncpus = new_t.get(u'cpus', '')
         if not is_digit(new_ncpus):
             raise InvalidParameter("You must specify a number for cpus.")
+
+        new_storagepool = new_t.get(u'storagepool', '')
+        try:
+            self._get_storagepool(pool_name_from_uri(new_storagepool))
+        except Exception as e:
+            raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
 
         self.template_delete(name)
         try:
@@ -560,7 +557,7 @@ class Model(object):
             params = session.get('template', name)
         if overrides:
             params.update(overrides)
-        return vmtemplate.VMTemplate(params)
+        return LibvirtVMTemplate(params, False, self.conn)
 
     def isopool_lookup(self, name):
         return {'state': 'active',
@@ -843,6 +840,52 @@ class Model(object):
             return self.distros[name]
         except KeyError:
             raise NotFoundError("distro '%s' not found" % name)
+
+
+class LibvirtVMTemplate(VMTemplate):
+    def __init__(self, args, scan=False, conn=None):
+        VMTemplate.__init__(self, args, scan)
+        self.conn = conn
+
+    def _storage_validate(self):
+        pool_uri = self.info['storagepool']
+        pool_name = pool_name_from_uri(pool_uri)
+        try:
+            conn = self.conn.get()
+            pool = conn.storagePoolLookupByName(pool_name)
+        except libvirt.libvirtError:
+            raise InvalidParameter('Storage specified by template does not exist')
+        if not pool.isActive():
+            raise InvalidParameter('Storage specified by template is not active')
+
+        return pool
+
+    def _network_validate(self):
+        name = self.info['network']
+        try:
+            conn = self.conn.get()
+            network = conn.networkLookupByName(name)
+        except libvirt.libvirtError:
+            raise InvalidParameter('Network specified by template does not exist')
+        if not network.isActive():
+            raise InvalidParameter('Storage specified by template is not active')
+
+        return network
+
+    def _get_storage_path(self):
+        pool = self._storage_validate()
+        xml = pool.XMLDesc(0)
+        return xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
+
+    def fork_vm_storage(self, vm_uuid):
+        # Provision storage:
+        # TODO: Rebase on the storage API once upstream
+        pool = self._storage_validate()
+        vol_list = self.to_volume_list(vm_uuid)
+        for v in vol_list:
+            # outgoing text to libvirt, encode('utf-8')
+            pool.createXML(v['xml'].encode('utf-8'), 0)
+        return vol_list
 
 
 class LibvirtVMScreenshot(VMScreenshot):

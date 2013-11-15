@@ -136,7 +136,8 @@ class VMTemplate(object):
 
         return network_file % (params)
 
-    def _get_disks_xml(self, vm_uuid, storage_path):
+    def _get_disks_xml(self, vm_uuid):
+        storage_path = self._get_storage_path()
         ret = ""
         for i, disk in enumerate(self.info['disks']):
             index = disk.get('index', i)
@@ -154,7 +155,8 @@ class VMTemplate(object):
             """ % params
         return ret
 
-    def to_volume_list(self, vm_uuid, storage_path):
+    def to_volume_list(self, vm_uuid):
+        storage_path = self._get_storage_path()
         ret = []
         for i, d in enumerate(self.info['disks']):
             index = d.get('index', i)
@@ -180,11 +182,11 @@ class VMTemplate(object):
             ret.append(info)
         return ret
 
-    def to_vm_xml(self, vm_name, vm_uuid, storage_path, libvirt_stream = False, qemu_stream_dns = False):
+    def to_vm_xml(self, vm_name, vm_uuid, libvirt_stream = False, qemu_stream_dns = False):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
-        params['disks'] = self._get_disks_xml(vm_uuid, storage_path)
+        params['disks'] = self._get_disks_xml(vm_uuid)
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
@@ -229,3 +231,23 @@ class VMTemplate(object):
         </domain>
         """ % params
         return xml
+
+    def validate(self):
+        self._storage_validate()
+        self._network_validate()
+        self._iso_validate()
+
+    def _iso_validate(self):
+        pass
+
+    def _network_validate(self):
+        pass
+
+    def _storage_validate(self):
+        pass
+
+    def fork_vm_storage(self, vm_uuid):
+        pass
+
+    def _get_storage_path(self):
+        return ''
