@@ -116,5 +116,9 @@ def find_qemu_binary():
     return location
 
 
+def get_debugreports_path():
+    return os.path.join(get_prefix(), 'data', 'debugreports')
+
+
 if __name__ == '__main__':
     print get_prefix()

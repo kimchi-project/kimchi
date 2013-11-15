@@ -843,6 +843,24 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/debugreports')
         self.assertEquals(200, resp.status)
 
+    def test_create_debugreport(self):
+        def _report_delete(name):
+            resp = request(host, port, '/debugreports/%s' % name, '{}', 'DELETE')
+
+        with RollbackContext() as rollback:
+            req = json.dumps({'name': 'report1'})
+            resp = request(host, port, '/debugreports', req, 'POST')
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            # make sure the debugreport doesn't exist until the
+            # the task is finished
+            self._wait_task(task['id'], 20)
+            rollback.prependDefer(_report_delete, 'report1')
+            resp = request(host, port, '/debugreports/report1')
+            debugreport = json.loads(resp.read())
+            self.assertEquals("report1", debugreport['name'])
+            self.assertEquals(200, resp.status)
+
 
 class HttpsRestTests(RestTests):
     """

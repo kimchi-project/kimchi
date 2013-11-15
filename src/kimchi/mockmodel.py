@@ -34,6 +34,8 @@ except ImportError:
     import Image
     import ImageDraw
 
+import time
+import glob
 import kimchi.model
 from kimchi.vmtemplate import VMTemplate
 from kimchi.screenshot import VMScreenshot
@@ -218,6 +220,45 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError()
 
+    def debugreport_lookup(self, name):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name + '.txt')
+        try:
+            file_target = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError('no such report')
+
+        ctime = os.stat(file_target).st_ctime
+        ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
+        file_target = os.path.split(file_target)[-1]
+        file_target = os.path.join("/data/debugreports", file_target)
+        return {'file': file_target,
+                'ctime': ctime}
+
+    def debugreport_delete(self, name):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name + '.txt')
+        try:
+            file_target = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError('no such report')
+
+        os.remove(file_target)
+
+    def debugreports_create(self, params):
+        ident = params['name']
+        taskid = self._gen_debugreport_file(ident)
+        return self.task_lookup(taskid)
+
+    def debugreports_get_list(self):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, '*.txt')
+        file_lists = glob.glob(file_pattern)
+        file_lists = [os.path.split(file)[1] for file in file_lists]
+        name_lists = [file.split('.', 1)[0] for file in file_lists]
+
+        return name_lists
+
     def _get_vm(self, name):
         try:
             return self._mock_vms[name]
@@ -374,6 +415,21 @@ class MockModel(object):
             return self.distros[name]
         except KeyError:
             raise NotFoundError("distro '%s' not found" % name)
+
+    def _gen_debugreport_file(self, ident):
+        return self.add_task('', self._create_log, ident)
+
+    def _create_log(self, cb, name):
+        path = config.get_debugreports_path()
+        tmpf = os.path.join(path, name + '.tmp')
+        realf = os.path.join(path, name + '.txt')
+        length = random.randint(1000, 10000)
+        with open(tmpf, 'w') as fd:
+            while length:
+                fd.write('I am logged')
+                length = length - 1
+        os.rename(tmpf, realf)
+        cb("OK", True)
 
 
 class MockVMTemplate(VMTemplate):
