@@ -32,6 +32,10 @@ import uuid
 import cherrypy
 import sys
 import logging
+import subprocess
+import glob
+import fnmatch
+import shutil
 try:
     from collections import OrderedDict
 except ImportError:
@@ -291,6 +295,46 @@ class Model(object):
 
         self.stats[vm_uuid].update({'disk_io': rate, 'max_disk_io': max_disk_io,
                                  'diskRdKB': diskRdKB, 'diskWrKB': diskWrKB})
+
+    def debugreport_lookup(self, name):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name)
+        file_pattern = file_pattern + '.*'
+        try:
+            file_target = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError('no such report')
+
+        ctime = os.stat(file_target).st_ctime
+        ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
+        file_target = os.path.split(file_target)[-1]
+        file_target = os.path.join("/data/debugreports", file_target)
+        return {'file': file_target,
+                'ctime': ctime}
+
+    def debugreport_delete(self, name):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name + '.*')
+        try:
+            file_target = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError('no such report')
+
+        os.remove(file_target)
+
+    def debugreports_create(self, params):
+        ident = params['name']
+        taskid = self._gen_debugreport_file(ident)
+        return self.task_lookup(taskid)
+
+    def debugreports_get_list(self):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, '*.*')
+        file_lists = glob.glob(file_pattern)
+        file_lists = [os.path.split(file)[1] for file in file_lists]
+        name_lists = [file.split('.', 1)[0] for file in file_lists]
+
+        return name_lists
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
@@ -827,6 +871,61 @@ class Model(object):
                 params = {'uuid': vm_uuid}
                 session.store('screenshot', vm_uuid, params)
         return LibvirtVMScreenshot(params, self.conn)
+
+    def _gen_debugreport_file(self, name):
+        def sosreport_generate(cb, name):
+            command = 'sosreport --batch --name "%s"' % name
+            try:
+                retcode = subprocess.call(command, shell=True, stdout=subprocess.PIPE)
+                if retcode < 0:
+                    raise OperationFailed('Command terminated with signal')
+                elif retcode > 0:
+                    raise OperationFailed('Command failed: rc = %i' % retcode)
+                for fi in glob.glob('/tmp/sosreport-%s-*' % name):
+                    if fnmatch.fnmatch(fi, '*.md5'):
+                        continue
+                output = fi
+                ext = output.split('.', 1)[1]
+                path = config.get_debugreports_path()
+                target = os.path.join(path, name)
+                target_file = '%s.%s' % (target, ext)
+                shutil.move(output, target_file)
+                os.remove('%s.md5' % output)
+                cb('OK', True)
+
+                return
+
+            except OSError:
+                raise
+
+            except Exception, e:
+                # No need to call cb to update the task status here.
+                # The task object will catch the exception rasied here
+                # and update the task status there
+                log = logging.getLogger('Model')
+                log.warning('Exception in generating debug file: %s', e)
+                raise OperationFailed(e)
+        # Please add new possible debug report command here
+        # Also do implement the report generating function
+        # based on the new report command
+        report_tools = ({'cmd': 'sosreport --help', 'fn':sosreport_generate},
+                       {'cmd': 'supportconfig -h', 'fn':None},
+                       {'cmd': 'linuxexplorers --help', 'fn':None})
+
+        gen_cmd = None
+        # check if the command can be found by shell one by one
+        for helper_tool in report_tools:
+            try:
+                retcode = subprocess.call(helper_tool['cmd'], shell=True)
+                if retcode == 0:
+                    gen_cmd = helper_tool['cmd']
+                break
+            except Exception, e:
+                kimchi_log.info('Exception running command: %s', e)
+
+        if gen_cmd is not None:
+            return self.add_task('', helper_tool['fn'], name)
+        raise OperationFailed("debugreport tool not found")
 
     def _get_distros(self):
         distroloader = DistroLoader()

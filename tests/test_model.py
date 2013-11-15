@@ -367,10 +367,6 @@ class ModelTests(unittest.TestCase):
     def test_async_tasks(self):
         class task_except(Exception):
             pass
-        def wait_task(model, taskid, timeout=5):
-            for i in range(0, timeout):
-                if model.task_lookup(taskid)['status'] == 'running':
-                    time.sleep(1)
 
         def quick_op(cb, message):
             cb(message, True)
@@ -387,7 +383,7 @@ class ModelTests(unittest.TestCase):
 
         inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
         taskid = inst.add_task('', quick_op, 'Hello')
-        wait_task(inst, taskid)
+        self._wait_task(inst, taskid)
         self.assertEquals(1, taskid)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
@@ -398,11 +394,11 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2, taskid)
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         self.assertEquals('OK', inst.task_lookup(taskid)['message'])
-        wait_task(inst, taskid)
+        self._wait_task(inst, taskid)
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
         self.assertEquals('It was not meant to be', inst.task_lookup(taskid)['message'])
         taskid = inst.add_task('', abnormal_op, {})
-        wait_task(inst, taskid)
+        self._wait_task(inst, taskid)
         self.assertEquals('Exception raised', inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
 
@@ -463,6 +459,31 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
 
             self.assertTrue('kimchi-vm' in vms)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_debug_reports(self):
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        with utils.RollbackContext() as rollback:
+            report_list = inst.debugreports_get_list()
+            self.assertFalse('report1' in report_list)
+            try:
+                task = inst.debugreports_create({'name': 'report1'})
+                taskid = task['id']
+                self._wait_task(inst, taskid, 20)
+                self.assertEquals('finished', inst.task_lookup(taskid)['status'],
+                    "It is not necessary an error.  You may need to increase the "
+                    "timeout number in _wait_task()")
+                rollback.prependDefer(inst.debugreport_delete, 'report1')
+                report_list = inst.debugreports_get_list()
+                self.assertTrue('report1' in  report_list)
+            except OperationFailed, e:
+                if not 'debugreport tool not found' in e.message:
+                    raise e
+
+    def _wait_task(self, model, taskid, timeout=5):
+            for i in range(0, timeout):
+                if model.task_lookup(taskid)['status'] == 'running':
+                    time.sleep(1)
 
     def test_get_distros(self):
         inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)

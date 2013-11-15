@@ -154,6 +154,8 @@ class Resource(object):
                 raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
             except InvalidOperation, msg:
                 raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
+            except OperationFailed, msg:
+                raise cherrypy.HTTPError(406, "Operation failed: '%s'" % msg)
         elif method == 'DELETE':
             try:
                 return self.delete()
