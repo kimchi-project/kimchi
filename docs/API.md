@@ -328,6 +328,51 @@ creation.
       not tested yet
 * **POST**: *See Configuration Actions*
 
+#### Collection: Debug Reports
+
+**URI:** /debugreports
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all available Debug Reports
+* **POST**: Create a new Debug Report. This POST method is different
+      from the other ones. The return resource is a task resource which
+      is identified by the url below
+    * task resource.  * See Resource: Task *
+
+### Resource: Debug Report
+
+**URI:** /debugreports/*:name*
+
+A Debug Report is an archive of logs and other information about the host that
+is used to diagnose and debug problems. The exact format and contents are
+specific to the low level collection tool being used.
+
+**Methods:**
+
+* **GET**: Retrieve the full description  of Debug Report
+    * name: The debug report  name used to identify the report
+    * file: The debug report  file name used to identify the report
+    * time: The time when the debug report is created
+
+* **DELETE**: Remove the Debug Report
+    * name: The debug report  name used to identify the report
+
+* **POST**: *See Debug Report Actions*
+
+**Actions (POST):**
+
+*No actions defined*
+
+### Sub-resource: Debug Report content
+
+**URI:** /debugreports/*:name*/content
+
+It is the sub-resource of Debug Report and the client use it to get the real content
+of the Debug Report file from the server
+
+* **GET**: Retrieve the content of a Debug Report file
+
 **Actions (POST):**
 
 *No actions defined*
