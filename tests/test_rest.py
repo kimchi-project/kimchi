@@ -235,6 +235,10 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
         vm_info = json.loads(resp.read())
 
+        # Test template not changed after vm customise its pool
+        t = json.loads(self.request('/templates/test').read())
+        self.assertEquals(t['storagepool'], '/storagepools/default')
+
         # Verify the volume was created
         vol_uri = '/storagepools/alt/storagevolumes/%s-0.img' % vm_info['uuid']
         resp = self.request(vol_uri)
