@@ -839,6 +839,10 @@ class RestTests(unittest.TestCase):
         self.assertEquals(distro['os_version'], "19")
         self.assertIn('path', distro)
 
+    def test_debugreports(self):
+        resp = request(host, port, '/debugreports')
+        self.assertEquals(200, resp.status)
+
 
 class HttpsRestTests(RestTests):
     """

@@ -58,6 +58,7 @@ class Root(controller.Resource):
         self.config = controller.Config(model)
         self.login = controller.login
         self.logout = controller.logout
+        self.debugreports = controller.DebugReports(model)
 
     def get(self):
         return self.default('kimchi-ui.html')

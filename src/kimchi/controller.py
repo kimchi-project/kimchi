@@ -296,6 +296,26 @@ class Collection(object):
                 raise cherrypy.HTTPError(404, "Not found: '%s'" % param)
 
 
+class AsyncCollection(Collection):
+    """
+    A Collection to create it's resource by asynchronous task
+    """
+    def __init__(self, model):
+        super(AsyncCollection, self).__init__(model)
+
+    def create(self, *args):
+        try:
+            create = getattr(self.model, model_fn(self, 'create'))
+        except AttributeError:
+            raise cherrypy.HTTPError(405,
+                'Create is not allowed for %s' % get_class_name(self))
+        params = parse_request()
+        args = self.model_args + [params]
+        task = create(*args)
+        cherrypy.response.status = 202
+        return kimchi.template.render("Task", task)
+
+
 class VMs(Collection):
     def __init__(self, model):
         super(VMs, self).__init__(model)
@@ -544,6 +564,24 @@ class Tasks(Collection):
     def __init__(self, model):
         super(Tasks, self).__init__(model)
         self.resource = Task
+
+
+class DebugReports(AsyncCollection):
+    def __init__(self, model):
+        super(DebugReports, self).__init__(model)
+        self.resource = DebugReport
+
+
+class DebugReport(Resource):
+    def __init__(self, model, ident):
+        super(DebugReport, self).__init__(model, ident)
+        self.ident = ident
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'file': self.info['file'],
+                'time': self.info['ctime']}
 
 
 class Config(Resource):
