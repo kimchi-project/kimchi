@@ -109,6 +109,19 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **GET**: Retrieve a summarized list of all defined Templates
 * **POST**: Create a new Template
     * name: The name of the Template.  Used to identify the Template in this API
+    * os_distro *(optional)*: The operating system distribution
+    * os_version *(optional)*: The version of the operating system distribution
+    * cpus *(optional)*: The number of CPUs assigned to the VM. Default is 1.
+    * memory *(optional)*: The amount of memory assigned to the VM.
+      Default is 1024M.
+    * cdrom *(optional)*: A volume name or URI to an ISO image.
+    * storagepool *(optional)*: URI of the storagepool.
+      Default is '/storagepools/default'
+    * disks *(optional)*: An array of requested disks with the following optional fields
+      (either *size* or *volume* must be specified):
+        * index: The device index
+        * size: The device size in GB
+        * volume: A volume name that contains the initial disk contents
 
 
 ### Resource: Template
@@ -127,6 +140,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * cpus: The number of CPUs assigned to the VM
     * memory: The amount of memory assigned to the VM
     * cdrom: A volume name or URI to an ISO image
+    * storagepool: URI of the storagepool where template allocates vm storage.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
@@ -144,6 +158,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * cpus: The number of CPUs assigned to the VM
     * memory: The amount of memory assigned to the VM
     * cdrom: A volume name or URI to an ISO image
+    * storagepool: URI of the storagepool where template allocates vm storage.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
