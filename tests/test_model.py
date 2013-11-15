@@ -209,6 +209,43 @@ class ModelTests(unittest.TestCase):
             poolinfo = inst.storagepool_lookup(pool)
             self.assertEquals(len(vols), poolinfo['nr_volumes'])
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_storage_customise(self):
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            path = '/tmp/kimchi-images'
+            pool = 'test-pool'
+            if not os.path.exists(path):
+                os.mkdir(path)
+
+            params = {'name': 'test', 'disks': [{'size': 1}]}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'storagepool': '/storagepools/test-pool'}
+            self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+
+            args = {'name': pool,
+                    'path': path,
+                    'type': 'dir'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_delete, pool)
+
+            inst.template_update('test', params)
+
+            params = {'name': 'test-vm-1', 'template': '/templates/test'}
+            self.assertRaises(InvalidParameter, inst.vms_create, params)
+
+            inst.storagepool_activate(pool)
+            rollback.prependDefer(inst.storagepool_deactivate, pool)
+
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'test-vm-1')
+            vm_info = inst.vm_lookup(params['name'])
+            disk_path = '/tmp/kimchi-images/%s-0.img' % vm_info['uuid']
+            self.assertTrue(os.access(disk_path, os.F_OK))
+
     def test_template_create(self):
         inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
         # Test non-exist path raises InvalidParameter
@@ -220,8 +257,9 @@ class ModelTests(unittest.TestCase):
         params['cdrom'] = os.path.abspath(__file__)
         self.assertRaises(InvalidParameter, inst.templates_create, params)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)

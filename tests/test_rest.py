@@ -211,7 +211,7 @@ class RestTests(unittest.TestCase):
         # Verify the volume was deleted
         self.assertHTTPStatus(404, vol_uri)
 
-    def test_vm_on_alt_storage(self):
+    def test_vm_customise_storage(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}]})
         resp = self.request('/templates', req, 'POST')
@@ -244,6 +244,57 @@ class RestTests(unittest.TestCase):
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
         self.assertEquals(1 << 30, vol['capacity'])
+
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Verify the volume was deleted
+        self.assertHTTPStatus(404, vol_uri)
+
+    def test_template_customise_storage(self):
+        req = json.dumps({'name': 'test',
+            'disks': [{'size': 1}]})
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Update a Template with non-existent pool fails with 400
+        req = json.dumps({'storagepool': '/storagepools/alt'})
+        resp = self.request('/templates/test', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Create alternate storage
+        req = json.dumps({'name': 'alt',
+                          'capacity': 1024,
+                          'allocated': 512,
+                          'path': '/tmp',
+                          'type': 'dir'})
+        resp = self.request('/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        req = json.dumps({'storagepool': '/storagepools/alt'})
+        resp = self.request('/templates/test', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        # Create a VM on inactive pool fails with 400
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+
+        resp = self.request('/storagepools/alt/activate', req, 'POST')
+        self.assertEquals(200, resp.status)
+
+        # Create a VM
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        vm = json.loads(resp.read())
+        self.assertEquals(201, resp.status)
+
+        # Verify the volume was created
+        vol_uri = '/storagepools/alt/storagevolumes/%s-0.img' % vm['uuid']
+        resp = self.request(vol_uri)
+        vol = json.loads(resp.read())
+        self.assertEquals(1073741824, vol['capacity'])
 
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
