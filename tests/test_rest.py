@@ -452,7 +452,8 @@ class RestTests(unittest.TestCase):
 
     def test_templates(self):
         def verify_template(t, res):
-            for field in ('name', 'os_distro', 'os_version', 'memory', 'cpus'):
+            for field in ('name', 'os_distro',
+                    'os_version', 'memory', 'cpus', 'storagepool'):
                 self.assertEquals(t[field], res[field])
 
         resp = self.request('/templates')
@@ -461,7 +462,8 @@ class RestTests(unittest.TestCase):
 
         # Create a template
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': '1024', 'cpus': '1'}
+             'os_version': '1.0', 'memory': '1024', 'cpus': '1',
+             'storagepool': '/storagepools/alt'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -472,7 +474,8 @@ class RestTests(unittest.TestCase):
 
         # Create a template with same name fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': '1024', 'cpus': '1'}
+             'os_version': '1.0', 'memory': '1024', 'cpus': '1',
+             'storagepool': '/storagepools/default'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(400, resp.status)
