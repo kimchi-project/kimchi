@@ -35,7 +35,7 @@ except ImportError:
     import ImageDraw
 
 import kimchi.model
-import kimchi.vmtemplate
+from kimchi.vmtemplate import VMTemplate
 from kimchi.screenshot import VMScreenshot
 import kimchi.vnc
 import config
@@ -123,22 +123,14 @@ class MockModel(object):
             vm_overrides['storagepool'] = pool_uri
 
         t = self._get_template(t_name, vm_overrides)
-
-        pool_name = kimchi.model.pool_name_from_uri(t.info['storagepool'])
-        p = self._get_storagepool(pool_name)
-        volumes = t.to_volume_list(vm_uuid, p.info['path'])
-        disk_paths = []
-        for vol_info in volumes:
-            vol_info['capacity'] = vol_info['capacity'] << 10
-            self.storagevolumes_create(pool_name, vol_info)
-            disk_paths.append({'pool': pool_name, 'volume': vol_info['name']})
+        t.validate()
 
         vm = MockVM(vm_uuid, name, t.info)
         icon = t.info.get('icon')
         if icon:
             vm.info['icon'] = icon
 
-        vm.disk_paths = disk_paths
+        vm.disk_paths = t.fork_vm_storage(vm_uuid)
         self._mock_vms[name] = vm
         return name
 
@@ -174,7 +166,7 @@ class MockModel(object):
         name = params['name']
         if name in self._mock_templates:
             raise InvalidOperation("Template already exists")
-        t = kimchi.vmtemplate.VMTemplate(params, scan=False)
+        t = MockVMTemplate(params, self)
         self._mock_templates[name] = t
         return name
 
@@ -197,6 +189,12 @@ class MockModel(object):
         if not is_digit(new_ncpus):
             raise InvalidParameter("You must specify a number for cpus.")
 
+        new_storagepool = new_t.get(u'storagepool', '')
+        try:
+            self._get_storagepool(kimchi.model.pool_name_from_uri(new_storagepool))
+        except Exception as e:
+            raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
+
         self.template_delete(name)
         try:
             ident = self.templates_create(new_t)
@@ -214,7 +212,7 @@ class MockModel(object):
             if overrides:
                 args = copy.copy(t.info)
                 args.update(overrides)
-                return kimchi.vmtemplate.VMTemplate(args)
+                return MockVMTemplate(args, self)
             else:
                 return t
         except KeyError:
@@ -378,6 +376,38 @@ class MockModel(object):
             raise NotFoundError("distro '%s' not found" % name)
 
 
+class MockVMTemplate(VMTemplate):
+    def __init__(self, args, mockmodel_inst=None):
+        VMTemplate.__init__(self, args)
+        self.model = mockmodel_inst
+
+    def _storage_validate(self):
+        pool_uri = self.info['storagepool']
+        pool_name = kimchi.model.pool_name_from_uri(pool_uri)
+        try:
+            pool = self.model._get_storagepool(pool_name)
+        except NotFoundError:
+            raise InvalidParameter('Storage specified by template does not exist')
+        if pool.info['state'] != 'active':
+            raise InvalidParameter('Storage specified by template is not active')
+
+        return pool
+
+    def _get_storage_path(self):
+        pool = self._storage_validate()
+        return pool.info['path']
+
+    def fork_vm_storage(self, vm_name):
+        pool = self._storage_validate()
+        volumes = self.to_volume_list(vm_name)
+        disk_paths = []
+        for vol_info in volumes:
+            vol_info['capacity'] = vol_info['capacity'] << 10
+            self.model.storagevolumes_create(pool.name, vol_info)
+            disk_paths.append({'pool': pool.name, 'volume': vol_info['name']})
+        return disk_paths
+
+
 class MockVM(object):
     def __init__(self, uuid, name, template_info):
         self.uuid = uuid
@@ -463,7 +493,7 @@ def get_mock_environment():
     for i in xrange(5):
         name = 'test-template-%i' % i
         params = {'name': name}
-        t = kimchi.vmtemplate.VMTemplate(params)
+        t = MockVMTemplate(params, model)
         model._mock_templates[name] = t
 
     for name in ('test-template-1', 'test-template-3'):
