@@ -373,6 +373,7 @@ class Model(object):
                 'stats': str(stats),
                 'uuid': dom.UUIDString(),
                 'memory': info[2] >> 10,
+                'cpus': info[3],
                 'screenshot': screenshot,
                 'icon': icon,
                 'graphics': {"type": graphics_type, "port": graphics_port}}

@@ -359,6 +359,7 @@ class VM(Resource):
                 'uuid': self.info['uuid'],
                 'stats': self.info['stats'],
                 'memory': self.info['memory'],
+                'cpus': self.info['cpus'],
                 'state': self.info['state'],
                 'screenshot': self.info['screenshot'],
                 'icon': self.info['icon'],

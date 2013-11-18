@@ -478,6 +478,7 @@ class MockVM(object):
                                 'io_throughput_peak': 100}",
                      'uuid': self.uuid,
                      'memory': template_info['memory'],
+                     'cpus': template_info['cpus'],
                      'icon': None,
                      'graphics': {'type': 'vnc', 'port': None}}
 

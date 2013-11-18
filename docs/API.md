@@ -71,6 +71,7 @@ the following general conventions:
         * io_throughput_peak: The highest recent value of 'io_throughput'.
     * uuid: UUID of the VM.
     * memory: The amount of memory assigned to the VM (in MB)
+    * cpus: The number of CPUs assigned to the VM
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
     * graphics: A dict to show detail of VM graphics.
