@@ -81,13 +81,17 @@ def internal_redirect(url):
     raise cherrypy.InternalRedirect(url.encode("utf-8"))
 
 
-def action(f):
-    @wraps(f)
-    @cherrypy.expose
+def generate_action_handler(instance, action_name, action_args=None):
     def wrapper(*args, **kwargs):
         validate_method(('POST'))
         try:
-            f(*args, **kwargs)
+            model_args = list(instance.model_args)
+            if action_args is not None:
+                model_args.extend(parse_request()[key] for key in action_args)
+            fn = getattr(instance.model, model_fn(instance, action_name))
+            fn(*model_args)
+            raise internal_redirect(instance.uri_fmt %
+                                    tuple(instance.model_args))
         except MissingParameter, param:
             raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
         except InvalidParameter, param:
@@ -99,6 +103,8 @@ def action(f):
         except NotFoundError, msg:
             raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
 
+    wrapper.__name__ = action_name
+    wrapper.exposed = True
     return wrapper
 
 
@@ -337,21 +343,10 @@ class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
         self.screenshot = VMScreenShot(model, ident)
-
-    @action
-    def start(self):
-        getattr(self.model, model_fn(self, 'start'))(self.ident)
-        raise internal_redirect('/vms/%s' % self.ident)
-
-    @action
-    def stop(self):
-        getattr(self.model, model_fn(self, 'stop'))(self.ident)
-        raise internal_redirect('/vms/%s' % self.ident)
-
-    @action
-    def connect(self):
-        getattr(self.model, model_fn(self, 'connect'))(self.ident)
-        raise internal_redirect('/vms/%s' % self.ident)
+        self.uri_fmt = '/vms/%s'
+        self.start = generate_action_handler(self, 'start')
+        self.stop = generate_action_handler(self, 'stop')
+        self.connect = generate_action_handler(self, 'connect')
 
     @property
     def data(self):
@@ -410,21 +405,9 @@ class StorageVolume(Resource):
         self.ident = ident
         self.info = {}
         self.model_args = [self.pool, self.ident]
-
-    @action
-    def resize(self):
-        params = parse_request()
-        size = params['size']
-        getattr(self.model, model_fn(self, 'resize'))(self.pool,
-                                                      self.ident, size)
-        raise internal_redirect('/storagepools/%s/storagevolumes/%s'
-                                    % (self.pool, self.ident))
-
-    @action
-    def wipe(self):
-        getattr(self.model, model_fn(self, 'wipe'))(self.pool, self.ident)
-        raise internal_redirect('/storagepools/%s/storagevolumes/%s'
-                                    % (self.pool, self.ident))
+        self.uri_fmt = '/storagepools/%s/storagevolumes/%s'
+        self.resize = generate_action_handler(self, 'resize', ['size'])
+        self.wipe = generate_action_handler(self, 'wipe')
 
     @property
     def data(self):
@@ -470,16 +453,8 @@ class StoragePool(Resource):
         super(StoragePool, self).__init__(model, ident)
         self.update_params = ["autostart"]
         self.uri_fmt = "/storagepools/%s"
-
-    @action
-    def activate(self):
-        getattr(self.model, model_fn(self, 'activate'))(self.ident)
-        raise internal_redirect('/storagepools/%s' % self.ident)
-
-    @action
-    def deactivate(self):
-        getattr(self.model, model_fn(self, 'deactivate'))(self.ident)
-        raise internal_redirect('/storagepools/%s' % self.ident)
+        self.activate = generate_action_handler(self, 'activate')
+        self.deactivate = generate_action_handler(self, 'deactivate')
 
     @property
     def data(self):
