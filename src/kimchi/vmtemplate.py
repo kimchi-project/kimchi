@@ -30,8 +30,6 @@ import osinfo
 import isoinfo
 from kimchi.exception import *
 
-MAP_PROTOCOL_PORT = {'http': '80', 'https': '443',
-                     'ftp': '21', 'ftps': '990', 'tftp': '69'}
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
 
 class VMTemplate(object):
@@ -121,7 +119,7 @@ class VMTemplate(object):
         url_path = output.path
 
         if port is None:
-            port = MAP_PROTOCOL_PORT.get(protocol)
+            port = socket.getservbyname(protocol)
 
         url = self.info['cdrom']
         if not qemu_stream_dns:
