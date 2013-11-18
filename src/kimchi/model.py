@@ -919,7 +919,7 @@ class Model(object):
         # check if the command can be found by shell one by one
         for helper_tool in report_tools:
             try:
-                retcode = subprocess.call(helper_tool['cmd'], shell=True)
+                retcode = subprocess.call(helper_tool['cmd'], shell=True, stdout=subprocess.PIPE)
                 if retcode == 0:
                     gen_cmd = helper_tool['cmd']
                 break
