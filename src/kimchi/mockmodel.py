@@ -434,6 +434,9 @@ class MockModel(object):
         os.rename(tmpf, realf)
         cb("OK", True)
 
+    def hoststats_lookup(self, *name):
+        return {'cpu_utilization': round(random.uniform(0, 100), 1)}
+
 
 class MockVMTemplate(VMTemplate):
     def __init__(self, args, mockmodel_inst=None):
