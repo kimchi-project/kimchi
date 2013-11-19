@@ -405,3 +405,35 @@ Contains information about the OS distribution.
 **Actions (POST):**
 
 *No actions defined*
+
+### Resource: Host
+
+**URI:** /host
+Contains information of host.
+
+**Methods:**
+
+* **GET**: Retrieve NULL
+* **POST**: *See Host Actions*
+
+**Actions (POST):**
+
+*No actions defined*
+
+### Resource: Stats
+
+**URI:** /host/stats
+
+Contains the host sample data.
+
+**Methods:**
+
+* **GET**: Retrieve host sample data
+    * cpu_utilization: A number between 0 and 100 which indicates the
+                       percentage of CPU utilization.
+
+* **POST**: *See Host Actions*
+
+**Actions (POST):**
+
+*No actions defined*
