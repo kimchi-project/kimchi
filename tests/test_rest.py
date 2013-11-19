@@ -878,6 +878,13 @@ class RestTests(unittest.TestCase):
             resp = request(host, port, '/debugreports/report1/content')
             self.assertEquals(200, resp.status)
 
+    def test_hoststats(self):
+        resp = self.request('/host/stats').read()
+        stats = json.loads(resp)
+        cpu_utilization = stats['cpu_utilization']
+        self.assertIsInstance(cpu_utilization, float)
+        self.assertGreaterEqual(cpu_utilization, 0.0)
+        self.assertLessEqual(cpu_utilization, 100.0)
 
 class HttpsRestTests(RestTests):
     """

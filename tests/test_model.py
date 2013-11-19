@@ -495,3 +495,16 @@ class ModelTests(unittest.TestCase):
             self.assertIn('os_distro', distro)
             self.assertIn('os_version', distro)
             self.assertIn('path', distro)
+
+    def test_get_hoststats(self):
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
+        # HOST_STATS_INTERVAL is 1 seconds
+        time.sleep(kimchi.model.HOST_STATS_INTERVAL + 0.5)
+        stats = inst.hoststats_lookup()
+        cpu_utilization = stats['cpu_utilization']
+        # cpu_utilization is set int 0, after first stats sample
+        # the cpu_utilization is float in range [0.0, 100.0]
+        self.assertIsInstance(cpu_utilization, float)
+        self.assertGreaterEqual(cpu_utilization, 0.0)
+        self.assertLessEqual(cpu_utilization, 100.0)
