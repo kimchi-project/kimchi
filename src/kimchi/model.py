@@ -59,6 +59,7 @@ from kimchi.exception import *
 from kimchi.utils import kimchi_log, is_digit
 from kimchi.distroloader import DistroLoader
 from kimchi.scan import Scanner
+from kimchi import netinfo
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -578,6 +579,15 @@ class Model(object):
     def templates_get_list(self):
         with self.objstore as session:
             return session.get_list('template')
+
+    def interfaces_get_list(self):
+        return netinfo.all_favored_interfaces()
+
+    def interface_lookup(self, name):
+        try:
+            return netinfo.get_interface_info(name)
+        except ValueError, e:
+            raise NotFoundError(e)
 
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
