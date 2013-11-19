@@ -76,6 +76,7 @@ class MockModel(object):
         self._mock_templates = {}
         self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_graphics_ports = {}
+        self._mock_interfaces = self.dummy_interfaces()
         self.next_taskid = 1
         self.storagepool_activate('default')
 
@@ -381,6 +382,24 @@ class MockModel(object):
                     iso_volumes.append(res)
         return iso_volumes
 
+    def dummy_interfaces(self):
+        interfaces = {}
+        ifaces = {"eth1": "nic", "bond0": "bonding",
+                  "eth1.10": "vlan", "bridge0": "bridge"}
+        for i, name in enumerate(ifaces.iterkeys()):
+            iface = Interface(name)
+            iface.info['type'] = ifaces[name]
+            iface.info['ipaddr'] = '192.168.%s.101' % (i + 1)
+            interfaces[name] = iface
+        interfaces['eth1'].info['ipaddr'] = '192.168.0.101'
+        return interfaces
+
+    def interfaces_get_list(self):
+        return self._mock_interfaces.keys()
+
+    def interface_lookup(self, name):
+        return self._mock_interfaces[name].info
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')
@@ -499,6 +518,15 @@ class MockStoragePool(object):
         state = self.info['state']
         self.info['nr_volumes'] = len(self._volumes) \
             if state == 'active' else 0
+
+
+class Interface(object):
+    def __init__(self, name):
+        self.name = name
+        self.info = {'type': 'nic',
+                     'ipaddr': '192.168.0.101',
+                     'netmask': '255.255.255.0',
+                     'status': 'active'}
 
 
 class MockTask(object):
