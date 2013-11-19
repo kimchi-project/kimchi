@@ -726,6 +726,26 @@ class RestTests(unittest.TestCase):
         resp = self.request(img_lnk)
         self.assertEquals(404, resp.status)
 
+    def test_interfaces(self):
+        resp = self.request('/interfaces').read()
+        self.assertIn('name', resp)
+        interfaces = json.loads(resp)
+        for interface in interfaces:
+            self.assertIn('name', interface)
+            self.assertIn('type', interface)
+            self.assertIn('ipaddr', interface)
+            self.assertIn('netmask', interface)
+            self.assertIn('status', interface)
+
+        ident = "eth1"
+        resp = self.request('/interfaces/%s' % ident).read()
+        interface = json.loads(resp)
+        self.assertEquals(interface['name'], ident)
+        self.assertEquals(interface['type'], "nic")
+        self.assertEquals(interface['ipaddr'], "192.168.0.101")
+        self.assertEquals(interface['netmask'], "255.255.255.0")
+        self.assertEquals(interface['status'], "active")
+
     def _wait_task(self, taskid, timeout=5):
         for i in range(0, timeout):
             task = json.loads(self.request('/tasks/%s' % taskid).read())

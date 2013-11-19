@@ -30,6 +30,7 @@ import tempfile
 import kimchi.model
 import kimchi.objectstore
 from kimchi.exception import *
+from kimchi import netinfo
 import utils
 
 class ModelTests(unittest.TestCase):
@@ -365,6 +366,19 @@ class ModelTests(unittest.TestCase):
         with store as session:
             self.assertEquals(50, len(session.get_list('foo')))
             self.assertEquals(10, len(store._connections.keys()))
+
+    def test_get_interfaces(self):
+        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        expected_ifaces = netinfo.all_favored_interfaces()
+        ifaces = inst.interfaces_get_list()
+        self.assertEquals(len(expected_ifaces), len(ifaces))
+        for name in expected_ifaces:
+            iface = inst.interface_lookup(name)
+            self.assertEquals(iface['name'], name)
+            self.assertIn('type', iface)
+            self.assertIn('status', iface)
+            self.assertIn('ipaddr', iface)
+            self.assertIn('netmask', iface)
 
     def test_async_tasks(self):
         class task_except(Exception):
