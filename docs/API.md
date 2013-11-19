@@ -265,6 +265,47 @@ Represents a snapshot of the Virtual Machine's primary monitor.
             The unit is MBytes
 * wipe: Wipe a Storage Volume
 
+
+### Collection: Interfaces
+
+**URI:** /interfaces
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of current Interfaces
+
+### Resource: Interface
+
+**URI:** /interfaces/*:name*
+
+A interface represents available interface on host.
+
+**Methods:**
+
+* **GET**: Retrieve the full description of the Interface
+    * name: The name of the interface.
+    * status: The current status of the Interface.
+        * active: The interface is active.
+        * inactive: The interface is inactive.
+    * ipaddr: The ip address assigned to this interface in subnet.
+    * netmask: Is used to divide an IP address into subnets and specify the
+               networks available hosts
+    * type: The net device type of the interface.
+       * nic: Network interface controller that connects a computer to a
+              computer network
+       * vlan: A logical interface that represents a VLAN in all Layer 3
+               activities the unit may participate in
+       * bonding: The combination of network interfaces on one host for redundancy
+                  and/or increased throughput.
+       * bridge: A network device that connects multiple network segments.
+
+* **POST**: *See Interface Actions*
+
+**Actions (POST):**
+
+*No actions defined*
+
+
 ### Collection: Tasks
 
 **URI:** /tasks
