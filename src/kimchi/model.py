@@ -40,6 +40,7 @@ try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
+import psutil
 from xml.etree import ElementTree
 import cherrypy
 from cherrypy.process.plugins import BackgroundTask
@@ -61,7 +62,8 @@ from kimchi.scan import Scanner
 
 
 ISO_POOL_NAME = u'kimchi_isos'
-STATS_INTERVAL = 5
+GUESTS_STATS_INTERVAL = 5
+HOST_STATS_INTERVAL = 1
 
 def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
@@ -112,6 +114,7 @@ class Model(object):
         self.graphics_ports = {}
         self.next_taskid = 1
         self.stats = {}
+        self.host_stats = {}
         self.qemu_stream = False
         self.qemu_stream_dns = False
         self.libvirt_stream_protocols = []
@@ -121,8 +124,13 @@ class Model(object):
         cherrypy.engine.subscribe('start', self._set_capabilities)
         self.scanner = Scanner(self._clean_scan)
         self.scanner.delete()
-        self.statsThread = BackgroundTask(STATS_INTERVAL, self._update_stats)
-        self.statsThread.start()
+        self.guests_stats_thread = BackgroundTask(GUESTS_STATS_INTERVAL,
+                                                  self._update_guests_stats)
+        self.host_stats_thread = BackgroundTask(HOST_STATS_INTERVAL,
+                                                self._update_host_stats)
+        self.guests_stats_thread.start()
+        self.host_stats_thread.start()
+
         self.distros = self._get_distros()
         if 'qemu:///' in self.libvirt_uri:
             self._default_pool_check()
@@ -206,7 +214,7 @@ class Model(object):
                 'qemu_stream_dns': self.qemu_stream_dns,
                 'screenshot': VMScreenshot.get_stream_test_result()}
 
-    def _update_stats(self):
+    def _update_guests_stats(self):
         vm_list = self.vms_get_list()
 
         for name in vm_list:
@@ -338,6 +346,18 @@ class Model(object):
         name_lists = [file.split('.', 1)[0] for file in file_lists]
 
         return name_lists
+
+    def  _update_host_stats(self):
+        self._get_percentage_host_cpu_usage()
+
+    def _get_percentage_host_cpu_usage(self):
+        # This is cpu usage producer. This producer will calculate the usage
+        # at an interval of HOST_STATS_INTERVAL.
+        # The psutil.cpu_percent works as non blocking.
+        # psutil.cpu_percent maintains a cpu time sample.
+        # It will update the cpu time sample when it is called.
+        # So only this producer can call psutil.cpu_percent in kimchi.
+        self.host_stats['cpu_utilization'] = psutil.cpu_percent(None)
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
@@ -943,6 +963,9 @@ class Model(object):
             return self.distros[name]
         except KeyError:
             raise NotFoundError("distro '%s' not found" % name)
+
+    def hoststats_lookup(self, *name):
+        return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0)}
 
 
 class LibvirtVMTemplate(VMTemplate):
