@@ -1,0 +1,28 @@
+{
+	"$schema": "http://json-schema.org/draft-03/schema#",
+	"title": "Kimchi API",
+	"description": "Json schema for Kimchi API",
+	"type": "object",
+	"properties": {
+		"vms_create": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "The name of the new VM",
+					"type": "string"
+				},
+				"template": {
+					"description": "The URI of a template to use when building a VM",
+					"type": "string",
+					"pattern": "^/templates/[^/]+/?$",
+					"required": true
+				},
+				"storagepool": {
+					"description": "Assign a specefic Storage Pool to the new VM",
+					"type": "string",
+					"pattern": "^/storagepools/[^/]+/?$"
+				}
+			}
+		}
+	}
+}

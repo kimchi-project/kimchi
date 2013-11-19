@@ -108,11 +108,7 @@ class MockModel(object):
         self._mock_graphics_ports[name] = vnc_port
 
     def vms_create(self, params):
-        try:
-            t_name = kimchi.model.template_name_from_uri(params['template'])
-        except KeyError, item:
-            raise MissingParameter(item)
-
+        t_name = kimchi.model.template_name_from_uri(params['template'])
         name = kimchi.model.get_vm_name(params.get('name'), t_name,
                                         self._mock_vms.keys())
         if name in self._mock_vms:

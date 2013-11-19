@@ -22,9 +22,11 @@
 
 import cherrypy
 import json
+from jsonschema import Draft3Validator, ValidationError
 from functools import wraps
 import urllib2
 
+from kimchi.config import get_api_schema_file
 from kimchi.exception import *
 import kimchi.template
 from kimchi.model import ISO_POOL_NAME
@@ -79,6 +81,18 @@ def parse_request():
                                       " 'application/json'")
 def internal_redirect(url):
     raise cherrypy.InternalRedirect(url.encode("utf-8"))
+
+
+def validate_params(params, instance, action):
+    api_schema = json.load(open(get_api_schema_file()))
+    operation = model_fn(instance, action)
+    validator = Draft3Validator(api_schema)
+    request = {operation: params}
+    try:
+        validator.validate(request)
+    except ValidationError:
+        raise InvalidParameter('; '.join(
+            e.message for e in validator.iter_errors(request)))
 
 
 def generate_action_handler(instance, action_name, action_args=None):
@@ -241,6 +255,7 @@ class Collection(object):
             raise cherrypy.HTTPError(405,
                 'Create is not allowed for %s' % get_class_name(self))
         params = parse_request()
+        validate_params(params, self, 'create')
         args = self.model_args + [params]
         name = create(*args)
         cherrypy.response.status = 201

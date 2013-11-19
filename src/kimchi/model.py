@@ -459,11 +459,7 @@ class Model(object):
 
     def vms_create(self, params):
         conn = self.conn.get()
-        try:
-            t_name = template_name_from_uri(params['template'])
-        except KeyError, item:
-            raise MissingParameter(item)
-
+        t_name = template_name_from_uri(params['template'])
         vm_uuid = str(uuid.uuid4())
         vm_list = self.vms_get_list()
         name = get_vm_name(params.get('name'), t_name, vm_list)

@@ -75,7 +75,7 @@ class ExceptionTests(unittest.TestCase):
         # test 400 missing required parameter
         req = json.dumps({})
         resp = json.loads(request(host, port, '/vms', req, 'POST').read())
-        msg = "Missing parameter: ''template''"
+        msg = u"Invalid parameter: 'u'template' is a required property'"
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertNotIn('call_stack', resp)
@@ -105,7 +105,7 @@ class ExceptionTests(unittest.TestCase):
         # test 400 missing required parameter
         req = json.dumps({})
         resp = json.loads(request(host, port, '/vms', req, 'POST').read())
-        msg = "Missing parameter: ''template''"
+        msg = u"Invalid parameter: 'u'template' is a required property'"
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertIn('call_stack', resp)

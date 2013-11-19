@@ -49,9 +49,18 @@ kimchi_PYTHON = \
 
 nodist_kimchi_PYTHON = config.py
 
-EXTRA_DIST = config.py.in
+EXTRA_DIST = \
+	API.json \
+	config.py.in
 
 kimchidir = $(pythondir)/kimchi
+
+install-data-local:
+	$(MKDIR_P) $(DESTDIR)$(kimchidir)
+	$(INSTALL_DATA) API.json $(DESTDIR)$(kimchidir)/API.json
+
+uninstall-local:
+	$(RM) $(DESTDIR)$(kimchidir)/API.json
 
 do_substitution = \
 	sed -e 's,[@]prefix[@],$(prefix),g'             \

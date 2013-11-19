@@ -317,6 +317,21 @@ class RestTests(unittest.TestCase):
         count = len(json.loads(self.request('/vms').read()))
         self.assertEquals(5, count)
 
+    def test_create_vm_without_template(self):
+        req = json.dumps({'name': 'vm-without-template'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+        resp = json.loads(resp.read())
+        self.assertIn('Invalid parameter', resp['reason'])
+
+    def test_create_vm_with_bad_template_uri(self):
+        req = json.dumps({'name': 'vm-bad-template',
+                          'template': '/mytemplate'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+        resp = json.loads(resp.read())
+        self.assertIn('Invalid parameter', resp['reason'])
+
     def test_get_storagepools(self):
         storagepools = json.loads(self.request('/storagepools').read())
         self.assertEquals(2, len(storagepools))

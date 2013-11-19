@@ -20,6 +20,7 @@ Requires:	python-imaging
 Requires:	libxml2-python
 Requires:	PyPAM
 Requires:	python-psutil
+Requires:	python-jsonschema >= 1.3.0
 
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict
@@ -105,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,root)
 %{_bindir}/kimchid
 %{python_sitelib}/kimchi/*.py*
+%{python_sitelib}/kimchi/API.json
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md
 %{_datadir}/kimchi/doc/kimchi-guest.png

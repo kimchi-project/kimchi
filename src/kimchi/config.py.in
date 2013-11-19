@@ -51,6 +51,15 @@ def get_config_dir():
         return os.path.join(prefix, 'src')
 
 
+def get_api_schema_file():
+    prefix = get_prefix()
+
+    if prefix == '@pkgdatadir@':
+        return '@pkgdatadir@/API.json'
+    else:
+        return os.path.join(prefix, 'src/kimchi/API.json')
+
+
 def get_default_log_dir():
     prefix = get_prefix()
 
