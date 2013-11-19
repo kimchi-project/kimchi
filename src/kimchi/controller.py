@@ -638,6 +638,19 @@ class Distros(Collection):
         self.resource = Distro
 
 
+class Host(Resource):
+    def __init__(self, model, id=None):
+        super(Host, self).__init__(model, id)
+        self.stats = HostStats(self.model)
+        self.stats.exposed = True
+
+
+class HostStats(Resource):
+    @property
+    def data(self):
+        return self.info
+
+
 @cherrypy.expose
 def login(*args):
     params = parse_request()

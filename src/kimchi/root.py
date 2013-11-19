@@ -56,6 +56,7 @@ class Root(controller.Resource):
         self.storagepools = controller.StoragePools(model)
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
+        self.host = controller.Host(model)
         self.login = controller.login
         self.logout = controller.logout
         self.debugreports = controller.DebugReports(model)
