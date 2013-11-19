@@ -413,6 +413,26 @@ class Template(Resource):
                 'folder': self.info.get('folder', [])}
 
 
+class Interfaces(Collection):
+    def __init__(self, model):
+        super(Interfaces, self).__init__(model)
+        self.resource = Interface
+
+
+class Interface(Resource):
+    def __init__(self, model, ident):
+        super(Interface, self).__init__(model, ident)
+        self.uri_fmt = "/interfaces/%s"
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'type': self.info['type'],
+                'ipaddr': self.info['ipaddr'],
+                'netmask': self.info['netmask'],
+                'status': self.info['status']}
+
+
 class StorageVolume(Resource):
     def __init__(self, model, pool, ident):
         super(StorageVolume, self).__init__(model, ident)

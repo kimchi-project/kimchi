@@ -54,6 +54,7 @@ class Root(controller.Resource):
         self.vms = controller.VMs(model)
         self.templates = controller.Templates(model)
         self.storagepools = controller.StoragePools(model)
+        self.interfaces = controller.Interfaces(model)
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
         self.host = controller.Host(model)
