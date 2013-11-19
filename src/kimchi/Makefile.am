@@ -28,6 +28,7 @@ kimchi_PYTHON = \
 	exception.py      \
 	__init__.py       \
 	isoinfo.py        \
+	netinfo.py        \
 	mockmodel.py      \
 	model.py          \
 	objectstore.py    \

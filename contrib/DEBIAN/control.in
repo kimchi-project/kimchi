@@ -13,7 +13,8 @@ Depends: python-cherrypy3 (>= 3.2.0),
          python-libxml2,
          qemu-kvm,
          python-pam,
-         python-psutil
+         python-psutil,
+         python-ethtool
 Build-Depends:
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server
