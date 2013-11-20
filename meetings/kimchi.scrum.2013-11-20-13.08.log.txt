@@ -1,0 +1,325 @@
+13:08:21 <alinefm> #startmeeting
+13:08:21 <kimchi-bot> Meeting started Wed Nov 20 13:08:21 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:08:21 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:08:27 <alinefm> #meetingname scrum
+13:08:27 <kimchi-bot> The meeting name has been set to 'scrum'
+13:08:30 <pvital> royce, I think it's better we go back to scrum
+13:08:30 <pvital> :-D
+13:08:36 <alinefm> #info  Agenda 1) Sprint 1 2) Sprint 2 3) Open discussion
+13:08:42 <alinefm> anything else?
+13:08:59 <alinefm> ok
+13:09:00 <alinefm> #topic Sprint 1
+13:09:02 <ming> looks good
+13:09:05 <alinefm> I could merge more patches this week! Thank you all!
+13:09:17 <zhoumeina> great
+13:09:23 <alinefm> we still need to focus on sprint 1 tasks and sprint 2 as well
+13:09:39 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:09:46 <alinefm> from the list, the first item is network
+13:10:00 <alinefm> shaohef, I think the interface patches can be merged today
+13:10:22 <alinefm> will you work on network patches after that?
+13:10:27 <shaohef> alinefm:  sure.
+13:10:34 <alinefm> great
+13:10:49 <alinefm> about the UI, I made some comments some time ago but I am missing the next version
+13:10:51 <alinefm> any update?
+13:10:54 <shaohef> alinefm:  as we discuss today, both network and network IO depends on it.
+13:11:02 <YuXin> if backend network patch got merged, I can get frontend patch V2 sent out quickly
+13:11:09 <alinefm> shaohef, depends on interface patches?
+13:11:16 <shaohef> alinefm: yes.
+13:11:17 <alinefm> YuXin, great!
+13:11:36 <alinefm> shaohef, YuXin, anything else do you want to address related to network patches?
+13:11:51 <shaohef> alinefm:   I will on line this evening. any problem about interface let me know.
+13:12:05 <YuXin> shaohef, please rebase your other backend patches and then Aline can review it
+13:12:24 <alinefm> shaohef, ok
+13:12:38 <alinefm> next: Basic host management (host)
+13:12:52 <alinefm> now I am seeing more progress in it
+13:13:09 <alinefm> shaohef, I think the static data patches are ready too
+13:13:27 <alinefm> you need to work out on disk io and network io patches now
+13:13:47 <alinefm> do you think we can merge them still this week?
+13:13:54 <shaohef> alinefm:  that's great. I will starting on them.
+13:13:58 <shaohef> alinefm: thank you.
+13:14:29 <alinefm> hlwanghl, the UI also looks good
+13:14:36 <hlwanghl> I think we are close to finish it.
+13:14:38 <alinefm> I made some comments yesterday
+13:14:44 <hlwanghl> Thanks :-)
+13:14:54 <hlwanghl> Yeah I see
+13:15:10 <alinefm> markwu suggested to remove (instead of disable) the debug reports when no report tool is available
+13:15:18 <alinefm> any comments? suggestion? concerns about that?
+13:15:24 <alinefm> ming, markwu ^
+13:15:32 <shaohef> YuXin: yes. rebase is always tedious. You do not suffer it
+13:15:49 <hlwanghl> I suggest disable
+13:15:50 <AdamKingIT> We generally don't remove UI elements like that
+13:15:52 <markwu> alinefm, nope,  I didn't suggest that
+13:16:15 <royce> shaohef, interface patch are independant I think, it'll be quick
+13:16:18 <markwu> I suggest we need have a explicit requirement of the report tool
+13:16:39 <pvital> alinefm, markwu, AdamKingIT: IMO disable is better than remove something from the interface
+13:16:58 <shaohef> royce:  thanks for you review.
+13:16:59 <markwu> again,  I didn't suggest remove anything
+13:16:59 <pvital> user can see that the fuction is there, but not availbale
+13:16:59 <AdamKingIT> pvital: yes.
+13:17:06 <ming> alinefm,. not sure what is remove?
+13:17:13 <alinefm> markwu, sorry! maybe I misunderstood you
+13:17:20 <AdamKingIT> markwu: what did you suggest removing again?  ;-)
+13:17:22 <shaohef> pvital:  agree.
+13:17:25 <royce> shaohef, yw, just feedback for your review to me:)
+13:17:25 <pvital> markwu, sorry!
+13:17:46 <ming> I think mark's idea is about how to check the tools instead of removing it.
+13:18:14 <alinefm> markwu, for rhel, fedora, I am OK in adding sos dependency
+13:18:23 <ming> Checking the tool with packages can work sometimes.
+13:18:25 <markwu> np,  my point is that we need make sure the tool is available to expose the feature implemented in kimchi to user
+13:18:26 <alinefm> but we do not have a specific tool for ubuntu and opensuse
+13:19:00 <ming> alinefm, that is to be done.
+13:19:05 <markwu> alinefm, is supportconfig  for suse?
+13:19:17 <ming> markwu, it is listed there.
+13:19:23 <ming> But need more work
+13:19:35 <markwu> sos is also available for ubuntu, but only for the latest version
+13:19:38 <ming> not hard, but need more test.
+13:20:12 <ming> so the basic ideas is to test the command directly instead of checking the static packages.
+13:20:33 <ming> User do have chance to install the tools in non-package way.
+13:21:21 <markwu> alinefm, if it's really not available on ubuntu,  I think we need your patch,  but I hope it also can expose the tool it can use
+13:21:47 <alinefm> markwu, and expose the tool name on UI?
+13:21:48 <ming> markwu, why should the user know that?
+13:22:03 <ming> The tools should be hiden from the user.
+13:22:36 <markwu> ming, if the user don't what the report is,  he can't get better understand of the content
+13:22:43 <ming> The idea is if the system get two, we chose one by priority.
+13:23:18 <ming> markwu, the user need to download the log files, he should be expert on the content of the log file.
+13:23:26 <shaohef> ping
+13:23:55 <AdamKingIT> shaohef: pong
+13:24:07 <hlwanghl> Haha
+13:24:18 <shaohef> AdamKingIT: I'm  living :)
+13:24:27 <markwu> we should not assume that. for me,  I am familiar with sos,  but I have no idea about other tool
+13:24:30 <AdamKingIT> shaohef: hooray!
+13:24:48 <alinefm> markwu, it can become complex while handling multiple report tools
+13:24:56 <AdamKingIT> I agree we want some abstraction in the UI from the backend debug tools,,
+13:25:00 <ming> makrwu, Kimchi only provide a way for the user to download the log file.
+13:25:05 <alinefm> one report can be generated using a tool-A and a second one using tool-B
+13:25:17 <markwu> if it's generated by other tools,  probably I need know it's generated by which tool,  I can do a research on tool to know what log files it contains
+13:25:20 <ming> the log file can be in different format.
+13:25:45 <markwu> alinefm, for me,  I don't think we need support multiple tools for one platform
+13:25:47 <AdamKingIT> If there is more than one choice, we can run them all and combine the results, or make it admin configurable which tool is to be used
+13:26:52 <ming> AdamKingIT, I think that expose too much details to the user.
+13:27:02 <alinefm> markwu, agree
+13:27:06 <ming> Kimchi can chose one for them.
+13:27:08 <markwu> AdamKingIT, I think we could just choose the most popular tool for that platform
+13:27:12 <pvital> I think the second option of AdamKingIT is good
+13:27:18 <markwu> for fedora and rhel,  sos is enough!
+13:27:47 <AdamKingIT> if there is an obvious choice we should take it.. I am not thinking that the admin would have a choice via the UI, more like a backend config file
+13:28:44 <AdamKingIT> but by all means, if one tools is the standard for a platform we should use it
+13:28:50 <alinefm> markwu, I think we could make it dependent of platform and document which tool is using for each one
+13:28:52 <royce> markwu, is power linux also use this?
+13:28:56 <alinefm> and do not expose anything on UI
+13:29:18 <markwu> alinefm, I am find with it
+13:29:25 <markwu> s/find/fine/
+13:29:38 <alinefm> ming, do you also agree? ^
+13:29:39 <AdamKingIT> we definitely want to keep the UI simple. Our target user likely doesn't have an opinion which tool to use
+13:29:55 <markwu> royce, sos is arch agnostic, written in python
+13:30:15 <ming> alinefm, do you propose a static mapping?
+13:30:57 <alinefm> ming, yes! we identify the os on host and map it for a tool
+13:31:03 <alinefm> fedora/rhel => sos
+13:31:09 <pvital> royce, markwu: just checked that thereis the sosreport on fedora19 in ppc64
+13:31:25 <royce> thanks, pvital, markwu
+13:31:35 <ming> alinefm, that is not the way. Ubuntu and Suse can also have sosreport on it.
+13:31:48 <alinefm> ming, but which is the default tool?
+13:31:51 <markwu> pvital, thanks for confirmation
+13:32:09 <alinefm> the idea is always uses the default tool for each platform
+13:32:11 <ming> alinefm, now I list three tools.
+13:32:25 <ming> try the tree tools one by one.
+13:32:40 <ming> sosreport is the most preferred on
+13:33:44 <pvital> ming, could not find sosreport on debian - using only official apt repositories
+13:34:05 <YuXin> if I understand correctly, the report is generated by a tool and must be interpreted by that tool also, right?
+13:34:11 <alinefm> using default tool we can easier find a package dependency for kimchi
+13:34:29 <ming> sosreport, supportconfig,linuxexporlers...
+13:34:38 <ming> the list is extensible.
+13:34:47 <markwu> pvital, https://github.com/sosreport/sosreport
+13:35:10 * pvital is checking the link
+13:35:14 <ming> pvital, if a new tool was found, the tool should be added into the list.
+13:35:21 <ming> s/was/is
+13:35:39 <alinefm> ming, that way one report can be generated using a tool-A and other using tool-B
+13:35:49 <alinefm> it will get the user confused
+13:36:08 <pvital> hum!!! on debian it's in the sid repository!
+13:36:20 <pvital> I'm running the stable one
+13:36:23 <ming> alinefm, why? only one tool will be determined.
+13:36:39 <alinefm> ming, nope
+13:36:57 <alinefm> think I have installed supportconfig and generate a report from kimchi
+13:37:04 <alinefm> then I install sos package
+13:37:11 <alinefm> then kimchi will use sos to generate the report
+13:37:15 <alinefm> let's move forward - we have more items to discuss
+13:37:20 <alinefm> we can continue after meeting
+13:37:27 <shaohef> pvital: so a request in the spec file ?
+13:38:01 <alinefm> next: Add extension interface for Advanced host config (host)
+13:38:09 <alinefm> markwu, zhoumeina ^
+13:38:28 <zhoumeina> yes
+13:38:35 <alinefm> markwu, I am missing the next patch series about the backend
+13:39:16 <alinefm> also I would like to expose my thoughts about the plugin structure
+13:39:26 <zhoumeina> ok
+13:39:40 <alinefm> /plugins/<plugin-name>/*.py (backend files)
+13:40:03 <alinefm> /plugins/<plugin-name>/ui/<css, js,...> (ui files)
+13:40:25 <alinefm> /plugins/config/ui/<plugin-name>.xml (tabs.xml files for each plugin)
+13:41:18 <alinefm> we need to make sure to do not expose the backend files
+13:41:22 <alinefm> zhoumeina, ^
+13:41:43 <alinefm> for that I suggested put all config file in a same dir
+13:42:08 <markwu> alinefm, I update it on my local repo, and working on the test case.  but I am not very keen on the plugin support.
+13:42:09 <alinefm> the plugin owner will be responsible to expose what else he/she wants
+13:42:25 <AdamKingIT> alinefm: You mean prevent a user from accessing the xml file?
+13:42:28 <zhoumeina> alinefm: The plugin files whatever front-end and backend are all developed by 3rd party people
+13:42:35 <ming> Is it necessary to expose /plugins/<plugin-name>/*.py ?
+13:42:48 <zhoumeina> Why can not expose it ?
+13:43:04 <alinefm> zhoumeina, because it is the backend - we should no expose it
+13:43:17 <markwu> alinefm, at least it's not very attractive for kimchi-ginger
+13:43:19 <alinefm> the plugin owner should be able to decide what he/she wants to expose
+13:43:28 <AdamKingIT> Good security practice would say the end user shouldn't be able to GET anything that they don't need. Seems to be the .py files have the same issue
+13:43:44 <ming> Also, an example, if we need add a power specific host data, how can we add that data?
+13:44:21 <alinefm> markwu, but it must be done for sprint 1
+13:44:29 <ming> The same issue for the template.
+13:44:33 <AdamKingIT> while we are on the subject of plugins, we need to consider how plugins can provide help
+13:44:59 <alinefm> markwu, if you do not want to work on that anymore we can reassign the task
+13:45:20 <markwu> alinefm, I can continue to work on it.  but we should also consider the background of that task
+13:45:47 <markwu> we have a lot of core functions to support for kimchi,  why do we eager to support plugin
+13:46:01 <markwu> that's the requirement of kimchi-ginger
+13:46:01 <zhoumeina> yes, we don't know the background very clear.
+13:46:06 <ming> I still can not understand what is plugin's meaning.
+13:46:21 <AdamKingIT> plugin is the means for ginger to extend kimchi
+13:46:49 <markwu> but it turns out that not all ginger patch could be done in a plugin way
+13:46:51 <markwu> . For example, we would like to expose some power specific information by the uri /host/config. Obviously it's not suitable for kimchi base, and it does't worth a separate app plugin because of the minor difference and a new api for will make things confusing.
+13:47:01 <zhoumeina> it is for ginger to extend kimchi, right?
+13:47:28 <AdamKingIT> zhoumeina: yes
+13:47:33 <alinefm> markwu, I suggested another approach for this case
+13:47:49 <AdamKingIT> markwu: we probably need to talk more about that use case...
+13:48:05 <alinefm> markwu, this second approach work with listeners and registers (like "Eclipse") - that way a plugin can add content to an existent tab.
+13:48:13 <shaohef> can we split model.py?  model.py can benefit from it
+13:48:20 <zhoumeina> so both backend and frontend files in one folder, tab.xml for this plugin in another folder?
+13:48:29 <AdamKingIT> we have an item for s2 to refactor some of the code
+13:48:38 <shaohef> will we split model.py by plugin?
+13:48:50 <markwu> alinefm, do you want add a lot of listener or hook point in kimchi base's code?
+13:49:01 <AdamKingIT> I will propose we split it by resuorce
+13:49:08 <ming> About it seems it is pretty difficult for us to add some power specific data to a existing Kimchi base structure in totally seperate  way.
+13:49:21 <zhoumeina> alinefm: I have another item not very clear
+13:49:46 <markwu> AdamKingIT, even for the same resource,  it could have different attribute on x86 and power platform
+13:49:53 <zhoumeina> why we have to make <plugin-name>.xml?
+13:49:58 <zhoumeina> why not make one xml?
+13:50:03 <alinefm> markwu, I  only have an idea about it - how it will be implemented need to be discussed
+13:50:08 <alinefm> zhoumeina, which one?
+13:50:12 <ming> markwu, that is a big issue.
+13:50:13 <markwu> so that's not feasible to totally split by resource
+13:50:31 <AdamKingIT> zhoumeina: I would suggest a standard name w/ the plugin...
+13:50:44 <alinefm> zhoumeina, each plugin will install its own file
+13:50:51 <AdamKingIT> similar to how every J2EE app has a web.xml withing
+13:50:53 <alinefm> during the package installation we can not edit a file
+13:50:59 <ming> markwu, so you use hook registered to the resource?
+13:51:00 <alinefm> you just add files to the system
+13:51:01 <zhoumeina> how to install a plugin?
+13:51:11 <AdamKingIT> s/withing/within
+13:51:15 <markwu> alinefm, I just have a concern about the overlap kimchi and kimchi-ginger can't be resolved by a clean plugin way
+13:51:26 <zhoumeina> user have to add plugin folders and another xml, right?
+13:51:31 <markwu> ming, that's not my proposal
+13:51:51 <AdamKingIT> I would suggest that all of the contents of the plugin be contained w/in the plugin folder
+13:51:55 <alinefm> zhoumeina, it will be a package
+13:52:01 <alinefm> rpm or deb one
+13:52:03 <AdamKingIT> with some areas "pubic" and some private
+13:52:29 <zhoumeina> alinefm: I mean the xml
+13:52:37 <zhoumeina> xml in another folder
+13:52:37 <alinefm> AdamKingIT, that way we need to get the plugin owner expose or not the tabs.xml file
+13:52:43 <markwu> currently,  I think we could make the repo of kimchi-ginger include all code kimchi base and ginger piece. all melt together
+13:53:07 <ming> markwu, maybe another repository.
+13:53:14 <ming> with duplicate code.
+13:53:19 <alinefm> AdamKingIT, zhoumeina, which can be a good deal!
+13:53:38 <markwu> ming, yes
+13:53:50 <AdamKingIT> eeps, fork the code?
+13:54:01 <alinefm> we do not need to care about what files the plugin expose and let the plugin does it
+13:54:31 <alinefm> the kimchi only can assume tabs.xml will be available and try to get it
+13:54:31 <YuXin> I still have question about the purpose of this feature, whether we want to design a framework to get kimchi features more structured or create run-time plugin like eclipse/browser plugin.
+13:54:50 <alinefm> YuXin, run-time plugin like eclipse-browser
+13:55:42 <YuXin> what is the requriment of this feature, real customer requirement or something we have figured out totally in mind
+13:56:09 <AdamKingIT> alinefm: it could be the headache (literal not code) but I didn't follow the good deal
+13:56:49 <alinefm> AdamKingIT, so we need to put all config files together and expose this dir
+13:57:12 <zhoumeina> let we think about how we can develop a pulgin , we have to make a package , let us call it pulginA, and we have to put it into kimchi, then I have to make a pluginA.xml.
+13:57:15 <AdamKingIT> Together as in not contained w/in the plugin?
+13:57:45 <zhoumeina> alinefm: right?
+13:57:51 <alinefm> AdamKingIT, together = same dir
+13:57:51 <AdamKingIT> YuXin: Ginger team has need to add certain host management functions beyond what would be expected of a KVM mgmt tool. The plugin item is a means to accomplish that
+13:57:59 <alinefm> AdamKingIT, /plugins/config/ui/<plugin-name>.xml (tabs.xml files for each plugin)
+13:58:08 <alinefm> zhoumeina, right
+13:58:27 <zhoumeina> Another problem come
+13:58:41 <AdamKingIT> Hmm, I think I disagree atm. Keeping a plugin self contained has some obvious benefits that I don't see balanced by splitting it out
+13:58:53 <zhoumeina> if we have 3 xml. How can decide which tabs load first?
+13:59:38 <alinefm> zhoumeina, the old installed first
+13:59:51 <alinefm> we can check the file date/time
+14:00:13 <alinefm> AdamKingIT, we have 2 ways to solve the problem and you do not agree on anyone =s
+14:00:58 <AdamKingIT> I think there are 3 solutions on the table, one of which I prefer
+14:01:03 <shaohef> configure file determine which load first?
+14:01:09 <AdamKingIT> Any of the 3 will work
+14:01:53 <zhoumeina> I agree put them in configure files
+14:02:03 <AdamKingIT> Though all 3 solve a higher level problem. None of them gets at markwu's discussion point, which I assume we'll take up on the list
+14:02:17 <pvital> shaohef, zhoumeina +1
+14:03:00 <alinefm> shaohef, zhoumeina, which config file?
+14:03:29 <AdamKingIT> I can try to write what I see as the plugin use case requirements, and the 3 solns offered to the list
+14:03:39 <zhoumeina> you said that ui-config.conf
+14:03:40 <shaohef> now we just one config.py
+14:03:53 <shaohef> we can add a new configure file
+14:03:54 <alinefm> shaohef, and how a plugin installation will edit it?
+14:04:22 <alinefm> AdamKingIT, we can also load the tabs.xml for each plugin dynamically
+14:04:24 <zhoumeina> but I think it is a little difficult for 3rd developers
+14:04:43 <markwu> AdamKingIT, yes, we could discuss in mail, but I don't like to put it kimchi's list because it's out of kimchi's scope
+14:04:45 <zhoumeina> because he has to change two place when add a plugin
+14:05:02 <alinefm> AdamKingIT, put all data into /plugins/<plugin-name> and before server startup get the tabs.xml from each plugin and expose just it
+14:05:04 <alinefm> zhoumeina, ^
+14:05:25 <shaohef> alinefm:  oh, we need a plugin. does that means different plugins has different loader order?
+14:05:58 <pvital> markwu, AdamKingIT: agreed!
+14:06:17 <AdamKingIT> markwu: I would say the extension interface is in kimchi's scope, if not the details of what the extension contains, much like this plugin discussion
+14:06:17 <alinefm> shaohef, we can assume all plugin will be appended to kimchi tabs
+14:06:50 <ming> I think evil is in the detail.
+14:07:00 <ming> markwu, can you give the detail later?
+14:07:08 <AdamKingIT> alinefm: thats along the line  I was thinking
+14:07:17 <markwu> AdamKingIT, the biggest motivation to support extension interface in kimchi is for kimchi-ginger
+14:07:58 <alinefm> our time is over!
+14:08:02 <AdamKingIT> markwu: correct. ginger is the genesis of the requrement
+14:08:25 <alinefm> we can continue discussing after meeting
+14:08:42 <alinefm> pradeep, do you have anything to share about nfs pool?
+14:08:42 <markwu> my point is plugin is not suitable for ginger.  so that's not suitable for kimchi upstream list
+14:09:04 <alinefm> danielhb, pvital, ahything from sprint 2 tasks?
+14:09:05 <pradeep> alinefm: 1) I need to rebase to latest and send.
+14:09:05 <pradeep> 2) need to fix invalid ip, nfs mount ( that will be resolved once royce send his patch to list nfs mount points)
+14:09:05 <pradeep> 3) Waiting widget ( will be added as improvement later)
+14:09:05 <pradeep> Is there any thing: i need to add
+14:09:12 <zhoumeina> alinefm: can we put all the files in one folder, and only expose xml?
+14:09:16 <shaohef> markwu: what's the best way for kimchi-ginger?
+14:09:18 <pradeep> shaohef: royce: ^^
+14:09:46 <royce> alinefm, we found cherrypy got blcked when handing request
+14:09:47 <zhoumeina> alinefm: ??
+14:09:57 <alinefm> zhoumeina, yes
+14:10:04 <royce> I think if cherrypy won't block
+14:10:12 <markwu> shaohef, we could talk on email
+14:10:17 <pvital> alinefm, not from my side yet! I'm going to send the yum patch in the beggining of next week
+14:10:24 <alinefm> rotru, pradeep, why it blocks?
+14:10:24 <shaohef> markwu:  Ok.
+14:10:28 <AdamKingIT> Seems plugin design trajectory addresses one ginger need, but not another
+14:10:28 <alinefm> royce, ^
+14:10:33 <zhoumeina> alinefm: or maybe expose xml and front-end files
+14:10:37 <royce> even nfs mount blocks we can tolerate
+14:10:43 <alinefm> zhoumeina, only xml
+14:10:43 <shaohef> alinefm:  yes. royce do some test. a thread in mail-list
+14:10:47 <zhoumeina> it is better ,right?
+14:11:13 <zhoumeina> html and css also have to expose
+14:11:15 <danielhb> alinefm, reworking on the backend of Storage Pool based on local disk, as markwu requested
+14:11:21 <zhoumeina> or the tabs will not work
+14:11:26 <alinefm> zhoumeina, we (kimchi) will only expose the xml
+14:11:38 <ming> Storage: New Storage Pool based on local disk (storage)
+14:11:40 <ming> (danielhb) Discover unused local disks
+14:11:41 <ming> (danielhb) REST API to represent available local storage
+14:11:49 <zhoumeina> ok
+14:11:57 <ming> I think Rocye already covers the storage APIs.
+14:12:01 <royce> alinefm, see my investigation in shaohef's mail thread, markwu will  investigate this
+14:12:24 <pradeep> alinefm: Libvirt storage subsystem issue
+14:12:46 <pradeep> alinefm:  so nfs mount taking 120 secs
+14:12:49 <royce> ming, what I cover is nfs and logical discovery, local disk we need to use danielhb's
+14:12:50 <alinefm> royce, I have understood it only takes a long time to mount
+14:12:52 <zhoumeina> alinefm: why not expose html?
+14:13:23 <danielhb> royce, "logical" you mean like partitions?
+14:13:24 <royce> alinefm, it takes long time to mount, but since cherrypy is multithread server
+14:13:35 <royce> it should handle other requests
+14:13:40 <shaohef> logical == lvm?
+14:13:45 <ming> danielhn "logical" is lvm.
+14:13:50 <alinefm> royce, got it
+14:13:51 <royce> but in infact it blocks when one request block
+14:14:09 <royce> danielhb, logical  is lvm pv
+14:14:16 <danielhb> royce, I see
+14:14:25 <alinefm> #endmeeting
