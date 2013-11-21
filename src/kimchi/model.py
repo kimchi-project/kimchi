@@ -50,6 +50,8 @@ import config
 import xmlutils
 import vnc
 import isoinfo
+import psutil
+import platform
 from screenshot import VMScreenshot
 from vmtemplate import VMTemplate
 from kimchi.featuretests import FeatureTests
@@ -116,6 +118,7 @@ class Model(object):
         self.next_taskid = 1
         self.stats = {}
         self.host_stats = {}
+        self.host_info = {}
         self.qemu_stream = False
         self.qemu_stream_dns = False
         self.libvirt_stream_protocols = []
@@ -134,6 +137,7 @@ class Model(object):
 
         self.distros = self._get_distros()
         if 'qemu:///' in self.libvirt_uri:
+            self.host_info = self._get_host_info()
             self._default_pool_check()
             self._default_network_check()
 
@@ -239,6 +243,21 @@ class Model(object):
             self._get_percentage_cpu_usage(vm_uuid, info, seconds)
             self._get_network_io_rate(vm_uuid, dom, seconds)
             self._get_disk_io_rate(vm_uuid, dom, seconds)
+
+    def _get_host_info(self):
+        conn = self.conn.get()
+        xmlstr = conn.getSysinfo(0)
+        tree = ElementTree.fromstring(xmlstr)
+        res = {}
+        res['cpu'] = tree.find("processor/entry[@name='version']").text
+        res['memory'] = psutil.TOTAL_PHYMEM
+        # 'fedora' '17' 'Beefy Miracle'
+        distro, version, codename = platform.linux_distribution()
+        res['os_distro'] = distro
+        res['os_version'] = version
+        res['os_codename'] = codename
+
+        return res
 
     def _get_percentage_cpu_usage(self, vm_uuid, info, seconds):
         prevCpuTime = self.stats[vm_uuid].get('cputime', 0)
@@ -969,6 +988,9 @@ class Model(object):
             return self.distros[name]
         except KeyError:
             raise NotFoundError("distro '%s' not found" % name)
+
+    def host_lookup(self, *name):
+        return self.host_info
 
     def hoststats_lookup(self, *name):
         return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0)}
