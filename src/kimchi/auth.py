@@ -122,14 +122,18 @@ def login(userid, password):
         debug("User cannot be verified with the supplied password")
         return False
     debug("User verified, establishing session")
+    cherrypy.session.acquire_lock()
     cherrypy.session.regenerate()
     cherrypy.session[SESSION_USER] = cherrypy.request.login = userid
+    cherrypy.session.release_lock()
     return True
 
 
 def logout():
+    cherrypy.session.acquire_lock()
     userid = cherrypy.session.get(SESSION_USER, None)
     cherrypy.session[SESSION_USER] = cherrypy.request.login = None
+    cherrypy.session.release_lock()
     cherrypy.lib.sessions.expire()
 
 

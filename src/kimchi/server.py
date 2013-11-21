@@ -65,6 +65,7 @@ class Server(object):
                'tools.sessions.on': True,
                'tools.sessions.name': 'kimchi',
                'tools.sessions.httponly': True,
+               'tools.sessions.locking': 'explicit',
                'tools.sessions.storage_type': 'file',
                'tools.sessions.storage_path': config.get_session_path(),
                'tools.kimchiauth.on': False
