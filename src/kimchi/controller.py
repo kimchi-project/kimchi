@@ -654,6 +654,9 @@ class Host(Resource):
         self.stats = HostStats(self.model)
         self.stats.exposed = True
 
+    @property
+    def data(self):
+        return self.info
 
 class HostStats(Resource):
     @property
