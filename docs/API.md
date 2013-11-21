@@ -454,7 +454,14 @@ Contains information of host.
 
 **Methods:**
 
-* **GET**: Retrieve NULL
+* **GET**: Retrieve host static information
+    * memory: Total size of host physical memory
+              The unit is Bytes
+    * cpu: The model name of host CPU
+    * os_distro: The OS distribution that runs on host
+    * os_version: The version of OS distribution
+    * os_codename: The code name of OS distribution
+
 * **POST**: *See Host Actions*
 
 **Actions (POST):**
