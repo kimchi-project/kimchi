@@ -449,6 +449,16 @@ class MockModel(object):
         os.rename(tmpf, realf)
         cb("OK", True)
 
+    def host_lookup(self, *name):
+        res = {}
+        res['memory'] = 6114058240
+        res['cpu'] = 'Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz'
+        res['os_distro'] = 'Red Hat Enterprise Linux Server'
+        res['os_version'] = '6.4'
+        res['os_codename'] = 'Santiago'
+
+        return res
+
     def hoststats_lookup(self, *name):
         return {'cpu_utilization': round(random.uniform(0, 100), 1)}
 
