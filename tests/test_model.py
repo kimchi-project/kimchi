@@ -26,6 +26,8 @@ import threading
 import os
 import time
 import tempfile
+import psutil
+import platform
 
 import kimchi.model
 import kimchi.objectstore
@@ -509,6 +511,17 @@ class ModelTests(unittest.TestCase):
             self.assertIn('os_distro', distro)
             self.assertIn('os_version', distro)
             self.assertIn('path', distro)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_get_hostinfo(self):
+        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        info = inst.host_lookup()
+        distro, version, codename = platform.linux_distribution()
+        self.assertIn('cpu', info)
+        self.assertEquals(distro, info['os_distro'])
+        self.assertEquals(version, info['os_version'])
+        self.assertEquals(codename, info['os_codename'])
+        self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
 
     def test_get_hoststats(self):
         inst = kimchi.model.Model('test:///default',

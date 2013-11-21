@@ -913,6 +913,16 @@ class RestTests(unittest.TestCase):
             resp = request(host, port, '/debugreports/report1/content')
             self.assertEquals(200, resp.status)
 
+    def test_host(self):
+        resp = self.request('/host').read()
+        info = json.loads(resp)
+        self.assertEquals('Red Hat Enterprise Linux Server', info['os_distro'])
+        self.assertEquals('6.4', info['os_version'])
+        self.assertEquals('Santiago', info['os_codename'])
+        self.assertEquals('Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz',
+                          info['cpu'])
+        self.assertEquals(6114058240, info['memory'])
+
     def test_hoststats(self):
         resp = self.request('/host/stats').read()
         stats = json.loads(resp)
