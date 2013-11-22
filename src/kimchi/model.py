@@ -856,7 +856,7 @@ class Model(object):
             conn = self.conn.get()
             names = conn.listStoragePools()
             names += conn.listDefinedStoragePools()
-            return names
+            return sorted(names)
         except libvirt.libvirtError as e:
             raise OperationFailed(e.get_error_message())
 

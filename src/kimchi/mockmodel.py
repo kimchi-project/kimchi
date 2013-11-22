@@ -334,7 +334,7 @@ class MockModel(object):
         del self._mock_storagepools[pool.name]
 
     def storagepools_get_list(self):
-        return self._mock_storagepools.keys()
+        return sorted(self._mock_storagepools.keys())
 
     def _get_storagepool(self, name):
         try:
