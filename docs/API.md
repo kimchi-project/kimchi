@@ -370,6 +370,32 @@ creation.
       not tested yet
 * **POST**: *See Configuration Actions*
 
+### Collection: Distros
+
+**URI:** /config/distros
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all Distros
+
+### Resource: Distro
+
+**URI:** /config/distros/*:name*
+
+Contains information about the OS distribution.
+
+**Methods:**
+
+* **GET**: Retrieve a OS distribution information.
+    * name: The name of the Distro.
+    * os_distro: The operating system distribution.
+    * os_version: The version of the operating system distribution.
+    * path: A URI to an ISO image.
+
+**Actions (POST):**
+
+*No actions defined*
+
 #### Collection: Debug Reports
 
 **URI:** /debugreports
@@ -414,34 +440,6 @@ It is the sub-resource of Debug Report and the client use it to get the real con
 of the Debug Report file from the server
 
 * **GET**: Retrieve the content of a Debug Report file
-
-**Actions (POST):**
-
-*No actions defined*
-
-### Collection: Distros
-
-**URI:** /config/distros
-
-**Methods:**
-
-* **GET**: Retrieve a summarized list of all Distros
-
-### Resource: Distro
-
-**URI:** /config/distros/*:name*
-
-Contains information about the OS distribution.
-
-**Methods:**
-
-* **GET**: Retrieve a OS distribution information.
-    * name: The name of the Distro.
-    * os_distro: The operating system distribution.
-    * os_version: The version of the operating system distribution.
-    * path: A URI to an ISO image.
-
-* **POST**: *See Configuration Actions*
 
 **Actions (POST):**
 
