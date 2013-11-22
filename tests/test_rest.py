@@ -931,6 +931,14 @@ class RestTests(unittest.TestCase):
         self.assertGreaterEqual(cpu_utilization, 0.0)
         self.assertLessEqual(cpu_utilization, 100.0)
 
+        memory_stats = stats['memory']
+        self.assertIn('total', memory_stats)
+        self.assertIn('free', memory_stats)
+        self.assertIn('cached', memory_stats)
+        self.assertIn('buffers', memory_stats)
+        self.assertIn('avail', memory_stats)
+
+
 class HttpsRestTests(RestTests):
     """
     Run all of the same tests as above, but use https instead

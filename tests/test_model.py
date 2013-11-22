@@ -535,3 +535,10 @@ class ModelTests(unittest.TestCase):
         self.assertIsInstance(cpu_utilization, float)
         self.assertGreaterEqual(cpu_utilization, 0.0)
         self.assertLessEqual(cpu_utilization, 100.0)
+
+        memory_stats = stats['memory']
+        self.assertIn('total', memory_stats)
+        self.assertIn('free', memory_stats)
+        self.assertIn('cached', memory_stats)
+        self.assertIn('buffers', memory_stats)
+        self.assertIn('avail', memory_stats)
