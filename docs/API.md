@@ -466,7 +466,7 @@ Contains information of host.
 
 *No actions defined*
 
-### Resource: Stats
+### Resource: HostStats
 
 **URI:** /host/stats
 
@@ -477,8 +477,14 @@ Contains the host sample data.
 * **GET**: Retrieve host sample data
     * cpu_utilization: A number between 0 and 100 which indicates the
                        percentage of CPU utilization.
+    * memory: memory statistics of host
+        * total: Total amount of memory. The unit is Bytes.
+        * free: The amount of memory left unused by the system. The unit is Bytes.
+        * buffers: The amount of memory used for file buffers. The unit is Bytes.
+        * cached: The amount of memory used as cache memory. The unit is Bytes.
+        * avail: The total amount of buffer, cache and free memory. The unit is Bytes.
 
-* **POST**: *See Host Actions*
+* **POST**: *See HostStats Actions*
 
 **Actions (POST):**
 
