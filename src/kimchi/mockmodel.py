@@ -26,6 +26,7 @@ import copy
 import subprocess
 import os
 import uuid
+import psutil
 
 try:
     from PIL import Image
@@ -460,7 +461,16 @@ class MockModel(object):
         return res
 
     def hoststats_lookup(self, *name):
-        return {'cpu_utilization': round(random.uniform(0, 100), 1)}
+        mem_usage = psutil.phymem_usage()
+        cached = psutil.cached_phymem()
+        buffers = psutil.phymem_buffers()
+        avail = psutil.avail_phymem()
+        memory_stats = {'total': mem_usage.total, 'free': mem_usage.free,
+                        'cached': cached, 'buffers': buffers,
+                        'avail': avail}
+
+        return {'cpu_utilization': round(random.uniform(0, 100), 1),
+                'memory': memory_stats}
 
 
 class MockVMTemplate(VMTemplate):

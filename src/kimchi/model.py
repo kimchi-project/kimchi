@@ -369,6 +369,7 @@ class Model(object):
 
     def  _update_host_stats(self):
         self._get_percentage_host_cpu_usage()
+        self._get_host_memory_stats()
 
     def _get_percentage_host_cpu_usage(self):
         # This is cpu usage producer. This producer will calculate the usage
@@ -378,6 +379,16 @@ class Model(object):
         # It will update the cpu time sample when it is called.
         # So only this producer can call psutil.cpu_percent in kimchi.
         self.host_stats['cpu_utilization'] = psutil.cpu_percent(None)
+
+    def _get_host_memory_stats(self):
+        mem_usage = psutil.phymem_usage()
+        cached = psutil.cached_phymem()
+        buffers = psutil.phymem_buffers()
+        avail = psutil.avail_phymem()
+        memory_stats = {'total': mem_usage.total, 'free': mem_usage.free,
+                        'cached': cached, 'buffers': buffers,
+                        'avail': avail}
+        self.host_stats['memory'] = memory_stats
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
@@ -993,7 +1004,8 @@ class Model(object):
         return self.host_info
 
     def hoststats_lookup(self, *name):
-        return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0)}
+        return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0),
+                'memory': self.host_stats.get('memory')}
 
 
 class LibvirtVMTemplate(VMTemplate):
