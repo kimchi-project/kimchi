@@ -20,7 +20,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import glob
 import sys
 import os
 import re
@@ -284,13 +283,16 @@ def probe_iso(status_helper, params):
             updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
 
     if os.path.isdir(loc):
-        files = glob.glob('%s/*.iso' % os.path.abspath(loc))
-        for iso in files:
-            try:
-                ret = _probe_iso(iso)
-                update_result(iso, ret)
-            except:
-                continue
+        for root, dirs, files in os.walk(loc):
+            for name in files:
+                if not name.lower().endswith('.iso'):
+                    continue
+                iso = os.path.join(root, name)
+                try:
+                    ret = _probe_iso(iso)
+                    update_result(iso, ret)
+                except:
+                    continue
     elif os.path.isfile(loc):
         ret = _probe_iso(loc, False)
         update_result(loc, ret)
