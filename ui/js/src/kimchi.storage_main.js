@@ -93,17 +93,19 @@ kimchi.storageBindClick = function() {
 
     $('.pool-activate').on('click', function(event) {
         var poolName = $(this).data('name');
-        kimchi.changePoolState(poolName, 'activate', null, function(err) {
+        kimchi.changePoolState(poolName, 'activate', function() {
+            kimchi.doListStoragePools();
+        }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
         });
-        kimchi.doListStoragePools();
     });
     $('.pool-deactivate').on('click', function(event) {
         var poolName = $(this).data('name');
-        kimchi.changePoolState(poolName, 'deactivate', null, function(err) {
+        kimchi.changePoolState(poolName, 'deactivate', function() {
+            kimchi.doListStoragePools();
+        }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
         });
-        kimchi.doListStoragePools();
     });
 
     $('.storage-action').on('click', function() {
