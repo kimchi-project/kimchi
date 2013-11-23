@@ -198,6 +198,7 @@ class Resource(object):
             raise cherrypy.HTTPError(405, "%s does not implement update "
                                      "method" % get_class_name(self))
         params = parse_request()
+        validate_params(params, self, 'update')
         if self.update_params != None:
             invalids = [v for v in params.keys() if
                         v not in self.update_params]
@@ -357,6 +358,7 @@ class VMs(Collection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
+        self.update_params = ["name"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         self.start = generate_action_handler(self, 'start')

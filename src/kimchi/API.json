@@ -23,6 +23,16 @@
 					"pattern": "^/storagepools/[^/]+/?$"
 				}
 			}
+		},
+		"vm_update": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "New name of VM",
+					"type": "string",
+					"minLength": 1
+				}
+			}
 		}
 	}
 }
