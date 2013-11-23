@@ -18,9 +18,11 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libxml2
+from xml.etree import ElementTree
+
 
 def xpath_get_text(xml, expr):
     doc = libxml2.parseDoc(xml)
@@ -29,3 +31,10 @@ def xpath_get_text(xml, expr):
 
     doc.freeDoc()
     return ret
+
+
+def xml_item_update(xml, xpath, value):
+    root = ElementTree.fromstring(xml)
+    item = root.find(xpath)
+    item.text = value
+    return ElementTree.tostring(root, encoding="utf-8")

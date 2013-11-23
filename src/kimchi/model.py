@@ -67,6 +67,8 @@ from kimchi import netinfo
 ISO_POOL_NAME = u'kimchi_isos'
 GUESTS_STATS_INTERVAL = 5
 HOST_STATS_INTERVAL = 1
+VM_STATIC_UPDATE_PARAMS = {'name': './name'}
+VM_LIVE_UPDATE_PARAMS = {}
 
 def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
@@ -389,6 +391,36 @@ class Model(object):
                         'cached': cached, 'buffers': buffers,
                         'avail': avail}
         self.host_stats['memory'] = memory_stats
+
+    def _static_vm_update(self, dom, params):
+        state = Model.dom_state_map[dom.info()[0]]
+
+        old_xml = new_xml = dom.XMLDesc(0)
+
+        for key, val in params.items():
+            if key in VM_STATIC_UPDATE_PARAMS:
+                new_xml = xmlutils.xml_item_update(new_xml, VM_STATIC_UPDATE_PARAMS[key], val)
+
+        try:
+            if 'name' in params:
+                if state == 'running':
+                    raise InvalidParameter("vm name can just updated when vm shutoff")
+                else:
+                    dom.undefine()
+            conn = self.conn.get()
+            dom = conn.defineXML(new_xml)
+        except libvirt.libvirtError as e:
+            dom = conn.defineXML(old_xml)
+            raise OperationFailed(e.get_error_message())
+
+    def _live_vm_update(self, dom, params):
+        pass
+
+    def vm_update(self, name, params):
+        dom = self._get_vm(name)
+        self._static_vm_update(dom, params)
+        self._live_vm_update(dom, params)
+        return dom.name()
 
     def vm_lookup(self, name):
         dom = self._get_vm(name)
