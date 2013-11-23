@@ -84,6 +84,8 @@ the following general conventions:
                 The port number exposed will support the websockets protocol and
                 may support graphics type over plain TCP as well.
 * **DELETE**: Remove the Virtual Machine
+* **PUT**: update the parameters of existed VM
+    * name: New name for this VM (only applied for shutoff VM)
 * **POST**: *See Virtual Machine Actions*
 
 **Actions (POST):**
