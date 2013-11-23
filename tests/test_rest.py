@@ -161,6 +161,46 @@ class RestTests(unittest.TestCase):
         self.assertEquals('vm-1', vm['name'])
         self.assertEquals('shutoff', vm['state'])
 
+    def test_edit_vm(self):
+        req = json.dumps({'name': 'test'})
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        req = json.dumps({'name': 'vm-1', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        vm = json.loads(self.request('/vms/vm-1').read())
+        self.assertEquals('vm-1', vm['name'])
+
+        resp = self.request('/vms/vm-1/start', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+
+        req = json.dumps({'name': 'new-vm'})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        resp = self.request('/vms/vm-1/stop', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+
+        req = json.dumps({'name': 12})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'name': ''})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'name': 'new-name', 'cpus': 5})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(405, resp.status)
+
+        req = json.dumps({'name': 'vm-updated'})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(303, resp.status)
+        vm = json.loads(self.request('/vms/vm-updated', req).read())
+        self.assertEquals('vm-updated', vm['name'])
+
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}],

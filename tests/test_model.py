@@ -299,6 +299,39 @@ class ModelTests(unittest.TestCase):
         for key in params.keys():
             self.assertEquals(params[key], info[key])
 
+    def test_vm_edit(self):
+        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+
+        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
+        inst.templates_create(orig_params)
+
+        with utils.RollbackContext() as rollback:
+            params_1 = {'name': 'kimchi-vm1', 'template': '/templates/test'}
+            params_2 = {'name': 'kimchi-vm2', 'template': '/templates/test'}
+            inst.vms_create(params_1)
+            inst.vms_create(params_2)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm1')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm2')
+
+            vms = inst.vms_get_list()
+            self.assertTrue('kimchi-vm1' in vms)
+
+            inst.vm_start('kimchi-vm1')
+            rollback.prependDefer(inst.vm_stop, 'kimchi-vm1')
+
+            info = inst.vm_lookup('kimchi-vm1')
+            self.assertEquals('running', info['state'])
+
+            params = {'name': 'new-vm'}
+            self.assertRaises(InvalidParameter, inst.vm_update, 'kimchi-vm1', params)
+
+            inst.vm_stop('kimchi-vm1')
+            params = {'name': 'new-vm'}
+            self.assertRaises(OperationFailed, inst.vm_update, 'kimchi-vm1', {'name': 'kimchi-vm2'})
+            inst.vm_update('kimchi-vm1', params)
+            self.assertEquals(info['uuid'], inst.vm_lookup('new-vm')['uuid'])
+            rollback.prependDefer(inst.vm_delete, 'new-vm')
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):
