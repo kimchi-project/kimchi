@@ -81,6 +81,31 @@ class MockModel(object):
         self.next_taskid = 1
         self.storagepool_activate('default')
 
+    def _static_vm_update(self, dom, params):
+        state = dom.info['state']
+
+        if 'name' in params:
+            if state == 'running' or params['name'] in self.vms_get_list():
+                raise InvalidParameter("VM name existed or vm not shutoff.")
+            else:
+                del self._mock_vms[dom.name]
+                dom.name = params['name']
+                self._mock_vms[dom.name] = dom
+
+        for key, val in params.items():
+            if key in kimchi.model.VM_STATIC_UPDATE_PARAMS and key in dom.info:
+                dom.info[key] = val
+
+    def _live_vm_update(self, dom, params):
+        pass
+
+    def vm_update(self, name, params):
+        dom = self._get_vm(name)
+        self._static_vm_update(dom, params)
+        self._live_vm_update(dom, params)
+
+        return dom.name
+
     def vm_lookup(self, name):
         vm = self._get_vm(name)
         if vm.info['state'] == 'running':
