@@ -51,6 +51,8 @@ kimchi.template_edit_main = function() {
         $.each(editableFields, function(i, field) {
             data[field] = $('#form-template-edit [name="' + field + '"]').val();
         });
+        data['memory'] = Number(data['memory']);
+        data['cpus']   = Number(data['cpus']);
         kimchi.updateTemplate($('#template-name').val(), data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
