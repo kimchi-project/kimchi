@@ -36,7 +36,7 @@ Install Dependencies
                         python-cherrypy python-cheetah libvirt-python \
                         libvirt libxml2-python python-imaging \
                         PyPAM m2crypto python-jsonschema rpm-build \
-                        qemu-kvm python-psutil python-ethtool
+                        qemu-kvm python-psutil python-ethtool sos
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
@@ -53,7 +53,8 @@ for more information on how to configure your system to access this repository.
                            python-cherrypy3 python-cheetah python-libvirt \
                            libvirt-bin python-libxml2 python-imaging \
                            python-pam python-m2crypto python-jsonschema \
-                           qemu-kvm libtool python-psutil python-ethtool
+                           qemu-kvm libtool python-psutil python-ethtool \
+                           sosreport
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
