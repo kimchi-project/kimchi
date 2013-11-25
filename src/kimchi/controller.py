@@ -629,7 +629,7 @@ class Capabilities(Resource):
     @property
     def data(self):
         caps = ['libvirt_stream_protocols', 'qemu_stream',
-                'screenshot']
+                'screenshot', 'system_report_tool']
         ret = dict([(x, None) for x in caps])
         ret.update(self.model.get_capabilities())
         return ret

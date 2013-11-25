@@ -817,6 +817,7 @@ class RestTests(unittest.TestCase):
         self.assertIn('libvirt_stream_protocols', conf)
         self.assertIn('qemu_stream', conf)
         self.assertIn('screenshot', conf)
+        self.assertIn('system_report_tool', conf)
 
     def test_auth_unprotected(self):
         hdrs = {'AUTHORIZATION': ''}

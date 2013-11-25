@@ -137,6 +137,13 @@ class Model(object):
         self.guests_stats_thread.start()
         self.host_stats_thread.start()
 
+        # Please add new possible debug report command here
+        # and implement the report generating function
+        # based on the new report command
+        self.report_tools = ({'cmd': 'sosreport --help', 'fn': self._sosreport_generate},
+                             {'cmd': 'supportconfig -h', 'fn':None},
+                             {'cmd': 'linuxexplorers --help', 'fn':None})
+
         self.distros = self._get_distros()
         if 'qemu:///' in self.libvirt_uri:
             self.host_info = self._get_host_info()
@@ -216,10 +223,12 @@ class Model(object):
     _set_capabilities.priority = 90
 
     def get_capabilities(self):
+        report_tool = self._get_system_report_tool()
+
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_stream': self.qemu_stream,
-                'qemu_stream_dns': self.qemu_stream_dns,
-                'screenshot': VMScreenshot.get_stream_test_result()}
+                'screenshot': VMScreenshot.get_stream_test_result(),
+                'system_report_tool': bool(report_tool)}
 
     def _update_guests_stats(self):
         vm_list = self.vms_get_list()
@@ -967,59 +976,58 @@ class Model(object):
                 session.store('screenshot', vm_uuid, params)
         return LibvirtVMScreenshot(params, self.conn)
 
-    def _gen_debugreport_file(self, name):
-        def sosreport_generate(cb, name):
-            command = 'sosreport --batch --name "%s"' % name
-            try:
-                retcode = subprocess.call(command, shell=True, stdout=subprocess.PIPE)
-                if retcode < 0:
-                    raise OperationFailed('Command terminated with signal')
-                elif retcode > 0:
-                    raise OperationFailed('Command failed: rc = %i' % retcode)
-                for fi in glob.glob('/tmp/sosreport-%s-*' % name):
-                    if fnmatch.fnmatch(fi, '*.md5'):
-                        continue
-                output = fi
-                ext = output.split('.', 1)[1]
-                path = config.get_debugreports_path()
-                target = os.path.join(path, name)
-                target_file = '%s.%s' % (target, ext)
-                shutil.move(output, target_file)
-                os.remove('%s.md5' % output)
-                cb('OK', True)
+    def _sosreport_generate(self, cb, name):
+        command = 'sosreport --batch --name "%s"' % name
+        try:
+            retcode = subprocess.call(command, shell=True, stdout=subprocess.PIPE)
+            if retcode < 0:
+                raise OperationFailed('Command terminated with signal')
+            elif retcode > 0:
+                raise OperationFailed('Command failed: rc = %i' % retcode)
+            for fi in glob.glob('/tmp/sosreport-%s-*' % name):
+                if fnmatch.fnmatch(fi, '*.md5'):
+                    continue
+            output = fi
+            ext = output.split('.', 1)[1]
+            path = config.get_debugreports_path()
+            target = os.path.join(path, name)
+            target_file = '%s.%s' % (target, ext)
+            shutil.move(output, target_file)
+            os.remove('%s.md5' % output)
+            cb('OK', True)
 
-                return
+            return
 
-            except OSError:
-                raise
+        except OSError:
+            raise
 
-            except Exception, e:
-                # No need to call cb to update the task status here.
-                # The task object will catch the exception rasied here
-                # and update the task status there
-                log = logging.getLogger('Model')
-                log.warning('Exception in generating debug file: %s', e)
-                raise OperationFailed(e)
-        # Please add new possible debug report command here
-        # Also do implement the report generating function
-        # based on the new report command
-        report_tools = ({'cmd': 'sosreport --help', 'fn':sosreport_generate},
-                       {'cmd': 'supportconfig -h', 'fn':None},
-                       {'cmd': 'linuxexplorers --help', 'fn':None})
+        except Exception, e:
+            # No need to call cb to update the task status here.
+            # The task object will catch the exception rasied here
+            # and update the task status there
+            log = logging.getLogger('Model')
+            log.warning('Exception in generating debug file: %s', e)
+            raise OperationFailed(e)
 
-        gen_cmd = None
+    def _get_system_report_tool(self):
         # check if the command can be found by shell one by one
-        for helper_tool in report_tools:
+        for helper_tool in self.report_tools:
             try:
-                retcode = subprocess.call(helper_tool['cmd'], shell=True, stdout=subprocess.PIPE)
+                retcode = subprocess.call(helper_tool['cmd'], shell=True,
+                                          stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 if retcode == 0:
-                    gen_cmd = helper_tool['cmd']
-                break
+                    return helper_tool['fn']
             except Exception, e:
                 kimchi_log.info('Exception running command: %s', e)
 
+        return None
+
+    def _gen_debugreport_file(self, name):
+        gen_cmd = self._get_system_report_tool()
+
         if gen_cmd is not None:
-            return self.add_task('', helper_tool['fn'], name)
+            return self.add_task('', gen_cmd, name)
+
         raise OperationFailed("debugreport tool not found")
 
     def _get_distros(self):

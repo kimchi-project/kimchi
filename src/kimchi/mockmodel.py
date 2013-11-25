@@ -69,7 +69,9 @@ class MockModel(object):
 
     def get_capabilities(self):
         return {'libvirt_stream_protocols': ['http', 'https', 'ftp', 'ftps', 'tftp'],
-                'screenshot': True}
+                'qemu_stream': True,
+                'screenshot': True,
+                'system_report_tool': True}
 
     def reset(self):
         self._mock_vms = {}
