@@ -412,13 +412,14 @@ class Model(object):
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
             raise OperationFailed(e.get_error_message())
+        return dom
 
     def _live_vm_update(self, dom, params):
         pass
 
     def vm_update(self, name, params):
         dom = self._get_vm(name)
-        self._static_vm_update(dom, params)
+        dom = self._static_vm_update(dom, params)
         self._live_vm_update(dom, params)
         return dom.name()
 
