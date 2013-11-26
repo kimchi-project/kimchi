@@ -247,11 +247,13 @@ class Model(object):
             self._get_disk_io_rate(vm_uuid, dom, seconds)
 
     def _get_host_info(self):
-        conn = self.conn.get()
-        xmlstr = conn.getSysinfo(0)
-        tree = ElementTree.fromstring(xmlstr)
         res = {}
-        res['cpu'] = tree.find("processor/entry[@name='version']").text
+        with open('/proc/cpuinfo') as f:
+            for line in f.xreadlines():
+                if "model name" in line:
+                    res['cpu'] = line.split(':')[1].strip()
+                    break
+
         res['memory'] = psutil.TOTAL_PHYMEM
         # 'fedora' '17' 'Beefy Miracle'
         distro, version, codename = platform.linux_distribution()
