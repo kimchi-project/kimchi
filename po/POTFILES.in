@@ -2,6 +2,7 @@
 ui/pages/dev-ui.html.tmpl
 ui/pages/error.html.tmpl
 ui/pages/guest-add.html.tmpl
+ui/pages/guest-edit.html.tmpl
 ui/pages/guest.html.tmpl
 ui/pages/guests.html.tmpl
 ui/pages/i18n.html.tmpl

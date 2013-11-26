@@ -109,6 +109,12 @@ kimchi.initVmButtonsAction = function() {
         });
     });
 
+    $(".vm-edit").on("click", function(event) {
+        var vmName = $(this).data('vm');
+        kimchi.selectedGuest = vmName;
+        kimchi.window.open("guest-edit.html");
+    });
+
     $(".vm-vnc").on("click", function(event) {
         kimchi.vncToVM($(this).data('vm'));
     });
@@ -127,6 +133,9 @@ kimchi.init_button_stat = function() {
         } else {
             vm_vnc.attr('disabled', 'disabled');
         }
+
+        var editButton = vm_action.find('.vm-edit');
+        editButton.prop('disabled', vm_action.data('vmstate') !== 'shutoff');
     })
 };
 

@@ -25,6 +25,7 @@ dist_html_DATA = \
 	kimchi-ui.html.tmpl \
 	dev-ui.html.tmpl \
 	guest-add.html.tmpl \
+	guest-edit.html.tmpl \
 	guest.html.tmpl \
 	guests.html.tmpl \
 	template-add.html.tmpl \

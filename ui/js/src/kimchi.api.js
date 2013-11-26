@@ -207,6 +207,39 @@ var kimchi = {
         });
     },
 
+    /**
+     * Retrieve the information of a given VM by its name.
+     *
+     * @param vm VM name
+     * @param suc callback for success
+     * @param err callback for error
+     */
+    retrieveVM : function(vm, suc, err) {
+        $.ajax({
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm),
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success: suc,
+            error: err
+        });
+    },
+
+    /**
+     * Update a VM with new information.
+     */
+    updateVM : function(name, settings, suc, err) {
+        $.ajax({
+            url : kimchi.url + "vms/" + encodeURIComponent(name),
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json',
+            success: suc,
+            error: err
+        });
+    },
+
     deleteVM : function(vm, suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'vms/' + encodeURIComponent(vm),
