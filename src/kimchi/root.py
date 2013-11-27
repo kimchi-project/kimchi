@@ -61,6 +61,7 @@ class Root(controller.Resource):
         self.login = controller.login
         self.logout = controller.logout
         self.debugreports = controller.DebugReports(model)
+        self.plugins = controller.Plugins(model)
 
     def get(self):
         return self.default('kimchi-ui.html')
@@ -69,4 +70,9 @@ class Root(controller.Resource):
     def default(self, page, **kwargs):
         if page.endswith('.html'):
             return template.render(page, None)
+        raise cherrypy.HTTPError(404)
+    @cherrypy.expose
+    def tabs(self, page, **kwargs):
+        if page.endswith('.html'):
+            return template.render('tabs/'+ page, None)
         raise cherrypy.HTTPError(404)

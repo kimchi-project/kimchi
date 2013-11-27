@@ -684,3 +684,21 @@ def login(*args):
 def logout():
     auth.logout()
     return '{}'
+
+class Plugins(Collection):
+    def __init__(self, model):
+        super(Plugins, self).__init__(model)
+        self.model = model
+
+    @property
+    def data(self):
+        return self.info
+
+    def get(self):
+        res_list = []
+        try:
+            get_list = getattr(self.model, model_fn(self, 'get_list'))
+            res_list = get_list(*self.model_args)
+        except AttributeError:
+            pass
+        return kimchi.template.render(get_class_name(self), res_list)

@@ -491,3 +491,11 @@ Contains the host sample data.
 **Actions (POST):**
 
 *No actions defined*
+
+### Collection: Plugins
+
+**URI:** /plugins
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list names of all UI Plugins

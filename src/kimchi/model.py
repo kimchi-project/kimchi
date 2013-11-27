@@ -36,6 +36,7 @@ import subprocess
 import glob
 import fnmatch
 import shutil
+import config
 try:
     from collections import OrderedDict
 except ImportError:
@@ -1049,6 +1050,9 @@ class Model(object):
     def hoststats_lookup(self, *name):
         return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0),
                 'memory': self.host_stats.get('memory')}
+
+    def plugins_get_list(self):
+        return config.get_pluginsName()
 
 
 class LibvirtVMTemplate(VMTemplate):

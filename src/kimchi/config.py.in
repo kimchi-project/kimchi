@@ -128,6 +128,13 @@ def find_qemu_binary():
 def get_debugreports_path():
     return os.path.join(get_prefix(), 'data', 'debugreports')
 
+def get_plugins_path():
+    return os.path.join(get_prefix(), 'plugins')
+
+def get_pluginsName():
+    path = get_plugins_path()
+    return [name for name in os.listdir(path) if os.path.isdir(os.path.join(path, name))]
+
 
 if __name__ == '__main__':
     print get_prefix()

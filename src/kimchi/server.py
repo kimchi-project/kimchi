@@ -57,9 +57,10 @@ def set_no_cache():
 class Server(object):
     # expires is one year.
     CACHEEXPIRES = 31536000
-    CONFIG = {
+    configObj = {
         '/': { 'tools.trailing_slash.on': False,
                'tools.staticdir.root': config.get_prefix(),
+               'tools.staticfile.root': config.get_prefix(),
                'request.methods_with_bodies': ('POST', 'PUT'),
                'tools.nocache.on': True,
                'tools.sessions.on': True,
@@ -110,7 +111,18 @@ class Server(object):
             'tools.staticdir.dir': 'data/debugreports',
             'tools.nocache.on': False,
             'tools.kimchiauth.on': True
+        },
+        '/config/ui/tabs.xml': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': 'config/ui/tabs.xml',
+            'tools.nocache.on': True
         }
+    }
+    for pluginName in config.get_pluginsName():
+        configObj['/plugins/' + pluginName + '/ui/config/tab-ext.xml'] = {
+        'tools.staticfile.on': True,
+        'tools.staticfile.filename': 'plugins/'+ pluginName + '/ui/config/tab-ext.xml',
+        'tools.nocache.on': True
     }
 
     def __init__(self, options):
@@ -174,7 +186,7 @@ class Server(object):
         else:
             model_instance = model.Model()
 
-        self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.CONFIG)
+        self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.configObj)
         cherrypy.lib.sessions.init()
 
     def _init_ssl(self, options):
