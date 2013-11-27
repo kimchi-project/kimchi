@@ -43,9 +43,10 @@ class Scanner(object):
 
     def start_scan(self, cb, params):
         def updater(iso_info):
+            iso_path = iso_info['path'][:-3] + str(uuid.uuid4()) + '.iso'
             link_name = os.path.join(
                 params['pool_path'],
-                os.path.basename(iso_info['path']) + '.' + str(uuid.uuid4()))
+                os.path.basename(iso_path))
             os.symlink(iso_info['path'], link_name)
 
         scan_params = dict(path=params['scan_path'], updater=updater)
