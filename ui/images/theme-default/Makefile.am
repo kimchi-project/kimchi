@@ -20,4 +20,4 @@
 
 imagedir = $(datadir)/kimchi/ui/images/theme-default
 
-dist_image_DATA = *.png
+dist_image_DATA = *.png *.gif

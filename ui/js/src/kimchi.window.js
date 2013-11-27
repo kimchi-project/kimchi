@@ -53,6 +53,9 @@ kimchi.window = (function() {
         $(windowNode).css(settings['style'] || '');
 
         $(windowNode).appendTo('body').on('click', '.window .close', function() {
+            if (settings.close) {
+                settings.close();
+            }
             kimchi.window.close();
         });
 

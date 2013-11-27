@@ -345,25 +345,70 @@ var kimchi = {
         });
     },
 
+    stepListDeepScanIsos : function(suc, err) {
+        var deepScanHandler = {
+            stop : false
+        };
+        var isoPool = 'iso' + new Date().getTime();
+        kimchi.createStoragePool({
+            name : isoPool,
+            type : 'kimchi-iso',
+            path : '/'
+        }, function(result) {
+            var taskId = result.task_id;
+            function monitorTask() {
+                if (deepScanHandler.stop) {
+                    return;
+                }
+                kimchi.getTask(taskId, function(result) {
+                    var status = result.status;
+                    if (status === "finished") {
+                        if (deepScanHandler.stop) {
+                            return;
+                        }
+                        kimchi.listStorageVolumes(isoPool, function(isos) {
+                            if (deepScanHandler.stop) {
+                                return;
+                            }
+                            suc(isos, true);
+                        }, err);
+                    } else if (status === "running") {
+                        if (deepScanHandler.stop) {
+                            return;
+                        }
+                        kimchi.listStorageVolumes(isoPool, function(isos) {
+                            if (deepScanHandler.stop) {
+                                return;
+                            }
+                            suc(isos, false);
+                            setTimeout(monitorTask, 2000);
+                        }, err);
+                    } else if (status === "failed") {
+                        if (deepScanHandler.stop) {
+                            return;
+                        }
+                        err(result.message);
+                    }
+                }, err);
+            }
+            setTimeout(monitorTask, 2000);
+        }, err);
+        return deepScanHandler;
+    },
+
     listDeepScanIsos : function(suc, err) {
         var isoPool = 'iso' + new Date().getTime();
         kimchi.createStoragePool({
             name : isoPool,
-            type : 'iso'
+            type : 'kimchi-iso',
+            path : '/'
         }, function(result) {
             var taskId = result.task_id;
             function monitorTask() {
                 kimchi.getTask(taskId, function(result) {
                     var status = result.status;
                     if (status === "finished") {
-                        kimchi.requestJSON({
-                            url : kimchi.url + 'storagepools/' + encodeURIComponent(isoPool) + '/storagevolumes',
-                            type : 'GET',
-                            contentType : 'application/json',
-                            dataType : 'json',
-                            success : suc,
-                            error : err
-                        });
+                        kimchi.listStorageVolumes(isoPool, suc, err);
                     } else if (status === "running") {
                         setTimeout(monitorTask, 50);
                     } else if (status === "failed") {

@@ -72,7 +72,14 @@ kimchi.hideTitle = function() {
 
 kimchi.template_main = function() {
     $("#template-add").on("click", function(event) {
-        kimchi.window.open('template-add.html');
+        kimchi.window.open({
+            url: 'template-add.html',
+            close: function() {
+                if (kimchi.deepScanHandler) {
+                    kimchi.deepScanHandler.stop = true;
+                }
+            }
+        });
     });
     kimchi.doListTemplates();
 };

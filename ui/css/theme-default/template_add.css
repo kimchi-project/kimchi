@@ -282,3 +282,18 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+#iso-search {
+	margin: 10px 15px;
+}
+
+#iso-search-loading {
+	margin: 10px 15px;
+	background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+	padding: 0 20px 0 26px;
+}
+
+#iso-more-loading {
+        background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+        padding: 0 20px 0 26px;
+}

@@ -45,6 +45,7 @@ kimchi.switchPage = function(fromPageId, toPageId, direction) {
 };
 
 kimchi.template_add_main = function() {
+    kimchi.deepScanHandler = null;
     // 1-1 local iso
     $('#iso-local').click(function() {
         kimchi.switchPage('iso-type-box', 'iso-local-box');
@@ -53,13 +54,9 @@ kimchi.template_add_main = function() {
         kimchi.listIsos(function(isos) {
             if (isos && isos.length) {
                 showLocalIsoField(isos);
+                $('#iso-more').show();
             } else {
-                //deep scan is unavailable by now.
-                //kimchi.listDeepScanIsos(function(isos) {
-                //    showLocalIsoField(isos);
-                //}, function(err) {
-                //    kimchi.message.error(err.responseJSON.reason);
-                //});
+                $('#iso-search').show();
             }
         }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
@@ -67,35 +64,102 @@ kimchi.template_add_main = function() {
     });
 
     $('#iso-local-box-back').click(function() {
+        if (kimchi.deepScanHandler) {
+            kimchi.deepScanHandler.stop = true;
+        }
         kimchi.switchPage('iso-local-box', 'iso-type-box', 'right');
     });
 
+    $('#iso-search').click(function() {
+        var settings = {
+            content : i18n['msg.template.iso.search.confirm']
+        };
+        kimchi.confirm(settings, function() {
+            $('#iso-search').hide();
+            $('#iso-search-loading').show();
+            deepScan('#iso-search');
+        });
+    });
+
+    $('#iso-more').click(function() {
+        var settings = {
+            content : i18n['msg.template.iso.search.confirm']
+        };
+        kimchi.confirm(settings, function() {
+            $('#iso-more').hide();
+            $('#iso-more-loading').show();
+            deepScan('#iso-more');
+        });
+    });
+
+    $('#iso-search-loading').click(function() {
+        $('#iso-search-loading').hide();
+        $('#iso-search').show();
+        if (kimchi.deepScanHandler) {
+            kimchi.deepScanHandler.stop = true;
+        }
+    });
+
+    $('#iso-more-loading').click(function() {
+        $('#iso-more-loading').hide();
+        $('#iso-more').show();
+        if (kimchi.deepScanHandler) {
+            kimchi.deepScanHandler.stop = true;
+        }
+    });
+
+    var deepScan = function(button) {
+        kimchi.deepScanHandler = kimchi.stepListDeepScanIsos(function(isos, isFinished) {
+            if (isos && isos.length) {
+                if(button === '#iso-search') {
+                    $(button + '-loading').hide();
+                    button = '#iso-more';
+                    $(button + '-loading').show();
+                }
+                showLocalIsoField(isos);
+            } else {
+                if (isFinished) {
+                    kimchi.message.warn(i18n['msg.fail.template.no.iso']);
+                }
+            }
+            if (isFinished) {
+                $(button + '-loading').hide();
+                $(button).show();
+            }
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
+            $(button + '-loading').hide();
+            $(button).show();
+        });
+    };
+
     //1-1-1 local iso list
     var initLocalIsoField = function() {
+        kimchi.isoInfo = {};
         $('#local-iso-field').hide();
         $('#select-all-local-iso').prop('checked', false);
         $('#btn-template-local-iso-create').attr('disabled', 'disabled');
+        $('#iso-search').hide();
+        $('#iso-more').hide();
+        $('#iso-search-loading').hide();
+        $('#iso-more-loading').hide();
+        $('#list-local-iso').empty();
     };
 
     var showLocalIsoField = function(isos) {
-        if (isos && isos.length) {
-            kimchi.isoInfo = {};
-            var html = '';
-            var template = $('#tmpl-list-local-iso').html();
-            $.each(isos, function(index, volume) {
-                var isoId = volume.os_distro + '*' + volume.name + '*' + volume.os_version;
-                if (!kimchi.isoInfo[isoId]) {
-                    volume.isoId = isoId;
-                    volume.capacity = kimchi.changetoProperUnit(volume.capacity, 1);
-                    kimchi.isoInfo[isoId] = volume;
-                    html += kimchi.template(template, volume);
-                }
-            });
-            $('#list-local-iso').html(html);
-            $('#local-iso-field').show();
-        } else {
-            kimchi.message.warn(i18n['msg.fail.template.no.iso']);
-        }
+        var html = '';
+        var template = $('#tmpl-list-local-iso').html();
+        $.each(isos, function(index, volume) {
+            var isoId = volume.os_distro + '*' + volume.name + '*' + volume.os_version;
+            if (!kimchi.isoInfo[isoId]) {
+                volume.isoId = isoId;
+                volume.capacity = kimchi.changetoProperUnit(volume.capacity, 1);
+                kimchi.isoInfo[isoId] = volume;
+                html += kimchi.template(template, volume);
+            }
+        });
+        $('#list-local-iso').append(html);
+        $('#local-iso-field').show();
     };
 
     $('#select-all-local-iso').click(function() {
