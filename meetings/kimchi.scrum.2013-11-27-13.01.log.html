@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 27 13:01:53 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:59</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Code freeze note 2) Sprint 2 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:36</span><span class="nk"> &lt;shaohef&gt;</span> hi all
+<a name="l-8"></a><span class="tm">13:02:38</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-9"></a><span class="tm">13:03:06</span><span class="nk"> &lt;ming&gt;</span> looks good to me.
+<a name="l-10"></a><span class="tm">13:03:13</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-11"></a><span class="tm">13:03:27</span><span class="nk"> &lt;shaohef&gt;</span> royce can not attend this meeting
+<a name="l-12"></a><span class="tm">13:03:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Code freeze note</span>
+<a name="l-13"></a><span class="tm">13:03:43</span><span class="nk"> &lt;shaohef&gt;</span> she is on her way to home
+<a name="l-14"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, np
+<a name="l-15"></a><span class="tm">13:04:15</span><span class="nk"> &lt;alinefm&gt;</span> As you may know our code freeze for Kimchi 1.1 release is on December 4th
+<a name="l-16"></a><span class="tm">13:04:25</span><span class="nk"> &lt;alinefm&gt;</span> so all the patches must be merged by this date
+<a name="l-17"></a><span class="tm">13:04:42</span><span class="nk"> &lt;ming&gt;</span> So there is no Sprint 3.
+<a name="l-18"></a><span class="tm">13:04:49</span><span class="nk"> &lt;alinefm&gt;</span> so reviews is always welcome
+<a name="l-19"></a><span class="tm">13:04:52</span><span class="nk"> &lt;alinefm&gt;</span> ming, exactly
+<a name="l-20"></a><span class="tm">13:05:06</span><span class="nk"> &lt;ming&gt;</span> alinefm, I am wondering how this date is decided. I think it was not 12.04 before.
+<a name="l-21"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> it will be address in Kimchi 1.2
+<a name="l-22"></a><span class="tm">13:05:49</span><span class="nk"> &lt;alinefm&gt;</span> ming, from kimchi 1.1 planning the code freeze start on December 4th
+<a name="l-23"></a><span class="tm">13:06:05</span><span class="nk"> &lt;alinefm&gt;</span> so we will have a period for tests and bug fixes
+<a name="l-24"></a><span class="tm">13:06:13</span><span class="nk"> &lt;ming&gt;</span> So no sprint 3.
+<a name="l-25"></a><span class="tm">13:06:20</span><span class="nk"> &lt;alinefm&gt;</span> ming, correct
+<a name="l-26"></a><span class="tm">13:06:39</span><span class="nk"> &lt;alinefm&gt;</span> next - the most important topic
+<a name="l-27"></a><span class="tm">13:06:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 2</span>
+<a name="l-28"></a><span class="tm">13:07:11</span><span class="nk"> &lt;alinefm&gt;</span> Network support
+<a name="l-29"></a><span class="tm">13:07:27</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, YuXin, any updates?
+<a name="l-30"></a><span class="tm">13:07:28</span><span class="nk"> &lt;YuXin&gt;</span> There are some comments come in about network UI
+<a name="l-31"></a><span class="tm">13:07:46</span><span class="nk"> &lt;YuXin&gt;</span> I will address those comments and sent out V3 tomorrow
+<a name="l-32"></a><span class="tm">13:08:00</span><span class="nk"> &lt;YuXin&gt;</span> then I think for UI side, it is reviewd enough, then we can get it merged
+<a name="l-33"></a><span class="tm">13:08:31</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, great
+<a name="l-34"></a><span class="tm">13:08:36</span><span class="nk"> &lt;YuXin&gt;</span> shaohef, any issue left at network backend?
+<a name="l-35"></a><span class="tm">13:08:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> send V3
+<a name="l-36"></a><span class="tm">13:08:54</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> YuXin: get some comments
+<a name="l-37"></a><span class="tm">13:09:07</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, when do you plan to send v4?
+<a name="l-38"></a><span class="tm">13:09:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  YuXin: address the comments just now, and send V3
+<a name="l-39"></a><span class="tm">13:09:26</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, oh got it
+<a name="l-40"></a><span class="tm">13:09:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  I send V3 a minutes ago
+<a name="l-41"></a><span class="tm">13:09:54</span><span class="nk"> &lt;alinefm&gt;</span> right
+<a name="l-42"></a><span class="tm">13:09:55</span><span class="nk"> &lt;YuXin&gt;</span> Shaohef, I remember we need to discuss some error message a bit
+<a name="l-43"></a><span class="tm">13:09:55</span><span class="nk"> &lt;alinefm&gt;</span> Basic host management (host)
+<a name="l-44"></a><span class="tm">13:10:02</span><span class="nk"> &lt;shaohef&gt;</span> so many give comments. Thanks all
+<a name="l-45"></a><span class="tm">13:10:44</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, the error message of network will be designed to be more end user friendly
+<a name="l-46"></a><span class="tm">13:11:14</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, did you address it ^ on V3?
+<a name="l-47"></a><span class="tm">13:11:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> sorry, I address it ^ on V2, it should V3
+<a name="l-48"></a><span class="tm">13:11:40</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  so sorry.
+<a name="l-49"></a><span class="tm">13:11:41</span><span class="nk"> &lt;alinefm&gt;</span> right
+<a name="l-50"></a><span class="tm">13:11:50</span><span class="nk"> &lt;YuXin&gt;</span> regular expression will be difficulity for end user to understand, so we plan to use some user friendly message
+<a name="l-51"></a><span class="tm">13:12:11</span><span class="nk"> &lt;YuXin&gt;</span> so shaohef, you have already corrected this in V3, right?
+<a name="l-52"></a><span class="tm">13:12:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-53"></a><span class="tm">13:12:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> yes.
+<a name="l-54"></a><span class="tm">13:12:32</span><span class="nk"> &lt;alinefm&gt;</span> next - Basic host management (host)
+<a name="l-55"></a><span class="tm">13:12:34</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ^
+<a name="l-56"></a><span class="tm">13:12:42</span><span class="nk"> &lt;alinefm&gt;</span> any UI guys? zhoumeina, YuXin?
+<a name="l-57"></a><span class="tm">13:12:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  yes. will send a patch later
+<a name="l-58"></a><span class="tm">13:13:00</span><span class="nk"> &lt;YuXin&gt;</span> Good, I did not see any risk of network
+<a name="l-59"></a><span class="tm">13:13:05</span><span class="nk"> &lt;alinefm&gt;</span> from my perspective the backend id only missing disk io and network io
+<a name="l-60"></a><span class="tm">13:13:35</span><span class="nk"> &lt;alinefm&gt;</span> and the UI just needs to addresses some comments made by rotru
+<a name="l-61"></a><span class="tm">13:13:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> y
+<a name="l-62"></a><span class="tm">13:14:13</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-63"></a><span class="tm">13:14:19</span><span class="nk"> &lt;alinefm&gt;</span> Add extension interface for Advanced host config (host)
+<a name="l-64"></a><span class="tm">13:14:23</span><span class="nk"> &lt;alinefm&gt;</span> markwu, zhoumeina ^
+<a name="l-65"></a><span class="tm">13:15:02</span><span class="nk"> &lt;markwu&gt;</span> alinefm, I post v3 patch today
+<a name="l-66"></a><span class="tm">13:15:02</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> I have just send v13 today
+<a name="l-67"></a><span class="tm">13:15:34</span><span class="nk"> &lt;alinefm&gt;</span> great! I expect to merge them later today
+<a name="l-68"></a><span class="tm">13:15:38</span><span class="nk"> &lt;alinefm&gt;</span> any points to discuss?
+<a name="l-69"></a><span class="tm">13:15:39</span><span class="nk"> &lt;markwu&gt;</span> resolved the plugin configuration problem as you requested
+<a name="l-70"></a><span class="tm">13:16:06</span><span class="nk"> &lt;alinefm&gt;</span> markwu, thanks
+<a name="l-71"></a><span class="tm">13:16:24</span><span class="nk"> &lt;alinefm&gt;</span> maybe I will get some conflicts while merging both patch series
+<a name="l-72"></a><span class="tm">13:16:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> for network IO, we should exclude lo, tun0 and bridge which just for nat and isolated network, right?
+<a name="l-73"></a><span class="tm">13:17:05</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yes
+<a name="l-74"></a><span class="tm">13:17:06</span><span class="nk"> &lt;alinefm&gt;</span> NFS Pool :New Storage Pool based on NFS (storage)
+<a name="l-75"></a><span class="tm">13:17:09</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, ^
+<a name="l-76"></a><span class="tm">13:17:16</span><span class="nk"> &lt;alinefm&gt;</span> I think it is ready now, right?
+<a name="l-77"></a><span class="tm">13:17:41</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> ahh. Sent V10
+<a name="l-78"></a><span class="tm">13:17:54</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> waiting for sheldon, mark's mail.
+<a name="l-79"></a><span class="tm">13:17:56</span><span class="nk"> &lt;ming&gt;</span> alinefm, I think some comments are not addressed yet.
+<a name="l-80"></a><span class="tm">13:18:05</span><span class="nk"> &lt;ming&gt;</span> I mean NFS Pool
+<a name="l-81"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> ming, which ones?
+<a name="l-82"></a><span class="tm">13:18:14</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, ^
+<a name="l-83"></a><span class="tm">13:18:37</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> ming = shu ming??
+<a name="l-84"></a><span class="tm">13:18:43</span><span class="nk"> &lt;ming&gt;</span> Yes.
+<a name="l-85"></a><span class="tm">13:19:12</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span>  ahh ok. Earlier i implemented same way as you suggested.
+<a name="l-86"></a><span class="tm">13:19:25</span><span class="nk"> &lt;pradeep&gt;</span> i was asked to make it to make model.py clean
+<a name="l-87"></a><span class="tm">13:19:32</span><span class="nk"> &lt;markwu&gt;</span> pradeep, for me it's acceptable that only related storage operations are blocked and recovered in a short time  with a bad nfs mount.
+<a name="l-88"></a><span class="tm">13:20:35</span><span class="nk"> &lt;ming&gt;</span> Also,  I am afraid a bad nfs mount can not be recovered.  But we can delay this problem to next realease and file a issue to record it.
+<a name="l-89"></a><span class="tm">13:21:02</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> for example: tomorrow, we will have other pools.  for every pool, it doesnt look nice if, keep add if conditions in storagepools_create
+<a name="l-90"></a><span class="tm">13:21:37</span><span class="nk"> &lt;ming&gt;</span> markwu, I need better understand how Kimchi plugin work.
+<a name="l-91"></a><span class="tm">13:21:59</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">markwu:</span> its libvirt behaviour.
+<a name="l-92"></a><span class="tm">13:22:05</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> ^^
+<a name="l-93"></a><span class="tm">13:22:18</span><span class="nk"> &lt;markwu&gt;</span> pradeep, I understand
+<a name="l-94"></a><span class="tm">13:22:25</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> you will see similar responce with rhev-m, fsm.. etc also
+<a name="l-95"></a><span class="tm">13:22:45</span><span class="nk"> &lt;markwu&gt;</span> pradeep, so I doesn't request you resolve the problem in your patch
+<a name="l-96"></a><span class="tm">13:22:50</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> you will have to add wait widget while pool getting added
+<a name="l-97"></a><span class="tm">13:22:54</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, ming, for libvirt delay we can insert some widget on UI to warning the user the operation is in progress
+<a name="l-98"></a><span class="tm">13:23:26</span><span class="nk"> &lt;ming&gt;</span> alinefm, It can hang the Kimchi process.
+<a name="l-99"></a><span class="tm">13:23:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">pradeep:</span> maybe we can improve it later, not this release. after we support nsf probe. we can test the nsf is available ,and then create it.
+<a name="l-100"></a><span class="tm">13:23:43</span><span class="nk"> &lt;ming&gt;</span> That is bad.
+<a name="l-101"></a><span class="tm">13:23:43</span><span class="nk"> &lt;markwu&gt;</span> pradeep, actually,  we can't do much except letting user know what happened and failing earlier
+<a name="l-102"></a><span class="tm">13:24:20</span><span class="nk"> &lt;ming&gt;</span> So we all agree to delay the blocking issue to next release, but we should document it.
+<a name="l-103"></a><span class="tm">13:24:30</span><span class="nk"> &lt;alinefm&gt;</span> ming, agree
+<a name="l-104"></a><span class="tm">13:24:38</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">ming:</span> i am not clear still, why do we delay to next relese
+<a name="l-105"></a><span class="tm">13:24:43</span><span class="nk"> &lt;alinefm&gt;</span> and work on that as soon as possible for next release
+<a name="l-106"></a><span class="tm">13:24:46</span><span class="nk"> &lt;markwu&gt;</span> ming,  basically a kimchi plugin is just a cherrypy application, but it can share the rest uri dispatch, error handling, etc with kimchi
+<a name="l-107"></a><span class="tm">13:24:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> ming, yes we should document this issue.
+<a name="l-108"></a><span class="tm">13:25:02</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, because we don't have time to discuss and address it right now
+<a name="l-109"></a><span class="tm">13:25:06</span><span class="nk"> &lt;ming&gt;</span> markwu, I will read the code to get more details.
+<a name="l-110"></a><span class="tm">13:25:36</span><span class="nk"> &lt;markwu&gt;</span> ming, ok. thanks for interest :)  please add your comments or ping me
+<a name="l-111"></a><span class="tm">13:26:07</span><span class="nk"> &lt;alinefm&gt;</span> next
+<a name="l-112"></a><span class="tm">13:26:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">Storage:</span> New Storage Pool based on local disk (storage)
+<a name="l-113"></a><span class="tm">13:26:13</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">pradeep:</span> that means the blocking issue will not block your patch integration.
+<a name="l-114"></a><span class="tm">13:26:40</span><span class="nk"> &lt;alinefm&gt;</span> when Daniel is not online today
+<a name="l-115"></a><span class="tm">13:26:45</span><span class="nk"> &lt;alinefm&gt;</span> *well
+<a name="l-116"></a><span class="tm">13:27:10</span><span class="nk"> &lt;markwu&gt;</span> He post a v2 RFC patch.  I added some comments on it
+<a name="l-117"></a><span class="tm">13:27:16</span><span class="nk"> &lt;alinefm&gt;</span> markwu, for this I think Daniel can already send the patch itself as the RFC is done, right?
+<a name="l-118"></a><span class="tm">13:27:23</span><span class="nk"> &lt;markwu&gt;</span> yep
+<a name="l-119"></a><span class="tm">13:27:30</span><span class="nk"> &lt;alinefm&gt;</span> markwu, ok
+<a name="l-120"></a><span class="tm">13:27:40</span><span class="nk"> &lt;alinefm&gt;</span> Add new yum repository (from ISO and from URL) (host)
+<a name="l-121"></a><span class="tm">13:27:47</span><span class="nk"> &lt;alinefm&gt;</span> Software update (host)
+<a name="l-122"></a><span class="tm">13:27:55</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, are you there ^ ?
+<a name="l-123"></a><span class="tm">13:28:00</span><span class="nk"> &lt;ming&gt;</span> alinefm, I think these are two new tasks.
+<a name="l-124"></a><span class="tm">13:28:18</span><span class="nk"> &lt;alinefm&gt;</span> anyone has comments about the RFC pvital_ sent some time ago?
+<a name="l-125"></a><span class="tm">13:28:21</span><span class="nk"> &lt;ming&gt;</span> I think they were not in our previous plan. Rigjt?
+<a name="l-126"></a><span class="tm">13:28:35</span><span class="nk"> &lt;ming&gt;</span> s/Rigjt/right
+<a name="l-127"></a><span class="tm">13:29:01</span><span class="nk"> &lt;alinefm&gt;</span> ming, I don't think so. They are there since I started doing the scrum meetings
+<a name="l-128"></a><span class="tm">13:30:20</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-129"></a><span class="tm">13:30:24</span><span class="nk"> &lt;alinefm&gt;</span> Restructure Backend model (framework)
+<a name="l-130"></a><span class="tm">13:31:06</span><span class="nk"> &lt;alinefm&gt;</span> I am planning to delay it to next release as it involves a lot of changes in backend and it can impact other patches
+<a name="l-131"></a><span class="tm">13:31:23</span><span class="nk"> &lt;alinefm&gt;</span> any opposition?
+<a name="l-132"></a><span class="tm">13:31:27</span><span class="nk"> &lt;shaohef&gt;</span> agree
+<a name="l-133"></a><span class="tm">13:31:56</span><span class="nk"> &lt;ming&gt;</span> agree, we need a better discussion on that.
+<a name="l-134"></a><span class="tm">13:32:34</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-135"></a><span class="tm">13:32:36</span><span class="nk"> &lt;alinefm&gt;</span> Packaging
+<a name="l-136"></a><span class="tm">13:33:35</span><span class="nk"> &lt;alinefm&gt;</span> I am not sure about the pvital_ status on it but in fact  I am not expecting it will be completed for now
+<a name="l-137"></a><span class="tm">13:33:45</span><span class="nk"> &lt;alinefm&gt;</span> there is a long process involved on it
+<a name="l-138"></a><span class="tm">13:33:56</span><span class="nk"> &lt;alinefm&gt;</span> we just need to make sure we started the process
+<a name="l-139"></a><span class="tm">13:34:44</span><span class="nk"> &lt;hlwanghl&gt;</span> alinefm, I noticed there are two new items for Sprint 2. Are we to complete them before Dec. 4?
+<a name="l-140"></a><span class="tm">13:35:00</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, which items?
+<a name="l-141"></a><span class="tm">13:35:25</span><span class="nk"> &lt;hlwanghl&gt;</span> alinefm, yum repos and software updates
+<a name="l-142"></a><span class="tm">13:36:19</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, ming commented the same
+<a name="l-143"></a><span class="tm">13:36:32</span><span class="nk"> &lt;hlwanghl&gt;</span> IMO, Kimchi should focus on VM management, and not put much on other aspects like host
+<a name="l-144"></a><span class="tm">13:36:36</span><span class="nk"> &lt;alinefm&gt;</span> but since I started doing the scrum meeting it is already there
+<a name="l-145"></a><span class="tm">13:37:24</span><span class="nk"> &lt;hlwanghl&gt;</span> OK.
+<a name="l-146"></a><span class="tm">13:37:44</span><span class="nk"> &lt;shaohef&gt;</span> who add them?
+<a name="l-147"></a><span class="tm">13:37:48</span><span class="nk"> &lt;alinefm&gt;</span> next finally we will have the open discussion section =)
+<a name="l-148"></a><span class="tm">13:37:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-149"></a><span class="tm">13:38:09</span><span class="nk"> &lt;hlwanghl&gt;</span> When I replied your email, I didn't see these two items
+<a name="l-150"></a><span class="tm">13:38:25</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> local host back-end have not merged yet.
+<a name="l-151"></a><span class="tm">13:38:33</span><span class="nk"> &lt;zhoumeina&gt;</span> local disk
+<a name="l-152"></a><span class="tm">13:39:45</span><span class="nk"> &lt;zhoumeina&gt;</span> so not sure it will complete before 4th
+<a name="l-153"></a><span class="tm">13:39:56</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, ok - you can send me another email with your comments/concerns
+<a name="l-154"></a><span class="tm">13:40:22</span><span class="nk"> &lt;hlwanghl&gt;</span> Ok
+<a name="l-155"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, I believe so. But can you start working on the UI before it?
+<a name="l-156"></a><span class="tm">13:40:50</span><span class="nk"> &lt;zhoumeina&gt;</span> yes
+<a name="l-157"></a><span class="tm">13:40:57</span><span class="nk"> &lt;alinefm&gt;</span> just send a RFC to show how the UI will looks like
+<a name="l-158"></a><span class="tm">13:41:05</span><span class="nk"> &lt;zhoumeina&gt;</span> I will send one tomorrow
+<a name="l-159"></a><span class="tm">13:41:12</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, great! thanks
+<a name="l-160"></a><span class="tm">13:41:19</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-161"></a><span class="tm">13:41:57</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-162"></a><span class="tm">13:42:13</span><span class="nk"> &lt;ming&gt;</span> Allways code, RFC as early as we can  in opensource community.
+<a name="l-163"></a><span class="tm">13:43:08</span><span class="nk"> &lt;ming&gt;</span> I think we need move all of the sprint 3 feature to 1.2 release and start to do 1.2 plan.
+<a name="l-164"></a><span class="tm">13:43:31</span><span class="nk"> &lt;alinefm&gt;</span> ming, let's do it after code freeze
+<a name="l-165"></a><span class="tm">13:43:51</span><span class="nk"> &lt;ming&gt;</span> In China, we do have some time after Dec 16 to the end of Jan, next year.
+<a name="l-166"></a><span class="tm">13:43:57</span><span class="nk"> &lt;alinefm&gt;</span> we need to focus in reviewing and merging patches
+<a name="l-167"></a><span class="tm">13:44:20</span><span class="nk"> &lt;ming&gt;</span> From early Jan next yest to the middle Jan,  most of us are out of office.
+<a name="l-168"></a><span class="tm">13:44:25</span><span class="nk"> &lt;alinefm&gt;</span> ming, how long will you be out?
+<a name="l-169"></a><span class="tm">13:45:06</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">ming:</span> why?
+<a name="l-170"></a><span class="tm">13:45:28</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">zhoumeina:</span> Sorry s/Jan/Feb
+<a name="l-171"></a><span class="tm">13:45:30</span><span class="nk"> &lt;hlwanghl&gt;</span> Middle Feb. I guess
+<a name="l-172"></a><span class="tm">13:45:35</span><span class="nk"> &lt;zhoumeina&gt;</span> yes
+<a name="l-173"></a><span class="tm">13:45:57</span><span class="nk"> &lt;zhoumeina&gt;</span> it is chinese new year
+<a name="l-174"></a><span class="tm">13:46:09</span><span class="nk"> &lt;ming&gt;</span> alinefm, will Brazil have long vacation around Chistmas?
+<a name="l-175"></a><span class="tm">13:46:09</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, ming, is it in Feb?
+<a name="l-176"></a><span class="tm">13:46:10</span><span class="nk"> &lt;shaohef&gt;</span> sprint 2 feature first.
+<a name="l-177"></a><span class="tm">13:46:16</span><span class="nk"> &lt;hlwanghl&gt;</span> alinefm, 7~14 days for the Spring Festival
+<a name="l-178"></a><span class="tm">13:46:26</span><span class="nk"> &lt;alinefm&gt;</span> ming, no =/
+<a name="l-179"></a><span class="tm">13:47:17</span><span class="nk"> &lt;alinefm&gt;</span> well, let's complete sprint 2, do code freeze and tests and then we start working on 1.2 planning
+<a name="l-180"></a><span class="tm">13:47:51</span><span class="nk"> &lt;ming&gt;</span> We have many tasks in backlog now.  Those are candidates for 1.2
+<a name="l-181"></a><span class="tm">13:48:07</span><span class="nk"> &lt;alinefm&gt;</span> ming, yep
+<a name="l-182"></a><span class="tm">13:48:34</span><span class="nk"> &lt;alinefm&gt;</span> during the planning we can get out current backlog and prioritize them
+<a name="l-183"></a><span class="tm">13:48:40</span><span class="nk"> &lt;alinefm&gt;</span> the most ones will be in 1.2 release
+<a name="l-184"></a><span class="tm">13:51:23</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-185"></a><span class="tm">13:51:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

@@ -1,0 +1,185 @@
+13:01:53 <alinefm> #startmeeting
+13:01:53 <kimchi-bot> Meeting started Wed Nov 27 13:01:53 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:53 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:59 <alinefm> #meetingname scrum
+13:01:59 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:35 <alinefm> #info  Agenda 1) Code freeze note 2) Sprint 2 3) Open discussion
+13:02:36 <shaohef> hi all
+13:02:38 <alinefm> anything else?
+13:03:06 <ming> looks good to me.
+13:03:13 <alinefm> ok
+13:03:27 <shaohef> royce can not attend this meeting
+13:03:33 <alinefm> #topic Code freeze note
+13:03:43 <shaohef> she is on her way to home
+13:03:52 <alinefm> shaohef, np
+13:04:15 <alinefm> As you may know our code freeze for Kimchi 1.1 release is on December 4th
+13:04:25 <alinefm> so all the patches must be merged by this date
+13:04:42 <ming> So there is no Sprint 3.
+13:04:49 <alinefm> so reviews is always welcome
+13:04:52 <alinefm> ming, exactly
+13:05:06 <ming> alinefm, I am wondering how this date is decided. I think it was not 12.04 before.
+13:05:12 <alinefm> it will be address in Kimchi 1.2
+13:05:49 <alinefm> ming, from kimchi 1.1 planning the code freeze start on December 4th
+13:06:05 <alinefm> so we will have a period for tests and bug fixes
+13:06:13 <ming> So no sprint 3.
+13:06:20 <alinefm> ming, correct
+13:06:39 <alinefm> next - the most important topic
+13:06:51 <alinefm> #topic Sprint 2
+13:07:11 <alinefm> Network support
+13:07:27 <alinefm> shaohef, YuXin, any updates?
+13:07:28 <YuXin> There are some comments come in about network UI
+13:07:46 <YuXin> I will address those comments and sent out V3 tomorrow
+13:08:00 <YuXin> then I think for UI side, it is reviewd enough, then we can get it merged
+13:08:31 <alinefm> YuXin, great
+13:08:36 <YuXin> shaohef, any issue left at network backend?
+13:08:39 <shaohef> alinefm: send V3
+13:08:54 <shaohef> alinefm: YuXin: get some comments
+13:09:07 <alinefm> shaohef, when do you plan to send v4?
+13:09:21 <shaohef> alinefm:  YuXin: address the comments just now, and send V3
+13:09:26 <alinefm> shaohef, oh got it
+13:09:35 <shaohef> alinefm:  I send V3 a minutes ago
+13:09:54 <alinefm> right
+13:09:55 <YuXin> Shaohef, I remember we need to discuss some error message a bit
+13:09:55 <alinefm> Basic host management (host)
+13:10:02 <shaohef> so many give comments. Thanks all
+13:10:44 <YuXin> alinefm, the error message of network will be designed to be more end user friendly
+13:11:14 <alinefm> shaohef, did you address it ^ on V3?
+13:11:33 <shaohef> alinefm: sorry, I address it ^ on V2, it should V3
+13:11:40 <shaohef> alinefm:  so sorry.
+13:11:41 <alinefm> right
+13:11:50 <YuXin> regular expression will be difficulity for end user to understand, so we plan to use some user friendly message
+13:12:11 <YuXin> so shaohef, you have already corrected this in V3, right?
+13:12:16 <shaohef> alinefm: yes.
+13:12:21 <shaohef> YuXin: yes.
+13:12:32 <alinefm> next - Basic host management (host)
+13:12:34 <alinefm> shaohef, ^
+13:12:42 <alinefm> any UI guys? zhoumeina, YuXin?
+13:12:57 <shaohef> alinefm:  yes. will send a patch later
+13:13:00 <YuXin> Good, I did not see any risk of network
+13:13:05 <alinefm> from my perspective the backend id only missing disk io and network io
+13:13:35 <alinefm> and the UI just needs to addresses some comments made by rotru
+13:13:35 <shaohef> alinefm: y
+13:14:13 <alinefm> ok
+13:14:19 <alinefm> Add extension interface for Advanced host config (host)
+13:14:23 <alinefm> markwu, zhoumeina ^
+13:15:02 <markwu> alinefm, I post v3 patch today
+13:15:02 <zhoumeina> alinefm: I have just send v13 today
+13:15:34 <alinefm> great! I expect to merge them later today
+13:15:38 <alinefm> any points to discuss?
+13:15:39 <markwu> resolved the plugin configuration problem as you requested
+13:16:06 <alinefm> markwu, thanks
+13:16:24 <alinefm> maybe I will get some conflicts while merging both patch series
+13:16:44 <shaohef> alinefm: for network IO, we should exclude lo, tun0 and bridge which just for nat and isolated network, right?
+13:17:05 <alinefm> shaohef, yes
+13:17:06 <alinefm> NFS Pool :New Storage Pool based on NFS (storage)
+13:17:09 <alinefm> pradeep, ^
+13:17:16 <alinefm> I think it is ready now, right?
+13:17:41 <pradeep> alinefm: ahh. Sent V10
+13:17:54 <pradeep> alinefm: waiting for sheldon, mark's mail.
+13:17:56 <ming> alinefm, I think some comments are not addressed yet.
+13:18:05 <ming> I mean NFS Pool
+13:18:13 <alinefm> ming, which ones?
+13:18:14 <alinefm> pradeep, ^
+13:18:37 <pradeep> ming: ming = shu ming??
+13:18:43 <ming> Yes.
+13:19:12 <pradeep> ming:  ahh ok. Earlier i implemented same way as you suggested.
+13:19:25 <pradeep> i was asked to make it to make model.py clean
+13:19:32 <markwu> pradeep, for me it's acceptable that only related storage operations are blocked and recovered in a short time  with a bad nfs mount.
+13:20:35 <ming> Also,  I am afraid a bad nfs mount can not be recovered.  But we can delay this problem to next realease and file a issue to record it.
+13:21:02 <pradeep> ming: for example: tomorrow, we will have other pools.  for every pool, it doesnt look nice if, keep add if conditions in storagepools_create
+13:21:37 <ming> markwu, I need better understand how Kimchi plugin work.
+13:21:59 <pradeep> markwu: its libvirt behaviour.
+13:22:05 <pradeep> ming: ^^
+13:22:18 <markwu> pradeep, I understand
+13:22:25 <pradeep> ming: you will see similar responce with rhev-m, fsm.. etc also
+13:22:45 <markwu> pradeep, so I doesn't request you resolve the problem in your patch
+13:22:50 <pradeep> ming: you will have to add wait widget while pool getting added
+13:22:54 <alinefm> pradeep, ming, for libvirt delay we can insert some widget on UI to warning the user the operation is in progress
+13:23:26 <ming> alinefm, It can hang the Kimchi process.
+13:23:39 <shaohef> pradeep: maybe we can improve it later, not this release. after we support nsf probe. we can test the nsf is available ,and then create it.
+13:23:43 <ming> That is bad.
+13:23:43 <markwu> pradeep, actually,  we can't do much except letting user know what happened and failing earlier
+13:24:20 <ming> So we all agree to delay the blocking issue to next release, but we should document it.
+13:24:30 <alinefm> ming, agree
+13:24:38 <pradeep> ming: i am not clear still, why do we delay to next relese
+13:24:43 <alinefm> and work on that as soon as possible for next release
+13:24:46 <markwu> ming,  basically a kimchi plugin is just a cherrypy application, but it can share the rest uri dispatch, error handling, etc with kimchi
+13:24:55 <shaohef> alinefm: ming, yes we should document this issue.
+13:25:02 <alinefm> pradeep, because we don't have time to discuss and address it right now
+13:25:06 <ming> markwu, I will read the code to get more details.
+13:25:36 <markwu> ming, ok. thanks for interest :)  please add your comments or ping me
+13:26:07 <alinefm> next
+13:26:08 <alinefm> Storage: New Storage Pool based on local disk (storage)
+13:26:13 <ming> pradeep: that means the blocking issue will not block your patch integration.
+13:26:40 <alinefm> when Daniel is not online today
+13:26:45 <alinefm> *well
+13:27:10 <markwu> He post a v2 RFC patch.  I added some comments on it
+13:27:16 <alinefm> markwu, for this I think Daniel can already send the patch itself as the RFC is done, right?
+13:27:23 <markwu> yep
+13:27:30 <alinefm> markwu, ok
+13:27:40 <alinefm> Add new yum repository (from ISO and from URL) (host)
+13:27:47 <alinefm> Software update (host)
+13:27:55 <alinefm> pvital_, are you there ^ ?
+13:28:00 <ming> alinefm, I think these are two new tasks.
+13:28:18 <alinefm> anyone has comments about the RFC pvital_ sent some time ago?
+13:28:21 <ming> I think they were not in our previous plan. Rigjt?
+13:28:35 <ming> s/Rigjt/right
+13:29:01 <alinefm> ming, I don't think so. They are there since I started doing the scrum meetings
+13:30:20 <alinefm> ok
+13:30:24 <alinefm> Restructure Backend model (framework)
+13:31:06 <alinefm> I am planning to delay it to next release as it involves a lot of changes in backend and it can impact other patches
+13:31:23 <alinefm> any opposition?
+13:31:27 <shaohef> agree
+13:31:56 <ming> agree, we need a better discussion on that.
+13:32:34 <alinefm> great
+13:32:36 <alinefm> Packaging
+13:33:35 <alinefm> I am not sure about the pvital_ status on it but in fact  I am not expecting it will be completed for now
+13:33:45 <alinefm> there is a long process involved on it
+13:33:56 <alinefm> we just need to make sure we started the process
+13:34:44 <hlwanghl> alinefm, I noticed there are two new items for Sprint 2. Are we to complete them before Dec. 4?
+13:35:00 <alinefm> hlwanghl, which items?
+13:35:25 <hlwanghl> alinefm, yum repos and software updates
+13:36:19 <alinefm> hlwanghl, ming commented the same
+13:36:32 <hlwanghl> IMO, Kimchi should focus on VM management, and not put much on other aspects like host
+13:36:36 <alinefm> but since I started doing the scrum meeting it is already there
+13:37:24 <hlwanghl> OK.
+13:37:44 <shaohef> who add them?
+13:37:48 <alinefm> next finally we will have the open discussion section =)
+13:37:53 <alinefm> #topic Open Discussion
+13:38:09 <hlwanghl> When I replied your email, I didn't see these two items
+13:38:25 <zhoumeina> alinefm: local host back-end have not merged yet.
+13:38:33 <zhoumeina> local disk
+13:39:45 <zhoumeina> so not sure it will complete before 4th
+13:39:56 <alinefm> hlwanghl, ok - you can send me another email with your comments/concerns
+13:40:22 <hlwanghl> Ok
+13:40:43 <alinefm> zhoumeina, I believe so. But can you start working on the UI before it?
+13:40:50 <zhoumeina> yes
+13:40:57 <alinefm> just send a RFC to show how the UI will looks like
+13:41:05 <zhoumeina> I will send one tomorrow
+13:41:12 <alinefm> zhoumeina, great! thanks
+13:41:19 <zhoumeina> alinefm: sure
+13:41:57 <alinefm> anything else?
+13:42:13 <ming> Allways code, RFC as early as we can  in opensource community.
+13:43:08 <ming> I think we need move all of the sprint 3 feature to 1.2 release and start to do 1.2 plan.
+13:43:31 <alinefm> ming, let's do it after code freeze
+13:43:51 <ming> In China, we do have some time after Dec 16 to the end of Jan, next year.
+13:43:57 <alinefm> we need to focus in reviewing and merging patches
+13:44:20 <ming> From early Jan next yest to the middle Jan,  most of us are out of office.
+13:44:25 <alinefm> ming, how long will you be out?
+13:45:06 <zhoumeina> ming: why?
+13:45:28 <ming> zhoumeina: Sorry s/Jan/Feb
+13:45:30 <hlwanghl> Middle Feb. I guess
+13:45:35 <zhoumeina> yes
+13:45:57 <zhoumeina> it is chinese new year
+13:46:09 <ming> alinefm, will Brazil have long vacation around Chistmas?
+13:46:09 <alinefm> zhoumeina, ming, is it in Feb?
+13:46:10 <shaohef> sprint 2 feature first.
+13:46:16 <hlwanghl> alinefm, 7~14 days for the Spring Festival
+13:46:26 <alinefm> ming, no =/
+13:47:17 <alinefm> well, let's complete sprint 2, do code freeze and tests and then we start working on 1.2 planning
+13:47:51 <ming> We have many tasks in backlog now.  Those are candidates for 1.2
+13:48:07 <alinefm> ming, yep
+13:48:34 <alinefm> during the planning we can get out current backlog and prioritize them
+13:48:40 <alinefm> the most ones will be in 1.2 release
+13:51:23 <alinefm> ok
+13:51:29 <alinefm> #endmeeting
