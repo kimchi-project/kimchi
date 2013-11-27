@@ -19,8 +19,7 @@
  * limitations under the License.
  */
 kimchi.main = function() {
-    var DEFAULT_HASH = 'guests';
-
+    var DEFAULT_HASH = kimchi.getDefaultPage();
     kimchi.popable();
 
     var onLanguageChanged = function(lang) {
@@ -92,7 +91,6 @@ kimchi.main = function() {
     var updatePage = function() {
         // Parse hash string.
         var hashString = (location.hash && location.hash.substr(1));
-
         /*
          * If hash string is empty, then apply the default one;
          * or else, publish an "redirect" event to load the page.
@@ -126,9 +124,9 @@ kimchi.main = function() {
          * Register click listener of tabs. Replace the default reloading page
          * behavior of <a> with Ajax loading.
          */
-        $('#nav-menu a.item').on('click', function(event) {
-            var url = $(this).attr('href');
-
+        $('#nav-menu').on('click', 'a.item', function(event) {
+            var href = $(this).attr('href');
+            location.hash = href.substring(0,href.length -5);
             /*
              * We use the HTML file name for hash, like: guests for guests.html
              * and templates for templates.html.
@@ -137,9 +135,6 @@ kimchi.main = function() {
              * event to trigger listener, the other is to put an entry into the
              * browser's address history to make pages be bookmark-able.
              */
-            var hashString = url.substring(0, url.length - 5);
-            location.hash = hashString;
-
             // Prevent <a> causing browser redirecting to other page.
             event.preventDefault();
         });
@@ -154,9 +149,9 @@ kimchi.main = function() {
         });
     };
 
-
     // Load i18n translation strings first and then render the page.
     $('#main').load('i18n.html', function() {
+        kimchi.addTabs();
         $(document).bind('ajaxError', function(event, jqXHR, ajaxSettings, errorThrown) {
             if (!ajaxSettings['kimchi']) {
                 return;
@@ -179,4 +174,47 @@ kimchi.main = function() {
         initListeners();
         updatePage();
     });
+};
+
+kimchi.addTabs = function() {
+    var tabsHtml = "";
+    var xmlDoc = kimchi.loadXML("/config/ui/tabs.xml");
+    var members = xmlDoc.getElementsByTagName("tab");
+    var maxRes = members.length - 1;
+    for ( var i = 0; i <= maxRes; i++) {
+        var titleKey = members[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        var title = i18n[titleKey];
+        var path = members[i].getElementsByTagName("path")[0].childNodes[0].nodeValue;
+        tabsHtml += "<li><a class='item' href=" + path + ">" + title + "</a></li>";
+    }
+    $('#nav-menu').prepend(tabsHtml);
+    kimchi.addExtTabs();
+};
+
+kimchi.addExtTabs = function() {
+    var tabsHtml = "";
+    kimchi.listPlugins(function(results) {
+        for ( var i = 0; i <= results.length - 1; i++) {
+            var xmlDoc = kimchi.loadXML("/plugins/" + results[i] + "/ui/config/tab-ext.xml");
+            var members = xmlDoc.getElementsByTagName("tab");
+            var maxRes = members.length - 1;
+            for ( var j = 0; j <= maxRes; j++) {
+                var title = members[j].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                var filePath = members[j].getElementsByTagName("filePath")[0].childNodes[0].nodeValue;
+                tabsHtml += "<li><a class='item' href=" + filePath + ">" + title + "</a></li>";
+            }
+            $('#nav-menu').append(tabsHtml);
+        }
+    });
+};
+
+kimchi.getDefaultPage = function() {
+    var defautLocation = "";
+    var xmlDoc = kimchi.loadXML("/config/ui/tabs.xml");
+    var members = xmlDoc.getElementsByTagName("tab");
+    if (members.length > 0) {
+        var path = members[0].getElementsByTagName("path")[0].childNodes[0].nodeValue;
+        defautLocation = path.substring(0, path.length - 5);
+    }
+    return defautLocation;
 };

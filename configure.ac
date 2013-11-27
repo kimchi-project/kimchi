@@ -68,12 +68,15 @@ AC_CONFIG_FILES([
     ui/libs/themes/base/Makefile
     ui/libs/themes/base/images/Makefile
     ui/pages/Makefile
+    ui/pages/tabs/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
     contrib/kimchi.spec.fedora
     contrib/kimchi.spec.suse
     tests/Makefile
+    config/Makefile
+    config/ui/Makefile
 ],[
     chmod +x po/gen-pot
 ])

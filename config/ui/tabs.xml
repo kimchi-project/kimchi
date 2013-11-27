@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab>
+        <title>Guests</title>
+        <path>tabs/guests.html</path>
+    </tab>
+    <tab>
+        <title>Templates</title>
+        <path>tabs/templates.html</path>
+    </tab>
+    <tab>
+        <title>Storage</title>
+        <path>tabs/storage.html</path>
+    </tab>
+</tabs>

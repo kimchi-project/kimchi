@@ -65,4 +65,27 @@ kimchi.changetoProperUnit = function(numOrg, digits) {
         result = numTemp.toFixed(digits) + suffixes[i]
     }
     return result;
-}
+};
+
+kimchi.loadXML = function (xmlFile){
+    var xmlDoc;
+    if (window.ActiveXObject) {
+        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc.async = false;
+        xmlDoc.load(xmlFile);
+    } else if (document.implementation && document.implementation.createDocument) {
+        try {
+            xmlDoc = document.implementation.createDocument('', '', null);
+            xmlDoc.async = false;
+            xmlDoc.load(xmlFile);
+        } catch (e) {
+            var xmlhttp = new window.XMLHttpRequest();
+            xmlhttp.open("GET", xmlFile, false);
+            xmlhttp.send(null);
+            xmlDoc = xmlhttp.responseXML.documentElement;
+        }
+    } else {
+        return null;
+    }
+    return xmlDoc;
+};

@@ -61,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/kimchi-guest.png
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_datadir}/kimchi/mo/*/LC_MESSAGES/kimchi.mo
+%{_datadir}/kimchi/config/ui/*.xml
 %{_datadir}/kimchi/ui/css/dev.*.css
 %{_datadir}/kimchi/ui/css/fonts/fontawesome-webfont.*
 %{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
@@ -87,6 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.gif
 %{_datadir}/kimchi/ui/libs/themes/base/jquery-ui.min.css
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
+%{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/distros.d/debian.json
 %{_sysconfdir}/kimchi/distros.d/fedora.json

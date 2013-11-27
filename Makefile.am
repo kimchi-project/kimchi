@@ -20,7 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = src ui docs contrib tests po
+SUBDIRS = src ui docs contrib tests po config
 
 ACLOCAL_AMFLAGS = --install -I m4
 

@@ -4,13 +4,13 @@ ui/pages/error.html.tmpl
 ui/pages/guest-add.html.tmpl
 ui/pages/guest-edit.html.tmpl
 ui/pages/guest.html.tmpl
-ui/pages/guests.html.tmpl
 ui/pages/i18n.html.tmpl
 ui/pages/kimchi-ui.html.tmpl
 ui/pages/login-window.html.tmpl
-ui/pages/storage.html.tmpl
 ui/pages/storagepool-add.html.tmpl
 ui/pages/template-add.html.tmpl
 ui/pages/template-edit.html.tmpl
-ui/pages/templates.html.tmpl
 ui/pages/vnc_auto.html.tmpl
+ui/pages/tabs/guests.html.tmpl
+ui/pages/tabs/templates.html.tmpl
+ui/pages/tabs/storage.html.tmpl

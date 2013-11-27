@@ -4,7 +4,7 @@
 # Copyright IBM, Corp. 2013
 #
 # Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+#  zhoumeina <zhoumein@linux.vnet.ibm.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,21 +18,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = tabs
-
-htmldir = $(datadir)/kimchi/ui/pages
-
-dist_html_DATA = \
-	error.html.tmpl \
-	kimchi-ui.html.tmpl \
-	dev-ui.html.tmpl \
-	guest-add.html.tmpl \
-	guest-edit.html.tmpl \
-	guest.html.tmpl \
-	template-add.html.tmpl \
-	template-edit.html.tmpl \
-	vnc_auto.html.tmpl \
-	i18n.html.tmpl \
-	login-window.html.tmpl \
-	storagepool-add.html.tmpl \
-	$(NULL)
+SUBDIRS = ui
+#configdir = $(datadir)/kimchi/config

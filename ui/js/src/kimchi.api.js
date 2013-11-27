@@ -471,5 +471,17 @@ var kimchi = {
                 success : suc,
                 error : err
             });
+    },
+
+    listPlugins : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'plugins',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend: true,
+            success : suc,
+            error : err
+        });
     }
 };
