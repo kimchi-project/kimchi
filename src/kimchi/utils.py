@@ -21,7 +21,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+import os
 import cherrypy
+from cherrypy.lib.reprconf import Parser
+from kimchi import config
 
 kimchi_log = cherrypy.log.error_log
 
@@ -33,3 +36,46 @@ def is_digit(value):
         return value.isdigit()
     else:
         return False
+
+
+def _load_plugin_conf(name):
+    plugin_conf = config.get_plugin_config(name)
+    if not os.path.exists(plugin_conf):
+        cherrypy.log.error_log.error("Plugin configuration file %s"
+                                     " doesn't exist." % plugin_conf)
+        return
+    try:
+        return Parser().dict_from_file(plugin_conf)
+    except ValueError as e:
+        cherrypy.log.error_log.error("Failed to load plugin "
+                                     "conf from %s: %s" %
+                                     (plugin_conf, e.message))
+
+
+def get_enabled_plugins():
+    plugin_dir = config.get_plugins_dir()
+    try:
+        dir_contents = os.listdir(plugin_dir)
+    except OSError:
+        return
+    for name in dir_contents:
+        if os.path.isdir(os.path.join(plugin_dir, name)):
+            plugin_config = _load_plugin_conf(name)
+            try:
+                if plugin_config['kimchi']['enable']:
+                    yield (name, plugin_config)
+            except (TypeError, KeyError):
+                continue
+
+
+def import_class(class_path):
+    module_name, class_name = class_path.rsplit('.', 1)
+    try:
+        mod = import_module(module_name)
+        return getattr(mod, class_name)
+    except (ImportError, AttributeError):
+        raise ImportError('Class %s can not be imported' % class_path)
+
+
+def import_module(module_name):
+    return __import__(module_name, fromlist=[''])

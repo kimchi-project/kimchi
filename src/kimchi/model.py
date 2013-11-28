@@ -60,7 +60,7 @@ from kimchi.featuretests import FeatureTests
 from kimchi.objectstore import ObjectStore
 from kimchi.asynctask import AsyncTask
 from kimchi.exception import *
-from kimchi.utils import kimchi_log, is_digit
+from kimchi.utils import kimchi_log, is_digit, get_enabled_plugins
 from kimchi.distroloader import DistroLoader
 from kimchi.scan import Scanner
 from kimchi import netinfo
@@ -1083,7 +1083,7 @@ class Model(object):
                 'disk_write_rate': self.host_stats['disk_write_rate']}
 
     def plugins_get_list(self):
-        return config.get_pluginsName()
+        return [plugin for (plugin, config) in get_enabled_plugins()]
 
 
 class LibvirtVMTemplate(VMTemplate):

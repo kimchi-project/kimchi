@@ -24,6 +24,7 @@
 
 from optparse import OptionParser
 from root import Root
+from utils import import_class, get_enabled_plugins
 
 import logging.handlers
 import logging
@@ -119,12 +120,6 @@ class Server(object):
             'tools.nocache.on': True
         }
     }
-    for pluginName in config.get_pluginsName():
-        configObj['/plugins/' + pluginName + '/ui/config/tab-ext.xml'] = {
-        'tools.staticfile.on': True,
-        'tools.staticfile.filename': 'plugins/'+ pluginName + '/ui/config/tab-ext.xml',
-        'tools.nocache.on': True
-    }
 
     def __init__(self, options):
         make_dirs = [
@@ -188,7 +183,34 @@ class Server(object):
             model_instance = model.Model()
 
         self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.configObj)
+        self._load_plugins()
+
         cherrypy.lib.sessions.init()
+
+    def _load_plugins(self):
+        for plugin_name, plugin_config in get_enabled_plugins():
+            try:
+                plugin_class = ('plugins.%s.%s' %
+                                (plugin_name,
+                                 plugin_config['kimchi']['plugin_class']))
+                script_name = plugin_config['kimchi']['uri']
+                del plugin_config['kimchi']
+
+                plugin_config['/ui/config/tab-ext.xml'] = {
+                    'tools.staticfile.on': True,
+                    'tools.staticfile.filename':
+                    config.get_plugin_tab_xml(plugin_name),
+                    'tools.nocache.on': True}
+            except KeyError:
+                continue
+
+            try:
+                plugin_app = import_class(plugin_class)()
+            except ImportError:
+                cherrypy.log.error_log.error("Failed to import plugin %s" %
+                                             plugin_class)
+                continue
+            cherrypy.tree.mount(plugin_app, script_name, plugin_config)
 
     def _init_ssl(self, options):
         ssl_server = cherrypy._cpserver.Server()
@@ -215,7 +237,8 @@ class Server(object):
         ssl_server.subscribe()
 
     def start(self):
-        cherrypy.quickstart(self.app)
+        cherrypy.engine.start()
+        cherrypy.engine.block()
 
     def stop(self):
         cherrypy.engine.exit()

@@ -30,6 +30,8 @@ sys.path.insert(1, '@pythondir@')
 
 import kimchi.server
 import kimchi.config
+if kimchi.config.without_installation():
+    sys.path.append(kimchi.config.get_prefix())
 
 from ConfigParser import SafeConfigParser
 from optparse import OptionParser

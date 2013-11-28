@@ -42,6 +42,10 @@ def get_prefix():
         return '@pkgdatadir@'
 
 
+def without_installation():
+    return get_prefix() != '@pkgdatadir@'
+
+
 def get_config_dir():
     prefix = get_prefix()
 
@@ -129,12 +133,34 @@ def find_qemu_binary():
 def get_debugreports_path():
     return os.path.join(get_prefix(), 'data', 'debugreports')
 
-def get_plugins_path():
-    return os.path.join(get_prefix(), 'plugins')
 
-def get_pluginsName():
-    path = get_plugins_path()
-    return [name for name in os.listdir(path) if os.path.isdir(os.path.join(path, name))]
+def get_plugins_dir():
+    prefix = get_prefix()
+    if prefix == '@pkgdatadir@':
+        prefix = '@kimchidir@'
+    return os.path.join(prefix, 'plugins')
+
+
+def get_plugin_config(name):
+    prefix = get_prefix()
+    if prefix == '@pkgdatadir@':
+        base_dir = '@sysconfdir@/kimchi/plugins.d/'
+    else:
+        base_dir = os.path.join(prefix, 'plugins')
+    return os.path.join(base_dir, '%s/%s.conf' % (name, name))
+
+
+def _get_plugin_ui_dir(name):
+    prefix = get_prefix()
+    if prefix == '@pkgdatadir@':
+        base_dir = '@pkgdatadir@/plugins/'
+    else:
+        base_dir = os.path.join(prefix, 'plugins')
+    return os.path.join(base_dir, '%s/ui' % name)
+
+
+def get_plugin_tab_xml(name):
+    return os.path.join(_get_plugin_ui_dir(name), 'config/tab-ext.xml')
 
 
 if __name__ == '__main__':
