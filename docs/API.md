@@ -485,6 +485,10 @@ Contains the host sample data.
         * buffers: The amount of memory used for file buffers. The unit is Bytes.
         * cached: The amount of memory used as cache memory. The unit is Bytes.
         * avail: The total amount of buffer, cache and free memory. The unit is Bytes.
+    * disk_read_rate: Expresses the total IO throughput for reads across
+                      all disks (kb/s).
+    * disk_write_rate: Expresses the total IO throughput for writes across
+                       all disks (kb/s).
 
 * **POST**: *See HostStats Actions*
 
