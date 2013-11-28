@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	test_mockmodel.py \
 	test_model.py \
 	test_osinfo.py \
+	test_plugin.py \
 	test_rest.py \
 	test_server.py \
 	test_vmtemplate.py \
