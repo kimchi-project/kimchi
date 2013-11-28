@@ -575,3 +575,6 @@ class ModelTests(unittest.TestCase):
         self.assertIn('cached', memory_stats)
         self.assertIn('buffers', memory_stats)
         self.assertIn('avail', memory_stats)
+
+        self.assertIn('disk_read_rate', stats)
+        self.assertIn('disk_write_rate', stats)
