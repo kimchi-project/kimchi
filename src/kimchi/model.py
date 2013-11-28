@@ -41,6 +41,7 @@ try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
+from collections import defaultdict
 import psutil
 from xml.etree import ElementTree
 import cherrypy
@@ -120,7 +121,7 @@ class Model(object):
         self.graphics_ports = {}
         self.next_taskid = 1
         self.stats = {}
-        self.host_stats = {}
+        self.host_stats = defaultdict(int)
         self.host_info = {}
         self.qemu_stream = False
         self.qemu_stream_dns = False
@@ -382,6 +383,18 @@ class Model(object):
         return name_lists
 
     def  _update_host_stats(self):
+        preTimeStamp = self.host_stats['timestamp']
+        timestamp = time.time()
+        # FIXME when we upgrade psutil, we can get uptime by psutil.uptime
+        # we get uptime by float(open("/proc/uptime").readline().split()[0])
+        # and calculate the first io_rate after the OS started.
+        seconds = (timestamp - preTimeStamp if preTimeStamp else
+                   float(open("/proc/uptime").readline().split()[0]))
+
+        self.host_stats['timestamp'] = timestamp
+        self._get_host_disk_io_rate(seconds)
+
+
         self._get_percentage_host_cpu_usage()
         self._get_host_memory_stats()
 
@@ -403,6 +416,22 @@ class Model(object):
                         'cached': cached, 'buffers': buffers,
                         'avail': avail}
         self.host_stats['memory'] = memory_stats
+
+    def _get_host_disk_io_rate(self, seconds):
+        prev_RdKB = self.host_stats['disk_io_RdKB']
+        prev_WrKB = self.host_stats['disk_io_WrKB']
+
+        disk_io = psutil.disk_io_counters(False)
+        RdKB = float(disk_io.read_bytes) / 1000
+        WrKB = float(disk_io.write_bytes) / 1000
+
+        rd_rate = round((RdKB - prev_RdKB) / seconds, 1)
+        wr_rate = round((WrKB - prev_WrKB) / seconds, 1)
+
+        self.host_stats.update({'disk_read_rate': rd_rate,
+                                'disk_write_rate': wr_rate,
+                                'disk_io_RdKB': RdKB,
+                                'disk_io_WrKB': WrKB})
 
     def _static_vm_update(self, dom, params):
         state = Model.dom_state_map[dom.info()[0]]
@@ -1048,8 +1077,10 @@ class Model(object):
         return self.host_info
 
     def hoststats_lookup(self, *name):
-        return {'cpu_utilization': self.host_stats.get('cpu_utilization', 0),
-                'memory': self.host_stats.get('memory')}
+        return {'cpu_utilization': self.host_stats['cpu_utilization'],
+                'memory': self.host_stats.get('memory'),
+                'disk_read_rate': self.host_stats['disk_read_rate'],
+                'disk_write_rate': self.host_stats['disk_write_rate']}
 
     def plugins_get_list(self):
         return config.get_pluginsName()

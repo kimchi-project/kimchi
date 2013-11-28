@@ -497,7 +497,9 @@ class MockModel(object):
                         'avail': avail}
 
         return {'cpu_utilization': round(random.uniform(0, 100), 1),
-                'memory': memory_stats}
+                'memory': memory_stats,
+                'disk_read_rate': round(random.uniform(0, 4000), 1),
+                'disk_write_rate': round(random.uniform(0, 4000), 1)}
 
 
 class MockVMTemplate(VMTemplate):
