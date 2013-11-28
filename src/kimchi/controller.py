@@ -26,7 +26,6 @@ from jsonschema import Draft3Validator, ValidationError
 from functools import wraps
 import urllib2
 
-from kimchi.config import get_api_schema_file
 from kimchi.exception import *
 import kimchi.template
 from kimchi.model import ISO_POOL_NAME
@@ -84,7 +83,11 @@ def internal_redirect(url):
 
 
 def validate_params(params, instance, action):
-    api_schema = json.load(open(get_api_schema_file()))
+    root = cherrypy.request.app.root
+    if hasattr(root, 'api_schema'):
+        api_schema = root.api_schema
+    else:
+        return
     operation = model_fn(instance, action)
     validator = Draft3Validator(api_schema)
     request = {operation: params}
