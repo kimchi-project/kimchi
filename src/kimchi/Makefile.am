@@ -67,7 +67,8 @@ do_substitution = \
 	sed -e 's,[@]prefix[@],$(prefix),g'             \
 	-e 's,[@]sysconfdir[@],$(sysconfdir),g'         \
 	-e 's,[@]localstatedir[@],$(localstatedir),g'   \
-	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'
+	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'         \
+	-e 's,[@]kimchidir[@],$(kimchidir),g'
 
 
 config.py: config.py.in Makefile
