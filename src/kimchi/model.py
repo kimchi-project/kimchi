@@ -422,8 +422,8 @@ class Model(object):
         prev_WrKB = self.host_stats['disk_io_WrKB']
 
         disk_io = psutil.disk_io_counters(False)
-        RdKB = float(disk_io.read_bytes) / 1000
-        WrKB = float(disk_io.write_bytes) / 1000
+        RdKB = float(disk_io.read_bytes) / 1024
+        WrKB = float(disk_io.write_bytes) / 1024
 
         rd_rate = round((RdKB - prev_RdKB) / seconds, 1)
         wr_rate = round((WrKB - prev_WrKB) / seconds, 1)
