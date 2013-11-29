@@ -27,8 +27,8 @@ import urllib
 import urlparse
 
 
-from kimchi import osinfo
 from kimchi import isoinfo
+from kimchi import osinfo
 from kimchi.exception import InvalidParameter
 
 
