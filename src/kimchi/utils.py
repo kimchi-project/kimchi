@@ -21,10 +21,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-import os
 import cherrypy
+import os
+
+
 from cherrypy.lib.reprconf import Parser
+
+
 from kimchi import config
+
 
 kimchi_log = cherrypy.log.error_log
 

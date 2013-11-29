@@ -20,13 +20,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import random
 import copy
-
-import subprocess
+import glob
 import os
-import uuid
 import psutil
+import random
+import subprocess
+import time
+import uuid
+
 
 try:
     from PIL import Image
@@ -35,18 +37,18 @@ except ImportError:
     import Image
     import ImageDraw
 
-import time
-import glob
+
 import kimchi.model
-from kimchi.vmtemplate import VMTemplate
-from kimchi.screenshot import VMScreenshot
-import kimchi.vnc
-import config
-from kimchi.objectstore import ObjectStore
+from kimchi import config
+from kimchi import vnc
 from kimchi.asynctask import AsyncTask
-from kimchi.exception import *
-from kimchi.utils import is_digit
 from kimchi.distroloader import DistroLoader
+from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import MissingParameter, NotFoundError
+from kimchi.objectstore import ObjectStore
+from kimchi.screenshot import VMScreenshot
+from kimchi.utils import is_digit
+from kimchi.vmtemplate import VMTemplate
 
 
 class MockModel(object):

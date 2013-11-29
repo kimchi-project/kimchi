@@ -21,12 +21,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+import glob
 import json
 import os
-import config
-import glob
-from kimchi.exception import *
+
+
+from kimchi import config
+from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log
+
 
 class DistroLoader(object):
 

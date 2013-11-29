@@ -20,12 +20,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import sys
 import os
 import re
 import struct
+import sys
 import urllib2
-from utils import kimchi_log
+
+
+from kimchi.utils import kimchi_log
 
 
 iso_dir = [

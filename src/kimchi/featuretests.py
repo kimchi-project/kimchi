@@ -21,11 +21,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import libvirt
-import threading
-import subprocess
 import os
+import subprocess
+import threading
 
-import config
+
+from kimchi import config
+
 
 ISO_STREAM_XML = """
 <domain type='kvm'>

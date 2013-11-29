@@ -20,9 +20,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 #
 
+import ethtool
 import glob
 import os
-import ethtool
+
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'

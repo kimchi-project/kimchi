@@ -26,9 +26,11 @@ import socket
 import urllib
 import urlparse
 
-import osinfo
-import isoinfo
-from kimchi.exception import *
+
+from kimchi import osinfo
+from kimchi import isoinfo
+from kimchi.exception import InvalidParameter
+
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
 

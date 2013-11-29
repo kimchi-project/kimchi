@@ -22,12 +22,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
-import os
-import os.path
-from glob import iglob
-import platform
 import libvirt
-from xmlutils import xpath_get_text
+import os
+import platform
+
+
+from glob import iglob
+
+
+from kimchi.xmlutils import xpath_get_text
 
 
 def get_prefix():

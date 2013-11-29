@@ -26,9 +26,11 @@ import socket
 import subprocess
 import sys
 
+
 from contextlib import closing
 
-from kimchi.exception import *
+
+from kimchi.exception import OperationFailed
 
 
 def _getFreePort():

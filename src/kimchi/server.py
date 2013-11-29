@@ -22,19 +22,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-from optparse import OptionParser
-from root import Root
-from utils import import_class, get_enabled_plugins
-
-import logging.handlers
-import logging
-import model
-import mockmodel
-import config
-import sslcert
-import auth
-import os
 import cherrypy
+import logging
+import logging.handlers
+import os
+import sslcert
+
+
+from optparse import OptionParser
+
+
+from kimchi import auth
+from kimchi import config
+from kimchi import model
+from kimchi import mockmodel
+from kimchi.root import Root
+from kimchi.utils import import_class, get_enabled_plugins
+
 
 LOGGING_LEVEL = {"debug": logging.DEBUG,
                  "info": logging.INFO,

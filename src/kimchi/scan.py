@@ -1,12 +1,13 @@
 import glob
+import os.path
 import shutil
 import tempfile
-import os.path
 import time
 import uuid
 
+
 from kimchi.isoinfo import probe_iso
-from utils import kimchi_log
+from kimchi.utils import kimchi_log
 
 
 class Scanner(object):

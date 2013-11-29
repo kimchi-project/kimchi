@@ -21,20 +21,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+import glob
 import os
+import random
+import signal
 import tempfile
 import time
-import random
 import uuid
-import glob
-import signal
-from utils import kimchi_log
+
+
 try:
     from PIL import Image
 except ImportError:
     import Image
 
-import config
+
+from kimchi import config
+from kimchi.utils import kimchi_log
+
 
 (fd, pipe) = tempfile.mkstemp()
 stream_test_result = None

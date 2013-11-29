@@ -21,11 +21,13 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import json
 import cherrypy
-import template
-import controller
-from config import get_api_schema_file
+import json
+
+
+from kimchi import controller
+from kimchi import template
+from kimchi.config import get_api_schema_file
 
 
 def error_production_handler(status, message, traceback, version):

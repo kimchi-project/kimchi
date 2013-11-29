@@ -22,14 +22,19 @@
 
 import cherrypy
 import json
-from jsonschema import Draft3Validator, ValidationError
-from functools import wraps
 import urllib2
 
-from kimchi.exception import *
+
+from functools import wraps
+from jsonschema import Draft3Validator, ValidationError
+
+
 import kimchi.template
+from kimchi import auth
+from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
+from kimchi.exception import NotFoundError,  OperationFailed
 from kimchi.model import ISO_POOL_NAME
-import auth
+
 
 def get_class_name(cls):
     try:

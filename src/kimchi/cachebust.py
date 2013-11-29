@@ -20,8 +20,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-from config import get_prefix
 import os
+
+
+from kimchi.config import get_prefix
+
 
 def href(url):
     # for error.html, url is absolute path

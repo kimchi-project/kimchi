@@ -21,14 +21,18 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import json
-import threading
 import sqlite3
+import threading
+
+
 try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
-import config
-from kimchi.exception import *
+
+
+from kimchi import config
+from kimchi.exception import NotFoundError
 
 
 class ObjectStoreSession(object):

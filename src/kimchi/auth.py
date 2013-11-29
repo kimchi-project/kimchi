@@ -22,12 +22,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import PAM
-import cherrypy
-import re
 import base64
-import template
-from exception import *
+import cherrypy
+import PAM
+import re
+
+
+from kimchi import template
+from kimchi.exception import OperationFailed
 
 
 SESSION_USER = 'userid'
