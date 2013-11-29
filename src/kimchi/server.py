@@ -75,6 +75,7 @@ class Server(object):
         '/templates': {'tools.kimchiauth.on': True},
         '/storagepools': {'tools.kimchiauth.on': True},
         '/tasks': {'tools.kimchiauth.on': True},
+        '/debugreports': {'tools.kimchiauth.on': True},
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/css',
