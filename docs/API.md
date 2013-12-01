@@ -307,6 +307,67 @@ A interface represents available interface on host.
 
 *No actions defined*
 
+### Collection: Networks
+
+**URI:** /networks
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all defined Networks
+* **POST**: Create a new Network
+    * name: The name of the Network
+    * subnet *(optional)*: Network segment in slash-separated format with ip address and
+                           prefix or netmask. It is always ignored for bridge network.
+    * connection: Specifies how this network should be connected to the other
+                  networks visible to this host.
+        * isolated: Create a private, isolated virtual network.
+        * nat: Outgoing traffic will be routed through the host.
+        * bridge: All traffic on this network will be bridged through the indicated
+                  interface.
+    * interface: The name of a network interface on the host.
+                 For bridge network, the interface can be a bridge or nic/bonding
+                 device. For isolated or NAT network, the interface is ignored.
+
+### Resource: Network
+
+**URI:** /networks/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Network
+    * name: The name of the Network
+            Used to identify the Network in this API
+    * state: Indicates the current state of the Network
+        * active: The Network is ready for use
+        * inactive: The Network is not available
+    * autostart: Network autostart onboot
+    * subnet: Network segment in slash-separated format with ip address and prefix
+    * dhcp: DHCP services on the virtual network is enabled.
+        * start: start boundary of a pool of addresses to be provided to DHCP clients.
+        * end: end boundary of a pool of addresses to be provided to DHCP clients.
+    * connection: Specifies how this network should be connected to the other networks
+                  visible to this host.
+        * isolated: A private, isolated virtual network.
+                    The VMs attached to it can not be reached by the systems
+                    outside of this network and vice versa.
+        * nat: Outgoing traffic will be routed through the host.
+               The VM attached to it will have internet access via the host but
+               other computers will not be able to connect to the VM.
+        * bridge: Aggregated Public Network.
+                  The VM that joines this network is seen as a peer on this network
+                  and it may offer network services such as HTTP or SSH.
+    * interface: The name of a bridge network interface on the host.  All traffic
+                 on this network will be bridged through the indicated interface.
+                 The interface is a bridge or ethernet/bonding device.
+
+* **DELETE**: Remove the Network
+* **POST**: *See Network Actions*
+
+**Actions (POST):**
+
+* activate: Activate an inactive Network
+* deactivate: Deactivate an active Network
+
 
 ### Collection: Tasks
 
