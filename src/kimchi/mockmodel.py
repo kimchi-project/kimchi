@@ -22,6 +22,7 @@
 
 import copy
 import glob
+import ipaddr
 import os
 import psutil
 import random
@@ -40,6 +41,7 @@ except ImportError:
 
 import kimchi.model
 from kimchi import config
+from kimchi import network as knetwork
 from kimchi import vnc
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
@@ -80,6 +82,7 @@ class MockModel(object):
         self._mock_screenshots = {}
         self._mock_templates = {}
         self._mock_storagepools = {'default': MockStoragePool('default')}
+        self._mock_networks = {'default': MockNetwork('default')}
         self._mock_graphics_ports = {}
         self._mock_interfaces = self.dummy_interfaces()
         self.next_taskid = 1
@@ -430,6 +433,60 @@ class MockModel(object):
     def interface_lookup(self, name):
         return self._mock_interfaces[name].info
 
+    def networks_create(self, params):
+        name = params['name']
+        if name in self.networks_get_list():
+            raise InvalidOperation("Network %s already exists" % name)
+        network = MockNetwork(name)
+        connection = params['connection']
+        network.info['connection'] = connection
+        if connection == "bridge":
+            try:
+                interface = params['interface']
+                network.info['interface'] = interface
+            except KeyError, key:
+                raise MissingParameter(key)
+
+        subnet = params.get('subnet', '')
+        if subnet:
+            network.info['subnet'] = subnet
+            try:
+                net = ipaddr.IPNetwork(subnet)
+            except ValueError, e:
+                raise InvalidParameter(e)
+
+            network.info['dhcp'] = {
+                'start': str(net.network + net.numhosts / 2),
+                'stop': str(net.network + net.numhosts - 2)}
+        if name in self._mock_networks:
+            raise InvalidOperation("Network already exists")
+        self._mock_networks[name] = network
+        return name
+
+    def _get_network(self, name):
+        try:
+            return self._mock_networks[name]
+        except KeyError:
+            raise NotFoundError()
+
+    def network_lookup(self, name):
+        network = self._get_network(name)
+        return network.info
+
+    def network_activate(self, name):
+        self._get_network(name).info['state'] = 'active'
+
+    def network_deactivate(self, name):
+        self._get_network(name).info['state'] = 'inactive'
+
+    def network_delete(self, name):
+        # firstly, we should check the network actually exists
+        network = self._get_network(name)
+        del self._mock_networks[network.name]
+
+    def networks_get_list(self):
+        return sorted(self._mock_networks.keys())
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')
@@ -580,6 +637,19 @@ class Interface(object):
                      'status': 'active'}
 
 
+class MockNetwork(object):
+    def __init__(self, name):
+        self.name = name
+        self.info = {'state': 'inactive',
+                     'autostart': True,
+                     'connection': 'nat',
+                     'interface': 'virbr0',
+                     'subnet': '192.168.122.0/24',
+                     'dhcp': {'start': '192.168.122.128',
+                              'stop':  '192.168.122.254'},
+                     }
+
+
 class MockTask(object):
     def __init__(self, id):
         self.id = id
@@ -663,5 +733,15 @@ def get_mock_environment():
             defaultstoragepool.info['path'], vol_name)
         mockpool = model._mock_storagepools[name]
         mockpool._volumes[vol_name] = defaultstoragevolume
+
+    #mock network
+    for i in xrange(5):
+        name = 'test-network-%i' % i
+        testnetwork = MockNetwork(name)
+        testnetwork.info['interface'] = 'virbr%i' % (i + 1)
+        testnetwork.info['subnet'] = '192.168.%s.0/24' % (i + 1)
+        testnetwork.info['dhcp']['start'] = '192.168.%s.128' % (i + 1)
+        testnetwork.info['dhcp']['end'] = '192.168.%s.254' % (i + 1)
+        model._mock_networks[name] = testnetwork
 
     return model
