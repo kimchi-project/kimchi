@@ -78,6 +78,7 @@ class Server(object):
         },
         '/vms': {'tools.kimchiauth.on': True},
         '/templates': {'tools.kimchiauth.on': True},
+        '/networks': {'tools.kimchiauth.on': True},
         '/storagepools': {'tools.kimchiauth.on': True},
         '/tasks': {'tools.kimchiauth.on': True},
         '/debugreports': {'tools.kimchiauth.on': True},
