@@ -33,6 +33,31 @@
 					"minLength": 1
 				}
 			}
+		},
+		"networks_create": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "The name of the new network",
+					"type": "string",
+					"minLength": 1,
+					"required": true
+				},
+				"connection": {
+					"description": "Specifies how this network should be connected to the other networks",
+					"type": "string",
+					"pattern": "^isolated|nat|bridge$",
+					"required": true
+				},
+				"subnet": {
+					"description": "Network segment in slash-separated format with ip address and prefix or netmask",
+					"type": "string"
+				},
+				"interface": {
+					"description": "The name of a network interface on the host",
+					"type": "string"
+				}
+			}
 		}
 	}
 }

@@ -443,6 +443,30 @@ class Interface(Resource):
                 'status': self.info['status']}
 
 
+class Networks(Collection):
+    def __init__(self, model):
+        super(Networks, self).__init__(model)
+        self.resource = Network
+
+
+class Network(Resource):
+    def __init__(self, model, ident):
+        super(Network, self).__init__(model, ident)
+        self.uri_fmt = "/networks/%s"
+        self.activate = generate_action_handler(self, 'activate')
+        self.deactivate = generate_action_handler(self, 'deactivate')
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'autostart': self.info['autostart'],
+                'connection': self.info['connection'],
+                'interface': self.info['interface'],
+                'subnet': self.info['subnet'],
+                'dhcp': self.info['dhcp'],
+                'state': self.info['state']}
+
+
 class StorageVolume(Resource):
     def __init__(self, model, pool, ident):
         super(StorageVolume, self).__init__(model, ident)
