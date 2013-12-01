@@ -25,6 +25,7 @@ import copy
 import fnmatch
 import functools
 import glob
+import ipaddr
 import json
 import libvirt
 import logging
@@ -55,6 +56,7 @@ except ImportError:
 from kimchi import config
 from kimchi import isoinfo
 from kimchi import netinfo
+from kimchi import network as knetwork
 from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.asynctask import AsyncTask
@@ -62,6 +64,7 @@ from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.featuretests import FeatureTests
+from kimchi.networkxml import to_network_xml
 from kimchi.objectstore import ObjectStore
 from kimchi.scan import Scanner
 from kimchi.screenshot import VMScreenshot
@@ -695,6 +698,172 @@ class Model(object):
             return netinfo.get_interface_info(name)
         except ValueError, e:
             raise NotFoundError(e)
+
+    def _get_network(self, name):
+        conn = self.conn.get()
+        try:
+            return conn.networkLookupByName(name)
+        except libvirt.libvirtError as e:
+            raise NotFoundError("Network '%s' not found: %s" %
+                                (name, e.get_error_message()))
+
+    def _get_network_from_xml(self, xml):
+        address = xmlutils.xpath_get_text(xml, "/network/ip/@address")
+        address = address and address[0] or ''
+        netmask = xmlutils.xpath_get_text(xml, "/network/ip/@netmask")
+        netmask = netmask and netmask[0] or ''
+        net = address and netmask and "/".join([address, netmask]) or ''
+
+        dhcp_start = xmlutils.xpath_get_text(xml,
+                                             "/network/ip/dhcp/range/@start")
+        dhcp_start = dhcp_start and dhcp_start[0] or ''
+        dhcp_end = xmlutils.xpath_get_text(xml, "/network/ip/dhcp/range/@end")
+        dhcp_end = dhcp_end and dhcp_end[0] or ''
+        dhcp = {'start': dhcp_start, 'end': dhcp_end}
+
+        forward_mode = xmlutils.xpath_get_text(xml, "/network/forward/@mode")
+        forward_mode = forward_mode and forward_mode[0] or ''
+        forward_if = xmlutils.xpath_get_text(xml,
+                                             "/network/forward/interface/@dev")
+        forward_pf = xmlutils.xpath_get_text(xml, "/network/forward/pf/@dev")
+        bridge = xmlutils.xpath_get_text(xml, "/network/bridge/@name")
+        bridge = bridge and bridge[0] or ''
+        return {'subnet': net, 'dhcp': dhcp, 'bridge': bridge,
+                'forward': {'mode': forward_mode,
+                            'interface': forward_if,
+                            'pf': forward_pf}}
+
+    def _get_all_networks_interfaces(self):
+        net_names = self.networks_get_list()
+        interfaces = []
+        for name in net_names:
+            network = self._get_network(name)
+            xml = network.XMLDesc(0)
+            net_dict = self._get_network_from_xml(xml)
+            forward = net_dict['forward']
+            (forward['mode'] == 'bridge' and forward['interface'] and
+             interfaces.append(forward['interface'][0]) or
+             interfaces.extend(forward['interface'] + forward['pf']))
+            net_dict['bridge'] and interfaces.append(net_dict['bridge'])
+        return interfaces
+
+    def _set_network_subnet(self, params):
+        netaddr = params.get('subnet', '')
+        net_addrs = []
+        # lookup a free network address for nat and isolated automatically
+        if not netaddr:
+            for net_name in self.networks_get_list():
+                network = self._get_network(net_name)
+                xml = network.XMLDesc(0)
+                subnet = self._get_network_from_xml(xml)['subnet']
+                subnet and net_addrs.append(ipaddr.IPNetwork(subnet))
+            netaddr = knetwork.get_one_free_network(net_addrs)
+            if not netaddr:
+                raise OperationFailed("can not find a free IP address "
+                                      "for network '%s'" %
+                                      params['name'])
+        try:
+            ip = ipaddr.IPNetwork(netaddr)
+        except ValueError as e:
+            raise InvalidParameter("%s" % e)
+        dhcp_start = str(ip.ip + ip.numhosts / 2)
+        dhcp_end = str(ip.ip + ip.numhosts - 2)
+        params.update({'net': netaddr,
+                       'dhcp': {'range': {'start': dhcp_start,
+                                'end': dhcp_end}}})
+
+    def _set_network_bridge(self, params):
+        try:
+            iface = params['interface']
+            if iface in self._get_all_networks_interfaces():
+                raise InvalidParameter("interface '%s' already in use." %
+                                       iface)
+        except KeyError, e:
+            raise MissingParameter(e)
+        if netinfo.is_bridge(iface):
+            params['bridge'] = iface
+        elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
+            params['forward']['dev'] = iface
+        else:
+            raise InvalidParameter("the interface should be bare nic, "
+                                   "bonding or bridge device.")
+
+    def networks_create(self, params):
+        conn = self.conn.get()
+        name = params['name']
+        if name in self.networks_get_list():
+            raise InvalidOperation("Network %s already exists" % name)
+
+        connection = params["connection"]
+        # set forward mode, isolated do not need forward
+        if connection != 'isolated':
+            params['forward'] = {'mode': connection}
+
+        # set subnet, bridge network do not need subnet
+        if connection in ["nat", 'isolated']:
+            self._set_network_subnet(params)
+
+        # only bridge network need bridge(linux bridge) or interface(macvtap)
+        if connection == 'bridge':
+            self._set_network_bridge(params)
+
+        xml = to_network_xml(**params)
+
+        try:
+            network = conn.networkDefineXML(xml)
+            network.setAutostart(True)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(e.get_error_message())
+
+        return name
+
+    def networks_get_list(self):
+        conn = self.conn.get()
+        return sorted(conn.listNetworks() + conn.listDefinedNetworks())
+
+    def network_lookup(self, name):
+        network = self._get_network(name)
+        xml = network.XMLDesc(0)
+        net_dict = self._get_network_from_xml(xml)
+        subnet = net_dict['subnet'] and ipaddr.IPNetwork(net_dict['subnet'])
+        dhcp = net_dict['dhcp']
+        forward = net_dict['forward']
+        interface = net_dict['bridge']
+        interface_subnet = ''
+
+        connection = forward['mode'] or "isolated"
+        # FIXME, if we want to support other forward mode well.
+        if connection == 'bridge':
+            # macvtap bridge
+            interface = interface or forward['interface'][0]
+            # exposing the network on linux bridge or macvtap interface
+            interface_subnet = knetwork.get_dev_netaddr(interface)
+
+        # libvirt use format 192.168.0.1/24, standard should be 192.168.0.0/24
+        # http://www.ovirt.org/File:Issue3.png
+        subnet = subnet and "%s/%s" % (subnet.network, subnet.prefixlen)
+
+        return {'connection': connection,
+                'interface': interface,
+                'subnet': subnet or interface_subnet,
+                'dhcp': dhcp,
+                'autostart': network.autostart() == 1,
+                'state':  network.isActive() and "active" or "inactive"}
+
+    def network_activate(self, name):
+        network = self._get_network(name)
+        network.create()
+
+    def network_deactivate(self, name):
+        network = self._get_network(name)
+        network.destroy()
+
+    def network_delete(self, name):
+        network = self._get_network(name)
+        if network.isActive():
+            raise InvalidOperation(
+                "Unable to delete the active network %s" % name)
+        network.undefine()
 
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
