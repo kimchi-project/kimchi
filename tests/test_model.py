@@ -332,6 +332,39 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(info['uuid'], inst.vm_lookup('new-vm')['uuid'])
             rollback.prependDefer(inst.vm_delete, 'new-vm')
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_network(self):
+        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
+
+        with utils.RollbackContext() as rollback:
+            name = 'test-network'
+
+            networks = inst.networks_get_list()
+            num = len(networks) + 1
+            args = {'name': name,
+                    'connection': 'nat',
+                    'subnet': '127.0.100.0/24'}
+            inst.networks_create(args)
+            rollback.prependDefer(inst.network_delete, name)
+
+            networks = inst.networks_get_list()
+            self.assertEquals(num, len(networks))
+
+            networkinfo = inst.network_lookup(name)
+            self.assertEquals(args['subnet'], networkinfo['subnet'])
+            self.assertEqual(args['connection'], networkinfo['connection'])
+            self.assertEquals('inactive', networkinfo['state'])
+            self.assertTrue(networkinfo['autostart'])
+
+            inst.network_activate(name)
+            rollback.prependDefer(inst.network_deactivate, name)
+
+            networkinfo = inst.network_lookup(name)
+            self.assertEquals('active', networkinfo['state'])
+
+        networks = inst.networks_get_list()
+        self.assertEquals((num - 1), len(networks))
+
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):

@@ -786,6 +786,65 @@ class RestTests(unittest.TestCase):
         self.assertEquals(interface['netmask'], "255.255.255.0")
         self.assertEquals(interface['status'], "active")
 
+    def test_get_networks(self):
+        networks = json.loads(request(host, port, '/networks').read())
+        self.assertEquals(1, len(networks))
+        self.assertEquals('default', networks[0]['name'])
+
+        # Now add a couple of Networks to the mock model
+        for i in xrange(5):
+            name = 'network-%i' % i
+            req = json.dumps({'name': name,
+                              'connection': 'nat',
+                              'subnet': '127.0.10%i.0/24' % i})
+
+            resp = request(host, port, '/networks', req, 'POST')
+            self.assertEquals(201, resp.status)
+
+        networks = json.loads(request(host, port, '/networks').read())
+        self.assertEquals(6, len(networks))
+
+        network = json.loads(request(host, port,
+                                     '/networks/network-1').read())
+        self.assertEquals('network-1', network['name'])
+        self.assertEquals('inactive', network['state'])
+        # Delete the network
+        for i in xrange(5):
+            resp = request(host, port, '/networks/network-%i' % i,
+                           '{}', 'DELETE')
+            self.assertEquals(204, resp.status)
+
+    def test_network_action(self):
+        # Create a network
+        req = json.dumps({'name': 'test-network',
+                          'connection': 'nat',
+                          'net': '127.0.1.0/24'})
+        resp = request(host, port, '/networks', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the network
+        network = json.loads(request(host, port,
+                                     '/networks/test-network').read())
+        self.assertEquals('inactive', network['state'])
+
+        # activate the network
+        resp = request(host, port,
+                       '/networks/test-network/activate', '{}', 'POST')
+        network = json.loads(request(host, port,
+                                     '/networks/test-network').read())
+        self.assertEquals('active', network['state'])
+
+        # Deactivate the network
+        resp = request(host, port,
+                       '/networks/test-network/deactivate', '{}', 'POST')
+        network = json.loads(request(host, port,
+                                     '/networks/test-network').read())
+        self.assertEquals('inactive', network['state'])
+
+        # Delete the network
+        resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
     def _wait_task(self, taskid, timeout=5):
         for i in range(0, timeout):
             task = json.loads(self.request('/tasks/%s' % taskid).read())
