@@ -29,6 +29,8 @@ kimchi_PYTHON = \
 	__init__.py       \
 	isoinfo.py        \
 	netinfo.py        \
+	network.py        \
+	networkxml.py     \
 	mockmodel.py      \
 	model.py          \
 	objectstore.py    \

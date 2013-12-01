@@ -31,6 +31,7 @@ EXTRA_DIST = \
 	test_rest.py \
 	test_server.py \
 	test_vmtemplate.py \
+	test_networkxml.py \
 	utils.py \
 	$(NULL)
 
