@@ -700,7 +700,8 @@ class Model(object):
             return session.get_list('template')
 
     def interfaces_get_list(self):
-        return netinfo.all_favored_interfaces()
+        return list(set(netinfo.all_favored_interfaces()) -
+                    set(self._get_all_networks_interfaces()))
 
     def interface_lookup(self, name):
         try:
