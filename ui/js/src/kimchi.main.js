@@ -19,7 +19,8 @@
  * limitations under the License.
  */
 kimchi.main = function() {
-    var DEFAULT_HASH = kimchi.getDefaultPage();
+    var tabUrl = "/config/ui/tabs.xml";
+    var DEFAULT_HASH = kimchi.getDefaultPage(tabUrl);
     kimchi.popable();
 
     var onLanguageChanged = function(lang) {
@@ -151,7 +152,7 @@ kimchi.main = function() {
 
     // Load i18n translation strings first and then render the page.
     $('#main').load('i18n.html', function() {
-        kimchi.addTabs();
+        kimchi.addTabs(tabUrl);
         $(document).bind('ajaxError', function(event, jqXHR, ajaxSettings, errorThrown) {
             if (!ajaxSettings['kimchi']) {
                 return;
@@ -176,45 +177,51 @@ kimchi.main = function() {
     });
 };
 
-kimchi.addTabs = function() {
-    var tabsHtml = "";
-    var xmlDoc = kimchi.loadXML("/config/ui/tabs.xml");
-    var members = xmlDoc.getElementsByTagName("tab");
-    var maxRes = members.length - 1;
-    for ( var i = 0; i <= maxRes; i++) {
-        var titleKey = members[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        var title = i18n[titleKey];
-        var path = members[i].getElementsByTagName("path")[0].childNodes[0].nodeValue;
-        tabsHtml += "<li><a class='item' href=" + path + ">" + title + "</a></li>";
-    }
+kimchi.addTabs = function(url) {
+    var tabsHtml = kimchi.getTabHtml(url);
     $('#nav-menu').prepend(tabsHtml);
     kimchi.addExtTabs();
 };
 
 kimchi.addExtTabs = function() {
-    var tabsHtml = "";
     kimchi.listPlugins(function(results) {
-        for ( var i = 0; i <= results.length - 1; i++) {
-            var xmlDoc = kimchi.loadXML("/plugins/" + results[i] + "/ui/config/tab-ext.xml");
-            var members = xmlDoc.getElementsByTagName("tab");
-            var maxRes = members.length - 1;
-            for ( var j = 0; j <= maxRes; j++) {
-                var title = members[j].getElementsByTagName("title")[0].childNodes[0].nodeValue;
-                var filePath = members[j].getElementsByTagName("filePath")[0].childNodes[0].nodeValue;
-                tabsHtml += "<li><a class='item' href=" + filePath + ">" + title + "</a></li>";
-            }
+        for ( var i = 0; i < results.length; i++) {
+            var tabsHtml = kimchi.getTabHtml("/plugins/" + results[i] + "/ui/config/tab-ext.xml");
             $('#nav-menu').append(tabsHtml);
         }
     });
 };
 
-kimchi.getDefaultPage = function() {
+kimchi.getDefaultPage = function(url) {
     var defautLocation = "";
-    var xmlDoc = kimchi.loadXML("/config/ui/tabs.xml");
-    var members = xmlDoc.getElementsByTagName("tab");
-    if (members.length > 0) {
-        var path = members[0].getElementsByTagName("path")[0].childNodes[0].nodeValue;
-        defautLocation = path.substring(0, path.length - 5);
-    }
+    $.ajax({
+        url : url,
+        async : false,
+        success : function(xmlData) {
+            var tab = $(xmlData).find('tab').first();
+            var path = tab.find('path').text();
+            if (path) {
+                defautLocation = path.substring(0, path.length - 5);
+            }
+        },
+    });
     return defautLocation;
+};
+
+kimchi.getTabHtml = function(url) {
+    var tabsHtml = "";
+    $.ajax({
+        url : url,
+        async : false,
+        success : function(xmlData) {
+            $(xmlData).find('tab').each(function() {
+                var $tab = $(this);
+                var titleKey = $tab.find('title').text();
+                var title = i18n[titleKey];
+                var path = $tab.find('path').text();
+                tabsHtml += "<li><a class='item' href=" + path + ">" + title + "</a></li>";
+            });
+        },
+    });
+    return tabsHtml;
 };
