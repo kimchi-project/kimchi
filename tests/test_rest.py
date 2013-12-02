@@ -1041,6 +1041,9 @@ class RestTests(unittest.TestCase):
         self.assertIn('disk_read_rate', stats)
         self.assertIn('disk_write_rate', stats)
 
+        self.assertIn('net_recv_rate', stats)
+        self.assertIn('net_sent_rate', stats)
+
 
 class HttpsRestTests(RestTests):
     """
