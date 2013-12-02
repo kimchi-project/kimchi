@@ -399,7 +399,7 @@ class Model(object):
 
         self.host_stats['timestamp'] = timestamp
         self._get_host_disk_io_rate(seconds)
-
+        self._get_host_network_io_rate(seconds)
 
         self._get_percentage_host_cpu_usage()
         self._get_host_memory_stats()
@@ -438,6 +438,27 @@ class Model(object):
                                 'disk_write_rate': wr_rate,
                                 'disk_io_RdKB': RdKB,
                                 'disk_io_WrKB': WrKB})
+
+    def _get_host_network_io_rate(self, seconds):
+        prev_RxKB = self.host_stats['net_io_RxKB']
+        prev_TxKB = self.host_stats['net_io_TxKB']
+
+        net_ios = psutil.network_io_counters(True)
+        RxKB = 0
+        TxKB = 0
+        for key in set(net_ios.iterkeys()) & set(netinfo.nics()):
+            RxKB = RxKB + net_ios[key].bytes_recv
+            TxKB = TxKB + net_ios[key].bytes_sent
+        RxKB = float(RxKB) / 1000
+        TxKB = float(TxKB) / 1000
+
+        rx_rate = round((RxKB - prev_RxKB) / seconds, 1)
+        tx_rate = round((TxKB - prev_TxKB) / seconds, 1)
+
+        self.host_stats.update({'net_recv_rate': rx_rate,
+                                'net_sent_rate': tx_rate,
+                                'net_io_RxKB': RxKB,
+                                'net_io_TxKB': TxKB})
 
     def _static_vm_update(self, dom, params):
         state = Model.dom_state_map[dom.info()[0]]
@@ -1252,7 +1273,9 @@ class Model(object):
         return {'cpu_utilization': self.host_stats['cpu_utilization'],
                 'memory': self.host_stats.get('memory'),
                 'disk_read_rate': self.host_stats['disk_read_rate'],
-                'disk_write_rate': self.host_stats['disk_write_rate']}
+                'disk_write_rate': self.host_stats['disk_write_rate'],
+                'net_recv_rate': self.host_stats['net_recv_rate'],
+                'net_sent_rate': self.host_stats['net_sent_rate']}
 
     def plugins_get_list(self):
         return [plugin for (plugin, config) in get_enabled_plugins()]
