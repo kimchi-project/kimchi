@@ -550,6 +550,10 @@ Contains the host sample data.
                       all disks (kb/s).
     * disk_write_rate: Expresses the total IO throughput for writes across
                        all disks (kb/s).
+    * net_sent_rate: Expresses the total network throughput for writes across
+                     all interfaces (kb/s).
+    * net_recv_rate: Expresses the total network throughput for reads across
+                     all interfaces (kb/s).
 
 * **POST**: *See HostStats Actions*
 
