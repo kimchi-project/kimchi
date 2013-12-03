@@ -29,6 +29,7 @@ NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
 BRIDGE_PATH = '/sys/class/net/*/bridge'
 BONDING_PATH = '/sys/class/net/*/bonding'
+WLAN_PATH = '/sys/class/net/*/wireless'
 NET_BRPORT = '/sys/class/net/%s/brport'
 NET_MASTER = '/sys/class/net/%s/master'
 NET_STATE = '/sys/class/net/%s/operstate'
@@ -37,9 +38,18 @@ BONDING_SLAVES = '/sys/class/net/%s/bonding/slaves'
 BRIDGE_PORTS = '/sys/class/net/%s/brif'
 
 
-# FIXME if we do not want to list wlan and usb nic
+def wlans():
+    return [b.split('/')[-2] for b in glob.glob(WLAN_PATH)]
+
+
+def is_wlan(iface):
+    return iface in wlans()
+
+
+# FIXME if we do not want to list usb nic
 def nics():
-    return [b.split('/')[-2] for b in glob.glob(NIC_PATH)]
+    return list(set([b.split('/')[-2] for b in glob.glob(NIC_PATH)]) -
+                set(wlans()))
 
 
 def is_nic(iface):

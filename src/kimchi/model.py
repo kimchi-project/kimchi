@@ -446,7 +446,8 @@ class Model(object):
         net_ios = psutil.network_io_counters(True)
         RxKB = 0
         TxKB = 0
-        for key in set(net_ios.iterkeys()) & set(netinfo.nics()):
+        for key in set(netinfo.nics() +
+                       netinfo.wlans()) & set(net_ios.iterkeys()):
             RxKB = RxKB + net_ios[key].bytes_recv
             TxKB = TxKB + net_ios[key].bytes_sent
         RxKB = float(RxKB) / 1000
