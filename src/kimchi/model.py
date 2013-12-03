@@ -763,7 +763,7 @@ class Model(object):
             net_dict = self._get_network_from_xml(xml)
             forward = net_dict['forward']
             (forward['mode'] == 'bridge' and forward['interface'] and
-             interfaces.append(forward['interface'][0]) or
+             interfaces.append(forward['interface'][0]) is None or
              interfaces.extend(forward['interface'] + forward['pf']))
             net_dict['bridge'] and interfaces.append(net_dict['bridge'])
         return interfaces
