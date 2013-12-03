@@ -511,6 +511,47 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    createNetwork : function(network, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'networks',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            data : JSON.stringify(network),
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    getInterfaces : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'interfaces',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    deleteNetwork : function(name, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'networks/' + encodeURIComponent(name),
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 
 };

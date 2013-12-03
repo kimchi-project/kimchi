@@ -23,7 +23,9 @@ kimchi.NETWORK_TYPE_BRIDGE = "bridged";
 
 kimchi.initNetwork = function() {
     kimchi.initNetworkListView();
-}
+    kimchi.initNetworkDialog();
+    kimchi.initNetworkCreation();
+};
 
 kimchi.initNetworkListView = function() {
     kimchi.listNetworks(function(data) {
@@ -42,12 +44,12 @@ kimchi.initNetworkListView = function() {
             kimchi.addNetworkItem(network);
         }
     });
-}
+};
 
 kimchi.addNetworkItem = function(network) {
     $("#networkBody").append(kimchi.getNetworkItemHtml(network));
     kimchi.addNetworkActions(network);
-}
+};
 
 kimchi.getNetworkItemHtml = function(network) {
     if(!network.interface) {
@@ -67,9 +69,11 @@ kimchi.getNetworkItemHtml = function(network) {
         addrSpace : network.addrSpace,
         startClass : network.state === "up" ? "hide-action-item" : "",
         stopClass : network.state === "down" ? "hide-action-item" : "",
+        deleteClass : network.state === "up" ? "ui-state-disabled" : "",
+        deleteDisabled: network.state === "up" ? "disabled" : ""
     });
     return networkItem;
-}
+};
 
 kimchi.addNetworkActions = function(network) {
     $(".menu-container", "#" + network.name).menu({
@@ -85,14 +89,29 @@ kimchi.addNetworkActions = function(network) {
                 kimchi.toggleNetwork(network.name, true, function() {
                     $("[nwAct='start']", menu).addClass("hide-action-item");
                     $("[nwAct='stop']", menu).removeClass("hide-action-item");
+                    $("[nwAct='delete']", menu).addClass("ui-state-disabled");
+                    $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
                     $(".network-state", $("#" + network.name)).switchClass("down", "up");
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
                 kimchi.toggleNetwork(network.name, false, function() {
                     $("[nwAct='start']", menu).removeClass("hide-action-item");
                     $("[nwAct='stop']", menu).addClass("hide-action-item");
+                    $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+                    $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
                     $(".network-state", $("#" + network.name)).switchClass("up", "down");
                 });
+            } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
+                kimchi.confirm({
+                    title : i18n['msg_warning'],
+                    content : i18n['network_action_confirm'],
+                    confirm : i18n['msg.confirm.delete.confirm'],
+                    cancel : i18n['msg.confirm.delete.cancel']
+                }, function() {
+                    kimchi.deleteNetwork(network.name, function() {
+                        $(evt.currentTarget).parents(".item").remove();
+                    });
+                }, null);
             }
         }
     });
@@ -107,4 +126,117 @@ kimchi.addNetworkActions = function(network) {
     $(".menu-container", "#" + network.name).mouseleave(function() {
         $(".menu-container", "#" + network.name).toggle(false);
     });
-}
+};
+
+kimchi.initNetworkCreation = function() {
+    $("#networkAdd").on("click", function() {
+        kimchi.openNetworkDialog(function() {
+            var network = kimchi.getNetworkDialogValues();
+            var data = {
+                name : network.name,
+                connection: network.type
+            };
+            if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
+                data.connection = "bridge";
+                data.interface = network.interface;
+            }
+            kimchi.createNetwork(data, function(result) {
+                network.state = result.state === "active" ? "up" : "down";
+                network.interface = result.interface ? result.interface : i18n["value_unavailable"];
+                if (network.type != kimchi.NETWORK_TYPE_BRIDGE) {
+                    network.addrSpace = result.subnet;
+                }
+                kimchi.addNetworkItem(network);
+            });
+        });
+    });
+};
+
+kimchi.initNetworkDialog = function() {
+    $("#networkConfig").dialog({
+        autoOpen : false,
+        modal : true,
+        width : 600,
+        draggable : false,
+        resizable : false,
+        closeText: "X",
+        dialogClass : "network-ui-dialog",
+        open : function(){
+            $(".ui-dialog-titlebar-close", $("#networkConfig").parent()).removeAttr("title");
+        },
+        beforeClose : function() {
+            kimchi.cleanNetworkDialog();
+        },
+        buttons : [ {
+            id : "networkFormOk",
+            text : i18n.action_create,
+            disabled: true,
+            click : function() {
+            }
+        } ]
+    });
+    kimchi.setupNetworkFormEvent();
+};
+
+kimchi.openNetworkDialog = function(okCallback) {
+    kimchi.getInterfaces(function(result) {
+        var options = "";
+        for (var i = 0; i < result.length; i++) {
+            options += "<option value=" + result[i].name + ">" + result[i].name + "</option>";
+        }
+        $("#networkInterface").append(options);
+    });
+    $("#networkConfig").dialog({
+        title : i18n.network_dialog_title_create
+    });
+    $("#networkFormOk").on("click", function() {
+        okCallback();
+        $("#networkConfig").dialog("close");
+    });
+    $("#networkConfig").dialog("open");
+};
+
+kimchi.getNetworkDialogValues = function() {
+    var network = {
+        name : $("#networkName").val(),
+        type : $("input:radio[name=networkType]:checked").val()
+    };
+    if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
+        network.interface = $("#networkInterface").val();
+    }
+    return network;
+};
+
+kimchi.cleanNetworkDialog = function() {
+    $("#networkInterface").empty();
+    $("input:text", "#networkConfig").val(null).removeClass("invalid-field");
+    $("#networkTypeBri").prop("checked", true);
+    $("#networkInterface").prop("disabled", false);
+    $("#networkInterface option").removeAttr("selected").find(":first").attr("selected", "selected");
+    $("#networkFormOk").off("click");
+    $("#networkFormOk").button("disable");
+};
+
+kimchi.setupNetworkFormEvent = function() {
+    $("#networkName").on("keyup", function(event) {
+        $("#networkName").toggleClass("invalid-field", !$("#networkName").val().match(/^[a-zA-Z0-9_]+$/));
+        kimchi.updateNetworkFormButton();
+    });
+    $("#networkTypeIso").on("click", function(event) {
+        $("#networkInterface").prop("disabled", true);
+    });
+    $("#networkTypeNat").on("click", function(event) {
+        $("#networkInterface").prop("disabled", true);
+    });
+    $("#networkTypeBri").on("click", function(event) {
+        $("#networkInterface").prop("disabled", false);
+    });
+};
+
+kimchi.updateNetworkFormButton = function() {
+    if($("#networkName").hasClass("invalid-field")){
+        $("#networkFormOk").button("disable");
+    }else{
+        $("#networkFormOk").button("enable");
+    }
+};

@@ -184,3 +184,182 @@
 .network .list .ui-menu .ui-state-disabled a {
     color: gray;
 }
+
+.ui-widget-overlay {
+    background: url("../images/theme-default/bg-mask.png") repeat scroll 0 0 transparent;
+    opacity: 1;
+}
+
+.network-ui-dialog {
+    background: none;
+    background-color: #EEEEEE;
+    border: 2px solid #0F71B4;
+    border-radius: 8px;
+    padding: 0px;
+    display: none;
+}
+
+.network-ui-dialog .ui-widget-header {
+    border: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background: none;
+    padding: 13px 0px 13px 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 -1px 0 rgba(0,0,0,0.05) inset;
+}
+
+.network-ui-dialog .ui-dialog-title {
+    font-size: 18px;
+    color: #0066CC;
+}
+
+.network-ui-dialog .ui-dialog-titlebar .ui-button-icon-primary {
+    display: none;
+}
+
+.network-ui-dialog .ui-dialog-titlebar .ui-state-default {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 2px solid #CCCCCC;
+    border-radius: 35px 35px 35px 35px;
+    color: #CCCCCC;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    height: 35px;
+    position: absolute;
+    right: 7px;
+    text-align: center;
+    top: 5px;
+    width: 35px;
+}
+
+.network-ui-dialog .ui-dialog-titlebar .ui-state-hover {
+    border: 2px solid #444444;
+    color: #444444;
+}
+
+.network-ui-dialog .ui-dialog-titlebar .ui-button-text {
+    font-size: 24px;
+    padding: 0px;
+    text-indent: 0px;
+}
+
+.network-ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    margin: 4px 0 0;
+}
+
+.network-ui-dialog .ui-dialog-buttonpane {
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0;
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.network-ui-dialog .ui-dialog-buttonpane .ui-state-default {
+    background: none repeat scroll 0 0 #0066FF;
+    border-radius: 8px 8px 8px 8px;
+    color: #EEEEEE;
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 20px;
+    vertical-align: top;
+}
+
+.network-ui-dialog .ui-dialog-buttonpane .ui-state-disabled {
+    background-color: silver;
+    opacity: 1;
+}
+
+.network-ui-dialog .ui-dialog-buttonpane .ui-state-hover {
+    background: #0044DD;
+}
+
+.network-ui-dialog .ui-dialog-buttonpane button {
+    margin-right: 15px;
+    border: 0 none;
+}
+
+.network-ui-dialog .ui-dialog-buttonpane .ui-button-text {
+    padding: 5px 0px;
+    font-size: 13px;
+}
+
+.network-config {
+    font-family: Arial;
+    font-size: 12px;
+    margin-bottom: 80px;
+    display: none;
+}
+
+.network-config .section-container {
+    margin-top: 20px;
+}
+
+.network-config .section-container:first-child {
+    margin-top: 10px;
+}
+
+.network-config .section-header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.network-config .section-content {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.network-config input[type="text"] {
+    border: 1px solid #CCCCCC;
+    font-size: 16px;
+    height: 30px;
+    width: 300px;
+    line-height: 30px;
+    padding: 0 5px;
+}
+
+.network-config input.invalid-field[type="text"] {
+    border-color: #FF4444;
+}
+
+.network-config input.invalid-field[type="text"][disabled] {
+    border-color: #666666;
+}
+
+.network-config input[type="radio"] {
+    margin-right: 5px;
+    margin-top: 0px;
+}
+
+.network-config select {
+    color: #666666;
+    border: solid 1px;
+    background-color: white;
+    padding: 3px 4px 3px 0;
+}
+
+.network-config .input-container {
+    height: 20px;
+}
+
+.network-config label {
+    vertical-align: top;
+}
+
+.network-config .destination {
+    margin-left: 28px;
+}
+
+.network-config .input-hint-icon {
+    margin: -1px 1px 0 0;
+    display: inline-block;
+}
+
+.network-config .input-hint {
+    margin-top: 3px;
+}
+
+.network-config .input-hint-text {
+    vertical-align: top;
+}

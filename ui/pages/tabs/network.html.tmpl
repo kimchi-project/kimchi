@@ -45,6 +45,39 @@
         </div>
         <div id="networkBody"></div>
     </div>
+    <div id="networkConfig" class="network-config">
+        <div class="section-container">
+            <div class="section-header">1. $_("Network Name")</div>
+            <div class="section-content">
+                <input type="text" id="networkName">
+                <div class="input-hint">
+                    <span class="ui-icon ui-icon-info input-hint-icon"></span>
+                    <span class="input-hint-text">$_("Alphanumeric and '_' characters only.")</span>
+                </div>
+            </div>
+        </div>
+        <div class="section-container">
+            <div class="section-header">2. $_("Network Type")</div>
+            <div class="section-content">
+                <div class="input-container">
+                    <input type="radio" id="networkTypeIso" name="networkType" value="isolated">
+                    <label>$_("Isolated, no physical network connection")</label>
+                </div>
+                <div class="input-container">
+                    <input type="radio" id="networkTypeNat" name="networkType" value="nat">
+                    <label>$_("NAT, outbound physical network connection only")</label>
+                </div>
+                <div class="input-container">
+                    <input type="radio" id="networkTypeBri" name="networkType" value="bridged" checked>
+                    <label>$_("Bridged, VMs are connected to physical network directly")</label>
+                </div>
+                <div class="destination">
+                    <label>$_("Destination"): </label>
+                    <select id="networkInterface"></select>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script id="networkItem" type="text/html">
     <div id='{name}' class='item'>
@@ -58,6 +91,7 @@
         <ul class='popover actionsheet right-side menu-container'>
             <li nwAct="start" class='{startClass}'><a>$_("Start")</a></li>
             <li nwAct="stop" class='{stopClass}'><a>$_("Stop")</a></li>
+            <li nwAct="delete" class='{deleteClass}'><a {deleteDisabled} class='red'>$_("Delete")</a></li>
         </ul>
     </span>
     </div>
