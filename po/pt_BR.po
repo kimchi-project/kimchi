@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 14:23-0200\n"
+"POT-Creation-Date: 2013-11-25 16:33+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-Language: Portuguese\n"
@@ -303,8 +303,37 @@ msgstr "O storage pool não está ativo agora."
 msgid "Failed to delete template."
 msgstr "Erro ao remover modelo."
 
+msgid "isolated"
+msgstr ""
+
+msgid "NAT"
+msgstr "NAT"
+
+msgid "bridged"
+msgstr ""
+
+msgid "connected to"
+msgstr ""
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+
+msgid "Create a network"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
 msgid "Log out"
 msgstr "Sair"
+
+msgid "unavailable"
+msgstr ""
+
+msgid "Network"
+msgstr "Redes"
 
 msgid "Log In"
 msgstr "Entrar"
@@ -455,3 +484,30 @@ msgstr "Configurações padrões"
 
 msgid "CPUs"
 msgstr "CPUs"
+
+msgid "Network Name"
+msgstr ""
+
+msgid "Network Type"
+msgstr ""
+
+msgid "Interface"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
+
+msgid "Alphanumeric and '_' characters only."
+msgstr ""
+
+msgid "Isolated: no physical network connection"
+msgstr ""
+
+msgid "NAT: outbound physical network connection only"
+msgstr ""
+
+msgid "Bridged: VMs are connected to physical network directly"
+msgstr ""
+
+msgid "Destination"
+msgstr ""

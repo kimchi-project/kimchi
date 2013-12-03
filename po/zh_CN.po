@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 14:23-0200\n"
+"POT-Creation-Date: 2013-11-25 16:33+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-Language: Chinese\n"
@@ -295,8 +295,37 @@ msgstr "存储池没有被启用"
 msgid "Failed to delete template."
 msgstr ""
 
+msgid "isolated"
+msgstr "隔离"
+
+msgid "NAT"
+msgstr "NAT"
+
+msgid "bridged"
+msgstr "桥接"
+
+msgid "connected to"
+msgstr "连接到"
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr "﻿此操作将中断依赖此网络的虚拟机的网络连接。"
+
+msgid "Create a network"
+msgstr "创建一个网络"
+
+msgid "Warning"
+msgstr "警告"
+
 msgid "Log out"
 msgstr "登出"
+
+msgid "unavailable"
+msgstr "无法获取"
+
+msgid "Network"
+msgstr "网络"
 
 msgid "Log In"
 msgstr "登录"
@@ -446,3 +475,30 @@ msgstr "默认设置"
 
 msgid "CPUs"
 msgstr "中央处理器"
+
+msgid "Network Name"
+msgstr "网络名称"
+
+msgid "Network Type"
+msgstr "网络类型"
+
+msgid "Interface"
+msgstr "网络接口"
+
+msgid "Address Space"
+msgstr "地址空间"
+
+msgid "Alphanumeric and '_' characters only."
+msgstr "字母，数字和下划线。"
+
+msgid "Isolated: no physical network connection"
+msgstr "隔离: 同物理网络不连通"
+
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: 从虚拟机到物理网络单向连接"
+
+msgid "Bridged: VMs are connected to physical network directly"
+msgstr "桥接: 虚拟机直接接入物理网络"
+
+msgid "Destination"
+msgstr "目标设备"

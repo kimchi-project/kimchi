@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 14:23-0200\n"
+"POT-Creation-Date: 2013-11-25 16:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -279,7 +278,36 @@ msgstr ""
 msgid "Failed to delete template."
 msgstr ""
 
+msgid "isolated"
+msgstr ""
+
+msgid "NAT"
+msgstr ""
+
+msgid "bridged"
+msgstr ""
+
+msgid "connected to"
+msgstr ""
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+
+msgid "Create a network"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
 msgid "Log out"
+msgstr ""
+
+msgid "unavailable"
+msgstr ""
+
+msgid "Network"
 msgstr ""
 
 msgid "Log In"
@@ -429,4 +457,31 @@ msgid "Default Settings"
 msgstr ""
 
 msgid "CPUs"
+msgstr ""
+
+msgid "Network Name"
+msgstr ""
+
+msgid "Network Type"
+msgstr ""
+
+msgid "Interface"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
+
+msgid "Alphanumeric and '_' characters only."
+msgstr ""
+
+msgid "Isolated: no physical network connection"
+msgstr ""
+
+msgid "NAT: outbound physical network connection only"
+msgstr ""
+
+msgid "Bridged: VMs are connected to physical network directly"
+msgstr ""
+
+msgid "Destination"
 msgstr ""
