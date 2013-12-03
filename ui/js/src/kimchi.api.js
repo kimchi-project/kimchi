@@ -483,5 +483,34 @@ var kimchi = {
             success : suc,
             error : err
         });
+     },
+
+    listNetworks : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'networks',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    toggleNetwork : function(name, on, suc, err) {
+        var action = on ? "activate" : "deactivate";
+        kimchi.requestJSON({
+            url : kimchi.url + 'networks/' + encodeURIComponent(name) + '/' + action,
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
+
 };

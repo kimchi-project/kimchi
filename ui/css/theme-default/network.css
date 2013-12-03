@@ -1,0 +1,186 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ * Yu Xin Huo <huoyuxin@linux.vnet.ibm.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.network {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+}
+
+.network .list {
+    margin: 0px 10px;
+}
+
+.network .list .header > * {
+    margin-right: 2px;
+}
+
+.network .list .item {
+    margin-bottom: 10px;
+    border-radius: 8px 8px 8px 8px;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    height: 54px;
+}
+
+.network .list .item > *:first-child {
+    border-left: none;
+}
+
+.network .list .item > * {
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #FFFFFF;
+}
+
+.network .list .item > *:last-child {
+    border-right: none;
+}
+
+.network .list .column {
+    display: inline-block;
+    padding: 10px 10px 10px 2px;
+    overflow: hidden;
+}
+
+.network .list .item .cell {
+    padding: 19px 10px 17px 2px;
+    height: 19px;
+    color: #999999;
+}
+
+.network .list .item .cell:first-child {
+    padding-left: 10px;
+    width: 183px;
+    max-width: 183px;
+    color: #666666;
+}
+
+.network .list .column-name {
+    width: 190px;
+    max-width: 190px;
+    text-overflow: ellipsis;
+}
+
+.network .list .column-state {
+    width: 70px;
+}
+
+.network .list .column-type {
+    width: 130px;
+}
+
+.network .list .column-interface {
+    width: 130px;
+}
+
+.network .list .column-space {
+    width: 270px;
+}
+
+.network .list .column-action {
+    display: inline-block;
+    position: absolute;
+    height: 55px;
+}
+
+.network .list .hide-action-item {
+    display: none;
+}
+
+.network .list .menu-container {
+    display: none;
+    z-index: 100;
+    top: 58px;
+    width: 250px;
+}
+
+.network .list .action-button {
+    float: right;
+    margin-top: 5px;
+}
+
+.network .list .ui-state-disabled {
+    margin: 0px;
+}
+
+.network .list .network-state {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    margin-left: 29px;
+}
+
+.network .list .up {
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%, #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
+}
+
+.network .list .down {
+    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%, #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+}
+
+.network .list .ui-menu .ui-menu-item a.red:not([disabled]) {
+    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #B10F14;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
+}
+
+.network .list .ui-menu .ui-menu-item a.red:hover:not([disabled]) {
+    background: linear-gradient(to bottom, #EF2009 0%, #BF0404 100%) repeat scroll 0 0 transparent;
+}
+
+.network .list .ui-button-text {
+    padding: 12px 18px 0.4em 1em;
+}
+
+.network .list .ui-button-icon-secondary {
+    margin-top: 0px;
+}
+
+.network .list .ui-menu .ui-menu-item a {
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
+    display: block;
+    font-size: 13px;
+    line-height: 38px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+    width: 96%;
+}
+
+.network .list .ui-menu .ui-menu-item a.ui-state-focus {
+    background: linear-gradient(to bottom, #EEEEEE 0%, #D5D5D5 100%) repeat scroll 0 0 transparent;
+    box-shadow: -1px -1px 1px #BBBBBB, 1px 1px 1px #DDDDDD;
+    margin: 0px 0px 10px 0px;
+}
+
+.network .list .ui-menu .ui-state-disabled {
+    opacity: 1;
+}
+
+.network .list .ui-menu .ui-state-disabled a {
+    color: gray;
+}

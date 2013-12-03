@@ -1,0 +1,69 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Yu Xin Huo <huoyuxin@linux.vnet.ibm.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+#unicode UTF-8
+#import gettext
+#from kimchi.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<div class="toolbar">
+    <div class="tools">
+        <a id="networkAdd" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+    </div>
+</div>
+<div id="network-content" class="network">
+    <div class="list">
+        <div class="header">
+        <span class="column column-name">$_("Network Name")</span><!--
+     --><span class="column column-state">$_("State")</span><!--
+     --><span class="column column-type">$_("Network Type")</span><!--
+     --><span class="column column-interface">$_("Interface")</span><!--
+     --><span class="column column-space">$_("Address Space")</span><!--
+     --><span class="column">$_("Actions")</span>
+        </div>
+        <div id="networkBody"></div>
+    </div>
+</div>
+<script id="networkItem" type="text/html">
+    <div id='{name}' class='item'>
+    <span class='column column-name cell'>{name}</span><!--
+ --><span class='column column-state cell'><span class='network-state {state}'></span></span><!--
+ --><span class='column column-type cell'>{type}</span><!--
+ --><span class='column column-interface cell'>{interface}</span><!--
+ --><span class='column column-space cell'>{addrSpace}</span><!--
+ --><span class='column-action'>
+        <span class="btn dropdown action-button">$_("Actions")</span>
+        <ul class='popover actionsheet right-side menu-container'>
+            <li nwAct="start" class='{startClass}'><a>$_("Start")</a></li>
+            <li nwAct="stop" class='{stopClass}'><a>$_("Stop")</a></li>
+        </ul>
+    </span>
+    </div>
+</script>
+<script>
+    kimchi.initNetwork();
+</script>
+</body>
+</html>

@@ -14,3 +14,4 @@ ui/pages/vnc_auto.html.tmpl
 ui/pages/tabs/guests.html.tmpl
 ui/pages/tabs/templates.html.tmpl
 ui/pages/tabs/storage.html.tmpl
+ui/pages/tabs/network.html.tmpl

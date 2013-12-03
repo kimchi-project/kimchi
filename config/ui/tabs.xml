@@ -12,4 +12,8 @@
         <title>Storage</title>
         <path>tabs/storage.html</path>
     </tab>
+    <tab>
+        <title>Network</title>
+        <path>tabs/network.html</path>
+    </tab>
 </tabs>
