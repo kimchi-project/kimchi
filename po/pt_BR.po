@@ -281,6 +281,12 @@ msgstr "O nome do storage pool não pode ser em branco."
 msgid "The storage pool path can not be blank."
 msgstr "O caminho do storage pool não pde ser em branco."
 
+msgid "NFS server can not be blank."
+msgstr ""
+
+msgid "NFS server mount path can not be blank."
+msgstr ""
+
 msgid ""
 "Invalid Storage Pool name.  It may only contain letters, numbers, "
 "underscores, and hyphens."
@@ -290,6 +296,12 @@ msgstr ""
 
 msgid "This is not a real linux path."
 msgstr "Esse não é um caminho real no linux."
+
+msgid "This is not a valid NFS server."
+msgstr ""
+
+msgid "Invalid nfs mount path."
+msgstr ""
 
 msgid "This storage pool is empty."
 msgstr "Esse storage pool está vazio."

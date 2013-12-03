@@ -275,6 +275,12 @@ msgstr "存储池的名字不能为空"
 msgid "The storage pool path can not be blank."
 msgstr "存储池的路径不能为空"
 
+msgid "NFS server can not be blank."
+msgstr ""
+
+msgid "NFS server mount path can not be blank."
+msgstr ""
+
 msgid ""
 "Invalid Storage Pool name.  It may only contain letters, numbers, "
 "underscores, and hyphens."
@@ -282,6 +288,12 @@ msgstr "无效的存储池名字，它应该只包括字母，数字，下划线
 
 msgid "This is not a real linux path."
 msgstr "这不是一个符合要求的LINUX路径"
+
+msgid "This is not a valid NFS server."
+msgstr ""
+
+msgid "Invalid nfs mount path."
+msgstr ""
 
 msgid "This storage pool is empty."
 msgstr "这个存储池为空"
