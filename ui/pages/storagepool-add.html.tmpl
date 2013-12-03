@@ -5,6 +5,7 @@
  *
  * Authors:
  *  Mei Na Zhou <zhoumein@linux.vnet.ibm.com>
+ *  Pradeep K Surisetty <psuriset@linux.vnet.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,40 +27,114 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div class="window" style="width: 600px;height: 450px;">
+<div class="window" style="width: 600px;height: 500px;">
     <header>
         <h1 class="title">$_("Define a New Storage Pool")</h1>
         <div class="close">X</div>
     </header>
-    <div class="content">
-        <form id="form-pool-add">
-            <section class="form-section">
-                <h2>1. $_("Storage Pool Name")</h2>
-                <div class="field">
-                    <p class="text-help">
-                        $_("The name used to identify the storage pools, and it should not be empty.")
-                    </p>
-                    <input id="poolId" type="text" class="text" style="width: 300px" name="name">
-                    <input type="hidden" class="text" style="width: 300px" name="type" value="dir">
+    <div class="content" style="margin-bottom: 0">
+        <div class="page-list">
+            <!-- 1 -->
+            <div class="page" id="storage-type-box" style="left:0">
+                <h2 class="step-title">$_("Type of Storage Pool? ")</h2>
+                <ul class="step-choose">
+                    <li>
+                        <a id="dir-back" class="dir">$_("Directory Backed Pool")</a>
+                    </li>
+                    <li>
+                        <a id="nfs-back" class="nfs">$_("NFS Backed Pool")</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 1-1 -->
+            <div class="page" id="storage-dir-box">
+                <header>
+                    <a class="back" id="storage-dir-box-back"></a>
+                    <h2 class="step-title">$_("Directory Backed Pool")</h2>
+                </header>
+
+                <!-- 1-1-1 -->
+                <div class="content-pool">
+                    <form id="form-pool-add">
+                        <section class="form-section">
+                            <h2> 1. $_("Storage Pool Name")</h2>
+                            <div class="field">
+                                <p class="text-help">
+                                    $_("The name used to identify the storage pool, and it should not be empty.")
+                                </p>
+                                <input id="poolId" type="text" class="text" style="width: 300px" name="name">
+                                <input type="hidden" class="text" style="width: 300px" name="type" value="dir">
+                            </div>
+                        </section>
+                        <section class="form-section">
+                            <h2> 2. $_("Storage Path")</h2>
+                            <div class="field">
+                                <p class="text-help">
+                                    $_("The path of the Storage Pool. Each Storage Pool must have a unique path.")
+                                </p>
+                                <input id="pathId" type="text" class="text" style="width: 300px" name="path">
+                            </div>
+                            <div class="clear"></div>
+                        </section>
+                    </form>
                 </div>
-            </section>
-            <section class="form-section">
-                <h2>2. $_("Storage Path")</h2>
-                <div class="field">
-                    <p class="text-help">
-                        $_("The path of the Storage Pool. Each Storage Pool must have a unique path.")
-                    </p>
-                    <input id="pathId" type="text" class="text" style="width: 300px" name="path">
+                <footer>
+                    <div class="btn-group">
+                        <button id="pool-doAdd" class="btn-normal"><span class="text">$_("Create")</span></button>
+                    </div>
+                </footer>
+            </div>
+
+            <!-- 1-2 -->
+            <div class="page" id="storage-nfs-box">
+                <header>
+                    <a class="back" id="storage-nfs-box-back"></a>
+                    <h2 class="step-title">$_("NFS Backed Pool")</h2>
+                </header>
+
+                <!-- 1-2-1 -->
+                <div class="content-nfs-pool">
+                    <form id="form-nfs-pool-add">
+                        <section class="form-section">
+                            <h2> 1. $_("Storage Pool Name")</h2>
+                            <div class="field">
+                                <p class="text-help">
+                                    $_("The name used to identify the storage pool, and it should not be empty.")
+                                </p>
+                                <input id="nfspoolId" type="text" class="text" style="width: 300px" name="name">
+                                <input type="hidden" class="text" style="width: 300px" name="type" value="netfs">
+                            </div>
+                        </section>
+                        <section class="form-section">
+                            <h2> 2. $_("NFS server IP")</h2>
+                            <div class="field">
+                                <p class="text-help">
+                                    $_("NFS server IP or hostname. It should not be empty.")
+                                </p>
+                                <input id="nfsserverId" type="text" class="text" style="width: 300px" name="nfsserver">
+                            </div>
+                        </section>
+                        <section class="form-section">
+                            <h2> 3. $_("NFS Path")</h2>
+                            <div class="field">
+                                <p class="text-help">
+                                    $_("The nfs exported path on nfs server")
+                                </p>
+                                <input id="nfspathId" type="text" class="text" style="width: 300px" name="nfspath">
+                                <input type="hidden" id="localpathId" name="path" class="text" value="none">
+                            </div>
+                            <div class="clear"></div>
+                        </section>
+                    </form>
                 </div>
-                <div class="clear"></div>
-            </section>
-        </form>
-    </div>
-    <footer>
-        <div class="btn-group">
-            <button id="pool-doAdd" class="btn-normal"><span class="text">$_("Create")</span></button>
+                <footer>
+                    <div class="btn-group">
+                        <button id="pool-nfs-doAdd" class="btn-normal"><span class="text">$_("Create")</span></button>
+                    </div>
+                </footer>
+            </div>
         </div>
-    </footer>
+    </div>
 </div>
 <script>
     kimchi.storagepool_add_main();

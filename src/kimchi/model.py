@@ -1357,22 +1357,37 @@ class LibvirtVMScreenshot(VMScreenshot):
         finally:
             os.close(fd)
 
-
 def _get_pool_xml(**kwargs):
     # Required parameters
     # name:
     # type:
     # path:
-    xml = """
-    <pool type='%(type)s'>
-      <name>%(name)s</name>
-      <target>
-        <path>%(path)s</path>
-      </target>
-    </pool>
-    """ % kwargs
+    # nfspath:
+    if kwargs['type'] == 'dir':
+        xml = """
+        <pool type='%(type)s'>
+          <name>%(name)s</name>
+          <target>
+            <path>%(path)s</path>
+          </target>
+        </pool>
+       """ % kwargs
+    elif kwargs['type'] == 'netfs':
+        if not os.path.exists(kwargs['path']):
+           os.makedirs(kwargs['path'])
+        xml = """
+        <pool type='%(type)s'>
+          <name>%(name)s</name>
+          <source>
+            <host name='%(nfsserver)s'/>
+            <dir path='%(nfspath)s'/>
+          </source>
+          <target>
+            <path>%(path)s</path>
+          </target>
+        </pool>
+        """ % kwargs
     return xml
-
 
 def _get_volume_xml(**kwargs):
     # Required parameters

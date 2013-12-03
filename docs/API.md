@@ -184,7 +184,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: The path of the defined Storage Pool,
             For 'kimchi-iso' pool refers to targeted deep scan path.
     * type: The type of the defined Storage Pool,
-            Supported types: 'dir', 'kimchi-iso'
+            Supported types: 'dir', 'kimchi-iso', 'netfs'
+    * nfsserver: IP or hostname of NFS server to create NFS pool.
+    * nfspath: export path on nfs server for NFS pool.
 
 ### Resource: Storage Pool
 
