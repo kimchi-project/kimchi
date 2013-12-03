@@ -24,4 +24,5 @@ dist_tabshtml_DATA = \
 	guests.html.tmpl \
 	templates.html.tmpl \
 	storage.html.tmpl \
+	network.html.tmpl \
 	$(NULL)
