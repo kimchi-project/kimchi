@@ -19,7 +19,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
 import cherrypy
@@ -27,10 +27,6 @@ import logging
 import logging.handlers
 import os
 import sslcert
-
-
-from optparse import OptionParser
-
 
 from kimchi import auth
 from kimchi import config
@@ -46,6 +42,7 @@ LOGGING_LEVEL = {"debug": logging.DEBUG,
                  "error": logging.ERROR,
                  "critical": logging.CRITICAL}
 
+
 def set_no_cache():
     from time import strftime, gmtime
     h = [('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT'),
@@ -59,23 +56,23 @@ def set_no_cache():
     else:
         hList = h
 
+
 class Server(object):
     # expires is one year.
     CACHEEXPIRES = 31536000
     configObj = {
-        '/': { 'tools.trailing_slash.on': False,
-               'tools.staticdir.root': config.get_prefix(),
-               'tools.staticfile.root': config.get_prefix(),
-               'request.methods_with_bodies': ('POST', 'PUT'),
-               'tools.nocache.on': True,
-               'tools.sessions.on': True,
-               'tools.sessions.name': 'kimchi',
-               'tools.sessions.httponly': True,
-               'tools.sessions.locking': 'explicit',
-               'tools.sessions.storage_type': 'file',
-               'tools.sessions.storage_path': config.get_session_path(),
-               'tools.kimchiauth.on': False
-        },
+        '/': {'tools.trailing_slash.on': False,
+              'tools.staticdir.root': config.get_prefix(),
+              'tools.staticfile.root': config.get_prefix(),
+              'request.methods_with_bodies': ('POST', 'PUT'),
+              'tools.nocache.on': True,
+              'tools.sessions.on': True,
+              'tools.sessions.name': 'kimchi',
+              'tools.sessions.httponly': True,
+              'tools.sessions.locking': 'explicit',
+              'tools.sessions.storage_type': 'file',
+              'tools.sessions.storage_path': config.get_session_path(),
+              'tools.kimchiauth.on': False},
         '/vms': {'tools.kimchiauth.on': True},
         '/templates': {'tools.kimchiauth.on': True},
         '/networks': {'tools.kimchiauth.on': True},
@@ -150,7 +147,7 @@ class Server(object):
         try:
             if options.ssl_port and options.ssl_port > 0:
                 self._init_ssl(options)
-        except AttributeError, e:
+        except AttributeError:
             pass
 
         cherrypy.log.screen = True
@@ -161,7 +158,8 @@ class Server(object):
         dev_env = options.environment != 'production'
 
         # Create handler to rotate access log file
-        h = logging.handlers.RotatingFileHandler(options.access_log, 'a', 10000000, 1000)
+        h = logging.handlers.RotatingFileHandler(options.access_log, 'a',
+                                                 10000000, 1000)
         h.setLevel(logLevel)
         h.setFormatter(cherrypy._cplogging.logfmt)
 
@@ -169,7 +167,8 @@ class Server(object):
         cherrypy.log.access_log.addHandler(h)
 
         # Create handler to rotate error log file
-        h = logging.handlers.RotatingFileHandler(options.error_log, 'a', 10000000, 1000)
+        h = logging.handlers.RotatingFileHandler(options.error_log, 'a',
+                                                 10000000, 1000)
         h.setLevel(logLevel)
         h.setFormatter(cherrypy._cplogging.logfmt)
 
@@ -187,7 +186,8 @@ class Server(object):
         else:
             model_instance = model.Model()
 
-        self.app = cherrypy.tree.mount(Root(model_instance, dev_env), config=self.configObj)
+        self.app = cherrypy.tree.mount(Root(model_instance, dev_env),
+                                       config=self.configObj)
         self._load_plugins()
 
         cherrypy.lib.sessions.init()
@@ -248,7 +248,7 @@ class Server(object):
     def stop(self):
         cherrypy.engine.exit()
 
+
 def main(options):
     srv = Server(options)
     srv.start()
-
