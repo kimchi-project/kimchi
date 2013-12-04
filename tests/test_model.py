@@ -269,21 +269,6 @@ class ModelTests(unittest.TestCase):
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)
 
-        params = {'name': '   '}
-        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
-
-        params = {'memory': ' invalid-value '}
-        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
-
-        params = {'memory': '   '}
-        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
-
-        params = {'cpus': ' invalid-value '}
-        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
-
-        params = {'cpus': '   '}
-        self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
-
         params = {'name': 'new-test'}
         self.assertEquals('new-test', inst.template_update('test', params))
 

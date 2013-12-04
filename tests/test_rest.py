@@ -143,7 +143,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(0, len(vms))
 
         # Create a template as a base for our VMs
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -162,7 +162,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals('shutoff', vm['state'])
 
     def test_edit_vm(self):
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -204,7 +204,8 @@ class RestTests(unittest.TestCase):
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}],
-                          'icon': 'images/icon-debian.png'})
+                          'icon': 'images/icon-debian.png',
+                              'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -253,7 +254,8 @@ class RestTests(unittest.TestCase):
 
     def test_vm_customise_storage(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'disks': [{'size': 1}]})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso',
+                                          'disks': [{'size': 1}]})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -293,7 +295,7 @@ class RestTests(unittest.TestCase):
         self.assertHTTPStatus(404, vol_uri)
 
     def test_template_customise_storage(self):
-        req = json.dumps({'name': 'test',
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso',
             'disks': [{'size': 1}]})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -345,7 +347,7 @@ class RestTests(unittest.TestCase):
 
     def test_unnamed_vms(self):
         # Create a Template
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -570,10 +572,18 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertEquals(0, len(json.loads(resp.read())))
 
+        # Create a template without cdrom fails with 400
+        t = {'name': 'test', 'os_distro': 'ImagineOS',
+             'os_version': '1.0', 'memory': 1024, 'cpus': 1,
+             'storagepool': '/storagepools/alt'}
+        req = json.dumps(t)
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(400, resp.status)
+
         # Create a template
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': '1024', 'cpus': '1',
-             'storagepool': '/storagepools/alt'}
+             'os_version': '1.0', 'memory': 1024, 'cpus': 1,
+             'storagepool': '/storagepools/alt', 'cdrom': '/nonexistent.iso'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -584,8 +594,9 @@ class RestTests(unittest.TestCase):
 
         # Create a template with same name fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': '1024', 'cpus': '1',
-             'storagepool': '/storagepools/default'}
+             'os_version': '1.0', 'memory': 1024, 'cpus': 1,
+             'storagepool': '/storagepools/default',
+             'cdrom': '/nonexistent.iso'}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(400, resp.status)
@@ -657,11 +668,11 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        # Test unallowed fields, specify a field 'foo' isn't in the Template
+        # Test nonexistent fields, specify a field 'foo' isn't in the Template
         t['foo'] = "bar"
         req = json.dumps(t)
         resp = self.request('/templates/%s' % oldname, req, 'PUT')
-        self.assertEquals(405, resp.status)
+        self.assertEquals(400, resp.status)
 
         # Delete the template
         resp = self.request('/templates/%s' % tmpl_name, '{}', 'DELETE')
@@ -721,7 +732,7 @@ class RestTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         self.request('/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         self.request('/vms', req, 'POST')

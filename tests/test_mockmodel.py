@@ -86,7 +86,7 @@ class MockModelTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         request(host, port, '/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         request(host, port, '/vms', req, 'POST')
@@ -108,7 +108,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(resp2.getheader('last-modified'), resp.getheader('last-modified'))
 
     def test_vm_list_sorted(self):
-        req = json.dumps({'name': 'test'})
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         request(host, port, '/templates', req, 'POST')
         def add_vm(name):
 
@@ -124,7 +124,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEqual(model.vms_get_list(), ['abc', 'bca', 'cab', 'xba'])
 
     def test_vm_info(self):
-        tmpl = model.templates_create({'name': u'test'})
+        tmpl = model.templates_create({'name': u'test', 'cdrom': '/nonexistent.iso'})
         vm = model.vms_create({'name': u'test', 'template': '/templates/test'})
         vms = model.vms_get_list()
         self.assertEquals(1, len(vms))
