@@ -687,6 +687,9 @@ class Host(Resource):
         super(Host, self).__init__(model, id)
         self.stats = HostStats(self.model)
         self.stats.exposed = True
+        self.uri_fmt = '/host/%s'
+        self.reboot = generate_action_handler(self, 'reboot')
+        self.shutdown = generate_action_handler(self, 'shutdown')
 
     @property
     def data(self):

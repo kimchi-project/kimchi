@@ -20,6 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import cherrypy
 import copy
 import glob
 import ipaddr
@@ -46,7 +47,7 @@ from kimchi import vnc
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import MissingParameter, NotFoundError
+from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import is_digit
@@ -561,6 +562,29 @@ class MockModel(object):
                 'disk_write_rate': round(random.uniform(0, 4000), 1),
                 'net_recv_rate': round(random.uniform(0, 4000), 1),
                 'net_sent_rate': round(random.uniform(0, 4000), 1)}
+
+    def vms_get_list_by_state(self, state):
+        ret_list = []
+        for name in self.vms_get_list():
+            if (self._mock_vms[name].info['state']) == state:
+                ret_list.append(name)
+        return ret_list
+
+    def host_shutdown(self, args=None):
+        # Check for running vms before shutdown
+        running_vms = self.vms_get_list_by_state('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("Shutdown not allowed: VMs are running!")
+        cherrypy.engine.exit()
+
+    def host_reboot(self, args=None):
+        # Find running VMs
+        running_vms = self.vms_get_list_by_state('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("Reboot not allowed: VMs are running!")
+        cherrypy.engine.stop()
+        time.sleep(10)
+        cherrypy.engine.start()
 
 
 class MockVMTemplate(VMTemplate):

@@ -1282,6 +1282,31 @@ class Model(object):
         return [plugin for (plugin, config) in get_enabled_plugins()]
 
 
+    def vms_get_list_by_state(self, state):
+        ret_list = []
+        for name in self.vms_get_list():
+            info = self._get_vm(name).info()
+            if (Model.dom_state_map[info[0]]) == state:
+                ret_list.append(name)
+        return ret_list
+
+    def host_shutdown(self, args=None):
+        # Check for running vms before shutdown
+        running_vms = self.vms_get_list_by_state('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("Shutdown not allowed: VMs are running!")
+        kimchi_log.info('Host is going to shutdown.')
+        os.system('shutdown -h now')
+
+    def host_reboot(self, args=None):
+        # Find running VMs
+        running_vms = self.vms_get_list_by_state('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("Reboot not allowed: VMs are running!")
+        kimchi_log.info('Host is going to reboot.')
+        os.system('reboot')
+
+
 class LibvirtVMTemplate(VMTemplate):
     def __init__(self, args, scan=False, conn=None):
         VMTemplate.__init__(self, args, scan)

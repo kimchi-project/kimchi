@@ -529,7 +529,10 @@ Contains information of host.
 
 **Actions (POST):**
 
-*No actions defined*
+* reboot: Restart the host machine.
+          Only allowed if there is not vm running.
+* shutdown: Power off the host machine.
+            Only allowed if there is not vm running.
 
 ### Resource: HostStats
 
