@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec  4 13:01:11 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:18</span><span class="nk"> &lt;royce&gt;</span> hi, danielhb, alinefm, shall we start now?
+<a name="l-7"></a><span class="tm">13:01:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 2 2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:01:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-9"></a><span class="tm">13:01:48</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:33</span><span class="nk"> &lt;alinefm&gt;</span> seems not
+<a name="l-11"></a><span class="tm">13:02:53</span><span class="nk"> &lt;royce&gt;</span> markwu:gerrit?
+<a name="l-12"></a><span class="tm">13:03:07</span><span class="nk"> &lt;shaohef&gt;</span> it's ok for me
+<a name="l-13"></a><span class="tm">13:03:19</span><span class="nk"> &lt;markwu&gt;</span> royce, yes, if you have interest
+<a name="l-14"></a><span class="tm">13:03:29</span><span class="nk"> &lt;markwu&gt;</span> i have sent an email
+<a name="l-15"></a><span class="tm">13:03:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, markwu, I think we can cover it on open discussion section
+<a name="l-16"></a><span class="tm">13:04:03</span><span class="nk"> &lt;markwu&gt;</span> agree
+<a name="l-17"></a><span class="tm">13:04:16</span><span class="nk"> &lt;royce&gt;</span> sure
+<a name="l-18"></a><span class="tm">13:04:28</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-19"></a><span class="tm">13:04:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 2</span>
+<a name="l-20"></a><span class="tm">13:04:42</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+<a name="l-21"></a><span class="tm">13:04:51</span><span class="nk"> &lt;shaohef&gt;</span> gerrit is a platitude.  cons and pros  between mail-list and gerrit.
+<a name="l-22"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> the first item is: Basic host management (host)
+<a name="l-23"></a><span class="tm">13:05:16</span><span class="nk"> &lt;alinefm&gt;</span> I've just seen the UI patches related to it on mail list
+<a name="l-24"></a><span class="tm">13:06:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I have test it today.
+<a name="l-25"></a><span class="tm">13:06:06</span><span class="nk"> &lt;alinefm&gt;</span> and in my first tests it seems ready to be merged
+<a name="l-26"></a><span class="tm">13:06:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> agree.
+<a name="l-27"></a><span class="tm">13:06:40</span><span class="nk"> &lt;alinefm&gt;</span> what is missing about this item is about: Backend and API to initiate shutdown and reboot
+<a name="l-28"></a><span class="tm">13:06:42</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ^
+<a name="l-29"></a><span class="tm">13:06:46</span><span class="nk"> &lt;alinefm&gt;</span> any update?
+<a name="l-30"></a><span class="tm">13:07:15</span><span class="nk"> &lt;ming&gt;</span> shutdown is a pretty dangerous operation, we should take care.
+<a name="l-31"></a><span class="tm">13:07:27</span><span class="nk"> &lt;ming&gt;</span> Also as reboot
+<a name="l-32"></a><span class="tm">13:08:05</span><span class="nk"> &lt;rotru_&gt;</span> alinefm; hi
+<a name="l-33"></a><span class="tm">13:08:12</span><span class="nk"> &lt;ming&gt;</span> Also, I think shutdown is not clear enough to me, does it mean power off or machine halt?
+<a name="l-34"></a><span class="tm">13:08:31</span><span class="nk"> &lt;alinefm&gt;</span> ming, power off
+<a name="l-35"></a><span class="tm">13:08:57</span><span class="nk"> &lt;ming&gt;</span> power off is more exact than shutdown.
+<a name="l-36"></a><span class="tm">13:08:59</span><span class="nk"> &lt;alinefm&gt;</span> ming, when authorization comes to board those operations will be restricted to admin user
+<a name="l-37"></a><span class="tm">13:09:33</span><span class="nk"> &lt;ming&gt;</span> shutdown can be just a halt with power on.
+<a name="l-38"></a><span class="tm">13:09:55</span><span class="nk"> &lt;rotru_&gt;</span> alinefm; ming  I modified the patches in order to just allow shutdown/reboot when none vm is in running state
+<a name="l-39"></a><span class="tm">13:10:31</span><span class="nk"> &lt;rotru_&gt;</span> so, for now, admin will have to stop vms manually before stop server
+<a name="l-40"></a><span class="tm">13:10:38</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-41"></a><span class="tm">13:10:59</span><span class="nk"> &lt;rotru_&gt;</span> I would like to implement vms save/restore in the future
+<a name="l-42"></a><span class="tm">13:11:00</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and when will you send the next version to mail list?
+<a name="l-43"></a><span class="tm">13:11:10</span><span class="nk"> &lt;pvital_&gt;</span> IMO, thereis no impediment to reboot/shutdown the host with VM's running. we just need alert the user/sys_adm and save/restore the VMs
+<a name="l-44"></a><span class="tm">13:11:15</span><span class="nk"> &lt;alinefm&gt;</span> rotru, pradeep sent patches for it
+<a name="l-45"></a><span class="tm">13:12:36</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and when will you send the next version to mail list?
+<a name="l-46"></a><span class="tm">13:13:07</span><span class="nk"> &lt;rotru_&gt;</span> alinefm;  I am trying to test mock , then patch should be read after
+<a name="l-47"></a><span class="tm">13:13:23</span><span class="nk"> &lt;shaohef&gt;</span> we should save all VM and then shutdown or reboot?
+<a name="l-48"></a><span class="tm">13:13:23</span><span class="nk"> &lt;shaohef&gt;</span> now, maybe should not allow power off if there is a vm is living.
+<a name="l-49"></a><span class="tm">13:13:23</span><span class="nk"> &lt;shaohef&gt;</span> after we support save VM, kimchi can save VMs first and then shutdown.
+<a name="l-50"></a><span class="tm">13:13:23</span><span class="nk"> &lt;alinefm&gt;</span> rotru, do you think it can be done by today?
+<a name="l-51"></a><span class="tm">13:14:09</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, for now, we just reboot and shutdown when no vm is running
+<a name="l-52"></a><span class="tm">13:14:22</span><span class="nk"> &lt;zwu&gt;</span> <span class="hi">shaohef:</span> thanks for your info, i will have to go to the office and talk to my boss.
+<a name="l-53"></a><span class="tm">13:14:22</span><span class="nk"> &lt;alinefm&gt;</span> when we implemente save/restore we can improve it
+<a name="l-54"></a><span class="tm">13:14:29</span><span class="nk"> &lt;ming&gt;</span> shaohef, right. The vm user should not notice VM's off and on.
+<a name="l-55"></a><span class="tm">13:14:56</span><span class="nk"> &lt;ming&gt;</span> that is our next step
+<a name="l-56"></a><span class="tm">13:15:28</span><span class="nk"> &lt;alinefm&gt;</span> ming, agree
+<a name="l-57"></a><span class="tm">13:15:39</span><span class="nk"> &lt;rotru_&gt;</span> alinefm; ming , shaohef  yes! vm shutdown, save, restored will be a improvement in next version
+<a name="l-58"></a><span class="tm">13:15:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  agree.
+<a name="l-59"></a><span class="tm">13:15:51</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-60"></a><span class="tm">13:15:52</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">zwu:</span> you are welcome.
+<a name="l-61"></a><span class="tm">13:15:52</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> yes.
+<a name="l-62"></a><span class="tm">13:16:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">next:</span> Storage: New Storage Pool based on local disk (storage)
+<a name="l-63"></a><span class="tm">13:16:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^
+<a name="l-64"></a><span class="tm">13:16:29</span><span class="nk"> &lt;alinefm&gt;</span> I tried your patches yesterday and got some errors
+<a name="l-65"></a><span class="tm">13:16:48</span><span class="nk"> &lt;zhoumeina&gt;</span> hello
+<a name="l-66"></a><span class="tm">13:16:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, errors apparently are fixed now, I'll sending v6 shortly
+<a name="l-67"></a><span class="tm">13:17:05</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, great
+<a name="l-68"></a><span class="tm">13:17:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, but I'm tempted to send them to you first to see if they are really working now :)
+<a name="l-69"></a><span class="tm">13:17:35</span><span class="nk"> &lt;ming&gt;</span> danielhb, don't be shy to send out to all of us.
+<a name="l-70"></a><span class="tm">13:17:49</span><span class="nk"> &lt;ming&gt;</span> We can do more tests.
+<a name="l-71"></a><span class="tm">13:17:57</span><span class="nk"> &lt;danielhb&gt;</span> ming, that's because alinefm's notebook does not like me and keeps crashing my stuff
+<a name="l-72"></a><span class="tm">13:18:03</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-73"></a><span class="tm">13:18:09</span><span class="nk"> &lt;danielhb&gt;</span> ming, but I'll send them all to you, of course :)
+<a name="l-74"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> my notebook is terrible =)
+<a name="l-75"></a><span class="tm">13:18:20</span><span class="nk"> &lt;ming&gt;</span> alinefm is using unbutu?
+<a name="l-76"></a><span class="tm">13:18:25</span><span class="nk"> &lt;royce&gt;</span> I saw zhshzhou commented about using exsited VG
+<a name="l-77"></a><span class="tm">13:18:37</span><span class="nk"> &lt;alinefm&gt;</span> alinefm, yes
+<a name="l-78"></a><span class="tm">13:18:41</span><span class="nk"> &lt;alinefm&gt;</span> ming, yes
+<a name="l-79"></a><span class="tm">13:18:47</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, I've seen your patches about the UI for it but I haven't had chance to check it yet
+<a name="l-80"></a><span class="tm">13:18:55</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, do you want to comment something about it?
+<a name="l-81"></a><span class="tm">13:19:19</span><span class="nk"> &lt;danielhb&gt;</span> royce, I was going to answer that ... I think this is already supported if you use an existing VG as target while providing no devices in the &lt;source&gt; element
+<a name="l-82"></a><span class="tm">13:19:36</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> yes, in this patch I also changed the nfs style
+<a name="l-83"></a><span class="tm">13:20:15</span><span class="nk"> &lt;royce&gt;</span> OK, so provide a VG name can cover that, right? danielhb
+<a name="l-84"></a><span class="tm">13:20:19</span><span class="nk"> &lt;danielhb&gt;</span> royce, but this is a guess based on what I've read on Red Hat documentation on virt-manager (please do not ban me!), need to test it to see if this works
+<a name="l-85"></a><span class="tm">13:20:27</span><span class="nk"> &lt;zhoumeina&gt;</span> I changed storage pool type to list box
+<a name="l-86"></a><span class="tm">13:20:27</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, you made a single window and dynamically show more inputs according to pool type?
+<a name="l-87"></a><span class="tm">13:20:40</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-88"></a><span class="tm">13:21:17</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, ok - I will try them after meeting
+<a name="l-89"></a><span class="tm">13:21:19</span><span class="nk"> &lt;royce&gt;</span> danielhb, yes, guess that'll work cause libvirt doc said so too.
+<a name="l-90"></a><span class="tm">13:21:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">next:</span> Add new yum repository (from ISO and from URL) (host)
+<a name="l-91"></a><span class="tm">13:21:55</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, ^
+<a name="l-92"></a><span class="tm">13:22:13</span><span class="nk"> &lt;zhoumeina&gt;</span> create storage pool,user will see the "dir" page.when he/she change the storage type, different input can be seen
+<a name="l-93"></a><span class="tm">13:22:53</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, you sent the patches about YUM repo at the begging of the week, any update?
+<a name="l-94"></a><span class="tm">13:22:54</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, I submited this morning a new version to API and backend. It's supporting YUM for now because I found some errors in different versions of python-apt
+<a name="l-95"></a><span class="tm">13:23:38</span><span class="nk"> &lt;pvital_&gt;</span> I'm testing e re-implementing the APT support.
+<a name="l-96"></a><span class="tm">13:23:41</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, are you considering an repo as a ISO file?
+<a name="l-97"></a><span class="tm">13:24:29</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, from ISO I assumed that is already mounted
+<a name="l-98"></a><span class="tm">13:24:41</span><span class="nk"> &lt;ming&gt;</span> pvital, I am not understanding how you can use yum update when you don't pass password to RHEL repoitory
+<a name="l-99"></a><span class="tm">13:24:48</span><span class="nk"> &lt;pvital_&gt;</span> so you can use the file:// os mount point
+<a name="l-100"></a><span class="tm">13:25:03</span><span class="nk"> &lt;ming&gt;</span> I think all of the RHEL repository are protected by password and user.
+<a name="l-101"></a><span class="tm">13:25:24</span><span class="nk"> &lt;alinefm&gt;</span> ming, epel is not protected
+<a name="l-102"></a><span class="tm">13:25:46</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, ok
+<a name="l-103"></a><span class="tm">13:25:58</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, do you have an idea when apt support will be done?
+<a name="l-104"></a><span class="tm">13:26:39</span><span class="nk"> &lt;pvital_&gt;</span> ming, yes and no! once the sys_adm uses the rhn_reg (or something else) it's not necessary user/password. Yum has the repositories info stores and it'll be reflected in out list
+<a name="l-105"></a><span class="tm">13:26:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  I have seen pvital_ add file:// for iso file
+<a name="l-106"></a><span class="tm">13:26:48</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">pvital_:</span> right?
+<a name="l-107"></a><span class="tm">13:26:59</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, I guess until the end of day
+<a name="l-108"></a><span class="tm">13:27:11</span><span class="nk"> &lt;ming&gt;</span> Do you have plan to use offical RHEL repository, like Redhat RHN, LTC ftp3?
+<a name="l-109"></a><span class="tm">13:28:04</span><span class="nk"> &lt;pvital_&gt;</span> ming, I guess we can improve this in later versions. For now I'm supporting only public repositories
+<a name="l-110"></a><span class="tm">13:28:19</span><span class="nk"> &lt;ming&gt;</span> Sure, that is clear.
+<a name="l-111"></a><span class="tm">13:28:50</span><span class="nk"> &lt;ming&gt;</span> for iso file, will you check it is a valid iso?
+<a name="l-112"></a><span class="tm">13:30:06</span><span class="nk"> &lt;pvital_&gt;</span> ming, what do mean by 'valid iso' ?
+<a name="l-113"></a><span class="tm">13:30:25</span><span class="nk"> &lt;pvital_&gt;</span> bootable? linux content?
+<a name="l-114"></a><span class="tm">13:30:49</span><span class="nk"> &lt;ming&gt;</span> For example, the user need to update FC19,  but in the host only FC18 iso is mounted.
+<a name="l-115"></a><span class="tm">13:31:32</span><span class="nk"> &lt;ming&gt;</span> So the user may input FC18 path for yum.
+<a name="l-116"></a><span class="tm">13:31:49</span><span class="nk"> &lt;ming&gt;</span> But that is not what you expected.
+<a name="l-117"></a><span class="tm">13:32:03</span><span class="nk"> &lt;pvital_&gt;</span> ming, no! I'm not checking this kind of info!
+<a name="l-118"></a><span class="tm">13:32:28</span><span class="nk"> &lt;ming&gt;</span> So you assume the iso file is right and mounted already.
+<a name="l-119"></a><span class="tm">13:32:40</span><span class="nk"> &lt;pvital_&gt;</span> yes
+<a name="l-120"></a><span class="tm">13:33:18</span><span class="nk"> &lt;alinefm&gt;</span> next?
+<a name="l-121"></a><span class="tm">13:34:19</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, go ahead
+<a name="l-122"></a><span class="tm">13:34:27</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-123"></a><span class="tm">13:34:28</span><span class="nk"> &lt;alinefm&gt;</span> Software update (host)
+<a name="l-124"></a><span class="tm">13:34:39</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, you again ^
+<a name="l-125"></a><span class="tm">13:34:47</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, :-D
+<a name="l-126"></a><span class="tm">13:35:36</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, I have it implemented but need APT support first! then I'm going to test it and submit
+<a name="l-127"></a><span class="tm">13:35:39</span><span class="nk"> &lt;ming&gt;</span> softwware update depend on new yum  repository?
+<a name="l-128"></a><span class="tm">13:35:50</span><span class="nk"> &lt;pvital_&gt;</span> I guess I can finish this today
+<a name="l-129"></a><span class="tm">13:36:06</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, BTW ramonn implemented the core of this issue!
+<a name="l-130"></a><span class="tm">13:36:09</span><span class="nk"> &lt;pvital_&gt;</span> thanks ramonn
+<a name="l-131"></a><span class="tm">13:36:21</span><span class="nk"> &lt;pvital_&gt;</span> s/issue/feature
+<a name="l-132"></a><span class="tm">13:36:30</span><span class="nk"> &lt;pvital_&gt;</span> ming, no
+<a name="l-133"></a><span class="tm">13:36:42</span><span class="nk"> &lt;ramonn&gt;</span> pvital_, if you need help, just call me
+<a name="l-134"></a><span class="tm">13:36:46</span><span class="nk"> &lt;alinefm&gt;</span> ming, the software update can work with the current repos
+<a name="l-135"></a><span class="tm">13:36:49</span><span class="nk"> &lt;ming&gt;</span> Is it not updated by yum or apt?
+<a name="l-136"></a><span class="tm">13:37:07</span><span class="nk"> &lt;alinefm&gt;</span> ming, yes
+<a name="l-137"></a><span class="tm">13:37:25</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, you can include ramonn as signed-off on patches
+<a name="l-138"></a><span class="tm">13:37:35</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, for sure
+<a name="l-139"></a><span class="tm">13:37:45</span><span class="nk"> &lt;ming&gt;</span> alinefm, current repos means the default repos coming with the Linux distros?
+<a name="l-140"></a><span class="tm">13:38:09</span><span class="nk"> &lt;alinefm&gt;</span> ming, yes
+<a name="l-141"></a><span class="tm">13:38:22</span><span class="nk"> &lt;alinefm&gt;</span> or other repos admin added manually
+<a name="l-142"></a><span class="tm">13:39:01</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, I guess I got what ming wants to understand.
+<a name="l-143"></a><span class="tm">13:39:15</span><span class="nk"> &lt;pvital_&gt;</span> I did a dependency between these two features
+<a name="l-144"></a><span class="tm">13:39:35</span><span class="nk"> &lt;pvital_&gt;</span> but looking ming questions, I see it can be independents
+<a name="l-145"></a><span class="tm">13:40:21</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, will work with ramonn to send a patch that dont depends on (new) repositories feature
+<a name="l-146"></a><span class="tm">13:40:48</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, it'd be great
+<a name="l-147"></a><span class="tm">13:41:10</span><span class="nk"> &lt;ming&gt;</span> pvital_, cool.
+<a name="l-148"></a><span class="tm">13:41:13</span><span class="nk"> &lt;pvital_&gt;</span> ramonn, you have 10min to implement it
+<a name="l-149"></a><span class="tm">13:41:16</span><span class="nk"> &lt;pvital_&gt;</span> :-D
+<a name="l-150"></a><span class="tm">13:41:20 </span><span class="nka">* pvital_</span> <span class="ac">is evil</span>
+<a name="l-151"></a><span class="tm">13:41:30</span><span class="nk"> &lt;alinefm&gt;</span> ok, I think we pass through all the tasks
+<a name="l-152"></a><span class="tm">13:41:35</span><span class="nk"> &lt;alinefm&gt;</span> so we have:
+<a name="l-153"></a><span class="tm">13:42:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">rotru send patches about reboot/shutdown to mail list by today</span>
+<a name="l-154"></a><span class="tm">13:42:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">pvital_ send patches to yum/apt patches by today</span>
+<a name="l-155"></a><span class="tm">13:42:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">pvital_, ramonn  send patches to software update by today</span>
+<a name="l-156"></a><span class="tm">13:42:51</span><span class="nk"> &lt;alinefm&gt;</span> is that right?
+<a name="l-157"></a><span class="tm">13:44:00</span><span class="nk"> &lt;rotru_&gt;</span> alinefm;  ok
+<a name="l-158"></a><span class="tm">13:44:00</span><span class="nk"> &lt;ming&gt;</span> Do you guys get power machines to test Kimchi on power?
+<a name="l-159"></a><span class="tm">13:44:31</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I don't know how is that pvital_
+<a name="l-160"></a><span class="tm">13:44:32</span><span class="nk"> &lt;pvital&gt;</span> :-D
+<a name="l-161"></a><span class="tm">13:44:46</span><span class="nk"> &lt;pvital&gt;</span> just kidding! to relax a bit!
+<a name="l-162"></a><span class="tm">13:45:04</span><span class="nk"> &lt;markwu&gt;</span> :)
+<a name="l-163"></a><span class="tm">13:45:06</span><span class="nk"> &lt;alinefm&gt;</span> pvital, =)
+<a name="l-164"></a><span class="tm">13:45:08</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-165"></a><span class="tm">13:45:16</span><span class="nk"> &lt;alinefm&gt;</span> then open discussion
+<a name="l-166"></a><span class="tm">13:45:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-167"></a><span class="tm">13:45:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">pvital:</span>  who is pvital_ ?
+<a name="l-168"></a><span class="tm">13:45:36</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is pvital clone =P
+<a name="l-169"></a><span class="tm">13:45:36</span><span class="nk"> &lt;ming&gt;</span> gerrit server setup?
+<a name="l-170"></a><span class="tm">13:45:41</span><span class="nk"> &lt;alinefm&gt;</span> ming, sure
+<a name="l-171"></a><span class="tm">13:45:51</span><span class="nk"> &lt;alinefm&gt;</span> I've just read the mail sent by markwu
+<a name="l-172"></a><span class="tm">13:45:54</span><span class="nk"> &lt;ming&gt;</span> I think we need a server with public access.
+<a name="l-173"></a><span class="tm">13:46:01</span><span class="nk"> &lt;alinefm&gt;</span> ming, exactly
+<a name="l-174"></a><span class="tm">13:46:03</span><span class="nk"> &lt;pvital&gt;</span> shaohef, alinefm: and he is evil !!!
+<a name="l-175"></a><span class="tm">13:46:06</span><span class="nk"> &lt;danielhb&gt;</span> shaohef, pvital_ is the IRC client that pvital keeps online inside the Mercedes
+<a name="l-176"></a><span class="tm">13:46:18</span><span class="nk"> &lt;ming&gt;</span> It seems that oVirt may host Kimchi gerrit server for us.
+<a name="l-177"></a><span class="tm">13:46:28</span><span class="nk"> &lt;markwu&gt;</span> ming, at first, I would like to get agreement among our community about the change
+<a name="l-178"></a><span class="tm">13:46:38</span><span class="nk"> &lt;alinefm&gt;</span> and more than that we need to think how it will improve our process
+<a name="l-179"></a><span class="tm">13:46:52</span><span class="nk"> &lt;ming&gt;</span> markwu, no one object it yet.
+<a name="l-180"></a><span class="tm">13:46:59</span><span class="nk"> &lt;alinefm&gt;</span> I agree with markwu points about CI and etc
+<a name="l-181"></a><span class="tm">13:47:02</span><span class="nk"> &lt;markwu&gt;</span> if everyone is fine with this proposal,  we can consider to resolve the public server
+<a name="l-182"></a><span class="tm">13:47:09</span><span class="nk"> &lt;alinefm&gt;</span> but my concern is about reviewing itself
+<a name="l-183"></a><span class="tm">13:47:34</span><span class="nk"> &lt;pvital&gt;</span> markwu, alinefm: let's vote here?
+<a name="l-184"></a><span class="tm">13:47:44</span><span class="nk"> &lt;alinefm&gt;</span> pvital, no
+<a name="l-185"></a><span class="tm">13:47:45</span><span class="nk"> &lt;markwu&gt;</span> alinefm, anyway, as a tool,  gerrit is better than mailling list
+<a name="l-186"></a><span class="tm">13:47:46</span><span class="nk"> &lt;alinefm&gt;</span> let's discuss
+<a name="l-187"></a><span class="tm">13:47:46</span><span class="nk"> &lt;ming&gt;</span> alinefm, gerrit record the reviewing process quite well.
+<a name="l-188"></a><span class="tm">13:47:49</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-189"></a><span class="tm">13:47:54</span><span class="nk"> &lt;royce&gt;</span> alinefm, reviewing it self?
+<a name="l-190"></a><span class="tm">13:47:54</span><span class="nk"> &lt;shaohef&gt;</span> I think adam and anthony do not like gerrit, just because the are used to mail-list.
+<a name="l-191"></a><span class="tm">13:47:54</span><span class="nk"> &lt;shaohef&gt;</span> they use mutt as their mail client.
+<a name="l-192"></a><span class="tm">13:47:54</span><span class="nk"> &lt;shaohef&gt;</span> adam suggests Evolution.
+<a name="l-193"></a><span class="tm">13:47:54</span><span class="nk"> &lt;shaohef&gt;</span> Evolution is better than thunderbird  for code review.
+<a name="l-194"></a><span class="tm">13:47:54</span><span class="nk"> &lt;shaohef&gt;</span> also mutt can use vim as it editor.
+<a name="l-195"></a><span class="tm">13:47:55</span><span class="nk"> &lt;shaohef&gt;</span> mutt and Evolution can support highlight.
+<a name="l-196"></a><span class="tm">13:48:15</span><span class="nk"> &lt;shaohef&gt;</span> but most of us use thunderbird
+<a name="l-197"></a><span class="tm">13:48:18</span><span class="nk"> &lt;markwu&gt;</span> even though gerrit can't resolve all the problems
+<a name="l-198"></a><span class="tm">13:48:36</span><span class="nk"> &lt;pvital&gt;</span> +1
+<a name="l-199"></a><span class="tm">13:48:42</span><span class="nk"> &lt;ming&gt;</span> +1
+<a name="l-200"></a><span class="tm">13:48:49</span><span class="nk"> &lt;alinefm&gt;</span> markwu, when any new patch is sent to gerrit, how all the team is notified?
+<a name="l-201"></a><span class="tm">13:49:24</span><span class="nk"> &lt;markwu&gt;</span> alinefm, if you need the notification,  gerrit can send a mail automatically
+<a name="l-202"></a><span class="tm">13:49:53</span><span class="nk"> &lt;alinefm&gt;</span> markwu, so each you need to configure gerrit to it?
+<a name="l-203"></a><span class="tm">13:49:54</span><span class="nk"> &lt;shaohef&gt;</span> then gerrit can send it to every one?
+<a name="l-204"></a><span class="tm">13:49:57</span><span class="nk"> &lt;markwu&gt;</span> but according to the experience before,  people normally just focus on the dashboard of gerrit
+<a name="l-205"></a><span class="tm">13:49:58</span><span class="nk"> &lt;ming&gt;</span> alinefm, it can also be configured to send the notification to the mailing list.
+<a name="l-206"></a><span class="tm">13:50:11</span><span class="nk"> &lt;rotru_&gt;</span> one person will have to be like a Gerrit manager, reviewing all stuff a
+<a name="l-207"></a><span class="tm">13:50:13</span><span class="nk"> &lt;markwu&gt;</span> yes
+<a name="l-208"></a><span class="tm">13:50:37</span><span class="nk"> &lt;rotru_&gt;</span> actually , alinefm  =P
+<a name="l-209"></a><span class="tm">13:50:41</span><span class="nk"> &lt;ming&gt;</span> Also, a person can be assigned to the patch to do review.
+<a name="l-210"></a><span class="tm">13:50:42</span><span class="nk"> &lt;markwu&gt;</span> http://gerrit.ovirt.org/#/q/status:open+project:vdsm,n,z
+<a name="l-211"></a><span class="tm">13:50:47</span><span class="nk"> &lt;alinefm&gt;</span> ming, no
+<a name="l-212"></a><span class="tm">13:50:49</span><span class="nk"> &lt;royce&gt;</span> alinefm, we add ourselves as reviewer for mail notification, or we go to website for review
+<a name="l-213"></a><span class="tm">13:50:50</span><span class="nk"> &lt;markwu&gt;</span> here's an example of gerrit
+<a name="l-214"></a><span class="tm">13:50:58</span><span class="nk"> &lt;markwu&gt;</span> yes
+<a name="l-215"></a><span class="tm">13:51:12</span><span class="nk"> &lt;markwu&gt;</span> royce, good point!
+<a name="l-216"></a><span class="tm">13:51:25</span><span class="nk"> &lt;pvital&gt;</span> cant be the mailling list?
+<a name="l-217"></a><span class="tm">13:51:35</span><span class="nk"> &lt;markwu&gt;</span> it can get your attention when the patch is updated.
+<a name="l-218"></a><span class="tm">13:51:44</span><span class="nk"> &lt;ming&gt;</span> alinefm, a person can be assigned, while others can also do the review.
+<a name="l-219"></a><span class="tm">13:51:54</span><span class="nk"> &lt;markwu&gt;</span> and you also can add reviewer request on your patch
+<a name="l-220"></a><span class="tm">13:51:59</span><span class="nk"> &lt;ming&gt;</span> alinefm, thet is not exclusive.
+<a name="l-221"></a><span class="tm">13:52:02</span><span class="nk"> &lt;pvital&gt;</span> or a different mailing list, like kimchi-gerrit ot kimchi-dev
+<a name="l-222"></a><span class="tm">13:52:09</span><span class="nk"> &lt;danielhb&gt;</span> I don't understand what't the difference of gerrit review vs what we do in the mailing list ... but we can try using gerrit, of course
+<a name="l-223"></a><span class="tm">13:52:16</span><span class="nk"> &lt;royce&gt;</span> normally we use the later one, that is kind of like browsing bbs,quite convinient
+<a name="l-224"></a><span class="tm">13:52:46</span><span class="nk"> &lt;royce&gt;</span> pvital, danielhb, difference is we can test others patch easier
+<a name="l-225"></a><span class="tm">13:52:54</span><span class="nk"> &lt;markwu&gt;</span> it also provides a clear view of patch diff
+<a name="l-226"></a><span class="tm">13:53:00</span><span class="nk"> &lt;danielhb&gt;</span> I was commiter of a open source project called Linuxtools (an Eclipse.org project) and we switched to Gerrit there .... I didn't saw any difference but the extra stuff to do before commit/push
+<a name="l-227"></a><span class="tm">13:53:25</span><span class="nk"> &lt;markwu&gt;</span> even for  differences among revisions of one patch
+<a name="l-228"></a><span class="tm">13:53:47</span><span class="nk"> &lt;danielhb&gt;</span> but, again, let's try gerrit and see if that improves the review process here ... if it doesn't, roll back :)
+<a name="l-229"></a><span class="tm">13:54:47</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, we need to do it carefully
+<a name="l-230"></a><span class="tm">13:54:50</span><span class="nk"> &lt;royce&gt;</span> maybe 1 week trial period?:)
+<a name="l-231"></a><span class="tm">13:54:57</span><span class="nk"> &lt;alinefm&gt;</span> I am not convinced it will be good for us
+<a name="l-232"></a><span class="tm">13:54:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  how can we test others patch easier. git pull other's patches?
+<a name="l-233"></a><span class="tm">13:55:15</span><span class="nk"> &lt;royce&gt;</span> shahef:git fetch git://gerrit.ovirt.org/ovirt-engine refs/changes/37/20737/20 &amp;&amp; git checkout FETCH_HEAD
+<a name="l-234"></a><span class="tm">13:55:32</span><span class="nk"> &lt;pvital&gt;</span> piece of cake!
+<a name="l-235"></a><span class="tm">13:55:34</span><span class="nk"> &lt;pvital&gt;</span> :-D
+<a name="l-236"></a><span class="tm">13:55:48</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  recall it.
+<a name="l-237"></a><span class="tm">13:55:48</span><span class="nk"> &lt;royce&gt;</span> it has origin ref for commit change
+<a name="l-238"></a><span class="tm">13:55:58</span><span class="nk"> &lt;ming&gt;</span> royce, that is pretty nice for us.
+<a name="l-239"></a><span class="tm">13:56:00</span><span class="nk"> &lt;alinefm&gt;</span> and why not: git am &lt;mail-patches&gt;?
+<a name="l-240"></a><span class="tm">13:56:19</span><span class="nk"> &lt;ming&gt;</span> alinefm, you need to downlaod mail-patches first.
+<a name="l-241"></a><span class="tm">13:56:41</span><span class="nk"> &lt;pvital&gt;</span> and send to some machine it's configured to use mail
+<a name="l-242"></a><span class="tm">13:56:43</span><span class="nk"> &lt;alinefm&gt;</span> ming, there tools to make it for you
+<a name="l-243"></a><span class="tm">13:56:56</span><span class="nk"> &lt;royce&gt;</span> alinefm, his patch is diff from his tip, so when applying on your tip, there will be conflict you need to resolve
+<a name="l-244"></a><span class="tm">13:57:00</span><span class="nk"> &lt;ming&gt;</span> However, for gerrit, just one command.
+<a name="l-245"></a><span class="tm">13:57:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  most of us use thunderbird, thunderbird is not convinient to download patches.
+<a name="l-246"></a><span class="tm">13:57:38</span><span class="nk"> &lt;alinefm&gt;</span> ming, make a script and get it in one command
+<a name="l-247"></a><span class="tm">13:57:47</span><span class="nk"> &lt;royce&gt;</span> alinefm, you can to review for openstack, then you will know how it works and love it:)
+<a name="l-248"></a><span class="tm">13:57:58</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I also use thurderbird and it works weel for me
+<a name="l-249"></a><span class="tm">13:58:17</span><span class="nk"> &lt;markwu&gt;</span> alinefm, is it friendly for the guys not deeply use linux command lines?
+<a name="l-250"></a><span class="tm">13:58:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - I think I need to try it out to change my view of it
+<a name="l-251"></a><span class="tm">13:58:43</span><span class="nk"> &lt;royce&gt;</span> hehheh, OK, after you tried, we can get a conclusion, OK?
+<a name="l-252"></a><span class="tm">13:58:45</span><span class="nk"> &lt;alinefm&gt;</span> markwu, how a non-linux devel will code for linux?
+<a name="l-253"></a><span class="tm">13:58:45</span><span class="nk"> &lt;markwu&gt;</span> I believe the guys from software group doesn't like that resolution
+<a name="l-254"></a><span class="tm">13:58:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> you can share your script
+<a name="l-255"></a><span class="tm">13:58:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  linux expert like mail-list, like anthony.  most of us are not linux expert
+<a name="l-256"></a><span class="tm">13:59:21</span><span class="nk"> &lt;alinefm&gt;</span> let's do that way
+<a name="l-257"></a><span class="tm">13:59:29</span><span class="nk"> &lt;markwu&gt;</span> alinefm, are zhoumeina YuXin contributing to kimchi?
+<a name="l-258"></a><span class="tm">13:59:37</span><span class="nk"> &lt;alinefm&gt;</span> I think some people here already tried out gerrit and liked it
+<a name="l-259"></a><span class="tm">13:59:45</span><span class="nk"> &lt;alinefm&gt;</span> others don't like it so much
+<a name="l-260"></a><span class="tm">13:59:53</span><span class="nk"> &lt;alinefm&gt;</span> and others don't try it yet
+<a name="l-261"></a><span class="tm">14:00:18</span><span class="nk"> &lt;alinefm&gt;</span> I can get a conclusion before try it
+<a name="l-262"></a><span class="tm">14:00:31</span><span class="nk"> &lt;royce&gt;</span> We won't push~ just have a try and we can help if you have problem with that, OK?
+<a name="l-263"></a><span class="tm">14:00:36</span><span class="nk"> &lt;alinefm&gt;</span> I will install it in my system and check how it works and how it can improve our process
+<a name="l-264"></a><span class="tm">14:00:56</span><span class="nk"> &lt;markwu&gt;</span> alinefm, you don't need install it on your system
+<a name="l-265"></a><span class="tm">14:01:07</span><span class="nk"> &lt;markwu&gt;</span> you could just try it with ovirt or openstack
+<a name="l-266"></a><span class="tm">14:01:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  but I'm interesting in your thunderbird script. can you share it with us?
+<a name="l-267"></a><span class="tm">14:01:13</span><span class="nk"> &lt;markwu&gt;</span> it's already there
+<a name="l-268"></a><span class="tm">14:01:31</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, sure
+<a name="l-269"></a><span class="tm">14:01:49</span><span class="nk"> &lt;markwu&gt;</span> alinefm, how you do a incremental review of patch?
+<a name="l-270"></a><span class="tm">14:01:50</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> great.  thanks.
+<a name="l-271"></a><span class="tm">14:01:54</span><span class="nk"> &lt;alinefm&gt;</span> I used patches program from Anthony: https://github.com/aliguori/patches
+<a name="l-272"></a><span class="tm">14:02:44</span><span class="nk"> &lt;alinefm&gt;</span> markwu, what do you mean with incremental review?
+<a name="l-273"></a><span class="tm">14:02:55</span><span class="nk"> &lt;alinefm&gt;</span> V2, V3?
+<a name="l-274"></a><span class="tm">14:03:04</span><span class="nk"> &lt;markwu&gt;</span> alinefm, actually I don't strongly insist on gerrit for review, but for CI
+<a name="l-275"></a><span class="tm">14:03:08</span><span class="nk"> &lt;markwu&gt;</span> yep
+<a name="l-276"></a><span class="tm">14:03:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> it looks good.
+<a name="l-277"></a><span class="tm">14:03:34</span><span class="nk"> &lt;markwu&gt;</span> you have to maintain different patches on your local branches
+<a name="l-278"></a><span class="tm">14:03:44</span><span class="nk"> &lt;alinefm&gt;</span> markwu, I agree the CI part is awesome
+<a name="l-279"></a><span class="tm">14:04:16</span><span class="nk"> &lt;alinefm&gt;</span> markwu, but I am wondering if we can get it just using jenkins
+<a name="l-280"></a><span class="tm">14:05:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  jenkins can work without gerrit.
+<a name="l-281"></a><span class="tm">14:05:39</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yes
+<a name="l-282"></a><span class="tm">14:05:45</span><span class="nk"> &lt;markwu&gt;</span> pvital, any idea?  maybe we can write a script to monitor the mailing list , download the patch to test and then post a notification if it fails
+<a name="l-283"></a><span class="tm">14:05:51</span><span class="nk"> &lt;alinefm&gt;</span> I mean if jenkins can cover the CI part done by gerrit
+<a name="l-284"></a><span class="tm">14:06:24</span><span class="nk"> &lt;pvital&gt;</span> markwu, it's possible
+<a name="l-285"></a><span class="tm">14:06:45</span><span class="nk"> &lt;alinefm&gt;</span> markwu, this script already exists! https://github.com/aliguori/patches
+<a name="l-286"></a><span class="tm">14:06:46</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-287"></a><span class="tm">14:06:48</span><span class="nk"> &lt;markwu&gt;</span> pvital, yes, it's possible. but
+<a name="l-288"></a><span class="tm">14:06:51</span><span class="nk"> &lt;pvital&gt;</span> hadoop and other apache projects use this approach
+<a name="l-289"></a><span class="tm">14:07:34</span><span class="nk"> &lt;markwu&gt;</span> ok, then we can follow their practice
+<a name="l-290"></a><span class="tm">14:07:57</span><span class="nk"> &lt;pvital&gt;</span> hadoop uses jenkins to get the patches (but submitted to a issue tracking system) and test it over trunk/master
+<a name="l-291"></a><span class="tm">14:08:12</span><span class="nk"> &lt;markwu&gt;</span> can it fetch every post patch or every merged patch?
+<a name="l-292"></a><span class="tm">14:08:16</span><span class="nk"> &lt;pvital&gt;</span> we can use the same idea
+<a name="l-293"></a><span class="tm">14:08:41</span><span class="nk"> &lt;markwu&gt;</span> pvital, we should run the test before patch merged
+<a name="l-294"></a><span class="tm">14:09:20</span><span class="nk"> &lt;markwu&gt;</span> it should be a proof of that the patch is valid for maintainer ( alinefm)
+<a name="l-295"></a><span class="tm">14:09:58</span><span class="nk"> &lt;pvital&gt;</span> markwu, yeap!
+<a name="l-296"></a><span class="tm">14:10:16</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-297"></a><span class="tm">14:10:21</span><span class="nk"> &lt;markwu&gt;</span> pvital, ok. that's great
+<a name="l-298"></a><span class="tm">14:10:42</span><span class="nk"> &lt;alinefm&gt;</span> look I didn't say NO to gerrit
+<a name="l-299"></a><span class="tm">14:10:57</span><span class="nk"> &lt;alinefm&gt;</span> as I said I will try it to check how it works
+<a name="l-300"></a><span class="tm">14:11:08</span><span class="nk"> &lt;alinefm&gt;</span> then we can discuss in next scrum meeting
+<a name="l-301"></a><span class="tm">14:11:19</span><span class="nk"> &lt;markwu&gt;</span> ok. actually my concern is we can't request a public server
+<a name="l-302"></a><span class="tm">14:11:38</span><span class="nk"> &lt;markwu&gt;</span> but for jenkins,  we could run in behind IBM firewall
+<a name="l-303"></a><span class="tm">14:12:07</span><span class="nk"> &lt;alinefm&gt;</span> now we are part of ovirt community so we could ask ovirt for it
+<a name="l-304"></a><span class="tm">14:12:09</span><span class="nk"> &lt;markwu&gt;</span> it's not good, but still work
+<a name="l-305"></a><span class="tm">14:12:17</span><span class="nk"> &lt;markwu&gt;</span> hope so
+<a name="l-306"></a><span class="tm">14:13:02</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-307"></a><span class="tm">14:13:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

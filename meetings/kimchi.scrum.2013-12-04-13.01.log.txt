@@ -1,0 +1,307 @@
+13:01:11 <alinefm> #startmeeting
+13:01:11 <kimchi-bot> Meeting started Wed Dec  4 13:01:11 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:11 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:18 <alinefm> #meetingname scrum
+13:01:18 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:18 <royce> hi, danielhb, alinefm, shall we start now?
+13:01:39 <alinefm> #info  Agenda 1) Sprint 2 2) Open discussion
+13:01:43 <alinefm> royce, yes
+13:01:48 <alinefm> anything else?
+13:02:33 <alinefm> seems not
+13:02:53 <royce> markwu:gerrit?
+13:03:07 <shaohef> it's ok for me
+13:03:19 <markwu> royce, yes, if you have interest
+13:03:29 <markwu> i have sent an email
+13:03:55 <alinefm> royce, markwu, I think we can cover it on open discussion section
+13:04:03 <markwu> agree
+13:04:16 <royce> sure
+13:04:28 <alinefm> so let's get started
+13:04:31 <alinefm> #topic Sprint 2
+13:04:42 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.1
+13:04:51 <shaohef> gerrit is a platitude.  cons and pros  between mail-list and gerrit.
+13:05:02 <alinefm> the first item is: Basic host management (host)
+13:05:16 <alinefm> I've just seen the UI patches related to it on mail list
+13:06:06 <shaohef> alinefm: I have test it today.
+13:06:06 <alinefm> and in my first tests it seems ready to be merged
+13:06:15 <shaohef> alinefm: agree.
+13:06:40 <alinefm> what is missing about this item is about: Backend and API to initiate shutdown and reboot
+13:06:42 <alinefm> rotru, ^
+13:06:46 <alinefm> any update?
+13:07:15 <ming> shutdown is a pretty dangerous operation, we should take care.
+13:07:27 <ming> Also as reboot
+13:08:05 <rotru_> alinefm; hi
+13:08:12 <ming> Also, I think shutdown is not clear enough to me, does it mean power off or machine halt?
+13:08:31 <alinefm> ming, power off
+13:08:57 <ming> power off is more exact than shutdown.
+13:08:59 <alinefm> ming, when authorization comes to board those operations will be restricted to admin user
+13:09:33 <ming> shutdown can be just a halt with power on.
+13:09:55 <rotru_> alinefm; ming  I modified the patches in order to just allow shutdown/reboot when none vm is in running state
+13:10:31 <rotru_> so, for now, admin will have to stop vms manually before stop server
+13:10:38 <alinefm> rotru, ok
+13:10:59 <rotru_> I would like to implement vms save/restore in the future
+13:11:00 <alinefm> rotru, and when will you send the next version to mail list?
+13:11:10 <pvital_> IMO, thereis no impediment to reboot/shutdown the host with VM's running. we just need alert the user/sys_adm and save/restore the VMs
+13:11:15 <alinefm> rotru, pradeep sent patches for it
+13:12:36 <alinefm> rotru, and when will you send the next version to mail list?
+13:13:07 <rotru_> alinefm;  I am trying to test mock , then patch should be read after
+13:13:23 <shaohef> we should save all VM and then shutdown or reboot?
+13:13:23 <shaohef> now, maybe should not allow power off if there is a vm is living.
+13:13:23 <shaohef> after we support save VM, kimchi can save VMs first and then shutdown.
+13:13:23 <alinefm> rotru, do you think it can be done by today?
+13:14:09 <alinefm> shaohef, for now, we just reboot and shutdown when no vm is running
+13:14:22 <zwu> shaohef: thanks for your info, i will have to go to the office and talk to my boss.
+13:14:22 <alinefm> when we implemente save/restore we can improve it
+13:14:29 <ming> shaohef, right. The vm user should not notice VM's off and on.
+13:14:56 <ming> that is our next step
+13:15:28 <alinefm> ming, agree
+13:15:39 <rotru_> alinefm; ming , shaohef  yes! vm shutdown, save, restored will be a improvement in next version
+13:15:44 <shaohef> alinefm:  agree.
+13:15:51 <alinefm> ok
+13:15:52 <shaohef> zwu: you are welcome.
+13:15:52 <shaohef> ming: yes.
+13:16:00 <alinefm> next: Storage: New Storage Pool based on local disk (storage)
+13:16:03 <alinefm> danielhb, ^
+13:16:29 <alinefm> I tried your patches yesterday and got some errors
+13:16:48 <zhoumeina> hello
+13:16:53 <danielhb> alinefm, errors apparently are fixed now, I'll sending v6 shortly
+13:17:05 <alinefm> danielhb, great
+13:17:12 <danielhb> alinefm, but I'm tempted to send them to you first to see if they are really working now :)
+13:17:35 <ming> danielhb, don't be shy to send out to all of us.
+13:17:49 <ming> We can do more tests.
+13:17:57 <danielhb> ming, that's because alinefm's notebook does not like me and keeps crashing my stuff
+13:18:03 <alinefm> hehehe
+13:18:09 <danielhb> ming, but I'll send them all to you, of course :)
+13:18:13 <alinefm> my notebook is terrible =)
+13:18:20 <ming> alinefm is using unbutu?
+13:18:25 <royce> I saw zhshzhou commented about using exsited VG
+13:18:37 <alinefm> alinefm, yes
+13:18:41 <alinefm> ming, yes
+13:18:47 <alinefm> zhoumeina, I've seen your patches about the UI for it but I haven't had chance to check it yet
+13:18:55 <alinefm> zhoumeina, do you want to comment something about it?
+13:19:19 <danielhb> royce, I was going to answer that ... I think this is already supported if you use an existing VG as target while providing no devices in the <source> element
+13:19:36 <zhoumeina> alinefm: yes, in this patch I also changed the nfs style
+13:20:15 <royce> OK, so provide a VG name can cover that, right? danielhb
+13:20:19 <danielhb> royce, but this is a guess based on what I've read on Red Hat documentation on virt-manager (please do not ban me!), need to test it to see if this works
+13:20:27 <zhoumeina> I changed storage pool type to list box
+13:20:27 <alinefm> zhoumeina, you made a single window and dynamically show more inputs according to pool type?
+13:20:40 <zhoumeina> alinefm: yes
+13:21:17 <alinefm> zhoumeina, ok - I will try them after meeting
+13:21:19 <royce> danielhb, yes, guess that'll work cause libvirt doc said so too.
+13:21:53 <alinefm> next: Add new yum repository (from ISO and from URL) (host)
+13:21:55 <alinefm> pvital_, ^
+13:22:13 <zhoumeina> create storage pool,user will see the "dir" page.when he/she change the storage type, different input can be seen
+13:22:53 <alinefm> pvital_, you sent the patches about YUM repo at the begging of the week, any update?
+13:22:54 <pvital_> alinefm, I submited this morning a new version to API and backend. It's supporting YUM for now because I found some errors in different versions of python-apt
+13:23:38 <pvital_> I'm testing e re-implementing the APT support.
+13:23:41 <alinefm> pvital_, are you considering an repo as a ISO file?
+13:24:29 <pvital_> alinefm, from ISO I assumed that is already mounted
+13:24:41 <ming> pvital, I am not understanding how you can use yum update when you don't pass password to RHEL repoitory
+13:24:48 <pvital_> so you can use the file:// os mount point
+13:25:03 <ming> I think all of the RHEL repository are protected by password and user.
+13:25:24 <alinefm> ming, epel is not protected
+13:25:46 <alinefm> pvital_, ok
+13:25:58 <alinefm> pvital_, do you have an idea when apt support will be done?
+13:26:39 <pvital_> ming, yes and no! once the sys_adm uses the rhn_reg (or something else) it's not necessary user/password. Yum has the repositories info stores and it'll be reflected in out list
+13:26:39 <shaohef> alinefm:  I have seen pvital_ add file:// for iso file
+13:26:48 <shaohef> pvital_: right?
+13:26:59 <pvital_> alinefm, I guess until the end of day
+13:27:11 <ming> Do you have plan to use offical RHEL repository, like Redhat RHN, LTC ftp3?
+13:28:04 <pvital_> ming, I guess we can improve this in later versions. For now I'm supporting only public repositories
+13:28:19 <ming> Sure, that is clear.
+13:28:50 <ming> for iso file, will you check it is a valid iso?
+13:30:06 <pvital_> ming, what do mean by 'valid iso' ?
+13:30:25 <pvital_> bootable? linux content?
+13:30:49 <ming> For example, the user need to update FC19,  but in the host only FC18 iso is mounted.
+13:31:32 <ming> So the user may input FC18 path for yum.
+13:31:49 <ming> But that is not what you expected.
+13:32:03 <pvital_> ming, no! I'm not checking this kind of info!
+13:32:28 <ming> So you assume the iso file is right and mounted already.
+13:32:40 <pvital_> yes
+13:33:18 <alinefm> next?
+13:34:19 <pvital_> alinefm, go ahead
+13:34:27 <alinefm> ok
+13:34:28 <alinefm> Software update (host)
+13:34:39 <alinefm> pvital_, you again ^
+13:34:47 <pvital_> alinefm, :-D
+13:35:36 <pvital_> alinefm, I have it implemented but need APT support first! then I'm going to test it and submit
+13:35:39 <ming> softwware update depend on new yum  repository?
+13:35:50 <pvital_> I guess I can finish this today
+13:36:06 <pvital_> alinefm, BTW ramonn implemented the core of this issue!
+13:36:09 <pvital_> thanks ramonn
+13:36:21 <pvital_> s/issue/feature
+13:36:30 <pvital_> ming, no
+13:36:42 <ramonn> pvital_, if you need help, just call me
+13:36:46 <alinefm> ming, the software update can work with the current repos
+13:36:49 <ming> Is it not updated by yum or apt?
+13:37:07 <alinefm> ming, yes
+13:37:25 <alinefm> pvital_, you can include ramonn as signed-off on patches
+13:37:35 <pvital_> alinefm, for sure
+13:37:45 <ming> alinefm, current repos means the default repos coming with the Linux distros?
+13:38:09 <alinefm> ming, yes
+13:38:22 <alinefm> or other repos admin added manually
+13:39:01 <pvital_> alinefm, I guess I got what ming wants to understand.
+13:39:15 <pvital_> I did a dependency between these two features
+13:39:35 <pvital_> but looking ming questions, I see it can be independents
+13:40:21 <pvital_> alinefm, will work with ramonn to send a patch that dont depends on (new) repositories feature
+13:40:48 <alinefm> pvital_, it'd be great
+13:41:10 <ming> pvital_, cool.
+13:41:13 <pvital_> ramonn, you have 10min to implement it
+13:41:16 <pvital_> :-D
+13:41:20 * pvital_ is evil
+13:41:30 <alinefm> ok, I think we pass through all the tasks
+13:41:35 <alinefm> so we have:
+13:42:00 <alinefm> #action rotru send patches about reboot/shutdown to mail list by today
+13:42:24 <alinefm> #action pvital_ send patches to yum/apt patches by today
+13:42:46 <alinefm> #action pvital_, ramonn  send patches to software update by today
+13:42:51 <alinefm> is that right?
+13:44:00 <rotru_> alinefm;  ok
+13:44:00 <ming> Do you guys get power machines to test Kimchi on power?
+13:44:31 <pvital> alinefm, I don't know how is that pvital_
+13:44:32 <pvital> :-D
+13:44:46 <pvital> just kidding! to relax a bit!
+13:45:04 <markwu> :)
+13:45:06 <alinefm> pvital, =)
+13:45:08 <alinefm> ok
+13:45:16 <alinefm> then open discussion
+13:45:22 <alinefm> #topic Open Discussion
+13:45:25 <shaohef> pvital:  who is pvital_ ?
+13:45:36 <alinefm> shaohef, it is pvital clone =P
+13:45:36 <ming> gerrit server setup?
+13:45:41 <alinefm> ming, sure
+13:45:51 <alinefm> I've just read the mail sent by markwu
+13:45:54 <ming> I think we need a server with public access.
+13:46:01 <alinefm> ming, exactly
+13:46:03 <pvital> shaohef, alinefm: and he is evil !!!
+13:46:06 <danielhb> shaohef, pvital_ is the IRC client that pvital keeps online inside the Mercedes
+13:46:18 <ming> It seems that oVirt may host Kimchi gerrit server for us.
+13:46:28 <markwu> ming, at first, I would like to get agreement among our community about the change
+13:46:38 <alinefm> and more than that we need to think how it will improve our process
+13:46:52 <ming> markwu, no one object it yet.
+13:46:59 <alinefm> I agree with markwu points about CI and etc
+13:47:02 <markwu> if everyone is fine with this proposal,  we can consider to resolve the public server
+13:47:09 <alinefm> but my concern is about reviewing itself
+13:47:34 <pvital> markwu, alinefm: let's vote here?
+13:47:44 <alinefm> pvital, no
+13:47:45 <markwu> alinefm, anyway, as a tool,  gerrit is better than mailling list
+13:47:46 <alinefm> let's discuss
+13:47:46 <ming> alinefm, gerrit record the reviewing process quite well.
+13:47:49 <alinefm> =)
+13:47:54 <royce> alinefm, reviewing it self?
+13:47:54 <shaohef> I think adam and anthony do not like gerrit, just because the are used to mail-list.
+13:47:54 <shaohef> they use mutt as their mail client.
+13:47:54 <shaohef> adam suggests Evolution.
+13:47:54 <shaohef> Evolution is better than thunderbird  for code review.
+13:47:54 <shaohef> also mutt can use vim as it editor.
+13:47:55 <shaohef> mutt and Evolution can support highlight.
+13:48:15 <shaohef> but most of us use thunderbird
+13:48:18 <markwu> even though gerrit can't resolve all the problems
+13:48:36 <pvital> +1
+13:48:42 <ming> +1
+13:48:49 <alinefm> markwu, when any new patch is sent to gerrit, how all the team is notified?
+13:49:24 <markwu> alinefm, if you need the notification,  gerrit can send a mail automatically
+13:49:53 <alinefm> markwu, so each you need to configure gerrit to it?
+13:49:54 <shaohef> then gerrit can send it to every one?
+13:49:57 <markwu> but according to the experience before,  people normally just focus on the dashboard of gerrit
+13:49:58 <ming> alinefm, it can also be configured to send the notification to the mailing list.
+13:50:11 <rotru_> one person will have to be like a Gerrit manager, reviewing all stuff a
+13:50:13 <markwu> yes
+13:50:37 <rotru_> actually , alinefm  =P
+13:50:41 <ming> Also, a person can be assigned to the patch to do review.
+13:50:42 <markwu> http://gerrit.ovirt.org/#/q/status:open+project:vdsm,n,z
+13:50:47 <alinefm> ming, no
+13:50:49 <royce> alinefm, we add ourselves as reviewer for mail notification, or we go to website for review
+13:50:50 <markwu> here's an example of gerrit
+13:50:58 <markwu> yes
+13:51:12 <markwu> royce, good point!
+13:51:25 <pvital> cant be the mailling list?
+13:51:35 <markwu> it can get your attention when the patch is updated.
+13:51:44 <ming> alinefm, a person can be assigned, while others can also do the review.
+13:51:54 <markwu> and you also can add reviewer request on your patch
+13:51:59 <ming> alinefm, thet is not exclusive.
+13:52:02 <pvital> or a different mailing list, like kimchi-gerrit ot kimchi-dev
+13:52:09 <danielhb> I don't understand what't the difference of gerrit review vs what we do in the mailing list ... but we can try using gerrit, of course
+13:52:16 <royce> normally we use the later one, that is kind of like browsing bbs,quite convinient
+13:52:46 <royce> pvital, danielhb, difference is we can test others patch easier
+13:52:54 <markwu> it also provides a clear view of patch diff
+13:53:00 <danielhb> I was commiter of a open source project called Linuxtools (an Eclipse.org project) and we switched to Gerrit there .... I didn't saw any difference but the extra stuff to do before commit/push
+13:53:25 <markwu> even for  differences among revisions of one patch
+13:53:47 <danielhb> but, again, let's try gerrit and see if that improves the review process here ... if it doesn't, roll back :)
+13:54:47 <alinefm> danielhb, we need to do it carefully
+13:54:50 <royce> maybe 1 week trial period?:)
+13:54:57 <alinefm> I am not convinced it will be good for us
+13:54:59 <shaohef> royce:  how can we test others patch easier. git pull other's patches?
+13:55:15 <royce> shahef:git fetch git://gerrit.ovirt.org/ovirt-engine refs/changes/37/20737/20 && git checkout FETCH_HEAD
+13:55:32 <pvital> piece of cake!
+13:55:34 <pvital> :-D
+13:55:48 <shaohef> royce:  recall it.
+13:55:48 <royce> it has origin ref for commit change
+13:55:58 <ming> royce, that is pretty nice for us.
+13:56:00 <alinefm> and why not: git am <mail-patches>?
+13:56:19 <ming> alinefm, you need to downlaod mail-patches first.
+13:56:41 <pvital> and send to some machine it's configured to use mail
+13:56:43 <alinefm> ming, there tools to make it for you
+13:56:56 <royce> alinefm, his patch is diff from his tip, so when applying on your tip, there will be conflict you need to resolve
+13:57:00 <ming> However, for gerrit, just one command.
+13:57:27 <shaohef> alinefm:  most of us use thunderbird, thunderbird is not convinient to download patches.
+13:57:38 <alinefm> ming, make a script and get it in one command
+13:57:47 <royce> alinefm, you can to review for openstack, then you will know how it works and love it:)
+13:57:58 <alinefm> shaohef, I also use thurderbird and it works weel for me
+13:58:17 <markwu> alinefm, is it friendly for the guys not deeply use linux command lines?
+13:58:19 <alinefm> royce, yes - I think I need to try it out to change my view of it
+13:58:43 <royce> hehheh, OK, after you tried, we can get a conclusion, OK?
+13:58:45 <alinefm> markwu, how a non-linux devel will code for linux?
+13:58:45 <markwu> I believe the guys from software group doesn't like that resolution
+13:58:46 <shaohef> alinefm: you can share your script
+13:58:57 <shaohef> alinefm:  linux expert like mail-list, like anthony.  most of us are not linux expert
+13:59:21 <alinefm> let's do that way
+13:59:29 <markwu> alinefm, are zhoumeina YuXin contributing to kimchi?
+13:59:37 <alinefm> I think some people here already tried out gerrit and liked it
+13:59:45 <alinefm> others don't like it so much
+13:59:53 <alinefm> and others don't try it yet
+14:00:18 <alinefm> I can get a conclusion before try it
+14:00:31 <royce> We won't push~ just have a try and we can help if you have problem with that, OK?
+14:00:36 <alinefm> I will install it in my system and check how it works and how it can improve our process
+14:00:56 <markwu> alinefm, you don't need install it on your system
+14:01:07 <markwu> you could just try it with ovirt or openstack
+14:01:11 <shaohef> alinefm:  but I'm interesting in your thunderbird script. can you share it with us?
+14:01:13 <markwu> it's already there
+14:01:31 <alinefm> shaohef, sure
+14:01:49 <markwu> alinefm, how you do a incremental review of patch?
+14:01:50 <shaohef> alinefm: great.  thanks.
+14:01:54 <alinefm> I used patches program from Anthony: https://github.com/aliguori/patches
+14:02:44 <alinefm> markwu, what do you mean with incremental review?
+14:02:55 <alinefm> V2, V3?
+14:03:04 <markwu> alinefm, actually I don't strongly insist on gerrit for review, but for CI
+14:03:08 <markwu> yep
+14:03:09 <shaohef> alinefm: it looks good.
+14:03:34 <markwu> you have to maintain different patches on your local branches
+14:03:44 <alinefm> markwu, I agree the CI part is awesome
+14:04:16 <alinefm> markwu, but I am wondering if we can get it just using jenkins
+14:05:23 <shaohef> alinefm:  jenkins can work without gerrit.
+14:05:39 <alinefm> shaohef, yes
+14:05:45 <markwu> pvital, any idea?  maybe we can write a script to monitor the mailing list , download the patch to test and then post a notification if it fails
+14:05:51 <alinefm> I mean if jenkins can cover the CI part done by gerrit
+14:06:24 <pvital> markwu, it's possible
+14:06:45 <alinefm> markwu, this script already exists! https://github.com/aliguori/patches
+14:06:46 <alinefm> =)
+14:06:48 <markwu> pvital, yes, it's possible. but
+14:06:51 <pvital> hadoop and other apache projects use this approach
+14:07:34 <markwu> ok, then we can follow their practice
+14:07:57 <pvital> hadoop uses jenkins to get the patches (but submitted to a issue tracking system) and test it over trunk/master
+14:08:12 <markwu> can it fetch every post patch or every merged patch?
+14:08:16 <pvital> we can use the same idea
+14:08:41 <markwu> pvital, we should run the test before patch merged
+14:09:20 <markwu> it should be a proof of that the patch is valid for maintainer ( alinefm)
+14:09:58 <pvital> markwu, yeap!
+14:10:16 <alinefm> yes
+14:10:21 <markwu> pvital, ok. that's great
+14:10:42 <alinefm> look I didn't say NO to gerrit
+14:10:57 <alinefm> as I said I will try it to check how it works
+14:11:08 <alinefm> then we can discuss in next scrum meeting
+14:11:19 <markwu> ok. actually my concern is we can't request a public server
+14:11:38 <markwu> but for jenkins,  we could run in behind IBM firewall
+14:12:07 <alinefm> now we are part of ovirt community so we could ask ovirt for it
+14:12:09 <markwu> it's not good, but still work
+14:12:17 <markwu> hope so
+14:13:02 <alinefm> ok
+14:13:06 <alinefm> #endmeeting
