@@ -58,6 +58,153 @@
 					"type": "string"
 				}
 			}
+		},
+		"templates_create": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "The name of the template",
+					"type": "string",
+					"pattern": "^[^ ]+( +[^ ]+)*$",
+					"minLength": 1
+				},
+				"icon": {
+					"description": "The template icon path",
+					"type": "string",
+					"pattern": "^images/"
+				},
+				"os_distro": {
+					"description": "Distribution name of the Operating System",
+					"type": "string",
+					"minLength": 1
+				},
+				"os_version": {
+					"description": "Version of the Operating System",
+					"type": "string",
+					"minLength": 1
+				},
+				"cpus": {
+					"description": "Number of CPUs for the template",
+					"type": "integer",
+					"minimum": 1
+				},
+				"memory": {
+					"description": "Memory (MB) for the template",
+					"type": "integer",
+					"minimum": 512
+				},
+				"cdrom": {
+					"description": "Path for cdrom",
+					"type": "string",
+					"pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$",
+					"required": true
+				},
+				"disks": {
+					"description": "List of disks",
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"index": {
+								"description": "Index of the disk",
+								"type": "integer",
+								"minimum": 0
+							},
+							"size": {
+								"description": "Size (GB) of the disk",
+								"type": "number",
+								"minimum": 1
+							}
+						}
+					},
+					"minItems": 1,
+					"uniqueItems": true
+				},
+				"storagepool": {
+					"description": "Location of the storage pool",
+					"type": "string",
+					"pattern": "^/storagepools/[^/]+/?$"
+				},
+				"folder": {
+					"description": "Folder",
+					"type": "array",
+					"items": { "type": "string" }
+				}
+			},
+			"additionalProperties": false
+		},
+		"template_update": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"description": "The name of the template",
+					"type": "string",
+					"pattern": "^[^ ]+( +[^ ]+)*$",
+					"minLength": 1
+				},
+				"icon": {
+					"description": "The template icon path",
+					"type": "string",
+					"pattern": "^images/"
+				},
+				"os_distro": {
+					"description": "Distribution name of the Operating System",
+					"type": "string",
+					"minLength": 1
+				},
+				"os_version": {
+					"description": "Version of the Operating System",
+					"type": "string",
+					"minLength": 1
+				},
+				"cpus": {
+					"description": "Number of CPUs for the template",
+					"type": "integer",
+					"minimum": 1
+				},
+				"memory": {
+					"description": "Memory (MB) for the template",
+					"type": "integer",
+					"minimum": 512
+				},
+				"cdrom": {
+					"description": "Path for cdrom",
+					"type": "string",
+					"pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$"
+				},
+				"disks": {
+					"description": "List of disks",
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"index": {
+								"description": "Index of the disk",
+								"type": "integer",
+								"minimum": 0
+							},
+							"size": {
+								"description": "Size (GB) of the disk",
+								"type": "number",
+								"minimum": 1
+							}
+						}
+					},
+					"minItems": 1,
+					"uniqueItems": true
+				},
+				"storagepool": {
+					"description": "Location of the storage pool",
+					"type": "string",
+					"pattern": "^/storagepools/[^/]+/?$"
+				},
+				"folder": {
+					"description": "Folder",
+					"type": "array",
+					"items": { "type": "string" }
+				}
+			},
+			"additionalProperties": false
 		}
 	}
 }

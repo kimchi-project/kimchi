@@ -117,7 +117,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * cpus *(optional)*: The number of CPUs assigned to the VM. Default is 1.
     * memory *(optional)*: The amount of memory assigned to the VM.
       Default is 1024M.
-    * cdrom *(optional)*: A volume name or URI to an ISO image.
+    * cdrom *(required)*: A volume name or URI to an ISO image.
     * storagepool *(optional)*: URI of the storagepool.
       Default is '/storagepools/default'
     * disks *(optional)*: An array of requested disks with the following optional fields
