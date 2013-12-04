@@ -210,18 +210,6 @@ class MockModel(object):
         new_t.update(params)
         ident = name
 
-        new_name = new_t.get(u'name', '')
-        if len(new_name.strip()) == 0:
-            raise InvalidParameter("You must specify a template name.")
-
-        new_memory = new_t.get(u'memory', '')
-        if not is_digit(new_memory):
-            raise InvalidParameter("You must specify a number for memory.")
-
-        new_ncpus = new_t.get(u'cpus', '')
-        if not is_digit(new_ncpus):
-            raise InvalidParameter("You must specify a number for cpus.")
-
         new_storagepool = new_t.get(u'storagepool', '')
         try:
             self._get_storagepool(kimchi.model.pool_name_from_uri(new_storagepool))
