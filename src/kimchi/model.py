@@ -950,35 +950,37 @@ class Model(object):
     def _do_deep_scan(self, params):
         scan_params = dict()
         scan_params['scan_path'] = params['path']
+        params['type'] = 'dir'
         params['path'] = scan_params['pool_path'] = self.scanner.scan_dir_prepare(
             params['name'], params['path'])
-        return self.add_task('', self.scanner.start_scan, scan_params)
+        task_id = self.add_task('', self.scanner.start_scan, scan_params)
+        # Record scanning-task/storagepool mapping for future querying
+        with self.objstore as session:
+                session.store('scanning', params['name'], task_id)
+        return task_id
 
     def storagepools_create(self, params):
+        task_id = None
         conn = self.conn.get()
         try:
             name = params['name']
             if name in (ISO_POOL_NAME, ):
                 raise InvalidOperation("StoragePool already exists")
+
+            if params['type'] == 'kimchi-iso':
+                task_id = self._do_deep_scan(params)
             xml = _get_pool_xml(**params)
         except KeyError, key:
             raise MissingParameter(key)
+
         if name in self.storagepools_get_list():
             raise InvalidOperation(
                         "The name %s has been used by a pool" % name)
 
         try:
-            if params['type'] == 'kimchi-iso':
-                # Handing deep scan
-                params['type'] = 'dir'
-                # FIXME: make task stopable when create pool fails
-                task_id = self._do_deep_scan(params)
-                xml = _get_pool_xml(**params)
+            if task_id:
                 # Create transient pool for deep scan
                 conn.storagePoolCreateXML(xml, 0)
-                # Record scanning-task/storagepool mapping for future querying
-                with self.objstore as session:
-                    session.store('scanning', params['name'], task_id)
                 return name
 
             pool = conn.storagePoolDefineXML(xml, 0)
