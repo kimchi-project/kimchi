@@ -34,6 +34,7 @@ import kimchi.objectstore
 from kimchi.exception import *
 from kimchi import netinfo
 import utils
+import iso_gen
 
 class ModelTests(unittest.TestCase):
     def setUp(self):
@@ -599,3 +600,25 @@ class ModelTests(unittest.TestCase):
 
         self.assertIn('net_recv_rate', stats)
         self.assertIn('net_sent_rate', stats)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_deep_scan(self):
+        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        with utils.RollbackContext() as rollback:
+            path = '/tmp/kimchi-images/tmpdir'
+            if not os.path.exists(path):
+                os.makedirs(path)
+            iso_gen.construct_fake_iso('/tmp/kimchi-images/tmpdir/ubuntu12.04.iso',
+                True, '12.04', 'ubuntu')
+            iso_gen.construct_fake_iso('/tmp/kimchi-images/sles10.iso',
+                True, '10', 'sles')
+
+            args = {'name': 'kimchi-scanning-pool',
+                    'path': '/tmp/kimchi-images',
+                    'type': 'kimchi-iso'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_deactivate, args['name'])
+
+            time.sleep(1)
+            volumes = inst.storagevolumes_get_list(args['name'])
+            self.assertEquals(len(volumes), 2)
