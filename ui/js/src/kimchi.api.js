@@ -4,7 +4,8 @@
  * Copyright IBM, Corp. 2013
  *
  * Authors:
- *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *  Xin Ding <xinding@linux.vnet.ibm.com>
+ *  Hongliang Wang <hlwang@linux.vnet.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,8 @@
 var kimchi = {
 
     url : "../../../",
+
+    widget: {},
 
     /**
      * A wrapper of jQuery.ajax function to allow custom bindings.
@@ -57,6 +60,34 @@ var kimchi = {
             contentType : "application/json",
             dataType : "json",
             success: suc,
+            error: err
+        });
+    },
+
+    /**
+     * Get the host static information.
+     */
+    getHost: function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error: err
+        });
+    },
+
+    /**
+     * Get the dynamic host stats (usually used for monitoring).
+     */
+    getHostStats : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/stats',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
             error: err
         });
     },
@@ -552,6 +583,90 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
-    }
+    },
 
+    listReports : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'debugreports',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend: true,
+            success : suc,
+            error : err
+        });
+    },
+
+    createReport: function(settings, suc, err) {
+        var taskID = -1;
+        var onTaskResponse = function(result) {
+            var taskStatus = result['status'];
+            switch(taskStatus) {
+            case 'running':
+                if(kimchi.stopTrackingReport === true) {
+                    return;
+                }
+                setTimeout(function() {
+                    trackTask();
+                }, 200);
+                break;
+            case 'finished':
+                suc(result);
+                break;
+            case 'failed':
+                err(result);
+                break;
+            default:
+                break;
+            }
+        };
+
+        var trackTask = function() {
+            kimchi.getTask(taskID, onTaskResponse, err);
+        };
+
+        var onResponse = function(data) {
+            taskID = data['id'];
+            trackTask();
+        };
+
+        kimchi.requestJSON({
+            url : kimchi.url + 'debugreports',
+            type : "POST",
+            contentType : "application/json",
+            data : JSON.stringify(settings),
+            dataType : "json",
+            success : onResponse,
+            error : err
+        });
+    },
+
+    deleteReport: function(settings, suc, err) {
+        var reportName = encodeURIComponent(settings['name']);
+        kimchi.requestJSON({
+            url : kimchi.url + 'debugreports/' + reportName,
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    downloadReport: function(settings, suc, err) {
+        window.open(settings['file']);
+    },
+
+    shutdown: function(settings, suc, err) {
+        var reboot = settings && settings['reboot'] === true;
+        var url = kimchi.url + 'host/' + (reboot ? 'reboot' : 'shutdown');
+        kimchi.requestJSON({
+            url : url,
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    }
 };

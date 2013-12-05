@@ -1,0 +1,25 @@
+#report-add-window {
+    height: 300px;
+    width: 400px;
+}
+
+#report-add-window .field {
+    font-size: 12px;
+}
+
+#report-name-textbox {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: .5em 0;
+    width: 100%;
+}
+
+#report-error-message {
+    color: red;
+}
+
+#button-report-add[disabled] {
+    background: #c0c0c0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+    color: #DDD;
+    padding-left: 26px;
+}

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab>
+        <title>Host</title>
+        <path>tabs/host.html</path>
+    </tab>
+    <tab>
         <title>Guests</title>
         <path>tabs/guests.html</path>
     </tab>

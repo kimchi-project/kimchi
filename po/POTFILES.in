@@ -7,11 +7,13 @@ ui/pages/guest.html.tmpl
 ui/pages/i18n.html.tmpl
 ui/pages/kimchi-ui.html.tmpl
 ui/pages/login-window.html.tmpl
+ui/pages/report-add.html.tmpl
 ui/pages/storagepool-add.html.tmpl
+ui/pages/tabs/guests.html.tmpl
+ui/pages/tabs/host.html.tmpl
+ui/pages/tabs/network.html.tmpl
+ui/pages/tabs/templates.html.tmpl
+ui/pages/tabs/storage.html.tmpl
 ui/pages/template-add.html.tmpl
 ui/pages/template-edit.html.tmpl
 ui/pages/vnc_auto.html.tmpl
-ui/pages/tabs/guests.html.tmpl
-ui/pages/tabs/templates.html.tmpl
-ui/pages/tabs/storage.html.tmpl
-ui/pages/tabs/network.html.tmpl

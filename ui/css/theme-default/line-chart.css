@@ -1,0 +1,56 @@
+.chart-container {
+  background: black;
+}
+
+.line-chart {
+  overflow: hidden;
+}
+
+.line-chart .background {
+  fill: black;
+}
+
+.line-chart text {
+    color: red;
+    font-size: 12px;
+}
+
+.line-chart polyline {
+    fill: none;
+    stroke: #0cf;
+    stroke-width: 2px;
+}
+
+.line-chart line {
+    stroke: white;
+    stroke-width: 1px;
+}
+
+.chart-container,
+.chart-vaxis-container,
+.chart-legend-container,
+.chart-label {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+}
+
+.chart-vaxis-container {
+    width: 80px;
+}
+
+.chart-legend-container .legend-wrapper {
+    margin: 0 5px 5px 0;
+}
+
+.chart-legend-container .legend-icon {
+    margin-right: 5px;
+    width: 20px;
+}
+
+.chart-legend-container .legend-label {
+}
+
+.chart-legend-container .latest-value {
+    margin-left: 25px;
+}
