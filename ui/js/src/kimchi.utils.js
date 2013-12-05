@@ -50,14 +50,14 @@ kimchi.isElementInViewport = function(el) {
  * @param digits after the decimal point.
  * @returns str with unit.
  */
-kimchi.changetoProperUnit = function(numOrg, digits) {
-    var suffixes = [ 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B' ];
-    var base = 1024;
-    var numTemp = numOrg;
-    var result = numOrg + 'B';
+kimchi.changetoProperUnit = function(numOrg, digits, base) {
     if (numOrg === undefined) {
         return "";
     }
+    var suffixes = [ 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B' ];
+    var base = base || 1024;
+    var numTemp = numOrg;
+    var result = numOrg.toFixed(digits) + 'B';
     for ( var i = 0; i < suffixes.length; i++) {
         var numTemp = numTemp / base;
         if (numTemp < 1)
