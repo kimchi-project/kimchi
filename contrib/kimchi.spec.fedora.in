@@ -24,6 +24,7 @@ Requires:	python-jsonschema >= 1.3.0
 Requires:	python-ethtool
 Requires:	sos
 Requires:	python-ipaddr
+Requires:	nfs-utils
 
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict
