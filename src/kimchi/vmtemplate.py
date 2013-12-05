@@ -126,7 +126,7 @@ class VMTemplate(object):
         url = self.info['cdrom']
         if not qemu_stream_dns:
             hostname = socket.gethostbyname(hostname)
-            url = protocol + "://" + hostname + ":" + port + url_path
+            url = protocol + "://" + hostname + ":" + str(port) + url_path
 
         if not libvirt_stream:
             return qemu_stream_cmdline % {'url': url, 'bus': bus}
