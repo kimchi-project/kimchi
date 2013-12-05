@@ -552,13 +552,13 @@ Contains the host sample data.
         * cached: The amount of memory used as cache memory. The unit is Bytes.
         * avail: The total amount of buffer, cache and free memory. The unit is Bytes.
     * disk_read_rate: Expresses the total IO throughput for reads across
-                      all disks (kb/s).
+                      all disks (B/s).
     * disk_write_rate: Expresses the total IO throughput for writes across
-                       all disks (kb/s).
+                       all disks (B/s).
     * net_sent_rate: Expresses the total network throughput for writes across
-                     all interfaces (kb/s).
+                     all interfaces (B/s).
     * net_recv_rate: Expresses the total network throughput for reads across
-                     all interfaces (kb/s).
+                     all interfaces (B/s).
 
 * **POST**: *See HostStats Actions*
 

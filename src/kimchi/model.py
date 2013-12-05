@@ -424,42 +424,40 @@ class Model(object):
         self.host_stats['memory'] = memory_stats
 
     def _get_host_disk_io_rate(self, seconds):
-        prev_RdKB = self.host_stats['disk_io_RdKB']
-        prev_WrKB = self.host_stats['disk_io_WrKB']
+        prev_read_bytes = self.host_stats['disk_read_bytes']
+        prev_write_bytes = self.host_stats['disk_write_bytes']
 
         disk_io = psutil.disk_io_counters(False)
-        RdKB = float(disk_io.read_bytes) / 1024
-        WrKB = float(disk_io.write_bytes) / 1024
+        read_bytes = disk_io.read_bytes
+        write_bytes = disk_io.write_bytes
 
-        rd_rate = round((RdKB - prev_RdKB) / seconds, 1)
-        wr_rate = round((WrKB - prev_WrKB) / seconds, 1)
+        rd_rate = int(float(read_bytes - prev_read_bytes) / seconds + 0.5)
+        wr_rate = int(float(write_bytes - prev_write_bytes) / seconds + 0.5)
 
         self.host_stats.update({'disk_read_rate': rd_rate,
                                 'disk_write_rate': wr_rate,
-                                'disk_io_RdKB': RdKB,
-                                'disk_io_WrKB': WrKB})
+                                'disk_read_bytes': read_bytes,
+                                'disk_write_bytes': write_bytes})
 
     def _get_host_network_io_rate(self, seconds):
-        prev_RxKB = self.host_stats['net_io_RxKB']
-        prev_TxKB = self.host_stats['net_io_TxKB']
+        prev_recv_bytes = self.host_stats['net_recv_bytes']
+        prev_sent_bytes = self.host_stats['net_sent_bytes']
 
         net_ios = psutil.network_io_counters(True)
-        RxKB = 0
-        TxKB = 0
+        recv_bytes = 0
+        sent_bytes = 0
         for key in set(netinfo.nics() +
                        netinfo.wlans()) & set(net_ios.iterkeys()):
-            RxKB = RxKB + net_ios[key].bytes_recv
-            TxKB = TxKB + net_ios[key].bytes_sent
-        RxKB = float(RxKB) / 1000
-        TxKB = float(TxKB) / 1000
+            recv_bytes = recv_bytes + net_ios[key].bytes_recv
+            sent_bytes = sent_bytes + net_ios[key].bytes_sent
 
-        rx_rate = round((RxKB - prev_RxKB) / seconds, 1)
-        tx_rate = round((TxKB - prev_TxKB) / seconds, 1)
+        rx_rate = int(float(recv_bytes - prev_recv_bytes) / seconds + 0.5)
+        tx_rate = int(float(sent_bytes - prev_sent_bytes) / seconds + 0.5)
 
         self.host_stats.update({'net_recv_rate': rx_rate,
                                 'net_sent_rate': tx_rate,
-                                'net_io_RxKB': RxKB,
-                                'net_io_TxKB': TxKB})
+                                'net_recv_bytes': recv_bytes,
+                                'net_sent_bytes': sent_bytes})
 
     def _static_vm_update(self, dom, params):
         state = Model.dom_state_map[dom.info()[0]]
