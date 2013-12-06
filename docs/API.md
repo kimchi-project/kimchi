@@ -187,6 +187,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
             Supported types: 'dir', 'kimchi-iso', 'netfs'
     * nfsserver: IP or hostname of NFS server to create NFS pool.
     * nfspath: export path on nfs server for NFS pool.
+    * devices: Array of devices to be used in the Storage Pool
+            Exclusive to the 'logical' storage pool type.
 
 ### Resource: Storage Pool
 
@@ -573,3 +575,28 @@ Contains the host sample data.
 **Methods:**
 
 * **GET**: Retrieve a summarized list names of all UI Plugins
+
+### Collection: Partitions
+
+**URI:** /host/partitions
+
+**Methods:**
+
+* **GET**: Retrieves a detailed list of all partitions of the host.
+
+### Resource: Partition
+
+**URI:** /host/partitions/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the description of a single Partition:
+    * name: The name of the partition. Used to identify it in this API
+    * path: The device path of this partition.
+    * type: The type of the partition:
+        * part: a standard partition
+        * lvm: a partition that belongs to a lvm
+    * fstype: The file system type of the partition
+    * size: The total size of the partition, in bytes
+    * mountpoint: If the partition is mounted, represents the mountpoint.
+      Otherwise blank.
