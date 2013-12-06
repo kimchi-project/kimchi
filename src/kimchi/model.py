@@ -22,6 +22,7 @@
 
 import cherrypy
 import copy
+import disks
 import fnmatch
 import functools
 import glob
@@ -1269,6 +1270,15 @@ class Model(object):
     def plugins_get_list(self):
         return [plugin for (plugin, config) in get_enabled_plugins()]
 
+    def partitions_get_list(self):
+        result = disks.get_partitions_names()
+        return result
+
+    def partition_lookup(self, name):
+        if name not in disks.get_partitions_names():
+            raise NotFoundError("Partition %s not found in the host"
+                                % name)
+        return disks.get_partition_details(name)
 
     def vms_get_list_by_state(self, state):
         ret_list = []
@@ -1384,7 +1394,7 @@ def _get_pool_xml(**kwargs):
             <path>%(path)s</path>
           </target>
         </pool>
-       """ % kwargs
+       """
     elif kwargs['type'] == 'netfs':
         if not os.path.exists(kwargs['path']):
            os.makedirs(kwargs['path'])
@@ -1399,8 +1409,26 @@ def _get_pool_xml(**kwargs):
             <path>%(path)s</path>
           </target>
         </pool>
-        """ % kwargs
-    return xml
+        """
+    elif kwargs['type'] == 'logical':
+        xml = """
+        <pool type='%(type)s'>
+        <name>%(name)s</name>
+            <source>
+            %(devices)s
+            </source>
+        <target>
+            <path>%(path)s</path>
+        </target>
+        </pool>
+        """
+        devices = ''
+        for device_path in kwargs['devices']:
+            devices += "<device path=\""+device_path+"\" />"
+
+        kwargs.update({'devices': devices})
+
+    return xml % kwargs
 
 def _get_volume_xml(**kwargs):
     # Required parameters

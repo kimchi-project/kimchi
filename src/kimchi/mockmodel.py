@@ -22,6 +22,7 @@
 
 import cherrypy
 import copy
+import disks
 import glob
 import ipaddr
 import os
@@ -574,6 +575,15 @@ class MockModel(object):
         time.sleep(10)
         cherrypy.engine.start()
 
+    def partitions_get_list(self):
+        result = disks.get_partitions_names()
+        return result
+
+    def partition_lookup(self, name):
+        if name not in disks.get_partitions_names():
+            raise NotFoundError("Partition %s not found in the host"
+                                % name)
+        return disks.get_partition_details(name)
 
 class MockVMTemplate(VMTemplate):
     def __init__(self, args, mockmodel_inst=None):
