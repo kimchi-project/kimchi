@@ -57,7 +57,7 @@ def _get_ip_xml(**kwargs):
     xml = ""
     if 'net' in kwargs.keys():
         net = ipaddr.IPNetwork(kwargs['net'])
-        address = str(net.network)
+        address = str(net.ip)
         netmask = str(net.netmask)
         dhcp_params = kwargs.get('dhcp', {})
         dhcp = _get_dhcp_xml(**dhcp_params)

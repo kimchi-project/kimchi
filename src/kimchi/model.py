@@ -775,6 +775,8 @@ class Model(object):
             ip = ipaddr.IPNetwork(netaddr)
         except ValueError as e:
             raise InvalidParameter("%s" % e)
+        if ip.ip == ip.network:
+            ip.ip = ip.ip + 1
         dhcp_start = str(ip.ip + ip.numhosts / 2)
         dhcp_end = str(ip.ip + ip.numhosts - 2)
         params.update({'net': netaddr,
