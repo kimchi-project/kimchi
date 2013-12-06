@@ -20,11 +20,15 @@
  */
 kimchi.template_edit_main = function() {
     var templateEditForm = $('#form-template-edit');
+    var origDisks;
     $('#template-name', templateEditForm).val(kimchi.selectedTemplate);
     kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
+        origDisks =  template.disks;
         for ( var prop in template) {
             $('input[name="' + prop + '"]', templateEditForm).val(template[prop]);
         }
+        var disks = template.disks;
+        $('input[name="disks"]').val(disks[0].size);
         kimchi.listStoragePools(function(result) {
             var options = [];
             if (result && result.length) {
@@ -46,10 +50,17 @@ kimchi.template_edit_main = function() {
     });
 
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool' ];
+        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks', 'cdrom' ];
         var data = {};
         $.each(editableFields, function(i, field) {
-            data[field] = $('#form-template-edit [name="' + field + '"]').val();
+            /* Support only 1 disk at this moment */
+            if (field == 'disks') {
+               origDisks[0].size = Number($('#form-template-edit [name="' + field + '"]').val());
+               data[field] = origDisks;
+            }
+            else {
+               data[field] = $('#form-template-edit [name="' + field + '"]').val();
+            }
         });
         data['memory'] = Number(data['memory']);
         data['cpus']   = Number(data['cpus']);
