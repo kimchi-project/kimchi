@@ -690,6 +690,8 @@ class Host(Resource):
         self.uri_fmt = '/host/%s'
         self.reboot = generate_action_handler(self, 'reboot')
         self.shutdown = generate_action_handler(self, 'shutdown')
+        self.partitions = Partitions(self.model)
+        self.partitions.exposed = True
 
     @property
     def data(self):
@@ -700,6 +702,19 @@ class HostStats(Resource):
     def data(self):
         return self.info
 
+class Partitions(Collection):
+    def __init__(self, model):
+        super(Partitions, self).__init__(model)
+        self.resource = Partition
+
+
+class Partition(Resource):
+    def __init__(self, model,id):
+        super(Partition, self).__init__(model,id)
+
+    @property
+    def data(self):
+        return self.info
 
 @cherrypy.expose
 def login(*args):
