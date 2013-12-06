@@ -104,7 +104,7 @@ def is_bondlave(nic):
 
 
 def operstate(dev):
-    return open(NET_STATE % dev).readline().split()
+    return open(NET_STATE % dev).readline().strip()
 
 
 def get_vlan_device(vlan):
