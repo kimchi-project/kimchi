@@ -938,8 +938,7 @@ class Model(object):
             for volume in volumes:
                 res = self.storagevolume_lookup(pool, volume)
                 if res['format'] == 'iso':
-                    # prevent iso from different pool having same volume name
-                    res['name'] = '%s-%s' % (pool, volume)
+                    res['name'] = '%s' % volume
                     iso_volumes.append(res)
         return iso_volumes
 
