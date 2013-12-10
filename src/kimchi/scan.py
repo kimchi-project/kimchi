@@ -22,14 +22,14 @@
 #
 
 import glob
+import hashlib
 import os.path
 import shutil
 import tempfile
 import time
-import uuid
 
 
-from kimchi.isoinfo import probe_iso
+from kimchi.isoinfo import probe_iso, probe_one
 from kimchi.utils import kimchi_log
 
 
@@ -67,10 +67,16 @@ class Scanner(object):
 
     def start_scan(self, cb, params):
         def updater(iso_info):
-            iso_path = iso_info['path'][:-3] + str(uuid.uuid4()) + '.iso'
-            link_name = os.path.join(
-                params['pool_path'],
-                os.path.basename(iso_path))
+            iso_name = os.path.basename(iso_info['path'])[:-3]
+
+            duplicates = "%s/%s*" % (params['pool_path'], iso_name)
+            for f in glob.glob(duplicates):
+                if (iso_info['distro'], iso_info['version']) == probe_one(f):
+                    return
+
+            iso_path = iso_name + hashlib.md5(iso_info['path']).hexdigest() + '.iso'
+            link_name = os.path.join(params['pool_path'],
+                                     os.path.basename(iso_path))
             os.symlink(iso_info['path'], link_name)
 
         scan_params = dict(path=params['scan_path'], updater=updater)
