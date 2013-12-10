@@ -24,6 +24,7 @@ kimchi_PYTHON = \
 	asynctask.py      \
 	auth.py           \
 	controller.py     \
+	disks.py          \
 	distroloader.py   \
 	exception.py      \
 	__init__.py       \
