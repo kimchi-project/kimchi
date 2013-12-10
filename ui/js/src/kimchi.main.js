@@ -40,12 +40,6 @@ kimchi.main = function() {
      */
     var onKimchiRedirect = function(url) {
         /*
-         * We setup an periodly reloading of VM list, which should be removed
-         * when switching to non-guest pages.
-         */
-        kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
-
-        /*
          * Find the corresponding tab node and animate the arrow indicator to
          * point to the tab. If nothing found, inform user the URL is invalid
          * and clear location.hash to jump to home page.

@@ -25,11 +25,13 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
-<div class="toolbar">
-	<div class="tools">
+<div id="host-root-container">
+	<div class="toolbar">
+		<div class="tools">
+		</div>
 	</div>
+	<div id="host-content-container"></div>
 </div>
-<div id="host-root-container"></div>
 
 <script id="host-tmpl" type="kimchi/template">
 	<div class="host-panel">

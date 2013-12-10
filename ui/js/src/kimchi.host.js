@@ -58,11 +58,20 @@ kimchi.host_main = function() {
                         return;
                     }
 
-                    kimchi.deleteReport({
-                        name: report['name']
-                    }, function(result) {
-                        listDebugReports();
-                    }, function(error) {
+                    var settings = {
+                        title : i18n['msg.host.debugreport.confirm.title'],
+                        content : i18n['msg.host.debugreport.confirm.content'],
+                        confirm : i18n['msg.confirm'],
+                        cancel : i18n['msg.cancel']
+                    };
+
+                    kimchi.confirm(settings, function() {
+                        kimchi.deleteReport({
+                            name: report['name']
+                        }, function(result) {
+                            listDebugReports();
+                        }, function(error) {
+                        });
                     });
                 }
             }, {
@@ -196,9 +205,11 @@ kimchi.host_main = function() {
     kimchi.getHost(function(data) {
         var htmlTmpl = $('#host-tmpl').html();
         data['logo'] = data['logo'] || '';
-        data['memory'] = kimchi.changetoProperUnit(data['memory'], 2);
+        data['memory'] = kimchi.formatMeasurement(data['memory'], {
+            fixed: 2
+        });
         var templated = kimchi.template(htmlTmpl, data);
-        $('#host-root-container').html(templated);
+        $('#host-content-container').html(templated);
 
         initPage();
         initTracker();
@@ -216,6 +227,8 @@ kimchi.host_main = function() {
             memory: {
                 u: {
                     type: 'value',
+                    base: 2,
+                    fixed: 2,
                     legend: i18n['msg.host.chartlegend.memory.available'],
                     points: []
                 }
@@ -223,11 +236,17 @@ kimchi.host_main = function() {
             diskIO: {
                 r: {
                     type: 'value',
+                    base: 2,
+                    fixed: 2,
+                    unit: 'B/s',
                     legend: i18n['msg.host.chartlegend.disk.read'],
                     points: []
                 },
                 w: {
                     type: 'value',
+                    base: 2,
+                    fixed: 2,
+                    unit: 'B/s',
                     legend: i18n['msg.host.chartlegend.disk.write'],
                     'class': 'disk-write',
                     points: []
@@ -236,13 +255,17 @@ kimchi.host_main = function() {
             networkIO: {
                 r: {
                     type: 'value',
-                    base: 1000,
+                    base: 2,
+                    fixed: 2,
+                    unit: 'B/s',
                     legend: i18n['msg.host.chartlegend.network.received'],
                     points: []
                 },
                 s: {
                     type: 'value',
-                    base: 1000,
+                    base: 2,
+                    fixed: 2,
+                    unit: 'B/s',
                     legend: i18n['msg.host.chartlegend.network.sent'],
                     'class': 'network-sent',
                     points: []
@@ -294,6 +317,9 @@ kimchi.host_main = function() {
                 var obj = stats[k];
                 var line = {
                     type: obj['type'],
+                    base: obj['base'],
+                    unit: obj['unit'],
+                    fixed: obj['fixed'],
                     legend: obj['legend']
                 };
                 if(obj['max']) {
@@ -432,4 +458,14 @@ kimchi.host_main = function() {
             kimchi.hostTimer.start();
         }
     };
+
+    $('#host-root-container').on('remove', function() {
+        if(!kimchi.keepMonitoringHost && kimchi.hostTimer) {
+            kimchi.hostTimer.stop();
+            kimchi.hostTimer = null;
+            kimchi.hostTimer = null;
+            delete kimchi.hostTimer;
+        }
+        reportGrid && reportGrid.destroy();
+    });
 };

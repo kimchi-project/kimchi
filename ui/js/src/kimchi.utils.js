@@ -66,3 +66,100 @@ kimchi.changetoProperUnit = function(numOrg, digits, base) {
     }
     return result;
 };
+
+/**
+ * kimchi.formatMeasurement util.
+ *
+ * Refer to "Units of information" (
+ *   http://en.wikipedia.org/wiki/Units_of_information
+ * ) for more information about measurement units.
+ *
+ * @param number The number to be normalized.
+ * @param settings
+ *     * base Measurement base, accepts 2 or 10. defaults to 2.
+ *     * unit The unit of the measurement, e.g., B, Bytes/s, bps, etc.
+ *     * fixed The number of digits after the decimal point.
+ *
+ * @returns [object]
+ *     * v The number part of the measurement.
+ *     * s The suffix part of the measurement including multiple and unit.
+ *         e.g., kB/s means 1000B/s, KiB/s for 1024B/s.
+ */
+(function() {
+    var unitBaseMapping = {
+        2: [{
+            us: 'Ki',
+            v: 1024
+        }, {
+            us: 'Mi',
+            v: 1048576
+        }, {
+            us: 'Gi',
+            v: 1073741824
+        }, {
+            us: 'Ti',
+            v: 1099511627776
+        }, {
+            us: 'Pi',
+            v: 1125899906842624
+        }],
+        10: [{
+            us: 'k',
+            v: 1000
+        }, {
+            us: 'M',
+            v: 1000000
+        }, {
+            us: 'G',
+            v: 1000000000
+        }, {
+            us: 'T',
+            v: 1000000000000
+        }, {
+            us: 'P',
+            v: 1000000000000000
+        }]
+    };
+
+    var Formatted = function(value, suffix) {
+        this['v'] = value;
+        this['s'] = suffix;
+    };
+    Formatted.prototype.toString = function() {
+        return this['v'] + this['s'];
+    };
+
+    var format = function(number, settings) {
+        if(number === (undefined || null) || isNaN(number)) {
+            return number;
+        }
+
+        var settings = settings || {};
+        var unit = settings['unit'] || 'B';
+        var base = settings['base'] || 2;
+        if(base !== 2 && base !== 10) {
+            return new Formatted(number, unit);
+        }
+
+        var fixed = settings['fixed'];
+
+        var unitMapping = unitBaseMapping[base];
+        for(var i = unitMapping.length - 1; i >= 0; i--) {
+            var mapping = unitMapping[i];
+            var suffix = mapping['us'];
+            var startingValue = mapping['v'];
+            if(number < startingValue) {
+                continue;
+            }
+
+            var formatted = number / startingValue;
+            formatted = fixed ? formatted.toFixed(fixed) : formatted;
+
+            return new Formatted(formatted, suffix + unit);
+        }
+
+        return new Formatted(fixed ? number.toFixed(fixed) : number, unit);
+    };
+
+    kimchi.formatMeasurement = format;
+})();

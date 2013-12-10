@@ -220,6 +220,9 @@ kimchi.guest_main = function() {
         },
     });
 
+    $('#guests-root-container').on('remove', function() {
+        kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
+    });
 };
 
 kimchi.editTemplate = function(guestTemplate, oldPopStat) {

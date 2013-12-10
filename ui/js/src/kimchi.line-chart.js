@@ -45,6 +45,7 @@ kimchi.widget.LineChart = function(params) {
     var chartTitle = null;
     var chartLegend = null;
     var seriesMap = {};
+    var formatSettings = {};
 
     var setMaxValue = function(newValue) {
         maxValue = newValue;
@@ -74,6 +75,11 @@ kimchi.widget.LineChart = function(params) {
             $.each(data, function(i, series) {
                 if(series['max'] > maxValue) {
                     maxValue = series['max'];
+                    formatSettings = {
+                        base: series['base'],
+                        unit: series['unit'],
+                        fixed: series['fixed']
+                    };
                 }
             });
         }
@@ -104,20 +110,9 @@ kimchi.widget.LineChart = function(params) {
             );
         }
 
-/*
-        if(points.length <= period) {
-            var firstPoint = points[0];
-            var leadingPoint = {
-                x: firstPoint['x'],
-                y: 0
-            };
-            points.unshift(leadingPoint);
-        }
-*/
-
         var maxValueLabel = i18n['msg.host.chartaxis.max'] + ' ' +
             (type === 'value'
-                ? kimchi.changetoProperUnit(maxValue, 2)
+                ? kimchi.formatMeasurement(maxValue, formatSettings)
                 : '100%');
         if(!chartVAxis) {
             chartVAxis = $('<div class="chart-vaxis-container">' +
@@ -190,7 +185,10 @@ kimchi.widget.LineChart = function(params) {
             var latestPoint = data[i]['points'].slice(-1).pop();
             var latestValue = latestPoint['y'];
             if(type === 'value') {
-                latestValue = kimchi.changetoProperUnit(latestValue, 2, base);
+                latestValue = kimchi.formatMeasurement(
+                    latestValue,
+                    formatSettings
+                );
             }
             else {
                 latestValue += '%';

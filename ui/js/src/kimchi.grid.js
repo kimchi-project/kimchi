@@ -270,19 +270,6 @@ kimchi.widget.Grid = function(params) {
             : null;
     };
 
-    $('body').on('mousemove', function(event) {
-        if(resizer.hasClass('hidden')) {
-            return;
-        }
-
-        var pageX = event.pageX;
-        var gridOffsetX = gridNode.offset()['left'];
-        var leftMost = resizerLeftmost.position()['left'];
-        var offsetX = pageX - gridOffsetX;
-        offsetX = offsetX >= leftMost ? offsetX : leftMost;
-        resizer.css('left', offsetX + 'px');
-    });
-
     var columnBeingResized = null;
     var CONTAINER_NORMAL = 0, CONTAINER_FROZEN = 1;
     var containerBeingResized = CONTAINER_NORMAL;
@@ -302,13 +289,14 @@ kimchi.widget.Grid = function(params) {
         resizer.removeClass('hidden');
         event.preventDefault();
     };
-    var endResizing = function(body, event) {
-        if(!$(body).hasClass('resizing')) {
+
+    var endResizing = function(event) {
+        if(!$('body').hasClass('resizing')) {
             return;
         }
         resizerLeftmost.addClass('hidden');
         resizer.addClass('hidden');
-        $(body).removeClass('resizing');
+        $('body').removeClass('resizing');
         var leftmostOffset = $(columnBeingResized).offset()['left'];
         var left = event.pageX;
         if(leftmostOffset > left) {
@@ -365,7 +353,24 @@ kimchi.widget.Grid = function(params) {
         startResizing(this, event);
     });
 
-    $('body').on('mouseup', function(event) {
-        endResizing(this, event);
-    });
+    var positionResizer = function(event) {
+        if(resizer.hasClass('hidden')) {
+            return;
+        }
+
+        var pageX = event.pageX;
+        var gridOffsetX = gridNode.offset()['left'];
+        var leftMost = resizerLeftmost.position()['left'];
+        var offsetX = pageX - gridOffsetX;
+        offsetX = offsetX >= leftMost ? offsetX : leftMost;
+        resizer.css('left', offsetX + 'px');
+    };
+
+    $('body').on('mousemove', positionResizer);
+    $('body').on('mouseup', endResizing);
+
+    this.destroy = function() {
+        $('body').off('mousemove', positionResizer);
+        $('body').off('mouseup', endResizing);
+    };
 };
