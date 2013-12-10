@@ -20,6 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import glob
 import os
 import re
 import struct
@@ -28,7 +29,6 @@ import urllib2
 
 
 from kimchi.utils import kimchi_log
-
 
 iso_dir = [
     ##
@@ -278,6 +278,8 @@ def _probe_iso(fname, remote = False):
 def probe_iso(status_helper, params):
     loc = params['path']
     updater = params['updater']
+    ignore = False
+    ignore_list = params['ignore_list']
 
     def update_result(iso, ret):
         if ret != ('unknown', 'unknown'):
@@ -286,6 +288,13 @@ def probe_iso(status_helper, params):
 
     if os.path.isdir(loc):
         for root, dirs, files in os.walk(loc):
+            for dir_name in ignore_list:
+                if root in glob.glob(dir_name):
+                    ignore = True
+                    break
+            if ignore:
+                ignore = False
+                continue
             for name in files:
                 if not name.lower().endswith('.iso'):
                     continue

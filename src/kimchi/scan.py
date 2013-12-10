@@ -33,6 +33,8 @@ from kimchi.isoinfo import probe_iso, probe_one
 from kimchi.utils import kimchi_log
 
 
+SCAN_IGNORE = ['/tmp/kimchi-scan-*']
+
 class Scanner(object):
     SCAN_TTL = 300
 
@@ -79,6 +81,8 @@ class Scanner(object):
                                      os.path.basename(iso_path))
             os.symlink(iso_info['path'], link_name)
 
-        scan_params = dict(path=params['scan_path'], updater=updater)
+        ignore_paths = params.get('ignore_list', [])
+        scan_params = dict(path=params['scan_path'], updater=updater,
+            ignore_list=ignore_paths + SCAN_IGNORE)
         probe_iso(None, scan_params)
         cb('', True)

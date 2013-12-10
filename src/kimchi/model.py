@@ -952,9 +952,18 @@ class Model(object):
             kimchi_log.debug("Exception %s occured when cleaning scan result" % e.message)
 
     def _do_deep_scan(self, params):
-        scan_params = dict()
+        scan_params = dict(ignore_list=[])
         scan_params['scan_path'] = params['path']
         params['type'] = 'dir'
+
+        for pool in self.storagepools_get_list():
+            try:
+                res = self.storagepool_lookup(pool)
+                if res['state'] == 'active':
+                    scan_params['ignore_list'].append(res['path'])
+            except Exception, e:
+                kimchi_log.debug("Exception %s occured when get ignore path" % e.message)
+
         params['path'] = scan_params['pool_path'] = self.scanner.scan_dir_prepare(
             params['name'], params['path'])
         task_id = self.add_task('', self.scanner.start_scan, scan_params)
