@@ -277,7 +277,7 @@ class Model(object):
         distro, version, codename = platform.linux_distribution()
         res['os_distro'] = distro
         res['os_version'] = version
-        res['os_codename'] = codename
+        res['os_codename'] = unicode(codename,"utf-8")
 
         return res
 
