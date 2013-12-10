@@ -964,7 +964,7 @@ class Model(object):
                 kimchi_log.debug("Exception %s occured when get ignore path" % e.message)
 
         params['path'] = scan_params['pool_path'] = self.scanner.scan_dir_prepare(
-            params['name'], params['path'])
+            params['name'])
         task_id = self.add_task('', self.scanner.start_scan, scan_params)
         # Record scanning-task/storagepool mapping for future querying
         with self.objstore as session:

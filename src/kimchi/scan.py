@@ -62,7 +62,7 @@ class Scanner(object):
             kimchi_log.debug(
                     "Exception %s occured when cleaning stale pool, ignore" % e.message)
 
-    def scan_dir_prepare(self, name, path='/'):
+    def scan_dir_prepare(self, name):
         # clean stale scan storage pools
         self.clean_stale()
         return tempfile.mkdtemp(prefix='kimchi-scan-' + name, dir='/tmp')
