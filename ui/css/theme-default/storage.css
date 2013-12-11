@@ -504,3 +504,53 @@
     background: url(../images/theme-default/icon-iso.png) no-repeat center
         center;
 }
+
+.host-partition {
+    padding-left:13px;
+}
+
+.host-partition>div {
+    font-size: 13px;
+    height: 18px;
+    padding: 10px;
+    color: #666;
+    float: left;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.storage-type-wrapper-controls {
+	width: 300px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 5px 5px 5px 20px;
+}
+
+.storage-type-wrapper-controls input[type="text"] {
+	height: 38px;
+	line-height: 38px;
+	background: #fff;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px #eee inset;
+	border-top: 1px solid #bbb;
+	border-left: 1px solid #bbb;
+	padding: 0 10px;
+	margin-top: 5px;
+	width: 250px;
+}
+
+.storage-type-wrapper-controls > .dropdown {
+	margin: 5px 0 0 1px;
+	width: 250px;
+}
+
+.storage-type-wrapper-controls input[type="text"][disabled] {
+	color: #bbb;
+	background-color: #fafafa;
+	cursor: not-allowed;
+}

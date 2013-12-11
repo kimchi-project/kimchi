@@ -668,5 +668,16 @@ var kimchi = {
             success : suc,
             error : err
         });
+    },
+
+    listHostPartitions : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/partitions',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
     }
 };

@@ -42,6 +42,12 @@ kimchi.select = function(id, options) {
         listControl.children().removeClass(selectedClass);
         $(this).addClass(selectedClass);
         $('#' + labelId).text($(this).text());
-        $('#' + targetId).val($(this).data('value'));
+        var target = $('#' + targetId);
+        var oldValue = target.val();
+        var newValue = $(this).data('value');
+        target.val(newValue);
+        if(oldValue !== newValue) {
+            target.change();
+        }
     });
 };
