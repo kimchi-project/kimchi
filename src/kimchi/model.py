@@ -996,6 +996,8 @@ class Model(object):
                 return name
 
             pool = conn.storagePoolDefineXML(xml, 0)
+            if params['type'] == 'logical':
+                pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
             if params['type'] == 'dir':
                 # autostart dir storage pool created from kimchi
                 pool.setAutostart(1)
@@ -1407,8 +1409,10 @@ def _get_pool_xml(**kwargs):
         </pool>
        """
     elif kwargs['type'] == 'netfs':
-        if not os.path.exists(kwargs['path']):
-           os.makedirs(kwargs['path'])
+        path = '/var/lib/kimchi/nfs_mount/' + kwargs['name'];
+        if not os.path.exists(path):
+           os.makedirs(path)
+        kwargs.update({'path': path})
         xml = """
         <pool type='%(type)s'>
           <name>%(name)s</name>
@@ -1422,6 +1426,9 @@ def _get_pool_xml(**kwargs):
         </pool>
         """
     elif kwargs['type'] == 'logical':
+        path = '/var/lib/kimchi/logical_mount/' + kwargs['name'];
+        if not os.path.exists(path):
+           os.makedirs(path)
         xml = """
         <pool type='%(type)s'>
         <name>%(name)s</name>
@@ -1438,7 +1445,7 @@ def _get_pool_xml(**kwargs):
             devices += "<device path=\""+device_path+"\" />"
 
         kwargs.update({'devices': devices})
-
+        kwargs.update({'path': path})
     return xml % kwargs
 
 def _get_volume_xml(**kwargs):
