@@ -1,0 +1,206 @@
+13:02:31 <alinefm> #startmeeting
+13:02:31 <kimchi-bot> Meeting started Wed Dec 11 13:02:31 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:31 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:43 <alinefm> #meetingname scrum
+13:02:43 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:13 <alinefm> #info  Agenda 1) Tests & Bugs 2) Open discussion
+13:03:17 <alinefm> anything else?
+13:03:24 <ming> 1.2 plan?
+13:03:39 <ming> proposals and priority?
+13:04:09 <alinefm> ming, let's do it next week when we finish 1.1 release
+13:04:24 <alinefm> I think we have a lot of bugs to focus on
+13:04:50 <ming> alinefm, actually I and shaohef put some proposals in the wiki.
+13:05:03 <fnovak> and please make sure we are testing/validating on Power!
+13:05:25 <zhoumeina> am I off line?
+13:05:35 <alinefm> zhoumeina, no
+13:05:36 <ming> fnovak, sure, That is the most important.
+13:05:37 <zhshzhou> zhoumeina: You are on
+13:05:53 <alinefm> ming, shaohef, did you put in Backlog?
+13:06:03 <ming> alinefm, yes.
+13:06:06 <alinefm> at least I am looking into Backlog list to check all tasks
+13:06:08 <alinefm> ming, great
+13:06:15 <ming> Also in the wiki pages.
+13:06:31 <alinefm> ok
+13:06:34 <shaohef> yes
+13:06:41 <alinefm> let's get started
+13:06:43 <royce> liyong asked me about built on power, they are doing unittest and built on Power now
+13:06:54 <alinefm> #topic Tests & Bugs
+13:07:12 <ming> Do you guys get power machines?
+13:07:15 <alinefm> first, thanks royce to start testing on ubuntu
+13:07:26 <alinefm> rotru, pvital, danielhb ^
+13:07:43 <ming> I think we should tag the existing issues which are power specific.
+13:07:54 <rotru> rotru;  I do not have ppc machines
+13:08:03 <ming> Though most of them are non-platform specific.
+13:09:07 <pvital> ming, yes we have Power machines
+13:09:41 <alinefm> pvital, how is being the tests on them?
+13:09:47 <fnovak> ming also ping simon & badari re: sharing systems
+13:10:37 <rotru> pvital; so you need to share with me and danielhb
+13:10:41 <ming> fnovak, great.
+13:11:07 <fnovak> https://ltc3.linux.ibm.com/wiki/Frobisher/KVMonPowerSystems
+13:12:06 <ming> China team have a capital request for Q12014, not sure they will help 1.2 tests.
+13:13:34 <alinefm> right
+13:13:44 <alinefm> anyone testing on fedora, opensuse, rhel?
+13:14:05 <alinefm> royce, any bug you found you think has high priority?
+13:14:13 <rotru> alinefm;  I made some tests in my F18
+13:14:26 <ming> I am testing FC18, RHEL6.4
+13:14:35 <royce> let me see alinefm
+13:14:36 <alinefm> rotru, ming, no issues?
+13:14:57 <rotru> alinefm;  none, related to libvirt
+13:15:21 <shaohef> I have files some issues.  just finish install RHEL 6.5. not start on 6.5
+13:15:32 <ming> alinefm, filed some.
+13:15:41 <royce> I think is make check and nfs create vm...
+13:15:58 <shaohef> alinefm: we have discuss some of issues today. and assign some of these issues
+13:16:21 <alinefm> ming, shaohef, ok
+13:16:38 <ming> alinefm, we had tri-aged most of the issues today.
+13:16:40 <zhoumeina> alinefm: What is the deadline of fixing sprint 2's issues?
+13:16:41 <alinefm> we have 5 days until GA announcement so we need to focus on bugs fixes
+13:16:48 <ming> And get most of them assigned.
+13:16:49 <rotru> I am seeing a problem, but not sure if it is related to the distro. I am not able to see Storage Volume information in the UI
+13:17:15 <alinefm> zhoumeina, GA announcement => Dec 18th
+13:17:15 <royce> rotru, what is your system?
+13:17:25 <alinefm> so everything needs to be fixed by this date
+13:17:50 <rotru> royce; F18
+13:17:51 <zhoumeina> alinefm: we have GA in each sprint?
+13:18:15 <royce> rotru, shaohef's on fc 17, he seems able to list
+13:18:41 <alinefm> zhoumeina, not sure I understand your question
+13:18:52 <alinefm> zhoumeina, GA means 1.1 will be released
+13:19:02 <rotru> royce; I need to take a deeper look ... The UI is able to list the volumes, but I cannot see the information
+13:19:03 <zhoumeina> alinefm: ok
+13:19:45 <AdamKingIT> rotru: does the server return the data and its not displayed, or is the data not returned?
+13:20:27 <rotru> AdamKingIT;  cheking
+13:20:30 <rotru> checking
+13:21:08 <rotru> AdamKingIT;  data is there ... so backend and UI are communicating fine
+13:21:09 <shaohef> ping
+13:21:23 <ming> shaohef, ping
+13:21:23 <alinefm> shaohef, pong
+13:21:40 <zhoumeina> shaohef: we can see you
+13:22:28 <alinefm> rotru, try to identify the reason of this and share on mail list
+13:22:38 <alinefm> I only have a F19 vm to test
+13:22:40 <rotru> alinefm; sure!
+13:22:45 <AdamKingIT> or in the issue you are going to open :-)
+13:22:45 <shaohef> thank you. seems I left the srcum for some times
+13:22:49 <alinefm> anyone got the same issue while testing on F18?
+13:23:13 <alinefm> ming, ?
+13:23:45 <shaohef> I have set up a RHEL 6.5 just now
+13:23:49 <rotru> alinefm;  is there an "image pastebin" ?
+13:23:50 <ming> alinefm, which issue?
+13:23:50 <royce> I have issue that the number not displayed in volume, like capacity
+13:23:51 <shaohef> VM
+13:24:26 <royce> rotru, maybe you can file a issue and share your screen shot there
+13:24:28 <alinefm> rotru, I don't think so
+13:24:54 <alitke> http://picpaste.com/
+13:25:17 <ming> WOW, alitke
+13:25:39 <AdamKingIT> welcome back "other Adam"! :-)
+13:26:09 <alitke> thanks :)
+13:27:02 <rotru> http://picpaste.com/bug-P1v6c5Wh.png
+13:27:15 <rotru> royce; alinefm AdamKingIT ^
+13:27:24 <rotru> alinefm; thanks
+13:27:28 <shaohef> alitke is here. :)
+13:27:29 <rotru> alitke; thanls
+13:27:34 <alinefm> rotru, seems a UI bug
+13:27:42 <alinefm> as backend is sending the information
+13:27:48 <rotru> alinefm; yes
+13:27:57 <AdamKingIT> rotru: I see the volumes. Looks like the attributes are missing. Same question about the data
+13:28:34 <alinefm> AdamKingIT, allocation and capacity are in json response
+13:28:35 <royce> rotru, same as my problem:)
+13:28:37 <AdamKingIT> I should have looked at the rest of the pic...
+13:29:25 <alinefm> rotru, if you haven't file a bug for it yet, do it
+13:29:32 <alinefm> so we can trigger it properly
+13:29:42 <rotru> AdamKingIT; :)
+13:29:51 <rotru> alinefm; ok
+13:30:01 <alinefm> so let's move to next topic
+13:30:03 <royce> I filed a similar here https://github.com/kimchi-project/kimchi/issues/260
+13:30:22 <alinefm> for this the message is: test, test, test and test again!!
+13:30:24 <alinefm> =)
+13:30:36 <AdamKingIT> Interesting that it shows the type, but none of the other attrs
+13:30:39 <alinefm> and of course, bug fix!
+13:31:00 <rotru> royce;  cool ! let me look at this
+13:31:19 <rotru> rotru; thanks
+13:31:34 <alinefm> #topic Open discussion
+13:31:42 <alinefm> what do you want to discuss today?
+13:31:55 <ming> rotru, please describe how you can reproduce it step by step.  It looks good in my FC18
+13:32:29 <AdamKingIT> maybe it is caused by something in the specific values returned
+13:32:48 <royce> rotru, ok
+13:33:11 <rotru> ming; AdamKingIT  i am investigating
+13:33:29 <rotru> not sure what is the root cause yet
+13:34:01 <shaohef> which characters allow in vm name？
+13:34:03 <shaohef> all?
+13:34:37 <alinefm> shaohef, I'd say all allowed by libvirt
+13:35:47 <ming> alinefm, I don't think we should have all, because some special characters are not necessary. We can have Kimchi rule to filter those special out.
+13:36:26 <ming> By this filter, we can have generic rule for all the name like template, network, VM &etc.
+13:36:31 <AdamKingIT> If we don't allow what libvirt/KVM allow, we'll have problems accepting VMs from outside
+13:36:33 <shaohef> which characters allow in vm name？
+13:36:33 <alinefm> ming, and what happen when a vm created outside kimchi has any of those characters not supported by kimchi?
+13:37:40 <ming> alinefm, those are  quite corner case
+13:38:12 <shaohef> the template name, all, right?
+13:38:33 <ming> Allowing &, * ? in the name don't get mush benifit.
+13:38:44 <AdamKingIT> If we are to fit into the KVM ecosystem, we want to accept content from outside Kimchi and have an easy path for Kimchi content to move to others
+13:38:47 <ming> I think most of the users will not have a name like this.
+13:39:01 <alinefm> shaohef, yes
+13:39:25 <alinefm> shaohef, we can restrict characters for templates as it is kimchi-specific structure
+13:39:30 <alinefm> if you want
+13:40:03 <alinefm> but for all those resources managed by libvirt we need to follow libvirt rules
+13:41:08 <zhoumeina> make a rule for kimchi UI is not conflict with support other chars ,I think
+13:41:50 <ming> AdamKingIT, as I said, VMs or networks, storagepool with  those special characters are quite rare.
+13:41:56 <shaohef1> sorry, some thing wrong with my laptop. come back.
+13:42:06 <alinefm> <alinefm> shaohef, yes
+13:42:07 <alinefm> <alinefm> shaohef, we can restrict characters for templates as it is kimchi-specific structure
+13:42:07 <alinefm> <alinefm> if you want
+13:42:07 <alinefm> <alinefm> but for all those resources managed by libvirt we need to follow libvirt rules
+13:42:09 <alinefm> shaohef1,
+13:42:11 <zhoumeina> we can support "?*&" chars those libvirt can support, but make a kimchi rule in UI
+13:42:43 <alinefm> ming, rare but still exist
+13:42:50 <AdamKingIT> what would the benefit to restricting a kimchi user from using chars that a libvirt user is allowed?
+13:43:47 <shaohef1> alinefm:  now network, and storage restrict characters  in name.  but VM and template do not
+13:44:07 <ming> AdamKingIT, by that way we can have a generic rule for all the names in Kimchi, like VM name, templates, network names, storage pools. Now those names have their own rules.
+13:44:46 <ming> Too many rules are not necessary and bug prone.
+13:45:06 <AdamKingIT> Having a kimchi wide standard is a good idea. Trying to understand if there is a benefit to having that standard be something other than the libvirt standard
+13:45:11 <alinefm> shaohef1, network/storagepool restrict characters not allowed by libvirt?
+13:45:31 <shaohef1> alinefm:  yes
+13:45:50 <alinefm> shaohef, and libvirt has some restriction for vm name?
+13:46:08 <shaohef1> alinefm:no, restrict characters for URL special
+13:46:11 <shaohef1> alinefm: sorry.
+13:46:18 <zhoumeina> AdamKingIT: it will make "vm , template ,storage pool,network" have a same rule, and the name is easy to read and reasonable.
+13:46:27 <shaohef1> alinefm: but still  a bug for VM name.   https://github.com/kimchi-project/kimchi/issues/243
+13:46:59 <shaohef1> alinefm:  just because the  URL special  characters in VM name
+13:47:09 <AdamKingIT> One person's reasonable is another's unreasonable.
+13:47:27 <shaohef1> yes, we should have a same rule for vm , template ,storage pool and network name
+13:47:44 <alinefm> shaohef1, we need to encode/decode vm name to fix it
+13:47:49 <AdamKingIT> We want to allow whatever KVM allows
+13:48:07 <shaohef1> alinefm: yes. UI can encode/decode to fix it.
+13:48:09 <AdamKingIT> We should always encode
+13:48:16 <alinefm> restricting characters based on URL rules doesn't make sense for me
+13:48:32 <AdamKingIT> alinefm: +2
+13:48:58 <alinefm> right
+13:49:00 <alinefm> anything else?
+13:49:02 <ming> AdamKingIT, we can check what libvirt allows for VM, storagepool, storage volume, network names.
+13:49:05 <zhoumeina> AdamKingIT: chars like "?" is allowed in name, but it is not fit for naming.
+13:49:06 <shaohef1> but the virt-manager just allow alphanumeric, '_', '.', or '-' characters
+13:49:27 <alinefm> shaohef1, we are better then virt-manager ;-)
+13:49:45 <AdamKingIT> zhoumeina: someone thought it was
+13:49:59 <rotru> alinefm; what about the POST returns ?
+13:50:25 <shaohef1> I have remember AdamKingIT has look into this problem. and he give a fodera document about it. the  fodera document also allow alphanumeric, '_', '.', or '-' characters
+13:50:32 <alinefm> rotru, do you mean the log?
+13:50:40 <rotru> alinefm; yes
+13:51:16 <AdamKingIT> shaohef1: I do remember finding doc, but I don't remember if it was virt-manager doc or other
+13:51:56 <alinefm> rotru, we should log this info too. We need to check cherrypy configuration to do it
+13:51:59 <rotru> Do anyone know why POST requests have not been logged by cherrypy ? ( when you do an action as activate storagepool )
+13:52:02 <alinefm> rotru, is there an opne bug for it?
+13:52:19 <rotru> alinefm; I did open
+13:52:36 <rotru> #264
+13:52:52 <shaohef1> AdamKingIT: alinefm: I think the problem it not whether we should restrict characters. it should be that "vm , template ,storage pool,network" have a same rule :)
+13:53:16 <shaohef1> s/it not/is not
+13:53:56 <ming> shaohef1, agree. We can check if libvirt have a same rule for all the names.
+13:54:02 <AdamKingIT> shaohef1: agreed identical rule is desirable, but not as desirable as matching the underlying KVM capability. Lets hope it has the same rules
+13:54:30 <alinefm> shaohef1, templates isn't managed by libvirt - so we create a rule for it
+13:54:50 <alinefm> the other resources are libvirt-managed and I hope has a single rule for them
+13:55:15 <alinefm> so let's check libvirt doc to see how rule it has
+13:55:48 <shaohef1> got it. so  at least vm ,storage pool,network should be same.
+13:56:38 <alinefm> yes
+13:56:54 <alinefm> and then we can use the same for template
+13:57:06 <shaohef1> OK
+13:57:11 <alinefm> anything else?
+13:58:39 <alinefm> ok - great
+13:58:47 <alinefm> so let's test and fix bugs =)
+13:58:54 <AdamKingIT> yay!
+13:58:59 <alinefm> #endmeeting
