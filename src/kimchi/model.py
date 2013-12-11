@@ -837,11 +837,10 @@ class Model(object):
         network = self._get_network(name)
         xml = network.XMLDesc(0)
         net_dict = self._get_network_from_xml(xml)
-        subnet = net_dict['subnet'] and ipaddr.IPNetwork(net_dict['subnet'])
+        subnet = net_dict['subnet']
         dhcp = net_dict['dhcp']
         forward = net_dict['forward']
         interface = net_dict['bridge']
-        interface_subnet = ''
 
         connection = forward['mode'] or "isolated"
         # FIXME, if we want to support other forward mode well.
@@ -850,14 +849,17 @@ class Model(object):
             interface = interface or forward['interface'][0]
             # exposing the network on linux bridge or macvtap interface
             interface_subnet = knetwork.get_dev_netaddr(interface)
+            subnet = subnet if subnet else interface_subnet
 
         # libvirt use format 192.168.0.1/24, standard should be 192.168.0.0/24
         # http://www.ovirt.org/File:Issue3.png
-        subnet = subnet and "%s/%s" % (subnet.network, subnet.prefixlen)
+        if subnet:
+            subnet = ipaddr.IPNetwork(subnet)
+            subnet = "%s/%s" % (subnet.network, subnet.prefixlen)
 
         return {'connection': connection,
                 'interface': interface,
-                'subnet': subnet or interface_subnet,
+                'subnet': subnet,
                 'dhcp': dhcp,
                 'autostart': network.autostart() == 1,
                 'state':  network.isActive() and "active" or "inactive"}
