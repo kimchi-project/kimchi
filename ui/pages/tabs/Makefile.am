@@ -22,7 +22,8 @@ tabshtmldir = $(datadir)/kimchi/ui/pages/tabs
 
 dist_tabshtml_DATA = \
 	guests.html.tmpl \
-	templates.html.tmpl \
-	storage.html.tmpl \
+	host.html.tmpl \
 	network.html.tmpl \
+	storage.html.tmpl \
+	templates.html.tmpl \
 	$(NULL)
