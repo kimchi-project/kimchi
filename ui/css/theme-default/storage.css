@@ -444,6 +444,7 @@
     width: 90px;
     border-right: 1px solid #999;
     float: left;
+    white-space: nowrap;
 }
 
 .volume-quota-position {
@@ -452,6 +453,7 @@
     padding-left: 5px;
     float: left;
     border-left: 1px solid #eee;
+    white-space: nowrap;
 }
 
 .list-storage .storage-li[data-stat="active"]>.handle>.arrow-down {
