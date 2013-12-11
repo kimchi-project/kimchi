@@ -537,14 +537,12 @@ class MockModel(object):
         return res
 
     def hoststats_lookup(self, *name):
-        mem_usage = psutil.phymem_usage()
-        cached = psutil.cached_phymem()
-        buffers = psutil.phymem_buffers()
-        avail = psutil.avail_phymem()
-        memory_stats = {'total': mem_usage.total, 'free': mem_usage.free,
-                        'cached': cached, 'buffers': buffers,
-                        'avail': avail}
-
+        virt_mem = psutil.virtual_memory()
+        memory_stats = {'total': virt_mem.total,
+                        'free': virt_mem.free,
+                        'cached': virt_mem.cached,
+                        'buffers': virt_mem.buffers,
+                        'avail': virt_mem.available}
         return {'cpu_utilization': round(random.uniform(0, 100), 1),
                 'memory': memory_stats,
                 'disk_read_rate': round(random.uniform(0, 4000), 1),

@@ -415,13 +415,17 @@ class Model(object):
         self.host_stats['cpu_utilization'] = psutil.cpu_percent(None)
 
     def _get_host_memory_stats(self):
-        mem_usage = psutil.phymem_usage()
-        cached = psutil.cached_phymem()
-        buffers = psutil.phymem_buffers()
-        avail = psutil.avail_phymem()
-        memory_stats = {'total': mem_usage.total, 'free': mem_usage.free,
-                        'cached': cached, 'buffers': buffers,
-                        'avail': avail}
+        virt_mem = psutil.virtual_memory()
+        # available:
+        #  the actual amount of available memory that can be given
+        #  instantly to processes that request more memory in bytes; this
+        #  is calculated by summing different memory values depending on
+        #  the platform (e.g. free + buffers + cached on Linux)
+        memory_stats = {'total': virt_mem.total,
+                        'free': virt_mem.free,
+                        'cached': virt_mem.cached,
+                        'buffers': virt_mem.buffers,
+                        'avail': virt_mem.available}
         self.host_stats['memory'] = memory_stats
 
     def _get_host_disk_io_rate(self, seconds):
