@@ -503,6 +503,10 @@ class Model(object):
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
+            elif state == 'shutoff':
+                # reset vm stats when it is powered off to avoid sending
+                # incorrect (old) data
+                self.stats[dom.UUIDString()] = {}
         except NotFoundError:
             pass
 
