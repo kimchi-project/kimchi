@@ -95,9 +95,10 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_iso_stream_dns():
-        cmd = "qemu-io http://localhost:8000/images/icon-fedora.png -c 'read -v 0 512'"
+        cmd = ["qemu-io", "http://localhost:8000/images/icon-fedora.png", "-c",
+               "'read -v 0 512'"]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE, shell=True)
+                                stderr=subprocess.PIPE)
         thread = threading.Thread(target = proc.communicate)
         thread.start()
         thread.join(5)
