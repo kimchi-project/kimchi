@@ -25,6 +25,7 @@ kimchi.initNetwork = function() {
     kimchi.initNetworkListView();
     kimchi.initNetworkDialog();
     kimchi.initNetworkCreation();
+    kimchi.initNetworkCleanup();
 };
 
 kimchi.initNetworkListView = function() {
@@ -239,4 +240,10 @@ kimchi.updateNetworkFormButton = function() {
     }else{
         $("#networkFormOk").button("enable");
     }
+};
+
+kimchi.initNetworkCleanup = function() {
+    $("#network-content").on("remove", function() {
+        $("#networkConfig").dialog("destroy");
+    });
 };
