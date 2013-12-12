@@ -1040,7 +1040,7 @@ class RestTests(unittest.TestCase):
         cpu_utilization = stats['cpu_utilization']
         self.assertIsInstance(cpu_utilization, float)
         self.assertGreaterEqual(cpu_utilization, 0.0)
-        self.assertLessEqual(cpu_utilization, 100.0)
+        self.assertTrue(cpu_utilization <= 100.0)
 
         memory_stats = stats['memory']
         self.assertIn('total', memory_stats)
