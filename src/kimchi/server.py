@@ -114,7 +114,8 @@ class Server(object):
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'data/debugreports',
             'tools.nocache.on': False,
-            'tools.kimchiauth.on': True
+            'tools.kimchiauth.on': True,
+            'tools.staticdir.content_types': {'xz': 'application/x-xz'}
         },
         '/config/ui/tabs.xml': {
             'tools.staticfile.on': True,
