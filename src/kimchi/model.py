@@ -788,7 +788,7 @@ class Model(object):
             ip.ip = ip.ip + 1
         dhcp_start = str(ip.ip + ip.numhosts / 2)
         dhcp_end = str(ip.ip + ip.numhosts - 2)
-        params.update({'net': netaddr,
+        params.update({'net': str(ip),
                        'dhcp': {'range': {'start': dhcp_start,
                                 'end': dhcp_end}}})
 
