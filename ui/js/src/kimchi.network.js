@@ -144,9 +144,7 @@ kimchi.initNetworkCreation = function() {
             kimchi.createNetwork(data, function(result) {
                 network.state = result.state === "active" ? "up" : "down";
                 network.interface = result.interface ? result.interface : i18n["value_unavailable"];
-                if (network.type != kimchi.NETWORK_TYPE_BRIDGE) {
-                    network.addrSpace = result.subnet;
-                }
+                network.addrSpace = result.subnet ? result.subnet : i18n["value_unavailable"];
                 kimchi.addNetworkItem(network);
             });
         });
