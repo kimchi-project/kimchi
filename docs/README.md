@@ -43,6 +43,9 @@ Install Dependencies
      # Restart libvirt to allow configuration changes to take effect
      $ sudo service libvirtd restart
 
+    Packages version requirement:
+        python-psutil >= 0.6.0
+
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
 EPEL repositories.  See
 [this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
@@ -59,6 +62,7 @@ for more information on how to configure your system to access this repository.
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
+        python-psutil >= 0.6.0
 
 **For openSUSE:**
 
@@ -69,6 +73,8 @@ for more information on how to configure your system to access this repository.
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr nfs-client
 
+    Packages version requirement:
+        python-psutil >= 0.6.0
 
 Build and Install
 -----------------
