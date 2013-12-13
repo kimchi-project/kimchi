@@ -184,6 +184,7 @@ kimchi.openNetworkDialog = function(okCallback) {
             options += "<option value=" + result[i].name + ">" + result[i].name + "</option>";
         }
         $("#networkInterface").append(options);
+        kimchi.setDefaultNetworkType(result.length!==0);
     });
     $("#networkConfig").dialog({
         title : i18n.network_dialog_title_create
@@ -193,6 +194,13 @@ kimchi.openNetworkDialog = function(okCallback) {
         $("#networkConfig").dialog("close");
     });
     $("#networkConfig").dialog("open");
+};
+
+kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
+    $("#networkTypeBri").prop("checked", isInterfaceAvail);
+    $("#networkTypeBri").prop("disabled", !isInterfaceAvail);
+    $("#networkInterface").prop("disabled", !isInterfaceAvail);
+    $("#networkTypeNat").prop("checked", !isInterfaceAvail);
 };
 
 kimchi.getNetworkDialogValues = function() {
@@ -209,7 +217,9 @@ kimchi.getNetworkDialogValues = function() {
 kimchi.cleanNetworkDialog = function() {
     $("#networkInterface").empty();
     $("input:text", "#networkConfig").val(null).removeClass("invalid-field");
-    $("#networkTypeBri").prop("checked", true);
+    $("#networkTypeIso").prop("checked", false);
+    $("#networkTypeNat").prop("checked", false);
+    $("#networkTypeBri").prop("checked", false);
     $("#networkInterface").prop("disabled", false);
     $("#networkInterface option").removeAttr("selected").find(":first").attr("selected", "selected");
     $("#networkFormOk").off("click");
