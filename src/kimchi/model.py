@@ -1220,10 +1220,20 @@ class Model(object):
                 raise OperationFailed('Command terminated with signal')
             elif retcode > 0:
                 raise OperationFailed('Command failed: rc = %i' % retcode)
-            for fi in glob.glob('/tmp/sosreport-%s-*' % name):
-                if fnmatch.fnmatch(fi, '*.md5'):
-                    continue
-            output = fi
+            pattern = '/tmp/sosreport-%s-*' % name
+            for reportFile in glob.glob(pattern):
+                if not fnmatch.fnmatch(reportFile, '*.md5'):
+                    output = reportFile
+                    break
+            else:
+                # sosreport tends to change the name mangling rule and
+                # compression file format between different releases.
+                # It's possible to fail to match a report file even sosreport
+                # runs successfully. In future we might have a general name
+                # mangling function in kimchi to format the name before passing
+                # it to sosreport. Then we can delete this exception.
+                raise OperationFailed('Can not find generated debug report '
+                                      'named by %s' % pattern)
             ext = output.split('.', 1)[1]
             path = config.get_debugreports_path()
             target = os.path.join(path, name)
