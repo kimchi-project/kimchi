@@ -28,6 +28,7 @@ import time
 import tempfile
 import psutil
 import platform
+import uuid
 
 import kimchi.model
 import kimchi.objectstore
@@ -533,23 +534,28 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_debug_reports(self):
         inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        namePrefix = 'unitTestReport'
+        # sosreport always deletes unsual letters like '-' and '_' in the
+        # generated report file name.
+        uuidstr = str(uuid.uuid4()).translate(None, "-_")
+        reportName = namePrefix + uuidstr
         try:
-            inst.debugreport_delete('report1')
+            inst.debugreport_delete(namePrefix + '*')
         except NotFoundError:
             pass
         with utils.RollbackContext() as rollback:
             report_list = inst.debugreports_get_list()
-            self.assertFalse('report1' in report_list)
+            self.assertFalse(reportName in report_list)
             try:
-                task = inst.debugreports_create({'name': 'report1'})
-                rollback.prependDefer(inst.debugreport_delete, 'report1')
+                task = inst.debugreports_create({'name': reportName})
+                rollback.prependDefer(inst.debugreport_delete, reportName)
                 taskid = task['id']
                 self._wait_task(inst, taskid, 60)
                 self.assertEquals('finished', inst.task_lookup(taskid)['status'],
                     "It is not necessary an error.  You may need to increase the "
                     "timeout number in _wait_task()")
                 report_list = inst.debugreports_get_list()
-                self.assertTrue('report1' in  report_list)
+                self.assertTrue(reportName in report_list)
             except OperationFailed, e:
                 if not 'debugreport tool not found' in e.message:
                     raise e
