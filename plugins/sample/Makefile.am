@@ -23,7 +23,7 @@
 SUBDIRS = ui
 
 EXTRA_DIST = \
-	__init__.py
-	API.json
-	model.py
+	__init__.py \
+	API.json \
+	model.py \
 	sample.conf
