@@ -23,15 +23,16 @@
 EXTRA_DIST = \
 	Makefile.am \
 	run_tests.sh.in \
+	iso_gen.py   \
 	test_exception.py \
 	test_mockmodel.py \
 	test_model.py \
+	test_networkxml.py \
 	test_osinfo.py \
 	test_plugin.py \
 	test_rest.py \
 	test_server.py \
 	test_vmtemplate.py \
-	test_networkxml.py \
 	utils.py \
 	$(NULL)
 
