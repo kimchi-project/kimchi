@@ -582,7 +582,7 @@ class ModelTests(unittest.TestCase):
         self.assertIn('cpu', info)
         self.assertEquals(distro, info['os_distro'])
         self.assertEquals(version, info['os_version'])
-        self.assertEquals(codename, info['os_codename'])
+        self.assertEquals(unicode(codename, "utf-8"), info['os_codename'])
         self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
 
     def test_get_hoststats(self):
