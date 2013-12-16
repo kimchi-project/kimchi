@@ -1007,6 +1007,7 @@ class Model(object):
 
             pool = conn.storagePoolDefineXML(xml, 0)
             if params['type'] == 'logical':
+                pool.setAutostart(1)
                 pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
             if params['type'] == 'dir':
                 # autostart dir storage pool created from kimchi
