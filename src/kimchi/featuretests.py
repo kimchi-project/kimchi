@@ -50,7 +50,6 @@ ISO_STREAM_XML = """
   <on_reboot>restart</on_reboot>
   <on_crash>restart</on_crash>
   <devices>
-    <emulator>/usr/bin/kvm</emulator>
     <disk type='network' device='cdrom'>
       <driver name='qemu' type='raw'/>
       <source protocol='%(protocol)s' name='/url/path/to/iso/file'>
