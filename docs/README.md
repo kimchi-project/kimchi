@@ -76,6 +76,13 @@ for more information on how to configure your system to access this repository.
     Packages version requirement:
         python-psutil >= 0.6.0
 
+*Note for openSUSE users*: Some of the above packages are located in the openSUSE
+Systems Management repository. See
+[this FAQ](http://download.opensuse.org/repositories/systemsmanagement/) to get
+the correct repository based on your openSUSE version. And
+[this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
+information on how configure your system to access this repository.
+
 Build and Install
 -----------------
 
