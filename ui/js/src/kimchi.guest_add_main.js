@@ -68,8 +68,12 @@ kimchi.guest_add_main = function() {
         kimchi.createVM(formData, function() {
             kimchi.listVmsAuto();
             kimchi.window.close();
-        }, function() {
-            kimchi.message.error(i18n['vm.msg.fail.create.vm']);
+        }, function(jqXHR, textStatus, errorThrown) {
+            var reason = jqXHR &&
+                jqXHR['responseJSON'] &&
+                jqXHR['responseJSON']['reason'];
+            reason = reason ? ': ' + reason : '';
+            kimchi.message.error(i18n['vm.msg.fail.create.vm'] + reason);
         });
 
         return false;
