@@ -1529,11 +1529,6 @@ class LibvirtConnection(object):
             def wrapper(*args, **kwargs):
                 try:
                     ret = f(*args, **kwargs)
-                    if isinstance(ret, self.wrappables):
-                        for name in dir(ret):
-                            method = getattr(ret, name)
-                            if callable(method) and not name.startswith('_'):
-                                setattr(ret, name, wrapMethod(method))
                     return ret
                 except libvirt.libvirtError as e:
                     edom = e.get_error_domain()
@@ -1576,6 +1571,12 @@ class LibvirtConnection(object):
                     method = getattr(conn, name)
                     if callable(method) and not name.startswith('_'):
                         setattr(conn, name, wrapMethod(method))
+
+                for cls in self.wrappables:
+                    for name in dir(cls):
+                        method = getattr(cls, name)
+                        if callable(method) and not name.startswith('_'):
+                            setattr(cls, name, wrapMethod(method))
 
                 self._connections[conn_id] = conn
                 # In case we're running into troubles with keeping the connections
