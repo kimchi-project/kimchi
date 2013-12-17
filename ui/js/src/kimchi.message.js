@@ -34,7 +34,7 @@ kimchi.message = function(msg, level) {
         $message.fadeOut(2000, function() {
             $(this).remove();
         });
-    }, 2000);
+    }, 4000);
 
     $('#messageField').on("click", ".close", function(e) {
         $(this).parent().fadeOut(200, function() {

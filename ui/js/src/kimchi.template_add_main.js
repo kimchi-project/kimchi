@@ -365,13 +365,16 @@ kimchi.template_add_main = function() {
                 };
                 kimchi.createTemplate(data, function() {
                     successNum++;
+                    kimchi.message.success(i18n['msg.success.create.template'] + ': ' + isoInfo.name);
+                    $('input[value="' + isoInfo.isoId + '"]').prop('checked', false);
+                    $('.check-all>input').prop('checked', false);
+                    kimchi.doListTemplates();
+                    kimchi.topic('templateCreated').publish(data);
                     if (successNum === length) {
-                        kimchi.doListTemplates();
                         kimchi.window.close();
-                        kimchi.topic('templateCreated').publish(data);
                     }
                 }, function(err) {
-                    kimchi.message.error(err.responseJSON.reason);
+                    kimchi.message.error(i18n['msg.fail.create.template'] + ': ' + isoInfo.name + '<br>' + err.responseJSON.reason);
                 });
             };
             if (formData.iso instanceof Array) {
