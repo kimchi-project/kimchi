@@ -50,7 +50,7 @@ kimchi.template_edit_main = function() {
     });
 
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks', 'cdrom' ];
+        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks'];
         var data = {};
         $.each(editableFields, function(i, field) {
             /* Support only 1 disk at this moment */
