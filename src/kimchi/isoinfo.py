@@ -276,7 +276,7 @@ def _probe_iso(fname, remote = False):
 
 
 def probe_iso(status_helper, params):
-    loc = params['path']
+    loc = params['path'].encode("utf-8")
     updater = params['updater']
     ignore = False
     ignore_list = params['ignore_list']
