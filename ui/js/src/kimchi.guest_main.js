@@ -165,26 +165,33 @@ kimchi.listVmsAuto = function() {
     }
     kimchi.listVMs(function(result, textStatus, jqXHR) {
         if (result && textStatus=="success") {
-            var listHtml = '';
-            var guestTemplate = kimchi.guestTemplate;
-            var oldImages = kimchi.getVmsOldImg();
-            var oldSettings = kimchi.getVmsOldPopStats();
-            $.each(result, function(index, value) {
-                var oldImg = oldImages[value.name];
-                curImg = value.state == 'running' ? value.screenshot : value.icon;
-                value['load-src'] = curImg || 'images/icon-vm.png';
-                value['tile-src'] = oldImg || value['load-src'];
-                var statusTemplate = kimchi.editTemplate(guestTemplate, oldSettings[value.name]);
-                listHtml += kimchi.template(statusTemplate, value);
-            });
-            $('#guestList').html(listHtml);
-            $('#guestList').find('.imgload').each(function() {
-                this.onload = function() {
-                    $(this).prev('.imgactive').remove();
-                    $(this).show();
-                }
-            })
-            kimchi.initVmButtonsAction();
+            if(result.length) {
+                $('#guestListField').show();
+                $('#noGuests').hide();
+                var listHtml = '';
+                var guestTemplate = kimchi.guestTemplate;
+                var oldImages = kimchi.getVmsOldImg();
+                var oldSettings = kimchi.getVmsOldPopStats();
+                $.each(result, function(index, value) {
+                    var oldImg = oldImages[value.name];
+                    curImg = value.state == 'running' ? value.screenshot : value.icon;
+                    value['load-src'] = curImg || 'images/icon-vm.png';
+                    value['tile-src'] = oldImg || value['load-src'];
+                    var statusTemplate = kimchi.editTemplate(guestTemplate, oldSettings[value.name]);
+                    listHtml += kimchi.template(statusTemplate, value);
+                });
+                $('#guestList').html(listHtml);
+                $('#guestList').find('.imgload').each(function() {
+                    this.onload = function() {
+                        $(this).prev('.imgactive').remove();
+                        $(this).show();
+                    }
+                });
+                kimchi.initVmButtonsAction();
+            } else {
+                $('#guestListField').hide();
+                $('#noGuests').show();
+            }
         }
 
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);

@@ -20,21 +20,18 @@
  */
 kimchi.doListTemplates = function() {
     kimchi.listTemplates(function(result) {
-        if (result.length) {
-            $('#templateTitle').hide();
-        } else {
-            $('#templateTitle').show();
-        }
-        var templateHtml = $('#templateTmpl').html();
         if (result && result.length) {
+            $('#noTemplates').hide();
             var listHtml = '';
+            var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
                 listHtml += kimchi.template(templateHtml, value);
             });
             $('#templateList').html(listHtml);
             kimchi.bindClick();
         } else {
-            $('#templateList').html("");
+            $('#templateList').html('');
+            $('#noTemplates').show();
         }
     }, function() {
         kimchi.message.error(i18n['kimchi.list.template.fail.msg']);

@@ -197,16 +197,6 @@ template-hidden {
 	width: 120px;
 }
 
-.template-results-title {
-	float: left;
-	font-size: 16px;
-	height: 42px;
-	line-height: 48px;
-	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
-	padding-left: 10px;
-	display: none;
-}
-
 .template-results {
 	background: linear-gradient(to bottom, #FFFFFF 35px, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;
 	float: left;

@@ -35,7 +35,7 @@
 			<a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
 		</div>
 	</div>
-	<div>
+	<div id="guestListField" style="display: none;">
 		<ul class="list-title">
 			<li class="guest-type">$_("Name")</li>
 			<li class="guest-cpu">$_("CPU")</li>
@@ -46,6 +46,9 @@
 		</ul>
 		<ul id="guestList" class="list-vm">
 		</ul>
+	</div>
+	<div id="noGuests" class="list-no-result" style="display: none;">
+		$_("No guests found.")
 	</div>
 </div>
 <script>
