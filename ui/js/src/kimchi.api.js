@@ -71,6 +71,7 @@ var kimchi = {
         kimchi.requestJSON({
             url : kimchi.url + 'host',
             type : 'GET',
+            resend: true,
             contentType : 'application/json',
             dataType : 'json',
             success : suc,
@@ -85,6 +86,7 @@ var kimchi = {
         kimchi.requestJSON({
             url : kimchi.url + 'host/stats',
             type : 'GET',
+            resend: true,
             contentType : 'application/json',
             dataType : 'json',
             success : suc,

@@ -73,6 +73,7 @@ class Server(object):
               'tools.sessions.storage_type': 'file',
               'tools.sessions.storage_path': config.get_session_path(),
               'tools.kimchiauth.on': False},
+        '/host': {'tools.kimchiauth.on': True},
         '/vms': {'tools.kimchiauth.on': True},
         '/templates': {'tools.kimchiauth.on': True},
         '/networks': {'tools.kimchiauth.on': True},
