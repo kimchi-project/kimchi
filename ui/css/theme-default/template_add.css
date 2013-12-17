@@ -167,7 +167,7 @@
 	float: left;
 	width: 58px;
 	height: 58px;
-	margin: 0 10px 0 0;
+	margin: 0 5px 0 0;
 	border: 1px solid #CCCCCC;
 	border-radius: 8px;
 	background: url(../../images/icon-vm.png) center center no-repeat;
@@ -250,7 +250,7 @@
 	width: 50%;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 0 0 10px;
+	padding: 0 0 0 5px;
 }
 
 .iso-info-col:FIRST-CHILD {
@@ -263,21 +263,7 @@
 	color: #999;
 	font-size: 11px;
 	line-height: 18px;
-	display: inline;
-	clear: both;
-	float: left;
-	padding-right: 5px;
-	width: 90px;
-}
-
-.iso-list-text {
-	color: #999999;
-	float: left;
-	font-size: 10px;
-	font-weight: bold;
-	height: 18px;
-	line-height: 18px;
-	max-width: 100px;
+	max-width: 106px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
