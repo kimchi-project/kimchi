@@ -40,6 +40,7 @@ EXTRA_DIST = \
 PEP8_WHITELIST = \
 	src/kimchi/asynctask.py \
 	src/kimchi/config.py.in \
+	src/kimchi/disks.py \
 	src/kimchi/server.py \
 	plugins/__init__.py \
 	plugins/sample/__init__.py \
