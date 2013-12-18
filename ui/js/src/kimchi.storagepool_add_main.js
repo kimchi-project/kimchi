@@ -157,11 +157,29 @@ kimchi.addPool = function(event) {
             formData.nfspath = $('#nfspathId').val();
             formData.nfsserver = $('#nfsserverId').val();
         }
-        kimchi.createStoragePool(formData, function() {
-            kimchi.doListStoragePools();
-            kimchi.window.close();
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
-        });
+        if (poolType === 'logical') {
+            var settings = {
+                title : i18n['msg.confirm.delete.title'],
+                content : i18n['msg.logicalpool.confirm.delete'],
+                confirm : i18n['msg.confirm.delete.confirm'],
+                cancel : i18n['msg.confirm.delete.cancel']
+            };
+            kimchi.confirm(settings, function() {
+                kimchi.createStoragePool(formData, function() {
+                    kimchi.doListStoragePools();
+                    kimchi.window.close();
+                }, function(err) {
+                    kimchi.message.error(err.responseJSON.reason);
+                });
+            }, function() {
+            });
+        } else {
+            kimchi.createStoragePool(formData, function() {
+                kimchi.doListStoragePools();
+                kimchi.window.close();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        }
     }
 };
