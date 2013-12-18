@@ -26,18 +26,6 @@ kimchi.window = (function() {
             url: settings
         };
 
-        if (_windows.length) {
-            var lastZIndex = parseInt($('#' + _windows[_windows.length - 1]).css('zIndex'));
-            if (settings['style']) {
-                settings['style']['zIndex'] = lastZIndex + 1;
-            }
-            else {
-                settings['style'] = {
-                    zIndex: lastZIndex + 1
-                };
-            }
-        }
-
         var windowID = settings['id'] || 'window-' + _windows.length;
 
         if ($('#' + windowID).length) {
