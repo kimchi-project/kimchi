@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-25 16:33+0800\n"
+"POT-Creation-Date: 2013-12-18 23:43+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-Language: Chinese\n"
@@ -158,6 +158,24 @@ msgstr "内存"
 msgid "Create"
 msgstr "创建"
 
+msgid "Edit Guest"
+msgstr "修改客户机"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "CPUs"
+msgstr "中央处理器"
+
+msgid "Icon"
+msgstr "图标"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Save"
+msgstr "保存"
+
 msgid "Reset"
 msgstr "重置"
 
@@ -170,20 +188,8 @@ msgstr "停止"
 msgid "Actions"
 msgstr "操作"
 
-msgid "Name"
-msgstr "名称"
-
-msgid "CPU"
-msgstr "处理器"
-
-msgid "Network I/O"
-msgstr "网络I/O"
-
-msgid "Disk I/O"
-msgstr "磁盘I/O"
-
-msgid "Livetile"
-msgstr "屏幕"
+msgid "Edit"
+msgstr "编辑"
 
 msgid "Failed to list the template"
 msgstr "展示模板列表失败"
@@ -227,6 +233,9 @@ msgstr "客户机列表加载失败"
 msgid "Failed to create template"
 msgstr "模板创建失败"
 
+msgid "Create template successfully"
+msgstr "创建模板成功"
+
 msgid "No iso found"
 msgstr "没有发现ISO文件"
 
@@ -242,8 +251,66 @@ msgstr "删除确认"
 msgid "OK"
 msgstr "确定"
 
-msgid "Cancel"
-msgstr "取消"
+msgid "Max:"
+msgstr "最大："
+
+msgid "Utilization"
+msgstr "利用率"
+
+msgid "Available"
+msgstr "可利用的"
+
+msgid "Read Rate"
+msgstr "读速率"
+
+msgid "Write Rate"
+msgstr "写速率"
+
+msgid "Received"
+msgstr "接收"
+
+msgid "Sent"
+msgstr "发送"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr "诊断报告将被永久删除，并且不能恢复。继续？"
+
+msgid "Debug Reports"
+msgstr "主机诊断报告"
+
+msgid "File Path"
+msgstr "文件路径"
+
+msgid "Generated Time"
+msgstr "生成时间"
+
+msgid "Generate"
+msgstr "生成"
+
+msgid "Generating..."
+msgstr "正在生成..."
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "Remove"
+msgstr "删除"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Some VM(s) are running!"
+msgstr "有虚拟机在运行！"
+
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
+msgstr "关闭或者重启主机会导致没有保存的工作丢失。继续关机/重启？"
 
 msgid ""
 "This will delete the VM and its virtual disks. This operation cannot be "
@@ -263,7 +330,7 @@ msgid "This is not a valid url."
 msgstr "这不是一个有效的URL"
 
 msgid "This is not a valid ISO file."
-msgstr ""
+msgstr "这不是一个有效的ISO文件"
 
 msgid ""
 "This will permanently delete the Storage Pool. Would you like to continue?"
@@ -276,10 +343,10 @@ msgid "The storage pool path can not be blank."
 msgstr "存储池的路径不能为空"
 
 msgid "NFS server can not be blank."
-msgstr ""
+msgstr "NFS服务器不能为空"
 
 msgid "NFS server mount path can not be blank."
-msgstr ""
+msgstr "NFS服务器挂载路径不能为空"
 
 msgid ""
 "Invalid Storage Pool name.  It may only contain letters, numbers, "
@@ -290,10 +357,10 @@ msgid "This is not a real linux path."
 msgstr "这不是一个符合要求的LINUX路径"
 
 msgid "This is not a valid NFS server."
-msgstr ""
+msgstr "这不是一个有效的NFS服务器"
 
 msgid "Invalid nfs mount path."
-msgstr ""
+msgstr "无效的nfs挂载路径"
 
 msgid "This storage pool is empty."
 msgstr "这个存储池为空"
@@ -305,7 +372,13 @@ msgid "The storage pool is not active now."
 msgstr "存储池没有被启用"
 
 msgid "Failed to delete template."
-msgstr ""
+msgstr "删除模版失败"
+
+msgid "unavailable"
+msgstr "无法获取"
+
+msgid "Network"
+msgstr "网络"
 
 msgid "isolated"
 msgstr "隔离"
@@ -330,14 +403,14 @@ msgstr "创建一个网络"
 msgid "Warning"
 msgstr "警告"
 
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+msgstr ""
+"你的磁盘将会格式化，磁盘上的数据会丢失，你确定要继续吗？"
+
 msgid "Log out"
 msgstr "登出"
-
-msgid "unavailable"
-msgstr "无法获取"
-
-msgid "Network"
-msgstr "网络"
 
 msgid "Log In"
 msgstr "登录"
@@ -348,8 +421,132 @@ msgstr "用户名"
 msgid "Password"
 msgstr "密码"
 
+msgid "Generate a New Debug Report"
+msgstr "产生一个新的诊断报告"
+
+msgid "Report Name"
+msgstr "诊断报告名"
+
+msgid ""
+"The name used to identify the report. If omitted, a name will be chosen "
+"based on current time. Name can contain: letters, digits, \"-\", \"_\", or "
+"\".\"."
+msgstr ""
+"该名称用来唯一标识报告，如果不指定，将会基于当前时间自动生成一个名称。名称可"
+"以包含: 字母、数字、\"-\"、\"_\" 或者 \".\""
+
+msgid "Define a New Storage Pool"
+msgstr "定义一个新的存储池"
+
+msgid "Storage Pool Name"
+msgstr "存储池名称"
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr "该名称用来唯一标识存储池，该名称不能为空。"
+
+msgid "Storage Pool Type"
+msgstr "存储池类型"
+
+msgid "Storage Path"
+msgstr "存储路径"
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr "存储池的路径.每个存储池的路径是唯一的。"
+
+msgid "NFS server IP"
+msgstr "NFS服务器IP"
+
+msgid "NFS server IP or hostname. It should not be empty."
+msgstr "NFS服务器IP或者主机名， 不能为空。"
+
+msgid "NFS Path"
+msgstr "NFS 路径"
+
+msgid "The nfs exported path on nfs server"
+msgstr "nfs服务器上导出的路径"
+
+msgid "Device Path"
+msgstr "设备路径"
+
+msgid "CPU"
+msgstr "处理器"
+
+msgid "Network I/O"
+msgstr "网络I/O"
+
+msgid "Disk I/O"
+msgstr "磁盘I/O"
+
+msgid "Livetile"
+msgstr "屏幕"
+
+msgid "No guests found."
+msgstr "没有发现客户机"
+
+msgid "Shut down"
+msgstr "关机"
+
+msgid "Restart"
+msgstr "重启"
+
+msgid "Connect"
+msgstr "连接到"
+
+msgid "Basic Information"
+msgstr "基本信息"
+
+msgid "OS Distro"
+msgstr "操作系统发布版本"
+
+msgid "OS Code Name"
+msgstr "操作系统代码"
+
+msgid "Processor"
+msgstr "处理器"
+
+msgid "System Statistics"
+msgstr "系统统计信息"
+
+msgid "Collecting data after leaving this page"
+msgstr "离开该页面继续收集数据"
+
+msgid "Network Name"
+msgstr "网络名称"
+
 msgid "State"
 msgstr "状态"
+
+msgid "Network Type"
+msgstr "网络类型"
+
+msgid "Interface"
+msgstr "网络接口"
+
+msgid "Address Space"
+msgstr "地址空间"
+
+msgid "Alphanumeric and '_' characters only."
+msgstr "字母，数字和下划线。"
+
+msgid "Isolated: no physical network connection"
+msgstr "隔离: 同物理网络不连通"
+
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: 从虚拟机到物理网络单向连接"
+
+msgid "Bridged: VMs are connected to physical network directly"
+msgstr "桥接: 虚拟机直接接入物理网络"
+
+msgid "Destination"
+msgstr "目标设备"
+
+msgid "No templates found."
+msgstr "没有发现模板"
+
+msgid "Version"
+msgstr "版本"
 
 msgid "Location"
 msgstr "路径"
@@ -384,23 +581,6 @@ msgstr "格式"
 msgid "Allocation"
 msgstr "分配"
 
-msgid "Define a New Storage Pool"
-msgstr "定义一个新的存储池"
-
-msgid "Storage Pool Name"
-msgstr "存储池名称"
-
-msgid ""
-"The name used to identify the storage pools, and it should not be empty."
-msgstr "该名称用来唯一标识存储池，如果不指定，将会基于模板自动生成一个名称。"
-
-msgid "Storage Path"
-msgstr "存储路径"
-
-msgid ""
-"The path of the Storage Pool. Each Storage Pool must have a unique path."
-msgstr "存储池的路径.每个存储池的路径是唯一的。"
-
 msgid "Add Template"
 msgstr "创建模板"
 
@@ -412,6 +592,12 @@ msgstr "本地ISO镜像"
 
 msgid "Remote ISO Image"
 msgstr "远程ISO镜像"
+
+msgid "Search ISOs"
+msgstr "搜索ISO"
+
+msgid "Please, wait..."
+msgstr "请等待..."
 
 msgid "The following ISOs are available:"
 msgstr "可用ISO文件如下"
@@ -428,11 +614,14 @@ msgstr "版本： "
 msgid "Size: "
 msgstr "大小："
 
+msgid "Search more ISOs"
+msgstr "搜索更多ISO"
+
 msgid "Create Templates from Selected ISO"
 msgstr "从选中的ISO中创建模板"
 
 msgid "I want to use a specific ISO file"
-msgstr ""
+msgstr "指定一个ISO文件"
 
 msgid "I want to use a custom URL"
 msgstr "我想用一个自定义的URL"
@@ -443,74 +632,14 @@ msgstr "编辑模板"
 msgid "Vendor"
 msgstr "厂商"
 
-msgid "Version"
-msgstr "版本"
+msgid "CPU Number"
+msgstr "CPU个数"
 
-msgid "Icon"
-msgstr "图标"
+msgid "Disk (GB)"
+msgstr "磁盘（GB）"
 
-msgid "Default"
-msgstr "默认"
+msgid "CDROM"
+msgstr "光驱"
 
-msgid "Background Color"
-msgstr "背景颜色"
-
-msgid "Overlay Type"
-msgstr "叠层类型"
-
-msgid "Overlay Type Icon"
-msgstr "叠层型图标"
-
-msgid "Overlay Type Text"
-msgstr "叠层型文本"
-
-msgid "Button Finish Style"
-msgstr "完成按钮样式"
-
-msgid "Button Finish Style Gloss"
-msgstr "纯色"
-
-msgid "Button Finish Style Gradient"
-msgstr "渐变色"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "No templates found."
-msgstr "没有发现模板"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Default Settings"
-msgstr "默认设置"
-
-msgid "CPUs"
-msgstr "中央处理器"
-
-msgid "Network Name"
-msgstr "网络名称"
-
-msgid "Network Type"
-msgstr "网络类型"
-
-msgid "Interface"
-msgstr "网络接口"
-
-msgid "Address Space"
-msgstr "地址空间"
-
-msgid "Alphanumeric and '_' characters only."
-msgstr "字母，数字和下划线。"
-
-msgid "Isolated: no physical network connection"
-msgstr "隔离: 同物理网络不连通"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT: 从虚拟机到物理网络单向连接"
-
-msgid "Bridged: VMs are connected to physical network directly"
-msgstr "桥接: 虚拟机直接接入物理网络"
-
-msgid "Destination"
-msgstr "目标设备"
+msgid "Storage Pool"
+msgstr "存储池"

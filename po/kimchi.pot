@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-25 16:33+0800\n"
+"POT-Creation-Date: 2013-12-18 23:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -141,6 +142,24 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+msgid "Edit Guest"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "CPUs"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "Reset"
 msgstr ""
 
@@ -153,19 +172,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
-msgid "CPU"
-msgstr ""
-
-msgid "Network I/O"
-msgstr ""
-
-msgid "Disk I/O"
-msgstr ""
-
-msgid "Livetile"
+msgid "Edit"
 msgstr ""
 
 msgid "Failed to list the template"
@@ -210,6 +217,9 @@ msgstr ""
 msgid "Failed to create template"
 msgstr ""
 
+msgid "Create template successfully"
+msgstr ""
+
 msgid "No iso found"
 msgstr ""
 
@@ -225,7 +235,65 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-msgid "Cancel"
+msgid "Max:"
+msgstr ""
+
+msgid "Utilization"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Read Rate"
+msgstr ""
+
+msgid "Write Rate"
+msgstr ""
+
+msgid "Received"
+msgstr ""
+
+msgid "Sent"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Debug Reports"
+msgstr ""
+
+msgid "File Path"
+msgstr ""
+
+msgid "Generated Time"
+msgstr ""
+
+msgid "Generate"
+msgstr ""
+
+msgid "Generating..."
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Some VM(s) are running!"
+msgstr ""
+
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
 msgstr ""
 
 msgid ""
@@ -290,6 +358,12 @@ msgstr ""
 msgid "Failed to delete template."
 msgstr ""
 
+msgid "unavailable"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
 msgid "isolated"
 msgstr ""
 
@@ -313,13 +387,12 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+msgstr ""
+
 msgid "Log out"
-msgstr ""
-
-msgid "unavailable"
-msgstr ""
-
-msgid "Network"
 msgstr ""
 
 msgid "Log In"
@@ -331,7 +404,129 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+msgid "Generate a New Debug Report"
+msgstr ""
+
+msgid "Report Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the report. If omitted, a name will be chosen "
+"based on current time. Name can contain: letters, digits, \"-\", \"_\", or "
+"\".\"."
+msgstr ""
+
+msgid "Define a New Storage Pool"
+msgstr ""
+
+msgid "Storage Pool Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+
+msgid "Storage Pool Type"
+msgstr ""
+
+msgid "Storage Path"
+msgstr ""
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+
+msgid "NFS server IP"
+msgstr ""
+
+msgid "NFS server IP or hostname. It should not be empty."
+msgstr ""
+
+msgid "NFS Path"
+msgstr ""
+
+msgid "The nfs exported path on nfs server"
+msgstr ""
+
+msgid "Device Path"
+msgstr ""
+
+msgid "CPU"
+msgstr ""
+
+msgid "Network I/O"
+msgstr ""
+
+msgid "Disk I/O"
+msgstr ""
+
+msgid "Livetile"
+msgstr ""
+
+msgid "No guests found."
+msgstr ""
+
+msgid "Shut down"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
+msgid "Basic Information"
+msgstr ""
+
+msgid "OS Distro"
+msgstr ""
+
+msgid "OS Code Name"
+msgstr ""
+
+msgid "Processor"
+msgstr ""
+
+msgid "System Statistics"
+msgstr ""
+
+msgid "Collecting data after leaving this page"
+msgstr ""
+
+msgid "Network Name"
+msgstr ""
+
 msgid "State"
+msgstr ""
+
+msgid "Network Type"
+msgstr ""
+
+msgid "Interface"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
+
+msgid "Alphanumeric and '_' characters only."
+msgstr ""
+
+msgid "Isolated: no physical network connection"
+msgstr ""
+
+msgid "NAT: outbound physical network connection only"
+msgstr ""
+
+msgid "Bridged: VMs are connected to physical network directly"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
+msgid "No templates found."
+msgstr ""
+
+msgid "Version"
 msgstr ""
 
 msgid "Location"
@@ -367,23 +562,6 @@ msgstr ""
 msgid "Allocation"
 msgstr ""
 
-msgid "Define a New Storage Pool"
-msgstr ""
-
-msgid "Storage Pool Name"
-msgstr ""
-
-msgid ""
-"The name used to identify the storage pools, and it should not be empty."
-msgstr ""
-
-msgid "Storage Path"
-msgstr ""
-
-msgid ""
-"The path of the Storage Pool. Each Storage Pool must have a unique path."
-msgstr ""
-
 msgid "Add Template"
 msgstr ""
 
@@ -394,6 +572,12 @@ msgid "Local ISO Image"
 msgstr ""
 
 msgid "Remote ISO Image"
+msgstr ""
+
+msgid "Search ISOs"
+msgstr ""
+
+msgid "Please, wait..."
 msgstr ""
 
 msgid "The following ISOs are available:"
@@ -411,6 +595,9 @@ msgstr ""
 msgid "Size: "
 msgstr ""
 
+msgid "Search more ISOs"
+msgstr ""
+
 msgid "Create Templates from Selected ISO"
 msgstr ""
 
@@ -426,74 +613,14 @@ msgstr ""
 msgid "Vendor"
 msgstr ""
 
-msgid "Version"
+msgid "CPU Number"
 msgstr ""
 
-msgid "Icon"
+msgid "Disk (GB)"
 msgstr ""
 
-msgid "Default"
+msgid "CDROM"
 msgstr ""
 
-msgid "Background Color"
-msgstr ""
-
-msgid "Overlay Type"
-msgstr ""
-
-msgid "Overlay Type Icon"
-msgstr ""
-
-msgid "Overlay Type Text"
-msgstr ""
-
-msgid "Button Finish Style"
-msgstr ""
-
-msgid "Button Finish Style Gloss"
-msgstr ""
-
-msgid "Button Finish Style Gradient"
-msgstr ""
-
-msgid "Save"
-msgstr ""
-
-msgid "No templates found."
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Default Settings"
-msgstr ""
-
-msgid "CPUs"
-msgstr ""
-
-msgid "Network Name"
-msgstr ""
-
-msgid "Network Type"
-msgstr ""
-
-msgid "Interface"
-msgstr ""
-
-msgid "Address Space"
-msgstr ""
-
-msgid "Alphanumeric and '_' characters only."
-msgstr ""
-
-msgid "Isolated: no physical network connection"
-msgstr ""
-
-msgid "NAT: outbound physical network connection only"
-msgstr ""
-
-msgid "Bridged: VMs are connected to physical network directly"
-msgstr ""
-
-msgid "Destination"
+msgid "Storage Pool"
 msgstr ""
