@@ -1,0 +1,322 @@
+13:01:49 <alinefm> #startmeeting
+13:01:49 <kimchi-bot> Meeting started Wed Dec 18 13:01:49 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:49 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:56 <alinefm> #meetingname scrum
+13:01:56 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:00 <alinefm> #info  Agenda 1) 1.1 release 2) Mail list note 3) 1.2 Plan 4) Open discussion
+13:03:03 <alinefm> anything else?
+13:03:14 <royce> good for me
+13:03:21 <ming> Nice.
+13:04:19 <alinefm> #topic 1.1 release
+13:04:32 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Testing-1.1
+13:04:50 <alinefm> royce, any update about ubuntu 13.4 tests?
+13:05:36 <royce> I have nothing new, markwu reported that guests cannot be listed?
+13:05:44 <rotru> alinefm; autogen and make from disttarball worked
+13:05:59 <royce> I'll clear the fixed bugs on the matrix
+13:06:21 <alinefm> rotru, great! could you update the matrix?
+13:06:25 <alinefm> royce, ok
+13:06:29 <rotru> alinefm; yeap
+13:06:35 <shaohef> royce:  markwu can list the guests now
+13:06:36 <markwu> my problem is fixed in latest code.
+13:06:38 <alinefm> I think the most important fix we need to merge today is about logical pool
+13:06:54 <ming> I think we should take a special care on Fedora 19.  That is what Frobisher based on which includes Kimchi.
+13:07:04 <rotru> alinefm; make check is not working for me ... but I think the problem is in my kvm
+13:07:05 <shaohef> alinefm: yes. still work with zhshzhou
+13:07:09 <alinefm> the most important and the last one before announce the 1.1 release
+13:07:30 <markwu> zhshzhou: has post the patches to fix it
+13:07:36 <shaohef> alinefm: test it on rhel. and it can works well for mpath device
+13:07:55 <shaohef> alinefm: a problem need to look into.
+13:08:11 <alinefm> I was testing it on ubuntu 13.10 and it doesn't list a partition
+13:08:30 <alinefm> shaohef, zhshzhou, we need to focus on it
+13:08:36 <zhshzhou> I just found the a problem. On old distributions, util-linux is 2.20. blkid does not list all recognized partitions.
+13:08:40 <shaohef> alinefm: agree.
+13:08:56 <alinefm> zhshzhou, any solution in mind?
+13:09:00 <zhshzhou> I just check Ubuntu repo, it uses old util-linux
+13:09:11 <shaohef> zhshzhou:  $ rpm -q util-linux
+13:09:11 <shaohef> package util-linux is not installed
+13:09:25 <royce> can fdisk be used?
+13:09:29 <shaohef> zhshzhou:  problem?
+13:09:39 <alinefm> well, we use blkid only to get partition path but as we will only work with disk/partitions, can't we assume it will be in /dev/<disk/partition>?
+13:09:40 <zhshzhou> shaohef: rpm -q $(which blkid)
+13:09:42 <shaohef> royce: yes fdisk can used
+13:09:56 <ming> Be careful of fdisk.
+13:10:05 <ming> It is too low level.
+13:10:21 <royce> in LVM official guide, they use fdisk output
+13:10:47 <shaohef> zhshzhou: [user@localhost kimchi]$ blkid
+13:10:48 <shaohef> /dev/vda1: UUID="cf4163f0-3a68-4afe-a546-35fa9ee4d9ea" TYPE="ext4"
+13:10:48 <shaohef> /dev/vda2: UUID="VzkMUu-8HaF-bo6s-e03b-KZLF-i9YR-QX4ppF" TYPE="LVM2_member"
+13:10:48 <shaohef> /dev/mapper/VolGroup-lv_root: UUID="aac2acac-efcb-4abc-8ad0-426b1542b373" TYPE="ext4"
+13:10:48 <shaohef> /dev/vdb: UUID="bf68a601-64ec-4491-b91f-7840f6848a38" TYPE="ext4"
+13:10:49 <shaohef> /dev/mapper/VolGroup-lv_swap: UUID="b675c8c1-5388-433f-9ee7-7963269198ad" TYPE="swap"
+13:10:49 <shaohef> [user@localhost kimchi]$ rpm -q $(which blkid)
+13:10:50 <zhshzhou> shaohef, royce, newer lsblk and list full path of a device, do not need blkid.
+13:10:51 <shaohef> package /sbin/blkid is not installed
+13:10:51 <shaohef> [user@localhost kimchi]$ which blkid
+13:10:53 <shaohef> /sbin/blkid
+13:10:56 <rotru> zhoumeina; define old-linux distros
+13:11:24 <zhshzhou> shaohef: my mistake, should be "rpm -qf"
+13:11:30 <ming> Can we avoid too much detail?
+13:12:20 <alinefm> zhshzhou, shaohef, can't we assume path is /dev/ ?
+13:12:44 <shaohef> $ rpm -qf $(which blkid)
+13:12:45 <shaohef> util-linux-ng-2.17.2-12.14.el6.x86_64
+13:13:09 <zhshzhou> shaohef, too old. Let's consider alinefm's suggestion.
+13:13:25 <shaohef> zh ok
+13:14:05 <shaohef> continue other topic.
+13:14:23 <alinefm> zhshzhou, do you have time to send a new patch version today?
+13:14:28 <alinefm> I think it is late in China
+13:14:50 <ming> I think it is a rush.
+13:14:59 <zhshzhou> alinefm I'm afraid it's too hurry.
+13:15:03 <ming> We need more test and review.
+13:15:19 <zhshzhou> alinefm, I don't have time for such a big change. Small change can do.
+13:15:20 <ming> It is better to delay the release to Friday.
+13:15:54 <alinefm> zhshzhou, it would be a small fix, isn't it?
+13:16:05 <alinefm> assume path is /dev and don't use blkid
+13:16:19 <alinefm> and folks in Brazil can test it in time
+13:16:27 <alinefm> rotru, danielhb ^
+13:16:53 <ming> There are two many devices under /dev? Not sure how do you which ones are disks?
+13:17:00 <zhshzhou> alinefm, if you think this will do for the urgent release, I'm OK.
+13:17:12 <ming> s/how do you/how do you/know?
+13:17:22 <zhshzhou> ming, we list device names using lsblk, than we assume the full path is /dev/name
+13:17:23 <alinefm> ming, from lsblk command
+13:17:28 <shaohef> alinefm:  let's try /dev
+13:17:52 <danielhb> Well, my first implementation was to run "find /dev -name <device>" but then I was asked to remove it and find another way
+13:18:10 <danielhb> I have no problems with "find", it's more reliable than assuming than it's all on /dev/
+13:18:23 <danielhb> for instance, volume groups are on /dev/mapper/..
+13:18:26 <zhoumeina> sorry to interupt, any change I have to do in UI about logical pool?
+13:18:29 <danielhb> it adds complexity
+13:18:48 <alinefm> zhoumeina, no! I've just merged your patches about confirmation dialog
+13:18:51 <shaohef> alinefm:  too many devices on /dev.  I try $ ls /dev/ just now
+13:18:51 <shaohef> 
+13:18:53 <markwu> I really don't understand why we can't just construct the full path according to partition/disk type?
+13:19:06 <shaohef> alinefm: $ ls /dev/ |wc -l
+13:19:07 <shaohef> 188
+13:19:21 <markwu> basically just assume it's /dev/sda[x]
+13:19:28 <alinefm> markwu, yeap
+13:19:50 <markwu> for lvm,  we can construct a '/dev/vg/lv' path for it
+13:19:58 <zhshzhou> markwu, agree.
+13:20:00 <markwu> it's reliable enough
+13:20:13 <ming> markwu. not all disk are scsi disks.
+13:20:20 <shaohef> what about raw disk?
+13:20:35 <ming> So you don't always have sda,sdb, sdc...
+13:20:37 <markwu> ming, I know, the device name is already included in the output
+13:20:44 <markwu> just an example
+13:20:49 <danielhb> we can't assume it's all /dev/ .... again, why not run 'find . -name <device_name>'? It's a performance degradation but way more reliable
+13:20:51 <ming> makwu. which output?
+13:21:12 <alinefm> danielhb, why not?
+13:21:12 <markwu> you can get a reasonable full path from the command line's output
+13:21:29 <danielhb> the other option is to push kimchi support to at least Fedora 19, because then the lsblk command can provide the full device path by itself
+13:21:46 <alinefm> well, let's move on
+13:21:51 <alinefm> we can continue after meeting
+13:22:03 <alinefm> the second point about 1.1 release is about translation
+13:22:15 <alinefm> please, send out Portuguese and Chinese translations
+13:22:38 <zhoumeina> I will send chinese one tomorrow morning
+13:22:47 <alinefm> anyone would like to do that?
+13:23:05 <alinefm> zhoumeina, it needs to be today for release
+13:23:22 <shaohef> a volunteer for Portuguese?
+13:23:49 <zhoumeina> oh, sorry, I don't have enviroment at home
+13:23:51 <alinefm> hirata, ?
+13:23:51 <ming> It seems we definitely need more time to release 1.1.
+13:24:07 <alinefm> shaohef, could you do for Chinese?
+13:24:12 <markwu> alinefm: do you think it's a blocker for release 1.1
+13:24:13 <markwu> ?
+13:24:16 <shaohef> alinefm: no problme
+13:24:24 <shaohef> s/problme/problem
+13:24:24 <alinefm> markwu, translation?
+13:24:28 <markwu> yep
+13:24:30 <alinefm> shaohef, thanks
+13:24:55 <alinefm> markwu, not a block but should be there
+13:24:57 <markwu> it will be great if shaohef can help
+13:25:01 <markwu> ok
+13:25:05 <alinefm> shaohef, I do for Portuguese
+13:25:08 <alinefm> ok
+13:25:09 <alinefm> next
+13:25:35 <alinefm> #topic Mail list note
+13:25:45 <rotru> alinefm;  I can do portuguese
+13:26:05 <alinefm> AdamKingIT worked hard and got our new mail list on ovirt community
+13:26:12 <alinefm> AdamKingIT, thanks!
+13:26:21 <ming> Thanks. AdamKingIT.
+13:26:27 <AdamKingIT> yw. It was more persistence than working hard:-)
+13:26:50 <alinefm> after 1.1 release announcement all patches must be send to the new list for review
+13:26:54 <royce> can we use their jenkins server too?
+13:26:54 <ming> I am more greedy to have gerrit setup on oVirt. :)
+13:27:09 <alinefm> all you need to subscribe to http://lists.ovirt.org/mailman/listinfo/kimchi-devel
+13:27:13 <markwu> AdamKingIT: may I ask about using other facility provided by ovirt
+13:27:22 <markwu> like jenkins and gerrit
+13:27:35 <alinefm> markwu, royce, ming, it is the plan
+13:28:01 <ming> alinefm, great.
+13:28:07 <alinefm> there are 2 lists: one for devel (http://lists.ovirt.org/mailman/listinfo/kimchi-devel) and other one for users feedbacks (http://lists.ovirt.org/mailman/listinfo/kimchi-users)
+13:28:22 <AdamKingIT> I haven't asked for other services yet, though they were pretty accommodating with the list. I think we have some local test and discussion to go before a final decision on asking don't we?
+13:28:39 <alinefm> AdamKingIT, agree
+13:29:18 <alinefm> right?
+13:29:22 <alinefm> next topic
+13:29:23 <ming> AdamKingIT, I think most of us agree to have a public jekin  test server and gerrit.
+13:29:27 <markwu> anyway,  we need a public server outside IBM firewal to host jenkins
+13:29:27 <royce> Frobisher guys asked me about if they can pull for a daily build, so jenkins is a must
+13:29:38 <alinefm> ming, I don't agree with gerrit yet
+13:30:00 <ming> alinefm, I mean most of us.
+13:30:03 <AdamKingIT> agreed. gerrit more of a question than jenkins
+13:30:05 <markwu> so do you have any chance to talk a look at gerrit?
+13:30:19 <markwu> alinefm: ^^
+13:30:29 <alinefm> markwu, not yet but it is on my todo list
+13:30:32 <AdamKingIT> markwu have you set up a local gerrit we could try?
+13:30:38 <alinefm> these days I was really focus on 1.1 release
+13:31:06 <ming> AdamKingIT: http://gerrit.ovirt.org/
+13:31:18 <markwu> AdamKingIT: no problem. I will try to set up an internal one. but you also have try it with ovirt or openstack
+13:31:40 <AdamKingIT> k
+13:31:44 <alinefm> #topic 1.2 Plan
+13:31:52 <alinefm> schedule: https://github.com/kimchi-project/kimchi/wiki/Planning-1.2
+13:32:02 <alinefm> plan: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+13:32:14 <alinefm> I made this first plan based on backlog
+13:32:26 <alinefm> please, take a look on it and give feedbacks
+13:32:36 <shaohef> 4 sprint?
+13:32:43 <ming> Kimchi 1.2 - Sprint 3 	01/29/14 -> 02/19/14
+13:32:59 <ming> I think it is on China new year.
+13:33:01 <alinefm> I keep the person assigned on backlog into plan
+13:33:07 <alinefm> but we can change it if needed
+13:33:10 <shaohef> I think the Spring Festival will in release 2
+13:33:13 <hirata> alinefm, I am sorry... I was AFK and I did not see your msg in IRC... =)
+13:33:36 <alinefm> there is no problem with that
+13:33:45 <ming> alinefm, We have many work items in backlog.
+13:33:47 <alinefm> there are people in other location to do the work
+13:34:38 <alinefm> ming, any one would like to add to 1.2 plan?
+13:34:58 <alinefm> just be careful as we will have most of people out some period and we need to do all *on* time
+13:35:04 <ming> alinefm, when will you release your 1.2 draft plan?
+13:35:36 <alinefm> ming, it is already public
+13:35:41 <royce> alinefm, will you have xmas holiday for several days?
+13:35:52 <alinefm> royce, no, just 2 days
+13:36:07 <ming> alinefm, I mean the task items in 1.2?
+13:36:25 <royce> ok, alinefm
+13:36:45 <zhoumeina> alinefm: please assign spice to me
+13:36:46 <alinefm> ming, sorry, I didn't understand your question
+13:36:59 <alinefm> zhoumeina, sure
+13:37:20 <ming> alinefm, I mean the task items removed from backlog to 1.2 plan.  Where is are the task items?
+13:37:33 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+13:37:34 <AdamKingIT> apporc has spice patches on  the list, though some comments not yet addressed
+13:38:08 <alinefm> shaohef, do you have any news about apporc?
+13:38:21 <zhoumeina> AdamKingIT: yes, I will continue to do it in 1.2
+13:38:22 <alinefm> there is sometime he is out
+13:38:25 <shaohef> alinefm: no
+13:38:41 <alinefm> shaohef, ok
+13:38:46 <alinefm> zhoumeina, I will assign it to you
+13:38:51 <shaohef> alinefm:  have no news for a long time.
+13:38:55 <zhoumeina> alinefm: ok
+13:39:10 <markwu> so we need contact him  to check if he can continue. If not, we can take over his work if he doesn't mind
+13:39:10 <royce> I noticed someone didn't have tasks on some sprint, we can assign them to follow the review
+13:39:28 <zhoumeina> alinefm: will you add ming's backlogs to 1.2?
+13:40:00 <alinefm> zhoumeina, not sure about is "ming's backlog"
+13:40:12 <alinefm> but kimchi backlog is on 1.2 plan
+13:40:22 <alinefm> s/about/what
+13:40:31 <zhoumeina> some thing like exception....
+13:40:56 <markwu> code refactoring
+13:41:16 <alinefm> zhoumeina, (alinefm) Improve error feedback on sprint 2
+13:41:27 <alinefm> markwu, (alinefm) Restructure backend model (framework)  on sprint 1
+13:41:31 <ming> zhoumeina, parts of them.  I think we can give a better sizing of all the items to see if we can add more into 1.2 relase.
+13:41:41 <zhoumeina> oh, I see
+13:41:51 <markwu> ok
+13:42:16 <AdamKingIT> If we think we can do more, then lets get the high priority items done early, leaving time for the more
+13:42:39 <alinefm> ming, we also have 60 issues to close
+13:42:47 <ming> alinefm,  when you select the items from the backlog,  do you have a basic rule?
+13:43:26 <alinefm> ming, yes
+13:43:49 <ming> alinefm, what is that?
+13:44:13 <alinefm> some people already demonstrate interest in do, patches depend on mail list, tasks needed by kimchi
+13:44:20 <alinefm> ming, any problem with that?
+13:45:37 <zhoumeina> alinefm: what about the storage attach and detach?
+13:45:41 <royce> I think we should not be too optimistic about velocity, if we merge too soon without thourough test and investigation, we will have piles of bugs to fix
+13:46:04 <alinefm> rotru, agree
+13:46:13 <ming> alinefm,  I think we should have a broad discussion on what are the basic rules.
+13:46:17 <AdamKingIT> agreed, though I also think we are capable of a higher velocity
+13:46:18 <shaohef> royce:  agree.
+13:46:32 <markwu> +1
+13:46:32 <alinefm> zhoumeina, do you want to do it for 1.2?
+13:46:50 <ming> Broad discussion on how do we prioritize the task items?
+13:47:28 <zhoumeina> alinefm: I 'm not sure I can hold the back-end, but certainly Ok for UI
+13:47:51 <alinefm> zhoumeina, maybe we can add it to sprint 4
+13:47:54 <shaohef> zhoumeina: we can give you some help
+13:47:58 <markwu> yes
+13:48:00 <zhoumeina> shaohef: thanks
+13:48:24 <alinefm> during sprint most of china folks will be out for holidays so we should avoid add a lot of tasks there
+13:48:33 <zhoumeina> alinefm: put it sprint 4 please
+13:48:38 <alinefm> zhoumeina, sure
+13:50:08 <zhoumeina> and waiting widget
+13:50:13 <alinefm> zhoumeina, do I assign it to you? or leave it in blank?
+13:50:26 <zhoumeina> alinefm: you can assign it to me
+13:50:43 <alinefm> done
+13:50:48 <zhoumeina> If I have some problem I will ask back-end guys for help
+13:50:57 <alinefm> royce, you were assigned to backend stuffs on backlog
+13:51:16 <alinefm> keep it on 1.2 plan?
+13:51:32 <rotru> zhoumeina;  you can count on me
+13:51:39 <royce> ok, alinefm, for cdrom in sprint 3 you can keep my name there
+13:51:46 <zhoumeina> rotru: thanks
+13:52:19 <alinefm> done
+13:52:20 <ming> I think we should have an estimate on the sizing of the task after this meeting for the task assigned and re-visit the task if there is any issue.
+13:52:23 <alinefm> zhoumeina, a lot of helpers! =)
+13:52:36 <zhoumeina> :-D
+13:52:42 <zhoumeina> great
+13:53:06 <alinefm> any more updates?
+13:53:16 <AdamKingIT> What do you all think about holding a planning poker session?
+13:53:49 <danielhb> texas hold'em ?
+13:53:51 <rotru> alinefm; I am going to have a lot o things of ginger to do .. but you can assign one or two tasks  for me  in the sprints ...
+13:54:01 <ming> AdamKingIT.  That is a great idea.  That looks more like a community way.
+13:54:08 <alinefm> rotru, there are some ones with your name
+13:54:13 <alinefm> rotru, could you take a look?
+13:54:41 <rotru> alinefm; I just see 1 for sprint 1
+13:54:42 <AdamKingIT> I'll look into what we might be able to use to hold the session... I'll be out for the holiday's, but we can get started w/ sprint 1 in the meantime
+13:56:18 <alinefm> sprint 1 starts today/tomorrow so we need to have agreement in these items
+13:58:25 <rotru> alinefm;  I am ok with my item for sprint 1
+13:58:33 <alinefm> well, seems everyone is comfortable with sprint 1
+13:58:56 <zhoumeina> rotru: Do you need me to do the iSCSI and FC UI?
+13:59:24 <rotru> alinefm; I'd like to take  'Manage guest CDROM device', if no one has already taken it
+13:59:44 <alinefm> rotru, royce asked for it
+13:59:51 <rotru> alinefm;  thats ok
+13:59:56 <rotru> zhoumeina; I think so
+14:00:09 <zhoumeina> rotru:ok
+14:00:09 <royce> sure, you can take it rotru
+14:00:34 <royce> 1.2 plan for me is great, I'm little worried about our patches cannot receive enough review, we really need to say more NOs to others patches:)
+14:00:41 <markwu> zhshzhou: do you need a help for the iscsi support?
+14:01:12 <zhshzhou> markwu, thanks. Firstly I need suggestions on the API refactoring.
+14:01:18 <markwu> yes
+14:01:19 <AdamKingIT> royce patch: yes, other patch: no ;-)
+14:01:31 <zhshzhou> markwu, after the API is steady. I need help from front-end
+14:01:34 <markwu> zhshzhou: I mean the ui part
+14:01:34 <fnovak> rotru,alinefm: we do need to also track assignments on the ginger pieces...
+14:01:59 <zhshzhou> markwu, I read code implementing the logical pool UI. Not trivial.
+14:02:13 <royce> heheheh, royce patch: Neither! AdamKingIT
+14:02:20 <markwu> zhoumeina: zhshzhou need your help on the iscsi storage pool
+14:02:30 <zhoumeina> ok
+14:02:35 <zhoumeina> no problem
+14:02:38 <rotru> rotru;  we have done this already
+14:02:43 <markwu> zhoumeina: thanks
+14:03:20 <rotru> fnovak; we have done this already
+14:03:36 <rotru> royce; thanks!
+14:03:37 <zhshzhou> markwu, shaohef, I just found a steady method to locate device node full path.
+14:03:44 <markwu> fnovak: it's already synced in alinefm's plan
+14:04:03 <shaohef> zhshzhou: that's great
+14:04:04 <ming> https://github.com/kimchi-project/kimchi/wiki/Storage-volume-attachment-and-detachment
+14:04:21 <ming> Alinefm, I would like to add this to 1.2 plan.
+14:04:25 <zhshzhou> firstly lsblk -P, it prints major and minor device number.
+14:04:25 <zhshzhou> then "cat /sys/dev/block/major\:minor/uevent"
+14:04:28 <alinefm> ming, it is there
+14:04:29 <alinefm> sprint 4
+14:04:45 <ming> Storage volume for VM is basic virtualization requirement.
+14:04:45 <markwu> zhshzhou: ok. you can update your patch with it or just share your idea with alinefm and ask her help to update it.
+14:05:03 <alinefm> markwu, zhshzhou sure
+14:05:08 <zhshzhou> shaohef markwu, In uevent there is "DEVNAME=XXX", then it should be /dev/XXX
+14:05:12 <alinefm> you don't need to work overnight
+14:05:30 <fnovak> rotru, markwu : ok, i saw parts,, just was worried when rotru said he had lots of ginger pieces, but coudl take some others.. That it meant there was another list somewhere!
+14:05:52 <ming> Alinefm, thanks.  But it is still in backlog.
+14:06:09 <markwu> fnovak: yes. it should be post to another code repo
+14:06:12 <shaohef> zhshzhou: I will do Chinese translation this night. Any help you can ask me.
+14:06:12 <alinefm> fnovak, specific ginger tasks aren't in kimchi plan
+14:06:18 <alinefm> ming, really?
+14:06:32 <alinefm> ming, please, remove it from backlog
+14:06:48 <rotru> fnovak;  =]   sorry, I should have not said "LOTS"
+14:06:50 <markwu> shaohef: thanks!
+14:07:33 <alinefm> our time is over
+14:07:40 <alinefm> but we can continue after meeting
+14:07:54 <alinefm> ming, any other task you would like to add to 1.2 plan?
+14:08:03 <alinefm> or anyone else ^?
+14:08:11 <ming> alinefm, I am looking into the plan and will come back to you later after I have full sizing
+14:08:25 <alinefm> it is an interactive work so we can continue talking about it
+14:08:32 <alinefm> ming, great
+14:08:57 <alinefm> unfortunately we don't have time to do open discussion today
+14:09:05 <alinefm> #endmeeting
