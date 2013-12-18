@@ -24,101 +24,105 @@ import re
 import subprocess
 
 from kimchi.exception import OperationFailed
+from kimchi.utils import kimchi_log
 
 
-def get_partitions_paths():
-    try:
-        """ Returns all available partitions path of the host """
-        blkid = subprocess.Popen(
-            ["blkid", "-o", "device"],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        dev_paths = blkid.communicate()[0].rstrip("\n").split("\n")
-    except:
-        raise OperationFailed("Unable to retrieve partitions' full path.")
-    return dev_paths
-
-
-def get_partition_path(name, dev_paths):
+def _get_partition_path(name):
     """ Returns device path given a partition name """
     dev_path = None
-    regexp = re.compile(r"^.*"+name+"$")
-    for path in dev_paths:
-        if regexp.search(path) is not None:
-            dev_path = path
+    maj_min = None
+
+    keys = ["NAME", "MAJ:MIN"]
+    dev_list = _get_lsblk_devs(keys)
+
+    for dev in dev_list:
+        if dev['name'] == name:
+            maj_min = dev['maj:min']
             break
-    if dev_path:
-        return dev_path
+
+    uevent_cmd = "cat /sys/dev/block/%s/uevent" % maj_min
+    uevent = subprocess.Popen(uevent_cmd, stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE, shell=True)
+    out, err = uevent.communicate()
+    if uevent.returncode != 0:
+        raise OperationFailed("Error getting partition path for %s", name)
+
+    data = dict(re.findall(r'(\S+)=(".*?"|\S+)', out.replace("\n", " ")))
+
+    return "/dev/%s" % data["DEVNAME"]
 
 
-def get_partitions_names():
-    try:
-        """ Returns all the names of available partitions  """
-        lsblk = subprocess.Popen(
-            ["lsblk", "-Pbo", "NAME,TYPE"],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output = lsblk.communicate()[0]
-        lines_output = output.rstrip("\n").split("\n")
-        # Will be used later to double check the partition
-        dev_paths = get_partitions_paths()
-        names = []
-        keys = ["NAME", "TYPE"]
-        # output is on format key="value", where key = NAME, TYPE
-        for line in lines_output:
-            d = {}
-            for key in keys:
-                expression = r"%s=\".*?\"" % key
-                match = re.search(expression, line)
-                field = match.group()
-                k, v = field.split('=', 1)
-                d[k.lower()] = v[1:-1]
-            if d['type'] not in ['part', 'lvm']:
-                continue
-            # split()[0] to avoid the second part of the name,
-            # after the whiteline
-            name = d['name'].split()[0]
-            # There are special cases where lsblk reports
-            # a partition that does not exist in blkid and fdisk (Extended
-            # partitions), which can't be used for pool creation. We
-            # need to filter these cases as well.
-            if not get_partition_path(name, dev_paths):
-                continue
-            names.append(name)
-        return names
-    except:
-        raise OperationFailed("Unable to retrieve partitions' full path.")
+def _get_lsblk_devs(keys, devs=[]):
+    lsblk = subprocess.Popen(
+        ["lsblk", "-Pbo"] + [','.join(keys)] + devs,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = lsblk.communicate()
+    if lsblk.returncode != 0:
+        raise OperationFailed('Error executing lsblk: %s' % err)
+
+    return _parse_lsblk_output(out, keys)
 
 
-def get_partition_details(name):
-    try:
-        # Find device path
-        dev_path = get_partition_path(name, get_partitions_paths())
-        # Couldn't find dev_path.
-        if not dev_path:
-            return
-        # Executing lsblk to get partition/disk info
-        lsblk = subprocess.Popen(
-            ["lsblk", "-Pbo", "TYPE,FSTYPE,SIZE,MOUNTPOINT", dev_path],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # single line output
-        output = lsblk.communicate()[0].rstrip("\n")
-        # output is on format key="value", where key = NAME, TYPE, FSTYPE,
-        # SIZE, MOUNTPOINT
-        keys = ["TYPE", "FSTYPE", "SIZE", "MOUNTPOINT"]
+def _parse_lsblk_output(output, keys):
+    # output is on format key="value",
+    # where key can be NAME, TYPE, FSTYPE, SIZE, MOUNTPOINT, etc
+    lines = output.rstrip("\n").split("\n")
+    r = []
+    for line in lines:
         d = {}
         for key in keys:
             expression = r"%s=\".*?\"" % key
-            match = re.search(expression, output)
+            match = re.search(expression, line)
             field = match.group()
             k, v = field.split('=', 1)
             d[k.lower()] = v[1:-1]
-        if d['mountpoint']:
-            # Sometimes the mountpoint comes with [SWAP] or other
-            # info which is not an actual mount point. Filtering it
-            regexp = re.compile(r"\[.*\]")
-            if regexp.search(d['mountpoint']) is not None:
-                d['mountpoint'] = ''
-        d['path'] = dev_path
-        d['name'] = name
-        return d
-    except:
-        raise OperationFailed("Unable to retrieve partitions' data.")
+        r.append(d)
+    return r
+
+
+def get_partitions_names():
+    names = []
+    ignore_names = []
+    keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT"]
+    # output is on format key="value",
+    # where key can be NAME, TYPE, FSTYPE, MOUNTPOINT
+    for dev in _get_lsblk_devs(keys):
+        # split()[0] to avoid the second part of the name, after the
+        # whiteline
+        name = dev['name'].split()[0]
+        # Only list unmounted and unformated partition or disk.
+        if not all([dev['type'] in ['part', 'disk'],
+                    dev['fstype'] == "",
+                    dev['mountpoint'] == ""]):
+
+            # the whole disk must be ignored in it has at least one
+            # mounted/formatted partition
+            if dev['type'] == 'part':
+                ignore_names.append(name[:-1])
+            continue
+
+        names.append(name)
+
+    return list(set(names) - set(ignore_names))
+
+
+def get_partition_details(name):
+    dev_path = _get_partition_path(name)
+
+    keys = ["TYPE", "FSTYPE", "SIZE", "MOUNTPOINT"]
+    try:
+        dev = _get_lsblk_devs(keys, [dev_path])[0]
+    except OperationFailed as e:
+        kimchi_log.error(
+            "Error getting partition info for %s: %s", (name, e))
+        return {}
+
+    if dev['mountpoint']:
+        # Sometimes the mountpoint comes with [SWAP] or other
+        # info which is not an actual mount point. Filtering it
+        regexp = re.compile(r"\[.*\]")
+        if regexp.search(dev['mountpoint']) is not None:
+            dev['mountpoint'] = ''
+    dev['path'] = dev_path
+    dev['name'] = name
+    return dev
