@@ -114,7 +114,7 @@ def get_partition_details(name):
         dev = _get_lsblk_devs(keys, [dev_path])[0]
     except OperationFailed as e:
         kimchi_log.error(
-            "Error getting partition info for %s: %s", (name, e))
+            "Error getting partition info for %s: %s", name, e)
         return {}
 
     if dev['mountpoint']:
