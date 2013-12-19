@@ -533,6 +533,7 @@ class StoragePool(Resource):
                'allocated': self.info['allocated'],
                'available': self.info['available'],
                'path': self.info['path'],
+               'source': self.info['source'],
                'type': self.info['type'],
                'nr_volumes': self.info['nr_volumes'],
                'autostart': self.info['autostart']}

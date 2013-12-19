@@ -215,6 +215,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * nr_volumes: The number of storage volumes for active pools, 0 for inactive pools
     * autostart: Whether the storage pool will be enabled
                  automatically when the system boots
+    * source: Source of the storage pool,
+        * addr: mount address of this storage pool(for 'netfs' pool)
+        * path: export path of this storage pool(for 'netfs' pool)
 * **PUT**: Set whether the Storage Pool should be enabled automatically when the
            system boots
     * autostart: Toggle the autostart flag of the VM

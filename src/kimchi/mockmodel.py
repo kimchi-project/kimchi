@@ -639,6 +639,7 @@ class MockStoragePool(object):
                      'allocated': 512 << 20,
                      'available': 512 << 20,
                      'path': '/var/lib/libvirt/images',
+                     'source': {},
                      'type': 'dir',
                      'nr_volumes': 0,
                      'autostart': 0}

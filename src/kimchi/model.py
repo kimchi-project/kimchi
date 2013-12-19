@@ -78,6 +78,9 @@ GUESTS_STATS_INTERVAL = 5
 HOST_STATS_INTERVAL = 1
 VM_STATIC_UPDATE_PARAMS = {'name': './name'}
 VM_LIVE_UPDATE_PARAMS = {}
+STORAGE_SOURCES = {'netfs': {'addr': '/pool/source/host/@name',
+                             'path': '/pool/source/dir/@path'}}
+
 
 def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
@@ -1019,6 +1022,17 @@ class Model(object):
             raise OperationFailed(e.get_error_message())
         return name
 
+    def _get_storage_source(self, pool_type, pool_xml):
+        source = {}
+        if pool_type not in STORAGE_SOURCES:
+            return source
+
+        for key, val in STORAGE_SOURCES[pool_type].items():
+            res = xmlutils.xpath_get_text(pool_xml, val)
+            source[key] = res[0] if len(res) == 1 else res
+
+        return source
+
     def storagepool_lookup(self, name):
         pool = self._get_storagepool(name)
         info = pool.info()
@@ -1027,8 +1041,10 @@ class Model(object):
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        source = self._get_storage_source(pool_type, xml)
         res = {'state': Model.pool_state_map[info[0]],
                'path': path,
+               'source': source,
                'type': pool_type,
                'autostart': autostart,
                'capacity': info[1],

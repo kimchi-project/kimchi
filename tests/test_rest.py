@@ -417,6 +417,7 @@ class RestTests(unittest.TestCase):
         storagepool = json.loads(resp.read())
         self.assertEquals('storagepool-1', storagepool['name'])
         self.assertEquals('inactive', storagepool['state'])
+        self.assertIn('source', storagepool)
 
     def test_storagepool_action(self):
         # Create a storage pool
