@@ -19,18 +19,18 @@
  * limitations under the License.
  */
 body {
-	background: url(../images/theme-default/bg.png);
+    background: url(../images/theme-default/bg.png);
 }
 
 .tmpl-html {
-	display: none;
+    display: none;
 }
 
 .container {
-	margin: 0 auto;
-	width: 1024px;
+    margin: 0 auto;
+    width: 1024px;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }

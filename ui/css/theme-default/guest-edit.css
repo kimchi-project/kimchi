@@ -19,49 +19,49 @@
  * limitations under the License.
  */
 #guest-edit-window {
-	font-size: 13px;
-	height: 380px;
-	width: 420px;
+    font-size: 13px;
+    height: 380px;
+    width: 420px;
 }
 
 .guest-edit-fieldset {
-	float: left;
-	padding: 1em;
+    float: left;
+    padding: 1em;
 }
 
 .guest-edit-wrapper-label, .guest-edit-wrapper-controls {
-	display: inline-block;
+    display: inline-block;
 }
 
 .guest-edit-wrapper-controls input[type="text"][disabled] {
-	color: #bbb;
-	background-color: #fafafa;
-	cursor: not-allowed;
+    color: #bbb;
+    background-color: #fafafa;
+    cursor: not-allowed;
 }
 
 .guest-edit-wrapper-label {
-	width: 10em;
+    width: 10em;
 }
 
 .guest-edit-wrapper-controls {
-	width: 18em;
+    width: 18em;
 }
 
 .guest-edit-wrapper-controls input[type="text"] {
-	height: 38px;
-	line-height: 38px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	box-shadow: 2px 2px 2px #eee inset;
-	border-top: 1px solid #bbb;
-	border-left: 1px solid #bbb;
-	padding-left: 10px;
-	width: 100%;
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee inset;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding-left: 10px;
+    width: 100%;
 }
 
 .guest-edit-wrapper-controls input[type="text"][disabled] {
-	color: #bbb;
-	background-color: #fafafa;
-	cursor: not-allowed;
+    color: #bbb;
+    background-color: #fafafa;
+    cursor: not-allowed;
 }

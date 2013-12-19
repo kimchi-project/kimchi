@@ -19,232 +19,232 @@
 * limitations under the License.
 */
 .list-template.framework {
-	float: left;
-	clear: both;
+    float: left;
+    clear: both;
 }
 
 .template-box {
-	border-radius: 8px 8px 8px 8px;
-	box-shadow: none;
-	color: #666666;
-	float: left;
-	height: auto;
-	margin: 10px 11px 10px 0;
-	padding: 10px;
-	width: 308px;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: none;
+    color: #666666;
+    float: left;
+    height: auto;
+    margin: 10px 11px 10px 0;
+    padding: 10px;
+    width: 308px;
 }
 
 .template-title {
-	font-size: 16px;
-	height: 25px;
-	line-height: 25px;
+    font-size: 16px;
+    height: 25px;
+    line-height: 25px;
 }
 
 .template-icon {
-	border: 1px solid #CCCCCC;
-	border-radius: 8px 8px 8px 8px;
-	height: 58px;
-	margin: 0 10px 10px 0;
-	width: 48px;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px 8px 8px 8px;
+    height: 58px;
+    margin: 0 10px 10px 0;
+    width: 48px;
 }
 
 .template-icon img {
-	width: 58px;
+    width: 58px;
 }
 
 .template-text {
-	color: #999999;
-	float: left;
-	font-size: 11px;
-	font-weight: bold;
-	height: 18px;
-	line-height: 18px;
-	width: 142px;
-	display: table;
+    color: #999999;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    width: 142px;
+    display: table;
 }
 
 .white-box {
-	background: #ffffff;
-	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
-	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
-	border: 1px solid #CCCCCC;
-	color: #333333;
-	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
 }
 
 .row-select {
-	-moz-border-bottom-colors: none;
-	-moz-border-left-colors: none;
-	-moz-border-right-colors: none;
-	-moz-border-top-colors: none;
-	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
-	border-color: #999999 #AAAAAA #AAAAAA #999999;
-	border-image: none;
-	border-radius: 5px 5px 5px 5px;
-	border-right: 1px solid #AAAAAA;
-	border-style: solid;
-	border-width: 1px;
-	float: left;
-	font-size: 13px;
-	height: 42px;
-	line-height: 42px;
-	margin: 5px 0 0 10px;
-	padding-left: 10px;
-	text-align: left;
-	text-shadow: -1px -1px 1px #AAAAAA, 1px 1px 1px #FFFFFF;
-	width: 100px;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    border-color: #999999 #AAAAAA #AAAAAA #999999;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-right: 1px solid #AAAAAA;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    font-size: 13px;
+    height: 42px;
+    line-height: 42px;
+    margin: 5px 0 0 10px;
+    padding-left: 10px;
+    text-align: left;
+    text-shadow: -1px -1px 1px #AAAAAA, 1px 1px 1px #FFFFFF;
+    width: 100px;
 }
 
 .bevel3 {
-	box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
-	color: #333333;
+    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
+    color: #333333;
 }
 
 .row-drop {
-	left: 10px;
-	position: relative;
-	top: 50px;
+    left: 10px;
+    position: relative;
+    top: 50px;
 }
 
 .template-action-hidden {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .template-action-show {
-	visibility: visible;
-	display: block;
+    visibility: visible;
+    display: block;
 }
 
 template-hidden {
-	display: none;
+    display: none;
 }
 
 .select-drop {
-	background: none repeat scroll 0 0 #EEEEEE;
-	border: 2px solid #096AAD;
-	border-radius: 5px 5px 5px 5px;
-	box-shadow: 6px 6px 6px;
-	height: 147px;
-	left: 0;
-	position: absolute;
-	top: 8px;
-	width: 250px;
-	z-index: 2147483647;
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 2px solid #096AAD;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 6px 6px 6px;
+    height: 147px;
+    left: 0;
+    position: absolute;
+    top: 8px;
+    width: 250px;
+    z-index: 2147483647;
 }
 
 .button-drop {
-	background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC 96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC 96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
 }
 
 .action-bevel {
-	box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
+    box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
 }
 
 .template-border {
-	border: 1px solid rgb(204, 204, 204);
+    border: 1px solid rgb(204, 204, 204);
 }
 
 .template-button-position {
-	position: relative;
-	left: 250px;
-	top: 55px;
-	z-index: 5555;
+    position: relative;
+    left: 250px;
+    top: 55px;
+    z-index: 5555;
 }
 
 .tempate-action-position {
-	float: right;
-	width: 83px;
-	margin: 0;
+    float: right;
+    width: 83px;
+    margin: 0;
 }
 
 .template-actiontext-position {
-	width: 250px;
-	height: 160px;
+    width: 250px;
+    height: 160px;
 }
 
 .template-line {
-	left: 200px;
+    left: 200px;
 }
 
 .template-os-position {
-	padding-right: 10px;
-	clear: both;
-	width: 142px;
-	border-right: 1px solid #999;
-	float: left;
+    padding-right: 10px;
+    clear: both;
+    width: 142px;
+    border-right: 1px solid #999;
+    float: left;
 }
 
 .template-cpu-position {
-	border-left: 1px solid #eee;
-	padding-left: 10px;
-	float: left;
-	width: 132px;
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+    float: left;
+    width: 132px;
 }
 
 .template-icon-position {
-	float: left;
-	height: 58px;
-	width: 58px;
+    float: left;
+    height: 58px;
+    width: 58px;
 }
 
 .template-title-position {
-	float: left;
-	width: 120px;
+    float: left;
+    width: 120px;
 }
 
 .template-results {
-	background: linear-gradient(to bottom, #FFFFFF 35px, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;
-	float: left;
-	height: 60px;
-	margin-bottom: -22px;
-	padding-left: 10px;
-	width: 1014px;
+    background: linear-gradient(to bottom, #FFFFFF 35px, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;
+    float: left;
+    height: 60px;
+    margin-bottom: -22px;
+    padding-left: 10px;
+    width: 1014px;
 }
 
 .select-row-action {
-	background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
-	border: 1px solid #CCCCCC;
-	border-radius: 5px 5px 5px 5px;
-	float: left;
-	font-size: 13px;
-	height: 38px;
-	line-height: 38px;
-	margin: 10px 10px 0;
-	text-align: center;
-	text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
-	width: 230px;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    font-size: 13px;
+    height: 38px;
+    line-height: 38px;
+    margin: 10px 10px 0;
+    text-align: center;
+    text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
+    width: 230px;
 }
 
 .select-row-delete {
-	background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
-	border: 1px solid #B10F14;
-	border-radius: 5px 5px 5px 5px;
-	color: #FFFFFF;
-	float: left;
-	font-size: 13px;
-	font-weight: bold;
-	height: 38px;
-	line-height: 38px;
-	margin: 10px 10px 0;
-	text-align: center;
-	text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
-	width: 230px;
+    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #B10F14;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    height: 38px;
+    line-height: 38px;
+    margin: 10px 10px 0;
+    text-align: center;
+    text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
+    width: 230px;
 }
 
 .template-general .title {
-	color: black;
-	font-size: 16px;
-	font-weight: normal;
-	height: 25px;
-	line-height: 25px;
-	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
-	max-width: 130px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+    height: 25px;
+    line-height: 25px;
+    text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

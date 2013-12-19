@@ -19,44 +19,44 @@
  * limitations under the License.
  */
 .navbar {
-	height: 48px;
-	border-top: 1px solid #2c85c3;
-	border-bottom: 1px solid #04385d;
-	background: #0769ac url(../images/theme-default/nav-bg.png) repeat-x;
+    height: 48px;
+    border-top: 1px solid #2c85c3;
+    border-bottom: 1px solid #04385d;
+    background: #0769ac url(../images/theme-default/nav-bg.png) repeat-x;
 }
 
 .nav-menu {
-	height: 48px;
-	position: relative;
+    height: 48px;
+    position: relative;
 }
 
 .nav-menu li {
-	float: left;
-	height: 48px;
+    float: left;
+    height: 48px;
 }
 
 .nav-menu .item {
-	display: block;
-	width: 100px;
-	height: 48px;
-	line-height: 48px;
-	padding: 0 10px;
-	text-align: center;
-	font-size: 13px;
-	color: #eee;
-	outline: none;
+    display: block;
+    width: 100px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 13px;
+    color: #eee;
+    outline: none;
 }
 
 .nav-menu .item.current:focus {
-	outline: white dotted thin;
+    outline: white dotted thin;
 }
 
 .menu-arrow {
-	position: absolute;
-	width: 0;
-	bottom: -1px;
-	left: 50px;
-	border: 10px solid transparent;
-	border-top: none;
-	border-bottom-color: #e4e4e4;
+    position: absolute;
+    width: 0;
+    bottom: -1px;
+    left: 50px;
+    border: 10px solid transparent;
+    border-top: none;
+    border-bottom-color: #e4e4e4;
 }

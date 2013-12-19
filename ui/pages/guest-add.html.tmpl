@@ -28,68 +28,68 @@
 <html>
 <body>
 <div class="window" style="width: 900px;height: 580px;">
-	<header>
-		<h1 class="title">$_("Create a New Virtual Machine")</h1>
-		<div class="close">X</div>
-	</header>
-	<div class="content">
-		<form id="form-vm-add">
-		<section class="form-section">
-			<h2>1. $_("Virtual Machine Name")</h2>
-			<div class="field">
-				<p class="text-help">
-					$_("The name used to identify the VM. If omitted, a name will be chosen based on the template used.")
-				</p>
-				<input type="text" class="text" style="width: 300px" name="name">
-			</div>
-		</section>
-		<section class="form-section">
-			<h2>2. $_("Template")</h2>
-			<div class="field">
-				<div class="text-help">
-					<div id="prompt-create-template" class="hidden">
-						<div>$_("Please create a template first.")</div>
-						<a id="btn-create-template" class="btn-normal" href="templates.html">
-							<span class="text">$_("Create a Template")</span>
-						</a>
-					</div>
-					<div id="prompt-choose-template" class="hidden">
-						<span>$_("Please choose a template.")</span>
-					</div>
-				</div>
-				<ul id="templateTile" class="tile-check tile-template">
-				</ul>
-				<script type="html/text" id="tmpl-template" class="tmpl-html">
-					<li>
-						<label>
-							<input type="radio" name="template" value="/templates/{name}">
-							<div class="info">
-								<div class="summary os-icon">
-									<img src="{icon}">
-									<span class="title">{name}</span>
-								</div>
-								<ul class="list-info">
-									<li><label>$_("OS")</label><span>{os_distro}</span></li>
-									<li><label>$_("OS Version")</label><span>{os_version}</span></li>
-									<li><label>$_("CPUS")</label><span>{cpus}</span></li>
-									<li><label>$_("Memory")</label><span>{memory}M</span></li>
-								</ul>
-							</div>
-						</label>
-					</li>
-				</script>
-			</div>
-		</section>
-		</form>
-	</div>
-	<footer>
-		<div class="btn-group">
-			<button id="vm-doAdd" class="btn-normal" disabled="disabled" href="javascript:void(0);"><span class="text">$_("Create")</span></button>
-		</div>
-	</footer>
+    <header>
+        <h1 class="title">$_("Create a New Virtual Machine")</h1>
+        <div class="close">X</div>
+    </header>
+    <div class="content">
+        <form id="form-vm-add">
+        <section class="form-section">
+            <h2>1. $_("Virtual Machine Name")</h2>
+            <div class="field">
+                <p class="text-help">
+                    $_("The name used to identify the VM. If omitted, a name will be chosen based on the template used.")
+                </p>
+                <input type="text" class="text" style="width: 300px" name="name">
+            </div>
+        </section>
+        <section class="form-section">
+            <h2>2. $_("Template")</h2>
+            <div class="field">
+                <div class="text-help">
+                    <div id="prompt-create-template" class="hidden">
+                        <div>$_("Please create a template first.")</div>
+                        <a id="btn-create-template" class="btn-normal" href="templates.html">
+                            <span class="text">$_("Create a Template")</span>
+                        </a>
+                    </div>
+                    <div id="prompt-choose-template" class="hidden">
+                        <span>$_("Please choose a template.")</span>
+                    </div>
+                </div>
+                <ul id="templateTile" class="tile-check tile-template">
+                </ul>
+                <script type="html/text" id="tmpl-template" class="tmpl-html">
+                    <li>
+                        <label>
+                            <input type="radio" name="template" value="/templates/{name}">
+                            <div class="info">
+                                <div class="summary os-icon">
+                                    <img src="{icon}">
+                                    <span class="title">{name}</span>
+                                </div>
+                                <ul class="list-info">
+                                    <li><label>$_("OS")</label><span>{os_distro}</span></li>
+                                    <li><label>$_("OS Version")</label><span>{os_version}</span></li>
+                                    <li><label>$_("CPUS")</label><span>{cpus}</span></li>
+                                    <li><label>$_("Memory")</label><span>{memory}M</span></li>
+                                </ul>
+                            </div>
+                        </label>
+                    </li>
+                </script>
+            </div>
+        </section>
+        </form>
+    </div>
+    <footer>
+        <div class="btn-group">
+            <button id="vm-doAdd" class="btn-normal" disabled="disabled" href="javascript:void(0);"><span class="text">$_("Create")</span></button>
+        </div>
+    </footer>
 </div>
 <script>
-	kimchi.guest_add_main();
+    kimchi.guest_add_main();
 </script>
 </body>
 </html>

@@ -19,30 +19,30 @@
  * limitations under the License.
  */
 .tile-check {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .tile-check>li {
-	float: left;
-	padding: 5px;
+    float: left;
+    padding: 5px;
 }
 
 .tile-check>li>label {
-	display: block;
-	cursor: pointer;
+    display: block;
+    cursor: pointer;
 }
 
 .tile-check>li>label>input[type="radio"] {
-	display: none;
+    display: none;
 }
 
 .tile-check>li>label>.info {
-	display: block;
-	position: relative;
-	overflow: hidden;
-	border: 4px solid #ccc;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid #ccc;
 }
 
 .tile-check>li>label>input[type="radio"]:CHECKED+.info {
-	border: 4px solid #06C;
+    border: 4px solid #06C;
 }

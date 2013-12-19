@@ -27,97 +27,97 @@
 #silent _t = t.gettext
 
 <div id="template-edit-window" class="window">
-	<header>
-		<h1 class="title">$_("Edit Template")</h1>
-		<div class="close">X</div>
-	</header>
-	<div class="content">
-		<form id="form-template-edit">
-			<input type="hidden" id="template-name" name="templateName" />
-			<fieldset class="template-edit-fieldset">
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-id-textbox">$_("Name")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-id-textbox" name="name" type="text" />
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-vendor-textbox">$_("Vendor")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-vendor-textbox" name="os_distro" type="text" disabled="disabled" />
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-version-textbox">$_("Version")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-version-textbox" name="os_version" type="text" disabled="disabled" />
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-cpu-textbox">$_("CPU Number")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-cpu-textbox" name="cpus" type="text" />
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label for="template-edit-memory-textbox">$_("Memory")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-memory-textbox" name="memory" type="text" />
-					</div>
-				</div>
-			</fieldset>
-			<fieldset class="template-edit-fieldset">
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label>$_("Disk (GB)")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-version-textbox" name="disks" type="text" />
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label>$_("CDROM")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<input id="template-edit-version-textbox" name="cdrom" type="text" disabled="disabled"/>
-					</div>
-				</div>
-				<div>
-					<div class="template-edit-wrapper-label">
-						<label>$_("Storage Pool")</label>
-					</div>
-					<div class="template-edit-wrapper-controls">
-						<div class="btn dropdown popable">
-							<input id="template-edit-storagePool" name="storagepool" type="hidden" />
-							<span class="text" id="template-edit-storage-label"></span><span class="arrow"></span>
-							<div class="popover" style="width: 100%">
-								<ul class="select-list" id="template-edit-storagePool-list" data-target="template-edit-storagePool" data-label="template-edit-storage-label">
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</form>
-	</div>
-	<footer>
-		<div class="btn-group">
-			<a id="tmpl-edit-button-cancel" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Cancel")</span></a>
-			<a id="tmpl-edit-button-save" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Save")</span></a>
-		</div>
-	</footer>
+    <header>
+        <h1 class="title">$_("Edit Template")</h1>
+        <div class="close">X</div>
+    </header>
+    <div class="content">
+        <form id="form-template-edit">
+            <input type="hidden" id="template-name" name="templateName" />
+            <fieldset class="template-edit-fieldset">
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-id-textbox">$_("Name")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-id-textbox" name="name" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-vendor-textbox">$_("Vendor")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-vendor-textbox" name="os_distro" type="text" disabled="disabled" />
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-version-textbox">$_("Version")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-version-textbox" name="os_version" type="text" disabled="disabled" />
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-cpu-textbox">$_("CPU Number")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-cpu-textbox" name="cpus" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-memory-textbox">$_("Memory")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-memory-textbox" name="memory" type="text" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="template-edit-fieldset">
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label>$_("Disk (GB)")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-version-textbox" name="disks" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label>$_("CDROM")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-version-textbox" name="cdrom" type="text" disabled="disabled"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="template-edit-wrapper-label">
+                        <label>$_("Storage Pool")</label>
+                    </div>
+                    <div class="template-edit-wrapper-controls">
+                        <div class="btn dropdown popable">
+                            <input id="template-edit-storagePool" name="storagepool" type="hidden" />
+                            <span class="text" id="template-edit-storage-label"></span><span class="arrow"></span>
+                            <div class="popover" style="width: 100%">
+                                <ul class="select-list" id="template-edit-storagePool-list" data-target="template-edit-storagePool" data-label="template-edit-storage-label">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <footer>
+        <div class="btn-group">
+            <a id="tmpl-edit-button-cancel" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Cancel")</span></a>
+            <a id="tmpl-edit-button-save" class="btn-normal" href="javascript:void(0);"><span class="text">$_("Save")</span></a>
+        </div>
+    </footer>
 </div>
 <script>
-	kimchi.template_edit_main();
+    kimchi.template_edit_main();
 </script>

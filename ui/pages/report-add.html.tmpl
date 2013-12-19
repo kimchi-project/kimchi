@@ -26,32 +26,32 @@
 #silent _t = t.gettext
 <!DOCTYPE html>
 <div id="report-add-window" class="window">
-	<header>
-		<h1 class="title">$_("Generate a New Debug Report")</h1>
-		<div class="close">X</div>
-	</header>
-	<div class="content">
-		<form id="form-report-add">
-			<section class="form-section">
-				<h2>
-					<label for="report-name-textbox">$_("Report Name")</label>
-				</h2>
-				<div class="field">
-					<span>
-						$_("The name used to identify the report. If omitted, a name will be chosen based on current time. Name can contain: letters, digits, \"-\", \"_\", or \".\".")
-					</span>
-					<input type="text" class="text" id="report-name-textbox" name="name" />
-					<span id="report-error-message"></span>
-				</div>
-			</section>
-		</form>
-	</div>
-	<footer>
-		<div class="btn-group">
-			<button id="button-report-add" class="btn-normal"><span class="text">$_("Generate")</span></button>
-		</div>
-	</footer>
+    <header>
+        <h1 class="title">$_("Generate a New Debug Report")</h1>
+        <div class="close">X</div>
+    </header>
+    <div class="content">
+        <form id="form-report-add">
+            <section class="form-section">
+                <h2>
+                    <label for="report-name-textbox">$_("Report Name")</label>
+                </h2>
+                <div class="field">
+                    <span>
+                        $_("The name used to identify the report. If omitted, a name will be chosen based on current time. Name can contain: letters, digits, \"-\", \"_\", or \".\".")
+                    </span>
+                    <input type="text" class="text" id="report-name-textbox" name="name" />
+                    <span id="report-error-message"></span>
+                </div>
+            </section>
+        </form>
+    </div>
+    <footer>
+        <div class="btn-group">
+            <button id="button-report-add" class="btn-normal"><span class="text">$_("Generate")</span></button>
+        </div>
+    </footer>
 </div>
 <script>
-	kimchi.report_add_main();
+    kimchi.report_add_main();
 </script>

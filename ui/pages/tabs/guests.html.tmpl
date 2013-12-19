@@ -30,29 +30,29 @@
 <html>
 <body>
 <div id="guests-root-container">
-	<div class="toolbar">
-		<div class="tools">
-			<a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
-		</div>
-	</div>
-	<div id="guestListField" style="display: none;">
-		<ul class="list-title">
-			<li class="guest-type">$_("Name")</li>
-			<li class="guest-cpu">$_("CPU")</li>
-			<li class="guest-network">$_("Network I/O")</li>
-			<li class="guest-storage">$_("Disk I/O")</li>
-			<li class="guest-tile">$_("Livetile")</li>
-			<li class="guest-actions">$_("Actions")</li>
-		</ul>
-		<ul id="guestList" class="list-vm">
-		</ul>
-	</div>
-	<div id="noGuests" class="list-no-result" style="display: none;">
-		$_("No guests found.")
-	</div>
+    <div class="toolbar">
+        <div class="tools">
+            <a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+        </div>
+    </div>
+    <div id="guestListField" style="display: none;">
+        <ul class="list-title">
+            <li class="guest-type">$_("Name")</li>
+            <li class="guest-cpu">$_("CPU")</li>
+            <li class="guest-network">$_("Network I/O")</li>
+            <li class="guest-storage">$_("Disk I/O")</li>
+            <li class="guest-tile">$_("Livetile")</li>
+            <li class="guest-actions">$_("Actions")</li>
+        </ul>
+        <ul id="guestList" class="list-vm">
+        </ul>
+    </div>
+    <div id="noGuests" class="list-no-result" style="display: none;">
+        $_("No guests found.")
+    </div>
 </div>
 <script>
-	kimchi.guest_main();
+    kimchi.guest_main();
 </script>
 </body>
 </html>

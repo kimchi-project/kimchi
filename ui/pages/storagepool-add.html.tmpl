@@ -27,89 +27,89 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<div class="window" style="width: 600px; height: 600px;">
-		<header>
-			<h1 class="title">$_("Define a New Storage Pool")</h1>
-			<div class="close">X</div>
-		</header>
-		<div class="content">
-			<form id="form-pool-add">
-				<section class="form-section">
-					<h2>1. $_("Storage Pool Name")</h2>
-					<div class="field">
-						<p class="text-help">
+    <div class="window" style="width: 600px; height: 600px;">
+        <header>
+            <h1 class="title">$_("Define a New Storage Pool")</h1>
+            <div class="close">X</div>
+        </header>
+        <div class="content">
+            <form id="form-pool-add">
+                <section class="form-section">
+                    <h2>1. $_("Storage Pool Name")</h2>
+                    <div class="field">
+                        <p class="text-help">
                             $_("The name used to identify the storage pools, and it should not be empty.")
                         </p>
-						<input id="poolId" type="text" class="text" style="width: 300px"
-							name="name">
-					</div>
-				</section>
-				<section class="form-section">
-					<h2>2. $_("Storage Pool Type")</h2>
-					<div class="storage-type-wrapper-controls">
-						<div class="btn dropdown popable">
-							<input id="poolType" name="type" type="hidden" value="dir"/>
-							<span class="text" id="pool-type-label"></span><span class="arrow"></span>
-							<div class="popover" style="width: 100%">
-								<ul class="select-list" id="storagePool-list" data-target="poolType" data-label="pool-type-label">
-								</ul>
-							</div>
-						</div>
+                        <input id="poolId" type="text" class="text" style="width: 300px"
+                            name="name">
                     </div>
-				</section>
+                </section>
+                <section class="form-section">
+                    <h2>2. $_("Storage Pool Type")</h2>
+                    <div class="storage-type-wrapper-controls">
+                        <div class="btn dropdown popable">
+                            <input id="poolType" name="type" type="hidden" value="dir"/>
+                            <span class="text" id="pool-type-label"></span><span class="arrow"></span>
+                            <div class="popover" style="width: 100%">
+                                <ul class="select-list" id="storagePool-list" data-target="poolType" data-label="pool-type-label">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div class="path-section">
-				    <section class="form-section">
-					    <h2>3. $_("Storage Path")</h2>
-					    <div class="field">
-						    <p class="text-help">
+                    <section class="form-section">
+                        <h2>3. $_("Storage Path")</h2>
+                        <div class="field">
+                            <p class="text-help">
                                 $_("The path of the Storage Pool. Each Storage Pool must have a unique path.")</p>
-						    <input id="pathId" type="text" class="text" style="width: 300px">
-					    </div>
-					    <div class="clear"></div>
-				    </section>
+                            <input id="pathId" type="text" class="text" style="width: 300px">
+                        </div>
+                        <div class="clear"></div>
+                    </section>
                 </div>
                 <div class="nfs-section tmpl-html">
-					<section class="form-section">
-						<h2>3. $_("NFS server IP")</h2>
-						<div class="field">
-							<p class="text-help">
+                    <section class="form-section">
+                        <h2>3. $_("NFS server IP")</h2>
+                        <div class="field">
+                            <p class="text-help">
                                 $_("NFS server IP or hostname. It should not be empty.")</p>
-							<input id="nfsserverId" type="text" class="text"
-								style="width: 300px">
-						</div>
-					</section>
-					<section class="form-section">
-						<h2>4. $_("NFS Path")</h2>
-						<div class="field">
-							<p class="text-help">$_("The nfs exported path on nfs server")</p>
-							<input id="nfspathId" type="text" class="text"
-								style="width: 300px">
+                            <input id="nfsserverId" type="text" class="text"
+                                style="width: 300px">
+                        </div>
+                    </section>
+                    <section class="form-section">
+                        <h2>4. $_("NFS Path")</h2>
+                        <div class="field">
+                            <p class="text-help">$_("The nfs exported path on nfs server")</p>
+                            <input id="nfspathId" type="text" class="text"
+                                style="width: 300px">
                             <input type="hidden" id="localpathId" class="text"
-								value="none">
-						</div>
-						<div class="clear"></div>
-					</section>
-				</div>
-				<div class="logical-section tmpl-html">
-					<section class="form-section storageType">
-						<h2>3. $_("Device Path")</h2>
-						<div class="host-partition"></div>
-					</section>
-				</div>
-			</form>
-		</div>
-		<footer>
-			<div class="btn-group">
-				<button id="pool-doAdd" class="btn-normal">
-					<span class="text">$_("Create")</span>
-				</button>
-			</div>
-		</footer>
-	</div>
-	<script>
+                                value="none">
+                        </div>
+                        <div class="clear"></div>
+                    </section>
+                </div>
+                <div class="logical-section tmpl-html">
+                    <section class="form-section storageType">
+                        <h2>3. $_("Device Path")</h2>
+                        <div class="host-partition"></div>
+                    </section>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <div class="btn-group">
+                <button id="pool-doAdd" class="btn-normal">
+                    <span class="text">$_("Create")</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+    <script>
         kimchi.storagepool_add_main();
     </script>
-	<script id="partitionTmpl" type="html/text">
+    <script id="partitionTmpl" type="html/text">
         <div>
         <input type="checkbox" value="{path}" name="devices">
         <label>{path}</label>

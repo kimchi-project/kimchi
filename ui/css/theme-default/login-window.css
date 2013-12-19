@@ -26,10 +26,10 @@
 #login-window>header>.title-text {
     front: #000000;
     font-size: 18px;
-	height: 48px;
-	line-height: 48px;
-	font-weight: bold;
-	text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
+    height: 48px;
+    line-height: 48px;
+    font-weight: bold;
+    text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
 }
 
 #login-window footer #form-language {

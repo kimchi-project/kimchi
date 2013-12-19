@@ -1,47 +1,47 @@
 {
-	"$schema": "http://json-schema.org/draft-03/schema#",
-	"title": "Plugin Sample API",
-	"description": "Json schema for Kimchi's Sample Plugin API",
-	"type": "object",
-	"properties": {
-		"rectangles_create": {
-			"type": "object",
-			"properties": {
-				"name": {
-					"description": "The name of the new rectangle instance",
-					"type": "string",
-					"required": true
-				},
-				"length": {
-					"$ref": "#/definitions/positiveNumber",
-					"required": true
-				},
-				"width": {
-					"$ref": "#/definitions/positiveNumber",
-					"required": true
-				}
-			}
-		}
-	},
-		"circles_create": {
-			"type": "object",
-			"properties": {
-				"name": {
-					"description": "The name of the new circle instance",
-					"type": "string",
-					"required": true
-				},
-				"radius": {
-					"$ref": "#/definitions/positiveNumber",
-					"required": true
-				}
-			}
-	},
-	"definitions": {
-		"positiveNumber": {
-			"type": "number",
-			"minimum": 0,
-			"exclusiveMinimum": true
-		}
-	}
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Plugin Sample API",
+    "description": "Json schema for Kimchi's Sample Plugin API",
+    "type": "object",
+    "properties": {
+        "rectangles_create": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name of the new rectangle instance",
+                    "type": "string",
+                    "required": true
+                },
+                "length": {
+                    "$ref": "#/definitions/positiveNumber",
+                    "required": true
+                },
+                "width": {
+                    "$ref": "#/definitions/positiveNumber",
+                    "required": true
+                }
+            }
+        }
+    },
+        "circles_create": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name of the new circle instance",
+                    "type": "string",
+                    "required": true
+                },
+                "radius": {
+                    "$ref": "#/definitions/positiveNumber",
+                    "required": true
+                }
+            }
+    },
+    "definitions": {
+        "positiveNumber": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+        }
+    }
 }

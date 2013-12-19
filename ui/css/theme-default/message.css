@@ -19,120 +19,120 @@
  * limitations under the License.
  */
 #messageField {
-	position: fixed;
-	margin: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	width: 1024px;
-	max-width: 100%;
-	z-index: 200;
+    position: fixed;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 1024px;
+    max-width: 100%;
+    z-index: 200;
 }
 
 .message {
-	background-color: #FFF68F;
-	position: relative;
-	margin-bottom: 5px;
+    background-color: #FFF68F;
+    position: relative;
+    margin-bottom: 5px;
 }
 
 .message.warn {
-	background-color: #FFF68F;
+    background-color: #FFF68F;
 }
 
 .message.error {
-	background-color: #FFAEB9;
+    background-color: #FFAEB9;
 }
 
 .message.success {
-	background-color: #90EE90;
+    background-color: #90EE90;
 }
 
 .message .close {
-	position: absolute;
-	width: 30px;
-	height: 30px;
-	top: 0;
-	right: 0;
-	color: #545454;
-	font-size: 12px;
-	text-align: center;
-	line-height: 30px;
-	cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 0;
+    color: #545454;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
 }
 
 .message .content {
-	padding: 0 30px 0 10px;
-	line-height: 30px;
+    padding: 0 30px 0 10px;
+    line-height: 30px;
 }
 
 .confirmbox {
-	position: absolute;
-	margin: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	box-shadow: 2px 2px 6px #000;
-	border: 2px solid #0f71b4;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: black;
-	box-sizing: border-box;
-	max-width: 100%;
-	max-height: 100%;
-	width: 350px;
-	height: 170px;
-	z-index: 9999;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: 2px 2px 6px #000;
+    border: 2px solid #0f71b4;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: black;
+    box-sizing: border-box;
+    max-width: 100%;
+    max-height: 100%;
+    width: 350px;
+    height: 170px;
+    z-index: 9999;
 }
 
 .confirmbox>footer {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 48px;
-	box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
 }
 
 .confirmbox .title {
-	display: inline-block;
-	padding: 10px 10px 0 10px;
-	line-height: 20px;
-	color: white;
+    display: inline-block;
+    padding: 10px 10px 0 10px;
+    line-height: 20px;
+    color: white;
 }
 
 .confirmbox .content {
-	padding: 20px 10px 0px 100px;
-	line-height: 16px;
-	font-size: 13px;
-	color: white;
-	background: url(../images/theme-default/alert.png) no-repeat 20px center;
-	height: 41px;
-	vertical-align: middle;
+    padding: 20px 10px 0px 100px;
+    line-height: 16px;
+    font-size: 13px;
+    color: white;
+    background: url(../images/theme-default/alert.png) no-repeat 20px center;
+    height: 41px;
+    vertical-align: middle;
 }
 
 
 .confirmbox .close {
-	position: absolute;
-	width: 13px;
-	height: 13px;
-	top: 7px;
-	right: 7px;
-	-webkit-border-radius: 13px;
-	-moz-border-radius: 13px;
-	border-radius: 13px;
-	border: 2px solid #ccc;
-	color: #ccc;
-	font-size: 13px;
-	text-align: center;
-	line-height: 13px;
-	font-weight: bold;
-	background: #4a4a4a;;
-	cursor: pointer;
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 7px;
+    right: 7px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    border-radius: 13px;
+    border: 2px solid #ccc;
+    color: #ccc;
+    font-size: 13px;
+    text-align: center;
+    line-height: 13px;
+    font-weight: bold;
+    background: #4a4a4a;;
+    cursor: pointer;
 }
 
 .confirmbox>header>.close:hover {
-	border: 2px solid #444;
-	color: #444;
+    border: 2px solid #444;
+    color: #444;
 }

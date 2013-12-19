@@ -19,57 +19,57 @@
  * limitations under the License.
  */
 #template-edit-window {
-	font-size: 13px;
-	height: 400px;
-	width: 1000px;
+    font-size: 13px;
+    height: 400px;
+    width: 1000px;
 }
 
 .template-edit-fieldset {
-	float: left;
-	padding: 1em;
+    float: left;
+    padding: 1em;
 }
 
 .template-edit-wrapper-label, .template-edit-wrapper-controls {
-	display: inline-block;
-	vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .template-edit-wrapper-label {
-	width: 150px;
-	height: 38px;
-	line-height: 38px;
-	margin-top: 5px;
+    width: 150px;
+    height: 38px;
+    line-height: 38px;
+    margin-top: 5px;
 }
 
 .template-edit-wrapper-controls {
-	width: 300px;
+    width: 300px;
 }
 
 .template-edit-wrapper-controls input[type="text"] {
-	height: 38px;
-	line-height: 38px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	box-shadow: 2px 2px 2px #eee inset;
-	border-top: 1px solid #bbb;
-	border-left: 1px solid #bbb;
-	padding: 0 10px;
-	margin-top: 5px;
-	width: 250px;
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee inset;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding: 0 10px;
+    margin-top: 5px;
+    width: 250px;
 }
 
 .template-edit-wrapper-controls > .dropdown {
-	margin: 5px 0 0 1px;
-	width: 250px;
+    margin: 5px 0 0 1px;
+    width: 250px;
 }
 
 .template-edit-wrapper-controls input[type="text"][disabled] {
-	color: #bbb;
-	background-color: #fafafa;
-	cursor: not-allowed;
+    color: #bbb;
+    background-color: #fafafa;
+    cursor: not-allowed;
 }
 
 .hidden-area {
-	display: none;
+    display: none;
 }

@@ -24,44 +24,44 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
-		<li id="{name}">
-			<div class="sortable guest-type">
-				<div class="guest-general">
-					<h2 class="title" title="{name}">{name}</h2>
-				</div>
-			</div>
-			<div class="sortable guest-cpu">
-				<div class="circle" data-value="{stats}"></div>
-			</div>
-			<div class="sortable guest-network">
-				<div class="circle" data-value="{stats}"></div>
+        <li id="{name}">
+            <div class="sortable guest-type">
+                <div class="guest-general">
+                    <h2 class="title" title="{name}">{name}</h2>
+                </div>
+            </div>
+            <div class="sortable guest-cpu">
+                <div class="circle" data-value="{stats}"></div>
+            </div>
+            <div class="sortable guest-network">
+                <div class="circle" data-value="{stats}"></div>
                 <div class="subtitle">KB/s</div>
-			</div>
-			<div class="sortable guest-storage">
-				<div class="circle" data-value="{stats}"></div>
+            </div>
+            <div class="sortable guest-storage">
+                <div class="circle" data-value="{stats}"></div>
                 <div class="subtitle">KB/s</div>
-			</div>
-			<div class="sortable guest-tile">
-				<div class="tile {state}">
-					<img class="imgactive" alt="" src="{tile-src}">
-					<img class="imgload" alt="" src="{load-src}">
-				</div>
-			</div>
-			<div class="sortable guest-actions">
-				<div class="top">
-					<a class="btn vm-reset" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></a>
-					<a class="btn vm-start" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></a>
-					<a class="btn vm-stop" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Stop")"><span class="icon power-up"></span></a>
-				</div>
-				<div class="bottom">
-					<div class="btn dropdown popable vm-action" data-vmstate="{state}" data-graphics="{graphics.type}" data-vm="{name}" style="width: 70px">
-						<span class="text">$_("Actions")</span><span class="arrow"></span>
-						<div class="popover actionsheet right-side" style="width: 250px">
-							<button class="button-big vm-vnc" data-vm="{name}"><span class="text">VNC</span></button>
-							<button class="button-big vm-edit" data-vm="{name}"><span class="text">$_("Edit")</span></button>
-							<a class="button-big red vm-delete" data-vm="{name}">$_("Delete")</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</li>
+            </div>
+            <div class="sortable guest-tile">
+                <div class="tile {state}">
+                    <img class="imgactive" alt="" src="{tile-src}">
+                    <img class="imgload" alt="" src="{load-src}">
+                </div>
+            </div>
+            <div class="sortable guest-actions">
+                <div class="top">
+                    <a class="btn vm-reset" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></a>
+                    <a class="btn vm-start" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></a>
+                    <a class="btn vm-stop" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Stop")"><span class="icon power-up"></span></a>
+                </div>
+                <div class="bottom">
+                    <div class="btn dropdown popable vm-action" data-vmstate="{state}" data-graphics="{graphics.type}" data-vm="{name}" style="width: 70px">
+                        <span class="text">$_("Actions")</span><span class="arrow"></span>
+                        <div class="popover actionsheet right-side" style="width: 250px">
+                            <button class="button-big vm-vnc" data-vm="{name}"><span class="text">VNC</span></button>
+                            <button class="button-big vm-edit" data-vm="{name}"><span class="text">$_("Edit")</span></button>
+                            <a class="button-big red vm-delete" data-vm="{name}">$_("Delete")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>

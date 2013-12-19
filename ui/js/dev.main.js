@@ -232,13 +232,13 @@ function load(data)
 {
     console.log("load");
     $.ajax({
-	url: "/vms",
-	dataType: "json"
+    url: "/vms",
+    dataType: "json"
     }).done(load_vms);
 
     $.ajax({
-	url: "/templates",
-	dataType: "json"
+    url: "/templates",
+    dataType: "json"
     }).done(load_templates);
 
     $.ajax({
