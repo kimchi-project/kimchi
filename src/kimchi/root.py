@@ -19,7 +19,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import cherrypy
 import json
@@ -30,30 +30,19 @@ from kimchi import template
 from kimchi.config import get_api_schema_file
 
 
-def error_production_handler(status, message, traceback, version):
-    data = {'code': status, 'reason': message}
-    res = template.render('error.html', data)
-    if type(res) is unicode:
-        res = res.encode("utf-8")
-    return res
-
-def error_development_handler(status, message, traceback, version):
-    data = {'code': status, 'reason': message, 'call_stack': cherrypy._cperror.format_exc()}
-    res = template.render('error.html', data)
-    if type(res) is unicode:
-        res = res.encode("utf-8")
-    return res
-
-
 class Root(controller.Resource):
-    _handled_error = ['error_page.400',
-        'error_page.404', 'error_page.405',
-        'error_page.406', 'error_page.415', 'error_page.500']
     def __init__(self, model, dev_env):
+        self._handled_error = ['error_page.400', 'error_page.404',
+                               'error_page.405', 'error_page.406',
+                               'error_page.415', 'error_page.500']
+
         if not dev_env:
-            self._cp_config = dict([(key, error_production_handler) for key in self._handled_error])
+            self._cp_config = dict([(key, self.error_production_handler)
+                                    for key in self._handled_error])
         else:
-            self._cp_config = dict([(key, error_development_handler) for key in self._handled_error])
+            self._cp_config = dict([(key, self.error_development_handler)
+                                    for key in self._handled_error])
+
         controller.Resource.__init__(self, model)
         self.vms = controller.VMs(model)
         self.templates = controller.Templates(model)
@@ -69,6 +58,21 @@ class Root(controller.Resource):
         self.plugins = controller.Plugins(model)
         self.api_schema = json.load(open(get_api_schema_file()))
 
+    def error_production_handler(self, status, message, traceback, version):
+        data = {'code': status, 'reason': message}
+        res = template.render('error.html', data)
+        if type(res) is unicode:
+            res = res.encode("utf-8")
+        return res
+
+    def error_development_handler(self, status, message, traceback, version):
+        data = {'code': status, 'reason': message,
+                'call_stack': cherrypy._cperror.format_exc()}
+        res = template.render('error.html', data)
+        if type(res) is unicode:
+            res = res.encode("utf-8")
+        return res
+
     def get(self):
         return self.default('kimchi-ui.html')
 
@@ -77,8 +81,9 @@ class Root(controller.Resource):
         if page.endswith('.html'):
             return template.render(page, None)
         raise cherrypy.HTTPError(404)
+
     @cherrypy.expose
     def tabs(self, page, **kwargs):
         if page.endswith('.html'):
-            return template.render('tabs/'+ page, None)
+            return template.render('tabs/' + page, None)
         raise cherrypy.HTTPError(404)
