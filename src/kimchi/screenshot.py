@@ -174,6 +174,12 @@ class VMScreenshot(object):
             self._create_black_image(thumbnail)
         else:
             im = Image.open(thumbnail)
+            try:
+                # Prevent Image lib from lazy load,
+                # work around pic truncate validation in thumbnail generation
+                im.load()
+            except Exception as e:
+                kimchi_log.warning("Image load with warning: %s." % e)
             im.thumbnail(self.THUMBNAIL_SIZE)
             im.save(thumbnail, "PNG")
 
