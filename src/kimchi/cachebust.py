@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
 
@@ -28,6 +28,6 @@ from kimchi.config import get_prefix
 
 def href(url):
     # for error.html, url is absolute path
-    f = os.path.join(get_prefix(),'ui', url.lstrip("/"))
+    f = os.path.join(get_prefix(), 'ui', url.lstrip("/"))
     mtime = os.path.getmtime(f)
     return "%s?cacheBust=%s" % (url, mtime)
