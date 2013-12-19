@@ -20,7 +20,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import base64
 import cherrypy
@@ -53,9 +53,9 @@ def authenticate(username, password, service="passwd"):
             elif qtype == PAM.PAM_PROMPT_ERROR_MSG:
                 cherrypy.log.error_log.error("PAM authenticate prompt error "
                                               "message: %s" % query)
-                resp.append(('', 0));
+                resp.append(('', 0))
             elif qtype == PAM.PAM_PROMPT_TEXT_INFO:
-                resp.append(('', 0));
+                resp.append(('', 0))
             else:
                 return None
         return resp
@@ -72,12 +72,14 @@ def authenticate(username, password, service="passwd"):
 
     return True
 
+
 def from_browser():
     # Enable Basic Authentication for REST tools.
     # Ajax request sent from jQuery in browser will have "X-Requested-With"
     # header. We will check it to determine whether enable BA.
     requestHeader = cherrypy.request.headers.get("X-Requested-With", None)
     return (requestHeader == "XMLHttpRequest")
+
 
 def check_auth_session():
     """
@@ -99,7 +101,7 @@ def check_auth_httpba():
     """
     REST API users may authenticate with HTTP Basic Auth.  This is not allowed
     for the UI because web browsers would cache the credentials and make it
-    impossible for the user to log out without closing their browser completely.
+    impossible for the user to log out without closing their browser completely
     """
     if from_browser() or not template.can_accept('application/json'):
         return False

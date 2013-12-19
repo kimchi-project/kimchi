@@ -39,6 +39,7 @@ EXTRA_DIST = \
 # So it will be checked from now on.
 PEP8_WHITELIST = \
 	src/kimchi/asynctask.py \
+	src/kimchi/auth.py \
 	src/kimchi/config.py.in \
 	src/kimchi/disks.py \
 	src/kimchi/server.py \
