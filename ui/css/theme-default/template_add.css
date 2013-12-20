@@ -194,6 +194,10 @@
     background-image: url(../../images/icon-ubuntu.png);
 }
 
+.iso-icon.gentoo {
+    background-image: url(../../images/icon-gentoo.png);
+}
+
 .list-iso {
     overflow: hidden;
     margin: 5px;

@@ -113,6 +113,7 @@ iso_dir = [
     ('ubuntu', lambda m: m.group(2), '[Uu]buntu(-Server)? (\d+\.\d+)'),
     ('fedora', lambda m: m.group(1), 'Fedora[ -](\d+)'),
     ('fedora', lambda m: m.group(1), 'Fedora.*-(\d+)-'),
+    ('gentoo', lambda m: m.group(1), 'Gentoo Linux \w+ (\d+)'),
 ]
 
 

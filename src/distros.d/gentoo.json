@@ -1,0 +1,8 @@
+[
+    {
+        "name": "gentoo-20131010",
+        "os_distro": "gentoo",
+        "os_version": "20131010",
+        "path": "http://distfiles.gentoo.org/releases/amd64/autobuilds/current-iso/install-amd64-minimal-20131010.iso"
+    }
+]

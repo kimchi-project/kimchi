@@ -140,6 +140,15 @@ osinfo = [
         'disk_bus': 'ide', 'nic_model': 'e1000',
         'cdrom_bus': 'ide', 'cdrom_index': 2,
     }),
+    ('gentoo', {
+        'version': lambda d,v: bool(d == 'gentoo'),
+        'icon': 'images/icon-gentoo.png',
+        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
+        'memory': 1024,
+        'disks': [{'index': 0, 'size': 10}],
+        'disk_bus': 'virtio', 'nic_model': 'virtio',
+        'cdrom_bus': 'ide', 'cdrom_index': 2,
+    }),
     ('unknown', {
         'version': lambda d,v: True,
         'icon': 'images/icon-vm.png',

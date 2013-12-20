@@ -97,6 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/fedora.json
 %{_sysconfdir}/kimchi/distros.d/opensuse.json
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
+%{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_initrddir}/kimchid
 
 %changelog
