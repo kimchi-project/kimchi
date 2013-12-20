@@ -33,7 +33,7 @@ from kimchi import config
 from kimchi import model
 from kimchi import mockmodel
 from kimchi.root import Root
-from kimchi.utils import import_class, get_enabled_plugins
+from kimchi.utils import get_enabled_plugins, import_class
 
 
 LOGGING_LEVEL = {"debug": logging.DEBUG,

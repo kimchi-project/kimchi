@@ -28,7 +28,7 @@
 import time
 
 
-from M2Crypto import X509, EVP, RSA, ASN1
+from M2Crypto import ASN1, EVP, RSA, X509
 
 
 class SSLCert(object):

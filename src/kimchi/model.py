@@ -42,9 +42,9 @@ import time
 import uuid
 
 
-from collections import defaultdict
 from cherrypy.process.plugins import BackgroundTask
 from cherrypy.process.plugins import SimplePlugin
+from collections import defaultdict
 from xml.etree import ElementTree
 
 
@@ -69,7 +69,7 @@ from kimchi.networkxml import to_network_xml
 from kimchi.objectstore import ObjectStore
 from kimchi.scan import Scanner
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import kimchi_log, is_digit, get_enabled_plugins
+from kimchi.utils import get_enabled_plugins, is_digit, kimchi_log
 from kimchi.vmtemplate import VMTemplate
 
 

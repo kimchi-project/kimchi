@@ -20,15 +20,17 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import unittest
 import cherrypy
 import json
 import os
+import time
+import unittest
+
 
 import kimchi.mockmodel
 import kimchi.controller
+from utils import get_free_port, patch_auth, request, run_server 
 
-from utils import *
 
 #utils.silence_server()
 test_server = None

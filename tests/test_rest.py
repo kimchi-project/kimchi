@@ -20,16 +20,22 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import unittest
+import base64
 import json
-import time
 import os
+import time
+import unittest
+
+
 from functools import partial
+
 
 import kimchi.mockmodel
 import kimchi.server
-from utils import *
 from kimchi.asynctask import AsyncTask
+from utils import fake_user, get_free_port, https_request, patch_auth, request
+from utils import RollbackContext, run_server
+
 
 test_server = None
 model = None

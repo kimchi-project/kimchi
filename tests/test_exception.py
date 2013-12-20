@@ -20,13 +20,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import unittest
-import os
 import json
+import os
+import unittest
+
 
 import kimchi.mockmodel
 import kimchi.server
-from utils import *
+from utils import get_free_port, patch_auth, request, run_server
+
 
 test_server = None
 model = None

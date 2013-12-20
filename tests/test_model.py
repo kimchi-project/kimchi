@@ -21,21 +21,24 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-import unittest
-import threading
 import os
-import time
-import tempfile
-import psutil
 import platform
+import psutil
+import tempfile
+import threading
+import time
+import unittest
 import uuid
 
+
+import iso_gen
 import kimchi.model
 import kimchi.objectstore
-from kimchi.exception import *
-from kimchi import netinfo
 import utils
-import iso_gen
+from kimchi import netinfo
+from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import NotFoundError, OperationFailed
+
 
 class ModelTests(unittest.TestCase):
     def setUp(self):

@@ -22,9 +22,14 @@
 
 import json
 import os
+
+
 from cherrypy import expose
-from kimchi.controller import Resource, Collection
+
+
+from kimchi.controller import Collection, Resource
 from model import Model
+
 
 model = Model()
 

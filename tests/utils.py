@@ -21,16 +21,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-import httplib
+import base64
 import cherrypy
+import httplib
+import os
+import socket
+import sys
 import threading
 import time
-import os
-import sys
-import socket
-from contextlib import closing
 import unittest
-import base64
+
+
+from contextlib import closing
+
 
 import kimchi.server
 import kimchi.model

@@ -23,8 +23,10 @@
 import unittest
 import uuid
 
-from kimchi.vmtemplate import *
+
+from kimchi.vmtemplate import VMTemplate
 from kimchi.xmlutils import xpath_get_text
+
 
 class VMTemplateTests(unittest.TestCase):
     def test_minimal_construct(self):

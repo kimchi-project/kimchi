@@ -21,7 +21,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import unittest
-from kimchi.osinfo import *
+
+
+from kimchi.osinfo import lookup
+
 
 class OSInfoTests(unittest.TestCase):
     def test_default_lookup(self):
