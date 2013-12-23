@@ -28,7 +28,6 @@ from functools import wraps
 
 
 import kimchi.template
-from kimchi import auth
 from kimchi.control.utils import get_class_name, internal_redirect, model_fn
 from kimchi.control.utils import parse_request, validate_method, validate_params
 from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
@@ -648,25 +647,6 @@ class Partition(Resource):
     @property
     def data(self):
         return self.info
-
-@cherrypy.expose
-def login(*args):
-    params = parse_request()
-    try:
-        userid = params['userid']
-        password = params['password']
-    except KeyError, key:
-        raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % key)
-    try:
-        auth.login(userid, password)
-    except OperationFailed:
-        raise cherrypy.HTTPError(401)
-    return '{}'
-
-@cherrypy.expose
-def logout():
-    auth.logout()
-    return '{}'
 
 class Plugins(Collection):
     def __init__(self, model):

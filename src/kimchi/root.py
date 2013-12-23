@@ -25,9 +25,12 @@ import cherrypy
 import json
 
 
+from kimchi import auth
 from kimchi import controller
 from kimchi import template
 from kimchi.config import get_api_schema_file
+from kimchi.control.utils import parse_request
+from kimchi.exception import OperationFailed
 
 
 class Root(controller.Resource):
@@ -52,8 +55,6 @@ class Root(controller.Resource):
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
         self.host = controller.Host(model)
-        self.login = controller.login
-        self.logout = controller.logout
         self.debugreports = controller.DebugReports(model)
         self.plugins = controller.Plugins(model)
         self.api_schema = json.load(open(get_api_schema_file()))
@@ -87,3 +88,24 @@ class Root(controller.Resource):
         if page.endswith('.html'):
             return template.render('tabs/' + page, None)
         raise cherrypy.HTTPError(404)
+
+    @cherrypy.expose
+    def login(self, *args):
+        params = parse_request()
+        try:
+            userid = params['userid']
+            password = params['password']
+        except KeyError, key:
+            raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % key)
+
+        try:
+            auth.login(userid, password)
+        except OperationFailed:
+            raise cherrypy.HTTPError(401)
+
+        return '{}'
+
+    @cherrypy.expose
+    def logout(self):
+        auth.logout()
+        return '{}'
