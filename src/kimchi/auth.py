@@ -52,7 +52,7 @@ def authenticate(username, password, service="passwd"):
                 resp.append((password, 0))
             elif qtype == PAM.PAM_PROMPT_ERROR_MSG:
                 cherrypy.log.error_log.error("PAM authenticate prompt error "
-                                              "message: %s" % query)
+                                             "message: %s" % query)
                 resp.append(('', 0))
             elif qtype == PAM.PAM_PROMPT_TEXT_INFO:
                 resp.append(('', 0))
