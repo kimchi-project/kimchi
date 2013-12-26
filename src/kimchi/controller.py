@@ -52,40 +52,6 @@ class Tasks(Collection):
         self.resource = Task
 
 
-class Host(Resource):
-    def __init__(self, model, id=None):
-        super(Host, self).__init__(model, id)
-        self.stats = HostStats(self.model)
-        self.stats.exposed = True
-        self.uri_fmt = '/host/%s'
-        self.reboot = self.generate_action_handler('reboot')
-        self.shutdown = self.generate_action_handler('shutdown')
-        self.partitions = Partitions(self.model)
-        self.partitions.exposed = True
-
-    @property
-    def data(self):
-        return self.info
-
-class HostStats(Resource):
-    @property
-    def data(self):
-        return self.info
-
-class Partitions(Collection):
-    def __init__(self, model):
-        super(Partitions, self).__init__(model)
-        self.resource = Partition
-
-
-class Partition(Resource):
-    def __init__(self, model,id):
-        super(Partition, self).__init__(model,id)
-
-    @property
-    def data(self):
-        return self.info
-
 class Plugins(Collection):
     def __init__(self, model):
         super(Plugins, self).__init__(model)
