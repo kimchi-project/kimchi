@@ -31,6 +31,7 @@ from kimchi import template
 from kimchi.config import get_api_schema_file
 from kimchi.control.base import Resource
 from kimchi.control.debugreports import DebugReports
+from kimchi.control.storagepools import StoragePools
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
 from kimchi.control.vms import VMs
@@ -53,7 +54,7 @@ class Root(Resource):
         Resource.__init__(self, model)
         self.vms = VMs(model)
         self.templates = Templates(model)
-        self.storagepools = controller.StoragePools(model)
+        self.storagepools = StoragePools(model)
         self.interfaces = controller.Interfaces(model)
         self.networks = controller.Networks(model)
         self.tasks = controller.Tasks(model)
