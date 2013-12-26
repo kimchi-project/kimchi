@@ -35,30 +35,6 @@ from kimchi.exception import NotFoundError,  OperationFailed
 from kimchi.model import ISO_POOL_NAME
 
 
-class Networks(Collection):
-    def __init__(self, model):
-        super(Networks, self).__init__(model)
-        self.resource = Network
-
-
-class Network(Resource):
-    def __init__(self, model, ident):
-        super(Network, self).__init__(model, ident)
-        self.uri_fmt = "/networks/%s"
-        self.activate = self.generate_action_handler('activate')
-        self.deactivate = self.generate_action_handler('deactivate')
-
-    @property
-    def data(self):
-        return {'name': self.ident,
-                'autostart': self.info['autostart'],
-                'connection': self.info['connection'],
-                'interface': self.info['interface'],
-                'subnet': self.info['subnet'],
-                'dhcp': self.info['dhcp'],
-                'state': self.info['state']}
-
-
 class Task(Resource):
     def __init__(self, model, id):
         super(Task, self).__init__(model, id)

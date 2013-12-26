@@ -32,6 +32,7 @@ from kimchi.config import get_api_schema_file
 from kimchi.control.base import Resource
 from kimchi.control.debugreports import DebugReports
 from kimchi.control.interfaces import Interfaces
+from kimchi.control.networks import Networks
 from kimchi.control.storagepools import StoragePools
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
@@ -57,7 +58,7 @@ class Root(Resource):
         self.templates = Templates(model)
         self.storagepools = StoragePools(model)
         self.interfaces = Interfaces(model)
-        self.networks = controller.Networks(model)
+        self.networks = Networks(model)
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
         self.host = controller.Host(model)
