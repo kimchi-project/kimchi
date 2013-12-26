@@ -35,6 +35,7 @@ from kimchi.control.debugreports import DebugReports
 from kimchi.control.host import Host
 from kimchi.control.interfaces import Interfaces
 from kimchi.control.networks import Networks
+from kimchi.control.plugins import Plugins
 from kimchi.control.storagepools import StoragePools
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
@@ -65,7 +66,7 @@ class Root(Resource):
         self.config = Config(model)
         self.host = Host(model)
         self.debugreports = DebugReports(model)
-        self.plugins = controller.Plugins(model)
+        self.plugins = Plugins(model)
         self.api_schema = json.load(open(get_api_schema_file()))
 
     def error_production_handler(self, status, message, traceback, version):
