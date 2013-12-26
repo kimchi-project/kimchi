@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:40</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Thu Dec 26 13:01:40 2013 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:40</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:48</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 1 status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:42</span><span class="nk"> &lt;zhoumeina&gt;</span> kimchi UI widget
+<a name="l-9"></a><span class="tm">13:03:14</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, we can cover it during open discussion section
+<a name="l-10"></a><span class="tm">13:03:29</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> great
+<a name="l-11"></a><span class="tm">13:04:22</span><span class="nk"> &lt;alinefm&gt;</span> First, I would like to thank you gain for the hard work to get 1.1 release done
+<a name="l-12"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> and let's do better for 1.2 =)
+<a name="l-13"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 1 status</span>
+<a name="l-14"></a><span class="tm">13:05:05</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+<a name="l-15"></a><span class="tm">13:05:50</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> apporc sent a patch of spice, he said that he will push it merged, the back-end.
+<a name="l-16"></a><span class="tm">13:06:30</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, great
+<a name="l-17"></a><span class="tm">13:06:40</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, are you doing the UI?
+<a name="l-18"></a><span class="tm">13:06:56</span><span class="nk"> &lt;zhoumeina&gt;</span> I have done it long ago
+<a name="l-19"></a><span class="tm">13:07:10</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, ok
+<a name="l-20"></a><span class="tm">13:07:16</span><span class="nk"> &lt;alinefm&gt;</span> please everyone, provide status by using #info &lt;nickname&gt; &lt;msg&gt;
+<a name="l-21"></a><span class="tm">13:07:23</span><span class="nk"> &lt;alinefm&gt;</span> that way I don't need to pass item by item
+<a name="l-22"></a><span class="tm">13:07:28</span><span class="nk"> &lt;zhoumeina&gt;</span> because some comment of back-end, so it have not been merged
+<a name="l-23"></a><span class="tm">13:07:54</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, yes - we need to merge backend first then UI
+<a name="l-24"></a><span class="tm">13:08:26</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">iscsi UI is done</span>
+<a name="l-25"></a><span class="tm">13:08:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I sent some patches to refactore the backend code - some for pep8 and a big one to split controller.py into small modules</span>
+<a name="l-26"></a><span class="tm">13:09:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send a patch set: template support network.</span>
+<a name="l-27"></a><span class="tm">13:09:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send a patch set: check and fix search permission.</span>
+<a name="l-28"></a><span class="tm">13:09:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm next steps will be refactore model/mockmodel code - split them into small modules and remove redundancy</span>
+<a name="l-29"></a><span class="tm">13:09:39</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  We have had some discussion on FC Storage Pool implementation in the mailing list and  I am planning to start code something today</span>
+<a name="l-30"></a><span class="tm">13:10:42</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">rotru:</span> can you send the rest api interface to me first,so that I can begin UI part?
+<a name="l-31"></a><span class="tm">13:11:39</span><span class="nk"> &lt;rotru&gt;</span> zhoumeina; sure,
+<a name="l-32"></a><span class="tm">13:11:55</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">add server and target select in UI just sent an RFC</span>
+<a name="l-33"></a><span class="tm">13:12:11</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">rotru:</span> thanks
+<a name="l-34"></a><span class="tm">13:13:16</span><span class="nk"> &lt;alinefm&gt;</span> anyone has any block item to discuss?
+<a name="l-35"></a><span class="tm">13:13:35</span><span class="nk"> &lt;rotru&gt;</span> no
+<a name="l-36"></a><span class="tm">13:13:50</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, shaohef ?
+<a name="l-37"></a><span class="tm">13:13:52</span><span class="nk"> &lt;YuXin&gt;</span> we need to discuss jquery widget
+<a name="l-38"></a><span class="tm">13:14:10</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap! we will do that on open discussion section
+<a name="l-39"></a><span class="tm">13:14:16</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-40"></a><span class="tm">13:14:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  no.
+<a name="l-41"></a><span class="tm">13:14:38</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-42"></a><span class="tm">13:15:38</span><span class="nk"> &lt;alinefm&gt;</span> I also would like to reminder everyone to resend patches to new mail list that way we can continue track them
+<a name="l-43"></a><span class="tm">13:16:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-44"></a><span class="tm">13:16:38</span><span class="nk"> &lt;alinefm&gt;</span> jquery UI widgets
+<a name="l-45"></a><span class="tm">13:16:42</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, YuXin ^
+<a name="l-46"></a><span class="tm">13:17:04</span><span class="nk"> &lt;YuXin&gt;</span> widgets in jquery ui can not cover all the UI components of kimchi
+<a name="l-47"></a><span class="tm">13:17:22</span><span class="nk"> &lt;YuXin&gt;</span> Can you introduce 3rd party jquery plugin/widgets?
+<a name="l-48"></a><span class="tm">13:17:51</span><span class="nk"> &lt;zhoumeina&gt;</span> we have found many third-part UI widget, but no reliable ones
+<a name="l-49"></a><span class="tm">13:17:55</span><span class="nk"> &lt;YuXin&gt;</span> 3rd party jquery widgets are not created by google jquery team
+<a name="l-50"></a><span class="tm">13:18:31</span><span class="nk"> &lt;YuXin&gt;</span> so there is risk of qualty and maintaince
+<a name="l-51"></a><span class="tm">13:18:46</span><span class="nk"> &lt;YuXin&gt;</span> I would like to do below
+<a name="l-52"></a><span class="tm">13:19:18</span><span class="nk"> &lt;YuXin&gt;</span> for jquery ui, it covers basic form control component like button/menu and some container widget like dialog/tab container
+<a name="l-53"></a><span class="tm">13:20:23</span><span class="nk"> &lt;alinefm&gt;</span> can we create our own jquery widgets?
+<a name="l-54"></a><span class="tm">13:20:27</span><span class="nk"> &lt;YuXin&gt;</span> so if any widget at that level we need but does not contained in jquery-ui, we can create jquery widget
+<a name="l-55"></a><span class="tm">13:20:42</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-56"></a><span class="tm">13:21:01</span><span class="nk"> &lt;YuXin&gt;</span> but for widgets like chart/datagrid which has complicated functionality
+<a name="l-57"></a><span class="tm">13:21:30</span><span class="nk"> &lt;YuXin&gt;</span> jquery-ui does not contain any funtional widget like that, I recommend to use 3rd party
+<a name="l-58"></a><span class="tm">13:22:09</span><span class="nk"> &lt;YuXin&gt;</span> http://plugins.jquery.com/
+<a name="l-59"></a><span class="tm">13:22:13</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think this approach is very good
+<a name="l-60"></a><span class="tm">13:22:20</span><span class="nk"> &lt;YuXin&gt;</span> jquery has a widget registry
+<a name="l-61"></a><span class="tm">13:22:27</span><span class="nk"> &lt;YuXin&gt;</span> there is rating
+<a name="l-62"></a><span class="tm">13:22:31</span><span class="nk"> &lt;alinefm&gt;</span> we just need to care about 3rd party licenses before using them in kimchi
+<a name="l-63"></a><span class="tm">13:22:39</span><span class="nk"> &lt;YuXin&gt;</span> exactly
+<a name="l-64"></a><span class="tm">13:22:54</span><span class="nk"> &lt;YuXin&gt;</span> features, quality, maintenance, license.
+<a name="l-65"></a><span class="tm">13:22:55</span><span class="nk"> &lt;YuXin&gt;</span> 
+<a name="l-66"></a><span class="tm">13:22:55</span><span class="nk"> &lt;alinefm&gt;</span> and of course, have in mind we need to maintain them
+<a name="l-67"></a><span class="tm">13:23:07</span><span class="nk"> &lt;YuXin&gt;</span> we do not need to maintain them
+<a name="l-68"></a><span class="tm">13:23:32</span><span class="nk"> &lt;zhoumeina&gt;</span> we need to make our common widget to jquery widget from now on
+<a name="l-69"></a><span class="tm">13:23:36</span><span class="nk"> &lt;YuXin&gt;</span> before we introduce a 3rd party widget, we need to make sure their backend supporting team has good maintenance
+<a name="l-70"></a><span class="tm">13:23:57</span><span class="nk"> &lt;YuXin&gt;</span> so we not need to worry about bug, enhancement request, upgrade
+<a name="l-71"></a><span class="tm">13:24:00</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes, but I mean if we find any bug we need to fix it in time
+<a name="l-72"></a><span class="tm">13:24:27</span><span class="nk"> &lt;YuXin&gt;</span> so before using them, we need to test enough
+<a name="l-73"></a><span class="tm">13:24:46</span><span class="nk"> &lt;alinefm&gt;</span> in different browsers and mobile ones too
+<a name="l-74"></a><span class="tm">13:24:51</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-75"></a><span class="tm">13:25:09</span><span class="nk"> &lt;alinefm&gt;</span> so let's do it in the following order:
+<a name="l-76"></a><span class="tm">13:25:38</span><span class="nk"> &lt;alinefm&gt;</span> 1) patch set to use jquery widgets
+<a name="l-77"></a><span class="tm">13:25:51</span><span class="nk"> &lt;alinefm&gt;</span> 2) patch set to create our own widgets
+<a name="l-78"></a><span class="tm">13:25:58</span><span class="nk"> &lt;alinefm&gt;</span> 3) 3rd party imports
+<a name="l-79"></a><span class="tm">13:26:05</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina what do you think?
+<a name="l-80"></a><span class="tm">13:26:30</span><span class="nk"> &lt;alinefm&gt;</span> each one can work in one piece
+<a name="l-81"></a><span class="tm">13:26:47</span><span class="nk"> &lt;zhoumeina&gt;</span> if we want to create our own widgets, so we only can import some big widget like grid
+<a name="l-82"></a><span class="tm">13:26:48</span><span class="nk"> &lt;YuXin&gt;</span> for 1), split into two, 1.1, cutomize jquery ui to match kimchi ui style, 1.2, use jquery UI widgets
+<a name="l-83"></a><span class="tm">13:27:35</span><span class="nk"> &lt;YuXin&gt;</span> mei na, correct, for big funtional widget, we can leverage 3rd party
+<a name="l-84"></a><span class="tm">13:28:22</span><span class="nk"> &lt;YuXin&gt;</span> for base level control components, we leverage jquery-ui, if not enough, create our own and make sure to keep them generic enogh
+<a name="l-85"></a><span class="tm">13:28:44</span><span class="nk"> &lt;zhoumeina&gt;</span> I advise we can use juqery UI widget or make by ourselves in our new patchset
+<a name="l-86"></a><span class="tm">13:29:12</span><span class="nk"> &lt;YuXin&gt;</span> yes, we can create our own, just like filterselect
+<a name="l-87"></a><span class="tm">13:29:44</span><span class="nk"> &lt;YuXin&gt;</span> I see we got clear jquery plugin/widget strategy and roadmap
+<a name="l-88"></a><span class="tm">13:29:50</span><span class="nk"> &lt;YuXin&gt;</span> any other concerns?
+<a name="l-89"></a><span class="tm">13:29:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina great
+<a name="l-90"></a><span class="tm">13:29:59</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I have one
+<a name="l-91"></a><span class="tm">13:30:05</span><span class="nk"> &lt;YuXin&gt;</span> got ahead
+<a name="l-92"></a><span class="tm">13:30:25</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina, do you think we can do it all for sprint 1? or it is better to split it into sprint 1 and sprint 2?
+<a name="l-93"></a><span class="tm">13:30:41</span><span class="nk"> &lt;YuXin&gt;</span> we need to split it into sprint one
+<a name="l-94"></a><span class="tm">13:31:04</span><span class="nk"> &lt;YuXin&gt;</span> split it into sprint one and sprint 2
+<a name="l-95"></a><span class="tm">13:31:10</span><span class="nk"> &lt;YuXin&gt;</span> a lot of testing is needed
+<a name="l-96"></a><span class="tm">13:31:35</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> agree
+<a name="l-97"></a><span class="tm">13:32:25</span><span class="nk"> &lt;zhoumeina&gt;</span> let's start with filter-select
+<a name="l-98"></a><span class="tm">13:32:52</span><span class="nk"> &lt;YuXin&gt;</span> for sprint one, let us target for jquery-ui part, including cusomize jquery-ui to match kimchi ui style and apply jquery-ui to existing kimchi UI content
+<a name="l-99"></a><span class="tm">13:33:00</span><span class="nk"> &lt;zhoumeina&gt;</span> I will create a jquery filter-select widget in sprint 1
+<a name="l-100"></a><span class="tm">13:33:01</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina, which items we move to sprint 2? 3rd party imports?
+<a name="l-101"></a><span class="tm">13:33:28</span><span class="nk"> &lt;YuXin&gt;</span> for sprint 2, create our own jquery widgets and import 3rd party funtional widgets
+<a name="l-102"></a><span class="tm">13:33:32</span><span class="nk"> &lt;YuXin&gt;</span> is that ok?
+<a name="l-103"></a><span class="tm">13:34:10</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap
+<a name="l-104"></a><span class="tm">13:34:20</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, could you update the wiki?
+<a name="l-105"></a><span class="tm">13:34:24</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-106"></a><span class="tm">13:34:25</span><span class="nk"> &lt;alinefm&gt;</span> or do you want I do it?
+<a name="l-107"></a><span class="tm">13:34:39</span><span class="nk"> &lt;YuXin&gt;</span> let me handle it as I know details thre
+<a name="l-108"></a><span class="tm">13:34:41</span><span class="nk"> &lt;YuXin&gt;</span> there
+<a name="l-109"></a><span class="tm">13:34:48</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, great! thanks
+<a name="l-110"></a><span class="tm">13:34:58</span><span class="nk"> &lt;alinefm&gt;</span> anything else to discuss today?
+<a name="l-111"></a><span class="tm">13:36:32</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-112"></a><span class="tm">13:36:41</span><span class="nk"> &lt;alinefm&gt;</span> so I would like a feedback
+<a name="l-113"></a><span class="tm">13:37:07</span><span class="nk"> &lt;alinefm&gt;</span> do you prefer I pass item by item during status or that way we do it today ?
+<a name="l-114"></a><span class="tm">13:37:22</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, rotru, zhoumeina, YuXin ^
+<a name="l-115"></a><span class="tm">13:38:49</span><span class="nk"> &lt;zhoumeina&gt;</span> I like the way today, it is more effective
+<a name="l-116"></a><span class="tm">13:38:57</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I think the way today is faster
+<a name="l-117"></a><span class="tm">13:39:28</span><span class="nk"> &lt;YuXin&gt;</span> it is better if there is priority
+<a name="l-118"></a><span class="tm">13:40:07</span><span class="nk"> &lt;YuXin&gt;</span> we need to get the most important/urgent/risk things discussed as early as possible
+<a name="l-119"></a><span class="tm">13:41:28</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, even during status?
+<a name="l-120"></a><span class="tm">13:42:55</span><span class="nk"> &lt;YuXin&gt;</span> for status, just go through work items
+<a name="l-121"></a><span class="tm">13:43:17</span><span class="nk"> &lt;YuXin&gt;</span> I mean for issues that need to discuss
+<a name="l-122"></a><span class="tm">13:43:44</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, got it
+<a name="l-123"></a><span class="tm">13:43:52</span><span class="nk"> &lt;YuXin&gt;</span> and things that are quite inefficient by mail
+<a name="l-124"></a><span class="tm">13:44:13</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap! specially these days with holidays
+<a name="l-125"></a><span class="tm">13:44:51</span><span class="nk"> &lt;zhoumeina&gt;</span> we have many people holiday during sprint 1
+<a name="l-126"></a><span class="tm">13:46:27</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-127"></a><span class="tm">13:46:30</span><span class="nk"> &lt;alinefm&gt;</span> We had finished earlier today =)
+<a name="l-128"></a><span class="tm">13:46:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
