@@ -30,6 +30,7 @@ from kimchi import controller
 from kimchi import template
 from kimchi.config import get_api_schema_file
 from kimchi.control.base import Resource
+from kimchi.control.debugreports import DebugReports
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
 from kimchi.control.vms import VMs
@@ -58,7 +59,7 @@ class Root(Resource):
         self.tasks = controller.Tasks(model)
         self.config = controller.Config(model)
         self.host = controller.Host(model)
-        self.debugreports = controller.DebugReports(model)
+        self.debugreports = DebugReports(model)
         self.plugins = controller.Plugins(model)
         self.api_schema = json.load(open(get_api_schema_file()))
 

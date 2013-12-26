@@ -35,15 +35,6 @@ from kimchi.exception import NotFoundError,  OperationFailed
 from kimchi.model import ISO_POOL_NAME
 
 
-class DebugReportContent(Resource):
-    def __init__(self, model, ident):
-        super(DebugReportContent, self).__init__(model, ident)
-
-    def get(self):
-        self.lookup()
-        raise internal_redirect(self.info['file'])
-
-
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
@@ -242,25 +233,6 @@ class Tasks(Collection):
     def __init__(self, model):
         super(Tasks, self).__init__(model)
         self.resource = Task
-
-
-class DebugReports(AsyncCollection):
-    def __init__(self, model):
-        super(DebugReports, self).__init__(model)
-        self.resource = DebugReport
-
-
-class DebugReport(Resource):
-    def __init__(self, model, ident):
-        super(DebugReport, self).__init__(model, ident)
-        self.ident = ident
-        self.content = DebugReportContent(model, ident)
-
-    @property
-    def data(self):
-        return {'name': self.ident,
-                'file': self.info['file'],
-                'time': self.info['ctime']}
 
 
 class Config(Resource):
