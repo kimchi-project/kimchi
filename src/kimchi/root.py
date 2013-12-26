@@ -26,7 +26,6 @@ import json
 
 
 from kimchi import auth
-from kimchi import controller
 from kimchi import template
 from kimchi.config import get_api_schema_file
 from kimchi.control.base import Resource
@@ -37,6 +36,7 @@ from kimchi.control.interfaces import Interfaces
 from kimchi.control.networks import Networks
 from kimchi.control.plugins import Plugins
 from kimchi.control.storagepools import StoragePools
+from kimchi.control.tasks import Tasks
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
 from kimchi.control.vms import VMs
@@ -62,7 +62,7 @@ class Root(Resource):
         self.storagepools = StoragePools(model)
         self.interfaces = Interfaces(model)
         self.networks = Networks(model)
-        self.tasks = controller.Tasks(model)
+        self.tasks = Tasks(model)
         self.config = Config(model)
         self.host = Host(model)
         self.debugreports = DebugReports(model)

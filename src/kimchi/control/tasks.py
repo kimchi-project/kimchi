@@ -4,7 +4,8 @@
 # Copyright IBM, Corp. 2013
 #
 # Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+#  Aline Manera <alinefm@linux.vnet.ibm.com>
+#  Shu Ming <shuming@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,21 +19,15 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import cherrypy
-import urllib2
-
-
-from functools import wraps
+from kimchi.control.base import Collection, Resource
 
 
-import kimchi.template
-from kimchi.control.utils import get_class_name, internal_redirect, model_fn
-from kimchi.control.utils import parse_request, validate_method, validate_params
-from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
-from kimchi.exception import NotFoundError,  OperationFailed
-from kimchi.model import ISO_POOL_NAME
+class Tasks(Collection):
+    def __init__(self, model):
+        super(Tasks, self).__init__(model)
+        self.resource = Task
 
 
 class Task(Resource):
@@ -44,9 +39,3 @@ class Task(Resource):
         return {'id': self.ident,
                 'status': self.info['status'],
                 'message': self.info['message']}
-
-
-class Tasks(Collection):
-    def __init__(self, model):
-        super(Tasks, self).__init__(model)
-        self.resource = Task
