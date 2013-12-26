@@ -44,44 +44,6 @@ class DebugReportContent(Resource):
         raise internal_redirect(self.info['file'])
 
 
-class VMs(Collection):
-    def __init__(self, model):
-        super(VMs, self).__init__(model)
-        self.resource = VM
-
-
-class VM(Resource):
-    def __init__(self, model, ident):
-        super(VM, self).__init__(model, ident)
-        self.update_params = ["name"]
-        self.screenshot = VMScreenShot(model, ident)
-        self.uri_fmt = '/vms/%s'
-        self.start = self.generate_action_handler('start')
-        self.stop = self.generate_action_handler('stop')
-        self.connect = self.generate_action_handler('connect')
-
-    @property
-    def data(self):
-        return {'name': self.ident,
-                'uuid': self.info['uuid'],
-                'stats': self.info['stats'],
-                'memory': self.info['memory'],
-                'cpus': self.info['cpus'],
-                'state': self.info['state'],
-                'screenshot': self.info['screenshot'],
-                'icon': self.info['icon'],
-                'graphics': {'type': self.info['graphics']['type'],
-                             'port': self.info['graphics']['port']}}
-
-
-class VMScreenShot(Resource):
-    def __init__(self, model, ident):
-        super(VMScreenShot, self).__init__(model, ident)
-
-    def get(self):
-        self.lookup()
-        raise internal_redirect(self.info)
-
 class Templates(Collection):
     def __init__(self, model):
         super(Templates, self).__init__(model)
