@@ -46,6 +46,7 @@ PEP8_WHITELIST = \
 	src/kimchi/featuretests.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \
+	src/kimchi/control/*.py \
 	plugins/__init__.py \
 	plugins/sample/__init__.py \
 	plugins/sample/model.py \

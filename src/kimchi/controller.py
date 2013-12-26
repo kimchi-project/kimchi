@@ -21,86 +21,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import cherrypy
-import json
 import urllib2
 
 
 from functools import wraps
-from jsonschema import Draft3Validator, ValidationError
 
 
 import kimchi.template
 from kimchi import auth
+from kimchi.control.utils import get_class_name, internal_redirect, model_fn
+from kimchi.control.utils import parse_request, validate_method, validate_params
 from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
 from kimchi.exception import NotFoundError,  OperationFailed
 from kimchi.model import ISO_POOL_NAME
-
-
-def get_class_name(cls):
-    try:
-        sub_class = cls.__subclasses__()[0]
-    except AttributeError:
-        sub_class = cls.__class__.__name__
-    return sub_class.lower()
-
-
-def model_fn(cls, fn_name):
-    return '%s_%s' % (get_class_name(cls), fn_name)
-
-
-def validate_method(allowed):
-    method = cherrypy.request.method.upper()
-    if method not in allowed:
-        raise cherrypy.HTTPError(405)
-    return method
-
-
-def mime_in_header(header, mime):
-    if not header in cherrypy.request.headers:
-        accepts = 'application/json'
-    else:
-        accepts = cherrypy.request.headers[header]
-
-    if accepts.find(';') != -1:
-        accepts, _ = accepts.split(';', 1)
-
-    if mime in accepts.split(','):
-        return True
-
-    return False
-
-
-def parse_request():
-    if 'Content-Length' not in cherrypy.request.headers:
-        return {}
-    rawbody = cherrypy.request.body.read()
-
-    if mime_in_header('Content-Type', 'application/json'):
-        try:
-            return json.loads(rawbody)
-        except ValueError:
-            raise cherrypy.HTTPError(400, "Unable to parse JSON request")
-    else:
-        raise cherrypy.HTTPError(415, "This API only supports"
-                                      " 'application/json'")
-def internal_redirect(url):
-    raise cherrypy.InternalRedirect(url.encode("utf-8"))
-
-
-def validate_params(params, instance, action):
-    root = cherrypy.request.app.root
-    if hasattr(root, 'api_schema'):
-        api_schema = root.api_schema
-    else:
-        return
-    operation = model_fn(instance, action)
-    validator = Draft3Validator(api_schema)
-    request = {operation: params}
-    try:
-        validator.validate(request)
-    except ValidationError:
-        raise InvalidParameter('; '.join(
-            e.message for e in validator.iter_errors(request)))
 
 
 class Resource(object):

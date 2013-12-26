@@ -53,6 +53,7 @@ AC_CONFIG_FILES([
     src/Makefile
     src/distros.d/Makefile
     src/kimchi/Makefile
+    src/kimchi/control/Makefile
     plugins/Makefile
     plugins/sample/Makefile
     plugins/sample/ui/Makefile
