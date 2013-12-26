@@ -103,33 +103,6 @@ def validate_params(params, instance, action):
             e.message for e in validator.iter_errors(request)))
 
 
-def generate_action_handler(instance, action_name, action_args=None):
-    def wrapper(*args, **kwargs):
-        validate_method(('POST'))
-        try:
-            model_args = list(instance.model_args)
-            if action_args is not None:
-                model_args.extend(parse_request()[key] for key in action_args)
-            fn = getattr(instance.model, model_fn(instance, action_name))
-            fn(*model_args)
-            raise internal_redirect(instance.uri_fmt %
-                                    tuple(instance.model_args))
-        except MissingParameter, param:
-            raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
-        except InvalidParameter, param:
-            raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
-        except InvalidOperation, msg:
-            raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-        except OperationFailed, msg:
-            raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
-        except NotFoundError, msg:
-            raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
-
-    wrapper.__name__ = action_name
-    wrapper.exposed = True
-    return wrapper
-
-
 class Resource(object):
     """
     A Resource represents a single entity in the API (such as a Virtual Machine)
@@ -152,6 +125,32 @@ class Resource(object):
         self.ident = ident
         self.model_args = (ident,)
         self.update_params = []
+
+    def generate_action_handler(self, action_name, action_args=None):
+        def wrapper(*args, **kwargs):
+            validate_method(('POST'))
+            try:
+                model_args = list(self.model_args)
+                if action_args is not None:
+                    model_args.extend(parse_request()[key] for key in action_args)
+                fn = getattr(self.model, model_fn(self, action_name))
+                fn(*model_args)
+                raise internal_redirect(self.uri_fmt %
+                                        tuple(self.model_args))
+            except MissingParameter, param:
+                raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % param)
+            except InvalidParameter, param:
+                raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % param)
+            except InvalidOperation, msg:
+                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
+            except OperationFailed, msg:
+                raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
+            except NotFoundError, msg:
+                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+
+        wrapper.__name__ = action_name
+        wrapper.exposed = True
+        return wrapper
 
     def lookup(self):
         try:
@@ -369,9 +368,9 @@ class VM(Resource):
         self.update_params = ["name"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
-        self.start = generate_action_handler(self, 'start')
-        self.stop = generate_action_handler(self, 'stop')
-        self.connect = generate_action_handler(self, 'connect')
+        self.start = self.generate_action_handler('start')
+        self.stop = self.generate_action_handler('stop')
+        self.connect = self.generate_action_handler('connect')
 
     @property
     def data(self):
@@ -453,8 +452,8 @@ class Network(Resource):
     def __init__(self, model, ident):
         super(Network, self).__init__(model, ident)
         self.uri_fmt = "/networks/%s"
-        self.activate = generate_action_handler(self, 'activate')
-        self.deactivate = generate_action_handler(self, 'deactivate')
+        self.activate = self.generate_action_handler('activate')
+        self.deactivate = self.generate_action_handler('deactivate')
 
     @property
     def data(self):
@@ -475,8 +474,8 @@ class StorageVolume(Resource):
         self.info = {}
         self.model_args = [self.pool, self.ident]
         self.uri_fmt = '/storagepools/%s/storagevolumes/%s'
-        self.resize = generate_action_handler(self, 'resize', ['size'])
-        self.wipe = generate_action_handler(self, 'wipe')
+        self.resize = self.generate_action_handler('resize', ['size'])
+        self.wipe = self.generate_action_handler('wipe')
 
     @property
     def data(self):
@@ -522,8 +521,8 @@ class StoragePool(Resource):
         super(StoragePool, self).__init__(model, ident)
         self.update_params = ["autostart"]
         self.uri_fmt = "/storagepools/%s"
-        self.activate = generate_action_handler(self, 'activate')
-        self.deactivate = generate_action_handler(self, 'deactivate')
+        self.activate = self.generate_action_handler('activate')
+        self.deactivate = self.generate_action_handler('deactivate')
 
     @property
     def data(self):
@@ -689,8 +688,8 @@ class Host(Resource):
         self.stats = HostStats(self.model)
         self.stats.exposed = True
         self.uri_fmt = '/host/%s'
-        self.reboot = generate_action_handler(self, 'reboot')
-        self.shutdown = generate_action_handler(self, 'shutdown')
+        self.reboot = self.generate_action_handler('reboot')
+        self.shutdown = self.generate_action_handler('shutdown')
         self.partitions = Partitions(self.model)
         self.partitions.exposed = True
 
