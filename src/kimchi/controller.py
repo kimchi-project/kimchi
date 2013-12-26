@@ -35,26 +35,6 @@ from kimchi.exception import NotFoundError,  OperationFailed
 from kimchi.model import ISO_POOL_NAME
 
 
-class Interfaces(Collection):
-    def __init__(self, model):
-        super(Interfaces, self).__init__(model)
-        self.resource = Interface
-
-
-class Interface(Resource):
-    def __init__(self, model, ident):
-        super(Interface, self).__init__(model, ident)
-        self.uri_fmt = "/interfaces/%s"
-
-    @property
-    def data(self):
-        return {'name': self.ident,
-                'type': self.info['type'],
-                'ipaddr': self.info['ipaddr'],
-                'netmask': self.info['netmask'],
-                'status': self.info['status']}
-
-
 class Networks(Collection):
     def __init__(self, model):
         super(Networks, self).__init__(model)
