@@ -30,6 +30,7 @@ from kimchi import controller
 from kimchi import template
 from kimchi.config import get_api_schema_file
 from kimchi.control.base import Resource
+from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
 from kimchi.control.vms import VMs
 from kimchi.exception import OperationFailed
@@ -50,7 +51,7 @@ class Root(Resource):
 
         Resource.__init__(self, model)
         self.vms = VMs(model)
-        self.templates = controller.Templates(model)
+        self.templates = Templates(model)
         self.storagepools = controller.StoragePools(model)
         self.interfaces = controller.Interfaces(model)
         self.networks = controller.Networks(model)

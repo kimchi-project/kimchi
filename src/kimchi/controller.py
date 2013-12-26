@@ -44,34 +44,6 @@ class DebugReportContent(Resource):
         raise internal_redirect(self.info['file'])
 
 
-class Templates(Collection):
-    def __init__(self, model):
-        super(Templates, self).__init__(model)
-        self.resource = Template
-
-
-class Template(Resource):
-    def __init__(self, model, ident):
-        super(Template, self).__init__(model, ident)
-        self.update_params = ["name", "folder", "icon", "os_distro",
-                              "storagepool", "os_version", "cpus",
-                              "memory", "cdrom", "disks"]
-        self.uri_fmt = "/templates/%s"
-
-    @property
-    def data(self):
-        return {'name': self.ident,
-                'icon': self.info['icon'],
-                'os_distro': self.info['os_distro'],
-                'os_version': self.info['os_version'],
-                'cpus': self.info['cpus'],
-                'memory': self.info['memory'],
-                'cdrom': self.info['cdrom'],
-                'disks': self.info['disks'],
-                'storagepool': self.info['storagepool'],
-                'folder': self.info.get('folder', [])}
-
-
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
