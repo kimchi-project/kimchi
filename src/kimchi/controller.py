@@ -52,47 +52,6 @@ class Tasks(Collection):
         self.resource = Task
 
 
-class Config(Resource):
-    def __init__(self, model, id=None):
-        super(Config, self).__init__(model, id)
-        self.capabilities = Capabilities(self.model)
-        self.capabilities.exposed = True
-        self.distros = Distros(model)
-        self.distros.exposed = True
-
-    @property
-    def data(self):
-        return {'http_port': cherrypy.server.socket_port}
-
-class Capabilities(Resource):
-    def __init__(self, model, id=None):
-        super(Capabilities, self).__init__(model, id)
-        self.model = model
-
-    @property
-    def data(self):
-        caps = ['libvirt_stream_protocols', 'qemu_stream',
-                'screenshot', 'system_report_tool']
-        ret = dict([(x, None) for x in caps])
-        ret.update(self.model.get_capabilities())
-        return ret
-
-
-class Distro(Resource):
-    def __init__(self, model, ident):
-        super(Distro, self).__init__(model, ident)
-
-    @property
-    def data(self):
-        return self.info
-
-
-class Distros(Collection):
-    def __init__(self, model):
-        super(Distros, self).__init__(model)
-        self.resource = Distro
-
-
 class Host(Resource):
     def __init__(self, model, id=None):
         super(Host, self).__init__(model, id)
