@@ -99,6 +99,20 @@ def _parse_lsblk_output(output, keys):
     return r
 
 
+def _get_vgname(devNodePath):
+    """ Return volume group name of a physical volume. If the device node path
+    is not a physical volume, return empty string. """
+    pvs = subprocess.Popen(
+        ["pvs", "--unbuffered", "--nameprefixes", "--noheadings",
+         "-o", "vg_name", devNodePath],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = pvs.communicate()
+    if pvs.returncode != 0:
+        return ""
+
+    return re.findall(r"LVM2_VG_NAME='([^\']*)'", out)[0]
+
+
 def get_partitions_names():
     names = []
     keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT", "MAJ:MIN"]
@@ -111,10 +125,12 @@ def get_partitions_names():
         devNodePath = _get_dev_node_path(dev['maj:min'])
         # Only list unmounted and unformated and leaf and (partition or disk)
         # leaf means a partition, a disk has no partition, or a disk not held
-        # by any multipath device.
+        # by any multipath device. Physical volume belongs to no volume group
+        # is also listed.
         if not (dev['type'] in ['part', 'disk'] and
-                dev['fstype'] == "" and
+                dev['fstype'] in ['', 'LVM2_member'] and
                 dev['mountpoint'] == "" and
+                _get_vgname(devNodePath) == "" and
                 _is_dev_leaf(devNodePath)):
             continue
 
