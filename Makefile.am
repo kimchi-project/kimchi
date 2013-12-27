@@ -48,6 +48,7 @@ PEP8_WHITELIST = \
 	src/kimchi/control/*.py \
 	src/kimchi/disks.py \
 	src/kimchi/distroloader.py \
+	src/kimchi/exception.py \
 	src/kimchi/featuretests.py \
 	src/kimchi/iscsi.py \
 	src/kimchi/kvmusertests.py \
