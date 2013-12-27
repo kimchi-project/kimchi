@@ -27,27 +27,13 @@ from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 
 
-def _get_partition_path(name):
-    """ Returns device path given a partition name """
-    dev_path = None
-    maj_min = None
+def _get_dev_node_path(maj_min):
+    """ Returns device node path given the device number 'major:min' """
+    uevent = "/sys/dev/block/%s/uevent" % maj_min
+    with open(uevent) as ueventf:
+        content = ueventf.read()
 
-    keys = ["NAME", "MAJ:MIN"]
-    dev_list = _get_lsblk_devs(keys)
-
-    for dev in dev_list:
-        if dev['name'] == name:
-            maj_min = dev['maj:min']
-            break
-
-    uevent_cmd = "cat /sys/dev/block/%s/uevent" % maj_min
-    uevent = subprocess.Popen(uevent_cmd, stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE, shell=True)
-    out, err = uevent.communicate()
-    if uevent.returncode != 0:
-        raise OperationFailed("Error getting partition path for %s", name)
-
-    data = dict(re.findall(r'(\S+)=(".*?"|\S+)', out.replace("\n", " ")))
+    data = dict(re.findall(r'(\S+)=(".*?"|\S+)', content.replace("\n", " ")))
 
     return "/dev/%s" % data["DEVNAME"]
 
@@ -61,6 +47,39 @@ def _get_lsblk_devs(keys, devs=[]):
         raise OperationFailed('Error executing lsblk: %s' % err)
 
     return _parse_lsblk_output(out, keys)
+
+
+def _get_dev_major_min(name):
+    maj_min = None
+
+    keys = ["NAME", "MAJ:MIN"]
+    dev_list = _get_lsblk_devs(keys)
+
+    for dev in dev_list:
+        if dev['name'] == name:
+            maj_min = dev['maj:min']
+            break
+    else:
+        msg = "Failed to find major and minor number for %s" % name
+        raise OperationFailed(msg)
+
+    return maj_min
+
+
+def _is_dev_leaf(devNodePath):
+    try:
+        # By default, lsblk prints a device information followed by children
+        # device information
+        childrenCount = len(
+            _get_lsblk_devs(["NAME"], [devNodePath])) - 1
+    except OperationFailed as e:
+        # lsblk is known to fail on multipath devices
+        # Assume these devices contain children
+        kimchi_log.error(
+            "Error getting device info for %s: %s", devNodePath, e)
+        return False
+
+    return childrenCount == 0
 
 
 def _parse_lsblk_output(output, keys):
@@ -82,32 +101,30 @@ def _parse_lsblk_output(output, keys):
 
 def get_partitions_names():
     names = []
-    ignore_names = []
-    keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT"]
+    keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT", "MAJ:MIN"]
     # output is on format key="value",
     # where key can be NAME, TYPE, FSTYPE, MOUNTPOINT
     for dev in _get_lsblk_devs(keys):
         # split()[0] to avoid the second part of the name, after the
         # whiteline
         name = dev['name'].split()[0]
-        # Only list unmounted and unformated partition or disk.
-        if not all([dev['type'] in ['part', 'disk'],
-                    dev['fstype'] == "",
-                    dev['mountpoint'] == ""]):
-
-            # the whole disk must be ignored in it has at least one
-            # mounted/formatted partition
-            if dev['type'] == 'part':
-                ignore_names.append(name[:-1])
+        devNodePath = _get_dev_node_path(dev['maj:min'])
+        # Only list unmounted and unformated and leaf and (partition or disk)
+        # leaf means a partition, a disk has no partition, or a disk not held
+        # by any multipath device.
+        if not (dev['type'] in ['part', 'disk'] and
+                dev['fstype'] == "" and
+                dev['mountpoint'] == "" and
+                _is_dev_leaf(devNodePath)):
             continue
 
         names.append(name)
 
-    return list(set(names) - set(ignore_names))
+    return names
 
 
 def get_partition_details(name):
-    dev_path = _get_partition_path(name)
+    dev_path = _get_dev_node_path(_get_dev_major_min(name))
 
     keys = ["TYPE", "FSTYPE", "SIZE", "MOUNTPOINT"]
     try:
