@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
 import os
@@ -67,6 +67,7 @@ ISO_STREAM_XML = """
   </devices>
 </domain>"""
 
+
 class FeatureTests(object):
 
     @staticmethod
@@ -85,7 +86,8 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_supports_iso_stream():
-        cmd = "qemu-io http://127.0.0.1:8000/images/icon-fedora.png -c 'read -v 0 512'"
+        cmd = "qemu-io http://127.0.0.1:8000/images/icon-fedora.png \
+              -c 'read -v 0 512'"
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, shell=True)
         stdout, stderr = proc.communicate()
@@ -98,7 +100,7 @@ class FeatureTests(object):
                "'read -v 0 512'"]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-        thread = threading.Thread(target = proc.communicate)
+        thread = threading.Thread(target=proc.communicate)
         thread.start()
         thread.join(5)
 
