@@ -48,6 +48,7 @@ PEP8_WHITELIST = \
 	plugins/__init__.py \
 	plugins/sample/__init__.py \
 	plugins/sample/model.py \
+	tests/test_mockmodel.py \
 	tests/test_plugin.py \
 	$(NULL)
 

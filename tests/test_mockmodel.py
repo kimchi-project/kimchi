@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import cherrypy
 import json
@@ -29,14 +29,14 @@ import unittest
 
 import kimchi.mockmodel
 import kimchi.controller
-from utils import get_free_port, patch_auth, request, run_server 
+from utils import get_free_port, patch_auth, request, run_server
 
 
-#utils.silence_server()
 test_server = None
 model = None
 host = None
 port = None
+
 
 class MockModelTests(unittest.TestCase):
     def setUp(self):
@@ -99,19 +99,23 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertEquals('image/png', resp.getheader('content-type'))
         resp1 = request(host, port, '/vms/test-vm')
-        rspBody=resp1.read()
-        testvm_Data=json.loads(rspBody)
+        rspBody = resp1.read()
+        testvm_Data = json.loads(rspBody)
         screenshotURL = testvm_Data['screenshot']
         time.sleep(5)
         resp2 = request(host, port, screenshotURL)
         self.assertEquals(200, resp2.status)
-        self.assertEquals(resp2.getheader('content-type'), resp.getheader('content-type'))
-        self.assertEquals(resp2.getheader('content-length'), resp.getheader('content-length'))
-        self.assertEquals(resp2.getheader('last-modified'), resp.getheader('last-modified'))
+        self.assertEquals(resp2.getheader('content-type'),
+                          resp.getheader('content-type'))
+        self.assertEquals(resp2.getheader('content-length'),
+                          resp.getheader('content-length'))
+        self.assertEquals(resp2.getheader('last-modified'),
+                          resp.getheader('last-modified'))
 
     def test_vm_list_sorted(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         request(host, port, '/templates', req, 'POST')
+
         def add_vm(name):
 
             # Create a VM
@@ -126,8 +130,9 @@ class MockModelTests(unittest.TestCase):
         self.assertEqual(model.vms_get_list(), ['abc', 'bca', 'cab', 'xba'])
 
     def test_vm_info(self):
-        tmpl = model.templates_create({'name': u'test', 'cdrom': '/nonexistent.iso'})
-        vm = model.vms_create({'name': u'test', 'template': '/templates/test'})
+        model.templates_create({'name': u'test',
+                                'cdrom': '/nonexistent.iso'})
+        model.vms_create({'name': u'test', 'template': '/templates/test'})
         vms = model.vms_get_list()
         self.assertEquals(1, len(vms))
         self.assertEquals(u'test', vms[0])
