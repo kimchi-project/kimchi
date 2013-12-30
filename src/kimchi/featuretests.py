@@ -32,23 +32,11 @@ from kimchi import config
 ISO_STREAM_XML = """
 <domain type='kvm'>
   <name>ISO_STREAMING</name>
-  <uuid>c7a5fdbd-edaf-9455-926a-d65c16db1809</uuid>
   <memory unit='KiB'>1048576</memory>
-  <currentMemory unit='KiB'>1048576</currentMemory>
-  <vcpu placement='static'>1</vcpu>
   <os>
     <type arch='x86_64' machine='pc-1.2'>hvm</type>
     <boot dev='cdrom'/>
   </os>
-  <features>
-    <acpi/>
-    <apic/>
-    <pae/>
-  </features>
-  <clock offset='utc'/>
-  <on_poweroff>destroy</on_poweroff>
-  <on_reboot>restart</on_reboot>
-  <on_crash>restart</on_crash>
   <devices>
     <disk type='network' device='cdrom'>
       <driver name='qemu' type='raw'/>
@@ -60,10 +48,6 @@ ISO_STREAM_XML = """
       <alias name='ide0-1-0'/>
       <address type='drive' controller='0' bus='1' target='0' unit='0'/>
     </disk>
-    <controller type='usb' index='0'/>
-    <controller type='pci' index='0' model='pci-root'/>
-    <controller type='ide' index='0'/>
-    <memballoon model='virtio'/>
   </devices>
 </domain>"""
 
