@@ -308,6 +308,7 @@ kimchi.widget.Grid = function(params) {
             left - leftmostOffset
         );
         fixTableLayout();
+        columnBeingResized = null;
     };
 
     var resizeColumnWidth = function(index, width) {
