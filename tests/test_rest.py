@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import base64
 import json
@@ -32,7 +32,6 @@ from functools import partial
 
 import kimchi.mockmodel
 import kimchi.server
-from kimchi.asynctask import AsyncTask
 from kimchi.rollbackcontext import RollbackContext
 from utils import fake_user, get_free_port, https_request, patch_auth, request
 from utils import run_server
@@ -134,12 +133,12 @@ class RestTests(unittest.TestCase):
         resp = self.request("/", headers={'Accept': 'text/html'})
         self.assertTrue('<!doctype html>' in resp.read().lower())
 
-        resp = self.request("/",
-                       headers={'Accept': 'application/json, text/html'})
+        resp = self.request("/", headers={'Accept':
+                                          'application/json, text/html'})
         self.assertValidJSON(resp.read())
 
-        resp = self.request("/",
-                       headers={'Accept': 'text/html, application/json'})
+        resp = self.request("/", headers={'Accept':
+                                          'text/html, application/json'})
         self.assertValidJSON(resp.read())
 
         h = {'Accept': 'text/plain'}
@@ -212,7 +211,7 @@ class RestTests(unittest.TestCase):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}],
                           'icon': 'images/icon-debian.png',
-                              'cdrom': '/nonexistent.iso'})
+                          'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -303,7 +302,7 @@ class RestTests(unittest.TestCase):
 
     def test_template_customise_storage(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso',
-            'disks': [{'size': 1}]})
+                          'disks': [{'size': 1}]})
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -437,7 +436,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         # Verify the storage pool
-        storagepool = json.loads(self.request('/storagepools/test-pool').read())
+        storagepool = json.loads(
+            self.request('/storagepools/test-pool').read())
         self.assertEquals('inactive', storagepool['state'])
         if storagepool['type'] == 'dir':
             self.assertEquals(True, storagepool['autostart'])
@@ -446,12 +446,14 @@ class RestTests(unittest.TestCase):
 
         # activate the storage pool
         resp = self.request('/storagepools/test-pool/activate', '{}', 'POST')
-        storagepool = json.loads(self.request('/storagepools/test-pool').read())
+        storagepool = json.loads(
+            self.request('/storagepools/test-pool').read())
         self.assertEquals('active', storagepool['state'])
 
         # Deactivate the storage pool
         resp = self.request('/storagepools/test-pool/deactivate', '{}', 'POST')
-        storagepool = json.loads(self.request('/storagepools/test-pool').read())
+        storagepool = json.loads(
+            self.request('/storagepools/test-pool').read())
         self.assertEquals('inactive', storagepool['state'])
 
         # Set autostart flag of the storage pool
@@ -460,7 +462,7 @@ class RestTests(unittest.TestCase):
             req = json.dumps(t)
             resp = self.request('/storagepools/test-pool', req, 'PUT')
             storagepool = json.loads(
-                    self.request('/storagepools/test-pool').read())
+                self.request('/storagepools/test-pool').read())
             self.assertEquals(autostart, storagepool['autostart'])
 
         # Delete the storage pool
@@ -477,7 +479,8 @@ class RestTests(unittest.TestCase):
 
         resp = self.request('/storagepools/pool-1/activate', '{}', 'POST')
         self.assertEquals(200, resp.status)
-        nr_vols = json.loads(self.request('/storagepools/pool-1').read())['nr_volumes']
+        nr_vols = json.loads(
+            self.request('/storagepools/pool-1').read())['nr_volumes']
         self.assertEquals(0, nr_vols)
 
         # Now add a couple of storage volumes to the mock model
@@ -489,10 +492,11 @@ class RestTests(unittest.TestCase):
                               'type': 'disk',
                               'format': 'raw'})
             resp = self.request('/storagepools/pool-1/storagevolumes',
-                           req, 'POST')
+                                req, 'POST')
             self.assertEquals(201, resp.status)
 
-        nr_vols = json.loads(self.request('/storagepools/pool-1').read())['nr_volumes']
+        nr_vols = json.loads(
+            self.request('/storagepools/pool-1').read())['nr_volumes']
         self.assertEquals(5, nr_vols)
         resp = self.request('/storagepools/pool-1/storagevolumes')
         storagevolumes = json.loads(resp.read())
@@ -502,7 +506,8 @@ class RestTests(unittest.TestCase):
         storagevolume = json.loads(resp.read())
         self.assertEquals('volume-1', storagevolume['name'])
         self.assertEquals('raw', storagevolume['format'])
-        self.assertEquals('/var/lib/libvirt/images/volume-1', storagevolume['path'])
+        self.assertEquals('/var/lib/libvirt/images/volume-1',
+                          storagevolume['path'])
 
         # Now remove the StoragePool from mock model
         self._delete_pool('pool-1')
@@ -516,11 +521,13 @@ class RestTests(unittest.TestCase):
                           'allocation': 512,
                           'type': 'disk',
                           'format': 'raw'})
-        resp = self.request('/storagepools/pool-2/storagevolumes/', req, 'POST')
+        resp = self.request('/storagepools/pool-2/storagevolumes/',
+                            req, 'POST')
         self.assertEquals(400, resp.status)
         resp = self.request('/storagepools/pool-2/activate', '{}', 'POST')
         self.assertEquals(200, resp.status)
-        resp = self.request('/storagepools/pool-2/storagevolumes/', req, 'POST')
+        resp = self.request('/storagepools/pool-2/storagevolumes/',
+                            req, 'POST')
         self.assertEquals(201, resp.status)
 
         # Verify the storage volume
@@ -545,7 +552,7 @@ class RestTests(unittest.TestCase):
 
         # Delete the storage volume
         resp = self.request('/storagepools/pool-2/storagevolumes/test-volume',
-                    '{}', 'DELETE')
+                            '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
         # Now remove the StoragePool from mock model
@@ -561,7 +568,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         # Verify the storage pool
-        storagepool = json.loads(self.request('/storagepools/%s' % name).read())
+        storagepool = json.loads(self.request('/storagepools/%s'
+                                              % name).read())
         self.assertEquals('inactive', storagepool['state'])
         return name
 
@@ -572,8 +580,8 @@ class RestTests(unittest.TestCase):
 
     def test_templates(self):
         def verify_template(t, res):
-            for field in ('name', 'os_distro',
-                    'os_version', 'memory', 'cpus', 'storagepool'):
+            for field in ('name', 'os_distro', 'os_version',
+                          'memory', 'cpus', 'storagepool'):
                 self.assertEquals(t[field], res[field])
 
         resp = self.request('/templates')
@@ -700,15 +708,17 @@ class RestTests(unittest.TestCase):
             '/storagepools/kimchi_isos/storagevolumes/').read())[0]
         self.assertEquals('pool-3-fedora.iso', storagevolume['name'])
         self.assertEquals('iso', storagevolume['format'])
-        self.assertEquals('/var/lib/libvirt/images/fedora.iso',storagevolume['path'])
+        self.assertEquals('/var/lib/libvirt/images/fedora.iso',
+                          storagevolume['path'])
         self.assertEquals(1024 << 20, storagevolume['capacity'])
         self.assertEquals(1024 << 20, storagevolume['allocation'])
         self.assertEquals('17', storagevolume['os_version'])
-        self.assertEquals('fedora',storagevolume['os_distro'])
-        self.assertEquals(True,storagevolume['bootable'])
+        self.assertEquals('fedora', storagevolume['os_distro'])
+        self.assertEquals(True, storagevolume['bootable'])
 
         # Create a template
-        # In real model os distro/version can be omitted as we will scan the iso
+        # In real model os distro/version can be omitted
+        # as we will scan the iso
         req = json.dumps({'name': 'test',
                           'cdrom': storagevolume['path'],
                           'os_distro': storagevolume['os_distro'],
@@ -724,8 +734,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals(1024, t['memory'])
 
         # Deactivate or destroy scan pool return 405
-        resp = self.request('/storagepools/kimchi_isos/storagevolumes/deactivate',
-                            '{}', 'POST')
+        resp = self.request('/storagepools/kimchi_isos/storagevolumes'
+                            '/deactivate', '{}', 'POST')
         self.assertEquals(405, resp.status)
 
         resp = self.request('/storagepools/kimchi_isos/storagevolumes',
@@ -762,12 +772,10 @@ class RestTests(unittest.TestCase):
         self.assertEquals('image/png', resp.getheader('content-type'))
         lastMod1 = resp.getheader('last-modified')
 
-
         # Take another screenshot instantly and compare the last Modified date
         resp = self.request('/vms/test-vm/screenshot')
         lastMod2 = resp.getheader('last-modified')
         self.assertEquals(lastMod2, lastMod1)
-
 
         resp = self.request('/vms/test-vm/screenshot', '{}', 'DELETE')
         self.assertEquals(405, resp.status)
@@ -998,7 +1006,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
 
     def _report_delete(self, name):
-         resp = request(host, port, '/debugreports/%s' % name, '{}', 'DELETE')
+        request(host, port, '/debugreports/%s' % name, '{}', 'DELETE')
 
     def test_create_debugreport(self):
         req = json.dumps({'name': 'report1'})

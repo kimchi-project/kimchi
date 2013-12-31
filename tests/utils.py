@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
 import base64
@@ -28,7 +28,6 @@ import os
 import socket
 import sys
 import threading
-import time
 import unittest
 
 
@@ -60,7 +59,8 @@ if sys.version_info[:2] == (2, 6):
 
     def assertGreaterEqual(self, a, b, msg=None):
         if not a >= b:
-            self.fail('%s not greater than or equal to %s' % (repr(a), repr(b)))
+            self.fail('%s not greater than or equal to %s'
+                      % (repr(a), repr(b)))
 
     def assertIsInstance(self, obj, cls, msg=None):
         if not isinstance(obj, cls):
@@ -80,6 +80,7 @@ if sys.version_info[:2] == (2, 6):
     unittest.TestCase.assertIn = assertIn
     unittest.TestCase.assertNotIn = assertNotIn
 
+
 def get_free_port(name='http'):
     global _ports
     if _ports.get(name) is not None:
@@ -93,7 +94,9 @@ def get_free_port(name='http'):
         _ports[name] = sock.getsockname()[1]
         return _ports[name]
 
-def run_server(host, port, ssl_port, test_mode, model=None, environment='development'):
+
+def run_server(host, port, ssl_port, test_mode,
+               model=None, environment='development'):
     args = type('_', (object,),
                 {'host': host, 'port': port, 'ssl_port': ssl_port,
                  'ssl_cert': '', 'ssl_key': '',
@@ -109,11 +112,13 @@ def run_server(host, port, ssl_port, test_mode, model=None, environment='develop
     cherrypy.engine.wait(cherrypy.engine.states.STARTED)
     return s
 
+
 def silence_server():
     """
     Silence server status messages on stdout
     """
     cherrypy.config.update({"environment": "embedded"})
+
 
 def running_as_root():
     return os.geteuid() == 0
@@ -129,6 +134,7 @@ def _request(conn, path, data, method, headers):
         headers['AUTHORIZATION'] = hdr
     conn.request(method, path, data, headers)
     return conn.getresponse()
+
 
 def request(host, port, path, data=None, method='GET', headers=None):
     conn = httplib.HTTPConnection(host, port)

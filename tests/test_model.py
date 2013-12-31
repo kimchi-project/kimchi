@@ -19,7 +19,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
 import platform
@@ -149,12 +149,13 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('active', poolinfo['state'])
 
             autostart = poolinfo['autostart']
-            ori_params = {'autostart': True} if autostart else {'autostart': False}
+            ori_params = {'autostart':
+                          True} if autostart else {'autostart': False}
             for i in [True, False]:
                 params = {'autostart': i}
                 inst.storagepool_update(name, params)
                 rollback.prependDefer(inst.storagepool_update, name,
-                        ori_params)
+                                      ori_params)
                 poolinfo = inst.storagepool_lookup(name)
                 self.assertEquals(i, poolinfo['autostart'])
             inst.storagepool_update(name, ori_params)
@@ -182,7 +183,8 @@ class ModelTests(unittest.TestCase):
             inst.storagepools_create(args)
             rollback.prependDefer(inst.storagepool_delete, pool)
 
-            self.assertRaises(InvalidOperation, inst.storagevolumes_get_list, pool)
+            self.assertRaises(InvalidOperation, inst.storagevolumes_get_list,
+                              pool)
             poolinfo = inst.storagepool_lookup(pool)
             self.assertEquals(0, poolinfo['nr_volumes'])
             # Activate the pool before adding any volume
@@ -235,7 +237,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'test')
 
             params = {'storagepool': '/storagepools/test-pool'}
-            self.assertRaises(InvalidParameter, inst.template_update, 'test', params)
+            self.assertRaises(InvalidParameter, inst.template_update,
+                              'test', params)
 
             args = {'name': pool,
                     'path': path,
@@ -258,7 +261,8 @@ class ModelTests(unittest.TestCase):
             self.assertTrue(os.access(disk_path, os.F_OK))
 
     def test_template_create(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
         # Test non-exist path raises InvalidParameter
         params = {'name': 'test',
                   'cdrom': '/non-exsitent.iso'}
@@ -270,7 +274,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
-        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system',
+                                  objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)
@@ -291,7 +296,8 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(params[key], info[key])
 
     def test_vm_edit(self):
-        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system',
+                                  objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)
@@ -314,11 +320,13 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('running', info['state'])
 
             params = {'name': 'new-vm'}
-            self.assertRaises(InvalidParameter, inst.vm_update, 'kimchi-vm1', params)
+            self.assertRaises(InvalidParameter, inst.vm_update,
+                              'kimchi-vm1', params)
 
             inst.vm_stop('kimchi-vm1')
             params = {'name': 'new-vm'}
-            self.assertRaises(OperationFailed, inst.vm_update, 'kimchi-vm1', {'name': 'kimchi-vm2'})
+            self.assertRaises(OperationFailed, inst.vm_update,
+                              'kimchi-vm1', {'name': 'kimchi-vm2'})
             inst.vm_update('kimchi-vm1', params)
             self.assertEquals(info['uuid'], inst.vm_lookup('new-vm')['uuid'])
             rollback.prependDefer(inst.vm_delete, 'new-vm')
@@ -427,7 +435,8 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(10, len(store._connections.keys()))
 
     def test_get_interfaces(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
         expected_ifaces = netinfo.all_favored_interfaces()
         ifaces = inst.interfaces_get_list()
         self.assertEquals(len(expected_ifaces), len(ifaces))
@@ -456,7 +465,8 @@ class ModelTests(unittest.TestCase):
             except:
                 cb("Exception raised", False)
 
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
         taskid = inst.add_task('', quick_op, 'Hello')
         self._wait_task(inst, taskid)
         self.assertEquals(1, taskid)
@@ -464,17 +474,19 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
 
         taskid = inst.add_task('', long_op,
-                                     {'delay': 3, 'result': False,
-                                      'message': 'It was not meant to be'})
+                               {'delay': 3, 'result': False,
+                                'message': 'It was not meant to be'})
         self.assertEquals(2, taskid)
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         self.assertEquals('OK', inst.task_lookup(taskid)['message'])
         self._wait_task(inst, taskid)
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
-        self.assertEquals('It was not meant to be', inst.task_lookup(taskid)['message'])
+        self.assertEquals('It was not meant to be',
+                          inst.task_lookup(taskid)['message'])
         taskid = inst.add_task('', abnormal_op, {})
         self._wait_task(inst, taskid)
-        self.assertEquals('Exception raised', inst.task_lookup(taskid)['message'])
+        self.assertEquals('Exception raised',
+                          inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
@@ -516,18 +528,20 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(vms, sorted(vms, key=unicode.lower))
 
     def test_use_test_host(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [],
-                       'storagepool': '/storagepools/default-pool',
-                       'domain': 'test',
-                       'arch': 'i686'}
+                      'storagepool': '/storagepools/default-pool',
+                      'domain': 'test',
+                      'arch': 'i686'}
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': 'kimchi-vm', 'template': '/templates/test',}
+            params = {'name': 'kimchi-vm',
+                      'template': '/templates/test'}
             inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
@@ -537,7 +551,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_debug_reports(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
         namePrefix = 'unitTestReport'
         # sosreport always deletes unsual letters like '-' and '_' in the
         # generated report file name.
@@ -555,9 +570,11 @@ class ModelTests(unittest.TestCase):
                 rollback.prependDefer(inst.debugreport_delete, reportName)
                 taskid = task['id']
                 self._wait_task(inst, taskid, 60)
-                self.assertEquals('finished', inst.task_lookup(taskid)['status'],
-                    "It is not necessary an error.  You may need to increase the "
-                    "timeout number in _wait_task()")
+                self.assertEquals('finished',
+                                  inst.task_lookup(taskid)['status'],
+                                  "It is not necessary an error.  "
+                                  "You may need to increase the "
+                                  "timeout number in _wait_task()")
                 report_list = inst.debugreports_get_list()
                 self.assertTrue(reportName in report_list)
             except OperationFailed, e:
@@ -570,7 +587,8 @@ class ModelTests(unittest.TestCase):
                     time.sleep(1)
 
     def test_get_distros(self):
-        inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('test:///default',
+                                  objstore_loc=self.tmp_store)
         distros = inst._get_distros()
         for distro in distros.values():
             self.assertIn('name', distro)
@@ -580,7 +598,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_get_hostinfo(self):
-        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system',
+                                  objstore_loc=self.tmp_store)
         info = inst.host_lookup()
         distro, version, codename = platform.linux_distribution()
         self.assertIn('cpu', info)
@@ -617,15 +636,17 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
-        inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
+        inst = kimchi.model.Model('qemu:///system',
+                                  objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images/tmpdir'
             if not os.path.exists(path):
                 os.makedirs(path)
-            iso_gen.construct_fake_iso('/tmp/kimchi-images/tmpdir/ubuntu12.04.iso',
-                True, '12.04', 'ubuntu')
+            iso_gen.construct_fake_iso('/tmp/kimchi-images/tmpdir/'
+                                       'ubuntu12.04.iso', True,
+                                       '12.04', 'ubuntu')
             iso_gen.construct_fake_iso('/tmp/kimchi-images/sles10.iso',
-                True, '10', 'sles')
+                                       True, '10', 'sles')
 
             args = {'name': 'kimchi-scanning-pool',
                     'path': '/tmp/kimchi-images',

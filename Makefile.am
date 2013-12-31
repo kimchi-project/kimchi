@@ -38,20 +38,24 @@ EXTRA_DIST = \
 # When fixing a file to conform with pep8, add it to the WL here.
 # So it will be checked from now on.
 PEP8_WHITELIST = \
+	plugins/__init__.py \
+	plugins/sample/__init__.py \
+	plugins/sample/model.py \
 	src/kimchi/asynctask.py \
 	src/kimchi/auth.py \
 	src/kimchi/cachebust.py \
 	src/kimchi/config.py.in \
 	src/kimchi/disks.py \
 	src/kimchi/featuretests.py \
+	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \
 	src/kimchi/control/*.py \
-	plugins/__init__.py \
-	plugins/sample/__init__.py \
-	plugins/sample/model.py \
 	tests/test_mockmodel.py \
+	tests/test_model.py \
 	tests/test_plugin.py \
+	tests/test_rest.py \
+	tests/utils.py \
 	$(NULL)
 
 check-local:
