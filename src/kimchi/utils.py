@@ -83,4 +83,4 @@ def import_class(class_path):
 
 
 def import_module(module_name):
-    return __import__(module_name, fromlist=[''])
+    return __import__(module_name, globals(), locals(), [''])
