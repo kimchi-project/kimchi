@@ -33,8 +33,9 @@ from functools import partial
 import kimchi.mockmodel
 import kimchi.server
 from kimchi.asynctask import AsyncTask
+from kimchi.rollbackcontext import RollbackContext
 from utils import fake_user, get_free_port, https_request, patch_auth, request
-from utils import RollbackContext, run_server
+from utils import run_server
 
 
 test_server = None

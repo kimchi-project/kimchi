@@ -140,51 +140,6 @@ def https_request(host, port, path, data=None, method='GET', headers=None):
     return _request(conn, path, data, method, headers)
 
 
-class RollbackContext(object):
-    '''
-    A context manager for recording and playing rollback.
-    The first exception will be remembered and re-raised after rollback
-
-    Sample usage:
-    with RollbackContext() as rollback:
-        step1()
-        rollback.prependDefer(lambda: undo step1)
-        def undoStep2(arg): pass
-        step2()
-        rollback.prependDefer(undoStep2, arg)
-    '''
-    def __init__(self, *args):
-        self._finally = []
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        firstException = exc_value
-
-        for undo, args, kwargs in self._finally:
-            try:
-                undo(*args, **kwargs)
-            except Exception as e:
-                # keep the earliest exception info
-                if not firstException:
-                    firstException = e
-                    # keep the original traceback info
-                    traceback = sys.exc_info()[2]
-
-        # re-raise the earliest exception
-        if firstException is not None:
-            if type(firstException) is str:
-                sys.stderr.write(firstException)
-            else:
-                raise firstException, None, traceback
-
-    def defer(self, func, *args, **kwargs):
-        self._finally.append((func, args, kwargs))
-
-    def prependDefer(self, func, *args, **kwargs):
-        self._finally.insert(0, (func, args, kwargs))
-
 def patch_auth():
     """
     Override the authenticate function with a simple test against an

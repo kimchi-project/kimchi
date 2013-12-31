@@ -38,6 +38,7 @@ import utils
 from kimchi import netinfo
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.rollbackcontext import RollbackContext
 
 
 class ModelTests(unittest.TestCase):
@@ -72,7 +73,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_lifecycle(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -97,7 +98,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_storage_provisioning(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [{'size': 1}]}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -115,7 +116,7 @@ class ModelTests(unittest.TestCase):
     def test_storagepool(self):
         inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
             name = 'test-pool'
             if not os.path.exists(path):
@@ -168,7 +169,7 @@ class ModelTests(unittest.TestCase):
     def test_storagevolume(self):
         inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
             pool = 'test-pool'
             vol = 'test-volume.img'
@@ -223,7 +224,7 @@ class ModelTests(unittest.TestCase):
     def test_template_storage_customise(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
             pool = 'test-pool'
             if not os.path.exists(path):
@@ -295,7 +296,7 @@ class ModelTests(unittest.TestCase):
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params_1 = {'name': 'kimchi-vm1', 'template': '/templates/test'}
             params_2 = {'name': 'kimchi-vm2', 'template': '/templates/test'}
             inst.vms_create(params_1)
@@ -326,7 +327,7 @@ class ModelTests(unittest.TestCase):
     def test_network(self):
         inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             name = 'test-network'
 
             networks = inst.networks_get_list()
@@ -480,7 +481,7 @@ class ModelTests(unittest.TestCase):
     def test_delete_running_vm(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params = {'name': u'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -501,7 +502,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_list_sorted(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -517,7 +518,7 @@ class ModelTests(unittest.TestCase):
     def test_use_test_host(self):
         inst = kimchi.model.Model('test:///default', objstore_loc=self.tmp_store)
 
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [],
                        'storagepool': '/storagepools/default-pool',
                        'domain': 'test',
@@ -546,7 +547,7 @@ class ModelTests(unittest.TestCase):
             inst.debugreport_delete(namePrefix + '*')
         except NotFoundError:
             pass
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             report_list = inst.debugreports_get_list()
             self.assertFalse(reportName in report_list)
             try:
@@ -617,7 +618,7 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
         inst = kimchi.model.Model('qemu:///system', objstore_loc=self.tmp_store)
-        with utils.RollbackContext() as rollback:
+        with RollbackContext() as rollback:
             path = '/tmp/kimchi-images/tmpdir'
             if not os.path.exists(path):
                 os.makedirs(path)

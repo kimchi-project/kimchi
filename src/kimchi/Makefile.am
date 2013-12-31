@@ -23,34 +23,35 @@
 SUBDIRS = control
 
 kimchi_PYTHON = \
-	asynctask.py      \
-	auth.py           \
-	disks.py          \
-	distroloader.py   \
-	exception.py      \
-	__init__.py       \
-	isoinfo.py        \
-	netinfo.py        \
-	network.py        \
-	networkxml.py     \
-	mockmodel.py      \
-	model.py          \
-	objectstore.py    \
-	osinfo.py         \
-	root.py           \
-	scan.py           \
-	screenshot.py     \
-	server.py         \
-	sslcert.py        \
-	template.py       \
-	vmtemplate.py     \
-	vnc.py            \
-	websocket.py      \
-	websockify.py     \
-	xmlutils.py       \
-	utils.py          \
-	cachebust.py      \
-	featuretests.py
+	__init__.py        \
+	asynctask.py       \
+	auth.py            \
+	cachebust.py       \
+	disks.py           \
+	distroloader.py    \
+	exception.py       \
+	featuretests.py    \
+	isoinfo.py         \
+	mockmodel.py       \
+	model.py           \
+	netinfo.py         \
+	network.py         \
+	networkxml.py      \
+	objectstore.py     \
+	osinfo.py          \
+	rollbackcontext.py \
+	root.py            \
+	scan.py            \
+	screenshot.py      \
+	server.py          \
+	sslcert.py         \
+	template.py        \
+	utils.py           \
+	vmtemplate.py      \
+	vnc.py             \
+	websocket.py       \
+	websockify.py      \
+	xmlutils.py
 
 nodist_kimchi_PYTHON = config.py
 
