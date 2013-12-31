@@ -28,8 +28,8 @@ import unittest
 
 
 import kimchi.mockmodel
-import kimchi.controller
 from utils import get_free_port, patch_auth, request, run_server
+from kimchi.control.base import Collection, Resource
 
 
 test_server = None
@@ -53,7 +53,7 @@ class MockModelTests(unittest.TestCase):
         os.unlink('/tmp/obj-store-test')
 
     def test_collection(self):
-        c = kimchi.controller.Collection(model)
+        c = Collection(model)
 
         # The base Collection is always empty
         cherrypy.request.method = 'GET'
@@ -70,7 +70,7 @@ class MockModelTests(unittest.TestCase):
                 self.fail("Expected exception not raised")
 
     def test_resource(self):
-        r = kimchi.controller.Resource(model)
+        r = Resource(model)
 
         # Test the base Resource representation
         cherrypy.request.method = 'GET'

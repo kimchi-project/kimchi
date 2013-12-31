@@ -29,11 +29,12 @@ from kimchi import auth
 from kimchi import controller
 from kimchi import template
 from kimchi.config import get_api_schema_file
+from kimchi.control.base import Resource
 from kimchi.control.utils import parse_request
 from kimchi.exception import OperationFailed
 
 
-class Root(controller.Resource):
+class Root(Resource):
     def __init__(self, model, dev_env):
         self._handled_error = ['error_page.400', 'error_page.404',
                                'error_page.405', 'error_page.406',
@@ -46,7 +47,7 @@ class Root(controller.Resource):
             self._cp_config = dict([(key, self.error_development_handler)
                                     for key in self._handled_error])
 
-        controller.Resource.__init__(self, model)
+        Resource.__init__(self, model)
         self.vms = controller.VMs(model)
         self.templates = controller.Templates(model)
         self.storagepools = controller.StoragePools(model)

@@ -27,7 +27,7 @@ import os
 from cherrypy import expose
 
 
-from kimchi.controller import Collection, Resource
+from kimchi.control.base import Collection, Resource
 from model import Model
 
 
