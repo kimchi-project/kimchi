@@ -148,14 +148,21 @@ kimchi.addPool = function(event) {
         if (poolType === 'dir') {
             formData.path = $('#pathId').val();
         } else if (poolType === 'logical') {
+            var source = {};
             if (!$.isArray(formData.devices)) {
                 var deviceObj = [];
                 deviceObj[0] =  formData.devices;
-                formData.devices = deviceObj;
+                source.devices = deviceObj;
+            } else {
+                source.devices = formData.devices;
             }
+            delete formData.devices;
+            formData.source = source;
         } else {
-            formData.nfspath = $('#nfspathId').val();
-            formData.nfsserver = $('#nfsserverId').val();
+            var source = {};
+            source.path = $('#nfspathId').val();
+            source.host = $('#nfsserverId').val();
+            formData.source = source;
         }
         if (poolType === 'logical') {
             var settings = {
