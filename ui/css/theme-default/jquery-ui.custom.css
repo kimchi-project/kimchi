@@ -125,3 +125,73 @@
 .ui-menu .ui-state-disabled a {
     color: gray;
 }
+
+.ui-widget-overlay {
+    background: url("../images/theme-default/bg-mask.png") repeat scroll 0 0 transparent;
+    opacity: 1;
+}
+
+.ui-dialog {
+    background: none;
+    background-color: #EEEEEE;
+    border: 2px solid #0F71B4;
+    border-radius: 8px;
+    padding: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    border: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background: none;
+    padding: 13px 0px 13px 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 -1px 0 rgba(0,0,0,0.05) inset;
+}
+
+.ui-dialog .ui-dialog-title {
+    font-size: 18px;
+    color: #0066CC;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    margin: 4px 0 0;
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 2px solid #CCCCCC;
+    border-radius: 35px 35px 35px 35px;
+    color: #CCCCCC;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    right: 7px;
+    text-align: center;
+    top: 5px;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-state-hover {
+    border: 2px solid #444444;
+    color: #444444;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-button-text {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0px;
+    text-indent: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-button-icon-primary {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0;
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    cursor: pointer;
+    margin: 0.5em 13px 0.5em 0;
+}
