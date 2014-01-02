@@ -118,7 +118,7 @@ kimchi.addNetworkActions = function(network) {
     });
     $(".column-action", "#" + network.name).children(":first").button({
         icons : {
-            secondary : "arrow"
+            secondary : "action-button-icon"
         }
     }).click(function() {
         $(".menu-container", "#" + network.name).toggle();
@@ -169,6 +169,7 @@ kimchi.initNetworkDialog = function() {
         buttons : [ {
             id : "networkFormOk",
             text : i18n.action_create,
+            class: "ui-button-primary",
             disabled: true,
             click : function() {
             }

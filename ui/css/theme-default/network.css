@@ -108,14 +108,17 @@
 
 .network .list .menu-container {
     display: none;
-    z-index: 100;
     top: 58px;
-    width: 250px;
 }
 
 .network .list .action-button {
     float: right;
     margin-top: 5px;
+    margin-left: 5px;
+}
+
+.network .list .action-button-icon {
+    background: url("../images/theme-default/arrow-down-black.png") no-repeat scroll center center transparent;
 }
 
 .network .list .ui-state-disabled {
@@ -136,153 +139,6 @@
 
 .network .list .down {
     background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%, #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
-}
-
-.network .list .ui-menu .ui-menu-item a.red:not([disabled]) {
-    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
-    border: 1px solid #B10F14;
-    color: #FFFFFF;
-    text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
-}
-
-.network .list .ui-menu .ui-menu-item a.red:hover:not([disabled]) {
-    background: linear-gradient(to bottom, #EF2009 0%, #BF0404 100%) repeat scroll 0 0 transparent;
-}
-
-.network .list .ui-button-text {
-    padding: 12px 18px 0.4em 1em;
-}
-
-.network .list .ui-button-icon-secondary {
-    margin-top: 0px;
-}
-
-.network .list .ui-menu .ui-menu-item a {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
-    border: 1px solid #CCCCCC;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
-    display: block;
-    font-size: 13px;
-    line-height: 38px;
-    margin-bottom: 10px;
-    text-align: center;
-    text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
-    width: 96%;
-}
-
-.network .list .ui-menu .ui-menu-item a.ui-state-focus {
-    background: linear-gradient(to bottom, #EEEEEE 0%, #D5D5D5 100%) repeat scroll 0 0 transparent;
-    box-shadow: -1px -1px 1px #BBBBBB, 1px 1px 1px #DDDDDD;
-    margin: 0px 0px 10px 0px;
-}
-
-.network .list .ui-menu .ui-state-disabled {
-    opacity: 1;
-}
-
-.network .list .ui-menu .ui-state-disabled a {
-    color: gray;
-}
-
-.ui-widget-overlay {
-    background: url("../images/theme-default/bg-mask.png") repeat scroll 0 0 transparent;
-    opacity: 1;
-}
-
-.network-ui-dialog {
-    background: none;
-    background-color: #EEEEEE;
-    border: 2px solid #0F71B4;
-    border-radius: 8px;
-    padding: 0px;
-    display: none;
-}
-
-.network-ui-dialog .ui-widget-header {
-    border: none;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background: none;
-    padding: 13px 0px 13px 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 -1px 0 rgba(0,0,0,0.05) inset;
-}
-
-.network-ui-dialog .ui-dialog-title {
-    font-size: 18px;
-    color: #0066CC;
-}
-
-.network-ui-dialog .ui-dialog-titlebar .ui-button-icon-primary {
-    display: none;
-}
-
-.network-ui-dialog .ui-dialog-titlebar .ui-state-default {
-    background: none repeat scroll 0 0 #EEEEEE;
-    border: 2px solid #CCCCCC;
-    border-radius: 35px 35px 35px 35px;
-    color: #CCCCCC;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: bold;
-    height: 35px;
-    position: absolute;
-    right: 7px;
-    text-align: center;
-    top: 5px;
-    width: 35px;
-}
-
-.network-ui-dialog .ui-dialog-titlebar .ui-state-hover {
-    border: 2px solid #444444;
-    color: #444444;
-}
-
-.network-ui-dialog .ui-dialog-titlebar .ui-button-text {
-    font-size: 24px;
-    padding: 0px;
-    text-indent: 0px;
-}
-
-.network-ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
-    margin: 4px 0 0;
-}
-
-.network-ui-dialog .ui-dialog-buttonpane {
-    padding: 0px;
-    background-color: transparent;
-    border-width: 0;
-    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
-}
-
-.network-ui-dialog .ui-dialog-buttonpane .ui-state-default {
-    background: none repeat scroll 0 0 #0066FF;
-    border-radius: 8px 8px 8px 8px;
-    color: #EEEEEE;
-    display: inline-block;
-    height: 38px;
-    line-height: 38px;
-    padding: 0 20px;
-    vertical-align: top;
-}
-
-.network-ui-dialog .ui-dialog-buttonpane .ui-state-disabled {
-    background-color: silver;
-    opacity: 1;
-}
-
-.network-ui-dialog .ui-dialog-buttonpane .ui-state-hover {
-    background: #0044DD;
-}
-
-.network-ui-dialog .ui-dialog-buttonpane button {
-    margin-right: 15px;
-    border: 0 none;
-}
-
-.network-ui-dialog .ui-dialog-buttonpane .ui-button-text {
-    padding: 5px 0px;
-    font-size: 13px;
 }
 
 .network-config {
