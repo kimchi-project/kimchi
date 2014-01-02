@@ -38,6 +38,7 @@ import utils
 from kimchi import netinfo
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.iscsi import TargetClient
 from kimchi.rollbackcontext import RollbackContext
 
 
@@ -116,49 +117,59 @@ class ModelTests(unittest.TestCase):
     def test_storagepool(self):
         inst = kimchi.model.Model('qemu:///system', self.tmp_store)
 
-        with RollbackContext() as rollback:
-            path = '/tmp/kimchi-images'
-            name = 'test-pool'
-            if not os.path.exists(path):
-                os.mkdir(path)
+        poolDefs = [
+            {'type': 'dir',
+             'name': 'unitTestDirPool',
+             'path': '/tmp/kimchi-images'},
+            {'type': 'iscsi',
+             'name': 'unitTestISCSIPool',
+             'source': {'host': '127.0.0.1',
+                        'target': 'iqn.2013-12.localhost.kimchiUnitTest'}}]
 
-            pools = inst.storagepools_get_list()
-            num = len(pools) + 1
+        for poolDef in poolDefs:
+            with RollbackContext() as rollback:
+                path = poolDef.get('path')
+                name = poolDef['name']
 
-            args = {'name': name,
-                    'path': path,
-                    'type': 'dir'}
-            inst.storagepools_create(args)
-            rollback.prependDefer(inst.storagepool_delete, name)
+                if poolDef['type'] == 'iscsi':
+                    if not TargetClient(**poolDef['source']).validate():
+                        continue
 
-            pools = inst.storagepools_get_list()
-            self.assertEquals(num, len(pools))
+                pools = inst.storagepools_get_list()
+                num = len(pools) + 1
 
-            poolinfo = inst.storagepool_lookup(name)
-            self.assertEquals(path, poolinfo['path'])
-            self.assertEquals('inactive', poolinfo['state'])
-            if poolinfo['type'] == 'dir':
-                self.assertEquals(True, poolinfo['autostart'])
-            else:
-                self.assertEquals(False, poolinfo['autostart'])
+                inst.storagepools_create(poolDef)
+                rollback.prependDefer(inst.storagepool_delete, name)
 
-            inst.storagepool_activate(name)
-            rollback.prependDefer(inst.storagepool_deactivate, name)
+                pools = inst.storagepools_get_list()
+                self.assertEquals(num, len(pools))
 
-            poolinfo = inst.storagepool_lookup(name)
-            self.assertEquals('active', poolinfo['state'])
-
-            autostart = poolinfo['autostart']
-            ori_params = {'autostart':
-                          True} if autostart else {'autostart': False}
-            for i in [True, False]:
-                params = {'autostart': i}
-                inst.storagepool_update(name, params)
-                rollback.prependDefer(inst.storagepool_update, name,
-                                      ori_params)
                 poolinfo = inst.storagepool_lookup(name)
-                self.assertEquals(i, poolinfo['autostart'])
-            inst.storagepool_update(name, ori_params)
+                if path is not None:
+                    self.assertEquals(path, poolinfo['path'])
+                self.assertEquals('inactive', poolinfo['state'])
+                if poolinfo['type'] == 'dir':
+                    self.assertEquals(True, poolinfo['autostart'])
+                else:
+                    self.assertEquals(False, poolinfo['autostart'])
+
+                inst.storagepool_activate(name)
+                rollback.prependDefer(inst.storagepool_deactivate, name)
+
+                poolinfo = inst.storagepool_lookup(name)
+                self.assertEquals('active', poolinfo['state'])
+
+                autostart = poolinfo['autostart']
+                ori_params = {'autostart':
+                              True} if autostart else {'autostart': False}
+                for i in [True, False]:
+                    params = {'autostart': i}
+                    inst.storagepool_update(name, params)
+                    rollback.prependDefer(inst.storagepool_update, name,
+                                          ori_params)
+                    poolinfo = inst.storagepool_lookup(name)
+                    self.assertEquals(i, poolinfo['autostart'])
+                inst.storagepool_update(name, ori_params)
 
         pools = inst.storagepools_get_list()
         self.assertIn('default', pools)
