@@ -1,0 +1,84 @@
+13:04:19 <alinefm> #startmeeting
+13:04:19 <kimchi-bot> Meeting started Thu Jan  2 13:04:19 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:26 <alinefm> #meetingname scrum
+13:04:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:36 <alinefm> #info  Agenda 1) Sprint 1 status 2) Open discussion
+13:04:39 <alinefm> anything else?
+13:05:53 <alinefm> #topic Sprint 1 status
+13:06:16 <alinefm> As we did last meeting, please provide your status using the #info command: #info <nickname> <status>
+13:06:59 <alinefm> #info alinefm Patches related to controller refactoring were merged
+13:07:27 <alinefm> #info alinefm I sent some patches to fix pep8 style - still waiting for reviews
+13:08:01 <alinefm> #info alinefm I send a patch related to isoinfo refactoring and got some comments from Royce. I will send out the V2 still today
+13:08:37 <alinefm> #info alinefm I've already started working on mockmodel refactoring. Maybe tomorrow I can send the patches to review
+13:09:05 <YuXin> for jquery widgets, I customized 3 jquery-ui widgets to match kimchi ui style and tried jquery-ui Accordion and see its default style is ok.
+13:09:05 <YuXin> I also removed orginal customization in network.
+13:09:05 <YuXin> Mei Na has created 2 jquery widgets: dropdown button and filterselect.
+13:09:12 <zhoumeina> #info zhoumeina sent spice UI patch v3 today
+13:09:34 <YuXin> I sent 2 patches
+13:10:03 <zhoumeina> #info zhoumeina has sent widget patches, call for review
+13:10:16 <YuXin> these customization are enough for current kimchi UI
+13:10:49 <YuXin> I will review mei na's widget code tomorrow and mei na, please review my code about jquery-ui widget customization
+13:11:05 <zhoumeina> YuXin: ok
+13:11:08 <alinefm> YuXin, zhoumeina, so all patches need to complete the first step to jquery UI are on mail list waiting for review?
+13:11:22 <YuXin> yes
+13:11:43 <zhoumeina> alinefm: we make new jquery widget in step 1
+13:11:45 <YuXin> for sprint one content about jquery-ui widgets, all patches are sent
+13:11:47 <alinefm> great! I will try to review/test them today and provide my feedback
+13:12:01 <zhoumeina> k
+13:12:20 <alinefm> rotru, any update about FC pool patches?
+13:12:40 <rotru> alinefm; no, I don't have updates for today
+13:12:59 <zhoumeina> and I think there are few day from our sprint 1 point, we need iscsi patches and nfs server and target patches to merge, so that my UI can be merge
+13:13:09 <alinefm> rotru, anything blocking you? we are 1 week for the end of sprint 1
+13:14:08 <rotru> alinefm; not really blocking, but I had to work in other codes
+13:14:12 <alinefm> zhoumeina, seems iscsi backend and UI are ready! I will focus on review today
+13:14:31 <alinefm> rotru, np! do you think it can be done for sprint 1?
+13:14:45 <zhoumeina> ok
+13:14:59 <rotru> alinefm; yes ... I will work for that
+13:15:07 <alinefm> great!
+13:15:14 <alinefm> seems there is no blockers, right?
+13:15:32 <rotru> alinefm;  nope
+13:15:46 <alinefm> YuXin, zhoumeina ^
+13:15:54 <zhoumeina> rotru: you can give your rest api to me first,or UI patch will miss the point
+13:16:15 <YuXin> nothing block me
+13:16:41 <rotru> zhoumeina; oh, sorry, I should have sent to you
+13:17:23 <rotru> zhoumeina; will send to you
+13:17:40 <zhoumeina> rotru: never mind, you can send it tomorrow, and I can work with it
+13:17:59 <alinefm> ok
+13:18:00 <alinefm> #topic Open discussion
+13:18:12 <alinefm> I don't have any point in mind
+13:18:26 <alinefm> what about you?
+13:18:56 <alinefm> zhoumeina, YuXin, rotru ^
+13:19:49 <zhoumeina> I don
+13:20:03 <zhoumeina> I don't have something new to discuss
+13:20:11 <zhoumeina> :)
+13:20:14 <rotru> alinefm; not today aline
+13:20:16 <YuXin> Once the jquery widget workitem got finished, i would like to review the UI design and style and discuss with team
+13:20:54 <YuXin> I think the UI can be furthre simplified
+13:21:20 <zhoumeina> YuXin: you can send one thread to maillist first
+13:21:33 <alinefm> do you mean about the code or the user view?
+13:21:41 <YuXin> user view
+13:22:00 <alinefm> for that, you can send us some demos about your ideas
+13:22:16 <YuXin> sure, I will have some prototype and have team discuss it
+13:22:16 <alinefm> that way we can see the changes, instead of just discuss about them
+13:22:46 <YuXin> now, I will focus on jquery widgets, I mean when this workitem got finished
+13:22:55 <alinefm> ok - np
+13:23:04 <alinefm> so we have finished for today??
+13:23:11 <YuXin> to me, yes
+13:23:25 <alinefm> I think it will be our record! 23 minutes =)
+13:24:37 <zhoumeina> alinefm: I am worried about if we can get all patches merged in sprint 1
+13:25:22 <zhoumeina> because we have a year party in 7th
+13:25:47 <alinefm> zhoumeina, me too
+13:25:52 <alinefm> zhoumeina, 7th? next week?
+13:25:57 <zhoumeina> yes
+13:26:09 <zhoumeina> our department will have a new year party
+13:27:25 <alinefm> zhoumeina, np! enjoy your party
+13:27:59 <alinefm> zhoumeina, most of tasks has patches on mail list
+13:28:10 <zhoumeina> k
+13:28:16 <alinefm> I am just worried about those without any patch version there
+13:28:54 <alinefm> but let's see what happen in next days
+13:29:12 <alinefm> because of the end of the year most people were out these days
+13:29:25 <alinefm> I hope they come back next week
+13:31:27 <alinefm> thanks all!
+13:31:43 <alinefm> and let's start 2014!
+13:31:47 <alinefm> #endmeeting

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Thu Jan  2 13:04:19 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:04:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 1 status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:04:39</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 1 status</span>
+<a name="l-9"></a><span class="tm">13:06:16</span><span class="nk"> &lt;alinefm&gt;</span> As we did last meeting, please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;
+<a name="l-10"></a><span class="tm">13:06:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Patches related to controller refactoring were merged</span>
+<a name="l-11"></a><span class="tm">13:07:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I sent some patches to fix pep8 style - still waiting for reviews</span>
+<a name="l-12"></a><span class="tm">13:08:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I send a patch related to isoinfo refactoring and got some comments from Royce. I will send out the V2 still today</span>
+<a name="l-13"></a><span class="tm">13:08:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I've already started working on mockmodel refactoring. Maybe tomorrow I can send the patches to review</span>
+<a name="l-14"></a><span class="tm">13:09:05</span><span class="nk"> &lt;YuXin&gt;</span> for jquery widgets, I customized 3 jquery-ui widgets to match kimchi ui style and tried jquery-ui Accordion and see its default style is ok.
+<a name="l-15"></a><span class="tm">13:09:05</span><span class="nk"> &lt;YuXin&gt;</span> I also removed orginal customization in network.
+<a name="l-16"></a><span class="tm">13:09:05</span><span class="nk"> &lt;YuXin&gt;</span> Mei Na has created 2 jquery widgets: dropdown button and filterselect.
+<a name="l-17"></a><span class="tm">13:09:12</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">zhoumeina sent spice UI patch v3 today</span>
+<a name="l-18"></a><span class="tm">13:09:34</span><span class="nk"> &lt;YuXin&gt;</span> I sent 2 patches
+<a name="l-19"></a><span class="tm">13:10:03</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">zhoumeina has sent widget patches, call for review</span>
+<a name="l-20"></a><span class="tm">13:10:16</span><span class="nk"> &lt;YuXin&gt;</span> these customization are enough for current kimchi UI
+<a name="l-21"></a><span class="tm">13:10:49</span><span class="nk"> &lt;YuXin&gt;</span> I will review mei na's widget code tomorrow and mei na, please review my code about jquery-ui widget customization
+<a name="l-22"></a><span class="tm">13:11:05</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> ok
+<a name="l-23"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina, so all patches need to complete the first step to jquery UI are on mail list waiting for review?
+<a name="l-24"></a><span class="tm">13:11:22</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-25"></a><span class="tm">13:11:43</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> we make new jquery widget in step 1
+<a name="l-26"></a><span class="tm">13:11:45</span><span class="nk"> &lt;YuXin&gt;</span> for sprint one content about jquery-ui widgets, all patches are sent
+<a name="l-27"></a><span class="tm">13:11:47</span><span class="nk"> &lt;alinefm&gt;</span> great! I will try to review/test them today and provide my feedback
+<a name="l-28"></a><span class="tm">13:12:01</span><span class="nk"> &lt;zhoumeina&gt;</span> k
+<a name="l-29"></a><span class="tm">13:12:20</span><span class="nk"> &lt;alinefm&gt;</span> rotru, any update about FC pool patches?
+<a name="l-30"></a><span class="tm">13:12:40</span><span class="nk"> &lt;rotru&gt;</span> alinefm; no, I don't have updates for today
+<a name="l-31"></a><span class="tm">13:12:59</span><span class="nk"> &lt;zhoumeina&gt;</span> and I think there are few day from our sprint 1 point, we need iscsi patches and nfs server and target patches to merge, so that my UI can be merge
+<a name="l-32"></a><span class="tm">13:13:09</span><span class="nk"> &lt;alinefm&gt;</span> rotru, anything blocking you? we are 1 week for the end of sprint 1
+<a name="l-33"></a><span class="tm">13:14:08</span><span class="nk"> &lt;rotru&gt;</span> alinefm; not really blocking, but I had to work in other codes
+<a name="l-34"></a><span class="tm">13:14:12</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, seems iscsi backend and UI are ready! I will focus on review today
+<a name="l-35"></a><span class="tm">13:14:31</span><span class="nk"> &lt;alinefm&gt;</span> rotru, np! do you think it can be done for sprint 1?
+<a name="l-36"></a><span class="tm">13:14:45</span><span class="nk"> &lt;zhoumeina&gt;</span> ok
+<a name="l-37"></a><span class="tm">13:14:59</span><span class="nk"> &lt;rotru&gt;</span> alinefm; yes ... I will work for that
+<a name="l-38"></a><span class="tm">13:15:07</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-39"></a><span class="tm">13:15:14</span><span class="nk"> &lt;alinefm&gt;</span> seems there is no blockers, right?
+<a name="l-40"></a><span class="tm">13:15:32</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  nope
+<a name="l-41"></a><span class="tm">13:15:46</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina ^
+<a name="l-42"></a><span class="tm">13:15:54</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">rotru:</span> you can give your rest api to me first,or UI patch will miss the point
+<a name="l-43"></a><span class="tm">13:16:15</span><span class="nk"> &lt;YuXin&gt;</span> nothing block me
+<a name="l-44"></a><span class="tm">13:16:41</span><span class="nk"> &lt;rotru&gt;</span> zhoumeina; oh, sorry, I should have sent to you
+<a name="l-45"></a><span class="tm">13:17:23</span><span class="nk"> &lt;rotru&gt;</span> zhoumeina; will send to you
+<a name="l-46"></a><span class="tm">13:17:40</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">rotru:</span> never mind, you can send it tomorrow, and I can work with it
+<a name="l-47"></a><span class="tm">13:17:59</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-48"></a><span class="tm">13:18:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-49"></a><span class="tm">13:18:12</span><span class="nk"> &lt;alinefm&gt;</span> I don't have any point in mind
+<a name="l-50"></a><span class="tm">13:18:26</span><span class="nk"> &lt;alinefm&gt;</span> what about you?
+<a name="l-51"></a><span class="tm">13:18:56</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, YuXin, rotru ^
+<a name="l-52"></a><span class="tm">13:19:49</span><span class="nk"> &lt;zhoumeina&gt;</span> I don
+<a name="l-53"></a><span class="tm">13:20:03</span><span class="nk"> &lt;zhoumeina&gt;</span> I don't have something new to discuss
+<a name="l-54"></a><span class="tm">13:20:11</span><span class="nk"> &lt;zhoumeina&gt;</span> :)
+<a name="l-55"></a><span class="tm">13:20:14</span><span class="nk"> &lt;rotru&gt;</span> alinefm; not today aline
+<a name="l-56"></a><span class="tm">13:20:16</span><span class="nk"> &lt;YuXin&gt;</span> Once the jquery widget workitem got finished, i would like to review the UI design and style and discuss with team
+<a name="l-57"></a><span class="tm">13:20:54</span><span class="nk"> &lt;YuXin&gt;</span> I think the UI can be furthre simplified
+<a name="l-58"></a><span class="tm">13:21:20</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> you can send one thread to maillist first
+<a name="l-59"></a><span class="tm">13:21:33</span><span class="nk"> &lt;alinefm&gt;</span> do you mean about the code or the user view?
+<a name="l-60"></a><span class="tm">13:21:41</span><span class="nk"> &lt;YuXin&gt;</span> user view
+<a name="l-61"></a><span class="tm">13:22:00</span><span class="nk"> &lt;alinefm&gt;</span> for that, you can send us some demos about your ideas
+<a name="l-62"></a><span class="tm">13:22:16</span><span class="nk"> &lt;YuXin&gt;</span> sure, I will have some prototype and have team discuss it
+<a name="l-63"></a><span class="tm">13:22:16</span><span class="nk"> &lt;alinefm&gt;</span> that way we can see the changes, instead of just discuss about them
+<a name="l-64"></a><span class="tm">13:22:46</span><span class="nk"> &lt;YuXin&gt;</span> now, I will focus on jquery widgets, I mean when this workitem got finished
+<a name="l-65"></a><span class="tm">13:22:55</span><span class="nk"> &lt;alinefm&gt;</span> ok - np
+<a name="l-66"></a><span class="tm">13:23:04</span><span class="nk"> &lt;alinefm&gt;</span> so we have finished for today??
+<a name="l-67"></a><span class="tm">13:23:11</span><span class="nk"> &lt;YuXin&gt;</span> to me, yes
+<a name="l-68"></a><span class="tm">13:23:25</span><span class="nk"> &lt;alinefm&gt;</span> I think it will be our record! 23 minutes =)
+<a name="l-69"></a><span class="tm">13:24:37</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> I am worried about if we can get all patches merged in sprint 1
+<a name="l-70"></a><span class="tm">13:25:22</span><span class="nk"> &lt;zhoumeina&gt;</span> because we have a year party in 7th
+<a name="l-71"></a><span class="tm">13:25:47</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, me too
+<a name="l-72"></a><span class="tm">13:25:52</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, 7th? next week?
+<a name="l-73"></a><span class="tm">13:25:57</span><span class="nk"> &lt;zhoumeina&gt;</span> yes
+<a name="l-74"></a><span class="tm">13:26:09</span><span class="nk"> &lt;zhoumeina&gt;</span> our department will have a new year party
+<a name="l-75"></a><span class="tm">13:27:25</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, np! enjoy your party
+<a name="l-76"></a><span class="tm">13:27:59</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, most of tasks has patches on mail list
+<a name="l-77"></a><span class="tm">13:28:10</span><span class="nk"> &lt;zhoumeina&gt;</span> k
+<a name="l-78"></a><span class="tm">13:28:16</span><span class="nk"> &lt;alinefm&gt;</span> I am just worried about those without any patch version there
+<a name="l-79"></a><span class="tm">13:28:54</span><span class="nk"> &lt;alinefm&gt;</span> but let's see what happen in next days
+<a name="l-80"></a><span class="tm">13:29:12</span><span class="nk"> &lt;alinefm&gt;</span> because of the end of the year most people were out these days
+<a name="l-81"></a><span class="tm">13:29:25</span><span class="nk"> &lt;alinefm&gt;</span> I hope they come back next week
+<a name="l-82"></a><span class="tm">13:31:27</span><span class="nk"> &lt;alinefm&gt;</span> thanks all!
+<a name="l-83"></a><span class="tm">13:31:43</span><span class="nk"> &lt;alinefm&gt;</span> and let's start 2014!
+<a name="l-84"></a><span class="tm">13:31:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
