@@ -1,0 +1,82 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2014
+ *
+ * Authors:
+ * Yu Xin Huo <huoyuxin@linux.vnet.ibm.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.ui-button-primary {
+    border-radius: 8px 8px 8px 8px;
+}
+
+.ui-button-primary.ui-state-default {
+    background: none repeat scroll 0 0 #0066FF;
+    border: 0 none;
+}
+
+.ui-button-primary.ui-state-disabled {
+    background-color: silver;
+    opacity: 1;
+}
+
+.ui-button-primary.ui-state-hover {
+    background: #0044DD;
+}
+
+.ui-button-primary .ui-button-text {
+    padding: 10px 23px;
+    font-size: 13px;
+    color: #EEEEEE;
+}
+
+.ui-button-secondary {
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
+.ui-button-secondary.ui-state-default {
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
+}
+
+.ui-button-secondary.ui-state-hover {
+    background: linear-gradient(to bottom, #d5d5d5 0%, #eeeeee 100%);
+    box-shadow: -2px -2px 2px #dadada, 2px 2px 2px #fff, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
+}
+
+.ui-button-secondary .ui-button-text {
+    font-size: 13px;
+    color: #333333;
+    text-overflow: ellipsis;
+    text-shadow: -1px -1px 1px #AAAAAA, 1px 1px 1px #FFFFFF;
+    white-space: nowrap;
+}
+
+.ui-button-secondary.ui-button-text-only .ui-button-text {
+    padding: 12px 23px 13px 20px;
+}
+
+.ui-button-secondary.ui-button-text-icon-secondary .ui-button-text {
+    padding: 12px 35px 13px 13px;
+}
+
+.ui-button-secondary .ui-button-icon-secondary {
+    padding-right: 5px;
+    width: 15px;
+    height: 15px;
+}
