@@ -17,7 +17,8 @@ Depends: python-cherrypy3 (>= 3.2.0),
          python-psutil (>= 0.6.0),
          python-ethtool,
          sosreport,
-         python-ipaddr
+         python-ipaddr,
+         open-iscsi
 Build-Depends:
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server

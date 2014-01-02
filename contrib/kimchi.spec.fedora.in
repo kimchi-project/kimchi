@@ -25,6 +25,7 @@ Requires:	python-ethtool
 Requires:	sos
 Requires:	python-ipaddr
 Requires:	nfs-utils
+Requires:	iscsi-initiator-utils
 
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict

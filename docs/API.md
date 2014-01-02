@@ -182,17 +182,25 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **POST**: Create a new Storage Pool
     * name: The name of the Storage Pool.
     * type: The type of the defined Storage Pool.
-            Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical'
+            Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical', 'iscsi'
     * path: The path of the defined Storage Pool.
             For 'kimchi-iso' pool refers to targeted deep scan path.
             Pool types: 'dir', 'kimchi-iso'.
     * source: Dictionary containing source information of the pool.
         * host: IP or hostname of server for a pool backed from a remote host.
-                Pool types: 'netfs'.
+                Pool types: 'netfs', 'iscsi'.
         * path: Export path on NFS server for NFS pool.
                 Pool types: 'netfs'.
         * devices: Array of devices to be used in the Storage Pool
                    Pool types: 'logical'.
+        * target: Target IQN of an iSCSI pool.
+                  Pool types: 'iscsi'.
+        * port *(optional)*: Listening port of a remote storage server.
+                             Pool types: 'iscsi'.
+        * auth *(optional)*: Storage back-end authentication information.
+                             Pool types: 'iscsi'.
+            * username: Login username of the iSCSI target.
+            * password: Login password of the iSCSI target.
 
 ### Resource: Storage Pool
 

@@ -31,6 +31,7 @@ kimchi_PYTHON = \
 	distroloader.py    \
 	exception.py       \
 	featuretests.py    \
+	iscsi.py           \
 	isoinfo.py         \
 	mockmodel.py       \
 	model.py           \

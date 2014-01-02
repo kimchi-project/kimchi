@@ -44,6 +44,30 @@
                                 "description": "Full path of the block device node",
                                 "type": "string"
                             }
+                        },
+                        "target": {
+                            "description": "Target IQN of an iSCSI pool",
+                            "type": "string"
+                        },
+                        "port": {
+                            "description": "Listening port of a remote storage server",
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 65535
+                        },
+                        "auth": {
+                            "description": "Storage back-end authentication information",
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "description": "Login username of the iSCSI target",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "description": "Login password of the iSCSI target",
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }

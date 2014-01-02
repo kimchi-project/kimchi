@@ -47,6 +47,7 @@ PEP8_WHITELIST = \
 	src/kimchi/config.py.in \
 	src/kimchi/disks.py \
 	src/kimchi/featuretests.py \
+	src/kimchi/iscsi.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \

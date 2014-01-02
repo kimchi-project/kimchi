@@ -78,6 +78,69 @@ class storagepoolTests(unittest.TestCase):
                  <path>/var/lib/kimchi/logical_mount/unitTestLogicalPool</path>
              </target>
              </pool>
+             """},
+            {'def':
+                {'type': 'iscsi',
+                 'name': 'unitTestISCSIPool',
+                 'source': {
+                     'host': '127.0.0.1',
+                     'target': 'iqn.2003-01.org.linux-iscsi.localhost'}},
+             'xml':
+             """
+             <pool type='iscsi'>
+               <name>unitTestISCSIPool</name>
+               <source>
+                 <host name='127.0.0.1' />
+                 <device path='iqn.2003-01.org.linux-iscsi.localhost'/>
+               </source>
+               <target>
+                 <path>/dev/disk/by-id</path>
+               </target>
+             </pool>
+             """},
+            {'def':
+                {'type': 'iscsi',
+                 'name': 'unitTestISCSIPoolPort',
+                 'source': {
+                     'host': '127.0.0.1',
+                     'port': 3266,
+                     'target': 'iqn.2003-01.org.linux-iscsi.localhost'}},
+             'xml':
+             """
+             <pool type='iscsi'>
+               <name>unitTestISCSIPoolPort</name>
+               <source>
+                 <host name='127.0.0.1' port='3266' />
+                 <device path='iqn.2003-01.org.linux-iscsi.localhost'/>
+               </source>
+               <target>
+                 <path>/dev/disk/by-id</path>
+               </target>
+             </pool>
+             """},
+            {'def':
+                {'type': 'iscsi',
+                 'name': 'unitTestISCSIPoolAuth',
+                 'source': {
+                     'host': '127.0.0.1',
+                     'target': 'iqn.2003-01.org.linux-iscsi.localhost',
+                     'auth': {'username': 'testUser',
+                              'password': 'ActuallyNotUsedInPoolXML'}}},
+             'xml':
+             """
+             <pool type='iscsi'>
+               <name>unitTestISCSIPoolAuth</name>
+               <source>
+                 <host name='127.0.0.1' />
+                 <device path='iqn.2003-01.org.linux-iscsi.localhost'/>
+                 <auth type='chap' username='testUser'>
+                   <secret type='iscsi' usage='unitTestISCSIPoolAuth'/>
+                 </auth>
+               </source>
+               <target>
+                 <path>/dev/disk/by-id</path>
+               </target>
+             </pool>
              """}]
 
         for poolDef in poolDefs:

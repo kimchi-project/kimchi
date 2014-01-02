@@ -65,6 +65,7 @@ from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.featuretests import FeatureTests
+from kimchi.iscsi import TargetClient
 from kimchi.networkxml import to_network_xml
 from kimchi.objectstore import ObjectStore
 from kimchi.scan import Scanner
@@ -995,7 +996,7 @@ class Model(object):
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
             poolDef = StoragePoolDef.create(params)
-            poolDef.prepare()
+            poolDef.prepare(conn)
             xml = poolDef.xml
         except KeyError, key:
             raise MissingParameter(key)
@@ -1444,7 +1445,7 @@ class StoragePoolDef(object):
     def __init__(self, poolArgs):
         self.poolArgs = poolArgs
 
-    def prepare(self):
+    def prepare(self, conn):
         ''' Validate pool arguments and perform preparations. Operation which
         would cause side effect should be put here. Subclasses can optionally
         override this method, or it always succeeds by default. '''
@@ -1487,7 +1488,7 @@ class NetfsPoolDef(StoragePoolDef):
         super(NetfsPoolDef, self).__init__(poolArgs)
         self.path = '/var/lib/kimchi/nfs_mount/' + self.poolArgs['name']
 
-    def prepare(self):
+    def prepare(self, conn):
         # TODO: Verify the NFS export can be actually mounted.
         pass
 
@@ -1545,6 +1546,88 @@ class LogicalPoolDef(StoragePoolDef):
         <target>
             <path>{path}</path>
         </target>
+        </pool>
+        """.format(**poolArgs)
+        return xml
+
+
+class IscsiPoolDef(StoragePoolDef):
+    poolType = 'iscsi'
+
+    def prepare(self, conn):
+        source = self.poolArgs['source']
+        if not TargetClient(**source).validate():
+            raise OperationFailed("Can not login to iSCSI host %s target %s" %
+                                  (source['host'], source['target']))
+        self._prepare_auth(conn)
+
+    def _prepare_auth(self, conn):
+        try:
+            auth = self.poolArgs['source']['auth']
+        except KeyError:
+            return
+
+        try:
+            virSecret = conn.secretLookupByUsage(
+                libvirt.VIR_SECRET_USAGE_TYPE_ISCSI, self.poolArgs['name'])
+        except libvirt.libvirtError:
+            xml = '''
+            <secret ephemeral='no' private='yes'>
+              <description>Secret for iSCSI storage pool {name}</description>
+              <auth type='chap' username='{username}'/>
+              <usage type='iscsi'>
+                <target>{name}</target>
+              </usage>
+            </secret>'''.format(name=self.poolArgs['name'],
+                                username=auth['username'])
+            virSecret = conn.secretDefineXML(xml)
+
+        virSecret.setValue(auth['password'])
+
+    def _format_port(self, poolArgs):
+        try:
+            port = poolArgs['source']['port']
+        except KeyError:
+            return ""
+        return "port='%s'" % port
+
+    def _format_auth(self, poolArgs):
+        try:
+            auth = poolArgs['source']['auth']
+        except KeyError:
+            return ""
+
+        return '''
+        <auth type='chap' username='{username}'>
+          <secret type='iscsi' usage='{name}'/>
+        </auth>'''.format(name=poolArgs['name'], username=auth['username'])
+
+    @property
+    def xml(self):
+        # Required parameters
+        # name:
+        # type:
+        # source[host]:
+        # source[target]:
+        #
+        # Optional parameters
+        # source[port]:
+        poolArgs = copy.deepcopy(self.poolArgs)
+        poolArgs['source'].update({'port': self._format_port(poolArgs),
+                                   'auth': self._format_auth(poolArgs)})
+        poolArgs['path'] = '/dev/disk/by-id'
+
+        xml = """
+        <pool type='iscsi'>
+          <name>{name}</name>
+          <source>
+            <host name='{source[host]}' {source[port]}/>
+            <device path='{source[target]}'/>
+            {source[auth]}
+          </source>
+          <target>
+            <path>{path}</path>
+          </target>
         </pool>
         """.format(**poolArgs)
         return xml
