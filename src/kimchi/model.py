@@ -994,7 +994,9 @@ class Model(object):
 
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
-            xml = _get_pool_xml(**params)
+            poolDef = StoragePoolDef.create(params)
+            poolDef.prepare()
+            xml = poolDef.xml
         except KeyError, key:
             raise MissingParameter(key)
 
@@ -1009,7 +1011,7 @@ class Model(object):
                 return name
 
             pool = conn.storagePoolDefineXML(xml, 0)
-            if params['type'] in ['logical', 'dir']:
+            if params['type'] in ['logical', 'dir', 'netfs']:
                 pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
                 # autostart dir and logical storage pool created from kimchi
                 pool.setAutostart(1)
@@ -1430,28 +1432,74 @@ class LibvirtVMScreenshot(VMScreenshot):
         finally:
             os.close(fd)
 
-def _get_pool_xml(**kwargs):
-    # Required parameters
-    # name:
-    # type:
-    # path:
-    # nfspath:
-    if kwargs['type'] == 'dir':
+
+class StoragePoolDef(object):
+    @classmethod
+    def create(cls, poolArgs):
+        for klass in cls.__subclasses__():
+            if poolArgs['type'] == klass.poolType:
+                return klass(poolArgs)
+        raise OperationFailed('Unsupported pool type: %s' % poolArgs['type'])
+
+    def __init__(self, poolArgs):
+        self.poolArgs = poolArgs
+
+    def prepare(self):
+        ''' Validate pool arguments and perform preparations. Operation which
+        would cause side effect should be put here. Subclasses can optionally
+        override this method, or it always succeeds by default. '''
+        pass
+
+    @property
+    def xml(self):
+        ''' Subclasses have to override this method to actually generate the
+        storage pool XML definition. Should cause no side effect and be
+        idempotent'''
+        raise OperationFailed('self.xml is not implemented: %s' % self)
+
+
+class DirPoolDef(StoragePoolDef):
+    poolType = 'dir'
+
+    @property
+    def xml(self):
+        # Required parameters
+        # name:
+        # type:
+        # path:
         xml = """
-        <pool type='%(type)s'>
+        <pool type='dir'>
           <name>%(name)s</name>
           <target>
             <path>%(path)s</path>
           </target>
         </pool>
-       """
-    elif kwargs['type'] == 'netfs':
-        path = '/var/lib/kimchi/nfs_mount/' + kwargs['name'];
-        if not os.path.exists(path):
-           os.makedirs(path)
-        kwargs.update({'path': path})
+        """ % self.poolArgs
+        return xml
+
+
+class NetfsPoolDef(StoragePoolDef):
+    poolType = 'netfs'
+
+    def __init__(self, poolArgs):
+        super(NetfsPoolDef, self).__init__(poolArgs)
+        self.path = '/var/lib/kimchi/nfs_mount/' + self.poolArgs['name']
+
+    def prepare(self):
+        # TODO: Verify the NFS export can be actually mounted.
+        pass
+
+    @property
+    def xml(self):
+        # Required parameters
+        # name:
+        # type:
+        # nfsserver:
+        # nfspath:
+        poolArgs = copy.deepcopy(self.poolArgs)
+        poolArgs['path'] = self.path
         xml = """
-        <pool type='%(type)s'>
+        <pool type='netfs'>
           <name>%(name)s</name>
           <source>
             <host name='%(nfsserver)s'/>
@@ -1461,13 +1509,32 @@ def _get_pool_xml(**kwargs):
             <path>%(path)s</path>
           </target>
         </pool>
-        """
-    elif kwargs['type'] == 'logical':
-        path = '/var/lib/kimchi/logical_mount/' + kwargs['name'];
-        if not os.path.exists(path):
-           os.makedirs(path)
+        """ % poolArgs
+        return xml
+
+
+class LogicalPoolDef(StoragePoolDef):
+    poolType = 'logical'
+
+    def __init__(self, poolArgs):
+        super(LogicalPoolDef, self).__init__(poolArgs)
+        self.path = '/var/lib/kimchi/logical_mount/' + self.poolArgs['name']
+
+    @property
+    def xml(self):
+        # Required parameters
+        # name:
+        # type:
+        # devices:
+        poolArgs = copy.deepcopy(self.poolArgs)
+        devices = []
+        for device_path in poolArgs['devices']:
+            devices.append('<device path="%s" />' % device_path)
+
+        poolArgs.update({'devices': ''.join(devices),
+                         'path': self.path})
         xml = """
-        <pool type='%(type)s'>
+        <pool type='logical'>
         <name>%(name)s</name>
             <source>
             %(devices)s
@@ -1476,14 +1543,9 @@ def _get_pool_xml(**kwargs):
             <path>%(path)s</path>
         </target>
         </pool>
-        """
-        devices = ''
-        for device_path in kwargs['devices']:
-            devices += "<device path=\""+device_path+"\" />"
+        """ % poolArgs
+        return xml
 
-        kwargs.update({'devices': devices})
-        kwargs.update({'path': path})
-    return xml % kwargs
 
 def _get_volume_xml(**kwargs):
     # Required parameters
