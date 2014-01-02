@@ -1455,6 +1455,8 @@ class StoragePoolDef(object):
         ''' Subclasses have to override this method to actually generate the
         storage pool XML definition. Should cause no side effect and be
         idempotent'''
+        # TODO: When add new pool type, should also add the related test in
+        # tests/test_storagepool.py
         raise OperationFailed('self.xml is not implemented: %s' % self)
 
 
@@ -1469,12 +1471,12 @@ class DirPoolDef(StoragePoolDef):
         # path:
         xml = """
         <pool type='dir'>
-          <name>%(name)s</name>
+          <name>{name}</name>
           <target>
-            <path>%(path)s</path>
+            <path>{path}</path>
           </target>
         </pool>
-        """ % self.poolArgs
+        """.format(**self.poolArgs)
         return xml
 
 
@@ -1494,22 +1496,22 @@ class NetfsPoolDef(StoragePoolDef):
         # Required parameters
         # name:
         # type:
-        # nfsserver:
-        # nfspath:
+        # source[host]:
+        # source[path]:
         poolArgs = copy.deepcopy(self.poolArgs)
         poolArgs['path'] = self.path
         xml = """
         <pool type='netfs'>
-          <name>%(name)s</name>
+          <name>{name}</name>
           <source>
-            <host name='%(nfsserver)s'/>
-            <dir path='%(nfspath)s'/>
+            <host name='{source[host]}'/>
+            <dir path='{source[path]}'/>
           </source>
           <target>
-            <path>%(path)s</path>
+            <path>{path}</path>
           </target>
         </pool>
-        """ % poolArgs
+        """.format(**poolArgs)
         return xml
 
 
@@ -1525,25 +1527,26 @@ class LogicalPoolDef(StoragePoolDef):
         # Required parameters
         # name:
         # type:
-        # devices:
+        # source[devices]:
         poolArgs = copy.deepcopy(self.poolArgs)
         devices = []
-        for device_path in poolArgs['devices']:
+        for device_path in poolArgs['source']['devices']:
             devices.append('<device path="%s" />' % device_path)
 
-        poolArgs.update({'devices': ''.join(devices),
-                         'path': self.path})
+        poolArgs['source']['devices'] = ''.join(devices)
+        poolArgs['path'] = self.path
+
         xml = """
         <pool type='logical'>
-        <name>%(name)s</name>
+        <name>{name}</name>
             <source>
-            %(devices)s
+            {source[devices]}
             </source>
         <target>
-            <path>%(path)s</path>
+            <path>{path}</path>
         </target>
         </pool>
-        """ % poolArgs
+        """.format(**poolArgs)
         return xml
 
 

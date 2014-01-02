@@ -32,6 +32,7 @@ EXTRA_DIST = \
 	test_plugin.py \
 	test_rest.py \
 	test_server.py \
+	test_storagepool.py \
 	test_vmtemplate.py \
 	utils.py \
 	$(NULL)

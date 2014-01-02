@@ -180,15 +180,19 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 
 * **GET**: Retrieve a summarized list of all defined Storage Pools
 * **POST**: Create a new Storage Pool
-    * name: The name of the Storage Pool
-    * path: The path of the defined Storage Pool,
+    * name: The name of the Storage Pool.
+    * type: The type of the defined Storage Pool.
+            Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical'
+    * path: The path of the defined Storage Pool.
             For 'kimchi-iso' pool refers to targeted deep scan path.
-    * type: The type of the defined Storage Pool,
-            Supported types: 'dir', 'kimchi-iso', 'netfs'
-    * nfsserver: IP or hostname of NFS server to create NFS pool.
-    * nfspath: export path on nfs server for NFS pool.
-    * devices: Array of devices to be used in the Storage Pool
-            Exclusive to the 'logical' storage pool type.
+            Pool types: 'dir', 'kimchi-iso'.
+    * source: Dictionary containing source information of the pool.
+        * host: IP or hostname of server for a pool backed from a remote host.
+                Pool types: 'netfs'.
+        * path: Export path on NFS server for NFS pool.
+                Pool types: 'netfs'.
+        * devices: Array of devices to be used in the Storage Pool
+                   Pool types: 'logical'.
 
 ### Resource: Storage Pool
 
