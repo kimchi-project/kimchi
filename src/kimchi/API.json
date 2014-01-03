@@ -194,6 +194,12 @@
                     "type": "string",
                     "pattern": "^/storagepools/[^/]+/?$"
                 },
+                "networks": {
+                    "description": "list of which networks will be assigned to the new VM.",
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "uniqueItems": true
+                },
                 "folder": {
                     "description": "Folder",
                     "type": "array",
@@ -266,6 +272,12 @@
                     "description": "Location of the storage pool",
                     "type": "string",
                     "pattern": "^/storagepools/[^/]+/?$"
+                },
+                "networks": {
+                    "description": "list of which networks will be assigned to the new VM.",
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "uniqueItems": true
                 },
                 "folder": {
                     "description": "Folder",
