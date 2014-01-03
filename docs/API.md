@@ -120,6 +120,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * cdrom *(required)*: A volume name or URI to an ISO image.
     * storagepool *(optional)*: URI of the storagepool.
       Default is '/storagepools/default'
+    * networks *(optional)*: list of networks will be assigned to the new VM.
+      Default is '[default]'
     * disks *(optional)*: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
@@ -144,6 +146,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * memory: The amount of memory assigned to the VM
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
+    * networks *(optional)*: list of networks will be assigned to the new VM.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
@@ -162,6 +165,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * memory: The amount of memory assigned to the VM
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
+    * networks *(optional)*: list of networks will be assigned to the new VM.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
