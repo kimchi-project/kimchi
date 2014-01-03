@@ -679,6 +679,13 @@ class Model(object):
 
     def templates_create(self, params):
         name = params['name']
+        for net_name in params.get(u'networks', []):
+            try:
+                self._get_network(net_name)
+            except NotFoundError:
+                raise InvalidParameter("Network '%s' specified by template "
+                                       "does not exist" % net_name)
+
         with self.objstore as session:
             if name in session.get_list('template'):
                 raise InvalidOperation("Template already exists")
@@ -698,6 +705,13 @@ class Model(object):
             self._get_storagepool(pool_name_from_uri(new_storagepool))
         except Exception as e:
             raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
+
+        for net_name in params.get(u'networks', []):
+            try:
+                self._get_network(net_name)
+            except NotFoundError:
+                raise InvalidParameter("Network '%s' specified by template "
+                                       "does not exist" % net_name)
 
         self.template_delete(name)
         try:
