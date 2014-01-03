@@ -351,6 +351,64 @@ class RestTests(unittest.TestCase):
         # Verify the volume was deleted
         self.assertHTTPStatus(404, vol_uri)
 
+    def test_template_customise_network(self):
+        with RollbackContext() as rollback:
+            tmpl = {'name': 'test', 'cdrom': '/nonexistent.iso',
+                    'disks': [{'size': 1}]}
+            req = json.dumps(tmpl)
+            resp = self.request('/templates', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the template
+            rollback.prependDefer(self.request,
+                                  '/templates/test', '{}', 'DELETE')
+            tmpl_res = json.loads(resp.read())
+            self.assertTrue(type(tmpl_res['networks']) is list)
+            self.assertEquals("default", tmpl_res['networks'][0])
+
+            tmpl['name'] = "failed_tmpl"
+            # Create a Template with non-array network fails with 400
+            tmpl['networks'] = "test-network"
+            req = json.dumps(tmpl)
+            resp = self.request('/templates', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Create a Template with non-existent network fails with 400
+            tmpl['networks'] = ["test-network"]
+            req = json.dumps(tmpl)
+            resp = self.request('/templates', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Create a network
+            req = json.dumps({'name': 'test-network',
+                              'connection': 'nat',
+                              'net': '127.0.1.0/24'})
+            resp = self.request('/networks', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the network
+            rollback.prependDefer(self.request,
+                                  '/networks/test-network', '{}', 'DELETE')
+
+            tmpl['name'] = "test"
+            # Update a Template with non-array network fails with 400
+            tmpl['networks'] = "bad-network"
+            req = json.dumps(tmpl)
+            resp = self.request('/templates/test', req, 'PUT')
+            self.assertEquals(400, resp.status)
+            # Update a Template with non-existent network fails with 400
+            tmpl['networks'] = ["bad-network"]
+            req = json.dumps(tmpl)
+            resp = self.request('/templates/test', req, 'PUT')
+            self.assertEquals(400, resp.status)
+
+            # Update a Template with existent network, successful
+            tmpl['networks'] = ["default", "test-network"]
+            req = json.dumps(tmpl)
+            resp = self.request('/templates/test', req, 'PUT')
+            self.assertEquals(200, resp.status)
+            tmpl_res = json.loads(resp.read())
+            self.assertTrue(type(tmpl_res['networks']) is list)
+            self.assertEquals(tmpl['networks'], tmpl_res['networks'])
+
     def test_unnamed_vms(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})

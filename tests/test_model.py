@@ -271,6 +271,7 @@ class ModelTests(unittest.TestCase):
             disk_path = '/tmp/kimchi-images/%s-0.img' % vm_info['uuid']
             self.assertTrue(os.access(disk_path, os.F_OK))
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_create(self):
         inst = kimchi.model.Model('test:///default',
                                   objstore_loc=self.tmp_store)
@@ -283,28 +284,73 @@ class ModelTests(unittest.TestCase):
         params['cdrom'] = os.path.abspath(__file__)
         self.assertRaises(InvalidParameter, inst.templates_create, params)
 
+        with RollbackContext() as rollback:
+            net_name = 'test-network'
+            net_args = {'name': net_name,
+                        'connection': 'nat',
+                        'subnet': '127.0.100.0/24'}
+            inst.networks_create(net_args)
+            rollback.prependDefer(inst.network_delete, net_name)
+
+            params = {'name': 'test', 'memory': 1024, 'cpus': 1}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+            info = inst.template_lookup('test')
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
+            self.assertEquals("default", info["networks"][0])
+
+            # create template with non-existent network
+            params['name'] = 'new-test'
+            params['networks'] = ["no-exist"]
+            self.assertRaises(InvalidParameter, inst.templates_create, params)
+
+            params['networks'] = ['default', 'test-network']
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, params['name'])
+            info = inst.template_lookup(params['name'])
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
+
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
         inst = kimchi.model.Model('qemu:///system',
                                   objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            net_name = 'test-network'
+            net_args = {'name': net_name,
+                        'connection': 'nat',
+                        'subnet': '127.0.100.0/24'}
+            inst.networks_create(net_args)
+            rollback.prependDefer(inst.network_delete, net_name)
 
-        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
-        inst.templates_create(orig_params)
+            orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1}
+            inst.templates_create(orig_params)
 
-        params = {'name': 'new-test'}
-        self.assertEquals('new-test', inst.template_update('test', params))
+            params = {'name': 'new-test'}
+            self.assertEquals('new-test', inst.template_update('test', params))
+            self.assertRaises(NotFoundError, inst.template_delete, 'test')
 
-        params = {'name': 'new-test', 'memory': '512', 'cpus': '2'}
-        inst.template_update('new-test', params)
-        info = inst.template_lookup('new-test')
-        for key in params.keys():
-            self.assertEquals(params[key], info[key])
+            params = {'name': 'new-test', 'memory': 512, 'cpus': 2}
+            inst.template_update('new-test', params)
+            rollback.prependDefer(inst.template_delete, 'new-test')
 
-        params = {'name': 'new-test', 'memory': 1024, 'cpus': 1}
-        inst.template_update('new-test', params)
-        info = inst.template_lookup('new-test')
-        for key in params.keys():
-            self.assertEquals(params[key], info[key])
+            info = inst.template_lookup('new-test')
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
+            self.assertEquals("default", info["networks"][0])
+
+            params = {'name': 'new-test', 'memory': 1024, 'cpus': 1,
+                      'networks': ['default', 'test-network']}
+            inst.template_update('new-test', params)
+            info = inst.template_lookup('new-test')
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
+
+            # test update with non-existent network
+            params = {'networks': ["no-exist"]}
+            self.assertRaises(InvalidParameter, inst.template_update,
+                              'new-test', params)
 
     def test_vm_edit(self):
         inst = kimchi.model.Model('qemu:///system',
