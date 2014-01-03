@@ -200,6 +200,13 @@ class MockModel(object):
         name = params['name']
         if name in self._mock_templates:
             raise InvalidOperation("Template already exists")
+        for net_name in params.get(u'networks', []):
+            try:
+                self._get_network(net_name)
+            except NotFoundError:
+                raise InvalidParameter("Network '%s' specified by template "
+                                       "does not exist" % net_name)
+
         t = MockVMTemplate(params, self)
         self._mock_templates[name] = t
         return name
@@ -216,6 +223,13 @@ class MockModel(object):
             self._get_storagepool(kimchi.model.pool_name_from_uri(new_storagepool))
         except Exception as e:
             raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
+
+        for net_name in params.get(u'networks', []):
+            try:
+                self._get_network(net_name)
+            except NotFoundError:
+                raise InvalidParameter("Network '%s' specified by template "
+                                       "does not exist" % net_name)
 
         self.template_delete(name)
         try:
@@ -457,7 +471,7 @@ class MockModel(object):
         try:
             return self._mock_networks[name]
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("Network '%s'" % name)
 
     def network_lookup(self, name):
         network = self._get_network(name)
