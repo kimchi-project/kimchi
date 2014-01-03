@@ -33,6 +33,7 @@ kimchi_PYTHON = \
 	featuretests.py    \
 	iscsi.py           \
 	isoinfo.py         \
+	kvmusertests.py    \
 	mockmodel.py       \
 	model.py           \
 	netinfo.py         \

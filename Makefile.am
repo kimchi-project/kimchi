@@ -45,13 +45,14 @@ PEP8_WHITELIST = \
 	src/kimchi/auth.py \
 	src/kimchi/cachebust.py \
 	src/kimchi/config.py.in \
+	src/kimchi/control/*.py \
 	src/kimchi/disks.py \
 	src/kimchi/featuretests.py \
 	src/kimchi/iscsi.py \
+	src/kimchi/kvmusertests.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \
-	src/kimchi/control/*.py \
 	tests/test_mockmodel.py \
 	tests/test_model.py \
 	tests/test_plugin.py \
