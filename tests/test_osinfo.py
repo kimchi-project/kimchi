@@ -32,7 +32,7 @@ class OSInfoTests(unittest.TestCase):
         self.assertEquals(name, 'unknown')
         self.assertEquals('unknown', entry['os_distro'])
         self.assertEquals('unknown', entry['os_version'])
-        self.assertEquals('default', entry['network'])
+        self.assertEquals(['default'], entry['networks'])
 
     def test_fedora_lookup(self):
         cd = 'http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso'

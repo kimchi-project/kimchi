@@ -32,7 +32,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_minimal_construct(self):
         fields = (('name', 'test'), ('os_distro', 'unknown'),
                   ('os_version', 'unknown'), ('cpus', 1),
-                  ('memory', 1024), ('cdrom', ''), ('network', 'default'),
+                  ('memory', 1024), ('cdrom', ''), ('networks', ['default']),
                   ('disk_bus', 'ide'), ('nic_model', 'e1000'))
 
         args = {'name': 'test'}
@@ -58,10 +58,10 @@ class VMTemplateTests(unittest.TestCase):
         provided parameters.
         """
         args = {'name': 'test', 'os_distro': 'opensuse', 'os_version': '12.3',
-                'cpus': 2, 'memory': 2048, 'network': 'foo',
+                'cpus': 2, 'memory': 2048, 'networks': ['foo'],
                 'cdrom': '/cd.iso'}
         t = VMTemplate(args)
         self.assertEquals(2, t.info.get('cpus'))
         self.assertEquals(2048, t.info.get('memory'))
-        self.assertEquals('foo', t.info.get('network'))
+        self.assertEquals(['foo'], t.info.get('networks'))
         self.assertEquals('/cd.iso', t.info.get('cdrom'))

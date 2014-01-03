@@ -1377,16 +1377,15 @@ class LibvirtVMTemplate(VMTemplate):
         return pool
 
     def _network_validate(self):
-        name = self.info['network']
-        try:
-            conn = self.conn.get()
-            network = conn.networkLookupByName(name)
-        except libvirt.libvirtError:
-            raise InvalidParameter('Network specified by template does not exist')
-        if not network.isActive():
-            raise InvalidParameter('Storage specified by template is not active')
-
-        return network
+        names = self.info['networks']
+        for name in names:
+            try:
+                conn = self.conn.get()
+                network = conn.networkLookupByName(name)
+            except libvirt.libvirtError:
+                raise InvalidParameter('Network specified by template does not exist')
+            if not network.isActive():
+                raise InvalidParameter('Network specified by template is not active')
 
     def _get_storage_path(self):
         pool = self._storage_validate()
