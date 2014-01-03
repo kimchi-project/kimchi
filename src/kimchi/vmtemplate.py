@@ -182,11 +182,26 @@ class VMTemplate(object):
             ret.append(info)
         return ret
 
+    def _get_networks_xml(self):
+        network = """
+            <interface type='network'>
+              <source network='%(network)s'/>
+              <model type='%(nic_model)s'/>
+            </interface>
+        """
+        networks = ""
+        net_info = {"nic_model": self.info['nic_model']}
+        for nw in self.info['networks']:
+            net_info['network'] = nw
+            networks += network % net_info
+        return networks
+
     def to_vm_xml(self, vm_name, vm_uuid, libvirt_stream = False, qemu_stream_dns = False):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
         params['disks'] = self._get_disks_xml(vm_uuid)
+        params['networks'] = self._get_networks_xml()
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
@@ -220,10 +235,7 @@ class VMTemplate(object):
           <devices>
             %(disks)s
             %(cdroms)s
-            <interface type='network'>
-              <source network='%(network)s'/>
-              <model type='%(nic_model)s'/>
-            </interface>
+            %(networks)s
             <graphics type='vnc' />
             <sound model='ich6' />
             <memballoon model='virtio' />

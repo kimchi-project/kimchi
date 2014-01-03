@@ -179,8 +179,9 @@ isolinks = {
     },
 }
 
-defaults = {'network': 'default', 'storagepool': '/storagepools/default',
-        'domain': 'kvm', 'arch': os.uname()[4]
+defaults = {'networks': ['default'],
+            'storagepool': '/storagepools/default',
+            'domain': 'kvm', 'arch': os.uname()[4]
 }
 
 def lookup(distro, version):
