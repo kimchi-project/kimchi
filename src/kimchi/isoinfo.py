@@ -280,7 +280,7 @@ def probe_iso(status_helper, params):
     loc = params['path'].encode("utf-8")
     updater = params['updater']
     ignore = False
-    ignore_list = params['ignore_list']
+    ignore_list = params.get('ignore_list', [])
 
     def update_result(iso, ret):
         if ret != ('unknown', 'unknown'):
