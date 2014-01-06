@@ -55,7 +55,6 @@ except ImportError:
 
 
 from kimchi import config
-from kimchi import isoinfo
 from kimchi import netinfo
 from kimchi import network as knetwork
 from kimchi import vnc
@@ -66,6 +65,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.featuretests import FeatureTests
 from kimchi.iscsi import TargetClient
+from kimchi.isoinfo import IsoImage
 from kimchi.networkxml import to_network_xml
 from kimchi.objectstore import ObjectStore
 from kimchi.scan import Scanner
@@ -1182,7 +1182,8 @@ class Model(object):
                 path = os.path.join(os.path.dirname(path), os.readlink(path))
             os_distro = os_version = 'unknown'
             try:
-                os_distro, os_version = isoinfo.probe_one(path)
+                iso_img = IsoImage(path)
+                os_distro, os_version = iso_img.probe()
                 bootable = True
             except IsoFormatError:
                 bootable = False

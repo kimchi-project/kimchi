@@ -29,7 +29,7 @@ import tempfile
 import time
 
 
-from kimchi.isoinfo import probe_iso, probe_one
+from kimchi.isoinfo import IsoImage, probe_iso
 from kimchi.utils import kimchi_log
 
 
@@ -73,7 +73,8 @@ class Scanner(object):
 
             duplicates = "%s/%s*" % (params['pool_path'], iso_name)
             for f in glob.glob(duplicates):
-                if (iso_info['distro'], iso_info['version']) == probe_one(f):
+                iso_img = IsoImage(f)
+                if (iso_info['distro'], iso_info['version']) == iso_img.probe():
                     return
 
             iso_path = iso_name + hashlib.md5(iso_info['path']).hexdigest() + '.iso'

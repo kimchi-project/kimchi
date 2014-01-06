@@ -150,6 +150,26 @@ class IsoImage(object):
 
         raise IsoFormatError('ISO %s does not exist' % self.path)
 
+    def probe(self):
+        if not self.bootable:
+            raise IsoFormatError("ISO %s not bootable" % self.path)
+
+        matcher = Matcher(self.volume_id)
+
+        for d, v, regex in iso_dir:
+            if matcher.search(regex):
+                distro = d
+                if hasattr(v, '__call__'):
+                    version = v(matcher)
+                else:
+                    version = v
+                return (distro, version)
+
+        kimchi_log.debug("probe_iso: Unable to identify ISO %s with Volume ID: %s", 
+                          self.path, self.volume_id)
+
+        return ('unknown', 'unknown')
+
     def _unpack(self, s, data):
         return s.unpack(data[:s.size])
 
@@ -255,33 +275,6 @@ class Matcher(object):
         return self.lastmatch.group(num)
 
 
-def _probe_iso(fname):
-    try:
-        iso = IsoImage(fname)
-    except Exception, e:
-        kimchi_log.warning("probe_iso: Error processing ISO image: %s\n%s" %
-                           (fname, e))
-        raise IsoFormatError(e)
-
-    if not iso.bootable:
-        raise IsoFormatError("ISO %s not bootable" % fname)
-
-    matcher = Matcher(iso.volume_id)
-
-    for d, v, regex in iso_dir:
-        if matcher.search(regex):
-            distro = d
-            if hasattr(v, '__call__'):
-                version = v(matcher)
-            else:
-                version = v
-            return (distro, version)
-
-    kimchi_log.debug("probe_iso: Unable to identify ISO %s with Volume ID: %s"
-                     % (fname, iso.volume_id))
-    return ('unknown', 'unknown')
-
-
 def probe_iso(status_helper, params):
     loc = params['path'].encode("utf-8")
     updater = params['updater']
@@ -307,20 +300,18 @@ def probe_iso(status_helper, params):
                     continue
                 iso = os.path.join(root, name)
                 try:
-                    ret = _probe_iso(iso)
+                    iso_img = IsoImage(iso)
+                    ret = iso_img.probe()
                     update_result(iso, ret)
                 except:
                     continue
     else:
-        ret = _probe_iso(loc)
+        iso_img = IsoImage(loc)
+        ret = iso_img.probe()
         update_result(loc, ret)
 
     if status_helper != None:
         status_helper('', True)
-
-
-def probe_one(iso):
-    return _probe_iso(iso)
 
 
 if __name__ == '__main__':
