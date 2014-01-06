@@ -284,8 +284,8 @@ def probe_iso(status_helper, params):
 
     def update_result(iso, ret):
         if ret != ('unknown', 'unknown'):
-            iso = os.path.abspath(iso)
-            updater({'path': iso, 'distro': ret[0], 'version': ret[1]})
+            path = os.path.abspath(iso) if os.path.isfile(iso) else iso
+            updater({'path': path, 'distro': ret[0], 'version': ret[1]})
 
     if os.path.isdir(loc):
         for root, dirs, files in os.walk(loc):
