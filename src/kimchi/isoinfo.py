@@ -29,7 +29,7 @@ import urllib2
 
 
 from kimchi.exception import IsoFormatError
-from kimchi.utils import kimchi_log
+from kimchi.utils import check_url_path, kimchi_log
 
 iso_dir = [
     ##
@@ -134,12 +134,21 @@ class IsoImage(object):
     EL_TORITO_VALIDATION_ENTRY = struct.Struct("=BBH24sHBB")
     EL_TORITO_BOOT_ENTRY = struct.Struct("=BBHBBHL20x")
 
-    def __init__(self, path, remote = False):
+    def __init__(self, path):
         self.path = path
+        self.remote = self._is_iso_remote()
         self.volume_id = None
         self.bootable = False
-        self.remote = remote
         self._scan()
+
+    def _is_iso_remote(self):
+        if os.path.isfile(self.path):
+            return False
+
+        if check_url_path(self.path):
+            return True
+
+        raise IsoFormatError('ISO %s does not exist' % self.path)
 
     def _unpack(self, s, data):
         return s.unpack(data[:s.size])
@@ -246,9 +255,9 @@ class Matcher(object):
         return self.lastmatch.group(num)
 
 
-def _probe_iso(fname, remote = False):
+def _probe_iso(fname):
     try:
-        iso = IsoImage(fname, remote)
+        iso = IsoImage(fname)
     except Exception, e:
         kimchi_log.warning("probe_iso: Error processing ISO image: %s\n%s" %
                            (fname, e))
@@ -302,35 +311,16 @@ def probe_iso(status_helper, params):
                     update_result(iso, ret)
                 except:
                     continue
-    elif os.path.isfile(loc):
-        ret = _probe_iso(loc, False)
-        update_result(loc, ret)
     else:
-        ret = _probe_iso(loc, True)
+        ret = _probe_iso(loc)
         update_result(loc, ret)
 
     if status_helper != None:
         status_helper('', True)
 
-def _check_url_path(path):
-    try:
-        code = urllib2.urlopen(path).getcode()
-        if code != 200:
-            return False
-    except (urllib2.HTTPError, ValueError):
-        return False
-
-    return True
 
 def probe_one(iso):
-    if os.path.isfile(iso):
-        remote = False
-    elif _check_url_path(iso):
-        remote = True
-    else:
-        raise IsoFormatError('ISO %s does not exist' % iso)
-
-    return _probe_iso(iso, remote)
+    return _probe_iso(iso)
 
 
 if __name__ == '__main__':

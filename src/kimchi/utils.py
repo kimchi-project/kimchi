@@ -23,6 +23,7 @@
 
 import cherrypy
 import os
+import urllib2
 
 
 from cherrypy.lib.reprconf import Parser
@@ -84,3 +85,14 @@ def import_class(class_path):
 
 def import_module(module_name):
     return __import__(module_name, globals(), locals(), [''])
+
+
+def check_url_path(path):
+    try:
+        code = urllib2.urlopen(path).getcode()
+        if code != 200:
+            return False
+    except (urllib2.URLError, ValueError):
+        return False
+
+    return True
