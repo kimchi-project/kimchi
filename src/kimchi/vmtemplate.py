@@ -29,7 +29,7 @@ import urlparse
 
 from kimchi import isoinfo
 from kimchi import osinfo
-from kimchi.exception import InvalidParameter
+from kimchi.exception import InvalidParameter, IsoFormatError
 
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
@@ -64,7 +64,7 @@ class VMTemplate(object):
 
             try:
                 iso_distro, iso_version = isoinfo.probe_one(iso)
-            except isoinfo.IsoFormatError, e:
+            except IsoFormatError, e:
                 raise InvalidParameter(e)
 
         # Fetch defaults based on the os distro and version

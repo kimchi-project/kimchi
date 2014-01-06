@@ -28,6 +28,7 @@ import sys
 import urllib2
 
 
+from kimchi.exception import IsoFormatError
 from kimchi.utils import kimchi_log
 
 iso_dir = [
@@ -115,10 +116,6 @@ iso_dir = [
     ('fedora', lambda m: m.group(1), 'Fedora.*-(\d+)-'),
     ('gentoo', lambda m: m.group(1), 'Gentoo Linux \w+ (\d+)'),
 ]
-
-
-class IsoFormatError(Exception):
-    pass
 
 
 class IsoImage(object):

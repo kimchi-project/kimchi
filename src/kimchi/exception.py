@@ -39,3 +39,7 @@ class InvalidParameter(Exception):
 
 class InvalidOperation(Exception):
     pass
+
+
+class IsoFormatError(Exception):
+    pass

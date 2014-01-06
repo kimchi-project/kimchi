@@ -62,8 +62,8 @@ from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
-from kimchi.exception import InvalidOperation, InvalidParameter, MissingParameter
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
+from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.featuretests import FeatureTests
 from kimchi.iscsi import TargetClient
 from kimchi.networkxml import to_network_xml
@@ -1184,7 +1184,7 @@ class Model(object):
             try:
                 os_distro, os_version = isoinfo.probe_one(path)
                 bootable = True
-            except isoinfo.IsoFormatError:
+            except IsoFormatError:
                 bootable = False
             res.update(
                 dict(os_distro=os_distro, os_version=os_version, path=path, bootable=bootable))
