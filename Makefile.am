@@ -51,6 +51,7 @@ PEP8_WHITELIST = \
 	src/kimchi/exception.py \
 	src/kimchi/featuretests.py \
 	src/kimchi/iscsi.py \
+	src/kimchi/isoinfo.py \
 	src/kimchi/kvmusertests.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \

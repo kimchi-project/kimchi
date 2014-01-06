@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import glob
 import os
@@ -30,6 +30,7 @@ import urllib2
 
 from kimchi.exception import IsoFormatError
 from kimchi.utils import check_url_path, kimchi_log
+
 
 iso_dir = [
     ##
@@ -165,8 +166,8 @@ class IsoImage(object):
                     version = v
                 return (distro, version)
 
-        kimchi_log.debug("probe_iso: Unable to identify ISO %s with Volume ID: %s", 
-                          self.path, self.volume_id)
+        msg = "probe_iso: Unable to identify ISO %s with Volume ID: %s"
+        kimchi_log.debug(msg, self.path, self.volume_id)
 
         return ('unknown', 'unknown')
 
@@ -177,9 +178,9 @@ class IsoImage(object):
         """
         Search the Volume Descriptor Table for an El Torito boot record.  If
         found, the boot record will provide a link to a boot catalogue.  The
-        first entry in the boot catalogue is a validation entry.  The next entry
-        contains the default boot entry.  The default boot entry will indicate
-        whether the image is considered bootable.
+        first entry in the boot catalogue is a validation entry.  The next
+        entry contains the default boot entry. The default boot entry will
+        indicate whether the image is considered bootable.
         """
         vd_type = -1
         for i in xrange(1, 4):
@@ -199,7 +200,8 @@ class IsoImage(object):
             raise IsoFormatError("Invalid El Torito boot record")
 
         offset = IsoImage.SECTOR_SIZE * boot_cat
-        size = IsoImage.EL_TORITO_VALIDATION_ENTRY.size + IsoImage.EL_TORITO_BOOT_ENTRY.size
+        size = IsoImage.EL_TORITO_VALIDATION_ENTRY.size + \
+            IsoImage.EL_TORITO_BOOT_ENTRY.size
         data = self._get_iso_data(offset, size)
 
         fmt = IsoImage.EL_TORITO_VALIDATION_ENTRY
@@ -227,8 +229,8 @@ class IsoImage(object):
         Volume ID from the table
         """
         primary_vol_data = data[0: -1]
-        (vd_type, vd_ident, vd_ver,
-         pad0, sys_id, vol_id) = self._unpack(IsoImage.VOL_DESC, primary_vol_data)
+        info = self._unpack(IsoImage.VOL_DESC, primary_vol_data)
+        (vd_type, vd_ident, vd_ver, pad0, sys_id, vol_id) = info
         if vd_type != 1:
             raise IsoFormatError("Unexpected volume type for primary volume")
         if vd_ident != 'CD001' or vd_ver != 1:
@@ -238,7 +240,8 @@ class IsoImage(object):
     def _get_iso_data(self, offset, size):
         if self.remote:
             request = urllib2.Request(self.path)
-            request.add_header("range", "bytes=%d-%d" % (offset, offset + size -1))
+            range_header = "bytes=%d-%d" % (offset, offset + size - 1)
+            request.add_header("range", range_header)
             response = urllib2.urlopen(request)
             data = response.read()
         else:
@@ -310,13 +313,15 @@ def probe_iso(status_helper, params):
         ret = iso_img.probe()
         update_result(loc, ret)
 
-    if status_helper != None:
+    if status_helper is not None:
         status_helper('', True)
 
 
 if __name__ == '__main__':
     iso_list = []
+
     def updater(iso_info):
         iso_list.append(iso_info)
+
     probe_iso(None, dict(path=sys.argv[1], updater=updater))
     print iso_list
