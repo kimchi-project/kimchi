@@ -23,144 +23,25 @@
 import copy
 import os
 
-osinfo = [
-    # Entries are searched in order and the first match will be returned
-    ('debian', {
-        'version': lambda d,v: bool(d == 'debian' and v in ('6.0', '7.0')),
-        'icon': 'images/icon-debian.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('debian-old', {
-        'version': lambda d,v: bool(d == 'debian'),
-        'icon': 'images/icon-debian.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('ubuntu', {
-        'version': lambda d,v: bool(d == 'ubuntu' and v in
-            ('7.10', '8.04', '8.10', '9.04', '9.10', '10.04', '10.10',
-             '11.04', '11.10', '12.04', '12.10', '13.04', '13.10')),
-        'icon': 'images/icon-ubuntu.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('ubuntu-old', {
-        'version': lambda d,v: bool(d == 'ubuntu'),
-        'icon': 'images/icon-ubuntu.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('opensuse', {
-        'version': lambda d,v: bool(d == 'opensuse' and v in
-            ('10.3', '11.0', '11.1', '11.2', '11.3', '11.4', '12.1', '12.2',
-             '12.3',)),
-        'icon': 'images/icon-opensuse.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('opensuse-old', {
-        'version': lambda d,v: bool(d == 'opensuse'),
-        'icon': 'images/icon-opensuse.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('fedora', {
-        'version': lambda d,v: bool(d == 'fedora' and v in
-            ('16', '17', '18', '19')),
-        'icon': 'images/icon-fedora.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('fedora-old', {
-        'version': lambda d,v: bool(d == 'fedora'),
-        'icon': 'images/icon-fedora.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('rhel', {
-        'version': lambda d,v: bool(d == 'rhel' and
-            v.startswith('6.')),
-        'icon': 'images/icon-vm.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('rhel-old', {
-        'version': lambda d,v: bool(d == 'rhel'),
-        'icon': 'images/icon-vm.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('centos', {
-        'version': lambda d,v: bool(d == 'centos' and
-            (v in ('5.3', '5.4', '5.5') or v.startswith('6.'))),
-        'icon': 'images/icon-centos.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('centos-old', {
-        'version': lambda d,v: bool(d == 'centos'),
-        'icon': 'images/icon-centos.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('gentoo', {
-        'version': lambda d,v: bool(d == 'gentoo'),
-        'icon': 'images/icon-gentoo.png',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'virtio', 'nic_model': 'virtio',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-    ('unknown', {
-        'version': lambda d,v: True,
-        'icon': 'images/icon-vm.png',
-        'os_distro': 'unknown', 'os_version': 'unknown',
-        'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1,
-        'memory': 1024,
-        'cdrom': '',
-        'disks': [{'index': 0, 'size': 10}],
-        'disk_bus': 'ide', 'nic_model': 'e1000',
-        'cdrom_bus': 'ide', 'cdrom_index': 2,
-    }),
-]
+
+from distutils.version import LooseVersion
+
+
+common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
+               'disks': [{'index': 0, 'size': 10}], 'cdrom_bus': 'ide',
+               'cdrom_index': 2}
+
+
+modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
+
+
+old_spec = dict(common_spec, disk_bus='ide', nic_model='e1000')
+
+
+modern_version_bases = {'debian': '6.0', 'ubuntu': '7.10', 'opensuse': '10.3',
+                        'centos': '5.3', 'rhel': '6.0', 'fedora': '16',
+                        'gentoo': '0'}
+
 
 isolinks = {
     'debian': {
@@ -191,13 +72,20 @@ def lookup(distro, version):
     'defaults' and merging the parameters given for the identified OS.  If
     known, a link to a remote install CD is added.
     """
-    for name, entry in osinfo:
-        # Test if this entry is a valid match
-        if entry['version'](distro, version):
-            params = copy.copy(defaults)
-            params['os_distro'] = distro
-            params['os_version'] = version
-            params.update(entry)
-            params['cdrom'] = isolinks.get(distro, {}).get(version, '')
-            del params['version']  # Don't pass around the version function
-            return (name, params)
+    params = copy.copy(defaults)
+    params['os_distro'] = distro
+    params['os_version'] = version
+    params['cdrom'] = isolinks.get(distro, {}).get(version, '')
+
+    if distro in modern_version_bases:
+        params['icon'] = 'images/icon-%s.png' % distro
+        if LooseVersion(version) >= LooseVersion(modern_version_bases[distro]):
+            params.update(modern_spec)
+        else:
+            params.update(old_spec)
+    else:
+        params['icon'] = 'images/icon-vm.png'
+        params['os_distro'] = params['os_version'] = "unknown"
+        params.update(old_spec)
+
+    return params

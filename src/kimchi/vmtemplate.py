@@ -72,7 +72,7 @@ class VMTemplate(object):
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)
         os_version = args.get('os_version', iso_version)
-        name, entry = osinfo.lookup(os_distro, os_version)
+        entry = osinfo.lookup(os_distro, os_version)
         self.info.update(entry)
 
         # Override with the passed in parameters
