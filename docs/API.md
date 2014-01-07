@@ -364,6 +364,7 @@ A interface represents available interface on host.
         * active: The Network is ready for use
         * inactive: The Network is not available
     * autostart: Network autostart onboot
+    * vms: all vms attached to this network
     * subnet: Network segment in slash-separated format with ip address and prefix
     * dhcp: DHCP services on the virtual network is enabled.
         * start: start boundary of a pool of addresses to be provided to DHCP clients.

@@ -543,6 +543,11 @@ class Model(object):
         xpath = "/domain/devices/disk[@device='disk']/source/@file"
         return xmlutils.xpath_get_text(xml, xpath)
 
+    def _vm_get_networks(self, dom):
+        xml = dom.XMLDesc(0)
+        xpath = "/domain/devices/interface[@type='network']/source/@network"
+        return xmlutils.xpath_get_text(xml, xpath)
+
     def vm_delete(self, name):
         if self._vm_exists(name):
             conn = self.conn.get()
@@ -862,6 +867,15 @@ class Model(object):
         conn = self.conn.get()
         return sorted(conn.listNetworks() + conn.listDefinedNetworks())
 
+    def _get_vms_attach_to_a_network(self, network):
+        vms = []
+        conn = self.conn.get()
+        for dom in conn.listAllDomains(0):
+            networks = self._vm_get_networks(dom)
+            if network in networks:
+                vms.append(dom.name())
+        return vms
+
     def network_lookup(self, name):
         network = self._get_network(name)
         xml = network.XMLDesc(0)
@@ -890,6 +904,7 @@ class Model(object):
                 'interface': interface,
                 'subnet': subnet,
                 'dhcp': dhcp,
+                'vms': self._get_vms_attach_to_a_network(name),
                 'autostart': network.autostart() == 1,
                 'state':  network.isActive() and "active" or "inactive"}
 
