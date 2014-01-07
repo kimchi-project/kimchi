@@ -875,6 +875,7 @@ class RestTests(unittest.TestCase):
         networks = json.loads(request(host, port, '/networks').read())
         self.assertEquals(1, len(networks))
         self.assertEquals('default', networks[0]['name'])
+        self.assertEquals([], networks[0]['vms'])
 
         # Now add a couple of Networks to the mock model
         for i in xrange(5):
@@ -885,6 +886,8 @@ class RestTests(unittest.TestCase):
 
             resp = request(host, port, '/networks', req, 'POST')
             self.assertEquals(201, resp.status)
+            network = json.loads(resp.read())
+            self.assertEquals([], network["vms"])
 
         networks = json.loads(request(host, port, '/networks').read())
         self.assertEquals(6, len(networks))

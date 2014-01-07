@@ -410,6 +410,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(args['subnet'], networkinfo['subnet'])
             self.assertEqual(args['connection'], networkinfo['connection'])
             self.assertEquals('inactive', networkinfo['state'])
+            self.assertEquals([], networkinfo['vms'])
             self.assertTrue(networkinfo['autostart'])
 
             inst.network_activate(name)
