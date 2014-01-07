@@ -21,33 +21,38 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import errno
 import os
-import socket
 import subprocess
-import sys
 
 
-from contextlib import closing
+from kimchi.config import config
 
 
-from kimchi.exception import OperationFailed
+WS_TOKENS_DIR = '/var/lib/kimchi/vnc-tokens'
 
 
-def _getFreePort():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    with closing(sock):
-        try:
-            sock.bind(("0.0.0.0", 0))
-        except:
-            raise OperationFailed("Could not find a free port")
+def new_ws_proxy():
+    try:
+        os.makedirs(WS_TOKENS_DIR, mode=0755)
+    except OSError as e:
+        if e.errno == errno.EEXIST:
+            pass
 
-        return sock.getsockname()[1]
-
-def new_ws_proxy(target_port):
-    src_port = _getFreePort()
     cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
-    args = ['python', cmd, str(src_port), '--timeout', '10',
-            '--idle-timeout', '10', 'localhost:%s' % target_port]
+    args = ['python', cmd, config.get('novnc', 'vnc_proxy_port'),
+            '--target-config', WS_TOKENS_DIR]
     p = subprocess.Popen(args, close_fds=True)
+    return p
 
-    return src_port
+
+def add_proxy_token(name, port):
+    with open(os.path.join(WS_TOKENS_DIR, name), 'w') as f:
+        f.write('%s: localhost:%s' % (name.encode('utf-8'), port))
+
+
+def remove_proxy_token(name):
+    try:
+        os.unlink(os.path.join(WS_TOKENS_DIR, name))
+    except OSError:
+        pass

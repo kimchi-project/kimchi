@@ -32,6 +32,7 @@ from kimchi import auth
 from kimchi import config
 from kimchi import model
 from kimchi import mockmodel
+from kimchi import vnc
 from kimchi.root import Root
 from kimchi.utils import get_enabled_plugins, import_class
 
@@ -187,6 +188,10 @@ class Server(object):
             model_instance = mockmodel.get_mock_environment()
         else:
             model_instance = model.Model()
+
+        if isinstance(model_instance, model.Model):
+            vnc_ws_proxy = vnc.new_ws_proxy()
+            cherrypy.engine.subscribe('exit', vnc_ws_proxy.kill)
 
         self.app = cherrypy.tree.mount(Root(model_instance, dev_env),
                                        config=self.configObj)

@@ -291,17 +291,19 @@ var kimchi = {
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
             http_port = data['http_port'];
+            proxy_port = data['vnc_proxy_port'];
             kimchi.requestJSON({
                 url : "/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
-            }).done(function(data, textStatus, xhr) {
+            }).done(function() {
                 /**
                  * Due to problems with web sockets and self-signed
                  * certificates, for now we will always redirect to http
                  */
                 url = 'http://' + location.hostname + ':' + http_port;
-                url += "/vnc_auto.html?port=" + data.graphics.port;
+                url += "/vnc_auto.html?port=" + proxy_port;
+                url += "&path=?token=" + encodeURIComponent(vm);
                 window.open(url);
             });
         }).error(function() {

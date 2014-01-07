@@ -129,7 +129,6 @@ class Model(object):
         self.libvirt_uri = libvirt_uri or 'qemu:///system'
         self.conn = LibvirtConnection(self.libvirt_uri)
         self.objstore = ObjectStore(objstore_loc)
-        self.graphics_ports = {}
         self.next_taskid = 1
         self.stats = {}
         self.host_stats = defaultdict(int)
@@ -504,10 +503,7 @@ class Model(object):
         info = dom.info()
         state = Model.dom_state_map[info[0]]
         screenshot = None
-        graphics_type, _ = self._vm_get_graphics(name)
-        # 'port' must remain None until a connect call is issued
-        graphics_port = (self.graphics_ports.get(name, None) if state == 'running'
-                      else None)
+        graphics_type, graphics_port = self._vm_get_graphics(name)
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
@@ -567,6 +563,8 @@ class Model(object):
             with self.objstore as session:
                 session.delete('vm', dom.UUIDString(), ignore_missing=True)
 
+            vnc.remove_proxy_token(name)
+
     def vm_start(self, name):
         dom = self._get_vm(name)
         dom.create()
@@ -596,10 +594,10 @@ class Model(object):
     def vm_connect(self, name):
         graphics, port = self._vm_get_graphics(name)
         if graphics == "vnc" and port != None:
-            port = vnc.new_ws_proxy(port)
-            self.graphics_ports[name] = port
+            vnc.add_proxy_token(name, port)
         else:
-            raise OperationFailed("Unable to find VNC port in %s" % name)
+            raise OperationFailed("Only able to connect to running vm's vnc "
+                                  "graphics.")
 
     def vms_create(self, params):
         conn = self.conn.get()
