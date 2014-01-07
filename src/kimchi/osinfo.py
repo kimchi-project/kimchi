@@ -27,6 +27,9 @@ import os
 from distutils.version import LooseVersion
 
 
+SUPPORTED_ARCHS = {'x86': ('i386', 'x86_64'), 'power': ('ppc', 'ppc64')}
+
+
 common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
                'disks': [{'index': 0, 'size': 10}], 'cdrom_bus': 'ide',
                'cdrom_index': 2}
@@ -35,7 +38,15 @@ common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
 modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
 
 
-old_spec = dict(common_spec, disk_bus='ide', nic_model='e1000')
+template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
+                                      nic_model='e1000'),
+                          'modern': dict(common_spec, disk_bus='virtio',
+                                         nic_model='virtio')},
+                  'power': {'old': dict(common_spec, disk_bus='scsi',
+                                        nic_model='rtl8139', cdrom_bus='scsi'),
+                            'modern': dict(common_spec, disk_bus='virtio',
+                                           nic_model='virtio',
+                                           cdrom_bus='scsi')}}
 
 
 modern_version_bases = {'debian': '6.0', 'ubuntu': '7.10', 'opensuse': '10.3',
@@ -65,6 +76,13 @@ defaults = {'networks': ['default'],
             'domain': 'kvm', 'arch': os.uname()[4]
 }
 
+
+def _get_arch():
+    for arch, sub_archs in SUPPORTED_ARCHS.iteritems():
+        if os.uname()[4] in sub_archs:
+            return arch
+
+
 def lookup(distro, version):
     """
     Lookup all parameters needed to run a VM of a known or unknown operating
@@ -76,16 +94,17 @@ def lookup(distro, version):
     params['os_distro'] = distro
     params['os_version'] = version
     params['cdrom'] = isolinks.get(distro, {}).get(version, '')
+    arch = _get_arch()
 
     if distro in modern_version_bases:
         params['icon'] = 'images/icon-%s.png' % distro
         if LooseVersion(version) >= LooseVersion(modern_version_bases[distro]):
-            params.update(modern_spec)
+            params.update(template_specs[arch]['modern'])
         else:
-            params.update(old_spec)
+            params.update(template_specs[arch]['old'])
     else:
         params['icon'] = 'images/icon-vm.png'
         params['os_distro'] = params['os_version'] = "unknown"
-        params.update(old_spec)
+        params.update(template_specs[arch]['old'])
 
     return params
