@@ -457,8 +457,16 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError("Network '%s'" % name)
 
+    def _get_vms_attach_to_a_network(self, network):
+        vms = []
+        for name, dom in self._mock_vms.iteritems():
+             if network in dom.networks:
+                 vms.append(name)
+        return vms
+
     def network_lookup(self, name):
         network = self._get_network(name)
+        network.info['vms'] = self._get_vms_attach_to_a_network(name)
         return network.info
 
     def network_activate(self, name):
@@ -618,6 +626,7 @@ class MockVM(object):
         self.uuid = uuid
         self.name = name
         self.disk_paths = []
+        self.networks = template_info['networks']
         self.info = {'state': 'shutoff',
                      'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
                                 'net_throughput_peak': 100, 'io_throughput': 45, \
