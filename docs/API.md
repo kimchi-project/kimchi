@@ -432,6 +432,7 @@ Contains information about the application environment and configuration.
 
 * **GET**: Retrieve configuration information
     * http_port: The port number on which the server is listening
+    * vnc_proxy_port: Port for vnc's websocket proxy to listen on
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**

@@ -182,6 +182,8 @@ def _get_config():
     config.add_section("logging")
     config.set("logging", "log_dir", get_default_log_dir())
     config.set("logging", "log_level", DEFAULT_LOG_LEVEL)
+    config.add_section("novnc")
+    config.set("novnc", "vnc_proxy_port", "64667")
 
     config_file = os.path.join(get_config_dir(), 'kimchi.conf')
     if os.path.exists(config_file):

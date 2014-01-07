@@ -25,6 +25,7 @@
 import cherrypy
 
 
+from kimchi.config import config
 from kimchi.control.base import Collection, Resource
 
 
@@ -38,7 +39,8 @@ class Config(Resource):
 
     @property
     def data(self):
-        return {'http_port': cherrypy.server.socket_port}
+        return {'http_port': cherrypy.server.socket_port,
+                'vnc_proxy_port': config.get('novnc', 'vnc_proxy_port')}
 
 
 class Capabilities(Resource):
