@@ -44,7 +44,6 @@ except ImportError:
 import kimchi.model
 from kimchi import config
 from kimchi import network as knetwork
-from kimchi import vnc
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
@@ -59,19 +58,7 @@ class MockModel(object):
     def __init__(self, objstore_loc=None):
         self.reset()
         self.objstore = ObjectStore(objstore_loc)
-        self.vnc_port = 5999
         self.distros = self._get_distros()
-
-        # open vnc port
-        # make it here to make sure it will be available on server startup
-        cmd = config.find_qemu_binary()
-        args = [cmd, "-vnc", ":99"]
-
-        cmd  = "ps aux | grep '%s' | grep -v grep" % " ".join(args)
-        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-
-        if len(proc.stdout.readlines()) == 0:
-            p = subprocess.Popen(args, close_fds=True)
 
     def get_capabilities(self):
         return {'libvirt_stream_protocols': ['http', 'https', 'ftp', 'ftps', 'tftp'],
@@ -85,7 +72,6 @@ class MockModel(object):
         self._mock_templates = {}
         self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_networks = {'default': MockNetwork('default')}
-        self._mock_graphics_ports = {}
         self._mock_interfaces = self.dummy_interfaces()
         self.next_taskid = 1
         self.storagepool_activate('default')
@@ -121,7 +107,6 @@ class MockModel(object):
             vm.info['screenshot'] = self.vmscreenshot_lookup(name)
         else:
             vm.info['screenshot'] = None
-        vm.info['graphics']['port'] = self._mock_graphics_ports.get(name, None)
         return vm.info
 
     def vm_delete(self, name):
@@ -140,8 +125,7 @@ class MockModel(object):
         self._get_vm(name).info['state'] = 'shutoff'
 
     def vm_connect(self, name):
-        vnc_port = kimchi.vnc.new_ws_proxy(self.vnc_port)
-        self._mock_graphics_ports[name] = vnc_port
+        pass
 
     def vms_create(self, params):
         t_name = kimchi.model.template_name_from_uri(params['template'])
