@@ -20,7 +20,7 @@
  */
 #template-edit-window {
     font-size: 13px;
-    height: 400px;
+    height: 420px;
     width: 1000px;
 }
 
@@ -72,4 +72,36 @@
 
 .hidden-area {
     display: none;
+}
+
+.template-edit-wrapper-controls .select-list-box {
+    width: 272px;
+    max-height: 168px;
+    overflow: auto;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+}
+
+.template-edit-wrapper-controls .select-list-box>li>label {
+    display: block;
+}
+
+.template-edit-wrapper-controls .select-list-box>li>label>input[type="checkbox"] {
+    display: none;
+}
+
+.template-edit-wrapper-controls .select-list-box>li>label>.item {
+    display: block;
+    height: 41px;
+    line-height: 41px;
+    padding: 0 20px 0 40px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px 1px 1px #fff;
+    text-shadow: -1px -1px 1px #ddd, 1px 1px 1px #fff;
+    color: #222;
+    font-size: 12px;
+}
+
+.template-edit-wrapper-controls .select-list-box>li>label>input[type="checkbox"]:CHECKED+.item {
+    background: #f8f8f8 url(../images/theme-default/check-green.png) no-repeat 10px center;
 }

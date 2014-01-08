@@ -43,6 +43,26 @@ kimchi.template_edit_main = function() {
             }
             kimchi.select('template-edit-storagePool-list', options);
         });
+        kimchi.listNetworks(function(result) {
+            if(result && result.length > 0) {
+                var html = '';
+                var tmpl = $('#tmpl-network').html();
+                $.each(result, function(index, network) {
+                    html += kimchi.template(tmpl, network);
+                });
+                $('#template-edit-network-list').html(html).show();
+                if(template.networks && template.networks.length > 0) {
+                    $('input[name="networks"]', templateEditForm).each(function(index, element) {
+                        var value = $(element).val();
+                        if(template.networks.indexOf(value) >= 0) {
+                            $(element).prop('checked', true);
+                        }
+                    });
+                }
+            } else {
+                $('#template-edit-network-list').hide();
+            }
+        });
     });
 
     $('#tmpl-edit-button-cancel').on('click', function() {
@@ -64,6 +84,15 @@ kimchi.template_edit_main = function() {
         });
         data['memory'] = Number(data['memory']);
         data['cpus']   = Number(data['cpus']);
+        var networks = templateEditForm.serializeObject().networks;
+        if (networks instanceof Array) {
+            data.networks = networks;
+        } else if (networks != null) {
+            data.networks = [networks];
+        } else {
+            data.networks = [];
+        }
+
         kimchi.updateTemplate($('#template-name').val(), data, function() {
             kimchi.doListTemplates();
             kimchi.window.close();
