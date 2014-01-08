@@ -45,3 +45,8 @@
     line-height: 30px;
     padding: 0 5px;
 }
+
+
+.form-section input.invalid-field[type="text"] {
+    border-color: #FF4444;
+}

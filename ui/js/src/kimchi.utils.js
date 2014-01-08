@@ -163,3 +163,8 @@ kimchi.changetoProperUnit = function(numOrg, digits, base) {
 
     kimchi.formatMeasurement = format;
 })();
+
+kimchi.isUnsignedNumeric = function(number) {
+    var reg = /^d+(.d+)?$/
+    return reg.test(number);
+}

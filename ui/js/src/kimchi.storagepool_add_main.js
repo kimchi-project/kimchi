@@ -35,6 +35,9 @@ kimchi.initStorageAddPage = function() {
     }, {
         label : "NFS",
         value : "netfs"
+    } ,{
+        label : "iSCSI",
+        value : "iscsi"
     } ];
     kimchi.listHostPartitions(function(data) {
         if (data.length > 0) {
@@ -57,15 +60,33 @@ kimchi.initStorageAddPage = function() {
                 $('.path-section').removeClass('tmpl-html');
                 $('.logical-section').addClass('tmpl-html');
                 $('.nfs-section').addClass('tmpl-html');
+                $('.iscsi-section').addClass('tmpl-html');
             } else if ($(this).val() === 'netfs') {
                 $('.path-section').addClass('tmpl-html');
                 $('.logical-section').addClass('tmpl-html');
                 $('.nfs-section').removeClass('tmpl-html');
+                $('.iscsi-section').addClass('tmpl-html');
+            } else if ($(this).val() === 'iscsi') {
+                $('.path-section').addClass('tmpl-html');
+                $('.logical-section').addClass('tmpl-html');
+                $('.nfs-section').addClass('tmpl-html');
+                $('.iscsi-section').removeClass('tmpl-html');
             } else {
                 $('.path-section').addClass('tmpl-html');
                 $('.logical-section').removeClass('tmpl-html');
                 $('.nfs-section').addClass('tmpl-html');
+                $('.iscsi-section').addClass('tmpl-html');
             }
+        });
+        $('#authId').click(function() {
+            if ($(this).prop("checked")) {
+                $('.authenticationfield').removeClass('tmpl-html');
+            } else {
+                $('.authenticationfield').addClass('tmpl-html');
+            }
+        });
+        $('#iscsiportId').keyup(function(event) {
+            $(this).toggleClass("invalid-field",!/^[0-9]+$/.test($(this).val()));
         });
     });
 };
@@ -85,6 +106,8 @@ kimchi.validateForm = function() {
         return kimchi.validateDirForm();
     } else if (poolType === "netfs") {
         return kimchi.validateNfsForm();
+    } else if (poolType === "iscsi") {
+        return kimchi.validateIscsiForm();
     } else {
         return kimchi.validateLogicalForm();
     }
@@ -107,26 +130,44 @@ kimchi.validateDirForm = function () {
 kimchi.validateNfsForm = function () {
     var nfspath = $('#nfspathId').val();
     var nfsserver = $('#nfsserverId').val();
-    if ('' === nfsserver) {
-        kimchi.message.error(i18n['msg.pool.edit.nfsserver.blank']);
+    if (!kimchi.validateServer(nfsserver)) {
         return false;
     }
-
     if ('' === nfspath) {
         kimchi.message.error(i18n['msg.pool.edit.nfspath.blank']);
+        return false;
+    }
+    if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(nfspath)) {
+        kimchi.message.error(i18n['msg.validate.pool.edit.nfspath']);
+        return false;
+    }
+    return true;
+};
+
+kimchi.validateIscsiForm = function() {
+    var iscsiServer = $('#iscsiserverId').val();
+    var iscsiTarget = $('#iscsiTargetId').val();
+    if (!kimchi.validateServer(iscsiServer)) {
+        return false;
+    }
+    if ('' === iscsiTarget) {
+        kimchi.message.error(i18n['msg.pool.edit.iscsitarget.blank']);
+        return false;
+    }
+    return true;
+};
+
+kimchi.validateServer = function(serverField) {
+    if ('' === serverField) {
+        kimchi.message.error(i18n['msg.pool.edit.server.blank']);
         return false;
     }
     var domain = "([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}"
     var ip = "(\\d{1,3}\.){3}\\d{1,3}"
     regex = new RegExp('^' + domain + '|' + ip + '$')
 
-    if(!regex.test(nfsserver)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.nfsserver']);
-        return false;
-    }
-
-    if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(nfspath)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.nfspath']);
+    if (!regex.test(serverField)) {
+        kimchi.message.error(i18n['msg.validate.pool.edit.server']);
         return false;
     }
     return true;
@@ -144,6 +185,7 @@ kimchi.validateLogicalForm = function () {
 kimchi.addPool = function(event) {
     if (kimchi.validateForm()) {
         var formData = $('#form-pool-add').serializeObject();
+        delete formData.authname;
         var poolType = $("#poolType").val();
         if (poolType === 'dir') {
             formData.path = $('#pathId').val();
@@ -158,10 +200,22 @@ kimchi.addPool = function(event) {
             }
             delete formData.devices;
             formData.source = source;
-        } else {
+        } else if (poolType === 'netfs'){
             var source = {};
             source.path = $('#nfspathId').val();
             source.host = $('#nfsserverId').val();
+            formData.source = source;
+        } else {
+            var source = {};
+            source.target = $('#iscsiTargetId').val();
+            source.host = $('#iscsiserverId').val();
+            $('#iscsiportId').val() !== '' ? source.port = parseInt($('#iscsiportId').val()): null;
+            if ($('#authId').prop("checked")) {
+                source.auth = {
+                    "username" : $('#usernameId').val(),
+                    "password" : $('#passwordId').val()
+                };
+            }
             formData.source = source;
         }
         if (poolType === 'logical') {
