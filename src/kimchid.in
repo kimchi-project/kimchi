@@ -33,31 +33,13 @@ import kimchi.config
 if kimchi.config.without_installation():
     sys.path.append(kimchi.config.get_prefix())
 
-from ConfigParser import SafeConfigParser
+from kimchi.config import config
 from optparse import OptionParser
 
 ACCESS_LOG = "kimchi-access.log"
 ERROR_LOG = "kimchi-error.log"
-CONFIG_FILE = "%s/kimchi.conf" % kimchi.config.get_config_dir()
-DEFAULT_LOG_DIR = kimchi.config.get_default_log_dir()
-DEFAULT_LOG_LEVEL = "debug"
 
 def main(options):
-    config = SafeConfigParser()
-    config.add_section("server")
-    config.set("server", "host", "0.0.0.0")
-    config.set("server", "port", "8000")
-    config.set("server", "ssl_port", "8001")
-    config.set("server", "ssl_cert", "")
-    config.set("server", "ssl_key", "")
-    config.set("server", "environment", "development")
-    config.add_section("logging")
-    config.set("logging", "log_dir", DEFAULT_LOG_DIR)
-    config.set("logging", "log_level", DEFAULT_LOG_LEVEL)
-
-    if os.path.exists(CONFIG_FILE):
-        config.read(CONFIG_FILE)
-
     host = config.get("server", "host")
     port = config.get("server", "port")
     ssl_port = config.get("server", "ssl_port")
