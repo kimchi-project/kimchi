@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 16:04-0200\n"
+"POT-Creation-Date: 2014-01-08 13:08+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Alexandre Hirata <hirata@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-Language: Portuguese\n"
@@ -352,9 +352,6 @@ msgstr "O nome do storage pool não pode ser em branco."
 msgid "The storage pool path can not be blank."
 msgstr "O caminho do storage pool não pde ser em branco."
 
-msgid "NFS server can not be blank."
-msgstr "Servidor de NFS não pode ficar em branco."
-
 msgid "NFS server mount path can not be blank."
 msgstr "Caminho de montagem do servidor de NFS não pode ficar em branco."
 
@@ -367,9 +364,6 @@ msgstr ""
 
 msgid "This is not a real linux path."
 msgstr "Esse não é um caminho real no linux."
-
-msgid "This is not a valid NFS server."
-msgstr "Isso não é um servidor de NFS válido."
 
 msgid "Invalid nfs mount path."
 msgstr "Caminho de montagem NFS inválido."
@@ -424,6 +418,15 @@ msgstr ""
 "Isso formatará seu disco e você perderá toda informação, você tem certeza "
 "que quer continuar?"
 
+msgid "The iSCSI target can not be blank."
+msgstr ""
+
+msgid "Server name can not be blank."
+msgstr ""
+
+msgid "This is not a valid Server Name or IP. please, modify it."
+msgstr ""
+
 msgid "Log out"
 msgstr "Sair"
 
@@ -472,6 +475,11 @@ msgid ""
 msgstr ""
 "O caminho do Storage Pool. Cada Storage Pool deve ter um único caminho."
 
+msgid ""
+"Kimchi will try to create the directory when it does not already exist in "
+"your system."
+msgstr ""
+
 msgid "NFS server IP"
 msgstr "Endereço IP do servidor NFS"
 
@@ -486,6 +494,30 @@ msgstr "O caminho exportado no servidor NFS"
 
 msgid "Device Path"
 msgstr "Caminho do dispositivo"
+
+msgid "iSCSI Server"
+msgstr ""
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr ""
+
+msgid "Server"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Target"
+msgstr ""
+
+msgid "The iSCSI target on iSCSI server"
+msgstr ""
+
+msgid "Add iSCSI Authentication"
+msgstr ""
+
+msgid "iSCSI Authentication"
+msgstr ""
 
 msgid "CPU"
 msgstr "CPU"

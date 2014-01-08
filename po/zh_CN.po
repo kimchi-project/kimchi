@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 16:04-0200\n"
+"POT-Creation-Date: 2014-01-08 13:08+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-Language: Chinese\n"
@@ -342,9 +342,6 @@ msgstr "存储池的名字不能为空"
 msgid "The storage pool path can not be blank."
 msgstr "存储池的路径不能为空"
 
-msgid "NFS server can not be blank."
-msgstr "NFS服务器不能为空"
-
 msgid "NFS server mount path can not be blank."
 msgstr "NFS服务器挂载路径不能为空"
 
@@ -355,9 +352,6 @@ msgstr "无效的存储池名字，它应该只包括字母，数字，下划线
 
 msgid "This is not a real linux path."
 msgstr "这不是一个符合要求的LINUX路径"
-
-msgid "This is not a valid NFS server."
-msgstr "这不是一个有效的NFS服务器"
 
 msgid "Invalid nfs mount path."
 msgstr "无效的nfs挂载路径"
@@ -408,6 +402,15 @@ msgid ""
 "to continue? "
 msgstr "你的磁盘将会格式化，磁盘上的数据会丢失，你确定要继续吗？"
 
+msgid "The iSCSI target can not be blank."
+msgstr "iSCSI目标不能为空"
+
+msgid "Server name can not be blank."
+msgstr "服务器不能为空"
+
+msgid "This is not a valid Server Name or IP. please, modify it."
+msgstr "这不是一个有效的服务器名或IP，请修改"
+
 msgid "Log out"
 msgstr "登出"
 
@@ -454,6 +457,11 @@ msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr "存储池的路径.每个存储池的路径是唯一的。"
 
+msgid ""
+"Kimchi will try to create the directory when it does not already exist in "
+"your system."
+msgstr "如果目录不存在，KIMCHI会自动在系统中创建一个新的目录"
+
 msgid "NFS server IP"
 msgstr "NFS服务器IP"
 
@@ -468,6 +476,30 @@ msgstr "nfs服务器上导出的路径"
 
 msgid "Device Path"
 msgstr "设备路径"
+
+msgid "iSCSI Server"
+msgstr "iSCSI服务器"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr "iSCSI服务器IP或者主机名， 不能为空。"
+
+msgid "Server"
+msgstr "服务器"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "Target"
+msgstr "目标"
+
+msgid "The iSCSI target on iSCSI server"
+msgstr "iSCSI目标"
+
+msgid "Add iSCSI Authentication"
+msgstr "添加ISCSI认证"
+
+msgid "iSCSI Authentication"
+msgstr "iSCSI认证"
 
 msgid "CPU"
 msgstr "处理器"
