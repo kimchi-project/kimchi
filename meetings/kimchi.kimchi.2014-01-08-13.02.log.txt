@@ -1,0 +1,4 @@
+13:02:17 <alinefm> #startmeeting
+13:02:17 <kimchi-bot> Meeting started Wed Jan  8 13:02:17 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:21 <danielhb> yo

@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan  8 13:02:17 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:21</span><span class="nk"> &lt;danielhb&gt;</span> yo
+<a name="l-5"></a><span class="tm">13:02:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-6"></a><span class="tm">13:02:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-7"></a><span class="tm">13:02:29</span><span class="nk"> &lt;royce&gt;</span> Hi guys~shaohe's on his way back home, may delay participating
+<a name="l-8"></a><span class="tm">13:02:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 1 status 2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:45</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks for share it
+<a name="l-11"></a><span class="tm">13:02:57</span><span class="nk"> &lt;ming&gt;</span> power shedule?
+<a name="l-12"></a><span class="tm">13:03:08</span><span class="nk"> &lt;royce&gt;</span> alinefm, yw
+<a name="l-13"></a><span class="tm">13:04:06</span><span class="nk"> &lt;alinefm&gt;</span> ming, it is not in the community scope
+<a name="l-14"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 1 status</span>
+<a name="l-15"></a><span class="tm">13:05:40</span><span class="nk"> &lt;alinefm&gt;</span> As we are doing, please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;
+<a name="l-16"></a><span class="tm">13:06:30</span><span class="nk"> &lt;ming&gt;</span> sprint is ending.
+<a name="l-17"></a><span class="tm">13:06:44</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">UI patches for iSCSI pool, I just send v6</span>
+<a name="l-18"></a><span class="tm">13:06:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Patches related to isoinfo refactoring were merged</span>
+<a name="l-19"></a><span class="tm">13:07:33</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce  status: storage targets probe, almost done, fixing problem of GET param to cover more scenario, will send new version tonight</span>
+<a name="l-20"></a><span class="tm">13:07:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I am still working on model/mockmodel refactoring. I hope sending patches at the beginning of next week</span>
+<a name="l-21"></a><span class="tm">13:08:23</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce asks to add "cdrom add/changemedia support" to sprint 2, RFC submitted, @alinefm</span>
+<a name="l-22"></a><span class="tm">13:08:58</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">zhoumeina iSCSI patches is ready to go</span>
+<a name="l-23"></a><span class="tm">13:09:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, I will take a look in it
+<a name="l-24"></a><span class="tm">13:09:16</span><span class="nk"> &lt;royce&gt;</span> thanks
+<a name="l-25"></a><span class="tm">13:09:28</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru FC/SCSI feature: The backend API to create the SCSI pool is done. I am currently hacking the vm creation process to use SCSI Luns as disks.</span>
+<a name="l-26"></a><span class="tm">13:10:13</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">customize of jquery-ui widget in use is completed</span>
+<a name="l-27"></a><span class="tm">13:10:24</span><span class="nk"> &lt;ming&gt;</span> rotru, why hacking? Is there more graceful way to do that?
+<a name="l-28"></a><span class="tm">13:10:53</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohe's customise network for template is merged, now he's working on permission checking and report attatched vm information on a network</span>
+<a name="l-29"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think there are some patches that need review
+<a name="l-30"></a><span class="tm">13:11:13</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> I hope you can review iSCSI UI later, it is already reviewed by zengsheng
+<a name="l-31"></a><span class="tm">13:11:25</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina, as you may know I am not UI expert so I would like you reviewing them
+<a name="l-32"></a><span class="tm">13:11:36</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-33"></a><span class="tm">13:11:58</span><span class="nk"> &lt;zhoumeina&gt;</span> ok, we can review each other's patch
+<a name="l-34"></a><span class="tm">13:12:04</span><span class="nk"> &lt;YuXin&gt;</span> mei na, I have reviewed some of your patch with comments
+<a name="l-35"></a><span class="tm">13:12:36</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, YuXin, of course, I also review the UI patches but I think you can do a better review than me
+<a name="l-36"></a><span class="tm">13:12:54</span><span class="nk"> &lt;rotru&gt;</span> ming; no no, I am not changing everything .... I am adding a new functions if the pool is SCSI type ... then I need to change the flow ...thats why I said I am "hacking"
+<a name="l-37"></a><span class="tm">13:13:04</span><span class="nk"> &lt;YuXin&gt;</span> ok, mei na, let us review Ui patch in pair tomorrow to get all ui patch reviewed tomorrow
+<a name="l-38"></a><span class="tm">13:13:11</span><span class="nk"> &lt;ming&gt;</span> <span class="cmd">#info </span><span class="cmdline">Design UI removal V2  is calling for review.</span>
+<a name="l-39"></a><span class="tm">13:13:13</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> ok
+<a name="l-40"></a><span class="tm">13:14:05</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers?
+<a name="l-41"></a><span class="tm">13:14:26</span><span class="nk"> &lt;ming&gt;</span> rotru, not sure If I understand wht a SCSI poo is?  Do you mean FC storage pool?
+<a name="l-42"></a><span class="tm">13:14:36</span><span class="nk"> &lt;rotru&gt;</span> ming; yes
+<a name="l-43"></a><span class="tm">13:15:11</span><span class="nk"> &lt;rotru&gt;</span> alinefm; actually, I do not have good resources to test FC functionality
+<a name="l-44"></a><span class="tm">13:15:40</span><span class="nk"> &lt;ming&gt;</span> Rotru, So the block device link of the storage volume in the FC storage poll will be passed to qemu directly?
+<a name="l-45"></a><span class="tm">13:15:41</span><span class="nk"> &lt;rotru&gt;</span> ming;  FC is a subtype of SCSI
+<a name="l-46"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what do you need? a machine with FC?
+<a name="l-47"></a><span class="tm">13:16:09</span><span class="nk"> &lt;ming&gt;</span> s/storage poll/storage pool
+<a name="l-48"></a><span class="tm">13:17:06</span><span class="nk"> &lt;rotru&gt;</span> ming, I think so
+<a name="l-49"></a><span class="tm">13:17:45</span><span class="nk"> &lt;rotru&gt;</span> ming; actually, libvirt is going to handle the block device
+<a name="l-50"></a><span class="tm">13:18:37</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">rotru:</span> i might have a system in the austin lab that's using fc that you can test with
+<a name="l-51"></a><span class="tm">13:18:38</span><span class="nk"> &lt;pvital_&gt;</span> rotru, that x86_64 box I told you is not working for your tests?
+<a name="l-52"></a><span class="tm">13:19:07</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  a machine with latest libvirt , connected to a FC storage (directly, and through a SAN)
+<a name="l-53"></a><span class="tm">13:19:43</span><span class="nk"> &lt;rotru&gt;</span> christyp; thats nice!
+<a name="l-54"></a><span class="tm">13:19:56</span><span class="nk"> &lt;rotru&gt;</span> pvital_; not sure what box you are talking about
+<a name="l-55"></a><span class="tm">13:20:07</span><span class="nk"> &lt;alinefm&gt;</span> rotru, did you check is there is a way to pass the FC from the host to a vm? so we can create a vm for each supported distro and test in vm
+<a name="l-56"></a><span class="tm">13:20:12</span><span class="nk"> &lt;alinefm&gt;</span> nested virtualization
+<a name="l-57"></a><span class="tm">13:21:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm; good point, I would have to pass the scsi device to the VM ... not sure if this is possible
+<a name="l-58"></a><span class="tm">13:21:40</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  will check it
+<a name="l-59"></a><span class="tm">13:22:00</span><span class="nk"> &lt;alinefm&gt;</span> we can try it after meeting
+<a name="l-60"></a><span class="tm">13:22:11</span><span class="nk"> &lt;alinefm&gt;</span> and also check the machine christyp mentioned
+<a name="l-61"></a><span class="tm">13:22:25</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think we want NPIV, which is a pending requirement for Kimchi too
+<a name="l-62"></a><span class="tm">13:22:52</span><span class="nk"> &lt;rotru&gt;</span> AdamKingIT; really ?
+<a name="l-63"></a><span class="tm">13:23:21</span><span class="nk"> &lt;AdamKingIT&gt;</span> I am the last person to even play a FibreChannel expert even on TV, but I think so...
+<a name="l-64"></a><span class="tm">13:23:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> http://en.wikipedia.org/wiki/NPIV
+<a name="l-65"></a><span class="tm">13:24:22</span><span class="nk"> &lt;rotru&gt;</span> AdamKingIT; I see
+<a name="l-66"></a><span class="tm">13:24:59</span><span class="nk"> &lt;AdamKingIT&gt;</span> might allow us to allocate a FC port to each of the guests hosting the diff distros
+<a name="l-67"></a><span class="tm">13:25:27</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, yeap! it can help us on testing
+<a name="l-68"></a><span class="tm">13:27:04</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-69"></a><span class="tm">13:27:14</span><span class="nk"> &lt;alinefm&gt;</span> so I would like everyone to open the kimchi wiki: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+<a name="l-70"></a><span class="tm">13:28:00</span><span class="nk"> &lt;alinefm&gt;</span> from all the sprint 1 tasks planned we have jus a few ones merged, other partial completed and other with patches on mail list
+<a name="l-71"></a><span class="tm">13:28:07</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> havent added image_formats ( qcow2, raw, ..etc) to sprint list
+<a name="l-72"></a><span class="tm">13:28:45</span><span class="nk"> &lt;pradeep&gt;</span> working on it. will send patches by end of the week
+<a name="l-73"></a><span class="tm">13:28:48</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, not yet
+<a name="l-74"></a><span class="tm">13:28:58</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, we can add it for sprint 2 or 3
+<a name="l-75"></a><span class="tm">13:29:16</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-76"></a><span class="tm">13:29:37</span><span class="nk"> &lt;alinefm&gt;</span> so I would like to hear from all of you why we need to change to get all tasks planned merged
+<a name="l-77"></a><span class="tm">13:30:06</span><span class="nk"> &lt;alinefm&gt;</span> look, I am not blaming anyone, I am just trying the identify what we are doing wrong to do better for next sprints
+<a name="l-78"></a><span class="tm">13:30:46</span><span class="nk"> &lt;ming&gt;</span> http://tools.cherrypy.org/wiki/RestfulAuth
+<a name="l-79"></a><span class="tm">13:31:06</span><span class="nk"> &lt;ming&gt;</span> Not sure who gave this link on the wiki page.
+<a name="l-80"></a><span class="tm">13:31:14</span><span class="nk"> &lt;alinefm&gt;</span> ming, me
+<a name="l-81"></a><span class="tm">13:31:34</span><span class="nk"> &lt;ming&gt;</span> That is not what I had though before.
+<a name="l-82"></a><span class="tm">13:31:44</span><span class="nk"> &lt;ming&gt;</span> s/though/thought
+<a name="l-83"></a><span class="tm">13:32:02</span><span class="nk"> &lt;alinefm&gt;</span> rotru, royce, christyp, zhoumeina, YuXin, any idea?
+<a name="l-84"></a><span class="tm">13:32:26</span><span class="nk"> &lt;royce&gt;</span> For me, during sprint some other tasks and ideas jumped in~
+<a name="l-85"></a><span class="tm">13:32:29</span><span class="nk"> &lt;alinefm&gt;</span> ming, we can talk about it in open discussion section
+<a name="l-86"></a><span class="tm">13:33:24</span><span class="nk"> &lt;royce&gt;</span> And sometimes, blockers not solved as I expected, such as Ubuntu bug, I spent half week to solve it, which I assume libvirt works right
+<a name="l-87"></a><span class="tm">13:33:47</span><span class="nk"> &lt;royce&gt;</span> That's reasons from my perspective~
+<a name="l-88"></a><span class="tm">13:34:05</span><span class="nk"> &lt;YuXin&gt;</span> so some initial investigation is needed before planning
+<a name="l-89"></a><span class="tm">13:34:06</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> First I have to say that sprint 1 is short.And we have patches depending on others.
+<a name="l-90"></a><span class="tm">13:34:39</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I prioritized my tasks  wrongly ...
+<a name="l-91"></a><span class="tm">13:34:53</span><span class="nk"> &lt;rotru&gt;</span> alinefm; so, need to pay more attention on this
+<a name="l-92"></a><span class="tm">13:35:40</span><span class="nk"> &lt;alinefm&gt;</span> anyone think it is also about few reviews and long time patches pending on mail list?
+<a name="l-93"></a><span class="tm">13:36:05</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">rotru:</span> alinefm, maybe that's a good word. is there any order or priority to the things in the sprints?
+<a name="l-94"></a><span class="tm">13:36:29</span><span class="nk"> &lt;royce&gt;</span> Right, alinefm, we need to speed up to help others review~
+<a name="l-95"></a><span class="tm">13:37:34</span><span class="nk"> &lt;alinefm&gt;</span> christyp, not for each sprint
+<a name="l-96"></a><span class="tm">13:37:43</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  if you/community want every task merged in last day of the sprint, then, all patches must be sent to the review at least one week before
+<a name="l-97"></a><span class="tm">13:38:05</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-98"></a><span class="tm">13:38:06</span><span class="nk"> &lt;AdamKingIT&gt;</span> prev releases we had them mostly ordered, maybe that would help again though
+<a name="l-99"></a><span class="tm">13:38:08</span><span class="nk"> &lt;rotru&gt;</span> alinefm; review and test take time
+<a name="l-100"></a><span class="tm">13:38:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> with most people having only 1 item, its kind of a personal list of 1
+<a name="l-101"></a><span class="tm">13:38:43</span><span class="nk"> &lt;alinefm&gt;</span> when looking for the tasks on sprint 1 I thought all those could be done in 3 weeks
+<a name="l-102"></a><span class="tm">13:39:10</span><span class="nk"> &lt;alinefm&gt;</span> 1 week for devel, 1 for review and adjustments and 1 to get it merged
+<a name="l-103"></a><span class="tm">13:40:08</span><span class="nk"> &lt;alinefm&gt;</span> but as royce mentioned there is some kind of problems we can't predict
+<a name="l-104"></a><span class="tm">13:40:20</span><span class="nk"> &lt;ming&gt;</span> alinefm, sometime we need more communications to know the size of the items.
+<a name="l-105"></a><span class="tm">13:40:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> I think we might split the 3 weeks alittle differently
+<a name="l-106"></a><span class="tm">13:41:19</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, go ahead
+<a name="l-107"></a><span class="tm">13:41:37</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">AdamKingIT:</span> #agree. something more "agile" and less "waterfall"
+<a name="l-108"></a><span class="tm">13:41:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> maybe 0.5 mock, 0.5 review,  1 dev, 0.5 review, 0.5 merge
+<a name="l-109"></a><span class="tm">13:42:27</span><span class="nk"> &lt;AdamKingIT&gt;</span> I'd hate to spend a week implementing the 'wrong' design, whether that be API or UI
+<a name="l-110"></a><span class="tm">13:43:13</span><span class="nk"> &lt;royce&gt;</span> agree, and some opinion comming at the version you thought it should be merged
+<a name="l-111"></a><span class="tm">13:43:27</span><span class="nk"> &lt;alinefm&gt;</span> agree! also the RFC is very welcome
+<a name="l-112"></a><span class="tm">13:43:32</span><span class="nk"> &lt;AdamKingIT&gt;</span> Goal is to get things visible earlier and validated with the community
+<a name="l-113"></a><span class="tm">13:44:48</span><span class="nk"> &lt;alinefm&gt;</span> great! I think we have some points to improve for next sprint: speed up the communication with the community to get all need to do a task
+<a name="l-114"></a><span class="tm">13:44:57</span><span class="nk"> &lt;alinefm&gt;</span> more reviews, more tests
+<a name="l-115"></a><span class="tm">13:46:14</span><span class="nk"> &lt;alinefm&gt;</span> can we move to open discussion or someone want to say anything more about it?
+<a name="l-116"></a><span class="tm">13:47:01</span><span class="nk"> &lt;AdamKingIT&gt;</span> Seems silence is golden
+<a name="l-117"></a><span class="tm">13:47:01</span><span class="nk"> &lt;royce&gt;</span> I think we can move on~
+<a name="l-118"></a><span class="tm">13:47:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-119"></a><span class="tm">13:47:24</span><span class="nk"> &lt;alinefm&gt;</span> ming, do you want to talk about authorization?
+<a name="l-120"></a><span class="tm">13:49:07</span><span class="nk"> &lt;alinefm&gt;</span> well, anyone has other topic to discuss?
+<a name="l-121"></a><span class="tm">13:50:12</span><span class="nk"> &lt;alinefm&gt;</span> how quite you are today!
+<a name="l-122"></a><span class="tm">13:50:36</span><span class="nk"> &lt;ming&gt;</span> alinefm, I think we should achieve the short goal first, not a full authorization step in 1.2
+<a name="l-123"></a><span class="tm">13:50:39</span><span class="nk"> &lt;alinefm&gt;</span> quiet
+<a name="l-124"></a><span class="tm">13:50:46</span><span class="nk"> &lt;royce&gt;</span> Guys are catching up the deadline:)
+<a name="l-125"></a><span class="tm">13:50:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> still/already sleeping?
+<a name="l-126"></a><span class="tm">13:51:24</span><span class="nk"> &lt;alinefm&gt;</span> ming, agree! the link I posted in the week is just for reference
+<a name="l-127"></a><span class="tm">13:51:44</span><span class="nk"> &lt;ming&gt;</span> alinefm, the short goal is to fix the generic users with privileged and non-privileged users.
+<a name="l-128"></a><span class="tm">13:52:01</span><span class="nk"> &lt;alinefm&gt;</span> for now, my idea is: users with sudo privilege can do everything
+<a name="l-129"></a><span class="tm">13:52:13</span><span class="nk"> &lt;ming&gt;</span> Also, I guess we need to continue to depend on PAM user database in Linux system.
+<a name="l-130"></a><span class="tm">13:52:21</span><span class="nk"> &lt;alinefm&gt;</span> and those users not in this group has restricted access
+<a name="l-131"></a><span class="tm">13:52:30</span><span class="nk"> &lt;ming&gt;</span> Not to create a Kimchi specific user database
+<a name="l-132"></a><span class="tm">13:52:42</span><span class="nk"> &lt;alinefm&gt;</span> ming, yeap
+<a name="l-133"></a><span class="tm">13:52:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> agree, PAM should give us a wide enough capability
+<a name="l-134"></a><span class="tm">13:53:11</span><span class="nk"> &lt;alinefm&gt;</span> ming, when a user logged into kimchi, you will need to check if this user has sudo privilege in the host
+<a name="l-135"></a><span class="tm">13:53:16</span><span class="nk"> &lt;AdamKingIT&gt;</span> for auth, we do want to keep in mind that we'll eventually need to authorize some users to some VMs and not others
+<a name="l-136"></a><span class="tm">13:53:45</span><span class="nk"> &lt;ming&gt;</span> AdmaKingIT, that is great. But that will not happen in 1.2
+<a name="l-137"></a><span class="tm">13:54:17</span><span class="nk"> &lt;AdamKingIT&gt;</span> just want to be sure we keep the goal in mind
+<a name="l-138"></a><span class="tm">13:54:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> might be our 1st 1.3 item :-)
+<a name="l-139"></a><span class="tm">13:55:51</span><span class="nk"> &lt;ming&gt;</span> I plan to mark the API with privileged and non privileged. Obviously, the GET API will not need privilege. DELETE, UPDATE most likely have to.
+<a name="l-140"></a><span class="tm">13:55:54</span><span class="nk"> &lt;rotru&gt;</span> ming; alinefm  just to let you know, I have already created a backend API to add and remove users in the host ... but this is not a kimchi requirement now ... so I am keeping this internally
+<a name="l-141"></a><span class="tm">13:56:37</span><span class="nk"> &lt;ming&gt;</span> rotru, what are those users for?
+<a name="l-142"></a><span class="tm">13:57:02</span><span class="nk"> &lt;rotru&gt;</span> ming;   system users == kimchi users
+<a name="l-143"></a><span class="tm">13:57:33</span><span class="nk"> &lt;ming&gt;</span> rotru, why you need to create your own system users?
+<a name="l-144"></a><span class="tm">13:58:14</span><span class="nk"> &lt;alinefm&gt;</span> rotru, for kimchi we tend to accept the users already available on system
+<a name="l-145"></a><span class="tm">13:58:50</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  ming; yeap, and how will you add new users ?
+<a name="l-146"></a><span class="tm">13:59:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, it is out of kimchi scope
+<a name="l-147"></a><span class="tm">13:59:42</span><span class="nk"> &lt;pvital_&gt;</span> ming, alinefm: rotru's feature to add/remove users' is a ginger feature
+<a name="l-148"></a><span class="tm">13:59:42</span><span class="nk"> &lt;ming&gt;</span> rotru.  It  is assumed that Kimchi will not add new users and it just to use the existing users in the sytem.
+<a name="l-149"></a><span class="tm">13:59:43</span><span class="nk"> &lt;alinefm&gt;</span> the system admin may do it previously
+<a name="l-150"></a><span class="tm">13:59:47</span><span class="nk"> &lt;rotru&gt;</span> alinefm; thats why I said "keeping internally"
+<a name="l-151"></a><span class="tm">13:59:53</span><span class="nk"> &lt;rotru&gt;</span> alinefm; ginger stuff
+<a name="l-152"></a><span class="tm">14:00:02</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-153"></a><span class="tm">14:01:36</span><span class="nk"> &lt;rotru&gt;</span> ming; your assumption is right ... I just mention that add/remove feature is done because you may think to do it in the future ...
+<a name="l-154"></a><span class="tm">14:01:48</span><span class="nk"> &lt;rotru&gt;</span> you , or someone ...
+<a name="l-155"></a><span class="tm">14:01:57</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, ming, do we have an agreement about what is needed to do for authorization for sprint 2?
+<a name="l-156"></a><span class="tm">14:02:34</span><span class="nk"> &lt;AdamKingIT&gt;</span> i should review what ming posted on the wiki
+<a name="l-157"></a><span class="tm">14:02:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> A little behind in my post holiday reading
+<a name="l-158"></a><span class="tm">14:04:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> we are proposing phase II for Sprint 2, where 'admin role' is anyone w/ sudo priv, and 'user role' is anyone w/out?
+<a name="l-159"></a><span class="tm">14:04:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> https://github.com/kimchi-project/kimchi/wiki/authorization
+<a name="l-160"></a><span class="tm">14:05:10</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, yeap
+<a name="l-161"></a><span class="tm">14:05:28</span><span class="nk"> &lt;ming&gt;</span> AdamKing yes, it should be root probably.
+<a name="l-162"></a><span class="tm">14:06:18</span><span class="nk"> &lt;AdamKingIT&gt;</span> Practically speaking, anyone who can sudo can already manage any of the VMs though virtman, so that makes sense
+<a name="l-163"></a><span class="tm">14:06:27</span><span class="nk"> &lt;AdamKingIT&gt;</span> Unclear how we manage ' The normal user can only view, start and stop the VM assigned to him" but we can discuss.
+<a name="l-164"></a><span class="tm">14:06:50</span><span class="nk"> &lt;AdamKingIT&gt;</span> seems phase II is a good objective
+<a name="l-165"></a><span class="tm">14:08:14</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, we can add a new param for the resources, like 'owner'
+<a name="l-166"></a><span class="tm">14:08:14</span><span class="nk"> &lt;ming&gt;</span> AdamKingIT, just changed the line to " The normal user can only view the VMs, network and storage, while it can not delete or update them"
+<a name="l-167"></a><span class="tm">14:08:30</span><span class="nk"> &lt;alinefm&gt;</span> and the UI can query for this item according to royce patches
+<a name="l-168"></a><span class="tm">14:09:04</span><span class="nk"> &lt;alinefm&gt;</span> ex, /vms?owner='alinefm'
+<a name="l-169"></a><span class="tm">14:09:17</span><span class="nk"> &lt;alinefm&gt;</span> just an idea
+<a name="l-170"></a><span class="tm">14:09:49</span><span class="nk"> &lt;ming&gt;</span> alinefm, I think that is the filter in the UI.
+<a name="l-171"></a><span class="tm">14:10:28</span><span class="nk"> &lt;alinefm&gt;</span> ming, yes - it is for UI
+<a name="l-172"></a><span class="tm">14:10:46</span><span class="nk"> &lt;AdamKingIT&gt;</span> seems like we may need a little more discussion. Not clear we are all on the same page.
+<a name="l-173"></a><span class="tm">14:10:56</span><span class="nk"> &lt;ming&gt;</span> alinefm, finally we need to add a 'owner' for each resource and check the owner in the backend when trying to access the resource.
+<a name="l-174"></a><span class="tm">14:10:58</span><span class="nk"> &lt;AdamKingIT&gt;</span> Would a normal user be able to take actions other than edit?
+<a name="l-175"></a><span class="tm">14:11:07</span><span class="nk"> &lt;alinefm&gt;</span> in backend, in that link I posted on wiki, you can specify a dict {&lt;user&gt;: &lt;uri&gt;}
+<a name="l-176"></a><span class="tm">14:11:52</span><span class="nk"> &lt;alinefm&gt;</span> so cherrypy will block the user when he tries to access an uri not set to him
+<a name="l-177"></a><span class="tm">14:12:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> Role will be a more valuable concept later, though owner may do for now if we can define a path from one to the other
+<a name="l-178"></a><span class="tm">14:13:16</span><span class="nk"> &lt;ming&gt;</span> I think we need to end today's meeting
+<a name="l-179"></a><span class="tm">14:13:22</span><span class="nk"> &lt;AdamKingIT&gt;</span> maybe we can use user group
+<a name="l-180"></a><span class="tm">14:13:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> we are a bit over time
+<a name="l-181"></a><span class="tm">14:13:57</span><span class="nk"> &lt;alinefm&gt;</span> we can continue it after meeting or even in mail list
+<a name="l-182"></a><span class="tm">14:14:02</span><span class="nk"> &lt;ming&gt;</span> Sure
+<a name="l-183"></a><span class="tm">14:14:06</span><span class="nk"> &lt;AdamKingIT&gt;</span> good idea
+<a name="l-184"></a><span class="tm">14:14:34</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for participating! and let's start sprint 2
+<a name="l-185"></a><span class="tm">14:14:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

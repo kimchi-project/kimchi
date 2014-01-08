@@ -1,0 +1,185 @@
+13:02:17 <alinefm> #startmeeting
+13:02:17 <kimchi-bot> Meeting started Wed Jan  8 13:02:17 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:21 <danielhb> yo
+13:02:24 <alinefm> #meetingname scrum
+13:02:24 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:29 <royce> Hi guys~shaohe's on his way back home, may delay participating
+13:02:41 <alinefm> #info  Agenda 1) Sprint 1 status 2) Open discussion
+13:02:45 <alinefm> anything else?
+13:02:56 <alinefm> royce, thanks for share it
+13:02:57 <ming> power shedule?
+13:03:08 <royce> alinefm, yw
+13:04:06 <alinefm> ming, it is not in the community scope
+13:05:36 <alinefm> #topic Sprint 1 status
+13:05:40 <alinefm> As we are doing, please provide your status using the #info command: #info <nickname> <status>
+13:06:30 <ming> sprint is ending.
+13:06:44 <zhoumeina> #info UI patches for iSCSI pool, I just send v6
+13:06:55 <alinefm> #info alinefm Patches related to isoinfo refactoring were merged
+13:07:33 <royce> #info royce  status: storage targets probe, almost done, fixing problem of GET param to cover more scenario, will send new version tonight
+13:07:38 <alinefm> #info alinefm I am still working on model/mockmodel refactoring. I hope sending patches at the beginning of next week
+13:08:23 <royce> #info royce asks to add "cdrom add/changemedia support" to sprint 2, RFC submitted, @alinefm
+13:08:58 <zhoumeina> #info zhoumeina iSCSI patches is ready to go
+13:09:09 <alinefm> royce, I will take a look in it
+13:09:16 <royce> thanks
+13:09:28 <rotru> #info rotru FC/SCSI feature: The backend API to create the SCSI pool is done. I am currently hacking the vm creation process to use SCSI Luns as disks.
+13:10:13 <YuXin> #info customize of jquery-ui widget in use is completed
+13:10:24 <ming> rotru, why hacking? Is there more graceful way to do that?
+13:10:53 <royce> #info shaohe's customise network for template is merged, now he's working on permission checking and report attatched vm information on a network
+13:11:08 <alinefm> YuXin, I think there are some patches that need review
+13:11:13 <zhoumeina> alinefm: I hope you can review iSCSI UI later, it is already reviewed by zengsheng
+13:11:25 <alinefm> YuXin, zhoumeina, as you may know I am not UI expert so I would like you reviewing them
+13:11:36 <YuXin> ok
+13:11:58 <zhoumeina> ok, we can review each other's patch
+13:12:04 <YuXin> mei na, I have reviewed some of your patch with comments
+13:12:36 <alinefm> zhoumeina, YuXin, of course, I also review the UI patches but I think you can do a better review than me
+13:12:54 <rotru> ming; no no, I am not changing everything .... I am adding a new functions if the pool is SCSI type ... then I need to change the flow ...thats why I said I am "hacking"
+13:13:04 <YuXin> ok, mei na, let us review Ui patch in pair tomorrow to get all ui patch reviewed tomorrow
+13:13:11 <ming> #info Design UI removal V2  is calling for review.
+13:13:13 <zhoumeina> YuXin: ok
+13:14:05 <alinefm> anyone has blockers?
+13:14:26 <ming> rotru, not sure If I understand wht a SCSI poo is?  Do you mean FC storage pool?
+13:14:36 <rotru> ming; yes
+13:15:11 <rotru> alinefm; actually, I do not have good resources to test FC functionality
+13:15:40 <ming> Rotru, So the block device link of the storage volume in the FC storage poll will be passed to qemu directly?
+13:15:41 <rotru> ming;  FC is a subtype of SCSI
+13:16:08 <alinefm> rotru, what do you need? a machine with FC?
+13:16:09 <ming> s/storage poll/storage pool
+13:17:06 <rotru> ming, I think so
+13:17:45 <rotru> ming; actually, libvirt is going to handle the block device
+13:18:37 <christyp> rotru: i might have a system in the austin lab that's using fc that you can test with
+13:18:38 <pvital_> rotru, that x86_64 box I told you is not working for your tests?
+13:19:07 <rotru> alinefm;  a machine with latest libvirt , connected to a FC storage (directly, and through a SAN)
+13:19:43 <rotru> christyp; thats nice!
+13:19:56 <rotru> pvital_; not sure what box you are talking about
+13:20:07 <alinefm> rotru, did you check is there is a way to pass the FC from the host to a vm? so we can create a vm for each supported distro and test in vm
+13:20:12 <alinefm> nested virtualization
+13:21:28 <rotru> alinefm; good point, I would have to pass the scsi device to the VM ... not sure if this is possible
+13:21:40 <rotru> alinefm;  will check it
+13:22:00 <alinefm> we can try it after meeting
+13:22:11 <alinefm> and also check the machine christyp mentioned
+13:22:25 <AdamKingIT> I think we want NPIV, which is a pending requirement for Kimchi too
+13:22:52 <rotru> AdamKingIT; really ?
+13:23:21 <AdamKingIT> I am the last person to even play a FibreChannel expert even on TV, but I think so...
+13:23:29 <AdamKingIT> http://en.wikipedia.org/wiki/NPIV
+13:24:22 <rotru> AdamKingIT; I see
+13:24:59 <AdamKingIT> might allow us to allocate a FC port to each of the guests hosting the diff distros
+13:25:27 <alinefm> AdamKingIT, yeap! it can help us on testing
+13:27:04 <alinefm> ok
+13:27:14 <alinefm> so I would like everyone to open the kimchi wiki: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+13:28:00 <alinefm> from all the sprint 1 tasks planned we have jus a few ones merged, other partial completed and other with patches on mail list
+13:28:07 <pradeep> alinefm: havent added image_formats ( qcow2, raw, ..etc) to sprint list
+13:28:45 <pradeep> working on it. will send patches by end of the week
+13:28:48 <alinefm> pradeep, not yet
+13:28:58 <alinefm> pradeep, we can add it for sprint 2 or 3
+13:29:16 <pradeep> alinefm: ok
+13:29:37 <alinefm> so I would like to hear from all of you why we need to change to get all tasks planned merged
+13:30:06 <alinefm> look, I am not blaming anyone, I am just trying the identify what we are doing wrong to do better for next sprints
+13:30:46 <ming> http://tools.cherrypy.org/wiki/RestfulAuth
+13:31:06 <ming> Not sure who gave this link on the wiki page.
+13:31:14 <alinefm> ming, me
+13:31:34 <ming> That is not what I had though before.
+13:31:44 <ming> s/though/thought
+13:32:02 <alinefm> rotru, royce, christyp, zhoumeina, YuXin, any idea?
+13:32:26 <royce> For me, during sprint some other tasks and ideas jumped in~
+13:32:29 <alinefm> ming, we can talk about it in open discussion section
+13:33:24 <royce> And sometimes, blockers not solved as I expected, such as Ubuntu bug, I spent half week to solve it, which I assume libvirt works right
+13:33:47 <royce> That's reasons from my perspective~
+13:34:05 <YuXin> so some initial investigation is needed before planning
+13:34:06 <zhoumeina> alinefm: First I have to say that sprint 1 is short.And we have patches depending on others.
+13:34:39 <rotru> alinefm; I prioritized my tasks  wrongly ...
+13:34:53 <rotru> alinefm; so, need to pay more attention on this
+13:35:40 <alinefm> anyone think it is also about few reviews and long time patches pending on mail list?
+13:36:05 <christyp> rotru: alinefm, maybe that's a good word. is there any order or priority to the things in the sprints?
+13:36:29 <royce> Right, alinefm, we need to speed up to help others review~
+13:37:34 <alinefm> christyp, not for each sprint
+13:37:43 <rotru> alinefm;  if you/community want every task merged in last day of the sprint, then, all patches must be sent to the review at least one week before
+13:38:05 <alinefm> agree
+13:38:06 <AdamKingIT> prev releases we had them mostly ordered, maybe that would help again though
+13:38:08 <rotru> alinefm; review and test take time
+13:38:41 <AdamKingIT> with most people having only 1 item, its kind of a personal list of 1
+13:38:43 <alinefm> when looking for the tasks on sprint 1 I thought all those could be done in 3 weeks
+13:39:10 <alinefm> 1 week for devel, 1 for review and adjustments and 1 to get it merged
+13:40:08 <alinefm> but as royce mentioned there is some kind of problems we can't predict
+13:40:20 <ming> alinefm, sometime we need more communications to know the size of the items.
+13:40:22 <AdamKingIT> I think we might split the 3 weeks alittle differently
+13:41:19 <alinefm> AdamKingIT, go ahead
+13:41:37 <christyp> AdamKingIT: #agree. something more "agile" and less "waterfall"
+13:41:46 <AdamKingIT> maybe 0.5 mock, 0.5 review,  1 dev, 0.5 review, 0.5 merge
+13:42:27 <AdamKingIT> I'd hate to spend a week implementing the 'wrong' design, whether that be API or UI
+13:43:13 <royce> agree, and some opinion comming at the version you thought it should be merged
+13:43:27 <alinefm> agree! also the RFC is very welcome
+13:43:32 <AdamKingIT> Goal is to get things visible earlier and validated with the community
+13:44:48 <alinefm> great! I think we have some points to improve for next sprint: speed up the communication with the community to get all need to do a task
+13:44:57 <alinefm> more reviews, more tests
+13:46:14 <alinefm> can we move to open discussion or someone want to say anything more about it?
+13:47:01 <AdamKingIT> Seems silence is golden
+13:47:01 <royce> I think we can move on~
+13:47:10 <alinefm> #topic Open discussion
+13:47:24 <alinefm> ming, do you want to talk about authorization?
+13:49:07 <alinefm> well, anyone has other topic to discuss?
+13:50:12 <alinefm> how quite you are today!
+13:50:36 <ming> alinefm, I think we should achieve the short goal first, not a full authorization step in 1.2
+13:50:39 <alinefm> quiet
+13:50:46 <royce> Guys are catching up the deadline:)
+13:50:46 <AdamKingIT> still/already sleeping?
+13:51:24 <alinefm> ming, agree! the link I posted in the week is just for reference
+13:51:44 <ming> alinefm, the short goal is to fix the generic users with privileged and non-privileged users.
+13:52:01 <alinefm> for now, my idea is: users with sudo privilege can do everything
+13:52:13 <ming> Also, I guess we need to continue to depend on PAM user database in Linux system.
+13:52:21 <alinefm> and those users not in this group has restricted access
+13:52:30 <ming> Not to create a Kimchi specific user database
+13:52:42 <alinefm> ming, yeap
+13:52:50 <AdamKingIT> agree, PAM should give us a wide enough capability
+13:53:11 <alinefm> ming, when a user logged into kimchi, you will need to check if this user has sudo privilege in the host
+13:53:16 <AdamKingIT> for auth, we do want to keep in mind that we'll eventually need to authorize some users to some VMs and not others
+13:53:45 <ming> AdmaKingIT, that is great. But that will not happen in 1.2
+13:54:17 <AdamKingIT> just want to be sure we keep the goal in mind
+13:54:28 <AdamKingIT> might be our 1st 1.3 item :-)
+13:55:51 <ming> I plan to mark the API with privileged and non privileged. Obviously, the GET API will not need privilege. DELETE, UPDATE most likely have to.
+13:55:54 <rotru> ming; alinefm  just to let you know, I have already created a backend API to add and remove users in the host ... but this is not a kimchi requirement now ... so I am keeping this internally
+13:56:37 <ming> rotru, what are those users for?
+13:57:02 <rotru> ming;   system users == kimchi users
+13:57:33 <ming> rotru, why you need to create your own system users?
+13:58:14 <alinefm> rotru, for kimchi we tend to accept the users already available on system
+13:58:50 <rotru> alinefm;  ming; yeap, and how will you add new users ?
+13:59:24 <alinefm> rotru, it is out of kimchi scope
+13:59:42 <pvital_> ming, alinefm: rotru's feature to add/remove users' is a ginger feature
+13:59:42 <ming> rotru.  It  is assumed that Kimchi will not add new users and it just to use the existing users in the sytem.
+13:59:43 <alinefm> the system admin may do it previously
+13:59:47 <rotru> alinefm; thats why I said "keeping internally"
+13:59:53 <rotru> alinefm; ginger stuff
+14:00:02 <alinefm> rotru, ok
+14:01:36 <rotru> ming; your assumption is right ... I just mention that add/remove feature is done because you may think to do it in the future ...
+14:01:48 <rotru> you , or someone ...
+14:01:57 <alinefm> AdamKingIT, ming, do we have an agreement about what is needed to do for authorization for sprint 2?
+14:02:34 <AdamKingIT> i should review what ming posted on the wiki
+14:02:44 <AdamKingIT> A little behind in my post holiday reading
+14:04:22 <AdamKingIT> we are proposing phase II for Sprint 2, where 'admin role' is anyone w/ sudo priv, and 'user role' is anyone w/out?
+14:04:29 <AdamKingIT> https://github.com/kimchi-project/kimchi/wiki/authorization
+14:05:10 <alinefm> AdamKingIT, yeap
+14:05:28 <ming> AdamKing yes, it should be root probably.
+14:06:18 <AdamKingIT> Practically speaking, anyone who can sudo can already manage any of the VMs though virtman, so that makes sense
+14:06:27 <AdamKingIT> Unclear how we manage ' The normal user can only view, start and stop the VM assigned to him" but we can discuss.
+14:06:50 <AdamKingIT> seems phase II is a good objective
+14:08:14 <alinefm> AdamKingIT, we can add a new param for the resources, like 'owner'
+14:08:14 <ming> AdamKingIT, just changed the line to " The normal user can only view the VMs, network and storage, while it can not delete or update them"
+14:08:30 <alinefm> and the UI can query for this item according to royce patches
+14:09:04 <alinefm> ex, /vms?owner='alinefm'
+14:09:17 <alinefm> just an idea
+14:09:49 <ming> alinefm, I think that is the filter in the UI.
+14:10:28 <alinefm> ming, yes - it is for UI
+14:10:46 <AdamKingIT> seems like we may need a little more discussion. Not clear we are all on the same page.
+14:10:56 <ming> alinefm, finally we need to add a 'owner' for each resource and check the owner in the backend when trying to access the resource.
+14:10:58 <AdamKingIT> Would a normal user be able to take actions other than edit?
+14:11:07 <alinefm> in backend, in that link I posted on wiki, you can specify a dict {<user>: <uri>}
+14:11:52 <alinefm> so cherrypy will block the user when he tries to access an uri not set to him
+14:12:07 <AdamKingIT> Role will be a more valuable concept later, though owner may do for now if we can define a path from one to the other
+14:13:16 <ming> I think we need to end today's meeting
+14:13:22 <AdamKingIT> maybe we can use user group
+14:13:30 <AdamKingIT> we are a bit over time
+14:13:57 <alinefm> we can continue it after meeting or even in mail list
+14:14:02 <ming> Sure
+14:14:06 <AdamKingIT> good idea
+14:14:34 <alinefm> thanks all for participating! and let's start sprint 2
+14:14:39 <alinefm> #endmeeting
