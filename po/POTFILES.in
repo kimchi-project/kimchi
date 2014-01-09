@@ -1,5 +1,4 @@
 # List of source files which contain translatable strings.
-ui/pages/dev-ui.html.tmpl
 ui/pages/error.html.tmpl
 ui/pages/guest-add.html.tmpl
 ui/pages/guest-edit.html.tmpl
