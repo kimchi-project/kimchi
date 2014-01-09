@@ -23,7 +23,7 @@ SUBDIRS = novnc fonts
 EXTRA_DIST = theme-default
 
 cssdir = $(datadir)/kimchi/ui/css
-dist_css_DATA = dev.*.css theme-default.min.css
+dist_css_DATA = theme-default.min.css
 
 theme-default.min.css: theme-default/*.css
 	cat $^ > $@

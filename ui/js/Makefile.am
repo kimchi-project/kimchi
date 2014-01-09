@@ -26,7 +26,6 @@ jsdir = $(datadir)/kimchi/ui/js
 
 dist_js_DATA = \
 	kimchi.min.js \
-	dev.main.js \
 	jquery.min.js \
 	jquery-ui.js \
 	modernizr.custom.2.6.2.min.js \
