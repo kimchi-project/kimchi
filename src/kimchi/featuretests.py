@@ -20,6 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import libvirt
 import os
 import subprocess
@@ -70,18 +71,17 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_supports_iso_stream():
-        cmd = "qemu-io http://127.0.0.1:8000/images/icon-fedora.png \
-              -c 'read -v 0 512'"
+        cmd = "qemu-io http://127.0.0.1:%d/images/icon-fedora.png \
+              -c 'read -v 0 512'" % cherrypy.server.socket_port
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, shell=True)
         stdout, stderr = proc.communicate()
-
         return len(stderr) == 0
 
     @staticmethod
     def qemu_iso_stream_dns():
-        cmd = ["qemu-io", "http://localhost:8000/images/icon-fedora.png", "-c",
-               "'read -v 0 512'"]
+        cmd = ["qemu-io", "http://localhost:%d/images/icon-fedora.png" %
+               cherrypy.server.socket_port, "-c", "'read -v 0 512'"]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
         thread = threading.Thread(target=proc.communicate)
