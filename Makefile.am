@@ -85,8 +85,11 @@ all-local:
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
 	$(MKDIR_P) $(DESTDIR)/etc/init
+	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
 	cp -R $(top_srcdir)/contrib/kimchid-upstart.conf.debian \
 		$(DESTDIR)/etc/init/kimchid.conf
+	cp -R $(top_srcdir)/src/firewalld.xml \
+		$(DESTDIR)/usr/lib/firewalld/services/kimchid.xml
 
 
 deb: contrib/make-deb.sh

@@ -19,3 +19,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 service kimchid start
+set +e
+service firewalld status >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    service firewalld start >/dev/null 2>&1
+fi
+firewall-cmd --reload  >/dev/null 2>&1
+firewall-cmd --add-service kimchid  >/dev/null 2>&1
+set -e

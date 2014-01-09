@@ -36,6 +36,7 @@ BuildRequires:    python-unittest2
 
 %if 0%{?with_systemd}
 Requires:	systemd
+Requires:	firewalld
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -65,6 +66,7 @@ make DESTDIR=%{buildroot} install
 %if 0%{?with_systemd}
 # Install the systemd scripts
 install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}%{_unitdir}/kimchid.service
+install -Dm 0640 src/firewalld.xml %{buildroot}%{_prefix}/lib/firewalld/services/kimchid.xml
 %endif
 
 %if 0%{?rhel} == 6
@@ -89,12 +91,35 @@ start kimchid
 service kimchid start
 %endif
 
+%if 0%{?with_systemd}
+service firewalld status >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    service firewalld start >/dev/null 2>&1
+fi
+# Add firewalld rules to open 8000 and 8001 port
+firewall-cmd --reload >/dev/null 2>&1
+firewall-cmd --add-service kimchid >/dev/null 2>&1
+%else
+# Add default iptable rules to open 8000 and 8001 port
+iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8001 -j ACCEPT
+service iptables save >/dev/null 2>&1
+%endif
+
 %preun
+
 if [ $1 -eq 0 ] ; then
     # Package removal, not upgrade
     /bin/systemctl --no-reload disable kimchid.service > /dev/null 2>&1 || :
     /bin/systemctl stop kimchid.service > /dev/null 2>&1 || :
+    %if 0%{?with_systemd}
+        firewall-cmd --remove-service kimchid >/dev/null 2>&1 || :
+    %else
+        iptables -D INPUT -p tcp --dport 8000 -j ACCEPT || :
+        iptables -D INPUT -p tcp --dport 8001 -j ACCEPT || :
+    %endif
 fi
+
 exit 0
 
 
@@ -154,6 +179,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?with_systemd}
 %{_unitdir}/kimchid.service
+%{_prefix}/lib/firewalld/services/kimchid.xml
 %endif
 %if 0%{?rhel} == 6
 /etc/init/kimchid.conf

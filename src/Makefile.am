@@ -24,6 +24,7 @@ SUBDIRS = kimchi distros.d
 
 EXTRA_DIST = kimchid.in \
 	kimchi.conf.in \
+	firewalld.xml \
 	$(NULL)
 
 bin_SCRIPTS = kimchid
