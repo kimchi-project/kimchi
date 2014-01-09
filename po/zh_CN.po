@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-08 13:08+0800\n"
+"POT-Creation-Date: 2014-01-05 22:33-0500\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -32,81 +32,6 @@ msgstr ""
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-msgid "Host"
-msgstr "主机"
-
-msgid "Reboot"
-msgstr "重启"
-
-msgid "Shutdown"
-msgstr "关机"
-
-msgid "SOS Report"
-msgstr "SOS报告"
-
-msgid "Project Kimchi"
-msgstr "Kimchi项目"
-
-msgid "Language:"
-msgstr "语言："
-
-msgid "Guests"
-msgstr "客户机"
-
-msgid "Storage"
-msgstr "存储"
-
-msgid "Networks"
-msgstr "网络"
-
-msgid "Statistics"
-msgstr "统计"
-
-msgid "About"
-msgstr "关于"
-
-msgid "Virtual Machines"
-msgstr "虚拟机"
-
-msgid "Display"
-msgstr "显示"
-
-msgid "Power On"
-msgstr "开机"
-
-msgid "Power Off"
-msgstr "关机"
-
-msgid "Settings"
-msgstr "设置"
-
-msgid "Delete"
-msgstr "删除"
-
-msgid "More..."
-msgstr "更多"
-
-msgid "Templates"
-msgstr "模板"
-
-msgid "Create VM"
-msgstr "创建虚机"
-
-msgid "Custom"
-msgstr "定制"
-
-msgid "Forum"
-msgstr "论坛"
-
-msgid "API"
-msgstr "API"
-
-msgid "Twitter"
-msgstr "推特"
-
-msgid "IRC"
-msgstr "IRC"
 
 msgid "ERROR CODE"
 msgstr "错误码"
@@ -190,6 +115,9 @@ msgstr "操作"
 
 msgid "Edit"
 msgstr "编辑"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Failed to list the template"
 msgstr "展示模板列表失败"
@@ -367,6 +295,18 @@ msgstr "存储池没有被启用"
 
 msgid "Failed to delete template."
 msgstr "删除模版失败"
+
+msgid "Guests"
+msgstr "客户机"
+
+msgid "Host"
+msgstr "主机"
+
+msgid "Templates"
+msgstr "模板"
+
+msgid "Storage"
+msgstr "存储"
 
 msgid "unavailable"
 msgstr "无法获取"

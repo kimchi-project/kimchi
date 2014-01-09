@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-08 13:08+0800\n"
+"POT-Creation-Date: 2014-01-05 22:33-0500\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -16,81 +16,6 @@ msgstr ""
 "Language: en_US\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Host"
-msgstr "Host"
-
-msgid "Reboot"
-msgstr "Reboot"
-
-msgid "Shutdown"
-msgstr "Shutdown"
-
-msgid "SOS Report"
-msgstr "SOS Report"
-
-msgid "Project Kimchi"
-msgstr "Project Kimchi"
-
-msgid "Language:"
-msgstr "Language:"
-
-msgid "Guests"
-msgstr "Guests"
-
-msgid "Storage"
-msgstr "Storage"
-
-msgid "Networks"
-msgstr "Networks"
-
-msgid "Statistics"
-msgstr "Statistics"
-
-msgid "About"
-msgstr "About"
-
-msgid "Virtual Machines"
-msgstr "Virtual Machines"
-
-msgid "Display"
-msgstr "Display"
-
-msgid "Power On"
-msgstr "Power On"
-
-msgid "Power Off"
-msgstr "Power Off"
-
-msgid "Settings"
-msgstr "Settings"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "More..."
-msgstr "More..."
-
-msgid "Templates"
-msgstr "Templates"
-
-msgid "Create VM"
-msgstr "Create VM"
-
-msgid "Custom"
-msgstr "Custom"
-
-msgid "Forum"
-msgstr "Forum"
-
-msgid "API"
-msgstr "API"
-
-msgid "Twitter"
-msgstr "Twitter"
-
-msgid "IRC"
-msgstr "IRC"
 
 msgid "ERROR CODE"
 msgstr "ERROR CODE"
@@ -176,6 +101,9 @@ msgstr "Actions"
 
 msgid "Edit"
 msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Failed to list the template"
 msgstr "Failed to list the template"
@@ -362,6 +290,18 @@ msgstr "The storage pool is not active now."
 
 msgid "Failed to delete template."
 msgstr "Failed to delete template."
+
+msgid "Guests"
+msgstr "Guests"
+
+msgid "Host"
+msgstr "Host"
+
+msgid "Templates"
+msgstr "Templates"
+
+msgid "Storage"
+msgstr "Storage"
 
 msgid "unavailable"
 msgstr "unavailable"

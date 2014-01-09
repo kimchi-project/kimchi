@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-08 13:08+0800\n"
+"POT-Creation-Date: 2014-01-05 22:33-0500\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Alexandre Hirata <hirata@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -32,81 +32,6 @@ msgstr ""
 "X-Poedit-Country: Brazil\n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-msgid "Host"
-msgstr "Hospedeiro"
-
-msgid "Reboot"
-msgstr "Reiniciar"
-
-msgid "Shutdown"
-msgstr "Desligar"
-
-msgid "SOS Report"
-msgstr "Relatório SOS"
-
-msgid "Project Kimchi"
-msgstr "Projeto Kimchi"
-
-msgid "Language:"
-msgstr "Idioma:"
-
-msgid "Guests"
-msgstr "Máquinas Virtuais"
-
-msgid "Storage"
-msgstr "Storage"
-
-msgid "Networks"
-msgstr "Redes"
-
-msgid "Statistics"
-msgstr "Estatísticas"
-
-msgid "About"
-msgstr "Sobre"
-
-msgid "Virtual Machines"
-msgstr "Máquinas Virtuais"
-
-msgid "Display"
-msgstr "Visor"
-
-msgid "Power On"
-msgstr "Ligar"
-
-msgid "Power Off"
-msgstr "Desligar"
-
-msgid "Settings"
-msgstr "Configurações"
-
-msgid "Delete"
-msgstr "Remover"
-
-msgid "More..."
-msgstr "Mais..."
-
-msgid "Templates"
-msgstr "Modelos"
-
-msgid "Create VM"
-msgstr "Criar máquina virtual"
-
-msgid "Custom"
-msgstr "Personalizar"
-
-msgid "Forum"
-msgstr "Fórum"
-
-msgid "API"
-msgstr "API"
-
-msgid "Twitter"
-msgstr "Twitter"
-
-msgid "IRC"
-msgstr "IRC"
 
 msgid "ERROR CODE"
 msgstr "CÓDIGO DE ERRO"
@@ -192,6 +117,9 @@ msgstr "Ações"
 
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Delete"
+msgstr "Remover"
 
 msgid "Failed to list the template"
 msgstr "Erro ao listar os modelos"
@@ -379,6 +307,18 @@ msgstr "O storage pool não está ativo agora."
 
 msgid "Failed to delete template."
 msgstr "Erro ao remover modelo."
+
+msgid "Guests"
+msgstr "Máquinas Virtuais"
+
+msgid "Host"
+msgstr "Hospedeiro"
+
+msgid "Templates"
+msgstr "Modelos"
+
+msgid "Storage"
+msgstr "Storage"
 
 msgid "unavailable"
 msgstr "indisponível"
