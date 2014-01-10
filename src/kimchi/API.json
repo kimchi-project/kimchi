@@ -125,6 +125,12 @@
                 "interface": {
                     "description": "The name of a network interface on the host",
                     "type": "string"
+                },
+                "vlan_id": {
+                    "description": "Network's VLAN ID",
+                    "type": "integer",
+                    "maximum": 4094,
+                    "minimum": 1
                 }
             }
         },

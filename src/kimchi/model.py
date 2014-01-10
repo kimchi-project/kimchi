@@ -57,6 +57,7 @@ except ImportError:
 from kimchi import config
 from kimchi import netinfo
 from kimchi import network as knetwork
+from kimchi import networkxml
 from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.asynctask import AsyncTask
@@ -66,7 +67,6 @@ from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.featuretests import FeatureTests
 from kimchi.iscsi import TargetClient
 from kimchi.isoinfo import IsoImage
-from kimchi.networkxml import to_network_xml
 from kimchi.objectstore import ObjectStore
 from kimchi.scan import Scanner
 from kimchi.screenshot import VMScreenshot
@@ -819,7 +819,12 @@ class Model(object):
         if netinfo.is_bridge(iface):
             params['bridge'] = iface
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
-            params['forward']['dev'] = iface
+            if params.get('vlan_id') is None:
+                params['forward']['dev'] = iface
+            else:
+                params['bridge'] = \
+                    self._create_vlan_tagged_bridge(str(iface),
+                                                    str(params['vlan_id']))
         else:
             raise InvalidParameter("the interface should be bare nic, "
                                    "bonding or bridge device.")
@@ -843,7 +848,7 @@ class Model(object):
         if connection == 'bridge':
             self._set_network_bridge(params)
 
-        xml = to_network_xml(**params)
+        xml = networkxml.to_network_xml(**params)
 
         try:
             network = conn.networkDefineXML(xml)
@@ -901,7 +906,43 @@ class Model(object):
         if network.isActive():
             raise InvalidOperation(
                 "Unable to delete the active network %s" % name)
+        self._remove_vlan_tagged_bridge(network)
         network.undefine()
+
+    def _get_vlan_tagged_bridge_name(self, interface, vlan_id):
+        return '-'.join(('kimchi', interface, vlan_id))
+
+    def _is_vlan_tagged_bridge(self, bridge):
+        return  bridge.startswith('kimchi-')
+
+    def _create_vlan_tagged_bridge(self, interface, vlan_id):
+        br_name = self._get_vlan_tagged_bridge_name(interface, vlan_id)
+        br_xml = networkxml.create_vlan_tagged_bridge_xml(br_name, interface,
+                                                          vlan_id)
+        conn = self.conn.get()
+        conn.changeBegin()
+        try:
+            vlan_tagged_br = conn.interfaceDefineXML(br_xml)
+            vlan_tagged_br.create()
+        except libvirt.libvirtError as e:
+            conn.changeRollback()
+            raise OperationFailed(e.message)
+        else:
+            conn.changeCommit()
+            return br_name
+
+    def _remove_vlan_tagged_bridge(self, network):
+        try:
+            bridge = network.bridgeName()
+        except libvirt.libvirtError:
+            pass
+        else:
+            if self._is_vlan_tagged_bridge(bridge):
+                conn = self.conn.get()
+                iface = conn.interfaceLookupByName(bridge)
+                if iface.isActive():
+                    iface.destroy()
+                iface.undefine()
 
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
