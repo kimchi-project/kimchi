@@ -21,6 +21,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 import ipaddr
+import lxml.etree as ET
+
+
+from lxml.builder import E
 
 
 # FIXME, do not support ipv6
@@ -109,3 +113,18 @@ def to_network_xml(**kwargs):
     </network>
     """ % params
     return xml
+
+
+def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
+    vlan = E.vlan(E.interface(name=interface))
+    vlan.set('tag', vlan_id)
+    m = E.interface(
+        E.start(mode='onboot'),
+        E.bridge(
+            E.interface(
+                vlan,
+                type='vlan',
+                name='.'.join([interface, vlan_id]))),
+        type='bridge',
+        name=bridge)
+    return ET.tostring(m)

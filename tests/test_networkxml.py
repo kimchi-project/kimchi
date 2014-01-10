@@ -25,6 +25,9 @@ import unittest
 
 
 import kimchi.networkxml as nxml
+import utils
+
+
 from kimchi.xmlutils import xpath_get_text
 
 
@@ -151,3 +154,22 @@ class NetworkXmlTests(unittest.TestCase):
         netmask = xpath_get_text(xml, "/network/ip/@netmask")[0]
         self.assertEquals(netmask,
                           str(ipaddr.IPNetwork(params["net"]).netmask))
+
+
+class InterfaceXmlTests(unittest.TestCase):
+
+    def test_vlan_tagged_bridge_no_ip(self):
+        expected_xml = """
+            <interface type='bridge' name='br10'>
+                <start mode='onboot'/>
+                <bridge>
+                    <interface type='vlan' name='em1.10'>
+                      <vlan tag='10'>
+                        <interface name='em1'/>
+                      </vlan>
+                    </interface>
+              </bridge>
+            </interface>
+            """
+        actual_xml = nxml.create_vlan_tagged_bridge_xml('br10', 'em1', '10')
+        self.assertEquals(actual_xml, utils.normalize_xml(expected_xml))

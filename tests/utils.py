@@ -32,6 +32,7 @@ import unittest
 
 
 from contextlib import closing
+from lxml import etree
 
 
 import kimchi.server
@@ -159,3 +160,8 @@ def patch_auth():
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate
+
+
+def normalize_xml(xml_str):
+    return etree.tostring(etree.fromstring(xml_str,
+                          etree.XMLParser(remove_blank_text=True)))

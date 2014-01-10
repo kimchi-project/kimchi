@@ -18,6 +18,7 @@ Depends: python-cherrypy3 (>= 3.2.0),
          python-ethtool,
          sosreport,
          python-ipaddr,
+         python-lxml,
          open-iscsi
 Build-Depends:
 Maintainer: Aline Manera <alinefm@br.ibm.com>
