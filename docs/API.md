@@ -47,6 +47,15 @@ the following general conventions:
       API.  If omitted, a name will be chosen based on the template used.
     * template: The URI of a Template to use when building the VM
     * storagepool *(optional)*: Assign a specific Storage Pool to the new VM
+    * graphics *(optional)*: Specify the graphics paramenter for this vm
+        * type: The type of graphics. It can be VNC or spice or None.
+            * vnc: Graphical display using the Virtual Network
+                   Computing protocol
+            * spice: Graphical display using the Simple Protocol for
+                     Independent Computing Environments
+            * null: Graphics is disabled or type not supported
+        * listen: The network which the vnc/spice server listens on.
+
 
 ### Resource: Virtual Machine
 
@@ -75,14 +84,16 @@ the following general conventions:
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
     * graphics: A dict to show detail of VM graphics.
-        * type: The type of graphics, It can be VNC or None.
+        * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
                    Computing protocol
+            * spice: Graphical display using the Simple Protocol for
+                     Independent Computing Environments
             * null: Graphics is disabled or type not supported
-        * port: The port number of graphics. It will remain None until a connect
-                call is issued.
-                The port number exposed will support the websockets protocol and
-                may support graphics type over plain TCP as well.
+        * listen: The network which the vnc/spice server listens on.
+        * port: The real port number of the graphics, vnc or spice. Users
+                can use this port to connect to the vm with general vnc/spice
+                clients.
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existed VM
     * name: New name for this VM (only applied for shutoff VM)
@@ -92,6 +103,7 @@ the following general conventions:
 
 * start: Power on a VM
 * stop: Power off forcefully
+* connect: Prepare the connection for spice or vnc
 
 ### Sub-resource: Virtual Machine Screenshot
 
@@ -128,6 +140,14 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
 
+    * graphics *(optional)*: The graphics paramenters of this template
+        * type: The type of graphics. It can be VNC or spice or None.
+            * vnc: Graphical display using the Virtual Network
+                   Computing protocol
+            * spice: Graphical display using the Simple Protocol for
+                     Independent Computing Environments
+            * null: Graphics is disabled or type not supported
+        * listen: The network which the vnc/spice server listens on.
 
 ### Resource: Template
 
@@ -152,6 +172,15 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * index: The device index
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
+    * graphcis: A dict of graphics paramenters of this template
+        * type: The type of graphics. It can be VNC or spice or None.
+            * vnc: Graphical display using the Virtual Network
+                   Computing protocol
+            * spice: Graphical display using the Simple Protocol for
+                     Independent Computing Environments
+            * null: Graphics is disabled or type not supported
+        * listen: The network which the vnc/spice server listens on.
+
 * **DELETE**: Remove the Template
 * **POST**: *See Template Actions*
 * **PUT**: update the parameters of existed template
@@ -171,6 +200,14 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * index: The device index
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
+    * graphcis *(optional)*: A dict of graphics paramenters of this template
+        * type: The type of graphics. It can be VNC or spice or None.
+            * vnc: Graphical display using the Virtual Network
+                   Computing protocol
+            * spice: Graphical display using the Simple Protocol for
+                     Independent Computing Environments
+            * null: Graphics is disabled or type not supported
+        * listen: The network which the vnc/spice server listens on.
 
 **Actions (POST):**
 
