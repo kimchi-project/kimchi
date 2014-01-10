@@ -255,8 +255,90 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+        # Delete the Template
+        resp = self.request('/templates/test', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
         # Verify the volume was deleted
         self.assertHTTPStatus(404, vol_uri)
+
+    def test_vm_graphics(self):
+        # Create a Template
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Create a VM with default args
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+        # Verify the VM
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('0.0.0.0', vm['graphics']['listen'])
+        self.assertEquals('vnc', vm['graphics']['type'])
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Create a VM with specified graphics type and listen
+        graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'graphics': graphics})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+        # Verify the VM
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('127.0.0.1', vm['graphics']['listen'])
+        self.assertEquals('vnc', vm['graphics']['type'])
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Create a VM with listen as ipv6 address
+        graphics = {'type': 'spice', 'listen': 'fe00::0'}
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'graphics': graphics})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+        # Verify the VM
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('fe00::0', vm['graphics']['listen'])
+        self.assertEquals('spice', vm['graphics']['type'])
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Create a VM with specified graphics type and default listen
+        graphics = {'type': 'spice'}
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'graphics': graphics})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+        # Verify the VM
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('0.0.0.0', vm['graphics']['listen'])
+        self.assertEquals('spice', vm['graphics']['type'])
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Try to create a VM with invalid graphics type
+        graphics = {'type': 'invalid'}
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'graphics': graphics})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+
+        # Try to create a VM with invalid graphics listen
+        graphics = {'type': 'spice', 'listen': 'invalid'}
+        req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
+                          'graphics': graphics})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+
+        # Delete the Template
+        resp = self.request('/templates/test', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
 
     def test_vm_customise_storage(self):
         # Create a Template
@@ -638,9 +720,10 @@ class RestTests(unittest.TestCase):
 
     def test_templates(self):
         def verify_template(t, res):
-            for field in ('name', 'os_distro', 'os_version',
-                          'memory', 'cpus', 'storagepool'):
-                self.assertEquals(t[field], res[field])
+            for field in ('name', 'os_distro', 'os_version', 'memory',
+                          'cpus', 'storagepool', 'graphics'):
+                if field in t:
+                    self.assertEquals(t[field], res[field])
 
         resp = self.request('/templates')
         self.assertEquals(200, resp.status)
@@ -655,9 +738,11 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         # Create a template
+        graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         t = {'name': 'test', 'os_distro': 'ImagineOS',
              'os_version': '1.0', 'memory': 1024, 'cpus': 1,
-             'storagepool': '/storagepools/alt', 'cdrom': '/nonexistent.iso'}
+             'storagepool': '/storagepools/alt', 'cdrom': '/nonexistent.iso',
+             'graphics': graphics}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -678,6 +763,17 @@ class RestTests(unittest.TestCase):
         # Update the template
         t['os_distro'] = 'Linux.ISO'
         t['os_version'] = '1.1'
+        t['graphics'] = {'type': 'vnc', 'listen': '0.0.0.0'}
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % t['name'], req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        # Verify the template
+        res = json.loads(self.request('/templates/test').read())
+        verify_template(t, res)
+
+        # Update the template with ipv6 address as listen
+        t['graphics'] = {'type': 'vnc', 'listen': 'fe00::0'}
         req = json.dumps(t)
         resp = self.request('/templates/%s' % t['name'], req, 'PUT')
         self.assertEquals(200, resp.status)
@@ -732,6 +828,18 @@ class RestTests(unittest.TestCase):
 
         # Try to change template cpus to a non-number value
         t['cpus'] = 'invalid-value'
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to change template graphics type to invalid value
+        t['graphics'] = {'type': 'invalid'}
+        req = json.dumps(t)
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Try to change template graphics type to invalid listen
+        t['graphics'] = {'type': 'vnc', 'listen': 'invalid'}
         req = json.dumps(t)
         resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
         self.assertEquals(400, resp.status)

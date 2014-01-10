@@ -67,7 +67,6 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2, info['cpus'])
         self.assertEquals(None, info['icon'])
         self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
-
         self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
@@ -94,6 +93,32 @@ class ModelTests(unittest.TestCase):
 
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-vm' in vms)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_graphics(self):
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        params = {'name': 'test', 'disks': []}
+        inst.templates_create(params)
+        with RollbackContext() as rollback:
+            params = {'name': 'kimchi-vnc', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vnc')
+
+            info = inst.vm_lookup('kimchi-vnc')
+            self.assertEquals('vnc', info['graphics']['type'])
+            self.assertEquals('0.0.0.0', info['graphics']['listen'])
+
+            graphics = {'type': 'spice', 'listen': '127.0.0.1'}
+            params = {'name': 'kimchi-spice', 'template': '/templates/test',
+                      'graphics': graphics}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-spice')
+
+            info = inst.vm_lookup('kimchi-spice')
+            self.assertEquals('spice', info['graphics']['type'])
+            self.assertEquals('127.0.0.1', info['graphics']['listen'])
+
+        inst.template_delete('test')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):

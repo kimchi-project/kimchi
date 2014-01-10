@@ -150,3 +150,5 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(1, info['cpus'])
         self.assertEquals('images/icon-vm.png', info['icon'])
         self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
+        self.assertEquals('vnc', info['graphics']['type'])
+        self.assertEquals('0.0.0.0', info['graphics']['listen'])
