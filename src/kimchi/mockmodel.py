@@ -143,8 +143,13 @@ class MockModel(object):
         t = self._get_template(t_name, vm_overrides)
         t.validate()
 
-        vm = MockVM(vm_uuid, name, t.info)
-        icon = t.info.get('icon')
+        t_info = copy.deepcopy(t.info)
+        graphics = params.get('graphics')
+        if graphics:
+                t_info.update({'graphics': graphics})
+
+        vm = MockVM(vm_uuid, name, t_info)
+        icon = t_info.get('icon')
         if icon:
             vm.info['icon'] = icon
 
@@ -635,7 +640,9 @@ class MockVM(object):
                      'memory': template_info['memory'],
                      'cpus': template_info['cpus'],
                      'icon': None,
-                     'graphics': {'type': 'vnc', 'port': None}}
+                     'graphics': {'type': 'vnc', 'listen': '0.0.0.0', 'port': None}
+                     }
+        self.info['graphics'].update(template_info['graphics'])
 
 
 class MockStoragePool(object):
