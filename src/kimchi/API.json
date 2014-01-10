@@ -3,6 +3,27 @@
     "title": "Kimchi API",
     "description": "Json schema for Kimchi API",
     "type": "object",
+    "kimchitype": {
+        "graphics": {
+            "description": "Configure graphics parameters for the new VM",
+            "type": "object",
+            "properties": {
+                "type": { "enum": ["spice", "vnc"] },
+                "listen": {
+                    "type": [
+                        {
+                            "type": "string",
+                            "format": "ip-address"
+                        },
+                        {
+                            "type": "string",
+                            "format": "ipv6"
+                        }
+                        ]
+                }
+            }
+        }
+    },
     "properties": {
         "storagepools_create": {
             "type": "object",
@@ -90,7 +111,8 @@
                     "description": "Assign a specefic Storage Pool to the new VM",
                     "type": "string",
                     "pattern": "^/storagepools/[^/]+/?$"
-                }
+                },
+                "graphics": { "$ref": "#/kimchitype/graphics" }
             }
         },
         "vm_update": {
@@ -210,7 +232,8 @@
                     "description": "Folder",
                     "type": "array",
                     "items": { "type": "string" }
-                }
+                },
+                "graphics": { "$ref": "#/kimchitype/graphics" }
             },
             "additionalProperties": false
         },
@@ -289,7 +312,8 @@
                     "description": "Folder",
                     "type": "array",
                     "items": { "type": "string" }
-                }
+                },
+                "graphics": { "$ref": "#/kimchitype/graphics" }
             },
             "additionalProperties": false
         }

@@ -27,7 +27,7 @@ import cherrypy
 import json
 
 
-from jsonschema import Draft3Validator, ValidationError
+from jsonschema import Draft3Validator, ValidationError, FormatChecker
 
 
 from kimchi.exception import InvalidParameter
@@ -95,7 +95,7 @@ def validate_params(params, instance, action):
         return
 
     operation = model_fn(instance, action)
-    validator = Draft3Validator(api_schema)
+    validator = Draft3Validator(api_schema, format_checker=FormatChecker())
     request = {operation: params}
 
     try:
