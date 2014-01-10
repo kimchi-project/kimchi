@@ -207,6 +207,15 @@
     margin-left: 28px;
 }
 
+.network-config .VLAN {
+    margin-left: 28px;
+}
+
+.network-config .VLAN input[type="text"] {
+    height: 25px;
+    width: 60px;
+}
+
 .network-config .input-hint-icon {
     margin: -1px 1px 0 0;
     display: inline-block;

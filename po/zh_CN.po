@@ -513,6 +513,9 @@ msgstr "桥接: 虚拟机直接接入物理网络"
 msgid "Destination"
 msgstr "目标设备"
 
+msgid "Enable VLAN"
+msgstr "启用VLAN"
+
 msgid "No templates found."
 msgstr "没有发现模板"
 

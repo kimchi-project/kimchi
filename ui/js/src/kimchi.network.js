@@ -135,11 +135,13 @@ kimchi.initNetworkCreation = function() {
             var network = kimchi.getNetworkDialogValues();
             var data = {
                 name : network.name,
-                connection: network.type
+                connection: network.type,
+                vlan_id: network.vlan_id,
             };
             if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
                 data.connection = "bridge";
                 data.interface = network.interface;
+                data.vlan_id = network.vlan_id;
             }
             kimchi.createNetwork(data, function(result) {
                 network.state = result.state === "active" ? "up" : "down";
@@ -194,6 +196,9 @@ kimchi.openNetworkDialog = function(okCallback) {
         okCallback();
         $("#networkConfig").dialog("close");
     });
+    $("#enableVlan").on("click", function() {
+        $("#networkVlanID").prop("disabled", !this.checked);
+    });
     $("#networkConfig").dialog("open");
 };
 
@@ -211,6 +216,7 @@ kimchi.getNetworkDialogValues = function() {
     };
     if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
         network.interface = $("#networkInterface").val();
+        network.vlan_id = parseInt($("#networkVlanID").val());
     }
     return network;
 };
@@ -225,6 +231,8 @@ kimchi.cleanNetworkDialog = function() {
     $("#networkInterface option").removeAttr("selected").find(":first").attr("selected", "selected");
     $("#networkFormOk").off("click");
     $("#networkFormOk").button("disable");
+    $("#networkVlanID").prop("disabled", true);
+    $("#enableVlan").prop("checked", false);
 };
 
 kimchi.setupNetworkFormEvent = function() {

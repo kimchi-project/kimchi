@@ -531,6 +531,9 @@ msgstr "Bridged: Máquinas virtuais estão conectadas diretamente a rede física
 msgid "Destination"
 msgstr "Destino"
 
+msgid "Enable VLAN"
+msgstr "Ativar VLAN"
+
 msgid "No templates found."
 msgstr "Nenhum modelo encontrado."
 

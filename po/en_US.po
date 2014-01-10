@@ -517,6 +517,9 @@ msgstr "Bridged: VMs are connected to physical network directly"
 msgid "Destination"
 msgstr "Destination"
 
+msgid "Enable VLAN"
+msgstr "Enable VLAN"
+
 msgid "No templates found."
 msgstr "No templates found."
 

@@ -494,6 +494,9 @@ msgstr ""
 msgid "Destination"
 msgstr ""
 
+msgid "Enable VLAN"
+msgstr ""
+
 msgid "No templates found."
 msgstr ""
 
