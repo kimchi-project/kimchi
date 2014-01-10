@@ -503,7 +503,8 @@ class Model(object):
         info = dom.info()
         state = Model.dom_state_map[info[0]]
         screenshot = None
-        graphics_type, graphics_port = self._vm_get_graphics(name)
+        graphics_type, graphics_listen, graphics_port = self._vm_get_graphics(name)
+        graphics_port = graphics_port if state == 'running' else None
         try:
             if state == 'running':
                 screenshot = self.vmscreenshot_lookup(name)
@@ -536,7 +537,10 @@ class Model(object):
                 'cpus': info[3],
                 'screenshot': screenshot,
                 'icon': icon,
-                'graphics': {"type": graphics_type, "port": graphics_port}}
+                'graphics': {"type": graphics_type,
+                             "listen": graphics_listen,
+                             "port": graphics_port}
+                }
 
     def _vm_get_disk_paths(self, dom):
         xml = dom.XMLDesc(0)
@@ -585,21 +589,21 @@ class Model(object):
         expr = "/domain/devices/graphics/@type"
         res = xmlutils.xpath_get_text(xml, expr)
         graphics_type = res[0] if res else None
-        port = None
+        expr = "/domain/devices/graphics/@listen"
+        res = xmlutils.xpath_get_text(xml, expr)
+        graphics_listen = res[0] if res else None
+        graphics_port = None
         if graphics_type:
             expr = "/domain/devices/graphics[@type='%s']/@port" % graphics_type
             res = xmlutils.xpath_get_text(xml, expr)
-            port = int(res[0]) if res else None
-        # FIX ME
-        # graphics_type should be 'vnc' or None.  'spice' should only be
-        # returned if we support it in the future.
-        graphics_type = None if graphics_type != "vnc" else graphics_type
-        return graphics_type, port
+            graphics_port = int(res[0]) if res else None
+        return graphics_type, graphics_listen, graphics_port
 
     def vm_connect(self, name):
-        graphics, port = self._vm_get_graphics(name)
-        if graphics == "vnc" and port != None:
-            vnc.add_proxy_token(name, port)
+        graphics_type, graphics_listen, graphics_port \
+            = self._vm_get_graphics(name)
+        if graphics_port is not None:
+            vnc.add_proxy_token(name, graphics_port)
         else:
             raise OperationFailed("Only able to connect to running vm's vnc "
                                   "graphics.")
@@ -633,8 +637,12 @@ class Model(object):
                 session.store('vm', vm_uuid, {'icon': icon})
 
         libvirt_stream = False if len(self.libvirt_stream_protocols) == 0 else True
+        graphics = params.get('graphics')
 
-        xml = t.to_vm_xml(name, vm_uuid, libvirt_stream, self.qemu_stream_dns)
+        xml = t.to_vm_xml(name, vm_uuid,
+                          libvirt_stream=libvirt_stream,
+                          qemu_stream_dns=self.qemu_stream_dns,
+                          graphics=graphics)
         try:
             dom = conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:

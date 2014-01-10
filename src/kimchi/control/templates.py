@@ -35,7 +35,8 @@ class Template(Resource):
         super(Template, self).__init__(model, ident)
         self.update_params = ["name", "folder", "icon", "os_distro",
                               "storagepool", "os_version", "cpus",
-                              "memory", "cdrom", "disks", "networks"]
+                              "memory", "cdrom", "disks", "networks",
+                              "graphics"]
         self.uri_fmt = "/templates/%s"
 
     @property
@@ -50,4 +51,5 @@ class Template(Resource):
                 'disks': self.info['disks'],
                 'storagepool': self.info['storagepool'],
                 'networks': self.info['networks'],
-                'folder': self.info.get('folder', [])}
+                'folder': self.info.get('folder', []),
+                'graphics': self.info['graphics']}

@@ -73,8 +73,9 @@ isolinks = {
 
 defaults = {'networks': ['default'],
             'storagepool': '/storagepools/default',
-            'domain': 'kvm', 'arch': os.uname()[4]
-}
+            'domain': 'kvm', 'arch': os.uname()[4],
+            'graphics': {'type': 'vnc', 'listen': '0.0.0.0'}}
+
 
 
 def _get_arch():
@@ -90,7 +91,7 @@ def lookup(distro, version):
     'defaults' and merging the parameters given for the identified OS.  If
     known, a link to a remote install CD is added.
     """
-    params = copy.copy(defaults)
+    params = copy.deepcopy(defaults)
     params['os_distro'] = distro
     params['os_version'] = version
     params['cdrom'] = isolinks.get(distro, {}).get(version, '')

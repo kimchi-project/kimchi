@@ -76,6 +76,11 @@ class VMTemplate(object):
         self.info.update(entry)
 
         # Override with the passed in parameters
+        graph_args = args.get('graphics')
+        if graph_args:
+            graphics = dict(self.info['graphics'])
+            graphics.update(graph_args)
+            args['graphics'] = graphics
         self.info.update(args)
 
     def _get_cdrom_xml(self, libvirt_stream, qemu_stream_dns):
@@ -157,6 +162,24 @@ class VMTemplate(object):
             """ % params
         return ret
 
+    def _get_graphics_xml(self, params):
+        graphics_xml = """
+            <graphics type='%(type)s' autoport='yes' listen='%(listen)s'>
+            </graphics>
+        """
+        spicevmc_xml = """
+            <channel type='spicevmc'>
+              <target type='virtio' name='com.redhat.spice.0'/>
+            </channel>
+        """
+        graphics = dict(self.info['graphics'])
+        if params:
+            graphics.update(params)
+        graphics_xml = graphics_xml % graphics
+        if graphics['type'] == 'spice':
+            graphics_xml = graphics_xml + spicevmc_xml
+        return graphics_xml
+
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
         ret = []
@@ -198,7 +221,7 @@ class VMTemplate(object):
             networks += network % net_info
         return networks
 
-    def to_vm_xml(self, vm_name, vm_uuid, libvirt_stream = False, qemu_stream_dns = False):
+    def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
@@ -207,7 +230,11 @@ class VMTemplate(object):
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
+        graphics = kwargs.get('graphics')
+        params['graphics'] = self._get_graphics_xml(graphics)
 
+        qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
+        libvirt_stream = kwargs.get('libvirt_stream', False)
         cdrom_xml = self._get_cdrom_xml(libvirt_stream, qemu_stream_dns)
         if not libvirt_stream and params.get('iso_stream', False):
             params['qemu-namespace'] = QEMU_NAMESPACE
@@ -238,7 +265,7 @@ class VMTemplate(object):
             %(disks)s
             %(cdroms)s
             %(networks)s
-            <graphics type='vnc' />
+            %(graphics)s
             <sound model='ich6' />
             <memballoon model='virtio' />
           </devices>

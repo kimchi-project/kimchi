@@ -53,7 +53,9 @@ class VM(Resource):
                 'screenshot': self.info['screenshot'],
                 'icon': self.info['icon'],
                 'graphics': {'type': self.info['graphics']['type'],
-                             'port': self.info['graphics']['port']}}
+                             'listen': self.info['graphics']['listen'],
+                             'port': self.info['graphics']['port']}
+                }
 
 
 class VMScreenShot(Resource):
