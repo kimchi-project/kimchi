@@ -1,8 +1,14 @@
 [
     {
-        "name": "ubuntu-raring",
+        "name": "Ubuntu 13.04 (Raring Ringtail)",
         "os_distro": "ubuntu",
         "os_version": "13.04",
         "path": "http://ubuntu-releases.cs.umn.edu/13.04/ubuntu-13.04-desktop-amd64.iso"
+    },
+    {
+        "name": "Ubuntu 13.10 (Saucy Salamander)",
+        "os_distro": "ubuntu",
+        "os_version": "13.10",
+        "path": "http://ubuntu-releases.cs.umn.edu/13.10/ubuntu-13.10-desktop-amd64.iso"
     }
 ]

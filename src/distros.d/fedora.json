@@ -10,5 +10,11 @@
         "os_distro": "fedora",
         "os_version": "19",
         "path": "http://fedora.mirrors.tds.net/pub/fedora/releases/19/Live/x86_64/Fedora-Live-Desktop-x86_64-19-1.iso"
+    },
+    {
+        "name": "fedora-20",
+        "os_distro": "fedora",
+        "os_version": "20",
+        "path": "http://fedora.mirrors.tds.net/pub/fedora/releases/20/Live/x86_64/Fedora-Live-Desktop-x86_64-20-1.iso"
     }
 ]
