@@ -662,10 +662,7 @@ class Model(object):
 
     def vms_get_list(self):
         conn = self.conn.get()
-        ids = conn.listDomainsID()
-        names = map(lambda x: conn.lookupByID(x).name(), ids)
-        names += conn.listDefinedDomains()
-        names = map(lambda x: x.decode('utf-8'), names)
+        names = [dom.name().decode('utf-8') for dom in conn.listAllDomains(0)]
         return sorted(names, key=unicode.lower)
 
     def vmscreenshot_lookup(self, name):
