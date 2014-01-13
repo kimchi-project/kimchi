@@ -16,7 +16,7 @@
                 "type": {
                     "description": "The type of the defined Storage Pool",
                     "type": "string",
-                    "pattern": "^dir|netfs|logical$",
+                    "pattern": "^dir|netfs|logical|kimchi-iso$",
                     "required": true
                 },
                 "path": {
