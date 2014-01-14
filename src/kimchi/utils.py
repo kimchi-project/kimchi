@@ -23,13 +23,16 @@
 
 import cherrypy
 import os
+import subprocess
 import urllib2
 
 
 from cherrypy.lib.reprconf import Parser
+from kimchi.exception import TimeoutExpired
 
 
 from kimchi import config
+from threading import Timer
 
 
 kimchi_log = cherrypy.log.error_log
@@ -96,3 +99,58 @@ def check_url_path(path):
         return False
 
     return True
+
+
+def run_command(cmd, timeout=None):
+    """
+    cmd is a sequence of command arguments.
+    timeout is a float number in seconds.
+    timeout default value is None, means command run without timeout.
+    """
+    def kill_proc(proc, timeout_flag):
+        try:
+            proc.kill()
+        except OSError:
+            pass
+        else:
+            timeout_flag[0] = True
+
+    proc = None
+    timer = None
+    timeout_flag = [False]
+
+    try:
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        if timeout is not None:
+            timer = Timer(timeout, kill_proc, [proc, timeout_flag])
+            timer.setDaemon(True)
+            timer.start()
+
+        out, error = proc.communicate()
+        kimchi_log.debug("Run command: '%s'", " ".join(cmd))
+
+        if out or error:
+            kimchi_log.debug("out:\n %s\nerror:\n %s", out, error)
+
+        if timeout_flag[0]:
+            msg = ("subprocess is killed by signal.SIGKILL for "
+                   "timeout %s seconds" % timeout)
+            kimchi_log.error(msg)
+            raise TimeoutExpired(msg)
+
+        return out, error, proc.returncode
+    except TimeoutExpired:
+        raise
+    except Exception as e:
+        msg = "Failed to run command: %s." % " ".join(cmd)
+        msg = msg if proc is None else msg + "\n  error code: %s."
+        kimchi_log.error("%s\n  %s", msg, e)
+
+        if proc:
+            return out, error, proc.returncode
+        else:
+            return None, None, None
+    finally:
+        if timer and not timeout_flag[0]:
+            timer.cancel()

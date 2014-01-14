@@ -43,3 +43,7 @@ class InvalidOperation(Exception):
 
 class IsoFormatError(Exception):
     pass
+
+
+class TimeoutExpired(Exception):
+    pass
