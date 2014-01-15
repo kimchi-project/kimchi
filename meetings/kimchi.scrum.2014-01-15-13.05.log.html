@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:05:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:05:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 15 13:05:47 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:05:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:05:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:05:54</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:06:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 2 status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:06:15</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:06:39</span><span class="nk"> &lt;YuXin&gt;</span> mail size limit need to be discussed
+<a name="l-9"></a><span class="tm">13:07:04</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, we can do it in open discussion section
+<a name="l-10"></a><span class="tm">13:07:10</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-11"></a><span class="tm">13:08:04</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">spice UI patch is blocked. waiting for release, zhoumeina think it is ready to merge.</span>
+<a name="l-12"></a><span class="tm">13:08:09</span><span class="nk"> &lt;alinefm&gt;</span> I would like to start with the remaining sprint 1 tasks
+<a name="l-13"></a><span class="tm">13:08:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 2 status</span>
+<a name="l-14"></a><span class="tm">13:08:44</span><span class="nk"> &lt;alinefm&gt;</span> Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;
+<a name="l-15"></a><span class="tm">13:09:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I will send the model refactoring patches today</span>
+<a name="l-16"></a><span class="tm">13:09:14</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce (sprint1) storage targets: send new version today based on shaohef's comments, wainting for review</span>
+<a name="l-17"></a><span class="tm">13:09:48</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="cmd">#info </span><span class="cmdline">zhoumeina storage server and targets UI just send v6 waiting for review</span>
+<a name="l-18"></a><span class="tm">13:10:01</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce (sprint2) nfs prevalidation: new patch sent to integrate rollback and timeout cmd, waiting for review</span>
+<a name="l-19"></a><span class="tm">13:10:07</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send the vm support interfaces today.  just suport GET api now</span>
+<a name="l-20"></a><span class="tm">13:10:07</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">Yu Xin  jquery widget library, the 2 libraries I searched have dual license(open source, commercial) which is can acceptable for kimchi, I will continue to search to try to get a library with apache/bsd/mit license</span>
+<a name="l-21"></a><span class="tm">13:10:40</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital: Host software update: I started the development of this feature and I'm planning to submit it to mailing list by the end of this week or beginning of next one.</span>
+<a name="l-22"></a><span class="tm">13:10:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, zhoumeina, about sprint 1 tasks: all they are on mail list waiting for review?
+<a name="l-23"></a><span class="tm">13:10:49</span><span class="nk"> &lt;YuXin&gt;</span> sorry, dual license is not acceptable to kimchi
+<a name="l-24"></a><span class="tm">13:10:57</span><span class="nk"> &lt;royce&gt;</span> yeah, alinefm
+<a name="l-25"></a><span class="tm">13:11:01</span><span class="nk"> &lt;ming&gt;</span> <span class="cmd">#info </span><span class="cmdline">authorization enhancemnt; RFC post. calling for comments.</span>
+<a name="l-26"></a><span class="tm">13:11:08</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> for me, yes
+<a name="l-27"></a><span class="tm">13:11:31</span><span class="nk"> &lt;YuXin&gt;</span> Mei Na, I reviewd your v6 today before get off work
+<a name="l-28"></a><span class="tm">13:11:49</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> any comment?
+<a name="l-29"></a><span class="tm">13:11:56</span><span class="nk"> &lt;zhoumeina&gt;</span> I will deal with it tomorrow
+<a name="l-30"></a><span class="tm">13:11:57</span><span class="nk"> &lt;YuXin&gt;</span> there is an issue
+<a name="l-31"></a><span class="tm">13:12:04</span><span class="nk"> &lt;YuXin&gt;</span> in source code
+<a name="l-32"></a><span class="tm">13:12:17</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru FC/SCSI patch was sent for discussion and review. There are 2 use cases to implement: Details here: https://github.com/kimchi-project/kimchi/wiki/Kimchi-Fibre-Channel-Pools ... I am focusing to finish the implementation of UC 2.</span>
+<a name="l-33"></a><span class="tm">13:12:27</span><span class="nk"> &lt;ming&gt;</span> Yuxin, do you paln to add a commercial license for Kimchi?
+<a name="l-34"></a><span class="tm">13:12:41</span><span class="nk"> &lt;alinefm&gt;</span> I didin't check the mail list careful these days because I was focus on refactoring model
+<a name="l-35"></a><span class="tm">13:12:50</span><span class="nk"> &lt;YuXin&gt;</span> ming, sure not
+<a name="l-36"></a><span class="tm">13:12:56</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">YuXin:</span> ok, send v7 tomorrow
+<a name="l-37"></a><span class="tm">13:12:57</span><span class="nk"> &lt;alinefm&gt;</span> I will review the high priority patches today
+<a name="l-38"></a><span class="tm">13:13:04</span><span class="nk"> &lt;YuXin&gt;</span> zhoumeina, ok
+<a name="l-39"></a><span class="tm">13:13:07</span><span class="nk"> &lt;royce&gt;</span> # info royce: enhancement for iso permission checking, waiting for RFC approval, see if aline has comments, or I will start to do it
+<a name="l-40"></a><span class="tm">13:13:39</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, any update about: Add/remove network from guest ?
+<a name="l-41"></a><span class="tm">13:13:55</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, any update about: Support Image_formats in template ?
+<a name="l-42"></a><span class="tm">13:14:22</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> just support get network from guest. will send  Add/remove these days.
+<a name="l-43"></a><span class="tm">13:14:36</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok
+<a name="l-44"></a><span class="tm">13:14:39</span><span class="nk"> &lt;ming&gt;</span> royce,  I think you have gotten several comment.
+<a name="l-45"></a><span class="tm">13:14:53</span><span class="nk"> &lt;royce&gt;</span> alinefm, iso permission checking RFC is: [kimchi-devel RFC] REST API for Permission check and fixes, hope you have spare to take a look
+<a name="l-46"></a><span class="tm">13:14:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> for I need a detachDevice
+<a name="l-47"></a><span class="tm">13:15:03</span><span class="nk"> &lt;royce&gt;</span> ming, do you mean permission checking?
+<a name="l-48"></a><span class="tm">13:15:11</span><span class="nk"> &lt;ming&gt;</span> royce, yes.
+<a name="l-49"></a><span class="tm">13:15:17</span><span class="nk"> &lt;alinefm&gt;</span> royce, I will
+<a name="l-50"></a><span class="tm">13:15:31</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> To check whether the device was     successfully removed, either recheck domain configuration using     virDomainGetXMLDesc() or add handler for VIR_DOMAIN_EVENT_ID_DEVICE_REMOVED     event.
+<a name="l-51"></a><span class="tm">13:15:32</span><span class="nk"> &lt;royce&gt;</span> ming, I'll check it , thanks aline
+<a name="l-52"></a><span class="tm">13:15:33</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> did you free spice UI support patch?
+<a name="l-53"></a><span class="tm">13:15:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> disccus
+<a name="l-54"></a><span class="tm">13:16:06</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> almost done. will send you soon
+<a name="l-55"></a><span class="tm">13:16:24</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, I merged the backend yesterday - the UI is ready?
+<a name="l-56"></a><span class="tm">13:16:27</span><span class="nk"> &lt;ming&gt;</span> shaohef, I think we don't have a event handling in Kimchi.
+<a name="l-57"></a><span class="tm">13:16:37</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> discuss with royce, royce will send a common method to check the device is     successfully removed,
+<a name="l-58"></a><span class="tm">13:16:47</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> yes, I hope you can review it today
+<a name="l-59"></a><span class="tm">13:16:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> do we need to support event?
+<a name="l-60"></a><span class="tm">13:17:02</span><span class="nk"> &lt;royce&gt;</span> shaohef, I think we can just check libvirt error at the moment
+<a name="l-61"></a><span class="tm">13:17:24</span><span class="nk"> &lt;alinefm&gt;</span> royce, shaohef, if the device removal fails libvirt doesn't raise an error?
+<a name="l-62"></a><span class="tm">13:17:25</span><span class="nk"> &lt;royce&gt;</span> shaohef, thanks, I will send the abstract tomorrow
+<a name="l-63"></a><span class="tm">13:17:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> then I will base on royce's common method
+<a name="l-64"></a><span class="tm">13:17:59</span><span class="nk"> &lt;ming&gt;</span> Shaohef, event handling in backend will be nice.  But we don't a event handling for UI.
+<a name="l-65"></a><span class="tm">13:17:59</span><span class="nk"> &lt;royce&gt;</span> alinefm, according to recent doc, there are some occation the detach is async
+<a name="l-66"></a><span class="tm">13:18:22</span><span class="nk"> &lt;royce&gt;</span> on newly fedora 20 libvirt doc
+<a name="l-67"></a><span class="tm">13:18:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  here is the libvirt doc.
+<a name="l-68"></a><span class="tm">13:18:25</span><span class="nk"> &lt;shaohef&gt;</span> Beware that depending on the hypervisor and device type, detaching a device from a running domain may be asynchronous. That is, calling virDomainDetachDeviceFlags may just request device removal while the device is actually removed later (in cooperation with a guest OS). Previously, this fact was ignored and the device could have been removed from domain configuration before it was actually removed by the hypervisor causing various failures on subsequent o
+<a name="l-69"></a><span class="tm">13:18:25</span><span class="nk"> &lt;shaohef&gt;</span> ~
+<a name="l-70"></a><span class="tm">13:18:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, got it
+<a name="l-71"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, royce, did you check the older libvirt version?
+<a name="l-72"></a><span class="tm">13:19:25</span><span class="nk"> &lt;alinefm&gt;</span> ubuntu, opensuse, rhel...
+<a name="l-73"></a><span class="tm">13:19:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> maybe we can support a event handling for UI by websockt, or other method
+<a name="l-74"></a><span class="tm">13:19:42</span><span class="nk"> &lt;ming&gt;</span> Shaohef, I think we can start from detaching or attaching the device when the VM is in stopped state.
+<a name="l-75"></a><span class="tm">13:19:46</span><span class="nk"> &lt;royce&gt;</span> it exsists in the old, I think, but the doc add the discription of this recently
+<a name="l-76"></a><span class="tm">13:20:24</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-77"></a><span class="tm">13:20:31</span><span class="nk"> &lt;ming&gt;</span> Shaohef, then extend the detaching or attaching to living VM.
+<a name="l-78"></a><span class="tm">13:20:31</span><span class="nk"> &lt;alinefm&gt;</span> ming, it can be an option
+<a name="l-79"></a><span class="tm">13:20:40</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, royce ^
+<a name="l-80"></a><span class="tm">13:21:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> alinefm: agree. what about you royce? ^
+<a name="l-81"></a><span class="tm">13:21:07</span><span class="nk"> &lt;royce&gt;</span> do you mean just allow to living VM?
+<a name="l-82"></a><span class="tm">13:21:26</span><span class="nk"> &lt;alinefm&gt;</span> royce, on stopped vm
+<a name="l-83"></a><span class="tm">13:21:32</span><span class="nk"> &lt;royce&gt;</span> OK, sure
+<a name="l-84"></a><span class="tm">13:21:54</span><span class="nk"> &lt;royce&gt;</span> that means disable hotplug for the moment
+<a name="l-85"></a><span class="tm">13:22:05</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-86"></a><span class="tm">13:22:07</span><span class="nk"> &lt;shaohef&gt;</span> yes.
+<a name="l-87"></a><span class="tm">13:22:08</span><span class="nk"> &lt;ming&gt;</span> royce, that is nice.
+<a name="l-88"></a><span class="tm">13:22:32</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-89"></a><span class="tm">13:22:39</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers? problems?
+<a name="l-90"></a><span class="tm">13:23:14</span><span class="nk"> &lt;royce&gt;</span> OK, for the moment, after this we can do more investigation on what causes async detach
+<a name="l-91"></a><span class="tm">13:23:18</span><span class="nk"> &lt;ming&gt;</span> shaohef, it seems we can start to consider to add a event framework in Kimchi backend.
+<a name="l-92"></a><span class="tm">13:23:52</span><span class="nk"> &lt;alinefm&gt;</span> ming, agree
+<a name="l-93"></a><span class="tm">13:23:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  can I send GET vm interface firstly? then Add/remove network from guest on GET?
+<a name="l-94"></a><span class="tm">13:24:18</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, sure - which is easier for you
+<a name="l-95"></a><span class="tm">13:24:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> GET
+<a name="l-96"></a><span class="tm">13:25:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> then POST(add) and DELETE(remove)
+<a name="l-97"></a><span class="tm">13:25:00</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-98"></a><span class="tm">13:25:22</span><span class="nk"> &lt;alinefm&gt;</span> can we move to open discussion section?
+<a name="l-99"></a><span class="tm">13:25:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  attach/detach or add/remove which is better?
+<a name="l-100"></a><span class="tm">13:25:39</span><span class="nk"> &lt;ming&gt;</span> Alinefm, sure
+<a name="l-101"></a><span class="tm">13:26:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, the api will be POST /vms/&lt;name&gt;/ifaces/&lt;id&gt; and DELETE /vms/&lt;name&gt;/ifaces/&lt;id&gt;
+<a name="l-102"></a><span class="tm">13:26:47</span><span class="nk"> &lt;alinefm&gt;</span> right?
+<a name="l-103"></a><span class="tm">13:26:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-104"></a><span class="tm">13:26:53</span><span class="nk"> &lt;ming&gt;</span> For the unit test case,  they have broken recently.  Please make sure all the unit test cases passed before integration.
+<a name="l-105"></a><span class="tm">13:27:23</span><span class="nk"> &lt;royce&gt;</span> yeah, after updated json schema
+<a name="l-106"></a><span class="tm">13:27:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-107"></a><span class="tm">13:27:42</span><span class="nk"> &lt;YuXin&gt;</span> upper limit of mail size
+<a name="l-108"></a><span class="tm">13:27:45</span><span class="nk"> &lt;royce&gt;</span> my ubuntu 13.04 cannot use it any more
+<a name="l-109"></a><span class="tm">13:27:51</span><span class="nk"> &lt;alinefm&gt;</span> ming, royce, I didn't see problem on tests recently
+<a name="l-110"></a><span class="tm">13:28:43</span><span class="nk"> &lt;ming&gt;</span> Today, we have tested on FC18, FC20, ubuntu 13.04, several errors happend.
+<a name="l-111"></a><span class="tm">13:29:00</span><span class="nk"> &lt;royce&gt;</span> from jsonschema import Draft3Validator, ValidationError, FormatChecker
+<a name="l-112"></a><span class="tm">13:29:01</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">ImportError:</span> cannot import name FormatChecker
+<a name="l-113"></a><span class="tm">13:29:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> do you means V4?
+<a name="l-114"></a><span class="tm">13:29:48</span><span class="nk"> &lt;alinefm&gt;</span> royce, but we are using it for a while
+<a name="l-115"></a><span class="tm">13:29:50</span><span class="nk"> &lt;zhoumeina&gt;</span> <span class="hi">alinefm:</span> can we make the email limit larger, it make patchset always blocked, and others can not review
+<a name="l-116"></a><span class="tm">13:30:11</span><span class="nk"> &lt;alinefm&gt;</span> zhoumeina, YuXin, I will figure out how I can do it
+<a name="l-117"></a><span class="tm">13:30:14</span><span class="nk"> &lt;ming&gt;</span> In my FC18, the unit test cases can not end running feature tests again and again.
+<a name="l-118"></a><span class="tm">13:30:28</span><span class="nk"> &lt;royce&gt;</span> alinefm, I haven;t installed it , apporc introduced Format checker last night
+<a name="l-119"></a><span class="tm">13:30:29</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> on F20 I can import FormatChecker
+<a name="l-120"></a><span class="tm">13:30:33</span><span class="nk"> &lt;ming&gt;</span> alienfm, current size limit is 40K.
+<a name="l-121"></a><span class="tm">13:30:39</span><span class="nk"> &lt;royce&gt;</span> true shaohef
+<a name="l-122"></a><span class="tm">13:31:03</span><span class="nk"> &lt;ming&gt;</span> shaohef, but in FC20,  other errors happened.
+<a name="l-123"></a><span class="tm">13:31:11</span><span class="nk"> &lt;alinefm&gt;</span> royce, ming, so the problem on tests is related to FormatChecker in Ubuntu 13.04?
+<a name="l-124"></a><span class="tm">13:31:24</span><span class="nk"> &lt;alinefm&gt;</span> ming, which errors?
+<a name="l-125"></a><span class="tm">13:31:25</span><span class="nk"> &lt;royce&gt;</span> Ubuntu 13.04 only support 0.7
+<a name="l-126"></a><span class="tm">13:31:43</span><span class="nk"> &lt;ming&gt;</span> alinefm, FormaChecker is one of the errors.
+<a name="l-127"></a><span class="tm">13:31:53</span><span class="nk"> &lt;royce&gt;</span> I need to mannually install higher version, it is not in officail release
+<a name="l-128"></a><span class="tm">13:32:19</span><span class="nk"> &lt;alinefm&gt;</span> ming, how did you fix it in fc20?
+<a name="l-129"></a><span class="tm">13:32:38</span><span class="nk"> &lt;ming&gt;</span> alinefm, have not fixed it.
+<a name="l-130"></a><span class="tm">13:32:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> maybe you need pip-install. but we should let user use pip-install
+<a name="l-131"></a><span class="tm">13:32:43</span><span class="nk"> &lt;alinefm&gt;</span> it is also related to package version
+<a name="l-132"></a><span class="tm">13:32:53</span><span class="nk"> &lt;royce&gt;</span> yeah, shaohef
+<a name="l-133"></a><span class="tm">13:34:08</span><span class="nk"> &lt;alinefm&gt;</span> who would like to investigate it for all distros?
+<a name="l-134"></a><span class="tm">13:35:04</span><span class="nk"> &lt;royce&gt;</span> Investigation is not problem, I mean, do we really want user to use pip-install?
+<a name="l-135"></a><span class="tm">13:35:19</span><span class="nk"> &lt;alinefm&gt;</span> no
+<a name="l-136"></a><span class="tm">13:35:36</span><span class="nk"> &lt;ming&gt;</span> alinefm, I suggest every one to run the full test cases on her/his platform and reported the errors.
+<a name="l-137"></a><span class="tm">13:35:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, we need to use the packages in the distro repos
+<a name="l-138"></a><span class="tm">13:36:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> agree. ^
+<a name="l-139"></a><span class="tm">13:36:17</span><span class="nk"> &lt;alinefm&gt;</span> in this case we need to figure out a replacement for FormatChecker
+<a name="l-140"></a><span class="tm">13:36:41</span><span class="nk"> &lt;royce&gt;</span> +1
+<a name="l-141"></a><span class="tm">13:37:01</span><span class="nk"> &lt;alinefm&gt;</span> I am download an Fedora20 ISO right now - I can try to solve it there
+<a name="l-142"></a><span class="tm">13:37:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, could you take a look on ubuntu?
+<a name="l-143"></a><span class="tm">13:37:13</span><span class="nk"> &lt;royce&gt;</span> He used the format checker instead of pattern right? shaohef
+<a name="l-144"></a><span class="tm">13:37:16</span><span class="nk"> &lt;royce&gt;</span> sure, alinefm
+<a name="l-145"></a><span class="tm">13:37:19</span><span class="nk"> &lt;shaohef&gt;</span> still regular expression，instead of FormatChecker?
+<a name="l-146"></a><span class="tm">13:37:35</span><span class="nk"> &lt;alinefm&gt;</span> oh a quick solution =)
+<a name="l-147"></a><span class="tm">13:37:41</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  sure.
+<a name="l-148"></a><span class="tm">13:38:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> but  format checker is better than regular expression
+<a name="l-149"></a><span class="tm">13:38:12</span><span class="nk"> &lt;royce&gt;</span> We need a jenkins server
+<a name="l-150"></a><span class="tm">13:38:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> regular expression is not friendly for kimchi user.
+<a name="l-151"></a><span class="tm">13:38:35</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it can be but it needs to work well in all distros or we need to get other solution
+<a name="l-152"></a><span class="tm">13:39:01</span><span class="nk"> &lt;alinefm&gt;</span> royce, I am trying to get on with ovirt community
+<a name="l-153"></a><span class="tm">13:39:02</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes. \
+<a name="l-154"></a><span class="tm">13:39:03</span><span class="nk"> &lt;royce&gt;</span> to run test and try installation, the installation about this fails according to eli
+<a name="l-155"></a><span class="tm">13:39:05</span><span class="nk"> &lt;alinefm&gt;</span> *get one
+<a name="l-156"></a><span class="tm">13:39:11</span><span class="nk"> &lt;royce&gt;</span> that's great, alinefm
+<a name="l-157"></a><span class="tm">13:39:34</span><span class="nk"> &lt;alinefm&gt;</span> I think we have a plan for FormatChecker error
+<a name="l-158"></a><span class="tm">13:39:43</span><span class="nk"> &lt;alinefm&gt;</span> I would like your suggestion about the limit for mails
+<a name="l-159"></a><span class="tm">13:39:43</span><span class="nk"> &lt;ming&gt;</span> FormatChecker is not existing in Kimchi before?
+<a name="l-160"></a><span class="tm">13:39:47</span><span class="nk"> &lt;alinefm&gt;</span> current is 40KB
+<a name="l-161"></a><span class="tm">13:39:55</span><span class="nk"> &lt;alinefm&gt;</span> which is a better limit?
+<a name="l-162"></a><span class="tm">13:40:00</span><span class="nk"> &lt;royce&gt;</span> introduced by spice patch, ming
+<a name="l-163"></a><span class="tm">13:40:06</span><span class="nk"> &lt;alinefm&gt;</span> ming, nope! ^
+<a name="l-164"></a><span class="tm">13:40:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> yes, we use  regular expression， though RE is ugly
+<a name="l-165"></a><span class="tm">13:40:39</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, zhoumeina, any suggestion to new mai limit?
+<a name="l-166"></a><span class="tm">13:40:49</span><span class="nk"> &lt;ming&gt;</span> I hate to add more and more third party library to Kimchi.
+<a name="l-167"></a><span class="tm">13:41:16</span><span class="nk"> &lt;ming&gt;</span> <span class="hi">Shaohef:</span> I think RE is every popular and is quite easy to understand.
+<a name="l-168"></a><span class="tm">13:41:47</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> no. here the re is to user not to developer.
+<a name="l-169"></a><span class="tm">13:41:50</span><span class="nk"> &lt;YuXin&gt;</span> Message body is too big: 71997 bytes with a limit of 40 KB
+<a name="l-170"></a><span class="tm">13:42:03</span><span class="nk"> &lt;ming&gt;</span> Third party libraries bring maintaining issues.
+<a name="l-171"></a><span class="tm">13:42:05</span><span class="nk"> &lt;YuXin&gt;</span> I checked all my blocked mail, I see this one the biggest
+<a name="l-172"></a><span class="tm">13:42:18</span><span class="nk"> &lt;YuXin&gt;</span> I recommend it to be 80kb
+<a name="l-173"></a><span class="tm">13:42:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span> so RE is not welcome here. But now we have to use it for FormatChecker missing on some distros
+<a name="l-174"></a><span class="tm">13:43:00</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, ok - changed
+<a name="l-175"></a><span class="tm">13:43:06</span><span class="nk"> &lt;YuXin&gt;</span> thanks
+<a name="l-176"></a><span class="tm">13:43:07</span><span class="nk"> &lt;zhoumeina&gt;</span> great
+<a name="l-177"></a><span class="tm">13:43:21</span><span class="nk"> &lt;zhoumeina&gt;</span> :)
+<a name="l-178"></a><span class="tm">13:45:26</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it isn't for user
+<a name="l-179"></a><span class="tm">13:45:31</span><span class="nk"> &lt;alinefm&gt;</span> it is for validation
+<a name="l-180"></a><span class="tm">13:45:32</span><span class="nk"> &lt;alinefm&gt;</span> http://fpaste.org/68584/97935161/
+<a name="l-181"></a><span class="tm">13:45:50</span><span class="nk"> &lt;alinefm&gt;</span> instead of using "format" we should use "pattern" and add an regex
+<a name="l-182"></a><span class="tm">13:46:07</span><span class="nk"> &lt;alinefm&gt;</span> I think it solves the problem and we don't need to use FormatChecker
+<a name="l-183"></a><span class="tm">13:46:17</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> these error messages will be passed to  user,
+<a name="l-184"></a><span class="tm">13:47:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> and user will know the failed reason.
+<a name="l-185"></a><span class="tm">13:47:52</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok
+<a name="l-186"></a><span class="tm">13:48:12</span><span class="nk"> &lt;alinefm&gt;</span> but I can't see any other solution for now
+<a name="l-187"></a><span class="tm">13:48:30</span><span class="nk"> &lt;alinefm&gt;</span> we can also improve the error messages (there is a task for it too)
+<a name="l-188"></a><span class="tm">13:48:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I agree use RE for temporary
+<a name="l-189"></a><span class="tm">13:49:28</span><span class="nk"> &lt;royce&gt;</span> when next release 13.04 will end support, then we can dump RE
+<a name="l-190"></a><span class="tm">13:49:43</span><span class="nk"> &lt;royce&gt;</span> I mean this April
+<a name="l-191"></a><span class="tm">13:49:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  agree.
+<a name="l-192"></a><span class="tm">13:50:08</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-193"></a><span class="tm">13:50:15</span><span class="nk"> &lt;alinefm&gt;</span> anything else to discuss today?
+<a name="l-194"></a><span class="tm">13:50:57</span><span class="nk"> &lt;royce&gt;</span> almost everything to me
+<a name="l-195"></a><span class="tm">13:51:16</span><span class="nk"> &lt;zhoumeina&gt;</span> that is all for me
+<a name="l-196"></a><span class="tm">13:51:34</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> we just check permission, not fix right?
+<a name="l-197"></a><span class="tm">13:51:46</span><span class="nk"> &lt;shaohef&gt;</span> that's all for me
+<a name="l-198"></a><span class="tm">13:51:47</span><span class="nk"> &lt;alinefm&gt;</span> royce, almost means you have anything more? =)
+<a name="l-199"></a><span class="tm">13:52:31</span><span class="nk"> &lt;royce&gt;</span> yeah, shaohef, I think hlwanghl and ming's comments are reasonable, alinefm, I'm thinking :)
+<a name="l-200"></a><span class="tm">13:53:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, about...?
+<a name="l-201"></a><span class="tm">13:53:37</span><span class="nk"> &lt;royce&gt;</span> OK, I'm done:P
+<a name="l-202"></a><span class="tm">13:54:00</span><span class="nk"> &lt;hlwanghl&gt;</span> Means not to change permissions unexpectedly
+<a name="l-203"></a><span class="tm">13:54:38</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-204"></a><span class="tm">13:55:21</span><span class="nk"> &lt;alinefm&gt;</span> I just would ask everyone to help on reviews!
+<a name="l-205"></a><span class="tm">13:55:30</span><span class="nk"> &lt;alinefm&gt;</span> we have big tasks for sprint 2
+<a name="l-206"></a><span class="tm">13:56:04</span><span class="nk"> &lt;alinefm&gt;</span> thanks, all!
+<a name="l-207"></a><span class="tm">13:56:08</span><span class="nk"> &lt;royce&gt;</span> sure, we will
+<a name="l-208"></a><span class="tm">13:56:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

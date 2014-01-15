@@ -1,0 +1,208 @@
+13:05:47 <alinefm> #startmeeting
+13:05:47 <kimchi-bot> Meeting started Wed Jan 15 13:05:47 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:05:47 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:05:54 <alinefm> #meetingname scrum
+13:05:54 <kimchi-bot> The meeting name has been set to 'scrum'
+13:06:13 <alinefm> #info  Agenda 1) Sprint 2 status 2) Open discussion
+13:06:15 <alinefm> anything else?
+13:06:39 <YuXin> mail size limit need to be discussed
+13:07:04 <alinefm> YuXin, we can do it in open discussion section
+13:07:10 <YuXin> ok
+13:08:04 <zhoumeina> #info spice UI patch is blocked. waiting for release, zhoumeina think it is ready to merge.
+13:08:09 <alinefm> I would like to start with the remaining sprint 1 tasks
+13:08:34 <alinefm> #topic Sprint 2 status
+13:08:44 <alinefm> Please provide your status using the #info command: #info <nickname> <status>
+13:09:08 <alinefm> #info alinefm I will send the model refactoring patches today
+13:09:14 <royce> #info royce (sprint1) storage targets: send new version today based on shaohef's comments, wainting for review
+13:09:48 <zhoumeina> #info zhoumeina storage server and targets UI just send v6 waiting for review
+13:10:01 <royce> #info royce (sprint2) nfs prevalidation: new patch sent to integrate rollback and timeout cmd, waiting for review
+13:10:07 <shaohef> #info shaohef send the vm support interfaces today.  just suport GET api now
+13:10:07 <YuXin> #info Yu Xin  jquery widget library, the 2 libraries I searched have dual license(open source, commercial) which is can acceptable for kimchi, I will continue to search to try to get a library with apache/bsd/mit license
+13:10:40 <pvital> #info pvital: Host software update: I started the development of this feature and I'm planning to submit it to mailing list by the end of this week or beginning of next one.
+13:10:46 <alinefm> royce, zhoumeina, about sprint 1 tasks: all they are on mail list waiting for review?
+13:10:49 <YuXin> sorry, dual license is not acceptable to kimchi
+13:10:57 <royce> yeah, alinefm
+13:11:01 <ming> #info authorization enhancemnt; RFC post. calling for comments.
+13:11:08 <zhoumeina> alinefm: for me, yes
+13:11:31 <YuXin> Mei Na, I reviewd your v6 today before get off work
+13:11:49 <zhoumeina> YuXin: any comment?
+13:11:56 <zhoumeina> I will deal with it tomorrow
+13:11:57 <YuXin> there is an issue
+13:12:04 <YuXin> in source code
+13:12:17 <rotru> #info rotru FC/SCSI patch was sent for discussion and review. There are 2 use cases to implement: Details here: https://github.com/kimchi-project/kimchi/wiki/Kimchi-Fibre-Channel-Pools ... I am focusing to finish the implementation of UC 2.
+13:12:27 <ming> Yuxin, do you paln to add a commercial license for Kimchi?
+13:12:41 <alinefm> I didin't check the mail list careful these days because I was focus on refactoring model
+13:12:50 <YuXin> ming, sure not
+13:12:56 <zhoumeina> YuXin: ok, send v7 tomorrow
+13:12:57 <alinefm> I will review the high priority patches today
+13:13:04 <YuXin> zhoumeina, ok
+13:13:07 <royce> # info royce: enhancement for iso permission checking, waiting for RFC approval, see if aline has comments, or I will start to do it
+13:13:39 <alinefm> shaohef, any update about: Add/remove network from guest ?
+13:13:55 <alinefm> pradeep, any update about: Support Image_formats in template ?
+13:14:22 <shaohef> alinefm: just support get network from guest. will send  Add/remove these days.
+13:14:36 <alinefm> shaohef, ok
+13:14:39 <ming> royce,  I think you have gotten several comment.
+13:14:53 <royce> alinefm, iso permission checking RFC is: [kimchi-devel RFC] REST API for Permission check and fixes, hope you have spare to take a look
+13:14:53 <shaohef> alinefm: for I need a detachDevice
+13:15:03 <royce> ming, do you mean permission checking?
+13:15:11 <ming> royce, yes.
+13:15:17 <alinefm> royce, I will
+13:15:31 <shaohef> alinefm: To check whether the device was     successfully removed, either recheck domain configuration using     virDomainGetXMLDesc() or add handler for VIR_DOMAIN_EVENT_ID_DEVICE_REMOVED     event.
+13:15:32 <royce> ming, I'll check it , thanks aline
+13:15:33 <zhoumeina> alinefm: did you free spice UI support patch?
+13:15:45 <shaohef> alinefm: disccus
+13:16:06 <pradeep> alinefm: almost done. will send you soon
+13:16:24 <alinefm> zhoumeina, I merged the backend yesterday - the UI is ready?
+13:16:27 <ming> shaohef, I think we don't have a event handling in Kimchi.
+13:16:37 <shaohef> alinefm: discuss with royce, royce will send a common method to check the device is     successfully removed,
+13:16:47 <zhoumeina> alinefm: yes, I hope you can review it today
+13:16:59 <shaohef> ming: do we need to support event?
+13:17:02 <royce> shaohef, I think we can just check libvirt error at the moment
+13:17:24 <alinefm> royce, shaohef, if the device removal fails libvirt doesn't raise an error?
+13:17:25 <royce> shaohef, thanks, I will send the abstract tomorrow
+13:17:26 <shaohef> alinefm: then I will base on royce's common method
+13:17:59 <ming> Shaohef, event handling in backend will be nice.  But we don't a event handling for UI.
+13:17:59 <royce> alinefm, according to recent doc, there are some occation the detach is async
+13:18:22 <royce> on newly fedora 20 libvirt doc
+13:18:25 <shaohef> alinefm:  here is the libvirt doc.
+13:18:25 <shaohef> Beware that depending on the hypervisor and device type, detaching a device from a running domain may be asynchronous. That is, calling virDomainDetachDeviceFlags may just request device removal while the device is actually removed later (in cooperation with a guest OS). Previously, this fact was ignored and the device could have been removed from domain configuration before it was actually removed by the hypervisor causing various failures on subsequent o
+13:18:25 <shaohef> ~
+13:18:59 <alinefm> shaohef, got it
+13:19:11 <alinefm> shaohef, royce, did you check the older libvirt version?
+13:19:25 <alinefm> ubuntu, opensuse, rhel...
+13:19:27 <shaohef> ming: maybe we can support a event handling for UI by websockt, or other method
+13:19:42 <ming> Shaohef, I think we can start from detaching or attaching the device when the VM is in stopped state.
+13:19:46 <royce> it exsists in the old, I think, but the doc add the discription of this recently
+13:20:24 <alinefm> ok
+13:20:31 <ming> Shaohef, then extend the detaching or attaching to living VM.
+13:20:31 <alinefm> ming, it can be an option
+13:20:40 <alinefm> shaohef, royce ^
+13:21:06 <shaohef> ming: alinefm: agree. what about you royce? ^
+13:21:07 <royce> do you mean just allow to living VM?
+13:21:26 <alinefm> royce, on stopped vm
+13:21:32 <royce> OK, sure
+13:21:54 <royce> that means disable hotplug for the moment
+13:22:05 <alinefm> yes
+13:22:07 <shaohef> yes.
+13:22:08 <ming> royce, that is nice.
+13:22:32 <alinefm> ok
+13:22:39 <alinefm> anyone has blockers? problems?
+13:23:14 <royce> OK, for the moment, after this we can do more investigation on what causes async detach
+13:23:18 <ming> shaohef, it seems we can start to consider to add a event framework in Kimchi backend.
+13:23:52 <alinefm> ming, agree
+13:23:59 <shaohef> alinefm:  can I send GET vm interface firstly? then Add/remove network from guest on GET?
+13:24:18 <alinefm> shaohef, sure - which is easier for you
+13:24:36 <shaohef> alinefm: GET
+13:25:00 <shaohef> alinefm: then POST(add) and DELETE(remove)
+13:25:00 <alinefm> ok
+13:25:22 <alinefm> can we move to open discussion section?
+13:25:23 <shaohef> alinefm:  attach/detach or add/remove which is better?
+13:25:39 <ming> Alinefm, sure
+13:26:43 <alinefm> shaohef, the api will be POST /vms/<name>/ifaces/<id> and DELETE /vms/<name>/ifaces/<id>
+13:26:47 <alinefm> right?
+13:26:53 <shaohef> alinefm: yes.
+13:26:53 <ming> For the unit test case,  they have broken recently.  Please make sure all the unit test cases passed before integration.
+13:27:23 <royce> yeah, after updated json schema
+13:27:23 <alinefm> #topic Open discussion
+13:27:42 <YuXin> upper limit of mail size
+13:27:45 <royce> my ubuntu 13.04 cannot use it any more
+13:27:51 <alinefm> ming, royce, I didn't see problem on tests recently
+13:28:43 <ming> Today, we have tested on FC18, FC20, ubuntu 13.04, several errors happend.
+13:29:00 <royce> from jsonschema import Draft3Validator, ValidationError, FormatChecker
+13:29:01 <royce> ImportError: cannot import name FormatChecker
+13:29:23 <shaohef> royce: do you means V4?
+13:29:48 <alinefm> royce, but we are using it for a while
+13:29:50 <zhoumeina> alinefm: can we make the email limit larger, it make patchset always blocked, and others can not review
+13:30:11 <alinefm> zhoumeina, YuXin, I will figure out how I can do it
+13:30:14 <ming> In my FC18, the unit test cases can not end running feature tests again and again.
+13:30:28 <royce> alinefm, I haven;t installed it , apporc introduced Format checker last night
+13:30:29 <shaohef> royce: on F20 I can import FormatChecker
+13:30:33 <ming> alienfm, current size limit is 40K.
+13:30:39 <royce> true shaohef
+13:31:03 <ming> shaohef, but in FC20,  other errors happened.
+13:31:11 <alinefm> royce, ming, so the problem on tests is related to FormatChecker in Ubuntu 13.04?
+13:31:24 <alinefm> ming, which errors?
+13:31:25 <royce> Ubuntu 13.04 only support 0.7
+13:31:43 <ming> alinefm, FormaChecker is one of the errors.
+13:31:53 <royce> I need to mannually install higher version, it is not in officail release
+13:32:19 <alinefm> ming, how did you fix it in fc20?
+13:32:38 <ming> alinefm, have not fixed it.
+13:32:42 <shaohef> royce: maybe you need pip-install. but we should let user use pip-install
+13:32:43 <alinefm> it is also related to package version
+13:32:53 <royce> yeah, shaohef
+13:34:08 <alinefm> who would like to investigate it for all distros?
+13:35:04 <royce> Investigation is not problem, I mean, do we really want user to use pip-install?
+13:35:19 <alinefm> no
+13:35:36 <ming> alinefm, I suggest every one to run the full test cases on her/his platform and reported the errors.
+13:35:59 <alinefm> royce, we need to use the packages in the distro repos
+13:36:16 <shaohef> alinefm: agree. ^
+13:36:17 <alinefm> in this case we need to figure out a replacement for FormatChecker
+13:36:41 <royce> +1
+13:37:01 <alinefm> I am download an Fedora20 ISO right now - I can try to solve it there
+13:37:09 <alinefm> royce, could you take a look on ubuntu?
+13:37:13 <royce> He used the format checker instead of pattern right? shaohef
+13:37:16 <royce> sure, alinefm
+13:37:19 <shaohef> still regular expression，instead of FormatChecker?
+13:37:35 <alinefm> oh a quick solution =)
+13:37:41 <shaohef> royce:  sure.
+13:38:06 <shaohef> alinefm: but  format checker is better than regular expression
+13:38:12 <royce> We need a jenkins server
+13:38:26 <shaohef> alinefm: regular expression is not friendly for kimchi user.
+13:38:35 <alinefm> shaohef, it can be but it needs to work well in all distros or we need to get other solution
+13:39:01 <alinefm> royce, I am trying to get on with ovirt community
+13:39:02 <shaohef> alinefm: yes. \
+13:39:03 <royce> to run test and try installation, the installation about this fails according to eli
+13:39:05 <alinefm> *get one
+13:39:11 <royce> that's great, alinefm
+13:39:34 <alinefm> I think we have a plan for FormatChecker error
+13:39:43 <alinefm> I would like your suggestion about the limit for mails
+13:39:43 <ming> FormatChecker is not existing in Kimchi before?
+13:39:47 <alinefm> current is 40KB
+13:39:55 <alinefm> which is a better limit?
+13:40:00 <royce> introduced by spice patch, ming
+13:40:06 <alinefm> ming, nope! ^
+13:40:35 <shaohef> ming: yes, we use  regular expression， though RE is ugly
+13:40:39 <alinefm> YuXin, zhoumeina, any suggestion to new mai limit?
+13:40:49 <ming> I hate to add more and more third party library to Kimchi.
+13:41:16 <ming> Shaohef: I think RE is every popular and is quite easy to understand.
+13:41:47 <shaohef> ming: no. here the re is to user not to developer.
+13:41:50 <YuXin> Message body is too big: 71997 bytes with a limit of 40 KB
+13:42:03 <ming> Third party libraries bring maintaining issues.
+13:42:05 <YuXin> I checked all my blocked mail, I see this one the biggest
+13:42:18 <YuXin> I recommend it to be 80kb
+13:42:25 <shaohef> ming: so RE is not welcome here. But now we have to use it for FormatChecker missing on some distros
+13:43:00 <alinefm> YuXin, ok - changed
+13:43:06 <YuXin> thanks
+13:43:07 <zhoumeina> great
+13:43:21 <zhoumeina> :)
+13:45:26 <alinefm> shaohef, it isn't for user
+13:45:31 <alinefm> it is for validation
+13:45:32 <alinefm> http://fpaste.org/68584/97935161/
+13:45:50 <alinefm> instead of using "format" we should use "pattern" and add an regex
+13:46:07 <alinefm> I think it solves the problem and we don't need to use FormatChecker
+13:46:17 <shaohef> alinefm: these error messages will be passed to  user,
+13:47:06 <shaohef> alinefm: and user will know the failed reason.
+13:47:52 <alinefm> shaohef, ok
+13:48:12 <alinefm> but I can't see any other solution for now
+13:48:30 <alinefm> we can also improve the error messages (there is a task for it too)
+13:48:58 <shaohef> alinefm: I agree use RE for temporary
+13:49:28 <royce> when next release 13.04 will end support, then we can dump RE
+13:49:43 <royce> I mean this April
+13:49:57 <shaohef> royce:  agree.
+13:50:08 <alinefm> ok
+13:50:15 <alinefm> anything else to discuss today?
+13:50:57 <royce> almost everything to me
+13:51:16 <zhoumeina> that is all for me
+13:51:34 <shaohef> royce: we just check permission, not fix right?
+13:51:46 <shaohef> that's all for me
+13:51:47 <alinefm> royce, almost means you have anything more? =)
+13:52:31 <royce> yeah, shaohef, I think hlwanghl and ming's comments are reasonable, alinefm, I'm thinking :)
+13:53:05 <alinefm> royce, about...?
+13:53:37 <royce> OK, I'm done:P
+13:54:00 <hlwanghl> Means not to change permissions unexpectedly
+13:54:38 <alinefm> ok
+13:55:21 <alinefm> I just would ask everyone to help on reviews!
+13:55:30 <alinefm> we have big tasks for sprint 2
+13:56:04 <alinefm> thanks, all!
+13:56:08 <royce> sure, we will
+13:56:08 <alinefm> #endmeeting
