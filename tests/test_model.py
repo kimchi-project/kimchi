@@ -636,6 +636,10 @@ class ModelTests(unittest.TestCase):
     def test_debug_reports(self):
         inst = kimchi.model.Model('test:///default',
                                   objstore_loc=self.tmp_store)
+
+        if not inst.get_capabilities()['system_report_tool']:
+            raise unittest.SkipTest("Without debug report tool")
+
         namePrefix = 'unitTestReport'
         # sosreport always deletes unsual letters like '-' and '_' in the
         # generated report file name.
