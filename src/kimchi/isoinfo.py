@@ -110,7 +110,7 @@ iso_dir = [
     ('opensuse', '12.2',
         'openSUSE-DVD-i586-Build0167|openSUSE-DVD-x86_640167'),
     ('rhel', '4.8', 'RHEL/4-U8'),
-    ('rhel', lambda m: m.group(1), 'RHEL[_/](\d+\.\d+)'),
+    ('rhel', lambda m: m.group(1), 'RHEL[_/-](\d+\.\d+)'),
     ('debian', lambda m: m.group(1), 'Debian (\d+\.\d+)'),
     ('ubuntu', lambda m: m.group(2), '[Uu]buntu(-Server)? (\d+\.\d+)'),
     ('fedora', lambda m: m.group(1), 'Fedora[ -](\d+)'),
