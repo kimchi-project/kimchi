@@ -640,6 +640,11 @@ class ModelTests(unittest.TestCase):
         if not inst.get_capabilities()['system_report_tool']:
             raise unittest.SkipTest("Without debug report tool")
 
+        try:
+            timeout = int(os.environ['TEST_REPORT_TIMEOUT'])
+        except (ValueError, KeyError):
+            timeout = 120
+
         namePrefix = 'unitTestReport'
         # sosreport always deletes unsual letters like '-' and '_' in the
         # generated report file name.
@@ -656,12 +661,14 @@ class ModelTests(unittest.TestCase):
                 task = inst.debugreports_create({'name': reportName})
                 rollback.prependDefer(inst.debugreport_delete, reportName)
                 taskid = task['id']
-                self._wait_task(inst, taskid, 60)
+                self._wait_task(inst, taskid, timeout)
                 self.assertEquals('finished',
                                   inst.task_lookup(taskid)['status'],
                                   "It is not necessary an error.  "
                                   "You may need to increase the "
-                                  "timeout number in _wait_task()")
+                                  "timeout number by "
+                                  "TEST_REPORT_TIMEOUT=200 "
+                                  "./run_tests.sh test_model")
                 report_list = inst.debugreports_get_list()
                 self.assertTrue(reportName in report_list)
             except OperationFailed, e:
