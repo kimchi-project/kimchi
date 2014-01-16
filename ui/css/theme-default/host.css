@@ -180,7 +180,7 @@
 .host-panel #available-reports-grid {
     border-color: #ddd;
     height: 400px;
-    width: 750px;
+    width: 850px;
 }
 
 .host-panel select#available-reports-list {
