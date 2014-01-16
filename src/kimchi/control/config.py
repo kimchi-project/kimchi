@@ -39,8 +39,9 @@ class Config(Resource):
 
     @property
     def data(self):
+        display_proxy_port = config.get('display', 'display_proxy_port')
         return {'http_port': cherrypy.server.socket_port,
-                'vnc_proxy_port': config.get('novnc', 'vnc_proxy_port')}
+                'display_proxy_port': display_proxy_port}
 
 
 class Capabilities(Resource):

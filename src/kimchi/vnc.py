@@ -40,7 +40,7 @@ def new_ws_proxy():
             pass
 
     cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
-    args = ['python', cmd, config.get('novnc', 'vnc_proxy_port'),
+    args = ['python', cmd, config.get('display', 'display_proxy_port'),
             '--target-config', WS_TOKENS_DIR]
     p = subprocess.Popen(args, close_fds=True)
     return p

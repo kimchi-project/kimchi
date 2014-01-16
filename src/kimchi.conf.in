@@ -30,6 +30,6 @@
 # Logging level: debug, info, warning, error or critical
 #log_level = debug
 
-[novnc]
-# Port for vnc's websocket proxy to listen on
-#vnc_proxy_port = 64667
+[display]
+# Port for websocket proxy to listen on
+#display_proxy_port = 64667
