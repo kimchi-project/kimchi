@@ -21,7 +21,7 @@ Requires:	python-ethtool
 Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	nfs-client
-Requires:	iscsi-initiator-utils
+Requires:	open-iscsi
 
 %if 0%{?sles_version} == 11
 Requires:       python-ordereddict
