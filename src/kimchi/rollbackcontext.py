@@ -6,6 +6,7 @@
 # Authors:
 #  Adam Litke <agl@linux.vnet.ibm.com>
 #  ShaoHe Feng <shaohef@linux.vnet.ibm.com>
+#  Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,24 +46,23 @@ class RollbackContext(object):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        firstException = exc_value
-
+        """
+        According to Python official doc. This function should only re-raise
+        the exception from undo functions. Python automatically re-raises the
+        original exception when this function does not return True.
+        http://docs.python.org/2/library/stdtypes.html#contextmanager.__exit__
+        """
+        undoExcInfo = None
         for undo, args, kwargs in self._finally:
             try:
                 undo(*args, **kwargs)
-            except Exception as e:
+            except Exception:
                 # keep the earliest exception info
-                if not firstException:
-                    firstException = e
-                    # keep the original traceback info
-                    traceback = sys.exc_info()[2]
+                if undoExcInfo is None:
+                    undoExcInfo = sys.exc_info()
 
-        # re-raise the earliest exception
-        if firstException is not None:
-            if type(firstException) is str:
-                sys.stderr.write(firstException)
-            else:
-                raise firstException, None, traceback
+        if exc_type is None and undoExcInfo is not None:
+            raise undoExcInfo[0], undoExcInfo[1], undoExcInfo[2]
 
     def defer(self, func, *args, **kwargs):
         self._finally.append((func, args, kwargs))

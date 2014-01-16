@@ -60,6 +60,7 @@ PEP8_WHITELIST = \
 	tests/test_model.py \
 	tests/test_plugin.py \
 	tests/test_rest.py \
+	tests/test_rollbackcontext.py \
 	tests/test_storagepool.py \
 	tests/utils.py \
 	$(NULL)

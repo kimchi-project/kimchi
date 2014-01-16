@@ -31,6 +31,7 @@ EXTRA_DIST = \
 	test_osinfo.py \
 	test_plugin.py \
 	test_rest.py \
+	test_rollbackcontext.py \
 	test_server.py \
 	test_storagepool.py \
 	test_vmtemplate.py \
