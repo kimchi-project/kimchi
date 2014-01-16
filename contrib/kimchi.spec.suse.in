@@ -80,6 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/js/jquery.min.js
 %{_datadir}/kimchi/ui/js/modernizr.custom.2.6.2.min.js
 %{_datadir}/kimchi/ui/js/novnc/*.js
+%{_datadir}/kimchi/ui/js/spice/*.js
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/WebSocketMain.swf
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/swfobject.js
 %{_datadir}/kimchi/ui/js/novnc/web-socket-js/web_socket.js

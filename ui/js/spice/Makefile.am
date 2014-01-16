@@ -4,7 +4,7 @@
 # Copyright IBM, Corp. 2013
 #
 # Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
+# zhou meina <zhoumein@linux.vnet.ibm.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,20 +18,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc spice
-
-EXTRA_DIST = src
-
-jsdir = $(datadir)/kimchi/ui/js
+jsdir = $(datadir)/kimchi/ui/js/spice
 
 dist_js_DATA = \
-	kimchi.min.js \
-	jquery.min.js \
-	jquery-ui.js \
-	modernizr.custom.2.6.2.min.js \
+	*.js
 	$(NULL)
-
-kimchi.min.js: src/*.js
-	cat $(sort $^) > $@
-
-CLEANFILES = kimchi.min.js

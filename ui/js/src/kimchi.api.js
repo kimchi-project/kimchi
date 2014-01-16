@@ -291,7 +291,7 @@ var kimchi = {
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
             http_port = data['http_port'];
-            proxy_port = data['vnc_proxy_port'];
+            proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
                 url : "/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
@@ -304,6 +304,29 @@ var kimchi = {
                 url = 'http://' + location.hostname + ':' + http_port;
                 url += "/vnc_auto.html?port=" + proxy_port;
                 url += "&path=?token=" + encodeURIComponent(vm);
+                window.open(url);
+            });
+        }).error(function() {
+            kimchi.message.error(i18n['msg.fail.get.config']);
+        });
+    },
+
+    spiceToVM : function(vm) {
+        kimchi.requestJSON({
+            url : '/config',
+            type : 'GET',
+            dataType : 'json'
+        }).done(function(data, textStatus, xhr) {
+            http_port = data['http_port'];
+            proxy_port = data['display_proxy_port'];
+            kimchi.requestJSON({
+                url : "/vms/" + encodeURIComponent(vm) + "/connect",
+                type : "POST",
+                dataType : "json"
+            }).done(function(data, textStatus, xhr) {
+                url = 'http://' + location.hostname + ':' + http_port;
+                url += "/spice.html?port=" + proxy_port + "&listen="
+                + data.graphics.listen + "&token=" + encodeURIComponent(vm);
                 window.open(url);
             });
         }).error(function() {

@@ -1,0 +1,139 @@
+<!--
+   Copyright (C) 2012 by Jeremy P. White <jwhite@codeweavers.com>
+
+   This file is part of spice-html5.
+
+   spice-html5 is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   spice-html5 is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with spice-html5.  If not, see <http://www.gnu.org/licenses/>.
+
+   --------------------------------------------------
+    Spice Javascript client template.
+    Refer to main.js for more detailed information
+   --------------------------------------------------
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+        <title>Spice Javascript client</title>
+        <script src="js/spice/enums.js"></script>
+        <script src="js/spice/atKeynames.js"></script>
+        <script src="js/spice/utils.js"></script>
+        <script src="js/spice/png.js"></script>
+        <script src="js/spice/lz.js"></script>
+        <script src="js/spice/quic.js"></script>
+        <script src="js/spice/bitmap.js"></script>
+        <script src="js/spice/spicedataview.js"></script>
+        <script src="js/spice/spicetype.js"></script>
+        <script src="js/spice/spicemsg.js"></script>
+        <script src="js/spice/wire.js"></script>
+        <script src="js/spice/spiceconn.js"></script>
+        <script src="js/spice/display.js"></script>
+        <script src="js/spice/main.js"></script>
+        <script src="js/spice/inputs.js"></script>
+        <script src="js/spice/cursor.js"></script>
+        <script src="js/spice/jsbn.js"></script>
+        <script src="js/spice/rsa.js"></script>
+        <script src="js/spice/prng4.js"></script>
+        <script src="js/spice/rng.js"></script>
+        <script src="js/spice/sha1.js"></script>
+        <script src="js/spice/ticket.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/spice/spice.css">
+    </head>
+    <script>
+        var host = null, port = null;
+        var sc;
+        function spice_error(e) {
+            disconnect();
+        }
+
+        function connect() {
+            var host, port, token, password, scheme = "ws://", uri;
+            host = getParameter("listen");
+            port = getParameter("port");
+            token = getParameter("token");
+            document.getElementById("host").value = host;
+            document.getElementById("port").value = port;
+            if ((!host) || (!port)) {
+                console.log("must set host and port");
+                return;
+            }
+
+            if (sc) {
+                sc.stop();
+            }
+
+            uri = scheme + host + ":" + port + "/?token=rrr";
+            try {
+                sc = new SpiceMainConn({
+                    uri : uri,
+                    screen_id : "spice-screen",
+                    dump_id : "debug-div",
+                    message_id : "message-div",
+                    password : "",
+                    onerror : spice_error
+                });
+            } catch (e) {
+                alert(e.toString());
+                disconnect();
+            }
+
+        }
+
+        function disconnect()
+        {
+            console.log(">> disconnect");
+            if (sc) {
+                sc.stop();
+            }
+            console.log("<< disconnect");
+        }
+
+        function getParameter(name) {
+            var paramStr = location.search;
+            if (paramStr.length == 0)
+                return null;
+            if (paramStr.charAt(0) != '?')
+                return null;
+            paramStr = unescape(paramStr);
+            paramStr = paramStr.substring(1);
+            if (paramStr.length == 0)
+                return null;
+            var params = paramStr.split('&');
+            for ( var i = 0; i < params.length; i++) {
+                var parts = params[i].split('=', 2);
+                if (parts[0] == name) {
+                    if (parts.length < 2 || typeof (parts[1]) == "undefined" || parts[1] == "undefined" || parts[1] == "null")
+                        return "";
+                    return parts[1];
+                }
+            }
+            return null;
+        }
+    </script>
+    <body onload="connect();" onunload="disconnect();">
+        <div id="login">
+            <span class="logo">SPICE</span>
+            <label for="host">Host:</label> <input id="host" value="localhost" type="text" disabled="disabled"> <!-- localhost -->
+            <label for="port">Port:</label> <input id="port" value="5959" type="text" disabled="disabled">
+        </div>
+        <div id="spice-area">
+            <div id="spice-screen" class="spice-screen"></div>
+        </div>
+        <div id="message-div" class="spice-message"></div>
+        <div id="debug-div">
+        <!-- If DUMPXXX is turned on, dumped images will go here -->
+        </div>
+    </body>
+</html>

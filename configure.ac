@@ -67,6 +67,7 @@ AC_CONFIG_FILES([
     ui/images/theme-default/Makefile
     ui/js/Makefile
     ui/js/novnc/Makefile
+    ui/js/spice/Makefile
     ui/js/novnc/web-socket-js/Makefile
     ui/libs/Makefile
     ui/libs/themes/Makefile

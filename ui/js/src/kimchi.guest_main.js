@@ -119,6 +119,10 @@ kimchi.initVmButtonsAction = function() {
         kimchi.vncToVM($(this).data('vm'));
     });
 
+    $(".vm-spice").on("click", function(event) {
+        kimchi.spiceToVM($(this).data('vm'));
+    });
+
     kimchi.init_button_stat();
 
 };
@@ -127,11 +131,26 @@ kimchi.init_button_stat = function() {
     $('.vm-action').each(function() {
         var vm_action = $(this);
         var vm_vnc = vm_action.find('.vm-vnc');
-        if ((vm_action.data('graphics') === 'vnc')
-                && (vm_action.data('vmstate') === 'running')) {
-            vm_vnc.removeAttr('disabled');
+        var vm_spice = vm_action.find('.vm-spice');
+        var vm_graphics;
+        if (vm_action.data('graphics') === 'vnc') {
+            vm_spice.hide();
+            vm_graphics = vm_vnc;
+        } else if (vm_action.data('graphics') === 'spice') {
+            vm_vnc.hide();
+            vm_graphics = vm_spice;
         } else {
-            vm_vnc.attr('disabled', 'disabled');
+            vm_vnc.hide();
+            vm_spice.hide();
+            vm_graphics = null;
+        }
+
+        if (vm_graphics !== null) {
+            if (vm_action.data('vmstate') === 'running') {
+                vm_graphics.removeAttr('disabled');
+            } else {
+                vm_graphics.attr('disabled', 'disabled');
+            }
         }
 
         var editButton = vm_action.find('.vm-edit');
