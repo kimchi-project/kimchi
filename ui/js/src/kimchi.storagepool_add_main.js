@@ -23,12 +23,13 @@
 kimchi.storagepool_add_main = function() {
     kimchi.initStorageAddPage();
     $('#form-pool-add').on('submit', kimchi.addPool);
-    $('#form-nfs-pool-add').on('submit', kimchi.addnfsPool);
     $('#pool-doAdd').on('click', kimchi.addPool);
-    $('#pool-nfs-doAdd').on('click', kimchi.addnfsPool);
 };
 
 kimchi.initStorageAddPage = function() {
+    $('#poolTypeId').selectMenu();
+    $('#serverComboboxId').combobox();
+    $('#targetFilterSelectId').filterselect();
     var options = [ {
         label : "DIR",
         value : "dir"
@@ -54,8 +55,53 @@ kimchi.initStorageAddPage = function() {
             });
             $('.host-partition').html(listHtml);
         }
-        kimchi.select('storagePool-list', options);
-        $('#poolType').change(function() {
+        $('#poolTypeId').selectMenu("setData", options);
+        kimchi.getStorageServers('netfs', function(data) {
+            var serverContent = [];
+            if (data.length > 0) {
+                $.each(data, function(index, value) {
+                    serverContent.push({
+                        label : value.host,
+                        value : value.host
+                    });
+                });
+            }
+            $('#serverComboboxId').combobox("setData", serverContent);
+            $('input[name=nfsServerType]').change(function() {
+                if ($(this).val() === 'input') {
+                    $('#nfsServerInputDiv').removeClass('tmpl-html');
+                    $('#nfsServerChooseDiv').addClass('tmpl-html');
+                } else {
+                    $('#nfsServerInputDiv').addClass('tmpl-html');
+                    $('#nfsServerChooseDiv').removeClass('tmpl-html');
+                }
+            });
+            $('#nfsserverId').on("change",function() {
+                if ($(this).val() !== '' && kimchi.isServer($(this).val())) {
+                    $('#nfspathId').prop('disabled',false);
+                    $(this).removeClass("invalid-field");
+                } else {
+                    $(this).addClass("invalid-field");
+                    $('#nfspathId').prop( "disabled",true);
+                }
+                $('#targetFilterSelectId').filterselect('clear');
+            });
+            $('#nfspathId').focus(function() {
+                var targetContent = [];
+                kimchi.getStorageTargets($('#nfsserverId').val(), 'netfs', function(data) {
+                    if (data.length > 0) {
+                        $.each(data, function(index, value) {
+                            targetContent.push({
+                                label : value.target,
+                                value : value.target
+                            });
+                        });
+                    }
+                    $('#targetFilterSelectId').filterselect("setData", targetContent);
+                });
+            });
+        });
+        $('#poolTypeInputId').change(function() {
             if ($(this).val() === 'dir') {
                 $('.path-section').removeClass('tmpl-html');
                 $('.logical-section').addClass('tmpl-html');
@@ -93,7 +139,7 @@ kimchi.initStorageAddPage = function() {
 
 kimchi.validateForm = function() {
     var name = $('#poolId').val();
-    var poolType = $("#poolType").val();
+    var poolType = $("#poolTypeInputId").val();
     if ('' === name) {
         kimchi.message.error(i18n['msg.pool.edit.name.blank']);
         return false;
@@ -163,11 +209,7 @@ kimchi.validateServer = function(serverField) {
         kimchi.message.error(i18n['msg.pool.edit.server.blank']);
         return false;
     }
-    var domain = "([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}"
-    var ip = "(\\d{1,3}\.){3}\\d{1,3}"
-    regex = new RegExp('^' + domain + '|' + ip + '$')
-
-    if (!regex.test(serverField)) {
+    if(!kimchi.isServer(serverField)) {
         kimchi.message.error(i18n['msg.validate.pool.edit.server']);
         return false;
     }
@@ -187,7 +229,7 @@ kimchi.addPool = function(event) {
     if (kimchi.validateForm()) {
         var formData = $('#form-pool-add').serializeObject();
         delete formData.authname;
-        var poolType = $("#poolType").val();
+        var poolType = $('#poolTypeId').selectMenu('value');
         if (poolType === 'dir') {
             formData.path = $('#pathId').val();
         } else if (poolType === 'logical') {

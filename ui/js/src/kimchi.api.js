@@ -706,5 +706,30 @@ var kimchi = {
             success : suc,
             error : err
         });
+    },
+
+    getStorageServers: function(type, suc, err) {
+        var url = kimchi.url + 'storageservers?_target_type=' + type;
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    getStorageTargets: function(server,type, suc, err) {
+        var url = kimchi.url + 'storageservers/' + server + '/storagetargets?_target_type=' + type;
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            timeout: 2000,
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
     }
 };

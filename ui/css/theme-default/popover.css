@@ -31,6 +31,7 @@
     left: 0;
     display: none;
     cursor: default;
+    width: 100%;
 }
 
 .popover:BEFORE {

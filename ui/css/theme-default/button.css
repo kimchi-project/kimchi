@@ -247,30 +247,38 @@
 .btn-select {
     display: inline-block;
     position: relative;
-    height: 38px;
+    height: 30px;
     padding-right: 20px;
-    margin: 5px;
     vertical-align: top;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: #eee;
-    box-shadow: -1px -1px 1px #666, 1px 1px 1px #fff, 2px 2px 2px rgba(0, 0, 0, .15) inset;
+    background: #fff;
+    box-shadow: -1px -1px 1px #666, 1px 1px 1px #fff, 1px 1px 1px rgba(0, 0, 0, .15) inset;
     font-size: 13px;
-    line-height: 38px;
+    line-height: 30px;
     text-align: left;
     cursor: pointer;
 }
 
-.btn-select .text {
-    padding: 0 10px;
+.btn-select .input {
+    border: 0 solid #CCCCCC;
+    margin-right: 10px;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    position: absolute;
+    padding: 0 5px;
 }
 
+.btn-select input.invalid-field {
+    border: 1px solid #FF4444;
+}
 .btn-select .arrow {
     position: absolute;
     width: 15px;
-    height: 38px;
-    line-height: 38px;
+    height: 30px;
+    line-height: 30px;
     top: 0;
     right: 5px;
     background: url(../images/theme-default/arrow-down-black.png) no-repeat center center;

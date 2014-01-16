@@ -20,7 +20,7 @@
 
 SUBDIRS = novnc spice
 
-EXTRA_DIST = src
+EXTRA_DIST = src widgets
 
 jsdir = $(datadir)/kimchi/ui/js
 
@@ -31,7 +31,7 @@ dist_js_DATA = \
 	modernizr.custom.2.6.2.min.js \
 	$(NULL)
 
-kimchi.min.js: src/*.js
+kimchi.min.js: widgets/*.js src/*.js
 	cat $(sort $^) > $@
 
 CLEANFILES = kimchi.min.js

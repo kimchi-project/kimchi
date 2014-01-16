@@ -529,7 +529,7 @@
     width: 300px;
     display: inline-block;
     vertical-align: top;
-    padding: 5px 5px 5px 20px;
+    padding: 5px 5px 5px 22px;
 }
 
 .storage-type-wrapper-controls input[type="text"] {
@@ -548,11 +548,36 @@
 
 .storage-type-wrapper-controls > .dropdown {
     margin: 5px 0 0 1px;
-    width: 250px;
+    width: 150px;
 }
 
 .storage-type-wrapper-controls input[type="text"][disabled] {
     color: #bbb;
     background-color: #fafafa;
     cursor: not-allowed;
+}
+
+.storage-add-input-width {
+    width: 285px;
+}
+
+.form-section .storage-field {
+    overflow: visible;
+}
+
+.storage-base-input-width {
+    width: 300px;
+}
+
+.storage-window {
+    width: 600px;
+    height: 700px;
+}
+
+.storage-port-width {
+    width:40px;
+}
+
+.storage-auth-width {
+    width: 150px;
 }

@@ -168,3 +168,14 @@ kimchi.isUnsignedNumeric = function(number) {
     var reg = /^d+(.d+)?$/
     return reg.test(number);
 }
+
+kimchi.isServer = function(server) {
+    var domain = "([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}";
+    var ip = "(\\d{1,3}\.){3}\\d{1,3}";
+    regex = new RegExp('^' + domain + '|' + ip + '$');
+    if (!regex.test(server)) {
+        return false;
+    } else {
+        return true;
+    }
+};

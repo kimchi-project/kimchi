@@ -25,7 +25,7 @@ kimchi.popable = function() {
     $(document).on("click", ".popable", function(e) {
         var isOpen = $(this).hasClass('open');
         $(".popable").removeClass('open');
-        if (!isOpen) {
+        if (!isOpen && $(this).find('ul').html() !== '') {
             $(this).addClass('open');
         }
 

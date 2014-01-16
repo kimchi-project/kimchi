@@ -50,3 +50,9 @@
 .form-section input.invalid-field[type="text"] {
     border-color: #FF4444;
 }
+
+.text-help {
+    font-size: 12px;
+    color: #333;
+    margin: 0 0 5px 5px;
+}
