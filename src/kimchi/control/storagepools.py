@@ -83,6 +83,7 @@ class StoragePool(Resource):
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')
+        self.storagevolumes = StorageVolumes(self.model, ident.decode("utf-8"))
 
     @property
     def data(self):
@@ -103,27 +104,14 @@ class StoragePool(Resource):
 
         return res
 
-    def _cp_dispatch(self, vpath):
-        if vpath:
-            subcollection = vpath.pop(0)
-            if subcollection == 'storagevolumes':
-                # incoming text, from URL, is not unicode, need decode
-                return StorageVolumes(self.model, self.ident.decode("utf-8"))
-
 
 class IsoPool(Resource):
     def __init__(self, model):
         super(IsoPool, self).__init__(model, ISO_POOL_NAME)
+        self.storagevolumes = IsoVolumes(self.model, ISO_POOL_NAME)
 
     @property
     def data(self):
         return {'name': self.ident,
                 'state': self.info['state'],
                 'type': self.info['type']}
-
-    def _cp_dispatch(self, vpath):
-        if vpath:
-            subcollection = vpath.pop(0)
-            if subcollection == 'storagevolumes':
-                # incoming text, from URL, is not unicode, need decode
-                return IsoVolumes(self.model, self.ident.decode("utf-8"))
