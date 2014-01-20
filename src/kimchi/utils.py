@@ -154,3 +154,11 @@ def run_command(cmd, timeout=None):
     finally:
         if timer and not timeout_flag[0]:
             timer.cancel()
+
+
+def parse_cmd_output(output, output_items):
+    res = []
+    for line in output.split("\n"):
+        res.append(dict(zip(output_items, line.split())))
+
+    return res
