@@ -37,6 +37,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 import uuid
@@ -63,14 +64,16 @@ from kimchi import xmlutils
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
-from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
+from kimchi.exception import MissingParameter, NotFoundError, OperationFailed, TimeoutExpired
 from kimchi.featuretests import FeatureTests
 from kimchi.iscsi import TargetClient
 from kimchi.isoinfo import IsoImage
 from kimchi.objectstore import ObjectStore
+from kimchi.rollbackcontext import RollbackContext
 from kimchi.scan import Scanner
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import get_enabled_plugins, is_digit, kimchi_log
+from kimchi.utils import run_command, parse_cmd_output
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -1565,8 +1568,33 @@ class NetfsPoolDef(StoragePoolDef):
         self.path = '/var/lib/kimchi/nfs_mount/' + self.poolArgs['name']
 
     def prepare(self, conn):
-        # TODO: Verify the NFS export can be actually mounted.
-        pass
+        mnt_point = tempfile.mkdtemp(dir='/tmp')
+        export_path = "%s:%s" % (
+            self.poolArgs['source']['host'], self.poolArgs['source']['path'])
+        mount_cmd = ["mount", "-o", 'soft,timeo=100,retrans=3,retry=0',
+               export_path, mnt_point]
+        umount_cmd = ["umount", "-f", export_path]
+        mounted = False
+
+        with RollbackContext() as rollback:
+            rollback.prependDefer(os.rmdir, mnt_point)
+            try:
+                run_command(mount_cmd, 30)
+                rollback.prependDefer(run_command, umount_cmd)
+            except TimeoutExpired:
+                raise InvalidParameter("Export path %s may block during nfs mount" % export_path)
+
+            with open("/proc/mounts" , "rb") as f:
+                rawMounts = f.read()
+            output_items = ['dev_path', 'mnt_point', 'type']
+            mounts = parse_cmd_output(rawMounts, output_items)
+            for item in mounts:
+                if 'dev_path' in item and item['dev_path'] == export_path:
+                    mounted =  True
+
+            if not mounted:
+                raise InvalidParameter(
+                    "Export path %s mount failed during nfs mount" % export_path)
 
     @property
     def xml(self):
