@@ -86,9 +86,12 @@ kimchi.storageBindClick = function() {
         };
         kimchi.confirm(settings, function() {
             var poolName = $pool.data('name');
-            kimchi.deleteStoragePool(poolName);
-            kimchi.doListStoragePools();
-        }, null);
+            kimchi.deleteStoragePool(poolName, function() {
+                kimchi.doListStoragePools();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        });
     });
 
     $('.pool-activate').on('click', function(event) {
