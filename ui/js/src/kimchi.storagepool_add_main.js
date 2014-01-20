@@ -71,7 +71,7 @@ kimchi.initStorageAddPage = function() {
                 $('.logical-section').addClass('tmpl-html');
                 $('.nfs-section').addClass('tmpl-html');
                 $('.iscsi-section').removeClass('tmpl-html');
-            } else {
+            } else if ($(this).val() === 'logical') {
                 $('.path-section').addClass('tmpl-html');
                 $('.logical-section').removeClass('tmpl-html');
                 $('.nfs-section').addClass('tmpl-html');
@@ -108,10 +108,11 @@ kimchi.validateForm = function() {
         return kimchi.validateNfsForm();
     } else if (poolType === "iscsi") {
         return kimchi.validateIscsiForm();
-    } else {
+    } else if (poolType === "logical") {
         return kimchi.validateLogicalForm();
+    } else {
+        return false;
     }
-
 };
 
 kimchi.validateDirForm = function () {
@@ -205,7 +206,7 @@ kimchi.addPool = function(event) {
             source.path = $('#nfspathId').val();
             source.host = $('#nfsserverId').val();
             formData.source = source;
-        } else {
+        } else if (poolType === 'iscsi') {
             var source = {};
             source.target = $('#iscsiTargetId').val();
             source.host = $('#iscsiserverId').val();
