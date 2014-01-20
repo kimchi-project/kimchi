@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-17 12:24-0200\n"
+"POT-Creation-Date: 2014-01-20 18:46-0200\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -286,6 +286,9 @@ msgstr "这不是一个符合要求的LINUX路径"
 
 msgid "Invalid nfs mount path."
 msgstr "无效的nfs挂载路径"
+
+msgid "No logical device selected."
+msgstr ""
 
 msgid "This storage pool is empty."
 msgstr "这个存储池为空"

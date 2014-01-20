@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-17 12:24-0200\n"
+"POT-Creation-Date: 2014-01-20 18:46-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,6 +269,9 @@ msgid "This is not a real linux path."
 msgstr ""
 
 msgid "Invalid nfs mount path."
+msgstr ""
+
+msgid "No logical device selected."
 msgstr ""
 
 msgid "This storage pool is empty."
