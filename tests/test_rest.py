@@ -1240,6 +1240,29 @@ class RestTests(unittest.TestCase):
         self.assertIn('net_recv_rate', stats)
         self.assertIn('net_sent_rate', stats)
 
+    def test_get_param(self):
+        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+        self.request('/templates', req, 'POST')
+
+        # Create a VM
+        req = json.dumps({'name': 'test-vm1', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+        req = json.dumps({'name': 'test-vm2', 'template': '/templates/test'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        resp = request(host, port, '/vms')
+        self.assertEquals(200, resp.status)
+        res = json.loads(resp.read())
+        self.assertEquals(2, len(res))
+
+        resp = request(host, port, '/vms?name=test-vm1')
+        self.assertEquals(200, resp.status)
+        res = json.loads(resp.read())
+        self.assertEquals(1, len(res))
+        self.assertEquals('test-vm1', res[0]['name'])
+
 
 class HttpsRestTests(RestTests):
     """
