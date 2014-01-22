@@ -1,0 +1,184 @@
+13:02:29 <alinefm> #startmeeting
+13:02:29 <kimchi-bot> Meeting started Wed Jan 22 13:02:29 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:29 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:37 <alinefm> #meetingname scrum
+13:02:37 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:48 <alinefm> #info  Agenda 1) Sprint 2 status 2) Open discussion
+13:02:55 <alinefm> any other topic to add?
+13:03:12 <ming> Looks good
+13:03:44 <alinefm> #topic Sprint 2 status
+13:03:51 <alinefm> Please provide your status using the #info command: #info <nickname> <status>
+13:04:21 <alinefm> #info alinefm Sent patches about model refactoring to mail list last week. Now I am working on apply suggestions made and tests
+13:05:00 <YuXin> #info YuXin failed to get a jquery widget library with design, quality, maintaince, license, scope that fit into kimchi UI needs, in the future we will need to create our own widgets, and apply the widgets in the future feature development
+13:05:25 <ming> #info authorization enhancement proposal post and got several feedback. and was addressing it.  Started to use PAM to check groups.
+13:06:01 <YuXin> I got a chart library with a MIT license which can be backup in case we will heavily depend on charting capabilities
+13:06:29 <AdamKingIT> YuXin: Would you send a link so we can review the license ahead of time?
+13:06:42 <YuXin> already sent
+13:06:47 <royce> #info nfs checking merged, sprint 1 storagetarget is fixing ubuntu workaround, will send patch immediately
+13:06:53 <YuXin> Till now, I would like to end the sprint content of jquery widget library
+13:06:56 <alinefm> AdamKingIT, http://www.jqplot.com/docs/files/MIT-LICENSE-txt.html
+13:07:04 <ming> AdamKingIT, license should be clean
+13:07:06 <YuXin> yes
+13:07:53 <YuXin> AdamKingIT, please double check the license
+13:08:14 <AdamKingIT> YuXin: Will do. Been a while since I read MIT license.
+13:08:28 <rotru> info #rotru  Discussed a little bit more about the FC SCSI task, start the implementation of the missing backend API (scsi_hosts devices retrieve, scsi host retrieve  ) and refactoring the code according to comments in the reviews
+13:08:29 <alinefm> royce, checking the wiki, in addition to nfs pre-validation there is that: "Add kimchi group when installation"
+13:08:47 <alinefm> royce, are you working on that?
+13:08:50 <fnovak> license looks good/clean
+13:08:53 <YuXin> even this is ok, now, I do not want to introduce it. I would like introduce it to kimchi whenever next time the new feature requries new charting capability
+13:09:01 <danielhb> #info danielhb reviewed a handful of patches
+13:09:21 <AdamKingIT> fnovak: Looks like the library is dual license
+13:09:30 <royce> !!forgot that one....alinefm,I'll hands on that tomorrow
+13:10:00 <alinefm> royce, ok
+13:10:12 <alinefm> anyone has news about pvital and update patches?
+13:10:17 <AdamKingIT> WHat is "add kimchi group"?
+13:10:24 <YuXin> I also can not figure out why it has both GPL and MIT
+13:10:54 <royce> AdamKingIT, it means we need to add a kimchi group to make sure after nfs pool mounted , volume permission works right
+13:11:02 <hlwanghl> Maybe GPL for commercial, MIT for personal?
+13:11:05 <alinefm> AdamKingIT, when creating a nfs pool, if the path is not exported with the right permission we can not mount it
+13:11:24 <YuXin> GPL can not for commerical I think
+13:11:34 <AdamKingIT> hmm, adding a user group if the host is configured w/ a readonly LDAP will be, umm, challenging
+13:11:56 <alinefm> AdamKingIT, I don't think we will do it
+13:12:22 <alinefm> my idea is create a groups "kimchi-nfs" and when admin set the exports paths he need to add this group
+13:12:23 <royce> it is linux user group
+13:12:26 <ming> if the patch is not exported with the right permissions,  why we should mount it?
+13:12:29 <alinefm> then kimchi can work with it
+13:12:51 <ming> s/patch/path
+13:13:05 <AdamKingIT> y, its not possible. We'll need to account for the possibility that the code can't create the group
+13:13:10 <alinefm> for example: in /etc/exports the admin should do: /home/alinefm/mount-nfs (kimchi-nfs*)
+13:13:34 <ming> alinefm, in nfs servers?
+13:13:47 <alinefm> ming, yes
+13:13:53 <alinefm> at least it was my idea
+13:13:56 <royce> ming, you know, we need to force them not mapping to nobody
+13:14:02 <alinefm> royce, what are you thinking about?
+13:14:24 <royce> it is related to root mapping to nobody problem
+13:15:05 <alinefm> royce, because send the patch, send an email to mail list explaining with the details the problem and your proposal solution
+13:15:34 <alinefm> s/because/before
+13:15:37 <royce> because our root act as nobody in nfs server, we need to prevent this to happen by ensure we are mapping as users in kimchi group
+13:15:40 <ming> nfs servers are most likely different from the Kimchi servers.  So we need to change the nfs configuration in the nfs servers?  That is not what Kimchi users expect
+13:16:13 <royce> qemu and libvirt will added to this group so that they can manipulate the image
+13:16:28 <royce> ming, we need to configure export
+13:16:46 <royce> alinefm, I sent a mail but seems nobody responsed
+13:16:49 <ming> royce, I think that is export in nfs server.
+13:17:14 <royce> yes,ming,we need to make sure server export option is right
+13:17:14 <alinefm> royce, really? what is the subject?
+13:18:25 <royce> let me see...
+13:18:58 <royce> [project-kimchi] NFS img permission problem
+13:19:00 <royce> here
+13:19:07 <ming> royce, let me think if there is another solution.  Make the user to change the configuration for nfs server is not very friendly.
+13:19:20 <alinefm> royce, please, resend it to new mail list
+13:19:52 <royce> we make permission check when create nfs pool
+13:20:20 <royce> if we find the file permission's not right for qemu and libvirt, we reject it immediately
+13:20:48 <royce> alinefm, OK
+13:21:00 <alinefm> thanks!
+13:21:14 <alinefm> ming, royce, we can continue on mail list
+13:21:31 <ming> alinefm, that great
+13:21:58 <alinefm> royce, ming, do you have updates from sheldon task?
+13:22:21 <royce> sheldon's working on his interface patchset
+13:22:53 <royce> he has already sent list interface patches, and is working on attach and detach
+13:23:34 <danielhb> I would like to talk about alinefm 's model refactoring
+13:23:39 <alinefm> royce, ok, thanks
+13:23:59 <alinefm> danielhb, sure
+13:24:10 <alinefm> let's move on to open discussion section
+13:24:12 <alinefm> #topic Open discussion
+13:24:18 <alinefm> danielhb, please, go ahead
+13:24:23 <ming> alinefm, sheldon post the  refactor code to make new resource or collection class adding in one place instead of in multiple directories. That is an effort to continue Aline's code refactor.
+13:24:47 <alinefm> ming, yeap! it is pretty nice
+13:25:00 <danielhb> In my opinion, we should get this model refactoring (or any other proposed mass refactoring) done and pushed before the chinese New Year
+13:25:24 <danielhb> it has a huge impact in everyone and we shouldn't delay it any more than necessary
+13:25:24 <alinefm> before the Chinese New Year is tomorrow!!
+13:25:39 <danielhb> the chinese holidays I mean
+13:25:40 <danielhb> lol
+13:25:51 <danielhb> jan 31 to feb 9 am I right?
+13:26:01 <ming> danilehb,  ASAP.
+13:26:22 <alinefm> danielhb, most of them start getting out tomorrow
+13:26:25 <ming> danielhb, right. The public vacations is from jan 31 to feb 7
+13:27:06 <ming> danielhb,  IBM China force us to take 8.9 off using vacations.
+13:27:07 <royce> before?
+13:27:29 <ming> alinefm, I will stay to Jan 30.
+13:27:51 <alinefm> danielhb, ming, I will do my best to get those patches ready to merge asap but I think tomorrow is a tiny date
+13:28:08 <alinefm> I am applying the comments from reviews and testing
+13:28:53 <danielhb> why tomorrow? Am I missing something here about the chinese holidays?
+13:29:17 <royce> Is it better to do it during sprint3? There will be no others messing things up and Aline won't need to rebase with the changes
+13:30:09 <alinefm> royce, if we can do it for sprint 2 is better
+13:30:24 <alinefm> I don't like to postpone so much a patch like those
+13:30:29 <ming> royce, good point. We are out in sprint 3
+13:30:32 <alinefm> it affects everyone
+13:31:23 <danielhb> when does sprint3 starts?
+13:31:33 <ming> daniegb, 1.30
+13:32:18 <danielhb> sounds reasonable to push these changes next week
+13:32:24 <alinefm> danielhb, next week
+13:34:21 <alinefm> danielhb, ming, royce, ok!
+13:34:43 <alinefm> let's do that way, sooner those patches are tested we apply them
+13:35:01 <alinefm> later next week, in the begging of sprint 3
+13:35:05 <alinefm> agree?
+13:35:22 <royce> I wish we can have it sooner, will help to review, but I'm worry about it is a huge one and merge may introduce bugs
+13:35:52 <ming> Enhh,  need test on different platforms.
+13:35:58 <royce> alinefm, can we split it one by one?
+13:37:10 <alinefm> royce, unfortunately not, as we change the how model is built
+13:37:26 <alinefm> so we need to change all classes and model loader in same patch set
+13:38:07 <alinefm> ok
+13:38:13 <alinefm> any other topic to discuss?
+13:39:12 <alinefm> well, so I have one =)
+13:39:25 <alinefm> about the img permission patch sent by royce and shaohef
+13:39:51 <alinefm> royce proposed to only use setfacl and don't change file permissions
+13:39:57 <alinefm> ming, ^
+13:40:03 <alinefm> suggestions? comments?
+13:40:29 <royce> That is a compromise of change permission
+13:40:59 <royce> the img permission change may lead to the whole path change to have r+x
+13:41:07 <royce> That is not what we want
+13:41:30 <royce> so if we cannot just setfacl for qemu, we abandon to change it
+13:42:33 <ming> setfacl will change the acl of the file which is stored in host file systems like other file permissions.
+13:42:56 <ming> IMO, file permission and acl belongs to host instead of Kimchi.
+13:45:23 <royce> ming, acl just add a whole for qemu user, other users won't leverage it, so we think it is not harmful. But shaohef and I are OK with totally dump change permission too
+13:46:21 <royce> alinefm, what do you think?
+13:47:05 <alinefm> royce, I like the idea to use setfacl (I think virt-manager does the same)
+13:47:52 <royce> OK
+13:48:02 <hlwanghl> Agree with ming
+13:48:03 <alinefm> I got very disappointed to kimchi and I tried to create a vm and it failed because of permission and the same iso works in virt-manager
+13:48:23 <royce> hehheh
+13:48:30 <alinefm> the idea of kimchi is easy to use for every users - experts or not
+13:48:44 <alinefm> so I am in a conflict
+13:48:45 <hlwanghl> User should put iso in proper location and with proper permissions
+13:48:48 <ming> royce, If you have to change acl, let us log them.
+13:48:57 <AdamKingIT> alinefm: yes! especially those who are not expert
+13:49:46 <royce> What we concerned if someone put iso under /root/abc/def.iso, if use directory stats change permission, all the contents under root directoy get disclosed
+13:49:47 <ming> royce, it would be better if someone try to uninstall Kimchi. The stored acl will come back.
+13:49:58 <alinefm> and users not expert will know how to fix permission without kimchi intervention?
+13:50:03 <hlwanghl> we should avoid loopholes
+13:50:11 <royce> ming, good point
+13:50:50 <alinefm> AdamKingIT, what your opinion about all that?
+13:51:20 <AdamKingIT> i do like the idea of logging it if we change permissions
+13:52:00 <royce> but setfacl is just for qemu, qemu does not have tty, and if others want to ran as qemu, it needs to have root previledge
+13:52:02 <AdamKingIT> and I don't think we want to be less funtional than virt-manager
+13:52:52 <alinefm> yes! and ming's idea about rollback should also be implemented
+13:52:52 <hlwanghl> that's right
+13:52:56 <royce> basically, mark, sheldon and I think setfacl is safe while stats permission change is not
+13:53:32 <AdamKingIT> if you would have to have root permission to exploit the change,  then you could have just made the change yourself. So I would agree that is safe
+13:54:21 <alinefm> we have a deal?
+13:54:35 <alinefm> only use setfacl and restore its value on kimchi removal?
+13:54:41 <hlwanghl> If only admin group users can create templates, then it's safe
+13:54:52 <royce> OK
+13:56:22 <alinefm> we have more 5 minutes
+13:56:26 <alinefm> any other topic?
+13:57:12 <danielhb> I'm good
+13:58:21 <royce> Aline, do you still keep the Model.vms_get_list() api or use Model.vms.get_list() api?
+13:58:43 <alinefm> royce, Model.vms.get_list
+13:59:12 <royce> then you'll change test_model.py, right?
+13:59:25 <royce> Ok, I'm good with this one
+13:59:48 <royce> I want to recommend sheldon's module probe again:)
+14:00:00 <alinefm> royce, in fact, we dont need to change the tests if we load all functions in one class Model as Zheng Shen did for plugin
+14:00:21 <royce> I saw his proposal
+14:00:32 <royce> that is to construct vms_get_list at run time
+14:00:40 <alinefm> royce, yeap! I will adopt it too. But maybe after getting sheldon's patches merged
+14:00:49 <alinefm> yeap
+14:01:21 <royce> that is great!
+14:01:59 <royce> Thanks alinefm for reviewing our patch when your schedule is tight~
+14:02:29 <alinefm> =)
+14:03:26 <alinefm> I also would like to ask China folks to send the patches (partial or completed) before getting out for the holidays
+14:03:35 <alinefm> that way we can continue the work when you are out
+14:04:30 <royce> Sure we will~
+14:04:44 <royce> We'd better not leave burden to you:)
+14:05:17 <alinefm> yeap! thanks =)
+14:05:36 <alinefm> thanks all for joining
+14:05:38 <alinefm> #endmeeting
