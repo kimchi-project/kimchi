@@ -36,6 +36,7 @@ from kimchi.control.interfaces import Interfaces
 from kimchi.control.networks import Networks
 from kimchi.control.plugins import Plugins
 from kimchi.control.storagepools import StoragePools
+from kimchi.control.storageservers import StorageServers
 from kimchi.control.tasks import Tasks
 from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
@@ -60,6 +61,7 @@ class Root(Resource):
         self.vms = VMs(model)
         self.templates = Templates(model)
         self.storagepools = StoragePools(model)
+        self.storageservers = StorageServers(model)
         self.interfaces = Interfaces(model)
         self.networks = Networks(model)
         self.tasks = Tasks(model)
