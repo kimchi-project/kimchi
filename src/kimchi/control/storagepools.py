@@ -63,9 +63,9 @@ class StoragePools(Collection):
 
         return resp
 
-    def _get_resources(self):
+    def _get_resources(self, filter_params):
         try:
-            res_list = super(StoragePools, self)._get_resources()
+            res_list = super(StoragePools, self)._get_resources(filter_params)
             # Append reserved pools
             isos = getattr(self, ISO_POOL_NAME)
             isos.lookup()

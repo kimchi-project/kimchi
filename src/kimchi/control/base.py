@@ -212,10 +212,10 @@ class Collection(object):
 
         return res.get()
 
-    def _get_resources(self):
+    def _get_resources(self, flag_filter):
         try:
             get_list = getattr(self.model, model_fn(self, 'get_list'))
-            idents = get_list(*self.model_args)
+            idents = get_list(*self.model_args, **flag_filter)
             res_list = []
             for ident in idents:
                 # internal text, get_list changes ident to unicode for sorted
@@ -234,19 +234,36 @@ class Collection(object):
             args = self.resource_args + [ident.decode("utf-8")]
             return self.resource(self.model, *args)
 
-    def get(self):
-        resources = self._get_resources()
+    def filter_data(self, resources, fields_filter):
         data = []
         for res in resources:
-            data.append(res.data)
+            if all(key in res.data and res.data[key] == val
+                   for key, val in fields_filter.iteritems()):
+                data.append(res.data)
+        return data
+
+    def get(self, filter_params):
+        def _split_filter(params):
+            flag_filter = dict()
+            fields_filter = params
+            for key, val in params.items():
+                if key.startswith('_'):
+                    flag_filter[key] = fields_filter.pop(key)
+            return flag_filter, fields_filter
+
+        flag_filter, fields_filter = _split_filter(filter_params)
+        resources = self._get_resources(flag_filter)
+        data = self.filter_data(resources, fields_filter)
         return kimchi.template.render(get_class_name(self), data)
 
     @cherrypy.expose
-    def index(self, *args):
+    def index(self, *args, **kwargs):
         method = validate_method(('GET', 'POST'))
         if method == 'GET':
             try:
-                return self.get()
+                filter_params = cherrypy.request.params
+                validate_params(filter_params, self, 'get_list')
+                return self.get(filter_params)
             except InvalidOperation, param:
                 error = "Invalid operation: '%s'" % param
                 raise cherrypy.HTTPError(400, error)

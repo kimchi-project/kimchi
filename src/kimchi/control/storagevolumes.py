@@ -70,7 +70,7 @@ class IsoVolumes(Collection):
         super(IsoVolumes, self).__init__(model)
         self.pool = pool
 
-    def get(self):
+    def get(self, filter_params):
         res_list = []
         try:
             get_list = getattr(self.model, model_fn(self, 'get_list'))
