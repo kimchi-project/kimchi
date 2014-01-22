@@ -22,9 +22,13 @@
 
 import cherrypy
 import libvirt
+import lxml.etree as ET
 import os
 import subprocess
 import threading
+
+
+from lxml.builder import E
 
 
 from kimchi import config
@@ -68,6 +72,24 @@ class FeatureTests(object):
             return False
         finally:
             conn is None or conn.close()
+
+    @staticmethod
+    def libvirt_support_nfs_probe():
+        def _get_xml():
+            obj = E.source(E.host(name='localhost'), E.format(type='nfs'))
+            xml = ET.tostring(obj)
+            return xml
+        try:
+            conn = libvirt.open('qemu:///system')
+            ret = conn.findStoragePoolSources('netfs', _get_xml(), 0)
+        except libvirt.libvirtError as e:
+            if e.get_error_code() == 38:
+                # if libvirt cannot find showmount,
+                # it returns 38--general system call failure
+                return False
+        finally:
+            conn is None or conn.close()
+        return True
 
     @staticmethod
     def qemu_supports_iso_stream():

@@ -159,6 +159,22 @@ def run_command(cmd, timeout=None):
 def parse_cmd_output(output, output_items):
     res = []
     for line in output.split("\n"):
-        res.append(dict(zip(output_items, line.split())))
-
+        if line:
+            res.append(dict(zip(output_items, line.split())))
     return res
+
+
+def patch_find_nfs_target(nfs_server):
+    cmd = ["showmount", "--no-headers", "--exports", nfs_server]
+    try:
+        out = run_command(cmd, 10)[0]
+    except TimeoutExpired:
+        kimchi_log.warning("server %s query timeout, may not have any path exported",
+            storage_server)
+        return list()
+
+    targets = parse_cmd_output(out, output_items = ['target'])
+    for target in targets:
+        target['type'] = 'nfs'
+        target['host_name'] = nfs_server
+    return targets
