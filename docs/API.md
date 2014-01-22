@@ -495,6 +495,29 @@ creation.
       not tested yet
 * **POST**: *See Configuration Actions*
 
+**Actions (POST):**
+
+*No actions defined*
+
+### Collection: Storage Servers
+
+**URI:** /storageservers
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of used storage servers.
+    * Parameters:
+        * _target_type: Filter server list with given type, currently support 'netfs'.
+
+### Resource: Storage Server
+
+**URI:** /storageservers/*:host*
+
+**Methods:**
+
+* **GET**: Retrieve description of a Storage Server
+    * host: IP or host name of storage server
+
 ### Collection: Distros
 
 **URI:** /config/distros
