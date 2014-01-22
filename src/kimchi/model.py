@@ -76,7 +76,7 @@ from kimchi.rollbackcontext import RollbackContext
 from kimchi.scan import Scanner
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import get_enabled_plugins, is_digit, kimchi_log
-from kimchi.utils import run_command, parse_cmd_output
+from kimchi.utils import run_command, parse_cmd_output, patch_find_nfs_target
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -231,6 +231,7 @@ class Model(object):
         kimchi_log.info("*** Running feature tests ***")
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
         self.qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
+        self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe()
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
@@ -1341,17 +1342,21 @@ class Model(object):
         target_list = list()
 
         for target_type in target_types:
-            xml = _get_storage_server_spec(server=storage_server, target_type=target_type)
-            conn = self.conn.get()
+            if not self.nfs_target_probe and target_type == 'netfs':
+                targets = patch_find_nfs_target(storage_server)
+            else:
+                xml = _get_storage_server_spec(server=storage_server, target_type=target_type)
+                conn = self.conn.get()
 
-            try:
-                ret = conn.findStoragePoolSources(target_type, xml, 0)
-            except libvirt.libvirtError as e:
-                kimchi_log.warning("Query storage pool source fails because of %s",
-                    e.get_error_message())
-                continue
+                try:
+                    ret = conn.findStoragePoolSources(target_type, xml, 0)
+                except libvirt.libvirtError as e:
+                    kimchi_log.warning("Query storage pool source fails because of %s",
+                        e.get_error_message())
+                    continue
+                targets = _parse_target_source_result(target_type, ret)
 
-            target_list.extend(_parse_target_source_result(target_type, ret))
+            target_list.extend(targets)
         return target_list
 
     def _get_screenshot(self, vm_uuid):
