@@ -30,6 +30,7 @@ import ipaddr
 import json
 import libvirt
 import logging
+import lxml.etree as ET
 import os
 import platform
 import psutil
@@ -46,6 +47,8 @@ import uuid
 from cherrypy.process.plugins import BackgroundTask
 from cherrypy.process.plugins import SimplePlugin
 from collections import defaultdict
+from lxml import objectify
+from lxml.builder import E
 from xml.etree import ElementTree
 
 
@@ -1333,6 +1336,24 @@ class Model(object):
 
         raise NotFoundError('server %s does not used by kimchi' % server)
 
+    def storagetargets_get_list(self, storage_server, _target_type=None):
+        target_types = STORAGE_SOURCES.keys() if not _target_type else [_target_type]
+        target_list = list()
+
+        for target_type in target_types:
+            xml = _get_storage_server_spec(server=storage_server, target_type=target_type)
+            conn = self.conn.get()
+
+            try:
+                ret = conn.findStoragePoolSources(target_type, xml, 0)
+            except libvirt.libvirtError as e:
+                kimchi_log.warning("Query storage pool source fails because of %s",
+                    e.get_error_message())
+                continue
+
+            target_list.extend(_parse_target_source_result(target_type, ret))
+        return target_list
+
     def _get_screenshot(self, vm_uuid):
         with self.objstore as session:
             try:
@@ -1541,6 +1562,30 @@ class LibvirtVMScreenshot(VMScreenshot):
             stream.finish()
         finally:
             os.close(fd)
+
+
+def _parse_target_source_result(target_type, xml_str):
+    root = objectify.fromstring(xml_str)
+    ret = []
+    for source in root.getchildren():
+        if target_type == 'netfs':
+            host_name = source.host.get('name')
+            target_path = source.dir.get('path')
+            type = source.format.get('type')
+            ret.append(dict(host=host_name, target_type=type, target=target_path))
+    return ret
+
+
+def _get_storage_server_spec(**kwargs):
+    # Required parameters:
+    # server:
+    # target_type:
+    extra_args = []
+    if kwargs['target_type'] == 'netfs':
+        extra_args.append(E.format(type='nfs'))
+    obj = E.source(E.host(name=kwargs['server']), *extra_args)
+    xml = ET.tostring(obj)
+    return xml
 
 
 class StoragePoolDef(object):
