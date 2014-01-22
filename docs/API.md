@@ -518,6 +518,20 @@ creation.
 * **GET**: Retrieve description of a Storage Server
     * host: IP or host name of storage server
 
+### Collection: Storage Targets
+
+**URI:** /storageservers/*:name*/storagetargets
+
+**Methods:**
+
+* **GET**: Retrieve a list of available storage targets.
+    * Parameters:
+        * _target_type: Filter target list with given type, currently support 'netfs'.
+    * Response: A list with storage targets information.
+        * host: IP or host name of storage server of this target.
+        * target_type: Type of storage target, supported: 'nfs'.
+        * target: Storage target path.
+
 ### Collection: Distros
 
 **URI:** /config/distros
