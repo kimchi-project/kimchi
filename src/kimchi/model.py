@@ -1303,6 +1303,36 @@ class Model(object):
             else:
                 raise
 
+    def storageservers_get_list(self, _target_type=None):
+        target_type = STORAGE_SOURCES.keys() if not _target_type else [_target_type]
+        pools = self.storagepools_get_list()
+        server_list = []
+        for pool in pools:
+            try:
+                pool_info = self.storagepool_lookup(pool)
+                if (pool_info['type'] in target_type and
+                        pool_info['source']['addr'] not in server_list):
+                    # Avoid to add same server for multiple times
+                    # if it hosts more than one storage type
+                    server_list.append(pool_info['source']['addr'])
+            except NotFoundError:
+                pass
+
+        return server_list
+
+    def storageserver_lookup(self, server):
+        pools = self.storagepools_get_list()
+        for pool in pools:
+            try:
+                pool_info = self.storagepool_lookup(pool)
+                if pool_info['source'] and pool_info['source']['addr'] == server:
+                    return dict(host=server)
+            except NotFoundError:
+            # Avoid inconsistent pool result because of lease between list and lookup
+                pass
+
+        raise NotFoundError('server %s does not used by kimchi' % server)
+
     def _get_screenshot(self, vm_uuid):
         with self.objstore as session:
             try:

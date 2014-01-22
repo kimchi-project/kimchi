@@ -408,6 +408,36 @@ class MockModel(object):
                     iso_volumes.append(res)
         return iso_volumes
 
+    def storageservers_get_list(self, _target_type=None):
+        # FIXME: When added new storage server support, this needs to be updated
+        target_type = kimchi.model.STORAGE_SOURCES.keys() \
+            if not _target_type else [_target_type]
+        pools = self.storagepools_get_list()
+        server_list = []
+        for pool in pools:
+            try:
+                pool_info = self.storagepool_lookup(pool)
+                if (pool_info['type'] in target_type and
+                        pool_info['source']['addr'] not in server_list):
+                    server_list.append(pool_info['source']['addr'])
+            except NotFoundError:
+                pass
+
+        return server_list
+
+    def storageserver_lookup(self, server):
+        pools = self.storagepools_get_list()
+        for pool in pools:
+            try:
+                pool_info = self.storagepool_lookup(pool)
+                if pool_info['source'] and pool_info['source']['addr'] == server:
+                    return dict(host=server)
+            except NotFoundError:
+            # Avoid inconsistent pool result because of lease between list and lookup
+                pass
+
+        raise NotFoundError("storage server %s not used by kimchi" % server)
+
     def dummy_interfaces(self):
         interfaces = {}
         ifaces = {"eth1": "nic", "bond0": "bonding",
