@@ -248,6 +248,17 @@
             },
             "additionalProperties": false
         },
+        "storagetargets_get_list": {
+            "type": "object",
+            "properties": {
+                "_target_type": {
+                    "description": "List storage servers of given type",
+                    "type": "string",
+                    "pattern": "^netfs$"
+                }
+            },
+            "additionalProperties": false
+         },
         "template_update": {
             "type": "object",
             "properties": {

@@ -40,3 +40,17 @@ class StorageServer(Resource):
     @property
     def data(self):
         return self.info
+
+
+class StorageTargets(Collection):
+    def __init__(self, model, server):
+        super(StorageTargets, self).__init__(model)
+        self.server = server
+        self.resource_args = [self.server, ]
+        self.model_args = [self.server, ]
+
+    def get(self, filter_params):
+        res_list = []
+        get_list = getattr(self.model, model_fn(self, 'get_list'))
+        res_list = get_list(*self.model_args, **filter_params)
+        return kimchi.template.render(get_class_name(self), res_list)
