@@ -21,79 +21,106 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from kimchi.exception import InvalidOperation, NotFoundError
+from kimchi.basemodel import BaseModel
 
 
-class Model(object):
-
+class CirclesModel(object):
     def __init__(self):
-        self.rectangles = {}
-        self.circles = {}
+        self._circles = {}
 
-    def rectangles_create(self, params):
+    def create(self, params):
         name = params['name']
-        if name in self.rectangles:
-            raise InvalidOperation("Rectangle %s already exists" % name)
-        self.rectangles[name] = Rectangle(params['length'], params['width'])
-        return name
-
-    def rectangles_get_list(self):
-        return sorted(self.rectangles)
-
-    def rectangle_lookup(self, name):
-        try:
-            rectangle = self.rectangles[name]
-        except KeyError:
-            raise NotFoundError("Rectangle %s not found" % name)
-        return {'length': rectangle.length, 'width': rectangle.width}
-
-    def rectangle_update(self, name, params):
-        if name not in self.rectangles:
-            raise NotFoundError("Rectangle %s not found" % name)
-        try:
-            self.rectangles[name].length = params['length']
-        except KeyError:
-            pass
-
-        try:
-            self.rectangles[name].width = params['width']
-        except KeyError:
-            pass
-        return name
-
-    def rectangle_delete(self, name):
-        try:
-            del self.rectangles[name]
-        except KeyError:
-            pass
-
-    def circles_create(self, params):
-        name = params['name']
-        if name in self.circles:
+        if name in self._circles:
             raise InvalidOperation("Circle %s already exists" % name)
-        self.circles[name] = Circle(params['radius'])
+        self._circles[name] = Circle(params['radius'])
         return name
 
-    def circles_get_list(self):
-        return sorted(self.circles)
+    def get_list(self):
+        return sorted(self._circles)
 
-    def circle_lookup(self, name):
+
+class CircleModel(object):
+    def __init__(self, parent_model):
+        # Circel and Circles models are friends, it's OK to share _circles.
+        self._circles = parent_model._circles
+
+    def lookup(self, name):
         try:
-            circle = self.circles[name]
+            circle = self._circles[name]
         except KeyError:
             raise NotFoundError("Circle %s not found" % name)
         return {'radius': circle.radius}
 
-    def circle_update(self, name, params):
-        if name not in self.circles:
+    def update(self, name, params):
+        if name not in self._circles:
             raise NotFoundError("Circle %s not found" % name)
-        self.circles[name].radius = params['radius']
+        self._circles[name].radius = params['radius']
         return name
 
-    def circle_delete(self, name):
+    def delete(self, name):
         try:
-            del self.circles[name]
+            del self._circles[name]
         except KeyError:
             pass
+
+
+class RectanglesModel(object):
+    def __init__(self):
+        self._rectangles = {}
+
+    def create(self, params):
+        name = params['name']
+        if name in self._rectangles:
+            raise InvalidOperation("Rectangle %s already exists" % name)
+        self._rectangles[name] = Rectangle(params['length'], params['width'])
+        return name
+
+    def get_list(self):
+        return sorted(self._rectangles)
+
+
+class RectangleModel(object):
+    def __init__(self, parent_model):
+        self._rectangles = parent_model._rectangles
+
+    def lookup(self, name):
+        try:
+            rectangle = self._rectangles[name]
+        except KeyError:
+            raise NotFoundError("Rectangle %s not found" % name)
+        return {'length': rectangle.length, 'width': rectangle.width}
+
+    def update(self, name, params):
+        if name not in self._rectangles:
+            raise NotFoundError("Rectangle %s not found" % name)
+        try:
+            self._rectangles[name].length = params['length']
+        except KeyError:
+            pass
+
+        try:
+            self._rectangles[name].width = params['width']
+        except KeyError:
+            pass
+        return name
+
+    def delete(self, name):
+        try:
+            del self._rectangles[name]
+        except KeyError:
+            pass
+
+
+class Model(BaseModel):
+    def __init__(self):
+        circles = CirclesModel()
+        circle = CircleModel(circles)
+
+        rectangles = RectanglesModel()
+        rectangle = RectangleModel(rectangles)
+
+        return super(Model, self).__init__(
+            [circle, circles, rectangle, rectangles])
 
 
 class Rectangle(object):
