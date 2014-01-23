@@ -793,3 +793,25 @@ class ModelTests(unittest.TestCase):
             time.sleep(1)
             volumes = inst.storagevolumes_get_list(args['name'])
             self.assertEquals(len(volumes), 2)
+
+
+class BaseModelTests(unittest.TestCase):
+    class FoosModel(object):
+        def __init__(self):
+            self.data = {}
+
+        def create(self, params):
+            self.data.update(params)
+
+        def get_list(self):
+            return list(self.data)
+
+    class TestModel(kimchi.basemodel.BaseModel):
+        def __init__(self):
+            foo = BaseModelTests.FoosModel()
+            super(BaseModelTests.TestModel, self).__init__([foo])
+
+    def test_root_model(self):
+        t = BaseModelTests.TestModel()
+        t.foos_create({'item1': 10})
+        self.assertEquals(t.foos_get_list(), ['item1'])
