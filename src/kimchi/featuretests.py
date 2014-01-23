@@ -32,6 +32,7 @@ from lxml.builder import E
 
 
 from kimchi import config
+from kimchi.utils import kimchi_log
 
 
 ISO_STREAM_XML = """
@@ -60,17 +61,39 @@ ISO_STREAM_XML = """
 class FeatureTests(object):
 
     @staticmethod
+    def disable_screen_error_logging():
+        def libvirt_errorhandler(userdata, error):
+            # A libvirt error handler to ignore annoying messages in stderr
+            pass
+
+        # Register the error handler to hide libvirt error in stderr
+        libvirt.registerErrorHandler(f=libvirt_errorhandler, ctx=None)
+        # Disable cherrypy screen logging, in order to log errors on kimchi
+        # file without displaying them on screen
+        cherrypy.log.screen = False
+
+    @staticmethod
+    def enable_screen_error_logging():
+        # Unregister the error handler
+        libvirt.registerErrorHandler(f=None, ctx=None)
+        # Enable cherrypy screen logging
+        cherrypy.log.screen = True
+
+    @staticmethod
     def libvirt_supports_iso_stream(protocol):
         xml = ISO_STREAM_XML % {'protocol': protocol}
         conn = None
         try:
+            FeatureTests.disable_screen_error_logging()
             conn = libvirt.open('qemu:///system')
             dom = conn.defineXML(xml)
             dom.undefine()
             return True
-        except libvirt.libvirtError:
+        except libvirt.libvirtError, e:
+            kimchi_log.error(e.message)
             return False
         finally:
+            FeatureTests.enable_screen_error_logging()
             conn is None or conn.close()
 
     @staticmethod
@@ -81,14 +104,18 @@ class FeatureTests(object):
             return xml
         try:
             conn = libvirt.open('qemu:///system')
-            ret = conn.findStoragePoolSources('netfs', _get_xml(), 0)
+            FeatureTests.disable_screen_error_logging()
+            conn.findStoragePoolSources('netfs', _get_xml(), 0)
         except libvirt.libvirtError as e:
+            kimchi_log.error(e.message)
             if e.get_error_code() == 38:
                 # if libvirt cannot find showmount,
                 # it returns 38--general system call failure
                 return False
         finally:
+            FeatureTests.enable_screen_error_logging()
             conn is None or conn.close()
+
         return True
 
     @staticmethod
