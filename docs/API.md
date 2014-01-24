@@ -149,6 +149,52 @@ Represents a snapshot of the Virtual Machine's primary monitor.
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
 
+### Sub-Collection: Virtual Machine Network Interfaces
+
+**URI:** /vms/*:name*/ifaces
+
+Represents all network interfaces attached to a Virtual Machine.
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all network interfaces attached to a Virtual Machine.
+
+* **POST**: attach a network interface to VM
+    * model *(optional)*: model of emulated network interface card. It can be one of these models:
+            ne2k_pci, i82551, i82557b, i82559er, rtl8139, e1000, pcnet and virtio.
+            When model is missing, libvirt will set 'rtl8139' as default value.
+    * network *(optional)*: the name of resource network, it is required when the
+              interface type is network.
+    * type: The type of VM network interface that libvirt supports.
+            Now kimchi just supports 'network' type.
+
+### Sub-Resource: Virtual Machine Network Interface
+
+**URI:** /vms/*:name*/ifaces/*:mac*
+
+A interface represents available network interface on VM.
+
+**Methods:**
+
+* **GET**: Retrieve the full description of the VM network interface
+    * bridge *(optional)*: the name of resource bridge, only be available when the
+              interface type is bridge.
+    * mac: Media Access Control Address of the VM interface.
+    * model: model of emulated network interface card. It will be one of these models:
+             ne2k_pci, i82551, i82557b, i82559er, rtl8139, e1000, pcnet and virtio.
+    * network *(optional)*: the name of resource network, only be available when the
+              interface type is network.
+    * type: The type of VM network interface that libvirt supports.
+            It will be one of these types: 'network', 'bridge', 'user','ethernet',
+            'direct', 'hostdev', 'mcast', 'server' and 'client'.
+
+* **DELETE**: detach the network interface from VM
+
+**Actions (POST):**
+
+*No actions defined*
+
+
 ### Resource: Template
 
 **URI:** /templates/*:name*
