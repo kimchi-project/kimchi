@@ -28,24 +28,15 @@ import json
 from kimchi import auth
 from kimchi import template
 from kimchi.config import get_api_schema_file
+from kimchi.control import sub_nodes
 from kimchi.control.base import Resource
-from kimchi.control.config import Config
-from kimchi.control.debugreports import DebugReports
-from kimchi.control.host import Host
-from kimchi.control.interfaces import Interfaces
-from kimchi.control.networks import Networks
-from kimchi.control.plugins import Plugins
-from kimchi.control.storagepools import StoragePools
-from kimchi.control.storageservers import StorageServers
-from kimchi.control.tasks import Tasks
-from kimchi.control.templates import Templates
 from kimchi.control.utils import parse_request
-from kimchi.control.vms import VMs
 from kimchi.exception import OperationFailed
 
 
 class Root(Resource):
     def __init__(self, model, dev_env):
+        super(Root, self).__init__(model)
         self._handled_error = ['error_page.400', 'error_page.404',
                                'error_page.405', 'error_page.406',
                                'error_page.415', 'error_page.500']
@@ -57,18 +48,9 @@ class Root(Resource):
             self._cp_config = dict([(key, self.error_development_handler)
                                     for key in self._handled_error])
 
-        Resource.__init__(self, model)
-        self.vms = VMs(model)
-        self.templates = Templates(model)
-        self.storagepools = StoragePools(model)
-        self.storageservers = StorageServers(model)
-        self.interfaces = Interfaces(model)
-        self.networks = Networks(model)
-        self.tasks = Tasks(model)
-        self.config = Config(model)
-        self.host = Host(model)
-        self.debugreports = DebugReports(model)
-        self.plugins = Plugins(model)
+        for ident, node in sub_nodes.items():
+            setattr(self, ident, node(model))
+
         self.api_schema = json.load(open(get_api_schema_file()))
 
     def error_production_handler(self, status, message, traceback, version):
