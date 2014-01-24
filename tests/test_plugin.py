@@ -22,7 +22,6 @@
 
 import json
 import os
-import sys
 import unittest
 
 
@@ -32,7 +31,6 @@ from functools import partial
 import kimchi.mockmodel
 import kimchi.server
 import utils
-from kimchi import config
 
 
 test_server = None
@@ -48,7 +46,6 @@ def setUpModule():
     host = '127.0.0.1'
     port = utils.get_free_port('http')
     ssl_port = None
-    sys.path.append(config.get_prefix())
     test_server = utils.run_server(host, port, ssl_port, test_mode=True,
                                    model=model)
 

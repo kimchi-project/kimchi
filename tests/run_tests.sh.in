@@ -31,7 +31,7 @@ else
 fi
 
 if [ "$HAVE_UNITTEST" != "yes" -o "$PYTHON_VER" == "2.6" ]; then
-    PYTHONPATH=../src:./ unit2 $ARGS
+    PYTHONPATH=../src:./:../ unit2 $ARGS
 else
-    PYTHONPATH=../src python -m unittest $ARGS
+    PYTHONPATH=../src:../ python -m unittest $ARGS
 fi
