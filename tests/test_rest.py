@@ -340,6 +340,36 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+    def test_vm_iface(self):
+
+        with RollbackContext() as rollback:
+            # Create a template as a base for our VMs
+            req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+            resp = self.request('/templates', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the template
+            rollback.prependDefer(self.request,
+                                  '/templates/test', '{}', 'DELETE')
+
+            # Create a VM with default args
+            req = json.dumps({'name': 'test-vm',
+                              'template': '/templates/test'})
+            resp = self.request('/vms', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the VM
+            rollback.prependDefer(self.request,
+                                  '/vms/test-vm', '{}', 'DELETE')
+
+            ifaces = json.loads(self.request('/vms/test-vm/ifaces').read())
+            self.assertEquals(1, len(ifaces))
+
+            for iface in ifaces:
+                res = json.loads(self.request('/vms/test-vm/ifaces/%s' %
+                                              iface['mac']).read())
+                self.assertEquals('default', res['network'])
+                self.assertEquals(17, len(res['mac']))
+                self.assertEquals('virtio', res['model'])
+
     def test_vm_customise_storage(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso',

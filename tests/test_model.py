@@ -121,6 +121,25 @@ class ModelTests(unittest.TestCase):
         inst.template_delete('test')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_ifaces(self):
+        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            params = {'name': 'test', 'disks': []}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+            params = {'name': 'kimchi-ifaces', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-ifaces')
+
+            ifaces = inst.vmifaces_get_list('kimchi-ifaces')
+            self.assertEquals(1, len(ifaces))
+
+            iface = inst.vmiface_lookup('kimchi-ifaces', ifaces[0])
+            self.assertEquals(17, len(iface['mac']))
+            self.assertEquals("default", iface['network'])
+            self.assertIn("model", iface)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
         inst = kimchi.model.Model(objstore_loc=self.tmp_store)
 
