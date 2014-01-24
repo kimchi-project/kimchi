@@ -31,8 +31,10 @@ from kimchi.control.storagevolumes import IsoVolumes, StorageVolumes
 from kimchi.control.utils import get_class_name, model_fn, parse_request
 from kimchi.control.utils import validate_params
 from kimchi.model import ISO_POOL_NAME
+from kimchi.control.utils import UrlSubNode
 
 
+@UrlSubNode("storagepools", True)
 class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)

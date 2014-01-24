@@ -23,8 +23,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from kimchi.control.base import Collection, Resource
+from kimchi.control.utils import UrlSubNode
 
 
+@UrlSubNode("interfaces")
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)

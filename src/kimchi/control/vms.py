@@ -23,9 +23,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from kimchi.control.base import Collection, Resource
-from kimchi.control.utils import internal_redirect
+from kimchi.control.utils import internal_redirect, UrlSubNode
 
 
+@UrlSubNode("vms", True)
 class VMs(Collection):
     def __init__(self, model):
         super(VMs, self).__init__(model)

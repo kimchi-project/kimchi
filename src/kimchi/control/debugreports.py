@@ -23,8 +23,10 @@
 
 from kimchi.control.base import AsyncCollection, Resource
 from kimchi.control.utils import internal_redirect
+from kimchi.control.utils import UrlSubNode
 
 
+@UrlSubNode("debugreports", True)
 class DebugReports(AsyncCollection):
     def __init__(self, model):
         super(DebugReports, self).__init__(model)

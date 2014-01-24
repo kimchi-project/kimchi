@@ -27,8 +27,10 @@ import cherrypy
 
 from kimchi.config import config
 from kimchi.control.base import Collection, Resource
+from kimchi.control.utils import UrlSubNode
 
 
+@UrlSubNode("config")
 class Config(Resource):
     def __init__(self, model, id=None):
         super(Config, self).__init__(model, id)

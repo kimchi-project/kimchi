@@ -25,8 +25,10 @@
 import kimchi.template
 from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import get_class_name, model_fn
+from kimchi.control.utils import UrlSubNode
 
 
+@UrlSubNode("plugins")
 class Plugins(Collection):
     def __init__(self, model):
         super(Plugins, self).__init__(model)

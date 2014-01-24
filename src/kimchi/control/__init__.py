@@ -19,3 +19,11 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+import os
+
+
+from kimchi.control.utils import load_url_sub_node
+
+
+sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
