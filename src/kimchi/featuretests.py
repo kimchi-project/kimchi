@@ -93,8 +93,10 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_supports_iso_stream():
-        cmd = "qemu-io -r http://127.0.0.1:%d/images/icon-fedora.png \
-              -c 'read -v 0 512'" % cherrypy.server.socket_port
+        host = cherrypy.server.socket_host
+        port = cherrypy.server.socket_port
+        cmd = "qemu-io -r http://%s:%d/images/icon-fedora.png \
+              -c 'read -v 0 512'" % (host, port)
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, shell=True)
         stdout, stderr = proc.communicate()
@@ -102,8 +104,10 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_iso_stream_dns():
-        cmd = ["qemu-io", "-r", "http://localhost:%d/images/icon-fedora.png" %
-               cherrypy.server.socket_port, "-c", "'read -v 0 512'"]
+        host = cherrypy.server.socket_host
+        port = cherrypy.server.socket_port
+        cmd = ["qemu-io", "-r", "http://%s:%d/images/icon-fedora.png" %
+               (host, port), "-c", "'read -v 0 512'"]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
         thread = threading.Thread(target=proc.communicate)
