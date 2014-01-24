@@ -34,6 +34,7 @@ import lxml.etree as ET
 import os
 import platform
 import psutil
+import random
 import re
 import shutil
 import subprocess
@@ -47,7 +48,7 @@ import uuid
 from cherrypy.process.plugins import BackgroundTask
 from cherrypy.process.plugins import SimplePlugin
 from collections import defaultdict
-from lxml import objectify
+from lxml import etree, objectify
 from lxml.builder import E
 from xml.etree import ElementTree
 
@@ -974,6 +975,46 @@ class Model(object):
                     iface.destroy()
                 iface.undefine()
 
+    def vmifaces_create(self, vm, params):
+        def randomMAC():
+            mac = [0x52, 0x54, 0x00,
+                   random.randint(0x00, 0x7f),
+                   random.randint(0x00, 0xff),
+                   random.randint(0x00, 0xff)]
+            return ':'.join(map(lambda x: "%02x" % x, mac))
+
+        if (params["type"] == "network" and
+            params["network"] not in self.networks_get_list()):
+            raise InvalidParameter("%s is not an available network" %
+                                   params["network"])
+
+        dom = self._get_vm(vm)
+        if Model.dom_state_map[dom.info()[0]] != "shutoff":
+            raise InvalidOperation("do not support hot plugging attach "
+                                   "guest interface")
+
+        macs = (iface.mac.get('address')
+                for iface in self._get_vmifaces(vm))
+
+        mac = randomMAC()
+        while True:
+            if mac not in macs:
+                break
+            mac = randomMAC()
+
+        children = [E.mac(address=mac)]
+        ("network" in params.keys() and
+         children.append(E.source(network=params['network'])))
+        ("model" in params.keys() and
+         children.append(E.model(type=params['model'])))
+        attrib = {"type": params["type"]}
+
+        xml =  etree.tostring(E.interface(*children, **attrib))
+
+        dom.attachDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+
+        return mac
+
     def _get_vmifaces(self, vm):
         dom = self._get_vm(vm)
         xml = dom.XMLDesc(0)
@@ -1009,6 +1050,19 @@ class Model(object):
             info['bridge'] = iface.source.get('bridge')
 
         return info
+
+    def vmiface_delete(self, vm, mac):
+        dom = self._get_vm(vm)
+        iface = self._get_vmiface(vm, mac)
+
+        if Model.dom_state_map[dom.info()[0]] != "shutoff":
+            raise InvalidOperation("do not support hot plugging detach "
+                                   "guest interface")
+        if iface is None:
+            raise NotFoundError('iface: "%s"' % mac)
+
+        dom.detachDeviceFlags(etree.tostring(iface),
+                              libvirt.VIR_DOMAIN_AFFECT_CURRENT)
 
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
