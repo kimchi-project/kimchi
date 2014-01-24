@@ -518,6 +518,20 @@ class MockModel(object):
     def networks_get_list(self):
         return sorted(self._mock_networks.keys())
 
+    def vmifaces_create(self, vm, params):
+        if (params["type"] == "network" and
+            params["network"] not in self.networks_get_list()):
+            raise InvalidParameter("%s is not an available network" %
+                                   params["network"])
+        dom = self._get_vm(vm)
+        iface = MockVMIface(params["network"])
+        ("model" in params.keys() and
+         iface.info.update({"model": params["model"]}))
+
+        mac = iface.info['mac']
+        dom.ifaces[mac] = iface
+        return mac
+
     def vmifaces_get_list(self, vm):
         dom = self._get_vm(vm)
         macs = dom.ifaces.keys()
@@ -530,6 +544,13 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError('iface: "%s"' % mac)
         return info
+
+    def vmiface_delete(self, vm, mac):
+        dom = self._get_vm(vm)
+        try:
+           del dom.ifaces[mac]
+        except KeyError:
+            raise NotFoundError('iface: "%s"' % mac)
 
     def tasks_get_list(self):
         with self.objstore as session:
