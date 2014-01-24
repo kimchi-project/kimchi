@@ -518,6 +518,19 @@ class MockModel(object):
     def networks_get_list(self):
         return sorted(self._mock_networks.keys())
 
+    def vmifaces_get_list(self, vm):
+        dom = self._get_vm(vm)
+        macs = dom.ifaces.keys()
+        return macs
+
+    def vmiface_lookup(self, vm, mac):
+        dom = self._get_vm(vm)
+        try:
+            info = dom.ifaces[mac].info
+        except KeyError:
+            raise NotFoundError('iface: "%s"' % mac)
+        return info
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')
@@ -656,12 +669,32 @@ class MockVMTemplate(VMTemplate):
         return disk_paths
 
 
+class MockVMIface(object):
+    counter = 0
+
+    def __init__(self, network=None):
+        self.__class__.counter += 1
+        self.info = {'type': 'network',
+                     'model': 'virtio',
+                     'network': network if network else "net-%s" % self.counter,
+                     'mac': self.get_mac()
+                     }
+
+    @classmethod
+    def get_mac(cls):
+        mac = ":".join(["52", "54"] + ["%02x" % (cls.counter/(256**i) % 256)
+                       for i in range(3, -1, -1)])
+        return mac
+
+
 class MockVM(object):
     def __init__(self, uuid, name, template_info):
         self.uuid = uuid
         self.name = name
         self.disk_paths = []
         self.networks = template_info['networks']
+        ifaces = [MockVMIface(net) for net in self.networks]
+        self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
         self.info = {'state': 'shutoff',
                      'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
                                 'net_throughput_peak': 100, 'io_throughput': 45, \
