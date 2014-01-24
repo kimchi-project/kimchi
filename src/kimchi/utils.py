@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
 import cherrypy
@@ -36,6 +36,7 @@ from threading import Timer
 
 
 kimchi_log = cherrypy.log.error_log
+
 
 def is_digit(value):
     if isinstance(value, int):
@@ -169,11 +170,11 @@ def patch_find_nfs_target(nfs_server):
     try:
         out = run_command(cmd, 10)[0]
     except TimeoutExpired:
-        kimchi_log.warning("server %s query timeout, may not have any path exported",
-            storage_server)
+        kimchi_log.warning("server %s query timeout, may not have any path "
+                           "exported", nfs_server)
         return list()
 
-    targets = parse_cmd_output(out, output_items = ['target'])
+    targets = parse_cmd_output(out, output_items=['target'])
     for target in targets:
         target['type'] = 'nfs'
         target['host_name'] = nfs_server

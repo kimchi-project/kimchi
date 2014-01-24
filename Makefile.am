@@ -57,6 +57,7 @@ PEP8_WHITELIST = \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \
+	src/kimchi/utils.py \
 	tests/test_mockmodel.py \
 	tests/test_model.py \
 	tests/test_plugin.py \
