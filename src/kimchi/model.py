@@ -974,6 +974,41 @@ class Model(object):
                     iface.destroy()
                 iface.undefine()
 
+    def _get_vmifaces(self, vm):
+        dom = self._get_vm(vm)
+        xml = dom.XMLDesc(0)
+        root = objectify.fromstring(xml)
+
+        return root.devices.findall("interface")
+
+    def _get_vmiface(self, vm, mac):
+        ifaces = self._get_vmifaces(vm)
+
+        for iface in ifaces:
+           if iface.mac.get('address') == mac:
+               return iface
+        return None
+
+    def vmifaces_get_list(self, vm):
+        return [iface.mac.get('address') for iface in self._get_vmifaces(vm)]
+
+    def vmiface_lookup(self, vm, mac):
+        info = {}
+
+        iface = self._get_vmiface(vm, mac)
+        if iface is None:
+            raise NotFoundError('iface: "%s"' % mac)
+
+        info['type'] = iface.attrib['type']
+        info['mac'] = iface.mac.get('address')
+        info['model'] = iface.model.get('type')
+        if info['type'] == 'network':
+            info['network'] = iface.source.get('network')
+        if info['type'] == 'bridge':
+            info['bridge'] = iface.source.get('bridge')
+
+        return info
+
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
         self.next_taskid = self.next_taskid + 1
