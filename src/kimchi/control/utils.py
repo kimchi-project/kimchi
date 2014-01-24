@@ -25,12 +25,14 @@
 
 import cherrypy
 import json
+import os
 
 
 from jsonschema import Draft3Validator, ValidationError, FormatChecker
 
 
 from kimchi.exception import InvalidParameter
+from kimchi.utils import import_module
 
 
 def get_class_name(cls):
@@ -103,3 +105,40 @@ def validate_params(params, instance, action):
     except ValidationError:
         raise InvalidParameter('; '.join(
             e.message for e in validator.iter_errors(request)))
+
+
+class UrlSubNode(object):
+    def __init__(self, name, auth=False):
+        self.name = name
+        self.auth = auth
+
+    def __call__(self, fun):
+        fun._url_sub_node_name = {"name": self.name}
+        fun.url_auth = self.auth
+        return fun
+
+
+def listPathModules(path):
+    modules = set()
+    for f in os.listdir(path):
+        base, ext = os.path.splitext(f)
+        if ext in ('.py', '.pyc', '.pyo'):
+            modules.add(base)
+    return sorted(modules)
+
+
+def load_url_sub_node(path, package_name, expect_attr="_url_sub_node_name"):
+    sub_nodes = {}
+    for mod_name in listPathModules(path):
+        if mod_name.startswith("_"):
+            continue
+
+        module = import_module(package_name + '.' + mod_name)
+
+        for node in [getattr(module, x) for x in dir(module)]:
+            if not hasattr(node, expect_attr):
+                continue
+            name = getattr(node, expect_attr)["name"]
+            sub_nodes.update({name: node})
+
+    return sub_nodes
