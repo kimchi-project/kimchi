@@ -33,6 +33,7 @@ from kimchi import config
 from kimchi import model
 from kimchi import mockmodel
 from kimchi import vnc
+from kimchi.control import sub_nodes
 from kimchi.root import Root
 from kimchi.utils import get_enabled_plugins, import_class
 
@@ -74,13 +75,6 @@ class Server(object):
               'tools.sessions.storage_type': 'file',
               'tools.sessions.storage_path': config.get_session_path(),
               'tools.kimchiauth.on': False},
-        '/host': {'tools.kimchiauth.on': True},
-        '/vms': {'tools.kimchiauth.on': True},
-        '/templates': {'tools.kimchiauth.on': True},
-        '/networks': {'tools.kimchiauth.on': True},
-        '/storagepools': {'tools.kimchiauth.on': True},
-        '/tasks': {'tools.kimchiauth.on': True},
-        '/debugreports': {'tools.kimchiauth.on': True},
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': 'ui/css',
@@ -192,6 +186,10 @@ class Server(object):
         if isinstance(model_instance, model.Model):
             vnc_ws_proxy = vnc.new_ws_proxy()
             cherrypy.engine.subscribe('exit', vnc_ws_proxy.kill)
+
+        for ident, node in sub_nodes.items():
+            if node.url_auth:
+                self.configObj["/%s" % ident] = {'tools.kimchiauth.on': True}
 
         self.app = cherrypy.tree.mount(Root(model_instance, dev_env),
                                        config=self.configObj)
