@@ -1001,7 +1001,8 @@ class Model(object):
 
         info['type'] = iface.attrib['type']
         info['mac'] = iface.mac.get('address')
-        info['model'] = iface.model.get('type')
+        if iface.find("model") is not None:
+            info['model'] = iface.model.get('type')
         if info['type'] == 'network':
             info['network'] = iface.source.get('network')
         if info['type'] == 'bridge':
