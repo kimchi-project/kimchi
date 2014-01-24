@@ -24,6 +24,7 @@
 
 from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import internal_redirect, UrlSubNode
+from kimchi.control.vm import sub_nodes
 
 
 @UrlSubNode("vms", True)
@@ -39,6 +40,8 @@ class VM(Resource):
         self.update_params = ["name"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
+        for ident, node in sub_nodes.items():
+            setattr(self, ident, node(model, self.ident.decode("utf-8")))
         self.start = self.generate_action_handler('start')
         self.stop = self.generate_action_handler('stop')
         self.connect = self.generate_action_handler('connect')
