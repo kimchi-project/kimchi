@@ -4,7 +4,8 @@
 # Copyright IBM Corp, 2013
 #
 # Authors:
-#  Aline Manera <alinefm@linux.vnet.ibm.com>
+#  ShaoHe Feng <shaohef@linux.vnet.ibm.com>
+#  Royce Lv <lvroyce@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,11 +21,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = vm
 
-control_PYTHON = *.py
+vm_PYTHON = \
+	__init__.py
 
-controldir = $(pythondir)/kimchi/control
+
+vmdir = $(pythondir)/kimchi/control/vm
 
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(controldir)
+	$(MKDIR_P) $(DESTDIR)$(vmdir)

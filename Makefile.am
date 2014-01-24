@@ -46,6 +46,7 @@ PEP8_WHITELIST = \
 	src/kimchi/cachebust.py \
 	src/kimchi/config.py.in \
 	src/kimchi/control/*.py \
+	src/kimchi/control/vm/*.py \
 	src/kimchi/disks.py \
 	src/kimchi/distroloader.py \
 	src/kimchi/exception.py \
