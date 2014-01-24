@@ -360,6 +360,16 @@ class RestTests(unittest.TestCase):
             rollback.prependDefer(self.request,
                                   '/vms/test-vm', '{}', 'DELETE')
 
+            # Create a network
+            req = json.dumps({'name': 'test-network',
+                              'connection': 'nat',
+                              'net': '127.0.1.0/24'})
+            resp = self.request('/networks', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the network
+            rollback.prependDefer(self.request,
+                                  '/networks/test-network', '{}', 'DELETE')
+
             ifaces = json.loads(self.request('/vms/test-vm/ifaces').read())
             self.assertEquals(1, len(ifaces))
 
@@ -369,6 +379,24 @@ class RestTests(unittest.TestCase):
                 self.assertEquals('default', res['network'])
                 self.assertEquals(17, len(res['mac']))
                 self.assertEquals('virtio', res['model'])
+
+            # attach network interface to vm
+            req = json.dumps({"type": "network",
+                              "network": "test-network",
+                              "model": "virtio"})
+            resp = self.request('/vms/test-vm/ifaces', req, 'POST')
+            self.assertEquals(201, resp.status)
+            iface = json.loads(resp.read())
+
+            self.assertEquals('test-network', iface['network'])
+            self.assertEquals(17, len(iface['mac']))
+            self.assertEquals('virtio', iface['model'])
+            self.assertEquals('network', iface['type'])
+
+            # detach network interface from vm
+            resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
+                                '{}', 'DELETE')
+            self.assertEquals(204, resp.status)
 
     def test_vm_customise_storage(self):
         # Create a Template

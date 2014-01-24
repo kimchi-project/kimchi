@@ -131,6 +131,14 @@ class ModelTests(unittest.TestCase):
             inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'kimchi-ifaces')
 
+            # Create a network
+            net_name = 'test-network'
+            net_args = {'name': net_name,
+                        'connection': 'nat',
+                        'subnet': '127.0.100.0/24'}
+            inst.networks_create(net_args)
+            rollback.prependDefer(inst.network_delete, net_name)
+
             ifaces = inst.vmifaces_get_list('kimchi-ifaces')
             self.assertEquals(1, len(ifaces))
 
@@ -138,6 +146,20 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(17, len(iface['mac']))
             self.assertEquals("default", iface['network'])
             self.assertIn("model", iface)
+
+            # attach network interface to vm
+            iface_args = {"type": "network",
+                          "network": "test-network",
+                          "model": "virtio"}
+            mac = inst.vmifaces_create('kimchi-ifaces', iface_args)
+            self.assertEquals(17, len(mac))
+            # detach network interface from vm
+            rollback.prependDefer(inst.vmiface_delete, 'kimchi-ifaces', mac)
+
+            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
+            self.assertEquals("network", iface["type"])
+            self.assertEquals("test-network", iface['network'])
+            self.assertEquals("virtio", iface["model"])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
