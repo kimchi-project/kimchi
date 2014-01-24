@@ -156,6 +156,27 @@
                 }
             }
         },
+        "vmifaces_create": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "description": "The type of VM network interface that libvirt supports",
+                    "type": "string",
+                    "pattern": "^network$",
+                    "required": true
+                },
+                "network": {
+                    "description": "the name of one available network",
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "model": {
+                    "description": "model of emulated network interface card",
+                    "type": "string",
+                    "pattern": "^ne2k_pci|i82551|i82557b|i82559er|rtl8139|e1000|pcnet|virtio$"
+                }
+            }
+        },
         "templates_create": {
             "type": "object",
             "properties": {
