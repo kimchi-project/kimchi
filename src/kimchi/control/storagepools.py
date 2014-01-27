@@ -85,7 +85,7 @@ class StoragePool(Resource):
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')
-        self.storagevolumes = StorageVolumes(self.model, ident.decode("utf-8"))
+        self.storagevolumes = StorageVolumes(self.model, ident)
 
     @property
     def data(self):

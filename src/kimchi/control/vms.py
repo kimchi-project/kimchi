@@ -41,7 +41,7 @@ class VM(Resource):
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():
-            setattr(self, ident, node(model, self.ident.decode("utf-8")))
+            setattr(self, ident, node(model, self.ident))
         self.start = self.generate_action_handler('start')
         self.stop = self.generate_action_handler('stop')
         self.connect = self.generate_action_handler('connect')
