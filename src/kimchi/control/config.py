@@ -35,9 +35,7 @@ class Config(Resource):
     def __init__(self, model, id=None):
         super(Config, self).__init__(model, id)
         self.capabilities = Capabilities(self.model)
-        self.capabilities.exposed = True
         self.distros = Distros(model)
-        self.distros.exposed = True
 
     @property
     def data(self):

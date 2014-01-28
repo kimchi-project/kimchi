@@ -40,7 +40,6 @@ class StoragePools(Collection):
         super(StoragePools, self).__init__(model)
         self.resource = StoragePool
         isos = IsoPool(model)
-        isos.exposed = True
         setattr(self, ISO_POOL_NAME, isos)
 
     def create(self, *args):

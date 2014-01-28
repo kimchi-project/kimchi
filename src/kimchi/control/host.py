@@ -35,9 +35,7 @@ class Host(Resource):
         self.reboot = self.generate_action_handler('reboot')
         self.shutdown = self.generate_action_handler('shutdown')
         self.stats = HostStats(self.model)
-        self.stats.exposed = True
         self.partitions = Partitions(self.model)
-        self.partitions.exposed = True
 
     @property
     def data(self):
