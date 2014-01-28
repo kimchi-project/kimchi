@@ -30,7 +30,7 @@ from kimchi.control.base import Collection, Resource
 from kimchi.control.storagevolumes import IsoVolumes, StorageVolumes
 from kimchi.control.utils import get_class_name, model_fn, parse_request
 from kimchi.control.utils import validate_params
-from kimchi.model import ISO_POOL_NAME
+from kimchi.model_.storagepools import ISO_POOL_NAME
 from kimchi.control.utils import UrlSubNode
 
 

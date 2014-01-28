@@ -44,11 +44,7 @@ class Capabilities(Resource):
 
     @property
     def data(self):
-        caps = ['libvirt_stream_protocols', 'qemu_stream',
-                'screenshot', 'system_report_tool']
-        ret = dict([(x, None) for x in caps])
-        ret.update(self.model.get_capabilities())
-        return ret
+        return self.info
 
 
 class Distros(Collection):
