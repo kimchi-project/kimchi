@@ -33,9 +33,8 @@ from kimchi.config import paths, PluginPaths
 from kimchi.exception import TimeoutExpired
 
 
-from kimchi import config
 from kimchi.asynctask import AsyncTask
-from kimchi.exception import InvalidParameter, TimeoutExpired
+from kimchi.exception import InvalidParameter
 
 
 kimchi_log = cherrypy.log.error_log
@@ -220,3 +219,9 @@ def listPathModules(path):
         if ext in ('.py', '.pyc', '.pyo'):
             modules.add(base)
     return sorted(modules)
+
+
+def run_setfacl_set_attr(path, attr="r", user=""):
+    set_user = ["setfacl", "--modify", "user:%s:%s" % (user, attr), path]
+    out, error, ret = run_command(set_user)
+    return ret == 0
