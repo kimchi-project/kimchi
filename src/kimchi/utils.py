@@ -25,17 +25,31 @@ import cherrypy
 import os
 import subprocess
 import urllib2
-
+from threading import Timer
 
 from cherrypy.lib.reprconf import Parser
 from kimchi.config import paths, PluginPaths
 from kimchi.exception import TimeoutExpired
 
 
-from threading import Timer
+from kimchi import config
+from kimchi.asynctask import AsyncTask
 
 
 kimchi_log = cherrypy.log.error_log
+task_id = 0
+
+
+def get_next_task_id():
+    global task_id
+    task_id += 1
+    return task_id
+
+
+def add_task(target_uri, fn, objstore, opaque=None):
+    id = get_next_task_id()
+    AsyncTask(id, target_uri, fn, objstore, opaque)
+    return id
 
 
 def is_digit(value):
