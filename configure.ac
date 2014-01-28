@@ -55,6 +55,7 @@ AC_CONFIG_FILES([
     src/kimchi/Makefile
     src/kimchi/control/Makefile
     src/kimchi/control/vm/Makefile
+    src/kimchi/model/Makefile
     plugins/Makefile
     plugins/sample/Makefile
     plugins/sample/ui/Makefile

@@ -62,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/kimchi/*.py*
 %{python_sitelib}/kimchi/control/*.py*
 %{python_sitelib}/kimchi/control/vm/*.py*
+%{python_sitelib}/kimchi/model/*.py*
 %{python_sitelib}/kimchi/API.json
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md

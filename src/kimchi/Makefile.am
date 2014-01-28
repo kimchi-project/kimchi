@@ -20,7 +20,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = control
+SUBDIRS = control model
 
 kimchi_PYTHON = \
 	__init__.py        \
@@ -35,7 +35,6 @@ kimchi_PYTHON = \
 	isoinfo.py         \
 	kvmusertests.py    \
 	mockmodel.py       \
-	model.py           \
 	netinfo.py         \
 	network.py         \
 	networkxml.py      \
