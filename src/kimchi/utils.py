@@ -50,6 +50,10 @@ def _uri_to_name(collection, uri):
     return m.group(1)
 
 
+def template_name_from_uri(uri):
+    return _uri_to_name('templates', uri)
+
+
 def pool_name_from_uri(uri):
     return _uri_to_name('storagepools', uri)
 
