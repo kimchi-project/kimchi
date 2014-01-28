@@ -1,0 +1,78 @@
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2013
+#
+# Authors:
+#  Aline Manera <alinefm@linux.vnet.ibm.com>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+from kimchi.exception import NotFoundError
+from kimchi.model_.storagepools import StoragePoolModel, STORAGE_SOURCES
+
+
+class StorageServersModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+        self.pool = StoragePoolModel(**kargs)
+
+    def get_list(self, _target_type=None):
+        if not _target_type:
+            target_type = STORAGE_SOURCES.keys()
+        else:
+            target_type = [_target_type]
+        pools = self.pools.get_list()
+
+        conn = self.conn.get()
+        pools = conn.listStoragePools()
+        pools += conn.listDefinedStoragePools()
+
+        server_list = []
+        for pool in pools:
+            try:
+                pool_info = self.pool.lookup(pool)
+                if (pool_info['type'] in target_type and
+                        pool_info['source']['addr'] not in server_list):
+                    # Avoid to add same server for multiple times
+                    # if it hosts more than one storage type
+                    server_list.append(pool_info['source']['addr'])
+            except NotFoundError:
+                pass
+
+        return server_list
+
+
+class StorageServerModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+        self.pool = StoragePoolModel(**kargs)
+
+    def lookup(self, server):
+        conn = self.conn.get()
+        pools = conn.listStoragePools()
+        pools += conn.listDefinedStoragePools()
+        for pool in pools:
+            try:
+                pool_info = self.pool.lookup(pool)
+                if pool_info['source'] and \
+                   pool_info['source']['addr'] == server:
+                    return dict(host=server)
+            except NotFoundError:
+                # Avoid inconsistent pool result because of lease between list
+                # lookup
+                pass
+
+        raise NotFoundError('server %s does not used by kimchi' % server)
