@@ -30,7 +30,7 @@ import time
 
 from kimchi import config
 from kimchi.exception import NotFoundError, OperationFailed
-from kimchi.model_.tasks import TaskModel
+from kimchi.model.tasks import TaskModel
 from kimchi.utils import add_task, kimchi_log
 
 

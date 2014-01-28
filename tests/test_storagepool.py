@@ -24,7 +24,7 @@ import libxml2
 import unittest
 
 
-from kimchi.model_.libvirtstoragepool import StoragePoolDef
+from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.rollbackcontext import RollbackContext
 
 

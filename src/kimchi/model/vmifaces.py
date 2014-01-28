@@ -27,7 +27,7 @@ from lxml import etree, objectify
 from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
-from kimchi.model_.vms import DOM_STATE_MAP, VMModel
+from kimchi.model.vms import DOM_STATE_MAP, VMModel
 
 
 class VMIfacesModel(object):

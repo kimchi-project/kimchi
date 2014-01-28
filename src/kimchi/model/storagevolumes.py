@@ -28,7 +28,7 @@ from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
-from kimchi.model_.storagepools import StoragePoolModel
+from kimchi.model.storagepools import StoragePoolModel
 
 
 VOLUME_TYPE_MAP = {0: 'file',

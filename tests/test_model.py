@@ -38,7 +38,7 @@ from kimchi import netinfo
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
-from kimchi.model_ import model
+from kimchi.model import model
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
 

@@ -27,7 +27,7 @@ from kimchi.config import config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import NotFoundError
 from kimchi.featuretests import FeatureTests
-from kimchi.model_.debugreports import DebugReportsModel
+from kimchi.model.debugreports import DebugReportsModel
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import kimchi_log
 

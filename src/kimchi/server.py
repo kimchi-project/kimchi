@@ -30,7 +30,7 @@ import sslcert
 
 from kimchi import auth
 from kimchi import config
-from kimchi.model_ import model
+from kimchi.model import model
 from kimchi import mockmodel
 from kimchi import vnc
 from kimchi.config import paths, PluginPaths

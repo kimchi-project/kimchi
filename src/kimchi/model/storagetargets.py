@@ -25,8 +25,8 @@ import lxml.etree as ET
 from lxml import objectify
 from lxml.builder import E
 
-from kimchi.model_.config import CapabilitiesModel
-from kimchi.model_.storagepools import STORAGE_SOURCES
+from kimchi.model.config import CapabilitiesModel
+from kimchi.model.storagepools import STORAGE_SOURCES
 from kimchi.utils import kimchi_log, patch_find_nfs_target
 
 

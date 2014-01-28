@@ -32,9 +32,9 @@ from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
-from kimchi.model_.config import CapabilitiesModel
-from kimchi.model_.templates import TemplateModel
-from kimchi.model_.utils import get_vm_name
+from kimchi.model.config import CapabilitiesModel
+from kimchi.model.templates import TemplateModel
+from kimchi.model.utils import get_vm_name
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import template_name_from_uri
 

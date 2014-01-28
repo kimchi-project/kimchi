@@ -32,7 +32,7 @@ from kimchi import disks
 from kimchi import netinfo
 from kimchi.basemodel import Singleton
 from kimchi.exception import NotFoundError, OperationFailed
-from kimchi.model_.vms import DOM_STATE_MAP
+from kimchi.model.vms import DOM_STATE_MAP
 from kimchi.utils import kimchi_log
 
 

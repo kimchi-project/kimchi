@@ -54,7 +54,7 @@ PEP8_WHITELIST = \
 	src/kimchi/iscsi.py \
 	src/kimchi/isoinfo.py \
 	src/kimchi/kvmusertests.py \
-	src/kimchi/model_/*.py \
+	src/kimchi/model/*.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \

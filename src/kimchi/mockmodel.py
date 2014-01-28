@@ -47,9 +47,9 @@ from kimchi.config import config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
-from kimchi.model_.storagepools import ISO_POOL_NAME, STORAGE_SOURCES
-from kimchi.model_.utils import get_vm_name
-from kimchi.model_.vms import VM_STATIC_UPDATE_PARAMS
+from kimchi.model.storagepools import ISO_POOL_NAME, STORAGE_SOURCES
+from kimchi.model.utils import get_vm_name
+from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import template_name_from_uri, pool_name_from_uri

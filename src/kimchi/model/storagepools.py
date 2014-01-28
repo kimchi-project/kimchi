@@ -26,7 +26,7 @@ from kimchi import xmlutils
 from kimchi.scan import Scanner
 from kimchi.exception import InvalidOperation, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
-from kimchi.model_.libvirtstoragepool import StoragePoolDef
+from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.utils import add_task, kimchi_log
 
 

@@ -22,7 +22,7 @@
 
 from kimchi import netinfo
 from kimchi.exception import NotFoundError
-from kimchi.model_.networks import NetworksModel
+from kimchi.model.networks import NetworksModel
 
 
 class InterfacesModel(object):

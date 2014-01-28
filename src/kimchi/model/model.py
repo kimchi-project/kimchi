@@ -29,7 +29,7 @@ import cherrypy
 import libvirt
 
 from kimchi.basemodel import BaseModel
-from kimchi.model_.libvirtconnection import LibvirtConnection
+from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.objectstore import ObjectStore
 from kimchi.utils import import_module, listPathModules
 
@@ -52,7 +52,7 @@ class Model(BaseModel):
             if mod_name.startswith("_") or mod_name == this_mod:
                 continue
 
-            module = import_module('model_.' + mod_name)
+            module = import_module('model.' + mod_name)
             members = inspect.getmembers(module, inspect.isclass)
             for cls_name, instance in members:
                 if inspect.getmodule(instance) == module:
