@@ -28,7 +28,6 @@ import ipaddr
 import os
 import psutil
 import random
-import subprocess
 import time
 import uuid
 
@@ -41,17 +40,19 @@ except ImportError:
     import ImageDraw
 
 
-import kimchi.model
+
 from kimchi import config
-from kimchi import network as knetwork
 from kimchi.asynctask import AsyncTask
 from kimchi.config import config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
+from kimchi.model_.storagepools import ISO_POOL_NAME, STORAGE_SOURCES
+from kimchi.model_.utils import get_vm_name
+from kimchi.model_.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import is_digit
+from kimchi.utils import template_name_from_uri, pool_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -61,7 +62,7 @@ class MockModel(object):
         self.objstore = ObjectStore(objstore_loc)
         self.distros = self._get_distros()
 
-    def get_capabilities(self):
+    def capabilities_lookup(self, *ident):
         return {'libvirt_stream_protocols': ['http', 'https', 'ftp', 'ftps', 'tftp'],
                 'qemu_stream': True,
                 'screenshot': True,
@@ -89,7 +90,7 @@ class MockModel(object):
                 self._mock_vms[dom.name] = dom
 
         for key, val in params.items():
-            if key in kimchi.model.VM_STATIC_UPDATE_PARAMS and key in dom.info:
+            if key in VM_STATIC_UPDATE_PARAMS and key in dom.info:
                 dom.info[key] = val
 
     def _live_vm_update(self, dom, params):
@@ -129,9 +130,9 @@ class MockModel(object):
         pass
 
     def vms_create(self, params):
-        t_name = kimchi.model.template_name_from_uri(params['template'])
-        name = kimchi.model.get_vm_name(params.get('name'), t_name,
-                                        self._mock_vms.keys())
+        t_name = template_name_from_uri(params['template'])
+        name = get_vm_name(params.get('name'), t_name,
+                                      self._mock_vms.keys())
         if name in self._mock_vms:
             raise InvalidOperation("VM already exists")
 
@@ -210,7 +211,7 @@ class MockModel(object):
 
         new_storagepool = new_t.get(u'storagepool', '')
         try:
-            self._get_storagepool(kimchi.model.pool_name_from_uri(new_storagepool))
+            self._get_storagepool(pool_name_from_uri(new_storagepool))
         except Exception as e:
             raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
 
@@ -304,7 +305,7 @@ class MockModel(object):
                 pool.info['autostart'] = False
         except KeyError, item:
             raise MissingParameter(item)
-        if name in self._mock_storagepools or name in (kimchi.model.ISO_POOL_NAME,):
+        if name in self._mock_storagepools or name in (ISO_POOL_NAME,):
             raise InvalidOperation("StoragePool already exists")
         self._mock_storagepools[name] = pool
         return name
@@ -411,7 +412,7 @@ class MockModel(object):
 
     def storageservers_get_list(self, _target_type=None):
         # FIXME: When added new storage server support, this needs to be updated
-        target_type = kimchi.model.STORAGE_SOURCES.keys() \
+        target_type = STORAGE_SOURCES.keys() \
             if not _target_type else [_target_type]
         pools = self.storagepools_get_list()
         server_list = []
@@ -672,7 +673,7 @@ class MockVMTemplate(VMTemplate):
 
     def _storage_validate(self):
         pool_uri = self.info['storagepool']
-        pool_name = kimchi.model.pool_name_from_uri(pool_uri)
+        pool_name = pool_name_from_uri(pool_uri)
         try:
             pool = self.model._get_storagepool(pool_name)
         except NotFoundError:
