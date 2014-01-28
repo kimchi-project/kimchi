@@ -32,14 +32,15 @@ import uuid
 
 
 import iso_gen
-import kimchi.model
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
+from kimchi.model_ import model
 from kimchi.rollbackcontext import RollbackContext
+from kimchi.utils import add_task
 
 
 class ModelTests(unittest.TestCase):
@@ -50,7 +51,7 @@ class ModelTests(unittest.TestCase):
         os.unlink(self.tmp_store)
 
     def test_vm_info(self):
-        inst = kimchi.model.Model('test:///default', self.tmp_store)
+        inst = model.Model('test:///default', self.tmp_store)
         vms = inst.vms_get_list()
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
@@ -71,7 +72,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_lifecycle(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
@@ -96,7 +97,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_graphics(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
         params = {'name': 'test', 'disks': []}
         inst.templates_create(params)
         with RollbackContext() as rollback:
@@ -122,7 +123,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_ifaces(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
             inst.templates_create(params)
@@ -163,7 +164,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [{'size': 1}]}
@@ -181,7 +182,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagepool(self):
-        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model('qemu:///system', self.tmp_store)
 
         poolDefs = [
             {'type': 'dir',
@@ -245,7 +246,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagevolume(self):
-        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model('qemu:///system', self.tmp_store)
 
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
@@ -301,7 +302,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_storage_customise(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
@@ -339,8 +340,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_create(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
         # Test non-exist path raises InvalidParameter
         params = {'name': 'test',
                   'cdrom': '/non-exsitent.iso'}
@@ -380,8 +381,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
-        inst = kimchi.model.Model('qemu:///system',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             net_name = 'test-network'
             net_args = {'name': net_name,
@@ -419,8 +420,8 @@ class ModelTests(unittest.TestCase):
                               'new-test', params)
 
     def test_vm_edit(self):
-        inst = kimchi.model.Model('qemu:///system',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
         inst.templates_create(orig_params)
@@ -456,7 +457,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_network(self):
-        inst = kimchi.model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model('qemu:///system', self.tmp_store)
 
         with RollbackContext() as rollback:
             name = 'test-network'
@@ -494,7 +495,7 @@ class ModelTests(unittest.TestCase):
                 ret = inst.vms_get_list()
                 self.assertEquals('test', ret[0])
 
-        inst = kimchi.model.Model('test:///default', self.tmp_store)
+        inst = model.Model('test:///default', self.tmp_store)
         threads = []
         for i in xrange(100):
             t = threading.Thread(target=worker)
@@ -559,8 +560,8 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(10, len(store._connections.keys()))
 
     def test_get_interfaces(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
         expected_ifaces = netinfo.all_favored_interfaces()
         ifaces = inst.interfaces_get_list()
         self.assertEquals(len(expected_ifaces), len(ifaces))
@@ -589,17 +590,17 @@ class ModelTests(unittest.TestCase):
             except:
                 cb("Exception raised", False)
 
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
-        taskid = inst.add_task('', quick_op, 'Hello')
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+        taskid = add_task('', quick_op, inst.objstore, 'Hello')
         self._wait_task(inst, taskid)
         self.assertEquals(1, taskid)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
 
-        taskid = inst.add_task('', long_op,
-                               {'delay': 3, 'result': False,
-                                'message': 'It was not meant to be'})
+        taskid = add_task('', long_op, inst.objstore,
+                          {'delay': 3, 'result': False,
+                           'message': 'It was not meant to be'})
         self.assertEquals(2, taskid)
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         self.assertEquals('OK', inst.task_lookup(taskid)['message'])
@@ -607,7 +608,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
         self.assertEquals('It was not meant to be',
                           inst.task_lookup(taskid)['message'])
-        taskid = inst.add_task('', abnormal_op, {})
+        taskid = add_task('', abnormal_op, inst.objstore, {})
         self._wait_task(inst, taskid)
         self.assertEquals('Exception raised',
                           inst.task_lookup(taskid)['message'])
@@ -615,7 +616,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_delete_running_vm(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': u'test', 'disks': []}
@@ -636,7 +637,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_list_sorted(self):
-        inst = kimchi.model.Model(objstore_loc=self.tmp_store)
+        inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': []}
@@ -652,8 +653,8 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(vms, sorted(vms, key=unicode.lower))
 
     def test_use_test_host(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [],
@@ -675,10 +676,10 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_debug_reports(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
 
-        if not inst.get_capabilities()['system_report_tool']:
+        if not inst.capabilities_lookup()['system_report_tool']:
             raise unittest.SkipTest("Without debug report tool")
 
         try:
@@ -722,10 +723,11 @@ class ModelTests(unittest.TestCase):
                     time.sleep(1)
 
     def test_get_distros(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
-        distros = inst._get_distros()
-        for distro in distros.values():
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+        distros = inst.distros_get_list()
+        for d in distros:
+            distro = inst.distro_lookup(d)
             self.assertIn('name', distro)
             self.assertIn('os_distro', distro)
             self.assertIn('os_version', distro)
@@ -733,8 +735,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_get_hostinfo(self):
-        inst = kimchi.model.Model('qemu:///system',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
         info = inst.host_lookup()
         distro, version, codename = platform.linux_distribution()
         self.assertIn('cpu', info)
@@ -744,10 +746,9 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
 
     def test_get_hoststats(self):
-        inst = kimchi.model.Model('test:///default',
-                                  objstore_loc=self.tmp_store)
-        # HOST_STATS_INTERVAL is 1 seconds
-        time.sleep(kimchi.model.HOST_STATS_INTERVAL + 0.5)
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+        time.sleep(1.5)
         stats = inst.hoststats_lookup()
         cpu_utilization = stats['cpu_utilization']
         # cpu_utilization is set int 0, after first stats sample
@@ -771,8 +772,8 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
-        inst = kimchi.model.Model('qemu:///system',
-                                  objstore_loc=self.tmp_store)
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images/tmpdir'
             if not os.path.exists(path):

@@ -36,7 +36,7 @@ from lxml import etree
 
 
 import kimchi.server
-import kimchi.model
+from kimchi.exception import OperationFailed
 
 _ports = {}
 
@@ -156,7 +156,7 @@ def patch_auth():
         try:
             return fake_user[username] == password
         except KeyError:
-            raise kimchi.model.OperationFailed('Bad login')
+            raise OperationFailed('Bad login')
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate

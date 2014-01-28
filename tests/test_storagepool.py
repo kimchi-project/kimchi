@@ -24,7 +24,7 @@ import libxml2
 import unittest
 
 
-import kimchi.model
+from kimchi.model_.libvirtstoragepool import StoragePoolDef
 from kimchi.rollbackcontext import RollbackContext
 
 
@@ -144,7 +144,7 @@ class storagepoolTests(unittest.TestCase):
              """}]
 
         for poolDef in poolDefs:
-            defObj = kimchi.model.StoragePoolDef.create(poolDef['def'])
+            defObj = StoragePoolDef.create(poolDef['def'])
             xmlStr = defObj.xml
             with RollbackContext() as rollback:
                 t1 = libxml2.readDoc(xmlStr, URL='', encoding='UTF-8',
