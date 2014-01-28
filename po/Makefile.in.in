@@ -32,17 +32,14 @@ gettextsrcdir = $(datadir)/gettext/po
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 
-# We use $(mkdir_p).
-# In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
-# "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# @install_sh@ does not start with $(SHELL), so we add it.
-# In automake >= 1.10, @mkdir_p@ is derived from ${MKDIR_P}, which is defined
-# either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
-# versions, $(mkinstalldirs) and $(install_sh) are unused.
+# We use $(MKDIR_P).
+# This macro uses the 'mkdir -p' command if possible. Otherwise, it falls back
+# on invoking install-sh with the -d option, so your package should contain
+# install-sh as described under AC_PROG_INSTALL.
 mkinstalldirs = $(SHELL) @install_sh@ -d
 install_sh = $(SHELL) @install_sh@
 MKDIR_P = @MKDIR_P@
-mkdir_p = @mkdir_p@
+MKDIR_P = @MKDIR_P@
 
 GMSGFMT_ = @GMSGFMT@
 GMSGFMT_no = @GMSGFMT@
@@ -168,7 +165,7 @@ install: install-exec install-data
 install-exec:
 install-data: install-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
+	  $(MKDIR_P) $(DESTDIR)$(gettextsrcdir); \
 	  for file in $(DISTFILES.common) Makevars.template; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
@@ -186,7 +183,7 @@ install-data-yes: all
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
-	  $(mkdir_p) $(DESTDIR)$$dir; \
+	  $(MKDIR_P) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then realcat=$$cat; else realcat=$(srcdir)/$$cat; fi; \
 	  $(INSTALL_DATA) $$realcat $(DESTDIR)$$dir/$(DOMAIN).mo; \
 	  echo "installing $$realcat as $(DESTDIR)$$dir/$(DOMAIN).mo"; \
@@ -226,7 +223,7 @@ installdirs: installdirs-exec installdirs-data
 installdirs-exec:
 installdirs-data: installdirs-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
+	  $(MKDIR_P) $(DESTDIR)$(gettextsrcdir); \
 	else \
 	  : ; \
 	fi
@@ -237,7 +234,7 @@ installdirs-data-yes:
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
-	  $(mkdir_p) $(DESTDIR)$$dir; \
+	  $(MKDIR_P) $(DESTDIR)$$dir; \
 	  for lc in '' $(EXTRA_LOCALE_CATEGORIES); do \
 	    if test -n "$$lc"; then \
 	      if (cd $(DESTDIR)$(localedir)/$$lang && LC_ALL=C ls -l -d $$lc 2>/dev/null) | grep ' -> ' >/dev/null; then \
