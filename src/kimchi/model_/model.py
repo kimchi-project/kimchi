@@ -41,6 +41,7 @@ class Model(BaseModel):
         kargs = {'objstore': self.objstore, 'conn': self.conn}
 
         if 'qemu:///' in libvirt_uri:
+            self._default_pool_check()
             self._default_network_check()
 
         this = os.path.basename(__file__)
@@ -92,4 +93,33 @@ class Model(BaseModel):
                 cherrypy.log.error("Fatal: Cannot activate default network "
                                    "because of %s, exit kimchid" % e.message,
                                    severity=logging.ERROR)
+                sys.exit(1)
+
+    def _default_pool_check(self):
+        conn = self.conn.get()
+        xml = """
+            <pool type='dir'>
+              <name>default</name>
+              <target>
+                <path>/var/lib/libvirt/images</path>
+              </target>
+            </pool>
+        """
+        try:
+            pool = conn.storagePoolLookupByName("default")
+        except libvirt.libvirtError:
+            try:
+                pool = conn.storagePoolCreateXML(xml, 0)
+            except libvirt.libvirtError, e:
+                cherrypy.log.error("Fatal: Cannot create default pool because "
+                                   "of %s, exit kimchid" % e.message,
+                                   severity=logging.ERROR)
+                sys.exit(1)
+
+        if pool.isActive() == 0:
+            try:
+                pool.create(0)
+            except libvirt.libvirtError, e:
+                err = "Fatal: Default pool cannot be activated, exit kimchid"
+                cherrypy.log.error(err, severity=logging.ERROR)
                 sys.exit(1)
