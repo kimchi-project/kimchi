@@ -23,6 +23,7 @@
 
 import cherrypy
 import os
+import re
 import subprocess
 import urllib2
 from threading import Timer
@@ -34,10 +35,23 @@ from kimchi.exception import TimeoutExpired
 
 from kimchi import config
 from kimchi.asynctask import AsyncTask
+from kimchi.exception import InvalidParameter, TimeoutExpired
 
 
 kimchi_log = cherrypy.log.error_log
 task_id = 0
+
+
+def _uri_to_name(collection, uri):
+    expr = '/%s/(.*?)/?$' % collection
+    m = re.match(expr, uri)
+    if not m:
+        raise InvalidParameter(uri)
+    return m.group(1)
+
+
+def pool_name_from_uri(uri):
+    return _uri_to_name('storagepools', uri)
 
 
 def get_next_task_id():
