@@ -25,14 +25,13 @@
 
 import cherrypy
 import json
-import os
 
 
 from jsonschema import Draft3Validator, ValidationError, FormatChecker
 
 
 from kimchi.exception import InvalidParameter
-from kimchi.utils import import_module
+from kimchi.utils import import_module, listPathModules
 
 
 def get_class_name(cls):
@@ -116,15 +115,6 @@ class UrlSubNode(object):
         fun._url_sub_node_name = {"name": self.name}
         fun.url_auth = self.auth
         return fun
-
-
-def listPathModules(path):
-    modules = set()
-    for f in os.listdir(path):
-        base, ext = os.path.splitext(f)
-        if ext in ('.py', '.pyc', '.pyo'):
-            modules.add(base)
-    return sorted(modules)
 
 
 def load_url_sub_node(path, package_name, expect_attr="_url_sub_node_name"):

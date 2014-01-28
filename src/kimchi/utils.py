@@ -179,3 +179,12 @@ def patch_find_nfs_target(nfs_server):
         target['type'] = 'nfs'
         target['host_name'] = nfs_server
     return targets
+
+
+def listPathModules(path):
+    modules = set()
+    for f in os.listdir(path):
+        base, ext = os.path.splitext(f)
+        if ext in ('.py', '.pyc', '.pyo'):
+            modules.add(base)
+    return sorted(modules)
