@@ -136,9 +136,9 @@ environment.
 Participating
 -------------
 
-All patches are sent through our mailing list hosted at Google Groups.  More
+All patches are sent through our mailing list hosted by oVirt.  More
 information can be found at:
 
-https://groups.google.com/forum/#!forum/project-kimchi
+https://github.com/kimchi-project/kimchi/wiki/Communications
 
-Patches should be sent using git-send-email.
+Patches should be sent using git-send-email to kimchi-devel@ovirt.org.
