@@ -37,7 +37,7 @@ class Plugins(Collection):
     def data(self):
         return self.info
 
-    def get(self):
+    def get(self, filter_params):
         res_list = []
         try:
             get_list = getattr(self.model, model_fn(self, 'get_list'))
