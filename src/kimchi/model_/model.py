@@ -21,7 +21,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import inspect
+import logging
 import os
+import sys
+
+import cherrypy
+import libvirt
 
 from kimchi.basemodel import BaseModel
 from kimchi.model_.libvirtconnection import LibvirtConnection
@@ -34,6 +39,9 @@ class Model(BaseModel):
         self.objstore = ObjectStore(objstore_loc)
         self.conn = LibvirtConnection(libvirt_uri)
         kargs = {'objstore': self.objstore, 'conn': self.conn}
+
+        if 'qemu:///' in libvirt_uri:
+            self._default_network_check()
 
         this = os.path.basename(__file__)
         this_mod = os.path.splitext(this)[0]
@@ -51,3 +59,37 @@ class Model(BaseModel):
                         models.append(instance(**kargs))
 
         return super(Model, self).__init__(models)
+
+    def _default_network_check(self):
+        conn = self.conn.get()
+        xml = """
+            <network>
+              <name>default</name>
+              <forward mode='nat'/>
+              <bridge name='virbr0' stp='on' delay='0' />
+              <ip address='192.168.122.1' netmask='255.255.255.0'>
+                <dhcp>
+                  <range start='192.168.122.2' end='192.168.122.254' />
+                </dhcp>
+              </ip>
+            </network>
+        """
+        try:
+            net = conn.networkLookupByName("default")
+        except libvirt.libvirtError:
+            try:
+                net = conn.networkDefineXML(xml)
+            except libvirt.libvirtError, e:
+                cherrypy.log.error("Fatal: Cannot create default network "
+                                   "because of %s, exit kimchid" % e.message,
+                                   severity=logging.ERROR)
+                sys.exit(1)
+
+        if net.isActive() == 0:
+            try:
+                net.create()
+            except libvirt.libvirtError, e:
+                cherrypy.log.error("Fatal: Cannot activate default network "
+                                   "because of %s, exit kimchid" % e.message,
+                                   severity=logging.ERROR)
+                sys.exit(1)
