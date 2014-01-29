@@ -228,27 +228,11 @@ kimchi.guest_main = function() {
     $("#vm-add").on("click", function(event) {
         kimchi.window.open('guest-add.html');
     });
-
-    $.ajax({
-        headers : {
-            Accept : "text/html"
-        },
-        url : 'guest.html',
-        type : 'GET',
-        dataType : 'html',
-        accepts : 'text/html',
-        success : function(response) {
-            kimchi.guestTemplate = response;
-            kimchi.listVmsAuto()
-        },
-        error : function() {
-            console.error('Could not get guest.html');
-        },
-    });
-
+    kimchi.guestTemplate = $('#guest-tmpl').html();
     $('#guests-root-container').on('remove', function() {
         kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
     });
+    kimchi.listVmsAuto()
 };
 
 kimchi.editTemplate = function(guestTemplate, oldPopStat) {

@@ -32,9 +32,14 @@
 <title>Kimchi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="shortcut icon" href="images/logo.ico">
-<link rel="stylesheet" href="$href("libs/themes/base/jquery-ui.min.css")">
-<link rel="stylesheet" href="$href("css/theme-default.min.css")">
-<script src="$href("libs/modernizr.custom.76777.js")"></script>
+<link rel="stylesheet" href="$href('libs/themes/base/jquery-ui.min.css')">
+<link rel="stylesheet" href="$href('css/theme-default.min.css')">
+
+<script src="$href('libs/modernizr.custom.76777.js')"></script>
+<script src="$href('libs/jquery-1.10.0.min.js')"></script>
+<script src="$href('libs/jquery-ui.min.js')"></script>
+<script src="$href('libs/jquery-ui-i18n.min.js')"></script>
+<script src="$href('js/kimchi.min.js')"></script>
 
 <!-- This is used for detecting if the UI needs to be built -->
 <style type="text/css">
@@ -62,7 +67,7 @@
 }
 </style>
 </head>
-<body>
+<body onload="kimchi.main()">
 <div class="container">
 <header class="topbar">
     <h1 id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></h1>
@@ -89,19 +94,12 @@
     </div>
 </div>
 </div>
-<script src="$href("libs/jquery-1.10.0.min.js")"></script>
-<script src="$href("libs/jquery-ui.min.js")"></script>
-<script src="$href("libs/jquery-ui-i18n.min.js")"></script>
-<script src="$href("js/kimchi.min.js")"></script>
 
 <div id="buildme">
-<div>Oops!  It looks like I am running from a source tree and you forgot to build!
-Please run the following command and reload this page:
-<p><code>python setup.py build</code></p>
+    <div><p>Oops!  It looks like I am running from a source tree and you forgot to build!
+    Please run the following command from the kimchi directory and reload this page:</p>
+    <p><code>make</code></p>
+    </div>
 </div>
-</div>
-<script>
-kimchi.main();
-</script>
 </body>
 </html>

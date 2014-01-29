@@ -22,13 +22,14 @@
 
 #unicode UTF-8
 #import gettext
+#from Cheetah.Template import Template
 #from kimchi.cachebust import href
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
-<!DOCTYPE html>
-<html>
-<body>
+
+#silent ht = Template
+
 <div id="guests-root-container">
     <div class="toolbar">
         <div class="tools">
@@ -50,9 +51,10 @@
     <div id="noGuests" class="list-no-result" style="display: none;">
         $_("No guests found.")
     </div>
+    <script id="guest-tmpl" type="kimchi/template">
+    $ht(file="ui/pages/guest.html.tmpl",searchList=[self,{'lang':$lang}])
+    </script>
+    <script type="text/javascript">
+        kimchi.guest_main();
+    </script>
 </div>
-<script>
-    kimchi.guest_main();
-</script>
-</body>
-</html>
