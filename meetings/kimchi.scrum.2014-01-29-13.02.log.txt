@@ -1,0 +1,128 @@
+13:02:47 <alinefm> #startmeeting
+13:02:47 <kimchi-bot> Meeting started Wed Jan 29 13:02:47 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:47 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:54 <alinefm> #meetingname scrum
+13:02:54 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:31 <alinefm> #info  Agenda 1) Sprint 2 status 2) Sprint dates 3) Open discussion
+13:03:35 <alinefm> anything else?
+13:04:04 <AdamKingIT> apparently not
+13:04:42 <alinefm> ok
+13:04:44 <alinefm> #topic Sprint 2 status
+13:04:51 <alinefm> Please provide your status using the #info command: #info <nickname> <status>
+13:05:25 <alinefm> #info alinefm Sent out the model refactoring patches. I hope we can merge it soon to do not block new development
+13:05:50 <alinefm> #info alinefm As I commented on patch set, it is the first step. Next one is do the same to mockmodel
+13:07:11 <pvital> #info pvital Submitted the host's software update support to mailing list last Monday. waiting revisions
+13:08:11 <alinefm> #info shaohef Patches to manage networks on VM sent to mail list and already merged. Need UI
+13:08:12 <rotru> #info rotru  discussed scope and sent V2 of FC storagepool patch, now I am recoding what was asked in revision
+13:08:50 <alinefm> pradeep1, any update about "Support Image_formats in template" ?
+13:10:17 <alinefm> ok
+13:10:26 <alinefm> let's move on
+13:10:34 <alinefm> #topic Sprint dates
+13:10:50 <alinefm> Again we don't complete all tasks planned to the sprint
+13:11:28 <AdamKingIT> Are we further off this time, or closer to sprint plan?
+13:11:38 <alinefm> seems we didn't correct addressed the points we discussed in the end of sprint 1
+13:12:08 <pradeep1> alinefm: Well. I dint get a time to look at it.  can we move it to next release cycle.
+13:12:30 <pradeep1> Have base patch ready. Need to re-base and test it. Then i can send it
+13:12:42 <alinefm> AdamKingIT, from 9 we have 2 merged right now
+13:12:59 <alinefm> but checking the list I think we ca merge more 2
+13:13:04 <AdamKingIT> ouch. I'd say we missed by more this time
+13:13:05 <alinefm> so 4 from 9
+13:13:13 <alinefm> AdamKingIT, yeap =/
+13:14:00 <alinefm> based on all that, I would like to have a date in which all patches need to have at least the V1 in mail list
+13:14:07 <AdamKingIT> nothing to do but learn from it and move forward, Should we revist our proposals to improve ...
+13:14:17 <alinefm> otherwise, the feature/patch won't be merged in the current sprint
+13:14:29 <AdamKingIT> then look at the missed items and see if the propsals helped, hurt, or were not tried
+13:15:19 <AdamKingIT> The thing I thought would help the most is early RFCs with mockups of UIs/APIs, data structures, or whatever the significant content of the item was
+13:15:40 <alinefm> AdamKingIT, agree
+13:16:02 <alinefm> but I think we are taking too much time to send the first RFC/patch or anything
+13:16:24 <alinefm> then there is more time to review and address the comments
+13:16:40 <AdamKingIT> Late start usually proceeds a late arrival
+13:17:02 <AdamKingIT> yes, I think we would benefit from getting the RFC out in the first 3 days of the sprint
+13:17:54 <alinefm> my proposal is, if in one week there is nothing related to the task on mail list we will drop it
+13:18:43 <pvital> alinefm, but what do you mean about something?
+13:18:44 <AdamKingIT> hmm, maybe we just flag it as at high risk? The item is there because we want/need the function.
+13:18:47 <pvital> V1 or RFC?
+13:19:15 <alinefm> pvital, I would say V1
+13:19:34 <alinefm> the RFC should be sent in the first 2/3 days
+13:19:49 <pvital> I liked AdamKingIT's idea! 3 days for RFC (that means the 1st Monday of each sprint), and then more 1 week to 1st V1
+13:20:45 <AdamKingIT> if we all plan to spend that 1st monday reviewing first, then we get some early feedback to the submitter
+13:22:33 <alinefm> so how about: the RFC by first Friday, review on first Monday, and V1 in one week?
+13:23:29 <AdamKingIT> How about RFC by China Monday?
+13:23:53 <AdamKingIT> that would allow some leakage into the weekend if needed
+13:24:28 <rotru> alinefm; this should work, but someone must charge/ask people to do the things
+13:25:17 <alinefm> AdamKingIT, ok
+13:25:32 <rotru> alinefm; AdamKingIT  just create rules will not change anythings (based on my experience with developers)
+13:25:41 <AdamKingIT> :-)
+13:25:46 <alinefm> rotru, I don't think I or other one need to say what a developer needs to do
+13:25:55 <AdamKingIT> The idea is to create goals rather than rules
+13:26:36 <rotru> alinefm;  I dont think too ... but, we are in the real world
+13:26:55 <pvital> alinefm, I think you should send an email to mailing list, at the end of sprint planning, with all tasks and dates, for RFC and V1
+13:27:20 <alinefm> As most of the China folks are out for the holidays, I will send a note to mai list with what we agree here
+13:27:51 <alinefm> I hope everyone checks the mail list
+13:27:53 <AdamKingIT> Sprint3 will be a chance for us to  try out our new goals with a smaller team
+13:28:05 <alinefm> (which is not so true for reviews)
+13:28:33 <alinefm> pvital, rotru, ok - I can send the start up mail on each sprint
+13:28:49 <alinefm> #action alinefm Send sprint 3 schedule to mail list today
+13:29:11 <alinefm> #action alinefm Send note to team about sprint milestones idea
+13:30:20 <AdamKingIT> should we go through the items that will miss s2?
+13:30:44 <alinefm> sure
+13:30:45 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+13:31:00 <pvital> sure
+13:31:04 * pvital has one!
+13:31:06 <pvital> :-D
+13:31:28 <alinefm> I hope I can merge those 2 after checking the mail list "img search permission" and "Restructure backend model"
+13:31:28 <AdamKingIT> please don't think of it as a search for the guilty
+13:31:51 <AdamKingIT> Just want to get an idea where each is, and what we need to go with it
+13:32:14 <alinefm> FC storage pool: waiting for V2
+13:32:24 <AdamKingIT> I assume sheldon and royce are out for the holiday now
+13:32:30 <alinefm> yes
+13:32:39 <alinefm> they come back on Feb 10th
+13:33:00 <AdamKingIT> k, so we have comments pending for "FC Storage  pool"?
+13:33:03 <rotru> alinefm;  FC storage pool: waiting for V3 ?
+13:33:32 <alinefm> rotru, ok - I though it was v2 =)
+13:33:36 <alinefm> *thought
+13:34:09 <alinefm> AdamKingIT, yes
+13:34:15 <alinefm> rotru is working to address them
+13:34:30 <AdamKingIT> great. next...
+13:34:42 <rotru> alinefm; yeah
+13:34:44 <alinefm> Update system: V1 on mail list waiting for reviews
+13:35:38 <alinefm> Basic authorization: RFC/discussion on mail list (no patches yet)
+13:35:52 <alinefm> Building the help manual: nothing
+13:36:05 <alinefm> NFS pool: Add kimchi group when installation: RFC/discussion on mail list
+13:36:33 <alinefm> all those are related to backend
+13:36:53 <pvital> alinefm, about the help manual, abotega did something here. did he talk with you about it?
+13:36:54 <alinefm> for frontend we much update
+13:37:04 <alinefm> pvital, nope
+13:37:18 <alinefm> pvital, on wiki, there is no one assigned to it
+13:37:40 <pvital> alinefm, suggestion: use "#info" for all these status, so them will be stored in the txt minutes by kimchi-bot
+13:37:44 <alinefm> *for frontend we don't have much update
+13:38:26 <alinefm> pvital, ok
+13:38:31 <pvital> alinefm, so I guess you can assign this one to abotega and he can work with community to provide what he did and finish this
+13:38:41 <AdamKingIT> holiday eating people up. I have seen some patches on the list, but noone we can just ask
+13:38:51 <alinefm> #info Probably merge today: "img search permission" and "Restructure backend model"
+13:38:58 <alinefm> #info FC storage pool: waiting for V2
+13:39:16 <alinefm> #info Update system: V1 on mail list waiting for reviews
+13:39:22 <alinefm> #info Basic authorization: RFC/discussion on mail list (no patches yet)
+13:39:26 <alinefm> #info Building the help manual: nothing
+13:39:49 <alinefm> #info NFS pool: Add kimchi group when installation: RFC/discussion on mail list
+13:39:54 <rotru> alinefm;  V3
+13:40:05 <alinefm> rotru, hehehe
+13:40:24 <alinefm> sorry, it is just to record you are working on next version
+13:40:49 <rotru> alinefm;  =D
+13:41:21 <alinefm> #info For frontend we don't have much update
+13:42:48 <alinefm> AdamKingIT, yes =/
+13:44:25 <alinefm> anything else for today?
+13:44:40 <AdamKingIT> Maybe we  can spend some time w/ the list after this and work out some of them
+13:44:46 <pvital> alinefm, plan of sprint 3?
+13:45:00 <alinefm> AdamKingIT, agree
+13:45:24 <alinefm> pvital, sprint 3 will have those sprint 2 tasks not completed + the already planned
+13:45:39 <alinefm> pvital, do you want to talk about some specific tasks?
+13:45:56 * pvital checking! 1 sec
+13:47:03 <pvital> alinefm, nothing to add!
+13:47:53 <alinefm> ok
+13:48:18 <alinefm> so let's check the mail list to get the sprint 2 pending patches reviewed
+13:48:27 <alinefm> and maybe also merged
+13:49:57 <alinefm> anyone has other topic to discuss?
+13:51:03 <rotru> nope
+13:51:03 <alinefm> ok
+13:51:07 <alinefm> #endmeeting

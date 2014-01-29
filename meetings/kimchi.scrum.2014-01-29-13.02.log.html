@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 29 13:02:47 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:54</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 2 status 2) Sprint dates 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:35</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> apparently not
+<a name="l-9"></a><span class="tm">13:04:42</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-10"></a><span class="tm">13:04:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 2 status</span>
+<a name="l-11"></a><span class="tm">13:04:51</span><span class="nk"> &lt;alinefm&gt;</span> Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;
+<a name="l-12"></a><span class="tm">13:05:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent out the model refactoring patches. I hope we can merge it soon to do not block new development</span>
+<a name="l-13"></a><span class="tm">13:05:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm As I commented on patch set, it is the first step. Next one is do the same to mockmodel</span>
+<a name="l-14"></a><span class="tm">13:07:11</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital Submitted the host's software update support to mailing list last Monday. waiting revisions</span>
+<a name="l-15"></a><span class="tm">13:08:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef Patches to manage networks on VM sent to mail list and already merged. Need UI</span>
+<a name="l-16"></a><span class="tm">13:08:12</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  discussed scope and sent V2 of FC storagepool patch, now I am recoding what was asked in revision</span>
+<a name="l-17"></a><span class="tm">13:08:50</span><span class="nk"> &lt;alinefm&gt;</span> pradeep1, any update about "Support Image_formats in template" ?
+<a name="l-18"></a><span class="tm">13:10:17</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-19"></a><span class="tm">13:10:26</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-20"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint dates</span>
+<a name="l-21"></a><span class="tm">13:10:50</span><span class="nk"> &lt;alinefm&gt;</span> Again we don't complete all tasks planned to the sprint
+<a name="l-22"></a><span class="tm">13:11:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> Are we further off this time, or closer to sprint plan?
+<a name="l-23"></a><span class="tm">13:11:38</span><span class="nk"> &lt;alinefm&gt;</span> seems we didn't correct addressed the points we discussed in the end of sprint 1
+<a name="l-24"></a><span class="tm">13:12:08</span><span class="nk"> &lt;pradeep1&gt;</span> <span class="hi">alinefm:</span> Well. I dint get a time to look at it.  can we move it to next release cycle.
+<a name="l-25"></a><span class="tm">13:12:30</span><span class="nk"> &lt;pradeep1&gt;</span> Have base patch ready. Need to re-base and test it. Then i can send it
+<a name="l-26"></a><span class="tm">13:12:42</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, from 9 we have 2 merged right now
+<a name="l-27"></a><span class="tm">13:12:59</span><span class="nk"> &lt;alinefm&gt;</span> but checking the list I think we ca merge more 2
+<a name="l-28"></a><span class="tm">13:13:04</span><span class="nk"> &lt;AdamKingIT&gt;</span> ouch. I'd say we missed by more this time
+<a name="l-29"></a><span class="tm">13:13:05</span><span class="nk"> &lt;alinefm&gt;</span> so 4 from 9
+<a name="l-30"></a><span class="tm">13:13:13</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, yeap =/
+<a name="l-31"></a><span class="tm">13:14:00</span><span class="nk"> &lt;alinefm&gt;</span> based on all that, I would like to have a date in which all patches need to have at least the V1 in mail list
+<a name="l-32"></a><span class="tm">13:14:07</span><span class="nk"> &lt;AdamKingIT&gt;</span> nothing to do but learn from it and move forward, Should we revist our proposals to improve ...
+<a name="l-33"></a><span class="tm">13:14:17</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, the feature/patch won't be merged in the current sprint
+<a name="l-34"></a><span class="tm">13:14:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> then look at the missed items and see if the propsals helped, hurt, or were not tried
+<a name="l-35"></a><span class="tm">13:15:19</span><span class="nk"> &lt;AdamKingIT&gt;</span> The thing I thought would help the most is early RFCs with mockups of UIs/APIs, data structures, or whatever the significant content of the item was
+<a name="l-36"></a><span class="tm">13:15:40</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, agree
+<a name="l-37"></a><span class="tm">13:16:02</span><span class="nk"> &lt;alinefm&gt;</span> but I think we are taking too much time to send the first RFC/patch or anything
+<a name="l-38"></a><span class="tm">13:16:24</span><span class="nk"> &lt;alinefm&gt;</span> then there is more time to review and address the comments
+<a name="l-39"></a><span class="tm">13:16:40</span><span class="nk"> &lt;AdamKingIT&gt;</span> Late start usually proceeds a late arrival
+<a name="l-40"></a><span class="tm">13:17:02</span><span class="nk"> &lt;AdamKingIT&gt;</span> yes, I think we would benefit from getting the RFC out in the first 3 days of the sprint
+<a name="l-41"></a><span class="tm">13:17:54</span><span class="nk"> &lt;alinefm&gt;</span> my proposal is, if in one week there is nothing related to the task on mail list we will drop it
+<a name="l-42"></a><span class="tm">13:18:43</span><span class="nk"> &lt;pvital&gt;</span> alinefm, but what do you mean about something?
+<a name="l-43"></a><span class="tm">13:18:44</span><span class="nk"> &lt;AdamKingIT&gt;</span> hmm, maybe we just flag it as at high risk? The item is there because we want/need the function.
+<a name="l-44"></a><span class="tm">13:18:47</span><span class="nk"> &lt;pvital&gt;</span> V1 or RFC?
+<a name="l-45"></a><span class="tm">13:19:15</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I would say V1
+<a name="l-46"></a><span class="tm">13:19:34</span><span class="nk"> &lt;alinefm&gt;</span> the RFC should be sent in the first 2/3 days
+<a name="l-47"></a><span class="tm">13:19:49</span><span class="nk"> &lt;pvital&gt;</span> I liked AdamKingIT's idea! 3 days for RFC (that means the 1st Monday of each sprint), and then more 1 week to 1st V1
+<a name="l-48"></a><span class="tm">13:20:45</span><span class="nk"> &lt;AdamKingIT&gt;</span> if we all plan to spend that 1st monday reviewing first, then we get some early feedback to the submitter
+<a name="l-49"></a><span class="tm">13:22:33</span><span class="nk"> &lt;alinefm&gt;</span> so how about: the RFC by first Friday, review on first Monday, and V1 in one week?
+<a name="l-50"></a><span class="tm">13:23:29</span><span class="nk"> &lt;AdamKingIT&gt;</span> How about RFC by China Monday?
+<a name="l-51"></a><span class="tm">13:23:53</span><span class="nk"> &lt;AdamKingIT&gt;</span> that would allow some leakage into the weekend if needed
+<a name="l-52"></a><span class="tm">13:24:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm; this should work, but someone must charge/ask people to do the things
+<a name="l-53"></a><span class="tm">13:25:17</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, ok
+<a name="l-54"></a><span class="tm">13:25:32</span><span class="nk"> &lt;rotru&gt;</span> alinefm; AdamKingIT  just create rules will not change anythings (based on my experience with developers)
+<a name="l-55"></a><span class="tm">13:25:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> :-)
+<a name="l-56"></a><span class="tm">13:25:46</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I don't think I or other one need to say what a developer needs to do
+<a name="l-57"></a><span class="tm">13:25:55</span><span class="nk"> &lt;AdamKingIT&gt;</span> The idea is to create goals rather than rules
+<a name="l-58"></a><span class="tm">13:26:36</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I dont think too ... but, we are in the real world
+<a name="l-59"></a><span class="tm">13:26:55</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I think you should send an email to mailing list, at the end of sprint planning, with all tasks and dates, for RFC and V1
+<a name="l-60"></a><span class="tm">13:27:20</span><span class="nk"> &lt;alinefm&gt;</span> As most of the China folks are out for the holidays, I will send a note to mai list with what we agree here
+<a name="l-61"></a><span class="tm">13:27:51</span><span class="nk"> &lt;alinefm&gt;</span> I hope everyone checks the mail list
+<a name="l-62"></a><span class="tm">13:27:53</span><span class="nk"> &lt;AdamKingIT&gt;</span> Sprint3 will be a chance for us to  try out our new goals with a smaller team
+<a name="l-63"></a><span class="tm">13:28:05</span><span class="nk"> &lt;alinefm&gt;</span> (which is not so true for reviews)
+<a name="l-64"></a><span class="tm">13:28:33</span><span class="nk"> &lt;alinefm&gt;</span> pvital, rotru, ok - I can send the start up mail on each sprint
+<a name="l-65"></a><span class="tm">13:28:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm Send sprint 3 schedule to mail list today</span>
+<a name="l-66"></a><span class="tm">13:29:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm Send note to team about sprint milestones idea</span>
+<a name="l-67"></a><span class="tm">13:30:20</span><span class="nk"> &lt;AdamKingIT&gt;</span> should we go through the items that will miss s2?
+<a name="l-68"></a><span class="tm">13:30:44</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-69"></a><span class="tm">13:30:45</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2
+<a name="l-70"></a><span class="tm">13:31:00</span><span class="nk"> &lt;pvital&gt;</span> sure
+<a name="l-71"></a><span class="tm">13:31:04 </span><span class="nka">* pvital</span> <span class="ac">has one!</span>
+<a name="l-72"></a><span class="tm">13:31:06</span><span class="nk"> &lt;pvital&gt;</span> :-D
+<a name="l-73"></a><span class="tm">13:31:28</span><span class="nk"> &lt;alinefm&gt;</span> I hope I can merge those 2 after checking the mail list "img search permission" and "Restructure backend model"
+<a name="l-74"></a><span class="tm">13:31:28</span><span class="nk"> &lt;AdamKingIT&gt;</span> please don't think of it as a search for the guilty
+<a name="l-75"></a><span class="tm">13:31:51</span><span class="nk"> &lt;AdamKingIT&gt;</span> Just want to get an idea where each is, and what we need to go with it
+<a name="l-76"></a><span class="tm">13:32:14</span><span class="nk"> &lt;alinefm&gt;</span> FC storage pool: waiting for V2
+<a name="l-77"></a><span class="tm">13:32:24</span><span class="nk"> &lt;AdamKingIT&gt;</span> I assume sheldon and royce are out for the holiday now
+<a name="l-78"></a><span class="tm">13:32:30</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-79"></a><span class="tm">13:32:39</span><span class="nk"> &lt;alinefm&gt;</span> they come back on Feb 10th
+<a name="l-80"></a><span class="tm">13:33:00</span><span class="nk"> &lt;AdamKingIT&gt;</span> k, so we have comments pending for "FC Storage  pool"?
+<a name="l-81"></a><span class="tm">13:33:03</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  FC storage pool: waiting for V3 ?
+<a name="l-82"></a><span class="tm">13:33:32</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok - I though it was v2 =)
+<a name="l-83"></a><span class="tm">13:33:36</span><span class="nk"> &lt;alinefm&gt;</span> *thought
+<a name="l-84"></a><span class="tm">13:34:09</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, yes
+<a name="l-85"></a><span class="tm">13:34:15</span><span class="nk"> &lt;alinefm&gt;</span> rotru is working to address them
+<a name="l-86"></a><span class="tm">13:34:30</span><span class="nk"> &lt;AdamKingIT&gt;</span> great. next...
+<a name="l-87"></a><span class="tm">13:34:42</span><span class="nk"> &lt;rotru&gt;</span> alinefm; yeah
+<a name="l-88"></a><span class="tm">13:34:44</span><span class="nk"> &lt;alinefm&gt;</span> Update system: V1 on mail list waiting for reviews
+<a name="l-89"></a><span class="tm">13:35:38</span><span class="nk"> &lt;alinefm&gt;</span> Basic authorization: RFC/discussion on mail list (no patches yet)
+<a name="l-90"></a><span class="tm">13:35:52</span><span class="nk"> &lt;alinefm&gt;</span> Building the help manual: nothing
+<a name="l-91"></a><span class="tm">13:36:05</span><span class="nk"> &lt;alinefm&gt;</span> NFS pool: Add kimchi group when installation: RFC/discussion on mail list
+<a name="l-92"></a><span class="tm">13:36:33</span><span class="nk"> &lt;alinefm&gt;</span> all those are related to backend
+<a name="l-93"></a><span class="tm">13:36:53</span><span class="nk"> &lt;pvital&gt;</span> alinefm, about the help manual, abotega did something here. did he talk with you about it?
+<a name="l-94"></a><span class="tm">13:36:54</span><span class="nk"> &lt;alinefm&gt;</span> for frontend we much update
+<a name="l-95"></a><span class="tm">13:37:04</span><span class="nk"> &lt;alinefm&gt;</span> pvital, nope
+<a name="l-96"></a><span class="tm">13:37:18</span><span class="nk"> &lt;alinefm&gt;</span> pvital, on wiki, there is no one assigned to it
+<a name="l-97"></a><span class="tm">13:37:40</span><span class="nk"> &lt;pvital&gt;</span> alinefm, suggestion: use "#info" for all these status, so them will be stored in the txt minutes by kimchi-bot
+<a name="l-98"></a><span class="tm">13:37:44</span><span class="nk"> &lt;alinefm&gt;</span> *for frontend we don't have much update
+<a name="l-99"></a><span class="tm">13:38:26</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ok
+<a name="l-100"></a><span class="tm">13:38:31</span><span class="nk"> &lt;pvital&gt;</span> alinefm, so I guess you can assign this one to abotega and he can work with community to provide what he did and finish this
+<a name="l-101"></a><span class="tm">13:38:41</span><span class="nk"> &lt;AdamKingIT&gt;</span> holiday eating people up. I have seen some patches on the list, but noone we can just ask
+<a name="l-102"></a><span class="tm">13:38:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Probably merge today: "img search permission" and "Restructure backend model"</span>
+<a name="l-103"></a><span class="tm">13:38:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">FC storage pool: waiting for V2</span>
+<a name="l-104"></a><span class="tm">13:39:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Update system: V1 on mail list waiting for reviews</span>
+<a name="l-105"></a><span class="tm">13:39:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Basic authorization: RFC/discussion on mail list (no patches yet)</span>
+<a name="l-106"></a><span class="tm">13:39:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Building the help manual: nothing</span>
+<a name="l-107"></a><span class="tm">13:39:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">NFS pool: Add kimchi group when installation: RFC/discussion on mail list</span>
+<a name="l-108"></a><span class="tm">13:39:54</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  V3
+<a name="l-109"></a><span class="tm">13:40:05</span><span class="nk"> &lt;alinefm&gt;</span> rotru, hehehe
+<a name="l-110"></a><span class="tm">13:40:24</span><span class="nk"> &lt;alinefm&gt;</span> sorry, it is just to record you are working on next version
+<a name="l-111"></a><span class="tm">13:40:49</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  =D
+<a name="l-112"></a><span class="tm">13:41:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">For frontend we don't have much update</span>
+<a name="l-113"></a><span class="tm">13:42:48</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, yes =/
+<a name="l-114"></a><span class="tm">13:44:25</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-115"></a><span class="tm">13:44:40</span><span class="nk"> &lt;AdamKingIT&gt;</span> Maybe we  can spend some time w/ the list after this and work out some of them
+<a name="l-116"></a><span class="tm">13:44:46</span><span class="nk"> &lt;pvital&gt;</span> alinefm, plan of sprint 3?
+<a name="l-117"></a><span class="tm">13:45:00</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, agree
+<a name="l-118"></a><span class="tm">13:45:24</span><span class="nk"> &lt;alinefm&gt;</span> pvital, sprint 3 will have those sprint 2 tasks not completed + the already planned
+<a name="l-119"></a><span class="tm">13:45:39</span><span class="nk"> &lt;alinefm&gt;</span> pvital, do you want to talk about some specific tasks?
+<a name="l-120"></a><span class="tm">13:45:56 </span><span class="nka">* pvital</span> <span class="ac">checking! 1 sec</span>
+<a name="l-121"></a><span class="tm">13:47:03</span><span class="nk"> &lt;pvital&gt;</span> alinefm, nothing to add!
+<a name="l-122"></a><span class="tm">13:47:53</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-123"></a><span class="tm">13:48:18</span><span class="nk"> &lt;alinefm&gt;</span> so let's check the mail list to get the sprint 2 pending patches reviewed
+<a name="l-124"></a><span class="tm">13:48:27</span><span class="nk"> &lt;alinefm&gt;</span> and maybe also merged
+<a name="l-125"></a><span class="tm">13:49:57</span><span class="nk"> &lt;alinefm&gt;</span> anyone has other topic to discuss?
+<a name="l-126"></a><span class="tm">13:51:03</span><span class="nk"> &lt;rotru&gt;</span> nope
+<a name="l-127"></a><span class="tm">13:51:03</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-128"></a><span class="tm">13:51:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
