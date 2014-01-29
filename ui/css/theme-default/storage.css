@@ -65,8 +65,8 @@
     margin-top: 10px;
     background: #ffffff;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
-        color-stop(100%, #e5e5e5));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
     background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
@@ -211,8 +211,8 @@
 
 .status-dot {
     background: #72AA00;
-    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%, #72AA00 51%, #9ECB2D
-        100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
+                #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
     border: 1px solid #72AA00;
     border-radius: 13px;
     box-shadow: 3px 3px 3px #FFFFFF, -3px -3px 3px #DDDDDD;
@@ -281,8 +281,8 @@
 
 .inactive {
     background: #E80501;
-    background: linear-gradient(to bottom, #E88692 0%, #E84845 50%, #E80501 51%, #E84845
-        100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #E88692 0%, #E84845 50%,
+                #E80501 51%, #E84845 100%) repeat scroll 0 0 transparent;
     border: 1px solid #FF340C;
 }
 
@@ -464,8 +464,8 @@
 }
 
 .list-storage .storage-li[data-stat="inactive"]>.handle>.arrow-down {
-    background: url(../images/theme-default/arrow-down-disable.png) no-repeat center
-        center;
+    background: url(../images/theme-default/arrow-down-disable.png) no-repeat
+                center center;
     height: 52px;
     width: 45px;
 }

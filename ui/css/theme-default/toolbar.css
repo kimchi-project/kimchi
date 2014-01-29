@@ -27,12 +27,14 @@
     overflow: hidden;
     background: #e5e5e5;
     background: -moz-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5e5e5), color-stop(100%, #c4c4c4));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #e5e5e5), color-stop(100%, #c4c4c4));
     background: -webkit-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
     background: -o-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
     background: -ms-linear-gradient(top, #e5e5e5 0%, #c4c4c4 100%);
     background: linear-gradient(to bottom, #e5e5e5 0%, #c4c4c4 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#e5e5e5', endColorstr='#c4c4c4', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5',
+            endColorstr='#c4c4c4', GradientType=0);
     border-bottom: 1px solid #aaa;
 }
 

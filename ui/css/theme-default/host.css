@@ -51,7 +51,8 @@
 }
 
 .host-panel .button-icon {
-    background: url("../images/theme-default/host-icon-sprite.png") no-repeat left top;
+    background: url("../images/theme-default/host-icon-sprite.png") no-repeat
+                left top;
     display: inline-block;
     height: 12px;
     width: 12px;
@@ -186,7 +187,8 @@
 #container-chart-disk-io,
 #container-chart-network-io {
     border: 1px solid white;
-    box-shadow: 2px 2px 2px gray, 2px -2px 2px gray, -2px -2px 2px gray, -2px 2px 2px gray;
+    box-shadow: 2px 2px 2px gray, 2px -2px 2px gray, -2px -2px 2px gray, -2px
+                2px 2px gray;
     height: 100px;
     width: 500px;
 }

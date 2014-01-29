@@ -20,7 +20,8 @@
  */
 
 .error-background {
-    background: linear-gradient(to bottom, #4A4A4A 0%, #272727 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #4A4A4A 0%, #272727 100%) repeat
+                scroll 0 0 transparent;
     border-top: 1px solid #6B6868;
     color: #EEEEEE;
     text-shadow: -1px -1px 1px #000000, 1px 1px 1px #555555;
@@ -35,7 +36,8 @@
 }
 
 .error-icon {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #CCCCCC;
     border-radius: 8px 8px 8px 8px;
     color: #333333;
@@ -75,12 +77,15 @@
 }
 
 .error-msg>a.btn-normal:active {
-    box-shadow: -1px -1px 1px #eee, 1px 1px 1px #ccc, 1px 1px 1px #ccc inset, -1px -1px 1px #aaa inset;
+    box-shadow: -1px -1px 1px #eee, 1px 1px 1px #ccc, 1px 1px 1px #ccc inset,
+                -1px -1px 1px #aaa inset;
     background: -moz-linear-gradient(top, black 0%, #888 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, black), color-stop(100%, #888));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, black), color-stop(100%, #888));
     background: -webkit-linear-gradient(top, black 0%, #888 100%);
     background: -o-linear-gradient(top, black 0%, #888 100%);
     background: -ms-linear-gradient(top, black 0%, #888 100%);
     background: linear-gradient(to bottom, black 0%, #888 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='black', endColorstr='#888', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='black',
+            endColorstr='#888', GradientType=0);
 }

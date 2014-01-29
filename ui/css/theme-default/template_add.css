@@ -44,7 +44,8 @@
     float: left; display : block;
     width: 50px;
     height: 52px;
-    background: url(../../images/theme-default/icon-back.png) center center no-repeat;
+    background: url(../../images/theme-default/icon-back.png) center
+                center no-repeat;
     cursor: pointer;
     display: block;
 }
@@ -61,7 +62,8 @@
     margin: 0 10px 10px;
     padding: 20px 10px 20px 65px;
     border: 2px solid #ccc;
-    background: url(../../images/theme-default/icon-local.png) 15px center no-repeat;
+    background: url(../../images/theme-default/icon-local.png) 15px
+                center no-repeat;
     cursor: pointer;
 }
 
@@ -137,12 +139,14 @@
 .box {
     background: #ffffff;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
     background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+            endColorstr='#e5e5e5', GradientType=0);
     border: 1px solid #ccc;
     color: #333;
     text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
@@ -279,11 +283,13 @@
 
 #iso-search-loading {
     margin: 10px 15px;
-    background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+    background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px
+                center no-repeat;
     padding: 0 20px 0 26px;
 }
 
 #iso-more-loading {
-        background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+        background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px
+                    center no-repeat;
         padding: 0 20px 0 26px;
 }

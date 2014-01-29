@@ -66,12 +66,14 @@
 .white-box {
     background: #ffffff;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
     background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+            endColorstr='#e5e5e5', GradientType=0);
     border: 1px solid #CCCCCC;
     color: #333333;
     text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
@@ -82,7 +84,8 @@
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
     border-color: #999999 #AAAAAA #AAAAAA #999999;
     border-image: none;
     border-radius: 5px 5px 5px 5px;
@@ -101,7 +104,8 @@
 }
 
 .bevel3 {
-    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white
+                inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
     color: #333333;
 }
 
@@ -138,7 +142,8 @@ template-hidden {
 }
 
 .button-drop {
-    background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC 96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC
+                96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
 }
 
 .action-bevel {
@@ -198,7 +203,8 @@ template-hidden {
 }
 
 .template-results {
-    background: linear-gradient(to bottom, #FFFFFF 35px, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 35px, rgba(255, 255, 255, 0)
+                100%) repeat scroll 0 0 transparent;
     float: left;
     height: 60px;
     margin-bottom: -22px;
@@ -207,7 +213,8 @@ template-hidden {
 }
 
 .select-row-action {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #CCCCCC;
     border-radius: 5px 5px 5px 5px;
     float: left;
@@ -221,7 +228,8 @@ template-hidden {
 }
 
 .select-row-delete {
-    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #B10F14;
     border-radius: 5px 5px 5px 5px;
     color: #FFFFFF;

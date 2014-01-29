@@ -86,7 +86,8 @@
     display: block;
 }
 
-.template-edit-wrapper-controls .select-list-box>li>label>input[type="checkbox"] {
+.template-edit-wrapper-controls .select-list-box>li>label>
+input[type="checkbox"] {
     display: none;
 }
 
@@ -102,6 +103,8 @@
     font-size: 12px;
 }
 
-.template-edit-wrapper-controls .select-list-box>li>label>input[type="checkbox"]:CHECKED+.item {
-    background: #f8f8f8 url(../images/theme-default/check-green.png) no-repeat 10px center;
+.template-edit-wrapper-controls .select-list-box>li>label>
+input[type="checkbox"]:CHECKED+.item {
+    background: #f8f8f8 url(../images/theme-default/check-green.png) no-repeat
+                10px center;
 }

@@ -23,14 +23,19 @@
 .topbar {
     height: 48px;
     background: #4a4a4a; /* Old browsers */
-    background: -moz-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4a4a4a), color-stop(100%, #272727));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* Opera 11.10+ */
+    background: -moz-linear-gradient(top, #4a4a4a 0%,
+                #272727 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #4a4a4a),
+                color-stop(100%, #272727)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #4a4a4a 0%,
+                #272727 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #4a4a4a 0%,
+                #272727 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top, #4a4a4a 0%, #272727 100%); /* IE10+ */
     background: linear-gradient(to bottom, #4a4a4a 0%, #272727 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a4a4a', endColorstr='#272727', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a4a4a',
+            endColorstr='#272727', GradientType=0);
     border-top: 1px solid #6b6868;
     boder-bottom: 1px solid #151718;
     position: relative;
@@ -88,19 +93,23 @@
 }
 
 .icon.setting {
-    background: url(../images/theme-default/icon-setting.png) no-repeat center center;
+    background: url(../images/theme-default/icon-setting.png) no-repeat
+                center center;
 }
 
 .icon.tool {
-    background: url(../images/theme-default/icon-tool.png) no-repeat center center;
+    background: url(../images/theme-default/icon-tool.png) no-repeat
+                center center;
 }
 
 .icon.event {
-    background: url(../images/theme-default/icon-event.png) no-repeat center center;
+    background: url(../images/theme-default/icon-event.png) no-repeat
+                center center;
 }
 
 .icon.alert {
-    background: url(../images/theme-default/icon-alert.png) no-repeat center center;
+    background: url(../images/theme-default/icon-alert.png) no-repeat
+                center center;
 }
 
 #user {

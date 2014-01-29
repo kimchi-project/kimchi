@@ -36,11 +36,13 @@
     width: 42px;
     height: 48px;
     border-right: 1px solid #000;
-    background: transparent url("../images/theme-default/folder-arrow-right.png") center center no-repeat;
+    background: transparent center center no-repeat
+                url("../images/theme-default/folder-arrow-right.png");
 }
 
 .nav-tree .item.on .arrow {
-    background: transparent url("../images/theme-default/folder-arrow-down.png") center center no-repeat;
+    background: transparent center center no-repeat
+                url("../images/theme-default/folder-arrow-down.png");
 }
 
 .nav-tree .item.nochild .arrow {
@@ -108,9 +110,11 @@
 }
 
 .nav-tree .item-link .thumb.host {
-    background: url("../images/theme-default/thumb-host.png") center center no-repeat;
+    background: center center no-repeat
+                url("../images/theme-default/thumb-host.png");
 }
 
 .nav-tree .item-link .thumb.guest {
-    background: url("../images/theme-default/thumb-guest.png") center center no-repeat;
+    background: center center no-repeat
+                url("../images/theme-default/thumb-guest.png");
 }

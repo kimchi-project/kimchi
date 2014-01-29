@@ -19,7 +19,8 @@
 }
 
 #button-report-add[disabled] {
-    background: #c0c0c0 url(../../images/theme-default/loading.gif) 7px center no-repeat;
+    background: #c0c0c0 url(../../images/theme-default/loading.gif) 7px
+                center no-repeat;
     color: #DDD;
     padding-left: 26px;
 }

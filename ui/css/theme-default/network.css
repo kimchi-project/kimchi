@@ -36,7 +36,8 @@
 .network .list .item {
     margin-bottom: 10px;
     border-radius: 8px 8px 8px 8px;
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #CCCCCC;
     position: relative;
     height: 54px;
@@ -118,7 +119,8 @@
 }
 
 .network .list .action-button-icon {
-    background: url("../images/theme-default/arrow-down-black.png") no-repeat scroll center center transparent;
+    background: url("../images/theme-default/arrow-down-black.png") no-repeat
+                scroll center center transparent;
 }
 
 .network .list .ui-state-disabled {
@@ -134,11 +136,13 @@
 }
 
 .network .list .up {
-    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%, #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
+                #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
 }
 
 .network .list .down {
-    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%, #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%,
+                #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
 }
 
 .network-config {

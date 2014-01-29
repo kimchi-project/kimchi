@@ -27,12 +27,14 @@
     margin-bottom: 10px;
     background: #ffffff;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
     background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+            endColorstr='#e5e5e5', GradientType=0);
     border: 1px solid #ccc;
     color: #333;
     -webkit-border-radius: 8px;
@@ -68,7 +70,8 @@
     height: 130px;
     box-sizing: border-box;
     box-shadow: inset 4px 4px 4px #0289e2, inset -4px -4px 4px #04385d;
-    background: #0b6bad url(../images/theme-default/arrow_out.png) center center no-repeat;
+    background: #0b6bad url(../images/theme-default/arrow_out.png) center
+                center no-repeat;
     border-top-right: 1px solid #CCC;
     -webkit-border-top-right-radius: 8px;
     -moz-border-top-right-radius: 8px;
@@ -179,7 +182,8 @@
 .guest-users .users {
     height: 45px;
     line-height: 45px;
-    background: url(../images/theme-default/icon-user.png) left center no-repeat;
+    background: url(../images/theme-default/icon-user.png) left
+                center no-repeat;
     padding-left: 50px;
     font-size: 36px;
     font-weight: bold;
@@ -188,7 +192,8 @@
 .guest-users .snapshots {
     height: 40px;
     line-height: 40px;
-    background: url(../images/theme-default/icon-camera.png) left center no-repeat;
+    background: url(../images/theme-default/icon-camera.png) left
+                center no-repeat;
     padding-left: 50px;
     font-size: 36px;
     font-weight: bold;

@@ -50,13 +50,16 @@
 }
 
 .ui-button-secondary.ui-state-default {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
-    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
+    box-shadow: -2px -2px 2px #EAEAEA, 2px 2px 2px #FFFFFF, 3px 3px 3px white
+                inset, -3px -3px 3px rgba(0, 0, 0, 0.25) inset;
 }
 
 .ui-button-secondary.ui-state-hover {
     background: linear-gradient(to bottom, #d5d5d5 0%, #eeeeee 100%);
-    box-shadow: -2px -2px 2px #dadada, 2px 2px 2px #fff, 3px 3px 3px white inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
+    box-shadow: -2px -2px 2px #dadada, 2px 2px 2px #fff, 3px 3px 3px white
+                inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;
 }
 
 .ui-button-secondary .ui-button-text {
@@ -82,13 +85,15 @@
 }
 
 .ui-menu {
-    background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC 96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #EEEEEE 0%, #CCCCCC 10px, #CCCCCC
+                96%, #A5A5A5 100%) repeat scroll 0 0 transparent;
     padding: 10px 10px 0;
     width: 250px;
 }
 
 .ui-menu .ui-menu-item a {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #CCCCCC;
     border-radius: 5px 5px 5px 5px;
     box-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #EEEEEE;
@@ -102,20 +107,23 @@
 }
 
 .ui-menu .ui-menu-item a.ui-state-focus {
-    background: linear-gradient(to bottom, #EEEEEE 0%, #D5D5D5 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #EEEEEE 0%, #D5D5D5 100%) repeat
+                scroll 0 0 transparent;
     box-shadow: -1px -1px 1px #BBBBBB, 1px 1px 1px #DDDDDD;
     margin: 0px 0px 10px 0px;
 }
 
 .ui-menu .ui-menu-item a.red:not([disabled]) {
-    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #FF3019 0%, #CF0404 100%) repeat
+                scroll 0 0 transparent;
     border: 1px solid #B10F14;
     color: #FFFFFF;
     text-shadow: -1px -1px 1px #9E0505, 1px 1px 1px #FC5D4C;
 }
 
 .ui-menu .ui-menu-item a.red:hover:not([disabled]) {
-    background: linear-gradient(to bottom, #EF2009 0%, #BF0404 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #EF2009 0%, #BF0404 100%) repeat
+                scroll 0 0 transparent;
 }
 
 .ui-menu .ui-state-disabled {
@@ -127,7 +135,8 @@
 }
 
 .ui-widget-overlay {
-    background: url("../images/theme-default/bg-mask.png") repeat scroll 0 0 transparent;
+    background: url("../images/theme-default/bg-mask.png") repeat scroll
+                0 0 transparent;
     opacity: 1;
 }
 
