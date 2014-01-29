@@ -22,10 +22,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import cherrypy
-
-
-from kimchi.config import config
 from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import UrlSubNode
 
@@ -39,9 +35,7 @@ class Config(Resource):
 
     @property
     def data(self):
-        display_proxy_port = config.get('display', 'display_proxy_port')
-        return {'http_port': cherrypy.server.socket_port,
-                'display_proxy_port': display_proxy_port}
+        return self.info
 
 
 class Capabilities(Resource):

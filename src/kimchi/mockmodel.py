@@ -45,6 +45,7 @@ import kimchi.model
 from kimchi import config
 from kimchi import network as knetwork
 from kimchi.asynctask import AsyncTask
+from kimchi.config import config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
@@ -657,6 +658,12 @@ class MockModel(object):
             raise NotFoundError("Partition %s not found in the host"
                                 % name)
         return disks.get_partition_details(name)
+
+    def config_lookup(self, name):
+        return {'http_port': cherrypy.server.socket_port,
+                'display_proxy_port':
+                kconfig.get('display', 'display_proxy_port')}
+
 
 class MockVMTemplate(VMTemplate):
     def __init__(self, args, mockmodel_inst=None):

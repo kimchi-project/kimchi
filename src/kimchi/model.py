@@ -67,6 +67,7 @@ from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.asynctask import AsyncTask
 from kimchi.distroloader import DistroLoader
+from kimchi.config import config as kconfig
 from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed, TimeoutExpired
 from kimchi.featuretests import FeatureTests
@@ -1579,6 +1580,12 @@ class Model(object):
             raise OperationFailed("Reboot not allowed: VMs are running!")
         kimchi_log.info('Host is going to reboot.')
         os.system('reboot')
+
+    def config_lookup(self, name):
+        return {'http_port': cherrypy.server.socket_port,
+                'display_proxy_port':
+                kconfig.get('display', 'display_proxy_port')}
+
 
 
 class LibvirtVMTemplate(VMTemplate):
