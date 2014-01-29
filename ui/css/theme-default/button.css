@@ -89,8 +89,8 @@
 }
 
 .btn.loading .icon {
-       background: url(../images/theme-default/icon-load.png) center
-                   center no-repeat;
+    background: url(../images/theme-default/icon-load.png) center
+                center no-repeat;
 }
 
 .btn .text {
@@ -431,8 +431,8 @@
     line-height: 38px;
     padding: 0 20px;
     color: #EEE;
-        border-radius: 8px;
-        font-size: 13px;
+    border-radius: 8px;
+    font-size: 13px;
 }
 
 .btn-normal:not([disabled]):hover {
