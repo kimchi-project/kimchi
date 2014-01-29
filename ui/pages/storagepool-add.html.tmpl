@@ -124,7 +124,7 @@
                     <section class="form-section">
                         <div class="field">
                             <input type="checkbox" id="authId" name="authname">
-                            <label>$_("Add iSCSI Authentication")</label>
+                            <label for="authId">$_("Add iSCSI Authentication")</label>
                         </div>
                     </section>
                     <section class="authenticationfield form-section tmpl-html">
@@ -150,8 +150,8 @@
     </script>
     <script id="partitionTmpl" type="html/text">
         <div>
-            <input type="checkbox" value="{path}" name="devices">
-            <label>{path}</label>
+            <input type="checkbox" id="{name}" value="{path}" name="devices">
+            <label for="{name}">{path}</label>
         </div>
     </script>
 </body>

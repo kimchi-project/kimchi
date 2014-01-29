@@ -61,22 +61,22 @@
             <div class="section-content">
                 <div class="input-container">
                     <input type="radio" id="networkTypeIso" name="networkType" value="isolated">
-                    <label>$_("Isolated: no physical network connection")</label>
+                    <label for="networkTypeIso">$_("Isolated: no physical network connection")</label>
                 </div>
                 <div class="input-container">
                     <input type="radio" id="networkTypeNat" name="networkType" value="nat">
-                    <label>$_("NAT: outbound physical network connection only")</label>
+                    <label for="networkTypeNat">$_("NAT: outbound physical network connection only")</label>
                 </div>
                 <div class="input-container">
                     <input type="radio" id="networkTypeBri" name="networkType" value="bridged">
-                    <label>$_("Bridged: VMs are connected to physical network directly")</label>
+                    <label for="networkTypeBri">$_("Bridged: VMs are connected to physical network directly")</label>
                 </div>
                 <div class="destination">
                     <label>$_("Destination"): </label>
                     <select id="networkInterface"></select>
                 </div>
                 <div class="VLAN">
-                    <label>$_("Enable VLAN"): </label>
+                    <label for="enableVlan">$_("Enable VLAN"): </label>
                     <input id="enableVlan" type="checkbox" value=""/>
                     <label>$_("VLAN ID"): </label>
                     <input type="text" id="networkVlanID" disabled>
