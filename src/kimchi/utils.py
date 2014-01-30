@@ -28,10 +28,10 @@ import urllib2
 
 
 from cherrypy.lib.reprconf import Parser
+from kimchi.config import paths, PluginPaths
 from kimchi.exception import TimeoutExpired
 
 
-from kimchi import config
 from threading import Timer
 
 
@@ -49,7 +49,7 @@ def is_digit(value):
 
 
 def _load_plugin_conf(name):
-    plugin_conf = config.get_plugin_config(name)
+    plugin_conf = PluginPaths(name).conf_file
     if not os.path.exists(plugin_conf):
         cherrypy.log.error_log.error("Plugin configuration file %s"
                                      " doesn't exist." % plugin_conf)
@@ -63,7 +63,7 @@ def _load_plugin_conf(name):
 
 
 def get_enabled_plugins():
-    plugin_dir = config.get_plugins_dir()
+    plugin_dir = paths.plugins_dir
     try:
         dir_contents = os.listdir(plugin_dir)
     except OSError:

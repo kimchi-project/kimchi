@@ -23,11 +23,12 @@
 
 import cherrypy
 import json
+import os
 
 
 from kimchi import auth
 from kimchi import template
-from kimchi.config import get_api_schema_file
+from kimchi.config import paths
 from kimchi.control import sub_nodes
 from kimchi.control.base import Resource
 from kimchi.control.utils import parse_request
@@ -50,8 +51,8 @@ class Root(Resource):
 
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(model))
-
-        self.api_schema = json.load(open(get_api_schema_file()))
+        self.api_schema = json.load(open(os.path.join(paths.src_dir,
+                                                      'API.json')))
 
     def error_production_handler(self, status, message, traceback, version):
         data = {'code': status, 'reason': message}

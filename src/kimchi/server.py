@@ -33,6 +33,7 @@ from kimchi import config
 from kimchi import model
 from kimchi import mockmodel
 from kimchi import vnc
+from kimchi.config import paths, PluginPaths
 from kimchi.control import sub_nodes
 from kimchi.root import Root
 from kimchi.utils import get_enabled_plugins, import_class
@@ -64,8 +65,8 @@ class Server(object):
     CACHEEXPIRES = 31536000
     configObj = {
         '/': {'tools.trailing_slash.on': False,
-              'tools.staticdir.root': config.get_prefix(),
-              'tools.staticfile.root': config.get_prefix(),
+              'tools.staticdir.root': paths.prefix,
+              'tools.staticfile.root': paths.prefix,
               'request.methods_with_bodies': ('POST', 'PUT'),
               'tools.nocache.on': True,
               'tools.sessions.on': True,
@@ -209,7 +210,8 @@ class Server(object):
                 plugin_config['/ui/config/tab-ext.xml'] = {
                     'tools.staticfile.on': True,
                     'tools.staticfile.filename':
-                    config.get_plugin_tab_xml(plugin_name),
+                    os.path.join(PluginPaths(plugin_name).ui_dir,
+                                 'config/tab-ext.xml'),
                     'tools.nocache.on': True}
             except KeyError:
                 continue
@@ -231,7 +233,7 @@ class Server(object):
         cert = options.ssl_cert
         key = options.ssl_key
         if not cert or not key:
-            config_dir = config.get_config_dir()
+            config_dir = paths.conf_dir
             cert = '%s/kimchi-cert.pem' % config_dir
             key = '%s/kimchi-key.pem' % config_dir
 

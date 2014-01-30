@@ -30,11 +30,12 @@ sys.path.insert(1, '@pythondir@')
 
 import kimchi.server
 import kimchi.config
-if kimchi.config.without_installation():
-    sys.path.append(kimchi.config.get_prefix())
 
-from kimchi.config import config
+from kimchi.config import config, paths
 from optparse import OptionParser
+
+if not paths.installed:
+    sys.path.append(paths.prefix)
 
 ACCESS_LOG = "kimchi-access.log"
 ERROR_LOG = "kimchi-error.log"

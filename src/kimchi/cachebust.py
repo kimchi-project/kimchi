@@ -23,11 +23,11 @@
 import os
 
 
-from kimchi.config import get_prefix
+from kimchi.config import paths
 
 
 def href(url):
     # for error.html, url is absolute path
-    f = os.path.join(get_prefix(), 'ui', url.lstrip("/"))
+    f = os.path.join(paths.ui_dir, url.lstrip("/"))
     mtime = os.path.getmtime(f)
     return "%s?cacheBust=%s" % (url, mtime)

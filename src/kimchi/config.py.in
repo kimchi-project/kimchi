@@ -28,7 +28,6 @@ import platform
 
 
 from ConfigParser import SafeConfigParser
-from glob import iglob
 
 
 from kimchi.xmlutils import xpath_get_text
@@ -37,86 +36,24 @@ from kimchi.xmlutils import xpath_get_text
 DEFAULT_LOG_LEVEL = "debug"
 
 
-def get_prefix():
-    if __file__[0] == '/':
-        base = os.path.dirname(__file__)
-    else:
-        base = os.path.dirname('./%s' % __file__)
-
-    if os.access('%s/../../src/kimchi/config.py' % base, os.F_OK):
-        return '%s/../..' % base
-    else:
-        return '@pkgdatadir@'
-
-
-def without_installation():
-    return get_prefix() != '@pkgdatadir@'
-
-
-def get_config_dir():
-    prefix = get_prefix()
-
-    if prefix == '@pkgdatadir@':
-        return '@sysconfdir@/kimchi'
-    else:
-        return os.path.join(prefix, 'src')
-
-
-def _get_kimchi_src_dir():
-    prefix = get_prefix()
-    return ('@kimchidir@' if prefix == '@pkgdatadir@'
-            else os.path.join(prefix, 'src/kimchi'))
-
-
-def get_api_schema_file():
-    return os.path.join(_get_kimchi_src_dir(), 'API.json')
-
-
-def get_default_log_dir():
-    prefix = get_prefix()
-
-    if prefix == '@pkgdatadir@':
-        return "@localstatedir@/log/kimchi"
-
-    return os.path.join(prefix, 'log')
-
-
-def get_state_path():
-    prefix = get_prefix()
-
-    if prefix == '@pkgdatadir@':
-        return "@localstatedir@/lib/kimchi"
-
-    return os.path.join(prefix, 'data')
-
-
 def get_session_path():
-    return os.path.join(get_state_path(), 'sessions')
+    return os.path.join(paths.state_dir, 'sessions')
 
 
 def get_object_store():
-    return os.path.join(get_prefix(), 'data', 'objectstore')
+    return os.path.join(paths.state_dir, 'objectstore')
 
 
 def get_distros_store():
-    return os.path.join(get_config_dir(), 'distros.d')
-
-
-def get_template_path(resource):
-    return '%s/ui/pages/%s.tmpl' % (get_prefix(), resource)
+    return os.path.join(paths.conf_dir, 'distros.d')
 
 
 def get_screenshot_path():
-    return "%s/data/screenshots" % get_prefix()
+    return os.path.join(paths.state_dir, 'screenshots')
 
 
-def get_mo_path():
-    return '%s/mo' % get_prefix()
-
-
-def get_support_language():
-    mopath = "%s/*" % get_mo_path()
-    return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
+def get_debugreports_path():
+    return os.path.join(paths.state_dir, 'debugreports')
 
 
 def find_qemu_binary():
@@ -137,37 +74,65 @@ def find_qemu_binary():
     return location
 
 
-def get_debugreports_path():
-    return os.path.join(get_prefix(), 'data', 'debugreports')
+class Paths(object):
+
+    def __init__(self):
+        self.prefix = self.get_prefix()
+        self.installed = (self.prefix == '@pkgdatadir@')
+
+        if self.installed:
+            self.state_dir = '@localstatedir@/lib/kimchi'
+            self.log_dir = '@localstatedir@/log/kimchi'
+            self.conf_dir = '@sysconfdir@/kimchi'
+            self.src_dir = '@kimchidir@'
+            self.plugins_dir = '@kimchidir@'
+        else:
+            self.state_dir = self.add_prefix('data')
+            self.log_dir = self.add_prefix('log')
+            self.conf_dir = self.add_prefix('src')
+            self.src_dir = self.add_prefix('src/kimchi')
+            self.plugins_dir = self.add_prefix('plugins')
+
+        self.ui_dir = self.add_prefix('ui')
+        self.mo_dir = self.add_prefix('mo')
+
+    def get_prefix(self):
+        if __file__.startswith("/"):
+            base = os.path.dirname(__file__)
+        else:
+            base = os.path.dirname('./%s' % __file__)
+
+        if os.access('%s/../../src/kimchi/config.py' % base, os.F_OK):
+            return os.path.abspath('%s/../..' % base)
+        else:
+            return '@pkgdatadir@'
+
+    def add_prefix(self, subdir):
+        return os.path.join(self.prefix, subdir)
+
+    def get_template_path(self, resource):
+        return os.path.join(self.ui_dir, 'pages/%s.tmpl' % resource)
 
 
-def get_plugins_dir():
-    prefix = get_prefix()
-    if prefix == '@pkgdatadir@':
-        prefix = '@kimchidir@'
-    return os.path.join(prefix, 'plugins')
+paths = Paths()
 
 
-def get_plugin_config(name):
-    prefix = get_prefix()
-    if prefix == '@pkgdatadir@':
-        base_dir = '@sysconfdir@/kimchi/plugins.d/'
-    else:
-        base_dir = os.path.join(prefix, 'plugins')
-    return os.path.join(base_dir, '%s/%s.conf' % (name, name))
+class PluginPaths(Paths):
 
+    def __init__(self, name):
+        super(PluginPaths, self).__init__()
+        self.plugin_dir = os.path.join('plugins', name)
 
-def _get_plugin_ui_dir(name):
-    prefix = get_prefix()
-    if prefix == '@pkgdatadir@':
-        base_dir = '@pkgdatadir@/plugins/'
-    else:
-        base_dir = os.path.join(prefix, 'plugins')
-    return os.path.join(base_dir, '%s/ui' % name)
+        if self.installed:
+            self.conf_dir = '@sysconfdir@/kimchi/plugins.d'
+            self.src_dir = os.path.join('@kimchidir@', self.plugin_dir)
+        else:
+            self.conf_dir = self.add_prefix(self.plugin_dir)
+            self.src_dir = self.add_prefix(self.plugin_dir)
 
-
-def get_plugin_tab_xml(name):
-    return os.path.join(_get_plugin_ui_dir(name), 'config/tab-ext.xml')
+        self.ui_dir = self.add_prefix(os.path.join(self.plugin_dir, 'ui'))
+        self.mo_dir = self.add_prefix(os.path.join(self.plugin_dir, 'mo'))
+        self.conf_file = os.path.join(self.conf_dir, '%s.conf' % name)
 
 
 def _get_config():
@@ -180,12 +145,12 @@ def _get_config():
     config.set("server", "ssl_key", "")
     config.set("server", "environment", "development")
     config.add_section("logging")
-    config.set("logging", "log_dir", get_default_log_dir())
+    config.set("logging", "log_dir", paths.log_dir)
     config.set("logging", "log_level", DEFAULT_LOG_LEVEL)
     config.add_section("display")
     config.set("display", "display_proxy_port", "64667")
 
-    config_file = os.path.join(get_config_dir(), 'kimchi.conf')
+    config_file = os.path.join(paths.conf_dir, 'kimchi.conf')
     if os.path.exists(config_file):
         config.read(config_file)
     return config
@@ -195,4 +160,4 @@ config = _get_config()
 
 
 if __name__ == '__main__':
-    print get_prefix()
+    print paths.prefix
