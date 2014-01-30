@@ -29,6 +29,7 @@ src/kimchid
 src/kimchi.conf
 src/kimchi/config.py
 tests/run_tests.sh
+tests/test_config.py
 po/POTFILES
 po/gen-pot
 *.orig

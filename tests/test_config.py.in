@@ -1,0 +1,79 @@
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2013
+#
+# Authors:
+#  Mark Wu <wudxw@linux.vnet.ibm.com>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+import unittest
+
+
+from kimchi.config import Paths, PluginPaths
+
+
+class ConfigTests(unittest.TestCase):
+    def assertInstalledPath(self, actual, expected):
+        if '@pkgdatadir@' != '/usr/share/kimchi':
+            usr_local = '/usr/local'
+            if not expected.startswith('/usr'):
+                expected = usr_local + expected
+        self.assertEquals(actual, expected)
+
+    def test_installed_paths(self):
+        Paths.get_prefix = lambda self: '@pkgdatadir@'
+        paths = Paths()
+        self.assertInstalledPath(paths.state_dir, '/var/lib/kimchi')
+        self.assertInstalledPath(paths.log_dir, '/var/log/kimchi')
+        self.assertInstalledPath(paths.conf_dir, '/etc/kimchi')
+        self.assertInstalledPath(paths.src_dir, '@kimchidir@')
+        self.assertInstalledPath(paths.plugins_dir, '@kimchidir@')
+        self.assertInstalledPath(paths.ui_dir, '@pkgdatadir@/ui')
+        self.assertInstalledPath(paths.mo_dir, '@pkgdatadir@/mo')
+
+    def test_uninstalled_paths(self):
+        Paths.get_prefix = lambda self: '/home/user/kimchi'
+        paths = Paths()
+        self.assertEquals(paths.state_dir, '/home/user/kimchi/data')
+        self.assertEquals(paths.log_dir, '/home/user/kimchi/log')
+        self.assertEquals(paths.conf_dir, '/home/user/kimchi/src')
+        self.assertEquals(paths.src_dir, '/home/user/kimchi/src/kimchi')
+        self.assertEquals(paths.plugins_dir, '/home/user/kimchi/plugins')
+        self.assertEquals(paths.ui_dir, '/home/user/kimchi/ui')
+        self.assertEquals(paths.mo_dir, '/home/user/kimchi/mo')
+
+    def test_installed_plugin_paths(self):
+        PluginPaths.get_prefix = lambda self: '@pkgdatadir@'
+        paths = PluginPaths('sample')
+        self.assertInstalledPath(paths.conf_dir, '/etc/kimchi/plugins.d')
+        self.assertInstalledPath(paths.conf_file,
+                                 '/etc/kimchi/plugins.d/sample.conf')
+        self.assertInstalledPath(paths.src_dir, '@kimchidir@/plugins/sample')
+        self.assertInstalledPath(paths.ui_dir,
+                                 '@pkgdatadir@/plugins/sample/ui')
+        self.assertInstalledPath(paths.mo_dir,
+                                 '@pkgdatadir@/plugins/sample/mo')
+
+    def test_uninstalled_plugin_paths(self):
+        PluginPaths.get_prefix = lambda self: '/home/user/kimchi'
+        paths = PluginPaths('sample')
+        self.assertEquals(paths.conf_dir, '/home/user/kimchi/plugins/sample')
+        self.assertEquals(
+            paths.conf_file, '/home/user/kimchi/plugins/sample/sample.conf')
+        self.assertEquals(paths.src_dir, '/home/user/kimchi/plugins/sample')
+        self.assertEquals(paths.ui_dir, '/home/user/kimchi/plugins/sample/ui')
+        self.assertEquals(paths.mo_dir, '/home/user/kimchi/plugins/sample/mo')

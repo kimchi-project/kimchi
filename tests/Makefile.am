@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	Makefile.am \
 	run_tests.sh.in \
 	iso_gen.py   \
+	test_config.py.in \
 	test_exception.py \
 	test_mockmodel.py \
 	test_model.py \
@@ -42,16 +43,21 @@ noinst_SCRIPTS = run_tests.sh
 
 do_substitution = \
 	sed -e 's,[@]HAVE_PYMOD_UNITTEST[@],$(HAVE_PYMOD_UNITTEST),g' \
-	-e 's,[@]PYTHON_VERSION[@],$(PYTHON_VERSION),g'
+	-e 's,[@]PYTHON_VERSION[@],$(PYTHON_VERSION),g' \
+	-e 's,[@]kimchidir[@],$(pythondir)/kimchi,g' \
+	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'
 
 
 run_tests.sh: run_tests.sh.in Makefile
 	$(do_substitution) < $(srcdir)/run_tests.sh.in > run_tests.sh
 	chmod +x run_tests.sh
 
+test_config.py: test_config.py.in Makefile
+	$(do_substitution) < $(srcdir)/test_config.py.in > test_config.py
 
 check-local:
 	$(MKDIR_P) $(top_srcdir)/data/screenshots
 	./run_tests.sh
 
-CLEANFILES = run_tests.sh
+BUILT_SOURCES = test_config.py
+CLEANFILES = run_tests.sh test_config.py
