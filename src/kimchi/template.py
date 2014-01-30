@@ -31,9 +31,6 @@ from Cheetah.Template import Template
 from glob import iglob
 
 
-from kimchi.config import paths
-
-
 def get_lang():
     cookie = cherrypy.request.cookie
     if "kimchiLang" in cookie.keys():
@@ -56,6 +53,7 @@ def get_lang():
 
 
 def get_support_languages():
+    paths = cherrypy.request.app.root.paths
     mopath = "%s/*" % paths.mo_dir
     return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
 
@@ -92,6 +90,7 @@ def render(resource, data):
         cherrypy.response.headers['Content-Type'] = 'application/json;charset=utf-8'
         return json.dumps(data, indent=2, separators=(',', ':'))
     elif can_accept_html():
+        paths = cherrypy.request.app.root.paths
         filename = paths.get_template_path(resource)
         try:
             params = {'data': data}

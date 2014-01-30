@@ -35,7 +35,7 @@ from kimchi import mockmodel
 from kimchi import vnc
 from kimchi.config import paths, PluginPaths
 from kimchi.control import sub_nodes
-from kimchi.root import Root
+from kimchi.root import KimchiRoot
 from kimchi.utils import get_enabled_plugins, import_class
 
 
@@ -192,7 +192,7 @@ class Server(object):
             if node.url_auth:
                 self.configObj["/%s" % ident] = {'tools.kimchiauth.on': True}
 
-        self.app = cherrypy.tree.mount(Root(model_instance, dev_env),
+        self.app = cherrypy.tree.mount(KimchiRoot(model_instance, dev_env),
                                        config=self.configObj)
         self._load_plugins()
 

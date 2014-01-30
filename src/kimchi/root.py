@@ -36,7 +36,7 @@ from kimchi.exception import OperationFailed
 
 
 class Root(Resource):
-    def __init__(self, model, dev_env):
+    def __init__(self, model, dev_env=False):
         super(Root, self).__init__(model)
         self._handled_error = ['error_page.400', 'error_page.404',
                                'error_page.405', 'error_page.406',
@@ -48,11 +48,6 @@ class Root(Resource):
         else:
             self._cp_config = dict([(key, self.error_development_handler)
                                     for key in self._handled_error])
-
-        for ident, node in sub_nodes.items():
-            setattr(self, ident, node(model))
-        self.api_schema = json.load(open(os.path.join(paths.src_dir,
-                                                      'API.json')))
 
     def error_production_handler(self, status, message, traceback, version):
         data = {'code': status, 'reason': message}
@@ -70,7 +65,7 @@ class Root(Resource):
         return res
 
     def get(self):
-        return self.default('kimchi-ui.html')
+        return self.default(self.default_page)
 
     @cherrypy.expose
     def default(self, page, **kwargs):
@@ -83,6 +78,17 @@ class Root(Resource):
         if page.endswith('.html'):
             return template.render('tabs/' + page, None)
         raise cherrypy.HTTPError(404)
+
+
+class KimchiRoot(Root):
+    def __init__(self, model, dev_env):
+        super(KimchiRoot, self).__init__(model, dev_env)
+        self.default_page = 'kimchi-ui.html'
+        for ident, node in sub_nodes.items():
+            setattr(self, ident, node(model))
+        self.api_schema = json.load(open(os.path.join(paths.src_dir,
+                                                      'API.json')))
+        self.paths = paths
 
     @cherrypy.expose
     def login(self, *args):
