@@ -36,7 +36,7 @@ from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import template_name_from_uri
+from kimchi.utils import run_setfacl_set_attr, template_name_from_uri
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -346,6 +346,14 @@ class VMModel(object):
             vnc.remove_proxy_token(name)
 
     def start(self, name):
+        # make sure the ISO file has read permission
+        dom = self.get_vm(name, self.conn)
+        xml = dom.XMLDesc(0)
+        xpath = "/domain/devices/disk[@device='cdrom']/source/@file"
+        isofiles = xmlutils.xpath_get_text(xml, xpath)
+        for iso in isofiles:
+            run_setfacl_set_attr(iso)
+
         dom = self.get_vm(name, self.conn)
         dom.create()
 
