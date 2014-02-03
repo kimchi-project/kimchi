@@ -160,8 +160,9 @@ class IsoVolumesModel(object):
         pools = conn.listStoragePools()
         pools += conn.listDefinedStoragePools()
 
-        for pool in pools:
+        for pool_name in pools:
             try:
+                pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
                 pool.refresh(0)
                 volumes = pool.listVolumes()
             except InvalidOperation:
@@ -169,7 +170,7 @@ class IsoVolumesModel(object):
                 continue
 
             for volume in volumes:
-                res = self.storagevolume.lookup(pool, volume)
+                res = self.storagevolume.lookup(pool_name, volume)
                 if res['format'] == 'iso':
                     res['name'] = '%s' % volume
                     iso_volumes.append(res)
