@@ -65,7 +65,7 @@ class HostModel(object):
 
     def shutdown(self, args=None):
         # Check for running vms before shutdown
-        running_vms = self.vms_get_list_by_state('running')
+        running_vms = self._get_vms_list_by_state('running')
         if len(running_vms) > 0:
             raise OperationFailed("Shutdown not allowed: VMs are running!")
         kimchi_log.info('Host is going to shutdown.')
