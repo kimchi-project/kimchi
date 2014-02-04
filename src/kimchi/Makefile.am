@@ -26,6 +26,7 @@ kimchi_PYTHON = \
 	__init__.py        \
 	asynctask.py       \
 	auth.py            \
+	basemodel.py	   \
 	cachebust.py       \
 	disks.py           \
 	distroloader.py    \
