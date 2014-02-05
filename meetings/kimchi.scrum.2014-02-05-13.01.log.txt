@@ -1,0 +1,147 @@
+13:01:32 <alinefm> #startmeeting
+13:01:32 <alinefm> #meetingname scrum
+13:01:32 <kimchi-bot> Meeting started Wed Feb  5 13:01:32 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:32 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:32 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:49 <alinefm> #info  Agenda 1) Sprint 3 status 2) Open discussion
+13:01:50 <alinefm> anything else?
+13:02:46 <alinefm> ok, so let's get started
+13:02:49 <alinefm> #topic Sprint 2 status
+13:02:49 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:56 <alinefm> #topic Sprint 3 status
+13:03:54 <alinefm> #info alinefm I applied comments and resent the apporc patches to mail list about remove useless libvirt messages while running feature tests
+13:04:22 <alinefm> #info alinefm I applied comments and resent sheldon patches about iso permission (already merged)
+13:04:26 <pvital> #info pvital Sent RFC for Host's Repository support last Friday. Working on V2 of Host's Software Update and V1 of Host's Repository support. Planning to submit both to mailing list this Friday
+13:04:31 <lagarcia> #info lagarcia will be working on the authorization task that is still pending.
+13:05:01 <alinefm> #info alinefm Sent RFC about refactor exception to mail list. I got a feedback from vianac and now I am implementing it
+13:05:05 <rotru> #info rotru is finishing V4 of SCSI FC, which includes test cases and fixes to UI
+13:05:46 <rotru> #info rotru sent RFC of CDROM management task ... API implementation is under discussion
+13:06:19 <vianac> #info vianac sent RFC about generate HTML help page; reviewed patches on the mailing list
+13:07:04 <alinefm> danielhb, any update about extend logical pool?
+13:07:55 <rotru> #info rotru also fixed a minor bug in  host shutdown functionality and find a bug with tests and sosreport in F20
+13:09:03 <alinefm> ok
+13:09:30 <alinefm> I believe everyone received feedbacks/comments on RFC, right?
+13:09:47 <alinefm> anyone has blockers? or anything to discuss about the RFC?
+13:10:25 <AdamKingIT> I still owe lagarcia a review of the help RFC :-[
+13:11:04 <alinefm> AdamKingIT, I think you mean vianac =)
+13:11:06 <lagarcia> AdamKingIT, me? I think it was someone else
+13:11:10 <lagarcia> AdamKingIT, ok :)
+13:11:14 <AdamKingIT> sorry, yes
+13:11:33 <alinefm> AdamKingIT, lagarcia will work on the authorization task
+13:11:33 <AdamKingIT> More coffee!
+13:11:41 <pvital> lol
+13:11:50 * pvital needs too!
+13:12:06 <alinefm> rotru, what is pending on your RFC?
+13:12:21 <alinefm> as you said "API implementation is under discussion"
+13:12:58 <rotru> alinefm;  I sent V2
+13:13:11 <rotru> alinefm; did not see any comment on it
+13:15:17 <alinefm> checking...
+13:15:23 <alinefm> rotru, Eject cd operation will not be provided
+13:15:34 <alinefm> the DELETE operation should eject the cdrom, right?
+13:16:07 <rotru> alinefm;  could be
+13:16:58 <rotru> alinefm;  I just followed what was in the wiki :)
+13:16:58 <alinefm> rotru, christyp has suggested to use 'media' instead of 'storages' on API
+13:17:23 <alinefm> christyp, I personally like "storages" or "disks"
+13:18:23 <AdamKingIT> storage +1 :-)
+13:19:27 <rotru> alinefm;  are we going to use the api to others disks, or usb disks, etc ?
+13:19:35 <alinefm> rotru, yes
+13:20:22 <rotru> alinefm;  so, maybe storages makes more sense
+13:20:27 <alinefm> ok
+13:20:30 <alinefm> go for it =)
+13:20:55 <rotru> ok =]
+13:21:10 <alinefm> just remembering the patch must be on mail list by next Monday
+13:21:31 <alinefm> #topic Open discussion
+13:21:45 <alinefm> what will we discuss today?
+13:22:44 <alinefm> silence... =)
+13:23:01 <rotru> alinefm; I think we need to investigate the problem with F20
+13:23:04 <alinefm> maybe everyone has all needed to implement the tasks
+13:23:09 <rotru> F20 and sosreport
+13:23:22 <alinefm> rotru, what is the problem on F20?
+13:24:04 <rotru> alinefm;  the tool has and uses some py modules, with are returning errors
+13:24:45 <alinefm> rotru, do you mean the sosreport?
+13:24:49 <rotru> alinefm;  according to my tests , the tool is able to generate the report, but kimchi does not recognize
+13:25:03 <rotru> alinefm;  yes
+13:25:22 <alinefm> rotru, what is the output of "sosreport --batch my-sosrepor"
+13:25:25 <alinefm> ?
+13:25:31 <alinefm> but it on pastebin, please
+13:25:40 <alinefm> and also the returned code "echo $?"
+13:25:46 <rotru> alinefm;  I remove the tool from my system
+13:25:47 <rotru> =P
+13:26:21 <rotru> alinefm;  installing again
+13:26:25 <rotru> give some minutes
+13:26:37 <danielhb> alinefm, Logical Pool update = patch is ready, but I was hoping to get an answer from libvirt-users ML. No answer so far
+13:27:28 <alinefm> danielhb, you can try the IRC channel #virt
+13:27:45 <danielhb> alinefm, guess I'll do that
+13:28:04 <danielhb> alinefm, apparently the ML is not that "popular" as you mentioned
+13:28:13 <danielhb> alinefm, kimchi's ML is way more agile!
+13:28:39 <alinefm> danielhb, my experience was on devel list
+13:28:45 <lagarcia> danielhb, or you might not be as popular as you think on the mailing list :p
+13:29:07 <lagarcia> danielhb, yep... devel list is usually fast to get responses. usually.
+13:29:27 <danielhb> lagarcia, HAHAHAHHA
+13:29:44 <danielhb> lagarcia, "how is this guy?? Not answering to some random "
+13:30:34 <alinefm> rotru, you can try what I commented and send the results to mail list
+13:30:49 <rotru> alinefm;  sure, will do iyt
+13:30:51 <rotru> it
+13:30:57 <lagarcia> alinefm, rotru I run sosreport on my Fedora 20 and got an error as well
+13:31:08 <lagarcia> http://paste.fedoraproject.org/74614/13916070/
+13:31:17 <lagarcia> but it definitely seems to be an issus with sosreport
+13:31:19 <rotru> lagarcia;  yeap ... cristian also found
+13:31:38 <alinefm> lagarcia, try to run the sosreport command outside kimchi
+13:31:46 <rotru> lagarcia;  exactly ! thats it
+13:31:53 <lagarcia> alinefm, sure... but from the error output, it is not a kimchi issue
+13:31:55 <alinefm> I want to figure out if the command is running properly or not first
+13:32:43 <lagarcia> alinefm, just ran it... same error (for "sosreport --batch my-sosrepor")
+13:32:58 <alinefm> lagarcia, are you running it with sudo?
+13:33:06 <lagarcia> alinefm, yep
+13:33:36 <alinefm> lagarcia, rotru, seems we will need to look on sosreport forums/mail list to get some directions for it
+13:33:47 <lagarcia> alinefm, the issue I am seeing is that for some reason, in the command line, even though I get the same errors, the report finishes to run. In kimchi, just after the error is hit, even though sosreport tool probably continues to run, kimchi logs out...
+13:34:17 <lagarcia> and when I log in again, no sosreport is there. But I can be doing something wrong... I just started using kimchi yesterday :)
+13:35:02 <alinefm> lagarcia, kimchi checks the returned code
+13:35:16 <alinefm> after running sosreport command, what is the returned code?
+13:35:21 <alinefm> is it zero?
+13:35:25 <alinefm> even with errors...
+13:35:40 <lagarcia> alinefm, actually I was just saying something wrong... the sosreport is kind of stuck... all the instances I started from command line and kimchi got stuck near the execution end.
+13:35:46 <lagarcia> alinefm, so no return errors yet
+13:35:51 <lagarcia> that's why kimchi is still not showing them.
+13:36:03 <lagarcia> alinefm, just don't understand why I was logged out... but I'll check this later.
+13:37:11 <alinefm> lagarcia, ok
+13:37:20 <alinefm> I will set a F20 machine to check it
+13:37:30 <rotru> alinefm; lagarcia installed and ran ... the return code is 0
+13:37:36 <rotru> even with the errors
+13:38:00 <lagarcia> rotru, ok. good... so that might be something else on my machine that is apparently making sosreport to get stuck
+13:38:40 <alinefm> rotru, and you can open the sosreport generated?
+13:38:48 <alinefm> rotru, if so, it is a kimchi issue
+13:39:22 <christyp> did you guys see the fedora 20 sosreport bug that's mirrored to rh from our bugzilla?
+13:39:37 <alinefm> christyp, nope! do you have a link for it/
+13:39:51 <rotru> alinefm;  checking the tar.xz
+13:39:54 <christyp> i put it into the kimchi bug opened for the sosreports
+13:39:56 <christyp> i can find it
+13:40:15 <christyp> https://bugzilla.linux.ibm.com/show_bug.cgi?id=99234
+13:40:28 <rotru> alinefm; yeap, I can open it
+13:42:14 <alinefm> https://github.com/sosreport/sosreport/issues/216
+13:42:42 <christyp> here's the redhat bug: https://bugzilla.redhat.com/show_bug.cgi?id=1028102 though i' not sure if it's private or not
+13:42:52 <alinefm> on bug, there are some comments to run "sosreport -vvv -n networking"
+13:43:03 <alinefm> that way sosreport can ends properly
+13:43:32 <lagarcia> alinefm, yep... I am having issues with networking sosreport plugin
+13:43:45 <lagarcia> alinefm, so I am probably hitting this issue
+13:44:11 <lagarcia> alinefm, rotru anyway, I think this is the kind of discussion we can have offline in the mailing list afterwards
+13:44:19 <alinefm> and other comments mentioned to run: "sosreport -vvv -n gluster,cluster,yum,networking"
+13:44:26 <alinefm> lagarcia, yeap
+13:44:50 <lagarcia> alinefm, yeah... the modules with errors are yum and gluster... so, basically disable everything with issues and you are fine, hehe
+13:44:58 <alinefm> hehehe
+13:45:25 <alinefm> ok - let's continue it on mail list
+13:45:32 <alinefm> anything else to discuss today?
+13:45:56 <danielhb> are we moving to gerrit here too?
+13:46:15 <alinefm> danielhb, no
+13:46:27 <danielhb> ty ty!
+13:47:19 <alinefm> danielhb, when we get a really high rate of reviews on mail list I will think more about moving to gerrit
+13:47:20 <alinefm> =)
+13:47:45 <danielhb> alinefm, please, don't :)
+13:48:15 <alinefm> hehehe
+13:48:35 <alinefm> anything else?
+13:49:24 <alinefm> ok
+13:49:44 <alinefm> thanks all for joining
+13:49:51 <alinefm> and also to send the RFC on time
+13:49:59 <rotru> alinefm;  thanks
+13:50:02 <alinefm> I am looking forward to review the patches on Monday =)
+13:50:18 <alinefm> #endmeeting

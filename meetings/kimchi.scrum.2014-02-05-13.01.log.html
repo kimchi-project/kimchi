@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-3"></a><span class="tm">13:01:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb  5 13:01:32 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-4"></a><span class="tm">13:01:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-5"></a><span class="tm">13:01:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 3 status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:50</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:46</span><span class="nk"> &lt;alinefm&gt;</span> ok, so let's get started
+<a name="l-9"></a><span class="tm">13:02:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 2 status</span>
+<a name="l-10"></a><span class="tm">13:02:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 3 status</span>
+<a name="l-12"></a><span class="tm">13:03:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I applied comments and resent the apporc patches to mail list about remove useless libvirt messages while running feature tests</span>
+<a name="l-13"></a><span class="tm">13:04:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I applied comments and resent sheldon patches about iso permission (already merged)</span>
+<a name="l-14"></a><span class="tm">13:04:26</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital Sent RFC for Host's Repository support last Friday. Working on V2 of Host's Software Update and V1 of Host's Repository support. Planning to submit both to mailing list this Friday</span>
+<a name="l-15"></a><span class="tm">13:04:31</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia will be working on the authorization task that is still pending.</span>
+<a name="l-16"></a><span class="tm">13:05:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent RFC about refactor exception to mail list. I got a feedback from vianac and now I am implementing it</span>
+<a name="l-17"></a><span class="tm">13:05:05</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru is finishing V4 of SCSI FC, which includes test cases and fixes to UI</span>
+<a name="l-18"></a><span class="tm">13:05:46</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru sent RFC of CDROM management task ... API implementation is under discussion</span>
+<a name="l-19"></a><span class="tm">13:06:19</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent RFC about generate HTML help page; reviewed patches on the mailing list</span>
+<a name="l-20"></a><span class="tm">13:07:04</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, any update about extend logical pool?
+<a name="l-21"></a><span class="tm">13:07:55</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru also fixed a minor bug in  host shutdown functionality and find a bug with tests and sosreport in F20</span>
+<a name="l-22"></a><span class="tm">13:09:03</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-23"></a><span class="tm">13:09:30</span><span class="nk"> &lt;alinefm&gt;</span> I believe everyone received feedbacks/comments on RFC, right?
+<a name="l-24"></a><span class="tm">13:09:47</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers? or anything to discuss about the RFC?
+<a name="l-25"></a><span class="tm">13:10:25</span><span class="nk"> &lt;AdamKingIT&gt;</span> I still owe lagarcia a review of the help RFC :-[
+<a name="l-26"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, I think you mean vianac =)
+<a name="l-27"></a><span class="tm">13:11:06</span><span class="nk"> &lt;lagarcia&gt;</span> AdamKingIT, me? I think it was someone else
+<a name="l-28"></a><span class="tm">13:11:10</span><span class="nk"> &lt;lagarcia&gt;</span> AdamKingIT, ok :)
+<a name="l-29"></a><span class="tm">13:11:14</span><span class="nk"> &lt;AdamKingIT&gt;</span> sorry, yes
+<a name="l-30"></a><span class="tm">13:11:33</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT, lagarcia will work on the authorization task
+<a name="l-31"></a><span class="tm">13:11:33</span><span class="nk"> &lt;AdamKingIT&gt;</span> More coffee!
+<a name="l-32"></a><span class="tm">13:11:41</span><span class="nk"> &lt;pvital&gt;</span> lol
+<a name="l-33"></a><span class="tm">13:11:50 </span><span class="nka">* pvital</span> <span class="ac">needs too!</span>
+<a name="l-34"></a><span class="tm">13:12:06</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what is pending on your RFC?
+<a name="l-35"></a><span class="tm">13:12:21</span><span class="nk"> &lt;alinefm&gt;</span> as you said "API implementation is under discussion"
+<a name="l-36"></a><span class="tm">13:12:58</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I sent V2
+<a name="l-37"></a><span class="tm">13:13:11</span><span class="nk"> &lt;rotru&gt;</span> alinefm; did not see any comment on it
+<a name="l-38"></a><span class="tm">13:15:17</span><span class="nk"> &lt;alinefm&gt;</span> checking...
+<a name="l-39"></a><span class="tm">13:15:23</span><span class="nk"> &lt;alinefm&gt;</span> rotru, Eject cd operation will not be provided
+<a name="l-40"></a><span class="tm">13:15:34</span><span class="nk"> &lt;alinefm&gt;</span> the DELETE operation should eject the cdrom, right?
+<a name="l-41"></a><span class="tm">13:16:07</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  could be
+<a name="l-42"></a><span class="tm">13:16:58</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I just followed what was in the wiki :)
+<a name="l-43"></a><span class="tm">13:16:58</span><span class="nk"> &lt;alinefm&gt;</span> rotru, christyp has suggested to use 'media' instead of 'storages' on API
+<a name="l-44"></a><span class="tm">13:17:23</span><span class="nk"> &lt;alinefm&gt;</span> christyp, I personally like "storages" or "disks"
+<a name="l-45"></a><span class="tm">13:18:23</span><span class="nk"> &lt;AdamKingIT&gt;</span> storage +1 :-)
+<a name="l-46"></a><span class="tm">13:19:27</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  are we going to use the api to others disks, or usb disks, etc ?
+<a name="l-47"></a><span class="tm">13:19:35</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yes
+<a name="l-48"></a><span class="tm">13:20:22</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  so, maybe storages makes more sense
+<a name="l-49"></a><span class="tm">13:20:27</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-50"></a><span class="tm">13:20:30</span><span class="nk"> &lt;alinefm&gt;</span> go for it =)
+<a name="l-51"></a><span class="tm">13:20:55</span><span class="nk"> &lt;rotru&gt;</span> ok =]
+<a name="l-52"></a><span class="tm">13:21:10</span><span class="nk"> &lt;alinefm&gt;</span> just remembering the patch must be on mail list by next Monday
+<a name="l-53"></a><span class="tm">13:21:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-54"></a><span class="tm">13:21:45</span><span class="nk"> &lt;alinefm&gt;</span> what will we discuss today?
+<a name="l-55"></a><span class="tm">13:22:44</span><span class="nk"> &lt;alinefm&gt;</span> silence... =)
+<a name="l-56"></a><span class="tm">13:23:01</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I think we need to investigate the problem with F20
+<a name="l-57"></a><span class="tm">13:23:04</span><span class="nk"> &lt;alinefm&gt;</span> maybe everyone has all needed to implement the tasks
+<a name="l-58"></a><span class="tm">13:23:09</span><span class="nk"> &lt;rotru&gt;</span> F20 and sosreport
+<a name="l-59"></a><span class="tm">13:23:22</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what is the problem on F20?
+<a name="l-60"></a><span class="tm">13:24:04</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  the tool has and uses some py modules, with are returning errors
+<a name="l-61"></a><span class="tm">13:24:45</span><span class="nk"> &lt;alinefm&gt;</span> rotru, do you mean the sosreport?
+<a name="l-62"></a><span class="tm">13:24:49</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  according to my tests , the tool is able to generate the report, but kimchi does not recognize
+<a name="l-63"></a><span class="tm">13:25:03</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  yes
+<a name="l-64"></a><span class="tm">13:25:22</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what is the output of "sosreport --batch my-sosrepor"
+<a name="l-65"></a><span class="tm">13:25:25</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-66"></a><span class="tm">13:25:31</span><span class="nk"> &lt;alinefm&gt;</span> but it on pastebin, please
+<a name="l-67"></a><span class="tm">13:25:40</span><span class="nk"> &lt;alinefm&gt;</span> and also the returned code "echo $?"
+<a name="l-68"></a><span class="tm">13:25:46</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I remove the tool from my system
+<a name="l-69"></a><span class="tm">13:25:47</span><span class="nk"> &lt;rotru&gt;</span> =P
+<a name="l-70"></a><span class="tm">13:26:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  installing again
+<a name="l-71"></a><span class="tm">13:26:25</span><span class="nk"> &lt;rotru&gt;</span> give some minutes
+<a name="l-72"></a><span class="tm">13:26:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, Logical Pool update = patch is ready, but I was hoping to get an answer from libvirt-users ML. No answer so far
+<a name="l-73"></a><span class="tm">13:27:28</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, you can try the IRC channel #virt
+<a name="l-74"></a><span class="tm">13:27:45</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, guess I'll do that
+<a name="l-75"></a><span class="tm">13:28:04</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, apparently the ML is not that "popular" as you mentioned
+<a name="l-76"></a><span class="tm">13:28:13</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, kimchi's ML is way more agile!
+<a name="l-77"></a><span class="tm">13:28:39</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, my experience was on devel list
+<a name="l-78"></a><span class="tm">13:28:45</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, or you might not be as popular as you think on the mailing list :p
+<a name="l-79"></a><span class="tm">13:29:07</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, yep... devel list is usually fast to get responses. usually.
+<a name="l-80"></a><span class="tm">13:29:27</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, HAHAHAHHA
+<a name="l-81"></a><span class="tm">13:29:44</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, "how is this guy?? Not answering to some random "
+<a name="l-82"></a><span class="tm">13:30:34</span><span class="nk"> &lt;alinefm&gt;</span> rotru, you can try what I commented and send the results to mail list
+<a name="l-83"></a><span class="tm">13:30:49</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  sure, will do iyt
+<a name="l-84"></a><span class="tm">13:30:51</span><span class="nk"> &lt;rotru&gt;</span> it
+<a name="l-85"></a><span class="tm">13:30:57</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, rotru I run sosreport on my Fedora 20 and got an error as well
+<a name="l-86"></a><span class="tm">13:31:08</span><span class="nk"> &lt;lagarcia&gt;</span> http://paste.fedoraproject.org/74614/13916070/
+<a name="l-87"></a><span class="tm">13:31:17</span><span class="nk"> &lt;lagarcia&gt;</span> but it definitely seems to be an issus with sosreport
+<a name="l-88"></a><span class="tm">13:31:19</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  yeap ... cristian also found
+<a name="l-89"></a><span class="tm">13:31:38</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, try to run the sosreport command outside kimchi
+<a name="l-90"></a><span class="tm">13:31:46</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  exactly ! thats it
+<a name="l-91"></a><span class="tm">13:31:53</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure... but from the error output, it is not a kimchi issue
+<a name="l-92"></a><span class="tm">13:31:55</span><span class="nk"> &lt;alinefm&gt;</span> I want to figure out if the command is running properly or not first
+<a name="l-93"></a><span class="tm">13:32:43</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, just ran it... same error (for "sosreport --batch my-sosrepor")
+<a name="l-94"></a><span class="tm">13:32:58</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, are you running it with sudo?
+<a name="l-95"></a><span class="tm">13:33:06</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, yep
+<a name="l-96"></a><span class="tm">13:33:36</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, rotru, seems we will need to look on sosreport forums/mail list to get some directions for it
+<a name="l-97"></a><span class="tm">13:33:47</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, the issue I am seeing is that for some reason, in the command line, even though I get the same errors, the report finishes to run. In kimchi, just after the error is hit, even though sosreport tool probably continues to run, kimchi logs out...
+<a name="l-98"></a><span class="tm">13:34:17</span><span class="nk"> &lt;lagarcia&gt;</span> and when I log in again, no sosreport is there. But I can be doing something wrong... I just started using kimchi yesterday :)
+<a name="l-99"></a><span class="tm">13:35:02</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, kimchi checks the returned code
+<a name="l-100"></a><span class="tm">13:35:16</span><span class="nk"> &lt;alinefm&gt;</span> after running sosreport command, what is the returned code?
+<a name="l-101"></a><span class="tm">13:35:21</span><span class="nk"> &lt;alinefm&gt;</span> is it zero?
+<a name="l-102"></a><span class="tm">13:35:25</span><span class="nk"> &lt;alinefm&gt;</span> even with errors...
+<a name="l-103"></a><span class="tm">13:35:40</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, actually I was just saying something wrong... the sosreport is kind of stuck... all the instances I started from command line and kimchi got stuck near the execution end.
+<a name="l-104"></a><span class="tm">13:35:46</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, so no return errors yet
+<a name="l-105"></a><span class="tm">13:35:51</span><span class="nk"> &lt;lagarcia&gt;</span> that's why kimchi is still not showing them.
+<a name="l-106"></a><span class="tm">13:36:03</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, just don't understand why I was logged out... but I'll check this later.
+<a name="l-107"></a><span class="tm">13:37:11</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, ok
+<a name="l-108"></a><span class="tm">13:37:20</span><span class="nk"> &lt;alinefm&gt;</span> I will set a F20 machine to check it
+<a name="l-109"></a><span class="tm">13:37:30</span><span class="nk"> &lt;rotru&gt;</span> alinefm; lagarcia installed and ran ... the return code is 0
+<a name="l-110"></a><span class="tm">13:37:36</span><span class="nk"> &lt;rotru&gt;</span> even with the errors
+<a name="l-111"></a><span class="tm">13:38:00</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, ok. good... so that might be something else on my machine that is apparently making sosreport to get stuck
+<a name="l-112"></a><span class="tm">13:38:40</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and you can open the sosreport generated?
+<a name="l-113"></a><span class="tm">13:38:48</span><span class="nk"> &lt;alinefm&gt;</span> rotru, if so, it is a kimchi issue
+<a name="l-114"></a><span class="tm">13:39:22</span><span class="nk"> &lt;christyp&gt;</span> did you guys see the fedora 20 sosreport bug that's mirrored to rh from our bugzilla?
+<a name="l-115"></a><span class="tm">13:39:37</span><span class="nk"> &lt;alinefm&gt;</span> christyp, nope! do you have a link for it/
+<a name="l-116"></a><span class="tm">13:39:51</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  checking the tar.xz
+<a name="l-117"></a><span class="tm">13:39:54</span><span class="nk"> &lt;christyp&gt;</span> i put it into the kimchi bug opened for the sosreports
+<a name="l-118"></a><span class="tm">13:39:56</span><span class="nk"> &lt;christyp&gt;</span> i can find it
+<a name="l-119"></a><span class="tm">13:40:15</span><span class="nk"> &lt;christyp&gt;</span> https://bugzilla.linux.ibm.com/show_bug.cgi?id=99234
+<a name="l-120"></a><span class="tm">13:40:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm; yeap, I can open it
+<a name="l-121"></a><span class="tm">13:42:14</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/sosreport/sosreport/issues/216
+<a name="l-122"></a><span class="tm">13:42:42</span><span class="nk"> &lt;christyp&gt;</span> here's the redhat bug: https://bugzilla.redhat.com/show_bug.cgi?id=1028102 though i' not sure if it's private or not
+<a name="l-123"></a><span class="tm">13:42:52</span><span class="nk"> &lt;alinefm&gt;</span> on bug, there are some comments to run "sosreport -vvv -n networking"
+<a name="l-124"></a><span class="tm">13:43:03</span><span class="nk"> &lt;alinefm&gt;</span> that way sosreport can ends properly
+<a name="l-125"></a><span class="tm">13:43:32</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, yep... I am having issues with networking sosreport plugin
+<a name="l-126"></a><span class="tm">13:43:45</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, so I am probably hitting this issue
+<a name="l-127"></a><span class="tm">13:44:11</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, rotru anyway, I think this is the kind of discussion we can have offline in the mailing list afterwards
+<a name="l-128"></a><span class="tm">13:44:19</span><span class="nk"> &lt;alinefm&gt;</span> and other comments mentioned to run: "sosreport -vvv -n gluster,cluster,yum,networking"
+<a name="l-129"></a><span class="tm">13:44:26</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yeap
+<a name="l-130"></a><span class="tm">13:44:50</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, yeah... the modules with errors are yum and gluster... so, basically disable everything with issues and you are fine, hehe
+<a name="l-131"></a><span class="tm">13:44:58</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-132"></a><span class="tm">13:45:25</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's continue it on mail list
+<a name="l-133"></a><span class="tm">13:45:32</span><span class="nk"> &lt;alinefm&gt;</span> anything else to discuss today?
+<a name="l-134"></a><span class="tm">13:45:56</span><span class="nk"> &lt;danielhb&gt;</span> are we moving to gerrit here too?
+<a name="l-135"></a><span class="tm">13:46:15</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, no
+<a name="l-136"></a><span class="tm">13:46:27</span><span class="nk"> &lt;danielhb&gt;</span> ty ty!
+<a name="l-137"></a><span class="tm">13:47:19</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, when we get a really high rate of reviews on mail list I will think more about moving to gerrit
+<a name="l-138"></a><span class="tm">13:47:20</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-139"></a><span class="tm">13:47:45</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, please, don't :)
+<a name="l-140"></a><span class="tm">13:48:15</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-141"></a><span class="tm">13:48:35</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-142"></a><span class="tm">13:49:24</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-143"></a><span class="tm">13:49:44</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for joining
+<a name="l-144"></a><span class="tm">13:49:51</span><span class="nk"> &lt;alinefm&gt;</span> and also to send the RFC on time
+<a name="l-145"></a><span class="tm">13:49:59</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  thanks
+<a name="l-146"></a><span class="tm">13:50:02</span><span class="nk"> &lt;alinefm&gt;</span> I am looking forward to review the patches on Monday =)
+<a name="l-147"></a><span class="tm">13:50:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
