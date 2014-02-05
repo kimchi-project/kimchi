@@ -52,7 +52,7 @@
         $_("No guests found.")
     </div>
     <script id="guest-tmpl" type="kimchi/template">
-    $ht(file="ui/pages/guest.html.tmpl",searchList=[self,{'lang':$lang}])
+    $ht(file=$data.ui_dir + "/pages/guest.html.tmpl", searchList=[self, {'lang':$lang}])
     </script>
     <script type="text/javascript">
         kimchi.guest_main();

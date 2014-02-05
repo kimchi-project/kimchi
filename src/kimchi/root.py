@@ -75,8 +75,14 @@ class Root(Resource):
 
     @cherrypy.expose
     def tabs(self, page, **kwargs):
+        # In order to load the Guests tab, we also use Cheetah in the tab
+        # template to save the delay of the extra get to the guest page
+        # For that, the tab template needs to know the correct path to ui files
+        data = {}
+        data['ui_dir'] = paths.ui_dir
+
         if page.endswith('.html'):
-            return template.render('tabs/' + page, None)
+            return template.render('tabs/' + page, data)
         raise cherrypy.HTTPError(404)
 
 
