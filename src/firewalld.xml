@@ -4,4 +4,5 @@
   <description>Kimchid is a daemon service for kimchi which is a HTML5 based management tool for KVM. It is designed to make it as easy as possible to get started with KVM and create your first guest.</description>
   <port protocol="tcp" port="8000"/>
   <port protocol="tcp" port="8001"/>
+  <port protocol="tcp" port="64667"/>
 </service>

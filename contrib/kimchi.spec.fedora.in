@@ -104,6 +104,7 @@ firewall-cmd --add-service kimchid >/dev/null 2>&1
 # Add default iptable rules to open 8000 and 8001 port
 iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 iptables -I INPUT -p tcp --dport 8001 -j ACCEPT
+iptables -I INPUT -p tcp --dport 64667 -j ACCEPT
 service iptables save >/dev/null 2>&1
 %endif
 
@@ -118,6 +119,7 @@ if [ $1 -eq 0 ] ; then
     %else
         iptables -D INPUT -p tcp --dport 8000 -j ACCEPT || :
         iptables -D INPUT -p tcp --dport 8001 -j ACCEPT || :
+        iptables -D INPUT -p tcp --dport 64667 -j ACCEPT || :
     %endif
 fi
 
