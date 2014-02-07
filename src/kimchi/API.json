@@ -8,8 +8,12 @@
             "description": "Configure graphics parameters for the new VM",
             "type": "object",
             "properties": {
-                "type": { "enum": ["spice", "vnc"] },
+                "type": {
+                    "enum": ["spice", "vnc"],
+                    "error": "KCHVM0014E"
+                },
                 "listen": {
+                    "error": "KCHVM0015E",
                     "type": [
                         {
                             "type": "string",
@@ -27,22 +31,26 @@
     "properties": {
         "storagepools_create": {
             "type": "object",
+            "error": "KCHPOOL0026E",
             "properties": {
                 "name": {
                     "description": "The name of the Storage Pool",
                     "type": "string",
                     "minLength": 1,
-                    "required": true
+                    "required": true,
+                    "error": "KCHPOOL0016E"
                 },
                 "type": {
                     "description": "The type of the defined Storage Pool",
                     "type": "string",
                     "pattern": "^dir|netfs|logical|kimchi-iso$",
-                    "required": true
+                    "required": true,
+                    "error": "KCHPOOL0017E"
                 },
                 "path": {
                     "description": "The path of the defined Storage Pool",
-                    "type": "string"
+                    "type": "string",
+                    "error": "KCHPOOL0018E"
                 },
                 "source": {
                     "description": "Dictionary containing source information of the pool",
@@ -50,31 +58,37 @@
                     "properties": {
                         "host": {
                             "description": "IP or hostname of server for a pool backed from a remote host",
-                            "type": "string"
+                            "type": "string",
+                            "error": "KCHPOOL0019E"
                         },
                         "path": {
                             "description": "Export path on NFS server for NFS pool",
-                            "type": "string"
+                            "type": "string",
+                            "error": "KCHPOOL0018E"
                         },
                         "devices": {
                             "description": "Array of devices to be used in the Storage Pool",
                             "type": "array",
                             "minItems": 1,
                             "uniqueItems": true,
+                            "error": "KCHPOOL0021E",
                             "items": {
                                 "description": "Full path of the block device node",
-                                "type": "string"
+                                "type": "string",
+                                "error": "KCHPOOL0020E"
                             }
                         },
                         "target": {
                             "description": "Target IQN of an iSCSI pool",
-                            "type": "string"
+                            "type": "string",
+                            "error": "KCHPOOL0022E"
                         },
                         "port": {
                             "description": "Listening port of a remote storage server",
                             "type": "integer",
                             "minimum": 1,
-                            "maximum": 65535
+                            "maximum": 65535,
+                            "error": "KCHPOOL0023E"
                         },
                         "auth": {
                             "description": "Storage back-end authentication information",
@@ -82,11 +96,13 @@
                             "properties": {
                                 "username": {
                                     "description": "Login username of the iSCSI target",
-                                    "type": "string"
+                                    "type": "string",
+                                    "error": "KCHPOOL0024E"
                                 },
                                 "password": {
                                     "description": "Login password of the iSCSI target",
-                                    "type": "string"
+                                    "type": "string",
+                                    "error": "KCHPOOL0025E"
                                 }
                             }
                         }
@@ -112,21 +128,25 @@
         },
         "vms_create": {
             "type": "object",
+            "error": "KCHVM0016E",
             "properties": {
                 "name": {
                     "description": "The name of the new VM",
-                    "type": "string"
+                    "type": "string",
+                    "error": "KCHVM0011E"
                 },
                 "template": {
                     "description": "The URI of a template to use when building a VM",
                     "type": "string",
                     "pattern": "^/templates/[^/]+/?$",
-                    "required": true
+                    "required": true,
+                    "error": "KCHVM0012E"
                 },
                 "storagepool": {
                     "description": "Assign a specefic Storage Pool to the new VM",
                     "type": "string",
-                    "pattern": "^/storagepools/[^/]+/?$"
+                    "pattern": "^/storagepools/[^/]+/?$",
+                    "error": "KCHVM0013E"
                 },
                 "graphics": { "$ref": "#/kimchitype/graphics" }
             }
@@ -137,101 +157,120 @@
                 "name": {
                     "description": "New name of VM",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHVM0011E"
                 }
             }
         },
         "networks_create": {
             "type": "object",
+            "error": "KCHNET0016E",
             "properties": {
                 "name": {
                     "description": "The name of the new network",
                     "type": "string",
                     "minLength": 1,
-                    "required": true
+                    "required": true,
+                    "error": "KCHNET0011E"
                 },
                 "connection": {
                     "description": "Specifies how this network should be connected to the other networks",
                     "type": "string",
                     "pattern": "^isolated|nat|bridge$",
-                    "required": true
+                    "required": true,
+                    "error": "KCHNET0012E"
                 },
                 "subnet": {
                     "description": "Network segment in slash-separated format with ip address and prefix or netmask",
-                    "type": "string"
+                    "type": "string",
+                    "error": "KCHNET0013E"
                 },
                 "interface": {
                     "description": "The name of a network interface on the host",
-                    "type": "string"
+                    "type": "string",
+                    "error": "KCHNET0014E"
                 },
                 "vlan_id": {
                     "description": "Network's VLAN ID",
                     "type": "integer",
                     "maximum": 4094,
-                    "minimum": 1
+                    "minimum": 1,
+                    "error": "KCHNET0015E"
                 }
             }
         },
         "vmifaces_create": {
             "type": "object",
+            "error": "KCHVMIF0007E",
             "properties": {
                 "type": {
                     "description": "The type of VM network interface that libvirt supports",
                     "type": "string",
                     "pattern": "^network$",
-                    "required": true
+                    "required": true,
+                    "error": "KCHVMIF0004E"
                 },
                 "network": {
                     "description": "the name of one available network",
                     "minLength": 1,
-                    "type": "string"
+                    "type": "string",
+                    "error": "KCHVMIF0005E"
                 },
                 "model": {
                     "description": "model of emulated network interface card",
                     "type": "string",
-                    "pattern": "^ne2k_pci|i82551|i82557b|i82559er|rtl8139|e1000|pcnet|virtio$"
+                    "pattern": "^ne2k_pci|i82551|i82557b|i82559er|rtl8139|e1000|pcnet|virtio$",
+                    "error": "KCHVMIF0006E"
                 }
             }
         },
         "templates_create": {
             "type": "object",
+            "error": "KCHTMPL0016E",
             "properties": {
                 "name": {
                     "description": "The name of the template",
                     "type": "string",
                     "pattern": "^[^ ]+( +[^ ]+)*$",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0008E"
                 },
                 "icon": {
                     "description": "The template icon path",
                     "type": "string",
-                    "pattern": "^images/"
+                    "pattern": "^images/",
+                    "error": "KCHTMPL0009E"
                 },
                 "os_distro": {
                     "description": "Distribution name of the Operating System",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0010E"
                 },
                 "os_version": {
                     "description": "Version of the Operating System",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0011E"
                 },
                 "cpus": {
                     "description": "Number of CPUs for the template",
                     "type": "integer",
-                    "minimum": 1
+                    "minimum": 1,
+                    "error": "KCHTMPL0012E"
                 },
                 "memory": {
                     "description": "Memory (MB) for the template",
                     "type": "integer",
-                    "minimum": 512
+                    "minimum": 512,
+                    "error": "KCHTMPL0013E"
                 },
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",
                     "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$",
-                    "required": true
+                    "required": true,
+                    "error": "KCHTMPL0014E"
                 },
                 "disks": {
                     "description": "List of disks",
@@ -257,13 +296,15 @@
                 "storagepool": {
                     "description": "Location of the storage pool",
                     "type": "string",
-                    "pattern": "^/storagepools/[^/]+/?$"
+                    "pattern": "^/storagepools/[^/]+/?$",
+                    "error": "KCHTMPL0015E"
                 },
                 "networks": {
                     "description": "list of which networks will be assigned to the new VM.",
                     "type": "array",
                     "items": { "type": "string" },
-                    "uniqueItems": true
+                    "uniqueItems": true,
+                    "error": "KCHTMPL0017E"
                 },
                 "folder": {
                     "description": "Folder",
@@ -272,7 +313,8 @@
                 },
                 "graphics": { "$ref": "#/kimchitype/graphics" }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
         },
         "storageservers_get_list": {
             "type": "object",
@@ -283,7 +325,8 @@
                     "pattern": "^netfs$"
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
         },
         "storagetargets_get_list": {
             "type": "object",
@@ -294,7 +337,8 @@
                     "pattern": "^netfs$"
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
          },
         "template_update": {
             "type": "object",
@@ -303,37 +347,44 @@
                     "description": "The name of the template",
                     "type": "string",
                     "pattern": "^[^ ]+( +[^ ]+)*$",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0008E"
                 },
                 "icon": {
                     "description": "The template icon path",
                     "type": "string",
-                    "pattern": "^images/"
+                    "pattern": "^images/",
+                    "error": "KCHTMPL0009E"
                 },
                 "os_distro": {
                     "description": "Distribution name of the Operating System",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0010E"
                 },
                 "os_version": {
                     "description": "Version of the Operating System",
                     "type": "string",
-                    "minLength": 1
+                    "minLength": 1,
+                    "error": "KCHTMPL0011E"
                 },
                 "cpus": {
                     "description": "Number of CPUs for the template",
                     "type": "integer",
-                    "minimum": 1
+                    "minimum": 1,
+                    "error": "KCHTMPL0012E"
                 },
                 "memory": {
                     "description": "Memory (MB) for the template",
                     "type": "integer",
-                    "minimum": 512
+                    "minimum": 512,
+                    "error": "KCHTMPL0013E"
                 },
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",
-                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$"
+                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$",
+                    "error": "KCHTMPL0014E"
                 },
                 "disks": {
                     "description": "List of disks",
@@ -359,13 +410,15 @@
                 "storagepool": {
                     "description": "Location of the storage pool",
                     "type": "string",
-                    "pattern": "^/storagepools/[^/]+/?$"
+                    "pattern": "^/storagepools/[^/]+/?$",
+                    "error": "KCHTMPL0015E"
                 },
                 "networks": {
                     "description": "list of which networks will be assigned to the new VM.",
                     "type": "array",
                     "items": { "type": "string" },
-                    "uniqueItems": true
+                    "uniqueItems": true,
+                    "error": "KCHTMPL0017E"
                 },
                 "folder": {
                     "description": "Folder",
@@ -374,7 +427,8 @@
                 },
                 "graphics": { "$ref": "#/kimchitype/graphics" }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
         }
     }
 }

@@ -3,42 +3,51 @@
     "title": "Plugin Sample API",
     "description": "Json schema for Kimchi's Sample Plugin API",
     "type": "object",
+    "error": "SPAPI0001E",
     "properties": {
         "rectangles_create": {
             "type": "object",
+            "error": "SPRET0003E",
             "properties": {
                 "name": {
                     "description": "The name of the new rectangle instance",
                     "type": "string",
-                    "required": true
+                    "required": true,
+                    "error": "SPRET0004E"
                 },
                 "length": {
                     "$ref": "#/definitions/positiveNumber",
-                    "required": true
+                    "required": true,
+                    "error": "SPRET0005E"
                 },
                 "width": {
                     "$ref": "#/definitions/positiveNumber",
-                    "required": true
+                    "required": true,
+                    "error": "SPRET0006E"
                 }
             }
-        }
-    },
+        },
         "circles_create": {
             "type": "object",
+            "error": "SPCIRC0003E",
             "properties": {
                 "name": {
                     "description": "The name of the new circle instance",
                     "type": "string",
-                    "required": true
+                    "required": true,
+                    "error": "SPCIRC0004E"
                 },
                 "radius": {
                     "$ref": "#/definitions/positiveNumber",
-                    "required": true
+                    "required": true,
+                    "error": "SPCIRC0005E"
                 }
             }
+        }
     },
     "definitions": {
         "positiveNumber": {
+            "error": "SPAPI0002E",
             "type": "number",
             "minimum": 0,
             "exclusiveMinimum": true
