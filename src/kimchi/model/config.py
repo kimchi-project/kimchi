@@ -95,4 +95,4 @@ class DistroModel(object):
         try:
             return self._distros.distros[name]
         except KeyError:
-            raise NotFoundError("Distro '%s' not found." % name)
+            raise NotFoundError("KCHDISTRO0001E", {'name': name})

@@ -25,7 +25,7 @@ import copy
 import libvirt
 
 from kimchi import xmlutils
-from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
+from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.utils import pool_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
@@ -44,20 +44,20 @@ class TemplatesModel(object):
             pool_name = pool_name_from_uri(pool_uri)
             try:
                 conn.storagePoolLookupByName(pool_name.encode("utf-8"))
-            except Exception as e:
-                err = "Storagepool specified is not valid: %s."
-                raise InvalidParameter(err % e.message)
+            except Exception:
+                raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
+                                                        'template': name})
 
         for net_name in params.get(u'networks', []):
             try:
                 conn.networkLookupByName(net_name)
-            except Exception, e:
-                raise InvalidParameter("Network '%s' specified by template "
-                                       "does not exist." % net_name)
+            except Exception:
+                raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
+                                                        'template': name})
 
         with self.objstore as session:
             if name in session.get_list('template'):
-                raise InvalidOperation("Template already exists")
+                raise InvalidOperation("KCHTMPL0001E", {'name': name})
             t = LibvirtVMTemplate(params, scan=True)
             session.store('template', name, t.info)
         return name
@@ -100,17 +100,17 @@ class TemplateModel(object):
         try:
             conn = self.conn.get()
             conn.storagePoolLookupByName(pool_name.encode("utf-8"))
-        except Exception as e:
-            err = "Storagepool specified is not valid: %s."
-            raise InvalidParameter(err % e.message)
+        except Exception:
+            raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
+                                                    'template': name})
 
         for net_name in params.get(u'networks', []):
             try:
                 conn = self.conn.get()
                 conn.networkLookupByName(net_name)
-            except Exception, e:
-                raise InvalidParameter("Network '%s' specified by template "
-                                       "does not exist" % net_name)
+            except Exception:
+                raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
+                                                        'template': name})
 
         self.delete(name)
         try:
@@ -133,12 +133,12 @@ class LibvirtVMTemplate(VMTemplate):
             conn = self.conn.get()
             pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
         except libvirt.libvirtError:
-            err = 'Storage specified by template does not exist'
-            raise InvalidParameter(err)
+            raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
+                                                    'template': self.name})
 
         if not pool.isActive():
-            err = 'Storage specified by template is not active'
-            raise InvalidParameter(err)
+            raise InvalidParameter("KCHTMPL0005E", {'pool': pool_name,
+                                                    'template': self.name})
 
         return pool
 
@@ -149,12 +149,12 @@ class LibvirtVMTemplate(VMTemplate):
                 conn = self.conn.get()
                 network = conn.networkLookupByName(name)
             except libvirt.libvirtError:
-                err = 'Network specified by template does not exist'
-                raise InvalidParameter(err)
+                raise InvalidParameter("KCHTMPL0003E", {'network': name,
+                                                        'template': self.name})
 
             if not network.isActive():
-                err = 'Network specified by template is not active'
-                raise InvalidParameter(err)
+                raise InvalidParameter("KCHTMPL0007E", {'network': name,
+                                                        'template': self.name})
 
     def _get_storage_path(self):
         pool = self._storage_validate()

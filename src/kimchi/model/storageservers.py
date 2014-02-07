@@ -75,4 +75,4 @@ class StorageServerModel(object):
                 # lookup
                 pass
 
-        raise NotFoundError('server %s does not used by kimchi' % server)
+        raise NotFoundError("KCHSR0001E", {'server': server})

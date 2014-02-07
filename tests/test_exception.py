@@ -63,13 +63,13 @@ class ExceptionTests(unittest.TestCase):
 
         # test 405 wrong method
         resp = json.loads(request(host, port, '/', None, 'DELETE').read())
-        msg = 'Delete is not allowed for kimchiroot'
+        msg = u'KCHAPI0002E: Delete is not allowed for kimchiroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
         # test 400 parse error
         resp = json.loads(request(host, port, '/vms', '{', 'POST').read())
-        msg = 'Unable to parse JSON request'
+        msg = u'KCHAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertNotIn('call_stack', resp)
@@ -77,8 +77,8 @@ class ExceptionTests(unittest.TestCase):
         # test 400 missing required parameter
         req = json.dumps({})
         resp = json.loads(request(host, port, '/vms', req, 'POST').read())
-        msg = u"Invalid parameter: 'u'template' is a required property'"
         self.assertEquals('400 Bad Request', resp.get('code'))
+        msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
         self.assertEquals(msg, resp.get('reason'))
         self.assertNotIn('call_stack', resp)
 
@@ -93,13 +93,13 @@ class ExceptionTests(unittest.TestCase):
 
         # test 405 wrong method
         resp = json.loads(request(host, port, '/', None, 'DELETE').read())
-        msg = 'Delete is not allowed for kimchiroot'
+        msg = u'KCHAPI0002E: Delete is not allowed for kimchiroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
         # test 400 parse error
         resp = json.loads(request(host, port, '/vms', '{', 'POST').read())
-        msg = 'Unable to parse JSON request'
+        msg = u'KCHAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertIn('call_stack', resp)
@@ -107,7 +107,7 @@ class ExceptionTests(unittest.TestCase):
         # test 400 missing required parameter
         req = json.dumps({})
         resp = json.loads(request(host, port, '/vms', req, 'POST').read())
-        msg = u"Invalid parameter: 'u'template' is a required property'"
+        msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertIn('call_stack', resp)

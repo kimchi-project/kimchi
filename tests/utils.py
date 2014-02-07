@@ -155,8 +155,9 @@ def patch_auth():
     def _authenticate(username, password, service="passwd"):
         try:
             return fake_user[username] == password
-        except KeyError:
-            raise OperationFailed('Bad login')
+        except KeyError, e:
+            raise OperationFailed("KCHAUTH0001E", {'userid': 'username',
+                                                   'code': e.message})
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate

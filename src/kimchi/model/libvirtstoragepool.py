@@ -38,7 +38,7 @@ class StoragePoolDef(object):
         for klass in cls.__subclasses__():
             if poolArgs['type'] == klass.poolType:
                 return klass(poolArgs)
-        raise OperationFailed('Unsupported pool type: %s' % poolArgs['type'])
+        raise OperationFailed("KCHPOOL0014E", {'type': poolArgs['type']})
 
     def __init__(self, poolArgs):
         self.poolArgs = poolArgs
@@ -56,7 +56,7 @@ class StoragePoolDef(object):
         idempotent'''
         # TODO: When add new pool type, should also add the related test in
         # tests/test_storagepool.py
-        raise OperationFailed('self.xml is not implemented: %s' % self)
+        raise OperationFailed("KCHPOOL0015E", {'pool': self})
 
 
 class DirPoolDef(StoragePoolDef):
@@ -101,8 +101,7 @@ class NetfsPoolDef(StoragePoolDef):
                 run_command(mount_cmd, 30)
                 rollback.prependDefer(run_command, umount_cmd)
             except TimeoutExpired:
-                err = "Export path %s may block during nfs mount"
-                raise InvalidParameter(err % export_path)
+                raise InvalidParameter("KCHPOOL0012E", {'path': export_path})
 
             with open("/proc/mounts", "rb") as f:
                 rawMounts = f.read()
@@ -113,8 +112,7 @@ class NetfsPoolDef(StoragePoolDef):
                     mounted = True
 
             if not mounted:
-                err = "Export path %s mount failed during nfs mount"
-                raise InvalidParameter(err % export_path)
+                raise InvalidParameter("KCHPOOL0013E", {'path': export_path})
 
     @property
     def xml(self):
@@ -181,8 +179,8 @@ class IscsiPoolDef(StoragePoolDef):
     def prepare(self, conn):
         source = self.poolArgs['source']
         if not TargetClient(**source).validate():
-            raise OperationFailed("Can not login to iSCSI host %s target %s" %
-                                  (source['host'], source['target']))
+            msg_args = {'host': source['host'], 'target': source['target']}
+            raise OperationFailed("KCHISCSI0002E", msg_args)
         self._prepare_auth(conn)
 
     def _prepare_auth(self, conn):

@@ -37,10 +37,11 @@ class DistroLoader(object):
         self.location = location or config.get_distros_store()
 
     def _get_json_info(self, fname):
+        msg_args = {'filename': fname}
         if not os.path.isfile(fname):
             msg = "DistroLoader: failed to find distro file: %s" % fname
             kimchi_log.error(msg)
-            raise NotFoundError(msg)
+            raise NotFoundError("KCHDL0001E", msg_args)
         try:
             with open(fname) as f:
                 data = json.load(f)
@@ -48,7 +49,7 @@ class DistroLoader(object):
         except ValueError:
             msg = "DistroLoader: failed to parse distro file: %s" % fname
             kimchi_log.error(msg)
-            raise OperationFailed(msg)
+            raise OperationFailed("KCHDL0002E", msg_args)
 
     def get(self):
         all_json_files = glob.glob("%s/%s" % (self.location, "*.json"))

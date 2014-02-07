@@ -29,7 +29,7 @@ import re
 
 
 from kimchi import template
-from kimchi.exception import OperationFailed
+from kimchi.exception import InvalidOperation, OperationFailed
 
 
 SESSION_USER = 'userid'
@@ -68,7 +68,8 @@ def authenticate(username, password, service="passwd"):
     try:
         auth.authenticate()
     except PAM.error, (resp, code):
-        raise OperationFailed(resp, code)
+        msg_args = {'userid': username, 'code': code}
+        raise OperationFailed("KCHAUTH0001E", msg_args)
 
     return True
 
@@ -152,4 +153,5 @@ def kimchiauth(*args, **kwargs):
     if not from_browser():
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=kimchi'
 
-    raise cherrypy.HTTPError("401 Unauthorized")
+    e = InvalidOperation('KCHAUTH0002E')
+    raise cherrypy.HTTPError(401, e.message)

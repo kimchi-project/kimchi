@@ -33,7 +33,7 @@ from kimchi.config import paths
 from kimchi.control import sub_nodes
 from kimchi.control.base import Resource
 from kimchi.control.utils import parse_request
-from kimchi.exception import OperationFailed
+from kimchi.exception import MissingParameter, OperationFailed
 
 
 class Root(Resource):
@@ -105,8 +105,9 @@ class KimchiRoot(Root):
         try:
             userid = params['userid']
             password = params['password']
-        except KeyError, key:
-            raise cherrypy.HTTPError(400, "Missing parameter: '%s'" % key)
+        except KeyError, item:
+            e = MissingParameter('KCHAUTH0003E', {'item': item})
+            raise cherrypy.HTTPError(400, e.message)
 
         try:
             auth.login(userid, password)

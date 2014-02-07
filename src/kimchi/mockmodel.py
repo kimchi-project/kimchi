@@ -83,7 +83,8 @@ class MockModel(object):
 
         if 'name' in params:
             if state == 'running' or params['name'] in self.vms_get_list():
-                raise InvalidParameter("VM name existed or vm not shutoff.")
+                msg_args = {'name': dom.name, 'new_name': params['name']}
+                raise InvalidParameter("KCHVM0003E", msg_args)
             else:
                 del self._mock_vms[dom.name]
                 dom.name = params['name']
@@ -134,7 +135,7 @@ class MockModel(object):
         name = get_vm_name(params.get('name'), t_name,
                                       self._mock_vms.keys())
         if name in self._mock_vms:
-            raise InvalidOperation("VM already exists")
+            raise InvalidOperation("KCHVM0001E", {'name': name})
 
         vm_uuid = str(uuid.uuid4())
         vm_overrides = dict()
@@ -166,7 +167,8 @@ class MockModel(object):
     def vmscreenshot_lookup(self, name):
         vm = self._get_vm(name)
         if vm.info['state'] != 'running':
-            raise NotFoundError('No screenshot for stopped vm')
+            raise NotFoundError("KCHVM0004E", {'name': name})
+
         screenshot = self._mock_screenshots.setdefault(
             vm.uuid, MockVMScreenshot({'uuid': vm.uuid}))
         return screenshot.lookup()
@@ -185,18 +187,19 @@ class MockModel(object):
         try:
             del self._mock_templates[name]
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("KCHTMPL0002E", {'name': name})
 
     def templates_create(self, params):
         name = params['name']
         if name in self._mock_templates:
-            raise InvalidOperation("Template already exists")
+            raise InvalidOperation("KCHTMPL0001E", {'name': name})
+
         for net_name in params.get(u'networks', []):
             try:
                 self._get_network(net_name)
             except NotFoundError:
-                raise InvalidParameter("Network '%s' specified by template "
-                                       "does not exist" % net_name)
+                msg_args = {'network': net_name, 'template': name}
+                raise InvalidParameter("KCHTMPL0003E", msg_args)
 
         t = MockVMTemplate(params, self)
         self._mock_templates[name] = t
@@ -212,15 +215,16 @@ class MockModel(object):
         new_storagepool = new_t.get(u'storagepool', '')
         try:
             self._get_storagepool(pool_name_from_uri(new_storagepool))
-        except Exception as e:
-            raise InvalidParameter("Storagepool specified is not valid: %s." % e.message)
+        except Exception:
+            msg_args = {'pool': new_storagepool, 'template': name}
+            raise InvalidParameter("KCHTMPL0004E", msg_args)
 
         for net_name in params.get(u'networks', []):
             try:
                 self._get_network(net_name)
             except NotFoundError:
-                raise InvalidParameter("Network '%s' specified by template "
-                                       "does not exist" % net_name)
+                msg_args = {'network': net_name, 'template': name}
+                raise InvalidParameter("KCHTMPL0003E", msg_args)
 
         self.template_delete(name)
         try:
@@ -243,7 +247,7 @@ class MockModel(object):
             else:
                 return t
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("KCHTMPL0002E", {'name': name})
 
     def debugreport_lookup(self, name):
         path = config.get_debugreports_path()
@@ -251,7 +255,7 @@ class MockModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError('no such report')
+            raise NotFoundError("KCHDR0001E", {'name', name})
 
         ctime = os.stat(file_target).st_ctime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
@@ -269,7 +273,7 @@ class MockModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError('no such report')
+            raise NotFoundError("KCHDR0001E", {'name', name})
 
         os.remove(file_target)
 
@@ -291,7 +295,7 @@ class MockModel(object):
         try:
             return self._mock_vms[name]
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("KCHVM0002E", {'name': name})
 
     def storagepools_create(self, params):
         try:
@@ -304,9 +308,12 @@ class MockModel(object):
             else:
                 pool.info['autostart'] = False
         except KeyError, item:
-            raise MissingParameter(item)
+            raise MissingParameter("KCHPOOL0004E",
+                                   {'item': item, 'name': name})
+
         if name in self._mock_storagepools or name in (ISO_POOL_NAME,):
-            raise InvalidOperation("StoragePool already exists")
+            raise InvalidOperation("KCHPOOL0001E", {'name': name})
+
         self._mock_storagepools[name] = pool
         return name
 
@@ -315,24 +322,6 @@ class MockModel(object):
         storagepool.refresh()
         return storagepool.info
 
-    def _update_lvm_disks(self, pool_name, disks):
-        pool = self._get_storagepool(pool_name)
-        # check if all the disks/partitions exists in the host
-        for disk in disks:
-            blkid_cmd = ['blkid', disk]
-            output, error, returncode = run_command(blkid_cmd)
-            if returncode != 0:
-                raise OperationFailed('%s is not a valid disk/partition. '
-                                      'Could not add it to the pool %s.', disk,
-                                      pool_name)
-        # Adding disks to the lvm pool by adding extra capacity.
-        # Fixed amount for each disk present based in the
-        # values used in MockStoragePool.
-        capacity_per_disk = 1024 << 20
-        capacity_added = capacity_per_disk * len(disks)
-        pool.info['capacity'] += capacity_added
-        pool.info['available'] += capacity_added
-
     def storagepool_update(self, name, params):
         pool = self._get_storagepool(name)
         if 'autostart' in params:
@@ -340,8 +329,7 @@ class MockModel(object):
         if 'disks' in params:
             # check if pool is type 'logical'
             if pool.info['type'] != 'logical':
-                raise InvalidOperation("Operation available only for "
-                                       "'logical' type storage pool.")
+                raise InvalidOperation('KCHPOOL0029E')
             self._update_lvm_disks(name, params['disks'])
         ident = pool.name
         return ident
@@ -364,12 +352,15 @@ class MockModel(object):
         try:
             return self._mock_storagepools[name]
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("KCHPOOL0002E", {'name': name})
 
     def storagevolumes_create(self, pool_name, params):
         pool = self._get_storagepool(pool_name)
         if pool.info['state'] == 'inactive':
-            raise InvalidOperation("StoragePool not active")
+            raise InvalidOperation("KCHVOL0003E",
+                                   {'pool': pool_name,
+                                    'volume': params['name']})
+
         try:
             name = params['name']
             volume = MockStorageVolume(pool, name, params)
@@ -378,15 +369,20 @@ class MockModel(object):
             volume.info['path'] = os.path.join(
                 pool.info['path'], name)
         except KeyError, item:
-            raise MissingParameter(item)
+            raise MissingParameter("KCHVOL0004E",
+                                   {'item': item, 'volume': name})
+
         if name in pool._volumes:
-            raise InvalidOperation("StorageVolume already exists")
+            raise InvalidOperation("KCHVOL0001E", {'name': name})
+
         pool._volumes[name] = volume
         return name
 
     def storagevolume_lookup(self, pool, name):
         if self._get_storagepool(pool).info['state'] != 'active':
-            raise InvalidOperation("StoragePool %s is not active" % pool)
+            raise InvalidOperation("KCHVOL0005E", {'pool': pool,
+                                                         'volume': name})
+
         storagevolume = self._get_storagevolume(pool, name)
         return storagevolume.info
 
@@ -406,8 +402,7 @@ class MockModel(object):
     def storagevolumes_get_list(self, pool):
         res = self._get_storagepool(pool)
         if res.info['state'] == 'inactive':
-            raise InvalidOperation(
-                "Unable to list volumes of inactive storagepool %s" % pool)
+            raise InvalidOperation("KCHVOL0006E", {'pool': pool})
         return res._volumes.keys()
 
     def isopool_lookup(self, name):
@@ -460,7 +455,7 @@ class MockModel(object):
             # Avoid inconsistent pool result because of lease between list and lookup
                 pass
 
-        raise NotFoundError("storage server %s not used by kimchi" % server)
+        raise NotFoundError("KCHSR0001E", {'server': server})
 
     def dummy_interfaces(self):
         interfaces = {}
@@ -483,7 +478,8 @@ class MockModel(object):
     def networks_create(self, params):
         name = params['name']
         if name in self.networks_get_list():
-            raise InvalidOperation("Network %s already exists" % name)
+            raise InvalidOperation("KCHNET0001E", {'name': name})
+
         network = MockNetwork(name)
         connection = params['connection']
         network.info['connection'] = connection
@@ -491,22 +487,23 @@ class MockModel(object):
             try:
                 interface = params['interface']
                 network.info['interface'] = interface
-            except KeyError, key:
-                raise MissingParameter(key)
+            except KeyError:
+                raise MissingParameter("KCHNET0004E",
+                                       {'name': name})
 
         subnet = params.get('subnet', '')
         if subnet:
             network.info['subnet'] = subnet
             try:
                 net = ipaddr.IPNetwork(subnet)
-            except ValueError, e:
-                raise InvalidParameter(e)
+            except ValueError:
+                msg_args = {'subnet':subnet, 'network': name}
+                raise InvalidParameter("KCHNET0003E", msg_args)
 
             network.info['dhcp'] = {
                 'start': str(net.network + net.numhosts / 2),
                 'stop': str(net.network + net.numhosts - 2)}
-        if name in self._mock_networks:
-            raise InvalidOperation("Network already exists")
+
         self._mock_networks[name] = network
         return name
 
@@ -514,7 +511,7 @@ class MockModel(object):
         try:
             return self._mock_networks[name]
         except KeyError:
-            raise NotFoundError("Network '%s'" % name)
+            raise NotFoundError("KCHNET0002E", {'name': name})
 
     def _get_vms_attach_to_a_network(self, network):
         vms = []
@@ -545,8 +542,9 @@ class MockModel(object):
     def vmifaces_create(self, vm, params):
         if (params["type"] == "network" and
             params["network"] not in self.networks_get_list()):
-            raise InvalidParameter("%s is not an available network" %
-                                   params["network"])
+            msg_args = {'network': params["network"], 'name': vm}
+            raise InvalidParameter("KCHVMIF0002E", msg_args)
+
         dom = self._get_vm(vm)
         iface = MockVMIface(params["network"])
         ("model" in params.keys() and
@@ -566,7 +564,7 @@ class MockModel(object):
         try:
             info = dom.ifaces[mac].info
         except KeyError:
-            raise NotFoundError('iface: "%s"' % mac)
+            raise NotFoundError("KCHVMIF0001E", {'iface': mac, 'name': vm})
         return info
 
     def vmiface_delete(self, vm, mac):
@@ -574,7 +572,7 @@ class MockModel(object):
         try:
            del dom.ifaces[mac]
         except KeyError:
-            raise NotFoundError('iface: "%s"' % mac)
+            raise NotFoundError("KCHVMIF0001E", {'iface': mac, 'name': vm})
 
     def tasks_get_list(self):
         with self.objstore as session:
@@ -595,7 +593,7 @@ class MockModel(object):
         try:
             return self._get_storagepool(pool)._volumes[name]
         except KeyError:
-            raise NotFoundError()
+            raise NotFoundError("KCHVOL0002E", {'name': name, 'pool': pool})
 
     def _get_distros(self):
         distroloader = DistroLoader()
@@ -608,7 +606,7 @@ class MockModel(object):
         try:
             return self.distros[name]
         except KeyError:
-            raise NotFoundError("distro '%s' not found" % name)
+            raise NotFoundError("KCHDISTRO0001E", {'name': name})
 
     def _gen_debugreport_file(self, ident):
         return self.add_task('', self._create_log, ident)
@@ -660,14 +658,14 @@ class MockModel(object):
         # Check for running vms before shutdown
         running_vms = self.vms_get_list_by_state('running')
         if len(running_vms) > 0:
-            raise OperationFailed("Shutdown not allowed: VMs are running!")
+            raise OperationFailed("KCHHOST0001E")
         cherrypy.engine.exit()
 
     def host_reboot(self, args=None):
         # Find running VMs
         running_vms = self.vms_get_list_by_state('running')
         if len(running_vms) > 0:
-            raise OperationFailed("Reboot not allowed: VMs are running!")
+            raise OperationFailed("KCHHOST0002E")
         cherrypy.engine.stop()
         time.sleep(10)
         cherrypy.engine.start()
@@ -678,8 +676,8 @@ class MockModel(object):
 
     def partition_lookup(self, name):
         if name not in disks.get_partitions_names():
-            raise NotFoundError("Partition %s not found in the host"
-                                % name)
+            raise NotFoundError("KCHPART0001E", {'name': name})
+
         return disks.get_partition_details(name)
 
     def config_lookup(self, name):
@@ -699,9 +697,12 @@ class MockVMTemplate(VMTemplate):
         try:
             pool = self.model._get_storagepool(pool_name)
         except NotFoundError:
-            raise InvalidParameter('Storage specified by template does not exist')
+            msg_args = {'pool': pool_name, 'template': self.name}
+            raise InvalidParameter("KCHTMPL0004E", msg_args)
+
         if pool.info['state'] != 'active':
-            raise InvalidParameter('Storage specified by template is not active')
+            msg_args = {'pool': pool_name, 'template': self.name}
+            raise InvalidParameter("KCHTMPL0005E", msg_args)
 
         return pool
 

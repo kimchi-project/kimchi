@@ -30,6 +30,7 @@ from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.utils import add_task, kimchi_log
 from kimchi.utils import run_command
 
+
 ISO_POOL_NAME = u'kimchi_isos'
 POOL_STATE_MAP = {0: 'inactive',
                   1: 'initializing',
@@ -55,7 +56,8 @@ class StoragePoolsModel(object):
             names += conn.listDefinedStoragePools()
             return sorted(map(lambda x: x.decode('utf-8'), names))
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHPOOL0006E",
+                                  {'err': e.get_error_message()})
 
     def create(self, params):
         task_id = None
@@ -63,19 +65,19 @@ class StoragePoolsModel(object):
         try:
             name = params['name']
             if name in (ISO_POOL_NAME, ):
-                raise InvalidOperation("StoragePool already exists")
+                raise InvalidOperation("KCHPOOL0001E", {'name': name})
 
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
             poolDef = StoragePoolDef.create(params)
             poolDef.prepare(conn)
             xml = poolDef.xml.encode("utf-8")
-        except KeyError, key:
-            raise MissingParameter(key)
+        except KeyError, item:
+            raise MissingParameter("KCHPOOL0004E",
+                                   {'item': item, 'name': name})
 
         if name in self.get_list():
-            err = "The name %s has been used by a pool"
-            raise InvalidOperation(err % name)
+            raise InvalidOperation("KCHPOOL0001E", {'name': name})
 
         try:
             if task_id:
@@ -92,9 +94,9 @@ class StoragePoolsModel(object):
                 # disable autostart for others
                 pool.setAutostart(0)
         except libvirt.libvirtError as e:
-            msg = "Problem creating Storage Pool: %s"
-            kimchi_log.error(msg, e)
-            raise OperationFailed(e.get_error_message())
+            kimchi_log.error("Problem creating Storage Pool: %s", e)
+            raise OperationFailed("KCHPOOL0007E",
+                                  {'name': name, 'err': e.get_error_message()})
         return name
 
     def _clean_scan(self, pool_name):
@@ -144,7 +146,7 @@ class StoragePoolModel(object):
             return conn.storagePoolLookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_POOL:
-                raise NotFoundError("Storage Pool '%s' not found" % name)
+                raise NotFoundError("KCHTMPL0002E", {'name': name})
             else:
                 raise
 
@@ -156,7 +158,8 @@ class StoragePoolModel(object):
             else:
                 return 0
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHPOOL0008E",
+                                  {'name': pool, 'err': e.get_error_message()})
 
     def _get_storage_source(self, pool_type, pool_xml):
         source = {}
@@ -208,18 +211,17 @@ class StoragePoolModel(object):
             if returncode != 0:
                 kimchi_log.error('%s is not a valid disk/partition. Could not '
                                  'add it to the pool %s.', disk, pool_name)
-                raise OperationFailed('%s is not a valid disk/partition. '
-                                      'Could not add it to the pool %s.', disk,
-                                      pool_name)
+                raise OperationFailed('KCHPOOL0027E', {'disk': disk,
+                                                       'pool': pool_name})
         # add disks to the lvm pool using vgextend + virsh refresh
         vgextend_cmd = ["vgextend", pool_name]
         vgextend_cmd += disks
         output, error, returncode = run_command(vgextend_cmd)
         if returncode != 0:
-            kimchi_log.error('Could not add disks to pool %s, '
-                             'error: %s', pool_name, error)
-            raise OperationFailed('Error while adding disks to pool %s.',
-                                  pool_name)
+            msg = "Could not add disks to pool %s, error: %s"
+            kimchi_log.error(msg, pool_name, error)
+            raise OperationFailed('KCHPOOL0028E', {'pool': pool_name,
+                                                   'err': error})
         # refreshing pool state
         pool = self.get_storagepool(pool_name, self.conn)
         pool.refresh(0)
@@ -236,8 +238,7 @@ class StoragePoolModel(object):
             xml = pool.XMLDesc(0)
             pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
             if pool_type != 'logical':
-                raise InvalidOperation("Operation available only for "
-                                       "'logical' type storage pool.")
+                raise InvalidOperation('KCHPOOL0029E')
             self._update_lvm_disks(name, params['disks'])
         ident = pool.name()
         return ident
@@ -247,24 +248,26 @@ class StoragePoolModel(object):
         try:
             pool.create(0)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHPOOL0009E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def deactivate(self, name):
         pool = self.get_storagepool(name, self.conn)
         try:
             pool.destroy()
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHPOOL0010E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def delete(self, name):
         pool = self.get_storagepool(name, self.conn)
         if pool.isActive():
-            err = "Unable to delete the active storagepool %s"
-            raise InvalidOperation(err % name)
+            raise InvalidOperation("KCHPOOL0005E", {'name': name})
         try:
             pool.undefine()
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHPOOL0011E",
+                                  {'name': name, 'err': e.get_error_message()})
 
 
 class IsoPoolModel(object):

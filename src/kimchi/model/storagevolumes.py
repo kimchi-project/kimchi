@@ -57,29 +57,33 @@ class StorageVolumesModel(object):
         params.setdefault('allocation', 0)
         params.setdefault('format', 'qcow2')
 
+        name = params['name']
         try:
             pool = StoragePoolModel.get_storagepool(pool, self.conn)
-            name = params['name']
             xml = vol_xml % params
-        except KeyError, key:
-            raise MissingParameter(key)
+        except KeyError, item:
+            raise MissingParameter("KCHVOL0004E", {'item': item,
+                                                   'volume': name})
 
         try:
             pool.createXML(xml, 0)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVOL0007E",
+                                  {'name': name, 'pool': pool,
+                                   'err': e.get_error_message()})
         return name
 
-    def get_list(self, pool):
-        pool = StoragePoolModel.get_storagepool(pool, self.conn)
+    def get_list(self, pool_name):
+        pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
         if not pool.isActive():
-            err = "Unable to list volumes in inactive storagepool %s"
-            raise InvalidOperation(err % pool.name())
+            raise InvalidOperation("KCHVOL0006E", {'pool': pool_name})
         try:
             pool.refresh(0)
             return pool.listVolumes()
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVOL0008E",
+                                  {'pool': pool_name,
+                                   'err': e.get_error_message()})
 
 
 class StorageVolumeModel(object):
@@ -89,13 +93,13 @@ class StorageVolumeModel(object):
     def _get_storagevolume(self, pool, name):
         pool = StoragePoolModel.get_storagepool(pool, self.conn)
         if not pool.isActive():
-            err = "Unable to list volumes in inactive storagepool %s"
-            raise InvalidOperation(err % pool.name())
+            raise InvalidOperation("KCHVOL0006E", {'name': pool})
         try:
             return pool.storageVolLookupByName(name)
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_VOL:
-                raise NotFoundError("Storage Volume '%s' not found" % name)
+                raise NotFoundError("KCHVOL0002E", {'name': name,
+                                                    'pool': pool})
             else:
                 raise
 
@@ -131,14 +135,16 @@ class StorageVolumeModel(object):
         try:
             volume.wipePattern(libvirt.VIR_STORAGE_VOL_WIPE_ALG_ZERO, 0)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVOL0009E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def delete(self, pool, name):
         volume = self._get_storagevolume(pool, name)
         try:
             volume.delete(0)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVOL0010E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def resize(self, pool, name, size):
         size = size << 20
@@ -146,7 +152,8 @@ class StorageVolumeModel(object):
         try:
             volume.resize(size, 0)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVOL0011E",
+                                  {'name': name, 'err': e.get_error_message()})
 
 
 class IsoVolumesModel(object):

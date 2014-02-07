@@ -49,29 +49,29 @@ class KimchiException(Exception):
         Exception.__init__(self, pattern)
 
 
-class NotFoundError(Exception):
+class NotFoundError(KimchiException):
     pass
 
 
-class OperationFailed(Exception):
+class OperationFailed(KimchiException):
     pass
 
 
-class MissingParameter(Exception):
+class MissingParameter(KimchiException):
     pass
 
 
-class InvalidParameter(Exception):
+class InvalidParameter(KimchiException):
     pass
 
 
-class InvalidOperation(Exception):
+class InvalidOperation(KimchiException):
     pass
 
 
-class IsoFormatError(Exception):
+class IsoFormatError(KimchiException):
     pass
 
 
-class TimeoutExpired(Exception):
+class TimeoutExpired(KimchiException):
     pass

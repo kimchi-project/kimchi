@@ -29,12 +29,10 @@ import urllib2
 from threading import Timer
 
 from cherrypy.lib.reprconf import Parser
-from kimchi.config import paths, PluginPaths
-from kimchi.exception import TimeoutExpired
-
 
 from kimchi.asynctask import AsyncTask
-from kimchi.exception import InvalidParameter
+from kimchi.config import paths, PluginPaths
+from kimchi.exception import InvalidParameter, TimeoutExpired
 
 
 kimchi_log = cherrypy.log.error_log
@@ -45,7 +43,7 @@ def _uri_to_name(collection, uri):
     expr = '/%s/(.*?)/?$' % collection
     m = re.match(expr, uri)
     if not m:
-        raise InvalidParameter(uri)
+        raise InvalidParameter("KCHUTILS0001E", {'uri': uri})
     return m.group(1)
 
 
@@ -169,7 +167,9 @@ def run_command(cmd, timeout=None):
             msg = ("subprocess is killed by signal.SIGKILL for "
                    "timeout %s seconds" % timeout)
             kimchi_log.error(msg)
-            raise TimeoutExpired(msg)
+
+            msg_args = {'cmd': cmd, 'seconds': timeout}
+            raise TimeoutExpired("KCHUTILS0002E", msg_args)
 
         return out, error, proc.returncode
     except TimeoutExpired:

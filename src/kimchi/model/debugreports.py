@@ -59,7 +59,7 @@ class DebugReportsModel(object):
         if gen_cmd is not None:
             return add_task('', gen_cmd, self.objstore, name)
 
-        raise OperationFailed("debugreport tool not found")
+        raise OperationFailed("KCHDR0002E")
 
     @staticmethod
     def sosreport_generate(cb, name):
@@ -68,9 +68,11 @@ class DebugReportsModel(object):
             retcode = subprocess.call(command, shell=True,
                                       stdout=subprocess.PIPE)
             if retcode < 0:
-                raise OperationFailed('Command terminated with signal')
+                raise OperationFailed("KCHDR0003E", {'name': name,
+                                                     'err': retcode})
             elif retcode > 0:
-                raise OperationFailed('Command failed: rc = %i' % retcode)
+                raise OperationFailed("KCHDR0003E", {'name': name,
+                                                     'err': retcode})
             pattern = '/tmp/sosreport-%s-*' % name
             for reportFile in glob.glob(pattern):
                 if not fnmatch.fnmatch(reportFile, '*.md5'):
@@ -83,8 +85,8 @@ class DebugReportsModel(object):
                 # runs successfully. In future we might have a general name
                 # mangling function in kimchi to format the name before passing
                 # it to sosreport. Then we can delete this exception.
-                raise OperationFailed('Can not find generated debug report '
-                                      'named by %s' % pattern)
+                raise OperationFailed("KCHDR0004E", {'name': pattern})
+
             ext = output.split('.', 1)[1]
             path = config.get_debugreports_path()
             target = os.path.join(path, name)
@@ -104,7 +106,7 @@ class DebugReportsModel(object):
             # and update the task status there
             log = logging.getLogger('Model')
             log.warning('Exception in generating debug file: %s', e)
-            raise OperationFailed(e)
+            raise OperationFailed("KCHDR0005E", {'name': name, 'err': e})
 
     @staticmethod
     def get_system_report_tool():
@@ -139,7 +141,7 @@ class DebugReportModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError('no such report')
+            raise NotFoundError("KCHDR0001E", {'name': name})
 
         ctime = os.stat(file_target).st_ctime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
@@ -154,7 +156,7 @@ class DebugReportModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError('no such report')
+            raise NotFoundError("KCHDR0001E", {'name': name})
 
         os.remove(file_target)
 

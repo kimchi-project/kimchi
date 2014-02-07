@@ -44,7 +44,7 @@ def _get_lsblk_devs(keys, devs=[]):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = lsblk.communicate()
     if lsblk.returncode != 0:
-        raise OperationFailed('Error executing lsblk: %s' % err)
+        raise OperationFailed("KCHDISKS0001E", {'err': err})
 
     return _parse_lsblk_output(out, keys)
 
@@ -60,8 +60,7 @@ def _get_dev_major_min(name):
             maj_min = dev['maj:min']
             break
     else:
-        msg = "Failed to find major and minor number for %s" % name
-        raise OperationFailed(msg)
+        raise OperationFailed("KCHDISKS0002E", {'device': name})
 
     return maj_min
 

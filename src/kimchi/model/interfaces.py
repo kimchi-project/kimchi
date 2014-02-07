@@ -42,5 +42,5 @@ class InterfaceModel(object):
     def lookup(self, name):
         try:
             return netinfo.get_interface_info(name)
-        except ValueError, e:
-            raise NotFoundError(e)
+        except ValueError:
+            raise NotFoundError("KCHIFACE0001E", {'name': name})

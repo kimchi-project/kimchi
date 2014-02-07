@@ -569,7 +569,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(400, resp.status)
         resp = json.loads(resp.read())
-        self.assertIn('Invalid parameter', resp['reason'])
+        self.assertIn(u"KCHVM0016E:", resp['reason'])
 
     def test_create_vm_with_bad_template_uri(self):
         req = json.dumps({'name': 'vm-bad-template',
@@ -577,7 +577,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(400, resp.status)
         resp = json.loads(resp.read())
-        self.assertIn('Invalid parameter', resp['reason'])
+        self.assertIn(u"KCHVM0012E", resp['reason'])
 
     def test_get_storagepools(self):
         storagepools = json.loads(self.request('/storagepools').read())

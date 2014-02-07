@@ -67,7 +67,8 @@ class HostModel(object):
         # Check for running vms before shutdown
         running_vms = self._get_vms_list_by_state('running')
         if len(running_vms) > 0:
-            raise OperationFailed("Shutdown not allowed: VMs are running!")
+            raise OperationFailed("KCHHOST0001E")
+
         kimchi_log.info('Host is going to shutdown.')
         os.system('shutdown -h now')
 
@@ -75,7 +76,8 @@ class HostModel(object):
         # Find running VMs
         running_vms = self._get_vms_list_by_state('running')
         if len(running_vms) > 0:
-            raise OperationFailed("Reboot not allowed: VMs are running!")
+            raise OperationFailed("KCHHOST0002E")
+
         kimchi_log.info('Host is going to reboot.')
         os.system('reboot')
 
@@ -196,6 +198,6 @@ class PartitionModel(object):
 
     def lookup(self, name):
         if name not in disks.get_partitions_names():
-            raise NotFoundError("Partition %s not found in the host"
-                                % name)
+            raise NotFoundError("KCHPART0001E", {'name': name})
+
         return disks.get_partition_details(name)

@@ -58,7 +58,7 @@ class VMTemplate(object):
 
             iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
             if len(filter(iso.startswith, iso_prefixes)) == 0:
-                raise InvalidParameter("Invalid parameter specified for cdrom.")
+                raise InvalidParameter("KCHTMPL0006E", {'param': iso})
 
             if not iso.startswith('/'):
                 self.info.update({'iso_stream': True})
@@ -66,8 +66,8 @@ class VMTemplate(object):
             try:
                 iso_img = IsoImage(iso)
                 iso_distro, iso_version = iso_img.probe()
-            except IsoFormatError, e:
-                raise InvalidParameter(e)
+            except IsoFormatError:
+                raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)

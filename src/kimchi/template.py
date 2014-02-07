@@ -27,6 +27,7 @@ import json
 import os
 
 
+from kimchi.config import paths
 from Cheetah.Template import Template
 from glob import iglob
 
@@ -53,7 +54,6 @@ def get_lang():
 
 
 def get_support_languages():
-    paths = cherrypy.request.app.root.paths
     mopath = "%s/*" % paths.mo_dir
     return [path.rsplit('/', 1)[1] for path in iglob(mopath)]
 

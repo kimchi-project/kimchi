@@ -31,7 +31,7 @@ class CirclesModel(object):
     def create(self, params):
         name = params['name']
         if name in self._circles:
-            raise InvalidOperation("Circle %s already exists" % name)
+            raise InvalidOperation("SPCIRCLE0001E", {'name': name})
         self._circles[name] = Circle(params['radius'])
         return name
 
@@ -48,12 +48,12 @@ class CircleModel(object):
         try:
             circle = self._circles[name]
         except KeyError:
-            raise NotFoundError("Circle %s not found" % name)
+            raise NotFoundError("SPCIRC0002E", {'name': name})
         return {'radius': circle.radius}
 
     def update(self, name, params):
         if name not in self._circles:
-            raise NotFoundError("Circle %s not found" % name)
+            raise NotFoundError("SPCIRC0002E", {'name': name})
         self._circles[name].radius = params['radius']
         return name
 
@@ -71,7 +71,7 @@ class RectanglesModel(object):
     def create(self, params):
         name = params['name']
         if name in self._rectangles:
-            raise InvalidOperation("Rectangle %s already exists" % name)
+            raise InvalidOperation("SPRET0001E", {'name': name})
         self._rectangles[name] = Rectangle(params['length'], params['width'])
         return name
 
@@ -87,12 +87,12 @@ class RectangleModel(object):
         try:
             rectangle = self._rectangles[name]
         except KeyError:
-            raise NotFoundError("Rectangle %s not found" % name)
+            raise NotFoundError("SPRET0002E", {'name': name})
         return {'length': rectangle.length, 'width': rectangle.width}
 
     def update(self, name, params):
         if name not in self._rectangles:
-            raise NotFoundError("Rectangle %s not found" % name)
+            raise NotFoundError("SPRET0002E", {'name': name})
         try:
             self._rectangles[name].length = params['length']
         except KeyError:

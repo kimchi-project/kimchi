@@ -31,8 +31,8 @@ from kimchi.exception import OperationFailed
 class AsyncTask(object):
     def __init__(self, id, target_uri, fn, objstore, opaque=None):
         if objstore is None:
-            raise OperationFailed("Datastore is not initiated in "
-                                  "the model object")
+            raise OperationFailed("KCHASYNC0001E")
+
         self.id = str(id)
         self.target_uri = target_uri
         self.fn = fn

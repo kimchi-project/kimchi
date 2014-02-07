@@ -163,7 +163,7 @@ class VMsModel(object):
         name = get_vm_name(params.get('name'), t_name, vm_list)
         # incoming text, from js json, is unicode, do not need decode
         if name in vm_list:
-            raise InvalidOperation("VM already exists")
+            raise InvalidOperation("KCHVM0001E", {'name': name})
 
         vm_overrides = dict()
         pool_uri = params.get('storagepool')
@@ -173,8 +173,7 @@ class VMsModel(object):
                                        vm_overrides)
 
         if not self.caps.qemu_stream and t.info.get('iso_stream', False):
-            err = "Remote ISO image is not supported by this server."
-            raise InvalidOperation(err)
+            raise InvalidOperation("KCHVM0005E")
 
         t.validate()
         vol_list = t.fork_vm_storage(vm_uuid)
@@ -201,7 +200,8 @@ class VMsModel(object):
             for v in vol_list:
                 vol = conn.storageVolLookupByPath(v['path'])
                 vol.delete(0)
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVM0007E", {'name': name,
+                                                 'err': e.get_error_message()})
 
         return name
 
@@ -237,15 +237,16 @@ class VMModel(object):
         try:
             if 'name' in params:
                 if state == 'running':
-                    err = "VM name only can be updated when vm is powered off."
-                    raise InvalidParameter(err)
+                    msg_args = {'name': dom.name(), 'new_name': params['name']}
+                    raise InvalidParameter("KCHVM0003E", msg_args)
                 else:
                     dom.undefine()
             conn = self.conn.get()
             dom = conn.defineXML(new_xml)
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHVM0008E", {'name': dom.name(),
+                                                 'err': e.get_error_message()})
         return dom
 
     def _live_vm_update(self, dom, params):
@@ -308,8 +309,8 @@ class VMModel(object):
         except NotFoundError:
             return False
         except Exception, e:
-            err = "Unable to retrieve VM '%s': %s"
-            raise OperationFailed(err % (name, e.message))
+            raise OperationFailed("KCHVM0009E", {'name': name,
+                                                 'err': e.message})
 
     @staticmethod
     def get_vm(name, conn):
@@ -319,7 +320,7 @@ class VMModel(object):
             return conn.lookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN:
-                raise NotFoundError("Virtual Machine '%s' not found" % name)
+                raise NotFoundError("KCHVM0002E", {'name': name})
             else:
                 raise
 
@@ -384,8 +385,7 @@ class VMModel(object):
         if graphics_port is not None:
             vnc.add_proxy_token(name, graphics_port)
         else:
-            raise OperationFailed("Only able to connect to running vm's vnc "
-                                  "graphics.")
+            raise OperationFailed("KCHVM0010E", {'name': name})
 
     def _vmscreenshot_delete(self, vm_uuid):
         screenshot = VMScreenshotModel.get_screenshot(vm_uuid, self.objstore,
@@ -405,7 +405,7 @@ class VMScreenshotModel(object):
         d_info = dom.info()
         vm_uuid = dom.UUIDString()
         if DOM_STATE_MAP[d_info[0]] != 'running':
-            raise NotFoundError('No screenshot for stopped vm')
+            raise NotFoundError("KCHVM0004E", {'name': name})
 
         screenshot = self.get_screenshot(vm_uuid, self.objstore, self.conn)
         img_path = screenshot.lookup()
@@ -448,7 +448,7 @@ class LibvirtVMScreenshot(VMScreenshot):
                 stream.abort()
             except:
                 pass
-            raise NotFoundError("Screenshot not supported for %s" % vm_name)
+            raise NotFoundError("KCHVM0006E", {'name': vm_name})
         else:
             stream.finish()
         finally:

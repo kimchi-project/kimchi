@@ -55,7 +55,8 @@ class TargetClient(object):
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = iscsiadm.communicate()
         if iscsiadm.returncode != 0:
-            raise OperationFailed('Error executing iscsiadm: %s' % err)
+            msg_args = {'portal': self.portal, 'err': err}
+            raise OperationFailed("KCHISCSI0001E", msg_args)
         return out
 
     def _discover(self):
@@ -65,7 +66,8 @@ class TargetClient(object):
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = iscsiadm.communicate()
         if iscsiadm.returncode != 0:
-            raise OperationFailed('Error executing iscsiadm: %s' % err)
+            msg_args = {'portal': self.portal, 'err': err}
+            raise OperationFailed("KCHISCSI0001E", msg_args)
         return out
 
     def _run_op(self, op):

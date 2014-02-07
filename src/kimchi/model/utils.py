@@ -30,4 +30,4 @@ def get_vm_name(vm_name, t_name, name_list):
         vm_name = "%s-vm-%i" % (t_name, i)
         if vm_name not in name_list:
             return vm_name
-    raise OperationFailed("Unable to choose a VM name")
+    raise OperationFailed("KCHUTILS0003E")

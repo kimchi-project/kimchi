@@ -52,13 +52,12 @@ class VMIfacesModel(object):
         networks = conn.listNetworks() + conn.listDefinedNetworks()
 
         if params["type"] == "network" and params["network"] not in networks:
-            raise InvalidParameter("%s is not an available network" %
-                                   params["network"])
+            raise InvalidParameter("KCHVMIF0002E",
+                                   {'name': vm, 'network': params["network"]})
 
         dom = VMModel.get_vm(vm, self.conn)
         if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-            raise InvalidOperation("do not support hot plugging attach "
-                                   "guest interface")
+            raise InvalidOperation("KCHVMIF0003E")
 
         macs = (iface.mac.get('address')
                 for iface in self.get_vmifaces(vm, self.conn))
@@ -108,7 +107,7 @@ class VMIfaceModel(object):
 
         iface = self._get_vmiface(vm, mac)
         if iface is None:
-            raise NotFoundError('iface: "%s"' % mac)
+            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
 
         info['type'] = iface.attrib['type']
         info['mac'] = iface.mac.get('address')
@@ -126,10 +125,10 @@ class VMIfaceModel(object):
         iface = self._get_vmiface(vm, mac)
 
         if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-            raise InvalidOperation("do not support hot plugging detach "
-                                   "guest interface")
+            raise InvalidOperation("KCHVMIF0003E")
+
         if iface is None:
-            raise NotFoundError('iface: "%s"' % mac)
+            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
 
         dom.detachDeviceFlags(etree.tostring(iface),
                               libvirt.VIR_DOMAIN_AFFECT_CURRENT)

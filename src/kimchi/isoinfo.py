@@ -149,11 +149,11 @@ class IsoImage(object):
         if check_url_path(self.path):
             return True
 
-        raise IsoFormatError('ISO %s does not exist' % self.path)
+        raise IsoFormatError("KCHISO0001E", {'filename': self.path})
 
     def probe(self):
         if not self.bootable:
-            raise IsoFormatError("ISO %s not bootable" % self.path)
+            raise IsoFormatError("KCHISO0002E", {'filename': self.path})
 
         matcher = Matcher(self.volume_id)
 
@@ -197,7 +197,8 @@ class IsoImage(object):
             if vd_type == 0:  # Found El-Torito Boot Record
                 break
         if not et_ident.startswith('EL TORITO SPECIFICATION'):
-            raise IsoFormatError("Invalid El Torito boot record")
+            raise IsoFormatError("KCHISO0003E",
+                                 {'filename': self.path})
 
         offset = IsoImage.SECTOR_SIZE * boot_cat
         size = IsoImage.EL_TORITO_VALIDATION_ENTRY.size + \
@@ -210,7 +211,8 @@ class IsoImage(object):
         (hdr_id, platform_id, pad0,
          ident, csum, key55, keyAA) = self._unpack(fmt, tmp_data)
         if key55 != 0x55 or keyAA != 0xaa:
-            raise IsoFormatError("Invalid El Torito validation entry")
+            raise IsoFormatError("KCHISO0004E",
+                                 {'filename': self.path})
 
         fmt = IsoImage.EL_TORITO_BOOT_ENTRY
         tmp_data = data[ptr:ptr+fmt.size]
@@ -221,7 +223,8 @@ class IsoImage(object):
         elif boot == 0:
             self.bootable = False
         else:
-            raise IsoFormatError("Invalid El Torito boot indicator")
+            raise IsoFormatError("KCHISO0005E",
+                                 {'filename': self.path})
 
     def _scan_primary_vol(self, data):
         """
@@ -232,9 +235,9 @@ class IsoImage(object):
         info = self._unpack(IsoImage.VOL_DESC, primary_vol_data)
         (vd_type, vd_ident, vd_ver, pad0, sys_id, vol_id) = info
         if vd_type != 1:
-            raise IsoFormatError("Unexpected volume type for primary volume")
+            raise IsoFormatError("KCHISO0006E", {'filename': self.path})
         if vd_ident != 'CD001' or vd_ver != 1:
-            raise IsoFormatError("Bad format while reading volume descriptor")
+            raise IsoFormatError("KCHISO0007E", {'filename': self.path})
         self.volume_id = vol_id
 
     def _get_iso_data(self, offset, size):

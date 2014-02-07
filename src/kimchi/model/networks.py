@@ -39,7 +39,7 @@ class NetworksModel(object):
         conn = self.conn.get()
         name = params['name']
         if name in self.get_list():
-            raise InvalidOperation("Network %s already exists" % name)
+            raise InvalidOperation("KCHNET0001E", {'name': name})
 
         connection = params["connection"]
         # set forward mode, isolated do not need forward
@@ -60,7 +60,8 @@ class NetworksModel(object):
             network = conn.networkDefineXML(xml)
             network.setAutostart(True)
         except libvirt.libvirtError as e:
-            raise OperationFailed(e.get_error_message())
+            raise OperationFailed("KCHNET0008E",
+                                  {'name': name, 'err': e.get_error_message()})
 
         return name
 
@@ -80,13 +81,13 @@ class NetworksModel(object):
                 subnet and net_addrs.append(ipaddr.IPNetwork(subnet))
             netaddr = knetwork.get_one_free_network(net_addrs)
             if not netaddr:
-                raise OperationFailed("can not find a free IP address for "
-                                      "network '%s'" % params['name'])
+                raise OperationFailed("KCHNET0009E", {'name': params['name']})
 
         try:
             ip = ipaddr.IPNetwork(netaddr)
-        except ValueError as e:
-            raise InvalidParameter("%s" % e)
+        except ValueError:
+            raise InvalidParameter("KCHNET0003E", {'subent': netaddr,
+                                                   'network': params['name']})
 
         if ip.ip == ip.network:
             ip.ip = ip.ip + 1
@@ -101,10 +102,11 @@ class NetworksModel(object):
         try:
             iface = params['interface']
             if iface in self.get_all_networks_interfaces():
-                raise InvalidParameter("interface '%s' already in use." %
-                                       iface)
-        except KeyError, e:
-            raise MissingParameter(e)
+                msg_args = {'iface': iface, 'network': params['name']}
+                raise InvalidParameter("KCHNET0006E", msg_args)
+        except KeyError:
+            raise MissingParameter("KCHNET0004E", {'name': params['name']})
+
         if netinfo.is_bridge(iface):
             params['bridge'] = iface
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
@@ -115,8 +117,7 @@ class NetworksModel(object):
                     self._create_vlan_tagged_bridge(str(iface),
                                                     str(params['vlan_id']))
         else:
-            raise InvalidParameter("the interface should be bare nic, "
-                                   "bonding or bridge device.")
+            raise InvalidParameter("KCHNET0007E")
 
     def get_all_networks_interfaces(self):
         net_names = self.get_list()
@@ -144,7 +145,8 @@ class NetworksModel(object):
             vlan_tagged_br.create()
         except libvirt.libvirtError as e:
             conn.changeRollback()
-            raise OperationFailed(e.message)
+            raise OperationFailed("KCHNET0010E", {'iface': interface,
+                                                  'err': e.message})
         else:
             conn.changeCommit()
             return br_name
@@ -211,8 +213,8 @@ class NetworkModel(object):
     def delete(self, name):
         network = self._get_network(name)
         if network.isActive():
-            raise InvalidOperation(
-                "Unable to delete the active network %s" % name)
+            raise InvalidOperation("KCHNET0005E", {'name': name})
+
         self._remove_vlan_tagged_bridge(network)
         network.undefine()
 
@@ -220,9 +222,8 @@ class NetworkModel(object):
         conn = self.conn.get()
         try:
             return conn.networkLookupByName(name)
-        except libvirt.libvirtError as e:
-            raise NotFoundError("Network '%s' not found: %s" %
-                                (name, e.get_error_message()))
+        except libvirt.libvirtError:
+            raise NotFoundError("KCHNET0002E", {'name': name})
 
     @staticmethod
     def get_network_from_xml(xml):
