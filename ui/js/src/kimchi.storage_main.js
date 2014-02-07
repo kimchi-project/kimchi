@@ -36,8 +36,8 @@ kimchi.doListStoragePools = function() {
         } else {
             $('#storagepoolsList').html('');
         }
-    }, function() {
-        kimchi.message.error(i18n['kimchi.list.storage.fail.msg']);
+    }, function(err) {
+        kimchi.message.error(err.responseJSON.reason);
     });
 
 }
@@ -79,10 +79,10 @@ kimchi.storageBindClick = function() {
     $('.pool-delete').on('click', function(event) {
         var $pool = $(this);
         var settings = {
-            title : i18n['msg.confirm.delete.title'],
-            content : i18n['msg.storagepool.confirm.delete'],
-            confirm : i18n['msg.confirm.delete.confirm'],
-            cancel : i18n['msg.confirm.delete.cancel']
+            title : i18n['KCHAPI6001M'],
+            content : i18n['KCHPOOL6001M'],
+            confirm : i18n['KCHAPI6002M'],
+            cancel : i18n['KCHAPI6003M']
         };
         kimchi.confirm(settings, function() {
             var poolName = $pool.data('name');
@@ -159,14 +159,14 @@ kimchi.doListVolumes = function(poolObj) {
                 });
                 volumeDiv.html(listHtml);
             } else {
-                volumeDiv.html("<div class='pool-empty'>" + i18n['msg.kimchi.storage.pool.empty'] + "</div>");
+                volumeDiv.html("<div class='pool-empty'>" + i18n['KCHPOOL6002M'] + "</div>");
             }
             poolObj.removeClass('in');
             kimchi.changeArrow(handleArrow);
             slide.slideDown('slow');
         }
-    }, function() {
-        kimchi.message.error(i18n['msg.kimchi.list.volume.fail']);
+    }, function(err) {
+        kimchi.message.error(err.responseJSON.reason);
     });
 }
 

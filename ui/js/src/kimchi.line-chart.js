@@ -110,7 +110,7 @@ kimchi.widget.LineChart = function(params) {
             );
         }
 
-        var maxValueLabel = i18n['msg.host.chartaxis.max'] + ' ' +
+        var maxValueLabel = i18n['KCHHOST6001M'] + ' ' +
             (type === 'value'
                 ? kimchi.formatMeasurement(maxValue, formatSettings)
                 : '100%');

@@ -16,7 +16,7 @@ kimchi.report_add_main = function() {
         var formData = addReportForm.serializeObject();
         errorMessage.text('');
         submitButton
-            .text(i18n['msg.host.debugreport.generating'])
+            .text(i18n['KCHDR6007M'])
             .prop('disabled', true);
         nameTextbox.prop('disabled', true);
         kimchi.createReport(formData, function(result) {
@@ -25,10 +25,10 @@ kimchi.report_add_main = function() {
                 result: result
             });
         }, function(result) {
-            result && result['message'] &&
-                $('#report-error-message').text(result['message']);
+            result && result['reason'] &&
+                $('#report-error-message').text(result['reason']);
             submitButton
-                .text(i18n['msg.host.debugreport.generate'])
+                .text(i18n['KCHDR6006M'])
                 .prop('disabled', false);
             nameTextbox.prop('disabled', false).focus();
         });

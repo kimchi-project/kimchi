@@ -42,7 +42,7 @@ kimchi.login_main = function() {
         for(var i = 0; i < idsArray.length; i++) {
             var id = idsArray[i];
             if (!$('#' + id).val()) {
-                $('#' + id + '-msg').text(i18n['msg.login.requiredfield']);
+                $('#' + id + '-msg').text(i18n['KCHAUTH6002E']);
                 placeCursor(id);
                 return false;
             }
@@ -75,7 +75,7 @@ kimchi.login_main = function() {
             return false;
         }
 
-        $('#btn-login').text(i18n['msg.login.loggingin']).prop('disabled', true);
+        $('#btn-login').text(i18n['KCHAUTH6002M']).prop('disabled', true);
 
         var userID = $('#user-id').val();
         userID && kimchi.user.setUserID(userID);
@@ -95,8 +95,8 @@ kimchi.login_main = function() {
             kimchi.user.showUser(true);
             kimchi.window.close();
         }, function() {
-            $('#message-container').text(i18n['msg.login.failed']);
-            $('#btn-login').prop('disabled', false).text(i18n['msg.login.login']);
+            $('#message-container').text(i18n['KCHAUTH6001E']);
+            $('#btn-login').prop('disabled', false).text(i18n['KCHAUTH6001M']);
             placeCursor('user-id');
         });
 

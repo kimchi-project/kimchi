@@ -107,6 +107,10 @@ kimchi.message.warn = function(msg) {
 kimchi.message.error = function(msg) {
     kimchi.message(msg, 'error');
 };
+kimchi.message.error.code = function(code) {
+    msg = code + ": " + i18n[code]
+    kimchi.message(msg, 'error');
+};
 kimchi.message.success = function(msg) {
     kimchi.message(msg, 'success');
 };

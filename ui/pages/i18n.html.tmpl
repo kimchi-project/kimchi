@@ -6,6 +6,7 @@
  * Authors:
  *  Mei Na Zhou <zhoumein@linux.vnet.ibm.com>
  *  ShaoHe Feng <shaohef@linux.vnet.ibm.com>
+ *  Aline Manera <alinefm@linux.vnet.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,99 +37,84 @@
 <body>
 <script>
 var i18n = {
-    'temp.msg.fail.list': "$_("Failed to list the template")",
-    'temp.msg.choose.temp': "$_("Please choose a template")",
-    'vm.msg.fail.create.vm': "$_("Failed to create vm")",
-    'msg.login.failed': "$_("The username or password you entered is incorrect. Please try again.")",
-    'msg.login.requiredfield': "$_("This field is required.")",
-    'msg.login.login': "$_("Log in")",
-    'msg.login.loggingin': "$_("Logging in...")",
-    'msg.err.uri.invalid': "$_("Invalid URL. Redireced to home page.")",
-    'msg.404.gotohomepage': "$_("Go to Homepage")",
-    'msg.fail.start': "$_("Failed to start")",
-    'msg.fail.stop': "$_("Failed to stop")",
-    'msg.fail.reset': "$_("Failed to reset")",
-    'msg.fail.delete': "$_("Failed to delete")",
-    'msg.fail.list.guests': "$_("Failed to list guests")",
-    'msg.fail.create.template': "$_("Failed to create template")",
-    'msg.success.create.template': "$_("Create template successfully")",
-    'msg.fail.template.no.iso': "$_("No iso found")",
-    'msg.fail.template.scan': "$_("Failed to scan")",
-    'msg.fail.template.distr': "$_("Failed to list iso distributions")",
-    'msg.confirm.delete.title': "$_("Delete Confirmation")",
-    'msg.confirm': "$_("OK")",
-    'msg.cancel': "$_("Cancel")",
-    'msg.confirm.delete.confirm': "$_("OK")",
-    'msg.confirm.delete.cancel': "$_("Cancel")",
-    'msg.host.chartaxis.max': "$_("Max:")",
-    'msg.host.chartlegend.cpu': "$_("Utilization")",
-    'msg.host.chartlegend.memory.available': "$_("Available")",
-    'msg.host.chartlegend.disk.read': "$_("Read Rate")",
-    'msg.host.chartlegend.disk.write': "$_("Write Rate")",
-    'msg.host.chartlegend.network.received': "$_("Received")",
-    'msg.host.chartlegend.network.sent': "$_("Sent")",
-    'msg.host.debugreport.confirm.title': "$_("Confirm")",
-    'msg.host.debugreport.confirm.content': "$_("Debug report will be removed permanently and can't be recovered. Do you want to continue?")",
-    'msg.host.debugreport.title': "$_("Debug Reports")",
-    'msg.host.debugreport.name': "$_("Name")",
-    'msg.host.debugreport.file': "$_("File Path")",
-    'msg.host.debugreport.time': "$_("Generated Time")",
-    'msg.host.debugreport.generate': "$_("Generate")",
-    'msg.host.debugreport.generating': "$_("Generating...")",
-    'msg.host.debugreport.rename': "$_("Rename")",
-    'msg.host.debugreport.remove': "$_("Remove")",
-    'msg.host.debugreport.download': "$_("Download")",
-    'msg.host.shutdown.vmrunning': "$_("Some VM(s) are running!")",
-    'msg.host.shutdown.confirm.title': "$_("Confirm")",
-    'msg.host.shutdown.confirm.content': "$_("Shutting down or restarting host will cause unsaved work lost. Continue to shut down/restarting?")",
-    'msg.vm.confirm.delete': "$_("This will delete the VM and its virtual disks. "
-                                 "This operation cannot be undone. "
-                                 "Would you like to continue?")",
-    'msg.template.confirm.delete': "$_("This will permanently delete the Template. "
-                                       "Would you like to continue?")",
-    'msg.template.iso.search.confirm': "It will take long time. Do you want to continue?",
-    'msg.fail.get.config': "$_("Failed to get application configuration")",
-    'msg.invalid.path': "$_("This is not a valid linux path")",
-    'msg.invalid.url': "$_("This is not a valid url.")",
-    'msg.invalid.vlan_id': "$_("The VLAN id must be between 1 and 4094.")",
-    'msg.invalid.iso': "$_("This is not a valid ISO file.")",
-    'msg.storagepool.confirm.delete':"$_("This will permanently delete the Storage Pool. Would you like to continue?")",
-    'msg.pool.edit.name.blank':"$_("The storage pool name can not be blank.")",
-    'msg.pool.edit.path.blank':"$_("The storage pool path can not be blank.")",
-    'msg.pool.edit.nfspath.blank':"$_("NFS server mount path can not be blank.")",
-    'msg.validate.pool.edit.name':"$_("Invalid Storage Pool name.  It may only contain letters, numbers, underscores, and hyphens.")",
-    'msg.validate.pool.edit.path':"$_("This is not a real linux path.")",
-    'msg.validate.pool.edit.nfspath':"$_("Invalid nfs mount path.")",
-    'msg.validate.pool.edit.logical.device':"$_("No logical device selected.")",
-    'msg.kimchi.storage.pool.empty':"$_("This storage pool is empty.")",
-    'msg.kimchi.list.volume.fail':"$_("Failed to list the storage pool.")",
-    'msg.kimchi.storage.pool.not.active':"$_("The storage pool is not active now.")",
-    'fail.delete.template': "$_("Failed to delete template.")",
-    'Guests':"$_("Guests")",
-    'Host':"$_("Host")",
-    'Templates':"$_("Templates")",
-    'Storage':"$_("Storage")",
-    'value_unavailable': "$_("unavailable")",
-    'Network':"$_("Network")",
-    'network_type_isolated': "$_("isolated")",
-    'network_type_nat': "$_("NAT")",
-    'network_type_bridged': "$_("bridged")",
-    'network_bridged_space': "$_("connected to")",
-    'network_action_confirm': "$_("This action will interrupt network connectivity for any virtual machine that depend on this network.")",
-    'network_dialog_title_create': "$_("Create a network")",
-    'network_dialog_ok': "$_("OK")",
-    'network_dialog_cancel': "$_("Cancel")",
-    'action_create': "$_("Create")",
-    'msg_warning': "$_("Warning")",
-    'msg.logicalpool.confirm.delete': "$_("It will format your disk and you will loose any data in"
-                                      " there, are you sure to continue? ")",
-    'msg.pool.edit.iscsitarget.blank': "$_("The iSCSI target can not be blank.")",
-    'msg.pool.edit.server.blank':"$_("Server name can not be blank.")",
-    'msg.validate.pool.edit.server':"$_("This is not a valid Server Name or IP. please, modify it.")",
-    'select_default': "$_("Please choose")",
-    'msg.no.mapping.result': "$_("No such data exsit.")",
-    'msg.no.result' : "$_("No valid result")",
-    'selectmenu.data.error' : "$_("options needed.")"
+    'KCHAUTH6001E': "$_("The username or password you entered is incorrect. Please try again.")",
+    'KCHAUTH6002E': "$_("This field is required.")",
+
+    'KCHAUTH6001M': "$_("Log in")",
+    'KCHAUTH6002M': "$_("Logging in...")",
+
+    'Host': "$_("Host")",
+    'Guests': "$_("Guests")",
+    'Templates': "$_("Templates")",
+    'Storage': "$_("Storage")",
+    'Network': "$_("Network")",
+
+    'KCHAPI6001E': "$_("Invalid URL. Redireced to home page.")",
+    'KCHAPI6002E': "$_("Failed to get application configuration")",
+    'KCHAPI6003E': "$_("This is not a valid Linux path")",
+    'KCHAPI6004E': "$_("This is not a valid URL.")",
+    'KCHAPI6005E': "$_("No such data exsit.")",
+    'KCHAPI6006E': "$_("options needed.")",
+
+    'KCHAPI6001M': "$_("Delete Confirmation")",
+    'KCHAPI6002M': "$_("OK")",
+    'KCHAPI6003M': "$_("Cancel")",
+    'KCHAPI6004M': "$_("Confirm")",
+    'KCHAPI6005M': "$_("Create")",
+    'KCHAPI6006M': "$_("Warning")",
+
+    'KCHTMPL6001W': "$_("No iso found")",
+
+    'KCHTMPL6002E': "$_("This is not a valid ISO file.")",
+
+    'KCHTMPL6001M': "$_("Create template successfully")",
+    'KCHTMPL6002M': "$_("It will take long time. Do you want to continue?")",
+    'KCHTMPL6003M': "$_("This will permanently delete the template. Would you like to continue?")",
+
+    'KCHHOST6001E': "$_("Unable to shut down system as there are some virtual machines running!")",
+
+    'KCHHOST6001M': "$_("Max:")",
+    'KCHHOST6002M': "$_("Utilization")",
+    'KCHHOST6003M': "$_("Available")",
+    'KCHHOST6004M': "$_("Read Rate")",
+    'KCHHOST6005M': "$_("Write Rate")",
+    'KCHHOST6006M': "$_("Received")",
+    'KCHHOST6007M': "$_("Sent")",
+    'KCHHOST6008M': "$_("Shutting down or restarting host will cause unsaved work lost. Continue to shut down/restarting?")",
+
+    'KCHDR6001M': "$_("Debug report will be removed permanently and can't be recovered. Do you want to continue?")",
+    'KCHDR6002M': "$_("Debug Reports")",
+    'KCHDR6003M': "$_("Name")",
+    'KCHDR6004M': "$_("File Path")",
+    'KCHDR6005M': "$_("Generated Time")",
+    'KCHDR6006M': "$_("Generate")",
+    'KCHDR6007M': "$_("Generating...")",
+    'KCHDR6008M': "$_("Rename")",
+    'KCHDR6009M': "$_("Remove")",
+    'KCHDR6010M': "$_("Download")",
+
+
+    'KCHVM6001M': "$_("This will delete the virtual machine and its virtual disks. This operation cannot be undone. Would you like to continue?")",
+
+    'KCHNET6001E': "$_("The VLAN id must be between 1 and 4094.")",
+
+    'KCHNET6001M': "$_("unavailable")",
+    'KCHNET6002M': "$_("This action will interrupt network connectivity for any virtual machine that depend on this network.")",
+    'KCHNET6003M': "$_("Create a network")",
+
+    'KCHPOOL6001M': "$_("This will permanently delete the storage pool. Would you like to continue?")",
+    'KCHPOOL6002M': "$_("This storage pool is empty.")",
+    'KCHPOOL6003M': "$_("It will format your disk and you will loose any data in there, are you sure to continue? ")",
+
+    'KCHPOOL6001E': "$_("The storage pool name can not be blank.")",
+    'KCHPOOL6002E': "$_("The storage pool path can not be blank.")",
+    'KCHPOOL6003E': "$_("NFS server mount path can not be blank.")",
+    'KCHPOOL6004E': "$_("Invalid storage pool name. It may only contain letters, numbers, underscores, and hyphens.")",
+    'KCHPOOL6005E': "$_("Invalid NFS mount path.")",
+    'KCHPOOL6006E': "$_("No logical device selected.")",
+    'KCHPOOL6007E': "$_("The iSCSI target can not be blank.")",
+    'KCHPOOL6008E': "$_("Server name can not be blank.")",
+    'KCHPOOL6009E': "$_("This is not a valid Server Name or IP. please, modify it.")"
 };
 </script>
 </body>

@@ -33,8 +33,8 @@ kimchi.doListTemplates = function() {
             $('#templateList').html('');
             $('#noTemplates').show();
         }
-    }, function() {
-        kimchi.message.error(i18n['kimchi.list.template.fail.msg']);
+    }, function(err) {
+        kimchi.message.error(err.responseJSON.reason);
     });
 };
 
@@ -47,17 +47,17 @@ kimchi.bindClick = function() {
     $('.template-delete').on('click', function(event) {
         var $template = $(this);
         var settings = {
-            title : i18n['msg.confirm.delete.title'],
-            content : i18n['msg.template.confirm.delete'],
-            confirm : i18n['msg.confirm.delete.confirm'],
-            cancel : i18n['msg.confirm.delete.cancel']
+            title : i18n['KCHAPI6001M'],
+            content : i18n['KCHTMPL6003M'],
+            confirm : i18n['KCHAPI6002M'],
+            cancel : i18n['KCHAPI6003M']
         };
         kimchi.confirm(settings, function() {
             var templateName = $template.data('template');
             kimchi.deleteTemplate(templateName, function() {
                 kimchi.doListTemplates();
-            }, function() {
-                kimchi.message.error(i18n['fail.delete.template']);
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
             });
         }, function() {
         });

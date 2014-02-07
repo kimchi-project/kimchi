@@ -46,7 +46,7 @@ kimchi.main = function() {
          */
         var tab = $('#nav-menu a[href="' + url + '"]');
         if (tab.length === 0) {
-            kimchi.message.error(i18n['msg.err.uri.invalid']);
+            kimchi.message.error.code('KCHAPI6001E');
             location.hash = '';
             return;
         }
@@ -138,8 +138,8 @@ kimchi.main = function() {
         $('#btn-logout').on('click', function() {
             kimchi.logout(function() {
                 updatePage();
-            }, function() {
-                kimchi.message.error(i18n['msg.logout.failed']);
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
             });
         });
     };

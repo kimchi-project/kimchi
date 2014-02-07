@@ -44,8 +44,8 @@ kimchi.guest_add_main = function() {
 
             $('#prompt-choose-template').addClass('hidden');
             $('#prompt-create-template').removeClass('hidden');
-        }, function() {
-            kimchi.message.error(i18n['temp.msg.fail.list']);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         });
     };
 
@@ -72,8 +72,7 @@ kimchi.guest_add_main = function() {
             var reason = jqXHR &&
                 jqXHR['responseJSON'] &&
                 jqXHR['responseJSON']['reason'];
-            reason = reason ? ': ' + reason : '';
-            kimchi.message.error(i18n['vm.msg.fail.create.vm'] + reason);
+            kimchi.message.error(reason);
         });
 
         return false;

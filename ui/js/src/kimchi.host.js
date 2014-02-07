@@ -31,10 +31,10 @@ kimchi.host_main = function() {
         reportGrid = new kimchi.widget.Grid({
             container: 'available-reports-grid-container',
             id: reportGridID,
-            title: i18n['msg.host.debugreport.title'],
+            title: i18n['KCHDR6002M'],
             toolbarButtons: [{
                 id: reportGridID + '-generate-button',
-                label: i18n['msg.host.debugreport.generate'],
+                label: i18n['KCHDR6006M'],
                 onClick: function(event) {
                     kimchi.window.open('report-add.html', {
                         close: function() {
@@ -44,13 +44,13 @@ kimchi.host_main = function() {
                 }
             }, {
                 id: reportGridID + '-rename-button',
-                label: i18n['msg.host.debugreport.rename'],
+                label: i18n['KCHDR6008M'],
                 disabled: true,
                 onClick: function(event) {
                 }
             }, {
                 id: reportGridID + '-remove-button',
-                label: i18n['msg.host.debugreport.remove'],
+                label: i18n['KCHDR6009M'],
                 disabled: true,
                 onClick: function(event) {
                     var report = reportGrid.getSelected();
@@ -59,10 +59,10 @@ kimchi.host_main = function() {
                     }
 
                     var settings = {
-                        title : i18n['msg.host.debugreport.confirm.title'],
-                        content : i18n['msg.host.debugreport.confirm.content'],
-                        confirm : i18n['msg.confirm'],
-                        cancel : i18n['msg.cancel']
+                        title : i18n['KCHAPI6004M'],
+                        content : i18n['KCHDR6001M'],
+                        confirm : i18n['KCHAPI6002M'],
+                        cancel : i18n['KCHAPI6003M']
                     };
 
                     kimchi.confirm(settings, function() {
@@ -76,7 +76,7 @@ kimchi.host_main = function() {
                 }
             }, {
                 id: reportGridID + '-download-button',
-                label: i18n['msg.host.debugreport.download'],
+                label: i18n['KCHDR6010M'],
                 disabled: true,
                 onClick: function(event) {
                     var report = reportGrid.getSelected();
@@ -102,15 +102,15 @@ kimchi.host_main = function() {
             }],
             fields: [{
                 name: 'name',
-                label: i18n['msg.host.debugreport.name'],
+                label: i18n['KCHDR6003M'],
                 'class': 'debug-report-name'
             }, {
                 name: 'file',
-                label: i18n['msg.host.debugreport.file'],
+                label: i18n['KCHDR6004M'],
                 'class': 'debug-report-file'
             }, {
                 name: 'time',
-                label: i18n['msg.host.debugreport.time'],
+                label: i18n['KCHDR6005M'],
                 'class': 'debug-report-time'
             }],
             data: reports
@@ -135,10 +135,10 @@ kimchi.host_main = function() {
     var restartButtonID = '#host-button-restart';
     var shutdownHost = function(params) {
         var settings = {
-            title : i18n['msg.host.shutdown.confirm.title'],
-            content : i18n['msg.host.shutdown.confirm.content'],
-            confirm : i18n['msg.confirm'],
-            cancel : i18n['msg.cancel']
+            title : i18n['KCHAPI6004M'],
+            content : i18n['KCHHOST6008M'],
+            confirm : i18n['KCHAPI6002M'],
+            cancel : i18n['KCHAPI6003M']
         };
 
         kimchi.confirm(settings, function() {
@@ -149,7 +149,7 @@ kimchi.host_main = function() {
             kimchi.listVMs(function(vms) {
                 for(var i = 0; i < vms.length; i++) {
                     if(vms[i]['state'] === 'running') {
-                        kimchi.message.warn(i18n['msg.host.shutdown.vmrunning']);
+                        kimchi.message.error.code('KCHHOST6001E');
                         $(shutdownButtonID).prop('disabled', false);
                         $(restartButtonID).prop('disabled', false);
                         return;
@@ -220,7 +220,7 @@ kimchi.host_main = function() {
             cpu: {
                 u: {
                     type: 'percent',
-                    legend: i18n['msg.host.chartlegend.cpu'],
+                    legend: i18n['KCHHOST6002M'],
                     points: []
                 }
             },
@@ -229,7 +229,7 @@ kimchi.host_main = function() {
                     type: 'value',
                     base: 2,
                     fixed: 2,
-                    legend: i18n['msg.host.chartlegend.memory.available'],
+                    legend: i18n['KCHHOST6003M'],
                     points: []
                 }
             },
@@ -239,7 +239,7 @@ kimchi.host_main = function() {
                     base: 2,
                     fixed: 2,
                     unit: 'B/s',
-                    legend: i18n['msg.host.chartlegend.disk.read'],
+                    legend: i18n['KCHHOST6004M'],
                     points: []
                 },
                 w: {
@@ -247,7 +247,7 @@ kimchi.host_main = function() {
                     base: 2,
                     fixed: 2,
                     unit: 'B/s',
-                    legend: i18n['msg.host.chartlegend.disk.write'],
+                    legend: i18n['KCHHOST6005M'],
                     'class': 'disk-write',
                     points: []
                 }
@@ -258,7 +258,7 @@ kimchi.host_main = function() {
                     base: 2,
                     fixed: 2,
                     unit: 'B/s',
-                    legend: i18n['msg.host.chartlegend.network.received'],
+                    legend: i18n['KCHHOST6006M'],
                     points: []
                 },
                 s: {
@@ -266,7 +266,7 @@ kimchi.host_main = function() {
                     base: 2,
                     fixed: 2,
                     unit: 'B/s',
-                    legend: i18n['msg.host.chartlegend.network.sent'],
+                    legend: i18n['KCHHOST6007M'],
                     'class': 'network-sent',
                     points: []
                 }

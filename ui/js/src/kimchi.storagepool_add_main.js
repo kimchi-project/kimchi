@@ -141,11 +141,11 @@ kimchi.validateForm = function() {
     var name = $('#poolId').val();
     var poolType = $("#poolTypeInputId").val();
     if ('' === name) {
-        kimchi.message.error(i18n['msg.pool.edit.name.blank']);
+        kimchi.message.error.code('KCHPOOL6001E');
         return false;
     }
     if (!/^[\w-]+$/.test(name)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.name']);
+        kimchi.message.error.code('KCHPOOL6004E');
         return false;
     }
     if (poolType === "dir") {
@@ -164,11 +164,11 @@ kimchi.validateForm = function() {
 kimchi.validateDirForm = function () {
     var path = $('#pathId').val();
     if ('' === path) {
-        kimchi.message.error(i18n['msg.pool.edit.path.blank']);
+        kimchi.message.error.code('KCHPOOL6002E');
         return false;
     }
     if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(path)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.path']);
+        kimchi.message.error.code('KCHAPI6003E');
         return false;
     }
     return true;
@@ -181,11 +181,11 @@ kimchi.validateNfsForm = function () {
         return false;
     }
     if ('' === nfspath) {
-        kimchi.message.error(i18n['msg.pool.edit.nfspath.blank']);
+        kimchi.message.error.code('KCHPOOL6003E');
         return false;
     }
     if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(nfspath)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.nfspath']);
+        kimchi.message.error.code('KCHPOOL6005E');
         return false;
     }
     return true;
@@ -198,7 +198,7 @@ kimchi.validateIscsiForm = function() {
         return false;
     }
     if ('' === iscsiTarget) {
-        kimchi.message.error(i18n['msg.pool.edit.iscsitarget.blank']);
+        kimchi.message.error.code('KCHPOOL6007E');
         return false;
     }
     return true;
@@ -206,11 +206,11 @@ kimchi.validateIscsiForm = function() {
 
 kimchi.validateServer = function(serverField) {
     if ('' === serverField) {
-        kimchi.message.error(i18n['msg.pool.edit.server.blank']);
+        kimchi.message.error.code('KCHPOOL6008E');
         return false;
     }
     if(!kimchi.isServer(serverField)) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.server']);
+        kimchi.message.error.code('KCHPOOL6009E');
         return false;
     }
     return true;
@@ -218,7 +218,7 @@ kimchi.validateServer = function(serverField) {
 
 kimchi.validateLogicalForm = function () {
     if ($("input[name=devices]:checked").length === 0) {
-        kimchi.message.error(i18n['msg.validate.pool.edit.logical.device']);
+        kimchi.message.error.code('KCHPOOL6006E');
         return false;
     } else {
         return true;
@@ -263,10 +263,10 @@ kimchi.addPool = function(event) {
         }
         if (poolType === 'logical') {
             var settings = {
-                title : i18n['msg.confirm.delete.title'],
-                content : i18n['msg.logicalpool.confirm.delete'],
-                confirm : i18n['msg.confirm.delete.confirm'],
-                cancel : i18n['msg.confirm.delete.cancel']
+                title : i18n['KCHAPI6001M'],
+                content : i18n['KCHPOOL6003M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
             };
             kimchi.confirm(settings, function() {
                 kimchi.createStoragePool(formData, function() {

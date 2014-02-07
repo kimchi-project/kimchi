@@ -54,10 +54,10 @@ kimchi.addNetworkItem = function(network) {
 
 kimchi.getNetworkItemHtml = function(network) {
     if(!network.interface) {
-        network.interface = i18n["value_unavailable"];
+        network.interface = i18n["KCHNET6001M"];
     }
     if(!network.addrSpace) {
-        network.addrSpace = i18n["value_unavailable"];
+        network.addrSpace = i18n["KCHNET6001M"];
     }
     if(i18n["network_type_" + network.type]) {
         network.type = i18n["network_type_" + network.type];
@@ -104,10 +104,10 @@ kimchi.addNetworkActions = function(network) {
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
                 kimchi.confirm({
-                    title : i18n['msg_warning'],
-                    content : i18n['network_action_confirm'],
-                    confirm : i18n['msg.confirm.delete.confirm'],
-                    cancel : i18n['msg.confirm.delete.cancel']
+                    title : i18n['KCHAPI6006M'],
+                    content : i18n['KCHNET6002M'],
+                    confirm : i18n['KCHAPI6002M'],
+                    cancel : i18n['KCHAPI6003M']
                 }, function() {
                     kimchi.deleteNetwork(network.name, function() {
                         $(evt.currentTarget).parents(".item").remove();
@@ -143,15 +143,15 @@ kimchi.initNetworkCreation = function() {
                 if ($("#enableVlan").prop("checked")) {
                     data.vlan_id = network.vlan_id;
                     if (!(data.vlan_id >=1 && data.vlan_id <= 4094)) {
-                        kimchi.message.error(i18n['msg.invalid.vlan_id']);
+                        kimchi.message.error.code('KCHNET6001E');
                         return;
                     }
                 }
             }
             kimchi.createNetwork(data, function(result) {
                 network.state = result.state === "active" ? "up" : "down";
-                network.interface = result.interface ? result.interface : i18n["value_unavailable"];
-                network.addrSpace = result.subnet ? result.subnet : i18n["value_unavailable"];
+                network.interface = result.interface ? result.interface : i18n["KCHNET6001M"];
+                network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
                 kimchi.addNetworkItem(network);
                 $("#networkConfig").dialog("close");
             });
@@ -176,7 +176,7 @@ kimchi.initNetworkDialog = function() {
         },
         buttons : [ {
             id : "networkFormOk",
-            text : i18n.action_create,
+            text : i18n.KCHAPI6005M,
             class: "ui-button-primary",
             disabled: true,
             click : function() {
@@ -196,7 +196,7 @@ kimchi.openNetworkDialog = function(okCallback) {
         kimchi.setDefaultNetworkType(result.length!==0);
     });
     $("#networkConfig").dialog({
-        title : i18n.network_dialog_title_create
+        title : i18n.KCHNET6003M
     });
     $("#networkFormOk").on("click", function() {
         okCallback();

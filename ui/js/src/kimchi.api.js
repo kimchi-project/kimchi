@@ -307,7 +307,7 @@ var kimchi = {
                 window.open(url);
             });
         }).error(function() {
-            kimchi.message.error(i18n['msg.fail.get.config']);
+            kimchi.message.error.code('KCHAPI6002E');
         });
     },
 
@@ -330,7 +330,7 @@ var kimchi = {
                 window.open(url);
             });
         }).error(function() {
-            kimchi.message.error(i18n['msg.fail.get.config']);
+            kimchi.message.error.code('KCHAPI6002E');
         });
     },
 

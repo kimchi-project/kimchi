@@ -62,7 +62,7 @@
                     }
                 });
             } else {
-                kimchi.message.error(i18n['selectmenu.data.error']);
+                kimchi.message.code.error('KCHAPI6006E');
             }
         },
 

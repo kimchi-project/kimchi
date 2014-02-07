@@ -55,7 +55,7 @@
                     that.listControl.html('');
                     var items = that._dataList(options);
                     if (items.length === 0) {
-                        that.listControl.html(i18n['msg.no.mapping.result']);
+                        that.listControl.html(i18n['KCHAPI6005E']);
                     } else {
                         $.each(items, function(index, item) {
                             that.listControl.append(item);
@@ -75,7 +75,7 @@
                     });
                     if (that.listControl.html() === '') {
                         that.target.addClass("invalid-field");
-                        that.listControl.html(i18n['msg.no.mapping.result']);
+                        that.listControl.html(i18n['KCHAPI6005E']);
                     } else {
                         that.target.removeClass("invalid-field");
                     }
