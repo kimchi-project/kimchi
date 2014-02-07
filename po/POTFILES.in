@@ -16,3 +16,4 @@ ui/pages/tabs/storage.html.tmpl
 ui/pages/template-add.html.tmpl
 ui/pages/template-edit.html.tmpl
 ui/pages/vnc_auto.html.tmpl
+src/kimchi/i18n.py
