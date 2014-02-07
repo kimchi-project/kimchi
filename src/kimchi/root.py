@@ -28,6 +28,7 @@ import os
 
 from kimchi import auth
 from kimchi import template
+from kimchi.i18n import messages
 from kimchi.config import paths
 from kimchi.control import sub_nodes
 from kimchi.control.base import Resource
@@ -95,6 +96,8 @@ class KimchiRoot(Root):
         self.api_schema = json.load(open(os.path.join(paths.src_dir,
                                                       'API.json')))
         self.paths = paths
+        self.domain = 'kimchi'
+        self.messages = messages
 
     @cherrypy.expose
     def login(self, *args):

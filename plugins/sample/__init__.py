@@ -27,8 +27,10 @@ import os
 from cherrypy import expose
 
 
+from kimchi.config import PluginPaths
 from kimchi.control.base import Collection, Resource
-from model import Model
+from plugins.sample.i18n import messages
+from plugins.sample.model import Model
 
 
 model = Model()
@@ -40,6 +42,9 @@ class Drawings(Resource):
         self.description = Description(model)
         self.rectangles = Rectangles(model)
         self.circles = Circles(model)
+        self.paths = PluginPaths('sample')
+        self.domain = 'sample'
+        self.messages = messages
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
 
