@@ -70,18 +70,16 @@ class Resource(object):
                 fn(*model_args)
                 uri_params = tuple(self.model_args)
                 raise internal_redirect(self.uri_fmt % uri_params)
-            except MissingParameter, param:
-                error = "Missing parameter: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except InvalidParameter, param:
-                error = "Invalid parameter: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except InvalidOperation, msg:
-                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-            except OperationFailed, msg:
-                raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
-            except NotFoundError, msg:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+            except MissingParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except InvalidParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except OperationFailed, e:
+                raise cherrypy.HTTPError(500, e.message)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
 
         wrapper.__name__ = action_name
         wrapper.exposed = True
@@ -100,12 +98,13 @@ class Resource(object):
             fn(*self.model_args)
             cherrypy.response.status = 204
         except AttributeError:
-            error = "Delete is not allowed for %s" % get_class_name(self)
-            raise cherrypy.HTTPError(405, error)
-        except OperationFailed, msg:
-            raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % msg)
-        except InvalidOperation, msg:
-            raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
+            e = InvalidOperation('KCHAPI0002E', {'resource':
+                                                 get_class_name(self)})
+            raise cherrypy.HTTPError(405, e.message)
+        except OperationFailed, e:
+            raise cherrypy.HTTPError(500, e.message)
+        except InvalidOperation, e:
+            raise cherrypy.HTTPError(400, e.message)
 
     @cherrypy.expose
     def index(self):
@@ -113,33 +112,34 @@ class Resource(object):
         if method == 'GET':
             try:
                 return self.get()
-            except NotFoundError, msg:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
-            except InvalidOperation, msg:
-                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-            except OperationFailed, msg:
-                raise cherrypy.HTTPError(406, "Operation failed: '%s'" % msg)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except OperationFailed, e:
+                raise cherrypy.HTTPError(406, e.message)
         elif method == 'DELETE':
             try:
                 return self.delete()
-            except NotFoundError, msg:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
         elif method == 'PUT':
             try:
                 return self.update()
-            except InvalidParameter, msg:
-                raise cherrypy.HTTPError(400, "Invalid parameter: '%s'" % msg)
-            except InvalidOperation, msg:
-                raise cherrypy.HTTPError(400, "Invalid operation: '%s'" % msg)
-            except NotFoundError, msg:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % msg)
+            except InvalidParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
 
     def update(self):
         try:
             update = getattr(self.model, model_fn(self, 'update'))
         except AttributeError:
-            error = "%s does not implement update method"
-            raise cherrypy.HTTPError(405, error % get_class_name(self))
+            e = InvalidOperation('KCHAPI0003E', {'resource':
+                                                 get_class_name(self)})
+            raise cherrypy.HTTPError(405, e.message)
 
         params = parse_request()
         validate_params(params, self, 'update')
@@ -148,8 +148,10 @@ class Resource(object):
             invalids = [v for v in params.keys() if
                         v not in self.update_params]
             if invalids:
-                error = "%s are not allowed to be updated" % invalids
-                raise cherrypy.HTTPError(405, error)
+                msg_args = {'params': ", ".join(invalids),
+                            'resource': get_class_name(self)}
+                e = InvalidOperation('KCHAPI0004E', msg_args)
+                raise cherrypy.HTTPError(405, e.message)
 
         args = list(self.model_args) + [params]
         ident = update(*args)
@@ -200,8 +202,9 @@ class Collection(object):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
-            error = 'Create is not allowed for %s' % get_class_name(self)
-            raise cherrypy.HTTPError(405, error)
+            e = InvalidOperation('KCHAPI0005E', {'resource':
+                                                 get_class_name(self)})
+            raise cherrypy.HTTPError(405, e.message)
 
         validate_params(params, self, 'create')
         args = self.model_args + [params]
@@ -264,28 +267,24 @@ class Collection(object):
                 filter_params = cherrypy.request.params
                 validate_params(filter_params, self, 'get_list')
                 return self.get(filter_params)
-            except InvalidOperation, param:
-                error = "Invalid operation: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except NotFoundError, param:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % param)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
 
         elif method == 'POST':
             try:
                 return self.create(parse_request(), *args)
-            except MissingParameter, param:
-                error = "Missing parameter: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except InvalidParameter, param:
-                error = "Invalid parameter: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except OperationFailed, param:
-                raise cherrypy.HTTPError(500, "Operation Failed: '%s'" % param)
-            except InvalidOperation, param:
-                error = "Invalid operation: '%s'" % param
-                raise cherrypy.HTTPError(400, error)
-            except NotFoundError, param:
-                raise cherrypy.HTTPError(404, "Not found: '%s'" % param)
+            except MissingParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except InvalidParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except OperationFailed, e:
+                raise cherrypy.HTTPError(500, e.message)
+            except InvalidOperation, e:
+                raise cherrypy.HTTPError(400, e.message)
+            except NotFoundError, e:
+                raise cherrypy.HTTPError(404, e.message)
 
 
 class AsyncCollection(Collection):
@@ -299,8 +298,9 @@ class AsyncCollection(Collection):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
-            error = 'Create is not allowed for %s' % get_class_name(self)
-            raise cherrypy.HTTPError(405, error)
+            e = InvalidOperation('KCHAPI0005E', {'resource':
+                                                 get_class_name(self)})
+            raise cherrypy.HTTPError(405, e.message)
 
         args = self.model_args + [params]
         task = create(*args)

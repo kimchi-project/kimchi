@@ -30,7 +30,7 @@ import json
 from jsonschema import Draft3Validator, ValidationError, FormatChecker
 
 
-from kimchi.exception import InvalidParameter
+from kimchi.exception import InvalidParameter, OperationFailed
 from kimchi.utils import import_module, listPathModules
 
 
@@ -77,10 +77,11 @@ def parse_request():
         try:
             return json.loads(rawbody)
         except ValueError:
-            raise cherrypy.HTTPError(400, "Unable to parse JSON request")
+            e = OperationFailed('KCHAPI0006E')
+            raise cherrypy.HTTPError(400, e.message)
     else:
-        raise cherrypy.HTTPError(415, "This API only supports"
-                                      " 'application/json'")
+        e = OperationFailed('KCHAPI0007E')
+        raise cherrypy.HTTPError(415, e.message)
 
 
 def internal_redirect(url):
@@ -101,9 +102,8 @@ def validate_params(params, instance, action):
 
     try:
         validator.validate(request)
-    except ValidationError:
-        raise InvalidParameter('; '.join(
-            e.message for e in validator.iter_errors(request)))
+    except ValidationError, e:
+        raise InvalidParameter(e.schema['error'], {'value': str(e.instance)})
 
 
 class UrlSubNode(object):
