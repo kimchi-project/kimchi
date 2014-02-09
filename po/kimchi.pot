@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-20 18:46-0200\n"
+"POT-Creation-Date: 2014-02-11 15:02-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,8 +36,8 @@ msgid "Virtual Machine Name"
 msgstr ""
 
 msgid ""
-"The name used to identify the VM. If omitted, a name will be chosen based on "
-"the template used."
+"The name used to identify the virtual machine. If omitted, a name will be "
+"chosen based on the template used."
 msgstr ""
 
 msgid "Template"
@@ -103,15 +103,6 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-msgid "Failed to list the template"
-msgstr ""
-
-msgid "Please choose a template"
-msgstr ""
-
-msgid "Failed to create vm"
-msgstr ""
-
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
 
@@ -124,43 +115,67 @@ msgstr ""
 msgid "Logging in..."
 msgstr ""
 
+msgid "Host"
+msgstr ""
+
+msgid "Guests"
+msgstr ""
+
+msgid "Templates"
+msgstr ""
+
+msgid "Storage"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
 msgid "Invalid URL. Redireced to home page."
 msgstr ""
 
-msgid "Failed to start"
+msgid "Failed to get application configuration"
 msgstr ""
 
-msgid "Failed to stop"
+msgid "This is not a valid Linux path"
 msgstr ""
 
-msgid "Failed to reset"
+msgid "This is not a valid URL."
 msgstr ""
 
-msgid "Failed to delete"
+msgid "No such data exsit."
 msgstr ""
 
-msgid "Failed to list guests"
-msgstr ""
-
-msgid "Failed to create template"
-msgstr ""
-
-msgid "Create template successfully"
-msgstr ""
-
-msgid "No iso found"
-msgstr ""
-
-msgid "Failed to scan"
-msgstr ""
-
-msgid "Failed to list iso distributions"
+msgid "options needed."
 msgstr ""
 
 msgid "Delete Confirmation"
 msgstr ""
 
 msgid "OK"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "No iso found"
+msgstr ""
+
+msgid "This is not a valid ISO file."
+msgstr ""
+
+msgid "Create template successfully"
+msgstr ""
+
+msgid "It will take long time. Do you want to continue?"
+msgstr ""
+
+msgid "This will permanently delete the template. Would you like to continue?"
+msgstr ""
+
+msgid "Unable to shut down system as there are some virtual machines running!"
 msgstr ""
 
 msgid "Max:"
@@ -184,7 +199,9 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-msgid "Confirm"
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
 msgstr ""
 
 msgid ""
@@ -216,39 +233,35 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-msgid "Some VM(s) are running!"
-msgstr ""
-
 msgid ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-msgstr ""
-
-msgid ""
-"This will delete the VM and its virtual disks. This operation cannot be "
-"undone. Would you like to continue?"
-msgstr ""
-
-msgid "This will permanently delete the Template. Would you like to continue?"
-msgstr ""
-
-msgid "Failed to get application configuration"
-msgstr ""
-
-msgid "This is not a valid linux path"
-msgstr ""
-
-msgid "This is not a valid url."
+"This will delete the virtual machine and its virtual disks. This operation "
+"cannot be undone. Would you like to continue?"
 msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr ""
 
-msgid "This is not a valid ISO file."
+msgid "unavailable"
 msgstr ""
 
 msgid ""
-"This will permanently delete the Storage Pool. Would you like to continue?"
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+
+msgid "Create a network"
+msgstr ""
+
+msgid ""
+"This will permanently delete the storage pool. Would you like to continue?"
+msgstr ""
+
+msgid "This storage pool is empty."
+msgstr ""
+
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
 msgstr ""
 
 msgid "The storage pool name can not be blank."
@@ -261,75 +274,14 @@ msgid "NFS server mount path can not be blank."
 msgstr ""
 
 msgid ""
-"Invalid Storage Pool name.  It may only contain letters, numbers, "
+"Invalid storage pool name. It may only contain letters, numbers, "
 "underscores, and hyphens."
 msgstr ""
 
-msgid "This is not a real linux path."
-msgstr ""
-
-msgid "Invalid nfs mount path."
+msgid "Invalid NFS mount path."
 msgstr ""
 
 msgid "No logical device selected."
-msgstr ""
-
-msgid "This storage pool is empty."
-msgstr ""
-
-msgid "Failed to list the storage pool."
-msgstr ""
-
-msgid "The storage pool is not active now."
-msgstr ""
-
-msgid "Failed to delete template."
-msgstr ""
-
-msgid "Guests"
-msgstr ""
-
-msgid "Host"
-msgstr ""
-
-msgid "Templates"
-msgstr ""
-
-msgid "Storage"
-msgstr ""
-
-msgid "unavailable"
-msgstr ""
-
-msgid "Network"
-msgstr ""
-
-msgid "isolated"
-msgstr ""
-
-msgid "NAT"
-msgstr ""
-
-msgid "bridged"
-msgstr ""
-
-msgid "connected to"
-msgstr ""
-
-msgid ""
-"This action will interrupt network connectivity for any virtual machine that "
-"depend on this network."
-msgstr ""
-
-msgid "Create a network"
-msgstr ""
-
-msgid "Warning"
-msgstr ""
-
-msgid ""
-"It will format your disk and you will loose any data in there, are you sure "
-"to continue? "
 msgstr ""
 
 msgid "The iSCSI target can not be blank."
@@ -390,19 +342,19 @@ msgid ""
 "your system."
 msgstr ""
 
-msgid "NFS server IP"
+msgid "NFS Server IP"
 msgstr ""
 
-msgid "NFS server IP or hostname. It should not be empty."
+msgid "NFS server IP or hostname. It can be input or chosen from history."
 msgstr ""
 
 msgid "NFS Path"
 msgstr ""
 
-msgid "The nfs exported path on nfs server"
+msgid "The NFS exported path on NFS server."
 msgstr ""
 
-msgid "Device Path"
+msgid "Device path"
 msgstr ""
 
 msgid "iSCSI Server"
@@ -495,7 +447,7 @@ msgstr ""
 msgid "NAT: outbound physical network connection only"
 msgstr ""
 
-msgid "Bridged: VMs are connected to physical network directly"
+msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr ""
 
 msgid "Destination"
@@ -607,4 +559,502 @@ msgid "CDROM"
 msgstr ""
 
 msgid "Storage Pool"
+msgstr ""
+
+#, python-format
+msgid "Unkown parameter specified %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Delete is not allowed for %(resource)s"
+msgstr ""
+
+#, python-format
+msgid "%(resource)s does not implement update method"
+msgstr ""
+
+#, python-format
+msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+msgstr ""
+
+#, python-format
+msgid "Create is not allowed for %(resource)s"
+msgstr ""
+
+msgid "Unable to parse JSON request"
+msgstr ""
+
+msgid "This API only supports"
+msgstr ""
+
+msgid "Datastore is not initiated in the model object."
+msgstr ""
+
+#, python-format
+msgid "Authentication failed for user '%(userid)s'. [Error code: %(code)s]"
+msgstr ""
+
+msgid "You are not authorized to access Kimchi"
+msgstr ""
+
+#, python-format
+msgid "Specify %(item)s to login into Kimchi"
+msgstr ""
+
+#, python-format
+msgid "Error while getting block devices. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error while getting block device information for %(device)s."
+msgstr ""
+
+#, python-format
+msgid "Unable to find distro file: %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to parse distro file: %(filename)s. Make sure, it is a JSON file."
+msgstr ""
+
+#, python-format
+msgid "Unable to login to iSCSI host target %(portal)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to login to iSCSI host %(host)s target %(target)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to find ISO file ISO %(filename)s"
+msgstr ""
+
+#, python-format
+msgid "The ISO file %(filename)s is not bootable"
+msgstr ""
+
+#, python-format
+msgid "The ISO file %(filename)s does not have a valid El Torito boot record"
+msgstr ""
+
+#, python-format
+msgid "Invalid El Torito validation entry in ISO %(filename)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid El Torito boot indicator in ISO %(filename)s"
+msgstr ""
+
+#, python-format
+msgid "Unexpected volume type for primary volume in ISO %(filename)s"
+msgstr ""
+
+#, python-format
+msgid "Bad format while reading volume descriptor in ISO %(filename)s"
+msgstr ""
+
+msgid "Virtual machine $(name)s already exists"
+msgstr ""
+
+#, python-format
+msgid "Virtual machine %(name)s does not exist"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
+"exists or it is not powered off."
+msgstr ""
+
+#, python-format
+msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
+msgstr ""
+
+msgid "Remote ISO image is not supported by this server."
+msgstr ""
+
+#, python-format
+msgid "Screenshot not supported for virtual machine %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)"
+msgstr ""
+
+#, python-format
+msgid "Unable to connect to powered off machine %(name)s."
+msgstr ""
+
+msgid "Virtual machine name must be a string"
+msgstr ""
+
+#, python-format
+msgid "Invalid template URI: %(value)s specified for virtual machine"
+msgstr ""
+
+#, python-format
+msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
+msgstr ""
+
+msgid "Supported virtual machine graphics are spice or VNC"
+msgstr ""
+
+msgid "Graphics address to listen on must be IPv4 or IPv6"
+msgstr ""
+
+msgid "Specify a template to create a virtual machine from"
+msgstr ""
+
+#, python-format
+msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Network %(network)s specified for virtual machine %(name)s does not exist"
+msgstr ""
+
+msgid "Do not support guest interface hot plug attachment"
+msgstr ""
+
+msgid "Supported virtual machine interfaces type is only network"
+msgstr ""
+
+msgid "Network name for virtual machine interface must be a string"
+msgstr ""
+
+msgid "Invalid network model card specified for virtual machine interface"
+msgstr ""
+
+msgid "Specify type and network to add a new virtual machine interface"
+msgstr ""
+
+#, python-format
+msgid "Template %(name)s already exists"
+msgstr ""
+
+#, python-format
+msgid "Template %(name)s does not exist"
+msgstr ""
+
+#, python-format
+msgid ""
+"Network '%(network)s' specified for template %(template)s does not exist"
+msgstr ""
+
+#, python-format
+msgid ""
+"Storage pool %(pool)s specified for template %(template)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Storage pool %(pool)s specified for template %(template)s is not active"
+msgstr ""
+
+#, python-format
+msgid "Invalid parameter '%(param)s' specified for CDROM."
+msgstr ""
+
+#, python-format
+msgid "Network %(network)s specified for template %(template)s is not active"
+msgstr ""
+
+msgid "Template name must be a string"
+msgstr ""
+
+msgid "Template icon must be a path to the image"
+msgstr ""
+
+msgid "Template distribution must be a string"
+msgstr ""
+
+msgid "Template distribution version must be a string"
+msgstr ""
+
+msgid "The number of CPUs must be a integer"
+msgstr ""
+
+msgid "Amount of memory (MB) must be an integer greater than 512"
+msgstr ""
+
+msgid "Template CDROM must be a local or remote ISO file"
+msgstr ""
+
+#, python-format
+msgid "Invalid storage pool URI %(value)s specified for template"
+msgstr ""
+
+msgid "Specify an ISO image as CDROM to create a template"
+msgstr ""
+
+msgid "All networks for the template must be specified in a list."
+msgstr ""
+
+#, python-format
+msgid "Storage pool %(name)s already exists"
+msgstr ""
+
+#, python-format
+msgid "Storage pool %(name)s does not exist"
+msgstr ""
+
+msgid "Autostart flag must be true or false"
+msgstr ""
+
+#, python-format
+msgid "Specify %(item)s in order to create the storage pool %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete active storage pool %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to list storage pools. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to create storage pool %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to get number of storage volumes in storage pool %(name)s. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate storage pool %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete storage pool %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create NFS Pool as export path %(path)s may block during mount"
+msgstr ""
+
+#, python-format
+msgid "Unable to create NFS Pool as export path %(path)s mount failed"
+msgstr ""
+
+#, python-format
+msgid "Unsupported storage pool type: %(type)s"
+msgstr ""
+
+#, python-format
+msgid "Error while getting xml for storage pool %(pool)s"
+msgstr ""
+
+msgid "Storage pool name must be a string"
+msgstr ""
+
+msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
+msgstr ""
+
+msgid "Storage pool path must be a string"
+msgstr ""
+
+msgid "Storage pool host must be a IP or hostname"
+msgstr ""
+
+msgid "Storage pool devices must be the full path to the block device"
+msgstr ""
+
+msgid "Storage pool devices parameter must be a list"
+msgstr ""
+
+msgid "Target IQN of an iSCSI pool must be a string"
+msgstr ""
+
+msgid "Port of a remote storage server must be an integer between 1 and 65535"
+msgstr ""
+
+msgid "Login username of the iSCSI target must be a string"
+msgstr ""
+
+msgid "Login password of the iSCSI target must be a string"
+msgstr ""
+
+msgid "Specify name and type to create a storage pool"
+msgstr ""
+
+#, python-format
+msgid "Storage volume %(name)s already exists"
+msgstr ""
+
+#, python-format
+msgid "Storage volume %(name)s does not exist in storage pool %(pool)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"not active"
+msgstr ""
+
+#, python-format
+msgid "Specify %(item)s in order to create storage volume %(volume)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
+"is not active"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to list storage volumes because storage pool %(pool)s is not active"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create storage volume %(name)s in storage pool %(pool)s. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete storage volume %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to resize storage volume %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Interface %(name)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Network %(name)s already exists"
+msgstr ""
+
+#, python-format
+msgid "Network %(name)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgstr ""
+
+#, python-format
+msgid "Specify a network interface to create bridged network %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete active network %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Interface %(iface)s specified for network %(network)s is already in use"
+msgstr ""
+
+msgid "Interface should be bare NIC, bonding or bridge device."
+msgstr ""
+
+#, python-format
+msgid "Unable to create network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to find a free IP address for network '%(name)s'"
+msgstr ""
+
+msgid ""
+"Unable to create VLAN tagged bridge using interface %(iface)s. Details: "
+"%(err)"
+msgstr ""
+
+msgid "Network name must be a string"
+msgstr ""
+
+msgid "Supported network types are isolated, NAT and bridge"
+msgstr ""
+
+msgid "Network subnet must be a string with IP address and prefix or netmask"
+msgstr ""
+
+msgid "Network interface must be a string"
+msgstr ""
+
+msgid "Network VLAN ID must be an integer between 1 and 4094"
+msgstr ""
+
+msgid "Specify name and type to create a Network"
+msgstr ""
+
+#, python-format
+msgid "Debug report %(name)s does not exist"
+msgstr ""
+
+msgid "Debug report tool not found in system"
+msgstr ""
+
+#, python-format
+msgid "Unable to create debug report %(name)s. Details: %(err)s."
+msgstr ""
+
+#, python-format
+msgid "Can not find generated debug report named %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to generate debug report %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Storage server %(server)s was not used by Kimchi"
+msgstr ""
+
+#, python-format
+msgid "Distro '%(name)s' does not exist"
+msgstr ""
+
+#, python-format
+msgid "Partition %(name)s does not exist in the host"
+msgstr ""
+
+msgid "Unable to shutdown host machine as there are running virtual machines"
+msgstr ""
+
+msgid "Unable to reboot host machine as there are running virtual machines"
+msgstr ""
+
+#, python-format
+msgid "Unable to find %(item)s in datastore"
+msgstr ""
+
+#, python-format
+msgid "Invalid URI %(uri)s"
+msgstr ""
+
+#, python-format
+msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
+msgstr ""
+
+msgid "Unable to choose a virutal machine name"
 msgstr ""
