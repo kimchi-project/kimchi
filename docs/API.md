@@ -319,7 +319,10 @@ A interface represents available network interface on VM.
         * path: export path of this storage pool(for 'netfs' pool)
 * **PUT**: Set whether the Storage Pool should be enabled automatically when the
            system boots
-    * autostart: Toggle the autostart flag of the VM
+    * autostart: Toggle the autostart flag of the VM. This flag sets whether
+                 the Storage Pool should be enabled automatically when the
+                 system boots
+    * disks: Adds one or more disks to the pool (for 'logical' pool only)
 * **DELETE**: Remove the Storage Pool
 * **POST**: *See Storage Pool Actions*
 
