@@ -53,7 +53,7 @@ class StoragePoolsModel(object):
             conn = self.conn.get()
             names = conn.listStoragePools()
             names += conn.listDefinedStoragePools()
-            return sorted(names)
+            return sorted(map(lambda x: x.decode('utf-8'), names))
         except libvirt.libvirtError as e:
             raise OperationFailed(e.get_error_message())
 
@@ -69,7 +69,7 @@ class StoragePoolsModel(object):
                 task_id = self._do_deep_scan(params)
             poolDef = StoragePoolDef.create(params)
             poolDef.prepare(conn)
-            xml = poolDef.xml
+            xml = poolDef.xml.encode("utf-8")
         except KeyError, key:
             raise MissingParameter(key)
 
@@ -100,7 +100,7 @@ class StoragePoolsModel(object):
     def _clean_scan(self, pool_name):
         try:
             conn = self.conn.get()
-            pool = conn.storagePoolLookupByName(pool_name)
+            pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
             pool.destroy()
             with self.objstore as session:
                 session.delete('scanning', pool_name)
@@ -141,7 +141,7 @@ class StoragePoolModel(object):
     def get_storagepool(name, conn):
         conn = conn.get()
         try:
-            return conn.storagePoolLookupByName(name)
+            return conn.storagePoolLookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_POOL:
                 raise NotFoundError("Storage Pool '%s' not found" % name)

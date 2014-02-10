@@ -68,7 +68,7 @@ class DirPoolDef(StoragePoolDef):
         # name:
         # type:
         # path:
-        xml = """
+        xml = u"""
         <pool type='dir'>
           <name>{name}</name>
           <target>
@@ -125,7 +125,7 @@ class NetfsPoolDef(StoragePoolDef):
         # source[path]:
         poolArgs = copy.deepcopy(self.poolArgs)
         poolArgs['path'] = self.path
-        xml = """
+        xml = u"""
         <pool type='netfs'>
           <name>{name}</name>
           <source>
@@ -161,7 +161,7 @@ class LogicalPoolDef(StoragePoolDef):
         poolArgs['source']['devices'] = ''.join(devices)
         poolArgs['path'] = self.path
 
-        xml = """
+        xml = u"""
         <pool type='logical'>
         <name>{name}</name>
             <source>
@@ -241,7 +241,7 @@ class IscsiPoolDef(StoragePoolDef):
                                    'auth': self._format_auth(poolArgs)})
         poolArgs['path'] = '/dev/disk/by-id'
 
-        xml = """
+        xml = u"""
         <pool type='iscsi'>
           <name>{name}</name>
           <source>

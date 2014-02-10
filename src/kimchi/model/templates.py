@@ -43,7 +43,7 @@ class TemplatesModel(object):
         if pool_uri:
             pool_name = pool_name_from_uri(pool_uri)
             try:
-                conn.storagePoolLookupByName(pool_name)
+                conn.storagePoolLookupByName(pool_name.encode("utf-8"))
             except Exception as e:
                 err = "Storagepool specified is not valid: %s."
                 raise InvalidParameter(err % e.message)
@@ -99,7 +99,7 @@ class TemplateModel(object):
         pool_name = pool_name_from_uri(pool_uri)
         try:
             conn = self.conn.get()
-            conn.storagePoolLookupByName(pool_name)
+            conn.storagePoolLookupByName(pool_name.encode("utf-8"))
         except Exception as e:
             err = "Storagepool specified is not valid: %s."
             raise InvalidParameter(err % e.message)
@@ -131,7 +131,7 @@ class LibvirtVMTemplate(VMTemplate):
         pool_name = pool_name_from_uri(pool_uri)
         try:
             conn = self.conn.get()
-            pool = conn.storagePoolLookupByName(pool_name)
+            pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
         except libvirt.libvirtError:
             err = 'Storage specified by template does not exist'
             raise InvalidParameter(err)
