@@ -186,10 +186,10 @@ class ModelTests(unittest.TestCase):
 
         poolDefs = [
             {'type': 'dir',
-             'name': 'unitTestDirPool',
+             'name': u'kīмсhīUnitTestDirPool',
              'path': '/tmp/kimchi-images'},
             {'type': 'iscsi',
-             'name': 'unitTestISCSIPool',
+             'name': u'kīмсhīUnitTestISCSIPool',
              'source': {'host': '127.0.0.1',
                         'target': 'iqn.2013-12.localhost.kimchiUnitTest'}}]
 

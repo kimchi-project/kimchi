@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Project Kimchi
 #
@@ -588,7 +589,7 @@ class RestTests(unittest.TestCase):
 
         # Now add a couple of StoragePools to the mock model
         for i in xrange(5):
-            name = 'storagepool-%i' % i
+            name = 'kīмсhī-storagepool-%i' % i
             req = json.dumps({'name': name,
                               'capacity': 1024,
                               'allocated': 512,
@@ -597,7 +598,7 @@ class RestTests(unittest.TestCase):
             resp = self.request('/storagepools', req, 'POST')
             self.assertEquals(201, resp.status)
 
-        req = json.dumps({'name': 'storagepool-1',
+        req = json.dumps({'name': 'kīмсhī-storagepool-1',
                           'capacity': 1024,
                           'allocated': 512,
                           'path': '/var/lib/libvirt/images/%i' % i,
@@ -617,9 +618,10 @@ class RestTests(unittest.TestCase):
         storagepools = json.loads(self.request('/storagepools').read())
         self.assertEquals(7, len(storagepools))
 
-        resp = self.request('/storagepools/storagepool-1')
+        resp = self.request('/storagepools/kīмсhī-storagepool-1')
         storagepool = json.loads(resp.read())
-        self.assertEquals('storagepool-1', storagepool['name'])
+        self.assertEquals('kīмсhī-storagepool-1',
+                          storagepool['name'].encode("utf-8"))
         self.assertEquals('inactive', storagepool['state'])
         self.assertIn('source', storagepool)
 
