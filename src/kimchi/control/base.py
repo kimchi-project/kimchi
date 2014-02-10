@@ -151,7 +151,8 @@ class Resource(object):
                 error = "%s are not allowed to be updated" % invalids
                 raise cherrypy.HTTPError(405, error)
 
-        ident = update(self.ident, params)
+        args = list(self.model_args) + [params]
+        ident = update(*args)
         if ident != self.ident:
             uri_params = list(self.model_args[:-1])
             uri_params += [urllib2.quote(ident.encode('utf-8'))]
