@@ -623,17 +623,17 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': u'kīмkhī-∨м', 'template': u'/templates/test'}
+            params = {'name': u'kīмсhī-∨м', 'template': u'/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, u'kīмkhī-∨м')
+            rollback.prependDefer(inst.vm_delete, u'kīмсhī-∨м')
 
-            inst.vm_start(u'kīмkhī-∨м')
-            rollback.prependDefer(inst.vm_stop, u'kīмkhī-∨м')
+            inst.vm_start(u'kīмсhī-∨м')
+            rollback.prependDefer(inst.vm_stop, u'kīмсhī-∨м')
 
-            inst.vm_delete(u'kīмkhī-∨м')
+            inst.vm_delete(u'kīмсhī-∨м')
 
             vms = inst.vms_get_list()
-            self.assertFalse(u'kīмkhī-∨м' in vms)
+            self.assertFalse(u'kīмсhī-∨м' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_list_sorted(self):
