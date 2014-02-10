@@ -80,7 +80,7 @@ class StoragePools(Collection):
 class StoragePool(Resource):
     def __init__(self, model, ident):
         super(StoragePool, self).__init__(model, ident)
-        self.update_params = ["autostart"]
+        self.update_params = ["autostart", "disks"]
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')

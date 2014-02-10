@@ -28,7 +28,7 @@ from kimchi.exception import InvalidOperation, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.utils import add_task, kimchi_log
-
+from kimchi.utils import run_command
 
 ISO_POOL_NAME = u'kimchi_isos'
 POOL_STATE_MAP = {0: 'inactive',
@@ -200,15 +200,45 @@ class StoragePoolModel(object):
                 pass
         return res
 
+    def _update_lvm_disks(self, pool_name, disks):
+        # check if all the disks/partitions exists in the host
+        for disk in disks:
+            blkid_cmd = ['blkid', disk]
+            output, error, returncode = run_command(blkid_cmd)
+            if returncode != 0:
+                kimchi_log.error('%s is not a valid disk/partition. Could not '
+                                 'add it to the pool %s.', disk, pool_name)
+                raise OperationFailed('%s is not a valid disk/partition. '
+                                      'Could not add it to the pool %s.', disk,
+                                      pool_name)
+        # add disks to the lvm pool using vgextend + virsh refresh
+        vgextend_cmd = ["vgextend", pool_name]
+        vgextend_cmd += disks
+        output, error, returncode = run_command(vgextend_cmd)
+        if returncode != 0:
+            kimchi_log.error('Could not add disks to pool %s, '
+                             'error: %s', pool_name, error)
+            raise OperationFailed('Error while adding disks to pool %s.',
+                                  pool_name)
+        # refreshing pool state
+        pool = self.get_storagepool(pool_name, self.conn)
+        pool.refresh(0)
+
     def update(self, name, params):
-        autostart = params['autostart']
-        if autostart not in [True, False]:
-            raise InvalidOperation("Autostart flag must be true or false")
         pool = self.get_storagepool(name, self.conn)
-        if autostart:
-            pool.setAutostart(1)
-        else:
-            pool.setAutostart(0)
+        if 'autostart' in params:
+            if params['autostart']:
+                pool.setAutostart(1)
+            else:
+                pool.setAutostart(0)
+        if 'disks' in params:
+            # check if pool is type 'logical'
+            xml = pool.XMLDesc(0)
+            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            if pool_type != 'logical':
+                raise InvalidOperation("Operation available only for "
+                                       "'logical' type storage pool.")
+            self._update_lvm_disks(name, params['disks'])
         ident = pool.name()
         return ident
 
