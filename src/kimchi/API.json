@@ -94,6 +94,22 @@
                 }
             }
         },
+        "storagepool_update": {
+            "type": "object",
+            "properties": {
+                "autostart": {
+                    "description": "Set autostart value of the pool",
+                    "type": "boolean"
+                },
+                "disks": {
+                    "description": "List of disks/partitions to be added",
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1,
+                    "uniqueItems": true
+                }
+            }
+        },
         "vms_create": {
             "type": "object",
             "properties": {
