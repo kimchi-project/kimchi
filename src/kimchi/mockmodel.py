@@ -52,7 +52,7 @@ from kimchi.model.utils import get_vm_name
 from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import template_name_from_uri, pool_name_from_uri
+from kimchi.utils import pool_name_from_uri, run_command, template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -315,13 +315,35 @@ class MockModel(object):
         storagepool.refresh()
         return storagepool.info
 
+    def _update_lvm_disks(self, pool_name, disks):
+        pool = self._get_storagepool(pool_name)
+        # check if all the disks/partitions exists in the host
+        for disk in disks:
+            blkid_cmd = ['blkid', disk]
+            output, error, returncode = run_command(blkid_cmd)
+            if returncode != 0:
+                raise OperationFailed('%s is not a valid disk/partition. '
+                                      'Could not add it to the pool %s.', disk,
+                                      pool_name)
+        # Adding disks to the lvm pool by adding extra capacity.
+        # Fixed amount for each disk present based in the
+        # values used in MockStoragePool.
+        capacity_per_disk = 1024 << 20
+        capacity_added = capacity_per_disk * len(disks)
+        pool.info['capacity'] += capacity_added
+        pool.info['available'] += capacity_added
+
     def storagepool_update(self, name, params):
-        autostart = params['autostart']
-        if autostart not in [True, False]:
-            raise InvalidOperation("Autostart flag must be true or false")
-        storagepool = self._get_storagepool(name)
-        storagepool.info['autostart'] = autostart
-        ident = storagepool.name
+        pool = self._get_storagepool(name)
+        if 'autostart' in params:
+            pool.info['autostart'] = params['autostart']
+        if 'disks' in params:
+            # check if pool is type 'logical'
+            if pool.info['type'] != 'logical':
+                raise InvalidOperation("Operation available only for "
+                                       "'logical' type storage pool.")
+            self._update_lvm_disks(name, params['disks'])
+        ident = pool.name
         return ident
 
     def storagepool_activate(self, name):
