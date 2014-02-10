@@ -202,11 +202,11 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(405, resp.status)
 
-        req = json.dumps({'name': 'vm-updated'})
+        req = json.dumps({'name': u'∨м-црdαtеd'})
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)
-        vm = json.loads(self.request('/vms/vm-updated', req).read())
-        self.assertEquals('vm-updated', vm['name'])
+        vm = json.loads(self.request('/vms/∨м-црdαtеd', req).read())
+        self.assertEquals(u'∨м-црdαtеd', vm['name'])
 
     def test_vm_lifecycle(self):
         # Create a Template
