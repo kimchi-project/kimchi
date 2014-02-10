@@ -154,7 +154,7 @@ class Resource(object):
         ident = update(self.ident, params)
         if ident != self.ident:
             uri_params = list(self.model_args[:-1])
-            uri_params += [urllib2.quote(ident.encode('utf8'))]
+            uri_params += [urllib2.quote(ident.encode('utf-8'))]
             raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), 303)
 
         return self.get()

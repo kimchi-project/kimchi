@@ -222,7 +222,7 @@ class VMModel(object):
         dom = self.get_vm(name, self.conn)
         dom = self._static_vm_update(dom, params)
         self._live_vm_update(dom, params)
-        return dom.name()
+        return dom.name().decode('utf-8')
 
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
