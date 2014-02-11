@@ -177,10 +177,9 @@ class VMScreenshot(object):
             try:
                 # Prevent Image lib from lazy load,
                 # work around pic truncate validation in thumbnail generation
-                im.load()
+                im.thumbnail(self.THUMBNAIL_SIZE)
             except Exception as e:
                 kimchi_log.warning("Image load with warning: %s." % e)
-            im.thumbnail(self.THUMBNAIL_SIZE)
             im.save(thumbnail, "PNG")
 
         self.info['thumbnail'] = thumbnail
