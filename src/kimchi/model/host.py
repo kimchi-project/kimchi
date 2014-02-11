@@ -34,8 +34,10 @@ from kimchi import xmlutils
 from kimchi.basemodel import Singleton
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
+from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import DOM_STATE_MAP
-from kimchi.utils import kimchi_log
+from kimchi.swupdate import SoftwareUpdate
+from kimchi.utils import add_task, kimchi_log
 
 
 HOST_STATS_INTERVAL = 1
@@ -256,3 +258,44 @@ class DeviceModel(object):
             'adapter_type': cap_type[0] if len(cap_type) >= 1 else '',
             'wwnn': wwnn[0] if len(wwnn) == 1 else '',
             'wwpn': wwpn[0] if len(wwpn) == 1 else ''}
+
+
+class PackagesUpdateModel(object):
+    def __init__(self, **kargs):
+
+        self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
+
+    def get_list(self):
+        return self.host_swupdate.getUpdates()
+
+    def update(self, **kargs):
+        try:
+            swupdate = SoftwareUpdate()
+        except Exception:
+            raise OperationFailed('KCHPKGUPD0004E')
+
+        try:
+            pkgs = swupdate.getNumOfUpdates()
+        except OperationFailed, e:
+            raise e
+
+        if pkgs == 0:
+            raise OperationFailed('KCHPKGUPD0001E')
+
+        kimchi_log.debug('Host is going to be updated.')
+        taskid = add_task('', swupdate.doUpdate, self.objstore, None)
+        return self.task.lookup(taskid)
+
+
+class PackageUpdateModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def lookup(self, name):
+        try:
+            swupdate = SoftwareUpdate()
+        except Exception:
+            raise OperationFailed('KCHPKGUPD0004E')
+
+        return swupdate.getUpdate(name)

@@ -180,6 +180,11 @@ messages = {
     "KCHHOST0002E": _("Unable to reboot host machine as there are running virtual machines"),
     "KCHHOST0003E": _("Node device '%(name)s' not found"),
 
+    "KCHPKGUPD0001E": _("No packages marked for update"),
+    "KCHPKGUPD0002E": _("Package %(name)s is not marked to be updated."),
+    "KCHPKGUPD0003E": _("Error while getting packages marked to be updated. Details: %(err)s"),
+    "KCHPKGUPD0004E": _("There is no compatible package manager for this system."),
+
     "KCHOBJST0001E": _("Unable to find %(item)s in datastore"),
 
     "KCHUTILS0001E": _("Invalid URI %(uri)s"),

@@ -75,6 +75,7 @@ class MockModel(object):
         self._mock_storagepools = {'default': MockStoragePool('default')}
         self._mock_networks = {'default': MockNetwork('default')}
         self._mock_interfaces = self.dummy_interfaces()
+        self._mock_swupdate = MockSoftwareUpdate()
         self.next_taskid = 1
         self.storagepool_activate('default')
 
@@ -716,6 +717,16 @@ class MockModel(object):
                 'display_proxy_port':
                 kconfig.get('display', 'display_proxy_port')}
 
+    def packagesupdate_get_list(self):
+        return self._mock_swupdate.getUpdates()
+
+    def packageupdate_lookup(self, pkg_name):
+        return self._mock_swupdate.getUpdate(pkg_name)
+
+    def packagesupdate_update(self, args=None):
+        task_id = self.add_task('', self._mock_swupdate.doUpdate, None)
+        return self.task_lookup(task_id)
+
 
 class MockVMTemplate(VMTemplate):
     def __init__(self, args, mockmodel_inst=None):
@@ -892,6 +903,46 @@ class MockVMScreenshot(VMScreenshot):
         d.rectangle(MockVMScreenshot.BOX_COORD, outline='black')
         d.rectangle(self.coord, outline='black', fill='black')
         image.save(thumbnail)
+
+
+class MockSoftwareUpdate(object):
+    def __init__(self):
+        self._packages = {
+            'udevmountd': {'repository': 'openSUSE-13.1-Update',
+                           'version': '0.81.5-14.1',
+                           'arch': 'x86_64',
+                           'package_name': 'udevmountd'},
+            'sysconfig-network': {'repository': 'openSUSE-13.1-Extras',
+                                  'version': '0.81.5-14.1',
+                                  'arch': 'x86_64',
+                                  'package_name': 'sysconfig-network'},
+            'libzypp': {'repository': 'openSUSE-13.1-Update',
+                        'version': '13.9.0-10.1',
+                        'arch': 'noarch',
+                        'package_name': 'libzypp'}}
+        self._num2update = 3
+
+    def getUpdates(self):
+        return self._packages.keys()
+
+    def getUpdate(self, name):
+        if name not in self._packages.keys():
+            raise NotFoundError('KCHPKGUPD0002E', {'name': name})
+        return self._packages[name]
+
+    def getNumOfUpdates(self):
+        return self._num2update
+
+    def doUpdate(self, cb, params):
+        msgs = []
+        for pkg in self._packages.keys():
+            msgs.append("Updating package %s" % pkg)
+            cb('\n'.join(msgs))
+            time.sleep(1)
+
+        time.sleep(2)
+        msgs.append("All packages updated")
+        cb('\n'.join(msgs), True)
 
 
 def get_mock_environment():
