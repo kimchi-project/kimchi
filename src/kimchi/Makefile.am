@@ -47,6 +47,7 @@ kimchi_PYTHON = \
 	screenshot.py      \
 	server.py          \
 	sslcert.py         \
+	swupdate.py        \
 	template.py        \
 	utils.py           \
 	vmtemplate.py      \
