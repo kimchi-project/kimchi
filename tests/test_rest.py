@@ -1363,6 +1363,34 @@ class RestTests(unittest.TestCase):
         self.assertIn('net_recv_rate', stats)
         self.assertIn('net_sent_rate', stats)
 
+    def test_packages_update(self):
+        resp = self.request('/host/packagesupdate', None, 'GET')
+        pkgs = json.loads(resp.read())
+        self.assertEquals(3, len(pkgs))
+
+        for p in pkgs:
+            name = p['package_name']
+            resp = self.request('/host/packagesupdate/' + name, None, 'GET')
+            info = json.loads(resp.read())
+            self.assertIn('package_name', info.keys())
+            self.assertIn('repository', info.keys())
+            self.assertIn('arch', info.keys())
+            self.assertIn('version', info.keys())
+
+        resp = self.request('/host/packagesupdate/update', '{}', 'POST')
+        task = json.loads(resp.read())
+        task_params = [u'id', u'message', u'status', u'target_uri']
+        self.assertEquals(sorted(task_params), sorted(task.keys()))
+
+        resp = self.request('/tasks/' + task[u'id'], None, 'GET')
+        task_info = json.loads(resp.read())
+        self.assertEquals(task_info['status'], 'running')
+        time.sleep(6)
+        resp = self.request('/tasks/' + task[u'id'], None, 'GET')
+        task_info = json.loads(resp.read())
+        self.assertEquals(task_info['status'], 'finished')
+        self.assertIn(u'All packages updated', task_info['message'])
+
     def test_get_param(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         self.request('/templates', req, 'POST')

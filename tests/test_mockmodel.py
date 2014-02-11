@@ -152,3 +152,18 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
         self.assertEquals('vnc', info['graphics']['type'])
         self.assertEquals('0.0.0.0', info['graphics']['listen'])
+
+    def test_packages_update(self):
+        pkgs = model.packagesupdate_get_list()
+        self.assertEquals(3, len(pkgs))
+
+        for pkg_name in pkgs:
+            pkgupdate = model.packageupdate_lookup(pkg_name)
+            self.assertIn('package_name', pkgupdate.keys())
+            self.assertIn('repository', pkgupdate.keys())
+            self.assertIn('arch', pkgupdate.keys())
+            self.assertIn('version', pkgupdate.keys())
+
+        task = model.packagesupdate_update()
+        task_params = [u'id', u'message', u'status', u'target_uri']
+        self.assertEquals(sorted(task_params), sorted(task.keys()))
