@@ -23,8 +23,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
+
 from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import UrlSubNode
+from kimchi.exception import OperationFailed
+from kimchi.template import render
 
 
 @UrlSubNode("host", True)
@@ -37,6 +41,7 @@ class Host(Resource):
         self.stats = HostStats(self.model)
         self.partitions = Partitions(self.model)
         self.devices = Devices(self.model)
+        self.packagesupdate = PackagesUpdate(self.model)
 
     @property
     def data(self):
@@ -73,6 +78,30 @@ class Devices(Collection):
 class Device(Resource):
     def __init__(self, model, id):
         super(Device, self).__init__(model, id)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class PackagesUpdate(Collection):
+    def __init__(self, model):
+        super(PackagesUpdate, self).__init__(model)
+        self.resource = PackageUpdate
+
+    @cherrypy.expose
+    def update(self):
+        try:
+            task = self.model.packagesupdate_update()
+            cherrypy.response.status = 202
+            return render("Task", task)
+        except OperationFailed, e:
+            raise cherrypy.HTTPError(500, e.message)
+
+
+class PackageUpdate(Resource):
+    def __init__(self, model, id=None):
+        super(PackageUpdate, self).__init__(model, id)
 
     @property
     def data(self):
