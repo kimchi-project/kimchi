@@ -34,4 +34,5 @@ dist_html_DATA = \
 	i18n.html.tmpl \
 	login-window.html.tmpl \
 	storagepool-add.html.tmpl \
+	report-add.html.tmpl \
 	$(NULL)
