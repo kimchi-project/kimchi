@@ -775,3 +775,34 @@ Contains the host sample data.
             Empty if pci device is not scsi_host.
     * wwpn: The HBA Word Wide Port Name
             Empty if pci device is not scsi_host.
+
+### Collection: Host Packages Update
+
+**URI:** /host/packagesupdate
+
+Contains the information and action of packages update in the host.
+
+**Methods:**
+
+* **GET**: Retrieves a list of all packages to be updated in the host:
+
+* **POST**: *See Software Update Actions*
+
+**Actions (POST):**
+
+* update: Start the update of packages in background and return a Task resource
+    * task resource.  * See Resource: Task *
+
+### Resource: Host Package Update
+
+**URI:** /host/packagesupdate/*:name*
+
+Contains the information for a specific package to be updated.
+
+**Methods:**
+
+* **GET**: Retrieves a full description of a package:
+    * package_name: The name of the package to be updated
+    * arch: The architecture of the package
+    * version: The new version of the package
+    * repository: The repository name from where package will be downloaded
