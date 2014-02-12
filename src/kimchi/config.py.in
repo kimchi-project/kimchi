@@ -85,7 +85,7 @@ class Paths(object):
             self.log_dir = '@localstatedir@/log/kimchi'
             self.conf_dir = '@sysconfdir@/kimchi'
             self.src_dir = '@kimchidir@'
-            self.plugins_dir = '@kimchidir@'
+            self.plugins_dir = '@kimchidir@/plugins'
         else:
             self.state_dir = self.add_prefix('data')
             self.log_dir = self.add_prefix('log')

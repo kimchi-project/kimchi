@@ -41,7 +41,7 @@ class ConfigTests(unittest.TestCase):
         self.assertInstalledPath(paths.log_dir, '/var/log/kimchi')
         self.assertInstalledPath(paths.conf_dir, '/etc/kimchi')
         self.assertInstalledPath(paths.src_dir, '@kimchidir@')
-        self.assertInstalledPath(paths.plugins_dir, '@kimchidir@')
+        self.assertInstalledPath(paths.plugins_dir, '@kimchidir@/plugins')
         self.assertInstalledPath(paths.ui_dir, '@pkgdatadir@/ui')
         self.assertInstalledPath(paths.mo_dir, '@pkgdatadir@/mo')
 
