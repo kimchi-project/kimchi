@@ -28,7 +28,7 @@ import cherrypy
 
 from kimchi.control.base import Collection, Resource
 from kimchi.control.storagevolumes import IsoVolumes, StorageVolumes
-from kimchi.control.utils import get_class_name, model_fn, parse_request
+from kimchi.control.utils import get_class_name, model_fn
 from kimchi.control.utils import validate_params
 from kimchi.model.storagepools import ISO_POOL_NAME
 from kimchi.control.utils import UrlSubNode
@@ -42,14 +42,13 @@ class StoragePools(Collection):
         isos = IsoPool(model)
         setattr(self, ISO_POOL_NAME, isos)
 
-    def create(self, *args):
+    def create(self, params, *args):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
             error = 'Create is not allowed for %s' % get_class_name(self)
             raise cherrypy.HTTPError(405, error)
 
-        params = parse_request()
         validate_params(params, self, 'create')
         args = self.model_args + [params]
         name = create(*args)

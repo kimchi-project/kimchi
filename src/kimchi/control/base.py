@@ -196,14 +196,13 @@ class Collection(object):
         self.resource_args = []
         self.model_args = []
 
-    def create(self, *args):
+    def create(self, params, *args):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
             error = 'Create is not allowed for %s' % get_class_name(self)
             raise cherrypy.HTTPError(405, error)
 
-        params = parse_request()
         validate_params(params, self, 'create')
         args = self.model_args + [params]
         name = create(*args)
@@ -273,7 +272,7 @@ class Collection(object):
 
         elif method == 'POST':
             try:
-                return self.create(*args)
+                return self.create(parse_request(), *args)
             except MissingParameter, param:
                 error = "Missing parameter: '%s'" % param
                 raise cherrypy.HTTPError(400, error)
@@ -296,14 +295,13 @@ class AsyncCollection(Collection):
     def __init__(self, model):
         super(AsyncCollection, self).__init__(model)
 
-    def create(self, *args):
+    def create(self, params, *args):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
             error = 'Create is not allowed for %s' % get_class_name(self)
             raise cherrypy.HTTPError(405, error)
 
-        params = parse_request()
         args = self.model_args + [params]
         task = create(*args)
         cherrypy.response.status = 202
