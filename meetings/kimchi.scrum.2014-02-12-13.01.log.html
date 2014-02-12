@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb 12 13:01:11 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 3 status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:41</span><span class="nk"> &lt;alinefm&gt;</span> well, apparently not
+<a name="l-9"></a><span class="tm">13:02:45</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-10"></a><span class="tm">13:02:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 3 status</span>
+<a name="l-11"></a><span class="tm">13:02:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:03:12</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent first version of the patchset "Add DITA help pages"; reviewed patches on the mailing list</span>
+<a name="l-13"></a><span class="tm">13:03:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent V2 patches about refactor exception which got reviews from danielhb. Will be merged today</span>
+<a name="l-14"></a><span class="tm">13:04:29</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="cmd">#info </span><span class="cmdline">hlwanghl WIP Host Software Update UI</span>
+<a name="l-15"></a><span class="tm">13:05:03</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia sent first version of authorization support patch series. Working on v2 today.</span>
+<a name="l-16"></a><span class="tm">13:05:40</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia sent some corrections to kimchi documentation. Working on v2 today.</span>
+<a name="l-17"></a><span class="tm">13:06:14</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru sent 4 Bug fix patches, sent v5 of FC/SCSI patch and sent cdrom management patch</span>
+<a name="l-18"></a><span class="tm">13:06:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent the "add disk to LVM pool" contribution which was already merged. Now working on the v4 version of the CDROM contribution</span>
+<a name="l-19"></a><span class="tm">13:06:22</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent V3 of host's software update; sent V1 of host's repositories support;</span>
+<a name="l-20"></a><span class="tm">13:07:49</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers?
+<a name="l-21"></a><span class="tm">13:09:04</span><span class="nk"> &lt;alinefm&gt;</span> I expect to have all comments made on reviews addressed by the end of this week
+<a name="l-22"></a><span class="tm">13:09:08</span><span class="nk"> &lt;alinefm&gt;</span> do you think it is possible?
+<a name="l-23"></a><span class="tm">13:10:07</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure
+<a name="l-24"></a><span class="tm">13:10:45</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-25"></a><span class="tm">13:11:06</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, no blockers for me
+<a name="l-26"></a><span class="tm">13:11:58</span><span class="nk"> &lt;alinefm&gt;</span> I will assume lagarcia's answer applies to everyone who has pending patches =)
+<a name="l-27"></a><span class="tm">13:12:29</span><span class="nk"> &lt;alinefm&gt;</span> so let's move to open discussion
+<a name="l-28"></a><span class="tm">13:12:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-29"></a><span class="tm">13:12:53</span><span class="nk"> &lt;alinefm&gt;</span> what will we discuss today?
+<a name="l-30"></a><span class="tm">13:13:19</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you want to get feedbacks about eject/remove cdrom?
+<a name="l-31"></a><span class="tm">13:13:47</span><span class="nk"> &lt;danielhb&gt;</span> sure, any feedback is welcome
+<a name="l-32"></a><span class="tm">13:14:04</span><span class="nk"> &lt;alinefm&gt;</span> unfortunately, royce is not online right now
+<a name="l-33"></a><span class="tm">13:14:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I wonder why you changed your mind
+<a name="l-34"></a><span class="tm">13:14:19</span><span class="nk"> &lt;alinefm&gt;</span> rotru, me?
+<a name="l-35"></a><span class="tm">13:14:35</span><span class="nk"> &lt;danielhb&gt;</span> my opinion is that the backend is ready to do it in both ways, with PUT or DELETE. IMHO let the frontend decide what to do
+<a name="l-36"></a><span class="tm">13:14:41</span><span class="nk"> &lt;alinefm&gt;</span> from my view, the cdrom must always have a valid path
+<a name="l-37"></a><span class="tm">13:14:45</span><span class="nk"> &lt;rotru&gt;</span> alinefm; you said that eject cdrom should not be supported
+<a name="l-38"></a><span class="tm">13:15:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  do you want 'eject' now ?
+<a name="l-39"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yeap and I continue thinking the same
+<a name="l-40"></a><span class="tm">13:15:21</span><span class="nk"> &lt;alinefm&gt;</span> rotru, royce come up the discussion again
+<a name="l-41"></a><span class="tm">13:15:31</span><span class="nk"> &lt;alinefm&gt;</span> while reviewing danielhb's patches
+<a name="l-42"></a><span class="tm">13:15:40</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, I want to propose to the community that we allow simple patches to be committed into the tree without much review (such as trivial patches in QEMU). Of course that the maintainer will have to take a look at it, but if no big comments are available, the patch can be merged without formal review. But I want to discuss this next week, with the whole team from China back into the scrum meeting. I think this will streamline the acceptance of trivial
+<a name="l-43"></a><span class="tm">13:15:40</span><span class="nk"> &lt;lagarcia&gt;</span> patches and will lower the hurdle on community reviews for some patches.
+<a name="l-44"></a><span class="tm">13:16:08</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, aye aye
+<a name="l-45"></a><span class="tm">13:16:33</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, agree! but I also would like to discuss this with the whole team
+<a name="l-46"></a><span class="tm">13:17:39</span><span class="nk"> &lt;pradeep1&gt;</span> <span class="hi">alinefm:</span> have a patch for issue:316. will send it now
+<a name="l-47"></a><span class="tm">13:17:47</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure
+<a name="l-48"></a><span class="tm">13:17:48</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, if we decide to always have a valid path for cdrom we need to block it on backend too
+<a name="l-49"></a><span class="tm">13:17:57</span><span class="nk"> &lt;alinefm&gt;</span> pradeep1, thanks
+<a name="l-50"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> and make path a required parameter for PUT method
+<a name="l-51"></a><span class="tm">13:18:18</span><span class="nk"> &lt;pradeep1&gt;</span> <span class="hi">alinefm:</span> getting settled in new team. So am taking time for my image_format
+<a name="l-52"></a><span class="tm">13:18:22</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, let's put this topic on hold for next week
+<a name="l-53"></a><span class="tm">13:18:24</span><span class="nk"> &lt;vianac&gt;</span> lagarcia, alinefm: I also agree. trivial patches should be committed easily, not broken patches. so we still need to review carefully everything (even though we should not require all features to be ready by v1).
+<a name="l-54"></a><span class="tm">13:19:07</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, here's an idea: let both ways go in the backend, for now, to relief the patch dev from this discussion
+<a name="l-55"></a><span class="tm">13:19:22</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, a new RFC is created about it, we discuss it and we can patch the backend later if necessary
+<a name="l-56"></a><span class="tm">13:19:49</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, both ways do you mean allow an empty cdrom?
+<a name="l-57"></a><span class="tm">13:19:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah
+<a name="l-58"></a><span class="tm">13:20:19</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, what is the meaning of having an empty cdrom?
+<a name="l-59"></a><span class="tm">13:20:23</span><span class="nk"> &lt;lagarcia&gt;</span> I mean... when this is a valid case?
+<a name="l-60"></a><span class="tm">13:20:47</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I don't think it will be useful for the user
+<a name="l-61"></a><span class="tm">13:20:48</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, there is no media in the drive, but the drive is available for the VM
+<a name="l-62"></a><span class="tm">13:21:06</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, in this case the path is /dev/sr0 or something like this, correct?
+<a name="l-63"></a><span class="tm">13:21:20</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, no, empty! path=""
+<a name="l-64"></a><span class="tm">13:21:47</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, the "path" stuff here is that the cdrom device is loaded in the VM, but with no ISO in it
+<a name="l-65"></a><span class="tm">13:22:13</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, danielhb well... you can assigna drive directly to a VM In qemu using the device path... but you can also assign an ISO file path to a CDROM drive
+<a name="l-66"></a><span class="tm">13:22:41</span><span class="nk"> &lt;lagarcia&gt;</span> what are we doing differently from that? I mean, if there is a media in the CDROM drive, what is the path?
+<a name="l-67"></a><span class="tm">13:22:45</span><span class="nk"> &lt;lagarcia&gt;</span> isn't it /dev/sr0?
+<a name="l-68"></a><span class="tm">13:23:51</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, the proposal is have a cdrom drive without a media
+<a name="l-69"></a><span class="tm">13:24:19</span><span class="nk"> &lt;alinefm&gt;</span> for example, in vm xml, we will have &lt;devices type=cdrom&gt; &lt;path=""&gt; &lt;/device&gt;
+<a name="l-70"></a><span class="tm">13:24:28</span><span class="nk"> &lt;alinefm&gt;</span> pointing to anything
+<a name="l-71"></a><span class="tm">13:24:29</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure, I understood that. I just want to understand what happens if we have a media in the cdrom drive... cause I don't see any difference between when we have or don't have a media.
+<a name="l-72"></a><span class="tm">13:24:55</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  aline does not want an empty drive
+<a name="l-73"></a><span class="tm">13:25:08</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I don't see any useful case to have an empty drive
+<a name="l-74"></a><span class="tm">13:25:26</span><span class="nk"> &lt;alinefm&gt;</span> for me, the path should be a required parameter
+<a name="l-75"></a><span class="tm">13:25:31</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, yep... and if the cdrom is a being mapped to a file, the path is the path to the file. If the cdrom is mapped to the actual CDROM drive, the path is the device path, independently of what is inside the CDROM drive
+<a name="l-76"></a><span class="tm">13:25:54</span><span class="nk"> &lt;lagarcia&gt;</span> I don't see a case in which the path is empty
+<a name="l-77"></a><span class="tm">13:26:21</span><span class="nk"> &lt;lagarcia&gt;</span> that's why I asked what is the path in the case you have a CDROM media inside the drive. I might be missing something here.
+<a name="l-78"></a><span class="tm">13:27:02</span><span class="nk"> &lt;danielhb&gt;</span> here's what I'll happen
+<a name="l-79"></a><span class="tm">13:27:05</span><span class="nk"> &lt;danielhb&gt;</span> it'll
+<a name="l-80"></a><span class="tm">13:27:16</span><span class="nk"> &lt;danielhb&gt;</span> I remove this "empty drive" support, resend the patch
+<a name="l-81"></a><span class="tm">13:27:28</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">someone:</span> "what about the empty drive/eject support"
+<a name="l-82"></a><span class="tm">13:27:36</span><span class="nk"> &lt;danielhb&gt;</span> and we're back
+<a name="l-83"></a><span class="tm">13:27:53</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, nope! what we decide here will be implemented
+<a name="l-84"></a><span class="tm">13:28:26</span><span class="nk"> &lt;alinefm&gt;</span> I can send a note to mail list pointing to this scrum meeting log if anyone has doubts about it
+<a name="l-85"></a><span class="tm">13:28:29</span><span class="nk"> &lt;lagarcia&gt;</span> sorry guys... unless someone can explain to me what happens if there is a media inside the cdrom drive, I can't continue on this discussion. I think my question is simple...
+<a name="l-86"></a><span class="tm">13:29:10</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, if the cdrom vm points to a file: &lt;devices type=cdrom&gt; &lt;path="/home/alinefm/fedora.iso"&gt; &lt;/device&gt;
+<a name="l-87"></a><span class="tm">13:29:28</span><span class="nk"> &lt;alinefm&gt;</span> if it points to the host drive: &lt;devices type=cdrom&gt; &lt;path="/dev/sr0"&gt; &lt;/device&gt;
+<a name="l-88"></a><span class="tm">13:30:02</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok.. .and that's exactly what I said: there is no empty path. Because it should always point to /dev/sr0 independently of the fact that there is a media inside the driver or not.
+<a name="l-89"></a><span class="tm">13:30:09</span><span class="nk"> &lt;lagarcia&gt;</span> there is no use case in which path is empty
+<a name="l-90"></a><span class="tm">13:30:16</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I agree with you
+<a name="l-91"></a><span class="tm">13:31:08</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, rotru, what are your views?
+<a name="l-92"></a><span class="tm">13:31:13</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, hehe... so what are we discussing? Because I thought that was around some corner case in which path was empty....
+<a name="l-93"></a><span class="tm">13:31:29</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, rotru in which case the path will be empty?
+<a name="l-94"></a><span class="tm">13:31:38</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, royce suggested on danielhb's patch to allow an empty cdrom path
+<a name="l-95"></a><span class="tm">13:31:39</span><span class="nk"> &lt;lagarcia&gt;</span> I just can't see when that will happen
+<a name="l-96"></a><span class="tm">13:31:43</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  thats the point .... there is no "use case" , but in theory , we could add a guest cdrom device pointing to nothing  path=""
+<a name="l-97"></a><span class="tm">13:31:54</span><span class="nk"> &lt;alinefm&gt;</span> I bring up the discussion to close it and does not block danielhb
+<a name="l-98"></a><span class="tm">13:32:19</span><span class="nk"> &lt;danielhb&gt;</span> I'm not trying to make a case, but if you imagine a regular notebook, like the one I am using now, there's no media in the drive but the device exists
+<a name="l-99"></a><span class="tm">13:32:22</span><span class="nk"> &lt;lagarcia&gt;</span> if royce cannot come up with a reasonable use case, I don't think this is something that needs to be supported. sorry.
+<a name="l-100"></a><span class="tm">13:32:28</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  in virtmanager, you can add 1000 empty cdrom drives to vm
+<a name="l-101"></a><span class="tm">13:32:42</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, in the case of your notebook, with no media in the drive, the path is /dev/sr0
+<a name="l-102"></a><span class="tm">13:33:11</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, ok... and then what you do with these cdrom drives? If virt-manager supports this, they might have a use case for it.
+<a name="l-103"></a><span class="tm">13:33:40</span><span class="nk"> &lt;lagarcia&gt;</span> if we don't know what the use case is for now, we should not support it. when we find out which is the use case, we can implement it.
+<a name="l-104"></a><span class="tm">13:33:52</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I've just tried virt-manager and you have 2 options to add a cdrom = create a new img file for it or point an existent one
+<a name="l-105"></a><span class="tm">13:34:00</span><span class="nk"> &lt;alinefm&gt;</span> rotru, how did you add an empty cdrom?
+<a name="l-106"></a><span class="tm">13:34:34</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  ;  adding new device
+<a name="l-107"></a><span class="tm">13:35:50</span><span class="nk"> &lt;alinefm&gt;</span> rotru, http://picpaste.com/_18358DD7C5CF6478-HT5h450n.jpg
+<a name="l-108"></a><span class="tm">13:35:55</span><span class="nk"> &lt;alinefm&gt;</span> so...
+<a name="l-109"></a><span class="tm">13:35:59</span><span class="nk"> &lt;danielhb&gt;</span> can we just arbiter that we won't support this empty cdrom case and move on? I just want a decision rofl
+<a name="l-110"></a><span class="tm">13:36:07</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  alinefm , danielhb   my point here was try to clarify the ideas  ... I am not agreeing or disagreeing
+<a name="l-111"></a><span class="tm">13:36:13</span><span class="nk"> &lt;alinefm&gt;</span> I need to select one of the options there - there is no way to unselect them
+<a name="l-112"></a><span class="tm">13:36:32</span><span class="nk"> &lt;rotru&gt;</span> I had this discussion with aline one week before
+<a name="l-113"></a><span class="tm">13:37:04</span><span class="nk"> &lt;rotru&gt;</span> if kimchi should focus in ease of use, do not allow empty cdrom in guests, at this time
+<a name="l-114"></a><span class="tm">13:37:45</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-115"></a><span class="tm">13:37:55</span><span class="nk"> &lt;alinefm&gt;</span> so path is a required parameter
+<a name="l-116"></a><span class="tm">13:38:47</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, as we cannot see how virt-manager supports what you said it supports (create cdrom devices with empty path), I think we should not support this use case. Unless you can explain to us how you are creating a cdrom device in virt-manager with empty path.
+<a name="l-117"></a><span class="tm">13:38:48</span><span class="nk"> &lt;alinefm&gt;</span> at least someone provides a good user case to have an empty path
+<a name="l-118"></a><span class="tm">13:38:54</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, agree
+<a name="l-119"></a><span class="tm">13:39:46</span><span class="nk"> &lt;alinefm&gt;</span> any other topic to discuss today?
+<a name="l-120"></a><span class="tm">13:40:00</span><span class="nk"> &lt;danielhb&gt;</span> Ok, blank path support will be removed in next version
+<a name="l-121"></a><span class="tm">13:40:39</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, in fact, it is not there =)
+<a name="l-122"></a><span class="tm">13:40:48</span><span class="nk"> &lt;alinefm&gt;</span> just keeping doing what rotru  did
+<a name="l-123"></a><span class="tm">13:41:16</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  by the way , I am against remove an extra feature I added
+<a name="l-124"></a><span class="tm">13:41:20</span><span class="nk"> &lt;rotru&gt;</span> danielhb;  ^
+<a name="l-125"></a><span class="tm">13:41:30</span><span class="nk"> &lt;rotru&gt;</span> like the support to other disks
+<a name="l-126"></a><span class="tm">13:41:54</span><span class="nk"> &lt;danielhb&gt;</span> oh boy
+<a name="l-127"></a><span class="tm">13:42:28</span><span class="nk"> &lt;rotru&gt;</span> I did not had time to read the reviews, but noticed that this was one of the decision ....
+<a name="l-128"></a><span class="tm">13:42:50</span><span class="nk"> &lt;danielhb&gt;</span> I am not confortable in removing a feature of rotru in a contribution that I didn't started
+<a name="l-129"></a><span class="tm">13:42:51</span><span class="nk"> &lt;alinefm&gt;</span> rotru, royce commented the task is for cdrom management and should focus on it
+<a name="l-130"></a><span class="tm">13:43:02</span><span class="nk"> &lt;danielhb&gt;</span> if rotru is not ok with it
+<a name="l-131"></a><span class="tm">13:43:10</span><span class="nk"> &lt;alinefm&gt;</span> if you cover all the disk user cases, and the disk is working = ok
+<a name="l-132"></a><span class="tm">13:43:29</span><span class="nk"> &lt;alinefm&gt;</span> but from royce's comments it is not happening
+<a name="l-133"></a><span class="tm">13:43:42</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, alinefm rotru I just added a CDROM to a VM using virt-manager and no disk is in my drive... the libvirt XML doesn't have a path parameter:
+<a name="l-134"></a><span class="tm">13:43:45</span><span class="nk"> &lt;alinefm&gt;</span> I didn't test the patch set so I am basing on her comments
+<a name="l-135"></a><span class="tm">13:44:10</span><span class="nk"> &lt;lagarcia&gt;</span> &lt;disk type='block' device='cdrom'&gt;&lt;driver name='qemu' type='raw'/&gt;&lt;source dev='/dev/sr0'/&gt;&lt;target dev='hdc' bus='ide'/&gt;&lt;readonly/&gt;&lt;address type='drive' controller='0' bus='1' target='0' unit='0'/&gt;&lt;/disk&gt;
+<a name="l-136"></a><span class="tm">13:44:21</span><span class="nk"> &lt;lagarcia&gt;</span> I think we might just follow the format above
+<a name="l-137"></a><span class="tm">13:44:58</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, from that we have if there is no path, must have a 'dev'
+<a name="l-138"></a><span class="tm">13:45:09</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok, then we are fine.
+<a name="l-139"></a><span class="tm">13:45:58</span><span class="nk"> &lt;rotru&gt;</span> alinefm; lagarcia  you have DEV because the type is BLOCK !!!
+<a name="l-140"></a><span class="tm">13:46:32</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, is there other disk type for a CDROM drive other than block?
+<a name="l-141"></a><span class="tm">13:46:40</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, file
+<a name="l-142"></a><span class="tm">13:46:54</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  lagarcia  if you had passed a iso file, the the type is FILE and you will have a FILE in SOURCE too
+<a name="l-143"></a><span class="tm">13:46:55</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, no... file is only used for ISO files mapped to virtual CDROMs
+<a name="l-144"></a><span class="tm">13:47:01</span><span class="nk"> &lt;lagarcia&gt;</span> they are not used for real drives
+<a name="l-145"></a><span class="tm">13:47:05</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, ^
+<a name="l-146"></a><span class="tm">13:47:56</span><span class="nk"> &lt;rotru&gt;</span> lagarcia; alinefm  .... guys, if you ready my patch, you will see that I thought in all of these cases
+<a name="l-147"></a><span class="tm">13:48:17</span><span class="nk"> &lt;rotru&gt;</span> block, internet, file, dir
+<a name="l-148"></a><span class="tm">13:48:54</span><span class="nk"> &lt;rotru&gt;</span> and took a long time to ready documentation, understand, code and test
+<a name="l-149"></a><span class="tm">13:49:20</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, ok.. and based on what I read above, you also don't support empty paths, correct?
+<a name="l-150"></a><span class="tm">13:50:01</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  no ... I don't support empty path
+<a name="l-151"></a><span class="tm">13:50:08</span><span class="nk"> &lt;lagarcia&gt;</span> so I agree with you that this discussion is just waste of time... I don't see what we need to change on this...
+<a name="l-152"></a><span class="tm">13:50:12</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, ^
+<a name="l-153"></a><span class="tm">13:50:23</span><span class="nk"> &lt;lagarcia&gt;</span> and, btw, sorry for not having read your patches before jumping into this discussion here.
+<a name="l-154"></a><span class="tm">13:50:53</span><span class="nk"> &lt;lagarcia&gt;</span> there might be other reviews to address. But in terms of this specific functionality, I don't see what we need to change.
+<a name="l-155"></a><span class="tm">13:51:23</span><span class="nk"> &lt;alinefm&gt;</span> so we have 10 minutes to move to other topic
+<a name="l-156"></a><span class="tm">13:51:58</span><span class="nk"> &lt;danielhb&gt;</span> this is what I'll do: I'll send a new version of the cdrom patch, with the xml and other "minor" changes asked
+<a name="l-157"></a><span class="tm">13:52:07</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, rotru actually, If I try to create a ISO file mapped CDROM drive in virt-manager with an empty path, it gives me an error that it cannot create a drive with an empty path :S
+<a name="l-158"></a><span class="tm">13:52:10</span><span class="nk"> &lt;danielhb&gt;</span> but I will **NOT** remove hard disk support
+<a name="l-159"></a><span class="tm">13:52:53</span><span class="nk"> &lt;danielhb&gt;</span> this is rotru's baby, not mine. I am not confortable in removing it. If rotru agrees with the removal, then he can remove it himself in a v5
+<a name="l-160"></a><span class="tm">13:53:14</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-161"></a><span class="tm">13:53:22</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, so add tests for it too
+<a name="l-162"></a><span class="tm">13:53:27</span><span class="nk"> &lt;alinefm&gt;</span> there are tests only for cdrom
+<a name="l-163"></a><span class="tm">13:54:03</span><span class="nk"> &lt;rotru&gt;</span> lagarcia; lol ... crazy discussion ...  let me try here
+<a name="l-164"></a><span class="tm">13:54:25</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, rotru, to also support disk (in addition to cdrom) will take more time to complete the task
+<a name="l-165"></a><span class="tm">13:54:43</span><span class="nk"> &lt;alinefm&gt;</span> so if you think it is possible to do by the end of this week = ok
+<a name="l-166"></a><span class="tm">13:54:48</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, focus on cdrom
+<a name="l-167"></a><span class="tm">13:55:05</span><span class="nk"> &lt;alinefm&gt;</span> there is a specific task for disk support planned for sprint 4
+<a name="l-168"></a><span class="tm">13:56:08</span><span class="nk"> &lt;rotru&gt;</span> alinefm; you said 2 weeks ago to support more things!!!
+<a name="l-169"></a><span class="tm">13:56:24</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, rotru, support disk means a lot of tests: add ide, sata, scsi, floppy, usb, etc
+<a name="l-170"></a><span class="tm">13:56:44</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I said to prepare the API to support more types
+<a name="l-171"></a><span class="tm">13:56:52</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  the infrastructure will be there!
+<a name="l-172"></a><span class="tm">13:56:54</span><span class="nk"> &lt;alinefm&gt;</span> not to do that right now
+<a name="l-173"></a><span class="tm">13:57:20</span><span class="nk"> &lt;rotru&gt;</span> alinefm; i did not care to disk right now
+<a name="l-174"></a><span class="tm">13:57:33</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  thats why I did not created tests to disk!
+<a name="l-175"></a><span class="tm">13:57:33</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^ remove it next version
+<a name="l-176"></a><span class="tm">13:58:36</span><span class="nk"> &lt;alinefm&gt;</span> rotru, so we have a deal
+<a name="l-177"></a><span class="tm">13:59:03</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  which deal ?
+<a name="l-178"></a><span class="tm">13:59:13</span><span class="nk"> &lt;alinefm&gt;</span> rotru, only support cdrom?
+<a name="l-179"></a><span class="tm">13:59:20</span><span class="nk"> &lt;alinefm&gt;</span> do not care about disk?
+<a name="l-180"></a><span class="tm">13:59:26</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I dont agree with these
+<a name="l-181"></a><span class="tm">13:59:33</span><span class="nk"> &lt;rotru&gt;</span> * this
+<a name="l-182"></a><span class="tm">14:00:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I agree to only fully support cdrom with this patch, AND have the base infrastructure code for other types of disks
+<a name="l-183"></a><span class="tm">14:00:33</span><span class="nk"> &lt;alinefm&gt;</span> it was you have just said
+<a name="l-184"></a><span class="tm">14:00:51</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  badly expressed myself
+<a name="l-185"></a><span class="tm">14:01:04</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, u and alinefm  are saying the same...
+<a name="l-186"></a><span class="tm">14:01:25</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  aline said to remove the disk support I coded
+<a name="l-187"></a><span class="tm">14:01:31</span><span class="nk"> &lt;alinefm&gt;</span> rotru, with the cdrom patches the only support type for /vms/&lt;my-vm&gt;/storages will be cdrom
+<a name="l-188"></a><span class="tm">14:01:45</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-189"></a><span class="tm">14:02:27</span><span class="nk"> &lt;alinefm&gt;</span> if I try to /vms/&lt;my-vm&gt;/storages {type:disk} I will get an error (type not supported)
+<a name="l-190"></a><span class="tm">14:02:32</span><span class="nk"> &lt;alinefm&gt;</span> right?
+<a name="l-191"></a><span class="tm">14:02:47</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  thats, ok,  .... just remove string "disk"  from pattern
+<a name="l-192"></a><span class="tm">14:03:31</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I guess we ran out of time
+<a name="l-193"></a><span class="tm">14:03:38</span><span class="nk"> &lt;alinefm&gt;</span> vianac, yeap
+<a name="l-194"></a><span class="tm">14:03:48</span><span class="nk"> &lt;rotru&gt;</span> * from type pattern in API.json
+<a name="l-195"></a><span class="tm">14:03:50</span><span class="nk"> &lt;alinefm&gt;</span> if anyone has other topic we can continue after meeting
+<a name="l-196"></a><span class="tm">14:03:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

@@ -1,0 +1,196 @@
+13:01:11 <alinefm> #startmeeting
+13:01:11 <kimchi-bot> Meeting started Wed Feb 12 13:01:11 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:11 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:11 <alinefm> #meetingname scrum
+13:01:11 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:31 <alinefm> #info  Agenda 1) Sprint 3 status 2) Open discussion
+13:01:31 <alinefm> anything else?
+13:02:41 <alinefm> well, apparently not
+13:02:45 <alinefm> so let's get started
+13:02:54 <alinefm> #topic Sprint 3 status
+13:02:57 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:12 <vianac> #info vianac sent first version of the patchset "Add DITA help pages"; reviewed patches on the mailing list
+13:03:58 <alinefm> #info alinefm Sent V2 patches about refactor exception which got reviews from danielhb. Will be merged today
+13:04:29 <hlwanghl> #info hlwanghl WIP Host Software Update UI
+13:05:03 <lagarcia> #info lagarcia sent first version of authorization support patch series. Working on v2 today.
+13:05:40 <lagarcia> #info lagarcia sent some corrections to kimchi documentation. Working on v2 today.
+13:06:14 <rotru> #info rotru sent 4 Bug fix patches, sent v5 of FC/SCSI patch and sent cdrom management patch
+13:06:20 <danielhb> #info danielhb sent the "add disk to LVM pool" contribution which was already merged. Now working on the v4 version of the CDROM contribution
+13:06:22 <pvital> #info pvital sent V3 of host's software update; sent V1 of host's repositories support;
+13:07:49 <alinefm> anyone has blockers?
+13:09:04 <alinefm> I expect to have all comments made on reviews addressed by the end of this week
+13:09:08 <alinefm> do you think it is possible?
+13:10:07 <lagarcia> alinefm, sure
+13:10:45 <alinefm> great
+13:11:06 <lagarcia> alinefm, no blockers for me
+13:11:58 <alinefm> I will assume lagarcia's answer applies to everyone who has pending patches =)
+13:12:29 <alinefm> so let's move to open discussion
+13:12:41 <alinefm> #topic Open discussion
+13:12:53 <alinefm> what will we discuss today?
+13:13:19 <alinefm> danielhb, do you want to get feedbacks about eject/remove cdrom?
+13:13:47 <danielhb> sure, any feedback is welcome
+13:14:04 <alinefm> unfortunately, royce is not online right now
+13:14:06 <rotru> alinefm;  I wonder why you changed your mind
+13:14:19 <alinefm> rotru, me?
+13:14:35 <danielhb> my opinion is that the backend is ready to do it in both ways, with PUT or DELETE. IMHO let the frontend decide what to do
+13:14:41 <alinefm> from my view, the cdrom must always have a valid path
+13:14:45 <rotru> alinefm; you said that eject cdrom should not be supported
+13:15:06 <rotru> alinefm;  do you want 'eject' now ?
+13:15:10 <alinefm> rotru, yeap and I continue thinking the same
+13:15:21 <alinefm> rotru, royce come up the discussion again
+13:15:31 <alinefm> while reviewing danielhb's patches
+13:15:40 <lagarcia> alinefm, I want to propose to the community that we allow simple patches to be committed into the tree without much review (such as trivial patches in QEMU). Of course that the maintainer will have to take a look at it, but if no big comments are available, the patch can be merged without formal review. But I want to discuss this next week, with the whole team from China back into the scrum meeting. I think this will streamline the acceptance of trivial
+13:15:40 <lagarcia> patches and will lower the hurdle on community reviews for some patches.
+13:16:08 <danielhb> lagarcia, aye aye
+13:16:33 <alinefm> lagarcia, agree! but I also would like to discuss this with the whole team
+13:17:39 <pradeep1> alinefm: have a patch for issue:316. will send it now
+13:17:47 <lagarcia> alinefm, sure
+13:17:48 <alinefm> danielhb, if we decide to always have a valid path for cdrom we need to block it on backend too
+13:17:57 <alinefm> pradeep1, thanks
+13:18:16 <alinefm> and make path a required parameter for PUT method
+13:18:18 <pradeep1> alinefm: getting settled in new team. So am taking time for my image_format
+13:18:22 <lagarcia> alinefm, let's put this topic on hold for next week
+13:18:24 <vianac> lagarcia, alinefm: I also agree. trivial patches should be committed easily, not broken patches. so we still need to review carefully everything (even though we should not require all features to be ready by v1).
+13:19:07 <danielhb> alinefm, here's an idea: let both ways go in the backend, for now, to relief the patch dev from this discussion
+13:19:22 <danielhb> alinefm, a new RFC is created about it, we discuss it and we can patch the backend later if necessary
+13:19:49 <alinefm> danielhb, both ways do you mean allow an empty cdrom?
+13:19:55 <danielhb> alinefm, yeah
+13:20:19 <lagarcia> danielhb, what is the meaning of having an empty cdrom?
+13:20:23 <lagarcia> I mean... when this is a valid case?
+13:20:47 <alinefm> danielhb, I don't think it will be useful for the user
+13:20:48 <danielhb> lagarcia, there is no media in the drive, but the drive is available for the VM
+13:21:06 <lagarcia> danielhb, in this case the path is /dev/sr0 or something like this, correct?
+13:21:20 <alinefm> lagarcia, no, empty! path=""
+13:21:47 <danielhb> lagarcia, the "path" stuff here is that the cdrom device is loaded in the VM, but with no ISO in it
+13:22:13 <lagarcia> alinefm, danielhb well... you can assigna drive directly to a VM In qemu using the device path... but you can also assign an ISO file path to a CDROM drive
+13:22:41 <lagarcia> what are we doing differently from that? I mean, if there is a media in the CDROM drive, what is the path?
+13:22:45 <lagarcia> isn't it /dev/sr0?
+13:23:51 <alinefm> lagarcia, the proposal is have a cdrom drive without a media
+13:24:19 <alinefm> for example, in vm xml, we will have <devices type=cdrom> <path=""> </device>
+13:24:28 <alinefm> pointing to anything
+13:24:29 <lagarcia> alinefm, sure, I understood that. I just want to understand what happens if we have a media in the cdrom drive... cause I don't see any difference between when we have or don't have a media.
+13:24:55 <rotru> lagarcia;  aline does not want an empty drive
+13:25:08 <alinefm> lagarcia, I don't see any useful case to have an empty drive
+13:25:26 <alinefm> for me, the path should be a required parameter
+13:25:31 <lagarcia> alinefm, yep... and if the cdrom is a being mapped to a file, the path is the path to the file. If the cdrom is mapped to the actual CDROM drive, the path is the device path, independently of what is inside the CDROM drive
+13:25:54 <lagarcia> I don't see a case in which the path is empty
+13:26:21 <lagarcia> that's why I asked what is the path in the case you have a CDROM media inside the drive. I might be missing something here.
+13:27:02 <danielhb> here's what I'll happen
+13:27:05 <danielhb> it'll
+13:27:16 <danielhb> I remove this "empty drive" support, resend the patch
+13:27:28 <danielhb> someone: "what about the empty drive/eject support"
+13:27:36 <danielhb> and we're back
+13:27:53 <alinefm> danielhb, nope! what we decide here will be implemented
+13:28:26 <alinefm> I can send a note to mail list pointing to this scrum meeting log if anyone has doubts about it
+13:28:29 <lagarcia> sorry guys... unless someone can explain to me what happens if there is a media inside the cdrom drive, I can't continue on this discussion. I think my question is simple...
+13:29:10 <alinefm> lagarcia, if the cdrom vm points to a file: <devices type=cdrom> <path="/home/alinefm/fedora.iso"> </device>
+13:29:28 <alinefm> if it points to the host drive: <devices type=cdrom> <path="/dev/sr0"> </device>
+13:30:02 <lagarcia> alinefm, ok.. .and that's exactly what I said: there is no empty path. Because it should always point to /dev/sr0 independently of the fact that there is a media inside the driver or not.
+13:30:09 <lagarcia> there is no use case in which path is empty
+13:30:16 <alinefm> lagarcia, I agree with you
+13:31:08 <alinefm> danielhb, rotru, what are your views?
+13:31:13 <lagarcia> alinefm, hehe... so what are we discussing? Because I thought that was around some corner case in which path was empty....
+13:31:29 <lagarcia> danielhb, rotru in which case the path will be empty?
+13:31:38 <alinefm> lagarcia, royce suggested on danielhb's patch to allow an empty cdrom path
+13:31:39 <lagarcia> I just can't see when that will happen
+13:31:43 <rotru> lagarcia;  thats the point .... there is no "use case" , but in theory , we could add a guest cdrom device pointing to nothing  path=""
+13:31:54 <alinefm> I bring up the discussion to close it and does not block danielhb
+13:32:19 <danielhb> I'm not trying to make a case, but if you imagine a regular notebook, like the one I am using now, there's no media in the drive but the device exists
+13:32:22 <lagarcia> if royce cannot come up with a reasonable use case, I don't think this is something that needs to be supported. sorry.
+13:32:28 <rotru> lagarcia;  in virtmanager, you can add 1000 empty cdrom drives to vm
+13:32:42 <lagarcia> danielhb, in the case of your notebook, with no media in the drive, the path is /dev/sr0
+13:33:11 <lagarcia> rotru, ok... and then what you do with these cdrom drives? If virt-manager supports this, they might have a use case for it.
+13:33:40 <lagarcia> if we don't know what the use case is for now, we should not support it. when we find out which is the use case, we can implement it.
+13:33:52 <alinefm> rotru, I've just tried virt-manager and you have 2 options to add a cdrom = create a new img file for it or point an existent one
+13:34:00 <alinefm> rotru, how did you add an empty cdrom?
+13:34:34 <rotru> alinefm;  ;  adding new device
+13:35:50 <alinefm> rotru, http://picpaste.com/_18358DD7C5CF6478-HT5h450n.jpg
+13:35:55 <alinefm> so...
+13:35:59 <danielhb> can we just arbiter that we won't support this empty cdrom case and move on? I just want a decision rofl
+13:36:07 <rotru> lagarcia;  alinefm , danielhb   my point here was try to clarify the ideas  ... I am not agreeing or disagreeing
+13:36:13 <alinefm> I need to select one of the options there - there is no way to unselect them
+13:36:32 <rotru> I had this discussion with aline one week before
+13:37:04 <rotru> if kimchi should focus in ease of use, do not allow empty cdrom in guests, at this time
+13:37:45 <alinefm> ok
+13:37:55 <alinefm> so path is a required parameter
+13:38:47 <lagarcia> rotru, as we cannot see how virt-manager supports what you said it supports (create cdrom devices with empty path), I think we should not support this use case. Unless you can explain to us how you are creating a cdrom device in virt-manager with empty path.
+13:38:48 <alinefm> at least someone provides a good user case to have an empty path
+13:38:54 <lagarcia> alinefm, agree
+13:39:46 <alinefm> any other topic to discuss today?
+13:40:00 <danielhb> Ok, blank path support will be removed in next version
+13:40:39 <alinefm> danielhb, in fact, it is not there =)
+13:40:48 <alinefm> just keeping doing what rotru  did
+13:41:16 <rotru> alinefm;  by the way , I am against remove an extra feature I added
+13:41:20 <rotru> danielhb;  ^
+13:41:30 <rotru> like the support to other disks
+13:41:54 <danielhb> oh boy
+13:42:28 <rotru> I did not had time to read the reviews, but noticed that this was one of the decision ....
+13:42:50 <danielhb> I am not confortable in removing a feature of rotru in a contribution that I didn't started
+13:42:51 <alinefm> rotru, royce commented the task is for cdrom management and should focus on it
+13:43:02 <danielhb> if rotru is not ok with it
+13:43:10 <alinefm> if you cover all the disk user cases, and the disk is working = ok
+13:43:29 <alinefm> but from royce's comments it is not happening
+13:43:42 <lagarcia> danielhb, alinefm rotru I just added a CDROM to a VM using virt-manager and no disk is in my drive... the libvirt XML doesn't have a path parameter:
+13:43:45 <alinefm> I didn't test the patch set so I am basing on her comments
+13:44:10 <lagarcia> <disk type='block' device='cdrom'><driver name='qemu' type='raw'/><source dev='/dev/sr0'/><target dev='hdc' bus='ide'/><readonly/><address type='drive' controller='0' bus='1' target='0' unit='0'/></disk>
+13:44:21 <lagarcia> I think we might just follow the format above
+13:44:58 <alinefm> lagarcia, from that we have if there is no path, must have a 'dev'
+13:45:09 <lagarcia> alinefm, ok, then we are fine.
+13:45:58 <rotru> alinefm; lagarcia  you have DEV because the type is BLOCK !!!
+13:46:32 <lagarcia> rotru, is there other disk type for a CDROM drive other than block?
+13:46:40 <alinefm> lagarcia, file
+13:46:54 <rotru> alinefm;  lagarcia  if you had passed a iso file, the the type is FILE and you will have a FILE in SOURCE too
+13:46:55 <lagarcia> alinefm, no... file is only used for ISO files mapped to virtual CDROMs
+13:47:01 <lagarcia> they are not used for real drives
+13:47:05 <lagarcia> rotru, ^
+13:47:56 <rotru> lagarcia; alinefm  .... guys, if you ready my patch, you will see that I thought in all of these cases
+13:48:17 <rotru> block, internet, file, dir
+13:48:54 <rotru> and took a long time to ready documentation, understand, code and test
+13:49:20 <lagarcia> rotru, ok.. and based on what I read above, you also don't support empty paths, correct?
+13:50:01 <rotru> lagarcia;  no ... I don't support empty path
+13:50:08 <lagarcia> so I agree with you that this discussion is just waste of time... I don't see what we need to change on this...
+13:50:12 <lagarcia> rotru, ^
+13:50:23 <lagarcia> and, btw, sorry for not having read your patches before jumping into this discussion here.
+13:50:53 <lagarcia> there might be other reviews to address. But in terms of this specific functionality, I don't see what we need to change.
+13:51:23 <alinefm> so we have 10 minutes to move to other topic
+13:51:58 <danielhb> this is what I'll do: I'll send a new version of the cdrom patch, with the xml and other "minor" changes asked
+13:52:07 <lagarcia> danielhb, rotru actually, If I try to create a ISO file mapped CDROM drive in virt-manager with an empty path, it gives me an error that it cannot create a drive with an empty path :S
+13:52:10 <danielhb> but I will **NOT** remove hard disk support
+13:52:53 <danielhb> this is rotru's baby, not mine. I am not confortable in removing it. If rotru agrees with the removal, then he can remove it himself in a v5
+13:53:14 <alinefm> ok
+13:53:22 <alinefm> danielhb, so add tests for it too
+13:53:27 <alinefm> there are tests only for cdrom
+13:54:03 <rotru> lagarcia; lol ... crazy discussion ...  let me try here
+13:54:25 <alinefm> danielhb, rotru, to also support disk (in addition to cdrom) will take more time to complete the task
+13:54:43 <alinefm> so if you think it is possible to do by the end of this week = ok
+13:54:48 <alinefm> otherwise, focus on cdrom
+13:55:05 <alinefm> there is a specific task for disk support planned for sprint 4
+13:56:08 <rotru> alinefm; you said 2 weeks ago to support more things!!!
+13:56:24 <alinefm> danielhb, rotru, support disk means a lot of tests: add ide, sata, scsi, floppy, usb, etc
+13:56:44 <alinefm> rotru, I said to prepare the API to support more types
+13:56:52 <rotru> alinefm;  the infrastructure will be there!
+13:56:54 <alinefm> not to do that right now
+13:57:20 <rotru> alinefm; i did not care to disk right now
+13:57:33 <rotru> alinefm;  thats why I did not created tests to disk!
+13:57:33 <alinefm> danielhb, ^ remove it next version
+13:58:36 <alinefm> rotru, so we have a deal
+13:59:03 <rotru> alinefm;  which deal ?
+13:59:13 <alinefm> rotru, only support cdrom?
+13:59:20 <alinefm> do not care about disk?
+13:59:26 <rotru> alinefm;  I dont agree with these
+13:59:33 <rotru> * this
+14:00:31 <rotru> alinefm;  I agree to only fully support cdrom with this patch, AND have the base infrastructure code for other types of disks
+14:00:33 <alinefm> it was you have just said
+14:00:51 <rotru> alinefm;  badly expressed myself
+14:01:04 <lagarcia> rotru, u and alinefm  are saying the same...
+14:01:25 <rotru> lagarcia;  aline said to remove the disk support I coded
+14:01:31 <alinefm> rotru, with the cdrom patches the only support type for /vms/<my-vm>/storages will be cdrom
+14:01:45 <alinefm> agree?
+14:02:27 <alinefm> if I try to /vms/<my-vm>/storages {type:disk} I will get an error (type not supported)
+14:02:32 <alinefm> right?
+14:02:47 <rotru> alinefm;  thats, ok,  .... just remove string "disk"  from pattern
+14:03:31 <vianac> alinefm, I guess we ran out of time
+14:03:38 <alinefm> vianac, yeap
+14:03:48 <rotru> * from type pattern in API.json
+14:03:50 <alinefm> if anyone has other topic we can continue after meeting
+14:03:54 <alinefm> #endmeeting
