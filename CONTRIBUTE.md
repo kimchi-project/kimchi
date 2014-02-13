@@ -1,9 +1,9 @@
 How to Contribute
 =================
 
-All development discussion happens on the mailing list.  All development is
-done using the `git` SCM.  Patches should be sent using the `git send-email`
-command.
+All development discussion happens on the mailing list.  All development is done
+using the `git` SCM. Patches should be sent using the `git send-email` command
+to the kimchi-devel@ovirt.org mailing list.
 
 Good examples of how to send patches are included in
 [QEMU SubmitAPatch](http://wiki.qemu.org/Contribute/SubmitAPatch) and
