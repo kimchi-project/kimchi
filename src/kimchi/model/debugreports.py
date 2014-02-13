@@ -32,6 +32,7 @@ from kimchi import config
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.tasks import TaskModel
 from kimchi.utils import add_task, kimchi_log
+from kimchi.utils import run_command
 
 
 class DebugReportsModel(object):
@@ -63,38 +64,52 @@ class DebugReportsModel(object):
 
     @staticmethod
     def sosreport_generate(cb, name):
-        command = 'sosreport --batch --name "%s"' % name
         try:
-            retcode = subprocess.call(command, shell=True,
-                                      stdout=subprocess.PIPE)
+            command = ['sosreport', '--batch', '--name=%s' % name]
+            output, error, retcode = run_command(command)
+
             if retcode < 0:
                 raise OperationFailed("KCHDR0003E", {'name': name,
                                                      'err': retcode})
             elif retcode > 0:
                 raise OperationFailed("KCHDR0003E", {'name': name,
                                                      'err': retcode})
-            pattern = '/tmp/sosreport-%s-*' % name
-            for reportFile in glob.glob(pattern):
-                if not fnmatch.fnmatch(reportFile, '*.md5'):
-                    output = reportFile
+
+            # SOSREPORT might create file in /tmp or /var/tmp
+            # FIXME: The right way should be passing the tar.xz file directory
+            # though the parameter '--tmp-dir', but it is failing in Fedora 20
+            patterns = ['/tmp/sosreport-%s-*', '/var/tmp/sosreport-%s-*']
+            reports = []
+            reportFile = None
+            for p in patterns:
+                reports = reports + [f for f in glob.glob(p % name)]
+            for f in reports:
+                if not fnmatch.fnmatch(f, '*.md5'):
+                    reportFile = f
                     break
-            else:
-                # sosreport tends to change the name mangling rule and
-                # compression file format between different releases.
-                # It's possible to fail to match a report file even sosreport
-                # runs successfully. In future we might have a general name
-                # mangling function in kimchi to format the name before passing
-                # it to sosreport. Then we can delete this exception.
-                raise OperationFailed("KCHDR0004E", {'name': pattern})
+            # Some error in sosreport happened
+            if reportFile is None:
+                kimchi_log.error('Debug report file not found. See sosreport '
+                                 'output for detail:\n%s', output)
+                fname = (patterns[0] % name).split('/')[-1]
+                raise OperationFailed('KCHDR0004E', {'name': fname})
 
-            ext = output.split('.', 1)[1]
+            md5_report_file = reportFile + '.md5'
+            report_file_extension = '.' + reportFile.split('.', 1)[1]
             path = config.get_debugreports_path()
-            target = os.path.join(path, name)
-            target_file = '%s.%s' % (target, ext)
-            shutil.move(output, target_file)
-            os.remove('%s.md5' % output)
+            target = os.path.join(path, name + report_file_extension)
+            # Moving report
+            msg = 'Moving debug report file "%s" to "%s"' % (reportFile,
+                                                             target)
+            kimchi_log.info(msg)
+            shutil.move(reportFile, target)
+            # Deleting md5
+            msg = 'Deleting report md5 file: "%s"' % (md5_report_file)
+            kimchi_log.info(msg)
+            md5 = open(md5_report_file).read().strip()
+            kimchi_log.info('Md5 file content: "%s"', md5)
+            os.remove(md5_report_file)
             cb('OK', True)
-
             return
 
         except OSError:

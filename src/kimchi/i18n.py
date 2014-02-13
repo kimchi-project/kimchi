@@ -167,7 +167,7 @@ messages = {
     "KCHDR0001E": _("Debug report %(name)s does not exist"),
     "KCHDR0002E": _("Debug report tool not found in system"),
     "KCHDR0003E": _("Unable to create debug report %(name)s. Details: %(err)s."),
-    "KCHDR0004E": _("Can not find generated debug report named %(name)s"),
+    "KCHDR0004E": _("Can not find any generated debug report matching name %(name)s"),
     "KCHDR0005E": _("Unable to generate debug report %(name)s. Details: %(err)s"),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),
