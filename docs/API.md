@@ -744,3 +744,31 @@ Contains the host sample data.
     * size: The total size of the partition, in bytes
     * mountpoint: If the partition is mounted, represents the mountpoint.
       Otherwise blank.
+
+### Collection: Devices
+
+**URI:** /host/devices
+
+**Methods:**
+
+* **GET**: Retrieves list of host pci devices (Node Devices).
+           Currently only scsi_host devices are supported:
+    * Parameters:
+        * _cap: Filter node device list with given node device capability.
+                To list Fibre Channel SCSI Host devices, use "_cap=fc_host".
+
+### Resource: Device
+
+**URI:** /host/devices/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve information of a single pci device.
+           Currently only scsi_host devices are supported:
+    * name: The name of the device.
+    * adapter_type: The capability type of the scsi_host device (fc_host).
+                    Empty if pci device is not scsi_host.
+    * wwnn: The HBA Word Wide Node Name.
+            Empty if pci device is not scsi_host.
+    * wwpn: The HBA Word Wide Port Name
+            Empty if pci device is not scsi_host.
