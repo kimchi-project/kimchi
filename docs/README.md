@@ -1,8 +1,8 @@
 Kimchi Project
 ==============
 
-Kimchi is an HTML5 based management tool for KVM.  It is designed to make it
-as easy as possible to get started with KVM and create your first guest.
+Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
+easy as possible to get started with KVM and create your first guest.
 
 Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
 libvirt. The management interface is accessed over the web using a browser that
@@ -23,10 +23,12 @@ Mobile Browser Support:
 * **Safari iOS:** Current-1 version
 * **Android Browser** Current-1 version
 
-Current-1 version denotes that we support the current stable version of the browser and the version
-that preceded it. For example, if the current version of a browser is 24.x, we support the 24.x and
-23.x versions.This does not mean that kimchi cannot be used in other browsers, however, functionality
-and appearance may be diminished and we may not be able to provide support for any problems you find.
+Current-1 version denotes that we support the current stable version of the
+browser and the version that preceded it. For example, if the current version of
+a browser is 24.x, we support the 24.x and 23.x versions.This does not mean that
+kimchi cannot be used in other browsers, however, functionality and appearance
+may be diminished and we may not be able to provide support for any problems you
+find.
 
 Hypervisor Distro Support
 =========================
@@ -91,8 +93,8 @@ for more information on how to configure your system to access this repository.
     Packages version requirement:
         python-psutil >= 0.6.0
 
-*Note for openSUSE users*: Some of the above packages are located in the openSUSE
-Systems Management repository. See
+*Note for openSUSE users*: Some of the above packages are located in the
+openSUSE Systems Management repository. See
 [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
 to get the correct repository based on your openSUSE version. And
 [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
