@@ -24,6 +24,7 @@
 import base64
 import json
 import os
+import random
 import time
 import unittest
 
@@ -144,6 +145,18 @@ class RestTests(unittest.TestCase):
 
         h = {'Accept': 'text/plain'}
         self.assertHTTPStatus(406, "/", None, 'GET', h)
+
+    def test_host_devices(self):
+        nodedevs = json.loads(self.request('/host/devices').read())
+        # Mockmodel brings 3 preconfigured scsi fc_host
+        self.assertEquals(3, len(nodedevs))
+
+        nodedev = json.loads(self.request('/host/devices/scsi_host4').read())
+        # Mockmodel generates random wwpn and wwnn
+        self.assertEquals('scsi_host4', nodedev['name'])
+        self.assertEquals('fc_host', nodedev['adapter_type'])
+        self.assertEquals(16, len(nodedev['wwpn']))
+        self.assertEquals(16, len(nodedev['wwnn']))
 
     def test_get_vms(self):
         vms = json.loads(self.request('/vms').read())
@@ -440,6 +453,56 @@ class RestTests(unittest.TestCase):
 
         # Verify the volume was deleted
         self.assertHTTPStatus(404, vol_uri)
+
+    def test_scsi_fc_storage(self):
+        # Create scsi fc pool
+        req = json.dumps({'name': 'scsi_fc_pool',
+                          'type': 'scsi',
+                          'source': {'adapter_name': 'scsi_host3'}})
+        resp = self.request('/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Create template with this pool
+        req = json.dumps({'name': 'test_fc_pool', 'cdrom': '/nonexistent.iso',
+                          'storagepool': '/storagepools/scsi_fc_pool'})
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Test create vms using lun of this pool
+        ### activate the storage pool
+        resp = self.request('/storagepools/scsi_fc_pool/activate', '{}',
+                            'POST')
+
+        ### Get scsi pool luns and choose one
+        resp = self.request('/storagepools/scsi_fc_pool/storagevolumes')
+        luns = json.loads(resp.read())
+        lun_name = random.choice(luns).get('name')
+
+        ### Create vm in scsi pool without volumes: Error
+        req = json.dumps({'template': '/templates/test_fc_pool'})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(400, resp.status)
+
+        ### Create vm in scsi pool
+        req = json.dumps({'name': 'test-vm',
+                          'template': '/templates/test_fc_pool',
+                          'volumes': [lun_name]})
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Start the VM
+        resp = self.request('/vms/test-vm/start', '{}', 'POST')
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('running', vm['state'])
+
+        # Force stop the VM
+        resp = self.request('/vms/test-vm/stop', '{}', 'POST')
+        vm = json.loads(self.request('/vms/test-vm').read())
+        self.assertEquals('shutoff', vm['state'])
+
+        # Delete the VM
+        resp = self.request('/vms/test-vm', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
 
     def test_template_customise_storage(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso',

@@ -156,7 +156,16 @@ class MockModel(object):
         if icon:
             vm.info['icon'] = icon
 
-        vm.disk_paths = t.fork_vm_storage(vm_uuid)
+        pool = t._storage_validate()
+        if pool.info['type'] == 'scsi':
+            vm.disk_paths = []
+            if not params.get('volumes'):
+                raise MissingParameter('KCHVM0017E')
+            for vol in params['volumes']:
+                vm.disk_paths.append({'pool': pool.name,
+                                      'volume': vol})
+        else:
+            vm.disk_paths = t.fork_vm_storage(vm_uuid)
         self._mock_vms[name] = vm
         return name
 
@@ -302,8 +311,20 @@ class MockModel(object):
             name = params['name']
             pool = MockStoragePool(name)
             pool.info['type'] = params['type']
-            pool.info['path'] = params['path']
-            if params['type'] == 'dir':
+            if params['type'] == 'scsi':
+                pool.info['path'] = '/dev/disk/by-path'
+                pool.info['source'] = params['source']
+                if not pool.info['source'].get('adapter_name'):
+                    raise MissingParameter('KCHPOOL0004E',
+                              {'item': 'adapter_name', 'name': name})
+                for vol in ['unit:0:0:1','unit:0:0:2',
+                            'unit:0:0:3','unit:0:0:4']:
+                    mockvol = MockStorageVolume(name, vol,
+                                                dict([('type','lun')]))
+                    pool._volumes[vol] = mockvol
+            else:
+                pool.info['path'] = params['path']
+            if params['type'] in ['dir','scsi']:
                 pool.info['autostart'] = True
             else:
                 pool.info['autostart'] = False
@@ -404,6 +425,16 @@ class MockModel(object):
         if res.info['state'] == 'inactive':
             raise InvalidOperation("KCHVOL0006E", {'pool': pool})
         return res._volumes.keys()
+
+    def devices_get_list(self, _cap=None):
+        return ['scsi_host3', 'scsi_host4','scsi_host5']
+
+    def device_lookup(self, nodedev_name):
+        return {
+            'name': nodedev_name,
+            'adapter_type': 'fc_host',
+            'wwnn': uuid.uuid4().hex[:16],
+            'wwpn': uuid.uuid4().hex[:16]}
 
     def isopool_lookup(self, name):
         return {'state': 'active',
@@ -810,17 +841,32 @@ class MockStorageVolume(object):
     def __init__(self, pool, name, params={}):
         self.name = name
         self.pool = pool
+        # Check if volume should be scsi lun
+        if params.get('type') == 'lun':
+            params = self._def_lun(name)
         fmt = params.get('format', 'raw')
         capacity = params.get('capacity', 1024)
-        self.info = {'type': 'disk',
+        self.info = {'type': params.get('type','disk'),
                      'capacity': capacity << 20,
-                     'allocation': 512,
+                     'allocation': params.get('allocation','512'),
+                     'path': params.get('path'),
                      'format': fmt}
         if fmt == 'iso':
             self.info['allocation'] = self.info['capacity']
             self.info['os_version'] = '17'
             self.info['os_distro'] = 'fedora'
             self.info['bootable'] = True
+
+    def _def_lun(self, name):
+        capacity = int(random.uniform(100, 300)) << 20
+        path = "/dev/disk/by-path/pci-0000:0e:00.0-fc-0x20999980e52e4492-lun"
+        return {
+            "capacity": capacity,
+            "name": name,
+            "format": random.choice(['dos','unknown']),
+            "allocation": capacity,
+            "path": path + name[-1],
+            "type": "block" }
 
 
 class MockVMScreenshot(VMScreenshot):

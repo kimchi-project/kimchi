@@ -141,6 +141,28 @@ class storagepoolTests(unittest.TestCase):
                  <path>/dev/disk/by-id</path>
                </target>
              </pool>
+             """},
+            {'def':
+                {'type': 'scsi',
+                 'name': 'unitTestSCSIFCPool',
+                 'path': '/dev/disk/by-path',
+                 'source': {
+                     'name': 'scsi_host3',
+                     'adapter_type': 'fc_host',
+                     'wwpn': '0123456789abcdef',
+                     'wwnn': 'abcdef0123456789'}},
+             'xml':
+             """
+             <pool type='scsi'>
+               <name>unitTestSCSIFCPool</name>
+               <source>
+                   <adapter type='fc_host' name='scsi_host3'
+                     wwnn='abcdef0123456789' wwpn='0123456789abcdef'></adapter>
+               </source>
+               <target>
+                   <path>/dev/disk/by-path</path>
+               </target>
+             </pool>
              """}]
 
         for poolDef in poolDefs:
