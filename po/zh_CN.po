@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-11 15:02-0200\n"
+"POT-Creation-Date: 2014-02-13 00:11-0200\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -912,6 +912,19 @@ msgid "Specify name and type to create a storage pool"
 msgstr ""
 
 #, python-format
+msgid ""
+"%(disk)s is not a valid disk/partition. Could not add it to the pool "
+"%(pool)s."
+msgstr ""
+
+#, python-format
+msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
+msgstr ""
+
+msgid "The parameter disks only can be updated for logical storage pool."
+msgstr ""
+
+#, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
 
@@ -1060,6 +1073,20 @@ msgid "Unable to shutdown host machine as there are running virtual machines"
 msgstr ""
 
 msgid "Unable to reboot host machine as there are running virtual machines"
+msgstr ""
+
+msgid "No packages marked for update"
+msgstr ""
+
+#, python-format
+msgid "Package %(name)s is not marked to be updated."
+msgstr ""
+
+#, python-format
+msgid "Error while getting packages marked to be updated. Details: %(err)s"
+msgstr ""
+
+msgid "There is no compatible package manager for this system."
 msgstr ""
 
 #, python-format
