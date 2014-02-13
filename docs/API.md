@@ -545,6 +545,10 @@ creation.
     * screenshot: True, if libvirt stream functionality can create screenshot
       file without problems; False, otherwise or None if the functionality was
       not tested yet
+    * system_report_tool: True if the is some debug report tool installed on
+      the system; False, otherwise.
+    * update_tool: True if there is a compatible package manager for the
+      system; False, otherwise
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**

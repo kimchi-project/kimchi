@@ -29,6 +29,7 @@ from kimchi.exception import NotFoundError
 from kimchi.featuretests import FeatureTests
 from kimchi.model.debugreports import DebugReportsModel
 from kimchi.screenshot import VMScreenshot
+from kimchi.swupdate import SoftwareUpdate
 from kimchi.utils import kimchi_log
 
 
@@ -73,11 +74,18 @@ class CapabilitiesModel(object):
 
     def lookup(self, *ident):
         report_tool = DebugReportsModel.get_system_report_tool()
+        try:
+            SoftwareUpdate()
+        except Exception:
+            update_tool = False
+        else:
+            update_tool = True
 
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
-                'system_report_tool': bool(report_tool)}
+                'system_report_tool': bool(report_tool),
+                'update_tool': update_tool}
 
 
 class DistrosModel(object):
