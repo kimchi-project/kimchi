@@ -49,6 +49,7 @@ class VMTemplate(object):
         """
         self.name = args['name']
         self.info = {}
+        self.fc_host_support = args.get('fc_host_support')
 
         # Identify the cdrom if present
         iso_distro = iso_version = 'unknown'
@@ -180,6 +181,25 @@ class VMTemplate(object):
             graphics_xml = graphics_xml + spicevmc_xml
         return graphics_xml
 
+    def _get_scsi_disks_xml(self, luns):
+        ret = ""
+        # Passthrough configuration
+        disk_xml = """
+            <disk type='volume' device='lun'>
+              <driver name='qemu' type='raw'/>
+              <source dev='%(src)s'/>
+              <target dev='%(dev)s' bus='scsi'/>
+            </disk>"""
+        if not self.fc_host_support:
+            disk_xml = disk_xml.replace('volume','block')
+
+        # Creating disk xml for each lun passed
+        for index,(lun, path) in enumerate(luns):
+            dev = "sd%s" % string.lowercase[index]
+            params = {'src': path, 'dev': dev}
+            ret = ret + disk_xml % params
+        return ret
+
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
         ret = []
@@ -225,13 +245,19 @@ class VMTemplate(object):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
-        params['disks'] = self._get_disks_xml(vm_uuid)
         params['networks'] = self._get_networks_xml()
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
         graphics = kwargs.get('graphics')
         params['graphics'] = self._get_graphics_xml(graphics)
+
+        # Current implementation just allows to create disk in one single
+        # storage pool, so we cannot mix the types (scsi volumes vs img file)
+        if self._get_storage_type() == 'scsi':
+            params['disks'] = self._get_scsi_disks_xml(kwargs.get('volumes'))
+        else:
+            params['disks'] = self._get_disks_xml(vm_uuid)
 
         qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
         libvirt_stream = kwargs.get('libvirt_stream', False)
@@ -291,4 +317,7 @@ class VMTemplate(object):
         pass
 
     def _get_storage_path(self):
+        return ''
+
+    def _get_storage_type(self):
         return ''

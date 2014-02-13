@@ -26,6 +26,8 @@ from kimchi import xmlutils
 from kimchi.scan import Scanner
 from kimchi.exception import InvalidOperation, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.model.config import CapabilitiesModel
+from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.utils import add_task, kimchi_log
 from kimchi.utils import run_command
@@ -39,7 +41,11 @@ POOL_STATE_MAP = {0: 'inactive',
                   4: 'inaccessible'}
 
 STORAGE_SOURCES = {'netfs': {'addr': '/pool/source/host/@name',
-                             'path': '/pool/source/dir/@path'}}
+                             'path': '/pool/source/dir/@path'},
+                   'scsi': {'adapter_type': '/pool/source/adapter/@type',
+                            'adapter_name': '/pool/source/adapter/@name',
+                            'wwnn': '/pool/source/adapter/@wwnn',
+                            'wwpn': '/pool/source/adapter/@wwpn'}}
 
 
 class StoragePoolsModel(object):
@@ -48,6 +54,8 @@ class StoragePoolsModel(object):
         self.objstore = kargs['objstore']
         self.scanner = Scanner(self._clean_scan)
         self.scanner.delete()
+        self.caps = CapabilitiesModel()
+        self.device = DeviceModel(**kargs)
 
     def get_list(self):
         try:
@@ -69,6 +77,14 @@ class StoragePoolsModel(object):
 
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
+
+            if params['type'] == 'scsi':
+                adapter_name = params['source']['adapter_name']
+                extra_params = self.device.lookup(adapter_name)
+                # Adds name, adapter_type, wwpn and wwnn to source information
+                params['source'].update(extra_params)
+                params['fc_host_support'] = self.caps.fc_host_support
+
             poolDef = StoragePoolDef.create(params)
             poolDef.prepare(conn)
             xml = poolDef.xml.encode("utf-8")
@@ -86,9 +102,10 @@ class StoragePoolsModel(object):
                 return name
 
             pool = conn.storagePoolDefineXML(xml, 0)
-            if params['type'] in ['logical', 'dir', 'netfs']:
+            if params['type'] in ['logical', 'dir', 'netfs', 'scsi']:
                 pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
-                # autostart dir and logical storage pool created from kimchi
+                # autostart dir, logical, netfs and scsi storage pools created
+                # from kimchi
                 pool.setAutostart(1)
             else:
                 # disable autostart for others
@@ -168,7 +185,12 @@ class StoragePoolModel(object):
 
         for key, val in STORAGE_SOURCES[pool_type].items():
             res = xmlutils.xpath_get_text(pool_xml, val)
-            source[key] = res[0] if len(res) == 1 else res
+            if len(res) == 1:
+                source[key] = res[0]
+            elif len(res) == 0:
+                source[key] = ""
+            else:
+                souce[key] = res
 
         return source
 

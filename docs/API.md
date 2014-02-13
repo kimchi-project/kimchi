@@ -55,6 +55,8 @@ the following general conventions:
                      Independent Computing Environments
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
+    * volumes *(optional)*: List of Fibre channel LUN names to be assigned as
+                            disk to VM. Required if pool is type SCSI.
 
 
 ### Resource: Virtual Machine
@@ -269,7 +271,7 @@ A interface represents available network interface on VM.
 * **POST**: Create a new Storage Pool
     * name: The name of the Storage Pool.
     * type: The type of the defined Storage Pool.
-            Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical', 'iscsi'
+            Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical', 'iscsi', 'scsi'
     * path: The path of the defined Storage Pool.
             For 'kimchi-iso' pool refers to targeted deep scan path.
             Pool types: 'dir', 'kimchi-iso'.
@@ -288,6 +290,7 @@ A interface represents available network interface on VM.
                              Pool types: 'iscsi'.
             * username: Login username of the iSCSI target.
             * password: Login password of the iSCSI target.
+        * adapter_name *(optional)*: Scsi host name.
 
 ### Resource: Storage Pool
 

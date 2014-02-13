@@ -161,6 +161,11 @@ class LibvirtVMTemplate(VMTemplate):
         xml = pool.XMLDesc(0)
         return xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
 
+    def _get_storage_type(self):
+        pool = self._storage_validate()
+        xml = pool.XMLDesc(0)
+        return xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+
     def fork_vm_storage(self, vm_uuid):
         # Provision storage:
         # TODO: Rebase on the storage API once upstream

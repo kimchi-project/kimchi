@@ -29,7 +29,7 @@ import libvirt
 from kimchi.exception import InvalidParameter, OperationFailed, TimeoutExpired
 from kimchi.iscsi import TargetClient
 from kimchi.rollbackcontext import RollbackContext
-from kimchi.utils import parse_cmd_output, run_command
+from kimchi.utils import kimchi_log, parse_cmd_output, run_command
 
 
 class StoragePoolDef(object):
@@ -170,6 +170,51 @@ class LogicalPoolDef(StoragePoolDef):
         </target>
         </pool>
         """.format(**poolArgs)
+        return xml
+
+
+class ScsiPoolDef(StoragePoolDef):
+    poolType = 'scsi'
+
+    def prepare(self, conn=None):
+        tmp_name = self.poolArgs['source']['name']
+        self.poolArgs['source']['name'] = tmp_name.replace('scsi_', '')
+        # fc_host adapters type are only available in libvirt >= 1.0.5
+        if not self.poolArgs['fc_host_support']:
+            self.poolArgs['source']['adapter_type'] = 'scsi_host'
+            msg = "Libvirt version <= 1.0.5. Setting SCSI host name as '%s'; "\
+                  "setting SCSI adapter type as 'scsi_host'; "\
+                  "ignoring wwnn and wwpn." % tmp_name
+            kimchi_log.info(msg)
+        # Path for Fibre Channel scsi hosts
+        self.poolArgs['path'] = '/dev/disk/by-path'
+        if not self.poolArgs['source']['adapter_type']:
+            self.poolArgs['source']['adapter_type'] = 'scsi_host'
+
+    @property
+    def xml(self):
+        # Required parameters
+        # name:
+        # source[adapter_type]:
+        # source[name]:
+        # source[wwnn]:
+        # source[wwpn]:
+        # path:
+
+        xml = """
+        <pool type='scsi'>
+          <name>{name}</name>
+          <source>
+            <adapter type='{source[adapter_type]}'\
+                     name='{source[name]}'\
+                     wwnn='{source[wwnn]}'\
+                     wwpn='{source[wwpn]}'/>
+          </source>
+          <target>
+            <path>{path}</path>
+          </target>
+        </pool>
+        """.format(**self.poolArgs)
         return xml
 
 

@@ -31,7 +31,7 @@ from cherrypy.process.plugins import BackgroundTask
 from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
@@ -155,6 +155,11 @@ class VMsModel(object):
                                'diskRdKB': diskRdKB,
                                'diskWrKB': diskWrKB})
 
+    def _get_volume_path(self, pool, vol):
+        conn = self.conn.get()
+        pool = conn.storagePoolLookupByName(pool)
+        return pool.storageVolLookupByName(vol).path()
+
     def create(self, params):
         conn = self.conn.get()
         t_name = template_name_from_uri(params['template'])
@@ -169,6 +174,7 @@ class VMsModel(object):
         pool_uri = params.get('storagepool')
         if pool_uri:
             vm_overrides['storagepool'] = pool_uri
+            vm_overrides['fc_host_support'] = self.caps.fc_host_support
         t = TemplateModel.get_template(t_name, self.objstore, self.conn,
                                        vm_overrides)
 
@@ -176,7 +182,21 @@ class VMsModel(object):
             raise InvalidOperation("KCHVM0005E")
 
         t.validate()
-        vol_list = t.fork_vm_storage(vm_uuid)
+
+        # If storagepool is SCSI, volumes will be LUNs and must be passed by
+        # the user from UI or manually.
+        vol_list = []
+        if t._get_storage_type() == 'scsi':
+            if not params.get('volumes'):
+                raise MissingParameter('KCHVM0017E')
+            else:
+                # Get system path of the LUNs
+                pool = t.info['storagepool'].split('/')[-1]
+                for vol in params.get('volumes'):
+                    path = self._get_volume_path(pool, vol)
+                    vol_list.append((vol, path))
+        else:
+            vol_list = t.fork_vm_storage(vm_uuid)
 
         # Store the icon for displaying later
         icon = t.info.get('icon')
@@ -192,7 +212,8 @@ class VMsModel(object):
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream=libvirt_stream,
                           qemu_stream_dns=self.caps.qemu_stream_dns,
-                          graphics=graphics)
+                          graphics=graphics,
+                          volumes=vol_list)
 
         try:
             conn.defineXML(xml.encode('utf-8'))

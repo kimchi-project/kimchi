@@ -73,6 +73,8 @@ messages = {
     "KCHVM0014E": _("Supported virtual machine graphics are spice or VNC"),
     "KCHVM0015E": _("Graphics address to listen on must be IPv4 or IPv6"),
     "KCHVM0016E": _("Specify a template to create a virtual machine from"),
+    "KCHVM0017E": _("Volume list (LUNs names) not given."),
+    "KCHVM0018E": _("Virtual machine volumes must be a list of strings with distinct LUNs names."),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),
@@ -129,6 +131,7 @@ messages = {
     "KCHPOOL0027E": _("%(disk)s is not a valid disk/partition. Could not add it to the pool %(pool)s."),
     "KCHPOOL0028E": _("Error while extending logical pool %(pool)s. Details: %(err)s"),
     "KCHPOOL0029E": _("The parameter disks only can be updated for logical storage pool."),
+    "KCHPOOL0030E": _("The SCSI host adapter name must be a string."),
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),

@@ -57,6 +57,18 @@ ISO_STREAM_XML = """
   </devices>
 </domain>"""
 
+SCSI_FC_XML = """
+<pool type='scsi'>
+  <name>TEST_SCSI_FC_POOL</name>
+  <source>
+    <adapter type='fc_host' wwnn='1234567890abcdef' wwpn='abcdef1234567890'/>
+  </source>
+  <target>
+    <path>/dev/disk/by-path</path>
+  </target>
+</pool>
+"""
+
 
 class FeatureTests(object):
 
@@ -149,4 +161,21 @@ class FeatureTests(object):
         if proc.returncode != 0:
             return False
 
+        return True
+
+    @staticmethod
+    def libvirt_support_fc_host():
+        try:
+            FeatureTests.disable_screen_error_logging()
+            conn = libvirt.open('qemu:///system')
+            pool = None
+            pool = conn.storagePoolDefineXML(SCSI_FC_XML, 0)
+        except libvirt.libvirtError as e:
+            if e.get_error_code() == 27:
+                # Libvirt requires adapter name, not needed when supports to FC
+                return False
+        finally:
+            FeatureTests.enable_screen_error_logging
+            pool is None or pool.undefine()
+            conn is None or conn.close()
         return True

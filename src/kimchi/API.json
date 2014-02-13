@@ -43,7 +43,7 @@
                 "type": {
                     "description": "The type of the defined Storage Pool",
                     "type": "string",
-                    "pattern": "^dir|netfs|logical|kimchi-iso$",
+                    "pattern": "^dir|netfs|logical|kimchi-iso|iscsi|scsi$",
                     "required": true,
                     "error": "KCHPOOL0017E"
                 },
@@ -89,6 +89,11 @@
                             "minimum": 1,
                             "maximum": 65535,
                             "error": "KCHPOOL0023E"
+                        },
+                        "adapter_name": {
+                            "description": "SCSI host name",
+                            "type": "string",
+                            "error": "KCHPOOL0030E"
                         },
                         "auth": {
                             "description": "Storage back-end authentication information",
@@ -148,7 +153,14 @@
                     "pattern": "^/storagepools/[^/]+/?$",
                     "error": "KCHVM0013E"
                 },
-                "graphics": { "$ref": "#/kimchitype/graphics" }
+                "graphics": { "$ref": "#/kimchitype/graphics" },
+                "volumes": {
+                    "description": "list of scsi volumes to be assigned to the new VM.",
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "uniqueItems": true,
+                    "error": "KCHVM0018E"
+                }
             }
         },
         "vm_update": {
