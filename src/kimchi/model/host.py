@@ -30,8 +30,10 @@ from cherrypy.process.plugins import BackgroundTask
 
 from kimchi import disks
 from kimchi import netinfo
+from kimchi import xmlutils
 from kimchi.basemodel import Singleton
 from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP
 from kimchi.utils import kimchi_log
 
@@ -201,3 +203,56 @@ class PartitionModel(object):
             raise NotFoundError("KCHPART0001E", {'name': name})
 
         return disks.get_partition_details(name)
+
+
+class DevicesModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+
+    def get_list(self, _cap=None):
+        conn = self.conn.get()
+        if _cap is None:
+            dev_names = [name.name() for name in conn.listAllDevices(0)]
+        elif _cap == 'fc_host':
+            dev_names = self._get_devices_fc_host()
+        else:
+            # Get devices with required capability
+            dev_names = conn.listDevices(_cap, 0)
+        return dev_names
+
+    def _get_devices_fc_host(self):
+        conn = self.conn.get()
+        # Libvirt < 1.0.5 does not support fc_host capability
+        if not CapabilitiesModel().fc_host_support:
+            ret = []
+            scsi_hosts = conn.listDevices('scsi_host', 0)
+            for host in scsi_hosts:
+                xml = conn.nodeDeviceLookupByName(host).XMLDesc(0)
+                path = '/device/capability/capability/@type'
+                if 'fc_host' in xmlutils.xpath_get_text(xml, path):
+                    ret.append(host)
+            return ret
+        return conn.listDevices('fc_host', 0)
+
+
+class DeviceModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+
+    def lookup(self, nodedev_name):
+        conn = self.conn.get()
+        try:
+            dev_xml = conn.nodeDeviceLookupByName(nodedev_name).XMLDesc(0)
+        except:
+            raise NotFoundError('KCHHOST0003E', {'name': nodedev_name})
+        cap_type = xmlutils.xpath_get_text(
+            dev_xml, '/device/capability/capability/@type')
+        wwnn = xmlutils.xpath_get_text(
+            dev_xml, '/device/capability/capability/wwnn')
+        wwpn = xmlutils.xpath_get_text(
+            dev_xml, '/device/capability/capability/wwpn')
+        return {
+            'name': nodedev_name,
+            'adapter_type': cap_type[0] if len(cap_type) >= 1 else '',
+            'wwnn': wwnn[0] if len(wwnn) == 1 else '',
+            'wwpn': wwpn[0] if len(wwpn) == 1 else ''}

@@ -175,6 +175,7 @@ messages = {
 
     "KCHHOST0001E": _("Unable to shutdown host machine as there are running virtual machines"),
     "KCHHOST0002E": _("Unable to reboot host machine as there are running virtual machines"),
+    "KCHHOST0003E": _("Node device '%(name)s' not found"),
 
     "KCHOBJST0001E": _("Unable to find %(item)s in datastore"),
 

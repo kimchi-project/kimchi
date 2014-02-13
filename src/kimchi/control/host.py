@@ -36,6 +36,7 @@ class Host(Resource):
         self.shutdown = self.generate_action_handler('shutdown')
         self.stats = HostStats(self.model)
         self.partitions = Partitions(self.model)
+        self.devices = Devices(self.model)
 
     @property
     def data(self):
@@ -57,6 +58,21 @@ class Partitions(Collection):
 class Partition(Resource):
     def __init__(self, model, id):
         super(Partition, self).__init__(model, id)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class Devices(Collection):
+    def __init__(self, model):
+        super(Devices, self).__init__(model)
+        self.resource = Device
+
+
+class Device(Resource):
+    def __init__(self, model, id):
+        super(Device, self).__init__(model, id)
 
     @property
     def data(self):
