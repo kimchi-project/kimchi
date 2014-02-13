@@ -88,13 +88,11 @@ def check_auth_session():
     for the user.
     """
     try:
-        s = cherrypy.session[SESSION_USER]
-        user = cherrypy.request.login = cherrypy.session[SESSION_USER]
-        debug("Authenticated with session: %s, for user: %s" % (s, user))
+        user = cherrypy.session[SESSION_USER]
+        debug("Session authenticated for user %s" % user)
     except KeyError:
         debug("Session not found")
         return False
-    debug("Session found for user %s" % user)
     return True
 
 
@@ -136,8 +134,7 @@ def login(userid, password):
 
 def logout():
     cherrypy.session.acquire_lock()
-    userid = cherrypy.session.get(SESSION_USER, None)
-    cherrypy.session[SESSION_USER] = cherrypy.request.login = None
+    cherrypy.session[SESSION_USER] = None
     cherrypy.session.release_lock()
     cherrypy.lib.sessions.expire()
 
