@@ -4,6 +4,10 @@ Kimchi Project
 Kimchi is an HTML5 based management tool for KVM.  It is designed to make it
 as easy as possible to get started with KVM and create your first guest.
 
+Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
+libvirt. The management interface is accessed over the web using a browser that
+supports HTML5.
+
 Browser Support
 ===============
 Desktop Browser Support:
@@ -23,6 +27,15 @@ Current-1 version denotes that we support the current stable version of the brow
 that preceded it. For example, if the current version of a browser is 24.x, we support the 24.x and
 23.x versions.This does not mean that kimchi cannot be used in other browsers, however, functionality
 and appearance may be diminished and we may not be able to provide support for any problems you find.
+
+Hypervisor Distro Support
+=========================
+
+Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
+described on the 'Getting Started' section below.
+
+The Kimchi community makes an effort to test with the latest versions of Fedora,
+RHEL, OpenSuSe, and Ubuntu.
 
 Getting Started
 ===============
