@@ -110,11 +110,11 @@ class KimchiRoot(Root):
             raise cherrypy.HTTPError(400, e.message)
 
         try:
-            auth.login(userid, password)
+            user_info = auth.login(userid, password)
         except OperationFailed:
             raise cherrypy.HTTPError(401)
 
-        return '{}'
+        return json.dumps(user_info)
 
     @cherrypy.expose
     def logout(self):

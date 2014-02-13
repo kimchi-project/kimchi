@@ -24,20 +24,64 @@
 
 import base64
 import cherrypy
+import grp
 import PAM
 import re
 
 
 from kimchi import template
 from kimchi.exception import InvalidOperation, OperationFailed
+from kimchi.utils import run_command
 
 
-SESSION_USER = 'userid'
+USER_ID = 'userid'
+USER_GROUPS = 'groups'
+USER_SUDO = 'sudo'
 
 
 def debug(msg):
     pass
     # cherrypy.log.error(msg)
+
+
+class User(object):
+
+    def __init__(self, userid):
+        self.user = {}
+        self.user[USER_ID] = userid
+        self.user[USER_GROUPS] = None
+        self.user[USER_SUDO] = False
+
+    def get_groups(self):
+        self.user[USER_GROUPS] = [g.gr_name for g in grp.getgrall()
+                                  if self.user[USER_ID] in g.gr_mem]
+        return self.user[USER_GROUPS]
+
+    def has_sudo(self):
+        out, err, exit = run_command(['sudo', '-l', '-U', self.user[USER_ID],
+                                      'sudo'])
+        if exit == 0:
+            debug("User %s is allowed to run sudo" % self.user[USER_ID])
+            # sudo allows a wide range of configurations, such as controlling
+            # which binaries the user can execute with sudo.
+            # For now, we will just check whether the user is allowed to run
+            # any command with sudo.
+            out, err, exit = run_command(['sudo', '-l', '-U',
+                                          self.user[USER_ID]])
+            for line in out.split('\n'):
+                if line and re.search("(ALL)", line):
+                    self.user[USER_SUDO] = True
+                    debug("User %s can run any command with sudo" %
+                          self.user[USER_ID])
+                    return self.user[USER_SUDO]
+            debug("User %s can only run some commands with sudo" %
+                  self.user[USER_ID])
+        else:
+            debug("User %s is not allowed to run sudo" % self.user[USER_ID])
+        return self.user[USER_SUDO]
+
+    def get_user(self):
+        return self.user
 
 
 def authenticate(username, password, service="passwd"):
@@ -88,12 +132,14 @@ def check_auth_session():
     for the user.
     """
     try:
-        user = cherrypy.session[SESSION_USER]
-        debug("Session authenticated for user %s" % user)
+        if cherrypy.session[USER_ID]:
+            debug("Session authenticated for user %s" %
+                  cherrypy.session[USER_ID])
+            return True
     except KeyError:
-        debug("Session not found")
-        return False
-    return True
+        pass
+    debug("Session not found")
+    return False
 
 
 def check_auth_httpba():
@@ -123,18 +169,21 @@ def check_auth_httpba():
 def login(userid, password):
     if not authenticate(userid, password):
         debug("User cannot be verified with the supplied password")
-        return False
+        return None
+    user = User(userid)
     debug("User verified, establishing session")
     cherrypy.session.acquire_lock()
     cherrypy.session.regenerate()
-    cherrypy.session[SESSION_USER] = cherrypy.request.login = userid
+    cherrypy.session[USER_ID] = userid
+    cherrypy.session[USER_GROUPS] = user.get_groups()
+    cherrypy.session[USER_SUDO] = user.has_sudo()
     cherrypy.session.release_lock()
-    return True
+    return user.get_user()
 
 
 def logout():
     cherrypy.session.acquire_lock()
-    cherrypy.session[SESSION_USER] = None
+    cherrypy.session[USER_ID] = None
     cherrypy.session.release_lock()
     cherrypy.lib.sessions.expire()
 
