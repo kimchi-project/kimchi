@@ -118,6 +118,10 @@ class Server(object):
             'tools.staticfile.on': True,
             'tools.staticfile.filename': 'config/ui/tabs.xml',
             'tools.nocache.on': True
+        },
+        '/favicon.ico': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
         }
     }
 
