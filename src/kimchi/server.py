@@ -194,7 +194,12 @@ class Server(object):
 
         for ident, node in sub_nodes.items():
             if node.url_auth:
-                self.configObj["/%s" % ident] = {'tools.kimchiauth.on': True}
+                cfg = self.configObj
+                ident = "/%s" % ident
+                cfg[ident] = {'tools.kimchiauth.on': True}
+                if node.admin_methods:
+                    cfg[ident][
+                        'tools.kimchiauth.admin_methods'] = node.admin_methods
 
         self.app = cherrypy.tree.mount(KimchiRoot(model_instance, dev_env),
                                        config=self.configObj)

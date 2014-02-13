@@ -188,12 +188,19 @@ def logout():
     cherrypy.lib.sessions.expire()
 
 
-def kimchiauth(*args, **kwargs):
+def has_permission(admin_methods):
+    return not admin_methods or \
+        cherrypy.request.method not in admin_methods or \
+        (cherrypy.request.method in admin_methods and
+            cherrypy.session[USER_SUDO])
+
+
+def kimchiauth(admin_methods=None):
     debug("Entering kimchiauth...")
-    if check_auth_session():
+    if check_auth_session() and has_permission(admin_methods):
         return
 
-    if check_auth_httpba():
+    if check_auth_httpba() and has_permission(admin_methods):
         return
 
     if not from_browser():

@@ -107,13 +107,20 @@ def validate_params(params, instance, action):
 
 
 class UrlSubNode(object):
-    def __init__(self, name, auth=False):
+
+    def __init__(self, name, auth=False, admin_methods=None):
+        """
+        admin_methods must be None, or a list containing zero or more of the
+        string values ['GET', 'POST', 'PUT', 'DELETE']
+        """
         self.name = name
         self.auth = auth
+        self.admin_methods = admin_methods
 
     def __call__(self, fun):
         fun._url_sub_node_name = {"name": self.name}
         fun.url_auth = self.auth
+        fun.admin_methods = self.admin_methods
         return fun
 
 
