@@ -352,6 +352,43 @@
             "additionalProperties": false,
             "error": "KCHAPI0001E"
          },
+        "storages_create": {
+            "type": "object",
+            "properties": {
+                "dev": {
+                    "description": "The storage (cd-rom) device name",
+                    "type": "string",
+                    "pattern": "^hd[b-z]$",
+                    "error": "KCHCDROM0001E"
+                },
+                "type": {
+                    "description": "The storage type",
+                    "type": "string",
+                    "pattern": "^cdrom$",
+                    "required": true,
+                    "error": "KCHCDROM0002E"
+                },
+               "path": {
+                    "description": "Path of iso image file or disk mount point",
+                    "type": "string",
+                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
+                    "required": true,
+                    "error": "KCHCDROM0003E"
+                }
+            }
+        },
+        "storage_update": {
+            "type": "object",
+            "properties": {
+               "path": {
+                    "description": "Path of iso image file or disk mount point",
+                    "type": "string",
+                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
+                    "required": true,
+                    "error": "KCHCDROM0003E"
+                }
+            }
+        },
         "template_update": {
             "type": "object",
             "properties": {
