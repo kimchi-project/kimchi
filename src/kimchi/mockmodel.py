@@ -264,7 +264,7 @@ class MockModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError("KCHDR0001E", {'name', name})
+            raise NotFoundError("KCHDR0001E", {'name': name})
 
         ctime = os.stat(file_target).st_ctime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
@@ -282,7 +282,7 @@ class MockModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError("KCHDR0001E", {'name', name})
+            raise NotFoundError("KCHDR0001E", {'name': name})
 
         os.remove(file_target)
 
