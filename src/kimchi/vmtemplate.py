@@ -241,11 +241,32 @@ class VMTemplate(object):
             networks += network % net_info
         return networks
 
+    def _get_input_output_xml(self):
+        sound = """
+            <sound model='%(sound_model)s' />
+        """
+        mouse = """
+            <input type='mouse' bus='%(mouse_bus)s'/>
+        """
+        keyboard = """
+            <input type='kbd' bus='%(kbd_bus)s'> </input>
+        """
+
+        input_output = ""
+        if 'mouse_bus' in self.info.keys():
+            input_output += mouse % self.info
+        if 'kbd_bus' in self.info.keys():
+            input_output += keyboard % self.info
+        if 'sound_model' in self.info.keys():
+            input_output += sound % self.info
+        return input_output
+
     def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
         params['name'] = vm_name
         params['uuid'] = vm_uuid
         params['networks'] = self._get_networks_xml()
+        params['input_output'] = self._get_input_output_xml()
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
@@ -294,7 +315,7 @@ class VMTemplate(object):
             %(cdroms)s
             %(networks)s
             %(graphics)s
-            <sound model='ich6' />
+            %(input_output)s
             <memballoon model='virtio' />
           </devices>
         </domain>

@@ -32,21 +32,24 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'x86_64'), 'power': ('ppc', 'ppc64')}
 
 common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
                'disks': [{'index': 0, 'size': 10}], 'cdrom_bus': 'ide',
-               'cdrom_index': 2}
+               'cdrom_index': 2, 'mouse_bus': 'ps2'}
 
 
 modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
 
 
 template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
-                                      nic_model='e1000'),
+                                      nic_model='e1000', sound_model= 'ich6'),
                           'modern': dict(common_spec, disk_bus='virtio',
-                                         nic_model='virtio')},
+                                         nic_model='virtio',
+                                         sound_model= 'ich6')},
                   'power': {'old': dict(common_spec, disk_bus='scsi',
-                                        nic_model='rtl8139', cdrom_bus='scsi'),
+                                        nic_model='rtl8139', cdrom_bus='scsi',
+                                        kbd_bus='usb', mouse_bus='usb'),
                             'modern': dict(common_spec, disk_bus='virtio',
                                            nic_model='virtio',
-                                           cdrom_bus='scsi')}}
+                                           cdrom_bus='scsi', kbd_bus='usb',
+                                           mouse_bus='usb')}}
 
 
 modern_version_bases = {'debian': '6.0', 'ubuntu': '7.10', 'opensuse': '10.3',
