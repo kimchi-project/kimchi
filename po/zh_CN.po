@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-13 00:11-0200\n"
+"POT-Creation-Date: 2014-02-14 16:23-0200\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -731,6 +731,13 @@ msgstr ""
 msgid "Specify a template to create a virtual machine from"
 msgstr ""
 
+msgid "Volume list (LUNs names) not given."
+msgstr ""
+
+msgid ""
+"Virtual machine volumes must be a list of strings with distinct LUNs names."
+msgstr ""
+
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr ""
@@ -924,6 +931,9 @@ msgstr ""
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr ""
 
+msgid "The SCSI host adapter name must be a string."
+msgstr ""
+
 #, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
@@ -1050,7 +1060,7 @@ msgid "Unable to create debug report %(name)s. Details: %(err)s."
 msgstr ""
 
 #, python-format
-msgid "Can not find generated debug report named %(name)s"
+msgid "Can not find any generated debug report matching name %(name)s"
 msgstr ""
 
 #, python-format
@@ -1073,6 +1083,10 @@ msgid "Unable to shutdown host machine as there are running virtual machines"
 msgstr ""
 
 msgid "Unable to reboot host machine as there are running virtual machines"
+msgstr ""
+
+#, python-format
+msgid "Node device '%(name)s' not found"
 msgstr ""
 
 msgid "No packages marked for update"
@@ -1102,4 +1116,43 @@ msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
 msgstr ""
 
 msgid "Unable to choose a virutal machine name"
+msgstr ""
+
+msgid "Invalid CDROM device name"
+msgstr ""
+
+msgid "Invalid storage type. Types supported: 'cdrom'"
+msgstr ""
+
+#, python-format
+msgid "The path %(value)s is not valid local/remote path for the device"
+msgstr ""
+
+#, python-format
+msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
+msgstr ""
+
+msgid "Must specify a device name"
+msgstr ""
+
+msgid "Can't specify a directory for a CDROM device path"
+msgstr ""
+
+#, python-format
+msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
+msgstr ""
+
+#, python-format
+msgid "Error while creating new storage device: %(error)s"
+msgstr ""
+
+#, python-format
+msgid "Error while updating storage device: %(error)s"
+msgstr ""
+
+#, python-format
+msgid "Error while removing storage device: %(error)s"
+msgstr ""
+
+msgid "Do not support guest CDROM hot plug attachment"
 msgstr ""

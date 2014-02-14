@@ -117,6 +117,27 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 
 * **GET**: Redirect to the latest screenshot of a Virtual Machine in PNG format
 
+
+### Sub-collection: Virtual Machine storages
+**URI:** /vms/*:name*/storages
+* **GET**: Retrieve a summarized list of all storages of specified guest
+* **POST**: Attach a new storage or virtual drive to specified virtual machine.
+    * dev: The name of the storage in the vm.
+    * type: The type of the storage (currently supports  'cdrom' only).
+    * path: Path of cdrom iso.
+
+### Sub-resource: storage
+**URI:** /vms/*:name*/storages/*:dev*
+* **GET**: Retrieve storage information
+    * dev: The name of the storage in the vm.
+    * type: The type of the storage ('cdrom' only for now).
+    * path: Path of cdrom iso.
+* **PUT**: Update storage information
+    * path: Path of cdrom iso. Can not be blank.
+* **DELETE**: Remove the storage.
+
+
+
 ### Collection: Templates
 
 **URI:** /templates
