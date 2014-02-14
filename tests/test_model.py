@@ -163,6 +163,67 @@ class ModelTests(unittest.TestCase):
             self.assertEquals("virtio", iface["model"])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_cdrom(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            vm_name = 'kimchi-cdrom'
+            params = {'name': 'test', 'disks': []}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+            params = {'name': vm_name, 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, vm_name)
+
+            prev_count = len(inst.vmstorages_get_list(vm_name))
+            self.assertEquals(1, prev_count)
+
+            # dummy .iso files
+            iso_path = '/tmp/existent.iso'
+            iso_path2 = '/tmp/existent2.iso'
+            open(iso_path, 'w').close()
+            open(iso_path2, 'w').close()
+            wrong_iso_path = '/nonexistent.iso'
+            rollback.prependDefer(os.remove, iso_path)
+            rollback.prependDefer(os.remove, iso_path2)
+
+            # Create a cdrom
+            cdrom_args = {"type": "cdrom",
+                          "path": iso_path}
+            cdrom_dev = inst.vmstorages_create(vm_name, cdrom_args)
+            storage_list = inst.vmstorages_get_list(vm_name)
+            self.assertEquals(prev_count + 1, len(storage_list))
+
+            # Get cdrom info
+            cd_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            self.assertEquals(u'cdrom', cd_info['type'])
+            self.assertEquals(iso_path, cd_info['path'])
+
+            # create a cdrom with existing dev_name
+            cdrom_args['dev'] = cdrom_dev
+            self.assertRaises(OperationFailed, inst.vmstorages_create,
+                              vm_name, cdrom_args)
+
+            # update path of existing cd with
+            # non existent iso
+            self.assertRaises(OperationFailed, inst.vmstorage_update,
+                              vm_name, cdrom_dev, {'path': wrong_iso_path})
+
+            # update path of existing cd with
+            # existent iso
+            inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path2})
+            cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            self.assertEquals(iso_path2, cdrom_info['path'])
+
+            # removing non existent cdrom
+            self.assertRaises(NotFoundError, inst.vmstorage_delete, vm_name,
+                              "fakedev")
+
+            # removing valid cdrom
+            inst.vmstorage_delete(vm_name, cdrom_dev)
+            storage_list = inst.vmstorages_get_list(vm_name)
+            self.assertEquals(prev_count, len(storage_list))
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
