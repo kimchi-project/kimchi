@@ -22,9 +22,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-vm_PYTHON = \
-	__init__.py
-
+vm_PYTHON = *.py
 
 vmdir = $(pythondir)/kimchi/control/vm
 
