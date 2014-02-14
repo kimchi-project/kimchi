@@ -28,6 +28,7 @@ import ipaddr
 import os
 import psutil
 import random
+import string
 import time
 import uuid
 
@@ -165,8 +166,23 @@ class MockModel(object):
             for vol in params['volumes']:
                 vm.disk_paths.append({'pool': pool.name,
                                       'volume': vol})
+
         else:
             vm.disk_paths = t.fork_vm_storage(vm_uuid)
+
+        index = 0
+        for disk in vm.disk_paths:
+            storagepath = self._mock_storagepools[disk['pool']].info['path']
+            fullpath = os.path.join(storagepath, disk['volume'])
+            dev_name = "hd" + string.ascii_lowercase[index]
+            params = {'dev': dev_name, 'path': fullpath, 'type': 'disk'}
+            vm.storagedevices[dev_name] = MockVMStorageDevice(params)
+            index += 1
+
+        cdrom = "hd" + string.ascii_lowercase[index + 1]
+        cdrom_params = {'dev': cdrom, 'path': t_info['cdrom'], 'type': 'cdrom'}
+        vm.storagedevices[cdrom] = MockVMStorageDevice(cdrom_params)
+
         self._mock_vms[name] = vm
         return name
 
@@ -571,6 +587,50 @@ class MockModel(object):
     def networks_get_list(self):
         return sorted(self._mock_networks.keys())
 
+    def vmstorages_create(self, vm_name, params):
+        path = params.get('path')
+        if path.startswith('/') and not os.path.exists(path):
+            raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+        dom = self._get_vm(vm_name)
+        dev = params.get('dev', None)
+        if dev and dev in self.vmstorages_get_list(vm_name):
+            return OperationFailed("KCHCDROM0004E", {'dev_name': dev,
+                                                     'vm_name': vm_name})
+        if not dev:
+            index = len(dom.storagedevices.keys()) + 1
+            params['dev'] = "hd" + string.ascii_lowercase[index]
+
+        vmdev = MockVMStorageDevice(params)
+        dom.storagedevices[params['dev']] = vmdev
+        return params['dev']
+
+    def vmstorages_get_list(self, vm_name):
+        dom = self._get_vm(vm_name)
+        return dom.storagedevices.keys()
+
+    def vmstorage_lookup(self, vm_name, dev_name):
+        dom = self._get_vm(vm_name)
+        if dev_name not in self.vmstorages_get_list(vm_name):
+            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+                                                  'vm_name': vm_name})
+        return dom.storagedevices.get(dev_name).info
+
+    def vmstorage_delete(self, vm_name, dev_name):
+        dom = self._get_vm(vm_name)
+        if dev_name not in self.vmstorages_get_list(vm_name):
+            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+                                                  'vm_name': vm_name})
+        dom.storagedevices.pop(dev_name)
+
+    def vmstorage_update(self, vm_name, dev_name, params):
+        try:
+            dom = self._get_vm(vm_name)
+            dom.storagedevices[dev_name].info.update(params)
+        except Exception as e:
+            raise OperationFailed("KCHCDROM0009E", {'error': e.message})
+        return dev_name
+
     def vmifaces_create(self, vm, params):
         if (params["type"] == "network" and
             params["network"] not in self.networks_get_list()):
@@ -763,6 +823,13 @@ class MockVMTemplate(VMTemplate):
         return disk_paths
 
 
+class MockVMStorageDevice(object):
+    def __init__(self, params):
+        self.info = {'dev': params.get('dev'),
+                     'type': params.get('type'),
+                     'path': params.get('path')}
+
+
 class MockVMIface(object):
     counter = 0
 
@@ -788,6 +855,7 @@ class MockVM(object):
         self.disk_paths = []
         self.networks = template_info['networks']
         ifaces = [MockVMIface(net) for net in self.networks]
+        self.storagedevices = {}
         self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
         self.info = {'state': 'shutoff',
                      'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
@@ -949,7 +1017,7 @@ def get_mock_environment():
     model = MockModel()
     for i in xrange(5):
         name = 'test-template-%i' % i
-        params = {'name': name}
+        params = {'name': name, 'cdrom': '/file.iso'}
         t = MockVMTemplate(params, model)
         model._mock_templates[name] = t
 

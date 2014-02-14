@@ -354,6 +354,81 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+    def test_vm_storage_devices(self):
+
+        with RollbackContext() as rollback:
+            # Create a template as a base for our VMs
+            req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+            resp = self.request('/templates', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the template
+            rollback.prependDefer(self.request,
+                                  '/templates/test', '{}', 'DELETE')
+
+            # Create a VM with default args
+            req = json.dumps({'name': 'test-vm',
+                              'template': '/templates/test'})
+            resp = self.request('/vms', req, 'POST')
+            self.assertEquals(201, resp.status)
+            # Delete the VM
+            rollback.prependDefer(self.request,
+                                  '/vms/test-vm', '{}', 'DELETE')
+
+            # Check storage devices
+            resp = self.request('/vms/test-vm/storages', '{}', 'GET')
+            devices = json.loads(resp.read())
+            self.assertEquals(2, len(devices))
+            dev_types = []
+            for d in devices:
+                self.assertIn(u'type', d.keys())
+                self.assertIn(u'dev', d.keys())
+                self.assertIn(u'path', d.keys())
+                dev_types.append(d['type'])
+
+            self.assertEquals(['cdrom', 'disk'], sorted(dev_types))
+
+            # Attach cdrom with nonexistent iso
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'cdrom',
+                              'path': '/tmp/nonexistent.iso'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Attach a cdrom with existent dev name
+            open('/tmp/existent.iso', 'w').close()
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'cdrom',
+                              'path': '/tmp/existent.iso'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(201, resp.status)
+            cd_info = json.loads(resp.read())
+            self.assertEquals('hdx', cd_info['dev'])
+            self.assertEquals('cdrom', cd_info['type'])
+            self.assertEquals('/tmp/existent.iso', cd_info['path'])
+            # Delete the file and cdrom
+            rollback.prependDefer(self.request,
+                                  '/vms/test-vm/storages/hdx', '{}', 'DELETE')
+            os.remove('/tmp/existent.iso')
+
+            # Change path of storage cdrom
+            req = json.dumps({'path': 'http://myserver.com/myiso.iso'})
+            resp = self.request('/vms/test-vm/storages/hdx', req, 'PUT')
+            self.assertEquals(200, resp.status)
+            cd_info = json.loads(resp.read())
+            self.assertEquals('http://myserver.com/myiso.iso', cd_info['path'])
+
+            # Test GET
+            devs = json.loads(self.request('/vms/test-vm/storages').read())
+            self.assertEquals(3, len(devs))
+
+            # Detach storage cdrom
+            resp = self.request('/vms/test-vm/storages/hdx', '{}', 'DELETE')
+            self.assertEquals(204, resp.status)
+
+            # Test GET
+            devs = json.loads(self.request('/vms/test-vm/storages').read())
+            self.assertEquals(2, len(devs))
+
     def test_vm_iface(self):
 
         with RollbackContext() as rollback:
