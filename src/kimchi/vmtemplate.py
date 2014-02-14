@@ -277,6 +277,8 @@ class VMTemplate(object):
           <vcpu>%(cpus)s</vcpu>
           <os>
             <type arch='%(arch)s'>hvm</type>
+            <boot dev='hd'/>
+            <boot dev='cdrom'/>
           </os>
           <features>
             <acpi/>
