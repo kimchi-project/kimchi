@@ -1,0 +1,221 @@
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2014
+#
+# Authors:
+#  Rodrigo Trujillo <rodrigo.trujillo@linux.vnet.ibm.com>
+#  Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+import os
+import re
+import socket
+import string
+import urlparse
+
+import libvirt
+import lxml.etree as ET
+from lxml import etree, objectify
+from lxml.builder import E
+
+from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
+from kimchi.exception import OperationFailed
+from kimchi.model.vms import DOM_STATE_MAP, VMModel
+from kimchi.utils import check_url_path
+
+DEV_TYPE_SRC_ATTR_MAP = {'file': 'file',
+                         'block': 'dev'}
+
+
+class VMStoragesModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+
+    def _get_storage_xml(self, params):
+        src_type = params.get('src_type')
+        disk = E.disk(type=src_type, device=params.get('type'))
+        disk.append(E.driver(name='qemu', type='raw'))
+        # Working with url paths
+        if src_type == 'network':
+            output = urlparse.urlparse(params.get('path'))
+            host = E.host(name=output.hostname, port=
+                          output.port or socket.getservbyname(output.scheme))
+            source = E.source(protocol=output.scheme, name=output.path)
+            source.append(host)
+            disk.append(source)
+        else:
+            # Fixing source attribute
+            source = E.source()
+            source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
+            disk.append(source)
+
+        disk.append(E.target(dev=params.get('dev'), bus='ide'))
+        return ET.tostring(disk)
+
+    def create(self, vm_name, params):
+        dom = VMModel.get_vm(vm_name, self.conn)
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+            raise InvalidOperation('KCHCDROM0011E')
+
+        # Use device name passed or pick next
+        dev_name = params.get('dev', None)
+        if dev_name is None:
+            params['dev'] = self._get_storage_device_name(vm_name)
+        else:
+            devices = self.get_list(vm_name)
+            if dev_name in devices:
+                raise OperationFailed('KCHCDROM0004E', {'dev_name': dev_name,
+                                                        'vm_name': vm_name})
+
+        # Path will never be blank due to API.json verification.
+        # There is no need to cover this case here.
+        path = params['path']
+
+        # Check if path is an url
+        if check_url_path(path):
+            params['src_type'] = 'network'
+        # Check if path is a valid local path
+        elif os.path.exists(path):
+            if os.path.isfile(path):
+                params['src_type'] = 'file'
+            else:
+                # Check if path is a valid cdrom drive
+                with open('/proc/sys/dev/cdrom/info') as cdinfo:
+                    content = cdinfo.read()
+
+                cds = re.findall("drive name:\t\t(.*)", content)
+                if not cds:
+                    raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+                drives = [os.path.join('/dev', p) for p in cds[0].split('\t')]
+                if path not in drives:
+                    raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+                params['src_type'] = 'block'
+        else:
+            raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+        # Add device to VM
+        dev_xml = self._get_storage_xml(params)
+        try:
+            conn = self.conn.get()
+            dom = conn.lookupByName(vm_name)
+            dom.attachDeviceFlags(dev_xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+        except Exception as e:
+            raise OperationFailed("KCHCDROM0008E", {'error': e.message})
+        return params['dev']
+
+    def _get_storage_device_name(self, vm_name):
+        dev_list = [dev for dev in self.get_list(vm_name)
+                    if dev.startswith('hd')]
+        if len(dev_list) == 0:
+            return 'hda'
+        dev_list.sort()
+        last_dev = dev_list.pop()
+        # TODO: Improve to device names "greater then" hdz
+        next_dev_letter_pos = string.ascii_lowercase.index(last_dev[2]) + 1
+        return 'hd' + string.ascii_lowercase[next_dev_letter_pos]
+
+    def get_list(self, vm_name):
+        dom = VMModel.get_vm(vm_name, self.conn)
+        xml = dom.XMLDesc(0)
+        devices = objectify.fromstring(xml).devices
+        storages = [disk.target.attrib['dev']
+                    for disk in devices.xpath("./disk[@device='disk']")]
+        storages += [disk.target.attrib['dev']
+                     for disk in devices.xpath("./disk[@device='cdrom']")]
+        return storages
+
+
+class VMStorageModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+        self.kargs = kargs
+
+    def _get_device_xml(self, vm_name, dev_name):
+        # Get VM xml and then devices xml
+        dom = VMModel.get_vm(vm_name, self.conn)
+        xml = dom.XMLDesc(0)
+        devices = objectify.fromstring(xml).devices
+        disk = devices.xpath("./disk/target[@dev='%s']/.." % dev_name)
+        if not disk:
+            return None
+        return disk[0]
+
+    def lookup(self, vm_name, dev_name):
+        # Retrieve disk xml and format return dict
+        disk = self._get_device_xml(vm_name, dev_name)
+        if disk is None:
+            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+                                                  'vm_name': vm_name})
+        source = disk.source
+        path = ""
+        if source is not None:
+            src_type = disk.attrib['type']
+            if src_type == 'network':
+                host = source.host
+                path = (source.attrib['protocol'] + '://' +
+                        host.attrib['name'] + ':' +
+                        host.attrib['port'] + source.attrib['name'])
+            else:
+                path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
+        dev_type = disk.attrib['device']
+        return {'dev': dev_name,
+                'type': dev_type,
+                'path': path}
+
+    def delete(self, vm_name, dev_name):
+        # Get storage device xml
+        disk = self._get_device_xml(vm_name, dev_name)
+        if disk is None:
+            raise NotFoundError("KCHCDROM0007E",
+                                {'dev_name': dev_name,
+                                 'vm_name': vm_name})
+
+        dom = VMModel.get_vm(vm_name, self.conn)
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+            raise InvalidOperation('KCHCDROM0011E')
+
+        try:
+            conn = self.conn.get()
+            dom = conn.lookupByName(vm_name)
+            dom.detachDeviceFlags(etree.tostring(disk),
+                                  libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+        except Exception as e:
+            raise OperationFailed("KCHCDROM0010E", {'error': e.message})
+
+    def update(self, vm_name, dev_name, params):
+        dom = VMModel.get_vm(vm_name, self.conn)
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+            raise InvalidOperation('KCHCDROM0011E')
+
+        info = self.lookup(vm_name, dev_name)
+        backup_params = info.copy()
+
+        info.update(params)
+        kargs = {'conn': self.conn}
+        stgModel = VMStoragesModel(**kargs)
+        try:
+            self.delete(vm_name, dev_name)
+            return stgModel.create(vm_name, info)
+        except Exception as e:
+            try:
+                stgModel.create(vm_name, backup_params)
+            except:
+                pass
+
+            raise OperationFailed("KCHCDROM0009E", {'error': e.message})
