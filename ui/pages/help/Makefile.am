@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 DITA_HTML_FILES = $(patsubst %.dita,%.html,$(wildcard *.dita))
-HTML_FILES = $(if $(wildcard *.html), $(wildcard *.html), $(DITA_HTML_FILES))
+HTML_FILES = $(if $(wildcard *.html), $(wildcard *.html), $(DITA_HTML_FILES) index.html)
 DITA_XSL_FILE = dita-help.xsl
 
 helpdir = $(datadir)/kimchi/ui/pages/help
@@ -27,5 +27,6 @@ dist_help_DATA = $(HTML_FILES) $(NULL)
 
 %.html: %.dita $(DITA_XSL_FILE)
 	xsltproc -o $@ $(DITA_XSL_FILE) $<
+	$(shell pwd)/gen-index.py
 
 CLEANFILES = $(HTML_FILES)
