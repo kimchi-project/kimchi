@@ -122,6 +122,11 @@ class Server(object):
         '/favicon.ico': {
             'tools.staticfile.on': True,
             'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
+        },
+        '/help': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': 'ui/pages/help',
+            'tools.nocache.on': False
         }
     }
 
