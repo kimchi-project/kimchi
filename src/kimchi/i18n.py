@@ -57,7 +57,7 @@ messages = {
     "KCHISO0006E": _("Unexpected volume type for primary volume in ISO %(filename)s"),
     "KCHISO0007E": _("Bad format while reading volume descriptor in ISO %(filename)s"),
 
-    "KCHVM0001E": _("Virtual machine $(name)s already exists"),
+    "KCHVM0001E": _("Virtual machine %(name)s already exists"),
     "KCHVM0002E": _("Virtual machine %(name)s does not exist"),
     "KCHVM0003E": _("Unable to rename virtual machine %(name)s. The name %(new_name)s already exists or it is not powered off."),
     "KCHVM0004E": _("Unable to retrieve screenshot for stopped virtual machine %(name)s"),
