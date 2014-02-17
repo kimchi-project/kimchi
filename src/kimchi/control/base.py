@@ -58,6 +58,12 @@ class Resource(object):
         self.model_args = (ident,)
         self.update_params = []
 
+    def _redirect(self, ident, code=303):
+        if ident is not None and ident != self.ident:
+            uri_params = list(self.model_args[:-1])
+            uri_params += [urllib2.quote(ident.encode('utf-8'))]
+            raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
+
     def generate_action_handler(self, action_name, action_args=None):
         def wrapper(*args, **kwargs):
             validate_method(('POST'))
@@ -67,7 +73,8 @@ class Resource(object):
                     model_args.extend(parse_request()[key]
                                       for key in action_args)
                 fn = getattr(self.model, model_fn(self, action_name))
-                fn(*model_args)
+                ident = fn(*model_args)
+                self._redirect(ident)
                 uri_params = tuple(self.model_args)
                 raise internal_redirect(self.uri_fmt % uri_params)
             except MissingParameter, e:
@@ -155,10 +162,7 @@ class Resource(object):
 
         args = list(self.model_args) + [params]
         ident = update(*args)
-        if ident != self.ident:
-            uri_params = list(self.model_args[:-1])
-            uri_params += [urllib2.quote(ident.encode('utf-8'))]
-            raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), 303)
+        self._redirect(ident)
 
         return self.get()
 
