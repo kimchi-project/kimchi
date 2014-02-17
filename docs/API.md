@@ -280,7 +280,9 @@ A interface represents available network interface on VM.
 
 **Actions (POST):**
 
-* *No actions defined*
+* clone: clone a template from an existing template with different name.
+         It will provide a reasonable default name with "-cloneN" as suffix
+         for the new clone template. The "N" means the number of clone times.
 
 ### Collection: Storage Pools
 
