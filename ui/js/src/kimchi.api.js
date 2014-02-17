@@ -930,5 +930,19 @@ var kimchi = {
             success : suc,
             error : err
         });
+    },
+
+    getHostPCIDevices: function(suc, err) {
+        var url = kimchi.url+'host/devices?_cap=fc_host';
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 };

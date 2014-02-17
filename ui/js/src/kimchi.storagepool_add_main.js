@@ -35,6 +35,22 @@ kimchi.initStorageAddPage = function() {
             $('.host-partition').html(listHtml);
         } else {
             $('.host-partition').html(i18n['KCHPOOL6011M']);
+            $('.host-partition').addClass('text-help');
+        }
+    });
+
+    kimchi.getHostPCIDevices(function(data){
+        if(data.length>0){
+            for(var i=0;i<data.length;i++){
+                data[i].label = data[i].name;
+                data[i].value = data[i].name;
+            }
+            $('#scsiAdapter').selectMenu();
+            $("input", "#scsiAdapter").val(data[0].name);
+            $('#scsiAdapter').selectMenu("setData", data);
+        } else {
+            $('#scsiAdapter').html(i18n['KCHPOOL6005M']);
+            $('#scsiAdapter').addClass('text-help');
         }
     });
 
@@ -53,6 +69,9 @@ kimchi.initStorageAddPage = function() {
     }, {
         label : "LOGICAL",
         value : "logical"
+    }, {
+        label : i18n.KCHPOOL6004M,
+        value : "scsi"
     } ];
     $('#poolTypeId').selectMenu("setData", options);
  
@@ -108,19 +127,29 @@ kimchi.initStorageAddPage = function() {
             $('.logical-section').addClass('tmpl-html');
             $('.nfs-section').addClass('tmpl-html');
             $('.iscsi-section').addClass('tmpl-html');
+            $('.scsi-section').addClass('tmpl-html');
         } else if ($(this).val() === 'netfs') {
             $('.path-section').addClass('tmpl-html');
             $('.logical-section').addClass('tmpl-html');
             $('.nfs-section').removeClass('tmpl-html');
             $('.iscsi-section').addClass('tmpl-html');
+            $('.scsi-section').addClass('tmpl-html');
         } else if ($(this).val() === 'iscsi') {
             $('.path-section').addClass('tmpl-html');
             $('.logical-section').addClass('tmpl-html');
             $('.nfs-section').addClass('tmpl-html');
             $('.iscsi-section').removeClass('tmpl-html');
+            $('.scsi-section').addClass('tmpl-html');
         } else if ($(this).val() === 'logical') {
             $('.path-section').addClass('tmpl-html');
             $('.logical-section').removeClass('tmpl-html');
+            $('.nfs-section').addClass('tmpl-html');
+            $('.iscsi-section').addClass('tmpl-html');
+            $('.scsi-section').addClass('tmpl-html');
+        } else if ($(this).val() === 'scsi') {
+            $('.scsi-section').removeClass('tmpl-html');
+            $('.path-section').addClass('tmpl-html');
+            $('.logical-section').addClass('tmpl-html');
             $('.nfs-section').addClass('tmpl-html');
             $('.iscsi-section').addClass('tmpl-html');
         }
@@ -157,7 +186,7 @@ kimchi.validateForm = function() {
     } else if (poolType === "logical") {
         return kimchi.validateLogicalForm();
     } else {
-        return false;
+        return true;
     }
 };
 
@@ -260,6 +289,8 @@ kimchi.addPool = function(event) {
                 };
             }
             formData.source = source;
+        } else if (poolType === 'scsi'){
+            formData.source = { adapter_name: $('#scsiAdapter').selectMenu('value') };
         }
         if (poolType === 'logical') {
             var settings = {
