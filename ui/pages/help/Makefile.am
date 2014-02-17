@@ -17,14 +17,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-DITA_HTML_FILES = $(patsubst %.dita,%.html,$(wildcard *.dita)) $(wildcard *.html)
+DITA_HTML_FILES = $(patsubst %.dita,%.html,$(wildcard *.dita))
+HTML_FILES = $(if $(wildcard *.html), $(wildcard *.html), $(DITA_HTML_FILES))
 DITA_XSL_FILE = dita-help.xsl
 
 helpdir = $(datadir)/kimchi/ui/pages/help
 
-dist_help_DATA = $(DITA_HTML_FILES) $(NULL)
+dist_help_DATA = $(HTML_FILES) $(NULL)
 
 %.html: %.dita $(DITA_XSL_FILE)
 	xsltproc -o $@ $(DITA_XSL_FILE) $<
 
-CLEANFILES = $(DITA_HTML_FILES)
+CLEANFILES = $(HTML_FILES)
