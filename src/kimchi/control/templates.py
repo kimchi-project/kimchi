@@ -40,6 +40,7 @@ class Template(Resource):
                               "memory", "cdrom", "disks", "networks",
                               "graphics"]
         self.uri_fmt = "/templates/%s"
+        self.clone = self.generate_action_handler('clone')
 
     @property
     def data(self):
