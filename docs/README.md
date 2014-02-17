@@ -53,7 +53,7 @@ Install Dependencies
                         PyPAM m2crypto python-jsonschema rpm-build \
                         qemu-kvm python-psutil python-ethtool sos \
                         python-ipaddr python-lxml nfs-utils \
-                        iscsi-initiator-utils
+                        iscsi-initiator-utils libxslt
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
@@ -75,7 +75,7 @@ for more information on how to configure your system to access this repository.
                            python-pam python-m2crypto python-jsonschema \
                            qemu-kvm libtool python-psutil python-ethtool \
                            sosreport python-ipaddr python-lxml nfs-common \
-                           open-iscsi lvm2
+                           open-iscsi lvm2 xsltproc
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
@@ -88,7 +88,8 @@ for more information on how to configure your system to access this repository.
                           libvirt python-libxml2 python-imaging \
                           python-pam python-M2Crypto python-jsonschema \
                           rpm-build kvm python-psutil python-ethtool \
-                          python-ipaddr python-lxml nfs-client open-iscsi
+                          python-ipaddr python-lxml nfs-client open-iscsi \
+                          libxslt-tools
 
     Packages version requirement:
         python-psutil >= 0.6.0

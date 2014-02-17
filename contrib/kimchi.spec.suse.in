@@ -23,6 +23,7 @@ Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	nfs-client
 Requires:	open-iscsi
+BuildRequires: libxslt-tools
 
 %if 0%{?sles_version} == 11
 Requires:       python-ordereddict
@@ -95,6 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.gif
 %{_datadir}/kimchi/ui/libs/themes/base/jquery-ui.min.css
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
+%{_datadir}/kimchi/ui/pages/help/*.html
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/distros.d/debian.json
@@ -105,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_initrddir}/kimchid
 
 %changelog
+* Tue Feb 11 2014 Crístian Viana <vianac@linux.vnet.ibm.com> 1.1.0
+- Add help pages and XSLT dependency
+
 * Thu Jul 18 2013 Adam Litke <agl@us.ibm.com> 0.1.0-1
 - Adapted for autotools build
 - Split Suse and Fedora spec files
