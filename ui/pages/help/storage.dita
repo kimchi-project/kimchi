@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dita.xsl" type="text/xsl" ?>
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<cshelp id="kimhstor" xml:lang="en-us">
+    <title>Storage</title>
+    <shortdesc>The Storage page lists the available storage pools, including the default storage pool.</shortdesc>
+    <csprolog>
+        <csmetadata>
+            <cswindowtitle>Title of window or panel associated with this help; for review output only.</cswindowtitle>
+            <cswidgetlabel>Name of field or control associated with this help; for review output only</cswidgetlabel>
+        </csmetadata>
+    </csprolog>
+    <csbody>
+        <p>For each storage pool, the following information is displayed:<dl><dlentry><dt>Name</dt><dd>Name of the storage pool and percentage used.</dd></dlentry><dlentry><dt>State</dt><dd>State of the storage pool, active (green) or inactive (red). </dd></dlentry><dlentry><dt>Location</dt><dd>File path to the location of the storage pool.</dd></dlentry><dlentry><dt>Type</dt><dd><uicontrol>dir</uicontrol> for directory.</dd></dlentry><dlentry><dt>Capacity</dt><dd>Amount of space in the storage pool.</dd></dlentry><dlentry><dt>Allocated</dt><dd>Amount of space already allocated in the storage pool.</dd></dlentry></dl></p>
+        <p>The following actions can be selected for each storage pool:<ul><li>Select <uicontrol>Activate</uicontrol> to activate the storage
+pool so that it can be used.</li><li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
+pool.</li></ul></p>
+        <p>To display storage volume details for a storage pool, click the
+arrow on the right side of the storage pool row.  Details include
+the following:<dl><dlentry><dt>Type</dt><dd>The type of storage pool, for example,  dir or disk.</dd></dlentry><dlentry><dt>Format</dt><dd>The format, varying dependent on the type.</dd></dlentry><dlentry><dt>Capacity</dt><dd>Size of the storage volume.</dd></dlentry><dlentry><dt>Allocated</dt><dd>Amount of space already allocated in the storage pool.</dd></dlentry></dl>To define a storage pool, click the <uicontrol>plus
+(+)</uicontrol> icon in the upper right of the display.</p>
+    </csbody>
+    <cshelp id="kimhdefstor" xml:lang="en-us">
+        <title>Define a storage pool</title>
+        <shortdesc> Define a storage pool.</shortdesc>
+        <csprolog>
+            <csmetadata>
+                <cswindowtitle>Title of window or panel associated with this help; for review output only.</cswindowtitle>
+                <cswidgetlabel>Name of field or control associated with this help; for review output only</cswidgetlabel>
+            </csmetadata>
+        </csprolog>
+        <csbody>
+            <p>
+                <ol>
+                    <li>Type the name to be used to identify the storage pool.</li>
+                    <li>Type the file path to the storage pool.</li>
+                    <li>Click <uicontrol>Create</uicontrol>.</li>
+                </ol>
+            </p>
+        </csbody>
+    </cshelp>
+    <?Pub Caret -1?>
+</cshelp>
+<?Pub *0000003013?>
