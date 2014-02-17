@@ -441,6 +441,22 @@ class ModelTests(unittest.TestCase):
                 self.assertEquals(params[key], info[key])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_clone(self):
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            orig_params = {'name': 'test-template', 'memory': 1024, 'cpus': 1}
+            inst.templates_create(orig_params)
+            orig_temp = inst.template_lookup(orig_params['name'])
+
+            ident = inst.template_clone('test-template')
+            clone_temp = inst.template_lookup(ident)
+
+            clone_temp['name'] = orig_temp['name']
+            for key in clone_temp.keys():
+                self.assertEquals(clone_temp[key], orig_temp[key])
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
         inst = model.Model('qemu:///system',
                            objstore_loc=self.tmp_store)

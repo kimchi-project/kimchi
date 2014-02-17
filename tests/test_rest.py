@@ -949,6 +949,21 @@ class RestTests(unittest.TestCase):
         res = json.loads(self.request('/templates/test').read())
         verify_template(t, res)
 
+        # clone a template
+        resp = self.request('/templates/%s/clone' % t['name'], '{}', 'POST')
+        self.assertEquals(303, resp.status)
+
+        # Verify the clone template
+        res = json.loads(self.request('/templates/%s-clone1' %
+                                      t['name']).read())
+        old_temp = t['name']
+        t['name'] = res['name']
+        verify_template(t, res)
+        # Delete the clone template
+        resp = self.request('/templates/%s' % t['name'], '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+        t['name'] = old_temp
+
         # Create a template with same name fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
              'os_version': '1.0', 'memory': 1024, 'cpus': 1,
