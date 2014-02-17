@@ -29,6 +29,7 @@ from kimchi import networkxml
 from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
+from kimchi.rollbackcontext import RollbackContext
 
 
 class NetworksModel(object):
@@ -139,17 +140,17 @@ class NetworksModel(object):
         br_xml = networkxml.create_vlan_tagged_bridge_xml(br_name, interface,
                                                           vlan_id)
         conn = self.conn.get()
-        conn.changeBegin()
-        try:
-            vlan_tagged_br = conn.interfaceDefineXML(br_xml)
-            vlan_tagged_br.create()
-        except libvirt.libvirtError as e:
-            conn.changeRollback()
-            raise OperationFailed("KCHNET0010E", {'iface': interface,
-                                                  'err': e.message})
-        else:
-            conn.changeCommit()
-            return br_name
+
+        with RollbackContext() as rollback:
+
+            try:
+                vlan_tagged_br = conn.interfaceDefineXML(br_xml, 0)
+                vlan_tagged_br.create(0)
+            except libvirt.libvirtError as e:
+                rollback.prependDefer(vlan_tagged_br.destroy)
+                raise OperationFailed(e.message)
+            else:
+                return br_name
 
 
 class NetworkModel(object):
@@ -262,5 +263,5 @@ class NetworkModel(object):
                 conn = self.conn.get()
                 iface = conn.interfaceLookupByName(bridge)
                 if iface.isActive():
-                    iface.destroy()
+                    iface.destroy(0)
                 iface.undefine()
