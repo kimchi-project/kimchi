@@ -231,6 +231,22 @@ class MockModel(object):
         self._mock_templates[name] = t
         return name
 
+    def template_clone(self, name):
+        # set default name
+        subfixs = [v[len(name):] for v in self.templates_get_list()
+                   if v.startswith(name)]
+        indexs = [int(v.lstrip("-clone")) for v in subfixs
+                  if v.startswith("-clone") and
+                  v.lstrip("-clone").isdigit()]
+        indexs.sort()
+        index = "1" if not indexs else str(indexs[-1] + 1)
+        clone_name = name + "-clone" + index
+
+        temp = self.template_lookup(name)
+        temp['name'] = clone_name
+        ident = self.templates_create(temp)
+        return ident
+
     def template_update(self, name, params):
         old_t = self.template_lookup(name)
         new_t = copy.copy(old_t)

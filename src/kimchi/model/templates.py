@@ -85,6 +85,22 @@ class TemplateModel(object):
         t = self.get_template(name, self.objstore, self.conn)
         return t.info
 
+    def clone(self, name):
+        # set default name
+        subfixs = [v[len(name):] for v in self.templates.get_list()
+                   if v.startswith(name)]
+        indexs = [int(v.lstrip("-clone")) for v in subfixs
+                  if v.startswith("-clone") and
+                  v.lstrip("-clone").isdigit()]
+        indexs.sort()
+        index = "1" if not indexs else str(indexs[-1] + 1)
+        clone_name = name + "-clone" + index
+
+        temp = self.lookup(name)
+        temp['name'] = clone_name
+        ident = self.templates.create(temp)
+        return ident
+
     def delete(self, name):
         with self.objstore as session:
             session.delete('template', name)
