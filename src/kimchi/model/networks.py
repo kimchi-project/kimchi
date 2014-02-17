@@ -189,12 +189,17 @@ class NetworkModel(object):
                 'autostart': network.autostart() == 1,
                 'state':  network.isActive() and "active" or "inactive"}
 
-    def _get_vms_attach_to_a_network(self, network):
+    def _get_vms_attach_to_a_network(self, network, filter="all"):
+        DOM_STATE_MAP = {'nostate': 0, 'running': 1, 'blocked': 2,
+                         'paused': 3, 'shutdown': 4, 'shutoff': 5,
+                         'crashed': 6}
+        state = DOM_STATE_MAP.get(filter)
         vms = []
         conn = self.conn.get()
         for dom in conn.listAllDomains(0):
             networks = self._vm_get_networks(dom)
-            if network in networks:
+            if network in networks and (state is None or
+                                        state == dom.state()[0]):
                 vms.append(dom.name())
         return vms
 
@@ -209,12 +214,16 @@ class NetworkModel(object):
 
     def deactivate(self, name):
         network = self._get_network(name)
+        if self._get_vms_attach_to_a_network(name, "running"):
+            raise InvalidOperation("KCHNET0018E", {'name': name})
         network.destroy()
 
     def delete(self, name):
         network = self._get_network(name)
         if network.isActive():
             raise InvalidOperation("KCHNET0005E", {'name': name})
+        if self._get_vms_attach_to_a_network(name):
+            raise InvalidOperation("KCHNET0017E", {'name': name})
 
         self._remove_vlan_tagged_bridge(network)
         network.undefine()
