@@ -799,7 +799,7 @@ class MockModel(object):
     def packageupdate_lookup(self, pkg_name):
         return self._mock_swupdate.getUpdate(pkg_name)
 
-    def packagesupdate_update(self, args=None):
+    def host_swupdate(self, args=None):
         task_id = self.add_task('', self._mock_swupdate.doUpdate, None)
         return self.task_lookup(task_id)
 

@@ -709,6 +709,8 @@ Contains information of host.
           Only allowed if there is not vm running.
 * shutdown: Power off the host machine.
             Only allowed if there is not vm running.
+* swupdate: Start the update of packages in background and return a Task resource
+    * task resource.  * See Resource: Task *
 
 ### Resource: HostStats
 
@@ -812,13 +814,6 @@ Contains the information and action of packages update in the host.
 **Methods:**
 
 * **GET**: Retrieves a list of all packages to be updated in the host:
-
-* **POST**: *See Software Update Actions*
-
-**Actions (POST):**
-
-* update: Start the update of packages in background and return a Task resource
-    * task resource.  * See Resource: Task *
 
 ### Resource: Host Package Update
 

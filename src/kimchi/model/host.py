@@ -67,6 +67,20 @@ class HostModel(object):
     def lookup(self, *name):
         return self.host_info
 
+    def swupdate(self, *name):
+        try:
+            swupdate = SoftwareUpdate()
+        except:
+            raise OperationFailed('KCHPKGUPD0004E')
+
+        pkgs = swupdate.getNumOfUpdates()
+        if pkgs == 0:
+            raise OperationFailed('KCHPKGUPD0001E')
+
+        kimchi_log.debug('Host is going to be updated.')
+        taskid = add_task('', swupdate.doUpdate, self.objstore, None)
+        return self.task.lookup(taskid)
+
     def shutdown(self, args=None):
         # Check for running vms before shutdown
         running_vms = self._get_vms_list_by_state('running')
@@ -274,22 +288,6 @@ class PackagesUpdateModel(object):
             raise OperationFailed('KCHPKGUPD0004E')
 
         return self.host_swupdate.getUpdates()
-
-    def update(self, **kargs):
-        if self.host_swupdate is None:
-            raise OperationFailed('KCHPKGUPD0004E')
-
-        try:
-            pkgs = self.host_swupdate.getNumOfUpdates()
-        except OperationFailed, e:
-            raise e
-
-        if pkgs == 0:
-            raise OperationFailed('KCHPKGUPD0001E')
-
-        kimchi_log.debug('Host is going to be updated.')
-        taskid = add_task('', self.host_swupdate.doUpdate, self.objstore, None)
-        return self.task.lookup(taskid)
 
 
 class PackageUpdateModel(object):

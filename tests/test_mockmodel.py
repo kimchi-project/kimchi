@@ -164,6 +164,6 @@ class MockModelTests(unittest.TestCase):
             self.assertIn('arch', pkgupdate.keys())
             self.assertIn('version', pkgupdate.keys())
 
-        task = model.packagesupdate_update()
+        task = model.host_swupdate()
         task_params = [u'id', u'message', u'status', u'target_uri']
         self.assertEquals(sorted(task_params), sorted(task.keys()))

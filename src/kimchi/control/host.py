@@ -26,7 +26,7 @@
 import cherrypy
 
 from kimchi.control.base import Collection, Resource
-from kimchi.control.utils import UrlSubNode
+from kimchi.control.utils import UrlSubNode, validate_method
 from kimchi.exception import OperationFailed
 from kimchi.template import render
 
@@ -42,6 +42,16 @@ class Host(Resource):
         self.partitions = Partitions(self.model)
         self.devices = Devices(self.model)
         self.packagesupdate = PackagesUpdate(self.model)
+
+    @cherrypy.expose
+    def swupdate(self):
+        validate_method(('POST'))
+        try:
+            task = self.model.host_swupdate()
+            cherrypy.response.status = 202
+            return render("Task", task)
+        except OperationFailed, e:
+            raise cherrypy.HTTPError(500, e.message)
 
     @property
     def data(self):
@@ -88,15 +98,6 @@ class PackagesUpdate(Collection):
     def __init__(self, model):
         super(PackagesUpdate, self).__init__(model)
         self.resource = PackageUpdate
-
-    @cherrypy.expose
-    def update(self):
-        try:
-            task = self.model.packagesupdate_update()
-            cherrypy.response.status = 202
-            return render("Task", task)
-        except OperationFailed, e:
-            raise cherrypy.HTTPError(500, e.message)
 
 
 class PackageUpdate(Resource):

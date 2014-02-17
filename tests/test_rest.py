@@ -1467,7 +1467,7 @@ class RestTests(unittest.TestCase):
             self.assertIn('arch', info.keys())
             self.assertIn('version', info.keys())
 
-        resp = self.request('/host/packagesupdate/update', '{}', 'POST')
+        resp = self.request('/host/swupdate', '{}', 'POST')
         task = json.loads(resp.read())
         task_params = [u'id', u'message', u'status', u'target_uri']
         self.assertEquals(sorted(task_params), sorted(task.keys()))
