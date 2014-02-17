@@ -262,21 +262,25 @@ class DeviceModel(object):
 
 class PackagesUpdateModel(object):
     def __init__(self, **kargs):
-
+        try:
+            self.host_swupdate = SoftwareUpdate()
+        except:
+            self.host_swupdate = None
         self.objstore = kargs['objstore']
         self.task = TaskModel(**kargs)
 
     def get_list(self):
+        if self.host_swupdate is None:
+            raise OperationFailed('KCHPKGUPD0004E')
+
         return self.host_swupdate.getUpdates()
 
     def update(self, **kargs):
-        try:
-            swupdate = SoftwareUpdate()
-        except Exception:
+        if self.host_swupdate is None:
             raise OperationFailed('KCHPKGUPD0004E')
 
         try:
-            pkgs = swupdate.getNumOfUpdates()
+            pkgs = self.host_swupdate.getNumOfUpdates()
         except OperationFailed, e:
             raise e
 
@@ -284,7 +288,7 @@ class PackagesUpdateModel(object):
             raise OperationFailed('KCHPKGUPD0001E')
 
         kimchi_log.debug('Host is going to be updated.')
-        taskid = add_task('', swupdate.doUpdate, self.objstore, None)
+        taskid = add_task('', self.host_swupdate.doUpdate, self.objstore, None)
         return self.task.lookup(taskid)
 
 
