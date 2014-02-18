@@ -45,6 +45,7 @@ HOST_STATS_INTERVAL = 1
 
 class HostModel(object):
     def __init__(self, **kargs):
+        self.conn = kargs['conn']
         self.host_info = self._get_host_info()
 
     def _get_host_info(self):
@@ -100,9 +101,13 @@ class HostModel(object):
         os.system('reboot')
 
     def _get_vms_list_by_state(self, state):
+        conn = self.conn.get()
+        names = [dom.name().decode('utf-8') for dom in conn.listAllDomains(0)]
+
         ret_list = []
-        for name in self.vms_get_list():
-            info = self._get_vm(name).info()
+        for name in names:
+            dom = conn.lookupByName(name.encode("utf-8"))
+            info = dom.info()
             if (DOM_STATE_MAP[info[0]]) == state:
                 ret_list.append(name)
         return ret_list
