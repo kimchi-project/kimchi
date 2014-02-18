@@ -79,7 +79,7 @@ class StorageVolumesModel(object):
             raise InvalidOperation("KCHVOL0006E", {'pool': pool_name})
         try:
             pool.refresh(0)
-            return pool.listVolumes()
+            return sorted(map(lambda x: x.decode('utf-8'), pool.listVolumes()))
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVOL0008E",
                                   {'pool': pool_name,
@@ -95,7 +95,7 @@ class StorageVolumeModel(object):
         if not pool.isActive():
             raise InvalidOperation("KCHVOL0006E", {'name': pool})
         try:
-            return pool.storageVolLookupByName(name)
+            return pool.storageVolLookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_VOL:
                 raise NotFoundError("KCHVOL0002E", {'name': name,
