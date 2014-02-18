@@ -147,11 +147,31 @@ def https_request(host, port, path, data=None, method='GET', headers=None):
     return _request(conn, path, data, method, headers)
 
 
-def patch_auth():
+def patch_auth(sudo=True):
     """
     Override the authenticate function with a simple test against an
     internal dict of users and passwords.
     """
+    USER_ID = 'userid'
+    USER_GROUPS = 'groups'
+    USER_SUDO = 'sudo'
+
+    class _User(object):
+        def __init__(self, userid):
+            self.user = {}
+            self.user[USER_ID] = userid
+            self.user[USER_GROUPS] = None
+            self.user[USER_SUDO] = sudo
+
+        def get_groups(self):
+            return self.user[USER_GROUPS]
+
+        def has_sudo(self):
+            return self.user[USER_SUDO]
+
+        def get_user(self):
+            return self.user
+
     def _authenticate(username, password, service="passwd"):
         try:
             return fake_user[username] == password
@@ -161,6 +181,7 @@ def patch_auth():
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate
+    kimchi.auth.User = _User
 
 
 def normalize_xml(xml_str):

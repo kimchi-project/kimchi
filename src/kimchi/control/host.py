@@ -31,7 +31,7 @@ from kimchi.exception import OperationFailed
 from kimchi.template import render
 
 
-@UrlSubNode("host", True)
+@UrlSubNode("host", True, ['POST'])
 class Host(Resource):
     def __init__(self, model, id=None):
         super(Host, self).__init__(model, id)

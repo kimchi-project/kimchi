@@ -25,7 +25,7 @@ from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode("templates", True)
+@UrlSubNode("templates", True, ['PUT', 'DELETE'])
 class Templates(Collection):
     def __init__(self, model):
         super(Templates, self).__init__(model)

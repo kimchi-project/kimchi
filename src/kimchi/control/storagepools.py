@@ -34,7 +34,7 @@ from kimchi.model.storagepools import ISO_POOL_NAME
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode("storagepools", True)
+@UrlSubNode("storagepools", True, ['POST', 'DELETE'])
 class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)

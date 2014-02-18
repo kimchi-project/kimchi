@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	Makefile.am \
 	run_tests.sh.in \
 	iso_gen.py   \
+	test_authorization.py \
 	test_config.py.in \
 	test_exception.py \
 	test_mockmodel.py \
