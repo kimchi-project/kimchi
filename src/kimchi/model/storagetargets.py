@@ -62,7 +62,7 @@ class StorageTargetsModel(object):
             target_list.extend(targets)
         return target_list
 
-    def _get_storage_server_spec(**kwargs):
+    def _get_storage_server_spec(self, **kwargs):
         # Required parameters:
         # server:
         # target_type:
@@ -73,7 +73,7 @@ class StorageTargetsModel(object):
         xml = ET.tostring(obj)
         return xml
 
-    def _parse_target_source_result(target_type, xml_str):
+    def _parse_target_source_result(self, target_type, xml_str):
         root = objectify.fromstring(xml_str)
         ret = []
         for source in root.getchildren():
