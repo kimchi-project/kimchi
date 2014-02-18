@@ -236,7 +236,6 @@ class VMModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
-        self.vms = VMsModel(**kargs)
         self.vmscreenshot = VMScreenshotModel(**kargs)
 
     def update(self, name, params):
