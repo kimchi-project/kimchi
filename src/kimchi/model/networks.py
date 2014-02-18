@@ -76,7 +76,7 @@ class NetworksModel(object):
         # lookup a free network address for nat and isolated automatically
         if not netaddr:
             for net_name in self.get_list():
-                network = self._get_network(net_name)
+                network = NetworkModel.get_network(self.conn.get(), net_name)
                 xml = network.XMLDesc(0)
                 subnet = NetworkModel.get_network_from_xml(xml)['subnet']
                 subnet and net_addrs.append(ipaddr.IPNetwork(subnet))
@@ -158,7 +158,7 @@ class NetworkModel(object):
         self.conn = kargs['conn']
 
     def lookup(self, name):
-        network = self._get_network(name)
+        network = self.get_network(self.conn.get(), name)
         xml = network.XMLDesc(0)
         net_dict = self.get_network_from_xml(xml)
         subnet = net_dict['subnet']
@@ -209,17 +209,17 @@ class NetworkModel(object):
         return xmlutils.xpath_get_text(xml, xpath)
 
     def activate(self, name):
-        network = self._get_network(name)
+        network = self.get_network(self.conn.get(), name)
         network.create()
 
     def deactivate(self, name):
-        network = self._get_network(name)
+        network = self.get_network(self.conn.get(), name)
         if self._get_vms_attach_to_a_network(name, "running"):
             raise InvalidOperation("KCHNET0018E", {'name': name})
         network.destroy()
 
     def delete(self, name):
-        network = self._get_network(name)
+        network = self.get_network(self.conn.get(), name)
         if network.isActive():
             raise InvalidOperation("KCHNET0005E", {'name': name})
         if self._get_vms_attach_to_a_network(name):
@@ -228,8 +228,8 @@ class NetworkModel(object):
         self._remove_vlan_tagged_bridge(network)
         network.undefine()
 
-    def _get_network(self, name):
-        conn = self.conn.get()
+    @staticmethod
+    def get_network(conn, name):
         try:
             return conn.networkLookupByName(name)
         except libvirt.libvirtError:
