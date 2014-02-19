@@ -22,6 +22,7 @@ Depends: python-cherrypy3 (>= 3.2.0),
          python-lxml,
          open-iscsi,
          firewalld
-Build-Depends: libxslt
+Build-Depends: libxslt,
+               python-libxml2
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server

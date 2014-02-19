@@ -23,7 +23,8 @@ Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	nfs-client
 Requires:	open-iscsi
-BuildRequires: libxslt-tools
+BuildRequires:	libxslt-tools
+BuildRequires:	python-libxml2
 
 %if 0%{?sles_version} == 11
 Requires:       python-ordereddict

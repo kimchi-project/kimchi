@@ -28,7 +28,8 @@ Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	nfs-utils
 Requires:	iscsi-initiator-utils
-BuildRequires: libxslt
+BuildRequires:	libxslt
+BuildRequires:	libxml2-python
 
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict
