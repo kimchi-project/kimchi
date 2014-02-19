@@ -32,10 +32,11 @@ from kimchi import disks
 from kimchi import netinfo
 from kimchi import xmlutils
 from kimchi.basemodel import Singleton
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import InvalidOperation, NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import DOM_STATE_MAP
+from kimchi.repositories import Repositories
 from kimchi.swupdate import SoftwareUpdate
 from kimchi.utils import add_task, kimchi_log
 
@@ -306,3 +307,54 @@ class PackageUpdateModel(object):
             raise OperationFailed('KCHPKGUPD0004E')
 
         return swupdate.getUpdate(name)
+
+
+class RepositoriesModel(object):
+    def __init__(self, **kargs):
+        self.host_repositories = Repositories()
+
+    def get_list(self):
+        return self.host_repositories.getRepositories().keys()
+
+    def create(self, params):
+        repo_id = params.get('repo_id', None)
+
+        # Create a repo_id if not given by user. The repo_id will follow
+        # the format kimchi_repo_<integer>, where integer is the number of
+        # seconds since the Epoch (January 1st, 1970), in UTC.
+        if repo_id is None:
+            repo_id = "kimchi_repo_%s" % int(time.time())
+            while repo_id in self.get_list():
+                repo_id = "kimchi_repo_%s" % int(time.time())
+            params.update({'repo_id': repo_id})
+
+        if repo_id in self.get_list():
+            raise InvalidOperation("KCHREPOS0006E", {'repo_id': repo_id})
+        self.host_repositories.addRepository(params)
+        return repo_id
+
+
+class RepositoryModel(object):
+    def __init__(self, **kargs):
+        self._repositories = Repositories()
+
+    def lookup(self, repo_id):
+        return self._repositories.getRepository(repo_id)
+
+    def enable(self, repo_id):
+        if not self._repositories.enableRepository(repo_id):
+            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
+
+    def disable(self, repo_id):
+        if not self._repositories.disableRepository(repo_id):
+            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
+
+    def update(self, repo_id, params):
+        try:
+            self._repositories.updateRepository(repo_id, params)
+        except:
+            raise OperationFailed("KCHREPOS0009E", {'repo_id': repo_id})
+        return repo_id
+
+    def delete(self, repo_id):
+        return self._repositories.removeRepository(repo_id)
