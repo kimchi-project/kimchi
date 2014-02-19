@@ -41,6 +41,7 @@ kimchi_PYTHON = \
 	networkxml.py      \
 	objectstore.py     \
 	osinfo.py          \
+	repositories.py	   \
 	rollbackcontext.py \
 	root.py            \
 	scan.py            \
