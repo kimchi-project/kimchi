@@ -1504,6 +1504,43 @@ class RestTests(unittest.TestCase):
         self.assertEquals(1, len(res))
         self.assertEquals('test-vm1', res[0]['name'])
 
+    def test_repositories(self):
+        def verify_repo(t, res):
+            for field in ('repo_id', 'repo_name', 'baseurl', 'is_mirror',
+                          'url_args', 'enabled', 'gpgcheck', 'gpgkey'):
+                if field in t.keys():
+                    self.assertEquals(t[field], res[field])
+
+        base_uri = '/host/repositories'
+        resp = self.request(base_uri)
+        self.assertEquals(200, resp.status)
+        # Already have one repo in Kimchi's system
+        self.assertEquals(1, len(json.loads(resp.read())))
+
+        # Create a repository
+        repo = {'repo_id': 'fedora-fake',
+                'baseurl': 'http://www.fedora.org'}
+        req = json.dumps(repo)
+        resp = self.request(base_uri, req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        # Verify the repositorie
+        res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
+        verify_repo(repo, res)
+
+        # Update the repository
+        repo['baseurl'] = 'http://www.fedora.org/update'
+        req = json.dumps(repo)
+        resp = self.request('%s/fedora-fake' % base_uri, req, 'PUT')
+
+        # Verify the repository
+        res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
+        verify_repo(repo, res)
+
+        # Delete the repository
+        resp = self.request('%s/fedora-fake' % base_uri, '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
 
 class HttpsRestTests(RestTests):
     """

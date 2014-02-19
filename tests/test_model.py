@@ -899,6 +899,106 @@ class ModelTests(unittest.TestCase):
             volumes = inst.storagevolumes_get_list(args['name'])
             self.assertEquals(len(volumes), 2)
 
+    def test_repository_create(self):
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+
+        system_host_repos = len(inst.repositories_get_list())
+
+        test_repos = [{'repo_id': 'fedora-fake',
+                       'baseurl': 'http://www.fedora.org'},
+                      {'repo_id': 'fedora-updates-fake',
+                       'baseurl': 'http://www.fedora.org/updates',
+                       'is_mirror': True,
+                       'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}]
+
+        for repo in test_repos:
+            inst.repositories_create(repo)
+        host_repos = inst.repositories_get_list()
+        self.assertEquals(system_host_repos+len(test_repos), len(host_repos))
+
+        for repo in test_repos:
+            repo_info = inst.repository_lookup(repo.get('repo_id'))
+            self.assertEquals(repo.get('repo_id'), repo_info.get('repo_id'))
+            self.assertEquals(repo.get('baseurl', []),
+                              repo_info.get('baseurl'))
+            self.assertEquals(repo.get('is_mirror', False),
+                              repo_info.get('is_mirror'))
+            self.assertEquals(True, repo_info.get('enabled'))
+
+            if 'gpgkey' in repo.keys():
+                gpgcheck = True
+            else:
+                gpgcheck = False
+
+            self.assertEquals(gpgcheck, repo_info.get('gpgcheck'))
+
+        self.assertRaises(NotFoundError, inst.repository_lookup, 'google')
+
+        # remove files created
+        for repo in test_repos:
+            inst.repository_delete(repo['repo_id'])
+            self.assertRaises(NotFoundError,
+                              inst.repository_lookup, repo['repo_id'])
+
+    def test_repository_update(self):
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+
+        system_host_repos = len(inst.repositories_get_list())
+
+        repo = {'repo_id': 'fedora-fake',
+                'repo_name': 'Fedora 19 FAKE',
+                'baseurl': 'http://www.fedora.org'}
+        inst.repositories_create(repo)
+
+        host_repos = inst.repositories_get_list()
+        self.assertEquals(system_host_repos+1, len(host_repos))
+
+        new_repo = {'repo_id': 'fedora-fake',
+                    'repo_name': 'Fedora 19 Update FAKE',
+                    'baseurl': 'http://www.fedora.org/update'}
+
+        inst.repository_update(repo['repo_id'], new_repo)
+        repo_info = inst.repository_lookup(new_repo.get('repo_id'))
+        self.assertEquals(new_repo.get('repo_id'), repo_info.get('repo_id'))
+        self.assertEquals(new_repo.get('repo_name'),
+                          repo_info.get('repo_name'))
+        self.assertEquals(new_repo.get('baseurl', None),
+                          repo_info.get('baseurl'))
+        self.assertEquals(True, repo_info.get('enabled'))
+
+        # remove files creates
+        inst.repository_delete(repo['repo_id'])
+
+    def test_repository_disable_enable(self):
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+
+        system_host_repos = len(inst.repositories_get_list())
+
+        repo = {'repo_id': 'fedora-fake',
+                'repo_name': 'Fedora 19 FAKE',
+                'baseurl': 'http://www.fedora.org'}
+        inst.repositories_create(repo)
+
+        host_repos = inst.repositories_get_list()
+        self.assertEquals(system_host_repos+1, len(host_repos))
+
+        repo_info = inst.repository_lookup(repo.get('repo_id'))
+        self.assertEquals(True, repo_info.get('enabled'))
+
+        inst.repository_disable(repo.get('repo_id'))
+        repo_info = inst.repository_lookup(repo.get('repo_id'))
+        self.assertEquals(False, repo_info.get('enabled'))
+
+        inst.repository_enable(repo.get('repo_id'))
+        repo_info = inst.repository_lookup(repo.get('repo_id'))
+        self.assertEquals(True, repo_info.get('enabled'))
+
+        # remove files creates
+        inst.repository_delete(repo['repo_id'])
+
 
 class BaseModelTests(unittest.TestCase):
     class FoosModel(object):
