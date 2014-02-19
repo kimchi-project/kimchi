@@ -478,6 +478,78 @@
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"
+        },
+        "repositories_create": {
+            "type": "object",
+            "properties": {
+                "repo_id": {
+                    "description": "Unique repository name for each repository, one word.",
+                    "type": "string",
+                    "error": "KCHREPOS0001E"
+                },
+                "baseurl": {
+                    "description": "URL to the directory where the repodata directory of a repository is located. Can be an http://, ftp:// or file://  URL.",
+                    "type": "string",
+                    "required": true,
+                    "error": "KCHREPOS0002E"
+                },
+                "is_mirror": {
+                    "description": "Set the given URI of baseurl as a mirror list",
+                    "type": "boolean"
+                },
+                "url_args": {
+                    "description": "Arguments to be passed to baseurl, like the list of APT repositories provided by the same baseurl.",
+                    "type": "string",
+                    "error": "KCHREPOS0003E"
+                },
+                "gpgkey": {
+                    "description": "URL pointing to the ASCII-armored GPG key file for the repository.",
+                    "type": "string",
+                    "error": "KCHREPOS0004E"
+                }
+            },
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
+        },
+        "repository_update": {
+            "type": "object",
+            "properties": {
+                "repo_id": {
+                    "description": "Unique repository name for each repository, one word.",
+                    "type": "string",
+                    "error": "KCHREPOS0001E"
+                },
+                "repo_name": {
+                    "description": "Human-readable string describing the repository.",
+                    "type": "string",
+                    "error": "KCHREPOS0005E"
+                },
+                "baseurl": {
+                    "description": "URL to the directory where the repodata directory of a repository is located. Can be an http://, ftp:// or file://  URL.",
+                    "type": "string",
+                    "error": "KCHREPOS0002E"
+                },
+                "is_mirror": {
+                    "description": "Set the given URI of baseurl as a mirror list",
+                    "type": "boolean"
+                },
+                "url_args": {
+                    "description": "Arguments to be passed to baseurl, like the list of APT repositories provided by the same baseurl.",
+                    "type": "string",
+                    "error": "KCHREPOS0003E"
+                },
+                "gpgcheck": {
+                    "description": "Indicates if a GPG signature check on the packages gotten from repository should be performed.",
+                    "type": "boolean"
+                },
+                "gpgkey": {
+                    "description": "URL pointing to the ASCII-armored GPG key file for the repository.",
+                    "type": "string",
+                    "error": "KCHREPOS0004E"
+                }
+            },
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
         }
     }
 }

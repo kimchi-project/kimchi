@@ -42,6 +42,7 @@ class Host(Resource):
         self.partitions = Partitions(self.model)
         self.devices = Devices(self.model)
         self.packagesupdate = PackagesUpdate(self.model)
+        self.repositories = Repositories(self.model)
 
     @cherrypy.expose
     def swupdate(self):
@@ -103,6 +104,26 @@ class PackagesUpdate(Collection):
 class PackageUpdate(Resource):
     def __init__(self, model, id=None):
         super(PackageUpdate, self).__init__(model, id)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class Repositories(Collection):
+    def __init__(self, model):
+        super(Repositories, self).__init__(model)
+        self.resource = Repository
+
+
+class Repository(Resource):
+    def __init__(self, model, id):
+        super(Repository, self).__init__(model, id)
+        self.update_params = ["repo_id", "repo_name", "baseurl", "mirrors",
+                              "url_args", "gpgcheck", "gpgkey"]
+        self.uri_fmt = "/host/repositories/%s"
+        self.enable = self.generate_action_handler('enable')
+        self.disable = self.generate_action_handler('disable')
 
     @property
     def data(self):
