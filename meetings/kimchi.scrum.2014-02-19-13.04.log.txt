@@ -1,0 +1,180 @@
+13:04:20 <alinefm> #startmeeting
+13:04:20 <kimchi-bot> Meeting started Wed Feb 19 13:04:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:20 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:20 <alinefm> #meetingname scrum
+13:04:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:05:39 <alinefm> #info  Agenda 1) Sprint 3 status 2) Sprint 4 and bug fixes 3) Open discussion
+13:05:39 <alinefm> anything else?
+13:06:06 <royce> Good for me
+13:07:08 <alinefm> #topic Sprint 3 status
+13:07:09 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:08 <vianac> #info vianac sent final patcheset about DITA help pages; sent a patch fixing long names not shown in Storage Pool and Network tabs; worked on a patchset to associate users and groups to VMs; reviewed patches on the mailing list.
+13:08:09 <alinefm> #info alinefm helped pvital addresses all comments on update host patches
+13:08:18 <pvital> #info pvital patch V6 sent last night with all suggestions about Host's repository support
+13:08:32 <pvital> thanks by your help alinefm!!!
+13:08:40 <alinefm> #info alinefm helped danielhb addresses all comments on cdrom management patches
+13:08:45 <alinefm> pvital, yw
+13:08:48 <YuXin> #info YuXin "FC storage pool UI" patch sent, will start to work on add new disk to logical pool
+13:08:59 <danielhb> #info danielhb "Add disk to logical pool" contribution, "cdrom management" contribution (partial help), 1 bug fix
+13:09:07 <shaohef> #info shaohef sent patch "Implement integrity verification"
+13:09:22 <alinefm> #info alinefm fixed build process on ubuntu to properly package help html files
+13:09:30 <pvital> #info pvital sent some bug fixes and some VM templates feature to be used by Power systems
+13:09:59 <alinefm> #info alinefm added a script to generated intex.html file to join all help html pages to build process
+13:10:22 <alinefm> #info alinefm worked in some bug fixes
+13:10:57 <AdamKingIT11> #info AdamKingIT finished guest updates. Rebasing so I can send the patch set, which a little advice from AlineFM
+13:11:10 <AdamKingIT11> #info Starting on UI help integration
+13:11:27 <AdamKingIT11> #info AdamKingIT Starting on UI help integration
+13:12:03 <alinefm> #info lagarcia sent patches for basic authorization (differ root and non-root users)
+13:13:01 <alinefm> #info lagarcia send patches to fix kimchi documentation
+13:13:18 <ming> #info sent out WIP patches for authorization and replied server feedback.
+13:13:46 <alinefm> aoww! a lot of status today =)
+13:14:10 <royce> #info royce is working on attach hard disks -- add ref count to volume, patch to v2
+13:14:51 <alinefm> anything else?
+13:15:31 <alinefm> well, as you can see on wiki page (https://github.com/kimchi-project/kimchi/wiki/Todo-1.2) sprint 3 is almost completed
+13:15:50 <alinefm> just missing one task that I believe will be merged after this meeting
+13:16:15 <alinefm> I'd like to thank you everyone for the hard work
+13:16:33 <alinefm> we had a lot to do on sprint 3 based on sprint 2 failures but we could do all
+13:16:50 <alinefm> it is amazing! =)
+13:16:54 <alinefm> I am very happy with that
+13:18:00 <danielhb> alinefm, you are welcome
+13:18:32 <alinefm> my concerns now are about the UI as all the team members got out together during sprint 3
+13:19:23 <YuXin> will speed up in sprint 4
+13:19:28 <alinefm> YuXin, I think only you are available to discuss it
+13:19:47 <alinefm> YuXin, thanks! and any problem, please let me know
+13:19:52 <YuXin> sure
+13:19:59 <AdamKingIT11> There are 2 patches on the list now.
+13:20:05 <alinefm> I don't have much experience in UI but I think any help is welcome in this time
+13:20:23 <AdamKingIT11> We'll refocus priorities on the key items.
+13:20:25 <alinefm> AdamKingIT1, yes! FC pool is completed - just missing the vm creation part
+13:20:49 <AdamKingIT11> alinefm Your help is always welcome. A good opportunity for more team collaboration
+13:20:51 <pvital> alinefm, AdamKingIT1: I can test and review V2 for package update
+13:21:18 <AdamKingIT11> pvital Thanks!
+13:21:45 <YuXin> will talk to hongliang to get vm creation part to take priority
+13:21:48 <AdamKingIT11> I got a new set of updated help that I will share for review as well
+13:22:07 <alinefm> great!
+13:22:29 <alinefm> glad to know everyone is involved to get the best on kimchi 1.2
+13:22:34 <alinefm> ok - let's move on
+13:22:47 <alinefm> or anyone would like to talk more about sprint 3?
+13:23:33 <alinefm> ok
+13:23:55 <alinefm> #topic Sprint 4 and bug fixes
+13:24:03 <alinefm> now it is time to talk about sprint 4
+13:24:15 <alinefm> but more than that we **need** to focus on bug fixes
+13:24:37 <alinefm> I am seeing a big bug list on github and it is increasing day by day
+13:24:45 <alinefm> seems more people are using and testing kimchi =)
+13:25:26 <alinefm> more than have a lot of feature that does not work well, I'd rather to have few feature that work properly in any system
+13:25:44 <alinefm> which means a lot of tests on all supported distros and all kimchi functionalitites
+13:27:48 <alinefm> https://github.com/kimchi-project/kimchi/issues
+13:27:59 <alinefm> so please take some bugs to work on
+13:28:48 <YuXin> uncompleted sprint 3 content are also moved to sprint 4, right?
+13:29:21 <alinefm> yes, right
+13:29:26 <alinefm> specially the UI ones
+13:29:51 <YuXin> ok
+13:30:09 <YuXin> will try to move both UI contnet and defect fix forward
+13:30:54 <alinefm> YuXin, right, but I think your priority should be UI then bug fix
+13:31:03 <YuXin> got it
+13:31:55 <alinefm> from sprint 4 the tasks: create template from vm, snapshot, disk attach are **low priority** right now
+13:32:19 <alinefm> royce, I see some patches about disk attach on list - I will review and merge them
+13:32:41 <alinefm> royce, but you should focus on bug fixes after it
+13:32:54 <royce> Sure
+13:33:40 <alinefm> then we should complete the firewall config and the integrity tasks
+13:33:59 <alinefm> shaohef, I replied to you RFC yesterday about the integrity
+13:34:07 <alinefm> let me know if you have any doubts about
+13:34:29 <alinefm> there is no one assigned to completed the firewall config
+13:34:35 <alinefm> anyone would like to do it?
+13:34:54 <ming> alinefm, why snaphsot, disk attach are low prority?
+13:35:01 <shaohef> alinefm: I will send the whole patch this night.
+13:35:29 <alinefm> shaohef, thanks
+13:36:03 <alinefm> ming, because we have a huge bug lits to fix for 1.2 release
+13:36:23 <alinefm> we can not do both - so focus on bug fixes
+13:37:12 <ming> for the bug lists, I think we need to know why bugs number surges.  We need take action to improve the code quality.
+13:37:45 <AdamKingIT11> If you look at the issues, I'd say its more of a steady buildup than a surge
+13:37:48 <alinefm> ming, the number of bugs increased because there are more people testing it
+13:38:24 <ming> Some bugs are time consuming though it is very small.  If we can eliminate them before we integrate the code, we can save much time.
+13:38:31 <AdamKingIT11> there are some new names inthe bug reporting list, which is great!
+13:38:49 <pvital> ming, I don;t think you have poor code quality. with the revisions we get all the time, taht's impossible
+13:39:09 <shaohef> ming:  I think some change about refacor. It will need more tests.
+13:39:10 <pvital> the problem is what alinefm said! there're more and more people using Kimchi
+13:40:15 <ming> Anyway, code quality is very important.
+13:40:44 <ming> It save times to fix the bug in developing cycle than in release cycle.
+13:40:53 <pvital> again, with the quality of revisions we get, that's not the hugest Kimchi's problem!
+13:41:02 <AdamKingIT11> Undeniable.
+13:41:10 <AdamKingIT11> I am also in favor of apple pie
+13:41:25 <alinefm> alright! I think everyone got the message
+13:41:27 <alinefm> =)
+13:41:51 <AdamKingIT11> We have other topics?
+13:42:08 <alinefm> one more important thing: why do we have bugs? because we are missing tests SO when sending a bug fix patch PLEASE also send a test case for it
+13:42:29 <alinefm> most (to don't say all) kimchi functionalities must have a test for each
+13:42:40 <alinefm> that way we avoid regression and so
+13:43:07 <alinefm> right?
+13:43:24 <pvital> half-true alinefm
+13:43:29 <pvital> for example
+13:43:42 <royce> About that, can we set up real test instead of model test and rest test? Some functions cannot be covered
+13:44:11 <pvital> if you do a make install, you get problems with debugreports download and screenshots paths
+13:44:18 <pvital> this is covered by the tests
+13:44:20 <royce> for example nfs pool, iscsi pool, etc
+13:44:54 <pvital> I mean, the tests are correct (all paths are ok), but in the real server (production) it's not
+13:44:58 <alinefm> good point, pvital! we also need to test kimchi installed on system
+13:45:19 <alinefm> royce, yeap! I don't know how we can test those features
+13:46:07 <alinefm> royce, in those cases we can test the xml generated
+13:46:16 <alinefm> maybe it is not enough but it is something
+13:46:45 <royce> Yeah, in vdsm we introduce functional test for those
+13:46:51 <ming> I agree manual test is needed.
+13:47:17 <royce> also UI automate test are possible I think
+13:47:21 <AdamKingIT11> maybe we have some automated tests that only get run in a functional env w/ the supporting hardware
+13:47:51 <AdamKingIT11> I found a team using Zombie, which I'd like to try
+13:48:17 <AdamKingIT11> after we fix some of the UI. Little sense in validating that it looks the way we don't want it to look
+13:49:07 <AdamKingIT11> Zombie for UI automation that is
+13:49:18 <AdamKingIT11> sorry, that was ambiguous before.
+13:49:38 <alinefm> yes - we also need it
+13:49:48 <ming> AdamKingIT11, does Zombie can emulate user's action on UI, like mouse, key board emulation on the UI?
+13:49:55 <alinefm> but I don't want to setup a new test framework right now
+13:50:12 <alinefm> it will take some time to do which we don't have now
+13:50:26 <AdamKingIT11> as I understand, yes. I haven't tried it myself yet though
+13:50:41 <AdamKingIT11> Lets put it on the 1.3 list
+13:50:59 <alinefm> thanks
+13:51:30 <alinefm> royce, how vdsm do functional tests for the cases you pointed?
+13:51:58 <alinefm> royce, does need a new framework or we can do them in our python scripts?
+13:52:46 <royce> It send xmlrpc request, we don't need a new framework, just as we did for rest test, but we setup some storage before running test and then destroy it
+13:53:27 <royce> Test cases need to be added, some infrastructure setup and destroy are tricky
+13:54:08 <alinefm> royce, ok
+13:54:13 <alinefm> so let's do the simple
+13:55:17 <alinefm> when we can do the infrastructure  setup quickly we add it to test case
+13:55:29 <alinefm> otherwise, we keep doing as we did on tests
+13:56:20 <royce> Can we move to open discussion now? alinefm, I want to discuss cdrom update implementation
+13:56:28 <alinefm> sure =)
+13:56:35 <alinefm> #topic Open Discussion
+13:56:40 <alinefm> royce, go ahead
+13:57:14 <royce> I found the cdrom path update is emulated by delete device then add updated device configuration which requires vm shutoff
+13:57:18 <ming> I think we need to setup a standard test environment including storage pool, hosts within one test physical host.
+13:57:33 <royce> actually it emulates change-media operation
+13:57:43 <royce> it should emulate
+13:57:48 <ming> nested virtualization is a good option to setup such a environment.
+13:58:33 <royce> change media works when vm is running and cdrom device unchanged, just media in it changes
+13:59:28 <ming> We can save the VM images including storage server VM image, Kimchi host image somewhere and others can download them for test.
+14:00:01 <alinefm> royce, do you we can just update the cdrom path in the xml>
+14:00:09 <alinefm> instead of remove/add new cdrom xml
+14:00:12 <royce> ming, we can try that sandbox model
+14:00:18 <alinefm> and this operation can be done on running VMs
+14:00:19 <alinefm> ?
+14:00:25 <alinefm> royce, is that?
+14:00:28 <royce> true, alinefm
+14:00:43 <royce> there is a dedicate libvirt api for it
+14:01:04 <royce> updatedeviceflags--if I remebered right
+14:01:05 <alinefm> royce, please, send a patch for it =)
+14:01:12 <royce> sure, alinefm
+14:01:23 <royce> and another thing is
+14:01:36 <royce> for hard disk--do we need to update path?
+14:01:45 <royce> what field do we want to update
+14:02:06 <alinefm> royce, thinking...
+14:02:22 <royce> I saw virt-manager updated cachemode/iomode/readonly
+14:02:35 <royce> we can also update like iotune
+14:02:37 <alinefm> royce, I don't think we need to update path for disk
+14:02:51 <royce> yeah, agree
+14:02:55 <alinefm> at least I can figure out a reasonable user case for it
+14:03:10 <royce> me neither
+14:03:58 <alinefm> ok
+14:04:02 <alinefm> any other topic?
+14:04:10 <royce> All for me
+14:05:20 <alinefm> ok - so we have finished for today
+14:05:27 <alinefm> thank you for joining
+14:05:36 <alinefm> #endmeeting

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb 19 13:04:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:05:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Sprint 3 status 2) Sprint 4 and bug fixes 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:05:39</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:06:06</span><span class="nk"> &lt;royce&gt;</span> Good for me
+<a name="l-9"></a><span class="tm">13:07:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 3 status</span>
+<a name="l-10"></a><span class="tm">13:07:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:08:08</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent final patcheset about DITA help pages; sent a patch fixing long names not shown in Storage Pool and Network tabs; worked on a patchset to associate users and groups to VMs; reviewed patches on the mailing list.</span>
+<a name="l-12"></a><span class="tm">13:08:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm helped pvital addresses all comments on update host patches</span>
+<a name="l-13"></a><span class="tm">13:08:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital patch V6 sent last night with all suggestions about Host's repository support</span>
+<a name="l-14"></a><span class="tm">13:08:32</span><span class="nk"> &lt;pvital&gt;</span> thanks by your help alinefm!!!
+<a name="l-15"></a><span class="tm">13:08:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm helped danielhb addresses all comments on cdrom management patches</span>
+<a name="l-16"></a><span class="tm">13:08:45</span><span class="nk"> &lt;alinefm&gt;</span> pvital, yw
+<a name="l-17"></a><span class="tm">13:08:48</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin "FC storage pool UI" patch sent, will start to work on add new disk to logical pool</span>
+<a name="l-18"></a><span class="tm">13:08:59</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb "Add disk to logical pool" contribution, "cdrom management" contribution (partial help), 1 bug fix</span>
+<a name="l-19"></a><span class="tm">13:09:07</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef sent patch "Implement integrity verification"</span>
+<a name="l-20"></a><span class="tm">13:09:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed build process on ubuntu to properly package help html files</span>
+<a name="l-21"></a><span class="tm">13:09:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent some bug fixes and some VM templates feature to be used by Power systems</span>
+<a name="l-22"></a><span class="tm">13:09:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm added a script to generated intex.html file to join all help html pages to build process</span>
+<a name="l-23"></a><span class="tm">13:10:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm worked in some bug fixes</span>
+<a name="l-24"></a><span class="tm">13:10:57</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">AdamKingIT finished guest updates. Rebasing so I can send the patch set, which a little advice from AlineFM</span>
+<a name="l-25"></a><span class="tm">13:11:10</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">Starting on UI help integration</span>
+<a name="l-26"></a><span class="tm">13:11:27</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">AdamKingIT Starting on UI help integration</span>
+<a name="l-27"></a><span class="tm">13:12:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia sent patches for basic authorization (differ root and non-root users)</span>
+<a name="l-28"></a><span class="tm">13:13:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia send patches to fix kimchi documentation</span>
+<a name="l-29"></a><span class="tm">13:13:18</span><span class="nk"> &lt;ming&gt;</span> <span class="cmd">#info </span><span class="cmdline">sent out WIP patches for authorization and replied server feedback.</span>
+<a name="l-30"></a><span class="tm">13:13:46</span><span class="nk"> &lt;alinefm&gt;</span> aoww! a lot of status today =)
+<a name="l-31"></a><span class="tm">13:14:10</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is working on attach hard disks -- add ref count to volume, patch to v2</span>
+<a name="l-32"></a><span class="tm">13:14:51</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-33"></a><span class="tm">13:15:31</span><span class="nk"> &lt;alinefm&gt;</span> well, as you can see on wiki page (https://github.com/kimchi-project/kimchi/wiki/Todo-1.2) sprint 3 is almost completed
+<a name="l-34"></a><span class="tm">13:15:50</span><span class="nk"> &lt;alinefm&gt;</span> just missing one task that I believe will be merged after this meeting
+<a name="l-35"></a><span class="tm">13:16:15</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to thank you everyone for the hard work
+<a name="l-36"></a><span class="tm">13:16:33</span><span class="nk"> &lt;alinefm&gt;</span> we had a lot to do on sprint 3 based on sprint 2 failures but we could do all
+<a name="l-37"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> it is amazing! =)
+<a name="l-38"></a><span class="tm">13:16:54</span><span class="nk"> &lt;alinefm&gt;</span> I am very happy with that
+<a name="l-39"></a><span class="tm">13:18:00</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, you are welcome
+<a name="l-40"></a><span class="tm">13:18:32</span><span class="nk"> &lt;alinefm&gt;</span> my concerns now are about the UI as all the team members got out together during sprint 3
+<a name="l-41"></a><span class="tm">13:19:23</span><span class="nk"> &lt;YuXin&gt;</span> will speed up in sprint 4
+<a name="l-42"></a><span class="tm">13:19:28</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think only you are available to discuss it
+<a name="l-43"></a><span class="tm">13:19:47</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, thanks! and any problem, please let me know
+<a name="l-44"></a><span class="tm">13:19:52</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-45"></a><span class="tm">13:19:59</span><span class="nk"> &lt;AdamKingIT11&gt;</span> There are 2 patches on the list now.
+<a name="l-46"></a><span class="tm">13:20:05</span><span class="nk"> &lt;alinefm&gt;</span> I don't have much experience in UI but I think any help is welcome in this time
+<a name="l-47"></a><span class="tm">13:20:23</span><span class="nk"> &lt;AdamKingIT11&gt;</span> We'll refocus priorities on the key items.
+<a name="l-48"></a><span class="tm">13:20:25</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, yes! FC pool is completed - just missing the vm creation part
+<a name="l-49"></a><span class="tm">13:20:49</span><span class="nk"> &lt;AdamKingIT11&gt;</span> alinefm Your help is always welcome. A good opportunity for more team collaboration
+<a name="l-50"></a><span class="tm">13:20:51</span><span class="nk"> &lt;pvital&gt;</span> alinefm, AdamKingIT1: I can test and review V2 for package update
+<a name="l-51"></a><span class="tm">13:21:18</span><span class="nk"> &lt;AdamKingIT11&gt;</span> pvital Thanks!
+<a name="l-52"></a><span class="tm">13:21:45</span><span class="nk"> &lt;YuXin&gt;</span> will talk to hongliang to get vm creation part to take priority
+<a name="l-53"></a><span class="tm">13:21:48</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I got a new set of updated help that I will share for review as well
+<a name="l-54"></a><span class="tm">13:22:07</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-55"></a><span class="tm">13:22:29</span><span class="nk"> &lt;alinefm&gt;</span> glad to know everyone is involved to get the best on kimchi 1.2
+<a name="l-56"></a><span class="tm">13:22:34</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's move on
+<a name="l-57"></a><span class="tm">13:22:47</span><span class="nk"> &lt;alinefm&gt;</span> or anyone would like to talk more about sprint 3?
+<a name="l-58"></a><span class="tm">13:23:33</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-59"></a><span class="tm">13:23:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Sprint 4 and bug fixes</span>
+<a name="l-60"></a><span class="tm">13:24:03</span><span class="nk"> &lt;alinefm&gt;</span> now it is time to talk about sprint 4
+<a name="l-61"></a><span class="tm">13:24:15</span><span class="nk"> &lt;alinefm&gt;</span> but more than that we **need** to focus on bug fixes
+<a name="l-62"></a><span class="tm">13:24:37</span><span class="nk"> &lt;alinefm&gt;</span> I am seeing a big bug list on github and it is increasing day by day
+<a name="l-63"></a><span class="tm">13:24:45</span><span class="nk"> &lt;alinefm&gt;</span> seems more people are using and testing kimchi =)
+<a name="l-64"></a><span class="tm">13:25:26</span><span class="nk"> &lt;alinefm&gt;</span> more than have a lot of feature that does not work well, I'd rather to have few feature that work properly in any system
+<a name="l-65"></a><span class="tm">13:25:44</span><span class="nk"> &lt;alinefm&gt;</span> which means a lot of tests on all supported distros and all kimchi functionalitites
+<a name="l-66"></a><span class="tm">13:27:48</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues
+<a name="l-67"></a><span class="tm">13:27:59</span><span class="nk"> &lt;alinefm&gt;</span> so please take some bugs to work on
+<a name="l-68"></a><span class="tm">13:28:48</span><span class="nk"> &lt;YuXin&gt;</span> uncompleted sprint 3 content are also moved to sprint 4, right?
+<a name="l-69"></a><span class="tm">13:29:21</span><span class="nk"> &lt;alinefm&gt;</span> yes, right
+<a name="l-70"></a><span class="tm">13:29:26</span><span class="nk"> &lt;alinefm&gt;</span> specially the UI ones
+<a name="l-71"></a><span class="tm">13:29:51</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-72"></a><span class="tm">13:30:09</span><span class="nk"> &lt;YuXin&gt;</span> will try to move both UI contnet and defect fix forward
+<a name="l-73"></a><span class="tm">13:30:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, right, but I think your priority should be UI then bug fix
+<a name="l-74"></a><span class="tm">13:31:03</span><span class="nk"> &lt;YuXin&gt;</span> got it
+<a name="l-75"></a><span class="tm">13:31:55</span><span class="nk"> &lt;alinefm&gt;</span> from sprint 4 the tasks: create template from vm, snapshot, disk attach are **low priority** right now
+<a name="l-76"></a><span class="tm">13:32:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, I see some patches about disk attach on list - I will review and merge them
+<a name="l-77"></a><span class="tm">13:32:41</span><span class="nk"> &lt;alinefm&gt;</span> royce, but you should focus on bug fixes after it
+<a name="l-78"></a><span class="tm">13:32:54</span><span class="nk"> &lt;royce&gt;</span> Sure
+<a name="l-79"></a><span class="tm">13:33:40</span><span class="nk"> &lt;alinefm&gt;</span> then we should complete the firewall config and the integrity tasks
+<a name="l-80"></a><span class="tm">13:33:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I replied to you RFC yesterday about the integrity
+<a name="l-81"></a><span class="tm">13:34:07</span><span class="nk"> &lt;alinefm&gt;</span> let me know if you have any doubts about
+<a name="l-82"></a><span class="tm">13:34:29</span><span class="nk"> &lt;alinefm&gt;</span> there is no one assigned to completed the firewall config
+<a name="l-83"></a><span class="tm">13:34:35</span><span class="nk"> &lt;alinefm&gt;</span> anyone would like to do it?
+<a name="l-84"></a><span class="tm">13:34:54</span><span class="nk"> &lt;ming&gt;</span> alinefm, why snaphsot, disk attach are low prority?
+<a name="l-85"></a><span class="tm">13:35:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I will send the whole patch this night.
+<a name="l-86"></a><span class="tm">13:35:29</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, thanks
+<a name="l-87"></a><span class="tm">13:36:03</span><span class="nk"> &lt;alinefm&gt;</span> ming, because we have a huge bug lits to fix for 1.2 release
+<a name="l-88"></a><span class="tm">13:36:23</span><span class="nk"> &lt;alinefm&gt;</span> we can not do both - so focus on bug fixes
+<a name="l-89"></a><span class="tm">13:37:12</span><span class="nk"> &lt;ming&gt;</span> for the bug lists, I think we need to know why bugs number surges.  We need take action to improve the code quality.
+<a name="l-90"></a><span class="tm">13:37:45</span><span class="nk"> &lt;AdamKingIT11&gt;</span> If you look at the issues, I'd say its more of a steady buildup than a surge
+<a name="l-91"></a><span class="tm">13:37:48</span><span class="nk"> &lt;alinefm&gt;</span> ming, the number of bugs increased because there are more people testing it
+<a name="l-92"></a><span class="tm">13:38:24</span><span class="nk"> &lt;ming&gt;</span> Some bugs are time consuming though it is very small.  If we can eliminate them before we integrate the code, we can save much time.
+<a name="l-93"></a><span class="tm">13:38:31</span><span class="nk"> &lt;AdamKingIT11&gt;</span> there are some new names inthe bug reporting list, which is great!
+<a name="l-94"></a><span class="tm">13:38:49</span><span class="nk"> &lt;pvital&gt;</span> ming, I don;t think you have poor code quality. with the revisions we get all the time, taht's impossible
+<a name="l-95"></a><span class="tm">13:39:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">ming:</span>  I think some change about refacor. It will need more tests.
+<a name="l-96"></a><span class="tm">13:39:10</span><span class="nk"> &lt;pvital&gt;</span> the problem is what alinefm said! there're more and more people using Kimchi
+<a name="l-97"></a><span class="tm">13:40:15</span><span class="nk"> &lt;ming&gt;</span> Anyway, code quality is very important.
+<a name="l-98"></a><span class="tm">13:40:44</span><span class="nk"> &lt;ming&gt;</span> It save times to fix the bug in developing cycle than in release cycle.
+<a name="l-99"></a><span class="tm">13:40:53</span><span class="nk"> &lt;pvital&gt;</span> again, with the quality of revisions we get, that's not the hugest Kimchi's problem!
+<a name="l-100"></a><span class="tm">13:41:02</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Undeniable.
+<a name="l-101"></a><span class="tm">13:41:10</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I am also in favor of apple pie
+<a name="l-102"></a><span class="tm">13:41:25</span><span class="nk"> &lt;alinefm&gt;</span> alright! I think everyone got the message
+<a name="l-103"></a><span class="tm">13:41:27</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-104"></a><span class="tm">13:41:51</span><span class="nk"> &lt;AdamKingIT11&gt;</span> We have other topics?
+<a name="l-105"></a><span class="tm">13:42:08</span><span class="nk"> &lt;alinefm&gt;</span> one more important thing: why do we have bugs? because we are missing tests SO when sending a bug fix patch PLEASE also send a test case for it
+<a name="l-106"></a><span class="tm">13:42:29</span><span class="nk"> &lt;alinefm&gt;</span> most (to don't say all) kimchi functionalities must have a test for each
+<a name="l-107"></a><span class="tm">13:42:40</span><span class="nk"> &lt;alinefm&gt;</span> that way we avoid regression and so
+<a name="l-108"></a><span class="tm">13:43:07</span><span class="nk"> &lt;alinefm&gt;</span> right?
+<a name="l-109"></a><span class="tm">13:43:24</span><span class="nk"> &lt;pvital&gt;</span> half-true alinefm
+<a name="l-110"></a><span class="tm">13:43:29</span><span class="nk"> &lt;pvital&gt;</span> for example
+<a name="l-111"></a><span class="tm">13:43:42</span><span class="nk"> &lt;royce&gt;</span> About that, can we set up real test instead of model test and rest test? Some functions cannot be covered
+<a name="l-112"></a><span class="tm">13:44:11</span><span class="nk"> &lt;pvital&gt;</span> if you do a make install, you get problems with debugreports download and screenshots paths
+<a name="l-113"></a><span class="tm">13:44:18</span><span class="nk"> &lt;pvital&gt;</span> this is covered by the tests
+<a name="l-114"></a><span class="tm">13:44:20</span><span class="nk"> &lt;royce&gt;</span> for example nfs pool, iscsi pool, etc
+<a name="l-115"></a><span class="tm">13:44:54</span><span class="nk"> &lt;pvital&gt;</span> I mean, the tests are correct (all paths are ok), but in the real server (production) it's not
+<a name="l-116"></a><span class="tm">13:44:58</span><span class="nk"> &lt;alinefm&gt;</span> good point, pvital! we also need to test kimchi installed on system
+<a name="l-117"></a><span class="tm">13:45:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap! I don't know how we can test those features
+<a name="l-118"></a><span class="tm">13:46:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, in those cases we can test the xml generated
+<a name="l-119"></a><span class="tm">13:46:16</span><span class="nk"> &lt;alinefm&gt;</span> maybe it is not enough but it is something
+<a name="l-120"></a><span class="tm">13:46:45</span><span class="nk"> &lt;royce&gt;</span> Yeah, in vdsm we introduce functional test for those
+<a name="l-121"></a><span class="tm">13:46:51</span><span class="nk"> &lt;ming&gt;</span> I agree manual test is needed.
+<a name="l-122"></a><span class="tm">13:47:17</span><span class="nk"> &lt;royce&gt;</span> also UI automate test are possible I think
+<a name="l-123"></a><span class="tm">13:47:21</span><span class="nk"> &lt;AdamKingIT11&gt;</span> maybe we have some automated tests that only get run in a functional env w/ the supporting hardware
+<a name="l-124"></a><span class="tm">13:47:51</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I found a team using Zombie, which I'd like to try
+<a name="l-125"></a><span class="tm">13:48:17</span><span class="nk"> &lt;AdamKingIT11&gt;</span> after we fix some of the UI. Little sense in validating that it looks the way we don't want it to look
+<a name="l-126"></a><span class="tm">13:49:07</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Zombie for UI automation that is
+<a name="l-127"></a><span class="tm">13:49:18</span><span class="nk"> &lt;AdamKingIT11&gt;</span> sorry, that was ambiguous before.
+<a name="l-128"></a><span class="tm">13:49:38</span><span class="nk"> &lt;alinefm&gt;</span> yes - we also need it
+<a name="l-129"></a><span class="tm">13:49:48</span><span class="nk"> &lt;ming&gt;</span> AdamKingIT11, does Zombie can emulate user's action on UI, like mouse, key board emulation on the UI?
+<a name="l-130"></a><span class="tm">13:49:55</span><span class="nk"> &lt;alinefm&gt;</span> but I don't want to setup a new test framework right now
+<a name="l-131"></a><span class="tm">13:50:12</span><span class="nk"> &lt;alinefm&gt;</span> it will take some time to do which we don't have now
+<a name="l-132"></a><span class="tm">13:50:26</span><span class="nk"> &lt;AdamKingIT11&gt;</span> as I understand, yes. I haven't tried it myself yet though
+<a name="l-133"></a><span class="tm">13:50:41</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Lets put it on the 1.3 list
+<a name="l-134"></a><span class="tm">13:50:59</span><span class="nk"> &lt;alinefm&gt;</span> thanks
+<a name="l-135"></a><span class="tm">13:51:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, how vdsm do functional tests for the cases you pointed?
+<a name="l-136"></a><span class="tm">13:51:58</span><span class="nk"> &lt;alinefm&gt;</span> royce, does need a new framework or we can do them in our python scripts?
+<a name="l-137"></a><span class="tm">13:52:46</span><span class="nk"> &lt;royce&gt;</span> It send xmlrpc request, we don't need a new framework, just as we did for rest test, but we setup some storage before running test and then destroy it
+<a name="l-138"></a><span class="tm">13:53:27</span><span class="nk"> &lt;royce&gt;</span> Test cases need to be added, some infrastructure setup and destroy are tricky
+<a name="l-139"></a><span class="tm">13:54:08</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok
+<a name="l-140"></a><span class="tm">13:54:13</span><span class="nk"> &lt;alinefm&gt;</span> so let's do the simple
+<a name="l-141"></a><span class="tm">13:55:17</span><span class="nk"> &lt;alinefm&gt;</span> when we can do the infrastructure  setup quickly we add it to test case
+<a name="l-142"></a><span class="tm">13:55:29</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, we keep doing as we did on tests
+<a name="l-143"></a><span class="tm">13:56:20</span><span class="nk"> &lt;royce&gt;</span> Can we move to open discussion now? alinefm, I want to discuss cdrom update implementation
+<a name="l-144"></a><span class="tm">13:56:28</span><span class="nk"> &lt;alinefm&gt;</span> sure =)
+<a name="l-145"></a><span class="tm">13:56:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-146"></a><span class="tm">13:56:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, go ahead
+<a name="l-147"></a><span class="tm">13:57:14</span><span class="nk"> &lt;royce&gt;</span> I found the cdrom path update is emulated by delete device then add updated device configuration which requires vm shutoff
+<a name="l-148"></a><span class="tm">13:57:18</span><span class="nk"> &lt;ming&gt;</span> I think we need to setup a standard test environment including storage pool, hosts within one test physical host.
+<a name="l-149"></a><span class="tm">13:57:33</span><span class="nk"> &lt;royce&gt;</span> actually it emulates change-media operation
+<a name="l-150"></a><span class="tm">13:57:43</span><span class="nk"> &lt;royce&gt;</span> it should emulate
+<a name="l-151"></a><span class="tm">13:57:48</span><span class="nk"> &lt;ming&gt;</span> nested virtualization is a good option to setup such a environment.
+<a name="l-152"></a><span class="tm">13:58:33</span><span class="nk"> &lt;royce&gt;</span> change media works when vm is running and cdrom device unchanged, just media in it changes
+<a name="l-153"></a><span class="tm">13:59:28</span><span class="nk"> &lt;ming&gt;</span> We can save the VM images including storage server VM image, Kimchi host image somewhere and others can download them for test.
+<a name="l-154"></a><span class="tm">14:00:01</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you we can just update the cdrom path in the xml&gt;
+<a name="l-155"></a><span class="tm">14:00:09</span><span class="nk"> &lt;alinefm&gt;</span> instead of remove/add new cdrom xml
+<a name="l-156"></a><span class="tm">14:00:12</span><span class="nk"> &lt;royce&gt;</span> ming, we can try that sandbox model
+<a name="l-157"></a><span class="tm">14:00:18</span><span class="nk"> &lt;alinefm&gt;</span> and this operation can be done on running VMs
+<a name="l-158"></a><span class="tm">14:00:19</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-159"></a><span class="tm">14:00:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, is that?
+<a name="l-160"></a><span class="tm">14:00:28</span><span class="nk"> &lt;royce&gt;</span> true, alinefm
+<a name="l-161"></a><span class="tm">14:00:43</span><span class="nk"> &lt;royce&gt;</span> there is a dedicate libvirt api for it
+<a name="l-162"></a><span class="tm">14:01:04</span><span class="nk"> &lt;royce&gt;</span> updatedeviceflags--if I remebered right
+<a name="l-163"></a><span class="tm">14:01:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, please, send a patch for it =)
+<a name="l-164"></a><span class="tm">14:01:12</span><span class="nk"> &lt;royce&gt;</span> sure, alinefm
+<a name="l-165"></a><span class="tm">14:01:23</span><span class="nk"> &lt;royce&gt;</span> and another thing is
+<a name="l-166"></a><span class="tm">14:01:36</span><span class="nk"> &lt;royce&gt;</span> for hard disk--do we need to update path?
+<a name="l-167"></a><span class="tm">14:01:45</span><span class="nk"> &lt;royce&gt;</span> what field do we want to update
+<a name="l-168"></a><span class="tm">14:02:06</span><span class="nk"> &lt;alinefm&gt;</span> royce, thinking...
+<a name="l-169"></a><span class="tm">14:02:22</span><span class="nk"> &lt;royce&gt;</span> I saw virt-manager updated cachemode/iomode/readonly
+<a name="l-170"></a><span class="tm">14:02:35</span><span class="nk"> &lt;royce&gt;</span> we can also update like iotune
+<a name="l-171"></a><span class="tm">14:02:37</span><span class="nk"> &lt;alinefm&gt;</span> royce, I don't think we need to update path for disk
+<a name="l-172"></a><span class="tm">14:02:51</span><span class="nk"> &lt;royce&gt;</span> yeah, agree
+<a name="l-173"></a><span class="tm">14:02:55</span><span class="nk"> &lt;alinefm&gt;</span> at least I can figure out a reasonable user case for it
+<a name="l-174"></a><span class="tm">14:03:10</span><span class="nk"> &lt;royce&gt;</span> me neither
+<a name="l-175"></a><span class="tm">14:03:58</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-176"></a><span class="tm">14:04:02</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-177"></a><span class="tm">14:04:10</span><span class="nk"> &lt;royce&gt;</span> All for me
+<a name="l-178"></a><span class="tm">14:05:20</span><span class="nk"> &lt;alinefm&gt;</span> ok - so we have finished for today
+<a name="l-179"></a><span class="tm">14:05:27</span><span class="nk"> &lt;alinefm&gt;</span> thank you for joining
+<a name="l-180"></a><span class="tm">14:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
