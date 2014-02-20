@@ -50,7 +50,7 @@ BuildRequires: systemd-units
 %endif
 
 %description
-Web server application application to manage KVM/Qemu virtual machines
+Web server application to manage KVM/Qemu virtual machines
 
 
 %prep
