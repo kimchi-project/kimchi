@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-14 16:23-0200\n"
+"POT-Creation-Date: 2014-02-20 15:26-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -631,6 +631,9 @@ msgstr ""
 msgid "Specify %(item)s to login into Kimchi"
 msgstr ""
 
+msgid "This operation is not allowed as you have restricted access to Kimchi."
+msgstr ""
+
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
 msgstr ""
@@ -684,7 +687,8 @@ msgstr ""
 msgid "Bad format while reading volume descriptor in ISO %(filename)s"
 msgstr ""
 
-msgid "Virtual machine $(name)s already exists"
+#, python-format
+msgid "Virtual machine %(name)s already exists"
 msgstr ""
 
 #, python-format
@@ -1061,6 +1065,18 @@ msgid "Specify name and type to create a Network"
 msgstr ""
 
 #, python-format
+msgid ""
+"Unable to delete network %(name)s. There are still some VMs linked to this "
+"network."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to deactivate network %(name)s. There are some VMs running linked to "
+"this network."
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr ""
 
@@ -1167,4 +1183,67 @@ msgid "Error while removing storage device: %(error)s"
 msgstr ""
 
 msgid "Do not support guest CDROM hot plug attachment"
+msgstr ""
+
+msgid "Repository ID must be one word only string."
+msgstr ""
+
+msgid "Repository URL must be an http://, ftp:// or file:// URL."
+msgstr ""
+
+msgid "Repository URL arguments must be string."
+msgstr ""
+
+msgid "GPG key must be a URL pointing to the ASCII-armored file."
+msgstr ""
+
+msgid "Repository name must be string."
+msgstr ""
+
+#, python-format
+msgid "Repository %(repo_id)s already exists."
+msgstr ""
+
+#, python-format
+msgid "Could not enable repository %(repo_id)s."
+msgstr ""
+
+#, python-format
+msgid "Could not disable repository %(repo_id)s."
+msgstr ""
+
+#, python-format
+msgid "Could not update repository %(repo_id)s."
+msgstr ""
+
+#, python-format
+msgid "Repository %(repo_id)s does not exists."
+msgstr ""
+
+#, python-format
+msgid "There is no disabled repository called %(repo_id)s."
+msgstr ""
+
+#, python-format
+msgid "There is no enabled repository called %(repo_id)s."
+msgstr ""
+
+msgid "There are no parameters to update repository."
+msgstr ""
+
+msgid "OS distro not supported."
+msgstr ""
+
+msgid "There is no YUM configuration directory."
+msgstr ""
+
+msgid "There are no parameters to create a new repo file."
+msgstr ""
+
+#, python-format
+msgid "Could not write repo file %(repo_file)s"
+msgstr ""
+
+#, python-format
+msgid "Could not remove repository %(repo_id)s."
 msgstr ""

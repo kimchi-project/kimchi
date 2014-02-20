@@ -39,6 +39,7 @@ messages = {
     "KCHAUTH0001E": _("Authentication failed for user '%(userid)s'. [Error code: %(code)s]"),
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
     "KCHAUTH0003E": _("Specify %(item)s to login into Kimchi"),
+    "KCHAUTH0004E": _("This operation is not allowed as you have restricted access to Kimchi."),
 
     "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
     "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),

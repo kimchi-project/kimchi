@@ -197,10 +197,16 @@ def has_permission(admin_methods):
 
 def kimchiauth(admin_methods=None):
     debug("Entering kimchiauth...")
-    if check_auth_session() and has_permission(admin_methods):
+    if check_auth_session():
+        if not has_permission(admin_methods):
+            e = InvalidOperation('KCHAUTH0004E')
+            raise cherrypy.HTTPError(403)
         return
 
-    if check_auth_httpba() and has_permission(admin_methods):
+    if check_auth_httpba():
+        if not has_permission(admin_methods):
+            e = InvalidOperation('KCHAUTH0004E')
+            raise cherrypy.HTTPError(403)
         return
 
     if not from_browser():

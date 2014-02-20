@@ -71,35 +71,35 @@ class AuthorizationTests(unittest.TestCase):
 
         # Non-root users can not reboot/shutdown host system
         resp = self.request('/host/reboot', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/host/shutdown', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can not get or debug reports
         resp = self.request('/debugreports', '{}', 'GET')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/debugreports', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can not create or delete network (only get)
         resp = self.request('/networks', '{}', 'GET')
         self.assertEquals(200, resp.status)
         resp = self.request('/networks', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/networks/default/activate', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/networks/default', '{}', 'DELETE')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can not create or delete storage pool (only get)
         resp = self.request('/storagepools', '{}', 'GET')
         self.assertEquals(200, resp.status)
         resp = self.request('/storagepools', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/storagepools/default/activate', '{}', 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/storagepools/default', '{}', 'DELETE')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can not update or delete a template
         # but he can get and create a new one
@@ -109,16 +109,16 @@ class AuthorizationTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
         resp = self.request('/templates/test', '{}', 'PUT')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/templates/test', '{}', 'DELETE')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can only get vms
         resp = self.request('/vms', '{}', 'GET')
         self.assertEquals(200, resp.status)
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/vms', '{}', 'PUT')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/vms', '{}', 'DELETE')
-        self.assertEquals(401, resp.status)
+        self.assertEquals(403, resp.status)
