@@ -17,8 +17,10 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc.
+# 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301  USA
 
 import cherrypy
 import copy
@@ -41,7 +43,6 @@ except ImportError:
     import ImageDraw
 
 
-
 from kimchi import config
 from kimchi.asynctask import AsyncTask
 from kimchi.config import config as kconfig
@@ -53,7 +54,8 @@ from kimchi.model.utils import get_vm_name
 from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import pool_name_from_uri, run_command, template_name_from_uri
+from kimchi.utils import pool_name_from_uri, run_command
+from kimchi.utils import template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -64,7 +66,8 @@ class MockModel(object):
         self.distros = self._get_distros()
 
     def capabilities_lookup(self, *ident):
-        return {'libvirt_stream_protocols': ['http', 'https', 'ftp', 'ftps', 'tftp'],
+        return {'libvirt_stream_protocols':
+                ['http', 'https', 'ftp', 'ftps', 'tftp'],
                 'qemu_stream': True,
                 'screenshot': True,
                 'system_report_tool': True}
@@ -135,8 +138,7 @@ class MockModel(object):
 
     def vms_create(self, params):
         t_name = template_name_from_uri(params['template'])
-        name = get_vm_name(params.get('name'), t_name,
-                                      self._mock_vms.keys())
+        name = get_vm_name(params.get('name'), t_name, self._mock_vms.keys())
         if name in self._mock_vms:
             raise InvalidOperation("KCHVM0001E", {'name': name})
 
@@ -350,15 +352,16 @@ class MockModel(object):
                 pool.info['source'] = params['source']
                 if not pool.info['source'].get('adapter_name'):
                     raise MissingParameter('KCHPOOL0004E',
-                              {'item': 'adapter_name', 'name': name})
-                for vol in ['unit:0:0:1','unit:0:0:2',
-                            'unit:0:0:3','unit:0:0:4']:
+                                           {'item': 'adapter_name',
+                                            'name': name})
+                for vol in ['unit:0:0:1', 'unit:0:0:2',
+                            'unit:0:0:3', 'unit:0:0:4']:
                     mockvol = MockStorageVolume(name, vol,
-                                                dict([('type','lun')]))
+                                                dict([('type', 'lun')]))
                     pool._volumes[vol] = mockvol
             else:
                 pool.info['path'] = params['path']
-            if params['type'] in ['dir','scsi']:
+            if params['type'] in ['dir', 'scsi']:
                 pool.info['autostart'] = True
             else:
                 pool.info['autostart'] = False
@@ -436,7 +439,7 @@ class MockModel(object):
     def storagevolume_lookup(self, pool, name):
         if self._get_storagepool(pool).info['state'] != 'active':
             raise InvalidOperation("KCHVOL0005E", {'pool': pool,
-                                                         'volume': name})
+                                   'volume': name})
 
         storagevolume = self._get_storagevolume(pool, name)
         return storagevolume.info
@@ -461,7 +464,7 @@ class MockModel(object):
         return res._volumes.keys()
 
     def devices_get_list(self, _cap=None):
-        return ['scsi_host3', 'scsi_host4','scsi_host5']
+        return ['scsi_host3', 'scsi_host4', 'scsi_host5']
 
     def device_lookup(self, nodedev_name):
         return {
@@ -493,7 +496,7 @@ class MockModel(object):
         return iso_volumes
 
     def storageservers_get_list(self, _target_type=None):
-        # FIXME: When added new storage server support, this needs to be updated
+        # FIXME: This needs to be updted when adding new storage server support
         target_type = STORAGE_SOURCES.keys() \
             if not _target_type else [_target_type]
         pools = self.storagepools_get_list()
@@ -514,10 +517,12 @@ class MockModel(object):
         for pool in pools:
             try:
                 pool_info = self.storagepool_lookup(pool)
-                if pool_info['source'] and pool_info['source']['addr'] == server:
+                if pool_info['source'] and \
+                        pool_info['source']['addr'] == server:
                     return dict(host=server)
             except NotFoundError:
-            # Avoid inconsistent pool result because of lease between list and lookup
+            # Avoid inconsistent pool result because
+            # of lease between list and lookup
                 pass
 
         raise NotFoundError("KCHSR0001E", {'server': server})
@@ -562,7 +567,7 @@ class MockModel(object):
             try:
                 net = ipaddr.IPNetwork(subnet)
             except ValueError:
-                msg_args = {'subnet':subnet, 'network': name}
+                msg_args = {'subnet': subnet, 'network': name}
                 raise InvalidParameter("KCHNET0003E", msg_args)
 
             network.info['dhcp'] = {
@@ -581,8 +586,8 @@ class MockModel(object):
     def _get_vms_attach_to_a_network(self, network):
         vms = []
         for name, dom in self._mock_vms.iteritems():
-             if network in dom.networks:
-                 vms.append(name)
+            if network in dom.networks:
+                vms.append(name)
         return vms
 
     def network_lookup(self, name):
@@ -650,7 +655,7 @@ class MockModel(object):
 
     def vmifaces_create(self, vm, params):
         if (params["type"] == "network" and
-            params["network"] not in self.networks_get_list()):
+                params["network"] not in self.networks_get_list()):
             msg_args = {'network': params["network"], 'name': vm}
             raise InvalidParameter("KCHVMIF0002E", msg_args)
 
@@ -679,7 +684,7 @@ class MockModel(object):
     def vmiface_delete(self, vm, mac):
         dom = self._get_vm(vm)
         try:
-           del dom.ifaces[mac]
+            del dom.ifaces[mac]
         except KeyError:
             raise NotFoundError("KCHVMIF0001E", {'iface': mac, 'name': vm})
 
@@ -835,7 +840,7 @@ class MockModel(object):
             raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
 
     def repository_disable(self, repo_id):
-        if not  self._mock_host_repositories.disableRepository(repo_id):
+        if not self._mock_host_repositories.disableRepository(repo_id):
             raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
 
     def repository_update(self, repo_id, params):
@@ -898,7 +903,8 @@ class MockVMIface(object):
         self.__class__.counter += 1
         self.info = {'type': 'network',
                      'model': 'virtio',
-                     'network': network if network else "net-%s" % self.counter,
+                     'network': network if network
+                     else "net-%s" % self.counter,
                      'mac': self.get_mac()
                      }
 
@@ -920,13 +926,15 @@ class MockVM(object):
         self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
         self.info = {'state': 'shutoff',
                      'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
-                                'net_throughput_peak': 100, 'io_throughput': 45, \
+                                'net_throughput_peak': 100, \
+                                'io_throughput': 45, \
                                 'io_throughput_peak': 100}",
                      'uuid': self.uuid,
                      'memory': template_info['memory'],
                      'cpus': template_info['cpus'],
                      'icon': None,
-                     'graphics': {'type': 'vnc', 'listen': '0.0.0.0', 'port': None}
+                     'graphics': {'type': 'vnc', 'listen': '0.0.0.0',
+                                  'port': None}
                      }
         self.info['graphics'].update(template_info['graphics'])
 
@@ -977,6 +985,7 @@ class MockTask(object):
     def __init__(self, id):
         self.id = id
 
+
 class MockStorageVolume(object):
     def __init__(self, pool, name, params={}):
         self.name = name
@@ -986,9 +995,9 @@ class MockStorageVolume(object):
             params = self._def_lun(name)
         fmt = params.get('format', 'raw')
         capacity = params.get('capacity', 1024)
-        self.info = {'type': params.get('type','disk'),
+        self.info = {'type': params.get('type', 'disk'),
                      'capacity': capacity << 20,
-                     'allocation': params.get('allocation','512'),
+                     'allocation': params.get('allocation', '512'),
                      'path': params.get('path'),
                      'format': fmt}
         if fmt == 'iso':
@@ -1003,10 +1012,10 @@ class MockStorageVolume(object):
         return {
             "capacity": capacity,
             "name": name,
-            "format": random.choice(['dos','unknown']),
+            "format": random.choice(['dos', 'unknown']),
             "allocation": capacity,
             "path": path + name[-1],
-            "type": "block" }
+            "type": "block"}
 
 
 class MockVMScreenshot(VMScreenshot):
