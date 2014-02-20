@@ -113,7 +113,7 @@ def _get_vgname(devNodePath):
 
 
 def get_partitions_names():
-    names = []
+    names = set()
     keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT", "MAJ:MIN"]
     # output is on format key="value",
     # where key can be NAME, TYPE, FSTYPE, MOUNTPOINT
@@ -133,9 +133,9 @@ def get_partitions_names():
                 _is_dev_leaf(devNodePath)):
             continue
 
-        names.append(name)
+        names.add(name)
 
-    return names
+    return list(names)
 
 
 def get_partition_details(name):
