@@ -24,6 +24,7 @@
 import os
 import platform
 import psutil
+import shutil
 import tempfile
 import threading
 import time
@@ -439,6 +440,38 @@ class ModelTests(unittest.TestCase):
             info = inst.template_lookup(params['name'])
             for key in params.keys():
                 self.assertEquals(params[key], info[key])
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_integrity(self):
+        inst = model.Model('test:///default',
+                           objstore_loc=self.tmp_store)
+
+        with RollbackContext() as rollback:
+            net_name = 'test-network'
+            net_args = {'name': net_name,
+                        'connection': 'nat',
+                        'subnet': '127.0.100.0/24'}
+            inst.networks_create(net_args)
+
+            path = '/tmp/kimchi-iso/'
+            if not os.path.exists(path):
+                os.makedirs(path)
+            iso = path + 'ubuntu12.04.iso'
+            iso_gen.construct_fake_iso(iso, True, '12.04', 'ubuntu')
+
+            params = {'name': 'test', 'memory': 1024, 'cpus': 1,
+                      'networks': ['test-network'], 'cdrom': iso,
+                      'disks': [{'volume':iso}]}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            inst.network_delete(net_name)
+            shutil.rmtree(path)
+
+            info = inst.template_lookup('test')
+            self.assertEquals(info['invalid']['cdrom'], [iso])
+            self.assertEquals(info['invalid']['networks'], [net_name])
+            self.assertEquals(info['invalid']['disks'], [iso])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_clone(self):

@@ -25,6 +25,7 @@ import base64
 import json
 import os
 import random
+import shutil
 import time
 import unittest
 
@@ -32,6 +33,7 @@ import unittest
 from functools import partial
 
 
+import iso_gen
 import kimchi.mockmodel
 import kimchi.server
 from kimchi.rollbackcontext import RollbackContext
@@ -1071,6 +1073,44 @@ class RestTests(unittest.TestCase):
 
         # Delete the template
         resp = self.request('/templates/%s' % tmpl_name, '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+    def test_template_integrity(self):
+
+        path = '/tmp/kimchi-iso/'
+        if not os.path.exists(path):
+            os.makedirs(path)
+        iso = path + 'ubuntu12.04.iso'
+        iso_gen.construct_fake_iso(iso, True, '12.04', 'ubuntu')
+
+        req = json.dumps({'name': 'test-network',
+                          'connection': 'nat',
+                          'net': '127.0.1.0/24'})
+        resp = request(host, port, '/networks', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+
+        t = {'name': 'test', 'memory': 1024, 'cpus': 1,
+             'networks': ['test-network'], 'cdrom': iso,
+             'disks': [{'volume':iso}]}
+
+        req = json.dumps(t)
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        shutil.rmtree(path)
+        # Delete the network
+        resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
+        # Verify the template
+        res = json.loads(self.request('/templates/test').read())
+        self.assertEquals(res['invalid']['cdrom'], [iso])
+        self.assertEquals(res['invalid']['networks'], ['test-network'])
+        self.assertEquals(res['invalid']['disks'], [iso])
+
+        # Delete the template
+        resp = request(host, port, '/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
     def test_iso_scan_shallow(self):
