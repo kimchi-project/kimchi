@@ -56,19 +56,9 @@ class VMTemplate(object):
         iso = args.get('cdrom', '')
 
         if scan and len(iso) > 0:
-
-            iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
-            if len(filter(iso.startswith, iso_prefixes)) == 0:
-                raise InvalidParameter("KCHTMPL0006E", {'param': iso})
-
+            iso_distro, iso_version = self.get_iso_info(iso)
             if not iso.startswith('/'):
                 self.info.update({'iso_stream': True})
-
-            try:
-                iso_img = IsoImage(iso)
-                iso_distro, iso_version = iso_img.probe()
-            except IsoFormatError:
-                raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
         # Fetch defaults based on the os distro and version
         os_distro = args.get('os_distro', iso_distro)
@@ -83,6 +73,16 @@ class VMTemplate(object):
             graphics.update(graph_args)
             args['graphics'] = graphics
         self.info.update(args)
+
+    def get_iso_info(self, iso):
+        iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
+        if len(filter(iso.startswith, iso_prefixes)) == 0:
+            raise InvalidParameter("KCHTMPL0006E", {'param': iso})
+        try:
+            iso_img = IsoImage(iso)
+            return iso_img.probe()
+        except IsoFormatError:
+            raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
     def _get_cdrom_xml(self, libvirt_stream, qemu_stream_dns):
         bus = self.info['cdrom_bus']
