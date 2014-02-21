@@ -46,6 +46,7 @@ class Template(Resource):
     def data(self):
         return {'name': self.ident,
                 'icon': self.info['icon'],
+                'invalid': self.info['invalid'],
                 'os_distro': self.info['os_distro'],
                 'os_version': self.info['os_version'],
                 'cpus': self.info['cpus'],

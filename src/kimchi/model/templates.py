@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import copy
+import os
 
 import libvirt
 
@@ -83,7 +84,7 @@ class TemplateModel(object):
 
     def lookup(self, name):
         t = self.get_template(name, self.objstore, self.conn)
-        return t.info
+        return t.validate_integrity()
 
     def clone(self, name):
         # set default name
@@ -157,6 +158,10 @@ class LibvirtVMTemplate(VMTemplate):
                                                     'template': self.name})
 
         return pool
+
+    def _get_all_networks_name(self):
+        conn = self.conn.get()
+        return sorted(conn.listNetworks() + conn.listDefinedNetworks())
 
     def _network_validate(self):
         names = self.info['networks']

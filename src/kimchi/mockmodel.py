@@ -208,7 +208,7 @@ class MockModel(object):
 
     def template_lookup(self, name):
         t = self._get_template(name)
-        return t.info
+        return t.validate_integrity()
 
     def template_delete(self, name):
         try:
@@ -850,6 +850,9 @@ class MockVMTemplate(VMTemplate):
     def __init__(self, args, mockmodel_inst=None):
         VMTemplate.__init__(self, args)
         self.model = mockmodel_inst
+
+    def _get_all_networks_name(self):
+        return self.model.networks_get_list()
 
     def _storage_validate(self):
         pool_uri = self.info['storagepool']

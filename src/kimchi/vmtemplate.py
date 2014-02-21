@@ -344,3 +344,35 @@ class VMTemplate(object):
 
     def _get_storage_type(self):
         return ''
+
+    def _get_all_networks_name(self):
+        return []
+
+    def validate_integrity(self):
+        invalid = {}
+        # validate networks integrity
+        invalid_networks = list(set(self.info['networks']) -
+                                set(self._get_all_networks_name()))
+        if invalid_networks:
+            invalid['networks'] = invalid_networks
+
+        # validate iso integrity
+        # FIXME when we support multiples cdrom devices
+        iso = self.info['cdrom']
+        try:
+            self.get_iso_info(iso)
+        except Exception:
+            invalid['cdrom'] = [iso]
+
+        # validate disks integrity
+        volumes = []
+        for disk in self.info['disks']:
+            volume = disk.get("volume")
+            if volume is not None and not os.path.exists(volume):
+                volumes.append(volume)
+        if volumes:
+            invalid['disks'] = volumes
+
+        self.info['invalid'] = invalid
+
+        return self.info
