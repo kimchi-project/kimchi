@@ -24,7 +24,7 @@ EXTRA_DIST = src widgets
 
 jsdir = $(datadir)/kimchi/ui/js
 
-dist_js_DATA = $(wildcard *.js) $(NULL)
+dist_js_DATA = kimchi.min.js $(filter-out kimchi.min.js, $(wildcard *.js))
 
 kimchi.min.js: widgets/*.js src/*.js
 	cat $(sort $^) > $@
