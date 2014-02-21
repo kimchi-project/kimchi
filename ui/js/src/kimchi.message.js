@@ -74,8 +74,8 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     confirmboxHtml += settings.content + '</div>';
     confirmboxHtml += '<footer>';
     confirmboxHtml += '<div class="btn-group">';
-    confirmboxHtml += '<button id="button-confirm" class="btn-small"><span class="text">' + (settings.confirm || i18n['msg.confirm']) + '</span></button>';
-    confirmboxHtml += '<button id="button-cancel" class="btn-small cancel"><span class="text">' + (settings.cancel || i18n['msg.cancel']) + '</span></button>';
+    confirmboxHtml += '<button id="button-confirm" class="btn-small"><span class="text">' + (settings.confirm || i18n['KCHAPI6004M']) + '</span></button>';
+    confirmboxHtml += '<button id="button-cancel" class="btn-small cancel"><span class="text">' + (settings.cancel || i18n['KCHAPI6003M']) + '</span></button>';
     confirmboxHtml += '</div>';
     confirmboxHtml += '</footer>';
     confirmboxHtml += '</div>';
