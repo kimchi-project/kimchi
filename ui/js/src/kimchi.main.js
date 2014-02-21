@@ -197,7 +197,7 @@ kimchi.getDefaultPage = function(url) {
             if (path) {
                 defautLocation = path.substring(0, path.length - 5);
             }
-        },
+        }
     });
     return defautLocation;
 };
@@ -215,7 +215,7 @@ kimchi.getTabHtml = function(url) {
                 var path = $tab.find('path').text();
                 tabsHtml += "<li><a class='item' href=" + path + ">" + title + "</a></li>";
             });
-        },
+        }
     });
     return tabsHtml;
 };

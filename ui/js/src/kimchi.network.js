@@ -135,7 +135,7 @@ kimchi.initNetworkCreation = function() {
             var network = kimchi.getNetworkDialogValues();
             var data = {
                 name : network.name,
-                connection: network.type,
+                connection: network.type
             };
             if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
                 data.connection = "bridge";
@@ -160,6 +160,13 @@ kimchi.initNetworkCreation = function() {
 };
 
 kimchi.initNetworkDialog = function() {
+
+    buttonsObj= {};
+    buttonsObj['id'] = "networkFormOk";
+    buttonsObj['text'] = i18n.KCHAPI6005M;
+    buttonsObj['class'] = "ui-button-primary";
+    buttonsObj['disabled'] = true;
+    buttonsObj['click'] = function() { };
     $("#networkConfig").dialog({
         autoOpen : false,
         modal : true,
@@ -174,14 +181,7 @@ kimchi.initNetworkDialog = function() {
         beforeClose : function() {
             kimchi.cleanNetworkDialog();
         },
-        buttons : [ {
-            id : "networkFormOk",
-            text : i18n.KCHAPI6005M,
-            class: "ui-button-primary",
-            disabled: true,
-            click : function() {
-            }
-        } ]
+        buttons : [buttonsObj]
     });
     kimchi.setupNetworkFormEvent();
 };
