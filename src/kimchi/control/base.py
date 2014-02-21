@@ -54,6 +54,7 @@ class Resource(object):
     """
     def __init__(self, model, ident=None):
         self.model = model
+        ident = ident if ident is None else urllib2.unquote(ident)
         self.ident = ident
         self.model_args = (ident,)
         self.update_params = []
@@ -61,7 +62,7 @@ class Resource(object):
     def _redirect(self, ident, code=303):
         if ident is not None and ident != self.ident:
             uri_params = list(self.model_args[:-1])
-            uri_params += [urllib2.quote(ident.encode('utf-8'))]
+            uri_params += [urllib2.quote(ident.encode('utf-8'), safe="")]
             raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
 
     def generate_action_handler(self, action_name, action_args=None):
