@@ -249,6 +249,10 @@ A interface represents available network interface on VM.
                      Independent Computing Environments
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
+    * invalid: A dict indicates which paramenters of this template are invalid.
+        * networks *(optional)*: An array of invalid network names.
+        * cdrom *(optional)*: An array of invalid cdrom names.
+        * disks *(optional)*: An array of invalid volume names.
 
 * **DELETE**: Remove the Template
 * **POST**: *See Template Actions*
