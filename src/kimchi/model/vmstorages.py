@@ -41,30 +41,57 @@ DEV_TYPE_SRC_ATTR_MAP = {'file': 'file',
                          'block': 'dev'}
 
 
+def _get_storage_xml(params):
+    src_type = params.get('src_type')
+    disk = E.disk(type=src_type, device=params.get('type'))
+    disk.append(E.driver(name='qemu', type='raw'))
+    # Working with url paths
+    if src_type == 'network':
+        output = urlparse.urlparse(params.get('path'))
+        host = E.host(name=output.hostname, port=
+                      output.port or socket.getservbyname(output.scheme))
+        source = E.source(protocol=output.scheme, name=output.path)
+        source.append(host)
+        disk.append(source)
+    else:
+        # Fixing source attribute
+        source = E.source()
+        source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
+        disk.append(source)
+
+    disk.append(E.target(dev=params.get('dev'), bus='ide'))
+    return ET.tostring(disk)
+
+
+def _check_cdrom_path(path):
+    if check_url_path(path):
+        src_type = 'network'
+    # Check if path is a valid local path
+    elif os.path.exists(path):
+        if os.path.isfile(path):
+            src_type = 'file'
+        else:
+            # Check if path is a valid cdrom drive
+            with open('/proc/sys/dev/cdrom/info') as cdinfo:
+                content = cdinfo.read()
+
+            cds = re.findall("drive name:\t\t(.*)", content)
+            if not cds:
+                raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+            drives = [os.path.join('/dev', p) for p in cds[0].split('\t')]
+            if path not in drives:
+                raise InvalidParameter("KCHCDROM0003E", {'value': path})
+
+            src_type = 'block'
+    else:
+        raise InvalidParameter("KCHCDROM0003E", {'value': path})
+    return src_type
+
+
 class VMStoragesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-
-    def _get_storage_xml(self, params):
-        src_type = params.get('src_type')
-        disk = E.disk(type=src_type, device=params.get('type'))
-        disk.append(E.driver(name='qemu', type='raw'))
-        # Working with url paths
-        if src_type == 'network':
-            output = urlparse.urlparse(params.get('path'))
-            host = E.host(name=output.hostname, port=
-                          output.port or socket.getservbyname(output.scheme))
-            source = E.source(protocol=output.scheme, name=output.path)
-            source.append(host)
-            disk.append(source)
-        else:
-            # Fixing source attribute
-            source = E.source()
-            source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
-            disk.append(source)
-
-        disk.append(E.target(dev=params.get('dev'), bus='ide'))
-        return ET.tostring(disk)
 
     def create(self, vm_name, params):
         dom = VMModel.get_vm(vm_name, self.conn)
@@ -84,33 +111,12 @@ class VMStoragesModel(object):
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         path = params['path']
+        params['src_type'] = _check_cdrom_path(path)
 
         # Check if path is an url
-        if check_url_path(path):
-            params['src_type'] = 'network'
-        # Check if path is a valid local path
-        elif os.path.exists(path):
-            if os.path.isfile(path):
-                params['src_type'] = 'file'
-            else:
-                # Check if path is a valid cdrom drive
-                with open('/proc/sys/dev/cdrom/info') as cdinfo:
-                    content = cdinfo.read()
-
-                cds = re.findall("drive name:\t\t(.*)", content)
-                if not cds:
-                    raise InvalidParameter("KCHCDROM0003E", {'value': path})
-
-                drives = [os.path.join('/dev', p) for p in cds[0].split('\t')]
-                if path not in drives:
-                    raise InvalidParameter("KCHCDROM0003E", {'value': path})
-
-                params['src_type'] = 'block'
-        else:
-            raise InvalidParameter("KCHCDROM0003E", {'value': path})
 
         # Add device to VM
-        dev_xml = self._get_storage_xml(params)
+        dev_xml = _get_storage_xml(params)
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
@@ -199,23 +205,15 @@ class VMStorageModel(object):
             raise OperationFailed("KCHCDROM0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
+        params['src_type'] = _check_cdrom_path(params['path'])
         dom = VMModel.get_vm(vm_name, self.conn)
-        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
-            raise InvalidOperation('KCHCDROM0011E')
 
-        info = self.lookup(vm_name, dev_name)
-        backup_params = info.copy()
+        dev_info = self.lookup(vm_name, dev_name)
+        dev_info.update(params)
+        xml = _get_storage_xml(dev_info)
 
-        info.update(params)
-        kargs = {'conn': self.conn}
-        stgModel = VMStoragesModel(**kargs)
         try:
-            self.delete(vm_name, dev_name)
-            return stgModel.create(vm_name, info)
+            dom.updateDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:
-            try:
-                stgModel.create(vm_name, backup_params)
-            except:
-                pass
-
             raise OperationFailed("KCHCDROM0009E", {'error': e.message})
+        return dev_name
