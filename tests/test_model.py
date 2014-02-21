@@ -68,7 +68,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2048, info['memory'])
         self.assertEquals(2, info['cpus'])
         self.assertEquals(None, info['icon'])
-        self.assertEquals(stats_keys, set(eval(info['stats']).keys()))
+        self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')

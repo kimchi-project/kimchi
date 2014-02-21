@@ -306,7 +306,7 @@ class VMModel(object):
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
 
         return {'state': state,
-                'stats': str(res),
+                'stats': res,
                 'uuid': dom.UUIDString(),
                 'memory': info[2] >> 10,
                 'cpus': info[3],

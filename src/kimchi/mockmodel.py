@@ -924,11 +924,14 @@ class MockVM(object):
         ifaces = [MockVMIface(net) for net in self.networks]
         self.storagedevices = {}
         self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
+
+        stats = {'cpu_utilization': 20,
+                 'net_throughput': 35,
+                 'net_throughput_peak': 100,
+                 'io_throughput': 45,
+                 'io_throughput_peak': 100}
         self.info = {'state': 'shutoff',
-                     'stats': "{'cpu_utilization': 20, 'net_throughput' : 35, \
-                                'net_throughput_peak': 100, \
-                                'io_throughput': 45, \
-                                'io_throughput_peak': 100}",
+                     'stats': stats,
                      'uuid': self.uuid,
                      'memory': template_info['memory'],
                      'cpus': template_info['cpus'],
