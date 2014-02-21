@@ -206,16 +206,22 @@ class ModelTests(unittest.TestCase):
 
             # update path of existing cd with
             # non existent iso
-            self.assertRaises(OperationFailed, inst.vmstorage_update,
+            self.assertRaises(InvalidParameter, inst.vmstorage_update,
                               vm_name, cdrom_dev, {'path': wrong_iso_path})
 
-            # update path of existing cd with
-            # existent iso
+            # update path of existing cd with existent iso of shutoff vm
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path2})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             self.assertEquals(iso_path2, cdrom_info['path'])
 
-            # removing non existent cdrom
+            # update path of existing cd with existent iso of running vm
+            inst.vm_start(vm_name)
+            inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path})
+            cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            self.assertEquals(iso_path, cdrom_info['path'])
+            inst.vm_stop(vm_name)
+
+           # removing non existent cdrom
             self.assertRaises(NotFoundError, inst.vmstorage_delete, vm_name,
                               "fakedev")
 
