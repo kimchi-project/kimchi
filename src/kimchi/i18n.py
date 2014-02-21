@@ -197,15 +197,16 @@ messages = {
 
     "KCHCDROM0001E": _("Invalid CDROM device name"),
     "KCHCDROM0002E": _("Invalid storage type. Types supported: 'cdrom'"),
-    "KCHCDROM0003E": _("The path %(value)s is not valid local/remote path for the device"),
+    "KCHCDROM0003E": _("The path '%(value)s' is not valid local/remote path for the device"),
     "KCHCDROM0004E": _("Device name %(dev_name)s already exists in vm %(vm_name)s"),
-    "KCHCDROM0005E": _("Must specify a device name"),
     "KCHCDROM0006E": _("Can't specify a directory for a CDROM device path"),
     "KCHCDROM0007E": _("The storage device %(dev_name)s does not exist in the guest %(vm_name)s"),
     "KCHCDROM0008E": _("Error while creating new storage device: %(error)s"),
     "KCHCDROM0009E": _("Error while updating storage device: %(error)s"),
     "KCHCDROM0010E": _("Error while removing storage device: %(error)s"),
     "KCHCDROM0011E": _("Do not support guest CDROM hot plug attachment"),
+    "KCHCDROM0012E": _("Specify type and path to add a new virtual machine disk"),
+    "KCHCDROM0013E": _("Specify path to update virtual machine disk"),
 
     "KCHREPOS0001E": _("Repository ID must be one word only string."),
     "KCHREPOS0002E": _("Repository URL must be an http://, ftp:// or file:// URL."),

@@ -352,8 +352,9 @@
             "additionalProperties": false,
             "error": "KCHAPI0001E"
          },
-        "storages_create": {
+        "vmstorages_create": {
             "type": "object",
+            "error": "KCHCDROM0012E",
             "properties": {
                 "dev": {
                     "description": "The storage (cd-rom) device name",
@@ -377,8 +378,9 @@
                 }
             }
         },
-        "storage_update": {
+        "vmstorage_update": {
             "type": "object",
+            "error": "KCHCDROM0013E",
             "properties": {
                "path": {
                     "description": "Path of iso image file or disk mount point",
