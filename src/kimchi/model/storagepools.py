@@ -72,8 +72,8 @@ class StoragePoolsModel(object):
         conn = self.conn.get()
         try:
             name = params['name']
-            if name in (ISO_POOL_NAME, ):
-                raise InvalidOperation("KCHPOOL0001E", {'name': name})
+            if name == ISO_POOL_NAME:
+                raise InvalidOperation("KCHPOOL0031E")
 
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
