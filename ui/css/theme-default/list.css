@@ -101,6 +101,7 @@
     width: auto;
     display:inline;
     border: none;
+    position: relative;
 }
 
 .list-vm .tile.running .imgactive{
@@ -249,6 +250,7 @@
 
 
 .list-vm .shutoff {
+    position: relative;
     box-shadow: none !important;
 }
 
