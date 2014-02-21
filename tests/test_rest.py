@@ -1089,10 +1089,9 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/networks', req, 'POST')
         self.assertEquals(201, resp.status)
 
-
         t = {'name': 'test', 'memory': 1024, 'cpus': 1,
              'networks': ['test-network'], 'cdrom': iso,
-             'disks': [{'volume':iso}]}
+             'disks': [{'volume': iso}]}
 
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')

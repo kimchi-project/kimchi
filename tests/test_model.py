@@ -461,7 +461,7 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': 'test', 'memory': 1024, 'cpus': 1,
                       'networks': ['test-network'], 'cdrom': iso,
-                      'disks': [{'volume':iso}]}
+                      'disks': [{'volume': iso}]}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
