@@ -22,17 +22,4 @@ SUBDIRS = help tabs
 
 htmldir = $(datadir)/kimchi/ui/pages
 
-dist_html_DATA = \
-	error.html.tmpl \
-	kimchi-ui.html.tmpl \
-	guest-add.html.tmpl \
-	guest-edit.html.tmpl \
-	guest.html.tmpl \
-	template-add.html.tmpl \
-	template-edit.html.tmpl \
-	vnc_auto.html.tmpl \
-	i18n.html.tmpl \
-	login-window.html.tmpl \
-	storagepool-add.html.tmpl \
-	report-add.html.tmpl \
-	$(NULL)
+dist_html_DATA = $(wildcard *.html.tmpl) $(NULL)

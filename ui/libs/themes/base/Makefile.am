@@ -23,6 +23,4 @@ SUBDIRS = images
 
 basedir = $(datadir)/kimchi/ui/libs/themes/base
 
-dist_base_DATA = \
-	jquery-ui.min.css \
-	$(NULL)
+dist_base_DATA = $(wildcard *.css) $(NULL)

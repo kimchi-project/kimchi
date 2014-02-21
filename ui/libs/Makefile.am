@@ -22,9 +22,4 @@ SUBDIRS = themes
 
 jsdir = $(datadir)/kimchi/ui/libs
 
-dist_js_DATA = \
-	jquery-1.10.0.min.js \
-	jquery-ui.min.js \
-	jquery-ui-i18n.min.js \
-	modernizr.custom.76777.js \
-	$(NULL)
+dist_js_DATA = $(wildcard *.js) $(NULL)

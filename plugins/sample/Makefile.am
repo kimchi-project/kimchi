@@ -22,9 +22,4 @@
 
 SUBDIRS = ui
 
-EXTRA_DIST = \
-	__init__.py \
-	API.json \
-	model.py \
-	i18n.py \
-	sample.conf
+EXTRA_DIST = API.json sample.conf $(wildcard *.py)

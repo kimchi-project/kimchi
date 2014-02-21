@@ -25,6 +25,8 @@ helpdir = $(datadir)/kimchi/ui/pages/help
 
 dist_help_DATA = $(HTML_FILES) $(NULL)
 
+EXTRA_DIST = $(wildcard *.dita)
+
 %.html: %.dita $(DITA_XSL_FILE)
 	xsltproc -o $@ $(DITA_XSL_FILE) $<
 	$(shell pwd)/gen-index.py

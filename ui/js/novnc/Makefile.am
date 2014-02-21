@@ -22,15 +22,4 @@ SUBDIRS = web-socket-js
 
 jsdir = $(datadir)/kimchi/ui/js/novnc
 
-dist_js_DATA = \
-	base64.js \
-	des.js \
-	display.js \
-	input.js \
-	jsunzip.js \
-	main.js \
-	rfb.js \
-	util.js \
-	websock.js \
-	webutil.js \
-	$(NULL)
+dist_js_DATA = $(wildcard *.js) $(NULL)

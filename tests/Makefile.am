@@ -23,21 +23,8 @@
 EXTRA_DIST = \
 	Makefile.am \
 	run_tests.sh.in \
-	iso_gen.py   \
-	test_authorization.py \
 	test_config.py.in \
-	test_exception.py \
-	test_mockmodel.py \
-	test_model.py \
-	test_networkxml.py \
-	test_osinfo.py \
-	test_plugin.py \
-	test_rest.py \
-	test_rollbackcontext.py \
-	test_server.py \
-	test_storagepool.py \
-	test_vmtemplate.py \
-	utils.py \
+	$(filter-out test_config.py, $(wildcard *.py)) \
 	$(NULL)
 
 noinst_SCRIPTS = run_tests.sh

@@ -19,4 +19,3 @@
 # limitations under the License.
 
 SUBDIRS = ui
-#configdir = $(datadir)/kimchi/config

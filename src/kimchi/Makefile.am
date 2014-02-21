@@ -22,40 +22,7 @@
 
 SUBDIRS = control model
 
-kimchi_PYTHON = \
-	__init__.py        \
-	asynctask.py       \
-	auth.py            \
-	basemodel.py	   \
-	cachebust.py       \
-	disks.py           \
-	distroloader.py    \
-	exception.py       \
-	featuretests.py    \
-	i18n.py            \
-	iscsi.py           \
-	isoinfo.py         \
-	mockmodel.py       \
-	netinfo.py         \
-	network.py         \
-	networkxml.py      \
-	objectstore.py     \
-	osinfo.py          \
-	repositories.py	   \
-	rollbackcontext.py \
-	root.py            \
-	scan.py            \
-	screenshot.py      \
-	server.py          \
-	sslcert.py         \
-	swupdate.py        \
-	template.py        \
-	utils.py           \
-	vmtemplate.py      \
-	vnc.py             \
-	websocket.py       \
-	websockify.py      \
-	xmlutils.py
+kimchi_PYTHON = $(filter-out config.py, $(wildcard *.py))
 
 nodist_kimchi_PYTHON = config.py
 
