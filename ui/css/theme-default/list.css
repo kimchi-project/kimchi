@@ -92,17 +92,38 @@
 
 .list-vm .tile .imgload {
     display: none;
-    max-height: 110px;
-    max-width: 170px;
-    height: auto;
-    width: auto;
 }
 
-.list-vm .tile .imgactive {
+.list-vm .tile.shutoff .imgactive {
     max-height: 110px;
     max-width: 170px;
     height: auto;
     width: auto;
+    display:inline;
+    border: none;
+}
+
+.list-vm .tile.running .imgactive{
+    max-height: 110px;
+    max-width: 170px;
+    height: auto;
+    width: auto;
+    display:inline;
+    border: none;
+    cursor: crosshair;
+    cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in;
+}
+
+.list-vm .tile .overlay {
+    max-height: 110px;
+    max-width: 170px;
+    height: auto;
+    width: auto;
+    position:absolute;
+    bottom:0;
+    right:0;
+    display:none;
 }
 
 .guest-type {
@@ -221,9 +242,11 @@
     margin: 10px;
 }
 
+
 .list-vm .tile:not(.shutoff) img {
     box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
 }
+
 
 .list-vm .shutoff {
     box-shadow: none !important;

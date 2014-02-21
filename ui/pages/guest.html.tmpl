@@ -5,6 +5,7 @@
  *
  * Authors:
  *  Hongliang Wang <hlwanghl@cn.ibm.com>
+ *  Adam King <rak@us.ibm.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,43 +25,43 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
-        <li id="{name}">
+        <li name="guest" class="guest">
             <div class="sortable guest-type">
                 <div class="guest-general">
                     <h2 class="title" title="{name}">{name}</h2>
                 </div>
             </div>
-            <div class="sortable guest-cpu">
-                <div class="circle" data-value="{stats}"></div>
+            <div name="cpu_utilization" class="sortable">
+                <div class="circleGauge"></div>
             </div>
-            <div class="sortable guest-network">
-                <div class="circle" data-value="{stats}"></div>
+            <div name="io_throughput" class="sortable">
+                <div class="circleGauge"></div>
                 <div class="subtitle">KB/s</div>
             </div>
-            <div class="sortable guest-storage">
-                <div class="circle" data-value="{stats}"></div>
+            <div name="net_throughput" class="sortable">
+                <div class="circleGauge"></div>
                 <div class="subtitle">KB/s</div>
             </div>
-            <div class="sortable guest-tile">
-                <div class="tile {state}">
-                    <img class="imgactive" alt="" src="{tile-src}">
-                    <img class="imgload" alt="" src="{load-src}">
+            <div name="guest-tile" class="sortable guest-tile">
+                <div class="tile ">
+                    <img class="imgactive" alt="" src="">
+                    <img class="imgload" alt="" src="">
+                    <img class="overlay shutoff-hidden" alt="$_("Start")" src="/images/theme-default/icon-power-down.png" >
                 </div>
             </div>
-            <div class="sortable guest-actions">
+           <div class="sortable guest-actions" name="guest-actions">
                 <div class="top">
-                    <a class="btn vm-reset" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></a>
-                    <a class="btn vm-start" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></a>
-                    <a class="btn vm-stop" data-vmstate="{state}" data-vm="{name}" href="javascript:void(0);" title="$_("Stop")"><span class="icon power-up"></span></a>
+                    <a class="btn shutoff-disabled" name="vm-reset" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></a>
+                    <a class="btn running-hidden" name="vm-start" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></a>
+                    <a class="btn shutoff-hidden" name="vm-stop" href="javascript:void(0);" title="$_("Stop")"><span class="icon power-up"></span></a>
                 </div>
                 <div class="bottom">
-                    <div class="btn dropdown popable vm-action" data-vmstate="{state}" data-graphics="{graphics.type}" data-vm="{name}" style="width: 70px">
+                    <div name="actionmenu" class="btn dropdown popable vm-action" style="width: 70px">
                         <span class="text">$_("Actions")</span><span class="arrow"></span>
                         <div class="popover actionsheet right-side" style="width: 250px">
-                            <button class="button-big vm-vnc" data-vm="{name}"><span class="text">VNC</span></button>
-                            <button class="button-big vm-spice" data-vm="{name}"><span class="text">SPICE</span></button>
-                            <button class="button-big vm-edit" data-vm="{name}"><span class="text">$_("Edit")</span></button>
-                            <a class="button-big red vm-delete" data-vm="{name}">$_("Delete")</a>
+                            <button class="button-big shutoff-disabled" name="vm-console" ><span class="text">$_("Console")</span></button>
+                            <button class="button-big running-disabled" name="vm-edit"><span class="text">$_("Edit")</span></button>
+                            <a class="button-big red " name="vm-delete">$_("Delete")</a>
                         </div>
                     </div>
                 </div>
