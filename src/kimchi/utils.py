@@ -23,6 +23,7 @@
 
 import cherrypy
 import os
+import psutil
 import re
 import subprocess
 import urllib2
@@ -137,8 +138,16 @@ def run_command(cmd, timeout=None):
     timeout is a float number in seconds.
     timeout default value is None, means command run without timeout.
     """
+    # subprocess.kill() can leave descendants running
+    # and halting the execution. Using psutil to
+    # get all descendants from the subprocess and
+    # kill them recursively.
     def kill_proc(proc, timeout_flag):
         try:
+            parent = psutil.Process(proc.pid)
+            for child in parent.get_children(recursive=True):
+                child.kill()
+            # kill the process after no children is left
             proc.kill()
         except OSError:
             pass
