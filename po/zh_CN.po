@@ -310,6 +310,9 @@ msgstr "这不是一个有效的服务器名或IP，请修改"
 msgid "Log out"
 msgstr "登出"
 
+msgid "Help"
+msgstr ""
+
 msgid "Log In"
 msgstr "登录"
 

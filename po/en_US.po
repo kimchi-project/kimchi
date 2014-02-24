@@ -302,6 +302,9 @@ msgstr "This is not a valid Server Name or IP. please, modify it."
 msgid "Log out"
 msgstr "Log out"
 
+msgid "Help"
+msgstr ""
+
 msgid "Log In"
 msgstr "Log In"
 

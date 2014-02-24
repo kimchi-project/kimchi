@@ -294,6 +294,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "Help"
+msgstr ""
+
 msgid "Log In"
 msgstr ""
 

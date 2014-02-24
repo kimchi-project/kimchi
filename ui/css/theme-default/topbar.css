@@ -160,10 +160,11 @@
     white-space: nowrap;
 }
 
-#btn-logout {
+.user-menu-item {
     color: black;
     font-size: 14px;
 }
+
 
 a#btn-logout:hover {
     text-decoration: underline;

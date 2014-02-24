@@ -135,6 +135,8 @@ kimchi.main = function() {
         });
 
         // Perform logging out via Ajax request.
+
+
         $('#btn-logout').on('click', function() {
             kimchi.logout(function() {
                 updatePage();
@@ -142,6 +144,8 @@ kimchi.main = function() {
                 kimchi.message.error(err.responseJSON.reason);
             });
         });
+
+        $('#btn-help').on('click', kimchi.getHelp);
     };
 
     // Load i18n translation strings first and then render the page.
@@ -218,4 +222,16 @@ kimchi.getTabHtml = function(url) {
         }
     });
     return tabsHtml;
+};
+
+kimchi.getHelp = function(e) {
+        var url=window.location.hash;
+        url = url.replace("#tabs","/help");
+        if (url == "/help")
+            url=url+"/index.html"
+        else
+            url=url+".html";
+
+        window.open(url, "Kimchi Help");
+        e.preventDefault();
 };

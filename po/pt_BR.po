@@ -320,6 +320,9 @@ msgstr ""
 msgid "Log out"
 msgstr "Sair"
 
+msgid "Help"
+msgstr ""
+
 msgid "Log In"
 msgstr "Entrar"
 
