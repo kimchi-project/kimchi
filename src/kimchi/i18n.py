@@ -76,6 +76,7 @@ messages = {
     "KCHVM0016E": _("Specify a template to create a virtual machine from"),
     "KCHVM0017E": _("Volume list (LUNs names) not given."),
     "KCHVM0018E": _("Virtual machine volumes must be a list of strings with distinct LUNs names."),
+    "KCHVM0019E": _("Unable to start virtual machine %(name)s. Details: %(err)s"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

@@ -376,7 +376,11 @@ class VMModel(object):
             run_setfacl_set_attr(iso)
 
         dom = self.get_vm(name, self.conn)
-        dom.create()
+        try:
+            dom.create()
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVM0019E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def stop(self, name):
         if self._vm_exists(name):
