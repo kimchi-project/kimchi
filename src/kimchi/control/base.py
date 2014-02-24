@@ -308,6 +308,7 @@ class AsyncCollection(Collection):
                                                  get_class_name(self)})
             raise cherrypy.HTTPError(405, e.message)
 
+        validate_params(params, self, 'create')
         args = self.model_args + [params]
         task = create(*args)
         cherrypy.response.status = 202

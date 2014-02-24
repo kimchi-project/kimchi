@@ -41,7 +41,10 @@ class DebugReportsModel(object):
         self.task = TaskModel(**kargs)
 
     def create(self, params):
-        ident = params['name']
+        ident = params.get('name').strip()
+        # Generate a name with time and millisec precision, if necessary
+        if ident is None or ident == "":
+            ident = 'report-' + str(int(time.time()*1000))
         taskid = self._gen_debugreport_file(ident)
         return self.task.lookup(taskid)
 

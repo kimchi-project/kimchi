@@ -29,6 +29,18 @@
         }
     },
     "properties": {
+        "debugreports_create": {
+            "type": "object",
+            "error": "KCHDR0006E",
+            "properties": {
+                "name": {
+                    "description": "The name for the debug report file.",
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9-]*$",
+                    "error": "KCHDR0007E"
+                }
+            }
+        },
         "storagepools_create": {
             "type": "object",
             "error": "KCHPOOL0026E",
