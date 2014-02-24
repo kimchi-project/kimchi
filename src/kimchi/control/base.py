@@ -54,7 +54,6 @@ class Resource(object):
     """
     def __init__(self, model, ident=None):
         self.model = model
-        ident = ident if ident is None else urllib2.unquote(ident)
         self.ident = ident
         self.model_args = (ident,)
         self.update_params = []
@@ -76,7 +75,8 @@ class Resource(object):
                 fn = getattr(self.model, model_fn(self, action_name))
                 ident = fn(*model_args)
                 self._redirect(ident)
-                uri_params = tuple(self.model_args)
+                uri_params = tuple([urllib2.quote(arg.encode('utf-8'), safe="")
+                                    for arg in self.model_args])
                 raise internal_redirect(self.uri_fmt % uri_params)
             except MissingParameter, e:
                 raise cherrypy.HTTPError(400, e.message)
@@ -238,6 +238,7 @@ class Collection(object):
     def _cp_dispatch(self, vpath):
         if vpath:
             ident = vpath.pop(0)
+            ident = urllib2.unquote(ident)
             # incoming text, from URL, is not unicode, need decode
             args = self.resource_args + [ident.decode("utf-8")]
             return self.resource(self.model, *args)
