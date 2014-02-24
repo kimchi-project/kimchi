@@ -150,7 +150,6 @@ class VMStoragesModel(object):
 class VMStorageModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-        self.kargs = kargs
 
     def _get_device_xml(self, vm_name, dev_name):
         # Get VM xml and then devices xml
