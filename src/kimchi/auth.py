@@ -131,13 +131,13 @@ def check_auth_session():
     A user is considered authenticated if we have an established session open
     for the user.
     """
-    try:
-        if cherrypy.session[USER_ID]:
-            debug("Session authenticated for user %s" %
-                  cherrypy.session[USER_ID])
-            return True
-    except KeyError:
-        pass
+    cherrypy.session.acquire_lock()
+    session = cherrypy.session.get(USER_ID, None)
+    cherrypy.session.release_lock()
+    if session is not None:
+        debug("Session authenticated for user %s" % session)
+        return True
+
     debug("Session not found")
     return False
 
@@ -189,10 +189,13 @@ def logout():
 
 
 def has_permission(admin_methods):
+    cherrypy.session.acquire_lock()
+    has_sudo = cherrypy.session.get(USER_SUDO, None)
+    cherrypy.session.release_lock()
+
     return not admin_methods or \
         cherrypy.request.method not in admin_methods or \
-        (cherrypy.request.method in admin_methods and
-            cherrypy.session[USER_SUDO])
+        (cherrypy.request.method in admin_methods and has_sudo)
 
 
 def kimchiauth(admin_methods=None):

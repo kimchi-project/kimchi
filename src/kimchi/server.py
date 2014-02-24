@@ -73,8 +73,7 @@ class Server(object):
               'tools.sessions.name': 'kimchi',
               'tools.sessions.httponly': True,
               'tools.sessions.locking': 'explicit',
-              'tools.sessions.storage_type': 'file',
-              'tools.sessions.storage_path': config.get_session_path(),
+              'tools.sessions.storage_type': 'ram',
               'tools.kimchiauth.on': False},
         '/css': {
             'tools.staticdir.on': True,
@@ -136,7 +135,6 @@ class Server(object):
             os.path.dirname(os.path.abspath(options.error_log)),
             os.path.dirname(os.path.abspath(config.get_object_store())),
             os.path.abspath(config.get_screenshot_path()),
-            os.path.abspath(config.get_session_path()),
             os.path.abspath(config.get_debugreports_path()),
             os.path.abspath(config.get_distros_store())
         ]

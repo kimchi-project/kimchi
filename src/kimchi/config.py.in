@@ -36,10 +36,6 @@ from kimchi.xmlutils import xpath_get_text
 DEFAULT_LOG_LEVEL = "debug"
 
 
-def get_session_path():
-    return os.path.join(paths.state_dir, 'sessions')
-
-
 def get_object_store():
     return os.path.join(paths.state_dir, 'objectstore')
 
