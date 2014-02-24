@@ -1,8 +1,4 @@
 kimchi.report_add_main = function() {
-    var generateReportName = function() {
-        return 'report-' + new Date().getTime();
-    };
-
     var addReportForm = $('#form-report-add');
     var submitButton = $('#button-report-add');
     var nameTextbox = $('input[name="name"]', addReportForm);
@@ -11,8 +7,12 @@ kimchi.report_add_main = function() {
         if(submitButton.prop('disabled')) {
             return false;
         }
-        var reportName = nameTextbox.val() || generateReportName();
-        nameTextbox.val(reportName);
+        var reportName = nameTextbox.val();
+        var validator = RegExp("^[A-Za-z0-9-]*$");
+        if (!validator.test(reportName)) {
+            errorMessage.text(i18n['KCHDR6011M']);
+            return false;
+        }
         var formData = addReportForm.serializeObject();
         errorMessage.text('');
         submitButton
@@ -25,8 +25,13 @@ kimchi.report_add_main = function() {
                 result: result
             });
         }, function(result) {
-            result && result['reason'] &&
-                $('#report-error-message').text(result['reason']);
+            if (result['reason']) {
+                var errText = result['reason'];
+            }
+            else {
+                var errText = result['responseJSON']['reason'];
+            }
+            result && $('#report-error-message').text(errText);
             submitButton
                 .text(i18n['KCHDR6006M'])
                 .prop('disabled', false);
