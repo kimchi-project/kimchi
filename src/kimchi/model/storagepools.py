@@ -90,7 +90,7 @@ class StoragePoolsModel(object):
             xml = poolDef.xml.encode("utf-8")
         except KeyError, item:
             raise MissingParameter("KCHPOOL0004E",
-                                   {'item': item, 'name': name})
+                                   {'item': str(item), 'name': name})
 
         if name in self.get_list():
             raise InvalidOperation("KCHPOOL0001E", {'name': name})

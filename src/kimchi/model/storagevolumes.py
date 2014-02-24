@@ -62,7 +62,7 @@ class StorageVolumesModel(object):
             pool = StoragePoolModel.get_storagepool(pool, self.conn)
             xml = vol_xml % params
         except KeyError, item:
-            raise MissingParameter("KCHVOL0004E", {'item': item,
+            raise MissingParameter("KCHVOL0004E", {'item': str(item),
                                                    'volume': name})
 
         try:

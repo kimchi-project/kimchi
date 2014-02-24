@@ -106,7 +106,7 @@ class KimchiRoot(Root):
             userid = params['userid']
             password = params['password']
         except KeyError, item:
-            e = MissingParameter('KCHAUTH0003E', {'item': item})
+            e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
             raise cherrypy.HTTPError(400, e.message)
 
         try:

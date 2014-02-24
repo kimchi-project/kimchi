@@ -367,7 +367,7 @@ class MockModel(object):
                 pool.info['autostart'] = False
         except KeyError, item:
             raise MissingParameter("KCHPOOL0004E",
-                                   {'item': item, 'name': name})
+                                   {'item': str(item), 'name': name})
 
         if name in self._mock_storagepools or name in (ISO_POOL_NAME,):
             raise InvalidOperation("KCHPOOL0001E", {'name': name})
@@ -428,7 +428,7 @@ class MockModel(object):
                 pool.info['path'], name)
         except KeyError, item:
             raise MissingParameter("KCHVOL0004E",
-                                   {'item': item, 'volume': name})
+                                   {'item': str(item), 'volume': name})
 
         if name in pool._volumes:
             raise InvalidOperation("KCHVOL0001E", {'name': name})
