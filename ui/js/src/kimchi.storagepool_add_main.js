@@ -167,7 +167,7 @@ kimchi.validateDirForm = function () {
         kimchi.message.error.code('KCHPOOL6002E');
         return false;
     }
-    if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(path)) {
+    if (!/(^\/.*)$/.test(path)) {
         kimchi.message.error.code('KCHAPI6003E');
         return false;
     }
