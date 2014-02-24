@@ -144,7 +144,7 @@ kimchi.validateForm = function() {
         kimchi.message.error.code('KCHPOOL6001E');
         return false;
     }
-    if (!/^[\w-]+$/.test(name)) {
+    if (name.contains("/")) {
         kimchi.message.error.code('KCHPOOL6004E');
         return false;
     }

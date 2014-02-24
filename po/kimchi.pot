@@ -273,9 +273,7 @@ msgstr ""
 msgid "NFS server mount path can not be blank."
 msgstr ""
 
-msgid ""
-"Invalid storage pool name. It may only contain letters, numbers, "
-"underscores, and hyphens."
+msgid "Invalid storage pool name. It should not contain '/'."
 msgstr ""
 
 msgid "Invalid NFS mount path."
