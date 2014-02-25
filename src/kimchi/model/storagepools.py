@@ -194,15 +194,45 @@ class StoragePoolModel(object):
 
         return source
 
+    def _nfs_status_online(self, pool, poolArgs=None):
+        if not poolArgs:
+            xml = pool.XMLDesc(0)
+            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            source = self._get_storage_source(pool_type, xml)
+            poolArgs = {}
+            poolArgs['name'] = pool.name()
+            poolArgs['type'] = pool_type
+            poolArgs['source'] = {'path': source['path'],
+                                  'host': source['addr']}
+        conn = self.conn.get()
+        poolDef = StoragePoolDef.create(poolArgs)
+        try:
+            poolDef.prepare(conn)
+            return True
+        except Exception as e:
+            return False
+
     def lookup(self, name):
         pool = self.get_storagepool(name, self.conn)
         info = pool.info()
-        nr_volumes = self._get_storagepool_vols_num(pool)
         autostart = True if pool.autostart() else False
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
         source = self._get_storage_source(pool_type, xml)
+        #FIXME: nfs workaround - prevent any libvirt operation
+        # for a nfs if the corresponding NFS server is down.
+        if pool_type == 'netfs' and not self._nfs_status_online(pool):
+            kimchi_log.debug("NFS pool %s is offline, reason: NFS "
+                             "server %s is unreachable.", name,
+                             source['addr'])
+            # Mark state as '4' => inaccessible.
+            info[0] = 4
+            # skip calculating volumes
+            nr_volumes = 0
+        else:
+            nr_volumes = self._get_storagepool_vols_num(pool)
+
         res = {'state': POOL_STATE_MAP[info[0]],
                'path': path,
                'source': source,
@@ -267,6 +297,16 @@ class StoragePoolModel(object):
 
     def activate(self, name):
         pool = self.get_storagepool(name, self.conn)
+        #FIXME: nfs workaround - do not activate a NFS pool
+        # if the NFS server is not reachable.
+        xml = pool.XMLDesc(0)
+        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        if pool_type == 'netfs' and not self._nfs_status_online(pool):
+            # block the user from activating the pool.
+            source = self._get_storage_source(pool_type, xml)
+            raise OperationFailed("KCHPOOL0032E",
+                                  {'name': name, 'server': source['addr']})
+            return
         try:
             pool.create(0)
         except libvirt.libvirtError as e:
@@ -275,6 +315,16 @@ class StoragePoolModel(object):
 
     def deactivate(self, name):
         pool = self.get_storagepool(name, self.conn)
+        #FIXME: nfs workaround - do not try to deactivate a NFS pool
+        # if the NFS server is not reachable.
+        xml = pool.XMLDesc(0)
+        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        if pool_type == 'netfs' and not self._nfs_status_online(pool):
+            # block the user from dactivating the pool.
+            source = self._get_storage_source(pool_type, xml)
+            raise OperationFailed("KCHPOOL0033E",
+                                  {'name': name, 'server': source['addr']})
+            return
         try:
             pool.destroy()
         except libvirt.libvirtError as e:
