@@ -4,10 +4,6 @@
 # Copyright IBM, Corp. 2013
 # Copyright (C) 2004-2005 OSAF. All Rights Reserved.
 #
-# Authors:
-#  Adam Litke <agl@linux.vnet.ibm.com>
-#  Toby Allsopp <toby@MI6.GEN.NZ>
-#
 # Portions of this file were derived from the python-m2crypto unit tests:
 #     http://svn.osafoundation.org/m2crypto/trunk/tests/test_x509.py
 #
