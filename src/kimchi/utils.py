@@ -177,7 +177,7 @@ def run_command(cmd, timeout=None):
                    "timeout %s seconds" % timeout)
             kimchi_log.error(msg)
 
-            msg_args = {'cmd': cmd, 'seconds': timeout}
+            msg_args = {'cmd': " ".join(cmd), 'seconds': str(timeout)}
             raise TimeoutExpired("KCHUTILS0002E", msg_args)
 
         return out, error, proc.returncode

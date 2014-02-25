@@ -94,15 +94,18 @@ class NetfsPoolDef(StoragePoolDef):
                      export_path, mnt_point]
         umount_cmd = ["umount", "-f", export_path]
         mounted = False
+        # 2 seconds looks like a reasonable time to wait for a refresh
+        # in the UI and enough time to verify that the NFS server
+        # is down.
+        cmd_timeout = 2
 
         with RollbackContext() as rollback:
             rollback.prependDefer(os.rmdir, mnt_point)
             try:
-                run_command(mount_cmd, 30)
-                rollback.prependDefer(run_command, umount_cmd)
+                run_command(mount_cmd, cmd_timeout)
+                rollback.prependDefer(run_command, umount_cmd, cmd_timeout)
             except TimeoutExpired:
                 raise InvalidParameter("KCHPOOL0012E", {'path': export_path})
-
             with open("/proc/mounts", "rb") as f:
                 rawMounts = f.read()
             output_items = ['dev_path', 'mnt_point', 'type']
