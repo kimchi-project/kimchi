@@ -26,8 +26,7 @@ from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import StoragePoolDef
-from kimchi.utils import add_task, kimchi_log
-from kimchi.utils import run_command
+from kimchi.utils import add_task, kimchi_log, pool_name_from_uri, run_command
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -187,7 +186,7 @@ class StoragePoolModel(object):
             elif len(res) == 0:
                 source[key] = ""
             else:
-                souce[key] = res
+                source[key] = res
 
         return source
 
@@ -310,7 +309,20 @@ class StoragePoolModel(object):
             raise OperationFailed("KCHPOOL0009E",
                                   {'name': name, 'err': e.get_error_message()})
 
+    def _pool_used_by_template(self, pool_name):
+        with self.objstore as session:
+            templates = session.get_list('template')
+            for tmpl in templates:
+                t_info = session.get('template', tmpl)
+                t_pool = pool_name_from_uri(t_info['storagepool'])
+                if t_pool == pool_name:
+                    return True
+            return False
+
     def deactivate(self, name):
+        if self._pool_used_by_template(name):
+            raise InvalidOperation('KCHPOOL0034E', {'name': name})
+
         pool = self.get_storagepool(name, self.conn)
         #FIXME: nfs workaround - do not try to deactivate a NFS pool
         # if the NFS server is not reachable.
@@ -329,6 +341,9 @@ class StoragePoolModel(object):
                                   {'name': name, 'err': e.get_error_message()})
 
     def delete(self, name):
+        if self._pool_used_by_template(name):
+            raise InvalidOperation('KCHPOOL0035E', {'name': name})
+
         pool = self.get_storagepool(name, self.conn)
         if pool.isActive():
             raise InvalidOperation("KCHPOOL0005E", {'name': name})

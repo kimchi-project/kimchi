@@ -134,6 +134,9 @@ messages = {
     "KCHPOOL0031E": _("The storage pool kimchi_isos is reserved for internal use"),
     "KCHPOOL0032E": _("Unable to activate NFS storage pool %(name)s. NFS server %(server)s is unreachable."),
     "KCHPOOL0033E": _("Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is unreachable."),
+    "KCHPOOL0034E": _("Unable to deactivate pool %(name)s as it is associated with some templates"),
+    "KCHPOOL0035E": _("Unable to delete pool %(name)s as it is associated with some templates"),
+
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),

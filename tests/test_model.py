@@ -403,6 +403,11 @@ class ModelTests(unittest.TestCase):
             disk_path = '/tmp/kimchi-images/%s-0.img' % vm_info['uuid']
             self.assertTrue(os.access(disk_path, os.F_OK))
 
+            # reset template to default storage pool
+            # so we can remove the storage pool created 'test-pool'
+            params = {'storagepool': '/storagepools/default'}
+            inst.template_update('test', params)
+
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_create(self):
         inst = model.Model('test:///default',

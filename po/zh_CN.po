@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 15:26-0300\n"
+"POT-Creation-Date: 2014-02-25 15:23-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -101,17 +101,20 @@ msgstr "取消"
 msgid "Save"
 msgstr "保存"
 
-msgid "Reset"
-msgstr "重置"
-
 msgid "Start"
 msgstr "启用"
+
+msgid "Reset"
+msgstr "重置"
 
 msgid "Stop"
 msgstr "停止"
 
 msgid "Actions"
 msgstr "操作"
+
+msgid "Console"
+msgstr ""
 
 msgid "Edit"
 msgstr "编辑"
@@ -249,6 +252,9 @@ msgstr "删除"
 msgid "Download"
 msgstr "下载"
 
+msgid "Report name should contain only letters, digits and/or hyphen ('-')."
+msgstr ""
+
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
 "cannot be undone. Would you like to continue?"
@@ -307,11 +313,11 @@ msgstr "服务器不能为空"
 msgid "This is not a valid Server Name or IP. please, modify it."
 msgstr "这不是一个有效的服务器名或IP，请修改"
 
-msgid "Log out"
-msgstr "登出"
-
 msgid "Help"
 msgstr ""
+
+msgid "Log out"
+msgstr "登出"
 
 msgid "Log In"
 msgstr "登录"
@@ -330,11 +336,8 @@ msgstr "诊断报告名"
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, \"-\", \"_\", or "
-"\".\"."
+"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
 msgstr ""
-"该名称用来唯一标识报告，如果不指定，将会基于当前时间自动生成一个名称。名称可"
-"以包含: 字母、数字、\"-\"、\"_\" 或者 \".\""
 
 msgid "Define a New Storage Pool"
 msgstr "定义一个新的存储池"
@@ -403,11 +406,11 @@ msgstr "iSCSI认证"
 msgid "CPU"
 msgstr "处理器"
 
-msgid "Network I/O"
-msgstr "网络I/O"
-
 msgid "Disk I/O"
 msgstr "磁盘I/O"
+
+msgid "Network I/O"
+msgstr "网络I/O"
 
 msgid "Livetile"
 msgstr "屏幕"
@@ -744,6 +747,10 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr ""
 
@@ -939,6 +946,18 @@ msgstr ""
 msgid "The SCSI host adapter name must be a string."
 msgstr ""
 
+msgid "The storage pool kimchi_isos is reserved for internal use"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to deactivate pool %(name)s as it is associated with some templates"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete pool %(name)s as it is associated with some templates"
+msgstr ""
+
 #, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
@@ -1084,6 +1103,13 @@ msgstr ""
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr ""
 
+msgid "You should give a name for the debug file report."
+msgstr ""
+
+msgid ""
+"Name should be a string. Only letters, digits and hyphen ('-') are allowed."
+msgstr ""
+
 #, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
 msgstr ""
@@ -1142,14 +1168,11 @@ msgid "Invalid storage type. Types supported: 'cdrom'"
 msgstr ""
 
 #, python-format
-msgid "The path %(value)s is not valid local/remote path for the device"
+msgid "The path '%(value)s' is not valid local/remote path for the device"
 msgstr ""
 
 #, python-format
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
-msgstr ""
-
-msgid "Must specify a device name"
 msgstr ""
 
 msgid "Can't specify a directory for a CDROM device path"
@@ -1172,6 +1195,12 @@ msgid "Error while removing storage device: %(error)s"
 msgstr ""
 
 msgid "Do not support guest CDROM hot plug attachment"
+msgstr ""
+
+msgid "Specify type and path to add a new virtual machine disk"
+msgstr ""
+
+msgid "Specify path to update virtual machine disk"
 msgstr ""
 
 msgid "Repository ID must be one word only string."
