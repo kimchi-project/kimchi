@@ -70,9 +70,13 @@ class Resource(object):
                 fn = getattr(self.model, model_fn(self, action_name))
                 ident = fn(*model_args)
                 self._redirect(ident)
-                uri_params = tuple([urllib2.quote(arg.encode('utf-8'), safe="")
-                                    for arg in self.model_args])
-                raise internal_redirect(self.uri_fmt % uri_params)
+                uri_params = []
+                for arg in self.model_args:
+                    if arg is None:
+                        arg = ''
+                    uri_params.append(urllib2.quote(arg.encode('utf-8'),
+                                      safe=""))
+                raise internal_redirect(self.uri_fmt % tuple(uri_params))
             except MissingParameter, e:
                 raise cherrypy.HTTPError(400, e.message)
             except InvalidParameter, e:
