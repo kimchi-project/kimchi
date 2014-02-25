@@ -137,7 +137,7 @@ kimchi.listVmsAuto = function() {
                 var guestTemplate = kimchi.guestTemplate;
                 var currentConsoleImages = kimchi.getVmsCurrentConsoleImgs();
                 var openMenuGuest = kimchi.getOpenMenuVmId();
-                $('#guestList').html('');
+                $('#guestList').empty();
                 $('#guestListField').show();
                 $('#noGuests').hide();
 
