@@ -49,7 +49,6 @@ install -Dm 0755 contrib/kimchid.sysvinit %{buildroot}%{_initrddir}/kimchid
 
 
 %post
-service kimchid start
 chkconfig kimchid on
 
 %preun

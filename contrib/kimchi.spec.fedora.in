@@ -88,12 +88,6 @@ if [ $1 -eq 1 ] ; then
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 fi
 
-%if 0%{?rhel} == 6
-start kimchid
-%else
-service kimchid start
-%endif
-
 %if 0%{?with_systemd}
 service firewalld status >/dev/null 2>&1
 if [ $? -ne 0 ]; then
