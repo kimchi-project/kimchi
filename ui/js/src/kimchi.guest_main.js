@@ -60,8 +60,8 @@ kimchi.vmreset = function(event){
     var vm_id=vm.attr("id");
     kimchi.resetVM(vm_id, function(result) {
             kimchi.listVmsAuto();
-        }, function() {
-            kimchi.message.error(i18n['msg.fail.reset']);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         }
     );
 };
