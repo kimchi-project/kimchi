@@ -70,16 +70,16 @@ kimchi.vmdelete = function(event) {
     var vm = $(this).closest('li[name=guest]');
     var vm_id=vm.attr("id");
     var settings = {
-        title : i18n['msg.confirm.delete.title'],
-        content : i18n['msg.vm.confirm.delete'],
-        confirm : i18n['msg.confirm.delete.confirm'],
-        cancel : i18n['msg.confirm.delete.cancel']
+        title : i18n['KCHVM6002M'],
+        content : i18n['KCHVM6001M'],
+        confirm : i18n['KCHAPI6002M'],
+        cancel : i18n['KCHAPI6003M']
     };
     kimchi.confirm(settings, function() {
         kimchi.deleteVM(vm_id, function(result) {
             kimchi.listVmsAuto();
-        }, function() {
-            kimchi.message.error(i18n['msg.fail.delete']);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         });
     }, function() {
     });

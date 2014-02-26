@@ -75,6 +75,7 @@ messages = {
     "KCHVM0018E": _("Virtual machine volumes must be a list of strings with distinct LUNs names."),
     "KCHVM0019E": _("Unable to start virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0020E": _("Unable to stop virtual machine %(name)s. Details: %(err)s"),
+    "KCHVM0021E": _("Unable to delete virtual machine %(name)s. Details: %(err)s"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

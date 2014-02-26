@@ -342,26 +342,29 @@ class VMModel(object):
                 raise
 
     def delete(self, name):
-        if self._vm_exists(name):
-            conn = self.conn.get()
-            dom = self.get_vm(name, self.conn)
-            self._vmscreenshot_delete(dom.UUIDString())
-            paths = self._vm_get_disk_paths(dom)
-            info = self.lookup(name)
+        conn = self.conn.get()
+        dom = self.get_vm(name, self.conn)
+        self._vmscreenshot_delete(dom.UUIDString())
+        paths = self._vm_get_disk_paths(dom)
+        info = self.lookup(name)
 
-            if info['state'] == 'running':
-                self.stop(name)
+        if info['state'] == 'running':
+            self.stop(name)
 
+        try:
             dom.undefine()
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVM0021E",
+                                  {'name': name, 'err': e.get_error_message()})
 
-            for path in paths:
-                vol = conn.storageVolLookupByPath(path)
-                vol.delete(0)
+        for path in paths:
+            vol = conn.storageVolLookupByPath(path)
+            vol.delete(0)
 
-            with self.objstore as session:
-                session.delete('vm', dom.UUIDString(), ignore_missing=True)
+        with self.objstore as session:
+            session.delete('vm', dom.UUIDString(), ignore_missing=True)
 
-            vnc.remove_proxy_token(name)
+        vnc.remove_proxy_token(name)
 
     def start(self, name):
         # make sure the ISO file has read permission
