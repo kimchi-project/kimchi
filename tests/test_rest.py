@@ -70,7 +70,8 @@ class RestTests(unittest.TestCase):
 
     def _except_op(self, cb, opaque):
         time.sleep(1)
-        raise Exception("Oops")
+        raise Exception("Oops, this is an exception handle test."
+                        " You can ignore it safely")
         cb('success', True)
 
     def _intermid_op(self, cb, opaque):
