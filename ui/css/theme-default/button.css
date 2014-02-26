@@ -118,6 +118,10 @@
     right: 10px;
 }
 
+.btn .input {
+    margin-left: 10px;
+}
+
 /* Generated at http://colorzilla.com/gradient-editor/ */
 .btn-tool {
     display: inline-block;

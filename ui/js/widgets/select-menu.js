@@ -24,7 +24,7 @@
             this.listControl.html('');
             this.target = this.selectDiv.find('input').first();
             this.label = this.selectDiv.find('span').first();
-            this.selectDiv.addClass('btn-select dropdown popable');
+            this.selectDiv.addClass('btn dropdown popable');
             this.target.addClass('input');
             this.label.addClass('input');
             this.listControl.addClass('select-list');
@@ -72,7 +72,7 @@
         },
 
         destroy : function() {
-            this.selectDiv.removeClass('btn-select dropdown popable');
+            this.selectDiv.removeClass('btn dropdown popable');
             this.target.removeClass('input');
             this.label.removeClass('input');
             this.listControl.removeClass('select-list');
