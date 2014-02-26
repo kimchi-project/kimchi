@@ -25,6 +25,17 @@ import unittest
 
 from kimchi.config import Paths, PluginPaths
 
+get_prefix = None
+
+
+def setUpModule():
+    global get_prefix
+    get_prefix = Paths.get_prefix
+
+
+def tearDownModule():
+    Paths.get_prefix = PluginPaths.get_prefix = get_prefix
+
 
 class ConfigTests(unittest.TestCase):
     def assertInstalledPath(self, actual, expected):
