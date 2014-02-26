@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:49</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb 26 13:01:49 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:49</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Status 2) Bug list 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:39</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-9"></a><span class="tm">13:03:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:54</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin 1) add disk to logical storage pool, 2) SCSI FC storage pool, patch sent for these 2 line items</span>
+<a name="l-12"></a><span class="tm">13:05:01</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is working on reference count adding and vm/volumes action on readonly pool change, submitted v2 and v3 respectively</span>
+<a name="l-13"></a><span class="tm">13:05:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to differ when user needs to login and when he/she does not have permission to access kimchi (which partial fix bug #323)</span>
+<a name="l-14"></a><span class="tm">13:06:18</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef submitted bug fixes involves permission, build dependencies and so on</span>
+<a name="l-15"></a><span class="tm">13:06:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated Makefiles to automatically load files instead of list file by file (which was causing a lot of problems)</span>
+<a name="l-16"></a><span class="tm">13:06:41</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac finishing patchset that adds user and groups permissions to a VM; reviewed patches on the mailing list.</span>
+<a name="l-17"></a><span class="tm">13:07:07</span><span class="nk"> &lt;AdamKingIT1&gt;</span> <span class="cmd">#info </span><span class="cmdline">AdamKingIT Created link to help</span>
+<a name="l-18"></a><span class="tm">13:07:16</span><span class="nk"> &lt;ming&gt;</span> <span class="cmd">#info </span><span class="cmdline">shuming 1)reviewed all the open bugs and worked with sheldon to assign them. 2)Post the patch to fix the debugreport path broken problem and added more test</span>
+<a name="l-19"></a><span class="tm">13:07:23</span><span class="nk"> &lt;AdamKingIT1&gt;</span> <span class="cmd">#info </span><span class="cmdline">AdamKingIT Refactored/improved  guests tab code</span>
+<a name="l-20"></a><span class="tm">13:07:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm enable jsonschema while creating/updating vm storages</span>
+<a name="l-21"></a><span class="tm">13:08:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fix bug #316 - only check the path starts with '/' on UI and let backend confirm if path exists</span>
+<a name="l-22"></a><span class="tm">13:08:45</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted some patches to fix some issues: packaging, authors cleanup; tested and reviewed some patches</span>
+<a name="l-23"></a><span class="tm">13:09:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fix bug #325</span>
+<a name="l-24"></a><span class="tm">13:09:16</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru :  Fixed several problems: Duplicate entries listed under "Device Path" in Storage Logical Pool; Fixed debug report generation; Guest backend and UI error messaging handling;  Network VLan UI window was not blocking vlan field</span>
+<a name="l-25"></a><span class="tm">13:11:33</span><span class="nk"> &lt;alinefm&gt;</span> wow!! everyone focuses on bug fixes!
+<a name="l-26"></a><span class="tm">13:11:35</span><span class="nk"> &lt;ming&gt;</span> <span class="cmd">#info </span><span class="cmdline">shuming tried to reproduce virsh save restore on x86 machine.</span>
+<a name="l-27"></a><span class="tm">13:11:53</span><span class="nk"> &lt;alinefm&gt;</span> but we still have some bug to fix
+<a name="l-28"></a><span class="tm">13:12:39</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1 and shaohef_away worked on github and tagged the bugs with "bug" or "enhancement"
+<a name="l-29"></a><span class="tm">13:12:45</span><span class="nk"> &lt;ming&gt;</span> I would like to say we need to more tests, it seem that current bugs are easy bugs.
+<a name="l-30"></a><span class="tm">13:12:54</span><span class="nk"> &lt;alinefm&gt;</span> we need to focus on those tagges with "bug"
+<a name="l-31"></a><span class="tm">13:13:09</span><span class="nk"> &lt;alinefm&gt;</span> ming, agree
+<a name="l-32"></a><span class="tm">13:13:36</span><span class="nk"> &lt;alinefm&gt;</span> as I mentioned last meeting we need to add tests while fixing a bug to avoid regression
+<a name="l-33"></a><span class="tm">13:14:18</span><span class="nk"> &lt;alinefm&gt;</span> about the bugs: when start working on one leave a comment there "I am working on it. Please, assign to me"
+<a name="l-34"></a><span class="tm">13:14:32</span><span class="nk"> &lt;alinefm&gt;</span> that way we avoid getting 2 people working on same bug
+<a name="l-35"></a><span class="tm">13:17:50</span><span class="nk"> &lt;alinefm&gt;</span> seems anyone has anything to add here
+<a name="l-36"></a><span class="tm">13:17:53</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-37"></a><span class="tm">13:18:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Bug list</span>
+<a name="l-38"></a><span class="tm">13:18:21</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open
+<a name="l-39"></a><span class="tm">13:18:29</span><span class="nk"> &lt;alinefm&gt;</span> there are 21 bugs open
+<a name="l-40"></a><span class="tm">13:18:34</span><span class="nk"> &lt;alinefm&gt;</span> and we need to focus on them
+<a name="l-41"></a><span class="tm">13:18:54</span><span class="nk"> &lt;alinefm&gt;</span> take any unassigned bug to work on and sent a patch to it
+<a name="l-42"></a><span class="tm">13:20:12</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Is 295 a duplicate of 325?
+<a name="l-43"></a><span class="tm">13:20:46</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, yes
+<a name="l-44"></a><span class="tm">13:21:33</span><span class="nk"> &lt;AdamKingIT1&gt;</span> One more down :-)
+<a name="l-45"></a><span class="tm">13:22:16</span><span class="nk"> &lt;alinefm&gt;</span> yeap! now we have only 20
+<a name="l-46"></a><span class="tm">13:22:33 </span><span class="nka">* pvital</span> <span class="ac">also loves close bugs as duplicate!!!</span>
+<a name="l-47"></a><span class="tm">13:23:45</span><span class="nk"> &lt;alinefm&gt;</span> you are so quiet today
+<a name="l-48"></a><span class="tm">13:23:59</span><span class="nk"> &lt;alinefm&gt;</span> I will need to change the meeting name to "alinefm's monologue"
+<a name="l-49"></a><span class="tm">13:24:01</span><span class="nk"> &lt;alinefm&gt;</span> lol
+<a name="l-50"></a><span class="tm">13:24:02</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I thought I remembered shaohef sending a patch for 243 too, though maybe not w/ that #
+<a name="l-51"></a><span class="tm">13:24:30</span><span class="nk"> &lt;ming&gt;</span> I would like somebody to take the bugs assigned dingxing and meina
+<a name="l-52"></a><span class="tm">13:25:01</span><span class="nk"> &lt;alinefm&gt;</span> ming, yes - good point
+<a name="l-53"></a><span class="tm">13:25:05</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, one more down =)
+<a name="l-54"></a><span class="tm">13:25:05</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I'll look at the ones assigned to them and see how many they are, what they are, etc
+<a name="l-55"></a><span class="tm">13:27:53</span><span class="nk"> &lt;alinefm&gt;</span> anyone would like to talk about specific bug?
+<a name="l-56"></a><span class="tm">13:30:45</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-57"></a><span class="tm">13:31:08</span><span class="nk"> &lt;alinefm&gt;</span> we finish early today
+<a name="l-58"></a><span class="tm">13:31:19</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for joining
+<a name="l-59"></a><span class="tm">13:32:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

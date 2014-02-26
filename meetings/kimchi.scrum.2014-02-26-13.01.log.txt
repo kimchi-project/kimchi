@@ -1,0 +1,59 @@
+13:01:49 <alinefm> #startmeeting
+13:01:49 <kimchi-bot> Meeting started Wed Feb 26 13:01:49 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:49 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:50 <alinefm> #meetingname scrum
+13:01:50 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:34 <alinefm> #info  Agenda 1) Status 2) Bug list 3) Open discussion
+13:02:34 <alinefm> anything else?
+13:03:39 <alinefm> ok
+13:03:56 <alinefm> #topic Status
+13:03:56 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:54 <YuXin> #info YuXin 1) add disk to logical storage pool, 2) SCSI FC storage pool, patch sent for these 2 line items
+13:05:01 <royce> #info royce is working on reference count adding and vm/volumes action on readonly pool change, submitted v2 and v3 respectively
+13:05:16 <alinefm> #info alinefm sent patch to differ when user needs to login and when he/she does not have permission to access kimchi (which partial fix bug #323)
+13:06:18 <royce> #info shaohef submitted bug fixes involves permission, build dependencies and so on
+13:06:29 <alinefm> #info alinefm updated Makefiles to automatically load files instead of list file by file (which was causing a lot of problems)
+13:06:41 <vianac> #info vianac finishing patchset that adds user and groups permissions to a VM; reviewed patches on the mailing list.
+13:07:07 <AdamKingIT1> #info AdamKingIT Created link to help
+13:07:16 <ming> #info shuming 1)reviewed all the open bugs and worked with sheldon to assign them. 2)Post the patch to fix the debugreport path broken problem and added more test
+13:07:23 <AdamKingIT1> #info AdamKingIT Refactored/improved  guests tab code
+13:07:24 <alinefm> #info alinefm enable jsonschema while creating/updating vm storages
+13:08:26 <alinefm> #info alinefm fix bug #316 - only check the path starts with '/' on UI and let backend confirm if path exists
+13:08:45 <pvital> #info pvital submitted some patches to fix some issues: packaging, authors cleanup; tested and reviewed some patches
+13:09:01 <alinefm> #info alinefm fix bug #325
+13:09:16 <rotru> #info rotru :  Fixed several problems: Duplicate entries listed under "Device Path" in Storage Logical Pool; Fixed debug report generation; Guest backend and UI error messaging handling;  Network VLan UI window was not blocking vlan field
+13:11:33 <alinefm> wow!! everyone focuses on bug fixes!
+13:11:35 <ming> #info shuming tried to reproduce virsh save restore on x86 machine.
+13:11:53 <alinefm> but we still have some bug to fix
+13:12:39 <alinefm> AdamKingIT1 and shaohef_away worked on github and tagged the bugs with "bug" or "enhancement"
+13:12:45 <ming> I would like to say we need to more tests, it seem that current bugs are easy bugs.
+13:12:54 <alinefm> we need to focus on those tagges with "bug"
+13:13:09 <alinefm> ming, agree
+13:13:36 <alinefm> as I mentioned last meeting we need to add tests while fixing a bug to avoid regression
+13:14:18 <alinefm> about the bugs: when start working on one leave a comment there "I am working on it. Please, assign to me"
+13:14:32 <alinefm> that way we avoid getting 2 people working on same bug
+13:17:50 <alinefm> seems anyone has anything to add here
+13:17:53 <alinefm> let's move on
+13:18:02 <alinefm> #topic Bug list
+13:18:21 <alinefm> https://github.com/kimchi-project/kimchi/issues?labels=bug&page=1&state=open
+13:18:29 <alinefm> there are 21 bugs open
+13:18:34 <alinefm> and we need to focus on them
+13:18:54 <alinefm> take any unassigned bug to work on and sent a patch to it
+13:20:12 <AdamKingIT1> Is 295 a duplicate of 325?
+13:20:46 <alinefm> AdamKingIT1, yes
+13:21:33 <AdamKingIT1> One more down :-)
+13:22:16 <alinefm> yeap! now we have only 20
+13:22:33 * pvital also loves close bugs as duplicate!!!
+13:23:45 <alinefm> you are so quiet today
+13:23:59 <alinefm> I will need to change the meeting name to "alinefm's monologue"
+13:24:01 <alinefm> lol
+13:24:02 <AdamKingIT1> I thought I remembered shaohef sending a patch for 243 too, though maybe not w/ that #
+13:24:30 <ming> I would like somebody to take the bugs assigned dingxing and meina
+13:25:01 <alinefm> ming, yes - good point
+13:25:05 <alinefm> AdamKingIT1, one more down =)
+13:25:05 <AdamKingIT1> I'll look at the ones assigned to them and see how many they are, what they are, etc
+13:27:53 <alinefm> anyone would like to talk about specific bug?
+13:30:45 <alinefm> ok
+13:31:08 <alinefm> we finish early today
+13:31:19 <alinefm> thanks all for joining
+13:32:07 <alinefm> #endmeeting

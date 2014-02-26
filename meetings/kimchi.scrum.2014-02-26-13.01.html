@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:01:49 UTC
+(<a href="kimchi.scrum.2014-02-26-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Bug list 3) Open
+    discussion</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-6'>alinefm</a>,
+    13:02:34)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-02-26-13.01.log.html#l-9'>alinefm</a>, 13:03:56)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-10'>alinefm</a>,
+    13:03:56)</span></li>
+  <li><span class="INFO">YuXin 1) add disk to logical storage pool, 2)
+    SCSI FC storage pool, patch sent for these 2 line items</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-11'>YuXin</a>,
+    13:04:54)</span></li>
+  <li><span class="INFO">royce is working on reference count adding and
+    vm/volumes action on readonly pool change, submitted v2 and v3
+    respectively</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-12'>royce</a>,
+    13:05:01)</span></li>
+  <li><span class="INFO">alinefm sent patch to differ when user needs to
+    login and when he/she does not have permission to access kimchi
+    (which partial fix bug #323)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-13'>alinefm</a>,
+    13:05:16)</span></li>
+  <li><span class="INFO">shaohef submitted bug fixes involves
+    permission, build dependencies and so on</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-14'>royce</a>,
+    13:06:18)</span></li>
+  <li><span class="INFO">alinefm updated Makefiles to automatically load
+    files instead of list file by file (which was causing a lot of
+    problems)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-15'>alinefm</a>,
+    13:06:29)</span></li>
+  <li><span class="INFO">vianac finishing patchset that adds user and
+    groups permissions to a VM; reviewed patches on the mailing
+    list.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-16'>vianac</a>,
+    13:06:41)</span></li>
+  <li><span class="INFO">AdamKingIT Created link to help</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-17'>AdamKingIT1</a>,
+    13:07:07)</span></li>
+  <li><span class="INFO">shuming 1)reviewed all the open bugs and worked
+    with sheldon to assign them. 2)Post the patch to fix the debugreport
+    path broken problem and added more test</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-18'>ming</a>,
+    13:07:16)</span></li>
+  <li><span class="INFO">AdamKingIT Refactored/improved  guests tab
+    code</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-19'>AdamKingIT1</a>,
+    13:07:23)</span></li>
+  <li><span class="INFO">alinefm enable jsonschema while
+    creating/updating vm storages</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-20'>alinefm</a>,
+    13:07:24)</span></li>
+  <li><span class="INFO">alinefm fix bug #316 - only check the path
+    starts with '/' on UI and let backend confirm if path exists</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-21'>alinefm</a>,
+    13:08:26)</span></li>
+  <li><span class="INFO">pvital submitted some patches to fix some
+    issues: packaging, authors cleanup; tested and reviewed some
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-22'>pvital</a>,
+    13:08:45)</span></li>
+  <li><span class="INFO">alinefm fix bug #325</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-23'>alinefm</a>,
+    13:09:01)</span></li>
+  <li><span class="INFO">rotru :  Fixed several problems: Duplicate
+    entries listed under "Device Path" in Storage Logical Pool; Fixed
+    debug report generation; Guest backend and UI error messaging
+    handling;  Network VLan UI window was not blocking vlan field</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-24'>rotru</a>,
+    13:09:16)</span></li>
+  <li><span class="INFO">shuming tried to reproduce virsh save restore
+    on x86 machine.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-26'>ming</a>,
+    13:11:35)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Bug list</b> <span class="details">(<a href='kimchi.scrum.2014-02-26-13.01.log.html#l-37'>alinefm</a>, 13:18:02)</span>
+<ol type="a">
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open">https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-02-26-13.01.log.html#l-38'>alinefm</a>,
+    13:18:21)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:32:07 UTC
+(<a href="kimchi.scrum.2014-02-26-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (39)</li>
+  <li>AdamKingIT1 (6)</li>
+  <li>ming (4)</li>
+  <li>kimchi-bot (3)</li>
+  <li>pvital (2)</li>
+  <li>royce (2)</li>
+  <li>vianac (1)</li>
+  <li>YuXin (1)</li>
+  <li>rotru (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
