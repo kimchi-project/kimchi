@@ -25,9 +25,9 @@ kimchi.vmstart = function(event) {
         kimchi.startVM(vm_id, function(result) {
             button.removeClass('loading');
             kimchi.listVmsAuto();
-            }, function() {
-                startButton.removeClass('loading');
-                kimchi.message.error(i18n['msg.fail.start']);
+            }, function(err) {
+                button.removeClass('loading');
+                kimchi.message.error(err.responseJSON.reason);
             }
         );
     } else {
