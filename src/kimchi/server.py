@@ -65,8 +65,6 @@ class Server(object):
     CACHEEXPIRES = 31536000
     configObj = {
         '/': {'tools.trailing_slash.on': False,
-              'tools.staticdir.root': paths.prefix,
-              'tools.staticfile.root': paths.prefix,
               'request.methods_with_bodies': ('POST', 'PUT'),
               'tools.nocache.on': True,
               'tools.sessions.on': True,
@@ -77,45 +75,46 @@ class Server(object):
               'tools.kimchiauth.on': False},
         '/css': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'ui/css',
+            'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False
         },
         '/js': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'ui/js',
+            'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False
         },
         '/libs': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'ui/libs',
+            'tools.staticdir.dir': '%s/ui/libs' % paths.prefix,
             'tools.expires.on': True,
             'tools.expires.secs': CACHEEXPIRES,
             'tools.nocache.on': False,
         },
         '/images': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'ui/images',
+            'tools.staticdir.dir': '%s/ui/images' % paths.prefix,
             'tools.nocache.on': False
         },
         '/data/screenshots': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'data/screenshots',
+            'tools.staticdir.dir': config.get_screenshot_path(),
             'tools.nocache.on': False
         },
         '/data/debugreports': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'data/debugreports',
+            'tools.staticdir.dir': config.get_debugreports_path(),
             'tools.nocache.on': False,
             'tools.kimchiauth.on': True,
             'tools.staticdir.content_types': {'xz': 'application/x-xz'}
         },
         '/config/ui/tabs.xml': {
             'tools.staticfile.on': True,
-            'tools.staticfile.filename': 'config/ui/tabs.xml',
+            'tools.staticfile.filename': '%s/config/ui/tabs.xml' %
+                                         paths.prefix,
             'tools.nocache.on': True
         },
         '/favicon.ico': {
@@ -124,7 +123,7 @@ class Server(object):
         },
         '/help': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': 'ui/pages/help',
+            'tools.staticdir.dir': '%s/ui/pages/help' % paths.prefix,
             'tools.nocache.on': False
         }
     }
