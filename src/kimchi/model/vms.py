@@ -319,16 +319,6 @@ class VMModel(object):
         xpath = "/domain/devices/disk[@device='disk']/source/@file"
         return xmlutils.xpath_get_text(xml, xpath)
 
-    def _vm_exists(self, name):
-        try:
-            self.get_vm(name, self.conn)
-            return True
-        except NotFoundError:
-            return False
-        except Exception, e:
-            raise OperationFailed("KCHVM0009E", {'name': name,
-                                                 'err': e.message})
-
     @staticmethod
     def get_vm(name, conn):
         conn = conn.get()
@@ -339,7 +329,8 @@ class VMModel(object):
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN:
                 raise NotFoundError("KCHVM0002E", {'name': name})
             else:
-                raise
+                raise OperationFailed("KCHVM0009E", {'name': name,
+                                                     'err': e.message})
 
     def delete(self, name):
         conn = self.conn.get()
