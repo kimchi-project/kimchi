@@ -380,9 +380,12 @@ class VMModel(object):
                                   {'name': name, 'err': e.get_error_message()})
 
     def stop(self, name):
-        if self._vm_exists(name):
-            dom = self.get_vm(name, self.conn)
+        dom = self.get_vm(name, self.conn)
+        try:
             dom.destroy()
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVM0020E",
+                                  {'name': name, 'err': e.get_error_message()})
 
     def _vm_get_graphics(self, name):
         dom = self.get_vm(name, self.conn)

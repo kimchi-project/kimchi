@@ -46,8 +46,8 @@ kimchi.vmstop = function(event) {
         kimchi.stopVM(vm_id, function(result) {
             button.removeClass('loading');
             kimchi.listVmsAuto();
-        }, function() {
-            kimchi.message.error(i18n['msg.fail.stop']);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
         });
     } else {
         event.preventDefault();
