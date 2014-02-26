@@ -549,14 +549,17 @@ class ModelTests(unittest.TestCase):
             params_2 = {'name': 'kimchi-vm2', 'template': '/templates/test'}
             inst.vms_create(params_1)
             inst.vms_create(params_2)
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vm1')
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vm2')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
+                                  'kimchi-vm1')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
+                                  'kimchi-vm2')
 
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm1' in vms)
 
             inst.vm_start('kimchi-vm1')
-            rollback.prependDefer(inst.vm_stop, 'kimchi-vm1')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_stop,
+                                  'kimchi-vm1')
 
             info = inst.vm_lookup('kimchi-vm1')
             self.assertEquals('running', info['state'])
@@ -571,7 +574,8 @@ class ModelTests(unittest.TestCase):
                               'kimchi-vm1', {'name': 'kimchi-vm2'})
             inst.vm_update('kimchi-vm1', params)
             self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
-            rollback.prependDefer(inst.vm_delete, u'пeω-∨м')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
+                                  u'пeω-∨м')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_network(self):
@@ -760,6 +764,17 @@ class ModelTests(unittest.TestCase):
                           inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
 
+    # This wrapper function is needed due to the new backend messaging in
+    # vm model. vm_stop and vm_delete raise exception if vm is not found.
+    # These functions are called after vm has been deleted if test finishes
+    # correctly, then NofFoundError exception is raised and rollback breaks
+    def _rollback_wrapper(self, func, vmname):
+        try:
+            func(vmname)
+        except NotFoundError:
+            # VM has been deleted already
+            return
+
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_delete_running_vm(self):
         inst = model.Model(objstore_loc=self.tmp_store)
@@ -771,10 +786,12 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': u'kīмсhī-∨м', 'template': u'/templates/test'}
             inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, u'kīмсhī-∨м')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
+                                  u'kīмсhī-∨м')
 
             inst.vm_start(u'kīмсhī-∨м')
-            rollback.prependDefer(inst.vm_stop, u'kīмсhī-∨м')
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_stop,
+                                  u'kīмсhī-∨м')
 
             inst.vm_delete(u'kīмсhī-∨м')
 
