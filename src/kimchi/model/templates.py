@@ -19,6 +19,7 @@
 
 import copy
 import os
+import time
 
 import libvirt
 
@@ -34,7 +35,13 @@ class TemplatesModel(object):
         self.conn = kargs['conn']
 
     def create(self, params):
-        name = params['name']
+        name = params.get('name', '').strip()
+        if not name:
+            iso = params['cdrom']
+            iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
+            name = iso_name + str(int(time.time()*1000))
+            params['name'] = name
+
         conn = self.conn.get()
 
         pool_uri = params.get(u'storagepool', '')

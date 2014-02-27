@@ -216,7 +216,13 @@ class MockModel(object):
             raise NotFoundError("KCHTMPL0002E", {'name': name})
 
     def templates_create(self, params):
-        name = params['name']
+        name = params.get('name', '').strip()
+        if not name:
+            iso = params['cdrom']
+            iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
+            name = iso_name + str(int(time.time()*1000))
+            params['name'] = name
+
         if name in self._mock_templates:
             raise InvalidOperation("KCHTMPL0001E", {'name': name})
 

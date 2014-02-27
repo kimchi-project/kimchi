@@ -219,7 +219,6 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "name" : kimchi.get_iso_name(isoFile),
             "cdrom" : isoFile
         };
         addTemplate(data);
@@ -331,7 +330,6 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "name" : kimchi.get_iso_name(isoUrl),
             "cdrom" : isoUrl
         };
         addTemplate(data);
@@ -355,7 +353,6 @@ kimchi.template_add_main = function() {
             var successNum = 0;
             var addTemplate = function(isoInfo) {
                 var data = {
-                    "name" : kimchi.get_iso_name(isoInfo.name),
                     "os_distro" : isoInfo.os_distro,
                     "os_version" : isoInfo.os_version,
                     "cdrom" : isoInfo.path
@@ -418,17 +415,4 @@ kimchi.is_iso_file = function(isoFile) {
         return true;
     }
     return false;
-};
-
-kimchi.get_iso_name = function(isoPath) {
-    if ((isoPath.charAt(isoPath.length - 1) == "/") == true) {
-        isoPath = isoPath.substring(0, isoPath.length - 1)
-    }
-    if (/.iso$/.test(isoPath)) {
-        return isoPath.substring(isoPath.lastIndexOf("/") + 1,
-                isoPath.lastIndexOf(".")) + new Date().getTime();
-    } else {
-        return isoPath.substring(isoPath.lastIndexOf("/") + 1) +
-        new Date().getTime();
-    }
 };
