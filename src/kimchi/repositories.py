@@ -24,9 +24,7 @@ from kimchi.basemodel import Singleton
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 
-YUM_DISTROS = ['fedora', 'red hat enterprise linux',
-               'red hat enterprise linux server', 'opensuse ',
-               'suse linux enterprise server ']
+YUM_DISTROS = ['fedora', 'opensuse ', 'suse linux enterprise server ']
 APT_DISTROS = ['debian', 'ubuntu']
 
 
@@ -49,7 +47,7 @@ class Repositories(object):
         self._repo_storage = {}
 
         self._distro = platform.linux_distribution()[0].lower()
-        if (self._distro in YUM_DISTROS):
+        if (self._distro in YUM_DISTROS or self._distro.startswith('red hat')):
             self._pkg_mnger = YumRepo()
         elif (self._distro in APT_DISTROS):
             self._pkg_mnger = AptRepo()
