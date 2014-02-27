@@ -207,11 +207,28 @@ kimchi.openNetworkDialog = function(okCallback) {
     $("#networkConfig").dialog("open");
 };
 
+kimchi.enableBridgeOptions = function(enable) {
+    if (!enable) {
+        $("#enableVlan").prop("checked", false);
+        $("#networkVlanID").prop("disabled", true);
+        $("#networkVlanID").val("");
+        $("#networkInterface").val("");
+        $("#bridge-options").slideUp(100);
+    } else if (!$("#networkInterface").val()){
+        $("#networkInterface").prop("selectedIndex", 0);
+        $("#bridge-options").slideDown(100);
+    }
+};
+
 kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
     $("#networkTypeBri").prop("checked", isInterfaceAvail);
     $("#networkTypeBri").prop("disabled", !isInterfaceAvail);
-    $("#networkInterface").prop("disabled", !isInterfaceAvail);
     $("#networkTypeNat").prop("checked", !isInterfaceAvail);
+    if (!isInterfaceAvail) {
+        kimchi.enableBridgeOptions(false);
+    } else {
+        $("#bridge-options").slideDown(100);
+    }
 };
 
 kimchi.getNetworkDialogValues = function() {
@@ -247,12 +264,15 @@ kimchi.setupNetworkFormEvent = function() {
     });
     $("#networkTypeIso").on("click", function(event) {
         $("#networkInterface").prop("disabled", true);
+        kimchi.enableBridgeOptions(false);
     });
     $("#networkTypeNat").on("click", function(event) {
         $("#networkInterface").prop("disabled", true);
+        kimchi.enableBridgeOptions(false);
     });
     $("#networkTypeBri").on("click", function(event) {
         $("#networkInterface").prop("disabled", false);
+        kimchi.enableBridgeOptions(true);
     });
 };
 

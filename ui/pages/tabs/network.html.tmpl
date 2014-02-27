@@ -68,15 +68,17 @@
                     <input type="radio" id="networkTypeBri" name="networkType" value="bridged">
                     <label for="networkTypeBri">$_("Bridged: Virtual machines are connected to physical network directly")</label>
                 </div>
-                <div class="destination">
-                    <label>$_("Destination"): </label>
-                    <select id="networkInterface"></select>
-                </div>
-                <div class="VLAN">
-                    <label for="enableVlan">$_("Enable VLAN"): </label>
-                    <input id="enableVlan" type="checkbox" value=""/>
-                    <label>$_("VLAN ID"): </label>
-                    <input type="text" id="networkVlanID" disabled>
+                <div id="bridge-options">
+                    <div class="destination">
+                        <label for="networkInterface">$_("Destination"): </label>
+                        <select id="networkInterface"></select>
+                    </div>
+                    <div class="VLAN">
+                        <label for="enableVlan">$_("Enable VLAN"): </label>
+                        <input id="enableVlan" type="checkbox" value=""/>
+                        <label for="networkVlanID">$_("VLAN ID"): </label>
+                        <input type="text" id="networkVlanID" disabled>
+                    </div>
                 </div>
             </div>
         </div>
