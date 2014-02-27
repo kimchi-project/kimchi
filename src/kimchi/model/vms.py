@@ -27,6 +27,7 @@ from cherrypy.process.plugins import BackgroundTask
 
 from kimchi import vnc
 from kimchi import xmlutils
+from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
@@ -183,7 +184,7 @@ class VMsModel(object):
         # If storagepool is SCSI, volumes will be LUNs and must be passed by
         # the user from UI or manually.
         vol_list = []
-        if t._get_storage_type() == 'scsi':
+        if t._get_storage_type() in READONLY_POOL_TYPE:
             if not params.get('volumes'):
                 raise MissingParameter('KCHVM0017E')
             else:
@@ -215,9 +216,10 @@ class VMsModel(object):
         try:
             conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
-            for v in vol_list:
-                vol = conn.storageVolLookupByPath(v['path'])
-                vol.delete(0)
+            if t._get_storage_type() not in READONLY_POOL_TYPE:
+                for v in vol_list:
+                    vol = conn.storageVolLookupByPath(v['path'])
+                    vol.delete(0)
             raise OperationFailed("KCHVM0007E", {'name': name,
                                                  'err': e.get_error_message()})
 
@@ -350,7 +352,11 @@ class VMModel(object):
 
         for path in paths:
             vol = conn.storageVolLookupByPath(path)
-            vol.delete(0)
+            pool = vol.storagePoolLookupByVolume()
+            xml = pool.XMLDesc(0)
+            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            if pool_type not in READONLY_POOL_TYPE:
+                vol.delete(0)
 
         with self.objstore as session:
             session.delete('vm', dom.UUIDString(), ignore_missing=True)

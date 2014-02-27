@@ -31,6 +31,9 @@ from kimchi.xmlutils import xpath_get_text
 
 DEFAULT_LOG_LEVEL = "debug"
 
+# Storage pool constant for read-only pool types
+READONLY_POOL_TYPE = ['iscsi', 'scsi', 'mpath']
+
 
 def get_object_store():
     return os.path.join(paths.state_dir, 'objectstore')
