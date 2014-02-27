@@ -151,6 +151,7 @@ messages = {
     "KCHVOL0009E": _("Unable to wipe storage volumes %(name)s. Details: %(err)s"),
     "KCHVOL0010E": _("Unable to delete storage volume %(name)s. Details: %(err)s"),
     "KCHVOL0011E": _("Unable to resize storage volume %(name)s. Details: %(err)s"),
+    "KCHVOL0012E": _("Storage type %(type)s does not support volume create and delete"),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 

@@ -22,7 +22,8 @@ import os
 import libvirt
 
 from kimchi import xmlutils
-from kimchi.exception import InvalidOperation, IsoFormatError
+from kimchi.config import READONLY_POOL_TYPE
+from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
@@ -38,8 +39,9 @@ VOLUME_TYPE_MAP = {0: 'file',
 class StorageVolumesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
 
-    def create(self, pool, params):
+    def create(self, pool_name, params):
         vol_xml = """
         <volume>
           <name>%(name)s</name>
@@ -57,12 +59,16 @@ class StorageVolumesModel(object):
 
         name = params['name']
         try:
-            pool = StoragePoolModel.get_storagepool(pool, self.conn)
+            pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
             xml = vol_xml % params
         except KeyError, item:
             raise MissingParameter("KCHVOL0004E", {'item': str(item),
                                                    'volume': name})
 
+        pool_info = StoragePoolModel(conn=self.conn,
+                                     objstore=self.objstore).lookup(pool_name)
+        if pool_info['type'] in READONLY_POOL_TYPE:
+            raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
         try:
             pool.createXML(xml, 0)
         except libvirt.libvirtError as e:
@@ -87,6 +93,7 @@ class StorageVolumesModel(object):
 class StorageVolumeModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
 
     def _get_storagevolume(self, pool, name):
         pool = StoragePoolModel.get_storagepool(pool, self.conn)
@@ -137,6 +144,11 @@ class StorageVolumeModel(object):
                                   {'name': name, 'err': e.get_error_message()})
 
     def delete(self, pool, name):
+        pool_info = StoragePoolModel(conn=self.conn,
+                                     objstore=self.objstore).lookup(pool)
+        if pool_info['type'] in READONLY_POOL_TYPE:
+            raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
+
         volume = self._get_storagevolume(pool, name)
         try:
             volume.delete(0)

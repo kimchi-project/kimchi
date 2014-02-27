@@ -130,6 +130,8 @@ class Resource(object):
                 return self.delete()
             except NotFoundError, e:
                 raise cherrypy.HTTPError(404, e.message)
+            except InvalidParameter, e:
+                raise cherrypy.HTTPError(400, e.message)
         elif method == 'PUT':
             try:
                 return self.update()
