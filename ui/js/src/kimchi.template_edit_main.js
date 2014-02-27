@@ -30,7 +30,7 @@ kimchi.template_edit_main = function() {
             var options = [];
             if (result && result.length) {
                 $.each(result, function(index, storagePool) {
-                    if(storagePool.type !== 'kimchi-iso') {
+                    if ((storagePool.state=="active") && (storagePool.type !== 'kimchi-iso')) {
                         options.push({
                             label: storagePool.name,
                             value: '/storagepools/' + storagePool.name

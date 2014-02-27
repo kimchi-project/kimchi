@@ -140,7 +140,7 @@ kimchi.validateForm = function() {
         kimchi.message.error.code('KCHPOOL6001E');
         return false;
     }
-    if (name.contains("/")) {
+    if (name.indexOf("/")!=-1) {
         kimchi.message.error.code('KCHPOOL6004E');
         return false;
     }
