@@ -183,7 +183,7 @@ class IsoImage(object):
         for i in xrange(1, 4):
             fmt = IsoImage.EL_TORITO_BOOT_RECORD
             ptr = i * IsoImage.SECTOR_SIZE
-            tmp_data = data[ptr:ptr+fmt.size]
+            tmp_data = data[ptr:ptr + fmt.size]
             if len(tmp_data) < fmt.size:
                 return
 
@@ -212,7 +212,7 @@ class IsoImage(object):
                                  {'filename': self.path})
 
         fmt = IsoImage.EL_TORITO_BOOT_ENTRY
-        tmp_data = data[ptr:ptr+fmt.size]
+        tmp_data = data[ptr:ptr + fmt.size]
         (boot, media_type, load_seg, sys_type,
          pad0, sectors, load_rba) = self._unpack(fmt, tmp_data)
         if boot == 0x88:

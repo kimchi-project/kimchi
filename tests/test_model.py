@@ -971,7 +971,7 @@ class ModelTests(unittest.TestCase):
         for repo in test_repos:
             inst.repositories_create(repo)
         host_repos = inst.repositories_get_list()
-        self.assertEquals(system_host_repos+len(test_repos), len(host_repos))
+        self.assertEquals(system_host_repos + len(test_repos), len(host_repos))
 
         for repo in test_repos:
             repo_info = inst.repository_lookup(repo.get('repo_id'))
@@ -1009,7 +1009,7 @@ class ModelTests(unittest.TestCase):
         inst.repositories_create(repo)
 
         host_repos = inst.repositories_get_list()
-        self.assertEquals(system_host_repos+1, len(host_repos))
+        self.assertEquals(system_host_repos + 1, len(host_repos))
 
         new_repo = {'repo_id': 'fedora-fake',
                     'repo_name': 'Fedora 19 Update FAKE',
@@ -1039,7 +1039,7 @@ class ModelTests(unittest.TestCase):
         inst.repositories_create(repo)
 
         host_repos = inst.repositories_get_list()
-        self.assertEquals(system_host_repos+1, len(host_repos))
+        self.assertEquals(system_host_repos + 1, len(host_repos))
 
         repo_info = inst.repository_lookup(repo.get('repo_id'))
         self.assertEquals(True, repo_info.get('enabled'))

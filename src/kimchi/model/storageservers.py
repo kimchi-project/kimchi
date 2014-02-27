@@ -64,8 +64,8 @@ class StorageServerModel(object):
         for pool in pools:
             try:
                 pool_info = self.pool.lookup(pool)
-                if pool_info['source'] and \
-                   pool_info['source']['addr'] == server:
+                if (pool_info['source'] and
+                        pool_info['source']['addr'] == server):
                     return dict(host=server)
             except NotFoundError:
                 # Avoid inconsistent pool result because of lease between list
