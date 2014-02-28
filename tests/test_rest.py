@@ -1088,8 +1088,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         t = {'name': 'test', 'memory': 1024, 'cpus': 1,
-             'networks': ['test-network'], 'cdrom': iso,
-             'disks': [{'volume': iso}]}
+             'networks': ['test-network'], 'cdrom': iso}
 
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
@@ -1104,7 +1103,6 @@ class RestTests(unittest.TestCase):
         res = json.loads(self.request('/templates/test').read())
         self.assertEquals(res['invalid']['cdrom'], [iso])
         self.assertEquals(res['invalid']['networks'], ['test-network'])
-        self.assertEquals(res['invalid']['disks'], [iso])
 
         # Delete the template
         resp = request(host, port, '/templates/test', '{}', 'DELETE')

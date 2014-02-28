@@ -161,7 +161,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
       (either *size* or *volume* must be specified):
         * index: The device index
         * size: The device size in GB
-        * volume: A volume name that contains the initial disk contents
 
     * graphics *(optional)*: The graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.

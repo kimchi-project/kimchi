@@ -361,15 +361,6 @@ class VMTemplate(object):
         except Exception:
             invalid['cdrom'] = [iso]
 
-        # validate disks integrity
-        volumes = []
-        for disk in self.info['disks']:
-            volume = disk.get("volume")
-            if volume is not None and not os.path.exists(volume):
-                volumes.append(volume)
-        if volumes:
-            invalid['disks'] = volumes
-
         self.info['invalid'] = invalid
 
         return self.info
