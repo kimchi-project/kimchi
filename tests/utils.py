@@ -149,25 +149,12 @@ def patch_auth(sudo=True):
     Override the authenticate function with a simple test against an
     internal dict of users and passwords.
     """
-    USER_ID = 'userid'
-    USER_GROUPS = 'groups'
-    USER_SUDO = 'sudo'
 
-    class _User(object):
-        def __init__(self, userid):
-            self.user = {}
-            self.user[USER_ID] = userid
-            self.user[USER_GROUPS] = None
-            self.user[USER_SUDO] = sudo
+    def _get_groups(self):
+        return None
 
-        def get_groups(self):
-            return self.user[USER_GROUPS]
-
-        def has_sudo(self):
-            return self.user[USER_SUDO]
-
-        def get_user(self):
-            return self.user
+    def _has_sudo(self):
+        return sudo
 
     def _authenticate(username, password, service="passwd"):
         try:
@@ -178,7 +165,8 @@ def patch_auth(sudo=True):
 
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate
-    kimchi.auth.User = _User
+    kimchi.auth.User.get_groups = _get_groups
+    kimchi.auth.User.has_sudo = _has_sudo
 
 
 def normalize_xml(xml_str):
