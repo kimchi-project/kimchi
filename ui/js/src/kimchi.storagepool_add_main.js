@@ -72,7 +72,7 @@ kimchi.initStorageAddPage = function() {
                     $('#nfsServerChooseDiv').removeClass('tmpl-html');
                 }
             });
-            $('#nfsserverId').on("change",function() {
+            $('#nfsserverId').on("change keyup",function() {
                 if ($(this).val() !== '' && kimchi.isServer($(this).val())) {
                     $('#nfspathId').prop('disabled',false);
                     $(this).removeClass("invalid-field");
