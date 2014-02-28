@@ -44,6 +44,8 @@ HOST_STATS_INTERVAL = 1
 class HostModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
         self.host_info = self._get_host_info()
 
     def _get_host_info(self):
