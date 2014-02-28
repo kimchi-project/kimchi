@@ -66,8 +66,13 @@ kimchi.host_main = function() {
                         kimchi.deleteReport({
                             name: report['name']
                         }, function(result) {
+                            $('#' + reportGridID + '-remove-button')
+                                .prop('disabled', true);
+                            $('#' + reportGridID + '-download-button')
+                                .prop('disabled', true);
                             listDebugReports();
                         }, function(error) {
+                           kimchi.message.error(error.responseJSON.reason);
                         });
                     });
                 }
