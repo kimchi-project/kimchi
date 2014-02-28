@@ -26,6 +26,7 @@ from kimchi.exception import InvalidOperation, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
+from kimchi.utils import kimchi_log
 
 
 VOLUME_TYPE_MAP = {0: 'file',
@@ -169,8 +170,10 @@ class IsoVolumesModel(object):
                 pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
                 pool.refresh(0)
                 volumes = pool.listVolumes()
-            except InvalidOperation:
+            except Exception, e:
                 # Skip inactive pools
+                kimchi_log.debug("Shallow scan: skipping pool %s because of "
+                                 "error: %s", (pool_name, e.message))
                 continue
 
             for volume in volumes:
