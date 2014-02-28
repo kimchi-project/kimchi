@@ -93,6 +93,12 @@ kimchi.addNetworkActions = function(network) {
                     $("[nwAct='start']", menu).removeClass("ui-state-disabled");
                     $("[nwAct='stop']", menu).removeClass("hide-action-item");
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
+                }, function(err) {
+                    $(".network-state", $("#" + network.name)).switchClass("nw-loading","down");
+                    $("[nwAct='start']", menu).removeClass("ui-state-disabled");
+                    $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+                    $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+                    kimchi.message.error(err.responseJSON.reason);
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
                 $(".network-state", $("#" + network.name)).switchClass("up", "nw-loading");
@@ -104,6 +110,10 @@ kimchi.addNetworkActions = function(network) {
                     $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
                     $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading", "down");
+                }, function(err) {
+                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
+                    $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
+                    kimchi.message.error(err.responseJSON.reason);
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
                 kimchi.confirm({
