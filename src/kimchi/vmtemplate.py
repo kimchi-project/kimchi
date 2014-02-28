@@ -26,6 +26,7 @@ import urlparse
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
+from kimchi.utils import check_url_path
 
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
@@ -354,9 +355,7 @@ class VMTemplate(object):
         # validate iso integrity
         # FIXME when we support multiples cdrom devices
         iso = self.info['cdrom']
-        try:
-            self.get_iso_info(iso)
-        except Exception:
+        if not (os.path.isfile(iso) or check_url_path(iso)):
             invalid['cdrom'] = [iso]
 
         self.info['invalid'] = invalid
