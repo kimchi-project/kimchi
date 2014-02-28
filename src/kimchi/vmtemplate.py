@@ -20,11 +20,9 @@
 import os
 import string
 import socket
-import urllib
 import urlparse
 
 
-from kimchi import isoinfo
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
