@@ -41,7 +41,7 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
                                          nic_model='virtio',
                                          sound_model= 'ich6')},
                   'power': {'old': dict(common_spec, disk_bus='scsi',
-                                        nic_model='rtl8139', cdrom_bus='scsi',
+                                        nic_model='spapr-vlan', cdrom_bus='scsi',
                                         kbd_bus='usb', mouse_bus='usb'),
                             'modern': dict(common_spec, disk_bus='virtio',
                                            nic_model='virtio',
@@ -49,9 +49,10 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
                                            mouse_bus='usb')}}
 
 
-modern_version_bases = {'debian': '6.0', 'ubuntu': '7.10', 'opensuse': '10.3',
-                        'centos': '5.3', 'rhel': '6.0', 'fedora': '16',
-                        'gentoo': '0'}
+modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
+                                'opensuse': '10.3', 'centos': '5.3',
+                                'rhel': '6.0', 'fedora': '16', 'gentoo': '0'},
+                        'power': {'rhel': '7.0', 'fedora': '19'}}
 
 
 isolinks = {
@@ -97,9 +98,10 @@ def lookup(distro, version):
     params['cdrom'] = isolinks.get(distro, {}).get(version, '')
     arch = _get_arch()
 
-    if distro in modern_version_bases:
+    if distro in modern_version_bases[arch]:
         params['icon'] = 'images/icon-%s.png' % distro
-        if LooseVersion(version) >= LooseVersion(modern_version_bases[distro]):
+        if LooseVersion(version) >= LooseVersion(
+            modern_version_bases[arch][distro]):
             params.update(template_specs[arch]['modern'])
         else:
             params.update(template_specs[arch]['old'])
