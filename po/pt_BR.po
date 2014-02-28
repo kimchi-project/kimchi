@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-25 15:23-0300\n"
+"POT-Creation-Date: 2014-02-28 13:36-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -163,7 +163,7 @@ msgstr ""
 msgid "This is not a valid URL."
 msgstr ""
 
-msgid "No such data exsit."
+msgid "No such data available."
 msgstr ""
 
 msgid "options needed."
@@ -762,6 +762,14 @@ msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to stop virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr ""
 
@@ -958,6 +966,18 @@ msgid "The SCSI host adapter name must be a string."
 msgstr ""
 
 msgid "The storage pool kimchi_isos is reserved for internal use"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to activate NFS storage pool %(name)s. NFS server %(server)s is "
+"unreachable."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is "
+"unreachable."
 msgstr ""
 
 #, python-format
