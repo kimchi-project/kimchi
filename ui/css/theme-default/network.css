@@ -132,6 +132,11 @@
     margin-left: 29px;
 }
 
+.network .list .nw-loading {
+    background: #c0c0c0 url(../../images/theme-default/loading.gif)
+                center no-repeat;
+}
+
 .network .list .up {
     background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
                 #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;

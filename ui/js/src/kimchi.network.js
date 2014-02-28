@@ -84,20 +84,26 @@ kimchi.addNetworkActions = function(network) {
             $(".menu-container", "#" + network.name).toggle(false);
             var menu = $(evt.currentTarget).parent();
             if ($(evt.currentTarget).attr("nwAct") === "start") {
+                $(".network-state", $("#" + network.name)).switchClass("down", "nw-loading");
+                $("[nwAct='start']", menu).addClass("ui-state-disabled");
+                $("[nwAct='delete']", menu).addClass("ui-state-disabled");
+                $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
                 kimchi.toggleNetwork(network.name, true, function() {
                     $("[nwAct='start']", menu).addClass("hide-action-item");
+                    $("[nwAct='start']", menu).removeClass("ui-state-disabled");
                     $("[nwAct='stop']", menu).removeClass("hide-action-item");
-                    $("[nwAct='delete']", menu).addClass("ui-state-disabled");
-                    $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
-                    $(".network-state", $("#" + network.name)).switchClass("down", "up");
+                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
+                $(".network-state", $("#" + network.name)).switchClass("up", "nw-loading");
+                $("[nwAct='stop']", menu).addClass("ui-state-disabled");
                 kimchi.toggleNetwork(network.name, false, function() {
                     $("[nwAct='start']", menu).removeClass("hide-action-item");
                     $("[nwAct='stop']", menu).addClass("hide-action-item");
+                    $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
                     $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
                     $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
-                    $(".network-state", $("#" + network.name)).switchClass("up", "down");
+                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "down");
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
                 kimchi.confirm({
