@@ -61,6 +61,7 @@ PEP8_WHITELIST = \
 	tests/test_config.py.in \
 	tests/test_mockmodel.py \
 	tests/test_model.py \
+	tests/test_osinfo.py \
 	tests/test_plugin.py \
 	tests/test_rest.py \
 	tests/test_rollbackcontext.py \

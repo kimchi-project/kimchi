@@ -15,12 +15,12 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import unittest
 
 
-from kimchi.osinfo import lookup, modern_version_bases
+from kimchi.osinfo import lookup, modern_version_bases, _get_arch
 
 
 class OSInfoTests(unittest.TestCase):
@@ -31,7 +31,8 @@ class OSInfoTests(unittest.TestCase):
         self.assertEquals(['default'], entry['networks'])
 
     def test_fedora_lookup(self):
-        cd = 'http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso'
+        cd = ('http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/'
+              'x86_64/Fedora-17-x86_64-Live-Desktop.iso')
         entry = lookup('fedora', '17')
         self.assertEquals(10, entry['disks'][0]['size'])
         self.assertEquals(cd, entry['cdrom'])
@@ -46,7 +47,7 @@ class OSInfoTests(unittest.TestCase):
             self.assertEquals(entry['nic_model'], 'e1000')
 
     def test_modern_bases(self):
-        for distro, version in modern_version_bases.iteritems():
+        for distro, version in modern_version_bases[_get_arch()].iteritems():
             entry = lookup(distro, version)
             self.assertEquals(entry['disk_bus'], 'virtio')
             self.assertEquals(entry['nic_model'], 'virtio')
