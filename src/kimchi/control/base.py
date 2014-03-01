@@ -65,8 +65,8 @@ class Resource(object):
             try:
                 model_args = list(self.model_args)
                 if action_args is not None:
-                    model_args.extend(parse_request()[key]
-                                      for key in action_args)
+                    request = parse_request()
+                    model_args.extend(request[key] for key in action_args)
                 fn = getattr(self.model, model_fn(self, action_name))
                 ident = fn(*model_args)
                 self._redirect(ident)
