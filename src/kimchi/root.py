@@ -22,6 +22,7 @@ import json
 import os
 
 
+from distutils.version import LooseVersion
 from kimchi import auth
 from kimchi import template
 from kimchi.i18n import messages
@@ -49,7 +50,8 @@ class Root(Resource):
     def error_production_handler(self, status, message, traceback, version):
         data = {'code': status, 'reason': message}
         res = template.render('error.html', data)
-        if type(res) is unicode:
+        if (type(res) is unicode and
+           LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
         return res
 
@@ -57,7 +59,8 @@ class Root(Resource):
         data = {'code': status, 'reason': message,
                 'call_stack': cherrypy._cperror.format_exc()}
         res = template.render('error.html', data)
-        if type(res) is unicode:
+        if (type(res) is unicode and
+           LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
         return res
 
