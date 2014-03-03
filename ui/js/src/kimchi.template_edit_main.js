@@ -22,10 +22,16 @@ kimchi.template_edit_main = function() {
     kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
         origDisks =  template.disks;
         for ( var prop in template) {
-            $('input[name="' + prop + '"]', templateEditForm).val(template[prop]);
+            var value = template[prop];
+            if (prop == 'graphics') {
+               value = value["type"];
+            }
+            $('input[name="' + prop + '"]', templateEditForm).val(value);
         }
         var disks = template.disks;
         $('input[name="disks"]').val(disks[0].size);
+        var options = [{label: 'VNC', value: 'vnc'}, {label: 'Spice', value: 'spice'}];
+        kimchi.select('template-edit-graphics-list', options);
         kimchi.listStoragePools(function(result) {
             var options = [];
             if (result && result.length) {
@@ -67,13 +73,17 @@ kimchi.template_edit_main = function() {
     });
 
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks'];
+        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks', 'graphics'];
         var data = {};
         $.each(editableFields, function(i, field) {
             /* Support only 1 disk at this moment */
             if (field == 'disks') {
                origDisks[0].size = Number($('#form-template-edit [name="' + field + '"]').val());
                data[field] = origDisks;
+            }
+            else if (field == 'graphics') {
+               var type = $('#form-template-edit [name="' + field + '"]').val();
+               data[field] = {'type': type};
             }
             else {
                data[field] = $('#form-template-edit [name="' + field + '"]').val();
