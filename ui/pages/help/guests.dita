@@ -1,47 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
 <?Pub Sty _display FontColor="red"?>
 <?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhvirtm" xml:lang="en-us">
-    <title>Virtual machines</title>
-    <shortdesc>The Virtual machines page lists the defined KVM virtual
-machines.</shortdesc>
-    <csprolog>
-        <csmetadata>
-            <cswindowtitle>Title of window or panel associated with this help;
-for review output only.</cswindowtitle>
-            <cswidgetlabel>Name of field or control associated with this help;
-for review output only</cswidgetlabel>
-        </csmetadata>
-    </csprolog>
-    <csbody>
-        <p>For each virtual machine, the following information is displayed:<dl><dlentry><dt>Name</dt><dd>Name of the virtual machine.</dd></dlentry><dlentry><dt>CPU</dt><dd>Percentage of processor utilization in the virtual machine.</dd></dlentry><dlentry><dt>Network I/O</dt><dd>Network input/output transmission rate in KB per seconds.</dd></dlentry><dlentry><dt>Disk I/O</dt><dd> Disk input/output transmission rate in KB per seconds.</dd></dlentry><dlentry><dt>Console</dt><dd>Current state of guest operating system console.</dd></dlentry></dl></p>
-        <p>The following actions icons are displayed for each virtual machine:<dl><dlentry><dt>Reload</dt><dd>Click to reload the displayed data. </dd></dlentry><dlentry><dt>Power</dt><dd>Click to power on the virtual machine. If the icon is red, the
-power is off; if the icon is green, the power is on.</dd></dlentry></dl> </p>
-        <p>The following actions can be selected for each virtual machine:<ul><li>Select <uicontrol>VNC</uicontrol> to connect to the remote console
-for the virtual machine.</li><li>Select <uicontrol>Delete</uicontrol> to delete the virtual machine.</li></ul>To create a virtual machine, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the page.</p>
-    </csbody>
-    <cshelp id="kimhvirtmcrt" xml:lang="en-us">
-        <title>Create virtual machine</title>
-        <shortdesc>Create a virtual machine using an existing template.</shortdesc>
-        <csprolog>
-            <csmetadata>
-                <cswindowtitle>Title of window or panel associated with this help;
-for review output only.</cswindowtitle>
-                <cswidgetlabel>Name of field or control associated with this help;
-for review output only</cswidgetlabel>
-            </csmetadata>
-        </csprolog>
-        <csbody>
-            <p>
-                <ol>
-                    <li>Type the name to be used to identify the virtual machine.</li>
-                    <li>Click to select a template.</li>
-                    <li>Click <uicontrol>Create</uicontrol>.</li>
-                </ol>
-            </p>
-        </csbody>
-    </cshelp>
-    <?Pub Caret -1?>
+<title>Guests</title>
+<shortdesc>The <wintitle>Guests</wintitle> page lists the defined
+KVM virtual machines.</shortdesc>
+<csbody>
+<p>For each guest, the following information is displayed:<dl><dlentry>
+<dt>Name</dt>
+<dd>Name of the virtual machine.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>Percentage of processor utilization in the virtual machine.</dd>
+</dlentry><dlentry>
+<dt>Network I/O</dt>
+<dd>Network input/output transmission rate in KB per seconds.</dd>
+</dlentry><dlentry>
+<dt>Disk I/O</dt>
+<dd> Disk input/output transmission rate in KB per seconds.</dd>
+</dlentry><dlentry>
+<dt>Livetile</dt>
+<dd rev="rev1">State of guest operating system console, or an icon
+that represents the <tm tmtype="tm" trademark="Linux">Linux</tm> distribution
+if the guest is not active.</dd>
+</dlentry></dl></p>
+<p>The following actions icons are displayed for each guest:<dl>
+<dlentry>
+<dt rev="rev1">Reset</dt>
+<dd rev="rev1">Click to reset the guest. </dd>
+</dlentry><dlentry>
+<dt><tm tmclass="IGNORE" tmtype="reg" trademark="Power">Power</tm> (Start
+or Stop)</dt>
+<dd>Click to power on or power off the guest. If the icon is red,
+the power is off; if the icon is green, the power is on.</dd>
+</dlentry></dl> </p>
+<p>The following actions can be selected for each guest:<ul>
+<li>Select <uicontrol>VNC</uicontrol> to connect to the remote console
+for the guest operating system.</li>
+<li>Select <uicontrol>Edit</uicontrol> to edit the properties of an
+existing guest. Guests can be edited only while stopped.</li>
+<li>Select <uicontrol>Delete</uicontrol> to delete the guest.</li>
+</ul>To create a guest, or virtual machine, click the <uicontrol>plus
+(+)</uicontrol> icon in the upper right of the page.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="en-us">
+<title>Create virtual machine</title>
+<shortdesc>Create a virtual machine by using an existing template.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Type the name to be used to identify the virtual machine.</li>
+<li rev="rev1">Select a template. <ul>
+<li>If templates exist, select from displayed templates.</li>
+<li>If no templates exist, click <uicontrol>Create a template</uicontrol> to
+create a template.</li>
+</ul></li>
+<li>Click <uicontrol>Create</uicontrol>.</li>
+</ol> </p>
+</csbody>
 </cshelp>
-<?Pub *0000002746?>
+<cshelp id="kimhvirtmedit" xml:lang="en-us">
+<title>Edit guest</title>
+<shortdesc rev="rev1">Edit the properties of an existing virtual machine.
+Guests can be edited only while stopped.</shortdesc>
+<csprolog><csmetadata>
+<cswindowtitle>Title of window or panel associated with this help;
+for review output only.</cswindowtitle>
+<cswidgetlabel>Name of field or control associated with this help;
+for review output only</cswidgetlabel>
+</csmetadata></csprolog>
+<csbody>
+<p>For each guest, the following information is displayed:<dl><dlentry>
+<dt>Name</dt>
+<dd>Name of the virtual machine.</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Number of processors.</dd>
+</dlentry><dlentry>
+<dt>Memory</dt>
+<dd>Amount of memory in MB.</dd>
+</dlentry><dlentry>
+<dt>Icon</dt>
+<dd rev="rev2"> Graphic image representing the Linux distribution
+to be displayed in place of current status (Livetile) when the guest
+is not active.</dd>
+</dlentry></dl></p>
+<p> Fields that are not disabled can be edited. After you edit a field,
+click <uicontrol>Save</uicontrol>. </p>
+</csbody>
+</cshelp><?Pub Caret -1?>
+<?tm 1391540919 3?>
+</cshelp>
+<?Pub *0000003805?>

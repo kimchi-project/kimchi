@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="en-us">
+<title>Host</title>
+<shortdesc rev="rev1">The <wintitle>Host</wintitle> page shows information
+about the host system, and allows you to shut down, restart, and connect
+to the host.</shortdesc>
+<csbody>
+<p>You can perform the following actions on the host:<ul>
+<li>Select <uicontrol>Shut down</uicontrol> to shut down the host
+system.</li>
+<li>Select <uicontrol>Restart</uicontrol> to restart the host system.</li>
+<li rev="rev1">Select <uicontrol>Connect</uicontrol> to open a VNC
+connection to the host system, if it is not already connected.</li>
+</ul></p>
+<p>Click the following sections to display information about the host:<dl>
+<dlentry>
+<dt>Basic information</dt>
+<dd>This section displays the host operating system distribution,
+version, and code name, as well as the processor type and amount of
+memory in GB.</dd>
+</dlentry><dlentry>
+<dt>System statistics</dt>
+<dd rev="rev1">This section displays graphs to show statistics for
+CPU, memory, disk I/O, and network I/O for the host. Select <uicontrol>Collecting
+data after leaving this page</uicontrol> to continue collecting data
+when the host tab is out of view.</dd>
+</dlentry><dlentry>
+<dt>Debug reports</dt>
+<dd rev="rev1">This section displays debug reports, including name
+and file path. You can select from options to generate a new report,
+or rename, remove, or download an existing report.<p>The debug report
+is generated using the <cmdname>sosreport</cmdname> command. It is
+available for Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>,
+Fedora, and Ubuntu distributions. The command generates a .tar file
+that contains configuration and diagnostic information, such as the
+running kernel version, loaded modules, and system and service configuration
+files. The command also runs external programs to collect further
+information and stores this output in the resulting archive.</p> </dd>
+</dlentry></dl></p>
+</csbody><?Pub Caret -2?>
+<?tm 1392659967 1?>
+</cshelp>
+<?Pub *0000002392?>

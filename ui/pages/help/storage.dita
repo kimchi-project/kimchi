@@ -1,45 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="dita.xsl" type="text/xsl" ?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
 <?Pub Sty _display FontColor="red"?>
 <?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="en-us">
-    <title>Storage</title>
-    <shortdesc>The Storage page lists the available storage pools, including the default storage pool.</shortdesc>
-    <csprolog>
-        <csmetadata>
-            <cswindowtitle>Title of window or panel associated with this help; for review output only.</cswindowtitle>
-            <cswidgetlabel>Name of field or control associated with this help; for review output only</cswidgetlabel>
-        </csmetadata>
-    </csprolog>
-    <csbody>
-        <p>For each storage pool, the following information is displayed:<dl><dlentry><dt>Name</dt><dd>Name of the storage pool and percentage used.</dd></dlentry><dlentry><dt>State</dt><dd>State of the storage pool, active (green) or inactive (red). </dd></dlentry><dlentry><dt>Location</dt><dd>File path to the location of the storage pool.</dd></dlentry><dlentry><dt>Type</dt><dd><uicontrol>dir</uicontrol> for directory.</dd></dlentry><dlentry><dt>Capacity</dt><dd>Amount of space in the storage pool.</dd></dlentry><dlentry><dt>Allocated</dt><dd>Amount of space already allocated in the storage pool.</dd></dlentry></dl></p>
-        <p>The following actions can be selected for each storage pool:<ul><li>Select <uicontrol>Activate</uicontrol> to activate the storage
-pool so that it can be used.</li><li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
-pool.</li></ul></p>
-        <p>To display storage volume details for a storage pool, click the
+<title>Storage</title>
+<shortdesc>The <wintitle>Storage</wintitle> page lists the available
+storage pools, including the default storage pool.</shortdesc>
+<csbody>
+<p>For each storage pool, the following information is displayed:<dl>
+<dlentry>
+<dt>Name</dt>
+<dd>Name of the storage pool and percentage used.</dd>
+</dlentry><dlentry>
+<dt>State</dt>
+<dd>State of the storage pool, active (green) or inactive (red). </dd>
+</dlentry><dlentry>
+<dt>Location</dt>
+<dd>File path to the location of the storage pool.</dd>
+</dlentry><dlentry>
+<dt>Type</dt>
+<dd>Type of storage pool, for example, <uicontrol>dir</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Capacity</dt>
+<dd>Amount of space in the storage pool.</dd>
+</dlentry><dlentry>
+<dt>Allocated</dt>
+<dd>Amount of space that is already allocated in the storage pool.</dd>
+</dlentry></dl></p>
+<p>The following actions can be selected for each storage pool:<ul>
+<li>Select <uicontrol>Activate</uicontrol> to activate the storage
+pool so that it can be used.</li>
+<li>Select <uicontrol>Deactivate</uicontrol> to deactivate an active
+storage pool.</li>
+<li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
+pool.</li>
+</ul></p>
+<p>To display storage volume details for a storage pool, click the
 arrow on the right side of the storage pool row.  Details include
-the following:<dl><dlentry><dt>Type</dt><dd>The type of storage pool, for example,  dir or disk.</dd></dlentry><dlentry><dt>Format</dt><dd>The format, varying dependent on the type.</dd></dlentry><dlentry><dt>Capacity</dt><dd>Size of the storage volume.</dd></dlentry><dlentry><dt>Allocated</dt><dd>Amount of space already allocated in the storage pool.</dd></dlentry></dl>To define a storage pool, click the <uicontrol>plus
+the following:<dl><dlentry>
+<dt>Type</dt>
+<dd>The type of volume, for example, <uicontrol>file</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Format</dt>
+<dd>The format, varying dependent on the type.</dd>
+</dlentry><dlentry>
+<dt>Capacity</dt>
+<dd>Size of the storage volume.</dd>
+</dlentry><dlentry>
+<dt>Allocation</dt>
+<dd>Amount of space that is already allocated in the storage pool.</dd>
+</dlentry></dl><?Pub Caret -2?>To define a storage pool, click the <uicontrol>plus
 (+)</uicontrol> icon in the upper right of the display.</p>
-    </csbody>
-    <cshelp id="kimhdefstor" xml:lang="en-us">
-        <title>Define a storage pool</title>
-        <shortdesc> Define a storage pool.</shortdesc>
-        <csprolog>
-            <csmetadata>
-                <cswindowtitle>Title of window or panel associated with this help; for review output only.</cswindowtitle>
-                <cswidgetlabel>Name of field or control associated with this help; for review output only</cswidgetlabel>
-            </csmetadata>
-        </csprolog>
-        <csbody>
-            <p>
-                <ol>
-                    <li>Type the name to be used to identify the storage pool.</li>
-                    <li>Type the file path to the storage pool.</li>
-                    <li>Click <uicontrol>Create</uicontrol>.</li>
-                </ol>
-            </p>
-        </csbody>
-    </cshelp>
-    <?Pub Caret -1?>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="en-us">
+<title>Define a storage pool</title>
+<shortdesc> Define a storage pool.</shortdesc>
+<csbody>
+<p> <ol>
+<li>In the <uicontrol>Storage pool name</uicontrol> field, type the
+name to be used to identify the storage pool.</li>
+<li>In the <uicontrol>Storage pool type</uicontrol> list, select the
+type: <dl rev="rev1"><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>Specifies a directory pool. When selecting <uicontrol>DIR</uicontrol>,
+type the <uicontrol>Storage path</uicontrol> (file path to the storage
+pool).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>Specifies a network filesystem pool. When selecting <uicontrol>NFS</uicontrol>,
+type the <uicontrol>NFS server IP</uicontrol> address and <uicontrol>NFS
+path</uicontrol> (path of the exported directory).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Specifies a pool based on a target allocated on an iSCSI server.
+When selecting <uicontrol>iSCSI</uicontrol>, type the <uicontrol>iSCSI
+server</uicontrol> IP address and <uicontrol>Target</uicontrol> on
+the iSCSI server. You can optionally select to add iSCSI authentication.</dd>
+</dlentry></dl></li>
+<li>Click <uicontrol>Create</uicontrol>.</li>
+</ol> </p>
+</csbody>
 </cshelp>
-<?Pub *0000003013?>
+</cshelp>
+<?Pub *0000003580?>
