@@ -77,7 +77,7 @@
     top: 0;
     bottom: 0;
     overflow: auto;
-    margin: 48px 0;
+    margin: 48px 0 56px;
 }
 
 .window .close {
