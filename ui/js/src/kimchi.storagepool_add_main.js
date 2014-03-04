@@ -23,6 +23,21 @@ kimchi.storagepool_add_main = function() {
 };
 
 kimchi.initStorageAddPage = function() {
+    kimchi.listHostPartitions(function(data) {
+        if (data.length > 0) {
+            var deviceHtml = $('#partitionTmpl').html();
+            var listHtml = '';
+            $.each(data, function(index, value) {
+                if (value.type === 'part' || value.type === 'disk') {
+                    listHtml += kimchi.template(deviceHtml, value);
+                }
+            });
+            $('.host-partition').html(listHtml);
+        } else {
+            $('.host-partition').html(i18n['KCHPOOL6011M']);
+        }
+    });
+
     $('#poolTypeId').selectMenu();
     $('#serverComboboxId').combobox();
     $('#targetFilterSelectId').filterselect();
@@ -32,104 +47,93 @@ kimchi.initStorageAddPage = function() {
     }, {
         label : "NFS",
         value : "netfs"
-    } ,{
+    }, {
         label : "iSCSI",
         value : "iscsi"
+    }, {
+        label : "LOGICAL",
+        value : "logical"
     } ];
-    kimchi.listHostPartitions(function(data) {
+    $('#poolTypeId').selectMenu("setData", options);
+ 
+    kimchi.getStorageServers('netfs', function(data) {
+        var serverContent = [];
         if (data.length > 0) {
-            options.push({
-                label : "LOGICAL",
-                value : "logical"
-            });
-            var deviceHtml = $('#partitionTmpl').html();
-            var listHtml = '';
             $.each(data, function(index, value) {
-                if (value.type === 'part' || value.type === 'disk') {
-                    listHtml += kimchi.template(deviceHtml, value);
-                }
+                serverContent.push({
+                    label : value.host,
+                    value : value.host
+                });
             });
-            $('.host-partition').html(listHtml);
         }
-        $('#poolTypeId').selectMenu("setData", options);
-        kimchi.getStorageServers('netfs', function(data) {
-            var serverContent = [];
-            if (data.length > 0) {
-                $.each(data, function(index, value) {
-                    serverContent.push({
-                        label : value.host,
-                        value : value.host
-                    });
-                });
-            }
-            $('#serverComboboxId').combobox("setData", serverContent);
-            $('input[name=nfsServerType]').change(function() {
-                if ($(this).val() === 'input') {
-                    $('#nfsServerInputDiv').removeClass('tmpl-html');
-                    $('#nfsServerChooseDiv').addClass('tmpl-html');
-                } else {
-                    $('#nfsServerInputDiv').addClass('tmpl-html');
-                    $('#nfsServerChooseDiv').removeClass('tmpl-html');
-                }
-            });
-            $('#nfsserverId').on("change keyup",function() {
-                if ($(this).val() !== '' && kimchi.isServer($(this).val())) {
-                    $('#nfspathId').prop('disabled',false);
-                    $(this).removeClass("invalid-field");
-                } else {
-                    $(this).addClass("invalid-field");
-                    $('#nfspathId').prop( "disabled",true);
-                }
-                $('#targetFilterSelectId').filterselect('clear');
-            });
-            $('#nfspathId').focus(function() {
-                var targetContent = [];
-                kimchi.getStorageTargets($('#nfsserverId').val(), 'netfs', function(data) {
-                    if (data.length > 0) {
-                        $.each(data, function(index, value) {
-                            targetContent.push({
-                                label : value.target,
-                                value : value.target
-                            });
-                        });
-                    }
-                    $('#targetFilterSelectId').filterselect("setData", targetContent);
-                });
-            });
-        });
-        $('#poolTypeInputId').change(function() {
-            if ($(this).val() === 'dir') {
-                $('.path-section').removeClass('tmpl-html');
-                $('.logical-section').addClass('tmpl-html');
-                $('.nfs-section').addClass('tmpl-html');
-                $('.iscsi-section').addClass('tmpl-html');
-            } else if ($(this).val() === 'netfs') {
-                $('.path-section').addClass('tmpl-html');
-                $('.logical-section').addClass('tmpl-html');
-                $('.nfs-section').removeClass('tmpl-html');
-                $('.iscsi-section').addClass('tmpl-html');
-            } else if ($(this).val() === 'iscsi') {
-                $('.path-section').addClass('tmpl-html');
-                $('.logical-section').addClass('tmpl-html');
-                $('.nfs-section').addClass('tmpl-html');
-                $('.iscsi-section').removeClass('tmpl-html');
-            } else if ($(this).val() === 'logical') {
-                $('.path-section').addClass('tmpl-html');
-                $('.logical-section').removeClass('tmpl-html');
-                $('.nfs-section').addClass('tmpl-html');
-                $('.iscsi-section').addClass('tmpl-html');
-            }
-        });
-        $('#authId').click(function() {
-            if ($(this).prop("checked")) {
-                $('.authenticationfield').removeClass('tmpl-html');
+        $('#serverComboboxId').combobox("setData", serverContent);
+        $('input[name=nfsServerType]').change(function() {
+            if ($(this).val() === 'input') {
+                $('#nfsServerInputDiv').removeClass('tmpl-html');
+                $('#nfsServerChooseDiv').addClass('tmpl-html');
             } else {
-                $('.authenticationfield').addClass('tmpl-html');
+                $('#nfsServerInputDiv').addClass('tmpl-html');
+                $('#nfsServerChooseDiv').removeClass('tmpl-html');
             }
         });
-        $('#iscsiportId').keyup(function(event) {
-            $(this).toggleClass("invalid-field",!/^[0-9]+$/.test($(this).val()));
+        $('#nfsserverId').on("change keyup",function() {
+            if ($(this).val() !== '' && kimchi.isServer($(this).val())) {
+                $('#nfspathId').prop('disabled',false);
+                $(this).removeClass("invalid-field");
+            } else {
+                $(this).addClass("invalid-field");
+                $('#nfspathId').prop( "disabled",true);
+            }
+            $('#targetFilterSelectId').filterselect('clear');
         });
+        $('#nfspathId').focus(function() {
+            var targetContent = [];
+            kimchi.getStorageTargets($('#nfsserverId').val(), 'netfs', function(data) {
+                if (data.length > 0) {
+                    $.each(data, function(index, value) {
+                        targetContent.push({
+                            label : value.target,
+                            value : value.target
+                        });
+                    });
+                }
+                $('#targetFilterSelectId').filterselect("setData", targetContent);
+            });
+        });
+    });
+
+    $('#poolTypeInputId').change(function() {
+        if ($(this).val() === 'dir') {
+            $('.path-section').removeClass('tmpl-html');
+            $('.logical-section').addClass('tmpl-html');
+            $('.nfs-section').addClass('tmpl-html');
+            $('.iscsi-section').addClass('tmpl-html');
+        } else if ($(this).val() === 'netfs') {
+            $('.path-section').addClass('tmpl-html');
+            $('.logical-section').addClass('tmpl-html');
+            $('.nfs-section').removeClass('tmpl-html');
+            $('.iscsi-section').addClass('tmpl-html');
+        } else if ($(this).val() === 'iscsi') {
+            $('.path-section').addClass('tmpl-html');
+            $('.logical-section').addClass('tmpl-html');
+            $('.nfs-section').addClass('tmpl-html');
+            $('.iscsi-section').removeClass('tmpl-html');
+        } else if ($(this).val() === 'logical') {
+            $('.path-section').addClass('tmpl-html');
+            $('.logical-section').removeClass('tmpl-html');
+            $('.nfs-section').addClass('tmpl-html');
+            $('.iscsi-section').addClass('tmpl-html');
+        }
+    });
+    $('#authId').click(function() {
+        if ($(this).prop("checked")) {
+            $('.authenticationfield').removeClass('tmpl-html');
+        } else {
+            $('.authenticationfield').addClass('tmpl-html');
+        }
+    });
+    $('#iscsiportId').keyup(function(event) {
+        $(this).toggleClass("invalid-field",!/^[0-9]+$/.test($(this).val()));
     });
 };
 
