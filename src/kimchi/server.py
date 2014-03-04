@@ -29,7 +29,7 @@ from kimchi import config
 from kimchi.model import model
 from kimchi import mockmodel
 from kimchi import vnc
-from kimchi.config import paths, PluginPaths
+from kimchi.config import paths, KimchiConfig, PluginConfig
 from kimchi.control import sub_nodes
 from kimchi.root import KimchiRoot
 from kimchi.utils import get_enabled_plugins, import_class
@@ -57,73 +57,6 @@ def set_no_cache():
 
 
 class Server(object):
-    # expires is one year.
-    CACHEEXPIRES = 31536000
-    configObj = {
-        '/': {'tools.trailing_slash.on': False,
-              'request.methods_with_bodies': ('POST', 'PUT'),
-              'tools.nocache.on': True,
-              'tools.sessions.on': True,
-              'tools.sessions.name': 'kimchi',
-              'tools.sessions.httponly': True,
-              'tools.sessions.locking': 'explicit',
-              'tools.sessions.storage_type': 'ram',
-              'tools.kimchiauth.on': False},
-        '/css': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
-            'tools.expires.on': True,
-            'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False
-        },
-        '/js': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
-            'tools.expires.on': True,
-            'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False
-        },
-        '/libs': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': '%s/ui/libs' % paths.prefix,
-            'tools.expires.on': True,
-            'tools.expires.secs': CACHEEXPIRES,
-            'tools.nocache.on': False,
-        },
-        '/images': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': '%s/ui/images' % paths.prefix,
-            'tools.nocache.on': False
-        },
-        '/data/screenshots': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': config.get_screenshot_path(),
-            'tools.nocache.on': False
-        },
-        '/data/debugreports': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': config.get_debugreports_path(),
-            'tools.nocache.on': False,
-            'tools.kimchiauth.on': True,
-            'tools.staticdir.content_types': {'xz': 'application/x-xz'}
-        },
-        '/config/ui/tabs.xml': {
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': '%s/config/ui/tabs.xml' %
-                                         paths.prefix,
-            'tools.nocache.on': True
-        },
-        '/favicon.ico': {
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
-        },
-        '/help': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': '%s/ui/pages/help' % paths.prefix,
-            'tools.nocache.on': False
-        }
-    }
-
     def __init__(self, options):
         make_dirs = [
             os.path.dirname(os.path.abspath(options.access_log)),
@@ -137,6 +70,7 @@ class Server(object):
             if not os.path.isdir(directory):
                 os.makedirs(directory)
 
+        self.configObj = KimchiConfig()
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
                                                   auth.kimchiauth)
@@ -214,12 +148,7 @@ class Server(object):
                 script_name = plugin_config['kimchi']['uri']
                 del plugin_config['kimchi']
 
-                plugin_config['/ui/config/tab-ext.xml'] = {
-                    'tools.staticfile.on': True,
-                    'tools.staticfile.filename':
-                    os.path.join(PluginPaths(plugin_name).ui_dir,
-                                 'config/tab-ext.xml'),
-                    'tools.nocache.on': True}
+                plugin_config.update(PluginConfig(plugin_name))
             except KeyError:
                 continue
 

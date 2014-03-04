@@ -130,6 +130,85 @@ class PluginPaths(Paths):
         self.conf_file = os.path.join(self.conf_dir, '%s.conf' % name)
 
 
+class UIConfig(dict):
+
+    # expires is one year.
+    CACHEEXPIRES = 31536000
+
+    def __init__(self, paths):
+        ui_configs = {}
+        for sub_dir in ('css', 'js', 'libs', 'images'):
+            ui_configs['/' + sub_dir] = {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': os.path.join(paths.ui_dir, sub_dir),
+                'tools.nocache.on': False}
+            if sub_dir != 'images':
+                ui_configs['/' + sub_dir].update({
+                    'tools.expires.on': True,
+                    'tools.expires.secs': self.CACHEEXPIRES})
+        self.update(ui_configs)
+
+
+class KimchiConfig(dict):
+    kimchi_config = {
+        '/': {'tools.trailing_slash.on': False,
+              'request.methods_with_bodies': ('POST', 'PUT'),
+              'tools.nocache.on': True,
+              'tools.sessions.on': True,
+              'tools.sessions.name': 'kimchi',
+              'tools.sessions.httponly': True,
+              'tools.sessions.locking': 'explicit',
+              'tools.sessions.storage_type': 'ram',
+              'tools.kimchiauth.on': False},
+        '/data/screenshots': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': get_screenshot_path(),
+            'tools.nocache.on': False
+        },
+        '/data/debugreports': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': get_debugreports_path(),
+            'tools.nocache.on': False,
+            'tools.kimchiauth.on': True,
+            'tools.staticdir.content_types': {'xz': 'application/x-xz'}
+        },
+        '/config/ui/tabs.xml': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/config/ui/tabs.xml' %
+                                         paths.prefix,
+            'tools.nocache.on': True
+        },
+        '/favicon.ico': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
+        },
+        '/help': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': '%s/ui/pages/help' % paths.prefix,
+            'tools.nocache.on': False
+        }
+    }
+
+    def __init__(self):
+        super(KimchiConfig, self).__init__(self)
+        self.update(self.kimchi_config)
+        self.update(UIConfig(paths))
+
+
+class PluginConfig(dict):
+    def __init__(self, plugin_name):
+        super(PluginConfig, self).__init__(self)
+        plugin_config = {
+            '/ui/config/tab-ext.xml': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                os.path.join(PluginPaths(plugin_name).ui_dir,
+                             'config/tab-ext.xml'),
+                'tools.nocache.on': True}}
+        self.update(plugin_config)
+        self.update(UIConfig(PluginPaths(plugin_name)))
+
+
 def _get_config():
     config = SafeConfigParser()
     config.add_section("server")
