@@ -19,6 +19,7 @@ kimchi.widget.Grid = function(params) {
     var containerID = params['container'];
     var container = $('#' + containerID);
     var gridID = params['id'];
+    var rowSelection = params['rowSelection'] || 'single';
     var rowListener = params['onRowSelected'];
     var htmlStr = [
       '<div id="', gridID, '" class="grid">',
@@ -229,19 +230,21 @@ kimchi.widget.Grid = function(params) {
 
     var selectedIndex = -1;
     var setBodyListeners = function() {
-        $('tr', gridBody).on('mouseover', function(event) {
-            stylingRow(this, 'hover');
-        });
+        if(rowSelection != 'disabled') {
+            $('tr', gridBody).on('mouseover', function(event) {
+                stylingRow(this, 'hover');
+            });
 
-        $('tr', gridBody).on('mouseout', function(event) {
-            stylingRow(this, 'hover', false);
-        });
+            $('tr', gridBody).on('mouseout', function(event) {
+                stylingRow(this, 'hover', false);
+            });
 
-        $('tr', gridBody).on('click', function(event) {
-            selectedIndex = $(this).index();
-            stylingRow(this, 'selected');
-            rowListener && rowListener();
-        });
+            $('tr', gridBody).on('click', function(event) {
+                selectedIndex = $(this).index();
+                stylingRow(this, 'selected');
+                rowListener && rowListener();
+            });
+        }
 
         $('.grid-body-view', gridNode).on('scroll', function(event) {
             $('.grid-header .grid-header-view', gridNode)
