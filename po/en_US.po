@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-03 16:50-0300\n"
+"POT-Creation-Date: 2014-03-03 17:18-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -304,6 +304,13 @@ msgstr "Server name can not be blank."
 
 msgid "This is not a valid Server Name or IP. please, modify it."
 msgstr "This is not a valid Server Name or IP. please, modify it."
+
+msgid "Looking for available partitions ..."
+msgstr ""
+
+#, fuzzy
+msgid "No available partitions found."
+msgstr "No templates found."
 
 msgid "Help"
 msgstr ""

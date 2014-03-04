@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-03 16:50-0300\n"
+"POT-Creation-Date: 2014-03-03 17:18-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -312,6 +312,13 @@ msgstr "服务器不能为空"
 
 msgid "This is not a valid Server Name or IP. please, modify it."
 msgstr "这不是一个有效的服务器名或IP，请修改"
+
+msgid "Looking for available partitions ..."
+msgstr ""
+
+#, fuzzy
+msgid "No available partitions found."
+msgstr "没有发现模板"
 
 msgid "Help"
 msgstr ""

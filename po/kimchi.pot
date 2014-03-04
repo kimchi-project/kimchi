@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-03 16:50-0300\n"
+"POT-Creation-Date: 2014-03-03 17:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -295,6 +295,12 @@ msgid "Server name can not be blank."
 msgstr ""
 
 msgid "This is not a valid Server Name or IP. please, modify it."
+msgstr ""
+
+msgid "Looking for available partitions ..."
+msgstr ""
+
+msgid "No available partitions found."
 msgstr ""
 
 msgid "Help"
