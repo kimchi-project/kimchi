@@ -252,6 +252,7 @@ A interface represents available network interface on VM.
         * networks *(optional)*: An array of invalid network names.
         * cdrom *(optional)*: An array of invalid cdrom names.
         * disks *(optional)*: An array of invalid volume names.
+        * storagepools *(optional)*: An array of invalid storagepool names.
 
 * **DELETE**: Remove the Template
 * **POST**: *See Template Actions*
