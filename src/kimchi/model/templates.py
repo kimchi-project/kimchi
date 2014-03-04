@@ -167,6 +167,11 @@ class LibvirtVMTemplate(VMTemplate):
         conn = self.conn.get()
         return sorted(conn.listNetworks() + conn.listDefinedNetworks())
 
+    def _get_all_storagepools_name(self):
+        conn = self.conn.get()
+        names = conn.listStoragePools() + conn.listDefinedStoragePools()
+        return sorted(map(lambda x: x.decode('utf-8'), names))
+
     def _network_validate(self):
         names = self.info['networks']
         for name in names:

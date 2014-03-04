@@ -862,6 +862,9 @@ class MockVMTemplate(VMTemplate):
     def _get_all_networks_name(self):
         return self.model.networks_get_list()
 
+    def _get_all_storagepools_name(self):
+        return self.model.storagepools_get_list()
+
     def _storage_validate(self):
         pool_uri = self.info['storagepool']
         pool_name = pool_name_from_uri(pool_uri)

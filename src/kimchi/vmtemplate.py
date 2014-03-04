@@ -26,7 +26,7 @@ import urlparse
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
-from kimchi.utils import check_url_path
+from kimchi.utils import check_url_path, pool_name_from_uri
 
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
@@ -344,6 +344,9 @@ class VMTemplate(object):
     def _get_all_networks_name(self):
         return []
 
+    def _get_all_storagepools_name(self):
+        return []
+
     def validate_integrity(self):
         invalid = {}
         # validate networks integrity
@@ -351,6 +354,12 @@ class VMTemplate(object):
                                 set(self._get_all_networks_name()))
         if invalid_networks:
             invalid['networks'] = invalid_networks
+
+        # validate storagepools integrity
+        pool_uri = self.info['storagepool']
+        pool_name = pool_name_from_uri(pool_uri)
+        if pool_name not in self._get_all_storagepools_name():
+            invalid['storagepools'] = [pool_name]
 
         # validate iso integrity
         # FIXME when we support multiples cdrom devices
