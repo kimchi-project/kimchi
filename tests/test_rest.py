@@ -1087,8 +1087,15 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/networks', req, 'POST')
         self.assertEquals(201, resp.status)
 
+        req = json.dumps({'name': 'test-storagepool',
+                          'path': '/tmp/kimchi-images',
+                          'type': 'dir'})
+        resp = request(host, port, '/storagepools', req, 'POST')
+        self.assertEquals(201, resp.status)
+
         t = {'name': 'test', 'memory': 1024, 'cpus': 1,
-             'networks': ['test-network'], 'cdrom': iso}
+             'networks': ['test-network'], 'cdrom': iso,
+             'storagepool': '/storagepools/test-storagepool'}
 
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
@@ -1099,10 +1106,16 @@ class RestTests(unittest.TestCase):
         resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+        # Delete the storagepool
+        resp = request(host, port, '/storagepools/test-storagepool',
+                       '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
         # Verify the template
         res = json.loads(self.request('/templates/test').read())
         self.assertEquals(res['invalid']['cdrom'], [iso])
         self.assertEquals(res['invalid']['networks'], ['test-network'])
+        self.assertEquals(res['invalid']['storagepools'], ['test-storagepool'])
 
         # Delete the template
         resp = request(host, port, '/templates/test', '{}', 'DELETE')
