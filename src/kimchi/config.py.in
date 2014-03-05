@@ -150,6 +150,9 @@ class UIConfig(dict):
 
 
 class KimchiConfig(dict):
+    # session time out is 10 minutes
+    SESSIONSTIMEOUT = 10
+
     kimchi_config = {
         '/': {'tools.trailing_slash.on': False,
               'request.methods_with_bodies': ('POST', 'PUT'),
@@ -159,6 +162,7 @@ class KimchiConfig(dict):
               'tools.sessions.httponly': True,
               'tools.sessions.locking': 'explicit',
               'tools.sessions.storage_type': 'ram',
+              'tools.sessions.timeout': SESSIONSTIMEOUT,
               'tools.kimchiauth.on': False},
         '/data/screenshots': {
             'tools.staticdir.on': True,
