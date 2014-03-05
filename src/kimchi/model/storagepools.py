@@ -254,8 +254,8 @@ class StoragePoolModel(object):
     def _update_lvm_disks(self, pool_name, disks):
         # check if all the disks/partitions exists in the host
         for disk in disks:
-            blkid_cmd = ['blkid', disk]
-            output, error, returncode = run_command(blkid_cmd)
+            lsblk_cmd = ['lsblk', disk]
+            output, error, returncode = run_command(lsblk_cmd)
             if returncode != 0:
                 kimchi_log.error('%s is not a valid disk/partition. Could not '
                                  'add it to the pool %s.', disk, pool_name)
@@ -281,6 +281,7 @@ class StoragePoolModel(object):
                 pool.setAutostart(1)
             else:
                 pool.setAutostart(0)
+
         if 'disks' in params:
             # check if pool is type 'logical'
             xml = pool.XMLDesc(0)
