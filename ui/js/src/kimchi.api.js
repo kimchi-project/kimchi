@@ -84,6 +84,7 @@ var kimchi = {
             type : 'GET',
             resend: true,
             contentType : 'application/json',
+            headers: {'Kimchi-Robot': 'kimchi-robot'},
             dataType : 'json',
             success : suc,
             error: err
@@ -335,6 +336,7 @@ var kimchi = {
             url : kimchi.url + 'vms',
             type : 'GET',
             contentType : 'application/json',
+            headers: {'Kimchi-Robot': 'kimchi-robot'},
             dataType : 'json',
             resend: true,
             success : suc,
