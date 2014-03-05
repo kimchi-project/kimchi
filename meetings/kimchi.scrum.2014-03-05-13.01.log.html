@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar  5 13:01:35 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:21</span><span class="nk"> &lt;rotru&gt;</span> no
+<a name="l-9"></a><span class="tm">13:03:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:38</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb fixed NFS bug and storagepool_add select box delay bug</span>
+<a name="l-12"></a><span class="tm">13:04:44</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia sent a patch to fix a bug related to the virtual to physical path mapping in cherrypy. This was blocking the user to see guest screenshots and host debug reports in the UI when Kimchi was installed through RPM.</span>
+<a name="l-13"></a><span class="tm">13:05:07</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef fix several bugs. such a session expire.</span>
+<a name="l-14"></a><span class="tm">13:05:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce submit vol_cnt patch.</span>
+<a name="l-15"></a><span class="tm">13:05:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent patch to fix software update action into Host resource</span>
+<a name="l-16"></a><span class="tm">13:06:02</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">fixed isse 299 "Inactive storage pools are listed while editing template"</span>
+<a name="l-17"></a><span class="tm">13:06:25</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent patch-set to fix VM's network model template for Power systems and fix test_osinfo.py to use new modern distro version dict.</span>
+<a name="l-18"></a><span class="tm">13:06:29</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">fixed issue 303 "The password of iSCSI Authentication should be masked "</span>
+<a name="l-19"></a><span class="tm">13:06:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed #242, adjusted storage pool combo box UI style , enabled NFS path while typing the NFS server</span>
+<a name="l-20"></a><span class="tm">13:07:12</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">working on issue 294</span>
+<a name="l-21"></a><span class="tm">13:07:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to don't probe ISO file while checking template integrity</span>
+<a name="l-22"></a><span class="tm">13:07:48</span><span class="nk"> &lt;rotru&gt;</span> # info rotru fixed and sent patches for bugs: Network add window;  Guest error handling; Network start/stop status buttons
+<a name="l-23"></a><span class="tm">13:08:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed #66</span>
+<a name="l-24"></a><span class="tm">13:08:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to fix bugs #312 and #330 - waiting for reviews</span>
+<a name="l-25"></a><span class="tm">13:09:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb working on issue #329 (kimchi must not run as root), a very funny issue because looks like a dead end, lol. alinefm has been helping me to find out how messed up things are. I'll send a RFC to the ML asking for backup</span>
+<a name="l-26"></a><span class="tm">13:09:39</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, we can also try it here on open discussion section
+<a name="l-27"></a><span class="tm">13:09:55</span><span class="nk"> &lt;alinefm&gt;</span> maybe someone has new ideas
+<a name="l-28"></a><span class="tm">13:10:30</span><span class="nk"> &lt;danielhb&gt;</span> ok!
+<a name="l-29"></a><span class="tm">13:11:41</span><span class="nk"> &lt;alinefm&gt;</span> good progress, team!
+<a name="l-30"></a><span class="tm">13:11:48</span><span class="nk"> &lt;alinefm&gt;</span> but we will still have 21 bugs to close
+<a name="l-31"></a><span class="tm">13:11:54</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open
+<a name="l-32"></a><span class="tm">13:12:38</span><span class="nk"> &lt;alinefm&gt;</span> so please, continue focus on them
+<a name="l-33"></a><span class="tm">13:13:02</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers? or want to talk about some specific bugs?
+<a name="l-34"></a><span class="tm">13:13:49</span><span class="nk"> &lt;alinefm&gt;</span> as danielhb mentioned we need more ideas related to bug #329
+<a name="l-35"></a><span class="tm">13:14:04</span><span class="nk"> &lt;alinefm&gt;</span> the main idea is run kimchi with a specific user - like "kimchi"
+<a name="l-36"></a><span class="tm">13:14:19</span><span class="nk"> &lt;alinefm&gt;</span> and provide to this user the required access to kimchi run properly
+<a name="l-37"></a><span class="tm">13:14:38</span><span class="nk"> &lt;alinefm&gt;</span> but as we use some python bindings we need help to find a solution
+<a name="l-38"></a><span class="tm">13:14:51</span><span class="nk"> &lt;alinefm&gt;</span> basic for the commands we use, we can use sudo
+<a name="l-39"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> but how about libvirt, yum, apt python bindings?
+<a name="l-40"></a><span class="tm">13:15:15</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, danielhb why someone would need kimchi to run with a specific user?
+<a name="l-41"></a><span class="tm">13:15:47</span><span class="nk"> &lt;alinefm&gt;</span> for libvirt: danielhb will investigate how use openAuth() and see if it works
+<a name="l-42"></a><span class="tm">13:15:54</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, the argument made is that running kimchi as root is a grotesque security risk
+<a name="l-43"></a><span class="tm">13:15:55</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, because security
+<a name="l-44"></a><span class="tm">13:15:57</span><span class="nk"> &lt;lagarcia&gt;</span> is this just to avoid running as root? I mean, a good practice rather than a specific issue someone hit
+<a name="l-45"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, some people are concerned about kimchi running as root
+<a name="l-46"></a><span class="tm">13:16:09</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, danielhb ok
+<a name="l-47"></a><span class="tm">13:16:30</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, I suggest reading https://bugzilla.linux.ibm.com/show_bug.cgi?id=104785 ... the guy classified it as a shipping issue, critical bug, lalala
+<a name="l-48"></a><span class="tm">13:17:28</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, this is not accessible by the community. We need to mirror it to github or describe the full scenario in the mailing list.
+<a name="l-49"></a><span class="tm">13:17:55</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, the same issue on github: https://github.com/kimchi-project/kimchi/issues/329
+<a name="l-50"></a><span class="tm">13:18:06</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, ok. thx. I'll take a look.
+<a name="l-51"></a><span class="tm">13:18:31</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, although it is not as detailed ... I can provide more info there if required
+<a name="l-52"></a><span class="tm">13:18:36</span><span class="nk"> &lt;lagarcia&gt;</span> Regarding the issue alinefm described... if we are using python bindings, I doubt we will be able to run anything that requires root access
+<a name="l-53"></a><span class="tm">13:19:31</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I don't have much hope on it too
+<a name="l-54"></a><span class="tm">13:20:18</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, please, send an RFC to mail list
+<a name="l-55"></a><span class="tm">13:20:22</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, alinefm I think it might be possible to create specific selinux rules to allow this. But this would only work on Fedora/RHEL to the best of my knowledge
+<a name="l-56"></a><span class="tm">13:20:40</span><span class="nk"> &lt;alinefm&gt;</span> expose all the details we have already discussed and let see if we can find a solution
+<a name="l-57"></a><span class="tm">13:21:17</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, =/
+<a name="l-58"></a><span class="tm">13:21:35</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I don't like the idea to have kimchi running in different ways according to distro
+<a name="l-59"></a><span class="tm">13:21:41</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, nor do I
+<a name="l-60"></a><span class="tm">13:21:48</span><span class="nk"> &lt;AdamKingIT11&gt;</span> make that 3
+<a name="l-61"></a><span class="tm">13:21:55</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, alinefm I believe we'll have massive issues with the multiple distro support + this issue
+<a name="l-62"></a><span class="tm">13:22:50</span><span class="nk"> &lt;danielhb&gt;</span> for starters, the binary path of the distros differ, making the setup/install more complex
+<a name="l-63"></a><span class="tm">13:23:02</span><span class="nk"> &lt;danielhb&gt;</span> second, libvirt behaves differently on each distro
+<a name="l-64"></a><span class="tm">13:23:25</span><span class="nk"> &lt;danielhb&gt;</span> but thing is I do not see any other way to solve this issue
+<a name="l-65"></a><span class="tm">13:24:26</span><span class="nk"> &lt;danielhb&gt;</span> one idea is to use the Apache approach (one thread for each user) but this is a severe redesign at this point
+<a name="l-66"></a><span class="tm">13:25:13</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I thought in start the cherrypy with kimchi user and keep all the backend as root
+<a name="l-67"></a><span class="tm">13:25:30</span><span class="nk"> &lt;alinefm&gt;</span> but I could not find a cherrypy config to do it
+<a name="l-68"></a><span class="tm">13:26:18</span><span class="nk"> &lt;fnovak&gt;</span> the issue w/ runnign as root as a webserver, is that there are LOTS of attack vectors from the network, if someone 'breaks' in  via,whatever mechanism, overflow, script injection, yada yada, they then have access to the system
+<a name="l-69"></a><span class="tm">13:26:21</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, another idea would be to run the backend only as a root process, kimchi UI as regular user. the communication would be made using RPC or something
+<a name="l-70"></a><span class="tm">13:26:54</span><span class="nk"> &lt;danielhb&gt;</span> but again, this would be a real pain to implement ... the backend is huge ATM
+<a name="l-71"></a><span class="tm">13:27:28</span><span class="nk"> &lt;royce&gt;</span> when we were at ovirt, they limit the root cmd  to a set of necessary ones, called supervdsm
+<a name="l-72"></a><span class="tm">13:27:43</span><span class="nk"> &lt;fnovak&gt;</span> typically , whatever is on web should have low privledge, than by some means, bus, or other message send validated work off to another 'thread', unit of execution
+<a name="l-73"></a><span class="tm">13:28:47</span><span class="nk"> &lt;fnovak&gt;</span> and yes, a potential temp out is to allow kimchi some specific sudo commands,  rather than generic root access
+<a name="l-74"></a><span class="tm">13:28:55</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Splitting the ui from the backend idea: We could proxy the REST API as our RPC mechanism, adding some additional validation before the proxt call
+<a name="l-75"></a><span class="tm">13:29:15</span><span class="nk"> &lt;lagarcia&gt;</span> fnovak, using an bus... that might be a good idea.
+<a name="l-76"></a><span class="tm">13:29:17</span><span class="nk"> &lt;fnovak&gt;</span> but best to seperate the web facing side from the backend, and run at fifferent priveledge levels
+<a name="l-77"></a><span class="tm">13:29:31</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, maybe you can investigate using yum through d-bus instead of the python bindings
+<a name="l-78"></a><span class="tm">13:29:50</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, if this is the only factor blocking us from moving to non-root user
+<a name="l-79"></a><span class="tm">13:29:59</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, I guess yum has d-bus support, but I am worried about apt-get
+<a name="l-80"></a><span class="tm">13:30:32</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, IMHO the party stopper from moving to non-root user is Ubuntu support, but I'll not comment on that :)
+<a name="l-81"></a><span class="tm">13:30:47</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, not sure about apt... yum does have d-bus support
+<a name="l-82"></a><span class="tm">13:31:11</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, libvirt does not work "as intended" in ubuntu as well
+<a name="l-83"></a><span class="tm">13:31:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  yes, I have submit a patch. add a method to probe the permission as qemu user.   actually, it can run any request as any user with another process.  we can look into how it can be integrity with cherrypy.
+<a name="l-84"></a><span class="tm">13:31:52</span><span class="nk"> &lt;lagarcia&gt;</span> another possibility, though lots of more work would be involved, is to separate UI and backend as AdamKingIT11 suggested... we might have two cherrypys running. One for UI and another one for backend.... And the communication would be done though the REST API
+<a name="l-85"></a><span class="tm">13:32:05</span><span class="nk"> &lt;royce&gt;</span> shaohef, I think they want to limit the use of root previledge
+<a name="l-86"></a><span class="tm">13:32:27</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, maybe we don't need 2 cherrypy servers
+<a name="l-87"></a><span class="tm">13:32:42</span><span class="nk"> &lt;alinefm&gt;</span> just need to find a way to run the server as an user and the backend with root
+<a name="l-88"></a><span class="tm">13:32:49</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok
+<a name="l-89"></a><span class="tm">13:33:22</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, this would be easier than trying to deal with different distros behavior. the thing is that it looks like *a lot* of work
+<a name="l-90"></a><span class="tm">13:34:10</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span>   lagarcia: it seems to be lot of work. Doubt it can go to this sprint.
+<a name="l-91"></a><span class="tm">13:34:38</span><span class="nk"> &lt;lagarcia&gt;</span> pradeep, danielhb sure... this is not a 1.2 thing IMO
+<a name="l-92"></a><span class="tm">13:34:41</span><span class="nk"> &lt;danielhb&gt;</span> "this sprint"?  I was thinking about the GA date ... lol
+<a name="l-93"></a><span class="tm">13:35:19</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, danielhb, pradeep, I have the same feelings - that it seems a lot of work
+<a name="l-94"></a><span class="tm">13:35:44</span><span class="nk"> &lt;danielhb&gt;</span> imagine the bucket of issues and bugs that will appear after separating frontend/backend
+<a name="l-95"></a><span class="tm">13:35:45</span><span class="nk"> &lt;alinefm&gt;</span> but we need to take a time, look over the internet, to estimate the time
+<a name="l-96"></a><span class="tm">13:35:52</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span>  But good feature to have for GA :)
+<a name="l-97"></a><span class="tm">13:36:05</span><span class="nk"> &lt;alinefm&gt;</span> maybe someone in the world already had the same "problem"
+<a name="l-98"></a><span class="tm">13:36:06</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-99"></a><span class="tm">13:36:14</span><span class="nk"> &lt;pradeep&gt;</span> hehe :)
+<a name="l-100"></a><span class="tm">13:36:16</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah ... the Apache team :)
+<a name="l-101"></a><span class="tm">13:37:08</span><span class="nk"> &lt;AdamKingIT11&gt;</span> maybe we should talk to someone from Apache
+<a name="l-102"></a><span class="tm">13:37:13</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I mean using cherrypy =)
+<a name="l-103"></a><span class="tm">13:37:24</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, lol
+<a name="l-104"></a><span class="tm">13:38:13</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's move on
+<a name="l-105"></a><span class="tm">13:38:22</span><span class="nk"> &lt;alinefm&gt;</span> we can continue it after meeting or on ML
+<a name="l-106"></a><span class="tm">13:38:25</span><span class="nk"> &lt;danielhb&gt;</span> I'll create the RFC in the ML to discuss it further
+<a name="l-107"></a><span class="tm">13:38:33</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, great! thanks
+<a name="l-108"></a><span class="tm">13:38:43</span><span class="nk"> &lt;danielhb&gt;</span> not enjoying the alternatives so far :P
+<a name="l-109"></a><span class="tm">13:38:59</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, maybe try the #cherrypy channel
+<a name="l-110"></a><span class="tm">13:39:25</span><span class="nk"> &lt;alinefm&gt;</span> I made some attempts yesterday but anyone answered me =/
+<a name="l-111"></a><span class="tm">13:40:04</span><span class="nk"> &lt;alinefm&gt;</span> can we move to open discussion section?
+<a name="l-112"></a><span class="tm">13:41:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-113"></a><span class="tm">13:41:17</span><span class="nk"> &lt;alinefm&gt;</span> what will we discuss today?
+<a name="l-114"></a><span class="tm">13:41:20</span><span class="nk"> &lt;alinefm&gt;</span> any topic?
+<a name="l-115"></a><span class="tm">13:41:35</span><span class="nk"> &lt;lagarcia&gt;</span> I have one
+<a name="l-116"></a><span class="tm">13:41:40</span><span class="nk"> &lt;lagarcia&gt;</span> I'd like to make a proposal actually
+<a name="l-117"></a><span class="tm">13:41:55</span><span class="nk"> &lt;alinefm&gt;</span> go ahead
+<a name="l-118"></a><span class="tm">13:41:59</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="hi">lagarcia:</span> I am already married
+<a name="l-119"></a><span class="tm">13:42:12</span><span class="nk"> &lt;lagarcia&gt;</span> AdamKingIT11, damn false friends :P
+<a name="l-120"></a><span class="tm">13:42:42</span><span class="nk"> &lt;lagarcia&gt;</span> I have a topic (using proper English)
+<a name="l-121"></a><span class="tm">13:42:43</span><span class="nk"> &lt;lagarcia&gt;</span> hehe
+<a name="l-122"></a><span class="tm">13:42:46</span><span class="nk"> &lt;lagarcia&gt;</span> Not sure when/why this started to happened, but I want to discuss the 24 hour delay before committing a patch.
+<a name="l-123"></a><span class="tm">13:43:00</span><span class="nk"> &lt;lagarcia&gt;</span> I saw some complaints on the mailing list about that...
+<a name="l-124"></a><span class="tm">13:43:31</span><span class="nk"> &lt;lagarcia&gt;</span> Some weeks ago, I also suggested here to talk about this, but it was Chinese New year holiday and we found it better to wait until the rest of the community was back.
+<a name="l-125"></a><span class="tm">13:43:42</span><span class="nk"> &lt;lagarcia&gt;</span> So, I am bringing this issue back.
+<a name="l-126"></a><span class="tm">13:43:46</span><span class="nk"> &lt;lagarcia&gt;</span> issue/topic
+<a name="l-127"></a><span class="tm">13:44:07</span><span class="nk"> &lt;royce&gt;</span> lagarcia, I think if it is an urgent fix for a official release, we can make exception for the fix
+<a name="l-128"></a><span class="tm">13:44:23</span><span class="nk"> &lt;lagarcia&gt;</span> I mean, I never saw such kind of rule in any other community I interacted with... I understand that others want to have time to review patches and that we have people spread around different time zones.
+<a name="l-129"></a><span class="tm">13:44:39</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT11, LOL
+<a name="l-130"></a><span class="tm">13:44:52</span><span class="nk"> &lt;lagarcia&gt;</span> But the fact is: this is an open source project. If, for some reason, you are not happy with a patch, just send another patch to the mailing list changing/improving it :)
+<a name="l-131"></a><span class="tm">13:44:54</span><span class="nk"> &lt;royce&gt;</span> To make it merge soon, if it is common fix, we might want it to cool down a little to get more review
+<a name="l-132"></a><span class="tm">13:45:33</span><span class="nk"> &lt;lagarcia&gt;</span> royce, sure... I am not saying that a new feature or something on that line should be merged quickly. I am talking about trivial patches or simple bug fixes.
+<a name="l-133"></a><span class="tm">13:46:02</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I have a parentheses on it
+<a name="l-134"></a><span class="tm">13:46:07</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure
+<a name="l-135"></a><span class="tm">13:46:21</span><span class="nk"> &lt;alinefm&gt;</span> why the V5 of a feature patch should wait 24h to get merged?
+<a name="l-136"></a><span class="tm">13:46:34</span><span class="nk"> &lt;alinefm&gt;</span> I think it is true only for the first versions
+<a name="l-137"></a><span class="tm">13:46:51</span><span class="nk"> &lt;alinefm&gt;</span> if a person does not review it until V5, why do we need to wait more?
+<a name="l-138"></a><span class="tm">13:47:02</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Maybe true for versions where vx+1 is a lot diff than vx
+<a name="l-139"></a><span class="tm">13:47:15</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure, I agree with these cases as well... I mean, something that is in the mailing list for weeks should be reviewed enough by anyone that really wants to do it.
+<a name="l-140"></a><span class="tm">13:47:25</span><span class="nk"> &lt;royce&gt;</span> trivial ones if not important, we don't need to be so rush
+<a name="l-141"></a><span class="tm">13:47:40</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT11, agree
+<a name="l-142"></a><span class="tm">13:47:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, what do you mean by "trivial"?
+<a name="l-143"></a><span class="tm">13:48:49</span><span class="nk"> &lt;lagarcia&gt;</span> royce, I don't thing this is being rush. I think this is being practical. We are keeping a number of patchers "on the fly" just because we are waiting 24 hours... And, then, no one sends any messages and alinefm commits the patch because it already has enough reviews, and, more importantly, she is happy with the patch
+<a name="l-144"></a><span class="tm">13:49:01</span><span class="nk"> &lt;royce&gt;</span> alinefm, lagarcia--"I am talking about trivial patches or simple bug fixes." I think if for trivial patch which would not affect much, wait for one day is OK for me, I think
+<a name="l-145"></a><span class="tm">13:49:08</span><span class="nk"> &lt;fnovak&gt;</span> tbh , thsi is where the maintainer makes judgement calls..  If you start making rules here, we'll have a list of exceptions to therules, then execptions to the exceptions..
+<a name="l-146"></a><span class="tm">13:49:27</span><span class="nk"> &lt;lagarcia&gt;</span> because ultimately, it is the maintainers decision to include a patch or not. So, why wait 24 hours? If someone is not happy, just send another patch/fix.
+<a name="l-147"></a><span class="tm">13:49:43</span><span class="nk"> &lt;fnovak&gt;</span> yes, some time for reviews should be allowed in general, yes, everyone that cares ought to reviews ASAP..
+<a name="l-148"></a><span class="tm">13:49:46</span><span class="nk"> &lt;lagarcia&gt;</span> fnovak, exactly
+<a name="l-149"></a><span class="tm">13:49:48</span><span class="nk"> &lt;fnovak&gt;</span> but stuff happens
+<a name="l-150"></a><span class="tm">13:50:13</span><span class="nk"> &lt;fnovak&gt;</span> if you don't like the patch that got submitted, provide a better one
+<a name="l-151"></a><span class="tm">13:50:32</span><span class="nk"> &lt;fnovak&gt;</span> if you haven't bothered to review in time, shame on you
+<a name="l-152"></a><span class="tm">13:50:40</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yes - and when I applied a patch I was very comfortable before waiting 24h I got some unhappy mails
+<a name="l-153"></a><span class="tm">13:50:43</span><span class="nk"> &lt;fnovak&gt;</span> but you can still fix if you have a better solutions
+<a name="l-154"></a><span class="tm">13:50:44</span><span class="nk"> &lt;lagarcia&gt;</span> fnovak, that's exactly my thought. Nothing is written in stone in our repository. Anyone can provide a better patch if they want.
+<a name="l-155"></a><span class="tm">13:51:00</span><span class="nk"> &lt;AdamKingIT11&gt;</span> also nothing to stop the original submitter from getting the comments and making additional changes in a subsequent patch
+<a name="l-156"></a><span class="tm">13:51:13</span><span class="nk"> &lt;fnovak&gt;</span> in the end, if you don't like the community, you leave..
+<a name="l-157"></a><span class="tm">13:51:15</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, and that's why I brought this to discussion... cause I think you were only executing your job
+<a name="l-158"></a><span class="tm">13:51:40</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, and, more importantly, your right to decide when to merge something.
+<a name="l-159"></a><span class="tm">13:51:55</span><span class="nk"> &lt;fnovak&gt;</span> and yes, sometimes maybe the maintainer screws up as well, you give them some grief, or often they give themselves more grief, and you move on
+<a name="l-160"></a><span class="tm">13:51:57</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I might say responsibility
+<a name="l-161"></a><span class="tm">13:52:20</span><span class="nk"> &lt;royce&gt;</span> I mean, no one want a tiny feature introduce many bugs and revisions, right?
+<a name="l-162"></a><span class="tm">13:52:23</span><span class="nk"> &lt;AdamKingIT11&gt;</span> good pt. I have yet to meet someone perfect
+<a name="l-163"></a><span class="tm">13:52:25</span><span class="nk"> &lt;lagarcia&gt;</span> AdamKingIT11, yes, responsibility
+<a name="l-164"></a><span class="tm">13:52:52</span><span class="nk"> &lt;lagarcia&gt;</span> royce, if that starts to happen, the maintainer is doing something wrong, and we can revisit this topic as a community.
+<a name="l-165"></a><span class="tm">13:53:35</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I thjink we can trust alinefm's judgement. She will not be perfect, but she shares the same goals we all have and will get it right most of the time
+<a name="l-166"></a><span class="tm">13:53:44</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="hi">lagarcia:</span> fwiw your English was correct. There is just more than one kind of proposal, and the first one that came to mind made me laugh
+<a name="l-167"></a><span class="tm">13:53:45</span><span class="nk"> &lt;lagarcia&gt;</span> royce, but we cannot delay the merge process because we think this might generate issues... I mean, if you have a counter example, a community in which they do that because they failed to do differently, I am open to learn it. But I never saw such thing
+<a name="l-168"></a><span class="tm">13:54:08</span><span class="nk"> &lt;lagarcia&gt;</span> AdamKingIT11, lol
+<a name="l-169"></a><span class="tm">13:54:31</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT11, thanks for the confidence
+<a name="l-170"></a><span class="tm">13:54:38</span><span class="nk"> &lt;royce&gt;</span> every build has a code freeze for official build, a branch for build and a branch for develop
+<a name="l-171"></a><span class="tm">13:54:57</span><span class="nk"> &lt;alinefm&gt;</span> but in fact, I review and test the patches before applying them
+<a name="l-172"></a><span class="tm">13:55:07</span><span class="nk"> &lt;alinefm&gt;</span> but as you properly mentioned, I am not perfect
+<a name="l-173"></a><span class="tm">13:55:12</span><span class="nk"> &lt;alinefm&gt;</span> and I am happy with it
+<a name="l-174"></a><span class="tm">13:55:19</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">lagarcia:</span>  i see the point. I dont understand 24H time window. since we have different GEOS working, probably looking for other reviews.
+<a name="l-175"></a><span class="tm">13:56:03</span><span class="nk"> &lt;lagarcia&gt;</span> pradeep, yes... and nothing blocks someone to send a comment after a patch has been applied.
+<a name="l-176"></a><span class="tm">13:56:23</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="hi">alinefm:</span> I am not perfect either. I hope you don't feel singled out in that camp. I haven't met a perfect person
+<a name="l-177"></a><span class="tm">13:56:42</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">lagarcia:</span>  if you see lkml as well, people wait for others comments.  i dont see rush.
+<a name="l-178"></a><span class="tm">13:56:50</span><span class="nk"> &lt;lagarcia&gt;</span> anyway... I really just want to brought this into discussion because I think alinefm needs to have more flexibility to merge patches whenever she wants without complaints in the mailing list. If someone has a complaint, please, complaint about the patch, not about how long it took to merge the pathc.
+<a name="l-179"></a><span class="tm">13:56:51</span><span class="nk"> &lt;royce&gt;</span> We beleive alinefm
+<a name="l-180"></a><span class="tm">13:57:16</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, good point
+<a name="l-181"></a><span class="tm">13:57:17</span><span class="nk"> &lt;royce&gt;</span> but everyone is responsible for this community
+<a name="l-182"></a><span class="tm">13:57:28</span><span class="nk"> &lt;alinefm&gt;</span> we are not saying it, royce
+<a name="l-183"></a><span class="tm">13:57:45</span><span class="nk"> &lt;alinefm&gt;</span> I mean, saying the opposite =)
+<a name="l-184"></a><span class="tm">13:57:56</span><span class="nk"> &lt;fnovak&gt;</span> :yes, all have a responsibility of trying to do their best,
+<a name="l-185"></a><span class="tm">13:57:56</span><span class="nk"> &lt;danielhb&gt;</span> alinefm to 2016 ?
+<a name="l-186"></a><span class="tm">13:58:10</span><span class="nk"> &lt;fnovak&gt;</span> and working constructively with others...
+<a name="l-187"></a><span class="tm">13:58:15</span><span class="nk"> &lt;royce&gt;</span> If we just lay every burden on alinefm, no one review, then she must be tired off
+<a name="l-188"></a><span class="tm">13:58:19</span><span class="nk"> &lt;lagarcia&gt;</span> pradeep, at the same time, I think Linus merge patches without any review, just because he wants... so this varies a lot. And I am not proposing us to kill the reviews. I want everybody to continue to review. But ultimately alinefm decides when to merge. just that.
+<a name="l-189"></a><span class="tm">13:58:32</span><span class="nk"> &lt;AdamKingIT11&gt;</span> alinefm may have to save the world cup first
+<a name="l-190"></a><span class="tm">13:58:35</span><span class="nk"> &lt;fnovak&gt;</span> the latter isn't always the case in communities, when egos get in the way.. soemtomes good , sometimes bad
+<a name="l-191"></a><span class="tm">13:58:44</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">lagarcia:</span> ok
+<a name="l-192"></a><span class="tm">13:59:28</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok... I think we had a number of opinions here and it seems that everybody agrees on the direction at least. good :)
+<a name="l-193"></a><span class="tm">13:59:36</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT11, no one can save this world cup lol
+<a name="l-194"></a><span class="tm">13:59:59</span><span class="nk"> &lt;fnovak&gt;</span> lagarcia, YES, we clearly want reviews to happen, and if folks have a problem with soemthign that was merged, SPEAK UP
+<a name="l-195"></a><span class="tm">14:00:14</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">danielhb:</span> world cup :)
+<a name="l-196"></a><span class="tm">14:00:24</span><span class="nk"> &lt;fnovak&gt;</span> the answer isn't to stop merging and wait for what days, week, .. for soemone that might eventually get around to review?
+<a name="l-197"></a><span class="tm">14:00:44</span><span class="nk"> &lt;lagarcia&gt;</span> fnovak, exactly
+<a name="l-198"></a><span class="tm">14:01:12</span><span class="nk"> &lt;fnovak&gt;</span> why 24 hrs, maybe 36.. or if &gt; 10 lines its 24 if &gt; 20 lines 36,.. except when whne it's in this subsystem, or it's a Tuesday, and ???
+<a name="l-199"></a><span class="tm">14:01:34</span><span class="nk"> &lt;AdamKingIT11&gt;</span> don;t forget when the moon is full
+<a name="l-200"></a><span class="tm">14:01:58</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">AdamKingIT11:</span> lol :)
+<a name="l-201"></a><span class="tm">14:02:09</span><span class="nk"> &lt;alinefm&gt;</span> I just want to mention a thing
+<a name="l-202"></a><span class="tm">14:02:10</span><span class="nk"> &lt;fnovak&gt;</span> AdamKingIT11, good point!
+<a name="l-203"></a><span class="tm">14:02:15</span><span class="nk"> &lt;lagarcia&gt;</span> hehe
+<a name="l-204"></a><span class="tm">14:03:49</span><span class="nk"> &lt;alinefm&gt;</span> but I am almost sure the patches I apply quickly have more than 1 review
+<a name="l-205"></a><span class="tm">14:04:10</span><span class="nk"> &lt;alinefm&gt;</span> which means counting with me, the patch got 2 or 3
+<a name="l-206"></a><span class="tm">14:04:39</span><span class="nk"> &lt;alinefm&gt;</span> and of course, as royce mentioned, some patches are only reviewed by me even waiting on mail list for days
+<a name="l-207"></a><span class="tm">14:04:59</span><span class="nk"> &lt;alinefm&gt;</span> anyway, let conclude this topic
+<a name="l-208"></a><span class="tm">14:05:17</span><span class="nk"> &lt;alinefm&gt;</span> seems everyone agrees with that
+<a name="l-209"></a><span class="tm">14:05:24</span><span class="nk"> &lt;alinefm&gt;</span> so 24h is down! =)
+<a name="l-210"></a><span class="tm">14:05:29</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, and we are already past the hour
+<a name="l-211"></a><span class="tm">14:05:53</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yeap =)
+<a name="l-212"></a><span class="tm">14:05:59</span><span class="nk"> &lt;alinefm&gt;</span> just noticed the hour
+<a name="l-213"></a><span class="tm">14:06:36</span><span class="nk"> &lt;alinefm&gt;</span> I will finish the meeting but if anyone has more to talk I will be here
+<a name="l-214"></a><span class="tm">14:07:12</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I had one topic after you conclude it
+<a name="l-215"></a><span class="tm">14:07:20</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT11, sure - go ahead
+<a name="l-216"></a><span class="tm">14:08:32</span><span class="nk"> &lt;AdamKingIT11&gt;</span> you want to close out the mtg so you can capture the topics?
+<a name="l-217"></a><span class="tm">14:10:22</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-218"></a><span class="tm">14:10:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

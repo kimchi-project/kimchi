@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:01:35 UTC
+(<a href="kimchi.scrum.2014-03-05-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-6'>alinefm</a>,
+    13:02:23)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-03-05-13.01.log.html#l-9'>alinefm</a>, 13:03:29)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-10'>alinefm</a>,
+    13:03:30)</span></li>
+  <li><span class="INFO">danielhb fixed NFS bug and storagepool_add
+    select box delay bug</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-11'>danielhb</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">lagarcia sent a patch to fix a bug related to
+    the virtual to physical path mapping in cherrypy. This was blocking
+    the user to see guest screenshots and host debug reports in the UI
+    when Kimchi was installed through RPM.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-12'>lagarcia</a>,
+    13:04:44)</span></li>
+  <li><span class="INFO">shaohef fix several bugs. such a session
+    expire.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-13'>shaohef</a>,
+    13:05:07)</span></li>
+  <li><span class="INFO">royce submit vol_cnt patch.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-14'>shaohef</a>,
+    13:05:33)</span></li>
+  <li><span class="INFO">pvital sent patch to fix software update action
+    into Host resource</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-15'>pvital</a>,
+    13:05:38)</span></li>
+  <li><span class="INFO">fixed isse 299 "Inactive storage pools are
+    listed while editing template"</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-16'>AdamKingIT11</a>,
+    13:06:02)</span></li>
+  <li><span class="INFO">pvital sent patch-set to fix VM's network model
+    template for Power systems and fix test_osinfo.py to use new modern
+    distro version dict.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-17'>pvital</a>,
+    13:06:25)</span></li>
+  <li><span class="INFO">fixed issue 303 "The password of iSCSI
+    Authentication should be masked "</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-18'>AdamKingIT11</a>,
+    13:06:29)</span></li>
+  <li><span class="INFO">alinefm fixed #242, adjusted storage pool combo
+    box UI style , enabled NFS path while typing the NFS server</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-19'>alinefm</a>,
+    13:06:58)</span></li>
+  <li><span class="INFO">working on issue 294</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-20'>AdamKingIT11</a>,
+    13:07:12)</span></li>
+  <li><span class="INFO">alinefm sent patch to don't probe ISO file
+    while checking template integrity</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-21'>alinefm</a>,
+    13:07:35)</span></li>
+  <li><span class="INFO">alinefm fixed #66</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-23'>alinefm</a>,
+    13:08:00)</span></li>
+  <li><span class="INFO">alinefm sent patches to fix bugs #312 and #330
+    - waiting for reviews</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-24'>alinefm</a>,
+    13:08:35)</span></li>
+  <li><span class="INFO">danielhb working on issue #329 (kimchi must not
+    run as root), a very funny issue because looks like a dead end, lol.
+    alinefm has been helping me to find out how messed up things are.
+    I'll send a RFC to the ML asking for backup</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-25'>danielhb</a>,
+    13:09:03)</span></li>
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open">https://github.com/kimchi-project/kimchi/issues?labels=bug&amp;page=1&amp;state=open</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-05-13.01.log.html#l-31'>alinefm</a>,
+    13:11:54)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-03-05-13.01.log.html#l-112'>alinefm</a>, 13:41:09)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:10:24 UTC
+(<a href="kimchi.scrum.2014-03-05-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (77)</li>
+  <li>lagarcia (48)</li>
+  <li>danielhb (27)</li>
+  <li>fnovak (19)</li>
+  <li>AdamKingIT11 (18)</li>
+  <li>royce (11)</li>
+  <li>pradeep (8)</li>
+  <li>shaohef (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>pvital (2)</li>
+  <li>rotru (2)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

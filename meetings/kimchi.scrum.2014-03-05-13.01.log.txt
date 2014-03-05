@@ -1,0 +1,218 @@
+13:01:35 <alinefm> #startmeeting
+13:01:36 <kimchi-bot> Meeting started Wed Mar  5 13:01:35 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:36 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:36 <alinefm> #meetingname scrum
+13:01:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:23 <alinefm> #info  Agenda 1) Status 2) Open discussion
+13:02:24 <alinefm> anything else?
+13:03:21 <rotru> no
+13:03:29 <alinefm> #topic Status
+13:03:30 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:38 <danielhb> #info danielhb fixed NFS bug and storagepool_add select box delay bug
+13:04:44 <lagarcia> #info lagarcia sent a patch to fix a bug related to the virtual to physical path mapping in cherrypy. This was blocking the user to see guest screenshots and host debug reports in the UI when Kimchi was installed through RPM.
+13:05:07 <shaohef> #info shaohef fix several bugs. such a session expire.
+13:05:33 <shaohef> #info royce submit vol_cnt patch.
+13:05:38 <pvital> #info pvital sent patch to fix software update action into Host resource
+13:06:02 <AdamKingIT11> #info fixed isse 299 "Inactive storage pools are listed while editing template"
+13:06:25 <pvital> #info pvital sent patch-set to fix VM's network model template for Power systems and fix test_osinfo.py to use new modern distro version dict.
+13:06:29 <AdamKingIT11> #info fixed issue 303 "The password of iSCSI Authentication should be masked "
+13:06:58 <alinefm> #info alinefm fixed #242, adjusted storage pool combo box UI style , enabled NFS path while typing the NFS server
+13:07:12 <AdamKingIT11> #info working on issue 294
+13:07:35 <alinefm> #info alinefm sent patch to don't probe ISO file while checking template integrity
+13:07:48 <rotru> # info rotru fixed and sent patches for bugs: Network add window;  Guest error handling; Network start/stop status buttons
+13:08:00 <alinefm> #info alinefm fixed #66
+13:08:35 <alinefm> #info alinefm sent patches to fix bugs #312 and #330 - waiting for reviews
+13:09:03 <danielhb> #info danielhb working on issue #329 (kimchi must not run as root), a very funny issue because looks like a dead end, lol. alinefm has been helping me to find out how messed up things are. I'll send a RFC to the ML asking for backup
+13:09:39 <alinefm> danielhb, we can also try it here on open discussion section
+13:09:55 <alinefm> maybe someone has new ideas
+13:10:30 <danielhb> ok!
+13:11:41 <alinefm> good progress, team!
+13:11:48 <alinefm> but we will still have 21 bugs to close
+13:11:54 <alinefm> https://github.com/kimchi-project/kimchi/issues?labels=bug&page=1&state=open
+13:12:38 <alinefm> so please, continue focus on them
+13:13:02 <alinefm> anyone has blockers? or want to talk about some specific bugs?
+13:13:49 <alinefm> as danielhb mentioned we need more ideas related to bug #329
+13:14:04 <alinefm> the main idea is run kimchi with a specific user - like "kimchi"
+13:14:19 <alinefm> and provide to this user the required access to kimchi run properly
+13:14:38 <alinefm> but as we use some python bindings we need help to find a solution
+13:14:51 <alinefm> basic for the commands we use, we can use sudo
+13:15:03 <alinefm> but how about libvirt, yum, apt python bindings?
+13:15:15 <lagarcia> alinefm, danielhb why someone would need kimchi to run with a specific user?
+13:15:47 <alinefm> for libvirt: danielhb will investigate how use openAuth() and see if it works
+13:15:54 <danielhb> lagarcia, the argument made is that running kimchi as root is a grotesque security risk
+13:15:55 <alinefm> lagarcia, because security
+13:15:57 <lagarcia> is this just to avoid running as root? I mean, a good practice rather than a specific issue someone hit
+13:16:08 <alinefm> lagarcia, some people are concerned about kimchi running as root
+13:16:09 <lagarcia> alinefm, danielhb ok
+13:16:30 <danielhb> lagarcia, I suggest reading https://bugzilla.linux.ibm.com/show_bug.cgi?id=104785 ... the guy classified it as a shipping issue, critical bug, lalala
+13:17:28 <lagarcia> danielhb, this is not accessible by the community. We need to mirror it to github or describe the full scenario in the mailing list.
+13:17:55 <danielhb> lagarcia, the same issue on github: https://github.com/kimchi-project/kimchi/issues/329
+13:18:06 <lagarcia> danielhb, ok. thx. I'll take a look.
+13:18:31 <danielhb> lagarcia, although it is not as detailed ... I can provide more info there if required
+13:18:36 <lagarcia> Regarding the issue alinefm described... if we are using python bindings, I doubt we will be able to run anything that requires root access
+13:19:31 <alinefm> lagarcia, I don't have much hope on it too
+13:20:18 <alinefm> danielhb, please, send an RFC to mail list
+13:20:22 <lagarcia> danielhb, alinefm I think it might be possible to create specific selinux rules to allow this. But this would only work on Fedora/RHEL to the best of my knowledge
+13:20:40 <alinefm> expose all the details we have already discussed and let see if we can find a solution
+13:21:17 <alinefm> lagarcia, =/
+13:21:35 <alinefm> lagarcia, I don't like the idea to have kimchi running in different ways according to distro
+13:21:41 <lagarcia> alinefm, nor do I
+13:21:48 <AdamKingIT11> make that 3
+13:21:55 <danielhb> lagarcia, alinefm I believe we'll have massive issues with the multiple distro support + this issue
+13:22:50 <danielhb> for starters, the binary path of the distros differ, making the setup/install more complex
+13:23:02 <danielhb> second, libvirt behaves differently on each distro
+13:23:25 <danielhb> but thing is I do not see any other way to solve this issue
+13:24:26 <danielhb> one idea is to use the Apache approach (one thread for each user) but this is a severe redesign at this point
+13:25:13 <alinefm> danielhb, I thought in start the cherrypy with kimchi user and keep all the backend as root
+13:25:30 <alinefm> but I could not find a cherrypy config to do it
+13:26:18 <fnovak> the issue w/ runnign as root as a webserver, is that there are LOTS of attack vectors from the network, if someone 'breaks' in  via,whatever mechanism, overflow, script injection, yada yada, they then have access to the system
+13:26:21 <danielhb> alinefm, another idea would be to run the backend only as a root process, kimchi UI as regular user. the communication would be made using RPC or something
+13:26:54 <danielhb> but again, this would be a real pain to implement ... the backend is huge ATM
+13:27:28 <royce> when we were at ovirt, they limit the root cmd  to a set of necessary ones, called supervdsm
+13:27:43 <fnovak> typically , whatever is on web should have low privledge, than by some means, bus, or other message send validated work off to another 'thread', unit of execution
+13:28:47 <fnovak> and yes, a potential temp out is to allow kimchi some specific sudo commands,  rather than generic root access
+13:28:55 <AdamKingIT11> Splitting the ui from the backend idea: We could proxy the REST API as our RPC mechanism, adding some additional validation before the proxt call
+13:29:15 <lagarcia> fnovak, using an bus... that might be a good idea.
+13:29:17 <fnovak> but best to seperate the web facing side from the backend, and run at fifferent priveledge levels
+13:29:31 <lagarcia> danielhb, maybe you can investigate using yum through d-bus instead of the python bindings
+13:29:50 <lagarcia> danielhb, if this is the only factor blocking us from moving to non-root user
+13:29:59 <danielhb> lagarcia, I guess yum has d-bus support, but I am worried about apt-get
+13:30:32 <danielhb> lagarcia, IMHO the party stopper from moving to non-root user is Ubuntu support, but I'll not comment on that :)
+13:30:47 <lagarcia> danielhb, not sure about apt... yum does have d-bus support
+13:31:11 <danielhb> lagarcia, libvirt does not work "as intended" in ubuntu as well
+13:31:26 <shaohef> royce:  yes, I have submit a patch. add a method to probe the permission as qemu user.   actually, it can run any request as any user with another process.  we can look into how it can be integrity with cherrypy.
+13:31:52 <lagarcia> another possibility, though lots of more work would be involved, is to separate UI and backend as AdamKingIT11 suggested... we might have two cherrypys running. One for UI and another one for backend.... And the communication would be done though the REST API
+13:32:05 <royce> shaohef, I think they want to limit the use of root previledge
+13:32:27 <alinefm> lagarcia, maybe we don't need 2 cherrypy servers
+13:32:42 <alinefm> just need to find a way to run the server as an user and the backend with root
+13:32:49 <lagarcia> alinefm, ok
+13:33:22 <danielhb> lagarcia, this would be easier than trying to deal with different distros behavior. the thing is that it looks like *a lot* of work
+13:34:10 <pradeep> alinefm:   lagarcia: it seems to be lot of work. Doubt it can go to this sprint.
+13:34:38 <lagarcia> pradeep, danielhb sure... this is not a 1.2 thing IMO
+13:34:41 <danielhb> "this sprint"?  I was thinking about the GA date ... lol
+13:35:19 <alinefm> lagarcia, danielhb, pradeep, I have the same feelings - that it seems a lot of work
+13:35:44 <danielhb> imagine the bucket of issues and bugs that will appear after separating frontend/backend
+13:35:45 <alinefm> but we need to take a time, look over the internet, to estimate the time
+13:35:52 <pradeep> alinefm:  But good feature to have for GA :)
+13:36:05 <alinefm> maybe someone in the world already had the same "problem"
+13:36:06 <alinefm> =)
+13:36:14 <pradeep> hehe :)
+13:36:16 <danielhb> alinefm, yeah ... the Apache team :)
+13:37:08 <AdamKingIT11> maybe we should talk to someone from Apache
+13:37:13 <alinefm> danielhb, I mean using cherrypy =)
+13:37:24 <danielhb> alinefm, lol
+13:38:13 <alinefm> ok - let's move on
+13:38:22 <alinefm> we can continue it after meeting or on ML
+13:38:25 <danielhb> I'll create the RFC in the ML to discuss it further
+13:38:33 <alinefm> danielhb, great! thanks
+13:38:43 <danielhb> not enjoying the alternatives so far :P
+13:38:59 <alinefm> danielhb, maybe try the #cherrypy channel
+13:39:25 <alinefm> I made some attempts yesterday but anyone answered me =/
+13:40:04 <alinefm> can we move to open discussion section?
+13:41:09 <alinefm> #topic Open Discussion
+13:41:17 <alinefm> what will we discuss today?
+13:41:20 <alinefm> any topic?
+13:41:35 <lagarcia> I have one
+13:41:40 <lagarcia> I'd like to make a proposal actually
+13:41:55 <alinefm> go ahead
+13:41:59 <AdamKingIT11> lagarcia: I am already married
+13:42:12 <lagarcia> AdamKingIT11, damn false friends :P
+13:42:42 <lagarcia> I have a topic (using proper English)
+13:42:43 <lagarcia> hehe
+13:42:46 <lagarcia> Not sure when/why this started to happened, but I want to discuss the 24 hour delay before committing a patch.
+13:43:00 <lagarcia> I saw some complaints on the mailing list about that...
+13:43:31 <lagarcia> Some weeks ago, I also suggested here to talk about this, but it was Chinese New year holiday and we found it better to wait until the rest of the community was back.
+13:43:42 <lagarcia> So, I am bringing this issue back.
+13:43:46 <lagarcia> issue/topic
+13:44:07 <royce> lagarcia, I think if it is an urgent fix for a official release, we can make exception for the fix
+13:44:23 <lagarcia> I mean, I never saw such kind of rule in any other community I interacted with... I understand that others want to have time to review patches and that we have people spread around different time zones.
+13:44:39 <danielhb> AdamKingIT11, LOL
+13:44:52 <lagarcia> But the fact is: this is an open source project. If, for some reason, you are not happy with a patch, just send another patch to the mailing list changing/improving it :)
+13:44:54 <royce> To make it merge soon, if it is common fix, we might want it to cool down a little to get more review
+13:45:33 <lagarcia> royce, sure... I am not saying that a new feature or something on that line should be merged quickly. I am talking about trivial patches or simple bug fixes.
+13:46:02 <alinefm> lagarcia, I have a parentheses on it
+13:46:07 <lagarcia> alinefm, sure
+13:46:21 <alinefm> why the V5 of a feature patch should wait 24h to get merged?
+13:46:34 <alinefm> I think it is true only for the first versions
+13:46:51 <alinefm> if a person does not review it until V5, why do we need to wait more?
+13:47:02 <AdamKingIT11> Maybe true for versions where vx+1 is a lot diff than vx
+13:47:15 <lagarcia> alinefm, sure, I agree with these cases as well... I mean, something that is in the mailing list for weeks should be reviewed enough by anyone that really wants to do it.
+13:47:25 <royce> trivial ones if not important, we don't need to be so rush
+13:47:40 <alinefm> AdamKingIT11, agree
+13:47:55 <alinefm> royce, what do you mean by "trivial"?
+13:48:49 <lagarcia> royce, I don't thing this is being rush. I think this is being practical. We are keeping a number of patchers "on the fly" just because we are waiting 24 hours... And, then, no one sends any messages and alinefm commits the patch because it already has enough reviews, and, more importantly, she is happy with the patch
+13:49:01 <royce> alinefm, lagarcia--"I am talking about trivial patches or simple bug fixes." I think if for trivial patch which would not affect much, wait for one day is OK for me, I think
+13:49:08 <fnovak> tbh , thsi is where the maintainer makes judgement calls..  If you start making rules here, we'll have a list of exceptions to therules, then execptions to the exceptions..
+13:49:27 <lagarcia> because ultimately, it is the maintainers decision to include a patch or not. So, why wait 24 hours? If someone is not happy, just send another patch/fix.
+13:49:43 <fnovak> yes, some time for reviews should be allowed in general, yes, everyone that cares ought to reviews ASAP..
+13:49:46 <lagarcia> fnovak, exactly
+13:49:48 <fnovak> but stuff happens
+13:50:13 <fnovak> if you don't like the patch that got submitted, provide a better one
+13:50:32 <fnovak> if you haven't bothered to review in time, shame on you
+13:50:40 <alinefm> lagarcia, yes - and when I applied a patch I was very comfortable before waiting 24h I got some unhappy mails
+13:50:43 <fnovak> but you can still fix if you have a better solutions
+13:50:44 <lagarcia> fnovak, that's exactly my thought. Nothing is written in stone in our repository. Anyone can provide a better patch if they want.
+13:51:00 <AdamKingIT11> also nothing to stop the original submitter from getting the comments and making additional changes in a subsequent patch
+13:51:13 <fnovak> in the end, if you don't like the community, you leave..
+13:51:15 <lagarcia> alinefm, and that's why I brought this to discussion... cause I think you were only executing your job
+13:51:40 <lagarcia> alinefm, and, more importantly, your right to decide when to merge something.
+13:51:55 <fnovak> and yes, sometimes maybe the maintainer screws up as well, you give them some grief, or often they give themselves more grief, and you move on
+13:51:57 <AdamKingIT11> I might say responsibility
+13:52:20 <royce> I mean, no one want a tiny feature introduce many bugs and revisions, right?
+13:52:23 <AdamKingIT11> good pt. I have yet to meet someone perfect
+13:52:25 <lagarcia> AdamKingIT11, yes, responsibility
+13:52:52 <lagarcia> royce, if that starts to happen, the maintainer is doing something wrong, and we can revisit this topic as a community.
+13:53:35 <AdamKingIT11> I thjink we can trust alinefm's judgement. She will not be perfect, but she shares the same goals we all have and will get it right most of the time
+13:53:44 <AdamKingIT11> lagarcia: fwiw your English was correct. There is just more than one kind of proposal, and the first one that came to mind made me laugh
+13:53:45 <lagarcia> royce, but we cannot delay the merge process because we think this might generate issues... I mean, if you have a counter example, a community in which they do that because they failed to do differently, I am open to learn it. But I never saw such thing
+13:54:08 <lagarcia> AdamKingIT11, lol
+13:54:31 <alinefm> AdamKingIT11, thanks for the confidence
+13:54:38 <royce> every build has a code freeze for official build, a branch for build and a branch for develop
+13:54:57 <alinefm> but in fact, I review and test the patches before applying them
+13:55:07 <alinefm> but as you properly mentioned, I am not perfect
+13:55:12 <alinefm> and I am happy with it
+13:55:19 <pradeep> lagarcia:  i see the point. I dont understand 24H time window. since we have different GEOS working, probably looking for other reviews.
+13:56:03 <lagarcia> pradeep, yes... and nothing blocks someone to send a comment after a patch has been applied.
+13:56:23 <AdamKingIT11> alinefm: I am not perfect either. I hope you don't feel singled out in that camp. I haven't met a perfect person
+13:56:42 <pradeep> lagarcia:  if you see lkml as well, people wait for others comments.  i dont see rush.
+13:56:50 <lagarcia> anyway... I really just want to brought this into discussion because I think alinefm needs to have more flexibility to merge patches whenever she wants without complaints in the mailing list. If someone has a complaint, please, complaint about the patch, not about how long it took to merge the pathc.
+13:56:51 <royce> We beleive alinefm
+13:57:16 <alinefm> lagarcia, good point
+13:57:17 <royce> but everyone is responsible for this community
+13:57:28 <alinefm> we are not saying it, royce
+13:57:45 <alinefm> I mean, saying the opposite =)
+13:57:56 <fnovak> :yes, all have a responsibility of trying to do their best,
+13:57:56 <danielhb> alinefm to 2016 ?
+13:58:10 <fnovak> and working constructively with others...
+13:58:15 <royce> If we just lay every burden on alinefm, no one review, then she must be tired off
+13:58:19 <lagarcia> pradeep, at the same time, I think Linus merge patches without any review, just because he wants... so this varies a lot. And I am not proposing us to kill the reviews. I want everybody to continue to review. But ultimately alinefm decides when to merge. just that.
+13:58:32 <AdamKingIT11> alinefm may have to save the world cup first
+13:58:35 <fnovak> the latter isn't always the case in communities, when egos get in the way.. soemtomes good , sometimes bad
+13:58:44 <pradeep> lagarcia: ok
+13:59:28 <lagarcia> alinefm, ok... I think we had a number of opinions here and it seems that everybody agrees on the direction at least. good :)
+13:59:36 <danielhb> AdamKingIT11, no one can save this world cup lol
+13:59:59 <fnovak> lagarcia, YES, we clearly want reviews to happen, and if folks have a problem with soemthign that was merged, SPEAK UP
+14:00:14 <pradeep> danielhb: world cup :)
+14:00:24 <fnovak> the answer isn't to stop merging and wait for what days, week, .. for soemone that might eventually get around to review?
+14:00:44 <lagarcia> fnovak, exactly
+14:01:12 <fnovak> why 24 hrs, maybe 36.. or if > 10 lines its 24 if > 20 lines 36,.. except when whne it's in this subsystem, or it's a Tuesday, and ???
+14:01:34 <AdamKingIT11> don;t forget when the moon is full
+14:01:58 <pradeep> AdamKingIT11: lol :)
+14:02:09 <alinefm> I just want to mention a thing
+14:02:10 <fnovak> AdamKingIT11, good point!
+14:02:15 <lagarcia> hehe
+14:03:49 <alinefm> but I am almost sure the patches I apply quickly have more than 1 review
+14:04:10 <alinefm> which means counting with me, the patch got 2 or 3
+14:04:39 <alinefm> and of course, as royce mentioned, some patches are only reviewed by me even waiting on mail list for days
+14:04:59 <alinefm> anyway, let conclude this topic
+14:05:17 <alinefm> seems everyone agrees with that
+14:05:24 <alinefm> so 24h is down! =)
+14:05:29 <lagarcia> alinefm, and we are already past the hour
+14:05:53 <alinefm> lagarcia, yeap =)
+14:05:59 <alinefm> just noticed the hour
+14:06:36 <alinefm> I will finish the meeting but if anyone has more to talk I will be here
+14:07:12 <AdamKingIT11> I had one topic after you conclude it
+14:07:20 <alinefm> AdamKingIT11, sure - go ahead
+14:08:32 <AdamKingIT11> you want to close out the mtg so you can capture the topics?
+14:10:22 <alinefm> sure
+14:10:24 <alinefm> #endmeeting
