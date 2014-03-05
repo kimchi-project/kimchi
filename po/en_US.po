@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-03 17:18-0300\n"
+"POT-Creation-Date: 2014-03-05 17:45-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -985,6 +985,12 @@ msgid "Unable to delete pool %(name)s as it is associated with some templates"
 msgstr ""
 
 #, python-format
+msgid ""
+"A volume group named '%(name)s' already exists. Please, choose another name "
+"to create the logical pool."
+msgstr ""
+
+#, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
 
@@ -1034,6 +1040,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to resize storage volume %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Storage type %(type)s does not support volume create and delete"
 msgstr ""
 
 #, python-format

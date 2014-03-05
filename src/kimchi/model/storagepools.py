@@ -71,6 +71,22 @@ class StoragePoolsModel(object):
             if name == ISO_POOL_NAME:
                 raise InvalidOperation("KCHPOOL0031E")
 
+            # The user may want to create a logical pool with the same name
+            # used before but a volume group will already exist with this name
+            # So check the volume group does not exist to create the pool
+            if params['type'] == 'logical':
+                vgdisplay_cmd = ['vgdisplay', name]
+                output, error, returncode = run_command(vgdisplay_cmd)
+                # From vgdisplay error codes:
+                # 1  error reading VGDA
+                # 2  volume group doesn't exist
+                # 3  not all physical volumes of volume group online
+                # 4  volume group not found
+                # 5  no volume groups found at all
+                # 6  error reading VGDA from lvmtab
+                if returncode not in [2, 4, 5]:
+                    raise InvalidOperation("KCHPOOL0036E", {'name': name})
+
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)
 
@@ -172,7 +188,8 @@ class StoragePoolModel(object):
                 return 0
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHPOOL0008E",
-                                  {'name': pool, 'err': e.get_error_message()})
+                                  {'name': pool.name(),
+                                   'err': e.get_error_message()})
 
     def _get_storage_source(self, pool_type, pool_xml):
         source = {}

@@ -138,7 +138,7 @@ messages = {
     "KCHPOOL0033E": _("Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is unreachable."),
     "KCHPOOL0034E": _("Unable to deactivate pool %(name)s as it is associated with some templates"),
     "KCHPOOL0035E": _("Unable to delete pool %(name)s as it is associated with some templates"),
-
+    "KCHPOOL0036E": _("A volume group named '%(name)s' already exists. Please, choose another name to create the logical pool."),
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),
