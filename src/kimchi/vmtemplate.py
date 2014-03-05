@@ -152,7 +152,7 @@ class VMTemplate(object):
             params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus']}
             ret += """
             <disk type='file' device='disk'>
-              <driver name='qemu' type='qcow2'/>
+              <driver name='qemu' type='qcow2' cache='none'/>
               <source file='%(src)s' />
               <target dev='%(dev)s' bus='%(bus)s' />
             </disk>
@@ -182,7 +182,7 @@ class VMTemplate(object):
         # Passthrough configuration
         disk_xml = """
             <disk type='volume' device='lun'>
-              <driver name='qemu' type='raw'/>
+              <driver name='qemu' type='raw' cache='none'/>
               <source dev='%(src)s'/>
               <target dev='%(dev)s' bus='scsi'/>
             </disk>"""
