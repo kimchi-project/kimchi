@@ -90,6 +90,7 @@ class ConfigTests(unittest.TestCase):
         Paths.get_prefix = PluginPaths.get_prefix = get_prefix
         paths = Paths()
         CACHEEXPIRES = 31536000
+        SESSIONSTIMEOUT = 10
         configObj = {
             '/': {'tools.trailing_slash.on': False,
                   'request.methods_with_bodies': ('POST', 'PUT'),
@@ -99,6 +100,7 @@ class ConfigTests(unittest.TestCase):
                   'tools.sessions.httponly': True,
                   'tools.sessions.locking': 'explicit',
                   'tools.sessions.storage_type': 'ram',
+                  'tools.sessions.timeout': SESSIONSTIMEOUT,
                   'tools.kimchiauth.on': False},
             '/css': {
                 'tools.staticdir.on': True,
