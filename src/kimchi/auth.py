@@ -22,6 +22,7 @@ import cherrypy
 import grp
 import PAM
 import re
+import time
 
 
 from kimchi import template
@@ -32,6 +33,7 @@ from kimchi.utils import run_command
 USER_ID = 'userid'
 USER_GROUPS = 'groups'
 USER_SUDO = 'sudo'
+REFRESH = 'robot-refresh'
 
 
 def debug(msg):
@@ -131,6 +133,15 @@ def check_auth_session():
     cherrypy.session.release_lock()
     if session is not None:
         debug("Session authenticated for user %s" % session)
+        kimchiRobot = cherrypy.request.headers.get('Kimchi-Robot')
+        if kimchiRobot == "kimchi-robot":
+            if (time.time() - cherrypy.session[REFRESH] >
+               cherrypy.session.timeout * 60):
+                cherrypy.session[USER_ID] = None
+                cherrypy.lib.sessions.expire()
+                raise cherrypy.HTTPError(401)
+        else:
+            cherrypy.session[REFRESH] = time.time()
         return True
 
     debug("Session not found")
@@ -172,6 +183,7 @@ def login(userid, password):
     cherrypy.session[USER_ID] = userid
     cherrypy.session[USER_GROUPS] = user.get_groups()
     cherrypy.session[USER_SUDO] = user.has_sudo()
+    cherrypy.session[REFRESH] = time.time()
     cherrypy.session.release_lock()
     return user.get_user()
 
@@ -179,6 +191,7 @@ def login(userid, password):
 def logout():
     cherrypy.session.acquire_lock()
     cherrypy.session[USER_ID] = None
+    cherrypy.session[REFRESH] = 0
     cherrypy.session.release_lock()
     cherrypy.lib.sessions.expire()
 
