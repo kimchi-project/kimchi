@@ -25,6 +25,7 @@ import random
 import shutil
 import time
 import unittest
+import urllib2
 
 
 from functools import partial
@@ -1423,13 +1424,33 @@ class RestTests(unittest.TestCase):
             self.assertIn('os_version', distro)
             self.assertIn('path', distro)
 
-        ident = "fedora-19"
-        resp = self.request('/config/distros/%s' % ident).read()
+        # Test in X86
+        ident = "Fedora 19"
+        resp = self.request('/config/distros/%s' % urllib2.quote(ident)).read()
         distro = json.loads(resp)
-        self.assertEquals(distro['name'], ident)
-        self.assertEquals(distro['os_distro'], "fedora")
-        self.assertEquals(distro['os_version'], "19")
-        self.assertIn('path', distro)
+        if os.uname()[4] in ['x86_64', 'amd64']:
+            self.assertEquals(distro['name'], ident)
+            self.assertEquals(distro['os_distro'], "fedora")
+            self.assertEquals(distro['os_version'], "19")
+            self.assertEquals(distro['os_arch'], "x86_64")
+            self.assertIn('path', distro)
+        else:
+            # Distro not found error
+            self.assertIn('KCHDISTRO0001E', distro.get('reason'))
+
+        # Test in PPC
+        ident = "Fedora 20 (PPC64)"
+        resp = self.request('/config/distros/%s' % urllib2.quote(ident)).read()
+        distro = json.loads(resp)
+        if os.uname()[4] == 'ppc64':
+            self.assertEquals(distro['name'], ident)
+            self.assertEquals(distro['os_distro'], "fedora")
+            self.assertEquals(distro['os_version'], "20")
+            self.assertEquals(distro['os_arch'], "ppc64")
+            self.assertIn('path', distro)
+        else:
+            # Distro not found error
+            self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
     def test_debugreports(self):
         resp = request(host, port, '/debugreports')

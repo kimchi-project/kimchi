@@ -892,6 +892,7 @@ class ModelTests(unittest.TestCase):
             self.assertIn('name', distro)
             self.assertIn('os_distro', distro)
             self.assertIn('os_version', distro)
+            self.assertIn('os_arch', distro)
             self.assertIn('path', distro)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
