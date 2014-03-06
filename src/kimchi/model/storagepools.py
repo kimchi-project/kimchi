@@ -272,7 +272,8 @@ class StoragePoolModel(object):
                                                    'err': error})
         # refreshing pool state
         pool = self.get_storagepool(pool_name, self.conn)
-        pool.refresh(0)
+        if pool.isActive():
+            pool.refresh(0)
 
     def update(self, name, params):
         pool = self.get_storagepool(name, self.conn)
