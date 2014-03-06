@@ -2,6 +2,7 @@
     {
         "name": "opensuse-12.3",
         "os_distro": "opensuse",
+        "os_arch": "x86_64",
         "os_version": "12.3",
         "path": "http://suse.mirrors.tds.net/pub/opensuse/distribution/12.3/iso/openSUSE-12.3-DVD-x86_64.iso"
     }
