@@ -91,7 +91,7 @@ class DistrosModel(object):
         self.distros = distroloader.get()
 
     def get_list(self):
-        return self.distros.keys()
+        return sorted(self.distros.keys())
 
 
 class DistroModel(object):

@@ -28,6 +28,11 @@ from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log
 
 
+ARCHS = {'x86_64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
+         'amd64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
+         'ppc64': ['ppc', 'ppc64']}
+
+
 class DistroLoader(object):
 
     def __init__(self, location=None):
@@ -49,9 +54,12 @@ class DistroLoader(object):
             raise OperationFailed("KCHDL0002E", msg_args)
 
     def get(self):
+        arch_list = ARCHS.get(os.uname()[4])
         all_json_files = glob.glob("%s/%s" % (self.location, "*.json"))
         distros = []
         for f in all_json_files:
             distros.extend(self._get_json_info(f))
 
-        return dict([(distro['name'], distro) for distro in distros])
+        # Return all remote ISOs arch not found
+        return dict([(distro['name'], distro) for distro in distros if
+                     (arch_list is None or distro['os_arch'] in arch_list)])
