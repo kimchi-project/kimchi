@@ -179,10 +179,10 @@ class ModelTests(unittest.TestCase):
             iso_path = '/tmp/existent.iso'
             iso_path2 = '/tmp/existent2.iso'
             open(iso_path, 'w').close()
-            open(iso_path2, 'w').close()
-            wrong_iso_path = '/nonexistent.iso'
             rollback.prependDefer(os.remove, iso_path)
+            open(iso_path2, 'w').close()
             rollback.prependDefer(os.remove, iso_path2)
+            wrong_iso_path = '/nonexistent.iso'
 
             # Create a cdrom
             cdrom_args = {"type": "cdrom",
@@ -546,9 +546,9 @@ class ModelTests(unittest.TestCase):
             params_1 = {'name': 'kimchi-vm1', 'template': '/templates/test'}
             params_2 = {'name': 'kimchi-vm2', 'template': '/templates/test'}
             inst.vms_create(params_1)
-            inst.vms_create(params_2)
             rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
                                   'kimchi-vm1')
+            inst.vms_create(params_2)
             rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
                                   'kimchi-vm2')
 
