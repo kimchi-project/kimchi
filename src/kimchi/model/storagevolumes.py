@@ -113,7 +113,14 @@ class StorageVolumeModel(object):
         path = vol.path()
         info = vol.info()
         xml = vol.XMLDesc(0)
-        fmt = xmlutils.xpath_get_text(xml, "/volume/target/format/@type")[0]
+        try:
+            fmt = xmlutils.xpath_get_text(
+                xml, "/volume/target/format/@type")[0]
+        except IndexError:
+            # Not all types of libvirt storage can provide volume format
+            # infomation. When there is no format information, we assume
+            # it's 'raw'.
+            fmt = 'raw'
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
