@@ -51,7 +51,7 @@ class KimchiException(Exception):
 
         for key, value in args.iteritems():
             if not isinstance(value, unicode):
-                args[key] = unicode(value, 'utf-8')
+                args[key] = unicode(str(value), 'utf-8')
 
         return unicode(translation.gettext(text), 'utf-8') % args
 
