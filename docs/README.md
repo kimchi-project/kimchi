@@ -89,7 +89,7 @@ for more information on how to configure your system to access this repository.
                           python-pam python-M2Crypto python-jsonschema \
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-lxml nfs-client open-iscsi \
-                          libxslt-tools
+                          libxslt-tools python-xml
 
     Packages version requirement:
         python-psutil >= 0.6.0
