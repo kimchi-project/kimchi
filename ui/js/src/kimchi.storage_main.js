@@ -99,13 +99,33 @@ kimchi.storageBindClick = function() {
             kimchi.message.error(err.responseJSON.reason);
         });
     });
+
     $('.pool-deactivate').on('click', function(event) {
         var poolName = $(this).data('name');
-        kimchi.changePoolState(poolName, 'deactivate', function() {
-            kimchi.doListStoragePools();
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
-        });
+        var settings = {
+            title : i18n['KCHAPI6001M'],
+            content : i18n['KCHPOOL6012M'],
+            confirm : i18n['KCHAPI6002M'],
+            cancel : i18n['KCHAPI6003M']
+        };
+        if (!$(this).data('persistent')) {
+            kimchi.confirm(settings, function() {
+                kimchi.changePoolState(poolName, 'deactivate', function() {
+                    kimchi.doListStoragePools();
+                }, function(err) {
+                    kimchi.message.error(err.responseJSON.reason);
+                });
+            }, function() {
+                return false;
+            });
+        }
+        else {
+            kimchi.changePoolState(poolName, 'deactivate', function() {
+                kimchi.doListStoragePools();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        }
     });
 
     $('.storage-action').on('click', function() {
