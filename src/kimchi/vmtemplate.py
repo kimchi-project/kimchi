@@ -24,6 +24,7 @@ import urlparse
 
 
 from kimchi import osinfo
+from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
@@ -273,7 +274,7 @@ class VMTemplate(object):
 
         # Current implementation just allows to create disk in one single
         # storage pool, so we cannot mix the types (scsi volumes vs img file)
-        if self._get_storage_type() == 'scsi':
+        if self._get_storage_type() in READONLY_POOL_TYPE:
             params['disks'] = self._get_scsi_disks_xml(kwargs.get('volumes'))
         else:
             params['disks'] = self._get_disks_xml(vm_uuid)
