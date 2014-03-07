@@ -15,7 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 DITA_HTML_FILES = $(patsubst %.dita,%.html,$(wildcard *.dita))
-HTML_FILES = $(if $(wildcard *.html), $(wildcard *.html), $(DITA_HTML_FILES) index.html)
+HTML_FILES = $(if $(DITA_HTML_FILES), $(DITA_HTML_FILES) index.html, $(wildcard *.html))
 DITA_XSL_FILE = dita-help.xsl
 
 helpdir = $(datadir)/kimchi/ui/pages/help
