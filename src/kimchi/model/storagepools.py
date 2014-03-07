@@ -175,7 +175,7 @@ class StoragePoolModel(object):
             return conn.storagePoolLookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_POOL:
-                raise NotFoundError("KCHTMPL0002E", {'name': name})
+                raise NotFoundError("KCHPOOL0002E", {'name': name})
             else:
                 raise
 
@@ -229,6 +229,7 @@ class StoragePoolModel(object):
         pool = self.get_storagepool(name, self.conn)
         info = pool.info()
         autostart = True if pool.autostart() else False
+        persistent = True if pool.isPersistent() else False
         xml = pool.XMLDesc(0)
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
@@ -254,7 +255,8 @@ class StoragePoolModel(object):
                'capacity': info[1],
                'allocated': info[2],
                'available': info[3],
-               'nr_volumes': nr_volumes}
+               'nr_volumes': nr_volumes,
+               'persistent': persistent}
 
         if not pool.isPersistent():
             # Deal with deep scan generated pool
@@ -354,10 +356,15 @@ class StoragePoolModel(object):
                                   {'name': name, 'server': source['addr']})
             return
         try:
+            persistent = pool.isPersistent()
             pool.destroy()
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHPOOL0010E",
                                   {'name': name, 'err': e.get_error_message()})
+        # If pool was not persistent, then it was erased by destroy() and
+        # must return nothing here, to trigger _redirect() and avoid errors
+        if not persistent:
+            return ""
 
     def delete(self, name):
         if self._pool_used_by_template(name):

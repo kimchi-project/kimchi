@@ -90,7 +90,8 @@ class StoragePool(Resource):
                'source': self.info['source'],
                'type': self.info['type'],
                'nr_volumes': self.info['nr_volumes'],
-               'autostart': self.info['autostart']}
+               'autostart': self.info['autostart'],
+               'persistent': self.info['persistent']}
 
         val = self.info.get('task_id')
         if val:
