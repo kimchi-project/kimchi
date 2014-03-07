@@ -72,7 +72,7 @@ class storagepoolTests(unittest.TestCase):
                      <device path="/dev/hdb" />
                  </source>
              <target>
-                 <path>/var/lib/kimchi/logical_mount/unitTestLogicalPool</path>
+                 <path>/dev/unitTestLogicalPool</path>
              </target>
              </pool>
              """},

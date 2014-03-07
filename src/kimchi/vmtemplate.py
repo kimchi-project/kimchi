@@ -149,10 +149,11 @@ class VMTemplate(object):
             src = os.path.join(storage_path, volume)
             dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
                             string.lowercase[index])
-            params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus']}
+            fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
+            params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus'], 'type': fmt}
             ret += """
             <disk type='file' device='disk'>
-              <driver name='qemu' type='qcow2' cache='none'/>
+              <driver name='qemu' type='%(type)s' cache='none'/>
               <source file='%(src)s' />
               <target dev='%(dev)s' bus='%(bus)s' />
             </disk>
@@ -198,6 +199,7 @@ class VMTemplate(object):
 
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
+        fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
         ret = []
         for i, d in enumerate(self.info['disks']):
             index = d.get('index', i)
@@ -206,7 +208,7 @@ class VMTemplate(object):
             info = {'name': volume,
                     'capacity': d['size'],
                     'type': 'disk',
-                    'format': 'qcow2',
+                    'format': fmt,
                     'path': '%s/%s' % (storage_path, volume)}
 
             info['xml'] = """
