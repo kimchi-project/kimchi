@@ -249,7 +249,9 @@ kimchi.template_add_main = function() {
 
     //1-2-1 remote iso list
     var initRemoteIsoField = function() {
+        $('#load-remote-iso').show();
         $('#remote-iso-field').hide();
+        $('#iso-url-field').hide();
         $('#select-all-remote-iso').prop('checked', false);
         $('#btn-template-remote-iso-create').attr('disabled', 'disabled');
     };
@@ -268,8 +270,12 @@ kimchi.template_add_main = function() {
                 }
             });
             $('#list-remote-iso').html(html);
+            $('#load-remote-iso').hide()
             $('#remote-iso-field').show();
+            $('#iso-url-field').show();
         } else {
+            $('#load-remote-iso').hide()
+            $('#iso-url-field').show();
             kimchi.message.warn(i18n['KCHTMPL6001W']);
         }
     };

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-05 17:45-0300\n"
+"POT-Creation-Date: 2014-03-07 00:54-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -564,6 +564,12 @@ msgstr "Create Templates from Selected ISO"
 
 msgid "I want to use a specific ISO file"
 msgstr "I want to use a specific ISO file"
+
+msgid "Loading default remote ISOs ..."
+msgstr ""
+
+msgid "Arch: "
+msgstr ""
 
 msgid "I want to use a custom URL"
 msgstr "I want to use a custom URL"
