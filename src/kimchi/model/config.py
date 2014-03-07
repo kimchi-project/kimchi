@@ -27,7 +27,7 @@ from kimchi.featuretests import FeatureTests
 from kimchi.model.debugreports import DebugReportsModel
 from kimchi.screenshot import VMScreenshot
 from kimchi.swupdate import SoftwareUpdate
-from kimchi.utils import kimchi_log
+from kimchi.utils import check_url_path, kimchi_log
 
 
 class ConfigModel(object):
@@ -91,7 +91,13 @@ class DistrosModel(object):
         self.distros = distroloader.get()
 
     def get_list(self):
-        return sorted(self.distros.keys())
+        res = []
+        # only return distro with valid URL
+        for distro, data in self.distros.iteritems():
+            url = data['path']
+            if check_url_path(url):
+                res.append(distro)
+        return sorted(res)
 
 
 class DistroModel(object):
