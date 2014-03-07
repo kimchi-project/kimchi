@@ -42,11 +42,12 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
                                          sound_model= 'ich6')},
                   'power': {'old': dict(common_spec, disk_bus='scsi',
                                         nic_model='spapr-vlan', cdrom_bus='scsi',
-                                        kbd_bus='usb', mouse_bus='usb'),
+                                        kbd_bus='usb', mouse_bus='usb',
+                                        memory=1280),
                             'modern': dict(common_spec, disk_bus='virtio',
                                            nic_model='virtio',
                                            cdrom_bus='scsi', kbd_bus='usb',
-                                           mouse_bus='usb')}}
+                                           mouse_bus='usb', memory=1280)}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
