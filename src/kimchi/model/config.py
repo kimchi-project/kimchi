@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from multiprocessing.pool import ThreadPool
+
 import cherrypy
 
 from kimchi.basemodel import Singleton
@@ -91,12 +93,16 @@ class DistrosModel(object):
         self.distros = distroloader.get()
 
     def get_list(self):
-        res = []
-        # only return distro with valid URL
-        for distro, data in self.distros.iteritems():
-            url = data['path']
-            if check_url_path(url):
-                res.append(distro)
+        def validate_distro(distro):
+            if check_url_path(distro['path']):
+                return distro['name']
+
+        n_processes = len(self.distros.keys())
+        pool = ThreadPool(processes=n_processes)
+        map_res = pool.map_async(validate_distro, self.distros.values())
+        pool.close()
+        pool.join()
+        res = list(set(map_res.get()) - set([None]))
         return sorted(res)
 
 
