@@ -143,7 +143,7 @@ class LogicalPoolDef(StoragePoolDef):
 
     def __init__(self, poolArgs):
         super(LogicalPoolDef, self).__init__(poolArgs)
-        self.path = '/var/lib/kimchi/logical_mount/' + self.poolArgs['name']
+        self.path = '/dev/' + self.poolArgs['name']
 
     @property
     def xml(self):
