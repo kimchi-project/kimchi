@@ -3,7 +3,7 @@
         "name": "debian-Wheezy",
         "os_distro": "debian",
         "os_arch": "x86_64",
-        "os_version": "7.2.0",
-        "path": "http://cdimage.debian.org/debian-cd/7.2.0-live/amd64/iso-hybrid/debian-live-7.2-amd64-gnome-desktop.iso"
+        "os_version": "7.4.0",
+        "path": "http://ftp.acc.umu.se/debian-cd/7.4.0-live/amd64/iso-hybrid/debian-live-7.4-amd64-gnome-desktop.iso"
     }
 ]
