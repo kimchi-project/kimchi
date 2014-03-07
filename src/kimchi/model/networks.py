@@ -196,7 +196,7 @@ class NetworkModel(object):
         for dom in conn.listAllDomains(0):
             networks = self._vm_get_networks(dom)
             if network in networks and (state is None or
-                                        state == dom.state()[0]):
+                                        state == dom.state(0)[0]):
                 vms.append(dom.name())
         return vms
 
