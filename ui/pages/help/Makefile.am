@@ -24,8 +24,10 @@ dist_help_DATA = $(HTML_FILES) $(NULL)
 
 EXTRA_DIST = $(wildcard *.dita)
 
+index.html: $(wildcard *.dita)
+	$(shell pwd)/gen-index.py $^ > $@
+
 %.html: %.dita $(DITA_XSL_FILE)
 	xsltproc -o $@ $(DITA_XSL_FILE) $<
-	$(shell pwd)/gen-index.py
 
 CLEANFILES = $(HTML_FILES)

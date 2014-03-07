@@ -20,6 +20,7 @@
 
 import glob
 import libxml2
+import sys
 
 
 HTML_HEAD = """
@@ -38,9 +39,13 @@ HTML_TAIL = """
 
 
 def main():
+    if len(sys.argv) < 2:
+        sys.exit("Missing input files")
+
+    input_files = sys.argv[1:]
+
     pages = {}
-    files = sorted(glob.glob('*.dita'))
-    for f in files:
+    for f in sorted(input_files):
         with open(f) as fd:
             xml = fd.read()
             doc = libxml2.parseDoc(xml)
@@ -49,12 +54,11 @@ def main():
             pages[f.replace('.dita', '.html')] = name
             doc.freeDoc()
 
-    with open('index.html', 'w') as fd:
-        fd.write(HTML_HEAD)
-        for page, name in pages.iteritems():
-            html = '  <a href="/help/%s">%s</a><br />\n'
-            fd.write(html % (page, name))
-        fd.write(HTML_TAIL)
+    print HTML_HEAD
+    for page, name in pages.iteritems():
+        html = '  <a href="/help/%s">%s</a><br />\n'
+        print html % (page, name)
+    print HTML_TAIL
 
 
 if __name__ == '__main__':
