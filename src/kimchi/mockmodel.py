@@ -959,7 +959,8 @@ class MockStoragePool(object):
                      'source': {},
                      'type': 'dir',
                      'nr_volumes': 0,
-                     'autostart': 0}
+                     'autostart': 0,
+                     'persistent': True}
         self._volumes = {}
 
     def refresh(self):

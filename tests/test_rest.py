@@ -783,6 +783,9 @@ class RestTests(unittest.TestCase):
         else:
             self.assertEquals(False, storagepool['autostart'])
 
+        # Test if storage pool is persistent
+        self.assertEquals(True, storagepool['persistent'])
+
         # activate the storage pool
         resp = self.request('/storagepools/test-pool/activate', '{}', 'POST')
         storagepool = json.loads(
