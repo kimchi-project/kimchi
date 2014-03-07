@@ -365,7 +365,6 @@ kimchi.template_add_main = function() {
                 };
                 kimchi.createTemplate(data, function() {
                     successNum++;
-                    kimchi.message.success(i18n['KCHTMPL6001M'] + ': ' + isoInfo.name);
                     $('input[value="' + isoInfo.isoId + '"]').prop('checked', false);
                     $('.check-all>input').prop('checked', false);
                     kimchi.doListTemplates();
