@@ -156,6 +156,8 @@ kimchi.main = function() {
             if (jqXHR['status'] === 401) {
                 kimchi.user.showUser(false);
                 kimchi.previousAjax = ajaxSettings;
+                $(".empty-when-logged-off").empty();
+                $(".remove-when-logged-off").remove();
                 kimchi.window.open({
                     url: 'login-window.html',
                     id: 'login-window-wrapper'

@@ -187,7 +187,7 @@ kimchi.initNetworkDialog = function() {
         draggable : false,
         resizable : false,
         closeText: "X",
-        dialogClass : "network-ui-dialog",
+        dialogClass : "network-ui-dialog remove-when-logged-off",
         open : function(){
             $(".ui-dialog-titlebar-close", $("#networkConfig").parent()).removeAttr("title");
         },

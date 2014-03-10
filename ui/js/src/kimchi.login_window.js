@@ -87,6 +87,9 @@ kimchi.login_main = function() {
                 $.ajax(pAjax);
                 kimchi.previousAjax = null;
             }
+            else if(pAjax) {
+                window.location.reload();
+            }
 
             kimchi.user.showUser(true);
             kimchi.window.close();
