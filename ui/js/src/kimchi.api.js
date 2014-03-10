@@ -37,7 +37,7 @@ var kimchi = {
      *     user clicking the tab again.
      *       Default to false.
      */
-    requestJSON: function(settings) {
+    requestJSON : function(settings) {
         settings['originalError'] = settings['error'];
         settings['error'] = null;
         settings['kimchi'] = true;
