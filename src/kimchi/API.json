@@ -143,6 +143,31 @@
                 }
             }
         },
+        "storagevolumes_create": {
+            "type": "object",
+            "error": "KCHVOL0016E",
+            "properties": {
+                "name": {
+                    "description": "The name of the Storage Volume",
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true,
+                    "error": "KCHVOL0013E"
+                },
+                "allocation": {
+                    "description": "The size(MiB) of allocation when create the storage volume",
+                    "type": "number",
+                    "minimum": 1,
+                    "error": "KCHVOL0014E"
+                },
+                "format": {
+                    "description": "The format of the volume",
+                    "type": "string",
+                    "pattern": "^qcow2|raw$",
+                    "error": "KCHVOL0015E"
+                }
+            }
+        },
         "vms_create": {
             "type": "object",
             "error": "KCHVM0016E",

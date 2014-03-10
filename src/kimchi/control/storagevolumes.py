@@ -49,6 +49,7 @@ class StorageVolume(Resource):
                'capacity': self.info['capacity'],
                'allocation': self.info['allocation'],
                'path': self.info['path'],
+               'ref_cnt': self.info['ref_cnt'],
                'format': self.info['format']}
 
         for key in ('os_version', 'os_distro', 'bootable'):

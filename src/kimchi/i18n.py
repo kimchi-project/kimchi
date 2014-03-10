@@ -152,6 +152,10 @@ messages = {
     "KCHVOL0010E": _("Unable to delete storage volume %(name)s. Details: %(err)s"),
     "KCHVOL0011E": _("Unable to resize storage volume %(name)s. Details: %(err)s"),
     "KCHVOL0012E": _("Storage type %(type)s does not support volume create and delete"),
+    "KCHVOL0013E": _("Storage volume name must be a string"),
+    "KCHVOL0014E": _("Storage volume allocation must be an integer number"),
+    "KCHVOL0015E": _("Storage volume format not supported"),
+    "KCHVOL0016E": _("Storage volume requires a volume name"),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 
