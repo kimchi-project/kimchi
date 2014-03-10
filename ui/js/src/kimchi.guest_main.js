@@ -165,8 +165,10 @@ kimchi.listVmsAuto = function() {
         }
 
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
-    }, function(err) {
-        kimchi.message.error(err.responseJSON.reason);
+    }, function(errorResponse, textStatus, errorThrown) {
+        if(errorResponse.responseJSON && errorResponse.responseJSON.reason) {
+            kimchi.message.error(errorResponse.responseJSON.reason);
+        }
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     });
 };

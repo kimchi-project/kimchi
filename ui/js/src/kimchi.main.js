@@ -164,8 +164,12 @@ kimchi.main = function() {
                 });
                 return;
             }
-
-            ajaxSettings['originalError'] && ajaxSettings['originalError'](jqXHR);
+            else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText)) {
+                kimchi.message.error(i18n['KCHAPI6007E'].replace("%1", jqXHR.state()));
+            }
+            if(ajaxSettings['originalError']) {
+                ajaxSettings['originalError'](jqXHR, jqXHR.statusText, errorThrown);
+            }
         });
 
         kimchi.user.showUser(true);
