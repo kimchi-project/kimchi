@@ -212,10 +212,11 @@ class VMTemplate(object):
                     'format': fmt,
                     'path': '%s/%s' % (storage_path, volume)}
 
+            info['allocation'] = 0 if fmt == 'qcow2' else info['capacity']
             info['xml'] = """
             <volume>
               <name>%(name)s</name>
-              <allocation>0</allocation>
+              <allocation unit="G">%(allocation)s</allocation>
               <capacity unit="G">%(capacity)s</capacity>
               <target>
                 <format type='%(format)s'/>
