@@ -226,7 +226,11 @@ class VMsModel(object):
         return name
 
     def get_list(self):
-        conn = self.conn.get()
+        return self.get_vms(self.conn)
+
+    @staticmethod
+    def get_vms(conn):
+        conn = conn.get()
         names = [dom.name().decode('utf-8') for dom in conn.listAllDomains(0)]
         return sorted(names, key=unicode.lower)
 
