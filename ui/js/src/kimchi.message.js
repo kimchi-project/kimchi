@@ -15,16 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.message = function(msg, level) {
-    if ($('#messageField').size() < 1) {
-        $(document.body).append('<div id="messageField"></div>');
+kimchi.message = function(msg, level, node) {
+    var container = node || $('#messageField');
+    if ($(container).size() < 1) {
+        container = $('<div id="messageField"/>').appendTo(document.body);
     }
     var message = '<div class="message ' + (level || '') + '" style="display: none;">';
-    message += '<div class="close">X</div>';
+    if(!node) {
+        message += '<div class="close">X</div>';
+    }
     message += '<div class="content">' + msg + '</div>';
     message += '</div>';
     var $message = $(message);
-    $('#messageField').append($message);
+    $(container).append($message);
     $message.fadeIn(100);
 
     setTimeout(function() {
@@ -33,7 +36,7 @@ kimchi.message = function(msg, level) {
         });
     }, 4000);
 
-    $('#messageField').on("click", ".close", function(e) {
+    $(container).on("click", ".close", function(e) {
         $(this).parent().fadeOut(200, function() {
             $(this).remove();
         });
@@ -98,16 +101,16 @@ kimchi.confirm = function(settings, confirmCallback, cancelCallback) {
     });
 };
 
-kimchi.message.warn = function(msg) {
-    kimchi.message(msg, 'warn');
+kimchi.message.warn = function(msg, node) {
+    kimchi.message(msg, 'warn', node);
 };
-kimchi.message.error = function(msg) {
-    kimchi.message(msg, 'error');
+kimchi.message.error = function(msg, node) {
+    kimchi.message(msg, 'error', node);
 };
 kimchi.message.error.code = function(code) {
     msg = code + ": " + i18n[code]
     kimchi.message(msg, 'error');
 };
-kimchi.message.success = function(msg) {
-    kimchi.message(msg, 'success');
+kimchi.message.success = function(msg, node) {
+    kimchi.message(msg, 'success', node);
 };
