@@ -163,17 +163,20 @@ class VMStorageModel(object):
         if disk is None:
             raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
-        source = disk.source
         path = ""
-        if source is not None:
-            src_type = disk.attrib['type']
-            if src_type == 'network':
-                host = source.host
-                path = (source.attrib['protocol'] + '://' +
-                        host.attrib['name'] + ':' +
-                        host.attrib['port'] + source.attrib['name'])
-            else:
-                path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
+        try:
+            source = disk.source
+            if source is not None:
+                src_type = disk.attrib['type']
+                if src_type == 'network':
+                    host = source.host
+                    path = (source.attrib['protocol'] + '://' +
+                            host.attrib['name'] + ':' +
+                            host.attrib['port'] + source.attrib['name'])
+                else:
+                    path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
+        except:
+            pass
         dev_type = disk.attrib['device']
         return {'dev': dev_name,
                 'type': dev_type,
