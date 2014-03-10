@@ -28,6 +28,8 @@ from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.utils import kimchi_log
+from kimchi.model.vms import VMsModel
+from kimchi.model.vmstorages import VMStoragesModel, VMStorageModel
 
 
 VOLUME_TYPE_MAP = {0: 'file',
@@ -58,6 +60,7 @@ class StorageVolumesModel(object):
         params.setdefault('format', 'qcow2')
 
         name = params['name']
+        vol_id = '%s:%s' % (pool_name, name)
         try:
             pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
             xml = vol_xml % params
@@ -75,6 +78,10 @@ class StorageVolumesModel(object):
             raise OperationFailed("KCHVOL0007E",
                                   {'name': name, 'pool': pool,
                                    'err': e.get_error_message()})
+
+        with self.objstore as session:
+            session.store('storagevolume', vol_id, {'ref_cnt': 0})
+
         return name
 
     def get_list(self, pool_name):
@@ -108,6 +115,26 @@ class StorageVolumeModel(object):
             else:
                 raise
 
+    def _get_ref_cnt(self, pool, name, path):
+        vol_id = '%s:%s' % (pool, name)
+        with self.objstore as session:
+            try:
+                ref_cnt = session.get('storagevolume', vol_id)['ref_cnt']
+            except NotFoundError:
+                # Fix storage volume created outside kimchi scope
+                ref_cnt = 0
+                args = {'conn': self.conn, 'objstore': self.objstore}
+                # try to find this volume in exsisted vm
+                vms = VMsModel.get_vms(self.conn)
+                for vm in vms:
+                    storages = VMStoragesModel(**args).get_list(vm)
+                    for disk in storages:
+                        if path == VMStorageModel(**args).lookup(vm, disk)['path']:
+                            ref_cnt = ref_cnt + 1
+                session.store('storagevolume', vol_id, {'ref_cnt': ref_cnt})
+
+        return ref_cnt
+
     def lookup(self, pool, name):
         vol = self._get_storagevolume(pool, name)
         path = vol.path()
@@ -121,10 +148,12 @@ class StorageVolumeModel(object):
             # infomation. When there is no format information, we assume
             # it's 'raw'.
             fmt = 'raw'
+        ref_cnt = self._get_ref_cnt(pool, name, path)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
                    path=path,
+                   ref_cnt=ref_cnt,
                    format=fmt)
         if fmt == 'iso':
             if os.path.islink(path):

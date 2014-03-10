@@ -426,6 +426,7 @@ class MockModel(object):
             name = params['name']
             volume = MockStorageVolume(pool, name, params)
             volume.info['type'] = params['type']
+            volume.info['ref_cnt'] = params.get('ref_cnt', 0)
             volume.info['format'] = params['format']
             volume.info['path'] = os.path.join(
                 pool.info['path'], name)
@@ -890,6 +891,7 @@ class MockVMTemplate(VMTemplate):
         disk_paths = []
         for vol_info in volumes:
             vol_info['capacity'] = vol_info['capacity'] << 10
+            vol_info['ref_cnt'] = 1
             self.model.storagevolumes_create(pool.name, vol_info)
             disk_paths.append({'pool': pool.name, 'volume': vol_info['name']})
         return disk_paths
@@ -1009,6 +1011,7 @@ class MockStorageVolume(object):
                      'capacity': capacity << 20,
                      'allocation': params.get('allocation', '512'),
                      'path': params.get('path'),
+                     'ref_cnt': params.get('ref_cnt'),
                      'format': fmt}
         if fmt == 'iso':
             self.info['allocation'] = self.info['capacity']
