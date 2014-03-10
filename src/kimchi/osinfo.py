@@ -18,10 +18,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import copy
+import glob
 import os
 
 
 from distutils.version import LooseVersion
+
+
+from kimchi.config import paths
 
 
 SUPPORTED_ARCHS = {'x86': ('i386', 'x86_64'), 'power': ('ppc', 'ppc64')}
@@ -55,6 +59,8 @@ modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                                 'rhel': '6.0', 'fedora': '16', 'gentoo': '0'},
                         'power': {'rhel': '7.0', 'fedora': '19'}}
 
+icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
+                          % paths.ui_dir, 'icon-*.png')]
 
 isolinks = {
     'debian': {
@@ -100,15 +106,18 @@ def lookup(distro, version):
     arch = _get_arch()
 
     if distro in modern_version_bases[arch]:
-        params['icon'] = 'images/icon-%s.png' % distro
         if LooseVersion(version) >= LooseVersion(
             modern_version_bases[arch][distro]):
             params.update(template_specs[arch]['modern'])
         else:
             params.update(template_specs[arch]['old'])
     else:
-        params['icon'] = 'images/icon-vm.png'
         params['os_distro'] = params['os_version'] = "unknown"
         params.update(template_specs[arch]['old'])
+
+    if distro in icon_available_distros:
+        params['icon'] = 'images/icon-%s.png' % distro
+    else:
+        params['icon'] = 'images/icon-vm.png'
 
     return params
