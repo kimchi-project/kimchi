@@ -33,7 +33,7 @@ kimchi.window = (function() {
         _listeners[windowID] = settings['close'];
         var windowNode = $('<div></div>', {
             id: windowID,
-            'class': settings['class'] ? settings['class'] + ' bgmask' : 'bgmask'
+            'class': settings['class'] ? settings['class'] + ' bgmask remove-when-logged-off' : 'bgmask remove-when-logged-off'
         });
 
         $(windowNode).css(settings['style'] || '');
