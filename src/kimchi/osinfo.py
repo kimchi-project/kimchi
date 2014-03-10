@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import copy
 import glob
@@ -40,12 +40,13 @@ modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
 
 
 template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
-                                      nic_model='e1000', sound_model= 'ich6'),
+                                      nic_model='e1000', sound_model='ich6'),
                           'modern': dict(common_spec, disk_bus='virtio',
                                          nic_model='virtio',
-                                         sound_model= 'ich6')},
+                                         sound_model='ich6')},
                   'power': {'old': dict(common_spec, disk_bus='scsi',
-                                        nic_model='spapr-vlan', cdrom_bus='scsi',
+                                        nic_model='spapr-vlan',
+                                        cdrom_bus='scsi',
                                         kbd_bus='usb', mouse_bus='usb',
                                         memory=1280),
                             'modern': dict(common_spec, disk_bus='virtio',
@@ -64,18 +65,24 @@ icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
 
 isolinks = {
     'debian': {
-        'squeeze': 'http://cdimage.debian.org/debian-cd/6.0.7-live/amd64/iso-hybrid/debian-live-6.0.7-amd64-gnome-desktop.iso',
+        'squeeze': 'http://cdimage.debian.org/debian-cd/6.0.7-live/amd64/'
+                   'iso-hybrid/debian-live-6.0.7-amd64-gnome-desktop.iso',
     },
     'ubuntu': {
-        'raring': 'http://ubuntu-releases.cs.umn.edu/13.04/ubuntu-13.04-desktop-amd64.iso',
+        'raring': 'http://ubuntu-releases.cs.umn.edu/13.04/'
+                  'ubuntu-13.04-desktop-amd64.iso',
     },
     'opensuse': {
-        '12.3': 'http://suse.mirrors.tds.net/pub/opensuse/distribution/12.3/iso/openSUSE-12.3-DVD-x86_64.iso',
+        '12.3': 'http://suse.mirrors.tds.net/pub/opensuse/distribution/12.3/'
+                'iso/openSUSE-12.3-DVD-x86_64.iso',
     },
     'fedora': {
-        '16': 'http://fedora.mirrors.tds.net/pub/fedora/releases/16/Live/x86_64/Fedora-16-x86_64-Live-Desktop.iso',
-        '17': 'http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/x86_64/Fedora-17-x86_64-Live-Desktop.iso',
-        '18': 'http://fedora.mirrors.tds.net/pub/fedora/releases/18/Live/x86_64/Fedora-18-x86_64-Live-Desktop.iso',
+        '16': 'http://fedora.mirrors.tds.net/pub/fedora/releases/16/Live/'
+              'x86_64/Fedora-16-x86_64-Live-Desktop.iso',
+        '17': 'http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/'
+              'x86_64/Fedora-17-x86_64-Live-Desktop.iso',
+        '18': 'http://fedora.mirrors.tds.net/pub/fedora/releases/18/Live/'
+              'x86_64/Fedora-18-x86_64-Live-Desktop.iso',
     },
 }
 
@@ -83,7 +90,6 @@ defaults = {'networks': ['default'],
             'storagepool': '/storagepools/default',
             'domain': 'kvm', 'arch': os.uname()[4],
             'graphics': {'type': 'vnc', 'listen': '0.0.0.0'}}
-
 
 
 def _get_arch():
@@ -107,7 +113,7 @@ def lookup(distro, version):
 
     if distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
-            modern_version_bases[arch][distro]):
+           modern_version_bases[arch][distro]):
             params.update(template_specs[arch]['modern'])
         else:
             params.update(template_specs[arch]['old'])
