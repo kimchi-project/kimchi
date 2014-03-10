@@ -729,5 +729,79 @@ var kimchi = {
             success : suc,
             error : err
         });
+    },
+
+    addVMStorage : function(settings, suc, err) {
+        var vm = encodeURIComponent(settings['vm']);
+        delete settings['vm'];
+        kimchi.requestJSON({
+            url : kimchi.url + 'vms/' + vm + '/storages',
+            type : 'POST',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    retrieveVMStorage : function(settings, suc, err) {
+        var vm = encodeURIComponent(settings['vm']);
+        var dev = encodeURIComponent(settings['dev']);
+        kimchi.requestJSON({
+            url : kimchi.url + "vms/" + vm + '/storages/' + dev,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success: suc,
+            error: err
+        });
+    },
+
+    replaceVMStorage : function(settings, suc, err) {
+        var vm = encodeURIComponent(settings['vm']);
+        var dev = encodeURIComponent(settings['dev']);
+        kimchi.requestJSON({
+            url : kimchi.url + 'vms/' + vm + '/storages/' + dev,
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify({
+                path: settings['path']
+            }),
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    deleteVMStorage : function(settings, suc, err) {
+        var vm = settings['vm'];
+        var dev = settings['dev'];
+        kimchi.requestJSON({
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm) +
+                      '/storages/' + encodeURIComponent(dev),
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    listVMStorages : function(params, suc, err) {
+        var vm = encodeURIComponent(params['vm']);
+        var type = params['storageType'];
+        var url = kimchi.url + 'vms/' + vm + '/storages';
+        if(type) {
+            url += '?type=' + type;
+        }
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
     }
 };
