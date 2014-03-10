@@ -17,36 +17,53 @@
  */
 #guest-edit-window {
     font-size: 13px;
-    height: 380px;
-    width: 420px;
+    height: 400px;
+    width: 600px;
+}
+
+#guest-edit-tabs {
+    background: transparent;
+    border: none;
+    height: 100%;
+    padding: 0;
+}
+
+#form-guest-edit-general,
+#form-guest-edit-storage {
+    padding: 1em;
 }
 
 .guest-edit-fieldset {
-    float: left;
-    padding: 1em;
+    padding-right: 0;
 }
 
 .guest-edit-wrapper-label, .guest-edit-wrapper-controls {
     display: inline-block;
 }
 
-.guest-edit-wrapper-controls input[type="text"][disabled] {
-    color: #bbb;
-    background-color: #fafafa;
-    cursor: not-allowed;
+.guest-edit-wrapper-label {
+    height: 38px;
+    line-height: 38px;
+    margin-top: 5px;
+    vertical-align: top;
+    width: 80px;
 }
 
-.guest-edit-wrapper-label {
-    width: 10em;
+#form-guest-edit-storage .guest-edit-wrapper-label {
+    width: 60px;
 }
 
 .guest-edit-wrapper-controls {
-    width: 18em;
+    width: 470px;
+}
+
+#form-guest-edit-storage .guest-edit-wrapper-controls {
+    width: 486px;
 }
 
 .guest-edit-wrapper-controls input[type="text"] {
+    font-size: 16px;
     height: 38px;
-    line-height: 38px;
     background: #fff;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -54,11 +71,112 @@
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     padding-left: 10px;
-    width: 100%;
+    width: 450px;
 }
 
 .guest-edit-wrapper-controls input[type="text"][disabled] {
     color: #bbb;
     background-color: #fafafa;
     cursor: not-allowed;
+}
+
+.guest-edit-cdrom-row-container {
+    max-height: 180px;
+    overflow: auto;
+}
+
+.guest-edit-cdrom-row-container input[type="text"] {
+    width: 400px;
+}
+
+.guest-edit-cdrom-button {
+    background: url("../images/theme-default/guest-icon-sprite.png") no-repeat left top transparent;
+    border: none;
+    height: 25px;
+    vertical-align: middle;
+    width: 25px;
+}
+
+.guest-edit-cdrom-button.attach {
+    margin: 15px 0 0 521px;
+}
+
+.guest-edit-cdrom-button.attach:hover {
+    background-position: 0 -27px;
+}
+
+.guest-edit-cdrom-button.attach:focus {
+    background-position: 0 -54px;
+}
+
+.guest-edit-cdrom-button.attach:active {
+    background-position: 0 -81px;
+}
+
+.guest-edit-cdrom-button.attach[disabled] {
+    background-position: 0 -108px;
+}
+
+.guest-edit-cdrom-button.replace {
+    background-position: -27px 0;
+}
+
+.guest-edit-cdrom-button.replace:hover {
+    background-position: -27px -27px;
+}
+
+.guest-edit-cdrom-button.replace:focus {
+    background-position: -27px -54px;
+}
+
+.guest-edit-cdrom-button.replace:active {
+    background-position: -27px -81px;
+}
+
+.guest-edit-cdrom-button.replace[disabled] {
+    background-position: -27px -108px;
+}
+
+.guest-edit-cdrom-button.detach {
+    background-position: -54px 0;
+}
+
+.guest-edit-cdrom-button.detach:hover {
+    background-position: -54px -27px;
+}
+
+.guest-edit-cdrom-button.detach:focus {
+    background-position: -54px -54px;
+}
+
+.guest-edit-cdrom-button.detach:active {
+    background-position: -54px -81px;
+}
+
+.guest-edit-cdrom-button.detach[disabled] {
+    background-position: -54px -108px;
+}
+
+#message-container {
+    color: #555;
+    font-size: 14px;
+    height: 100%;
+    line-height: 56px;
+}
+
+#message-container .message {
+    background: transparent;
+}
+
+#message-container .success {
+    color: green;
+}
+
+#message-container .error {
+    color: red;
+}
+
+#message-container .content {
+    margin: 0;
+    position: static;
 }

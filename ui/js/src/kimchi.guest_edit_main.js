@@ -16,18 +16,110 @@
  * limitations under the License.
  */
 kimchi.guest_edit_main = function() {
-    var guestEditForm = $('#form-guest-edit');
+    var buttonContainer = $('#action-button-container');
+    $('#guest-edit-tabs').tabs({
+        beforeActivate: function(event, ui) {
+            var deactivated = ui['oldPanel'];
+            if($(deactivated).attr('id') === 'form-guest-edit-general') {
+                $(buttonContainer).addClass('hidden');
+            }
+            else {
+                $(buttonContainer).removeClass('hidden');
+            }
+        }
+    });
+
+    var guestEditForm = $('#form-guest-edit-general');
     var saveButton = $('#guest-edit-button-save');
-    kimchi.retrieveVM(kimchi.selectedGuest, function(guest) {
+
+    var refreshCDROMs = function() {
+        kimchi.listVMStorages({
+            vm: kimchi.selectedGuest,
+            storageType: 'cdrom'
+        }, function(storages) {
+            var rowHTML = $('#cdrom-row-tmpl').html();
+            var container = $('#guest-edit-cdrom-row-container');
+            $(container).empty();
+
+            $.each(storages, function(index, storage) {
+                storage['vm'] = kimchi.selectedGuest;
+                var templated = kimchi.template(rowHTML, storage);
+                container.append(templated);
+            });
+
+            var replaceCDROM = function(event) {
+                event.preventDefault();
+                kimchi.selectedGuestStorage = $(this).data('dev');
+                kimchi.window.open("guest-cdrom-edit.html");
+            };
+
+            $('input[type="text"][name="cdrom"]', container).on('click', replaceCDROM);
+            $('.replace', container).on('click', replaceCDROM);
+
+            $('.detach', container).on('click', function(e) {
+                e.preventDefault();
+                var settings = {
+                    title : i18n['KCHAPI6004M'],
+                    content : i18n['KCHVMCD6001M'],
+                    confirm : i18n['KCHAPI6002M'],
+                    cancel : i18n['KCHAPI6003M']
+                };
+
+                var dev = $(this).data('dev');
+                kimchi.confirm(settings, function() {
+                    kimchi.deleteVMStorage({
+                        vm: kimchi.selectedGuest,
+                        dev: dev
+                    }, function() {
+                        kimchi.topic('kimchi/vmCDROMDetached').publish();
+                    });
+                });
+            });
+        });
+    };
+
+    var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         for ( var prop in guest) {
             $('input[name="' + prop + '"]', guestEditForm).val(guest[prop]);
         }
-    });
 
-    $('#guest-edit-button-cancel').on('click', function() {
-        kimchi.window.close();
-    });
+        refreshCDROMs();
+
+        $('#guest-edit-attach-cdrom-button').on('click', function(event) {
+            event.preventDefault();
+            kimchi.window.open("guest-storage-add.html");
+        });
+
+        var messageNode = $('#message-container');
+        var onAttached = function(params) {
+            $(messageNode).empty();
+            kimchi.message.success(i18n['KCHVMCD6006M'], messageNode);
+            refreshCDROMs();
+        };
+        var onReplaced = function(params) {
+            $(messageNode).empty();
+            kimchi.message.success(i18n['KCHVMCD6007M'], messageNode);
+            refreshCDROMs();
+        };
+        var onDetached = function(params) {
+            $(messageNode).empty();
+            kimchi.message.success(i18n['KCHVMCD6008M'], messageNode);
+            refreshCDROMs();
+        };
+
+        kimchi.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
+        kimchi.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);
+        kimchi.topic('kimchi/vmCDROMDetached').subscribe(onDetached);
+
+        kimchi.clearGuestEdit = function() {
+            kimchi.topic('kimchi/vmCDROMAttached').unsubscribe(onAttached);
+            kimchi.topic('kimchi/vmCDROMReplaced').unsubscribe(onReplaced);
+            kimchi.topic('kimchi/vmCDROMDetached').unsubscribe(onDetached);
+        };
+    };
+
+    kimchi.retrieveVM(kimchi.selectedGuest, initContent);
 
     var submitForm = function(event) {
         $(saveButton).prop('disabled', true);
@@ -42,6 +134,7 @@ kimchi.guest_edit_main = function() {
         }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
         });
+
         event.preventDefault();
     };
 

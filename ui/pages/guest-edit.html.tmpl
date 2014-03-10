@@ -27,74 +27,114 @@
         <div class="close">X</div>
     </header>
     <div class="content">
-        <form id="form-guest-edit">
-            <fieldset class="guest-edit-fieldset">
-                <div>
-                    <div class="guest-edit-wrapper-label">
-                        <label for="guest-edit-id-textbox">
-                            $_("Name")
-                        </label>
+        <div id="guest-edit-tabs">
+            <ul>
+                <li>
+                    <a href="#form-guest-edit-general">$_("General")</a>
+                </li>
+                <li>
+                    <a href="#form-guest-edit-storage">$_("Storage")</a>
+                </li>
+            </ul>
+            <form id="form-guest-edit-general">
+                <fieldset class="guest-edit-fieldset">
+                    <div>
+                        <div class="guest-edit-wrapper-label">
+                            <label for="guest-edit-id-textbox">
+                                $_("Name")
+                            </label>
+                        </div>
+                        <div class="guest-edit-wrapper-controls">
+                            <input id="guest-edit-id-textbox"
+                                name="name" type="text" />
+                        </div>
                     </div>
-                    <div class="guest-edit-wrapper-controls">
-                        <input id="guest-edit-id-textbox"
-                            name="name" type="text" />
+                    <div>
+                        <div class="guest-edit-wrapper-label">
+                            <label for="guest-edit-cores-textbox">
+                                $_("CPUs")
+                            </label>
+                        </div>
+                        <div class="guest-edit-wrapper-controls">
+                            <input
+                                id="guest-edit-cores-textbox"
+                                name="cpus"
+                                type="text"
+                                disabled="disabled" />
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="guest-edit-wrapper-label">
-                        <label for="guest-edit-cores-textbox">
-                            $_("CPUs")
-                        </label>
+                    <div>
+                        <div class="guest-edit-wrapper-label">
+                            <label for="guest-edit-memory-textbox">
+                                $_("Memory")
+                            </label>
+                        </div>
+                        <div class="guest-edit-wrapper-controls">
+                            <input id="guest-edit-memory-textbox"
+                                name="memory"
+                                type="text"
+                                disabled="disabled" />
+                        </div>
                     </div>
-                    <div class="guest-edit-wrapper-controls">
-                        <input
-                            id="guest-edit-cores-textbox"
-                            name="cpus"
-                            type="text"
-                            disabled="disabled" />
+                    <div>
+                        <div class="guest-edit-wrapper-label">
+                            <label for="guest-edit-icon-textbox">
+                                $_("Icon")
+                            </label>
+                        </div>
+                        <div class="guest-edit-wrapper-controls">
+                            <input
+                                id="guest-edit-icon-textbox"
+                                name="icon"
+                                type="text"
+                                disabled="disabled" />
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="guest-edit-wrapper-label">
-                        <label for="guest-edit-memory-textbox">
-                            $_("Memory")
-                        </label>
+                </fieldset>
+            </form>
+            <form id="form-guest-edit-storage">
+                <fieldset class="guest-edit-fieldset">
+                    <div id="guest-edit-cdrom-row-container" class="guest-edit-cdrom-row-container"></div>
+                    <div>
+                        <button id="guest-edit-attach-cdrom-button"
+                            class="guest-edit-cdrom-button attach"
+                            title="$_("Attach")">
+                        </button>
                     </div>
-                    <div class="guest-edit-wrapper-controls">
-                        <input id="guest-edit-memory-textbox"
-                            name="memory"
-                            type="text"
-                            disabled="disabled" />
-                    </div>
-                </div>
-                <div>
-                    <div class="guest-edit-wrapper-label">
-                        <label for="guest-edit-icon-textbox">
-                            $_("Icon")
-                        </label>
-                    </div>
-                    <div class="guest-edit-wrapper-controls">
-                        <input
-                            id="guest-edit-icon-textbox"
-                            name="icon"
-                            type="text"
-                            disabled="disabled" />
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
     </div>
     <footer>
-        <div class="btn-group">
-            <button id="guest-edit-button-cancel" class="btn-normal">
-                <span class="text">$_("Cancel")</span>
-            </button>
+        <div id="action-button-container" class="btn-group">
             <button id="guest-edit-button-save" class="btn-normal">
                 <span class="text">$_("Save")</span>
             </button>
         </div>
+        <div id="message-container"></div>
     </footer>
 </div>
+<script id="cdrom-row-tmpl" type="text/html">
+    <div>
+        <div class="guest-edit-wrapper-label">
+            <label for="cdrom-{dev}">{dev}</label>
+        </div>
+        <div class="guest-edit-wrapper-controls">
+            <input id="cdrom-{dev}" name="cdrom" type="text"
+                data-vm="{vm}" data-dev="{dev}"
+                value="{path}" readonly="readonly" />
+            <button class="guest-edit-cdrom-button replace"
+                data-vm="{vm}" data-dev="{dev}"
+                title="$_("Replace")">
+            </button>
+            <button class="guest-edit-cdrom-button detach"
+                data-vm="{vm}" data-dev="{dev}"
+                title="$_("Detach")">
+            </button>
+        </div>
+    </div>
+</script>
+
 <script type="text/javascript">
     kimchi.guest_edit_main();
 </script>
