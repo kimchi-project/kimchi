@@ -220,7 +220,7 @@ class MockModel(object):
         if not name:
             iso = params['cdrom']
             iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
-            name = iso_name + str(int(time.time()*1000))
+            name = iso_name + str(int(time.time() * 1000))
             params['name'] = name
 
         if name in self._mock_templates:
@@ -918,8 +918,9 @@ class MockVMIface(object):
 
     @classmethod
     def get_mac(cls):
-        mac = ":".join(["52", "54"] + ["%02x" % (cls.counter/(256**i) % 256)
-                       for i in range(3, -1, -1)])
+        mac = ":".join(["52", "54"] +
+                       ["%02x" % (cls.counter / (256 ** i) % 256)
+                        for i in range(3, -1, -1)])
         return mac
 
 
@@ -1046,7 +1047,7 @@ class MockVMScreenshot(VMScreenshot):
         self.coord = (self.coord[0],
                       self.coord[1],
                       min(MockVMScreenshot.BOX_COORD[2],
-                          self.coord[2]+random.randrange(50)),
+                          self.coord[2] + random.randrange(50)),
                       self.coord[3])
 
         image = Image.new("RGB", (256, 256), self.background)

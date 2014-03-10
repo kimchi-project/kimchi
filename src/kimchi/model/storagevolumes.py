@@ -129,7 +129,8 @@ class StorageVolumeModel(object):
                 for vm in vms:
                     storages = VMStoragesModel(**args).get_list(vm)
                     for disk in storages:
-                        if path == VMStorageModel(**args).lookup(vm, disk)['path']:
+                        d_info = VMStorageModel(**args).lookup(vm, disk)
+                        if path == d_info['path']:
                             ref_cnt = ref_cnt + 1
                 session.store('storagevolume', vol_id, {'ref_cnt': ref_cnt})
 

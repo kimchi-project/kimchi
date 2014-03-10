@@ -39,7 +39,7 @@ class TemplatesModel(object):
         if not name:
             iso = params['cdrom']
             iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
-            name = iso_name + str(int(time.time()*1000))
+            name = iso_name + str(int(time.time() * 1000))
             params['name'] = name
 
         conn = self.conn.get()
