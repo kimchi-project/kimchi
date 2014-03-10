@@ -17,6 +17,7 @@
  */
 kimchi.window = (function() {
     var _windows = [];
+    var _listeners = {};
     var open = function(settings) {
         var settings = jQuery.type(settings) === 'object' ? settings : {
             url: settings
@@ -29,6 +30,7 @@ kimchi.window = (function() {
         }
 
         _windows.push(windowID);
+        _listeners[windowID] = settings['close'];
         var windowNode = $('<div></div>', {
             id: windowID,
             'class': settings['class'] ? settings['class'] + ' bgmask' : 'bgmask'
@@ -37,9 +39,6 @@ kimchi.window = (function() {
         $(windowNode).css(settings['style'] || '');
 
         $(windowNode).appendTo('body').on('click', '.window .close', function() {
-            if (settings.close) {
-                settings.close();
-            }
             kimchi.window.close();
         });
 
@@ -52,7 +51,14 @@ kimchi.window = (function() {
     };
 
     var close = function() {
-        $('#' + _windows.pop()).fadeOut(100, function() {
+        var windowID = _windows.pop();
+        if(_listeners[windowID]) {
+            _listeners[windowID]();
+            _listeners[windowID] = null;
+        }
+        delete _listeners[windowID];
+
+        $('#' + windowID).fadeOut(100, function() {
             $(this).remove();
         });
     };
