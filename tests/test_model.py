@@ -353,6 +353,7 @@ class ModelTests(unittest.TestCase):
             inst.storagevolume_wipe(pool, vol)
             volinfo = inst.storagevolume_lookup(pool, vol)
             self.assertEquals(0, volinfo['allocation'])
+            self.assertEquals(0, volinfo['ref_cnt'])
 
             volinfo = inst.storagevolume_lookup(pool, vol)
             # Define the size = capacity + 16M
@@ -402,6 +403,9 @@ class ModelTests(unittest.TestCase):
             vm_info = inst.vm_lookup(params['name'])
             disk_path = '/tmp/kimchi-images/%s-0.img' % vm_info['uuid']
             self.assertTrue(os.access(disk_path, os.F_OK))
+            vol = '%s-0.img' % vm_info['uuid']
+            volinfo = inst.storagevolume_lookup(pool, vol)
+            self.assertEquals(1, volinfo['ref_cnt'])
 
             # reset template to default storage pool
             # so we can remove the storage pool created 'test-pool'

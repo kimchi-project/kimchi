@@ -245,6 +245,7 @@ class RestTests(unittest.TestCase):
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
         self.assertEquals(1 << 30, vol['capacity'])
+        self.assertEquals(1, vol['ref_cnt'])
 
         # Start the VM
         resp = self.request('/vms/test-vm/start', '{}', 'POST')
@@ -848,6 +849,7 @@ class RestTests(unittest.TestCase):
         storagevolume = json.loads(resp.read())
         self.assertEquals('volume-1', storagevolume['name'])
         self.assertEquals('raw', storagevolume['format'])
+        self.assertEquals(0, storagevolume['ref_cnt'])
         self.assertEquals('/var/lib/libvirt/images/volume-1',
                           storagevolume['path'])
 
