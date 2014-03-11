@@ -146,8 +146,15 @@ new template using the "+" button in the upper right corner.
 Known Issues
 ------------
 
-Kimchi is still experimental and should not be used in a production
+1. Kimchi is still experimental and should not be used in a production
 environment.
+2. When you are using NFS as storage pool, check the nfs export path permission
+is configured as:
+    (1) export path need to be squashed as kvm gid and libvirt uid:
+        /my_export_path *(all_squash,anongid=<kvm-gid>, anonuid=<libvirt-uid>,rw,sync)
+        So that root user can create volume with right user/group.
+    (2) Chown of export path as libvirt user, group as kvm group,
+        In order to make sure all mapped user can get into the mount point.
 
 Participating
 -------------
