@@ -17,18 +17,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import platform
 import subprocess
 import time
 
 from kimchi.basemodel import Singleton
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log, run_command
-
-YUM_DISTROS = ['fedora', 'red hat enterprise linux',
-               'red hat enterprise linux server']
-APT_DISTROS = ['debian', 'ubuntu']
-ZYPPER_DISTROS = ['opensuse ', 'suse linux enterprise server ']
 
 
 class SoftwareUpdate(object):
@@ -51,19 +45,24 @@ class SoftwareUpdate(object):
 
         # Get the distro of host machine and creates an object related to
         # correct package management system
-        self._distro = platform.linux_distribution()[0].lower()
-        if (self._distro in YUM_DISTROS):
+        try:
+            __import__('yum')
             kimchi_log.info("Loading YumUpdate features.")
             self._pkg_mnger = YumUpdate()
-        elif (self._distro in APT_DISTROS):
-            kimchi_log.info("Loading AptUpdate features.")
-            self._pkg_mnger = AptUpdate()
-        elif (self._distro in ZYPPER_DISTROS):
-            kimchi_log.info("Loading ZypperUpdate features.")
-            self._pkg_mnger = ZypperUpdate()
-        else:
-            raise Exception("There is no compatible package manager for "
-                            "this system.")
+        except ImportError:
+            try:
+                __import__('apt')
+                kimchi_log.info("Loading AptUpdate features.")
+                self._pkg_mnger = AptUpdate()
+            except ImportError:
+                zypper_help = "zypper --help"
+                (stdout, stderr, returncode) = run_command(zypper_help)
+                if returncode == 0:
+                    kimchi_log.info("Loading ZypperUpdate features.")
+                    self._pkg_mnger = ZypperUpdate()
+                else:
+                    raise Exception("There is no compatible package manager "
+                                    "for this system.")
 
     def _scanUpdates(self):
         """
