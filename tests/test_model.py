@@ -248,7 +248,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
             vm_info = inst.vm_lookup(params['name'])
-            disk_path = '/var/lib/libvirt/images/%s-0.img' % vm_info['uuid']
+            disk_path = '%s/%s-0.img' % (
+                inst.storagepool_lookup('default')['path'], vm_info['uuid'])
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
 
