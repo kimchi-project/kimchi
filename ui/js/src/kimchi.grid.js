@@ -158,9 +158,13 @@ kimchi.widget.Grid = function(params) {
             var rowNode = $('<tr></tr>').appendTo(tbody);
             $.each(fields, function(fi, field) {
                 var fieldName = field['name'];
-                $('<td><div class="cell-text-wrapper">' +
-                    row[fieldName] +
-                '</div></td>').appendTo(rowNode);
+                var value = row[fieldName];
+                $('<td><div class="cell-text-wrapper"' +
+                     (field['makeTitle'] === true
+                         ? ' title="' + value + '"'
+                         : ''
+                     ) + '>' + value + '</div></td>'
+                ).appendTo(rowNode);
             });
         });
     };
