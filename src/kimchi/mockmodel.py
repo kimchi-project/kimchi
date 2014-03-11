@@ -67,7 +67,9 @@ class MockModel(object):
                 ['http', 'https', 'ftp', 'ftps', 'tftp'],
                 'qemu_stream': True,
                 'screenshot': True,
-                'system_report_tool': True}
+                'system_report_tool': True,
+                'update_tool': True,
+                'repo_mngt_tool': True}
 
     def reset(self):
         self._mock_vms = {}

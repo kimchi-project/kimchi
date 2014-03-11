@@ -27,6 +27,7 @@ from kimchi.distroloader import DistroLoader
 from kimchi.exception import NotFoundError
 from kimchi.featuretests import FeatureTests
 from kimchi.model.debugreports import DebugReportsModel
+from kimchi.repositories import Repositories
 from kimchi.screenshot import VMScreenshot
 from kimchi.swupdate import SoftwareUpdate
 from kimchi.utils import check_url_path, kimchi_log
@@ -80,11 +81,19 @@ class CapabilitiesModel(object):
         else:
             update_tool = True
 
+        try:
+            Repositories()
+        except Exception:
+            repo_mngt_tool = False
+        else:
+            repo_mngt_tool = True
+
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
                 'system_report_tool': bool(report_tool),
-                'update_tool': update_tool}
+                'update_tool': update_tool,
+                'repo_mngt_tool': repo_mngt_tool}
 
 
 class DistrosModel(object):

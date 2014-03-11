@@ -579,6 +579,8 @@ creation.
       the system; False, otherwise.
     * update_tool: True if there is a compatible package manager for the
       system; False, otherwise
+    * repo_mngt_tool: True if there is a compatible repository management tool
+      for the system; False, otherwise
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**
