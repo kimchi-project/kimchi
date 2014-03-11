@@ -50,6 +50,7 @@ PEP8_WHITELIST = \
 	src/kimchi/featuretests.py \
 	src/kimchi/iscsi.py \
 	src/kimchi/isoinfo.py \
+	src/kimchi/kvmusertests.py \
 	src/kimchi/mockmodel.py \
 	src/kimchi/model/*.py \
 	src/kimchi/osinfo.py \
