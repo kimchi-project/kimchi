@@ -54,7 +54,7 @@ the following:<dl><dlentry>
 </dlentry><dlentry>
 <dt>Allocation</dt>
 <dd>Amount of space that is already allocated in the storage pool.</dd>
-</dlentry></dl><?Pub Caret -2?>To define a storage pool, click the <uicontrol>plus
+</dlentry></dl>To define a storage pool, click the <uicontrol>plus
 (+)</uicontrol> icon in the upper right of the display.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="en-us">
@@ -81,10 +81,14 @@ path</uicontrol> (path of the exported directory).</dd>
 When selecting <uicontrol>iSCSI</uicontrol>, type the <uicontrol>iSCSI
 server</uicontrol> IP address and <uicontrol>Target</uicontrol> on
 the iSCSI server. You can optionally select to add iSCSI authentication.</dd>
-</dlentry></dl></li>
+</dlentry><dlentry>
+<dt><uicontrol>Logical</uicontrol></dt>
+<dd>Specifies a logical volume storage pool. Select the location to
+the device in <uicontrol>Device path</uicontrol>.</dd>
+</dlentry></dl><?Pub Caret 591?></li>
 <li>Click <uicontrol>Create</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000003580?>
+<?Pub *0000003764?>

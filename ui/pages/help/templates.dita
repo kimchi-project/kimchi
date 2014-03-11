@@ -59,14 +59,16 @@ is configured to use.</dd>
 <dd rev="rev1">Disk size in GB.</dd>
 </dlentry><dlentry>
 <dt>CDROM</dt>
-<dd>File path to the location of the template.</dd>
+<dd>File path to the location of the ISO file used to install the
+KVM guest.</dd>
 </dlentry><dlentry>
 <dt>Storage pool</dt>
 <dd>Specific storage pool or the default storage pool.</dd>
 </dlentry><dlentry>
 <dt>Network</dt>
-<dd rev="rev1">Default network.</dd>
-</dlentry></dl><?Pub Caret 427?> Fields that are not disabled can
+<dd rev="rev1">Default network interfaces available to the KVM guest.
+You can select multiple networks.</dd>
+</dlentry></dl><?Pub Caret 681?> Fields that are not disabled can
 be edited. After you edit a field, click <uicontrol>Save</uicontrol>. </p>
 </csbody>
 </cshelp>
@@ -117,4 +119,4 @@ ISO images.</li>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000004366?>
+<?Pub *0000004468?>
