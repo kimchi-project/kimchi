@@ -238,7 +238,7 @@ messages = {
     "KCHREPOS0011E": _("There is no disabled repository called %(repo_id)s."),
     "KCHREPOS0012E": _("There is no enabled repository called %(repo_id)s."),
     "KCHREPOS0013E": _("There are no parameters to update repository."),
-    "KCHREPOS0014E": _("OS distro not supported."),
+    "KCHREPOS0014E": _("Repository management tool was not recognized for your system."),
     "KCHREPOS0015E": _("There is no YUM configuration directory."),
     "KCHREPOS0016E": _("There are no parameters to create a new repo file."),
     "KCHREPOS0017E": _("Could not write repo file %(repo_file)s"),

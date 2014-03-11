@@ -310,12 +310,21 @@ class PackageUpdateModel(object):
 
 class RepositoriesModel(object):
     def __init__(self, **kargs):
-        self.host_repositories = Repositories()
+        try:
+            self.host_repositories = Repositories()
+        except:
+            self.host_repositories = None
 
     def get_list(self):
+        if self.host_repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         return self.host_repositories.getRepositories().keys()
 
     def create(self, params):
+        if self.host_repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         repo_id = params.get('repo_id', None)
 
         # Create a repo_id if not given by user. The repo_id will follow
@@ -335,20 +344,35 @@ class RepositoriesModel(object):
 
 class RepositoryModel(object):
     def __init__(self, **kargs):
-        self._repositories = Repositories()
+        try:
+            self._repositories = Repositories()
+        except:
+            self._repositories = None
 
     def lookup(self, repo_id):
+        if self._repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         return self._repositories.getRepository(repo_id)
 
     def enable(self, repo_id):
+        if self._repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         if not self._repositories.enableRepository(repo_id):
             raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
 
     def disable(self, repo_id):
+        if self._repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         if not self._repositories.disableRepository(repo_id):
             raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
 
     def update(self, repo_id, params):
+        if self._repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         try:
             self._repositories.updateRepository(repo_id, params)
         except:
@@ -356,4 +380,7 @@ class RepositoryModel(object):
         return repo_id
 
     def delete(self, repo_id):
+        if self._repositories is None:
+            raise InvalidOperation('KCHREPOS0014E')
+
         return self._repositories.removeRepository(repo_id)
