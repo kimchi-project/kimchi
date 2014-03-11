@@ -44,9 +44,15 @@ from kimchi.utils import add_task
 class ModelTests(unittest.TestCase):
     def setUp(self):
         self.tmp_store = '/tmp/kimchi-store-test'
+        self.iso_path = '/tmp/kimchi-model-iso/'
+        if not os.path.exists(self.iso_path):
+            os.makedirs(self.iso_path)
+        self.kimchi_iso = self.iso_path + 'ubuntu12.04.iso'
+        iso_gen.construct_fake_iso(self.kimchi_iso, True, '12.04', 'ubuntu')
 
     def tearDown(self):
         os.unlink(self.tmp_store)
+        shutil.rmtree(self.iso_path)
 
     def test_vm_info(self):
         inst = model.Model('test:///default', self.tmp_store)
@@ -73,7 +79,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': []}
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -96,7 +102,7 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test', 'disks': []}
+        params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
         inst.templates_create(params)
         with RollbackContext() as rollback:
             params = {'name': 'kimchi-vnc', 'template': '/templates/test'}
@@ -123,7 +129,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_ifaces(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': []}
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': 'kimchi-ifaces', 'template': '/templates/test'}
@@ -165,7 +171,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': []}
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name, 'template': '/templates/test'}
@@ -232,7 +238,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [{'size': 1}]}
+            params = {'name': 'test', 'disks': [{'size': 1}],
+                      'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -376,7 +383,8 @@ class ModelTests(unittest.TestCase):
             if not os.path.exists(path):
                 os.mkdir(path)
 
-            params = {'name': 'test', 'disks': [{'size': 1}]}
+            params = {'name': 'test', 'disks': [{'size': 1}],
+                      'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -433,7 +441,8 @@ class ModelTests(unittest.TestCase):
             inst.networks_create(net_args)
             rollback.prependDefer(inst.network_delete, net_name)
 
-            params = {'name': 'test', 'memory': 1024, 'cpus': 1}
+            params = {'name': 'test', 'memory': 1024, 'cpus': 1,
+                      'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             info = inst.template_lookup('test')
@@ -488,7 +497,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model('qemu:///system',
                            objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            orig_params = {'name': 'test-template', 'memory': 1024, 'cpus': 1}
+            orig_params = {'name': 'test-template', 'memory': 1024,
+                           'cpus': 1, 'cdrom': self.kimchi_iso}
             inst.templates_create(orig_params)
             orig_temp = inst.template_lookup(orig_params['name'])
 
@@ -511,7 +521,8 @@ class ModelTests(unittest.TestCase):
             inst.networks_create(net_args)
             rollback.prependDefer(inst.network_delete, net_name)
 
-            orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1}
+            orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1,
+                           'cdrom': self.kimchi_iso}
             inst.templates_create(orig_params)
 
             params = {'name': 'new-test'}
@@ -543,7 +554,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model('qemu:///system',
                            objstore_loc=self.tmp_store)
 
-        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1'}
+        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1',
+                       'cdrom': self.kimchi_iso}
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
@@ -782,7 +794,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': u'test', 'disks': []}
+            params = {'name': u'test', 'disks': [], 'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -805,7 +817,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': []}
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -822,7 +834,7 @@ class ModelTests(unittest.TestCase):
                            objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [],
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso,
                       'storagepool': '/storagepools/default-pool',
                       'domain': 'test',
                       'arch': 'i686'}
