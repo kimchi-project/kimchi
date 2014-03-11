@@ -54,6 +54,11 @@ messages = {
     "KCHISO0005E": _("Invalid El Torito boot indicator in ISO %(filename)s"),
     "KCHISO0006E": _("Unexpected volume type for primary volume in ISO %(filename)s"),
     "KCHISO0007E": _("Bad format while reading volume descriptor in ISO %(filename)s"),
+    "KCHISO0008E": _("The hypervisor doesn't have permission to use this ISO %(filename)s. "
+                     "Consider moving it under /var/lib/libvirt,  or set the search permission "
+                     "to file access control lists for '%(user)s' user if possible, or add the "
+                     "'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x 'path_to_iso'."
+                     "Details: %(err)s" ),
 
     "KCHVM0001E": _("Virtual machine %(name)s already exists"),
     "KCHVM0002E": _("Virtual machine %(name)s does not exist"),

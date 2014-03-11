@@ -25,7 +25,9 @@ import libvirt
 
 from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.kvmusertests import UserTests
 from kimchi.utils import pool_name_from_uri
+from kimchi.utils import probe_file_permission_as_user
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -36,8 +38,17 @@ class TemplatesModel(object):
 
     def create(self, params):
         name = params.get('name', '').strip()
+        iso = params['cdrom']
+        # check search permission
+        if iso.startswith('/') and os.path.isfile(iso):
+            user = UserTests().probe_user()
+            ret, excp = probe_file_permission_as_user(iso, user)
+            if ret is False:
+                raise InvalidParameter('KCHISO0008E',
+                                       {'filename': iso, 'user': user,
+                                        'err': excp})
+
         if not name:
-            iso = params['cdrom']
             iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
             name = iso_name + str(int(time.time() * 1000))
             params['name'] = name
