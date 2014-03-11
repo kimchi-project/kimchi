@@ -18,14 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import platform
 
 from kimchi.basemodel import Singleton
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
-
-YUM_DISTROS = ['fedora', 'opensuse ', 'suse linux enterprise server ']
-APT_DISTROS = ['debian', 'ubuntu']
 
 
 class Repositories(object):
@@ -43,20 +39,19 @@ class Repositories(object):
         #        'enabled': True/False, 'gpgcheck': True/False,
         #        'gpgkey': ([<string>], None),
         #        'is_mirror': True/False}
+        try:
+            __import__('yum')
+            self._pkg_mnger = YumRepo()
+        except ImportError:
+            try:
+                __import__('apt_pkg')
+                self._pkg_mnger = AptRepo()
+            except ImportError:
+                raise InvalidOperation('KCHREPOS0019E')
 
         self._repo_storage = {}
-
-        self._distro = platform.linux_distribution()[0].lower()
-        if (self._distro in YUM_DISTROS or self._distro.startswith('red hat')):
-            self._pkg_mnger = YumRepo()
-        elif (self._distro in APT_DISTROS):
-            self._pkg_mnger = AptRepo()
-        else:
-            raise InvalidOperation("KCHREPOS0014E")
-
-        if self._pkg_mnger:
-            # update the self._repo_storage with system's repositories
-            self._scanSystemRepositories()
+        # update the self._repo_storage with system's repositories
+        self._scanSystemRepositories()
 
     def _scanSystemRepositories(self):
         """
