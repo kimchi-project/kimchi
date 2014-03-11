@@ -20,6 +20,9 @@
 import re
 import subprocess
 
+from parted import Device as PDevice
+from parted import Disk as PDisk
+
 from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 
@@ -78,6 +81,17 @@ def _is_dev_leaf(devNodePath):
     return childrenCount == 0
 
 
+def _is_dev_extended_partition(devType, devNodePath):
+    if devType != 'part':
+        return False
+    diskPath = devNodePath.rstrip('0123456789')
+    device = PDevice(diskPath)
+    disk = PDisk(device)
+    if disk.getExtendedPartition().path == devNodePath:
+        return True
+    return False
+
+
 def _parse_lsblk_output(output, keys):
     # output is on format key="value",
     # where key can be NAME, TYPE, FSTYPE, SIZE, MOUNTPOINT, etc
@@ -122,12 +136,13 @@ def get_partitions_names():
         # Only list unmounted and unformated and leaf and (partition or disk)
         # leaf means a partition, a disk has no partition, or a disk not held
         # by any multipath device. Physical volume belongs to no volume group
-        # is also listed.
+        # is also listed. Extended partitions should not be listed.
         if not (dev['type'] in ['part', 'disk'] and
                 dev['fstype'] in ['', 'LVM2_member'] and
                 dev['mountpoint'] == "" and
                 _get_vgname(devNodePath) == "" and
-                _is_dev_leaf(devNodePath)):
+                _is_dev_leaf(devNodePath) and
+                not _is_dev_extended_partition(dev['type'], devNodePath)):
             continue
 
         names.add(name)
