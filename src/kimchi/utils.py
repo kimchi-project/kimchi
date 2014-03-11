@@ -19,11 +19,15 @@
 #
 
 import cherrypy
+import grp
 import os
 import psutil
+import pwd
 import re
 import subprocess
+import traceback
 import urllib2
+from multiprocessing import Process, Queue
 from threading import Timer
 
 from cherrypy.lib.reprconf import Parser
@@ -236,3 +240,25 @@ def run_setfacl_set_attr(path, attr="r", user=""):
     set_user = ["setfacl", "--modify", "user:%s:%s" % (user, attr), path]
     out, error, ret = run_command(set_user)
     return ret == 0
+
+
+def probe_file_permission_as_user(file, user):
+    def probe_permission(q, file, user):
+        uid = pwd.getpwnam(user).pw_uid
+        gid = pwd.getpwnam(user).pw_gid
+        gids = [g.gr_gid for g in grp.getgrall() if user in g.gr_mem]
+        os.setgid(gid)
+        os.setgroups(gids)
+        os.setuid(uid)
+        try:
+            with open(file):
+                q.put((True, None))
+        except Exception as e:
+            kimchi_log.debug(traceback.format_exc())
+            q.put((False, e))
+
+    queue = Queue()
+    p = Process(target=probe_permission, args=(queue, file, user))
+    p.start()
+    p.join()
+    return queue.get()
