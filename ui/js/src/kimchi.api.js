@@ -803,5 +803,58 @@ var kimchi = {
             success : suc,
             error : err
         });
-    }
+    },
+
+    listSoftwareUpdates : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/packagesupdate',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend: true,
+            success : suc,
+            error : err
+        });
+    },
+
+    updateSoftware : function(suc, err, progress) {
+        var taskID = -1;
+        var onResponse = function(data) {
+            taskID = data['id'];
+            trackTask();
+        };
+
+        var trackTask = function() {
+            kimchi.getTask(taskID, onTaskResponse, err);
+        };
+
+        var onTaskResponse = function(result) {
+            var taskStatus = result['status'];
+            switch(taskStatus) {
+            case 'running':
+                progress && progress(result);
+                setTimeout(function() {
+                    trackTask();
+                }, 200);
+                break;
+            case 'finished':
+                suc(result);
+                break;
+            case 'failed':
+                err(result);
+                break;
+            default:
+                break;
+            }
+        };
+
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/swupdate',
+            type : "POST",
+            contentType : "application/json",
+            dataType : "json",
+            success : onResponse,
+            error : err
+        });
+     }
 };
