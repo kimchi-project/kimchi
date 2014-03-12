@@ -212,3 +212,27 @@
     width: 0;
     z-index: 4;
 }
+
+.grid-mask {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.grid-loading {
+    bottom: 0;
+    height: 68px;
+    left: 0;
+    margin: auto;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 49px;
+}
+
+.grid-loading-icon {
+    background: url("../images/theme-default/kimchi-loading.gif") no-repeat left top;
+    height: 48px;
+    width: 49px;
+}

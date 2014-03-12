@@ -54,6 +54,12 @@ kimchi.widget.Grid = function(params) {
           '<div class="grid-resizer hidden"></div>',
         '</div>',
         '<div class="grid-footer"></div>',
+        '<div class="grid-mask">',
+            '<div class="grid-loading">',
+                '<div class="grid-loading-icon"></div>',
+                '<div class="grid-loading-text"></div>',
+            '</div>',
+        '</div>',
       '</div>'
     ];
 
@@ -149,6 +155,9 @@ kimchi.widget.Grid = function(params) {
     var captionHeight = titleNode && $(titleNode).height() || 0;
     var toolbarHeight = toolbarNode && $(toolbarNode).height() || 0;
     gridContentNode.css('top', (captionHeight + toolbarHeight) + 'px');
+
+    var maskNode = $('.grid-mask', gridNode);
+    maskNode.css('top', (captionHeight + toolbarHeight) + 'px');
 
     var fillBody = function(container, fields, data) {
         var tbody = ($('tbody', container).length && $('tbody', container))
@@ -267,7 +276,6 @@ kimchi.widget.Grid = function(params) {
         setBodyListeners();
     };
 
-    this.setData(params['data']);
     this.getSelected = function() {
         return selectedIndex >= 0
             ? this.data[selectedIndex]
@@ -378,4 +386,24 @@ kimchi.widget.Grid = function(params) {
         $('body').off('mousemove', positionResizer);
         $('body').off('mouseup', endResizing);
     };
+
+    var data = params['data'];
+    if(!data) {
+        return;
+    }
+
+    if($.isArray(data)) {
+        this.setData(data);
+        return;
+    }
+
+    if($.isFunction(data)) {
+        var self = this;
+        var loadData = data;
+        maskNode.removeClass('hidden');
+        loadData(function(data) {
+            self.setData(data);
+            maskNode.addClass('hidden');
+        });
+    }
 };
