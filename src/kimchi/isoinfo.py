@@ -235,7 +235,16 @@ class IsoImage(object):
             raise IsoFormatError("KCHISO0006E", {'filename': self.path})
         if vd_ident != 'CD001' or vd_ver != 1:
             raise IsoFormatError("KCHISO0007E", {'filename': self.path})
-        self.volume_id = vol_id
+        if vol_id.strip() == 'RED_HAT':
+            # Some RHEL ISO images store the infomation of volume id in the
+            # location of volume set id mistakenly.
+            self.volume_id = self._get_volume_set_id(data)
+        else:
+            self.volume_id = vol_id
+
+    def _get_volume_set_id(self, data):
+        # The index is picked from ISO-9660 specification.
+        return data[190: 318]
 
     def _get_iso_data(self, offset, size):
         if self.remote:
