@@ -113,7 +113,7 @@ class Repositories(Collection):
 class Repository(Resource):
     def __init__(self, model, id):
         super(Repository, self).__init__(model, id)
-        self.update_params = ["repo_id", "repo_name", "baseurl", "mirrors",
+        self.update_params = ["repo_id", "repo_name", "baseurl", "is_mirror",
                               "url_args", "gpgcheck", "gpgkey"]
         self.uri_fmt = "/host/repositories/%s"
         self.enable = self.generate_action_handler('enable')
