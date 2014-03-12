@@ -32,6 +32,9 @@ class KimchiException(Exception):
         if cherrypy.request.app:
             msg = self._get_translation(args)
         else:
+            for key, value in args.iteritems():
+                if isinstance(value, unicode):
+                    args[key] = value.encode('utf-8')
             msg = _messages.get(code, code) % args
 
         pattern = "%s: %s" % (code, msg)
