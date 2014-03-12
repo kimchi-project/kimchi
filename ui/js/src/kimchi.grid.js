@@ -54,7 +54,7 @@ kimchi.widget.Grid = function(params) {
           '<div class="grid-resizer hidden"></div>',
         '</div>',
         '<div class="grid-footer"></div>',
-        '<div class="grid-mask">',
+        '<div class="grid-mask hidden">',
             '<div class="grid-loading">',
                 '<div class="grid-loading-icon"></div>',
                 '<div class="grid-loading-text"></div>',
