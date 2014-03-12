@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import sys
+
 import ipaddr
 import libvirt
 
@@ -27,6 +29,7 @@ from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.rollbackcontext import RollbackContext
+from kimchi.utils import kimchi_log
 
 
 class NetworksModel(object):
@@ -36,38 +39,40 @@ class NetworksModel(object):
             self._default_network_check()
 
     def _default_network_check(self):
+        def create_defautl_network():
+            try:
+                subnet = self._get_available_address(knetwork.DefaultNetsPool)
+                params = {"name": "default", "connection": "nat",
+                          "subnet": subnet}
+                self.create(params)
+                return conn.networkLookupByName("default")
+            except Exception as e:
+                kimchi_log.error("Fatal: Cannot create default network "
+                                 "because of %s, exit kimchid", e.message)
+                sys.exit(1)
+
         conn = self.conn.get()
-        xml = """
-            <network>
-              <name>default</name>
-              <forward mode='nat'/>
-              <bridge name='virbr0' stp='on' delay='0' />
-              <ip address='192.168.122.1' netmask='255.255.255.0'>
-                <dhcp>
-                  <range start='192.168.122.2' end='192.168.122.254' />
-                </dhcp>
-              </ip>
-            </network>
-        """
         try:
             net = conn.networkLookupByName("default")
         except libvirt.libvirtError:
-            try:
-                net = conn.networkDefineXML(xml)
-            except libvirt.libvirtError, e:
-                cherrypy.log.error("Fatal: Cannot create default network "
-                                   "because of %s, exit kimchid" % e.message,
-                                   severity=logging.ERROR)
-                sys.exit(1)
+            net = create_defautl_network()
 
         if net.isActive() == 0:
             try:
                 net.create()
-            except libvirt.libvirtError, e:
-                cherrypy.log.error("Fatal: Cannot activate default network "
-                                   "because of %s, exit kimchid" % e.message,
-                                   severity=logging.ERROR)
-                sys.exit(1)
+            except libvirt.libvirtError as e:
+                # FIXME we can not distinguish this error from other internal
+                # error by error code.
+                if ("network is already in use by interface"
+                   in e.message.lower()):
+                    # libvirt do not support update IP element, so delete the
+                    # the network and create new one.
+                    net.undefine()
+                    create_defautl_network()
+                else:
+                    kimchi_log.error("Fatal: Cannot activate default network "
+                                     "because of %s, exit kimchid", e.message)
+                    sys.exit(1)
 
     def create(self, params):
         conn = self.conn.get()

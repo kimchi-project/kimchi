@@ -26,6 +26,9 @@ APrivateNets = ipaddr.IPNetwork("10.0.0.0/8")
 BPrivateNets = ipaddr.IPNetwork("172.16.0.0/12")
 CPrivateNets = ipaddr.IPNetwork('192.168.0.0/16')
 PrivateNets = [CPrivateNets, BPrivateNets, APrivateNets]
+DefaultNetsPool = [ipaddr.IPNetwork('192.168.122.0/23'),
+                   ipaddr.IPNetwork('192.168.124.0/22'),
+                   ipaddr.IPNetwork('192.168.128.0/17')]
 
 
 def get_dev_netaddr(dev):
