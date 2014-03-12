@@ -32,6 +32,42 @@ from kimchi.rollbackcontext import RollbackContext
 class NetworksModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        if 'qemu:///' in self.conn.get().getURI():
+            self._default_network_check()
+
+    def _default_network_check(self):
+        conn = self.conn.get()
+        xml = """
+            <network>
+              <name>default</name>
+              <forward mode='nat'/>
+              <bridge name='virbr0' stp='on' delay='0' />
+              <ip address='192.168.122.1' netmask='255.255.255.0'>
+                <dhcp>
+                  <range start='192.168.122.2' end='192.168.122.254' />
+                </dhcp>
+              </ip>
+            </network>
+        """
+        try:
+            net = conn.networkLookupByName("default")
+        except libvirt.libvirtError:
+            try:
+                net = conn.networkDefineXML(xml)
+            except libvirt.libvirtError, e:
+                cherrypy.log.error("Fatal: Cannot create default network "
+                                   "because of %s, exit kimchid" % e.message,
+                                   severity=logging.ERROR)
+                sys.exit(1)
+
+        if net.isActive() == 0:
+            try:
+                net.create()
+            except libvirt.libvirtError, e:
+                cherrypy.log.error("Fatal: Cannot activate default network "
+                                   "because of %s, exit kimchid" % e.message,
+                                   severity=logging.ERROR)
+                sys.exit(1)
 
     def create(self, params):
         conn = self.conn.get()
