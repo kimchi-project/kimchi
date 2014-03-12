@@ -22,6 +22,85 @@ kimchi.host_main = function() {
         $(header).attr('aria-expanded', toExpand ? 'true' : 'false');
     };
 
+    var softwareUpdatesGridID = 'software-updates-grid';
+    var softwareUpdatesGrid = null;
+    var progressAreaID = 'software-updates-progress-textarea';
+    var reloadProgressArea = function(result) {
+        var progressArea = $('#' + progressAreaID)[0];
+        $(progressArea).text(result['message']);
+        var scrollTop = $(progressArea).prop('scrollHeight');
+        $(progressArea).prop('scrollTop', scrollTop);
+    };
+
+    var initSoftwareUpdatesGrid = function(softwareUpdates) {
+        softwareUpdatesGrid = new kimchi.widget.Grid({
+            container: 'software-updates-grid-container',
+            id: softwareUpdatesGridID,
+            title: i18n['KCHUPD6001M'],
+            rowSelection: 'disabled',
+            toolbarButtons: [{
+                id: softwareUpdatesGridID + '-update-button',
+                label: i18n['KCHUPD6006M'],
+                disabled: true,
+                onClick: function(event) {
+                    var updateButton = $(this);
+                    var progressArea = $('#' + progressAreaID)[0];
+                    $('#software-updates-progress-container').removeClass('hidden');
+                    $(progressArea).text('');
+                    !kimchi.isElementInViewport(progressArea) &&
+                        progressArea.scrollIntoView();
+                    $(updateButton).text(i18n['KCHUPD6007M']).prop('disabled', true);
+
+                    kimchi.updateSoftware(function(result) {
+                        reloadProgressArea(result);
+                        $(updateButton).text(i18n['KCHUPD6006M']).prop('disabled', false);
+                        kimchi.topic('kimchi/softwareUpdated').publish({
+                            result: result
+                        });
+                    }, function() {}, reloadProgressArea);
+                }
+            }],
+            frozenFields: [],
+            fields: [{
+                name: 'package_name',
+                label: i18n['KCHUPD6002M'],
+                'class': 'software-update-name'
+            }, {
+                name: 'version',
+                label: i18n['KCHUPD6003M'],
+                'class': 'software-update-version'
+            }, {
+                name: 'arch',
+                label: i18n['KCHUPD6004M'],
+                'class': 'software-update-arch'
+            }, {
+                name: 'repository',
+                label: i18n['KCHUPD6005M'],
+                'class': 'software-update-repos'
+            }],
+            data: listSoftwareUpdates
+        });
+    };
+
+    var listSoftwareUpdates = function(gridCallback) {
+        kimchi.listSoftwareUpdates(function(softwareUpdates) {
+            if($.isFunction(gridCallback)) {
+                gridCallback(softwareUpdates);
+            }
+            else {
+                if(softwareUpdatesGrid) {
+                    softwareUpdatesGrid.setData(softwareUpdates);
+                }
+                else {
+                    initSoftwareUpdatesGrid(softwareUpdates);
+                }
+            }
+
+            var updateButton = $('#' + softwareUpdatesGridID + '-update-button');
+            $(updateButton).prop('disabled', softwareUpdates.length === 0);
+        });
+    };
+
     var reportGridID = 'available-reports-grid';
     var reportGrid = null;
     var initReportGrid = function(reports) {
@@ -192,17 +271,21 @@ kimchi.host_main = function() {
         });
 
         kimchi.getCapabilities(function(capabilities) {
-            if(!capabilities['system_report_tool']) {
-                return;
+            if(capabilities['update_tool']) {
+                $('#software-update-section').removeClass('hidden');
+                initSoftwareUpdatesGrid();
+                kimchi.topic('kimchi/softwareUpdated')
+                    .subscribe(listSoftwareUpdates);
             }
-            $('#debug-report-section').removeClass('hidden');
-            listDebugReports();
+
+            if(capabilities['system_report_tool']) {
+                $('#debug-report-section').removeClass('hidden');
+                listDebugReports();
+                kimchi.topic('kimchi/debugReportAdded')
+                    .subscribe(listDebugReports);
+            }
         });
     };
-
-    kimchi.topic('kimchi/debugReportAdded').subscribe(function(params) {
-        listDebugReports();
-    });
 
     kimchi.getHost(function(data) {
         var htmlTmpl = $('#host-tmpl').html();
@@ -468,6 +551,11 @@ kimchi.host_main = function() {
             kimchi.hostTimer = null;
             delete kimchi.hostTimer;
         }
+
+        softwareUpdatesGrid && softwareUpdatesGrid.destroy();
+        kimchi.topic('kimchi/softwareUpdated').unsubscribe(listSoftwareUpdates);
+
         reportGrid && reportGrid.destroy();
+        kimchi.topic('kimchi/debugReportAdded').unsubscribe(listDebugReports);
     });
 };

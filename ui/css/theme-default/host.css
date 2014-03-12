@@ -224,3 +224,32 @@
     width: 300px;
 }
 /* End of Debug Report */
+
+/* Software Updates */
+.host-panel #software-updates-grid {
+    border-color: #ddd;
+    height: 300px;
+    width: 850px;
+}
+
+.software-update-id {
+    width: 30px;
+}
+
+.software-update-name,
+.software-update-repos {
+    width: 220px;
+}
+
+.software-update-version,
+.software-update-arch {
+    width: 190px;
+}
+
+.host-panel #software-updates-progress-textarea {
+    border: 1px solid #ddd;
+    height: 100px;
+    resize: vertical;
+    width: 846px;
+}
+/* End of Software Updates */
