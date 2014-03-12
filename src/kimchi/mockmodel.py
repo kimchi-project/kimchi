@@ -596,18 +596,42 @@ class MockModel(object):
                 vms.append(name)
         return vms
 
+    def _is_network_used_by_template(self, network):
+        for name, tmpl in self._mock_templates.iteritems():
+            if network in tmpl.info['networks']:
+                return True
+        return False
+
+    def _is_network_in_use(self, name):
+        # The network "default" is used for Kimchi proposal and should not be
+        # deactivate or deleted. Otherwise, we will allow user create
+        # inconsistent templates from scratch
+        if name == 'default':
+            return True
+
+        vms = self._get_vms_attach_to_a_network(name)
+        return bool(vms) or self._is_network_used_by_template(name)
+
     def network_lookup(self, name):
         network = self._get_network(name)
         network.info['vms'] = self._get_vms_attach_to_a_network(name)
+        network.info['in_use'] = self._is_network_in_use(name)
+
         return network.info
 
     def network_activate(self, name):
         self._get_network(name).info['state'] = 'active'
 
     def network_deactivate(self, name):
+        if self._is_network_in_use(name):
+            raise InvalidOperation("KCHNET0018E", {'name': name})
+
         self._get_network(name).info['state'] = 'inactive'
 
     def network_delete(self, name):
+        if self._is_network_in_use(name):
+            raise InvalidOperation("KCHNET0017E", {'name': name})
+
         # firstly, we should check the network actually exists
         network = self._get_network(name)
         del self._mock_networks[network.name]

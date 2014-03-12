@@ -481,17 +481,29 @@ class ModelTests(unittest.TestCase):
             iso = path + 'ubuntu12.04.iso'
             iso_gen.construct_fake_iso(iso, True, '12.04', 'ubuntu')
 
+            args = {'name': 'test-pool',
+                    'path': '/tmp/kimchi-images',
+                    'type': 'dir'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_delete, 'test-pool')
+
             params = {'name': 'test', 'memory': 1024, 'cpus': 1,
-                      'networks': ['test-network'], 'cdrom': iso}
+                      'networks': ['test-network'], 'cdrom': iso,
+                      'storagepool': '/storagepools/test-pool'}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
+            # Try to delete network
+            # It should fail as it is associated to a template
+            self.assertRaises(InvalidOperation, inst.network_delete, net_name)
+            # Update template to release network and then delete it
+            params = {'networks': []}
+            inst.template_update('test', params)
             inst.network_delete(net_name)
-            shutil.rmtree(path)
 
+            shutil.rmtree(path)
             info = inst.template_lookup('test')
             self.assertEquals(info['invalid']['cdrom'], [iso])
-            self.assertEquals(info['invalid']['networks'], [net_name])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_clone(self):

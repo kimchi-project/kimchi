@@ -1108,7 +1108,16 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         shutil.rmtree(path)
-        # Delete the network
+        # Try to delete network
+        # It should fail as it is associated to a template
+        resp = json.loads(request(host, port, '/networks/test-network',
+                                  '{}', 'DELETE').read())
+        self.assertIn("KCHNET0017E", resp["reason"])
+
+        # Update template to release network and then delete it
+        params = {'networks': []}
+        req = json.dumps(params)
+        resp = request(host, port, '/templates/test', req, 'PUT')
         resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
@@ -1120,7 +1129,6 @@ class RestTests(unittest.TestCase):
         # Verify the template
         res = json.loads(self.request('/templates/test').read())
         self.assertEquals(res['invalid']['cdrom'], [iso])
-        self.assertEquals(res['invalid']['networks'], ['test-network'])
         self.assertEquals(res['invalid']['storagepools'], ['test-storagepool'])
 
         # Delete the template

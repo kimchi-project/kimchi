@@ -469,6 +469,8 @@ A interface represents available interface on host.
     * interface: The name of a network interface on the host.
                  For bridge network, the interface can be a bridge or nic/bonding
                  device. For isolated or NAT network, the interface is ignored.
+    * in_use: True if network is in use by a template or virtual machine;
+              False, otherwise.
 
 ### Resource: Network
 

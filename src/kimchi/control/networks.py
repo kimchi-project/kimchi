@@ -39,6 +39,7 @@ class Network(Resource):
     def data(self):
         return {'name': self.ident,
                 'vms': self.info['vms'],
+                'in_use': self.info['in_use'],
                 'autostart': self.info['autostart'],
                 'connection': self.info['connection'],
                 'interface': self.info['interface'],

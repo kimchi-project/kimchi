@@ -198,6 +198,7 @@ class NetworksModel(object):
 class NetworkModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
 
     def lookup(self, name):
         network = self.get_network(self.conn.get(), name)
@@ -228,8 +229,28 @@ class NetworkModel(object):
                 'subnet': subnet,
                 'dhcp': dhcp,
                 'vms': self._get_vms_attach_to_a_network(name),
+                'in_use': self._is_network_in_use(name),
                 'autostart': network.autostart() == 1,
                 'state':  network.isActive() and "active" or "inactive"}
+
+    def _is_network_in_use(self, name):
+        # The network "default" is used for Kimchi proposal and should not be
+        # deactivate or deleted. Otherwise, we will allow user create
+        # inconsistent templates from scratch
+        if name == 'default':
+            return True
+
+        vms = self._get_vms_attach_to_a_network(name)
+        return bool(vms) or self._is_network_used_by_template(name)
+
+    def _is_network_used_by_template(self, network):
+        with self.objstore as session:
+            templates = session.get_list('template')
+            for tmpl in templates:
+                tmpl_net = session.get('template', tmpl)['networks']
+                if network in tmpl_net:
+                    return True
+            return False
 
     def _get_vms_attach_to_a_network(self, network, filter="all"):
         DOM_STATE_MAP = {'nostate': 0, 'running': 1, 'blocked': 2,
@@ -255,17 +276,19 @@ class NetworkModel(object):
         network.create()
 
     def deactivate(self, name):
-        network = self.get_network(self.conn.get(), name)
-        if self._get_vms_attach_to_a_network(name, "running"):
+        if self._is_network_in_use(name):
             raise InvalidOperation("KCHNET0018E", {'name': name})
+
+        network = self.get_network(self.conn.get(), name)
         network.destroy()
 
     def delete(self, name):
+        if self._is_network_in_use(name):
+            raise InvalidOperation("KCHNET0017E", {'name': name})
+
         network = self.get_network(self.conn.get(), name)
         if network.isActive():
             raise InvalidOperation("KCHNET0005E", {'name': name})
-        if self._get_vms_attach_to_a_network(name):
-            raise InvalidOperation("KCHNET0017E", {'name': name})
 
         self._remove_vlan_tagged_bridge(network)
         network.undefine()

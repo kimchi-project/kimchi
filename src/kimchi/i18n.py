@@ -180,8 +180,8 @@ messages = {
     "KCHNET0014E": _("Network interface must be a string"),
     "KCHNET0015E": _("Network VLAN ID must be an integer between 1 and 4094"),
     "KCHNET0016E": _("Specify name and type to create a Network"),
-    "KCHNET0017E": _("Unable to delete network %(name)s. There are still some VMs linked to this network."),
-    "KCHNET0018E": _("Unable to deactivate network %(name)s. There are some VMs running linked to this network."),
+    "KCHNET0017E": _("Unable to delete network %(name)s. There are some virtual machines and/or templates linked to this network."),
+    "KCHNET0018E": _("Unable to deactivate network %(name)s. There are some virtual machines and/or templates linked to this network."),
 
     "KCHDR0001E": _("Debug report %(name)s does not exist"),
     "KCHDR0002E": _("Debug report tool not found in system"),
