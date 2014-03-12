@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:00:41 UTC
+(<a href="kimchi.scrum.2014-03-12-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-6'>alinefm</a>,
+    13:00:59)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-03-12-13.00.log.html#l-9'>alinefm</a>, 13:02:17)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-10'>alinefm</a>,
+    13:02:17)</span></li>
+  <li><span class="INFO">alinefm closed issues #301, #330, #312</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-11'>alinefm</a>,
+    13:03:10)</span></li>
+  <li><span class="INFO">alinefm fix extend logical pool: use "lsblk"
+    command instead of "blkid" to verify the disk exists in the
+    system.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-12'>alinefm</a>,
+    13:03:57)</span></li>
+  <li><span class="INFO">alinefm set default flags for virDomain.state()
+    function</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-13'>alinefm</a>,
+    13:04:22)</span></li>
+  <li><span class="INFO">rotru have worked in several Bugzilla tickets
+    and other Kimchi bugs. Some BZ fixed: #100954 (fixed Network window
+    buttons); #103632 (changed window to create Template with remote
+    ISOs); #104940 (Kimchi was not able to create a vm which use iSCSI
+    pool, fixed)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-14'>rotru</a>,
+    13:04:41)</span></li>
+  <li><span class="INFO">royce get volume ref number merged, fixed vm
+    cannot start on logical pool problem, about using raw format and
+    logical path error usage</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-15'>royce</a>,
+    13:05:13)</span></li>
+  <li><span class="INFO">vianac closed bug #200, sent patchsets "Rebuild
+    .po files when running "make", "Do not show a success msg when
+    creating a template" and "Fix help Makefile"</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-16'>vianac</a>,
+    13:05:37)</span></li>
+  <li><span class="INFO">rotru investigated and fixed Issue #339: Kimchi
+    fails when deactivate Storage Pools that are not persistent</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-17'>rotru</a>,
+    13:06:13)</span></li>
+  <li><span class="INFO">royce sent patch of work around nfs permission
+    of creating vm, took care of other little bugs such as 4 ide device
+    limitation</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-18'>royce</a>,
+    13:07:02)</span></li>
+  <li><span class="INFO">AdamKingIT1 fixed issue 294, fixed cdrom patch,
+    fixed ajax error propagation, improved guest action menu, reviewed
+    host repo &amp; sw update ++</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-21'>AdamKingIT1</a>,
+    13:09:41)</span></li>
+  <li><span class="INFO">shaohef send network address check patch and
+    iso permission check patch</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-22'>shaohef</a>,
+    13:09:50)</span></li>
+  <li><span class="INFO">AdamKingIT1 triaged issues. Opened a couple new
+    ones.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-24'>AdamKingIT1</a>,
+    13:10:57)</span></li>
+  <li><span class="INFO">danielhb working in "kimchi runs as root"
+    patch. Trying a RPC approach. Will try to do a different approach if
+    stuck</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-26'>danielhb</a>,
+    13:11:03)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-03-12-13.00.log.html#l-108'>alinefm</a>, 13:42:54)</span>
+<ol type="a">
+  <li><a
+    href="http://en.wikipedia.org/wiki/List_of_emoticons">http://en.wikipedia.org/wiki/List_of_emoticons</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-138'>AdamKingIT1</a>,
+    13:52:19)</span></li>
+  <li><span class="INFO">royce focal point for ubuntu tests</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-214'>alinefm</a>,
+    14:08:27)</span></li>
+  <li><span class="INFO">ming_  focal point for fedora tests</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-216'>alinefm</a>,
+    14:08:40)</span></li>
+  <li><span class="INFO">shaohef focal point for rhel tests</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-219'>alinefm</a>,
+    14:08:50)</span></li>
+  <li><span class="INFO">hlwanghl focal point for FF and Safari browser
+    compatibility tests</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-227'>alinefm</a>,
+    14:10:29)</span></li>
+  <li><span class="INFO">AdamKingIT1 focal point for Chrome and IE
+    browser compatibility tests</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-229'>alinefm</a>,
+    14:10:46)</span></li>
+  <li><span class="INFO">alinefm focal point for opensuse tests</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-12-13.00.log.html#l-240'>alinefm</a>,
+    14:13:27)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:22:03 UTC
+(<a href="kimchi.scrum.2014-03-12-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (107)</li>
+  <li>AdamKingIT1 (38)</li>
+  <li>royce (36)</li>
+  <li>hlwanghl (31)</li>
+  <li>ming_ (25)</li>
+  <li>shaohef (15)</li>
+  <li>kimchi-bot (3)</li>
+  <li>rotru (2)</li>
+  <li>vianac (1)</li>
+  <li>danielhb (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

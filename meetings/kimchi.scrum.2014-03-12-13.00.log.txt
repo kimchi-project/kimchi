@@ -1,0 +1,259 @@
+13:00:41 <alinefm> #startmeeting
+13:00:41 <kimchi-bot> Meeting started Wed Mar 12 13:00:41 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:41 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:42 <alinefm> #meetingname scrum
+13:00:42 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:59 <alinefm> #info  Agenda 1) Status 2) Open discussion
+13:00:59 <alinefm> anything else?
+13:02:16 <alinefm> so...
+13:02:17 <alinefm> #topic Status
+13:02:17 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:10 <alinefm> #info alinefm closed issues #301, #330, #312
+13:03:57 <alinefm> #info alinefm fix extend logical pool: use "lsblk" command instead of "blkid" to verify the disk exists in the system.
+13:04:22 <alinefm> #info alinefm set default flags for virDomain.state() function
+13:04:41 <rotru> #info rotru have worked in several Bugzilla tickets and other Kimchi bugs. Some BZ fixed: #100954 (fixed Network window buttons); #103632 (changed window to create Template with remote ISOs); #104940 (Kimchi was not able to create a vm which use iSCSI pool, fixed)
+13:05:13 <royce> #info royce get volume ref number merged, fixed vm cannot start on logical pool problem, about using raw format and logical path error usage
+13:05:37 <vianac> #info vianac closed bug #200, sent patchsets "Rebuild .po files when running "make", "Do not show a success msg when creating a template" and "Fix help Makefile"
+13:06:13 <rotru> #info rotru investigated and fixed Issue #339: Kimchi fails when deactivate Storage Pools that are not persistent
+13:07:02 <royce> #info royce sent patch of work around nfs permission of creating vm, took care of other little bugs such as 4 ide device limitation
+13:08:47 <alinefm> royce, how is going the 4 IDE device limitation?
+13:08:59 <alinefm> I mean, your investigation
+13:09:41 <AdamKingIT1> #info AdamKingIT1 fixed issue 294, fixed cdrom patch, fixed ajax error propagation, improved guest action menu, reviewed host repo & sw update ++
+13:09:50 <shaohef> #info shaohef send network address check patch and iso permission check patch
+13:10:57 <royce> This is limitation of IDE is each controller have two IDE interfaces and each interface can carry two devices. Thus one IDE controller can have up to 4 devices.REF: http://computer.howstuffworks.com/ide4.htm
+13:10:57 <AdamKingIT1> #info AdamKingIT1 triaged issues. Opened a couple new ones.
+13:10:57 <royce> I assume this is a limitation at most platforms, but if we really want to fix this, we can add an extra controller to guest xml, I would suggest an alert for just 4 devices can be supportted, is that acceptable?
+13:11:03 <danielhb> #info danielhb working in "kimchi runs as root" patch. Trying a RPC approach. Will try to do a different approach if stuck
+13:12:35 <shaohef> royce: I remember seems x86 has this  limitation.
+13:12:51 <AdamKingIT1> iirc its part of the definition of IDE
+13:12:54 <alinefm> royce, yes - we should also add doc for it
+13:12:56 <AdamKingIT1> What about using SATA?
+13:13:14 <ming_> scsi device will work.
+13:13:22 <royce> I investigated change the driver to SCSI, but libvirt returns error of SCSI driver
+13:13:36 <ming_> scsi-hba + scsi disks.
+13:14:10 <AdamKingIT1> hard to believe libvirt doesn't support scsi
+13:14:11 <ming_> Or virt-scsi?
+13:15:09 <royce> it is not libvirt does not support scsi
+13:15:13 <ming_> AdamKingIT1, I think it is because of Qemu's short of scsi support.
+13:16:02 <royce> wait a min, I will reproduce the error
+13:16:07 <ming_> But qemu upstream should support them.
+13:16:30 <AdamKingIT1> What about SATA?
+13:16:58 <royce> ming_  by scsi-hba +scsi disks,  how do we reflect it in libvirt xml?
+13:17:45 <royce> AdamKingIT1, I don't know about SATA cdrom actually, does cdrom support this driver , ming_?
+13:18:11 <AdamKingIT1> The physical CD in my kids computer is SATA
+13:19:12 <ming_> royce, not sure about SATA, But SCSI should work
+13:19:16 <royce> In virt-manager they just support ide cdrom, but I will debug SCSI cdrom, too
+13:19:41 <AdamKingIT1> maybe a limitation of qemu
+13:20:15 <royce> As our disks are virtio disks, do we really want more than 4 cdroms?
+13:21:36 <ming_> royce, I don't think we need that much
+13:22:03 <AdamKingIT1> the other advantage of non-IDE is we can eventually support hot-plug
+13:22:11 <alinefm> royce, ming_, 4 seems much to me too
+13:22:14 <AdamKingIT1> I don;t think IDE can support that
+13:22:22 <alinefm> I am doing  a test here
+13:23:48 <alinefm> royce, ming_, AdamKingIT1, I've just changed "ide" to "sata" on guest xml and seems it worked
+13:23:53 <alinefm> starting the guest now
+13:24:01 <shaohef> AdamKingIT1: Maybe, if the chipset of qemu is too low, it will not support SATA.
+13:24:38 <royce> alinefm, thanks, can you see the cdrom?
+13:24:53 <alinefm> royce, a minute - starting the guest
+13:24:55 <alinefm> -)
+13:24:56 <alinefm> =)
+13:25:35 <royce> My libvirtd crashed and cannot restart, I will paste the SCSI error  later
+13:27:16 <alinefm> royce, yeap! http://fpaste.org/84646/46308271/
+13:27:22 <alinefm> seems it really worked
+13:27:32 <alinefm> royce, did you try sata?
+13:27:52 <alinefm> I will try scsi, maybe it is a problem on some specific libvirt version
+13:28:53 <royce> alinefm, I haven't, let me check how many sata devices we can carry
+13:29:07 <alinefm> royce, failed with scsi here too: http://fpaste.org/84648/39463093/
+13:29:11 <alinefm> AdamKingIT1, ming_ ^
+13:30:05 <royce> alinefm, I got a diffrent error, but is that because your id set wrong?
+13:30:15 <royce> can you check the controller section?
+13:30:35 <alinefm> ops... changed the device unit and it worked
+13:30:35 <royce> As you got Duplicate ID 'drive-scsi0-0-0' for drive
+13:30:51 <alinefm> royce, yes - I changed it and now it works
+13:31:02 <alinefm> booting the guest again
+13:32:32 <alinefm> royce, http://fpaste.org/84650/31144139/
+13:32:49 <alinefm> royce, which distro and libvirt version are you using?
+13:33:47 <royce> libvirt-bin                          1.0.2-0ubuntu11.13.04.4 amd64
+13:33:52 <ming_> alinefm, how about lspci in your guest with scsi cdom devices?
+13:35:07 <ming_> royce, it seems your libvirt is a bit out of date. in FC20 is tmp@FC20-Kimchi kimchi]$ libvirtd --version
+13:35:07 <ming_> libvirtd (libvirt) 1.1.3.4
+13:35:08 <ming_> [tmp@FC20-Kimchi kimchi]$
+13:35:56 <royce> 2014-03-11 10:00:00.916+0000: 1620: error : qemuBuildDriveStr:2258 : internal error SCSI controller only supports 1 bus
+13:36:00 <royce> This is my error
+13:36:44 <alinefm> rotru, I am with an older libvirt than you: 0.9.13-0ubuntu12.6
+13:36:46 <royce> I don't have two SCSI bus actually
+13:37:08 <alinefm> royce, let me see your xml
+13:37:12 <alinefm> ming_, a min
+13:37:33 <alinefm> ming_, my system becomes too slow with vm running =/
+13:37:38 <alinefm> be patient =)
+13:37:58 <AdamKingIT1> alinefm: we have to get you a faster hampster
+13:38:48 <alinefm> AdamKingIT1, I accept any donation =P
+13:39:01 <AdamKingIT1> hahaha
+13:39:18 <royce> <disk type='file' device='cdrom'>
+13:39:18 <royce> <driver name='qemu' type='raw'/>
+13:39:18 <royce> <source file='/var/lib/kimchi/nfs_mount/nfs-1/ubuntu-13.04-desktop-i386.iso'/>
+13:39:18 <royce> <target dev='hdc' bus='scsi'/>
+13:39:18 <royce> <readonly/>
+13:39:18 <royce> <address type='drive' controller='0' bus='1' target='0' unit='0'/>
+13:39:20 <royce> </disk>
+13:39:52 <alinefm> ming_, http://fpaste.org/84652/31586139/
+13:40:05 <alinefm> royce, try change the bus to 0
+13:40:14 <alinefm> and change the unit to 1
+13:40:46 <ming_> Alinefm, it seems that you get much scsi controllers
+13:42:08 <royce> I will test it after scrum after reboot my desktop.... My libvirtd restart fails hundreds of times...
+13:42:32 <alinefm> ok
+13:42:38 <royce> Let's move on
+13:42:39 <alinefm> let's move on
+13:42:46 <alinefm> and we can continue after meeting if needed
+13:42:54 <alinefm> #topic Open Discussion
+13:43:06 <alinefm> what are the topics for today?
+13:43:59 <alinefm> ok - I have one =)
+13:44:06 <alinefm> today is the end of sprint 4
+13:44:16 <alinefm> and then start the code freeze phase
+13:44:26 <hlwanghl> I sent repository management patch and found PUT repository doesn't work, as I mentioned in my patch
+13:44:33 <hlwanghl> Seems need a fix
+13:44:48 <alinefm> hlwanghl, great! I will take a look on backend
+13:45:06 <alinefm> hlwanghl, update UI is ready, right?
+13:45:23 <hlwanghl> If I don't put the field enabled, it will work
+13:45:33 <hlwanghl> Yes, I sent it just now
+13:45:58 <shaohef> I can set cdrom as sata, and the vm can start.  but the console report it can not find from CDROM.
+13:46:11 <hlwanghl> Add loading icon and message when waiting for data
+13:47:01 <shaohef> then it read from boot from hd.
+13:47:22 <alinefm> hlwanghl, great! thanks
+13:47:25 <alinefm> shaohef, =/
+13:47:47 <AdamKingIT1> is the sata drive lower in the boot order than  the HD?
+13:48:10 <hlwanghl> alinefm :)
+13:48:23 <hlwanghl> Let's finish items for S4
+13:48:52 <shaohef> AdamKingIT1: I set it higher.
+13:48:55 <ming_> I got a topic about the multi-thread in the front end.  I found that when I tried to create and download the debugreport file, the front end contiguously to query the task state.
+13:49:15 <ming_> That will make the front-end frozen and can not switch to other pages.
+13:49:34 <shaohef> alinefm:  what does =/ mean?
+13:49:48 <alinefm> shaohef, a sad emotion
+13:49:56 <alinefm> same as =(
+13:50:12 <ming_> We do have async task support in the back end and how can we leverage that async task in the front end?
+13:51:02 <AdamKingIT1> the async task will need to be polled for status updates, but maybe at a slower interval
+13:51:18 <hlwanghl> ming_ I don't understand the situation, let me check with you tomorrow
+13:51:31 <shaohef> :=(
+13:51:52 <hlwanghl> JS is asynchronous in nature, I don't think there is such problem.
+13:52:19 <AdamKingIT1> http://en.wikipedia.org/wiki/List_of_emoticons
+13:53:10 <alinefm> AdamKingIT1, thanks!
+13:53:25 <ming_> hlwanggl, I mean the page stayed at the degbureport creating page and can not switch to other pages until the report was created successfully.
+13:53:53 <alinefm> ming_, if you close the debug report creation window the task will continue con backend
+13:54:00 <AdamKingIT1> ming_ that would indicate that its either making a sync request, or its polling with 0 wait
+13:54:03 <hlwanghl> OK. You can click "x" to close it.
+13:54:08 <alinefm> and you can switch to other tab without stop the debug report generation
+13:54:33 <AdamKingIT1> ah, if you can close the window its probably not either of my guesses
+13:54:39 <ming_> AdamKingIT1, I will try, it seems that I didn't notuce the 'x' there.
+13:54:57 <ming_> s/notuce/notice
+13:55:24 <hlwanghl> It's somewhat confused, though. User doesn't know whether the task is stoped if you close it
+13:55:59 <alinefm> hlwanghl, yes - maybe we can add a message for it
+13:56:26 <alinefm> "Closing this window will not stop the debug report generation"
+13:56:29 <alinefm> or something like that
+13:57:05 <hlwanghl> The ideal flow is: click x -> ask: stop task or just close window
+13:57:32 <alinefm> hlwanghl, but we can not stop task on backend yet
+13:57:50 <hlwanghl> Add we add support at back-end to allow stop a task like POST /task/1/cancel
+13:58:04 <hlwanghl> Yes
+13:58:25 <hlwanghl> Just an explanation to ming_
+13:58:30 <alinefm> ok
+13:58:41 <alinefm> we just have 2 min and I'd like to share some info with you
+13:58:55 <alinefm> in this code freeze phase we need to test kimchi in all supported distros
+13:59:05 <alinefm> and make sure all feature are working properly there
+13:59:18 <alinefm> I'd like to have focal points for each supported distro
+13:59:34 <alinefm> any volunteers? =)
+13:59:53 <alinefm> the focal point will be responsible to verify kimchi features, report bugs, etc...
+14:00:17 <alinefm> basically, we need 4 focal points: for rhel, fedora, opensuse and ubuntu
+14:00:59 <royce> I have ubuntu 13.04, what versions do we need alinefm?
+14:01:08 <royce> Do we have matrix?
+14:01:26 <ming_> I can do test on FC20, FC19, FC18
+14:01:32 <alinefm> royce, not yet - I am planning to create the matrix today
+14:01:45 <alinefm> royce, but for ubuntu it would be 13.04 and 13.10
+14:01:57 <hlwanghl> alinefm I'm using fedora 18
+14:02:01 <alinefm> ming_, great! you can focus only on FC20 and FC19
+14:02:06 <alinefm> FC18 is too old
+14:02:17 <royce> OK, sure, I can download one 13.10 and try nested
+14:02:35 <ming_> We need someday to cover RHEL 7
+14:02:51 <ming_> s/someday/somebody
+14:02:56 <alinefm> the tests can be done by everyone but I'd like the focal point to consolidate all results
+14:03:10 <alinefm> ming_, rhel7 is not out yet
+14:03:14 <alinefm> is it?
+14:03:23 <AdamKingIT1> is there a beta?
+14:03:23 <ming_> Also, RHEL 7 beta is put.
+14:03:57 <alinefm> royce, will you be the ubuntu focal point?
+14:04:06 <alinefm> ming_, will you be the fedora focal point?
+14:04:14 <royce> of course, alinefm
+14:04:15 <ming_> NP
+14:04:19 <alinefm> need volunteers for rhel and opensuse
+14:04:32 <alinefm> shaohef, ^
+14:05:08 <AdamKingIT1> We should do same for browsers.
+14:05:15 <ming_> The libvirt and qemu version of RHEL 6.5 is a bit obsolete.
+14:05:22 <AdamKingIT1> FF, Safari, Chrome, IE
+14:05:31 <hlwanghl> Yes AdamKingIT1
+14:05:38 <ming_> Browser focal?
+14:05:45 <alinefm> AdamKingIT1, yeap
+14:05:46 <shaohef> alinefm: OK
+14:05:53 <alinefm> shaohef, which one do you prefer?
+14:05:58 <hlwanghl> I have the browsers
+14:06:04 <shaohef> (10:05:32 PM) alinefm: need volunteers for rhel and opensuse
+14:06:05 <shaohef> (10:05:32 PM) alinefm: shaohef, ^
+14:06:14 <shaohef> any is OK
+14:06:16 <alinefm> shaohef, rhel or opensuse?
+14:06:45 <royce> shaohef, this is an obscure answer:P
+14:06:53 <AdamKingIT1> I have access to all 4, though I rarely use Safari
+14:06:55 <shaohef> one 哦发opensuse
+14:07:06 <shaohef> one of rhel and opensuse ?
+14:07:16 <alinefm> yes
+14:07:16 <shaohef> rhel.
+14:07:18 <alinefm> shaohef, choose one
+14:07:20 <alinefm> ok =)
+14:07:34 <alinefm> AdamKingIT1, hlwanghl, you can split the work
+14:07:40 <alinefm> maybe 2 browser for each one
+14:07:45 <alinefm> what do you think?
+14:07:53 <hlwanghl> Which is easier to use? F18 is too old, I need a newer OS
+14:08:05 <hlwanghl> Ok
+14:08:18 <hlwanghl> Let me take safari
+14:08:27 <alinefm> #info royce focal point for ubuntu tests
+14:08:32 <AdamKingIT1> FF & IE will need more than 1 version tested. Chrome and Safari maje it hard to be backlevel
+14:08:40 <alinefm> #info ming_  focal point for fedora tests
+14:08:42 <AdamKingIT1> hlwanghl Do you have a mac?
+14:08:49 <hlwanghl> Y
+14:08:50 <alinefm> #info shaohef focal point for rhel tests
+14:09:04 <AdamKingIT1> ok. the other safari's are always backlevel
+14:09:16 <AdamKingIT1> ok, you want IE or FF to go w./ your Safari?
+14:09:36 <hlwanghl> Y. Seems safari on other platform is stopped updating
+14:09:47 <hlwanghl> Ok
+14:09:54 <hlwanghl> Ff
+14:10:07 <AdamKingIT1> ok, need to test latest FF, and latest FF ESR
+14:10:18 <AdamKingIT1> I'll do IE10 & 11, and Chrome
+14:10:29 <alinefm> #info hlwanghl focal point for FF and Safari browser compatibility tests
+14:10:36 <hlwanghl> IE on Windows, FF on Windows and MacOS, Safari on MacOS
+14:10:46 <alinefm> #info AdamKingIT1 focal point for Chrome and IE browser compatibility tests
+14:11:04 <AdamKingIT1> try latest FF on linux too
+14:11:39 <hlwanghl> OK I can take FF on F19
+14:11:51 <AdamKingIT1> FF gets updated even on 18
+14:11:53 <AdamKingIT1> f18
+14:12:11 <hlwanghl> Ok
+14:12:24 <alinefm> great!
+14:12:27 <alinefm> if there isn't more volunteers I will take care of opensuse
+14:12:32 <alinefm> last chance... =p
+14:12:51 <royce> alinefm, feel free to assign~
+14:13:26 <alinefm> ok
+14:13:27 <alinefm> #info alinefm focal point for opensuse tests
+14:13:47 <alinefm> I think we have a good plan for tests
+14:13:56 <alinefm> make sure to update the test matrix, etc
+14:14:13 <alinefm> anything else for today?
+14:14:58 <hlwanghl> AdamKingIT1 seems we have overlap with backend tests, we can focus on Windows and MacOS, and they will cover most Linux cases
+14:15:19 <AdamKingIT1> i mean test the browser running on linux
+14:15:33 <AdamKingIT1> ah. We are focal...
+14:15:54 <AdamKingIT1> If someone testing the backend is using latest FF that would suffuce
+14:15:57 <AdamKingIT1> suffice
+14:16:09 <AdamKingIT1> Just need to ensure we have version coverage
+14:16:10 <alinefm> AdamKingIT1, yes!
+14:16:21 <AdamKingIT1> x platform variation
+14:16:54 <hlwanghl> I mean we can choose one Linux distro to do browser tests, and they can choose one browser (FF) to do backend tests AdamKingIT1
+14:17:39 <AdamKingIT1> FF 27 should be the same on all linux, its just not quite the same as FF27 on Windows
+14:18:38 <hlwanghl> I know that. Anyway, just a suggestion. Do the plan and I'll follow
+14:19:09 <alinefm> AdamKingIT1, I think hlwanghl is suggesting to you don't test FF and Chrome in all Linux as we will have one of them to do the backend tests
+14:20:04 <AdamKingIT1> agreed, We shuold endure FF 27 is tested on at least one linux, along w./ latest FF ESR. Testing on all would be excessively redundant
+14:21:45 <alinefm> AdamKingIT1, yeap
+14:21:57 <alinefm> I will finish the meeting, but we can continue after it
+14:22:03 <alinefm> #endmeeting
