@@ -103,17 +103,21 @@ class NetworksModel(object):
         conn = self.conn.get()
         return sorted(conn.listNetworks() + conn.listDefinedNetworks())
 
+    def _get_available_address(self, addr_pools=[]):
+        invalid_addrs = []
+        for net_name in self.get_list():
+            network = NetworkModel.get_network(self.conn.get(), net_name)
+            xml = network.XMLDesc(0)
+            subnet = NetworkModel.get_network_from_xml(xml)['subnet']
+            subnet and invalid_addrs.append(ipaddr.IPNetwork(subnet))
+            addr_pools = addr_pools if addr_pools else knetwork.PrivateNets
+        return knetwork.get_one_free_network(invalid_addrs, addr_pools)
+
     def _set_network_subnet(self, params):
         netaddr = params.get('subnet', '')
-        net_addrs = []
         # lookup a free network address for nat and isolated automatically
         if not netaddr:
-            for net_name in self.get_list():
-                network = NetworkModel.get_network(self.conn.get(), net_name)
-                xml = network.XMLDesc(0)
-                subnet = NetworkModel.get_network_from_xml(xml)['subnet']
-                subnet and net_addrs.append(ipaddr.IPNetwork(subnet))
-            netaddr = knetwork.get_one_free_network(net_addrs)
+            netaddr = self._get_available_address()
             if not netaddr:
                 raise OperationFailed("KCHNET0009E", {'name': params['name']})
 
