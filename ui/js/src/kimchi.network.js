@@ -30,6 +30,7 @@ kimchi.initNetworkListView = function() {
         for (var i = 0; i < data.length; i++) {
             var network = {
                 name : data[i].name,
+                in_use : data[i].in_use,
                 state : data[i].state === "active" ? "up" : "down"
             };
             if (data[i].connection === "bridge") {
@@ -59,6 +60,8 @@ kimchi.getNetworkItemHtml = function(network) {
     if(i18n["network_type_" + network.type]) {
         network.type = i18n["network_type_" + network.type];
     }
+
+    var disable_in_use = network.in_use ? "ui-state-disabled" : "";
     var networkItem = kimchi.template($('#networkItem').html(), {
         name : network.name,
         state : network.state,
@@ -66,9 +69,10 @@ kimchi.getNetworkItemHtml = function(network) {
         interface: network.interface,
         addrSpace : network.addrSpace,
         startClass : network.state === "up" ? "hide-action-item" : "",
-        stopClass : network.state === "down" ? "hide-action-item" : "",
-        deleteClass : network.state === "up" ? "ui-state-disabled" : "",
-        deleteDisabled: network.state === "up" ? "disabled" : ""
+        stopClass : network.state === "down" ? "hide-action-item" : disable_in_use,
+        stopDisabled : network.in_use ? "disabled" : "",
+        deleteClass : network.state === "up" || network.in_use ? "ui-state-disabled" : "",
+        deleteDisabled: network.state === "up" || network.in_use ? "disabled" : ""
     });
     return networkItem;
 };
@@ -92,11 +96,16 @@ kimchi.addNetworkActions = function(network) {
                     $("[nwAct='start']", menu).addClass("hide-action-item");
                     $("[nwAct='start']", menu).removeClass("ui-state-disabled");
                     $("[nwAct='stop']", menu).removeClass("hide-action-item");
+                    if (network.in_use) {
+                        $("[nwAct='stop']", menu).addClass("ui-state-disabled");
+                    }
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
                 }, function(err) {
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading","down");
                     $("[nwAct='start']", menu).removeClass("ui-state-disabled");
-                    $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+                    if (!network.in_use) {
+                        $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+                    }
                     $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
                     kimchi.message.error(err.responseJSON.reason);
                 });
@@ -107,12 +116,16 @@ kimchi.addNetworkActions = function(network) {
                     $("[nwAct='start']", menu).removeClass("hide-action-item");
                     $("[nwAct='stop']", menu).addClass("hide-action-item");
                     $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
-                    $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
-                    $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+                    if (!network.in_use) {
+                        $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+                        $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+                    }
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading", "down");
                 }, function(err) {
                     $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
-                    $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
+                    if (!network.in_use) {
+                        $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
+                    }
                     kimchi.message.error(err.responseJSON.reason);
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
