@@ -45,10 +45,7 @@ kimchi.guest_media_main = function() {
 
     refreshCDROMs();
 
-    var messageNode = $('#message-container');
     var onReplaced = function(params) {
-        $(messageNode).empty();
-        kimchi.message.success(i18n['KCHVMCD6007M'], messageNode);
         refreshCDROMs();
     };
     kimchi.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);

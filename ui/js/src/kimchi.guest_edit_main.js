@@ -91,20 +91,13 @@ kimchi.guest_edit_main = function() {
             kimchi.window.open("guest-storage-add.html");
         });
 
-        var messageNode = $('#message-container');
         var onAttached = function(params) {
-            $(messageNode).empty();
-            kimchi.message.success(i18n['KCHVMCD6006M'], messageNode);
             refreshCDROMs();
         };
         var onReplaced = function(params) {
-            $(messageNode).empty();
-            kimchi.message.success(i18n['KCHVMCD6007M'], messageNode);
             refreshCDROMs();
         };
         var onDetached = function(params) {
-            $(messageNode).empty();
-            kimchi.message.success(i18n['KCHVMCD6008M'], messageNode);
             refreshCDROMs();
         };
 

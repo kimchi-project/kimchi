@@ -156,27 +156,3 @@
 .guest-edit-cdrom-button.detach[disabled] {
     background-position: -54px -108px;
 }
-
-#message-container {
-    color: #555;
-    font-size: 14px;
-    height: 100%;
-    line-height: 56px;
-}
-
-#message-container .message {
-    background: transparent;
-}
-
-#message-container .success {
-    color: green;
-}
-
-#message-container .error {
-    color: red;
-}
-
-#message-container .content {
-    margin: 0;
-    position: static;
-}
