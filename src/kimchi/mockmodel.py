@@ -1122,6 +1122,10 @@ class MockSoftwareUpdate(object):
         msgs.append("All packages updated")
         cb('\n'.join(msgs), True)
 
+        # After updating all packages any package should be listed to be
+        # updated, so reset self._packages
+        self._packages = {}
+
 
 class MockRepositories(object):
     def __init__(self):
