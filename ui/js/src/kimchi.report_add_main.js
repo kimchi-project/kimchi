@@ -9,7 +9,7 @@ kimchi.report_add_main = function() {
         var reportName = nameTextbox.val();
         var validator = RegExp("^[A-Za-z0-9-]*$");
         if (!validator.test(reportName)) {
-            kimchi.message.error(i18n['KCHDR6011M']);
+            kimchi.message.error.code('KCHDR6011M');
             return false;
         }
         var formData = addReportForm.serializeObject();

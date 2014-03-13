@@ -94,7 +94,7 @@ kimchi.login_main = function() {
             kimchi.user.showUser(true);
             kimchi.window.close();
         }, function() {
-            kimchi.message.error(i18n['KCHAUTH6001E']);
+            kimchi.message.error.code('KCHAUTH6001E');
             $('#btn-login').prop('disabled', false).text(i18n['KCHAUTH6001M']);
             placeCursor('user-id');
         });
