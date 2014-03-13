@@ -472,6 +472,9 @@ kimchi.host_main = function() {
                 initSoftwareUpdatesGrid();
                 kimchi.topic('kimchi/softwareUpdated')
                     .subscribe(listSoftwareUpdates);
+                $('#software-updates-progress-container').accordion({
+                    collapsible: true
+                });
             }
 
             if(capabilities['system_report_tool']) {

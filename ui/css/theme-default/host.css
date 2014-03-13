@@ -244,9 +244,11 @@
 
 .host-panel #software-updates-progress-textarea {
     border: 1px solid #ddd;
+    box-sizing: border-box;
     height: 100px;
+    padding: .2em .5em;
     resize: vertical;
-    width: 846px;
+    width: 852px;
 }
 /* End of Software Updates */
 
