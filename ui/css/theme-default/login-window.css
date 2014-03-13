@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 #login-window {
-    height: 400px;
+    height: 360px;
     width: 400px;
 }
 
@@ -76,15 +76,6 @@
 #login-window .login-panel button[disabled] {
     background: #888;
     color: #DDD;
-}
-
-#login-window .login-panel .error-message {
-    color: red;
-    font-size: 15px;
-    line-height: 22px;
-    width: 306px;
-    height: 22px;
-    margin-top: -10px;
 }
 
 .language {

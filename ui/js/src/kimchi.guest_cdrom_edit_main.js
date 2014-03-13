@@ -21,7 +21,6 @@ kimchi.guest_cdrom_edit_main = function() {
     var nameTextbox = $('input[name="dev"]', cdromEditForm);
     var typeTextbox = $('input[name="type"]', cdromEditForm);
     var pathTextbox = $('input[name="path"]', cdromEditForm);
-    var errorMessage = $('#cdrom-error-message');
     var originalPath = null;
 
     kimchi.retrieveVMStorage({
@@ -49,7 +48,6 @@ kimchi.guest_cdrom_edit_main = function() {
             $(c).prop('disabled', true);
         });
         $(submitButton).addClass('loading').text(i18n['KCHVMCD6005M']);
-        $(errorMessage).text('');
 
         var settings = {
             vm: kimchi.selectedGuest,
@@ -65,7 +63,7 @@ kimchi.guest_cdrom_edit_main = function() {
         }, function(result) {
             var errText = result['reason'] ||
                 result['responseJSON']['reason'];
-            $(errorMessage).text(errText);
+            kimchi.message.error(errText);
 
             $.each([submitButton, nameTextbox, pathTextbox], function(i, c) {
                 $(c).prop('disabled', false);

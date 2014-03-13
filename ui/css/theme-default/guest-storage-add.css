@@ -52,11 +52,6 @@
     cursor: not-allowed;
 }
 
-#storage-error-message {
-    color: red;
-    padding: 5px;
-}
-
 #vm-storage-button-add[disabled] {
     background: #c0c0c0;
     color: #ddd;

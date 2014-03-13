@@ -44,11 +44,6 @@
     cursor: not-allowed;
 }
 
-#cdrom-error-message {
-    color: red;
-    padding: 5px;
-}
-
 #vm-cdrom-button-edit[disabled] {
     background: #c0c0c0;
     color: #ddd;

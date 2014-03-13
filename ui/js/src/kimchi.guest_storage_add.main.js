@@ -27,7 +27,6 @@ kimchi.guest_storage_add_main = function() {
     var nameTextbox = $('input[name="dev"]', storageAddForm);
     var typeTextbox = $('input[name="type"]', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
-    var errorMessage = $('#storage-error-message');
 
     var submitForm = function(event) {
         if(submitButton.prop('disabled')) {
@@ -46,7 +45,6 @@ kimchi.guest_storage_add_main = function() {
             $(c).prop('disabled', true);
         });
         $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
-        $(errorMessage).text('');
 
         var settings = {
             vm: kimchi.selectedGuest,
@@ -66,7 +64,7 @@ kimchi.guest_storage_add_main = function() {
         }, function(result) {
             var errText = result['reason'] ||
                 result['responseJSON']['reason'];
-            $(errorMessage).text(errText);
+            kimchi.message.error(errText);
 
             $.each([submitButton, nameTextbox, pathTextbox], function(i, c) {
                 $(c).prop('disabled', false);
