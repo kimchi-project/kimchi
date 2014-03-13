@@ -167,7 +167,7 @@ kimchi.widget.Grid = function(params) {
             var rowNode = $('<tr></tr>').appendTo(tbody);
             $.each(fields, function(fi, field) {
                 var fieldName = field['name'];
-                var value = row[fieldName];
+                var value = (row[fieldName]==null) ? '' : row[fieldName];
                 $('<td><div class="cell-text-wrapper"' +
                      (field['makeTitle'] === true
                          ? ' title="' + value + '"'
