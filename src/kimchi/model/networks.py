@@ -336,6 +336,5 @@ class NetworkModel(object):
             if bridge.startswith('kimchi-'):
                 conn = self.conn.get()
                 iface = conn.interfaceLookupByName(bridge)
-                if iface.isActive():
-                    iface.destroy(0)
+                iface.destroy(0)
                 iface.undefine()
