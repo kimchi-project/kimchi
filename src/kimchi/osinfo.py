@@ -113,7 +113,7 @@ def lookup(distro, version):
 
     if distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
-           modern_version_bases[arch][distro]):
+                modern_version_bases[arch][distro]):
             params.update(template_specs[arch]['modern'])
         else:
             params.update(template_specs[arch]['old'])

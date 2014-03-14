@@ -64,7 +64,7 @@ class NetworksModel(object):
                 # FIXME we can not distinguish this error from other internal
                 # error by error code.
                 if ("network is already in use by interface"
-                   in e.message.lower()):
+                        in e.message.lower()):
                     # libvirt do not support update IP element, so delete the
                     # the network and create new one.
                     net.undefine()

@@ -136,7 +136,7 @@ def check_auth_session():
         kimchiRobot = cherrypy.request.headers.get('Kimchi-Robot')
         if kimchiRobot == "kimchi-robot":
             if (time.time() - cherrypy.session[REFRESH] >
-               cherrypy.session.timeout * 60):
+                    cherrypy.session.timeout * 60):
                 cherrypy.session[USER_ID] = None
                 cherrypy.lib.sessions.expire()
                 raise cherrypy.HTTPError(401)

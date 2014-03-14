@@ -51,7 +51,7 @@ class Root(Resource):
         data = {'code': status, 'reason': message}
         res = template.render('error.html', data)
         if (type(res) is unicode and
-           LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
+                LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
         return res
 
@@ -60,7 +60,7 @@ class Root(Resource):
                 'call_stack': cherrypy._cperror.format_exc()}
         res = template.render('error.html', data)
         if (type(res) is unicode and
-           LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
+                LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
         return res
 
