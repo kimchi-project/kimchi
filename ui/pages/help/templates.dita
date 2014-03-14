@@ -56,7 +56,7 @@ is configured to use.</dd>
 <dd>Amount of memory in MB to be allocated to the virtual machine.</dd>
 </dlentry><dlentry>
 <dt>Disk</dt>
-<dd rev="rev1">Disk size in GB.</dd>
+<dd>Disk size in GB.</dd>
 </dlentry><dlentry>
 <dt>CDROM</dt>
 <dd>File path to the location of the ISO file used to install the
@@ -66,10 +66,10 @@ KVM guest.</dd>
 <dd>Specific storage pool or the default storage pool.</dd>
 </dlentry><dlentry>
 <dt>Network</dt>
-<dd rev="rev1">Default network interfaces available to the KVM guest.
-You can select multiple networks.</dd>
-</dlentry></dl><?Pub Caret 681?> Fields that are not disabled can
-be edited. After you edit a field, click <uicontrol>Save</uicontrol>. </p>
+<dd>Default network interfaces available to the KVM guest. You can
+select multiple networks.</dd>
+</dlentry></dl> Fields that are not disabled can be edited. After
+you edit a field, click <uicontrol>Save</uicontrol>. </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
@@ -108,15 +108,15 @@ Templates from Selected ISO</uicontrol>.</li>
 <li>Select <uicontrol>All</uicontrol> to create a template from each
  listed ISO image, then click <uicontrol>Create Templates from Selected
 ISO</uicontrol>.</li>
-<li rev="rev1">If the ISO image that you want to use does not appear
-in the scan results, you can select from the following options:<ul>
+<li>If the ISO image that you want to use does not appear in the scan
+results, you can select from the following options:<ul>
 <li>Select <uicontrol>I want to use a specific ISO file</uicontrol> to
 specify a path to the ISO image.</li>
 <li>Click <uicontrol>Search more ISOs</uicontrol> to search for more
 ISO images.</li>
-</ul></li>
+</ul></li><?Pub Caret 0?>
 </ul></p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000004468?>
+<?Pub *0000004433?>
