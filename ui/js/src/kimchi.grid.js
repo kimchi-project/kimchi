@@ -57,7 +57,9 @@ kimchi.widget.Grid = function(params) {
         '<div class="grid-mask hidden">',
             '<div class="grid-loading">',
                 '<div class="grid-loading-icon"></div>',
-                '<div class="grid-loading-text"></div>',
+                '<div class="grid-loading-text">',
+                    i18n['KCHGRD6001M'],
+                '</div>',
             '</div>',
         '</div>',
       '</div>'
@@ -157,7 +159,7 @@ kimchi.widget.Grid = function(params) {
     gridContentNode.css('top', (captionHeight + toolbarHeight) + 'px');
 
     var maskNode = $('.grid-mask', gridNode);
-    maskNode.css('top', (captionHeight + toolbarHeight) + 'px');
+    maskNode.css('top', captionHeight + 'px');
 
     var fillBody = function(container, fields, data) {
         var tbody = ($('tbody', container).length && $('tbody', container))
