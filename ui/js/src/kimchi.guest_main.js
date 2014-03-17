@@ -186,7 +186,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     guestTitle.html(vmObject.name);
 
     //Setup the VM console thumbnail display
-    var curImg = vmObject.state == 'running' ? vmObject.screenshot : vmObject.icon;
+    var curImg = vmObject.screenshot || vmObject.icon;
     var load_src = curImg || 'images/icon-vm.png';
     var tile_src = prevScreenImage || vmObject['load-src'];
     var liveTile=result.find('div[name=guest-tile] > .tile');

@@ -275,6 +275,10 @@ class VMModel(object):
     def _live_vm_update(self, dom, params):
         pass
 
+    def _has_video(self, dom):
+        dom = ElementTree.fromstring(dom.XMLDesc(0))
+        return dom.find('devices/video') is not None
+
     def lookup(self, name):
         dom = self.get_vm(name, self.conn)
         info = dom.info()
@@ -284,7 +288,7 @@ class VMModel(object):
         graphics_type, graphics_listen, graphics_port = graphics
         graphics_port = graphics_port if state == 'running' else None
         try:
-            if state == 'running':
+            if state == 'running' and self._has_video(dom):
                 screenshot = self.vmscreenshot.lookup(name)
             elif state == 'shutoff':
                 # reset vm stats when it is powered off to avoid sending
