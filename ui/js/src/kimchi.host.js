@@ -57,7 +57,9 @@ kimchi.host_main = function() {
                         kimchi.topic('kimchi/softwareUpdated').publish({
                             result: result
                         });
-                    }, function() {}, reloadProgressArea);
+                    }, function(result) {
+                        $(updateButton).text(i18n['KCHUPD6006M']).prop('disabled', false);
+                    }, reloadProgressArea);
                 }
             }],
             frozenFields: [],
