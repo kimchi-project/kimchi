@@ -359,25 +359,19 @@ class RepositoryModel(object):
         if self._repositories is None:
             raise InvalidOperation('KCHREPOS0014E')
 
-        if not self._repositories.enableRepository(repo_id):
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
+        return self._repositories.enableRepository(repo_id)
 
     def disable(self, repo_id):
         if self._repositories is None:
             raise InvalidOperation('KCHREPOS0014E')
 
-        if not self._repositories.disableRepository(repo_id):
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
+        return self._repositories.disableRepository(repo_id)
 
     def update(self, repo_id, params):
         if self._repositories is None:
             raise InvalidOperation('KCHREPOS0014E')
 
-        try:
-            self._repositories.updateRepository(repo_id, params)
-        except:
-            raise OperationFailed("KCHREPOS0009E", {'repo_id': repo_id})
-        return repo_id
+        return self._repositories.updateRepository(repo_id, params)
 
     def delete(self, repo_id):
         if self._repositories is None:
