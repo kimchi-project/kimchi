@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-07 00:54-0300\n"
+"POT-Creation-Date: 2014-03-18 08:09-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -86,6 +86,13 @@ msgstr "创建"
 msgid "Edit Guest"
 msgstr "修改客户机"
 
+#, fuzzy
+msgid "General"
+msgstr "生成"
+
+msgid "Storage"
+msgstr "存储"
+
 msgid "Name"
 msgstr "名称"
 
@@ -95,11 +102,17 @@ msgstr "中央处理器"
 msgid "Icon"
 msgstr "图标"
 
-msgid "Cancel"
-msgstr "取消"
+msgid "Attach"
+msgstr ""
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Replace"
+msgstr ""
+
+msgid "Detach"
+msgstr ""
 
 msgid "Start"
 msgstr "启用"
@@ -113,7 +126,10 @@ msgstr "停止"
 msgid "Actions"
 msgstr "操作"
 
-msgid "Console"
+msgid "Connect"
+msgstr "连接到"
+
+msgid "Manage Media"
 msgstr ""
 
 msgid "Edit"
@@ -143,9 +159,6 @@ msgstr "客户机"
 msgid "Templates"
 msgstr "模板"
 
-msgid "Storage"
-msgstr "存储"
-
 msgid "Network"
 msgstr "网络"
 
@@ -167,11 +180,19 @@ msgstr ""
 msgid "options needed."
 msgstr ""
 
+msgid ""
+"Can not contact the host system. Verify the host system is up and that you "
+"have network connectivity to it. HTTP request response %1. "
+msgstr ""
+
 msgid "Delete Confirmation"
 msgstr "删除确认"
 
 msgid "OK"
 msgstr "确定"
+
+msgid "Cancel"
+msgstr "取消"
 
 msgid "Confirm"
 msgstr "确认"
@@ -179,14 +200,15 @@ msgstr "确认"
 msgid "Warning"
 msgstr "警告"
 
+#, fuzzy
+msgid "Loading..."
+msgstr "正在生成..."
+
 msgid "No iso found"
 msgstr "没有发现ISO文件"
 
 msgid "This is not a valid ISO file."
 msgstr "这不是一个有效的ISO文件"
-
-msgid "Create template successfully"
-msgstr "创建模板成功"
 
 msgid "It will take long time. Do you want to continue?"
 msgstr ""
@@ -223,6 +245,28 @@ msgid ""
 "shut down/restarting?"
 msgstr "关闭或者重启主机会导致没有保存的工作丢失。继续关机/重启？"
 
+msgid "Software Updates"
+msgstr ""
+
+msgid "Package Name"
+msgstr ""
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Architecture"
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Update All"
+msgstr ""
+
+#, fuzzy
+msgid "Updating..."
+msgstr "正在生成..."
+
 msgid ""
 "Debug report will be removed permanently and can't be recovered. Do you want "
 "to continue?"
@@ -258,6 +302,27 @@ msgstr ""
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
 "cannot be undone. Would you like to continue?"
+msgstr ""
+
+msgid ""
+"This CDROM will be detached permanently and you can re-attach it. Continue "
+"to detach it?"
+msgstr ""
+
+msgid "Attaching..."
+msgstr ""
+
+#, fuzzy
+msgid "Replacing..."
+msgstr "正在生成..."
+
+msgid "Successfully attached!"
+msgstr ""
+
+msgid "Successfully replaced!"
+msgstr ""
+
+msgid "Successfully detached!"
 msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
@@ -319,6 +384,11 @@ msgstr ""
 #, fuzzy
 msgid "No available partitions found."
 msgstr "没有发现模板"
+
+msgid ""
+"This storage pool is not persistent. Instead of deactivate, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
 
 msgid "Help"
 msgstr ""
@@ -431,9 +501,6 @@ msgstr "关机"
 msgid "Restart"
 msgstr "重启"
 
-msgid "Connect"
-msgstr "连接到"
-
 msgid "Basic Information"
 msgstr "基本信息"
 
@@ -451,6 +518,9 @@ msgstr "系统统计信息"
 
 msgid "Collecting data after leaving this page"
 msgstr "离开该页面继续收集数据"
+
+msgid "Update Progress"
+msgstr ""
 
 msgid "Network Name"
 msgstr "网络名称"
@@ -490,9 +560,6 @@ msgstr ""
 
 msgid "No templates found."
 msgstr "没有发现模板"
-
-msgid "Version"
-msgstr "版本"
 
 msgid "Location"
 msgstr "路径"
@@ -694,6 +761,15 @@ msgstr ""
 
 #, python-format
 msgid "Bad format while reading volume descriptor in ISO %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"The hypervisor doesn't have permission to use this ISO %(filename)s. "
+"Consider moving it under /var/lib/libvirt,  or set the search permission to "
+"file access control lists for '%(user)s' user if possible, or add the "
+"'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
+"'path_to_iso'.Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -1057,6 +1133,18 @@ msgstr ""
 msgid "Storage type %(type)s does not support volume create and delete"
 msgstr ""
 
+msgid "Storage volume name must be a string"
+msgstr ""
+
+msgid "Storage volume allocation must be an integer number"
+msgstr ""
+
+msgid "Storage volume format not supported"
+msgstr ""
+
+msgid "Storage volume requires a volume name"
+msgstr ""
+
 #, python-format
 msgid "Interface %(name)s does not exist"
 msgstr ""
@@ -1121,14 +1209,14 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are still some VMs linked to this "
-"network."
+"Unable to delete network %(name)s. There are some virtual machines and/or "
+"templates linked to this network."
 msgstr ""
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some VMs running linked to "
-"this network."
+"Unable to deactivate network %(name)s. There are some virtual machines and/"
+"or templates linked to this network."
 msgstr ""
 
 #, python-format
@@ -1250,23 +1338,71 @@ msgstr ""
 msgid "Specify path to update virtual machine disk"
 msgstr ""
 
-msgid "Repository ID must be one word only string."
+msgid "YUM Repository ID must be one word only string."
 msgstr ""
 
 msgid "Repository URL must be an http://, ftp:// or file:// URL."
 msgstr ""
 
-msgid "Repository URL arguments must be string."
+msgid ""
+"Repository configuration is a dictionary with specific values according to "
+"repository type."
+msgstr ""
+
+msgid "Distribution to DEB repository must be a string"
+msgstr ""
+
+msgid "Components to DEB repository must be listed in a array"
+msgstr ""
+
+msgid "Components to DEB repository must be a string"
+msgstr ""
+
+msgid "Mirror list to DEB repository must be a string"
+msgstr ""
+
+msgid "YUM Repository name must be string."
+msgstr ""
+
+msgid "GPG check must be a boolean value."
 msgstr ""
 
 msgid "GPG key must be a URL pointing to the ASCII-armored file."
 msgstr ""
 
-msgid "Repository name must be string."
+#, python-format
+msgid "Could not update repository %(repo_id)s."
 msgstr ""
 
 #, python-format
-msgid "Repository %(repo_id)s already exists."
+msgid "Repository %(repo_id)s does not exist."
+msgstr ""
+
+msgid ""
+"Specify repository base URL or mirror list in order to create a YUM "
+"repository."
+msgstr ""
+
+msgid "Repository management tool was not recognized for your system."
+msgstr ""
+
+#, python-format
+msgid "Repository %(repo_id)s is already enabled."
+msgstr ""
+
+#, python-format
+msgid "Repository %(repo_id)s is already disabled."
+msgstr ""
+
+#, python-format
+msgid "Could not remove repository %(repo_id)s."
+msgstr ""
+
+#, python-format
+msgid "Could not write repository configuration file %(repo_file)s"
+msgstr ""
+
+msgid "Specify repository distribution in order to create a DEB repository."
 msgstr ""
 
 #, python-format
@@ -1277,38 +1413,8 @@ msgstr ""
 msgid "Could not disable repository %(repo_id)s."
 msgstr ""
 
-#, python-format
-msgid "Could not update repository %(repo_id)s."
+msgid "YUM Repository ID already exists"
 msgstr ""
 
-#, python-format
-msgid "Repository %(repo_id)s does not exists."
-msgstr ""
-
-#, python-format
-msgid "There is no disabled repository called %(repo_id)s."
-msgstr ""
-
-#, python-format
-msgid "There is no enabled repository called %(repo_id)s."
-msgstr ""
-
-msgid "There are no parameters to update repository."
-msgstr ""
-
-msgid "OS distro not supported."
-msgstr ""
-
-msgid "There is no YUM configuration directory."
-msgstr ""
-
-msgid "There are no parameters to create a new repo file."
-msgstr ""
-
-#, python-format
-msgid "Could not write repo file %(repo_file)s"
-msgstr ""
-
-#, python-format
-msgid "Could not remove repository %(repo_id)s."
-msgstr ""
+#~ msgid "Create template successfully"
+#~ msgstr "创建模板成功"
