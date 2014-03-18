@@ -69,7 +69,7 @@ class MockModel(object):
                 'screenshot': True,
                 'system_report_tool': True,
                 'update_tool': True,
-                'repo_mngt_tool': True}
+                'repo_mngt_tool': 'yum'}
 
     def reset(self):
         self._mock_vms = {}

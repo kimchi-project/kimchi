@@ -193,6 +193,8 @@ class YumRepo(object):
     It's loaded only on those systems listed at YUM_DISTROS and loads necessary
     modules in runtime.
     """
+    TYPE = 'yum'
+
     def __init__(self):
         self._yb = getattr(__import__('yum'), 'YumBase')()
         self._repos = self._yb.repos
@@ -413,6 +415,8 @@ class AptRepo(object):
     It's loaded only on those systems listed at YUM_DISTROS and loads necessary
     modules in runtime.
     """
+    TYPE = 'deb'
+
     def __init__(self):
         getattr(__import__('apt_pkg'), 'init_config')()
         getattr(__import__('apt_pkg'), 'init_system')()

@@ -82,11 +82,11 @@ class CapabilitiesModel(object):
             update_tool = True
 
         try:
-            Repositories()
+            repo = Repositories()
         except Exception:
-            repo_mngt_tool = False
+            repo_mngt_tool = None
         else:
-            repo_mngt_tool = True
+            repo_mngt_tool = repo._pkg_mnger.TYPE
 
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_stream': self.qemu_stream,

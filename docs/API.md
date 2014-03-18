@@ -581,8 +581,8 @@ creation.
       the system; False, otherwise.
     * update_tool: True if there is a compatible package manager for the
       system; False, otherwise
-    * repo_mngt_tool: True if there is a compatible repository management tool
-      for the system; False, otherwise
+    * repo_mngt_tool: 'deb', 'yum' or None - when the repository management
+      tool is not identified
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**
