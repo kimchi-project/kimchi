@@ -21,6 +21,7 @@ import subprocess
 import time
 
 from kimchi.basemodel import Singleton
+from kimchi.config import kimchiLock
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log, run_command
 
@@ -152,7 +153,9 @@ class YumUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        kimchiLock.acquire()
         self._refreshUpdateList()
+        kimchiLock.release()
         pkg_list = []
         for pkg in self._pkgs:
             package = {'package_name': pkg.name,
@@ -188,7 +191,9 @@ class AptUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        kimchiLock.acquire()
         self._refreshUpdateList()
+        kimchiLock.release()
         pkg_list = []
         for pkg in self._pkgs:
             package = {'package_name': pkg.shortname,
@@ -235,7 +240,9 @@ class ZypperUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        kimchiLock.acquire()
         self._refreshUpdateList()
+        kimchiLock.release()
         pkg_list = []
         for pkg in self._pkgs:
             pkg_list.append(pkg)

@@ -21,6 +21,7 @@
 import libvirt
 import os
 import platform
+import threading
 
 
 from ConfigParser import SafeConfigParser
@@ -30,6 +31,8 @@ from kimchi.xmlutils import xpath_get_text
 
 
 DEFAULT_LOG_LEVEL = "debug"
+
+kimchiLock = threading.Lock()
 
 # Storage pool constant for read-only pool types
 READONLY_POOL_TYPE = ['iscsi', 'scsi', 'mpath']

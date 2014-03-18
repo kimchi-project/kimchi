@@ -24,6 +24,7 @@ import urlparse
 from ConfigParser import ConfigParser
 
 from kimchi.basemodel import Singleton
+from kimchi.config import kimchiLock
 from kimchi.exception import InvalidOperation
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 
@@ -118,14 +119,19 @@ class YumRepo(object):
         """
         Return a list of repositories IDs
         """
-        return self._yb().repos.repos.keys()
+        kimchiLock.acquire()
+        repos = self._yb().repos.repos.keys()
+        kimchiLock.release()
+        return repos
 
     def getRepo(self, repo_id):
         """
         Return a dictionary in the repositories.Repositories() of the given
         repository ID format with the information of a YumRepository object.
         """
+        kimchiLock.acquire()
         repos = self._yb().repos
+        kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
@@ -162,7 +168,9 @@ class YumRepo(object):
         if repo_id is None:
             repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
 
+        kimchiLock.acquire()
         repos = self._yb().repos
+        kimchiLock.release()
         if repo_id in repos.repos.keys():
             raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
 
@@ -193,7 +201,9 @@ class YumRepo(object):
         return repo_id
 
     def toggleRepo(self, repo_id, enable):
+        kimchiLock.acquire()
         repos = self._yb().repos
+        kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
@@ -204,6 +214,7 @@ class YumRepo(object):
         if not enable and not entry.enabled:
             raise InvalidOperation("KCHREPOS0016E", {'repo_id': repo_id})
 
+        kimchiLock.acquire()
         try:
             if enable:
                 entry.enable()
@@ -211,18 +222,23 @@ class YumRepo(object):
                 entry.disable()
 
             self._conf.writeRawRepoFile(entry)
-            return repo_id
         except:
             if enable:
                 raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
             raise OperationFailed("KCHREPOS0021E", {'repo_id': repo_id})
+        finally:
+            kimchiLock.release()
+
+        return repo_id
 
     def updateRepo(self, repo_id, params):
         """
         Update a given repository in repositories.Repositories() format
         """
+        kimchiLock.acquire()
         repos = self._yb().repos
+        kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
@@ -242,14 +258,18 @@ class YumRepo(object):
         entry.name = config.get('repo_name', entry.name)
         entry.gpgcheck = config.get('gpgcheck', entry.gpgcheck)
         entry.gpgkey = config.get('gpgkey', entry.gpgkey)
+        kimchiLock.acquire()
         self._conf.writeRawRepoFile(entry)
+        kimchiLock.release()
         return repo_id
 
     def removeRepo(self, repo_id):
         """
         Remove a given repository
         """
+        kimchiLock.acquire()
         repos = self._yb().repos
+        kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
@@ -298,8 +318,10 @@ class AptRepo(object):
         return '%s-%s-%s' % (name, repo.dist, "-".join(repo.comps))
 
     def _get_source_entry(self, repo_id):
+        kimchiLock.acquire()
         repos = self._sourceslist()
         repos.refresh()
+        kimchiLock.release()
 
         for r in repos:
             # Ignore deb-src repositories
@@ -321,8 +343,10 @@ class AptRepo(object):
         internal control, the repository ID will be built as described in
         _get_repo_id()
         """
+        kimchiLock.acquire()
         repos = self._sourceslist()
         repos.refresh()
+        kimchiLock.release()
 
         res = []
         for r in repos:
@@ -366,10 +390,12 @@ class AptRepo(object):
         dist = config['dist']
         comps = config.get('comps', [])
 
+        kimchiLock.acquire()
         repos = self._sourceslist()
         repos.refresh()
         source_entry = repos.add('deb', uri, dist, comps, file=self.filename)
         repos.save()
+        kimchiLock.release()
 
         return self._get_repo_id(source_entry)
 
@@ -392,18 +418,22 @@ class AptRepo(object):
         else:
             line = '#deb'
 
+        kimchiLock.acquire()
         try:
             repos = self._sourceslist()
             repos.refresh()
             repos.remove(r)
             repos.add(line, r.uri, r.dist, r.comps, file=self.filename)
             repos.save()
-            return repo_id
         except:
             if enable:
                 raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
             raise OperationFailed("KCHREPOS0021E", {'repo_id': repo_id})
+        finally:
+            kimchiLock.release()
+
+        return repo_id
 
     def updateRepo(self, repo_id, params):
         """
@@ -434,6 +464,7 @@ class AptRepo(object):
         if r is None:
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
+        kimchiLock.acquire()
         try:
             repos = self._sourceslist()
             repos.refresh()
@@ -441,3 +472,5 @@ class AptRepo(object):
             repos.save()
         except:
             raise OperationFailed("KCHREPOS0017E", {'repo_id': repo_id})
+        finally:
+            kimchiLock.release()
