@@ -848,19 +848,16 @@ Contains the information for a specific package to be updated.
 
 * **GET**: Retrieve a summarized list of all repositories available
 * **POST**: Add a new repository
-    * repo_id *(optional)*: Unique repository name for each repository,
-one word.
     * baseurl: URL to the repodata directory when "is_mirror" is false.
 Otherwise, it can be URL to the mirror system for YUM. Can be an
 http://, ftp:// or file://  URL.
-    * is_mirror *(optional)*: Set the given URI of baseurl as a mirror
-list, instead of use baseurl in repository configuration.
-    * url_args *(optional)*: Arguments to be passed to baseurl, like the
-list of APT repositories provided by the same baseurl.
-    * gpgkey *(optional)*: URL pointing to the ASCII-armored GPG key
-file for the repository. This option is used if yum needs a public key
-to verify a package and the required key hasn't been imported into the
-RPM database.
+    * repo_id *(optional)*: Unique YUM repository ID
+    * config: A dictionary that contains specific data according to repository
+      type.
+        * mirrorlist *(optional)*: Specifies a URL to a file containing a
+          list of baseurls for YUM repository
+        * dist: Distribution to DEB repository
+        * comps *(optional)*: List of components to DEB repository
 
 ### Resource: Repository
 
@@ -870,47 +867,38 @@ RPM database.
 
 * **GET**: Retrieve the full description of a Repository
     * repo_id: Unique repository name for each repository, one word.
-    * repo_name: Human-readable string describing the repository.
     * baseurl: URL to the repodata directory when "is_mirror" is false.
 Otherwise, it can be URL to the mirror system for YUM. Can be an
 http://, ftp:// or file://  URL.
-    * is_mirror: Set the given URI of baseurl as a mirror list, instead
-of use baseurl in repository configuration.
-    * url_args: Arguments to be passed to baseurl, like the list of APT
-repositories provided by the same baseurl.
-    * enabled: Indicates if repository should be included as a package
-source:
-        * false: Do not include the repository.
-        * true: Include the repository.
-    * gpgcheck: Indicates if a GPG signature check on the packages gotten
-from repository should be performed:
-        * false: Do not check GPG signature
-        * true: Check GPG signature
-    * gpgkey: URL pointing to the ASCII-armored GPG key file for the
-repository. This option is used if yum needs a public key to verify a package
-and the required key hasn't been imported into the RPM database.
+    * enabled: True, when repository is enabled; False, otherwise
+    * config: A dictionary that contains specific data according to repository
+      type.
+        * repo_name: Human-readable string describing the YUM repository.
+        * mirrorlist: Specifies a URL to a file containing a list of baseurls
+          for YUM repository
+        * gpgcheck: True, to enable GPG signature verification; False, otherwise.
+        * gpgkey: URL pointing to the ASCII-armored GPG key file for the YUM
+          repository.
+        * dist: Distribution to DEB repository
+        * comps: List of components to DEB repository
+
 * **DELETE**: Remove the Repository
 * **POST**: *See Repository Actions*
 * **PUT**: update the parameters of existing Repository
-    * repo_id *(otional)*: Unique repository name for each repository,
-one word.
-    * repo_name *(otional)*: Human-readable string describing the
-repository.
-    * baseurl *(optional)*: URL to the repodata directory when
-"is_mirror" is false. Otherwise, it can be URL to the mirror system for
-YUM. Can be an http://, ftp:// or file://  URL.
-    * is_mirror *(optional)*: Set the given URI of baseurl as a mirror
-list, instead of use baseurl in repository configuration.
-    * url_args *(optional)*: Arguments to be passed to baseurl, like the
-list of APT repositories provided by the same baseurl.
-    * gpgcheck *(optional)*: Indicates if a GPG signature check on the
-packages gotten from repository should be performed:
-        * false: Do not check GPG signature
-        * true: Check GPG signature
-    * gpgkey *(optional)*: URL pointing to the ASCII-armored GPG key
-file for the repository. This option is used if yum needs a public key
-to verify a package and the required key hasn't been imported into the
-RPM database.
+    * repo_id: Unique repository name for each repository, one word.
+    * baseurl: URL to the repodata directory when "is_mirror" is false.
+Otherwise, it can be URL to the mirror system for YUM. Can be an
+http://, ftp:// or file://  URL.
+    * config: A dictionary that contains specific data according to repository
+      type.
+        * repo_name: Human-readable string describing the YUM repository.
+        * mirrorlist: Specifies a URL to a file containing a list of baseurls
+          for YUM repository
+        * gpgcheck: True, to enable GPG signature verification; False, otherwise.
+        * gpgkey: URL pointing to the ASCII-armored GPG key file for the YUM
+          repository.
+        * dist: Distribution to DEB repository
+        * comps: List of components to DEB repository
 
 **Actions (POST):**
 
