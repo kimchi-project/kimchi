@@ -18,9 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
+import time
+import urlparse
+
+from ConfigParser import ConfigParser
 
 from kimchi.basemodel import Singleton
-from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import InvalidOperation
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 
 
@@ -31,14 +35,6 @@ class Repositories(object):
     Class to represent and operate with repositories information.
     """
     def __init__(self):
-        # This stores all repositories for Kimchi perspective. It's a
-        # dictionary of dictionaries, in the format {<repo_id>: {repo}},
-        # where:
-        # repo = {'repo_id': <string>, 'repo_name': <string>,
-        #        'baseurl': ([<string>], None), 'url_args': ([<string>, None),
-        #        'enabled': True/False, 'gpgcheck': True/False,
-        #        'gpgkey': ([<string>], None),
-        #        'is_mirror': True/False}
         try:
             __import__('yum')
             self._pkg_mnger = YumRepo()
@@ -47,45 +43,13 @@ class Repositories(object):
                 __import__('apt_pkg')
                 self._pkg_mnger = AptRepo()
             except ImportError:
-                raise InvalidOperation('KCHREPOS0019E')
+                raise InvalidOperation('KCHREPOS0014E')
 
-        self._repo_storage = {}
-        # update the self._repo_storage with system's repositories
-        self._scanSystemRepositories()
-
-    def _scanSystemRepositories(self):
+    def addRepository(self, params):
         """
-        Update repositories._repo_storage with system's (host) repositories.
+        Add and enable a new repository
         """
-        # Call system pkg_mnger to get the repositories as list of dict.
-        for repo in self._pkg_mnger.getRepositoriesList():
-            self.addRepository(repo)
-
-    def addRepository(self, params={}):
-        """
-        Add and enable a new repository into repositories._repo_storage.
-        """
-        # Create and enable the repository
-        repo_id = params.get('repo_id')
-        repo = {'repo_id': repo_id,
-                'repo_name': params.get('repo_name', repo_id),
-                'baseurl': params.get('baseurl'),
-                'url_args': params.get('url_args', None),
-                'enabled': True,
-                'gpgkey': params.get('gpgkey', None),
-                'is_mirror': params.get('is_mirror', False)}
-
-        if repo['gpgkey'] is not None:
-            repo['gpgcheck'] = True
-        else:
-            repo['gpgcheck'] = False
-
-        self._repo_storage[repo_id] = repo
-
-        # Check in self._pkg_mnger if the repository already exists there
-        if not repo_id in [irepo['repo_id'] for irepo in
-                           self._pkg_mnger.getRepositoriesList()]:
-            self._pkg_mnger.addRepo(repo)
+        return self._pkg_mnger.addRepo(params)
 
     def getRepositories(self):
         """
@@ -93,98 +57,41 @@ class Repositories(object):
         the format {<repo_id>: {repo}}, where repo is a dictionary in the
         repositories.Repositories() format.
         """
-        return self._repo_storage
+        return self._pkg_mnger.getRepositoriesList()
 
     def getRepository(self, repo_id):
         """
         Return a dictionary with all info from a given repository ID.
         """
-        if not repo_id in self._repo_storage.keys():
-            raise NotFoundError("KCHREPOS0010E", {'repo_id': repo_id})
-
-        repo = self._repo_storage[repo_id]
-        if (isinstance(repo['baseurl'], list)) and (len(repo['baseurl']) > 0):
-            repo['baseurl'] = repo['baseurl'][0]
-
-        return repo
-
-    def getRepositoryFromPkgMnger(self, repo_id):
-        """
-        Return a dictionary with all info from a given repository ID.
-        All info come from self._pkg_mnger.getRepo().
-        """
-        return self._pkg_mnger.getRepo(repo_id)
-
-    def enabledRepositories(self):
-        """
-        Return a list with enabled repositories IDs.
-        """
-        enabled_repos = []
-        for repo_id in self._repo_storage.keys():
-            if self._repo_storage[repo_id]['enabled']:
-                enabled_repos.append(repo_id)
-        return enabled_repos
+        info = self._pkg_mnger.getRepo(repo_id)
+        info['repo_id'] = repo_id
+        return info
 
     def enableRepository(self, repo_id):
         """
         Enable a repository.
         """
-        # Check if repo_id is already enabled
-        if repo_id in self.enabledRepositories():
-            raise NotFoundError("KCHREPOS0011E", {'repo_id': repo_id})
-
-        try:
-            repo = self.getRepository(repo_id)
-            repo['enabled'] = True
-            self.updateRepository(repo_id, repo)
-            self._pkg_mnger.enableRepo(repo_id)
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
+        return self._pkg_mnger.toggleRepo(repo_id, True)
 
     def disableRepository(self, repo_id):
         """
         Disable a given repository.
         """
-        # Check if repo_id is already disabled
-        if not repo_id in self.enabledRepositories():
-            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+        return self._pkg_mnger.toggleRepo(repo_id, False)
 
-        try:
-            repo = self.getRepository(repo_id)
-            repo['enabled'] = False
-            self.updateRepository(repo_id, repo)
-            self._pkg_mnger.disableRepo(repo_id)
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
-
-    def updateRepository(self, repo_id, new_repo={}):
+    def updateRepository(self, repo_id, params):
         """
         Update the information of a given repository.
         The input is the repo_id of the repository to be updated and a dict
         with the information to be updated.
         """
-        if (len(new_repo) == 0):
-            raise InvalidParameter("KCHREPOS0013E")
-
-        repo = self._repo_storage[repo_id]
-        repo.update(new_repo)
-
-        del self._repo_storage[repo_id]
-        self._repo_storage[repo_id] = repo
-        self._pkg_mnger.updateRepo(repo_id, self._repo_storage[repo_id])
+        return self._pkg_mnger.updateRepo(repo_id, params)
 
     def removeRepository(self, repo_id):
         """
         Remove a given repository
         """
-        if not repo_id in self._repo_storage.keys():
-            raise NotFoundError("KCHREPOS0010E", {'repo_id': repo_id})
-
-        del self._repo_storage[repo_id]
-        self._pkg_mnger.removeRepo(repo_id)
-        return True
+        return self._pkg_mnger.removeRepo(repo_id)
 
 
 class YumRepo(object):
@@ -194,219 +101,170 @@ class YumRepo(object):
     modules in runtime.
     """
     TYPE = 'yum'
+    DEFAULT_CONF_DIR = "/etc/yum.repos.d"
 
     def __init__(self):
-        self._yb = getattr(__import__('yum'), 'YumBase')()
-        self._repos = self._yb.repos
-        self._conf = self._yb.conf
-        self._enabled_repos = self._repos.listEnabled()
+        self._yb = getattr(__import__('yum'), 'YumBase')
+        self._conf = getattr(__import__('yum'), 'config')
+
+        self._confdir = self.DEFAULT_CONF_DIR
+        reposdir = self._yb().conf.reposdir
+        for d in reposdir:
+            if os.path.isdir(d):
+                self._confdir = d
+                break
 
     def getRepositoriesList(self):
         """
-        Return a list of dictionaries in the repositories.Repositories() format
+        Return a list of repositories IDs
         """
-        repo_list = []
-        for repo in self.enabledRepos():
-            irepo = {}
-            irepo['repo_id'] = repo.id
-            irepo['repo_name'] = repo.name
-            irepo['url_args'] = None,
-            irepo['enabled'] = repo.enabled
-            irepo['gpgcheck'] = repo.gpgcheck
-            irepo['gpgkey'] = repo.gpgkey
-            if len(repo.baseurl) > 0:
-                irepo['baseurl'] = repo.baseurl
-                irepo['is_mirror'] = False
-            else:
-                irepo['baseurl'] = [repo.mirrorlist]
-                irepo['is_mirror'] = True
-            repo_list.append(irepo)
-        return repo_list
-
-    def addRepo(self, repo={}):
-        """
-        Add a given repository in repositories.Repositories() format to YumBase
-        """
-        if len(repo) == 0:
-            raise InvalidParameter("KCHREPOS0013E")
-
-        # At least one base url, or one mirror, must be given.
-        # baseurls must be a list of strings specifying the urls
-        # mirrorlist must be a list of strings specifying a list of mirrors
-        # Here we creates the lists, or set as None
-        if repo['is_mirror']:
-            mirrors = repo['baseurl']
-            baseurl = None
-        else:
-            baseurl = [repo['baseurl']]
-            mirrors = None
-
-        self._yb.add_enable_repo(repo['repo_id'], baseurl, mirrors,
-                                 name=repo['repo_name'],
-                                 gpgcheck=repo['gpgcheck'],
-                                 gpgkey=[repo['gpgkey']])
-
-        # write a repo file in the system with repo{} information.
-        self._write2disk(repo)
+        return self._yb().repos.repos.keys()
 
     def getRepo(self, repo_id):
         """
         Return a dictionary in the repositories.Repositories() of the given
         repository ID format with the information of a YumRepository object.
         """
+        repos = self._yb().repos
+        if repo_id not in repos.repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        entry = repos.getRepo(repo_id)
+
+        info = {}
+        info['enabled'] = entry.enabled
+
+        baseurl = ''
+        if entry.baseurl:
+            baseurl = entry.baseurl[0]
+
+        info['baseurl'] = baseurl
+        info['config'] = {}
+        info['config']['repo_name'] = entry.name
+        info['config']['gpgcheck'] = entry.gpgcheck
+        info['config']['gpgkey'] = entry.gpgkey
+        info['config']['mirrorlist'] = entry.mirrorlist or ''
+        return info
+
+    def addRepo(self, params):
+        """
+        Add a given repository to YumBase
+        """
+        # At least one base url, or one mirror, must be given.
+        baseurl = params.get('baseurl', '')
+
+        config = params.get('config', {})
+        mirrorlist = config.get('mirrorlist', '')
+        if not baseurl and not mirrorlist:
+            raise MissingParameter("KCHREPOS0013E")
+
+        repo_id = params.get('repo_id', None)
+        if repo_id is None:
+            repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
+
+        repos = self._yb().repos
+        if repo_id in repos.repos.keys():
+            raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
+
+        repo_name = params.get('repo_name', None)
+        if repo_name is None:
+            repo_name = repo_id
+
+        repo = {'baseurl': baseurl, 'mirrorlist': mirrorlist,
+                'name': repo_name, 'gpgcheck': 1,
+                'gpgkey': [], 'enabled': 1}
+
+        # write a repo file in the system with repo{} information.
+        parser = ConfigParser()
+        parser.add_section(repo_id)
+
+        for key, value in repo.iteritems():
+            if value:
+                parser.set(repo_id, key, value)
+
+        repofile = os.path.join(self._confdir, repo_id + '.repo')
         try:
-            repo = self._repos.getRepo(repo_id)
-            irepo = {}
-            irepo['repo_id'] = repo.id
-            irepo['repo_name'] = repo.name
-            irepo['url_args'] = None,
-            irepo['enabled'] = repo.enabled
-            irepo['gpgcheck'] = repo.gpgcheck
-            irepo['gpgkey'] = repo.gpgkey
-            if len(repo.baseurl) > 0:
-                irepo['baseurl'] = repo.baseurl
-                irepo['is_mirror'] = False
+            with open(repofile, 'w') as fd:
+                parser.write(fd)
+        except:
+            raise OperationFailed("KCHREPOS0018E",
+                                  {'repo_file': repofile})
+
+        return repo_id
+
+    def toggleRepo(self, repo_id, enable):
+        repos = self._yb().repos
+        if repo_id not in repos.repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        entry = repos.getRepo(repo_id)
+        if enable and entry.enabled:
+            raise InvalidOperation("KCHREPOS0015E", {'repo_id': repo_id})
+
+        if not enable and not entry.enabled:
+            raise InvalidOperation("KCHREPOS0016E", {'repo_id': repo_id})
+
+        try:
+            if enable:
+                entry.enable()
             else:
-                irepo['baseurl'] = [repo.mirrorlist]
-                irepo['is_mirror'] = True
-            return irepo
+                entry.disable()
+
+            self._conf.writeRawRepoFile(entry)
+            return repo_id
         except:
-            raise OperationFailed("KCHREPOS0010E", {'repo_id': repo_id})
+            if enable:
+                raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
-    def enabledRepos(self):
-        """
-        Return a list with enabled YUM repositories IDs
-        """
-        return self._enabled_repos
+            raise OperationFailed("KCHREPOS0021E", {'repo_id': repo_id})
 
-    def isRepoEnable(self, repo_id):
-        """
-        Return if a given repository ID is enabled or not
-        """
-        for repo in self.enabledRepos():
-            if repo_id == repo.id:
-                return True
-        return False
-
-    def enableRepo(self, repo_id):
-        """
-        Enable a given repository
-        """
-        try:
-            self._repos.getRepo(repo_id).enable()
-            self._repos.doSetup()
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
-
-    def disableRepo(self, repo_id):
-        """
-        Disable a given repository
-        """
-        try:
-            self._repos.getRepo(repo_id).disable()
-            self._repos.doSetup()
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
-
-    def updateRepo(self, repo_id, repo={}):
+    def updateRepo(self, repo_id, params):
         """
         Update a given repository in repositories.Repositories() format
         """
-        if len(repo) == 0:
-            raise MissingParameter("KCHREPOS0013E")
+        repos = self._yb().repos
+        if repo_id not in repos.repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        self._repos.delete(repo_id)
-        self.addRepo(repo)
+        config = params.get('config', {})
+        entry = repos.getRepo(repo_id)
+
+        baseurl = params.get('baseurl', None)
+        mirrorlist = config.get('mirrorlist', None)
+
+        if baseurl is not None:
+            entry.baseurl = baseurl
+
+        if mirrorlist is not None:
+            entry.mirrorlist = mirrorlist
+
+        entry.id = params.get('repo_id', repo_id)
+        entry.name = config.get('repo_name', entry.name)
+        entry.gpgcheck = config.get('gpgcheck', entry.gpgcheck)
+        entry.gpgkey = config.get('gpgkey', entry.gpgkey)
+        self._conf.writeRawRepoFile(entry)
+        return repo_id
 
     def removeRepo(self, repo_id):
         """
         Remove a given repository
         """
-        try:
-            self._repos.delete(repo_id)
-            self._removefromdisk(repo_id)
-        except:
-            raise OperationFailed("KCHREPOS0018E", {'repo_id': repo_id})
+        repos = self._yb().repos
+        if repo_id not in repos.repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-    def _write2disk(self, repo={}):
-        """
-        Write repository info into disk.
-        """
-        # Get a list with all reposdir configured in system's YUM.
-        conf_dir = self._conf.reposdir
-        if not conf_dir:
-            raise NotFoundError("KCHREPOS0015E")
+        entry = repos.getRepo(repo_id)
+        parser = ConfigParser()
+        with open(entry.repofile) as fd:
+            parser.readfp(fd)
 
-        if len(repo) == 0:
-            raise InvalidParameter("KCHREPOS0016E")
+        if len(parser.sections()) == 1:
+            os.remove(entry.repofile)
+            return
 
-        # Generate the content to be wrote.
-        repo_content = '[%s]\n' % repo['repo_id']
-        repo_content = repo_content + 'name=%s\n' % repo['repo_name']
-
-        if isinstance(repo['baseurl'], list):
-            link = repo['baseurl'][0]
-        else:
-            link = repo['baseurl']
-
-        if repo['is_mirror']:
-            repo_content = repo_content + 'mirrorlist=%s\n' % link
-        else:
-            repo_content = repo_content + 'baseurl=%s\n' % link
-
-        if repo['enabled']:
-            repo_content = repo_content + 'enabled=1\n'
-        else:
-            repo_content = repo_content + 'enabled=0\n'
-
-        if repo['gpgcheck']:
-            repo_content = repo_content + 'gpgcheck=1\n'
-        else:
-            repo_content = repo_content + 'gpgcheck=0\n'
-
-        if repo['gpgkey']:
-            if isinstance(repo['gpgkey'], list):
-                link = repo['gpgkey'][0]
-            else:
-                link = repo['gpgkey']
-            repo_content = repo_content + 'gpgckey=%s\n' % link
-
-        # Scan for the confdirs and write the file in the first available
-        # directory in the system. YUM will scan each confdir for repo files
-        # and load it contents, so we can write in the first available dir.
-        for dir in conf_dir:
-            if os.path.isdir(dir):
-                repo_file = dir + '/%s.repo' % repo['repo_id']
-                if os.path.isfile(repo_file):
-                    os.remove(repo_file)
-
-                try:
-                    with open(repo_file, 'w') as fd:
-                        fd.write(repo_content)
-                        fd.close()
-                except:
-                    raise OperationFailed("KCHREPOS0017E",
-                                          {'repo_file': repo_file})
-                break
-        return True
-
-    def _removefromdisk(self, repo_id):
-        """
-        Delete the repo file from disk of a given repository
-        """
-        conf_dir = self._conf.reposdir
-        if not conf_dir:
-            raise NotFoundError("KCHREPOS0015E")
-
-        for dir in conf_dir:
-            if os.path.isdir(dir):
-                repo_file = dir + '/%s.repo' % repo_id
-                if os.path.isfile(repo_file):
-                    os.remove(repo_file)
-
-        return True
+        parser.remove_section(repo_id)
+        with open(entry.repofile, "w") as fd:
+            parser.write(fd)
 
 
 class AptRepo(object):
@@ -416,179 +274,170 @@ class AptRepo(object):
     modules in runtime.
     """
     TYPE = 'deb'
+    KIMCHI_LIST = "kimchi-source.list"
 
     def __init__(self):
         getattr(__import__('apt_pkg'), 'init_config')()
         getattr(__import__('apt_pkg'), 'init_system')()
-        self._config = getattr(__import__('apt_pkg'), 'config')
-        self._etc_slist = '/%s%s' % (self._config.get('Dir::Etc'),
-                          self._config.get('Dir::Etc::sourcelist'))
-        self._etc_sparts = '/%s%s' % (self._config.get('Dir::Etc'),
-                           self._config.get('Dir::Etc::sourceparts'))
-
+        config = getattr(__import__('apt_pkg'), 'config')
         module = __import__('aptsources.sourceslist', globals(), locals(),
                             ['SourcesList'], -1)
-        self._repos = getattr(module, 'SourcesList')()
+
+        self._sourceparts_path = '/%s%s' % (
+            config.get('Dir::Etc'), config.get('Dir::Etc::sourceparts'))
+        self._sourceslist = getattr(module, 'SourcesList')
+        self.filename = os.path.join(self._sourceparts_path, self.KIMCHI_LIST)
+        if not os.path.exists(self.filename):
+            with open(self.filename, 'w') as fd:
+                fd.write("# This file is managed by Kimchi and it must not "
+                         "be modified manually\n")
+
+    def _get_repo_id(self, repo):
+        data = urlparse.urlparse(repo.uri)
+        name = data.hostname or data.path
+        return '%s-%s-%s' % (name, repo.dist, "-".join(repo.comps))
+
+    def _get_source_entry(self, repo_id):
+        repos = self._sourceslist()
+        repos.refresh()
+
+        for r in repos:
+            # Ignore deb-src repositories
+            if r.type != 'deb':
+                continue
+
+            if self._get_repo_id(r) != repo_id:
+                continue
+
+            return r
+
+        return None
 
     def getRepositoriesList(self):
         """
-        Return a list of dictionaries in the repositories.Repositories() format
+        Return a list of repositories IDs
+
+        APT repositories there aren't the concept about repository ID, so for
+        internal control, the repository ID will be built as described in
+        _get_repo_id()
         """
-        repo_list = []
-        for repo in self.enabledRepos():
-            irepo = {}
-            if repo.file == self._etc_slist:
-                id = "%s%s" % (repo.uri.split("//")[1], repo.dist)
-            else:
-                id = repo.file.split('/')[-1].split('.')[0]
-            irepo['repo_id'] = id
-            irepo['baseurl'] = repo.uri
-            list = [repo.dist]
-            for comp in repo.comps:
-                list.append(comp)
-            irepo['url_args'] = list
-            irepo['enabled'] = True
-            irepo['is_mirror'] = False
-            irepo['gpgcheck'] = False
-            irepo['gpgkey'] = None
-            repo_list.append(irepo)
-        return repo_list
+        repos = self._sourceslist()
+        repos.refresh()
 
-    def addRepo(self, repo={}):
-        """
-        Add a given repository in repositories.Repositories() format to APT
-        """
-        if len(repo) == 0:
-            raise InvalidParameter("KCHREPOS0013E")
+        res = []
+        for r in repos:
+            # Ignore deb-src repositories
+            if r.type != 'deb':
+                continue
 
-        if repo['url_args'] is not None:
-            dist = repo['url_args'][0]
-            args = repo['url_args'][1:]
-        else:
-            dist = None
-            args = []
+            res.append(self._get_repo_id(r))
 
-        _file = '%s/%s.list' % (self._etc_sparts, repo['repo_id'])
-
-        self._repos.add('deb', repo['baseurl'], dist, args, file=_file)
-        self._repos.save()
+        return res
 
     def getRepo(self, repo_id):
         """
         Return a dictionary in the repositories.Repositories() format of the
         given repository ID with the information of a SourceEntry object.
         """
-        for repo in self.enabledRepos():
-            if repo.file == self._etc_slist:
-                id = "%s%s" % (repo.uri.split("//")[1], repo.dist)
-            else:
-                id = repo.file.split('/')[-1].split('.')[0]
+        r = self._get_source_entry(repo_id)
+        if r is None:
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-            if id != repo_id:
-                continue
+        info = {'enabled': not r.disabled,
+                'baseurl': r.uri,
+                'config': {'dist': r.dist,
+                           'comps': r.comps}}
+        return info
 
-            irepo = {}
-            irepo['repo_id'] = id
-            irepo['baseurl'] = repo.uri
-            list = [repo.dist]
-            for comp in repo.comps:
-                list.append(comp)
-            irepo['url_args'] = list
-            irepo['enabled'] = True
-            irepo['is_mirror'] = False
-            irepo['gpgcheck'] = False
-            irepo['gpgkey'] = None
-            return irepo
-        raise OperationFailed("KCHREPOS0010E", {'repo_id': repo_id})
-
-    def enabledRepos(self):
+    def addRepo(self, params):
         """
-        Return a list with enabled APT repositories
+        Add a new APT repository based on <params>
         """
-        enabled_repos = []
-        self._repos.refresh()
-        for repo in self._repos:
-            if (len(repo.str()) > 3) and (not repo.disabled):
-                if repo.type == 'deb':
-                    enabled_repos.append(repo)
-        return enabled_repos
+        # To create a APT repository the dist is a required parameter
+        # (in addition to baseurl, verified on controller through API.json)
+        config = params.get('config', None)
+        if config is None:
+            raise MissingParameter("KCHREPOS0019E")
 
-    def enableRepo(self, repo_id):
+        if 'dist' not in config.keys():
+            raise MissingParameter("KCHREPOS0019E")
+
+        uri = params['baseurl']
+        dist = config['dist']
+        comps = config.get('comps', [])
+
+        repos = self._sourceslist()
+        repos.refresh()
+        source_entry = repos.add('deb', uri, dist, comps, file=self.filename)
+        repos.save()
+
+        return self._get_repo_id(source_entry)
+
+    def toggleRepo(self, repo_id, enable):
         """
         Enable a given repository
         """
-        try:
-            lrepo = self._genSourceLine(repo_id)
-            self._repos.refresh()
-            for repo in self._repos:
-                if repo.disabled and (lrepo == repo.line):
-                    repo.set_enabled('True')
-                    self._repos.save()
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
+        r = self._get_source_entry(repo_id)
+        if r is None:
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-    def disableRepo(self, repo_id):
-        """
-        Disable a given repository
-        """
-        try:
-            lrepo = self._genSourceLine(repo_id)
-            self._repos.refresh()
-            for repo in self._repos:
-                if (not repo.disabled) and (lrepo == repo.line):
-                    repo.set_enabled('False')
-                    self._repos.save()
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
+        if enable and not r.disabled:
+            raise InvalidOperation("KCHREPOS0015E", {'repo_id': repo_id})
 
-    def updateRepo(self, repo_id, repo={}):
+        if not enable and r.disabled:
+            raise InvalidOperation("KCHREPOS0016E", {'repo_id': repo_id})
+
+        if enable:
+            line = 'deb'
+        else:
+            line = '#deb'
+
+        try:
+            repos = self._sourceslist()
+            repos.refresh()
+            repos.remove(r)
+            repos.add(line, r.uri, r.dist, r.comps, file=self.filename)
+            repos.save()
+            return repo_id
+        except:
+            if enable:
+                raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
+
+            raise OperationFailed("KCHREPOS0021E", {'repo_id': repo_id})
+
+    def updateRepo(self, repo_id, params):
         """
         Update a given repository in repositories.Repositories() format
         """
-        if len(repo) == 0:
-            raise MissingParameter("KCHREPOS0013E")
+        r = self._get_source_entry(repo_id)
+        if r is None:
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        info = {'enabled': not r.disabled,
+                'baseurl': params.get('baseurl', r.uri),
+                'config': {'type': 'deb', 'dist': r.dist,
+                           'comps': r.comps}}
+
+        if 'config' in params.keys():
+            config = params['config']
+            info['config']['dist'] = config.get('dist', r.dist)
+            info['config']['comps'] = config.get('comps', r.comps)
 
         self.removeRepo(repo_id)
-        self.addRepo(repo)
+        return self.addRepo(info)
 
     def removeRepo(self, repo_id):
         """
         Remove a given repository
         """
+        r = self._get_source_entry(repo_id)
+        if r is None:
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
         try:
-            lrepo = self._genSourceLine(repo_id)
-            self._repos.refresh()
-            for repo in self._repos:
-                if lrepo == repo.line:
-                    self._repos.remove(repo)
-                    self._repos.save()
-                    self._removefromdisk(repo_id)
+            repos = self._sourceslist()
+            repos.refresh()
+            repos.remove(r)
+            repos.save()
         except:
-            raise OperationFailed("KCHREPOS0018E", {'repo_id': repo_id})
-
-    def _genSourceLine(self, repo_id):
-        """
-        Generate a source.list line from repo_id information.
-        """
-        line = ''
-        repo = self.getRepo(repo_id)
-        if repo['enabled']:
-            line = 'deb '
-        else:
-            line = '#deb '
-        line = line + repo['baseurl'] + ' '
-        line = line + ' '.join(repo['url_args'])
-        line = line + '\n'
-        return line
-
-    def _removefromdisk(self, repo_id):
-        """
-        Delete the repo file from disk of a given repository
-        """
-        if os.path.isdir(self._etc_sparts):
-            _file = '%s/%s.list' % (self._etc_sparts, repo_id)
-            if os.path.isfile(_file):
-                os.remove(_file)
-        return True
+            raise OperationFailed("KCHREPOS0017E", {'repo_id': repo_id})
