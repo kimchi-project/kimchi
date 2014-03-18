@@ -26,6 +26,7 @@ from kimchi.control.utils import get_class_name, internal_redirect, model_fn
 from kimchi.control.utils import parse_request, validate_method
 from kimchi.control.utils import validate_params
 from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import KimchiException
 from kimchi.exception import MissingParameter, NotFoundError,  OperationFailed
 
 
@@ -87,6 +88,8 @@ class Resource(object):
                 raise cherrypy.HTTPError(500, e.message)
             except NotFoundError, e:
                 raise cherrypy.HTTPError(404, e.message)
+            except KimchiException, e:
+                raise cherrypy.HTTPError(500, e.message)
 
         wrapper.__name__ = action_name
         wrapper.exposed = True
@@ -116,31 +119,20 @@ class Resource(object):
     @cherrypy.expose
     def index(self):
         method = validate_method(('GET', 'DELETE', 'PUT'))
-        if method == 'GET':
-            try:
-                return self.get()
-            except NotFoundError, e:
-                raise cherrypy.HTTPError(404, e.message)
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except OperationFailed, e:
-                raise cherrypy.HTTPError(406, e.message)
-        elif method == 'DELETE':
-            try:
-                return self.delete()
-            except NotFoundError, e:
-                raise cherrypy.HTTPError(404, e.message)
-            except InvalidParameter, e:
-                raise cherrypy.HTTPError(400, e.message)
-        elif method == 'PUT':
-            try:
-                return self.update()
-            except InvalidParameter, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except NotFoundError, e:
-                raise cherrypy.HTTPError(404, e.message)
+        try:
+            return {'GET': self.get,
+                    'DELETE': self.delete,
+                    'PUT': self.update}[method]()
+        except InvalidOperation, e:
+            raise cherrypy.HTTPError(400, e.message)
+        except InvalidParameter, e:
+            raise cherrypy.HTTPError(400, e.message)
+        except NotFoundError, e:
+            raise cherrypy.HTTPError(404, e.message)
+        except OperationFailed, e:
+            raise cherrypy.HTTPError(500, e.message)
+        except KimchiException, e:
+            raise cherrypy.HTTPError(500, e.message)
 
     def update(self):
         try:
@@ -269,29 +261,25 @@ class Collection(object):
     @cherrypy.expose
     def index(self, *args, **kwargs):
         method = validate_method(('GET', 'POST'))
-        if method == 'GET':
-            try:
+        try:
+            if method == 'GET':
                 filter_params = cherrypy.request.params
                 validate_params(filter_params, self, 'get_list')
                 return self.get(filter_params)
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except NotFoundError, e:
-                raise cherrypy.HTTPError(404, e.message)
-
-        elif method == 'POST':
-            try:
+            elif method == 'POST':
                 return self.create(parse_request(), *args)
-            except MissingParameter, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except InvalidParameter, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except OperationFailed, e:
-                raise cherrypy.HTTPError(500, e.message)
-            except InvalidOperation, e:
-                raise cherrypy.HTTPError(400, e.message)
-            except NotFoundError, e:
-                raise cherrypy.HTTPError(404, e.message)
+        except InvalidOperation, e:
+            raise cherrypy.HTTPError(400, e.message)
+        except InvalidParameter, e:
+            raise cherrypy.HTTPError(400, e.message)
+        except MissingParameter, e:
+            raise cherrypy.HTTPError(400, e.message)
+        except NotFoundError, e:
+            raise cherrypy.HTTPError(404, e.message)
+        except OperationFailed, e:
+            raise cherrypy.HTTPError(500, e.message)
+        except KimchiException, e:
+            raise cherrypy.HTTPError(500, e.message)
 
 
 class AsyncCollection(Collection):
