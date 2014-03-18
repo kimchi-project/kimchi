@@ -19,9 +19,14 @@
 
 import base64
 import cherrypy
+import fcntl
 import grp
+import multiprocessing
+import os
 import PAM
+import pty
 import re
+import termios
 import time
 
 
@@ -55,6 +60,18 @@ class User(object):
         return self.user[USER_GROUPS]
 
     def has_sudo(self):
+        result = multiprocessing.Value('i', 0, lock=False)
+        p = multiprocessing.Process(target=self._has_sudo, args=(result,))
+        p.start()
+        p.join()
+        self.user[USER_SUDO] = bool(result.value)
+        return self.user[USER_SUDO]
+
+    def _has_sudo(self, result):
+        _master, slave = pty.openpty()
+        os.setsid()
+        fcntl.ioctl(slave, termios.TIOCSCTTY, 0)
+
         out, err, exit = run_command(['sudo', '-l', '-U', self.user[USER_ID],
                                       'sudo'])
         if exit == 0:
@@ -67,15 +84,14 @@ class User(object):
                                           self.user[USER_ID]])
             for line in out.split('\n'):
                 if line and re.search("(ALL)", line):
-                    self.user[USER_SUDO] = True
+                    result.value = 1
                     debug("User %s can run any command with sudo" %
-                          self.user[USER_ID])
-                    return self.user[USER_SUDO]
+                          result.value)
+                    return
             debug("User %s can only run some commands with sudo" %
                   self.user[USER_ID])
         else:
             debug("User %s is not allowed to run sudo" % self.user[USER_ID])
-        return self.user[USER_SUDO]
 
     def get_user(self):
         return self.user

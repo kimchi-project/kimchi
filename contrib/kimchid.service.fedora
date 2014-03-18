@@ -8,9 +8,6 @@ Type=simple
 ExecStart=/usr/bin/kimchid
 ExecStop=/bin/kill -TERM $MAINPID
 EnvironmentFile=/etc/kimchi/kimchi.conf
-StandardInput=tty
-StandardOutput=tty
-TTYPath=/dev/tty11
 
 [Install]
 WantedBy=multi-user.target
