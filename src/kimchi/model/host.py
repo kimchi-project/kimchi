@@ -325,21 +325,7 @@ class RepositoriesModel(object):
         if self.host_repositories is None:
             raise InvalidOperation('KCHREPOS0014E')
 
-        repo_id = params.get('repo_id', None)
-
-        # Create a repo_id if not given by user. The repo_id will follow
-        # the format kimchi_repo_<integer>, where integer is the number of
-        # seconds since the Epoch (January 1st, 1970), in UTC.
-        if repo_id is None:
-            repo_id = "kimchi_repo_%s" % int(time.time())
-            while repo_id in self.get_list():
-                repo_id = "kimchi_repo_%s" % int(time.time())
-            params.update({'repo_id': repo_id})
-
-        if repo_id in self.get_list():
-            raise InvalidOperation("KCHREPOS0006E", {'repo_id': repo_id})
-        self.host_repositories.addRepository(params)
-        return repo_id
+        return self.host_repositories.addRepository(params)
 
 
 class RepositoryModel(object):
