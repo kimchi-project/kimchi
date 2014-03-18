@@ -840,22 +840,20 @@ class MockModel(object):
         return self.task_lookup(task_id)
 
     def repositories_get_list(self):
-        return self._mock_host_repositories.getRepositories().keys()
+        return self._mock_host_repositories.getRepositories()
 
     def repositories_create(self, params):
-        repo_id = params.get('repo_id', None)
-
         # Create a repo_id if not given by user. The repo_id will follow
         # the format kimchi_repo_<integer>, where integer is the number of
         # seconds since the Epoch (January 1st, 1970), in UTC.
+        repo_id = params.get('repo_id', None)
         if repo_id is None:
-            repo_id = "kimchi_repo_%s" % int(time.time())
-            while repo_id in self.repositories_get_list():
-                repo_id = "kimchi_repo_%s" % int(time.time())
+            repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
             params.update({'repo_id': repo_id})
 
         if repo_id in self.repositories_get_list():
-            raise InvalidOperation("KCHREPOS0006E", {'repo_id': repo_id})
+            raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
+
         self._mock_host_repositories.addRepository(params)
         return repo_id
 
@@ -866,19 +864,13 @@ class MockModel(object):
         return self._mock_host_repositories.removeRepository(repo_id)
 
     def repository_enable(self, repo_id):
-        if not self._mock_host_repositories.enableRepository(repo_id):
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
+        return self._mock_host_repositories.enableRepository(repo_id)
 
     def repository_disable(self, repo_id):
-        if not self._mock_host_repositories.disableRepository(repo_id):
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
+        return self._mock_host_repositories.disableRepository(repo_id)
 
     def repository_update(self, repo_id, params):
-        try:
-            self._mock_host_repositories.updateRepository(repo_id, params)
-        except:
-            raise OperationFailed("KCHREPOS0009E", {'repo_id': repo_id})
-        return repo_id
+        return self._mock_host_repositories.updateRepository(repo_id, params)
 
 
 class MockVMTemplate(VMTemplate):
@@ -1129,95 +1121,82 @@ class MockSoftwareUpdate(object):
 
 class MockRepositories(object):
     def __init__(self):
-        self._repo_storage = {"kimchi_repo_1392167832":
-                              {"repo_id": "kimchi_repo_1392167832",
-                               "gpgkey": None,
-                               "enabled": True,
-                               "baseurl": "http://www.fedora.org",
-                               "url_args": None,
-                               "gpgcheck": True,
-                               "is_mirror": False,
-                               "repo_name": "kimchi_repo_1392167832"}}
+        self._repos = {"kimchi_repo_1392167832":
+                       {"repo_id": "kimchi_repo_1392167832",
+                        "enabled": True,
+                        "baseurl": "http://www.fedora.org",
+                        "config": {"repo_name": "kimchi_repo_1392167832",
+                                   "gpgkey": [],
+                                   "gpgcheck": True,
+                                   "mirrorlist": ""}
+                        }
+                       }
 
-    def addRepository(self, params={}):
+    def addRepository(self, params):
         # Create and enable the repository
-        repo_id = params.get('repo_id')
+        repo_id = params['repo_id']
         repo = {'repo_id': repo_id,
-                'repo_name': params.get('repo_name', repo_id),
                 'baseurl': params.get('baseurl'),
-                'url_args': params.get('url_args', None),
                 'enabled': True,
-                'gpgkey': params.get('gpgkey', None),
-                'is_mirror': params.get('is_mirror', False)}
+                'config': {'repo_name': params.get('repo_name', repo_id),
+                           'gpgkey': params.get('gpgkey', []),
+                           'gpgcheck': True,
+                           'mirrorlist': params.get('mirrorlist', "")}
+                }
 
-        if repo['gpgkey'] is not None:
-            repo['gpgcheck'] = True
-        else:
-            repo['gpgcheck'] = False
-
-        self._repo_storage[repo_id] = repo
+        self._repos[repo_id] = repo
+        return repo_id
 
     def getRepositories(self):
-        return self._repo_storage
+        return self._repos.keys()
 
     def getRepository(self, repo_id):
-        if not repo_id in self._repo_storage.keys():
-            raise NotFoundError("KCHREPOS0010E", {'repo_id': repo_id})
-
-        repo = self._repo_storage[repo_id]
-        if (isinstance(repo['baseurl'], list)) and (len(repo['baseurl']) > 0):
-            repo['baseurl'] = repo['baseurl'][0]
-
-        return repo
-
-    def enabledRepositories(self):
-        enabled_repos = []
-        for repo_id in self._repo_storage.keys():
-            if self._repo_storage[repo_id]['enabled']:
-                enabled_repos.append(repo_id)
-        return enabled_repos
-
-    def enableRepository(self, repo_id):
-        # Check if repo_id is already enabled
-        if repo_id in self.enabledRepositories():
-            raise NotFoundError("KCHREPOS0011E", {'repo_id': repo_id})
-
-        try:
-            repo = self.getRepository(repo_id)
-            repo['enabled'] = True
-            self.updateRepository(repo_id, repo)
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0007E", {'repo_id': repo_id})
-
-    def disableRepository(self, repo_id):
-        # Check if repo_id is already disabled
-        if not repo_id in self.enabledRepositories():
+        if not repo_id in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        try:
-            repo = self.getRepository(repo_id)
-            repo['enabled'] = False
-            self.updateRepository(repo_id, repo)
-            return True
-        except:
-            raise OperationFailed("KCHREPOS0008E", {'repo_id': repo_id})
+        return self._repos[repo_id]
 
-    def updateRepository(self, repo_id, new_repo={}):
-        if (len(new_repo) == 0):
-            raise InvalidParameter("KCHREPOS0013E")
+    def enableRepository(self, repo_id):
+        if not repo_id in self._repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        repo = self._repo_storage[repo_id]
-        repo.update(new_repo)
-        del self._repo_storage[repo_id]
-        self._repo_storage[repo_id] = repo
+        info = self._repos[repo_id]
+        # Check if repo_id is already enabled
+        if info['enabled']:
+            raise NotFoundError("KCHREPOS0015E", {'repo_id': repo_id})
+
+        info['enabled'] = True
+        self._repos[repo_id] = info
+        return repo_id
+
+    def disableRepository(self, repo_id):
+        if not repo_id in self._repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        info = self._repos[repo_id]
+        # Check if repo_id is already disabled
+        if not info['enabled']:
+            raise NotFoundError("KCHREPOS0016E", {'repo_id': repo_id})
+
+        info['enabled'] = False
+        self._repos[repo_id] = info
+        return repo_id
+
+    def updateRepository(self, repo_id, params):
+        if not repo_id in self._repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        info = self._repos[repo_id]
+        info.update(params)
+        del self._repos[repo_id]
+        self._repos[info['repo_id']] = info
+        return info['repo_id']
 
     def removeRepository(self, repo_id):
-        if not repo_id in self._repo_storage.keys():
-            raise NotFoundError("KCHREPOS0010E", {'repo_id': repo_id})
+        if not repo_id in self._repos.keys():
+            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        del self._repo_storage[repo_id]
-        return True
+        del self._repos[repo_id]
 
 
 def get_mock_environment():
