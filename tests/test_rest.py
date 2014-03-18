@@ -1594,8 +1594,7 @@ class RestTests(unittest.TestCase):
 
     def test_repositories(self):
         def verify_repo(t, res):
-            for field in ('repo_id', 'repo_name', 'baseurl', 'is_mirror',
-                          'url_args', 'enabled', 'gpgcheck', 'gpgkey'):
+            for field in ('repo_id', 'enabled', 'baseurl', 'config'):
                 if field in t.keys():
                     self.assertEquals(t[field], res[field])
 
@@ -1617,9 +1616,10 @@ class RestTests(unittest.TestCase):
         verify_repo(repo, res)
 
         # Update the repository
-        repo['baseurl'] = 'http://www.fedora.org/update'
-        req = json.dumps(repo)
-        resp = self.request('%s/fedora-fake' % base_uri, req, 'PUT')
+        params = {}
+        params['baseurl'] = repo['baseurl'] = 'http://www.fedora.org/update'
+        resp = self.request('%s/fedora-fake' % base_uri, json.dumps(params),
+                            'PUT')
 
         # Verify the repository
         res = json.loads(self.request('%s/fedora-fake' % base_uri).read())

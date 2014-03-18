@@ -989,101 +989,136 @@ class ModelTests(unittest.TestCase):
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)
 
-        system_host_repos = len(inst.repositories_get_list())
+        yum_repos = [{'repo_id': 'fedora-fake',
+                      'baseurl': 'http://www.fedora.org'},
+                     {'repo_id': 'fedora-updates-fake',
+                      'config':
+                      {'mirrorlist': 'http://www.fedora.org/updates',
+                       'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}}]
 
-        test_repos = [{'repo_id': 'fedora-fake',
-                       'baseurl': 'http://www.fedora.org'},
-                      {'repo_id': 'fedora-updates-fake',
-                       'baseurl': 'http://www.fedora.org/updates',
-                       'is_mirror': True,
-                       'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}]
+        deb_repos = [{'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+                      'config': {'dist': 'quantal'}},
+                     {'baseurl': 'http://br.archive.kimchi.com/ubuntu/fake',
+                      'config': {'dist': 'quantal', 'comps': ['main']}}]
+
+        repo_type = inst.capabilities_lookup()['repo_mngt_tool']
+        if repo_type == 'yum':
+            test_repos = yum_repos
+        elif repo_type == 'deb':
+            test_repos = deb_repos
+        else:
+            # repository management tool was not recognized by Kimchi
+            # skip test case
+            return
 
         for repo in test_repos:
-            inst.repositories_create(repo)
-        host_repos = inst.repositories_get_list()
-        self.assertEquals(system_host_repos + len(test_repos), len(host_repos))
+            system_host_repos = len(inst.repositories_get_list())
+            repo_id = inst.repositories_create(repo)
+            host_repos = inst.repositories_get_list()
+            self.assertEquals(system_host_repos + 1, len(host_repos))
 
-        for repo in test_repos:
-            repo_info = inst.repository_lookup(repo.get('repo_id'))
-            self.assertEquals(repo.get('repo_id'), repo_info.get('repo_id'))
-            self.assertEquals(repo.get('baseurl', []),
-                              repo_info.get('baseurl'))
-            self.assertEquals(repo.get('is_mirror', False),
-                              repo_info.get('is_mirror'))
+            repo_info = inst.repository_lookup(repo_id)
+            self.assertEquals(repo_id, repo_info['repo_id'])
             self.assertEquals(True, repo_info.get('enabled'))
+            self.assertEquals(repo.get('baseurl', ''),
+                              repo_info.get('baseurl'))
 
-            if 'gpgkey' in repo.keys():
-                gpgcheck = True
+            original_config = repo.get('config', {})
+            config_info = repo_info.get('config', {})
+
+            if repo_type == 'yum':
+                self.assertEquals(original_config.get('mirrorlist', ''),
+                                  config_info.get('mirrorlist', ''))
+                self.assertEquals(True, config_info['gpgcheck'])
             else:
-                gpgcheck = False
+                self.assertEquals(original_config['dist'], config_info['dist'])
+                self.assertEquals(original_config.get('comps', []),
+                                  config_info.get('comps', []))
 
-            self.assertEquals(gpgcheck, repo_info.get('gpgcheck'))
+            inst.repository_delete(repo_id)
+            self.assertRaises(NotFoundError, inst.repository_lookup, repo_id)
 
         self.assertRaises(NotFoundError, inst.repository_lookup, 'google')
-
-        # remove files created
-        for repo in test_repos:
-            inst.repository_delete(repo['repo_id'])
-            self.assertRaises(NotFoundError,
-                              inst.repository_lookup, repo['repo_id'])
 
     def test_repository_update(self):
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)
 
+        yum_repo = {'repo_id': 'fedora-fake',
+                    'baseurl': 'http://www.fedora.org'}
+        yum_new_repo = {'baseurl': 'http://www.fedora.org/updates'}
+
+        deb_repo = {'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+                    'config': {'dist': 'quantal'}}
+        deb_new_repo = {'baseurl': 'http://archive.canonical.com/kimchi'}
+
+        repo_type = inst.capabilities_lookup()['repo_mngt_tool']
+        if repo_type == 'yum':
+            repo = yum_repo
+            new_repo = yum_new_repo
+        elif repo_type == 'deb':
+            repo = deb_repo
+            new_repo = deb_new_repo
+        else:
+            # repository management tool was not recognized by Kimchi
+            # skip test case
+            return
+
         system_host_repos = len(inst.repositories_get_list())
 
-        repo = {'repo_id': 'fedora-fake',
-                'repo_name': 'Fedora 19 FAKE',
-                'baseurl': 'http://www.fedora.org'}
-        inst.repositories_create(repo)
-
+        repo_id = inst.repositories_create(repo)
         host_repos = inst.repositories_get_list()
         self.assertEquals(system_host_repos + 1, len(host_repos))
 
-        new_repo = {'repo_id': 'fedora-fake',
-                    'repo_name': 'Fedora 19 Update FAKE',
-                    'baseurl': 'http://www.fedora.org/update'}
+        new_repo_id = inst.repository_update(repo_id, new_repo)
+        repo_info = inst.repository_lookup(new_repo_id)
 
-        inst.repository_update(repo['repo_id'], new_repo)
-        repo_info = inst.repository_lookup(new_repo.get('repo_id'))
-        self.assertEquals(new_repo.get('repo_id'), repo_info.get('repo_id'))
-        self.assertEquals(new_repo.get('repo_name'),
-                          repo_info.get('repo_name'))
-        self.assertEquals(new_repo.get('baseurl', None),
-                          repo_info.get('baseurl'))
-        self.assertEquals(True, repo_info.get('enabled'))
+        self.assertEquals(new_repo_id, repo_info['repo_id'])
+        self.assertEquals(new_repo['baseurl'], repo_info['baseurl'])
+        self.assertEquals(True, repo_info['enabled'])
 
         # remove files creates
-        inst.repository_delete(repo['repo_id'])
+        inst.repository_delete(new_repo_id)
 
     def test_repository_disable_enable(self):
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)
 
+        yum_repo = {'repo_id': 'fedora-fake',
+                    'baseurl': 'http://www.fedora.org'}
+        deb_repo = {'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+                    'config': {'dist': 'quantal'}}
+
+        repo_type = inst.capabilities_lookup()['repo_mngt_tool']
+        if repo_type == 'yum':
+            repo = yum_repo
+        elif repo_type == 'deb':
+            repo = deb_repo
+        else:
+            # repository management tool was not recognized by Kimchi
+            # skip test case
+            return
+
         system_host_repos = len(inst.repositories_get_list())
 
-        repo = {'repo_id': 'fedora-fake',
-                'repo_name': 'Fedora 19 FAKE',
-                'baseurl': 'http://www.fedora.org'}
-        inst.repositories_create(repo)
+        repo_id = inst.repositories_create(repo)
 
         host_repos = inst.repositories_get_list()
         self.assertEquals(system_host_repos + 1, len(host_repos))
 
-        repo_info = inst.repository_lookup(repo.get('repo_id'))
-        self.assertEquals(True, repo_info.get('enabled'))
+        repo_info = inst.repository_lookup(repo_id)
+        self.assertEquals(True, repo_info['enabled'])
 
-        inst.repository_disable(repo.get('repo_id'))
-        repo_info = inst.repository_lookup(repo.get('repo_id'))
-        self.assertEquals(False, repo_info.get('enabled'))
+        inst.repository_disable(repo_id)
+        repo_info = inst.repository_lookup(repo_id)
+        self.assertEquals(False, repo_info['enabled'])
 
-        inst.repository_enable(repo.get('repo_id'))
-        repo_info = inst.repository_lookup(repo.get('repo_id'))
-        self.assertEquals(True, repo_info.get('enabled'))
+        inst.repository_enable(repo_id)
+        repo_info = inst.repository_lookup(repo_id)
+        self.assertEquals(True, repo_info['enabled'])
 
         # remove files creates
-        inst.repository_delete(repo['repo_id'])
+        inst.repository_delete(repo_id)
 
 
 class BaseModelTests(unittest.TestCase):
