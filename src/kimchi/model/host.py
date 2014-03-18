@@ -319,7 +319,7 @@ class RepositoriesModel(object):
         if self.host_repositories is None:
             raise InvalidOperation('KCHREPOS0014E')
 
-        return self.host_repositories.getRepositories().keys()
+        return sorted(self.host_repositories.getRepositories())
 
     def create(self, params):
         if self.host_repositories is None:
