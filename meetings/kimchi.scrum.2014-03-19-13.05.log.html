@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:05:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 19 13:05:02 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:05:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-6"></a><span class="tm">13:05:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-7"></a><span class="tm">13:05:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:05:20</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-9"></a><span class="tm">13:05:37</span><span class="nk"> &lt;royce&gt;</span> good for me
+<a name="l-10"></a><span class="tm">13:06:03</span><span class="nk"> &lt;rotru&gt;</span> I don't think so
+<a name="l-11"></a><span class="tm">13:06:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">13:06:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">13:07:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to identify update tool based on system tools instead of checking platform.linux_distribution()</span>
+<a name="l-14"></a><span class="tm">13:07:50</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb still working on 'kimchi must no run as root' issue. I am having funny problems with the authentication headers that kimchi uses versus the new authentication headers it must use. I'll send a call for help if I feel I'm stuck</span>
+<a name="l-15"></a><span class="tm">13:07:56</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce finished scsi interface cdrom change, patch reviewed, but aline reported error on 12.10 ubuntu, tested it worked on 13.04 and 13.10, will test on others</span>
+<a name="l-16"></a><span class="tm">13:08:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to identify repository management tool based on system tools instead of checking platform.linux_distribution()</span>
+<a name="l-17"></a><span class="tm">13:08:42</span><span class="nk"> &lt;hlwanghl&gt;</span> <span class="cmd">#info </span><span class="cmdline">hlwanghl sent repository management patch and reading comment to send next version</span>
+<a name="l-18"></a><span class="tm">13:08:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to expose repo_mngt_tool to /config/capabilities</span>
+<a name="l-19"></a><span class="tm">13:09:11</span><span class="nk"> &lt;AdamKingIT1&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit is about 2/3 of the way through reworking repo management ui to fit with new backend patch</span>
+<a name="l-20"></a><span class="tm">13:09:15</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is struggling with apparmor on 13.10, trying to fix it the way libvirt do to img, but libvirt changes the profile back again... planned to disable apparmor if cannot figure out why tomorrow</span>
+<a name="l-21"></a><span class="tm">13:09:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to do not allow user disable/delete a network used by VM or template</span>
+<a name="l-22"></a><span class="tm">13:09:30</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  is working with iso streaming problem in Fedora 20. First patch is about to be sent</span>
+<a name="l-23"></a><span class="tm">13:10:48</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think instead Kimchi disables the apparmor we should document it to guide the user
+<a name="l-24"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">sming was looking into the unitest failure under FC20 and can not reproduce them on FC18.  Tested network parts on FC20, FC19</span>
+<a name="l-25"></a><span class="tm">13:11:36</span><span class="nk"> &lt;alinefm&gt;</span> rotru, did you figure out the problem? what was it?
+<a name="l-26"></a><span class="tm">13:12:32</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  actually, the problem was in curl, we need to pass IP instead of hostname to the cdrom
+<a name="l-27"></a><span class="tm">13:12:40</span><span class="nk"> &lt;royce&gt;</span> alinefm, I guess it maybe more safe, but if in installation  we can disable qemu security driver to make it not use apparmor, do you think that is acceptable?
+<a name="l-28"></a><span class="tm">13:12:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">sming deeply thought on native scsi rebased the federation V1.</span>
+<a name="l-29"></a><span class="tm">13:13:18</span><span class="nk"> &lt;alinefm&gt;</span> rotru, we already did it on kimchi
+<a name="l-30"></a><span class="tm">13:13:53</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  yes, I see, but just for some cases
+<a name="l-31"></a><span class="tm">13:14:24</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I think that it is better to always use IP  (was going to ask this in open topics)
+<a name="l-32"></a><span class="tm">13:14:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, I don't like the idea to disable security driver without user is aware about it
+<a name="l-33"></a><span class="tm">13:15:13</span><span class="nk"> &lt;royce&gt;</span> The apparmor problem is: it should add security label to the iso file, but for some reason libvirt didn't, so I planned to add it with kimchi, but unfortuately, libvirt change it back and I haven't figured out how it did it, so for now I can just disable it
+<a name="l-34"></a><span class="tm">13:15:40</span><span class="nk"> &lt;alinefm&gt;</span> rotru, which cases were not cover with the current kimchi code?
+<a name="l-35"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> I thought it was in vmtemplate.py
+<a name="l-36"></a><span class="tm">13:16:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, did you find this error on both Ubuntu versions - 13.04 and 13.10?
+<a name="l-37"></a><span class="tm">13:16:53</span><span class="nk"> &lt;royce&gt;</span> alinefm, just on 13.10
+<a name="l-38"></a><span class="tm">13:17:13</span><span class="nk"> &lt;royce&gt;</span> 13.04 update the label successfully
+<a name="l-39"></a><span class="tm">13:17:34</span><span class="nk"> &lt;royce&gt;</span> but from the static config files used by apparmor, no difference
+<a name="l-40"></a><span class="tm">13:18:12</span><span class="nk"> &lt;royce&gt;</span> it is cdrom live change-media, for your reference
+<a name="l-41"></a><span class="tm">13:18:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  there is 2 cases for iso stream, through libvirt , and through qemu .... only libvirt used the IP
+<a name="l-42"></a><span class="tm">13:19:22</span><span class="nk"> &lt;royce&gt;</span> for iso used when vm started , security label is right, but for live change, no label added
+<a name="l-43"></a><span class="tm">13:20:20</span><span class="nk"> &lt;alinefm&gt;</span> royce, got it
+<a name="l-44"></a><span class="tm">13:20:23</span><span class="nk"> &lt;alinefm&gt;</span> rotru, got it
+<a name="l-45"></a><span class="tm">13:20:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, we can disable the apparmor just while during the operation
+<a name="l-46"></a><span class="tm">13:21:00</span><span class="nk"> &lt;alinefm&gt;</span> and enable it again when finish
+<a name="l-47"></a><span class="tm">13:21:05</span><span class="nk"> &lt;alinefm&gt;</span> rotru, is it possible/
+<a name="l-48"></a><span class="tm">13:21:20</span><span class="nk"> &lt;royce&gt;</span> and this problem also affected screenshot, the directory for qemu screenshot is denied access
+<a name="l-49"></a><span class="tm">13:21:41</span><span class="nk"> &lt;royce&gt;</span> alinefm, disable require restart libvirtd
+<a name="l-50"></a><span class="tm">13:22:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, maybe there is some libvirt configuration for apparmor
+<a name="l-51"></a><span class="tm">13:22:17</span><span class="nk"> &lt;alinefm&gt;</span> and we could add the directories there
+<a name="l-52"></a><span class="tm">13:23:00</span><span class="nk"> &lt;royce&gt;</span> alinefm do you mean to add apparmor rules to allow isos or?
+<a name="l-53"></a><span class="tm">13:23:14</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-54"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> alinefm@alinefm:~/kimchi$ ls /etc/apparmor.d/ | grep libvirt
+<a name="l-55"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> libvirt
+<a name="l-56"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> usr.lib.libvirt.virt-aa-helper
+<a name="l-57"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> usr.sbin.libvirtd
+<a name="l-58"></a><span class="tm">13:23:28</span><span class="nk"> &lt;alinefm&gt;</span> not sure what these files are for...
+<a name="l-59"></a><span class="tm">13:23:34</span><span class="nk"> &lt;royce&gt;</span> it is under /etc/apparmor.d/libvirt for each running vm
+<a name="l-60"></a><span class="tm">13:24:17</span><span class="nk"> &lt;royce&gt;</span> I added to the running vm's configuration
+<a name="l-61"></a><span class="tm">13:25:25</span><span class="nk"> &lt;royce&gt;</span> To be specific, I added, /my-iso.iso to xxx.files when vm started, and used apparmor_parser to reload the profile
+<a name="l-62"></a><span class="tm">13:25:38</span><span class="nk"> &lt;royce&gt;</span> later, this file is changed back by libvirt itself
+<a name="l-63"></a><span class="tm">13:26:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok
+<a name="l-64"></a><span class="tm">13:26:17</span><span class="nk"> &lt;royce&gt;</span> so the read access to /my-iso.iso fails
+<a name="l-65"></a><span class="tm">13:26:48</span><span class="nk"> &lt;alinefm&gt;</span> royce, I am still reluctant to disable the whole apparmor
+<a name="l-66"></a><span class="tm">13:26:54</span><span class="nk"> &lt;royce&gt;</span> me too
+<a name="l-67"></a><span class="tm">13:27:09</span><span class="nk"> &lt;alinefm&gt;</span> I think we should document it as "known issue" and guide the user to do it by himself
+<a name="l-68"></a><span class="tm">13:27:45</span><span class="nk"> &lt;royce&gt;</span> I asked zhengsheng he did ovirt transplant on ubuntu, he suggested me to disable apparmor for libvirt as he did for vdsm
+<a name="l-69"></a><span class="tm">13:28:40</span><span class="nk"> &lt;royce&gt;</span> OK, let me put it just at my last choice
+<a name="l-70"></a><span class="tm">13:28:52</span><span class="nk"> &lt;royce&gt;</span> after tested all ubuntu, I will look back
+<a name="l-71"></a><span class="tm">13:28:58</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok
+<a name="l-72"></a><span class="tm">13:29:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, you can send a mail to mail list too
+<a name="l-73"></a><span class="tm">13:29:22</span><span class="nk"> &lt;alinefm&gt;</span> maybe more people get involved with that and provide more feedbacks
+<a name="l-74"></a><span class="tm">13:29:31</span><span class="nk"> &lt;royce&gt;</span> to libvirt mailist?OK
+<a name="l-75"></a><span class="tm">13:29:38</span><span class="nk"> &lt;alinefm&gt;</span> and Kimchi too
+<a name="l-76"></a><span class="tm">13:29:41</span><span class="nk"> &lt;royce&gt;</span> I will also file a bug for ubuntu
+<a name="l-77"></a><span class="tm">13:29:47</span><span class="nk"> &lt;alinefm&gt;</span> good
+<a name="l-78"></a><span class="tm">13:30:14</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-79"></a><span class="tm">13:30:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-80"></a><span class="tm">13:30:43</span><span class="nk"> &lt;alinefm&gt;</span> Basically, I would like to know from the tests focal point the test status
+<a name="l-81"></a><span class="tm">13:30:51</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Testing-1.2
+<a name="l-82"></a><span class="tm">13:31:01</span><span class="nk"> &lt;alinefm&gt;</span> this is the test matrix I created for 1.2
+<a name="l-83"></a><span class="tm">13:31:28</span><span class="nk"> &lt;alinefm&gt;</span> royce, have you find other bugs on ubuntu?
+<a name="l-84"></a><span class="tm">13:31:47</span><span class="nk"> &lt;alinefm&gt;</span> shaohef,  How are the tests on rhel?
+<a name="l-85"></a><span class="tm">13:32:50</span><span class="nk"> &lt;royce&gt;</span> Besides the screenshot and cdrom life update, the remote iso creating template returns with error. But as I spent all time look into the former, the latter is not took look into
+<a name="l-86"></a><span class="tm">13:34:13</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-87"></a><span class="tm">13:34:20</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok
+<a name="l-88"></a><span class="tm">13:34:24</span><span class="nk"> &lt;royce&gt;</span> I will catch up this week
+<a name="l-89"></a><span class="tm">13:35:52</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-90"></a><span class="tm">13:36:31</span><span class="nk"> &lt;royce&gt;</span> I'm good
+<a name="l-91"></a><span class="tm">13:38:11</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, would you like to share the problems you are having?
+<a name="l-92"></a><span class="tm">13:38:20</span><span class="nk"> &lt;alinefm&gt;</span> or you will send an email later/
+<a name="l-93"></a><span class="tm">13:39:33</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have posted it in https://github.com/kimchi-project/kimchi/issues/329
+<a name="l-94"></a><span class="tm">13:39:49</span><span class="nk"> &lt;danielhb&gt;</span> any comments are welcome
+<a name="l-95"></a><span class="tm">13:40:06</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I am with the login headers
+<a name="l-96"></a><span class="tm">13:40:25</span><span class="nk"> &lt;danielhb&gt;</span> I appreciate any tips on how to change de login/logout procedure to support an additional header
+<a name="l-97"></a><span class="tm">13:41:12</span><span class="nk"> &lt;alinefm&gt;</span> do you mean in the jquery request?
+<a name="l-98"></a><span class="tm">13:41:25</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah
+<a name="l-99"></a><span class="tm">13:41:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I can give more details later
+<a name="l-100"></a><span class="tm">13:42:12</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, headers: {'Kimchi-Robot': 'kimchi-robot'},
+<a name="l-101"></a><span class="tm">13:42:20</span><span class="nk"> &lt;alinefm&gt;</span> it is a dict, you add the key/value there
+<a name="l-102"></a><span class="tm">13:42:33</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-103"></a><span class="tm">13:42:56</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, kimchi-robot? didn't see it
+<a name="l-104"></a><span class="tm">13:43:03</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I'll look into it
+<a name="l-105"></a><span class="tm">13:43:49</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, this header is for timeout the session
+<a name="l-106"></a><span class="tm">13:44:00</span><span class="nk"> &lt;alinefm&gt;</span> you can add more headers if you want
+<a name="l-107"></a><span class="tm">13:44:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, there is another funny issue
+<a name="l-108"></a><span class="tm">13:44:43</span><span class="nk"> &lt;alinefm&gt;</span> funny?? hehehe
+<a name="l-109"></a><span class="tm">13:44:47</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah actually
+<a name="l-110"></a><span class="tm">13:44:55</span><span class="nk"> &lt;danielhb&gt;</span> funny because it makes sense
+<a name="l-111"></a><span class="tm">13:45:33</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I haven't fully separated the frontend/backend cherrypy trees (tried, faced some issues, gave up for now)
+<a name="l-112"></a><span class="tm">13:45:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, so, when you request a page, the frontend kind of wants an auth
+<a name="l-113"></a><span class="tm">13:46:07</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, and the backend too, but a different auth (it's a different header)
+<a name="l-114"></a><span class="tm">13:46:27</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, the result: regular kimchi login page appears, you put credentials
+<a name="l-115"></a><span class="tm">13:46:37</span><span class="nk"> &lt;AdamKingIT1&gt;</span> are there any SSO tools for cherrypy?
+<a name="l-116"></a><span class="tm">13:46:51</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, and another login page appears from the backend, put credentials again
+<a name="l-117"></a><span class="tm">13:46:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, lol
+<a name="l-118"></a><span class="tm">13:47:57</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT1, single sign on?
+<a name="l-119"></a><span class="tm">13:48:13</span><span class="nk"> &lt;AdamKingIT1&gt;</span> y
+<a name="l-120"></a><span class="tm">13:48:26</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT1, no idea, but I'll investigate it
+<a name="l-121"></a><span class="tm">13:48:57</span><span class="nk"> &lt;AdamKingIT1&gt;</span> We will need it eventually for "clusters" and I think it would solve yor immediate problem as well
+<a name="l-122"></a><span class="tm">13:50:01</span><span class="nk"> &lt;hlwanghl&gt;</span> The model back-end uses can handle SSO, right? sming shaohef
+<a name="l-123"></a><span class="tm">13:50:40</span><span class="nk"> &lt;hlwanghl&gt;</span> I just forget the name of the lib
+<a name="l-124"></a><span class="tm">13:50:42</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT1, yeah, it would be nice
+<a name="l-125"></a><span class="tm">13:51:01</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT1, ideally we would need to fully separate frontend and backend, and probably the frontend wouldn't require auth
+<a name="l-126"></a><span class="tm">13:51:23</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I think the front will still require auth
+<a name="l-127"></a><span class="tm">13:51:37</span><span class="nk"> &lt;hlwanghl&gt;</span> y, auth is required
+<a name="l-128"></a><span class="tm">13:51:47</span><span class="nk"> &lt;AdamKingIT1&gt;</span> we need to know who you are to know what you can do
+<a name="l-129"></a><span class="tm">13:51:57</span><span class="nk"> &lt;hlwanghl&gt;</span> Only common static files can be public
+<a name="l-130"></a><span class="tm">13:52:03</span><span class="nk"> &lt;danielhb&gt;</span> AdamKingIT1, in that case, SS) would fix it nicely
+<a name="l-131"></a><span class="tm">13:52:11</span><span class="nk"> &lt;danielhb&gt;</span> *SS0
+<a name="l-132"></a><span class="tm">13:52:18</span><span class="nk"> &lt;danielhb&gt;</span> damn SSO! lol
+<a name="l-133"></a><span class="tm">13:52:33</span><span class="nk"> &lt;AdamKingIT1&gt;</span> haha I got you. I filled in the ) ;-)
+<a name="l-134"></a><span class="tm">13:52:50</span><span class="nk"> &lt;danielhb&gt;</span> hahaha
+<a name="l-135"></a><span class="tm">13:59:56</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-136"></a><span class="tm">14:00:00</span><span class="nk"> &lt;alinefm&gt;</span> so we finish for today?
+<a name="l-137"></a><span class="tm">14:00:26</span><span class="nk"> &lt;AdamKingIT1&gt;</span> seems so
+<a name="l-138"></a><span class="tm">14:02:58</span><span class="nk"> &lt;danielhb&gt;</span> yep
+<a name="l-139"></a><span class="tm">14:04:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

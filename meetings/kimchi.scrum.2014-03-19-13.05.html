@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:05:02 UTC
+(<a href="kimchi.scrum.2014-03-19-13.05.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-5'>alinefm</a>,
+    13:05:02)</span></li>
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-7'>alinefm</a>,
+    13:05:11)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-03-19-13.05.log.html#l-11'>alinefm</a>, 13:06:47)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-12'>alinefm</a>,
+    13:06:48)</span></li>
+  <li><span class="INFO">alinefm sent patch to identify update tool
+    based on system tools instead of checking
+    platform.linux_distribution()</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-13'>alinefm</a>,
+    13:07:38)</span></li>
+  <li><span class="INFO">danielhb still working on 'kimchi must no run
+    as root' issue. I am having funny problems with the authentication
+    headers that kimchi uses versus the new authentication headers it
+    must use. I'll send a call for help if I feel I'm stuck</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-14'>danielhb</a>,
+    13:07:50)</span></li>
+  <li><span class="INFO">royce finished scsi interface cdrom change,
+    patch reviewed, but aline reported error on 12.10 ubuntu, tested it
+    worked on 13.04 and 13.10, will test on others</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-15'>royce</a>,
+    13:07:56)</span></li>
+  <li><span class="INFO">alinefm sent patch to identify repository
+    management tool based on system tools instead of checking
+    platform.linux_distribution()</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-16'>alinefm</a>,
+    13:08:04)</span></li>
+  <li><span class="INFO">hlwanghl sent repository management patch and
+    reading comment to send next version</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-17'>hlwanghl</a>,
+    13:08:42)</span></li>
+  <li><span class="INFO">alinefm sent patch to expose repo_mngt_tool to
+    /config/capabilities</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-18'>alinefm</a>,
+    13:08:50)</span></li>
+  <li><span class="INFO">adamkingit is about 2/3 of the way through
+    reworking repo management ui to fit with new backend patch</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-19'>AdamKingIT1</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">royce is struggling with apparmor on 13.10,
+    trying to fix it the way libvirt do to img, but libvirt changes the
+    profile back again... planned to disable apparmor if cannot figure
+    out why tomorrow</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-20'>royce</a>,
+    13:09:15)</span></li>
+  <li><span class="INFO">alinefm sent patch to do not allow user
+    disable/delete a network used by VM or template</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-21'>alinefm</a>,
+    13:09:26)</span></li>
+  <li><span class="INFO">rotru  is working with iso streaming problem in
+    Fedora 20. First patch is about to be sent</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-22'>rotru</a>,
+    13:09:30)</span></li>
+  <li><span class="INFO">sming was looking into the unitest failure
+    under FC20 and can not reproduce them on FC18.  Tested network parts
+    on FC20, FC19</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-24'>alinefm</a>,
+    13:11:04)</span></li>
+  <li><span class="INFO">sming deeply thought on native scsi rebased the
+    federation V1.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-28'>alinefm</a>,
+    13:12:58)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-03-19-13.05.log.html#l-79'>alinefm</a>, 13:30:20)</span>
+<ol type="a">
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/wiki/Testing-1.2">https://github.com/kimchi-project/kimchi/wiki/Testing-1.2</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-19-13.05.log.html#l-81'>alinefm</a>,
+    13:30:51)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:04:06 UTC
+(<a href="kimchi.scrum.2014-03-19-13.05.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (64)</li>
+  <li>royce (27)</li>
+  <li>danielhb (26)</li>
+  <li>AdamKingIT1 (8)</li>
+  <li>rotru (6)</li>
+  <li>hlwanghl (5)</li>
+  <li>kimchi-bot (3)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

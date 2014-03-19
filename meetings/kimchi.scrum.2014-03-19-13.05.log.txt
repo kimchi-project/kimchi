@@ -1,0 +1,139 @@
+13:05:02 <alinefm> #startmeeting
+13:05:02 <kimchi-bot> Meeting started Wed Mar 19 13:05:02 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:05:02 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:05:02 <alinefm> #meetingname scrum
+13:05:02 <alinefm> #info  Agenda 1) Status 2) Open discussion
+13:05:02 <kimchi-bot> The meeting name has been set to 'scrum'
+13:05:11 <alinefm> #info  Agenda 1) Status 2) Open discussion
+13:05:20 <alinefm> anything else?
+13:05:37 <royce> good for me
+13:06:03 <rotru> I don't think so
+13:06:47 <alinefm> #topic Status
+13:06:48 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:07:38 <alinefm> #info alinefm sent patch to identify update tool based on system tools instead of checking platform.linux_distribution()
+13:07:50 <danielhb> #info danielhb still working on 'kimchi must no run as root' issue. I am having funny problems with the authentication headers that kimchi uses versus the new authentication headers it must use. I'll send a call for help if I feel I'm stuck
+13:07:56 <royce> #info royce finished scsi interface cdrom change, patch reviewed, but aline reported error on 12.10 ubuntu, tested it worked on 13.04 and 13.10, will test on others
+13:08:04 <alinefm> #info alinefm sent patch to identify repository management tool based on system tools instead of checking platform.linux_distribution()
+13:08:42 <hlwanghl> #info hlwanghl sent repository management patch and reading comment to send next version
+13:08:50 <alinefm> #info alinefm sent patch to expose repo_mngt_tool to /config/capabilities
+13:09:11 <AdamKingIT1> #info adamkingit is about 2/3 of the way through reworking repo management ui to fit with new backend patch
+13:09:15 <royce> #info royce is struggling with apparmor on 13.10, trying to fix it the way libvirt do to img, but libvirt changes the profile back again... planned to disable apparmor if cannot figure out why tomorrow
+13:09:26 <alinefm> #info alinefm sent patch to do not allow user disable/delete a network used by VM or template
+13:09:30 <rotru> #info rotru  is working with iso streaming problem in Fedora 20. First patch is about to be sent
+13:10:48 <alinefm> royce, I think instead Kimchi disables the apparmor we should document it to guide the user
+13:11:04 <alinefm> #info sming was looking into the unitest failure under FC20 and can not reproduce them on FC18.  Tested network parts on FC20, FC19
+13:11:36 <alinefm> rotru, did you figure out the problem? what was it?
+13:12:32 <rotru> alinefm;  actually, the problem was in curl, we need to pass IP instead of hostname to the cdrom
+13:12:40 <royce> alinefm, I guess it maybe more safe, but if in installation  we can disable qemu security driver to make it not use apparmor, do you think that is acceptable?
+13:12:58 <alinefm> #info sming deeply thought on native scsi rebased the federation V1.
+13:13:18 <alinefm> rotru, we already did it on kimchi
+13:13:53 <rotru> alinefm;  yes, I see, but just for some cases
+13:14:24 <rotru> alinefm;  I think that it is better to always use IP  (was going to ask this in open topics)
+13:14:25 <alinefm> royce, I don't like the idea to disable security driver without user is aware about it
+13:15:13 <royce> The apparmor problem is: it should add security label to the iso file, but for some reason libvirt didn't, so I planned to add it with kimchi, but unfortuately, libvirt change it back and I haven't figured out how it did it, so for now I can just disable it
+13:15:40 <alinefm> rotru, which cases were not cover with the current kimchi code?
+13:15:52 <alinefm> I thought it was in vmtemplate.py
+13:16:40 <alinefm> royce, did you find this error on both Ubuntu versions - 13.04 and 13.10?
+13:16:53 <royce> alinefm, just on 13.10
+13:17:13 <royce> 13.04 update the label successfully
+13:17:34 <royce> but from the static config files used by apparmor, no difference
+13:18:12 <royce> it is cdrom live change-media, for your reference
+13:18:31 <rotru> alinefm;  there is 2 cases for iso stream, through libvirt , and through qemu .... only libvirt used the IP
+13:19:22 <royce> for iso used when vm started , security label is right, but for live change, no label added
+13:20:20 <alinefm> royce, got it
+13:20:23 <alinefm> rotru, got it
+13:20:43 <alinefm> royce, we can disable the apparmor just while during the operation
+13:21:00 <alinefm> and enable it again when finish
+13:21:05 <alinefm> rotru, is it possible/
+13:21:20 <royce> and this problem also affected screenshot, the directory for qemu screenshot is denied access
+13:21:41 <royce> alinefm, disable require restart libvirtd
+13:22:09 <alinefm> royce, maybe there is some libvirt configuration for apparmor
+13:22:17 <alinefm> and we could add the directories there
+13:23:00 <royce> alinefm do you mean to add apparmor rules to allow isos or?
+13:23:14 <alinefm> yes
+13:23:18 <alinefm> alinefm@alinefm:~/kimchi$ ls /etc/apparmor.d/ | grep libvirt
+13:23:18 <alinefm> libvirt
+13:23:18 <alinefm> usr.lib.libvirt.virt-aa-helper
+13:23:18 <alinefm> usr.sbin.libvirtd
+13:23:28 <alinefm> not sure what these files are for...
+13:23:34 <royce> it is under /etc/apparmor.d/libvirt for each running vm
+13:24:17 <royce> I added to the running vm's configuration
+13:25:25 <royce> To be specific, I added, /my-iso.iso to xxx.files when vm started, and used apparmor_parser to reload the profile
+13:25:38 <royce> later, this file is changed back by libvirt itself
+13:26:14 <alinefm> royce, ok
+13:26:17 <royce> so the read access to /my-iso.iso fails
+13:26:48 <alinefm> royce, I am still reluctant to disable the whole apparmor
+13:26:54 <royce> me too
+13:27:09 <alinefm> I think we should document it as "known issue" and guide the user to do it by himself
+13:27:45 <royce> I asked zhengsheng he did ovirt transplant on ubuntu, he suggested me to disable apparmor for libvirt as he did for vdsm
+13:28:40 <royce> OK, let me put it just at my last choice
+13:28:52 <royce> after tested all ubuntu, I will look back
+13:28:58 <alinefm> royce, ok
+13:29:10 <alinefm> royce, you can send a mail to mail list too
+13:29:22 <alinefm> maybe more people get involved with that and provide more feedbacks
+13:29:31 <royce> to libvirt mailist?OK
+13:29:38 <alinefm> and Kimchi too
+13:29:41 <royce> I will also file a bug for ubuntu
+13:29:47 <alinefm> good
+13:30:14 <alinefm> let's move on
+13:30:20 <alinefm> #topic Open Discussion
+13:30:43 <alinefm> Basically, I would like to know from the tests focal point the test status
+13:30:51 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Testing-1.2
+13:31:01 <alinefm> this is the test matrix I created for 1.2
+13:31:28 <alinefm> royce, have you find other bugs on ubuntu?
+13:31:47 <alinefm> shaohef,  How are the tests on rhel?
+13:32:50 <royce> Besides the screenshot and cdrom life update, the remote iso creating template returns with error. But as I spent all time look into the former, the latter is not took look into
+13:34:13 <alinefm> rotru, ok
+13:34:20 <alinefm> royce, ok
+13:34:24 <royce> I will catch up this week
+13:35:52 <alinefm> any other topic for today?
+13:36:31 <royce> I'm good
+13:38:11 <alinefm> danielhb, would you like to share the problems you are having?
+13:38:20 <alinefm> or you will send an email later/
+13:39:33 <danielhb> alinefm, I have posted it in https://github.com/kimchi-project/kimchi/issues/329
+13:39:49 <danielhb> any comments are welcome
+13:40:06 <alinefm> danielhb, I am with the login headers
+13:40:25 <danielhb> I appreciate any tips on how to change de login/logout procedure to support an additional header
+13:41:12 <alinefm> do you mean in the jquery request?
+13:41:25 <danielhb> alinefm, yeah
+13:41:55 <danielhb> alinefm, I can give more details later
+13:42:12 <alinefm> danielhb, headers: {'Kimchi-Robot': 'kimchi-robot'},
+13:42:20 <alinefm> it is a dict, you add the key/value there
+13:42:33 <alinefm> ok
+13:42:56 <danielhb> alinefm, kimchi-robot? didn't see it
+13:43:03 <danielhb> alinefm, I'll look into it
+13:43:49 <alinefm> danielhb, this header is for timeout the session
+13:44:00 <alinefm> you can add more headers if you want
+13:44:37 <danielhb> alinefm, there is another funny issue
+13:44:43 <alinefm> funny?? hehehe
+13:44:47 <danielhb> alinefm, yeah actually
+13:44:55 <danielhb> funny because it makes sense
+13:45:33 <danielhb> alinefm, I haven't fully separated the frontend/backend cherrypy trees (tried, faced some issues, gave up for now)
+13:45:53 <danielhb> alinefm, so, when you request a page, the frontend kind of wants an auth
+13:46:07 <danielhb> alinefm, and the backend too, but a different auth (it's a different header)
+13:46:27 <danielhb> alinefm, the result: regular kimchi login page appears, you put credentials
+13:46:37 <AdamKingIT1> are there any SSO tools for cherrypy?
+13:46:51 <danielhb> alinefm, and another login page appears from the backend, put credentials again
+13:46:55 <danielhb> alinefm, lol
+13:47:57 <danielhb> AdamKingIT1, single sign on?
+13:48:13 <AdamKingIT1> y
+13:48:26 <danielhb> AdamKingIT1, no idea, but I'll investigate it
+13:48:57 <AdamKingIT1> We will need it eventually for "clusters" and I think it would solve yor immediate problem as well
+13:50:01 <hlwanghl> The model back-end uses can handle SSO, right? sming shaohef
+13:50:40 <hlwanghl> I just forget the name of the lib
+13:50:42 <danielhb> AdamKingIT1, yeah, it would be nice
+13:51:01 <danielhb> AdamKingIT1, ideally we would need to fully separate frontend and backend, and probably the frontend wouldn't require auth
+13:51:23 <AdamKingIT1> I think the front will still require auth
+13:51:37 <hlwanghl> y, auth is required
+13:51:47 <AdamKingIT1> we need to know who you are to know what you can do
+13:51:57 <hlwanghl> Only common static files can be public
+13:52:03 <danielhb> AdamKingIT1, in that case, SS) would fix it nicely
+13:52:11 <danielhb> *SS0
+13:52:18 <danielhb> damn SSO! lol
+13:52:33 <AdamKingIT1> haha I got you. I filled in the ) ;-)
+13:52:50 <danielhb> hahaha
+13:59:56 <alinefm> ok
+14:00:00 <alinefm> so we finish for today?
+14:00:26 <AdamKingIT1> seems so
+14:02:58 <danielhb> yep
+14:04:06 <alinefm> #endmeeting
