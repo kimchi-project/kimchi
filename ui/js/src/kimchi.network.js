@@ -215,10 +215,24 @@ kimchi.initNetworkDialog = function() {
 kimchi.openNetworkDialog = function(okCallback) {
     kimchi.getInterfaces(function(result) {
         var options = "";
+        var nics = {};
         for (var i = 0; i < result.length; i++) {
             options += "<option value=" + result[i].name + ">" + result[i].name + "</option>";
+            nics[result[i].name] = result[i];
         }
         $("#networkInterface").append(options);
+        onChange = function() {
+            if (nics[$("#networkInterface").val()].type === "bridge") {
+                $("#enableVlan").prop("checked", false);
+                $("#enableVlan").prop("disabled", true);
+                $("#networkVlanID").val("");
+                $("#networkVlanID").prop("disabled", true);
+            } else {
+                $("#enableVlan").prop("disabled", false);
+            }
+        };
+        $("#networkInterface").on("change", onChange);
+        onChange();
         kimchi.setDefaultNetworkType(result.length!==0);
     });
     $("#networkConfig").dialog({

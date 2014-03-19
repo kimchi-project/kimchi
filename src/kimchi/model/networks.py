@@ -151,6 +151,8 @@ class NetworksModel(object):
             raise MissingParameter("KCHNET0004E", {'name': params['name']})
 
         if netinfo.is_bridge(iface):
+            if 'vlan_id' in params:
+                raise InvalidParameter('KCHNET0019E', {'name': iface})
             params['bridge'] = iface
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
             if params.get('vlan_id') is None:

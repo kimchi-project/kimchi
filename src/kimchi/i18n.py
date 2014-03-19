@@ -182,6 +182,7 @@ messages = {
     "KCHNET0016E": _("Specify name and type to create a Network"),
     "KCHNET0017E": _("Unable to delete network %(name)s. There are some virtual machines and/or templates linked to this network."),
     "KCHNET0018E": _("Unable to deactivate network %(name)s. There are some virtual machines and/or templates linked to this network."),
+    "KCHNET0019E": _("Bridge device %(name)s can not be the trunk device of a VLAN."),
 
     "KCHDR0001E": _("Debug report %(name)s does not exist"),
     "KCHDR0002E": _("Debug report tool not found in system"),
