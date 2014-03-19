@@ -21,6 +21,7 @@ import cherrypy
 import libvirt
 import lxml.etree as ET
 import os
+import socket
 import subprocess
 import threading
 
@@ -140,7 +141,7 @@ class FeatureTests(object):
 
     @staticmethod
     def qemu_iso_stream_dns():
-        host = cherrypy.server.socket_host
+        host = socket.getfqdn(cherrypy.server.socket_host)
         port = cherrypy.server.socket_port
         cmd = ["qemu-io", "-r", "http://%s:%d/images/icon-fedora.png" %
                (host, port), "-c", "'read -v 0 512'"]

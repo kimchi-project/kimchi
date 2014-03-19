@@ -81,7 +81,7 @@ class VMTemplate(object):
         except IsoFormatError:
             raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
-    def _get_cdrom_xml(self, libvirt_stream, qemu_stream_dns):
+    def _get_cdrom_xml(self, libvirt_stream_protocols, qemu_stream_dns):
         bus = self.info['cdrom_bus']
         dev = "%s%s" % (self._bus_to_dev[bus],
                         string.lowercase[self.info['cdrom_index']])
@@ -133,7 +133,7 @@ class VMTemplate(object):
             hostname = socket.gethostbyname(hostname)
             url = protocol + "://" + hostname + ":" + str(port) + url_path
 
-        if not libvirt_stream:
+        if protocol not in libvirt_stream_protocols:
             return qemu_stream_cmdline % {'url': url, 'bus': bus}
 
         params = {'protocol': protocol, 'url_path': url_path,
@@ -281,9 +281,12 @@ class VMTemplate(object):
             params['disks'] = self._get_disks_xml(vm_uuid)
 
         qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
-        libvirt_stream = kwargs.get('libvirt_stream', False)
-        cdrom_xml = self._get_cdrom_xml(libvirt_stream, qemu_stream_dns)
-        if not libvirt_stream and params.get('iso_stream', False):
+        libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
+        cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols,
+                                        qemu_stream_dns)
+
+        if not urlparse.urlparse(self.info['cdrom']).scheme in \
+            libvirt_stream_protocols and params.get('iso_stream', False):
             params['qemu-namespace'] = QEMU_NAMESPACE
             params['qemu-stream-cmdline'] = cdrom_xml
         else:

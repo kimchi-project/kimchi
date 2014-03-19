@@ -202,13 +202,10 @@ class VMsModel(object):
             with self.objstore as session:
                 session.store('vm', vm_uuid, {'icon': icon})
 
-        libvirt_stream = False
-        if len(self.caps.libvirt_stream_protocols) == 0:
-            libvirt_stream = True
-
         graphics = params.get('graphics')
+        stream_protocols = self.caps.libvirt_stream_protocols
         xml = t.to_vm_xml(name, vm_uuid,
-                          libvirt_stream=libvirt_stream,
+                          libvirt_stream_protocols=stream_protocols,
                           qemu_stream_dns=self.caps.qemu_stream_dns,
                           graphics=graphics,
                           volumes=vol_list)
