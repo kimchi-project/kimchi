@@ -91,10 +91,9 @@ class NetfsPoolDef(StoragePoolDef):
                      export_path, mnt_point]
         umount_cmd = ["umount", "-f", export_path]
         mounted = False
-        # 2 seconds looks like a reasonable time to wait for a refresh
-        # in the UI and enough time to verify that the NFS server
-        # is down.
-        cmd_timeout = 2
+        # Due to an NFS bug (See Red Hat BZ 1023059), NFSv4 exports may take
+        # 10-15 seconds to mount the first time.
+        cmd_timeout = 15
 
         with RollbackContext() as rollback:
             rollback.prependDefer(os.rmdir, mnt_point)
