@@ -137,13 +137,13 @@ class YumUpdate(object):
     """
     def __init__(self):
         self._pkgs = {}
-        self._yb = getattr(__import__('yum'), 'YumBase')()
         self.update_cmd = ["yum", "-y", "update"]
 
     def _refreshUpdateList(self):
         """
         Update the list of packages to be updated in the system.
         """
+        self._yb = getattr(__import__('yum'), 'YumBase')()
         self._pkgs = self._yb.doPackageLists('updates')
 
     def getPackagesList(self):
