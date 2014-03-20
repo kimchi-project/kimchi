@@ -202,6 +202,7 @@ kimchi.host_main = function() {
 
     var listDebugReports = function() {
         kimchi.listReports(function(reports) {
+            $('#debug-report-section').removeClass('hidden');
             $.each(reports, function(i, item) {
                 reports[i]['id'] = i + 1;
             });
@@ -211,6 +212,12 @@ kimchi.host_main = function() {
             else {
                 initReportGrid(reports);
             }
+        }, function(error) {
+            if(error['status'] == 403) {
+                $('#debug-report-section').addClass('hidden');
+                return;
+            }
+            $('#debug-report-section').removeClass('hidden');
         });
     };
 
@@ -281,7 +288,6 @@ kimchi.host_main = function() {
             }
 
             if(capabilities['system_report_tool']) {
-                $('#debug-report-section').removeClass('hidden');
                 listDebugReports();
                 kimchi.topic('kimchi/debugReportAdded')
                     .subscribe(listDebugReports);
