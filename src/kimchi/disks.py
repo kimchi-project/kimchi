@@ -86,8 +86,8 @@ def _is_dev_extended_partition(devType, devNodePath):
         return False
     diskPath = devNodePath.rstrip('0123456789')
     device = PDevice(diskPath)
-    disk = PDisk(device)
-    if disk.getExtendedPartition().path == devNodePath:
+    extended_part = PDisk(device).getExtendedPartition()
+    if extended_part and extended_part.path == devNodePath:
         return True
     return False
 
