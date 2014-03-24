@@ -578,3 +578,7 @@
 .storage-auth-width {
     width: 150px;
 }
+
+.storage-window .form-section .field {
+    overflow: visible;
+}
