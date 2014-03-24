@@ -513,9 +513,11 @@ class ModelTests(unittest.TestCase):
             orig_params = {'name': 'test-template', 'memory': 1024,
                            'cpus': 1, 'cdrom': self.kimchi_iso}
             inst.templates_create(orig_params)
+            rollback.prependDefer(inst.template_delete, 'test-template')
             orig_temp = inst.template_lookup(orig_params['name'])
 
             ident = inst.template_clone('test-template')
+            rollback.prependDefer(inst.template_delete, ident)
             clone_temp = inst.template_lookup(ident)
 
             clone_temp['name'] = orig_temp['name']
