@@ -838,10 +838,8 @@ var kimchi = {
                 }, 200);
                 break;
             case 'finished':
-                suc(result);
-                break;
             case 'failed':
-                err(result);
+                suc(result);
                 break;
             default:
                 break;

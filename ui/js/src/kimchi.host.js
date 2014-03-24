@@ -57,7 +57,9 @@ kimchi.host_main = function() {
                         kimchi.topic('kimchi/softwareUpdated').publish({
                             result: result
                         });
-                    }, function(result) {
+                    }, function(error) {
+                        var message = error && error['responseJSON'] && error['responseJSON']['reason'];
+                        kimchi.message.error(message || i18n['KCHUPD6009M']);
                         $(updateButton).text(i18n['KCHUPD6006M']).prop('disabled', false);
                     }, reloadProgressArea);
                 }
@@ -100,6 +102,13 @@ kimchi.host_main = function() {
 
             var updateButton = $('#' + softwareUpdatesGridID + '-update-button');
             $(updateButton).prop('disabled', softwareUpdates.length === 0);
+        }, function(error) {
+            var message = error && error['responseJSON'] && error['responseJSON']['reason'];
+            if($.isFunction(gridCallback)) {
+                gridCallback([]);
+            }
+            softwareUpdatesGrid &&
+                softwareUpdatesGrid.showMessage(message || i18n['KCHUPD6008M']);
         });
     };
 

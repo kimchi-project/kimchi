@@ -62,6 +62,18 @@ kimchi.widget.Grid = function(params) {
                 '</div>',
             '</div>',
         '</div>',
+        '<div class="grid-message hidden">',
+          '<div class="grid-message-text">',
+            i18n['KCHGRD6002M'],
+            '<button class="retry-button btn-small">',
+              i18n['KCHGRD6003M'],
+            '</button>',
+          '</div>',
+          '<div class="detailed-title">',
+            i18n['KCHGRD6004M'],
+          '</div>',
+          '<div class="detailed-text"></div>',
+        '</div>',
       '</div>'
     ];
 
@@ -160,6 +172,9 @@ kimchi.widget.Grid = function(params) {
 
     var maskNode = $('.grid-mask', gridNode);
     maskNode.css('top', captionHeight + 'px');
+
+    var messageNode = $('.grid-message', gridNode);
+    messageNode.css('top', captionHeight + 'px');
 
     var fillBody = function(container, fields, data) {
         var tbody = ($('tbody', container).length && $('tbody', container))
@@ -384,28 +399,49 @@ kimchi.widget.Grid = function(params) {
     $('body').on('mousemove', positionResizer);
     $('body').on('mouseup', endResizing);
 
+    this.showMessage = function(msg) {
+        $('.detailed-text', messageNode).text(msg);
+        $(messageNode).removeClass('hidden');
+    };
+
+    this.hideMessage = function() {
+        $(messageNode).addClass('hidden');
+    };
+
     this.destroy = function() {
         $('body').off('mousemove', positionResizer);
         $('body').off('mouseup', endResizing);
     };
 
     var data = params['data'];
-    if(!data) {
-        return;
-    }
+    var self = this;
+    var reload = function() {
+        if(!data) {
+            return;
+        }
 
-    if($.isArray(data)) {
-        this.setData(data);
-        return;
-    }
+        $(messageNode).addClass('hidden');
 
-    if($.isFunction(data)) {
-        var self = this;
-        var loadData = data;
-        maskNode.removeClass('hidden');
-        loadData(function(data) {
+        if($.isArray(data)) {
             self.setData(data);
-            maskNode.addClass('hidden');
-        });
-    }
+            return;
+        }
+
+        if($.isFunction(data)) {
+            var loadData = data;
+            maskNode.removeClass('hidden');
+            loadData(function(data) {
+                self.setData(data);
+                maskNode.addClass('hidden');
+            });
+        }
+    };
+
+    var reloadButton = $('.retry-button', gridNode);
+    $(reloadButton).on('click', function(event) {
+        reload();
+    });
+
+    this.reload = reload;
+    reload();
 };
