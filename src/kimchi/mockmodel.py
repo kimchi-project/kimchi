@@ -51,7 +51,7 @@ from kimchi.model.utils import get_vm_name
 from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import pool_name_from_uri, run_command
+from kimchi.utils import pool_name_from_uri
 from kimchi.utils import template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 

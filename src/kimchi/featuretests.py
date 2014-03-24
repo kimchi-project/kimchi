@@ -20,7 +20,6 @@
 import cherrypy
 import libvirt
 import lxml.etree as ET
-import os
 import socket
 import subprocess
 import threading
@@ -29,7 +28,6 @@ import threading
 from lxml.builder import E
 
 
-from kimchi import config
 from kimchi.utils import kimchi_log
 
 

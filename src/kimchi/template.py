@@ -20,7 +20,6 @@
 import cherrypy
 import errno
 import json
-import os
 
 
 from kimchi.config import paths

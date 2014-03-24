@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import kimchi.template
-from kimchi.control.base import Collection, Resource
+from kimchi.control.base import Collection
 from kimchi.control.utils import get_class_name, model_fn
 from kimchi.control.utils import UrlSubNode
 
