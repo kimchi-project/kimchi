@@ -173,16 +173,16 @@ class AptUpdate(object):
     """
     def __init__(self):
         self._pkgs = {}
-        self._apt_cache = getattr(__import__('apt'), 'Cache')()
         self.update_cmd = ['apt-get', 'upgrade', '-y']
 
     def _refreshUpdateList(self):
         """
         Update the list of packages to be updated in the system.
         """
-        self._apt_cache.update()
-        self._apt_cache.upgrade()
-        self._pkgs = self._apt_cache.get_changes()
+        apt_cache = getattr(__import__('apt'), 'Cache')()
+        apt_cache.update()
+        apt_cache.upgrade()
+        self._pkgs = apt_cache.get_changes()
 
     def getPackagesList(self):
         """
