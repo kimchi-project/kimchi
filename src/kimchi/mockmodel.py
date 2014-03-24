@@ -1134,13 +1134,14 @@ class MockRepositories(object):
     def addRepository(self, params):
         # Create and enable the repository
         repo_id = params['repo_id']
+        config = params.get('config', {})
         repo = {'repo_id': repo_id,
                 'baseurl': params.get('baseurl'),
                 'enabled': True,
-                'config': {'repo_name': params.get('repo_name', repo_id),
-                           'gpgkey': params.get('gpgkey', []),
+                'config': {'repo_name': config.get('repo_name', repo_id),
+                           'gpgkey': config.get('gpgkey', []),
                            'gpgcheck': True,
-                           'mirrorlist': params.get('mirrorlist', "")}
+                           'mirrorlist': config.get('mirrorlist', "")}
                 }
 
         self._repos[repo_id] = repo

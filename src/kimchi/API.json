@@ -552,6 +552,11 @@
                                 "error": "KCHREPOS0006E"
                             }
                         },
+                        "repo_name": {
+                            "description": "YUM repository name",
+                            "type": "string",
+                            "error": "KCHREPOS0023E"
+                        },
                         "mirrorlist": {
                             "description": "URL to a file containing a list of baseurls",
                             "type": "string",

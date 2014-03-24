@@ -174,10 +174,7 @@ class YumRepo(object):
         if repo_id in repos.repos.keys():
             raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
 
-        repo_name = params.get('repo_name', None)
-        if repo_name is None:
-            repo_name = repo_id
-
+        repo_name = config.get('repo_name', repo_id)
         repo = {'baseurl': baseurl, 'mirrorlist': mirrorlist,
                 'name': repo_name, 'gpgcheck': 1,
                 'gpgkey': [], 'enabled': 1}

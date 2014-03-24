@@ -854,6 +854,7 @@ http://, ftp:// or file://  URL.
     * repo_id *(optional)*: Unique YUM repository ID
     * config: A dictionary that contains specific data according to repository
       type.
+        * repo_name *(optional)*: YUM Repository name
         * mirrorlist *(optional)*: Specifies a URL to a file containing a
           list of baseurls for YUM repository
         * dist: Distribution to DEB repository

@@ -248,4 +248,5 @@ messages = {
     "KCHREPOS0020E": _("Could not enable repository %(repo_id)s."),
     "KCHREPOS0021E": _("Could not disable repository %(repo_id)s."),
     "KCHREPOS0022E": _("YUM Repository ID already exists"),
+    "KCHREPOS0023E": _("YUM Repository name must be a string"),
 }
