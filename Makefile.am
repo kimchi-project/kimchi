@@ -71,7 +71,14 @@ PEP8_WHITELIST = \
 	tests/utils.py \
 	$(NULL)
 
+SKIP_PYFLAKES_ERR = "\./src/kimchi/websocket\.py"
+
 check-local:
+	find . -path './.git' -prune -type f -o \
+		-name '*.py' -o -name '*.py.in'  | xargs $(PYFLAKES) | \
+		grep -w -v $(SKIP_PYFLAKES_ERR) | \
+		while read LINE; do echo "$$LINE"; false; done
+
 	$(PEP8) --version
 	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
 

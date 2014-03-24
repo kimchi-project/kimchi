@@ -42,6 +42,13 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.10])
 AC_PATH_PROG([CHEETAH], [cheetah], [/usr/bin/cheetah])
 
+# Checking for pyflakes
+AC_PATH_PROG([PYFLAKES], [pyflakes])
+if test "x$PYFLAKES" = "x"; then
+  AC_MSG_WARN([pyflakes not found])
+fi
+
+
 AC_CONFIG_FILES([
     po/Makefile.in
     po/gen-pot
