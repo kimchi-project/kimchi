@@ -112,21 +112,27 @@ class SoftwareUpdate(object):
         """
         Execute the update
         """
+        # reset messages
+        cb('')
+
         cmd = self._pkg_mnger.update_cmd
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
         msgs = []
         while proc.poll() is None:
-            msgs.append(proc.stdout.read())
-            cb('\n'.join(msgs))
+            msgs.append(proc.stdout.readline())
+            cb(''.join(msgs))
             time.sleep(0.5)
+
+        # read the final output lines
+        msgs.extend(proc.stdout.readlines())
 
         retcode = proc.poll()
         if retcode == 0:
-            return cb('\n'.join(msgs), True)
+            return cb(''.join(msgs), True)
 
-        msgs.append(proc.stderr.read())
-        return cb('\n'.join(msgs), False)
+        msgs.extend(proc.stderr.readlines())
+        return cb(''.join(msgs), False)
 
 
 class YumUpdate(object):
