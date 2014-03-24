@@ -222,7 +222,7 @@ class StoragePoolModel(object):
         try:
             poolDef.prepare(conn)
             return True
-        except Exception as e:
+        except Exception:
             return False
 
     def lookup(self, name):

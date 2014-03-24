@@ -127,7 +127,6 @@ class MockModel(object):
 
     def vm_start(self, name):
         self._get_vm(name).info['state'] = 'running'
-        info = self._get_vm(name).info
 
     def vm_stop(self, name):
         self._get_vm(name).info['state'] = 'shutoff'
@@ -729,7 +728,7 @@ class MockModel(object):
     def add_task(self, target_uri, fn, opaque=None):
         id = self.next_taskid
         self.next_taskid = self.next_taskid + 1
-        task = AsyncTask(id, target_uri, fn, self.objstore, opaque)
+        AsyncTask(id, target_uri, fn, self.objstore, opaque)
 
         return id
 
