@@ -49,7 +49,7 @@ kimchi.storageBindClick = function() {
         }
     });
 
-    $('.active').each(function(index) {
+    $('.list-storage .storage-state .active').each(function(index) {
         if ('active' === $(this).data('state')) {
             $(this).show();
         } else {
