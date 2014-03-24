@@ -672,7 +672,7 @@ specific to the low level collection tool being used.
 
 * **GET**: Retrieve the full description  of Debug Report
     * name: The debug report  name used to identify the report
-    * file: The debug report  file name used to identify the report
+    * uri: The URI path to download a debug report
     * time: The time when the debug report is created
 
 * **DELETE**: Remove the Debug Report

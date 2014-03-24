@@ -162,7 +162,7 @@ class DebugReportModel(object):
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
         file_target = os.path.split(file_target)[-1]
         file_target = os.path.join("/data/debugreports", file_target)
-        return {'file': file_target,
+        return {'uri': file_target,
                 'ctime': ctime}
 
     def delete(self, name):

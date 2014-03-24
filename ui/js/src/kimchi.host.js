@@ -188,10 +188,6 @@ kimchi.host_main = function() {
                 label: i18n['KCHDR6003M'],
                 'class': 'debug-report-name'
             }, {
-                name: 'file',
-                label: i18n['KCHDR6004M'],
-                'class': 'debug-report-file'
-            }, {
                 name: 'time',
                 label: i18n['KCHDR6005M'],
                 'class': 'debug-report-time'

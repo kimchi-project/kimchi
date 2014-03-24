@@ -1507,7 +1507,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(200, resp.status)
             resp = request(host, port, '/debugreports/report1')
             debugre = json.loads(resp.read())
-            resp = request(host, port, debugre['file'])
+            resp = request(host, port, debugre['uri'])
             self.assertEquals(200, resp.status)
 
     def test_host(self):

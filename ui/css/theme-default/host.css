@@ -215,14 +215,10 @@
 }
 
 .debug-report-name,
-.debug-report-file,
 .debug-report-time {
     width: 200px;
 }
 
-.debug-report-file {
-    width: 300px;
-}
 /* End of Debug Report */
 
 /* Software Updates */

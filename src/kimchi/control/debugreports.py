@@ -37,7 +37,7 @@ class DebugReport(Resource):
     @property
     def data(self):
         return {'name': self.ident,
-                'file': self.info['file'],
+                'uri': self.info['uri'],
                 'time': self.info['ctime']}
 
 
@@ -47,4 +47,4 @@ class DebugReportContent(Resource):
 
     def get(self):
         self.lookup()
-        raise internal_redirect(self.info['file'])
+        raise internal_redirect(self.info['uri'])
