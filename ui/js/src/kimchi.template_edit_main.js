@@ -41,19 +41,39 @@ kimchi.template_edit_main = function() {
             kimchi.select('template-edit-graphics-list', options);
         });
 
+        var scsipools = {};
         kimchi.listStoragePools(function(result) {
             var options = [];
             if (result && result.length) {
                 $.each(result, function(index, storagePool) {
                     if ((storagePool.state=="active") && (storagePool.type !== 'kimchi-iso')) {
-                        options.push({
-                            label: storagePool.name,
-                            value: '/storagepools/' + storagePool.name
-                        });
+                        if ((storagePool.type == 'iscsi') || (storagePool.type == 'scsi')){
+                            scsipools[storagePool.name] = [];
+                            kimchi.listStorageVolumes(storagePool.name, function(result) {
+                                if (result && result.length) {
+                                    $.each(result, function(index, storageVolume) {
+                                        options.push({
+                                            label: storagePool.name + '/' + storageVolume.name,
+                                            value: '/storagepools/' + storagePool.name + '/' + storageVolume.name
+                                        });
+                                        scsipools[storagePool.name].push(storageVolume)
+                                    });
+                                }
+                                kimchi.select('template-edit-storagePool-list', options);
+                            });
+                        }
+                        else {
+                            options.push({
+                                label: storagePool.name,
+                                value: '/storagepools/' + storagePool.name
+                            });
+                        }
                     }
                 });
             }
-            kimchi.select('template-edit-storagePool-list', options);
+            if ($.isEmptyObject(scsipools)) {
+                kimchi.select('template-edit-storagePool-list', options);
+            }
         });
         kimchi.listNetworks(function(result) {
             if(result && result.length > 0) {
@@ -100,6 +120,14 @@ kimchi.template_edit_main = function() {
         });
         data['memory'] = Number(data['memory']);
         data['cpus']   = Number(data['cpus']);
+        storagepool = data['storagepool'];
+        storageArray = storagepool.split("/");
+        if (storageArray.length > 3){
+            /* Support only 1 disk at this moment */
+            delete data["disks"][0].size;
+            data["disks"][0].volume = storageArray.pop();
+            data['storagepool'] = storageArray.join("/");
+        }
         var networks = templateEditForm.serializeObject().networks;
         if (networks instanceof Array) {
             data.networks = networks;
