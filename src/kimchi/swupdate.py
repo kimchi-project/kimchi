@@ -149,8 +149,13 @@ class YumUpdate(object):
         """
         Update the list of packages to be updated in the system.
         """
-        self._yb = getattr(__import__('yum'), 'YumBase')()
-        self._pkgs = self._yb.doPackageLists('updates')
+        try:
+            yb = getattr(__import__('yum'), 'YumBase')()
+            yb.doLock()
+            self._pkgs = yb.doPackageLists('updates')
+            yb.doUnlock()
+        except Exception, e:
+            raise OperationFailed('KCHPKGUPD0003E', {'err': e.message})
 
     def getPackagesList(self):
         """

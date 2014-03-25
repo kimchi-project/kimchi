@@ -249,4 +249,8 @@ messages = {
     "KCHREPOS0021E": _("Could not disable repository %(repo_id)s."),
     "KCHREPOS0022E": _("YUM Repository ID already exists"),
     "KCHREPOS0023E": _("YUM Repository name must be a string"),
+    "KCHREPOS0024E": _("Unable to list repositories. Details: '%(err)s'"),
+    "KCHREPOS0025E": _("Unable to retrieve repository information. Details: '%(err)s'"),
+    "KCHREPOS0026E": _("Unable to add repository. Details: '%(err)s'"),
+    "KCHREPOS0027E": _("Unable to remove repository. Details: '%(err)s'"),
 }

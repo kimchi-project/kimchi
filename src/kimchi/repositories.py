@@ -115,14 +115,26 @@ class YumRepo(object):
                 self._confdir = d
                 break
 
+    def _get_repos(self, errcode):
+        try:
+            yb = self._yb()
+            yb.doLock()
+            repos = yb.repos
+            yb.doUnlock()
+        except Exception, e:
+            kimchiLock.release()
+            raise OperationFailed(errcode, {'err': e.message})
+
+        return repos
+
     def getRepositoriesList(self):
         """
         Return a list of repositories IDs
         """
         kimchiLock.acquire()
-        repos = self._yb().repos.repos.keys()
+        repos = self._get_repos('KCHREPOS0024E')
         kimchiLock.release()
-        return repos
+        return repos.repos.keys()
 
     def getRepo(self, repo_id):
         """
@@ -130,8 +142,9 @@ class YumRepo(object):
         repository ID format with the information of a YumRepository object.
         """
         kimchiLock.acquire()
-        repos = self._yb().repos
+        repos = self._get_repos('KCHREPOS0025E')
         kimchiLock.release()
+
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
@@ -169,7 +182,7 @@ class YumRepo(object):
             repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
 
         kimchiLock.acquire()
-        repos = self._yb().repos
+        repos = self._get_repos('KCHREPOS0026E')
         kimchiLock.release()
         if repo_id in repos.repos.keys():
             raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
@@ -199,7 +212,7 @@ class YumRepo(object):
 
     def toggleRepo(self, repo_id, enable):
         kimchiLock.acquire()
-        repos = self._yb().repos
+        repos = self._get_repos('KCHREPOS0011E')
         kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
@@ -234,7 +247,7 @@ class YumRepo(object):
         Update a given repository in repositories.Repositories() format
         """
         kimchiLock.acquire()
-        repos = self._yb().repos
+        repos = self._get_repos('KCHREPOS0011E')
         kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
@@ -265,7 +278,7 @@ class YumRepo(object):
         Remove a given repository
         """
         kimchiLock.acquire()
-        repos = self._yb().repos
+        repos = self._get_repos('KCHREPOS0027E')
         kimchiLock.release()
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
