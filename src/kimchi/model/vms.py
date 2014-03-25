@@ -184,7 +184,7 @@ class VMsModel(object):
         # If storagepool is SCSI, volumes will be LUNs and must be passed by
         # the user from UI or manually.
         vol_list = []
-        if t._get_storage_type() == "iscsi":
+        if t._get_storage_type() in ["iscsi", "scsi"]:
             vol_list = []
         elif t._get_storage_type() in READONLY_POOL_TYPE:
             if not params.get('volumes'):

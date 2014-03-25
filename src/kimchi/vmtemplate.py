@@ -180,7 +180,10 @@ class VMTemplate(object):
             graphics_xml = graphics_xml + spicevmc_xml
         return graphics_xml
 
-    def _get_scsi_disks_xml(self, luns):
+    def _get_scsi_disks_xml(self):
+        luns = [disk['volume'] for disk in self.info.get('disks', {})
+                if 'volume' in disk]
+
         ret = ""
         # Passthrough configuration
         disk_xml = """
@@ -192,8 +195,10 @@ class VMTemplate(object):
         if not self.fc_host_support:
             disk_xml = disk_xml.replace('volume','block')
 
+        pool = self._storage_validate()
         # Creating disk xml for each lun passed
-        for index,(lun, path) in enumerate(luns):
+        for index, lun in enumerate(luns):
+            path = pool.storageVolLookupByName(lun).path()
             dev = "sd%s" % string.lowercase[index]
             params = {'src': path, 'dev': dev}
             ret = ret + disk_xml % params
@@ -308,7 +313,7 @@ class VMTemplate(object):
         if storage_type == "iscsi":
             params['disks'] = self._get_iscsi_disks_xml()
         elif storage_type == "scsi":
-            params['disks'] = self._get_scsi_disks_xml(kwargs.get('volumes'))
+            params['disks'] = self._get_scsi_disks_xml()
         else:
             params['disks'] = self._get_disks_xml(vm_uuid)
 
