@@ -114,7 +114,7 @@ class DebugReportsModel(object):
 
         except Exception, e:
             # No need to call cb to update the task status here.
-            # The task object will catch the exception rasied here
+            # The task object will catch the exception raised here
             # and update the task status there
             log = logging.getLogger('Model')
             log.warning('Exception in generating debug file: %s', e)
