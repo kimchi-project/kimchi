@@ -29,6 +29,7 @@ from kimchi.kvmusertests import UserTests
 from kimchi.utils import pool_name_from_uri
 from kimchi.utils import probe_file_permission_as_user
 from kimchi.vmtemplate import VMTemplate
+from lxml import objectify
 
 
 class TemplatesModel(object):
@@ -206,6 +207,16 @@ class LibvirtVMTemplate(VMTemplate):
         pool = self._storage_validate()
         xml = pool.XMLDesc(0)
         return xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+
+    def _get_storage_auth(self):
+        pool = self._storage_validate()
+        xml = pool.XMLDesc(0)
+        root = objectify.fromstring(xml)
+        auth = root.source.find("auth")
+        if auth is None:
+            return auth
+        au = auth.attrib
+        return au.update(auth.secret.attrib)
 
     def fork_vm_storage(self, vm_uuid):
         # Provision storage:

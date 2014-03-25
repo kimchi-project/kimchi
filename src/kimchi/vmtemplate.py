@@ -348,6 +348,9 @@ class VMTemplate(object):
     def _get_storage_type(self):
         return ''
 
+    def _get_storage_auth(self):
+        return None
+
     def _get_all_networks_name(self):
         return []
 
