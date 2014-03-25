@@ -68,10 +68,7 @@ class DebugReportsModel(object):
             command = ['sosreport', '--batch', '--name=%s' % name]
             output, error, retcode = run_command(command)
 
-            if retcode < 0:
-                raise OperationFailed("KCHDR0003E", {'name': name,
-                                                     'err': retcode})
-            elif retcode > 0:
+            if retcode != 0:
                 raise OperationFailed("KCHDR0003E", {'name': name,
                                                      'err': retcode})
 
