@@ -65,7 +65,7 @@ the following:<dl><dlentry>
 <li>In the <uicontrol>Storage pool name</uicontrol> field, type the
 name to be used to identify the storage pool.</li>
 <li>In the <uicontrol>Storage pool type</uicontrol> list, select the
-type: <dl rev="rev1"><dlentry>
+type: <dl><dlentry>
 <dt><uicontrol>DIR</uicontrol></dt>
 <dd>Specifies a directory pool. When selecting <uicontrol>DIR</uicontrol>,
 type the <uicontrol>Storage path</uicontrol> (file path to the storage
@@ -85,10 +85,14 @@ the iSCSI server. You can optionally select to add iSCSI authentication.</dd>
 <dt><uicontrol>Logical</uicontrol></dt>
 <dd>Specifies a logical volume storage pool. Select the location to
 the device in <uicontrol>Device path</uicontrol>.</dd>
-</dlentry></dl><?Pub Caret 591?></li>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
+<dd>Specifies a pool based on an SCSI Fibre Channel. Select which
+SCSI adapter to use.</dd>
+</dlentry></dl><?Pub Caret 0?></li>
 <li>Click <uicontrol>Create</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000003764?>
+<?Pub *0000003914?>
