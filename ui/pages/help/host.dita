@@ -39,6 +39,19 @@ have updates available, including package name, version, architecture,
 and repository. You can update all of the packages listed by selecting <uicontrol>Update
 All</uicontrol>. You cannot select individual packages for updates.</dd>
 </dlentry><dlentry>
+<dt>Repositories</dt>
+<dd>This section displays repositories that are associated with the
+host system. You can add, enable, edit, or remove repositories. Adding
+a repository associates it with the host system while enabling a repository
+allows the host to access it. If your system is Red Hat Enterprise
+Linux or Fedora, you can add <filepath>yum</filepath> repositories.
+If your system is Ubuntu or Debian, then add <filepath>deb</filepath> repositories.<p>If
+you are working with yum repositories, you can add a GPG check to
+verify that a package from this repository have not been corrupted.
+Select a repository and then <uicontrol>Edit</uicontrol>. Select <uicontrol>Yes</uicontrol> to
+enable GPG Check and then enter a URL to the GPG key file for the
+repository.</p><?Pub Caret 156?></dd>
+</dlentry><dlentry>
 <dt>Debug reports</dt>
 <dd>This section displays debug reports, including name and file path.
 You can select from options to generate a new report, or rename, remove,
@@ -50,8 +63,8 @@ configuration and diagnostic information, such as the running kernel
 version, loaded modules, and system and service configuration files.
 The command also runs external programs to collect further information
 and stores this output in the resulting archive.</p> </dd>
-</dlentry></dl><?Pub Caret 693?></p>
+</dlentry></dl></p>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
-<?Pub *0000002695?>
+<?Pub *0000003492?>
