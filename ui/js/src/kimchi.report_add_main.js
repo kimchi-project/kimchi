@@ -23,9 +23,11 @@ kimchi.report_add_main = function() {
                 result: result
             });
         }, function(result) {
-            if (result['reason']) {
-                var errText = result['reason'];
+            // Error message from Async Task status
+            if (result['message']) {
+                var errText = result['message'];
             }
+            // Error message from standard kimchi exception
             else {
                 var errText = result['responseJSON']['reason'];
             }
