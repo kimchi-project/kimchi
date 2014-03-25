@@ -30,8 +30,17 @@ kimchi.template_edit_main = function() {
         }
         var disks = template.disks;
         $('input[name="disks"]').val(disks[0].size);
-        var options = [{label: 'VNC', value: 'vnc'}, {label: 'Spice', value: 'spice'}];
-        kimchi.select('template-edit-graphics-list', options);
+
+        var options = [{label: 'VNC', value: 'vnc'}];
+        kimchi.getCapabilities(function(result) {
+            if (result.qemu_spice == true) {
+                options.push({label: 'Spice', value: 'spice'})
+            }
+        }, function() {
+        }, function(){
+            kimchi.select('template-edit-graphics-list', options);
+        });
+
         kimchi.listStoragePools(function(result) {
             var options = [];
             if (result && result.length) {

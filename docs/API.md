@@ -573,6 +573,7 @@ creation.
 * **GET**: Retrieve capabilities information
     * libvirt_stream_protocols: list of which network protocols are accepted
       for iso streaming by libvirt
+    * qemu_spice: True, if QEMU supports Spice; False, otherwise
     * qemu_stream: True, if QEMU supports ISO streaming; False, otherwise
     * screenshot: True, if libvirt stream functionality can create screenshot
       file without problems; False, otherwise or None if the functionality was

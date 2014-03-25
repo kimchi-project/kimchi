@@ -54,15 +54,19 @@ def get_debugreports_path():
     return os.path.join(paths.state_dir, 'debugreports')
 
 
-def find_qemu_binary():
+def find_qemu_binary(find_emulator=False):
     try:
         connect = libvirt.open('qemu:///system')
     except Exception, e:
         raise Exception("Unable to get qemu binary location: %s" % e)
     try:
         xml = connect.getCapabilities()
-        expr = "/capabilities/guest/arch[@name='%s']\
-                /domain[@type='kvm']/emulator" % platform.machine()
+        if find_emulator:
+            expr = "/capabilities/guest/arch[@name='%s']\
+                    /emulator" % platform.machine()
+        else:
+            expr = "/capabilities/guest/arch[@name='%s']\
+                    /domain[@type='kvm']/emulator" % platform.machine()
         res = xpath_get_text(xml, expr)
         location = res[0]
     except Exception, e:

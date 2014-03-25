@@ -1346,6 +1346,7 @@ class RestTests(unittest.TestCase):
         conf = json.loads(resp)
         self.assertIn('libvirt_stream_protocols', conf)
         self.assertIn('qemu_stream', conf)
+        self.assertIn('qemu_spice', conf)
         self.assertIn('screenshot', conf)
         self.assertIn('system_report_tool', conf)
         self.assertIn('update_tool', conf)

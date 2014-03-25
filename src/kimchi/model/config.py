@@ -23,6 +23,7 @@ import cherrypy
 
 from kimchi.basemodel import Singleton
 from kimchi.config import config as kconfig
+from kimchi.config import find_qemu_binary
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import NotFoundError
 from kimchi.featuretests import FeatureTests
@@ -30,7 +31,7 @@ from kimchi.model.debugreports import DebugReportsModel
 from kimchi.repositories import Repositories
 from kimchi.screenshot import VMScreenshot
 from kimchi.swupdate import SoftwareUpdate
-from kimchi.utils import check_url_path, kimchi_log
+from kimchi.utils import check_url_path, kimchi_log, run_command
 
 
 class ConfigModel(object):
@@ -72,6 +73,18 @@ class CapabilitiesModel(object):
         kimchi_log.info("*** Feature tests completed ***")
     _set_capabilities.priority = 90
 
+    def _qemu_support_spice(self):
+        qemu_path = find_qemu_binary(find_emulator=True)
+        out, err, rc = run_command(['ldd', qemu_path])
+        if rc != 0:
+            kimchi_log.error('Failed to find qemu binary dependencies: %s',
+                             err)
+            return False
+        for line in out.split('\n'):
+            if line.lstrip().startswith('libspice-server.so'):
+                return True
+        return False
+
     def lookup(self, *ident):
         report_tool = DebugReportsModel.get_system_report_tool()
         try:
@@ -89,6 +102,7 @@ class CapabilitiesModel(object):
             repo_mngt_tool = repo._pkg_mnger.TYPE
 
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
+                'qemu_spice': self._qemu_support_spice(),
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
                 'system_report_tool': bool(report_tool),

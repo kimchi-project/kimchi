@@ -49,14 +49,16 @@ var kimchi = {
      * Get host capabilities
      * suc: callback if succeed err: callback if failed
      */
-    getCapabilities : function(suc, err) {
+    getCapabilities : function(suc, err, done) {
+        done = typeof done !== 'undefined' ? done: function(){};
         kimchi.requestJSON({
             url : "/config/capabilities",
             type : "GET",
             contentType : "application/json",
             dataType : "json",
             success: suc,
-            error: err
+            error: err,
+            complete: done
         });
     },
 

@@ -65,6 +65,7 @@ class MockModel(object):
     def capabilities_lookup(self, *ident):
         return {'libvirt_stream_protocols':
                 ['http', 'https', 'ftp', 'ftps', 'tftp'],
+                'qemu_spice': True,
                 'qemu_stream': True,
                 'screenshot': True,
                 'system_report_tool': True,
