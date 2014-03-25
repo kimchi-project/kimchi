@@ -55,15 +55,17 @@ class TemplatesModel(object):
             params['name'] = name
 
         conn = self.conn.get()
-
         pool_uri = params.get(u'storagepool', '')
         if pool_uri:
-            pool_name = pool_name_from_uri(pool_uri)
             try:
-                conn.storagePoolLookupByName(pool_name.encode("utf-8"))
+                pool_name = pool_name_from_uri(pool_uri)
+                pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
             except Exception:
                 raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
                                                         'template': name})
+            tmp_volumes = [disk['volume'] for disk in params.get('disks', [])
+                           if 'volume' in disk]
+            self.template_volume_validate(tmp_volumes, pool)
 
         for net_name in params.get(u'networks', []):
             try:
@@ -82,6 +84,28 @@ class TemplatesModel(object):
     def get_list(self):
         with self.objstore as session:
             return session.get_list('template')
+
+    def template_volume_validate(self, tmp_volumes, pool):
+        kwargs = {'conn': self.conn, 'objstore': self.objstore}
+        pool_type = xmlutils.xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
+        pool_name = pool.name()
+
+        # as we discussion, we do not mix disks from 2 different types of
+        # storage pools, for instance: we do not create a template with 2
+        # disks, where one comes from a SCSI pool and other is a .img in
+        # a DIR pool.
+        if pool_type in ['iscsi', 'scsi']:
+            if not tmp_volumes:
+                raise InvalidParameter("KCHTMPL0018E")
+
+            storagevolumes = __import__("kimchi.model.storagevolumes",
+                                        fromlist=[''])
+            pool_volumes = storagevolumes.StorageVolumesModel(
+                **kwargs).get_list(pool_name)
+            vols = set(tmp_volumes) - set(pool_volumes)
+            if vols:
+                raise InvalidParameter("KCHTMPL0019E", {'pool': pool_name,
+                                                        'volume': vols})
 
 
 class TemplateModel(object):
@@ -128,18 +152,22 @@ class TemplateModel(object):
         new_t.update(params)
         ident = name
 
+        conn = self.conn.get()
         pool_uri = new_t.get(u'storagepool', '')
-        pool_name = pool_name_from_uri(pool_uri)
-        try:
-            conn = self.conn.get()
-            conn.storagePoolLookupByName(pool_name.encode("utf-8"))
-        except Exception:
-            raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
-                                                    'template': name})
+
+        if pool_uri:
+            try:
+                pool_name = pool_name_from_uri(pool_uri)
+                pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
+            except Exception:
+                raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
+                                                        'template': name})
+            tmp_volumes = [disk['volume'] for disk in new_t.get('disks', [])
+                           if 'volume' in disk]
+            self.templates.template_volume_validate(tmp_volumes, pool)
 
         for net_name in params.get(u'networks', []):
             try:
-                conn = self.conn.get()
                 conn.networkLookupByName(net_name)
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
