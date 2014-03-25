@@ -28,6 +28,8 @@ from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
+from lxml import etree
+from lxml.builder import E
 
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
@@ -196,6 +198,34 @@ class VMTemplate(object):
             dev = "sd%s" % string.lowercase[index]
             params = {'src': path, 'dev': dev}
             ret = ret + disk_xml % params
+        return ret
+
+    def _get_iscsi_disks_xml(self):
+        def build_disk_xml(children=[]):
+            disk = E.disk(type='volume', device='disk')
+            disk.extend(children)
+            return etree.tostring(disk)
+
+        ret = ""
+        children = []
+        auth = self._get_storage_auth()
+        if auth:
+            etree_auth = E.auth(username=auth['username'])
+            etree_auth.append(E.secret(type=auth['type'],
+                              usage=auth['libvirtiscsi']))
+            children.append(etree_auth)
+        children.append(E.driver(name='qemu', type='raw'))
+        disk_bus = self.info['disk_bus']
+        dev_prefix = self._bus_to_dev[disk_bus]
+        pool_name = pool_name_from_uri(self.info['storagepool'])
+        for i, d in enumerate(self.info['disks']):
+            source = E.source(pool=pool_name,
+                              volume=d.get('volume'), mode='host')
+            # FIXME if more than 26 disks
+            target = E.target(dev=dev_prefix + string.lowercase[i],
+                              bus=disk_bus)
+            ret += build_disk_xml(children+[source, target])
+
         return ret
 
     def to_volume_list(self, vm_uuid):
