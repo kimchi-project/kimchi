@@ -1,0 +1,138 @@
+13:04:38 <alinefm> #startmeeting
+13:04:38 <kimchi-bot> Meeting started Wed Mar 26 13:04:38 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:38 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:38 <alinefm> #meetingname scrum
+13:04:38 <kimchi-bot> The meeting name has been set to 'scrum'
+13:05:06 <alinefm> #info  Agenda 1) Status 2) Plan for next release 3) Open discussion
+13:05:07 <alinefm> anything else?
+13:06:31 <alinefm> #topic Status
+13:06:31 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:02 <alinefm> #info alinefm Fixed the problems found in the repository management feature
+13:08:04 <shaohef> #info shaohef is still doing the Chinese translation
+13:08:32 <alinefm> #info alinefm Added lock for YUM operation
+13:09:55 <rotru> #info rotru fixed problem with non persistent networks; Investigated and sent patches to fix problems when disk is full; Sent patch to sort devices order in Logical  storage pool creation;
+13:11:10 <rotru> #info rotru fixed problems with iso streaming and feature tests.
+13:11:54 <alinefm> #info royce tested kimchi on ubuntu 13.04 and fixed bugs relating to logical pool, documentation and so on.
+13:12:05 <danielhb> #info danielhb has made progress in the "kimchi runs as root" issue. Using nginx, I was able to run 2 cherrypy instances, one as root, another as a regular user. The reason to use a proxy is because all the JS attempts failed. I'll detail the problems in the github issue when possible
+13:12:54 <pradeep> #info pradeep image_format patch in progress. got struck with an issue.   /me working on it. Will have patch by next week.
+13:13:43 <lagarcia> #info lagarcia fixed an issue where error messages were not being printed when disk was got full during debug report generation
+13:14:04 <lagarcia> #info lagarcia found a bug that was leading to incorrect KimchiException translation
+13:14:15 <lagarcia> #info lagarcia sent two other minor patches.
+13:15:03 <alinefm> great!
+13:15:13 <alinefm> I think we have all done for 1.2 release
+13:15:25 <alinefm> I need volunteers to do the Portuguese translations =)
+13:15:27 <AdamKingIT1> #info adamkingit finished updating manage repo to work w/ the updated backend
+13:15:42 <alinefm> lagarcia, pvital, ramonn, rotru, danielhb ^
+13:16:09 <alinefm> or anyone else who knows Portuguese
+13:16:21 <rotru> alinefm;  I can do it
+13:16:29 <ramonn> alinefm, i can do it too
+13:16:55 <alinefm> rotru, ramonn, make sure to update the .po files before starting the translations
+13:17:21 <shaohef> It take me alone time to the translation. and sometimes I need to discuss with others.
+13:17:24 <alinefm> rotru, ramonn there will be a lot of messages to translate so you two can coordinate and work together
+13:17:42 <alinefm> shaohef, ok - np
+13:18:11 <shaohef> So I suggested every one can do some Portuguese translation
+13:18:17 <alinefm> https://github.com/kimchi-project/kimchi/wiki/i18n-Quick-Tips
+13:18:37 <shaohef> And then integrate them.
+13:18:43 <alinefm> shaohef, yeap
+13:19:03 <alinefm> shaohef, sorry, but I can't help you with Chinese
+13:19:06 <alinefm> =)
+13:19:31 <alinefm> anything else I am missing for the release?
+13:19:48 <AdamKingIT1> I think we have some testing to do
+13:19:53 <AdamKingIT1> at least I do
+13:19:56 <shaohef> It does not matter.
+13:20:08 <alinefm> AdamKingIT1, agree - me too
+13:20:41 <shaohef> this time more items need to be translated than last time. :)
+13:21:05 <alinefm> shaohef, yeap - now the backend is also translated
+13:21:05 <AdamKingIT1> yes, including some help
+13:22:08 <shaohef> oh, yes. add the backend translation.
+13:22:09 <alinefm> ok - so let's move on
+13:22:30 <alinefm> #topic Plan for next release
+13:22:50 <alinefm> I sent an email earlier this week asking for inputs for the next release
+13:23:04 <alinefm> anyone can update our Backlog page on github wiki and provide your ideas
+13:23:16 <alinefm> I will use the backlog as base for the next release
+13:23:27 <ramonn> alinefm, we can make this automatic using google translate
+13:23:32 <ramonn> and just review after
+13:23:39 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog
+13:23:41 <ramonn> I already did that in the past
+13:24:56 <alinefm> unfortunately, I haven't planned anything yet I am pretty focus on 1.2 release
+13:25:14 <alinefm> but probably tomorrow I will input some dates and prioritize the Backlog tasks
+13:27:01 <alinefm> alright?
+13:27:36 <pvital> good!
+13:27:56 <alinefm> #topic Open discussion
+13:28:01 <alinefm> what will we discuss today?
+13:28:05 <alinefm> =)
+13:30:14 <rotru> alinefm;  I have one comment
+13:30:24 <alinefm> rotru, sure - go ahead
+13:32:05 <pvital> alinefm, discuss?? may be where we're going out to celebrate the 1.2 release!!!
+13:32:06 <pvital> :-D
+13:32:11 <AdamKingIT1> Should we discuss any patches on the list we think need to make 1.2?
+13:32:11 <rotru> alinefm; I saw that patches to add volume from a SCSI/iSCSI pool  in templates were committed ...  That's ok, because this functionally had to be complete for the release
+13:32:46 <rotru> alinefm;  but I does not agree with them
+13:33:20 <alinefm> pvital, I am counting the minutes for that
+13:33:21 <rotru> alinefm;  I think add volumes in templates in wrong.
+13:33:30 <alinefm> rotru, why? what is your suggestion?
+13:33:58 <alinefm> AdamKingIT1, we can do that
+13:34:03 <alinefm> let me find out the patches
+13:35:38 <rotru> alinefm; templates should contain information that are similar for a set of VMs that a user would like to create. A disk, is particular part of each vm. (at least the primary)
+13:36:24 <alinefm> rotru, the template will hold all the disks primary or not
+13:36:40 <alinefm> today we just allow the primary but it won't be true in future
+13:37:13 <alinefm> rotru, and think about a shared volume - not necessarily a fresh installation
+13:37:34 <rotru> alinefm; that is problem.   Imagine the use case, were an admin has to create 50 vm, because on this template, that hold 1 single primary disk
+13:37:50 <rotru> * where
+13:38:37 <rotru> alinefm;  * Imagine the use case, where  an admin has to create 50 vms, based on this template, that holds 1 single primary disk
+13:39:08 <alinefm> rotru, based on same LUN?
+13:39:12 <rotru> alinefm;  yes
+13:39:18 <alinefm> today it is what he will do
+13:39:55 <rotru> alinefm; he would  have to change the template 50 times,
+13:40:02 <rotru> wouldn't it ?
+13:40:14 <lagarcia> rotru, Actually I think it is an advantage to have the primary disk on the template. I didn't get deep into this discussion, but at first glance, the primary disk is usually the main system partition. This is sometimes even read-only in cloud environments, and lots of machines share the same image.
+13:40:16 <rotru> to assign new lun
+13:40:47 <lagarcia> rotru, so it would be an advantage to have it in the template. Cause you won't want to change it.
+13:40:48 <alinefm> rotru, you are only thinking about fresh install
+13:41:24 <alinefm> for fresh install : yes - the user will need to specify a new LUN otherwise he will overwrite the current LUN content
+13:41:26 <rotru> lagarcia;  alinefm  agree, for ready only system, its perfect
+13:41:45 <lagarcia> rotru, fresh install is probably the less frequent use case for a cloud environment.
+13:42:09 <lagarcia> rotru, nobody wants to fresh install 50 machines. They want to install 1 machine and clone the others. If they can use the same disk image, it is even better.
+13:43:41 <rotru> lagarcia; clone is not an option if you are using disk as a lun from a scsi/iscsi
+13:44:32 <rotru> lagarcia;  unless you are willing to create an .img from the lun
+13:46:09 <alinefm> rotru, I don't know much about iscsi/scsi volumes but cant we use backing store?
+13:46:13 <lagarcia> rotru, I think this discussion needs to continue offline, otherwise we will not have time to discuss other topics. I don't see an issue with this. But if you have concerns, you, alinefm and myself can talk later.
+13:46:37 <alinefm> agree
+13:47:01 <rotru> lagarcia; thats ok ! its not a big issue ... but that are other use cases that we need think better :)
+13:47:22 <alinefm> let's look the patches
+13:47:25 <alinefm> [Kimchi-devel] [PATCH] bug fix: fix the string format.
+13:47:36 <alinefm> [Kimchi-devel] [PATCH] Properly display YUM exception
+13:47:46 <alinefm> [Kimchi-devel] [PATCH 0/2] Fixes for apt swupdate
+13:48:02 <alinefm> [Kimchi-devel] [PATCH] fix lock for apt package manager
+13:48:14 <alinefm> [Kimchi-devel] [PATCH] Remove LUN assignment in VM
+13:48:38 <alinefm> [PATCH v2] Logical Storage Pool: Detect and Enumerate Multipath Block Devices
+13:48:55 <alinefm> most of them are already reviewed
+13:49:11 <alinefm> AdamKingIT1, do you have something from UI?
+13:50:09 <AdamKingIT1> I think kersten has a help updae on the list, if its not already applied. I know hlw is working on a couple fixes too
+13:51:03 <rotru> alinefm; [PATCH] Sort device paths shown when creating a logical storage pool
+13:51:04 <alinefm> all help patches were applied yesterday
+13:51:14 <AdamKingIT1> :-)
+13:51:19 <alinefm> AdamKingIT1, hlw will send the patches still today?
+13:51:28 <alinefm> rotru, yes - sorry, forget it
+13:51:34 <alinefm> *forgot
+13:51:35 <AdamKingIT1> He isn't here, so I guess not
+13:52:07 <alinefm> AdamKingIT1, what those fixes are for? are they critical?
+13:52:37 <AdamKingIT1> I don't remember. I have the list in an email on my other system. I'll look up after this
+13:52:50 <rotru> alinefm; we also need to talk about  "Fix 'disk full' issue:"   I think there are few things to change and could be committed today as well
+13:52:55 <AdamKingIT1> Also need to evaluate issues we find testing
+13:53:58 <alinefm> AdamKingIT1, please, do it soon and let me know if there is some patch that blocks 1.2 release
+13:55:11 <AdamKingIT1> sure
+13:55:15 <alinefm> rotru, ok
+13:55:56 <alinefm> my plan is merge the remaining patches after the scrum and send the email about 1.2 until 3PM (EST)
+13:56:36 <AdamKingIT1> should we hold the announce until we complete a bit more testing?
+13:57:30 <alinefm> you think until 3PM is not enough to do the tests?
+13:57:46 <AdamKingIT1> 3pm in what time zone? ;-)
+13:57:53 <alinefm> EST
+13:57:58 <AdamKingIT1> I can do some testng by then
+13:59:12 <AdamKingIT1> enough to alleviate my worst fears anyway :-D
+13:59:33 <alinefm> lol
+13:59:58 <alinefm> ok - so let's complete the 1.2!!
+14:00:16 <alinefm> and please, if you find any block issue, let me know as soon as possible
+14:00:45 <alinefm> I also would like to thank everyone for the hard and good work done for 1.2 release
+14:02:38 <alinefm> thanks for joining
+14:02:44 <alinefm> #endmeeting

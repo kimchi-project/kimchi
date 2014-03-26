@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:38</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 26 13:04:38 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:38</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:38</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:05:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info  </span><span class="cmdline">Agenda 1) Status 2) Plan for next release 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:06:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:06:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:08:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Fixed the problems found in the repository management feature</span>
+<a name="l-11"></a><span class="tm">13:08:04</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef is still doing the Chinese translation</span>
+<a name="l-12"></a><span class="tm">13:08:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Added lock for YUM operation</span>
+<a name="l-13"></a><span class="tm">13:09:55</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru fixed problem with non persistent networks; Investigated and sent patches to fix problems when disk is full; Sent patch to sort devices order in Logical  storage pool creation;</span>
+<a name="l-14"></a><span class="tm">13:11:10</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru fixed problems with iso streaming and feature tests.</span>
+<a name="l-15"></a><span class="tm">13:11:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce tested kimchi on ubuntu 13.04 and fixed bugs relating to logical pool, documentation and so on.</span>
+<a name="l-16"></a><span class="tm">13:12:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb has made progress in the "kimchi runs as root" issue. Using nginx, I was able to run 2 cherrypy instances, one as root, another as a regular user. The reason to use a proxy is because all the JS attempts failed. I'll detail the problems in the github issue when possible</span>
+<a name="l-17"></a><span class="tm">13:12:54</span><span class="nk"> &lt;pradeep&gt;</span> <span class="cmd">#info </span><span class="cmdline">pradeep image_format patch in progress. got struck with an issue.   /me working on it. Will have patch by next week.</span>
+<a name="l-18"></a><span class="tm">13:13:43</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia fixed an issue where error messages were not being printed when disk was got full during debug report generation</span>
+<a name="l-19"></a><span class="tm">13:14:04</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia found a bug that was leading to incorrect KimchiException translation</span>
+<a name="l-20"></a><span class="tm">13:14:15</span><span class="nk"> &lt;lagarcia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lagarcia sent two other minor patches.</span>
+<a name="l-21"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-22"></a><span class="tm">13:15:13</span><span class="nk"> &lt;alinefm&gt;</span> I think we have all done for 1.2 release
+<a name="l-23"></a><span class="tm">13:15:25</span><span class="nk"> &lt;alinefm&gt;</span> I need volunteers to do the Portuguese translations =)
+<a name="l-24"></a><span class="tm">13:15:27</span><span class="nk"> &lt;AdamKingIT1&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit finished updating manage repo to work w/ the updated backend</span>
+<a name="l-25"></a><span class="tm">13:15:42</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, pvital, ramonn, rotru, danielhb ^
+<a name="l-26"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> or anyone else who knows Portuguese
+<a name="l-27"></a><span class="tm">13:16:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I can do it
+<a name="l-28"></a><span class="tm">13:16:29</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, i can do it too
+<a name="l-29"></a><span class="tm">13:16:55</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ramonn, make sure to update the .po files before starting the translations
+<a name="l-30"></a><span class="tm">13:17:21</span><span class="nk"> &lt;shaohef&gt;</span> It take me alone time to the translation. and sometimes I need to discuss with others.
+<a name="l-31"></a><span class="tm">13:17:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ramonn there will be a lot of messages to translate so you two can coordinate and work together
+<a name="l-32"></a><span class="tm">13:17:42</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok - np
+<a name="l-33"></a><span class="tm">13:18:11</span><span class="nk"> &lt;shaohef&gt;</span> So I suggested every one can do some Portuguese translation
+<a name="l-34"></a><span class="tm">13:18:17</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/i18n-Quick-Tips
+<a name="l-35"></a><span class="tm">13:18:37</span><span class="nk"> &lt;shaohef&gt;</span> And then integrate them.
+<a name="l-36"></a><span class="tm">13:18:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yeap
+<a name="l-37"></a><span class="tm">13:19:03</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, sorry, but I can't help you with Chinese
+<a name="l-38"></a><span class="tm">13:19:06</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-39"></a><span class="tm">13:19:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else I am missing for the release?
+<a name="l-40"></a><span class="tm">13:19:48</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I think we have some testing to do
+<a name="l-41"></a><span class="tm">13:19:53</span><span class="nk"> &lt;AdamKingIT1&gt;</span> at least I do
+<a name="l-42"></a><span class="tm">13:19:56</span><span class="nk"> &lt;shaohef&gt;</span> It does not matter.
+<a name="l-43"></a><span class="tm">13:20:08</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, agree - me too
+<a name="l-44"></a><span class="tm">13:20:41</span><span class="nk"> &lt;shaohef&gt;</span> this time more items need to be translated than last time. :)
+<a name="l-45"></a><span class="tm">13:21:05</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yeap - now the backend is also translated
+<a name="l-46"></a><span class="tm">13:21:05</span><span class="nk"> &lt;AdamKingIT1&gt;</span> yes, including some help
+<a name="l-47"></a><span class="tm">13:22:08</span><span class="nk"> &lt;shaohef&gt;</span> oh, yes. add the backend translation.
+<a name="l-48"></a><span class="tm">13:22:09</span><span class="nk"> &lt;alinefm&gt;</span> ok - so let's move on
+<a name="l-49"></a><span class="tm">13:22:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Plan for next release</span>
+<a name="l-50"></a><span class="tm">13:22:50</span><span class="nk"> &lt;alinefm&gt;</span> I sent an email earlier this week asking for inputs for the next release
+<a name="l-51"></a><span class="tm">13:23:04</span><span class="nk"> &lt;alinefm&gt;</span> anyone can update our Backlog page on github wiki and provide your ideas
+<a name="l-52"></a><span class="tm">13:23:16</span><span class="nk"> &lt;alinefm&gt;</span> I will use the backlog as base for the next release
+<a name="l-53"></a><span class="tm">13:23:27</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, we can make this automatic using google translate
+<a name="l-54"></a><span class="tm">13:23:32</span><span class="nk"> &lt;ramonn&gt;</span> and just review after
+<a name="l-55"></a><span class="tm">13:23:39</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog
+<a name="l-56"></a><span class="tm">13:23:41</span><span class="nk"> &lt;ramonn&gt;</span> I already did that in the past
+<a name="l-57"></a><span class="tm">13:24:56</span><span class="nk"> &lt;alinefm&gt;</span> unfortunately, I haven't planned anything yet I am pretty focus on 1.2 release
+<a name="l-58"></a><span class="tm">13:25:14</span><span class="nk"> &lt;alinefm&gt;</span> but probably tomorrow I will input some dates and prioritize the Backlog tasks
+<a name="l-59"></a><span class="tm">13:27:01</span><span class="nk"> &lt;alinefm&gt;</span> alright?
+<a name="l-60"></a><span class="tm">13:27:36</span><span class="nk"> &lt;pvital&gt;</span> good!
+<a name="l-61"></a><span class="tm">13:27:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-62"></a><span class="tm">13:28:01</span><span class="nk"> &lt;alinefm&gt;</span> what will we discuss today?
+<a name="l-63"></a><span class="tm">13:28:05</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-64"></a><span class="tm">13:30:14</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I have one comment
+<a name="l-65"></a><span class="tm">13:30:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, sure - go ahead
+<a name="l-66"></a><span class="tm">13:32:05</span><span class="nk"> &lt;pvital&gt;</span> alinefm, discuss?? may be where we're going out to celebrate the 1.2 release!!!
+<a name="l-67"></a><span class="tm">13:32:06</span><span class="nk"> &lt;pvital&gt;</span> :-D
+<a name="l-68"></a><span class="tm">13:32:11</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Should we discuss any patches on the list we think need to make 1.2?
+<a name="l-69"></a><span class="tm">13:32:11</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I saw that patches to add volume from a SCSI/iSCSI pool  in templates were committed ...  That's ok, because this functionally had to be complete for the release
+<a name="l-70"></a><span class="tm">13:32:46</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  but I does not agree with them
+<a name="l-71"></a><span class="tm">13:33:20</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I am counting the minutes for that
+<a name="l-72"></a><span class="tm">13:33:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I think add volumes in templates in wrong.
+<a name="l-73"></a><span class="tm">13:33:30</span><span class="nk"> &lt;alinefm&gt;</span> rotru, why? what is your suggestion?
+<a name="l-74"></a><span class="tm">13:33:58</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, we can do that
+<a name="l-75"></a><span class="tm">13:34:03</span><span class="nk"> &lt;alinefm&gt;</span> let me find out the patches
+<a name="l-76"></a><span class="tm">13:35:38</span><span class="nk"> &lt;rotru&gt;</span> alinefm; templates should contain information that are similar for a set of VMs that a user would like to create. A disk, is particular part of each vm. (at least the primary)
+<a name="l-77"></a><span class="tm">13:36:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, the template will hold all the disks primary or not
+<a name="l-78"></a><span class="tm">13:36:40</span><span class="nk"> &lt;alinefm&gt;</span> today we just allow the primary but it won't be true in future
+<a name="l-79"></a><span class="tm">13:37:13</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and think about a shared volume - not necessarily a fresh installation
+<a name="l-80"></a><span class="tm">13:37:34</span><span class="nk"> &lt;rotru&gt;</span> alinefm; that is problem.   Imagine the use case, were an admin has to create 50 vm, because on this template, that hold 1 single primary disk
+<a name="l-81"></a><span class="tm">13:37:50</span><span class="nk"> &lt;rotru&gt;</span> * where
+<a name="l-82"></a><span class="tm">13:38:37</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  * Imagine the use case, where  an admin has to create 50 vms, based on this template, that holds 1 single primary disk
+<a name="l-83"></a><span class="tm">13:39:08</span><span class="nk"> &lt;alinefm&gt;</span> rotru, based on same LUN?
+<a name="l-84"></a><span class="tm">13:39:12</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  yes
+<a name="l-85"></a><span class="tm">13:39:18</span><span class="nk"> &lt;alinefm&gt;</span> today it is what he will do
+<a name="l-86"></a><span class="tm">13:39:55</span><span class="nk"> &lt;rotru&gt;</span> alinefm; he would  have to change the template 50 times,
+<a name="l-87"></a><span class="tm">13:40:02</span><span class="nk"> &lt;rotru&gt;</span> wouldn't it ?
+<a name="l-88"></a><span class="tm">13:40:14</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, Actually I think it is an advantage to have the primary disk on the template. I didn't get deep into this discussion, but at first glance, the primary disk is usually the main system partition. This is sometimes even read-only in cloud environments, and lots of machines share the same image.
+<a name="l-89"></a><span class="tm">13:40:16</span><span class="nk"> &lt;rotru&gt;</span> to assign new lun
+<a name="l-90"></a><span class="tm">13:40:47</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, so it would be an advantage to have it in the template. Cause you won't want to change it.
+<a name="l-91"></a><span class="tm">13:40:48</span><span class="nk"> &lt;alinefm&gt;</span> rotru, you are only thinking about fresh install
+<a name="l-92"></a><span class="tm">13:41:24</span><span class="nk"> &lt;alinefm&gt;</span> for fresh install : yes - the user will need to specify a new LUN otherwise he will overwrite the current LUN content
+<a name="l-93"></a><span class="tm">13:41:26</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  alinefm  agree, for ready only system, its perfect
+<a name="l-94"></a><span class="tm">13:41:45</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, fresh install is probably the less frequent use case for a cloud environment.
+<a name="l-95"></a><span class="tm">13:42:09</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, nobody wants to fresh install 50 machines. They want to install 1 machine and clone the others. If they can use the same disk image, it is even better.
+<a name="l-96"></a><span class="tm">13:43:41</span><span class="nk"> &lt;rotru&gt;</span> lagarcia; clone is not an option if you are using disk as a lun from a scsi/iscsi
+<a name="l-97"></a><span class="tm">13:44:32</span><span class="nk"> &lt;rotru&gt;</span> lagarcia;  unless you are willing to create an .img from the lun
+<a name="l-98"></a><span class="tm">13:46:09</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I don't know much about iscsi/scsi volumes but cant we use backing store?
+<a name="l-99"></a><span class="tm">13:46:13</span><span class="nk"> &lt;lagarcia&gt;</span> rotru, I think this discussion needs to continue offline, otherwise we will not have time to discuss other topics. I don't see an issue with this. But if you have concerns, you, alinefm and myself can talk later.
+<a name="l-100"></a><span class="tm">13:46:37</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-101"></a><span class="tm">13:47:01</span><span class="nk"> &lt;rotru&gt;</span> lagarcia; thats ok ! its not a big issue ... but that are other use cases that we need think better :)
+<a name="l-102"></a><span class="tm">13:47:22</span><span class="nk"> &lt;alinefm&gt;</span> let's look the patches
+<a name="l-103"></a><span class="tm">13:47:25</span><span class="nk"> &lt;alinefm&gt;</span> [Kimchi-devel] [PATCH] bug fix: fix the string format.
+<a name="l-104"></a><span class="tm">13:47:36</span><span class="nk"> &lt;alinefm&gt;</span> [Kimchi-devel] [PATCH] Properly display YUM exception
+<a name="l-105"></a><span class="tm">13:47:46</span><span class="nk"> &lt;alinefm&gt;</span> [Kimchi-devel] [PATCH 0/2] Fixes for apt swupdate
+<a name="l-106"></a><span class="tm">13:48:02</span><span class="nk"> &lt;alinefm&gt;</span> [Kimchi-devel] [PATCH] fix lock for apt package manager
+<a name="l-107"></a><span class="tm">13:48:14</span><span class="nk"> &lt;alinefm&gt;</span> [Kimchi-devel] [PATCH] Remove LUN assignment in VM
+<a name="l-108"></a><span class="tm">13:48:38</span><span class="nk"> &lt;alinefm&gt;</span> [PATCH v2] Logical Storage Pool: Detect and Enumerate Multipath Block Devices
+<a name="l-109"></a><span class="tm">13:48:55</span><span class="nk"> &lt;alinefm&gt;</span> most of them are already reviewed
+<a name="l-110"></a><span class="tm">13:49:11</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, do you have something from UI?
+<a name="l-111"></a><span class="tm">13:50:09</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I think kersten has a help updae on the list, if its not already applied. I know hlw is working on a couple fixes too
+<a name="l-112"></a><span class="tm">13:51:03</span><span class="nk"> &lt;rotru&gt;</span> alinefm; [PATCH] Sort device paths shown when creating a logical storage pool
+<a name="l-113"></a><span class="tm">13:51:04</span><span class="nk"> &lt;alinefm&gt;</span> all help patches were applied yesterday
+<a name="l-114"></a><span class="tm">13:51:14</span><span class="nk"> &lt;AdamKingIT1&gt;</span> :-)
+<a name="l-115"></a><span class="tm">13:51:19</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, hlw will send the patches still today?
+<a name="l-116"></a><span class="tm">13:51:28</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yes - sorry, forget it
+<a name="l-117"></a><span class="tm">13:51:34</span><span class="nk"> &lt;alinefm&gt;</span> *forgot
+<a name="l-118"></a><span class="tm">13:51:35</span><span class="nk"> &lt;AdamKingIT1&gt;</span> He isn't here, so I guess not
+<a name="l-119"></a><span class="tm">13:52:07</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, what those fixes are for? are they critical?
+<a name="l-120"></a><span class="tm">13:52:37</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I don't remember. I have the list in an email on my other system. I'll look up after this
+<a name="l-121"></a><span class="tm">13:52:50</span><span class="nk"> &lt;rotru&gt;</span> alinefm; we also need to talk about  "Fix 'disk full' issue:"   I think there are few things to change and could be committed today as well
+<a name="l-122"></a><span class="tm">13:52:55</span><span class="nk"> &lt;AdamKingIT1&gt;</span> Also need to evaluate issues we find testing
+<a name="l-123"></a><span class="tm">13:53:58</span><span class="nk"> &lt;alinefm&gt;</span> AdamKingIT1, please, do it soon and let me know if there is some patch that blocks 1.2 release
+<a name="l-124"></a><span class="tm">13:55:11</span><span class="nk"> &lt;AdamKingIT1&gt;</span> sure
+<a name="l-125"></a><span class="tm">13:55:15</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-126"></a><span class="tm">13:55:56</span><span class="nk"> &lt;alinefm&gt;</span> my plan is merge the remaining patches after the scrum and send the email about 1.2 until 3PM (EST)
+<a name="l-127"></a><span class="tm">13:56:36</span><span class="nk"> &lt;AdamKingIT1&gt;</span> should we hold the announce until we complete a bit more testing?
+<a name="l-128"></a><span class="tm">13:57:30</span><span class="nk"> &lt;alinefm&gt;</span> you think until 3PM is not enough to do the tests?
+<a name="l-129"></a><span class="tm">13:57:46</span><span class="nk"> &lt;AdamKingIT1&gt;</span> 3pm in what time zone? ;-)
+<a name="l-130"></a><span class="tm">13:57:53</span><span class="nk"> &lt;alinefm&gt;</span> EST
+<a name="l-131"></a><span class="tm">13:57:58</span><span class="nk"> &lt;AdamKingIT1&gt;</span> I can do some testng by then
+<a name="l-132"></a><span class="tm">13:59:12</span><span class="nk"> &lt;AdamKingIT1&gt;</span> enough to alleviate my worst fears anyway :-D
+<a name="l-133"></a><span class="tm">13:59:33</span><span class="nk"> &lt;alinefm&gt;</span> lol
+<a name="l-134"></a><span class="tm">13:59:58</span><span class="nk"> &lt;alinefm&gt;</span> ok - so let's complete the 1.2!!
+<a name="l-135"></a><span class="tm">14:00:16</span><span class="nk"> &lt;alinefm&gt;</span> and please, if you find any block issue, let me know as soon as possible
+<a name="l-136"></a><span class="tm">14:00:45</span><span class="nk"> &lt;alinefm&gt;</span> I also would like to thank everyone for the hard and good work done for 1.2 release
+<a name="l-137"></a><span class="tm">14:02:38</span><span class="nk"> &lt;alinefm&gt;</span> thanks for joining
+<a name="l-138"></a><span class="tm">14:02:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

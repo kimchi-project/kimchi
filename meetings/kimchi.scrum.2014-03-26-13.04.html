@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:04:38 UTC
+(<a href="kimchi.scrum.2014-03-26-13.04.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Plan for next release 3)
+    Open discussion</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-6'>alinefm</a>,
+    13:05:06)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-03-26-13.04.log.html#l-8'>alinefm</a>, 13:06:31)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-9'>alinefm</a>,
+    13:06:31)</span></li>
+  <li><span class="INFO">alinefm Fixed the problems found in the
+    repository management feature</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-10'>alinefm</a>,
+    13:08:02)</span></li>
+  <li><span class="INFO">shaohef is still doing the Chinese
+    translation</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-11'>shaohef</a>,
+    13:08:04)</span></li>
+  <li><span class="INFO">alinefm Added lock for YUM operation</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-12'>alinefm</a>,
+    13:08:32)</span></li>
+  <li><span class="INFO">rotru fixed problem with non persistent
+    networks; Investigated and sent patches to fix problems when disk is
+    full; Sent patch to sort devices order in Logical  storage pool
+    creation;</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-13'>rotru</a>,
+    13:09:55)</span></li>
+  <li><span class="INFO">rotru fixed problems with iso streaming and
+    feature tests.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-14'>rotru</a>,
+    13:11:10)</span></li>
+  <li><span class="INFO">royce tested kimchi on ubuntu 13.04 and fixed
+    bugs relating to logical pool, documentation and so on.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-15'>alinefm</a>,
+    13:11:54)</span></li>
+  <li><span class="INFO">danielhb has made progress in the "kimchi runs
+    as root" issue. Using nginx, I was able to run 2 cherrypy instances,
+    one as root, another as a regular user. The reason to use a proxy is
+    because all the JS attempts failed. I'll detail the problems in the
+    github issue when possible</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-16'>danielhb</a>,
+    13:12:05)</span></li>
+  <li><span class="INFO">pradeep image_format patch in progress. got
+    struck with an issue.   /me working on it. Will have patch by next
+    week.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-17'>pradeep</a>,
+    13:12:54)</span></li>
+  <li><span class="INFO">lagarcia fixed an issue where error messages
+    were not being printed when disk was got full during debug report
+    generation</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-18'>lagarcia</a>,
+    13:13:43)</span></li>
+  <li><span class="INFO">lagarcia found a bug that was leading to
+    incorrect KimchiException translation</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-19'>lagarcia</a>,
+    13:14:04)</span></li>
+  <li><span class="INFO">lagarcia sent two other minor patches.</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-20'>lagarcia</a>,
+    13:14:15)</span></li>
+  <li><span class="INFO">adamkingit finished updating manage repo to
+    work w/ the updated backend</span> <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-24'>AdamKingIT1</a>,
+    13:15:27)</span></li>
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/wiki/i18n-Quick-Tips">https://github.com/kimchi-project/kimchi/wiki/i18n-Quick-Tips</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-34'>alinefm</a>,
+    13:18:17)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Plan for next release</b> <span class="details">(<a href='kimchi.scrum.2014-03-26-13.04.log.html#l-49'>alinefm</a>, 13:22:30)</span>
+<ol type="a">
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog">https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-03-26-13.04.log.html#l-55'>alinefm</a>,
+    13:23:39)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open discussion</b> <span class="details">(<a href='kimchi.scrum.2014-03-26-13.04.log.html#l-61'>alinefm</a>, 13:27:56)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:02:44 UTC
+(<a href="kimchi.scrum.2014-03-26-13.04.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (75)</li>
+  <li>rotru (21)</li>
+  <li>AdamKingIT1 (15)</li>
+  <li>lagarcia (8)</li>
+  <li>shaohef (7)</li>
+  <li>ramonn (4)</li>
+  <li>pvital (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>pradeep (1)</li>
+  <li>danielhb (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
