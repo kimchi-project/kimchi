@@ -190,14 +190,7 @@
                     "pattern": "^/storagepools/[^/]+/?$",
                     "error": "KCHVM0013E"
                 },
-                "graphics": { "$ref": "#/kimchitype/graphics" },
-                "volumes": {
-                    "description": "list of scsi volumes to be assigned to the new VM.",
-                    "type": "array",
-                    "items": { "type": "string" },
-                    "uniqueItems": true,
-                    "error": "KCHVM0018E"
-                }
+                "graphics": { "$ref": "#/kimchitype/graphics" }
             }
         },
         "vm_update": {

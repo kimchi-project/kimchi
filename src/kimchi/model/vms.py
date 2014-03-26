@@ -29,7 +29,7 @@ from kimchi import vnc
 from kimchi import xmlutils
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
+from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
@@ -153,11 +153,6 @@ class VMsModel(object):
                                'diskRdKB': diskRdKB,
                                'diskWrKB': diskWrKB})
 
-    def _get_volume_path(self, pool, vol):
-        conn = self.conn.get()
-        pool = conn.storagePoolLookupByName(pool)
-        return pool.storageVolLookupByName(vol).path()
-
     def create(self, params):
         conn = self.conn.get()
         t_name = template_name_from_uri(params['template'])
@@ -186,15 +181,6 @@ class VMsModel(object):
         vol_list = []
         if t._get_storage_type() in ["iscsi", "scsi"]:
             vol_list = []
-        elif t._get_storage_type() in READONLY_POOL_TYPE:
-            if not params.get('volumes'):
-                raise MissingParameter('KCHVM0017E')
-            else:
-                # Get system path of the LUNs
-                pool = t.info['storagepool'].split('/')[-1]
-                for vol in params.get('volumes'):
-                    path = self._get_volume_path(pool, vol)
-                    vol_list.append((vol, path))
         else:
             vol_list = t.fork_vm_storage(vm_uuid)
 

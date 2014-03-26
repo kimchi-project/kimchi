@@ -55,8 +55,6 @@ the following general conventions:
                      Independent Computing Environments
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
-    * volumes *(optional)*: List of Fibre channel LUN names to be assigned as
-                            disk to VM. Required if pool is type SCSI.
 
 
 ### Resource: Virtual Machine

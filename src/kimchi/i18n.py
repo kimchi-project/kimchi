@@ -76,8 +76,6 @@ messages = {
     "KCHVM0014E": _("Supported virtual machine graphics are spice or VNC"),
     "KCHVM0015E": _("Graphics address to listen on must be IPv4 or IPv6"),
     "KCHVM0016E": _("Specify a template to create a virtual machine from"),
-    "KCHVM0017E": _("Volume list (LUNs names) not given."),
-    "KCHVM0018E": _("Virtual machine volumes must be a list of strings with distinct LUNs names."),
     "KCHVM0019E": _("Unable to start virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0020E": _("Unable to stop virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0021E": _("Unable to delete virtual machine %(name)s. Details: %(err)s"),
