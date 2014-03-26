@@ -15,11 +15,172 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+kimchi.host={};
+
 kimchi.host_main = function() {
     var expand = function(header, toExpand) {
         var controlledNode = $(header).attr('aria-controls');
         $('#' + controlledNode)[toExpand ? 'removeClass' : 'addClass']('hidden');
         $(header).attr('aria-expanded', toExpand ? 'true' : 'false');
+    };
+
+    var repositoriesGrid = null;
+    var initRepositoriesGrid = function(repo_type) {
+        var gridFields=[];
+        if (repo_type == "yum") {
+                gridFields=[{
+                    name: 'repo_id',
+                    label: i18n['KCHREPO6004M'],
+                    'class': 'repository-id'
+                }, {
+                    name: 'config[repo_name]',
+                    label: i18n['KCHREPO6005M'],
+                    'class': 'repository-name'
+                }, {
+                    name: 'enabled',
+                    label: i18n['KCHREPO6009M'],
+                    'class': 'repository-enabled'
+                }];
+        }
+        else if (repo_type == "deb") {
+                gridFields=[{
+                    name: 'baseurl',
+                    label: i18n['KCHREPO6006M'],
+                    makeTitle: true,
+                    'class': 'repository-baseurl'
+                }, {
+                    name: 'enabled',
+                    label: i18n['KCHREPO6009M'],
+                    'class': 'repository-enabled'
+                }, {
+                    name: 'config[dist]',
+                    label: "dist",
+                    'class': 'repository-gpgcheck'
+                }, {
+                    name: 'config[comps]',
+                    label: "comps",
+                    'class': 'repository-gpgcheck'
+                }];
+        }
+        else {
+            gridFields=[{
+                name: 'repo_id',
+                label: i18n['KCHREPO6004M'],
+                'class': 'repository-id'
+                }, {
+                    name: 'enabled',
+                    label: i18n['KCHREPO6009M'],
+                    'class': 'repository-enabled'
+                }, {
+                    name: 'baseurl',
+                    label: i18n['KCHREPO6006M'],
+                    makeTitle: true,
+                    'class': 'repository-baseurl'
+                }];
+        }
+        repositoriesGrid = new kimchi.widget.Grid({
+            container: 'repositories-grid-container',
+            id: 'repositories-grid',
+            title: i18n['KCHREPO6003M'],
+            toolbarButtons: [{
+                id: 'repositories-grid-add-button',
+                label: i18n['KCHREPO6012M'],
+                onClick: function(event) {
+                    kimchi.window.open({url:'repository-add.html', class: repo_type});
+                }
+            }, {
+                id: 'repositories-grid-enable-button',
+                label: i18n['KCHREPO6016M'],
+                disabled: true,
+                onClick: function(event) {
+                    var repository = repositoriesGrid.getSelected();
+                    if(!repository) {
+                        return;
+                    }
+                    var name = repository['repo_id'];
+                    var enable = !repository['enabled'];
+                    $(this).prop('disabled', true);
+                    kimchi.enableRepository(name, enable, function() {
+                        kimchi.topic('kimchi/repositoryUpdated').publish();
+                    });
+                }
+            }, {
+                id: 'repositories-grid-edit-button',
+                label: i18n['KCHREPO6013M'],
+                disabled: true,
+                onClick: function(event) {
+                    var repository = repositoriesGrid.getSelected();
+                    if(!repository) {
+                        return;
+                    }
+                    kimchi.selectedRepository = repository['repo_id'];
+                    kimchi.window.open({url:'repository-edit.html', class: repo_type});
+                }
+            }, {
+                id: 'repositories-grid-remove-button',
+                label: i18n['KCHREPO6014M'],
+                disabled: true,
+                onClick: function(event) {
+                    var repository = repositoriesGrid.getSelected();
+                    if(!repository) {
+                        return;
+                    }
+
+                    var settings = {
+                        title : i18n['KCHREPO6001M'],
+                        content : i18n['KCHREPO6002M'],
+                        confirm : i18n['KCHAPI6004M'],
+                        cancel : i18n['KCHAPI6003M']
+                    };
+
+                    kimchi.confirm(settings, function() {
+                        kimchi.deleteRepository(
+                            repository['repo_id'],
+                            function(result) {
+                                kimchi.topic('kimchi/repositoryDeleted').publish(result);
+                            }, function(error) {
+                            }
+                        );
+                    });
+                }
+            }],
+            onRowSelected: function(row) {
+                var repository = repositoriesGrid.getSelected();
+                if(!repository) {
+                    return;
+                }
+                $('#repositories-grid-remove-button').prop('disabled', false);
+                $('#repositories-grid-edit-button').prop('disabled', false);
+                var enabled = repository['enabled'];
+                $('#repositories-grid-enable-button')
+                    .text(i18n[enabled ? 'KCHREPO6017M' : 'KCHREPO6016M'])
+                    .prop('disabled', false);
+            },
+            frozenFields: [],
+            fields: gridFields,
+            data: listRepositories
+        });
+    };
+
+    var listRepositories = function(gridCallback) {
+        kimchi.listRepositories(function(repositories) {
+            if($.isFunction(gridCallback)) {
+                gridCallback(repositories);
+            }
+            else {
+                if(repositoriesGrid) {
+                    repositoriesGrid.setData(repositories);
+                }
+                else {
+                    initRepositoriesGrid();
+                    repositoriesGrid.setData(repositories);
+                }
+            }
+        });
+
+        $('#repositories-grid-remove-button').prop('disabled', true);
+        $('#repositories-grid-edit-button').prop('disabled', true);
+        $('#repositories-grid-enable-button').prop('disabled', true);
     };
 
     var softwareUpdatesGridID = 'software-updates-grid';
@@ -285,6 +446,18 @@ kimchi.host_main = function() {
         });
 
         kimchi.getCapabilities(function(capabilities) {
+            kimchi.host.capabilities=capabilities;
+            if((capabilities['repo_mngt_tool']) && (capabilities['repo_mngt_tool']!="None")) {
+                initRepositoriesGrid(capabilities['repo_mngt_tool']);
+                $('#repositories-section').switchClass('hidden', capabilities['repo_mngt_tool']);
+                kimchi.topic('kimchi/repositoryAdded')
+                    .subscribe(listRepositories);
+                kimchi.topic('kimchi/repositoryUpdated')
+                    .subscribe(listRepositories);
+                kimchi.topic('kimchi/repositoryDeleted')
+                    .subscribe(listRepositories);
+            }
+
             if(capabilities['update_tool']) {
                 $('#software-update-section').removeClass('hidden');
                 initSoftwareUpdatesGrid();
@@ -564,6 +737,14 @@ kimchi.host_main = function() {
             kimchi.hostTimer = null;
             delete kimchi.hostTimer;
         }
+
+        repositoriesGrid && repositoriesGrid.destroy();
+        kimchi.topic('kimchi/repositoryAdded')
+            .unsubscribe(listRepositories);
+        kimchi.topic('kimchi/repositoryUpdated')
+            .unsubscribe(listRepositories);
+        kimchi.topic('kimchi/repositoryDeleted')
+            .unsubscribe(listRepositories);
 
         softwareUpdatesGrid && softwareUpdatesGrid.destroy();
         kimchi.topic('kimchi/softwareUpdated').unsubscribe(listSoftwareUpdates);

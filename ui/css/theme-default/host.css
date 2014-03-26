@@ -249,3 +249,11 @@
     width: 846px;
 }
 /* End of Software Updates */
+
+/* Repository */
+.host-panel #repositories-grid {
+    border-color: #ddd;
+    height: 200px;
+    width: 850px;
+}
+/* End of Repository */
