@@ -20,19 +20,61 @@
         var formDataArray = $(this).serializeArray();
         var formData = {};
         $.each(formDataArray, function(index, data) {
-            if (formData[data.name] === undefined) {
-                formData[data.name] = data.value;
-            } else {
-                if (formData[data.name] instanceof Array) {
-                    formData[data.name].push(data.value);
-                } else {
-                    var oldValue = formData[data.name];
-                    formData[data.name] = [];
-                    formData[data.name].push(oldValue);
-                    formData[data.name].push(data.value);
-                }
-            }
+            var names=kimchi.form.parseFormName(data.name);
+            kimchi.form.assignValue(names,data.value,formData);
         });
         return formData;
     };
 }(jQuery));
+
+kimchi.form = {};
+kimchi.form.assignValue = function(names, value, obj) {
+    var result=value;
+
+    if(names.length!=0) {
+        result=obj;
+        var name=names.shift();
+        if(!result) {
+            result={};
+        }
+        if(!result[name]) {
+            result[name]=kimchi.form.assignValue(names,value);
+        }
+        else if(names.length==0) {
+            if(Array.isArray(result[name])){
+                result[name].push(value);
+            }
+            else {
+                result[name]=[result[name],value];
+            }
+        }
+        else {
+            result[name]=kimchi.form.assignValue(names,value,result[name]);
+        }
+    }
+    return(result);
+}
+
+kimchi.form.parseFormName = function(name, parsedName) {
+    if (!parsedName) {
+        parsedName=[];
+    }
+    if(!name || name=="") {
+        return(parsedName);
+    }
+    var openBracket=name.indexOf("[");
+    if (openBracket!=-1) {
+        var id=name.slice(0, openBracket);
+        parsedName.push(id);
+        var closeBracket=name.lastIndexOf("]");
+        if (closeBracket==-1) {
+            closeBracket=name.length;
+        }
+        var tmpName=name.slice(openBracket+1,closeBracket);
+        kimchi.form.parseFormName(tmpName,parsedName);
+    }
+    else {
+        parsedName.push(name);
+    }
+    return(parsedName);
+}
