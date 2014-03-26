@@ -1,0 +1,93 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Authors:
+ *  Hongliang Wang <hlwang@linux.vnet.ibm.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.yum div#repository-edit-window {
+    height: 680px;
+    width: 1000px;
+}
+
+.deb div#repository-edit-window {
+    height: 480px;
+    width: 1000px;
+}
+
+
+.repository-edit-fieldset {
+    float: left;
+    padding: 1em;
+    width: 95%;
+}
+
+.repository-edit-wrapper-label, .repository-edit-wrapper-controls {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    margin-top: 5px;
+    vertical-align: top;
+}
+
+.repository-edit-wrapper-label {
+    width: 150px;
+}
+
+.repository-edit-wrapper-controls label {
+    vertical-align: middle;
+}
+
+.repository-edit-wrapper-controls {
+    width: 100%;
+}
+
+.repository-edit-wrapper-controls input[type="text"] {
+    font-size: 16px;
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee inset;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding: 0 10px;
+    width: 100%;
+}
+
+
+.repository-edit-wrapper-controls input[type="text"][readonly] {
+    color: #bbb;
+    background-color: #fafafa;
+}
+
+
+.repository-edit-wrapper-controls input[type="text"][disabled] {
+    color: #bbb;
+    background-color: #fafafa;
+    cursor: not-allowed;
+}
+
+
+.deb .yum{
+    display: none;
+}
+
+
+.yum .deb{
+    display: none;
+}

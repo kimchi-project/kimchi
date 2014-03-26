@@ -1,0 +1,115 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from kimchi.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+
+<div id="repository-edit-window" class="window">
+    <form id="form-repository-edit">
+        <header>
+            <h1 class="title">$_("Edit Repository")</h1>
+            <div class="close">X</div>
+        </header>
+        <div class="content">
+            <section id="form-repository-edit">
+                <fieldset class="repository-edit-fieldset">
+                    <div class="repository-id yum">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-id-textbox">$_("ID")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-id-textbox" name="repo_id" type="text" disabled="disabled" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="repository-name yum">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-name-textbox">$_("Name")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-name-textbox" class="yum" name="config[repo_name]" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-url">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-baseurl-textbox">$_("URL")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-baseurl-textbox" name="baseurl" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-dist deb">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-urlargs-textbox">$_("Distribution")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-urlargs-textbox" class="deb" name="config[dist]" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-mirrorlist yum">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-urlargs-textbox">$_("Mirror List URL")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-urlargs-textbox" class="yum" name="config[mirrorlist]" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-comps deb">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-urlargs-textbox">$_("Components")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-urlargs-textbox" class="deb" name="config[comps]" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-gpgkey yum">
+                        <div class="repository-edit-wrapper-label">
+                            <label for="repository-edit-gpgkey-textbox">$_("GPG Key")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-gpgkey-textbox" class="yum" name="config[gpgkey]" type="text" />
+                        </div>
+                    </div>
+                    <div class="repository-gpgcheck yum">
+                        <div class="repository-edit-wrapper-label">
+                            <label>$_("GPG Check")</label>
+                        </div>
+                        <div class="repository-edit-wrapper-controls">
+                            <input id="repository-edit-gpgcheck-radio-true" class="yum" name="config[gpgcheck]" type="radio" value="true" />
+                            <label for="repository-edit-gpgcheck-radio-true">$_("Yes")</label>
+                            <input id="repository-edit-gpgcheck-radio-false" class="yum" name="config[gpgcheck]" type="radio" value="false" />
+                            <label for="repository-edit-gpgcheck-radio-false">$_("No")</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+        </div>
+        <footer>
+            <div class="btn-group">
+                <button type="submit id="repository-edit-button-save" class="btn-normal">
+                    <span class="text">$_("Save")</span>
+                </button>
+            </div>
+        </footer>
+    </form>
+</div>
+<script type="text/javascript">
+    kimchi.repository_edit_main();
+</script>
