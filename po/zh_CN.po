@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-26 15:57-0300\n"
+"POT-Creation-Date: 2014-03-26 16:19-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -945,13 +945,6 @@ msgstr "监听的图形网路地址必须是IPv4或者IPv6"
 
 msgid "Specify a template to create a virtual machine from"
 msgstr "指定一个模板用来创建一个虚拟机"
-
-msgid "Volume list (LUNs names) not given."
-msgstr "卷列表（LUNs名字）没有给定。"
-
-msgid ""
-"Virtual machine volumes must be a list of strings with distinct LUNs names."
-msgstr "虚拟机的卷必须是一个含有清楚的LUNs名的字符串列表"
 
 #, python-format
 msgid "Unable to start virtual machine %(name)s. Details: %(err)s"

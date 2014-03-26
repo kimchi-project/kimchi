@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-26 15:57-0300\n"
+"POT-Creation-Date: 2014-03-26 16:19-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -980,14 +980,6 @@ msgstr "Endereço para receber eventos gráficos deve ser IPv4 ou IPv6"
 
 msgid "Specify a template to create a virtual machine from"
 msgstr "Especifique um modelo para ser base da criação da máquina virtual"
-
-msgid "Volume list (LUNs names) not given."
-msgstr "Lista de volumes (nomes das LUNs) não foi passado"
-
-msgid ""
-"Virtual machine volumes must be a list of strings with distinct LUNs names."
-msgstr ""
-"Volumes das máquinas virtuais deve ser um lista de nomes de LUNs distintas"
 
 #, python-format
 msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
