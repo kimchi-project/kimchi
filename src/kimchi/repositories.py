@@ -233,6 +233,7 @@ class YumRepo(object):
 
             self._conf.writeRawRepoFile(entry)
         except:
+            kimchiLock.release()
             if enable:
                 raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
@@ -310,6 +311,7 @@ class AptRepo(object):
         getattr(__import__('apt_pkg'), 'init_config')()
         getattr(__import__('apt_pkg'), 'init_system')()
         config = getattr(__import__('apt_pkg'), 'config')
+        self.pkg_lock = getattr(__import__('apt_pkg'), 'SystemLock')
         module = __import__('aptsources.sourceslist', globals(), locals(),
                             ['SourcesList'], -1)
 
@@ -322,6 +324,17 @@ class AptRepo(object):
                 fd.write("# This file is managed by Kimchi and it must not "
                          "be modified manually\n")
 
+    def _get_repos(self):
+        try:
+            with self.pkg_lock():
+                repos = self._sourceslist()
+                repos.refresh()
+        except Exception, e:
+            kimchiLock.release()
+            raise OperationFailed('KCHREPOS0025E', {'err': e.message})
+
+        return repos
+
     def _get_repo_id(self, repo):
         data = urlparse.urlparse(repo.uri)
         name = data.hostname or data.path
@@ -329,8 +342,7 @@ class AptRepo(object):
 
     def _get_source_entry(self, repo_id):
         kimchiLock.acquire()
-        repos = self._sourceslist()
-        repos.refresh()
+        repos = self._get_repos()
         kimchiLock.release()
 
         for r in repos:
@@ -354,8 +366,7 @@ class AptRepo(object):
         _get_repo_id()
         """
         kimchiLock.acquire()
-        repos = self._sourceslist()
-        repos.refresh()
+        repos = self._get_repos()
         kimchiLock.release()
 
         res = []
@@ -401,10 +412,15 @@ class AptRepo(object):
         comps = config.get('comps', [])
 
         kimchiLock.acquire()
-        repos = self._sourceslist()
-        repos.refresh()
-        source_entry = repos.add('deb', uri, dist, comps, file=self.filename)
-        repos.save()
+        try:
+            repos = self._get_repos()
+            source_entry = repos.add('deb', uri, dist, comps,
+                                     file=self.filename)
+            with self.pkg_lock():
+                repos.save()
+        except Exception as e:
+            kimchiLock.release()
+            raise OperationFailed("KCHREPOS0026E", {'err': e.message})
         kimchiLock.release()
 
         return self._get_repo_id(source_entry)
@@ -430,12 +446,13 @@ class AptRepo(object):
 
         kimchiLock.acquire()
         try:
-            repos = self._sourceslist()
-            repos.refresh()
-            repos.remove(r)
-            repos.add(line, r.uri, r.dist, r.comps, file=self.filename)
-            repos.save()
+            repos = self._get_repos()
+            with self.pkg_lock():
+                repos.remove(r)
+                repos.add(line, r.uri, r.dist, r.comps, file=self.filename)
+                repos.save()
         except:
+            kimchiLock.release()
             if enable:
                 raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
@@ -476,11 +493,12 @@ class AptRepo(object):
 
         kimchiLock.acquire()
         try:
-            repos = self._sourceslist()
-            repos.refresh()
-            repos.remove(r)
-            repos.save()
+            repos = self._get_repos()
+            with self.pkg_lock():
+                repos.remove(r)
+                repos.save()
         except:
+            kimchiLock.release()
             raise OperationFailed("KCHREPOS0017E", {'repo_id': repo_id})
         finally:
             kimchiLock.release()
