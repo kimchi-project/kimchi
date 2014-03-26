@@ -185,6 +185,7 @@ class AptUpdate(object):
     """
     def __init__(self):
         self._pkgs = {}
+        self.pkg_lock = getattr(__import__('apt_pkg'), 'SystemLock')
         self.update_cmd = ['apt-get', 'upgrade', '-y']
 
     def _refreshUpdateList(self):
@@ -192,9 +193,14 @@ class AptUpdate(object):
         Update the list of packages to be updated in the system.
         """
         apt_cache = getattr(__import__('apt'), 'Cache')()
-        apt_cache.update()
-        apt_cache.upgrade()
-        self._pkgs = apt_cache.get_changes()
+        try:
+            with self.pkg_lock():
+                apt_cache.update()
+                apt_cache.upgrade()
+                self._pkgs = apt_cache.get_changes()
+        except Exception, e:
+            kimchiLock.release()
+            raise OperationFailed('KCHPKGUPD0003E', {'err': e.message})
 
     def getPackagesList(self):
         """
