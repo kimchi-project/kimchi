@@ -176,6 +176,24 @@ kimchi.widget.Grid = function(params) {
     var messageNode = $('.grid-message', gridNode);
     messageNode.css('top', captionHeight + 'px');
 
+
+    var getValue = function(name, obj) {
+    var result=undefined;
+    if(!Array.isArray(name)) {
+        name=kimchi.form.parseFormName(name);
+    }
+    if(name.length!=0) {
+        var tmpName=name.shift();
+        if(obj[tmpName]!=undefined) {
+            result=obj[tmpName];
+        }
+        if(name.length!=0) {
+            result=getValue(name,obj[tmpName]);
+        }
+    }
+    return(result);
+    };
+
     var fillBody = function(container, fields, data) {
         var tbody = ($('tbody', container).length && $('tbody', container))
             || $('<tbody></tbody>').appendTo(container);
@@ -183,13 +201,12 @@ kimchi.widget.Grid = function(params) {
         $.each(data, function(i, row) {
             var rowNode = $('<tr></tr>').appendTo(tbody);
             $.each(fields, function(fi, field) {
-                var fieldName = field['name'];
-                var value = (row[fieldName]==null) ? '' : row[fieldName];
+                var value = getValue(field['name'], row);
                 $('<td><div class="cell-text-wrapper"' +
                      (field['makeTitle'] === true
                          ? ' title="' + value + '"'
                          : ''
-                     ) + '>' + value + '</div></td>'
+                     ) + '>' + value.toString() + '</div></td>'
                 ).appendTo(rowNode);
             });
         });
