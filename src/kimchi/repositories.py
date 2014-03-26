@@ -123,7 +123,7 @@ class YumRepo(object):
             yb.doUnlock()
         except Exception, e:
             kimchiLock.release()
-            raise OperationFailed(errcode, {'err': e.message})
+            raise OperationFailed(errcode, {'err': str(e)})
 
         return repos
 
