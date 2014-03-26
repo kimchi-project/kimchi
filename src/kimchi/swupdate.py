@@ -216,9 +216,10 @@ class AptUpdate(object):
         for pkg in self._pkgs:
             package = {'package_name': pkg.shortname,
                        'version': pkg.candidate.version,
-                       'arch': pkg.architecture(),
+                       'arch': pkg._pkg.architecture,
                        'repository': pkg.candidate.origins[0].label}
             pkg_list.append(package)
+
         return pkg_list
 
 
