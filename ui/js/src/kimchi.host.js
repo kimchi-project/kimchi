@@ -176,6 +176,15 @@ kimchi.host_main = function() {
                     repositoriesGrid.setData(repositories);
                 }
             }
+        },
+        function(error) {
+            var message = error && error['responseJSON'] && error['responseJSON']['reason'];
+
+            if($.isFunction(gridCallback)) {
+                gridCallback([]);
+            }
+            repositoriesGrid &&
+                repositoriesGrid.showMessage(message || i18n['KCHUPD6008M']);
         });
 
         $('#repositories-grid-remove-button').prop('disabled', true);
