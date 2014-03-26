@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-18 08:09-0300\n"
+"POT-Creation-Date: 2014-03-26 15:57-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -70,9 +70,8 @@ msgstr "Create"
 msgid "Edit Guest"
 msgstr "Edit Guest"
 
-#, fuzzy
 msgid "General"
-msgstr "Generate"
+msgstr ""
 
 msgid "Storage"
 msgstr "Storage"
@@ -184,9 +183,17 @@ msgstr "Confirm"
 msgid "Warning"
 msgstr "Warning"
 
-#, fuzzy
 msgid "Loading..."
-msgstr "Generating..."
+msgstr ""
+
+msgid "An error occurs while checking for packages update."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Detailed message:"
+msgstr ""
 
 msgid "No iso found"
 msgstr "No iso found"
@@ -231,6 +238,50 @@ msgstr ""
 "Shutting down or restarting host will cause unsaved work lost. Continue to "
 "shut down/restarting?"
 
+msgid ""
+"Repository will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Repositories"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Base URL"
+msgstr ""
+
+msgid "Is Mirror"
+msgstr ""
+
+msgid "URL Args"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "GPG Check"
+msgstr ""
+
+msgid "GPG Key"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Failed."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
 msgid "Software Updates"
 msgstr ""
 
@@ -249,9 +300,14 @@ msgstr ""
 msgid "Update All"
 msgstr ""
 
-#, fuzzy
 msgid "Updating..."
-msgstr "Generating..."
+msgstr ""
+
+msgid "Failed to retrieve updates."
+msgstr ""
+
+msgid "Failed to update package(s)."
+msgstr ""
 
 msgid ""
 "Debug report will be removed permanently and can't be recovered. Do you want "
@@ -262,9 +318,6 @@ msgstr ""
 
 msgid "Debug Reports"
 msgstr "Debug Reports"
-
-msgid "File Path"
-msgstr "File Path"
 
 msgid "Generated Time"
 msgstr "Generated Time"
@@ -277,9 +330,6 @@ msgstr "Generating..."
 
 msgid "Rename"
 msgstr "Rename"
-
-msgid "Remove"
-msgstr "Remove"
 
 msgid "Download"
 msgstr "Download"
@@ -300,9 +350,8 @@ msgstr ""
 msgid "Attaching..."
 msgstr ""
 
-#, fuzzy
 msgid "Replacing..."
-msgstr "Generating..."
+msgstr ""
 
 msgid "Successfully attached!"
 msgstr ""
@@ -343,6 +392,12 @@ msgstr ""
 "It will format your disk and you will loose any data in there, are you sure "
 "to continue? "
 
+msgid "SCSI Fibre Channel"
+msgstr ""
+
+msgid "No SCSI adapters found."
+msgstr ""
+
 msgid "The storage pool name can not be blank."
 msgstr ""
 
@@ -373,9 +428,8 @@ msgstr "This is not a valid Server Name or IP. please, modify it."
 msgid "Looking for available partitions ..."
 msgstr ""
 
-#, fuzzy
 msgid "No available partitions found."
-msgstr "No templates found."
+msgstr ""
 
 msgid ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
@@ -406,6 +460,54 @@ msgstr "Report Name"
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
 "based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+msgstr ""
+
+msgid "Add a Repository"
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
+
+msgid "Single word, unique identifier for the repository."
+msgstr ""
+
+msgid "Textual name for the repository."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Required Field"
+msgstr ""
+
+msgid "URL to the repository. Supported protocols are http, ftp, and file."
+msgstr ""
+
+msgid "Repository is a mirror."
+msgstr ""
+
+msgid "Distribution"
+msgstr ""
+
+msgid "Distribution of the DEB repository."
+msgstr ""
+
+msgid "Components"
+msgstr ""
+
+msgid "List of components in DEB repository."
+msgstr ""
+
+msgid "Edit Repository"
+msgstr ""
+
+msgid "Mirror List URL"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
 msgstr ""
 
 msgid "Define a New Storage Pool"
@@ -475,6 +577,9 @@ msgstr "Add iSCSI Authentication"
 
 msgid "iSCSI Authentication"
 msgstr "iSCSI Authentication"
+
+msgid "SCSI Adapter"
+msgstr ""
 
 msgid "CPU"
 msgstr "CPU"
@@ -685,7 +790,7 @@ msgstr ""
 msgid "Unable to parse JSON request"
 msgstr ""
 
-msgid "This API only supports"
+msgid "This API only supports JSON"
 msgstr ""
 
 msgid "Datastore is not initiated in the model object."
@@ -800,7 +905,8 @@ msgstr ""
 msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)"
+#, python-format
+msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -929,6 +1035,13 @@ msgid "Specify an ISO image as CDROM to create a template"
 msgstr ""
 
 msgid "All networks for the template must be specified in a list."
+msgstr ""
+
+msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
+msgstr ""
+
+#, python-format
+msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr ""
 
 #, python-format
@@ -1179,9 +1292,10 @@ msgstr ""
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr ""
 
+#, python-format
 msgid ""
 "Unable to create VLAN tagged bridge using interface %(iface)s. Details: "
-"%(err)"
+"%(err)s"
 msgstr ""
 
 msgid "Network name must be a string"
@@ -1212,6 +1326,10 @@ msgstr ""
 msgid ""
 "Unable to deactivate network %(name)s. There are some virtual machines and/"
 "or templates linked to this network."
+msgstr ""
+
+#, python-format
+msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
 msgstr ""
 
 #, python-format
@@ -1410,6 +1528,28 @@ msgstr ""
 
 msgid "YUM Repository ID already exists"
 msgstr ""
+
+msgid "YUM Repository name must be a string"
+msgstr ""
+
+#, python-format
+msgid "Unable to list repositories. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to retrieve repository information. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to add repository. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to remove repository. Details: '%(err)s'"
+msgstr ""
+
+#~ msgid "File Path"
+#~ msgstr "File Path"
 
 #~ msgid "Create template successfully"
 #~ msgstr "Create template successfully"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-18 08:09-0300\n"
+"POT-Creation-Date: 2014-03-26 15:57-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,6 +186,15 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+msgid "An error occurs while checking for packages update."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Detailed message:"
+msgstr ""
+
 msgid "No iso found"
 msgstr ""
 
@@ -227,6 +236,50 @@ msgid ""
 "shut down/restarting?"
 msgstr ""
 
+msgid ""
+"Repository will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Repositories"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Base URL"
+msgstr ""
+
+msgid "Is Mirror"
+msgstr ""
+
+msgid "URL Args"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "GPG Check"
+msgstr ""
+
+msgid "GPG Key"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Failed."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
 msgid "Software Updates"
 msgstr ""
 
@@ -248,15 +301,18 @@ msgstr ""
 msgid "Updating..."
 msgstr ""
 
+msgid "Failed to retrieve updates."
+msgstr ""
+
+msgid "Failed to update package(s)."
+msgstr ""
+
 msgid ""
 "Debug report will be removed permanently and can't be recovered. Do you want "
 "to continue?"
 msgstr ""
 
 msgid "Debug Reports"
-msgstr ""
-
-msgid "File Path"
 msgstr ""
 
 msgid "Generated Time"
@@ -269,9 +325,6 @@ msgid "Generating..."
 msgstr ""
 
 msgid "Rename"
-msgstr ""
-
-msgid "Remove"
 msgstr ""
 
 msgid "Download"
@@ -329,6 +382,12 @@ msgstr ""
 msgid ""
 "It will format your disk and you will loose any data in there, are you sure "
 "to continue? "
+msgstr ""
+
+msgid "SCSI Fibre Channel"
+msgstr ""
+
+msgid "No SCSI adapters found."
 msgstr ""
 
 msgid "The storage pool name can not be blank."
@@ -395,6 +454,54 @@ msgid ""
 "based on current time. Name can contain: letters, digits and hyphen (\"-\")."
 msgstr ""
 
+msgid "Add a Repository"
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
+
+msgid "Single word, unique identifier for the repository."
+msgstr ""
+
+msgid "Textual name for the repository."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Required Field"
+msgstr ""
+
+msgid "URL to the repository. Supported protocols are http, ftp, and file."
+msgstr ""
+
+msgid "Repository is a mirror."
+msgstr ""
+
+msgid "Distribution"
+msgstr ""
+
+msgid "Distribution of the DEB repository."
+msgstr ""
+
+msgid "Components"
+msgstr ""
+
+msgid "List of components in DEB repository."
+msgstr ""
+
+msgid "Edit Repository"
+msgstr ""
+
+msgid "Mirror List URL"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr ""
 
@@ -457,6 +564,9 @@ msgid "Add iSCSI Authentication"
 msgstr ""
 
 msgid "iSCSI Authentication"
+msgstr ""
+
+msgid "SCSI Adapter"
 msgstr ""
 
 msgid "CPU"
@@ -668,7 +778,7 @@ msgstr ""
 msgid "Unable to parse JSON request"
 msgstr ""
 
-msgid "This API only supports"
+msgid "This API only supports JSON"
 msgstr ""
 
 msgid "Datastore is not initiated in the model object."
@@ -783,7 +893,8 @@ msgstr ""
 msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)"
+#, python-format
+msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -912,6 +1023,13 @@ msgid "Specify an ISO image as CDROM to create a template"
 msgstr ""
 
 msgid "All networks for the template must be specified in a list."
+msgstr ""
+
+msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
+msgstr ""
+
+#, python-format
+msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr ""
 
 #, python-format
@@ -1162,9 +1280,10 @@ msgstr ""
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr ""
 
+#, python-format
 msgid ""
 "Unable to create VLAN tagged bridge using interface %(iface)s. Details: "
-"%(err)"
+"%(err)s"
 msgstr ""
 
 msgid "Network name must be a string"
@@ -1195,6 +1314,10 @@ msgstr ""
 msgid ""
 "Unable to deactivate network %(name)s. There are some virtual machines and/"
 "or templates linked to this network."
+msgstr ""
+
+#, python-format
+msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
 msgstr ""
 
 #, python-format
@@ -1392,4 +1515,23 @@ msgid "Could not disable repository %(repo_id)s."
 msgstr ""
 
 msgid "YUM Repository ID already exists"
+msgstr ""
+
+msgid "YUM Repository name must be a string"
+msgstr ""
+
+#, python-format
+msgid "Unable to list repositories. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to retrieve repository information. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to add repository. Details: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr ""
