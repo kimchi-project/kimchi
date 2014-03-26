@@ -29,7 +29,7 @@ messages = {
     "KCHAPI0004E": _("Parameters %(params)s are not allowed to be updated in %(resource)s"),
     "KCHAPI0005E": _("Create is not allowed for %(resource)s"),
     "KCHAPI0006E": _("Unable to parse JSON request"),
-    "KCHAPI0007E": _("This API only supports"),
+    "KCHAPI0007E": _("This API only supports JSON"),
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
 
