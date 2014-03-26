@@ -856,5 +856,79 @@ var kimchi = {
             success : onResponse,
             error : err
         });
-     }
+    },
+
+    createRepository : function(settings, suc, err) {
+        kimchi.requestJSON({
+            url : "host/repositories",
+            type : "POST",
+            contentType : "application/json",
+            data : JSON.stringify(settings),
+            dataType : "json",
+            success: suc,
+            error: err
+        });
+    },
+
+    retrieveRepository : function(repository, suc, err) {
+        var reposID = encodeURIComponent(repository);
+        kimchi.requestJSON({
+            url : kimchi.url + "host/repositories/" + reposID,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    updateRepository : function(name, settings, suc, err) {
+        var reposID = encodeURIComponent(name);
+        $.ajax({
+            url : kimchi.url + "host/repositories/" + reposID,
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    enableRepository : function(name, enable, suc, err) {
+        var reposID = encodeURIComponent(name);
+        $.ajax({
+            url : kimchi.url + "host/repositories/" + reposID +
+                '/' + (enable === true ? 'enable' : 'disable'),
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    deleteRepository : function(repository, suc, err) {
+        var reposID = encodeURIComponent(repository);
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/repositories/' + reposID,
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    listRepositories : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/repositories',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend: true,
+            success : suc,
+            error : err
+        });
+    }
 };
