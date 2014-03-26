@@ -27,8 +27,9 @@ kimchi.initStorageAddPage = function() {
         if (data.length > 0) {
             var deviceHtml = $('#partitionTmpl').html();
             var listHtml = '';
+            valid_types = ['part', 'disk', 'mpath'];
             $.each(data, function(index, value) {
-                if (value.type === 'part' || value.type === 'disk') {
+                if (valid_types.indexOf(value.type) != -1) {
                     listHtml += kimchi.template(deviceHtml, value);
                 }
             });

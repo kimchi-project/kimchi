@@ -27,8 +27,19 @@ from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 
 
+def _get_friendly_dm_path(maj_min):
+    """ Returns user friendly dm path given the device number 'major:min' """
+    dm_name = "/sys/dev/block/%s/dm/name" % maj_min
+    with open(dm_name) as dm_f:
+        content = dm_f.read().rstrip('\n')
+    return "/dev/mapper/" + content
+
+
 def _get_dev_node_path(maj_min):
     """ Returns device node path given the device number 'major:min' """
+    if maj_min.startswith('253:'):
+        return _get_friendly_dm_path(maj_min)
+
     uevent = "/sys/dev/block/%s/uevent" % maj_min
     with open(uevent) as ueventf:
         content = ueventf.read()
@@ -137,7 +148,7 @@ def get_partitions_names():
         # leaf means a partition, a disk has no partition, or a disk not held
         # by any multipath device. Physical volume belongs to no volume group
         # is also listed. Extended partitions should not be listed.
-        if not (dev['type'] in ['part', 'disk'] and
+        if not (dev['type'] in ['part', 'disk', 'mpath'] and
                 dev['fstype'] in ['', 'LVM2_member'] and
                 dev['mountpoint'] == "" and
                 _get_vgname(devNodePath) == "" and
