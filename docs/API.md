@@ -503,6 +503,8 @@ A interface represents available interface on host.
     * interface: The name of a bridge network interface on the host.  All traffic
                  on this network will be bridged through the indicated interface.
                  The interface is a bridge or ethernet/bonding device.
+    * persistent: If 'true', network will persist after a system reboot or be stopped.
+                  All networks created by Kimchi are persistent.
 
 * **DELETE**: Remove the Network
 * **POST**: *See Network Actions*

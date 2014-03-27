@@ -45,4 +45,5 @@ class Network(Resource):
                 'interface': self.info['interface'],
                 'subnet': self.info['subnet'],
                 'dhcp': self.info['dhcp'],
-                'state': self.info['state']}
+                'state': self.info['state'],
+                'persistent': self.info['persistent']}

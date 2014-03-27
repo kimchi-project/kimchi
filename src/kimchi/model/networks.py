@@ -233,7 +233,8 @@ class NetworkModel(object):
                 'vms': self._get_vms_attach_to_a_network(name),
                 'in_use': self._is_network_in_use(name),
                 'autostart': network.autostart() == 1,
-                'state':  network.isActive() and "active" or "inactive"}
+                'state':  network.isActive() and "active" or "inactive",
+                'persistent': True if network.isPersistent() else False}
 
     def _is_network_in_use(self, name):
         # The network "default" is used for Kimchi proposal and should not be
