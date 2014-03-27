@@ -40,6 +40,7 @@ kimchi.initNetworkListView = function() {
             }
             network.interface = data[i].interface ? data[i].interface : null;
             network.addrSpace = data[i].subnet ? data[i].subnet : null;
+            network.persistent = data[i].persistent;
             kimchi.addNetworkItem(network);
         }
     });
@@ -77,6 +78,27 @@ kimchi.getNetworkItemHtml = function(network) {
     return networkItem;
 };
 
+kimchi.stopNetwork = function(network,menu) {
+    $(".network-state", $("#" + network.name)).switchClass("up", "nw-loading");
+    $("[nwAct='stop']", menu).addClass("ui-state-disabled");
+    kimchi.toggleNetwork(network.name, false, function() {
+        $("[nwAct='start']", menu).removeClass("hide-action-item");
+        $("[nwAct='stop']", menu).addClass("hide-action-item");
+        $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
+        if (!network.in_use) {
+            $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
+            $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+        }
+        $(".network-state", $("#" + network.name)).switchClass("nw-loading", "down");
+    }, function(err) {
+        $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
+        if (!network.in_use) {
+            $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
+        }
+        kimchi.message.error(err.responseJSON.reason);
+    });
+}
+
 kimchi.addNetworkActions = function(network) {
     $(".menu-container", "#" + network.name).menu({
         position : {
@@ -110,24 +132,21 @@ kimchi.addNetworkActions = function(network) {
                     kimchi.message.error(err.responseJSON.reason);
                 });
             } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
-                $(".network-state", $("#" + network.name)).switchClass("up", "nw-loading");
-                $("[nwAct='stop']", menu).addClass("ui-state-disabled");
-                kimchi.toggleNetwork(network.name, false, function() {
-                    $("[nwAct='start']", menu).removeClass("hide-action-item");
-                    $("[nwAct='stop']", menu).addClass("hide-action-item");
-                    $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
-                    if (!network.in_use) {
-                        $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
-                        $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
-                    }
-                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "down");
-                }, function(err) {
-                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
-                    if (!network.in_use) {
-                        $("[nwAct='stop']", menu).removeClass("ui-state-disabled");
-                    }
-                    kimchi.message.error(err.responseJSON.reason);
-                });
+                if (!network.persistent) {
+                    var settings = {
+                        title : i18n['KCHAPI6001M'],
+                        content : i18n['KCHNET6004M'],
+                        confirm : i18n['KCHAPI6002M'],
+                        cancel : i18n['KCHAPI6003M']
+                    };
+                    kimchi.confirm(settings, function() {
+                        kimchi.stopNetwork(network, menu);
+                        $(evt.currentTarget).parents(".item").remove();
+                    }, null);
+                }
+                else {
+                    kimchi.stopNetwork(network, menu);
+                }
             } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
                 kimchi.confirm({
                     title : i18n['KCHAPI6006M'],
