@@ -626,7 +626,11 @@ class MockModel(object):
         if self._is_network_in_use(name):
             raise InvalidOperation("KCHNET0018E", {'name': name})
 
-        self._get_network(name).info['state'] = 'inactive'
+        network = self._get_network(name)
+        if not network.info['persistent']:
+            self.network_delete(name)
+
+        network.info['state'] = 'inactive'
 
     def network_delete(self, name):
         if self._is_network_in_use(name):
@@ -1009,6 +1013,7 @@ class MockNetwork(object):
                      'subnet': '192.168.122.0/24',
                      'dhcp': {'start': '192.168.122.128',
                               'stop':  '192.168.122.254'},
+                     'persistent': True
                      }
 
 

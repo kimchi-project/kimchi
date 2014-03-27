@@ -1297,6 +1297,7 @@ class RestTests(unittest.TestCase):
         network = json.loads(request(host, port,
                                      '/networks/test-network').read())
         self.assertEquals('inactive', network['state'])
+        self.assertTrue(network['persistent'])
 
         # activate the network
         resp = request(host, port,

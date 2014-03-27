@@ -632,6 +632,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('inactive', networkinfo['state'])
             self.assertEquals([], networkinfo['vms'])
             self.assertTrue(networkinfo['autostart'])
+            self.assertTrue(networkinfo['persistent'])
 
             inst.network_activate(name)
             rollback.prependDefer(inst.network_deactivate, name)
