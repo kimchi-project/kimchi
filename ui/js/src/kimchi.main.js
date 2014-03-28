@@ -16,9 +16,74 @@
  * limitations under the License.
  */
 kimchi.main = function() {
-    var tabUrl = "/config/ui/tabs.xml";
-    var DEFAULT_HASH = kimchi.getDefaultPage(tabUrl);
     kimchi.popable();
+
+    var genTabs = function(tabs) {
+        var tabsHtml = [];
+        $(tabs).each(function(i, tab) {
+            var title = tab['title'];
+            var path = tab['path'];
+            tabsHtml.push(
+                '<li>',
+                    '<a class="item" href="', path, '">',
+                        title,
+                    '</a>',
+                '</li>'
+            );
+        });
+        return tabsHtml.join('');
+    };
+
+    var parseTabs = function(xmlData) {
+        var tabs = [];
+        $(xmlData).find('tab').each(function() {
+            var $tab = $(this);
+            var titleKey = $tab.find('title').text();
+            var title = i18n[titleKey];
+            var path = $tab.find('path').text();
+            tabs.push({
+                title: title,
+                path: path
+            });
+        });
+
+        return tabs;
+    };
+
+    var retrieveTabs = function(url) {
+        var tabs;
+        $.ajax({
+            url : url,
+            async : false,
+            success : function(xmlData) {
+                tabs = parseTabs(xmlData);
+            }
+        });
+        return tabs;
+    };
+
+    var tabConfigUrl = '/config/ui/tabs.xml';
+    var pluginConfigUrl = '/plugins/{plugin}/ui/config/tab-ext.xml';
+    var DEFAULT_HASH;
+    var buildTabs = function(callback) {
+        var tabs = retrieveTabs(tabConfigUrl);
+        kimchi.listPlugins(function(plugins) {
+            $(plugins).each(function(i, p) {
+                var url = kimchi.template(pluginConfigUrl, {
+                    plugin: p
+                });
+                tabs.concat(retrieveTabs(url));
+            });
+
+            var firstTabPath = tabs[0] && tabs[0]['path'];
+            DEFAULT_HASH = firstTabPath &&
+                firstTabPath.substring(0, firstTabPath.length - 5);
+
+            $('#nav-menu').append(genTabs(tabs));
+
+            callback && callback();
+        });
+    };
 
     var onLanguageChanged = function(lang) {
         kimchi.lang.set(lang);
@@ -132,8 +197,6 @@ kimchi.main = function() {
         });
 
         // Perform logging out via Ajax request.
-
-
         $('#btn-logout').on('click', function() {
             kimchi.logout(function() {
                 updatePage();
@@ -145,9 +208,7 @@ kimchi.main = function() {
         $('#btn-help').on('click', kimchi.getHelp);
     };
 
-    // Load i18n translation strings first and then render the page.
-    $('#main').load('i18n.html', function() {
-        kimchi.addTabs(tabUrl);
+    var initUI = function() {
         $(document).bind('ajaxError', function(event, jqXHR, ajaxSettings, errorThrown) {
             if (!ajaxSettings['kimchi']) {
                 return;
@@ -175,56 +236,12 @@ kimchi.main = function() {
         kimchi.user.showUser(true);
         initListeners();
         updatePage();
-    });
-};
+    };
 
-kimchi.addTabs = function(url) {
-    var tabsHtml = kimchi.getTabHtml(url);
-    $('#nav-menu').prepend(tabsHtml);
-    kimchi.addExtTabs();
-};
-
-kimchi.addExtTabs = function() {
-    kimchi.listPlugins(function(results) {
-        for ( var i = 0; i < results.length; i++) {
-            var tabsHtml = kimchi.getTabHtml("/plugins/" + results[i] + "/ui/config/tab-ext.xml");
-            $('#nav-menu').append(tabsHtml);
-        }
+    // Load i18n translation strings first and then render the page.
+    $('#main').load('i18n.html', function() {
+        buildTabs(initUI);
     });
-};
-
-kimchi.getDefaultPage = function(url) {
-    var defautLocation = "";
-    $.ajax({
-        url : url,
-        async : false,
-        success : function(xmlData) {
-            var tab = $(xmlData).find('tab').first();
-            var path = tab.find('path').text();
-            if (path) {
-                defautLocation = path.substring(0, path.length - 5);
-            }
-        }
-    });
-    return defautLocation;
-};
-
-kimchi.getTabHtml = function(url) {
-    var tabsHtml = "";
-    $.ajax({
-        url : url,
-        async : false,
-        success : function(xmlData) {
-            $(xmlData).find('tab').each(function() {
-                var $tab = $(this);
-                var titleKey = $tab.find('title').text();
-                var title = i18n[titleKey];
-                var path = $tab.find('path').text();
-                tabsHtml += "<li><a class='item' href=" + path + ">" + title + "</a></li>";
-            });
-        }
-    });
-    return tabsHtml;
 };
 
 kimchi.getHelp = function(e) {
