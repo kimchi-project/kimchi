@@ -180,7 +180,7 @@ kimchi.widget.Grid = function(params) {
     var getValue = function(name, obj) {
     var result=undefined;
     if(!Array.isArray(name)) {
-        name=kimchi.form.parseFormName(name);
+        name=name.parseKey();
     }
     if(name.length!=0) {
         var tmpName=name.shift();

@@ -15,35 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-kimchi.repository_fillForm = function(form, name, values) {
-    var name= (name=="" || !name) ? "%s" : name;
-    for(var prop in values) {
-        if ((typeof(values[prop])==="object") && !Array.isArray(values[prop])) {
-            tmpName=name.replace("%s", prop+"[%s]" );
-            kimchi.repository_fillForm(form, tmpName, values[prop]);
-        }
-        else {
-            tmpName=name.replace("%s", prop );
-            var control = $('input[name="' + tmpName + '"]', form);
-            switch($(control).attr('type')) {
-            case 'text':
-                $(control).val(values[prop]);
-                break;
-            case 'radio':
-            case 'checkbox':
-                $(control).each(function(i, c) {
-                    var matched = ('' + values[prop]) == $(c).val();
-                    $(c).prop('checked', matched);
-                });
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
 kimchi.repository_edit_main = function() {
 
     var editForm = $('#form-repository-edit');
@@ -58,7 +29,7 @@ kimchi.repository_edit_main = function() {
     }
 
     kimchi.retrieveRepository(kimchi.selectedRepository, function(repository) {
-        kimchi.repository_fillForm(editForm,"",repository);
+        editForm.fillWithObject(repository);
 
         $('input', editForm).on('input propertychange', function(event) {
             if($(this).val() !== '') {
