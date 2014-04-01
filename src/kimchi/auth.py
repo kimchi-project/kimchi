@@ -238,4 +238,4 @@ def kimchiauth(admin_methods=None):
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=kimchi'
 
     e = InvalidOperation('KCHAUTH0002E')
-    raise cherrypy.HTTPError(401, e.message)
+    raise cherrypy.HTTPError(401, e.message.encode('utf-8'))
