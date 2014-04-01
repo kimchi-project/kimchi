@@ -123,37 +123,17 @@ kimchi.initStorageAddPage = function() {
     });
 
     $('#poolTypeInputId').change(function() {
-        if ($(this).val() === 'dir') {
-            $('.path-section').removeClass('tmpl-html');
-            $('.logical-section').addClass('tmpl-html');
-            $('.nfs-section').addClass('tmpl-html');
-            $('.iscsi-section').addClass('tmpl-html');
-            $('.scsi-section').addClass('tmpl-html');
-        } else if ($(this).val() === 'netfs') {
-            $('.path-section').addClass('tmpl-html');
-            $('.logical-section').addClass('tmpl-html');
-            $('.nfs-section').removeClass('tmpl-html');
-            $('.iscsi-section').addClass('tmpl-html');
-            $('.scsi-section').addClass('tmpl-html');
-        } else if ($(this).val() === 'iscsi') {
-            $('.path-section').addClass('tmpl-html');
-            $('.logical-section').addClass('tmpl-html');
-            $('.nfs-section').addClass('tmpl-html');
-            $('.iscsi-section').removeClass('tmpl-html');
-            $('.scsi-section').addClass('tmpl-html');
-        } else if ($(this).val() === 'logical') {
-            $('.path-section').addClass('tmpl-html');
-            $('.logical-section').removeClass('tmpl-html');
-            $('.nfs-section').addClass('tmpl-html');
-            $('.iscsi-section').addClass('tmpl-html');
-            $('.scsi-section').addClass('tmpl-html');
-        } else if ($(this).val() === 'scsi') {
-            $('.scsi-section').removeClass('tmpl-html');
-            $('.path-section').addClass('tmpl-html');
-            $('.logical-section').addClass('tmpl-html');
-            $('.nfs-section').addClass('tmpl-html');
-            $('.iscsi-section').addClass('tmpl-html');
-        }
+        var poolObject = {'dir': ".path-section", 'netfs': '.nfs-section',
+                          'iscsi': '.iscsi-section', 'scsi': '.scsi-section',
+                          'logical': '.logical-section'}
+        var selectType = $(this).val();
+        $.each(poolObject, function(type, value) {
+            if(selectType == type){
+                $(value).removeClass('tmpl-html');
+            } else {
+                $(value).addClass('tmpl-html');
+            }
+        });
     });
     $('#authId').click(function() {
         if ($(this).prop("checked")) {
