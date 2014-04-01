@@ -37,6 +37,7 @@ class AsyncTask(object):
         self.status = 'running'
         self.message = 'OK'
         self._save_helper()
+        self._cp_request = cherrypy.serving.request
         self.thread = threading.Thread(target=self._run_helper,
                                        args=(opaque, self._status_cb))
         self.thread.setDaemon(True)
@@ -63,6 +64,7 @@ class AsyncTask(object):
             session.store('task', self.id, obj)
 
     def _run_helper(self, opaque, cb):
+        cherrypy.serving.request = self._cp_request
         try:
             self.fn(cb, opaque)
         except Exception, e:
