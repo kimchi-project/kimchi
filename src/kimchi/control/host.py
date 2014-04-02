@@ -64,6 +64,13 @@ class Partitions(Collection):
         super(Partitions, self).__init__(model)
         self.resource = Partition
 
+    # Defining get_resources in order to return list of partitions in UI
+    # sorted by their path
+    def _get_resources(self, flag_filter):
+        res_list = super(Partitions, self)._get_resources(flag_filter)
+        res_list.sort(key=lambda x: x.info['path'])
+        return res_list
+
 
 class Partition(Resource):
     def __init__(self, model, id):
