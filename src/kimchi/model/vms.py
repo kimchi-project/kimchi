@@ -34,6 +34,7 @@ from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
 from kimchi.screenshot import VMScreenshot
+from kimchi.utils import kimchi_log
 from kimchi.utils import run_setfacl_set_attr, template_name_from_uri
 
 
@@ -176,6 +177,18 @@ class VMsModel(object):
 
         t.validate()
 
+        # Store the icon for displaying later
+        icon = t.info.get('icon')
+        if icon:
+            try:
+                with self.objstore as session:
+                    session.store('vm', vm_uuid, {'icon': icon})
+            except Exception as e:
+                # It is possible to continue Kimchi executions without store
+                # vm icon info
+                kimchi_log.error('Error trying to update database with guest '
+                                 'icon information due error: %s', e.message)
+
         # If storagepool is SCSI, volumes will be LUNs and must be passed by
         # the user from UI or manually.
         vol_list = []
@@ -183,12 +196,6 @@ class VMsModel(object):
             vol_list = []
         else:
             vol_list = t.fork_vm_storage(vm_uuid)
-
-        # Store the icon for displaying later
-        icon = t.info.get('icon')
-        if icon:
-            with self.objstore as session:
-                session.store('vm', vm_uuid, {'icon': icon})
 
         graphics = params.get('graphics')
         stream_protocols = self.caps.libvirt_stream_protocols
@@ -350,9 +357,13 @@ class VMModel(object):
             pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
             if pool_type not in READONLY_POOL_TYPE:
                 vol.delete(0)
-
-        with self.objstore as session:
-            session.delete('vm', dom.UUIDString(), ignore_missing=True)
+        try:
+            with self.objstore as session:
+                session.delete('vm', dom.UUIDString(), ignore_missing=True)
+        except Exception as e:
+            # It is possible to delete vm without delete its database info
+            kimchi_log.error('Error deleting vm information from database: '
+                             '%s', e.message)
 
         vnc.remove_proxy_token(name)
 
@@ -408,8 +419,14 @@ class VMModel(object):
         screenshot = VMScreenshotModel.get_screenshot(vm_uuid, self.objstore,
                                                       self.conn)
         screenshot.delete()
-        with self.objstore as session:
-            session.delete('screenshot', vm_uuid)
+        try:
+            with self.objstore as session:
+                session.delete('screenshot', vm_uuid)
+        except Exception as e:
+            # It is possible to continue Kimchi executions without delete
+            # screenshots
+            kimchi_log.error('Error trying to delete vm screenshot from '
+                             'database due error: %s', e.message)
 
 
 class VMScreenshotModel(object):
@@ -427,18 +444,32 @@ class VMScreenshotModel(object):
         screenshot = self.get_screenshot(vm_uuid, self.objstore, self.conn)
         img_path = screenshot.lookup()
         # screenshot info changed after scratch generation
-        with self.objstore as session:
-            session.store('screenshot', vm_uuid, screenshot.info)
+        try:
+            with self.objstore as session:
+                session.store('screenshot', vm_uuid, screenshot.info)
+        except Exception as e:
+            # It is possible to continue Kimchi executions without store
+            # screenshots
+            kimchi_log.error('Error trying to update database with guest '
+                             'screenshot information due error: %s', e.message)
         return img_path
 
     @staticmethod
     def get_screenshot(vm_uuid, objstore, conn):
-        with objstore as session:
-            try:
-                params = session.get('screenshot', vm_uuid)
-            except NotFoundError:
-                params = {'uuid': vm_uuid}
-                session.store('screenshot', vm_uuid, params)
+        try:
+            with objstore as session:
+                try:
+                    params = session.get('screenshot', vm_uuid)
+                except NotFoundError:
+                    params = {'uuid': vm_uuid}
+                    session.store('screenshot', vm_uuid, params)
+        except Exception as e:
+            # The 'except' outside of 'with' is necessary to catch possible
+            # exception from '__exit__' when calling 'session.store'
+            # It is possible to continue Kimchi vm executions without
+            # screenshots
+            kimchi_log.error('Error trying to update database with guest '
+                             'screenshot information due error: %s', e.message)
         return LibvirtVMScreenshot(params, conn)
 
 
