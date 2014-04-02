@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import cherrypy
 import errno
@@ -62,7 +62,7 @@ def validate_language(langs):
 
 
 def can_accept(mime):
-    if not cherrypy.request.headers.has_key('Accept'):
+    if not 'Accept' in cherrypy.request.headers:
         accepts = 'text/html'
     else:
         accepts = cherrypy.request.headers['Accept']
@@ -75,14 +75,17 @@ def can_accept(mime):
 
     return False
 
+
 def can_accept_html():
     return can_accept('text/html') or \
-           can_accept('application/xaml+xml') or \
-           can_accept('*/*')
+        can_accept('application/xaml+xml') or \
+        can_accept('*/*')
+
 
 def render(resource, data):
     if can_accept('application/json'):
-        cherrypy.response.headers['Content-Type'] = 'application/json;charset=utf-8'
+        cherrypy.response.headers['Content-Type'] = \
+            'application/json;charset=utf-8'
         return json.dumps(data, indent=2, separators=(',', ':'))
     elif can_accept_html():
         paths = cherrypy.request.app.root.paths
