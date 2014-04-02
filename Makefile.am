@@ -53,13 +53,16 @@ PEP8_WHITELIST = \
 	src/kimchi/kvmusertests.py \
 	src/kimchi/mockmodel.py \
 	src/kimchi/model/*.py \
+	src/kimchi/objectstore.py \
 	src/kimchi/osinfo.py \
 	src/kimchi/repositories.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
 	src/kimchi/server.py \
 	src/kimchi/swupdate.py \
+	src/kimchi/template.py \
 	src/kimchi/utils.py \
+	src/kimchi/vmtemplate.py \
 	tests/test_config.py.in \
 	tests/test_mockmodel.py \
 	tests/test_model.py \
