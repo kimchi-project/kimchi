@@ -163,6 +163,7 @@ messages = {
     "KCHVOL0014E": _("Storage volume allocation must be an integer number"),
     "KCHVOL0015E": _("Storage volume format not supported"),
     "KCHVOL0016E": _("Storage volume requires a volume name"),
+    "KCHVOL0017E": _("Unable to update database with storage volume information due error: %(err)s"),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 
