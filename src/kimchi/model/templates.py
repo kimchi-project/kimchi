@@ -25,6 +25,7 @@ import libvirt
 
 from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.kvmusertests import UserTests
 from kimchi.utils import pool_name_from_uri
 from kimchi.utils import probe_file_permission_as_user
@@ -73,12 +74,19 @@ class TemplatesModel(object):
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
+        # Creates the template class with necessary information
+        # Checkings will be done while creating this class, so any exception
+        # will be raised here
+        t = LibvirtVMTemplate(params, scan=True)
 
-        with self.objstore as session:
-            if name in session.get_list('template'):
-                raise InvalidOperation("KCHTMPL0001E", {'name': name})
-            t = LibvirtVMTemplate(params, scan=True)
-            session.store('template', name, t.info)
+        try:
+            with self.objstore as session:
+                if name in session.get_list('template'):
+                    raise InvalidOperation("KCHTMPL0001E", {'name': name})
+                session.store('template', name, t.info)
+        except Exception as e:
+            raise OperationFailed('KCHTMPL0020E', {'err': e.message})
+
         return name
 
     def get_list(self):
@@ -143,8 +151,13 @@ class TemplateModel(object):
         return ident
 
     def delete(self, name):
-        with self.objstore as session:
-            session.delete('template', name)
+        try:
+            with self.objstore as session:
+                session.delete('template', name)
+        except NotFoundError:
+            raise
+        except Exception as e:
+            raise OperationFailed('KCHTMPL0021E', {'err': e.message})
 
     def update(self, name, params):
         old_t = self.lookup(name)

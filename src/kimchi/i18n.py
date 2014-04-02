@@ -107,6 +107,8 @@ messages = {
     "KCHTMPL0017E": _("All networks for the template must be specified in a list."),
     "KCHTMPL0018E": _("Must specify a volume to a template, when storage pool is iscsi or scsi"),
     "KCHTMPL0019E": _("The volume: %(volume)s in not in storage pool %(pool)s"),
+    "KCHTMPL0020E": _("Unable to create template due error: %(err)s"),
+    "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
