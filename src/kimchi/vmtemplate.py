@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
 import string
@@ -32,6 +32,7 @@ from lxml.builder import E
 
 
 QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
+
 
 class VMTemplate(object):
     _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -110,9 +111,11 @@ class VMTemplate(object):
         qemu_stream_cmdline = """
             <qemu:commandline>
               <qemu:arg value='-drive'/>
-              <qemu:arg value='file=%(url)s,if=none,id=drive-%(bus)s0-1-0,readonly=on,format=raw'/>
+              <qemu:arg value='file=%(url)s,if=none,id=drive-%(bus)s0-1-0,\
+readonly=on,format=raw'/>
               <qemu:arg value='-device'/>
-              <qemu:arg value='%(bus)s-cd,bus=%(bus)s.1,unit=0,drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
+              <qemu:arg value='%(bus)s-cd,bus=%(bus)s.1,unit=0,\
+drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
             </qemu:commandline>
         """
 
@@ -152,7 +155,8 @@ class VMTemplate(object):
             dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
                             string.lowercase[index])
             fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
-            params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus'], 'type': fmt}
+            params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus'],
+                      'type': fmt}
             ret += """
             <disk type='file' device='disk'>
               <driver name='qemu' type='%(type)s' cache='none'/>
@@ -193,7 +197,7 @@ class VMTemplate(object):
               <target dev='%(dev)s' bus='scsi'/>
             </disk>"""
         if not self.fc_host_support:
-            disk_xml = disk_xml.replace('volume','block')
+            disk_xml = disk_xml.replace('volume', 'block')
 
         pool = self._storage_validate()
         # Creating disk xml for each lun passed
@@ -323,7 +327,7 @@ class VMTemplate(object):
                                         qemu_stream_dns)
 
         if not urlparse.urlparse(self.info['cdrom']).scheme in \
-            libvirt_stream_protocols and params.get('iso_stream', False):
+           libvirt_stream_protocols and params.get('iso_stream', False):
             params['qemu-namespace'] = QEMU_NAMESPACE
             params['qemu-stream-cmdline'] = cdrom_xml
         else:
