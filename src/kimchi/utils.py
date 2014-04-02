@@ -174,9 +174,11 @@ def run_command(cmd, timeout=None):
             kimchi_log.debug("out:\n%s", out)
 
         if proc.returncode != 0:
-            kimchi_log.error("rc: %s\nerror:\n%s", proc.returncode, error)
+            kimchi_log.error("rc: %s error: %s returned from cmd: %s",
+                             proc.returncode, error, ' '.join(cmd))
         elif error:
-            kimchi_log.debug("error:\n%s", error)
+            kimchi_log.debug("error: %s returned from cmd: %s",
+                             error, ' '.join(cmd))
 
         if timeout_flag[0]:
             msg = ("subprocess is killed by signal.SIGKILL for "
