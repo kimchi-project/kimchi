@@ -60,8 +60,11 @@ class AsyncTask(object):
         obj = {}
         for attr in ('id', 'target_uri', 'message', 'status'):
             obj[attr] = getattr(self, attr)
-        with self.objstore as session:
-            session.store('task', self.id, obj)
+        try:
+            with self.objstore as session:
+                session.store('task', self.id, obj)
+        except Exception as e:
+            raise OperationFailed('KCHASYNC0002E', {'err': e.message})
 
     def _run_helper(self, opaque, cb):
         cherrypy.serving.request = self._cp_request

@@ -32,6 +32,7 @@ messages = {
     "KCHAPI0007E": _("This API only supports JSON"),
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
+    "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
 
     "KCHAUTH0001E": _("Authentication failed for user '%(userid)s'. [Error code: %(code)s]"),
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
@@ -146,6 +147,7 @@ messages = {
     "KCHPOOL0034E": _("Unable to deactivate pool %(name)s as it is associated with some templates"),
     "KCHPOOL0035E": _("Unable to delete pool %(name)s as it is associated with some templates"),
     "KCHPOOL0036E": _("A volume group named '%(name)s' already exists. Please, choose another name to create the logical pool."),
+    "KCHPOOL0037E": _("Unable to update database with deep scan information due error: %(err)s"),
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),

@@ -158,9 +158,12 @@ class StoragePoolsModel(object):
         task_id = add_task('', self.scanner.start_scan, self.objstore,
                            scan_params)
         # Record scanning-task/storagepool mapping for future querying
-        with self.objstore as session:
+        try:
+            with self.objstore as session:
                 session.store('scanning', params['name'], task_id)
-        return task_id
+            return task_id
+        except Exception as e:
+            raise OperationFailed('KCHPOOL0037E', {'err': e.message})
 
 
 class StoragePoolModel(object):
