@@ -1,0 +1,123 @@
+13:02:19 <alinefm> #startmeeting
+13:02:19 <kimchi-bot> Meeting started Wed Apr  2 13:02:19 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:19 <alinefm> #meetingname scrum
+13:02:19 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:20 <alinefm> #info Agenda 1) Status 2) Kimchi 1.2.1 plan 3) Open discussion
+13:03:20 <alinefm> anything else?
+13:04:43 <alinefm> #topic Status
+13:04:43 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:28 <alinefm> #info alinefm updated changelog and pot files for 1.2 release
+13:05:34 <YuXin> #info yuxin  issue 361 bug fix patch sent
+13:06:03 <shaohef> #info shaohef send one patch to improve  the Chinese translation. and a patch to check the translation string formatting.
+13:06:08 <alinefm> #info alinefm started doing Kimchi 1.2.1 plan with AdamKingIT11
+13:06:43 <AdamKingIT11> #info adamkingit finished implementing a genaral purpose form fill/extract extension and sent to list
+13:07:54 <rotru> #info rotru submitted new patch versions for "disk full" problem; for "sorted device paths"; and for "non persistent networks".
+13:08:48 <royce> #info royce investigated storage pool does not start on other platform, turned out it is related to cache=none, also fixed apt lock problem this week, tested kimchi on opensuse
+13:08:50 <AdamKingIT11> #info adamkingit did some testing with ie11
+13:11:18 <alinefm> anything else?
+13:11:42 <alinefm> I'd like to thank you everyone for the hard work to get 1.2 released
+13:11:53 <alinefm> you did a great job, guys!
+13:12:19 <AdamKingIT11> You too!
+13:12:31 <royce> You too, thanks alinefm
+13:14:33 <alinefm> =)
+13:14:38 <alinefm> so let's talk about 1.2.1
+13:14:46 <alinefm> #topic Kimchi 1.2.1 plan
+13:15:00 <alinefm> I sent a note to mail list yesterday with some links to github wiki
+13:15:21 <alinefm> the milestones is there: https://github.com/kimchi-project/kimchi/wiki/Planning-1.2.1
+13:15:32 <alinefm> the todo list: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+13:15:50 <alinefm> and the bugs we should close for 1.2.1 release: https://github.com/kimchi-project/kimchi/issues?milestone=13&state=open
+13:16:28 <alinefm> As I said before I want to make Kimchi more stable in 1.2.1 so we will have a few new feature and focus in improve what we have in Kimchi
+13:16:39 <alinefm> do you have any comments about all that plan?
+13:18:00 <rotru> alinefm; just take on account that that are 3 holidays in brazil
+13:18:22 <royce> Github is quite slow ... I can't open it these days...
+13:18:46 <shaohef> yes. same to me.
+13:18:56 <AdamKingIT11> royce: I haven't had issues.
+13:19:11 <alinefm> me neither
+13:19:17 <alinefm> just open it so fast right now
+13:19:21 <royce> maybe it is Chinese great fire wall AdamKingIT1....
+13:19:29 <AdamKingIT11> Tried different network connections/systems to see if you can narrow it
+13:19:59 <AdamKingIT11> GFW occurred to me, but seemed an odd thing to be blocked
+13:21:31 <AdamKingIT11> I suppose I am not th ebest guesser about what is and is not :-)
+13:22:33 <royce> >_< vpn is not working either, let's move on, I'll try to open it after
+13:23:09 <alinefm> royce, ok - any time you can bring up your ideas
+13:23:27 <royce> ok alinefm
+13:23:34 <alinefm> any other comments about  the plan?
+13:24:41 <alinefm> so let's start the sprint 1
+13:24:55 <alinefm> anyone can choose any task to do just update the wiki properly
+13:25:07 <alinefm> the same for the bugs
+13:26:12 <shaohef> everyone take one ?
+13:27:12 <shaohef> For I can not open the git hub now. please leave one for me. :)
+13:27:23 <alinefm> shaohef, royce, http://fpaste.org/90942/13964452/
+13:27:32 <alinefm> those are the backend tasks for sprint 1
+13:27:40 <alinefm> which one do you want to work on?
+13:27:49 <alinefm> I can update the wiki with your names
+13:28:11 <pradeep> alinefm: Enable Connect is needed before working on migration i feel.
+13:28:13 <royce> the CDROM is what I'm working on
+13:28:58 <shaohef> alinefm: Ming is working on  Migration: investigate how discover Kimchi peers
+13:29:00 <alinefm> royce, CDROM limit?
+13:29:12 <rotru> alinefm; VM Edit: CPU and memory
+13:29:23 <alinefm> shaohef, pradeep, about this tasks I was thinking in do an investigation
+13:29:36 <alinefm> how we will connect, transfer vm disks, discover peers and so
+13:29:40 <royce> yeah, I'm testing my patch on rhel and opensuse
+13:29:52 <alinefm> when we complete the investigation we can know better the amount of work we need to do
+13:29:54 <shaohef> alinefm: then which leaves to me?
+13:30:24 <shaohef> royce:  what about leave  VM Edit: CPU and memory to me?
+13:30:31 <alinefm> Add Version/build number
+13:30:32 <alinefm> Add mechanism to translate help pages
+13:30:40 <alinefm> Manage guest disks
+13:30:40 <alinefm> History data view
+13:30:45 <royce> shaohef, that suits you!
+13:30:59 <alinefm> shaohef, rotru got this
+13:31:18 <shaohef> royce:  OK. let rotru got it.
+13:31:25 <shaohef> alinefm: ^
+13:31:30 <rotru> shaohef;  thanks :)
+13:31:51 <shaohef> alinefm:  other's no one take, you can assign it to me.
+13:31:58 <alinefm> shaohef, how about "Add Version/build number"?
+13:32:05 <shaohef> alinefm: OK.
+13:32:25 <shaohef> not very know about this
+13:32:33 <shaohef> alinefm: we can talk it later.
+13:32:39 <alinefm> I think there are more tasks than developers so we dont need to fight
+13:32:49 <alinefm> shaohef, ok
+13:33:01 <alinefm> shaohef,  it is about show the kimchi version/build in the UI
+13:33:14 <alinefm> that way we can easily identify which version the user is using
+13:33:30 <alinefm> we need to consider when kimchi is installed or not
+13:33:37 <alinefm> maybe return it on /config
+13:34:18 <alinefm> #info shaohef Add Version/build number
+13:34:24 <AdamKingIT11> We will want to pull it into the UI through the cheetah template, as well as include it on the rest api somewhere like /config
+13:34:27 <alinefm> #info royce CDROM limit devices
+13:34:35 <alinefm> #info rotru VM Edit: CPU and memory
+13:38:32 <alinefm> alright?
+13:38:48 <rotru> ok
+13:39:03 <royce> +1
+13:39:33 <alinefm> let's move on
+13:39:41 <alinefm> #topic Open Discussion
+13:39:47 <alinefm> what are the topics for today?
+13:40:21 <royce> I have encountered doesns of problem on opensuse...
+13:41:19 <royce> Some python package does not included in opensuse 13.1 distro repo, libvirtd does not start... Have anyone encountered these?
+13:44:37 <rotru> royce;  sorry, I do not run suse
+13:44:42 <rotru> run/test
+13:44:44 <AdamKingIT11> seems we are in slow motion today...
+13:45:08 <AdamKingIT11> I have been using fedora, so haven't experienced opensuse issues either
+13:45:13 <royce> :)thanks rotru
+13:45:20 <alinefm> royce, I run on opensuse and it works fine the times I tested
+13:45:41 <alinefm> I will try again
+13:45:49 <royce> is that on 13.1 alinefm?
+13:45:53 <alinefm> have you installed the spacewalk repo?
+13:46:27 <royce> I installed each repo by searching it on opensuse official web
+13:47:12 <shaohef> *Note for openSUSE users*: Some of the above packages are located in the
+13:47:12 <shaohef> openSUSE Systems Management repository. See
+13:47:12 <shaohef> [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
+13:47:12 <shaohef> to get the correct repository based on your openSUSE version. And
+13:47:12 <shaohef> [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
+13:47:12 <shaohef> information on how configure your system to access this repository.
+13:47:17 <royce> And some python lib itself has indented problem, aweful...
+13:47:35 <royce> Oh, thanks shaohef
+13:48:03 <royce> I guess I can turn to you tomorrow, shaohef
+13:48:14 <shaohef> OK.
+13:50:05 <alinefm> royce, I will try again there from a fresh install
+13:50:20 <alinefm> any other topic?
+13:50:49 <royce> thanks alinefm
+13:52:59 <alinefm> ok - so we have done for today
+13:53:06 <alinefm> thanks for joining
+13:53:11 <alinefm> #endmeeting

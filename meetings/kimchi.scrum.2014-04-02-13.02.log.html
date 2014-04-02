@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr  2 13:02:19 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Kimchi 1.2.1 plan 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:04:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:05:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated changelog and pot files for 1.2 release</span>
+<a name="l-11"></a><span class="tm">13:05:34</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">yuxin  issue 361 bug fix patch sent</span>
+<a name="l-12"></a><span class="tm">13:06:03</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send one patch to improve  the Chinese translation. and a patch to check the translation string formatting.</span>
+<a name="l-13"></a><span class="tm">13:06:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm started doing Kimchi 1.2.1 plan with AdamKingIT11</span>
+<a name="l-14"></a><span class="tm">13:06:43</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit finished implementing a genaral purpose form fill/extract extension and sent to list</span>
+<a name="l-15"></a><span class="tm">13:07:54</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru submitted new patch versions for "disk full" problem; for "sorted device paths"; and for "non persistent networks".</span>
+<a name="l-16"></a><span class="tm">13:08:48</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce investigated storage pool does not start on other platform, turned out it is related to cache=none, also fixed apt lock problem this week, tested kimchi on opensuse</span>
+<a name="l-17"></a><span class="tm">13:08:50</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit did some testing with ie11</span>
+<a name="l-18"></a><span class="tm">13:11:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-19"></a><span class="tm">13:11:42</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to thank you everyone for the hard work to get 1.2 released
+<a name="l-20"></a><span class="tm">13:11:53</span><span class="nk"> &lt;alinefm&gt;</span> you did a great job, guys!
+<a name="l-21"></a><span class="tm">13:12:19</span><span class="nk"> &lt;AdamKingIT11&gt;</span> You too!
+<a name="l-22"></a><span class="tm">13:12:31</span><span class="nk"> &lt;royce&gt;</span> You too, thanks alinefm
+<a name="l-23"></a><span class="tm">13:14:33</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-24"></a><span class="tm">13:14:38</span><span class="nk"> &lt;alinefm&gt;</span> so let's talk about 1.2.1
+<a name="l-25"></a><span class="tm">13:14:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi 1.2.1 plan</span>
+<a name="l-26"></a><span class="tm">13:15:00</span><span class="nk"> &lt;alinefm&gt;</span> I sent a note to mail list yesterday with some links to github wiki
+<a name="l-27"></a><span class="tm">13:15:21</span><span class="nk"> &lt;alinefm&gt;</span> the milestones is there: https://github.com/kimchi-project/kimchi/wiki/Planning-1.2.1
+<a name="l-28"></a><span class="tm">13:15:32</span><span class="nk"> &lt;alinefm&gt;</span> the todo list: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+<a name="l-29"></a><span class="tm">13:15:50</span><span class="nk"> &lt;alinefm&gt;</span> and the bugs we should close for 1.2.1 release: https://github.com/kimchi-project/kimchi/issues?milestone=13&amp;state=open
+<a name="l-30"></a><span class="tm">13:16:28</span><span class="nk"> &lt;alinefm&gt;</span> As I said before I want to make Kimchi more stable in 1.2.1 so we will have a few new feature and focus in improve what we have in Kimchi
+<a name="l-31"></a><span class="tm">13:16:39</span><span class="nk"> &lt;alinefm&gt;</span> do you have any comments about all that plan?
+<a name="l-32"></a><span class="tm">13:18:00</span><span class="nk"> &lt;rotru&gt;</span> alinefm; just take on account that that are 3 holidays in brazil
+<a name="l-33"></a><span class="tm">13:18:22</span><span class="nk"> &lt;royce&gt;</span> Github is quite slow ... I can't open it these days...
+<a name="l-34"></a><span class="tm">13:18:46</span><span class="nk"> &lt;shaohef&gt;</span> yes. same to me.
+<a name="l-35"></a><span class="tm">13:18:56</span><span class="nk"> &lt;AdamKingIT11&gt;</span> <span class="hi">royce:</span> I haven't had issues.
+<a name="l-36"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> me neither
+<a name="l-37"></a><span class="tm">13:19:17</span><span class="nk"> &lt;alinefm&gt;</span> just open it so fast right now
+<a name="l-38"></a><span class="tm">13:19:21</span><span class="nk"> &lt;royce&gt;</span> maybe it is Chinese great fire wall AdamKingIT1....
+<a name="l-39"></a><span class="tm">13:19:29</span><span class="nk"> &lt;AdamKingIT11&gt;</span> Tried different network connections/systems to see if you can narrow it
+<a name="l-40"></a><span class="tm">13:19:59</span><span class="nk"> &lt;AdamKingIT11&gt;</span> GFW occurred to me, but seemed an odd thing to be blocked
+<a name="l-41"></a><span class="tm">13:21:31</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I suppose I am not th ebest guesser about what is and is not :-)
+<a name="l-42"></a><span class="tm">13:22:33</span><span class="nk"> &lt;royce&gt;</span> &gt;_&lt; vpn is not working either, let's move on, I'll try to open it after
+<a name="l-43"></a><span class="tm">13:23:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok - any time you can bring up your ideas
+<a name="l-44"></a><span class="tm">13:23:27</span><span class="nk"> &lt;royce&gt;</span> ok alinefm
+<a name="l-45"></a><span class="tm">13:23:34</span><span class="nk"> &lt;alinefm&gt;</span> any other comments about  the plan?
+<a name="l-46"></a><span class="tm">13:24:41</span><span class="nk"> &lt;alinefm&gt;</span> so let's start the sprint 1
+<a name="l-47"></a><span class="tm">13:24:55</span><span class="nk"> &lt;alinefm&gt;</span> anyone can choose any task to do just update the wiki properly
+<a name="l-48"></a><span class="tm">13:25:07</span><span class="nk"> &lt;alinefm&gt;</span> the same for the bugs
+<a name="l-49"></a><span class="tm">13:26:12</span><span class="nk"> &lt;shaohef&gt;</span> everyone take one ?
+<a name="l-50"></a><span class="tm">13:27:12</span><span class="nk"> &lt;shaohef&gt;</span> For I can not open the git hub now. please leave one for me. :)
+<a name="l-51"></a><span class="tm">13:27:23</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, royce, http://fpaste.org/90942/13964452/
+<a name="l-52"></a><span class="tm">13:27:32</span><span class="nk"> &lt;alinefm&gt;</span> those are the backend tasks for sprint 1
+<a name="l-53"></a><span class="tm">13:27:40</span><span class="nk"> &lt;alinefm&gt;</span> which one do you want to work on?
+<a name="l-54"></a><span class="tm">13:27:49</span><span class="nk"> &lt;alinefm&gt;</span> I can update the wiki with your names
+<a name="l-55"></a><span class="tm">13:28:11</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> Enable Connect is needed before working on migration i feel.
+<a name="l-56"></a><span class="tm">13:28:13</span><span class="nk"> &lt;royce&gt;</span> the CDROM is what I'm working on
+<a name="l-57"></a><span class="tm">13:28:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> Ming is working on  Migration: investigate how discover Kimchi peers
+<a name="l-58"></a><span class="tm">13:29:00</span><span class="nk"> &lt;alinefm&gt;</span> royce, CDROM limit?
+<a name="l-59"></a><span class="tm">13:29:12</span><span class="nk"> &lt;rotru&gt;</span> alinefm; VM Edit: CPU and memory
+<a name="l-60"></a><span class="tm">13:29:23</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, pradeep, about this tasks I was thinking in do an investigation
+<a name="l-61"></a><span class="tm">13:29:36</span><span class="nk"> &lt;alinefm&gt;</span> how we will connect, transfer vm disks, discover peers and so
+<a name="l-62"></a><span class="tm">13:29:40</span><span class="nk"> &lt;royce&gt;</span> yeah, I'm testing my patch on rhel and opensuse
+<a name="l-63"></a><span class="tm">13:29:52</span><span class="nk"> &lt;alinefm&gt;</span> when we complete the investigation we can know better the amount of work we need to do
+<a name="l-64"></a><span class="tm">13:29:54</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> then which leaves to me?
+<a name="l-65"></a><span class="tm">13:30:24</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  what about leave  VM Edit: CPU and memory to me?
+<a name="l-66"></a><span class="tm">13:30:31</span><span class="nk"> &lt;alinefm&gt;</span> Add Version/build number
+<a name="l-67"></a><span class="tm">13:30:32</span><span class="nk"> &lt;alinefm&gt;</span> Add mechanism to translate help pages
+<a name="l-68"></a><span class="tm">13:30:40</span><span class="nk"> &lt;alinefm&gt;</span> Manage guest disks
+<a name="l-69"></a><span class="tm">13:30:40</span><span class="nk"> &lt;alinefm&gt;</span> History data view
+<a name="l-70"></a><span class="tm">13:30:45</span><span class="nk"> &lt;royce&gt;</span> shaohef, that suits you!
+<a name="l-71"></a><span class="tm">13:30:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, rotru got this
+<a name="l-72"></a><span class="tm">13:31:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  OK. let rotru got it.
+<a name="l-73"></a><span class="tm">13:31:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> ^
+<a name="l-74"></a><span class="tm">13:31:30</span><span class="nk"> &lt;rotru&gt;</span> shaohef;  thanks :)
+<a name="l-75"></a><span class="tm">13:31:51</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  other's no one take, you can assign it to me.
+<a name="l-76"></a><span class="tm">13:31:58</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, how about "Add Version/build number"?
+<a name="l-77"></a><span class="tm">13:32:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> OK.
+<a name="l-78"></a><span class="tm">13:32:25</span><span class="nk"> &lt;shaohef&gt;</span> not very know about this
+<a name="l-79"></a><span class="tm">13:32:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> we can talk it later.
+<a name="l-80"></a><span class="tm">13:32:39</span><span class="nk"> &lt;alinefm&gt;</span> I think there are more tasks than developers so we dont need to fight
+<a name="l-81"></a><span class="tm">13:32:49</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok
+<a name="l-82"></a><span class="tm">13:33:01</span><span class="nk"> &lt;alinefm&gt;</span> shaohef,  it is about show the kimchi version/build in the UI
+<a name="l-83"></a><span class="tm">13:33:14</span><span class="nk"> &lt;alinefm&gt;</span> that way we can easily identify which version the user is using
+<a name="l-84"></a><span class="tm">13:33:30</span><span class="nk"> &lt;alinefm&gt;</span> we need to consider when kimchi is installed or not
+<a name="l-85"></a><span class="tm">13:33:37</span><span class="nk"> &lt;alinefm&gt;</span> maybe return it on /config
+<a name="l-86"></a><span class="tm">13:34:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef Add Version/build number</span>
+<a name="l-87"></a><span class="tm">13:34:24</span><span class="nk"> &lt;AdamKingIT11&gt;</span> We will want to pull it into the UI through the cheetah template, as well as include it on the rest api somewhere like /config
+<a name="l-88"></a><span class="tm">13:34:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce CDROM limit devices</span>
+<a name="l-89"></a><span class="tm">13:34:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru VM Edit: CPU and memory</span>
+<a name="l-90"></a><span class="tm">13:38:32</span><span class="nk"> &lt;alinefm&gt;</span> alright?
+<a name="l-91"></a><span class="tm">13:38:48</span><span class="nk"> &lt;rotru&gt;</span> ok
+<a name="l-92"></a><span class="tm">13:39:03</span><span class="nk"> &lt;royce&gt;</span> +1
+<a name="l-93"></a><span class="tm">13:39:33</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-94"></a><span class="tm">13:39:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-95"></a><span class="tm">13:39:47</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-96"></a><span class="tm">13:40:21</span><span class="nk"> &lt;royce&gt;</span> I have encountered doesns of problem on opensuse...
+<a name="l-97"></a><span class="tm">13:41:19</span><span class="nk"> &lt;royce&gt;</span> Some python package does not included in opensuse 13.1 distro repo, libvirtd does not start... Have anyone encountered these?
+<a name="l-98"></a><span class="tm">13:44:37</span><span class="nk"> &lt;rotru&gt;</span> royce;  sorry, I do not run suse
+<a name="l-99"></a><span class="tm">13:44:42</span><span class="nk"> &lt;rotru&gt;</span> run/test
+<a name="l-100"></a><span class="tm">13:44:44</span><span class="nk"> &lt;AdamKingIT11&gt;</span> seems we are in slow motion today...
+<a name="l-101"></a><span class="tm">13:45:08</span><span class="nk"> &lt;AdamKingIT11&gt;</span> I have been using fedora, so haven't experienced opensuse issues either
+<a name="l-102"></a><span class="tm">13:45:13</span><span class="nk"> &lt;royce&gt;</span> :)thanks rotru
+<a name="l-103"></a><span class="tm">13:45:20</span><span class="nk"> &lt;alinefm&gt;</span> royce, I run on opensuse and it works fine the times I tested
+<a name="l-104"></a><span class="tm">13:45:41</span><span class="nk"> &lt;alinefm&gt;</span> I will try again
+<a name="l-105"></a><span class="tm">13:45:49</span><span class="nk"> &lt;royce&gt;</span> is that on 13.1 alinefm?
+<a name="l-106"></a><span class="tm">13:45:53</span><span class="nk"> &lt;alinefm&gt;</span> have you installed the spacewalk repo?
+<a name="l-107"></a><span class="tm">13:46:27</span><span class="nk"> &lt;royce&gt;</span> I installed each repo by searching it on opensuse official web
+<a name="l-108"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> *Note for openSUSE users*: Some of the above packages are located in the
+<a name="l-109"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> openSUSE Systems Management repository. See
+<a name="l-110"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
+<a name="l-111"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> to get the correct repository based on your openSUSE version. And
+<a name="l-112"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
+<a name="l-113"></a><span class="tm">13:47:12</span><span class="nk"> &lt;shaohef&gt;</span> information on how configure your system to access this repository.
+<a name="l-114"></a><span class="tm">13:47:17</span><span class="nk"> &lt;royce&gt;</span> And some python lib itself has indented problem, aweful...
+<a name="l-115"></a><span class="tm">13:47:35</span><span class="nk"> &lt;royce&gt;</span> Oh, thanks shaohef
+<a name="l-116"></a><span class="tm">13:48:03</span><span class="nk"> &lt;royce&gt;</span> I guess I can turn to you tomorrow, shaohef
+<a name="l-117"></a><span class="tm">13:48:14</span><span class="nk"> &lt;shaohef&gt;</span> OK.
+<a name="l-118"></a><span class="tm">13:50:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, I will try again there from a fresh install
+<a name="l-119"></a><span class="tm">13:50:20</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-120"></a><span class="tm">13:50:49</span><span class="nk"> &lt;royce&gt;</span> thanks alinefm
+<a name="l-121"></a><span class="tm">13:52:59</span><span class="nk"> &lt;alinefm&gt;</span> ok - so we have done for today
+<a name="l-122"></a><span class="tm">13:53:06</span><span class="nk"> &lt;alinefm&gt;</span> thanks for joining
+<a name="l-123"></a><span class="tm">13:53:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
