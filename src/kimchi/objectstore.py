@@ -19,6 +19,7 @@
 import json
 import sqlite3
 import threading
+import traceback
 
 
 try:
@@ -29,6 +30,7 @@ except ImportError:
 
 from kimchi import config
 from kimchi.exception import NotFoundError
+from kimchi.utils import kimchi_log
 
 
 class ObjectStoreSession(object):
@@ -116,3 +118,8 @@ class ObjectStore(object):
 
     def __exit__(self, type, value, tb):
         self._lock.release()
+        if type is not None and issubclass(type, sqlite3.DatabaseError):
+                # Logs the error and return False, which makes __exit__ raise
+                # exception again
+                kimchi_log.error(traceback.format_exc())
+                return False
