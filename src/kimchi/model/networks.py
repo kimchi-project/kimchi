@@ -185,6 +185,11 @@ class NetworksModel(object):
                                                           vlan_id)
         conn = self.conn.get()
 
+        if br_name in [net.bridgeName() for net in conn.listAllNetworks()]:
+            error_msg = 'The interface %s already exist' % br_name
+            raise InvalidOperation("KCHNET0010E", {'iface': br_name,
+                                                   'err': error_msg})
+
         with RollbackContext() as rollback:
 
             try:
