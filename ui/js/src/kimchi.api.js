@@ -143,6 +143,17 @@ var kimchi = {
         });
     },
 
+    cloneTemplate : function(tem, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'templates/' + encodeURIComponent(tem) + "/clone",
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     listTemplates : function(suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'templates',

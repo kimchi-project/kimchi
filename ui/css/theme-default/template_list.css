@@ -253,3 +253,7 @@ template-hidden {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.processing {
+    cursor: wait;
+}

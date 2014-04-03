@@ -25,21 +25,33 @@ kimchi.doListTemplates = function() {
                 listHtml += kimchi.template(templateHtml, value);
             });
             $('#templateList').html(listHtml);
-            kimchi.bindClick();
+            kimchi.templateBindClick();
         } else {
             $('#templateList').html('');
             $('#noTemplates').show();
         }
+        $('html').removeClass('processing');
     }, function(err) {
         kimchi.message.error(err.responseJSON.reason);
+        $('html').removeClass('processing');
     });
 };
 
-kimchi.bindClick = function() {
+kimchi.templateBindClick = function() {
     $('.template-edit').on('click', function(event) {
         var templateName = $(this).data('template');
         kimchi.selectedTemplate = templateName;
         kimchi.window.open("template-edit.html");
+    });
+    $('.template-clone').on('click', function(event) {
+        kimchi.selectedTemplate = $(this).data('template');
+        $('html').addClass('processing');
+        kimchi.cloneTemplate(kimchi.selectedTemplate, function() {
+                kimchi.doListTemplates();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+                kimchi.doListTemplates();
+            });
     });
     $('.template-delete').on('click', function(event) {
         var $template = $(this);
