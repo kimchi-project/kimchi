@@ -72,7 +72,7 @@ kimchi.main = function() {
                 var url = kimchi.template(pluginConfigUrl, {
                     plugin: p
                 });
-                tabs.concat(retrieveTabs(url));
+                tabs.push.apply(tabs, retrieveTabs(url));
             });
 
             var firstTabPath = tabs[0] && tabs[0]['path'];
