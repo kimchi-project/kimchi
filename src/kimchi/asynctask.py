@@ -73,4 +73,4 @@ class AsyncTask(object):
         except Exception, e:
             cherrypy.log.error_log.error("Error in async_task %s " % self.id)
             cherrypy.log.error_log.error(traceback.format_exc())
-            cb("Unexpected exception: %s" % str(e), False)
+            cb("Unexpected exception: %s" % e.message, False)

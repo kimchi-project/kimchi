@@ -54,7 +54,13 @@ class KimchiException(Exception):
 
         for key, value in args.iteritems():
             if not isinstance(value, unicode):
-                args[key] = unicode(str(value), 'utf-8')
+                try:
+                    # In case the value formats itself to an ascii string.
+                    args[key] = unicode(str(value), 'utf-8')
+                except UnicodeEncodeError:
+                    # In case the value is a KimchiException or it formats
+                    # itself to a unicode string.
+                    args[key] = unicode(value)
 
         return unicode(translation.gettext(text), 'utf-8') % args
 

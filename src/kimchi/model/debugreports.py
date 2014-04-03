@@ -26,7 +26,7 @@ import subprocess
 import time
 
 from kimchi import config
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import KimchiException, NotFoundError, OperationFailed
 from kimchi.model.tasks import TaskModel
 from kimchi.utils import add_task, kimchi_log
 from kimchi.utils import run_command
@@ -64,6 +64,10 @@ class DebugReportsModel(object):
 
     @staticmethod
     def sosreport_generate(cb, name):
+        def log_error(e):
+            log = logging.getLogger('Model')
+            log.warning('Exception in generating debug file: %s', e)
+
         try:
             command = ['sosreport', '--batch', '--name=%s' % name]
             output, error, retcode = run_command(command)
@@ -109,15 +113,19 @@ class DebugReportsModel(object):
             cb('OK', True)
             return
 
-        except OSError:
+        except KimchiException as e:
+            log_error(e)
+            raise
+
+        except OSError as e:
+            log_error(e)
             raise
 
         except Exception, e:
             # No need to call cb to update the task status here.
             # The task object will catch the exception raised here
             # and update the task status there
-            log = logging.getLogger('Model')
-            log.warning('Exception in generating debug file: %s', e)
+            log_error(e)
             raise OperationFailed("KCHDR0005E", {'name': name, 'err': e})
 
     @staticmethod
