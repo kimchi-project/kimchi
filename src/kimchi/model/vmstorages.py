@@ -55,7 +55,7 @@ def _get_storage_xml(params):
         source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
         disk.append(source)
 
-    disk.append(E.target(dev=params.get('dev'), bus='ide'))
+    disk.append(E.target(dev=params.get('dev'), bus=params.get('bus', 'ide')))
     return ET.tostring(disk)
 
 
@@ -164,6 +164,7 @@ class VMStorageModel(object):
             raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
         path = ""
+        dev_bus = 'ide'
         try:
             source = disk.source
             if source is not None:
@@ -175,12 +176,15 @@ class VMStorageModel(object):
                             host.attrib['port'] + source.attrib['name'])
                 else:
                     path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
+            # Retrieve storage bus type
+            dev_bus = disk.target.attrib['bus']
         except:
             pass
         dev_type = disk.attrib['device']
         return {'dev': dev_name,
                 'type': dev_type,
-                'path': path}
+                'path': path,
+                'bus': dev_bus}
 
     def delete(self, vm_name, dev_name):
         # Get storage device xml
