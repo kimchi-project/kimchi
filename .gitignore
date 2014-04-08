@@ -35,4 +35,4 @@ po/gen-pot
 *.orig
 *.rej
 *.pem
-ui/pages/help/*.html
+ui/pages/help/*/*.html
