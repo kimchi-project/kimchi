@@ -81,6 +81,9 @@ AC_CONFIG_FILES([
     ui/libs/themes/base/images/Makefile
     ui/pages/Makefile
     ui/pages/help/Makefile
+    ui/pages/help/en_US/Makefile
+    ui/pages/help/pt_BR/Makefile
+    ui/pages/help/zh_CN/Makefile
     ui/pages/tabs/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile

@@ -245,12 +245,13 @@ kimchi.main = function() {
 };
 
 kimchi.getHelp = function(e) {
-        var url=window.location.hash;
-        url = url.replace("#tabs","/help");
-        if (url == "/help")
-            url=url+"/index.html"
+        var url = window.location.hash;
+        var lang = kimchi.lang.get();
+        url = url.replace("#tabs", "/help/" + lang);
+        if (url == "/help" + lang)
+            url = url + "/index.html"
         else
-            url=url+".html";
+            url = url + ".html";
 
         window.open(url, "Kimchi Help");
         e.preventDefault();
