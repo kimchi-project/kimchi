@@ -196,6 +196,7 @@ class KimchiConfig(dict):
         '/help': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': '%s/ui/pages/help' % paths.prefix,
+            'tools.staticdir.index': 'en_US/index.html',
             'tools.nocache.on': False
         }
     }
