@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="en-us">
+<title>Templates</title>
+<shortdesc>The <wintitle>Templates</wintitle> page shows the defined
+virtual machine templates that can be used to create KVM guests.</shortdesc>
+<csbody>
+<p>For each template, the following information is displayed:<dl>
+<dlentry>
+<dt>OS</dt>
+<dd>Name of the operating system or distribution.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>Version of the operating system or distribution.</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Number of processors that are defined for the template.</dd>
+</dlentry><dlentry>
+<dt>Memory</dt>
+<dd>Amount of random access memory to be allocated, in MB.</dd>
+</dlentry></dl></p>
+<p>The following actions can be selected for each template:<ul>
+<li>Select <uicontrol>Edit</uicontrol> to edit the template.</li>
+<li>Select <uicontrol>Delete</uicontrol> to delete the template.</li>
+</ul>To add a template, click the <uicontrol>plus (+)</uicontrol> icon
+in the upper right of the display.</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="en-us">
+<title>Edit template</title>
+<shortdesc>Edit an existing template.</shortdesc>
+<csbody>
+<p>For each template, the following information is displayed: <dl>
+<dlentry>
+<dt>Name</dt>
+<dd>Name of the template.</dd>
+</dlentry><dlentry>
+<dt>Vendor</dt>
+<dd>The name of the company that created the operating system or distribution
+that the template is configured to use.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>The version of the operating system or distribution that the template
+is configured to use.</dd>
+</dlentry><dlentry>
+<dt>CPU number</dt>
+<dd>Number of processors that are defined for the template.</dd>
+</dlentry><dlentry>
+<dt>Memory</dt>
+<dd>Amount of memory in MB to be allocated to the virtual machine.</dd>
+</dlentry><dlentry>
+<dt>Disk</dt>
+<dd>Disk size in GB.</dd>
+</dlentry><dlentry>
+<dt>CDROM</dt>
+<dd>File path to the location of the ISO file used to install the
+KVM guest.</dd>
+</dlentry><dlentry>
+<dt>Storage pool</dt>
+<dd>Specific storage pool or the default storage pool.</dd>
+</dlentry><dlentry>
+<dt>Network</dt>
+<dd>Default network interfaces available to the KVM guest. You can
+select multiple networks.</dd>
+</dlentry></dl> Fields that are not disabled can be edited. After
+you edit a field, click <uicontrol>Save</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>Add template</title>
+<shortdesc>Add a template from source media.</shortdesc>
+<csbody>
+<p>Select the location of the source media from the following options:<dl>
+<dlentry>
+<dt>Local ISO image</dt>
+<dd>Select to scan storage pools for installation ISO images available
+on the system.</dd>
+</dlentry><dlentry>
+<dt>Remote ISO image</dt>
+<dd>Select to specify a remote location for an installation ISO image.</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>Add template - local ISO image</title>
+<shortdesc>Add a template from a local ISO image.</shortdesc>
+<csbody>
+<p>The ISO images available on the system are displayed.<dl><dlentry>
+<dt>OS</dt>
+<dd>Name of the operating system or distribution.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>Version of the operating system or distribution.</dd>
+</dlentry><dlentry>
+<dt>Size</dt>
+<dd>Size of the ISO image.</dd>
+</dlentry></dl></p>
+<p>To create a template from an ISO image, choose from the following
+options:<ul>
+<li>Select an ISO image from which to create a template, then click <uicontrol>Create
+Templates from Selected ISO</uicontrol>.</li>
+<li>Select <uicontrol>All</uicontrol> to create a template from each
+ listed ISO image, then click <uicontrol>Create Templates from Selected
+ISO</uicontrol>.</li>
+<li>If the ISO image that you want to use does not appear in the scan
+results, you can select from the following options:<ul>
+<li>Select <uicontrol>I want to use a specific ISO file</uicontrol> to
+specify a path to the ISO image.</li>
+<li>Click <uicontrol>Search more ISOs</uicontrol> to search for more
+ISO images.</li>
+</ul></li><?Pub Caret 0?>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+<?Pub *0000004433?>
