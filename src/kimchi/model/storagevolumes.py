@@ -108,8 +108,8 @@ class StorageVolumeModel(object):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
 
-    def _get_storagevolume(self, pool, name):
-        pool = StoragePoolModel.get_storagepool(pool, self.conn)
+    def _get_storagevolume(self, poolname, name):
+        pool = StoragePoolModel.get_storagepool(poolname, self.conn)
         if not pool.isActive():
             raise InvalidOperation("KCHVOL0006E", {'name': pool})
         try:
@@ -117,7 +117,7 @@ class StorageVolumeModel(object):
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_VOL:
                 raise NotFoundError("KCHVOL0002E", {'name': name,
-                                                    'pool': pool})
+                                                    'pool': poolname})
             else:
                 raise
 
