@@ -28,7 +28,8 @@ from distutils.version import LooseVersion
 from kimchi.config import paths
 
 
-SUPPORTED_ARCHS = {'x86': ('i386', 'x86_64'), 'power': ('ppc', 'ppc64')}
+SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
+                   'power': ('ppc', 'ppc64')}
 
 
 common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
