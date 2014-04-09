@@ -188,6 +188,8 @@ messages = {
     "KCHNET0017E": _("Unable to delete network %(name)s. There are some virtual machines and/or templates linked to this network."),
     "KCHNET0018E": _("Unable to deactivate network %(name)s. There are some virtual machines and/or templates linked to this network."),
     "KCHNET0019E": _("Bridge device %(name)s can not be the trunk device of a VLAN."),
+    "KCHNET0020E": _("Failed to activate interface %(iface)s: %(err)s."),
+    "KCHNET0021E": _("Failed to activate interface %(iface)s. Please check the physical link status."),
 
     "KCHDR0001E": _("Debug report %(name)s does not exist"),
     "KCHDR0002E": _("Debug report tool not found in system"),

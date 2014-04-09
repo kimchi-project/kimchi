@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import sys
+import time
 
 import ipaddr
 import libvirt
@@ -29,7 +30,7 @@ from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.rollbackcontext import RollbackContext
-from kimchi.utils import kimchi_log
+from kimchi.utils import kimchi_log, run_command
 
 
 class NetworksModel(object):
@@ -141,6 +142,20 @@ class NetworksModel(object):
                        'dhcp': {'range': {'start': dhcp_start,
                                 'end': dhcp_end}}})
 
+    def _ensure_iface_up(self, iface):
+        if netinfo.operstate(iface) != 'up':
+            _, err, rc = run_command(['ip', 'link', 'set', 'dev', iface, 'up'])
+            if rc != 0:
+                raise OperationFailed("KCHNET0020E",
+                                      {'iface': iface, 'err': err})
+            # Add a delay to wait for the link change takes into effect.
+            for i in range(10):
+                time.sleep(1)
+                if netinfo.operstate(iface) == 'up':
+                    break
+            else:
+                raise OperationFailed("KCHNET0021E", {'iface': iface})
+
     def _set_network_bridge(self, params):
         try:
             iface = params['interface']
@@ -150,6 +165,7 @@ class NetworksModel(object):
         except KeyError:
             raise MissingParameter("KCHNET0004E", {'name': params['name']})
 
+        self._ensure_iface_up(iface)
         if netinfo.is_bridge(iface):
             if 'vlan_id' in params:
                 raise InvalidParameter('KCHNET0019E', {'name': iface})
