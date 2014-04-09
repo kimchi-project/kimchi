@@ -34,8 +34,9 @@ from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import kimchi_log
-from kimchi.utils import run_setfacl_set_attr, template_name_from_uri
+from kimchi.utils import kimchi_log, run_setfacl_set_attr
+from kimchi.utils import template_name_from_uri
+from kimchi.xmlutils import xpath_get_text
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -304,6 +305,10 @@ class VMModel(object):
         res['io_throughput'] = vm_stats.get('disk_io', 0)
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
 
+        xml = dom.XMLDesc(0)
+        users = xpath_get_text(xml, "/domain/metadata/kimchi/access/user")
+        groups = xpath_get_text(xml, "/domain/metadata/kimchi/access/group")
+
         return {'state': state,
                 'stats': res,
                 'uuid': dom.UUIDString(),
@@ -313,7 +318,9 @@ class VMModel(object):
                 'icon': icon,
                 'graphics': {"type": graphics_type,
                              "listen": graphics_listen,
-                             "port": graphics_port}
+                             "port": graphics_port},
+                'users': users,
+                'groups': groups
                 }
 
     def _vm_get_disk_paths(self, dom):

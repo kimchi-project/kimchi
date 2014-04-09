@@ -54,7 +54,9 @@ class VM(Resource):
                 'icon': self.info['icon'],
                 'graphics': {'type': self.info['graphics']['type'],
                              'listen': self.info['graphics']['listen'],
-                             'port': self.info['graphics']['port']}
+                             'port': self.info['graphics']['port']},
+                'users': self.info['users'],
+                'groups': self.info['groups']
                 }
 
 

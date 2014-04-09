@@ -201,6 +201,28 @@
                     "type": "string",
                     "minLength": 1,
                     "error": "KCHVM0011E"
+                },
+                "users": {
+                    "description": "Array of users who have permission to the VM",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "error": "KCHVM0023E",
+                    "items": {
+                        "description": "User name",
+                        "type": "string",
+                        "error": "KCHVM0024E"
+                    }
+                },
+                "groups": {
+                    "description": "Array of groups who have permission to the VM",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "error": "KCHVM0025E",
+                    "items": {
+                        "description": "Group name",
+                        "type": "string",
+                        "error": "KCHVM0026E"
+                    }
                 }
             }
         },

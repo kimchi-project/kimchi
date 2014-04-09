@@ -181,6 +181,8 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
         self.assertEquals('shutoff', vm['state'])
+        self.assertEquals(['user1', 'user2', 'root'], vm['users'])
+        self.assertEquals(['group1', 'group2', 'admin'], vm['groups'])
 
     def test_edit_vm(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})

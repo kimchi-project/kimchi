@@ -135,7 +135,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(u'test', vms[0])
 
         keys = set(('state', 'stats', 'uuid', 'memory', 'cpus', 'screenshot',
-                    'icon', 'graphics'))
+                    'icon', 'graphics', 'users', 'groups'))
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))

@@ -972,7 +972,9 @@ class MockVM(object):
                      'cpus': template_info['cpus'],
                      'icon': None,
                      'graphics': {'type': 'vnc', 'listen': '0.0.0.0',
-                                  'port': None}
+                                  'port': None},
+                     'users': ['user1', 'user2', 'root'],
+                     'groups': ['group1', 'group2', 'admin']
                      }
         self.info['graphics'].update(template_info['graphics'])
 

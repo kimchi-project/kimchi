@@ -80,6 +80,10 @@ messages = {
     "KCHVM0020E": _("Unable to power off virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0021E": _("Unable to delete virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0022E": _("Unable to reset virtual machine %(name)s. Details: %(err)s"),
+    "KCHVM0023E": _("User names list must be an array"),
+    "KCHVM0024E": _("User name must be a string"),
+    "KCHVM0025E": _("Group names list must be an array"),
+    "KCHVM0026E": _("Group name must be a string"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

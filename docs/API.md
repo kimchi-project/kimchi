@@ -94,6 +94,10 @@ the following general conventions:
         * port: The real port number of the graphics, vnc or spice. Users
                 can use this port to connect to the vm with general vnc/spice
                 clients.
+    * users: A list of system users who have permission to access the VM.
+      Default is: empty.
+    * groups: A list of system groups whose users have permission to access
+      the VM. Default is: empty.
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existed VM
     * name: New name for this VM (only applied for shutoff VM)
