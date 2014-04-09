@@ -17,14 +17,17 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import grp
 import json
 import os
+import pwd
 import unittest
 
 
 from functools import partial
 
 
+import kimchi.auth
 import kimchi.mockmodel
 from utils import get_free_port, patch_auth, request
 from utils import run_server
@@ -119,3 +122,19 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(403, resp.status)
         resp = self.request('/vms', '{}', 'DELETE')
         self.assertEquals(403, resp.status)
+
+
+class CurrentUserGroupTests(unittest.TestCase):
+    def test_current_user(self):
+        current_user = pwd.getpwuid(os.getuid()).pw_name
+        self.assertTrue(kimchi.auth.User(current_user).exists())
+
+        invalid_user = "userdoesnotexist"
+        self.assertFalse(kimchi.auth.User(invalid_user).exists())
+
+    def test_current_group(self):
+        current_group = grp.getgrgid(os.getgid()).gr_name
+        self.assertTrue(kimchi.auth.Group(current_group).exists())
+
+        invalid_group = "groupdoesnotexist"
+        self.assertFalse(kimchi.auth.Group(invalid_group).exists())

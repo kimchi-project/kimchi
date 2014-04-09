@@ -25,6 +25,7 @@ import multiprocessing
 import os
 import PAM
 import pty
+import pwd
 import re
 import termios
 import time
@@ -95,6 +96,27 @@ class User(object):
 
     def get_user(self):
         return self.user
+
+    def exists(self):
+        try:
+            pwd.getpwnam(self.user[USER_NAME])
+        except KeyError:
+            return False
+        else:
+            return True
+
+
+class Group(object):
+    def __init__(self, groupname):
+        self.groupname = groupname
+
+    def exists(self):
+        try:
+            grp.getgrnam(self.groupname)
+        except KeyError:
+            return False
+        else:
+            return True
 
 
 def authenticate(username, password, service="passwd"):
