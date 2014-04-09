@@ -102,14 +102,14 @@ class KimchiRoot(Root):
     def login(self, *args):
         params = parse_request()
         try:
-            userid = params['userid']
+            username = params['username']
             password = params['password']
         except KeyError, item:
             e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
             raise cherrypy.HTTPError(400, e.message)
 
         try:
-            user_info = auth.login(userid, password)
+            user_info = auth.login(username, password)
         except OperationFailed:
             raise cherrypy.HTTPError(401)
 

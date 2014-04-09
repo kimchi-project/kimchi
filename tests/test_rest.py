@@ -106,7 +106,7 @@ class RestTests(unittest.TestCase):
         # HTTP:401.  Since HTTP Simple Auth is not allowed for text/html, we
         # need to use the login API and establish a session.
         user, pw = fake_user.items()[0]
-        req = json.dumps({'userid': user, 'password': pw})
+        req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST')
         self.assertEquals(200, resp.status)
         cookie = resp.getheader('set-cookie')
@@ -1367,7 +1367,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(200, resp.status)
 
         user, pw = fake_user.items()[0]
-        req = json.dumps({'userid': user, 'password': pw})
+        req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(200, resp.status)
 
@@ -1388,7 +1388,7 @@ class RestTests(unittest.TestCase):
 
         # Test REST API
         hdrs = {'AUTHORIZATION': ''}
-        req = json.dumps({'userid': 'nouser', 'password': 'badpass'})
+        req = json.dumps({'username': 'nouser', 'password': 'badpass'})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(401, resp.status)
 
@@ -1413,7 +1413,7 @@ class RestTests(unittest.TestCase):
 
         # Execute a login call
         user, pw = fake_user.items()[0]
-        req = json.dumps({'userid': user, 'password': pw})
+        req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(200, resp.status)
         cookie = resp.getheader('set-cookie')

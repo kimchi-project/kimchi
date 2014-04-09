@@ -56,10 +56,10 @@ kimchi.login_main = function() {
             return;
         }
 
-        var userName = kimchi.user.getUserID();
-        userName && $('#user-id').val(userName);
+        var userName = kimchi.user.getUserName();
+        userName && $('#username').val(userName);
 
-        var nodeToFocus = ! $('#user-id').val() ? $('#user-id') :
+        var nodeToFocus = ! $('#username').val() ? $('#username') :
             (! $('#password').val() ? $('#password') : $('#btn-login'));
 
         $(nodeToFocus).focus();
@@ -67,16 +67,16 @@ kimchi.login_main = function() {
 
     var login = function(event) {
 
-        if (!validateNonEmpty(['user-id', 'password'])) {
+        if (!validateNonEmpty(['username', 'password'])) {
             return false;
         }
 
         $('#btn-login').text(i18n['KCHAUTH6002M']).prop('disabled', true);
 
-        var userID = $('#user-id').val();
-        userID && kimchi.user.setUserID(userID);
+        var userName = $('#username').val();
+        userName && kimchi.user.setUserName(userName);
         var settings = {
-            userid: userID,
+            username: userName,
             password: $("#password").val()
         };
 
@@ -96,7 +96,7 @@ kimchi.login_main = function() {
         }, function() {
             kimchi.message.error.code('KCHAUTH6001E');
             $('#btn-login').prop('disabled', false).text(i18n['KCHAUTH6001M']);
-            placeCursor('user-id');
+            placeCursor('username');
         });
 
         return false;

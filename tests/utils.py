@@ -160,7 +160,7 @@ def patch_auth(sudo=True):
         try:
             return fake_user[username] == password
         except KeyError, e:
-            raise OperationFailed("KCHAUTH0001E", {'userid': 'username',
+            raise OperationFailed("KCHAUTH0001E", {'username': 'username',
                                                    'code': e.message})
 
     import kimchi.auth

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-26 16:19-0300\n"
+"POT-Creation-Date: 2014-04-09 17:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -373,6 +373,11 @@ msgid "Create a network"
 msgstr ""
 
 msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr ""
 
@@ -650,6 +655,9 @@ msgstr ""
 msgid "No templates found."
 msgstr ""
 
+msgid "Clone"
+msgstr ""
+
 msgid "Location"
 msgstr ""
 
@@ -785,7 +793,11 @@ msgid "Datastore is not initiated in the model object."
 msgstr ""
 
 #, python-format
-msgid "Authentication failed for user '%(userid)s'. [Error code: %(code)s]"
+msgid "Unable to start task due error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr ""
 
 msgid "You are not authorized to access Kimchi"
@@ -1026,6 +1038,14 @@ msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to create template due error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete template due error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr ""
 
@@ -1167,6 +1187,10 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Unable to update database with deep scan information due error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
 
@@ -1232,6 +1256,11 @@ msgid "Storage volume format not supported"
 msgstr ""
 
 msgid "Storage volume requires a volume name"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update database with storage volume information due error: %(err)s"
 msgstr ""
 
 #, python-format

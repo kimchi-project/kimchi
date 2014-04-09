@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-26 16:19-0300\n"
+"POT-Creation-Date: 2014-04-09 17:11-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -379,6 +379,11 @@ msgid "Create a network"
 msgstr "Create a network"
 
 msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr ""
 
@@ -662,6 +667,9 @@ msgstr "VLAN ID"
 msgid "No templates found."
 msgstr "No templates found."
 
+msgid "Clone"
+msgstr ""
+
 msgid "Location"
 msgstr "Location"
 
@@ -797,7 +805,11 @@ msgid "Datastore is not initiated in the model object."
 msgstr ""
 
 #, python-format
-msgid "Authentication failed for user '%(userid)s'. [Error code: %(code)s]"
+msgid "Unable to start task due error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr ""
 
 msgid "You are not authorized to access Kimchi"
@@ -1038,6 +1050,14 @@ msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to create template due error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete template due error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr ""
 
@@ -1179,6 +1199,10 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Unable to update database with deep scan information due error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr ""
 
@@ -1244,6 +1268,11 @@ msgid "Storage volume format not supported"
 msgstr ""
 
 msgid "Storage volume requires a volume name"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update database with storage volume information due error: %(err)s"
 msgstr ""
 
 #, python-format

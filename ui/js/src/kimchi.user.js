@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 kimchi.user = (function() {
-    var getUserID = function() {
-        return kimchi.cookie.get('userid');
+    var getUserName = function() {
+        return kimchi.cookie.get('username');
     };
 
-    var setUserID = function(userID) {
-        kimchi.cookie.set('userid', userID, 365);
+    var setUserName = function(userName) {
+        kimchi.cookie.set('username', userName, 365);
     };
 
     var showUser = function(toShow) {
         if (toShow) {
-            var userName = getUserID();
+            var userName = getUserName();
             userName && $('#user-name').text(userName);
             $('#user').removeClass('not-logged-in');
             return;
@@ -36,8 +36,8 @@ kimchi.user = (function() {
     };
 
     return {
-        getUserID: getUserID,
-        setUserID: setUserID,
+        getUserName: getUserName,
+        setUserName: setUserName,
         showUser: showUser
     };
 })();

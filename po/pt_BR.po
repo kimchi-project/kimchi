@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-26 16:19-0300\n"
+"POT-Creation-Date: 2014-04-09 17:11-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -407,6 +407,14 @@ msgstr ""
 msgid "Create a network"
 msgstr "Criar uma rede"
 
+#, fuzzy
+msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+"O storage pool não é persistente. Ao invés de desativar, essa ação vai "
+"removê-lo permanentemente. Deseja continuar?"
+
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr "O storage pool vai ser permanentemente removido. Deseja continuar?"
@@ -695,6 +703,9 @@ msgstr "VLAN ID"
 msgid "No templates found."
 msgstr "Nenhum modelo encontrado."
 
+msgid "Clone"
+msgstr ""
+
 msgid "Location"
 msgstr "Localização"
 
@@ -829,8 +840,12 @@ msgstr "Essa API suporta apenas JSON"
 msgid "Datastore is not initiated in the model object."
 msgstr "Datastore não é inicializado no objeto modelo."
 
-#, python-format
-msgid "Authentication failed for user '%(userid)s'. [Error code: %(code)s]"
+#, fuzzy, python-format
+msgid "Unable to start task due error: %(err)s"
+msgstr "Não foi possível iniciar a máquina virtual %(name)s. Detalhes: %(err)s"
+
+#, fuzzy, python-format
+msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr "O usuário '%(userid)s' falhou na autenticação. [Error code: %(code)s]"
 
 msgid "You are not authorized to access Kimchi"
@@ -1092,6 +1107,14 @@ msgstr ""
 msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr "O volume de storage: %(volume)s não existe no storage pool %(pool)s"
 
+#, fuzzy, python-format
+msgid "Unable to create template due error: %(err)s"
+msgstr "Não é possível criar o storage pool %(name)s.Detalhes: %(err)s"
+
+#, fuzzy, python-format
+msgid "Unable to delete template due error: %(err)s"
+msgstr "Incapaz de deletar a rede ativa %(name)s"
+
 #, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr "Storage pool %(name)s já existe"
@@ -1254,6 +1277,10 @@ msgstr ""
 "Um grupo de volume chamado '%(name)s' já existe. Por favor, escolher outro "
 "nome para criar o pool lógico."
 
+#, fuzzy, python-format
+msgid "Unable to update database with deep scan information due error: %(err)s"
+msgstr "Incapaz de carregar as informações do repositório. Detalhes: %(err)s"
+
 #, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr "Volume de storage %(name)s já existe"
@@ -1328,6 +1355,11 @@ msgstr "Formato do volume não suportado"
 
 msgid "Storage volume requires a volume name"
 msgstr "Volume requer um nome"
+
+#, fuzzy, python-format
+msgid ""
+"Unable to update database with storage volume information due error: %(err)s"
+msgstr "Incapaz de deletar o volume %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Interface %(name)s does not exist"
