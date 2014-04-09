@@ -1,0 +1,191 @@
+13:01:21 <alinefm> #startmeeting
+13:01:21 <kimchi-bot> Meeting started Wed Apr  9 13:01:21 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:21 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:21 <alinefm> #meetingname scrum
+13:01:21 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:21 <alinefm> anything else?
+13:01:21 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:52 <alinefm> #topic Status
+13:02:53 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:58 <alinefm> #info alinefm
+13:03:18 <alinefm> #info alinefm sent patches to add mechanism to translate help pages
+13:03:56 <pvital> #info pvital sent patch to fix issue #365: Preventing duplicate Bridged VLAN tagged network.
+13:05:23 <adamkingit> #info adamkingit send patches implementing general jQuery form handing support
+13:05:26 <rotru_Truja_> #info rotru fixed a problem with cdrom midia bus type (IDE was hardcoded and always being used)
+13:05:35 <adamkingit> #info adamkingit sent patch for VMEdit
+13:06:05 <YuXin> #info yuxin edit vm network interface working
+13:06:27 <rotru_Truja_> #info rotru worked and sent patches to fix issue #363 - Template edit window was not showing storage volumes of type iscsi/scsi
+13:07:21 <shaohef> #info shaohef send a patch to check i18n.
+13:07:22 <shaohef> #info shaohef send two RFC about vm shutdown and stop network.
+13:08:40 <alinefm> anything else?
+13:09:17 <shaohef> rotru_Truja_:  I also send a similar patch to you last week.
+13:09:39 <rotru_Truja_> shaohef; what patch ?
+13:11:13 <alinefm> I'd like everyone to open the wiki page: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+13:11:32 <alinefm> I am a little bit concerned about the sprint 1 tasks
+13:11:41 <alinefm> from all the tasks listed just one is merged
+13:11:59 <alinefm> there are some patches on mail list to other tasks but most of them there is nothing
+13:12:02 <pvital> alinefm, which one?
+13:12:11 <shaohef> rotru_Truja_: #363
+13:12:24 <alinefm> we have already passed the same situation some time ago and we know it will not work in the end
+13:12:30 <alinefm> pvital, ?
+13:13:04 <rotru_Truja_> shaohef;  let me see the emails
+13:13:13 <pvital> alinefm, you said there's only one task from sprint1 already merged. which one?
+13:13:25 <alinefm> pvital, ui for clone template
+13:13:30 <pvital> thanks
+13:13:46 <adamkingit> Its marked "(COMPLETED)"
+13:14:12 <pvital> alinefm, adamkingit: yes! just noticed that :-D (about he COMPLETED)
+13:14:26 * pvital a little lazy today
+13:14:29 <adamkingit> :-)
+13:14:44 <alinefm> so I strongly recommend everyone to send a patch/RFC/mock for the sprint 1 tasks by the *end of this week*
+13:14:54 <alinefm> do you think it is possible?
+13:15:02 <adamkingit> we have some tasks without owners.
+13:15:42 <adamkingit> or with out noted owners anyway
+13:16:08 <alinefm> adamkingit, yes - I've just updated the wiki now
+13:16:22 <alinefm> now the only task without owner is "Manage guest disks"
+13:16:35 <alinefm> anyone would like it? royce ^?
+13:16:48 <royce> alinefm, about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros?
+13:16:49 <alinefm> royce, I know you has being working in it
+13:16:59 <royce> Sure, alinefm
+13:17:31 <pvital> alinefm, the mogration tasks doesnt have owner also!
+13:17:35 <alinefm> royce, are you overloaded with the cdrom task? or do you think you can send a patch for disk management this week?
+13:18:00 <alinefm> pvital, this tasks is for investigation - there is no patch needed to close it
+13:18:13 <royce> I think I can manage to send one at least before Sunday:) I'm ok
+13:18:14 <alinefm> but I agree someone should focus on it too
+13:18:35 <pvital> alinefm, OK, but would be good see an owner for it on planning :-D
+13:18:39 <alinefm> royce, are you planning to work in the weekend?
+13:18:54 <royce> nope, just make sure I have buffer
+13:19:03 <royce> don't worry about me, alinefm
+13:19:23 <alinefm> royce, whew!
+13:19:48 <alinefm> shaohef, do you want to investigate the migration task?
+13:20:19 <shaohef> alinefm: yes. but Ming has investigated the  migration task.
+13:20:36 <alinefm> shaohef, is there a wiki with what he found?
+13:21:05 <shaohef> alinefm:  No. let me check. he take vocation these days.
+13:21:17 <rotru_Truja_> alinefm; shaohef  what is the Migration task about ?
+13:21:51 <alinefm> rotru_Truja_, we will have a feature for discover kimchi peers in the same network
+13:22:01 <alinefm> then you can migrate your vms to other kimchi servers
+13:22:32 <rotru_Truja_> alinefm;  just Kimchi  ? or other types of virtualization manager ?
+13:22:42 <alinefm> rotru_Truja_, just kimchi
+13:22:46 <alinefm> kimchi to kimchi
+13:22:58 <shaohef> alinefm:  on, sorry, Ming is working on  discover kimchi peers in the same network.
+13:23:04 <alinefm> at the moment I see the steps for it are: create a mechanism to discover peers - broadcast messages (?)
+13:23:06 <shaohef> alinefm: I make a mistake.
+13:23:11 <rotru_Truja_> alinefm;  I am asking , because I think I have a module almost ready for this ...
+13:23:18 <alinefm> shaohef, it is also a part of migration investigation
+13:23:21 <shaohef> alinefm: yes. I can investigate the migration task
+13:23:40 <shaohef> alinefm: OK. with work with Ming on it.
+13:23:50 <alinefm> shaohef, it is great
+13:23:58 <shaohef> alinefm: he will come to work soon.
+13:24:05 <alinefm> shaohef, I will also create a wiki with my ideas and send the link to mail list
+13:24:10 <alinefm> 1. how do we discover kimchi peers? broadcast?
+13:24:33 <alinefm> 2. how do we transfer the vm images to other server?
+13:25:16 <alinefm> I want to have a detailed information about it so we can check how much work is needed to get the feature done
+13:25:23 <alinefm> this feature will not be in 1.2.1
+13:25:24 <adamkingit> i suggest we investigate 2 first. There are many ways to decide where to transfer, but we don't yet know HOW to transfer
+13:25:36 <alinefm> but for the next release we need a real plan to it
+13:25:55 <alinefm> adamkingit, and the best approach for us
+13:26:42 <shaohef> alinefm: great
+13:27:01 <alinefm> so, royce, can I add you to "Manage guest disks" in the wiki?
+13:27:15 <alinefm> shaohef, can I add you and ming to invetsigate migration task?
+13:27:23 <rotru_Truja_> alinefm; , shaohef  I think you  missed my message ...  anyway, I can talk to you offline later
+13:27:24 <shaohef> alinefm: yes.
+13:27:53 <shaohef> rotru_Truja_: ok.
+13:28:02 <alinefm> rotru_Truja_, whichi message?
+13:28:30 <royce> sure, alinefm
+13:28:43 <rotru_Truja_> alinefm;  that I have a module for migration ready
+13:28:58 <alinefm> where?
+13:29:11 <alinefm> rotru_Truja_, which protocols did you use?
+13:29:15 <rotru_Truja_> alinefm;  from other project
+13:29:23 <alinefm> open source project?
+13:29:35 <rotru_Truja_> alinefm;  not really
+13:29:51 <alinefm> rotru_Truja_, hmm so maybe we can not use it
+13:30:00 <rotru_Truja_> alinefm;  but can become make it open source
+13:30:28 <rotru_Truja_> alinefm;  I mean, I think there is no problem with open it
+13:30:43 <rotru_Truja_> alinefm; we can chat later
+13:30:45 <alinefm> rotru_Truja_, we need to ask it to the owner first
+13:30:52 <alinefm> and get legal stuffs clear
+13:31:00 <alinefm> we can discuss it after meeting
+13:31:07 <rotru_Truja_> sure
+13:31:35 <royce> alinefm, about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros? or just use ide?
+13:31:52 <alinefm> royce, how is the problem with rhel?
+13:32:12 <alinefm> the vm does not boot with scsi cdrom?
+13:32:17 <royce> cdrom with scsi bus cannot boot
+13:32:26 <danielhb> late status:
+13:32:27 <danielhb> #info danielhb sent a patch to fix github #329: kimchi must not run as root. Patch is waiting for review.
+13:32:31 <royce> same as your problem on 13.04? 12.10?
+13:32:32 <alinefm> royce, same behavior with sata bus?
+13:32:58 <alinefm> royce, yes - I testes on ubuntu 12.10
+13:33:02 <alinefm> *tested
+13:33:26 <royce> just finished all test today, haven't tried other bus yet, I can investigate tomorrow
+13:34:04 <alinefm> royce, just try sata on rhel and let's see if it works but I doubt
+13:34:27 <alinefm> so distinguish distros to use ide or scsi or apply the same behavior for all them?
+13:34:32 <alinefm> suggestions?
+13:35:13 <alinefm> for maintenance, I'd say keep the same behavior for all distros, ie, continue to use ide
+13:35:51 <alinefm> but in this case we need to limit the cdrom number
+13:35:56 <alinefm> to avoid problems
+13:36:06 <royce> Mark told me that scsi is not stable on some qemu support, both are ok for me, patches are ready
+13:36:53 <alinefm> royce, have you already had patches to limit cdrom number in de bus?
+13:37:32 <royce> alinefm, limit cdrom number just need to change the error raising I think
+13:37:46 <alinefm> ok
+13:38:15 <alinefm> royce, seems only you and I are involved in this discussion so let's keep ide
+13:38:36 <adamkingit> Will we keep IDE drives?
+13:38:44 <royce> ok, alinefm
+13:38:45 <adamkingit> The limit is 4 total
+13:38:51 <alinefm> we can move the scsi cdrom support back to backlog and when get rhel update we can take a look on it again
+13:38:59 <alinefm> adamkingit, yes
+13:39:09 <royce> about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros? or just use ide?, adamKingit
+13:39:18 <royce> adamkingit^
+13:39:42 <adamkingit> Any idea if rhel 7 works?
+13:39:47 <alinefm> adamkingit, 4 is more than enough
+13:40:06 <alinefm> adamkingit, probably as it is based on fedora 19
+13:40:13 <alinefm> but we need to get it released first =)
+13:40:42 <adamkingit> I agree with alinefm that using the same on all distros is generally prefereable
+13:41:12 <alinefm> I heard rhel7 will be released in june
+13:41:12 <adamkingit> 4 total drives may be tolerable.
+13:42:07 <adamkingit> at least until RHEL7 ships :-D
+13:42:20 <alinefm> yeap
+13:42:23 <royce> ok
+13:42:42 <alinefm> let's move to open discussion section
+13:42:47 <alinefm> #topic Open Discussion
+13:42:56 <alinefm> any other topic for today?
+13:43:01 <alinefm> royce? shaohef?
+13:43:11 <shaohef> no.
+13:43:22 <alinefm> adamkingit?
+13:43:25 <adamkingit> n
+13:43:33 <royce> all for me
+13:43:40 <shaohef> for shutdown,  we will support 2 api, right?  stop and forceoff.
+13:44:42 <shaohef> for stop network, it is not bug, right. as we design, we do not allow stop network when vm/template link to it.
+13:45:09 <alinefm> shaohef, correct
+13:45:27 <adamkingit> for shutdown do we want actions: shutdown and poweroff?
+13:45:35 <adamkingit> I agree its 2 actions
+13:45:45 <alinefm> as I commented on mail list, if we allow stopping a network associated to a template or vm we will get inconsistent resources and it is not the idea of Kimchi
+13:45:48 <adamkingit> just like on a physical computer
+13:46:26 <alinefm> adamkingit, are you suggestion to do the API as shutdown and poweroff?
+13:46:49 <adamkingit> y
+13:47:30 <alinefm> shaohef, are you ok?
+13:47:46 <shaohef> alinefm: I'm OK.
+13:47:56 <alinefm> those actions names are fine for me too
+13:48:13 <shaohef> alinefm: /vm/vm1/shutdown and /vm/vm1/poweroff
+13:48:17 <alinefm> yes
+13:48:18 <adamkingit> do we have the same issue with reset?
+13:48:37 <alinefm> yes - because we implement it like stop + start
+13:48:52 <alinefm> we also need to update the reset implementation
+13:49:34 <shaohef> seems, we have not implement reset
+13:49:43 <shaohef> adamkingit: yes. reboot and reset
+13:50:13 <adamkingit> i was guessing we had implemented reset but not reboot
+13:52:31 <alinefm> adamkingit, indeed
+13:53:59 <alinefm> I don't think we should worry about it right now
+13:55:20 <shaohef> about the Version/build number.   Version = 1.2.0,   build = kimchi-1.2.0-11-g090487b ?
+13:56:08 <alinefm> shaohef, when kimchi is installed in the machine we display the version (as it does not have a build number)
+13:56:23 <alinefm> and when we are running it from come we display the build number
+13:56:48 <alinefm> but how about the "make install"? it does not have version or build number
+13:58:24 <shaohef> we need to update a build number in config
+13:58:43 <shaohef> config.py.in
+13:59:22 <alinefm> shaohef, yes
+13:59:24 <shaohef> make install, will install the config.py, and get the build numbe.
+13:59:49 <alinefm> shaohef, we can also use the same approach when is running from code
+13:59:58 <alinefm> and only differ when have a package installed
+14:01:49 <shaohef> yes.  just distinguish  package or not.
+14:03:01 <alinefm> ok
+14:03:05 <alinefm> anything else for today?
+14:03:54 <alinefm> so thanks all for joining
+14:04:01 <alinefm> #endmeeting

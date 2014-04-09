@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr  9 13:01:21 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-6"></a><span class="tm">13:01:21</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-7"></a><span class="tm">13:01:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-8"></a><span class="tm">13:02:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:02:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:02:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm</span>
+<a name="l-11"></a><span class="tm">13:03:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to add mechanism to translate help pages</span>
+<a name="l-12"></a><span class="tm">13:03:56</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent patch to fix issue #365: Preventing duplicate Bridged VLAN tagged network.</span>
+<a name="l-13"></a><span class="tm">13:05:23</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit send patches implementing general jQuery form handing support</span>
+<a name="l-14"></a><span class="tm">13:05:26</span><span class="nk"> &lt;rotru_Truja_&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru fixed a problem with cdrom midia bus type (IDE was hardcoded and always being used)</span>
+<a name="l-15"></a><span class="tm">13:05:35</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit sent patch for VMEdit</span>
+<a name="l-16"></a><span class="tm">13:06:05</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">yuxin edit vm network interface working</span>
+<a name="l-17"></a><span class="tm">13:06:27</span><span class="nk"> &lt;rotru_Truja_&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru worked and sent patches to fix issue #363 - Template edit window was not showing storage volumes of type iscsi/scsi</span>
+<a name="l-18"></a><span class="tm">13:07:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send a patch to check i18n.</span>
+<a name="l-19"></a><span class="tm">13:07:22</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send two RFC about vm shutdown and stop network.</span>
+<a name="l-20"></a><span class="tm">13:08:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-21"></a><span class="tm">13:09:17</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">rotru_Truja_:</span>  I also send a similar patch to you last week.
+<a name="l-22"></a><span class="tm">13:09:39</span><span class="nk"> &lt;rotru_Truja_&gt;</span> shaohef; what patch ?
+<a name="l-23"></a><span class="tm">13:11:13</span><span class="nk"> &lt;alinefm&gt;</span> I'd like everyone to open the wiki page: https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+<a name="l-24"></a><span class="tm">13:11:32</span><span class="nk"> &lt;alinefm&gt;</span> I am a little bit concerned about the sprint 1 tasks
+<a name="l-25"></a><span class="tm">13:11:41</span><span class="nk"> &lt;alinefm&gt;</span> from all the tasks listed just one is merged
+<a name="l-26"></a><span class="tm">13:11:59</span><span class="nk"> &lt;alinefm&gt;</span> there are some patches on mail list to other tasks but most of them there is nothing
+<a name="l-27"></a><span class="tm">13:12:02</span><span class="nk"> &lt;pvital&gt;</span> alinefm, which one?
+<a name="l-28"></a><span class="tm">13:12:11</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">rotru_Truja_:</span> #363
+<a name="l-29"></a><span class="tm">13:12:24</span><span class="nk"> &lt;alinefm&gt;</span> we have already passed the same situation some time ago and we know it will not work in the end
+<a name="l-30"></a><span class="tm">13:12:30</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ?
+<a name="l-31"></a><span class="tm">13:13:04</span><span class="nk"> &lt;rotru_Truja_&gt;</span> shaohef;  let me see the emails
+<a name="l-32"></a><span class="tm">13:13:13</span><span class="nk"> &lt;pvital&gt;</span> alinefm, you said there's only one task from sprint1 already merged. which one?
+<a name="l-33"></a><span class="tm">13:13:25</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ui for clone template
+<a name="l-34"></a><span class="tm">13:13:30</span><span class="nk"> &lt;pvital&gt;</span> thanks
+<a name="l-35"></a><span class="tm">13:13:46</span><span class="nk"> &lt;adamkingit&gt;</span> Its marked "(COMPLETED)"
+<a name="l-36"></a><span class="tm">13:14:12</span><span class="nk"> &lt;pvital&gt;</span> alinefm, adamkingit: yes! just noticed that :-D (about he COMPLETED)
+<a name="l-37"></a><span class="tm">13:14:26 </span><span class="nka">* pvital</span> <span class="ac">a little lazy today</span>
+<a name="l-38"></a><span class="tm">13:14:29</span><span class="nk"> &lt;adamkingit&gt;</span> :-)
+<a name="l-39"></a><span class="tm">13:14:44</span><span class="nk"> &lt;alinefm&gt;</span> so I strongly recommend everyone to send a patch/RFC/mock for the sprint 1 tasks by the *end of this week*
+<a name="l-40"></a><span class="tm">13:14:54</span><span class="nk"> &lt;alinefm&gt;</span> do you think it is possible?
+<a name="l-41"></a><span class="tm">13:15:02</span><span class="nk"> &lt;adamkingit&gt;</span> we have some tasks without owners.
+<a name="l-42"></a><span class="tm">13:15:42</span><span class="nk"> &lt;adamkingit&gt;</span> or with out noted owners anyway
+<a name="l-43"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, yes - I've just updated the wiki now
+<a name="l-44"></a><span class="tm">13:16:22</span><span class="nk"> &lt;alinefm&gt;</span> now the only task without owner is "Manage guest disks"
+<a name="l-45"></a><span class="tm">13:16:35</span><span class="nk"> &lt;alinefm&gt;</span> anyone would like it? royce ^?
+<a name="l-46"></a><span class="tm">13:16:48</span><span class="nk"> &lt;royce&gt;</span> alinefm, about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros?
+<a name="l-47"></a><span class="tm">13:16:49</span><span class="nk"> &lt;alinefm&gt;</span> royce, I know you has being working in it
+<a name="l-48"></a><span class="tm">13:16:59</span><span class="nk"> &lt;royce&gt;</span> Sure, alinefm
+<a name="l-49"></a><span class="tm">13:17:31</span><span class="nk"> &lt;pvital&gt;</span> alinefm, the mogration tasks doesnt have owner also!
+<a name="l-50"></a><span class="tm">13:17:35</span><span class="nk"> &lt;alinefm&gt;</span> royce, are you overloaded with the cdrom task? or do you think you can send a patch for disk management this week?
+<a name="l-51"></a><span class="tm">13:18:00</span><span class="nk"> &lt;alinefm&gt;</span> pvital, this tasks is for investigation - there is no patch needed to close it
+<a name="l-52"></a><span class="tm">13:18:13</span><span class="nk"> &lt;royce&gt;</span> I think I can manage to send one at least before Sunday:) I'm ok
+<a name="l-53"></a><span class="tm">13:18:14</span><span class="nk"> &lt;alinefm&gt;</span> but I agree someone should focus on it too
+<a name="l-54"></a><span class="tm">13:18:35</span><span class="nk"> &lt;pvital&gt;</span> alinefm, OK, but would be good see an owner for it on planning :-D
+<a name="l-55"></a><span class="tm">13:18:39</span><span class="nk"> &lt;alinefm&gt;</span> royce, are you planning to work in the weekend?
+<a name="l-56"></a><span class="tm">13:18:54</span><span class="nk"> &lt;royce&gt;</span> nope, just make sure I have buffer
+<a name="l-57"></a><span class="tm">13:19:03</span><span class="nk"> &lt;royce&gt;</span> don't worry about me, alinefm
+<a name="l-58"></a><span class="tm">13:19:23</span><span class="nk"> &lt;alinefm&gt;</span> royce, whew!
+<a name="l-59"></a><span class="tm">13:19:48</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, do you want to investigate the migration task?
+<a name="l-60"></a><span class="tm">13:20:19</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes. but Ming has investigated the  migration task.
+<a name="l-61"></a><span class="tm">13:20:36</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, is there a wiki with what he found?
+<a name="l-62"></a><span class="tm">13:21:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  No. let me check. he take vocation these days.
+<a name="l-63"></a><span class="tm">13:21:17</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm; shaohef  what is the Migration task about ?
+<a name="l-64"></a><span class="tm">13:21:51</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, we will have a feature for discover kimchi peers in the same network
+<a name="l-65"></a><span class="tm">13:22:01</span><span class="nk"> &lt;alinefm&gt;</span> then you can migrate your vms to other kimchi servers
+<a name="l-66"></a><span class="tm">13:22:32</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  just Kimchi  ? or other types of virtualization manager ?
+<a name="l-67"></a><span class="tm">13:22:42</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, just kimchi
+<a name="l-68"></a><span class="tm">13:22:46</span><span class="nk"> &lt;alinefm&gt;</span> kimchi to kimchi
+<a name="l-69"></a><span class="tm">13:22:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  on, sorry, Ming is working on  discover kimchi peers in the same network.
+<a name="l-70"></a><span class="tm">13:23:04</span><span class="nk"> &lt;alinefm&gt;</span> at the moment I see the steps for it are: create a mechanism to discover peers - broadcast messages (?)
+<a name="l-71"></a><span class="tm">13:23:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I make a mistake.
+<a name="l-72"></a><span class="tm">13:23:11</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  I am asking , because I think I have a module almost ready for this ...
+<a name="l-73"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is also a part of migration investigation
+<a name="l-74"></a><span class="tm">13:23:21</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes. I can investigate the migration task
+<a name="l-75"></a><span class="tm">13:23:40</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> OK. with work with Ming on it.
+<a name="l-76"></a><span class="tm">13:23:50</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is great
+<a name="l-77"></a><span class="tm">13:23:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> he will come to work soon.
+<a name="l-78"></a><span class="tm">13:24:05</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I will also create a wiki with my ideas and send the link to mail list
+<a name="l-79"></a><span class="tm">13:24:10</span><span class="nk"> &lt;alinefm&gt;</span> 1. how do we discover kimchi peers? broadcast?
+<a name="l-80"></a><span class="tm">13:24:33</span><span class="nk"> &lt;alinefm&gt;</span> 2. how do we transfer the vm images to other server?
+<a name="l-81"></a><span class="tm">13:25:16</span><span class="nk"> &lt;alinefm&gt;</span> I want to have a detailed information about it so we can check how much work is needed to get the feature done
+<a name="l-82"></a><span class="tm">13:25:23</span><span class="nk"> &lt;alinefm&gt;</span> this feature will not be in 1.2.1
+<a name="l-83"></a><span class="tm">13:25:24</span><span class="nk"> &lt;adamkingit&gt;</span> i suggest we investigate 2 first. There are many ways to decide where to transfer, but we don't yet know HOW to transfer
+<a name="l-84"></a><span class="tm">13:25:36</span><span class="nk"> &lt;alinefm&gt;</span> but for the next release we need a real plan to it
+<a name="l-85"></a><span class="tm">13:25:55</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, and the best approach for us
+<a name="l-86"></a><span class="tm">13:26:42</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> great
+<a name="l-87"></a><span class="tm">13:27:01</span><span class="nk"> &lt;alinefm&gt;</span> so, royce, can I add you to "Manage guest disks" in the wiki?
+<a name="l-88"></a><span class="tm">13:27:15</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, can I add you and ming to invetsigate migration task?
+<a name="l-89"></a><span class="tm">13:27:23</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm; , shaohef  I think you  missed my message ...  anyway, I can talk to you offline later
+<a name="l-90"></a><span class="tm">13:27:24</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-91"></a><span class="tm">13:27:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">rotru_Truja_:</span> ok.
+<a name="l-92"></a><span class="tm">13:28:02</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, whichi message?
+<a name="l-93"></a><span class="tm">13:28:30</span><span class="nk"> &lt;royce&gt;</span> sure, alinefm
+<a name="l-94"></a><span class="tm">13:28:43</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  that I have a module for migration ready
+<a name="l-95"></a><span class="tm">13:28:58</span><span class="nk"> &lt;alinefm&gt;</span> where?
+<a name="l-96"></a><span class="tm">13:29:11</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, which protocols did you use?
+<a name="l-97"></a><span class="tm">13:29:15</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  from other project
+<a name="l-98"></a><span class="tm">13:29:23</span><span class="nk"> &lt;alinefm&gt;</span> open source project?
+<a name="l-99"></a><span class="tm">13:29:35</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  not really
+<a name="l-100"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, hmm so maybe we can not use it
+<a name="l-101"></a><span class="tm">13:30:00</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  but can become make it open source
+<a name="l-102"></a><span class="tm">13:30:28</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm;  I mean, I think there is no problem with open it
+<a name="l-103"></a><span class="tm">13:30:43</span><span class="nk"> &lt;rotru_Truja_&gt;</span> alinefm; we can chat later
+<a name="l-104"></a><span class="tm">13:30:45</span><span class="nk"> &lt;alinefm&gt;</span> rotru_Truja_, we need to ask it to the owner first
+<a name="l-105"></a><span class="tm">13:30:52</span><span class="nk"> &lt;alinefm&gt;</span> and get legal stuffs clear
+<a name="l-106"></a><span class="tm">13:31:00</span><span class="nk"> &lt;alinefm&gt;</span> we can discuss it after meeting
+<a name="l-107"></a><span class="tm">13:31:07</span><span class="nk"> &lt;rotru_Truja_&gt;</span> sure
+<a name="l-108"></a><span class="tm">13:31:35</span><span class="nk"> &lt;royce&gt;</span> alinefm, about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros? or just use ide?
+<a name="l-109"></a><span class="tm">13:31:52</span><span class="nk"> &lt;alinefm&gt;</span> royce, how is the problem with rhel?
+<a name="l-110"></a><span class="tm">13:32:12</span><span class="nk"> &lt;alinefm&gt;</span> the vm does not boot with scsi cdrom?
+<a name="l-111"></a><span class="tm">13:32:17</span><span class="nk"> &lt;royce&gt;</span> cdrom with scsi bus cannot boot
+<a name="l-112"></a><span class="tm">13:32:26</span><span class="nk"> &lt;danielhb&gt;</span> late status:
+<a name="l-113"></a><span class="tm">13:32:27</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a patch to fix github #329: kimchi must not run as root. Patch is waiting for review.</span>
+<a name="l-114"></a><span class="tm">13:32:31</span><span class="nk"> &lt;royce&gt;</span> same as your problem on 13.04? 12.10?
+<a name="l-115"></a><span class="tm">13:32:32</span><span class="nk"> &lt;alinefm&gt;</span> royce, same behavior with sata bus?
+<a name="l-116"></a><span class="tm">13:32:58</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - I testes on ubuntu 12.10
+<a name="l-117"></a><span class="tm">13:33:02</span><span class="nk"> &lt;alinefm&gt;</span> *tested
+<a name="l-118"></a><span class="tm">13:33:26</span><span class="nk"> &lt;royce&gt;</span> just finished all test today, haven't tried other bus yet, I can investigate tomorrow
+<a name="l-119"></a><span class="tm">13:34:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, just try sata on rhel and let's see if it works but I doubt
+<a name="l-120"></a><span class="tm">13:34:27</span><span class="nk"> &lt;alinefm&gt;</span> so distinguish distros to use ide or scsi or apply the same behavior for all them?
+<a name="l-121"></a><span class="tm">13:34:32</span><span class="nk"> &lt;alinefm&gt;</span> suggestions?
+<a name="l-122"></a><span class="tm">13:35:13</span><span class="nk"> &lt;alinefm&gt;</span> for maintenance, I'd say keep the same behavior for all distros, ie, continue to use ide
+<a name="l-123"></a><span class="tm">13:35:51</span><span class="nk"> &lt;alinefm&gt;</span> but in this case we need to limit the cdrom number
+<a name="l-124"></a><span class="tm">13:35:56</span><span class="nk"> &lt;alinefm&gt;</span> to avoid problems
+<a name="l-125"></a><span class="tm">13:36:06</span><span class="nk"> &lt;royce&gt;</span> Mark told me that scsi is not stable on some qemu support, both are ok for me, patches are ready
+<a name="l-126"></a><span class="tm">13:36:53</span><span class="nk"> &lt;alinefm&gt;</span> royce, have you already had patches to limit cdrom number in de bus?
+<a name="l-127"></a><span class="tm">13:37:32</span><span class="nk"> &lt;royce&gt;</span> alinefm, limit cdrom number just need to change the error raising I think
+<a name="l-128"></a><span class="tm">13:37:46</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-129"></a><span class="tm">13:38:15</span><span class="nk"> &lt;alinefm&gt;</span> royce, seems only you and I are involved in this discussion so let's keep ide
+<a name="l-130"></a><span class="tm">13:38:36</span><span class="nk"> &lt;adamkingit&gt;</span> Will we keep IDE drives?
+<a name="l-131"></a><span class="tm">13:38:44</span><span class="nk"> &lt;royce&gt;</span> ok, alinefm
+<a name="l-132"></a><span class="tm">13:38:45</span><span class="nk"> &lt;adamkingit&gt;</span> The limit is 4 total
+<a name="l-133"></a><span class="tm">13:38:51</span><span class="nk"> &lt;alinefm&gt;</span> we can move the scsi cdrom support back to backlog and when get rhel update we can take a look on it again
+<a name="l-134"></a><span class="tm">13:38:59</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, yes
+<a name="l-135"></a><span class="tm">13:39:09</span><span class="nk"> &lt;royce&gt;</span> about scsi bus for cdrom , tested with rhel, opensuse,fedora, ubuntu, among those, all passed except rhel 6.5, shall I distinguish distros? or just use ide?, adamKingit
+<a name="l-136"></a><span class="tm">13:39:18</span><span class="nk"> &lt;royce&gt;</span> adamkingit^
+<a name="l-137"></a><span class="tm">13:39:42</span><span class="nk"> &lt;adamkingit&gt;</span> Any idea if rhel 7 works?
+<a name="l-138"></a><span class="tm">13:39:47</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, 4 is more than enough
+<a name="l-139"></a><span class="tm">13:40:06</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, probably as it is based on fedora 19
+<a name="l-140"></a><span class="tm">13:40:13</span><span class="nk"> &lt;alinefm&gt;</span> but we need to get it released first =)
+<a name="l-141"></a><span class="tm">13:40:42</span><span class="nk"> &lt;adamkingit&gt;</span> I agree with alinefm that using the same on all distros is generally prefereable
+<a name="l-142"></a><span class="tm">13:41:12</span><span class="nk"> &lt;alinefm&gt;</span> I heard rhel7 will be released in june
+<a name="l-143"></a><span class="tm">13:41:12</span><span class="nk"> &lt;adamkingit&gt;</span> 4 total drives may be tolerable.
+<a name="l-144"></a><span class="tm">13:42:07</span><span class="nk"> &lt;adamkingit&gt;</span> at least until RHEL7 ships :-D
+<a name="l-145"></a><span class="tm">13:42:20</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-146"></a><span class="tm">13:42:23</span><span class="nk"> &lt;royce&gt;</span> ok
+<a name="l-147"></a><span class="tm">13:42:42</span><span class="nk"> &lt;alinefm&gt;</span> let's move to open discussion section
+<a name="l-148"></a><span class="tm">13:42:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-149"></a><span class="tm">13:42:56</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-150"></a><span class="tm">13:43:01</span><span class="nk"> &lt;alinefm&gt;</span> royce? shaohef?
+<a name="l-151"></a><span class="tm">13:43:11</span><span class="nk"> &lt;shaohef&gt;</span> no.
+<a name="l-152"></a><span class="tm">13:43:22</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit?
+<a name="l-153"></a><span class="tm">13:43:25</span><span class="nk"> &lt;adamkingit&gt;</span> n
+<a name="l-154"></a><span class="tm">13:43:33</span><span class="nk"> &lt;royce&gt;</span> all for me
+<a name="l-155"></a><span class="tm">13:43:40</span><span class="nk"> &lt;shaohef&gt;</span> for shutdown,  we will support 2 api, right?  stop and forceoff.
+<a name="l-156"></a><span class="tm">13:44:42</span><span class="nk"> &lt;shaohef&gt;</span> for stop network, it is not bug, right. as we design, we do not allow stop network when vm/template link to it.
+<a name="l-157"></a><span class="tm">13:45:09</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, correct
+<a name="l-158"></a><span class="tm">13:45:27</span><span class="nk"> &lt;adamkingit&gt;</span> for shutdown do we want actions: shutdown and poweroff?
+<a name="l-159"></a><span class="tm">13:45:35</span><span class="nk"> &lt;adamkingit&gt;</span> I agree its 2 actions
+<a name="l-160"></a><span class="tm">13:45:45</span><span class="nk"> &lt;alinefm&gt;</span> as I commented on mail list, if we allow stopping a network associated to a template or vm we will get inconsistent resources and it is not the idea of Kimchi
+<a name="l-161"></a><span class="tm">13:45:48</span><span class="nk"> &lt;adamkingit&gt;</span> just like on a physical computer
+<a name="l-162"></a><span class="tm">13:46:26</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, are you suggestion to do the API as shutdown and poweroff?
+<a name="l-163"></a><span class="tm">13:46:49</span><span class="nk"> &lt;adamkingit&gt;</span> y
+<a name="l-164"></a><span class="tm">13:47:30</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, are you ok?
+<a name="l-165"></a><span class="tm">13:47:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I'm OK.
+<a name="l-166"></a><span class="tm">13:47:56</span><span class="nk"> &lt;alinefm&gt;</span> those actions names are fine for me too
+<a name="l-167"></a><span class="tm">13:48:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> /vm/vm1/shutdown and /vm/vm1/poweroff
+<a name="l-168"></a><span class="tm">13:48:17</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-169"></a><span class="tm">13:48:18</span><span class="nk"> &lt;adamkingit&gt;</span> do we have the same issue with reset?
+<a name="l-170"></a><span class="tm">13:48:37</span><span class="nk"> &lt;alinefm&gt;</span> yes - because we implement it like stop + start
+<a name="l-171"></a><span class="tm">13:48:52</span><span class="nk"> &lt;alinefm&gt;</span> we also need to update the reset implementation
+<a name="l-172"></a><span class="tm">13:49:34</span><span class="nk"> &lt;shaohef&gt;</span> seems, we have not implement reset
+<a name="l-173"></a><span class="tm">13:49:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> yes. reboot and reset
+<a name="l-174"></a><span class="tm">13:50:13</span><span class="nk"> &lt;adamkingit&gt;</span> i was guessing we had implemented reset but not reboot
+<a name="l-175"></a><span class="tm">13:52:31</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, indeed
+<a name="l-176"></a><span class="tm">13:53:59</span><span class="nk"> &lt;alinefm&gt;</span> I don't think we should worry about it right now
+<a name="l-177"></a><span class="tm">13:55:20</span><span class="nk"> &lt;shaohef&gt;</span> about the Version/build number.   Version = 1.2.0,   build = kimchi-1.2.0-11-g090487b ?
+<a name="l-178"></a><span class="tm">13:56:08</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, when kimchi is installed in the machine we display the version (as it does not have a build number)
+<a name="l-179"></a><span class="tm">13:56:23</span><span class="nk"> &lt;alinefm&gt;</span> and when we are running it from come we display the build number
+<a name="l-180"></a><span class="tm">13:56:48</span><span class="nk"> &lt;alinefm&gt;</span> but how about the "make install"? it does not have version or build number
+<a name="l-181"></a><span class="tm">13:58:24</span><span class="nk"> &lt;shaohef&gt;</span> we need to update a build number in config
+<a name="l-182"></a><span class="tm">13:58:43</span><span class="nk"> &lt;shaohef&gt;</span> config.py.in
+<a name="l-183"></a><span class="tm">13:59:22</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yes
+<a name="l-184"></a><span class="tm">13:59:24</span><span class="nk"> &lt;shaohef&gt;</span> make install, will install the config.py, and get the build numbe.
+<a name="l-185"></a><span class="tm">13:59:49</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, we can also use the same approach when is running from code
+<a name="l-186"></a><span class="tm">13:59:58</span><span class="nk"> &lt;alinefm&gt;</span> and only differ when have a package installed
+<a name="l-187"></a><span class="tm">14:01:49</span><span class="nk"> &lt;shaohef&gt;</span> yes.  just distinguish  package or not.
+<a name="l-188"></a><span class="tm">14:03:01</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-189"></a><span class="tm">14:03:05</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-190"></a><span class="tm">14:03:54</span><span class="nk"> &lt;alinefm&gt;</span> so thanks all for joining
+<a name="l-191"></a><span class="tm">14:04:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
