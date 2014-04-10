@@ -347,7 +347,7 @@ kimchi.host_main = function() {
                     }
 
                     kimchi.downloadReport({
-                        file: report['file']
+                        file: report['uri']
                     });
                 }
             }],
