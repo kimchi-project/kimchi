@@ -18,24 +18,26 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from kimchi.exception import NotFoundError
-from kimchi.model.storagepools import StoragePoolModel, STORAGE_SOURCES
+from kimchi.model.storagepools import StoragePoolModel, StoragePoolsModel
+
+# Types of remote storage servers supported
+# FIXME: Add iscsi?
+STORAGE_SERVERS = ['netfs']
 
 
 class StorageServersModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.pool = StoragePoolModel(**kargs)
+        self.pools = StoragePoolsModel(**kargs)
 
     def get_list(self, _target_type=None):
         if not _target_type:
-            target_type = STORAGE_SOURCES.keys()
+            target_type = STORAGE_SERVERS
         else:
             target_type = [_target_type]
-        pools = self.pools.get_list()
 
-        conn = self.conn.get()
-        pools = conn.listStoragePools()
-        pools += conn.listDefinedStoragePools()
+        pools = self.pools.get_list()
 
         server_list = []
         for pool in pools:
@@ -64,7 +66,7 @@ class StorageServerModel(object):
         for pool in pools:
             try:
                 pool_info = self.pool.lookup(pool)
-                if (pool_info['source'] and
+                if (pool_info['type'] in STORAGE_SERVERS and
                         pool_info['source']['addr'] == server):
                     return dict(host=server)
             except NotFoundError:

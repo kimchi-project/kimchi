@@ -46,7 +46,8 @@ from kimchi.config import config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
-from kimchi.model.storagepools import ISO_POOL_NAME, STORAGE_SOURCES
+from kimchi.model.storagepools import ISO_POOL_NAME
+from kimchi.model.storageservers import STORAGE_SERVERS
 from kimchi.model.utils import get_vm_name
 from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
@@ -503,7 +504,7 @@ class MockModel(object):
 
     def storageservers_get_list(self, _target_type=None):
         # FIXME: This needs to be updted when adding new storage server support
-        target_type = STORAGE_SOURCES.keys() \
+        target_type = STORAGE_SERVERS \
             if not _target_type else [_target_type]
         pools = self.storagepools_get_list()
         server_list = []

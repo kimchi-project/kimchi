@@ -36,6 +36,8 @@ POOL_STATE_MAP = {0: 'inactive',
                   3: 'degraded',
                   4: 'inaccessible'}
 
+# Types of pools supported
+# FIXME: Addd 'iscsi'
 STORAGE_SOURCES = {'netfs': {'addr': '/pool/source/host/@name',
                              'path': '/pool/source/dir/@path'},
                    'scsi': {'adapter_type': '/pool/source/adapter/@type',
@@ -207,7 +209,6 @@ class StoragePoolModel(object):
                 source[key] = ""
             else:
                 source[key] = res
-
         return source
 
     def _nfs_status_online(self, pool, poolArgs=None):

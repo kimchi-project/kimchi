@@ -23,7 +23,7 @@ from lxml import objectify
 from lxml.builder import E
 
 from kimchi.model.config import CapabilitiesModel
-from kimchi.model.storagepools import STORAGE_SOURCES
+from kimchi.model.storageservers import STORAGE_SERVERS
 from kimchi.utils import kimchi_log, patch_find_nfs_target
 
 
@@ -36,7 +36,7 @@ class StorageTargetsModel(object):
         target_list = list()
 
         if not _target_type:
-            target_types = STORAGE_SOURCES.keys()
+            target_types = STORAGE_SERVERS
         else:
             target_types = [_target_type]
 
