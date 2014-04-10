@@ -43,11 +43,20 @@ kimchi.vmpoweroff = function(event) {
         button.addClass('loading');
         var vm=button.closest('li[name=guest]');
         var vm_id=vm.attr("id");
-        kimchi.poweroffVM(vm_id, function(result) {
-            button.removeClass('loading');
-            kimchi.listVmsAuto();
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
+        var settings = {
+            title : i18n['KCHVM6002M'],
+            content : i18n['KCHVM6003M'],
+            confirm : i18n['KCHAPI6002M'],
+            cancel : i18n['KCHAPI6003M']
+        };
+        kimchi.confirm(settings, function() {
+            kimchi.poweroffVM(vm_id, function(result) {
+                button.removeClass('loading');
+                kimchi.listVmsAuto();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        }, function() {
         });
     } else {
         event.preventDefault();
