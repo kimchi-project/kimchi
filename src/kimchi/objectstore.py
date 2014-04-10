@@ -38,10 +38,18 @@ class ObjectStoreSession(object):
         self.conn = conn
         self.conn.text_factory = lambda x: unicode(x, "utf-8", "ignore")
 
-    def get_list(self, obj_type):
+    def _get_list(self, obj_type):
         c = self.conn.cursor()
         res = c.execute('SELECT id FROM objects WHERE type=?', (obj_type,))
         return [x[0] for x in res]
+
+    def get_list(self, obj_type, sort_key=None):
+        ids = self._get_list(obj_type)
+        if sort_key is None:
+            return ids
+        objects = [(ident, self.get(obj_type, ident)) for ident in ids]
+        objects.sort(key=lambda (_, obj): obj[sort_key])
+        return [ident for ident, _ in objects]
 
     def get(self, obj_type, ident):
         c = self.conn.cursor()
