@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 17:11-0300\n"
+"POT-Creation-Date: 2014-04-10 14:32-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -389,11 +389,10 @@ msgstr "﻿此操作将中断依赖此网络的虚拟机的网络连接。"
 msgid "Create a network"
 msgstr "创建一个网络"
 
-#, fuzzy
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
-msgstr "对于非持久存储池，这个操作将会永久删除存储池而不是停用。是否继续？"
+msgstr ""
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
@@ -812,13 +811,13 @@ msgstr "这个API仅支持JSON"
 msgid "Datastore is not initiated in the model object."
 msgstr "尚未为model对象初始化数据存储。"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start task due error: %(err)s"
-msgstr "不能启动虚拟机 %(name)s. 详情：%(err)s"
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr "用户 '%(userid)s' 验证失败。[错误代码： %(code)s]"
+msgstr ""
 
 msgid "You are not authorized to access Kimchi"
 msgstr "您没有被授权访问Kimchi"
@@ -926,8 +925,8 @@ msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
 msgstr "不能创建虚拟机%(name)s。详情：%(err)s"
 
 #, python-format
-msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
-msgstr "不能重命名虚拟机%(name)s。详情：%(err)s"
+msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
@@ -968,6 +967,26 @@ msgstr "不能停止虚拟机 %(name)s. 详情：%(err)s"
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
 msgstr "不能删除虚拟机 %(name)s. 详情：%(err)s"
+
+msgid "User names list must be an array"
+msgstr ""
+
+msgid "User name must be a string"
+msgstr ""
+
+msgid "Group names list must be an array"
+msgstr ""
+
+msgid "Group name must be a string"
+msgstr ""
+
+#, python-format
+msgid "User %(user)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Group %(group)s does not exist"
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -1061,13 +1080,13 @@ msgstr "当模板的存储池是iscsi或scsi时，必须为模板指定一个卷
 msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr "存储池%(pool)s中没有存储卷%(volume)s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to create template due error: %(err)s"
-msgstr "不能创建存储池 %(name)s。详情： %(err)s"
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to delete template due error: %(err)s"
-msgstr "不能删除激活的网络%(name)s"
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -1210,9 +1229,9 @@ msgid ""
 "to create the logical pool."
 msgstr "卷组'%(name)s'已经存在，请选择其它的名字来创建逻辑存储池。"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
-msgstr "不能获取软件仓库的信息。详情：'%(err)s'"
+msgstr ""
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -1282,10 +1301,10 @@ msgstr "存储卷格式不支持"
 msgid "Storage volume requires a volume name"
 msgstr "存储卷需要名字"
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
-msgstr "不能删除存储卷%(name)s。详情：%(err)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -1581,3 +1600,6 @@ msgstr "不能增加软件仓库。详情：'%(err)s'"
 #, python-format
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "不能移除软件仓库。详情：'%(err)s'"
+
+#~ msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
+#~ msgstr "不能重命名虚拟机%(name)s。详情：%(err)s"

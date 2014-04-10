@@ -49,7 +49,6 @@ from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.model.storagepools import ISO_POOL_NAME
 from kimchi.model.storageservers import STORAGE_SERVERS
 from kimchi.model.utils import get_vm_name
-from kimchi.model.vms import VM_STATIC_UPDATE_PARAMS
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import pool_name_from_uri
@@ -98,7 +97,7 @@ class MockModel(object):
                 self._mock_vms[dom.name] = dom
 
         for key, val in params.items():
-            if key in VM_STATIC_UPDATE_PARAMS and key in dom.info:
+            if key in dom.info:
                 dom.info[key] = val
 
     def _live_vm_update(self, dom, params):

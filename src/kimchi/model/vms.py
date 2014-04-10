@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import lxml.etree as ET
 import os
 import time
 import uuid
@@ -24,9 +25,11 @@ from xml.etree import ElementTree
 
 import libvirt
 from cherrypy.process.plugins import BackgroundTask
+from lxml.builder import E
 
 from kimchi import vnc
 from kimchi import xmlutils
+from kimchi.auth import Group, User
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
@@ -240,25 +243,63 @@ class VMModel(object):
         self._live_vm_update(dom, params)
         return dom.name().decode('utf-8')
 
+    def _get_metadata_node(self, users, groups):
+        access = E.access()
+        for user in users:
+            access.append(E.user(user))
+
+        for group in groups:
+            access.append(E.group(group))
+
+        return E.metadata(E.kimchi(access))
+
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
 
         old_xml = new_xml = dom.XMLDesc(0)
 
-        for key, val in params.items():
-            if key in VM_STATIC_UPDATE_PARAMS:
-                xpath = VM_STATIC_UPDATE_PARAMS[key]
-                new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
+        metadata_xpath = "/domain/metadata/kimchi/access/%s"
+        users = xpath_get_text(old_xml, metadata_xpath % "user")
+        groups = xpath_get_text(old_xml, metadata_xpath % "group")
 
+        for key, val in params.items():
+            if key == 'users':
+                for user in val:
+                    if not User(user).exists():
+                        raise OperationFailed("KCHVM0027E", {'user': user})
+                users = val
+            elif key == 'groups':
+                for group in val:
+                    if not Group(group).exists():
+                        raise OperationFailed("KCHVM0028E", {'group': group})
+                groups = val
+            else:
+                if key in VM_STATIC_UPDATE_PARAMS:
+                    xpath = VM_STATIC_UPDATE_PARAMS[key]
+                    new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
+
+        conn = self.conn.get()
         try:
             if 'name' in params:
                 if state == 'running':
                     msg_args = {'name': dom.name(), 'new_name': params['name']}
                     raise InvalidParameter("KCHVM0003E", msg_args)
-                else:
-                    dom.undefine()
-            conn = self.conn.get()
-            dom = conn.defineXML(new_xml)
+
+                # Undefine old vm and create a new one with updated values
+                dom.undefine()
+                conn = self.conn.get()
+                dom = conn.defineXML(new_xml)
+
+            # Update metadata element
+            root = ET.fromstring(new_xml)
+            current_metadata = root.find('metadata')
+            new_metadata = self._get_metadata_node(users, groups)
+            if current_metadata is not None:
+                root.replace(current_metadata, new_metadata)
+            else:
+                root.append(new_metadata)
+            dom = conn.defineXML(ET.tostring(root))
+
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
             raise OperationFailed("KCHVM0008E", {'name': dom.name(),

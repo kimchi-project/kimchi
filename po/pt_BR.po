@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 17:11-0300\n"
+"POT-Creation-Date: 2014-04-10 14:32-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -407,13 +407,10 @@ msgstr ""
 msgid "Create a network"
 msgstr "Criar uma rede"
 
-#, fuzzy
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
-"O storage pool não é persistente. Ao invés de desativar, essa ação vai "
-"removê-lo permanentemente. Deseja continuar?"
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
@@ -840,13 +837,13 @@ msgstr "Essa API suporta apenas JSON"
 msgid "Datastore is not initiated in the model object."
 msgstr "Datastore não é inicializado no objeto modelo."
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start task due error: %(err)s"
-msgstr "Não foi possível iniciar a máquina virtual %(name)s. Detalhes: %(err)s"
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr "O usuário '%(userid)s' falhou na autenticação. [Error code: %(code)s]"
+msgstr ""
 
 msgid "You are not authorized to access Kimchi"
 msgstr "Você não está autorizado para acessar o Kimchi"
@@ -965,8 +962,8 @@ msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
 msgstr "Não é possível criar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
-msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
-msgstr "Não é possível renomear a máquina virtual %(name)s. Detalhes: %(err)s"
+msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
@@ -1007,6 +1004,26 @@ msgstr "Não é possível parar a máquina virtual %(name)s. Detalhes: %(err)s"
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
 msgstr "Não é possível apagar a máquina virtual %(name)s. Detalhes: %(err)s"
+
+msgid "User names list must be an array"
+msgstr ""
+
+msgid "User name must be a string"
+msgstr ""
+
+msgid "Group names list must be an array"
+msgstr ""
+
+msgid "Group name must be a string"
+msgstr ""
+
+#, python-format
+msgid "User %(user)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Group %(group)s does not exist"
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -1107,13 +1124,13 @@ msgstr ""
 msgid "The volume: %(volume)s in not in storage pool %(pool)s"
 msgstr "O volume de storage: %(volume)s não existe no storage pool %(pool)s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to create template due error: %(err)s"
-msgstr "Não é possível criar o storage pool %(name)s.Detalhes: %(err)s"
+msgstr ""
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to delete template due error: %(err)s"
-msgstr "Incapaz de deletar a rede ativa %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -1277,9 +1294,9 @@ msgstr ""
 "Um grupo de volume chamado '%(name)s' já existe. Por favor, escolher outro "
 "nome para criar o pool lógico."
 
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
-msgstr "Incapaz de carregar as informações do repositório. Detalhes: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -1356,10 +1373,10 @@ msgstr "Formato do volume não suportado"
 msgid "Storage volume requires a volume name"
 msgstr "Volume requer um nome"
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
-msgstr "Incapaz de deletar o volume %(name)s. Detalhes: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -1686,3 +1703,7 @@ msgstr "Não é possível adicionar o repositório. Detalhes: %(err)s"
 #, python-format
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "Incapaz de remover o repositório. Detalhes: %(err)s"
+
+#~ msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
+#~ msgstr ""
+#~ "Não é possível renomear a máquina virtual %(name)s. Detalhes: %(err)s"

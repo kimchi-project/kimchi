@@ -18,9 +18,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import grp
 import os
 import platform
 import psutil
+import pwd
 import shutil
 import tempfile
 import threading
@@ -607,6 +609,44 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
             rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
+
+            # change only VM users - groups are not changed (default is empty)
+            users = ['root']
+            inst.vm_update(u'пeω-∨м', {'users': users})
+            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change only VM groups - users are not changed (default is empty)
+            groups = ['root']
+            inst.vm_update(u'пeω-∨м', {'groups': groups})
+            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change VM users and groups by adding a new element to each one
+            users.append(pwd.getpwuid(os.getuid()).pw_name)
+            groups.append(grp.getgrgid(os.getgid()).gr_name)
+            inst.vm_update(u'пeω-∨м', {'users': users, 'groups': groups})
+            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change VM users (wrong value) and groups
+            # when an error occurs, everything fails and nothing is changed
+            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+                              {'users': ['userdoesnotexist'], 'groups': []})
+            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change VM users and groups (wrong value)
+            # when an error occurs, everything fails and nothing is changed
+            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+                              {'users': [], 'groups': ['groupdoesnotexist']})
+            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change VM users and groups by removing all elements
+            inst.vm_update(u'пeω-∨м', {'users': [], 'groups': []})
+            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_network(self):

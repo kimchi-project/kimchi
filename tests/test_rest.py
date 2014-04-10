@@ -224,6 +224,20 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/vms/∨м-црdαtеd', req).read())
         self.assertEquals(u'∨м-црdαtеd', vm['name'])
 
+        # change only VM users - groups are not changed (default is empty)
+        req = json.dumps({'users': ['root']})
+        resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(200, resp.status)
+        info = json.loads(self.request('/vms/∨м-црdαtеd', '{}').read())
+        self.assertEquals(['root'], info['users'])
+
+        # change only VM groups - users are not changed (default is empty)
+        req = json.dumps({'groups': ['kimchi']})
+        resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(200, resp.status)
+        info = json.loads(self.request('/vms/∨м-црdαtеd', '{}').read())
+        self.assertEquals(['kimchi'], info['groups'])
+
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}],

@@ -101,6 +101,8 @@ the following general conventions:
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existed VM
     * name: New name for this VM (only applied for shutoff VM)
+    * users: New list of system users.
+    * groups: New list of system groups.
 * **POST**: *See Virtual Machine Actions*
 
 **Actions (POST):**

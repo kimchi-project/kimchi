@@ -67,7 +67,7 @@ messages = {
     "KCHVM0005E": _("Remote ISO image is not supported by this server."),
     "KCHVM0006E": _("Screenshot not supported for virtual machine %(name)s"),
     "KCHVM0007E": _("Unable to create virtual machine %(name)s. Details: %(err)s"),
-    "KCHVM0008E": _("Unable to rename virtual machine %(name)s. Details: %(err)s"),
+    "KCHVM0008E": _("Unable to update virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0009E": _("Unable to retrieve virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0010E": _("Unable to connect to powered off machine %(name)s."),
     "KCHVM0011E": _("Virtual machine name must be a string"),
@@ -84,6 +84,8 @@ messages = {
     "KCHVM0024E": _("User name must be a string"),
     "KCHVM0025E": _("Group names list must be an array"),
     "KCHVM0026E": _("Group name must be a string"),
+    "KCHVM0027E": _("User %(user)s does not exist"),
+    "KCHVM0028E": _("Group %(group)s does not exist"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

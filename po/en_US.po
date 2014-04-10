@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 17:11-0300\n"
+"POT-Creation-Date: 2014-04-10 14:32-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -914,7 +914,7 @@ msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Unable to rename virtual machine %(name)s. Details: %(err)s"
+msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -955,6 +955,26 @@ msgstr ""
 
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+msgid "User names list must be an array"
+msgstr ""
+
+msgid "User name must be a string"
+msgstr ""
+
+msgid "Group names list must be an array"
+msgstr ""
+
+msgid "Group name must be a string"
+msgstr ""
+
+#, python-format
+msgid "User %(user)s does not exist"
+msgstr ""
+
+#, python-format
+msgid "Group %(group)s does not exist"
 msgstr ""
 
 #, python-format
