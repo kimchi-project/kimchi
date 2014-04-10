@@ -128,6 +128,13 @@ class StoragePoolsModel(object):
             kimchi_log.error("Problem creating Storage Pool: %s", e)
             raise OperationFailed("KCHPOOL0007E",
                                   {'name': name, 'err': e.get_error_message()})
+        if params['type'] == 'netfs':
+            output, error, returncode = run_command(['setsebool', '-P',
+                                                    'virt_use_nfs=1'])
+            if error or returncode:
+                kimchi_log.error("Unable to set virt_use_nfs=1. If you use "
+                                 "SELinux, this may prevent NFS pools from "
+                                 "being used.")
         return name
 
     def _clean_scan(self, pool_name):
