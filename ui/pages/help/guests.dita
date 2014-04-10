@@ -35,7 +35,7 @@ guest is not active.</dd>
 <dt>Reset</dt>
 <dd>Click to reset the guest. </dd>
 </dlentry><dlentry>
-<dt>Power (Start or Stop)</dt>
+<dt>Power (Start or Power off)</dt>
 <dd>Click to power on or power off the guest. If the icon is red,
 the power is off; if the icon is green, the power is on.</dd>
 </dlentry></dl> </p>

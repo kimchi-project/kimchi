@@ -219,9 +219,9 @@ var kimchi = {
         });
     },
 
-    stopVM : function(vm, suc, err) {
+    poweroffVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/stop',
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/poweroff',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -232,7 +232,7 @@ var kimchi = {
 
     resetVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/stop',
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/poweroff',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',

@@ -37,13 +37,13 @@ kimchi.vmstart = function(event) {
     }
 };
 
-kimchi.vmstop = function(event) {
+kimchi.vmpoweroff = function(event) {
     var button=$(this);
     if (!button.hasClass('loading')) {
         button.addClass('loading');
         var vm=button.closest('li[name=guest]');
         var vm_id=vm.attr("id");
-        kimchi.stopVM(vm_id, function(result) {
+        kimchi.poweroffVM(vm_id, function(result) {
             button.removeClass('loading');
             kimchi.listVmsAuto();
         }, function(err) {
@@ -248,7 +248,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
 
     //Setup action event handlers
     guestActions.find("[name=vm-start]").on({click : kimchi.vmstart});
-    guestActions.find("[name=vm-stop]").on({click : kimchi.vmstop});
+    guestActions.find("[name=vm-poweroff]").on({click : kimchi.vmpoweroff});
     if (vmRunningBool) {  //If the guest is not running, do not enable reset
         guestActions.find("[name=vm-reset]").on({click : kimchi.vmreset});
     }
