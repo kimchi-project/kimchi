@@ -201,7 +201,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        resp = self.request('/vms/vm-1/stop', '{}', 'POST')
+        resp = self.request('/vms/vm-1/poweroff', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
         req = json.dumps({'name': 12})
@@ -257,8 +257,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
-        # Force stop the VM
-        resp = self.request('/vms/test-vm/stop', '{}', 'POST')
+        # Force poweroff the VM
+        resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
 
@@ -572,8 +572,8 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('running', vm['state'])
 
-        # Force stop the VM
-        resp = self.request('/vms/test-vm/stop', '{}', 'POST')
+        # Force poweroff the VM
+        resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
 
@@ -1222,7 +1222,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(405, resp.status)
 
         # No screenshot after stopped the VM
-        self.request('/vms/test-vm/stop', '{}', 'POST')
+        self.request('/vms/test-vm/poweroff', '{}', 'POST')
         resp = self.request('/vms/test-vm/screenshot')
         self.assertEquals(404, resp.status)
 

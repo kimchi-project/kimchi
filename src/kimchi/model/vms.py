@@ -342,7 +342,7 @@ class VMModel(object):
         info = self.lookup(name)
 
         if info['state'] == 'running':
-            self.stop(name)
+            self.poweroff(name)
 
         try:
             dom.undefine()
@@ -383,7 +383,7 @@ class VMModel(object):
             raise OperationFailed("KCHVM0019E",
                                   {'name': name, 'err': e.get_error_message()})
 
-    def stop(self, name):
+    def poweroff(self, name):
         dom = self.get_vm(name, self.conn)
         try:
             dom.destroy()

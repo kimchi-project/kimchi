@@ -38,7 +38,7 @@ class VM(Resource):
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(model, self.ident))
         self.start = self.generate_action_handler('start')
-        self.stop = self.generate_action_handler('stop')
+        self.poweroff = self.generate_action_handler('poweroff')
         self.connect = self.generate_action_handler('connect')
 
     @property

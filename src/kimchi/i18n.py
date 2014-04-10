@@ -78,7 +78,7 @@ messages = {
     "KCHVM0015E": _("Graphics address to listen on must be IPv4 or IPv6"),
     "KCHVM0016E": _("Specify a template to create a virtual machine from"),
     "KCHVM0019E": _("Unable to start virtual machine %(name)s. Details: %(err)s"),
-    "KCHVM0020E": _("Unable to stop virtual machine %(name)s. Details: %(err)s"),
+    "KCHVM0020E": _("Unable to power off virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0021E": _("Unable to delete virtual machine %(name)s. Details: %(err)s"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),

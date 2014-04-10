@@ -102,7 +102,8 @@ the following general conventions:
 **Actions (POST):**
 
 * start: Power on a VM
-* stop: Power off forcefully
+* poweroff: Power off a VM forcefully. Note this action may produce undesirable
+            results, for example unflushed disk cache in the guest.
 * connect: Prepare the connection for spice or vnc
 
 ### Sub-resource: Virtual Machine Screenshot

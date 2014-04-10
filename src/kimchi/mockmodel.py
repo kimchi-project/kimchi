@@ -129,7 +129,7 @@ class MockModel(object):
     def vm_start(self, name):
         self._get_vm(name).info['state'] = 'running'
 
-    def vm_stop(self, name):
+    def vm_poweroff(self, name):
         self._get_vm(name).info['state'] = 'shutoff'
 
     def vm_connect(self, name):

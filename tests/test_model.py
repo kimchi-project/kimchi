@@ -91,7 +91,7 @@ class ModelTests(unittest.TestCase):
             self.assertTrue('kimchi-vm' in vms)
 
             inst.vm_start('kimchi-vm')
-            rollback.prependDefer(inst.vm_stop, 'kimchi-vm')
+            rollback.prependDefer(inst.vm_poweroff, 'kimchi-vm')
 
             info = inst.vm_lookup('kimchi-vm')
             self.assertEquals('running', info['state'])
@@ -222,7 +222,7 @@ class ModelTests(unittest.TestCase):
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             self.assertEquals(iso_path, cdrom_info['path'])
-            inst.vm_stop(vm_name)
+            inst.vm_poweroff(vm_name)
 
            # removing non existent cdrom
             self.assertRaises(NotFoundError, inst.vmstorage_delete, vm_name,
@@ -587,7 +587,7 @@ class ModelTests(unittest.TestCase):
             self.assertTrue('kimchi-vm1' in vms)
 
             inst.vm_start('kimchi-vm1')
-            rollback.prependDefer(self._rollback_wrapper, inst.vm_stop,
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_poweroff,
                                   'kimchi-vm1')
 
             info = inst.vm_lookup('kimchi-vm1')
@@ -597,7 +597,7 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(InvalidParameter, inst.vm_update,
                               'kimchi-vm1', params)
 
-            inst.vm_stop('kimchi-vm1')
+            inst.vm_poweroff('kimchi-vm1')
             params = {'name': u'пeω-∨м'}
             self.assertRaises(OperationFailed, inst.vm_update,
                               'kimchi-vm1', {'name': 'kimchi-vm2'})
@@ -795,7 +795,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
 
     # This wrapper function is needed due to the new backend messaging in
-    # vm model. vm_stop and vm_delete raise exception if vm is not found.
+    # vm model. vm_poweroff and vm_delete raise exception if vm is not found.
     # These functions are called after vm has been deleted if test finishes
     # correctly, then NofFoundError exception is raised and rollback breaks
     def _rollback_wrapper(self, func, vmname):
@@ -820,7 +820,7 @@ class ModelTests(unittest.TestCase):
                                   u'kīмсhī-∨м')
 
             inst.vm_start(u'kīмсhī-∨м')
-            rollback.prependDefer(self._rollback_wrapper, inst.vm_stop,
+            rollback.prependDefer(self._rollback_wrapper, inst.vm_poweroff,
                                   u'kīмсhī-∨м')
 
             inst.vm_delete(u'kīмсhī-∨м')
