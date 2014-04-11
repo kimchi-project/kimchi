@@ -262,6 +262,9 @@ class YumRepo(object):
         if baseurl is not None:
             entry.baseurl = baseurl
 
+        if mirrorlist == '':
+            mirrorlist = None
+
         if mirrorlist is not None:
             entry.mirrorlist = mirrorlist
 
