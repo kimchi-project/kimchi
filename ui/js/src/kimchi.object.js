@@ -62,7 +62,7 @@ Object.defineProperty(Object.prototype, "setDeepValue", {
                     var tmpArray=[]
                     tmpArray.push(this[key]);
                     tmpArray.push(val);
-                    result[key]=tmpArray;
+                    this[key]=tmpArray;
                 }
             }
             else {
