@@ -26,7 +26,6 @@ messages = {
     "SPAPI0001E": _("Unkown parameter specified %(value)s"),
     "SPAPI0002E": _("The specified value %(value)s is not a positive number"),
 
-    "SPCIRC0001E": _("Circle %(name)s already exists"),
     "SPCIRC0002E": _("Circle %(name)s does not exist"),
     "SPCIRC0003E": _("Specify name and radius to create a Circle"),
     "SPCIRC0004E": _("Circle name must be a string"),

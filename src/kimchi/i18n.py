@@ -37,7 +37,6 @@ messages = {
     "KCHAUTH0001E": _("Authentication failed for user '%(userid)s'. [Error code: %(code)s]"),
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
     "KCHAUTH0003E": _("Specify %(item)s to login into Kimchi"),
-    "KCHAUTH0004E": _("This operation is not allowed as you have restricted access to Kimchi."),
 
     "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
     "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),
@@ -114,7 +113,6 @@ messages = {
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
-    "KCHPOOL0003E": _("Autostart flag must be true or false"),
     "KCHPOOL0004E": _("Specify %(item)s in order to create the storage pool %(name)s"),
     "KCHPOOL0005E": _("Unable to delete active storage pool %(name)s"),
     "KCHPOOL0006E": _("Unable to list storage pools. Details: %(err)s"),
@@ -179,7 +177,6 @@ messages = {
     "KCHNET0007E": _("Interface should be bare NIC, bonding or bridge device."),
     "KCHNET0008E": _("Unable to create network %(name)s. Details: %(err)s"),
     "KCHNET0009E": _("Unable to find a free IP address for network '%(name)s'"),
-    "KCHNET0010E": _("Unable to create VLAN tagged bridge using interface %(iface)s. Details: %(err)s"),
     "KCHNET0011E": _("Network name must be a string"),
     "KCHNET0012E": _("Supported network types are isolated, NAT and bridge"),
     "KCHNET0013E": _("Network subnet must be a string with IP address and prefix or netmask"),
@@ -225,7 +222,6 @@ messages = {
     "KCHCDROM0002E": _("Invalid storage type. Types supported: 'cdrom'"),
     "KCHCDROM0003E": _("The path '%(value)s' is not valid local/remote path for the device"),
     "KCHCDROM0004E": _("Device name %(dev_name)s already exists in vm %(vm_name)s"),
-    "KCHCDROM0006E": _("Can't specify a directory for a CDROM device path"),
     "KCHCDROM0007E": _("The storage device %(dev_name)s does not exist in the guest %(vm_name)s"),
     "KCHCDROM0008E": _("Error while creating new storage device: %(error)s"),
     "KCHCDROM0009E": _("Error while updating storage device: %(error)s"),
