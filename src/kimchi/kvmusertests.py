@@ -39,7 +39,7 @@ class UserTests(object):
     </domain>"""
 
     def __init__(self):
-        self.vm_uuid = uuid.uuid3(uuid.NAMESPACE_DNS, 'vm-test.kimchi.org')
+        self.vm_uuid = uuid.uuid1()
         self.vm_name = "kimchi_test_%s" % self.vm_uuid
 
     def probe_user(self):
