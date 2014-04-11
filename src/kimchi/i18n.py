@@ -233,6 +233,7 @@ messages = {
     "KCHCDROM0011E": _("Do not support guest CDROM hot plug attachment"),
     "KCHCDROM0012E": _("Specify type and path to add a new virtual machine disk"),
     "KCHCDROM0013E": _("Specify path to update virtual machine disk"),
+    "KCHCDROM0014E": _("Controller type %(type)s limitation of %(limit)s devices reached"),
 
     "KCHREPOS0001E": _("YUM Repository ID must be one word only string."),
     "KCHREPOS0002E": _("Repository URL must be an http://, ftp:// or file:// URL."),

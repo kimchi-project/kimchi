@@ -37,6 +37,16 @@ DEV_TYPE_SRC_ATTR_MAP = {'file': 'file',
                          'block': 'dev'}
 
 
+def _get_device_xml(dom, dev_name):
+    # Get VM xml and then devices xml
+    xml = dom.XMLDesc(0)
+    devices = objectify.fromstring(xml).devices
+    disk = devices.xpath("./disk/target[@dev='%s']/.." % dev_name)
+    if not disk:
+        return None
+    return disk[0]
+
+
 def _get_storage_xml(params):
     src_type = params.get('src_type')
     disk = E.disk(type=src_type, device=params.get('type'))
@@ -56,6 +66,12 @@ def _get_storage_xml(params):
         disk.append(source)
 
     disk.append(E.target(dev=params.get('dev'), bus=params.get('bus', 'ide')))
+    if params.get('address'):
+        # ide disk target id is always '0'
+        disk.append(E.address(
+            type='drive', controller=params['address']['controller'],
+            bus=params['address']['bus'], target='0',
+            unit=params['address']['unit']))
     return ET.tostring(disk)
 
 
@@ -89,6 +105,29 @@ class VMStoragesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
 
+    def _get_available_ide_address(self, vm_name):
+        # libvirt limitation of just 1 ide controller
+        # each controller have at most 2 buses and each bus 2 units.
+        dom = VMModel.get_vm(vm_name, self.conn)
+        disks = self.get_list(vm_name)
+        valid_id = [('0', '0'), ('0', '1'), ('1', '0'), ('1', '1')]
+        controller_id = '0'
+        for dev_name in disks:
+            disk = _get_device_xml(dom, dev_name)
+            if disk.target.attrib['bus'] == 'ide':
+                controller_id = disk.address.attrib['controller']
+                bus_id = disk.address.attrib['bus']
+                unit_id = disk.address.attrib['unit']
+                if (bus_id, unit_id) in valid_id:
+                    valid_id.remove((bus_id, unit_id))
+                    continue
+        if not valid_id:
+            raise OperationFailed('KCHCDROM0014E', {'type': 'ide', 'limit': 4})
+        else:
+            address = {'controller': controller_id,
+                       'bus': valid_id[0][0], 'unit': valid_id[0][1]}
+            return dict(address=address)
+
     def create(self, vm_name, params):
         dom = VMModel.get_vm(vm_name, self.conn)
         if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
@@ -109,8 +148,7 @@ class VMStoragesModel(object):
         path = params['path']
         params['src_type'] = _check_cdrom_path(path)
 
-        # Check if path is an url
-
+        params.update(self._get_available_ide_address(vm_name))
         # Add device to VM
         dev_xml = _get_storage_xml(params)
         try:
@@ -147,19 +185,10 @@ class VMStorageModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
 
-    def _get_device_xml(self, vm_name, dev_name):
-        # Get VM xml and then devices xml
-        dom = VMModel.get_vm(vm_name, self.conn)
-        xml = dom.XMLDesc(0)
-        devices = objectify.fromstring(xml).devices
-        disk = devices.xpath("./disk/target[@dev='%s']/.." % dev_name)
-        if not disk:
-            return None
-        return disk[0]
-
     def lookup(self, vm_name, dev_name):
         # Retrieve disk xml and format return dict
-        disk = self._get_device_xml(vm_name, dev_name)
+        dom = VMModel.get_vm(vm_name, self.conn)
+        disk = _get_device_xml(dom, dev_name)
         if disk is None:
             raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
@@ -188,7 +217,8 @@ class VMStorageModel(object):
 
     def delete(self, vm_name, dev_name):
         # Get storage device xml
-        disk = self._get_device_xml(vm_name, dev_name)
+        dom = VMModel.get_vm(vm_name, self.conn)
+        disk = _get_device_xml(dom, dev_name)
         if disk is None:
             raise NotFoundError("KCHCDROM0007E",
                                 {'dev_name': dev_name,
