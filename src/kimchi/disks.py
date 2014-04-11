@@ -97,7 +97,15 @@ def _is_dev_extended_partition(devType, devNodePath):
         return False
     diskPath = devNodePath.rstrip('0123456789')
     device = PDevice(diskPath)
-    extended_part = PDisk(device).getExtendedPartition()
+    try:
+        extended_part = PDisk(device).getExtendedPartition()
+    except NotImplementedError as e:
+        kimchi_log.warning(
+            "Error getting extended partition info for dev %s type %s: %s",
+            devNodePath, devType, e.message)
+        # Treate disk with unsupported partiton table as if it does not
+        # contain extended partitions.
+        return False
     if extended_part and extended_part.path == devNodePath:
         return True
     return False
