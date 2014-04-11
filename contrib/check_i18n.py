@@ -50,11 +50,31 @@ def check_string_formatting(messages):
             exit(1)
 
 
+def check_obsolete_messages(path, messages):
+    def find_message_key(path, k):
+        for root, dirs, files in os.walk(path):
+            for f in files:
+                fname = os.path.join(root, f)
+                if (not fname.endswith("i18n.py") and fname.endswith(".py")
+                   or fname.endswith(".json")):
+                    with open(fname) as f:
+                        string = "".join(f.readlines())
+                        if k in string:
+                            return True
+        return False
+
+    for k in messages.iterkeys():
+        if not find_message_key(path, k):
+            print "  %s is obsolete, it is no longer in use" % k
+            exit(1)
+
+
 def main():
     print "Checking for invalid i18n string..."
     for f in sys.argv[1:]:
         messages = load_i18n_module(f).messages
         check_string_formatting(messages)
+        check_obsolete_messages(os.path.dirname(f), messages)
     print "Checking for invalid i18n string successfully"
 
 
