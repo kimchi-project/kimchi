@@ -33,6 +33,9 @@ from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
 
 
+KIMCHI_BRIDGE_PREFIX = 'kb'
+
+
 class NetworksModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
@@ -196,7 +199,9 @@ class NetworksModel(object):
         return interfaces
 
     def _create_vlan_tagged_bridge(self, interface, vlan_id):
-        br_name = '-'.join(('kimchi', interface, vlan_id))
+        # Truncate the interface name if it exceeds 8 characters to make sure
+        # the length of bridge name is less than 15 (its maximum value).
+        br_name = KIMCHI_BRIDGE_PREFIX + interface[-8:] + '-' + vlan_id
         br_xml = networkxml.create_vlan_tagged_bridge_xml(br_name, interface,
                                                           vlan_id)
         conn = self.conn.get()
@@ -357,7 +362,7 @@ class NetworkModel(object):
         except libvirt.libvirtError:
             pass
         else:
-            if bridge.startswith('kimchi-'):
+            if bridge.startswith(KIMCHI_BRIDGE_PREFIX):
                 conn = self.conn.get()
                 iface = conn.interfaceLookupByName(bridge)
                 iface.destroy(0)
