@@ -55,7 +55,15 @@ class UserTests(object):
             with open('/var/run/libvirt/qemu/%s.pid' % self.vm_name) as f:
                 pidStr = f.read()
             p = psutil.Process(int(pidStr))
-            user = p.username
+
+            # bug fix #357
+            # in psutil 2.0 and above versions, username will be a method,
+            # not a string
+            if callable(p.username):
+                user = p.username()
+            else:
+                user = p.username
+
         return user
 
 
