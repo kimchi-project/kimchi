@@ -18,9 +18,11 @@
 kimchi.template_edit_main = function() {
     var templateEditForm = $('#form-template-edit');
     var origDisks;
+    var origPool;
     $('#template-name', templateEditForm).val(kimchi.selectedTemplate);
     kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
         origDisks =  template.disks;
+        origPool = template.storagepool;
         for ( var prop in template) {
             var value = template[prop];
             if (prop == 'graphics') {
@@ -30,6 +32,11 @@ kimchi.template_edit_main = function() {
         }
         var disks = template.disks;
         $('input[name="disks"]').val(disks[0].size);
+        if (disks[0].volume) {
+            var spool_value = $('#form-template-edit [name="storagepool"]').val();
+            $('input[name="storagepool"]', templateEditForm).val(spool_value + '/' + disks[0].volume);
+            $('input[name="disks"]', templateEditForm).attr('disabled','disabled');
+        }
 
         var options = [{label: 'VNC', value: 'vnc'}];
         kimchi.getCapabilities(function(result) {
@@ -37,7 +44,7 @@ kimchi.template_edit_main = function() {
                 options.push({label: 'Spice', value: 'spice'})
             }
         }, function() {
-        }, function(){
+        }, function() {
             kimchi.select('template-edit-graphics-list', options);
         });
 
@@ -101,6 +108,31 @@ kimchi.template_edit_main = function() {
         kimchi.window.close();
     });
 
+    $('#template-edit-storagePool').change(function() {
+        storagepool = $(this).val();
+        var storageArray = storagepool.split("/");
+        if (storageArray.length > 3) {
+            volumeName = storageArray.pop();
+            poolName = storageArray.pop();
+            kimchi.getStoragePoolVolume(poolName, volumeName, function(result) {
+                $('input[name="disks"]', templateEditForm).val(result.capacity / Math.pow(1024,3));
+                $('input[name="disks"]', templateEditForm).attr('disabled','disabled');
+                return false;
+            }, function (err) {
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        } else {
+            if (origPool == storagepool) {
+                // Previous disk size value
+                $('input[name="disks"]', templateEditForm).val(origDisks[0].size);
+            } else {
+                // Default disk size value
+                $('input[name="disks"]', templateEditForm).val(10);
+            }
+            $('input[name="disks"]', templateEditForm).removeAttr('disabled');
+        }
+    });
+
     $('#tmpl-edit-button-save').on('click', function() {
         var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks', 'graphics'];
         var data = {};
@@ -124,9 +156,10 @@ kimchi.template_edit_main = function() {
         storageArray = storagepool.split("/");
         if (storageArray.length > 3){
             /* Support only 1 disk at this moment */
-            delete data["disks"][0].size;
             data["disks"][0].volume = storageArray.pop();
             data['storagepool'] = storageArray.join("/");
+        } else if (data["disks"][0].volume) {
+            delete data["disks"][0].volume;
         }
         var networks = templateEditForm.serializeObject().networks;
         if (networks instanceof Array) {
