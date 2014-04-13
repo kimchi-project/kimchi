@@ -735,6 +735,19 @@ var kimchi = {
         });
     },
 
+    getStoragePoolVolume: function(poolName, volumeName, suc, err) {
+        var url = kimchi.url + 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName);
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            timeout: 2000,
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     addVMStorage : function(settings, suc, err) {
         var vm = encodeURIComponent(settings['vm']);
         delete settings['vm'];
