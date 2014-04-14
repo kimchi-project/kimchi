@@ -104,6 +104,9 @@ the following general conventions:
 * start: Power on a VM
 * poweroff: Power off a VM forcefully. Note this action may produce undesirable
             results, for example unflushed disk cache in the guest.
+* reset: Reset a VM immediately without the guest OS shutdown.
+         It emulates the power reset button on a machine. Note that there is a
+         risk of data loss caused by reset without the guest OS shutdown.
 * connect: Prepare the connection for spice or vnc
 
 ### Sub-resource: Virtual Machine Screenshot
