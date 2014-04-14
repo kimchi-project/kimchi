@@ -67,12 +67,21 @@ kimchi.vmpoweroff = function(event) {
 kimchi.vmreset = function(event){
     var vm=$(this).closest('li[name=guest]');
     var vm_id=vm.attr("id");
-    kimchi.resetVM(vm_id, function(result) {
-            kimchi.listVmsAuto();
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
-        }
-    );
+    var settings = {
+        title : i18n['KCHVM6004M'],
+        content : i18n['KCHVM6005M'],
+        confirm : i18n['KCHAPI6002M'],
+        cancel : i18n['KCHAPI6003M']
+    };
+    kimchi.confirm(settings, function() {
+        kimchi.resetVM(vm_id, function(result) {
+                kimchi.listVmsAuto();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            }
+        );
+    }, function() {
+    });
 };
 
 kimchi.vmdelete = function(event) {
