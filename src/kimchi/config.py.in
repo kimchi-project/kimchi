@@ -29,6 +29,8 @@ from ConfigParser import SafeConfigParser
 
 from kimchi.xmlutils import xpath_get_text
 
+__version__ = "@kimchiversion@"
+__release__ = "@kimchirelease@"
 
 DEFAULT_LOG_LEVEL = "debug"
 
@@ -52,6 +54,10 @@ def get_screenshot_path():
 
 def get_debugreports_path():
     return os.path.join(paths.state_dir, 'debugreports')
+
+
+def get_version():
+    return "-".join([__version__, __release__])
 
 
 def find_qemu_binary(find_emulator=False):
