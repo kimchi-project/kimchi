@@ -232,20 +232,11 @@ var kimchi = {
 
     resetVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/poweroff',
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/reset',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
-            success : function() {
-                kimchi.requestJSON({
-                    url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/start',
-                    type : 'POST',
-                    contentType : 'application/json',
-                    dataType : 'json',
-                    success : suc,
-                    error : err
-                });
-            },
+            success : suc,
             error : err
         });
     },
