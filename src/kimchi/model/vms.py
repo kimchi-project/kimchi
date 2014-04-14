@@ -391,6 +391,14 @@ class VMModel(object):
             raise OperationFailed("KCHVM0020E",
                                   {'name': name, 'err': e.get_error_message()})
 
+    def reset(self, name):
+        dom = self.get_vm(name, self.conn)
+        try:
+            dom.reset(flags=0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVM0022E",
+                                  {'name': name, 'err': e.get_error_message()})
+
     def _vm_get_graphics(self, name):
         dom = self.get_vm(name, self.conn)
         xml = dom.XMLDesc(0)
