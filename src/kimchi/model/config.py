@@ -23,7 +23,7 @@ import cherrypy
 
 from kimchi.basemodel import Singleton
 from kimchi.config import config as kconfig
-from kimchi.config import find_qemu_binary
+from kimchi.config import find_qemu_binary, get_version
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import NotFoundError
 from kimchi.featuretests import FeatureTests
@@ -41,7 +41,8 @@ class ConfigModel(object):
     def lookup(self, name):
         proxy_port = kconfig.get('display', 'display_proxy_port')
         return {'http_port': cherrypy.server.socket_port,
-                'display_proxy_port': proxy_port}
+                'display_proxy_port': proxy_port,
+                'version': get_version()}
 
 
 class CapabilitiesModel(object):

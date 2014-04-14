@@ -834,7 +834,8 @@ class MockModel(object):
     def config_lookup(self, name):
         return {'http_port': cherrypy.server.socket_port,
                 'display_proxy_port':
-                kconfig.get('display', 'display_proxy_port')}
+                kconfig.get('display', 'display_proxy_port'),
+                'version': config.get_version()}
 
     def packagesupdate_get_list(self):
         return self._mock_swupdate.getUpdates()
