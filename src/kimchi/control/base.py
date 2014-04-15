@@ -302,3 +302,20 @@ class AsyncCollection(Collection):
         task = create(*args)
         cherrypy.response.status = 202
         return kimchi.template.render("Task", task)
+
+
+class SimpleCollection(Collection):
+    """
+    A Collection without Resource definition
+    """
+    def __init__(self, model):
+        super(SimpleCollection, self).__init__(model)
+
+    def get(self, filter_params):
+        res_list = []
+        try:
+            get_list = getattr(self.model, model_fn(self, 'get_list'))
+            res_list = get_list(*self.model_args)
+        except AttributeError:
+            pass
+        return kimchi.template.render(get_class_name(self), res_list)

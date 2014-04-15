@@ -17,26 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import kimchi.template
-from kimchi.control.base import Collection
-from kimchi.control.utils import get_class_name, model_fn
+from kimchi.control.base import SimpleCollection
 from kimchi.control.utils import UrlSubNode
 
 
 @UrlSubNode("plugins")
-class Plugins(Collection):
+class Plugins(SimpleCollection):
     def __init__(self, model):
         super(Plugins, self).__init__(model)
-
-    @property
-    def data(self):
-        return self.info
-
-    def get(self, filter_params):
-        res_list = []
-        try:
-            get_list = getattr(self.model, model_fn(self, 'get_list'))
-            res_list = get_list(*self.model_args)
-        except AttributeError:
-            pass
-        return kimchi.template.render(get_class_name(self), res_list)
