@@ -17,9 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import grp
 import os
 import time
 import platform
+import pwd
 from collections import defaultdict
 
 import psutil
@@ -364,3 +366,19 @@ class RepositoryModel(object):
             raise InvalidOperation('KCHREPOS0014E')
 
         return self._repositories.removeRepository(repo_id)
+
+
+class UsersModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def get_list(self):
+        return [user.pw_name for user in pwd.getpwall()]
+
+
+class GroupsModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def get_list(self):
+        return [group.gr_name for group in grp.getgrall()]

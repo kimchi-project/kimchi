@@ -798,6 +798,12 @@ class MockModel(object):
                 'net_recv_rate': round(random.uniform(0, 4000), 1),
                 'net_sent_rate': round(random.uniform(0, 4000), 1)}
 
+    def users_get_list(self):
+        return ["userA", "userB", "userC"]
+
+    def groups_get_list(self):
+        return ["groupA", "groupB", "groupC", "groupD"]
+
     def vms_get_list_by_state(self, state):
         ret_list = []
         for name in self.vms_get_list():

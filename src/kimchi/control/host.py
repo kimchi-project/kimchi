@@ -19,7 +19,7 @@
 
 import cherrypy
 
-from kimchi.control.base import Collection, Resource
+from kimchi.control.base import Collection, Resource, SimpleCollection
 from kimchi.control.utils import UrlSubNode, validate_method
 from kimchi.exception import OperationFailed
 from kimchi.template import render
@@ -37,6 +37,8 @@ class Host(Resource):
         self.devices = Devices(self.model)
         self.packagesupdate = PackagesUpdate(self.model)
         self.repositories = Repositories(self.model)
+        self.users = Users(self.model)
+        self.groups = Groups(self.model)
 
     @cherrypy.expose
     def swupdate(self):
@@ -128,3 +130,13 @@ class Repository(Resource):
     @property
     def data(self):
         return self.info
+
+
+class Users(SimpleCollection):
+    def __init__(self, model):
+        super(Users, self).__init__(model)
+
+
+class Groups(SimpleCollection):
+    def __init__(self, model):
+        super(Groups, self).__init__(model)
