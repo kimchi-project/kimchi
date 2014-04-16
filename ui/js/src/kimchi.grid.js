@@ -15,109 +15,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.widget.Grid = function(params) {
-    var containerID = params['container'];
-    var container = $('#' + containerID);
-    var gridID = params['id'];
-    var rowSelection = params['rowSelection'] || 'single';
-    var rowListener = params['onRowSelected'];
+kimchi.widget.Grid = function(opts) {
+    this.opts = $.extend({}, this.opts, opts);
+    this.createDOM();
+    this.reload();
+};
+
+kimchi.widget.Grid.prototype = (function() {
     var htmlStr = [
-      '<div id="', gridID, '" class="grid">',
-        '<div class="grid-content">',
-          '<div class="grid-header">',
-            '<div class="grid-frozen-header-view">',
-              '<table class="grid-frozen-header-container">',
-              '</table>',
+        '<div id="{id}" class="grid">',
+            '<div class="grid-content">',
+                '<div class="grid-header">',
+                    '<div class="grid-frozen-header-view">',
+                        '<table class="grid-frozen-header-container">',
+                        '</table>',
+                    '</div>',
+                    '<div class="grid-header-view">',
+                        '<div class="grid-header-wrapper">',
+                            '<table class="grid-header-container">',
+                            '</table>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+                '<div class="grid-body">',
+                    '<div class="grid-frozen-body-view">',
+                        '<div class="grid-frozen-body-wrapper">',
+                            '<table class="grid-frozen-body-container">',
+                            '</table>',
+                        '</div>',
+                    '</div>',
+                    '<div class="grid-body-view">',
+                        '<div class="grid-body-wrapper">',
+                            '<table class="grid-body-container">',
+                            '</table>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+                '<div class="grid-resizer-leftmost hidden"></div>',
+                '<div class="grid-resizer hidden"></div>',
             '</div>',
-            '<div class="grid-header-view">',
-              '<div class="grid-header-wrapper">',
-                '<table class="grid-header-container">',
-                '</table>',
-              '</div>',
-            '</div>',
-          '</div>',
-          '<div class="grid-body">',
-            '<div class="grid-frozen-body-view">',
-              '<div class="grid-frozen-body-wrapper">',
-                '<table class="grid-frozen-body-container">',
-                '</table>',
-              '</div>',
-            '</div>',
-            '<div class="grid-body-view">',
-              '<div class="grid-body-wrapper">',
-                '<table class="grid-body-container">',
-                '</table>',
-              '</div>',
-            '</div>',
-          '</div>',
-          '<div class="grid-resizer-leftmost hidden"></div>',
-          '<div class="grid-resizer hidden"></div>',
-        '</div>',
-        '<div class="grid-footer"></div>',
-        '<div class="grid-mask hidden">',
-            '<div class="grid-loading">',
-                '<div class="grid-loading-icon"></div>',
-                '<div class="grid-loading-text">',
-                    i18n['KCHGRD6001M'],
+            '<div class="grid-footer"></div>',
+            '<div class="grid-mask hidden">',
+                '<div class="grid-loading">',
+                    '<div class="grid-loading-icon"></div>',
+                    '<div class="grid-loading-text">',
+                        '{loading}',
+                    '</div>',
                 '</div>',
             '</div>',
-        '</div>',
-        '<div class="grid-message hidden">',
-          '<div class="grid-message-text">',
-            i18n['KCHGRD6002M'],
-            '<button class="retry-button btn-small">',
-              i18n['KCHGRD6003M'],
-            '</button>',
-          '</div>',
-          '<div class="detailed-title">',
-            i18n['KCHGRD6004M'],
-          '</div>',
-          '<div class="detailed-text"></div>',
-        '</div>',
-      '</div>'
-    ];
+            '<div class="grid-message hidden">',
+                '<div class="grid-message-text">',
+                    '{message}',
+                    '<button class="retry-button btn-small">',
+                        '{buttonLabel}',
+                    '</button>',
+                '</div>',
+                '<div class="detailed-title">',
+                    '{detailedLabel}',
+                '</div>',
+                '<div class="detailed-text"></div>',
+            '</div>',
+        '</div>'
+    ].join('');
 
-    var gridNode = $(htmlStr.join(''))
-        .appendTo(container);
-
-    var height = gridNode.height();
-    var width = gridNode.width();
-
-    var title = params['title'];
-    var titleNode = null;
-    if(title) {
-        titleNode = $('<div class="grid-caption">' + title + '</div>')
-            .prependTo(gridNode);
-    }
-
-    var toolbarButtons = params['toolbarButtons'];
-    var toolbarNode = null;
-    if(toolbarButtons) {
-        toolbarNode = $('<div class="grid-toolbar"></div>');
-        if(titleNode) {
-            titleNode.after(toolbarNode);
-        }
-        else {
-            toolbarNode.prependTo(gridNode);
-        }
-
-        $.each(toolbarButtons, function(i, button) {
-            var btnHTML = [
-                '<button',
-                button['id'] ? (' id="' + button['id'] + '"') : '',
-                ' class="grid-toolbar-button',
-                    button['class'] ? (' ' + button['class']) : '',
-                    '"',
-                    button['disabled'] === true ? ' disabled' : '',
-                    '>',
-                    button['label'],
-                '</button>'
-            ].join('');
-            var btnNode = $(btnHTML).appendTo(toolbarNode);
-            button['onClick'] &&
-                btnNode.on('click', button['onClick']);
-        });
-    }
+    var CONTAINER_NORMAL = 0, CONTAINER_FROZEN = 1;
 
     var setupHeaders = function(header, body, fields) {
         var colGroup = $('<colgroup></colgroup>').appendTo(header);
@@ -135,66 +96,34 @@ kimchi.widget.Grid = function(params) {
         headerHeader.appendTo(header);
 
         var totalWidth = 0;
-        $('col', header).each(function(index, col) {
+        $('col', colGroup).each(function(index, col) {
             var width = $(col).width();
             totalWidth += width;
             $(col).css('width', width + 'px');
         });
-        $('colgroup', header).clone().appendTo(body);
+        $(body).append(colGroup.clone());
         return totalWidth;
     };
 
-    var frozenHeaderContainer = $('.grid-frozen-header-container', gridNode);
-    var frozenBodyContainer = $('.grid-frozen-body-container', gridNode);
-    var frozenWidth = setupHeaders(
-        frozenHeaderContainer,
-        frozenBodyContainer,
-        params['frozenFields']
-    );
-
-    var headerContainer = $('.grid-header-container', gridNode);
-    var bodyContainer = $('.grid-body-container', gridNode);
-    setupHeaders(headerContainer, bodyContainer, params['fields']);
-
-    $.each([
-        frozenHeaderContainer,
-        headerContainer,
-        frozenBodyContainer,
-        bodyContainer
-    ], function(i, tableNode) {
-        $(tableNode).css('table-layout', 'auto');
-    });
-
-    var gridContentNode = $('.grid-content', gridNode);
-    var captionHeight = titleNode && $(titleNode).height() || 0;
-    var toolbarHeight = toolbarNode && $(toolbarNode).height() || 0;
-    gridContentNode.css('top', (captionHeight + toolbarHeight) + 'px');
-
-    var maskNode = $('.grid-mask', gridNode);
-    maskNode.css('top', captionHeight + 'px');
-
-    var messageNode = $('.grid-message', gridNode);
-    messageNode.css('top', captionHeight + 'px');
-
-
     var getValue = function(name, obj) {
-    var result=undefined;
-    if(!Array.isArray(name)) {
-        name=name.parseKey();
-    }
-    if(name.length!=0) {
-        var tmpName=name.shift();
-        if(obj[tmpName]!=undefined) {
-            result=obj[tmpName];
+        var result=undefined;
+        if(!Array.isArray(name)) {
+            name=name.parseKey();
         }
         if(name.length!=0) {
-            result=getValue(name,obj[tmpName]);
+            var tmpName=name.shift();
+            if(obj[tmpName]!=undefined) {
+                    result=obj[tmpName];
+            }
+            if(name.length!=0) {
+                    result=getValue(name,obj[tmpName]);
+            }
         }
-    }
-    return(result);
+        return(result);
     };
 
-    var fillBody = function(container, fields, data) {
+    var fillBody = function(container, fields) {
+        var data = this.data;
         var tbody = ($('tbody', container).length && $('tbody', container))
             || $('<tbody></tbody>').appendTo(container);
         tbody.empty();
@@ -203,169 +132,167 @@ kimchi.widget.Grid = function(params) {
             $.each(fields, function(fi, field) {
                 var value = getValue(field['name'], row);
                 $('<td><div class="cell-text-wrapper"' +
-                     (field['makeTitle'] === true
-                         ? ' title="' + value + '"'
-                         : ''
-                     ) + '>' + value.toString() + '</div></td>'
+                    (field['makeTitle'] === true
+                        ? ' title="' + value + '"'
+                        : ''
+                    ) + '>' + value.toString() + '</div></td>'
                 ).appendTo(rowNode);
             });
         });
     };
 
-    var frozenHeaderView = $('.grid-frozen-header-view', gridNode);
-    var headerView = $('.grid-header-view', gridNode);
-    var bodyView = $('.grid-body-view', gridNode);
-    headerView.css('left', (frozenWidth) + 'px');
-    bodyView.css('left', (frozenWidth) + 'px');
-
-    var bodyWidth = width - frozenWidth;
-    headerContainer.css('width', bodyWidth + 'px');
-    bodyContainer.css('width', bodyWidth + 'px');
-
-    var fixTableLayout = function() {
+    var fixTableLayout = function(style) {
         $.each([
-            frozenHeaderContainer,
-            headerContainer,
-            frozenBodyContainer,
-            bodyContainer
+            this.frozenHeaderContainer,
+            this.headerContainer,
+            this.frozenBodyContainer,
+            this.bodyContainer
         ], function(i, tableNode) {
-            $(tableNode).css('table-layout', 'fixed');
+            $(tableNode).css('table-layout', style || 'fixed');
         });
     };
-    fixTableLayout();
 
-    var gridHeader = $('.grid-header', gridNode);
-    $('th', gridHeader).on('mouseover mousemove', function(event) {
+    var initResizing = function(event) {
+        var resizer = event.data.resizer;
         var pageX = event.pageX;
         var tailPos = $(this).width() + $(this).offset()['left'];
         var atResizer = Math.abs(pageX - tailPos) <= 2;
-        var isResizing = !resizer.hasClass('hidden');
+        var isResizing = !$(resizer).hasClass('hidden');
         $('body')[(atResizer || isResizing)
             ? 'addClass'
             : 'removeClass'
         ]('resizing');
-    });
+    };
 
-    $('th', gridHeader).on('mouseout', function(event) {
-        resizer.hasClass('hidden') &&
+    var clearResizing = function(event) {
+        $(event.data.resizer).hasClass('hidden') &&
             $('body').removeClass('resizing');
-    });
-
-    var gridBody = $('.grid-body', gridNode);
-    var contentHeight = gridContentNode.height();
-    var resizerLeftmost = $('.grid-resizer-leftmost', gridNode);
-    var resizer = $('.grid-resizer', gridNode);
-    resizerLeftmost.css('height', contentHeight + 'px');
-    resizer.css('height', contentHeight + 'px');
+    };
 
     var stylingRow = function(row, className, add) {
         var index = $(row).index() + 1;
-        $('tr', frozenBodyContainer)
+        $('tr', this.frozenBodyContainer)
             .removeClass(className);
-        $('tr', bodyContainer)
+        $('tr', this.bodyContainer)
             .removeClass(className);
 
         if(add === false) {
             return;
         }
 
-        $('tr:nth-child(' + index + ')', frozenBodyContainer)
+        $('tr:nth-child(' + index + ')', this.frozenBodyContainer)
             .addClass(className);
-        $('tr:nth-child(' + index + ')', bodyContainer)
+        $('tr:nth-child(' + index + ')', this.bodyContainer)
             .addClass(className);
     };
 
-    var selectedIndex = -1;
     var setBodyListeners = function() {
-        if(rowSelection != 'disabled') {
-            $('tr', gridBody).on('mouseover', function(event) {
-                stylingRow(this, 'hover');
+        if(this['opts']['rowSelection'] != 'disabled') {
+            $('tr', this.gridBody).on('mouseover', {
+                grid: this
+            }, function(event) {
+                stylingRow.call(event.data.grid, this, 'hover');
             });
 
-            $('tr', gridBody).on('mouseout', function(event) {
-                stylingRow(this, 'hover', false);
+            $('tr', this.gridBody).on('mouseout', {
+                grid: this
+            }, function(event) {
+                stylingRow.call(event.data.grid, this, 'hover', false);
             });
 
-            $('tr', gridBody).on('click', function(event) {
-                selectedIndex = $(this).index();
-                stylingRow(this, 'selected');
-                rowListener && rowListener();
+            $('tr', this.gridBody).on('click', {
+                grid: this
+            }, function(event) {
+                var grid = event.data.grid;
+                grid.selectedIndex = $(this).index();
+                stylingRow.call(grid, this, 'selected');
+                grid['opts']['onRowSelected'] && grid['opts']['onRowSelected']();
             });
         }
 
-        $('.grid-body-view', gridNode).on('scroll', function(event) {
-            $('.grid-header .grid-header-view', gridNode)
+        $('.grid-body-view', this.domNode).on('scroll', {
+            grid: this
+        }, function(event) {
+            var grid = event.data.grid;
+            $('.grid-header .grid-header-view', grid.domNode)
                 .prop('scrollLeft', this.scrollLeft);
-            $('.grid-body .grid-frozen-body-view', gridNode)
+            $('.grid-body .grid-frozen-body-view', grid.domNode)
                 .prop('scrollTop', this.scrollTop);
         });
     };
 
-    this.frozenFields = params['frozenFields'];
-    this.fields = params['fields'];
-    this.setData = function(data) {
+    var setData = function(data) {
         this.data = data;
-        fillBody(frozenBodyContainer, this.frozenFields, data);
-        fillBody(bodyContainer, this.fields, data);
-        setBodyListeners();
+        fillBody.call(this, this.frozenBodyContainer, this['opts']['frozenFields']);
+        fillBody.call(this, this.bodyContainer, this['opts']['fields']);
+        setBodyListeners.call(this);
     };
 
-    this.getSelected = function() {
-        return selectedIndex >= 0
-            ? this.data[selectedIndex]
+    var getSelected = function() {
+        return this.selectedIndex >= 0
+            ? this.data[this.selectedIndex]
             : null;
     };
 
-    var columnBeingResized = null;
-    var CONTAINER_NORMAL = 0, CONTAINER_FROZEN = 1;
-    var containerBeingResized = CONTAINER_NORMAL;
     var startResizing = function(container, event) {
-        if(!($('body').hasClass('resizing') && resizer.hasClass('hidden'))) {
+        var grid = event.data.grid;
+        kimchi.widget.Grid.beingResized = grid;
+        if(!($('body').hasClass('resizing')
+                && $(grid.resizer).hasClass('hidden'))) {
             return;
         }
 
-        columnBeingResized = container;
+        grid.columnBeingResized = container;
         var pageX = event.pageX;
-        var gridOffsetX = gridNode.offset()['left'];
+        var gridOffsetX = grid.domNode.offset()['left'];
         var leftmostOffsetX = $(container).offset()['left'] - gridOffsetX;
         var left = pageX - gridOffsetX;
-        resizerLeftmost.css('left', leftmostOffsetX + 'px');
-        resizer.css('left', left + 'px');
-        resizerLeftmost.removeClass('hidden');
-        resizer.removeClass('hidden');
+        var contentHeight = $('.grid-content', grid.domNode).height();
+        $(grid.resizerLeftmost).css({
+            left: leftmostOffsetX + 'px',
+            height: contentHeight + 'px'
+        });
+        $(grid.resizer).css({
+            left: left + 'px',
+            height: contentHeight + 'px'
+        });
+        $(grid.resizerLeftmost).removeClass('hidden');
+        $(grid.resizer).removeClass('hidden');
         event.preventDefault();
     };
 
     var endResizing = function(event) {
+        var grid = kimchi.widget.Grid.beingResized;
         if(!$('body').hasClass('resizing')) {
             return;
         }
-        resizerLeftmost.addClass('hidden');
-        resizer.addClass('hidden');
+        $(grid.resizerLeftmost).addClass('hidden');
+        $(grid.resizer).addClass('hidden');
         $('body').removeClass('resizing');
-        var leftmostOffset = $(columnBeingResized).offset()['left'];
+        var leftmostOffset = $(grid.columnBeingResized).offset()['left'];
         var left = event.pageX;
         if(leftmostOffset > left) {
             return;
         }
-
-        resizeColumnWidth(
-            $(columnBeingResized).index(),
+        resizeColumnWidth.call(
+            grid,
+            $(grid.columnBeingResized).index(),
             left - leftmostOffset
         );
-        fixTableLayout();
-        columnBeingResized = null;
+        fixTableLayout.call(grid);
+        grid.columnBeingResized = null;
+        kimchi.widget.Grid.beingResized = null;
     };
 
     var resizeColumnWidth = function(index, width) {
         var width = Math.ceil(width);
         var widthArray = [];
         var totalWidth = 0;
-        var header = headerContainer;
-        var body = bodyContainer;
-        if(containerBeingResized === CONTAINER_FROZEN) {
-            header = frozenHeaderContainer;
-            body = frozenBodyContainer;
+        var header = this.headerContainer;
+        var body = this.bodyContainer;
+        if(this.containerBeingResized === CONTAINER_FROZEN) {
+            header = this.frozenHeaderContainer;
+            body = this.frozenBodyContainer;
         }
         $('col', header).each(function(i, colNode) {
             var w = index === i ? width : $(colNode).width();
@@ -382,7 +309,9 @@ kimchi.widget.Grid = function(params) {
             });
         });
 
-        if(containerBeingResized === CONTAINER_FROZEN) {
+        if(this.containerBeingResized === CONTAINER_FROZEN) {
+            var headerView = $('.grid-header-view', this.domNode);
+            var bodyView = $('.grid-body-view', this.domNode);
             $.each([headerView, bodyView], function(i, view) {
                 view.css({
                     left: totalWidth + 'px'
@@ -391,74 +320,207 @@ kimchi.widget.Grid = function(params) {
         }
     };
 
-    $('th', frozenHeaderContainer).on('mousedown', function(event) {
-        containerBeingResized = CONTAINER_FROZEN;
-        startResizing(this, event);
-    });
-    $('th', headerContainer).on('mousedown', function(event) {
-        containerBeingResized = CONTAINER_NORMAL;
-        startResizing(this, event);
-    });
-
     var positionResizer = function(event) {
-        if(resizer.hasClass('hidden')) {
+        var grid = event.data.grid;
+        if($(grid.resizer).hasClass('hidden')) {
             return;
         }
 
         var pageX = event.pageX;
-        var gridOffsetX = gridNode.offset()['left'];
-        var leftMost = resizerLeftmost.position()['left'];
+        var gridOffsetX = $(grid.domNode).offset()['left'];
+        var leftMost = $(grid.resizerLeftmost).position()['left'];
         var offsetX = pageX - gridOffsetX;
         offsetX = offsetX >= leftMost ? offsetX : leftMost;
-        resizer.css('left', offsetX + 'px');
+        $(grid.resizer).css('left', offsetX + 'px');
     };
 
-    $('body').on('mousemove', positionResizer);
-    $('body').on('mouseup', endResizing);
-
-    this.showMessage = function(msg) {
-        $('.detailed-text', messageNode).text(msg);
-        $(messageNode).removeClass('hidden');
+    var showMessage = function(msg) {
+        $('.detailed-text', this.messageNode).text(msg);
+        $(this.messageNode).removeClass('hidden');
     };
 
-    this.hideMessage = function() {
-        $(messageNode).addClass('hidden');
+    var hideMessage = function() {
+        $(this.messageNode).addClass('hidden');
     };
 
-    this.destroy = function() {
-        $('body').off('mousemove', positionResizer);
-        $('body').off('mouseup', endResizing);
-    };
-
-    var data = params['data'];
-    var self = this;
     var reload = function() {
+        var data = this['opts']['data'];
         if(!data) {
             return;
         }
 
-        $(messageNode).addClass('hidden');
+        $(this.messageNode).addClass('hidden');
 
         if($.isArray(data)) {
-            self.setData(data);
-            return;
+            return this.setData(data);
         }
 
         if($.isFunction(data)) {
             var loadData = data;
-            maskNode.removeClass('hidden');
-            loadData(function(data) {
-                self.setData(data);
-                maskNode.addClass('hidden');
-            });
+            $(this.maskNode).removeClass('hidden');
+            loadData($.proxy(function(data) {
+                this.setData(data);
+                $(this.maskNode).addClass('hidden');
+            }, this));
         }
     };
 
-    var reloadButton = $('.retry-button', gridNode);
-    $(reloadButton).on('click', function(event) {
-        reload();
-    });
+    var destroy = function() {
+        $('body').off('mousemove.grid#' + this['opts']['id'], positionResizer);
+        $('body').off('mouseup.grid#' + this['opts']['id'], endResizing);
+    };
 
-    this.reload = reload;
-    reload();
-};
+    var createDOM = function() {
+        var containerID = this['opts']['container'];
+        var container = $('#' + containerID);
+        var gridID = this['opts']['id'];
+        var rowSelection = this['opts']['rowSelection'] || 'single';
+        var domNode = $(kimchi.template(htmlStr, {
+            id: gridID,
+            loading: i18n['KCHGRD6001M'],
+            message: i18n['KCHGRD6002M'],
+            buttonLabel: i18n['KCHGRD6003M'],
+            detailedLabel: i18n['KCHGRD6004']
+        })).appendTo(container);
+        this.domNode = domNode;
+
+        var height = domNode.height();
+        var width = domNode.width();
+
+        var title = this['opts']['title'];
+        var titleNode = null;
+        if(title) {
+            titleNode = $('<div class="grid-caption">' + title + '</div>')
+                .prependTo(domNode);
+        }
+
+        var toolbarButtons = this['opts']['toolbarButtons'];
+        var toolbarNode = null;
+        if(toolbarButtons) {
+            toolbarNode = $('<div class="grid-toolbar"></div>');
+            if(titleNode) {
+                titleNode.after(toolbarNode);
+            }
+            else {
+                toolbarNode.prependTo(domNode);
+            }
+
+            $.each(toolbarButtons, function(i, button) {
+                var btnHTML = [
+                    '<button',
+                        button['id'] ? (' id="' + button['id'] + '"') : '',
+                        ' class="grid-toolbar-button',
+                            button['class'] ? (' ' + button['class']) : '',
+                            '"',
+                            button['disabled'] === true ? ' disabled' : '',
+                            '>',
+                            button['label'],
+                    '</button>'
+                ].join('');
+                var btnNode = $(btnHTML).appendTo(toolbarNode);
+                button['onClick'] &&
+                    btnNode.on('click', button['onClick']);
+            });
+        }
+
+        var frozenHeaderContainer = $('.grid-frozen-header-container', domNode);
+        var frozenBodyContainer = $('.grid-frozen-body-container', domNode);
+        var frozenWidth = setupHeaders(
+                frozenHeaderContainer,
+                frozenBodyContainer,
+                this['opts']['frozenFields']
+        );
+        this.frozenHeaderContainer = frozenHeaderContainer;
+        this.frozenBodyContainer = frozenBodyContainer;
+
+        var headerContainer = $('.grid-header-container', domNode);
+        var bodyContainer = $('.grid-body-container', domNode);
+        setupHeaders(headerContainer, bodyContainer, this['opts']['fields']);
+        this.headerContainer = headerContainer;
+        this.bodyContainer = bodyContainer;
+
+        fixTableLayout.call(this, 'auto');
+
+        var gridContentNode = $('.grid-content', domNode);
+        var captionHeight = titleNode && $(titleNode).height() || 0;
+        var toolbarHeight = toolbarNode && $(toolbarNode).height() || 0;
+        gridContentNode.css('top', (captionHeight + toolbarHeight) + 'px');
+
+        var maskNode = $('.grid-mask', domNode);
+        maskNode.css('top', captionHeight + 'px');
+        this.maskNode = maskNode;
+
+        var messageNode = $('.grid-message', domNode);
+        messageNode.css('top', captionHeight + 'px');
+        this.messageNode = messageNode;
+
+        var headerView = $('.grid-header-view', domNode);
+        var bodyView = $('.grid-body-view', domNode);
+        headerView.css('left', (frozenWidth) + 'px');
+        bodyView.css('left', (frozenWidth) + 'px');
+
+        var bodyWidth = width - frozenWidth;
+        headerContainer.css('width', bodyWidth + 'px');
+        bodyContainer.css('width', bodyWidth + 'px');
+
+        fixTableLayout.call(this);
+
+        var gridBody = $('.grid-body', domNode);
+        this.gridBody = gridBody;
+        this.resizerLeftmost = $('.grid-resizer-leftmost', domNode);
+        this.resizer = $('.grid-resizer', domNode);
+        var gridHeader = $('.grid-header', domNode);
+        $('th', gridHeader).on('mouseover mousemove', {
+            resizer: this.resizer
+        }, initResizing);
+
+        $('th', gridHeader).on('mouseout', {
+            resizer: this.resizer
+        }, clearResizing);
+
+        this.containerBeingResized = CONTAINER_NORMAL;
+        $('th', frozenHeaderContainer).on('mousedown', {
+            grid: this
+        }, function(event) {
+                event.data.grid.containerBeingResized = CONTAINER_FROZEN;
+                startResizing(this, event);
+        });
+        $('th', headerContainer).on('mousedown', {
+            grid: this
+        }, function(event) {
+                event.data.grid.containerBeingResized = CONTAINER_NORMAL;
+                startResizing(this, event);
+        });
+
+        $('body').on('mousemove.grid#' + this['opts']['id'], {
+            grid: this
+        }, positionResizer);
+        $('body').on('mouseup.grid#' + this['opts']['id'], endResizing);
+
+        var data = this['opts']['data'];
+
+        $('.retry-button', domNode).on('click', {
+            grid: this
+        }, function(event) {
+            grid.reload();
+        });
+    };
+
+    return {
+        opts: {
+            container: null,
+            id: null,
+            rowSelection: 'single',
+            onRowSelected: null,
+            title: null,
+            toolbarButtons: null,
+            frozenFields: null,
+            fields: null
+        },
+        createDOM: createDOM,
+        setData: setData,
+        getSelected: getSelected,
+        reload: reload,
+        destroy: destroy
+    };
+})();
