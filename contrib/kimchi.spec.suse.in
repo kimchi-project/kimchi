@@ -24,6 +24,7 @@ Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	python-xml
 Requires:	nfs-client
+Requires:	nginx
 Requires:	open-iscsi
 BuildRequires:	libxslt-tools
 BuildRequires:	python-libxml2
@@ -102,6 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/pages/help/*/*.html
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
+%{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
 %{_sysconfdir}/kimchi/distros.d/fedora.json
 %{_sysconfdir}/kimchi/distros.d/opensuse.json

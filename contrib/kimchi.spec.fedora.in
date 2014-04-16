@@ -28,6 +28,7 @@ Requires:	sos
 Requires:	python-ipaddr
 Requires:	python-lxml
 Requires:	nfs-utils
+Requires:	nginx
 Requires:	iscsi-initiator-utils
 BuildRequires:	libxslt
 BuildRequires:	libxml2-python
@@ -104,6 +105,8 @@ iptables -I INPUT -p tcp --dport 8001 -j ACCEPT
 iptables -I INPUT -p tcp --dport 64667 -j ACCEPT
 service iptables save >/dev/null 2>&1
 %endif
+# Add SELinux rules to "open" Kimchi ports
+semanage permissive -a httpd_t
 
 %preun
 
@@ -128,6 +131,8 @@ if [ "$1" -ge 1 ] ; then
     /bin/systemctl try-restart kimchid.service >/dev/null 2>&1 || :
 fi
 exit 0
+# Rollback SELinux rules
+semanage permissive -d httpd_t
 
 
 %clean
@@ -176,6 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/pages/help/*/*.html
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
 %{_sysconfdir}/kimchi/kimchi.conf
+%{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
 %{_sysconfdir}/kimchi/distros.d/fedora.json
 %{_sysconfdir}/kimchi/distros.d/opensuse.json

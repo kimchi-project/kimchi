@@ -38,6 +38,7 @@ PEP8_WHITELIST = \
 	plugins/__init__.py \
 	plugins/sample/__init__.py \
 	plugins/sample/model.py \
+	src/kimchid.in \
 	src/kimchi/asynctask.py \
 	src/kimchi/auth.py \
 	src/kimchi/cachebust.py \
@@ -55,6 +56,7 @@ PEP8_WHITELIST = \
 	src/kimchi/model/*.py \
 	src/kimchi/objectstore.py \
 	src/kimchi/osinfo.py \
+	src/kimchi/proxy.py \
 	src/kimchi/repositories.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \

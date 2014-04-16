@@ -21,13 +21,14 @@ SUBDIRS = kimchi distros.d
 
 EXTRA_DIST = kimchid.in \
 	kimchi.conf.in \
+	nginx.conf.in \
 	firewalld.xml \
 	$(NULL)
 
 bin_SCRIPTS = kimchid
 
 confdir = $(sysconfdir)/kimchi
-dist_conf_DATA = kimchi.conf
+dist_conf_DATA = kimchi.conf nginx.conf.in
 
 BUILT_SOURCES = kimchi.conf
 
