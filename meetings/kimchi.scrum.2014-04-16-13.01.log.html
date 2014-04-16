@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 16 13:01:55 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:49</span><span class="nk"> &lt;royce&gt;</span> Hi there?
+<a name="l-9"></a><span class="tm">13:04:57</span><span class="nk"> &lt;alinefm&gt;</span> hi royce
+<a name="l-10"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:05:24</span><span class="nk"> &lt;royce&gt;</span> Hi alinefm, how are you doing?
+<a name="l-13"></a><span class="tm">13:05:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, good and you?
+<a name="l-14"></a><span class="tm">13:06:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm added mechanism to translate help pages</span>
+<a name="l-15"></a><span class="tm">13:06:13</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Edit Guest Network Interface, Patch V1 sent, need to discuss the interface model</span>
+<a name="l-16"></a><span class="tm">13:06:30</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  is working in new patches of "edit vm cpu/memory" feature</span>
+<a name="l-17"></a><span class="tm">13:06:37</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce finished guest disks manage backend patch v1, merged ide support 4 disks patch, now working on the UI for disk manage slowly...</span>
+<a name="l-18"></a><span class="tm">13:06:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm created API to add users/groups to the vms</span>
+<a name="l-19"></a><span class="tm">13:06:49</span><span class="nk"> &lt;royce&gt;</span> Doing good, alinefm
+<a name="l-20"></a><span class="tm">13:07:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm now I am working on a API to list all system users and groups - it will be useful when user will update the vm users/groups from UI</span>
+<a name="l-21"></a><span class="tm">13:08:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send version API support.</span>
+<a name="l-22"></a><span class="tm">13:09:59</span><span class="nk"> &lt;alinefm&gt;</span> great, team!
+<a name="l-23"></a><span class="tm">13:10:08</span><span class="nk"> &lt;alinefm&gt;</span> we still have a lot to do in a week
+<a name="l-24"></a><span class="tm">13:10:14</span><span class="nk"> &lt;alinefm&gt;</span> next week is the end of sprint 1
+<a name="l-25"></a><span class="tm">13:10:55</span><span class="nk"> &lt;alinefm&gt;</span> I still need to send a first version of history data view
+<a name="l-26"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> I plan to do it by tomorrow
+<a name="l-27"></a><span class="tm">13:11:34</span><span class="nk"> &lt;alinefm&gt;</span> anyone has blockers?
+<a name="l-28"></a><span class="tm">13:12:51</span><span class="nk"> &lt;alinefm&gt;</span> anyonde has concerns about the time to deliver all tasks planned?
+<a name="l-29"></a><span class="tm">13:14:14</span><span class="nk"> &lt;royce&gt;</span> alinefm, me, I'm not familiar with js so I'm not sure I can finish the backend and frontend of manage guest disk in time
+<a name="l-30"></a><span class="tm">13:14:50</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, YuXin, hlwanghl, anyone can help royce on it?
+<a name="l-31"></a><span class="tm">13:15:12</span><span class="nk"> &lt;royce&gt;</span> hlwanghl gave me help on that, thanks to him
+<a name="l-32"></a><span class="tm">13:15:52</span><span class="nk"> &lt;royce&gt;</span> but since the backend is just on v1
+<a name="l-33"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, I will review your patches today
+<a name="l-34"></a><span class="tm">13:16:19</span><span class="nk"> &lt;alinefm&gt;</span> so you can get feedback soon
+<a name="l-35"></a><span class="tm">13:16:20</span><span class="nk"> &lt;royce&gt;</span> and I plan to submit v1 of UI tomorrow
+<a name="l-36"></a><span class="tm">13:16:25</span><span class="nk"> &lt;royce&gt;</span> Thanks alinefm
+<a name="l-37"></a><span class="tm">13:16:28</span><span class="nk"> &lt;alinefm&gt;</span> royce, good
+<a name="l-38"></a><span class="tm">13:16:47</span><span class="nk"> &lt;royce&gt;</span> I'll try my best
+<a name="l-39"></a><span class="tm">13:16:57</span><span class="nk"> &lt;alinefm&gt;</span> royce, I know =)
+<a name="l-40"></a><span class="tm">13:17:02</span><span class="nk"> &lt;adamkingit&gt;</span> looking at the sprint plan, we have come completes to go
+<a name="l-41"></a><span class="tm">13:17:12</span><span class="nk"> &lt;alinefm&gt;</span> don't hesitate to ask help
+<a name="l-42"></a><span class="tm">13:17:27</span><span class="nk"> &lt;adamkingit&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+<a name="l-43"></a><span class="tm">13:17:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb submitted a 5th version of "kimchi must not run as root" with the FABULOUS help of alinefm . Patch is waiting for review/approval</span>
+<a name="l-44"></a><span class="tm">13:18:17</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ;-)
+<a name="l-45"></a><span class="tm">13:19:19</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, yes
+<a name="l-46"></a><span class="tm">13:19:33</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to see more patches on ML
+<a name="l-47"></a><span class="tm">13:19:51</span><span class="nk"> &lt;alinefm&gt;</span> maybe it can help us get all done in time
+<a name="l-48"></a><span class="tm">13:21:06</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's move on to open discussion section
+<a name="l-49"></a><span class="tm">13:21:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-50"></a><span class="tm">13:21:12</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru investigated and helped to fix problems when create multiple templates</span>
+<a name="l-51"></a><span class="tm">13:21:31</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, do you want to discuss about the interface model?
+<a name="l-52"></a><span class="tm">13:21:45</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-53"></a><span class="tm">13:22:20</span><span class="nk"> &lt;YuXin&gt;</span> from shao he, I got to know that the backend only select a model that can work with all operating systems
+<a name="l-54"></a><span class="tm">13:22:37</span><span class="nk"> &lt;YuXin&gt;</span> it will not be the best, so user may need to update it
+<a name="l-55"></a><span class="tm">13:23:16</span><span class="nk"> &lt;YuXin&gt;</span> I suggest to reserve the model, but make the most compatible model to be defaut when create guest network interface
+<a name="l-56"></a><span class="tm">13:24:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, by reserve do you mean keep showing it when creating the interface?
+<a name="l-57"></a><span class="tm">13:24:51</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-58"></a><span class="tm">13:25:21</span><span class="nk"> &lt;YuXin&gt;</span> make the most compatible one to be default option for model field
+<a name="l-59"></a><span class="tm">13:26:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, ok
+<a name="l-60"></a><span class="tm">13:26:47</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-61"></a><span class="tm">13:26:51</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, the default one will be virtio?
+<a name="l-62"></a><span class="tm">13:27:20</span><span class="nk"> &lt;YuXin&gt;</span> no
+<a name="l-63"></a><span class="tm">13:27:33</span><span class="nk"> &lt;YuXin&gt;</span> as far as I know, virtio only works for linux
+<a name="l-64"></a><span class="tm">13:28:06</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, so which model will be the default?
+<a name="l-65"></a><span class="tm">13:28:07</span><span class="nk"> &lt;YuXin&gt;</span> just checked mail, default is rtl8139
+<a name="l-66"></a><span class="tm">13:28:17</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-67"></a><span class="tm">13:28:30</span><span class="nk"> &lt;YuXin&gt;</span> virtio is the best for linux, but will not work for windows
+<a name="l-68"></a><span class="tm">13:28:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> no the default is not virtio.
+<a name="l-69"></a><span class="tm">13:28:47</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, did you see my comment about the UI consistence ? to make storage and interface views similar
+<a name="l-70"></a><span class="tm">13:28:58</span><span class="nk"> &lt;adamkingit&gt;</span> can we default based on detected OS?
+<a name="l-71"></a><span class="tm">13:29:29</span><span class="nk"> &lt;YuXin&gt;</span> update storage UI to make it consistent need to be in another patch
+<a name="l-72"></a><span class="tm">13:29:37</span><span class="nk"> &lt;shaohef&gt;</span> rtl8139 emulates a physical NIC.
+<a name="l-73"></a><span class="tm">13:29:41</span><span class="nk"> &lt;YuXin&gt;</span> I will check it tomorrow to figure out the design
+<a name="l-74"></a><span class="tm">13:29:48</span><span class="nk"> &lt;shaohef&gt;</span> virtio  is a para-virtualization NIC, high performance than an emulated  physical NIC.
+<a name="l-75"></a><span class="tm">13:30:40</span><span class="nk"> &lt;shaohef&gt;</span> For the VM will not store any template information, after it is create.
+<a name="l-76"></a><span class="tm">13:30:40</span><span class="nk"> &lt;shaohef&gt;</span> The backend do not know which the model type is the best after we has  install OS on VM.
+<a name="l-77"></a><span class="tm">13:31:05</span><span class="nk"> &lt;shaohef&gt;</span> we only know the best model type  when we create a VM.
+<a name="l-78"></a><span class="tm">13:31:05</span><span class="nk"> &lt;shaohef&gt;</span> That's because, the template tell us the guest OS and the best model for  this OS.
+<a name="l-79"></a><span class="tm">13:31:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, maybe would be good to store that info when creating the vm
+<a name="l-80"></a><span class="tm">13:31:51</span><span class="nk"> &lt;alinefm&gt;</span> and the objectstore
+<a name="l-81"></a><span class="tm">13:31:58</span><span class="nk"> &lt;alinefm&gt;</span> *in the objectstore
+<a name="l-82"></a><span class="tm">13:32:10</span><span class="nk"> &lt;shaohef&gt;</span> So has discussed with alinefm before, at last we let libvirt to choose a model for interface.
+<a name="l-83"></a><span class="tm">13:32:36</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is also a good option
+<a name="l-84"></a><span class="tm">13:32:50</span><span class="nk"> &lt;alinefm&gt;</span> do you know the libvirt criterias to choose the model?
+<a name="l-85"></a><span class="tm">13:32:53</span><span class="nk"> &lt;adamkingit&gt;</span> Will relying on objectstore impede vm migration?
+<a name="l-86"></a><span class="tm">13:33:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> libvirt only choose rtl8139
+<a name="l-87"></a><span class="tm">13:33:33</span><span class="nk"> &lt;royce&gt;</span> I stored this info when creating vm for cdrom bus and disk bus too
+<a name="l-88"></a><span class="tm">13:33:45</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I can store the template information for VM
+<a name="l-89"></a><span class="tm">13:34:16</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, I don't think so
+<a name="l-90"></a><span class="tm">13:34:30</span><span class="nk"> &lt;royce&gt;</span> Or we cannot choose proper disk bus for a vm, especially when some vm's not creating on x86, the bus type's different
+<a name="l-91"></a><span class="tm">13:34:41</span><span class="nk"> &lt;alinefm&gt;</span> we already use the objectstore to store some vm info - like icon
+<a name="l-92"></a><span class="tm">13:34:57</span><span class="nk"> &lt;adamkingit&gt;</span> Storing the template with the VM may break our mental model. The cookie doesn't change shape once cut, even if the cutter gets bent
+<a name="l-93"></a><span class="tm">13:35:48</span><span class="nk"> &lt;adamkingit&gt;</span> hmm, I think that will be a problem for migration. At least consistency, unless we require a shared DB which we don't want
+<a name="l-94"></a><span class="tm">13:35:49</span><span class="nk"> &lt;royce&gt;</span> I stored distro and version not the template, shaohef do you need the same?
+<a name="l-95"></a><span class="tm">13:35:51</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, we will not store the all template info
+<a name="l-96"></a><span class="tm">13:35:56</span><span class="nk"> &lt;shaohef&gt;</span> YuXin, then what about if user reinstall OS on a guest. This new OS maybe different with the old one.
+<a name="l-97"></a><span class="tm">13:35:57</span><span class="nk"> &lt;alinefm&gt;</span> just the iface model
+<a name="l-98"></a><span class="tm">13:36:14</span><span class="nk"> &lt;adamkingit&gt;</span> Can we store what we need in the vm definition metadata?
+<a name="l-99"></a><span class="tm">13:36:47</span><span class="nk"> &lt;YuXin&gt;</span> shaohef, correct, model will need to be updated
+<a name="l-100"></a><span class="tm">13:36:53</span><span class="nk"> &lt;alinefm&gt;</span> royce, and then you use osdistro to get the properly bus?
+<a name="l-101"></a><span class="tm">13:37:00</span><span class="nk"> &lt;shaohef&gt;</span> seems metadata is a option
+<a name="l-102"></a><span class="tm">13:37:05</span><span class="nk"> &lt;royce&gt;</span> that'll be a problem, shaohef
+<a name="l-103"></a><span class="tm">13:37:23</span><span class="nk"> &lt;YuXin&gt;</span> fuctonality will be limited if model is transparent to user
+<a name="l-104"></a><span class="tm">13:37:27</span><span class="nk"> &lt;royce&gt;</span> yes, alinefm, I used it as a suggestion if user not pass this info
+<a name="l-105"></a><span class="tm">13:37:35</span><span class="nk"> &lt;royce&gt;</span> pass the bus info
+<a name="l-106"></a><span class="tm">13:38:29</span><span class="nk"> &lt;adamkingit&gt;</span> I feel like I need to see a picture. yuxin: would you take screenshots of the relevent screens, and just use OpenOffice to draw in the things you propose to change?
+<a name="l-107"></a><span class="tm">13:39:02</span><span class="nk"> &lt;YuXin&gt;</span> let me try to connect to my office desktop
+<a name="l-108"></a><span class="tm">13:40:31</span><span class="nk"> &lt;YuXin&gt;</span> how can paste screen-shot
+<a name="l-109"></a><span class="tm">13:41:24</span><span class="nk"> &lt;YuXin&gt;</span> let me send a mail to mail list
+<a name="l-110"></a><span class="tm">13:41:44</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> http://picpaste.com
+<a name="l-111"></a><span class="tm">13:43:26</span><span class="nk"> &lt;YuXin&gt;</span> Guest Network Interface Design
+<a name="l-112"></a><span class="tm">13:43:28</span><span class="nk"> &lt;YuXin&gt;</span> check mail
+<a name="l-113"></a><span class="tm">13:44:46</span><span class="nk"> &lt;YuXin&gt;</span> mail sent failed
+<a name="l-114"></a><span class="tm">13:45:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I received it
+<a name="l-115"></a><span class="tm">13:46:05</span><span class="nk"> &lt;YuXin&gt;</span> shaohef, pretty slow to load kimchi-devel@ovirt.org
+<a name="l-116"></a><span class="tm">13:46:18</span><span class="nk"> &lt;adamkingit&gt;</span> i got it
+<a name="l-117"></a><span class="tm">13:46:26</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-118"></a><span class="tm">13:47:10</span><span class="nk"> &lt;adamkingit&gt;</span> so we choose a defualt model at VM create time based on what shuold be good for the installed guest OS, but we allow edits here in the event an override is needed?
+<a name="l-119"></a><span class="tm">13:48:30</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, we choose the default value which is rtl8139
+<a name="l-120"></a><span class="tm">13:48:37</span><span class="nk"> &lt;alinefm&gt;</span> independent of guest OS
+<a name="l-121"></a><span class="tm">13:48:53</span><span class="nk"> &lt;adamkingit&gt;</span> ah, so we always default to rtl8139
+<a name="l-122"></a><span class="tm">13:49:04</span><span class="nk"> &lt;adamkingit&gt;</span> making it more likely someone would want to change this?
+<a name="l-123"></a><span class="tm">13:49:27</span><span class="nk"> &lt;shaohef&gt;</span> virtio as default?
+<a name="l-124"></a><span class="tm">13:49:38</span><span class="nk"> &lt;royce&gt;</span> Is that the same for disk bus? IDE by default, this will disable hot plug
+<a name="l-125"></a><span class="tm">13:50:21</span><span class="nk"> &lt;royce&gt;</span> or virtio by default?
+<a name="l-126"></a><span class="tm">13:50:36</span><span class="nk"> &lt;YuXin&gt;</span> rtl8139 works for all OS, but not the best for a certain OS like linux
+<a name="l-127"></a><span class="tm">13:50:49</span><span class="nk"> &lt;YuXin&gt;</span> virtio is the best for linux but do not work for windows
+<a name="l-128"></a><span class="tm">13:51:04</span><span class="nk"> &lt;adamkingit&gt;</span> perhaps we should choose virtio when we know its a linux vm
+<a name="l-129"></a><span class="tm">13:51:18</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, yes
+<a name="l-130"></a><span class="tm">13:51:24</span><span class="nk"> &lt;alinefm&gt;</span> and keep rtl8139 to windows
+<a name="l-131"></a><span class="tm">13:51:44</span><span class="nk"> &lt;adamkingit&gt;</span> fall back to rtl8139 when we can't tell or we know its windows, unless there is a better chioce for windows too
+<a name="l-132"></a><span class="tm">13:51:59</span><span class="nk"> &lt;YuXin&gt;</span> shaohef, can you handle this at backend, then we can make model to be transparent to user
+<a name="l-133"></a><span class="tm">13:52:39</span><span class="nk"> &lt;royce&gt;</span> by tell os version is that mean we need to store it? or choose is let user choose it
+<a name="l-134"></a><span class="tm">13:53:27</span><span class="nk"> &lt;adamkingit&gt;</span> We create the network when we create the VM. I don't think we would need to store it w/ the VM, only with the template
+<a name="l-135"></a><span class="tm">13:53:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> sure.
+<a name="l-136"></a><span class="tm">13:54:05</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, we can add networks interfaces after vm is created
+<a name="l-137"></a><span class="tm">13:54:27</span><span class="nk"> &lt;adamkingit&gt;</span> true, though we should already have 1
+<a name="l-138"></a><span class="tm">13:54:39</span><span class="nk"> &lt;adamkingit&gt;</span> use the same model for 2-n?
+<a name="l-139"></a><span class="tm">13:54:46</span><span class="nk"> &lt;YuXin&gt;</span> ok, since backend can intelligently select for the best model, then I will remove model to make it transparent
+<a name="l-140"></a><span class="tm">13:54:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> yes. this is my first design.
+<a name="l-141"></a><span class="tm">13:55:06</span><span class="nk"> &lt;adamkingit&gt;</span> :-)
+<a name="l-142"></a><span class="tm">13:55:17</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, ok
+<a name="l-143"></a><span class="tm">13:55:39</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, it is implemented that way?
+<a name="l-144"></a><span class="tm">13:55:50</span><span class="nk"> &lt;royce&gt;</span> Ok, I'm in that one
+<a name="l-145"></a><span class="tm">13:56:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> alinefm: I have send it to mail-list.
+<a name="l-146"></a><span class="tm">13:56:10</span><span class="nk"> &lt;royce&gt;</span> I'm on that one
+<a name="l-147"></a><span class="tm">13:56:19</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> but later, you and me discuss this problem. we change it.
+<a name="l-148"></a><span class="tm">13:57:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> for we decided to libvirt choose the model.
+<a name="l-149"></a><span class="tm">13:57:32</span><span class="nk"> &lt;adamkingit&gt;</span> sounds like we since discovered libvirt does so much choose, as default to most common
+<a name="l-150"></a><span class="tm">13:57:33</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> adamkingit: but I can change it.  :)
+<a name="l-151"></a><span class="tm">13:57:49</span><span class="nk"> &lt;adamkingit&gt;</span> **doesn't**
+<a name="l-152"></a><span class="tm">13:57:57</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, do you remember why we decided to change? some special reason?
+<a name="l-153"></a><span class="tm">13:58:30</span><span class="nk"> &lt;royce&gt;</span> when all removed?
+<a name="l-154"></a><span class="tm">13:58:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> a long time ago. I need to check the log.
+<a name="l-155"></a><span class="tm">14:00:28</span><span class="nk"> &lt;YuXin&gt;</span> shaohef, remember to add "update interface" api
+<a name="l-156"></a><span class="tm">14:01:06</span><span class="nk"> &lt;alinefm&gt;</span> royce, good point
+<a name="l-157"></a><span class="tm">14:01:32</span><span class="nk"> &lt;royce&gt;</span> when no interface exist, we lack of reference, then fall back to the emulated one
+<a name="l-158"></a><span class="tm">14:01:53</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-159"></a><span class="tm">14:01:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, adamkingit, ^ what do you think?
+<a name="l-160"></a><span class="tm">14:02:01</span><span class="nk"> &lt;adamkingit&gt;</span> or we could take your 1st suggestion and store the model in the metadata
+<a name="l-161"></a><span class="tm">14:03:20</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  store in metadata? but when user re-install other OS different with tho older OS.
+<a name="l-162"></a><span class="tm">14:03:45</span><span class="nk"> &lt;adamkingit&gt;</span> why would a user reinstall a VM instead of deleting it and creating a new one?
+<a name="l-163"></a><span class="tm">14:03:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, royce, adamkingit, for power: nic_model='spapr-vlan'
+<a name="l-164"></a><span class="tm">14:04:38</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, keep /home intact?
+<a name="l-165"></a><span class="tm">14:05:10</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> we suggest to  delete  create a new one
+<a name="l-166"></a><span class="tm">14:05:15</span><span class="nk"> &lt;adamkingit&gt;</span> which implies same type os?
+<a name="l-167"></a><span class="tm">14:06:18</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, no - you can have 2 partitions
+<a name="l-168"></a><span class="tm">14:06:30</span><span class="nk"> &lt;alinefm&gt;</span> 1 for /home and other for linux itself
+<a name="l-169"></a><span class="tm">14:06:42</span><span class="nk"> &lt;alinefm&gt;</span> reinstall the linux partition keep /home intact
+<a name="l-170"></a><span class="tm">14:06:50</span><span class="nk"> &lt;adamkingit&gt;</span> yes, but if you do that you aren't very likely to be installing windows on the 1st partition
+<a name="l-171"></a><span class="tm">14:07:11</span><span class="nk"> &lt;royce&gt;</span> And upgrade?
+<a name="l-172"></a><span class="tm">14:07:36</span><span class="nk"> &lt;royce&gt;</span> like upgrade a old model linux to a model one
+<a name="l-173"></a><span class="tm">14:07:57</span><span class="nk"> &lt;royce&gt;</span> moden
+<a name="l-174"></a><span class="tm">14:08:04</span><span class="nk"> &lt;adamkingit&gt;</span> would a change in linux versions indicate a need to change the network model?
+<a name="l-175"></a><span class="tm">14:08:28</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-176"></a><span class="tm">14:08:32</span><span class="nk"> &lt;alinefm&gt;</span> in some times
+<a name="l-177"></a><span class="tm">14:09:04</span><span class="nk"> &lt;royce&gt;</span> adamkingit, because some qemu/kernel lack of full virtio support, we use emulated one
+<a name="l-178"></a><span class="tm">14:09:05</span><span class="nk"> &lt;alinefm&gt;</span> from vm xml we can get the arch:
+<a name="l-179"></a><span class="tm">14:09:09</span><span class="nk"> &lt;alinefm&gt;</span> &lt;os&gt;
+<a name="l-180"></a><span class="tm">14:09:09</span><span class="nk"> &lt;alinefm&gt;</span> &lt;type arch='x86_64' machine='pc-1.2'&gt;hvm&lt;/type&gt;
+<a name="l-181"></a><span class="tm">14:09:09</span><span class="nk"> &lt;alinefm&gt;</span> &lt;boot dev='cdrom'/&gt;
+<a name="l-182"></a><span class="tm">14:09:09</span><span class="nk"> &lt;alinefm&gt;</span> &lt;/os&gt;
+<a name="l-183"></a><span class="tm">14:09:21</span><span class="nk"> &lt;alinefm&gt;</span> that way we can differ power and X systems
+<a name="l-184"></a><span class="tm">14:09:23</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  in src/kimchi/osinfo.py
+<a name="l-185"></a><span class="tm">14:09:29</span><span class="nk"> &lt;royce&gt;</span> right, shaohef
+<a name="l-186"></a><span class="tm">14:09:46</span><span class="nk"> &lt;shaohef&gt;</span> modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
+<a name="l-187"></a><span class="tm">14:10:04</span><span class="nk"> &lt;shaohef&gt;</span> modern_spec is virtio
+<a name="l-188"></a><span class="tm">14:10:35</span><span class="nk"> &lt;adamkingit&gt;</span> ok, so based on what is installed at the time we can choose something that will work well for that installation
+<a name="l-189"></a><span class="tm">14:11:03</span><span class="nk"> &lt;adamkingit&gt;</span> if the user chooses to install a diff OS inside the VM, then we may no longer have the optimal chioce
+<a name="l-190"></a><span class="tm">14:11:54</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, are you saying to store os/version and based on that get the proper model?
+<a name="l-191"></a><span class="tm">14:12:23</span><span class="nk"> &lt;adamkingit&gt;</span> I WAS, but I think you changed my mind...
+<a name="l-192"></a><span class="tm">14:12:30</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-193"></a><span class="tm">14:12:33</span><span class="nk"> &lt;alinefm&gt;</span> why?
+<a name="l-194"></a><span class="tm">14:12:50</span><span class="nk"> &lt;adamkingit&gt;</span> We know enough at the template level to choose the right model when we create the VM
+<a name="l-195"></a><span class="tm">14:13:25</span><span class="nk"> &lt;adamkingit&gt;</span> IF the user chooses to reinstall teh OS inside the VM, we may not have the optimal model
+<a name="l-196"></a><span class="tm">14:13:52</span><span class="nk"> &lt;adamkingit&gt;</span> but if the user deletes the VM and creates a new one from a diff template we are back in the land of the good
+<a name="l-197"></a><span class="tm">14:15:11</span><span class="nk"> &lt;YuXin&gt;</span> I think reinstall OS will be quite rare
+<a name="l-198"></a><span class="tm">14:15:29</span><span class="nk"> &lt;adamkingit&gt;</span> so I think you talked me into: we store the network model in the metadata at VM create timem and we use that choice whenever creating new networks for a VM
+<a name="l-199"></a><span class="tm">14:16:13</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, but in a reinstall the metadata is lost with the network model
+<a name="l-200"></a><span class="tm">14:16:22</span><span class="nk"> &lt;royce&gt;</span> hehheh
+<a name="l-201"></a><span class="tm">14:16:50</span><span class="nk"> &lt;alinefm&gt;</span> in this case back to the default? virtio for linux and rtl8139 for win?
+<a name="l-202"></a><span class="tm">14:17:08</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="hi">alinefm:</span> The VM metadata shouldnt be affected by what happens INSIDE the VM
+<a name="l-203"></a><span class="tm">14:17:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, we are talking and always block in same point
+<a name="l-204"></a><span class="tm">14:17:12</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-205"></a><span class="tm">14:17:49</span><span class="nk"> &lt;shaohef&gt;</span> template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
+<a name="l-206"></a><span class="tm">14:17:49</span><span class="nk"> &lt;shaohef&gt;</span> nic_model='e1000', sound_model='ich6'),
+<a name="l-207"></a><span class="tm">14:18:12</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, good point =)
+<a name="l-208"></a><span class="tm">14:18:20</span><span class="nk"> &lt;alinefm&gt;</span> and the same for the networks interfaces
+<a name="l-209"></a><span class="tm">14:18:21</span><span class="nk"> &lt;shaohef&gt;</span> not sure which is better rtl8139 and e1000. they are both emulate nic.
+<a name="l-210"></a><span class="tm">14:18:38</span><span class="nk"> &lt;alinefm&gt;</span> reinstall will not remove them
+<a name="l-211"></a><span class="tm">14:18:58</span><span class="nk"> &lt;adamkingit&gt;</span> so the guest would come up on the same networks it was on before
+<a name="l-212"></a><span class="tm">14:19:32</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, but we need metadata to know which model to use when user deletes all networks interfaces
+<a name="l-213"></a><span class="tm">14:20:06</span><span class="nk"> &lt;adamkingit&gt;</span> which is where I was proposing we choose the network model when we create the VM, and store that info in metadata
+<a name="l-214"></a><span class="tm">14:20:34</span><span class="nk"> &lt;alinefm&gt;</span> I am OK with it
+<a name="l-215"></a><span class="tm">14:20:37</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, royce ^
+<a name="l-216"></a><span class="tm">14:20:38</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-217"></a><span class="tm">14:20:44</span><span class="nk"> &lt;royce&gt;</span> +1
+<a name="l-218"></a><span class="tm">14:21:06</span><span class="nk"> &lt;shaohef&gt;</span> I'm Ok
+<a name="l-219"></a><span class="tm">14:22:19</span><span class="nk"> &lt;adamkingit&gt;</span> I think we have been in circles a bit because we are trying to combine 2 things into one simple concept
+<a name="l-220"></a><span class="tm">14:22:43</span><span class="nk"> &lt;adamkingit&gt;</span> virtually
+<a name="l-221"></a><span class="tm">14:22:45</span><span class="nk"> &lt;adamkingit&gt;</span> 1)what kind of, and how many NICs are in the machine
+<a name="l-222"></a><span class="tm">14:23:03</span><span class="nk"> &lt;adamkingit&gt;</span> 2) What networks are those cards connected to.
+<a name="l-223"></a><span class="tm">14:23:21</span><span class="nk"> &lt;adamkingit&gt;</span> In the physical world, you open the case and put a card in a slot for 1
+<a name="l-224"></a><span class="tm">14:23:43</span><span class="nk"> &lt;adamkingit&gt;</span> and you put a cable from the card to some switch
+<a name="l-225"></a><span class="tm">14:24:21</span><span class="nk"> &lt;adamkingit&gt;</span> I think we arrived at an acceptable simplification, which we hope works for people
+<a name="l-226"></a><span class="tm">14:24:45</span><span class="nk"> &lt;alinefm&gt;</span> yeap - it was  good discussion
+<a name="l-227"></a><span class="tm">14:24:52</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, are you going to address it on backend?
+<a name="l-228"></a><span class="tm">14:25:14</span><span class="nk"> &lt;adamkingit&gt;</span> If we learn that people really want to control  those 2 things sepaately, we can revisit
+<a name="l-229"></a><span class="tm">14:25:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  yes.
+<a name="l-230"></a><span class="tm">14:25:39</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, in my patches to add users/groups to vms I used the metadata tag but I always rebuild it
+<a name="l-231"></a><span class="tm">14:25:43</span><span class="nk"> &lt;alinefm&gt;</span> need to update it as well
+<a name="l-232"></a><span class="tm">14:25:58</span><span class="nk"> &lt;alinefm&gt;</span> to only update the &lt;access&gt; element
+<a name="l-233"></a><span class="tm">14:26:29</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-234"></a><span class="tm">14:26:35</span><span class="nk"> &lt;alinefm&gt;</span> let's finish for today
+<a name="l-235"></a><span class="tm">14:26:52</span><span class="nk"> &lt;alinefm&gt;</span> if anyone has more topics I will be here
+<a name="l-236"></a><span class="tm">14:27:00</span><span class="nk"> &lt;alinefm&gt;</span> I will just end the meeting
+<a name="l-237"></a><span class="tm">14:27:05</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for joining
+<a name="l-238"></a><span class="tm">14:27:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

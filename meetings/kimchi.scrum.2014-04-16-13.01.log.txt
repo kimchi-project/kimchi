@@ -1,0 +1,238 @@
+13:01:55 <alinefm> #startmeeting
+13:01:55 <kimchi-bot> Meeting started Wed Apr 16 13:01:55 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:55 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:55 <alinefm> #meetingname scrum
+13:01:55 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:13 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:13 <alinefm> anything else?
+13:04:49 <royce> Hi there?
+13:04:57 <alinefm> hi royce
+13:05:07 <alinefm> #topic Status
+13:05:07 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:24 <royce> Hi alinefm, how are you doing?
+13:05:46 <alinefm> royce, good and you?
+13:06:13 <alinefm> #info alinefm added mechanism to translate help pages
+13:06:13 <YuXin> #info YuXin Edit Guest Network Interface, Patch V1 sent, need to discuss the interface model
+13:06:30 <rotru> #info rotru  is working in new patches of "edit vm cpu/memory" feature
+13:06:37 <royce> #info royce finished guest disks manage backend patch v1, merged ide support 4 disks patch, now working on the UI for disk manage slowly...
+13:06:42 <alinefm> #info alinefm created API to add users/groups to the vms
+13:06:49 <royce> Doing good, alinefm
+13:07:15 <alinefm> #info alinefm now I am working on a API to list all system users and groups - it will be useful when user will update the vm users/groups from UI
+13:08:13 <shaohef> #info shaohef send version API support.
+13:09:59 <alinefm> great, team!
+13:10:08 <alinefm> we still have a lot to do in a week
+13:10:14 <alinefm> next week is the end of sprint 1
+13:10:55 <alinefm> I still need to send a first version of history data view
+13:11:04 <alinefm> I plan to do it by tomorrow
+13:11:34 <alinefm> anyone has blockers?
+13:12:51 <alinefm> anyonde has concerns about the time to deliver all tasks planned?
+13:14:14 <royce> alinefm, me, I'm not familiar with js so I'm not sure I can finish the backend and frontend of manage guest disk in time
+13:14:50 <alinefm> adamkingit, YuXin, hlwanghl, anyone can help royce on it?
+13:15:12 <royce> hlwanghl gave me help on that, thanks to him
+13:15:52 <royce> but since the backend is just on v1
+13:16:09 <alinefm> royce, I will review your patches today
+13:16:19 <alinefm> so you can get feedback soon
+13:16:20 <royce> and I plan to submit v1 of UI tomorrow
+13:16:25 <royce> Thanks alinefm
+13:16:28 <alinefm> royce, good
+13:16:47 <royce> I'll try my best
+13:16:57 <alinefm> royce, I know =)
+13:17:02 <adamkingit> looking at the sprint plan, we have come completes to go
+13:17:12 <alinefm> don't hesitate to ask help
+13:17:27 <adamkingit> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+13:17:47 <danielhb> #info danielhb submitted a 5th version of "kimchi must not run as root" with the FABULOUS help of alinefm . Patch is waiting for review/approval
+13:18:17 <alinefm> danielhb, ;-)
+13:19:19 <alinefm> adamkingit, yes
+13:19:33 <alinefm> I'd like to see more patches on ML
+13:19:51 <alinefm> maybe it can help us get all done in time
+13:21:06 <alinefm> ok - let's move on to open discussion section
+13:21:10 <alinefm> #topic Open Discussion
+13:21:12 <rotru> #info rotru investigated and helped to fix problems when create multiple templates
+13:21:31 <alinefm> YuXin, do you want to discuss about the interface model?
+13:21:45 <YuXin> yes
+13:22:20 <YuXin> from shao he, I got to know that the backend only select a model that can work with all operating systems
+13:22:37 <YuXin> it will not be the best, so user may need to update it
+13:23:16 <YuXin> I suggest to reserve the model, but make the most compatible model to be defaut when create guest network interface
+13:24:41 <alinefm> YuXin, by reserve do you mean keep showing it when creating the interface?
+13:24:51 <YuXin> yes
+13:25:21 <YuXin> make the most compatible one to be default option for model field
+13:26:41 <alinefm> YuXin, ok
+13:26:47 <YuXin> ok
+13:26:51 <alinefm> shaohef, the default one will be virtio?
+13:27:20 <YuXin> no
+13:27:33 <YuXin> as far as I know, virtio only works for linux
+13:28:06 <alinefm> YuXin, so which model will be the default?
+13:28:07 <YuXin> just checked mail, default is rtl8139
+13:28:17 <alinefm> ok
+13:28:30 <YuXin> virtio is the best for linux, but will not work for windows
+13:28:43 <shaohef> alinefm: no the default is not virtio.
+13:28:47 <alinefm> YuXin, did you see my comment about the UI consistence ? to make storage and interface views similar
+13:28:58 <adamkingit> can we default based on detected OS?
+13:29:29 <YuXin> update storage UI to make it consistent need to be in another patch
+13:29:37 <shaohef> rtl8139 emulates a physical NIC.
+13:29:41 <YuXin> I will check it tomorrow to figure out the design
+13:29:48 <shaohef> virtio  is a para-virtualization NIC, high performance than an emulated  physical NIC.
+13:30:40 <shaohef> For the VM will not store any template information, after it is create.
+13:30:40 <shaohef> The backend do not know which the model type is the best after we has  install OS on VM.
+13:31:05 <shaohef> we only know the best model type  when we create a VM.
+13:31:05 <shaohef> That's because, the template tell us the guest OS and the best model for  this OS.
+13:31:43 <alinefm> shaohef, maybe would be good to store that info when creating the vm
+13:31:51 <alinefm> and the objectstore
+13:31:58 <alinefm> *in the objectstore
+13:32:10 <shaohef> So has discussed with alinefm before, at last we let libvirt to choose a model for interface.
+13:32:36 <alinefm> shaohef, it is also a good option
+13:32:50 <alinefm> do you know the libvirt criterias to choose the model?
+13:32:53 <adamkingit> Will relying on objectstore impede vm migration?
+13:33:13 <shaohef> alinefm: libvirt only choose rtl8139
+13:33:33 <royce> I stored this info when creating vm for cdrom bus and disk bus too
+13:33:45 <shaohef> alinefm: I can store the template information for VM
+13:34:16 <alinefm> adamkingit, I don't think so
+13:34:30 <royce> Or we cannot choose proper disk bus for a vm, especially when some vm's not creating on x86, the bus type's different
+13:34:41 <alinefm> we already use the objectstore to store some vm info - like icon
+13:34:57 <adamkingit> Storing the template with the VM may break our mental model. The cookie doesn't change shape once cut, even if the cutter gets bent
+13:35:48 <adamkingit> hmm, I think that will be a problem for migration. At least consistency, unless we require a shared DB which we don't want
+13:35:49 <royce> I stored distro and version not the template, shaohef do you need the same?
+13:35:51 <alinefm> adamkingit, we will not store the all template info
+13:35:56 <shaohef> YuXin, then what about if user reinstall OS on a guest. This new OS maybe different with the old one.
+13:35:57 <alinefm> just the iface model
+13:36:14 <adamkingit> Can we store what we need in the vm definition metadata?
+13:36:47 <YuXin> shaohef, correct, model will need to be updated
+13:36:53 <alinefm> royce, and then you use osdistro to get the properly bus?
+13:37:00 <shaohef> seems metadata is a option
+13:37:05 <royce> that'll be a problem, shaohef
+13:37:23 <YuXin> fuctonality will be limited if model is transparent to user
+13:37:27 <royce> yes, alinefm, I used it as a suggestion if user not pass this info
+13:37:35 <royce> pass the bus info
+13:38:29 <adamkingit> I feel like I need to see a picture. yuxin: would you take screenshots of the relevent screens, and just use OpenOffice to draw in the things you propose to change?
+13:39:02 <YuXin> let me try to connect to my office desktop
+13:40:31 <YuXin> how can paste screen-shot
+13:41:24 <YuXin> let me send a mail to mail list
+13:41:44 <shaohef> YuXin: http://picpaste.com
+13:43:26 <YuXin> Guest Network Interface Design
+13:43:28 <YuXin> check mail
+13:44:46 <YuXin> mail sent failed
+13:45:41 <alinefm> YuXin, I received it
+13:46:05 <YuXin> shaohef, pretty slow to load kimchi-devel@ovirt.org
+13:46:18 <adamkingit> i got it
+13:46:26 <YuXin> ok
+13:47:10 <adamkingit> so we choose a defualt model at VM create time based on what shuold be good for the installed guest OS, but we allow edits here in the event an override is needed?
+13:48:30 <alinefm> adamkingit, we choose the default value which is rtl8139
+13:48:37 <alinefm> independent of guest OS
+13:48:53 <adamkingit> ah, so we always default to rtl8139
+13:49:04 <adamkingit> making it more likely someone would want to change this?
+13:49:27 <shaohef> virtio as default?
+13:49:38 <royce> Is that the same for disk bus? IDE by default, this will disable hot plug
+13:50:21 <royce> or virtio by default?
+13:50:36 <YuXin> rtl8139 works for all OS, but not the best for a certain OS like linux
+13:50:49 <YuXin> virtio is the best for linux but do not work for windows
+13:51:04 <adamkingit> perhaps we should choose virtio when we know its a linux vm
+13:51:18 <alinefm> adamkingit, yes
+13:51:24 <alinefm> and keep rtl8139 to windows
+13:51:44 <adamkingit> fall back to rtl8139 when we can't tell or we know its windows, unless there is a better chioce for windows too
+13:51:59 <YuXin> shaohef, can you handle this at backend, then we can make model to be transparent to user
+13:52:39 <royce> by tell os version is that mean we need to store it? or choose is let user choose it
+13:53:27 <adamkingit> We create the network when we create the VM. I don't think we would need to store it w/ the VM, only with the template
+13:53:56 <shaohef> YuXin: sure.
+13:54:05 <alinefm> adamkingit, we can add networks interfaces after vm is created
+13:54:27 <adamkingit> true, though we should already have 1
+13:54:39 <adamkingit> use the same model for 2-n?
+13:54:46 <YuXin> ok, since backend can intelligently select for the best model, then I will remove model to make it transparent
+13:54:59 <shaohef> adamkingit: yes. this is my first design.
+13:55:06 <adamkingit> :-)
+13:55:17 <alinefm> YuXin, ok
+13:55:39 <alinefm> shaohef, it is implemented that way?
+13:55:50 <royce> Ok, I'm in that one
+13:56:01 <shaohef> adamkingit: alinefm: I have send it to mail-list.
+13:56:10 <royce> I'm on that one
+13:56:19 <shaohef> alinefm: but later, you and me discuss this problem. we change it.
+13:57:05 <shaohef> alinefm: for we decided to libvirt choose the model.
+13:57:32 <adamkingit> sounds like we since discovered libvirt does so much choose, as default to most common
+13:57:33 <shaohef> alinefm: adamkingit: but I can change it.  :)
+13:57:49 <adamkingit> **doesn't**
+13:57:57 <alinefm> shaohef, do you remember why we decided to change? some special reason?
+13:58:30 <royce> when all removed?
+13:58:57 <shaohef> alinefm: a long time ago. I need to check the log.
+14:00:28 <YuXin> shaohef, remember to add "update interface" api
+14:01:06 <alinefm> royce, good point
+14:01:32 <royce> when no interface exist, we lack of reference, then fall back to the emulated one
+14:01:53 <alinefm> yes
+14:01:59 <alinefm> shaohef, adamkingit, ^ what do you think?
+14:02:01 <adamkingit> or we could take your 1st suggestion and store the model in the metadata
+14:03:20 <shaohef> alinefm:  store in metadata? but when user re-install other OS different with tho older OS.
+14:03:45 <adamkingit> why would a user reinstall a VM instead of deleting it and creating a new one?
+14:03:59 <alinefm> shaohef, royce, adamkingit, for power: nic_model='spapr-vlan'
+14:04:38 <alinefm> adamkingit, keep /home intact?
+14:05:10 <shaohef> adamkingit: we suggest to  delete  create a new one
+14:05:15 <adamkingit> which implies same type os?
+14:06:18 <alinefm> adamkingit, no - you can have 2 partitions
+14:06:30 <alinefm> 1 for /home and other for linux itself
+14:06:42 <alinefm> reinstall the linux partition keep /home intact
+14:06:50 <adamkingit> yes, but if you do that you aren't very likely to be installing windows on the 1st partition
+14:07:11 <royce> And upgrade?
+14:07:36 <royce> like upgrade a old model linux to a model one
+14:07:57 <royce> moden
+14:08:04 <adamkingit> would a change in linux versions indicate a need to change the network model?
+14:08:28 <alinefm> yes
+14:08:32 <alinefm> in some times
+14:09:04 <royce> adamkingit, because some qemu/kernel lack of full virtio support, we use emulated one
+14:09:05 <alinefm> from vm xml we can get the arch:
+14:09:09 <alinefm> <os>
+14:09:09 <alinefm> <type arch='x86_64' machine='pc-1.2'>hvm</type>
+14:09:09 <alinefm> <boot dev='cdrom'/>
+14:09:09 <alinefm> </os>
+14:09:21 <alinefm> that way we can differ power and X systems
+14:09:23 <shaohef> royce:  in src/kimchi/osinfo.py
+14:09:29 <royce> right, shaohef
+14:09:46 <shaohef> modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
+14:10:04 <shaohef> modern_spec is virtio
+14:10:35 <adamkingit> ok, so based on what is installed at the time we can choose something that will work well for that installation
+14:11:03 <adamkingit> if the user chooses to install a diff OS inside the VM, then we may no longer have the optimal chioce
+14:11:54 <alinefm> adamkingit, are you saying to store os/version and based on that get the proper model?
+14:12:23 <adamkingit> I WAS, but I think you changed my mind...
+14:12:30 <alinefm> hehehe
+14:12:33 <alinefm> why?
+14:12:50 <adamkingit> We know enough at the template level to choose the right model when we create the VM
+14:13:25 <adamkingit> IF the user chooses to reinstall teh OS inside the VM, we may not have the optimal model
+14:13:52 <adamkingit> but if the user deletes the VM and creates a new one from a diff template we are back in the land of the good
+14:15:11 <YuXin> I think reinstall OS will be quite rare
+14:15:29 <adamkingit> so I think you talked me into: we store the network model in the metadata at VM create timem and we use that choice whenever creating new networks for a VM
+14:16:13 <alinefm> adamkingit, but in a reinstall the metadata is lost with the network model
+14:16:22 <royce> hehheh
+14:16:50 <alinefm> in this case back to the default? virtio for linux and rtl8139 for win?
+14:17:08 <adamkingit> alinefm: The VM metadata shouldnt be affected by what happens INSIDE the VM
+14:17:09 <alinefm> royce, we are talking and always block in same point
+14:17:12 <alinefm> hehehe
+14:17:49 <shaohef> template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
+14:17:49 <shaohef> nic_model='e1000', sound_model='ich6'),
+14:18:12 <alinefm> adamkingit, good point =)
+14:18:20 <alinefm> and the same for the networks interfaces
+14:18:21 <shaohef> not sure which is better rtl8139 and e1000. they are both emulate nic.
+14:18:38 <alinefm> reinstall will not remove them
+14:18:58 <adamkingit> so the guest would come up on the same networks it was on before
+14:19:32 <alinefm> adamkingit, but we need metadata to know which model to use when user deletes all networks interfaces
+14:20:06 <adamkingit> which is where I was proposing we choose the network model when we create the VM, and store that info in metadata
+14:20:34 <alinefm> I am OK with it
+14:20:37 <alinefm> shaohef, royce ^
+14:20:38 <alinefm> ?
+14:20:44 <royce> +1
+14:21:06 <shaohef> I'm Ok
+14:22:19 <adamkingit> I think we have been in circles a bit because we are trying to combine 2 things into one simple concept
+14:22:43 <adamkingit> virtually
+14:22:45 <adamkingit> 1)what kind of, and how many NICs are in the machine
+14:23:03 <adamkingit> 2) What networks are those cards connected to.
+14:23:21 <adamkingit> In the physical world, you open the case and put a card in a slot for 1
+14:23:43 <adamkingit> and you put a cable from the card to some switch
+14:24:21 <adamkingit> I think we arrived at an acceptable simplification, which we hope works for people
+14:24:45 <alinefm> yeap - it was  good discussion
+14:24:52 <alinefm> shaohef, are you going to address it on backend?
+14:25:14 <adamkingit> If we learn that people really want to control  those 2 things sepaately, we can revisit
+14:25:39 <shaohef> alinefm:  yes.
+14:25:39 <alinefm> shaohef, in my patches to add users/groups to vms I used the metadata tag but I always rebuild it
+14:25:43 <alinefm> need to update it as well
+14:25:58 <alinefm> to only update the <access> element
+14:26:29 <alinefm> ok
+14:26:35 <alinefm> let's finish for today
+14:26:52 <alinefm> if anyone has more topics I will be here
+14:27:00 <alinefm> I will just end the meeting
+14:27:05 <alinefm> thanks all for joining
+14:27:09 <alinefm> #endmeeting
