@@ -1,0 +1,55 @@
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2014
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301  USA
+
+
+# This is a template file to be used to generate a nginx
+# proxy config file at kimchid script.
+
+user  $user;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+
+    server {
+        listen       $proxy_port;
+        listen $proxy_ssl_port ssl;
+        ssl_certificate $cert_pem;
+        ssl_certificate_key $cert_key;
+
+        location / {
+            proxy_pass http://localhost:$kimchid_port;
+            proxy_set_header Host $host;
+        }
+    }
+}
