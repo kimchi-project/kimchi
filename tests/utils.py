@@ -93,16 +93,22 @@ def get_free_port(name='http'):
         return _ports[name]
 
 
-def run_server(host, port, ssl_port, test_mode,
+def run_server(host, port, ssl_port, test_mode, proxy_port=None,
                model=None, environment='development'):
+    if proxy_port is None:
+        proxy_port = get_free_port('proxy_port')
+    if ssl_port is None:
+        ssl_port = get_free_port('ssl_port')
     args = type('_', (object,),
-                {'host': host, 'port': port, 'ssl_port': ssl_port,
+                {'host': host, 'port': port, 'proxy_ssl_port': ssl_port,
+                 'proxy_port': proxy_port,
                  'ssl_cert': '', 'ssl_key': '',
                  'test': test_mode, 'access_log': '/dev/null',
                  'error_log': '/dev/null', 'environment': environment,
                  'log_level': 'debug'})()
     if model is not None:
         setattr(args, 'model', model)
+
     s = kimchi.server.Server(args)
     t = threading.Thread(target=s.start)
     t.setDaemon(True)

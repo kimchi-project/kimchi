@@ -43,20 +43,23 @@ test_server = None
 model = None
 host = None
 port = None
+proxy_port = None
 ssl_port = None
 
 #utils.silence_server()
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port
+    global test_server, model, host, port, proxy_port, ssl_port
 
     patch_auth()
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port('http')
+    proxy_port = get_free_port('proxy_port')
     ssl_port = get_free_port('https')
-    test_server = run_server(host, port, ssl_port, test_mode=True, model=model)
+    test_server = run_server(host, port, ssl_port, test_mode=True,
+                             proxy_port=proxy_port, model=model)
 
 
 def tearDownModule():
@@ -1398,7 +1401,7 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/config').read()
         conf = json.loads(resp)
-        self.assertEquals(port, conf['http_port'])
+        self.assertEquals(proxy_port, conf['http_port'])
 
     def test_capabilities(self):
         resp = self.request('/config/capabilities').read()

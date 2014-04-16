@@ -853,7 +853,7 @@ class MockModel(object):
         return disks.get_partition_details(name)
 
     def config_lookup(self, name):
-        return {'http_port': cherrypy.server.socket_port,
+        return {'http_port': cherrypy.config.nginx_port,
                 'display_proxy_port':
                 kconfig.get('display', 'display_proxy_port'),
                 'version': config.get_version()}
