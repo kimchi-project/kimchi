@@ -22,15 +22,15 @@ import cherrypy
 import logging
 import logging.handlers
 import os
-import sslcert
 
 from kimchi import auth
 from kimchi import config
 from kimchi.model import model
 from kimchi import mockmodel
 from kimchi import vnc
-from kimchi.config import paths, KimchiConfig, PluginConfig
+from kimchi.config import KimchiConfig, PluginConfig
 from kimchi.control import sub_nodes
+from kimchi.proxy import start_proxy, terminate_proxy
 from kimchi.root import KimchiRoot
 from kimchi.utils import get_enabled_plugins, import_class
 
@@ -58,6 +58,9 @@ def set_no_cache():
 
 class Server(object):
     def __init__(self, options):
+        # Launch reverse proxy
+        start_proxy(options)
+
         make_dirs = [
             os.path.dirname(os.path.abspath(options.access_log)),
             os.path.dirname(os.path.abspath(options.error_log)),
@@ -74,15 +77,12 @@ class Server(object):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
                                                   auth.kimchiauth)
-        cherrypy.server.socket_host = options.host
+        # Setting host to 127.0.0.1. This makes kimchi runs
+        # as a localhost app, inaccessible to the outside
+        # directly. You must go through the proxy.
+        cherrypy.server.socket_host = '127.0.0.1'
         cherrypy.server.socket_port = options.port
-
-        # SSL Server
-        try:
-            if options.ssl_port and options.ssl_port > 0:
-                self._init_ssl(options)
-        except AttributeError:
-            pass
+        cherrypy.config.nginx_port = options.proxy_port
 
         cherrypy.log.screen = True
         cherrypy.log.access_file = options.access_log
@@ -137,6 +137,9 @@ class Server(object):
                                        config=self.configObj)
         self._load_plugins()
 
+        # Terminate proxy when cherrypy server is terminated
+        cherrypy.engine.subscribe('exit', terminate_proxy)
+
         cherrypy.lib.sessions.init()
 
     def _load_plugins(self):
@@ -159,30 +162,6 @@ class Server(object):
                                              plugin_class)
                 continue
             cherrypy.tree.mount(plugin_app, script_name, plugin_config)
-
-    def _init_ssl(self, options):
-        ssl_server = cherrypy._cpserver.Server()
-        ssl_server.socket_port = options.ssl_port
-        ssl_server._socket_host = options.host
-        ssl_server.ssl_module = 'builtin'
-
-        cert = options.ssl_cert
-        key = options.ssl_key
-        if not cert or not key:
-            config_dir = paths.conf_dir
-            cert = '%s/kimchi-cert.pem' % config_dir
-            key = '%s/kimchi-key.pem' % config_dir
-
-            if not os.path.exists(cert) or not os.path.exists(key):
-                ssl_gen = sslcert.SSLCert()
-                with open(cert, "w") as f:
-                    f.write(ssl_gen.cert_pem())
-                with open(key, "w") as f:
-                    f.write(ssl_gen.key_pem())
-
-        ssl_server.ssl_certificate = cert
-        ssl_server.ssl_private_key = key
-        ssl_server.subscribe()
 
     def start(self):
         cherrypy.engine.start()

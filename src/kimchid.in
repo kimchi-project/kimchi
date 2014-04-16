@@ -16,18 +16,20 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA  02110-1301  USA
 
 import logging
 import os
 import sys
 sys.path.insert(1, '@pythondir@')
 
+from optparse import OptionParser
+
 import kimchi.server
 import kimchi.config
 
 from kimchi.config import config, paths
-from optparse import OptionParser
 
 if not paths.installed:
     sys.path.append(paths.prefix)
@@ -35,23 +37,43 @@ if not paths.installed:
 ACCESS_LOG = "kimchi-access.log"
 ERROR_LOG = "kimchi-error.log"
 
+
 def main(options):
+    # Script must run as root or with sudo.
+    if not os.geteuid() == 0:
+        sys.exit("\nMust be root to run this script. Exiting ...\n")
+
     host = config.get("server", "host")
     port = config.get("server", "port")
-    ssl_port = config.get("server", "ssl_port")
+    proxy_port = config.get("server", "proxy_port")
+    proxy_ssl_port = config.get("server", "proxy_ssl_port")
     runningEnv = config.get('server', 'environment')
     logDir = config.get("logging", "log_dir")
     logLevel = config.get("logging", "log_level")
 
     parser = OptionParser()
-    parser.add_option('--host', type="string", default=host, help="Hostname to listen on")
-    parser.add_option('--port', type="int", default=port, help="Port to listen on")
-    parser.add_option('--ssl-port', type="int", default=ssl_port, help="Enable a SSL server on the given port")
-    parser.add_option('--log-level', default=logLevel, help="Logging level")
-    parser.add_option('--access-log', default=os.path.join(logDir,ACCESS_LOG), help="Access log file")
-    parser.add_option('--error-log', default=os.path.join(logDir,ERROR_LOG), help="Error log file")
-    parser.add_option('--environment', default=runningEnv, help="Running environment of kimchi server")
-    parser.add_option('--test', action='store_true', help="Run server in mock model")
+    parser.add_option('--host', type="string", default=host,
+                      help="Hostname to listen on")
+    parser.add_option('--port', type="int", default=port,
+                      help="Kimchid process listen port (default %s)" % port)
+    parser.add_option('--proxy-port', type="int", default=proxy_port,
+                      help="Proxy port to listen on (default %s)" %
+                      proxy_port)
+    parser.add_option('--proxy-ssl-port', type="int", default=proxy_ssl_port,
+                      help="Proxy port to enable SSL (default %s)" %
+                      proxy_ssl_port)
+    parser.add_option('--log-level', default=logLevel,
+                      help="Logging level")
+    parser.add_option('--access-log',
+                      default=os.path.join(logDir, ACCESS_LOG),
+                      help="Access log file")
+    parser.add_option('--error-log',
+                      default=os.path.join(logDir, ERROR_LOG),
+                      help="Error log file")
+    parser.add_option('--environment', default=runningEnv,
+                      help="Running environment of kimchi server")
+    parser.add_option('--test', action='store_true',
+                      help="Run server in mock model")
     (options, args) = parser.parse_args()
 
     # Add non-option arguments
