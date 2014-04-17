@@ -611,13 +611,13 @@ class ModelTests(unittest.TestCase):
                                   u'пeω-∨м')
 
             # change only VM users - groups are not changed (default is empty)
-            users = ['root']
+            users = inst.users_get_list()[:3]
             inst.vm_update(u'пeω-∨м', {'users': users})
             self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change only VM groups - users are not changed (default is empty)
-            groups = ['root']
+            groups = inst.groups_get_list()[:2]
             inst.vm_update(u'пeω-∨м', {'groups': groups})
             self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
@@ -631,14 +631,14 @@ class ModelTests(unittest.TestCase):
 
             # change VM users (wrong value) and groups
             # when an error occurs, everything fails and nothing is changed
-            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+            self.assertRaises(InvalidParameter, inst.vm_update, u'пeω-∨м',
                               {'users': ['userdoesnotexist'], 'groups': []})
             self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change VM users and groups (wrong value)
             # when an error occurs, everything fails and nothing is changed
-            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+            self.assertRaises(InvalidParameter, inst.vm_update, u'пeω-∨м',
                               {'users': [], 'groups': ['groupdoesnotexist']})
             self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])

@@ -225,18 +225,34 @@ class RestTests(unittest.TestCase):
         self.assertEquals(u'∨м-црdαtеd', vm['name'])
 
         # change only VM users - groups are not changed (default is empty)
-        req = json.dumps({'users': ['root']})
+        resp = self.request('/host/users', '{}', 'GET')
+        users = json.loads(resp.read())
+        req = json.dumps({'users': users})
         resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
         self.assertEquals(200, resp.status)
         info = json.loads(self.request('/vms/∨м-црdαtеd', '{}').read())
-        self.assertEquals(['root'], info['users'])
+        self.assertEquals(users, info['users'])
 
         # change only VM groups - users are not changed (default is empty)
-        req = json.dumps({'groups': ['kimchi']})
+        resp = self.request('/host/groups', '{}', 'GET')
+        groups = json.loads(resp.read())
+        req = json.dumps({'groups': groups})
         resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
         self.assertEquals(200, resp.status)
         info = json.loads(self.request('/vms/∨м-црdαtеd', '{}').read())
-        self.assertEquals(['kimchi'], info['groups'])
+        self.assertEquals(groups, info['groups'])
+
+        # change VM users (wrong value) and groups
+        # when an error occurs, everything fails and nothing is changed
+        req = json.dumps({'users': ['userdoesnotexist'], 'groups': []})
+        resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # change VM users and groups (wrong value)
+        # when an error occurs, everything fails and nothing is changed
+        req = json.dumps({'users': [], 'groups': ['groupdoesnotexist']})
+        resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(400, resp.status)
 
     def test_vm_lifecycle(self):
         # Create a Template
