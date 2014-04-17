@@ -204,6 +204,10 @@ kimchi.main = function() {
                 kimchi.message.error(err.responseJSON.reason);
             });
         });
+        $('#btn-about').on('click', function(event) {
+            kimchi.window.open({"content": $('#about-tmpl').html()});
+            event.preventDefault();
+            });
 
         $('#btn-help').on('click', kimchi.getHelp);
     };

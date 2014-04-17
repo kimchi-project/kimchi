@@ -21,6 +21,7 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
+#from kimchi.config import get_version
 <!DOCTYPE html>
 <html lang="$lang.lang[0]">
 <head>
@@ -77,6 +78,9 @@
                 <div class="action-panel popover right-side">
                     <a id="btn-help" class="user-menu-item" href="javascript:void(0);">$_("Help")</a>
                     <br/>
+                    <br/>
+                    <a id="btn-about" class="user-menu-item" href="javascript:void(0);">$_("About")</a>
+                    <br/>
                     <hr/>
                     <a id="btn-logout" class="user-menu-item" href="javascript: void(0);">$_("Log out")</a>
                 </div>
@@ -101,5 +105,28 @@
     <p><code>make</code></p>
     </div>
 </div>
+
+<script id="about-tmpl" type="kimchi/template">
+    <div class="window about-window">
+        <header>
+            <h1 class="title"><img alt="Kimchi logo" src="/images/logo.ico"/> $_("About")</h1>
+            <div class="close">X</div>
+        </header>
+        <div class="content" align="center">
+            <center>
+                <div>
+                    <br/>
+                    <br/>
+                    <img src="/images/theme-default/logo-plain.gif"/>
+                    <br/>
+                    <br/>
+                    <h2>Kimchi</h2>
+                    <p>$_("Version:") $get_version()</p>
+                </div>
+            </center>
+        </div>
+    </div>
+</script>
+
 </body>
 </html>

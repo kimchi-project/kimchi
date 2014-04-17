@@ -155,6 +155,7 @@
     color: black;
     padding: 12px 18px;
     white-space: nowrap;
+    line-height: 12px;
 }
 
 .user-menu-item {
