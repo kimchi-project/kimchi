@@ -19,4 +19,7 @@
 
 SUBDIRS = sample
 
-EXTRA_DIST = __init__.py
+plugins_PYTHON = \
+	__init__.py
+
+pluginsdir = $(pythondir)/kimchi/plugins
