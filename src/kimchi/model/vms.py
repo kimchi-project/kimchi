@@ -29,7 +29,6 @@ from lxml.builder import E
 
 from kimchi import vnc
 from kimchi import xmlutils
-from kimchi.auth import Group, User
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
@@ -37,7 +36,7 @@ from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import kimchi_log, run_setfacl_set_attr
+from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
 from kimchi.xmlutils import xpath_get_text
 
@@ -236,6 +235,8 @@ class VMModel(object):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
         self.vmscreenshot = VMScreenshotModel(**kargs)
+        self.users = import_class('kimchi.model.host.UsersModel')(**kargs)
+        self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
 
     def update(self, name, params):
         dom = self.get_vm(name, self.conn)
@@ -264,14 +265,17 @@ class VMModel(object):
 
         for key, val in params.items():
             if key == 'users':
-                for user in val:
-                    if not User(user).exists():
-                        raise OperationFailed("KCHVM0027E", {'user': user})
+                invalid_users = set(val) - set(self.users.get_list())
+                if len(invalid_users) != 0:
+                    raise InvalidParameter("KCHVM0027E",
+                                           {'users': ", ".join(invalid_users)})
                 users = val
             elif key == 'groups':
-                for group in val:
-                    if not Group(group).exists():
-                        raise OperationFailed("KCHVM0028E", {'group': group})
+                invalid_groups = set(val) - set(self.groups.get_list())
+                if len(invalid_groups) != 0:
+                    raise InvalidParameter("KCHVM0028E",
+                                           {'groups':
+                                            ", ".join(invalid_groups)})
                 groups = val
             else:
                 if key in VM_STATIC_UPDATE_PARAMS:

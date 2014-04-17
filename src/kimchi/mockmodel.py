@@ -91,14 +91,26 @@ class MockModel(object):
             if state == 'running' or params['name'] in self.vms_get_list():
                 msg_args = {'name': dom.name, 'new_name': params['name']}
                 raise InvalidParameter("KCHVM0003E", msg_args)
-            else:
-                del self._mock_vms[dom.name]
-                dom.name = params['name']
-                self._mock_vms[dom.name] = dom
+
+            del self._mock_vms[dom.name]
+            dom.name = params['name']
+            self._mock_vms[dom.name] = dom
 
         for key, val in params.items():
-            if key in dom.info:
-                dom.info[key] = val
+            if key == 'users':
+                invalid_users = set(val) - set(self.users_get_list())
+                if len(invalid_users) != 0:
+                    raise InvalidParameter("KCHVM0027E",
+                                           {'users': ", ".join(invalid_users)})
+
+            elif key == 'groups':
+                invalid_groups = set(val) - set(self.groups_get_list())
+                if len(invalid_groups) != 0:
+                    raise InvalidParameter("KCHVM0028E",
+                                           {'groups':
+                                            ", ".join(invalid_groups)})
+
+            dom.info[key] = val
 
     def _live_vm_update(self, dom, params):
         pass
