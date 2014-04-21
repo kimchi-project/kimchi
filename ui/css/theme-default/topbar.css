@@ -156,6 +156,7 @@
     padding: 12px 18px;
     white-space: nowrap;
     line-height: 12px;
+    width: inherit;
 }
 
 .user-menu-item {
