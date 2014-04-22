@@ -81,7 +81,7 @@ I18N_FILES = plugins/*/i18n.py \
 	$(NULL)
 
 check-local:
-	contrib/check_i18n.py $(I18N_FILES)
+	PYTHONPATH=src contrib/check_i18n.py $(I18N_FILES)
 	find . -path './.git' -prune -type f -o \
 		-name '*.py' -o -name '*.py.in'  | xargs $(PYFLAKES) | \
 		grep -w -v $(SKIP_PYFLAKES_ERR) | \
