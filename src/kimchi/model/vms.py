@@ -50,7 +50,9 @@ DOM_STATE_MAP = {0: 'nostate',
                  6: 'crashed'}
 
 GUESTS_STATS_INTERVAL = 5
-VM_STATIC_UPDATE_PARAMS = {'name': './name'}
+VM_STATIC_UPDATE_PARAMS = {'name': './name',
+                           'cpus': './vcpu',
+                           'memory': './memory'}
 VM_LIVE_UPDATE_PARAMS = {}
 
 stats = {}
@@ -256,7 +258,6 @@ class VMModel(object):
 
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
-
         old_xml = new_xml = dom.XMLDesc(0)
 
         metadata_xpath = "/domain/metadata/kimchi/access/%s"
@@ -279,6 +280,12 @@ class VMModel(object):
                 groups = val
             else:
                 if key in VM_STATIC_UPDATE_PARAMS:
+                    if key == 'memory':
+                        # Libvirt saves memory in KiB. Retrieved xml has memory
+                        # in KiB too, so new valeu must be in KiB here
+                        val = val * 1024
+                    if type(val) == int:
+                        val = str(val)
                     xpath = VM_STATIC_UPDATE_PARAMS[key]
                     new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
 
@@ -289,21 +296,19 @@ class VMModel(object):
                     msg_args = {'name': dom.name(), 'new_name': params['name']}
                     raise InvalidParameter("KCHVM0003E", msg_args)
 
-                # Undefine old vm and create a new one with updated values
+                # Undefine old vm, only if name is going to change
                 dom.undefine()
-                conn = self.conn.get()
-                dom = conn.defineXML(new_xml)
 
-            # Update metadata element
             root = ET.fromstring(new_xml)
+            root.remove(root.find('.currentMemory'))
+            # Update metadata element
             current_metadata = root.find('metadata')
             new_metadata = self._get_metadata_node(users, groups)
             if current_metadata is not None:
                 root.replace(current_metadata, new_metadata)
             else:
                 root.append(new_metadata)
-            dom = conn.defineXML(ET.tostring(root))
-
+            dom = conn.defineXML(ET.tostring(root, encoding="utf-8"))
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
             raise OperationFailed("KCHVM0008E", {'name': dom.name(),
@@ -354,7 +359,8 @@ class VMModel(object):
         users = xpath_get_text(xml, "/domain/metadata/kimchi/access/user")
         groups = xpath_get_text(xml, "/domain/metadata/kimchi/access/group")
 
-        return {'state': state,
+        return {'name': name,
+                'state': state,
                 'stats': res,
                 'uuid': dom.UUIDString(),
                 'memory': info[2] >> 10,

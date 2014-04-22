@@ -32,7 +32,7 @@ class VMs(Collection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
-        self.update_params = ["name", "users", "groups"]
+        self.update_params = ["name", "users", "groups", "cpus", "memory"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():
@@ -44,20 +44,7 @@ class VM(Resource):
 
     @property
     def data(self):
-        return {'name': self.ident,
-                'uuid': self.info['uuid'],
-                'stats': self.info['stats'],
-                'memory': self.info['memory'],
-                'cpus': self.info['cpus'],
-                'state': self.info['state'],
-                'screenshot': self.info['screenshot'],
-                'icon': self.info['icon'],
-                'graphics': {'type': self.info['graphics']['type'],
-                             'listen': self.info['graphics']['listen'],
-                             'port': self.info['graphics']['port']},
-                'users': self.info['users'],
-                'groups': self.info['groups']
-                }
+        return self.info
 
 
 class VMScreenShot(Resource):
