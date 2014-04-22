@@ -134,8 +134,9 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals(u'test', vms[0])
 
-        keys = set(('state', 'stats', 'uuid', 'memory', 'cpus', 'screenshot',
-                    'icon', 'graphics', 'users', 'groups'))
+        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
+                    'screenshot', 'icon', 'graphics', 'users', 'groups'))
+
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))
@@ -143,6 +144,7 @@ class MockModelTests(unittest.TestCase):
         info = model.vm_lookup(u'test')
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('shutoff', info['state'])
+        self.assertEquals('test', info['name'])
         self.assertEquals(1024, info['memory'])
         self.assertEquals(1, info['cpus'])
         self.assertEquals('images/icon-vm.png', info['icon'])

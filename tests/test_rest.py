@@ -203,6 +203,14 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
+        req = json.dumps({'cpus': 3})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        req = json.dumps({'memory': 2048})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
         resp = self.request('/vms/vm-1/poweroff', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
@@ -214,15 +222,33 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'name': 'new-name', 'cpus': 5})
+        req = json.dumps({'cpus': -2})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'cpus': 'four'})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'memory': 100})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'memory': 'ten gigas'})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'name': 'new-name', 'cpus': 5, 'UUID': 'notallowed'})
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(405, resp.status)
 
-        req = json.dumps({'name': u'∨м-црdαtеd'})
+        params = {'name': u'∨м-црdαtеd', 'cpus': 5, 'memory': 4096}
+        req = json.dumps(params)
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)
         vm = json.loads(self.request('/vms/∨м-црdαtеd', req).read())
-        self.assertEquals(u'∨м-црdαtеd', vm['name'])
+        for key in params.keys():
+            self.assertEquals(params[key], vm[key])
 
         # change only VM users - groups are not changed (default is empty)
         resp = self.request('/host/users', '{}', 'GET')

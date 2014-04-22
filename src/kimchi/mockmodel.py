@@ -87,17 +87,17 @@ class MockModel(object):
     def _static_vm_update(self, dom, params):
         state = dom.info['state']
 
-        if 'name' in params:
-            if state == 'running' or params['name'] in self.vms_get_list():
-                msg_args = {'name': dom.name, 'new_name': params['name']}
-                raise InvalidParameter("KCHVM0003E", msg_args)
-
-            del self._mock_vms[dom.name]
-            dom.name = params['name']
-            self._mock_vms[dom.name] = dom
-
         for key, val in params.items():
-            if key == 'users':
+            if key == 'name':
+                if state == 'running' or params['name'] in self.vms_get_list():
+                    msg_args = {'name': dom.name, 'new_name': params['name']}
+                    raise InvalidParameter("KCHVM0003E", msg_args)
+
+                del self._mock_vms[dom.name]
+                dom.name = params['name']
+                self._mock_vms[dom.name] = dom
+
+            elif key == 'users':
                 invalid_users = set(val) - set(self.users_get_list())
                 if len(invalid_users) != 0:
                     raise InvalidParameter("KCHVM0027E",
@@ -972,6 +972,8 @@ class MockVM(object):
     def __init__(self, uuid, name, template_info):
         self.uuid = uuid
         self.name = name
+        self.memory = template_info['memory']
+        self.cpus = template_info['cpus']
         self.disk_paths = []
         self.networks = template_info['networks']
         ifaces = [MockVMIface(net) for net in self.networks]
@@ -983,11 +985,12 @@ class MockVM(object):
                  'net_throughput_peak': 100,
                  'io_throughput': 45,
                  'io_throughput_peak': 100}
-        self.info = {'state': 'shutoff',
+        self.info = {'name': self.name,
+                     'state': 'shutoff',
                      'stats': stats,
                      'uuid': self.uuid,
-                     'memory': template_info['memory'],
-                     'cpus': template_info['cpus'],
+                     'memory': self.memory,
+                     'cpus': self.cpus,
                      'icon': None,
                      'graphics': {'type': 'vnc', 'listen': '0.0.0.0',
                                   'port': None},

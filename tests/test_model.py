@@ -62,14 +62,16 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
 
-        keys = set(('state', 'stats', 'uuid', 'memory', 'cpus', 'screenshot',
-                    'icon', 'graphics', 'users', 'groups'))
+        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
+                    'screenshot', 'icon', 'graphics', 'users', 'groups'))
+
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))
         info = inst.vm_lookup('test')
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('running', info['state'])
+        self.assertEquals('test', info['name'])
         self.assertEquals(2048, info['memory'])
         self.assertEquals(2, info['cpus'])
         self.assertEquals(None, info['icon'])
@@ -602,13 +604,17 @@ class ModelTests(unittest.TestCase):
                               'kimchi-vm1', params)
 
             inst.vm_poweroff('kimchi-vm1')
-            params = {'name': u'пeω-∨м'}
             self.assertRaises(OperationFailed, inst.vm_update,
                               'kimchi-vm1', {'name': 'kimchi-vm2'})
+
+            params = {'name': u'пeω-∨м', 'cpus': 4, 'memory': 2048}
             inst.vm_update('kimchi-vm1', params)
-            self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
             rollback.prependDefer(self._rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
+            self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
+            info = inst.vm_lookup(u'пeω-∨м')
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
 
             # change only VM users - groups are not changed (default is empty)
             users = inst.users_get_list()[:3]
