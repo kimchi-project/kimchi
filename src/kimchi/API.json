@@ -223,6 +223,18 @@
                         "type": "string",
                         "error": "KCHVM0026E"
                     }
+                },
+                "cpus": {
+                    "description": "The new number of virtual CPUs for the VM",
+                    "type": "integer",
+                    "minimum": 1,
+                    "error": "KCHTMPL0012E"
+                },
+                "memory": {
+                    "description": "The new amount (MB) of memory for the VM",
+                    "type": "integer",
+                    "minimum": 512,
+                    "error": "KCHTMPL0013E"
                 }
             }
         },

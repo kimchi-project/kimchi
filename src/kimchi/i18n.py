@@ -106,7 +106,7 @@ messages = {
     "KCHTMPL0009E": _("Template icon must be a path to the image"),
     "KCHTMPL0010E": _("Template distribution must be a string"),
     "KCHTMPL0011E": _("Template distribution version must be a string"),
-    "KCHTMPL0012E": _("The number of CPUs must be a integer"),
+    "KCHTMPL0012E": _("The number of CPUs must be an integer greater than 0"),
     "KCHTMPL0013E": _("Amount of memory (MB) must be an integer greater than 512"),
     "KCHTMPL0014E": _("Template CDROM must be a local or remote ISO file"),
     "KCHTMPL0015E": _("Invalid storage pool URI %(value)s specified for template"),

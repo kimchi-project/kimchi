@@ -103,6 +103,10 @@ the following general conventions:
     * name: New name for this VM (only applied for shutoff VM)
     * users: New list of system users.
     * groups: New list of system groups.
+    * cpus: New number of virtual cpus for this VM (if VM is running, new value
+            will take effect in next reboot)
+    * memory: New amount of memory (MB) for this VM (if VM is running, new
+              value will take effect in next reboot)
 * **POST**: *See Virtual Machine Actions*
 
 **Actions (POST):**
