@@ -95,9 +95,9 @@ the following general conventions:
                 can use this port to connect to the vm with general vnc/spice
                 clients.
     * users: A list of system users who have permission to access the VM.
-      Default is: empty.
+      Default is: empty (i.e. only root-users may access).
     * groups: A list of system groups whose users have permission to access
-      the VM. Default is: empty.
+      the VM. Default is: empty (i.e. no groups given access).
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existed VM
     * name: New name for this VM (only applied for shutoff VM)
