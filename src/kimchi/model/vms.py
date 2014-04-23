@@ -47,7 +47,8 @@ DOM_STATE_MAP = {0: 'nostate',
                  3: 'paused',
                  4: 'shutdown',
                  5: 'shutoff',
-                 6: 'crashed'}
+                 6: 'crashed',
+                 7: 'pmsuspended'}
 
 GUESTS_STATS_INTERVAL = 5
 VM_STATIC_UPDATE_PARAMS = {'name': './name',
