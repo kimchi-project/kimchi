@@ -992,6 +992,9 @@ class ModelTests(unittest.TestCase):
                            objstore_loc=self.tmp_store)
         time.sleep(1.5)
         stats = inst.hoststats_lookup()
+        stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
+                      'disk_write_rate', 'net_recv_rate', 'net_sent_rate']
+        self.assertEquals(sorted(stats_keys), sorted(stats.keys()))
         cpu_utilization = stats['cpu_utilization']
         # cpu_utilization is set int 0, after first stats sample
         # the cpu_utilization is float in range [0.0, 100.0]
@@ -1006,11 +1009,10 @@ class ModelTests(unittest.TestCase):
         self.assertIn('buffers', memory_stats)
         self.assertIn('avail', memory_stats)
 
-        self.assertIn('disk_read_rate', stats)
-        self.assertIn('disk_write_rate', stats)
-
-        self.assertIn('net_recv_rate', stats)
-        self.assertIn('net_sent_rate', stats)
+        history = inst.hoststatshistory_lookup()
+        self.assertEquals(sorted(stats_keys), sorted(history.keys()))
+        for key, value in history.iteritems():
+            self.assertEquals(type(value), list)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):

@@ -1584,8 +1584,12 @@ class RestTests(unittest.TestCase):
         self.assertEquals(6114058240, info['memory'])
 
     def test_hoststats(self):
+        stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
+                      'disk_write_rate', 'net_recv_rate', 'net_sent_rate']
         resp = self.request('/host/stats').read()
         stats = json.loads(resp)
+        self.assertEquals(sorted(stats_keys), sorted(stats.keys()))
+
         cpu_utilization = stats['cpu_utilization']
         self.assertIsInstance(cpu_utilization, float)
         self.assertGreaterEqual(cpu_utilization, 0.0)
@@ -1598,11 +1602,9 @@ class RestTests(unittest.TestCase):
         self.assertIn('buffers', memory_stats)
         self.assertIn('avail', memory_stats)
 
-        self.assertIn('disk_read_rate', stats)
-        self.assertIn('disk_write_rate', stats)
-
-        self.assertIn('net_recv_rate', stats)
-        self.assertIn('net_sent_rate', stats)
+        resp = self.request('/host/stats/history').read()
+        history = json.loads(resp)
+        self.assertEquals(sorted(stats_keys), sorted(history.keys()))
 
     def test_packages_update(self):
         resp = self.request('/host/packagesupdate', None, 'GET')
