@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:21 UTC
+(<a href="kimchi.scrum.2014-04-23-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-6'>alinefm</a>,
+    13:02:30)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-04-23-13.02.log.html#l-8'>alinefm</a>, 13:04:04)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-9'>alinefm</a>,
+    13:04:04)</span></li>
+  <li><span class="INFO">alinefm sent patches to list system users and
+    groups (/host/users and /host/groups). It will be needed while
+    setting users and groups to VM</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-10'>alinefm</a>,
+    13:05:26)</span></li>
+  <li><span class="INFO">adamkingit submitted patch and addressed
+    comments for VMEdit UI</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-11'>adamkingit</a>,
+    13:06:33)</span></li>
+  <li><span class="INFO">pvital tested danielhb patches related to issue
+    #329 in ppc - "working as designed".</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-12'>pvital</a>,
+    13:06:38)</span></li>
+  <li><span class="INFO">alinefm sent patches to return host stats
+    history. /host/stats/history will return the last 60 values and
+    /host/stats keeps returning the current single values</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-13'>alinefm</a>,
+    13:06:44)</span></li>
+  <li><span class="INFO">adamkingit submitted patch addressing an issue
+    with user action menu width</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-14'>adamkingit</a>,
+    13:06:52)</span></li>
+  <li><span class="INFO">adamkingit submitted patches and addressed
+    comments for "display version/build number"</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-15'>adamkingit</a>,
+    13:08:56)</span></li>
+  <li><span class="INFO">vianac I was in vacation for the last month, I
+    don't have any updates :-)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-16'>vianac</a>,
+    13:10:00)</span></li>
+  <li><span class="INFO">royce submitted patch about UI manage disk,
+    fixed another bug related to iso scaning regression</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-19'>royce</a>,
+    13:10:36)</span></li>
+  <li><span class="INFO">danielhb finished the "kimchi must run as root"
+    issue #329</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-21'>danielhb</a>,
+    13:11:30)</span></li>
+  <li><span class="INFO">royce tried setmetadata and discussed with
+    shaohe about metadata handling, is rebasing my disk manage backend
+    on that</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-22'>royce</a>,
+    13:11:31)</span></li>
+  <li><span class="INFO">YuXin 'Edit Guest Network Interface' patch v2
+    sent, need to further discuss whether to expose interface
+    model</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-23'>YuXin</a>,
+    13:11:33)</span></li>
+  <li><span class="INFO">adamkingit got a friend @IBM_SteveKim to
+    produce artwork for our youtube channel
+    https://www.youtube.com/channel/UC2qZVw3fsyPxIOO1iOXp1xA</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-24'>adamkingit</a>,
+    13:12:36)</span></li>
+  <li><span class="INFO">shaohef discuss with royce about metadata, and
+    send a patch set.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-25'>shaohef</a>,
+    13:13:08)</span></li>
+  <li><a href="https://youtube">https://youtube</a> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-29'>YuXin</a>,
+    13:14:13)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">adamkingit to
+    fup w/ ming abuot video</span> <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-55'>adamkingit</a>,
+    13:19:34)</span></li>
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/issues?milestone=13&amp;page=1&amp;state=open">https://github.com/kimchi-project/kimchi/issues?milestone=13&amp;page=1&amp;state=open</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-04-23-13.02.log.html#l-154'>alinefm</a>,
+    13:47:19)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:02:02 UTC
+(<a href="kimchi.scrum.2014-04-23-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>adamkingit to fup w/ ming abuot video</li>
+</ol>
+<br><br>
+
+
+
+<h3>Action items, by person</h3>
+<ol>
+  <li> adamkingit <ol>
+    <li>adamkingit to fup w/ ming abuot video</li>
+  </ol></li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (76)</li>
+  <li>adamkingit (35)</li>
+  <li>shaohef (28)</li>
+  <li>royce (23)</li>
+  <li>hlwanghl (12)</li>
+  <li>YuXin (5)</li>
+  <li>danielhb (4)</li>
+  <li>kimchi-bot (3)</li>
+  <li>vianac (2)</li>
+  <li>pvital (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

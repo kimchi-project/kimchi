@@ -1,0 +1,189 @@
+13:02:21 <alinefm> #startmeeting
+13:02:21 <kimchi-bot> Meeting started Wed Apr 23 13:02:21 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:21 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:21 <alinefm> #meetingname scrum
+13:02:21 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:30 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:31 <alinefm> anything else?
+13:04:04 <alinefm> #topic Status
+13:04:04 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:26 <alinefm> #info alinefm sent patches to list system users and groups (/host/users and /host/groups). It will be needed while setting users and groups to VM
+13:06:33 <adamkingit> #info adamkingit submitted patch and addressed comments for VMEdit UI
+13:06:38 <pvital> #info pvital tested danielhb patches related to issue #329 in ppc - "working as designed".
+13:06:44 <alinefm> #info alinefm sent patches to return host stats history. /host/stats/history will return the last 60 values and /host/stats keeps returning the current single values
+13:06:52 <adamkingit> #info adamkingit submitted patch addressing an issue with user action menu width
+13:08:56 <adamkingit> #info adamkingit submitted patches and addressed comments for "display version/build number"
+13:10:00 <vianac> #info vianac I was in vacation for the last month, I don't have any updates :-)
+13:10:30 <alinefm> vianac, I completed the work in your patches about setting users and groups to VM and they are merged now
+13:10:32 <adamkingit> vianac Maybe some photos? :-)
+13:10:36 <royce> #info royce submitted patch about UI manage disk, fixed another bug related to iso scaning regression
+13:10:51 <vianac> alinefm, great, thanks!
+13:11:30 <danielhb> #info danielhb finished the "kimchi must run as root" issue #329
+13:11:31 <royce> #info royce tried setmetadata and discussed with shaohe about metadata handling, is rebasing my disk manage backend on that
+13:11:33 <YuXin> #info YuXin 'Edit Guest Network Interface' patch v2 sent, need to further discuss whether to expose interface model
+13:12:36 <adamkingit> #info adamkingit got a friend @IBM_SteveKim to produce artwork for our youtube channel https://www.youtube.com/channel/UC2qZVw3fsyPxIOO1iOXp1xA
+13:13:08 <shaohef> #info shaohef discuss with royce about metadata, and send a patch set.
+13:13:13 <royce> woo~ what is that adamkingit?
+13:13:32 <hlwanghl> unfortunately Youtube is blocked in China
+13:13:58 <shaohef> yes Youtube is forbidden in China
+13:14:13 <YuXin> https://youtube
+13:14:15 <adamkingit> royce, hlwanghl: Some time ago I created a youtube channel for kimchi demo videos, (Need to make one for 1.2 still)
+13:14:43 <shaohef> hlwanghl: you can use goagent as proxy to visit Youtube
+13:14:47 <adamkingit> It allows you to upload artwork for display, which I do not have talent for
+13:14:54 <alinefm> hlwanghl, http://picpaste.com/oVirt_Kimchi_-_YouTube_2014-04-23_10-14-09-Q6YBUjYi.png
+13:15:00 <shaohef> hlwanghl: I will show you tomorrow
+13:15:03 <alinefm> just a picture =)
+13:15:12 <YuXin> try https with youtube
+13:15:44 <adamkingit> We have 2 videos on our channel: alitke presenting at KVM forum, and a 1.0 demo
+13:15:58 <royce> Really awesome!
+13:16:02 <adamkingit> If you want to make one let me know. I plan to make a demo of 1.2 for the channel
+13:17:03 <hlwanghl> thanks @alinefm
+13:17:36 <hlwanghl> It's great! adamkingit
+13:17:44 <shaohef> ming has make a demo for Hong Kong customer
+13:17:57 <danielhb> they block youtube but does not block facebook?
+13:18:03 <danielhb> lol
+13:18:11 <shaohef> ming has make a videos for Hong Kong customer
+13:18:15 <adamkingit> I remember something about that. I'll ask hum about it
+13:18:21 <alinefm> shaohef, do you have access to that video?
+13:18:24 <adamkingit> *him
+13:18:50 <shaohef> alinefm: video on youtube ?
+13:19:01 <alinefm> shaohef, no - the video ming did
+13:19:08 <adamkingit> I may have it. I'll look and see. Thinking it predates the channel
+13:19:11 <alinefm> if you have it we can upload to youtube
+13:19:30 <royce> danielhb, as facebook is mainly text, that is not slow, but for youtube, it is painful to watch the videos
+13:19:34 <hlwanghl> danielhb Facebook is blocked too
+13:19:34 <adamkingit> #action adamkingit to fup w/ ming abuot video
+13:20:20 <alinefm> any more news?
+13:20:21 <danielhb> hlwanghl, makes sense to block both
+13:20:28 <alinefm> today is the end of sprint 1
+13:20:44 <hlwanghl> u got it danielhb
+13:20:50 <alinefm> we made some progress in last week but we still have some work to do
+13:21:09 <alinefm> I havent checked the mailing list today yet
+13:21:16 <alinefm> but I hope I can merge more patches today
+13:21:54 <adamkingit> theres lots of new mail
+13:23:02 <alinefm> looking at the wiki I think most tasks have patches on mailing list
+13:23:26 <alinefm> adamkingit, do you have any update about: Extend logical storage pool, Authorization: Properly display UI for non-root users ?
+13:24:34 <royce> alinefm, extend logical storage pool is there any backend task for it?
+13:24:36 <hlwanghl> I'm working on the latter Authorization: Properly display UI for non-root users
+13:24:51 <alinefm> royce, danielhb did the backend for 1.2
+13:24:55 <alinefm> just missing the UI
+13:25:03 <adamkingit> alinefm: No. I don't have an update for that. It will have to move to s2
+13:25:34 <alinefm> hlwanghl, great! how is it going?
+13:25:37 <adamkingit> along w. display historical data
+13:25:47 <alinefm> adamkingit, ok
+13:26:05 <alinefm> adamkingit, I sent the backend for historical data yesterday
+13:26:18 <alinefm> I created a new api /host/stats/history for that
+13:26:34 <adamkingit> alinefm I saw. I'll impl the ui for it
+13:26:58 <shaohef> I'd like to talk about some info about vm. such as nic model, I can update it when VM is running, but it will not take effect for live configure. It just take effect for persistent configure.
+13:26:58 <shaohef> if the user want to get the nic model after update. which model show we should, from live configure or  persistent configure?
+13:27:34 <hlwanghl> alinefm, I  found non-root user can't do any thing about Guests and adamkingit told me it's intended as authorization design
+13:28:12 <hlwanghl> I'm adding code to hide related menu items which the non-root user has no permissions on
+13:28:38 <alinefm> hlwanghl, great!
+13:28:42 <hlwanghl> should not take much time
+13:28:59 <alinefm> let me know if you find any problem in backend
+13:29:01 <adamkingit> hlwanghl Maybe post a WIP when you get to a good state, unless that good state is "complete" :-)
+13:29:21 <royce> I can help on extend logical storage pool with help from UI guys :)
+13:29:32 <shaohef> the info from live and persistent configure is not  consistency
+13:29:33 <hlwanghl> adamkingit ACK
+13:29:35 <adamkingit> go royce!
+13:30:06 <adamkingit> shaohef: at present the UI only allows edit when the VM is stopped
+13:30:21 <adamkingit> but in the future we want to allow edit while running...
+13:30:22 <hlwanghl> And I'll write and send a patch on storage icons after Royce's disk management patches being applied
+13:30:55 <alinefm> hlwanghl, ok - I plan to merge her patches asap
+13:30:58 <adamkingit> We would need some type of "changes pending
+13:30:58 <adamkingit> to represent those things that won;t be updated until restart
+13:31:13 <royce> thanks adamkingit, hlwanghl, what does that icon look like?
+13:31:13 <shaohef> adamkingit: but now I have implement to edit the VM nic at backend.
+13:31:23 <alinefm> adamkingit, yes and warn user the changes will take effect in next vm boot
+13:31:39 <adamkingit> shaohef: you updated the UI or the API?
+13:31:39 <hlwanghl> royce, refer to YuXin's interface tab
+13:31:46 <shaohef> adamkingit: for nic subnet, it should allow to change when VM is living.
+13:32:05 <royce> alinefm, the backend is not updated, because it depends on the metadata patch, you can merge shaohef's patch first:)
+13:32:06 <shaohef> adamkingit: the API at backend.
+13:32:14 <alinefm> shaohef, even if backend allow live update on UI we will restrict it for stopped vm
+13:32:22 <alinefm> until we update the UI
+13:32:29 <alinefm> but it will not be the focus for 1.2.1
+13:32:35 <alinefm> as it requires a lot of changes
+13:32:50 <alinefm> royce, good point! =) I will do that
+13:33:33 <adamkingit> shaohef I assume updating the subnet is done at the Network tab, and would be immediately effective
+13:34:40 <royce> shaohef wants to simulate this scenario: we move our laptop to another office, we want it reconnect to another lan without reboot
+13:35:30 <shaohef> adamkingit: it is same that we remove net wire from physical host, and add another net wire to physical host
+13:36:06 <shaohef> adamkingit: we should not let VM reboot. reboot is not good to user.
+13:36:10 <adamkingit> k. We do that through the network tab, right?
+13:36:21 <royce> I think this scenario is reasonable to support, what do guys think?
+13:36:23 <alinefm> adamkingit, network tab on vm edit
+13:36:27 <shaohef> adamkingit: no
+13:36:48 <shaohef> adamkingit: we change the source of nic in VM iface edit UI
+13:36:51 <adamkingit> k, Apparently I need to go back and look at the various exposures of network
+13:36:55 <alinefm> royce, yeap, it is good to have
+13:37:01 <alinefm> but we havent planned it for 1.2.1
+13:37:10 <royce> OK
+13:37:30 <adamkingit> You would need to edit is your network was static. DHCP would would without edit
+13:38:13 <alinefm> adamkingit, no - think about add new iface to vm
+13:38:16 <shaohef> adamkingit: yes. network should not be static
+13:38:35 <shaohef> adamkingit: not user no his nic is static or DHCP.
+13:39:01 <shaohef> adamkingit: only user know his nic is static or DHCP.
+13:39:44 <alinefm> shaohef, adamkingit, royce, the vm iface update will require a lot of work that we havent planned
+13:39:58 <alinefm> I suggest to do not do it for 1.2.1
+13:40:00 <adamkingit> we have combined NIC and network. We may have to separate them to accomodate this scenario
+13:40:10 <alinefm> and make the UI only for add and remove
+13:40:47 <alinefm> unless you tell me it if possible to do it without impact the tasks we have planned
+13:41:57 <alinefm> silence... lol
+13:42:01 <royce> :) shaohef, what do you say?
+13:42:18 <shaohef> I think we can finish it.
+13:42:57 <alinefm> adamkingit, and the UI?
+13:43:30 <adamkingit> Not sure what changes will be required. We could put the items at the end of 1.2.1 and if we are ahead of schedule, we'll get to them
+13:43:45 <adamkingit> its a good scenario, though maybe not an urgent one
+13:44:21 <alinefm> ok
+13:44:29 <alinefm> shaohef, you can get the backend done
+13:44:40 <shaohef> alinefm: OK.
+13:44:44 <alinefm> and then adamkingit can use it later
+13:44:54 <alinefm> YuXin, you will need to update your current patches to remove update
+13:45:09 <YuXin> ok
+13:45:11 <alinefm> or just disable update
+13:45:17 <alinefm> so later we can enable it back
+13:45:33 <YuXin> i  will disabled it which requires min change
+13:45:43 <alinefm> YuXin, great
+13:45:46 <royce> I will help on review shaohef's patch and test
+13:45:56 <alinefm> thanks, royce
+13:46:18 <royce> :)
+13:46:18 <alinefm> seems we merge status and open discussion topic =)
+13:46:25 <alinefm> *merged
+13:47:09 <alinefm> team, in addition to those tasks the next sprint is a stabilization sprint
+13:47:17 <alinefm> so we need to focus in tests and bug fixes
+13:47:19 <alinefm> https://github.com/kimchi-project/kimchi/issues?milestone=13&page=1&state=open
+13:47:45 <alinefm> I'd like to close at least 15 bugs during this phase
+13:47:54 <alinefm> do you think it is possible?
+13:48:09 <shaohef> when the info from  live configure or  persistent configure is inconsistent. which show to user？
+13:48:17 <shaohef> royce: ^
+13:48:43 <royce> alinefm, possible:)
+13:49:07 <alinefm> shaohef, I'd say live
+13:49:10 <adamkingit> alinefm Only possible if we get more bugs. github says there are 9
+13:49:24 <alinefm> adamkingit, 24 for me
+13:49:37 <adamkingit> 24 includes enhancements
+13:49:46 <alinefm> yes
+13:49:48 <royce> shaohef, do you mean you change live and persistent at same time and live does not take effect?
+13:49:58 <shaohef> royce: yes.
+13:49:59 <alinefm> I am including all issues tagged for 1.2.1
+13:50:06 <adamkingit> k
+13:50:27 <shaohef> royce: you know some change just take effect after reboot.
+13:50:51 <alinefm> shaohef, and we need to doc and warn user about which changes will take effect after reboot
+13:50:57 <adamkingit> I will look at the enhancements and offer some priority
+13:51:03 <alinefm> like virt-manager does
+13:51:08 <alinefm> adamkingit, thanks
+13:51:18 <shaohef> alinefm: agree.
+13:51:41 <royce> Then we need to put this kind of param to the update validation and give out warning
+13:52:15 <royce> shaohef, do you tried reboot it took effect?
+13:52:22 <alinefm> royce, do you mean when update failed about reboot?/
+13:53:58 <royce> alinefm, I mean to validate when this param come in, and give out warning, almost same as your comments
+13:54:08 <alinefm> hmm got it
+13:54:56 <royce> shaohef, As I tried libvirt api, I found it distinguish the live and config and its valid params, typically if it cannot modify in run time, it usually deny it
+13:55:23 <royce> I mean other libvirt change apis
+13:59:50 <alinefm> royce, shaohef, we can continue after meeting or even on ML
+14:00:23 <royce> OK
+14:00:23 <shaohef> OK
+14:01:06 <alinefm> anything else for today?
+14:01:40 <alinefm> ok
+14:01:48 <alinefm> thanks everyone for joining
+14:01:59 <alinefm> and let's keep focus on 1.2.1 =)
+14:02:02 <alinefm> #endmeeting

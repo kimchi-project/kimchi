@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 23 13:02:21 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:04:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:05:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to list system users and groups (/host/users and /host/groups). It will be needed while setting users and groups to VM</span>
+<a name="l-11"></a><span class="tm">13:06:33</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit submitted patch and addressed comments for VMEdit UI</span>
+<a name="l-12"></a><span class="tm">13:06:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital tested danielhb patches related to issue #329 in ppc - "working as designed".</span>
+<a name="l-13"></a><span class="tm">13:06:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to return host stats history. /host/stats/history will return the last 60 values and /host/stats keeps returning the current single values</span>
+<a name="l-14"></a><span class="tm">13:06:52</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit submitted patch addressing an issue with user action menu width</span>
+<a name="l-15"></a><span class="tm">13:08:56</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit submitted patches and addressed comments for "display version/build number"</span>
+<a name="l-16"></a><span class="tm">13:10:00</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac I was in vacation for the last month, I don't have any updates :-)</span>
+<a name="l-17"></a><span class="tm">13:10:30</span><span class="nk"> &lt;alinefm&gt;</span> vianac, I completed the work in your patches about setting users and groups to VM and they are merged now
+<a name="l-18"></a><span class="tm">13:10:32</span><span class="nk"> &lt;adamkingit&gt;</span> vianac Maybe some photos? :-)
+<a name="l-19"></a><span class="tm">13:10:36</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce submitted patch about UI manage disk, fixed another bug related to iso scaning regression</span>
+<a name="l-20"></a><span class="tm">13:10:51</span><span class="nk"> &lt;vianac&gt;</span> alinefm, great, thanks!
+<a name="l-21"></a><span class="tm">13:11:30</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb finished the "kimchi must run as root" issue #329</span>
+<a name="l-22"></a><span class="tm">13:11:31</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce tried setmetadata and discussed with shaohe about metadata handling, is rebasing my disk manage backend on that</span>
+<a name="l-23"></a><span class="tm">13:11:33</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin 'Edit Guest Network Interface' patch v2 sent, need to further discuss whether to expose interface model</span>
+<a name="l-24"></a><span class="tm">13:12:36</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit got a friend @IBM_SteveKim to produce artwork for our youtube channel https://www.youtube.com/channel/UC2qZVw3fsyPxIOO1iOXp1xA</span>
+<a name="l-25"></a><span class="tm">13:13:08</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef discuss with royce about metadata, and send a patch set.</span>
+<a name="l-26"></a><span class="tm">13:13:13</span><span class="nk"> &lt;royce&gt;</span> woo~ what is that adamkingit?
+<a name="l-27"></a><span class="tm">13:13:32</span><span class="nk"> &lt;hlwanghl&gt;</span> unfortunately Youtube is blocked in China
+<a name="l-28"></a><span class="tm">13:13:58</span><span class="nk"> &lt;shaohef&gt;</span> yes Youtube is forbidden in China
+<a name="l-29"></a><span class="tm">13:14:13</span><span class="nk"> &lt;YuXin&gt;</span> https://youtube
+<a name="l-30"></a><span class="tm">13:14:15</span><span class="nk"> &lt;adamkingit&gt;</span> royce, hlwanghl: Some time ago I created a youtube channel for kimchi demo videos, (Need to make one for 1.2 still)
+<a name="l-31"></a><span class="tm">13:14:43</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">hlwanghl:</span> you can use goagent as proxy to visit Youtube
+<a name="l-32"></a><span class="tm">13:14:47</span><span class="nk"> &lt;adamkingit&gt;</span> It allows you to upload artwork for display, which I do not have talent for
+<a name="l-33"></a><span class="tm">13:14:54</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, http://picpaste.com/oVirt_Kimchi_-_YouTube_2014-04-23_10-14-09-Q6YBUjYi.png
+<a name="l-34"></a><span class="tm">13:15:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">hlwanghl:</span> I will show you tomorrow
+<a name="l-35"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> just a picture =)
+<a name="l-36"></a><span class="tm">13:15:12</span><span class="nk"> &lt;YuXin&gt;</span> try https with youtube
+<a name="l-37"></a><span class="tm">13:15:44</span><span class="nk"> &lt;adamkingit&gt;</span> We have 2 videos on our channel: alitke presenting at KVM forum, and a 1.0 demo
+<a name="l-38"></a><span class="tm">13:15:58</span><span class="nk"> &lt;royce&gt;</span> Really awesome!
+<a name="l-39"></a><span class="tm">13:16:02</span><span class="nk"> &lt;adamkingit&gt;</span> If you want to make one let me know. I plan to make a demo of 1.2 for the channel
+<a name="l-40"></a><span class="tm">13:17:03</span><span class="nk"> &lt;hlwanghl&gt;</span> thanks @alinefm
+<a name="l-41"></a><span class="tm">13:17:36</span><span class="nk"> &lt;hlwanghl&gt;</span> It's great! adamkingit
+<a name="l-42"></a><span class="tm">13:17:44</span><span class="nk"> &lt;shaohef&gt;</span> ming has make a demo for Hong Kong customer
+<a name="l-43"></a><span class="tm">13:17:57</span><span class="nk"> &lt;danielhb&gt;</span> they block youtube but does not block facebook?
+<a name="l-44"></a><span class="tm">13:18:03</span><span class="nk"> &lt;danielhb&gt;</span> lol
+<a name="l-45"></a><span class="tm">13:18:11</span><span class="nk"> &lt;shaohef&gt;</span> ming has make a videos for Hong Kong customer
+<a name="l-46"></a><span class="tm">13:18:15</span><span class="nk"> &lt;adamkingit&gt;</span> I remember something about that. I'll ask hum about it
+<a name="l-47"></a><span class="tm">13:18:21</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, do you have access to that video?
+<a name="l-48"></a><span class="tm">13:18:24</span><span class="nk"> &lt;adamkingit&gt;</span> *him
+<a name="l-49"></a><span class="tm">13:18:50</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> video on youtube ?
+<a name="l-50"></a><span class="tm">13:19:01</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, no - the video ming did
+<a name="l-51"></a><span class="tm">13:19:08</span><span class="nk"> &lt;adamkingit&gt;</span> I may have it. I'll look and see. Thinking it predates the channel
+<a name="l-52"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> if you have it we can upload to youtube
+<a name="l-53"></a><span class="tm">13:19:30</span><span class="nk"> &lt;royce&gt;</span> danielhb, as facebook is mainly text, that is not slow, but for youtube, it is painful to watch the videos
+<a name="l-54"></a><span class="tm">13:19:34</span><span class="nk"> &lt;hlwanghl&gt;</span> danielhb Facebook is blocked too
+<a name="l-55"></a><span class="tm">13:19:34</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#action </span><span class="cmdline">adamkingit to fup w/ ming abuot video</span>
+<a name="l-56"></a><span class="tm">13:20:20</span><span class="nk"> &lt;alinefm&gt;</span> any more news?
+<a name="l-57"></a><span class="tm">13:20:21</span><span class="nk"> &lt;danielhb&gt;</span> hlwanghl, makes sense to block both
+<a name="l-58"></a><span class="tm">13:20:28</span><span class="nk"> &lt;alinefm&gt;</span> today is the end of sprint 1
+<a name="l-59"></a><span class="tm">13:20:44</span><span class="nk"> &lt;hlwanghl&gt;</span> u got it danielhb
+<a name="l-60"></a><span class="tm">13:20:50</span><span class="nk"> &lt;alinefm&gt;</span> we made some progress in last week but we still have some work to do
+<a name="l-61"></a><span class="tm">13:21:09</span><span class="nk"> &lt;alinefm&gt;</span> I havent checked the mailing list today yet
+<a name="l-62"></a><span class="tm">13:21:16</span><span class="nk"> &lt;alinefm&gt;</span> but I hope I can merge more patches today
+<a name="l-63"></a><span class="tm">13:21:54</span><span class="nk"> &lt;adamkingit&gt;</span> theres lots of new mail
+<a name="l-64"></a><span class="tm">13:23:02</span><span class="nk"> &lt;alinefm&gt;</span> looking at the wiki I think most tasks have patches on mailing list
+<a name="l-65"></a><span class="tm">13:23:26</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, do you have any update about: Extend logical storage pool, Authorization: Properly display UI for non-root users ?
+<a name="l-66"></a><span class="tm">13:24:34</span><span class="nk"> &lt;royce&gt;</span> alinefm, extend logical storage pool is there any backend task for it?
+<a name="l-67"></a><span class="tm">13:24:36</span><span class="nk"> &lt;hlwanghl&gt;</span> I'm working on the latter Authorization: Properly display UI for non-root users
+<a name="l-68"></a><span class="tm">13:24:51</span><span class="nk"> &lt;alinefm&gt;</span> royce, danielhb did the backend for 1.2
+<a name="l-69"></a><span class="tm">13:24:55</span><span class="nk"> &lt;alinefm&gt;</span> just missing the UI
+<a name="l-70"></a><span class="tm">13:25:03</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="hi">alinefm:</span> No. I don't have an update for that. It will have to move to s2
+<a name="l-71"></a><span class="tm">13:25:34</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, great! how is it going?
+<a name="l-72"></a><span class="tm">13:25:37</span><span class="nk"> &lt;adamkingit&gt;</span> along w. display historical data
+<a name="l-73"></a><span class="tm">13:25:47</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, ok
+<a name="l-74"></a><span class="tm">13:26:05</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, I sent the backend for historical data yesterday
+<a name="l-75"></a><span class="tm">13:26:18</span><span class="nk"> &lt;alinefm&gt;</span> I created a new api /host/stats/history for that
+<a name="l-76"></a><span class="tm">13:26:34</span><span class="nk"> &lt;adamkingit&gt;</span> alinefm I saw. I'll impl the ui for it
+<a name="l-77"></a><span class="tm">13:26:58</span><span class="nk"> &lt;shaohef&gt;</span> I'd like to talk about some info about vm. such as nic model, I can update it when VM is running, but it will not take effect for live configure. It just take effect for persistent configure.
+<a name="l-78"></a><span class="tm">13:26:58</span><span class="nk"> &lt;shaohef&gt;</span> if the user want to get the nic model after update. which model show we should, from live configure or  persistent configure?
+<a name="l-79"></a><span class="tm">13:27:34</span><span class="nk"> &lt;hlwanghl&gt;</span> alinefm, I  found non-root user can't do any thing about Guests and adamkingit told me it's intended as authorization design
+<a name="l-80"></a><span class="tm">13:28:12</span><span class="nk"> &lt;hlwanghl&gt;</span> I'm adding code to hide related menu items which the non-root user has no permissions on
+<a name="l-81"></a><span class="tm">13:28:38</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, great!
+<a name="l-82"></a><span class="tm">13:28:42</span><span class="nk"> &lt;hlwanghl&gt;</span> should not take much time
+<a name="l-83"></a><span class="tm">13:28:59</span><span class="nk"> &lt;alinefm&gt;</span> let me know if you find any problem in backend
+<a name="l-84"></a><span class="tm">13:29:01</span><span class="nk"> &lt;adamkingit&gt;</span> hlwanghl Maybe post a WIP when you get to a good state, unless that good state is "complete" :-)
+<a name="l-85"></a><span class="tm">13:29:21</span><span class="nk"> &lt;royce&gt;</span> I can help on extend logical storage pool with help from UI guys :)
+<a name="l-86"></a><span class="tm">13:29:32</span><span class="nk"> &lt;shaohef&gt;</span> the info from live and persistent configure is not  consistency
+<a name="l-87"></a><span class="tm">13:29:33</span><span class="nk"> &lt;hlwanghl&gt;</span> adamkingit ACK
+<a name="l-88"></a><span class="tm">13:29:35</span><span class="nk"> &lt;adamkingit&gt;</span> go royce!
+<a name="l-89"></a><span class="tm">13:30:06</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="hi">shaohef:</span> at present the UI only allows edit when the VM is stopped
+<a name="l-90"></a><span class="tm">13:30:21</span><span class="nk"> &lt;adamkingit&gt;</span> but in the future we want to allow edit while running...
+<a name="l-91"></a><span class="tm">13:30:22</span><span class="nk"> &lt;hlwanghl&gt;</span> And I'll write and send a patch on storage icons after Royce's disk management patches being applied
+<a name="l-92"></a><span class="tm">13:30:55</span><span class="nk"> &lt;alinefm&gt;</span> hlwanghl, ok - I plan to merge her patches asap
+<a name="l-93"></a><span class="tm">13:30:58</span><span class="nk"> &lt;adamkingit&gt;</span> We would need some type of "changes pending
+<a name="l-94"></a><span class="tm">13:30:58</span><span class="nk"> &lt;adamkingit&gt;</span> to represent those things that won;t be updated until restart
+<a name="l-95"></a><span class="tm">13:31:13</span><span class="nk"> &lt;royce&gt;</span> thanks adamkingit, hlwanghl, what does that icon look like?
+<a name="l-96"></a><span class="tm">13:31:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> but now I have implement to edit the VM nic at backend.
+<a name="l-97"></a><span class="tm">13:31:23</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, yes and warn user the changes will take effect in next vm boot
+<a name="l-98"></a><span class="tm">13:31:39</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="hi">shaohef:</span> you updated the UI or the API?
+<a name="l-99"></a><span class="tm">13:31:39</span><span class="nk"> &lt;hlwanghl&gt;</span> royce, refer to YuXin's interface tab
+<a name="l-100"></a><span class="tm">13:31:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> for nic subnet, it should allow to change when VM is living.
+<a name="l-101"></a><span class="tm">13:32:05</span><span class="nk"> &lt;royce&gt;</span> alinefm, the backend is not updated, because it depends on the metadata patch, you can merge shaohef's patch first:)
+<a name="l-102"></a><span class="tm">13:32:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> the API at backend.
+<a name="l-103"></a><span class="tm">13:32:14</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, even if backend allow live update on UI we will restrict it for stopped vm
+<a name="l-104"></a><span class="tm">13:32:22</span><span class="nk"> &lt;alinefm&gt;</span> until we update the UI
+<a name="l-105"></a><span class="tm">13:32:29</span><span class="nk"> &lt;alinefm&gt;</span> but it will not be the focus for 1.2.1
+<a name="l-106"></a><span class="tm">13:32:35</span><span class="nk"> &lt;alinefm&gt;</span> as it requires a lot of changes
+<a name="l-107"></a><span class="tm">13:32:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, good point! =) I will do that
+<a name="l-108"></a><span class="tm">13:33:33</span><span class="nk"> &lt;adamkingit&gt;</span> shaohef I assume updating the subnet is done at the Network tab, and would be immediately effective
+<a name="l-109"></a><span class="tm">13:34:40</span><span class="nk"> &lt;royce&gt;</span> shaohef wants to simulate this scenario: we move our laptop to another office, we want it reconnect to another lan without reboot
+<a name="l-110"></a><span class="tm">13:35:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> it is same that we remove net wire from physical host, and add another net wire to physical host
+<a name="l-111"></a><span class="tm">13:36:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> we should not let VM reboot. reboot is not good to user.
+<a name="l-112"></a><span class="tm">13:36:10</span><span class="nk"> &lt;adamkingit&gt;</span> k. We do that through the network tab, right?
+<a name="l-113"></a><span class="tm">13:36:21</span><span class="nk"> &lt;royce&gt;</span> I think this scenario is reasonable to support, what do guys think?
+<a name="l-114"></a><span class="tm">13:36:23</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, network tab on vm edit
+<a name="l-115"></a><span class="tm">13:36:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> no
+<a name="l-116"></a><span class="tm">13:36:48</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> we change the source of nic in VM iface edit UI
+<a name="l-117"></a><span class="tm">13:36:51</span><span class="nk"> &lt;adamkingit&gt;</span> k, Apparently I need to go back and look at the various exposures of network
+<a name="l-118"></a><span class="tm">13:36:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap, it is good to have
+<a name="l-119"></a><span class="tm">13:37:01</span><span class="nk"> &lt;alinefm&gt;</span> but we havent planned it for 1.2.1
+<a name="l-120"></a><span class="tm">13:37:10</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-121"></a><span class="tm">13:37:30</span><span class="nk"> &lt;adamkingit&gt;</span> You would need to edit is your network was static. DHCP would would without edit
+<a name="l-122"></a><span class="tm">13:38:13</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, no - think about add new iface to vm
+<a name="l-123"></a><span class="tm">13:38:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> yes. network should not be static
+<a name="l-124"></a><span class="tm">13:38:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> not user no his nic is static or DHCP.
+<a name="l-125"></a><span class="tm">13:39:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> only user know his nic is static or DHCP.
+<a name="l-126"></a><span class="tm">13:39:44</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, adamkingit, royce, the vm iface update will require a lot of work that we havent planned
+<a name="l-127"></a><span class="tm">13:39:58</span><span class="nk"> &lt;alinefm&gt;</span> I suggest to do not do it for 1.2.1
+<a name="l-128"></a><span class="tm">13:40:00</span><span class="nk"> &lt;adamkingit&gt;</span> we have combined NIC and network. We may have to separate them to accomodate this scenario
+<a name="l-129"></a><span class="tm">13:40:10</span><span class="nk"> &lt;alinefm&gt;</span> and make the UI only for add and remove
+<a name="l-130"></a><span class="tm">13:40:47</span><span class="nk"> &lt;alinefm&gt;</span> unless you tell me it if possible to do it without impact the tasks we have planned
+<a name="l-131"></a><span class="tm">13:41:57</span><span class="nk"> &lt;alinefm&gt;</span> silence... lol
+<a name="l-132"></a><span class="tm">13:42:01</span><span class="nk"> &lt;royce&gt;</span> :) shaohef, what do you say?
+<a name="l-133"></a><span class="tm">13:42:18</span><span class="nk"> &lt;shaohef&gt;</span> I think we can finish it.
+<a name="l-134"></a><span class="tm">13:42:57</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, and the UI?
+<a name="l-135"></a><span class="tm">13:43:30</span><span class="nk"> &lt;adamkingit&gt;</span> Not sure what changes will be required. We could put the items at the end of 1.2.1 and if we are ahead of schedule, we'll get to them
+<a name="l-136"></a><span class="tm">13:43:45</span><span class="nk"> &lt;adamkingit&gt;</span> its a good scenario, though maybe not an urgent one
+<a name="l-137"></a><span class="tm">13:44:21</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-138"></a><span class="tm">13:44:29</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, you can get the backend done
+<a name="l-139"></a><span class="tm">13:44:40</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> OK.
+<a name="l-140"></a><span class="tm">13:44:44</span><span class="nk"> &lt;alinefm&gt;</span> and then adamkingit can use it later
+<a name="l-141"></a><span class="tm">13:44:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, you will need to update your current patches to remove update
+<a name="l-142"></a><span class="tm">13:45:09</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-143"></a><span class="tm">13:45:11</span><span class="nk"> &lt;alinefm&gt;</span> or just disable update
+<a name="l-144"></a><span class="tm">13:45:17</span><span class="nk"> &lt;alinefm&gt;</span> so later we can enable it back
+<a name="l-145"></a><span class="tm">13:45:33</span><span class="nk"> &lt;YuXin&gt;</span> i  will disabled it which requires min change
+<a name="l-146"></a><span class="tm">13:45:43</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, great
+<a name="l-147"></a><span class="tm">13:45:46</span><span class="nk"> &lt;royce&gt;</span> I will help on review shaohef's patch and test
+<a name="l-148"></a><span class="tm">13:45:56</span><span class="nk"> &lt;alinefm&gt;</span> thanks, royce
+<a name="l-149"></a><span class="tm">13:46:18</span><span class="nk"> &lt;royce&gt;</span> :)
+<a name="l-150"></a><span class="tm">13:46:18</span><span class="nk"> &lt;alinefm&gt;</span> seems we merge status and open discussion topic =)
+<a name="l-151"></a><span class="tm">13:46:25</span><span class="nk"> &lt;alinefm&gt;</span> *merged
+<a name="l-152"></a><span class="tm">13:47:09</span><span class="nk"> &lt;alinefm&gt;</span> team, in addition to those tasks the next sprint is a stabilization sprint
+<a name="l-153"></a><span class="tm">13:47:17</span><span class="nk"> &lt;alinefm&gt;</span> so we need to focus in tests and bug fixes
+<a name="l-154"></a><span class="tm">13:47:19</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues?milestone=13&amp;page=1&amp;state=open
+<a name="l-155"></a><span class="tm">13:47:45</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to close at least 15 bugs during this phase
+<a name="l-156"></a><span class="tm">13:47:54</span><span class="nk"> &lt;alinefm&gt;</span> do you think it is possible?
+<a name="l-157"></a><span class="tm">13:48:09</span><span class="nk"> &lt;shaohef&gt;</span> when the info from  live configure or  persistent configure is inconsistent. which show to user？
+<a name="l-158"></a><span class="tm">13:48:17</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> ^
+<a name="l-159"></a><span class="tm">13:48:43</span><span class="nk"> &lt;royce&gt;</span> alinefm, possible:)
+<a name="l-160"></a><span class="tm">13:49:07</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I'd say live
+<a name="l-161"></a><span class="tm">13:49:10</span><span class="nk"> &lt;adamkingit&gt;</span> alinefm Only possible if we get more bugs. github says there are 9
+<a name="l-162"></a><span class="tm">13:49:24</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, 24 for me
+<a name="l-163"></a><span class="tm">13:49:37</span><span class="nk"> &lt;adamkingit&gt;</span> 24 includes enhancements
+<a name="l-164"></a><span class="tm">13:49:46</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-165"></a><span class="tm">13:49:48</span><span class="nk"> &lt;royce&gt;</span> shaohef, do you mean you change live and persistent at same time and live does not take effect?
+<a name="l-166"></a><span class="tm">13:49:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> yes.
+<a name="l-167"></a><span class="tm">13:49:59</span><span class="nk"> &lt;alinefm&gt;</span> I am including all issues tagged for 1.2.1
+<a name="l-168"></a><span class="tm">13:50:06</span><span class="nk"> &lt;adamkingit&gt;</span> k
+<a name="l-169"></a><span class="tm">13:50:27</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span> you know some change just take effect after reboot.
+<a name="l-170"></a><span class="tm">13:50:51</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, and we need to doc and warn user about which changes will take effect after reboot
+<a name="l-171"></a><span class="tm">13:50:57</span><span class="nk"> &lt;adamkingit&gt;</span> I will look at the enhancements and offer some priority
+<a name="l-172"></a><span class="tm">13:51:03</span><span class="nk"> &lt;alinefm&gt;</span> like virt-manager does
+<a name="l-173"></a><span class="tm">13:51:08</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, thanks
+<a name="l-174"></a><span class="tm">13:51:18</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> agree.
+<a name="l-175"></a><span class="tm">13:51:41</span><span class="nk"> &lt;royce&gt;</span> Then we need to put this kind of param to the update validation and give out warning
+<a name="l-176"></a><span class="tm">13:52:15</span><span class="nk"> &lt;royce&gt;</span> shaohef, do you tried reboot it took effect?
+<a name="l-177"></a><span class="tm">13:52:22</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you mean when update failed about reboot?/
+<a name="l-178"></a><span class="tm">13:53:58</span><span class="nk"> &lt;royce&gt;</span> alinefm, I mean to validate when this param come in, and give out warning, almost same as your comments
+<a name="l-179"></a><span class="tm">13:54:08</span><span class="nk"> &lt;alinefm&gt;</span> hmm got it
+<a name="l-180"></a><span class="tm">13:54:56</span><span class="nk"> &lt;royce&gt;</span> shaohef, As I tried libvirt api, I found it distinguish the live and config and its valid params, typically if it cannot modify in run time, it usually deny it
+<a name="l-181"></a><span class="tm">13:55:23</span><span class="nk"> &lt;royce&gt;</span> I mean other libvirt change apis
+<a name="l-182"></a><span class="tm">13:59:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, shaohef, we can continue after meeting or even on ML
+<a name="l-183"></a><span class="tm">14:00:23</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-184"></a><span class="tm">14:00:23</span><span class="nk"> &lt;shaohef&gt;</span> OK
+<a name="l-185"></a><span class="tm">14:01:06</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-186"></a><span class="tm">14:01:40</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-187"></a><span class="tm">14:01:48</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining
+<a name="l-188"></a><span class="tm">14:01:59</span><span class="nk"> &lt;alinefm&gt;</span> and let's keep focus on 1.2.1 =)
+<a name="l-189"></a><span class="tm">14:02:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
