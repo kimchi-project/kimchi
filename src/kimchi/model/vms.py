@@ -449,6 +449,14 @@ class VMModel(object):
             raise OperationFailed("KCHVM0020E",
                                   {'name': name, 'err': e.get_error_message()})
 
+    def shutdown(self, name):
+        dom = self.get_vm(name, self.conn)
+        try:
+            dom.shutdown()
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVM0029E",
+                                  {'name': name, 'err': e.get_error_message()})
+
     def reset(self, name):
         dom = self.get_vm(name, self.conn)
         try:

@@ -39,6 +39,7 @@ class VM(Resource):
             setattr(self, ident, node(model, self.ident))
         self.start = self.generate_action_handler('start')
         self.poweroff = self.generate_action_handler('poweroff')
+        self.shutdown = self.generate_action_handler('shutdown')
         self.reset = self.generate_action_handler('reset')
         self.connect = self.generate_action_handler('connect')
 

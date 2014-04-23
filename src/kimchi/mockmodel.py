@@ -144,6 +144,9 @@ class MockModel(object):
     def vm_poweroff(self, name):
         self._get_vm(name).info['state'] = 'shutoff'
 
+    def vm_shutdown(self, name):
+        self._get_vm(name).info['state'] = 'shutoff'
+
     def vm_reset(self, name):
         pass
 
