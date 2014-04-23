@@ -59,21 +59,19 @@
                             <input
                                 id="guest-edit-cores-textbox"
                                 name="cpus"
-                                type="text"
-                                disabled="disabled" />
+                                type="text" />
                         </div>
                     </div>
                     <div>
                         <div class="guest-edit-wrapper-label">
                             <label for="guest-edit-memory-textbox">
-                                $_("Memory")
+                                $_("Memory (MB)")
                             </label>
                         </div>
                         <div class="guest-edit-wrapper-controls">
                             <input id="guest-edit-memory-textbox"
                                 name="memory"
-                                type="text"
-                                disabled="disabled" />
+                                type="text" />
                         </div>
                     </div>
                     <div>
@@ -98,7 +96,7 @@
                     <div>
                         <button id="guest-edit-attach-cdrom-button"
                             class="guest-edit-cdrom-button attach"
-                            title="$_("Attach")">
+                            title='$_("Attach")'>
                         </button>
                     </div>
                 </fieldset>
@@ -124,11 +122,11 @@
                 value="{path}" readonly="readonly" />
             <button class="guest-edit-cdrom-button replace"
                 data-vm="{vm}" data-dev="{dev}"
-                title="$_("Replace")">
+                title='$_("Replace")'>
             </button>
             <button class="guest-edit-cdrom-button detach"
                 data-vm="{vm}" data-dev="{dev}"
-                title="$_("Detach")">
+                title='$_("Detach")'>
             </button>
         </div>
     </div>

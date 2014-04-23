@@ -18,7 +18,7 @@
 #guest-edit-window {
     font-size: 13px;
     height: 400px;
-    width: 600px;
+    width: 610px;
 }
 
 #guest-edit-tabs {
@@ -46,7 +46,7 @@
     line-height: 38px;
     margin-top: 5px;
     vertical-align: top;
-    width: 80px;
+    width: 100px;
 }
 
 #form-guest-edit-storage .guest-edit-wrapper-label {

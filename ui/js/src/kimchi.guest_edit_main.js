@@ -80,9 +80,7 @@ kimchi.guest_edit_main = function() {
 
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
-        for ( var prop in guest) {
-            $('input[name="' + prop + '"]', guestEditForm).val(guest[prop]);
-        }
+        $('#form-guest-edit-general').fillWithObject(guest);
 
         refreshCDROMs();
 
@@ -116,16 +114,20 @@ kimchi.guest_edit_main = function() {
 
     var submitForm = function(event) {
         $(saveButton).prop('disabled', true);
-        var editableFields = [ 'name' ];
-        var data = {};
-        $.each(editableFields, function(i, field) {
-            data[field] = $('#form-guest-edit [name="' + field + '"]').val();
-        });
+        var data=$('#form-guest-edit-general').serializeObject();
+        if(data['memory']!=undefined) {
+            data['memory'] = Number(data['memory']);
+        }
+        if(data['cpus']!=undefined) {
+            data['cpus']   = Number(data['cpus']);
+        }
+
         kimchi.updateVM(kimchi.selectedGuest, data, function() {
             kimchi.listVmsAuto();
             kimchi.window.close();
         }, function(err) {
             kimchi.message.error(err.responseJSON.reason);
+            $(saveButton).prop('disabled', false);
         });
 
         event.preventDefault();
