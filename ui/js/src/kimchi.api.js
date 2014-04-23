@@ -230,6 +230,17 @@ var kimchi = {
         });
     },
 
+    shutdownVM : function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/shutdown',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     resetVM : function(vm, suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/reset',

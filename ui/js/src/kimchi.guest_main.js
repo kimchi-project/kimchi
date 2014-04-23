@@ -64,6 +64,26 @@ kimchi.vmpoweroff = function(event) {
     }
 };
 
+kimchi.vmshutdown = function(event){
+    var vm=$(this).closest('li[name=guest]');
+    var vm_id=vm.attr("id");
+    var settings = {
+        title : i18n['KCHVM6006M'],
+        content : i18n['KCHVM6007M'],
+        confirm : i18n['KCHAPI6002M'],
+        cancel : i18n['KCHAPI6003M']
+    };
+    kimchi.confirm(settings, function() {
+        kimchi.shutdownVM(vm_id, function(result) {
+                kimchi.listVmsAuto();
+            }, function(err) {
+                kimchi.message.error(err.responseJSON.reason);
+            }
+        );
+    }, function() {
+    });
+};
+
 kimchi.vmreset = function(event){
     var vm=$(this).closest('li[name=guest]');
     var vm_id=vm.attr("id");
@@ -269,6 +289,9 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     guestActions.find("[name=vm-poweroff]").on({click : kimchi.vmpoweroff});
     if (vmRunningBool) {  //If the guest is not running, do not enable reset
         guestActions.find("[name=vm-reset]").on({click : kimchi.vmreset});
+    }
+    if (vmRunningBool) {  //If the guest is not running, do not enable shutdown
+        guestActions.find("[name=vm-shutdown]").on({click : kimchi.vmshutdown});
     }
     guestActions.find("[name=vm-media]").on({click : kimchi.vmmedia});
     guestActions.find("[name=vm-edit]").on({click : kimchi.vmedit});
