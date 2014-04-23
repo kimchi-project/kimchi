@@ -119,18 +119,18 @@ class HostStatsModel(object):
     __metaclass__ = Singleton
 
     def __init__(self, **kargs):
-        self.host_stats = defaultdict(int)
+        self.host_stats = defaultdict(list)
         self.host_stats_thread = BackgroundTask(HOST_STATS_INTERVAL,
                                                 self._update_host_stats)
         self.host_stats_thread.start()
 
     def lookup(self, *name):
-        return {'cpu_utilization': self.host_stats['cpu_utilization'],
-                'memory': self.host_stats.get('memory'),
-                'disk_read_rate': self.host_stats['disk_read_rate'],
-                'disk_write_rate': self.host_stats['disk_write_rate'],
-                'net_recv_rate': self.host_stats['net_recv_rate'],
-                'net_sent_rate': self.host_stats['net_sent_rate']}
+        return {'cpu_utilization': self.host_stats['cpu_utilization'][-1],
+                'memory': self.host_stats['memory'][-1],
+                'disk_read_rate': self.host_stats['disk_read_rate'][-1],
+                'disk_write_rate': self.host_stats['disk_write_rate'][-1],
+                'net_recv_rate': self.host_stats['net_recv_rate'][-1],
+                'net_sent_rate': self.host_stats['net_sent_rate'][-1]}
 
     def _update_host_stats(self):
         preTimeStamp = self.host_stats['timestamp']
@@ -148,6 +148,12 @@ class HostStatsModel(object):
         self._get_percentage_host_cpu_usage()
         self._get_host_memory_stats()
 
+        # store only 60 stats (1 min)
+        for key, value in self.host_stats.iteritems():
+            if isinstance(value, list):
+                if len(value) == 60:
+                    self.host_stats[key] = value[10:]
+
     def _get_percentage_host_cpu_usage(self):
         # This is cpu usage producer. This producer will calculate the usage
         # at an interval of HOST_STATS_INTERVAL.
@@ -155,7 +161,7 @@ class HostStatsModel(object):
         # psutil.cpu_percent maintains a cpu time sample.
         # It will update the cpu time sample when it is called.
         # So only this producer can call psutil.cpu_percent in kimchi.
-        self.host_stats['cpu_utilization'] = psutil.cpu_percent(None)
+        self.host_stats['cpu_utilization'].append(psutil.cpu_percent(None))
 
     def _get_host_memory_stats(self):
         virt_mem = psutil.virtual_memory()
@@ -169,11 +175,13 @@ class HostStatsModel(object):
                         'cached': virt_mem.cached,
                         'buffers': virt_mem.buffers,
                         'avail': virt_mem.available}
-        self.host_stats['memory'] = memory_stats
+        self.host_stats['memory'].append(memory_stats)
 
     def _get_host_disk_io_rate(self, seconds):
-        prev_read_bytes = self.host_stats['disk_read_bytes']
-        prev_write_bytes = self.host_stats['disk_write_bytes']
+        disk_read_bytes = self.host_stats['disk_read_bytes']
+        disk_write_bytes = self.host_stats['disk_write_bytes']
+        prev_read_bytes = disk_read_bytes[-1] if disk_read_bytes else 0
+        prev_write_bytes = disk_write_bytes[-1] if disk_write_bytes else 0
 
         disk_io = psutil.disk_io_counters(False)
         read_bytes = disk_io.read_bytes
@@ -182,14 +190,16 @@ class HostStatsModel(object):
         rd_rate = int(float(read_bytes - prev_read_bytes) / seconds + 0.5)
         wr_rate = int(float(write_bytes - prev_write_bytes) / seconds + 0.5)
 
-        self.host_stats.update({'disk_read_rate': rd_rate,
-                                'disk_write_rate': wr_rate,
-                                'disk_read_bytes': read_bytes,
-                                'disk_write_bytes': write_bytes})
+        self.host_stats['disk_read_rate'].append(rd_rate)
+        self.host_stats['disk_write_rate'].append(wr_rate)
+        self.host_stats['disk_read_bytes'].append(read_bytes)
+        self.host_stats['disk_write_bytes'].append(write_bytes)
 
     def _get_host_network_io_rate(self, seconds):
-        prev_recv_bytes = self.host_stats['net_recv_bytes']
-        prev_sent_bytes = self.host_stats['net_sent_bytes']
+        net_recv_bytes = self.host_stats['net_recv_bytes']
+        net_sent_bytes = self.host_stats['net_sent_bytes']
+        prev_recv_bytes = net_recv_bytes[-1] if net_recv_bytes else 0
+        prev_sent_bytes = net_sent_bytes[-1] if net_sent_bytes else 0
 
         net_ios = psutil.network_io_counters(True)
         recv_bytes = 0
@@ -202,10 +212,23 @@ class HostStatsModel(object):
         rx_rate = int(float(recv_bytes - prev_recv_bytes) / seconds + 0.5)
         tx_rate = int(float(sent_bytes - prev_sent_bytes) / seconds + 0.5)
 
-        self.host_stats.update({'net_recv_rate': rx_rate,
-                                'net_sent_rate': tx_rate,
-                                'net_recv_bytes': recv_bytes,
-                                'net_sent_bytes': sent_bytes})
+        self.host_stats['net_recv_rate'].append(rx_rate)
+        self.host_stats['net_sent_rate'].append(tx_rate)
+        self.host_stats['net_recv_bytes'].append(recv_bytes)
+        self.host_stats['net_sent_bytes'].append(sent_bytes)
+
+
+class HostStatsHistoryModel(object):
+    def __init__(self, **kargs):
+        self.history = HostStatsModel(**kargs)
+
+    def lookup(self, *name):
+        return {'cpu_utilization': self.history.host_stats['cpu_utilization'],
+                'memory': self.history.host_stats['memory'],
+                'disk_read_rate': self.history.host_stats['disk_read_rate'],
+                'disk_write_rate': self.history.host_stats['disk_write_rate'],
+                'net_recv_rate': self.history.host_stats['net_recv_rate'],
+                'net_sent_rate': self.history.host_stats['net_sent_rate']}
 
 
 class PartitionsModel(object):

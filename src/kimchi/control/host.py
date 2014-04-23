@@ -56,6 +56,16 @@ class Host(Resource):
 
 
 class HostStats(Resource):
+    def __init__(self, model, id=None):
+        super(HostStats, self).__init__(model, id)
+        self.history = HostStatsHistory(self.model)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class HostStatsHistory(Resource):
     @property
     def data(self):
         return self.info

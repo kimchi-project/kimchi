@@ -775,6 +775,34 @@ Contains the host sample data.
 
 *No actions defined*
 
+### Resource: HostStatsHistory
+
+**URI:** /host/stats/history
+
+It is the sub-resource of Host Stats and the client uses it to get the host
+stats history
+
+**Methods:**
+
+* **GET**: Retrieve host sample data history
+    * cpu_utilization: CPU utilization history
+    * memory: Memory statistics history
+        * total: Total amount of memory. The unit is Bytes.
+        * free: The amount of memory left unused by the system. The unit is Bytes.
+        * buffers: The amount of memory used for file buffers. The unit is Bytes.
+        * cached: The amount of memory used as cache memory. The unit is Bytes.
+        * avail: The total amount of buffer, cache and free memory. The unit is Bytes.
+    * disk_read_rate: IO throughput for reads history
+    * disk_write_rate: IO throughput for writes history
+    * net_sent_rate: Network throughput for writes history
+    * net_recv_rate: Network throughput for reads history
+
+* **POST**: *See HostStatsHistory Actions*
+
+**Actions (POST):**
+
+*No actions defined*
+
 ### Collection: Plugins
 
 **URI:** /plugins

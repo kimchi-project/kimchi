@@ -813,6 +813,14 @@ class MockModel(object):
                 'net_recv_rate': round(random.uniform(0, 4000), 1),
                 'net_sent_rate': round(random.uniform(0, 4000), 1)}
 
+    def hoststatshistory_lookup(self, *name):
+        return {'cpu_utilization': random.sample(range(100), 30),
+                'memory': random.sample(range(4000), 30),
+                'disk_read_rate': random.sample(range(4000), 30),
+                'disk_write_rate': random.sample(range(4000), 30),
+                'net_recv_rate': random.sample(range(4000), 30),
+                'net_sent_rate': random.sample(range(4000), 30)}
+
     def users_get_list(self):
         return ["userA", "userB", "userC"]
 
