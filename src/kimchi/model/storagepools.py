@@ -155,7 +155,8 @@ class StoragePoolsModel(object):
 
         for pool in self.get_list():
             try:
-                res = self.storagepool_lookup(pool)
+                res = StoragePoolModel(conn=self.conn,
+                                       objstore=self.objstore).lookup(pool)
                 if res['state'] == 'active':
                     scan_params['ignore_list'].append(res['path'])
             except Exception, e:
