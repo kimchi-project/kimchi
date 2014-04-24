@@ -94,6 +94,22 @@ var kimchi = {
     },
 
     /**
+     * Get the historic host stats.
+     */
+    getHostStatsHistory : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/stats/history',
+            type : 'GET',
+            resend: true,
+            contentType : 'application/json',
+            headers: {'Kimchi-Robot': 'kimchi-robot'},
+            dataType : 'json',
+            success : suc,
+            error: err
+        });
+    },
+
+    /**
      *
      * Create a new Virtual Machine. Usage: kimchi.createVM({ name: 'MyUbuntu',
      * template: '/templates/ubuntu_base' }, creationSuc, creationErr);

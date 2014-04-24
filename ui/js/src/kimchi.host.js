@@ -448,12 +448,6 @@ kimchi.host_main = function() {
             });
         });
 
-        var keepMonitoringCheckbox = $('#keep-monitoring-checkbox');
-        keepMonitoringCheckbox.prop('checked', kimchi.keepMonitoringHost === true);
-        keepMonitoringCheckbox.on('change', function(event) {
-            kimchi.keepMonitoringHost = this['checked'];
-        });
-
         kimchi.getCapabilities(function(capabilities) {
             kimchi.host.capabilities=capabilities;
             if((capabilities['repo_mngt_tool']) && (capabilities['repo_mngt_tool']!="None")) {
@@ -566,9 +560,17 @@ kimchi.host_main = function() {
                     var max = item[metrics]['max'];
                     var unifiedMetrics = statsArray[key][metrics];
                     var ps = unifiedMetrics['points'];
-                    ps.push(value);
-                    ps.length > SIZE + 1 &&
-                        ps.shift();
+                    if(!Array.isArray(value)){
+                        ps.push(value);
+                        if(ps.length > SIZE + 1) {
+                            ps.shift();
+                        }
+                    }
+                    else{
+                        ps=ps.concat(value);
+                        ps.splice(0, ps.length-SIZE-1);
+                        unifiedMetrics['points']=ps;
+                    }
                     if(max !== undefined) {
                         unifiedMetrics['max'] = max;
                     }
@@ -645,47 +647,75 @@ kimchi.host_main = function() {
       };
 
       var self = this;
-      var track = function() {
-          kimchi.getHostStats(function(stats) {
-              var unifiedStats = {
-                  cpu: {
-                      u: {
-                          v: stats['cpu_utilization']
-                      }
-                  },
-                  memory: {
-                      u: {
-                          v: stats['memory']['avail'],
-                          max: stats['memory']['total']
-                      }
-                  },
-                  diskIO: {
-                      r: {
-                          v: stats['disk_read_rate']
-                      },
-                      w: {
-                          v: stats['disk_write_rate']
-                      }
-                  },
-                  networkIO: {
-                      r: {
-                          v: stats['net_recv_rate']
-                      },
-                      s: {
-                          v: stats['net_sent_rate']
-                      }
+
+      var UnifyStats = function(stats) {
+          var result= {
+              cpu: {
+                  u: {
+                      v: stats['cpu_utilization']
                   }
-              };
+              },
+              memory: {
+                  u: {
+                  }
+              },
+              diskIO: {
+                  r: {
+                      v: stats['disk_read_rate']
+                  },
+                  w: {
+                      v: stats['disk_write_rate']
+                  }
+              },
+              networkIO: {
+                  r: {
+                      v: stats['net_recv_rate']
+                  },
+                  s: {
+                      v: stats['net_sent_rate']
+                  }
+              }
+          };
+          if(Array.isArray(stats['memory'])){
+              result.memory.u['v']=[];
+              result.memory.u['max']=-Infinity;
+              for(var i=0;i<stats['memory'].length;i++){
+                  result.memory.u['v'].push(stats['memory'][i]['avail']);
+                  result.memory.u['max']=Math.max(result.memory.u['max'],stats['memory'][i]['total']);
+              }
+          }
+          else {
+              result.memory.u['v']=stats['memory']['avail'],
+              result.memory.u['max']=stats['memory']['total']
+          }
+          return(result);
+      };
+
+
+      var statsCallback = function(stats) {
+              var unifiedStats = UnifyStats(stats);
               statsPool.add(unifiedStats);
               for(var key in charts) {
                   var chart = charts[key];
                   chart.updateUI(statsPool.get(key));
               }
               timer = setTimeout(function() {
-                  track();
+                  continueTrack();
               }, 1000);
-          }, function() {
-          });
+          };
+
+      var track = function() {
+          kimchi.getHostStatsHistory(statsCallback,
+            function() {
+                continueTrack();
+            });
+      };
+
+      var continueTrack = function() {
+          kimchi.getHostStats(statsCallback,
+            function() {
+                continueTrack();
+            });
       };
 
       var destroy = function() {
@@ -702,11 +732,8 @@ kimchi.host_main = function() {
 
     var initTracker = function() {
         // TODO: Extend tabs with onUnload event to unregister timers.
-        if(!kimchi.keepMonitoringHost && kimchi.hostTimer) {
-            var timer = kimchi.hostTimer;
-            timer.stop();
-            timer = null;
-            kimchi.hostTimer = null;
+        if(kimchi.hostTimer) {
+            kimchi.hostTimer.stop();
             delete kimchi.hostTimer;
         }
 
@@ -743,12 +770,10 @@ kimchi.host_main = function() {
     };
 
     $('#host-root-container').on('remove', function() {
-        if(!kimchi.keepMonitoringHost && kimchi.hostTimer) {
+        if(kimchi.hostTimer) {
             kimchi.hostTimer.stop();
-            kimchi.hostTimer = null;
-            kimchi.hostTimer = null;
             delete kimchi.hostTimer;
-        }
+            }
 
         repositoriesGrid && repositoriesGrid.destroy();
         kimchi.topic('kimchi/repositoryAdded')
