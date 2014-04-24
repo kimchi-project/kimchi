@@ -1494,8 +1494,8 @@ msgstr "Campo obrigatório"
 msgid "URL to the repository. Supported protocols are http, ftp, and file."
 msgstr "URL para o repositório. Protocolos suportados são http, ftp e arquivo."
 
-msgid "Repository is a mirror."
-msgstr "Repositório é um mirror."
+msgid "Repository is a mirror"
+msgstr "Repositório é um mirror"
 
 msgid "Distribution"
 msgstr "Distribuição"

@@ -1400,7 +1400,7 @@ msgstr "必需的字段"
 msgid "URL to the repository. Supported protocols are http, ftp, and file."
 msgstr "软件仓库的URL，支持的协议有http、ftp、和file"
 
-msgid "Repository is a mirror."
+msgid "Repository is a mirror"
 msgstr "软件仓库是一个镜像"
 
 msgid "Distribution"

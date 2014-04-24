@@ -1387,7 +1387,7 @@ msgstr ""
 msgid "URL to the repository. Supported protocols are http, ftp, and file."
 msgstr ""
 
-msgid "Repository is a mirror."
+msgid "Repository is a mirror"
 msgstr ""
 
 msgid "Distribution"
