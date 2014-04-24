@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-10 14:32-0300\n"
+"POT-Creation-Date: 2014-04-24 13:01-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -16,764 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "ERROR CODE"
-msgstr "ERROR CODE"
-
-msgid "REASON"
-msgstr "REASON"
-
-msgid "STACK"
-msgstr "STACK"
-
-msgid "Go to Homepage"
-msgstr "Go to Homepage"
-
-msgid "Create a New Virtual Machine"
-msgstr "Create a New Virtual Machine"
-
-msgid "Virtual Machine Name"
-msgstr "Virtual Machine Name"
-
-msgid ""
-"The name used to identify the virtual machine. If omitted, a name will be "
-"chosen based on the template used."
-msgstr ""
-
-msgid "Template"
-msgstr "Template"
-
-msgid "Please create a template first."
-msgstr "Please create a template first."
-
-msgid "Create a Template"
-msgstr "Create a Template"
-
-msgid "Please choose a template."
-msgstr "Please choose a template."
-
-msgid "OS"
-msgstr "OS"
-
-msgid "OS Version"
-msgstr "OS Version"
-
-msgid "CPUS"
-msgstr "CPUS"
-
-msgid "Memory"
-msgstr "Memory"
-
-msgid "Create"
-msgstr "Create"
-
-msgid "Edit Guest"
-msgstr "Edit Guest"
-
-msgid "General"
-msgstr ""
-
-msgid "Storage"
-msgstr "Storage"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "CPUs"
-msgstr "CPUs"
-
-msgid "Icon"
-msgstr "Icon"
-
-msgid "Attach"
-msgstr ""
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Replace"
-msgstr ""
-
-msgid "Detach"
-msgstr ""
-
-msgid "Start"
-msgstr "Start"
-
-msgid "Reset"
-msgstr "Reset"
-
-msgid "Stop"
-msgstr "Stop"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "Connect"
-msgstr "Connect"
-
-msgid "Manage Media"
-msgstr ""
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "The username or password you entered is incorrect. Please try again."
-msgstr "The username or password you entered is incorrect. Please try again."
-
-msgid "This field is required."
-msgstr "This field is required."
-
-msgid "Log in"
-msgstr "Log in"
-
-msgid "Logging in..."
-msgstr "Logging in..."
-
-msgid "Host"
-msgstr "Host"
-
-msgid "Guests"
-msgstr "Guests"
-
-msgid "Templates"
-msgstr "Templates"
-
-msgid "Network"
-msgstr "Network"
-
-msgid "Invalid URL. Redireced to home page."
-msgstr "Invalid URL. Redireced to home page."
-
-msgid "Failed to get application configuration"
-msgstr "Failed to get application configuration"
-
-msgid "This is not a valid Linux path"
-msgstr ""
-
-msgid "This is not a valid URL."
-msgstr ""
-
-msgid "No such data available."
-msgstr ""
-
-msgid "options needed."
-msgstr ""
-
-msgid ""
-"Can not contact the host system. Verify the host system is up and that you "
-"have network connectivity to it. HTTP request response %1. "
-msgstr ""
-
-msgid "Delete Confirmation"
-msgstr "Delete Confirmation"
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Confirm"
-msgstr "Confirm"
-
-msgid "Warning"
-msgstr "Warning"
-
-msgid "Loading..."
-msgstr ""
-
-msgid "An error occurs while checking for packages update."
-msgstr ""
-
-msgid "Retry"
-msgstr ""
-
-msgid "Detailed message:"
-msgstr ""
-
-msgid "No iso found"
-msgstr "No iso found"
-
-msgid "This is not a valid ISO file."
-msgstr "This is not a valid ISO file."
-
-msgid "It will take long time. Do you want to continue?"
-msgstr ""
-
-msgid "This will permanently delete the template. Would you like to continue?"
-msgstr ""
-
-msgid "Unable to shut down system as there are some virtual machines running!"
-msgstr ""
-
-msgid "Max:"
-msgstr "Max:"
-
-msgid "Utilization"
-msgstr "Utilization"
-
-msgid "Available"
-msgstr "Available"
-
-msgid "Read Rate"
-msgstr "Read Rate"
-
-msgid "Write Rate"
-msgstr "Write Rate"
-
-msgid "Received"
-msgstr "Received"
-
-msgid "Sent"
-msgstr "Sent"
-
-msgid ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-msgstr ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-
-msgid ""
-"Repository will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-
-msgid "Repositories"
-msgstr ""
-
-msgid "ID"
-msgstr ""
-
-msgid "Base URL"
-msgstr ""
-
-msgid "Is Mirror"
-msgstr ""
-
-msgid "URL Args"
-msgstr ""
-
-msgid "Enabled"
-msgstr ""
-
-msgid "GPG Check"
-msgstr ""
-
-msgid "GPG Key"
-msgstr ""
-
-msgid "Add"
-msgstr ""
-
-msgid "Remove"
-msgstr "Remove"
-
-msgid "Failed."
-msgstr ""
-
-msgid "Enable"
-msgstr ""
-
-msgid "Disable"
-msgstr ""
-
-msgid "Software Updates"
-msgstr ""
-
-msgid "Package Name"
-msgstr ""
-
-msgid "Version"
-msgstr "Version"
-
-msgid "Architecture"
-msgstr ""
-
-msgid "Repository"
-msgstr ""
-
-msgid "Update All"
-msgstr ""
-
-msgid "Updating..."
-msgstr ""
-
-msgid "Failed to retrieve updates."
-msgstr ""
-
-msgid "Failed to update package(s)."
-msgstr ""
-
-msgid ""
-"Debug report will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-"Debug report will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-
-msgid "Debug Reports"
-msgstr "Debug Reports"
-
-msgid "Generated Time"
-msgstr "Generated Time"
-
-msgid "Generate"
-msgstr "Generate"
-
-msgid "Generating..."
-msgstr "Generating..."
-
-msgid "Rename"
-msgstr "Rename"
-
-msgid "Download"
-msgstr "Download"
-
-msgid "Report name should contain only letters, digits and/or hyphen ('-')."
-msgstr ""
-
-msgid ""
-"This will delete the virtual machine and its virtual disks. This operation "
-"cannot be undone. Would you like to continue?"
-msgstr ""
-
-msgid ""
-"This CDROM will be detached permanently and you can re-attach it. Continue "
-"to detach it?"
-msgstr ""
-
-msgid "Attaching..."
-msgstr ""
-
-msgid "Replacing..."
-msgstr ""
-
-msgid "Successfully attached!"
-msgstr ""
-
-msgid "Successfully replaced!"
-msgstr ""
-
-msgid "Successfully detached!"
-msgstr ""
-
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "The VLAN id must be between 1 and 4094."
-
-msgid "unavailable"
-msgstr "unavailable"
-
-msgid ""
-"This action will interrupt network connectivity for any virtual machine that "
-"depend on this network."
-msgstr ""
-"This action will interrupt network connectivity for any virtual machine that "
-"depend on this network."
-
-msgid "Create a network"
-msgstr "Create a network"
-
-msgid ""
-"This network is not persistent. Instead of stop, this action will "
-"permanently delete it. Would you like to continue?"
-msgstr ""
-
-msgid ""
-"This will permanently delete the storage pool. Would you like to continue?"
-msgstr ""
-
-msgid "This storage pool is empty."
-msgstr "This storage pool is empty."
-
-msgid ""
-"It will format your disk and you will loose any data in there, are you sure "
-"to continue? "
-msgstr ""
-"It will format your disk and you will loose any data in there, are you sure "
-"to continue? "
-
-msgid "SCSI Fibre Channel"
-msgstr ""
-
-msgid "No SCSI adapters found."
-msgstr ""
-
-msgid "The storage pool name can not be blank."
-msgstr ""
-
-msgid "The storage pool path can not be blank."
-msgstr ""
-
-msgid "NFS server mount path can not be blank."
-msgstr "NFS server mount path can not be blank."
-
-msgid "Invalid storage pool name. It should not contain '/'."
-msgstr ""
-
-msgid "Invalid NFS mount path."
-msgstr ""
-
-msgid "No logical device selected."
-msgstr "No logical device selected."
-
-msgid "The iSCSI target can not be blank."
-msgstr "The iSCSI target can not be blank."
-
-msgid "Server name can not be blank."
-msgstr "Server name can not be blank."
-
-msgid "This is not a valid Server Name or IP. please, modify it."
-msgstr "This is not a valid Server Name or IP. please, modify it."
-
-msgid "Looking for available partitions ..."
-msgstr ""
-
-msgid "No available partitions found."
-msgstr ""
-
-msgid ""
-"This storage pool is not persistent. Instead of deactivate, this action will "
-"permanently delete it. Would you like to continue?"
-msgstr ""
-
-msgid "Help"
-msgstr ""
-
-msgid "Log out"
-msgstr "Log out"
-
-msgid "Log In"
-msgstr "Log In"
-
-msgid "User Name"
-msgstr "User Name"
-
-msgid "Password"
-msgstr "Password"
-
-msgid "Generate a New Debug Report"
-msgstr "Generate a New Debug Report"
-
-msgid "Report Name"
-msgstr "Report Name"
-
-msgid ""
-"The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
-msgstr ""
-
-msgid "Add a Repository"
-msgstr ""
-
-msgid "Identifier"
-msgstr ""
-
-msgid "Single word, unique identifier for the repository."
-msgstr ""
-
-msgid "Textual name for the repository."
-msgstr ""
-
-msgid "URL"
-msgstr ""
-
-msgid "Required Field"
-msgstr ""
-
-msgid "URL to the repository. Supported protocols are http, ftp, and file."
-msgstr ""
-
-msgid "Repository is a mirror."
-msgstr ""
-
-msgid "Distribution"
-msgstr ""
-
-msgid "Distribution of the DEB repository."
-msgstr ""
-
-msgid "Components"
-msgstr ""
-
-msgid "List of components in DEB repository."
-msgstr ""
-
-msgid "Edit Repository"
-msgstr ""
-
-msgid "Mirror List URL"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Define a New Storage Pool"
-msgstr "Define a New Storage Pool"
-
-msgid "Storage Pool Name"
-msgstr "Storage Pool Name"
-
-msgid ""
-"The name used to identify the storage pools, and it should not be empty."
-msgstr ""
-"The name used to identify the storage pools, and it should not be empty."
-
-msgid "Storage Pool Type"
-msgstr "Storage Pool Type"
-
-msgid "Storage Path"
-msgstr "Storage Path"
-
-msgid ""
-"The path of the Storage Pool. Each Storage Pool must have a unique path."
-msgstr ""
-"The path of the Storage Pool. Each Storage Pool must have a unique path."
-
-msgid ""
-"Kimchi will try to create the directory when it does not already exist in "
-"your system."
-msgstr ""
-"Kimchi will try to create the directory when it does not already exist in "
-"your system."
-
-msgid "NFS Server IP"
-msgstr ""
-
-msgid "NFS server IP or hostname. It can be input or chosen from history."
-msgstr ""
-
-msgid "NFS Path"
-msgstr "NFS Path"
-
-msgid "The NFS exported path on NFS server."
-msgstr ""
-
-msgid "Device path"
-msgstr ""
-
-msgid "iSCSI Server"
-msgstr "iSCSI Server"
-
-msgid "iSCSI server IP or hostname. It should not be empty."
-msgstr "iSCSI server IP or hostname. It should not be empty."
-
-msgid "Server"
-msgstr "Server"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Target"
-msgstr "Target"
-
-msgid "The iSCSI target on iSCSI server"
-msgstr "The iSCSI target on iSCSI server"
-
-msgid "Add iSCSI Authentication"
-msgstr "Add iSCSI Authentication"
-
-msgid "iSCSI Authentication"
-msgstr "iSCSI Authentication"
-
-msgid "SCSI Adapter"
-msgstr ""
-
-msgid "CPU"
-msgstr "CPU"
-
-msgid "Disk I/O"
-msgstr "Disk I/O"
-
-msgid "Network I/O"
-msgstr "Network I/O"
-
-msgid "Livetile"
-msgstr "Livetile"
-
-msgid "No guests found."
-msgstr "No guests found."
-
-msgid "Shut down"
-msgstr "Shut down"
-
-msgid "Restart"
-msgstr "Restart"
-
-msgid "Basic Information"
-msgstr "Basic Information"
-
-msgid "OS Distro"
-msgstr "OS Distro"
-
-msgid "OS Code Name"
-msgstr "OS Code Name"
-
-msgid "Processor"
-msgstr "Processor"
-
-msgid "System Statistics"
-msgstr "System Statistics"
-
-msgid "Collecting data after leaving this page"
-msgstr "Collecting data after leaving this page"
-
-msgid "Update Progress"
-msgstr ""
-
-msgid "Network Name"
-msgstr "Network Name"
-
-msgid "State"
-msgstr "State"
-
-msgid "Network Type"
-msgstr "Network Type"
-
-msgid "Interface"
-msgstr "Interface"
-
-msgid "Address Space"
-msgstr "Address Space"
-
-msgid "Alphanumeric and '_' characters only."
-msgstr "Alphanumeric and '_' characters only."
-
-msgid "Isolated: no physical network connection"
-msgstr "Isolated: no physical network connection"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT: outbound physical network connection only"
-
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr ""
-
-msgid "Destination"
-msgstr "Destination"
-
-msgid "Enable VLAN"
-msgstr "Enable VLAN"
-
-msgid "VLAN ID"
-msgstr "VLAN ID"
-
-msgid "No templates found."
-msgstr "No templates found."
-
-msgid "Clone"
-msgstr ""
-
-msgid "Location"
-msgstr "Location"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Capacity"
-msgstr "Capacity"
-
-msgid "Allocated"
-msgstr "Allocated"
-
-msgid "active"
-msgstr "active"
-
-msgid "inactive"
-msgstr "inactive"
-
-msgid "Deactivate"
-msgstr "Deactivate"
-
-msgid "Activate"
-msgstr "Activate"
-
-msgid "Undefine"
-msgstr "Undefine"
-
-msgid "Format"
-msgstr "Format"
-
-msgid "Allocation"
-msgstr "Allocation"
-
-msgid "Add Template"
-msgstr "Add Template"
-
-msgid "Where is the source media for this template? "
-msgstr "Where is the source media for this template?"
-
-msgid "Local ISO Image"
-msgstr "Local ISO Image"
-
-msgid "Remote ISO Image"
-msgstr "Remote ISO Image"
-
-msgid "Search ISOs"
-msgstr "Search ISOs"
-
-msgid "Please, wait..."
-msgstr "Please, wait..."
-
-msgid "The following ISOs are available:"
-msgstr "The following ISOs are available:"
-
-msgid "All"
-msgstr "All"
-
-msgid "OS: "
-msgstr "OS: "
-
-msgid "Version: "
-msgstr "Version: "
-
-msgid "Size: "
-msgstr "Size: "
-
-msgid "Search more ISOs"
-msgstr "Search more ISOs"
-
-msgid "Create Templates from Selected ISO"
-msgstr "Create Templates from Selected ISO"
-
-msgid "I want to use a specific ISO file"
-msgstr "I want to use a specific ISO file"
-
-msgid "Loading default remote ISOs ..."
-msgstr ""
-
-msgid "Arch: "
-msgstr ""
-
-msgid "I want to use a custom URL"
-msgstr "I want to use a custom URL"
-
-msgid "Edit Template"
-msgstr "Edit Template"
-
-msgid "Vendor"
-msgstr "Vendor"
-
-msgid "CPU Number"
-msgstr "CPU Number"
-
-msgid "Disk (GB)"
-msgstr "Disk (GB)"
-
-msgid "CDROM"
-msgstr "CDROM"
-
-msgid "Graphics"
-msgstr ""
-
-msgid "Storage Pool"
-msgstr "Storage Pool"
 
 #, python-format
 msgid "Unkown parameter specified %(value)s"
@@ -817,9 +59,6 @@ msgstr ""
 
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
-msgstr ""
-
-msgid "This operation is not allowed as you have restricted access to Kimchi."
 msgstr ""
 
 #, python-format
@@ -886,11 +125,11 @@ msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
-msgstr ""
+msgstr "Virtual machine %(name)s already exists"
 
 #, python-format
 msgid "Virtual machine %(name)s does not exist"
-msgstr ""
+msgstr "Virtual machine %(name)s does not exist"
 
 #, python-format
 msgid ""
@@ -926,7 +165,7 @@ msgid "Unable to connect to powered off machine %(name)s."
 msgstr ""
 
 msgid "Virtual machine name must be a string"
-msgstr ""
+msgstr "Virtual machine name must be a string"
 
 #, python-format
 msgid "Invalid template URI: %(value)s specified for virtual machine"
@@ -950,11 +189,15 @@ msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Unable to stop virtual machine %(name)s. Details: %(err)s"
+msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 msgid "User names list must be an array"
@@ -970,11 +213,15 @@ msgid "Group name must be a string"
 msgstr ""
 
 #, python-format
-msgid "User %(user)s does not exist"
+msgid "User(s) '%(users)s' do not exist"
 msgstr ""
 
 #, python-format
-msgid "Group %(group)s does not exist"
+msgid "Group(s) '%(groups)s' do not exist"
+msgstr ""
+
+#, python-format
+msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -1043,7 +290,7 @@ msgstr ""
 msgid "Template distribution version must be a string"
 msgstr ""
 
-msgid "The number of CPUs must be a integer"
+msgid "The number of CPUs must be an integer greater than 0"
 msgstr ""
 
 msgid "Amount of memory (MB) must be an integer greater than 512"
@@ -1083,9 +330,6 @@ msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s does not exist"
-msgstr ""
-
-msgid "Autostart flag must be true or false"
 msgstr ""
 
 #, python-format
@@ -1334,12 +578,6 @@ msgstr ""
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr ""
 
-#, python-format
-msgid ""
-"Unable to create VLAN tagged bridge using interface %(iface)s. Details: "
-"%(err)s"
-msgstr ""
-
 msgid "Network name must be a string"
 msgstr ""
 
@@ -1353,7 +591,7 @@ msgid "Network interface must be a string"
 msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
-msgstr ""
+msgstr "Network VLAN ID must be an integer between 1 and 4094"
 
 msgid "Specify name and type to create a Network"
 msgstr ""
@@ -1372,6 +610,16 @@ msgstr ""
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
+msgstr ""
+
+#, python-format
+msgid "Failed to activate interface %(iface)s: %(err)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to activate interface %(iface)s. Please check the physical link "
+"status."
 msgstr ""
 
 #, python-format
@@ -1465,9 +713,6 @@ msgstr ""
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr ""
 
-msgid "Can't specify a directory for a CDROM device path"
-msgstr ""
-
 #, python-format
 msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
 msgstr ""
@@ -1491,6 +736,10 @@ msgid "Specify type and path to add a new virtual machine disk"
 msgstr ""
 
 msgid "Specify path to update virtual machine disk"
+msgstr ""
+
+#, python-format
+msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
@@ -1590,8 +839,834 @@ msgstr ""
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr ""
 
-#~ msgid "File Path"
-#~ msgstr "File Path"
+msgid "ERROR CODE"
+msgstr "ERROR CODE"
 
-#~ msgid "Create template successfully"
-#~ msgstr "Create template successfully"
+msgid "REASON"
+msgstr "REASON"
+
+msgid "STACK"
+msgstr "STACK"
+
+msgid "Go to Homepage"
+msgstr "Go to Homepage"
+
+msgid "Create a New Virtual Machine"
+msgstr "Create a New Virtual Machine"
+
+msgid "Virtual Machine Name"
+msgstr "Virtual Machine Name"
+
+msgid ""
+"The name used to identify the virtual machine. If omitted, a name will be "
+"chosen based on the template used."
+msgstr ""
+
+msgid "Template"
+msgstr "Template"
+
+msgid "Please create a template first."
+msgstr "Please create a template first."
+
+msgid "Create a Template"
+msgstr "Create a Template"
+
+msgid "Please choose a template."
+msgstr "Please choose a template."
+
+msgid "OS"
+msgstr "OS"
+
+msgid "OS Version"
+msgstr "OS Version"
+
+msgid "CPUS"
+msgstr "CPUS"
+
+msgid "Memory"
+msgstr "Memory"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "Replace a CDROM of VM"
+msgstr ""
+
+msgid "Device Name"
+msgstr ""
+
+msgid "The name used to identify the CDROM. Read-only."
+msgstr "The name used to identify the CDROM. Read-only."
+
+msgid "Device Type"
+msgstr ""
+
+msgid "The device type. Currently, only \"cdrom\" is supported."
+msgstr ""
+
+msgid "ISO File Path"
+msgstr "ISO File Path"
+
+msgid "The ISO file path in the server."
+msgstr ""
+
+msgid "Replace"
+msgstr ""
+
+msgid "Edit Guest"
+msgstr "Edit Guest"
+
+msgid "General"
+msgstr ""
+
+msgid "Storage"
+msgstr "Storage"
+
+msgid "Interface"
+msgstr "Interface"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "CPUs"
+msgstr "CPUs"
+
+msgid "Memory (MB)"
+msgstr "Memory (MB)"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Attach"
+msgstr ""
+
+msgid "Network"
+msgstr "Network"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Detach"
+msgstr ""
+
+msgid "Manage Media"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr ""
+
+msgid ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+msgstr ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+
+msgid "File Path"
+msgstr "File Path"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr ""
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Connect"
+msgstr "Connect"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Shut Down"
+msgstr "Shut Down"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr "The username or password you entered is incorrect. Please try again."
+
+msgid "This field is required."
+msgstr "This field is required."
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Logging in..."
+msgstr "Logging in..."
+
+msgid "Host"
+msgstr "Host"
+
+msgid "Guests"
+msgstr "Guests"
+
+msgid "Templates"
+msgstr "Templates"
+
+msgid "Invalid URL. Redireced to home page."
+msgstr "Invalid URL. Redireced to home page."
+
+msgid "Failed to get application configuration"
+msgstr "Failed to get application configuration"
+
+msgid "This is not a valid Linux path"
+msgstr ""
+
+msgid "This is not a valid URL."
+msgstr ""
+
+msgid "No such data available."
+msgstr ""
+
+msgid "options needed."
+msgstr ""
+
+msgid ""
+"Can not contact the host system. Verify the host system is up and that you "
+"have network connectivity to it. HTTP request response %1. "
+msgstr ""
+
+msgid "Delete Confirmation"
+msgstr "Delete Confirmation"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Loading..."
+msgstr ""
+
+msgid "An error occurs while checking for packages update."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Detailed message:"
+msgstr ""
+
+msgid "No iso found"
+msgstr "No iso found"
+
+msgid "This is not a valid ISO file."
+msgstr "This is not a valid ISO file."
+
+msgid "It will take long time. Do you want to continue?"
+msgstr ""
+
+msgid "This will permanently delete the template. Would you like to continue?"
+msgstr ""
+
+msgid "Unable to shut down system as there are some virtual machines running!"
+msgstr ""
+
+msgid "Max:"
+msgstr "Max:"
+
+msgid "Utilization"
+msgstr "Utilization"
+
+msgid "Available"
+msgstr "Available"
+
+msgid "Read Rate"
+msgstr "Read Rate"
+
+msgid "Write Rate"
+msgstr "Write Rate"
+
+msgid "Received"
+msgstr "Received"
+
+msgid "Sent"
+msgstr "Sent"
+
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
+msgstr ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
+
+msgid ""
+"Repository will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Repositories"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Base URL"
+msgstr ""
+
+msgid "Is Mirror"
+msgstr ""
+
+msgid "URL Args"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "GPG Check"
+msgstr ""
+
+msgid "GPG Key"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Failed."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
+msgid "Software Updates"
+msgstr ""
+
+msgid "Package Name"
+msgstr ""
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Architecture"
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Update All"
+msgstr ""
+
+msgid "Updating..."
+msgstr ""
+
+msgid "Failed to retrieve updates."
+msgstr ""
+
+msgid "Failed to update package(s)."
+msgstr ""
+
+msgid ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+
+msgid "Debug Reports"
+msgstr "Debug Reports"
+
+msgid "Generated Time"
+msgstr "Generated Time"
+
+msgid "Generate"
+msgstr "Generate"
+
+msgid "Generating..."
+msgstr "Generating..."
+
+msgid "Rename"
+msgstr "Rename"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Report name should contain only letters, digits and/or hyphen ('-')."
+msgstr ""
+
+msgid ""
+"This will delete the virtual machine and its virtual disks. This operation "
+"cannot be undone. Would you like to continue?"
+msgstr ""
+
+msgid "Power off Confirmation"
+msgstr "Power off Confirmation"
+
+msgid ""
+"This action may produce undesirable results, for example unflushed disk "
+"cache in the guest. Would you like to continue?"
+msgstr ""
+
+msgid "Reset Confirmation"
+msgstr "Reset Confirmation"
+
+msgid ""
+"There is a risk of data loss caused by reset without the guest OS shutdown. "
+"Would you like to continue?"
+msgstr ""
+
+msgid "Shut Down Confirmation"
+msgstr "Shut Down Confirmation"
+
+msgid "Note the guest OS may ignore this request. Would you like to continue?"
+msgstr ""
+
+msgid ""
+"This CDROM will be detached permanently and you can re-attach it. Continue "
+"to detach it?"
+msgstr ""
+
+msgid "Attaching..."
+msgstr ""
+
+msgid "Replacing..."
+msgstr ""
+
+msgid "Successfully attached!"
+msgstr ""
+
+msgid "Successfully replaced!"
+msgstr ""
+
+msgid "Successfully detached!"
+msgstr ""
+
+msgid "The VLAN id must be between 1 and 4094."
+msgstr "The VLAN id must be between 1 and 4094."
+
+msgid "unavailable"
+msgstr "unavailable"
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+
+msgid "Create a network"
+msgstr "Create a network"
+
+msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid ""
+"This will permanently delete the storage pool. Would you like to continue?"
+msgstr ""
+
+msgid "This storage pool is empty."
+msgstr "This storage pool is empty."
+
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+msgstr ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+
+msgid "SCSI Fibre Channel"
+msgstr ""
+
+msgid "No SCSI adapters found."
+msgstr ""
+
+msgid "The storage pool name can not be blank."
+msgstr ""
+
+msgid "The storage pool path can not be blank."
+msgstr ""
+
+msgid "NFS server mount path can not be blank."
+msgstr "NFS server mount path can not be blank."
+
+msgid "Invalid storage pool name. It should not contain '/'."
+msgstr ""
+
+msgid "Invalid NFS mount path."
+msgstr ""
+
+msgid "No logical device selected."
+msgstr "No logical device selected."
+
+msgid "The iSCSI target can not be blank."
+msgstr "The iSCSI target can not be blank."
+
+msgid "Server name can not be blank."
+msgstr "Server name can not be blank."
+
+msgid "This is not a valid Server Name or IP. please, modify it."
+msgstr "This is not a valid Server Name or IP. please, modify it."
+
+msgid "Looking for available partitions ..."
+msgstr ""
+
+msgid "No available partitions found."
+msgstr ""
+
+msgid ""
+"This storage pool is not persistent. Instead of deactivate, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Version:"
+msgstr "Version:"
+
+msgid "Log In"
+msgstr "Log In"
+
+msgid "User Name"
+msgstr "User Name"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Generate a New Debug Report"
+msgstr "Generate a New Debug Report"
+
+msgid "Report Name"
+msgstr "Report Name"
+
+msgid ""
+"The name used to identify the report. If omitted, a name will be chosen "
+"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+msgstr ""
+
+msgid "Add a Repository"
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
+
+msgid "Single word, unique identifier for the repository."
+msgstr ""
+
+msgid "Textual name for the repository."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Required Field"
+msgstr ""
+
+msgid "URL to the repository. Supported protocols are http, ftp, and file."
+msgstr ""
+
+msgid "Repository is a mirror."
+msgstr ""
+
+msgid "Distribution"
+msgstr ""
+
+msgid "Distribution of the DEB repository."
+msgstr ""
+
+msgid "Components"
+msgstr ""
+
+msgid "List of components in DEB repository."
+msgstr ""
+
+msgid "Edit Repository"
+msgstr ""
+
+msgid "Mirror List URL"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Define a New Storage Pool"
+msgstr "Define a New Storage Pool"
+
+msgid "Storage Pool Name"
+msgstr "Storage Pool Name"
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+"The name used to identify the storage pools, and it should not be empty."
+
+msgid "Storage Pool Type"
+msgstr "Storage Pool Type"
+
+msgid "Storage Path"
+msgstr "Storage Path"
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+
+msgid ""
+"Kimchi will try to create the directory when it does not already exist in "
+"your system."
+msgstr ""
+"Kimchi will try to create the directory when it does not already exist in "
+"your system."
+
+msgid "NFS Server IP"
+msgstr ""
+
+msgid "NFS server IP or hostname. It can be input or chosen from history."
+msgstr ""
+
+msgid "NFS Path"
+msgstr "NFS Path"
+
+msgid "The NFS exported path on NFS server."
+msgstr ""
+
+msgid "Device path"
+msgstr ""
+
+msgid "iSCSI Server"
+msgstr "iSCSI Server"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr "iSCSI server IP or hostname. It should not be empty."
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Target"
+msgstr "Target"
+
+msgid "The iSCSI target on iSCSI server"
+msgstr "The iSCSI target on iSCSI server"
+
+msgid "Add iSCSI Authentication"
+msgstr "Add iSCSI Authentication"
+
+msgid "iSCSI Authentication"
+msgstr "iSCSI Authentication"
+
+msgid "SCSI Adapter"
+msgstr ""
+
+msgid "Add Template"
+msgstr "Add Template"
+
+msgid "Where is the source media for this template? "
+msgstr "Where is the source media for this template?"
+
+msgid "Local ISO Image"
+msgstr "Local ISO Image"
+
+msgid "Remote ISO Image"
+msgstr "Remote ISO Image"
+
+msgid "Search ISOs"
+msgstr "Search ISOs"
+
+msgid "Please, wait..."
+msgstr "Please, wait..."
+
+msgid "The following ISOs are available:"
+msgstr "The following ISOs are available:"
+
+msgid "All"
+msgstr "All"
+
+msgid "OS: "
+msgstr "OS: "
+
+msgid "Version: "
+msgstr "Version: "
+
+msgid "Size: "
+msgstr "Size: "
+
+msgid "Search more ISOs"
+msgstr "Search more ISOs"
+
+msgid "Create Templates from Selected ISO"
+msgstr "Create Templates from Selected ISO"
+
+msgid "I want to use a specific ISO file"
+msgstr "I want to use a specific ISO file"
+
+msgid "Loading default remote ISOs ..."
+msgstr ""
+
+msgid "Arch: "
+msgstr ""
+
+msgid "I want to use a custom URL"
+msgstr "I want to use a custom URL"
+
+msgid "Edit Template"
+msgstr "Edit Template"
+
+msgid "Vendor"
+msgstr "Vendor"
+
+msgid "CPU Number"
+msgstr "CPU Number"
+
+msgid "Disk (GB)"
+msgstr "Disk (GB)"
+
+msgid "CDROM"
+msgstr "CDROM"
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "Storage Pool"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Disk I/O"
+msgstr "Disk I/O"
+
+msgid "Network I/O"
+msgstr "Network I/O"
+
+msgid "Livetile"
+msgstr "Livetile"
+
+msgid "No guests found."
+msgstr "No guests found."
+
+msgid "Shut down"
+msgstr "Shut down"
+
+msgid "Restart"
+msgstr "Restart"
+
+msgid "Basic Information"
+msgstr "Basic Information"
+
+msgid "OS Distro"
+msgstr "OS Distro"
+
+msgid "OS Code Name"
+msgstr "OS Code Name"
+
+msgid "Processor"
+msgstr "Processor"
+
+msgid "System Statistics"
+msgstr "System Statistics"
+
+msgid "Collecting data after leaving this page"
+msgstr "Collecting data after leaving this page"
+
+msgid "Update Progress"
+msgstr ""
+
+msgid "Network Name"
+msgstr "Network Name"
+
+msgid "State"
+msgstr "State"
+
+msgid "Network Type"
+msgstr "Network Type"
+
+msgid "Address Space"
+msgstr "Address Space"
+
+msgid "Alphanumeric and '_' characters only."
+msgstr "Alphanumeric and '_' characters only."
+
+msgid "Isolated: no physical network connection"
+msgstr "Isolated: no physical network connection"
+
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: outbound physical network connection only"
+
+msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Enable VLAN"
+msgstr "Enable VLAN"
+
+msgid "VLAN ID"
+msgstr "VLAN ID"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Capacity"
+msgstr "Capacity"
+
+msgid "Allocated"
+msgstr "Allocated"
+
+msgid "active"
+msgstr "active"
+
+msgid "inactive"
+msgstr "inactive"
+
+msgid "Deactivate"
+msgstr "Deactivate"
+
+msgid "Activate"
+msgstr "Activate"
+
+msgid "Undefine"
+msgstr "Undefine"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Allocation"
+msgstr "Allocation"
+
+msgid "No templates found."
+msgstr "No templates found."
+
+msgid "Clone"
+msgstr ""
