@@ -68,20 +68,22 @@ create a template.</li>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="en-us">
 <title>Edit guest</title>
-<shortdesc>Edit the properties of an existing virtual machine. Guests
-can be edited only while stopped.</shortdesc>
+<shortdesc>Edit the properties of an existing virtual machine. Some properties
+can be edited only while guest is stopped. Others will take effect in next boot.</shortdesc>
 <csprolog><csmetadata></csmetadata></csprolog>
 <csbody>
 <p>For each guest, the following information is displayed on the <wintitle>General</wintitle> tab:<dl>
 <dlentry>
 <dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<dd>Name of the virtual machine. (can only be edited while guest is stopped)</dd>
 </dlentry><dlentry>
 <dt>CPUs</dt>
-<dd>Number of processors.</dd>
+<dd>Number of processors. (if guest is running, new amount will take effect
+in next boot)</dd>
 </dlentry><dlentry>
 <dt>Memory</dt>
-<dd>Amount of memory in MB.</dd>
+<dd>Amount of memory in MB. (if guest is running, new amount will take effect
+in next boot)</dd>
 </dlentry><dlentry>
 <dt>Icon</dt>
 <dd>Graphic image representing the Linux distribution to be displayed
