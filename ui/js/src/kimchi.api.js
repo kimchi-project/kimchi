@@ -970,5 +970,60 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    getGuestInterfaces: function(name, suc, err) {
+        var url = kimchi.url+'vms/'+encodeURIComponent(name)+'/ifaces';
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err || function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    createGuestInterface : function(name, interface, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(name)+'/ifaces',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            data : JSON.stringify(interface),
+            success : suc,
+            error : err || function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    deleteGuestInterface : function(vm, mac, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    updateGuestInterface : function(vm, mac, interface, suc, err) {
+        $.ajax({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(interface),
+            dataType : 'json',
+            success: suc,
+            error: err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 };

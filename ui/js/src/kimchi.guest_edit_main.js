@@ -78,6 +78,95 @@ kimchi.guest_edit_main = function() {
         });
     };
 
+    var setupInterface = function() {
+        $(".add", "#form-guest-edit-interface").button({
+            icons: { primary: "ui-icon-plusthick" },
+            text: false
+        }).click(function(){
+            addItem({
+                mac: "",
+                network: "",
+                type: "network",
+                viewMode: "hide",
+                editMode: ""
+            });
+        });
+        var toggleEdit = function(item, on){
+            $("label", item).toggleClass("hide", on);
+            $("select", item).toggleClass("hide", !on);
+            $(".action-area", item).toggleClass("hide");
+        };
+        var addItem = function(data) {
+            var itemNode = $.parseHTML(kimchi.template($('#interface-tmpl').html(),data));
+            $(".body", "#form-guest-edit-interface").append(itemNode);
+            $("select", itemNode).append(networkOptions);
+            if(data.network!==""){
+                $("select", itemNode).val(data.network);
+            }
+            $(".edit", itemNode).button({
+                disabled: true,
+                icons: { primary: "ui-icon-pencil" },
+                text: false
+            }).click(function(){
+                toggleEdit($(this).parent().parent(), true);
+            });
+            $(".delete", itemNode).button({
+                icons: { primary: "ui-icon-trash" },
+                text: false
+            }).click(function(){
+                var item = $(this).parent().parent();
+                kimchi.deleteGuestInterface(kimchi.selectedGuest, item.prop("id"), function(){
+                    item.remove();
+                });
+            });
+            $(".save", itemNode).button({
+                icons: { primary: "ui-icon-disk" },
+                text: false
+            }).click(function(){
+                var item = $(this).parent().parent();
+                var interface = {
+                    network: $("select", item).val(),
+                    type: "network"
+                };
+                var postUpdate = function(){
+                    $("label", item).text(interface.network);
+                    toggleEdit(item, false);
+                };
+                if(item.prop("id")==""){
+                    kimchi.createGuestInterface(kimchi.selectedGuest, interface, function(data){
+                        item.prop("id", data.mac);
+                        postUpdate();
+                    });
+                }else{
+                    kimchi.updateGuestInterface(kimchi.selectedGuest, item.prop("id"), interface, function(){
+                        postUpdate();
+                    });
+                }
+            });
+            $(".cancel", itemNode).button({
+                icons: { primary: "ui-icon-arrowreturnthick-1-w" },
+                text: false
+            }).click(function(){
+                var item = $(this).parent().parent();
+                $("label", item).text()==="" ? item.remove() : toggleEdit(item, false);
+            });
+        };
+        var networkOptions = "";
+        kimchi.listNetworks(function(data){
+            for(var i=0;i<data.length;i++){
+                var isSlected = i==0 ? " selected" : "";
+                networkOptions += "<option"+isSlected+">"+data[i].name+"</option>";
+            }
+            kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data){
+                for(var i=0;i<data.length;i++){
+                    data[i].viewMode = "";
+                    data[i].editMode = "hide";
+                    addItem(data[i]);
+                }
+            });
+        });
+    };
+
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
@@ -98,6 +187,8 @@ kimchi.guest_edit_main = function() {
         var onDetached = function(params) {
             refreshCDROMs();
         };
+
+        setupInterface();
 
         kimchi.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
         kimchi.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);

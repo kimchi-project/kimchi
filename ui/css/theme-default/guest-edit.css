@@ -156,3 +156,46 @@
 .guest-edit-cdrom-button.detach[disabled] {
     background-position: -54px -108px;
 }
+
+.guest-edit-interface .header {
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    font-weight: bold;
+    border-bottom: 1px solid #999999;
+    overflow: hidden;
+}
+
+.guest-edit-interface .body .item {
+    margin: 5px 0;
+}
+
+.guest-edit-interface .cell {
+    display: inline-block;
+    width: 250px;
+}
+
+.guest-edit-interface .body select {
+    width: 180px;
+    padding: 0px;
+}
+
+.guest-edit-interface .action-area {
+    float: right;
+}
+
+.guest-edit-interface button {
+    width: 20px;
+    height: 20px;
+}
+
+.guest-edit-interface .header button {
+    margin-bottom: 1px;
+}
+
+.guest-edit-interface .body button:not(:last-child) {
+    margin-right: 2px;
+}
+
+.guest-edit-interface .hide {
+    display: none;
+}

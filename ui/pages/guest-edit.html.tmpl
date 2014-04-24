@@ -35,6 +35,9 @@
                 <li>
                     <a href="#form-guest-edit-storage">$_("Storage")</a>
                 </li>
+                <li>
+                    <a href="#form-guest-edit-interface">$_("Interface")</a>
+                </li>
             </ul>
             <form id="form-guest-edit-general">
                 <fieldset class="guest-edit-fieldset">
@@ -101,6 +104,14 @@
                     </div>
                 </fieldset>
             </form>
+            <form id="form-guest-edit-interface" class="guest-edit-interface">
+                <div class="header">
+                    <span class="cell">$_("Network")</span>
+                    <span class="cell">$_("Type")</span>
+                    <button class="add action-area"></button>
+                </div>
+                <div class="body"></div>
+            </form>
         </div>
     </div>
     <footer>
@@ -130,6 +141,23 @@
             </button>
         </div>
     </div>
+</script>
+<script id="interface-tmpl" type="text/html">
+    <div class="item" id="{mac}">
+        <span class="cell">
+            <label class="{viewMode}">{network}</label>
+            <select class="{editMode}"></select>
+        </span>
+        <span class="cell">
+            <span>{type}</span>
+        </span>
+        <span class="action-area {editMode}">
+            <button class="save"></button><button class="cancel"></button>
+        </span>
+        <span class="action-area {viewMode}">
+            <button class="edit"></button><button class="delete"></button>
+        </span>
+    <div>
 </script>
 
 <script type="text/javascript">
