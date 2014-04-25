@@ -39,7 +39,7 @@ class SSLCert(object):
 
         self.cert = X509.X509()
         pubkey = EVP.PKey()
-        rsa = RSA.gen_key(1024, 65537, keygen_cb)
+        rsa = RSA.gen_key(2048, 65537, keygen_cb)
         pubkey.assign_rsa(rsa)
         self._key = rsa.as_pem(None, callback=passphrase_cb)
         rsa = None
