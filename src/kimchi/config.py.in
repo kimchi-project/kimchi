@@ -172,6 +172,7 @@ class KimchiConfig(dict):
               'tools.nocache.on': True,
               'tools.sessions.on': True,
               'tools.sessions.name': 'kimchi',
+              'tools.sessions.secure': True,
               'tools.sessions.httponly': True,
               'tools.sessions.locking': 'explicit',
               'tools.sessions.storage_type': 'ram',

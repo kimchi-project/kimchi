@@ -18,6 +18,7 @@
 kimchi.cookie = {
     set: function(key, value, expireDays) {
         value = encodeURIComponent(value);
+        value += '; secure'
         if (expireDays) {
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + expireDays);
