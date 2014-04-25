@@ -47,18 +47,29 @@ class Root(Resource):
             self._cp_config = dict([(key, self.error_development_handler)
                                     for key in self._handled_error])
 
+    def _set_CSP(self):
+        # set Content-Security-Policy to prevent XSS attacks
+        headers = cherrypy.response.headers
+        headers['Content-Security-Policy'] = "default-src 'self'"
+
     def error_production_handler(self, status, message, traceback, version):
+        self._set_CSP()
+
         data = {'code': status, 'reason': message}
         res = template.render('error.html', data)
+
         if (type(res) is unicode and
                 LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
         return res
 
     def error_development_handler(self, status, message, traceback, version):
+        self._set_CSP()
+
         data = {'code': status, 'reason': message,
                 'call_stack': cherrypy._cperror.format_exc()}
         res = template.render('error.html', data)
+
         if (type(res) is unicode and
                 LooseVersion(cherrypy.__version__) < LooseVersion('3.2.5')):
             res = res.encode("utf-8")
