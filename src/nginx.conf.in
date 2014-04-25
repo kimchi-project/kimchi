@@ -17,7 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301  USA
 
-
 # This is a template file to be used to generate a nginx
 # proxy config file at kimchid script.
 
@@ -30,7 +29,6 @@ events {
     worker_connections  1024;
 }
 
-
 http {
 
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
@@ -38,18 +36,26 @@ http {
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
+    sendfile    on;
 
     server {
-        listen       $proxy_port;
         listen $proxy_ssl_port ssl;
+
         ssl_certificate $cert_pem;
         ssl_certificate_key $cert_key;
+
+        add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
         location / {
             proxy_pass http://localhost:$kimchid_port;
             proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
+    }
+
+    server {
+        listen $proxy_port;
+        rewrite ^/(.*)$ https://$host:$proxy_ssl_port/$1 redirect;
     }
 }
