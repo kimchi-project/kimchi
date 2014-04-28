@@ -418,40 +418,57 @@
          },
         "vmstorages_create": {
             "type": "object",
-            "error": "KCHCDROM0012E",
+            "error": "KCHVMSTOR0012E",
             "properties": {
                 "dev": {
-                    "description": "The storage (cd-rom) device name",
+                    "description": "The storage device name",
                     "type": "string",
-                    "pattern": "^hd[b-z]$",
-                    "error": "KCHCDROM0001E"
+                    "pattern": "^h|vd[b-z]$",
+                    "error": "KCHVMSTOR0001E"
                 },
                 "type": {
                     "description": "The storage type",
                     "type": "string",
-                    "pattern": "^cdrom$",
+                    "pattern": "^cdrom|disk$",
                     "required": true,
-                    "error": "KCHCDROM0002E"
+                    "error": "KCHVMSTOR0002E"
+                },
+                "pool": {
+                    "description": "Storage pool name disk image locate in",
+                    "type": "string",
+                    "minLength": 1,
+                    "error": "KCHVMSTOR0012E"
+                },
+                "vol": {
+                    "description": "Storage volume name of disk image",
+                    "type": "string",
+                    "minLength": 1,
+                    "error": "KCHVMSTOR0012E"
                 },
                "path": {
                     "description": "Path of iso image file or disk mount point",
                     "type": "string",
                     "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
-                    "required": true,
-                    "error": "KCHCDROM0003E"
+                    "error": "KCHVMSTOR0003E"
+                },
+                "bus": {
+                    "description": "Target bus type of attached device",
+                    "type": "string",
+                    "pattern": "^scsi|ide|virtio$",
+                    "error": "KCHVMSTOR0005E"
                 }
             }
         },
         "vmstorage_update": {
             "type": "object",
-            "error": "KCHCDROM0013E",
+            "error": "KCHVMSTOR0013E",
             "properties": {
                "path": {
                     "description": "Path of iso image file or disk mount point",
                     "type": "string",
                     "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
                     "required": true,
-                    "error": "KCHCDROM0003E"
+                    "error": "KCHVMSTOR0003E"
                 }
             }
         },

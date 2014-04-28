@@ -664,12 +664,12 @@ class MockModel(object):
     def vmstorages_create(self, vm_name, params):
         path = params.get('path')
         if path.startswith('/') and not os.path.exists(path):
-            raise InvalidParameter("KCHCDROM0003E", {'value': path})
+            raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
 
         dom = self._get_vm(vm_name)
         dev = params.get('dev', None)
         if dev and dev in self.vmstorages_get_list(vm_name):
-            return OperationFailed("KCHCDROM0004E", {'dev_name': dev,
+            return OperationFailed("KCHVMSTOR0004E", {'dev_name': dev,
                                                      'vm_name': vm_name})
         if not dev:
             index = len(dom.storagedevices.keys()) + 1
@@ -686,14 +686,14 @@ class MockModel(object):
     def vmstorage_lookup(self, vm_name, dev_name):
         dom = self._get_vm(vm_name)
         if dev_name not in self.vmstorages_get_list(vm_name):
-            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
         return dom.storagedevices.get(dev_name).info
 
     def vmstorage_delete(self, vm_name, dev_name):
         dom = self._get_vm(vm_name)
         if dev_name not in self.vmstorages_get_list(vm_name):
-            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
         dom.storagedevices.pop(dev_name)
 
@@ -702,7 +702,7 @@ class MockModel(object):
             dom = self._get_vm(vm_name)
             dom.storagedevices[dev_name].info.update(params)
         except Exception as e:
-            raise OperationFailed("KCHCDROM0009E", {'error': e.message})
+            raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
         return dev_name
 
     def vmifaces_create(self, vm, params):

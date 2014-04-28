@@ -89,15 +89,15 @@ def _check_cdrom_path(path):
 
             cds = re.findall("drive name:\t\t(.*)", content)
             if not cds:
-                raise InvalidParameter("KCHCDROM0003E", {'value': path})
+                raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
 
             drives = [os.path.join('/dev', p) for p in cds[0].split('\t')]
             if path not in drives:
-                raise InvalidParameter("KCHCDROM0003E", {'value': path})
+                raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
 
             src_type = 'block'
     else:
-        raise InvalidParameter("KCHCDROM0003E", {'value': path})
+        raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
     return src_type
 
 
@@ -122,7 +122,7 @@ class VMStoragesModel(object):
                     valid_id.remove((bus_id, unit_id))
                     continue
         if not valid_id:
-            raise OperationFailed('KCHCDROM0014E', {'type': 'ide', 'limit': 4})
+            raise OperationFailed('KCHVMSTOR0014E', {'type': 'ide', 'limit': 4})
         else:
             address = {'controller': controller_id,
                        'bus': valid_id[0][0], 'unit': valid_id[0][1]}
@@ -131,7 +131,7 @@ class VMStoragesModel(object):
     def create(self, vm_name, params):
         dom = VMModel.get_vm(vm_name, self.conn)
         if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
-            raise InvalidOperation('KCHCDROM0011E')
+            raise InvalidOperation('KCHVMSTOR0011E')
 
         # Use device name passed or pick next
         dev_name = params.get('dev', None)
@@ -140,7 +140,7 @@ class VMStoragesModel(object):
         else:
             devices = self.get_list(vm_name)
             if dev_name in devices:
-                raise OperationFailed('KCHCDROM0004E', {'dev_name': dev_name,
+                raise OperationFailed('KCHVMSTOR0004E', {'dev_name': dev_name,
                                                         'vm_name': vm_name})
 
         # Path will never be blank due to API.json verification.
@@ -156,7 +156,7 @@ class VMStoragesModel(object):
             dom = conn.lookupByName(vm_name)
             dom.attachDeviceFlags(dev_xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:
-            raise OperationFailed("KCHCDROM0008E", {'error': e.message})
+            raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
         return params['dev']
 
     def _get_storage_device_name(self, vm_name):
@@ -190,7 +190,7 @@ class VMStorageModel(object):
         dom = VMModel.get_vm(vm_name, self.conn)
         disk = _get_device_xml(dom, dev_name)
         if disk is None:
-            raise NotFoundError("KCHCDROM0007E", {'dev_name': dev_name,
+            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
                                                   'vm_name': vm_name})
         path = ""
         dev_bus = 'ide'
@@ -220,13 +220,13 @@ class VMStorageModel(object):
         dom = VMModel.get_vm(vm_name, self.conn)
         disk = _get_device_xml(dom, dev_name)
         if disk is None:
-            raise NotFoundError("KCHCDROM0007E",
+            raise NotFoundError("KCHVMSTOR0007E",
                                 {'dev_name': dev_name,
                                  'vm_name': vm_name})
 
         dom = VMModel.get_vm(vm_name, self.conn)
         if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
-            raise InvalidOperation('KCHCDROM0011E')
+            raise InvalidOperation('KCHVMSTOR0011E')
 
         try:
             conn = self.conn.get()
@@ -234,18 +234,20 @@ class VMStorageModel(object):
             dom.detachDeviceFlags(etree.tostring(disk),
                                   libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:
-            raise OperationFailed("KCHCDROM0010E", {'error': e.message})
+            raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
         params['src_type'] = _check_cdrom_path(params['path'])
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
+        if dev_info['type'] != 'cdrom':
+            raise InvalidOperation("KCHVMSTOR0006E")
         dev_info.update(params)
         xml = _get_storage_xml(dev_info)
 
         try:
             dom.updateDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:
-            raise OperationFailed("KCHCDROM0009E", {'error': e.message})
+            raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
         return dev_name
