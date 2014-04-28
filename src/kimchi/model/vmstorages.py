@@ -31,6 +31,7 @@ from lxml.builder import E
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
+from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
 from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
@@ -50,7 +51,7 @@ def _get_device_bus(dev_type, dom):
 def _get_storage_xml(params):
     src_type = params.get('src_type')
     disk = E.disk(type=src_type, device=params.get('type'))
-    disk.append(E.driver(name='qemu', type='raw'))
+    disk.append(E.driver(name='qemu', type=params['format']))
     # Working with url paths
     if src_type == 'network':
         output = urlparse.urlparse(params.get('path'))
@@ -75,7 +76,7 @@ def _get_storage_xml(params):
     return ET.tostring(disk)
 
 
-def _check_cdrom_path(path):
+def _check_path(path):
     if check_url_path(path):
         src_type = 'network'
     # Check if path is a valid local path
@@ -145,8 +146,22 @@ class VMStoragesModel(object):
 
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
-        path = params['path']
-        params['src_type'] = _check_cdrom_path(path)
+        params['format'] = 'raw'
+        if params.get('vol'):
+            try:
+                pool = params['pool']
+                vol_info = StorageVolumeModel(
+                    conn=self.conn,
+                    objstore=self.objstore).lookup(pool, params['vol'])
+            except KeyError:
+                raise InvalidParameter("KCHVMSTOR0012E")
+            except Exception as e:
+                raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
+            if vol_info['ref_cnt'] != 0:
+                raise InvalidParameter("KCHVMSTOR0016E")
+            params['format'] = vol_info['format']
+            params['path'] = vol_info['path']
+        params['src_type'] = _check_path(params['path'])
         params.setdefault(
             'bus', _get_device_bus(params['type'], dom))
         if (params['bus'] not in HOTPLUG_TYPE
@@ -212,7 +227,7 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
-        params['src_type'] = _check_cdrom_path(params['path'])
+        params['src_type'] = _check_path(params['path'])
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
