@@ -25,7 +25,7 @@ import urlparse
 
 import libvirt
 import lxml.etree as ET
-from lxml import etree, objectify
+from lxml import etree
 from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
@@ -33,20 +33,10 @@ from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
+from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
+from kimchi.vmdisks import DEV_TYPE_SRC_ATTR_MAP
 
-DEV_TYPE_SRC_ATTR_MAP = {'file': 'file',
-                         'block': 'dev'}
 HOTPLUG_TYPE = ['scsi', 'virtio']
-
-
-def _get_device_xml(dom, dev_name):
-    # Get VM xml and then devices xml
-    xml = dom.XMLDesc(0)
-    devices = objectify.fromstring(xml).devices
-    disk = devices.xpath("./disk/target[@dev='%s']/.." % dev_name)
-    if not disk:
-        return None
-    return disk[0]
 
 
 def _get_device_bus(dev_type, dom):
@@ -114,6 +104,7 @@ def _check_cdrom_path(path):
 class VMStoragesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
 
     def _get_available_bus_address(self, bus_type, vm_name):
         if bus_type not in ['ide']:
@@ -125,7 +116,7 @@ class VMStoragesModel(object):
         valid_id = [('0', '0'), ('0', '1'), ('1', '0'), ('1', '1')]
         controller_id = '0'
         for dev_name in disks:
-            disk = _get_device_xml(dom, dev_name)
+            disk = get_device_xml(dom, dev_name)
             if disk.target.attrib['bus'] == 'ide':
                 controller_id = disk.address.attrib['controller']
                 bus_id = disk.address.attrib['bus']
@@ -156,7 +147,6 @@ class VMStoragesModel(object):
         # There is no need to cover this case here.
         path = params['path']
         params['src_type'] = _check_cdrom_path(path)
-
         params.setdefault(
             'bus', _get_device_bus(params['type'], dom))
         if (params['bus'] not in HOTPLUG_TYPE
@@ -187,13 +177,7 @@ class VMStoragesModel(object):
 
     def get_list(self, vm_name):
         dom = VMModel.get_vm(vm_name, self.conn)
-        xml = dom.XMLDesc(0)
-        devices = objectify.fromstring(xml).devices
-        storages = [disk.target.attrib['dev']
-                    for disk in devices.xpath("./disk[@device='disk']")]
-        storages += [disk.target.attrib['dev']
-                     for disk in devices.xpath("./disk[@device='cdrom']")]
-        return storages
+        return get_vm_disk_list(dom)
 
 
 class VMStorageModel(object):
@@ -203,32 +187,7 @@ class VMStorageModel(object):
     def lookup(self, vm_name, dev_name):
         # Retrieve disk xml and format return dict
         dom = VMModel.get_vm(vm_name, self.conn)
-        disk = _get_device_xml(dom, dev_name)
-        if disk is None:
-            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
-                                                  'vm_name': vm_name})
-        path = ""
-        dev_bus = 'ide'
-        try:
-            source = disk.source
-            if source is not None:
-                src_type = disk.attrib['type']
-                if src_type == 'network':
-                    host = source.host
-                    path = (source.attrib['protocol'] + '://' +
-                            host.attrib['name'] + ':' +
-                            host.attrib['port'] + source.attrib['name'])
-                else:
-                    path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
-            # Retrieve storage bus type
-            dev_bus = disk.target.attrib['bus']
-        except:
-            pass
-        dev_type = disk.attrib['device']
-        return {'dev': dev_name,
-                'type': dev_type,
-                'path': path,
-                'bus': dev_bus}
+        return get_vm_disk(dom, dev_name)
 
     def delete(self, vm_name, dev_name):
         # Get storage device xml
@@ -246,7 +205,7 @@ class VMStorageModel(object):
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
-            disk = _get_device_xml(dom, dev_name)
+            disk = get_device_xml(dom, dev_name)
             dom.detachDeviceFlags(etree.tostring(disk),
                                   libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:

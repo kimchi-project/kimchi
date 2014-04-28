@@ -28,8 +28,8 @@ from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.utils import kimchi_log
-from kimchi.model.vms import VMsModel
-from kimchi.model.vmstorages import VMStoragesModel, VMStorageModel
+from kimchi.model.vms import VMsModel, VMModel
+from kimchi.vmdisks import get_vm_disk, get_vm_disk_list
 
 
 VOLUME_TYPE_MAP = {0: 'file',
@@ -130,13 +130,13 @@ class StorageVolumeModel(object):
                 except NotFoundError:
                     # Fix storage volume created outside kimchi scope
                     ref_cnt = 0
-                    args = {'conn': self.conn, 'objstore': self.objstore}
                     # try to find this volume in exsisted vm
                     vms = VMsModel.get_vms(self.conn)
                     for vm in vms:
-                        storages = VMStoragesModel(**args).get_list(vm)
+                        dom = VMModel.get_vm(vm, self.conn)
+                        storages = get_vm_disk_list(dom)
                         for disk in storages:
-                            d_info = VMStorageModel(**args).lookup(vm, disk)
+                            d_info = get_vm_disk(dom, disk)
                             if path == d_info['path']:
                                 ref_cnt = ref_cnt + 1
                     session.store('storagevolume', vol_id,
