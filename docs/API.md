@@ -138,17 +138,21 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **GET**: Retrieve a summarized list of all storages of specified guest
 * **POST**: Attach a new storage or virtual drive to specified virtual machine.
     * dev: The name of the storage in the vm.
-    * type: The type of the storage (currently supports  'cdrom' only).
+    * type: The type of the storage (currently support 'cdrom' and 'disk').
     * path: Path of cdrom iso.
+    * pool: Storage pool which disk image file locate in.
+    * vol: Storage volume name of disk image.
+    * bus: Target bus type for disk to attach.
 
 ### Sub-resource: storage
 **URI:** /vms/*:name*/storages/*:dev*
 * **GET**: Retrieve storage information
     * dev: The name of the storage in the vm.
-    * type: The type of the storage ('cdrom' only for now).
-    * path: Path of cdrom iso.
+    * type: The type of the storage (currently support 'cdrom' and 'disk').
+    * path: Path of cdrom iso or disk image file.
+    * bus: Bus type of disk attached.
 * **PUT**: Update storage information
-    * path: Path of cdrom iso. Can not be blank.
+    * path: Path of cdrom iso. Can not be blank. Now just support cdrom type.
 * **DELETE**: Remove the storage.
 
 
