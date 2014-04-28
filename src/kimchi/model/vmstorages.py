@@ -32,9 +32,11 @@ from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.utils import check_url_path
+from kimchi.osinfo import lookup
 
 DEV_TYPE_SRC_ATTR_MAP = {'file': 'file',
                          'block': 'dev'}
+HOTPLUG_TYPE = ['scsi', 'virtio']
 
 
 def _get_device_xml(dom, dev_name):
@@ -45,6 +47,14 @@ def _get_device_xml(dom, dev_name):
     if not disk:
         return None
     return disk[0]
+
+
+def _get_device_bus(dev_type, dom):
+    try:
+        version, distro = VMModel.vm_get_os_metadata(dom)
+    except:
+        version, distro = ('unknown', 'unknown')
+    return lookup(distro, version)[dev_type+'_bus']
 
 
 def _get_storage_xml(params):
@@ -65,7 +75,7 @@ def _get_storage_xml(params):
         source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
         disk.append(source)
 
-    disk.append(E.target(dev=params.get('dev'), bus=params.get('bus', 'ide')))
+    disk.append(E.target(dev=params.get('dev'), bus=params['bus']))
     if params.get('address'):
         # ide disk target id is always '0'
         disk.append(E.address(
@@ -105,7 +115,9 @@ class VMStoragesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
 
-    def _get_available_ide_address(self, vm_name):
+    def _get_available_bus_address(self, bus_type, vm_name):
+        if bus_type not in ['ide']:
+            return dict()
         # libvirt limitation of just 1 ide controller
         # each controller have at most 2 buses and each bus 2 units.
         dom = VMModel.get_vm(vm_name, self.conn)
@@ -130,9 +142,6 @@ class VMStoragesModel(object):
 
     def create(self, vm_name, params):
         dom = VMModel.get_vm(vm_name, self.conn)
-        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
-            raise InvalidOperation('KCHVMSTOR0011E')
-
         # Use device name passed or pick next
         dev_name = params.get('dev', None)
         if dev_name is None:
@@ -148,7 +157,13 @@ class VMStoragesModel(object):
         path = params['path']
         params['src_type'] = _check_cdrom_path(path)
 
-        params.update(self._get_available_ide_address(vm_name))
+        params.setdefault(
+            'bus', _get_device_bus(params['type'], dom))
+        if (params['bus'] not in HOTPLUG_TYPE
+                and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+            raise InvalidOperation('KCHVMSTOR0011E')
+
+        params.update(self._get_available_bus_address(params['bus'], vm_name))
         # Add device to VM
         dev_xml = _get_storage_xml(params)
         try:
@@ -218,19 +233,20 @@ class VMStorageModel(object):
     def delete(self, vm_name, dev_name):
         # Get storage device xml
         dom = VMModel.get_vm(vm_name, self.conn)
-        disk = _get_device_xml(dom, dev_name)
-        if disk is None:
-            raise NotFoundError("KCHVMSTOR0007E",
-                                {'dev_name': dev_name,
-                                 'vm_name': vm_name})
+        try:
+            bus_type = self.lookup(vm_name, dev_name)['bus']
+        except NotFoundError:
+            raise
 
         dom = VMModel.get_vm(vm_name, self.conn)
-        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+        if (bus_type not in HOTPLUG_TYPE and
+                DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
 
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
+            disk = _get_device_xml(dom, dev_name)
             dom.detachDeviceFlags(etree.tostring(disk),
                                   libvirt.VIR_DOMAIN_AFFECT_CURRENT)
         except Exception as e:
