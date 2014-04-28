@@ -173,6 +173,81 @@ class ModelTests(unittest.TestCase):
             self.assertEquals("virtio", iface["model"])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_disk(self):
+        def _attach_disk(bus_type=None):
+            disk_args = {"type": "disk",
+                         "pool": pool,
+                         "vol": vol}
+            if bus_type:
+                disk_args['bus'] = bus_type
+            else:
+                bus_type = 'virtio'
+            disk = inst.vmstorages_create(vm_name, disk_args)
+            storage_list = inst.vmstorages_get_list(vm_name)
+            self.assertEquals(prev_count + 1, len(storage_list))
+
+            # Check the bus type to be 'virtio'
+            disk_info = inst.vmstorage_lookup(vm_name, disk)
+            self.assertEquals(u'disk', disk_info['type'])
+            self.assertEquals(vol_path, disk_info['path'])
+            self.assertEquals(bus_type, disk_info['bus'])
+            return disk
+
+        inst = model.Model(objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            path = '/tmp/kimchi-images'
+            pool = 'test-pool'
+            vol = 'test-volume.img'
+            vol_path = "%s/%s" % (path, vol)
+            if not os.path.exists(path):
+                os.mkdir(path)
+
+            args = {'name': pool,
+                    'path': path,
+                    'type': 'dir'}
+            inst.storagepools_create(args)
+            rollback.prependDefer(inst.storagepool_delete, pool)
+
+            # Activate the pool before adding any volume
+            inst.storagepool_activate(pool)
+            rollback.prependDefer(inst.storagepool_deactivate, pool)
+
+            params = {'name': vol,
+                      'capacity': 1024,
+                      'allocation': 512,
+                      'format': 'qcow2'}
+            inst.storagevolumes_create(pool, params)
+            rollback.prependDefer(inst.storagevolume_delete, pool, vol)
+
+            vm_name = 'kimchi-cdrom'
+            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+            params = {'name': vm_name, 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, vm_name)
+
+            prev_count = len(inst.vmstorages_get_list(vm_name))
+            self.assertEquals(1, prev_count)
+
+            # Cold plug and unplug a disk
+            disk = _attach_disk()
+            inst.vmstorage_delete(vm_name, disk)
+
+            # Hot plug a disk
+            inst.vm_start(vm_name)
+            disk = _attach_disk()
+            inst.vmstorage_delete(vm_name, disk)
+
+            # Hot plug 'ide' bus disk does not work
+            self.assertRaises(InvalidOperation, _attach_disk, 'ide')
+            inst.vm_poweroff(vm_name)
+
+            # Cold plug 'ide' bus disk can work
+            disk = _attach_disk()
+            inst.vmstorage_delete(vm_name, disk)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_cdrom(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
