@@ -126,7 +126,8 @@ class VMStoragesModel(object):
                     valid_id.remove((bus_id, unit_id))
                     continue
         if not valid_id:
-            raise OperationFailed('KCHVMSTOR0014E', {'type': 'ide', 'limit': 4})
+            raise OperationFailed('KCHVMSTOR0014E',
+                                  {'type': 'ide', 'limit': 4})
         else:
             address = {'controller': controller_id,
                        'bus': valid_id[0][0], 'unit': valid_id[0][1]}
@@ -141,8 +142,9 @@ class VMStoragesModel(object):
         else:
             devices = self.get_list(vm_name)
             if dev_name in devices:
-                raise OperationFailed('KCHVMSTOR0004E', {'dev_name': dev_name,
-                                                        'vm_name': vm_name})
+                raise OperationFailed(
+                    'KCHVMSTOR0004E',
+                    {'dev_name': dev_name, 'vm_name': vm_name})
 
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.

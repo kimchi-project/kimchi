@@ -669,8 +669,8 @@ class MockModel(object):
         dom = self._get_vm(vm_name)
         dev = params.get('dev', None)
         if dev and dev in self.vmstorages_get_list(vm_name):
-            return OperationFailed("KCHVMSTOR0004E", {'dev_name': dev,
-                                                     'vm_name': vm_name})
+            return OperationFailed(
+                "KCHVMSTOR0004E", {'dev_name': dev, 'vm_name': vm_name})
         if not dev:
             index = len(dom.storagedevices.keys()) + 1
             params['dev'] = "hd" + string.ascii_lowercase[index]
@@ -686,15 +686,17 @@ class MockModel(object):
     def vmstorage_lookup(self, vm_name, dev_name):
         dom = self._get_vm(vm_name)
         if dev_name not in self.vmstorages_get_list(vm_name):
-            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
-                                                  'vm_name': vm_name})
+            raise NotFoundError(
+                "KCHVMSTOR0007E",
+                {'dev_name': dev_name, 'vm_name': vm_name})
         return dom.storagedevices.get(dev_name).info
 
     def vmstorage_delete(self, vm_name, dev_name):
         dom = self._get_vm(vm_name)
         if dev_name not in self.vmstorages_get_list(vm_name):
-            raise NotFoundError("KCHVMSTOR0007E", {'dev_name': dev_name,
-                                                  'vm_name': vm_name})
+            raise NotFoundError(
+                "KCHVMSTOR0007E",
+                {'dev_name': dev_name, 'vm_name': vm_name})
         dom.storagedevices.pop(dev_name)
 
     def vmstorage_update(self, vm_name, dev_name, params):
