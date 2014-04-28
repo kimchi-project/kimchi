@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
 import glob
@@ -31,6 +31,7 @@ from kimchi.utils import kimchi_log
 
 
 SCAN_IGNORE = ['/tmp/kimchi-scan-*']
+
 
 class Scanner(object):
     SCAN_TTL = 300
@@ -56,8 +57,8 @@ class Scanner(object):
                     shutil.rmtree(d)
                     self.clean_cb(transient_pool)
         except OSError as e:
-            kimchi_log.debug(
-                    "Exception %s occured when cleaning stale pool, ignore" % e.message)
+            msg = "Exception %s occured when cleaning stale pool, ignore"
+            kimchi_log.debug(msg % e.message)
 
     def scan_dir_prepare(self, name):
         # clean stale scan storage pools
@@ -71,16 +72,18 @@ class Scanner(object):
             duplicates = "%s/%s*" % (params['pool_path'], iso_name)
             for f in glob.glob(duplicates):
                 iso_img = IsoImage(f)
-                if (iso_info['distro'], iso_info['version']) == iso_img.probe():
+                if (iso_info['distro'], iso_info['version']) == \
+                   iso_img.probe():
                     return
 
-            iso_path = iso_name + hashlib.md5(iso_info['path']).hexdigest() + '.iso'
+            iso_path = iso_name + hashlib.md5(iso_info['path']).hexdigest() + \
+                '.iso'
             link_name = os.path.join(params['pool_path'],
                                      os.path.basename(iso_path))
             os.symlink(iso_info['path'], link_name)
 
         ignore_paths = params.get('ignore_list', [])
         scan_params = dict(path=params['scan_path'], updater=updater,
-            ignore_list=ignore_paths + SCAN_IGNORE)
+                           ignore_list=ignore_paths + SCAN_IGNORE)
         probe_iso(None, scan_params)
         cb('', True)

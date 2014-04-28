@@ -60,6 +60,7 @@ PEP8_WHITELIST = \
 	src/kimchi/repositories.py \
 	src/kimchi/rollbackcontext.py \
 	src/kimchi/root.py \
+	src/kimchi/scan.py \
 	src/kimchi/server.py \
 	src/kimchi/swupdate.py \
 	src/kimchi/template.py \
