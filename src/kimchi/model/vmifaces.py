@@ -129,3 +129,24 @@ class VMIfaceModel(object):
 
         dom.detachDeviceFlags(etree.tostring(iface),
                               libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+
+    def update(self, vm, mac, params):
+        dom = VMModel.get_vm(vm, self.conn)
+        iface = self._get_vmiface(vm, mac)
+
+        if iface is None:
+            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
+
+        # FIXME we will support to change the live VM configuration later.
+        if iface.attrib['type'] == 'network' and 'network' in params:
+            iface.source.attrib['network'] = params['network']
+            xml = etree.tostring(iface)
+            dom.updateDeviceFlags(xml, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+
+        # change on the persisted VM configuration only.
+        if 'model' in params and dom.isPersistent():
+            iface.model.attrib["type"] = params['model']
+            xml = etree.tostring(iface)
+            dom.updateDeviceFlags(xml, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+
+        return mac
