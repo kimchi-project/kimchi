@@ -28,6 +28,7 @@ import threading
 from lxml.builder import E
 
 
+from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log
 
 
@@ -51,6 +52,16 @@ ISO_STREAM_XML = """
       <address type='drive' controller='0' bus='1' target='0' unit='0'/>
     </disk>
   </devices>
+</domain>"""
+
+SIMPLE_VM_XML = """
+<domain type='kvm'>
+  <name>A_SIMPLE_VM</name>
+  <memory unit='KiB'>10240</memory>
+  <os>
+    <type arch='x86_64' machine='pc'>hvm</type>
+    <boot dev='hd'/>
+  </os>
 </domain>"""
 
 SCSI_FC_XML = """
@@ -175,3 +186,23 @@ class FeatureTests(object):
             pool is None or pool.undefine()
             conn is None or conn.close()
         return True
+
+    @staticmethod
+    def has_metadata_support():
+        KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi/"
+        KIMCHI_NAMESPACE = "kimchi"
+        with RollbackContext() as rollback:
+            FeatureTests.disable_screen_error_logging()
+            rollback.prependDefer(FeatureTests.enable_screen_error_logging)
+            conn = libvirt.open('qemu:///system')
+            rollback.prependDefer(conn.close)
+            dom = conn.defineXML(SIMPLE_VM_XML)
+            rollback.prependDefer(dom.undefine)
+            try:
+                dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
+                                "<metatest/>", KIMCHI_NAMESPACE,
+                                KIMCHI_META_URL,
+                                flags=libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+                return True
+            except libvirt.libvirtError:
+                return False

@@ -53,6 +53,7 @@ class CapabilitiesModel(object):
         self.qemu_stream_dns = False
         self.libvirt_stream_protocols = []
         self.fc_host_support = False
+        self.metadata_support = False
 
         # Subscribe function to set host capabilities to be run when cherrypy
         # server is up
@@ -65,6 +66,7 @@ class CapabilitiesModel(object):
         self.qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe()
         self.fc_host_support = FeatureTests.libvirt_support_fc_host()
+        self.metadata_support = FeatureTests.has_metadata_support()
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
