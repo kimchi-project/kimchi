@@ -603,6 +603,19 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(InvalidParameter, inst.vm_update,
                               'kimchi-vm1', params)
 
+            # change VM users and groups, when wm is running.
+            inst.vm_update(u'kimchi-vm1',
+                           {'users': ['root'], 'groups': ['root']})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals(['root'], vm_info['users'])
+            self.assertEquals(['root'], vm_info['groups'])
+            # change VM users and groups by removing all elements,
+            # when wm is running.
+            inst.vm_update(u'kimchi-vm1', {'users': [], 'groups': []})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals([], vm_info['users'])
+            self.assertEquals([], vm_info['groups'])
+
             inst.vm_poweroff('kimchi-vm1')
             self.assertRaises(OperationFailed, inst.vm_update,
                               'kimchi-vm1', {'name': 'kimchi-vm2'})
