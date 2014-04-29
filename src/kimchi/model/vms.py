@@ -223,6 +223,8 @@ class VMsModel(object):
             raise OperationFailed("KCHVM0007E", {'name': name,
                                                  'err': e.get_error_message()})
 
+        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info)
+
         return name
 
     def get_list(self):
@@ -286,6 +288,21 @@ class VMModel(object):
 
         node = self._build_access_elem(users, groups)
         set_metadata_node(dom, node)
+
+    @staticmethod
+    def vm_get_os_metadata(dom):
+        os_xml = get_metadata_node(dom, "os") or """<os></os>"""
+        os_elem = ET.fromstring(os_xml)
+        return (os_elem.attrib.get("version"), os_elem.attrib.get("distro"))
+
+    @staticmethod
+    def vm_update_os_metadata(dom, params):
+        distro = params.get("os_distro")
+        version = params.get("os_version")
+        if distro is None:
+            return
+        os_elem = E.os({"distro": distro, "version": version})
+        set_metadata_node(dom, os_elem)
 
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
