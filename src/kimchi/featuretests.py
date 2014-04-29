@@ -171,7 +171,7 @@ class FeatureTests(object):
                 # Libvirt requires adapter name, not needed when supports to FC
                 return False
         finally:
-            FeatureTests.enable_screen_error_logging
+            FeatureTests.enable_screen_error_logging()
             pool is None or pool.undefine()
             conn is None or conn.close()
         return True
