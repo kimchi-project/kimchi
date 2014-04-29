@@ -87,6 +87,7 @@ messages = {
     "KCHVM0027E": _("User(s) '%(users)s' do not exist"),
     "KCHVM0028E": _("Group(s) '%(groups)s' do not exist"),
     "KCHVM0029E": _("Unable to shutdown virtual machine %(name)s. Details: %(err)s"),
+    "KCHVM0030E": _("Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

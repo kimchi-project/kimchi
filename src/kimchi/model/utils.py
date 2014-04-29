@@ -18,6 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from kimchi.exception import OperationFailed
+import libvirt
+from lxml import etree
+from lxml.builder import E
+
+
+KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
+KIMCHI_NAMESPACE = "kimchi"
 
 
 def get_vm_name(vm_name, t_name, name_list):
@@ -28,3 +35,57 @@ def get_vm_name(vm_name, t_name, name_list):
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("KCHUTILS0003E")
+
+
+def get_vm_config_flag(dom, mode="persistent"):
+    # libvirt.VIR_DOMAIN_AFFECT_CURRENT is 0
+    # VIR_DOMAIN_AFFECT_LIVE is 1, VIR_DOMAIN_AFFECT_CONFIG is 2
+    flag = {"live": libvirt.VIR_DOMAIN_AFFECT_LIVE,
+            "persistent": libvirt.VIR_DOMAIN_AFFECT_CONFIG,
+            "current": libvirt.VIR_DOMAIN_AFFECT_CURRENT,
+            "all": libvirt.VIR_DOMAIN_AFFECT_CONFIG +
+            libvirt.VIR_DOMAIN_AFFECT_LIVE if dom.isActive() and
+            dom.isPersistent() else libvirt.VIR_DOMAIN_AFFECT_CURRENT}
+
+    return flag[mode]
+
+
+# avoid duplicate codes
+def update_node(root, node):
+    old_node = root.find(node.tag)
+    (root.replace(old_node, node) if old_node is not None
+     else root.append(node))
+    return root
+
+
+def libvirt_get_kimchi_metadata_node(dom, mode="current"):
+    try:
+        xml = dom.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
+                           KIMCHI_META_URL,
+                           flags=get_vm_config_flag(dom, mode))
+        return etree.fromstring(xml)
+    except libvirt.libvirtError:
+        return None
+
+
+def set_metadata_node(dom, node, mode="all"):
+    kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
+    kimchi = E.kimchi() if kimchi is None else kimchi
+
+    update_node(kimchi, node)
+    kimchi_xml = etree.tostring(kimchi)
+    # From libvirt doc, Passing None for @metadata says to remove that
+    # element from the domain XML (passing the empty string leaves the
+    # element present).  Do not support remove the old metadata.
+    dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT, kimchi_xml,
+                    KIMCHI_NAMESPACE, KIMCHI_META_URL,
+                    flags=get_vm_config_flag(dom, mode))
+
+
+def get_metadata_node(dom, tag, mode="current"):
+    kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
+    if kimchi is not None:
+        node = kimchi.find(tag)
+        if node is not None:
+            return etree.tostring(node)
+    return ""
