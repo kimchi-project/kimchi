@@ -18,43 +18,136 @@
 kimchi.guest_storage_add_main = function() {
     var types = [{
         label: 'cdrom',
-        value: 'cdrom'
+        value: 'cdrom',
+        bus: ['ide']
+    },
+    {
+        label: 'disk',
+        value: 'disk',
+        bus: ['virtio', 'ide']
     }];
     kimchi.select('guest-storage-type-list', types);
+    kimchi.select('guest-storage-bus-list', [{label: 'ide', value: 'ide'}]);
 
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
     var nameTextbox = $('input[name="dev"]', storageAddForm);
     var typeTextbox = $('input[name="type"]', storageAddForm);
+    var busTextbox = $('input[name="bus"]', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
+    var poolTextbox = $('input[name="pool"]', storageAddForm);
+    var volTextbox = $('input[name="vol"]', storageAddForm);
+
+    typeTextbox.change(function() {
+        $('#guest-storage-bus').selectMenu();
+        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
+        var selectType = $(this).val();
+        $.each(pathObject, function(type, value) {
+            if(selectType == type){
+                $(value).removeClass('hidden');
+            } else {
+                $(value).addClass('hidden');
+            }
+        });
+
+        $.each(types, function(index, elem){
+            if (selectType == elem.value) {
+                var buses = new Array();
+                $.each(elem.bus, function (index, elem) {
+                    buses[index] = {label: elem, value: elem};
+                });
+                $('#guest-storage-bus').selectMenu("setData", buses);
+                $('#guest-storage-bus-label').text(buses[0].value);
+                $('#guest-storage-bus-type').val(buses[0].value);
+            }
+        });
+    });
+
+    kimchi.listStoragePools(function(result) {
+        var options = [];
+        if (result && result.length) {
+            $.each(result, function(index, storagePool) {
+                if ((storagePool.state=="active") && (storagePool.type !== 'kimchi-iso')) {
+                    options.push({
+                        label: storagePool.name,
+                        value: storagePool.name
+                        });
+                    }
+                });
+                $(poolTextbox).val('default');
+                $(poolTextbox).change();
+                kimchi.select('guest-add-storage-pool-list', options);
+        }
+    });
+
+    poolTextbox.change(function() {
+        var options = [];
+        kimchi.listStorageVolumes($(this).val(), function(result) {
+            $('#guest-disk').selectMenu();
+            if (result.length) {
+                $.each(result, function(index, value) {
+                    // Only unused volume can be attached
+                    if (value.ref_cnt == 0) {
+                        options.push({
+                            label: value.name,
+                            value: value.name
+                          });
+                    }
+                });
+                if (options.length) {
+                    $(volTextbox).val(options[0].value);
+                    $(volTextbox).change();
+                }
+            }
+            $('#guest-disk').selectMenu("setData", options);
+        });
+    });
+
+
+    typeTextbox.change(function() {
+        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
+        var selectType = $(this).val();
+        $.each(pathObject, function(type, value) {
+            if(selectType == type){
+                $(value).removeClass('hidden');
+            } else {
+                $(value).addClass('hidden');
+            }
+        });
+
+        $.each(types, function(index, elem){
+            if (selectType == elem.value) {
+                var buses = new Array();
+                $.each(elem.bus, function (index, elem) {
+                    buses[index] = {label: elem, value: elem};
+                });
+                $('#guest-storage-bus').selectMenu("setData", buses);
+                $('#guest-storage-bus-label').text(buses[0].value);
+            }
+        });
+    });
 
     var submitForm = function(event) {
-        if(submitButton.prop('disabled')) {
-            return false;
-        }
-
-        var dev = nameTextbox.val();
-        var type = typeTextbox.val();
-        var path = pathTextbox.val();
-        if(!path || path === '') {
+        if (submitButton.prop('disabled')) {
             return false;
         }
 
         var formData = storageAddForm.serializeObject();
-        $.each([submitButton, nameTextbox, pathTextbox], function(i, c) {
-            $(c).prop('disabled', true);
-        });
-        $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
-
         var settings = {
             vm: kimchi.selectedGuest,
-            type: type,
-            path: path
+            type: typeTextbox.val(),
+            bus: busTextbox.val()
         };
 
-        if(dev && dev !== '') {
-            settings['dev'] = dev;
-        }
+        $(submitButton).prop('disabled', true);
+        $.each([nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
+            $(c).prop('disabled', true);
+            val = $(c).val()
+            if (val && val != '') {
+                settings[$(c).attr('name')] = $(c).val();
+            }
+        });
+        $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
 
         kimchi.addVMStorage(settings, function(result) {
             kimchi.window.close();
@@ -66,7 +159,7 @@ kimchi.guest_storage_add_main = function() {
                 result['responseJSON']['reason'];
             kimchi.message.error(errText);
 
-            $.each([submitButton, nameTextbox, pathTextbox], function(i, c) {
+            $.each([submitButton, nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
                 $(c).prop('disabled', false);
             });
             $(submitButton).removeClass('loading').text(i18n['KCHVMCD6002M']);
@@ -77,7 +170,11 @@ kimchi.guest_storage_add_main = function() {
 
     storageAddForm.on('submit', submitForm);
     submitButton.on('click', submitForm);
-    pathTextbox.on('input propertychange', function(event) {
+    pathTextbox.on('change input propertychange', function(event) {
         $(submitButton).prop('disabled', $(this).val() === '');
     });
+    volTextbox.on('change propertychange', function (event) {
+        $(submitButton).prop('disabled', $(this).val() === '');
+    });
+
 };

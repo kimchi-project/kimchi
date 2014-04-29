@@ -41,7 +41,7 @@
                 <h2>2. $_("Device Type")</h2>
                 <div class="field">
                     <p class="text-help">
-                        $_("The device type. Currently, only \"cdrom\" is supported.")
+                        $_("The device type. Currently,  \"cdrom\" and \"disk\" are supported.")
                     </p>
                     <div class="btn dropdown popable">
                         <input id="guest-storage-type" name="type" value="cdrom" type="hidden" />
@@ -54,20 +54,68 @@
                 </div>
             </section>
             <section class="form-section">
-                <h2>3. $_("File Path")</h2>
+                <h2>3. $_("Device Bus")</h2>
                 <div class="field">
-                    <p class="text-help">
-                        $_("The ISO file path in the server for CDROM.")
-                    </p>
-                    <input type="text" class="text" name="path" />
+                    <div class="btn dropdown popable" id="guest-storage-bus">
+                        <input id="guest-storage-bus-type" name="bus" value='ide' type="hidden" />
+                        <span class="text" id="guest-storage-bus-label"></span>
+                        <span class="arrow"></span>
+                        <div class="popover">
+                            <ul class="select-list" id="guest-storage-bus-list" data-target="guest-storage-bus-type" data-label="guest-storage-bus-label"></ul>
+                        </div>
+                    </div>
                 </div>
             </section>
+            <div class="volume-section hidden">
+                <section class="form-section">
+                    <h2>4. $_("Storage Pool")</h2>
+                    <div class="field storage-field">
+                        <p class="text-help">
+                            $_("Storage pool which volume located in")
+                        </p>
+                        <div class="btn dropdown popable">
+                            <input value="default" id="guest-disk-pool" name="pool" type="hidden"/>
+                            <span class="text" id="guest-disk-pool-label">default</span><span class="arrow"></span>
+                            <div class="popover" style="width: 100%">
+                                <ul class="select-list" id="guest-add-storage-pool-list" data-target="guest-disk-pool" data-label="guest-disk-pool-label"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-section">
+                    <h2>5. $_("Storage Volume")</h2>
+                    <div class="field storage-field">
+                        <p class="text-help">
+                            $_("Storage volume to be attached")
+                        </p>
+                        <div class="btn dropdown popable" id="guest-disk">
+                            <input id="guest-disk-vol" name="vol" type="hidden">
+                            <span class="text" id="guest-disk-vol-label"></span><span class="arrow"></span>
+                            <div class="popover" style="width: 100%">
+                                <ul class="select-list" id="guest-add-storage-pool-list" data-target="guest-disk-vol" data-label="guest-disk-vol-label"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="path-section">
+                <section class="form-section">
+                    <h2>4. $_("File Path")</h2>
+                    <div class="field">
+                        <p class="text-help">
+                            $_("The ISO file path in the server for CDROM.")
+                        </p>
+                        <input type="text" class="text" name="path" />
+                    </div>
+                </section>
+            </div>
+            </fieldset>
         </form>
     </div>
     <footer>
         <div class="btn-group">
             <button id="guest-storage-button-add" class="btn-normal" disabled="disabled">
-                <span class="text">$_("Attach")</span>
+            <span class="text">$_("Attach")</span>
             </button>
         </div>
     </footer>

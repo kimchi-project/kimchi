@@ -52,6 +52,22 @@
     cursor: not-allowed;
 }
 
+.guest-storage-add-wrapper-label, .guest-storage-add-wrapper-controls {
+    display: inline-block;
+}
+
+.guest-storage-add-wrapper-label {
+    height: 38px;
+    line-height: 38px;
+    margin-top: 5px;
+    vertical-align: top;
+    width: 80px;
+}
+
+.guest-storage-add-wrapper-controls {
+    width: 470px;
+}
+
 #vm-storage-button-add[disabled] {
     background: #c0c0c0;
     color: #ddd;
