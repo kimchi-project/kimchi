@@ -71,7 +71,8 @@ class Model(BaseModel):
             pool = conn.storagePoolLookupByName("default")
         except libvirt.libvirtError:
             try:
-                pool = conn.storagePoolCreateXML(xml, 0)
+                pool = conn.storagePoolDefineXML(xml, 0)
+                pool.setAutostart(1)
             except libvirt.libvirtError, e:
                 cherrypy.log.error("Fatal: Cannot create default pool because "
                                    "of %s, exit kimchid" % e.message,
