@@ -545,6 +545,15 @@ class RestTests(unittest.TestCase):
             self.assertEquals('virtio', iface['model'])
             self.assertEquals('network', iface['type'])
 
+            # update vm interface
+            req = json.dumps({"network": "default", "model": "e1000"})
+            resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
+                                req, 'PUT')
+            self.assertEquals(200, resp.status)
+            update_iface = json.loads(resp.read())
+            self.assertEquals('e1000', update_iface['model'])
+            self.assertEquals('default', update_iface['network'])
+
             # detach network interface from vm
             resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
                                 '{}', 'DELETE')

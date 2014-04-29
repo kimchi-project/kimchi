@@ -149,6 +149,8 @@ class ModelTests(unittest.TestCase):
                         'subnet': '127.0.100.0/24'}
             inst.networks_create(net_args)
             rollback.prependDefer(inst.network_delete, net_name)
+            inst.network_activate(net_name)
+            rollback.prependDefer(inst.network_deactivate, net_name)
 
             ifaces = inst.vmifaces_get_list('kimchi-ifaces')
             self.assertEquals(1, len(ifaces))
@@ -171,6 +173,14 @@ class ModelTests(unittest.TestCase):
             self.assertEquals("network", iface["type"])
             self.assertEquals("test-network", iface['network'])
             self.assertEquals("virtio", iface["model"])
+
+            # update vm interface
+            iface_args = {"network": "default",
+                          "model": "e1000"}
+            inst.vmiface_update('kimchi-ifaces', mac, iface_args)
+            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
+            self.assertEquals("default", iface['network'])
+            self.assertEquals("e1000", iface["model"])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):
