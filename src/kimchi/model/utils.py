@@ -17,10 +17,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import re
 from kimchi.exception import OperationFailed
+from kimchi.model.config import CapabilitiesModel
 import libvirt
 from lxml import etree
-from lxml.builder import E
+from lxml.builder import E, ElementMaker
 
 
 KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
@@ -58,6 +60,29 @@ def update_node(root, node):
     return root
 
 
+def _kimchi_set_metadata_node(dom, node):
+    # some other tools will not let libvirt create a persistent
+    # configuration, raise exception.
+    if not dom.isPersistent():
+        msg = 'The VM has not a persistent configuration'
+        raise OperationFailed("KCHVM0030E",
+                              {'name': dom.name(), "err": msg})
+    xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
+    root = etree.fromstring(xml)
+    kimchi = root.find("metadata/{%s}kimchi" % KIMCHI_META_URL)
+
+    EM = ElementMaker(namespace=KIMCHI_META_URL,
+                      nsmap={KIMCHI_NAMESPACE: KIMCHI_META_URL})
+    kimchi = EM("kimchi") if kimchi is None else kimchi
+
+    update_node(kimchi, node)
+    metadata = root.find("metadata")
+    metadata = E.metadata() if metadata is None else metadata
+    update_node(metadata, kimchi)
+    update_node(root, metadata)
+    dom.connect().defineXML(etree.tostring(root))
+
+
 def libvirt_get_kimchi_metadata_node(dom, mode="current"):
     try:
         xml = dom.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
@@ -69,21 +94,53 @@ def libvirt_get_kimchi_metadata_node(dom, mode="current"):
 
 
 def set_metadata_node(dom, node, mode="all"):
-    kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
-    kimchi = E.kimchi() if kimchi is None else kimchi
+    if CapabilitiesModel().metadata_support:
+        kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
+        kimchi = E.kimchi() if kimchi is None else kimchi
 
-    update_node(kimchi, node)
-    kimchi_xml = etree.tostring(kimchi)
-    # From libvirt doc, Passing None for @metadata says to remove that
-    # element from the domain XML (passing the empty string leaves the
-    # element present).  Do not support remove the old metadata.
-    dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT, kimchi_xml,
-                    KIMCHI_NAMESPACE, KIMCHI_META_URL,
-                    flags=get_vm_config_flag(dom, mode))
+        update_node(kimchi, node)
+        kimchi_xml = etree.tostring(kimchi)
+        # From libvirt doc, Passing None for @metadata says to remove that
+        # element from the domain XML (passing the empty string leaves the
+        # element present).  Do not support remove the old metadata.
+        dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT, kimchi_xml,
+                        KIMCHI_NAMESPACE, KIMCHI_META_URL,
+                        flags=get_vm_config_flag(dom, mode))
+    else:
+    # FIXME remove this code when all distro libvirt supports metadata element
+        _kimchi_set_metadata_node(dom, node)
+
+
+def _kimchi_get_metadata_node(dom, tag):
+    # some other tools will not let libvirt create a persistent
+    # configuration, just return empty
+    if not dom.isPersistent():
+        return None
+    xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
+    root = etree.fromstring(xml)
+    kimchi = root.find("metadata/{%s}kimchi" % KIMCHI_META_URL)
+    #remove the "kimchi" prifix of xml
+    # some developers may do not like to remove prefix by children iteration
+    # so here, use re to remove the "kimchi" prefix of xml
+    # and developers please don not define element like this:
+    #     <foo attr="foo<kimchi:abcd>foo"></foo>
+    if kimchi is not None:
+        kimchi_xml = etree.tostring(kimchi)
+        ns_pattern = re.compile(" xmlns:.*?=((\".*?\")|('.*?'))")
+        kimchi_xml = ns_pattern.sub("", kimchi_xml)
+        prefix_pattern = re.compile("(?<=<)[^/]*?:|(?<=</).*?:")
+        kimchi_xml = prefix_pattern.sub("", kimchi_xml)
+        return etree.fromstring(kimchi_xml)
+    return None
 
 
 def get_metadata_node(dom, tag, mode="current"):
-    kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
+    if CapabilitiesModel().metadata_support:
+        kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
+    else:
+    # FIXME remove this code when all distro libvirt supports metadata element
+        kimchi = _kimchi_get_metadata_node(dom, tag)
+
     if kimchi is not None:
         node = kimchi.find(tag)
         if node is not None:
