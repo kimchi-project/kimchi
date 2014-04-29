@@ -75,10 +75,12 @@ kimchi.main = function() {
                 tabs.push.apply(tabs, retrieveTabs(url));
             });
 
-            var firstTabPath = tabs[0] && tabs[0]['path'];
-            // Remove file extension from 'firstTabPath'
-            DEFAULT_HASH = firstTabPath &&
-                firstTabPath.substring(0, firstTabPath.lastIndexOf('.'))
+            var defaultTab = tabs[0]
+
+            var defaultTabPath = defaultTab && defaultTab['path']
+            // Remove file extension from 'defaultTabPath'
+            DEFAULT_HASH = defaultTabPath &&
+                defaultTabPath.substring(0, defaultTabPath.lastIndexOf('.'))
 
             $('#nav-menu').append(genTabs(tabs));
 
