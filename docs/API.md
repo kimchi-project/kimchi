@@ -231,6 +231,14 @@ A interface represents available network interface on VM.
 
 * **DELETE**: detach the network interface from VM
 
+* **PUT**: update the parameters of existing VM interface.
+    * model *(optional)*: model of emulated network interface card. It will be one of these models:
+             ne2k_pci, i82551, i82557b, i82559er, rtl8139, e1000, pcnet and virtio.
+             This change is only on the persisted VM configuration.
+    * network *(optional)*: the name of resource network, only be available when the
+              interface type is network.
+              This change is on the active VM instance and persisted VM configuration.
+
 **Actions (POST):**
 
 *No actions defined*

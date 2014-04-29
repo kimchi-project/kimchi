@@ -96,6 +96,7 @@ messages = {
     "KCHVMIF0005E": _("Network name for virtual machine interface must be a string"),
     "KCHVMIF0006E": _("Invalid network model card specified for virtual machine interface"),
     "KCHVMIF0007E": _("Specify type and network to add a new virtual machine interface"),
+    "KCHVMIF0008E": _("Specify type and network to update a virtual machine interface"),
 
     "KCHTMPL0001E": _("Template %(name)s already exists"),
     "KCHTMPL0002E": _("Template %(name)s does not exist"),
