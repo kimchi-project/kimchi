@@ -119,7 +119,7 @@ def _kimchi_get_metadata_node(dom, tag):
     xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
     root = etree.fromstring(xml)
     kimchi = root.find("metadata/{%s}kimchi" % KIMCHI_META_URL)
-    #remove the "kimchi" prifix of xml
+    #remove the "kimchi" prefix of xml
     # some developers may do not like to remove prefix by children iteration
     # so here, use re to remove the "kimchi" prefix of xml
     # and developers please don not define element like this:

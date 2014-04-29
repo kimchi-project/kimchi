@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from lxml.builder import E
 import lxml.etree as ET
 import os
 import time
@@ -25,7 +26,6 @@ from xml.etree import ElementTree
 
 import libvirt
 from cherrypy.process.plugins import BackgroundTask
-from lxml.builder import E
 
 from kimchi import vnc
 from kimchi import xmlutils
@@ -35,6 +35,8 @@ from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
+from kimchi.model.utils import get_metadata_node
+from kimchi.model.utils import set_metadata_node
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
@@ -247,7 +249,7 @@ class VMModel(object):
         self._live_vm_update(dom, params)
         return dom.name().decode('utf-8')
 
-    def _get_metadata_node(self, users, groups):
+    def _build_access_elem(self, users, groups):
         access = E.access()
         for user in users:
             access.append(E.user(user))
@@ -255,40 +257,50 @@ class VMModel(object):
         for group in groups:
             access.append(E.group(group))
 
-        return E.metadata(E.kimchi(access))
+        return access
+
+    def _vm_update_access_metadata(self, dom, params):
+        users = groups = None
+        if "users" in params:
+            users = params["users"]
+            invalid_users = set(users) - set(self.users.get_list())
+            if len(invalid_users) != 0:
+                raise InvalidParameter("KCHVM0027E",
+                                       {'users': ", ".join(invalid_users)})
+        if "groups" in params:
+            groups = params["groups"]
+            invalid_groups = set(groups) - set(self.groups.get_list())
+            if len(invalid_groups) != 0:
+                raise InvalidParameter("KCHVM0028E",
+                                       {'groups': ", ".join(invalid_groups)})
+
+        if users is None and groups is None:
+            return
+
+        access_xml = (get_metadata_node(dom, "access") or
+                      """<access></access>""")
+        old_users = xpath_get_text(access_xml, "/access/user")
+        old_groups = xpath_get_text(access_xml, "/access/group")
+        users = old_users if users is None else users
+        groups = old_groups if groups is None else groups
+
+        node = self._build_access_elem(users, groups)
+        set_metadata_node(dom, node)
 
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
         old_xml = new_xml = dom.XMLDesc(0)
 
-        metadata_xpath = "/domain/metadata/kimchi/access/%s"
-        users = xpath_get_text(old_xml, metadata_xpath % "user")
-        groups = xpath_get_text(old_xml, metadata_xpath % "group")
-
         for key, val in params.items():
-            if key == 'users':
-                invalid_users = set(val) - set(self.users.get_list())
-                if len(invalid_users) != 0:
-                    raise InvalidParameter("KCHVM0027E",
-                                           {'users': ", ".join(invalid_users)})
-                users = val
-            elif key == 'groups':
-                invalid_groups = set(val) - set(self.groups.get_list())
-                if len(invalid_groups) != 0:
-                    raise InvalidParameter("KCHVM0028E",
-                                           {'groups':
-                                            ", ".join(invalid_groups)})
-                groups = val
-            else:
-                if key in VM_STATIC_UPDATE_PARAMS:
-                    if key == 'memory':
-                        # Libvirt saves memory in KiB. Retrieved xml has memory
-                        # in KiB too, so new valeu must be in KiB here
-                        val = val * 1024
-                    if type(val) == int:
-                        val = str(val)
-                    xpath = VM_STATIC_UPDATE_PARAMS[key]
-                    new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
+            if key in VM_STATIC_UPDATE_PARAMS:
+                if key == 'memory':
+                    # Libvirt saves memory in KiB. Retrieved xml has memory
+                    # in KiB too, so new valeu must be in KiB here
+                    val = val * 1024
+                if type(val) == int:
+                    val = str(val)
+                xpath = VM_STATIC_UPDATE_PARAMS[key]
+                new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
 
         conn = self.conn.get()
         try:
@@ -302,13 +314,6 @@ class VMModel(object):
 
             root = ET.fromstring(new_xml)
             root.remove(root.find('.currentMemory'))
-            # Update metadata element
-            current_metadata = root.find('metadata')
-            new_metadata = self._get_metadata_node(users, groups)
-            if current_metadata is not None:
-                root.replace(current_metadata, new_metadata)
-            else:
-                root.append(new_metadata)
             dom = conn.defineXML(ET.tostring(root, encoding="utf-8"))
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
@@ -317,7 +322,7 @@ class VMModel(object):
         return dom
 
     def _live_vm_update(self, dom, params):
-        pass
+        self._vm_update_access_metadata(dom, params)
 
     def _has_video(self, dom):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
@@ -356,9 +361,10 @@ class VMModel(object):
         res['io_throughput'] = vm_stats.get('disk_io', 0)
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
 
-        xml = dom.XMLDesc(0)
-        users = xpath_get_text(xml, "/domain/metadata/kimchi/access/user")
-        groups = xpath_get_text(xml, "/domain/metadata/kimchi/access/group")
+        access_xml = (get_metadata_node(dom, "access") or
+                      """<access></access>""")
+        users = xpath_get_text(access_xml, "/access/user")
+        groups = xpath_get_text(access_xml, "/access/group")
 
         return {'name': name,
                 'state': state,
