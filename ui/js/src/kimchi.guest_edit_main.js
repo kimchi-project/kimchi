@@ -34,15 +34,14 @@ kimchi.guest_edit_main = function() {
 
     var refreshCDROMs = function() {
         kimchi.listVMStorages({
-            vm: kimchi.selectedGuest,
-            storageType: 'cdrom'
+            vm: kimchi.selectedGuest
         }, function(storages) {
-            var rowHTML = $('#cdrom-row-tmpl').html();
             var container = $('#guest-edit-cdrom-row-container');
             $(container).empty();
 
             $.each(storages, function(index, storage) {
                 storage['vm'] = kimchi.selectedGuest;
+                rowHTML = $('#' + storage['type'] + '-row-tmpl').html();
                 var templated = kimchi.template(rowHTML, storage);
                 container.append(templated);
             });

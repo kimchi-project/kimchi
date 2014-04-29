@@ -159,7 +159,22 @@
         </span>
     <div>
 </script>
-
+<script id="disk-row-tmpl" type="text/html">
+    <div>
+        <div class="guest-edit-wrapper-label">
+            <label for="disk-{dev}">{dev}</label>
+        </div>
+        <div class="guest-edit-wrapper-controls">
+            <input id="disk-{dev}" name="disk" type="text"
+                data-vm="{vm}" data-dev="{dev}"
+                value="{path}" readonly="readonly" />
+            <button class="guest-edit-cdrom-button detach"
+                data-vm="{vm}" data-dev="{dev}"
+                title="$_("Detach")">
+            </button>
+        </div>
+    </div>
+</script>
 <script type="text/javascript">
     kimchi.guest_edit_main();
 </script>
