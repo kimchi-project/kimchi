@@ -26,7 +26,6 @@
             this.label = this.selectDiv.find('span').first();
             this.selectDiv.addClass('btn dropdown popable');
             this.target.addClass('input');
-            this.label.addClass('input');
             this.listControl.addClass('select-list');
             this.listControl.parent().addClass('popover');
         },
@@ -38,6 +37,7 @@
             var itemTag = 'li';
             var item;
             if (options.length > 0) {
+                that.listControl.find('li').remove();
                 $.each(options, function(index, option) {
                     item = $('<' + itemTag + '>' + option.label +'</' + itemTag + '>');
                     item.data('value', option.value);
@@ -59,7 +59,7 @@
                     }
                 });
             } else {
-                kimchi.message.code.error('KCHAPI6006E');
+                kimchi.message.error.code('KCHAPI6006E');
             }
         },
 
