@@ -742,6 +742,18 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError("KCHVMIF0001E", {'iface': mac, 'name': vm})
 
+    def vmiface_update(self, vm, mac, params):
+        dom = self._get_vm(vm)
+        try:
+            info = dom.ifaces[mac].info
+        except KeyError:
+            raise NotFoundError("KCHVMIF0001E", {'iface': mac, 'name': vm})
+        if info['type'] == 'network' and 'network' in params:
+            info['network'] = params['network']
+        if 'model' in params:
+            info['model'] = params['model']
+        return mac
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')
