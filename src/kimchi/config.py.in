@@ -170,6 +170,7 @@ class KimchiConfig(dict):
         '/': {'tools.trailing_slash.on': False,
               'request.methods_with_bodies': ('POST', 'PUT'),
               'tools.nocache.on': True,
+              'tools.proxy.on': True,
               'tools.sessions.on': True,
               'tools.sessions.name': 'kimchi',
               'tools.sessions.secure': True,
