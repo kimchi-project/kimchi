@@ -76,8 +76,9 @@ kimchi.main = function() {
             });
 
             var firstTabPath = tabs[0] && tabs[0]['path'];
+            // Remove file extension from 'firstTabPath'
             DEFAULT_HASH = firstTabPath &&
-                firstTabPath.substring(0, firstTabPath.length - 5);
+                firstTabPath.substring(0, firstTabPath.lastIndexOf('.'))
 
             $('#nav-menu').append(genTabs(tabs));
 
@@ -183,7 +184,8 @@ kimchi.main = function() {
          */
         $('#nav-menu').on('click', 'a.item', function(event) {
             var href = $(this).attr('href');
-            location.hash = href.substring(0,href.length -5);
+            // Remove file extension from 'href'
+            location.hash = href.substring(0,href.lastIndexOf('.'))
             /*
              * We use the HTML file name for hash, like: guests for guests.html
              * and templates for templates.html.
