@@ -332,6 +332,7 @@ var kimchi = {
                 url = 'http://' + location.hostname + ':' + http_port;
                 url += "/vnc_auto.html?port=" + proxy_port;
                 url += "&path=?token=" + encodeURIComponent(vm);
+                url += '&encrypt=1';
                 window.open(url);
             });
         }).error(function() {
@@ -355,6 +356,7 @@ var kimchi = {
                 url = 'http://' + location.hostname + ':' + http_port;
                 url += "/spice.html?port=" + proxy_port + "&listen="
                 + data.graphics.listen + "&token=" + encodeURIComponent(vm);
+                url += '&encrypt=1';
                 window.open(url);
             });
         }).error(function() {
