@@ -1,4 +1,3 @@
-#from kimchi.cachebust import href
 <!DOCTYPE html>
 <html>
     <!--
@@ -13,15 +12,15 @@
     <head>
         <title>noVNC</title>
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <link rel="stylesheet" href="$href("/css/novnc/base.css")" title="plain">
+        <link rel="stylesheet" href="css/base.css" title="plain">
         <script type='text/javascript'>
-            var INCLUDE_URI = "/js/novnc/";
+            var INCLUDE_URI = "js/";
         </script>
         <!--
         <script type='text/javascript'
             src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
         -->
-        <script src="$href("/js/novnc/util.js")"></script>
+        <script src="js/util.js"></script>
     </head>
 
     <body style="margin: 0px;">
@@ -39,6 +38,6 @@
                 Canvas not supported.
             </canvas>
         </div>
-        <script src="$href("/js/novnc/main.js")"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

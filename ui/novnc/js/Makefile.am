@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cssdir = $(datadir)/kimchi/ui/css/novnc
+SUBDIRS = web-socket-js
 
-dist_css_DATA = base.css
+jsdir = $(datadir)/kimchi/ui/novnc/js
+
+dist_js_DATA = $(wildcard *.js) $(NULL)

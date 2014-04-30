@@ -15,4 +15,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = css images js libs pages
+SUBDIRS = css images js libs pages novnc

@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM, Corp. 2014
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = web-socket-js
+SUBDIRS = css js
 
-jsdir = $(datadir)/kimchi/ui/js/novnc
+htmldir = $(datadir)/kimchi/ui/novnc
 
-dist_js_DATA = $(wildcard *.js) $(NULL)
+dist_html_DATA = vnc.html $(NULL)

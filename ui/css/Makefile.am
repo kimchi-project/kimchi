@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc fonts
+SUBDIRS = fonts
 
 EXTRA_DIST = theme-default
 

@@ -23,7 +23,7 @@ import os
 import subprocess
 
 
-from kimchi.config import config
+from kimchi.config import config, paths
 
 
 WS_TOKENS_DIR = '/var/lib/kimchi/vnc-tokens'
@@ -36,9 +36,16 @@ def new_ws_proxy():
         if e.errno == errno.EEXIST:
             pass
 
+    cert = config.get('server', 'ssl_cert')
+    key = config.get('server', 'ssl_key')
+    if not (cert and key):
+        cert = '%s/kimchi-cert.pem' % paths.conf_dir
+        key = '%s/kimchi-key.pem' % paths.conf_dir
+
     cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
     args = ['python', cmd, config.get('display', 'display_proxy_port'),
-            '--target-config', WS_TOKENS_DIR]
+            '--target-config', WS_TOKENS_DIR, '--cert', cert, '--key', key,
+            '--web', os.path.join(paths.ui_dir, 'novnc')]
     p = subprocess.Popen(args, close_fds=True)
     return p
 

@@ -66,19 +66,19 @@ AC_CONFIG_FILES([
     plugins/sample/ui/config/Makefile
     ui/Makefile
     ui/css/Makefile
-    ui/css/novnc/Makefile
     ui/css/fonts/Makefile
-    ui/css/fonts/novnc/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
-    ui/js/novnc/Makefile
     ui/js/spice/Makefile
-    ui/js/novnc/web-socket-js/Makefile
     ui/libs/Makefile
     ui/libs/themes/Makefile
     ui/libs/themes/base/Makefile
     ui/libs/themes/base/images/Makefile
+    ui/novnc/Makefile
+    ui/novnc/css/Makefile
+    ui/novnc/js/Makefile
+    ui/novnc/js/web-socket-js/Makefile
     ui/pages/Makefile
     ui/pages/help/Makefile
     ui/pages/help/en_US/Makefile

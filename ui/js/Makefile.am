@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc spice
+SUBDIRS = spice
 
 EXTRA_DIST = src widgets
 
