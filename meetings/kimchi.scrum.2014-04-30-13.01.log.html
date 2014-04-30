@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 30 13:01:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:29</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-9"></a><span class="tm">13:02:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:02:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm I sent some patches to fix security issues: redirect http requests to https; use secure cookie and prevent XSS attacks</span>
+<a name="l-12"></a><span class="tm">13:04:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm Sent a bug fix patch to redirect 3XX responses from kimchi through nginx proxy (otherwise, all redirections in Kimchi will fail)</span>
+<a name="l-13"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce Tested and reviewed Sheldon's metadata patchset</span>
+<a name="l-14"></a><span class="tm">13:05:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce Rebased manage disk patchset (backend/UI)upon metadata patch, also addressed wrong guest disk size/ reference count problems</span>
+<a name="l-15"></a><span class="tm">13:05:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce Now is working on extend logical pool UI patch.</span>
+<a name="l-16"></a><span class="tm">13:05:42</span><span class="nk"> &lt;adamkingit1&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit responded to comments with [PATCH v2] Display historical host statistical info	on the host tab</span>
+<a name="l-17"></a><span class="tm">13:05:50</span><span class="nk"> &lt;alinefm&gt;</span> royce is out due the holiday because that I am sharing her status today
+<a name="l-18"></a><span class="tm">13:09:02</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit1, seems it is only you and me today =)
+<a name="l-19"></a><span class="tm">13:09:21</span><span class="nk"> &lt;alinefm&gt;</span> everyone getting ready to the holidays
+<a name="l-20"></a><span class="tm">13:09:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb helped in a handful of reviews in the ML</span>
+<a name="l-21"></a><span class="tm">13:09:39</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, SURPRISE!!!!!!!!!
+<a name="l-22"></a><span class="tm">13:10:08</span><span class="nk"> &lt;adamkingit1&gt;</span> +danielhb makes 3?
+<a name="l-23"></a><span class="tm">13:10:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, lol
+<a name="l-24"></a><span class="tm">13:10:20</span><span class="nk"> &lt;adamkingit1&gt;</span> Maybe everyone else is on holiday already
+<a name="l-25"></a><span class="tm">13:11:47</span><span class="nk"> &lt;alinefm&gt;</span> well, the idea is keeping focus on bug fixes we need to close at least 10 bugs for this sprint
+<a name="l-26"></a><span class="tm">13:12:03</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit1, danielhb, do you have any topic for the Open Discussion section?
+<a name="l-27"></a><span class="tm">13:12:42</span><span class="nk"> &lt;adamkingit1&gt;</span> I don't. I was just about to check the open issues
+<a name="l-28"></a><span class="tm">13:13:00</span><span class="nk"> &lt;adamkingit1&gt;</span> 59 open
+<a name="l-29"></a><span class="tm">13:13:10</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, me neither
+<a name="l-30"></a><span class="tm">13:13:15</span><span class="nk"> &lt;adamkingit1&gt;</span> 23 for 1.2.1
+<a name="l-31"></a><span class="tm">13:13:47</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit1, I'd like to close 10 from those 23
+<a name="l-32"></a><span class="tm">13:13:55</span><span class="nk"> &lt;alinefm&gt;</span> or something close to 10 =)
+<a name="l-33"></a><span class="tm">13:14:21</span><span class="nk"> &lt;adamkingit1&gt;</span> Its ok with me. Go alinefm go! ;-)
+<a name="l-34"></a><span class="tm">13:14:34</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-35"></a><span class="tm">13:14:49</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit1, danielhb, this is probably our record on scrum meeting
+<a name="l-36"></a><span class="tm">13:14:52</span><span class="nk"> &lt;alinefm&gt;</span> 15 minutes
+<a name="l-37"></a><span class="tm">13:15:11</span><span class="nk"> &lt;danielhb&gt;</span> we can talk about alinefm vacations
+<a name="l-38"></a><span class="tm">13:15:16</span><span class="nk"> &lt;adamkingit1&gt;</span> maybe we should put the extra time into world cup prep?
+<a name="l-39"></a><span class="tm">13:15:28</span><span class="nk"> &lt;adamkingit1&gt;</span> ah! vacation sounds like more fun
+<a name="l-40"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit1, danielhb, you will have 3 weeks without me
+<a name="l-41"></a><span class="tm">13:16:01</span><span class="nk"> &lt;alinefm&gt;</span> what do you plan to do? lol
+<a name="l-42"></a><span class="tm">13:16:02</span><span class="nk"> &lt;adamkingit1&gt;</span> :'(
+<a name="l-43"></a><span class="tm">13:16:09</span><span class="nk"> &lt;danielhb&gt;</span> that depends
+<a name="l-44"></a><span class="tm">13:16:20</span><span class="nk"> &lt;danielhb&gt;</span> who will be pushing the patches mainstream?
+<a name="l-45"></a><span class="tm">13:17:30</span><span class="nk"> &lt;alinefm&gt;</span> maybe me between a wine glass or other
+<a name="l-46"></a><span class="tm">13:17:41</span><span class="nk"> &lt;danielhb&gt;</span> ok
+<a name="l-47"></a><span class="tm">13:17:46</span><span class="nk"> &lt;danielhb&gt;</span> so vacations for everybody?
+<a name="l-48"></a><span class="tm">13:17:52</span><span class="nk"> &lt;adamkingit1&gt;</span> hooray
+<a name="l-49"></a><span class="tm">13:17:52 </span><span class="nka">* danielhb</span> <span class="ac">approves</span>
+<a name="l-50"></a><span class="tm">13:17:57</span><span class="nk"> &lt;alinefm&gt;</span> but probably I won't be able to push patches for 2 weeks
+<a name="l-51"></a><span class="tm">13:18:06</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, what??
+<a name="l-52"></a><span class="tm">13:18:09</span><span class="nk"> &lt;alinefm&gt;</span> oO
+<a name="l-53"></a><span class="tm">13:19:14</span><span class="nk"> &lt;alinefm&gt;</span> let me end the meeting and we can continue after it
+<a name="l-54"></a><span class="tm">13:19:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

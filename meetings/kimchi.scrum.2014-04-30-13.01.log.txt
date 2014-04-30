@@ -1,0 +1,54 @@
+13:01:20 <alinefm> #startmeeting
+13:01:20 <kimchi-bot> Meeting started Wed Apr 30 13:01:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:20 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:20 <alinefm> #meetingname scrum
+13:01:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:29 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:29 <alinefm> anything else?
+13:02:36 <alinefm> ok
+13:02:43 <alinefm> #topic Status
+13:02:43 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:04 <alinefm> #info alinefm I sent some patches to fix security issues: redirect http requests to https; use secure cookie and prevent XSS attacks
+13:04:52 <alinefm> #info alinefm Sent a bug fix patch to redirect 3XX responses from kimchi through nginx proxy (otherwise, all redirections in Kimchi will fail)
+13:05:07 <alinefm> #info royce Tested and reviewed Sheldon's metadata patchset
+13:05:19 <alinefm> #info royce Rebased manage disk patchset (backend/UI)upon metadata patch, also addressed wrong guest disk size/ reference count problems
+13:05:31 <alinefm> #info royce Now is working on extend logical pool UI patch.
+13:05:42 <adamkingit1> #info adamkingit responded to comments with [PATCH v2] Display historical host statistical info	on the host tab
+13:05:50 <alinefm> royce is out due the holiday because that I am sharing her status today
+13:09:02 <alinefm> adamkingit1, seems it is only you and me today =)
+13:09:21 <alinefm> everyone getting ready to the holidays
+13:09:22 <danielhb> #info danielhb helped in a handful of reviews in the ML
+13:09:39 <danielhb> alinefm, SURPRISE!!!!!!!!!
+13:10:08 <adamkingit1> +danielhb makes 3?
+13:10:09 <alinefm> danielhb, lol
+13:10:20 <adamkingit1> Maybe everyone else is on holiday already
+13:11:47 <alinefm> well, the idea is keeping focus on bug fixes we need to close at least 10 bugs for this sprint
+13:12:03 <alinefm> adamkingit1, danielhb, do you have any topic for the Open Discussion section?
+13:12:42 <adamkingit1> I don't. I was just about to check the open issues
+13:13:00 <adamkingit1> 59 open
+13:13:10 <danielhb> alinefm, me neither
+13:13:15 <adamkingit1> 23 for 1.2.1
+13:13:47 <alinefm> adamkingit1, I'd like to close 10 from those 23
+13:13:55 <alinefm> or something close to 10 =)
+13:14:21 <adamkingit1> Its ok with me. Go alinefm go! ;-)
+13:14:34 <alinefm> =)
+13:14:49 <alinefm> adamkingit1, danielhb, this is probably our record on scrum meeting
+13:14:52 <alinefm> 15 minutes
+13:15:11 <danielhb> we can talk about alinefm vacations
+13:15:16 <adamkingit1> maybe we should put the extra time into world cup prep?
+13:15:28 <adamkingit1> ah! vacation sounds like more fun
+13:15:52 <alinefm> adamkingit1, danielhb, you will have 3 weeks without me
+13:16:01 <alinefm> what do you plan to do? lol
+13:16:02 <adamkingit1> :'(
+13:16:09 <danielhb> that depends
+13:16:20 <danielhb> who will be pushing the patches mainstream?
+13:17:30 <alinefm> maybe me between a wine glass or other
+13:17:41 <danielhb> ok
+13:17:46 <danielhb> so vacations for everybody?
+13:17:52 <adamkingit1> hooray
+13:17:52 * danielhb approves
+13:17:57 <alinefm> but probably I won't be able to push patches for 2 weeks
+13:18:06 <alinefm> danielhb, what??
+13:18:09 <alinefm> oO
+13:19:14 <alinefm> let me end the meeting and we can continue after it
+13:19:17 <alinefm> #endmeeting
