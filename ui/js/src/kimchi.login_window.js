@@ -82,7 +82,24 @@ kimchi.login_main = function() {
 
         kimchi.login(settings, function() {
             var pAjax = kimchi.previousAjax;
-            if (pAjax && true === pAjax['resend']) {
+            var consoleURL = kimchi.cookie.get("console_uri");
+            if (consoleURL) {
+                var path = /.*\/(.*?)\?.*/g.exec(consoleURL)[1];
+                var query = consoleURL.substr(consoleURL.indexOf("?") + 1);
+
+                var proxy_port = /.*port=(.*?)(&|$)/g.exec(consoleURL)[1];
+                var http_port = /.*kimchi=(.*?)(&|$)/g.exec(consoleURL);
+                var kimchi_port = http_port ? http_port[1] : location.port;
+
+                url = location.protocol + "//" + location.hostname;
+                url += ":" + proxy_port + "/console.html?url=" + path;
+                url += "&" + query;
+                url += "&kimchi=" + kimchi_port;
+
+                kimchi.cookie.remove("console_uri");
+                window.location.replace(url)
+            }
+            else if (pAjax && true === pAjax['resend']) {
                 pAjax['error'] = pAjax['originalError'];
                 $.ajax(pAjax);
                 kimchi.previousAjax = null;
