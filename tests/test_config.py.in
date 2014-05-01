@@ -92,18 +92,26 @@ class ConfigTests(unittest.TestCase):
         CACHEEXPIRES = 31536000
         SESSIONSTIMEOUT = 10
         configObj = {
-            '/': {'tools.trailing_slash.on': False,
-                  'request.methods_with_bodies': ('POST', 'PUT'),
-                  'tools.nocache.on': True,
-                  'tools.proxy.on': True,
-                  'tools.sessions.on': True,
-                  'tools.sessions.name': 'kimchi',
-                  'tools.sessions.secure': True,
-                  'tools.sessions.httponly': True,
-                  'tools.sessions.locking': 'explicit',
-                  'tools.sessions.storage_type': 'ram',
-                  'tools.sessions.timeout': SESSIONSTIMEOUT,
-                  'tools.kimchiauth.on': False},
+            '/': {
+                'tools.trailing_slash.on': False,
+                'request.methods_with_bodies': ('POST', 'PUT'),
+                'tools.nocache.on': True,
+                'tools.proxy.on': True,
+                'tools.sessions.on': True,
+                'tools.sessions.name': 'kimchi',
+                'tools.sessions.secure': True,
+                'tools.sessions.httponly': True,
+                'tools.sessions.locking': 'explicit',
+                'tools.sessions.storage_type': 'ram',
+                'tools.sessions.timeout': SESSIONSTIMEOUT,
+                'tools.kimchiauth.on': False
+            },
+            '/vnc_auto.html': {
+                'tools.kimchiauth.on': True
+            },
+            '/spice.html': {
+                'tools.kimchiauth.on': True
+            },
             '/css': {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
