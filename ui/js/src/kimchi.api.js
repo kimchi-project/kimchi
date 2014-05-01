@@ -318,20 +318,16 @@ var kimchi = {
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
-            http_port = data['http_port'];
             proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
                 url : "/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function() {
-                /**
-                 * Due to problems with web sockets and self-signed
-                 * certificates, for now we will always redirect to http
-                 */
-                url = 'http://' + location.hostname + ':' + http_port;
-                url += "/vnc_auto.html?port=" + proxy_port;
+                url = 'https://' + location.hostname + ':' + proxy_port;
+                url += "/console.html?url=vnc_auto.html&port=" + proxy_port;
                 url += "&path=?token=" + encodeURIComponent(vm);
+                url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
             });
@@ -346,16 +342,17 @@ var kimchi = {
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
-            http_port = data['http_port'];
             proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
                 url : "/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function(data, textStatus, xhr) {
-                url = 'http://' + location.hostname + ':' + http_port;
-                url += "/spice.html?port=" + proxy_port + "&listen="
-                + data.graphics.listen + "&token=" + encodeURIComponent(vm);
+                url = 'https://' + location.hostname + ':' + proxy_port;
+                url += "/console.html?url=spice.html&port=" + proxy_port;
+                url += "&listen=" + data.graphics.listen;
+                url += "&token=" + encodeURIComponent(vm);
+                url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
             });

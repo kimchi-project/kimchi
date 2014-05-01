@@ -44,7 +44,8 @@ def new_ws_proxy():
 
     cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
     args = ['python', cmd, config.get('display', 'display_proxy_port'),
-            '--target-config', WS_TOKENS_DIR, '--cert', cert, '--key', key]
+            '--target-config', WS_TOKENS_DIR, '--cert', cert, '--key', key,
+            '--web', os.path.join(paths.ui_dir, 'pages/websockify')]
     p = subprocess.Popen(args, close_fds=True)
     return p
 

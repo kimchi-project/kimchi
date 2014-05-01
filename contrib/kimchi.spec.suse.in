@@ -102,6 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
 %{_datadir}/kimchi/ui/pages/help/*/*.html
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
+%{_datadir}/kimchi/ui/pages/websockify/*.html
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+      redirectToKimchi = function() {
+        var query = window.location.search;
+
+        var path = /.*url=(.*?)(&|$)/g.exec(query)[1];
+        query = query.replace("url=" + path + "&", "")
+        query = query.replace("url=" + path, "")
+
+        var kimchi_port = /.*kimchi=(.*?)(&|$)/g.exec(query)[1];
+        query = query.replace("kimchi=" + kimchi_port + "&", "")
+        query = query.replace("kimchi=" + kimchi_port, "")
+
+        var url = "https://" + location.hostname + ":" + kimchi_port + "/";
+        url += path + query
+
+        window.location.replace(url)
+      }
+    </script>
+  </head>
+
+  <body onload="redirectToKimchi()"/>
+</html>

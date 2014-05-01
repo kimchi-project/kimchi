@@ -85,6 +85,7 @@ AC_CONFIG_FILES([
     ui/pages/help/pt_BR/Makefile
     ui/pages/help/zh_CN/Makefile
     ui/pages/tabs/Makefile
+    ui/pages/websockify/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
