@@ -199,7 +199,7 @@ def run_command(cmd, timeout=None):
         if proc:
             return out, error, proc.returncode
         else:
-            return None, None, None
+            return None, msg, -1
     finally:
         if timer and not timeout_flag[0]:
             timer.cancel()
