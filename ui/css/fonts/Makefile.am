@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+SUBDIRS = novnc
+
 fontdir = $(datadir)/kimchi/ui/css/fonts
 
 dist_font_DATA = fontawesome-webfont.*

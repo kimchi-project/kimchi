@@ -318,6 +318,7 @@ var kimchi = {
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
+            http_port = data['http_port'];
             proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
                 url : "/vms/" + encodeURIComponent(vm) + "/connect",
@@ -328,10 +329,9 @@ var kimchi = {
                  * Due to problems with web sockets and self-signed
                  * certificates, for now we will always redirect to http
                  */
-                url = 'https://' + location.hostname + ':' + proxy_port;
-                url += "/vnc.html?port=" + proxy_port;
+                url = 'http://' + location.hostname + ':' + http_port;
+                url += "/vnc_auto.html?port=" + proxy_port;
                 url += "&path=?token=" + encodeURIComponent(vm);
-                url += '&encrypt=1'
                 window.open(url);
             });
         }).error(function() {
@@ -355,7 +355,6 @@ var kimchi = {
                 url = 'http://' + location.hostname + ':' + http_port;
                 url += "/spice.html?port=" + proxy_port + "&listen="
                 + data.graphics.listen + "&token=" + encodeURIComponent(vm);
-                url += '&encrypt=1'
                 window.open(url);
             });
         }).error(function() {

@@ -76,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/mo/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
 %{_datadir}/kimchi/ui/css/fonts/fontawesome-webfont.*
+%{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
+%{_datadir}/kimchi/ui/css/novnc/base.css
 %{_datadir}/kimchi/ui/css/theme-default.min.css
 %{_datadir}/kimchi/ui/images/*.png
 %{_datadir}/kimchi/ui/images/*.ico
@@ -85,7 +87,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/js/jquery-ui.js
 %{_datadir}/kimchi/ui/js/jquery.min.js
 %{_datadir}/kimchi/ui/js/modernizr.custom.2.6.2.min.js
+%{_datadir}/kimchi/ui/js/novnc/*.js
 %{_datadir}/kimchi/ui/js/spice/*.js
+%{_datadir}/kimchi/ui/js/novnc/web-socket-js/WebSocketMain.swf
+%{_datadir}/kimchi/ui/js/novnc/web-socket-js/swfobject.js
+%{_datadir}/kimchi/ui/js/novnc/web-socket-js/web_socket.js
 %{_datadir}/kimchi/ui/libs/jquery-ui-i18n.min.js
 %{_datadir}/kimchi/ui/libs/jquery-ui.min.js
 %{_datadir}/kimchi/ui/libs/jquery-1.10.0.min.js
@@ -93,13 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.png
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.gif
 %{_datadir}/kimchi/ui/libs/themes/base/jquery-ui.min.css
-%{_datadir}/kimchi/ui/novnc/css/Orbitron700.*
-%{_datadir}/kimchi/ui/novnc/css/base.css
-%{_datadir}/kimchi/ui/novnc/js/*.js
-%{_datadir}/kimchi/ui/novnc/js/web-socket-js/WebSocketMain.swf
-%{_datadir}/kimchi/ui/novnc/js/web-socket-js/swfobject.js
-%{_datadir}/kimchi/ui/novnc/js/web-socket-js/web_socket.js
-%{_datadir}/kimchi/ui/novnc/vnc.html
 %{_datadir}/kimchi/ui/pages/*.html.tmpl
 %{_datadir}/kimchi/ui/pages/help/*/*.html
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl

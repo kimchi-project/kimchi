@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-websocketdir = $(datadir)/kimchi/ui/novnc/js/web-socket-js
+websocketdir = $(datadir)/kimchi/ui/js/novnc/web-socket-js
 
 dist_websocket_DATA = \
 	swfobject.js \

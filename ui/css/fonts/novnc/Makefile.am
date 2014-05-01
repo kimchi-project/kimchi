@@ -15,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cssdir = $(datadir)/kimchi/ui/novnc/css
+fontdir = $(datadir)/kimchi/ui/css/fonts/novnc
 
-dist_css_DATA = base.css Orbitron700.*
+dist_font_DATA = Orbitron700.*
