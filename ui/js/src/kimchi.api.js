@@ -350,7 +350,7 @@ var kimchi = {
             }).done(function(data, textStatus, xhr) {
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += "/console.html?url=spice.html&port=" + proxy_port;
-                url += "&listen=" + data.graphics.listen;
+                url += "&listen=" + location.hostname;
                 url += "&token=" + encodeURIComponent(vm);
                 url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
