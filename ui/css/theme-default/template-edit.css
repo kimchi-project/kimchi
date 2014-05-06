@@ -17,7 +17,7 @@
  */
 #template-edit-window {
     font-size: 13px;
-    height: 420px;
+    height: 600px;
     width: 1000px;
 }
 
@@ -27,19 +27,14 @@
 }
 
 .template-edit-wrapper-label, .template-edit-wrapper-controls {
-    display: inline-block;
     vertical-align: top;
+    width: 470px;
 }
 
 .template-edit-wrapper-label {
-    width: 150px;
-    height: 38px;
-    line-height: 38px;
-    margin-top: 5px;
-}
-
-.template-edit-wrapper-controls {
-    width: 300px;
+    height: 18px;
+    line-height: 18px;
+    margin-top: 8px;
 }
 
 .template-edit-wrapper-controls input[type="text"] {
@@ -49,16 +44,19 @@
     -webkit-border-radius: 5px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px #eee inset;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     padding: 0 10px;
     margin-top: 5px;
-    width: 250px;
+    width: 100%;
 }
 
 .template-edit-wrapper-controls > .dropdown {
     margin: 5px 0 0 1px;
-    width: 250px;
+    width: 440px;
 }
 
 .template-edit-wrapper-controls input[type="text"][disabled] {
@@ -72,7 +70,7 @@
 }
 
 .template-edit-wrapper-controls .select-list-box {
-    width: 272px;
+    width: 464px;
     max-height: 168px;
     overflow: auto;
     margin-top: 5px;
