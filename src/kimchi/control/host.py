@@ -21,7 +21,7 @@ import cherrypy
 
 from kimchi.control.base import Collection, Resource, SimpleCollection
 from kimchi.control.utils import UrlSubNode, validate_method
-from kimchi.exception import OperationFailed
+from kimchi.exception import OperationFailed, NotFoundError
 from kimchi.template import render
 
 
@@ -80,6 +80,7 @@ class Partitions(Collection):
     # sorted by their path
     def _get_resources(self, flag_filter):
         res_list = super(Partitions, self)._get_resources(flag_filter)
+        res_list = filter(lambda x: x.info['available'], res_list)
         res_list.sort(key=lambda x: x.info['path'])
         return res_list
 
@@ -90,6 +91,9 @@ class Partition(Resource):
 
     @property
     def data(self):
+        if not self.info['available']:
+            raise NotFoundError("KCHPART0001E", {'name': self.info['name']})
+
         return self.info
 
 

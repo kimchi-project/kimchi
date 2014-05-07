@@ -142,7 +142,23 @@ def _get_vgname(devNodePath):
     return re.findall(r"LVM2_VG_NAME='([^\']*)'", out)[0]
 
 
-def get_partitions_names():
+def _is_available(name, devtype, fstype, mountpoint, majmin):
+    devNodePath = _get_dev_node_path(majmin)
+    # Only list unmounted and unformated and leaf and (partition or disk)
+    # leaf means a partition, a disk has no partition, or a disk not held
+    # by any multipath device. Physical volume belongs to no volume group
+    # is also listed. Extended partitions should not be listed.
+    if (devtype in ['part', 'disk', 'mpath'] and
+            fstype in ['', 'LVM2_member'] and
+            mountpoint == "" and
+            _get_vgname(devNodePath) == "" and
+            _is_dev_leaf(devNodePath) and
+            not _is_dev_extended_partition(devtype, devNodePath)):
+        return True
+    return False
+
+
+def get_partitions_names(check=False):
     names = set()
     keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT", "MAJ:MIN"]
     # output is on format key="value",
@@ -151,26 +167,17 @@ def get_partitions_names():
         # split()[0] to avoid the second part of the name, after the
         # whiteline
         name = dev['name'].split()[0]
-        devNodePath = _get_dev_node_path(dev['maj:min'])
-        # Only list unmounted and unformated and leaf and (partition or disk)
-        # leaf means a partition, a disk has no partition, or a disk not held
-        # by any multipath device. Physical volume belongs to no volume group
-        # is also listed. Extended partitions should not be listed.
-        if not (dev['type'] in ['part', 'disk', 'mpath'] and
-                dev['fstype'] in ['', 'LVM2_member'] and
-                dev['mountpoint'] == "" and
-                _get_vgname(devNodePath) == "" and
-                _is_dev_leaf(devNodePath) and
-                not _is_dev_extended_partition(dev['type'], devNodePath)):
+        if check and not _is_available(name, dev['type'], dev['fstype'],
+                                       dev['mountpoint'], dev['maj:min']):
             continue
-
         names.add(name)
 
     return list(names)
 
 
 def get_partition_details(name):
-    dev_path = _get_dev_node_path(_get_dev_major_min(name))
+    majmin = _get_dev_major_min(name)
+    dev_path = _get_dev_node_path(majmin)
 
     keys = ["TYPE", "FSTYPE", "SIZE", "MOUNTPOINT"]
     try:
@@ -180,6 +187,8 @@ def get_partition_details(name):
             "Error getting partition info for %s: %s", name, e)
         return {}
 
+    dev['available'] = _is_available(name, dev['type'], dev['fstype'],
+                                     dev['mountpoint'], majmin)
     if dev['mountpoint']:
         # Sometimes the mountpoint comes with [SWAP] or other
         # info which is not an actual mount point. Filtering it

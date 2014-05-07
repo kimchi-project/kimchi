@@ -245,9 +245,6 @@ class PartitionModel(object):
         pass
 
     def lookup(self, name):
-        if name not in disks.get_partitions_names():
-            raise NotFoundError("KCHPART0001E", {'name': name})
-
         return disks.get_partition_details(name)
 
 
