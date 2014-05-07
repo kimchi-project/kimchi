@@ -84,7 +84,6 @@ var kimchi = {
         kimchi.requestJSON({
             url : kimchi.url + 'host/stats',
             type : 'GET',
-            resend: true,
             contentType : 'application/json',
             headers: {'Kimchi-Robot': 'kimchi-robot'},
             dataType : 'json',
