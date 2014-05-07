@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May  7 13:02:32 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:48</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:04:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:05:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to redirect 3xx responses through proxy so we are able to rename vm/template and clone template</span>
+<a name="l-11"></a><span class="tm">13:06:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to enable authentication in console pages (vnc.html and spice.html)</span>
+<a name="l-12"></a><span class="tm">13:06:04</span><span class="nk"> &lt;shaohef&gt;</span> royce can not come to home in time.
+<a name="l-13"></a><span class="tm">13:06:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix spice issue with https</span>
+<a name="l-14"></a><span class="tm">13:06:45</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb is working in a fix for #368</span>
+<a name="l-15"></a><span class="tm">13:06:58</span><span class="nk"> &lt;alinefm&gt;</span> ok, shaohef! np
+<a name="l-16"></a><span class="tm">13:07:03</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send meta patch and iface update patch is merged.</span>
+<a name="l-17"></a><span class="tm">13:07:25</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="cmd">#info </span><span class="cmdline">adamkingit sent patch to allow novnc to work on IE11 from all domains</span>
+<a name="l-18"></a><span class="tm">13:07:28</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef is working on support change network when VM in living</span>
+<a name="l-19"></a><span class="tm">13:09:27</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-20"></a><span class="tm">13:10:18</span><span class="nk"> &lt;alinefm&gt;</span> we have one more week until the end of the sprint 1 stabilization
+<a name="l-21"></a><span class="tm">13:10:19</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/issues?milestone=13&amp;page=1&amp;state=open
+<a name="l-22"></a><span class="tm">13:10:20</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital tested alinefm patch for Enable Kimchi authentication in  console pages and spice bug fix</span>
+<a name="l-23"></a><span class="tm">13:10:28</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to close at least more 5 issues
+<a name="l-24"></a><span class="tm">13:12:05</span><span class="nk"> &lt;shaohef&gt;</span> OK. I think every one take one it will be up to 5 :-D
+<a name="l-25"></a><span class="tm">13:12:41</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, good plan =)
+<a name="l-26"></a><span class="tm">13:12:53</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion section
+<a name="l-27"></a><span class="tm">13:13:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-28"></a><span class="tm">13:13:16</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-29"></a><span class="tm">13:15:33</span><span class="nk"> &lt;danielhb&gt;</span> so world cup huh
+<a name="l-30"></a><span class="tm">13:15:46</span><span class="nk"> &lt;alinefm&gt;</span> everyone so quiet today
+<a name="l-31"></a><span class="tm">13:15:49</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, lol
+<a name="l-32"></a><span class="tm">13:15:51</span><span class="nk"> &lt;danielhb&gt;</span> Holland looking good
+<a name="l-33"></a><span class="tm">13:15:54</span><span class="nk"> &lt;alinefm&gt;</span> a good topic
+<a name="l-34"></a><span class="tm">13:16:32</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, Brazilian team will be announced today, right?
+<a name="l-35"></a><span class="tm">13:16:35</span><span class="nk"> &lt;shaohef&gt;</span> brazil
+<a name="l-36"></a><span class="tm">13:16:48</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah
+<a name="l-37"></a><span class="tm">13:16:58</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, in about 45 min
+<a name="l-38"></a><span class="tm">13:17:15</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, aha!! it is the reason of this silence lol
+<a name="l-39"></a><span class="tm">13:17:29</span><span class="nk"> &lt;shaohef&gt;</span> brazil are playing soccer on their country
+<a name="l-40"></a><span class="tm">13:17:41</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, hope it can help us
+<a name="l-41"></a><span class="tm">13:17:58</span><span class="nk"> &lt;danielhb&gt;</span> I am not optimistic, lol
+<a name="l-42"></a><span class="tm">13:18:00</span><span class="nk"> &lt;shaohef&gt;</span> usually, it does help.
+<a name="l-43"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> ok team! if any topic comes up, please send a mail to ML and we can discuss there
+<a name="l-44"></a><span class="tm">13:18:27</span><span class="nk"> &lt;alinefm&gt;</span> I will end the meeting and so we can talk about world cup =)
+<a name="l-45"></a><span class="tm">13:18:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

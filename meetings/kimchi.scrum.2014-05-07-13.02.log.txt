@@ -1,0 +1,45 @@
+13:02:32 <alinefm> #startmeeting
+13:02:32 <kimchi-bot> Meeting started Wed May  7 13:02:32 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:32 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:32 <alinefm> #meetingname scrum
+13:02:32 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:48 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:48 <alinefm> anything else?
+13:04:40 <alinefm> #topic Status
+13:04:40 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:33 <alinefm> #info alinefm sent patch to redirect 3xx responses through proxy so we are able to rename vm/template and clone template
+13:06:04 <alinefm> #info alinefm sent patches to enable authentication in console pages (vnc.html and spice.html)
+13:06:04 <shaohef> royce can not come to home in time.
+13:06:27 <alinefm> #info alinefm sent patch to fix spice issue with https
+13:06:45 <danielhb> #info danielhb is working in a fix for #368
+13:06:58 <alinefm> ok, shaohef! np
+13:07:03 <shaohef> #info shaohef send meta patch and iface update patch is merged.
+13:07:25 <adamkingit> #info adamkingit sent patch to allow novnc to work on IE11 from all domains
+13:07:28 <shaohef> #info shaohef is working on support change network when VM in living
+13:09:27 <alinefm> anything else?
+13:10:18 <alinefm> we have one more week until the end of the sprint 1 stabilization
+13:10:19 <alinefm> https://github.com/kimchi-project/kimchi/issues?milestone=13&page=1&state=open
+13:10:20 <pvital> #info pvital tested alinefm patch for Enable Kimchi authentication in  console pages and spice bug fix
+13:10:28 <alinefm> I'd like to close at least more 5 issues
+13:12:05 <shaohef> OK. I think every one take one it will be up to 5 :-D
+13:12:41 <alinefm> shaohef, good plan =)
+13:12:53 <alinefm> let's move on to open discussion section
+13:13:09 <alinefm> #topic Open discussion
+13:13:16 <alinefm> what are the topics for today?
+13:15:33 <danielhb> so world cup huh
+13:15:46 <alinefm> everyone so quiet today
+13:15:49 <alinefm> danielhb, lol
+13:15:51 <danielhb> Holland looking good
+13:15:54 <alinefm> a good topic
+13:16:32 <alinefm> danielhb, Brazilian team will be announced today, right?
+13:16:35 <shaohef> brazil
+13:16:48 <danielhb> alinefm, yeah
+13:16:58 <danielhb> alinefm, in about 45 min
+13:17:15 <alinefm> danielhb, aha!! it is the reason of this silence lol
+13:17:29 <shaohef> brazil are playing soccer on their country
+13:17:41 <alinefm> shaohef, hope it can help us
+13:17:58 <danielhb> I am not optimistic, lol
+13:18:00 <shaohef> usually, it does help.
+13:18:16 <alinefm> ok team! if any topic comes up, please send a mail to ML and we can discuss there
+13:18:27 <alinefm> I will end the meeting and so we can talk about world cup =)
+13:18:30 <alinefm> #endmeeting
