@@ -57,9 +57,9 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
     except KeyError:
         user_proxy = 'www-data'
 
+    config_dir = paths.conf_dir
     # No certificates specified by the user
     if not cert or not key:
-        config_dir = paths.conf_dir
         cert = '%s/kimchi-cert.pem' % config_dir
         key = '%s/kimchi-key.pem' % config_dir
         # create cert files if they don't exist
