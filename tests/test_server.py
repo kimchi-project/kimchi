@@ -32,11 +32,12 @@ class ServerTests(unittest.TestCase):
         Test that we can start a server and receive HTTP:200.
         """
         host = '127.0.0.1'
-        port = utils.get_free_port()
+        port = utils.get_free_port('http')
+        ssl_port = utils.get_free_port('https')
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
-        s = utils.run_server(host, port, None, test_mode=True, model=model)
+        s = utils.run_server(host, port, ssl_port, test_mode=True, model=model)
         try:
-            resp = utils.request(host, port, '/')
+            resp = utils.request(host, ssl_port, '/')
             self.assertEquals(200, resp.status)
         except:
             raise

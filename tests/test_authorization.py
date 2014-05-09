@@ -44,7 +44,8 @@ def setUpModule():
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port('http')
-    test_server = run_server(host, port, None, test_mode=True, model=model)
+    ssl_port = get_free_port('https')
+    test_server = run_server(host, port, ssl_port, test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -54,7 +55,7 @@ def tearDownModule():
 
 class AuthorizationTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, port)
+        self.request = partial(request, host, ssl_port)
         model.reset()
 
     def test_nonroot_access(self):

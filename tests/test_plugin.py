@@ -34,6 +34,7 @@ test_server = None
 model = None
 host = None
 port = None
+ssl_port = None
 
 
 def setUpModule():
@@ -42,7 +43,7 @@ def setUpModule():
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = utils.get_free_port('http')
-    ssl_port = None
+    ssl_port = utils.get_free_port('https')
     test_server = utils.run_server(host, port, ssl_port, test_mode=True,
                                    model=model)
 
@@ -55,7 +56,7 @@ def tearDownModule():
 class PluginTests(unittest.TestCase):
 
     def setUp(self):
-        self.request = partial(utils.request, host, port)
+        self.request = partial(utils.request, host, ssl_port)
 
     def _create_rectangle(self, name, length, width):
         req = json.dumps({'name': name, 'length': length, 'width': width})

@@ -141,11 +141,6 @@ def _request(conn, path, data, method, headers):
 
 
 def request(host, port, path, data=None, method='GET', headers=None):
-    conn = httplib.HTTPConnection(host, port)
-    return _request(conn, path, data, method, headers)
-
-
-def https_request(host, port, path, data=None, method='GET', headers=None):
     conn = httplib.HTTPSConnection(host, port)
     return _request(conn, path, data, method, headers)
 

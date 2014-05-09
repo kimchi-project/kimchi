@@ -31,16 +31,18 @@ test_server = None
 model = None
 host = None
 port = None
+ssl_port = None
 
 
 def setup_server(environment='development'):
-    global test_server, model, host, port
+    global test_server, model, host, port, ssl_port
 
     patch_auth()
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
-    port = get_free_port()
-    test_server = run_server(host, port, None, test_mode=True, model=model,
+    port = get_free_port('http')
+    ssl_port = get_free_port('https')
+    test_server = run_server(host, port, ssl_port, test_mode=True, model=model,
                              environment=environment)
 
 
@@ -55,17 +57,17 @@ class ExceptionTests(unittest.TestCase):
         """
         setup_server('production')
         # test 404
-        resp = json.loads(request(host, port, '/vms/blah').read())
+        resp = json.loads(request(host, ssl_port, '/vms/blah').read())
         self.assertEquals('404 Not Found', resp.get('code'))
 
         # test 405 wrong method
-        resp = json.loads(request(host, port, '/', None, 'DELETE').read())
+        resp = json.loads(request(host, ssl_port, '/', None, 'DELETE').read())
         msg = u'KCHAPI0002E: Delete is not allowed for kimchiroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
         # test 400 parse error
-        resp = json.loads(request(host, port, '/vms', '{', 'POST').read())
+        resp = json.loads(request(host, ssl_port, '/vms', '{', 'POST').read())
         msg = u'KCHAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
@@ -73,7 +75,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test 400 missing required parameter
         req = json.dumps({})
-        resp = json.loads(request(host, port, '/vms', req, 'POST').read())
+        resp = json.loads(request(host, ssl_port, '/vms', req, 'POST').read())
         self.assertEquals('400 Bad Request', resp.get('code'))
         msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
         self.assertEquals(msg, resp.get('reason'))
@@ -85,17 +87,17 @@ class ExceptionTests(unittest.TestCase):
         """
         setup_server()
         # test 404
-        resp = json.loads(request(host, port, '/vms/blah').read())
+        resp = json.loads(request(host, ssl_port, '/vms/blah').read())
         self.assertEquals('404 Not Found', resp.get('code'))
 
         # test 405 wrong method
-        resp = json.loads(request(host, port, '/', None, 'DELETE').read())
+        resp = json.loads(request(host, ssl_port, '/', None, 'DELETE').read())
         msg = u'KCHAPI0002E: Delete is not allowed for kimchiroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
         # test 400 parse error
-        resp = json.loads(request(host, port, '/vms', '{', 'POST').read())
+        resp = json.loads(request(host, ssl_port, '/vms', '{', 'POST').read())
         msg = u'KCHAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
@@ -103,7 +105,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test 400 missing required parameter
         req = json.dumps({})
-        resp = json.loads(request(host, port, '/vms', req, 'POST').read())
+        resp = json.loads(request(host, ssl_port, '/vms', req, 'POST').read())
         msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))

@@ -35,7 +35,7 @@ import iso_gen
 import kimchi.mockmodel
 import kimchi.server
 from kimchi.rollbackcontext import RollbackContext
-from utils import fake_user, get_free_port, https_request, patch_auth, request
+from utils import fake_user, get_free_port, patch_auth, request
 from utils import run_server
 
 
@@ -83,7 +83,7 @@ class RestTests(unittest.TestCase):
         cb('in progress')
 
     def setUp(self):
-        self.request = partial(request, host, port)
+        self.request = partial(request, host, ssl_port)
         model.reset()
 
     def assertHTTPStatus(self, code, *args):
@@ -822,7 +822,7 @@ class RestTests(unittest.TestCase):
                           'allocated': 512,
                           'path': '/var/lib/libvirt/images/%i' % i,
                           'type': 'dir'})
-        resp = request(host, port, '/storagepools', req, 'POST')
+        resp = request(host, ssl_port, '/storagepools', req, 'POST')
         self.assertEquals(400, resp.status)
 
         storagepools = json.loads(self.request('/storagepools').read())
@@ -1160,13 +1160,13 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-network',
                           'connection': 'nat',
                           'net': '127.0.1.0/24'})
-        resp = request(host, port, '/networks', req, 'POST')
+        resp = request(host, ssl_port, '/networks', req, 'POST')
         self.assertEquals(201, resp.status)
 
         req = json.dumps({'name': 'test-storagepool',
                           'path': '/tmp/kimchi-images',
                           'type': 'dir'})
-        resp = request(host, port, '/storagepools', req, 'POST')
+        resp = request(host, ssl_port, '/storagepools', req, 'POST')
         self.assertEquals(201, resp.status)
 
         t = {'name': 'test', 'memory': 1024, 'cpus': 1,
@@ -1180,19 +1180,20 @@ class RestTests(unittest.TestCase):
         shutil.rmtree(path)
         # Try to delete network
         # It should fail as it is associated to a template
-        resp = json.loads(request(host, port, '/networks/test-network',
+        resp = json.loads(request(host, ssl_port, '/networks/test-network',
                                   '{}', 'DELETE').read())
         self.assertIn("KCHNET0017E", resp["reason"])
 
         # Update template to release network and then delete it
         params = {'networks': []}
         req = json.dumps(params)
-        resp = request(host, port, '/templates/test', req, 'PUT')
-        resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
+        resp = request(host, ssl_port, '/templates/test', req, 'PUT')
+        resp = request(host, ssl_port, '/networks/test-network', '{}',
+                       'DELETE')
         self.assertEquals(204, resp.status)
 
         # Delete the storagepool
-        resp = request(host, port, '/storagepools/test-storagepool',
+        resp = request(host, ssl_port, '/storagepools/test-storagepool',
                        '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
@@ -1202,7 +1203,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(res['invalid']['storagepools'], ['test-storagepool'])
 
         # Delete the template
-        resp = request(host, port, '/templates/test', '{}', 'DELETE')
+        resp = request(host, ssl_port, '/templates/test', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
     def test_iso_scan_shallow(self):
@@ -1325,7 +1326,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(interface['status'], "active")
 
     def test_get_networks(self):
-        networks = json.loads(request(host, port, '/networks').read())
+        networks = json.loads(request(host, ssl_port, '/networks').read())
         self.assertEquals(1, len(networks))
         self.assertEquals('default', networks[0]['name'])
         self.assertEquals([], networks[0]['vms'])
@@ -1337,21 +1338,21 @@ class RestTests(unittest.TestCase):
                               'connection': 'nat',
                               'subnet': '127.0.10%i.0/24' % i})
 
-            resp = request(host, port, '/networks', req, 'POST')
+            resp = request(host, ssl_port, '/networks', req, 'POST')
             self.assertEquals(201, resp.status)
             network = json.loads(resp.read())
             self.assertEquals([], network["vms"])
 
-        networks = json.loads(request(host, port, '/networks').read())
+        networks = json.loads(request(host, ssl_port, '/networks').read())
         self.assertEquals(6, len(networks))
 
-        network = json.loads(request(host, port,
+        network = json.loads(request(host, ssl_port,
                                      '/networks/network-1').read())
         self.assertEquals('network-1', network['name'])
         self.assertEquals('inactive', network['state'])
         # Delete the network
         for i in xrange(5):
-            resp = request(host, port, '/networks/network-%i' % i,
+            resp = request(host, ssl_port, '/networks/network-%i' % i,
                            '{}', 'DELETE')
             self.assertEquals(204, resp.status)
 
@@ -1360,31 +1361,32 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-network',
                           'connection': 'nat',
                           'net': '127.0.1.0/24'})
-        resp = request(host, port, '/networks', req, 'POST')
+        resp = request(host, ssl_port, '/networks', req, 'POST')
         self.assertEquals(201, resp.status)
 
         # Verify the network
-        network = json.loads(request(host, port,
+        network = json.loads(request(host, ssl_port,
                                      '/networks/test-network').read())
         self.assertEquals('inactive', network['state'])
         self.assertTrue(network['persistent'])
 
         # activate the network
-        resp = request(host, port,
+        resp = request(host, ssl_port,
                        '/networks/test-network/activate', '{}', 'POST')
-        network = json.loads(request(host, port,
+        network = json.loads(request(host, ssl_port,
                                      '/networks/test-network').read())
         self.assertEquals('active', network['state'])
 
         # Deactivate the network
-        resp = request(host, port,
+        resp = request(host, ssl_port,
                        '/networks/test-network/deactivate', '{}', 'POST')
-        network = json.loads(request(host, port,
+        network = json.loads(request(host, ssl_port,
                                      '/networks/test-network').read())
         self.assertEquals('inactive', network['state'])
 
         # Delete the network
-        resp = request(host, port, '/networks/test-network', '{}', 'DELETE')
+        resp = request(host, ssl_port, '/networks/test-network', '{}',
+                       'DELETE')
         self.assertEquals(204, resp.status)
 
     def _wait_task(self, taskid, timeout=5):
@@ -1540,23 +1542,23 @@ class RestTests(unittest.TestCase):
             self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
     def test_debugreports(self):
-        resp = request(host, port, '/debugreports')
+        resp = request(host, ssl_port, '/debugreports')
         self.assertEquals(200, resp.status)
 
     def _report_delete(self, name):
-        request(host, port, '/debugreports/%s' % name, '{}', 'DELETE')
+        request(host, ssl_port, '/debugreports/%s' % name, '{}', 'DELETE')
 
     def test_create_debugreport(self):
         req = json.dumps({'name': 'report1'})
         with RollbackContext() as rollback:
-            resp = request(host, port, '/debugreports', req, 'POST')
+            resp = request(host, ssl_port, '/debugreports', req, 'POST')
             self.assertEquals(202, resp.status)
             task = json.loads(resp.read())
             # make sure the debugreport doesn't exist until the
             # the task is finished
             self._wait_task(task['id'])
             rollback.prependDefer(self._report_delete, 'report1')
-            resp = request(host, port, '/debugreports/report1')
+            resp = request(host, ssl_port, '/debugreports/report1')
             debugreport = json.loads(resp.read())
             self.assertEquals("report1", debugreport['name'])
             self.assertEquals(200, resp.status)
@@ -1564,22 +1566,22 @@ class RestTests(unittest.TestCase):
     def test_debugreport_download(self):
         req = json.dumps({'name': 'report1'})
         with RollbackContext() as rollback:
-            resp = request(host, port, '/debugreports', req, 'POST')
+            resp = request(host, ssl_port, '/debugreports', req, 'POST')
             self.assertEquals(202, resp.status)
             task = json.loads(resp.read())
             # make sure the debugreport doesn't exist until the
             # the task is finished
             self._wait_task(task['id'], 20)
             rollback.prependDefer(self._report_delete, 'report1')
-            resp = request(host, port, '/debugreports/report1')
+            resp = request(host, ssl_port, '/debugreports/report1')
             debugreport = json.loads(resp.read())
             self.assertEquals("report1", debugreport['name'])
             self.assertEquals(200, resp.status)
-            resp = request(host, port, '/debugreports/report1/content')
+            resp = request(host, ssl_port, '/debugreports/report1/content')
             self.assertEquals(200, resp.status)
-            resp = request(host, port, '/debugreports/report1')
+            resp = request(host, ssl_port, '/debugreports/report1')
             debugre = json.loads(resp.read())
-            resp = request(host, port, debugre['uri'])
+            resp = request(host, ssl_port, debugre['uri'])
             self.assertEquals(200, resp.status)
 
     def test_host(self):
@@ -1655,12 +1657,12 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(201, resp.status)
 
-        resp = request(host, port, '/vms')
+        resp = request(host, ssl_port, '/vms')
         self.assertEquals(200, resp.status)
         res = json.loads(resp.read())
         self.assertEquals(2, len(res))
 
-        resp = request(host, port, '/vms?name=test-vm1')
+        resp = request(host, ssl_port, '/vms?name=test-vm1')
         self.assertEquals(200, resp.status)
         res = json.loads(resp.read())
         self.assertEquals(1, len(res))
@@ -1709,5 +1711,5 @@ class HttpsRestTests(RestTests):
     Run all of the same tests as above, but use https instead
     """
     def setUp(self):
-        self.request = partial(https_request, host, ssl_port)
+        self.request = partial(request, host, ssl_port)
         model.reset()

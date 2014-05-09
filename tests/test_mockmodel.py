@@ -33,17 +33,20 @@ test_server = None
 model = None
 host = None
 port = None
+ssl_port = None
 
 
 class MockModelTests(unittest.TestCase):
     def setUp(self):
-        global port, host, model, test_server
+        global host, port, ssl_port, model, test_server
         cherrypy.request.headers = {'Accept': 'application/json'}
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
         patch_auth()
-        port = get_free_port()
+        port = get_free_port('http')
+        ssl_port = get_free_port('https')
         host = '127.0.0.1'
-        test_server = run_server(host, port, None, test_mode=True, model=model)
+        test_server = run_server(host, port, ssl_port, test_mode=True,
+                                 model=model)
 
     def tearDown(self):
         test_server.stop()
@@ -86,21 +89,21 @@ class MockModelTests(unittest.TestCase):
     def test_screenshot_refresh(self):
         # Create a VM
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
-        request(host, port, '/templates', req, 'POST')
+        request(host, ssl_port, '/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
-        request(host, port, '/vms', req, 'POST')
+        request(host, ssl_port, '/vms', req, 'POST')
 
         # Test screenshot refresh for running vm
-        request(host, port, '/vms/test-vm/start', '{}', 'POST')
-        resp = request(host, port, '/vms/test-vm/screenshot')
+        request(host, ssl_port, '/vms/test-vm/start', '{}', 'POST')
+        resp = request(host, ssl_port, '/vms/test-vm/screenshot')
         self.assertEquals(200, resp.status)
         self.assertEquals('image/png', resp.getheader('content-type'))
-        resp1 = request(host, port, '/vms/test-vm')
+        resp1 = request(host, ssl_port, '/vms/test-vm')
         rspBody = resp1.read()
         testvm_Data = json.loads(rspBody)
         screenshotURL = testvm_Data['screenshot']
         time.sleep(5)
-        resp2 = request(host, port, screenshotURL)
+        resp2 = request(host, ssl_port, screenshotURL)
         self.assertEquals(200, resp2.status)
         self.assertEquals(resp2.getheader('content-type'),
                           resp.getheader('content-type'))
@@ -111,13 +114,13 @@ class MockModelTests(unittest.TestCase):
 
     def test_vm_list_sorted(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
-        request(host, port, '/templates', req, 'POST')
+        request(host, ssl_port, '/templates', req, 'POST')
 
         def add_vm(name):
 
             # Create a VM
             req = json.dumps({'name': name, 'template': '/templates/test'})
-            request(host, port, '/vms', req, 'POST')
+            request(host, ssl_port, '/vms', req, 'POST')
 
         add_vm('bca')
         add_vm('xba')
