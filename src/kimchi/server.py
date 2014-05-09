@@ -81,8 +81,8 @@ class Server(object):
         # as a localhost app, inaccessible to the outside
         # directly. You must go through the proxy.
         cherrypy.server.socket_host = '127.0.0.1'
-        cherrypy.server.socket_port = options.port
-        cherrypy.config.nginx_port = options.proxy_port
+        cherrypy.server.socket_port = options.cherrypy_port
+        cherrypy.config.nginx_port = options.port
 
         cherrypy.log.screen = True
         cherrypy.log.access_file = options.access_log

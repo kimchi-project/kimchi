@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA  02110-1301  USA
 
-import logging
 import os
 import sys
 sys.path.insert(1, '@pythondir@')
@@ -45,8 +44,8 @@ def main(options):
 
     host = config.get("server", "host")
     port = config.get("server", "port")
-    proxy_port = config.get("server", "proxy_port")
-    proxy_ssl_port = config.get("server", "proxy_ssl_port")
+    ssl_port = config.get("server", "ssl_port")
+    cherrypy_port = config.get("server", "cherrypy_port")
     runningEnv = config.get('server', 'environment')
     logDir = config.get("logging", "log_dir")
     logLevel = config.get("logging", "log_level")
@@ -55,13 +54,11 @@ def main(options):
     parser.add_option('--host', type="string", default=host,
                       help="Hostname to listen on")
     parser.add_option('--port', type="int", default=port,
-                      help="Kimchid process listen port (default %s)" % port)
-    parser.add_option('--proxy-port', type="int", default=proxy_port,
-                      help="Proxy port to listen on (default %s)" %
-                      proxy_port)
-    parser.add_option('--proxy-ssl-port', type="int", default=proxy_ssl_port,
-                      help="Proxy port to enable SSL (default %s)" %
-                      proxy_ssl_port)
+                      help="Port to listen on (default %s)" % port)
+    parser.add_option('--ssl-port', type="int", default=ssl_port,
+                      help="Port to enable SSL (default %s)" % ssl_port)
+    parser.add_option('--cherrypy_port', type="int", default=cherrypy_port,
+                      help="Cherrypy server port (default %s)" % cherrypy_port)
     parser.add_option('--log-level', default=logLevel,
                       help="Logging level")
     parser.add_option('--access-log',

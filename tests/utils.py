@@ -93,15 +93,18 @@ def get_free_port(name='http'):
         return _ports[name]
 
 
-def run_server(host, port, ssl_port, test_mode, proxy_port=None,
+def run_server(host, port, ssl_port, test_mode, cherrypy_port=None,
                model=None, environment='development'):
-    if proxy_port is None:
-        proxy_port = get_free_port('proxy_port')
+
+    if cherrypy_port is None:
+        cherrypy_port = get_free_port('cherrypy_port')
+
     if ssl_port is None:
-        ssl_port = get_free_port('ssl_port')
+        ssl_port = get_free_port('https')
+
     args = type('_', (object,),
-                {'host': host, 'port': port, 'proxy_ssl_port': ssl_port,
-                 'proxy_port': proxy_port,
+                {'host': host, 'port': port, 'ssl_port': ssl_port,
+                 'cherrypy_port': cherrypy_port,
                  'ssl_cert': '', 'ssl_key': '',
                  'test': test_mode, 'access_log': '/dev/null',
                  'error_log': '/dev/null', 'environment': environment,

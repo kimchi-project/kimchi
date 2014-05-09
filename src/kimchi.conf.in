@@ -12,6 +12,9 @@
 # If present, start an SSL-enabled server on the given port
 #ssl_port = 8001
 
+# Cherrypy server port
+#cherrypy_port = 8010
+
 # The full path to an SSL Certificate in PEM format.  If left unspecified,
 # Kimchi will generate a self-signed certificate automatically.
 #ssl_cert =

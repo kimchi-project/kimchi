@@ -89,9 +89,9 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
 
 def start_proxy(options):
     """Start nginx reverse proxy."""
-    _create_proxy_config(options.proxy_port,
-                         options.port,
-                         options.proxy_ssl_port,
+    _create_proxy_config(options.port,
+                         options.cherrypy_port,
+                         options.ssl_port,
                          options.ssl_cert,
                          options.ssl_key)
     config_dir = paths.conf_dir
