@@ -47,19 +47,19 @@ kimchi.host_main = function() {
                     name: 'baseurl',
                     label: i18n['KCHREPO6006M'],
                     makeTitle: true,
-                    'class': 'repository-baseurl'
+                    'class': 'repository-baseurl deb'
                 }, {
                     name: 'enabled',
                     label: i18n['KCHREPO6009M'],
-                    'class': 'repository-enabled'
+                    'class': 'repository-enabled deb'
                 }, {
                     name: 'config[dist]',
                     label: "dist",
-                    'class': 'repository-gpgcheck'
+                    'class': 'repository-gpgcheck deb'
                 }, {
                     name: 'config[comps]',
                     label: "comps",
-                    'class': 'repository-gpgcheck'
+                    'class': 'repository-gpgcheck deb'
                 }];
         }
         else {

@@ -258,4 +258,28 @@
     height: 200px;
     width: 850px;
 }
+
+.host-panel #repositories-grid .repository-id {
+    width: 120px;
+}
+
+.host-panel #repositories-grid .repository-name {
+    width: 640px;
+}
+
+.host-panel #repositories-grid .repository-enabled {
+    width: 92px;
+}
+
+.host-panel #repositories-grid .repository-baseurl.deb {
+    width: 400px;
+}
+
+.host-panel #repositories-grid .repository-enabled.deb {
+    width: 100px;
+}
+
+.host-panel #repositories-grid .repository-gpgcheck.deb {
+    width: 150px;
+}
 /* End of Repository */
