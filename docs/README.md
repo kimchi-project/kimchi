@@ -14,7 +14,7 @@ Desktop Browser Support:
 -----------------------
 * **Internet Explorer:** IE9+
 * **Chrome:** Current-1 version
-* **Firefox:** Current-1 version Firefox 17ESR
+* **Firefox:** Current-1 version Firefox 24ESR
 * **Safari:** Current-1 version
 * **Opera:** Current-1 version
 
