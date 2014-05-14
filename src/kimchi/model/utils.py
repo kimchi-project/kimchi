@@ -19,6 +19,7 @@
 
 import re
 from kimchi.exception import OperationFailed
+from kimchi.featuretests import FeatureTests
 from kimchi.model.config import CapabilitiesModel
 import libvirt
 from lxml import etree
@@ -84,6 +85,7 @@ def _kimchi_set_metadata_node(dom, node):
 
 
 def libvirt_get_kimchi_metadata_node(dom, mode="current"):
+    FeatureTests.disable_screen_error_logging()
     try:
         xml = dom.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
                            KIMCHI_META_URL,
@@ -91,6 +93,8 @@ def libvirt_get_kimchi_metadata_node(dom, mode="current"):
         return etree.fromstring(xml)
     except libvirt.libvirtError:
         return None
+    finally:
+        FeatureTests.enable_screen_error_logging()
 
 
 def set_metadata_node(dom, node, mode="all"):
