@@ -104,10 +104,6 @@ kimchi.template_edit_main = function() {
         });
     });
 
-    $('#tmpl-edit-button-cancel').on('click', function() {
-        kimchi.window.close();
-    });
-
     $('#template-edit-storagePool').change(function() {
         storagepool = $(this).val();
         var storageArray = storagepool.split("/");
