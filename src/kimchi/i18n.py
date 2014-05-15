@@ -119,6 +119,7 @@ messages = {
     "KCHTMPL0019E": _("The volume: %(volume)s in not in storage pool %(pool)s"),
     "KCHTMPL0020E": _("Unable to create template due error: %(err)s"),
     "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
+    "KCHTMPL0022E": _("Disk size must be greater than 1GB."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
