@@ -481,30 +481,6 @@ var kimchi = {
         return deepScanHandler;
     },
 
-    listDeepScanIsos : function(suc, err) {
-        var isoPool = 'iso' + new Date().getTime();
-        kimchi.createStoragePool({
-            name : isoPool,
-            type : 'kimchi-iso',
-            path : '/'
-        }, function(result) {
-            var taskId = result.task_id;
-            function monitorTask() {
-                kimchi.getTask(taskId, function(result) {
-                    var status = result.status;
-                    if (status === "finished") {
-                        kimchi.listStorageVolumes(isoPool, suc, err);
-                    } else if (status === "running") {
-                        setTimeout(monitorTask, 50);
-                    } else if (status === "failed") {
-                        err(result.message);
-                    }
-                }, err);
-            }
-            monitorTask();
-        }, err);
-    },
-
     getTask : function(taskId, suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'tasks/' + encodeURIComponent(taskId),
