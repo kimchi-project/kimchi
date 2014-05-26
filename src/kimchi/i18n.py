@@ -30,6 +30,7 @@ messages = {
     "KCHAPI0005E": _("Create is not allowed for %(resource)s"),
     "KCHAPI0006E": _("Unable to parse JSON request"),
     "KCHAPI0007E": _("This API only supports JSON"),
+    "KCHAPI0008E": _("Parameters does not match requirement in schema: %(err)s"),
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
     "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
