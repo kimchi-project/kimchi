@@ -25,7 +25,7 @@ kimchi.guest_add_main = function() {
                 var html = '';
                 var tmpl = $('#tmpl-template').html();
                 $.each(result, function(index, value) {
-                    html += kimchi.template(tmpl, value);
+                    html += kimchi.substitute(tmpl, value);
                 });
                 $('#templateTile').html(html);
                 return;

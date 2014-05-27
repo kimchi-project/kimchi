@@ -25,7 +25,7 @@ kimchi.doListStoragePools = function() {
                 value.capacity = kimchi.changetoProperUnit(value.capacity,1);
                 value.allocated = kimchi.changetoProperUnit(value.allocated,1);
                 if ('kimchi-iso' !== value.type) {
-                    listHtml += kimchi.template(storageHtml, value);
+                    listHtml += kimchi.substitute(storageHtml, value);
                 }
             });
             $('#storagepoolsList').html(listHtml);
@@ -172,7 +172,7 @@ kimchi.doListVolumes = function(poolObj) {
                     value.poolname = poolObj.data('name');
                     value.capacity = kimchi.changetoProperUnit(value.capacity,1);
                     value.allocation = kimchi.changetoProperUnit(value.allocation,1);
-                    listHtml += kimchi.template(volumeHtml, value);
+                    listHtml += kimchi.substitute(volumeHtml, value);
                 });
                 volumeDiv.html(listHtml);
             } else {

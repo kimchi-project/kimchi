@@ -485,7 +485,7 @@ kimchi.host_main = function() {
         data['memory'] = kimchi.formatMeasurement(data['memory'], {
             fixed: 2
         });
-        var templated = kimchi.template(htmlTmpl, data);
+        var templated = kimchi.substitute(htmlTmpl, data);
         $('#host-content-container').html(templated);
 
         initPage();

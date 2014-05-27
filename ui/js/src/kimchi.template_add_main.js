@@ -152,7 +152,7 @@ kimchi.template_add_main = function() {
                 volume.isoId = isoId;
                 volume.capacity = kimchi.changetoProperUnit(volume.capacity, 1);
                 kimchi.isoInfo[isoId] = volume;
-                html += kimchi.template(template, volume);
+                html += kimchi.substitute(template, volume);
             }
         });
         $('#list-local-iso').append(html);
@@ -266,7 +266,7 @@ kimchi.template_add_main = function() {
                 if (!kimchi.isoInfo[isoId]) {
                     volume.isoId = isoId;
                     kimchi.isoInfo[isoId] = volume;
-                    html += kimchi.template(template, volume);
+                    html += kimchi.substitute(template, volume);
                 }
             });
             $('#list-remote-iso').html(html);

@@ -22,7 +22,7 @@ kimchi.doListTemplates = function() {
             var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
-                listHtml += kimchi.template(templateHtml, value);
+                listHtml += kimchi.substitute(templateHtml, value);
             });
             $('#templateList').html(listHtml);
             kimchi.templateBindClick();

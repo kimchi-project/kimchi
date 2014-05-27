@@ -42,7 +42,7 @@ kimchi.guest_edit_main = function() {
             $.each(storages, function(index, storage) {
                 storage['vm'] = kimchi.selectedGuest;
                 rowHTML = $('#' + storage['type'] + '-row-tmpl').html();
-                var templated = kimchi.template(rowHTML, storage);
+                var templated = kimchi.substitute(rowHTML, storage);
                 container.append(templated);
             });
 
@@ -96,7 +96,7 @@ kimchi.guest_edit_main = function() {
             $(".action-area", item).toggleClass("hide");
         };
         var addItem = function(data) {
-            var itemNode = $.parseHTML(kimchi.template($('#interface-tmpl').html(),data));
+            var itemNode = $.parseHTML(kimchi.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
             if(data.network!==""){

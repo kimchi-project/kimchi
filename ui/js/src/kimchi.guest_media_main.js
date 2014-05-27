@@ -28,7 +28,7 @@ kimchi.guest_media_main = function() {
 
             $.each(storages, function(index, storage) {
                 storage['vm'] = kimchi.selectedGuest;
-                var templated = kimchi.template(rowHTML, storage);
+                var templated = kimchi.substitute(rowHTML, storage);
                 container.append(templated);
             });
 
