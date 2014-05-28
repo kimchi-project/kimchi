@@ -33,7 +33,7 @@ kimchi.initStorageAddPage = function() {
                     listHtml += kimchi.substitute(deviceHtml, value);
                 }
             });
-            $('.host-partition').html(listHtml);
+            $('.host-partition', '#form-pool-add').html(listHtml);
         } else {
             $('.host-partition').html(i18n['KCHPOOL6011M']);
             $('.host-partition').addClass('text-help');

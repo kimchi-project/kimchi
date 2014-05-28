@@ -223,6 +223,18 @@ var kimchi = {
         }).done(suc).fail(err);
     },
 
+    updateStoragePool : function(name, content, suc, err) {
+        $.ajax({
+            url : kimchi.url + "storagepools/" + encodeURIComponent(name),
+            type : 'PUT',
+            contentType : 'application/json',
+            dataType : 'json',
+            data : JSON.stringify(content)
+        }).done(suc).fail(err ? err : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        });
+    },
+
     startVM : function(vm, suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/start',

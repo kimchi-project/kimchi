@@ -24,6 +24,7 @@ kimchi.doListStoragePools = function() {
                 value.usage = parseInt(value.allocated / value.capacity * 100) || 0;
                 value.capacity = kimchi.changetoProperUnit(value.capacity,1);
                 value.allocated = kimchi.changetoProperUnit(value.allocated,1);
+                value.enableExt = value.type==="logical" ? "" : "hide-content";
                 if ('kimchi-iso' !== value.type) {
                     listHtml += kimchi.substitute(storageHtml, value);
                 }
@@ -138,6 +139,11 @@ kimchi.storageBindClick = function() {
         }
     });
 
+    $('.pool-extend').on('click', function() {
+        $("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
+        $("#logicalPoolExtend").dialog("open");
+    });
+
     $('#volume-doAdd').on('click', function() {
         kimchi.window.open('storagevolume-add.html');
     });
@@ -187,11 +193,52 @@ kimchi.doListVolumes = function(poolObj) {
     });
 }
 
+kimchi.initLogicalPoolExtend = function() {
+    $("#logicalPoolExtend").dialog({
+        autoOpen : false,
+        modal : true,
+        width : 600,
+        resizable : false,
+        closeText: "X",
+        open : function(){
+            $('#loading-info', '#logicalPoolExtend').removeClass('hidden');
+            $(".ui-dialog-titlebar-close", $("#logicalPoolExtend").parent()).removeAttr("title");
+            kimchi.listHostPartitions(function(data) {
+                $('#loading-info', '#logicalPoolExtend').addClass('hidden');
+                if (data.length > 0) {
+                    for(var i=0;i<data.length;i++){
+                        if (data[i].type === 'part' || data[i].type === 'disk') {
+                            $('.host-partition', '#logicalPoolExtend').append(kimchi.template($('#logicalPoolExtendTmpl').html(), data[i]));
+                        }
+                    }
+                } else {
+                    $('.host-partition').html(i18n['KCHPOOL6011M']);
+                    $('.host-partition').addClass('text-help');
+                }
+            });
+        },
+        beforeClose : function() { $('.host-partition', '#logicalPoolExtend').empty(); },
+        buttons : [{
+            class: "ui-button-primary",
+            text: i18n.KCHAPI6007M,
+            click: function(){
+                var devicePaths = [];
+                $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function(){
+                    devicePaths.push($(this).prop('value'));
+                })
+                kimchi.updateStoragePool($("#logicalPoolExtend").dialog("option", "poolName"),{disks: devicePaths});
+                $(this).dialog("close");
+            }
+        }]
+    });
+}
+
 kimchi.storage_main = function() {
     $('#storage-pool-add').on('click', function() {
         kimchi.window.open('storagepool-add.html');
     });
     kimchi.doListStoragePools();
+    kimchi.initLogicalPoolExtend();
 }
 
 kimchi.changeArrow = function(obj) {
