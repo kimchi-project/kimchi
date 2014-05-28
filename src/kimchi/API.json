@@ -361,7 +361,7 @@
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",
-                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$",
+                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
                     "required": true,
                     "error": "KCHTMPL0014E"
                 },
@@ -533,7 +533,7 @@
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",
-                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*([.]iso)$",
+                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
                     "error": "KCHTMPL0014E"
                 },
                 "disks": {
