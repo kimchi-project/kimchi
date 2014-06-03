@@ -247,9 +247,14 @@ class ModelTests(unittest.TestCase):
             # Hot plug a disk
             inst.vm_start(vm_name)
             disk = _attach_disk()
+            # VM disk still there after powered off
+            inst.vm_poweroff(vm_name)
+            disk_info = inst.vmstorage_lookup(vm_name, disk)
+            self.assertEquals(u'disk', disk_info['type'])
             inst.vmstorage_delete(vm_name, disk)
 
             # Hot plug 'ide' bus disk does not work
+            inst.vm_start(vm_name)
             self.assertRaises(InvalidOperation, _attach_disk, 'ide')
             inst.vm_poweroff(vm_name)
 
