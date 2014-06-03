@@ -48,10 +48,22 @@ def _get_device_bus(dev_type, dom):
     return lookup(distro, version)[dev_type+'_bus']
 
 
-def _get_storage_xml(params):
+def _get_storage_xml(params, ignore_source=False):
     src_type = params.get('src_type')
     disk = E.disk(type=src_type, device=params.get('type'))
     disk.append(E.driver(name='qemu', type=params['format']))
+
+    disk.append(E.target(dev=params.get('dev'), bus=params['bus']))
+    if params.get('address'):
+        # ide disk target id is always '0'
+        disk.append(E.address(
+            type='drive', controller=params['address']['controller'],
+            bus=params['address']['bus'], target='0',
+            unit=params['address']['unit']))
+
+    if ignore_source:
+        return ET.tostring(disk)
+
     # Working with url paths
     if src_type == 'network':
         output = urlparse.urlparse(params.get('path'))
@@ -66,13 +78,6 @@ def _get_storage_xml(params):
         source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
         disk.append(source)
 
-    disk.append(E.target(dev=params.get('dev'), bus=params['bus']))
-    if params.get('address'):
-        # ide disk target id is always '0'
-        disk.append(E.address(
-            type='drive', controller=params['address']['controller'],
-            bus=params['address']['bus'], target='0',
-            unit=params['address']['unit']))
     return ET.tostring(disk)
 
 
@@ -229,17 +234,25 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
-        params['src_type'] = _check_path(params['path'])
+        if params.get('path'):
+            params['src_type'] = _check_path(params['path'])
+            ignore_source = False
+        else:
+            params['src_type'] = 'file'
+            ignore_source = True
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
         dev_info.update(params)
-        xml = _get_storage_xml(dev_info)
+        xml = _get_storage_xml(dev_info, ignore_source)
 
         try:
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
         return dev_name
+
+    def eject(self, vm_name, dev_name):
+        return self.update(vm_name, dev_name, dict())
