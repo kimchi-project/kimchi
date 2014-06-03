@@ -39,6 +39,7 @@ class VMStorage(Resource):
         self.info = {}
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/storages/%s'
+        self.eject = self.generate_action_handler('eject')
         self.update_params = ['path']
 
     @property

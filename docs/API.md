@@ -155,6 +155,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: Path of cdrom iso. Can not be blank. Now just support cdrom type.
 * **DELETE**: Remove the storage.
 
+**Actions (POST):**
+
+* eject: Eject cdrom from device.
 
 
 ### Collection: Templates
