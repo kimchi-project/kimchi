@@ -318,6 +318,11 @@ class ModelTests(unittest.TestCase):
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             self.assertEquals(iso_path, cdrom_info['path'])
+
+            # eject cdrom
+            cdrom_dev = inst.vmstorage_eject(vm_name, cdrom_dev)
+            cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            self.assertEquals('', cdrom_info['path'])
             inst.vm_poweroff(vm_name)
 
            # removing non existent cdrom
