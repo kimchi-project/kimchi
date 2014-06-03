@@ -23,7 +23,6 @@ import socket
 import string
 import urlparse
 
-import libvirt
 import lxml.etree as ET
 from lxml import etree
 from lxml.builder import E
@@ -32,6 +31,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
+from kimchi.model.utils import get_vm_config_flag
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
 from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
@@ -176,7 +176,7 @@ class VMStoragesModel(object):
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
-            dom.attachDeviceFlags(dev_xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+            dom.attachDeviceFlags(dev_xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
         return params['dev']
@@ -224,7 +224,7 @@ class VMStorageModel(object):
             dom = conn.lookupByName(vm_name)
             disk = get_device_xml(dom, dev_name)
             dom.detachDeviceFlags(etree.tostring(disk),
-                                  libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+                                  get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
@@ -239,7 +239,7 @@ class VMStorageModel(object):
         xml = _get_storage_xml(dev_info)
 
         try:
-            dom.updateDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+            dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
         return dev_name
