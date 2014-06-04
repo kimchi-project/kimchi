@@ -1,0 +1,274 @@
+13:04:41 <alinefm> #startmeeting
+13:04:41 <kimchi-bot> Meeting started Wed Jun  4 13:04:41 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:41 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:41 <alinefm> #meetingname scrum
+13:04:41 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:53 <rotru> hello
+13:05:12 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:05:12 <alinefm> anything else?
+13:06:32 <alinefm> #topic Status
+13:06:33 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:06:53 <alinefm> #info alinefm was on vacation in the last 3 weeks
+13:07:43 <royce> #info royce is working on eject cdrom this week, backend patch sent, working on ui patch
+13:07:47 <alinefm> #info alinefm merged some pending patches upstream yesterday
+13:08:15 <shaohef> #info shaohef send out login patches.
+13:08:29 <royce> #info royce is clearing remaining problem of my pending patches including nfs mount feedback and extend storagepool
+13:08:59 <rotru> #info rotru sent new patch to remove '.iso' checking when create a new template
+13:11:13 <wenwang> #info Wang Wen is working on issue#296 sent a patch of redesigned ui of debug report area when generating a new report instead of blocking the ui (before)
+13:12:25 <alinefm> Today is the end of the sprint 2 and then we will start the last stabilization phase for 1.2.1 release
+13:12:52 <alinefm> I'd like to pass through the tasks on wiki to get a better view of their progress
+13:12:57 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+13:13:19 <alinefm> we have 3 tasks from sprint 1 not marked as completed
+13:13:26 <alinefm> Migration: investigate how discover Kimchi peers (sheldon/ming)
+13:13:36 <alinefm> shaohef, do you have any comments on that ^?
+13:14:07 <shaohef> hi all
+13:14:58 <alinefm> Extend logical storage pool (hlwanghl)
+13:15:07 <alinefm> royce, did you take this task to you ^?
+13:15:08 <shaohef> ??
+13:15:15 <royce> yes
+13:15:24 <royce> it has been merged
+13:15:37 <royce> no, it is merged:)
+13:15:44 <alinefm> royce, great! I will update the wiki
+13:15:55 <alinefm> shaohef, about " Migration: investigate how discover Kimchi peers (sheldon/ming)"
+13:15:58 <alinefm> any comments?
+13:16:26 <shaohef> alinefm: sorry. some thing wrong with my net
+13:16:30 <shaohef> alinefm:  so slow.
+13:16:40 <alinefm> did you send your investigation to ML? get feedbacks? what is the mail subject?
+13:16:43 <alinefm> shaohef, np
+13:16:47 <shaohef> alinefm: I have send out a RFC to ML
+13:16:56 <shaohef> alinefm: long time ago.
+13:16:59 <shaohef> alinefm: let me check.
+13:18:06 <shaohef> alinefm:  it is [Kimchi-devel] [RFC] discover Kimchi peers
+13:19:07 <alinefm> #info ML discussion: [Kimchi-devel] [RFC] discover Kimchi peers
+13:19:24 <alinefm> the next task pending from sprint 1 is: Authorization: Properly display UI for non-root users (hlwanghl)
+13:19:46 <alinefm> as hlwanghl is not online, anyone has any update about it?
+13:19:48 <alinefm> adamkingit, ^
+13:20:38 <adamkingit> he is still working on another. He told which last night, but I have to look it up
+13:20:40 <adamkingit> 1m
+13:21:19 <adamkingit> he is currently addressing comments on the "Rename debug report" patch
+13:21:53 <alinefm> ok
+13:22:11 <alinefm> so let's move to sprint 2 tasks
+13:22:13 <alinefm> Authorization: List VMs according to its users/groups (vianac)
+13:23:34 <alinefm> vianac, any progress on that do you want to share with us?
+13:24:17 <alinefm> ok...
+13:24:20 <royce> network problem maybe?
+13:24:20 <alinefm> List iSCSI targets available for initiator while creating iSCSI Pool (shaohef)
+13:24:30 <alinefm> royce, maybe
+13:24:32 <vianac> alinefm, I'm still implementing that feature. I can now block VM access based on users and groups
+13:24:43 <alinefm> shaohef, any update about the iscsi targets?
+13:24:58 <shaohef> alinefm:  patch send out. no one review
+13:25:10 <alinefm> shaohef, what is the patch?
+13:25:11 <vianac> alinefm, but I have a few questions on how it should work. for example, if there is no metadata access in a VM, what will be the behavior? should everyone be able to see it?
+13:25:16 <royce> shaohef, I will review that one tomorrow
+13:25:21 <alinefm> I am making a patch list to review today =)
+13:25:46 <alinefm> vianac, sure - we can discuss it in the open discussion section
+13:25:48 <shaohef> [PATCH 1/2] List iSCSI server for initiator while creating iSCSI Pool
+13:25:48 <shaohef> [PATCH 2/2] List iSCSI targets available for initiator while creating iSCSI Pool
+13:25:52 <vianac> alinefm, ok!
+13:25:54 <alinefm> just let me pass through all the tasks first
+13:26:04 <alinefm> #info patch [PATCH 1/2] List iSCSI server for initiator while creating iSCSI Pool
+13:26:10 <alinefm> #info patch [PATCH 2/2] List iSCSI targets available for initiator while creating iSCSI Pool
+13:26:18 <alinefm> Create a default pool for ISO images ootb(royce)
+13:26:50 <royce> alinefm, I think that one does not in great need at the moment
+13:27:29 <royce> And the requirement is not clear, I suggest move it for now
+13:27:55 <alinefm> royce, so I will remove it from 1.2.1 release and move to the next one
+13:27:57 <alinefm> agree?
+13:28:07 <adamkingit> n
+13:28:19 <royce> SO instead of that one, I enhanced the disk attachment for ref_cnt share
+13:28:26 <adamkingit> Seems another topic for open discussion
+13:28:35 <royce> OK, adamkingit
+13:28:39 <alinefm> adamkingit, ok
+13:28:51 <alinefm> Network template and local template should be distinguished
+13:29:03 <alinefm> there is no one assigned to this task on wiki
+13:29:16 <alinefm> but if I am not being crazy I think I saw something in the ML
+13:29:28 <royce> seems shaohef is working on that
+13:29:28 <adamkingit> YuXin and shaohef are working on it
+13:29:53 <shaohef> yes.
+13:29:55 <alinefm> #info discussion [Kimchi-devel] UI Design of "Properly display about template type (local or, remote) using icon or text information"
+13:30:05 <shaohef> will send out a patch later.
+13:30:56 <alinefm> shaohef, great! thanks
+13:30:59 <alinefm> Secure VM connection (shaohef)
+13:31:08 <alinefm> is it about the ticket validation for the vnc session?
+13:31:26 <shaohef> alinefm:  send out a patch.
+13:31:30 <shaohef> alinefm:  set a ticket for VM.
+13:31:30 <shaohef> alinefm: yes.
+13:31:31 <rotru> alinefm; anything I can help to close this sprint
+13:31:31 <rotru> ?
+13:31:54 <alinefm> shaohef, what is the patch? has it already merged?
+13:32:00 <alinefm> rotru, probably! =)
+13:32:14 <alinefm> rotru, we can discuss it in the open discussion
+13:32:38 <shaohef> alinefm: No. not get agreement.  [PATCH 0/4] ticket support for guest
+13:32:52 <alinefm> #info patch  [PATCH 0/4] ticket support for guest
+13:32:59 <shaohef> alinefm:  so many discussion on this topic in the ML
+13:32:59 <alinefm> shaohef, ok - I will take a look on it
+13:34:20 <alinefm> the other sprint 2 tasks I've already seen patches on ML and some status in this meeting so I don't think we need to pass through them
+13:34:36 <alinefm> if anyone has more status to share I will move to open discussion section
+13:35:44 <alinefm> #topic Open discussion
+13:36:08 <alinefm> the first topic I have is: Sprint 2 ends today
+13:36:38 <alinefm> most of tasks are on track but we need to define which ones have high priority to focus on them
+13:36:50 <alinefm> it is clear for me we will not complete all those for 1.2.1 release
+13:37:40 <royce> adamkingit, By creating pool for ISO images ootb, if ootb, what it needs to contain, do you mean other pool cannot contain isos if this is done? or does this one need to coupled with upload?
+13:38:13 <adamkingit> The idea was to simplify the 1st time experience...
+13:38:25 <royce> My thought is, if we support a dedicate location ootb, we can dump deep scan
+13:39:22 <adamkingit> Today for local ISO the user needs to know to create a storage pool, and to put the ISOs there
+13:39:25 <royce> because deep scan doesn't care where you put the iso, and also aggregate all isos in a temp pool
+13:39:47 <adamkingit> If we define a "well known" pool/location it will simplify the 1st time expwerience
+13:40:18 <adamkingit> Shallow scan looks in all the defined pools, deep looks "everywhere"
+13:40:28 <royce> I agree, that is the proposal before I did deep scan
+13:40:43 <adamkingit> I think both are still useful
+13:40:57 <adamkingit> Just friendlier to make the shallow more apparent
+13:41:11 <royce> but a well know pool seems be overlap with these two concept
+13:41:36 <alinefm> adamkingit, do you mean create a empty dir pool and guide the users to put their ISOs in there?
+13:41:38 <adamkingit> I am thinking of it more as automating what I must do manually today for shallow
+13:41:46 <adamkingit> alinefm yes
+13:42:24 <royce> adamkingit, does it mean upload + an empty pool just for isos?
+13:42:26 <alinefm> royce, that way it does not conflict with the deep scan concept
+13:42:37 <alinefm> royce, just create an empty dir pool
+13:42:45 <alinefm> we dont need to upload anything in there
+13:42:50 <alinefm> right, adamkingit ?
+13:43:11 <adamkingit> We COULD do upload later, but usability is improved with predinfed/empty pool
+13:43:23 <royce> if we have a dedicate pool just for isos, why do we need to search every pool and every where
+13:43:43 <royce> if ISOs can just be there
+13:43:54 <adamkingit> The user may have some local to the server, others on an NFS mount.
+13:44:50 <alinefm> and user can only know her ISOs but not regarding the whole system
+13:45:01 <alinefm> for example, I have ISOs in a local dir under my home
+13:45:13 <alinefm> but other user in my system was not aware of it
+13:45:50 <royce> So do you want user aware or not aware, a dedicate pool is for awareness you know
+13:46:07 <royce> it means, if you want to use ISOs , pls upload there
+13:46:44 <wenwang> alinefm: I got your review of Issue#305: Redesign bridged network UI section. You have made a good point of redesign the ui to make it more consistent. But the checkbox is to let user choose whether he/she wants to enable VLAN, if enabled, then VLAN ID is needed. Without the checkbox, it might mislead user that they have to enable VLAN, like Yu Xin replied.
+13:47:21 <royce> OK... So we want both awareness and unawareness, is that what you mean?
+13:47:49 <alinefm> royce, got confused now both about "both awareness and unawareness"
+13:48:02 <alinefm> wenwang, I replied again to Yu Xin
+13:48:12 <royce> if they know what ISOs they are expecting, give them an api and location to upload
+13:48:21 <alinefm> wenwang, we don't need a check box to indicate a field is optional - we can just add a label
+13:48:40 <royce> if they just want to wandering around and see if there is something available in the system, search for them
+13:48:45 <alinefm> "If you want to enable VLAN, please enter a VLAN ID below. Otherwise, leave it in blank"
+13:50:16 <alinefm> royce, from my understanding it is right. adamkingit ?
+13:50:47 <wenwang> alinefm: What if the user don't have the idea to enable vlan, should we add some words that indicate this line is optional if you don't want to enable vlan?
+13:51:15 <royce> alinefm, I mean whether our hypotheses is "user wants to user isos he awares of" or "we want user use isos he is not aware of"
+13:52:31 <royce> So if this is what we want, this dir pool is just for "ISOs" and will support upload, or download from a web link?
+13:53:21 <alinefm> royce, for me this ootb pool would be useful when I download new ISOs and "where do I need to put it to Kimchi be aware about it without deep scan?"
+13:54:06 <royce> alinefm, so what about let users to supply a web link, and kimchi will download for him?
+13:54:14 <alinefm> royce, it is what i understood from "make shallow scan easier to use" mentioned my adamkingit
+13:54:34 <alinefm> royce, it would be good but I'd say the next step
+13:54:44 <alinefm> remember we have limited time now
+13:55:12 <alinefm> royce, allow user enter a URL and kimchi downloads the ISO will require a lot of work on UI and backend too
+13:55:16 <alinefm> wenwang, yes
+13:55:31 <royce> OK, so this step is just create a dir pool and direct him there in the UI?
+13:55:45 <wenwang> alinefm: okay, thx
+13:55:49 <royce> I want to look into this cause I think that's interesting
+13:56:58 <alinefm> royce, how do you plan to do "direct him there in the UI"  ?
+13:57:12 <alinefm> royce, no problem - you can work on that
+13:57:30 <adamkingit> I think we can direct them to the directory w. the install info
+13:57:49 <royce> alinefm, like in shallow or deep scan page, we can give user some hint
+13:58:07 <adamkingit> We could do a hint on the shallow scan screen
+13:58:10 <alinefm> adamkingit, royce, I'd say only update the help text
+13:58:11 <royce> saying if no ISOs you want, redirect?
+13:58:34 <adamkingit> i am ok w/ help txt
+13:59:16 <alinefm> adamkingit, can this pool be deleted?
+13:59:45 <adamkingit> hmm, probably best if its not though we might want to allow edit
+14:01:27 <royce> Edit is to change its location or?
+14:01:36 <adamkingit> location, yes
+14:01:53 <adamkingit> hmm, that might not be so good if the doc tells you where it should be
+14:02:01 <adamkingit> ok, nm. Edit not a good idea
+14:02:48 <royce> I think if we do it on the UI, the loc can be floated, I mean not fixed
+14:03:37 <royce> We just fetch the loc of the pool and instruct user to copy his ISO there
+14:03:44 <alinefm> adamkingit, royce, no - without edit, please
+14:03:50 <alinefm> at least for now
+14:03:58 <alinefm> we even allow pool edit yet
+14:04:29 <adamkingit> it gets easier even fixed. Lets try that and see what feedback we get
+14:04:52 <alinefm> adamkingit, royce, do we have a deal?
+14:04:59 <alinefm> our time is over
+14:05:01 <royce> OK
+14:05:06 <adamkingit> suonds good
+14:06:09 <alinefm> great!
+14:06:14 <shaohef> I'd like to talk about,    Login flow: Switch to a traditional login flow
+14:06:20 <alinefm> shaohef, sure
+14:06:25 <alinefm> what is up?
+14:07:16 <shaohef> I can not distinguish the login is caused by session timeout or no session
+14:07:59 <adamkingit> shaohef: why do you need to distinguish?
+14:08:13 <shaohef> alinefm: maybe I need to add a new hook: 'on_start_resource' or 'before_request_body'
+14:08:35 <shaohef> adamkingit: YuXin tell me we should to do it.
+14:09:04 <adamkingit> YuXin is pretty smart, its just not immediately obvious to me why we need to distinguish
+14:09:24 <alinefm> adamkingit, shaohef, maybe to show a message about expired session ?
+14:09:41 <YuXin> the login page is shown to user when user first login and session timeout
+14:09:54 <adamkingit> yes
+14:10:00 <shaohef> adamkingit:   how about to prompt  "no session or session timeout, please login" ?
+14:10:04 <YuXin> when session timeout, user is loged out and asked to re-login
+14:10:10 <shaohef> alinefm: ^
+14:10:21 <YuXin> so there need to be a message about why user is loged out
+14:10:51 <YuXin> but obviously, this message is not needed when user first time try to login kimchi
+14:11:13 <adamkingit> ok, you want to make the login more informative...
+14:11:25 <YuXin> sure
+14:12:03 <shaohef> adamkingit: as YuXin design whey error user name or password, we should prompt "user or password error"
+14:12:10 <YuXin> as it is sure that j2ee web container can get this implemented, so there must be a way in cherrypy to do it
+14:12:28 <adamkingit> Server is checking tokens on the request and for a tmpl request and fwds the request on to the login.html.tmpl when token is expired. It can pass the 'timeout' info along at that time
+14:12:28 <alinefm> I have 2 points
+14:13:22 <alinefm> 1) we should do it in separated tasks - one to switch to a traditional login flow (without changes on UI) and other one to improve usability in login page
+14:13:41 <shaohef> adamkingit: alinefm: not sure a hook can distinguish them. I'm trying.
+14:13:51 <alinefm> 2) I'd suggest what adamkingit suggested =)
+14:14:21 <YuXin> aline, traditional login flow is to use a login page
+14:14:29 <YuXin> UI will definitely be changed
+14:14:29 <alinefm> shaohef, I think you don't need a hook
+14:15:00 <alinefm> when timeout occurs we can set a new variable and send with the request response which will fill the login template
+14:15:07 <adamkingit> I think alinefm's point is that the UI doesn't tell you today that you are being asked to login because of session timeout
+14:15:26 <YuXin> a login page to protect all UI content if user has not logged in, currently, kimchi is using a popup
+14:15:30 <YuXin> UI must be changed
+14:15:37 <alinefm> YuXin, yeap - I mean today we don't distinguish login from expired session so do the transition that way and then improve the messages
+14:15:48 <YuXin> ok
+14:16:37 <shaohef> alinefm:  I know when timeout, the cherrypy will tell me  session id missing.
+14:16:55 <shaohef> alinefm: but we do not protect all resource.
+14:17:35 <shaohef> alinefm: so the first login, the cherrypy will also generates a session id.
+14:18:36 <shaohef> alinefm: the some URL need authentication, the cherrypy will generates a different session id.  that means the original session id missing.
+14:18:49 <YuXin> shaohe, to implement it, key is to define what to protect and what not protect
+14:19:04 <shaohef> alinefm: it looks like a session timeout.
+14:20:03 <alinefm> shaohef, I looked at the current code
+14:20:20 <shaohef> alinefm: I know session timeout from the original id does not hit the new id
+14:20:33 <alinefm> and my guess would be:
+14:20:34 <alinefm> if (time.time() - cherrypy.session[REFRESH] >
+14:20:35 <alinefm> cherrypy.session.timeout * 60):
+14:20:35 <alinefm> cherrypy.session[USER_NAME] = None
+14:20:43 <alinefm> this code is when the timeout occurs
+14:21:16 <alinefm> you can set a new session variable: cherrypy.session["reason"] = "timeout"
+14:21:21 <shaohef> this can  guarantee timeout.
+14:21:41 <shaohef> but this just one case.
+14:21:52 <alinefm> when you call the template you send that info
+14:22:14 <alinefm> and in the login template should have something like: if $reason == timeout: display text
+14:22:53 <shaohef> these code are just for kimchi-robot request timeout.
+14:23:06 <alinefm> yes
+14:23:13 <shaohef> alinefm: I did it like this.
+14:23:28 <alinefm> shaohef, why should we consider other requests for timeout session?
+14:23:48 <shaohef> alinefm: but I can not how know the first login timeout.
+14:24:00 <shaohef> alinefm: I have show it to YuXin
+14:24:12 <shaohef> alinefm: yes.
+14:24:23 <YuXin> shaohe, by adding a variable to session as aline said, it will work
+14:24:38 <alinefm> shaohef, explain me with steps
+14:24:44 <alinefm> 1) access kimchi on url
+14:24:46 <shaohef> alinefm: for example.
+14:24:47 <shaohef> alinefm:  if a user  never login the kimchi.
+14:24:49 <alinefm> 2) get login page
+14:24:52 <shaohef> alinefm: he will type the URL http://localhost:8000
+14:24:53 <YuXin> you just need a way at server side to distinguish first login and session timeout
+14:25:27 <alinefm> shaohef, ok - go ahead
+14:26:00 <shaohef> 2) then the server receives url, it will generate a session for it.
+14:26:29 <YuXin> althrough there is a session, there is nothing in the session
+14:26:35 <YuXin> at this time
+14:26:47 <alinefm> ok
+14:26:54 <shaohef> 3) this url will not checked this url by the hook. for this URL do not need the authentication.
+14:26:54 <alinefm> no username, no reason, no timeout
+14:28:12 <shaohef> 4) when a new url need authentication,
+14:28:14 <alinefm> hmmm so the login page will not be shown?
+14:28:30 <alinefm> is that the problem?
+14:29:05 <shaohef> alinefm: it will be show.
+14:30:24 <shaohef> I know the problem.
+14:30:28 <shaohef> maybe. I need to try. but not sure.
+14:30:28 <alinefm> shaohef, ok - continue
+14:32:38 <shaohef> alinefm: I find it will generate a new session. the old session ID do not hit the new session id,  so it looks like timeout.
+14:32:47 <shaohef> alinefm: maybe the problem of the kimchi-robot.
+14:33:02 <shaohef> alinefm:  I will check it later.
+14:33:30 <alinefm> shaohef, ok
+14:33:39 <alinefm> shaohef, as I said you can do it in 2 steps
+14:33:56 <alinefm> first switch to the traditional login  page and then distinguish the login
+14:34:12 <alinefm> shaohef, if you get stuck ping me or send mails to ML
+14:34:22 <alinefm> I will finish the meeting now
+14:34:30 <alinefm> #endmeeting

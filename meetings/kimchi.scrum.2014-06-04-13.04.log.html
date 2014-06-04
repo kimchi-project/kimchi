@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:41</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun  4 13:04:41 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:41</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:41</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:04:53</span><span class="nk"> &lt;rotru&gt;</span> hello
+<a name="l-7"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-9"></a><span class="tm">13:06:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:06:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:06:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm was on vacation in the last 3 weeks</span>
+<a name="l-12"></a><span class="tm">13:07:43</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is working on eject cdrom this week, backend patch sent, working on ui patch</span>
+<a name="l-13"></a><span class="tm">13:07:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm merged some pending patches upstream yesterday</span>
+<a name="l-14"></a><span class="tm">13:08:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send out login patches.</span>
+<a name="l-15"></a><span class="tm">13:08:29</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is clearing remaining problem of my pending patches including nfs mount feedback and extend storagepool</span>
+<a name="l-16"></a><span class="tm">13:08:59</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru sent new patch to remove '.iso' checking when create a new template</span>
+<a name="l-17"></a><span class="tm">13:11:13</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">Wang Wen is working on issue#296 sent a patch of redesigned ui of debug report area when generating a new report instead of blocking the ui (before)</span>
+<a name="l-18"></a><span class="tm">13:12:25</span><span class="nk"> &lt;alinefm&gt;</span> Today is the end of the sprint 2 and then we will start the last stabilization phase for 1.2.1 release
+<a name="l-19"></a><span class="tm">13:12:52</span><span class="nk"> &lt;alinefm&gt;</span> I'd like to pass through the tasks on wiki to get a better view of their progress
+<a name="l-20"></a><span class="tm">13:12:57</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.2.1
+<a name="l-21"></a><span class="tm">13:13:19</span><span class="nk"> &lt;alinefm&gt;</span> we have 3 tasks from sprint 1 not marked as completed
+<a name="l-22"></a><span class="tm">13:13:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">Migration:</span> investigate how discover Kimchi peers (sheldon/ming)
+<a name="l-23"></a><span class="tm">13:13:36</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, do you have any comments on that ^?
+<a name="l-24"></a><span class="tm">13:14:07</span><span class="nk"> &lt;shaohef&gt;</span> hi all
+<a name="l-25"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alinefm&gt;</span> Extend logical storage pool (hlwanghl)
+<a name="l-26"></a><span class="tm">13:15:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, did you take this task to you ^?
+<a name="l-27"></a><span class="tm">13:15:08</span><span class="nk"> &lt;shaohef&gt;</span> ??
+<a name="l-28"></a><span class="tm">13:15:15</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-29"></a><span class="tm">13:15:24</span><span class="nk"> &lt;royce&gt;</span> it has been merged
+<a name="l-30"></a><span class="tm">13:15:37</span><span class="nk"> &lt;royce&gt;</span> no, it is merged:)
+<a name="l-31"></a><span class="tm">13:15:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, great! I will update the wiki
+<a name="l-32"></a><span class="tm">13:15:55</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, about " Migration: investigate how discover Kimchi peers (sheldon/ming)"
+<a name="l-33"></a><span class="tm">13:15:58</span><span class="nk"> &lt;alinefm&gt;</span> any comments?
+<a name="l-34"></a><span class="tm">13:16:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> sorry. some thing wrong with my net
+<a name="l-35"></a><span class="tm">13:16:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  so slow.
+<a name="l-36"></a><span class="tm">13:16:40</span><span class="nk"> &lt;alinefm&gt;</span> did you send your investigation to ML? get feedbacks? what is the mail subject?
+<a name="l-37"></a><span class="tm">13:16:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, np
+<a name="l-38"></a><span class="tm">13:16:47</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I have send out a RFC to ML
+<a name="l-39"></a><span class="tm">13:16:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> long time ago.
+<a name="l-40"></a><span class="tm">13:16:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> let me check.
+<a name="l-41"></a><span class="tm">13:18:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  it is [Kimchi-devel] [RFC] discover Kimchi peers
+<a name="l-42"></a><span class="tm">13:19:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">ML discussion: [Kimchi-devel] [RFC] discover Kimchi peers</span>
+<a name="l-43"></a><span class="tm">13:19:24</span><span class="nk"> &lt;alinefm&gt;</span> the next task pending from sprint 1 is: Authorization: Properly display UI for non-root users (hlwanghl)
+<a name="l-44"></a><span class="tm">13:19:46</span><span class="nk"> &lt;alinefm&gt;</span> as hlwanghl is not online, anyone has any update about it?
+<a name="l-45"></a><span class="tm">13:19:48</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, ^
+<a name="l-46"></a><span class="tm">13:20:38</span><span class="nk"> &lt;adamkingit&gt;</span> he is still working on another. He told which last night, but I have to look it up
+<a name="l-47"></a><span class="tm">13:20:40</span><span class="nk"> &lt;adamkingit&gt;</span> 1m
+<a name="l-48"></a><span class="tm">13:21:19</span><span class="nk"> &lt;adamkingit&gt;</span> he is currently addressing comments on the "Rename debug report" patch
+<a name="l-49"></a><span class="tm">13:21:53</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-50"></a><span class="tm">13:22:11</span><span class="nk"> &lt;alinefm&gt;</span> so let's move to sprint 2 tasks
+<a name="l-51"></a><span class="tm">13:22:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">Authorization:</span> List VMs according to its users/groups (vianac)
+<a name="l-52"></a><span class="tm">13:23:34</span><span class="nk"> &lt;alinefm&gt;</span> vianac, any progress on that do you want to share with us?
+<a name="l-53"></a><span class="tm">13:24:17</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-54"></a><span class="tm">13:24:20</span><span class="nk"> &lt;royce&gt;</span> network problem maybe?
+<a name="l-55"></a><span class="tm">13:24:20</span><span class="nk"> &lt;alinefm&gt;</span> List iSCSI targets available for initiator while creating iSCSI Pool (shaohef)
+<a name="l-56"></a><span class="tm">13:24:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, maybe
+<a name="l-57"></a><span class="tm">13:24:32</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I'm still implementing that feature. I can now block VM access based on users and groups
+<a name="l-58"></a><span class="tm">13:24:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, any update about the iscsi targets?
+<a name="l-59"></a><span class="tm">13:24:58</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  patch send out. no one review
+<a name="l-60"></a><span class="tm">13:25:10</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, what is the patch?
+<a name="l-61"></a><span class="tm">13:25:11</span><span class="nk"> &lt;vianac&gt;</span> alinefm, but I have a few questions on how it should work. for example, if there is no metadata access in a VM, what will be the behavior? should everyone be able to see it?
+<a name="l-62"></a><span class="tm">13:25:16</span><span class="nk"> &lt;royce&gt;</span> shaohef, I will review that one tomorrow
+<a name="l-63"></a><span class="tm">13:25:21</span><span class="nk"> &lt;alinefm&gt;</span> I am making a patch list to review today =)
+<a name="l-64"></a><span class="tm">13:25:46</span><span class="nk"> &lt;alinefm&gt;</span> vianac, sure - we can discuss it in the open discussion section
+<a name="l-65"></a><span class="tm">13:25:48</span><span class="nk"> &lt;shaohef&gt;</span> [PATCH 1/2] List iSCSI server for initiator while creating iSCSI Pool
+<a name="l-66"></a><span class="tm">13:25:48</span><span class="nk"> &lt;shaohef&gt;</span> [PATCH 2/2] List iSCSI targets available for initiator while creating iSCSI Pool
+<a name="l-67"></a><span class="tm">13:25:52</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok!
+<a name="l-68"></a><span class="tm">13:25:54</span><span class="nk"> &lt;alinefm&gt;</span> just let me pass through all the tasks first
+<a name="l-69"></a><span class="tm">13:26:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">patch [PATCH 1/2] List iSCSI server for initiator while creating iSCSI Pool</span>
+<a name="l-70"></a><span class="tm">13:26:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">patch [PATCH 2/2] List iSCSI targets available for initiator while creating iSCSI Pool</span>
+<a name="l-71"></a><span class="tm">13:26:18</span><span class="nk"> &lt;alinefm&gt;</span> Create a default pool for ISO images ootb(royce)
+<a name="l-72"></a><span class="tm">13:26:50</span><span class="nk"> &lt;royce&gt;</span> alinefm, I think that one does not in great need at the moment
+<a name="l-73"></a><span class="tm">13:27:29</span><span class="nk"> &lt;royce&gt;</span> And the requirement is not clear, I suggest move it for now
+<a name="l-74"></a><span class="tm">13:27:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, so I will remove it from 1.2.1 release and move to the next one
+<a name="l-75"></a><span class="tm">13:27:57</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-76"></a><span class="tm">13:28:07</span><span class="nk"> &lt;adamkingit&gt;</span> n
+<a name="l-77"></a><span class="tm">13:28:19</span><span class="nk"> &lt;royce&gt;</span> SO instead of that one, I enhanced the disk attachment for ref_cnt share
+<a name="l-78"></a><span class="tm">13:28:26</span><span class="nk"> &lt;adamkingit&gt;</span> Seems another topic for open discussion
+<a name="l-79"></a><span class="tm">13:28:35</span><span class="nk"> &lt;royce&gt;</span> OK, adamkingit
+<a name="l-80"></a><span class="tm">13:28:39</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, ok
+<a name="l-81"></a><span class="tm">13:28:51</span><span class="nk"> &lt;alinefm&gt;</span> Network template and local template should be distinguished
+<a name="l-82"></a><span class="tm">13:29:03</span><span class="nk"> &lt;alinefm&gt;</span> there is no one assigned to this task on wiki
+<a name="l-83"></a><span class="tm">13:29:16</span><span class="nk"> &lt;alinefm&gt;</span> but if I am not being crazy I think I saw something in the ML
+<a name="l-84"></a><span class="tm">13:29:28</span><span class="nk"> &lt;royce&gt;</span> seems shaohef is working on that
+<a name="l-85"></a><span class="tm">13:29:28</span><span class="nk"> &lt;adamkingit&gt;</span> YuXin and shaohef are working on it
+<a name="l-86"></a><span class="tm">13:29:53</span><span class="nk"> &lt;shaohef&gt;</span> yes.
+<a name="l-87"></a><span class="tm">13:29:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">discussion [Kimchi-devel] UI Design of "Properly display about template type (local or, remote) using icon or text information"</span>
+<a name="l-88"></a><span class="tm">13:30:05</span><span class="nk"> &lt;shaohef&gt;</span> will send out a patch later.
+<a name="l-89"></a><span class="tm">13:30:56</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, great! thanks
+<a name="l-90"></a><span class="tm">13:30:59</span><span class="nk"> &lt;alinefm&gt;</span> Secure VM connection (shaohef)
+<a name="l-91"></a><span class="tm">13:31:08</span><span class="nk"> &lt;alinefm&gt;</span> is it about the ticket validation for the vnc session?
+<a name="l-92"></a><span class="tm">13:31:26</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  send out a patch.
+<a name="l-93"></a><span class="tm">13:31:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  set a ticket for VM.
+<a name="l-94"></a><span class="tm">13:31:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-95"></a><span class="tm">13:31:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm; anything I can help to close this sprint
+<a name="l-96"></a><span class="tm">13:31:31</span><span class="nk"> &lt;rotru&gt;</span> ?
+<a name="l-97"></a><span class="tm">13:31:54</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, what is the patch? has it already merged?
+<a name="l-98"></a><span class="tm">13:32:00</span><span class="nk"> &lt;alinefm&gt;</span> rotru, probably! =)
+<a name="l-99"></a><span class="tm">13:32:14</span><span class="nk"> &lt;alinefm&gt;</span> rotru, we can discuss it in the open discussion
+<a name="l-100"></a><span class="tm">13:32:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> No. not get agreement.  [PATCH 0/4] ticket support for guest
+<a name="l-101"></a><span class="tm">13:32:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">patch  [PATCH 0/4] ticket support for guest</span>
+<a name="l-102"></a><span class="tm">13:32:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  so many discussion on this topic in the ML
+<a name="l-103"></a><span class="tm">13:32:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok - I will take a look on it
+<a name="l-104"></a><span class="tm">13:34:20</span><span class="nk"> &lt;alinefm&gt;</span> the other sprint 2 tasks I've already seen patches on ML and some status in this meeting so I don't think we need to pass through them
+<a name="l-105"></a><span class="tm">13:34:36</span><span class="nk"> &lt;alinefm&gt;</span> if anyone has more status to share I will move to open discussion section
+<a name="l-106"></a><span class="tm">13:35:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-107"></a><span class="tm">13:36:08</span><span class="nk"> &lt;alinefm&gt;</span> the first topic I have is: Sprint 2 ends today
+<a name="l-108"></a><span class="tm">13:36:38</span><span class="nk"> &lt;alinefm&gt;</span> most of tasks are on track but we need to define which ones have high priority to focus on them
+<a name="l-109"></a><span class="tm">13:36:50</span><span class="nk"> &lt;alinefm&gt;</span> it is clear for me we will not complete all those for 1.2.1 release
+<a name="l-110"></a><span class="tm">13:37:40</span><span class="nk"> &lt;royce&gt;</span> adamkingit, By creating pool for ISO images ootb, if ootb, what it needs to contain, do you mean other pool cannot contain isos if this is done? or does this one need to coupled with upload?
+<a name="l-111"></a><span class="tm">13:38:13</span><span class="nk"> &lt;adamkingit&gt;</span> The idea was to simplify the 1st time experience...
+<a name="l-112"></a><span class="tm">13:38:25</span><span class="nk"> &lt;royce&gt;</span> My thought is, if we support a dedicate location ootb, we can dump deep scan
+<a name="l-113"></a><span class="tm">13:39:22</span><span class="nk"> &lt;adamkingit&gt;</span> Today for local ISO the user needs to know to create a storage pool, and to put the ISOs there
+<a name="l-114"></a><span class="tm">13:39:25</span><span class="nk"> &lt;royce&gt;</span> because deep scan doesn't care where you put the iso, and also aggregate all isos in a temp pool
+<a name="l-115"></a><span class="tm">13:39:47</span><span class="nk"> &lt;adamkingit&gt;</span> If we define a "well known" pool/location it will simplify the 1st time expwerience
+<a name="l-116"></a><span class="tm">13:40:18</span><span class="nk"> &lt;adamkingit&gt;</span> Shallow scan looks in all the defined pools, deep looks "everywhere"
+<a name="l-117"></a><span class="tm">13:40:28</span><span class="nk"> &lt;royce&gt;</span> I agree, that is the proposal before I did deep scan
+<a name="l-118"></a><span class="tm">13:40:43</span><span class="nk"> &lt;adamkingit&gt;</span> I think both are still useful
+<a name="l-119"></a><span class="tm">13:40:57</span><span class="nk"> &lt;adamkingit&gt;</span> Just friendlier to make the shallow more apparent
+<a name="l-120"></a><span class="tm">13:41:11</span><span class="nk"> &lt;royce&gt;</span> but a well know pool seems be overlap with these two concept
+<a name="l-121"></a><span class="tm">13:41:36</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, do you mean create a empty dir pool and guide the users to put their ISOs in there?
+<a name="l-122"></a><span class="tm">13:41:38</span><span class="nk"> &lt;adamkingit&gt;</span> I am thinking of it more as automating what I must do manually today for shallow
+<a name="l-123"></a><span class="tm">13:41:46</span><span class="nk"> &lt;adamkingit&gt;</span> alinefm yes
+<a name="l-124"></a><span class="tm">13:42:24</span><span class="nk"> &lt;royce&gt;</span> adamkingit, does it mean upload + an empty pool just for isos?
+<a name="l-125"></a><span class="tm">13:42:26</span><span class="nk"> &lt;alinefm&gt;</span> royce, that way it does not conflict with the deep scan concept
+<a name="l-126"></a><span class="tm">13:42:37</span><span class="nk"> &lt;alinefm&gt;</span> royce, just create an empty dir pool
+<a name="l-127"></a><span class="tm">13:42:45</span><span class="nk"> &lt;alinefm&gt;</span> we dont need to upload anything in there
+<a name="l-128"></a><span class="tm">13:42:50</span><span class="nk"> &lt;alinefm&gt;</span> right, adamkingit ?
+<a name="l-129"></a><span class="tm">13:43:11</span><span class="nk"> &lt;adamkingit&gt;</span> We COULD do upload later, but usability is improved with predinfed/empty pool
+<a name="l-130"></a><span class="tm">13:43:23</span><span class="nk"> &lt;royce&gt;</span> if we have a dedicate pool just for isos, why do we need to search every pool and every where
+<a name="l-131"></a><span class="tm">13:43:43</span><span class="nk"> &lt;royce&gt;</span> if ISOs can just be there
+<a name="l-132"></a><span class="tm">13:43:54</span><span class="nk"> &lt;adamkingit&gt;</span> The user may have some local to the server, others on an NFS mount.
+<a name="l-133"></a><span class="tm">13:44:50</span><span class="nk"> &lt;alinefm&gt;</span> and user can only know her ISOs but not regarding the whole system
+<a name="l-134"></a><span class="tm">13:45:01</span><span class="nk"> &lt;alinefm&gt;</span> for example, I have ISOs in a local dir under my home
+<a name="l-135"></a><span class="tm">13:45:13</span><span class="nk"> &lt;alinefm&gt;</span> but other user in my system was not aware of it
+<a name="l-136"></a><span class="tm">13:45:50</span><span class="nk"> &lt;royce&gt;</span> So do you want user aware or not aware, a dedicate pool is for awareness you know
+<a name="l-137"></a><span class="tm">13:46:07</span><span class="nk"> &lt;royce&gt;</span> it means, if you want to use ISOs , pls upload there
+<a name="l-138"></a><span class="tm">13:46:44</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I got your review of Issue#305: Redesign bridged network UI section. You have made a good point of redesign the ui to make it more consistent. But the checkbox is to let user choose whether he/she wants to enable VLAN, if enabled, then VLAN ID is needed. Without the checkbox, it might mislead user that they have to enable VLAN, like Yu Xin replied.
+<a name="l-139"></a><span class="tm">13:47:21</span><span class="nk"> &lt;royce&gt;</span> OK... So we want both awareness and unawareness, is that what you mean?
+<a name="l-140"></a><span class="tm">13:47:49</span><span class="nk"> &lt;alinefm&gt;</span> royce, got confused now both about "both awareness and unawareness"
+<a name="l-141"></a><span class="tm">13:48:02</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I replied again to Yu Xin
+<a name="l-142"></a><span class="tm">13:48:12</span><span class="nk"> &lt;royce&gt;</span> if they know what ISOs they are expecting, give them an api and location to upload
+<a name="l-143"></a><span class="tm">13:48:21</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, we don't need a check box to indicate a field is optional - we can just add a label
+<a name="l-144"></a><span class="tm">13:48:40</span><span class="nk"> &lt;royce&gt;</span> if they just want to wandering around and see if there is something available in the system, search for them
+<a name="l-145"></a><span class="tm">13:48:45</span><span class="nk"> &lt;alinefm&gt;</span> "If you want to enable VLAN, please enter a VLAN ID below. Otherwise, leave it in blank"
+<a name="l-146"></a><span class="tm">13:50:16</span><span class="nk"> &lt;alinefm&gt;</span> royce, from my understanding it is right. adamkingit ?
+<a name="l-147"></a><span class="tm">13:50:47</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> What if the user don't have the idea to enable vlan, should we add some words that indicate this line is optional if you don't want to enable vlan?
+<a name="l-148"></a><span class="tm">13:51:15</span><span class="nk"> &lt;royce&gt;</span> alinefm, I mean whether our hypotheses is "user wants to user isos he awares of" or "we want user use isos he is not aware of"
+<a name="l-149"></a><span class="tm">13:52:31</span><span class="nk"> &lt;royce&gt;</span> So if this is what we want, this dir pool is just for "ISOs" and will support upload, or download from a web link?
+<a name="l-150"></a><span class="tm">13:53:21</span><span class="nk"> &lt;alinefm&gt;</span> royce, for me this ootb pool would be useful when I download new ISOs and "where do I need to put it to Kimchi be aware about it without deep scan?"
+<a name="l-151"></a><span class="tm">13:54:06</span><span class="nk"> &lt;royce&gt;</span> alinefm, so what about let users to supply a web link, and kimchi will download for him?
+<a name="l-152"></a><span class="tm">13:54:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, it is what i understood from "make shallow scan easier to use" mentioned my adamkingit
+<a name="l-153"></a><span class="tm">13:54:34</span><span class="nk"> &lt;alinefm&gt;</span> royce, it would be good but I'd say the next step
+<a name="l-154"></a><span class="tm">13:54:44</span><span class="nk"> &lt;alinefm&gt;</span> remember we have limited time now
+<a name="l-155"></a><span class="tm">13:55:12</span><span class="nk"> &lt;alinefm&gt;</span> royce, allow user enter a URL and kimchi downloads the ISO will require a lot of work on UI and backend too
+<a name="l-156"></a><span class="tm">13:55:16</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yes
+<a name="l-157"></a><span class="tm">13:55:31</span><span class="nk"> &lt;royce&gt;</span> OK, so this step is just create a dir pool and direct him there in the UI?
+<a name="l-158"></a><span class="tm">13:55:45</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> okay, thx
+<a name="l-159"></a><span class="tm">13:55:49</span><span class="nk"> &lt;royce&gt;</span> I want to look into this cause I think that's interesting
+<a name="l-160"></a><span class="tm">13:56:58</span><span class="nk"> &lt;alinefm&gt;</span> royce, how do you plan to do "direct him there in the UI"  ?
+<a name="l-161"></a><span class="tm">13:57:12</span><span class="nk"> &lt;alinefm&gt;</span> royce, no problem - you can work on that
+<a name="l-162"></a><span class="tm">13:57:30</span><span class="nk"> &lt;adamkingit&gt;</span> I think we can direct them to the directory w. the install info
+<a name="l-163"></a><span class="tm">13:57:49</span><span class="nk"> &lt;royce&gt;</span> alinefm, like in shallow or deep scan page, we can give user some hint
+<a name="l-164"></a><span class="tm">13:58:07</span><span class="nk"> &lt;adamkingit&gt;</span> We could do a hint on the shallow scan screen
+<a name="l-165"></a><span class="tm">13:58:10</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, royce, I'd say only update the help text
+<a name="l-166"></a><span class="tm">13:58:11</span><span class="nk"> &lt;royce&gt;</span> saying if no ISOs you want, redirect?
+<a name="l-167"></a><span class="tm">13:58:34</span><span class="nk"> &lt;adamkingit&gt;</span> i am ok w/ help txt
+<a name="l-168"></a><span class="tm">13:59:16</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, can this pool be deleted?
+<a name="l-169"></a><span class="tm">13:59:45</span><span class="nk"> &lt;adamkingit&gt;</span> hmm, probably best if its not though we might want to allow edit
+<a name="l-170"></a><span class="tm">14:01:27</span><span class="nk"> &lt;royce&gt;</span> Edit is to change its location or?
+<a name="l-171"></a><span class="tm">14:01:36</span><span class="nk"> &lt;adamkingit&gt;</span> location, yes
+<a name="l-172"></a><span class="tm">14:01:53</span><span class="nk"> &lt;adamkingit&gt;</span> hmm, that might not be so good if the doc tells you where it should be
+<a name="l-173"></a><span class="tm">14:02:01</span><span class="nk"> &lt;adamkingit&gt;</span> ok, nm. Edit not a good idea
+<a name="l-174"></a><span class="tm">14:02:48</span><span class="nk"> &lt;royce&gt;</span> I think if we do it on the UI, the loc can be floated, I mean not fixed
+<a name="l-175"></a><span class="tm">14:03:37</span><span class="nk"> &lt;royce&gt;</span> We just fetch the loc of the pool and instruct user to copy his ISO there
+<a name="l-176"></a><span class="tm">14:03:44</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, royce, no - without edit, please
+<a name="l-177"></a><span class="tm">14:03:50</span><span class="nk"> &lt;alinefm&gt;</span> at least for now
+<a name="l-178"></a><span class="tm">14:03:58</span><span class="nk"> &lt;alinefm&gt;</span> we even allow pool edit yet
+<a name="l-179"></a><span class="tm">14:04:29</span><span class="nk"> &lt;adamkingit&gt;</span> it gets easier even fixed. Lets try that and see what feedback we get
+<a name="l-180"></a><span class="tm">14:04:52</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, royce, do we have a deal?
+<a name="l-181"></a><span class="tm">14:04:59</span><span class="nk"> &lt;alinefm&gt;</span> our time is over
+<a name="l-182"></a><span class="tm">14:05:01</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-183"></a><span class="tm">14:05:06</span><span class="nk"> &lt;adamkingit&gt;</span> suonds good
+<a name="l-184"></a><span class="tm">14:06:09</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-185"></a><span class="tm">14:06:14</span><span class="nk"> &lt;shaohef&gt;</span> I'd like to talk about,    Login flow: Switch to a traditional login flow
+<a name="l-186"></a><span class="tm">14:06:20</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, sure
+<a name="l-187"></a><span class="tm">14:06:25</span><span class="nk"> &lt;alinefm&gt;</span> what is up?
+<a name="l-188"></a><span class="tm">14:07:16</span><span class="nk"> &lt;shaohef&gt;</span> I can not distinguish the login is caused by session timeout or no session
+<a name="l-189"></a><span class="tm">14:07:59</span><span class="nk"> &lt;adamkingit&gt;</span> <span class="hi">shaohef:</span> why do you need to distinguish?
+<a name="l-190"></a><span class="tm">14:08:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> maybe I need to add a new hook: 'on_start_resource' or 'before_request_body'
+<a name="l-191"></a><span class="tm">14:08:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> YuXin tell me we should to do it.
+<a name="l-192"></a><span class="tm">14:09:04</span><span class="nk"> &lt;adamkingit&gt;</span> YuXin is pretty smart, its just not immediately obvious to me why we need to distinguish
+<a name="l-193"></a><span class="tm">14:09:24</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, shaohef, maybe to show a message about expired session ?
+<a name="l-194"></a><span class="tm">14:09:41</span><span class="nk"> &lt;YuXin&gt;</span> the login page is shown to user when user first login and session timeout
+<a name="l-195"></a><span class="tm">14:09:54</span><span class="nk"> &lt;adamkingit&gt;</span> yes
+<a name="l-196"></a><span class="tm">14:10:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span>   how about to prompt  "no session or session timeout, please login" ?
+<a name="l-197"></a><span class="tm">14:10:04</span><span class="nk"> &lt;YuXin&gt;</span> when session timeout, user is loged out and asked to re-login
+<a name="l-198"></a><span class="tm">14:10:10</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> ^
+<a name="l-199"></a><span class="tm">14:10:21</span><span class="nk"> &lt;YuXin&gt;</span> so there need to be a message about why user is loged out
+<a name="l-200"></a><span class="tm">14:10:51</span><span class="nk"> &lt;YuXin&gt;</span> but obviously, this message is not needed when user first time try to login kimchi
+<a name="l-201"></a><span class="tm">14:11:13</span><span class="nk"> &lt;adamkingit&gt;</span> ok, you want to make the login more informative...
+<a name="l-202"></a><span class="tm">14:11:25</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-203"></a><span class="tm">14:12:03</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> as YuXin design whey error user name or password, we should prompt "user or password error"
+<a name="l-204"></a><span class="tm">14:12:10</span><span class="nk"> &lt;YuXin&gt;</span> as it is sure that j2ee web container can get this implemented, so there must be a way in cherrypy to do it
+<a name="l-205"></a><span class="tm">14:12:28</span><span class="nk"> &lt;adamkingit&gt;</span> Server is checking tokens on the request and for a tmpl request and fwds the request on to the login.html.tmpl when token is expired. It can pass the 'timeout' info along at that time
+<a name="l-206"></a><span class="tm">14:12:28</span><span class="nk"> &lt;alinefm&gt;</span> I have 2 points
+<a name="l-207"></a><span class="tm">14:13:22</span><span class="nk"> &lt;alinefm&gt;</span> 1) we should do it in separated tasks - one to switch to a traditional login flow (without changes on UI) and other one to improve usability in login page
+<a name="l-208"></a><span class="tm">14:13:41</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">adamkingit:</span> alinefm: not sure a hook can distinguish them. I'm trying.
+<a name="l-209"></a><span class="tm">14:13:51</span><span class="nk"> &lt;alinefm&gt;</span> 2) I'd suggest what adamkingit suggested =)
+<a name="l-210"></a><span class="tm">14:14:21</span><span class="nk"> &lt;YuXin&gt;</span> aline, traditional login flow is to use a login page
+<a name="l-211"></a><span class="tm">14:14:29</span><span class="nk"> &lt;YuXin&gt;</span> UI will definitely be changed
+<a name="l-212"></a><span class="tm">14:14:29</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I think you don't need a hook
+<a name="l-213"></a><span class="tm">14:15:00</span><span class="nk"> &lt;alinefm&gt;</span> when timeout occurs we can set a new variable and send with the request response which will fill the login template
+<a name="l-214"></a><span class="tm">14:15:07</span><span class="nk"> &lt;adamkingit&gt;</span> I think alinefm's point is that the UI doesn't tell you today that you are being asked to login because of session timeout
+<a name="l-215"></a><span class="tm">14:15:26</span><span class="nk"> &lt;YuXin&gt;</span> a login page to protect all UI content if user has not logged in, currently, kimchi is using a popup
+<a name="l-216"></a><span class="tm">14:15:30</span><span class="nk"> &lt;YuXin&gt;</span> UI must be changed
+<a name="l-217"></a><span class="tm">14:15:37</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap - I mean today we don't distinguish login from expired session so do the transition that way and then improve the messages
+<a name="l-218"></a><span class="tm">14:15:48</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-219"></a><span class="tm">14:16:37</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  I know when timeout, the cherrypy will tell me  session id missing.
+<a name="l-220"></a><span class="tm">14:16:55</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> but we do not protect all resource.
+<a name="l-221"></a><span class="tm">14:17:35</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> so the first login, the cherrypy will also generates a session id.
+<a name="l-222"></a><span class="tm">14:18:36</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> the some URL need authentication, the cherrypy will generates a different session id.  that means the original session id missing.
+<a name="l-223"></a><span class="tm">14:18:49</span><span class="nk"> &lt;YuXin&gt;</span> shaohe, to implement it, key is to define what to protect and what not protect
+<a name="l-224"></a><span class="tm">14:19:04</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> it looks like a session timeout.
+<a name="l-225"></a><span class="tm">14:20:03</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I looked at the current code
+<a name="l-226"></a><span class="tm">14:20:20</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I know session timeout from the original id does not hit the new id
+<a name="l-227"></a><span class="tm">14:20:33</span><span class="nk"> &lt;alinefm&gt;</span> and my guess would be:
+<a name="l-228"></a><span class="tm">14:20:34</span><span class="nk"> &lt;alinefm&gt;</span> if (time.time() - cherrypy.session[REFRESH] &gt;
+<a name="l-229"></a><span class="tm">14:20:35</span><span class="nk"> &lt;alinefm&gt;</span> cherrypy.session.timeout * 60):
+<a name="l-230"></a><span class="tm">14:20:35</span><span class="nk"> &lt;alinefm&gt;</span> cherrypy.session[USER_NAME] = None
+<a name="l-231"></a><span class="tm">14:20:43</span><span class="nk"> &lt;alinefm&gt;</span> this code is when the timeout occurs
+<a name="l-232"></a><span class="tm">14:21:16</span><span class="nk"> &lt;alinefm&gt;</span> you can set a new session variable: cherrypy.session["reason"] = "timeout"
+<a name="l-233"></a><span class="tm">14:21:21</span><span class="nk"> &lt;shaohef&gt;</span> this can  guarantee timeout.
+<a name="l-234"></a><span class="tm">14:21:41</span><span class="nk"> &lt;shaohef&gt;</span> but this just one case.
+<a name="l-235"></a><span class="tm">14:21:52</span><span class="nk"> &lt;alinefm&gt;</span> when you call the template you send that info
+<a name="l-236"></a><span class="tm">14:22:14</span><span class="nk"> &lt;alinefm&gt;</span> and in the login template should have something like: if $reason == timeout: display text
+<a name="l-237"></a><span class="tm">14:22:53</span><span class="nk"> &lt;shaohef&gt;</span> these code are just for kimchi-robot request timeout.
+<a name="l-238"></a><span class="tm">14:23:06</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-239"></a><span class="tm">14:23:13</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I did it like this.
+<a name="l-240"></a><span class="tm">14:23:28</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, why should we consider other requests for timeout session?
+<a name="l-241"></a><span class="tm">14:23:48</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> but I can not how know the first login timeout.
+<a name="l-242"></a><span class="tm">14:24:00</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I have show it to YuXin
+<a name="l-243"></a><span class="tm">14:24:12</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-244"></a><span class="tm">14:24:23</span><span class="nk"> &lt;YuXin&gt;</span> shaohe, by adding a variable to session as aline said, it will work
+<a name="l-245"></a><span class="tm">14:24:38</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, explain me with steps
+<a name="l-246"></a><span class="tm">14:24:44</span><span class="nk"> &lt;alinefm&gt;</span> 1) access kimchi on url
+<a name="l-247"></a><span class="tm">14:24:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> for example.
+<a name="l-248"></a><span class="tm">14:24:47</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  if a user  never login the kimchi.
+<a name="l-249"></a><span class="tm">14:24:49</span><span class="nk"> &lt;alinefm&gt;</span> 2) get login page
+<a name="l-250"></a><span class="tm">14:24:52</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> he will type the URL http://localhost:8000
+<a name="l-251"></a><span class="tm">14:24:53</span><span class="nk"> &lt;YuXin&gt;</span> you just need a way at server side to distinguish first login and session timeout
+<a name="l-252"></a><span class="tm">14:25:27</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok - go ahead
+<a name="l-253"></a><span class="tm">14:26:00</span><span class="nk"> &lt;shaohef&gt;</span> 2) then the server receives url, it will generate a session for it.
+<a name="l-254"></a><span class="tm">14:26:29</span><span class="nk"> &lt;YuXin&gt;</span> althrough there is a session, there is nothing in the session
+<a name="l-255"></a><span class="tm">14:26:35</span><span class="nk"> &lt;YuXin&gt;</span> at this time
+<a name="l-256"></a><span class="tm">14:26:47</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-257"></a><span class="tm">14:26:54</span><span class="nk"> &lt;shaohef&gt;</span> 3) this url will not checked this url by the hook. for this URL do not need the authentication.
+<a name="l-258"></a><span class="tm">14:26:54</span><span class="nk"> &lt;alinefm&gt;</span> no username, no reason, no timeout
+<a name="l-259"></a><span class="tm">14:28:12</span><span class="nk"> &lt;shaohef&gt;</span> 4) when a new url need authentication,
+<a name="l-260"></a><span class="tm">14:28:14</span><span class="nk"> &lt;alinefm&gt;</span> hmmm so the login page will not be shown?
+<a name="l-261"></a><span class="tm">14:28:30</span><span class="nk"> &lt;alinefm&gt;</span> is that the problem?
+<a name="l-262"></a><span class="tm">14:29:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> it will be show.
+<a name="l-263"></a><span class="tm">14:30:24</span><span class="nk"> &lt;shaohef&gt;</span> I know the problem.
+<a name="l-264"></a><span class="tm">14:30:28</span><span class="nk"> &lt;shaohef&gt;</span> maybe. I need to try. but not sure.
+<a name="l-265"></a><span class="tm">14:30:28</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok - continue
+<a name="l-266"></a><span class="tm">14:32:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> I find it will generate a new session. the old session ID do not hit the new session id,  so it looks like timeout.
+<a name="l-267"></a><span class="tm">14:32:47</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> maybe the problem of the kimchi-robot.
+<a name="l-268"></a><span class="tm">14:33:02</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  I will check it later.
+<a name="l-269"></a><span class="tm">14:33:30</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, ok
+<a name="l-270"></a><span class="tm">14:33:39</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, as I said you can do it in 2 steps
+<a name="l-271"></a><span class="tm">14:33:56</span><span class="nk"> &lt;alinefm&gt;</span> first switch to the traditional login  page and then distinguish the login
+<a name="l-272"></a><span class="tm">14:34:12</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, if you get stuck ping me or send mails to ML
+<a name="l-273"></a><span class="tm">14:34:22</span><span class="nk"> &lt;alinefm&gt;</span> I will finish the meeting now
+<a name="l-274"></a><span class="tm">14:34:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
