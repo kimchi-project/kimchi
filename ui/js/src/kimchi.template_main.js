@@ -22,6 +22,12 @@ kimchi.doListTemplates = function() {
             var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
+                var isLocal = value.cdrom.startsWith("/");
+                if(isLocal){
+                    value.location = "images/theme-default/icon-local.png";
+                }else{
+                    value.location = "images/theme-default/icon-remote.png";
+                }
                 listHtml += kimchi.substitute(templateHtml, value);
             });
             $('#templateList').html(listHtml);

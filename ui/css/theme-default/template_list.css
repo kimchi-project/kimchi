@@ -194,6 +194,14 @@ template-hidden {
     width: 58px;
 }
 
+.template-icon img.template-type-icon-position {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -15px;
+    left: 49px;
+}
+
 .template-title-position {
     float: left;
     width: 120px;
