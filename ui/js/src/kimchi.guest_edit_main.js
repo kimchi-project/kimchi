@@ -19,12 +19,12 @@ kimchi.guest_edit_main = function() {
     var buttonContainer = $('#action-button-container');
     $('#guest-edit-tabs').tabs({
         beforeActivate: function(event, ui) {
-            var deactivated = ui['oldPanel'];
+            var deactivated = ui['newPanel'];
             if($(deactivated).attr('id') === 'form-guest-edit-general') {
-                $(buttonContainer).addClass('hidden');
+                $(buttonContainer).removeClass('hidden');
             }
             else {
-                $(buttonContainer).removeClass('hidden');
+                $(buttonContainer).addClass('hidden');
             }
         }
     });
