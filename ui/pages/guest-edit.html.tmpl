@@ -94,15 +94,12 @@
                 </fieldset>
             </form>
             <form id="form-guest-edit-storage">
-                <fieldset class="guest-edit-fieldset">
-                    <div id="guest-edit-cdrom-row-container" class="guest-edit-cdrom-row-container"></div>
-                    <div>
-                        <button id="guest-edit-attach-cdrom-button"
-                            class="guest-edit-cdrom-button attach"
-                            title='$_("Attach")'>
-                        </button>
-                    </div>
-                </fieldset>
+                <div class="header">
+                    <span class="cell">$_("Device")</span>
+                    <span class="cell">$_("Path")</span>
+                    <button id="guest-edit-attach-cdrom-button" class="action-area attach"></button>
+                </div>
+                <div class="body"></div>
             </form>
             <form id="form-guest-edit-interface" class="guest-edit-interface">
                 <div class="header">
@@ -123,14 +120,17 @@
     </footer>
 </div>
 <script id="cdrom-row-tmpl" type="text/html">
-    <div>
-        <div class="guest-edit-wrapper-label">
-            <label for="cdrom-{dev}">{dev}</label>
-        </div>
-        <div class="guest-edit-wrapper-controls">
-            <input id="cdrom-{dev}" name="cdrom" type="text"
+    <div class="item view" id="cdrom-{dev}">
+        <span class="cell dev">
+            <input type="text" readonly="readonly"
+                id="cdrom-dev-{dev}" name="cdrom-dev-{dev}" value="{dev}" />
+        </span>
+        <span class="cell path">
+            <input id="cdrom-path-{dev}" name="cdrom" type="text"
                 data-vm="{vm}" data-dev="{dev}"
                 value="{path}" readonly="readonly" />
+        </span>
+        <span class="action-area">
             <button class="guest-edit-cdrom-button replace"
                 data-vm="{vm}" data-dev="{dev}"
                 title='$_("Replace")'>
@@ -139,7 +139,15 @@
                 data-vm="{vm}" data-dev="{dev}"
                 title='$_("Detach")'>
             </button>
-        </div>
+            <button class="guest-edit-cdrom-button save hidden"
+                data-vm="{vm}" data-dev="{dev}"
+                title='$_("Save")'>
+            </button>
+            <button class="guest-edit-cdrom-button cancel hidden"
+                data-vm="{vm}" data-dev="{dev}"
+                title='$_("Cancel")'>
+            </button>
+        </span>
     </div>
 </script>
 <script id="interface-tmpl" type="text/html">
@@ -160,19 +168,22 @@
     <div>
 </script>
 <script id="disk-row-tmpl" type="text/html">
-    <div>
-        <div class="guest-edit-wrapper-label">
-            <label for="disk-{dev}">{dev}</label>
-        </div>
-        <div class="guest-edit-wrapper-controls">
-            <input id="disk-{dev}" name="disk" type="text"
+    <div class="item" id="cdrom-{dev}">
+        <span class="cell dev">
+            <input type="text" readonly="readonly"
+                id="disk-dev-{dev}" name="disk-dev-{dev}" value="{dev}" />
+        </span>
+        <span class="cell path">
+            <input id="disk-path-{dev}" name="path-{dev}" type="text"
                 data-vm="{vm}" data-dev="{dev}"
                 value="{path}" readonly="readonly" />
+        </span>
+        <span class="action-area">
             <button class="guest-edit-cdrom-button detach"
                 data-vm="{vm}" data-dev="{dev}"
                 title="$_("Detach")">
             </button>
-        </div>
+        </span>
     </div>
 </script>
 <script type="text/javascript">
