@@ -22,7 +22,7 @@ kimchi.doListTemplates = function() {
             var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
-                var isLocal = value.cdrom.startsWith("/");
+                var isLocal = /^\//.test(value['cdrom']);
                 if(isLocal){
                     value.location = "images/theme-default/icon-local.png";
                 }else{
