@@ -30,6 +30,7 @@ messages = {
     "KCHAPI0005E": _("Create is not allowed for %(resource)s"),
     "KCHAPI0006E": _("Unable to parse JSON request"),
     "KCHAPI0007E": _("This API only supports JSON"),
+    "KCHAPI0008E": _("Parameters does not match requirement in schema: %(err)s"),
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
     "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
@@ -119,6 +120,7 @@ messages = {
     "KCHTMPL0019E": _("The volume: %(volume)s in not in storage pool %(pool)s"),
     "KCHTMPL0020E": _("Unable to create template due error: %(err)s"),
     "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
+    "KCHTMPL0022E": _("Disk size must be greater than 1GB."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),

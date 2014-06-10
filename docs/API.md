@@ -258,7 +258,7 @@ A interface represents available network interface on VM.
     * os_distro: The operating system distribution
     * os_version: The version of the operating system distribution
     * cpus: The number of CPUs assigned to the VM
-    * memory: The amount of memory assigned to the VM
+    * memory: The amount of memory assigned to the VM in the unit of MB
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
     * networks *(optional)*: list of networks will be assigned to the new VM.

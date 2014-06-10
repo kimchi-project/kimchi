@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.template = function(templateStr, data, tag) {
+kimchi.substitute = function(templateStr, data, tag) {
     tag = tag || /\{([^\}]+)\}/g;
 
     var escapeHtml = function(html) {

@@ -98,7 +98,11 @@ def validate_params(params, instance, action):
     try:
         validator.validate(request)
     except ValidationError, e:
-        raise InvalidParameter(e.schema['error'], {'value': str(e.instance)})
+        if e.schema.get('error'):
+            raise InvalidParameter(e.schema['error'], {'value':
+                                                       str(e.instance)})
+        else:
+            raise InvalidParameter("KCHAPI0008E", {"err": str(e.message)})
 
 
 class UrlSubNode(object):

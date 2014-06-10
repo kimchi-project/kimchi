@@ -87,7 +87,7 @@ kimchi.template_edit_main = function() {
                 var html = '';
                 var tmpl = $('#tmpl-network').html();
                 $.each(result, function(index, network) {
-                    html += kimchi.template(tmpl, network);
+                    html += kimchi.substitute(tmpl, network);
                 });
                 $('#template-edit-network-list').html(html).show();
                 if(template.networks && template.networks.length > 0) {
@@ -102,10 +102,6 @@ kimchi.template_edit_main = function() {
                 $('#template-edit-network-list').hide();
             }
         });
-    });
-
-    $('#tmpl-edit-button-cancel').on('click', function() {
-        kimchi.window.close();
     });
 
     $('#template-edit-storagePool').change(function() {

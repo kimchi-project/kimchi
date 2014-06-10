@@ -19,12 +19,12 @@ kimchi.guest_edit_main = function() {
     var buttonContainer = $('#action-button-container');
     $('#guest-edit-tabs').tabs({
         beforeActivate: function(event, ui) {
-            var deactivated = ui['oldPanel'];
+            var deactivated = ui['newPanel'];
             if($(deactivated).attr('id') === 'form-guest-edit-general') {
-                $(buttonContainer).addClass('hidden');
+                $(buttonContainer).removeClass('hidden');
             }
             else {
-                $(buttonContainer).removeClass('hidden');
+                $(buttonContainer).addClass('hidden');
             }
         }
     });
@@ -36,44 +36,114 @@ kimchi.guest_edit_main = function() {
         kimchi.listVMStorages({
             vm: kimchi.selectedGuest
         }, function(storages) {
-            var container = $('#guest-edit-cdrom-row-container');
+            var container = $('#form-guest-edit-storage .body');
             $(container).empty();
 
             $.each(storages, function(index, storage) {
                 storage['vm'] = kimchi.selectedGuest;
                 rowHTML = $('#' + storage['type'] + '-row-tmpl').html();
-                var templated = kimchi.template(rowHTML, storage);
+                var templated = kimchi.substitute(rowHTML, storage);
                 container.append(templated);
             });
 
-            var replaceCDROM = function(event) {
-                event.preventDefault();
-                kimchi.selectedGuestStorage = $(this).data('dev');
-                kimchi.window.open("guest-cdrom-edit.html");
+            $('.replace', container).button({
+                icons: {
+                    primary: 'ui-icon-pencil'
+                },
+                text: false
+            });
+
+            $('.detach', container).button({
+                icons: {
+                    primary: 'ui-icon-trash'
+                },
+                text: false
+            });
+
+            $('.save', container).button({
+                icons: {
+                    primary: 'ui-icon-disk'
+                },
+                text: false
+            });
+
+            $('.cancel', container).button({
+                icons: {
+                    primary: 'ui-icon-arrowreturnthick-1-w'
+                },
+                text: false
+            });
+        });
+    };
+
+    var initStorageListeners = function() {
+        var container = $('#form-guest-edit-storage .body');
+        var toggleCDROM = function(rowNode, toEdit) {
+            $('button.replace,button.detach', rowNode)
+                [(toEdit ? 'add' : 'remove') + 'Class']('hidden');
+            $('button.save,button.cancel', rowNode)
+                [(toEdit ? 'remove' : 'add') + 'Class']('hidden');
+            var pathBox = $('.path input', rowNode)
+                .prop('readonly', !toEdit);
+            toEdit && pathBox.select();
+        };
+
+        var replaceCDROM = function(event) {
+            event.preventDefault();
+            kimchi.selectedGuestStorage = $(this).data('dev');
+            $('.item', container).each(function(i, n) {
+                toggleCDROM(n);
+            });
+            var rowNode = $('#cdrom-' + kimchi.selectedGuestStorage);
+            toggleCDROM(rowNode, true);
+        };
+
+        $(container).on('click', 'button.replace', replaceCDROM);
+
+        $(container).on('click', 'button.detach', function(e) {
+            e.preventDefault();
+            var settings = {
+                title : i18n['KCHAPI6004M'],
+                content : i18n['KCHVMCD6001M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
             };
 
-            $('input[type="text"][name="cdrom"]', container).on('click', replaceCDROM);
-            $('.replace', container).on('click', replaceCDROM);
-
-            $('.detach', container).on('click', function(e) {
-                e.preventDefault();
-                var settings = {
-                    title : i18n['KCHAPI6004M'],
-                    content : i18n['KCHVMCD6001M'],
-                    confirm : i18n['KCHAPI6002M'],
-                    cancel : i18n['KCHAPI6003M']
-                };
-
-                var dev = $(this).data('dev');
-                kimchi.confirm(settings, function() {
-                    kimchi.deleteVMStorage({
-                        vm: kimchi.selectedGuest,
-                        dev: dev
-                    }, function() {
-                        kimchi.topic('kimchi/vmCDROMDetached').publish();
-                    });
+            var dev = $(this).data('dev');
+            kimchi.confirm(settings, function() {
+                kimchi.deleteVMStorage({
+                    vm: kimchi.selectedGuest,
+                    dev: dev
+                }, function() {
+                    kimchi.topic('kimchi/vmCDROMDetached').publish();
                 });
             });
+        });
+
+        $(container).on('click', 'button.save', function(event) {
+            event.preventDefault();
+            var path = $('#cdrom-path-' + kimchi.selectedGuestStorage).val();
+            var settings = {
+                vm: kimchi.selectedGuest,
+                dev: kimchi.selectedGuestStorage,
+                path: path
+            };
+
+            kimchi.replaceVMStorage(settings, function(result) {
+                kimchi.topic('kimchi/vmCDROMReplaced').publish({
+                    result: result
+                });
+            }, function(result) {
+                var errText = result['reason'] ||
+                    result['responseJSON']['reason'];
+                kimchi.message.error(errText);
+            });
+        });
+
+        $(container).on('click', 'button.cancel', function(event) {
+            event.preventDefault();
+            var rowNode = $('#cdrom-' + kimchi.selectedGuestStorage);
+            toggleCDROM(rowNode);
         });
     };
 
@@ -96,7 +166,7 @@ kimchi.guest_edit_main = function() {
             $(".action-area", item).toggleClass("hide");
         };
         var addItem = function(data) {
-            var itemNode = $.parseHTML(kimchi.template($('#interface-tmpl').html(),data));
+            var itemNode = $.parseHTML(kimchi.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
             if(data.network!==""){
@@ -172,7 +242,12 @@ kimchi.guest_edit_main = function() {
 
         refreshCDROMs();
 
-        $('#guest-edit-attach-cdrom-button').on('click', function(event) {
+        $('#guest-edit-attach-cdrom-button').button({
+            icons: {
+                primary: "ui-icon-plusthick"
+            },
+            text: false
+        }).click(function(event) {
             event.preventDefault();
             kimchi.window.open("guest-storage-add.html");
         });
@@ -186,6 +261,8 @@ kimchi.guest_edit_main = function() {
         var onDetached = function(params) {
             refreshCDROMs();
         };
+
+        initStorageListeners();
 
         setupInterface();
 

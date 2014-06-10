@@ -63,7 +63,7 @@ kimchi.getNetworkItemHtml = function(network) {
     }
 
     var disable_in_use = network.in_use ? "ui-state-disabled" : "";
-    var networkItem = kimchi.template($('#networkItem').html(), {
+    var networkItem = kimchi.substitute($('#networkItem').html(), {
         name : network.name,
         state : network.state,
         type : network.type,

@@ -69,7 +69,7 @@
 #login-window .login-panel button {
     font-size: 18px;
     height: 40px;
-    width: 160px;
+    min-width: 160px;
     float: right;
 }
 

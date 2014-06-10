@@ -33,6 +33,12 @@
     padding: 1em;
 }
 
+#form-guest-edit-storage input[readonly] {
+    background: none;
+    border-color: transparent;
+    text-overflow: ellipsis;
+}
+
 .guest-edit-fieldset {
     padding-right: 0;
 }
@@ -89,74 +95,7 @@
     width: 400px;
 }
 
-.guest-edit-cdrom-button {
-    background: url("../images/theme-default/guest-icon-sprite.png") no-repeat left top transparent;
-    border: none;
-    height: 25px;
-    vertical-align: middle;
-    width: 25px;
-}
-
-.guest-edit-cdrom-button.attach {
-    margin: 15px 0 0 521px;
-}
-
-.guest-edit-cdrom-button.attach:hover {
-    background-position: 0 -27px;
-}
-
-.guest-edit-cdrom-button.attach:focus {
-    background-position: 0 -54px;
-}
-
-.guest-edit-cdrom-button.attach:active {
-    background-position: 0 -81px;
-}
-
-.guest-edit-cdrom-button.attach[disabled] {
-    background-position: 0 -108px;
-}
-
-.guest-edit-cdrom-button.replace {
-    background-position: -27px 0;
-}
-
-.guest-edit-cdrom-button.replace:hover {
-    background-position: -27px -27px;
-}
-
-.guest-edit-cdrom-button.replace:focus {
-    background-position: -27px -54px;
-}
-
-.guest-edit-cdrom-button.replace:active {
-    background-position: -27px -81px;
-}
-
-.guest-edit-cdrom-button.replace[disabled] {
-    background-position: -27px -108px;
-}
-
-.guest-edit-cdrom-button.detach {
-    background-position: -54px 0;
-}
-
-.guest-edit-cdrom-button.detach:hover {
-    background-position: -54px -27px;
-}
-
-.guest-edit-cdrom-button.detach:focus {
-    background-position: -54px -54px;
-}
-
-.guest-edit-cdrom-button.detach:active {
-    background-position: -54px -81px;
-}
-
-.guest-edit-cdrom-button.detach[disabled] {
-    background-position: -54px -108px;
-}
-
+#form-guest-edit-storage .header,
 .guest-edit-interface .header {
     margin-bottom: 8px;
     padding-bottom: 2px;
@@ -165,13 +104,29 @@
     overflow: hidden;
 }
 
+#form-guest-edit-storage .body .item,
 .guest-edit-interface .body .item {
     margin: 5px 0;
 }
 
+#form-guest-edit-storage .cell,
 .guest-edit-interface .cell {
     display: inline-block;
     width: 250px;
+}
+
+#form-guest-edit-storage .cell.dev {
+    width: 60px;
+}
+
+#form-guest-edit-storage .cell.path {
+    width: 440px;
+}
+
+#form-guest-edit-storage .cell.dev input,
+#form-guest-edit-storage .cell.path input {
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .guest-edit-interface .body select {
@@ -179,19 +134,27 @@
     padding: 0px;
 }
 
+#form-guest-edit-storage .action-area,
 .guest-edit-interface .action-area {
     float: right;
 }
 
+#form-guest-edit-storage .action-area {
+    line-height: 24px;
+}
+
+#form-guest-edit-storage button,
 .guest-edit-interface button {
     width: 20px;
     height: 20px;
 }
 
+#form-guest-edit-storage .header button,
 .guest-edit-interface .header button {
     margin-bottom: 1px;
 }
 
+#form-guest-edit-storage .body button:not(:last-child),
 .guest-edit-interface .body button:not(:last-child) {
     margin-right: 2px;
 }

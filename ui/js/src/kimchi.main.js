@@ -69,7 +69,7 @@ kimchi.main = function() {
         var tabs = retrieveTabs(tabConfigUrl);
         kimchi.listPlugins(function(plugins) {
             $(plugins).each(function(i, p) {
-                var url = kimchi.template(pluginConfigUrl, {
+                var url = kimchi.substitute(pluginConfigUrl, {
                     plugin: p
                 });
                 tabs.push.apply(tabs, retrieveTabs(url));

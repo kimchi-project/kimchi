@@ -223,6 +223,18 @@ var kimchi = {
         }).done(suc).fail(err);
     },
 
+    updateStoragePool : function(name, content, suc, err) {
+        $.ajax({
+            url : kimchi.url + "storagepools/" + encodeURIComponent(name),
+            type : 'PUT',
+            contentType : 'application/json',
+            dataType : 'json',
+            data : JSON.stringify(content)
+        }).done(suc).fail(err ? err : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        });
+    },
+
     startVM : function(vm, suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/start',
@@ -479,30 +491,6 @@ var kimchi = {
             setTimeout(monitorTask, 2000);
         }, err);
         return deepScanHandler;
-    },
-
-    listDeepScanIsos : function(suc, err) {
-        var isoPool = 'iso' + new Date().getTime();
-        kimchi.createStoragePool({
-            name : isoPool,
-            type : 'kimchi-iso',
-            path : '/'
-        }, function(result) {
-            var taskId = result.task_id;
-            function monitorTask() {
-                kimchi.getTask(taskId, function(result) {
-                    var status = result.status;
-                    if (status === "finished") {
-                        kimchi.listStorageVolumes(isoPool, suc, err);
-                    } else if (status === "running") {
-                        setTimeout(monitorTask, 50);
-                    } else if (status === "failed") {
-                        err(result.message);
-                    }
-                }, err);
-            }
-            monitorTask();
-        }, err);
     },
 
     getTask : function(taskId, suc, err) {

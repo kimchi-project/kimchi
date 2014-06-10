@@ -50,6 +50,9 @@ kimchi.login_main = function() {
         return true;
     };
 
+    var userNameBox = $('#username');
+    var passwordBox = $('#password');
+    var loginButton = $('#btn-login');
     var placeCursor = function(id) {
         if (id && $('#' + id).size() > 0) {
             $('#' + id).focus();
@@ -57,10 +60,10 @@ kimchi.login_main = function() {
         }
 
         var userName = kimchi.user.getUserName();
-        userName && $('#username').val(userName);
+        userName && !userNameBox.val() && userNameBox.val(userName);
+        var password = passwordBox.val();
 
-        var nodeToFocus = ! $('#username').val() ? $('#username') :
-            (! $('#password').val() ? $('#password') : $('#btn-login'));
+        var nodeToFocus = !userName ? userNameBox : !password ? passwordBox : loginButton;
 
         $(nodeToFocus).focus();
     };
@@ -71,13 +74,13 @@ kimchi.login_main = function() {
             return false;
         }
 
-        $('#btn-login').text(i18n['KCHAUTH6002M']).prop('disabled', true);
+        loginButton.text(i18n['KCHAUTH6002M']).prop('disabled', true);
 
-        var userName = $('#username').val();
+        var userName = userNameBox.val();
         userName && kimchi.user.setUserName(userName);
         var settings = {
             username: userName,
-            password: $("#password").val()
+            password: passwordBox.val()
         };
 
         kimchi.login(settings, function() {
@@ -121,5 +124,5 @@ kimchi.login_main = function() {
 
     $('#form-login').on('submit', login);
 
-    placeCursor();
+    setTimeout(placeCursor, 0);
 };

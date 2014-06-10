@@ -108,7 +108,7 @@ kimchi.vmdelete = function(event) {
     var vm = $(this).closest('li[name=guest]');
     var vm_id=vm.attr("id");
     var settings = {
-        title : i18n['KCHVM6002M'],
+        title : i18n['KCHVM6008M'],
         content : i18n['KCHVM6001M'],
         confirm : i18n['KCHAPI6002M'],
         cancel : i18n['KCHAPI6003M']

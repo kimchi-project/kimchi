@@ -30,10 +30,10 @@ kimchi.initStorageAddPage = function() {
             valid_types = ['part', 'disk', 'mpath'];
             $.each(data, function(index, value) {
                 if (valid_types.indexOf(value.type) != -1) {
-                    listHtml += kimchi.template(deviceHtml, value);
+                    listHtml += kimchi.substitute(deviceHtml, value);
                 }
             });
-            $('.host-partition').html(listHtml);
+            $('.host-partition', '#form-pool-add').html(listHtml);
         } else {
             $('.host-partition').html(i18n['KCHPOOL6011M']);
             $('.host-partition').addClass('text-help');

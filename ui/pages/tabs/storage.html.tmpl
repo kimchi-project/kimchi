@@ -41,6 +41,14 @@
     </div>
     <ul id="storagepoolsList" class="list-storage empty-when-logged-off"></ul>
 </div>
+<div id="logicalPoolExtend" title="$_("Device path")">
+     <p id="loading-info" class="text-help">
+         <img src = "../images/theme-default/loading.gif" />
+         $_("Looking for available partitions ...")
+     </p>
+     <div class="host-partition">
+     </div>
+</div>
 <script id="storageTmpl" type="html/text">
     <li id="{name}">
         <div class="storage-li in" data-name="{name}" data-stat="{state}">
@@ -74,6 +82,7 @@
                     <div class="popover actionsheet right-side" style="width: 250px">
                         <button class="button-big pool-deactivate" data-stat="{state}" data-name="{name}" data-persistent="{persistent}"><span class="text">$_("Deactivate")</span></button>
                         <button class="button-big pool-activate" data-stat="{state}" data-name="{name}"><span class="text">$_("Activate")</span></button>
+                        <button class="button-big pool-extend {enableExt}" data-stat="{state}" data-name="{name}"><span class="text">$_("Extend")</span></button>
                         <button class="button-big red pool-delete" data-stat="{state}" data-name="{name}"><span class="text">$_("Undefine")</span></button>
                     </div>
                 </div>
@@ -106,6 +115,12 @@
                 <div title="{allocation}"class="volume-textquota">$_("Allocation"): {allocation}</div>
             </div>
       </div>
+</script>
+<script id="logicalPoolExtendTmpl" type="html/text">
+    <div>
+        <input type="checkbox" value="{path}" name="devices">
+        <label for="{name}">{path}</label>
+    </div>
 </script>
 <script>
     kimchi.storage_main();
