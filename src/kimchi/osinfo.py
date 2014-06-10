@@ -59,7 +59,8 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                                 'opensuse': '10.3', 'centos': '5.3',
                                 'rhel': '6.0', 'fedora': '16', 'gentoo': '0'},
-                        'power': {'rhel': '7.0', 'fedora': '19'}}
+                        'power': {'rhel': '7.0', 'fedora': '19',
+                                  'ubuntu': '14.04'}}
 
 icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % paths.ui_dir, 'icon-*.png')]
