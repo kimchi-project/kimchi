@@ -150,7 +150,7 @@
 .network-config {
     font-family: Arial;
     font-size: 12px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     display: none;
 }
 
@@ -160,6 +160,10 @@
 
 .network-config .section-container:first-child {
     margin-top: 10px;
+}
+
+.network-config .section-container:last-child {
+    height: 200px;
 }
 
 .network-config .section-header {
@@ -209,17 +213,70 @@
     vertical-align: top;
 }
 
-.network-config .destination {
-    margin-left: 28px;
+.network-type-wrapper-controls input[type="text"] {
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee inset;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding: 0 10px;
+    margin-top: 5px;
+    width: 50px;
 }
 
-.network-config .VLAN {
-    margin-left: 28px;
+.network-type-wrapper-controls > .dropdown {
+    margin: 5px 0 0 1px;
+    width: 180px;
 }
 
-.network-config .VLAN input[type="text"] {
-    height: 25px;
-    width: 60px;
+.network-type-wrapper-controls input[type="text"][disabled] {
+    color: #bbb;
+    background-color: #fafafa;
+    cursor: not-allowed;
+}
+
+.network-type-wrapper-controls span[type="text"] {
+    padding: 0 10px;
+}
+
+.bridge-option-column {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bridge-option-column label {
+    margin-left: 42px;
+}
+
+.network-type-wrapper-controls {
+    width: 80px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 5px 5px 22px;
+}
+
+#enableVlan {
+    margin-left: 42px;
+    vertical-align: middle;
+}
+
+#labelEnableVlan {
+    vertical-align: middle;
+}
+
+#labelNetworkVlanID {
+    margin-left: 42px;
+    vertical-align: middle;
+    display: none;
+}
+
+#networkVlanID {
+    width: 80px;
+    vertical-align: middle;
+    display: none;
 }
 
 .network-config .input-hint-icon {
@@ -233,4 +290,16 @@
 
 .network-config .input-hint-text {
     vertical-align: top;
+}
+
+.network-label {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #BBBBBB;
+    border-radius: 5px 5px 5px 5px;
+    border-top: 1px solid #BBBBBB;
+    box-shadow: 2px 2px 2px #EEEEEE inset;
+    color: #333333;
+    font-size: 13px;
+    padding: 10px;
+    width: 100%;
 }

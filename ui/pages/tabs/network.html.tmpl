@@ -46,7 +46,7 @@
         <div class="section-container">
             <div class="section-header">1. $_("Network Name")</div>
             <div class="section-content">
-                <input type="text" id="networkName">
+                <input type="text" id="networkName" class="network-label"/>
                 <div class="input-hint">
                     <span class="ui-icon ui-icon-info input-hint-icon"></span>
                     <span class="input-hint-text">$_("Alphanumeric and '_' characters only.")</span>
@@ -57,27 +57,40 @@
             <div class="section-header">2. $_("Network Type")</div>
             <div class="section-content">
                 <div class="input-container">
-                    <input type="radio" id="networkTypeIso" name="networkType" value="isolated">
+                    <input type="radio" id="networkTypeIso" name="networkType" value="isolated" />
                     <label for="networkTypeIso">$_("Isolated: no physical network connection")</label>
                 </div>
                 <div class="input-container">
-                    <input type="radio" id="networkTypeNat" name="networkType" value="nat">
+                    <input type="radio" id="networkTypeNat" name="networkType" value="nat" />
                     <label for="networkTypeNat">$_("NAT: outbound physical network connection only")</label>
                 </div>
                 <div class="input-container">
-                    <input type="radio" id="networkTypeBri" name="networkType" value="bridged">
+                    <input type="radio" id="networkTypeBri" name="networkType" value="bridged" />
                     <label for="networkTypeBri">$_("Bridged: Virtual machines are connected to physical network directly")</label>
                 </div>
-                <div id="bridge-options">
-                    <div class="destination">
-                        <label for="networkInterface">$_("Destination"): </label>
-                        <select id="networkInterface"></select>
+                <div id="bridgeOptions">
+                    <div>
+                        <div class="bridge-option-column">
+                            <label for="networkInterface">$_("Destination"): </label>
+                        </div>
+                        <div class="bridge-option-column">
+                            <div class="network-type-wrapper-controls">
+                                <div id ="networkDestinationID">
+                                    <input id="networkDestinationInputId" name="type" type="hidden"/>
+                                    <span id="networkDestinationLabel" type="text"></span><span class="arrow"></span>
+                                    <div>
+                                        <ul id="networkInterface"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="VLAN">
-                        <label for="enableVlan">$_("Enable VLAN"): </label>
-                        <input id="enableVlan" type="checkbox" value=""/>
-                        <label for="networkVlanID">$_("VLAN ID"): </label>
-                        <input type="text" id="networkVlanID" disabled>
+                    <div>
+                        <input id="enableVlan" type="checkbox" value="" />
+                        <label for="enableVlan" id="labelEnableVlan">$_("Enable VLAN") </label>
+                    </div>
+                        <label for="networkVlanID" id="labelNetworkVlanID">$_("VLAN ID"): </label>
+                        <input type="text" id="networkVlanID" class="network-label"/>
                     </div>
                 </div>
             </div>
