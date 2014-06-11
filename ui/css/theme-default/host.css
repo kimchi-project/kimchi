@@ -219,6 +219,12 @@
     width: 200px;
 }
 
+#id-debug-img {
+    background: url(../../images/theme-default/kimchi-loading15x15.gif) 12px
+            center no-repeat;
+    padding-left: 23px;
+}
+
 /* End of Debug Report */
 
 /* Software Updates */
