@@ -357,11 +357,7 @@ kimchi.host_main = function() {
                 $('#' + reportGridID + '-download-button')
                     .prop('disabled', false);
             },
-            frozenFields: [{
-                name: 'id',
-                label: ' ',
-                'class': 'debug-report-id'
-            }],
+            frozenFields: [],
             fields: [{
                 name: 'name',
                 label: i18n['KCHDR6003M'],

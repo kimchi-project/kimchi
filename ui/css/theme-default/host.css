@@ -196,6 +196,10 @@
 }
 
 /* Debug Report */
+.cell-text-wrapper {
+    margin-left: 10px;
+}
+
 .host-panel #available-reports-grid {
     border-color: #ddd;
     height: 400px;
@@ -208,10 +212,6 @@
 
 .host-panel select#available-reports-list option {
     margin: .2em 1em;
-}
-
-.debug-report-id {
-    width: 30px;
 }
 
 .debug-report-name,
