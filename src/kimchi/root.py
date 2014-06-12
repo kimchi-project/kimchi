@@ -93,7 +93,11 @@ class Root(Resource):
         data['ui_dir'] = paths.ui_dir
 
         if page.endswith('.html'):
-            return template.render('tabs/' + page, data)
+            context = template.render('tabs/' + page, data)
+            cherrypy.response.cookie[
+                "lastPage"] = "/#tabs/" + page.rstrip(".html")
+            cherrypy.response.cookie['lastPage']['path'] = '/'
+            return context
         raise cherrypy.HTTPError(404)
 
 
@@ -115,9 +119,13 @@ class KimchiRoot(Root):
         password = kwargs.get('password')
         # forms base authentication
         if username is not None:
-            # UI can parser the redirect url by "next" query parameter
-            next_url = kwargs.get('next', "/")
-            next_url = next_url[0] if(type(next_url) is list) else next_url
+            next_url = cherrypy.request.cookie.get("lastPage")
+            if next_url is None:
+                # UI can parser the redirect url by "next" query parameter
+                next_url = kwargs.get('next', "/")
+                next_url = next_url[0] if(type(next_url) is list) else next_url
+            else:
+                next_url = next_url.value
             auth.login(username, password)
             raise cherrypy.HTTPRedirect(next_url, 303)
         else:
