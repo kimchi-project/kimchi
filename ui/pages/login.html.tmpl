@@ -1,0 +1,111 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2014
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from kimchi.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+#from kimchi.config import get_version
+<!DOCTYPE html>
+<html lang="$lang.lang[0]">
+<head>
+<meta charset="UTF-8">
+<title>Kimchi</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="shortcut icon" href="images/logo.ico">
+<link rel="stylesheet" href="$href('css/theme-default.min.css')">
+<script src="$href('libs/jquery-1.10.0.min.js')"></script>
+<script src="$href('libs/jquery-ui.min.js')"></script>
+<script src="$href('libs/jquery-ui-i18n.min.js')"></script>
+<script src="$href('js/kimchi.min.js')"></script>
+<style type="text/css">
+.topbar select {
+    float: right;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.login-area {
+    margin: 120px auto 0;
+}
+#login-window {
+    width: 315px;
+}
+.err-area {
+    height: auto;
+    margin-bottom: 10px;
+}
+.err-mess {
+    color: #C85305;
+}
+</style>
+<script>
+function changeLang() {
+    var lang = document.getElementById('userLang').value;
+    kimchi.cookie.set('kimchiLang', lang, 365);
+    window.location.reload();
+}
+function setLang() {
+    var defaultLang = 'en_US';
+    var clientLang = document.getElementsByTagName("html")[0].getAttribute("lang");
+    var persistLang = kimchi.cookie.get('kimchiLang');
+    document.getElementById("userLang").value = persistLang || clientLang || defaultLang;
+}
+function updateBtnLabel() {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("logging").style.display = "";
+}
+function init() {
+    setLang();
+}
+</script>
+</head>
+<body onload="init()">
+<div class="container topbar">
+    <span id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></span>
+    <select id="userLang" onchange="changeLang()">
+        <option value="en_US">English (US)</option>
+        <option value="zh_CN">中文（简体）</option>
+        <option value="pt_BR">Português (Brasil)</option>
+    </select>
+</div>
+<div id="login-window" class="login-area">
+    <div class="err-area">
+        <div id="messUserPass" class="err-mess" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
+        <div id="messSession" class="err-mess" style="display: none;">$_("Session timeout, please re-login.")</div>
+    </div>
+    <form id="form-login" action="/login" method="POST" class="login-panel" onsubmit="updateBtnLabel();">
+        <div class="row">
+            <input type="text" id="username" name="username" required="required" placeholder="$_("User Name")" autofocus/>
+            <div id="username-msg" class="msg-required"></div>
+        </div>
+        <div class="row">
+            <input type="password" id="password" name="password" required="required" placeholder="$_("Password")" />
+            <div id="password-msg" class="msg-required"></div>
+        </div>
+        <div class="row">
+        <button id="btn-login" class="btn-normal">
+            <label id="login">$_("Log in")</label>
+            <label id="logging" style="display: none;">$_("Logging in...")</label>
+        </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
