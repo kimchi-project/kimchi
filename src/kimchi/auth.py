@@ -131,9 +131,8 @@ def authenticate(username, password, service="passwd"):
 
     try:
         auth.authenticate()
-    except PAM.error, (resp, code):
-        msg_args = {'username': username, 'code': code}
-        raise OperationFailed("KCHAUTH0001E", msg_args)
+    except PAM.error:
+        raise
 
     return True
 
@@ -196,9 +195,17 @@ def check_auth_httpba():
 
 
 def login(username, password):
-    if not authenticate(username, password):
-        debug("User cannot be verified with the supplied password")
-        return None
+    try:
+        if not authenticate(username, password):
+            debug("User cannot be verified with the supplied password")
+            return None
+    except PAM.error, (resp, code):
+        if (cherrypy.request.path_info == "/login" and
+           not template.can_accept('application/json')):
+            raise cherrypy.HTTPRedirect("/login.html?error=userPassWrong", 303)
+        msg_args = {'username': username, 'code': code}
+        raise OperationFailed("KCHAUTH0001E", msg_args)
+
     user = User(username)
     debug("User verified, establishing session")
     cherrypy.session.acquire_lock()

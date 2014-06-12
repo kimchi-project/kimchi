@@ -71,8 +71,14 @@ function updateBtnLabel() {
     document.getElementById("login").style.display = "none";
     document.getElementById("logging").style.display = "";
 }
+function setMessage() {
+    var err = "$getVar('data.error', '')";
+    if(err=="userPassWrong")
+        document.getElementById("messUserPass").style.display = "";
+}
 function init() {
     setLang();
+    setMessage();
 }
 </script>
 </head>
