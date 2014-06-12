@@ -227,10 +227,7 @@ kimchi.main = function() {
                 kimchi.previousAjax = ajaxSettings;
                 $(".empty-when-logged-off").empty();
                 $(".remove-when-logged-off").remove();
-                kimchi.window.open({
-                    url: 'login-window.html',
-                    id: 'login-window-wrapper'
-                });
+                document.location.href='login.html';
                 return;
             }
             else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText)) {

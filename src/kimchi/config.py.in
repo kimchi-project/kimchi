@@ -187,6 +187,9 @@ class KimchiConfig(dict):
         '/spice.html': {
             'tools.kimchiauth.on': True
         },
+        '/kimchi-ui.html': {
+            'tools.kimchiauth.on': True
+        },
         '/data/screenshots': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': get_screenshot_path(),

@@ -28,6 +28,7 @@ import pty
 import re
 import termios
 import time
+import urllib2
 
 
 from kimchi import template
@@ -39,6 +40,12 @@ USER_NAME = 'username'
 USER_GROUPS = 'groups'
 USER_SUDO = 'sudo'
 REFRESH = 'robot-refresh'
+
+
+def redirect_login():
+    next_url = urllib2.quote(
+        cherrypy.request.path_info.encode('utf-8'), safe="")
+    raise cherrypy.HTTPRedirect("/login.html?next=%s" % next_url, 303)
 
 
 def debug(msg):
@@ -233,6 +240,10 @@ def kimchiauth(admin_methods=None):
         if not has_permission(admin_methods):
             raise cherrypy.HTTPError(403)
         return
+
+    # not a REST full request, redirect login page directly
+    if not template.can_accept('application/json'):
+        redirect_login()
 
     if not from_browser():
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=kimchi'

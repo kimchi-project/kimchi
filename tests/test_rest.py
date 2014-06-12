@@ -1431,7 +1431,6 @@ class RestTests(unittest.TestCase):
                 '/css/theme-default.min.css',
                 '/libs/jquery-1.10.0.min.js',
                 '/images/icon-vm.png',
-                '/kimchi-ui.html',
                 '/login-window.html',
                 '/logout']
         for uri in uris:

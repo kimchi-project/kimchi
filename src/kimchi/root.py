@@ -81,7 +81,7 @@ class Root(Resource):
     @cherrypy.expose
     def default(self, page, **kwargs):
         if page.endswith('.html'):
-            return template.render(page, None)
+            return template.render(page, kwargs)
         raise cherrypy.HTTPError(404)
 
     @cherrypy.expose
@@ -110,14 +110,24 @@ class KimchiRoot(Root):
         self.messages = messages
 
     @cherrypy.expose
-    def login(self, *args):
-        params = parse_request()
-        try:
-            username = params['username']
-            password = params['password']
-        except KeyError, item:
-            e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
-            raise cherrypy.HTTPError(400, e.message)
+    def login(self, *args, **kwargs):
+        username = kwargs.get('username')
+        password = kwargs.get('password')
+        # forms base authentication
+        if username is not None:
+            # UI can parser the redirect url by "next" query parameter
+            next_url = kwargs.get('next', "/")
+            next_url = next_url[0] if(type(next_url) is list) else next_url
+            auth.login(username, password)
+            raise cherrypy.HTTPRedirect(next_url, 303)
+        else:
+            try:
+                params = parse_request()
+                username = params['username']
+                password = params['password']
+            except KeyError, item:
+                e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
+                raise cherrypy.HTTPError(400, e.message)
 
         try:
             user_info = auth.login(username, password)
