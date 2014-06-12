@@ -75,6 +75,8 @@ function setMessage() {
     var err = "$getVar('data.error', '')";
     if(err=="userPassWrong")
         document.getElementById("messUserPass").style.display = "";
+    if(err=="sessionTimeout")
+        document.getElementById("messSession").style.display = "";
 }
 function init() {
     setLang();

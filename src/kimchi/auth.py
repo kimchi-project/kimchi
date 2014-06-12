@@ -161,7 +161,7 @@ def check_auth_session():
                     cherrypy.session.timeout * 60):
                 cherrypy.session[USER_NAME] = None
                 cherrypy.lib.sessions.expire()
-                raise cherrypy.HTTPError(401)
+                raise cherrypy.HTTPError(401, "sessionTimeout")
         else:
             cherrypy.session[REFRESH] = time.time()
         return True
@@ -223,7 +223,7 @@ def logout():
     cherrypy.session[USER_NAME] = None
     cherrypy.session[REFRESH] = 0
     cherrypy.session.release_lock()
-    cherrypy.lib.sessions.expire()
+    cherrypy.lib.sessions.close()
 
 
 def has_permission(admin_methods):
@@ -238,6 +238,7 @@ def has_permission(admin_methods):
 
 def kimchiauth(admin_methods=None):
     debug("Entering kimchiauth...")
+    session_missing = cherrypy.session.missing
     if check_auth_session():
         if not has_permission(admin_methods):
             raise cherrypy.HTTPError(403)
@@ -249,11 +250,29 @@ def kimchiauth(admin_methods=None):
         return
 
     # not a REST full request, redirect login page directly
-    if not template.can_accept('application/json'):
+    if ("Accept" in cherrypy.request.headers and
+       not template.can_accept('application/json')):
         redirect_login()
+
+    # from browser, and it stays on one page.
+    if session_missing and cherrypy.request.cookie.get("lastPage") is not None:
+        raise cherrypy.HTTPError(401, "sessionTimeout")
 
     if not from_browser():
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=kimchi'
 
     e = InvalidOperation('KCHAUTH0002E')
     raise cherrypy.HTTPError(401, e.message.encode('utf-8'))
+
+
+def kimchisession(admin_methods=None):
+    session = cherrypy.request.cookie.get("kimchi")
+    last_page = cherrypy.request.cookie.get("lastPage")
+    headers = cherrypy.request.headers
+    authheader = headers.get('AUTHORIZATION')
+    # when client browser first login in, both the session and lastPage cookie
+    # are None.
+    # when session timeout, only session cookie is None.
+    if (session is None and last_page is None and authheader is None and
+       ("Accept" in headers and not template.can_accept('application/json'))):
+            redirect_login()

@@ -138,7 +138,13 @@ kimchi.main = function() {
      */
     var loadPage = function(url) {
         // Get the page content through Ajax and render it.
-        url && $('#main').load(url, function(responseText, textStatus, jqXHR) {});
+        url && $('#main').load(url, function(responseText, textStatus, jqXHR) {
+            if (jqXHR['status'] === 401 || jqXHR['status'] === 303) {
+                var isSessionTimeout = jqXHR['responseText'].indexOf("sessionTimeout")!=-1;
+                document.location.href= isSessionTimeout ? 'login.html?error=sessionTimeout' : 'login.html';
+                return;
+            }
+        });
     };
 
     /*
@@ -223,11 +229,12 @@ kimchi.main = function() {
             }
 
             if (jqXHR['status'] === 401) {
+                var isSessionTimeout = jqXHR['responseText'].indexOf("sessionTimeout")!=-1;
                 kimchi.user.showUser(false);
                 kimchi.previousAjax = ajaxSettings;
                 $(".empty-when-logged-off").empty();
                 $(".remove-when-logged-off").remove();
-                document.location.href='login.html';
+                document.location.href= isSessionTimeout ? 'login.html?error=sessionTimeout' : 'login.html';
                 return;
             }
             else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText)) {
