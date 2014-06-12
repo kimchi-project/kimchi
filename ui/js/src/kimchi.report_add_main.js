@@ -15,7 +15,6 @@ kimchi.report_add_main = function() {
         }
         var formData = addReportForm.serializeObject();
         kimchi.window.close();
-        var reportGrid = null;
         $('#' + reportGridID + '-generate-button').prop('disabled',true);
         $('#' + reportGridID + '-remove-button').prop('disabled',true);
         $('#' + reportGridID + '-download-button').prop('disabled',true);
@@ -27,7 +26,7 @@ kimchi.report_add_main = function() {
         });
         var textboxValue = $('#report-name-textbox').val();
         if (textboxValue != "") {
-            $('.grid-body-view table', reportGrid).prepend(
+            $('.grid-body-view table', '#' + reportGridID).prepend(
                 '<tr>' +
                     '<td>' +
                         '<div class="cell-text-wrapper">' + textboxValue + '</div>' +
@@ -39,7 +38,7 @@ kimchi.report_add_main = function() {
             );
         }
         else {
-            $('.grid-body-view table', reportGrid).prepend(
+            $('.grid-body-view table', '#' + reportGridID).prepend(
                 '<tr>' +
                     '<td>' +
                         '<div class="cell-text-wrapper">' + i18n['KCHDR6012M'] + '</div>' +
@@ -51,7 +50,7 @@ kimchi.report_add_main = function() {
             );
         }
         kimchi.createReport(formData, function(result) {
-            $('.grid-body-view table tr:first-child', reportGrid).remove();
+            $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
             $('#' + reportGridID + '-generate-button').prop('disabled',false);
             kimchi.topic('kimchi/debugReportAdded').publish({
                 result: result
@@ -66,7 +65,7 @@ kimchi.report_add_main = function() {
                 var errText = result['responseJSON']['reason'];
             }
             result && kimchi.message.error(errText)
-            $('.grid-body-view table tr:first-child', reportGrid).remove();
+            $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
         });
 
         event.preventDefault();
