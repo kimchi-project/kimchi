@@ -104,6 +104,7 @@ class ConfigTests(unittest.TestCase):
                 'tools.sessions.locking': 'explicit',
                 'tools.sessions.storage_type': 'ram',
                 'tools.sessions.timeout': SESSIONSTIMEOUT,
+                'tools.kimchisession.on': True,
                 'tools.kimchiauth.on': False
             },
             '/vnc_auto.html': {
@@ -111,6 +112,12 @@ class ConfigTests(unittest.TestCase):
             },
             '/spice.html': {
                 'tools.kimchiauth.on': True
+            },
+            '/kimchi-ui.html': {
+                'tools.kimchiauth.on': True
+            },
+            '/login.html': {
+                'tools.kimchisession.on': False,
             },
             '/css': {
                 'tools.staticdir.on': True,
