@@ -32,9 +32,8 @@ class StorageTargetsModel(object):
         self.conn = kargs['conn']
         self.caps = CapabilitiesModel()
 
-    def get_list(self, storage_server, _target_type=None):
+    def get_list(self, storage_server, _target_type=None, _server_port=None):
         target_list = list()
-
         if not _target_type:
             target_types = STORAGE_SERVERS
         else:
@@ -45,7 +44,8 @@ class StorageTargetsModel(object):
                 targets = patch_find_nfs_target(storage_server)
             else:
                 xml = self._get_storage_server_spec(server=storage_server,
-                                                    target_type=target_type)
+                                                    target_type=target_type,
+                                                    server_port=_server_port)
                 conn = self.conn.get()
                 try:
                     ret = conn.findStoragePoolSources(target_type, xml, 0)
@@ -64,9 +64,18 @@ class StorageTargetsModel(object):
         # server:
         # target_type:
         extra_args = []
-        if kwargs['target_type'] == 'netfs':
+        server_type = kwargs['target_type']
+        if server_type == 'netfs':
             extra_args.append(E.format(type='nfs'))
-        obj = E.source(E.host(name=kwargs['server']), *extra_args)
+        else:
+            extra_args.append(E.format(type=server_type))
+
+        host_attr = {"name": kwargs['server']}
+        server_port = kwargs.get("server_port")
+        if server_port is not None:
+            host_attr['port'] = server_port
+
+        obj = E.source(E.host(host_attr), *extra_args)
         xml = ET.tostring(obj)
         return xml
 
@@ -75,9 +84,12 @@ class StorageTargetsModel(object):
         ret = []
         for source in root.getchildren():
             if target_type == 'netfs':
-                host_name = source.host.get('name')
                 target_path = source.dir.get('path')
                 type = source.format.get('type')
-                ret.append(dict(host=host_name, target_type=type,
-                                target=target_path))
+            if target_type == 'iscsi':
+                target_path = source.device.get('path')
+                type = target_type
+            host_name = source.host.get('name')
+            ret.append(dict(host=host_name, target_type=type,
+                            target=target_path))
         return ret

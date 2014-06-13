@@ -653,7 +653,10 @@ creation.
 
 * **GET**: Retrieve a list of available storage targets.
     * Parameters:
-        * _target_type: Filter target list with given type, currently support 'netfs'.
+        * _target_type: Filter target list with given type, currently support
+                        'netfs' and 'iscsi'.
+        * _server_port: Filter target list with given server port,
+                        currently support 'iscsi'.
     * Response: A list with storage targets information.
         * host: IP or host name of storage server of this target.
         * target_type: Type of storage target, supported: 'nfs'.

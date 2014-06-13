@@ -428,7 +428,12 @@
                 "_target_type": {
                     "description": "List storage servers of given type",
                     "type": "string",
-                    "pattern": "^netfs$"
+                    "pattern": "^netfs|iscsi$"
+                },
+                "_server_port": {
+                    "description": "the port of iscsi storage servers",
+                    "type": "string",
+                    "pattern": "^[0-9]{1,5}$"
                 }
             },
             "additionalProperties": false,
