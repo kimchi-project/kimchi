@@ -21,8 +21,7 @@ from kimchi.exception import NotFoundError
 from kimchi.model.storagepools import StoragePoolModel, StoragePoolsModel
 
 # Types of remote storage servers supported
-# FIXME: Add iscsi?
-STORAGE_SERVERS = ['netfs']
+STORAGE_SERVERS = ['netfs', 'iscsi']
 
 
 class StorageServersModel(object):
@@ -68,7 +67,11 @@ class StorageServerModel(object):
                 pool_info = self.pool.lookup(pool)
                 if (pool_info['type'] in STORAGE_SERVERS and
                         pool_info['source']['addr'] == server):
-                    return dict(host=server)
+                    info = dict(host=server)
+                    if (pool_info['type'] == "iscsi" and
+                       'port' in pool_info['source']):
+                        info["port"] = pool_info['source']['port']
+                    return info
             except NotFoundError:
                 # Avoid inconsistent pool result because of lease between list
                 # lookup

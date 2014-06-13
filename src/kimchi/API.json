@@ -416,7 +416,7 @@
                 "_target_type": {
                     "description": "List storage servers of given type",
                     "type": "string",
-                    "pattern": "^netfs$"
+                    "pattern": "^netfs|iscsi$"
                 }
             },
             "additionalProperties": false,

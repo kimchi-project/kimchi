@@ -632,7 +632,8 @@ creation.
 
 * **GET**: Retrieve a summarized list of used storage servers.
     * Parameters:
-        * _target_type: Filter server list with given type, currently support 'netfs'.
+        * _target_type: Filter server list with given type, currently support
+                        'netfs' and 'iscsi'.
 
 ### Resource: Storage Server
 
@@ -642,6 +643,7 @@ creation.
 
 * **GET**: Retrieve description of a Storage Server
     * host: IP or host name of storage server
+    * port: port of storage server, only for "iscsi"
 
 ### Collection: Storage Targets
 

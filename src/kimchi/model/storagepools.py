@@ -37,9 +37,11 @@ POOL_STATE_MAP = {0: 'inactive',
                   4: 'inaccessible'}
 
 # Types of pools supported
-# FIXME: Addd 'iscsi'
 STORAGE_SOURCES = {'netfs': {'addr': '/pool/source/host/@name',
                              'path': '/pool/source/dir/@path'},
+                   'iscsi': {'addr': '/pool/source/host/@name',
+                             'port': '/pool/source/host/@port',
+                             'path': '/pool/source/device/@path'},
                    'scsi': {'adapter_type': '/pool/source/adapter/@type',
                             'adapter_name': '/pool/source/adapter/@name',
                             'wwnn': '/pool/source/adapter/@wwnn',
