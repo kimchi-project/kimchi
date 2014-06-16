@@ -63,6 +63,20 @@ var kimchi = {
     },
 
     /**
+     * Get the i18 strings.
+     */
+    getI18n: function(suc, err, url, sync) {
+        kimchi.requestJSON({
+            url : url ? url : kimchi.url + 'i18n.json',
+            type : 'GET',
+            resend: true,
+            dataType : 'json',
+            success : suc,
+            error: err
+        });
+    },
+
+    /**
      * Get the host static information.
      */
     getHost: function(suc, err) {

@@ -251,9 +251,14 @@ kimchi.main = function() {
     };
 
     // Load i18n translation strings first and then render the page.
-    $('#main').load('i18n.html', function() {
-        buildTabs(initUI);
-    });
+    kimchi.getI18n(
+        function(i18nStrings){ //success
+            i18n = i18nStrings;
+            buildTabs(initUI);
+            },
+        function(data){ //error
+            kimchi.message.error(data.responseJSON.reason);
+            });
 };
 
 kimchi.getHelp = function(e) {
