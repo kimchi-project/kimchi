@@ -37,14 +37,17 @@ class UserTests(object):
         <boot dev='hd'/>
       </os>
     </domain>"""
+    user = None
 
-    def __init__(self):
-        self.vm_uuid = uuid.uuid1()
-        self.vm_name = "kimchi_test_%s" % self.vm_uuid
+    @classmethod
+    def probe_user(cls):
+        if cls.user:
+            return cls.user
 
-    def probe_user(self):
-        xml = self.SIMPLE_VM_XML % (self.vm_name, self.vm_uuid)
-        user = None
+        vm_uuid = uuid.uuid1()
+        vm_name = "kimchi_test_%s" % vm_uuid
+
+        xml = cls.SIMPLE_VM_XML % (vm_name, vm_uuid)
         with RollbackContext() as rollback:
             conn = libvirt.open('qemu:///system')
             rollback.prependDefer(conn.close)
@@ -52,7 +55,7 @@ class UserTests(object):
             rollback.prependDefer(dom.undefine)
             dom.create()
             rollback.prependDefer(dom.destroy)
-            with open('/var/run/libvirt/qemu/%s.pid' % self.vm_name) as f:
+            with open('/var/run/libvirt/qemu/%s.pid' % vm_name) as f:
                 pidStr = f.read()
             p = psutil.Process(int(pidStr))
 
@@ -60,11 +63,11 @@ class UserTests(object):
             # in psutil 2.0 and above versions, username will be a method,
             # not a string
             if callable(p.username):
-                user = p.username()
+                cls.user = p.username()
             else:
-                user = p.username
+                cls.user = p.username
 
-        return user
+        return cls.user
 
 
 if __name__ == '__main__':
