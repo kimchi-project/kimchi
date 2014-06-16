@@ -1614,8 +1614,8 @@ msgstr "Address Space"
 msgid "Alphanumeric and '_' characters only."
 msgstr "Alphanumeric and '_' characters only."
 
-msgid "Isolated: no physical network connection"
-msgstr "Isolated: no physical network connection"
+msgid "Isolated: no external network connection"
+msgstr "Isolated: no external network connection"
 
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: outbound physical network connection only"

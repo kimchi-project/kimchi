@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Alphanumeric and '_' characters only."
 msgstr ""
 
-msgid "Isolated: no physical network connection"
+msgid "Isolated: no external network connection"
 msgstr ""
 
 msgid "NAT: outbound physical network connection only"

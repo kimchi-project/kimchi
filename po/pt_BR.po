@@ -1720,8 +1720,8 @@ msgstr "Espaço de endereço"
 msgid "Alphanumeric and '_' characters only."
 msgstr "Alfanumérios e caracteres '_' apenas."
 
-msgid "Isolated: no physical network connection"
-msgstr "Isolado: nenhuma conexão física"
+msgid "Isolated: no external network connection"
+msgstr "Isolado: nenhuma conexão externa"
 
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: somente conexão de rede física de saída"
