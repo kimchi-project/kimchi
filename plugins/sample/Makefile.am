@@ -19,4 +19,4 @@
 
 SUBDIRS = ui
 
-EXTRA_DIST = API.json sample.conf $(wildcard *.py)
+EXTRA_DIST = API.json sample.conf.in $(wildcard *.py)

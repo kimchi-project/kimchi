@@ -1,5 +1,5 @@
 [kimchi]
-enable = True
+enable = @ENABLE_SAMPLE@
 plugin_class = "Drawings"
 uri = "/plugins/sample"
 

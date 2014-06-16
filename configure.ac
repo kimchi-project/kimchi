@@ -48,6 +48,21 @@ if test "x$PYFLAKES" = "x"; then
   AC_MSG_WARN([pyflakes not found])
 fi
 
+AC_ARG_ENABLE(
+    [sample],
+    [AS_HELP_STRING(
+        [--enable-sample],
+        [enable sample plugin @<:@default=no@:>@]
+    )],
+    ,
+    [enable_sample="no"]
+)
+
+if test "${enable_sample}" = "yes"; then
+AC_SUBST([ENABLE_SAMPLE], [True])
+else
+AC_SUBST([ENABLE_SAMPLE], [False])
+fi
 
 AC_CONFIG_FILES([
     po/Makefile.in
@@ -62,6 +77,7 @@ AC_CONFIG_FILES([
     src/kimchi/model/Makefile
     plugins/Makefile
     plugins/sample/Makefile
+    plugins/sample/sample.conf
     plugins/sample/ui/Makefile
     plugins/sample/ui/config/Makefile
     plugins/sample/ui/js/Makefile
