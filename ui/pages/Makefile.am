@@ -19,4 +19,4 @@ SUBDIRS = help tabs websockify
 
 htmldir = $(datadir)/kimchi/ui/pages
 
-dist_html_DATA = $(wildcard *.html.tmpl) $(NULL)
+dist_html_DATA = $(wildcard *.tmpl) $(NULL)
