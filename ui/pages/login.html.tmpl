@@ -70,6 +70,7 @@ function setLang() {
 function updateBtnLabel() {
     document.getElementById("login").style.display = "none";
     document.getElementById("logging").style.display = "";
+    kimchi.user.setUserName(document.getElementById("username").value);
 }
 function setMessage() {
     var err = "$getVar('data.error', '')";
