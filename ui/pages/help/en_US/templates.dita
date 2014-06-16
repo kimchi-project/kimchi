@@ -74,7 +74,8 @@ you edit a field, click <uicontrol>Save</uicontrol>. </p>
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>Add template</title>
-<shortdesc>Add a template from source media.</shortdesc>
+<shortdesc>Add a template from source media.
+You can add your own ISO image to 'ISO' storage pool for following discovery.</shortdesc>
 <csbody>
 <p>Select the location of the source media from the following options:<dl>
 <dlentry>

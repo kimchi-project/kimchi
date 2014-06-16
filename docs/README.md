@@ -143,6 +143,10 @@ The template screen looks like:
 From this view, you can change the parameters of a template or create a
 new template using the "+" button in the upper right corner.
 
+To create a template, you need an ISO on your host or using remote one.
+If you are willing to use your own ISO, please copy it to out of box storage
+pool (default path is: /var/lib/kimchi/isos).
+
 Known Issues
 ------------
 

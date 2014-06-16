@@ -10,7 +10,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="en-us">
 <title>Storage</title>
 <shortdesc>The <wintitle>Storage</wintitle> page lists the available
-storage pools, including the default storage pool.</shortdesc>
+storage pools, including the out of box 'default' and 'ISO' storage pool.
+If you want to use your own ISO, please add it to 'ISO' storage pool path.</shortdesc>
 <csbody>
 <p>For each storage pool, the following information is displayed:<dl>
 <dlentry>

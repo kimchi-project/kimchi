@@ -416,6 +416,9 @@ class ModelTests(unittest.TestCase):
         self.assertIn('default', pools)
         poolinfo = inst.storagepool_lookup('default')
         self.assertEquals('active', poolinfo['state'])
+        self.assertIn('ISO', pools)
+        poolinfo = inst.storagepool_lookup('ISO')
+        self.assertEquals('active', poolinfo['state'])
         self.assertEquals((num - 1), len(pools))
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
