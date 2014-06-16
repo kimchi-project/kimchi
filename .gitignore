@@ -31,6 +31,8 @@ src/nginx_kimchi.conf
 src/kimchi/config.py
 tests/run_tests.sh
 tests/test_config.py
+plugins/sample/po/POTFILES
+plugins/sample/sample.conf
 po/POTFILES
 po/gen-pot
 *.orig
