@@ -82,26 +82,30 @@ def can_accept_html():
         can_accept('*/*')
 
 
+def render_cheetah_file(resource, data):
+    paths = cherrypy.request.app.root.paths
+    filename = paths.get_template_path(resource)
+    try:
+        params = {'data': data}
+        lang = validate_language(get_lang())
+        gettext_conf = {'domain': 'kimchi',
+                        'localedir': paths.mo_dir,
+                        'lang': [lang]}
+        params['lang'] = gettext_conf
+        return Template(file=filename, searchList=params).respond()
+    except OSError, e:
+        if e.errno == errno.ENOENT:
+            raise cherrypy.HTTPError(404)
+        else:
+            raise
+
+
 def render(resource, data):
     if can_accept('application/json'):
         cherrypy.response.headers['Content-Type'] = \
             'application/json;charset=utf-8'
         return json.dumps(data, indent=2, separators=(',', ':'))
     elif can_accept_html():
-        paths = cherrypy.request.app.root.paths
-        filename = paths.get_template_path(resource)
-        try:
-            params = {'data': data}
-            lang = validate_language(get_lang())
-            gettext_conf = {'domain': 'kimchi',
-                            'localedir': paths.mo_dir,
-                            'lang': [lang]}
-            params['lang'] = gettext_conf
-            return Template(file=filename, searchList=params).respond()
-        except OSError, e:
-            if e.errno == errno.ENOENT:
-                raise cherrypy.HTTPError(404)
-            else:
-                raise
+        return render_cheetah_file(resource, data)
     else:
         raise cherrypy.HTTPError(406)

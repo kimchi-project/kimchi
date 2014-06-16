@@ -82,6 +82,11 @@ class Root(Resource):
     def default(self, page, **kwargs):
         if page.endswith('.html'):
             return template.render(page, kwargs)
+        if page.endswith('.json'):
+            cherrypy.response.headers['Content-Type'] = \
+                'application/json;charset=utf-8'
+            context = template.render_cheetah_file(page, None)
+            return context.encode("utf-8")
         raise cherrypy.HTTPError(404)
 
     @cherrypy.expose
