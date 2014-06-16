@@ -17,6 +17,13 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = ui
+SUBDIRS = ui po
 
 EXTRA_DIST = API.json sample.conf.in $(wildcard *.py)
+
+all-local:
+	while read L && test -n "$$L"; do                      \
+		dir=mo/$$L/LC_MESSAGES ;                       \
+		$(MKDIR_P) $$dir ;                             \
+		ln -sf ../../../po/$$L.gmo $$dir/sample.mo ;   \
+	done < po/LINGUAS

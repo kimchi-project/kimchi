@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for src in $@; do
+    if [ ${src: -3} == ".py" ]; then
+        cat $src
+    else
+        cat $src | cheetah compile -
+    fi
+done | xgettext --no-location -o sample.pot -L Python -

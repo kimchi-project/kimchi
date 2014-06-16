@@ -1,0 +1,21 @@
+# English translations for kimchi package.
+# Copyright (C) 2014 THE kimchi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the kimchi package.
+# shhfeng <shaohef@linux.vnet.ibm.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kimchi 1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-17 02:13+0800\n"
+"PO-Revision-Date: 2014-05-17 02:08+0800\n"
+"Last-Translator: shhfeng <shaohef@linux.vnet.ibm.com>\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+msgid "SampleTab"
+msgstr "SampleTab"
