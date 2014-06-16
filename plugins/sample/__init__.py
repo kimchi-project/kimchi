@@ -26,6 +26,7 @@ from cherrypy import expose
 
 from kimchi.config import PluginPaths
 from kimchi.control.base import Collection, Resource
+from kimchi.root import Root
 from plugins.sample.i18n import messages
 from plugins.sample.model import Model
 
@@ -33,7 +34,7 @@ from plugins.sample.model import Model
 model = Model()
 
 
-class Drawings(Resource):
+class Drawings(Root):
     def __init__(self):
         Resource.__init__(self, model)
         self.description = Description(model)

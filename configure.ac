@@ -64,6 +64,8 @@ AC_CONFIG_FILES([
     plugins/sample/Makefile
     plugins/sample/ui/Makefile
     plugins/sample/ui/config/Makefile
+    plugins/sample/ui/js/Makefile
+    plugins/sample/ui/pages/Makefile
     ui/Makefile
     ui/css/Makefile
     ui/css/novnc/Makefile

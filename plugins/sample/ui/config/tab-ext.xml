@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<tabs-ext>
+<tabs-ext>
     <tab>
-        <title>Test</title>
-        <filePath>plugins/sample/ui/tab.html</filePath>
+        <title>SampleTab</title>
+        <path>plugins/sample/tab.html</path>
     </tab>
-</tabs-ext>-->
+</tabs-ext>
