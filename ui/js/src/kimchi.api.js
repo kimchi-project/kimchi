@@ -71,6 +71,7 @@ var kimchi = {
             type : 'GET',
             resend: true,
             dataType : 'json',
+            async : !sync,
             success : suc,
             error: err
         });
@@ -560,13 +561,14 @@ var kimchi = {
             });
     },
 
-    listPlugins : function(suc, err) {
+    listPlugins : function(suc, err, sync) {
         kimchi.requestJSON({
             url : kimchi.url + 'plugins',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
             resend: true,
+            async : !sync,
             success : suc,
             error : err
         });

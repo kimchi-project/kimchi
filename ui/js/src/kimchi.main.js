@@ -39,7 +39,7 @@ kimchi.main = function() {
         $(xmlData).find('tab').each(function() {
             var $tab = $(this);
             var titleKey = $tab.find('title').text();
-            var title = i18n[titleKey];
+            var title = i18n[titleKey] ? i18n[titleKey] : titleKey;
             var path = $tab.find('path').text();
             tabs.push({
                 title: title,
@@ -64,6 +64,7 @@ kimchi.main = function() {
 
     var tabConfigUrl = '/config/ui/tabs.xml';
     var pluginConfigUrl = '/plugins/{plugin}/ui/config/tab-ext.xml';
+    var pluginI18nUrl = 'plugins/{plugin}/i18n.json';
     var DEFAULT_HASH;
     var buildTabs = function(callback) {
         var tabs = retrieveTabs(tabConfigUrl);
@@ -72,6 +73,12 @@ kimchi.main = function() {
                 var url = kimchi.substitute(pluginConfigUrl, {
                     plugin: p
                 });
+                var i18nUrl = kimchi.substitute(pluginI18nUrl, {
+                    plugin: p
+                });
+                kimchi.getI18n(function(i18nObj){ $.extend(i18n, i18nObj)},
+                               function(i18nObj){ //i18n is not define by plugin
+                               }, i18nUrl, true);
                 tabs.push.apply(tabs, retrieveTabs(url));
             });
 
@@ -85,7 +92,9 @@ kimchi.main = function() {
             $('#nav-menu').append(genTabs(tabs));
 
             callback && callback();
-        });
+        }, function(data) {
+           kimchi.message.error(data.responseJSON.reason);
+        }, true);
     };
 
     var onLanguageChanged = function(lang) {
