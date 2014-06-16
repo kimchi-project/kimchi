@@ -27,6 +27,7 @@ from functools import partial
 
 import kimchi.mockmodel
 import kimchi.server
+from kimchi.utils import get_enabled_plugins
 import utils
 
 
@@ -40,6 +41,7 @@ ssl_port = None
 def setUpModule():
     global test_server, model, host, port, ssl_port
 
+    utils.patch_auth()
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = utils.get_free_port('http')
@@ -53,6 +55,9 @@ def tearDownModule():
     os.unlink('/tmp/obj-store-test')
 
 
+@unittest.skipUnless(
+    'sample' in [plugin for plugin, _config in get_enabled_plugins()],
+    'sample plugin is not enabled, skip this test!')
 class PluginTests(unittest.TestCase):
 
     def setUp(self):
