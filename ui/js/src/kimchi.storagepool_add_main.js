@@ -224,6 +224,7 @@ kimchi.validateNfsForm = function () {
         kimchi.message.error.code('KCHPOOL6005E');
         return false;
     }
+    $('#nfs-mount-loading').removeClass('hidden');
     return true;
 };
 
@@ -254,6 +255,8 @@ kimchi.validateLogicalForm = function () {
 };
 
 kimchi.addPool = function(event) {
+    $('#pool-doAdd').hide();
+    $('#pool-loading').show();
     if (kimchi.validateForm()) {
         var formData = $('#form-pool-add').serializeObject();
         delete formData.authname;
@@ -291,6 +294,7 @@ kimchi.addPool = function(event) {
         } else if (poolType === 'scsi'){
             formData.source = { adapter_name: $('#scsiAdapter').selectMenu('value') };
         }
+        $('input', '#form-pool-add').attr('disabled','disabled');
         if (poolType === 'logical') {
             var settings = {
                 title : i18n['KCHAPI6001M'],
@@ -304,6 +308,9 @@ kimchi.addPool = function(event) {
                     kimchi.window.close();
                 }, function(err) {
                     kimchi.message.error(err.responseJSON.reason);
+                    $('input', '#form-pool-add').removeAttr('disabled');
+                    $('#pool-loading').hide();
+                    $('#pool-doAdd').show();
                 });
             }, function() {
             });
@@ -313,6 +320,9 @@ kimchi.addPool = function(event) {
                 kimchi.window.close();
             }, function(err) {
                 kimchi.message.error(err.responseJSON.reason);
+                $('input', '#form-pool-add').removeAttr('disabled');
+                $('#pool-loading').hide();
+                $('#pool-doAdd').show();
             });
         }
     }
