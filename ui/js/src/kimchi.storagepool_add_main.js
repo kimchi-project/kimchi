@@ -20,6 +20,18 @@ kimchi.storagepool_add_main = function() {
     kimchi.initStorageAddPage();
     $('#form-pool-add').on('submit', kimchi.addPool);
     $('#pool-doAdd').on('click', kimchi.addPool);
+    // 'pool-doAdd' button starts as disabled.
+    $("#pool-doAdd").button();
+    $("#pool-doAdd").button("disable");
+    // Make any change in the form fields enables the
+    // 'pool-doAdd' button if all the visible form
+    // fields are filled, disables it otherwise.
+    $('#form-pool-add').on('input change propertychange', function() {
+        if (!kimchi.inputsNotBlank())
+            $("#pool-doAdd").button("disable");
+        else
+           $("#pool-doAdd").button("enable");
+    });
 };
 
 kimchi.initStorageAddPage = function() {
@@ -75,7 +87,7 @@ kimchi.initStorageAddPage = function() {
         value : "scsi"
     } ];
     $('#poolTypeId').selectMenu("setData", options);
- 
+
     kimchi.getStorageServers('netfs', function(data) {
         var serverContent = [];
         if (data.length > 0) {
@@ -147,13 +159,35 @@ kimchi.initStorageAddPage = function() {
     });
 };
 
+/* Returns 'true' if all form fields were filled, 'false' if
+ * any field is left blank. The function takes into account
+ * the current poolType selected.
+ *
+ * Any 'field is blank' verification that were done in other
+ * validate functions were deleted, since we're doing it here
+ * already.
+ */
+kimchi.inputsNotBlank = function() {
+    if (!$('#poolId').val()) return false;
+    var poolType = $("#poolTypeInputId").val();
+    if (poolType === "dir") {
+        if (!$('#pathId').val()) return false;
+    } else if (poolType === "netfs") {
+        if (!$('#nfspathId').val()) return false;
+        if (!$('#nfsserverId').val()) return false;
+    } else if (poolType === "iscsi") {
+        if (!$('#iscsiserverId').val()) return false;
+        if (!$('#iscsiTargetId').val()) return false;
+    } else if (poolType === "logical") {
+        if ($("input[name=devices]:checked").length === 0)
+            return false;
+    }
+    return true;
+};
+
 kimchi.validateForm = function() {
     var name = $('#poolId').val();
     var poolType = $("#poolTypeInputId").val();
-    if ('' === name) {
-        kimchi.message.error.code('KCHPOOL6001E');
-        return false;
-    }
     if (name.indexOf("/")!=-1) {
         kimchi.message.error.code('KCHPOOL6004E');
         return false;
@@ -173,10 +207,6 @@ kimchi.validateForm = function() {
 
 kimchi.validateDirForm = function () {
     var path = $('#pathId').val();
-    if ('' === path) {
-        kimchi.message.error.code('KCHPOOL6002E');
-        return false;
-    }
     if (!/(^\/.*)$/.test(path)) {
         kimchi.message.error.code('KCHAPI6003E');
         return false;
@@ -188,10 +218,6 @@ kimchi.validateNfsForm = function () {
     var nfspath = $('#nfspathId').val();
     var nfsserver = $('#nfsserverId').val();
     if (!kimchi.validateServer(nfsserver)) {
-        return false;
-    }
-    if ('' === nfspath) {
-        kimchi.message.error.code('KCHPOOL6003E');
         return false;
     }
     if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(nfspath)) {
@@ -207,18 +233,10 @@ kimchi.validateIscsiForm = function() {
     if (!kimchi.validateServer(iscsiServer)) {
         return false;
     }
-    if ('' === iscsiTarget) {
-        kimchi.message.error.code('KCHPOOL6007E');
-        return false;
-    }
     return true;
 };
 
 kimchi.validateServer = function(serverField) {
-    if ('' === serverField) {
-        kimchi.message.error.code('KCHPOOL6008E');
-        return false;
-    }
     if(!kimchi.isServer(serverField)) {
         kimchi.message.error.code('KCHPOOL6009E');
         return false;
