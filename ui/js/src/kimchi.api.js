@@ -655,7 +655,7 @@ var kimchi = {
         });
     },
 
-    createReport: function(settings, suc, err) {
+    createReport: function(settings, suc, err, progress) {
         var taskID = -1;
         var onTaskResponse = function(result) {
             var taskStatus = result['status'];
@@ -664,6 +664,7 @@ var kimchi = {
                 if(kimchi.stopTrackingReport === true) {
                     return;
                 }
+                progress && progress(result);
                 setTimeout(function() {
                     trackTask();
                 }, 200);
