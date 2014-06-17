@@ -2,98 +2,101 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhstor" xml:lang="en-us">
-<title>Storage</title>
-<shortdesc>The <wintitle>Storage</wintitle> page lists the available
-storage pools, including the out of box 'default' and 'ISO' storage pool.
-If you want to use your own ISO, please add it to 'ISO' storage pool path.</shortdesc>
+<cshelp id="kimhstor" xml:lang="pt-br">
+<title>Armazenamento</title>
+<shortdesc>A página <wintitle>Armazenamento</wintitle> lista os conjuntos de armazenamentos
+disponíveis, incluindo o storage pool padrão.</shortdesc>
 <csbody>
-<p>For each storage pool, the following information is displayed:<dl>
+<p>Para cada storage pool, as informações a seguir são exibidas:<dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the storage pool and percentage used.</dd>
+<dt>Nome</dt>
+<dd>Nome do storage pool e porcentagem usada.</dd>
 </dlentry><dlentry>
-<dt>State</dt>
-<dd>State of the storage pool, active (green) or inactive (red). </dd>
+<dt>Estado</dt>
+<dd>Estado do storage pool, ativo (verde) ou inativo (vermelho). </dd>
 </dlentry><dlentry>
-<dt>Location</dt>
-<dd>File path to the location of the storage pool.</dd>
+<dt>Local</dt>
+<dd>Caminho do arquivo para o local do storage pool.</dd>
 </dlentry><dlentry>
-<dt>Type</dt>
-<dd>Type of storage pool, for example, <uicontrol>dir</uicontrol>.</dd>
+<dt>Tipo</dt>
+<dd>Tipo de storage pool, por exemplo, <uicontrol>dir</uicontrol>.</dd>
 </dlentry><dlentry>
-<dt>Capacity</dt>
-<dd>Amount of space in the storage pool.</dd>
+<dt>Capacidade</dt>
+<dd>Quantia de espaço no storage pool.</dd>
 </dlentry><dlentry>
-<dt>Allocated</dt>
-<dd>Amount of space that is already allocated in the storage pool.</dd>
+<dt>Alocado</dt>
+<dd>Quantia de espaço já alocado no storage pool.</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected for each storage pool:<ul>
-<li>Select <uicontrol>Activate</uicontrol> to activate the storage
-pool so that it can be used.</li>
-<li>Select <uicontrol>Deactivate</uicontrol> to deactivate an active
-storage pool.</li>
-<li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
-pool.</li>
+<p>As ações a seguir podem ser selecionadas para cada storage pool:<ul>
+<li>Selecione <uicontrol>Ativar</uicontrol> para ativar o storage pool
+para que ele possa ser usado.</li>
+<li>Selecione <uicontrol>Desativar</uicontrol> para desativar um storage pool
+ativo.</li>
+<li>Selecione <uicontrol>Indefinir</uicontrol> para remover um storage pool
+inativo.</li>
 </ul></p>
-<p>To display storage volume details for a storage pool, click the
-arrow on the right side of the storage pool row.  Details include
-the following:<dl><dlentry>
-<dt>Type</dt>
-<dd>The type of volume, for example, <uicontrol>file</uicontrol>.</dd>
+<p>Para exibir detalhes do volume de armazenamento para um storage pool, clique na
+seta no lado direito da linha do storage pool.  Os detalhes incluem
+os seguintes:<dl><dlentry>
+<dt>Tipo</dt>
+<dd>O tipo de volume, por exemplo, <uicontrol>arquivo</uicontrol>.</dd>
 </dlentry><dlentry>
-<dt>Format</dt>
-<dd>The format, varying dependent on the type.</dd>
+<dt>Formato</dt>
+<dd>O formato, que varia dependendo do tipo.</dd>
 </dlentry><dlentry>
-<dt>Capacity</dt>
-<dd>Size of the storage volume.</dd>
+<dt>Capacidade</dt>
+<dd>Tamanho do volume de armazenamento.</dd>
 </dlentry><dlentry>
-<dt>Allocation</dt>
-<dd>Amount of space that is already allocated in the storage pool.</dd>
-</dlentry></dl>To define a storage pool, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the display.</p>
+<dt>Alocação</dt>
+<dd>Quantia de espaço já alocado no storage pool.</dd>
+</dlentry></dl>Para definir um storage pool, clique no ícone <uicontrol>mais
+(+)</uicontrol> na parte superior direita da exibição.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="en-us">
-<title>Define a storage pool</title>
-<shortdesc> Define a storage pool.</shortdesc>
+<title>Definir um storage pool</title>
+<shortdesc> Defina um storage pool.</shortdesc>
 <csbody>
 <p> <ol>
-<li>In the <uicontrol>Storage pool name</uicontrol> field, type the
-name to be used to identify the storage pool.</li>
-<li>In the <uicontrol>Storage pool type</uicontrol> list, select the
-type: <dl><dlentry>
+<li>No campo <uicontrol>Nome do storage pool</uicontrol>, digite o
+nome a ser usado para identificar o storage pool.</li>
+<li>Na lista <uicontrol>Tipo de storage pool</uicontrol>, selecione o
+tipo: <dl><dlentry>
 <dt><uicontrol>DIR</uicontrol></dt>
-<dd>Specifies a directory pool. When selecting <uicontrol>DIR</uicontrol>,
-type the <uicontrol>Storage path</uicontrol> (file path to the storage
-pool).</dd>
+<dd>Especifica um conjunto de diretórios. Ao selecionar <uicontrol>DIR</uicontrol>,
+digite o <uicontrol>Caminho do armazenamento</uicontrol> (caminho do arquivo para o
+storage pool).</dd>
 </dlentry><dlentry>
 <dt><uicontrol>NFS</uicontrol></dt>
-<dd>Specifies a network filesystem pool. When selecting <uicontrol>NFS</uicontrol>,
-type the <uicontrol>NFS server IP</uicontrol> address and <uicontrol>NFS
-path</uicontrol> (path of the exported directory).</dd>
+<dd>Especifica um conjunto de sistema de arquivos de rede. Ao selecionar <uicontrol>NFS</uicontrol>,
+digite o endereço <uicontrol>IP do servidor NFS</uicontrol> e o <uicontrol>Caminho
+do NFS</uicontrol> (caminho do diretório exportado).</dd>
 </dlentry><dlentry>
 <dt><uicontrol>iSCSI</uicontrol></dt>
-<dd>Specifies a pool based on a target allocated on an iSCSI server.
-When selecting <uicontrol>iSCSI</uicontrol>, type the <uicontrol>iSCSI
-server</uicontrol> IP address and <uicontrol>Target</uicontrol> on
-the iSCSI server. You can optionally select to add iSCSI authentication.</dd>
+<dd>Especifica um conjunto com base em um destino alocado em um servidor iSCSI.
+Ao selecionar <uicontrol>iSCSI</uicontrol>, digite o endereço IP do <uicontrol>Servidor
+iSCSI</uicontrol> e o <uicontrol>Destino</uicontrol> no
+servidor iSCSI. Opcionalmente, é possível selecionar para incluir a autenticação iSCSI.</dd>
 </dlentry><dlentry>
-<dt><uicontrol>Logical</uicontrol></dt>
-<dd>Specifies a logical volume storage pool. Select the location to
-the device in <uicontrol>Device path</uicontrol>.</dd>
+<dt><uicontrol>Lógico</uicontrol></dt>
+<dd>Especifica um storage pool do volume lógico. Selecione o local para
+o dispositivo em <uicontrol>Caminho do dispositivo</uicontrol>.</dd>
 </dlentry><dlentry>
-<dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
-<dd>Specifies a pool based on an SCSI Fibre Channel. Select which
-SCSI adapter to use.</dd>
-</dlentry></dl><?Pub Caret 0?></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<dt><uicontrol>Fibre Channel SCSI</uicontrol></dt>
+<dd>Especifica um conjunto com base em um Fibre Channel SCSI. Selecione qual
+adaptador SCSI deve ser usado.</dd>
+</dlentry></dl></li>
+<li>Clique em <uicontrol>Criar</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000003914?>
+
+
+<!-- ENGL1SH_VERS10N 13901_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

@@ -2,133 +2,137 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhvirtm" xml:lang="en-us">
-<title>Guests</title>
-<shortdesc>The <wintitle>Guests</wintitle> page lists the defined
-KVM virtual machines.</shortdesc>
+<cshelp id="kimhvirtm" xml:lang="pt-br">
+<title>Máquinas Virtuais</title>
+<shortdesc>A página <wintitle>Máquinas Virtuais</wintitle> lista as máquinas virtuais
+KVM definidas.</shortdesc>
 <csbody>
-<p>For each guest, the following information is displayed:<dl><dlentry>
-<dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<p>Para cada convidado, as informações a seguir são exibidas:<dl><dlentry>
+<dt>Nome</dt>
+<dd>Nome da máquina virtual.</dd>
 </dlentry><dlentry>
 <dt>CPU</dt>
-<dd>Percentage of processor utilization in the virtual machine.</dd>
+<dd>Porcentagem de utilização do processador na máquina virtual.</dd>
 </dlentry><dlentry>
-<dt>Network I/O</dt>
-<dd>Network input/output transmission rate in KB per seconds.</dd>
+<dt>E/S de rede</dt>
+<dd>Taxa de transmissão de entrada/saída de rede em KB por segundo.</dd>
 </dlentry><dlentry>
-<dt>Disk I/O</dt>
-<dd>Disk input/output transmission rate in KB per seconds.</dd>
+<dt>E/S de disco</dt>
+<dd>Taxa de transmissão de entrada/saída de disco em KB por segundo.</dd>
 </dlentry><dlentry>
 <dt>Livetile</dt>
-<dd>State of guest operating system console, or an icon that represents
-the <tm tmtype="tm" trademark="Linux">Linux</tm> distribution if the
-guest is not active.</dd>
+<dd>Estado do console do sistema operacional guest ou um ícone que representa
+a distribuição <tm tmtype="tm" trademark="Linux">Linux</tm> se o
+convidado não estiver ativo.</dd>
 </dlentry></dl></p>
-<p>The following actions icons are displayed for each guest:<dl>
+<p>Os ícones de ações a seguir são exibidos para cada convidado:<dl>
 <dlentry>
-<dt>Reset</dt>
-<dd>Click to reset the guest. </dd>
+<dt>Reiniciar</dt>
+<dd>Clique para Reiniciar o convidado. </dd>
 </dlentry><dlentry>
-<dt>Power (Start or Stop)</dt>
-<dd>Click to power on or power off the guest. If the icon is red,
-the power is off; if the icon is green, the power is on.</dd>
+<dt>Energia (iniciar ou parar)</dt>
+<dd>Clique para ligar ou desligar o convidado. Se o ícone estiver vermelho,
+a energia está desligada; se o ícone estiver verde, a energia está ligada.</dd>
 </dlentry></dl> </p>
-<p>The following actions can be selected for each guest:<ul>
-<li>Select <uicontrol>Connect</uicontrol> to connect to the remote
-console for the guest operating system.</li>
-<li>Select <uicontrol>Manage media</uicontrol> to change the path
-to the installation media.</li>
-<li>Select <uicontrol>Reset</uicontrol> to reset the guest.</li>
-<li>Select <uicontrol>Edit</uicontrol> to edit the properties of an
-existing guest. Guests can be edited only while stopped.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the guest.</li>
-</ul>To create a guest, or virtual machine, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the page.</p>
+<p>As ações a seguir podem ser selecionadas para cada convidado:<ul>
+<li>Selecione <uicontrol>Conectar</uicontrol> para conectar-se ao console
+remoto para o sistema operacional guest.</li>
+<li>Selecione <uicontrol>Gerenciar mídia</uicontrol> para alterar o caminho
+para a mídia de instalação.</li>
+<li>Selecione <uicontrol>Reiniciar</uicontrol> para Reiniciar o convidado.</li>
+<li>Selecione <uicontrol>Editar</uicontrol> para editar as propriedades de um
+convidado existente. Os Máquinas Virtuais podem ser editados somente quando interrompidos.</li>
+<li>Selecione <uicontrol>Excluir</uicontrol> para excluir o convidado.</li>
+</ul>Para criar um convidado, ou máquina virtual, clique no ícone <uicontrol>mais
+(+)</uicontrol> na parte superior direita da página.</p>
 </csbody>
 <cshelp id="kimhvirtmcrt" xml:lang="en-us">
-<title>Create virtual machine</title>
-<shortdesc>Create a virtual machine by using an existing template.</shortdesc>
+<title>Criar máquina virtual</title>
+<shortdesc>Crie uma máquina virtual usando um modelo existente.</shortdesc>
 <csbody>
 <p> <ol>
-<li>Type the name to be used to identify the virtual machine.</li>
-<li rev="rev1">Select a template. <ul>
-<li>If templates exist, select from displayed templates.</li>
-<li>If no templates exist, click <uicontrol>Create a template</uicontrol> to
-create a template.</li>
+<li>Digite o nome a ser usado para identificar a máquina virtual.</li>
+<li rev="rev1">Selecione um modelo. <ul>
+<li>Se existirem modelos, selecione a partir dos modelos exibidos.</li>
+<li>Se não existir nenhum modelo, clique em <uicontrol>Criar um modelo</uicontrol> para
+criar um modelo.</li>
 </ul></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<li>Clique em <uicontrol>Criar</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="en-us">
-<title>Edit guest</title>
-<shortdesc>Edit the properties of an existing virtual machine. Guests
-can be edited only while stopped.</shortdesc>
+<title>Editar convidado</title>
+<shortdesc>Edite as propriedades de uma máquina virtual existente. Os Máquinas Virtuais
+podem ser editados somente quando interrompidos.</shortdesc>
 <csprolog><csmetadata></csmetadata></csprolog>
 <csbody>
-<p>For each guest, the following information is displayed on the <wintitle>General</wintitle> tab:<dl>
+<p>Para cada convidado, as informações a seguir são exibidas na guia <wintitle>Geral</wintitle>:<dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<dt>Nome</dt>
+<dd>Nome da máquina virtual.</dd>
 </dlentry><dlentry>
 <dt>CPUs</dt>
-<dd>Number of processors.</dd>
+<dd>Número de processadores.</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB.</dd>
+<dt>Memória</dt>
+<dd>Quantia de memória em MB.</dd>
 </dlentry><dlentry>
-<dt>Icon</dt>
-<dd>Graphic image representing the Linux distribution to be displayed
-in place of current status (Livetile) when the guest is not active.</dd>
+<dt>Ícone</dt>
+<dd>Imagem gráfica representando a distribuição Linux a ser exibida
+no lugar do status atual (Livetile) quando o convidado não está ativo.</dd>
 </dlentry></dl></p>
-<p>The following information is displayed on the <wintitle>Storage</wintitle> tab.</p>
+<p>As informações a seguir são exibidas na guia <wintitle>Armazenamento</wintitle>.</p>
 <dl><dlentry>
-<dt>Storage</dt>
-<dd>Displays the location of the ISO file used for installation.</dd>
-</dlentry></dl><?Pub Caret -2?>
-<p> Fields that are not disabled can be edited. After you edit a field,
-click <uicontrol>Save</uicontrol>. </p>
+<dt>Armazenamento</dt>
+<dd>Exibe o local do arquivo ISO usado para instalação.</dd>
+</dlentry></dl>
+<p> Os campos que não estão desativados podem ser editados. Depois de editar um campo,
+clique em <uicontrol>Salvar</uicontrol>. </p>
 </csbody>
 </cshelp>
 <cshelp id="kimstoragedevice" xml:lang="en-us">
-<title>Add, replace, or detach a storage device</title>
-<shortdesc rev="rev1">You can add, replace, or detach a storage device
-to your virtual machine. The only supported device is CDROM. To edit
-your storage devices, follow these steps:</shortdesc>
+<title>Incluir, substituir ou remover um dispositivo de armazenamento</title>
+<shortdesc rev="rev1">É possível incluir, substituir ou remover um dispositivo de armazenamento
+para sua máquina virtual. O único dispositivo suportado é CD-ROM. Para editar
+seus dispositivos de armazenamento, siga estas etapas:</shortdesc>
 <csbody>
 <ol>
-<li>On the <wintitle>Edit Guest</wintitle> window, select <wintitle>Storage</wintitle>.</li>
-<li>To replace a storage device, click the first icon with the <uicontrol>orange
-slash (/)</uicontrol>. Enter the ISO file path and click <uicontrol>Replace</uicontrol>.</li>
-<li>To detach a storage device, click the second icon with the <uicontrol>red
-dash (-)</uicontrol>. Confirm the deletion and click <uicontrol>OK</uicontrol>.</li>
-<li>To add a storage device, click the third icon with the green <uicontrol>plus
-sign (+)</uicontrol>. Enter a device name and ISO file path and click <uicontrol>Attach</uicontrol>.</li>
+<li>Na janela <wintitle>Editar convidado</wintitle>, selecione <wintitle>Armazenamento</wintitle>.</li>
+<li>Para substituir um dispositivo de armazenamento, clique no primeiro ícone com a <uicontrol>barra
+laranja (/)</uicontrol>. Insira o caminho do arquivo ISO e clique em <uicontrol>Substituir</uicontrol>.</li>
+<li>Para remover um dispositivo de armazenamento, clique no segundo ícone com o <uicontrol>traço
+vermelho (-)</uicontrol>. Confirme a exclusão e clique em <uicontrol>OK</uicontrol>.</li>
+<li>Para incluir um dispositivo de armazenamento, clique no terceiro ícone com o <uicontrol>sinal de
+mais (+)</uicontrol> verde. Insira um nome de dispositivo e um caminho de arquivo ISO e clique em <uicontrol>Conectar</uicontrol>.</li>
 </ol>
 </csbody>
 </cshelp>
 <cshelp id="kimreplacemedia" xml:lang="en-us">
-<title>Replace a CDROM of VM</title>
-<shortdesc rev="rev1">You can replace the contents of the CDROM for
-a virtual machine after the installation is complete.</shortdesc>
+<title>Substituir um CD-ROM da VM</title>
+<shortdesc rev="rev1">É possível substituir o conteúdo do CD-ROM para
+uma máquina virtual após a instalação ser concluída.</shortdesc>
 <csbody>
 <ol>
-<li>Ensure that the virtual machine is started.</li>
-<li>From the Actions menu, select <uicontrol>Manage Media</uicontrol>.</li>
-<li>To change what is currently loaded in the CDROM, click the <uicontrol>orange
-slash (/)</uicontrol> icon next to the hdc field.</li>
-<li>On the <wintitle>Replace a CDROM of VM</wintitle> page, enter
-the ISO file path. The other two fields are read-only.</li>
-<li>Click <uicontrol>Replace</uicontrol>.</li>
+<li>Assegure-se de que a máquina virtual esteja iniciada.</li>
+<li>No menu Ações, selecione <uicontrol>Gerenciar mídia</uicontrol>.</li>
+<li>Para alterar o que está atualmente carregado no CD-ROM, clique no ícone <uicontrol>barra
+laranja (/)</uicontrol> próximo ao campo hdc.</li>
+<li>Na página <wintitle>Substituir um CD-ROM da VM</wintitle>, insira
+o caminho do arquivo ISO. Os outros dois campos são somente leitura.</li>
+<li>Clique em <uicontrol>Substituir</uicontrol>.</li>
 </ol>
 </csbody>
 </cshelp>
 <?tm 1391540919 3?>
 </cshelp>
-<?Pub *0000005541?>
+
+
+<!-- ENGL1SH_VERS10N 59193_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

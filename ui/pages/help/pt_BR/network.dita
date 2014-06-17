@@ -2,67 +2,71 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhnetw" xml:lang="en-us">
-<title>Network</title>
-<shortdesc>The <wintitle>Network</wintitle> page displays information
-about the network connection.</shortdesc>
+<cshelp id="kimhnetw" xml:lang="pt-br">
+<title>Rede</title>
+<shortdesc>A página <wintitle>Rede</wintitle> exibe informações
+sobre a conexão de rede.</shortdesc>
 <csbody>
 <p><dl><dlentry>
-<dt>Network Name</dt>
-<dd>Name of the network, or <uicontrol>default</uicontrol>.</dd>
+<dt>Nome da rede</dt>
+<dd>Nome da rede ou <uicontrol>padrão</uicontrol>.</dd>
 </dlentry><dlentry>
-<dt>State</dt>
-<dd>State of the network, active (green) or inactive (red). </dd>
+<dt>Estado</dt>
+<dd>Estado da rede, ativo (verde) ou inativo (vermelho). </dd>
 </dlentry><dlentry>
-<dt>Network type</dt>
-<dd>Network type, for example, <uicontrol>NAT</uicontrol> (network
-address translation).</dd>
+<dt>Tipo de rede</dt>
+<dd>Tipo de rede, por exemplo, <uicontrol>NAT</uicontrol> (conversão
+de endereço de rede).</dd>
 </dlentry><dlentry>
 <dt>Interface</dt>
-<dd>Network interface, for example, <uicontrol>virbr0</uicontrol> (default).</dd>
+<dd>Interface de rede, por exemplo, <uicontrol>virbr0</uicontrol> (padrão).</dd>
 </dlentry><dlentry>
-<dt>Address space</dt>
-<dd>IP address.</dd>
+<dt>Espaço de endereço</dt>
+<dd>Endereço IP.</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected:<ul>
-<li rev="rev1">Select <uicontrol>Start</uicontrol> to begin the network
-connection.</li>
-<li>Select <uicontrol>Stop</uicontrol> to end the network connection.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the connection
-information.</li>
-</ul>To create a network, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+<p>As ações a seguir podem ser selecionadas:<ul>
+<li rev="rev1">Selecione <uicontrol>Iniciar</uicontrol> para iniciar a conexão
+de rede.</li>
+<li>Selecione <uicontrol>Parar</uicontrol> para terminar a conexão de rede.</li>
+<li>Selecione <uicontrol>Excluir</uicontrol> para excluir as informações
+de conexão.</li>
+</ul>Para criar uma rede, clique no ícone <uicontrol>mais (+)</uicontrol> na
+parte superior direita da exibição.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="en-us">
-<title>Create a network</title>
-<shortdesc>Create a network.</shortdesc>
+<title>Criar uma rede</title>
+<shortdesc>Crie uma rede.</shortdesc>
 <csbody>
 <p> <ol>
-<li>Type the name of the network.</li>
-<li>Click to select the network type. <dl rev="rev1"><dlentry>
-<dt><uicontrol>Isolated</uicontrol></dt>
-<dd>Isolated mode. Guests cannot send or receive communication to
-or from external systems.</dd>
+<li>Digite o nome da rede.</li>
+<li>Clique para selecionar o tipo de rede. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Isolado</uicontrol></dt>
+<dd>Modo isolado. Os Máquinas Virtuais não podem enviar ou receber comunicação para
+ou de sistemas externos.</dd>
 </dlentry><dlentry>
 <dt><uicontrol>NAT</uicontrol></dt>
-<dd>Network Address Translation mode. Communication from guests to
-external systems uses the host IP address. External systems cannot
-initiate communication to guests.</dd>
+<dd>Modo de Conversão de Endereço de Rede. A comunicação de Máquinas Virtuais com
+sistemas externos usa o endereço IP do host. Os sistemas externos não podem
+iniciar a comunicação com os Máquinas Virtuais.</dd>
 </dlentry><dlentry>
-<dt><uicontrol>Bridged</uicontrol></dt>
-<dd>Bridged mode. Guests can communicate with external systems and
-be contacted by external systems as if they were physical systems
-on the network. For bridged mode, you must specify additional destination
-and VLAN information.</dd>
-</dlentry></dl><?Pub Caret 224?></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<dt><uicontrol>bridged</uicontrol></dt>
+<dd>Modo bridged. Os Máquinas Virtuais podem se comunicar com os sistemas externos e
+ser contatados por sistemas externos como se fossem sistemas físicos
+na rede. Para o modo bridged, devem-se especificar informações adicionais
+de destino e de VLAN.</dd>
+</dlentry></dl></li>
+<li>Clique em <uicontrol>Criar</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000002571?>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

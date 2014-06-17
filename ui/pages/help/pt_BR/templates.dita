@@ -2,122 +2,125 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhtempl" xml:lang="en-us">
-<title>Templates</title>
-<shortdesc>The <wintitle>Templates</wintitle> page shows the defined
-virtual machine templates that can be used to create KVM guests.</shortdesc>
+<cshelp id="kimhtempl" xml:lang="pt-br">
+<title>Modelos</title>
+<shortdesc>A página <wintitle>Modelos</wintitle> mostra os modelos de
+máquina virtual definidos que podem ser usados para criar Máquinas Virtuais do KVM.</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed:<dl>
+<p>Para cada modelo, as informações a seguir são exibidas:<dl>
 <dlentry>
-<dt>OS</dt>
-<dd>Name of the operating system or distribution.</dd>
+<dt>S.O.</dt>
+<dd>Nome do sistema operacional ou distribuição.</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>Version of the operating system or distribution.</dd>
+<dt>Versão</dt>
+<dd>Versão do sistema operacional ou distribuição.</dd>
 </dlentry><dlentry>
 <dt>CPUs</dt>
-<dd>Number of processors that are defined for the template.</dd>
+<dd>Número de processadores que estão definidos para o modelo.</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of random access memory to be allocated, in MB.</dd>
+<dt>Memória</dt>
+<dd>Quantia de memória de acesso aleatório a ser alocada, em MB.</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected for each template:<ul>
-<li>Select <uicontrol>Edit</uicontrol> to edit the template.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the template.</li>
-</ul>To add a template, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+<p>As ações a seguir podem ser selecionadas para cada modelo:<ul>
+<li>Selecione <uicontrol>Editar</uicontrol> para editar o modelo.</li>
+<li>Selecione <uicontrol>Excluir</uicontrol> para excluir o modelo.</li>
+</ul>Para incluir um modelo, clique no ícone <uicontrol>mais (+)</uicontrol> na
+parte superior direita da exibição.</p>
 </csbody>
 <cshelp id="kimhedittempl" xml:lang="en-us">
-<title>Edit template</title>
-<shortdesc>Edit an existing template.</shortdesc>
+<title>Editar modelo</title>
+<shortdesc>Edite um modelo existente.</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed: <dl>
+<p>Para cada modelo, as informações a seguir são exibidas: <dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the template.</dd>
+<dt>Nome</dt>
+<dd>Nome do modelo.</dd>
 </dlentry><dlentry>
-<dt>Vendor</dt>
-<dd>The name of the company that created the operating system or distribution
-that the template is configured to use.</dd>
+<dt>Fornecedor</dt>
+<dd>O nome da empresa que criou o sistema operacional ou a distribuição
+que o modelo está configurado para usar.</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>The version of the operating system or distribution that the template
-is configured to use.</dd>
+<dt>Versão</dt>
+<dd>A versão do sistema operacional ou distribuição que o modelo
+está configurado para usar.</dd>
 </dlentry><dlentry>
-<dt>CPU number</dt>
-<dd>Number of processors that are defined for the template.</dd>
+<dt>Número de CPU</dt>
+<dd>Número de processadores que estão definidos para o modelo.</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB to be allocated to the virtual machine.</dd>
+<dt>Memória</dt>
+<dd>Quantia de memória em MB a ser alocada para a máquina virtual.</dd>
 </dlentry><dlentry>
-<dt>Disk</dt>
-<dd>Disk size in GB.</dd>
+<dt>Disco</dt>
+<dd>O tamanho do disco em GB.</dd>
 </dlentry><dlentry>
-<dt>CDROM</dt>
-<dd>File path to the location of the ISO file used to install the
-KVM guest.</dd>
+<dt>CD-ROM</dt>
+<dd>O  caminho do arquivo para o local do arquivo ISO usado para instalar o
+convidado do KVM.</dd>
 </dlentry><dlentry>
-<dt>Storage pool</dt>
-<dd>Specific storage pool or the default storage pool.</dd>
+<dt>storage pool</dt>
+<dd>storage pool específico ou storage pool padrão.</dd>
 </dlentry><dlentry>
-<dt>Network</dt>
-<dd>Default network interfaces available to the KVM guest. You can
-select multiple networks.</dd>
-</dlentry></dl> Fields that are not disabled can be edited. After
-you edit a field, click <uicontrol>Save</uicontrol>. </p>
+<dt>Rede</dt>
+<dd>As interfaces de rede padrão disponíveis para o convidado do KVM. É possível
+selecionar diversas redes.</dd>
+</dlentry></dl> Os campos que não estão desativados podem ser editados. Depois
+de editar um campo, clique em <uicontrol>Salvar</uicontrol>. </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
-<title>Add template</title>
-<shortdesc>Add a template from source media.
-You can add your own ISO image to 'ISO' storage pool for following discovery.</shortdesc>
+<title>Incluir modelo</title>
+<shortdesc>Inclua um modelo a partir da mídia de origem.</shortdesc>
 <csbody>
-<p>Select the location of the source media from the following options:<dl>
+<p>Selecione o local da mídia de origem a partir das opções a seguir:<dl>
 <dlentry>
-<dt>Local ISO image</dt>
-<dd>Select to scan storage pools for installation ISO images available
-on the system.</dd>
+<dt>Imagem ISO local</dt>
+<dd>Selecione para varrer conjuntos de armazenamentos para imagens ISO de instalação disponíveis
+no sistema.</dd>
 </dlentry><dlentry>
-<dt>Remote ISO image</dt>
-<dd>Select to specify a remote location for an installation ISO image.</dd>
+<dt>Imagem ISO remota</dt>
+<dd>Selecione para especificar um local remoto para uma imagem ISO de instalação.</dd>
 </dlentry></dl></p>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddloct">
-<title>Add template - local ISO image</title>
-<shortdesc>Add a template from a local ISO image.</shortdesc>
+<title>Incluir modelo - imagem ISO local</title>
+<shortdesc>Inclua um modelo a partir de uma imagem ISO local.</shortdesc>
 <csbody>
-<p>The ISO images available on the system are displayed.<dl><dlentry>
-<dt>OS</dt>
-<dd>Name of the operating system or distribution.</dd>
+<p>As imagens ISO disponíveis no sistema são exibidas.<dl><dlentry>
+<dt>S.O.</dt>
+<dd>Nome do sistema operacional ou distribuição.</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>Version of the operating system or distribution.</dd>
+<dt>Versão</dt>
+<dd>Versão do sistema operacional ou distribuição.</dd>
 </dlentry><dlentry>
-<dt>Size</dt>
-<dd>Size of the ISO image.</dd>
+<dt>Tamanho</dt>
+<dd>Tamanho da imagem ISO.</dd>
 </dlentry></dl></p>
-<p>To create a template from an ISO image, choose from the following
-options:<ul>
-<li>Select an ISO image from which to create a template, then click <uicontrol>Create
-Templates from Selected ISO</uicontrol>.</li>
-<li>Select <uicontrol>All</uicontrol> to create a template from each
- listed ISO image, then click <uicontrol>Create Templates from Selected
-ISO</uicontrol>.</li>
-<li>If the ISO image that you want to use does not appear in the scan
-results, you can select from the following options:<ul>
-<li>Select <uicontrol>I want to use a specific ISO file</uicontrol> to
-specify a path to the ISO image.</li>
-<li>Click <uicontrol>Search more ISOs</uicontrol> to search for more
-ISO images.</li>
-</ul></li><?Pub Caret 0?>
+<p>Para criar um modelo a partir de uma imagem ISO, escolha a partir das opções
+a seguir:<ul>
+<li>Selecione uma imagem ISO para criar um modelo a partir dela, em seguida, clique em <uicontrol>Criar
+modelos a partir do ISO selecionado</uicontrol>.</li>
+<li>Selecione <uicontrol>Todos</uicontrol> para criar um modelo a partir de cada
+imagem ISO listada, em seguida, clique em <uicontrol>Criar modelos a partir do
+ISO selecionado</uicontrol>.</li>
+<li>Se a imagem ISO que você deseja usar não aparecer nos resultados de
+varredura, será possível selecionar a partir das opções a seguir:<ul>
+<li>Selecione <uicontrol>Eu desejo usar um arquivo ISO específico</uicontrol> para
+especificar um caminho para a imagem ISO.</li>
+<li>Clique em <uicontrol>Procurar mais ISOs</uicontrol> para procurar mais
+imagens ISO.</li>
+</ul></li>
 </ul></p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000004433?>
+
+
+<!-- ENGL1SH_VERS10N 51078_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

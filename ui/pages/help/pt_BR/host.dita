@@ -2,69 +2,73 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhhost" xml:lang="en-us">
+<cshelp id="kimhhost" xml:lang="pt-br">
 <title>Host</title>
-<shortdesc>The <wintitle>Host</wintitle> page shows information about
-the host system, and allows you to shut down, restart, and connect
-to the host.</shortdesc>
+<shortdesc>A página <wintitle>Host</wintitle> mostra informações sobre
+o sistema host e permite encerrar, reiniciar e conectar
+ao host.</shortdesc>
 <csbody>
-<p>You can perform the following actions on the host:<ul>
-<li>Select <uicontrol>Shut down</uicontrol> to shut down the host
-system.</li>
-<li>Select <uicontrol>Restart</uicontrol> to restart the host system.</li>
-<li>Select <uicontrol>Connect</uicontrol> to open a VNC connection
-to the host system, if it is not already connected.</li>
+<p>É possível executar as ações a segur no host:<ul>
+<li>Selecione <uicontrol>Encerrar</uicontrol> para encerrar o sistema
+host.</li>
+<li>Selecione <uicontrol>Reiniciar</uicontrol> para reiniciar o sistema host.</li>
+<li>Selecione <uicontrol>Conectar</uicontrol> para abrir uma conexão VNC
+para o sistema host, se ele já não estiver conectado.</li>
 </ul></p>
-<p>Click the following sections to display information about the host:<dl>
+<p>Clique nas seções a seguir para exibir informações sobre o host:<dl>
 <dlentry>
-<dt>Basic information</dt>
-<dd>This section displays the host operating system distribution,
-version, and code name, as well as the processor type and amount of
-memory in GB.</dd>
+<dt>Informações básicas</dt>
+<dd>Esta seção exibe a distribuição do sistema operacional do host,
+a versão e o nome do código, bem como o tipo de processador e quantia de
+memória em GB.</dd>
 </dlentry><dlentry>
-<dt>System statistics</dt>
-<dd>This section displays graphs to show statistics for CPU, memory,
-disk I/O, and network I/O for the host. Select <uicontrol>Collecting
-data after leaving this page</uicontrol> to continue collecting data
-when the host tab is out of view.</dd>
+<dt>Estatísticas do sistema</dt>
+<dd>Esta seção exibe gráficos para mostrar estatísticas para CPU, memória,
+E/S de disco e E/S de rede para o host. Selecione <uicontrol>Coletando
+dados depois de sair desta página</uicontrol> para continuar a coletar dados
+quando a guia do host estiver fora de visualização.</dd>
 </dlentry><dlentry>
-<dt>Software Updates</dt>
-<dd>This section displays information for all of the packages that
-have updates available, including package name, version, architecture,
-and repository. You can update all of the packages listed by selecting <uicontrol>Update
-All</uicontrol>. You cannot select individual packages for updates.</dd>
+<dt>Atualizações de software</dt>
+<dd>Esta seção exibe informações de todos os pacotes que
+possuem atualizações disponíveis, incluindo nome do pacote, versão, arquitetura
+e repositório. É possível atualizar todos os pacotes listados selecionando <uicontrol>Atualizar
+todos</uicontrol>. Não é possível selecionar pacotes individuais para atualizações.</dd>
 </dlentry><dlentry>
-<dt>Repositories</dt>
-<dd>This section displays repositories that are associated with the
-host system. You can add, enable, edit, or remove repositories. Adding
-a repository associates it with the host system while enabling a repository
-allows the host to access it. If your system is Red Hat Enterprise
-Linux or Fedora, you can add <filepath>yum</filepath> repositories.
-If your system is Ubuntu or Debian, then add <filepath>deb</filepath> repositories.<p>If
-you are working with yum repositories, you can add a GPG check to
-verify that a package from this repository have not been corrupted.
-Select a repository and then <uicontrol>Edit</uicontrol>. Select <uicontrol>Yes</uicontrol> to
-enable GPG Check and then enter a URL to the GPG key file for the
-repository.</p><?Pub Caret 156?></dd>
+<dt>Repositórios</dt>
+<dd>Esta seção exibe repositórios que estão associados ao
+sistema host. É possível incluir, ativar, editar ou remover repositórios. Incluir
+um repositório o associa com o sistema host enquanto ativar um repositório
+permite que o host o acesse. Se o seu sistema for Red Hat Enterprise
+Linux ou Fedora, será possível incluir repositórios <filepath>yum</filepath>.
+Se o seu sistema for Ubuntu ou Debian, inclua repositórios <filepath>deb</filepath>.<p>Se
+você estiver trabalhando com repositórios yum, será possível incluir uma verificação de GPG para
+verificar se um pacote desse repositório não foi corrompido.
+Selecione um repositório e, em seguida, <uicontrol>Editar</uicontrol>. Selecione <uicontrol>Sim</uicontrol> para
+ativar a Verificação de GPG e, em seguida, insira uma URL no arquivo-chave de GPG para o
+repositório.</p></dd>
 </dlentry><dlentry>
-<dt>Debug reports</dt>
-<dd>This section displays debug reports, including name and file path.
-You can select from options to generate a new report, or rename, remove,
-or download an existing report.<p>The debug report is generated using
-the <cmdname>sosreport</cmdname> command. It is available for Red
-Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora,
-and Ubuntu distributions. The command generates a .tar file that contains
-configuration and diagnostic information, such as the running kernel
-version, loaded modules, and system and service configuration files.
-The command also runs external programs to collect further information
-and stores this output in the resulting archive.</p> </dd>
+<dt>Relatórios de depuração</dt>
+<dd>Esta seção exibe relatórios de depuração, incluindo nome e caminho do arquivo.
+É possível selecionar a partir das opções para gerar um novo relatório ou renomear, remover
+ou fazer o download de um relatório existente.<p>O relatório de depuração é gerado usando
+o comando <cmdname>sosreport</cmdname>. Ele está disponível para distribuições
+Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora
+e Ubuntu. O comando gera um arquivo .tar que contém
+informações de configuração e de diagnóstico, como versão do kernel
+em execução, módulos carregados e arquivos de configuração de sistema e de serviço.
+O comando também executa programas externos para coletar informações adicionais
+e armazena essa saída no archive resultante.</p> </dd>
 </dlentry></dl></p>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
-<?Pub *0000003492?>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
