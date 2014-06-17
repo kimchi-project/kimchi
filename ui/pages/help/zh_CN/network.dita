@@ -2,67 +2,60 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhnetw" xml:lang="en-us">
-<title>Network</title>
-<shortdesc>The <wintitle>Network</wintitle> page displays information
-about the network connection.</shortdesc>
+<cshelp id="kimhnetw" xml:lang="zh-cn">
+<title>网络</title>
+<shortdesc>“<wintitle>网络</wintitle>”页面显示有关网络连接的信息。</shortdesc>
 <csbody>
 <p><dl><dlentry>
-<dt>Network Name</dt>
-<dd>Name of the network, or <uicontrol>default</uicontrol>.</dd>
+<dt>网络名</dt>
+<dd>网络的名称或<uicontrol>缺省值</uicontrol>。</dd>
 </dlentry><dlentry>
-<dt>State</dt>
-<dd>State of the network, active (green) or inactive (red). </dd>
+<dt>状态</dt>
+<dd>网络的状态，活动（绿色）或非活动（红色）。</dd>
 </dlentry><dlentry>
-<dt>Network type</dt>
-<dd>Network type, for example, <uicontrol>NAT</uicontrol> (network
-address translation).</dd>
+<dt>网络类型</dt>
+<dd>网络类型，例如，<uicontrol>NAT</uicontrol>（网络地址转换）。</dd>
 </dlentry><dlentry>
-<dt>Interface</dt>
-<dd>Network interface, for example, <uicontrol>virbr0</uicontrol> (default).</dd>
+<dt>接口</dt>
+<dd>网络接口，例如，<uicontrol>virbr0</uicontrol>（缺省值）。</dd>
 </dlentry><dlentry>
-<dt>Address space</dt>
-<dd>IP address.</dd>
+<dt>地址空间</dt>
+<dd>IP 地址。</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected:<ul>
-<li rev="rev1">Select <uicontrol>Start</uicontrol> to begin the network
-connection.</li>
-<li>Select <uicontrol>Stop</uicontrol> to end the network connection.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the connection
-information.</li>
-</ul>To create a network, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+<p>可以选择以下操作：<ul>
+<li rev="rev1">选择<uicontrol>开始</uicontrol>以开始网络连接。</li>
+<li>选择<uicontrol>停止</uicontrol>以结束网络连接。</li>
+<li>选择<uicontrol>删除</uicontrol>以删除连接信息。</li>
+</ul>要创建网络，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
 </csbody>
-<cshelp id="kimhnetwcrt" xml:lang="en-us">
-<title>Create a network</title>
-<shortdesc>Create a network.</shortdesc>
+<cshelp id="kimhnetwcrt" xml:lang="zh-cn">
+<title>创建网络</title>
+<shortdesc>创建网络。</shortdesc>
 <csbody>
 <p> <ol>
-<li>Type the name of the network.</li>
-<li>Click to select the network type. <dl rev="rev1"><dlentry>
-<dt><uicontrol>Isolated</uicontrol></dt>
-<dd>Isolated mode. Guests cannot send or receive communication to
-or from external systems.</dd>
+<li>输入网络的名称。</li>
+<li>单击此项以选择网络类型。<dl rev="rev1"><dlentry>
+<dt><uicontrol>隔离</uicontrol></dt>
+<dd>隔离方式。访客无法向外部系统发送通信或从其接收通信。</dd>
 </dlentry><dlentry>
 <dt><uicontrol>NAT</uicontrol></dt>
-<dd>Network Address Translation mode. Communication from guests to
-external systems uses the host IP address. External systems cannot
-initiate communication to guests.</dd>
+<dd>网络地址转换方式。从访客到外部系统的通信将使用主机 IP 地址。外部系统无法启动与访客的通信。</dd>
 </dlentry><dlentry>
-<dt><uicontrol>Bridged</uicontrol></dt>
-<dd>Bridged mode. Guests can communicate with external systems and
-be contacted by external systems as if they were physical systems
-on the network. For bridged mode, you must specify additional destination
-and VLAN information.</dd>
-</dlentry></dl><?Pub Caret 224?></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<dt><uicontrol>桥接</uicontrol></dt>
+<dd>桥接方式。访客可与外部系统进行通信并且由作为网络上的物理系统的外部系统联系。对于桥接方式，必须指定附加目标和 VLAN 信息。</dd>
+</dlentry></dl></li>
+<li>单击<uicontrol>创建</uicontrol>。</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000002571?>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

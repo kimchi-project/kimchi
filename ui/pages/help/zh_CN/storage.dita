@@ -2,98 +2,83 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhstor" xml:lang="en-us">
-<title>Storage</title>
-<shortdesc>The <wintitle>Storage</wintitle> page lists the available
-storage pools, including the out of box 'default' and 'ISO' storage pool.
-If you want to use your own ISO, please add it to 'ISO' storage pool path.</shortdesc>
+<cshelp id="kimhstor" xml:lang="zh-cn">
+<title>存储器</title>
+<shortdesc>“<wintitle>存储器</wintitle>页面列示可用存储池，其中包括缺省存储池。</shortdesc>
 <csbody>
-<p>For each storage pool, the following information is displayed:<dl>
+<p>对于每个存储池，会显示以下信息：<dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the storage pool and percentage used.</dd>
+<dt>名称</dt>
+<dd>存储池的名称以及使用百分比。</dd>
 </dlentry><dlentry>
-<dt>State</dt>
-<dd>State of the storage pool, active (green) or inactive (red). </dd>
+<dt>状态</dt>
+<dd>存储池的状态，活动（绿色）或非活动（红色）。</dd>
 </dlentry><dlentry>
-<dt>Location</dt>
-<dd>File path to the location of the storage pool.</dd>
+<dt>位置 </dt>
+<dd>存储池所在位置的文件路径。</dd>
 </dlentry><dlentry>
-<dt>Type</dt>
-<dd>Type of storage pool, for example, <uicontrol>dir</uicontrol>.</dd>
+<dt>类型</dt>
+<dd>存储池的类型，例如，<uicontrol>dir</uicontrol>。</dd>
 </dlentry><dlentry>
-<dt>Capacity</dt>
-<dd>Amount of space in the storage pool.</dd>
+<dt>容量</dt>
+<dd>存储池中的空间量。</dd>
 </dlentry><dlentry>
-<dt>Allocated</dt>
-<dd>Amount of space that is already allocated in the storage pool.</dd>
+<dt>已分配</dt>
+<dd>存储池中已分配的空间量。</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected for each storage pool:<ul>
-<li>Select <uicontrol>Activate</uicontrol> to activate the storage
-pool so that it can be used.</li>
-<li>Select <uicontrol>Deactivate</uicontrol> to deactivate an active
-storage pool.</li>
-<li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
-pool.</li>
+<p>可为每个存储池选择以下操作：<ul>
+<li>选择<uicontrol>激活</uicontrol>以激活存储池以使其可使用。</li>
+<li>选择<uicontrol>取消激活</uicontrol>以取消激活活动存储池。</li>
+<li>选择<uicontrol>取消定义</uicontrol>以除去非活动存储池。</li>
 </ul></p>
-<p>To display storage volume details for a storage pool, click the
-arrow on the right side of the storage pool row.  Details include
-the following:<dl><dlentry>
-<dt>Type</dt>
-<dd>The type of volume, for example, <uicontrol>file</uicontrol>.</dd>
+<p>要显示存储池的存储卷详细信息，请单击存储池行右端的箭头。详细信息包括以下内容：<dl><dlentry>
+<dt>类型</dt>
+<dd>卷的类型，例如，<uicontrol>文件</uicontrol>。</dd>
 </dlentry><dlentry>
-<dt>Format</dt>
-<dd>The format, varying dependent on the type.</dd>
+<dt>格式</dt>
+<dd>格式因类型而有所不同。</dd>
 </dlentry><dlentry>
-<dt>Capacity</dt>
-<dd>Size of the storage volume.</dd>
+<dt>容量</dt>
+<dd>存储卷的大小。</dd>
 </dlentry><dlentry>
-<dt>Allocation</dt>
-<dd>Amount of space that is already allocated in the storage pool.</dd>
-</dlentry></dl>To define a storage pool, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the display.</p>
+<dt>分配</dt>
+<dd>存储池中已分配的空间量。</dd>
+</dlentry></dl>要定义存储池，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
 </csbody>
-<cshelp id="kimhdefstor" xml:lang="en-us">
-<title>Define a storage pool</title>
-<shortdesc> Define a storage pool.</shortdesc>
+<cshelp id="kimhdefstor" xml:lang="zh-cn">
+<title>定义存储池</title>
+<shortdesc> 定义存储池。</shortdesc>
 <csbody>
 <p> <ol>
-<li>In the <uicontrol>Storage pool name</uicontrol> field, type the
-name to be used to identify the storage pool.</li>
-<li>In the <uicontrol>Storage pool type</uicontrol> list, select the
-type: <dl><dlentry>
+<li>在<uicontrol>存储池名称</uicontrol>字段中，输入用于标识存储池的名称。</li>
+<li>在<uicontrol>存储池类型</uicontrol>列表中，选择类型：<dl><dlentry>
 <dt><uicontrol>DIR</uicontrol></dt>
-<dd>Specifies a directory pool. When selecting <uicontrol>DIR</uicontrol>,
-type the <uicontrol>Storage path</uicontrol> (file path to the storage
-pool).</dd>
+<dd>指定目录池。当选择 <uicontrol>DIR</uicontrol> 时，输入<uicontrol>存储路径</uicontrol>（存储池的文件路径）。</dd>
 </dlentry><dlentry>
 <dt><uicontrol>NFS</uicontrol></dt>
-<dd>Specifies a network filesystem pool. When selecting <uicontrol>NFS</uicontrol>,
-type the <uicontrol>NFS server IP</uicontrol> address and <uicontrol>NFS
-path</uicontrol> (path of the exported directory).</dd>
+<dd>指定网络文件系统池。当选择 <uicontrol>NFS</uicontrol> 时，输入 <uicontrol>NFS 服务器 IP 地址</uicontrol>和 <uicontrol>NFS 路径</uicontrol>（已导出目录的路径）。</dd>
 </dlentry><dlentry>
 <dt><uicontrol>iSCSI</uicontrol></dt>
-<dd>Specifies a pool based on a target allocated on an iSCSI server.
-When selecting <uicontrol>iSCSI</uicontrol>, type the <uicontrol>iSCSI
-server</uicontrol> IP address and <uicontrol>Target</uicontrol> on
-the iSCSI server. You can optionally select to add iSCSI authentication.</dd>
+<dd>根据 iSCSI 服务器上分配的目标指定池。当选择 <uicontrol>iSCSI</uicontrol> 时，在 iSCSI 服务器上输入 <uicontrol>iSCSI 服务器 IP 地址</uicontrol>和<uicontrol>目标</uicontrol>。您可以选择性地选择添加 iSCSI 认证。</dd>
 </dlentry><dlentry>
-<dt><uicontrol>Logical</uicontrol></dt>
-<dd>Specifies a logical volume storage pool. Select the location to
-the device in <uicontrol>Device path</uicontrol>.</dd>
+<dt><uicontrol>逻辑</uicontrol></dt>
+<dd>指定逻辑卷存储池。在<uicontrol>设备路径</uicontrol>中选择设备的位置。</dd>
 </dlentry><dlentry>
-<dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
-<dd>Specifies a pool based on an SCSI Fibre Channel. Select which
-SCSI adapter to use.</dd>
-</dlentry></dl><?Pub Caret 0?></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<dt><uicontrol>SCSI 光纤通道</uicontrol></dt>
+<dd>根据 SCSI 光纤通道指定池。选择要使用的 SCSI 适配器。</dd>
+</dlentry></dl></li>
+<li>单击<uicontrol>创建</uicontrol>。</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000003914?>
+
+
+<!-- ENGL1SH_VERS10N 13901_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

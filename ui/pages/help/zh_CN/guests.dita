@@ -2,133 +2,117 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhvirtm" xml:lang="en-us">
-<title>Guests</title>
-<shortdesc>The <wintitle>Guests</wintitle> page lists the defined
-KVM virtual machines.</shortdesc>
+<cshelp id="kimhvirtm" xml:lang="zh-cn">
+<title>访客</title>
+<shortdesc>“<wintitle>访客</wintitle>”页面列示已定义的 KVM 虚拟机。</shortdesc>
 <csbody>
-<p>For each guest, the following information is displayed:<dl><dlentry>
-<dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<p>对于每个访客，会显示以下信息：<dl><dlentry>
+<dt>名称</dt>
+<dd>虚拟机的名称。</dd>
 </dlentry><dlentry>
 <dt>CPU</dt>
-<dd>Percentage of processor utilization in the virtual machine.</dd>
+<dd>虚拟机中处理器使用百分比。</dd>
 </dlentry><dlentry>
-<dt>Network I/O</dt>
-<dd>Network input/output transmission rate in KB per seconds.</dd>
+<dt>网络 I/O</dt>
+<dd>网络输入/输出传输速度（按 KB/秒计）。</dd>
 </dlentry><dlentry>
-<dt>Disk I/O</dt>
-<dd>Disk input/output transmission rate in KB per seconds.</dd>
+<dt>磁盘 I/O</dt>
+<dd>磁盘输入/输出传输速度（按 KB/秒计）。</dd>
 </dlentry><dlentry>
 <dt>Livetile</dt>
-<dd>State of guest operating system console, or an icon that represents
-the <tm tmtype="tm" trademark="Linux">Linux</tm> distribution if the
-guest is not active.</dd>
+<dd>访客处于非活动状态时，访客操作系统控制台的状态，或者表示 <tm tmtype="tm" trademark="Linux">Linux</tm> 分发版的图标。</dd>
 </dlentry></dl></p>
-<p>The following actions icons are displayed for each guest:<dl>
+<p>可为每个访客显示以下操作图标：<dl>
 <dlentry>
-<dt>Reset</dt>
-<dd>Click to reset the guest. </dd>
+<dt>重置</dt>
+<dd>单击此项以重置访客。</dd>
 </dlentry><dlentry>
-<dt>Power (Start or Stop)</dt>
-<dd>Click to power on or power off the guest. If the icon is red,
-the power is off; if the icon is green, the power is on.</dd>
+<dt>电源（启动或停止）</dt>
+<dd>单击此项以开启或关闭访客的电源。如果该图标为红色，那么电源已关闭；如果该图标为绿色，那么电源已开启。</dd>
 </dlentry></dl> </p>
-<p>The following actions can be selected for each guest:<ul>
-<li>Select <uicontrol>Connect</uicontrol> to connect to the remote
-console for the guest operating system.</li>
-<li>Select <uicontrol>Manage media</uicontrol> to change the path
-to the installation media.</li>
-<li>Select <uicontrol>Reset</uicontrol> to reset the guest.</li>
-<li>Select <uicontrol>Edit</uicontrol> to edit the properties of an
-existing guest. Guests can be edited only while stopped.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the guest.</li>
-</ul>To create a guest, or virtual machine, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the page.</p>
+<p>可为每个访客选择以下操作：<ul>
+<li>选择<uicontrol>连接</uicontrol>以连接到访客操作系统的远程控制台。</li>
+<li>选择<uicontrol>管理介质</uicontrol>以更改安装介质的路径。</li>
+<li>选择<uicontrol>重新设置</uicontrol>以重新设置访客。</li>
+<li>选择<uicontrol>编辑</uicontrol>以编辑现有访客的属性。仅当停止时才可编辑访客。</li>
+<li>选择<uicontrol>删除</uicontrol>以删除访客。</li>
+</ul>要创建访客或虚拟机，请单击页面右上方的<uicontrol>加号键 (+) </uicontrol> 图标。</p>
 </csbody>
-<cshelp id="kimhvirtmcrt" xml:lang="en-us">
-<title>Create virtual machine</title>
-<shortdesc>Create a virtual machine by using an existing template.</shortdesc>
+<cshelp id="kimhvirtmcrt" xml:lang="zh-cn">
+<title>创建虚拟机</title>
+<shortdesc>通过使用现有模板创建虚拟机。</shortdesc>
 <csbody>
 <p> <ol>
-<li>Type the name to be used to identify the virtual machine.</li>
-<li rev="rev1">Select a template. <ul>
-<li>If templates exist, select from displayed templates.</li>
-<li>If no templates exist, click <uicontrol>Create a template</uicontrol> to
-create a template.</li>
+<li>输入用于标识虚拟机的名称。</li>
+<li rev="rev1">选择模板。<ul>
+<li>如果模板已存在，请从所显示的的模板中选择。</li>
+<li>如果不存在任何模板，请单击<uicontrol>创建模板</uicontrol>以创建模板。</li>
 </ul></li>
-<li>Click <uicontrol>Create</uicontrol>.</li>
+<li>单击<uicontrol>创建</uicontrol>。</li>
 </ol> </p>
 </csbody>
 </cshelp>
-<cshelp id="kimhvirtmedit" xml:lang="en-us">
-<title>Edit guest</title>
-<shortdesc>Edit the properties of an existing virtual machine. Guests
-can be edited only while stopped.</shortdesc>
+<cshelp id="kimhvirtmedit" xml:lang="zh-cn">
+<title>编辑访客</title>
+<shortdesc>编辑现有虚拟机的属性。仅当停止时才可编辑访客。</shortdesc>
 <csprolog><csmetadata></csmetadata></csprolog>
 <csbody>
-<p>For each guest, the following information is displayed on the <wintitle>General</wintitle> tab:<dl>
+<p>对于每个访客，会在“<wintitle>常规</wintitle>”选项卡中显示以下信息：<dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<dt>名称</dt>
+<dd>虚拟机的名称。</dd>
 </dlentry><dlentry>
-<dt>CPUs</dt>
-<dd>Number of processors.</dd>
+<dt>CPU 数</dt>
+<dd>处理器的数目。</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB.</dd>
+<dt>内存</dt>
+<dd>内存量（以 MB 计）。</dd>
 </dlentry><dlentry>
-<dt>Icon</dt>
-<dd>Graphic image representing the Linux distribution to be displayed
-in place of current status (Livetile) when the guest is not active.</dd>
+<dt>图标</dt>
+<dd>访客处于非活动状态时，表示要显示的 Linux 分发版而不是当前状态 (Livetile) 的图形图像。</dd>
 </dlentry></dl></p>
-<p>The following information is displayed on the <wintitle>Storage</wintitle> tab.</p>
+<p>会在“<wintitle>存储器</wintitle>”选项卡中显示以下信息。</p>
 <dl><dlentry>
-<dt>Storage</dt>
-<dd>Displays the location of the ISO file used for installation.</dd>
-</dlentry></dl><?Pub Caret -2?>
-<p> Fields that are not disabled can be edited. After you edit a field,
-click <uicontrol>Save</uicontrol>. </p>
+<dt>存储器</dt>
+<dd>显示用于安装的 ISO 文件所在的位置。</dd>
+</dlentry></dl>
+<p> 可对未禁用的字段进行编辑。编辑字段之后，请单击<uicontrol>保存</uicontrol>。</p>
 </csbody>
 </cshelp>
-<cshelp id="kimstoragedevice" xml:lang="en-us">
-<title>Add, replace, or detach a storage device</title>
-<shortdesc rev="rev1">You can add, replace, or detach a storage device
-to your virtual machine. The only supported device is CDROM. To edit
-your storage devices, follow these steps:</shortdesc>
+<cshelp id="kimstoragedevice" xml:lang="zh-cn">
+<title>添加、替换或拆离存储设备</title>
+<shortdesc rev="rev1">您可以对虚拟机添加、替换或拆离存储设备。唯一受支持的设备为 CDROM。要编辑存储设备，请遵循以下步骤：</shortdesc>
 <csbody>
 <ol>
-<li>On the <wintitle>Edit Guest</wintitle> window, select <wintitle>Storage</wintitle>.</li>
-<li>To replace a storage device, click the first icon with the <uicontrol>orange
-slash (/)</uicontrol>. Enter the ISO file path and click <uicontrol>Replace</uicontrol>.</li>
-<li>To detach a storage device, click the second icon with the <uicontrol>red
-dash (-)</uicontrol>. Confirm the deletion and click <uicontrol>OK</uicontrol>.</li>
-<li>To add a storage device, click the third icon with the green <uicontrol>plus
-sign (+)</uicontrol>. Enter a device name and ISO file path and click <uicontrol>Attach</uicontrol>.</li>
+<li>在“<wintitle>编辑访客</wintitle>”窗口中，选择“<wintitle>存储器</wintitle>”。</li>
+<li>要替换存储设备，请单击第一个图标，带有<uicontrol>橙色斜杠 (/)</uicontrol>。输入 ISO 文件路径并单击<uicontrol>替换</uicontrol>。</li>
+<li>要拆离存储设备，请单击第二个图标，带有<uicontrol>红色短划线 (-)</uicontrol>。确认删除操作，然后单击<uicontrol>确定</uicontrol>。</li>
+<li>要添加存储设备，请单击第三个图标，带有<uicontrol>绿色加号键 (+)</uicontrol>。输入设备名和 ISO 文件路径并单击<uicontrol>拆离</uicontrol>。</li>
 </ol>
 </csbody>
 </cshelp>
-<cshelp id="kimreplacemedia" xml:lang="en-us">
-<title>Replace a CDROM of VM</title>
-<shortdesc rev="rev1">You can replace the contents of the CDROM for
-a virtual machine after the installation is complete.</shortdesc>
+<cshelp id="kimreplacemedia" xml:lang="zh-cn">
+<title>替换 VM 的 CDROM</title>
+<shortdesc rev="rev1">安装完成之后，您可以替换虚拟机的 CDROM 的内容。</shortdesc>
 <csbody>
 <ol>
-<li>Ensure that the virtual machine is started.</li>
-<li>From the Actions menu, select <uicontrol>Manage Media</uicontrol>.</li>
-<li>To change what is currently loaded in the CDROM, click the <uicontrol>orange
-slash (/)</uicontrol> icon next to the hdc field.</li>
-<li>On the <wintitle>Replace a CDROM of VM</wintitle> page, enter
-the ISO file path. The other two fields are read-only.</li>
-<li>Click <uicontrol>Replace</uicontrol>.</li>
+<li>请确保已启动虚拟机。</li>
+<li>从“操作”菜单中，选择<uicontrol>管理介质</uicontrol>。</li>
+<li>要更改当前装入到 CDROM 中的内容，请单击 hdc 字段旁边的<uicontrol>橙色斜杠 (/)</uicontrol> 图标。</li>
+<li>在“<wintitle>替换 VM 的 CDROM</wintitle>”页面中，输入 ISO 文件路径。另外两个字段为只读。</li>
+<li>单击<uicontrol>替换</uicontrol>。</li>
 </ol>
 </csbody>
 </cshelp>
 <?tm 1391540919 3?>
 </cshelp>
-<?Pub *0000005541?>
+
+
+<!-- ENGL1SH_VERS10N 59193_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 224 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 1 -->

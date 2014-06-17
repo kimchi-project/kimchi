@@ -2,122 +2,110 @@
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
  "..\dtd\cshelp.dtd">
-<?Pub Sty _display FontColor="red"?>
-<?Pub Inc?>
+
+
 <!--This DITA specialized document type is not supported by the Authoring Tools development team.
 For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
-<cshelp id="kimhtempl" xml:lang="en-us">
-<title>Templates</title>
-<shortdesc>The <wintitle>Templates</wintitle> page shows the defined
-virtual machine templates that can be used to create KVM guests.</shortdesc>
+<cshelp id="kimhtempl" xml:lang="zh-cn">
+<title>模板</title>
+<shortdesc>“<wintitle>模板</wintitle>”页面显示可用于创建 KVM 访客的已定义虚拟机模板。</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed:<dl>
+<p>对于每个模板，会显示以下信息：<dl>
 <dlentry>
-<dt>OS</dt>
-<dd>Name of the operating system or distribution.</dd>
+<dt>操作系统</dt>
+<dd>操作系统或分发版的名称。</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>Version of the operating system or distribution.</dd>
+<dt>版本</dt>
+<dd>操作系统或分发版的版本。</dd>
 </dlentry><dlentry>
-<dt>CPUs</dt>
-<dd>Number of processors that are defined for the template.</dd>
+<dt>CPU 数</dt>
+<dd>为模板定义的处理器数。</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of random access memory to be allocated, in MB.</dd>
+<dt>内存</dt>
+<dd>要分配的随机存取存储量（以 MB 计）。</dd>
 </dlentry></dl></p>
-<p>The following actions can be selected for each template:<ul>
-<li>Select <uicontrol>Edit</uicontrol> to edit the template.</li>
-<li>Select <uicontrol>Delete</uicontrol> to delete the template.</li>
-</ul>To add a template, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+<p>可为每个模板选择以下操作：<ul>
+<li>选择<uicontrol>编辑</uicontrol>以编辑模板。</li>
+<li>选择<uicontrol>删除</uicontrol>以删除模板。</li>
+</ul>要添加模板，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
 </csbody>
-<cshelp id="kimhedittempl" xml:lang="en-us">
-<title>Edit template</title>
-<shortdesc>Edit an existing template.</shortdesc>
+<cshelp id="kimhedittempl" xml:lang="zh-cn">
+<title>编辑模板</title>
+<shortdesc>编辑现有模板。</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed: <dl>
+<p>对于每个模板，会显示以下信息：<dl>
 <dlentry>
-<dt>Name</dt>
-<dd>Name of the template.</dd>
+<dt>名称</dt>
+<dd>模板的名称。</dd>
 </dlentry><dlentry>
-<dt>Vendor</dt>
-<dd>The name of the company that created the operating system or distribution
-that the template is configured to use.</dd>
+<dt>供应商</dt>
+<dd>公司名称，该公司创建了模板已配置使用的操作系统或分发版。</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>The version of the operating system or distribution that the template
-is configured to use.</dd>
+<dt>版本</dt>
+<dd>模板已配置使用的操作系统或分发版的版本。</dd>
 </dlentry><dlentry>
-<dt>CPU number</dt>
-<dd>Number of processors that are defined for the template.</dd>
+<dt>CPU 数量</dt>
+<dd>为模板定义的处理器数。</dd>
 </dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB to be allocated to the virtual machine.</dd>
+<dt>内存</dt>
+<dd>要分配给虚拟机的内存量（以 MB 计）。</dd>
 </dlentry><dlentry>
-<dt>Disk</dt>
-<dd>Disk size in GB.</dd>
+<dt>磁盘</dt>
+<dd>磁盘大小（以 GB 计）。</dd>
 </dlentry><dlentry>
 <dt>CDROM</dt>
-<dd>File path to the location of the ISO file used to install the
-KVM guest.</dd>
+<dd>用于安装 KVM 访客的 ISO 文件所在位置的文件路径。</dd>
 </dlentry><dlentry>
-<dt>Storage pool</dt>
-<dd>Specific storage pool or the default storage pool.</dd>
+<dt>存储池</dt>
+<dd>特定存储池或缺省存储池。</dd>
 </dlentry><dlentry>
-<dt>Network</dt>
-<dd>Default network interfaces available to the KVM guest. You can
-select multiple networks.</dd>
-</dlentry></dl> Fields that are not disabled can be edited. After
-you edit a field, click <uicontrol>Save</uicontrol>. </p>
+<dt>网络</dt>
+<dd>可供 KVM 访客使用的缺省网络接口。您可以选择多个网络。</dd>
+</dlentry></dl> 可对未禁用的字段进行编辑。编辑字段之后，请单击<uicontrol>保存</uicontrol>。</p>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
-<title>Add template</title>
-<shortdesc>Add a template from source media.
-You can add your own ISO image to 'ISO' storage pool for following discovery.</shortdesc>
+<title>添加模板</title>
+<shortdesc>从源介质中添加模板。</shortdesc>
 <csbody>
-<p>Select the location of the source media from the following options:<dl>
+<p>从以下选项选择源介质所在的位置：<dl>
 <dlentry>
-<dt>Local ISO image</dt>
-<dd>Select to scan storage pools for installation ISO images available
-on the system.</dd>
+<dt>本地 ISO 映像</dt>
+<dd>选择此项以对系统上可用的安装 ISO 映像的存储池进行扫描。</dd>
 </dlentry><dlentry>
-<dt>Remote ISO image</dt>
-<dd>Select to specify a remote location for an installation ISO image.</dd>
+<dt>远程 ISO 映像</dt>
+<dd>选择此项以指定安装 ISO 映像的远程位置。</dd>
 </dlentry></dl></p>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddloct">
-<title>Add template - local ISO image</title>
-<shortdesc>Add a template from a local ISO image.</shortdesc>
+<title>添加模板 - 本地 ISO 映像</title>
+<shortdesc>从本地 ISO 映像添加模板。</shortdesc>
 <csbody>
-<p>The ISO images available on the system are displayed.<dl><dlentry>
-<dt>OS</dt>
-<dd>Name of the operating system or distribution.</dd>
+<p>会显示系统上可用的 ISO 映像。<dl><dlentry>
+<dt>操作系统</dt>
+<dd>操作系统或分发版的名称。</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>Version of the operating system or distribution.</dd>
+<dt>版本</dt>
+<dd>操作系统或分发版的版本。</dd>
 </dlentry><dlentry>
-<dt>Size</dt>
-<dd>Size of the ISO image.</dd>
+<dt>大小</dt>
+<dd>ISO 映像的大小。</dd>
 </dlentry></dl></p>
-<p>To create a template from an ISO image, choose from the following
-options:<ul>
-<li>Select an ISO image from which to create a template, then click <uicontrol>Create
-Templates from Selected ISO</uicontrol>.</li>
-<li>Select <uicontrol>All</uicontrol> to create a template from each
- listed ISO image, then click <uicontrol>Create Templates from Selected
-ISO</uicontrol>.</li>
-<li>If the ISO image that you want to use does not appear in the scan
-results, you can select from the following options:<ul>
-<li>Select <uicontrol>I want to use a specific ISO file</uicontrol> to
-specify a path to the ISO image.</li>
-<li>Click <uicontrol>Search more ISOs</uicontrol> to search for more
-ISO images.</li>
-</ul></li><?Pub Caret 0?>
+<p>要从 ISO 映像创建模板，请从以下选项中选择：<ul>
+<li>选择要从其创建模板的 ISO 映像，然后单击<uicontrol>从所选 ISO 创建模板</uicontrol>。</li>
+<li>选择<uicontrol>全部</uicontrol>以从每个所列示的 ISO 映像创建模板，然后单击<uicontrol>从所选 ISO 创建模板</uicontrol>。</li>
+<li>如果您要使用的 ISO 映像未出现在扫描结果中，那么可从以下选项中选择：<ul>
+<li>选择<uicontrol>我要使用特定 ISO 文件</uicontrol>以指定 ISO 映像的路径。</li>
+<li>单击<uicontrol>搜索更多 ISO</uicontrol> 以搜索更多 ISO 映像。</li>
+</ul></li>
 </ul></p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000004433?>
+
+
+<!-- ENGL1SH_VERS10N 51078_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
