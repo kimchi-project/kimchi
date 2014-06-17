@@ -303,3 +303,7 @@
     padding: 10px;
     width: 100%;
 }
+
+.ui-state-default a {
+    color: #212121;
+}

@@ -100,78 +100,76 @@ kimchi.stopNetwork = function(network,menu) {
 }
 
 kimchi.addNetworkActions = function(network) {
-    $(".menu-container", "#" + network.name).menu({
-        position : {
-            my : "left top",
-            at : "left bottom",
-            of : "#" + network.name
-        },
-        select : function(evt, ui) {
-            $(".menu-container", "#" + network.name).toggle(false);
-            var menu = $(evt.currentTarget).parent();
-            if ($(evt.currentTarget).attr("nwAct") === "start") {
-                $(".network-state", $("#" + network.name)).switchClass("down", "nw-loading");
-                $("[nwAct='start']", menu).addClass("ui-state-disabled");
-                $("[nwAct='delete']", menu).addClass("ui-state-disabled");
-                $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
-                kimchi.toggleNetwork(network.name, true, function() {
-                    $("[nwAct='start']", menu).addClass("hide-action-item");
-                    $("[nwAct='start']", menu).removeClass("ui-state-disabled");
-                    $("[nwAct='stop']", menu).removeClass("hide-action-item");
-                    if (network.in_use) {
-                        $("[nwAct='stop']", menu).addClass("ui-state-disabled");
-                    }
-                    $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
-                }, function(err) {
-                    $(".network-state", $("#" + network.name)).switchClass("nw-loading","down");
-                    $("[nwAct='start']", menu).removeClass("ui-state-disabled");
-                    if (!network.in_use) {
-                        $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
-                    }
-                    $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
-                    kimchi.message.error(err.responseJSON.reason);
-                });
-            } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
-                if (!network.persistent) {
-                    var settings = {
-                        title : i18n['KCHAPI6001M'],
-                        content : i18n['KCHNET6004M'],
-                        confirm : i18n['KCHAPI6002M'],
-                        cancel : i18n['KCHAPI6003M']
-                    };
-                    kimchi.confirm(settings, function() {
-                        kimchi.stopNetwork(network, menu);
-                        $(evt.currentTarget).parents(".item").remove();
-                    }, null);
+    $(".menu-container", "#" + network.name).menu();
+
+    $('#' + network.name).on('click', '.menu-container li', function(evt) {
+        var menu = $(evt.currentTarget).parent();
+        if ($(evt.currentTarget).attr("nwAct") === "start") {
+            $(".network-state", $("#" + network.name)).switchClass("down", "nw-loading");
+            $("[nwAct='start']", menu).addClass("ui-state-disabled");
+            $("[nwAct='delete']", menu).addClass("ui-state-disabled");
+            $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
+            kimchi.toggleNetwork(network.name, true, function() {
+                $("[nwAct='start']", menu).addClass("hide-action-item");
+                $("[nwAct='start']", menu).removeClass("ui-state-disabled");
+                $("[nwAct='stop']", menu).removeClass("hide-action-item");
+                network.state = "up";
+                if (network.in_use) {
+                    $("[nwAct='stop']", menu).addClass("ui-state-disabled");
                 }
-                else {
-                    kimchi.stopNetwork(network, menu);
+                $(".network-state", $("#" + network.name)).switchClass("nw-loading", "up");
+            }, function(err) {
+                $(".network-state", $("#" + network.name)).switchClass("nw-loading","down");
+                $("[nwAct='start']", menu).removeClass("ui-state-disabled");
+                if (!network.in_use) {
+                    $("[nwAct='delete']", menu).removeClass("ui-state-disabled");
                 }
-            } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
-                kimchi.confirm({
-                    title : i18n['KCHAPI6006M'],
-                    content : i18n['KCHNET6002M'],
+                $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+                kimchi.message.error(err.responseJSON.reason);
+            });
+        } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
+            if (network.in_use) {
+                return false;
+            }
+            if (!network.persistent) {
+                var settings = {
+                    title : i18n['KCHAPI6001M'],
+                    content : i18n['KCHNET6004M'],
                     confirm : i18n['KCHAPI6002M'],
                     cancel : i18n['KCHAPI6003M']
-                }, function() {
-                    kimchi.deleteNetwork(network.name, function() {
-                        $(evt.currentTarget).parents(".item").remove();
-                    });
+                };
+                kimchi.confirm(settings, function() {
+                    kimchi.stopNetwork(network, menu);
+                    $(evt.currentTarget).parents(".item").remove();
                 }, null);
             }
+            else {
+                kimchi.stopNetwork(network, menu);
+                network.state = "down";
+            }
+        } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
+            if (network.state === "up") {
+                return false;
+            }
+            kimchi.confirm({
+                title : i18n['KCHAPI6006M'],
+                content : i18n['KCHNET6002M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
+            }, function() {
+                kimchi.deleteNetwork(network.name, function() {
+                    $(evt.currentTarget).parents(".item").remove();
+                });
+            }, null);
         }
     });
-    $(".column-action", "#" + network.name).children(":first").button({
+
+    $("#networkBody .column-action .popable").button({
         icons : {
             secondary : "action-button-icon"
         }
-    }).click(function() {
-        $(".menu-container", "#" + network.name).toggle();
-        window.scrollBy(0, 150);
     });
-    $(".menu-container", "#" + network.name).mouseleave(function() {
-        $(".menu-container", "#" + network.name).toggle(false);
-    });
+
 };
 
 kimchi.initNetworkCreation = function() {

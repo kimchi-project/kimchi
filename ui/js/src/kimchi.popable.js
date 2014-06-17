@@ -17,21 +17,18 @@
  */
 kimchi.popable = function() {
     $(document).click(function(e) {
-        $('.popable').removeClass('open');
-    });
-    $(document).on("click", ".popable", function(e) {
-        var isOpen = $(this).hasClass('open');
-        $(".popable").removeClass('open');
-        if (!isOpen && $(this).find('ul').html() !== '') {
-            $(this).addClass('open');
-        }
+        $('.popable').each(function(i, n) {
+            n === e.target || $.contains(n, e.target) ||
+                $('.popover', n).toggle(false);
+        });
+     });
+     $(document).on('click', '.popable', function(e) {
+        var popup = $('.popover', this)[0];
+        $(popup).toggle();
 
         // Scroll the popup menu into viewport if invisible.
-        var popMenu = $('.popover', this).get(0);
-        false === kimchi.isElementInViewport(popMenu) &&
-            popMenu.scrollIntoView();
-
-        e.preventDefault();
-        e.stopPropagation();
+        !$(popup).is(':visible') ||
+            kimchi.isElementInViewport(popup) ||
+            popup.scrollIntoView();
     });
 };

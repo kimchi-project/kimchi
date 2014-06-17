@@ -65,9 +65,6 @@
     left: auto;
     right: 22px;
 }
-.open>.popover {
-    display: block;
-}
 
 /* Generated at http://colorzilla.com/gradient-editor/ */
 .actionsheet {
