@@ -26,7 +26,8 @@ import subprocess
 import time
 
 from kimchi import config
-from kimchi.exception import KimchiException, NotFoundError, OperationFailed
+from kimchi.exception import InvalidParameter, KimchiException, NotFoundError
+from kimchi.exception import OperationFailed
 from kimchi.model.tasks import TaskModel
 from kimchi.utils import add_task, kimchi_log
 from kimchi.utils import run_command
@@ -42,6 +43,9 @@ class DebugReportsModel(object):
         # Generate a name with time and millisec precision, if necessary
         if ident is None or ident == "":
             ident = 'report-' + str(int(time.time() * 1000))
+        else:
+            if ident in self.get_list():
+                raise InvalidParameter("KCHDR0008E", {"name": ident})
         taskid = self._gen_debugreport_file(ident)
         return self.task.lookup(taskid)
 
