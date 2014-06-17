@@ -19,7 +19,7 @@
 
 SUBDIRS = ui po
 
-EXTRA_DIST = API.json sample.conf.in $(wildcard *.py)
+EXTRA_DIST = API.json sample.conf.in $(wildcard *.py) config.status
 
 all-local:
 	while read L && test -n "$$L"; do                      \

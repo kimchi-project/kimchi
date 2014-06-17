@@ -177,7 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.png
 %{_datadir}/kimchi/ui/libs/themes/base/images/*.gif
 %{_datadir}/kimchi/ui/libs/themes/base/jquery-ui.min.css
-%{_datadir}/kimchi/ui/pages/*.html.tmpl
+%{_datadir}/kimchi/ui/pages/*.tmpl
 %{_datadir}/kimchi/ui/pages/help/*/*.html
 %{_datadir}/kimchi/ui/pages/help/kimchi.css
 %{_datadir}/kimchi/ui/pages/tabs/*.html.tmpl
