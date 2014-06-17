@@ -17,9 +17,25 @@
  */
 kimchi.report_add_main = function() {
     var reportGridID = 'available-reports-grid';
+    var generateButton = $('#' + reportGridID + '-generate-button');
     var addReportForm = $('#form-report-add');
     var submitButton = $('#button-report-add');
     var nameTextbox = $('input[name="name"]', addReportForm);
+    nameTextbox.select();
+
+    /*
+     * FIXME:
+     *   Currently, all buttons will be disabled when a report is being
+     * generated. Though operations on existing debug reports shouldn't
+     * be affected when a new one is being generated, and it's expected
+     * to enable Rename/Remove/Download Buttons whenever users click an
+     * existing report row in the grid.
+     */
+    var disableToolbarButtons = function(event, toEnable) {
+        $('#' + reportGridID + ' .grid-toolbar button')
+            .prop('disabled', !toEnable);
+    };
+
     var submitForm = function(event) {
         if(submitButton.prop('disabled')) {
             return false;
@@ -31,44 +47,16 @@ kimchi.report_add_main = function() {
             return false;
         }
         var formData = addReportForm.serializeObject();
-        kimchi.window.close();
-        $('#' + reportGridID + '-generate-button').prop('disabled',true);
-        $('#' + reportGridID + '-remove-button').prop('disabled',true);
-        $('#' + reportGridID + '-download-button').prop('disabled',true);
-        $('#' + reportGridID + '-rename-button').prop('disabled',true);
-        $('.grid-body table tr', '#' + reportGridID).click(function() {
-            $('#' + reportGridID + '-remove-button').prop('disabled',true);
-            $('#' + reportGridID + '-download-button').prop('disabled',true);
-            $('#' + reportGridID + '-rename-button').prop('disabled',true);
-        });
-        var textboxValue = $('#report-name-textbox').val();
-        if (textboxValue != "") {
-            $('.grid-body-view table', '#' + reportGridID).prepend(
-                '<tr>' +
-                    '<td>' +
-                        '<div class="cell-text-wrapper">' + textboxValue + '</div>' +
-                    '</td>' +
-                    '<td id ="id-debug-img">' +
-                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
-                    '</td>' +
-                '</tr>'
-            );
-        }
-        else {
-            $('.grid-body-view table', '#' + reportGridID).prepend(
-                '<tr>' +
-                    '<td>' +
-                        '<div class="cell-text-wrapper">' + i18n['KCHDR6012M'] + '</div>' +
-                    '</td>' +
-                    '<td id ="id-debug-img">' +
-                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
-                    '</td>' +
-                '</tr>'
-            );
-        }
+        var taskAccepted = false;
+        disableToolbarButtons();
+        submitButton.prop('disabled', true);
+        $('.grid-body table tr', '#' + reportGridID)
+            .on('click', disableToolbarButtons);
         kimchi.createReport(formData, function(result) {
             $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
-            $('#' + reportGridID + '-generate-button').prop('disabled',false);
+            $('.grid-body table tr', '#' + reportGridID)
+                .off('click', disableToolbarButtons);
+            generateButton.prop('disabled', false);
             kimchi.topic('kimchi/debugReportAdded').publish({
                 result: result
             });
@@ -81,8 +69,32 @@ kimchi.report_add_main = function() {
             else {
                 var errText = result['responseJSON']['reason'];
             }
-            result && kimchi.message.error(errText)
-            $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
+            result && kimchi.message.error(errText);
+            taskAccepted &&
+                $('.grid-body-view table tr:first-child',
+                    '#' + reportGridID).remove();
+            $('.grid-body table tr', '#' + reportGridID)
+                .off('click', disableToolbarButtons);
+            generateButton.prop('disabled', false);
+            submitButton.prop('disabled', false);
+            nameTextbox.select();
+        }, function(result) {
+            if(taskAccepted) {
+                return;
+            }
+            taskAccepted = true;
+            kimchi.window.close();
+            var reportName = nameTextbox.val() || i18n['KCHDR6012M'];
+            $('.grid-body-view table tbody', '#' + reportGridID).prepend(
+                '<tr>' +
+                    '<td>' +
+                        '<div class="cell-text-wrapper">' + reportName + '</div>' +
+                    '</td>' +
+                    '<td id ="id-debug-img">' +
+                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
+                    '</td>' +
+                '</tr>'
+            );
         });
 
         event.preventDefault();
