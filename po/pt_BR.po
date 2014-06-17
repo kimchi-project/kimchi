@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-24 13:01-0300\n"
+"POT-Creation-Date: 2014-06-17 15:42-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -59,16 +59,21 @@ msgstr "Não é possível realizar a leitura da requisição do JSON"
 msgid "This API only supports JSON"
 msgstr "Essa API suporta apenas JSON"
 
+#, python-format
+msgid "Parameters does not match requirement in schema: %(err)s"
+msgstr "Parâmetros não correspondem à especificação do esquema: %(err)s"
+
 msgid "Datastore is not initiated in the model object."
 msgstr "Datastore não é inicializado no objeto modelo."
 
 #, python-format
 msgid "Unable to start task due error: %(err)s"
-msgstr ""
+msgstr "Não foi possível iniciar a tarefa devido a um erro: %(err)s"
 
 #, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr ""
+"Autenticação falhou para o usuário '%(username)s'. [Código de erro: %(code)s]"
 
 msgid "You are not authorized to access Kimchi"
 msgstr "Você não está autorizado para acessar o Kimchi"
@@ -184,6 +189,7 @@ msgstr "Não é possível criar a máquina virtual %(name)s. Detalhes: %(err)s"
 #, python-format
 msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
 msgstr ""
+"Não foi possível atualizar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
@@ -220,6 +226,8 @@ msgstr "Não foi possível iniciar a máquina virtual %(name)s. Detalhes: %(err)
 #, python-format
 msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
 msgstr ""
+"Não foi possível forçar o desligamento da máquina virtual %(name)s. "
+"Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
@@ -228,30 +236,39 @@ msgstr "Não é possível apagar a máquina virtual %(name)s. Detalhes: %(err)s"
 #, python-format
 msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr ""
+"Não foi possível reiniciar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 msgid "User names list must be an array"
-msgstr ""
+msgstr "Lista de nomes de usuário deve ser um array"
 
 msgid "User name must be a string"
-msgstr ""
+msgstr "Nome de usuário deve ser uma string"
 
 msgid "Group names list must be an array"
-msgstr ""
+msgstr "Lista de nomes de grupo deve ser um array"
 
 msgid "Group name must be a string"
-msgstr ""
+msgstr "Nome de grupo deve ser uma string"
 
 #, python-format
 msgid "User(s) '%(users)s' do not exist"
-msgstr ""
+msgstr "Usuário(s) '%(users)s' não existe(m)"
 
 #, python-format
 msgid "Group(s) '%(groups)s' do not exist"
-msgstr ""
+msgstr "Grupo(s) `%(groups)s' não existe(m)"
 
 #, python-format
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr ""
+"Não foi possível desligar a máquina virtual %(name)s. Detalhes: %(err)s"
+
+#, python-format
+msgid ""
+"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+"Não foi possível acessar os metadados da máquina virtual %(name)s. Detalhes: "
+"%(err)s"
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -279,6 +296,10 @@ msgid "Specify type and network to add a new virtual machine interface"
 msgstr ""
 "Especifique tipo e rede para adicionar a uma nova interface da máquina "
 "virtual"
+
+msgid "Specify type and network to update a virtual machine interface"
+msgstr ""
+"Especifique o tipo e a rede para atualizar uma interface da máquina virtual"
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -325,7 +346,7 @@ msgid "Template distribution version must be a string"
 msgstr "Versão do modelo da distribuição deve ser texto"
 
 msgid "The number of CPUs must be an integer greater than 0"
-msgstr ""
+msgstr "O número de CPUs deve ser um inteiro maior do que 0"
 
 msgid "Amount of memory (MB) must be an integer greater than 512"
 msgstr "Quantidade de memória (MB) deve ser um inteiro maior que 512"
@@ -354,11 +375,14 @@ msgstr "O volume de storage: %(volume)s não existe no storage pool %(pool)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
-msgstr ""
+msgstr "Não foi possível criar o modelo devido a um erro: %(err)s"
 
 #, python-format
 msgid "Unable to delete template due error: %(err)s"
-msgstr ""
+msgstr "Não foi possível remover o modelo devido a um erro: %(err)s"
+
+msgid "Disk size must be greater than 1GB."
+msgstr "Tamanho do disco deve ser maior do que 1GB"
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -522,6 +546,8 @@ msgstr ""
 #, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
 msgstr ""
+"Não foi possível atualizar a base de dados com informações de mais ISOs "
+"devido a um erro: %(err)s"
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -602,6 +628,8 @@ msgstr "Volume requer um nome"
 msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
 msgstr ""
+"Não foi possível atualizar a base de dados com informações de volume de "
+"storage devido a um erro: %(err)s"
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -687,13 +715,15 @@ msgstr ""
 
 #, python-format
 msgid "Failed to activate interface %(iface)s: %(err)s."
-msgstr ""
+msgstr "A ativação da interface %(iface)s falhou: %(err)s."
 
 #, python-format
 msgid ""
 "Failed to activate interface %(iface)s. Please check the physical link "
 "status."
 msgstr ""
+"A ativação da interface %(iface)s falhou. Por favor, verifique o status da "
+"conexão física."
 
 #, python-format
 msgid "Debug report %(name)s does not exist"
@@ -777,11 +807,11 @@ msgstr ""
 msgid "Unable to choose a virutal machine name"
 msgstr "Incapaz de escolhre um nome para a máquina virtual"
 
-msgid "Invalid CDROM device name"
-msgstr "Nome do dispositivo de CDROM inválido"
+msgid "Invalid vm storage device name"
+msgstr "Nome do dispositivo de storage da VM inválido"
 
-msgid "Invalid storage type. Types supported: 'cdrom'"
-msgstr "Tipo de storage inválido. Tipos suportados: cdrom"
+msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
+msgstr "Tipo de storage inválido. Tipos suportados: 'cdrom', 'disco'"
 
 #, python-format
 msgid "The path '%(value)s' is not valid local/remote path for the device"
@@ -793,6 +823,14 @@ msgstr ""
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr ""
 "Nome do dispositivo %(dev_name)s já existe na máquina virtual %(vm_name)s"
+
+msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+msgstr ""
+"Tipo de barramento do dispositivo de destino inválido, tipos suportados: "
+"'ide', 'scsi', 'virtio'"
+
+msgid "Just support cdrom path update"
+msgstr "Apenas a atualização do caminho do CDROM é suportada"
 
 #, python-format
 msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
@@ -811,12 +849,15 @@ msgstr "Erro ao atualizar dispositivo de storage: %(error)s"
 msgid "Error while removing storage device: %(error)s"
 msgstr "Erro ao remover dispositivo de storage: %(error)s"
 
-msgid "Do not support guest CDROM hot plug attachment"
-msgstr "Associação de CDROM à máquina virtual via hot plug não é suportada"
+msgid "Do not support ide device hot plug"
+msgstr "Dispositivo IDE hot plug não é suportado"
 
-msgid "Specify type and path to add a new virtual machine disk"
+msgid ""
+"Specify type and path or type and pool/volume to add a new virtual machine "
+"disk"
 msgstr ""
-"Especifique o tipo e caminho para adicionar um novo disco de máquina virtual"
+"Especifique o tipo e o caminho, ou o tipo e o pool/volume, para adicionar "
+"uma nova máquina virtual"
 
 msgid "Specify path to update virtual machine disk"
 msgstr "Especifique o caminho para atualizar o disco da máquina virtual"
@@ -824,6 +865,17 @@ msgstr "Especifique o caminho para atualizar o disco da máquina virtual"
 #, python-format
 msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr ""
+"Limitação do tipo do controlador %(type)s de %(limit)s dispositivos foi "
+"alcançada"
+
+#, python-format
+msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgstr ""
+"Não é possível buscar informações do caminho do disco pelo pool/volume dado: "
+"%(error)s"
+
+msgid "Volume already been used by other vm"
+msgstr "Volume já foi usado por outra VM"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "ID do repositório YUM deve ser uma string com uma palavra."
@@ -983,30 +1035,6 @@ msgstr "Memória"
 msgid "Create"
 msgstr "Criar"
 
-msgid "Replace a CDROM of VM"
-msgstr ""
-
-msgid "Device Name"
-msgstr ""
-
-msgid "The name used to identify the CDROM. Read-only."
-msgstr ""
-
-msgid "Device Type"
-msgstr ""
-
-msgid "The device type. Currently, only \"cdrom\" is supported."
-msgstr ""
-
-msgid "ISO File Path"
-msgstr ""
-
-msgid "The ISO file path in the server."
-msgstr ""
-
-msgid "Replace"
-msgstr "Trocar"
-
 msgid "Edit Guest"
 msgstr "Editar Máquinas Virtuais"
 
@@ -1026,13 +1054,16 @@ msgid "CPUs"
 msgstr "CPUs"
 
 msgid "Memory (MB)"
-msgstr ""
+msgstr "Memória (MB)"
 
 msgid "Icon"
 msgstr "Ícone"
 
-msgid "Attach"
-msgstr "Conectar"
+msgid "Device"
+msgstr "Dispositivo"
+
+msgid "Path"
+msgstr "Caminho"
 
 msgid "Network"
 msgstr "Redes"
@@ -1043,25 +1074,14 @@ msgstr "Tipo"
 msgid "Save"
 msgstr "Salvar"
 
+msgid "Replace"
+msgstr "Trocar"
+
 msgid "Detach"
 msgstr "Remover"
 
-msgid "Manage Media"
-msgstr "Gerenciar mídia"
-
-msgid "Add a Storage Device to VM"
-msgstr ""
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-
-msgid "File Path"
-msgstr ""
-
-msgid "The ISO file path in the server for CDROM."
-msgstr ""
+msgid "Cancel"
+msgstr "Cancelar"
 
 msgid "Start"
 msgstr "Iniciar"
@@ -1070,13 +1090,16 @@ msgid "Reset"
 msgstr "Reiniciar"
 
 msgid "Power Off"
-msgstr ""
+msgstr "Forçar desligamento"
 
 msgid "Actions"
 msgstr "Ações"
 
 msgid "Connect"
 msgstr "Conectar"
+
+msgid "Manage Media"
+msgstr "Gerenciar mídia"
 
 msgid "Edit"
 msgstr "Editar"
@@ -1087,10 +1110,53 @@ msgstr "Desligar"
 msgid "Delete"
 msgstr "Remover"
 
+msgid "Add a Storage Device to VM"
+msgstr "Adicionar um dispositivo de storage à VM"
+
+msgid "Device Name"
+msgstr "Nome do dispositivo"
+
+msgid ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+msgstr ""
+"O nome usado para identificar o dispositivo. Se omitido, um nome será "
+"escolhido automaticamente."
+
+msgid "Device Type"
+msgstr "Tipo do dispositivo"
+
+msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
+msgstr ""
+"O tipo do dispositivo. Atualmente, \"cdrom\" e \"disco\" são suportados."
+
+msgid "Device Bus"
+msgstr "Barramento do dispositivo"
+
+msgid "Storage Pool"
+msgstr "Nome do Storage Pool"
+
+msgid "Storage pool which volume located in"
+msgstr "Storage pool no qual o volume está localizado"
+
+msgid "Storage Volume"
+msgstr "Volume do storage"
+
+msgid "Storage volume to be attached"
+msgstr "Volume do storage a ser adicionado"
+
+msgid "File Path"
+msgstr "Caminho do arquivo"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "O caminho do arquivo ISO no servidor para o CDROM."
+
+msgid "Attach"
+msgstr "Conectar"
+
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
-"O usuário ou senha inseridos estão incorretos. Por favor, tente novamenteO "
-"usuário ou senha que você entrou está incorreto. Por favor, tente novamente."
+"O usuário ou senha inseridos estão incorretos. Por favor, tente novamente."
 
 msgid "This field is required."
 msgstr "Esse campo é obrigatório."
@@ -1141,9 +1207,6 @@ msgstr "Confirmação de remoção"
 
 msgid "OK"
 msgstr "OK"
-
-msgid "Cancel"
-msgstr "Cancelar"
 
 msgid "Confirm"
 msgstr "Confirmar"
@@ -1307,6 +1370,9 @@ msgstr "Baixar"
 msgid "Report name should contain only letters, digits and/or hyphen ('-')."
 msgstr "Nome do relatório deve apenas conter letras, números e/ou hífen ('-')."
 
+msgid "Pending..."
+msgstr "Pendente..."
+
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
 "cannot be undone. Would you like to continue?"
@@ -1315,26 +1381,33 @@ msgstr ""
 "irreversível. Deseja continuar?"
 
 msgid "Power off Confirmation"
-msgstr ""
+msgstr "Confirmação de desligamento forçado"
 
 msgid ""
 "This action may produce undesirable results, for example unflushed disk "
 "cache in the guest. Would you like to continue?"
 msgstr ""
+"Essa ação pode produzir resultados não desejáveis, como por exemplo cache de "
+"disco não atualizado no guest. Deseja continuar?"
 
 msgid "Reset Confirmation"
-msgstr ""
+msgstr "Confirmação de reinicialização"
 
 msgid ""
 "There is a risk of data loss caused by reset without the guest OS shutdown. "
 "Would you like to continue?"
 msgstr ""
+"Existe um risco de perda de dados causado pela reinicialização sem o "
+"desligamento do SO do guest. Deseja continuar?"
 
 msgid "Shut Down Confirmation"
-msgstr ""
+msgstr "Confirmação de desligamento"
 
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
-msgstr ""
+msgstr "O SO do guest pode ignorar essa requisição. Deseja continuar?"
+
+msgid "VM Delete Confirmation"
+msgstr "Confirmação de remoção da VM"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1378,6 +1451,8 @@ msgid ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
+"Essa rede não é persistente. Ao invés de parar, essa ação irá removê-la "
+"permantemente. Deseja continuar?"
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
@@ -1443,22 +1518,25 @@ msgid "Help"
 msgstr "Ajuda"
 
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 msgid "Log out"
 msgstr "Sair"
 
 msgid "Version:"
-msgstr ""
+msgstr "Versão:"
 
-msgid "Log In"
-msgstr "Entrar"
+msgid "Session timeout, please re-login."
+msgstr "Fim do limite do tempo da sessão, por favor se autentique novamente."
 
 msgid "User Name"
 msgstr "Usuário"
 
 msgid "Password"
 msgstr "Senha"
+
+msgid "Log In"
+msgstr "Entrar"
 
 msgid "Generate a New Debug Report"
 msgstr "Gerar um novo relatório de depuração"
@@ -1660,9 +1738,6 @@ msgstr "CD-ROM"
 msgid "Graphics"
 msgstr "Gráficos"
 
-msgid "Storage Pool"
-msgstr "Nome do Storage Pool"
-
 msgid "CPU"
 msgstr "CPU"
 
@@ -1698,9 +1773,6 @@ msgstr "Processador"
 
 msgid "System Statistics"
 msgstr "Estatísticas do sistema"
-
-msgid "Collecting data after leaving this page"
-msgstr "Coletar dados após deixar essa página."
 
 msgid "Update Progress"
 msgstr "Progresso da atualização"
@@ -1763,6 +1835,9 @@ msgstr "Desativar"
 msgid "Activate"
 msgstr "Ativar"
 
+msgid "Extend"
+msgstr "Aumentar"
+
 msgid "Undefine"
 msgstr "Indefinir"
 
@@ -1776,4 +1851,4 @@ msgid "No templates found."
 msgstr "Nenhum modelo encontrado."
 
 msgid "Clone"
-msgstr ""
+msgstr "Clonar"
