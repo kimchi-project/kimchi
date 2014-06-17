@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-24 13:01-0300\n"
+"POT-Creation-Date: 2014-06-17 12:03-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,10 @@ msgid "Unable to parse JSON request"
 msgstr ""
 
 msgid "This API only supports JSON"
+msgstr ""
+
+#, python-format
+msgid "Parameters does not match requirement in schema: %(err)s"
 msgstr ""
 
 msgid "Datastore is not initiated in the model object."
@@ -225,6 +229,11 @@ msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
+msgid ""
+"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr ""
 
@@ -246,6 +255,9 @@ msgid "Invalid network model card specified for virtual machine interface"
 msgstr ""
 
 msgid "Specify type and network to add a new virtual machine interface"
+msgstr ""
+
+msgid "Specify type and network to update a virtual machine interface"
 msgstr ""
 
 #, python-format
@@ -322,6 +334,9 @@ msgstr ""
 
 #, python-format
 msgid "Unable to delete template due error: %(err)s"
+msgstr ""
+
+msgid "Disk size must be greater than 1GB."
 msgstr ""
 
 #, python-format
@@ -699,10 +714,10 @@ msgstr ""
 msgid "Unable to choose a virutal machine name"
 msgstr ""
 
-msgid "Invalid CDROM device name"
+msgid "Invalid vm storage device name"
 msgstr ""
 
-msgid "Invalid storage type. Types supported: 'cdrom'"
+msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr ""
 
 #, python-format
@@ -711,6 +726,12 @@ msgstr ""
 
 #, python-format
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
+msgstr ""
+
+msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+msgstr ""
+
+msgid "Just support cdrom path update"
 msgstr ""
 
 #, python-format
@@ -729,10 +750,12 @@ msgstr ""
 msgid "Error while removing storage device: %(error)s"
 msgstr ""
 
-msgid "Do not support guest CDROM hot plug attachment"
+msgid "Do not support ide device hot plug"
 msgstr ""
 
-msgid "Specify type and path to add a new virtual machine disk"
+msgid ""
+"Specify type and path or type and pool/volume to add a new virtual machine "
+"disk"
 msgstr ""
 
 msgid "Specify path to update virtual machine disk"
@@ -740,6 +763,13 @@ msgstr ""
 
 #, python-format
 msgid "Controller type %(type)s limitation of %(limit)s devices reached"
+msgstr ""
+
+#, python-format
+msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgstr ""
+
+msgid "Volume already been used by other vm"
 msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
@@ -889,30 +919,6 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-msgid "Replace a CDROM of VM"
-msgstr ""
-
-msgid "Device Name"
-msgstr ""
-
-msgid "The name used to identify the CDROM. Read-only."
-msgstr ""
-
-msgid "Device Type"
-msgstr ""
-
-msgid "The device type. Currently, only \"cdrom\" is supported."
-msgstr ""
-
-msgid "ISO File Path"
-msgstr ""
-
-msgid "The ISO file path in the server."
-msgstr ""
-
-msgid "Replace"
-msgstr ""
-
 msgid "Edit Guest"
 msgstr ""
 
@@ -937,7 +943,10 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-msgid "Attach"
+msgid "Device"
+msgstr ""
+
+msgid "Path"
 msgstr ""
 
 msgid "Network"
@@ -949,24 +958,13 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+msgid "Replace"
+msgstr ""
+
 msgid "Detach"
 msgstr ""
 
-msgid "Manage Media"
-msgstr ""
-
-msgid "Add a Storage Device to VM"
-msgstr ""
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-
-msgid "File Path"
-msgstr ""
-
-msgid "The ISO file path in the server for CDROM."
+msgid "Cancel"
 msgstr ""
 
 msgid "Start"
@@ -984,6 +982,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Manage Media"
+msgstr ""
+
 msgid "Edit"
 msgstr ""
 
@@ -991,6 +992,47 @@ msgid "Shut Down"
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr ""
+
+msgid "Device Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+msgstr ""
+
+msgid "Device Type"
+msgstr ""
+
+msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
+msgstr ""
+
+msgid "Device Bus"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr ""
+
+msgid "Storage pool which volume located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr ""
+
+msgid "Storage volume to be attached"
+msgstr ""
+
+msgid "File Path"
+msgstr ""
+
+msgid "The ISO file path in the server for CDROM."
+msgstr ""
+
+msgid "Attach"
 msgstr ""
 
 msgid "The username or password you entered is incorrect. Please try again."
@@ -1041,9 +1083,6 @@ msgid "Delete Confirmation"
 msgstr ""
 
 msgid "OK"
-msgstr ""
-
-msgid "Cancel"
 msgstr ""
 
 msgid "Confirm"
@@ -1202,6 +1241,9 @@ msgstr ""
 msgid "Report name should contain only letters, digits and/or hyphen ('-')."
 msgstr ""
 
+msgid "Pending..."
+msgstr ""
+
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
 "cannot be undone. Would you like to continue?"
@@ -1227,6 +1269,9 @@ msgid "Shut Down Confirmation"
 msgstr ""
 
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
+msgstr ""
+
+msgid "VM Delete Confirmation"
 msgstr ""
 
 msgid ""
@@ -1336,13 +1381,16 @@ msgstr ""
 msgid "Version:"
 msgstr ""
 
-msgid "Log In"
+msgid "Session timeout, please re-login."
 msgstr ""
 
 msgid "User Name"
 msgstr ""
 
 msgid "Password"
+msgstr ""
+
+msgid "Log In"
 msgstr ""
 
 msgid "Generate a New Debug Report"
@@ -1377,7 +1425,7 @@ msgstr ""
 msgid "URL to the repository. Supported protocols are http, ftp, and file."
 msgstr ""
 
-msgid "Repository is a mirror."
+msgid "Repository is a mirror"
 msgstr ""
 
 msgid "Distribution"
@@ -1540,9 +1588,6 @@ msgstr ""
 msgid "Graphics"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr ""
-
 msgid "CPU"
 msgstr ""
 
@@ -1577,9 +1622,6 @@ msgid "Processor"
 msgstr ""
 
 msgid "System Statistics"
-msgstr ""
-
-msgid "Collecting data after leaving this page"
 msgstr ""
 
 msgid "Update Progress"
@@ -1640,6 +1682,9 @@ msgid "Deactivate"
 msgstr ""
 
 msgid "Activate"
+msgstr ""
+
+msgid "Extend"
 msgstr ""
 
 msgid "Undefine"
