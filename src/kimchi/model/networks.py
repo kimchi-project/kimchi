@@ -43,7 +43,7 @@ class NetworksModel(object):
             self._default_network_check()
 
     def _default_network_check(self):
-        def create_defautl_network():
+        def create_default_network():
             try:
                 subnet = self._get_available_address(knetwork.DefaultNetsPool)
                 params = {"name": "default", "connection": "nat",
@@ -59,7 +59,7 @@ class NetworksModel(object):
         try:
             net = conn.networkLookupByName("default")
         except libvirt.libvirtError:
-            net = create_defautl_network()
+            net = create_default_network()
 
         if net.isActive() == 0:
             try:
@@ -72,7 +72,7 @@ class NetworksModel(object):
                     # libvirt do not support update IP element, so delete the
                     # the network and create new one.
                     net.undefine()
-                    create_defautl_network()
+                    create_default_network()
                 else:
                     kimchi_log.error("Fatal: Cannot activate default network "
                                      "because of %s, exit kimchid", e.message)
