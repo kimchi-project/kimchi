@@ -50,17 +50,49 @@ class HostModel(object):
         self.task = TaskModel(**kargs)
         self.host_info = self._get_host_info()
 
-    def _get_host_info(self):
+    def _get_ppc_cpu_info(self):
         res = {}
         with open('/proc/cpuinfo') as f:
             for line in f.xreadlines():
-                if "model name" in line:
-                    res['cpu'] = line.split(':')[1].strip()
-                    break
+                # Parse CPU, CPU's revision and CPU's clock information
+                for key in ['cpu', 'revision', 'clock']:
+                    if key in line:
+                        info = line.split(':')[1].strip()
+                        if key == 'clock':
+                            value = float(info.split('MHz')[0].strip()) / 1000
+                        else:
+                            value = info.split('(')[0].strip()
+                        res[key] = value
+
+                        # Power machines show, for each cpu/core, a block with
+                        # all cpu information. Here we control the scan of the
+                        # necessary information (1st block provides
+                        # everything), skipping the function when find all
+                        # information.
+                        if len(res.keys()) == 3:
+                            return "%(cpu)s (%(revision)s) @ %(clock)s GHz\
+                                    " % res
+
+        return ""
+
+    def _get_host_info(self):
+        res = {}
+        if platform.machine().startswith('ppc'):
+            res['cpu'] = self._get_ppc_cpu_info()
+        else:
+            with open('/proc/cpuinfo') as f:
+                for line in f.xreadlines():
+                    if "model name" in line:
+                        res['cpu'] = line.split(':')[1].strip()
+                        break
 
         res['memory'] = psutil.TOTAL_PHYMEM
+
+        # Include IBM PowerKVM name to supported distro names
+        _sup_distros = platform._supported_dists + ('ibm_powerkvm',)
         # 'fedora' '17' 'Beefy Miracle'
-        distro, version, codename = platform.linux_distribution()
+        distro, version, codename = platform.linux_distribution(
+            supported_dists=_sup_distros)
         res['os_distro'] = distro
         res['os_version'] = version
         res['os_codename'] = unicode(codename, "utf-8")
