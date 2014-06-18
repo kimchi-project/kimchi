@@ -33,12 +33,12 @@
 <div id="network-content" class="network">
     <div class="list">
         <div class="header">
-        <span class="column column-name">$_("Network Name")</span>
-        <span class="column column-state">$_("State")</span>
-        <span class="column column-type">$_("Network Type")</span>
-        <span class="column column-interface">$_("Interface")</span>
-        <span class="column column-space">$_("Address Space")</span>
-        <span class="column">$_("Actions")</span>
+        <span class="column column-name">$_("Network Name")</span><!--
+     --><span class="column column-state">$_("State")</span><!--
+     --><span class="column column-type">$_("Network Type")</span><!--
+     --><span class="column column-interface">$_("Interface")</span><!--
+     --><span class="column column-space">$_("Address Space")</span><!--
+     --><span class="column">$_("Actions")</span>
         </div>
         <div id="networkBody" class="empty-when-logged-off"></div>
     </div>
@@ -99,12 +99,12 @@
 </div>
 <script id="networkItem" type="text/html">
     <div id='{name}' class='item remove-when-logged-off'>
-    <span class='column column-name cell' title="{name}">{name}</span>
-    <span class='column column-state cell'><span class='network-state {state}'></span></span>
-    <span class='column column-type cell'>{type}</span>
-    <span class='column column-interface cell'>{interface}</span>
-    <span class='column column-space cell'>{addrSpace}</span>
-    <span class='column-action'>
+    <span class='column column-name cell' title="{name}">{name}</span><!--
+ --><span class='column column-state cell'><span class='network-state {state}'></span></span><!--
+ --><span class='column column-type cell'>{type}</span><!--
+ --><span class='column column-interface cell'>{interface}</span><!--
+ --><span class='column column-space cell'>{addrSpace}</span><!--
+ --><span class='column-action'>
         <span class="ui-button-secondary dropdown popable action-button">
             $_("Actions")
             <ul class='popover actionsheet right-side menu-container'>
