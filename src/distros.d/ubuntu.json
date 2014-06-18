@@ -12,5 +12,12 @@
         "os_arch": "x86_64",
         "os_version": "13.10",
         "path": "http://ubuntu-releases.cs.umn.edu/13.10/ubuntu-13.10-desktop-amd64.iso"
+    },
+    {
+        "name": "Ubuntu Server 14.04 LE (Trusty Tahr)",
+        "os_distro": "ubuntu",
+        "os_arch": "ppc64",
+        "os_version": "14.04",
+        "path": "http://cdimages.ubuntu.com/releases/14.04/release/ubuntu-14.04-server-ppc64el.iso"
     }
 ]
