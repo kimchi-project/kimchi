@@ -1,0 +1,115 @@
+13:03:07 <alinefm> #startmeeting
+13:03:07 <kimchi-bot> Meeting started Wed Jun 18 13:03:07 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:07 <alinefm> #meetingname scrum
+13:03:07 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:24 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:24 <alinefm> anything else?
+13:04:22 <alinefm> ok - so let's get started
+13:04:30 <alinefm> #topic Status
+13:04:30 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:59 <alinefm> #info alinefm focused on reviewing/testing/merging patches
+13:05:34 <shaohef> #info shaohef send out the sample plugin patch set
+13:05:41 <pvital> #info pvital sent "[PATCH] Host info: Add support to Power (ppc)." and will send a V2 in a couple of hours addressing alinefm comments.
+13:05:41 <pvital> or not :-D
+13:05:41 <pvital> #info pvital sent "[PATCH 0/2] Help translation to Kimchi 1.2.1." with Portuguese and Chinese translations of the help pages.
+13:06:04 <shaohef> #info shaohef send the network name restriction
+13:06:07 <royce> #info royce submitted ootb, merged, nfs loading cursor rebased, submitted patch about probe image for os version for image import to create vm
+13:06:24 <wenwang> #info wenwang Fixed Issue361 drop down button issues in network tab
+13:06:47 <wenwang> #info wenwang Sent a patch of Chinese translation
+13:07:12 <vianac> #info vianac sent patch "Display the username on the header bar"; finished the main implementation of the feature "Filter VMs by users/groups" (I still need to update the mockmodel and the tests); sent pt_BR and en_US translation files; reviewed patches on the mailing list.
+13:07:44 <wenwang> #info wenwang is working on enable buttons in debug report grid under host tab when generating debug report
+13:08:52 <alinefm> great job, team!
+13:09:06 <alinefm> we had a lot of patches merged this week
+13:09:34 <alinefm> I haven't chance to check the ML yet but probably more patches will be merged
+13:10:04 <alinefm> as the GA will be on this Friday - June 20, I want to ask you to help me test kimchi on all supported distros
+13:10:32 <alinefm> only bug fixes will be merged from now on until the 1.2.1 announcement
+13:11:03 <alinefm> #info Hard code freeze starts today. Only bug fixes will be merged from now on until the 1.2.1 announcement
+13:11:26 <alinefm> volunteers for the tests?? =)
+13:12:20 <royce> count me for Ubuntu 13.10
+13:12:52 <shaohef> me for Ubuntu 14.04 and F20？
+13:13:11 <wenwang> I can do the test on rhel65
+13:13:54 <alinefm> thanks!!
+13:14:00 <alinefm> wenwang, please, also test using IE as we don't have it installed to test
+13:14:01 <wenwang> yw
+13:14:21 <wenwang> okay, I have ie on my laptop
+13:14:38 <alinefm> great!
+13:14:57 <alinefm> let's move on to open discussion section
+13:15:03 <alinefm> #topic Open Discussion
+13:15:09 <alinefm> what are the topics for today?
+13:16:38 <royce> Seems most patches are merged so we don't have much:)
+13:17:12 <wenwang> I have one issue that now we enable ui when generating debug report. But when we change tabs or refresh, kimchi stopped generating
+13:17:47 <wenwang> It seems to be of a lot of work due to that issue
+13:18:13 <alinefm> wenwang, do you mean the loading icon disappears when I switch tabs?
+13:18:22 <royce> wenwang, stopped generating  by backend or do you mean "generating" disappear on ui
+13:18:56 <wenwang> yes, and it seems the generating process is interrupted
+13:19:37 <alinefm> the backend continues to operation
+13:19:53 <alinefm> as we don't have support to stop an asyn task
+13:20:20 <alinefm> maybe it is just an UI problem
+13:20:40 <wenwang> okay, I see
+13:20:46 <alinefm> when the page is loaded for the first time, you do GET /debugreports
+13:21:53 <alinefm> it should return all the debug reports
+13:22:16 <alinefm> I don't know how you can distinguish generating reports from completed ones
+13:23:00 <alinefm> but usually a generating report is associated with a task id
+13:23:30 <alinefm> you can save the task id somewhere (when the process begin) and verify it when the page loads
+13:23:30 <wenwang> Okay
+13:23:46 <alinefm> if its state is "running" you add the loading icon
+13:24:00 <alinefm> wenwang, I don't know if it will work
+13:24:09 <alinefm> just an idea that can help you find a solution
+13:24:15 <alinefm> hope it was useful =)
+13:24:34 <wenwang> thx, It worth a try
+13:24:48 <shaohef> yes. Maybe you can add backend workers in the UI to listen the tast.
+13:25:57 <shaohef> or you can add some variable to remember the task in web storage.
+13:26:20 <shaohef> then you comeback to host tab.
+13:26:35 <wenwang> yeah, the second one is alinefm's idea
+13:26:45 <adamkingit> I am thinking the get needs to distinguish, isn't it  possible >1 user could have a debug report generating at the same time
+13:27:12 <shaohef> it seams it can.
+13:27:24 <shaohef> but every one get his own task id.
+13:27:25 <wenwang> shaohef: great
+13:27:44 <wenwang> adamkingit: We disable generate button when generating report
+13:28:16 <wenwang> adamkingit: and we enable other three buttons: rename, remove and download
+13:28:32 <shaohef> but another can open his browser to generate one.  :-D
+13:28:49 <adamkingit> yes, there are always others
+13:29:04 <shaohef> disable just means one user just one user just  generate one.
+13:29:45 <wenwang> shaohef: I see
+13:31:02 <alinefm> adamkingit, wenwang, from backend view, we can add a "taskid" as parameter to get GET /debugreports
+13:31:16 <alinefm> and in UI you check if this task has completed or not
+13:31:24 <alinefm> what do you think?
+13:31:31 <adamkingit> What is more than one is running?
+13:32:08 <alinefm> { name: debugreport1, taskid: 1, ...} { name: debugreport3, taskid: 13, ...}
+13:32:22 <alinefm> adamkingit, each debug report as its own task id
+13:32:32 <wenwang> can the backend run more than 1 report at one time?
+13:32:37 <alinefm> yes
+13:32:44 <royce> alinefm, shall we distinguish different user view, some debugreports should not be seen by others?
+13:33:06 <alinefm> royce, yes - it will be part of authorization feature
+13:33:19 <alinefm> the sysadmin will be able to restrict user access in kimchi
+13:33:29 <shaohef> royce:  do you means role on different resources?
+13:34:01 <royce> shaohef, I mean role on resource debugreports
+13:34:14 <shaohef> yes.
+13:34:27 <shaohef> not only for debugreports, for all resources we will  support
+13:34:53 <alinefm> shaohef, yeap
+13:34:54 <shaohef> vms, storage pools and so on
+13:35:22 <shaohef> I guest it is coming. :-D
+13:35:37 <shaohef> seems vianac will support this work, right ?
+13:35:45 <alinefm> shaohef, yes
+13:35:48 <alinefm> he starts with vms
+13:36:04 <shaohef> that's great.
+13:37:27 <alinefm> wenwang, adamkingit, about the UI problem: do we have a deal?
+13:37:58 <wenwang> I will try to figure that out
+13:38:06 <shaohef> And that's why the ticket we will need.  after vianac work, only the owner can get the ticket of his VMs. :-D
+13:38:06 <alinefm> wenwang, you can also work with royce and shaohef - they can help with the backend part
+13:38:16 <alinefm> and as you are in the same office
+13:38:26 <royce> sure
+13:38:37 <wenwang> Okay, that will be of lots of help
+13:38:56 <alinefm> wenwang, maybe =)
+13:39:03 <shaohef> I have already given some help to  wenwang  :-D
+13:39:13 <alinefm> I think we will need to add some support for it in the backend too - the taskid should work for it
+13:39:30 <wenwang> thx alinefm and shaohef &royce's support : )
+13:39:40 <alinefm> wenwang, yw
+13:39:46 <royce> yw
+13:39:47 <alinefm> any other topic?
+13:41:22 <alinefm> ok
+13:41:35 <alinefm> any problem/doubt/suggestion, just send mails to ML
+13:41:36 <alinefm> =)
+13:41:44 <alinefm> thanks all for joining!
+13:43:32 <alinefm> #endmeeting

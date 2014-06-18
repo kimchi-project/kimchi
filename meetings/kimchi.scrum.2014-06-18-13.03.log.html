@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun 18 13:03:07 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:22</span><span class="nk"> &lt;alinefm&gt;</span> ok - so let's get started
+<a name="l-9"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm focused on reviewing/testing/merging patches</span>
+<a name="l-12"></a><span class="tm">13:05:34</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send out the sample plugin patch set</span>
+<a name="l-13"></a><span class="tm">13:05:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent "[PATCH] Host info: Add support to Power (ppc)." and will send a V2 in a couple of hours addressing alinefm comments.</span>
+<a name="l-14"></a><span class="tm">13:05:41</span><span class="nk"> &lt;pvital&gt;</span> or not :-D
+<a name="l-15"></a><span class="tm">13:05:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent "[PATCH 0/2] Help translation to Kimchi 1.2.1." with Portuguese and Chinese translations of the help pages.</span>
+<a name="l-16"></a><span class="tm">13:06:04</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send the network name restriction</span>
+<a name="l-17"></a><span class="tm">13:06:07</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce submitted ootb, merged, nfs loading cursor rebased, submitted patch about probe image for os version for image import to create vm</span>
+<a name="l-18"></a><span class="tm">13:06:24</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Fixed Issue361 drop down button issues in network tab</span>
+<a name="l-19"></a><span class="tm">13:06:47</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Sent a patch of Chinese translation</span>
+<a name="l-20"></a><span class="tm">13:07:12</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent patch "Display the username on the header bar"; finished the main implementation of the feature "Filter VMs by users/groups" (I still need to update the mockmodel and the tests); sent pt_BR and en_US translation files; reviewed patches on the mailing list.</span>
+<a name="l-21"></a><span class="tm">13:07:44</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang is working on enable buttons in debug report grid under host tab when generating debug report</span>
+<a name="l-22"></a><span class="tm">13:08:52</span><span class="nk"> &lt;alinefm&gt;</span> great job, team!
+<a name="l-23"></a><span class="tm">13:09:06</span><span class="nk"> &lt;alinefm&gt;</span> we had a lot of patches merged this week
+<a name="l-24"></a><span class="tm">13:09:34</span><span class="nk"> &lt;alinefm&gt;</span> I haven't chance to check the ML yet but probably more patches will be merged
+<a name="l-25"></a><span class="tm">13:10:04</span><span class="nk"> &lt;alinefm&gt;</span> as the GA will be on this Friday - June 20, I want to ask you to help me test kimchi on all supported distros
+<a name="l-26"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> only bug fixes will be merged from now on until the 1.2.1 announcement
+<a name="l-27"></a><span class="tm">13:11:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Hard code freeze starts today. Only bug fixes will be merged from now on until the 1.2.1 announcement</span>
+<a name="l-28"></a><span class="tm">13:11:26</span><span class="nk"> &lt;alinefm&gt;</span> volunteers for the tests?? =)
+<a name="l-29"></a><span class="tm">13:12:20</span><span class="nk"> &lt;royce&gt;</span> count me for Ubuntu 13.10
+<a name="l-30"></a><span class="tm">13:12:52</span><span class="nk"> &lt;shaohef&gt;</span> me for Ubuntu 14.04 and F20？
+<a name="l-31"></a><span class="tm">13:13:11</span><span class="nk"> &lt;wenwang&gt;</span> I can do the test on rhel65
+<a name="l-32"></a><span class="tm">13:13:54</span><span class="nk"> &lt;alinefm&gt;</span> thanks!!
+<a name="l-33"></a><span class="tm">13:14:00</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, please, also test using IE as we don't have it installed to test
+<a name="l-34"></a><span class="tm">13:14:01</span><span class="nk"> &lt;wenwang&gt;</span> yw
+<a name="l-35"></a><span class="tm">13:14:21</span><span class="nk"> &lt;wenwang&gt;</span> okay, I have ie on my laptop
+<a name="l-36"></a><span class="tm">13:14:38</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-37"></a><span class="tm">13:14:57</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion section
+<a name="l-38"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-39"></a><span class="tm">13:15:09</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-40"></a><span class="tm">13:16:38</span><span class="nk"> &lt;royce&gt;</span> Seems most patches are merged so we don't have much:)
+<a name="l-41"></a><span class="tm">13:17:12</span><span class="nk"> &lt;wenwang&gt;</span> I have one issue that now we enable ui when generating debug report. But when we change tabs or refresh, kimchi stopped generating
+<a name="l-42"></a><span class="tm">13:17:47</span><span class="nk"> &lt;wenwang&gt;</span> It seems to be of a lot of work due to that issue
+<a name="l-43"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, do you mean the loading icon disappears when I switch tabs?
+<a name="l-44"></a><span class="tm">13:18:22</span><span class="nk"> &lt;royce&gt;</span> wenwang, stopped generating  by backend or do you mean "generating" disappear on ui
+<a name="l-45"></a><span class="tm">13:18:56</span><span class="nk"> &lt;wenwang&gt;</span> yes, and it seems the generating process is interrupted
+<a name="l-46"></a><span class="tm">13:19:37</span><span class="nk"> &lt;alinefm&gt;</span> the backend continues to operation
+<a name="l-47"></a><span class="tm">13:19:53</span><span class="nk"> &lt;alinefm&gt;</span> as we don't have support to stop an asyn task
+<a name="l-48"></a><span class="tm">13:20:20</span><span class="nk"> &lt;alinefm&gt;</span> maybe it is just an UI problem
+<a name="l-49"></a><span class="tm">13:20:40</span><span class="nk"> &lt;wenwang&gt;</span> okay, I see
+<a name="l-50"></a><span class="tm">13:20:46</span><span class="nk"> &lt;alinefm&gt;</span> when the page is loaded for the first time, you do GET /debugreports
+<a name="l-51"></a><span class="tm">13:21:53</span><span class="nk"> &lt;alinefm&gt;</span> it should return all the debug reports
+<a name="l-52"></a><span class="tm">13:22:16</span><span class="nk"> &lt;alinefm&gt;</span> I don't know how you can distinguish generating reports from completed ones
+<a name="l-53"></a><span class="tm">13:23:00</span><span class="nk"> &lt;alinefm&gt;</span> but usually a generating report is associated with a task id
+<a name="l-54"></a><span class="tm">13:23:30</span><span class="nk"> &lt;alinefm&gt;</span> you can save the task id somewhere (when the process begin) and verify it when the page loads
+<a name="l-55"></a><span class="tm">13:23:30</span><span class="nk"> &lt;wenwang&gt;</span> Okay
+<a name="l-56"></a><span class="tm">13:23:46</span><span class="nk"> &lt;alinefm&gt;</span> if its state is "running" you add the loading icon
+<a name="l-57"></a><span class="tm">13:24:00</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I don't know if it will work
+<a name="l-58"></a><span class="tm">13:24:09</span><span class="nk"> &lt;alinefm&gt;</span> just an idea that can help you find a solution
+<a name="l-59"></a><span class="tm">13:24:15</span><span class="nk"> &lt;alinefm&gt;</span> hope it was useful =)
+<a name="l-60"></a><span class="tm">13:24:34</span><span class="nk"> &lt;wenwang&gt;</span> thx, It worth a try
+<a name="l-61"></a><span class="tm">13:24:48</span><span class="nk"> &lt;shaohef&gt;</span> yes. Maybe you can add backend workers in the UI to listen the tast.
+<a name="l-62"></a><span class="tm">13:25:57</span><span class="nk"> &lt;shaohef&gt;</span> or you can add some variable to remember the task in web storage.
+<a name="l-63"></a><span class="tm">13:26:20</span><span class="nk"> &lt;shaohef&gt;</span> then you comeback to host tab.
+<a name="l-64"></a><span class="tm">13:26:35</span><span class="nk"> &lt;wenwang&gt;</span> yeah, the second one is alinefm's idea
+<a name="l-65"></a><span class="tm">13:26:45</span><span class="nk"> &lt;adamkingit&gt;</span> I am thinking the get needs to distinguish, isn't it  possible &gt;1 user could have a debug report generating at the same time
+<a name="l-66"></a><span class="tm">13:27:12</span><span class="nk"> &lt;shaohef&gt;</span> it seams it can.
+<a name="l-67"></a><span class="tm">13:27:24</span><span class="nk"> &lt;shaohef&gt;</span> but every one get his own task id.
+<a name="l-68"></a><span class="tm">13:27:25</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">shaohef:</span> great
+<a name="l-69"></a><span class="tm">13:27:44</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">adamkingit:</span> We disable generate button when generating report
+<a name="l-70"></a><span class="tm">13:28:16</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">adamkingit:</span> and we enable other three buttons: rename, remove and download
+<a name="l-71"></a><span class="tm">13:28:32</span><span class="nk"> &lt;shaohef&gt;</span> but another can open his browser to generate one.  :-D
+<a name="l-72"></a><span class="tm">13:28:49</span><span class="nk"> &lt;adamkingit&gt;</span> yes, there are always others
+<a name="l-73"></a><span class="tm">13:29:04</span><span class="nk"> &lt;shaohef&gt;</span> disable just means one user just one user just  generate one.
+<a name="l-74"></a><span class="tm">13:29:45</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">shaohef:</span> I see
+<a name="l-75"></a><span class="tm">13:31:02</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, wenwang, from backend view, we can add a "taskid" as parameter to get GET /debugreports
+<a name="l-76"></a><span class="tm">13:31:16</span><span class="nk"> &lt;alinefm&gt;</span> and in UI you check if this task has completed or not
+<a name="l-77"></a><span class="tm">13:31:24</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-78"></a><span class="tm">13:31:31</span><span class="nk"> &lt;adamkingit&gt;</span> What is more than one is running?
+<a name="l-79"></a><span class="tm">13:32:08</span><span class="nk"> &lt;alinefm&gt;</span> { name: debugreport1, taskid: 1, ...} { name: debugreport3, taskid: 13, ...}
+<a name="l-80"></a><span class="tm">13:32:22</span><span class="nk"> &lt;alinefm&gt;</span> adamkingit, each debug report as its own task id
+<a name="l-81"></a><span class="tm">13:32:32</span><span class="nk"> &lt;wenwang&gt;</span> can the backend run more than 1 report at one time?
+<a name="l-82"></a><span class="tm">13:32:37</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-83"></a><span class="tm">13:32:44</span><span class="nk"> &lt;royce&gt;</span> alinefm, shall we distinguish different user view, some debugreports should not be seen by others?
+<a name="l-84"></a><span class="tm">13:33:06</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - it will be part of authorization feature
+<a name="l-85"></a><span class="tm">13:33:19</span><span class="nk"> &lt;alinefm&gt;</span> the sysadmin will be able to restrict user access in kimchi
+<a name="l-86"></a><span class="tm">13:33:29</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">royce:</span>  do you means role on different resources?
+<a name="l-87"></a><span class="tm">13:34:01</span><span class="nk"> &lt;royce&gt;</span> shaohef, I mean role on resource debugreports
+<a name="l-88"></a><span class="tm">13:34:14</span><span class="nk"> &lt;shaohef&gt;</span> yes.
+<a name="l-89"></a><span class="tm">13:34:27</span><span class="nk"> &lt;shaohef&gt;</span> not only for debugreports, for all resources we will  support
+<a name="l-90"></a><span class="tm">13:34:53</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yeap
+<a name="l-91"></a><span class="tm">13:34:54</span><span class="nk"> &lt;shaohef&gt;</span> vms, storage pools and so on
+<a name="l-92"></a><span class="tm">13:35:22</span><span class="nk"> &lt;shaohef&gt;</span> I guest it is coming. :-D
+<a name="l-93"></a><span class="tm">13:35:37</span><span class="nk"> &lt;shaohef&gt;</span> seems vianac will support this work, right ?
+<a name="l-94"></a><span class="tm">13:35:45</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, yes
+<a name="l-95"></a><span class="tm">13:35:48</span><span class="nk"> &lt;alinefm&gt;</span> he starts with vms
+<a name="l-96"></a><span class="tm">13:36:04</span><span class="nk"> &lt;shaohef&gt;</span> that's great.
+<a name="l-97"></a><span class="tm">13:37:27</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, adamkingit, about the UI problem: do we have a deal?
+<a name="l-98"></a><span class="tm">13:37:58</span><span class="nk"> &lt;wenwang&gt;</span> I will try to figure that out
+<a name="l-99"></a><span class="tm">13:38:06</span><span class="nk"> &lt;shaohef&gt;</span> And that's why the ticket we will need.  after vianac work, only the owner can get the ticket of his VMs. :-D
+<a name="l-100"></a><span class="tm">13:38:06</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, you can also work with royce and shaohef - they can help with the backend part
+<a name="l-101"></a><span class="tm">13:38:16</span><span class="nk"> &lt;alinefm&gt;</span> and as you are in the same office
+<a name="l-102"></a><span class="tm">13:38:26</span><span class="nk"> &lt;royce&gt;</span> sure
+<a name="l-103"></a><span class="tm">13:38:37</span><span class="nk"> &lt;wenwang&gt;</span> Okay, that will be of lots of help
+<a name="l-104"></a><span class="tm">13:38:56</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, maybe =)
+<a name="l-105"></a><span class="tm">13:39:03</span><span class="nk"> &lt;shaohef&gt;</span> I have already given some help to  wenwang  :-D
+<a name="l-106"></a><span class="tm">13:39:13</span><span class="nk"> &lt;alinefm&gt;</span> I think we will need to add some support for it in the backend too - the taskid should work for it
+<a name="l-107"></a><span class="tm">13:39:30</span><span class="nk"> &lt;wenwang&gt;</span> thx alinefm and shaohef &amp;royce's support : )
+<a name="l-108"></a><span class="tm">13:39:40</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yw
+<a name="l-109"></a><span class="tm">13:39:46</span><span class="nk"> &lt;royce&gt;</span> yw
+<a name="l-110"></a><span class="tm">13:39:47</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-111"></a><span class="tm">13:41:22</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-112"></a><span class="tm">13:41:35</span><span class="nk"> &lt;alinefm&gt;</span> any problem/doubt/suggestion, just send mails to ML
+<a name="l-113"></a><span class="tm">13:41:36</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-114"></a><span class="tm">13:41:44</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for joining!
+<a name="l-115"></a><span class="tm">13:43:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
