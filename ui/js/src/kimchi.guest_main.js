@@ -169,7 +169,7 @@ kimchi.getVmsCurrentConsoleImgs = function() {
 
 kimchi.getOpenMenuVmId = function() {
     var result;
-    var openMenu = $('#guestList .open:first')
+    var openMenu = $('#guestList div[name="actionmenu"] .popover:visible');
     if(openMenu) {
         var li_element=openMenu.closest('li');
         result=li_element.attr('id');
@@ -300,7 +300,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     //Maintain menu open state
     var actionMenu=guestActions.find("div[name=actionmenu]");
     if (openMenu) {
-      actionMenu.addClass("open");
+        $('.popover', actionMenu).toggle();
     }
 
     return result;
