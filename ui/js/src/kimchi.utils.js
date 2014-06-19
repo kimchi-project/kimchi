@@ -176,3 +176,10 @@ kimchi.isServer = function(server) {
         return true;
     }
 };
+
+kimchi.escapeStr = function(str) {
+    if (str)
+        return str.replace(/([ #;?%&,.+*~\\':"!^$[\]()<=>`{|}\/@])/g,'\\$&');
+
+    return str;
+};
