@@ -3,87 +3,186 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/kimchi.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
     <title>Kimchi by kimchi-project</title>
   </head>
 
   <body>
-    <div id="container">
+    <header>
       <div class="inner">
+        <h1>Kimchi</h1>
+        <h2>An HTML5 management interface for KVM</h2>
+        <a href="https://github.com/kimchi-project/kimchi" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-        <header>
-          <h1>Kimchi</h1>
-          <h2>An HTML5 management interface for KVM</h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="http://kimchi-project.github.io/kimchi/downloads" id="download-packages" class="button"><span>Packages</span></a>
-          <a href="https://github.com/kimchi-project/kimchi/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/kimchi-project/kimchi/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/kimchi-project/kimchi" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
           <h1>
 <a name="kimchi-project" class="anchor" href="#kimchi-project"><span class="octicon octicon-link"></span></a>Kimchi Project</h1>
 
 <p>Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
-easy as possible to get started with KVM and create your first guest.
+easy as possible to get started with KVM and create your first guest.</p>
 
-Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
+<p>Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
 libvirt. The management interface is accessed over the web using a browser that
 supports HTML5.</p>
 
 <h1>
+<a name="hypervisor-support" class="anchor" href="#hypervisor-support"><span class="octicon octicon-link"></span></a>Hypervisor Support</h1>
+
+<p>Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
+described on the 'Getting Started' section below.</p>
+
+<p>The Kimchi community makes an effort to test with the latest versions of Fedora,
+RHEL, OpenSuSe, and Ubuntu.</p>
+
+<h1>
 <a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
 
-<h2>From package</h2>
-<p> After downloading Kimchi package and install it. Start kimchid service by running:</p>
-<pre><code>$ sudo service kimchid start
+<h2>
+<a name="install-dependencies" class="anchor" href="#install-dependencies"><span class="octicon octicon-link"></span></a>Install Dependencies</h2>
+
+<p><strong>For fedora and RHEL:</strong></p>
+
+<pre><code> $ sudo yum install gcc make autoconf automake gettext-devel git \
+                    python-cherrypy python-cheetah libvirt-python \
+                    libvirt libxml2-python python-imaging \
+                    PyPAM m2crypto python-jsonschema rpm-build \
+                    qemu-kvm python-psutil python-ethtool sos \
+                    python-ipaddr python-lxml nfs-utils \
+                    iscsi-initiator-utils libxslt pyparted nginx
+
+ # If using RHEL6, install the following additional packages:
+ $ sudo yum install python-unittest2 python-ordereddict
+ # Restart libvirt to allow configuration changes to take effect
+ $ sudo service libvirtd restart
+
+Packages version requirement:
+    python-psutil &gt;= 0.6.0
 </code></pre>
 
-<h2>From source code</h2>
-<p>Get Kimchi code from GitHub and follow the instructions in the README file</p>
+<p><em>Note for RHEL users</em>: Some of the above packages are located in the Red Hat
+EPEL repositories.
+See <a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this FAQ</a> for more information on how to configure your system to access this repository.</p>
+
+<p><strong>For debian:</strong></p>
+
+<pre><code>$ sudo apt-get install gcc make autoconf automake gettext git \
+                       python-cherrypy3 python-cheetah python-libvirt \
+                       libvirt-bin python-libxml2 python-imaging \
+                       python-pam python-m2crypto python-jsonschema \
+                       qemu-kvm libtool python-psutil python-ethtool \
+                       sosreport python-ipaddr python-lxml nfs-common \
+                       open-iscsi lvm2 xsltproc python-parted nginx
+
+Packages version requirement:
+    python-jsonschema &gt;= 1.3.0
+    python-psutil &gt;= 0.6.0
+</code></pre>
+
+<p><strong>For openSUSE:</strong></p>
+
+<pre><code>$ sudo zypper install gcc make autoconf automake gettext-tools git \
+                      python-CherryPy python-Cheetah libvirt-python \
+                      libvirt python-libxml2 python-imaging \
+                      python-pam python-M2Crypto python-jsonschema \
+                      rpm-build kvm python-psutil python-ethtool \
+                      python-ipaddr python-lxml nfs-client open-iscsi \
+                      libxslt-tools python-xml python-parted
+
+Packages version requirement:
+    python-psutil &gt;= 0.6.0
+</code></pre>
+
+<p><em>Note for openSUSE users</em>: Some of the above packages are located in the
+openSUSE Systems Management repository. See
+<a href="http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/">this FAQ</a>
+to get the correct repository based on your openSUSE version. And
+<a href="http://en.opensuse.org/SDB:Add_package_repositories">this FAQ</a> for more
+information on how configure your system to access this repository.</p>
+
+<h2>
+<a name="build-and-install" class="anchor" href="#build-and-install"><span class="octicon octicon-link"></span></a>Build and Install</h2>
+
+<pre><code>$ ./autogen.sh --system
+$ make
+$ sudo make install
+</code></pre>
+
+<h2>
+<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h2>
+
+<pre><code>$ sudo kimchid
+</code></pre>
 
 <h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Connect your browser to https://&lt;machine-ip&gt;:8001.</p>
+<p>Connect your browser to https://localhost:8001.</p>
+
+<p>Kimchi uses PAM to authenticate users so you can log in with the same username
+and password that you would use to log in to the machine itself.  Once logged in
+you will see the Guests tab.</p>
+
+<p>This shows you the list of running guests including a live screenshot of
+the guest session.  You can use the action buttons to shutdown the guests
+or connect to the display in a new window.</p>
+
+<p>To create a new guest, click on the "+" button in the upper right corner.
+In Kimchi, all guest creation is done through templates.</p>
+
+<p>You can view or modify templates by clicking on the Templates link in the
+top navigation bar.</p>
+
+<p>To create a template, you need an ISO on your host or using remote one.
+If you are willing to use your own ISO, please copy it to out of box storage
+pool (default path is: /var/lib/kimchi/isos).</p>
 
 <h2>
 <a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known Issues</h2>
 
-<p>Kimchi is still experimental and should not be used in a production
-environment.</p>
-
-<h2>
+<ol>
+<li>Kimchi is still experimental and should not be used in a production
+environment.</li>
+</ol><h2>
 <a name="participating" class="anchor" href="#participating"><span class="octicon octicon-link"></span></a>Participating</h2>
 
-<p>All patches are sent through our mailing list hosted by oVirt.</p>
-<p>More information can be found at:</p>
+<p>All patches are sent through our mailing list hosted by oVirt.
+More information can be found at:</p>
 
 <p><a href="https://github.com/kimchi-project/kimchi/wiki/Communications">https://github.com/kimchi-project/kimchi/wiki/Communications</a></p>
 
 <p><a href="https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute">https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute</a></p>
-
         </section>
 
-        <footer>
-          Kimchi is maintained by <a href="https://github.com/kimchi-project">kimchi-project</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+        <aside id="sidebar">
+          <a href="https://github.com/kimchi-project/kimchi/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/kimchi-project/kimchi/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
 
+          <p class="repo-owner"><a href="https://github.com/kimchi-project/kimchi"></a> is maintained by <a href="https://github.com/kimchi-project">kimchi-project</a>.</p>
 
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
       </div>
     </div>
+
+  
   </body>
 </html>
