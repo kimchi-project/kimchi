@@ -23,6 +23,8 @@ import time
 import ipaddr
 import libvirt
 
+from xml.sax.saxutils import escape
+
 from kimchi import netinfo
 from kimchi import network as knetwork
 from kimchi import networkxml
@@ -97,6 +99,7 @@ class NetworksModel(object):
         if connection == 'bridge':
             self._set_network_bridge(params)
 
+        params['name'] = escape(params['name'])
         xml = networkxml.to_network_xml(**params)
 
         try:
