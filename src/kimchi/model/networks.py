@@ -100,7 +100,7 @@ class NetworksModel(object):
         xml = networkxml.to_network_xml(**params)
 
         try:
-            network = conn.networkDefineXML(xml)
+            network = conn.networkDefineXML(xml.encode("utf-8"))
             network.setAutostart(True)
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHNET0008E",
@@ -110,7 +110,8 @@ class NetworksModel(object):
 
     def get_list(self):
         conn = self.conn.get()
-        return sorted(conn.listNetworks() + conn.listDefinedNetworks())
+        names = conn.listNetworks() + conn.listDefinedNetworks()
+        return sorted(map(lambda x: x.decode('utf-8'), names))
 
     def _get_available_address(self, addr_pools=[]):
         invalid_addrs = []
@@ -188,7 +189,7 @@ class NetworksModel(object):
         interfaces = []
         for name in net_names:
             conn = self.conn.get()
-            network = conn.networkLookupByName(name)
+            network = conn.networkLookupByName(name.encode("utf-8"))
             xml = network.XMLDesc(0)
             net_dict = NetworkModel.get_network_from_xml(xml)
             forward = net_dict['forward']
@@ -324,6 +325,7 @@ class NetworkModel(object):
 
     @staticmethod
     def get_network(conn, name):
+        name = name.encode("utf-8")
         try:
             return conn.networkLookupByName(name)
         except libvirt.libvirtError:
