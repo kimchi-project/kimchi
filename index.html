@@ -6,6 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/kimchi.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,54 +36,28 @@
           <h1>
 <a name="kimchi-project" class="anchor" href="#kimchi-project"><span class="octicon octicon-link"></span></a>Kimchi Project</h1>
 
-<p>Kimchi is an HTML5 based management tool for KVM.  It is designed to make it
-as easy as possible to get started with KVM and create your first guest.</p>
+<p>Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
+easy as possible to get started with KVM and create your first guest.
+
+Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
+libvirt. The management interface is accessed over the web using a browser that
+supports HTML5.</p>
 
 <h1>
 <a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
 
-<h2>
-<a name="install-dependencies" class="anchor" href="#install-dependencies"><span class="octicon octicon-link"></span></a>Install Dependencies</h2>
-
-<pre><code>$ sudo yum install python-cherrypy python-cheetah \
-                   python-imaging python-polib
+<h2>From package</h2>
+<p> After downloading Kimchi package and install it. Start kimchid service by running:</p>
+<pre><code>$ sudo service kimchid start
 </code></pre>
 
-<h2>
-<a name="build-and-install" class="anchor" href="#build-and-install"><span class="octicon octicon-link"></span></a>Build and Install</h2>
-
-<pre><code>$ sudo python setup.py install
-</code></pre>
-
-<h2>
-<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h2>
-
-<pre><code>$ sudo burnetd --host=0.0.0.0
-</code></pre>
+<h2>From source code</h2>
+<p>Get Kimchi code from GitHub and follow the instructions in the README file</p>
 
 <h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Connect your browser to localhost:8000.  You should see a screen like:</p>
-
-<p><img src="/docs/kimchi-guest.png" alt="Kimchi Guest View"></p>
-
-<p>This shows you the list of running guests including a live screenshot of
-the guest session.  You can use the action buttons to shutdown the guests
-or connect to the display in a new window.</p>
-
-<p>To create a new guest, click on the "+" button in the upper right corner.
-In Kimchi, all guest creation is done through templates.</p>
-
-<p>You can view or modify templates by clicking on the Templates link in the
-top navigation bar.</p>
-
-<p>The template screen looks like:</p>
-
-<p><img src="/docs/kimchi-templates.png" alt="Kimchi Template View"></p>
-
-<p>From this view, you can change the parameters of a template or create a
-new template using the "+" button in the upper right corner.</p>
+<p>Connect your browser to https://&lt;machine-ip&gt;:8001.</p>
 
 <h2>
 <a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known Issues</h2>
@@ -93,12 +68,13 @@ environment.</p>
 <h2>
 <a name="participating" class="anchor" href="#participating"><span class="octicon octicon-link"></span></a>Participating</h2>
 
-<p>All patches are sent through our mailing list hosted at Google Groups.  More
-information can be found at:</p>
+<p>All patches are sent through our mailing list hosted by oVirt.</p>
+<p>More information can be found at:</p>
 
-<p><a href="https://groups.google.com/forum/#!forum/project-kimchi">https://groups.google.com/forum/#!forum/project-kimchi</a></p>
+<p><a href="https://github.com/kimchi-project/kimchi/wiki/Communications">https://github.com/kimchi-project/kimchi/wiki/Communications</a></p>
 
-<p>Patches should be sent using git-send-email.</p>
+<p><a href="https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute">https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute</a></p>
+
         </section>
 
         <footer>
