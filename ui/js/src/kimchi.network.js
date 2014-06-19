@@ -334,7 +334,7 @@ kimchi.cleanNetworkDialog = function() {
 };
 kimchi.setupNetworkFormEvent = function() {
     $("#networkName").on("keyup", function(event) {
-        $("#networkName").toggleClass("invalid-field", !$("#networkName").val().match(/^[a-zA-Z0-9_]+$/));
+        $("#networkName").toggleClass("invalid-field", !$("#networkName").val().match(/^[^\"\/]+$/));
         kimchi.updateNetworkFormButton();
     });
     $("#networkTypeIso").on("click", function(event) {
