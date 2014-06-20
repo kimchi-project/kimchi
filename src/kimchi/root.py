@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import base64
 import cherrypy
 import json
 import os
@@ -122,25 +123,28 @@ class KimchiRoot(Root):
     def login(self, *args, **kwargs):
         username = kwargs.get('username')
         password = kwargs.get('password')
-        # forms base authentication
+        # traditional form base authentication
+        kwa = {}
         if username is not None:
-            next_url = cherrypy.request.cookie.get("lastPage")
+            # UI can parser the redirect url by "next" query parameter
+            next_url = kwargs.get('next')
+            next_url = next_url[0] if(type(next_url) is list) else next_url
             if next_url is None:
-                # UI can parser the redirect url by "next" query parameter
-                next_url = kwargs.get('next', "/")
-                next_url = next_url[0] if(type(next_url) is list) else next_url
+                lastPage = cherrypy.request.cookie.get("lastPage")
+                next_url = lastPage.value if lastPage is not None else "/"
             else:
-                next_url = next_url.value
-            auth.login(username, password)
+                kwa = {"next": next_url.encode("utf-8")}
+                next_url = base64.urlsafe_b64decode(next_url.encode("utf-8"))
+            auth.login(username, password, **kwa)
             raise cherrypy.HTTPRedirect(next_url, 303)
-        else:
-            try:
-                params = parse_request()
-                username = params['username']
-                password = params['password']
-            except KeyError, item:
-                e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
-                raise cherrypy.HTTPError(400, e.message)
+
+        try:
+            params = parse_request()
+            username = params['username']
+            password = params['password']
+        except KeyError, item:
+            e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
+            raise cherrypy.HTTPError(400, e.message)
 
         try:
             user_info = auth.login(username, password)

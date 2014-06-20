@@ -28,7 +28,6 @@ import pty
 import re
 import termios
 import time
-import urllib2
 
 
 from kimchi import template
@@ -43,9 +42,13 @@ REFRESH = 'robot-refresh'
 
 
 def redirect_login():
-    next_url = urllib2.quote(
-        cherrypy.request.path_info.encode('utf-8'), safe="")
-    raise cherrypy.HTTPRedirect("/login.html?next=%s" % next_url, 303)
+    url = "/login.html"
+    if cherrypy.request.path_info.endswith(".html"):
+        next_url = cherrypy.serving.request.request_line.split()[1]
+        next_url = base64.urlsafe_b64encode(next_url)
+        url = "/login.html?next=%s" % next_url
+
+    raise cherrypy.HTTPRedirect(url, 303)
 
 
 def debug(msg):
@@ -194,7 +197,7 @@ def check_auth_httpba():
     return login(username, password)
 
 
-def login(username, password):
+def login(username, password, **kwargs):
     try:
         if not authenticate(username, password):
             debug("User cannot be verified with the supplied password")
@@ -202,7 +205,10 @@ def login(username, password):
     except PAM.error, (resp, code):
         if (cherrypy.request.path_info == "/login" and
            not template.can_accept('application/json')):
-            raise cherrypy.HTTPRedirect("/login.html?error=userPassWrong", 303)
+            next_url = kwargs.get("next")
+            url = "/login.html?error=userPassWrong"
+            url = url if next_url is None else url + "&next=%s" % next_url
+            raise cherrypy.HTTPRedirect(url, 303)
         msg_args = {'username': username, 'code': code}
         raise OperationFailed("KCHAUTH0001E", msg_args)
 

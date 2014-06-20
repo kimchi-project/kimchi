@@ -21,6 +21,7 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
 #silent _ = t.gettext
 #silent _t = t.gettext
+#silent next = "?next=%s" % $getVar('data.next', '') if $getVar('data.next', '') else ""
 #from kimchi.config import get_version
 <!DOCTYPE html>
 <html lang="$lang.lang[0]">
@@ -99,7 +100,7 @@ function init() {
         <div id="messUserPass" class="err-mess" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
         <div id="messSession" class="err-mess" style="display: none;">$_("Session timeout, please re-login.")</div>
     </div>
-    <form id="form-login" action="/login" method="POST" class="login-panel" onsubmit="updateBtnLabel();">
+    <form id="form-login" action="/login$next" method="POST" class="login-panel" onsubmit="updateBtnLabel();">
         <div class="row">
             <input type="text" id="username" name="username" required="required" placeholder="$_("User Name")" autofocus/>
             <div id="username-msg" class="msg-required"></div>
