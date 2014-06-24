@@ -41,7 +41,7 @@ Those packages were built on and for x86_64 machines.
 You can do it by command line like below:</p>
 
 <h3>Fedora, RHEL and openSUSE:</h3>
-<pre><code>sudo rpm -Uvh &lt;kimchi.rpm&gt;
+<pre><code>sudo yum install &lt;kimchi.rpm&gt;
 </code></pre>
 
 
@@ -49,6 +49,13 @@ You can do it by command line like below:</p>
 <pre><code>sudo dpkg -i &lt;kimchi.deb&gt;
 </code></pre>
 
+<h1>Starting kimchid service</h1>
+<p>After installing kimchi package, you just need to start its service to get it up:</p>
+<pre><code>sudo service kimchid start
+</code></pre>
+<p>Note: The above command line may vary depends on your operating system.</p>
+<p>Then access Kimchi in your favorite browser https://&lt;machine-ip&gt;/8001</p>
+<p>Have fun! =) </p>
         </section>
 
         <aside id="sidebar" >
