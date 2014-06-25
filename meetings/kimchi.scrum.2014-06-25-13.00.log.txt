@@ -1,0 +1,115 @@
+13:00:27 <alinefm> #startmeeting
+13:00:28 <kimchi-bot> Meeting started Wed Jun 25 13:00:27 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:28 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:28 <alinefm> #meetingname scrum
+13:00:28 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:43 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:00:43 <alinefm> anything else?
+13:01:07 <royce> good to me
+13:01:30 <alinefm> #topic Status
+13:01:31 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:01:55 <alinefm> #info alinefm attended Enterprise End User Summit and presented Kimchi there
+13:02:30 <alinefm> #info alinefm updated the githubio pages: http://kimchi-project.github.io/kimchi/
+13:02:50 <shaohef> #info shaohef send out the patch to fix the vnc/spice login redirect error bug.
+13:02:58 <royce> #info royce tested kimchi with Ubuntu, documented sevreal bugs, and submitted some patches related to it,
+13:03:14 <wenwang> #info wenwang sent a patch that enable actions when generating a debug report
+13:03:54 <alinefm> royce, which bugs are critical for 1.2.1?
+13:04:13 <wenwang> #info wenwang tested kimchi with rhel6, posted one bug on github
+13:04:29 <vianac> #info vianac finished the core implementation of the feature "filter VMs by users/groups"; started writing the appropriate tests and mockmodel changes; reviewed patches on the mailing list
+13:04:38 <royce> alinefm: https://github.com/kimchi-project/kimchi/issues/382
+13:04:57 <royce> and https://github.com/kimchi-project/kimchi/issues/383
+13:05:10 <royce> introduced by myself...:/
+13:05:27 <wenwang> #info  wenwang sent a patch of kimchi's Chinese translation
+13:05:55 <alinefm> royce, dont worry!
+13:06:06 <alinefm> royce, have you already sent patches to them to ML?
+13:06:30 <royce> 382 has already, 383 will be sent tomorrow
+13:07:30 <alinefm> royce, ok
+13:07:41 <royce> Do you think this one need to be fixed in 1.2.1?https://github.com/kimchi-project/kimchi/issues/381
+13:08:09 <shaohef> alinefm:  also bug you have mentioned. wen input spice/vnc html and login, it will need to redirect to kimchi home page.
+13:08:31 <shaohef> alinefm: do we still need fixed by this release?
+13:08:48 <shaohef> alinefm:  I have send out the patch.  "bug fix: redirect to the protected page after login“
+13:08:50 <alinefm> royce, it is an enhancement - we can postpone it for 1.3
+13:08:58 <royce> OK
+13:10:17 <alinefm> shaohef, I will check the patch, but if it is working I don't see any reasons to postpone
+13:10:24 <alinefm> unless you made big changes =)
+13:11:35 <shaohef> alinefm: OK. I think it is not a  big change.
+13:12:39 <alinefm> I will merge those patches you mentioned and then we are ready for 1.2.1
+13:12:46 <alinefm> the announcement will be on Friday! =)
+13:12:58 <alinefm> thanks everyone for the hard work to get it done!
+13:13:26 <alinefm> and it is time to think about what you want to see in kimchi next release
+13:13:55 <shaohef> I have talk with wenwang and zhengsheng.
+13:14:00 <alinefm> please, add your ideas to our backlog (https://github.com/kimchi-project/kimchi/wiki/Todo-Backlog), send emails, etc...
+13:14:55 <alinefm> shaohef, about new features?
+13:15:18 <shaohef> we need a event message register and dispatch mechanism
+13:15:35 <shaohef> alinefm: but seems this is a big feature
+13:16:32 <alinefm> shaohef, we can start a discussion in the ML and identify small tasks to get it done
+13:16:38 <alinefm> and include some ones for 1.3
+13:16:55 <shaohef> alinefm: sure. will send it in ML.
+13:17:02 <alinefm> shaohef, the same we will do for federation
+13:17:12 <alinefm> which is also a big feature
+13:17:29 <alinefm> big or small features, all those are welcome! =)
+13:17:31 <shaohef> yes. federation is important for migration
+13:17:39 <alinefm> we just need to plan them well
+13:17:48 <shaohef> sure, agree.
+13:18:44 <alinefm> so, anyone has topics for the open discussion section?
+13:18:49 <royce> I'm interested in download ISO/image from remote server next release, also we need to be able to create template from an imported image
+13:19:41 <alinefm> royce, yeap! those 2 are important and good features to have in kimchi
+13:20:10 <alinefm> royce, you can add them to backlog, and if you already have in mind how to do it create a wiki page or send an email
+13:20:14 <alinefm> so we can discuss
+13:20:20 <YuXin> I think to implement the designed security model should take first priority
+13:20:23 <alinefm> shaohef, the same for you
+13:20:40 <royce> ok, thanks alinefm, already added them to backlog
+13:20:42 <alinefm> YuXin, what do you mean by "designed security model"?
+13:20:52 <YuXin> for root and non-root
+13:21:15 <alinefm> YuXin, yeap! vianac has already started something on it
+13:21:24 <YuXin> ok
+13:21:27 <alinefm> wohoo! a lot of good ideas and features
+13:22:04 <YuXin> root users:
+13:22:05 <YuXin> manage the host, vm, network, storage, templates and console settings like user management
+13:22:05 <YuXin> for created vms, assign to non-root users with an admin or user role.
+13:22:05 <YuXin> 
+13:22:05 <YuXin> non-root users: manage VMs that are assigned to them
+13:22:05 <YuXin> either a user role, or an admin role
+13:22:05 <YuXin> admin role: edit & delete their VMs
+13:22:07 <YuXin> user role: stop, start, vnc to their VMs
+13:22:23 <shaohef> hopeful the PCI passthough can be in next release.
+13:23:16 <royce> +1
+13:23:28 <alinefm> YuXin, yes
+13:23:33 <YuXin> ok
+13:23:40 <shaohef> can the root user create a new user?
+13:23:48 <alinefm> shaohef, yes
+13:24:11 <YuXin> shaohe, that is user management
+13:24:36 <YuXin> we can definitely add user management, add/delete users
+13:24:57 <shaohef> Does the new user should not has home directory?
+13:25:26 <YuXin> what is the difference between have or not have
+13:25:32 <alinefm> YuXin, shaohef, ops, sorry! I misunderstood the question
+13:25:42 <alinefm> we will not have user management
+13:25:51 <alinefm> we will use the users/groups existing in the system
+13:26:01 <shaohef> we create the new user still as the host user ? and check it by PAM?
+13:26:05 <alinefm> kimchi is a virtualization management tool and not a host management tool
+13:26:14 <shaohef> alinefm: OK. got it.
+13:26:43 <alinefm> shaohef, YuXin, so kimchi will provide an interface to root user specify which users can access an vm
+13:26:48 <alinefm> users or groups
+13:26:53 <YuXin> sure
+13:27:01 <alinefm> but all those must be already in system
+13:27:25 <YuXin> if leave user management out, then we only handle existing users or groups
+13:27:44 <alinefm> YuXin, correct
+13:28:30 <YuXin> there are more detailsed design needed, I will sent out an RFC
+13:28:53 <alinefm> YuXin, thanks!
+13:29:02 <alinefm> this will require some discussion before implementation
+13:29:19 <YuXin> sure
+13:30:09 <alinefm> alright
+13:30:13 <alinefm> anything else for today?
+13:30:24 <shaohef> none for me.
+13:31:26 <wenwang> none for me
+13:31:40 <alinefm> and please, please! don't forget to send out all those good ideas to ML by the end of this week
+13:31:53 <alinefm> so in the next scrum we can finish the 1.3 plan
+13:31:55 <alinefm> agree?
+13:32:12 <YuXin> ok
+13:32:25 <wenwang> okay
+13:32:34 <shaohef> sure
+13:32:48 <alinefm> thanks everyone for joining!
+13:33:04 <alinefm> have a good evening/day!
+13:33:12 <royce> ok
+13:33:21 <shaohef> thanks. have a nice day.
+13:33:38 <wenwang> thx, good day/evening
