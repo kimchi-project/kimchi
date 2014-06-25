@@ -8,6 +8,7 @@
         <html>
             <head>
                 <title><xsl:value-of select="/cshelp/title" /></title>
+                <meta charset="UTF-8" />
                 <link rel="shortcut icon" href="/images/logo.ico" />
                 <link rel="stylesheet" type="text/css" href="/help/kimchi.css" />
             </head>
