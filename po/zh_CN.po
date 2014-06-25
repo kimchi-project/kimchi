@@ -20,14 +20,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-24 13:01-0300\n"
+"POT-Creation-Date: 2014-06-25 13:38+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-Language: Chinese\n"
@@ -59,16 +59,20 @@ msgstr "无法解析JSON请求"
 msgid "This API only supports JSON"
 msgstr "这个API仅支持JSON"
 
+#, python-format
+msgid "Parameters does not match requirement in schema: %(err)s"
+msgstr "参数不符合要求的格式：%(err)s"
+
 msgid "Datastore is not initiated in the model object."
 msgstr "尚未为model对象初始化数据存储。"
 
 #, python-format
 msgid "Unable to start task due error: %(err)s"
-msgstr ""
+msgstr "由于错误%(err)s任务启动失败"
 
 #, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr ""
+msgstr "用户'%(username)s'身份验证失败.[错误代码：%(code)s]"
 
 msgid "You are not authorized to access Kimchi"
 msgstr "您没有被授权访问Kimchi"
@@ -134,8 +138,8 @@ msgstr "ISO文件%(filename)s的卷描述符格式错误"
 msgid ""
 "The hypervisor doesn't have permission to use this ISO %(filename)s. "
 "Consider moving it under /var/lib/libvirt,  or set the search permission to "
-"file access control lists for '%(user)s' user if possible, or add the "
-"'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
+"file access control lists for '%(user)s' user if possible, or add the '%"
+"(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
 "'path_to_iso'.Details: %(err)s"
 msgstr ""
 "hypervisor没有访问ISO文件%(filename)s的权限。可以将ISO移到/var/lib/libvirt目"
@@ -174,7 +178,7 @@ msgstr "不能创建虚拟机%(name)s。详情：%(err)s"
 
 #, python-format
 msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
-msgstr ""
+msgstr "不能更新虚拟机%(name)s。详情：%(err)s"
 
 #, python-format
 msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
@@ -210,39 +214,44 @@ msgstr "不能启动虚拟机 %(name)s. 详情：%(err)s"
 
 #, python-format
 msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
-msgstr ""
+msgstr "不能关闭虚拟机%(name)s。详情：%(err)s"
 
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
-msgstr "不能删除虚拟机 %(name)s. 详情：%(err)s"
+msgstr "不能删除虚拟机 %(name)s。详情：%(err)s"
 
 #, python-format
 msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
-msgstr ""
+msgstr "未能重置虚拟机%(name)s。详情：%(err)s"
 
 msgid "User names list must be an array"
-msgstr ""
+msgstr "用户名列表必须是一个数组"
 
 msgid "User name must be a string"
-msgstr ""
+msgstr "用户名必须是一个字符串"
 
 msgid "Group names list must be an array"
-msgstr ""
+msgstr "用户组名称列表必须是一个数组"
 
 msgid "Group name must be a string"
-msgstr ""
+msgstr "用户组名称必须是一个字符串"
 
 #, python-format
 msgid "User(s) '%(users)s' do not exist"
-msgstr ""
+msgstr "用户'%(users)s'不存在"
 
 #, python-format
 msgid "Group(s) '%(groups)s' do not exist"
-msgstr ""
+msgstr "用户组'%(groups)s'不存在"
 
 #, python-format
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
-msgstr ""
+msgstr "未能关闭虚拟机%(name)s。详情：%(err)s"
+
+#, python-format
+msgid ""
+"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+msgstr "未能启动虚拟机 %(name)s. 详情：%(err)s"
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -267,6 +276,9 @@ msgstr "虚拟机接口指定的网络模型卡无效"
 
 msgid "Specify type and network to add a new virtual machine interface"
 msgstr "为新的虚拟机接口指定类型和网络"
+
+msgid "Specify type and network to update a virtual machine interface"
+msgstr "为更新虚拟机接口指定类型和网络"
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -311,7 +323,7 @@ msgid "Template distribution version must be a string"
 msgstr "模板的发行版版本号必须是一个字符串"
 
 msgid "The number of CPUs must be an integer greater than 0"
-msgstr ""
+msgstr "CPU数量必须为一个大于0的整数"
 
 msgid "Amount of memory (MB) must be an integer greater than 512"
 msgstr "总内存数（MB为单位）必须是一个大于512的整数"
@@ -338,11 +350,14 @@ msgstr "存储池%(pool)s中没有存储卷%(volume)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
-msgstr ""
+msgstr "创建模板失败。详情：%(err)s"
 
 #, python-format
 msgid "Unable to delete template due error: %(err)s"
-msgstr ""
+msgstr "由于错误：%(err)s，未能删除模板"
+
+msgid "Disk size must be greater than 1GB."
+msgstr "磁盘大小必须大于1GB。"
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -370,8 +385,8 @@ msgstr "不能创建存储池 %(name)s。详情： %(err)s"
 
 #, python-format
 msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
+"Unable to get number of storage volumes in storage pool %(name)s. Details: %"
+"(err)s"
 msgstr "不能获取储存池%(name)s中卷的数目。详情： %(err)s"
 
 #, python-format
@@ -438,8 +453,8 @@ msgstr "为新存储池指定名字和类型"
 
 #, python-format
 msgid ""
-"%(disk)s is not a valid disk/partition. Could not add it to the pool "
-"%(pool)s."
+"%(disk)s is not a valid disk/partition. Could not add it to the pool %(pool)"
+"s."
 msgstr "%(disk)s 不是有效的磁盘/分区。不能被添加到存储池%(pool)s中"
 
 #, python-format
@@ -484,7 +499,7 @@ msgstr "卷组'%(name)s'已经存在，请选择其它的名字来创建逻辑�
 
 #, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
-msgstr ""
+msgstr "全盘扫描信息更新失败。详情：%(err)s。"
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -517,8 +532,8 @@ msgstr "不能列出存储卷，因为存储池%(pool)s没有激活"
 
 #, python-format
 msgid ""
-"Unable to create storage volume %(name)s in storage pool %(pool)s. Details: "
-"%(err)s"
+"Unable to create storage volume %(name)s in storage pool %(pool)s. Details: %"
+"(err)s"
 msgstr "不能在存储池%(pool)s中创建存储卷%(name)s。详情：%(err)s"
 
 #, python-format
@@ -557,7 +572,7 @@ msgstr "存储卷需要名字"
 #, python-format
 msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
-msgstr ""
+msgstr "存储卷信息更新失败。详情：%(err)s"
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -634,13 +649,13 @@ msgstr "不能以桥设备%(name)s作为VLAN的trunk设备。"
 
 #, python-format
 msgid "Failed to activate interface %(iface)s: %(err)s."
-msgstr ""
+msgstr "网络接口启动失败 %(iface)s：%(err)s。"
 
 #, python-format
 msgid ""
 "Failed to activate interface %(iface)s. Please check the physical link "
 "status."
-msgstr ""
+msgstr "网络接口%(iface)s启动失败，请检查网络连接情况。"
 
 #, python-format
 msgid "Debug report %(name)s does not exist"
@@ -667,6 +682,12 @@ msgstr "应该为诊断文件报告指定一个名字。"
 msgid ""
 "Name should be a string. Only letters, digits and hyphen ('-') are allowed."
 msgstr "名字必须是一个字符串。只允许字母、数字和连字符 ('-')。"
+
+#, python-format
+msgid ""
+"The debug report with specified name \"%(name)s\" already exists. Please use "
+"another one."
+msgstr "名字为\"'%(name)s\"的调试报告已经存在，请选择其它的名字。"
 
 #, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
@@ -719,11 +740,11 @@ msgstr "命令'%(cmd)s'运行%(seconds)s秒后超时。"
 msgid "Unable to choose a virutal machine name"
 msgstr "不能选择虚拟机名字"
 
-msgid "Invalid CDROM device name"
-msgstr "无效的CDROM设备名字"
+msgid "Invalid vm storage device name"
+msgstr "无效的虚拟机存储设备名称"
 
-msgid "Invalid storage type. Types supported: 'cdrom'"
-msgstr "无效的存储类型。支持的类型：'cdrom'"
+msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
+msgstr "无效的存储类型。支持类型为：'cdrom'，'disk'"
 
 #, python-format
 msgid "The path '%(value)s' is not valid local/remote path for the device"
@@ -732,6 +753,12 @@ msgstr "设备路径'%(value)s'不是一个有效的本地/远程路径"
 #, python-format
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr "设备%(dev_name)s在vm%(vm_name)s上已存在"
+
+msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+msgstr "无效的目标设备总线类型。支持类型为：'ide'，'scsi'，'virtio'"
+
+msgid "Just support cdrom path update"
+msgstr "仅支持cdrom路径更新"
 
 #, python-format
 msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
@@ -749,18 +776,27 @@ msgstr "更新存储设备时出错：%(error)s"
 msgid "Error while removing storage device: %(error)s"
 msgstr "移除存储设备时出错：%(error)s"
 
-msgid "Do not support guest CDROM hot plug attachment"
-msgstr "不支持客户机热插拔CDROM"
+msgid "Do not support ide device hot plug"
+msgstr "不支持ide设备热插拔"
 
-msgid "Specify type and path to add a new virtual machine disk"
-msgstr "为新虚拟机磁盘指定类型和路径"
+msgid ""
+"Specify type and path or type and pool/volume to add a new virtual machine "
+"disk"
+msgstr "为添加新建虚拟机磁盘指定类型和路径或者类型和存储池/存储卷"
 
 msgid "Specify path to update virtual machine disk"
 msgstr "指定更新虚拟机磁盘的路径"
 
 #, python-format
 msgid "Controller type %(type)s limitation of %(limit)s devices reached"
-msgstr ""
+msgstr "控制器类型为%(type)s的设备达到上限%(limit)s"
+
+#, python-format
+msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgstr "使用给出的存储池/存储卷查找磁盘路径信息失败，详情：%(error)s"
+
+msgid "Volume already been used by other vm"
+msgstr "存储卷已经被其他虚拟机使用"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "YUM软件仓库ID必须是只包含一个单词的字符串"
@@ -909,30 +945,6 @@ msgstr "内存"
 msgid "Create"
 msgstr "创建"
 
-msgid "Replace a CDROM of VM"
-msgstr ""
-
-msgid "Device Name"
-msgstr ""
-
-msgid "The name used to identify the CDROM. Read-only."
-msgstr ""
-
-msgid "Device Type"
-msgstr ""
-
-msgid "The device type. Currently, only \"cdrom\" is supported."
-msgstr ""
-
-msgid "ISO File Path"
-msgstr ""
-
-msgid "The ISO file path in the server."
-msgstr ""
-
-msgid "Replace"
-msgstr "替换"
-
 msgid "Edit Guest"
 msgstr "修改客户机"
 
@@ -952,13 +964,16 @@ msgid "CPUs"
 msgstr "中央处理器"
 
 msgid "Memory (MB)"
-msgstr ""
+msgstr "内存(MB)"
 
 msgid "Icon"
 msgstr "图标"
 
-msgid "Attach"
-msgstr "装载"
+msgid "Device"
+msgstr "设备名称"
+
+msgid "Path"
+msgstr "路径"
 
 msgid "Network"
 msgstr "网络"
@@ -969,25 +984,14 @@ msgstr "类型"
 msgid "Save"
 msgstr "保存"
 
+msgid "Replace"
+msgstr "替换"
+
 msgid "Detach"
 msgstr "卸载"
 
-msgid "Manage Media"
-msgstr "管理光盘介质"
-
-msgid "Add a Storage Device to VM"
-msgstr ""
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-
-msgid "File Path"
-msgstr ""
-
-msgid "The ISO file path in the server for CDROM."
-msgstr ""
+msgid "Cancel"
+msgstr "取消"
 
 msgid "Start"
 msgstr "启用"
@@ -996,7 +1000,7 @@ msgid "Reset"
 msgstr "重置"
 
 msgid "Power Off"
-msgstr ""
+msgstr "关闭电源"
 
 msgid "Actions"
 msgstr "操作"
@@ -1004,14 +1008,58 @@ msgstr "操作"
 msgid "Connect"
 msgstr "连接到"
 
+msgid "Manage Media"
+msgstr "管理光盘介质"
+
 msgid "Edit"
 msgstr "编辑"
 
 msgid "Shut Down"
-msgstr ""
+msgstr "关机"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "Add a Storage Device to VM"
+msgstr "为虚拟机添加一个存储设备"
+
+msgid "Device Name"
+msgstr "设备名称"
+
+msgid ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+msgstr "设备名称，如果留空系统会自动生成一个"
+
+msgid "Device Type"
+msgstr "设备类型"
+
+msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
+msgstr "设备类型。目前支持设备类型：\"cdrom\"和\"disk\"。 "
+
+msgid "Device Bus"
+msgstr "设备总线"
+
+msgid "Storage Pool"
+msgstr "存储池"
+
+msgid "Storage pool which volume located in"
+msgstr "存储卷所占用的存储池"
+
+msgid "Storage Volume"
+msgstr "存储卷"
+
+msgid "Storage volume to be attached"
+msgstr "被添加的存储卷"
+
+msgid "File Path"
+msgstr "文件路径"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "服务器端CDROM所使用的ISO文件路径"
+
+msgid "Attach"
+msgstr "装载"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "用户名或密码错误，请重新输入。"
@@ -1063,9 +1111,6 @@ msgstr "删除确认"
 
 msgid "OK"
 msgstr "确定"
-
-msgid "Cancel"
-msgstr "取消"
 
 msgid "Confirm"
 msgstr "确认"
@@ -1223,32 +1268,38 @@ msgstr "下载"
 msgid "Report name should contain only letters, digits and/or hyphen ('-')."
 msgstr "报告名字中只能包含字母、数字或连字符（-）。"
 
+msgid "Pending..."
+msgstr "正在加载..."
+
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
 "cannot be undone. Would you like to continue?"
 msgstr "这将删除虚拟机和它的虚拟磁盘。该操作不能撤销，继续吗？"
 
 msgid "Power off Confirmation"
-msgstr ""
+msgstr "关闭电源确认"
 
 msgid ""
 "This action may produce undesirable results, for example unflushed disk "
 "cache in the guest. Would you like to continue?"
-msgstr ""
+msgstr "这样做可能导致不良后果，比如客户机磁盘缓存未刷新，确认要继续吗？"
 
 msgid "Reset Confirmation"
-msgstr ""
+msgstr "重置确认"
 
 msgid ""
 "There is a risk of data loss caused by reset without the guest OS shutdown. "
 "Would you like to continue?"
-msgstr ""
+msgstr "在客户机操作系统未关闭的情况下重置有风险导致数据丢失，确认要继续吗？"
 
 msgid "Shut Down Confirmation"
-msgstr ""
+msgstr "关机确认"
 
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
-msgstr ""
+msgstr "注意，客户机操作系统可能会忽略这个请求，确认要继续吗？"
+
+msgid "VM Delete Confirmation"
+msgstr "虚拟机删除确认"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1288,6 +1339,8 @@ msgid ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
+"这是一个临时的网络配置，该操作会永久地删除这个网络而不是停止其运行，确定要继"
+"续吗？"
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
@@ -1349,22 +1402,25 @@ msgid "Help"
 msgstr "帮助"
 
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 msgid "Log out"
 msgstr "登出"
 
 msgid "Version:"
-msgstr ""
+msgstr "版本："
 
-msgid "Log In"
-msgstr "登录"
+msgid "Session timeout, please re-login."
+msgstr "登录超时，请重新登录。"
 
 msgid "User Name"
 msgstr "用户名"
 
 msgid "Password"
 msgstr "密码"
+
+msgid "Log In"
+msgstr "登录"
 
 msgid "Generate a New Debug Report"
 msgstr "产生一个新的诊断报告"
@@ -1494,6 +1550,9 @@ msgstr "iSCSI认证"
 msgid "SCSI Adapter"
 msgstr "SCSI适配器"
 
+msgid "Please, wait..."
+msgstr "请等待..."
+
 msgid "Add Template"
 msgstr "创建模板"
 
@@ -1508,9 +1567,6 @@ msgstr "远程ISO镜像"
 
 msgid "Search ISOs"
 msgstr "搜索ISO"
-
-msgid "Please, wait..."
-msgstr "请等待..."
 
 msgid "The following ISOs are available:"
 msgstr "可用ISO文件如下"
@@ -1563,9 +1619,6 @@ msgstr "光驱"
 msgid "Graphics"
 msgstr "图形"
 
-msgid "Storage Pool"
-msgstr "存储池"
-
 msgid "CPU"
 msgstr "处理器"
 
@@ -1602,9 +1655,6 @@ msgstr "处理器"
 msgid "System Statistics"
 msgstr "系统统计信息"
 
-msgid "Collecting data after leaving this page"
-msgstr "离开该页面仍继续收集数据"
-
 msgid "Update Progress"
 msgstr "更新进度"
 
@@ -1620,8 +1670,8 @@ msgstr "网络类型"
 msgid "Address Space"
 msgstr "地址空间"
 
-msgid "Alphanumeric and '_' characters only."
-msgstr "字母，数字和下划线。"
+msgid "Name should not contain '/' and '\"'."
+msgstr "名字中不能包含‘/’和'\"'。"
 
 msgid "Isolated: no external network connection"
 msgstr "隔离: 同物理网络不连通"
@@ -1665,6 +1715,9 @@ msgstr "停用"
 msgid "Activate"
 msgstr "激活"
 
+msgid "Extend"
+msgstr "扩展"
+
 msgid "Undefine"
 msgstr "取消定义"
 
@@ -1678,4 +1731,4 @@ msgid "No templates found."
 msgstr "没有发现模板"
 
 msgid "Clone"
-msgstr ""
+msgstr "制作副本"
