@@ -232,6 +232,7 @@
     text-align: center;
     top: 0;
     width: 49px;
+    white-space: nowrap;
 }
 
 .grid-loading-icon {
