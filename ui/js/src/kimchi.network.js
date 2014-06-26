@@ -195,6 +195,7 @@ kimchi.initNetworkCreation = function() {
                 network.state = result.state === "active" ? "up" : "down";
                 network.interface = result.interface ? result.interface : i18n["KCHNET6001M"];
                 network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
+                network.persistent = result.persistent;
                 kimchi.addNetworkItem(network);
                 $("#networkConfig").dialog("close");
             });
