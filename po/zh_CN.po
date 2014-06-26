@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-25 13:38+0800\n"
+"POT-Creation-Date: 2014-06-26 14:51+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -251,7 +251,7 @@ msgstr "未能关闭虚拟机%(name)s。详情：%(err)s"
 #, python-format
 msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
-msgstr "未能启动虚拟机 %(name)s. 详情：%(err)s"
+msgstr "无法获得虚拟机 %(name)s的元数据，详情：%(err)s"
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -1044,7 +1044,7 @@ msgid "Storage Pool"
 msgstr "存储池"
 
 msgid "Storage pool which volume located in"
-msgstr "存储卷所占用的存储池"
+msgstr "存储卷所在的存储池"
 
 msgid "Storage Volume"
 msgstr "存储卷"
