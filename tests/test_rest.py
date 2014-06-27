@@ -461,15 +461,74 @@ class RestTests(unittest.TestCase):
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(400, resp.status)
 
+            # Create temp storage pool
+            req = json.dumps({'name': 'tmp',
+                              'capacity': 1024,
+                              'allocated': 512,
+                              'path': '/tmp',
+                              'type': 'dir'})
+            resp = self.request('/storagepools', req, 'POST')
+            self.assertEquals(201, resp.status)
+            resp = self.request('/storagepools/tmp/activate', req, 'POST')
+            self.assertEquals(200, resp.status)
+
+            req = json.dumps({'name': "attach-volume",
+                              'capacity': 1024,
+                              'allocation': 512,
+                              'type': 'disk',
+                              'format': 'raw'})
+            resp = self.request('/storagepools/tmp/storagevolumes',
+                                req, 'POST')
+            self.assertEquals(201, resp.status)
+
+            # Attach cdrom with both path and volume specified
+            open('/tmp/mock.iso', 'w').close()
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'cdrom',
+                              'pool': 'tmp',
+                              'vol': 'attach-volume',
+                              'path': '/tmp/mock.iso'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Attach disk with both path and volume specified
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'disk',
+                              'pool': 'tmp',
+                              'vol': 'attach-volume',
+                              'path': '/tmp/mock.iso'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Attach disk with only pool specified
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'cdrom',
+                              'pool': 'tmp'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(400, resp.status)
+
+            # Attach disk with pool and vol specified
+            req = json.dumps({'dev': 'hdx',
+                              'type': 'disk',
+                              'pool': 'tmp',
+                              'vol': 'attach-volume'})
+            resp = self.request('/vms/test-vm/storages', req, 'POST')
+            self.assertEquals(201, resp.status)
+            cd_info = json.loads(resp.read())
+            self.assertEquals('hdx', cd_info['dev'])
+            self.assertEquals('disk', cd_info['type'])
+            self.assertEquals('tmp', cd_info['pool'])
+            self.assertEquals('attach-volume', cd_info['vol'])
+
             # Attach a cdrom with existent dev name
             open('/tmp/existent.iso', 'w').close()
-            req = json.dumps({'dev': 'hdx',
+            req = json.dumps({'dev': 'hdk',
                               'type': 'cdrom',
                               'path': '/tmp/existent.iso'})
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(201, resp.status)
             cd_info = json.loads(resp.read())
-            self.assertEquals('hdx', cd_info['dev'])
+            self.assertEquals('hdk', cd_info['dev'])
             self.assertEquals('cdrom', cd_info['type'])
             self.assertEquals('/tmp/existent.iso', cd_info['path'])
             # Delete the file and cdrom
@@ -486,7 +545,7 @@ class RestTests(unittest.TestCase):
 
             # Test GET
             devs = json.loads(self.request('/vms/test-vm/storages').read())
-            self.assertEquals(3, len(devs))
+            self.assertEquals(4, len(devs))
 
             # Detach storage cdrom
             resp = self.request('/vms/test-vm/storages/hdx', '{}', 'DELETE')
@@ -494,7 +553,9 @@ class RestTests(unittest.TestCase):
 
             # Test GET
             devs = json.loads(self.request('/vms/test-vm/storages').read())
-            self.assertEquals(2, len(devs))
+            self.assertEquals(3, len(devs))
+            resp = self.request('/storagepools/tmp', {}, 'DELETE')
+            self.assertEquals(204, resp.status)
 
     def test_vm_iface(self):
 

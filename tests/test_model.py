@@ -184,6 +184,9 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):
+        disk_path = '/tmp/existent2.iso'
+        open(disk_path, 'w').close()
+
         def _attach_disk(bus_type=None):
             disk_args = {"type": "disk",
                          "pool": pool,
@@ -253,6 +256,14 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(u'disk', disk_info['type'])
             inst.vmstorage_delete(vm_name, disk)
 
+            # Specify pool and path at sametime will fail
+            disk_args = {"type": "disk",
+                         "bus": "virtio",
+                         "pool": pool,
+                         "vol": vol,
+                         "path": disk_path}
+            self.assertRaises(
+                InvalidParameter, inst.vmstorages_create, vm_name, disk_args)
             # Hot plug 'ide' bus disk does not work
             inst.vm_start(vm_name)
             self.assertRaises(InvalidOperation, _attach_disk, 'ide')
