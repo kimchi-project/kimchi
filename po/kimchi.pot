@@ -772,6 +772,9 @@ msgstr ""
 msgid "Volume already been used by other vm"
 msgstr ""
 
+msgid "Only one of path or pool/volume can be specified to add a new virtual machine disk"
+msgstr ""
+
 msgid "YUM Repository ID must be one word only string."
 msgstr ""
 
@@ -1311,6 +1314,12 @@ msgstr ""
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid "CDROM path need to be a valid local path and cannot be blank."
+msgstr ""
+
+msgid "Disk pool or volume cannot be blank."
 msgstr ""
 
 msgid ""

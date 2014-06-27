@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 15:42-0300\n"
+"POT-Creation-Date: 2014-06-17 12:03-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -877,6 +877,14 @@ msgstr ""
 msgid "Volume already been used by other vm"
 msgstr "Volume já foi usado por outra VM"
 
+#, fuzzy
+msgid ""
+"Only one of path or pool/volume can be specified to add a new virtual "
+"machine disk"
+msgstr ""
+"Especifique o tipo e o caminho, ou o tipo e o pool/volume, para adicionar "
+"uma nova máquina virtual"
+
 msgid "YUM Repository ID must be one word only string."
 msgstr "ID do repositório YUM deve ser uma string com uma palavra."
 
@@ -1453,6 +1461,14 @@ msgid ""
 msgstr ""
 "Essa rede não é persistente. Ao invés de parar, essa ação irá removê-la "
 "permantemente. Deseja continuar?"
+
+#, fuzzy
+msgid "CDROM path need to be a valid local path and cannot be blank."
+msgstr "O caminho do storage pool não pode ser vazio."
+
+#, fuzzy
+msgid "Disk pool or volume cannot be blank."
+msgstr "O nome do storage pool não pode ser vazio."
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
