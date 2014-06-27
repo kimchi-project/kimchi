@@ -135,6 +135,25 @@ kimchi.guest_storage_add_main = function() {
         });
     });
 
+    var validateCDROM = function(settings) {
+        if (/^(\/.*)+$/.test(settings['path']))
+            return true;
+        else {
+            kimchi.message.error.code('KCHVMSTOR0001E');
+            return false;
+        }
+    }
+
+    var validateDisk = function(settings) {
+        if (settings['pool'] && settings['vol'])
+            return true;
+        else {
+            kimchi.message.error.code('KCHVMSTOR0002E');
+            return false;
+        }
+    }
+
+    validator = {cdrom: validateCDROM, disk: validateDisk};
     var submitForm = function(event) {
         if (submitButton.prop('disabled')) {
             return false;
@@ -155,6 +174,15 @@ kimchi.guest_storage_add_main = function() {
                 settings[$(c).attr('name')] = $(c).val();
             }
         });
+        // Validate form for cdrom and disk
+        validateSpecifiedForm = validator[settings['type']];
+        if (!validateSpecifiedForm(settings)) {
+            $(submitButton).prop('disabled', false);
+            $.each([submitButton, nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
+                $(c).prop('disabled', false);
+            });
+            return false;
+        }
         $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
 
         kimchi.addVMStorage(settings, function(result) {
