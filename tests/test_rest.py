@@ -131,13 +131,17 @@ class RestTests(unittest.TestCase):
           If neither of the above, HTTP:406
         """
         resp = self.request("/", headers={})
+        location = resp.getheader('location')
+        self.assertTrue(location.endswith("login.html"))
+        resp = self.request("/login.html", headers={})
         self.assertTrue('<!doctype html>' in resp.read().lower())
 
         resp = self.request("/", headers={'Accept': 'application/json'})
         self.assertValidJSON(resp.read())
 
         resp = self.request("/", headers={'Accept': 'text/html'})
-        self.assertTrue('<!doctype html>' in resp.read().lower())
+        location = resp.getheader('location')
+        self.assertTrue(location.endswith("login.html"))
 
         resp = self.request("/", headers={'Accept':
                                           'application/json, text/html'})
