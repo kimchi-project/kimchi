@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 12:03-0300\n"
+"POT-Creation-Date: 2014-06-27 13:27-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -664,6 +664,12 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid ""
+"The debug report with specified name \"%(name)s\" already exists. Please use "
+"another one."
+msgstr ""
+
+#, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
 msgstr ""
 
@@ -772,7 +778,9 @@ msgstr ""
 msgid "Volume already been used by other vm"
 msgstr ""
 
-msgid "Only one of path or pool/volume can be specified to add a new virtual machine disk"
+msgid ""
+"Only one of path or pool/volume can be specified to add a new virtual "
+"machine disk"
 msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
@@ -970,31 +978,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Start"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr ""
-
-msgid "Connect"
-msgstr ""
-
 msgid "Manage Media"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Shut Down"
-msgstr ""
-
-msgid "Delete"
 msgstr ""
 
 msgid "Add a Storage Device to VM"
@@ -1036,6 +1020,30 @@ msgid "The ISO file path in the server for CDROM."
 msgstr ""
 
 msgid "Attach"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Shut Down"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "The username or password you entered is incorrect. Please try again."
@@ -1316,12 +1324,6 @@ msgid ""
 "permanently delete it. Would you like to continue?"
 msgstr ""
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr ""
-
-msgid "Disk pool or volume cannot be blank."
-msgstr ""
-
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr ""
@@ -1378,6 +1380,12 @@ msgid ""
 "permanently delete it. Would you like to continue?"
 msgstr ""
 
+msgid "CDROM path need to be a valid local path and cannot be blank."
+msgstr ""
+
+msgid "Disk pool or volume cannot be blank."
+msgstr ""
+
 msgid "Help"
 msgstr ""
 
@@ -1390,7 +1398,7 @@ msgstr ""
 msgid "Version:"
 msgstr ""
 
-msgid "Session timeout, please re-login."
+msgid "Log In"
 msgstr ""
 
 msgid "User Name"
@@ -1399,7 +1407,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-msgid "Log In"
+msgid "Session timeout, please re-login."
 msgstr ""
 
 msgid "Generate a New Debug Report"
@@ -1528,6 +1536,9 @@ msgstr ""
 msgid "SCSI Adapter"
 msgstr ""
 
+msgid "Please, wait..."
+msgstr ""
+
 msgid "Add Template"
 msgstr ""
 
@@ -1541,9 +1552,6 @@ msgid "Remote ISO Image"
 msgstr ""
 
 msgid "Search ISOs"
-msgstr ""
-
-msgid "Please, wait..."
 msgstr ""
 
 msgid "The following ISOs are available:"
@@ -1648,7 +1656,7 @@ msgstr ""
 msgid "Address Space"
 msgstr ""
 
-msgid "Alphanumeric and '_' characters only."
+msgid "Name should not contain '/' and '\"'."
 msgstr ""
 
 msgid "Isolated: no external network connection"

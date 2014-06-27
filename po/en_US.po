@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 12:03-0300\n"
+"POT-Creation-Date: 2014-06-27 13:27-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -708,6 +708,14 @@ msgstr ""
 "Name should be a string. Only letters, digits and hyphen ('-') are allowed."
 
 #, python-format
+msgid ""
+"The debug report with specified name \"%(name)s\" already exists. Please use "
+"another one."
+msgstr ""
+"The debug report with specified name \"%(name)s\" already exists. Please use "
+"another one."
+
+#, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
 msgstr "Storage server %(server)s was not used by Kimchi"
 
@@ -1028,32 +1036,8 @@ msgstr "Detach"
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "Start"
-msgstr "Start"
-
-msgid "Reset"
-msgstr "Reset"
-
-msgid "Power Off"
-msgstr "Power Off"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "Connect"
-msgstr "Connect"
-
 msgid "Manage Media"
 msgstr "Manage Media"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Shut Down"
-msgstr "Shut Down"
-
-msgid "Delete"
-msgstr "Delete"
 
 msgid "Add a Storage Device to VM"
 msgstr "Add a Storage Device to VM"
@@ -1097,6 +1081,30 @@ msgstr "The ISO file path in the server for CDROM."
 
 msgid "Attach"
 msgstr "Attach"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Power Off"
+msgstr "Power Off"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Connect"
+msgstr "Connect"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Shut Down"
+msgstr "Shut Down"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "The username or password you entered is incorrect. Please try again."
@@ -1396,12 +1404,6 @@ msgstr ""
 "This network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr "CDROM path need to be a valid local path and cannot be blank."
-
-msgid "Disk pool or volume cannot be blank."
-msgstr "Disk pool or volume cannot be blank."
-
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr ""
@@ -1463,6 +1465,12 @@ msgstr ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
 "permanently delete it. Would you like to continue?"
 
+msgid "CDROM path need to be a valid local path and cannot be blank."
+msgstr "CDROM path need to be a valid local path and cannot be blank."
+
+msgid "Disk pool or volume cannot be blank."
+msgstr "Disk pool or volume cannot be blank."
+
 msgid "Help"
 msgstr "Help"
 
@@ -1475,8 +1483,8 @@ msgstr "Log out"
 msgid "Version:"
 msgstr "Version:"
 
-msgid "Session timeout, please re-login."
-msgstr "Session timeout, please re-login."
+msgid "Log In"
+msgstr "Log In"
 
 msgid "User Name"
 msgstr "User Name"
@@ -1484,8 +1492,8 @@ msgstr "User Name"
 msgid "Password"
 msgstr "Password"
 
-msgid "Log In"
-msgstr "Log In"
+msgid "Session timeout, please re-login."
+msgstr "Session timeout, please re-login."
 
 msgid "Generate a New Debug Report"
 msgstr "Generate a New Debug Report"
@@ -1619,6 +1627,9 @@ msgstr "iSCSI Authentication"
 msgid "SCSI Adapter"
 msgstr "SCSI Adapter"
 
+msgid "Please, wait..."
+msgstr "Please, wait..."
+
 msgid "Add Template"
 msgstr "Add Template"
 
@@ -1633,9 +1644,6 @@ msgstr "Remote ISO Image"
 
 msgid "Search ISOs"
 msgstr "Search ISOs"
-
-msgid "Please, wait..."
-msgstr "Please, wait..."
 
 msgid "The following ISOs are available:"
 msgstr "The following ISOs are available:"
@@ -1739,8 +1747,8 @@ msgstr "Network Type"
 msgid "Address Space"
 msgstr "Address Space"
 
-msgid "Alphanumeric and '_' characters only."
-msgstr "Alphanumeric and '_' characters only."
+msgid "Name should not contain '/' and '\"'."
+msgstr "Name should not contain '/' and '\"'."
 
 msgid "Isolated: no external network connection"
 msgstr "Isolated: no external network connection"
