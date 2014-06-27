@@ -77,6 +77,14 @@ class Root(Resource):
         return res
 
     def get(self):
+        last_page = cherrypy.request.cookie.get("lastPage")
+        # when session timeout, only session cookie is None.
+        # when first login, both session and lastPage are None.
+        if (cherrypy.session.originalid is None and last_page is None and
+           not template.can_accept('application/json') and
+           template.can_accept_html()):
+            raise cherrypy.HTTPRedirect("/login.html", 303)
+
         return self.default(self.default_page)
 
     @cherrypy.expose

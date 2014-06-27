@@ -77,8 +77,6 @@ class Server(object):
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
                                                   auth.kimchiauth)
-        cherrypy.tools.kimchisession = cherrypy.Tool('before_request_body',
-                                                     auth.kimchisession)
         # Setting host to 127.0.0.1. This makes kimchi runs
         # as a localhost app, inaccessible to the outside
         # directly. You must go through the proxy.

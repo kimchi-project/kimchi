@@ -154,7 +154,6 @@ class UIConfig(dict):
             ui_configs['/' + sub_dir] = {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': os.path.join(paths.ui_dir, sub_dir),
-                'tools.kimchisession.on': False,
                 'tools.nocache.on': False}
             if sub_dir != 'images':
                 ui_configs['/' + sub_dir].update({
@@ -180,7 +179,6 @@ class KimchiConfig(dict):
             'tools.sessions.locking': 'explicit',
             'tools.sessions.storage_type': 'ram',
             'tools.sessions.timeout': SESSIONSTIMEOUT,
-            'tools.kimchisession.on': True,
             'tools.kimchiauth.on': False
         },
         '/vnc_auto.html': {
@@ -191,9 +189,6 @@ class KimchiConfig(dict):
         },
         '/kimchi-ui.html': {
             'tools.kimchiauth.on': True
-        },
-        '/login.html': {
-            'tools.kimchisession.on': False,
         },
         '/data/screenshots': {
             'tools.staticdir.on': True,

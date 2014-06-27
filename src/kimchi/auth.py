@@ -269,16 +269,3 @@ def kimchiauth(admin_methods=None):
 
     e = InvalidOperation('KCHAUTH0002E')
     raise cherrypy.HTTPError(401, e.message.encode('utf-8'))
-
-
-def kimchisession(admin_methods=None):
-    session = cherrypy.request.cookie.get("kimchi")
-    last_page = cherrypy.request.cookie.get("lastPage")
-    headers = cherrypy.request.headers
-    authheader = headers.get('AUTHORIZATION')
-    # when client browser first login in, both the session and lastPage cookie
-    # are None.
-    # when session timeout, only session cookie is None.
-    if (session is None and last_page is None and authheader is None and
-       ("Accept" in headers and not template.can_accept('application/json'))):
-            redirect_login()
