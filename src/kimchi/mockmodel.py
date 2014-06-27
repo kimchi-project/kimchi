@@ -665,6 +665,8 @@ class MockModel(object):
         path = params.get('path')
         if path and path.startswith('/') and not os.path.exists(path):
             raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
+        if path and params.get('pool'):
+            raise InvalidParameter("KCHVMSTOR0017E")
         elif params.get('pool'):
             try:
                 self.storagevolume_lookup(params['pool'], params['vol'])

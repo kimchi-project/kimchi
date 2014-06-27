@@ -154,6 +154,8 @@ class VMStoragesModel(object):
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         params['format'] = 'raw'
+        if not ('vol' in params) ^ ('path' in params):
+            raise InvalidParameter("KCHVMSTOR0017E")
         if params.get('vol'):
             try:
                 pool = params['pool']

@@ -246,6 +246,7 @@ messages = {
     "KCHVMSTOR0014E": _("Controller type %(type)s limitation of %(limit)s devices reached"),
     "KCHVMSTOR0015E": _("Cannot lookup disk path information by given pool/volume: %(error)s"),
     "KCHVMSTOR0016E": _("Volume already been used by other vm"),
+    "KCHVMSTOR0017E": _("Only one of path or pool/volume can be specified to add a new virtual machine disk"),
 
     "KCHREPOS0001E": _("YUM Repository ID must be one word only string."),
     "KCHREPOS0002E": _("Repository URL must be an http://, ftp:// or file:// URL."),
