@@ -663,9 +663,13 @@ class MockModel(object):
 
     def vmstorages_create(self, vm_name, params):
         path = params.get('path')
-        if path.startswith('/') and not os.path.exists(path):
+        if path and path.startswith('/') and not os.path.exists(path):
             raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
-
+        elif params.get('pool'):
+            try:
+                self.storagevolume_lookup(params['pool'], params['vol'])
+            except Exception as e:
+                raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
         dom = self._get_vm(vm_name)
         dev = params.get('dev', None)
         if dev and dev in self.vmstorages_get_list(vm_name):
@@ -970,6 +974,8 @@ class MockVMStorageDevice(object):
     def __init__(self, params):
         self.info = {'dev': params.get('dev'),
                      'type': params.get('type'),
+                     'pool': params.get('pool'),
+                     'vol': params.get('vol'),
                      'path': params.get('path')}
 
 
