@@ -50,6 +50,16 @@ kimchi.guest_storage_add_main = function() {
             }
         });
 
+        if ($(".path-section").hasClass('hidden')) {
+            $(poolTextbox).val('default');
+            $(poolTextbox).change();
+            $(pathTextbox).val("");
+        }
+        else {
+            $(poolTextbox).val("");
+            $(volTextbox).val("");
+        }
+
         $.each(types, function(index, elem){
             if (selectType == elem.value) {
                 var buses = new Array();
@@ -74,8 +84,6 @@ kimchi.guest_storage_add_main = function() {
                         });
                     }
                 });
-                $(poolTextbox).val('default');
-                $(poolTextbox).change();
                 kimchi.select('guest-add-storage-pool-list', options);
         }
     });
