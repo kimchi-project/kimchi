@@ -30,6 +30,7 @@ Requires:	python-lxml
 Requires:	nfs-utils
 Requires:	nginx
 Requires:	iscsi-initiator-utils
+Requires:	policycoreutils-python
 BuildRequires:	libxslt
 BuildRequires:	libxml2-python
 

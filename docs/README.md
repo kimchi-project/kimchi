@@ -53,7 +53,8 @@ Install Dependencies
                         PyPAM m2crypto python-jsonschema rpm-build \
                         qemu-kvm python-psutil python-ethtool sos \
                         python-ipaddr python-lxml nfs-utils \
-                        iscsi-initiator-utils libxslt pyparted nginx
+                        iscsi-initiator-utils libxslt pyparted nginx \
+                        policycoreutils-python
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
