@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul  2 13:01:00 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) 1.3 Plan 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:07</span><span class="nk"> &lt;royce&gt;</span> Looks good to me
+<a name="l-9"></a><span class="tm">13:02:16</span><span class="nk"> &lt;wenwang&gt;</span> Good to me too
+<a name="l-10"></a><span class="tm">13:02:59</span><span class="nk"> &lt;alinefm&gt;</span> First of all, I want to thank you all again for the hard work to get 1.2.1 ready
+<a name="l-11"></a><span class="tm">13:03:27</span><span class="nk"> &lt;alinefm&gt;</span> I am looking forward for 1.3 release
+<a name="l-12"></a><span class="tm">13:04:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">1.3 Plan</span>
+<a name="l-13"></a><span class="tm">13:04:20</span><span class="nk"> &lt;alinefm&gt;</span> I add the schedule to the wiki page: https://github.com/kimchi-project/kimchi/wiki/Planning-1.3
+<a name="l-14"></a><span class="tm">13:04:37</span><span class="nk"> &lt;alinefm&gt;</span> we will have 4 sprints - 2 for devel and 2 for stabilization
+<a name="l-15"></a><span class="tm">13:04:42</span><span class="nk"> &lt;alinefm&gt;</span> the same we did for 1.2.1
+<a name="l-16"></a><span class="tm">13:04:59</span><span class="nk"> &lt;alinefm&gt;</span> and the GA will be on Sept 24
+<a name="l-17"></a><span class="tm">13:05:10</span><span class="nk"> &lt;wenwang&gt;</span> Okay, I see
+<a name="l-18"></a><span class="tm">13:05:52</span><span class="nk"> &lt;alinefm&gt;</span> and in the wiki https://github.com/kimchi-project/kimchi/wiki/Todo-1.3 I started adding the tasks for 1.3
+<a name="l-19"></a><span class="tm">13:06:00</span><span class="nk"> &lt;alinefm&gt;</span> as you can see it is not completed yet
+<a name="l-20"></a><span class="tm">13:06:11</span><span class="nk"> &lt;alinefm&gt;</span> I added the tasks discussed in the ML
+<a name="l-21"></a><span class="tm">13:06:18</span><span class="nk"> &lt;alinefm&gt;</span> but there are more to add too
+<a name="l-22"></a><span class="tm">13:07:01</span><span class="nk"> &lt;alinefm&gt;</span> I tried to respond all emails in the ML yesterday but seems only some of those are delivered in time
+<a name="l-23"></a><span class="tm">13:07:09</span><span class="nk"> &lt;alinefm&gt;</span> I resent some notes this morning
+<a name="l-24"></a><span class="tm">13:07:19</span><span class="nk"> &lt;alinefm&gt;</span> hope everyone had a chance to see my replies =)
+<a name="l-25"></a><span class="tm">13:08:40</span><span class="nk"> &lt;wenwang&gt;</span> I will have them checked ASAP when I get back to office :)
+<a name="l-26"></a><span class="tm">13:08:51</span><span class="nk"> &lt;wenwang&gt;</span> Thanks for your effort alinefm
+<a name="l-27"></a><span class="tm">13:09:19</span><span class="nk"> &lt;wenwang&gt;</span> And also, I see the subtitle is still 1.2.1, should we change that to 1.3?
+<a name="l-28"></a><span class="tm">13:09:34</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, lol
+<a name="l-29"></a><span class="tm">13:09:43</span><span class="nk"> &lt;alinefm&gt;</span> copy and paste always fails
+<a name="l-30"></a><span class="tm">13:10:16</span><span class="nk"> &lt;wenwang&gt;</span> :-)
+<a name="l-31"></a><span class="tm">13:10:20</span><span class="nk"> &lt;alinefm&gt;</span> fixed now
+<a name="l-32"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> thanks wenwang
+<a name="l-33"></a><span class="tm">13:10:42</span><span class="nk"> &lt;wenwang&gt;</span> np, It looks good now
+<a name="l-34"></a><span class="tm">13:13:44</span><span class="nk"> &lt;YuXin&gt;</span> Create VM from Image
+<a name="l-35"></a><span class="tm">13:13:44</span><span class="nk"> &lt;YuXin&gt;</span> Create VM from Installation Server
+<a name="l-36"></a><span class="tm">13:13:44</span><span class="nk"> &lt;YuXin&gt;</span> SMP Support
+<a name="l-37"></a><span class="tm">13:13:44</span><span class="nk"> &lt;YuXin&gt;</span> Improve Task Management for Kimchi
+<a name="l-38"></a><span class="tm">13:13:46</span><span class="nk"> &lt;royce&gt;</span> alinefm, I'm wondering if anyone is planning to rebase your create vm from template previous patch?
+<a name="l-39"></a><span class="tm">13:13:57</span><span class="nk"> &lt;YuXin&gt;</span> I also see these in mail list
+<a name="l-40"></a><span class="tm">13:14:21</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap - I will also add them to 1.3
+<a name="l-41"></a><span class="tm">13:14:28</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-42"></a><span class="tm">13:14:28</span><span class="nk"> &lt;alinefm&gt;</span> but probably on sprint 2
+<a name="l-43"></a><span class="tm">13:14:36</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-44"></a><span class="tm">13:14:40</span><span class="nk"> &lt;alinefm&gt;</span> I think there is a lot of work on sprint 1
+<a name="l-45"></a><span class="tm">13:14:51</span><span class="nk"> &lt;alinefm&gt;</span> but I can reorganize the tasks according your feedbacks
+<a name="l-46"></a><span class="tm">13:15:00</span><span class="nk"> &lt;alinefm&gt;</span> royce, I have a branch for it =)
+<a name="l-47"></a><span class="tm">13:15:11</span><span class="nk"> &lt;alinefm&gt;</span> maybe need one more rebase but I can share with the team
+<a name="l-48"></a><span class="tm">13:15:29</span><span class="nk"> &lt;royce&gt;</span> I suppose the 1. create template from image, 2.create template from vm, 3.create vm from template-- I hope all these 3 items covered in this release
+<a name="l-49"></a><span class="tm">13:15:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, agree
+<a name="l-50"></a><span class="tm">13:16:23</span><span class="nk"> &lt;alinefm&gt;</span> how about put item 1 to sprint 1 and the 2 and 3 to sprint 2?
+<a name="l-51"></a><span class="tm">13:16:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> As for 1.2.1, I see several work left in 1.2.1 and some Stabilization work, should we add them to 1.3?
+<a name="l-52"></a><span class="tm">13:16:48</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, sure
+<a name="l-53"></a><span class="tm">13:17:05</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, what is "Create VM from Installation Server"?
+<a name="l-54"></a><span class="tm">13:17:13</span><span class="nk"> &lt;alinefm&gt;</span> I haven't found it on ML
+<a name="l-55"></a><span class="tm">13:17:22</span><span class="nk"> &lt;alinefm&gt;</span> is to create a vm from network: pxe, etc?
+<a name="l-56"></a><span class="tm">13:17:28</span><span class="nk"> &lt;YuXin&gt;</span> A defect that wangwen is going to work on
+<a name="l-57"></a><span class="tm">13:17:32</span><span class="nk"> &lt;YuXin&gt;</span> but it is an enhancement
+<a name="l-58"></a><span class="tm">13:17:35</span><span class="nk"> &lt;royce&gt;</span> alinefm, sure, And I think if we have 3 now, we can posted earlier, so that we can decide the semantic of 1 and 2 is right for 3
+<a name="l-59"></a><span class="tm">13:17:44</span><span class="nk"> &lt;YuXin&gt;</span> wangwen, do you have the defect number
+<a name="l-60"></a><span class="tm">13:17:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-61"></a><span class="tm">13:18:03</span><span class="nk"> &lt;royce&gt;</span> I mean for 3 we need to settle down the API definition so that 1 and 2 are implemented properly
+<a name="l-62"></a><span class="tm">13:18:04</span><span class="nk"> &lt;wenwang&gt;</span> let me check
+<a name="l-63"></a><span class="tm">13:18:07</span><span class="nk"> &lt;alinefm&gt;</span> let me update the wiki and show you for agreement
+<a name="l-64"></a><span class="tm">13:18:41</span><span class="nk"> &lt;royce&gt;</span> thanks, alinefm
+<a name="l-65"></a><span class="tm">13:19:12</span><span class="nk"> &lt;wenwang&gt;</span> https://github.com/kimchi-project/kimchi/issues/372
+<a name="l-66"></a><span class="tm">13:19:23</span><span class="nk"> &lt;wenwang&gt;</span> That's the defect
+<a name="l-67"></a><span class="tm">13:20:30</span><span class="nk"> &lt;YuXin&gt;</span> aline, 372 is an enhancement
+<a name="l-68"></a><span class="tm">13:21:03</span><span class="nk"> &lt;wenwang&gt;</span> It seems pvital has done plenty of work in the back-end and need some support in the UI side, I think I can help with it
+<a name="l-69"></a><span class="tm">13:21:32</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+<a name="l-70"></a><span class="tm">13:21:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang checking the link... one minute
+<a name="l-71"></a><span class="tm">13:23:42</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, pvital, wohoo! it will require a lot of work in backend and frontend
+<a name="l-72"></a><span class="tm">13:23:58</span><span class="nk"> &lt;alinefm&gt;</span> I suggest to target it for sprint 2
+<a name="l-73"></a><span class="tm">13:24:02</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-74"></a><span class="tm">13:24:28</span><span class="nk"> &lt;YuXin&gt;</span> from mail, looks like pvital already started backend
+<a name="l-75"></a><span class="tm">13:25:13</span><span class="nk"> &lt;alinefm&gt;</span> pvital, did you send a WIP patches to ML?
+<a name="l-76"></a><span class="tm">13:25:35</span><span class="nk"> &lt;royce&gt;</span> alinefm, I suppose the backend just need to change the boot order in vm edit page?
+<a name="l-77"></a><span class="tm">13:26:17</span><span class="nk"> &lt;alinefm&gt;</span> royce, configure boot order is a pre requisite for this task
+<a name="l-78"></a><span class="tm">13:26:40</span><span class="nk"> &lt;alinefm&gt;</span> the user should be able to switch between network. hd and cdrom drives to boot
+<a name="l-79"></a><span class="tm">13:26:41</span><span class="nk"> &lt;royce&gt;</span> The pxe server set up may out of this task's scope
+<a name="l-80"></a><span class="tm">13:27:03</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-81"></a><span class="tm">13:28:05</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, royce, and by targeting tasks to sprint 2 does not mean they can not start during sprint 1
+<a name="l-82"></a><span class="tm">13:28:17</span><span class="nk"> &lt;royce&gt;</span> sure
+<a name="l-83"></a><span class="tm">13:28:18</span><span class="nk"> &lt;alinefm&gt;</span> but they must be done by sprint 2
+<a name="l-84"></a><span class="tm">13:28:23</span><span class="nk"> &lt;alinefm&gt;</span> does that make sense?
+<a name="l-85"></a><span class="tm">13:28:38</span><span class="nk"> &lt;royce&gt;</span> ACK
+<a name="l-86"></a><span class="tm">13:28:41</span><span class="nk"> &lt;YuXin&gt;</span> if further design is needed which will involve more content, I am ok to target it for sprint 2
+<a name="l-87"></a><span class="tm">13:28:56</span><span class="nk"> &lt;neoclust&gt;</span> hello
+<a name="l-88"></a><span class="tm">13:29:16</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes - probably an RFC to ML can clarify things on it
+<a name="l-89"></a><span class="tm">13:29:18</span><span class="nk"> &lt;alinefm&gt;</span> hi, neoclust
+<a name="l-90"></a><span class="tm">13:29:24</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> hello
+<a name="l-91"></a><span class="tm">13:29:27</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-92"></a><span class="tm">13:29:41</span><span class="nk"> &lt;neoclust&gt;</span> i am trying to package/use kimchi for mageia
+<a name="l-93"></a><span class="tm">13:29:48</span><span class="nk"> &lt;alinefm&gt;</span> pvital, could you send an RFC about this feature https://github.com/kimchi-project/kimchi/issues/372 ? so we can discuss better
+<a name="l-94"></a><span class="tm">13:30:10</span><span class="nk"> &lt;neoclust&gt;</span> i have a pb to log in the web interface
+<a name="l-95"></a><span class="tm">13:30:17</span><span class="nk"> &lt;neoclust&gt;</span> and in the logs i can see "rc: 1 error:  returned from cmd: sudo -l -U neoclust sudo"
+<a name="l-96"></a><span class="tm">13:30:50</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, are you able to run the same command by you own?
+<a name="l-97"></a><span class="tm">13:31:21</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> ah my bad Sorry, user neoclust is not allowed to execute '/bin/sudo' as neoclust on localhost.localdomain.
+<a name="l-98"></a><span class="tm">13:31:38</span><span class="nk"> &lt;alinefm&gt;</span> one important task we are missing is the federation!
+<a name="l-99"></a><span class="tm">13:31:41</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, np =)
+<a name="l-100"></a><span class="tm">13:32:00</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, did you do more research on it?
+<a name="l-101"></a><span class="tm">13:32:35</span><span class="nk"> &lt;alinefm&gt;</span> I want to add some work related to that for sprint 1 - at least finish the design for this task
+<a name="l-102"></a><span class="tm">13:32:38</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> i try on "MBS" too  " Mandriva Business Server" but it segfault, is there a way to have something usable ( i mean as debug )
+<a name="l-103"></a><span class="tm">13:33:19</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, segfault? oO
+<a name="l-104"></a><span class="tm">13:33:30</span><span class="nk"> &lt;royce&gt;</span> neoclust, kimchi has not been tested on Mageia....
+<a name="l-105"></a><span class="tm">13:33:35</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> yes when a user try to log
+<a name="l-106"></a><span class="tm">13:33:36</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, you can try python pdb
+<a name="l-107"></a><span class="tm">13:35:22</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you know if shaohef did more investigation on federation feature?
+<a name="l-108"></a><span class="tm">13:35:33</span><span class="nk"> &lt;alinefm&gt;</span> shaohef or zhou
+<a name="l-109"></a><span class="tm">13:36:01</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">royce:</span> i will help on this :)
+<a name="l-110"></a><span class="tm">13:36:04</span><span class="nk"> &lt;royce&gt;</span> alinefm, seems federation patch is submitted in gmail mailist before
+<a name="l-111"></a><span class="tm">13:36:16</span><span class="nk"> &lt;royce&gt;</span> and they plan to rebase it
+<a name="l-112"></a><span class="tm">13:36:26</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, that is great!
+<a name="l-113"></a><span class="tm">13:36:49</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok - I will send a note to ML to get some feedback
+<a name="l-114"></a><span class="tm">13:37:15</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, we are doing 1.3 plan - do you have some features to suggest for kimchi? =)
+<a name="l-115"></a><span class="tm">13:37:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else for 1.3, team?
+<a name="l-116"></a><span class="tm">13:37:37</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> not yet as i have not yet been able to test ;)
+<a name="l-117"></a><span class="tm">13:37:37</span><span class="nk"> &lt;pvital&gt;</span> alinefm, late but I'm going to send a RFC as soon as possible
+<a name="l-118"></a><span class="tm">13:38:17</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, omg! oO
+<a name="l-119"></a><span class="tm">13:38:18</span><span class="nk"> &lt;alinefm&gt;</span> hehe
+<a name="l-120"></a><span class="tm">13:38:20</span><span class="nk"> &lt;alinefm&gt;</span> pvital, thanks
+<a name="l-121"></a><span class="tm">13:38:42</span><span class="nk"> &lt;alinefm&gt;</span> I will add the remaining tasks to the wiki
+<a name="l-122"></a><span class="tm">13:38:55</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> is the use of sudo "mandatory" ?
+<a name="l-123"></a><span class="tm">13:39:02</span><span class="nk"> &lt;alinefm&gt;</span> please, select the task you want to work on and edit the wiki page to insert your name
+<a name="l-124"></a><span class="tm">13:39:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, wenwang, shaohef, pvital ^
+<a name="l-125"></a><span class="tm">13:39:21</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-126"></a><span class="tm">13:39:26</span><span class="nk"> &lt;royce&gt;</span> sure!
+<a name="l-127"></a><span class="tm">13:39:30</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, yes - only users with sudo can manage virtual machines
+<a name="l-128"></a><span class="tm">13:39:38</span><span class="nk"> &lt;alinefm&gt;</span> otherwise you will only see them
+<a name="l-129"></a><span class="tm">13:39:58</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> ok i will add a comment about this on my spec file
+<a name="l-130"></a><span class="tm">13:40:06</span><span class="nk"> &lt;wenwang&gt;</span> okay
+<a name="l-131"></a><span class="tm">13:40:15</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, but probably a bug there: kimchi should not crash when user can not run sudo
+<a name="l-132"></a><span class="tm">13:40:29</span><span class="nk"> &lt;alinefm&gt;</span> kimchi should start normally on view mode in this case
+<a name="l-133"></a><span class="tm">13:40:52</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> for me it does not crash, but does not log. For the segfault i don't know yet why
+<a name="l-134"></a><span class="tm">13:41:10</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> last week i looked and in the logs i had stuffs about dl
+<a name="l-135"></a><span class="tm">13:41:17</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, does not log = crash for me heheh
+<a name="l-136"></a><span class="tm">13:41:23</span><span class="nk"> &lt;neoclust&gt;</span> <span class="hi">alinefm:</span> ah :)
+<a name="l-137"></a><span class="tm">13:41:36</span><span class="nk"> &lt;alinefm&gt;</span> neoclust, maybe your first patch ;-)
+<a name="l-138"></a><span class="tm">13:41:56</span><span class="nk"> &lt;neoclust&gt;</span> :)
+<a name="l-139"></a><span class="tm">13:42:56</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion section
+<a name="l-140"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-141"></a><span class="tm">13:43:08</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-142"></a><span class="tm">13:43:38</span><span class="nk"> &lt;alinefm&gt;</span> royce, wenwang, YuXin, ^
+<a name="l-143"></a><span class="tm">13:43:41</span><span class="nk"> &lt;YuXin&gt;</span> aline, why show host/template/storage/network for non-root users with a read-only mode?
+<a name="l-144"></a><span class="tm">13:44:30</span><span class="nk"> &lt;YuXin&gt;</span> I am thinking only VM(guests) are needed for non-root users
+<a name="l-145"></a><span class="tm">13:46:24</span><span class="nk"> &lt;alinefm&gt;</span> do you mean remove the other tabs from non-root view?
+<a name="l-146"></a><span class="tm">13:46:31</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-147"></a><span class="tm">13:46:31</span><span class="nk"> &lt;alinefm&gt;</span> or display them in blank?
+<a name="l-148"></a><span class="tm">13:46:41</span><span class="nk"> &lt;YuXin&gt;</span> remove them
+<a name="l-149"></a><span class="tm">13:47:05</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> Agreed, It seems Openstack did so
+<a name="l-150"></a><span class="tm">13:47:10</span><span class="nk"> &lt;alinefm&gt;</span> I agree for templates/storage/network
+<a name="l-151"></a><span class="tm">13:47:20</span><span class="nk"> &lt;alinefm&gt;</span> but the read-only info on host page can be useful
+<a name="l-152"></a><span class="tm">13:47:23</span><span class="nk"> &lt;alinefm&gt;</span> like the stats
+<a name="l-153"></a><span class="tm">13:47:26</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-154"></a><span class="tm">13:48:35</span><span class="nk"> &lt;YuXin&gt;</span> I think network/storage should be reserved, as a non-root user with admin role can edit VM, for other tabs, I do not thing they are needed
+<a name="l-155"></a><span class="tm">13:49:36</span><span class="nk"> &lt;YuXin&gt;</span> non-root user with admin role may change vm network or add volume, so they need to check network and stroage pool settings
+<a name="l-156"></a><span class="tm">13:50:35</span><span class="nk"> &lt;YuXin&gt;</span> for template, as non-root user will not permitted to create VM, do not needed
+<a name="l-157"></a><span class="tm">13:51:31</span><span class="nk"> &lt;YuXin&gt;</span> for host, I do not think it is valuable as a certain non-root user only see a subset of VMs created
+<a name="l-158"></a><span class="tm">13:52:51</span><span class="nk"> &lt;alinefm&gt;</span> non-root user will have full access to a vm when a root user specify him/her to do that
+<a name="l-159"></a><span class="tm">13:53:17</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> Can we follow the theme what openstack did for their vm?
+<a name="l-160"></a><span class="tm">13:53:19</span><span class="nk"> &lt;alinefm&gt;</span> for example, I am root and I give you permission to access a specific vm
+<a name="l-161"></a><span class="tm">13:53:39</span><span class="nk"> &lt;YuXin&gt;</span> yes, non-root user with admin role can edit/delete a VM
+<a name="l-162"></a><span class="tm">13:54:23</span><span class="nk"> &lt;alinefm&gt;</span> for now we don't have roles
+<a name="l-163"></a><span class="tm">13:54:36</span><span class="nk"> &lt;alinefm&gt;</span> we will add rules after have this basic authorization done
+<a name="l-164"></a><span class="tm">13:54:51</span><span class="nk"> &lt;alinefm&gt;</span> for now I mean for 1.3 release
+<a name="l-165"></a><span class="tm">13:54:56</span><span class="nk"> &lt;YuXin&gt;</span> ok, so non-root user will have full access to a VM
+<a name="l-166"></a><span class="tm">13:55:18</span><span class="nk"> &lt;alinefm&gt;</span> yes - if he is assigned to it
+<a name="l-167"></a><span class="tm">13:55:21</span><span class="nk"> &lt;alinefm&gt;</span> example:
+<a name="l-168"></a><span class="tm">13:55:57</span><span class="nk"> &lt;alinefm&gt;</span> to assign a user/group to a vm: PUT /vms/my-vm {users: [alinefm, yuxin], groups: [somegroup]}
+<a name="l-169"></a><span class="tm">13:56:31</span><span class="nk"> &lt;alinefm&gt;</span> in this API I am telling: the users alinefm and yuxin have full access to the vm
+<a name="l-170"></a><span class="tm">13:56:39</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-171"></a><span class="tm">13:56:43</span><span class="nk"> &lt;alinefm&gt;</span> the same for users on group 'somegroup'
+<a name="l-172"></a><span class="tm">13:56:48</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, makes more sense now?
+<a name="l-173"></a><span class="tm">13:56:53</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-174"></a><span class="tm">13:57:06</span><span class="nk"> &lt;alinefm&gt;</span> when we have it done we add the roles as you described on ML
+<a name="l-175"></a><span class="tm">13:57:28</span><span class="nk"> &lt;YuXin&gt;</span> so what does this mean about include what tabs for non-root users?
+<a name="l-176"></a><span class="tm">13:58:35</span><span class="nk"> &lt;alinefm&gt;</span> from vms perspective (guests tab) a non-root user will only be able to manage the vms he is assigned for
+<a name="l-177"></a><span class="tm">13:58:43</span><span class="nk"> &lt;alinefm&gt;</span> he can not create anything there
+<a name="l-178"></a><span class="tm">13:59:15</span><span class="nk"> &lt;YuXin&gt;</span> when he edit a VM, for example, change to another network
+<a name="l-179"></a><span class="tm">13:59:21</span><span class="nk"> &lt;alinefm&gt;</span> in the other tabs (host, templates, storage, network) the non-root user will have any access to perform actions
+<a name="l-180"></a><span class="tm">13:59:49</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if the network already exists it is OK
+<a name="l-181"></a><span class="tm">14:00:07</span><span class="nk"> &lt;YuXin&gt;</span> he need to know the type of the network and some other details
+<a name="l-182"></a><span class="tm">14:00:21</span><span class="nk"> &lt;YuXin&gt;</span> in edit vm UI, there is no such info
+<a name="l-183"></a><span class="tm">14:01:14</span><span class="nk"> &lt;YuXin&gt;</span> so I think only network and storage pool infor are needed for vm edit, so reserve those 2 tabs with read-only
+<a name="l-184"></a><span class="tm">14:01:31</span><span class="nk"> &lt;alinefm&gt;</span> got your point and agree
+<a name="l-185"></a><span class="tm">14:01:58</span><span class="nk"> &lt;alinefm&gt;</span> so remove only template tabs ?
+<a name="l-186"></a><span class="tm">14:02:15</span><span class="nk"> &lt;YuXin&gt;</span> template need to be removed
+<a name="l-187"></a><span class="tm">14:02:27</span><span class="nk"> &lt;YuXin&gt;</span> how about host?
+<a name="l-188"></a><span class="tm">14:03:14</span><span class="nk"> &lt;YuXin&gt;</span> vm owner does not need to concern about host, right?
+<a name="l-189"></a><span class="tm">14:03:23</span><span class="nk"> &lt;alinefm&gt;</span> right
+<a name="l-190"></a><span class="tm">14:03:32</span><span class="nk"> &lt;alinefm&gt;</span> so remove host and template tabs
+<a name="l-191"></a><span class="tm">14:03:36</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-192"></a><span class="tm">14:03:40</span><span class="nk"> &lt;alinefm&gt;</span> and keep storage and network as read-only mode
+<a name="l-193"></a><span class="tm">14:03:43</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-194"></a><span class="tm">14:03:47</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-195"></a><span class="tm">14:03:54</span><span class="nk"> &lt;alinefm&gt;</span> I will update the wiki with that
+<a name="l-196"></a><span class="tm">14:04:00</span><span class="nk"> &lt;YuXin&gt;</span> thanks
+<a name="l-197"></a><span class="tm">14:04:21</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-198"></a><span class="tm">14:04:24</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> There is a question that we discussed the task thing
+<a name="l-199"></a><span class="tm">14:04:34</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, go ahead
+<a name="l-200"></a><span class="tm">14:04:59</span><span class="nk"> &lt;YuXin&gt;</span> nothing else about security
+<a name="l-201"></a><span class="tm">14:05:39</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> there are one way we discussed before that let the server trigger the browser when  a task finished
+<a name="l-202"></a><span class="tm">14:06:28</span><span class="nk"> &lt;wenwang&gt;</span> it needs socket and will include lots of work that may effect all tasks we created in Kimchi
+<a name="l-203"></a><span class="tm">14:06:57</span><span class="nk"> &lt;wenwang&gt;</span> We have an alternative solution for just the long time task
+<a name="l-204"></a><span class="tm">14:07:44</span><span class="nk"> &lt;alinefm&gt;</span> what is the alternative solution?
+<a name="l-205"></a><span class="tm">14:07:53</span><span class="nk"> &lt;alinefm&gt;</span> add some new parameters to the task resource?
+<a name="l-206"></a><span class="tm">14:08:51</span><span class="nk"> &lt;wenwang&gt;</span> which need just to redesign the keys of the tasks. We might need to add the user information and the task creator as key so that when the browser refreshed or restart, we can track the tasks and ask for their status
+<a name="l-207"></a><span class="tm">14:08:58</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-208"></a><span class="tm">14:09:35</span><span class="nk"> &lt;wenwang&gt;</span> The way we do the request is the same since we don't need to block any operation from the user when generating the debug report
+<a name="l-209"></a><span class="tm">14:10:17</span><span class="nk"> &lt;alinefm&gt;</span> hm the problem is today the task info is not stored anywhere
+<a name="l-210"></a><span class="tm">14:10:29</span><span class="nk"> &lt;alinefm&gt;</span> ie, when kimchi restarts we loose the task info
+<a name="l-211"></a><span class="tm">14:10:29</span><span class="nk"> &lt;wenwang&gt;</span> yes
+<a name="l-212"></a><span class="tm">14:10:38</span><span class="nk"> &lt;alinefm&gt;</span> maybe we need to do it different too
+<a name="l-213"></a><span class="tm">14:11:23</span><span class="nk"> &lt;wenwang&gt;</span> with the user name and the value who create the task we can allocate the task when we restart a session
+<a name="l-214"></a><span class="tm">14:12:09</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, thinking...
+<a name="l-215"></a><span class="tm">14:12:31</span><span class="nk"> &lt;alinefm&gt;</span> my first approach would be store the tasks info in the objctstore
+<a name="l-216"></a><span class="tm">14:12:43</span><span class="nk"> &lt;alinefm&gt;</span> but I don't know how it will work
+<a name="l-217"></a><span class="tm">14:12:49</span><span class="nk"> &lt;alinefm&gt;</span> royce, any suggestion ^?
+<a name="l-218"></a><span class="tm">14:12:59</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, whether you mean we continue to use web socket?
+<a name="l-219"></a><span class="tm">14:13:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> by this means, yes
+<a name="l-220"></a><span class="tm">14:13:32</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> just what we are using now
+<a name="l-221"></a><span class="tm">14:14:27</span><span class="nk"> &lt;YuXin&gt;</span> so for a task, the user who triggerred it and the uri need to be available at server side
+<a name="l-222"></a><span class="tm">14:14:31</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> just we have the info stored in the server that will not disappear when restart a browser or change a computer
+<a name="l-223"></a><span class="tm">14:15:02</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> Yes,
+<a name="l-224"></a><span class="tm">14:16:10</span><span class="nk"> &lt;royce&gt;</span> alinefm, I think wenwang is talking about the async message sent by server to browser
+<a name="l-225"></a><span class="tm">14:17:43</span><span class="nk"> &lt;YuXin&gt;</span> when user login, initiate a web socket connection from brower to server
+<a name="l-226"></a><span class="tm">14:18:06</span><span class="nk"> &lt;royce&gt;</span> wenwang, I think sheldon and you need to update the discussion result to ML about the async message design, and how it fixes current task  poll mode
+<a name="l-227"></a><span class="tm">14:18:11</span><span class="nk"> &lt;YuXin&gt;</span> at server side, check whether there any task update for this user
+<a name="l-228"></a><span class="tm">14:18:13</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">royce:</span> We discussed that a little more and are hesitating whether to user that much effort for the task and by adding two essential parameters can solve this problem
+<a name="l-229"></a><span class="tm">14:18:33</span><span class="nk"> &lt;YuXin&gt;</span> if there is, push back the message for client to update UI
+<a name="l-230"></a><span class="tm">14:18:56</span><span class="nk"> &lt;YuXin&gt;</span> if the task is done and message got push back, remove the task
+<a name="l-231"></a><span class="tm">14:20:33</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, why the username is important for the task?
+<a name="l-232"></a><span class="tm">14:21:16</span><span class="nk"> &lt;wenwang&gt;</span> just to identify the role
+<a name="l-233"></a><span class="tm">14:21:29</span><span class="nk"> &lt;YuXin&gt;</span> when server push back message to client, it need to base on username to decide which task info to push back for him
+<a name="l-234"></a><span class="tm">14:22:54</span><span class="nk"> &lt;alinefm&gt;</span> but for example, I started a debug report generation, can't other user see it is being generated?
+<a name="l-235"></a><span class="tm">14:24:12</span><span class="nk"> &lt;YuXin&gt;</span> this is specially for debug report or we are trying to create a generic message notification component
+<a name="l-236"></a><span class="tm">14:24:26</span><span class="nk"> &lt;wenwang&gt;</span> So we show the indicator to everyone if there is one generating
+<a name="l-237"></a><span class="tm">14:24:28</span><span class="nk"> &lt;wenwang&gt;</span> ?
+<a name="l-238"></a><span class="tm">14:25:39</span><span class="nk"> &lt;wenwang&gt;</span> yes, by the web socket solution, YuXin made a good point
+<a name="l-239"></a><span class="tm">14:26:29</span><span class="nk"> &lt;alinefm&gt;</span> I am thinking in a generic approach
+<a name="l-240"></a><span class="tm">14:26:43</span><span class="nk"> &lt;wenwang&gt;</span> or else we add some parameters and go on with checking the tasks status until it finished
+<a name="l-241"></a><span class="tm">14:26:54</span><span class="nk"> &lt;alinefm&gt;</span> it will be useful for debug reports in the first moment but more and more situations like that can happen in future
+<a name="l-242"></a><span class="tm">14:27:09</span><span class="nk"> &lt;YuXin&gt;</span> if it is generic,  then different users will need different message
+<a name="l-243"></a><span class="tm">14:28:33</span><span class="nk"> &lt;YuXin&gt;</span> there will be global message like debug report that all users would like to share the message
+<a name="l-244"></a><span class="tm">14:29:25</span><span class="nk"> &lt;YuXin&gt;</span> but there may be some message only target for a task triggered by a certain user
+<a name="l-245"></a><span class="tm">14:29:37</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-246"></a><span class="tm">14:29:37</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, we are over time - can we continue on ML?
+<a name="l-247"></a><span class="tm">14:29:39</span><span class="nk"> &lt;alinefm&gt;</span> or ater I finish the meeting?
+<a name="l-248"></a><span class="tm">14:30:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-249"></a><span class="tm">14:30:23</span><span class="nk"> &lt;YuXin&gt;</span> I think let us think more about it and discuss later on Mail list
+<a name="l-250"></a><span class="tm">14:30:42</span><span class="nk"> &lt;alinefm&gt;</span> ok - good
+<a name="l-251"></a><span class="tm">14:31:08</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for the great discussions!
+<a name="l-252"></a><span class="tm">14:31:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

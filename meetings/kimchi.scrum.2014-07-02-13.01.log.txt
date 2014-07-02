@@ -1,0 +1,252 @@
+13:01:00 <alinefm> #startmeeting
+13:01:00 <kimchi-bot> Meeting started Wed Jul  2 13:01:00 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:00 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:00 <alinefm> #meetingname scrum
+13:01:00 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:26 <alinefm> #info Agenda 1) 1.3 Plan 2) Open discussion
+13:01:26 <alinefm> anything else?
+13:02:07 <royce> Looks good to me
+13:02:16 <wenwang> Good to me too
+13:02:59 <alinefm> First of all, I want to thank you all again for the hard work to get 1.2.1 ready
+13:03:27 <alinefm> I am looking forward for 1.3 release
+13:04:11 <alinefm> #topic 1.3 Plan
+13:04:20 <alinefm> I add the schedule to the wiki page: https://github.com/kimchi-project/kimchi/wiki/Planning-1.3
+13:04:37 <alinefm> we will have 4 sprints - 2 for devel and 2 for stabilization
+13:04:42 <alinefm> the same we did for 1.2.1
+13:04:59 <alinefm> and the GA will be on Sept 24
+13:05:10 <wenwang> Okay, I see
+13:05:52 <alinefm> and in the wiki https://github.com/kimchi-project/kimchi/wiki/Todo-1.3 I started adding the tasks for 1.3
+13:06:00 <alinefm> as you can see it is not completed yet
+13:06:11 <alinefm> I added the tasks discussed in the ML
+13:06:18 <alinefm> but there are more to add too
+13:07:01 <alinefm> I tried to respond all emails in the ML yesterday but seems only some of those are delivered in time
+13:07:09 <alinefm> I resent some notes this morning
+13:07:19 <alinefm> hope everyone had a chance to see my replies =)
+13:08:40 <wenwang> I will have them checked ASAP when I get back to office :)
+13:08:51 <wenwang> Thanks for your effort alinefm
+13:09:19 <wenwang> And also, I see the subtitle is still 1.2.1, should we change that to 1.3?
+13:09:34 <alinefm> wenwang, lol
+13:09:43 <alinefm> copy and paste always fails
+13:10:16 <wenwang> :-)
+13:10:20 <alinefm> fixed now
+13:10:24 <alinefm> thanks wenwang
+13:10:42 <wenwang> np, It looks good now
+13:13:44 <YuXin> Create VM from Image
+13:13:44 <YuXin> Create VM from Installation Server
+13:13:44 <YuXin> SMP Support
+13:13:44 <YuXin> Improve Task Management for Kimchi
+13:13:46 <royce> alinefm, I'm wondering if anyone is planning to rebase your create vm from template previous patch?
+13:13:57 <YuXin> I also see these in mail list
+13:14:21 <alinefm> YuXin, yeap - I will also add them to 1.3
+13:14:28 <YuXin> ok
+13:14:28 <alinefm> but probably on sprint 2
+13:14:36 <YuXin> ok
+13:14:40 <alinefm> I think there is a lot of work on sprint 1
+13:14:51 <alinefm> but I can reorganize the tasks according your feedbacks
+13:15:00 <alinefm> royce, I have a branch for it =)
+13:15:11 <alinefm> maybe need one more rebase but I can share with the team
+13:15:29 <royce> I suppose the 1. create template from image, 2.create template from vm, 3.create vm from template-- I hope all these 3 items covered in this release
+13:15:59 <alinefm> royce, agree
+13:16:23 <alinefm> how about put item 1 to sprint 1 and the 2 and 3 to sprint 2?
+13:16:34 <wenwang> alinefm: As for 1.2.1, I see several work left in 1.2.1 and some Stabilization work, should we add them to 1.3?
+13:16:48 <alinefm> wenwang, sure
+13:17:05 <alinefm> YuXin, what is "Create VM from Installation Server"?
+13:17:13 <alinefm> I haven't found it on ML
+13:17:22 <alinefm> is to create a vm from network: pxe, etc?
+13:17:28 <YuXin> A defect that wangwen is going to work on
+13:17:32 <YuXin> but it is an enhancement
+13:17:35 <royce> alinefm, sure, And I think if we have 3 now, we can posted earlier, so that we can decide the semantic of 1 and 2 is right for 3
+13:17:44 <YuXin> wangwen, do you have the defect number
+13:17:59 <alinefm> royce, yes
+13:18:03 <royce> I mean for 3 we need to settle down the API definition so that 1 and 2 are implemented properly
+13:18:04 <wenwang> let me check
+13:18:07 <alinefm> let me update the wiki and show you for agreement
+13:18:41 <royce> thanks, alinefm
+13:19:12 <wenwang> https://github.com/kimchi-project/kimchi/issues/372
+13:19:23 <wenwang> That's the defect
+13:20:30 <YuXin> aline, 372 is an enhancement
+13:21:03 <wenwang> It seems pvital has done plenty of work in the back-end and need some support in the UI side, I think I can help with it
+13:21:32 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+13:21:45 <alinefm> YuXin, wenwang checking the link... one minute
+13:23:42 <alinefm> YuXin, wenwang, pvital, wohoo! it will require a lot of work in backend and frontend
+13:23:58 <alinefm> I suggest to target it for sprint 2
+13:24:02 <alinefm> what do you think?
+13:24:28 <YuXin> from mail, looks like pvital already started backend
+13:25:13 <alinefm> pvital, did you send a WIP patches to ML?
+13:25:35 <royce> alinefm, I suppose the backend just need to change the boot order in vm edit page?
+13:26:17 <alinefm> royce, configure boot order is a pre requisite for this task
+13:26:40 <alinefm> the user should be able to switch between network. hd and cdrom drives to boot
+13:26:41 <royce> The pxe server set up may out of this task's scope
+13:27:03 <royce> yes
+13:28:05 <alinefm> YuXin, royce, and by targeting tasks to sprint 2 does not mean they can not start during sprint 1
+13:28:17 <royce> sure
+13:28:18 <alinefm> but they must be done by sprint 2
+13:28:23 <alinefm> does that make sense?
+13:28:38 <royce> ACK
+13:28:41 <YuXin> if further design is needed which will involve more content, I am ok to target it for sprint 2
+13:28:56 <neoclust> hello
+13:29:16 <alinefm> YuXin, yes - probably an RFC to ML can clarify things on it
+13:29:18 <alinefm> hi, neoclust
+13:29:24 <neoclust> alinefm: hello
+13:29:27 <YuXin> sure
+13:29:41 <neoclust> i am trying to package/use kimchi for mageia
+13:29:48 <alinefm> pvital, could you send an RFC about this feature https://github.com/kimchi-project/kimchi/issues/372 ? so we can discuss better
+13:30:10 <neoclust> i have a pb to log in the web interface
+13:30:17 <neoclust> and in the logs i can see "rc: 1 error:  returned from cmd: sudo -l -U neoclust sudo"
+13:30:50 <alinefm> neoclust, are you able to run the same command by you own?
+13:31:21 <neoclust> alinefm: ah my bad Sorry, user neoclust is not allowed to execute '/bin/sudo' as neoclust on localhost.localdomain.
+13:31:38 <alinefm> one important task we are missing is the federation!
+13:31:41 <alinefm> neoclust, np =)
+13:32:00 <alinefm> shaohef, did you do more research on it?
+13:32:35 <alinefm> I want to add some work related to that for sprint 1 - at least finish the design for this task
+13:32:38 <neoclust> alinefm: i try on "MBS" too  " Mandriva Business Server" but it segfault, is there a way to have something usable ( i mean as debug )
+13:33:19 <alinefm> neoclust, segfault? oO
+13:33:30 <royce> neoclust, kimchi has not been tested on Mageia....
+13:33:35 <neoclust> alinefm: yes when a user try to log
+13:33:36 <alinefm> neoclust, you can try python pdb
+13:35:22 <alinefm> royce, do you know if shaohef did more investigation on federation feature?
+13:35:33 <alinefm> shaohef or zhou
+13:36:01 <neoclust> royce: i will help on this :)
+13:36:04 <royce> alinefm, seems federation patch is submitted in gmail mailist before
+13:36:16 <royce> and they plan to rebase it
+13:36:26 <alinefm> neoclust, that is great!
+13:36:49 <alinefm> royce, ok - I will send a note to ML to get some feedback
+13:37:15 <alinefm> neoclust, we are doing 1.3 plan - do you have some features to suggest for kimchi? =)
+13:37:24 <alinefm> anything else for 1.3, team?
+13:37:37 <neoclust> alinefm: not yet as i have not yet been able to test ;)
+13:37:37 <pvital> alinefm, late but I'm going to send a RFC as soon as possible
+13:38:17 <alinefm> neoclust, omg! oO
+13:38:18 <alinefm> hehe
+13:38:20 <alinefm> pvital, thanks
+13:38:42 <alinefm> I will add the remaining tasks to the wiki
+13:38:55 <neoclust> alinefm: is the use of sudo "mandatory" ?
+13:39:02 <alinefm> please, select the task you want to work on and edit the wiki page to insert your name
+13:39:10 <alinefm> royce, YuXin, wenwang, shaohef, pvital ^
+13:39:21 <YuXin> ok
+13:39:26 <royce> sure!
+13:39:30 <alinefm> neoclust, yes - only users with sudo can manage virtual machines
+13:39:38 <alinefm> otherwise you will only see them
+13:39:58 <neoclust> alinefm: ok i will add a comment about this on my spec file
+13:40:06 <wenwang> okay
+13:40:15 <alinefm> neoclust, but probably a bug there: kimchi should not crash when user can not run sudo
+13:40:29 <alinefm> kimchi should start normally on view mode in this case
+13:40:52 <neoclust> alinefm: for me it does not crash, but does not log. For the segfault i don't know yet why
+13:41:10 <neoclust> alinefm: last week i looked and in the logs i had stuffs about dl
+13:41:17 <alinefm> neoclust, does not log = crash for me heheh
+13:41:23 <neoclust> alinefm: ah :)
+13:41:36 <alinefm> neoclust, maybe your first patch ;-)
+13:41:56 <neoclust> :)
+13:42:56 <alinefm> let's move on to open discussion section
+13:43:02 <alinefm> #topic Open Discussion
+13:43:08 <alinefm> what are the topics for today?
+13:43:38 <alinefm> royce, wenwang, YuXin, ^
+13:43:41 <YuXin> aline, why show host/template/storage/network for non-root users with a read-only mode?
+13:44:30 <YuXin> I am thinking only VM(guests) are needed for non-root users
+13:46:24 <alinefm> do you mean remove the other tabs from non-root view?
+13:46:31 <YuXin> yes
+13:46:31 <alinefm> or display them in blank?
+13:46:41 <YuXin> remove them
+13:47:05 <wenwang> YuXin: Agreed, It seems Openstack did so
+13:47:10 <alinefm> I agree for templates/storage/network
+13:47:20 <alinefm> but the read-only info on host page can be useful
+13:47:23 <alinefm> like the stats
+13:47:26 <alinefm> what do you think?
+13:48:35 <YuXin> I think network/storage should be reserved, as a non-root user with admin role can edit VM, for other tabs, I do not thing they are needed
+13:49:36 <YuXin> non-root user with admin role may change vm network or add volume, so they need to check network and stroage pool settings
+13:50:35 <YuXin> for template, as non-root user will not permitted to create VM, do not needed
+13:51:31 <YuXin> for host, I do not think it is valuable as a certain non-root user only see a subset of VMs created
+13:52:51 <alinefm> non-root user will have full access to a vm when a root user specify him/her to do that
+13:53:17 <wenwang> YuXin: Can we follow the theme what openstack did for their vm?
+13:53:19 <alinefm> for example, I am root and I give you permission to access a specific vm
+13:53:39 <YuXin> yes, non-root user with admin role can edit/delete a VM
+13:54:23 <alinefm> for now we don't have roles
+13:54:36 <alinefm> we will add rules after have this basic authorization done
+13:54:51 <alinefm> for now I mean for 1.3 release
+13:54:56 <YuXin> ok, so non-root user will have full access to a VM
+13:55:18 <alinefm> yes - if he is assigned to it
+13:55:21 <alinefm> example:
+13:55:57 <alinefm> to assign a user/group to a vm: PUT /vms/my-vm {users: [alinefm, yuxin], groups: [somegroup]}
+13:56:31 <alinefm> in this API I am telling: the users alinefm and yuxin have full access to the vm
+13:56:39 <YuXin> ok
+13:56:43 <alinefm> the same for users on group 'somegroup'
+13:56:48 <alinefm> YuXin, makes more sense now?
+13:56:53 <YuXin> yes
+13:57:06 <alinefm> when we have it done we add the roles as you described on ML
+13:57:28 <YuXin> so what does this mean about include what tabs for non-root users?
+13:58:35 <alinefm> from vms perspective (guests tab) a non-root user will only be able to manage the vms he is assigned for
+13:58:43 <alinefm> he can not create anything there
+13:59:15 <YuXin> when he edit a VM, for example, change to another network
+13:59:21 <alinefm> in the other tabs (host, templates, storage, network) the non-root user will have any access to perform actions
+13:59:49 <alinefm> YuXin, if the network already exists it is OK
+14:00:07 <YuXin> he need to know the type of the network and some other details
+14:00:21 <YuXin> in edit vm UI, there is no such info
+14:01:14 <YuXin> so I think only network and storage pool infor are needed for vm edit, so reserve those 2 tabs with read-only
+14:01:31 <alinefm> got your point and agree
+14:01:58 <alinefm> so remove only template tabs ?
+14:02:15 <YuXin> template need to be removed
+14:02:27 <YuXin> how about host?
+14:03:14 <YuXin> vm owner does not need to concern about host, right?
+14:03:23 <alinefm> right
+14:03:32 <alinefm> so remove host and template tabs
+14:03:36 <YuXin> ok
+14:03:40 <alinefm> and keep storage and network as read-only mode
+14:03:43 <alinefm> agree?
+14:03:47 <YuXin> yes
+14:03:54 <alinefm> I will update the wiki with that
+14:04:00 <YuXin> thanks
+14:04:21 <alinefm> anything else?
+14:04:24 <wenwang> alinefm: There is a question that we discussed the task thing
+14:04:34 <alinefm> wenwang, go ahead
+14:04:59 <YuXin> nothing else about security
+14:05:39 <wenwang> alinefm: there are one way we discussed before that let the server trigger the browser when  a task finished
+14:06:28 <wenwang> it needs socket and will include lots of work that may effect all tasks we created in Kimchi
+14:06:57 <wenwang> We have an alternative solution for just the long time task
+14:07:44 <alinefm> what is the alternative solution?
+14:07:53 <alinefm> add some new parameters to the task resource?
+14:08:51 <wenwang> which need just to redesign the keys of the tasks. We might need to add the user information and the task creator as key so that when the browser refreshed or restart, we can track the tasks and ask for their status
+14:08:58 <wenwang> alinefm: yes
+14:09:35 <wenwang> The way we do the request is the same since we don't need to block any operation from the user when generating the debug report
+14:10:17 <alinefm> hm the problem is today the task info is not stored anywhere
+14:10:29 <alinefm> ie, when kimchi restarts we loose the task info
+14:10:29 <wenwang> yes
+14:10:38 <alinefm> maybe we need to do it different too
+14:11:23 <wenwang> with the user name and the value who create the task we can allocate the task when we restart a session
+14:12:09 <alinefm> wenwang, thinking...
+14:12:31 <alinefm> my first approach would be store the tasks info in the objctstore
+14:12:43 <alinefm> but I don't know how it will work
+14:12:49 <alinefm> royce, any suggestion ^?
+14:12:59 <YuXin> wenwang, whether you mean we continue to use web socket?
+14:13:22 <wenwang> YuXin: by this means, yes
+14:13:32 <wenwang> YuXin: just what we are using now
+14:14:27 <YuXin> so for a task, the user who triggerred it and the uri need to be available at server side
+14:14:31 <wenwang> YuXin: just we have the info stored in the server that will not disappear when restart a browser or change a computer
+14:15:02 <wenwang> YuXin: Yes,
+14:16:10 <royce> alinefm, I think wenwang is talking about the async message sent by server to browser
+14:17:43 <YuXin> when user login, initiate a web socket connection from brower to server
+14:18:06 <royce> wenwang, I think sheldon and you need to update the discussion result to ML about the async message design, and how it fixes current task  poll mode
+14:18:11 <YuXin> at server side, check whether there any task update for this user
+14:18:13 <wenwang> royce: We discussed that a little more and are hesitating whether to user that much effort for the task and by adding two essential parameters can solve this problem
+14:18:33 <YuXin> if there is, push back the message for client to update UI
+14:18:56 <YuXin> if the task is done and message got push back, remove the task
+14:20:33 <alinefm> wenwang, why the username is important for the task?
+14:21:16 <wenwang> just to identify the role
+14:21:29 <YuXin> when server push back message to client, it need to base on username to decide which task info to push back for him
+14:22:54 <alinefm> but for example, I started a debug report generation, can't other user see it is being generated?
+14:24:12 <YuXin> this is specially for debug report or we are trying to create a generic message notification component
+14:24:26 <wenwang> So we show the indicator to everyone if there is one generating
+14:24:28 <wenwang> ?
+14:25:39 <wenwang> yes, by the web socket solution, YuXin made a good point
+14:26:29 <alinefm> I am thinking in a generic approach
+14:26:43 <wenwang> or else we add some parameters and go on with checking the tasks status until it finished
+14:26:54 <alinefm> it will be useful for debug reports in the first moment but more and more situations like that can happen in future
+14:27:09 <YuXin> if it is generic,  then different users will need different message
+14:28:33 <YuXin> there will be global message like debug report that all users would like to share the message
+14:29:25 <YuXin> but there may be some message only target for a task triggered by a certain user
+14:29:37 <alinefm> agree
+14:29:37 <alinefm> YuXin, wenwang, we are over time - can we continue on ML?
+14:29:39 <alinefm> or ater I finish the meeting?
+14:30:15 <wenwang> alinefm: sure
+14:30:23 <YuXin> I think let us think more about it and discuss later on Mail list
+14:30:42 <alinefm> ok - good
+14:31:08 <alinefm> thanks all for the great discussions!
+14:31:15 <alinefm> #endmeeting
