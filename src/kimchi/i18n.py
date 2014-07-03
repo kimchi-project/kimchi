@@ -206,7 +206,7 @@ messages = {
     "KCHDR0004E": _("Can not find any generated debug report matching name %(name)s"),
     "KCHDR0005E": _("Unable to generate debug report %(name)s. Details: %(err)s"),
     "KCHDR0006E": _("You should give a name for the debug file report."),
-    "KCHDR0007E": _("Name should be a string. Only letters, digits and hyphen ('-') are allowed."),
+    "KCHDR0007E": _("Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."),
     "KCHDR0008E": _("The debug report with specified name \"%(name)s\" already exists. Please use another one."),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),

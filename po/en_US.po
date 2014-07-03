@@ -703,9 +703,9 @@ msgid "You should give a name for the debug file report."
 msgstr "You should give a name for the debug file report."
 
 msgid ""
-"Name should be a string. Only letters, digits and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
 msgstr ""
-"Name should be a string. Only letters, digits and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
 
 #, python-format
 msgid ""
@@ -1317,8 +1317,8 @@ msgstr "Rename"
 msgid "Download"
 msgstr "Download"
 
-msgid "Report name should contain only letters, digits and/or hyphen ('-')."
-msgstr "Report name should contain only letters, digits and/or hyphen ('-')."
+msgid "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
+msgstr "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
 
 msgid "Pending..."
 msgstr "Pending..."
@@ -1503,10 +1503,10 @@ msgstr "Report Name"
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
 msgstr ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
 
 msgid "Add a Repository"
 msgstr "Add a Repository"

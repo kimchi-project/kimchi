@@ -680,8 +680,8 @@ msgid "You should give a name for the debug file report."
 msgstr "应该为诊断文件报告指定一个名字。"
 
 msgid ""
-"Name should be a string. Only letters, digits and hyphen ('-') are allowed."
-msgstr "名字必须是一个字符串。只允许字母、数字和连字符 ('-')。"
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
+msgstr "名字必须是一个字符串。只允许字母、数字、下划线 ('_') 和连字符 ('-')。"
 
 #, python-format
 msgid ""
@@ -1270,8 +1270,8 @@ msgstr "重命名"
 msgid "Download"
 msgstr "下载"
 
-msgid "Report name should contain only letters, digits and/or hyphen ('-')."
-msgstr "报告名字中只能包含字母、数字或连字符（-）。"
+msgid "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
+msgstr "报告名字中只能包含字母、数字、下划线('_')和连字符('-')"
 
 msgid "Pending..."
 msgstr "正在加载..."
@@ -1441,10 +1441,10 @@ msgstr "诊断报告名"
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
 msgstr ""
 "名字用来标识诊断报告。如果省略，将会基于当前时间生成一个新名字。名字中可以包"
-"含字母、数字和连字符（-）"
+"含字母、数字、下划线 ('_') 和连字符（-）"
 
 msgid "Add a Repository"
 msgstr "增加一个软件仓库"
