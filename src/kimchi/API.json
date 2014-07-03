@@ -36,7 +36,7 @@
                 "name": {
                     "description": "The name for the debug report file.",
                     "type": "string",
-                    "pattern": "^[A-Za-z0-9-]*$",
+                    "pattern": "^[_A-Za-z0-9-]*$",
                     "error": "KCHDR0007E"
                 }
             }
