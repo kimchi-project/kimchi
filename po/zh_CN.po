@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 13:27-0300\n"
+"POT-Creation-Date: 2014-07-03 10:20-0500\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -680,7 +680,8 @@ msgid "You should give a name for the debug file report."
 msgstr "应该为诊断文件报告指定一个名字。"
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
+"('-') are allowed."
 msgstr "名字必须是一个字符串。只允许字母、数字、下划线 ('_') 和连字符 ('-')。"
 
 #, python-format
@@ -998,8 +999,32 @@ msgstr "卸载"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Start"
+msgstr "启用"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Power Off"
+msgstr "关闭电源"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Connect"
+msgstr "连接到"
+
 msgid "Manage Media"
 msgstr "管理光盘介质"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Shut Down"
+msgstr "关机"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Add a Storage Device to VM"
 msgstr "为虚拟机添加一个存储设备"
@@ -1041,30 +1066,6 @@ msgstr "服务器端CDROM所使用的ISO文件路径"
 
 msgid "Attach"
 msgstr "装载"
-
-msgid "Start"
-msgstr "启用"
-
-msgid "Reset"
-msgstr "重置"
-
-msgid "Power Off"
-msgstr "关闭电源"
-
-msgid "Actions"
-msgstr "操作"
-
-msgid "Connect"
-msgstr "连接到"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Shut Down"
-msgstr "关机"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "用户名或密码错误，请重新输入。"
@@ -1270,7 +1271,9 @@ msgstr "重命名"
 msgid "Download"
 msgstr "下载"
 
-msgid "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
+msgid ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
 msgstr "报告名字中只能包含字母、数字、下划线('_')和连字符('-')"
 
 msgid "Pending..."
@@ -1421,8 +1424,8 @@ msgstr "登出"
 msgid "Version:"
 msgstr "版本："
 
-msgid "Log In"
-msgstr "登录"
+msgid "Session timeout, please re-login."
+msgstr "登录超时，请重新登录。"
 
 msgid "User Name"
 msgstr "用户名"
@@ -1430,8 +1433,8 @@ msgstr "用户名"
 msgid "Password"
 msgstr "密码"
 
-msgid "Session timeout, please re-login."
-msgstr "登录超时，请重新登录。"
+msgid "Log In"
+msgstr "登录"
 
 msgid "Generate a New Debug Report"
 msgstr "产生一个新的诊断报告"
@@ -1441,10 +1444,11 @@ msgstr "诊断报告名"
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore (\"_\") "
+"and hyphen (\"-\")."
 msgstr ""
 "名字用来标识诊断报告。如果省略，将会基于当前时间生成一个新名字。名字中可以包"
-"含字母、数字、下划线 ('_') 和连字符（-）"
+"含字母、数字、下划线 ('_') 和连字符（'-'）"
 
 msgid "Add a Repository"
 msgstr "增加一个软件仓库"
