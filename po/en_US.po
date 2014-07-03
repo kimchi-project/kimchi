@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 13:27-0300\n"
+"POT-Creation-Date: 2014-07-03 10:20-0500\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -703,9 +703,11 @@ msgid "You should give a name for the debug file report."
 msgstr "You should give a name for the debug file report."
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
+"('-') are allowed."
 msgstr ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
+"('-') are allowed."
 
 #, python-format
 msgid ""
@@ -1036,8 +1038,32 @@ msgstr "Detach"
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Start"
+msgstr "Start"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Power Off"
+msgstr "Power Off"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Connect"
+msgstr "Connect"
+
 msgid "Manage Media"
 msgstr "Manage Media"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Shut Down"
+msgstr "Shut Down"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Add a Storage Device to VM"
 msgstr "Add a Storage Device to VM"
@@ -1081,30 +1107,6 @@ msgstr "The ISO file path in the server for CDROM."
 
 msgid "Attach"
 msgstr "Attach"
-
-msgid "Start"
-msgstr "Start"
-
-msgid "Reset"
-msgstr "Reset"
-
-msgid "Power Off"
-msgstr "Power Off"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "Connect"
-msgstr "Connect"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Shut Down"
-msgstr "Shut Down"
-
-msgid "Delete"
-msgstr "Delete"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "The username or password you entered is incorrect. Please try again."
@@ -1317,8 +1319,12 @@ msgstr "Rename"
 msgid "Download"
 msgstr "Download"
 
-msgid "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
-msgstr "Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-')."
+msgid ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
+msgstr ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
 
 msgid "Pending..."
 msgstr "Pending..."
@@ -1483,8 +1489,8 @@ msgstr "Log out"
 msgid "Version:"
 msgstr "Version:"
 
-msgid "Log In"
-msgstr "Log In"
+msgid "Session timeout, please re-login."
+msgstr "Session timeout, please re-login."
 
 msgid "User Name"
 msgstr "User Name"
@@ -1492,8 +1498,8 @@ msgstr "User Name"
 msgid "Password"
 msgstr "Password"
 
-msgid "Session timeout, please re-login."
-msgstr "Session timeout, please re-login."
+msgid "Log In"
+msgstr "Log In"
 
 msgid "Generate a New Debug Report"
 msgstr "Generate a New Debug Report"
@@ -1503,10 +1509,12 @@ msgstr "Report Name"
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore (\"_\") "
+"and hyphen (\"-\")."
 msgstr ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore ('_') and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore ('_') "
+"and hyphen (\"-\")."
 
 msgid "Add a Repository"
 msgstr "Add a Repository"

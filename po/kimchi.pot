@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 13:27-0300\n"
+"POT-Creation-Date: 2014-07-03 10:20-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -660,7 +660,8 @@ msgid "You should give a name for the debug file report."
 msgstr ""
 
 msgid ""
-"Name should be a string. Only letters, digits and hyphen ('-') are allowed."
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
+"('-') are allowed."
 msgstr ""
 
 #, python-format
@@ -978,7 +979,31 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Start"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
 msgid "Manage Media"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Shut Down"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "Add a Storage Device to VM"
@@ -1020,30 +1045,6 @@ msgid "The ISO file path in the server for CDROM."
 msgstr ""
 
 msgid "Attach"
-msgstr ""
-
-msgid "Start"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr ""
-
-msgid "Connect"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Shut Down"
-msgstr ""
-
-msgid "Delete"
 msgstr ""
 
 msgid "The username or password you entered is incorrect. Please try again."
@@ -1249,7 +1250,9 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-msgid "Report name should contain only letters, digits and/or hyphen ('-')."
+msgid ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
 msgstr ""
 
 msgid "Pending..."
@@ -1398,7 +1401,7 @@ msgstr ""
 msgid "Version:"
 msgstr ""
 
-msgid "Log In"
+msgid "Session timeout, please re-login."
 msgstr ""
 
 msgid "User Name"
@@ -1407,7 +1410,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-msgid "Session timeout, please re-login."
+msgid "Log In"
 msgstr ""
 
 msgid "Generate a New Debug Report"
@@ -1418,7 +1421,8 @@ msgstr ""
 
 msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits and hyphen (\"-\")."
+"based on current time. Name can contain: letters, digits, underscore (\"_\") "
+"and hyphen (\"-\")."
 msgstr ""
 
 msgid "Add a Repository"
