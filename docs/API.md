@@ -763,6 +763,24 @@ Contains information of host.
 * swupdate: Start the update of packages in background and return a Task resource
     * task resource.  * See Resource: Task *
 
+### Resource: Host users
+
+**URI:** /host/users
+List of system users in the host.
+
+**Methods:**
+
+* **GET**: Retrieve list of system users in the host.
+
+### Resource: Host groups
+
+**URI:** /host/groups
+List of system groups in the host.
+
+**Methods:**
+
+* **GET**: Retrieve list of system groups in the host.
+
 ### Resource: HostStats
 
 **URI:** /host/stats
