@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul  9 13:04:12 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:04:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:04:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:47</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-9"></a><span class="tm">13:05:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:06:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm reviewed and commented all RFC sent to ML</span>
+<a name="l-12"></a><span class="tm">13:06:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm investigated a way to implement federation and figure out openSLP is a good solution for us</span>
+<a name="l-13"></a><span class="tm">13:06:55</span><span class="nk"> &lt;YuXin&gt;</span> &lt;YuXin&gt; Authorization: Assign VM to user  working
+<a name="l-14"></a><span class="tm">13:10:11</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working authorization: remove host/template tabs for non-root users</span>
+<a name="l-15"></a><span class="tm">13:11:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on openSLP implementation</span>
+<a name="l-16"></a><span class="tm">13:11:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on remove actions menu from storage/network tabs for non-rooot users/ emove [+] icon from non-root users view</span>
+<a name="l-17"></a><span class="tm">13:11:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got agreement about the authorization design - I will do some adjustments in the backend</span>
+<a name="l-18"></a><span class="tm">13:12:46</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef is working on vm ticket.</span>
+<a name="l-19"></a><span class="tm">13:14:26</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on widget that offer multiple choice works for  assigning VM to users(assisting YuXin)</span>
+<a name="l-20"></a><span class="tm">13:17:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-21"></a><span class="tm">13:19:00</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-22"></a><span class="tm">13:19:04</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-23"></a><span class="tm">13:19:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-24"></a><span class="tm">13:19:53</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-25"></a><span class="tm">13:20:39</span><span class="nk"> &lt;YuXin&gt;</span> any idea about filter users/groups?
+<a name="l-26"></a><span class="tm">13:22:09</span><span class="nk"> &lt;YuXin&gt;</span> shaohe, filter by whether the user has a home directory is reliable?
+<a name="l-27"></a><span class="tm">13:22:36</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, from what I investigated yesterday we could do some filtering by the UID but it is not secure
+<a name="l-28"></a><span class="tm">13:22:57</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, you cannot filter by user with home dir cause not all user need to have a home dir.
+<a name="l-29"></a><span class="tm">13:23:02</span><span class="nk"> &lt;alinefm&gt;</span> some linux distributions do not follow the rules
+<a name="l-30"></a><span class="tm">13:24:09</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes, qemu has no home directory
+<a name="l-31"></a><span class="tm">13:24:43</span><span class="nk"> &lt;YuXin&gt;</span> so the user without home dir should be filtered out?
+<a name="l-32"></a><span class="tm">13:24:59</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, I don't agree with this.
+<a name="l-33"></a><span class="tm">13:25:08</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, I can have a user without home dir and still log in with it.
+<a name="l-34"></a><span class="tm">13:25:11</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I don't think so
+<a name="l-35"></a><span class="tm">13:25:29</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, there is no reliable way to filter out users
+<a name="l-36"></a><span class="tm">13:26:08</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, what we can do is a smart interface that shows the most probable users at first (for instance, users with UID &gt; 500), but has a button or an option to expand and show all system users.
+<a name="l-37"></a><span class="tm">13:26:09</span><span class="nk"> &lt;YuXin&gt;</span> ok, I will add a filter box for kimchi user to quickly get the user he want
+<a name="l-38"></a><span class="tm">13:26:22</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, that is also ok.
+<a name="l-39"></a><span class="tm">13:26:28</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, that is a good feature to have
+<a name="l-40"></a><span class="tm">13:26:30</span><span class="nk"> &lt;shaohef&gt;</span> usually the we create user, and create a home dir and shell environment.
+<a name="l-41"></a><span class="tm">13:26:42</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, usually, but not *always*
+<a name="l-42"></a><span class="tm">13:26:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> yes.
+<a name="l-43"></a><span class="tm">13:27:35</span><span class="nk"> &lt;shaohef&gt;</span> but if the user has no shell environment, we can filter them out
+<a name="l-44"></a><span class="tm">13:27:40</span><span class="nk"> &lt;shaohef&gt;</span> IMHO
+<a name="l-45"></a><span class="tm">13:27:59</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> what about you?
+<a name="l-46"></a><span class="tm">13:28:44</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, where is the user shell enviorment stored?
+<a name="l-47"></a><span class="tm">13:28:53</span><span class="nk"> &lt;lagarcia&gt;</span> s/enviorment/environment
+<a name="l-48"></a><span class="tm">13:29:20</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, you mean the shell environment in /etc/passwd?
+<a name="l-49"></a><span class="tm">13:29:30</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> yes。
+<a name="l-50"></a><span class="tm">13:29:45</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, If this is standard among all distros, we can filter out all the users with shell environment equals to "/sbin/nologin"
+<a name="l-51"></a><span class="tm">13:30:03</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, not sure if this is standard among all distros kimchi support. we shall verify.
+<a name="l-52"></a><span class="tm">13:30:16</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, if it is common among all distros, I am OK with your proposal.
+<a name="l-53"></a><span class="tm">13:30:17</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> yes. we need to look into it.
+<a name="l-54"></a><span class="tm">13:30:53</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> OK.  I also agree. YuXin what about you?
+<a name="l-55"></a><span class="tm">13:30:58</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, I know this works on RHEL and Fedora. Not sure about SLES, OpenSuSe and Ubuntu
+<a name="l-56"></a><span class="tm">13:31:03</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-57"></a><span class="tm">13:31:24</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> let's check on SLES, OpenSuSe and Ubuntu.
+<a name="l-58"></a><span class="tm">13:32:12</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, agree
+<a name="l-59"></a><span class="tm">13:32:20</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> we need some investigation.
+<a name="l-60"></a><span class="tm">13:32:33</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-61"></a><span class="tm">13:33:35</span><span class="nk"> &lt;YuXin&gt;</span> no matter whether backend can get a reliable way to make it better, I tend to add a filter box on UI
+<a name="l-62"></a><span class="tm">13:33:37</span><span class="nk"> &lt;alinefm&gt;</span> about the groups, any idea to filter?
+<a name="l-63"></a><span class="tm">13:33:48</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, agree
+<a name="l-64"></a><span class="tm">13:33:58</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, agree
+<a name="l-65"></a><span class="tm">13:34:31</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, I think you can filter out groups with no user associated to them.
+<a name="l-66"></a><span class="tm">13:34:44</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, this will probably get the group list down to 5 or 6 entries.
+<a name="l-67"></a><span class="tm">13:35:40</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, however, there is one exception to this: groups with name equal to a user id doesn't need to list the user as part of the group
+<a name="l-68"></a><span class="tm">13:36:13</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, hence, I think the rule should be: merge two lists 1) groups whose name is equal to a user name listed in the users lists; and 2) groups with users associated with them.
+<a name="l-69"></a><span class="tm">13:36:15</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> yes. such as ftp groups only include ftp user.
+<a name="l-70"></a><span class="tm">13:36:41</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, yes, that's why I think we need only to list groups whose names are also in the user list (already filtered by login shell)
+<a name="l-71"></a><span class="tm">13:37:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">lagarcia:</span> total agree.
+<a name="l-72"></a><span class="tm">13:39:37</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, a group with the same name of the user will always have this user in this group, right?
+<a name="l-73"></a><span class="tm">13:39:51</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, yes
+<a name="l-74"></a><span class="tm">13:40:00</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, that's my understanding
+<a name="l-75"></a><span class="tm">13:40:27</span><span class="nk"> &lt;alinefm&gt;</span> so check the groups has at least one user associated is enough
+<a name="l-76"></a><span class="tm">13:41:41</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, not really, cause a group that has no user associated to it can have a user associated to it (the user whose id is the same as the group name)
+<a name="l-77"></a><span class="tm">13:42:27</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sorry, I think I  misunderstood your previous question... a group with the same name of the user will always have this user in this group, but it is not necessary to explicitly list the user in /etc/group. It is implicit
+<a name="l-78"></a><span class="tm">13:44:25</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, for instance, in my system, I have two users: laggarcia and guest. In my /etc/group, I have these entries:
+<a name="l-79"></a><span class="tm">13:44:37</span><span class="nk"> &lt;lagarcia&gt;</span> laggarcia:x:1000:laggarcia
+<a name="l-80"></a><span class="tm">13:45:02</span><span class="nk"> &lt;lagarcia&gt;</span> and this one has an explicitly association between my laggarcia user and the laggarcia group (I had typed this association by hand)
+<a name="l-81"></a><span class="tm">13:45:13</span><span class="nk"> &lt;lagarcia&gt;</span> guest:x:1001:
+<a name="l-82"></a><span class="tm">13:45:43</span><span class="nk"> &lt;lagarcia&gt;</span> but for the guest group, I don't have any user associated with it. However, as the guest user has the same id as the guest group name, it is implicit included in this group.
+<a name="l-83"></a><span class="tm">13:46:02</span><span class="nk"> &lt;alinefm&gt;</span> got it
+<a name="l-84"></a><span class="tm">13:46:10</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, could you do a test for me?
+<a name="l-85"></a><span class="tm">13:46:19</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, sure
+<a name="l-86"></a><span class="tm">13:47:00</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, http://fpaste.org/116641/40491361/
+<a name="l-87"></a><span class="tm">13:47:08</span><span class="nk"> &lt;alinefm&gt;</span> check if the "guest" group will be listed
+<a name="l-88"></a><span class="tm">13:47:42</span><span class="nk"> &lt;alinefm&gt;</span> not sure grp module works only with /etc/group or if it is smarter
+<a name="l-89"></a><span class="tm">13:48:06</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ['bin', 'mail', 'maildrop', 'nogroup', 'video']
+<a name="l-90"></a><span class="tm">13:48:11</span><span class="nk"> &lt;lagarcia&gt;</span> no, the guest group is not listed
+<a name="l-91"></a><span class="tm">13:48:37</span><span class="nk"> &lt;shaohef&gt;</span> In [4]: [g.gr_name for g in grp.getgrall() if len(g.gr_mem) &gt; 0]
+<a name="l-92"></a><span class="tm">13:48:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">Out[4]:</span> ['wheel', 'shhfeng', 'kvm']
+<a name="l-93"></a><span class="tm">13:49:02</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, shaohef, thanks
+<a name="l-94"></a><span class="tm">13:49:44</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ops, the result of my test is actually : ['wheel', 'kvm', 'laggarcia', 'desktop_admin_r', 'boinc']
+<a name="l-95"></a><span class="tm">13:49:46</span><span class="nk"> &lt;shaohef&gt;</span> in /etc/passwd
+<a name="l-96"></a><span class="tm">13:49:46</span><span class="nk"> &lt;shaohef&gt;</span> guest:x:1001:1001::/home/guest:/bin/bash
+<a name="l-97"></a><span class="tm">13:49:54</span><span class="nk"> &lt;lagarcia&gt;</span> which makes more sense... the other test I was running on a test machine with no users :)
+<a name="l-98"></a><span class="tm">13:50:07</span><span class="nk"> &lt;lagarcia&gt;</span> shaohef, yes, exactly
+<a name="l-99"></a><span class="tm">13:50:46</span><span class="nk"> &lt;lagarcia&gt;</span> ok, I think we have an agreement already
+<a name="l-100"></a><span class="tm">13:51:11</span><span class="nk"> &lt;alinefm&gt;</span> ok - so we need to investigate if /etc/passwd behaves the same way in all distros, if so use shell != /nologin to filter
+<a name="l-101"></a><span class="tm">13:52:01</span><span class="nk"> &lt;alinefm&gt;</span> and filter groups as lagarcia said: 1) groups whose name is equal to a user name listed in the users lists; and 2) groups with users associated with them.
+<a name="l-102"></a><span class="tm">13:52:52</span><span class="nk"> &lt;alinefm&gt;</span> any more topics?
+<a name="l-103"></a><span class="tm">13:56:38</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-104"></a><span class="tm">13:56:50</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining
+<a name="l-105"></a><span class="tm">13:57:07</span><span class="nk"> &lt;alinefm&gt;</span> and let's be Holland today =P
+<a name="l-106"></a><span class="tm">13:58:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
