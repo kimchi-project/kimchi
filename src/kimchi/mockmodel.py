@@ -346,7 +346,13 @@ class MockModel(object):
         os.remove(file_target)
 
     def debugreports_create(self, params):
-        ident = params['name']
+        ident = params.get('name').strip()
+        # Generate a name with time and millisec precision, if necessary
+        if ident is None or ident == "":
+            ident = 'report-' + str(int(time.time() * 1000))
+        else:
+            if ident in self.debugreports_get_list():
+                raise InvalidParameter("KCHDR0008E", {"name": ident})
         taskid = self._gen_debugreport_file(ident)
         return self.task_lookup(taskid)
 
