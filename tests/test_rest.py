@@ -1552,6 +1552,14 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(200, resp.status)
+
+        user_info = json.loads(resp.read())
+        self.assertEquals(sorted(user_info.keys()),
+                          ['groups', 'roles', 'username'])
+        roles = user_info['roles']
+        for tab, role in roles.iteritems():
+            self.assertEquals(role, u'admin')
+
         cookie = resp.getheader('set-cookie')
         hdrs['Cookie'] = cookie
 
