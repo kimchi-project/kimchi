@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs-ext>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+
         <title>SampleTab</title>
         <path>plugins/sample/tab.html</path>
     </tab>

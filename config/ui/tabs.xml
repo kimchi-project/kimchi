@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+
         <title>Host</title>
         <path>tabs/host.html</path>
     </tab>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="byInstance"/>
+
         <title>Guests</title>
         <path>tabs/guests.html</path>
     </tab>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+
         <title>Templates</title>
         <path>tabs/templates.html</path>
     </tab>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="read-only"/>
+
         <title>Storage</title>
         <path>tabs/storage.html</path>
     </tab>
     <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="read-only"/>
+
         <title>Network</title>
         <path>tabs/network.html</path>
     </tab>
