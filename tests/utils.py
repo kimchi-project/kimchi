@@ -157,8 +157,8 @@ def patch_auth(sudo=True):
     def _get_groups(self):
         return None
 
-    def _has_sudo(self):
-        return sudo
+    def _has_sudo(self, result):
+        result.value = sudo
 
     def _authenticate(username, password, service="passwd"):
         try:
@@ -170,7 +170,7 @@ def patch_auth(sudo=True):
     import kimchi.auth
     kimchi.auth.authenticate = _authenticate
     kimchi.auth.User.get_groups = _get_groups
-    kimchi.auth.User.has_sudo = _has_sudo
+    kimchi.auth.User._has_sudo = _has_sudo
 
 
 def normalize_xml(xml_str):

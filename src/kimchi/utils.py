@@ -27,6 +27,7 @@ import re
 import subprocess
 import traceback
 import urllib2
+import xml.etree.ElementTree as ET
 from multiprocessing import Process, Queue
 from threading import Timer
 
@@ -107,6 +108,20 @@ def get_enabled_plugins():
                     yield (name, plugin_config)
             except (TypeError, KeyError):
                 continue
+
+def get_all_tabs():
+    files = [os.path.join(paths.prefix, 'config/ui/tabs.xml')]
+
+    for plugin, _ in get_enabled_plugins():
+        files.append(os.path.join(PluginPaths(plugin).ui_dir,
+                     'config/tab-ext.xml'))
+
+    tabs = []
+    for f in files:
+        root = ET.parse(f)
+        tabs.extend([t.text.lower() for t in root.getiterator('title')])
+
+    return tabs
 
 
 def import_class(class_path):

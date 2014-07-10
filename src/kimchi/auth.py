@@ -32,13 +32,16 @@ import time
 
 from kimchi import template
 from kimchi.exception import InvalidOperation, OperationFailed
-from kimchi.utils import run_command
+from kimchi.utils import get_all_tabs, run_command
 
 
 USER_NAME = 'username'
 USER_GROUPS = 'groups'
 USER_SUDO = 'sudo'
+USER_ROLES = 'roles'
 REFRESH = 'robot-refresh'
+
+tabs = get_all_tabs()
 
 
 def redirect_login():
@@ -62,22 +65,36 @@ class User(object):
         self.user = {}
         self.user[USER_NAME] = username
         self.user[USER_GROUPS] = None
-        self.user[USER_SUDO] = False
+        # after adding support to change user roles that info should be read
+        # from a specific objstore and fallback to default only if any entry is
+        # found
+        self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
     def get_groups(self):
         self.user[USER_GROUPS] = [g.gr_name for g in grp.getgrall()
                                   if self.user[USER_NAME] in g.gr_mem]
         return self.user[USER_GROUPS]
 
+    def get_roles(self):
+        if self.has_sudo():
+            # after adding support to change user roles that info should be
+            # read from a specific objstore and fallback to default only if
+            # any entry is found
+            self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+
+        return self.user[USER_ROLES]
+
     def has_sudo(self):
         result = multiprocessing.Value('i', 0, lock=False)
         p = multiprocessing.Process(target=self._has_sudo, args=(result,))
         p.start()
         p.join()
-        self.user[USER_SUDO] = bool(result.value)
-        return self.user[USER_SUDO]
+
+        return result.value
 
     def _has_sudo(self, result):
+        result.value = False
+
         _master, slave = pty.openpty()
         os.setsid()
         fcntl.ioctl(slave, termios.TIOCSCTTY, 0)
@@ -94,7 +111,7 @@ class User(object):
                                           self.user[USER_NAME]])
             for line in out.split('\n'):
                 if line and re.search("(ALL)", line):
-                    result.value = 1
+                    result.value = True
                     debug("User %s can run any command with sudo" %
                           result.value)
                     return
@@ -219,6 +236,7 @@ def login(username, password, **kwargs):
     cherrypy.session[USER_NAME] = username
     cherrypy.session[USER_GROUPS] = user.get_groups()
     cherrypy.session[USER_SUDO] = user.has_sudo()
+    cherrypy.session[USER_ROLES] = user.get_roles()
     cherrypy.session[REFRESH] = time.time()
     cherrypy.session.release_lock()
     return user.get_user()
