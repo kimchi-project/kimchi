@@ -37,7 +37,7 @@ ISO_STREAM_XML = """
   <name>ISO_STREAMING</name>
   <memory unit='KiB'>1048576</memory>
   <os>
-    <type arch='x86_64' machine='pc-1.2'>hvm</type>
+    <type>hvm</type>
     <boot dev='cdrom'/>
   </os>
   <devices>
