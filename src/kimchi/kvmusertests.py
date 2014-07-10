@@ -31,9 +31,9 @@ class UserTests(object):
     <domain type='kvm'>
       <name>%s</name>
       <uuid>%s</uuid>
-      <memory unit='KiB'>10240</memory>
+      <memory unit='KiB'>262144</memory>
       <os>
-        <type arch='x86_64' machine='pc'>hvm</type>
+        <type>hvm</type>
         <boot dev='hd'/>
       </os>
     </domain>"""
