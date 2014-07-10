@@ -48,11 +48,31 @@ kimchi.report_add_main = function() {
         }
         var formData = addReportForm.serializeObject();
         var taskAccepted = false;
+        var onTaskAccepted = function() {
+            if(taskAccepted) {
+                return;
+            }
+            taskAccepted = true;
+            kimchi.window.close();
+            var reportName = nameTextbox.val() || i18n['KCHDR6012M'];
+            $('.grid-body-view table tbody', '#' + reportGridID).prepend(
+                '<tr>' +
+                    '<td>' +
+                        '<div class="cell-text-wrapper">' + reportName + '</div>' +
+                    '</td>' +
+                    '<td id ="id-debug-img">' +
+                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
+                    '</td>' +
+                '</tr>'
+            );
+        };
+
         disableToolbarButtons();
         submitButton.prop('disabled', true);
         $('.grid-body table tr', '#' + reportGridID)
             .on('click', disableToolbarButtons);
         kimchi.createReport(formData, function(result) {
+            onTaskAccepted();
             $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
             $('.grid-body table tr', '#' + reportGridID)
                 .off('click', disableToolbarButtons);
@@ -78,24 +98,7 @@ kimchi.report_add_main = function() {
             generateButton.prop('disabled', false);
             submitButton.prop('disabled', false);
             nameTextbox.select();
-        }, function(result) {
-            if(taskAccepted) {
-                return;
-            }
-            taskAccepted = true;
-            kimchi.window.close();
-            var reportName = nameTextbox.val() || i18n['KCHDR6012M'];
-            $('.grid-body-view table tbody', '#' + reportGridID).prepend(
-                '<tr>' +
-                    '<td>' +
-                        '<div class="cell-text-wrapper">' + reportName + '</div>' +
-                    '</td>' +
-                    '<td id ="id-debug-img">' +
-                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
-                    '</td>' +
-                '</tr>'
-            );
-        });
+        }, onTaskAccepted);
 
         event.preventDefault();
     };
