@@ -64,6 +64,18 @@ else
 AC_SUBST([ENABLE_SAMPLE], [False])
 fi
 
+AC_ARG_ENABLE(
+    [fonts],
+    [AS_HELP_STRING(
+        [--enable-fonts],
+        [Build fonts files in package @<:@default=yes@:>@]
+    )],
+    ,
+    [enable_fonts="yes"]
+)
+
+AM_CONDITIONAL([FONTS], [test "${enable_fonts}" = "yes"])
+
 AC_CONFIG_FILES([
     po/Makefile.in
     po/gen-pot
