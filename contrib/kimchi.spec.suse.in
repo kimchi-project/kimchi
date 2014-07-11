@@ -33,6 +33,10 @@ BuildRequires:	python-libxml2
 Requires:       python-ordereddict
 %endif
 
+%if %{undefined with_fonts}
+%define with_fonts 1
+%endif
+
 %description
 Web server application to manage KVM/Qemu virtual machines
 
@@ -40,7 +44,11 @@ Web server application to manage KVM/Qemu virtual machines
 %setup
 
 %build
+%if %{with_fonts} == 0
+%configure --disable-fonts
+%else
 %configure
+%endif
 make
 
 %install
@@ -75,7 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_datadir}/kimchi/mo/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
+%if %{with_fonts} == 1
 %{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
+%endif
 %{_datadir}/kimchi/ui/css/novnc/base.css
 %{_datadir}/kimchi/ui/css/theme-default.min.css
 %{_datadir}/kimchi/ui/images/*.png

@@ -15,7 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc fonts
+SUBDIRS = novnc
+
+if FONTS
+SUBDIRS += fonts
+endif
 
 EXTRA_DIST = theme-default
 
