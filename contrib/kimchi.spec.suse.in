@@ -75,7 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_datadir}/kimchi/mo/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
-%{_datadir}/kimchi/ui/css/fonts/fontawesome-webfont.*
 %{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
 %{_datadir}/kimchi/ui/css/novnc/base.css
 %{_datadir}/kimchi/ui/css/theme-default.min.css
