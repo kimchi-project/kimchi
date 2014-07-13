@@ -28,6 +28,7 @@ import pty
 import re
 import termios
 import time
+import urllib2
 
 
 from kimchi import template
@@ -47,7 +48,7 @@ def redirect_login():
     url = "/login.html"
     if cherrypy.request.path_info.endswith(".html"):
         next_url = cherrypy.serving.request.request_line.split()[1]
-        next_url = base64.urlsafe_b64encode(next_url)
+        next_url = urllib2.quote(next_url.encode('utf-8'), safe="")
         url = "/login.html?next=%s" % next_url
 
     raise cherrypy.HTTPRedirect(url, 303)
@@ -219,12 +220,6 @@ def login(username, password, **kwargs):
             debug("User cannot be verified with the supplied password")
             return None
     except PAM.error, (resp, code):
-        if (cherrypy.request.path_info == "/login" and
-           not template.can_accept('application/json')):
-            next_url = kwargs.get("next")
-            url = "/login.html?error=userPassWrong"
-            url = url if next_url is None else url + "&next=%s" % next_url
-            raise cherrypy.HTTPRedirect(url, 303)
         msg_args = {'username': username, 'code': code}
         raise OperationFailed("KCHAUTH0001E", msg_args)
 

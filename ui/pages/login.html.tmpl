@@ -32,6 +32,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="shortcut icon" href="images/logo.ico">
 <link rel="stylesheet" href="$href('css/theme-default.min.css')">
+<script src="$href('libs/modernizr.custom.76777.js')"></script>
 <script src="$href('libs/jquery-1.10.0.min.js')"></script>
 <script src="$href('libs/jquery-ui.min.js')"></script>
 <script src="$href('libs/jquery-ui-i18n.min.js')"></script>
@@ -56,40 +57,11 @@
     color: #C85305;
 }
 </style>
-<script>
-function changeLang() {
-    var lang = document.getElementById('userLang').value;
-    kimchi.cookie.set('kimchiLang', lang, 365);
-    window.location.reload();
-}
-function setLang() {
-    var defaultLang = 'en_US';
-    var clientLang = document.getElementsByTagName("html")[0].getAttribute("lang");
-    var persistLang = kimchi.cookie.get('kimchiLang');
-    document.getElementById("userLang").value = persistLang || clientLang || defaultLang;
-}
-function updateBtnLabel() {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("logging").style.display = "";
-    kimchi.user.setUserName(document.getElementById("username").value);
-}
-function setMessage() {
-    var err = "$getVar('data.error', '')";
-    if(err=="userPassWrong")
-        document.getElementById("messUserPass").style.display = "";
-    if(err=="sessionTimeout")
-        document.getElementById("messSession").style.display = "";
-}
-function init() {
-    setLang();
-    setMessage();
-}
-</script>
 </head>
-<body onload="init()">
+<body onload="kimchi.login_main()">
 <div class="container topbar">
     <span id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></span>
-    <select id="userLang" onchange="changeLang()">
+    <select id="userLang">
         <option value="en_US">English (US)</option>
         <option value="zh_CN">中文（简体）</option>
         <option value="pt_BR">Português (Brasil)</option>
@@ -100,7 +72,7 @@ function init() {
         <div id="messUserPass" class="err-mess" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
         <div id="messSession" class="err-mess" style="display: none;">$_("Session timeout, please re-login.")</div>
     </div>
-    <form id="form-login" action="/login$next" method="POST" class="login-panel" onsubmit="updateBtnLabel();">
+    <form id="form-login" class="login-panel">
         <div class="row">
             <input type="text" id="username" name="username" required="required" placeholder="$_("User Name")" autofocus/>
             <div id="username-msg" class="msg-required"></div>
