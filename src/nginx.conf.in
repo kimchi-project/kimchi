@@ -56,17 +56,6 @@ http {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_redirect http://127.0.0.1:$kimchid_port/ https://$host:$proxy_ssl_port/;
         }
-
-        location ~/(vnc_auto|spice\.html) {
-            proxy_pass http://127.0.0.1:$kimchid_port;
-            proxy_intercept_errors on;
-            error_page 401 @consoleauth;
-        }
-
-        location @consoleauth {
-            add_header Set-Cookie "console_uri=$request_uri";
-            return https://$host:$proxy_ssl_port/;
-        }
     }
 
     server {
