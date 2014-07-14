@@ -28,6 +28,10 @@ class DebugReports(AsyncCollection):
         super(DebugReports, self).__init__(model)
         self.resource = DebugReport
 
+    def _get_resources(self, filter_params):
+        res_list = super(DebugReports, self)._get_resources(filter_params)
+        return sorted(res_list, key=lambda x:x.data['time'], reverse=True)
+
 
 class DebugReport(Resource):
     def __init__(self, model, ident):
