@@ -284,6 +284,15 @@ kimchi.host_main = function() {
 
     var reportGridID = 'available-reports-grid';
     var reportGrid = null;
+    var enableReportButtons = function(toEnable) {
+        var buttonID = '#{grid}-{btn}-button';
+        $.each(['rename', 'remove', 'download'], function(i, n) {
+            $(kimchi.substitute(buttonID, {
+                grid: reportGridID,
+                btn: n
+            })).prop('disabled', !toEnable);
+        });
+    };
     var initReportGrid = function(reports) {
         reportGrid = new kimchi.widget.Grid({
             container: 'available-reports-grid-container',
@@ -304,6 +313,13 @@ kimchi.host_main = function() {
                 label: i18n['KCHDR6008M'],
                 disabled: true,
                 onClick: function(event) {
+                    var report = reportGrid.getSelected();
+                    if(!report) {
+                        return;
+                    }
+
+                    kimchi.selectedReport = report['name'];
+                    kimchi.window.open('report-rename.html');
                 }
             }, {
                 id: reportGridID + '-remove-button',
@@ -326,10 +342,6 @@ kimchi.host_main = function() {
                         kimchi.deleteReport({
                             name: report['name']
                         }, function(result) {
-                            $('#' + reportGridID + '-remove-button')
-                                .prop('disabled', true);
-                            $('#' + reportGridID + '-download-button')
-                                .prop('disabled', true);
                             listDebugReports();
                         }, function(error) {
                            kimchi.message.error(error.responseJSON.reason);
@@ -352,10 +364,7 @@ kimchi.host_main = function() {
                 }
             }],
             onRowSelected: function(row) {
-                $('#' + reportGridID + '-remove-button')
-                    .prop('disabled', false);
-                $('#' + reportGridID + '-download-button')
-                    .prop('disabled', false);
+                enableReportButtons(true);
             },
             frozenFields: [],
             fields: [{
@@ -374,9 +383,10 @@ kimchi.host_main = function() {
     var listDebugReports = function() {
         kimchi.listReports(function(reports) {
             $('#debug-report-section').removeClass('hidden');
-            $.each(reports, function(i, item) {
-                reports[i]['id'] = i + 1;
-            });
+
+            // Row selection will be cleared so disable buttons here
+            enableReportButtons(false);
+
             if(reportGrid) {
                 reportGrid.setData(reports);
             }
@@ -470,6 +480,8 @@ kimchi.host_main = function() {
             if(capabilities['system_report_tool']) {
                 listDebugReports();
                 kimchi.topic('kimchi/debugReportAdded')
+                    .subscribe(listDebugReports);
+                kimchi.topic('kimchi/debugReportRenamed')
                     .subscribe(listDebugReports);
             }
         });
@@ -784,5 +796,6 @@ kimchi.host_main = function() {
 
         reportGrid && reportGrid.destroy();
         kimchi.topic('kimchi/debugReportAdded').unsubscribe(listDebugReports);
+        kimchi.topic('kimchi/debugReportRenamed').unsubscribe(listDebugReports);
     });
 };
