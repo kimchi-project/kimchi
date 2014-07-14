@@ -700,6 +700,18 @@ var kimchi = {
         });
     },
 
+    renameReport : function(name, settings, suc, err) {
+        $.ajax({
+            url : kimchi.url + "debugreports/" + encodeURIComponent(name),
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json',
+            success: suc,
+            error: err
+        });
+    },
+
     deleteReport: function(settings, suc, err) {
         var reportName = encodeURIComponent(settings['name']);
         kimchi.requestJSON({
