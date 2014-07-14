@@ -167,7 +167,7 @@ class DebugReportModel(object):
         except IndexError:
             raise NotFoundError("KCHDR0001E", {'name': name})
 
-        ctime = os.stat(file_target).st_ctime
+        ctime = os.stat(file_target).st_mtime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
         file_target = os.path.split(file_target)[-1]
         file_target = os.path.join("/data/debugreports", file_target)
