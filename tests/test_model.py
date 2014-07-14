@@ -1063,8 +1063,9 @@ class ModelTests(unittest.TestCase):
             report_list = inst.debugreports_get_list()
             self.assertFalse(reportName in report_list)
             try:
+                tmp_name = reportName + "_1"
                 task = inst.debugreports_create({'name': reportName})
-                rollback.prependDefer(inst.debugreport_delete, reportName)
+                rollback.prependDefer(inst.debugreport_delete, tmp_name)
                 taskid = task['id']
                 self._wait_task(inst, taskid, timeout)
                 self.assertEquals('finished',
@@ -1076,6 +1077,10 @@ class ModelTests(unittest.TestCase):
                                   "./run_tests.sh test_model")
                 report_list = inst.debugreports_get_list()
                 self.assertTrue(reportName in report_list)
+                name = inst.debugreport_update(reportName, {'name': tmp_name})
+                self.assertEquals(name, tmp_name)
+                report_list = inst.debugreports_get_list()
+                self.assertTrue(tmp_name in report_list)
             except OperationFailed, e:
                 if not 'debugreport tool not found' in e.message:
                     raise e
