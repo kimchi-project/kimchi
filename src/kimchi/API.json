@@ -41,6 +41,17 @@
                 }
             }
         },
+        "debugreport_update": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "New name of debug report",
+                    "type": "string",
+                    "pattern": "^[_A-Za-z0-9-]*$",
+                    "error": "KCHDR0007E"
+                }
+            }
+        },
         "storagepools_create": {
             "type": "object",
             "error": "KCHPOOL0026E",
