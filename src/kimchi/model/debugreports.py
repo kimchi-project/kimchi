@@ -174,6 +174,22 @@ class DebugReportModel(object):
         return {'uri': file_target,
                 'ctime': ctime}
 
+    def update(self, name, params):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name + '.*')
+        try:
+            file_source = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError("KCHDR0001E", {'name': name})
+
+        file_target = file_source.replace(name, params['name'])
+        if os.path.isfile(file_target):
+            raise InvalidParameter('KCHDR0008E', {'name': params['name']})
+
+        shutil.move(file_source, file_target)
+        kimchi_log.info('%s renamed to %s' % (file_source, file_target))
+        return params['name']
+
     def delete(self, name):
         path = config.get_debugreports_path()
         file_pattern = os.path.join(path, name + '.*')
