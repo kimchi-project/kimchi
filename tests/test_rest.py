@@ -1496,7 +1496,7 @@ class RestTests(unittest.TestCase):
                 '/css/theme-default.min.css',
                 '/libs/jquery-1.10.0.min.js',
                 '/images/icon-vm.png',
-                '/login-window.html',
+                '/login.html',
                 '/logout']
         for uri in uris:
             resp = self.request(uri, None, 'HEAD', hdrs)
