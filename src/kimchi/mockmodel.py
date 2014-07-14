@@ -25,6 +25,7 @@ import disks
 import glob
 import ipaddr
 import os
+import shutil
 import psutil
 import random
 import string
@@ -325,7 +326,7 @@ class MockModel(object):
         except IndexError:
             raise NotFoundError("KCHDR0001E", {'name': name})
 
-        ctime = os.stat(file_target).st_ctime
+        ctime = os.stat(file_target).st_mtime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
         file_target = os.path.split(file_target)[-1]
         file_target = os.path.join("/data/debugreports", file_target)
@@ -334,6 +335,21 @@ class MockModel(object):
 
     def debugreportcontent_lookup(self, name):
         return self.debugreport_lookup(name)
+
+    def debugreport_update(self, name, params):
+        path = config.get_debugreports_path()
+        file_pattern = os.path.join(path, name + '.txt')
+        try:
+            file_source = glob.glob(file_pattern)[0]
+        except IndexError:
+            raise NotFoundError("KCHDR0001E", {'name': name})
+
+        file_target = file_source.replace(name, params['name'])
+        if os.path.isfile(file_target):
+            raise InvalidParameter('KCHDR0008E', {'name': params['name']})
+
+        shutil.move(file_source, file_target)
+        return params['name']
 
     def debugreport_delete(self, name):
         path = config.get_debugreports_path()
