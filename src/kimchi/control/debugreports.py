@@ -22,7 +22,7 @@ from kimchi.control.utils import internal_redirect
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode("debugreports", True, ['GET', 'POST'])
+@UrlSubNode("debugreports", True, ['GET', 'PUT', 'POST'])
 class DebugReports(AsyncCollection):
     def __init__(self, model):
         super(DebugReports, self).__init__(model)
@@ -32,6 +32,8 @@ class DebugReports(AsyncCollection):
 class DebugReport(Resource):
     def __init__(self, model, ident):
         super(DebugReport, self).__init__(model, ident)
+        self.update_params = ["name"]
+        self.uri_fmt = '/debugreports/%s'
         self.content = DebugReportContent(model, ident)
 
     @property
