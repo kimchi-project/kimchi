@@ -715,6 +715,9 @@ specific to the low level collection tool being used.
     * uri: The URI path to download a debug report
     * time: The time when the debug report is created
 
+* **PUT**: rename an existed debug report
+    * name: The new name for this debug report
+
 * **DELETE**: Remove the Debug Report
     * name: The debug report  name used to identify the report
 
