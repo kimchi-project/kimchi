@@ -29,18 +29,29 @@ class KimchiException(Exception):
     def __init__(self, code='', args={}):
         self.code = code
 
-        if cherrypy.request.app:
-            msg = self._get_translation(args)
-        else:
-            for key, value in args.iteritems():
-                if isinstance(value, unicode):
-                    args[key] = value.encode('utf-8')
-            msg = _messages.get(code, code) % args
+        for key, value in args.iteritems():
+            if isinstance(value, unicode):
+                continue
 
+            # value is not unicode: convert it
+            try:
+                # In case the value formats itself to an ascii string.
+                args[key] = unicode(str(value), 'utf-8')
+            except UnicodeEncodeError:
+                # In case the value is a KimchiException or it formats
+                # itself to a unicode string.
+                args[key] = unicode(value)
+
+        if cherrypy.request.app:
+            msg = self._get_translation()
+        else:
+            msg = _messages.get(code, code)
+
+        msg = unicode(msg, 'utf-8') % args
         pattern = "%s: %s" % (code, msg)
         Exception.__init__(self, pattern)
 
-    def _get_translation(self, args):
+    def _get_translation(self):
         lang = validate_language(get_lang())
         paths = cherrypy.request.app.root.paths
         domain = cherrypy.request.app.root.domain
@@ -52,17 +63,7 @@ class KimchiException(Exception):
         except:
             translation = gettext
 
-        for key, value in args.iteritems():
-            if not isinstance(value, unicode):
-                try:
-                    # In case the value formats itself to an ascii string.
-                    args[key] = unicode(str(value), 'utf-8')
-                except UnicodeEncodeError:
-                    # In case the value is a KimchiException or it formats
-                    # itself to a unicode string.
-                    args[key] = unicode(value)
-
-        return unicode(translation.gettext(text), 'utf-8') % args
+        return translation.gettext(text)
 
 
 class NotFoundError(KimchiException):
