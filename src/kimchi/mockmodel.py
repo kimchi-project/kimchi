@@ -1050,7 +1050,8 @@ class MockVM(object):
                      'graphics': {'type': 'vnc', 'listen': '0.0.0.0',
                                   'port': None},
                      'users': ['user1', 'user2', 'root'],
-                     'groups': ['group1', 'group2', 'admin']
+                     'groups': ['group1', 'group2', 'admin'],
+                     'access': 'full'
                      }
         self.info['graphics'].update(template_info['graphics'])
 
