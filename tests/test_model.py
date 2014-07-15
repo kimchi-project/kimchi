@@ -63,7 +63,8 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('test', vms[0])
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
-                    'screenshot', 'icon', 'graphics', 'users', 'groups'))
+                    'screenshot', 'icon', 'graphics', 'users', 'groups',
+                    'access'))
 
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
