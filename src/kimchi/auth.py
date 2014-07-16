@@ -37,7 +37,6 @@ from kimchi.utils import get_all_tabs, run_command
 
 USER_NAME = 'username'
 USER_GROUPS = 'groups'
-USER_SUDO = 'sudo'
 USER_ROLES = 'roles'
 REFRESH = 'robot-refresh'
 
@@ -235,7 +234,6 @@ def login(username, password, **kwargs):
     cherrypy.session.regenerate()
     cherrypy.session[USER_NAME] = username
     cherrypy.session[USER_GROUPS] = user.get_groups()
-    cherrypy.session[USER_SUDO] = user.has_sudo()
     cherrypy.session[USER_ROLES] = user.get_roles()
     cherrypy.session[REFRESH] = time.time()
     cherrypy.session.release_lock()
@@ -250,26 +248,26 @@ def logout():
     cherrypy.lib.sessions.close()
 
 
-def has_permission(admin_methods):
+def has_permission(admin_methods, tab):
     cherrypy.session.acquire_lock()
-    has_sudo = cherrypy.session.get(USER_SUDO, None)
+    role = cherrypy.session.get(USER_ROLES, {}).get(tab, 'user')
     cherrypy.session.release_lock()
 
     return not admin_methods or \
         cherrypy.request.method not in admin_methods or \
-        (cherrypy.request.method in admin_methods and has_sudo)
+        (cherrypy.request.method in admin_methods and role == "admin")
 
 
-def kimchiauth(admin_methods=None):
+def kimchiauth(admin_methods=None, tab=None):
     debug("Entering kimchiauth...")
     session_missing = cherrypy.session.missing
     if check_auth_session():
-        if not has_permission(admin_methods):
+        if not has_permission(admin_methods, tab):
             raise cherrypy.HTTPError(403)
         return
 
     if check_auth_httpba():
-        if not has_permission(admin_methods):
+        if not has_permission(admin_methods, tab):
             raise cherrypy.HTTPError(403)
         return
 

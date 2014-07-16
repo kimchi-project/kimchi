@@ -22,7 +22,7 @@ from kimchi.control.utils import internal_redirect, UrlSubNode
 from kimchi.control.vm import sub_nodes
 
 
-@UrlSubNode("vms", True, ['POST', 'PUT', 'DELETE'])
+@UrlSubNode('vms', True, ['POST', 'PUT', 'DELETE'], 'guests')
 class VMs(Collection):
     def __init__(self, model):
         super(VMs, self).__init__(model)

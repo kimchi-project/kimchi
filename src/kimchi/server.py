@@ -130,6 +130,7 @@ class Server(object):
                 ident = "/%s" % ident
                 cfg[ident] = {'tools.kimchiauth.on': True}
                 if node.admin_methods:
+                    cfg[ident]['tools.kimchiauth.tab'] = node.tab
                     cfg[ident][
                         'tools.kimchiauth.admin_methods'] = node.admin_methods
 
