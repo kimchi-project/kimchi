@@ -1,0 +1,256 @@
+13:04:07 <alinefm> #startmeeting
+13:04:07 <alinefm> #meetingname scrum
+13:04:07 <kimchi-bot> Meeting started Wed Jul 16 13:04:07 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:07 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:20 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:04:20 <alinefm> anything else?
+13:04:45 <royce> Good for me
+13:05:07 <alinefm> #topic Status
+13:05:07 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:45 <alinefm> #info alinefm sent patch to remove useless fonts
+13:06:02 <royce> #info royce finished template creating from image, and create vm from image based template
+13:06:13 <wenwang> #info wenwang working on Authorization: remove host/template tabs for non-root users
+13:06:14 <alinefm> #info alinefm sent patch to let front end redirect user after login
+13:06:51 <alinefm> #info alinefm sent patch with the backend authorization changes according to RFC comments
+13:06:57 <wenwang> #info wenwang  working on Authorization: remove actions menu from storage/network tabs for non-rooot users
+13:07:03 <royce> #info royce investigated libvirt feature of changing disk permission, seems it can substitute my previous patch of inotify change permission, need more test on different distro
+13:07:26 <wenwang> #info wenwang working on Authorization: remove [+] icon from non-root users view
+13:07:46 <alinefm> #info alinefm sent patch to keep KimchiException consistent independent of its use (inside of a cherrypy app or not)
+13:08:05 <lagarcia> #info lagarcia helped on the patch to build kimchi without fonts (Fedora requirement)
+13:09:28 <alinefm> anything else?
+13:11:00 <alinefm> moving on...
+13:11:11 <alinefm> #topic Open Discussion
+13:11:26 <alinefm> I have some topics for today but I want to hear from you first
+13:11:33 <alinefm> what do you want to discuss?
+13:12:12 <wenwang> alinefm: The redirect patch has some problems
+13:12:25 <YuXin> #info YuXin authorization: assign vm to users/groups  80% finished, will try to get a patch out this week
+13:12:34 <royce> Authorization
+13:13:15 <wenwang> alinefm: We should not use the lastPage for the next_url which is stored in the backend
+13:13:50 <alinefm> wenwang, just read you review
+13:14:14 <alinefm> wenwang, so how I decode base64 in UI?
+13:14:32 <royce> About the authorization, I commented in ML, I think we get to the point to stop using Linux user/group
+13:14:38 <alinefm> or should we use other encode/decode base easier to work on UI?
+13:14:55 <alinefm> royce, just a minute and we turn to this topic
+13:15:04 <royce> sure
+13:16:11 <alinefm> wenwang, ?
+13:16:29 <wenwang> alinefm: base 64 can be decoded by using the base64.js. But what we are using is base64_urlsafe. I think I can have the file changed possibly it will work
+13:17:16 <alinefm> wenwang, the current base64.js file in kimchi source code is imported from novnc
+13:17:20 <alinefm> we should not change it
+13:17:56 <alinefm> wenwang, maybe use other encode rather than base64_urlsafe
+13:18:05 <alinefm> shaohef, any reason to use this ^?
+13:18:50 <royce> alinefm, shaohef had just returned from train station, he may not able to response:)
+13:19:35 <alinefm> royce, thanks for the info
+13:19:54 <royce> yw
+13:19:57 <wenwang> alinefm: okay then, maybe we can change for another way of encoding
+13:20:17 <wenwang> alinefm: like URIcomponent
+13:20:21 <alinefm> wenwang, what is easy to decode on UI? what is general used/
+13:20:40 <alinefm> wenwang, encodeURIcomponent / decodeURIcomponent ?
+13:20:40 <wenwang> URIcomponent
+13:20:55 <wenwang> alinefm: yes
+13:21:13 <alinefm> wenwang, ok - I will try it and resend the patch today fixing the problems you mentioned on review
+13:21:28 <wenwang> alinefm: That will be great
+13:21:52 <alinefm> wenwang, about the role/mode map, royce mentioned a good point during review
+13:21:56 <wenwang> alinefm: The frontend based on your redirect in frontend has been ready
+13:22:30 <alinefm> instead of adding the map to xml, we need to have a protected API for it
+13:22:42 <alinefm> otherwise a user can hack the js code to get other views
+13:23:03 <wenwang> alinefm: hmm, that make sense
+13:23:26 <wenwang> alinefm: So we need to create a GET method that get user's role?
+13:23:27 <alinefm> so I suggest adding a new API /authorization that returns the info  {tab: {role: mode, role: mode..}
+13:23:41 <alinefm> wenwang, for the authorization map
+13:24:04 <alinefm> GET /authorization
+13:24:05 <alinefm> {
+13:24:05 <alinefm> "guests": {"admin": "admin",
+13:24:05 <alinefm> "user": "byInstance"},
+13:24:05 <YuXin> who is authorized to accesss this API
+13:24:06 <alinefm> "templates": {"admin": "admin",
+13:24:07 <alinefm> "user": "byInstance"}
+13:24:11 <alinefm> ...
+13:24:13 <alinefm> }
+13:24:41 <alinefm> YuXin, a logged user
+13:24:56 <alinefm> after login you get this map to display the kimchi UI accordingly
+13:25:05 <alinefm> example:
+13:25:11 <YuXin> so all users are authorized to access this API
+13:25:15 <wenwang> alinefm: We need to build the tabs before we logged in
+13:26:11 <wenwang> alinefm: That means we need to get user's mode once clicking on the login button
+13:26:30 <YuXin> instead add this API, just get that xml file to be protected
+13:27:09 <YuXin> I mean add that xml file to protection list
+13:27:31 <royce> I agree, if enabled this set of API, admin can add or manage, normal users can query his own authorization
+13:28:14 <royce> YuXin, by xml file protection you mean?
+13:28:48 <YuXin> I think aline means that xml file need to be protected
+13:29:06 <alinefm> thinking...
+13:29:30 <YuXin> so only authenticated user can load it
+13:30:36 <wenwang> Kimchi need the xml file to load the tabs
+13:30:40 <royce> even an authenticated user can modify the .js I think, normal user can get admin's view
+13:31:07 <alinefm> royce, yes - but it also can happen with a API
+13:31:13 <royce> right
+13:31:21 <royce> wait
+13:31:48 <royce> alinefm, do you mean normal users can get admin view through API?
+13:32:05 <YuXin> without this xml, if a hacker only read js code, this can get it to build the whole UI
+13:32:10 <royce> I mean API need to be classified, who can call what kinds of APIs
+13:32:42 <YuXin> this is the side effect that we js code to build UI
+13:32:48 <royce> Talked with openstack guys they said openstack validate every API call with keystone to see if user are authorized to do so
+13:33:15 <alinefm> royce, UI will user GET /authorization to build the UI, a hacker ca modify it to ignore the /authorization response to use their own values
+13:33:17 <YuXin> for web2.0 style UI(rich client), this is unavoidable
+13:33:40 <royce> alinefm, oh, true
+13:34:12 <royce> so can UI try API call and then decide what to present?
+13:34:17 <YuXin> so strictly, we are still protecting data and function
+13:34:19 <alinefm> royce, YuXin, wenwang, I think we need to use the cheetah template to solve this problem
+13:34:37 <alinefm> so the xml will be built on backend according to roles/views
+13:35:11 <royce> good idea
+13:35:35 <alinefm> example: input on cheetah template #if role == admin: display + icon
+13:36:21 <YuXin> but in js code, it need to check all available config options
+13:36:27 <alinefm> http://www.cheetahtemplate.org/docs/users_guide_html_multipage/flowControl.if.html
+13:36:32 <wenwang> alinefm: That's good
+13:36:40 <YuXin> a hacker can read the code and mock the xml file to build all UI
+13:37:02 <alinefm> YuXin, using cheetah we will build the view on backend
+13:37:11 <royce> a hacker can just get html of his own role
+13:37:15 <alinefm> the JS will need to only care about the "byInstance" view
+13:37:38 <wenwang> so what we get back is role right?
+13:37:52 <YuXin> aline, current, the js code is loading the xml file and build the UI at cllient side
+13:38:03 <YuXin> what you are talking about will be quite a big change
+13:39:51 <alinefm> from backend perspective, while send HTML as response we will need to send the authorization map as well and in the templates we add the IFs/ELSEs to display/hide content according to user role
+13:40:00 <alinefm> we UI will keep the same
+13:40:10 <alinefm> unless while loading the VMs
+13:40:24 <royce> alinefm, I think the view is one thing, protect API from backend is still needed, so that even if they call this API from like curl, the API call fails
+13:40:45 <alinefm> royce, which API/
+13:40:55 <royce> All REST API
+13:41:05 <alinefm> royce, it is already protected
+13:41:26 <alinefm> only admin user (ie, with sudo permission) can manage kimchi
+13:41:54 <royce> yeah, I know, that is the next issue I listed
+13:42:14 <alinefm> wenwang, YuXin, get a deal about the cheetah template?
+13:42:24 <royce> Because it's wired up with super user
+13:42:41 <royce> We cannot control each API in your role model
+13:43:22 <alinefm> royce, yeap! I know! but for now we will not allow change user role
+13:43:23 <YuXin> aline, do you mean when return kimchi-ui.html, the tabs are already in and based on the role to determine which tab is included
+13:43:28 <alinefm> we will add it in future
+13:43:52 <alinefm> YuXin, forgot that point! heheh
+13:44:02 <alinefm> YuXin, I was only thinking about the elements in the tab
+13:44:44 <YuXin> so aline, you are trying to protect actions, right?
+13:45:31 <alinefm> YuXin, I though in load the correct html based on role on backend but I forgot some tabs will not be displayed
+13:45:47 <alinefm> *thought
+13:46:51 <alinefm> royce, YuXin, wenwang, I think we can keep it as we are doing with the tabs.xml
+13:46:54 <royce> I mean, if we protected the API with fine grained, we do not worry about user hack js.  Like it is {vm: admin, storage: user} if he hacks to be :{vm:admin, storage:admin}, the "+" button is there but click it will fail
+13:47:16 <alinefm> as we are protecting the API on backend - if the user hack the UI he/she will not be able to perform actions not allowed to him/her
+13:47:26 <royce> true
+13:47:28 <YuXin> correct
+13:47:38 <wenwang> yes
+13:47:43 <YuXin> api access need to be role based as well
+13:48:26 <royce> Yes, so point is we cannot count on UI to implement authorization
+13:48:38 <alinefm> yeap
+13:48:52 <alinefm> great! I will apply the comments made by change and resend the patches using tabs.xml
+13:49:03 <wenwang> royce: That's correct
+13:49:19 <alinefm> can we move on to other authorization topic?
+13:49:26 <wenwang> alinefm: That will be great
+13:49:47 <royce> sure
+13:49:48 <alinefm> royce, go ahead
+13:50:33 <royce> I have no more major questions now, other small ones are in ML
+13:51:20 <alinefm> royce, ok - so let me clarify some doubts I think you have =)
+13:51:57 <alinefm> we will have a role per tab - as described in my last patchset {guests: admin, templates: admin, ...}
+13:52:23 <alinefm> *by now* the role is set according to sudo permissions
+13:52:45 <alinefm> so if a user has sudo permission his/her role will be admin for all tabs
+13:53:04 <wenwang> yes
+13:53:06 <alinefm> so if a user does NOT have sudo permission his/her role will be "user" for all tabs
+13:53:22 <alinefm> in future, we will allow changing a user role
+13:53:34 <royce> yes
+13:53:38 <alinefm> so we can have a mix of all combinations
+13:53:50 <wenwang> I think to each tab, what matters is really the "mode"
+13:54:14 <alinefm> wenwang, yeap! the map role -> mode
+13:54:14 <wenwang> How about just add "mode" to each tab
+13:54:16 <royce> So what needs to update is  we still need to use tabs.xml to protect corresponding API in backend
+13:54:22 <alinefm> we still need to take in mind the plugins we support
+13:55:19 <alinefm> royce, nope! the API is protected by @UrlSubNode() on control
+13:55:27 <alinefm> example: @UrlSubNode("vms", True, ['POST', 'PUT', 'DELETE'])
+13:55:48 <YuXin> royce, tabs.xml is used for client to build UI based on role
+13:55:49 <alinefm> there you are telling only "admin" role can do POST, PUT, DELETE to a VM
+13:56:09 <YuXin> do not  mix it with api protection
+13:56:43 <royce> checking
+13:57:40 <wenwang> alinefm: So what are included in the xml now? role and mode or just role
+13:58:05 <alinefm> wenwang, both
+13:58:13 <alinefm> <access role=admin mode=admin/>
+13:58:21 <alinefm> <access role=suer mode=none/>
+13:58:24 <alinefm> *user
+13:58:49 <wenwang> Okay, I see
+13:59:03 <wenwang> As what I see today in the ML
+13:59:16 <alinefm> wenwang, the /login will return the map for each tab so while loading the tab you need to get the correct access element according to user user for this tab
+13:59:33 <alinefm> and then get the mode value
+13:59:40 <alinefm> wenwang, does that make sense?
+13:59:54 <royce> I see...still as I mentioned as Guest may have multiple level rather than just admin or none
+14:00:14 <wenwang> alinefm: ACK
+14:00:15 <royce> some can CREATE/DELETE, some can start/stop, some can just view
+14:00:51 <YuXin> for vm, root: full, admin: no add, user: start/stop/vnc
+14:00:58 <royce> Seems UrlSubNode does not cover such scenario
+14:01:23 <royce> YuXin, think about a phisical machine admin--he can start and stop
+14:01:31 <royce> users can just login
+14:02:07 <royce> virtualization admin can create and delete/ vm admin can start and stop/users login
+14:02:18 <YuXin> that is our designed security model, Adam told that he has verified with vCell administrator
+14:03:28 <alinefm> royce, the backend covers what we have now = 2 roles: admin - full access, user - limited access
+14:03:40 <YuXin> royce, please make clear whether you have questions about security model design or implementation?
+14:03:54 <alinefm> royce, I agree with you we will need to do more changes in backend when we add more authorization levels as you described
+14:04:06 <royce> I'm talking about the design YuXin
+14:04:41 <royce> All or nothing does not sounds reasonable in cloud envirnonment
+14:04:56 <YuXin> if you have question about design, that is next sprint's topic I think, for this sprint, we need to get the current design implemented
+14:05:01 <alinefm> royce, for example to solve the problem you mention, we will need to get the right methods according to roles
+14:05:33 <alinefm> royce, we dont build a house in one day - it is step by step =)
+14:05:40 <alinefm> it is what we are doing
+14:05:41 <royce> yes, sure
+14:06:14 <royce> YuXin, I don't think a feature can implemented right with wrong design:)
+14:06:57 <alinefm> royce, what do you think it is wrong based on our 2 roles (admin/user) ?
+14:07:06 <YuXin> the design has been poped up long ago, it is late now you question about that as it is already at coding phase
+14:07:21 <wenwang> alinefm: so now we don't have users that is distinguished as "admin" and "user" right? If so, shall we give the user in this spint the right without admin's power?
+14:08:02 <royce> alinefm, I'm OK with current one but still we can try to change it to fine grained model in the future, I agree with you~
+14:08:52 <YuXin> in this sprint, if a user is assigned to a vm, the user will have full access to the vm
+14:09:00 <alinefm> wenwang, ^
+14:09:06 <YuXin> this has no conflict to royce's opinion
+14:09:21 <alinefm> wenwang, YuXin, in my last patch I added a "access" parameter to the VM
+14:09:39 <alinefm> so we can change it when adding more role levels
+14:09:48 <alinefm> for now the access=full for all vms
+14:09:49 <royce> sure
+14:09:55 <YuXin> so royce, please re-think your design, and get an rfc out before next sprint, it is still not late
+14:10:00 <wenwang> alinefm: that will be nice
+14:10:23 <wenwang> YuXin: I see. Full access for user this sprint
+14:11:17 <alinefm> wenwang, YuXin, so when the mode=byInstance check the "access" parameter to each resource
+14:11:29 <YuXin> yes
+14:11:43 <alinefm> in the current sprint we have guests tabs with <access role=user mode=byInstance>
+14:12:02 <royce> Oh, one more word about two other things, alinefm
+14:12:07 <alinefm> so while loading the guests you need to check the "access" parameter (now always set to "full")
+14:12:17 <alinefm> royce, sure
+14:12:45 <royce> one is about the upload
+14:12:52 <wenwang> alinefm: ACK
+14:13:21 <royce> seem ssdxiao haven't taken it, do you mind I pick up the backend and hongliang the UI?
+14:13:51 <YuXin> royce, which item do you mean?
+14:14:07 <royce> upload a iso to ootb pool
+14:14:08 <alinefm> royce, I am completely fine with that! just send a email do ssdxiao first to avoid conflicts
+14:14:34 <alinefm> royce, but I will target it to sprint 2, OK?
+14:14:55 <YuXin> i believe in wiki, it is already under hongliang's name for the UI part
+14:15:08 <royce> I think sprint 1 is OK, alinefm:)
+14:15:23 <alinefm> royce, sprint 1 ends next week, right?
+14:16:00 <YuXin> yes, 07/23 if i remember correctly
+14:16:06 <royce> I think I can try to make it
+14:16:17 <royce> because another item of mine, the inotify one
+14:16:31 <royce> seems not requeire so much effort now
+14:16:35 <alinefm> YuXin, yeap! 07/23
+14:16:41 <shaohef> alinefm:  wenwang：   The alphabet base64_urlsafe uses '-' instead of '+' and '_' instead of '/'.
+14:16:59 <royce> as I mentioned libvirt has a configuration which will automatically modify disk permission
+14:17:03 <alinefm> royce, let's target it for sprint 2 and if you get it done earlier you can send the patches to ML =)
+14:17:11 <royce> ok, thanks alinefm
+14:17:21 <wenwang> shaohef: That's correct
+14:17:31 <shaohef> alinefm:  wenwang: '+' and '/' are a special characters in url
+14:18:01 <alinefm> shaohef, thanks! wenwang suggested to use URIcomponent instead of base64
+14:18:10 <alinefm> as it is easier to decode on UI
+14:18:17 <shaohef> alinefm:  I 哈ve
+14:18:50 <shaohef> alinefm:  I remembered I have tried URIcomponent,  seems it can not works
+14:19:28 <alinefm> shaohef, hmm or try base64 (without urlsafe) + URIcomponent
+14:20:00 <shaohef> alinefm:  I have not try this method.
+14:20:13 <shaohef> alinefm:  maybe it can also works.
+14:20:23 <YuXin> if backend do URIEncoding is different from URIComponentEncoding
+14:20:36 <alinefm> shaohef, I will do some investigation on it today
+14:20:45 <YuXin> for this case, it should be URIEncoding
+14:21:15 <shaohef> alinefm: that's great.
+14:21:20 <alinefm> YuXin, I will try it too
+14:21:29 <alinefm> team, seems we are over time
+14:21:42 <YuXin> http://www.w3schools.com/jsref/jsref_obj_global.asp
+14:22:15 <alinefm> thanks
+14:22:40 <alinefm> I will finish the scrum meeting but if you have more topics we can continue the discussion
+14:23:01 <alinefm> thanks all for the great discussions!
+14:23:05 <alinefm> #endmeeting
