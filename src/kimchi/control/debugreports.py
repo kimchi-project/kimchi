@@ -22,7 +22,7 @@ from kimchi.control.utils import internal_redirect
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode("debugreports", True, ['GET', 'PUT', 'POST'])
+@UrlSubNode("debugreports", True, ['GET', 'PUT', 'POST', 'DELETE'])
 class DebugReports(AsyncCollection):
     def __init__(self, model):
         super(DebugReports, self).__init__(model)

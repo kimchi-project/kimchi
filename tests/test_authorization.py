@@ -61,11 +61,11 @@ class AuthorizationTests(unittest.TestCase):
     def test_nonroot_access(self):
         # Non-root users can access static host information
         resp = self.request('/host', '{}', 'GET')
-        self.assertEquals(200, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can access host stats
         resp = self.request('/host/stats', '{}', 'GET')
-        self.assertEquals(200, resp.status)
+        self.assertEquals(403, resp.status)
 
         # Non-root users can not reboot/shutdown host system
         resp = self.request('/host/reboot', '{}', 'POST')
@@ -102,10 +102,10 @@ class AuthorizationTests(unittest.TestCase):
         # Non-root users can not update or delete a template
         # but he can get and create a new one
         resp = self.request('/templates', '{}', 'GET')
-        self.assertEquals(200, resp.status)
+        self.assertEquals(403, resp.status)
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
         resp = self.request('/templates', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(403, resp.status)
         resp = self.request('/templates/test', '{}', 'PUT')
         self.assertEquals(403, resp.status)
         resp = self.request('/templates/test', '{}', 'DELETE')

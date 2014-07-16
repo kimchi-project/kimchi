@@ -22,7 +22,7 @@ from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import get_class_name, model_fn, UrlSubNode
 
 
-@UrlSubNode("storageservers", True)
+@UrlSubNode("storageservers", True, ['GET'])
 class StorageServers(Collection):
     def __init__(self, model):
         super(StorageServers, self).__init__(model)
