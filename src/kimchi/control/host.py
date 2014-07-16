@@ -25,7 +25,7 @@ from kimchi.exception import OperationFailed, NotFoundError
 from kimchi.template import render
 
 
-@UrlSubNode("host", True, ['GET', 'PUT', 'POST', 'DELETE'])
+@UrlSubNode('host', True, ['GET', 'PUT', 'POST', 'DELETE'], 'host')
 class Host(Resource):
     def __init__(self, model, id=None):
         super(Host, self).__init__(model, id)
