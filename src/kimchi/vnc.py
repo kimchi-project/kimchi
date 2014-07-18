@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import base64
 import errno
 import os
 import subprocess
@@ -53,6 +54,7 @@ def new_ws_proxy():
 
 def add_proxy_token(name, port):
     with open(os.path.join(WS_TOKENS_DIR, name), 'w') as f:
+        name = base64.urlsafe_b64encode(name)
         f.write('%s: localhost:%s' % (name.encode('utf-8'), port))
 
 

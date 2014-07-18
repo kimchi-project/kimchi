@@ -352,7 +352,7 @@ var kimchi = {
             }).done(function() {
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += "/console.html?url=vnc_auto.html&port=" + proxy_port;
-                url += "&path=?token=" + encodeURIComponent(vm);
+                url += "&path=?token=" + kimchi.urlSafeB64Encode(vm);
                 url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
@@ -377,7 +377,7 @@ var kimchi = {
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += "/console.html?url=spice.html&port=" + proxy_port;
                 url += "&listen=" + location.hostname;
-                url += "&token=" + encodeURIComponent(vm);
+                url += "&token=" + kimchi.urlSafeB64Encode(vm);
                 url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
