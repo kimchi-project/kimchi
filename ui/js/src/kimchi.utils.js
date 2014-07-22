@@ -183,3 +183,11 @@ kimchi.escapeStr = function(str) {
 
     return str;
 };
+
+kimchi.urlSafeB64Decode = function(str) {
+    return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+}
+
+kimchi.urlSafeB64Encode = function(str) {
+    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_');
+}
