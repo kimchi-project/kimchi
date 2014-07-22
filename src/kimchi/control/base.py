@@ -22,6 +22,7 @@ import urllib2
 
 
 import kimchi.template
+from kimchi.auth import USER_GROUPS, USER_NAME, USER_ROLES
 from kimchi.control.utils import get_class_name, internal_redirect, model_fn
 from kimchi.control.utils import parse_request, validate_method
 from kimchi.control.utils import validate_params
@@ -53,6 +54,8 @@ class Resource(object):
         self.ident = ident
         self.model_args = (ident,)
         self.update_params = []
+        self.role_key = None
+        self.admin_methods = []
 
     def _redirect(self, ident, code=303):
         if ident is not None and ident != self.ident:
@@ -134,6 +137,22 @@ class Resource(object):
         except KimchiException, e:
             raise cherrypy.HTTPError(500, e.message)
 
+    def is_authorized(self):
+        user_name = cherrypy.session.get(USER_NAME, '')
+        user_groups = cherrypy.session.get(USER_GROUPS, [])
+        user_role = cherrypy.session.get(USER_ROLES, {}).get(self.role_key)
+
+        users = self.data.get("users", None)
+        groups = self.data.get("groups", None)
+
+        if (users is not None or groups is not None) and \
+            user_role and user_role != 'admin' and \
+            (user_name not in users or \
+            (groups and list(set(user_groups) & set(groups)) == [])):
+            return False
+
+        return True
+
     def update(self):
         try:
             update = getattr(self.model, model_fn(self, 'update'))
@@ -195,6 +214,8 @@ class Collection(object):
         self.resource = Resource
         self.resource_args = []
         self.model_args = []
+        self.role_key = None
+        self.admin_methods = []
 
     def create(self, params, *args):
         try:
@@ -239,6 +260,9 @@ class Collection(object):
     def filter_data(self, resources, fields_filter):
         data = []
         for res in resources:
+            if not res.is_authorized():
+                continue
+
             if all(key in res.data and res.data[key] == val
                    for key, val in fields_filter.iteritems()):
                 data.append(res.data)
