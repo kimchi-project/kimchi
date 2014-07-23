@@ -155,7 +155,7 @@ def patch_auth(sudo=True):
     """
 
     def _get_groups(self):
-        return None
+        return [ 'groupA', 'groupB', 'wheel' ]
 
     def _has_sudo(self, result):
         result.value = sudo
