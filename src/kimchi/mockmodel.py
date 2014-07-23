@@ -880,7 +880,7 @@ class MockModel(object):
                 'net_sent_rate': random.sample(range(4000), 30)}
 
     def users_get_list(self):
-        return ["userA", "userB", "userC"]
+        return ["userA", "userB", "userC", "admin"]
 
     def groups_get_list(self):
         return ["groupA", "groupB", "groupC", "groupD"]
