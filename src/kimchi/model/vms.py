@@ -19,7 +19,10 @@
 
 from lxml.builder import E
 import lxml.etree as ET
+from lxml import etree, objectify
 import os
+import random
+import string
 import time
 import uuid
 from xml.etree import ElementTree
@@ -246,6 +249,12 @@ class VMModel(object):
         self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
 
     def update(self, name, params):
+        if 'ticket' in params:
+            password = params['ticket'].get("passwd")
+            password = password if password is not None else "".join(
+                random.sample(string.ascii_letters + string.digits, 8))
+            params['ticket']['passwd'] = password
+
         dom = self.get_vm(name, self.conn)
         dom = self._static_vm_update(dom, params)
         self._live_vm_update(dom, params)
@@ -304,6 +313,50 @@ class VMModel(object):
         os_elem = E.os({"distro": distro, "version": version})
         set_metadata_node(dom, os_elem)
 
+    def _set_ticket(self, xml, params, flag=0):
+        DEFAULT_VALID_TO = 30
+        password = params.get("passwd")
+        expire = params.get("expire")
+        root = objectify.fromstring(xml)
+        graphic = root.devices.find("graphics")
+        if graphic is None:
+            return None
+        graphic.attrib['passwd'] = password
+        to = graphic.attrib.get('passwdValidTo')
+        if to is not None:
+            if (time.mktime(time.strptime(to, '%Y-%m-%dT%H:%M:%S'))
+               - time.time() <= 0):
+                expire = expire if expire is not None else DEFAULT_VALID_TO
+
+        if expire is not None:
+            expire_time = time.gmtime(time.time() + float(expire))
+            valid_to = time.strftime('%Y-%m-%dT%H:%M:%S', expire_time)
+            graphic.attrib['passwdValidTo'] = valid_to
+
+        return root if flag == 0 else graphic
+
+    def _set_persistent_ticket(self, dom, xml, params):
+        if 'ticket' not in params:
+            # store the password for copy
+            ticket = self._get_ticket(dom)
+            if ticket['passwd'] is None:
+                return xml
+            else:
+                params['ticket'] = ticket
+        node = self._set_ticket(xml, params['ticket'])
+        return xml if node is None else ET.tostring(node, encoding="utf-8")
+
+    def _set_live_ticket(self, dom, params):
+        if 'ticket' not in params:
+            return
+        if dom.isActive():
+            xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+            flag = libvirt.VIR_DOMAIN_XML_SECURE
+            node = self._set_ticket(xml, params['ticket'], flag)
+            if node is not None:
+                dom.updateDeviceFlags(etree.tostring(node),
+                                      libvirt.VIR_DOMAIN_AFFECT_LIVE)
+
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
         old_xml = new_xml = dom.XMLDesc(0)
@@ -318,6 +371,8 @@ class VMModel(object):
                     val = str(val)
                 xpath = VM_STATIC_UPDATE_PARAMS[key]
                 new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
+
+        new_xml = self._set_persistent_ticket(dom, new_xml, params)
 
         conn = self.conn.get()
         try:
@@ -340,10 +395,27 @@ class VMModel(object):
 
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)
+        self._set_live_ticket(dom, params)
 
     def _has_video(self, dom):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
         return dom.find('devices/video') is not None
+
+    def _get_ticket(self, dom):
+        xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+        root = objectify.fromstring(xml)
+        graphic = root.devices.find("graphics")
+        if graphic is None:
+            return {"passwd": None, "expire": None}
+        passwd = graphic.attrib.get('passwd')
+        ticket = {"passwd": passwd}
+        valid_to = graphic.attrib.get('passwdValidTo')
+        ticket['expire'] = None
+        if valid_to is not None:
+            to = time.mktime(time.strptime(valid_to, '%Y-%m-%dT%H:%M:%S'))
+            ticket['expire'] = to - time.mktime(time.gmtime())
+
+        return ticket
 
     def lookup(self, name):
         dom = self.get_vm(name, self.conn)
@@ -394,6 +466,7 @@ class VMModel(object):
                 'graphics': {"type": graphics_type,
                              "listen": graphics_listen,
                              "port": graphics_port},
+                'ticket': self._get_ticket(dom),
                 'users': users,
                 'groups': groups,
                 'access': 'full'
