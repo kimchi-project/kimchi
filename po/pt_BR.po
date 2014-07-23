@@ -1881,3 +1881,12 @@ msgstr "Nenhum modelo encontrado."
 
 msgid "Clone"
 msgstr "Clonar"
+
+msgid "Permission"
+msgstr ""
+
+msgid "Available system users and groups"
+msgstr ""
+
+msgid "Selected system users and groups"
+msgstr ""

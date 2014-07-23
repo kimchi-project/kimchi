@@ -1722,3 +1722,12 @@ msgstr ""
 
 msgid "Clone"
 msgstr ""
+
+msgid "Permission"
+msgstr ""
+
+msgid "Available system users and groups"
+msgstr ""
+
+msgid "Selected system users and groups"
+msgstr ""

@@ -1817,3 +1817,12 @@ msgstr "No templates found."
 
 msgid "Clone"
 msgstr "Clone"
+
+msgid "Permission"
+msgstr "Permission"
+
+msgid "Available system users and groups"
+msgstr "Available system users and groups"
+
+msgid "Selected system users and groups"
+msgstr "Selected system users and groups"
