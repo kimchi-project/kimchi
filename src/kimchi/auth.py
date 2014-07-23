@@ -243,27 +243,13 @@ def logout():
     cherrypy.lib.sessions.close()
 
 
-def has_permission(admin_methods, tab):
-    cherrypy.session.acquire_lock()
-    role = cherrypy.session.get(USER_ROLES, {}).get(tab, 'user')
-    cherrypy.session.release_lock()
-
-    return not admin_methods or \
-        cherrypy.request.method not in admin_methods or \
-        (cherrypy.request.method in admin_methods and role == "admin")
-
-
-def kimchiauth(admin_methods=None, tab=None):
+def kimchiauth():
     debug("Entering kimchiauth...")
     session_missing = cherrypy.session.missing
     if check_auth_session():
-        if not has_permission(admin_methods, tab):
-            raise cherrypy.HTTPError(403)
         return
 
     if check_auth_httpba():
-        if not has_permission(admin_methods, tab):
-            raise cherrypy.HTTPError(403)
         return
 
     # not a REST full request, redirect login page directly

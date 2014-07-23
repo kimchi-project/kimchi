@@ -21,7 +21,7 @@ from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode('networks', True, ['PUT', 'POST', 'DELETE'], 'network')
+@UrlSubNode('networks', True)
 class Networks(Collection):
     def __init__(self, model):
         super(Networks, self).__init__(model)
