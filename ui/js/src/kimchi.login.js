@@ -36,8 +36,8 @@ kimchi.login_main = function() {
     var loginButton = $('#btn-login');
 
     var login = function(event) {
-        $("#login").hide()
-        $("#logging").show()
+        $("#login").hide();
+        $("#logging").show();
 
         var userName = userNameBox.val();
         userName && kimchi.user.setUserName(userName);
@@ -50,18 +50,20 @@ kimchi.login_main = function() {
             var query = window.location.search;
             var next  = /.*next=(.*?)(&|$)/g.exec(query);
             if (next) {
-                var next_url = decodeURIComponent(next[1])
+                var next_url = decodeURIComponent(next[1]);
             }
             else {
                 var lastPage = kimchi.cookie.get('lastPage');
-                var next_url = lastPage ? lastPage.replace(/\"/g,'') : "/"
+                var next_url = lastPage ? lastPage.replace(/\"/g,'') : "/";
             }
+            var next_url = lastPage ? lastPage.replace(/\"/g,'') : "/";
+            kimchi.cookie.set('roles',JSON.stringify(data.roles), 365);
             window.location.replace(next_url)
         }, function() {
-            $("#messUserPass").show()
+            $("#messUserPass").show();
             $("#messSession").hide();
-            $("#logging").hide()
-            $("#login").show()
+            $("#logging").hide();
+            $("#login").show();
         });
 
         return false;
