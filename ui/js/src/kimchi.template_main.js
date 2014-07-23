@@ -83,15 +83,20 @@ kimchi.hideTitle = function() {
 };
 
 kimchi.template_main = function() {
-    $("#template-add").on("click", function(event) {
-        kimchi.window.open({
-            url: 'template-add.html',
-            close: function() {
-                if (kimchi.deepScanHandler) {
-                    kimchi.deepScanHandler.stop = true;
+    var templatesMode = _tabMode['templates'];
+    if(templatesMode === 'admin') {
+        $('.tools').attr('style','display');
+        $("#template-add").on("click", function(event) {
+            kimchi.window.open({
+                url: 'template-add.html',
+                close: function() {
+                    if (kimchi.deepScanHandler) {
+                        kimchi.deepScanHandler.stop = true;
+                    }
                 }
-            }
+            });
         });
-    });
+    }
+
     kimchi.doListTemplates();
 };

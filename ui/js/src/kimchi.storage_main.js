@@ -234,9 +234,13 @@ kimchi.initLogicalPoolExtend = function() {
 }
 
 kimchi.storage_main = function() {
-    $('#storage-pool-add').on('click', function() {
-        kimchi.window.open('storagepool-add.html');
-    });
+    var storageMode = _tabMode['storage'];
+    if(storageMode === 'admin') {
+        $('.tools').attr('style','display');
+        $('#storage-pool-add').on('click', function() {
+            kimchi.window.open('storagepool-add.html');
+        });
+    }
     kimchi.doListStoragePools();
     kimchi.initLogicalPoolExtend();
 }
