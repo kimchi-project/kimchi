@@ -88,6 +88,15 @@ class MockModel(object):
     def _static_vm_update(self, dom, params):
         state = dom.info['state']
 
+        if 'ticket' in params:
+            ticket = params.pop('ticket')
+            passwd = ticket.get('passwd')
+            dom.ticket["passwd"] = passwd if passwd is not None else "".join(
+                random.sample(string.ascii_letters + string.digits, 8))
+            expire = ticket.get('expire')
+            dom.ticket["ValidTo"] = expire if expire is None else round(
+                time.time()) + expire
+
         for key, val in params.items():
             if key == 'name':
                 if state == 'running' or params['name'] in self.vms_get_list():
@@ -129,6 +138,10 @@ class MockModel(object):
             vm.info['screenshot'] = self.vmscreenshot_lookup(name)
         else:
             vm.info['screenshot'] = None
+        vm.info['ticket'] = {"passwd": vm.ticket["passwd"]}
+        validTo = vm.ticket["ValidTo"]
+        vm.info['ticket']["expire"] = (validTo - round(time.time())
+                                       if validTo is not None else None)
         return vm.info
 
     def vm_delete(self, name):
@@ -1033,6 +1046,7 @@ class MockVM(object):
         self.networks = template_info['networks']
         ifaces = [MockVMIface(net) for net in self.networks]
         self.storagedevices = {}
+        self.ticket = {"passwd": "123456", "ValidTo": None}
         self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
 
         stats = {'cpu_utilization': 20,
