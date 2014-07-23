@@ -25,12 +25,16 @@ from kimchi.control.utils import UrlSubNode
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
+        self.role_key = 'network'
+        self.admin_methods = ['GET']
         self.resource = Interface
 
 
 class Interface(Resource):
     def __init__(self, model, ident):
         super(Interface, self).__init__(model, ident)
+        self.role_key = 'network'
+        self.admin_methods = ['GET']
         self.uri_fmt = "/interfaces/%s"
 
     @property

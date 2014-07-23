@@ -25,12 +25,16 @@ from kimchi.control.utils import UrlSubNode
 class Templates(Collection):
     def __init__(self, model):
         super(Templates, self).__init__(model)
+        self.role_key = 'templates'
+        self.admin_methods = ['GET', 'POST']
         self.resource = Template
 
 
 class Template(Resource):
     def __init__(self, model, ident):
         super(Template, self).__init__(model, ident)
+        self.role_key = 'templates'
+        self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.update_params = ["name", "folder", "icon", "os_distro",
                               "storagepool", "os_version", "cpus",
                               "memory", "cdrom", "disks", "networks",

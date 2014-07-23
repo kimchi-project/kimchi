@@ -32,6 +32,8 @@ from kimchi.control.utils import UrlSubNode
 class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['POST']
         self.resource = StoragePool
         isos = IsoPool(model)
         setattr(self, ISO_POOL_NAME, isos)
@@ -73,6 +75,8 @@ class StoragePools(Collection):
 class StoragePool(Resource):
     def __init__(self, model, ident):
         super(StoragePool, self).__init__(model, ident)
+        self.role_key = 'storage'
+        self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.update_params = ["autostart", "disks"]
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')

@@ -27,11 +27,14 @@ class VMs(Collection):
     def __init__(self, model):
         super(VMs, self).__init__(model)
         self.resource = VM
+        self.role_key = 'guests'
+        self.admin_methods = ['POST']
 
 
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
+        self.role_key = 'guests'
         self.update_params = ["name", "users", "groups", "cpus", "memory",
                               "ticket"]
         self.screenshot = VMScreenShot(model, ident)
@@ -52,6 +55,7 @@ class VM(Resource):
 class VMScreenShot(Resource):
     def __init__(self, model, ident):
         super(VMScreenShot, self).__init__(model, ident)
+        self.role_key = 'guests'
 
     def get(self):
         self.lookup()

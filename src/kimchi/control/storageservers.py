@@ -26,12 +26,16 @@ from kimchi.control.utils import get_class_name, model_fn, UrlSubNode
 class StorageServers(Collection):
     def __init__(self, model):
         super(StorageServers, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         self.resource = StorageServer
 
 
 class StorageServer(Resource):
     def __init__(self, model, ident):
         super(StorageServer, self).__init__(model, ident)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         self.storagetargets = StorageTargets(self.model,
                                              self.ident.decode("utf-8"))
 
@@ -43,6 +47,8 @@ class StorageServer(Resource):
 class StorageTargets(Collection):
     def __init__(self, model, server):
         super(StorageTargets, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         self.server = server
         self.resource_args = [self.server, ]
         self.model_args = [self.server, ]

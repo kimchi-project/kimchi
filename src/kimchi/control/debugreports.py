@@ -27,6 +27,8 @@ class DebugReports(AsyncCollection):
     def __init__(self, model):
         super(DebugReports, self).__init__(model)
         self.resource = DebugReport
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'POST']
 
     def _get_resources(self, filter_params):
         res_list = super(DebugReports, self)._get_resources(filter_params)
@@ -36,6 +38,8 @@ class DebugReports(AsyncCollection):
 class DebugReport(Resource):
     def __init__(self, model, ident):
         super(DebugReport, self).__init__(model, ident)
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'PUT', 'POST']
         self.update_params = ["name"]
         self.uri_fmt = '/debugreports/%s'
         self.content = DebugReportContent(model, ident)
@@ -50,6 +54,8 @@ class DebugReport(Resource):
 class DebugReportContent(Resource):
     def __init__(self, model, ident):
         super(DebugReportContent, self).__init__(model, ident)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
 
     def get(self):
         self.lookup()
