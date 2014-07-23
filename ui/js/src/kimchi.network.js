@@ -19,9 +19,13 @@
 kimchi.NETWORK_TYPE_BRIDGE = "bridged";
 
 kimchi.initNetwork = function() {
+    var networkMode = _tabMode['network'];
+    if(networkMode === 'admin') {
+        $('.tools').attr('style','display');
+        kimchi.initNetworkCreation();
+    }
     kimchi.initNetworkListView();
     kimchi.initNetworkDialog();
-    kimchi.initNetworkCreation();
     kimchi.initNetworkCleanup();
 };
 

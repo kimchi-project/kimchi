@@ -323,9 +323,13 @@ kimchi.guestSetRequestHeader = function(xhr) {
 };
 
 kimchi.guest_main = function() {
-    $("#vm-add").on("click", function(event) {
-        kimchi.window.open('guest-add.html');
-    });
+    var guestsMode = _tabMode['guests'];
+    if(guestsMode === 'admin') {
+        $('.tools').attr('style','display');
+        $("#vm-add").on("click", function(event) {
+            kimchi.window.open('guest-add.html');
+        });
+    }
     kimchi.guestTemplate = $('#guest-tmpl').html();
     kimchi.guestElem=$('<div/>').html(kimchi.guestTemplate).find('li');
     $('#guests-root-container').on('remove', function() {
