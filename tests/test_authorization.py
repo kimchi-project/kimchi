@@ -111,19 +111,35 @@ class AuthorizationTests(unittest.TestCase):
         resp = self.request('/templates/test', '{}', 'DELETE')
         self.assertEquals(403, resp.status)
 
-        # Non-root users can only get vms
+
+        # Non-root users can only get vms authorized to them
+        model.templates_create({'name': u'test', 'cdrom': '/nonexistent.iso'})
+
+        model.vms_create({'name': u'test-me', 'template': '/templates/test'})
+        model.vm_update(u'test-me', {'users': [ kimchi.mockmodel.fake_user.keys()[0] ], 'groups': []})
+
+        model.vms_create({'name': u'test-usera', 'template': '/templates/test'})
+        model.vm_update(u'test-usera', {'users': [ 'userA' ], 'groups': []})
+
         resp = self.request('/vms', '{}', 'GET')
         self.assertEquals(200, resp.status)
+        vms_data = json.loads(resp.read())
+        self.assertEquals([ u'test-me' ], [ v['name'] for v in vms_data ])
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(403, resp.status)
 
         # Create a vm using mockmodel directly to test Resource access
-        model.templates_create({'name': 'test', 'cdrom': '/nonexistent.iso'})
         model.vms_create({'name': 'test', 'template': '/templates/test'})
 
         resp = self.request('/vms/test', '{}', 'PUT')
         self.assertEquals(403, resp.status)
         resp = self.request('/vms/test', '{}', 'DELETE')
+        self.assertEquals(403, resp.status)
+
+        # Non-root users can only update VMs authorized by them
+        resp = self.request('/vms/test-me/start', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/vms/test-usera/start', '{}', 'POST')
         self.assertEquals(403, resp.status)
 
         model.template_delete('test')

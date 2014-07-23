@@ -175,10 +175,13 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
+        test_users = [ 'user1', 'user2', 'root']
+        test_groups = [ 'group1', 'group2', 'admin' ]
         # Now add a couple of VMs to the mock model
         for i in xrange(10):
             name = 'vm-%i' % i
-            req = json.dumps({'name': name, 'template': '/templates/test'})
+            req = json.dumps({'name': name, 'template': '/templates/test',
+                             'users': test_users, 'groups': test_groups})
             resp = self.request('/vms', req, 'POST')
             self.assertEquals(201, resp.status)
 
@@ -188,8 +191,8 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
         self.assertEquals('shutoff', vm['state'])
-        self.assertEquals(['user1', 'user2', 'root'], vm['users'])
-        self.assertEquals(['group1', 'group2', 'admin'], vm['groups'])
+        self.assertEquals(test_users, vm['users'])
+        self.assertEquals(test_groups, vm['groups'])
 
     def test_edit_vm(self):
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
