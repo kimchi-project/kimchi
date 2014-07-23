@@ -25,12 +25,16 @@ from kimchi.control.utils import UrlSubNode
 class Networks(Collection):
     def __init__(self, model):
         super(Networks, self).__init__(model)
+        self.role_key = 'network'
+        self.admin_methods = ['POST']
         self.resource = Network
 
 
 class Network(Resource):
     def __init__(self, model, ident):
         super(Network, self).__init__(model, ident)
+        self.role_key = 'network'
+        self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.uri_fmt = "/networks/%s"
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')

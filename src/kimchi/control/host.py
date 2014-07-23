@@ -29,6 +29,8 @@ from kimchi.template import render
 class Host(Resource):
     def __init__(self, model, id=None):
         super(Host, self).__init__(model, id)
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'POST']
         self.uri_fmt = '/host/%s'
         self.reboot = self.generate_action_handler('reboot')
         self.shutdown = self.generate_action_handler('shutdown')
@@ -58,6 +60,8 @@ class Host(Resource):
 class HostStats(Resource):
     def __init__(self, model, id=None):
         super(HostStats, self).__init__(model, id)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
         self.history = HostStatsHistory(self.model)
 
     @property
@@ -74,6 +78,8 @@ class HostStatsHistory(Resource):
 class Partitions(Collection):
     def __init__(self, model):
         super(Partitions, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         self.resource = Partition
 
     # Defining get_resources in order to return list of partitions in UI
@@ -87,6 +93,8 @@ class Partitions(Collection):
 
 class Partition(Resource):
     def __init__(self, model, id):
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         super(Partition, self).__init__(model, id)
 
     @property
@@ -100,11 +108,15 @@ class Partition(Resource):
 class Devices(Collection):
     def __init__(self, model):
         super(Devices, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         self.resource = Device
 
 
 class Device(Resource):
     def __init__(self, model, id):
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
         super(Device, self).__init__(model, id)
 
     @property
@@ -115,12 +127,16 @@ class Device(Resource):
 class PackagesUpdate(Collection):
     def __init__(self, model):
         super(PackagesUpdate, self).__init__(model)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
         self.resource = PackageUpdate
 
 
 class PackageUpdate(Resource):
     def __init__(self, model, id=None):
         super(PackageUpdate, self).__init__(model, id)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
 
     @property
     def data(self):
@@ -130,12 +146,16 @@ class PackageUpdate(Resource):
 class Repositories(Collection):
     def __init__(self, model):
         super(Repositories, self).__init__(model)
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'POST']
         self.resource = Repository
 
 
 class Repository(Resource):
     def __init__(self, model, id):
         super(Repository, self).__init__(model, id)
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'PUT', 'POST', 'DELETE']
         self.update_params = ["config", "baseurl"]
         self.uri_fmt = "/host/repositories/%s"
         self.enable = self.generate_action_handler('enable')
@@ -149,8 +169,10 @@ class Repository(Resource):
 class Users(SimpleCollection):
     def __init__(self, model):
         super(Users, self).__init__(model)
+        self.role_key = 'guests'
 
 
 class Groups(SimpleCollection):
     def __init__(self, model):
         super(Groups, self).__init__(model)
+        self.role_key = 'guests'
