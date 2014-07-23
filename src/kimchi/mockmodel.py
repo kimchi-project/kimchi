@@ -57,6 +57,9 @@ from kimchi.utils import template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
+fake_user = { 'admin': 'letmein!' }
+
+
 class MockModel(object):
     def __init__(self, objstore_loc=None):
         self.reset()

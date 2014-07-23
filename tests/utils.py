@@ -32,12 +32,11 @@ from contextlib import closing
 from lxml import etree
 
 
+import kimchi.mockmodel
 import kimchi.server
 from kimchi.exception import OperationFailed
 
 _ports = {}
-
-fake_user = {'admin': 'letmein!'}
 
 # provide missing unittest decorators and API for python 2.6; these decorators
 # do not actually work, just avoid the syntax failure
@@ -136,7 +135,7 @@ def _request(conn, path, data, method, headers):
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
     if 'AUTHORIZATION' not in headers.keys():
-        user, pw = fake_user.items()[0]
+        user, pw = kimchi.mockmodel.fake_user.items()[0]
         hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
         headers['AUTHORIZATION'] = hdr
     conn.request(method, path, data, headers)
@@ -162,7 +161,7 @@ def patch_auth(sudo=True):
 
     def _authenticate(username, password, service="passwd"):
         try:
-            return fake_user[username] == password
+            return kimchi.mockmodel.fake_user[username] == password
         except KeyError, e:
             raise OperationFailed("KCHAUTH0001E", {'username': 'username',
                                                    'code': e.message})

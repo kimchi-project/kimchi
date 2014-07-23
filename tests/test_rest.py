@@ -35,7 +35,7 @@ import iso_gen
 import kimchi.mockmodel
 import kimchi.server
 from kimchi.rollbackcontext import RollbackContext
-from utils import fake_user, get_free_port, patch_auth, request
+from utils import get_free_port, patch_auth, request
 from utils import run_server
 
 
@@ -108,7 +108,7 @@ class RestTests(unittest.TestCase):
         # We must be authenticated first.  Otherwise all requests will return
         # HTTP:401.  Since HTTP Simple Auth is not allowed for text/html, we
         # need to use the login API and establish a session.
-        user, pw = fake_user.items()[0]
+        user, pw = kimchi.mockmodel.fake_user.items()[0]
         req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST')
         self.assertEquals(200, resp.status)
@@ -1514,7 +1514,7 @@ class RestTests(unittest.TestCase):
             resp = self.request(uri, None, 'HEAD', hdrs)
             self.assertEquals(200, resp.status)
 
-        user, pw = fake_user.items()[0]
+        user, pw = kimchi.mockmodel.fake_user.items()[0]
         req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(200, resp.status)
@@ -1560,7 +1560,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(401, resp.status)
 
         # Execute a login call
-        user, pw = fake_user.items()[0]
+        user, pw = kimchi.mockmodel.fake_user.items()[0]
         req = json.dumps({'username': user, 'password': pw})
         resp = self.request('/login', req, 'POST', hdrs)
         self.assertEquals(200, resp.status)
