@@ -139,7 +139,7 @@ class MockModelTests(unittest.TestCase):
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access'))
+                    'access', 'ticket'))
 
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
