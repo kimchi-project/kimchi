@@ -92,3 +92,7 @@ class IsoFormatError(KimchiException):
 
 class TimeoutExpired(KimchiException):
     pass
+
+
+class UnauthorizedError(KimchiException):
+    pass

@@ -27,8 +27,8 @@ from kimchi.control.utils import get_class_name, internal_redirect, model_fn
 from kimchi.control.utils import parse_request, validate_method
 from kimchi.control.utils import validate_params
 from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import KimchiException
-from kimchi.exception import MissingParameter, NotFoundError,  OperationFailed
+from kimchi.exception import KimchiException, MissingParameter, NotFoundError
+from kimchi.exception import OperationFailed, UnauthorizedError
 
 
 class Resource(object):
@@ -65,8 +65,14 @@ class Resource(object):
 
     def generate_action_handler(self, action_name, action_args=None):
         def wrapper(*args, **kwargs):
-            validate_method(('POST'))
+            method = validate_method(('POST'),
+                                     self.role_key, self.admin_methods)
+
             try:
+                self.lookup()
+                if not self.is_authorized():
+                    raise UnauthorizedError('KCHAPI0009E')
+
                 model_args = list(self.model_args)
                 if action_args is not None:
                     request = parse_request()
@@ -87,10 +93,12 @@ class Resource(object):
                 raise cherrypy.HTTPError(400, e.message)
             except InvalidOperation, e:
                 raise cherrypy.HTTPError(400, e.message)
-            except OperationFailed, e:
-                raise cherrypy.HTTPError(500, e.message)
+            except UnauthorizedError, e:
+                raise cherrypy.HTTPError(403, e.message)
             except NotFoundError, e:
                 raise cherrypy.HTTPError(404, e.message)
+            except OperationFailed, e:
+                raise cherrypy.HTTPError(500, e.message)
             except KimchiException, e:
                 raise cherrypy.HTTPError(500, e.message)
 
@@ -121,8 +129,14 @@ class Resource(object):
 
     @cherrypy.expose
     def index(self):
-        method = validate_method(('GET', 'DELETE', 'PUT'))
+        method = validate_method(('GET', 'DELETE', 'PUT'),
+                                 self.role_key, self.admin_methods)
+
         try:
+            self.lookup()
+            if not self.is_authorized():
+                raise UnauthorizedError('KCHAPI0009E')
+
             return {'GET': self.get,
                     'DELETE': self.delete,
                     'PUT': self.update}[method]()
@@ -130,6 +144,8 @@ class Resource(object):
             raise cherrypy.HTTPError(400, e.message)
         except InvalidParameter, e:
             raise cherrypy.HTTPError(400, e.message)
+        except UnauthorizedError, e:
+            raise cherrypy.HTTPError(403, e.message)
         except NotFoundError, e:
             raise cherrypy.HTTPError(404, e.message)
         except OperationFailed, e:

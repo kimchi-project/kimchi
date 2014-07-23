@@ -116,7 +116,15 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(403, resp.status)
-        resp = self.request('/vms', '{}', 'PUT')
+
+        # Create a vm using mockmodel directly to test Resource access
+        model.templates_create({'name': 'test', 'cdrom': '/nonexistent.iso'})
+        model.vms_create({'name': 'test', 'template': '/templates/test'})
+
+        resp = self.request('/vms/test', '{}', 'PUT')
         self.assertEquals(403, resp.status)
-        resp = self.request('/vms', '{}', 'DELETE')
+        resp = self.request('/vms/test', '{}', 'DELETE')
         self.assertEquals(403, resp.status)
+
+        model.template_delete('test')
+        model.vm_delete('test')

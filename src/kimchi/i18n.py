@@ -31,6 +31,7 @@ messages = {
     "KCHAPI0006E": _("Unable to parse JSON request"),
     "KCHAPI0007E": _("This API only supports JSON"),
     "KCHAPI0008E": _("Parameters does not match requirement in schema: %(err)s"),
+    "KCHAPI0009E": _("You don't have permission to perform this operation."),
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
     "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
