@@ -19,12 +19,13 @@ kimchi.guest_edit_main = function() {
     var buttonContainer = $('#action-button-container');
     $('#guest-edit-tabs').tabs({
         beforeActivate: function(event, ui) {
+            $(buttonContainer).addClass('hidden');
+            $("#form-guest-edit-permission-save").addClass('hidden');
             var deactivated = ui['newPanel'];
             if($(deactivated).attr('id') === 'form-guest-edit-general') {
                 $(buttonContainer).removeClass('hidden');
-            }
-            else {
-                $(buttonContainer).addClass('hidden');
+            }else if($(deactivated).attr('id') === 'form-guest-edit-permission'){
+                $("#form-guest-edit-permission-save").removeClass('hidden');
             }
         }
     });
@@ -236,6 +237,118 @@ kimchi.guest_edit_main = function() {
         });
     };
 
+    var setupPermission = function() {
+        var userNodes = {}, groupNodes = {};
+        kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
+            kimchi.getHostUsers(function(users){
+                kimchi.getHostGroups(function(groups){
+                    var subArray = function(a1, a2){ //a1-a2
+                        for(var i=0; i<a2.length; i++){
+                            for(var j=0; j<a1.length; j++){
+                                if(a2[i] == a1[j]){
+                                    a1.splice(j, 1);
+                                    break;
+                                }
+                            }
+                        }
+                    };
+                    subArray(users, vm.users); subArray(groups, vm.groups);
+                    init(users, groups, vm.users, vm.groups);
+                });
+            });
+        });
+        var sortNodes = function(container, isUser){
+            nodes = container.children();
+            var keys = [];
+            nodes.each(function(){
+                keys.push($("label", this).text());
+            });
+            keys.sort();
+            container.empty();
+            for(var i=0; i<keys.length; i++){
+                var itemNode = isUser ? userNodes[keys[i]] : groupNodes[keys[i]];
+                $(itemNode).click(function(){
+                    $(this).toggleClass("item-picked");
+                });
+                container.append(itemNode);
+            }
+        };
+        var init = function(availUsers, availGroups, selUsers, selGroups){
+            var initNode = function(key, isUserNode){
+                var nodeGroups = isUserNode ? userNodes : groupNodes;
+                nodeGroups[key] = $.parseHTML(kimchi.substitute($('#permission-item').html(), {
+                    val: key,
+                    class: isUserNode? "user-icon" : "group-icon"
+                }));
+            };
+            for(var i=0; i<availUsers.length; i++){
+                initNode(availUsers[i], true);
+                $("#permission-avail-users").append(userNodes[availUsers[i]]);
+                sortNodes($("#permission-avail-users"), true);
+            }
+            for(var i=0; i<selUsers.length; i++){
+                initNode(selUsers[i], true);
+                $("#permission-sel-users").append(userNodes[selUsers[i]]);
+                sortNodes($("#permission-sel-users"), true);
+            }
+            for(var i=0; i<availGroups.length; i++){
+                initNode(availGroups[i], false);
+                $("#permission-avail-groups").append(groupNodes[availGroups[i]]);
+                sortNodes($("#permission-avail-groups"), false);
+            }
+            for(var i=0; i<selGroups.length; i++){
+                initNode(selGroups[i], false);
+                $("#permission-sel-groups").append(groupNodes[selGroups[i]]);
+                sortNodes($("#permission-sel-groups"), false);
+            }
+        };
+        var filterNodes = function(key, container){
+            container.children().each(function(){
+                $(this).css("display", $("label", this).text().indexOf(key)==-1 ? "none" : "");
+            });
+        }
+        $("#permission-avail-searchBox").on("keyup", function() {
+            var key = $(this).val();
+            filterNodes(key, $("#permission-avail-users"));
+            filterNodes(key, $("#permission-avail-groups"));
+        });
+        $("#permission-sel-searchBox").on("keyup", function() {
+            var key = $(this).val();
+            filterNodes(key, $("#permission-sel-users"));
+            filterNodes(key, $("#permission-sel-groups"));
+        });
+        $('#permissionGo').button().click(function() {
+            $("#permission-avail-users").children(".item-picked").appendTo("#permission-sel-users").removeClass("item-picked");
+            sortNodes($("#permission-sel-users"), true);
+            $("#permission-avail-groups").children(".item-picked").appendTo("#permission-sel-groups").removeClass("item-picked");
+            sortNodes($("#permission-sel-groups"), false);
+            $("#permission-sel-searchBox").val("");
+            filterNodes("", $("#permission-sel-users"));
+            filterNodes("", $("#permission-sel-groups"));
+        });
+        $('#permissionBack').button().click(function() {
+            $("#permission-sel-users").children(".item-picked").appendTo("#permission-avail-users").removeClass("item-picked");
+            sortNodes($("#permission-avail-users"), true);
+            $("#permission-sel-groups").children(".item-picked").appendTo("#permission-avail-groups").removeClass("item-picked");
+            sortNodes($("#permission-avail-groups"), false);
+            $("#permission-avail-searchBox").val("");
+            filterNodes("", $("#permission-avail-users"));
+            filterNodes("", $("#permission-avail-groups"));
+        });
+        $("#form-guest-edit-permission-save").on("click", function(){
+            var content = { users: [], groups: [] };
+            $("#permission-sel-users").children().each(function(){
+                content.users.push($("label", this).text());
+            });
+            $("#permission-sel-groups").children().each(function(){
+                content.groups.push($("label", this).text());
+            });
+            kimchi.updateVM(kimchi.selectedGuest, content, function(){
+                kimchi.window.close();
+            });
+        });
+    };
+
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
@@ -265,6 +378,7 @@ kimchi.guest_edit_main = function() {
         initStorageListeners();
 
         setupInterface();
+        setupPermission();
 
         kimchi.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
         kimchi.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);

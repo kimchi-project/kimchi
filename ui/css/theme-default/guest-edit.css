@@ -162,3 +162,107 @@
 .guest-edit-interface .hide {
     display: none;
 }
+
+.guest-edit-permission {
+    height: 240px;
+    padding: 5px 10px!important;
+}
+
+.guest-edit-permission .column {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.guest-edit-permission .title {
+    margin-bottom: 3px;
+}
+
+.guest-edit-permission input[type="text"] {
+    margin-bottom: 3px;
+    font-size: 12px;
+    width: 97%;
+}
+
+.guest-edit-permission .body {
+    border: 1px solid #999999;
+    font-size: 12px;
+    padding: 1px;
+    height: 192px;
+    overflow: auto;
+}
+
+.guest-edit-permission .body .head {
+    margin-bottom: 3px;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #E5E5E5 0%, #C4C4C4 100%) repeat scroll 0 0 transparent;
+}
+
+.guest-edit-permission .body .item {
+    padding: 2px 3px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+.guest-edit-permission .body .item:hover {
+    background-color: #AAAAAA;
+}
+
+.guest-edit-permission .body .item-picked {
+    background-color: #BBBBBB;
+}
+
+.guest-edit-permission .body .item .icon {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    vertical-align: bottom;
+}
+
+.guest-edit-permission .body .item .user-icon {
+    background: url('/images/theme-default/user.png') no-repeat scroll;
+    background-size: 15px 15px;
+}
+
+.guest-edit-permission .body .item .group-icon {
+    background: url('/images/theme-default/group.png') no-repeat scroll;
+    background-size: 15px 15px;
+}
+
+.guest-edit-permission .body .column-user {
+    width: 48%;
+}
+.guest-edit-permission .body .column-group {
+    width: 50%;
+}
+
+.guest-edit-permission .control {
+    width: 5%;
+}
+
+.guest-edit-permission .control button {
+    width: 26px;
+    margin-left: 7px;
+}
+
+.guest-edit-permission .control button:first-child {
+    margin-top: 110px;
+    margin-bottom: 2px;
+}
+
+.guest-edit-permission .control .ui-button-text-only .ui-button-text {
+    padding: 2px 8px;
+}
+
+.guest-edit-permission .avail {
+    width: 46%;
+}
+
+.guest-edit-permission .selected {
+    width: 46%;
+    float: right;
+}
+
+#form-guest-edit-permission-save {
+    float: right;
+    margin-right: 10px;
+}

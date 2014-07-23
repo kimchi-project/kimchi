@@ -1056,5 +1056,33 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    getHostUsers : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/users',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    getHostGroups : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/groups',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 };
