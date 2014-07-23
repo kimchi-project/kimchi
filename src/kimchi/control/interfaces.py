@@ -21,7 +21,7 @@ from kimchi.control.base import Collection, Resource
 from kimchi.control.utils import UrlSubNode
 
 
-@UrlSubNode('interfaces', True, ['GET'], 'network')
+@UrlSubNode('interfaces', True)
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
