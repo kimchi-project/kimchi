@@ -30,6 +30,11 @@ kimchi.doListStoragePools = function() {
                 }
             });
             $('#storagepoolsList').html(listHtml);
+            if(_tabMode['storage'] === 'admin') {
+                $('.storage-button').attr('style','display');
+            } else {
+                $('.storage-allocate').addClass('storage-allocate-padding-user');
+            }
             kimchi.storageBindClick();
         } else {
             $('#storagepoolsList').html('');
@@ -74,79 +79,82 @@ kimchi.storageBindClick = function() {
         }
     });
 
-    $('.pool-delete').on('click', function(event) {
-        var $pool = $(this);
-        var settings = {
-            title : i18n['KCHAPI6001M'],
-            content : i18n['KCHPOOL6001M'],
-            confirm : i18n['KCHAPI6002M'],
-            cancel : i18n['KCHAPI6003M']
-        };
-        kimchi.confirm(settings, function() {
-            var poolName = $pool.data('name');
-            kimchi.deleteStoragePool(poolName, function() {
+    if(_tabMode['storage'] === 'admin') {
+        $('.pool-delete').on('click', function(event) {
+            var $pool = $(this);
+            var settings = {
+                title : i18n['KCHAPI6001M'],
+                content : i18n['KCHPOOL6001M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
+            };
+            kimchi.confirm(settings, function() {
+                var poolName = $pool.data('name');
+                kimchi.deleteStoragePool(poolName, function() {
+                    kimchi.doListStoragePools();
+                }, function(err) {
+                    kimchi.message.error(err.responseJSON.reason);
+                });
+            });
+        });
+
+        $('.pool-activate').on('click', function(event) {
+            var poolName = $(this).data('name');
+            kimchi.changePoolState(poolName, 'activate', function() {
                 kimchi.doListStoragePools();
             }, function(err) {
                 kimchi.message.error(err.responseJSON.reason);
             });
         });
-    });
 
-    $('.pool-activate').on('click', function(event) {
-        var poolName = $(this).data('name');
-        kimchi.changePoolState(poolName, 'activate', function() {
-            kimchi.doListStoragePools();
-        }, function(err) {
-            kimchi.message.error(err.responseJSON.reason);
-        });
-    });
-
-    $('.pool-deactivate').on('click', function(event) {
-        var poolName = $(this).data('name');
-        var settings = {
-            title : i18n['KCHAPI6001M'],
-            content : i18n['KCHPOOL6012M'],
-            confirm : i18n['KCHAPI6002M'],
-            cancel : i18n['KCHAPI6003M']
-        };
-        if (!$(this).data('persistent')) {
-            kimchi.confirm(settings, function() {
+        $('.pool-deactivate').on('click', function(event) {
+            var poolName = $(this).data('name');
+            var settings = {
+                title : i18n['KCHAPI6001M'],
+                content : i18n['KCHPOOL6012M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
+            };
+            if (!$(this).data('persistent')) {
+                kimchi.confirm(settings, function() {
+                    kimchi.changePoolState(poolName, 'deactivate', function() {
+                        kimchi.doListStoragePools();
+                    }, function(err) {
+                        kimchi.message.error(err.responseJSON.reason);
+                    });
+                }, function() {
+                    return false;
+                });
+            }
+            else {
                 kimchi.changePoolState(poolName, 'deactivate', function() {
                     kimchi.doListStoragePools();
                 }, function(err) {
                     kimchi.message.error(err.responseJSON.reason);
                 });
-            }, function() {
-                return false;
-            });
-        }
-        else {
-            kimchi.changePoolState(poolName, 'deactivate', function() {
-                kimchi.doListStoragePools();
-            }, function(err) {
-                kimchi.message.error(err.responseJSON.reason);
-            });
-        }
-    });
+            }
+        });
 
-    $('.storage-action').on('click', function() {
-        var storage_action = $(this);
-        var deleteButton = storage_action.find('.pool-delete');
-        if ('active' === deleteButton.data('stat')) {
-            deleteButton.attr('disabled', 'disabled');
-        } else {
-            deleteButton.removeAttr('disabled');
-        }
-    });
+        $('.storage-action').on('click', function() {
+            var storage_action = $(this);
+            var deleteButton = storage_action.find('.pool-delete');
+            if ('active' === deleteButton.data('stat')) {
+                deleteButton.attr('disabled', 'disabled');
+            } else {
+                deleteButton.removeAttr('disabled');
+            }
+        });
 
-    $('.pool-extend').on('click', function() {
-        $("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
-        $("#logicalPoolExtend").dialog("open");
-    });
+        $('.pool-extend').on('click', function() {
+            $("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
+            $("#logicalPoolExtend").dialog("open");
+        });
 
-    $('#volume-doAdd').on('click', function() {
-        kimchi.window.open('storagevolume-add.html');
-    });
+        $('#volume-doAdd').on('click', function() {
+            kimchi.window.open('storagevolume-add.html');
+        });
+    }
+
     $('.storage-li').on('click', function(event) {
         if (!$(event.target).parents().hasClass('bottom')) {
             if ($(this).data('stat') === 'active') {
@@ -240,6 +248,7 @@ kimchi.storage_main = function() {
         $('#storage-pool-add').on('click', function() {
             kimchi.window.open('storagepool-add.html');
         });
+        $('.list-title .title-actions').attr('style','display');
     }
     kimchi.doListStoragePools();
     kimchi.initLogicalPoolExtend();
