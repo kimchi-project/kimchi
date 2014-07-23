@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var _tabMode = {};
 kimchi.main = function() {
     kimchi.popable();
 
@@ -23,13 +24,16 @@ kimchi.main = function() {
         $(tabs).each(function(i, tab) {
             var title = tab['title'];
             var path = tab['path'];
-            tabsHtml.push(
-                '<li>',
-                    '<a class="item" href="', path, '">',
-                        title,
-                    '</a>',
-                '</li>'
-            );
+            var mode = tab['mode'];
+            if (mode != 'none') {
+                tabsHtml.push(
+                    '<li>',
+                        '<a class="item" href="', path, '">',
+                            title,
+                        '</a>',
+                    '</li>'
+                );
+            }
         });
         return tabsHtml.join('');
     };
@@ -41,9 +45,15 @@ kimchi.main = function() {
             var titleKey = $tab.find('title').text();
             var title = i18n[titleKey] ? i18n[titleKey] : titleKey;
             var path = $tab.find('path').text();
+            var roles = kimchi.cookie.get('roles');
+            var roleString = 'JSON.parse(roles).' + titleKey.toLowerCase();
+            var role = eval(roleString);
+            var mode = $tab.find('[role="' + role + '"]').attr('mode');
+            _tabMode[titleKey.toLowerCase()] = mode;
             tabs.push({
                 title: title,
-                path: path
+                path: path,
+                mode: mode
             });
         });
 
