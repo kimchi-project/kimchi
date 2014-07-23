@@ -37,7 +37,7 @@
         <li class="title-type">$_("Type")</li>
         <li class="title-capacity">$_("Capacity")</li>
         <li class="title-allocate">$_("Allocated")</li>
-        <li class="title-actions">$_("Actions")</li>
+        <li class="title-actions" style="display:none">$_("Actions")</li>
     </div>
     <ul id="storagepoolsList" class="list-storage empty-when-logged-off"></ul>
 </div>
@@ -76,7 +76,7 @@
             <div class="storage-allocate">
                 <div class="storage-text" data-type="{type}">{allocated}</div>
             </div>
-            <div class="bottom storage-button">
+            <div class="bottom storage-button" style="display:none">
                 <div class="btn dropdown popable storage-action" data-state="{state}" data-type="{type}" data-name="{name}">
                     <span class="text">$_("Actions")</span><span class="arrow"></span>
                     <div class="popover actionsheet right-side" style="width: 250px">

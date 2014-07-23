@@ -94,6 +94,10 @@
     width: 270px;
 }
 
+.network .list .item .column-space-no-border-right {
+    border-right: none;
+}
+
 .network .list .column-action {
     display: inline-block;
     position: absolute;
