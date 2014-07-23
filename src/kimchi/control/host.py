@@ -42,7 +42,7 @@ class Host(Resource):
 
     @cherrypy.expose
     def swupdate(self):
-        validate_method(('POST'))
+        validate_method(('POST'), self.role_key, self.admin_methods)
         try:
             task = self.model.host_swupdate()
             cherrypy.response.status = 202

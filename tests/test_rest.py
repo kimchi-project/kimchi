@@ -1219,7 +1219,7 @@ class RestTests(unittest.TestCase):
         # Test nonexistent fields, specify a field 'foo' isn't in the Template
         t['foo'] = "bar"
         req = json.dumps(t)
-        resp = self.request('/templates/%s' % oldname, req, 'PUT')
+        resp = self.request('/templates/%s' % tmpl_name, req, 'PUT')
         self.assertEquals(400, resp.status)
 
         # Delete the template
