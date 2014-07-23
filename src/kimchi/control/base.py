@@ -284,7 +284,9 @@ class Collection(object):
 
     @cherrypy.expose
     def index(self, *args, **kwargs):
-        method = validate_method(('GET', 'POST'))
+        method = validate_method(('GET', 'POST'),
+                                 self.role_key, self.admin_methods)
+
         try:
             if method == 'GET':
                 filter_params = cherrypy.request.params

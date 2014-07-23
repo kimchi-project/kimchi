@@ -25,6 +25,7 @@ import json
 from jsonschema import Draft3Validator, ValidationError, FormatChecker
 
 
+from kimchi.auth import USER_ROLES
 from kimchi.exception import InvalidParameter, OperationFailed
 from kimchi.utils import import_module, listPathModules
 
@@ -41,10 +42,15 @@ def model_fn(cls, fn_name):
     return '%s_%s' % (get_class_name(cls), fn_name)
 
 
-def validate_method(allowed):
+def validate_method(allowed, role_key, admin_methods):
     method = cherrypy.request.method.upper()
     if method not in allowed:
         raise cherrypy.HTTPError(405)
+
+    user_role = cherrypy.session.get(USER_ROLES, {}).get(role_key)
+    if user_role and user_role != 'admin' and method in admin_methods:
+        raise cherrypy.HTTPError(403)
+
     return method
 
 
