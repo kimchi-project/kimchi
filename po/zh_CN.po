@@ -1747,3 +1747,12 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
+
+msgid "Permission"
+msgstr "权限"
+
+msgid "Available system users and groups"
+msgstr "可选的系统用户及用户组"
+
+msgid "Selected system users and groups"
+msgstr "已选的系统用户及用户组"
