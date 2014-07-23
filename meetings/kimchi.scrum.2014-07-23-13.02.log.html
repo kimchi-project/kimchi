@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 23 13:02:23 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:05</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-9"></a><span class="tm">13:05:08</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-10"></a><span class="tm">13:05:11</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Authorization: add users/groups to vm patch v2 sent</span>
+<a name="l-11"></a><span class="tm">13:05:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">13:05:20</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Authorization: remove host/template tabs for non-root users</span>
+<a name="l-14"></a><span class="tm">13:05:39</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang 	Authorization: remove actions menu from storage/network tabs for non-rooot users</span>
+<a name="l-15"></a><span class="tm">13:05:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm made the authorization changes needed in backend according to the discussions on ML</span>
+<a name="l-16"></a><span class="tm">13:05:57</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Authorization: remove [+] icon from non-root users view</span>
+<a name="l-17"></a><span class="tm">13:06:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to let UI redirect user after login</span>
+<a name="l-18"></a><span class="tm">13:06:43</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is working on vm image template patches ,rebased 2 versions, still working on v5</span>
+<a name="l-19"></a><span class="tm">13:07:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef is working on ticket</span>
+<a name="l-20"></a><span class="tm">13:07:43</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I guess the backend is done. are you working on novnc/spice and UI changes?
+<a name="l-21"></a><span class="tm">13:07:54</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac made more changes in the authorization patches according to the discussion on the ML</span>
+<a name="l-22"></a><span class="tm">13:08:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes. I will
+<a name="l-23"></a><span class="tm">13:08:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> patches will send out later.
+<a name="l-24"></a><span class="tm">13:08:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is helping vianac to list resources according to users and groups assigned to them</span>
+<a name="l-25"></a><span class="tm">13:08:34</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, great! thanks
+<a name="l-26"></a><span class="tm">13:09:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix issue 374</span>
+<a name="l-27"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-28"></a><span class="tm">13:11:17</span><span class="nk"> &lt;alinefm&gt;</span> today is the end of the sprint 1!
+<a name="l-29"></a><span class="tm">13:11:29</span><span class="nk"> &lt;alinefm&gt;</span> in the next weeks we need to focus on bug fixes and tests!
+<a name="l-30"></a><span class="tm">13:11:54</span><span class="nk"> &lt;alinefm&gt;</span> I haven't checked the ML yet to see if more patches will be merged - but I guess it will do
+<a name="l-31"></a><span class="tm">13:12:00</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+<a name="l-32"></a><span class="tm">13:12:10</span><span class="nk"> &lt;alinefm&gt;</span> the uncompleted tasks will be moved to sprint 2
+<a name="l-33"></a><span class="tm">13:13:04</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-34"></a><span class="tm">13:13:27</span><span class="nk"> &lt;wenwang&gt;</span> That's okay
+<a name="l-35"></a><span class="tm">13:13:35</span><span class="nk"> &lt;wenwang&gt;</span> Thanks alinefm
+<a name="l-36"></a><span class="tm">13:13:36</span><span class="nk"> &lt;alinefm&gt;</span> the bugs targeted to 1.3 release are listed in: https://github.com/kimchi-project/kimchi/issues?milestone=14&amp;state=open
+<a name="l-37"></a><span class="tm">13:14:09</span><span class="nk"> &lt;alinefm&gt;</span> feel free to work on the bug you want
+<a name="l-38"></a><span class="tm">13:14:28</span><span class="nk"> &lt;alinefm&gt;</span> just comment on the github bug to let people know someone is working on that
+<a name="l-39"></a><span class="tm">13:14:39</span><span class="nk"> &lt;alinefm&gt;</span> and avoid duplicated work
+<a name="l-40"></a><span class="tm">13:15:52</span><span class="nk"> &lt;wenwang&gt;</span> np
+<a name="l-41"></a><span class="tm">13:17:31</span><span class="nk"> &lt;alinefm&gt;</span> (you are so quiet today)
+<a name="l-42"></a><span class="tm">13:17:33</span><span class="nk"> &lt;alinefm&gt;</span> I am assuming everything is fine =)
+<a name="l-43"></a><span class="tm">13:17:39</span><span class="nk"> &lt;alinefm&gt;</span> let's move to open discussion
+<a name="l-44"></a><span class="tm">13:17:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-45"></a><span class="tm">13:18:04</span><span class="nk"> &lt;alinefm&gt;</span> I don't have anything for today
+<a name="l-46"></a><span class="tm">13:18:08</span><span class="nk"> &lt;alinefm&gt;</span> what about you?
+<a name="l-47"></a><span class="tm">13:18:58</span><span class="nk"> &lt;shaohef&gt;</span> None for me
+<a name="l-48"></a><span class="tm">13:20:00</span><span class="nk"> &lt;wenwang&gt;</span> I talked to Zheng Sheng today. He said the socket work could probably be postponed by him and anyone can help with that work?
+<a name="l-49"></a><span class="tm">13:21:11</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, socket work? what is that?
+<a name="l-50"></a><span class="tm">13:22:02</span><span class="nk"> &lt;wenwang&gt;</span> That let the backend inform the frontend of the tasks when they are over
+<a name="l-51"></a><span class="tm">13:22:04</span><span class="nk"> &lt;alinefm&gt;</span> the event notification?
+<a name="l-52"></a><span class="tm">13:22:25</span><span class="nk"> &lt;wenwang&gt;</span> Asynchronous event notify
+<a name="l-53"></a><span class="tm">13:22:27</span><span class="nk"> &lt;wenwang&gt;</span> es
+<a name="l-54"></a><span class="tm">13:22:30</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-55"></a><span class="tm">13:22:32</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, got it
+<a name="l-56"></a><span class="tm">13:23:02</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, you are assigned with Zheng Sheng on github wiki
+<a name="l-57"></a><span class="tm">13:23:10</span><span class="nk"> &lt;alinefm&gt;</span> can you do it alone? otherwise I can help too
+<a name="l-58"></a><span class="tm">13:23:38</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.
+<a name="l-59"></a><span class="tm">13:24:10</span><span class="nk"> &lt;wenwang&gt;</span> thank alinefm and shaohef
+<a name="l-60"></a><span class="tm">13:24:29</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  I will ask   if need  your help :)
+<a name="l-61"></a><span class="tm">13:24:59</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, wenwang, that seems a big task - maybe we could start working on RFC soon
+<a name="l-62"></a><span class="tm">13:25:16</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> agree.
+<a name="l-63"></a><span class="tm">13:25:26</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-64"></a><span class="tm">13:25:57</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-65"></a><span class="tm">13:26:06</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, what about the PCI passthrough UI work? Any outlook for that?
+<a name="l-66"></a><span class="tm">13:29:08</span><span class="nk"> &lt;wenwang&gt;</span> nothing from me
+<a name="l-67"></a><span class="tm">13:30:13</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, seems YuXin is away
+<a name="l-68"></a><span class="tm">13:30:24</span><span class="nk"> &lt;alinefm&gt;</span> I will try to get that info in the ML
+<a name="l-69"></a><span class="tm">13:30:30</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok, thx.
+<a name="l-70"></a><span class="tm">13:31:38</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-71"></a><span class="tm">13:31:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

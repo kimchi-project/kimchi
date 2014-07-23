@@ -1,0 +1,71 @@
+13:02:23 <alinefm> #startmeeting
+13:02:23 <kimchi-bot> Meeting started Wed Jul 23 13:02:23 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:23 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:23 <alinefm> #meetingname scrum
+13:02:23 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:33 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:34 <alinefm> anything else?
+13:05:05 <alinefm> ok...
+13:05:08 <alinefm> so let's get started
+13:05:11 <YuXin> #info YuXin Authorization: add users/groups to vm patch v2 sent
+13:05:11 <alinefm> #topic Status
+13:05:12 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:20 <wenwang> #info wenwang Authorization: remove host/template tabs for non-root users
+13:05:39 <wenwang> #info wenwang 	Authorization: remove actions menu from storage/network tabs for non-rooot users
+13:05:48 <alinefm> #info alinefm made the authorization changes needed in backend according to the discussions on ML
+13:05:57 <wenwang> #info wenwang Authorization: remove [+] icon from non-root users view
+13:06:03 <alinefm> #info alinefm sent patch to let UI redirect user after login
+13:06:43 <royce> #info royce is working on vm image template patches ,rebased 2 versions, still working on v5
+13:07:05 <shaohef> #info shaohef is working on ticket
+13:07:43 <alinefm> shaohef, I guess the backend is done. are you working on novnc/spice and UI changes?
+13:07:54 <vianac> #info vianac made more changes in the authorization patches according to the discussion on the ML
+13:08:05 <shaohef> alinefm: yes. I will
+13:08:16 <shaohef> alinefm: patches will send out later.
+13:08:27 <alinefm> #info alinefm is helping vianac to list resources according to users and groups assigned to them
+13:08:34 <alinefm> shaohef, great! thanks
+13:09:54 <alinefm> #info alinefm sent patch to fix issue 374
+13:10:34 <alinefm> anything else?
+13:11:17 <alinefm> today is the end of the sprint 1!
+13:11:29 <alinefm> in the next weeks we need to focus on bug fixes and tests!
+13:11:54 <alinefm> I haven't checked the ML yet to see if more patches will be merged - but I guess it will do
+13:12:00 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+13:12:10 <alinefm> the uncompleted tasks will be moved to sprint 2
+13:13:04 <alinefm> ok?
+13:13:27 <wenwang> That's okay
+13:13:35 <wenwang> Thanks alinefm
+13:13:36 <alinefm> the bugs targeted to 1.3 release are listed in: https://github.com/kimchi-project/kimchi/issues?milestone=14&state=open
+13:14:09 <alinefm> feel free to work on the bug you want
+13:14:28 <alinefm> just comment on the github bug to let people know someone is working on that
+13:14:39 <alinefm> and avoid duplicated work
+13:15:52 <wenwang> np
+13:17:31 <alinefm> (you are so quiet today)
+13:17:33 <alinefm> I am assuming everything is fine =)
+13:17:39 <alinefm> let's move to open discussion
+13:17:49 <alinefm> #topic Open Discussion
+13:18:04 <alinefm> I don't have anything for today
+13:18:08 <alinefm> what about you?
+13:18:58 <shaohef> None for me
+13:20:00 <wenwang> I talked to Zheng Sheng today. He said the socket work could probably be postponed by him and anyone can help with that work?
+13:21:11 <alinefm> wenwang, socket work? what is that?
+13:22:02 <wenwang> That let the backend inform the frontend of the tasks when they are over
+13:22:04 <alinefm> the event notification?
+13:22:25 <wenwang> Asynchronous event notify
+13:22:27 <wenwang> es
+13:22:30 <wenwang> alinefm: yes
+13:22:32 <alinefm> wenwang, got it
+13:23:02 <alinefm> shaohef, you are assigned with Zheng Sheng on github wiki
+13:23:10 <alinefm> can you do it alone? otherwise I can help too
+13:23:38 <shaohef> alinefm: yes.
+13:24:10 <wenwang> thank alinefm and shaohef
+13:24:29 <shaohef> alinefm:  I will ask   if need  your help :)
+13:24:59 <alinefm> shaohef, wenwang, that seems a big task - maybe we could start working on RFC soon
+13:25:16 <shaohef> alinefm: agree.
+13:25:26 <wenwang> alinefm: sure
+13:25:57 <alinefm> anything else, team?
+13:26:06 <lagarcia> YuXin, what about the PCI passthrough UI work? Any outlook for that?
+13:29:08 <wenwang> nothing from me
+13:30:13 <alinefm> lagarcia, seems YuXin is away
+13:30:24 <alinefm> I will try to get that info in the ML
+13:30:30 <lagarcia> alinefm, ok, thx.
+13:31:38 <alinefm> thanks everyone for joining!
+13:31:52 <alinefm> #endmeeting
