@@ -32,7 +32,8 @@ class VMs(Collection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
-        self.update_params = ["name", "users", "groups", "cpus", "memory"]
+        self.update_params = ["name", "users", "groups", "cpus", "memory",
+                              "ticket"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():

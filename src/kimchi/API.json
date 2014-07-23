@@ -235,6 +235,22 @@
                         "error": "KCHVM0026E"
                     }
                 },
+                "ticket": {
+                    "description": "A ticket represents credentials to access VM",
+                    "type": "object",
+                    "properties": {
+                        "password": {
+                            "description": "the password of a ticket.",
+                            "type": "string",
+                            "error": "KCHVM0031E"
+                        },
+                        "size": {
+                            "description": "lifetime of a ticket.",
+                            "type": "number",
+                            "error": "KCHVM0032E"
+                        }
+                    }
+                },
                 "cpus": {
                     "description": "The new number of virtual CPUs for the VM",
                     "type": "integer",
