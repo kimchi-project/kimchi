@@ -20,7 +20,6 @@
 import base64
 import cherrypy
 import fcntl
-import grp
 import multiprocessing
 import os
 import PAM
@@ -71,8 +70,10 @@ class User(object):
         self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
     def get_groups(self):
-        self.user[USER_GROUPS] = [g.gr_name for g in grp.getgrall()
-                                  if self.user[USER_NAME] in g.gr_mem]
+        out, err, rc = run_command([ 'id', '-Gn', self.user[USER_NAME] ])
+        if rc == 0:
+            self.user[USER_GROUPS] = out.rstrip().split(" ")
+
         return self.user[USER_GROUPS]
 
     def get_roles(self):
