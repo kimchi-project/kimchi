@@ -54,7 +54,14 @@ def new_ws_proxy():
 
 def add_proxy_token(name, port):
     with open(os.path.join(WS_TOKENS_DIR, name), 'w') as f:
-        name = base64.urlsafe_b64encode(name)
+        """
+        From python documentation base64.urlsafe_b64encode(s)
+        substitutes - instead of + and _ instead of / in the
+        standard Base64 alphabet, BUT the result can still
+        contain = which is not safe in a URL query component.
+        So remove it when needed as base64 can work well without it.
+        """
+        name = base64.urlsafe_b64encode(name).rstrip('=')
         f.write('%s: localhost:%s' % (name.encode('utf-8'), port))
 
 
