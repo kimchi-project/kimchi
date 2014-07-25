@@ -370,7 +370,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
-        self.assertEquals('0.0.0.0', vm['graphics']['listen'])
+        self.assertEquals('127.0.0.1', vm['graphics']['listen'])
         self.assertEquals('vnc', vm['graphics']['type'])
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
@@ -412,7 +412,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
-        self.assertEquals('0.0.0.0', vm['graphics']['listen'])
+        self.assertEquals('127.0.0.1', vm['graphics']['listen'])
         self.assertEquals('spice', vm['graphics']['type'])
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
@@ -1132,7 +1132,7 @@ class RestTests(unittest.TestCase):
         # Update the template
         t['os_distro'] = 'Linux.ISO'
         t['os_version'] = '1.1'
-        t['graphics'] = {'type': 'vnc', 'listen': '0.0.0.0'}
+        t['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
         req = json.dumps(t)
         resp = self.request('/templates/%s' % t['name'], req, 'PUT')
         self.assertEquals(200, resp.status)

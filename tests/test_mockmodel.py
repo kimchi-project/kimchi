@@ -154,7 +154,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals('images/icon-vm.png', info['icon'])
         self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertEquals('vnc', info['graphics']['type'])
-        self.assertEquals('0.0.0.0', info['graphics']['listen'])
+        self.assertEquals('127.0.0.1', info['graphics']['listen'])
 
     def test_packages_update(self):
         pkgs = model.packagesupdate_get_list()
