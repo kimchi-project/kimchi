@@ -352,7 +352,14 @@ var kimchi = {
             }).done(function() {
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += "/console.html?url=vnc_auto.html&port=" + proxy_port;
-                url += "&path=?token=" + kimchi.urlSafeB64Encode(vm);
+                /*
+                 * From python documentation base64.urlsafe_b64encode(s)
+                 * substitutes - instead of + and _ instead of / in the
+                 * standard Base64 alphabet, BUT the result can still
+                 * contain = which is not safe in a URL query component.
+                 * So remove it when needed as base64 can work well without it.
+                 * */
+                url += "&path=?token=" + kimchi.urlSafeB64Encode(vm).replace(/=*$/g, "");
                 url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
@@ -377,7 +384,14 @@ var kimchi = {
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += "/console.html?url=spice.html&port=" + proxy_port;
                 url += "&listen=" + location.hostname;
-                url += "&token=" + kimchi.urlSafeB64Encode(vm);
+                /*
+                 * From python documentation base64.urlsafe_b64encode(s)
+                 * substitutes - instead of + and _ instead of / in the
+                 * standard Base64 alphabet, BUT the result can still
+                 * contain = which is not safe in a URL query component.
+                 * So remove it when needed as base64 can work well without it.
+                 * */
+                url += "&token=" + kimchi.urlSafeB64Encode(vm).replace(/=*$/g, "");
                 url += "&kimchi=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
