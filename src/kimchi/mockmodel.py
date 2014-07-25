@@ -1064,7 +1064,7 @@ class MockVM(object):
                      'memory': self.memory,
                      'cpus': self.cpus,
                      'icon': None,
-                     'graphics': {'type': 'vnc', 'listen': '0.0.0.0',
+                     'graphics': {'type': 'vnc', 'listen': '127.0.0.1',
                                   'port': None},
                      'users': ['user1', 'user2', 'root'],
                      'groups': ['group1', 'group2', 'admin'],

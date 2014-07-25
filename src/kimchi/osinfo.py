@@ -94,7 +94,7 @@ isolinks = {
 defaults = {'networks': ['default'],
             'storagepool': '/storagepools/default',
             'domain': 'kvm', 'arch': os.uname()[4],
-            'graphics': {'type': 'vnc', 'listen': '0.0.0.0'}}
+            'graphics': {'type': 'vnc', 'listen': '127.0.0.1'}}
 
 
 def _get_arch():

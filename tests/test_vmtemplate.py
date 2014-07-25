@@ -31,7 +31,7 @@ class VMTemplateTests(unittest.TestCase):
                   ('os_version', 'unknown'), ('cpus', 1),
                   ('memory', 1024), ('cdrom', ''), ('networks', ['default']),
                   ('disk_bus', 'ide'), ('nic_model', 'e1000'),
-                  ('graphics', {'type': 'vnc', 'listen': '0.0.0.0'}))
+                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}))
 
         args = {'name': 'test'}
         t = VMTemplate(args)
@@ -55,7 +55,7 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals(graphics, t.info['graphics'])
 
         # Test specified type
-        graphics = {'type': 'spice', 'listen': '0.0.0.0'}
+        graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         args['graphics'] = graphics
         t = VMTemplate(args)
         self.assertEquals(graphics, t.info['graphics'])
@@ -65,10 +65,10 @@ class VMTemplateTests(unittest.TestCase):
         args['graphics'] = graphics
         t = VMTemplate(args)
         self.assertEquals(graphics['type'], t.info['graphics']['type'])
-        self.assertEquals('0.0.0.0', t.info['graphics']['listen'])
+        self.assertEquals('127.0.0.1', t.info['graphics']['listen'])
 
     def test_to_xml(self):
-        graphics = {'type': 'spice', 'listen': '0.0.0.0'}
+        graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         vm_uuid = str(uuid.uuid4()).replace('-', '')
         t = VMTemplate({'name': 'test-template'})
         xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)

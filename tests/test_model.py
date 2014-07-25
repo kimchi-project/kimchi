@@ -118,7 +118,7 @@ class ModelTests(unittest.TestCase):
 
             info = inst.vm_lookup('kimchi-vnc')
             self.assertEquals('vnc', info['graphics']['type'])
-            self.assertEquals('0.0.0.0', info['graphics']['listen'])
+            self.assertEquals('127.0.0.1', info['graphics']['listen'])
 
             graphics = {'type': 'spice', 'listen': '127.0.0.1'}
             params = {'name': 'kimchi-spice', 'template': '/templates/test',
