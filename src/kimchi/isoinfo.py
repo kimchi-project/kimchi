@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import glob
+import platform
 import os
 import re
 import struct
@@ -132,6 +133,12 @@ class IsoImage(object):
     EL_TORITO_BOOT_RECORD = struct.Struct("=B5sB32s32sI")
     EL_TORITO_VALIDATION_ENTRY = struct.Struct("=BBH24sHBB")
     EL_TORITO_BOOT_ENTRY = struct.Struct("=BBHBBHL20x")
+    # Path table info starting in ISO9660 offset 132. We force little
+    # endian byte order (the '<' sign) because Power systems can run on
+    # both.
+    # First int is path table size, next 4 bytes are discarded (it is
+    # the same info but in big endian) and next int is the location.
+    PATH_TABLE_SIZE_LOC = struct.Struct("<I 4s I")
 
     def __init__(self, path):
         self.path = path
@@ -224,6 +231,160 @@ class IsoImage(object):
             raise IsoFormatError("KCHISO0005E",
                                  {'filename': self.path})
 
+    def _scan_ppc(self):
+        """
+        PowerPC firmware does not use the conventional El Torito boot
+        specification. Instead, it looks for a file '/ppc/bootinfo.txt'
+        which contains boot information. A PPC image is bootable if
+        this file exists in the filesystem [1].
+
+        To detect if a PPC ISO is bootable, we could simply mount the
+        ISO and search for the boot file as we would with any other
+        file in the filesystem. We can also look for the boot file
+        searching byte by byte the ISO image. This is possible because
+        the PPC ISO image follows the ISO9660 standard [2]. Mounting
+        the ISO requires extra resources and it takes longer than
+        searching the image data, thus we chose the latter approach
+        in this code.
+
+        To locate a file we must access the Path Table, which contains
+        the records of all the directories in the ISO. After locating
+        the directory/subdirectory that contains the file, we access
+        the Directory Record to find it.
+
+
+        .. [1] https://www.ibm.com/developerworks/community/wikis/home?\
+lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
+%20Boot%20howto
+        .. [2] http://wiki.osdev.org/ISO_9660
+        """
+
+        # To locate any file we must access the Path Table, which
+        # contains the records of all the directories in the ISO.
+        # ISO9660 dictates that the Path Table location information
+        # is at offset 132, inside the Primary Volume Descriptor,
+        # after the SystemArea (16*SECTOR_SIZE).
+        #
+        # In the Path table info we're forcing little endian byte
+        # order (the '<' sign) because Power systems can run on
+        # both.
+        #
+        # First int is path table size, next 4 bytes are discarded (it is
+        # the same info but in big endian) and next int is the location.
+        PATH_TABLE_LOC_OFFSET = 16 * IsoImage.SECTOR_SIZE + 132
+        PATH_TABLE_SIZE_LOC = struct.Struct("<I 4s I")
+
+        path_table_loc_data = self._get_iso_data(PATH_TABLE_LOC_OFFSET,
+                                                 PATH_TABLE_SIZE_LOC.size)
+        path_size, unused, path_loc = self._unpack(PATH_TABLE_SIZE_LOC,
+                                                   path_table_loc_data)
+        # Fetch the Path Table using location and size found above
+        path_table_offset = path_loc * IsoImage.SECTOR_SIZE
+        path_table_data = self._get_iso_data(path_table_offset, path_size)
+
+        # Loop inside the path table to find the directory 'ppc'.
+        # The contents of the registers are:
+        # - length of the directory identifier (1 byte)
+        # - extended attribute record length (1 byte)
+        # - location of directory register (4 bytes)
+        # - directory number of parent dir (2 bytes)
+        # - directory name (size varies according to length)
+        # - padding field - 1 byte if the length is odd, not present if even
+        DIR_NAMELEN_LOCATION_PARENT = struct.Struct("<B B I H")
+        dir_struct_size = DIR_NAMELEN_LOCATION_PARENT.size
+        i = 0
+        while i < path_size:
+            dir_data = path_table_data[i: i+dir_struct_size]
+            i += dir_struct_size
+            # We won't use the Extended Attribute Record
+            dir_namelen, unused, dir_loc, dir_parent = \
+                self._unpack(DIR_NAMELEN_LOCATION_PARENT, dir_data)
+            if dir_parent == 1:
+                # read the dir name using the namelen
+                dir_name = path_table_data[i: i+dir_namelen].rstrip()
+                if dir_name == 'ppc':
+                    # stop searching, dir was found
+                    break
+            # Need to consider the optional padding field as well
+            i += dir_namelen + dir_namelen % 2
+
+        if i > path_size:
+            # Didn't find the '/ppc' directory. ISO is not bootable.
+            self.bootable = False
+            return
+
+        # Get the 'ppc' directory record using 'dir_loc'.
+        ppc_dir_offset = dir_loc * IsoImage.SECTOR_SIZE
+
+        # We need to find the sector size of this dir entry. The
+        # size of the File Section is located 10 bytes after
+        # the dir location.
+        DIR_SIZE_FMT = struct.Struct("<10sI")
+        data = self._get_iso_data(ppc_dir_offset, DIR_SIZE_FMT.size)
+        unused, dir_size = self._unpack(DIR_SIZE_FMT, data)
+        # If the dir is in the middle of a sector, the sector is
+        # padded zero and won't be utilized. We need to round up
+        # the result
+        dir_sectorsize = dir_size / IsoImage.SECTOR_SIZE
+        if dir_size % IsoImage.SECTOR_SIZE:
+            dir_sectorsize += 1
+
+        # Fixed-size directory record fields:
+        # - length of directory record (1 byte)
+        # - extended attr. record length (1 byte)
+        # - location of extend in both-endian format (8 bytes)
+        # - data length (size of extend) in both-endian (8 bytes)
+        # - recording date and time (7 bytes)
+        # - file flags (1 byte)
+        # - file unit size interleaved (1 byte)
+        # - interleave gap size (1 byte)
+        # - volume sequence number (4 bytes)
+        # - length of file identifier (1 byte)
+        #
+        #  Of all these fields, we will use only 3 of them, 'ignoring'
+        #  30 bytes total.
+        STATIC_DIR_RECORD_FMT = struct.Struct("<B 24s B 6s B")
+        static_rec_size = STATIC_DIR_RECORD_FMT.size
+
+        # Maximum offset possible of all the records of this directory
+        DIR_REC_MAX = ppc_dir_offset + dir_sectorsize*IsoImage.SECTOR_SIZE
+        # Max size of a given directory record
+        MAX_DIR_SIZE = 255
+        # Name of the boot file
+        BOOT_FILE_NAME = "bootinfo.txt"
+
+        # Loop until one of the following happens:
+        # - boot file is found
+        # - end of directory record listing for the 'ppc' dir
+        while ppc_dir_offset < DIR_REC_MAX:
+            record_data = self._get_iso_data(ppc_dir_offset, MAX_DIR_SIZE)
+            dir_rec_len, unused, file_flags, unused2, file_name_len = \
+                self._unpack(STATIC_DIR_RECORD_FMT, record_data)
+
+            # if dir_rec_len = 0, increment offset (skip the
+            # dir_rec_len byte) and continue the loop
+            if dir_rec_len == 0:
+                ppc_dir_offset += 1
+                continue
+
+            # Get filename of the file/dir we're at.
+            filename = record_data[static_rec_size:
+                                   static_rec_size + file_name_len].rstrip()
+            # The second bit of the file_flags indicate if this record
+            # is a directory.
+            if filename == BOOT_FILE_NAME and (file_flags & 2) != 1:
+                self.bootable = True
+                return
+
+            # Update offset and keep looking. There is a padding here
+            # if the length of the file identifier is EVEN.
+            padding = 0
+            if not file_name_len % 2:
+                padding = 1
+            ppc_dir_offset += dir_rec_len + padding
+        # If reached this point the file wasn't found = not bootable
+        self.bootable = False
+
     def _scan_primary_vol(self, data):
         """
         Scan one sector for a Primary Volume Descriptor and extract the
@@ -269,7 +430,10 @@ class IsoImage(object):
             return
 
         self._scan_primary_vol(data)
-        self._scan_el_torito(data)
+        if platform.machine().startswith('ppc'):
+            self._scan_ppc()
+        else:
+            self._scan_el_torito(data)
 
 
 class Matcher(object):
