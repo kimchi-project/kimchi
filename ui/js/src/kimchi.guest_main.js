@@ -323,8 +323,7 @@ kimchi.guestSetRequestHeader = function(xhr) {
 };
 
 kimchi.guest_main = function() {
-    var guestsMode = _tabMode['guests'];
-    if(guestsMode === 'admin') {
+    if(kimchi.tabMode['guests'] === 'admin') {
         $('.tools').attr('style','display');
         $("#vm-add").on("click", function(event) {
             kimchi.window.open('guest-add.html');

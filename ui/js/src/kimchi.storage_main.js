@@ -30,7 +30,7 @@ kimchi.doListStoragePools = function() {
                 }
             });
             $('#storagepoolsList').html(listHtml);
-            if(_tabMode['storage'] === 'admin') {
+            if(kimchi.tabMode['storage'] === 'admin') {
                 $('.storage-button').attr('style','display');
             } else {
                 $('.storage-allocate').addClass('storage-allocate-padding-user');
@@ -79,7 +79,7 @@ kimchi.storageBindClick = function() {
         }
     });
 
-    if(_tabMode['storage'] === 'admin') {
+    if(kimchi.tabMode['storage'] === 'admin') {
         $('.pool-delete').on('click', function(event) {
             var $pool = $(this);
             var settings = {
@@ -242,8 +242,7 @@ kimchi.initLogicalPoolExtend = function() {
 }
 
 kimchi.storage_main = function() {
-    var storageMode = _tabMode['storage'];
-    if(storageMode === 'admin') {
+    if(kimchi.tabMode['storage'] === 'admin') {
         $('.tools').attr('style','display');
         $('#storage-pool-add').on('click', function() {
             kimchi.window.open('storagepool-add.html');
