@@ -83,8 +83,7 @@ kimchi.hideTitle = function() {
 };
 
 kimchi.template_main = function() {
-    var templatesMode = _tabMode['templates'];
-    if(templatesMode === 'admin') {
+    if(kimchi.tabMode['templates'] === 'admin') {
         $('.tools').attr('style','display');
         $("#template-add").on("click", function(event) {
             kimchi.window.open({

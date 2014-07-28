@@ -19,8 +19,7 @@
 kimchi.NETWORK_TYPE_BRIDGE = "bridged";
 
 kimchi.initNetwork = function() {
-    var networkMode = _tabMode['network'];
-    if(networkMode === 'admin') {
+    if(kimchi.tabMode['network'] === 'admin') {
         $('.tools').attr('style','display');
         $('#network-content .header span:last-child').attr('style','display');
         kimchi.initNetworkCreation();
@@ -53,7 +52,7 @@ kimchi.initNetworkListView = function() {
 
 kimchi.addNetworkItem = function(network) {
     $("#networkBody").append(kimchi.getNetworkItemHtml(network));
-    if(_tabMode["network"] === "admin") {
+    if(kimchi.tabMode["network"] === "admin") {
         $(".column-action").attr("style","display");
     } else {
         $(".column-space").addClass('column-space-no-border-right');
