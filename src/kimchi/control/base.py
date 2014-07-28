@@ -65,9 +65,7 @@ class Resource(object):
 
     def generate_action_handler(self, action_name, action_args=None):
         def wrapper(*args, **kwargs):
-            method = validate_method(('POST'),
-                                     self.role_key, self.admin_methods)
-
+            validate_method(('POST'), self.role_key, self.admin_methods)
             try:
                 self.lookup()
                 if not self.is_authorized():
