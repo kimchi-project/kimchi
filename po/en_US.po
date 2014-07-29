@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 10:20-0500\n"
+"POT-Creation-Date: 2014-07-29 15:52-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -46,6 +46,9 @@ msgstr "This API only supports JSON"
 #, python-format
 msgid "Parameters does not match requirement in schema: %(err)s"
 msgstr "Parameters does not match requirement in schema: %(err)s"
+
+msgid "You don't have permission to perform this operation."
+msgstr ""
 
 msgid "Datastore is not initiated in the model object."
 msgstr "Datastore is not initiated in the model object."
@@ -241,6 +244,12 @@ msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+
+msgid "password of a vm ticket must be a string."
+msgstr ""
+
+msgid "expire of a vm ticket must be a number."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -1002,6 +1011,9 @@ msgstr "Storage"
 msgid "Interface"
 msgstr "Interface"
 
+msgid "Permission"
+msgstr "Permission"
+
 msgid "Name"
 msgstr "Name"
 
@@ -1025,6 +1037,12 @@ msgstr "Network"
 
 msgid "Type"
 msgstr "Type"
+
+msgid "Available system users and groups"
+msgstr "Available system users and groups"
+
+msgid "Selected system users and groups"
+msgstr "Selected system users and groups"
 
 msgid "Save"
 msgstr "Save"
@@ -1498,9 +1516,6 @@ msgstr "User Name"
 msgid "Password"
 msgstr "Password"
 
-msgid "Log In"
-msgstr "Log In"
-
 msgid "Generate a New Debug Report"
 msgstr "Generate a New Debug Report"
 
@@ -1515,6 +1530,17 @@ msgstr ""
 "The name used to identify the report. If omitted, a name will be chosen "
 "based on current time. Name can contain: letters, digits, underscore ('_') "
 "and hyphen (\"-\")."
+
+msgid "Rename a Debug Report"
+msgstr ""
+
+msgid ""
+"The name used to identify the report. Name can contain: letters, digits and "
+"hyphen (\"-\")."
+msgstr ""
+
+msgid "Submit"
+msgstr ""
 
 msgid "Add a Repository"
 msgstr "Add a Repository"
@@ -1817,12 +1843,3 @@ msgstr "No templates found."
 
 msgid "Clone"
 msgstr "Clone"
-
-msgid "Permission"
-msgstr "Permission"
-
-msgid "Available system users and groups"
-msgstr "Available system users and groups"
-
-msgid "Selected system users and groups"
-msgstr "Selected system users and groups"

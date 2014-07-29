@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 10:20-0500\n"
+"POT-Creation-Date: 2014-07-29 15:52-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,9 @@ msgstr ""
 
 #, python-format
 msgid "Parameters does not match requirement in schema: %(err)s"
+msgstr ""
+
+msgid "You don't have permission to perform this operation."
 msgstr ""
 
 msgid "Datastore is not initiated in the model object."
@@ -231,6 +234,12 @@ msgstr ""
 #, python-format
 msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+
+msgid "password of a vm ticket must be a string."
+msgstr ""
+
+msgid "expire of a vm ticket must be a number."
 msgstr ""
 
 #, python-format
@@ -943,6 +952,9 @@ msgstr ""
 msgid "Interface"
 msgstr ""
 
+msgid "Permission"
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -965,6 +977,12 @@ msgid "Network"
 msgstr ""
 
 msgid "Type"
+msgstr ""
+
+msgid "Available system users and groups"
+msgstr ""
+
+msgid "Selected system users and groups"
 msgstr ""
 
 msgid "Save"
@@ -1410,9 +1428,6 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-msgid "Log In"
-msgstr ""
-
 msgid "Generate a New Debug Report"
 msgstr ""
 
@@ -1423,6 +1438,17 @@ msgid ""
 "The name used to identify the report. If omitted, a name will be chosen "
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
+msgstr ""
+
+msgid "Rename a Debug Report"
+msgstr ""
+
+msgid ""
+"The name used to identify the report. Name can contain: letters, digits and "
+"hyphen (\"-\")."
+msgstr ""
+
+msgid "Submit"
 msgstr ""
 
 msgid "Add a Repository"
@@ -1721,13 +1747,4 @@ msgid "No templates found."
 msgstr ""
 
 msgid "Clone"
-msgstr ""
-
-msgid "Permission"
-msgstr ""
-
-msgid "Available system users and groups"
-msgstr ""
-
-msgid "Selected system users and groups"
 msgstr ""
