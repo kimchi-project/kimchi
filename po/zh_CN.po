@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 10:20-0500\n"
+"POT-Creation-Date: 2014-07-29 15:52-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -62,6 +62,9 @@ msgstr "这个API仅支持JSON"
 #, python-format
 msgid "Parameters does not match requirement in schema: %(err)s"
 msgstr "参数不符合要求的格式：%(err)s"
+
+msgid "You don't have permission to perform this operation."
+msgstr ""
 
 msgid "Datastore is not initiated in the model object."
 msgstr "尚未为model对象初始化数据存储。"
@@ -252,6 +255,12 @@ msgstr "未能关闭虚拟机%(name)s。详情：%(err)s"
 msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
 msgstr "无法获得虚拟机 %(name)s的元数据，详情：%(err)s"
+
+msgid "password of a vm ticket must be a string."
+msgstr ""
+
+msgid "expire of a vm ticket must be a number."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -963,6 +972,9 @@ msgstr "存储"
 msgid "Interface"
 msgstr "网络接口"
 
+msgid "Permission"
+msgstr "权限"
+
 msgid "Name"
 msgstr "名称"
 
@@ -986,6 +998,12 @@ msgstr "网络"
 
 msgid "Type"
 msgstr "类型"
+
+msgid "Available system users and groups"
+msgstr "可选的系统用户及用户组"
+
+msgid "Selected system users and groups"
+msgstr "已选的系统用户及用户组"
 
 msgid "Save"
 msgstr "保存"
@@ -1433,9 +1451,6 @@ msgstr "用户名"
 msgid "Password"
 msgstr "密码"
 
-msgid "Log In"
-msgstr "登录"
-
 msgid "Generate a New Debug Report"
 msgstr "产生一个新的诊断报告"
 
@@ -1449,6 +1464,17 @@ msgid ""
 msgstr ""
 "名字用来标识诊断报告。如果省略，将会基于当前时间生成一个新名字。名字中可以包"
 "含字母、数字、下划线 ('_') 和连字符（'-'）"
+
+msgid "Rename a Debug Report"
+msgstr ""
+
+msgid ""
+"The name used to identify the report. Name can contain: letters, digits and "
+"hyphen (\"-\")."
+msgstr ""
+
+msgid "Submit"
+msgstr ""
 
 msgid "Add a Repository"
 msgstr "增加一个软件仓库"
@@ -1747,12 +1773,3 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
-
-msgid "Permission"
-msgstr "权限"
-
-msgid "Available system users and groups"
-msgstr "可选的系统用户及用户组"
-
-msgid "Selected system users and groups"
-msgstr "已选的系统用户及用户组"

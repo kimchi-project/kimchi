@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 10:20-0500\n"
+"POT-Creation-Date: 2014-07-29 15:52-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -62,6 +62,9 @@ msgstr "Essa API suporta apenas JSON"
 #, python-format
 msgid "Parameters does not match requirement in schema: %(err)s"
 msgstr "Parâmetros não correspondem à especificação do esquema: %(err)s"
+
+msgid "You don't have permission to perform this operation."
+msgstr ""
 
 msgid "Datastore is not initiated in the model object."
 msgstr "Datastore não é inicializado no objeto modelo."
@@ -269,6 +272,12 @@ msgid ""
 msgstr ""
 "Não foi possível acessar os metadados da máquina virtual %(name)s. Detalhes: "
 "%(err)s"
+
+msgid "password of a vm ticket must be a string."
+msgstr ""
+
+msgid "expire of a vm ticket must be a number."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -1063,6 +1072,9 @@ msgstr "Storage"
 msgid "Interface"
 msgstr "Interface"
 
+msgid "Permission"
+msgstr ""
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1086,6 +1098,12 @@ msgstr "Redes"
 
 msgid "Type"
 msgstr "Tipo"
+
+msgid "Available system users and groups"
+msgstr ""
+
+msgid "Selected system users and groups"
+msgstr ""
 
 msgid "Save"
 msgstr "Salvar"
@@ -1562,9 +1580,6 @@ msgstr "Usuário"
 msgid "Password"
 msgstr "Senha"
 
-msgid "Log In"
-msgstr "Entrar"
-
 msgid "Generate a New Debug Report"
 msgstr "Gerar um novo relatório de depuração"
 
@@ -1579,6 +1594,17 @@ msgstr ""
 "Se o nome do relatório for omitido, será escolhido um nome baseado no "
 "horário atual. O nome pode conter: letras, números, underscore ('_') e hífen "
 "('-')."
+
+msgid "Rename a Debug Report"
+msgstr ""
+
+msgid ""
+"The name used to identify the report. Name can contain: letters, digits and "
+"hyphen (\"-\")."
+msgstr ""
+
+msgid "Submit"
+msgstr ""
 
 msgid "Add a Repository"
 msgstr "Adicionar um Repositório"
@@ -1881,12 +1907,3 @@ msgstr "Nenhum modelo encontrado."
 
 msgid "Clone"
 msgstr "Clonar"
-
-msgid "Permission"
-msgstr ""
-
-msgid "Available system users and groups"
-msgstr ""
-
-msgid "Selected system users and groups"
-msgstr ""
