@@ -17,25 +17,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 # tags and output versions:
-#   - kimchi-4.9.0   => 4.9.0 (upstream clean)
-#   - kimchi-4.9.0-1 => 4.9.0 (downstream clean)
-#   - kimchi-4.9.0-2-g34e62f   => 4.9.0 (upstream dirty)
-#   - kimchi-4.9.0-1-2-g34e62f => 4.9.0 (downstream dirty)
+#   - 4.9.0   => 4.9.0 (upstream clean)
+#   - 4.9.0-1 => 4.9.0 (downstream clean)
+#   - 4.9.0-2-g34e62f   => 4.9.0 (upstream dirty)
+#   - 4.9.0-1-2-g34e62f => 4.9.0 (downstream dirty)
 AWK_VERSION='
     BEGIN { FS="-" }
-    /^kimchi-[0-9]/ {
-      sub(/^kimchi-/,"") ; print $1
+    /^[0-9]/ {
+      print $1
     }'
 
 # tags and output releases:
-#   - kimchi-4.9.0   => 0 (upstream clean)
-#   - kimchi-4.9.0-1 => 1 (downstream clean)
-#   - kimchi-4.9.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
-#   - kimchi-4.9.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
+#   - 4.9.0   => 0 (upstream clean)
+#   - 4.9.0-1 => 1 (downstream clean)
+#   - 4.9.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
+#   - 4.9.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
 AWK_RELEASE='
     BEGIN { FS="-"; OFS="." }
-    /^kimchi-[0-9]/ {
-      sub(/^kimchi-/,"")
+    /^[0-9]/ {
       if (NF == 1) print 0
       else if (NF == 2) print $2
       else if (NF == 3) print $2, "git" substr($3, 2)
@@ -45,7 +44,7 @@ AWK_RELEASE='
 if [ ! -d .git ]; then
     PKG_VERSION=`cat VERSION`
 else
-    PKG_VERSION=`git describe --tags --match "kimchi-[0-9]*" || cat VERSION`
+    PKG_VERSION=`git describe --tags --match "[0-9]*" || cat VERSION`
 fi
 
 if test "x$1" = "x--full"; then
