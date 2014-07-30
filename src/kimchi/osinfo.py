@@ -60,10 +60,10 @@ modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                                 'opensuse': '10.3', 'centos': '5.3',
                                 'rhel': '6.0', 'fedora': '16', 'gentoo': '0',
                                 'sles': '11'},
-                        'power': {'rhel': '7.0', 'fedora': '19',
+                        'power': {'rhel': '6.5', 'fedora': '19',
                                   'ubuntu': '14.04',
                                   'opensuse': '13.1',
-                                  'sles': '12'}}
+                                  'sles': '11sp3'}}
 
 icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % paths.ui_dir, 'icon-*.png')]
