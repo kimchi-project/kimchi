@@ -337,7 +337,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('', cdrom_info['path'])
             inst.vm_poweroff(vm_name)
 
-           # removing non existent cdrom
+            # removing non existent cdrom
             self.assertRaises(NotFoundError, inst.vmstorage_delete, vm_name,
                               "fakedev")
 
@@ -1098,7 +1098,7 @@ class ModelTests(unittest.TestCase):
                 report_list = inst.debugreports_get_list()
                 self.assertTrue(tmp_name in report_list)
             except OperationFailed, e:
-                if not 'debugreport tool not found' in e.message:
+                if 'debugreport tool not found' not in e.message:
                     raise e
 
     def _wait_task(self, model, taskid, timeout=5):

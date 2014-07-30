@@ -161,8 +161,8 @@ class Resource(object):
 
         if (users is not None or groups is not None) and \
             user_role and user_role != 'admin' and \
-            (user_name not in users or \
-            (groups and list(set(user_groups) & set(groups)) == [])):
+            (user_name not in users or
+             (groups and list(set(user_groups) & set(groups)) == [])):
             return False
 
         return True
@@ -277,7 +277,8 @@ class Collection(object):
             if not res.is_authorized():
                 continue
 
-            if all(key in res.data and (res.data[key] == val or res.data[key] in val)
+            if all(key in res.data and
+                   (res.data[key] == val or res.data[key] in val)
                    for key, val in fields_filter.iteritems()):
                 data.append(res.data)
         return data

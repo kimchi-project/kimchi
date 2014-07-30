@@ -33,7 +33,8 @@ class StorageVolumes(Collection):
     def filter_data(self, resources, fields_filter):
         # filter directory from storage volumes
         fields_filter.update({'type': ['file', 'block', 'network']})
-        return super(StorageVolumes, self).filter_data(resources, fields_filter)
+        return super(StorageVolumes, self).filter_data(resources,
+                                                       fields_filter)
 
 
 class StorageVolume(Resource):

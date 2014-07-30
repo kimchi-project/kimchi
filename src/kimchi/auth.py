@@ -70,7 +70,7 @@ class User(object):
         self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
     def get_groups(self):
-        out, err, rc = run_command([ 'id', '-Gn', self.user[USER_NAME] ])
+        out, err, rc = run_command(['id', '-Gn', self.user[USER_NAME]])
         if rc == 0:
             self.user[USER_GROUPS] = out.rstrip().split(" ")
 

@@ -57,7 +57,7 @@ from kimchi.utils import template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
-fake_user = { 'admin': 'letmein!' }
+fake_user = {'admin': 'letmein!'}
 
 
 class MockModel(object):
@@ -583,8 +583,8 @@ class MockModel(object):
                         pool_info['source']['addr'] == server:
                     return dict(host=server)
             except NotFoundError:
-            # Avoid inconsistent pool result because
-            # of lease between list and lookup
+                # Avoid inconsistent pool result because
+                # of lease between list and lookup
                 pass
 
         raise NotFoundError("KCHSR0001E", {'server': server})
@@ -1257,13 +1257,13 @@ class MockRepositories(object):
         return self._repos.keys()
 
     def getRepository(self, repo_id):
-        if not repo_id in self._repos.keys():
+        if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         return self._repos[repo_id]
 
     def enableRepository(self, repo_id):
-        if not repo_id in self._repos.keys():
+        if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         info = self._repos[repo_id]
@@ -1276,7 +1276,7 @@ class MockRepositories(object):
         return repo_id
 
     def disableRepository(self, repo_id):
-        if not repo_id in self._repos.keys():
+        if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         info = self._repos[repo_id]
@@ -1289,7 +1289,7 @@ class MockRepositories(object):
         return repo_id
 
     def updateRepository(self, repo_id, params):
-        if not repo_id in self._repos.keys():
+        if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         info = self._repos[repo_id]
@@ -1299,7 +1299,7 @@ class MockRepositories(object):
         return info['repo_id']
 
     def removeRepository(self, repo_id):
-        if not repo_id in self._repos.keys():
+        if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         del self._repos[repo_id]
@@ -1322,7 +1322,7 @@ def get_mock_environment():
         vm = MockVM(vm_uuid, name, model.template_lookup('test-template-0'))
         model._mock_vms[name] = vm
 
-    #mock storagepool
+    # mock storagepool
     for i in xrange(5):
         name = 'default-pool-%i' % i
         defaultstoragepool = MockStoragePool(name)
@@ -1343,7 +1343,7 @@ def get_mock_environment():
         mockpool = model._mock_storagepools[name]
         mockpool._volumes[vol_name] = defaultstoragevolume
 
-    #mock network
+    # mock network
     for i in xrange(5):
         name = 'test-network-%i' % i
         testnetwork = MockNetwork(name)

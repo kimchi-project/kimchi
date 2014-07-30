@@ -111,7 +111,8 @@ def set_metadata_node(dom, node, mode="all"):
                         KIMCHI_NAMESPACE, KIMCHI_META_URL,
                         flags=get_vm_config_flag(dom, mode))
     else:
-    # FIXME remove this code when all distro libvirt supports metadata element
+        # FIXME remove this code when all distro libvirt supports metadata
+        # element
         _kimchi_set_metadata_node(dom, node)
 
 
@@ -123,7 +124,7 @@ def _kimchi_get_metadata_node(dom, tag):
     xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
     root = etree.fromstring(xml)
     kimchi = root.find("metadata/{%s}kimchi" % KIMCHI_META_URL)
-    #remove the "kimchi" prefix of xml
+    # remove the "kimchi" prefix of xml
     # some developers may do not like to remove prefix by children iteration
     # so here, use re to remove the "kimchi" prefix of xml
     # and developers please don not define element like this:
@@ -142,7 +143,8 @@ def get_metadata_node(dom, tag, mode="current"):
     if CapabilitiesModel().metadata_support:
         kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
     else:
-    # FIXME remove this code when all distro libvirt supports metadata element
+        # FIXME remove this code when all distro libvirt supports metadata
+        # element
         kimchi = _kimchi_get_metadata_node(dom, tag)
 
     if kimchi is not None:

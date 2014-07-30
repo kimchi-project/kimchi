@@ -55,7 +55,7 @@ def validate_method(allowed, role_key, admin_methods):
 
 
 def mime_in_header(header, mime):
-    if not header in cherrypy.request.headers:
+    if header not in cherrypy.request.headers:
         accepts = 'application/json'
     else:
         accepts = cherrypy.request.headers[header]

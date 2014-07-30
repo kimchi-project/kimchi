@@ -46,7 +46,7 @@ port = None
 ssl_port = None
 cherrypy_port = None
 
-#utils.silence_server()
+# utils.silence_server()
 
 
 def setUpModule():
@@ -175,8 +175,8 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
-        test_users = [ 'user1', 'user2', 'root']
-        test_groups = [ 'group1', 'group2', 'admin' ]
+        test_users = ['user1', 'user2', 'root']
+        test_groups = ['group1', 'group2', 'admin']
         # Now add a couple of VMs to the mock model
         for i in xrange(10):
             name = 'vm-%i' % i
@@ -696,21 +696,21 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         # Test create vms using lun of this pool
-        ### activate the storage pool
+        # activate the storage pool
         resp = self.request('/storagepools/scsi_fc_pool/activate', '{}',
                             'POST')
 
-        ### Get scsi pool luns and choose one
+        # Get scsi pool luns and choose one
         resp = self.request('/storagepools/scsi_fc_pool/storagevolumes')
         luns = json.loads(resp.read())
         lun_name = random.choice(luns).get('name')
 
-        ### Create vm in scsi pool without volumes: Error
+        # Create vm in scsi pool without volumes: Error
         req = json.dumps({'template': '/templates/test_fc_pool'})
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(400, resp.status)
 
-        ### Create vm in scsi pool
+        # Create vm in scsi pool
         req = json.dumps({'name': 'test-vm',
                           'template': '/templates/test_fc_pool',
                           'volumes': [lun_name]})
@@ -1651,7 +1651,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(200, resp.status)
             req = json.dumps({'name': 'report2'})
             resp = request(host, ssl_port, '/debugreports/report1',
-                req, 'PUT')
+                           req, 'PUT')
             self.assertEquals(303, resp.status)
 
     def test_debugreport_download(self):

@@ -96,7 +96,7 @@ class SoftwareUpdate(object):
         """
         Return a dictionary with all info from a given package name.
         """
-        if not name in self._packages.keys():
+        if name not in self._packages.keys():
             raise NotFoundError('KCHPKGUPD0002E', {'name': name})
 
         return self._packages[name]
