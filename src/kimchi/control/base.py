@@ -277,7 +277,7 @@ class Collection(object):
             if not res.is_authorized():
                 continue
 
-            if all(key in res.data and res.data[key] == val
+            if all(key in res.data and (res.data[key] == val or res.data[key] in val)
                    for key, val in fields_filter.iteritems()):
                 data.append(res.data)
         return data
