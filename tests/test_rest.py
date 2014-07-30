@@ -982,7 +982,7 @@ class RestTests(unittest.TestCase):
             req = json.dumps({'name': name,
                               'capacity': 1024,
                               'allocation': 512,
-                              'type': 'disk',
+                              'type': 'file',
                               'format': 'raw'})
             resp = self.request('/storagepools/pool-1/storagevolumes',
                                 req, 'POST')
