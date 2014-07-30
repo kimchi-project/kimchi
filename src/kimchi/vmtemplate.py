@@ -23,6 +23,9 @@ import socket
 import urlparse
 
 
+from distutils.version import LooseVersion
+
+
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError
 from kimchi.isoinfo import IsoImage
@@ -265,15 +268,27 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
             ret.append(info)
         return ret
 
+    def _disable_vhost(self):
+        # Hack to disable vhost feature in Ubuntu LE and SLES LE (PPC)
+        driver = ""
+        if self.info['arch'] == 'ppc64' and \
+            ((self.info['os_distro'] == 'ubuntu' and LooseVersion(
+             self.info['os_version']) >= LooseVersion('14.04')) or
+             (self.info['os_distro'] == 'sles' and LooseVersion(
+              self.info['os_version']) >= LooseVersion('12'))):
+            driver = "  <driver name='qemu'/>\n            "
+        return driver
+
     def _get_networks_xml(self):
         network = """
             <interface type='network'>
               <source network='%(network)s'/>
               <model type='%(nic_model)s'/>
-            </interface>
+            %(driver)s</interface>
         """
         networks = ""
-        net_info = {"nic_model": self.info['nic_model']}
+        net_info = {"nic_model": self.info['nic_model'],
+                    "driver": self._disable_vhost()}
         for nw in self.info['networks']:
             net_info['network'] = nw
             networks += network % net_info
