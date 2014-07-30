@@ -19,7 +19,7 @@ git for-each-ref --sort='*authordate' --format='%(tag)' refs/tags | tac |grep -v
     NEXT=$TAG
     echo; echo
 done
-FIRST=$(git tag -l | head -1)
+FIRST=$(git for-each-ref --sort='*authordate' --format='%(tag)' refs/tags | head -1)
 
 echo "#### [$FIRST] ####"
 GIT_PAGER=cat git log --pretty=format:" * [%h] %<(78,trunc)%s (%an)" $FIRST
