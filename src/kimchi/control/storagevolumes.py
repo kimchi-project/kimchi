@@ -30,6 +30,11 @@ class StorageVolumes(Collection):
         self.resource_args = [self.pool, ]
         self.model_args = [self.pool, ]
 
+    def filter_data(self, resources, fields_filter):
+        # filter directory from storage volumes
+        fields_filter.update({'type': ['file', 'block', 'network']})
+        return super(StorageVolumes, self).filter_data(resources, fields_filter)
+
 
 class StorageVolume(Resource):
     def __init__(self, model, pool, ident):
