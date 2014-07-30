@@ -1,0 +1,158 @@
+13:07:18 <alinefm> #startmeeting
+13:07:18 <kimchi-bot> Meeting started Wed Jul 30 13:07:18 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:07:18 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:07:18 <alinefm> #meetingname scrum
+13:07:18 <kimchi-bot> The meeting name has been set to 'scrum'
+13:07:29 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:07:29 <alinefm> anything else?
+13:08:13 <royce> good for me
+13:08:26 <alinefm> #topic Status
+13:08:26 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:47 <alinefm> #info alinefm sent patch to fix issue #374
+13:09:16 <wenwang> #info wenwang bugfix: sent patch that fix #397 UI Broken when cookie is clear
+13:09:38 <YuXin> #info YuXin  1) Ticket UI.   2) Redesign VM Edit to make it enabled when both vm started/stopped
+13:09:39 <alinefm> #info alinefm redesigned authorization backend to allow different rules for collection and resources
+13:09:46 <wenwang> #info wenwang bugfix: sent patch that fix #398 ui: manage media needs more information when no cdrom exists
+13:09:55 <royce> #info royce addressed tests failure of create vm of image based template, turn to be tmpfs and cache=none conflict
+13:10:00 <alinefm> #info alinefm sent patch to fix issue #389
+13:10:24 <royce> #info royce is working on bugs related to disk attachment and storage volume filtering
+13:10:28 <alinefm> #info alinefm is working with baude to have Kimchi into Fedora
+13:11:00 <wenwang> #info wenwang working on #372 for the front-end: Account for network boot/install leveraging  DHCP/TFTP/(NFS/HTTP/FTP) network installation servers.
+13:11:56 <alinefm> wenwang, are you going to send a mock UI?
+13:12:13 <alinefm> because I don't see any RFC or patch for backend on ML
+13:12:22 <alinefm> pvital, are you responsible for it
+13:12:23 <alinefm> ?
+13:12:25 <alinefm> any update?
+13:12:32 <vianac> #info vianac sent final version of the authorization patches; sent patch to fix the way groups are fetched from the system; worked on issue #377; reviewed patches on the mailing list
+13:12:58 <pvital> alinefm, yes! I need send the RFC
+13:13:04 <pvital> adding on my todo list
+13:13:16 <wenwang> alinefm: I think I can do that
+13:13:30 <alinefm> pvital, please, do as soon as possible to avoid conflicts on UI
+13:13:37 <alinefm> at least how the API would be
+13:13:50 <alinefm> wenwang, good
+13:13:51 <pvital> ok
+13:14:34 <alinefm> anything else?
+13:15:01 <alinefm> YuXin, what about the pci passthrough UI? could you do a mock UI too?
+13:15:16 <alinefm> just to get an agreement on it untill Zheng Sheng finish the backend
+13:15:25 <wenwang> alinefm: Actually pvital has did some work in the UI and I am thinking of continue his work and make every conponent work
+13:15:43 <alinefm> wenwang, sounds good
+13:16:32 <YuXin> aline, I will mock up the pci passthrough, got  a machine to check the API today
+13:16:52 <alinefm> ok
+13:17:02 <royce> #info as I planned to take vacation next week, guys would you help to review my image based template patches so that I can have a relaxing holiday?:)
+13:17:07 <alinefm> YuXin, it does not need to be functional right now, just an image on how it will be
+13:17:18 <YuXin> ok
+13:17:26 <alinefm> royce, sure
+13:17:33 <royce> thanks, alinefm
+13:17:35 <alinefm> royce, how much time will you take off?
+13:17:57 <royce> 2days,  Aug 4,5
+13:18:12 <alinefm> royce, enjoy! =)
+13:18:20 <royce> Thanks:D
+13:18:54 <alinefm> let's move to open discussion
+13:19:01 <alinefm> #topic Open Discussion
+13:19:07 <alinefm> baude, do you want to start?
+13:19:27 <baude> i think we are cool w/the jquery stuff, ill just get the exception for the time being
+13:19:38 <baude> when you have the license stuff cleaned up, let me know
+13:19:53 <alinefm> sure
+13:20:08 <baude> and do you have a reasonably clean system to test with? meaning all the rpm deps are not installed?
+13:20:10 <alinefm> YuXin, from the list you sent, is there any jquery file we can remove?
+13:20:27 <alinefm> baude, I have clean VM's for it =)
+13:20:33 <baude> alinefm, perfect
+13:20:58 <YuXin> ./css/theme-default/jquery-ui.custom.css       -- css file for kimchi jquery ui plugin
+13:20:59 <YuXin> ./libs/jquery-ui.min.js		-- jquery ui js file
+13:20:59 <YuXin> ./libs/jquery-ui-i18n.min.js		-- jquery ui resource bundles
+13:20:59 <YuXin> ./libs/themes/base/jquery-ui.min.css		-- jquery ui css file
+13:20:59 <YuXin> below has duplicate
+13:20:59 <YuXin> ./libs/jquery-1.10.0.min.js
+13:20:59 <YuXin> ./js/jquery.min.js
+13:21:01 <YuXin> ./js/jquery-ui.js
+13:21:14 <YuXin> there are some duplicate file
+13:21:26 <YuXin> I will look into it and get duplicate file removed
+13:22:23 <alinefm> YuXin, that would be great! thanks
+13:22:48 <wenwang> Also I think I have one loading picture that is not used any more. I will send a patch to remove it
+13:23:20 <alinefm> wenwang, please, check all the images and remove those we dont use anymore
+13:23:46 <wenwang> alinefm: No problem
+13:25:01 <alinefm> any other topic team?
+13:26:31 <wenwang> I tested kimchi on iPad today according to issue#395 VM console does not work on iPads which I cannot connect to vnc server on ipad to reproduce the bug
+13:27:08 <alinefm> wenwang, really?
+13:27:24 <alinefm> kimchi server and ipad are in the same network?
+13:27:40 <alinefm> I've already tested on android phones and it connects well
+13:27:44 <wenwang> alinefm: Yes. YuXin and shaohef are with me
+13:27:58 <wenwang> alinefm: sure
+13:28:17 <YuXin> kimchi can be loaded, but web socket connection failed in vnc.html
+13:28:26 <shaohef> alinefm: seems it can connect on old kimchi version.
+13:28:48 <alinefm> shaohef, well, we need to fix it ASAP so
+13:29:08 <alinefm> wenwang, YuXin, shaohef, so you logged into kimchi on IPAD but the vnc does not open?
+13:29:09 <shaohef> alinefm: we are trying to use "git bisect" to find the bad point.
+13:29:18 <alinefm> the connection with websockts fails?
+13:29:49 <YuXin> vnc.html can open, but it failed to load vm screen
+13:30:10 <shaohef> alinefm: report  __stl.c  error
+13:30:24 <wenwang> alinefm: Yes, the page shows "disconnected"
+13:31:29 <alinefm> what is the distro?
+13:31:36 <alinefm> and browser? safari?
+13:31:59 <YuXin> redhat, both chrom and safari are tried
+13:32:11 <wenwang> IOS 5.1 , both safari and chrome won't work
+13:33:22 <alinefm> have you had a chance to test on android?
+13:33:36 <YuXin> not tried on android
+13:34:14 <alinefm> I will do some investigation on android today and let you know
+13:34:15 <YuXin> we can try kimchi 1.2.0 or 1.2.1 to see whether there is such an issue
+13:34:23 <shaohef> on android tablet
+13:34:26 <alinefm> who is working to fix it?
+13:34:47 <alinefm> if someone
+13:34:48 <YuXin> wang wen, shao he and I will continue to look into it tomorrow
+13:34:57 <alinefm> ok
+13:35:41 <alinefm> YuXin, shaohef, wenwang, the problem is with spice and novnc? or just novnc?
+13:35:54 <shaohef> novnc
+13:36:21 <YuXin> shaohe, we have not tried spice, right?
+13:37:44 <shaohef> no
+13:37:54 <shaohef> we can try it tomorrow
+13:38:50 <YuXin> when I tried the windows vm console on desktop, the mouse pointer can not be aligned
+13:39:15 <YuXin> there are always 2 mouse pointers, one is inside vnc screen and the other is outside
+13:39:52 <alinefm> I've already seen it on opensuse vm too
+13:40:41 <YuXin> the vnc screen has not taken the whole viewport of brower
+13:41:21 <shaohef> YuXin: Dose it can reproduce on virt-manger? add a absolute position for mouse in virt-manager, and try again.
+13:41:43 <YuXin> not tried
+13:42:19 <YuXin> aline, recently there is a patch to change 0.0.0. to 127.0.0.1
+13:42:44 <YuXin> this will prevent all other vnc tools from access vm, right?
+13:42:58 <alinefm> from outside host machine, yes
+13:43:18 <YuXin> why we prevent other tools?
+13:43:47 <alinefm> to don't expose the vm console to anyone
+13:44:01 <alinefm> but you can still use other too if you have access to the host
+13:44:16 <alinefm> there is -via option to vncviewer for example
+13:44:23 <alinefm> vianac, do you remember how to use it ^?
+13:45:16 <YuXin> I think this will harm the consumability  of vms created by kimchi
+13:45:30 <vianac> alinefm, vncviewer -via <remote host IP> localhost:<port>
+13:46:03 <vianac> assuming that the VNC is running in "localhost" from the <remote host IP>
+13:46:18 <alinefm> vianac, thanks! yeah that is the scenario
+13:46:40 <YuXin> this command will allow vnc viewer to access vms from remote machine?
+13:46:57 <alinefm> yes
+13:47:25 <alinefm> because the vm console is running on localhost on host, so if you connect to host and then to vnc it works
+13:48:37 <YuXin> so from my local machine to vnc the vm which is at a remote host still not work, right?
+13:50:20 <alinefm> vncviewer <remote-ip>:<port> => does not work
+13:50:39 <alinefm> as the port is only accessible for the host
+13:51:04 <YuXin> why we block this access?
+13:51:14 <alinefm> in this way vncviewer -via <remote host IP> localhost:<port> you will need to provide user/password to access the host server
+13:51:36 <alinefm> to make sure only a user with host access can get the vm access
+13:51:52 <alinefm> *get the vm console
+13:53:38 <YuXin> so now, we have below protections against vm
+13:53:45 <YuXin> 1. host user/pass
+13:53:52 <YuXin> 2. vnc pass
+13:54:01 <YuXin> 3. guest os user/pass
+13:54:19 <alinefm> correct
+13:54:29 <alinefm> the vnc pass is not fully implemented yet
+13:54:34 <alinefm> but it is the plan
+13:55:34 <YuXin> if as a user that most of my vms are not that important and I think guest os user/pass is enough
+13:56:12 <YuXin> do you think we should give this type of user to get rid of 1 and 2
+13:58:08 <alinefm> well, to login into kimchi, the user must have access to host
+13:58:13 <alinefm> so 1. is not optional
+13:59:28 <alinefm> about 2. we can add an option to disable it if the user want to
+13:59:29 <YuXin> aline, difficult to get an answer through discussion
+14:00:07 <YuXin> we need feedback from real enterprise users see their preference
+14:00:14 <alinefm> but from 2. the default behavior should be protector IMO
+14:00:36 <alinefm> YuXin, agree!
+14:00:42 <YuXin> ok
+14:00:56 <alinefm> feedbacks are always welcome from enterprise or common users
+14:02:05 <alinefm> we are over time
+14:02:10 <alinefm> anything else for today?
+14:03:05 <alinefm> ok
+14:03:07 <alinefm> thanks all for joining
+14:03:10 <alinefm> #endmeeting

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:07:18 UTC
+(<a href="kimchi.scrum.2014-07-30-13.07.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-6'>alinefm</a>,
+    13:07:29)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-07-30-13.07.log.html#l-9'>alinefm</a>, 13:08:26)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-10'>alinefm</a>,
+    13:08:26)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix issue #374</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-11'>alinefm</a>,
+    13:08:47)</span></li>
+  <li><span class="INFO">wenwang bugfix: sent patch that fix #397 UI
+    Broken when cookie is clear</span> <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-12'>wenwang</a>,
+    13:09:16)</span></li>
+  <li><span class="INFO">YuXin  1) Ticket UI.   2) Redesign VM Edit to
+    make it enabled when both vm started/stopped</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-13'>YuXin</a>,
+    13:09:38)</span></li>
+  <li><span class="INFO">alinefm redesigned authorization backend to
+    allow different rules for collection and resources</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-14'>alinefm</a>,
+    13:09:39)</span></li>
+  <li><span class="INFO">wenwang bugfix: sent patch that fix #398 ui:
+    manage media needs more information when no cdrom exists</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-15'>wenwang</a>,
+    13:09:46)</span></li>
+  <li><span class="INFO">royce addressed tests failure of create vm of
+    image based template, turn to be tmpfs and cache=none
+    conflict</span> <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-16'>royce</a>,
+    13:09:55)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix issue #389</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-17'>alinefm</a>,
+    13:10:00)</span></li>
+  <li><span class="INFO">royce is working on bugs related to disk
+    attachment and storage volume filtering</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-18'>royce</a>,
+    13:10:24)</span></li>
+  <li><span class="INFO">alinefm is working with baude to have Kimchi
+    into Fedora</span> <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-19'>alinefm</a>,
+    13:10:28)</span></li>
+  <li><span class="INFO">wenwang working on #372 for the front-end:
+    Account for network boot/install leveraging
+    DHCP/TFTP/(NFS/HTTP/FTP) network installation servers.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-20'>wenwang</a>,
+    13:11:00)</span></li>
+  <li><span class="INFO">vianac sent final version of the authorization
+    patches; sent patch to fix the way groups are fetched from the
+    system; worked on issue #377; reviewed patches on the mailing
+    list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-26'>vianac</a>,
+    13:12:32)</span></li>
+  <li><span class="INFO">as I planned to take vacation next week, guys
+    would you help to review my image based template patches so that I
+    can have a relaxing holiday?:)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-07-30-13.07.log.html#l-41'>royce</a>,
+    13:17:02)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-07-30-13.07.log.html#l-51'>alinefm</a>, 13:19:01)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:03:10 UTC
+(<a href="kimchi.scrum.2014-07-30-13.07.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (78)</li>
+  <li>YuXin (40)</li>
+  <li>wenwang (12)</li>
+  <li>shaohef (8)</li>
+  <li>royce (7)</li>
+  <li>baude (4)</li>
+  <li>pvital (3)</li>
+  <li>vianac (3)</li>
+  <li>kimchi-bot (3)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
