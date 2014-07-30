@@ -109,6 +109,7 @@ def get_enabled_plugins():
             except (TypeError, KeyError):
                 continue
 
+
 def get_all_tabs():
     files = [os.path.join(paths.prefix, 'config/ui/tabs.xml')]
 

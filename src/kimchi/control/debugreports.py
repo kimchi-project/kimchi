@@ -32,7 +32,7 @@ class DebugReports(AsyncCollection):
 
     def _get_resources(self, filter_params):
         res_list = super(DebugReports, self)._get_resources(filter_params)
-        return sorted(res_list, key=lambda x:x.data['time'], reverse=True)
+        return sorted(res_list, key=lambda x: x.data['time'], reverse=True)
 
 
 class DebugReport(Resource):

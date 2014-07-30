@@ -64,7 +64,7 @@ if sys.version_info[:2] == (2, 6):
             self.fail('%s is not an instance of %r' % (repr(obj), cls))
 
     def assertIn(self, a, b, msg=None):
-        if not a in b:
+        if a not in b:
             self.fail("%s is not in %b" % (repr(a), repr(b)))
 
     def assertNotIn(self, a, b, msg=None):
@@ -154,7 +154,7 @@ def patch_auth(sudo=True):
     """
 
     def _get_groups(self):
-        return [ 'groupA', 'groupB', 'wheel' ]
+        return ['groupA', 'groupB', 'wheel']
 
     def _has_sudo(self, result):
         result.value = sudo

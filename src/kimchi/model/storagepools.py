@@ -248,7 +248,7 @@ class StoragePoolModel(object):
         path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
         source = self._get_storage_source(pool_type, xml)
-        #FIXME: nfs workaround - prevent any libvirt operation
+        # FIXME: nfs workaround - prevent any libvirt operation
         # for a nfs if the corresponding NFS server is down.
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
             kimchi_log.debug("NFS pool %s is offline, reason: NFS "
@@ -328,7 +328,7 @@ class StoragePoolModel(object):
 
     def activate(self, name):
         pool = self.get_storagepool(name, self.conn)
-        #FIXME: nfs workaround - do not activate a NFS pool
+        # FIXME: nfs workaround - do not activate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
@@ -359,7 +359,7 @@ class StoragePoolModel(object):
             raise InvalidOperation('KCHPOOL0034E', {'name': name})
 
         pool = self.get_storagepool(name, self.conn)
-        #FIXME: nfs workaround - do not try to deactivate a NFS pool
+        # FIXME: nfs workaround - do not try to deactivate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
         pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]

@@ -62,7 +62,7 @@ def validate_language(langs):
 
 
 def can_accept(mime):
-    if not 'Accept' in cherrypy.request.headers:
+    if 'Accept' not in cherrypy.request.headers:
         accepts = 'text/html'
     else:
         accepts = cherrypy.request.headers['Accept']
