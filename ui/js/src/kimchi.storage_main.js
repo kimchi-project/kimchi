@@ -216,7 +216,7 @@ kimchi.initLogicalPoolExtend = function() {
                 if (data.length > 0) {
                     for(var i=0;i<data.length;i++){
                         if (data[i].type === 'part' || data[i].type === 'disk') {
-                            $('.host-partition', '#logicalPoolExtend').append(kimchi.template($('#logicalPoolExtendTmpl').html(), data[i]));
+                            $('.host-partition', '#logicalPoolExtend').append(kimchi.substitute($('#logicalPoolExtendTmpl').html(), data[i]));
                         }
                     }
                 } else {
