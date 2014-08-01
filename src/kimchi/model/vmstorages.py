@@ -171,8 +171,7 @@ class VMStoragesModel(object):
             params['format'] = vol_info['format']
             params['path'] = vol_info['path']
         params['src_type'] = _check_path(params['path'])
-        params.setdefault(
-            'bus', _get_device_bus(params['type'], dom))
+        params['bus'] = _get_device_bus(params['type'], dom)
         if (params['bus'] not in HOTPLUG_TYPE
                 and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
