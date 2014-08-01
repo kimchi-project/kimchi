@@ -19,21 +19,17 @@ kimchi.guest_storage_add_main = function() {
     var types = [{
         label: 'cdrom',
         value: 'cdrom',
-        bus: ['ide']
     },
     {
         label: 'disk',
         value: 'disk',
-        bus: ['virtio', 'ide']
     }];
     kimchi.select('guest-storage-type-list', types);
-    kimchi.select('guest-storage-bus-list', [{label: 'ide', value: 'ide'}]);
 
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
     var nameTextbox = $('input[name="dev"]', storageAddForm);
     var typeTextbox = $('input[name="type"]', storageAddForm);
-    var busTextbox = $('input[name="bus"]', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
     var poolTextbox = $('input[name="pool"]', storageAddForm);
     var volTextbox = $('input[name="vol"]', storageAddForm);
@@ -59,18 +55,6 @@ kimchi.guest_storage_add_main = function() {
             $(poolTextbox).val("");
             $(volTextbox).val("");
         }
-
-        $.each(types, function(index, elem){
-            if (selectType == elem.value) {
-                var buses = new Array();
-                $.each(elem.bus, function (index, elem) {
-                    buses[index] = {label: elem, value: elem};
-                });
-                $('#guest-storage-bus').selectMenu("setData", buses);
-                $('#guest-storage-bus-label').text(buses[0].value);
-                $('#guest-storage-bus-type').val(buses[0].value);
-            }
-        });
     });
 
     kimchi.listStoragePools(function(result) {
@@ -122,17 +106,6 @@ kimchi.guest_storage_add_main = function() {
                 $(value).addClass('hidden');
             }
         });
-
-        $.each(types, function(index, elem){
-            if (selectType == elem.value) {
-                var buses = new Array();
-                $.each(elem.bus, function (index, elem) {
-                    buses[index] = {label: elem, value: elem};
-                });
-                $('#guest-storage-bus').selectMenu("setData", buses);
-                $('#guest-storage-bus-label').text(buses[0].value);
-            }
-        });
     });
 
     var validateCDROM = function(settings) {
@@ -163,7 +136,6 @@ kimchi.guest_storage_add_main = function() {
         var settings = {
             vm: kimchi.selectedGuest,
             type: typeTextbox.val(),
-            bus: busTextbox.val()
         };
 
         $(submitButton).prop('disabled', true);
