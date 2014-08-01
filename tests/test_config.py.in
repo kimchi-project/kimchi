@@ -51,7 +51,7 @@ class ConfigTests(unittest.TestCase):
         self.assertInstalledPath(paths.src_dir, '@kimchidir@')
         self.assertInstalledPath(paths.plugins_dir, '@kimchidir@/plugins')
         self.assertInstalledPath(paths.ui_dir, '@pkgdatadir@/ui')
-        self.assertInstalledPath(paths.mo_dir, '@pkgdatadir@/mo')
+        self.assertInstalledPath(paths.mo_dir, '@prefix@/share/locale')
 
     def test_uninstalled_paths(self):
         Paths.get_prefix = lambda self: '/home/user/kimchi'

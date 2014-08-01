@@ -81,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/README.md
 %{_datadir}/kimchi/doc/kimchi-guest.png
 %{_datadir}/kimchi/doc/kimchi-templates.png
-%{_datadir}/kimchi/mo/*/LC_MESSAGES/kimchi.mo
+%{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
 %if %{with_fonts} == 1
 %{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*

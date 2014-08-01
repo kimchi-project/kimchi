@@ -102,7 +102,11 @@ class Paths(object):
             self.plugins_dir = self.add_prefix('plugins')
 
         self.ui_dir = self.add_prefix('ui')
-        self.mo_dir = self.add_prefix('mo')
+
+        if self.installed:
+            self.mo_dir = '@prefix@/share/locale'
+        else:
+            self.mo_dir = self.add_prefix('mo')
 
     def get_prefix(self):
         if __file__.startswith("/"):
