@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM, Corp. 2013-2014
 # Copyright (C) 2004-2005 OSAF. All Rights Reserved.
 #
 # Portions of this file were derived from the python-m2crypto unit tests:
