@@ -188,14 +188,10 @@ class ModelTests(unittest.TestCase):
         disk_path = '/tmp/existent2.iso'
         open(disk_path, 'w').close()
 
-        def _attach_disk(bus_type=None):
+        def _attach_disk(expect_bus='virtio'):
             disk_args = {"type": "disk",
                          "pool": pool,
                          "vol": vol}
-            if bus_type:
-                disk_args['bus'] = bus_type
-            else:
-                bus_type = 'virtio'
             disk = inst.vmstorages_create(vm_name, disk_args)
             storage_list = inst.vmstorages_get_list(vm_name)
             self.assertEquals(prev_count + 1, len(storage_list))
@@ -204,7 +200,7 @@ class ModelTests(unittest.TestCase):
             disk_info = inst.vmstorage_lookup(vm_name, disk)
             self.assertEquals(u'disk', disk_info['type'])
             self.assertEquals(vol_path, disk_info['path'])
-            self.assertEquals(bus_type, disk_info['bus'])
+            self.assertEquals(expect_bus, disk_info['bus'])
             return disk
 
         inst = model.Model(objstore_loc=self.tmp_store)
@@ -251,6 +247,7 @@ class ModelTests(unittest.TestCase):
             # Hot plug a disk
             inst.vm_start(vm_name)
             disk = _attach_disk()
+
             # VM disk still there after powered off
             inst.vm_poweroff(vm_name)
             disk_info = inst.vmstorage_lookup(vm_name, disk)
@@ -259,20 +256,33 @@ class ModelTests(unittest.TestCase):
 
             # Specify pool and path at sametime will fail
             disk_args = {"type": "disk",
-                         "bus": "virtio",
                          "pool": pool,
                          "vol": vol,
                          "path": disk_path}
             self.assertRaises(
                 InvalidParameter, inst.vmstorages_create, vm_name, disk_args)
-            # Hot plug 'ide' bus disk does not work
-            inst.vm_start(vm_name)
-            self.assertRaises(InvalidOperation, _attach_disk, 'ide')
-            inst.vm_poweroff(vm_name)
 
-            # Cold plug 'ide' bus disk can work
-            disk = _attach_disk()
-            inst.vmstorage_delete(vm_name, disk)
+            old_distro_iso = self.iso_path + 'rhel4_8.iso'
+            iso_gen.construct_fake_iso(old_distro_iso, True, '4.8', 'rhel')
+
+            vm_name = 'kimchi-ide-bus-vm'
+            params = {'name': 'old_distro_template', 'disks': [],
+                      'cdrom': old_distro_iso}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'old_distro_template')
+            params = {'name': vm_name,
+                      'template': '/templates/old_distro_template'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, vm_name)
+
+            # Attach will choose IDE bus for old distro
+            disk = _attach_disk('ide')
+            inst.vmstorage_delete('kimchi-ide-bus-vm', disk)
+
+            # Hot plug IDE bus disk does not work
+            inst.vm_start(vm_name)
+            self.assertRaises(InvalidOperation, _attach_disk)
+            inst.vm_poweroff(vm_name)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_cdrom(self):
