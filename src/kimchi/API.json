@@ -500,12 +500,6 @@
                     "type": "string",
                     "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
                     "error": "KCHVMSTOR0003E"
-                },
-                "bus": {
-                    "description": "Target bus type of attached device",
-                    "type": "string",
-                    "pattern": "^scsi|ide|virtio$",
-                    "error": "KCHVMSTOR0005E"
                 }
             }
         },

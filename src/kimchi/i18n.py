@@ -237,7 +237,6 @@ messages = {
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),
     "KCHVMSTOR0003E": _("The path '%(value)s' is not valid local/remote path for the device"),
     "KCHVMSTOR0004E": _("Device name %(dev_name)s already exists in vm %(vm_name)s"),
-    "KCHVMSTOR0005E": _("Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"),
     "KCHVMSTOR0006E": _("Just support cdrom path update"),
     "KCHVMSTOR0007E": _("The storage device %(dev_name)s does not exist in the guest %(vm_name)s"),
     "KCHVMSTOR0008E": _("Error while creating new storage device: %(error)s"),
