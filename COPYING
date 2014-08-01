@@ -1,7 +1,7 @@
 Kimchi is distributed pursuant to the terms of two different licenses.
 The user interface (located in ui/ in this distribution) is governed by
 the Apache License version 2.0.  The rest of this distribution is
-governed by the GNU Lesser General Public License version 2.1.
+governed by the GNU Lesser General Public License version 3.
 
 See COPYING.LGPL and COPYING.ASL2.
 
