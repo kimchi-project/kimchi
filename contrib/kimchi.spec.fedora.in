@@ -172,8 +172,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/images/theme-default/*.png
 %{_datadir}/kimchi/ui/images/theme-default/*.gif
 %{_datadir}/kimchi/ui/js/kimchi.min.js
-%{_datadir}/kimchi/ui/js/jquery-ui.js
-%{_datadir}/kimchi/ui/js/jquery.min.js
 %{_datadir}/kimchi/ui/js/modernizr.custom.2.6.2.min.js
 %{_datadir}/kimchi/ui/js/novnc/*.js
 %{_datadir}/kimchi/ui/js/spice/*.js
