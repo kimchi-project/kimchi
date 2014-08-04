@@ -1,5 +1,4 @@
-Kimchi Project
-==============
+# Kimchi Project
 
 Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.
@@ -8,18 +7,18 @@ Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
 libvirt. The management interface is accessed over the web using a browser that
 supports HTML5.
 
-Browser Support
-===============
-Desktop Browser Support:
------------------------
+## Browser Support
+
+### Desktop Browser Support
+
 * **Internet Explorer:** IE9+
 * **Chrome:** Current-1 version
 * **Firefox:** Current-1 version Firefox 24ESR
 * **Safari:** Current-1 version
 * **Opera:** Current-1 version
 
-Mobile Browser Support:
------------------------
+### Mobile Browser Support
+
 * **Safari iOS:** Current-1 version
 * **Android Browser** Current-1 version
 
@@ -30,8 +29,7 @@ kimchi cannot be used in other browsers, however, functionality and appearance
 may be diminished and we may not be able to provide support for any problems you
 find.
 
-Hypervisor Distro Support
-=========================
+### Hypervisor Distro Support
 
 Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
 described on the 'Getting Started' section below.
@@ -39,13 +37,11 @@ described on the 'Getting Started' section below.
 The Kimchi community makes an effort to test with the latest versions of Fedora,
 RHEL, OpenSuSe, and Ubuntu.
 
-Getting Started
-===============
+## Getting Started
 
-Install Dependencies
---------------------
+### Install Dependencies
 
-**For fedora and RHEL:**
+##### Fedora and RHEL
 
      $ sudo yum install gcc make autoconf automake gettext-devel git \
                         python-cherrypy python-cheetah libvirt-python \
@@ -68,7 +64,7 @@ EPEL repositories.  See
 [this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
 for more information on how to configure your system to access this repository.
 
-**For debian:**
+##### Debian
 
     $ sudo apt-get install gcc make autoconf automake gettext git \
                            python-cherrypy3 python-cheetah python-libvirt \
@@ -82,7 +78,7 @@ for more information on how to configure your system to access this repository.
         python-jsonschema >= 1.3.0
         python-psutil >= 0.6.0
 
-**For openSUSE:**
+##### openSUSE
 
     $ sudo zypper install gcc make autoconf automake gettext-tools git \
                           python-CherryPy python-Cheetah libvirt-python \
@@ -102,20 +98,17 @@ to get the correct repository based on your openSUSE version. And
 [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
 information on how configure your system to access this repository.
 
-Build and Install
------------------
+### Build and Install
 
     $ ./autogen.sh --system
     $ make
     $ sudo make install   # Optional if running from the source tree
 
-Run
----
+### Run
 
     $ sudo kimchid --host=0.0.0.0
 
-Usage
------
+### Usage
 
 Connect your browser to https://localhost:8001.  You should see a screen like:
 
@@ -148,8 +141,7 @@ To create a template, you need an ISO on your host or using remote one.
 If you are willing to use your own ISO, please copy it to out of box storage
 pool (default path is: /var/lib/kimchi/isos).
 
-Known Issues
-------------
+## Known Issues
 
 1. Kimchi is still experimental and should not be used in a production
 environment.
@@ -161,8 +153,7 @@ is configured as:
     (2) Chown of export path as libvirt user, group as kvm group,
         In order to make sure all mapped user can get into the mount point.
 
-Participating
--------------
+## Participating
 
 All patches are sent through our mailing list hosted by oVirt.  More
 information can be found at:
