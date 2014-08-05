@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM, Corp. 2014
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc spice
+cssdir = $(datadir)/kimchi/ui/css/spice
 
-if FONTS
-SUBDIRS += fonts
-endif
-
-EXTRA_DIST = theme-default
-
-cssdir = $(datadir)/kimchi/ui/css
-dist_css_DATA = theme-default.min.css
-
-theme-default.min.css: theme-default/*.css
-	cat $^ > $@
-
-CLEANFILES = theme-default.min.css
+dist_css_DATA = spice.css
