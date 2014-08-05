@@ -98,6 +98,7 @@ AC_CONFIG_FILES([
     ui/Makefile
     ui/css/Makefile
     ui/css/novnc/Makefile
+    ui/css/spice/Makefile
     ui/css/fonts/Makefile
     ui/css/fonts/novnc/Makefile
     ui/images/Makefile

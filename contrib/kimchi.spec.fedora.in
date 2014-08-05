@@ -168,6 +168,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
 %endif
 %{_datadir}/kimchi/ui/css/novnc/base.css
+%{_datadir}/kimchi/ui/css/spice/spice.css
 %{_datadir}/kimchi/ui/css/theme-default.min.css
 %{_datadir}/kimchi/ui/images/*.png
 %{_datadir}/kimchi/ui/images/*.ico
