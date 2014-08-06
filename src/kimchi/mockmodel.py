@@ -480,11 +480,13 @@ class MockModel(object):
         try:
             name = params['name']
             volume = MockStorageVolume(pool, name, params)
-            volume.info['type'] = params['type']
+            volume.info['type'] = 'file'
             volume.info['ref_cnt'] = params.get('ref_cnt', 0)
             volume.info['format'] = params['format']
             volume.info['path'] = os.path.join(
                 pool.info['path'], name)
+            if 'base' in params:
+                volume.info['base'] = copy.deepcopy(params['base'])
         except KeyError, item:
             raise MissingParameter("KCHVOL0004E",
                                    {'item': str(item), 'volume': name})
@@ -1002,6 +1004,8 @@ class MockVMTemplate(VMTemplate):
         for vol_info in volumes:
             vol_info['capacity'] = vol_info['capacity'] << 10
             vol_info['ref_cnt'] = 1
+            if 'base' in self.info:
+                vol_info['base'] = copy.deepcopy(self.info['base'])
             self.model.storagevolumes_create(pool.name, vol_info)
             disk_paths.append({'pool': pool.name, 'volume': vol_info['name']})
         return disk_paths
