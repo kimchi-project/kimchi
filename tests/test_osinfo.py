@@ -30,14 +30,6 @@ class OSInfoTests(unittest.TestCase):
         self.assertEquals('unknown', entry['os_version'])
         self.assertEquals(['default'], entry['networks'])
 
-    def test_fedora_lookup(self):
-        cd = ('http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/'
-              'x86_64/Fedora-17-x86_64-Live-Desktop.iso')
-        entry = lookup('fedora', '17')
-        self.assertEquals(10, entry['disks'][0]['size'])
-        self.assertEquals(cd, entry['cdrom'])
-        self.assertEquals('/storagepools/default', entry['storagepool'])
-
     def test_old_distros(self):
         old_versions = {'debian': '5.0', 'ubuntu': '7.04', 'opensuse': '10.1',
                         'centos': '5.1', 'rhel': '5.1', 'fedora': '15'}
