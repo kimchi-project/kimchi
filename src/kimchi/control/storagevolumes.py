@@ -58,7 +58,7 @@ class StorageVolume(Resource):
                'ref_cnt': self.info['ref_cnt'],
                'format': self.info['format']}
 
-        for key in ('os_version', 'os_distro', 'bootable'):
+        for key in ('os_version', 'os_distro', 'bootable', 'base'):
             val = self.info.get(key)
             if val:
                 res[key] = val
