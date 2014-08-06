@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+import os
 import unittest
 import uuid
 
@@ -26,14 +27,22 @@ from kimchi.xmlutils import xpath_get_text
 
 
 class VMTemplateTests(unittest.TestCase):
+    def setUp(self):
+        self.iso = '/tmp/mock.iso'
+        open(self.iso, 'w').close()
+
+    def tearDown(self):
+        os.unlink(self.iso)
+
     def test_minimal_construct(self):
         fields = (('name', 'test'), ('os_distro', 'unknown'),
                   ('os_version', 'unknown'), ('cpus', 1),
-                  ('memory', 1024), ('cdrom', ''), ('networks', ['default']),
+                  ('memory', 1024), ('networks', ['default']),
                   ('disk_bus', 'ide'), ('nic_model', 'e1000'),
-                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}))
+                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}),
+                  ('cdrom', self.iso))
 
-        args = {'name': 'test'}
+        args = {'name': 'test', 'cdrom': self.iso}
         t = VMTemplate(args)
         for name, val in fields:
             self.assertEquals(val, t.info.get(name))
@@ -41,7 +50,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_construct_overrides(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         args = {'name': 'test', 'disks': [{'size': 10}, {'size': 20}],
-                'graphics': graphics}
+                'graphics': graphics, "cdrom": self.iso}
         t = VMTemplate(args)
         self.assertEquals(2, len(t.info['disks']))
         self.assertEquals(graphics, t.info['graphics'])
@@ -50,7 +59,7 @@ class VMTemplateTests(unittest.TestCase):
         # Test specified listen
         graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
         args = {'name': 'test', 'disks': [{'size': 10}, {'size': 20}],
-                'graphics': graphics}
+                'graphics': graphics, 'cdrom': self.iso}
         t = VMTemplate(args)
         self.assertEquals(graphics, t.info['graphics'])
 
@@ -70,7 +79,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_to_xml(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         vm_uuid = str(uuid.uuid4()).replace('-', '')
-        t = VMTemplate({'name': 'test-template'})
+        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso})
         xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
         self.assertEquals(vm_uuid, xpath_get_text(xml, "/domain/uuid")[0])
         self.assertEquals('test-vm', xpath_get_text(xml, "/domain/name")[0])
@@ -87,10 +96,10 @@ class VMTemplateTests(unittest.TestCase):
         graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
         args = {'name': 'test', 'os_distro': 'opensuse', 'os_version': '12.3',
                 'cpus': 2, 'memory': 2048, 'networks': ['foo'],
-                'cdrom': '/cd.iso', 'graphics': graphics}
+                'cdrom': self.iso, 'graphics': graphics}
         t = VMTemplate(args)
         self.assertEquals(2, t.info.get('cpus'))
         self.assertEquals(2048, t.info.get('memory'))
         self.assertEquals(['foo'], t.info.get('networks'))
-        self.assertEquals('/cd.iso', t.info.get('cdrom'))
+        self.assertEquals(self.iso, t.info.get('cdrom'))
         self.assertEquals(graphics, t.info.get('graphics'))

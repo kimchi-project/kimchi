@@ -497,12 +497,12 @@ class RestTests(unittest.TestCase):
             self.assertEquals(201, resp.status)
 
             # Attach cdrom with both path and volume specified
-            open('/tmp/mock.iso', 'w').close()
+            open('/tmp/existent.iso', 'w').close()
             req = json.dumps({'dev': 'hdx',
                               'type': 'cdrom',
                               'pool': 'tmp',
                               'vol': 'attach-volume',
-                              'path': '/tmp/mock.iso'})
+                              'path': '/tmp/existent.iso'})
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(400, resp.status)
 
@@ -511,7 +511,7 @@ class RestTests(unittest.TestCase):
                               'type': 'disk',
                               'pool': 'tmp',
                               'vol': 'attach-volume',
-                              'path': '/tmp/mock.iso'})
+                              'path': '/tmp/existent.iso'})
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(400, resp.status)
 
@@ -536,7 +536,6 @@ class RestTests(unittest.TestCase):
             self.assertEquals('attach-volume', cd_info['vol'])
 
             # Attach a cdrom with existent dev name
-            open('/tmp/existent.iso', 'w').close()
             req = json.dumps({'dev': 'hdk',
                               'type': 'cdrom',
                               'path': '/tmp/existent.iso'})
@@ -1083,7 +1082,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertEquals(0, len(json.loads(resp.read())))
 
-        # Create a template without cdrom fails with 400
+        # Create a template without cdrom and disk specified fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
              'os_version': '1.0', 'memory': 1024, 'cpus': 1,
              'storagepool': '/storagepools/alt'}
@@ -1091,15 +1090,28 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(400, resp.status)
 
+        # Create an image based template
+        open('/tmp/mock.img', 'w').close()
+        t = {'name': 'test_img_template', 'os_distro': 'ImagineOS',
+             'os_version': '1.0', 'memory': 1024, 'cpus': 1,
+             'storagepool': '/storagepools/alt',
+             'disks': [{'base': '/tmp/mock.img'}]}
+        req = json.dumps(t)
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+        os.remove('/tmp/mock.img')
+
         # Create a template
+        open('/tmp/mock.iso', 'w').close()
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         t = {'name': 'test', 'os_distro': 'ImagineOS',
              'os_version': '1.0', 'memory': 1024, 'cpus': 1,
-             'storagepool': '/storagepools/alt', 'cdrom': '/nonexistent.iso',
+             'storagepool': '/storagepools/alt', 'cdrom': '/tmp/mock.iso',
              'graphics': graphics}
         req = json.dumps(t)
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
+        os.remove('/tmp/mock.iso')
 
         # Verify the template
         res = json.loads(self.request('/templates/test').read())

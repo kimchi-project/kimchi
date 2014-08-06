@@ -20,14 +20,18 @@
 import os
 import string
 import socket
+import time
 import urlparse
+import uuid
 
 
 from distutils.version import LooseVersion
 
 
 from kimchi import osinfo
-from kimchi.exception import InvalidParameter, IsoFormatError
+from kimchi.exception import InvalidParameter, IsoFormatError, ImageFormatError
+from kimchi.exception import MissingParameter
+from kimchi.imageinfo import probe_image, probe_img_info
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from lxml import etree
@@ -49,22 +53,17 @@ class VMTemplate(object):
         defaults.  If scan is True and a cdrom is present, the operating system
         will be detected by probing the installation media.
         """
-        self.name = args['name']
         self.info = {}
         self.fc_host_support = args.get('fc_host_support')
 
-        # Identify the cdrom if present
-        iso_distro = iso_version = 'unknown'
-        iso = args.get('cdrom', '')
-
-        if scan and len(iso) > 0:
-            iso_distro, iso_version = self.get_iso_info(iso)
-            if not iso.startswith('/'):
-                self.info.update({'iso_stream': True})
-
+        distro, version = self._get_os_info(args, scan)
         # Fetch defaults based on the os distro and version
-        os_distro = args.get('os_distro', iso_distro)
-        os_version = args.get('os_version', iso_version)
+        os_distro = args.get('os_distro', distro)
+        os_version = args.get('os_version', version)
+        if 'name' not in args or args['name'] == '':
+            args['name'] = self._gen_name(os_distro, os_version)
+        self.name = args['name']
+
         entry = osinfo.lookup(os_distro, os_version)
         self.info.update(entry)
 
@@ -75,6 +74,43 @@ class VMTemplate(object):
             graphics.update(graph_args)
             args['graphics'] = graphics
         self.info.update(args)
+
+    def _get_os_info(self, args, scan):
+        # Identify the cdrom if present
+        distro = version = 'unknown'
+        iso = args.get('cdrom', '')
+        valid = False
+        # if ISO not specified and base disk image specified,
+        # prevent cdrom from filling automatically
+        if len(iso) == 0 and 'disks' in args:
+            for d in args['disks']:
+                if 'base' in d:
+                    valid = True
+                    try:
+                        distro, version = probe_image(d['base'])
+                    except ImageFormatError:
+                        pass
+                    if 'size' not in d:
+                        d['size'] = probe_img_info(d['base'])['virtual-size']
+
+        if len(iso) > 0:
+            valid = True
+            if scan:
+                distro, version = self.get_iso_info(iso)
+            if not iso.startswith('/'):
+                self.info.update({'iso_stream': True})
+
+        if not valid:
+            raise MissingParameter("KCHTMPL0016E")
+
+        return distro, version
+
+    def _gen_name(self, distro, version):
+        if distro == 'unknown':
+            name = str(uuid.uuid4())
+        else:
+            name = distro + version + '.' + str(int(time.time() * 1000))
+        return name
 
     def get_iso_info(self, iso):
         iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
@@ -87,6 +123,8 @@ class VMTemplate(object):
             raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
     def _get_cdrom_xml(self, libvirt_stream_protocols, qemu_stream_dns):
+        if 'cdrom' not in self.info:
+            return ''
         bus = self.info['cdrom_bus']
         dev = "%s%s" % (self._bus_to_dev[bus],
                         string.lowercase[self.info['cdrom_index']])
@@ -341,8 +379,9 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
         cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols,
                                         qemu_stream_dns)
 
-        if not urlparse.urlparse(self.info['cdrom']).scheme in \
-           libvirt_stream_protocols and params.get('iso_stream', False):
+        if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
+                libvirt_stream_protocols and \
+                params.get('iso_stream', False):
             params['qemu-namespace'] = QEMU_NAMESPACE
             params['qemu-stream-cmdline'] = cdrom_xml
         else:
@@ -429,8 +468,8 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
 
         # validate iso integrity
         # FIXME when we support multiples cdrom devices
-        iso = self.info['cdrom']
-        if not (os.path.isfile(iso) or check_url_path(iso)):
+        iso = self.info.get('cdrom')
+        if iso and not (os.path.isfile(iso) or check_url_path(iso)):
             invalid['cdrom'] = [iso]
 
         self.info['invalid'] = invalid

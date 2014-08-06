@@ -51,7 +51,7 @@ class Template(Resource):
                 'os_version': self.info['os_version'],
                 'cpus': self.info['cpus'],
                 'memory': self.info['memory'],
-                'cdrom': self.info['cdrom'],
+                'cdrom': self.info.get('cdrom', None),
                 'disks': self.info['disks'],
                 'storagepool': self.info['storagepool'],
                 'networks': self.info['networks'],

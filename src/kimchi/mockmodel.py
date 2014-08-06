@@ -217,8 +217,10 @@ class MockModel(object):
             index += 1
 
         cdrom = "hd" + string.ascii_lowercase[index + 1]
-        cdrom_params = {'dev': cdrom, 'path': t_info['cdrom'], 'type': 'cdrom'}
-        vm.storagedevices[cdrom] = MockVMStorageDevice(cdrom_params)
+        if t_info.get('cdrom'):
+            cdrom_params = {
+                'dev': cdrom, 'path': t_info['cdrom'], 'type': 'cdrom'}
+            vm.storagedevices[cdrom] = MockVMStorageDevice(cdrom_params)
 
         self._mock_vms[name] = vm
         return name
@@ -254,14 +256,6 @@ class MockModel(object):
 
     def templates_create(self, params):
         name = params.get('name', '').strip()
-        if not name:
-            iso = params['cdrom']
-            iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
-            name = iso_name + str(int(time.time() * 1000))
-            params['name'] = name
-
-        if name in self._mock_templates:
-            raise InvalidOperation("KCHTMPL0001E", {'name': name})
 
         for net_name in params.get(u'networks', []):
             try:
@@ -271,6 +265,9 @@ class MockModel(object):
                 raise InvalidParameter("KCHTMPL0003E", msg_args)
 
         t = MockVMTemplate(params, self)
+        if t.name in self._mock_templates:
+            raise InvalidOperation("KCHTMPL0001E", {'name': name})
+
         self._mock_templates[name] = t
         return name
 

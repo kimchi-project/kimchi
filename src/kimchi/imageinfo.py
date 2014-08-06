@@ -17,11 +17,28 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import json
 import os
 import sys
 import guestfs
 
-from kimchi.exception import ImageFormatError
+from kimchi.exception import ImageFormatError, TimeoutExpired
+from kimchi.utils import run_command, kimchi_log
+
+
+def probe_img_info(path):
+    cmd = ["qemu-img", "info", "--output=json", path]
+    info = dict()
+    try:
+        out = run_command(cmd, 10)[0]
+    except TimeoutExpired:
+        kimchi_log.warning("Cannot decide format of base img %s", path)
+        return None
+
+    info = json.loads(out)
+    info['virtual-size'] = info['virtual-size'] >> 30
+    info['actual-size'] = info['actual-size'] >> 30
+    return info
 
 
 def probe_image(image_path):
