@@ -107,6 +107,37 @@ class ModelTests(unittest.TestCase):
         self.assertFalse('kimchi-vm' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_image_based_template(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+
+        with RollbackContext() as rollback:
+            vol = 'base-vol.img'
+            params = {'name': vol,
+                      'capacity': 1024,
+                      'allocation': 1,
+                      'format': 'qcow2'}
+            inst.storagevolumes_create('default', params)
+            vol_path = inst.storagevolume_lookup('default', vol)['path']
+            rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
+
+            params = {'name': 'test', 'disks': [{'base': vol_path}]}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
+            inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
+
+            vms = inst.vms_get_list()
+            self.assertTrue('kimchi-vm' in vms)
+
+            inst.vm_start('kimchi-vm')
+            rollback.prependDefer(inst.vm_poweroff, 'kimchi-vm')
+
+            info = inst.vm_lookup('kimchi-vm')
+            self.assertEquals('running', info['state'])
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}

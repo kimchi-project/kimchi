@@ -868,6 +868,27 @@ class RestTests(unittest.TestCase):
         resp = json.loads(resp.read())
         self.assertIn(u"KCHVM0012E", resp['reason'])
 
+    def test_create_vm_with_img_based_template(self):
+        resp = json.loads(
+            self.request('/storagepools/default/storagevolumes').read())
+        self.assertEquals(0, len(resp))
+
+        # Create a Template
+        mock_base = '/tmp/mock.img'
+        open(mock_base, 'w').close()
+        req = json.dumps({'name': 'test', 'disks': [{'base': mock_base}]})
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        req = json.dumps({'template': '/templates/test'})
+        json.loads(self.request('/vms', req, 'POST').read())
+
+        # Test storage volume created with backing store of base file
+        resp = json.loads(
+            self.request('/storagepools/default/storagevolumes').read())
+        self.assertEquals(1, len(resp))
+        self.assertEquals(mock_base, resp[0]['base']['path'])
+
     def test_get_storagepools(self):
         storagepools = json.loads(self.request('/storagepools').read())
         self.assertEquals(2, len(storagepools))
