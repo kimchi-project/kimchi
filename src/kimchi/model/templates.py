@@ -19,7 +19,6 @@
 
 import copy
 import os
-import time
 
 import libvirt
 
@@ -40,20 +39,15 @@ class TemplatesModel(object):
 
     def create(self, params):
         name = params.get('name', '').strip()
-        iso = params['cdrom']
+        iso = params.get('cdrom')
         # check search permission
-        if iso.startswith('/') and os.path.isfile(iso):
+        if iso and iso.startswith('/') and os.path.isfile(iso):
             user = UserTests().probe_user()
             ret, excp = probe_file_permission_as_user(iso, user)
             if ret is False:
                 raise InvalidParameter('KCHISO0008E',
                                        {'filename': iso, 'user': user,
                                         'err': excp})
-
-        if not name:
-            iso_name = os.path.splitext(iso[iso.rfind('/') + 1:])[0]
-            name = iso_name + str(int(time.time() * 1000))
-            params['name'] = name
 
         conn = self.conn.get()
         pool_uri = params.get(u'storagepool', '')
@@ -78,7 +72,7 @@ class TemplatesModel(object):
         # Checkings will be done while creating this class, so any exception
         # will be raised here
         t = LibvirtVMTemplate(params, scan=True)
-
+        name = params['name']
         try:
             with self.objstore as session:
                 if name in session.get_list('template'):

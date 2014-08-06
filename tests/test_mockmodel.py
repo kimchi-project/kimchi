@@ -34,11 +34,12 @@ model = None
 host = None
 port = None
 ssl_port = None
+fake_iso = None
 
 
 class MockModelTests(unittest.TestCase):
     def setUp(self):
-        global host, port, ssl_port, model, test_server
+        global host, port, ssl_port, model, test_server, fake_iso
         cherrypy.request.headers = {'Accept': 'application/json'}
         model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
         patch_auth()
@@ -47,10 +48,13 @@ class MockModelTests(unittest.TestCase):
         host = '127.0.0.1'
         test_server = run_server(host, port, ssl_port, test_mode=True,
                                  model=model)
+        fake_iso = '/tmp/fake.iso'
+        open(fake_iso, 'w').close()
 
     def tearDown(self):
         test_server.stop()
         os.unlink('/tmp/obj-store-test')
+        os.unlink(fake_iso)
 
     def test_collection(self):
         c = Collection(model)
@@ -88,7 +92,7 @@ class MockModelTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
         request(host, ssl_port, '/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         request(host, ssl_port, '/vms', req, 'POST')
@@ -113,7 +117,7 @@ class MockModelTests(unittest.TestCase):
                           resp.getheader('last-modified'))
 
     def test_vm_list_sorted(self):
-        req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
+        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
         request(host, ssl_port, '/templates', req, 'POST')
 
         def add_vm(name):
@@ -131,7 +135,7 @@ class MockModelTests(unittest.TestCase):
 
     def test_vm_info(self):
         model.templates_create({'name': u'test',
-                                'cdrom': '/nonexistent.iso'})
+                                'cdrom': fake_iso})
         model.vms_create({'name': u'test', 'template': '/templates/test'})
         vms = model.vms_get_list()
         self.assertEquals(1, len(vms))
