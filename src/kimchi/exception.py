@@ -90,6 +90,10 @@ class IsoFormatError(KimchiException):
     pass
 
 
+class ImageFormatError(KimchiException):
+    pass
+
+
 class TimeoutExpired(KimchiException):
     pass
 
