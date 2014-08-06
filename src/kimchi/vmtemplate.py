@@ -287,22 +287,29 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
 
             info = {'name': volume,
                     'capacity': d['size'],
-                    'type': 'disk',
                     'format': fmt,
                     'path': '%s/%s' % (storage_path, volume)}
-
             info['allocation'] = 0 if fmt == 'qcow2' else info['capacity']
-            info['xml'] = """
-            <volume>
-              <name>%(name)s</name>
-              <allocation unit="G">%(allocation)s</allocation>
-              <capacity unit="G">%(capacity)s</capacity>
-              <target>
-                <format type='%(format)s'/>
-                <path>%(path)s</path>
-              </target>
-            </volume>
-            """ % info
+
+            if 'base' in d:
+                info['base'] = dict()
+                base_fmt = probe_img_info(d['base'])['format']
+                if base_fmt is None:
+                    raise InvalidParameter("KCHTMPL0024E", {'path': d['base']})
+                info['base']['path'] = d['base']
+                info['base']['format'] = base_fmt
+
+            v_tree = E.volume(E.name(info['name']))
+            v_tree.append(E.allocation(str(info['allocation']), unit='G'))
+            v_tree.append(E.capacity(str(info['capacity']), unit='G'))
+            target = E.target(
+                E.format(type=info['format']), E.path(info['path']))
+            if 'base' in d:
+                v_tree.append(E.backingStore(
+                    E.path(info['base']['path']),
+                    E.format(type=info['base']['format'])))
+            v_tree.append(target)
+            info['xml'] = etree.tostring(v_tree)
             ret.append(info)
         return ret
 
