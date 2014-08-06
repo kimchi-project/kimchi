@@ -26,6 +26,8 @@ Requires:	python-xml
 Requires:	nfs-client
 Requires:	nginx
 Requires:	open-iscsi
+Requires:	python-libguestfs
+Requires:	guestfs-tools
 BuildRequires:	libxslt-tools
 BuildRequires:	python-libxml2
 

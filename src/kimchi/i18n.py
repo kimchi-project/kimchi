@@ -62,6 +62,10 @@ messages = {
                      "'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x 'path_to_iso'."
                      "Details: %(err)s" ),
 
+    "KCHIMG0001E": _("Error occurs when probing image os information."),
+    "KCHIMG0002E": _("No OS information found in given image."),
+    "KCHIMG0003E": _("Unable to find/read image file %(filename)s"),
+
     "KCHVM0001E": _("Virtual machine %(name)s already exists"),
     "KCHVM0002E": _("Virtual machine %(name)s does not exist"),
     "KCHVM0003E": _("Unable to rename virtual machine %(name)s. The name %(new_name)s already exists or it is not powered off."),
