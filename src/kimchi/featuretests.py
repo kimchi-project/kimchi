@@ -59,7 +59,7 @@ SIMPLE_VM_XML = """
   <name>A_SIMPLE_VM</name>
   <memory unit='KiB'>10240</memory>
   <os>
-    <type arch='x86_64' machine='pc'>hvm</type>
+    <type>hvm</type>
     <boot dev='hd'/>
   </os>
 </domain>"""
