@@ -181,7 +181,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * cpus *(optional)*: The number of CPUs assigned to the VM. Default is 1.
     * memory *(optional)*: The amount of memory assigned to the VM.
       Default is 1024M.
-    * cdrom *(required)*: A volume name or URI to an ISO image.
+    * cdrom *(optional)*: A volume name or URI to an ISO image.
     * storagepool *(optional)*: URI of the storagepool.
       Default is '/storagepools/default'
     * networks *(optional)*: list of networks will be assigned to the new VM.
@@ -190,6 +190,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
       (either *size* or *volume* must be specified):
         * index: The device index
         * size: The device size in GB
+        * base: Base image of this disk
 
     * graphics *(optional)*: The graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
