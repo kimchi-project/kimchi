@@ -74,6 +74,11 @@ class Server(object):
                 os.makedirs(directory)
 
         self.configObj = KimchiConfig()
+        # We'll use the session timeout (= 10 minutes) and the
+        # nginx timeout (= 10 minutes). This monitor isn't involved
+        # in anything other than monitor the timeout of the connection,
+        # thus it is safe to unsubscribe.
+        cherrypy.engine.timeout_monitor.unsubscribe()
         cherrypy.tools.nocache = cherrypy.Tool('on_end_resource', set_no_cache)
         cherrypy.tools.kimchiauth = cherrypy.Tool('before_handler',
                                                   auth.kimchiauth)
