@@ -389,7 +389,6 @@
                     "description": "Path for cdrom",
                     "type": "string",
                     "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
-                    "required": true,
                     "error": "KCHTMPL0014E"
                 },
                 "disks": {
@@ -408,7 +407,14 @@
                                 "type": "number",
                                 "minimum": 1,
                                 "error": "KCHTMPL0022E"
+                            },
+                            "base": {
+                                "description": "Base image of the disk",
+                                "type": "string",
+                                "pattern": "^/.+$",
+                                "error": "KCHTMPL0023E"
                             }
+
                         }
                     },
                     "minItems": 1,
