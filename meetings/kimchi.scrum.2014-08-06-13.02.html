@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:20 UTC
+(<a href="kimchi.scrum.2014-08-06-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-6'>alinefm</a>,
+    13:02:32)</span></li>
+  <li><span class="INFO">YuXin Passthrough, Add PCI devices to
+    VM&lt;Patch v1&gt; sent</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-9'>YuXin</a>,
+    13:04:22)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-08-06-13.02.log.html#l-10'>alinefm</a>, 13:04:29)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-11'>alinefm</a>,
+    13:04:29)</span></li>
+  <li><span class="INFO">royce fixed bug of filter directory from list
+    storage volume result, send patch to fix power attach disk ide bus
+    not supported, updated image based template patch to v6</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-12'>royce</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">wenwang working on issue#395 VM console does
+    not work on iPads</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-13'>wenwang</a>,
+    13:04:52)</span></li>
+  <li><span class="INFO">wenwang  working on issue#372 Account for
+    network boot/install leveraging DHCP/TFTP/(NFS/HTTP/FTP) network
+    installation servers.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-14'>wenwang</a>,
+    13:05:29)</span></li>
+  <li><span class="INFO">vianac sent patch fixing issue #377; reviewed
+    other patches</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-15'>vianac</a>,
+    13:05:57)</span></li>
+  <li><span class="INFO">alinefm sent patch to remove equal signs from
+    vm name while opening vm console</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-16'>alinefm</a>,
+    13:06:48)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix pep8 errors according
+    to pep8 1.5.6</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-17'>alinefm</a>,
+    13:07:18)</span></li>
+  <li><span class="INFO">alinefm sent patch to properly display host
+    partitions while extending a logical pool</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-18'>alinefm</a>,
+    13:07:44)</span></li>
+  <li><span class="INFO">alinefm</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-19'>alinefm</a>,
+    13:07:47)</span></li>
+  <li><span class="INFO">alinefm updated coryright date in all kimchi
+    files</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-20'>alinefm</a>,
+    13:08:03)</span></li>
+  <li><span class="INFO">alinefm updated license to LGPLv3</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-21'>alinefm</a>,
+    13:08:11)</span></li>
+  <li><span class="INFO">alinefm removed useless files (images and
+    duplicated jquery files)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-22'>alinefm</a>,
+    13:08:38)</span></li>
+  <li><span class="INFO">alinefm updated kimchi build to install .mo
+    files in the default locale dir</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-23'>alinefm</a>,
+    13:09:21)</span></li>
+  <li><span class="INFO">alinefm sent patch to include spice.css to
+    kimchi build (still needs review)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-24'>alinefm</a>,
+    13:09:52)</span></li>
+  <li><span class="INFO">shaohef send out the patch to let novnc and
+    spice get the vm password</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-25'>shaohef</a>,
+    13:09:56)</span></li>
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/milestones/1.3%20GA">https://github.com/kimchi-project/kimchi/milestones/1.3%20GA</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-28'>alinefm</a>,
+    13:13:17)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-08-06-13.02.log.html#l-37'>alinefm</a>, 13:20:26)</span>
+<ol type="a">
+  <li><a
+    href="https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/">https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-06-13.02.log.html#l-96'>alinefm</a>,
+    13:44:55)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:14:00 UTC
+(<a href="kimchi.scrum.2014-08-06-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (83)</li>
+  <li>wenwang (37)</li>
+  <li>YuXin (25)</li>
+  <li>shaohef (7)</li>
+  <li>kimchi-bot (3)</li>
+  <li>vianac (2)</li>
+  <li>danielhb (1)</li>
+  <li>royce (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

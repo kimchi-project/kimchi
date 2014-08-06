@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug  6 13:02:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:32</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:19</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-9"></a><span class="tm">13:04:22</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Passthrough, Add PCI devices to VM&lt;Patch v1&gt; sent</span>
+<a name="l-10"></a><span class="tm">13:04:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:04:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:04:38</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed bug of filter directory from list storage volume result, send patch to fix power attach disk ide bus not supported, updated image based template patch to v6</span>
+<a name="l-13"></a><span class="tm">13:04:52</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on issue#395 VM console does not work on iPads</span>
+<a name="l-14"></a><span class="tm">13:05:29</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang 	working on issue#372 Account for network boot/install leveraging DHCP/TFTP/(NFS/HTTP/FTP) network installation servers.</span>
+<a name="l-15"></a><span class="tm">13:05:57</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent patch fixing issue #377; reviewed other patches</span>
+<a name="l-16"></a><span class="tm">13:06:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to remove equal signs from vm name while opening vm console</span>
+<a name="l-17"></a><span class="tm">13:07:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix pep8 errors according to pep8 1.5.6</span>
+<a name="l-18"></a><span class="tm">13:07:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to properly display host partitions while extending a logical pool</span>
+<a name="l-19"></a><span class="tm">13:07:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm</span>
+<a name="l-20"></a><span class="tm">13:08:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated coryright date in all kimchi files</span>
+<a name="l-21"></a><span class="tm">13:08:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated license to LGPLv3</span>
+<a name="l-22"></a><span class="tm">13:08:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm removed useless files (images and duplicated jquery files)</span>
+<a name="l-23"></a><span class="tm">13:09:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated kimchi build to install .mo files in the default locale dir</span>
+<a name="l-24"></a><span class="tm">13:09:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to include spice.css to kimchi build (still needs review)</span>
+<a name="l-25"></a><span class="tm">13:09:56</span><span class="nk"> &lt;shaohef&gt;</span> <span class="cmd">#info </span><span class="cmdline">shaohef send out the patch to let novnc and spice get the vm password</span>
+<a name="l-26"></a><span class="tm">13:12:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-27"></a><span class="tm">13:13:16</span><span class="nk"> &lt;alinefm&gt;</span> we have just one more week until the end of sprint 1 stabilization phase and only 3 bugs were closed
+<a name="l-28"></a><span class="tm">13:13:17</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/milestones/1.3%20GA
+<a name="l-29"></a><span class="tm">13:14:31</span><span class="nk"> &lt;alinefm&gt;</span> vianac, are you working on which bug now? as #377 are done
+<a name="l-30"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> *is done
+<a name="l-31"></a><span class="tm">13:17:50</span><span class="nk"> &lt;alinefm&gt;</span> there is a popular phrase in Portuguese which means: "who is quiet, agrees" =)
+<a name="l-32"></a><span class="tm">13:18:28</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I'm not working on any specific bug now
+<a name="l-33"></a><span class="tm">13:18:49</span><span class="nk"> &lt;alinefm&gt;</span> so, the message is: we need to focus on bugs this week to close as many as possible
+<a name="l-34"></a><span class="tm">13:19:04</span><span class="nk"> &lt;alinefm&gt;</span> vianac, please, take as many as you can work in the next week
+<a name="l-35"></a><span class="tm">13:19:08</span><span class="nk"> &lt;alinefm&gt;</span> I will do the same
+<a name="l-36"></a><span class="tm">13:20:17</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion section
+<a name="l-37"></a><span class="tm">13:20:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-38"></a><span class="tm">13:20:41</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I want to talk to you about the vm ticket patches
+<a name="l-39"></a><span class="tm">13:20:54</span><span class="nk"> &lt;alinefm&gt;</span> as I said we can not modify the novnc and spice code
+<a name="l-40"></a><span class="tm">13:21:19</span><span class="nk"> &lt;alinefm&gt;</span> we need to send those patches to their communities and once they accept we update the kimchi code
+<a name="l-41"></a><span class="tm">13:21:31</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> OK
+<a name="l-42"></a><span class="tm">13:22:34</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, by now, we can enabled the "passoword=" key on url
+<a name="l-43"></a><span class="tm">13:22:40</span><span class="nk"> &lt;alinefm&gt;</span> so user does not need to manually enter it
+<a name="l-44"></a><span class="tm">13:24:01</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> then we think a new communication method to send the ticket  between  novnc/spice  and kimchi. if we  send those patches to novnc/spice communities
+<a name="l-45"></a><span class="tm">13:24:22</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> yes.  enabled the "passoword=" key on url.
+<a name="l-46"></a><span class="tm">13:24:57</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> then we should set the expire  10 seconds?
+<a name="l-47"></a><span class="tm">13:25:35</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, I think 10 seconds is reasonable but we need to do some tests to confirm that
+<a name="l-48"></a><span class="tm">13:25:55</span><span class="nk"> &lt;alinefm&gt;</span> I mean tests with distant servers - like I trying to access a kimchi server in China
+<a name="l-49"></a><span class="tm">13:27:05</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> got it.
+<a name="l-50"></a><span class="tm">13:28:11</span><span class="nk"> &lt;alinefm&gt;</span> any other topic to discuss?
+<a name="l-51"></a><span class="tm">13:28:39</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span>  time delay for a long distant
+<a name="l-52"></a><span class="tm">13:29:07</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> It's the ipad
+<a name="l-53"></a><span class="tm">13:29:45</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, well remembered
+<a name="l-54"></a><span class="tm">13:30:09</span><span class="nk"> &lt;wenwang&gt;</span> I have tried but ipad safari failed to have kimchi's certificate verified
+<a name="l-55"></a><span class="tm">13:30:15</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I did some tests (with an emulator) and also with pvital and danielhb help
+<a name="l-56"></a><span class="tm">13:30:48</span><span class="nk"> &lt;alinefm&gt;</span> and after some investigation I identify the iOS browsers do not work well with wss connections (secure websockets connections)
+<a name="l-57"></a><span class="tm">13:31:02</span><span class="nk"> &lt;wenwang&gt;</span> Yes, I have read your mail
+<a name="l-58"></a><span class="tm">13:31:11</span><span class="nk"> &lt;wenwang&gt;</span> well informed
+<a name="l-59"></a><span class="tm">13:31:14</span><span class="nk"> &lt;danielhb&gt;</span> I've tested kimchi with latest Safari in a Mac Book Air. No good. Opera browser in Mac, however, works
+<a name="l-60"></a><span class="tm">13:32:00</span><span class="nk"> &lt;wenwang&gt;</span> According to alinefm's research, only safari has this issue
+<a name="l-61"></a><span class="tm">13:32:02</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, the solutions available are: 1) provide a self-signed certificate trusted by Apple 2) try to manually import the certificate into ipad/iphone
+<a name="l-62"></a><span class="tm">13:32:13</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, safari and chrome too
+<a name="l-63"></a><span class="tm">13:32:30</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Yes, chrome won't work too
+<a name="l-64"></a><span class="tm">13:32:33</span><span class="nk"> &lt;wenwang&gt;</span> on Ipad
+<a name="l-65"></a><span class="tm">13:32:44</span><span class="nk"> &lt;alinefm&gt;</span> as far as I know, chrome on iOS uses the Safari engine because that those 2 have the same problems
+<a name="l-66"></a><span class="tm">13:33:11</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> okay
+<a name="l-67"></a><span class="tm">13:33:19</span><span class="nk"> &lt;wenwang&gt;</span> I have tried the second method and it won't work
+<a name="l-68"></a><span class="tm">13:34:18</span><span class="nk"> &lt;wenwang&gt;</span> I exproted the .cer file from the browser and installed the certificate into ipad, after installing, the certificate shows as "not trusted"
+<a name="l-69"></a><span class="tm">13:34:25</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, for your tests I can provide you a patch to switch to ws connections (non-secure websockets connections)
+<a name="l-70"></a><span class="tm">13:34:57</span><span class="nk"> &lt;alinefm&gt;</span> but we still need to think in a approach to it
+<a name="l-71"></a><span class="tm">13:35:13</span><span class="nk"> &lt;alinefm&gt;</span> I mean, a kimchi user should be able to run wss on iOS
+<a name="l-72"></a><span class="tm">13:35:24</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> That could probably work
+<a name="l-73"></a><span class="tm">13:35:36</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yes, that would be my concern too
+<a name="l-74"></a><span class="tm">13:35:50</span><span class="nk"> &lt;alinefm&gt;</span> maybe ask user to provide a trustful ca or ask if he can continue he need to switch to non-secure websockets connections which we don't recommend
+<a name="l-75"></a><span class="tm">13:36:32</span><span class="nk"> &lt;alinefm&gt;</span> and if he agrees to use non-secure websockets connections we do the switch
+<a name="l-76"></a><span class="tm">13:36:37</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-77"></a><span class="tm">13:37:07</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> By what you mean we provide two method that user can choose by using ipad?
+<a name="l-78"></a><span class="tm">13:37:37</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-79"></a><span class="tm">13:38:07</span><span class="nk"> &lt;wenwang&gt;</span> That could be one salution
+<a name="l-80"></a><span class="tm">13:38:30</span><span class="nk"> &lt;alinefm&gt;</span> example, when I click on "connect" option on iOS (we know it by the user-agent) we display 2 options to user: provide a trusted CA or switch to non-secure connection
+<a name="l-81"></a><span class="tm">13:39:26</span><span class="nk"> &lt;YuXin&gt;</span> if user provide a trusted CA, the what's next
+<a name="l-82"></a><span class="tm">13:40:09</span><span class="nk"> &lt;alinefm&gt;</span> so we can continue using wss connection
+<a name="l-83"></a><span class="tm">13:40:13</span><span class="nk"> &lt;YuXin&gt;</span> CA is a file which need to be imported into the store at server side
+<a name="l-84"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I mean the cert file imported on browser
+<a name="l-85"></a><span class="tm">13:41:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> If using the CA method, we should provide the trusted CA, right?
+<a name="l-86"></a><span class="tm">13:41:37</span><span class="nk"> &lt;YuXin&gt;</span> that cert file is used for ssl connection
+<a name="l-87"></a><span class="tm">13:42:14</span><span class="nk"> &lt;YuXin&gt;</span> it contains a public key and server side have a private key
+<a name="l-88"></a><span class="tm">13:42:22</span><span class="nk"> &lt;YuXin&gt;</span> and these 2 keys need to match
+<a name="l-89"></a><span class="tm">13:42:27</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, YuXin, the problem with iOS browser is because our ca is not signed by a trusted method
+<a name="l-90"></a><span class="tm">13:42:42</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-91"></a><span class="tm">13:42:50</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yes
+<a name="l-92"></a><span class="tm">13:43:07</span><span class="nk"> &lt;alinefm&gt;</span> so user needs to provide a self-signed ca to use wss in iOS browsers
+<a name="l-93"></a><span class="tm">13:43:08</span><span class="nk"> &lt;YuXin&gt;</span> our ca is stored at server side and when ssl connection, pass to brower right?
+<a name="l-94"></a><span class="tm">13:43:13</span><span class="nk"> &lt;alinefm&gt;</span> right
+<a name="l-95"></a><span class="tm">13:43:57</span><span class="nk"> &lt;YuXin&gt;</span> I believe that cert file contains a public key which is in pair with a private key at server  side
+<a name="l-96"></a><span class="tm">13:44:55</span><span class="nk"> &lt;alinefm&gt;</span> https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/
+<a name="l-97"></a><span class="tm">13:45:25</span><span class="nk"> &lt;YuXin&gt;</span> so aline, you mean on a linux machine, all app share one key?
+<a name="l-98"></a><span class="tm">13:45:41</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-99"></a><span class="tm">13:46:07</span><span class="nk"> &lt;alinefm&gt;</span> we generate 2 files: kimchi-key.pem and kimchi-cert.pem
+<a name="l-100"></a><span class="tm">13:46:43</span><span class="nk"> &lt;alinefm&gt;</span> and those are used for Kimchi ssl connections and wss
+<a name="l-101"></a><span class="tm">13:46:45</span><span class="nk"> &lt;YuXin&gt;</span> so if user got a trusted cert file or as you said something like key.pem and  cert.pem
+<a name="l-102"></a><span class="tm">13:47:11</span><span class="nk"> &lt;YuXin&gt;</span> make these trusted cert file on the linux that  host kimchi
+<a name="l-103"></a><span class="tm">13:47:16</span><span class="nk"> &lt;YuXin&gt;</span> then it will work
+<a name="l-104"></a><span class="tm">13:47:49</span><span class="nk"> &lt;YuXin&gt;</span> as  at this time, when ssl connection, kimchi will pass to brower a trusted cert, right?
+<a name="l-105"></a><span class="tm">13:48:27</span><span class="nk"> &lt;alinefm&gt;</span> yes if you mean trusted = signed
+<a name="l-106"></a><span class="tm">13:48:47</span><span class="nk"> &lt;YuXin&gt;</span> so user only need to update their linux cert file to be trusted
+<a name="l-107"></a><span class="tm">13:49:15</span><span class="nk"> &lt;YuXin&gt;</span> user does not need to update brower with a trusted cert, right?
+<a name="l-108"></a><span class="tm">13:50:01</span><span class="nk"> &lt;alinefm&gt;</span> I think so
+<a name="l-109"></a><span class="tm">13:50:25</span><span class="nk"> &lt;alinefm&gt;</span> I will try to generate a self-signed CA according to https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/
+<a name="l-110"></a><span class="tm">13:50:35</span><span class="nk"> &lt;alinefm&gt;</span> and verify if that solves the problem
+<a name="l-111"></a><span class="tm">13:51:07</span><span class="nk"> &lt;YuXin&gt;</span> i believe the current cert kimchi is using is self-signed
+<a name="l-112"></a><span class="tm">13:51:18</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> That would be great
+<a name="l-113"></a><span class="tm">13:52:57</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes - I've just checked the code and it is already self-signed
+<a name="l-114"></a><span class="tm">13:53:47</span><span class="nk"> &lt;YuXin&gt;</span> have we check to switch back to web socket without ssl to see whether it works?
+<a name="l-115"></a><span class="tm">13:55:33</span><span class="nk"> &lt;alinefm&gt;</span> yeap - without ws it works on iOS browsers
+<a name="l-116"></a><span class="tm">13:55:45</span><span class="nk"> &lt;alinefm&gt;</span> *ssl
+<a name="l-117"></a><span class="tm">13:56:17</span><span class="nk"> &lt;alinefm&gt;</span> from tip #2 (https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/) we should be able to use our ca as it is today
+<a name="l-118"></a><span class="tm">13:57:40</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> So it's the certificate
+<a name="l-119"></a><span class="tm">13:57:57</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> we are using is not trusted right?
+<a name="l-120"></a><span class="tm">13:58:41</span><span class="nk"> &lt;wenwang&gt;</span> I have tried to install the certificate kimchi generated and after installing, ios shows the certificate is not trusted
+<a name="l-121"></a><span class="tm">13:59:01</span><span class="nk"> &lt;alinefm&gt;</span> "The certificate is not trusted because no issuer chain was provided."
+<a name="l-122"></a><span class="tm">13:59:32</span><span class="nk"> &lt;YuXin&gt;</span> when an ipad first time access kimchi, the brower will prompt user for untrusted certificate
+<a name="l-123"></a><span class="tm">14:00:17</span><span class="nk"> &lt;YuXin&gt;</span> at that time, user must have a way to reject the certificate or install it to brower as trusted or untrusted
+<a name="l-124"></a><span class="tm">14:00:33</span><span class="nk"> &lt;wenwang&gt;</span> We sholdn't do that and we need to prevent user click on the insecure ssl on ipad too
+<a name="l-125"></a><span class="tm">14:00:55</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, some concepts below
+<a name="l-126"></a><span class="tm">14:00:57</span><span class="nk"> &lt;wenwang&gt;</span> by clicking on continue, you will never undone that unless you reset the ipad
+<a name="l-127"></a><span class="tm">14:01:19</span><span class="nk"> &lt;YuXin&gt;</span> 1. kimchi's certificate is self-signed and untrusted
+<a name="l-128"></a><span class="tm">14:01:32</span><span class="nk"> &lt;wenwang&gt;</span> yes
+<a name="l-129"></a><span class="tm">14:01:52</span><span class="nk"> &lt;YuXin&gt;</span> 2. when brower got such a certificate, it is update to the user too decide whether trust it or not
+<a name="l-130"></a><span class="tm">14:02:26</span><span class="nk"> &lt;YuXin&gt;</span> 3. if the user trust it, he can also install it into brower as trusted
+<a name="l-131"></a><span class="tm">14:03:04</span><span class="nk"> &lt;YuXin&gt;</span> up to user to decide whether trust it or not
+<a name="l-132"></a><span class="tm">14:03:26</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, look: http://blog.marcon.me/post/24874118286/secure-websockets-safari
+<a name="l-133"></a><span class="tm">14:03:42</span><span class="nk"> &lt;alinefm&gt;</span> "When Safari attempts to load the application from the web server with self-signed certificate it complains with this message:"
+<a name="l-134"></a><span class="tm">14:03:50</span><span class="nk"> &lt;alinefm&gt;</span> "Hitting Continue is enough to load the application properly, however later on when a secure websocket connection is initiated it will immediately fails because Safari does not trust the other end, i.e. the web server."
+<a name="l-135"></a><span class="tm">14:04:15</span><span class="nk"> &lt;wenwang&gt;</span> Yes , I have read the blog you attached
+<a name="l-136"></a><span class="tm">14:04:39</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, even user selecting to trust the CA it will not work for websockets connections
+<a name="l-137"></a><span class="tm">14:05:45</span><span class="nk"> &lt;wenwang&gt;</span> alinefm, YuXin, yes, I have tried that
+<a name="l-138"></a><span class="tm">14:07:10</span><span class="nk"> &lt;wenwang&gt;</span> So we should not create certificate with IIS
+<a name="l-139"></a><span class="tm">14:09:58</span><span class="nk"> &lt;alinefm&gt;</span> ok so we need to manually import the CA before accessing kimchi, right?
+<a name="l-140"></a><span class="tm">14:10:11</span><span class="nk"> &lt;alinefm&gt;</span> that way the "continue" message will not be displayed
+<a name="l-141"></a><span class="tm">14:10:13</span><span class="nk"> &lt;alinefm&gt;</span> is that?
+<a name="l-142"></a><span class="tm">14:10:22</span><span class="nk"> &lt;wenwang&gt;</span> Yes, by means of install the certificate
+<a name="l-143"></a><span class="tm">14:10:41</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, can you try it?
+<a name="l-144"></a><span class="tm">14:10:46</span><span class="nk"> &lt;wenwang&gt;</span> sure
+<a name="l-145"></a><span class="tm">14:11:04</span><span class="nk"> &lt;alinefm&gt;</span> the emulator I found is free just for 30 minutes =/
+<a name="l-146"></a><span class="tm">14:11:22</span><span class="nk"> &lt;wenwang&gt;</span> That's too bad
+<a name="l-147"></a><span class="tm">14:11:39</span><span class="nk"> &lt;wenwang&gt;</span> I can continue with this issue
+<a name="l-148"></a><span class="tm">14:11:39</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I can also ask danielhb to test =P
+<a name="l-149"></a><span class="tm">14:12:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Thanks for the information
+<a name="l-150"></a><span class="tm">14:12:20</span><span class="nk"> &lt;alinefm&gt;</span> do you want a patch to switch to non-secure websockets connections to test the keyboard bug?
+<a name="l-151"></a><span class="tm">14:12:36</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> That would be nice
+<a name="l-152"></a><span class="tm">14:12:41</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I would like that
+<a name="l-153"></a><span class="tm">14:12:54</span><span class="nk"> &lt;alinefm&gt;</span> ok - I will send to ML asap
+<a name="l-154"></a><span class="tm">14:13:00</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> thanks.
+<a name="l-155"></a><span class="tm">14:13:08</span><span class="nk"> &lt;alinefm&gt;</span> we are over time
+<a name="l-156"></a><span class="tm">14:13:11</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-157"></a><span class="tm">14:13:42</span><span class="nk"> &lt;wenwang&gt;</span> nothing form me
+<a name="l-158"></a><span class="tm">14:13:55</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-159"></a><span class="tm">14:14:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

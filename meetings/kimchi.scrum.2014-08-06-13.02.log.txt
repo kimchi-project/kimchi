@@ -1,0 +1,159 @@
+13:02:20 <alinefm> #startmeeting
+13:02:20 <kimchi-bot> Meeting started Wed Aug  6 13:02:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:20 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:20 <alinefm> #meetingname scrum
+13:02:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:32 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:32 <alinefm> anything else?
+13:04:19 <alinefm> so let's get started
+13:04:22 <YuXin> #info YuXin Passthrough, Add PCI devices to VM<Patch v1> sent
+13:04:29 <alinefm> #topic Status
+13:04:29 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:38 <royce> #info royce fixed bug of filter directory from list storage volume result, send patch to fix power attach disk ide bus not supported, updated image based template patch to v6
+13:04:52 <wenwang> #info wenwang working on issue#395 VM console does not work on iPads
+13:05:29 <wenwang> #info wenwang 	working on issue#372 Account for network boot/install leveraging DHCP/TFTP/(NFS/HTTP/FTP) network installation servers.
+13:05:57 <vianac> #info vianac sent patch fixing issue #377; reviewed other patches
+13:06:48 <alinefm> #info alinefm sent patch to remove equal signs from vm name while opening vm console
+13:07:18 <alinefm> #info alinefm sent patch to fix pep8 errors according to pep8 1.5.6
+13:07:44 <alinefm> #info alinefm sent patch to properly display host partitions while extending a logical pool
+13:07:47 <alinefm> #info alinefm
+13:08:03 <alinefm> #info alinefm updated coryright date in all kimchi files
+13:08:11 <alinefm> #info alinefm updated license to LGPLv3
+13:08:38 <alinefm> #info alinefm removed useless files (images and duplicated jquery files)
+13:09:21 <alinefm> #info alinefm updated kimchi build to install .mo files in the default locale dir
+13:09:52 <alinefm> #info alinefm sent patch to include spice.css to kimchi build (still needs review)
+13:09:56 <shaohef> #info shaohef send out the patch to let novnc and spice get the vm password
+13:12:40 <alinefm> anything else?
+13:13:16 <alinefm> we have just one more week until the end of sprint 1 stabilization phase and only 3 bugs were closed
+13:13:17 <alinefm> https://github.com/kimchi-project/kimchi/milestones/1.3%20GA
+13:14:31 <alinefm> vianac, are you working on which bug now? as #377 are done
+13:15:52 <alinefm> *is done
+13:17:50 <alinefm> there is a popular phrase in Portuguese which means: "who is quiet, agrees" =)
+13:18:28 <vianac> alinefm, I'm not working on any specific bug now
+13:18:49 <alinefm> so, the message is: we need to focus on bugs this week to close as many as possible
+13:19:04 <alinefm> vianac, please, take as many as you can work in the next week
+13:19:08 <alinefm> I will do the same
+13:20:17 <alinefm> let's move on to open discussion section
+13:20:26 <alinefm> #topic Open Discussion
+13:20:41 <alinefm> shaohef, I want to talk to you about the vm ticket patches
+13:20:54 <alinefm> as I said we can not modify the novnc and spice code
+13:21:19 <alinefm> we need to send those patches to their communities and once they accept we update the kimchi code
+13:21:31 <shaohef> alinefm: OK
+13:22:34 <alinefm> shaohef, by now, we can enabled the "passoword=" key on url
+13:22:40 <alinefm> so user does not need to manually enter it
+13:24:01 <shaohef> alinefm: then we think a new communication method to send the ticket  between  novnc/spice  and kimchi. if we  send those patches to novnc/spice communities
+13:24:22 <shaohef> alinefm: yes.  enabled the "passoword=" key on url.
+13:24:57 <shaohef> alinefm: then we should set the expire  10 seconds?
+13:25:35 <alinefm> shaohef, I think 10 seconds is reasonable but we need to do some tests to confirm that
+13:25:55 <alinefm> I mean tests with distant servers - like I trying to access a kimchi server in China
+13:27:05 <shaohef> alinefm: got it.
+13:28:11 <alinefm> any other topic to discuss?
+13:28:39 <shaohef> alinefm:  time delay for a long distant
+13:29:07 <wenwang> alinefm: It's the ipad
+13:29:45 <alinefm> wenwang, well remembered
+13:30:09 <wenwang> I have tried but ipad safari failed to have kimchi's certificate verified
+13:30:15 <alinefm> wenwang, I did some tests (with an emulator) and also with pvital and danielhb help
+13:30:48 <alinefm> and after some investigation I identify the iOS browsers do not work well with wss connections (secure websockets connections)
+13:31:02 <wenwang> Yes, I have read your mail
+13:31:11 <wenwang> well informed
+13:31:14 <danielhb> I've tested kimchi with latest Safari in a Mac Book Air. No good. Opera browser in Mac, however, works
+13:32:00 <wenwang> According to alinefm's research, only safari has this issue
+13:32:02 <alinefm> wenwang, the solutions available are: 1) provide a self-signed certificate trusted by Apple 2) try to manually import the certificate into ipad/iphone
+13:32:13 <alinefm> wenwang, safari and chrome too
+13:32:30 <wenwang> alinefm: Yes, chrome won't work too
+13:32:33 <wenwang> on Ipad
+13:32:44 <alinefm> as far as I know, chrome on iOS uses the Safari engine because that those 2 have the same problems
+13:33:11 <wenwang> alinefm: okay
+13:33:19 <wenwang> I have tried the second method and it won't work
+13:34:18 <wenwang> I exproted the .cer file from the browser and installed the certificate into ipad, after installing, the certificate shows as "not trusted"
+13:34:25 <alinefm> wenwang, for your tests I can provide you a patch to switch to ws connections (non-secure websockets connections)
+13:34:57 <alinefm> but we still need to think in a approach to it
+13:35:13 <alinefm> I mean, a kimchi user should be able to run wss on iOS
+13:35:24 <wenwang> alinefm: That could probably work
+13:35:36 <wenwang> alinefm: yes, that would be my concern too
+13:35:50 <alinefm> maybe ask user to provide a trustful ca or ask if he can continue he need to switch to non-secure websockets connections which we don't recommend
+13:36:32 <alinefm> and if he agrees to use non-secure websockets connections we do the switch
+13:36:37 <alinefm> what do you think?
+13:37:07 <wenwang> alinefm: By what you mean we provide two method that user can choose by using ipad?
+13:37:37 <alinefm> yes
+13:38:07 <wenwang> That could be one salution
+13:38:30 <alinefm> example, when I click on "connect" option on iOS (we know it by the user-agent) we display 2 options to user: provide a trusted CA or switch to non-secure connection
+13:39:26 <YuXin> if user provide a trusted CA, the what's next
+13:40:09 <alinefm> so we can continue using wss connection
+13:40:13 <YuXin> CA is a file which need to be imported into the store at server side
+13:40:43 <alinefm> YuXin, I mean the cert file imported on browser
+13:41:22 <wenwang> alinefm: If using the CA method, we should provide the trusted CA, right?
+13:41:37 <YuXin> that cert file is used for ssl connection
+13:42:14 <YuXin> it contains a public key and server side have a private key
+13:42:22 <YuXin> and these 2 keys need to match
+13:42:27 <alinefm> wenwang, YuXin, the problem with iOS browser is because our ca is not signed by a trusted method
+13:42:42 <YuXin> yes
+13:42:50 <wenwang> alinefm: yes
+13:43:07 <alinefm> so user needs to provide a self-signed ca to use wss in iOS browsers
+13:43:08 <YuXin> our ca is stored at server side and when ssl connection, pass to brower right?
+13:43:13 <alinefm> right
+13:43:57 <YuXin> I believe that cert file contains a public key which is in pair with a private key at server  side
+13:44:55 <alinefm> https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/
+13:45:25 <YuXin> so aline, you mean on a linux machine, all app share one key?
+13:45:41 <alinefm> yes
+13:46:07 <alinefm> we generate 2 files: kimchi-key.pem and kimchi-cert.pem
+13:46:43 <alinefm> and those are used for Kimchi ssl connections and wss
+13:46:45 <YuXin> so if user got a trusted cert file or as you said something like key.pem and  cert.pem
+13:47:11 <YuXin> make these trusted cert file on the linux that  host kimchi
+13:47:16 <YuXin> then it will work
+13:47:49 <YuXin> as  at this time, when ssl connection, kimchi will pass to brower a trusted cert, right?
+13:48:27 <alinefm> yes if you mean trusted = signed
+13:48:47 <YuXin> so user only need to update their linux cert file to be trusted
+13:49:15 <YuXin> user does not need to update brower with a trusted cert, right?
+13:50:01 <alinefm> I think so
+13:50:25 <alinefm> I will try to generate a self-signed CA according to https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/
+13:50:35 <alinefm> and verify if that solves the problem
+13:51:07 <YuXin> i believe the current cert kimchi is using is self-signed
+13:51:18 <wenwang> alinefm: That would be great
+13:52:57 <alinefm> YuXin, yes - I've just checked the code and it is already self-signed
+13:53:47 <YuXin> have we check to switch back to web socket without ssl to see whether it works?
+13:55:33 <alinefm> yeap - without ws it works on iOS browsers
+13:55:45 <alinefm> *ssl
+13:56:17 <alinefm> from tip #2 (https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/) we should be able to use our ca as it is today
+13:57:40 <wenwang> alinefm: So it's the certificate
+13:57:57 <wenwang> alinefm: we are using is not trusted right?
+13:58:41 <wenwang> I have tried to install the certificate kimchi generated and after installing, ios shows the certificate is not trusted
+13:59:01 <alinefm> "The certificate is not trusted because no issuer chain was provided."
+13:59:32 <YuXin> when an ipad first time access kimchi, the brower will prompt user for untrusted certificate
+14:00:17 <YuXin> at that time, user must have a way to reject the certificate or install it to brower as trusted or untrusted
+14:00:33 <wenwang> We sholdn't do that and we need to prevent user click on the insecure ssl on ipad too
+14:00:55 <YuXin> wenwang, some concepts below
+14:00:57 <wenwang> by clicking on continue, you will never undone that unless you reset the ipad
+14:01:19 <YuXin> 1. kimchi's certificate is self-signed and untrusted
+14:01:32 <wenwang> yes
+14:01:52 <YuXin> 2. when brower got such a certificate, it is update to the user too decide whether trust it or not
+14:02:26 <YuXin> 3. if the user trust it, he can also install it into brower as trusted
+14:03:04 <YuXin> up to user to decide whether trust it or not
+14:03:26 <alinefm> YuXin, look: http://blog.marcon.me/post/24874118286/secure-websockets-safari
+14:03:42 <alinefm> "When Safari attempts to load the application from the web server with self-signed certificate it complains with this message:"
+14:03:50 <alinefm> "Hitting Continue is enough to load the application properly, however later on when a secure websocket connection is initiated it will immediately fails because Safari does not trust the other end, i.e. the web server."
+14:04:15 <wenwang> Yes , I have read the blog you attached
+14:04:39 <alinefm> YuXin, even user selecting to trust the CA it will not work for websockets connections
+14:05:45 <wenwang> alinefm, YuXin, yes, I have tried that
+14:07:10 <wenwang> So we should not create certificate with IIS
+14:09:58 <alinefm> ok so we need to manually import the CA before accessing kimchi, right?
+14:10:11 <alinefm> that way the "continue" message will not be displayed
+14:10:13 <alinefm> is that?
+14:10:22 <wenwang> Yes, by means of install the certificate
+14:10:41 <alinefm> wenwang, can you try it?
+14:10:46 <wenwang> sure
+14:11:04 <alinefm> the emulator I found is free just for 30 minutes =/
+14:11:22 <wenwang> That's too bad
+14:11:39 <wenwang> I can continue with this issue
+14:11:39 <alinefm> wenwang, I can also ask danielhb to test =P
+14:12:15 <wenwang> alinefm: Thanks for the information
+14:12:20 <alinefm> do you want a patch to switch to non-secure websockets connections to test the keyboard bug?
+14:12:36 <wenwang> alinefm: That would be nice
+14:12:41 <wenwang> alinefm: I would like that
+14:12:54 <alinefm> ok - I will send to ML asap
+14:13:00 <wenwang> alinefm: thanks.
+14:13:08 <alinefm> we are over time
+14:13:11 <alinefm> anything else?
+14:13:42 <wenwang> nothing form me
+14:13:55 <alinefm> thanks everyone for joining!
+14:14:00 <alinefm> #endmeeting
