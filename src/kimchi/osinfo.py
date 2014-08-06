@@ -65,31 +65,10 @@ modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                                   'opensuse': '13.1',
                                   'sles': '11sp3'}}
 
+
 icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % paths.ui_dir, 'icon-*.png')]
 
-isolinks = {
-    'debian': {
-        'squeeze': 'http://cdimage.debian.org/debian-cd/6.0.7-live/amd64/'
-                   'iso-hybrid/debian-live-6.0.7-amd64-gnome-desktop.iso',
-    },
-    'ubuntu': {
-        'raring': 'http://ubuntu-releases.cs.umn.edu/13.04/'
-                  'ubuntu-13.04-desktop-amd64.iso',
-    },
-    'opensuse': {
-        '12.3': 'http://suse.mirrors.tds.net/pub/opensuse/distribution/12.3/'
-                'iso/openSUSE-12.3-DVD-x86_64.iso',
-    },
-    'fedora': {
-        '16': 'http://fedora.mirrors.tds.net/pub/fedora/releases/16/Live/'
-              'x86_64/Fedora-16-x86_64-Live-Desktop.iso',
-        '17': 'http://fedora.mirrors.tds.net/pub/fedora/releases/17/Live/'
-              'x86_64/Fedora-17-x86_64-Live-Desktop.iso',
-        '18': 'http://fedora.mirrors.tds.net/pub/fedora/releases/18/Live/'
-              'x86_64/Fedora-18-x86_64-Live-Desktop.iso',
-    },
-}
 
 defaults = {'networks': ['default'],
             'storagepool': '/storagepools/default',
@@ -113,7 +92,6 @@ def lookup(distro, version):
     params = copy.deepcopy(defaults)
     params['os_distro'] = distro
     params['os_version'] = version
-    params['cdrom'] = isolinks.get(distro, {}).get(version, '')
     arch = _get_arch()
 
     if distro in modern_version_bases[arch]:
