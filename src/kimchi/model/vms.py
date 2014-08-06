@@ -204,6 +204,8 @@ class VMsModel(object):
         # the user from UI or manually.
         vol_list = []
         if t._get_storage_type() in ["iscsi", "scsi"]:
+            # FIXME: iscsi and scsi storage work with base image needs to be
+            # fixed.
             vol_list = []
         else:
             vol_list = t.fork_vm_storage(vm_uuid)

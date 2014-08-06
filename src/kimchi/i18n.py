@@ -129,6 +129,7 @@ messages = {
     "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
     "KCHTMPL0022E": _("Disk size must be greater than 1GB."),
     "KCHTMPL0023E": _("Template base image must be a valid local image file"),
+    "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
