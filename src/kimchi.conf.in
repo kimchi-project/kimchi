@@ -24,7 +24,7 @@
 #ssl_key =
 
 # Running environment of the server
-#environment = development
+#environment = production
 
 [logging]
 # Log directory
