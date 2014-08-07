@@ -1230,7 +1230,7 @@ class ModelTests(unittest.TestCase):
                       'baseurl': 'http://www.fedora.org'},
                      {'repo_id': 'fedora-updates-fake',
                       'config':
-                      {'mirrorlist': 'http://www.fedora.org/updates',
+                      {'mirrorlist': 'http://www.fedoraproject.org',
                        'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}}]
 
         deb_repos = [{'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
@@ -1247,6 +1247,24 @@ class ModelTests(unittest.TestCase):
             # repository management tool was not recognized by Kimchi
             # skip test case
             return
+
+        invalid_urls = ['www.fedora.org',                 # missing protocol
+                        '://www.fedora.org',              # missing protocol
+                        'http://www.fedora',              # invalid domain name
+                        'file:///home/userdoesnotexist']  # invalid path
+
+        # create repositories with invalid baseurl
+        for url in invalid_urls:
+            repo = {'repo_id': 'repo_fake',
+                    'baseurl': url,
+                    'config': {'dist': 'quantal'}}
+            self.assertRaises(InvalidParameter, inst.repositories_create, repo)
+
+        # create repositories with invalid mirrorlist
+        for url in invalid_urls:
+            repo = {'repo_id': 'repo_fake',
+                    'config': {'mirrorlist': url, 'dist': 'quantal'}}
+            self.assertRaises(InvalidParameter, inst.repositories_create, repo)
 
         for repo in test_repos:
             system_host_repos = len(inst.repositories_get_list())
@@ -1283,7 +1301,7 @@ class ModelTests(unittest.TestCase):
 
         yum_repo = {'repo_id': 'fedora-fake',
                     'baseurl': 'http://www.fedora.org'}
-        yum_new_repo = {'baseurl': 'http://www.fedora.org/updates'}
+        yum_new_repo = {'baseurl': 'http://www.fedoraproject.org'}
 
         deb_repo = {'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
                     'config': {'dist': 'quantal'}}
@@ -1306,6 +1324,23 @@ class ModelTests(unittest.TestCase):
         repo_id = inst.repositories_create(repo)
         host_repos = inst.repositories_get_list()
         self.assertEquals(system_host_repos + 1, len(host_repos))
+
+        invalid_urls = ['www.fedora.org',                 # missing protocol
+                        '://www.fedora.org',              # missing protocol
+                        'http://www.fedora',              # invalid domain name
+                        'file:///home/userdoesnotexist']  # invalid path
+
+        # update repositories with invalid baseurl
+        for url in invalid_urls:
+            wrong_repo = {'baseurl': url}
+            self.assertRaises(InvalidParameter, inst.repository_update,
+                              repo_id, wrong_repo)
+
+        # update repositories with invalid mirrorlist
+        for url in invalid_urls:
+            wrong_repo = {'config': {'mirrorlist': url}}
+            self.assertRaises(InvalidParameter, inst.repository_update,
+                              repo_id, wrong_repo)
 
         new_repo_id = inst.repository_update(repo_id, new_repo)
         repo_info = inst.repository_lookup(new_repo_id)
