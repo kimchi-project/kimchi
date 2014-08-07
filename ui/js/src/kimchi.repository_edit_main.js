@@ -63,8 +63,7 @@ kimchi.repository_edit_main = function() {
             var reason = jqXHR &&
                 jqXHR['responseJSON'] &&
                 jqXHR['responseJSON']['reason'];
-            reason = reason ? ': ' + reason : '';
-            kimchi.message.error(i18n['KCHREPO6015M'] + reason);
+            kimchi.message.error(reason);
         });
 
         return false;
