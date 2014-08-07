@@ -1830,7 +1830,7 @@ class RestTests(unittest.TestCase):
         resp = self.request(base_uri, req, 'POST')
         self.assertEquals(201, resp.status)
 
-        # Verify the repositorie
+        # Verify the repository
         res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
         verify_repo(repo, res)
 
