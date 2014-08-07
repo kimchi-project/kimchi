@@ -27,6 +27,7 @@ from kimchi.basemodel import Singleton
 from kimchi.config import kimchiLock
 from kimchi.exception import InvalidOperation
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
+from kimchi.utils import validate_repo_url
 
 
 class Repositories(object):
@@ -177,6 +178,12 @@ class YumRepo(object):
         if not baseurl and not mirrorlist:
             raise MissingParameter("KCHREPOS0013E")
 
+        if baseurl:
+            validate_repo_url(baseurl)
+
+        if mirrorlist:
+            validate_repo_url(mirrorlist)
+
         repo_id = params.get('repo_id', None)
         if repo_id is None:
             repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
@@ -260,12 +267,14 @@ class YumRepo(object):
         mirrorlist = config.get('mirrorlist', None)
 
         if baseurl is not None:
+            validate_repo_url(baseurl)
             entry.baseurl = baseurl
 
         if mirrorlist == '':
             mirrorlist = None
 
         if mirrorlist is not None:
+            validate_repo_url(mirrorlist)
             entry.mirrorlist = mirrorlist
 
         entry.id = params.get('repo_id', repo_id)
@@ -413,6 +422,8 @@ class AptRepo(object):
         uri = params['baseurl']
         dist = config['dist']
         comps = config.get('comps', [])
+
+        validate_repo_url(uri)
 
         kimchiLock.acquire()
         try:

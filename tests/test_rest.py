@@ -1804,6 +1804,25 @@ class RestTests(unittest.TestCase):
         # Already have one repo in Kimchi's system
         self.assertEquals(1, len(json.loads(resp.read())))
 
+        invalid_urls = ['www.fedora.org',                 # missing protocol
+                        '://www.fedora.org',              # missing protocol
+                        'http://www.fedora',              # invalid domain name
+                        'file:///home/userdoesnotexist']  # invalid path
+
+        # Create repositories with invalid baseurl
+        for url in invalid_urls:
+            repo = {'repo_id': 'fedora-fake', 'baseurl': url}
+            req = json.dumps(repo)
+            resp = self.request(base_uri, req, 'POST')
+            self.assertEquals(400, resp.status)
+
+        # Create repositories with invalid mirrorlist
+        for url in invalid_urls:
+            repo = {'repo_id': 'fedora-fake', 'mirrorlist': url}
+            req = json.dumps(repo)
+            resp = self.request(base_uri, req, 'POST')
+            self.assertEquals(400, resp.status)
+
         # Create a repository
         repo = {'repo_id': 'fedora-fake',
                 'baseurl': 'http://www.fedora.org'}
@@ -1815,9 +1834,25 @@ class RestTests(unittest.TestCase):
         res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
         verify_repo(repo, res)
 
+        # Update repositories with invalid baseurl
+        for url in invalid_urls:
+            params = {}
+            params['baseurl'] = url
+            resp = self.request('%s/fedora-fake' % base_uri,
+                                json.dumps(params), 'PUT')
+            self.assertEquals(400, resp.status)
+
+        # Update repositories with invalid mirrorlist
+        for url in invalid_urls:
+            params = {}
+            params['mirrorlist'] = url
+            resp = self.request('%s/fedora-fake' % base_uri,
+                                json.dumps(params), 'PUT')
+            self.assertEquals(400, resp.status)
+
         # Update the repository
         params = {}
-        params['baseurl'] = repo['baseurl'] = 'http://www.fedora.org/update'
+        params['baseurl'] = repo['baseurl'] = 'http://www.fedoraproject.org'
         resp = self.request('%s/fedora-fake' % base_uri, json.dumps(params),
                             'PUT')
 

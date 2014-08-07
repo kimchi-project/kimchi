@@ -280,3 +280,19 @@ def probe_file_permission_as_user(file, user):
     p.start()
     p.join()
     return queue.get()
+
+
+def validate_repo_url(url):
+    url_parts = url.split('://')  # [0] = prefix, [1] = rest of URL
+
+    if url_parts[0] == '':
+        raise InvalidParameter("KCHREPOS0002E")
+
+    if url_parts[0] in ['http', 'https', 'ftp']:
+        if not check_url_path(url):
+            raise InvalidParameter("KCHUTILS0001E", {'uri': url})
+    elif url_parts[0] == 'file':
+        if not os.path.exists(url_parts[1]):
+            raise InvalidParameter("KCHUTILS0001E", {'uri': url})
+    else:
+        raise InvalidParameter("KCHREPOS0002E")

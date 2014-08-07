@@ -52,7 +52,7 @@ from kimchi.model.storageservers import STORAGE_SERVERS
 from kimchi.model.utils import get_vm_name
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import pool_name_from_uri
+from kimchi.utils import pool_name_from_uri, validate_repo_url
 from kimchi.utils import template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
@@ -1242,13 +1242,22 @@ class MockRepositories(object):
         # Create and enable the repository
         repo_id = params['repo_id']
         config = params.get('config', {})
+        baseurl = params.get('baseurl')
+        mirrorlist = config.get('mirrorlist', "")
+
+        if baseurl:
+            validate_repo_url(baseurl)
+
+        if mirrorlist:
+            validate_repo_url(mirrorlist)
+
         repo = {'repo_id': repo_id,
-                'baseurl': params.get('baseurl'),
+                'baseurl': baseurl,
                 'enabled': True,
                 'config': {'repo_name': config.get('repo_name', repo_id),
                            'gpgkey': config.get('gpgkey', []),
                            'gpgcheck': True,
-                           'mirrorlist': config.get('mirrorlist', "")}
+                           'mirrorlist': mirrorlist}
                 }
 
         self._repos[repo_id] = repo
@@ -1292,6 +1301,16 @@ class MockRepositories(object):
     def updateRepository(self, repo_id, params):
         if repo_id not in self._repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
+
+        baseurl = params.get('baseurl', None)
+        config = params.get('config', {})
+        mirrorlist = config.get('mirrorlist', None)
+
+        if baseurl:
+            validate_repo_url(baseurl)
+
+        if mirrorlist:
+            validate_repo_url(mirrorlist)
 
         info = self._repos[repo_id]
         info.update(params)
