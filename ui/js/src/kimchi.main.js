@@ -16,6 +16,14 @@
  * limitations under the License.
  */
 kimchi.tabMode = {};
+
+kimchi.capabilities = undefined;
+kimchi.getCapabilities(function(result) {
+    kimchi.capabilities = result;
+}, function() {
+    kimchi.capabilities = {};
+});
+
 kimchi.main = function() {
     kimchi.popable();
 

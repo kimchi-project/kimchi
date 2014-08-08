@@ -222,22 +222,29 @@ kimchi.template_add_main = function() {
 
     //1-2 remote iso
     $('#iso-remote').css('opacity', 0.3).css('cursor', 'not-allowed');
-    kimchi.getCapabilities(function(result) {
-        if (result.qemu_stream == true) {
-            $('#iso-remote').css('opacity', 1).css('cursor', 'pointer');
 
-            $('#iso-remote').click(function() {
-                kimchi.switchPage('iso-type-box', 'iso-remote-box');
-                initRemoteIsoField();
-                initIsoUrlField();
-                kimchi.listDistros(function(isos) {
-                    showRemoteIsoField(isos);
-                }, function() {
-                });
-            });
+    var enabledRemoteIso = function() {
+        if (kimchi.capabilities == undefined) {
+            setTimeout(enabledRemoteIso, 2000);
+            return;
         }
-    }, function() {
-    });
+
+        if (kimchi.capabilities.qemu_stream != true) {
+            return;
+        }
+
+        $('#iso-remote').css('opacity', 1).css('cursor', 'pointer');
+        $('#iso-remote').click(function() {
+            kimchi.switchPage('iso-type-box', 'iso-remote-box');
+            initRemoteIsoField();
+            initIsoUrlField();
+            kimchi.listDistros(function(isos) {
+                showRemoteIsoField(isos);
+            }, function() {
+            });
+        });
+    };
+    enabledRemoteIso();
 
     $('#iso-remote-box-back').click(function() {
         kimchi.switchPage('iso-remote-box', 'iso-type-box', 'right');
