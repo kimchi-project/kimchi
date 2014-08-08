@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-29 15:52-0300\n"
+"POT-Creation-Date: 2014-08-08 15:27-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -155,6 +155,16 @@ msgstr ""
 "usuário '%(user)s' tenha acesso, ou, adicione o usuário '%(user)s' no grupo "
 "do caminho da ISO, ou (não recomendado) 'chmod -R o+x 'caminho_para_iso'. "
 "Detalhes: %(err)s"
+
+msgid "Error occurs when probing image os information."
+msgstr ""
+
+msgid "No OS information found in given image."
+msgstr ""
+
+#, python-format
+msgid "Unable to find/read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -367,8 +377,8 @@ msgstr "Modelo do CDROM deve ser um arquivo ISO local ou remoto"
 msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr "Storage pool URI inválido %(value)s especificado para modelo"
 
-msgid "Specify an ISO image as CDROM to create a template"
-msgstr "Especifique uma imagem ISO como CDROM para criar o modelo"
+msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgstr ""
 
 msgid "All networks for the template must be specified in a list."
 msgstr "Todas redes para o modelo devem ser especificadas em lista"
@@ -392,6 +402,13 @@ msgstr "Não foi possível remover o modelo devido a um erro: %(err)s"
 
 msgid "Disk size must be greater than 1GB."
 msgstr "Tamanho do disco deve ser maior do que 1GB"
+
+msgid "Template base image must be a valid local image file"
+msgstr ""
+
+#, python-format
+msgid "Cannot identify base image %(path)s format"
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -842,11 +859,6 @@ msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr ""
 "Nome do dispositivo %(dev_name)s já existe na máquina virtual %(vm_name)s"
 
-msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-msgstr ""
-"Tipo de barramento do dispositivo de destino inválido, tipos suportados: "
-"'ide', 'scsi', 'virtio'"
-
 msgid "Just support cdrom path update"
 msgstr "Apenas a atualização do caminho do CDROM é suportada"
 
@@ -1164,9 +1176,6 @@ msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
 msgstr ""
 "O tipo do dispositivo. Atualmente, \"cdrom\" e \"disco\" são suportados."
 
-msgid "Device Bus"
-msgstr "Barramento do dispositivo"
-
 msgid "Storage Pool"
 msgstr "Nome do Storage Pool"
 
@@ -1339,9 +1348,6 @@ msgstr "Adicionar"
 
 msgid "Remove"
 msgstr "Remover"
-
-msgid "Failed."
-msgstr "Falhou."
 
 msgid "Enable"
 msgstr "Ativar"
@@ -1551,6 +1557,9 @@ msgid ""
 msgstr ""
 "O storage pool não é persistente. Ao invés de desativar, essa ação vai "
 "removê-lo permanentemente. Deseja continuar?"
+
+msgid "Unable to retrieve partitions information."
+msgstr ""
 
 msgid "CDROM path need to be a valid local path and cannot be blank."
 msgstr ""
@@ -1907,3 +1916,15 @@ msgstr "Nenhum modelo encontrado."
 
 msgid "Clone"
 msgstr "Clonar"
+
+#~ msgid ""
+#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+#~ msgstr ""
+#~ "Tipo de barramento do dispositivo de destino inválido, tipos suportados: "
+#~ "'ide', 'scsi', 'virtio'"
+
+#~ msgid "Device Bus"
+#~ msgstr "Barramento do dispositivo"
+
+#~ msgid "Failed."
+#~ msgstr "Falhou."

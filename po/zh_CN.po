@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-29 15:52-0300\n"
+"POT-Creation-Date: 2014-08-08 15:27-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -148,6 +148,16 @@ msgstr ""
 "hypervisor没有访问ISO文件%(filename)s的权限。可以将ISO移到/var/lib/libvirt目"
 "录下；或为'%(user)s'用户设置访问权限；或将'%(user)s'用户增加到ISO路径的属组；"
 "或者为所有的用户增加访问权限 'chmod -R o+x '（不推荐）。详情：%(err)s"
+
+msgid "Error occurs when probing image os information."
+msgstr ""
+
+msgid "No OS information found in given image."
+msgstr ""
+
+#, python-format
+msgid "Unable to find/read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -344,8 +354,8 @@ msgstr "模板的CDROM必须是一个本地或者远程的ISO文件"
 msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr "给模板指定了无效的存储池URI %(value)s"
 
-msgid "Specify an ISO image as CDROM to create a template"
-msgstr "为新模版的CDROM指定一个ISO的镜像"
+msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgstr ""
 
 msgid "All networks for the template must be specified in a list."
 msgstr "为模板指定的网络必须在一个列表中"
@@ -367,6 +377,13 @@ msgstr "由于错误：%(err)s，未能删除模板"
 
 msgid "Disk size must be greater than 1GB."
 msgstr "磁盘大小必须大于1GB。"
+
+msgid "Template base image must be a valid local image file"
+msgstr ""
+
+#, python-format
+msgid "Cannot identify base image %(path)s format"
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -764,9 +781,6 @@ msgstr "设备路径'%(value)s'不是一个有效的本地/远程路径"
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr "设备%(dev_name)s在vm%(vm_name)s上已存在"
 
-msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-msgstr "无效的目标设备总线类型。支持类型为：'ide'，'scsi'，'virtio'"
-
 msgid "Just support cdrom path update"
 msgstr "仅支持cdrom路径更新"
 
@@ -1061,9 +1075,6 @@ msgstr "设备类型"
 msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
 msgstr "设备类型。目前支持设备类型：\"cdrom\"和\"disk\"。 "
 
-msgid "Device Bus"
-msgstr "设备总线"
-
 msgid "Storage Pool"
 msgstr "存储池"
 
@@ -1229,9 +1240,6 @@ msgstr "增加"
 
 msgid "Remove"
 msgstr "删除"
-
-msgid "Failed."
-msgstr "失败"
 
 msgid "Enable"
 msgstr "使能"
@@ -1423,6 +1431,9 @@ msgid ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr "对于非持久存储池，这个操作将会永久删除存储池而不是停用。是否继续？"
+
+msgid "Unable to retrieve partitions information."
+msgstr ""
 
 msgid "CDROM path need to be a valid local path and cannot be blank."
 msgstr "CDROM的路径必须是有效本地路径且不能为空"
@@ -1773,3 +1784,13 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
+
+#~ msgid ""
+#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+#~ msgstr "无效的目标设备总线类型。支持类型为：'ide'，'scsi'，'virtio'"
+
+#~ msgid "Device Bus"
+#~ msgstr "设备总线"
+
+#~ msgid "Failed."
+#~ msgstr "失败"

@@ -223,6 +223,10 @@ kimchi.initLogicalPoolExtend = function() {
                     $('.host-partition').html(i18n['KCHPOOL6011M']);
                     $('.host-partition').addClass('text-help');
                 }
+            }, function(err) {
+                $('#loading-info', '#logicalPoolExtend').addClass('hidden');
+                $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
+                $('.host-partition').addClass('text-help');
             });
         },
         beforeClose : function() { $('.host-partition', '#logicalPoolExtend').empty(); },
