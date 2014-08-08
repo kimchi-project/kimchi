@@ -454,11 +454,15 @@ kimchi.host_main = function() {
             });
         });
 
-        kimchi.getCapabilities(function(capabilities) {
-            kimchi.host.capabilities=capabilities;
-            if((capabilities['repo_mngt_tool']) && (capabilities['repo_mngt_tool']!="None")) {
-                initRepositoriesGrid(capabilities['repo_mngt_tool']);
-                $('#repositories-section').switchClass('hidden', capabilities['repo_mngt_tool']);
+        var setupUI = function() {
+            if (kimchi.capabilities == undefined) {
+                setTimeout(setupUI, 2000);
+                return;
+            }
+
+            if((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool']!="None")) {
+                initRepositoriesGrid(kimchi.capabilities['repo_mngt_tool']);
+                $('#repositories-section').switchClass('hidden', kimchi.capabilities['repo_mngt_tool']);
                 kimchi.topic('kimchi/repositoryAdded')
                     .subscribe(listRepositories);
                 kimchi.topic('kimchi/repositoryUpdated')
@@ -467,7 +471,7 @@ kimchi.host_main = function() {
                     .subscribe(listRepositories);
             }
 
-            if(capabilities['update_tool']) {
+            if(kimchi.capabilities['update_tool']) {
                 $('#software-update-section').removeClass('hidden');
                 initSoftwareUpdatesGrid();
                 kimchi.topic('kimchi/softwareUpdated')
@@ -477,14 +481,15 @@ kimchi.host_main = function() {
                 });
             }
 
-            if(capabilities['system_report_tool']) {
+            if(kimchi.capabilities['system_report_tool']) {
                 listDebugReports();
                 kimchi.topic('kimchi/debugReportAdded')
                     .subscribe(listDebugReports);
                 kimchi.topic('kimchi/debugReportRenamed')
                     .subscribe(listDebugReports);
             }
-        });
+        };
+        setupUI();
     };
 
     kimchi.getHost(function(data) {

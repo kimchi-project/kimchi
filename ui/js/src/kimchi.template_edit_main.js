@@ -38,15 +38,19 @@ kimchi.template_edit_main = function() {
             $('input[name="disks"]', templateEditForm).attr('disabled','disabled');
         }
 
-        var options = [{label: 'VNC', value: 'vnc'}];
-        kimchi.getCapabilities(function(result) {
-            if (result.qemu_spice == true) {
-                options.push({label: 'Spice', value: 'spice'})
+        var vncOpt = [{label: 'VNC', value: 'vnc'}];
+        kimchi.select('template-edit-graphics-list', vncOpt);
+        var enableSpice = function() {
+            if (kimchi.capabilities == undefined) {
+                setTimeout(enableSpice, 2000);
+                return;
             }
-        }, function() {
-        }, function() {
-            kimchi.select('template-edit-graphics-list', options);
-        });
+            if (kimchi.capabilities.qemu_spice == true) {
+                spiceOpt = [{label: 'Spice', value: 'spice'}]
+                kimchi.select('template-edit-graphics-list', spiceOpt);
+            }
+        };
+        enableSpice();
 
         var scsipools = {};
         kimchi.listStoragePools(function(result) {
