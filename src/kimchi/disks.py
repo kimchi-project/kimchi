@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os.path
 import re
 import subprocess
 
@@ -27,18 +28,14 @@ from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 
 
-def _get_friendly_dm_path(maj_min):
-    """ Returns user friendly dm path given the device number 'major:min' """
-    dm_name = "/sys/dev/block/%s/dm/name" % maj_min
-    with open(dm_name) as dm_f:
-        content = dm_f.read().rstrip('\n')
-    return "/dev/mapper/" + content
-
-
 def _get_dev_node_path(maj_min):
     """ Returns device node path given the device number 'major:min' """
-    if maj_min.startswith('253:'):
-        return _get_friendly_dm_path(maj_min)
+
+    dm_name = "/sys/dev/block/%s/dm/name" % maj_min
+    if os.path.exists(dm_name):
+        with open(dm_name) as dm_f:
+            content = dm_f.read().rstrip('\n')
+        return "/dev/mapper/" + content
 
     uevent = "/sys/dev/block/%s/uevent" % maj_min
     with open(uevent) as ueventf:
