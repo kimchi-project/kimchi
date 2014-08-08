@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-29 15:52-0300\n"
+"POT-Creation-Date: 2014-08-08 15:27-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -135,6 +135,16 @@ msgstr ""
 "file access control lists for '%(user)s' user if possible, or add the "
 "'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
 "'path_to_iso'.Details: %(err)s"
+
+msgid "Error occurs when probing image os information."
+msgstr ""
+
+msgid "No OS information found in given image."
+msgstr ""
+
+#, python-format
+msgid "Unable to find/read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -337,8 +347,8 @@ msgstr "Template CDROM must be a local or remote ISO file"
 msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr "Invalid storage pool URI %(value)s specified for template"
 
-msgid "Specify an ISO image as CDROM to create a template"
-msgstr "Specify an ISO image as CDROM to create a template"
+msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgstr ""
 
 msgid "All networks for the template must be specified in a list."
 msgstr "All networks for the template must be specified in a list."
@@ -361,6 +371,13 @@ msgstr "Unable to delete template due error: %(err)s"
 
 msgid "Disk size must be greater than 1GB."
 msgstr "Disk size must be greater than 1GB."
+
+msgid "Template base image must be a valid local image file"
+msgstr ""
+
+#, python-format
+msgid "Cannot identify base image %(path)s format"
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -791,10 +808,6 @@ msgstr "The path '%(value)s' is not valid local/remote path for the device"
 msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
 msgstr "Device name %(dev_name)s already exists in vm %(vm_name)s"
 
-msgid "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-msgstr ""
-"Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-
 msgid "Just support cdrom path update"
 msgstr "Just support cdrom path update"
 
@@ -1102,9 +1115,6 @@ msgstr "Device Type"
 msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
 msgstr "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
 
-msgid "Device Bus"
-msgstr "Device Bus"
-
 msgid "Storage Pool"
 msgstr "Storage Pool"
 
@@ -1275,9 +1285,6 @@ msgstr "Add"
 
 msgid "Remove"
 msgstr "Remove"
-
-msgid "Failed."
-msgstr "Failed."
 
 msgid "Enable"
 msgstr "Enable"
@@ -1488,6 +1495,9 @@ msgid ""
 msgstr ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
 "permanently delete it. Would you like to continue?"
+
+msgid "Unable to retrieve partitions information."
+msgstr ""
 
 msgid "CDROM path need to be a valid local path and cannot be blank."
 msgstr "CDROM path need to be a valid local path and cannot be blank."
@@ -1843,3 +1853,14 @@ msgstr "No templates found."
 
 msgid "Clone"
 msgstr "Clone"
+
+#~ msgid ""
+#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+#~ msgstr ""
+#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
+
+#~ msgid "Device Bus"
+#~ msgstr "Device Bus"
+
+#~ msgid "Failed."
+#~ msgstr "Failed."

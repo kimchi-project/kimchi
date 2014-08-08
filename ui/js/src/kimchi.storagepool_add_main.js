@@ -50,6 +50,9 @@ kimchi.initStorageAddPage = function() {
             $('.host-partition').html(i18n['KCHPOOL6011M']);
             $('.host-partition').addClass('text-help');
         }
+    }, function(err) {
+        $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
+        $('.host-partition').addClass('text-help');
     });
 
     kimchi.getHostPCIDevices(function(data){
