@@ -19,13 +19,11 @@ kimchi.guest_edit_main = function() {
     var buttonContainer = $('#action-button-container');
     $('#guest-edit-tabs').tabs({
         beforeActivate: function(event, ui) {
+            var display_list = ['form-guest-edit-general', 'form-guest-edit-permission']
             $(buttonContainer).addClass('hidden');
-            $("#form-guest-edit-permission-save").addClass('hidden');
             var deactivated = ui['newPanel'];
-            if($(deactivated).attr('id') === 'form-guest-edit-general') {
+            if(display_list.indexOf($(deactivated).attr('id')) >= 0) {
                 $(buttonContainer).removeClass('hidden');
-            }else if($(deactivated).attr('id') === 'form-guest-edit-permission'){
-                $("#form-guest-edit-permission-save").removeClass('hidden');
             }
         }
     });
@@ -335,18 +333,6 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-avail-users"));
             filterNodes("", $("#permission-avail-groups"));
         });
-        $("#form-guest-edit-permission-save").on("click", function(){
-            var content = { users: [], groups: [] };
-            $("#permission-sel-users").children().each(function(){
-                content.users.push($("label", this).text());
-            });
-            $("#permission-sel-groups").children().each(function(){
-                content.groups.push($("label", this).text());
-            });
-            kimchi.updateVM(kimchi.selectedGuest, content, function(){
-                kimchi.window.close();
-            });
-        });
     };
 
     var initContent = function(guest) {
@@ -393,7 +379,7 @@ kimchi.guest_edit_main = function() {
 
     kimchi.retrieveVM(kimchi.selectedGuest, initContent);
 
-    var submitForm = function(event) {
+    var generalSubmit = function(event) {
         $(saveButton).prop('disabled', true);
         var data=$('#form-guest-edit-general').serializeObject();
         if(data['memory']!=undefined) {
@@ -410,7 +396,27 @@ kimchi.guest_edit_main = function() {
             kimchi.message.error(err.responseJSON.reason);
             $(saveButton).prop('disabled', false);
         });
+    }
 
+    var permissionSubmit = function(event) {
+        var content = { users: [], groups: [] };
+        $("#permission-sel-users").children().each(function(){
+            content.users.push($("label", this).text());
+        });
+        $("#permission-sel-groups").children().each(function(){
+            content.groups.push($("label", this).text());
+        });
+        kimchi.updateVM(kimchi.selectedGuest, content, function(){
+            kimchi.window.close();
+        });
+    }
+
+    // tap map, "general": 0, "storage": 1, "interface": 2, "permission": 3, "password": 4
+    var submit_map = {0: generalSubmit, 3:permissionSubmit};
+    var submitForm = function(event) {
+        var current = $('#guest-edit-tabs').tabs( "option", "active" );
+        var submitFun = submit_map[current];
+        submitFun && submitFun(event);
         event.preventDefault();
     };
 
