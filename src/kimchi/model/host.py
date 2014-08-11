@@ -419,7 +419,8 @@ class UsersModel(object):
         pass
 
     def get_list(self):
-        return [user.pw_name for user in pwd.getpwall()]
+        return [user.pw_name for user in pwd.getpwall()
+                if user.pw_shell.rsplit("/")[-1] not in ["nologin", "false"]]
 
 
 class GroupsModel(object):
