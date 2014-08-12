@@ -109,7 +109,7 @@ kimchi.guest_storage_add_main = function() {
     });
 
     var validateCDROM = function(settings) {
-        if (/^(\/.*)+$/.test(settings['path']))
+        if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path']))
             return true;
         else {
             kimchi.message.error.code('KCHVMSTOR0001E');
