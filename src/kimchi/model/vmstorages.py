@@ -67,7 +67,7 @@ def _get_storage_xml(params, ignore_source=False):
     # Working with url paths
     if src_type == 'network':
         output = urlparse.urlparse(params.get('path'))
-        port = output.port or socket.getservbyname(output.scheme)
+        port = str(output.port or socket.getservbyname(output.scheme))
         host = E.host(name=output.hostname, port=port)
         source = E.source(protocol=output.scheme, name=output.path)
         source.append(host)
