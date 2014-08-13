@@ -23,6 +23,7 @@ import os
 import platform
 import psutil
 import pwd
+import re
 import shutil
 import tempfile
 import threading
@@ -285,7 +286,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(u'disk', disk_info['type'])
             inst.vmstorage_delete(vm_name, disk)
 
-            # Specify pool and path at sametime will fail
+            # Specifying pool and path at same time will fail
             disk_args = {"type": "disk",
                          "pool": pool,
                          "vol": vol,
@@ -361,6 +362,11 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(InvalidParameter, inst.vmstorage_update,
                               vm_name, cdrom_dev, {'path': wrong_iso_path})
 
+            # Make sure CD ROM still exists after failure
+            cd_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            self.assertEquals(u'cdrom', cd_info['type'])
+            self.assertEquals(iso_path, cd_info['path'])
+
             # update path of existing cd with existent iso of shutoff vm
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path2})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
@@ -386,6 +392,21 @@ class ModelTests(unittest.TestCase):
             inst.vmstorage_delete(vm_name, cdrom_dev)
             storage_list = inst.vmstorages_get_list(vm_name)
             self.assertEquals(prev_count, len(storage_list))
+
+            # Create a new cdrom using a remote iso
+            valid_remote_iso_path = utils.get_remote_iso_path()
+            cdrom_args = {"type": "cdrom",
+                          "path": valid_remote_iso_path}
+            cdrom_dev = inst.vmstorages_create(vm_name, cdrom_args)
+            storage_list = inst.vmstorages_get_list(vm_name)
+            self.assertEquals(prev_count + 1, len(storage_list))
+
+            # Update remote-backed cdrom with the same ISO
+            inst.vmstorage_update(vm_name, cdrom_dev,
+                                  {'path': valid_remote_iso_path})
+            cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
+            cur_cdrom_path = re.sub(":80/", '/', cdrom_info['path'])
+            self.assertEquals(valid_remote_iso_path, cur_cdrom_path)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
