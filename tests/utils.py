@@ -21,12 +21,12 @@
 import base64
 import cherrypy
 import httplib
+import json
 import os
 import socket
 import sys
 import threading
 import unittest
-
 
 from contextlib import closing
 from lxml import etree
@@ -34,6 +34,7 @@ from lxml import etree
 
 import kimchi.mockmodel
 import kimchi.server
+from kimchi.config import paths
 from kimchi.exception import OperationFailed
 
 _ports = {}
@@ -145,6 +146,25 @@ def _request(conn, path, data, method, headers):
 def request(host, port, path, data=None, method='GET', headers=None):
     conn = httplib.HTTPSConnection(host, port)
     return _request(conn, path, data, method, headers)
+
+
+def get_remote_iso_path():
+    """
+    Get a remote iso with the right arch from the distro files shipped
+    with kimchi.
+    """
+    host_arch = os.uname()[4]
+    remote_path = ''
+    with open(os.path.join(paths.conf_dir, 'distros.d', 'fedora.json')) \
+            as fedora_isos:
+        # Get a list of dicts
+        json_isos_list = json.load(fedora_isos)
+        for iso in json_isos_list:
+            if (iso.get('os_arch')) == host_arch:
+                remote_path = iso.get('path')
+                break
+
+    return remote_path
 
 
 def patch_auth(sudo=True):
