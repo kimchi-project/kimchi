@@ -1,0 +1,203 @@
+13:02:15 <alinefm> #startmeeting
+13:02:15 <kimchi-bot> Meeting started Wed Aug 13 13:02:15 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:15 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:15 <alinefm> #meetingname scrum
+13:02:15 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:28 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:28 <alinefm> anything else?
+13:04:45 <alinefm> #topic Status
+13:04:45 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:06 <alinefm> #info royce bebased and merged image based template
+13:05:24 <alinefm> #info royce fixed wrong bus type in power, refactored device name generation
+13:05:40 <alinefm> #info royce helped to address problem of cdrom update, sent 3 patches
+13:06:04 <pvital> #info pvital submitted a patch to change the default environment configuration to production mode.
+13:06:23 <alinefm> #info alinefm updated makefile to include spice.css
+13:06:53 <alinefm> #info alinefm fixed kimchi running on power by removing a hard coded x86_64 arch
+13:06:59 <pvital> #info pvital is working in a patch set to make upstream Kimchi fully enabled on Power machines
+13:07:09 <pvital> #info pvital reviewed some patches
+13:07:10 <alinefm> #info alinefm fixed issue #340
+13:07:33 <alinefm> #info alinefm sent patch to properly list host partitions for Ubuntu 14.04 server
+13:08:01 <alinefm> #info alinefm sent patch to request /config/capabilities just once on UI and as soon as possible
+13:08:14 <vianac> #info vianac reviewed patches on the mailing list
+13:08:25 <alinefm> #info alinefm is working with royce and christy to fix problems while updating cdrom value
+13:09:44 <rotru> #info rotru working to enable kimchi open HELP pages from plugins
+13:11:24 <alinefm> anything else?
+13:12:41 <alinefm> ok...
+13:12:51 <alinefm> today we are finish the sprint 1 stabilization
+13:13:06 <alinefm> which means we need to start working on the sprint 2 features now =)
+13:13:27 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+13:14:00 <alinefm> there are just 2 tasks without owners at the moment
+13:14:21 <alinefm> anyone would like to pick one of them?
+13:15:24 <wenwang> I can do the UI work of the Authorization
+13:15:53 <alinefm> sure, wenwang!
+13:15:57 <alinefm> I will update the wiki
+13:16:46 <alinefm> more volunteers? =)
+13:17:01 <wenwang> Also, I think I can do the work of listing Kimchi peers
+13:17:17 <YuXin> I will handle list kimchi peers
+13:17:29 <alinefm> wenwang, that would be great! but make sure to don't overload you
+13:19:34 <alinefm> I will set the list kimchi peers to YuXin as the pci passthrough UI is already done
+13:20:14 <alinefm> wenwang, about the authorization one: I talked to YuXin to make the full "edit" dialog available when the vm is running and disable what does not make sense for a running vm
+13:20:21 <alinefm> you can talk to him for more details too
+13:20:47 <wenwang> alinefm: sure
+13:21:26 <YuXin> Display iSCSI targets when iSCSI server is provided (backend done in 3c6c5c)
+13:21:40 <YuXin> seems like this one also has no owner
+13:22:26 <YuXin> aline, assign this to me also
+13:22:27 <alinefm> YuXin, do you think you can hold this one too?
+13:22:33 <YuXin> ok
+13:24:13 <YuXin> As "PCI Passthrough" is done actually, so I can handle "list kimchi peers" and "iSCSI targets"
+13:24:27 <YuXin> then each of UI member has 2 items
+13:24:35 <alinefm> sounds a good plan
+13:25:01 <alinefm> about the non-assigned backend tasks I will check if royce can pick one and the upload task I need to check with sdxaio
+13:25:49 <rotru> alinefm;  you can set "Create template from VM" to me
+13:26:06 <alinefm> oh! thanks, rotru!
+13:27:10 <alinefm> so I want to see at the ML by next Monday (08/18) a RFC, a V1 patch, a mockup UI or something
+13:27:29 <alinefm> we need to start the feature discussion as soon as possible
+13:27:46 <wenwang> sounds great!
+13:27:54 <alinefm> rotru, shaohef, vianac, YuXin, ok? ^
+13:28:12 <rotru> alinefm;  ok!
+13:28:20 <alinefm> wenwang, YuXin, the mockup UI does not need to have a code! it can be just an image
+13:28:42 <vianac> alinefm, ok
+13:28:48 <wenwang> alinefm: Okay, np
+13:30:08 <alinefm> #action everyone assigned to a task will send to ML a RFC, a V1 patch, a mockup UI or something by next Monday (08/18)
+13:30:26 <alinefm> any question? or we can move on...
+13:31:15 <YuXin> aline, for UI mockup, we need to backend RFC to have the API designed first
+13:32:19 <YuXin> or at least some one send out a description of the feature about what content and information need to be presented
+13:33:27 <alinefm> right! I can send an overview for all tasks by EOD tomorrow
+13:33:34 <YuXin> many thanks
+13:33:47 <wenwang> thanks alinefm
+13:34:01 <alinefm> and then each owner can make suggestion and propose changes on it
+13:34:06 <shaohef> alinefm: OK
+13:34:09 <YuXin> exactly
+13:34:11 <alinefm> that way we don't block the UI
+13:34:18 <YuXin> exactly
+13:34:55 <alinefm> #action alinefm send an overview for all tasks by EOD tomorrow (08/14)
+13:35:36 <YuXin> if API can be designed first with url and json response, it will greatly save UI from blocking
+13:35:51 <YuXin> Aline, I believe you will shape a good model for everyone
+13:36:55 <alinefm> I hope too =)
+13:37:03 <alinefm> let's move on to open discussion section now
+13:37:38 <alinefm> #topic Open Discussion
+13:37:47 <alinefm> what do you want to discuss today?
+13:38:14 <YuXin> from shaohe's VNC password patch, I see something to discuss
+13:38:43 <alinefm> please, go ahead
+13:38:44 <YuXin> there are already many options in VM edit, and it will ever evolve in the furthre
+13:38:58 <rotru> I have a topic
+13:39:19 <YuXin> now, we save at an unit per tab
+13:39:40 <YuXin> but I think it is better to save what a user truly change
+13:40:24 <YuXin> from virt-manager, I see for each item like cpu, memory, if any item changed, it need to be save at once
+13:40:24 <alinefm> are you saying even if I don't change any value, all fields are send to the PUT request?
+13:41:02 <YuXin> from the design, I think it is saved per tab, right?
+13:41:11 <alinefm> right
+13:42:02 <YuXin> {"name":"VM-01","cpus":2,"memory":1024}
+13:42:15 <YuXin> I only changed cpu, but all are posted to server
+13:43:14 <YuXin> now, shaohe add vnc password as a separate tab, aline, you have comment to add it also to general tab
+13:44:14 <alinefm> yes
+13:44:29 <alinefm> I proposed that as it is part of the same PUT request made on general tab
+13:44:37 <YuXin> if user only update cpu, others should not be posted and be updated on vm also
+13:44:44 <alinefm> agree
+13:45:07 <alinefm> what about use the same design of network and storage tab?
+13:45:17 <YuXin> that is what I prefer
+13:45:20 <alinefm> the first view, we display only labels
+13:45:28 <alinefm> with an edit icon
+13:45:33 <YuXin> aline, this is about granularity
+13:45:42 <alinefm> when selecting edit, this icon turn to save one
+13:45:55 <alinefm> and on each click on save we perform a request
+13:45:57 <YuXin> so for each item, we should give user a way to save it separately, right?
+13:46:06 <alinefm> yes
+13:46:20 <alinefm> that is what we did for storage and network, right?
+13:46:30 <YuXin> yes
+13:46:44 <YuXin> and we also support save multiple items in batch
+13:46:56 <YuXin> so I think here we can copy virt-manager
+13:47:08 <YuXin> virt-manager use a button named 'apply'
+13:47:36 <YuXin> so for each item in general tab, we follow an 'apply' button
+13:48:02 <YuXin> if user changed that item, enable the apply button, and if user click on that button, post to save it
+13:48:13 <YuXin> but the dialog window does not close
+13:48:29 <alinefm> sounds good for me
+13:48:35 <alinefm> but can't we use the same edit/save icons used on network/storage tabs?
+13:48:39 <YuXin> if user click on OK button, post all changed field to save them and close the dialog
+13:48:42 <alinefm> instead of this apply button
+13:48:59 <YuXin> that is ok
+13:49:23 <YuXin> I will try to get a mockup out for comments
+13:49:32 <rotru> I have worked in a problem relates to plugins and their help page.
+13:49:33 <rotru> Currently, kimchi is not able to open a help from a plugin, because of the tabe url link (plugins have #plugins/XXX instead of #tab/XXX).
+13:49:33 <rotru> This is easy to fix, however, we need to set a static dir to all plugins help page.
+13:49:33 <rotru> We have some options:
+13:49:33 <rotru> 1) Force plugins to copy help pages to Kimchi's ui/pages/help path (I don´t like this)
+13:49:34 <rotru> 2) Force plugins to have the same structure that kimchi: plugins/XXXX/ui/pages/help/LANG/
+13:49:36 <rotru> Choosing (2), Kimchi could set the static path to each plugin help page on the fly when it loads them.
+13:49:40 <rotru> What do you guys think ?
+13:49:56 <alinefm> YuXin, that would be great! but anyway, I think it is a good approach
+13:50:09 <YuXin> ok
+13:50:10 <alinefm> YuXin, are you be responsible to make those changes? may I add a task for it?
+13:50:29 <YuXin> ok
+13:51:27 <alinefm> moving on to help problem pointed by rotru
+13:52:27 <alinefm> 1) I don't like it. Each plugin should have its own dir structure
+13:52:59 <alinefm> 2) For this option, we need to make it configurable IMO. One plugin may not have a help page
+13:53:04 <alinefm> how handle this case?
+13:53:20 <alinefm> or we will force each plugin to have a help page (which I don't like) ?
+13:54:09 <rotru> alinefm;  Its possible to not force
+13:54:10 <alinefm> shaohef, vianac ^
+13:54:46 <rotru> alinefm;  in this case, kimchi would fails with "URL not found" .. .then move to guest tab ( this is what happens today )
+13:55:41 <rotru> alinefm;  or, we can create a default kimchi html, saying that help is not available for that plugin/tab
+13:55:49 <alinefm> ouch!
+13:56:07 <alinefm> rotru, yeap! this is what I'd say
+13:56:08 <YuXin> in UI, whether each plugin tab has a ? to lauch its help content, or plugin help content is merged to kimchi help and all lauched with that ? of kimchi?
+13:56:46 <alinefm> each plugin has its own help
+13:56:54 <alinefm> it is a separated html file
+13:57:13 <alinefm> sorry, each tab has its own help (as a plugin can have multiple tabs)
+13:57:28 <YuXin> then there will be a ? along with each plugin tab?
+13:57:37 <alinefm> yes
+13:57:45 <alinefm> it is part of the framework
+13:58:07 <alinefm> as the ? appears under the logged user menu
+13:58:34 <alinefm> rotru, but cherrypy starts up without errors, even point to it a non-existent dir?
+13:58:37 <YuXin> plugin has a xml configuration file, add an entry in that xml file for each tab with the help.html
+13:59:11 <YuXin> then we click the ? in each tab to lauch the tab help can get it to work?
+13:59:17 <alinefm> YuXin, oh! that will solve all problems =)
+13:59:18 <alinefm> rotru, ^
+13:59:22 <rotru> alinefm;  I see some cherrypy errors in the console, but did not pay attention at this moment ...
+13:59:53 <alinefm> YuXin, and if the tab does not have a help page setup on tabs.xml we remove the ? option from the menu?
+14:00:03 <YuXin> yes
+14:00:03 <rotru> YuXin; I can check this option
+14:00:41 <shaohef> YuXin: do you mean put the help.html path  in xml configure file? if no help.html path , then a default help.html?
+14:01:14 <YuXin> without help.html, does not show the ? on UI, so user can not launch it
+14:02:18 <YuXin> I worry about the UI design, how to make it looks good and from user's perspective, plugin and kinchi base are integrated well
+14:02:24 <rotru> YuXin; we cannot add the full help.html path in the xml, because the path is defined on the fly
+14:03:02 <alinefm> rotru, in the xml you defined the API to access the file
+14:03:06 <rotru> YuXin;  oh, nevermind what I said
+14:03:06 <alinefm> not the real path on system
+14:03:21 <rotru> alinefm;  I see , just open the xml
+14:03:25 <shaohef> YuXin:  can a API for help.html？   GET /tabs/helps ？
+14:03:52 <alinefm> shaohef, we already have it
+14:03:53 <rotru> shaohef;  plugins does not use 'tabs'
+14:03:56 <alinefm> but  the API is /help
+14:04:11 <YuXin> shaohe, the tab.xml will pass to client, and just a entry there will get all the configure and UI processing will be straight-forward
+14:04:38 <alinefm> I think the main problem is on backend
+14:04:53 <alinefm> how to expose or not the plugin help dir?
+14:05:03 <YuXin> host     guest    template    storage pool    network   administration(?)   xxxx(?)
+14:05:19 <alinefm> the best way to do that would have the plugin config dir has a property for it
+14:05:45 <alinefm> rotru, in this case you will need to have a plugin.conf.in and substitute the values on build time
+14:06:11 <alinefm> BUT for it works for install and local tests, the plugin must be set as a git sub-module
+14:06:25 <alinefm> I mean, a git sub-module on local git repo
+14:08:41 <alinefm> http://fpaste.org/125249/14079388/
+14:09:05 <alinefm> we already pass all the plugin config to cherrypy
+14:10:17 <rotru> alinefm;  there is not guarantee that /foo/bar/ path will be always used
+14:10:58 <alinefm> I know, because that you need to build it on build time using autoconf
+14:11:02 <alinefm> like we did on kimchi
+14:11:16 <alinefm> @datadir@/ui/help
+14:11:27 <alinefm> and substitute it for the real path on build time
+14:13:20 <rotru> alinefm;  I see
+14:13:27 <rotru> This is an option too
+14:13:59 <alinefm> is there any special reason to you don't use git sub-module on local setup?
+14:14:41 <rotru> alinefm; I am not sure about this
+14:17:18 <alinefm> rotru, could you do a test on it?
+14:17:30 <rotru> alinefm; sure
+14:17:47 <alinefm> I mean, generate your help dir config on build time + git sub-module and see it if works for local setup?
+14:18:01 <alinefm> and the test the installation too, of course
+14:18:27 <alinefm> *and then
+14:19:04 <rotru> alinefm; ok
+14:19:34 <alinefm> rotru, and let me know if you have any special reason to don't use git sub-module
+14:20:12 <rotru> zhshzhou;  ^?  any idea ?
+14:22:33 <alinefm> seems we have a good plan
+14:22:46 <alinefm> we are over time team
+14:23:00 <alinefm> feel free to send to ML any other topic you want to discuss
+14:23:35 <alinefm> thanks everyone for joining and for the great discussions too
+14:23:57 <alinefm> #endmeeting

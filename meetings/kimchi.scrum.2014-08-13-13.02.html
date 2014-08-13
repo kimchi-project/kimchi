@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:15 UTC
+(<a href="kimchi.scrum.2014-08-13-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-6'>alinefm</a>,
+    13:02:28)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-08-13-13.02.log.html#l-8'>alinefm</a>, 13:04:45)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-9'>alinefm</a>,
+    13:04:45)</span></li>
+  <li><span class="INFO">royce bebased and merged image based
+    template</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-10'>alinefm</a>,
+    13:05:06)</span></li>
+  <li><span class="INFO">royce fixed wrong bus type in power, refactored
+    device name generation</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-11'>alinefm</a>,
+    13:05:24)</span></li>
+  <li><span class="INFO">royce helped to address problem of cdrom
+    update, sent 3 patches</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-12'>alinefm</a>,
+    13:05:40)</span></li>
+  <li><span class="INFO">pvital submitted a patch to change the default
+    environment configuration to production mode.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-13'>pvital</a>,
+    13:06:04)</span></li>
+  <li><span class="INFO">alinefm updated makefile to include
+    spice.css</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-14'>alinefm</a>,
+    13:06:23)</span></li>
+  <li><span class="INFO">alinefm fixed kimchi running on power by
+    removing a hard coded x86_64 arch</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-15'>alinefm</a>,
+    13:06:53)</span></li>
+  <li><span class="INFO">pvital is working in a patch set to make
+    upstream Kimchi fully enabled on Power machines</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-16'>pvital</a>,
+    13:06:59)</span></li>
+  <li><span class="INFO">pvital reviewed some patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-17'>pvital</a>,
+    13:07:09)</span></li>
+  <li><span class="INFO">alinefm fixed issue #340</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-18'>alinefm</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">alinefm sent patch to properly list host
+    partitions for Ubuntu 14.04 server</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-19'>alinefm</a>,
+    13:07:33)</span></li>
+  <li><span class="INFO">alinefm sent patch to request
+    /config/capabilities just once on UI and as soon as possible</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-20'>alinefm</a>,
+    13:08:01)</span></li>
+  <li><span class="INFO">vianac reviewed patches on the mailing
+    list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-21'>vianac</a>,
+    13:08:14)</span></li>
+  <li><span class="INFO">alinefm is working with royce and christy to
+    fix problems while updating cdrom value</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-22'>alinefm</a>,
+    13:08:25)</span></li>
+  <li><span class="INFO">rotru working to enable kimchi open HELP pages
+    from plugins</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-23'>rotru</a>,
+    13:09:44)</span></li>
+  <li><a
+    href="https://github.com/kimchi-project/kimchi/wiki/Todo-1.3">https://github.com/kimchi-project/kimchi/wiki/Todo-1.3</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-28'>alinefm</a>,
+    13:13:27)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">everyone
+    assigned to a task will send to ML a RFC, a V1 patch, a mockup UI or
+    something by next Monday (08/18)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-61'>alinefm</a>,
+    13:30:08)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">alinefm send
+    an overview for all tasks by EOD tomorrow (08/14)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-73'>alinefm</a>,
+    13:34:55)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-08-13-13.02.log.html#l-78'>alinefm</a>, 13:37:38)</span>
+<ol type="a">
+  <li><a
+    href="http://fpaste.org/125249/14079388/">http://fpaste.org/125249/14079388/</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-08-13-13.02.log.html#l-180'>alinefm</a>,
+    14:08:41)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:23:57 UTC
+(<a href="kimchi.scrum.2014-08-13-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>everyone assigned to a task will send to ML a RFC, a V1 patch, a mockup UI or something by next Monday (08/18)</li>
+  <li>alinefm send an overview for all tasks by EOD tomorrow (08/14)</li>
+</ol>
+<br><br>
+
+
+
+<h3>Action items, by person</h3>
+<ol>
+  <li> alinefm <ol>
+    <li>alinefm send an overview for all tasks by EOD tomorrow (08/14)</li>
+  </ol></li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (110)</li>
+  <li>YuXin (48)</li>
+  <li>rotru (28)</li>
+  <li>wenwang (6)</li>
+  <li>pvital (3)</li>
+  <li>shaohef (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>vianac (2)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

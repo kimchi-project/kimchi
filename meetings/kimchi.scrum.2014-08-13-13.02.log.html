@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 13 13:02:15 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:28</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:04:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:05:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce bebased and merged image based template</span>
+<a name="l-11"></a><span class="tm">13:05:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed wrong bus type in power, refactored device name generation</span>
+<a name="l-12"></a><span class="tm">13:05:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce helped to address problem of cdrom update, sent 3 patches</span>
+<a name="l-13"></a><span class="tm">13:06:04</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted a patch to change the default environment configuration to production mode.</span>
+<a name="l-14"></a><span class="tm">13:06:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated makefile to include spice.css</span>
+<a name="l-15"></a><span class="tm">13:06:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed kimchi running on power by removing a hard coded x86_64 arch</span>
+<a name="l-16"></a><span class="tm">13:06:59</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in a patch set to make upstream Kimchi fully enabled on Power machines</span>
+<a name="l-17"></a><span class="tm">13:07:09</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches</span>
+<a name="l-18"></a><span class="tm">13:07:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed issue #340</span>
+<a name="l-19"></a><span class="tm">13:07:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to properly list host partitions for Ubuntu 14.04 server</span>
+<a name="l-20"></a><span class="tm">13:08:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to request /config/capabilities just once on UI and as soon as possible</span>
+<a name="l-21"></a><span class="tm">13:08:14</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac reviewed patches on the mailing list</span>
+<a name="l-22"></a><span class="tm">13:08:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working with royce and christy to fix problems while updating cdrom value</span>
+<a name="l-23"></a><span class="tm">13:09:44</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru working to enable kimchi open HELP pages from plugins</span>
+<a name="l-24"></a><span class="tm">13:11:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-25"></a><span class="tm">13:12:41</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-26"></a><span class="tm">13:12:51</span><span class="nk"> &lt;alinefm&gt;</span> today we are finish the sprint 1 stabilization
+<a name="l-27"></a><span class="tm">13:13:06</span><span class="nk"> &lt;alinefm&gt;</span> which means we need to start working on the sprint 2 features now =)
+<a name="l-28"></a><span class="tm">13:13:27</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Todo-1.3
+<a name="l-29"></a><span class="tm">13:14:00</span><span class="nk"> &lt;alinefm&gt;</span> there are just 2 tasks without owners at the moment
+<a name="l-30"></a><span class="tm">13:14:21</span><span class="nk"> &lt;alinefm&gt;</span> anyone would like to pick one of them?
+<a name="l-31"></a><span class="tm">13:15:24</span><span class="nk"> &lt;wenwang&gt;</span> I can do the UI work of the Authorization
+<a name="l-32"></a><span class="tm">13:15:53</span><span class="nk"> &lt;alinefm&gt;</span> sure, wenwang!
+<a name="l-33"></a><span class="tm">13:15:57</span><span class="nk"> &lt;alinefm&gt;</span> I will update the wiki
+<a name="l-34"></a><span class="tm">13:16:46</span><span class="nk"> &lt;alinefm&gt;</span> more volunteers? =)
+<a name="l-35"></a><span class="tm">13:17:01</span><span class="nk"> &lt;wenwang&gt;</span> Also, I think I can do the work of listing Kimchi peers
+<a name="l-36"></a><span class="tm">13:17:17</span><span class="nk"> &lt;YuXin&gt;</span> I will handle list kimchi peers
+<a name="l-37"></a><span class="tm">13:17:29</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, that would be great! but make sure to don't overload you
+<a name="l-38"></a><span class="tm">13:19:34</span><span class="nk"> &lt;alinefm&gt;</span> I will set the list kimchi peers to YuXin as the pci passthrough UI is already done
+<a name="l-39"></a><span class="tm">13:20:14</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, about the authorization one: I talked to YuXin to make the full "edit" dialog available when the vm is running and disable what does not make sense for a running vm
+<a name="l-40"></a><span class="tm">13:20:21</span><span class="nk"> &lt;alinefm&gt;</span> you can talk to him for more details too
+<a name="l-41"></a><span class="tm">13:20:47</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-42"></a><span class="tm">13:21:26</span><span class="nk"> &lt;YuXin&gt;</span> Display iSCSI targets when iSCSI server is provided (backend done in 3c6c5c)
+<a name="l-43"></a><span class="tm">13:21:40</span><span class="nk"> &lt;YuXin&gt;</span> seems like this one also has no owner
+<a name="l-44"></a><span class="tm">13:22:26</span><span class="nk"> &lt;YuXin&gt;</span> aline, assign this to me also
+<a name="l-45"></a><span class="tm">13:22:27</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, do you think you can hold this one too?
+<a name="l-46"></a><span class="tm">13:22:33</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-47"></a><span class="tm">13:24:13</span><span class="nk"> &lt;YuXin&gt;</span> As "PCI Passthrough" is done actually, so I can handle "list kimchi peers" and "iSCSI targets"
+<a name="l-48"></a><span class="tm">13:24:27</span><span class="nk"> &lt;YuXin&gt;</span> then each of UI member has 2 items
+<a name="l-49"></a><span class="tm">13:24:35</span><span class="nk"> &lt;alinefm&gt;</span> sounds a good plan
+<a name="l-50"></a><span class="tm">13:25:01</span><span class="nk"> &lt;alinefm&gt;</span> about the non-assigned backend tasks I will check if royce can pick one and the upload task I need to check with sdxaio
+<a name="l-51"></a><span class="tm">13:25:49</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  you can set "Create template from VM" to me
+<a name="l-52"></a><span class="tm">13:26:06</span><span class="nk"> &lt;alinefm&gt;</span> oh! thanks, rotru!
+<a name="l-53"></a><span class="tm">13:27:10</span><span class="nk"> &lt;alinefm&gt;</span> so I want to see at the ML by next Monday (08/18) a RFC, a V1 patch, a mockup UI or something
+<a name="l-54"></a><span class="tm">13:27:29</span><span class="nk"> &lt;alinefm&gt;</span> we need to start the feature discussion as soon as possible
+<a name="l-55"></a><span class="tm">13:27:46</span><span class="nk"> &lt;wenwang&gt;</span> sounds great!
+<a name="l-56"></a><span class="tm">13:27:54</span><span class="nk"> &lt;alinefm&gt;</span> rotru, shaohef, vianac, YuXin, ok? ^
+<a name="l-57"></a><span class="tm">13:28:12</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  ok!
+<a name="l-58"></a><span class="tm">13:28:20</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, YuXin, the mockup UI does not need to have a code! it can be just an image
+<a name="l-59"></a><span class="tm">13:28:42</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok
+<a name="l-60"></a><span class="tm">13:28:48</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Okay, np
+<a name="l-61"></a><span class="tm">13:30:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">everyone assigned to a task will send to ML a RFC, a V1 patch, a mockup UI or something by next Monday (08/18)</span>
+<a name="l-62"></a><span class="tm">13:30:26</span><span class="nk"> &lt;alinefm&gt;</span> any question? or we can move on...
+<a name="l-63"></a><span class="tm">13:31:15</span><span class="nk"> &lt;YuXin&gt;</span> aline, for UI mockup, we need to backend RFC to have the API designed first
+<a name="l-64"></a><span class="tm">13:32:19</span><span class="nk"> &lt;YuXin&gt;</span> or at least some one send out a description of the feature about what content and information need to be presented
+<a name="l-65"></a><span class="tm">13:33:27</span><span class="nk"> &lt;alinefm&gt;</span> right! I can send an overview for all tasks by EOD tomorrow
+<a name="l-66"></a><span class="tm">13:33:34</span><span class="nk"> &lt;YuXin&gt;</span> many thanks
+<a name="l-67"></a><span class="tm">13:33:47</span><span class="nk"> &lt;wenwang&gt;</span> thanks alinefm
+<a name="l-68"></a><span class="tm">13:34:01</span><span class="nk"> &lt;alinefm&gt;</span> and then each owner can make suggestion and propose changes on it
+<a name="l-69"></a><span class="tm">13:34:06</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">alinefm:</span> OK
+<a name="l-70"></a><span class="tm">13:34:09</span><span class="nk"> &lt;YuXin&gt;</span> exactly
+<a name="l-71"></a><span class="tm">13:34:11</span><span class="nk"> &lt;alinefm&gt;</span> that way we don't block the UI
+<a name="l-72"></a><span class="tm">13:34:18</span><span class="nk"> &lt;YuXin&gt;</span> exactly
+<a name="l-73"></a><span class="tm">13:34:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm send an overview for all tasks by EOD tomorrow (08/14)</span>
+<a name="l-74"></a><span class="tm">13:35:36</span><span class="nk"> &lt;YuXin&gt;</span> if API can be designed first with url and json response, it will greatly save UI from blocking
+<a name="l-75"></a><span class="tm">13:35:51</span><span class="nk"> &lt;YuXin&gt;</span> Aline, I believe you will shape a good model for everyone
+<a name="l-76"></a><span class="tm">13:36:55</span><span class="nk"> &lt;alinefm&gt;</span> I hope too =)
+<a name="l-77"></a><span class="tm">13:37:03</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion section now
+<a name="l-78"></a><span class="tm">13:37:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-79"></a><span class="tm">13:37:47</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-80"></a><span class="tm">13:38:14</span><span class="nk"> &lt;YuXin&gt;</span> from shaohe's VNC password patch, I see something to discuss
+<a name="l-81"></a><span class="tm">13:38:43</span><span class="nk"> &lt;alinefm&gt;</span> please, go ahead
+<a name="l-82"></a><span class="tm">13:38:44</span><span class="nk"> &lt;YuXin&gt;</span> there are already many options in VM edit, and it will ever evolve in the furthre
+<a name="l-83"></a><span class="tm">13:38:58</span><span class="nk"> &lt;rotru&gt;</span> I have a topic
+<a name="l-84"></a><span class="tm">13:39:19</span><span class="nk"> &lt;YuXin&gt;</span> now, we save at an unit per tab
+<a name="l-85"></a><span class="tm">13:39:40</span><span class="nk"> &lt;YuXin&gt;</span> but I think it is better to save what a user truly change
+<a name="l-86"></a><span class="tm">13:40:24</span><span class="nk"> &lt;YuXin&gt;</span> from virt-manager, I see for each item like cpu, memory, if any item changed, it need to be save at once
+<a name="l-87"></a><span class="tm">13:40:24</span><span class="nk"> &lt;alinefm&gt;</span> are you saying even if I don't change any value, all fields are send to the PUT request?
+<a name="l-88"></a><span class="tm">13:41:02</span><span class="nk"> &lt;YuXin&gt;</span> from the design, I think it is saved per tab, right?
+<a name="l-89"></a><span class="tm">13:41:11</span><span class="nk"> &lt;alinefm&gt;</span> right
+<a name="l-90"></a><span class="tm">13:42:02</span><span class="nk"> &lt;YuXin&gt;</span> {"name":"VM-01","cpus":2,"memory":1024}
+<a name="l-91"></a><span class="tm">13:42:15</span><span class="nk"> &lt;YuXin&gt;</span> I only changed cpu, but all are posted to server
+<a name="l-92"></a><span class="tm">13:43:14</span><span class="nk"> &lt;YuXin&gt;</span> now, shaohe add vnc password as a separate tab, aline, you have comment to add it also to general tab
+<a name="l-93"></a><span class="tm">13:44:14</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-94"></a><span class="tm">13:44:29</span><span class="nk"> &lt;alinefm&gt;</span> I proposed that as it is part of the same PUT request made on general tab
+<a name="l-95"></a><span class="tm">13:44:37</span><span class="nk"> &lt;YuXin&gt;</span> if user only update cpu, others should not be posted and be updated on vm also
+<a name="l-96"></a><span class="tm">13:44:44</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-97"></a><span class="tm">13:45:07</span><span class="nk"> &lt;alinefm&gt;</span> what about use the same design of network and storage tab?
+<a name="l-98"></a><span class="tm">13:45:17</span><span class="nk"> &lt;YuXin&gt;</span> that is what I prefer
+<a name="l-99"></a><span class="tm">13:45:20</span><span class="nk"> &lt;alinefm&gt;</span> the first view, we display only labels
+<a name="l-100"></a><span class="tm">13:45:28</span><span class="nk"> &lt;alinefm&gt;</span> with an edit icon
+<a name="l-101"></a><span class="tm">13:45:33</span><span class="nk"> &lt;YuXin&gt;</span> aline, this is about granularity
+<a name="l-102"></a><span class="tm">13:45:42</span><span class="nk"> &lt;alinefm&gt;</span> when selecting edit, this icon turn to save one
+<a name="l-103"></a><span class="tm">13:45:55</span><span class="nk"> &lt;alinefm&gt;</span> and on each click on save we perform a request
+<a name="l-104"></a><span class="tm">13:45:57</span><span class="nk"> &lt;YuXin&gt;</span> so for each item, we should give user a way to save it separately, right?
+<a name="l-105"></a><span class="tm">13:46:06</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-106"></a><span class="tm">13:46:20</span><span class="nk"> &lt;alinefm&gt;</span> that is what we did for storage and network, right?
+<a name="l-107"></a><span class="tm">13:46:30</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-108"></a><span class="tm">13:46:44</span><span class="nk"> &lt;YuXin&gt;</span> and we also support save multiple items in batch
+<a name="l-109"></a><span class="tm">13:46:56</span><span class="nk"> &lt;YuXin&gt;</span> so I think here we can copy virt-manager
+<a name="l-110"></a><span class="tm">13:47:08</span><span class="nk"> &lt;YuXin&gt;</span> virt-manager use a button named 'apply'
+<a name="l-111"></a><span class="tm">13:47:36</span><span class="nk"> &lt;YuXin&gt;</span> so for each item in general tab, we follow an 'apply' button
+<a name="l-112"></a><span class="tm">13:48:02</span><span class="nk"> &lt;YuXin&gt;</span> if user changed that item, enable the apply button, and if user click on that button, post to save it
+<a name="l-113"></a><span class="tm">13:48:13</span><span class="nk"> &lt;YuXin&gt;</span> but the dialog window does not close
+<a name="l-114"></a><span class="tm">13:48:29</span><span class="nk"> &lt;alinefm&gt;</span> sounds good for me
+<a name="l-115"></a><span class="tm">13:48:35</span><span class="nk"> &lt;alinefm&gt;</span> but can't we use the same edit/save icons used on network/storage tabs?
+<a name="l-116"></a><span class="tm">13:48:39</span><span class="nk"> &lt;YuXin&gt;</span> if user click on OK button, post all changed field to save them and close the dialog
+<a name="l-117"></a><span class="tm">13:48:42</span><span class="nk"> &lt;alinefm&gt;</span> instead of this apply button
+<a name="l-118"></a><span class="tm">13:48:59</span><span class="nk"> &lt;YuXin&gt;</span> that is ok
+<a name="l-119"></a><span class="tm">13:49:23</span><span class="nk"> &lt;YuXin&gt;</span> I will try to get a mockup out for comments
+<a name="l-120"></a><span class="tm">13:49:32</span><span class="nk"> &lt;rotru&gt;</span> I have worked in a problem relates to plugins and their help page.
+<a name="l-121"></a><span class="tm">13:49:33</span><span class="nk"> &lt;rotru&gt;</span> Currently, kimchi is not able to open a help from a plugin, because of the tabe url link (plugins have #plugins/XXX instead of #tab/XXX).
+<a name="l-122"></a><span class="tm">13:49:33</span><span class="nk"> &lt;rotru&gt;</span> This is easy to fix, however, we need to set a static dir to all plugins help page.
+<a name="l-123"></a><span class="tm">13:49:33</span><span class="nk"> &lt;rotru&gt;</span> We have some options:
+<a name="l-124"></a><span class="tm">13:49:33</span><span class="nk"> &lt;rotru&gt;</span> 1) Force plugins to copy help pages to Kimchi's ui/pages/help path (I don´t like this)
+<a name="l-125"></a><span class="tm">13:49:34</span><span class="nk"> &lt;rotru&gt;</span> 2) Force plugins to have the same structure that kimchi: plugins/XXXX/ui/pages/help/LANG/
+<a name="l-126"></a><span class="tm">13:49:36</span><span class="nk"> &lt;rotru&gt;</span> Choosing (2), Kimchi could set the static path to each plugin help page on the fly when it loads them.
+<a name="l-127"></a><span class="tm">13:49:40</span><span class="nk"> &lt;rotru&gt;</span> What do you guys think ?
+<a name="l-128"></a><span class="tm">13:49:56</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, that would be great! but anyway, I think it is a good approach
+<a name="l-129"></a><span class="tm">13:50:09</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-130"></a><span class="tm">13:50:10</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, are you be responsible to make those changes? may I add a task for it?
+<a name="l-131"></a><span class="tm">13:50:29</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-132"></a><span class="tm">13:51:27</span><span class="nk"> &lt;alinefm&gt;</span> moving on to help problem pointed by rotru
+<a name="l-133"></a><span class="tm">13:52:27</span><span class="nk"> &lt;alinefm&gt;</span> 1) I don't like it. Each plugin should have its own dir structure
+<a name="l-134"></a><span class="tm">13:52:59</span><span class="nk"> &lt;alinefm&gt;</span> 2) For this option, we need to make it configurable IMO. One plugin may not have a help page
+<a name="l-135"></a><span class="tm">13:53:04</span><span class="nk"> &lt;alinefm&gt;</span> how handle this case?
+<a name="l-136"></a><span class="tm">13:53:20</span><span class="nk"> &lt;alinefm&gt;</span> or we will force each plugin to have a help page (which I don't like) ?
+<a name="l-137"></a><span class="tm">13:54:09</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  Its possible to not force
+<a name="l-138"></a><span class="tm">13:54:10</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, vianac ^
+<a name="l-139"></a><span class="tm">13:54:46</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  in this case, kimchi would fails with "URL not found" .. .then move to guest tab ( this is what happens today )
+<a name="l-140"></a><span class="tm">13:55:41</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  or, we can create a default kimchi html, saying that help is not available for that plugin/tab
+<a name="l-141"></a><span class="tm">13:55:49</span><span class="nk"> &lt;alinefm&gt;</span> ouch!
+<a name="l-142"></a><span class="tm">13:56:07</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yeap! this is what I'd say
+<a name="l-143"></a><span class="tm">13:56:08</span><span class="nk"> &lt;YuXin&gt;</span> in UI, whether each plugin tab has a ? to lauch its help content, or plugin help content is merged to kimchi help and all lauched with that ? of kimchi?
+<a name="l-144"></a><span class="tm">13:56:46</span><span class="nk"> &lt;alinefm&gt;</span> each plugin has its own help
+<a name="l-145"></a><span class="tm">13:56:54</span><span class="nk"> &lt;alinefm&gt;</span> it is a separated html file
+<a name="l-146"></a><span class="tm">13:57:13</span><span class="nk"> &lt;alinefm&gt;</span> sorry, each tab has its own help (as a plugin can have multiple tabs)
+<a name="l-147"></a><span class="tm">13:57:28</span><span class="nk"> &lt;YuXin&gt;</span> then there will be a ? along with each plugin tab?
+<a name="l-148"></a><span class="tm">13:57:37</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-149"></a><span class="tm">13:57:45</span><span class="nk"> &lt;alinefm&gt;</span> it is part of the framework
+<a name="l-150"></a><span class="tm">13:58:07</span><span class="nk"> &lt;alinefm&gt;</span> as the ? appears under the logged user menu
+<a name="l-151"></a><span class="tm">13:58:34</span><span class="nk"> &lt;alinefm&gt;</span> rotru, but cherrypy starts up without errors, even point to it a non-existent dir?
+<a name="l-152"></a><span class="tm">13:58:37</span><span class="nk"> &lt;YuXin&gt;</span> plugin has a xml configuration file, add an entry in that xml file for each tab with the help.html
+<a name="l-153"></a><span class="tm">13:59:11</span><span class="nk"> &lt;YuXin&gt;</span> then we click the ? in each tab to lauch the tab help can get it to work?
+<a name="l-154"></a><span class="tm">13:59:17</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, oh! that will solve all problems =)
+<a name="l-155"></a><span class="tm">13:59:18</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ^
+<a name="l-156"></a><span class="tm">13:59:22</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I see some cherrypy errors in the console, but did not pay attention at this moment ...
+<a name="l-157"></a><span class="tm">13:59:53</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, and if the tab does not have a help page setup on tabs.xml we remove the ? option from the menu?
+<a name="l-158"></a><span class="tm">14:00:03</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-159"></a><span class="tm">14:00:03</span><span class="nk"> &lt;rotru&gt;</span> YuXin; I can check this option
+<a name="l-160"></a><span class="tm">14:00:41</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span> do you mean put the help.html path  in xml configure file? if no help.html path , then a default help.html?
+<a name="l-161"></a><span class="tm">14:01:14</span><span class="nk"> &lt;YuXin&gt;</span> without help.html, does not show the ? on UI, so user can not launch it
+<a name="l-162"></a><span class="tm">14:02:18</span><span class="nk"> &lt;YuXin&gt;</span> I worry about the UI design, how to make it looks good and from user's perspective, plugin and kinchi base are integrated well
+<a name="l-163"></a><span class="tm">14:02:24</span><span class="nk"> &lt;rotru&gt;</span> YuXin; we cannot add the full help.html path in the xml, because the path is defined on the fly
+<a name="l-164"></a><span class="tm">14:03:02</span><span class="nk"> &lt;alinefm&gt;</span> rotru, in the xml you defined the API to access the file
+<a name="l-165"></a><span class="tm">14:03:06</span><span class="nk"> &lt;rotru&gt;</span> YuXin;  oh, nevermind what I said
+<a name="l-166"></a><span class="tm">14:03:06</span><span class="nk"> &lt;alinefm&gt;</span> not the real path on system
+<a name="l-167"></a><span class="tm">14:03:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I see , just open the xml
+<a name="l-168"></a><span class="tm">14:03:25</span><span class="nk"> &lt;shaohef&gt;</span> <span class="hi">YuXin:</span>  can a API for help.html？   GET /tabs/helps ？
+<a name="l-169"></a><span class="tm">14:03:52</span><span class="nk"> &lt;alinefm&gt;</span> shaohef, we already have it
+<a name="l-170"></a><span class="tm">14:03:53</span><span class="nk"> &lt;rotru&gt;</span> shaohef;  plugins does not use 'tabs'
+<a name="l-171"></a><span class="tm">14:03:56</span><span class="nk"> &lt;alinefm&gt;</span> but  the API is /help
+<a name="l-172"></a><span class="tm">14:04:11</span><span class="nk"> &lt;YuXin&gt;</span> shaohe, the tab.xml will pass to client, and just a entry there will get all the configure and UI processing will be straight-forward
+<a name="l-173"></a><span class="tm">14:04:38</span><span class="nk"> &lt;alinefm&gt;</span> I think the main problem is on backend
+<a name="l-174"></a><span class="tm">14:04:53</span><span class="nk"> &lt;alinefm&gt;</span> how to expose or not the plugin help dir?
+<a name="l-175"></a><span class="tm">14:05:03</span><span class="nk"> &lt;YuXin&gt;</span> host     guest    template    storage pool    network   administration(?)   xxxx(?)
+<a name="l-176"></a><span class="tm">14:05:19</span><span class="nk"> &lt;alinefm&gt;</span> the best way to do that would have the plugin config dir has a property for it
+<a name="l-177"></a><span class="tm">14:05:45</span><span class="nk"> &lt;alinefm&gt;</span> rotru, in this case you will need to have a plugin.conf.in and substitute the values on build time
+<a name="l-178"></a><span class="tm">14:06:11</span><span class="nk"> &lt;alinefm&gt;</span> BUT for it works for install and local tests, the plugin must be set as a git sub-module
+<a name="l-179"></a><span class="tm">14:06:25</span><span class="nk"> &lt;alinefm&gt;</span> I mean, a git sub-module on local git repo
+<a name="l-180"></a><span class="tm">14:08:41</span><span class="nk"> &lt;alinefm&gt;</span> http://fpaste.org/125249/14079388/
+<a name="l-181"></a><span class="tm">14:09:05</span><span class="nk"> &lt;alinefm&gt;</span> we already pass all the plugin config to cherrypy
+<a name="l-182"></a><span class="tm">14:10:17</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  there is not guarantee that /foo/bar/ path will be always used
+<a name="l-183"></a><span class="tm">14:10:58</span><span class="nk"> &lt;alinefm&gt;</span> I know, because that you need to build it on build time using autoconf
+<a name="l-184"></a><span class="tm">14:11:02</span><span class="nk"> &lt;alinefm&gt;</span> like we did on kimchi
+<a name="l-185"></a><span class="tm">14:11:16</span><span class="nk"> &lt;alinefm&gt;</span> @datadir@/ui/help
+<a name="l-186"></a><span class="tm">14:11:27</span><span class="nk"> &lt;alinefm&gt;</span> and substitute it for the real path on build time
+<a name="l-187"></a><span class="tm">14:13:20</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I see
+<a name="l-188"></a><span class="tm">14:13:27</span><span class="nk"> &lt;rotru&gt;</span> This is an option too
+<a name="l-189"></a><span class="tm">14:13:59</span><span class="nk"> &lt;alinefm&gt;</span> is there any special reason to you don't use git sub-module on local setup?
+<a name="l-190"></a><span class="tm">14:14:41</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I am not sure about this
+<a name="l-191"></a><span class="tm">14:17:18</span><span class="nk"> &lt;alinefm&gt;</span> rotru, could you do a test on it?
+<a name="l-192"></a><span class="tm">14:17:30</span><span class="nk"> &lt;rotru&gt;</span> alinefm; sure
+<a name="l-193"></a><span class="tm">14:17:47</span><span class="nk"> &lt;alinefm&gt;</span> I mean, generate your help dir config on build time + git sub-module and see it if works for local setup?
+<a name="l-194"></a><span class="tm">14:18:01</span><span class="nk"> &lt;alinefm&gt;</span> and the test the installation too, of course
+<a name="l-195"></a><span class="tm">14:18:27</span><span class="nk"> &lt;alinefm&gt;</span> *and then
+<a name="l-196"></a><span class="tm">14:19:04</span><span class="nk"> &lt;rotru&gt;</span> alinefm; ok
+<a name="l-197"></a><span class="tm">14:19:34</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and let me know if you have any special reason to don't use git sub-module
+<a name="l-198"></a><span class="tm">14:20:12</span><span class="nk"> &lt;rotru&gt;</span> zhshzhou;  ^?  any idea ?
+<a name="l-199"></a><span class="tm">14:22:33</span><span class="nk"> &lt;alinefm&gt;</span> seems we have a good plan
+<a name="l-200"></a><span class="tm">14:22:46</span><span class="nk"> &lt;alinefm&gt;</span> we are over time team
+<a name="l-201"></a><span class="tm">14:23:00</span><span class="nk"> &lt;alinefm&gt;</span> feel free to send to ML any other topic you want to discuss
+<a name="l-202"></a><span class="tm">14:23:35</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and for the great discussions too
+<a name="l-203"></a><span class="tm">14:23:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
