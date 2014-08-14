@@ -107,6 +107,8 @@ kimchi.guest_edit_main = function() {
                 confirm : i18n['KCHAPI6002M'],
                 cancel : i18n['KCHAPI6003M']
             };
+            if ($(this).data('type') == "disk")
+                settings['content'] = i18n['KCHVMCD6009M'];
 
             var dev = $(this).data('dev');
             kimchi.confirm(settings, function() {
