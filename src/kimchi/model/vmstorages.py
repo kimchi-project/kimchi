@@ -38,6 +38,7 @@ from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
 from kimchi.vmdisks import DEV_TYPE_SRC_ATTR_MAP
 
 HOTPLUG_TYPE = ['scsi', 'virtio']
+PREFIX_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 
 
 def _get_device_bus(dev_type, dom):
@@ -140,17 +141,8 @@ class VMStoragesModel(object):
 
     def create(self, vm_name, params):
         dom = VMModel.get_vm(vm_name, self.conn)
-        # Use device name passed or pick next
-        dev_name = params.get('dev', None)
-        if dev_name is None:
-            params['dev'] = self._get_storage_device_name(vm_name)
-        else:
-            devices = self.get_list(vm_name)
-            if dev_name in devices:
-                raise OperationFailed(
-                    'KCHVMSTOR0004E',
-                    {'dev_name': dev_name, 'vm_name': vm_name})
-
+        params['bus'] = _get_device_bus(params['type'], dom)
+        self._get_storage_device_name(vm_name, params)
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         params['format'] = 'raw'
@@ -171,7 +163,6 @@ class VMStoragesModel(object):
             params['format'] = vol_info['format']
             params['path'] = vol_info['path']
         params['src_type'] = _check_path(params['path'])
-        params['bus'] = _get_device_bus(params['type'], dom)
         if (params['bus'] not in HOTPLUG_TYPE
                 and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
@@ -187,16 +178,27 @@ class VMStoragesModel(object):
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
         return params['dev']
 
-    def _get_storage_device_name(self, vm_name):
-        dev_list = [dev for dev in self.get_list(vm_name)
-                    if dev.startswith('hd')]
-        if len(dev_list) == 0:
-            return 'hda'
-        dev_list.sort()
-        last_dev = dev_list.pop()
-        # TODO: Improve to device names "greater then" hdz
-        next_dev_letter_pos = string.ascii_lowercase.index(last_dev[2]) + 1
-        return 'hd' + string.ascii_lowercase[next_dev_letter_pos]
+    def _get_storage_device_name(self, vm_name, params):
+        if params.get('dev') is None:
+            bus_prefix = PREFIX_MAP[params['bus']]
+            dev_list = [dev for dev in self.get_list(vm_name)
+                        if dev.startswith(bus_prefix)]
+            if len(dev_list) == 0:
+                params['dev'] = bus_prefix + 'a'
+            else:
+                dev_list.sort()
+                last_dev = dev_list.pop()
+                # TODO: Improve to device names "greater then" hdz
+                next_dev_letter_pos =\
+                    string.ascii_lowercase.index(last_dev[2]) + 1
+                params['dev'] =\
+                    bus_prefix + string.ascii_lowercase[next_dev_letter_pos]
+
+        devices = self.get_list(vm_name)
+        if params['dev'] in devices:
+            raise OperationFailed(
+                'KCHVMSTOR0004E',
+                {'dev_name': params['dev'], 'vm_name': vm_name})
 
     def get_list(self, vm_name):
         dom = VMModel.get_vm(vm_name, self.conn)
