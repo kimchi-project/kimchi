@@ -26,6 +26,10 @@
 # Running environment of the server
 #environment = production
 
+# Federation feature: register Kimchi server on openSLP and discover peers
+# at the same network
+#federation = off
+
 [logging]
 # Log directory
 #log_dir = @localstatedir@/log/kimchi

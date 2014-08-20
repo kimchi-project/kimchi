@@ -46,6 +46,7 @@ def main(options):
     ssl_port = config.config.get("server", "ssl_port")
     cherrypy_port = config.config.get("server", "cherrypy_port")
     runningEnv = config.config.get("server", "environment")
+    federation = config.config.get("server", "federation")
     logDir = config.config.get("logging", "log_dir")
     logLevel = config.config.get("logging", "log_level")
 
@@ -68,6 +69,9 @@ def main(options):
                       help="Error log file")
     parser.add_option('--environment', default=runningEnv,
                       help="Running environment of kimchi server")
+    parser.add_option('--federation', default=federation,
+                      help="Register and discover Kimchi peers at the same "
+                           "network using openSLP")
     parser.add_option('--test', action='store_true',
                       help="Run server in mock model")
     (options, args) = parser.parse_args()

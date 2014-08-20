@@ -254,6 +254,7 @@ def _get_config():
     config.set("server", "ssl_cert", "")
     config.set("server", "ssl_key", "")
     config.set("server", "environment", "production")
+    config.set("server", "federation", "off")
     config.add_section("logging")
     config.set("logging", "log_dir", paths.log_dir)
     config.set("logging", "log_level", DEFAULT_LOG_LEVEL)
