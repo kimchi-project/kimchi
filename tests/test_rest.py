@@ -1540,6 +1540,10 @@ class RestTests(unittest.TestCase):
         self.assertIn('update_tool', conf)
         self.assertIn('repo_mngt_tool', conf)
 
+    def test_peers(self):
+        resp = self.request('/peers').read()
+        self.assertEquals([], json.loads(resp))
+
     def test_auth_unprotected(self):
         hdrs = {'AUTHORIZATION': ''}
         uris = ['/js/kimchi.min.js',

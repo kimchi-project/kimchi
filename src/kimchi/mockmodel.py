@@ -890,6 +890,12 @@ class MockModel(object):
     def groups_get_list(self):
         return ["groupA", "groupB", "groupC", "groupD"]
 
+    def peers_get_list(self):
+        if kconfig.get("server", "federation") == "off":
+            return []
+
+        return ["https://serverA:8001", "https://serverB:8001"]
+
     def vms_get_list_by_state(self, state):
         ret_list = []
         for name in self.vms_get_list():
