@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:31</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 20 13:02:31 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:31</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:31</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:49</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:41</span><span class="nk"> &lt;alinefm&gt;</span> ok.. so let's get started
+<a name="l-9"></a><span class="tm">13:04:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:55</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">&lt;YuXin&gt; 1) Sent UI mockup for iSCSI targets and Kimchi peers 2) Working on iSCSI targets</span>
+<a name="l-12"></a><span class="tm">13:05:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent an overview about all sprint 2 tasks</span>
+<a name="l-13"></a><span class="tm">13:05:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent a RFC patch for discover kimchi peers features</span>
+<a name="l-14"></a><span class="tm">13:05:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working in finish the patch set to send them to review</span>
+<a name="l-15"></a><span class="tm">13:05:50</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Sent mockup of Authorization: Allow admin user change permission settings when VM is running</span>
+<a name="l-16"></a><span class="tm">13:06:04</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce sent patch about refactor vmstorage name generation to resolve remaining vmstorage bugs</span>
+<a name="l-17"></a><span class="tm">13:06:13</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Sent RFC for Asynchronous event notify</span>
+<a name="l-18"></a><span class="tm">13:06:36</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent RFC for download remote ISO feature and started working on that feature; reviewed patches on the mailing list</span>
+<a name="l-19"></a><span class="tm">13:06:47</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that add indicator when creating a network</span>
+<a name="l-20"></a><span class="tm">13:07:15</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce investigated cherrypy large file upload UI and backend, also sent RFC  about this one, also prepared slides for Linux Con with Zhengsheng</span>
+<a name="l-21"></a><span class="tm">13:07:36</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang Sent patch that fix bug of popup messages when log out</span>
+<a name="l-22"></a><span class="tm">13:09:12</span><span class="nk"> &lt;alinefm&gt;</span> that's great, team!
+<a name="l-23"></a><span class="tm">13:09:16</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce tested merged patches on Power to make sure power bugs about vmstorage are fixed</span>
+<a name="l-24"></a><span class="tm">13:10:01</span><span class="nk"> &lt;alinefm&gt;</span> I want to thank everyone for sending the RFC on time
+<a name="l-25"></a><span class="tm">13:10:13</span><span class="nk"> &lt;alinefm&gt;</span> it helps us a lot during the devel process
+<a name="l-26"></a><span class="tm">13:10:22</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted 5 patches to support power (ppc) as one more default arch</span>
+<a name="l-27"></a><span class="tm">13:10:52</span><span class="nk"> &lt;royce&gt;</span> its good for us to have a schedule and make sure  items working according to plan
+<a name="l-28"></a><span class="tm">13:11:15</span><span class="nk"> &lt;YuXin&gt;</span> aline, thanks for the summary of sprint2 features, that is quite helpful for UI team to uderstand the feature
+<a name="l-29"></a><span class="tm">13:11:29</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap
+<a name="l-30"></a><span class="tm">13:11:40</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I hope I can continue doing that in the next sprints =)
+<a name="l-31"></a><span class="tm">13:11:49</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-32"></a><span class="tm">13:12:05</span><span class="nk"> &lt;wenwang&gt;</span> Greate job alinefm
+<a name="l-33"></a><span class="tm">13:12:23</span><span class="nk"> &lt;alinefm&gt;</span> so now it is time for the patches! I thought in one patch set per person by the end of this week
+<a name="l-34"></a><span class="tm">13:12:33</span><span class="nk"> &lt;alinefm&gt;</span> sounds reasonable?
+<a name="l-35"></a><span class="tm">13:12:57</span><span class="nk"> &lt;alinefm&gt;</span> it means if one person has 2 features in this sprint, he/she just needs to send a patch set for one for these features
+<a name="l-36"></a><span class="tm">13:13:06</span><span class="nk"> &lt;alinefm&gt;</span> so we can start working on review/merge
+<a name="l-37"></a><span class="tm">13:13:10</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-38"></a><span class="tm">13:14:47</span><span class="nk"> &lt;royce&gt;</span> I can try to make it before Monday, but I'm not sure other tasks such as async event can catch up the schedule as zhengsheng is on vacation:)
+<a name="l-39"></a><span class="tm">13:15:28</span><span class="nk"> &lt;YuXin&gt;</span> I will try to get iSCSI targets out within this week
+<a name="l-40"></a><span class="tm">13:16:28</span><span class="nk"> &lt;alinefm&gt;</span> royce, well remembered! but it is a special case IMO
+<a name="l-41"></a><span class="tm">13:16:45</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, vianac, does that work for you?
+<a name="l-42"></a><span class="tm">13:17:25</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok, I'll send at least an initial version by EOW
+<a name="l-43"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> vianac, but it needs to be functional, ok?
+<a name="l-44"></a><span class="tm">13:18:21</span><span class="nk"> &lt;wenwang&gt;</span> I think I can have one patch finished before the end of this week: Authorization: Allow admin user change permission settings when VM is running
+<a name="l-45"></a><span class="tm">13:18:26</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok
+<a name="l-46"></a><span class="tm">13:18:36</span><span class="nk"> &lt;alinefm&gt;</span> vianac, wenwang, great!
+<a name="l-47"></a><span class="tm">13:18:54</span><span class="nk"> &lt;alinefm&gt;</span> shall we move on to open discussion section?
+<a name="l-48"></a><span class="tm">13:18:57</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I think the async work might be arranged after that.
+<a name="l-49"></a><span class="tm">13:19:18</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-50"></a><span class="tm">13:19:44</span><span class="nk"> &lt;royce&gt;</span> alinefm, we can just do download function, without the progress, I think that'll be easier to achieve in this week
+<a name="l-51"></a><span class="tm">13:20:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-52"></a><span class="tm">13:20:17</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - I also want to talk about download/upload
+<a name="l-53"></a><span class="tm">13:20:28</span><span class="nk"> &lt;royce&gt;</span> From me: about the upload api
+<a name="l-54"></a><span class="tm">13:21:22</span><span class="nk"> &lt;royce&gt;</span> If we adopt /storagepools/pool-name/upload --&gt;return value is storage pool rather then a task id tracking download
+<a name="l-55"></a><span class="tm">13:22:11</span><span class="nk"> &lt;royce&gt;</span> If we adopt POST /storagepools/pool/storagevolumes --&gt;for upload we will have param which is not json
+<a name="l-56"></a><span class="tm">13:23:09</span><span class="nk"> &lt;royce&gt;</span> because upload accept param which is a file handler from the input form &lt;input type=file&gt;
+<a name="l-57"></a><span class="tm">13:23:58</span><span class="nk"> &lt;alinefm&gt;</span> what is not json?
+<a name="l-58"></a><span class="tm">13:23:59</span><span class="nk"> &lt;YuXin&gt;</span> /storagepools/&lt;pool-name&gt;/storagevolumes is reasonable to me as it is just a way to create a volume by upload a file
+<a name="l-59"></a><span class="tm">13:24:22</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, upload or download
+<a name="l-60"></a><span class="tm">13:24:31</span><span class="nk"> &lt;YuXin&gt;</span> upload
+<a name="l-61"></a><span class="tm">13:25:30</span><span class="nk"> &lt;royce&gt;</span> the input file
+<a name="l-62"></a><span class="tm">13:25:33</span><span class="nk"> &lt;alinefm&gt;</span> I think POST /storagepools/&lt;pool-name&gt;/storagevolumes can work well in both scenarios (upload and download)
+<a name="l-63"></a><span class="tm">13:25:51</span><span class="nk"> &lt;alinefm&gt;</span> and we pass a JSON {file: ....}
+<a name="l-64"></a><span class="tm">13:26:14</span><span class="nk"> &lt;royce&gt;</span> aline, we cannot specify a {'file': 'the path of file'}
+<a name="l-65"></a><span class="tm">13:26:56</span><span class="nk"> &lt;royce&gt;</span> the file is bytes stream and we get it from input form
+<a name="l-66"></a><span class="tm">13:27:07</span><span class="nk"> &lt;YuXin&gt;</span> royce, we willl use an ajax request to hanlde upload, right?
+<a name="l-67"></a><span class="tm">13:27:42</span><span class="nk"> &lt;royce&gt;</span> YuXin, hongliang and I took a look, ajax form data support in IE10+ and other browsers
+<a name="l-68"></a><span class="tm">13:28:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, hm do you mean the upload will be done through UI?
+<a name="l-69"></a><span class="tm">13:28:11</span><span class="nk"> &lt;royce&gt;</span> means IE10- does not support it
+<a name="l-70"></a><span class="tm">13:28:14</span><span class="nk"> &lt;alinefm&gt;</span> by ajax requests
+<a name="l-71"></a><span class="tm">13:28:55</span><span class="nk"> &lt;royce&gt;</span> I'm thinking about API definition, the schema check...
+<a name="l-72"></a><span class="tm">13:29:11</span><span class="nk"> &lt;royce&gt;</span> and ajax requests
+<a name="l-73"></a><span class="tm">13:29:28</span><span class="nk"> &lt;alinefm&gt;</span> that way won't I be able to use curl to do upload?
+<a name="l-74"></a><span class="tm">13:30:23</span><span class="nk"> &lt;royce&gt;</span> haven't tried curl yet, I can take a look at this tomorrow
+<a name="l-75"></a><span class="tm">13:31:07</span><span class="nk"> &lt;YuXin&gt;</span> aline, brower can support upload, why not make it a feature of kimchi
+<a name="l-76"></a><span class="tm">13:31:49</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, we can't provide a feature linked on UI
+<a name="l-77"></a><span class="tm">13:31:55</span><span class="nk"> &lt;alinefm&gt;</span> the API must work by itself
+<a name="l-78"></a><span class="tm">13:32:07</span><span class="nk"> &lt;alinefm&gt;</span> and the UI uses it for its matters
+<a name="l-79"></a><span class="tm">13:32:59</span><span class="nk"> &lt;royce&gt;</span> YuXin, do you know there is alternative for ajax form data on IE?
+<a name="l-80"></a><span class="tm">13:33:33</span><span class="nk"> &lt;YuXin&gt;</span> aline, since technically it works, do you mean we are blocked due failed to get a reasonable API design?
+<a name="l-81"></a><span class="tm">13:34:17</span><span class="nk"> &lt;royce&gt;</span> alinefm, what do you think I need to write in API def/schema, or I ignore this part?
+<a name="l-82"></a><span class="tm">13:35:19</span><span class="nk"> &lt;alinefm&gt;</span> my point is: all Kimchi features are accessible using only the API or from UI, right?
+<a name="l-83"></a><span class="tm">13:35:30</span><span class="nk"> &lt;alinefm&gt;</span> the UI only uses the API to properly display the data
+<a name="l-84"></a><span class="tm">13:35:40</span><span class="nk"> &lt;alinefm&gt;</span> we need to continue doing that
+<a name="l-85"></a><span class="tm">13:36:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> if we agree with the API /storagepools/&lt;pool-name&gt;/storagevolumes
+<a name="l-86"></a><span class="tm">13:36:35</span><span class="nk"> &lt;alinefm&gt;</span> it needs to work alone and with UI
+<a name="l-87"></a><span class="tm">13:36:40</span><span class="nk"> &lt;alinefm&gt;</span> does that make sense?
+<a name="l-88"></a><span class="tm">13:37:30</span><span class="nk"> &lt;YuXin&gt;</span> so you are worrying about using it with API?
+<a name="l-89"></a><span class="tm">13:37:49</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-90"></a><span class="tm">13:37:56</span><span class="nk"> &lt;YuXin&gt;</span> user has no way to create a volume by uploading a file through API
+<a name="l-91"></a><span class="tm">13:38:49</span><span class="nk"> &lt;YuXin&gt;</span> I belive file upload is supported in http specification, Royce, have you investigated that?
+<a name="l-92"></a><span class="tm">13:39:04</span><span class="nk"> &lt;royce&gt;</span> I think without UI this API can work, only thing is its param is not json string
+<a name="l-93"></a><span class="tm">13:39:25</span><span class="nk"> &lt;royce&gt;</span> YuXin, of course, you create a form and its input type is file
+<a name="l-94"></a><span class="tm">13:39:59</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's do it simple by now
+<a name="l-95"></a><span class="tm">13:40:00</span><span class="nk"> &lt;YuXin&gt;</span> if it is part of http, other http client should be also can upload file
+<a name="l-96"></a><span class="tm">13:40:08</span><span class="nk"> &lt;alinefm&gt;</span> I mean, using the UI to do the upload
+<a name="l-97"></a><span class="tm">13:40:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, but we need a specific API for it
+<a name="l-98"></a><span class="tm">13:40:37</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-99"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> POST /storagepools/&lt;pool-name&gt;/storagevolumes is used to create a volume using JSON
+<a name="l-100"></a><span class="tm">13:41:07</span><span class="nk"> &lt;alinefm&gt;</span> it can work for download too
+<a name="l-101"></a><span class="tm">13:41:10</span><span class="nk"> &lt;alinefm&gt;</span> vianac, ^
+<a name="l-102"></a><span class="tm">13:41:47</span><span class="nk"> &lt;alinefm&gt;</span> royce, maybe use your suggestion POST /storagepools/&lt;pool-name&gt;/upload
+<a name="l-103"></a><span class="tm">13:41:49</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-104"></a><span class="tm">13:42:43</span><span class="nk"> &lt;royce&gt;</span> alinefm, I need to try if a param which is a file handler can be handled by the controller properly of the storagevolumes collection
+<a name="l-105"></a><span class="tm">13:43:22</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-106"></a><span class="tm">13:43:28</span><span class="nk"> &lt;royce&gt;</span> if it works, I will use same with vianac
+<a name="l-107"></a><span class="tm">13:43:28</span><span class="nk"> &lt;alinefm&gt;</span> other solution would be... ?
+<a name="l-108"></a><span class="tm">13:44:01</span><span class="nk"> &lt;royce&gt;</span> If not... I would change the return value of storage pool action:(
+<a name="l-109"></a><span class="tm">13:44:15</span><span class="nk"> &lt;royce&gt;</span> to return task id
+<a name="l-110"></a><span class="tm">13:44:39</span><span class="nk"> &lt;royce&gt;</span> which seems little wired
+<a name="l-111"></a><span class="tm">13:45:12</span><span class="nk"> &lt;alinefm&gt;</span> so:
+<a name="l-112"></a><span class="tm">13:45:20</span><span class="nk"> &lt;alinefm&gt;</span> 1) try POST /storagepools/&lt;pool-name&gt;/storagevolumes with a file handler
+<a name="l-113"></a><span class="tm">13:45:25</span><span class="nk"> &lt;alinefm&gt;</span> if it does not work:
+<a name="l-114"></a><span class="tm">13:45:31</span><span class="nk"> &lt;alinefm&gt;</span> 2) POST /storagepools/&lt;pool-name&gt;/upload
+<a name="l-115"></a><span class="tm">13:45:36</span><span class="nk"> &lt;alinefm&gt;</span> royce, ^is that?
+<a name="l-116"></a><span class="tm">13:45:36</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-117"></a><span class="tm">13:45:53</span><span class="nk"> &lt;YuXin&gt;</span> if we pursure user experience, then we will use ajax, but only support ie10+, if pursue brower support completeness, we need to use brower built-in upload support
+<a name="l-118"></a><span class="tm">13:46:35</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, usually we support current browser version - 1
+<a name="l-119"></a><span class="tm">13:46:42</span><span class="nk"> &lt;alinefm&gt;</span> which means IE10 and IE11
+<a name="l-120"></a><span class="tm">13:46:48</span><span class="nk"> &lt;YuXin&gt;</span> good
+<a name="l-121"></a><span class="tm">13:47:01</span><span class="nk"> &lt;royce&gt;</span> hongliang said there maybe alternative but complex, is there ? YuXin
+<a name="l-122"></a><span class="tm">13:47:01</span><span class="nk"> &lt;YuXin&gt;</span> royce, so no browser support issue
+<a name="l-123"></a><span class="tm">13:47:09</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, is it supported on chorme and ff and mobile browsers?
+<a name="l-124"></a><span class="tm">13:47:24</span><span class="nk"> &lt;YuXin&gt;</span> no problem except IE
+<a name="l-125"></a><span class="tm">13:47:33</span><span class="nk"> &lt;royce&gt;</span> chrome and ff, tried, passed
+<a name="l-126"></a><span class="tm">13:47:56</span><span class="nk"> &lt;YuXin&gt;</span> royce, since IE10 and IE11 works, let us use ajax and take the most simplified approach
+<a name="l-127"></a><span class="tm">13:49:21</span><span class="nk"> &lt;YuXin&gt;</span> any more issues about upload/download? royce, I will further disscuss with you about details tomorrow
+<a name="l-128"></a><span class="tm">13:49:23</span><span class="nk"> &lt;alinefm&gt;</span> it is ok for me
+<a name="l-129"></a><span class="tm">13:49:40</span><span class="nk"> &lt;alinefm&gt;</span> don't forget to give a try on mobile - just to confirm it works
+<a name="l-130"></a><span class="tm">13:49:51</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-131"></a><span class="tm">13:50:03</span><span class="nk"> &lt;royce&gt;</span> good for me now
+<a name="l-132"></a><span class="tm">13:50:12</span><span class="nk"> &lt;YuXin&gt;</span> aline, for iSCSI targets, I see an API to get all iSCSI servers, I want to confirm whether we also update the iscsi sever section to be a dropdown list?
+<a name="l-133"></a><span class="tm">13:50:13</span><span class="nk"> &lt;alinefm&gt;</span> and royce, once you get a position about your tests let us know on ML
+<a name="l-134"></a><span class="tm">13:50:30</span><span class="nk"> &lt;royce&gt;</span> sure, alinefm, about the progress tracking
+<a name="l-135"></a><span class="tm">13:51:08</span><span class="nk"> &lt;alinefm&gt;</span> royce, we can posptone it as we need to update the Task resource to accommodate that
+<a name="l-136"></a><span class="tm">13:51:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, agree ^?
+<a name="l-137"></a><span class="tm">13:51:18</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-138"></a><span class="tm">13:51:34</span><span class="nk"> &lt;royce&gt;</span> do we still use task or do we wait for async event?
+<a name="l-139"></a><span class="tm">13:51:58</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">royce:</span> I recommend you not wait
+<a name="l-140"></a><span class="tm">13:52:07</span><span class="nk"> &lt;alinefm&gt;</span> I'd say to use task by now
+<a name="l-141"></a><span class="tm">13:52:20</span><span class="nk"> &lt;royce&gt;</span> :)
+<a name="l-142"></a><span class="tm">13:52:20</span><span class="nk"> &lt;alinefm&gt;</span> and when we have async event working we make the changes to use it
+<a name="l-143"></a><span class="tm">13:52:28</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, GET /storageservers?_target_type=iscsi
+<a name="l-144"></a><span class="tm">13:52:33</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-145"></a><span class="tm">13:52:38</span><span class="nk"> &lt;alinefm&gt;</span> this ^should return the list of servers/ports
+<a name="l-146"></a><span class="tm">13:52:43</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-147"></a><span class="tm">13:52:59</span><span class="nk"> &lt;YuXin&gt;</span> now, in UI, the server and port is input box
+<a name="l-148"></a><span class="tm">13:53:23</span><span class="nk"> &lt;YuXin&gt;</span> just want to discuss to make the server also a dropdown list for selection
+<a name="l-149"></a><span class="tm">13:53:43</span><span class="nk"> &lt;alinefm&gt;</span> it would be good
+<a name="l-150"></a><span class="tm">13:53:51</span><span class="nk"> &lt;alinefm&gt;</span> I think we do it for nfs, dont we?
+<a name="l-151"></a><span class="tm">13:54:11</span><span class="nk"> &lt;alinefm&gt;</span> the user starts typing the server and if one is found a drop down is displayed
+<a name="l-152"></a><span class="tm">13:54:35</span><span class="nk"> &lt;YuXin&gt;</span> yes, a filter select, I am trying to make it today
+<a name="l-153"></a><span class="tm">13:54:59</span><span class="nk"> &lt;YuXin&gt;</span> for nfs, we can do the same, but a separate patch
+<a name="l-154"></a><span class="tm">13:55:08</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-155"></a><span class="tm">13:55:21</span><span class="nk"> &lt;royce&gt;</span> nfs already ready for this
+<a name="l-156"></a><span class="tm">13:55:23</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I liked your mock for iscsi with the loading icon =)
+<a name="l-157"></a><span class="tm">13:56:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else? we still have 4 minutes
+<a name="l-158"></a><span class="tm">13:56:42</span><span class="nk"> &lt;YuXin&gt;</span> I have been thinking to omit the icon but just show "loading targets..." there to get rid of complexity, but since it is desired, I will try to add it
+<a name="l-159"></a><span class="tm">13:59:22</span><span class="nk"> &lt;alinefm&gt;</span> with the icon it seems more beautiful ("beautiful" isn't the right word but..) but feel free to only display the text if you get blocked on it
+<a name="l-160"></a><span class="tm">13:59:50</span><span class="nk"> &lt;YuXin&gt;</span> no problem
+<a name="l-161"></a><span class="tm">14:00:22</span><span class="nk"> &lt;alinefm&gt;</span> is that all?
+<a name="l-162"></a><span class="tm">14:00:49</span><span class="nk"> &lt;YuXin&gt;</span> that is all for me
+<a name="l-163"></a><span class="tm">14:01:15</span><span class="nk"> &lt;royce&gt;</span> all for me
+<a name="l-164"></a><span class="tm">14:01:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">everyone will send one patch set by the end of this week (which means if you have 2 tasks just need to send a patch set for one of them)</span>
+<a name="l-165"></a><span class="tm">14:01:41</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-166"></a><span class="tm">14:02:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

@@ -1,0 +1,166 @@
+13:02:31 <alinefm> #startmeeting
+13:02:31 <kimchi-bot> Meeting started Wed Aug 20 13:02:31 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:31 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:31 <alinefm> #meetingname scrum
+13:02:31 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:49 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:49 <alinefm> anything else?
+13:04:41 <alinefm> ok.. so let's get started
+13:04:51 <alinefm> #topic Status
+13:04:51 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:55 <YuXin> #info <YuXin> 1) Sent UI mockup for iSCSI targets and Kimchi peers 2) Working on iSCSI targets
+13:05:08 <alinefm> #info alinefm sent an overview about all sprint 2 tasks
+13:05:30 <alinefm> #info alinefm sent a RFC patch for discover kimchi peers features
+13:05:49 <alinefm> #info alinefm is now working in finish the patch set to send them to review
+13:05:50 <wenwang> #info wenwang Sent mockup of Authorization: Allow admin user change permission settings when VM is running
+13:06:04 <royce> #info royce sent patch about refactor vmstorage name generation to resolve remaining vmstorage bugs
+13:06:13 <wenwang> #info wenwang Sent RFC for Asynchronous event notify
+13:06:36 <vianac> #info vianac sent RFC for download remote ISO feature and started working on that feature; reviewed patches on the mailing list
+13:06:47 <wenwang> #info wenwang sent patch that add indicator when creating a network
+13:07:15 <royce> #info royce investigated cherrypy large file upload UI and backend, also sent RFC  about this one, also prepared slides for Linux Con with Zhengsheng
+13:07:36 <wenwang> #info wenwang Sent patch that fix bug of popup messages when log out
+13:09:12 <alinefm> that's great, team!
+13:09:16 <royce> #info royce tested merged patches on Power to make sure power bugs about vmstorage are fixed
+13:10:01 <alinefm> I want to thank everyone for sending the RFC on time
+13:10:13 <alinefm> it helps us a lot during the devel process
+13:10:22 <pvital> #info pvital submitted 5 patches to support power (ppc) as one more default arch
+13:10:52 <royce> its good for us to have a schedule and make sure  items working according to plan
+13:11:15 <YuXin> aline, thanks for the summary of sprint2 features, that is quite helpful for UI team to uderstand the feature
+13:11:29 <alinefm> royce, yeap
+13:11:40 <alinefm> YuXin, I hope I can continue doing that in the next sprints =)
+13:11:49 <YuXin> sure
+13:12:05 <wenwang> Greate job alinefm
+13:12:23 <alinefm> so now it is time for the patches! I thought in one patch set per person by the end of this week
+13:12:33 <alinefm> sounds reasonable?
+13:12:57 <alinefm> it means if one person has 2 features in this sprint, he/she just needs to send a patch set for one for these features
+13:13:06 <alinefm> so we can start working on review/merge
+13:13:10 <alinefm> what do you think?
+13:14:47 <royce> I can try to make it before Monday, but I'm not sure other tasks such as async event can catch up the schedule as zhengsheng is on vacation:)
+13:15:28 <YuXin> I will try to get iSCSI targets out within this week
+13:16:28 <alinefm> royce, well remembered! but it is a special case IMO
+13:16:45 <alinefm> wenwang, vianac, does that work for you?
+13:17:25 <vianac> alinefm, ok, I'll send at least an initial version by EOW
+13:18:16 <alinefm> vianac, but it needs to be functional, ok?
+13:18:21 <wenwang> I think I can have one patch finished before the end of this week: Authorization: Allow admin user change permission settings when VM is running
+13:18:26 <vianac> alinefm, ok
+13:18:36 <alinefm> vianac, wenwang, great!
+13:18:54 <alinefm> shall we move on to open discussion section?
+13:18:57 <wenwang> alinefm: I think the async work might be arranged after that.
+13:19:18 <alinefm> ok
+13:19:44 <royce> alinefm, we can just do download function, without the progress, I think that'll be easier to achieve in this week
+13:20:00 <alinefm> #topic Open Discussion
+13:20:17 <alinefm> royce, yes - I also want to talk about download/upload
+13:20:28 <royce> From me: about the upload api
+13:21:22 <royce> If we adopt /storagepools/pool-name/upload -->return value is storage pool rather then a task id tracking download
+13:22:11 <royce> If we adopt POST /storagepools/pool/storagevolumes -->for upload we will have param which is not json
+13:23:09 <royce> because upload accept param which is a file handler from the input form <input type=file>
+13:23:58 <alinefm> what is not json?
+13:23:59 <YuXin> /storagepools/<pool-name>/storagevolumes is reasonable to me as it is just a way to create a volume by upload a file
+13:24:22 <alinefm> YuXin, upload or download
+13:24:31 <YuXin> upload
+13:25:30 <royce> the input file
+13:25:33 <alinefm> I think POST /storagepools/<pool-name>/storagevolumes can work well in both scenarios (upload and download)
+13:25:51 <alinefm> and we pass a JSON {file: ....}
+13:26:14 <royce> aline, we cannot specify a {'file': 'the path of file'}
+13:26:56 <royce> the file is bytes stream and we get it from input form
+13:27:07 <YuXin> royce, we willl use an ajax request to hanlde upload, right?
+13:27:42 <royce> YuXin, hongliang and I took a look, ajax form data support in IE10+ and other browsers
+13:28:07 <alinefm> royce, hm do you mean the upload will be done through UI?
+13:28:11 <royce> means IE10- does not support it
+13:28:14 <alinefm> by ajax requests
+13:28:55 <royce> I'm thinking about API definition, the schema check...
+13:29:11 <royce> and ajax requests
+13:29:28 <alinefm> that way won't I be able to use curl to do upload?
+13:30:23 <royce> haven't tried curl yet, I can take a look at this tomorrow
+13:31:07 <YuXin> aline, brower can support upload, why not make it a feature of kimchi
+13:31:49 <alinefm> YuXin, we can't provide a feature linked on UI
+13:31:55 <alinefm> the API must work by itself
+13:32:07 <alinefm> and the UI uses it for its matters
+13:32:59 <royce> YuXin, do you know there is alternative for ajax form data on IE?
+13:33:33 <YuXin> aline, since technically it works, do you mean we are blocked due failed to get a reasonable API design?
+13:34:17 <royce> alinefm, what do you think I need to write in API def/schema, or I ignore this part?
+13:35:19 <alinefm> my point is: all Kimchi features are accessible using only the API or from UI, right?
+13:35:30 <alinefm> the UI only uses the API to properly display the data
+13:35:40 <alinefm> we need to continue doing that
+13:36:20 <alinefm> example: if we agree with the API /storagepools/<pool-name>/storagevolumes
+13:36:35 <alinefm> it needs to work alone and with UI
+13:36:40 <alinefm> does that make sense?
+13:37:30 <YuXin> so you are worrying about using it with API?
+13:37:49 <alinefm> yes
+13:37:56 <YuXin> user has no way to create a volume by uploading a file through API
+13:38:49 <YuXin> I belive file upload is supported in http specification, Royce, have you investigated that?
+13:39:04 <royce> I think without UI this API can work, only thing is its param is not json string
+13:39:25 <royce> YuXin, of course, you create a form and its input type is file
+13:39:59 <alinefm> ok - let's do it simple by now
+13:40:00 <YuXin> if it is part of http, other http client should be also can upload file
+13:40:08 <alinefm> I mean, using the UI to do the upload
+13:40:30 <alinefm> royce, YuXin, but we need a specific API for it
+13:40:37 <YuXin> sure
+13:40:43 <alinefm> POST /storagepools/<pool-name>/storagevolumes is used to create a volume using JSON
+13:41:07 <alinefm> it can work for download too
+13:41:10 <alinefm> vianac, ^
+13:41:47 <alinefm> royce, maybe use your suggestion POST /storagepools/<pool-name>/upload
+13:41:49 <alinefm> ?
+13:42:43 <royce> alinefm, I need to try if a param which is a file handler can be handled by the controller properly of the storagevolumes collection
+13:43:22 <alinefm> ok
+13:43:28 <royce> if it works, I will use same with vianac
+13:43:28 <alinefm> other solution would be... ?
+13:44:01 <royce> If not... I would change the return value of storage pool action:(
+13:44:15 <royce> to return task id
+13:44:39 <royce> which seems little wired
+13:45:12 <alinefm> so:
+13:45:20 <alinefm> 1) try POST /storagepools/<pool-name>/storagevolumes with a file handler
+13:45:25 <alinefm> if it does not work:
+13:45:31 <alinefm> 2) POST /storagepools/<pool-name>/upload
+13:45:36 <alinefm> royce, ^is that?
+13:45:36 <royce> yes
+13:45:53 <YuXin> if we pursure user experience, then we will use ajax, but only support ie10+, if pursue brower support completeness, we need to use brower built-in upload support
+13:46:35 <alinefm> YuXin, usually we support current browser version - 1
+13:46:42 <alinefm> which means IE10 and IE11
+13:46:48 <YuXin> good
+13:47:01 <royce> hongliang said there maybe alternative but complex, is there ? YuXin
+13:47:01 <YuXin> royce, so no browser support issue
+13:47:09 <alinefm> YuXin, is it supported on chorme and ff and mobile browsers?
+13:47:24 <YuXin> no problem except IE
+13:47:33 <royce> chrome and ff, tried, passed
+13:47:56 <YuXin> royce, since IE10 and IE11 works, let us use ajax and take the most simplified approach
+13:49:21 <YuXin> any more issues about upload/download? royce, I will further disscuss with you about details tomorrow
+13:49:23 <alinefm> it is ok for me
+13:49:40 <alinefm> don't forget to give a try on mobile - just to confirm it works
+13:49:51 <YuXin> ok
+13:50:03 <royce> good for me now
+13:50:12 <YuXin> aline, for iSCSI targets, I see an API to get all iSCSI servers, I want to confirm whether we also update the iscsi sever section to be a dropdown list?
+13:50:13 <alinefm> and royce, once you get a position about your tests let us know on ML
+13:50:30 <royce> sure, alinefm, about the progress tracking
+13:51:08 <alinefm> royce, we can posptone it as we need to update the Task resource to accommodate that
+13:51:12 <alinefm> YuXin, agree ^?
+13:51:18 <YuXin> ok
+13:51:34 <royce> do we still use task or do we wait for async event?
+13:51:58 <wenwang> royce: I recommend you not wait
+13:52:07 <alinefm> I'd say to use task by now
+13:52:20 <royce> :)
+13:52:20 <alinefm> and when we have async event working we make the changes to use it
+13:52:28 <alinefm> YuXin, GET /storageservers?_target_type=iscsi
+13:52:33 <YuXin> yes
+13:52:38 <alinefm> this ^should return the list of servers/ports
+13:52:43 <YuXin> yes
+13:52:59 <YuXin> now, in UI, the server and port is input box
+13:53:23 <YuXin> just want to discuss to make the server also a dropdown list for selection
+13:53:43 <alinefm> it would be good
+13:53:51 <alinefm> I think we do it for nfs, dont we?
+13:54:11 <alinefm> the user starts typing the server and if one is found a drop down is displayed
+13:54:35 <YuXin> yes, a filter select, I am trying to make it today
+13:54:59 <YuXin> for nfs, we can do the same, but a separate patch
+13:55:08 <alinefm> agree
+13:55:21 <royce> nfs already ready for this
+13:55:23 <alinefm> YuXin, I liked your mock for iscsi with the loading icon =)
+13:56:18 <alinefm> anything else? we still have 4 minutes
+13:56:42 <YuXin> I have been thinking to omit the icon but just show "loading targets..." there to get rid of complexity, but since it is desired, I will try to add it
+13:59:22 <alinefm> with the icon it seems more beautiful ("beautiful" isn't the right word but..) but feel free to only display the text if you get blocked on it
+13:59:50 <YuXin> no problem
+14:00:22 <alinefm> is that all?
+14:00:49 <YuXin> that is all for me
+14:01:15 <royce> all for me
+14:01:34 <alinefm> #action everyone will send one patch set by the end of this week (which means if you have 2 tasks just need to send a patch set for one of them)
+14:01:41 <alinefm> thanks everyone for joining!
+14:02:02 <alinefm> #endmeeting
