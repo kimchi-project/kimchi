@@ -40,8 +40,7 @@ class ConfigModel(object):
 
     def lookup(self, name):
         proxy_port = kconfig.get('display', 'display_proxy_port')
-        return {'http_port': cherrypy.config.nginx_port,
-                'display_proxy_port': proxy_port,
+        return {'display_proxy_port': proxy_port,
                 'version': get_version()}
 
 

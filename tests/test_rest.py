@@ -1526,7 +1526,8 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/config').read()
         conf = json.loads(resp)
-        self.assertEquals(port, conf['http_port'])
+        keys = ["display_proxy_port", "version"]
+        self.assertEquals(keys, sorted(conf.keys()))
 
     def test_capabilities(self):
         resp = self.request('/config/capabilities').read()
