@@ -26,12 +26,11 @@ sys.path.insert(1, '@pythondir@')
 from optparse import OptionParser
 
 import kimchi.server
-import kimchi.config
+import kimchi.config as config
 
-from kimchi.config import config, paths
 
-if not paths.installed:
-    sys.path.append(paths.prefix)
+if not config.paths.installed:
+    sys.path.append(config.paths.prefix)
 
 ACCESS_LOG = "kimchi-access.log"
 ERROR_LOG = "kimchi-error.log"
@@ -42,13 +41,13 @@ def main(options):
     if not os.geteuid() == 0:
         sys.exit("\nMust be root to run this script. Exiting ...\n")
 
-    host = config.get("server", "host")
-    port = config.get("server", "port")
-    ssl_port = config.get("server", "ssl_port")
-    cherrypy_port = config.get("server", "cherrypy_port")
-    runningEnv = config.get('server', 'environment')
-    logDir = config.get("logging", "log_dir")
-    logLevel = config.get("logging", "log_level")
+    host = config.config.get("server", "host")
+    port = config.config.get("server", "port")
+    ssl_port = config.config.get("server", "ssl_port")
+    cherrypy_port = config.config.get("server", "cherrypy_port")
+    runningEnv = config.config.get("server", "environment")
+    logDir = config.config.get("logging", "log_dir")
+    logLevel = config.config.get("logging", "log_level")
 
     parser = OptionParser()
     parser.add_option('--host', type="string", default=host,
@@ -73,9 +72,16 @@ def main(options):
                       help="Run server in mock model")
     (options, args) = parser.parse_args()
 
+    # Update config.config with the command line values
+    # So the whole application will have access to accurate values
+    for sec in config.config.sections():
+        for item in config.config.options(sec):
+            if hasattr(options, item):
+                config.config.set(sec, item, str(getattr(options, item)))
+
     # Add non-option arguments
-    setattr(options, 'ssl_cert', config.get('server', 'ssl_cert'))
-    setattr(options, 'ssl_key', config.get('server', 'ssl_key'))
+    setattr(options, 'ssl_cert', config.config.get('server', 'ssl_cert'))
+    setattr(options, 'ssl_key', config.config.get('server', 'ssl_key'))
 
     kimchi.server.main(options)
 
