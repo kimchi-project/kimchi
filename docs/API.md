@@ -1005,3 +1005,12 @@ http://, ftp:// or file://  URL.
 
 * enable: Enable the Repository as package source
 * disable: Disable the Repository as package source
+
+### Collection: Peers
+
+**URI:** /peers
+
+**Methods:**
+
+* **GET**: Return the list of Kimchi peers in the same network
+           (It uses openSLP for discovering)
