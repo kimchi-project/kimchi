@@ -29,7 +29,7 @@ BONDING_PATH = '/sys/class/net/*/bonding'
 WLAN_PATH = '/sys/class/net/*/wireless'
 NET_BRPORT = '/sys/class/net/%s/brport'
 NET_MASTER = '/sys/class/net/%s/master'
-NET_STATE = '/sys/class/net/%s/operstate'
+NET_STATE = '/sys/class/net/%s/carrier'
 PROC_NET_VLAN = '/proc/net/vlan/'
 BONDING_SLAVES = '/sys/class/net/%s/bonding/slaves'
 BRIDGE_PORTS = '/sys/class/net/%s/brif'
@@ -101,7 +101,16 @@ def is_bondlave(nic):
 
 
 def operstate(dev):
-    return open(NET_STATE % dev).readline().strip()
+    # try to read interface status
+    try:
+        open(NET_STATE % dev).readline().strip()
+    # when IOError is raised, interface is down
+    except IOError:
+        return "down"
+
+    # if value is 1, interface up with cable connected
+    # 0 corresponds to interface up with cable disconnected
+    return "up"
 
 
 def get_vlan_device(vlan):
