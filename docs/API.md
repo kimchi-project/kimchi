@@ -45,6 +45,8 @@ the following general conventions:
 * **POST**: Create a new Virtual Machine
     * name *(optional)*: The name of the VM.  Used to identify the VM in this
       API.  If omitted, a name will be chosen based on the template used.
+    * persistent: If 'true',  vm will persist after a Power Off or host reboot.
+                  All virtual machines created by Kimchi are persistent.
     * template: The URI of a Template to use when building the VM
     * storagepool *(optional)*: Assign a specific Storage Pool to the new VM
     * graphics *(optional)*: Specify the graphics paramenter for this vm
