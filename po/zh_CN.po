@@ -1318,6 +1318,9 @@ msgid ""
 "cache in the guest. Would you like to continue?"
 msgstr "这样做可能导致不良后果，比如客户机磁盘缓存未刷新，确认要继续吗？"
 
+msgid "This VM is not persistent. Power Off will destroy it. Continue?"
+msgstr "This VM is not persistent. Power Off will destroy it. Continue?"
+
 msgid "Reset Confirmation"
 msgstr "重置确认"
 

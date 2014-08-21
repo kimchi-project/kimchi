@@ -1434,6 +1434,9 @@ msgstr ""
 "Essa ação pode produzir resultados não desejáveis, como por exemplo cache de "
 "disco não atualizado no guest. Deseja continuar?"
 
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr "A máquina virtual não é persistente. Desligá-la irá removê-la. Deseja continuar?"
+
 msgid "Reset Confirmation"
 msgstr "Confirmação de reinicialização"
 
