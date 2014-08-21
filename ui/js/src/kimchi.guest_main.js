@@ -43,9 +43,13 @@ kimchi.vmpoweroff = function(event) {
         button.addClass('loading');
         var vm=button.closest('li[name=guest]');
         var vm_id=vm.attr("id");
+        var vmObject=vm.data();
+        var vm_persistent=vmObject.persistent == true;
+        var content_msg = vm_persistent ? i18n['KCHVM6003M'] :
+            i18n['KCHVM6009M'];
         var settings = {
             title : i18n['KCHVM6002M'],
-            content : i18n['KCHVM6003M'],
+            content : content_msg,
             confirm : i18n['KCHAPI6002M'],
             cancel : i18n['KCHAPI6003M']
         };

@@ -1371,6 +1371,9 @@ msgstr ""
 "This action may produce undesirable results, for example unflushed disk "
 "cache in the guest. Would you like to continue?"
 
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr "This VM is not persistent. Power Off will delete it. Continue?"
+
 msgid "Reset Confirmation"
 msgstr "Reset Confirmation"
 
