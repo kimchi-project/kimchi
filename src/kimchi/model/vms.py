@@ -471,7 +471,8 @@ class VMModel(object):
                 'ticket': self._get_ticket(dom),
                 'users': users,
                 'groups': groups,
-                'access': 'full'
+                'access': 'full',
+                'persistent': True if dom.isPersistent() else False
                 }
 
     def _vm_get_disk_paths(self, dom):
