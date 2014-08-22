@@ -100,7 +100,7 @@
                 <div class="header">
                     <span class="cell">$_("Device")</span>
                     <span class="cell">$_("Path")</span>
-                    <button id="guest-edit-attach-cdrom-button" class="action-area attach"></button>
+                    <button type="button" id="guest-edit-attach-cdrom-button" class="action-area attach"></button>
                 </div>
                 <div class="body"></div>
             </form>
@@ -164,19 +164,19 @@
                 value="{path}" readonly="readonly" />
         </span>
         <span class="action-area">
-            <button class="guest-edit-cdrom-button replace"
+            <button type="button" class="guest-edit-cdrom-button replace"
                 data-vm="{vm}" data-dev="{dev}"
                 title='$_("Replace")'>
             </button>
-            <button class="guest-edit-cdrom-button detach"
+            <button type="button" class="guest-edit-cdrom-button detach"
                 data-vm="{vm}" data-dev="{dev}" data-type="{type}"
                 title='$_("Detach")'>
             </button>
-            <button class="guest-edit-cdrom-button save hidden"
+            <button type="button" class="guest-edit-cdrom-button save hidden"
                 data-vm="{vm}" data-dev="{dev}"
                 title='$_("Save")'>
             </button>
-            <button class="guest-edit-cdrom-button cancel hidden"
+            <button type="button" class="guest-edit-cdrom-button cancel hidden"
                 data-vm="{vm}" data-dev="{dev}"
                 title='$_("Cancel")'>
             </button>
@@ -212,7 +212,7 @@
                 value="{path}" readonly="readonly" />
         </span>
         <span class="action-area">
-            <button class="guest-edit-cdrom-button detach"
+            <button type="button" class="guest-edit-cdrom-button detach"
                 data-vm="{vm}" data-dev="{dev}" data-type="{type}"
                 title="$_("Detach")">
             </button>
