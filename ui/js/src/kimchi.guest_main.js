@@ -123,18 +123,6 @@ kimchi.vmdelete = function(event) {
     });
 };
 
-kimchi.vmmedia = function(event) {
-    var vm = $(this).closest('li[name=guest]');
-    var vm_id = vm.attr('id');
-    kimchi.selectedGuest = vm_id;
-    kimchi.window.open({
-        url: 'guest-media.html',
-        close: function() {
-            kimchi.clearGuestMedia();
-        }
-    });
-};
-
 kimchi.vmedit = function(event) {
     var vm = $(this).closest('li[name=guest]');
     var vm_id=vm.attr("id");
@@ -293,7 +281,6 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     if (vmRunningBool) {  //If the guest is not running, do not enable shutdown
         guestActions.find("[name=vm-shutdown]").on({click : kimchi.vmshutdown});
     }
-    guestActions.find("[name=vm-media]").on({click : kimchi.vmmedia});
     guestActions.find("[name=vm-edit]").on({click : kimchi.vmedit});
     guestActions.find("[name=vm-delete]").on({click : kimchi.vmdelete});
 
