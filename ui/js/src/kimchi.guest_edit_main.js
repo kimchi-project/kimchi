@@ -19,7 +19,12 @@ kimchi.guest_edit_main = function() {
     var buttonContainer = $('#action-button-container');
     $('#guest-edit-tabs').tabs({
         beforeActivate: function(event, ui) {
-            var display_list = ['form-guest-edit-general', 'form-guest-edit-permission']
+            var display_list = null;
+            if(kimchi.thisVMState === "running") {
+                display_list = ['form-guest-edit-permission'];
+            } else {
+                display_list = ['form-guest-edit-general', 'form-guest-edit-permission'];
+            }
             $(buttonContainer).addClass('hidden');
             var deactivated = ui['newPanel'];
             if(display_list.indexOf($(deactivated).attr('id')) >= 0) {
@@ -52,12 +57,17 @@ kimchi.guest_edit_main = function() {
                 text: false
             });
 
-            $('.detach', container).button({
-                icons: {
-                    primary: 'ui-icon-trash'
-                },
-                text: false
-            });
+            if(kimchi.thisVMState != "running") {
+                $('.detach', container).button({
+                    icons: {
+                        primary: 'ui-icon-trash'
+                    },
+                    text: false
+                });
+
+            } else {
+                $('.detach', container).remove();
+            }
 
             $('.save', container).button({
                 icons: {
@@ -170,6 +180,10 @@ kimchi.guest_edit_main = function() {
             var itemNode = $.parseHTML(kimchi.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
+            if(kimchi.thisVMState === "running") {
+                $("#form-guest-edit-interface .delete").remove();
+                $("#form-guest-edit-interface .edit").remove();
+            }
             if(data.network!==""){
                 $("select", itemNode).val(data.network);
             }
@@ -340,18 +354,25 @@ kimchi.guest_edit_main = function() {
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
+        kimchi.thisVMState = guest['state'];
 
         refreshCDROMs();
-
-        $('#guest-edit-attach-cdrom-button').button({
-            icons: {
-                primary: "ui-icon-plusthick"
-            },
-            text: false
-        }).click(function(event) {
-            event.preventDefault();
-            kimchi.window.open("guest-storage-add.html");
-        });
+        if(kimchi.thisVMState === "running") {
+            $("#form-guest-edit-general input").prop("disabled", "disabled");
+            $("#guest-edit-attach-cdrom-button").remove();
+            $("#form-guest-edit-interface .header button").remove();
+        } else {
+            $('#guest-edit-attach-cdrom-button').button({
+                icons: {
+                    primary: "ui-icon-plusthick"
+                },
+                text: false
+            }).click(function(event) {
+                event.preventDefault();
+                kimchi.window.open("guest-storage-add.html");
+            });
+            $("#action-button-container").removeClass("hidden");
+        }
 
         var onAttached = function(params) {
             refreshCDROMs();
@@ -364,7 +385,6 @@ kimchi.guest_edit_main = function() {
         };
 
         initStorageListeners();
-
         setupInterface();
         setupPermission();
 

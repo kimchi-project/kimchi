@@ -253,7 +253,6 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     //Setup the VM Actions
     var guestActions=result.find("div[name=guest-actions]");
     guestActions.find(".shutoff-disabled").prop('disabled', !vmRunningBool );
-    guestActions.find(".running-disabled").prop('disabled', vmRunningBool );
 
     if (vmRunningBool) {
         guestActions.find(".running-hidden").hide();
