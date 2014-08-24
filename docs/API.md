@@ -96,9 +96,8 @@ the following general conventions:
         * port: The real port number of the graphics, vnc or spice. Users
                 can use this port to connect to the vm with general vnc/spice
                 clients.
-    * ticket: A ticket represents credentials to access VM.
-        * password: the password of a ticket.
-        * expire: lifetime of a ticket.
+        * passwd: console password
+        * passwdValidTo: lifetime for the console password.
     * users: A list of system users who have permission to access the VM.
       Default is: empty (i.e. only root-users may access).
     * groups: A list of system groups whose users have permission to access
@@ -112,9 +111,12 @@ the following general conventions:
             will take effect in next reboot)
     * memory: New amount of memory (MB) for this VM (if VM is running, new
               value will take effect in next reboot)
-    * ticket: A ticket represents credentials to access VM.
-        * password *(optional)*: the password of a ticket.
-        * expire *(optional)*: lifetime of a ticket.
+    * graphics: A dict to show detail of VM graphics.
+        * passwd *(optional)*: console password. When omitted a random password
+                               willbe generated.
+        * passwdValidTo *(optional)*: lifetime for the console password. When
+                                      omitted the password will be valid just
+                                      for 30 seconds.
 
 * **POST**: *See Virtual Machine Actions*
 

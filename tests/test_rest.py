@@ -221,20 +221,21 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(200, resp.status)
 
-        req = json.dumps({"ticket": {'passwd': "abcdef"}})
+        req = json.dumps({"graphics": {'passwd': "abcdef"}})
         resp = self.request('/vms/vm-1', req, 'PUT')
         info = json.loads(resp.read())
-        self.assertEquals('abcdef', info["ticket"]["passwd"])
-        self.assertEquals(None, info["ticket"]["expire"])
+        self.assertEquals('abcdef', info["graphics"]["passwd"])
+        self.assertEquals(None, info["graphics"]["passwdValidTo"])
 
         resp = self.request('/vms/vm-1/poweroff', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
-        req = json.dumps({"ticket": {'passwd': "123456", "expire": 20}})
+        req = json.dumps({"graphics": {'passwd': "123456",
+                                       'passwdValidTo': 20}})
         resp = self.request('/vms/vm-1', req, 'PUT')
         info = json.loads(resp.read())
-        self.assertEquals('123456', info["ticket"]["passwd"])
-        self.assertGreaterEqual(20, info["ticket"]["expire"])
+        self.assertEquals('123456', info["graphics"]["passwd"])
+        self.assertGreaterEqual(20, info["graphics"]["passwdValidTo"])
 
         req = json.dumps({'name': 12})
         resp = self.request('/vms/vm-1', req, 'PUT')
