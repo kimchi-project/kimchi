@@ -235,17 +235,17 @@
                         "error": "KCHVM0026E"
                     }
                 },
-                "ticket": {
-                    "description": "A ticket represents credentials to access VM",
+                "graphics": {
+                    "description": "Graphics information from guest",
                     "type": "object",
                     "properties": {
-                        "password": {
-                            "description": "the password of a ticket.",
+                        "passwd": {
+                            "description": "New graphics password.",
                             "type": "string",
                             "error": "KCHVM0031E"
                         },
-                        "size": {
-                            "description": "lifetime of a ticket.",
+                        "passwdValidTo": {
+                            "description": "Life time for the graphics password.",
                             "type": "number",
                             "error": "KCHVM0032E"
                         }

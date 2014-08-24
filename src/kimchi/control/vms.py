@@ -36,7 +36,7 @@ class VM(Resource):
         super(VM, self).__init__(model, ident)
         self.role_key = 'guests'
         self.update_params = ["name", "users", "groups", "cpus", "memory",
-                              "ticket"]
+                              "graphics"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():

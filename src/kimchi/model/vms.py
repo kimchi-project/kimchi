@@ -247,12 +247,6 @@ class VMModel(object):
         self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
 
     def update(self, name, params):
-        if 'ticket' in params:
-            password = params['ticket'].get("passwd")
-            password = password if password is not None else "".join(
-                random.sample(string.ascii_letters + string.digits, 8))
-            params['ticket']['passwd'] = password
-
         dom = self.get_vm(name, self.conn)
         dom = self._static_vm_update(dom, params)
         self._live_vm_update(dom, params)
@@ -311,14 +305,15 @@ class VMModel(object):
         os_elem = E.os({"distro": distro, "version": version})
         set_metadata_node(dom, os_elem)
 
-    def _set_ticket(self, xml, params, flag=0):
+    def _set_graphics_passwd(self, xml, params, flag=0):
         DEFAULT_VALID_TO = 30
         password = params.get("passwd")
-        expire = params.get("expire")
+        expire = params.get("passwdValidTo")
         root = objectify.fromstring(xml)
         graphic = root.devices.find("graphics")
         if graphic is None:
             return None
+
         graphic.attrib['passwd'] = password
         to = graphic.attrib.get('passwdValidTo')
         if to is not None:
@@ -333,27 +328,27 @@ class VMModel(object):
 
         return root if flag == 0 else graphic
 
-    def _set_persistent_ticket(self, dom, xml, params):
-        if 'ticket' not in params:
-            # store the password for copy
-            ticket = self._get_ticket(dom)
-            if ticket['passwd'] is None:
-                return xml
-            else:
-                params['ticket'] = ticket
-        node = self._set_ticket(xml, params['ticket'])
-        return xml if node is None else ET.tostring(node, encoding="utf-8")
+    def _update_graphics(self, dom, xml, params):
+        if 'graphics' not in params:
+            return xml
 
-    def _set_live_ticket(self, dom, params):
-        if 'ticket' not in params:
-            return
-        if dom.isActive():
-            xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
-            flag = libvirt.VIR_DOMAIN_XML_SECURE
-            node = self._set_ticket(xml, params['ticket'], flag)
-            if node is not None:
-                dom.updateDeviceFlags(etree.tostring(node),
-                                      libvirt.VIR_DOMAIN_AFFECT_LIVE)
+        password = params['graphics'].get("passwd")
+        if password is None:
+            password = "".join(random.sample(string.ascii_letters +
+                                             string.digits, 8))
+        params['graphics']['passwd'] = password
+
+        if not dom.isActive():
+            node = self._set_graphics_passwd(xml, params['graphics'])
+            return xml if node is None else ET.tostring(node, encoding="utf-8")
+
+        xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+        flag = libvirt.VIR_DOMAIN_XML_SECURE
+        node = self._set_graphics_passwd(xml, params['graphics'], flag)
+        if node is not None:
+            dom.updateDeviceFlags(etree.tostring(node),
+                                  libvirt.VIR_DOMAIN_AFFECT_LIVE)
+        return xml
 
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
@@ -370,7 +365,7 @@ class VMModel(object):
                 xpath = VM_STATIC_UPDATE_PARAMS[key]
                 new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
 
-        new_xml = self._set_persistent_ticket(dom, new_xml, params)
+        new_xml = self._update_graphics(dom, new_xml, params)
 
         conn = self.conn.get()
         try:
@@ -393,35 +388,19 @@ class VMModel(object):
 
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)
-        self._set_live_ticket(dom, params)
 
     def _has_video(self, dom):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
         return dom.find('devices/video') is not None
-
-    def _get_ticket(self, dom):
-        xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
-        root = objectify.fromstring(xml)
-        graphic = root.devices.find("graphics")
-        if graphic is None:
-            return {"passwd": None, "expire": None}
-        passwd = graphic.attrib.get('passwd')
-        ticket = {"passwd": passwd}
-        valid_to = graphic.attrib.get('passwdValidTo')
-        ticket['expire'] = None
-        if valid_to is not None:
-            to = time.mktime(time.strptime(valid_to, '%Y-%m-%dT%H:%M:%S'))
-            ticket['expire'] = to - time.mktime(time.gmtime())
-
-        return ticket
 
     def lookup(self, name):
         dom = self.get_vm(name, self.conn)
         info = dom.info()
         state = DOM_STATE_MAP[info[0]]
         screenshot = None
+        # (type, listen, port, passwd, passwdValidTo)
         graphics = self._vm_get_graphics(name)
-        graphics_type, graphics_listen, graphics_port = graphics
+        graphics_port = graphics[2]
         graphics_port = graphics_port if state == 'running' else None
         try:
             if state == 'running' and self._has_video(dom):
@@ -461,10 +440,12 @@ class VMModel(object):
                 'cpus': info[3],
                 'screenshot': screenshot,
                 'icon': icon,
-                'graphics': {"type": graphics_type,
-                             "listen": graphics_listen,
-                             "port": graphics_port},
-                'ticket': self._get_ticket(dom),
+                # (type, listen, port, passwd, passwdValidTo)
+                'graphics': {"type": graphics[0],
+                             "listen": graphics[1],
+                             "port": graphics_port,
+                             "passwd": graphics[3],
+                             "passwdValidTo": graphics[4]},
                 'users': users,
                 'groups': groups,
                 'access': 'full',
@@ -564,23 +545,38 @@ class VMModel(object):
 
     def _vm_get_graphics(self, name):
         dom = self.get_vm(name, self.conn)
-        xml = dom.XMLDesc(0)
+        xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+
         expr = "/domain/devices/graphics/@type"
         res = xmlutils.xpath_get_text(xml, expr)
         graphics_type = res[0] if res else None
+
         expr = "/domain/devices/graphics/@listen"
         res = xmlutils.xpath_get_text(xml, expr)
         graphics_listen = res[0] if res else None
-        graphics_port = None
+
+        graphics_port = graphics_passwd = graphics_passwdValidTo = None
         if graphics_type:
-            expr = "/domain/devices/graphics[@type='%s']/@port" % graphics_type
-            res = xmlutils.xpath_get_text(xml, expr)
+            expr = "/domain/devices/graphics[@type='%s']/@port"
+            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
             graphics_port = int(res[0]) if res else None
-        return graphics_type, graphics_listen, graphics_port
+
+            expr = "/domain/devices/graphics[@type='%s']/@passwd"
+            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
+            graphics_passwd = res[0] if res else None
+
+            expr = "/domain/devices/graphics[@type='%s']/@passwdValidTo"
+            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
+            if res:
+                to = time.mktime(time.strptime(res[0], '%Y-%m-%dT%H:%M:%S'))
+                graphics_passwdValidTo = to - time.mktime(time.gmtime())
+
+        return (graphics_type, graphics_listen, graphics_port,
+                graphics_passwd, graphics_passwdValidTo)
 
     def connect(self, name):
-        graphics = self._vm_get_graphics(name)
-        graphics_type, graphics_listen, graphics_port = graphics
+        # (type, listen, port, passwd, passwdValidTo)
+        graphics_port = self._vm_get_graphics(name)[2]
         if graphics_port is not None:
             vnc.add_proxy_token(name, graphics_port)
         else:

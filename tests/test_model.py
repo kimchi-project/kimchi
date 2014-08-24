@@ -65,7 +65,7 @@ class ModelTests(unittest.TestCase):
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'ticket', 'persistent'))
+                    'access', 'persistent'))
 
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
@@ -765,24 +765,25 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm1' in vms)
 
-            # update vm ticket when vm is not running
+            # update vm graphics when vm is not running
             inst.vm_update(u'kimchi-vm1',
-                           {"ticket": {"passwd": "123456"}})
+                           {"graphics": {"passwd": "123456"}})
 
             inst.vm_start('kimchi-vm1')
             rollback.prependDefer(self._rollback_wrapper, inst.vm_poweroff,
                                   'kimchi-vm1')
 
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals('123456', vm_info['ticket']["passwd"])
-            self.assertEquals(None, vm_info['ticket']["expire"])
+            self.assertEquals('123456', vm_info['graphics']["passwd"])
+            self.assertEquals(None, vm_info['graphics']["passwdValidTo"])
 
-            # update vm ticket when vm is running
+            # update vm graphics when vm is running
             inst.vm_update(u'kimchi-vm1',
-                           {"ticket": {"passwd": "abcdef", "expire": 20}})
+                           {"graphics": {"passwd": "abcdef",
+                                         "passwdValidTo": 20}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals('abcdef', vm_info['ticket']["passwd"])
-            self.assertGreaterEqual(20, vm_info['ticket']['expire'])
+            self.assertEquals('abcdef', vm_info['graphics']["passwd"])
+            self.assertGreaterEqual(20, vm_info['graphics']['passwdValidTo'])
 
             info = inst.vm_lookup('kimchi-vm1')
             self.assertEquals('running', info['state'])
