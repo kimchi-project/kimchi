@@ -57,6 +57,32 @@ class StorageTargetsModel(object):
                 targets = self._parse_target_source_result(target_type, ret)
 
             target_list.extend(targets)
+
+        # Get all netfs and iscsi paths in use
+        used_paths = []
+        try:
+            conn = self.conn.get()
+            # Get all existing ISCSI and NFS pools
+            pools = conn.listAllStoragePools(
+                libvirt.VIR_CONNECT_LIST_STORAGE_POOLS_ISCSI |
+                libvirt.VIR_CONNECT_LIST_STORAGE_POOLS_NETFS)
+            for pool in pools:
+                pool_xml = pool.XMLDesc(0)
+                root = objectify.fromstring(pool_xml)
+                if root.get('type') == 'netfs' and \
+                        root.source.dir is not None:
+                    used_paths.append(root.source.dir.get('path'))
+                elif root.get('type') == 'iscsi' and \
+                        root.source.device is not None:
+                    used_paths.append(root.source.device.get('path'))
+
+        except libvirt.libvirtError as e:
+            err = "Query storage pool source fails because of %s"
+            kimchi_log.warning(err, e.get_error_message())
+
+        # Filter target_list to not not show the used paths
+        target_list = [elem for elem in target_list
+                       if elem.get('target') not in used_paths]
         return target_list
 
     def _get_storage_server_spec(self, **kwargs):
