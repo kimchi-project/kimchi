@@ -349,12 +349,17 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
         keyboard = """
             <input type='kbd' bus='%(kbd_bus)s'> </input>
         """
+        tablet = """
+            <input type='tablet' bus='%(kbd_bus)s'> </input>
+        """
 
         input_output = ""
         if 'mouse_bus' in self.info.keys():
             input_output += mouse % self.info
         if 'kbd_bus' in self.info.keys():
             input_output += keyboard % self.info
+        if 'tablet_bus' in self.info.keys():
+            input_output += tablet % self.info
         if 'sound_model' in self.info.keys():
             input_output += sound % self.info
         return input_output

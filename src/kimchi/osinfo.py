@@ -49,11 +49,12 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
                                         kbd_bus='usb', mouse_bus='usb',
-                                        memory=1280),
+                                        tablet_bus='usb', memory=1280),
                             'modern': dict(common_spec, disk_bus='virtio',
                                            nic_model='virtio',
                                            cdrom_bus='scsi', kbd_bus='usb',
-                                           mouse_bus='usb', memory=1280)}}
+                                           mouse_bus='usb', tablet_bus='usb',
+                                           memory=1280)}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
