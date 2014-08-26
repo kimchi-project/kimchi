@@ -18,8 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import re
 import socket
+import stat
 import string
 import urlparse
 
@@ -90,16 +90,8 @@ def _check_path(path):
         if os.path.isfile(path):
             src_type = 'file'
         else:
-            # Check if path is a valid cdrom drive
-            with open('/proc/sys/dev/cdrom/info') as cdinfo:
-                content = cdinfo.read()
-
-            cds = re.findall("drive name:\t\t(.*)", content)
-            if not cds:
-                raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
-
-            drives = [os.path.join('/dev', p) for p in cds[0].split('\t')]
-            if path not in drives:
+            r_path = os.path.realpath(path)
+            if not stat.S_ISBLK(os.stat(r_path).st_mode):
                 raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
 
             src_type = 'block'
