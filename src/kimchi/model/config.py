@@ -109,7 +109,8 @@ class CapabilitiesModel(object):
                 'screenshot': VMScreenshot.get_stream_test_result(),
                 'system_report_tool': bool(report_tool),
                 'update_tool': update_tool,
-                'repo_mngt_tool': repo_mngt_tool}
+                'repo_mngt_tool': repo_mngt_tool,
+                'federation': kconfig.get("server", "federation")}
 
 
 class DistrosModel(object):
