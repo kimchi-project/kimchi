@@ -1532,13 +1532,11 @@ class RestTests(unittest.TestCase):
     def test_capabilities(self):
         resp = self.request('/config/capabilities').read()
         conf = json.loads(resp)
-        self.assertIn('libvirt_stream_protocols', conf)
-        self.assertIn('qemu_stream', conf)
-        self.assertIn('qemu_spice', conf)
-        self.assertIn('screenshot', conf)
-        self.assertIn('system_report_tool', conf)
-        self.assertIn('update_tool', conf)
-        self.assertIn('repo_mngt_tool', conf)
+
+        keys = ['libvirt_stream_protocols', 'qemu_stream', 'qemu_spice',
+                'screenshot', 'system_report_tool', 'update_tool',
+                'repo_mngt_tool', 'federation']
+        self.assertEquals(sorted(keys), sorted(conf.keys()))
 
     def test_peers(self):
         resp = self.request('/peers').read()

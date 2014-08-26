@@ -629,6 +629,7 @@ creation.
       system; False, otherwise
     * repo_mngt_tool: 'deb', 'yum' or None - when the repository management
       tool is not identified
+    * federation: 'on' if federation feature is enabled, 'off' otherwise.
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**
