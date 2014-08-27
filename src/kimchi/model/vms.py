@@ -305,49 +305,38 @@ class VMModel(object):
         os_elem = E.os({"distro": distro, "version": version})
         set_metadata_node(dom, os_elem)
 
-    def _set_graphics_passwd(self, xml, params, flag=0):
-        DEFAULT_VALID_TO = 30
-        password = params.get("passwd")
-        expire = params.get("passwdValidTo")
+    def _update_graphics(self, dom, xml, params):
         root = objectify.fromstring(xml)
-        graphic = root.devices.find("graphics")
-        if graphic is None:
-            return None
+        graphics = root.devices.find("graphics")
+        if graphics is None:
+            return xml
 
-        graphic.attrib['passwd'] = password
-        to = graphic.attrib.get('passwdValidTo')
+        password = params['graphics'].get("passwd")
+        if password and len(password.strip()) == 0:
+            password = "".join(random.sample(string.ascii_letters +
+                                             string.digits, 8))
+
+        if password is not None:
+            graphics.attrib['passwd'] = password
+
+        expire = params.get("passwdValidTo")
+        to = graphics.attrib.get('passwdValidTo')
         if to is not None:
             if (time.mktime(time.strptime(to, '%Y-%m-%dT%H:%M:%S'))
                - time.time() <= 0):
-                expire = expire if expire is not None else DEFAULT_VALID_TO
+                expire = expire if expire is not None else 30
 
         if expire is not None:
             expire_time = time.gmtime(time.time() + float(expire))
             valid_to = time.strftime('%Y-%m-%dT%H:%M:%S', expire_time)
-            graphic.attrib['passwdValidTo'] = valid_to
-
-        return root if flag == 0 else graphic
-
-    def _update_graphics(self, dom, xml, params):
-        if 'graphics' not in params:
-            return xml
-
-        password = params['graphics'].get("passwd")
-        if password is None:
-            password = "".join(random.sample(string.ascii_letters +
-                                             string.digits, 8))
-        params['graphics']['passwd'] = password
+            graphics.attrib['passwdValidTo'] = valid_to
 
         if not dom.isActive():
-            node = self._set_graphics_passwd(xml, params['graphics'])
-            return xml if node is None else ET.tostring(node, encoding="utf-8")
+            return ET.tostring(root, encoding="utf-8")
 
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
-        flag = libvirt.VIR_DOMAIN_XML_SECURE
-        node = self._set_graphics_passwd(xml, params['graphics'], flag)
-        if node is not None:
-            dom.updateDeviceFlags(etree.tostring(node),
-                                  libvirt.VIR_DOMAIN_AFFECT_LIVE)
+        dom.updateDeviceFlags(etree.tostring(graphics),
+                              libvirt.VIR_DOMAIN_AFFECT_LIVE)
         return xml
 
     def _static_vm_update(self, dom, params):
@@ -365,7 +354,8 @@ class VMModel(object):
                 xpath = VM_STATIC_UPDATE_PARAMS[key]
                 new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
 
-        new_xml = self._update_graphics(dom, new_xml, params)
+        if 'graphics' in params:
+            new_xml = self._update_graphics(dom, new_xml, params)
 
         conn = self.conn.get()
         try:
