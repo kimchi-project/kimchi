@@ -114,7 +114,7 @@
     cursor: pointer;
     display: block;
     position: relative;
-    height: 48px;
+    height: 52px;
     margin: 0 12px;
 }
 
@@ -173,4 +173,38 @@ a#btn-logout:hover {
     #logo {
         display: none;
     }
+}
+
+.peers {
+    color: white;
+    cursor: pointer;
+    height: 52px;
+    margin: 0 12px;
+}
+
+.peers span {
+    margin-top: 25px;
+}
+
+.peers .arrow {
+    border: 6px solid transparent;
+    border-bottom: none;
+    border-top-color: white;
+    display: inline-block;
+    width: 0;
+}
+
+.peers .drowdown {
+    top: 45px;
+    right: 110px;
+    color: black;
+    padding: 10px 15px;
+    white-space: nowrap;
+    line-height: 12px;
+    width: inherit;
+}
+
+.peers .drowdown a {
+    display: block;
+    padding: 10px;
 }
