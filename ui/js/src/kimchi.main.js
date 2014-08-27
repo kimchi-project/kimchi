@@ -20,9 +20,23 @@ kimchi.tabMode = {};
 kimchi.capabilities = undefined;
 kimchi.getCapabilities(function(result) {
     kimchi.capabilities = result;
+    kimchi.setupPeers();
 }, function() {
     kimchi.capabilities = {};
 });
+
+kimchi.setupPeers = function(){
+    if(kimchi.capabilities.federation=="on"){
+        $('#peers').removeClass('hide-content');
+        kimchi.getPeers(function(data){
+            var hints = $('p', $('.drowdown', '#peers'));
+            data.length==0 ? hints.toggleClass('hide-content'): hints.addClass('hide-content');
+            for(var i=0; i<data.length; i++){
+                $('.drowdown', '#peers').append("<a href='"+data[i]+"' target='_blank'>"+data[i]+"</a>");
+            }
+        });
+    }
+};
 
 kimchi.main = function() {
     kimchi.popable();

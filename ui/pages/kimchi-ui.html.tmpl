@@ -71,6 +71,16 @@
     <h1 id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></h1>
     <ul class="nav-top">
         <li>
+            <div id="peers" class="peers hide-content popable">
+                <span>$_("Peers")</span>
+                <span class="arrow"></span>
+                <div class="drowdown popover right-side">
+                    <p>$_("Searching")...</p>
+                    <p class="hide-content">$_("No peers found.")</p>
+                </div>
+            </div>
+        </li>
+        <li>
             <div id="user" class="popable">
                 <span id="user-icon"></span>
                 <span id="user-name" class="empty-when-logged-off"></span>
