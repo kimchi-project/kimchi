@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 27 13:02:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:30</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:02</span><span class="nk"> &lt;alinefm&gt;</span> ok - so let's get started
+<a name="l-9"></a><span class="tm">13:04:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:15</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin list iSCSI targets patch v1 sent</span>
+<a name="l-12"></a><span class="tm">13:04:18</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent WIP patchset for the feature "Download remote ISO to storage pool"; reviewed patches on the mailing list</span>
+<a name="l-13"></a><span class="tm">13:04:19</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce submitted patches of uploading volume, now refactoring patch to integrate cgi bigfile optimization</span>
+<a name="l-14"></a><span class="tm">13:04:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to discover kimchi peers using openSLP</span>
+<a name="l-15"></a><span class="tm">13:04:38</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin kimchi peers patch v2 sent</span>
+<a name="l-16"></a><span class="tm">13:04:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to centralize graphics information in a single data structure</span>
+<a name="l-17"></a><span class="tm">13:04:58</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of Authorization: Allow admin user change permission settings when VM is running</span>
+<a name="l-18"></a><span class="tm">13:05:01</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed bug of attaching iscsi volume to vm--need review</span>
+<a name="l-19"></a><span class="tm">13:06:54</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to fix storage tab UI in guest edit window</span>
+<a name="l-20"></a><span class="tm">13:07:47</span><span class="nk"> &lt;alinefm&gt;</span> great, team!
+<a name="l-21"></a><span class="tm">13:07:50</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patch to fix path of Iscsi storage in storage tab of guest edit window</span>
+<a name="l-22"></a><span class="tm">13:08:08</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent V1 patch of feature "Create template from VM"</span>
+<a name="l-23"></a><span class="tm">13:08:39</span><span class="nk"> &lt;alinefm&gt;</span> I think we are doing a good progress but some features may be out of 1.3 release as we just have one more week until the end of this sprint
+<a name="l-24"></a><span class="tm">13:09:32</span><span class="nk"> &lt;alinefm&gt;</span> those feature are: pci passthrough, async event notification, migration
+<a name="l-25"></a><span class="tm">13:09:33</span><span class="nk"> &lt;baude&gt;</span> <span class="cmd">#info </span><span class="cmdline">almost complete on patches to edit graphics options on the template and guests</span>
+<a name="l-26"></a><span class="tm">13:09:52</span><span class="nk"> &lt;baude&gt;</span> <span class="cmd">#info </span><span class="cmdline">baude almost complete on patches to edit graphics options on the template and guests</span>
+<a name="l-27"></a><span class="tm">13:09:57</span><span class="nk"> &lt;YuXin&gt;</span> what is the status of pci passthrough backend?
+<a name="l-28"></a><span class="tm">13:10:22</span><span class="nk"> &lt;alinefm&gt;</span> the last time I talked to zheng zhou he was finishing the tests in some distros
+<a name="l-29"></a><span class="tm">13:10:31</span><span class="nk"> &lt;alinefm&gt;</span> but I don't have a status of those tests
+<a name="l-30"></a><span class="tm">13:10:40</span><span class="nk"> &lt;alinefm&gt;</span> he is out for the linuxcon conf this week
+<a name="l-31"></a><span class="tm">13:10:43</span><span class="nk"> &lt;wenwang&gt;</span> What about the status of Asynchronous event notify in the back-end
+<a name="l-32"></a><span class="tm">13:11:06</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, no status on it =/
+<a name="l-33"></a><span class="tm">13:11:10</span><span class="nk"> &lt;alinefm&gt;</span> the same for migration
+<a name="l-34"></a><span class="tm">13:12:45</span><span class="nk"> &lt;YuXin&gt;</span> ok, let us focus on all those that can be delivered
+<a name="l-35"></a><span class="tm">13:12:59</span><span class="nk"> &lt;YuXin&gt;</span> I will get iscsi target patch v2 out tomorrow
+<a name="l-36"></a><span class="tm">13:13:08</span><span class="nk"> &lt;alinefm&gt;</span> ok - thanks
+<a name="l-37"></a><span class="tm">13:13:32</span><span class="nk"> &lt;alinefm&gt;</span> I think the pci passthrough can be merged for 1.3 as the UI is done and backend is on way
+<a name="l-38"></a><span class="tm">13:14:12</span><span class="nk"> &lt;YuXin&gt;</span> ok, let us target for that
+<a name="l-39"></a><span class="tm">13:14:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-40"></a><span class="tm">13:14:31</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-41"></a><span class="tm">13:15:44</span><span class="nk"> &lt;alinefm&gt;</span> nothing??! oO
+<a name="l-42"></a><span class="tm">13:16:27</span><span class="nk"> &lt;royce&gt;</span> Guys are struggling with their problems:)
+<a name="l-43"></a><span class="tm">13:17:00</span><span class="nk"> &lt;alinefm&gt;</span> lol
+<a name="l-44"></a><span class="tm">13:17:20</span><span class="nk"> &lt;alinefm&gt;</span> royce, glad to see the upload API worked
+<a name="l-45"></a><span class="tm">13:17:55</span><span class="nk"> &lt;alinefm&gt;</span> not sure you understood my comment on ML but I am OK to upload the file at once, but even though we need to return a Task on create()
+<a name="l-46"></a><span class="tm">13:18:39</span><span class="nk"> &lt;royce&gt;</span> yes, I am changing it to return a task
+<a name="l-47"></a><span class="tm">13:18:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Since we don't have any status of the Asynchronous event notify, could someone else have this task done or is anybody interested in doing the back-end work
+<a name="l-48"></a><span class="tm">13:19:33</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yeap! I plan to take this one once I finished the federation task and graphics refactor
+<a name="l-49"></a><span class="tm">13:20:02</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I need to careful read your RFC and check for backend techniques
+<a name="l-50"></a><span class="tm">13:20:05</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> That's great
+<a name="l-51"></a><span class="tm">13:20:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I need someone to take my task over
+<a name="l-52"></a><span class="tm">13:20:53</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Yeah, we do have lots of options, and also I will read those docs and we can discuss on those details with you
+<a name="l-53"></a><span class="tm">13:21:00</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I can send a new version today, but need someone to make review changes
+<a name="l-54"></a><span class="tm">13:21:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, are you too overload or you can take the rotru's task (during his vacation)?
+<a name="l-55"></a><span class="tm">13:22:04</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, I will clone myself for it lol
+<a name="l-56"></a><span class="tm">13:22:53</span><span class="nk"> &lt;royce&gt;</span> I will be on vacation during 5th Sep- 8th
+<a name="l-57"></a><span class="tm">13:23:04</span><span class="nk"> &lt;royce&gt;</span> if I can finish mine
+<a name="l-58"></a><span class="tm">13:23:09</span><span class="nk"> &lt;royce&gt;</span> I will take it
+<a name="l-59"></a><span class="tm">13:24:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm; royce  :D
+<a name="l-60"></a><span class="tm">13:25:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok - thanks
+<a name="l-61"></a><span class="tm">13:25:37</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-62"></a><span class="tm">13:25:50</span><span class="nk"> &lt;alinefm&gt;</span> everyone planning vacation because that it is so quiet today =)
+<a name="l-63"></a><span class="tm">13:26:00</span><span class="nk"> &lt;royce&gt;</span> :D
+<a name="l-64"></a><span class="tm">13:26:21</span><span class="nk"> &lt;royce&gt;</span> Is there any special festival there, alinefm?
+<a name="l-65"></a><span class="tm">13:26:32</span><span class="nk"> &lt;royce&gt;</span> It is the mid autumn here
+<a name="l-66"></a><span class="tm">13:27:02</span><span class="nk"> &lt;alinefm&gt;</span> nothing special
+<a name="l-67"></a><span class="tm">13:27:11</span><span class="nk"> &lt;alinefm&gt;</span> just everyone praying for rain
+<a name="l-68"></a><span class="tm">13:27:31</span><span class="nk"> &lt;alinefm&gt;</span> a long time without a real rain here
+<a name="l-69"></a><span class="tm">13:27:32</span><span class="nk"> &lt;alinefm&gt;</span> =/
+<a name="l-70"></a><span class="tm">13:28:34</span><span class="nk"> &lt;wenwang&gt;</span> Hopefully you will get the rain soon:-)
+<a name="l-71"></a><span class="tm">13:28:53</span><span class="nk"> &lt;alinefm&gt;</span> yeap! thanks
+<a name="l-72"></a><span class="tm">13:29:00</span><span class="nk"> &lt;alinefm&gt;</span> ok team, if anyone has more topics we can finish for today
+<a name="l-73"></a><span class="tm">13:29:09</span><span class="nk"> &lt;baude&gt;</span> alinefm, i have one
+<a name="l-74"></a><span class="tm">13:29:09</span><span class="nk"> &lt;alinefm&gt;</span> and focus in our 1.3 tasks =P
+<a name="l-75"></a><span class="tm">13:29:13</span><span class="nk"> &lt;alinefm&gt;</span> baude, go ahead
+<a name="l-76"></a><span class="tm">13:29:39</span><span class="nk"> &lt;baude&gt;</span> im curious when kimchi can move to a version/release cycle as well
+<a name="l-77"></a><span class="tm">13:29:54</span><span class="nk"> &lt;baude&gt;</span> which will make it easier for distros to package/update and so forth
+<a name="l-78"></a><span class="tm">13:30:17</span><span class="nk"> &lt;alinefm&gt;</span> baude, we have one release every 3 months
+<a name="l-79"></a><span class="tm">13:30:33</span><span class="nk"> &lt;baude&gt;</span> a tarball release?
+<a name="l-80"></a><span class="tm">13:30:44</span><span class="nk"> &lt;alinefm&gt;</span> basically, end of March, end of June, end of Sept and end of December
+<a name="l-81"></a><span class="tm">13:30:53</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-82"></a><span class="tm">13:30:57</span><span class="nk"> &lt;baude&gt;</span> ok cool
+<a name="l-83"></a><span class="tm">13:30:59</span><span class="nk"> &lt;baude&gt;</span> i missed that
+<a name="l-84"></a><span class="tm">13:31:04</span><span class="nk"> &lt;baude&gt;</span> nm then :)
+<a name="l-85"></a><span class="tm">13:31:10</span><span class="nk"> &lt;alinefm&gt;</span> kimchi 1.3 will be 09/26
+<a name="l-86"></a><span class="tm">13:31:22</span><span class="nk"> &lt;alinefm&gt;</span> and then we start planning the next one for the end of December
+<a name="l-87"></a><span class="tm">13:31:28</span><span class="nk"> &lt;baude&gt;</span> great
+<a name="l-88"></a><span class="tm">13:31:31</span><span class="nk"> &lt;baude&gt;</span> we can wrap up now
+<a name="l-89"></a><span class="tm">13:32:00</span><span class="nk"> &lt;alinefm&gt;</span> baude, any news from fedora? about including kimchi?
+<a name="l-90"></a><span class="tm">13:32:20</span><span class="nk"> &lt;baude&gt;</span> waiting on the fedora packaging approval for the jquery libs.  will poke them tomorrow
+<a name="l-91"></a><span class="tm">13:33:20</span><span class="nk"> &lt;alinefm&gt;</span> great! thanks
+<a name="l-92"></a><span class="tm">13:33:28</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-93"></a><span class="tm">13:34:02</span><span class="nk"> &lt;baude&gt;</span> not from me
+<a name="l-94"></a><span class="tm">13:34:49</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-95"></a><span class="tm">13:35:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

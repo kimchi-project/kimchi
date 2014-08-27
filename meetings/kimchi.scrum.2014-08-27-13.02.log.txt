@@ -1,0 +1,95 @@
+13:02:20 <alinefm> #startmeeting
+13:02:20 <kimchi-bot> Meeting started Wed Aug 27 13:02:20 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:20 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:20 <alinefm> #meetingname scrum
+13:02:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:30 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:30 <alinefm> anything else?
+13:04:02 <alinefm> ok - so let's get started
+13:04:05 <alinefm> #topic Status
+13:04:05 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:15 <YuXin> #info YuXin list iSCSI targets patch v1 sent
+13:04:18 <vianac> #info vianac sent WIP patchset for the feature "Download remote ISO to storage pool"; reviewed patches on the mailing list
+13:04:19 <royce> #info royce submitted patches of uploading volume, now refactoring patch to integrate cgi bigfile optimization
+13:04:23 <alinefm> #info alinefm sent patches to discover kimchi peers using openSLP
+13:04:38 <YuXin> #info YuXin kimchi peers patch v2 sent
+13:04:39 <alinefm> #info alinefm sent patch to centralize graphics information in a single data structure
+13:04:58 <wenwang> #info wenwang sent patch of Authorization: Allow admin user change permission settings when VM is running
+13:05:01 <royce> #info royce fixed bug of attaching iscsi volume to vm--need review
+13:06:54 <rotru> #info rotru Sent patches to fix storage tab UI in guest edit window
+13:07:47 <alinefm> great, team!
+13:07:50 <rotru> #info rotru Sent patch to fix path of Iscsi storage in storage tab of guest edit window
+13:08:08 <rotru> #info rotru Sent V1 patch of feature "Create template from VM"
+13:08:39 <alinefm> I think we are doing a good progress but some features may be out of 1.3 release as we just have one more week until the end of this sprint
+13:09:32 <alinefm> those feature are: pci passthrough, async event notification, migration
+13:09:33 <baude> #info almost complete on patches to edit graphics options on the template and guests
+13:09:52 <baude> #info baude almost complete on patches to edit graphics options on the template and guests
+13:09:57 <YuXin> what is the status of pci passthrough backend?
+13:10:22 <alinefm> the last time I talked to zheng zhou he was finishing the tests in some distros
+13:10:31 <alinefm> but I don't have a status of those tests
+13:10:40 <alinefm> he is out for the linuxcon conf this week
+13:10:43 <wenwang> What about the status of Asynchronous event notify in the back-end
+13:11:06 <alinefm> wenwang, no status on it =/
+13:11:10 <alinefm> the same for migration
+13:12:45 <YuXin> ok, let us focus on all those that can be delivered
+13:12:59 <YuXin> I will get iscsi target patch v2 out tomorrow
+13:13:08 <alinefm> ok - thanks
+13:13:32 <alinefm> I think the pci passthrough can be merged for 1.3 as the UI is done and backend is on way
+13:14:12 <YuXin> ok, let us target for that
+13:14:25 <alinefm> #topic Open Discussion
+13:14:31 <alinefm> what are the topics for today?
+13:15:44 <alinefm> nothing??! oO
+13:16:27 <royce> Guys are struggling with their problems:)
+13:17:00 <alinefm> lol
+13:17:20 <alinefm> royce, glad to see the upload API worked
+13:17:55 <alinefm> not sure you understood my comment on ML but I am OK to upload the file at once, but even though we need to return a Task on create()
+13:18:39 <royce> yes, I am changing it to return a task
+13:18:55 <wenwang> alinefm: Since we don't have any status of the Asynchronous event notify, could someone else have this task done or is anybody interested in doing the back-end work
+13:19:33 <alinefm> wenwang, yeap! I plan to take this one once I finished the federation task and graphics refactor
+13:20:02 <alinefm> wenwang, I need to careful read your RFC and check for backend techniques
+13:20:05 <wenwang> alinefm: That's great
+13:20:06 <rotru> alinefm;  I need someone to take my task over
+13:20:53 <wenwang> alinefm: Yeah, we do have lots of options, and also I will read those docs and we can discuss on those details with you
+13:21:00 <rotru> alinefm;  I can send a new version today, but need someone to make review changes
+13:21:55 <alinefm> royce, are you too overload or you can take the rotru's task (during his vacation)?
+13:22:04 <alinefm> otherwise, I will clone myself for it lol
+13:22:53 <royce> I will be on vacation during 5th Sep- 8th
+13:23:04 <royce> if I can finish mine
+13:23:09 <royce> I will take it
+13:24:28 <rotru> alinefm; royce  :D
+13:25:25 <alinefm> royce, ok - thanks
+13:25:37 <alinefm> any other topic?
+13:25:50 <alinefm> everyone planning vacation because that it is so quiet today =)
+13:26:00 <royce> :D
+13:26:21 <royce> Is there any special festival there, alinefm?
+13:26:32 <royce> It is the mid autumn here
+13:27:02 <alinefm> nothing special
+13:27:11 <alinefm> just everyone praying for rain
+13:27:31 <alinefm> a long time without a real rain here
+13:27:32 <alinefm> =/
+13:28:34 <wenwang> Hopefully you will get the rain soon:-)
+13:28:53 <alinefm> yeap! thanks
+13:29:00 <alinefm> ok team, if anyone has more topics we can finish for today
+13:29:09 <baude> alinefm, i have one
+13:29:09 <alinefm> and focus in our 1.3 tasks =P
+13:29:13 <alinefm> baude, go ahead
+13:29:39 <baude> im curious when kimchi can move to a version/release cycle as well
+13:29:54 <baude> which will make it easier for distros to package/update and so forth
+13:30:17 <alinefm> baude, we have one release every 3 months
+13:30:33 <baude> a tarball release?
+13:30:44 <alinefm> basically, end of March, end of June, end of Sept and end of December
+13:30:53 <alinefm> yes
+13:30:57 <baude> ok cool
+13:30:59 <baude> i missed that
+13:31:04 <baude> nm then :)
+13:31:10 <alinefm> kimchi 1.3 will be 09/26
+13:31:22 <alinefm> and then we start planning the next one for the end of December
+13:31:28 <baude> great
+13:31:31 <baude> we can wrap up now
+13:32:00 <alinefm> baude, any news from fedora? about including kimchi?
+13:32:20 <baude> waiting on the fedora packaging approval for the jquery libs.  will poke them tomorrow
+13:33:20 <alinefm> great! thanks
+13:33:28 <alinefm> anything else for today?
+13:34:02 <baude> not from me
+13:34:49 <alinefm> thanks everyone for joining!
+13:35:49 <alinefm> #endmeeting
