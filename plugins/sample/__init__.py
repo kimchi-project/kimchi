@@ -64,12 +64,14 @@ class Circles(Collection):
     def __init__(self, model):
         super(Circles, self).__init__(model)
         self.resource = Circle
+        self.admin_methods = ['POST', 'PUT']
 
 
 class Rectangles(Collection):
     def __init__(self, model):
         super(Rectangles, self).__init__(model)
         self.resource = Rectangle
+        self.admin_methods = ['POST', 'PUT']
 
 
 class Circle(Resource):
