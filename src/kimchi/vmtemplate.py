@@ -251,25 +251,19 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
 
     def _get_iscsi_disks_xml(self):
         def build_disk_xml(children=[]):
-            disk = E.disk(type='volume', device='disk')
+            disk = E.disk(type='block', device='disk')
             disk.extend(children)
             return etree.tostring(disk)
 
         ret = ""
         children = []
-        auth = self._get_storage_auth()
-        if auth:
-            etree_auth = E.auth(username=auth['username'])
-            etree_auth.append(E.secret(type=auth['type'],
-                              usage=auth['libvirtiscsi']))
-            children.append(etree_auth)
         children.append(E.driver(name='qemu', type='raw'))
         disk_bus = self.info['disk_bus']
         dev_prefix = self._bus_to_dev[disk_bus]
         pool_name = pool_name_from_uri(self.info['storagepool'])
         for i, d in enumerate(self.info['disks']):
-            source = E.source(pool=pool_name,
-                              volume=d.get('volume'), mode='host')
+            source = E.source(dev=self._get_volume_path(pool_name,
+                                                        d.get('volume')))
             # FIXME if more than 26 disks
             target = E.target(dev=dev_prefix + string.lowercase[i],
                               bus=disk_bus)
@@ -455,8 +449,8 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
     def _get_storage_type(self):
         return ''
 
-    def _get_storage_auth(self):
-        return None
+    def _get_volume_path(self):
+        return ''
 
     def _get_all_networks_name(self):
         return []

@@ -997,6 +997,9 @@ class MockVMTemplate(VMTemplate):
         pool = self._storage_validate()
         return pool.info['path']
 
+    def _get_volume_path(self, pool, vol):
+        return self.model.storagevolume_lookup(pool, vol)['path']
+
     def fork_vm_storage(self, vm_name):
         pool = self._storage_validate()
         volumes = self.to_volume_list(vm_name)
