@@ -17,8 +17,6 @@ tools.kimchiauth.on = True
 
 [/rectangles]
 tools.kimchiauth.on = True
-tools.kimchiauth.admin_methods = ['POST', 'PUT']
 
 [/circles]
 tools.kimchiauth.on = True
-tools.kimchiauth.admin_methods = ['POST', 'PUT']
