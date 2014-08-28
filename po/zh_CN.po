@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-08 15:27-0300\n"
+"POT-Creation-Date: 2014-08-28 13:37-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -1046,9 +1046,6 @@ msgstr "操作"
 msgid "Connect"
 msgstr "连接到"
 
-msgid "Manage Media"
-msgstr "管理光盘介质"
-
 msgid "Edit"
 msgstr "编辑"
 
@@ -1152,6 +1149,9 @@ msgstr "确认"
 
 msgid "Warning"
 msgstr "警告"
+
+msgid "Creating..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "正在加载..."
@@ -1318,9 +1318,6 @@ msgid ""
 "cache in the guest. Would you like to continue?"
 msgstr "这样做可能导致不良后果，比如客户机磁盘缓存未刷新，确认要继续吗？"
 
-msgid "This VM is not persistent. Power Off will destroy it. Continue?"
-msgstr "This VM is not persistent. Power Off will destroy it. Continue?"
-
 msgid "Reset Confirmation"
 msgstr "重置确认"
 
@@ -1337,6 +1334,9 @@ msgstr "注意，客户机操作系统可能会忽略这个请求，确认要继
 
 msgid "VM Delete Confirmation"
 msgstr "虚拟机删除确认"
+
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr ""
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1357,6 +1357,11 @@ msgstr "成功替换"
 
 msgid "Successfully detached!"
 msgstr "成功卸载"
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
+msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "VLAN 标识符必须在1至4094之间"
@@ -1787,13 +1792,3 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
-
-#~ msgid ""
-#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-#~ msgstr "无效的目标设备总线类型。支持类型为：'ide'，'scsi'，'virtio'"
-
-#~ msgid "Device Bus"
-#~ msgstr "设备总线"
-
-#~ msgid "Failed."
-#~ msgstr "失败"
