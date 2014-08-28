@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-08 15:27-0300\n"
+"POT-Creation-Date: 2014-08-28 13:37-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1084,9 +1084,6 @@ msgstr "Actions"
 msgid "Connect"
 msgstr "Connect"
 
-msgid "Manage Media"
-msgstr "Manage Media"
-
 msgid "Edit"
 msgstr "Edit"
 
@@ -1193,6 +1190,9 @@ msgstr "Confirm"
 
 msgid "Warning"
 msgstr "Warning"
+
+msgid "Creating..."
+msgstr "Creating..."
 
 msgid "Loading..."
 msgstr "Loading..."
@@ -1371,9 +1371,6 @@ msgstr ""
 "This action may produce undesirable results, for example unflushed disk "
 "cache in the guest. Would you like to continue?"
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
-msgstr "This VM is not persistent. Power Off will delete it. Continue?"
-
 msgid "Reset Confirmation"
 msgstr "Reset Confirmation"
 
@@ -1392,6 +1389,9 @@ msgstr "Note the guest OS may ignore this request. Would you like to continue?"
 
 msgid "VM Delete Confirmation"
 msgstr "VM Delete Confirmation"
+
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr "This VM is not persistent. Power Off will delete it. Continue?"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1414,6 +1414,13 @@ msgstr "Successfully replaced!"
 
 msgid "Successfully detached!"
 msgstr "Successfully detached!"
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
+msgstr ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "The VLAN id must be between 1 and 4094."
@@ -1856,14 +1863,3 @@ msgstr "No templates found."
 
 msgid "Clone"
 msgstr "Clone"
-
-#~ msgid ""
-#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-#~ msgstr ""
-#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-
-#~ msgid "Device Bus"
-#~ msgstr "Device Bus"
-
-#~ msgid "Failed."
-#~ msgstr "Failed."

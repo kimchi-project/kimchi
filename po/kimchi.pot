@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-08 15:27-0300\n"
+"POT-Creation-Date: 2014-08-28 13:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1026,9 +1026,6 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
-msgid "Manage Media"
-msgstr ""
-
 msgid "Edit"
 msgstr ""
 
@@ -1130,6 +1127,9 @@ msgid "Confirm"
 msgstr ""
 
 msgid "Warning"
+msgstr ""
+
+msgid "Creating..."
 msgstr ""
 
 msgid "Loading..."
@@ -1314,6 +1314,9 @@ msgstr ""
 msgid "VM Delete Confirmation"
 msgstr ""
 
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr ""
+
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
 "to detach it?"
@@ -1332,6 +1335,11 @@ msgid "Successfully replaced!"
 msgstr ""
 
 msgid "Successfully detached!"
+msgstr ""
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
 msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."

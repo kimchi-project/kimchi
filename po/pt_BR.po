@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-08 15:27-0300\n"
+"POT-Creation-Date: 2014-08-28 13:37-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: Aline Manera <alinefm@br.ibm.com>\n"
@@ -1144,9 +1144,6 @@ msgstr "Ações"
 msgid "Connect"
 msgstr "Conectar"
 
-msgid "Manage Media"
-msgstr "Gerenciar mídia"
-
 msgid "Edit"
 msgstr "Editar"
 
@@ -1256,6 +1253,9 @@ msgstr "Confirmar"
 
 msgid "Warning"
 msgstr "Aviso"
+
+msgid "Creating..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "Carregando..."
@@ -1434,9 +1434,6 @@ msgstr ""
 "Essa ação pode produzir resultados não desejáveis, como por exemplo cache de "
 "disco não atualizado no guest. Deseja continuar?"
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
-msgstr "A máquina virtual não é persistente. Desligá-la irá removê-la. Deseja continuar?"
-
 msgid "Reset Confirmation"
 msgstr "Confirmação de reinicialização"
 
@@ -1455,6 +1452,11 @@ msgstr "O SO do guest pode ignorar essa requisição. Deseja continuar?"
 
 msgid "VM Delete Confirmation"
 msgstr "Confirmação de remoção da VM"
+
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr ""
+"A máquina virtual não é persistente. Desligá-la irá removê-la. Deseja "
+"continuar?"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1477,6 +1479,11 @@ msgstr "Substituido com sucesso!"
 
 msgid "Successfully detached!"
 msgstr "Removido com sucesso!"
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
+msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "VLAN id deve ser um número entre 1 e 4094."
@@ -1919,15 +1926,3 @@ msgstr "Nenhum modelo encontrado."
 
 msgid "Clone"
 msgstr "Clonar"
-
-#~ msgid ""
-#~ "Invalid target device bus type, type supported: 'ide', 'scsi', 'virtio'"
-#~ msgstr ""
-#~ "Tipo de barramento do dispositivo de destino inválido, tipos suportados: "
-#~ "'ide', 'scsi', 'virtio'"
-
-#~ msgid "Device Bus"
-#~ msgstr "Barramento do dispositivo"
-
-#~ msgid "Failed."
-#~ msgstr "Falhou."
