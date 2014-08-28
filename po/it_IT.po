@@ -1,0 +1,1958 @@
+# English translations for kimchi package.
+# Copyright (C) 2013 ORGANIZATION
+# Adam Litke <agl@us.ibm.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kimchi 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-28 13:37-0300\n"
+"PO-Revision-Date: 2013-07-11 17:32-0400\n"
+"Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
+"Language-Team: English\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid "Unkown parameter specified %(value)s"
+msgstr "Specificato parametro sconosciuto %(value)s"
+
+#, python-format
+msgid "Delete is not allowed for %(resource)s"
+msgstr "Eliminazione non consentita per %(resource)s"
+
+#, python-format
+msgid "%(resource)s does not implement update method"
+msgstr "%(resource)s non implementa il metodo di aggiornamento"
+
+#, python-format
+msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+msgstr "Non è consentito aggiornare i parametri %(params)s in %(resource)s"
+
+#, python-format
+msgid "Create is not allowed for %(resource)s"
+msgstr "Creazione non consentita per %(resource)s"
+
+msgid "Unable to parse JSON request"
+msgstr "Impossibile analizzare la richiesta JSON"
+
+msgid "This API only supports JSON"
+msgstr "L'API supporta solo JSON"
+
+#, python-format
+msgid "Parameters does not match requirement in schema: %(err)s"
+msgstr ""
+
+msgid "You don't have permission to perform this operation."
+msgstr ""
+
+msgid "Datastore is not initiated in the model object."
+msgstr "Archivio dati non inizializzato nell'oggetto modello."
+
+#, python-format
+msgid "Unable to start task due error: %(err)s"
+msgstr "Impossibile avviare l'attività a causa dell'errore: %(err)s"
+
+#, python-format
+msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
+msgstr ""
+"Autenticazione non riuscita per l'utente '%(username)s'. [Codice di errore: "
+"%(code)s]"
+
+msgid "You are not authorized to access Kimchi"
+msgstr "Non si dispone dell'autorizzazione ad accedere a Kimchi"
+
+#, python-format
+msgid "Specify %(item)s to login into Kimchi"
+msgstr "Specificare %(item)s per accedere a Kimchi"
+
+#, python-format
+msgid "Error while getting block devices. Details: %(err)s"
+msgstr ""
+"Errore durante il richiamo dei dispositivi del blocco. Dettagli: %(err)s"
+
+#, python-format
+msgid "Error while getting block device information for %(device)s."
+msgstr ""
+"Errore durante il richiamo delle informazioni sul dispositivo del blocco per "
+"%(device)s."
+
+#, python-format
+msgid "Unable to find distro file: %(filename)s"
+msgstr "Impossibile trovare il file distro: %(filename)s"
+
+#, python-format
+msgid ""
+"Unable to parse distro file: %(filename)s. Make sure, it is a JSON file."
+msgstr ""
+"Impossibile analizzare il file distro: %(filename)s. Verificare che sia un "
+"file JSON."
+
+#, python-format
+msgid "Unable to login to iSCSI host target %(portal)s. Details: %(err)s"
+msgstr ""
+"Impossibile accedere a %(portal)s di destinazione host iSCSI. Dettagli: "
+"%(err)s"
+
+#, python-format
+msgid "Unable to login to iSCSI host %(host)s target %(target)s"
+msgstr "Impossibile accedere alla destinazione %(target)s host %(host)s iSCSI"
+
+#, python-format
+msgid "Unable to find ISO file ISO %(filename)s"
+msgstr "Impossibile trovare il file ISO %(filename)s"
+
+#, python-format
+msgid "The ISO file %(filename)s is not bootable"
+msgstr "Il file ISO %(filename)s non è avviabile"
+
+#, python-format
+msgid "The ISO file %(filename)s does not have a valid El Torito boot record"
+msgstr "Il file ISO %(filename)s non ha un record di avvio El Torito valido"
+
+#, python-format
+msgid "Invalid El Torito validation entry in ISO %(filename)s"
+msgstr "Voce di convalida El Torito non valida in ISO %(filename)s"
+
+#, python-format
+msgid "Invalid El Torito boot indicator in ISO %(filename)s"
+msgstr "Indicatore di avvio El Torito non valido in ISO %(filename)s"
+
+#, python-format
+msgid "Unexpected volume type for primary volume in ISO %(filename)s"
+msgstr "Tipo di volume imprevisto per il volume primario in ISO %(filename)s"
+
+#, python-format
+msgid "Bad format while reading volume descriptor in ISO %(filename)s"
+msgstr ""
+"Formato non corretto durante la lettura del descrittore volume in ISO "
+"%(filename)s"
+
+#, python-format
+msgid ""
+"The hypervisor doesn't have permission to use this ISO %(filename)s. "
+"Consider moving it under /var/lib/libvirt,  or set the search permission to "
+"file access control lists for '%(user)s' user if possible, or add the "
+"'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
+"'path_to_iso'.Details: %(err)s"
+msgstr ""
+"L'hypervisor non dispone dell'autorizzazione per utilizzare questo ISO "
+"%(filename)s. Spostarlo in /var/lib/libvirt o impostare l'autorizzazione di "
+"ricerca per gli elenchi di controllo accesso ai file per l'utente "
+"'%(user)s',  se possibile, o aggiungere '%(user)s' al gruppo percorso ISO o "
+"(non consigliato) 'chmod -R o+x 'path_to_iso'. Dettagli: %(err)s"
+
+msgid "Error occurs when probing image os information."
+msgstr ""
+
+msgid "No OS information found in given image."
+msgstr ""
+
+#, python-format
+msgid "Unable to find/read image file %(filename)s"
+msgstr "Impossibile trovare il file distro: %(filename)s"
+
+#, python-format
+msgid "Virtual machine %(name)s already exists"
+msgstr "Macchina virtuale %(name)s già esistente"
+
+#, python-format
+msgid "Virtual machine %(name)s does not exist"
+msgstr "La macchina virtuale %(name)s non esiste"
+
+#, python-format
+msgid ""
+"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
+"exists or it is not powered off."
+msgstr ""
+"Impossibile ridenominare la macchina virtuale %(name)s. Il nome %(new_name)s "
+"già esiste o la macchina non è spenta."
+
+#, python-format
+msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
+msgstr ""
+"Impossibile richiamare l'immagine per la macchina virtuale arrestata %(name)s"
+
+msgid "Remote ISO image is not supported by this server."
+msgstr "L'immagine ISO remota non è supportata da questo server."
+
+#, python-format
+msgid "Screenshot not supported for virtual machine %(name)s"
+msgstr "L'immagine non è supportata per la macchina virtuale %(name)s"
+
+#, python-format
+msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile creare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile creare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+"Impossibile richiamare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to connect to powered off machine %(name)s."
+msgstr "Impossibile connettersi alla macchina spenta %(name)s."
+
+msgid "Virtual machine name must be a string"
+msgstr "Il nome della macchina virtuale deve essere una stringa"
+
+#, python-format
+msgid "Invalid template URI: %(value)s specified for virtual machine"
+msgstr "URI modello non valido: %(value)s specificato per la macchina virtuale"
+
+#, python-format
+msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
+msgstr ""
+"URI pool di memoria non valido: %(value)s specificato per la macchina "
+"virtuale"
+
+msgid "Supported virtual machine graphics are spice or VNC"
+msgstr "I grafici macchina virtuale supportati sono spice o VNC"
+
+msgid "Graphics address to listen on must be IPv4 or IPv6"
+msgstr ""
+"L'indirizzo dei grafici su cui rimanere in ascolto deve essere IPv4 o IPv6"
+
+msgid "Specify a template to create a virtual machine from"
+msgstr "Specificare un modello da cui creare una macchina virtuale"
+
+#, python-format
+msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile avviare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile arrestare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile eliminare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
+msgstr ""
+"Impossibile ridenominare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+msgid "User names list must be an array"
+msgstr "Il nome della rete deve essere una stringa"
+
+msgid "User name must be a string"
+msgstr "Il nome della rete deve essere una stringa"
+
+msgid "Group names list must be an array"
+msgstr ""
+
+msgid "Group name must be a string"
+msgstr "Il nome della rete deve essere una stringa"
+
+#, python-format
+msgid "User(s) '%(users)s' do not exist"
+msgstr "L'utente '%(users)s' non esiste."
+
+#, python-format
+msgid "Group(s) '%(groups)s' do not exist"
+msgstr "L'utente '%(groups)s' non esiste."
+
+#, python-format
+msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile arrestare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid ""
+"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
+msgstr "Impossibile avviare la macchina virtuale %(name)s. Dettagli: %(err)s"
+
+msgid "password of a vm ticket must be a string."
+msgstr ""
+"La password di accesso della destinazione iSCSI deve essere una stringa"
+
+msgid "expire of a vm ticket must be a number."
+msgstr ""
+
+#, python-format
+msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
+msgstr "L'interfaccia %(iface)s non esiste nella macchina virtuale %(name)s"
+
+#, python-format
+msgid ""
+"Network %(network)s specified for virtual machine %(name)s does not exist"
+msgstr ""
+"La rete %(network)s specificata per la macchina virtuale %(name)s non esiste"
+
+msgid "Do not support guest interface hot plug attachment"
+msgstr "Non supportare collegamento hot plug interfaccia guest"
+
+msgid "Supported virtual machine interfaces type is only network"
+msgstr ""
+"Il tipo supportato per le interfacce della macchina virtuale è solo rete"
+
+msgid "Network name for virtual machine interface must be a string"
+msgstr ""
+"Il nome di rete per l'interfaccia della macchina virtuale deve essere una "
+"stringa"
+
+msgid "Invalid network model card specified for virtual machine interface"
+msgstr ""
+"Scheda modello di rete non valida per l'interfaccia della macchina virtuale"
+
+msgid "Specify type and network to add a new virtual machine interface"
+msgstr ""
+"Specificare il tipo e la rete per aggiungere una nuova interfaccia della "
+"macchina virtuale"
+
+msgid "Specify type and network to update a virtual machine interface"
+msgstr ""
+"Specificare il tipo e la rete per aggiungere una nuova interfaccia della "
+"macchina virtuale"
+
+#, python-format
+msgid "Template %(name)s already exists"
+msgstr "Modello %(name)s già esistente"
+
+#, python-format
+msgid "Template %(name)s does not exist"
+msgstr "Il modello %(name)s non esiste"
+
+#, python-format
+msgid ""
+"Network '%(network)s' specified for template %(template)s does not exist"
+msgstr ""
+"La rete '%(network)s' specificata per il modello %(template)s non esiste"
+
+#, python-format
+msgid ""
+"Storage pool %(pool)s specified for template %(template)s does not exist"
+msgstr ""
+"Il pool di memoria %(pool)s specificato per il modello %(template)s non "
+"esiste"
+
+#, python-format
+msgid "Storage pool %(pool)s specified for template %(template)s is not active"
+msgstr ""
+"Il pool di memoria %(pool)s specificato per il modello %(template)s non è "
+"attivo"
+
+#, python-format
+msgid "Invalid parameter '%(param)s' specified for CDROM."
+msgstr "Parametro non valido %(param)s' specificato per CDROM."
+
+#, python-format
+msgid "Network %(network)s specified for template %(template)s is not active"
+msgstr ""
+"La rete %(network)s specificata per il modello %(template)s non è attiva"
+
+msgid "Template name must be a string"
+msgstr "Il nome del modello deve essere una stringa"
+
+msgid "Template icon must be a path to the image"
+msgstr "L'icona del modello deve essere un percorso all'immagine"
+
+msgid "Template distribution must be a string"
+msgstr "La distribuzione del modello deve essere una stringa"
+
+msgid "Template distribution version must be a string"
+msgstr "La versione della distribuzione del modello deve essere una stringa"
+
+msgid "The number of CPUs must be an integer greater than 0"
+msgstr "Il numero di CPU deve essere un numero intero"
+
+msgid "Amount of memory (MB) must be an integer greater than 512"
+msgstr ""
+"La quantità di memoria (MB) deve essere un numero intero maggiore di  512"
+
+msgid "Template CDROM must be a local or remote ISO file"
+msgstr "Il CDROM del modello deve essere un file ISO locale o remoto"
+
+#, python-format
+msgid "Invalid storage pool URI %(value)s specified for template"
+msgstr "URI pool di memoria non valido: %(value)s specificato per il modello"
+
+msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgstr "Specificare un'immagine ISO come CDROM per creare un modello"
+
+msgid "All networks for the template must be specified in a list."
+msgstr "Tutte le reti per il modello devono essere specificate in un elenco."
+
+msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
+msgstr ""
+"Se il pool di memoria è iscsi o scsi deve essere specificato un volume per "
+"un modello"
+
+#, python-format
+msgid "The volume: %(volume)s in not in storage pool %(pool)s"
+msgstr "Il volume: %(volume)s non è nel pool di memoria %(pool)s"
+
+#, python-format
+msgid "Unable to create template due error: %(err)s"
+msgstr "Impossibile creare il modello a causa dell'errore: %(err)s"
+
+#, python-format
+msgid "Unable to delete template due error: %(err)s"
+msgstr "Impossibile eliminare il modello a causa dell'errore: %(err)s"
+
+msgid "Disk size must be greater than 1GB."
+msgstr ""
+
+msgid "Template base image must be a valid local image file"
+msgstr "Il CDROM del modello deve essere un file ISO locale o remoto"
+
+#, python-format
+msgid "Cannot identify base image %(path)s format"
+msgstr ""
+
+#, python-format
+msgid "Storage pool %(name)s already exists"
+msgstr "Pool di memoria %(name)s già esistente"
+
+#, python-format
+msgid "Storage pool %(name)s does not exist"
+msgstr "Il pool di memoria %(name)s non esiste"
+
+#, python-format
+msgid "Specify %(item)s in order to create the storage pool %(name)s"
+msgstr "Specificare %(item)s per poter creare il  pool di memoria %(name)s"
+
+#, python-format
+msgid "Unable to delete active storage pool %(name)s"
+msgstr "Impossibile eliminare il pool di memoria attivo %(name)s"
+
+#, python-format
+msgid "Unable to list storage pools. Details: %(err)s"
+msgstr "Impossibile elencare i pool di memoria. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to create storage pool %(name)s. Details: %(err)s"
+msgstr "Impossibile creare il pool di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid ""
+"Unable to get number of storage volumes in storage pool %(name)s. Details: "
+"%(err)s"
+msgstr ""
+"Impossibile ottenere il numero di volumi di memoria nel pool di memoria "
+"%(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
+msgstr "Impossibile attivare il pool di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to deactivate storage pool %(name)s. Details: %(err)s"
+msgstr "Impossibile disattivare il pool di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to delete storage pool %(name)s. Details: %(err)s"
+msgstr "Impossibile eliminare il pool di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid ""
+"Unable to create NFS Pool as export path %(path)s may block during mount"
+msgstr ""
+"Impossibile creare il pool NFS poiché il percorso di esportazione %(path)s "
+"potrebbe bloccarsi durante il montaggio"
+
+#, python-format
+msgid "Unable to create NFS Pool as export path %(path)s mount failed"
+msgstr ""
+"Impossibile creare il pool NFS poiché il montaggio del percorso di "
+"esportazione %(path)s ha avuto esito negativo"
+
+#, python-format
+msgid "Unsupported storage pool type: %(type)s"
+msgstr "Tipo di pool di memoria non supportato: %(type)s"
+
+#, python-format
+msgid "Error while getting xml for storage pool %(pool)s"
+msgstr "Errore durante il richiamo dell'xml per il pool di memoria %(pool)s"
+
+msgid "Storage pool name must be a string"
+msgstr "Il nome del pool di memoria deve essere una stringa"
+
+msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
+msgstr ""
+"I tipi di pool di memoria supportati sono dir, netfs, logico e kimchi-iso"
+
+msgid "Storage pool path must be a string"
+msgstr "Il percorso del pool di memoria deve essere una stringa"
+
+msgid "Storage pool host must be a IP or hostname"
+msgstr "L'host del pool di memoria deve essere un nome host o IP"
+
+msgid "Storage pool devices must be the full path to the block device"
+msgstr ""
+"I dispositivi pool di memoria devono essere il percorso completo al "
+"dispositivo del blocco"
+
+msgid "Storage pool devices parameter must be a list"
+msgstr "Il parametro dispositivi pool di memoria deve essere un elenco"
+
+msgid "Target IQN of an iSCSI pool must be a string"
+msgstr "L'IQN di destinazione di un pool iSCSI deve essere una stringa"
+
+msgid "Port of a remote storage server must be an integer between 1 and 65535"
+msgstr ""
+"La porta di un server di memoria remoto deve essere un numero intero tra 1 e "
+"65535"
+
+msgid "Login username of the iSCSI target must be a string"
+msgstr ""
+"Il nome utente di accesso della destinazione iSCSI deve essere una stringa"
+
+msgid "Login password of the iSCSI target must be a string"
+msgstr ""
+"La password di accesso della destinazione iSCSI deve essere una stringa"
+
+msgid "Specify name and type to create a storage pool"
+msgstr "Specificare nome e tipo per creare un pool di memoria"
+
+#, python-format
+msgid ""
+"%(disk)s is not a valid disk/partition. Could not add it to the pool "
+"%(pool)s."
+msgstr ""
+"%(disk)s non è un disco/partizione valido. Impossibile aggiungerlo al pool "
+"%(pool)s."
+
+#, python-format
+msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
+msgstr ""
+"Errore durante l'estensione del pool logico %(pool)s. Dettagli: %(err)s"
+
+msgid "The parameter disks only can be updated for logical storage pool."
+msgstr ""
+"Solo il parametro dischi può essere aggiornato per il pool di memoria logico."
+
+msgid "The SCSI host adapter name must be a string."
+msgstr "Il nome adattatore host SCSI deve essere una stringa."
+
+msgid "The storage pool kimchi_isos is reserved for internal use"
+msgstr "Il pool di memoria kimchi_isos è riservato per uso interno"
+
+#, python-format
+msgid ""
+"Unable to activate NFS storage pool %(name)s. NFS server %(server)s is "
+"unreachable."
+msgstr ""
+"Impossibile attivare il pool di memoria NFS %(name)s. Il server NFS "
+"%(server)s è irraggiungibile."
+
+#, python-format
+msgid ""
+"Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is "
+"unreachable."
+msgstr ""
+"Impossibile disattivare il pool di memoria NFS %(name)s. Il server NFS "
+"%(server)s è irraggiungibile."
+
+#, python-format
+msgid ""
+"Unable to deactivate pool %(name)s as it is associated with some templates"
+msgstr ""
+"Impossibile disattivare il pool %(name)s poiché è associato ad alcuni modelli"
+
+#, python-format
+msgid "Unable to delete pool %(name)s as it is associated with some templates"
+msgstr ""
+"Impossibile eliminare il pool %(name)s poiché è associato ad alcuni modelli"
+
+#, python-format
+msgid ""
+"A volume group named '%(name)s' already exists. Please, choose another name "
+"to create the logical pool."
+msgstr ""
+"Un gruppo di volumi denominato '%(name)s' esiste già. Scegliere un altro "
+"nome per creare il pool logico."
+
+#, python-format
+msgid "Unable to update database with deep scan information due error: %(err)s"
+msgstr ""
+"Impossibile aggiornare il database con informazioni approfondite sulla "
+"scansione a causa dell'errore: %(err)s"
+
+#, python-format
+msgid "Storage volume %(name)s already exists"
+msgstr "Volume di memoria %(name)s già esistente"
+
+#, python-format
+msgid "Storage volume %(name)s does not exist in storage pool %(pool)s"
+msgstr "Il volume di memoria %(name)s non esiste nel pool di memoria %(pool)s"
+
+#, python-format
+msgid ""
+"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"not active"
+msgstr ""
+"Impossibile creare il volume di memoria %(volume)s poiché il  pool di "
+"memoria %(pool)s non è attivo"
+
+#, python-format
+msgid "Specify %(item)s in order to create storage volume %(volume)s"
+msgstr "Specificare %(item)s per poter creare il volume di memoria %(volume)s"
+
+#, python-format
+msgid ""
+"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
+"is not active"
+msgstr ""
+"Impossibile richiamare il volume di memoria %(volume)s poiché il  pool di "
+"memoria %(pool)s non è attivo"
+
+#, python-format
+msgid ""
+"Unable to list storage volumes because storage pool %(pool)s is not active"
+msgstr ""
+"Impossibile elencare i volumi di memoria poiché il pool di memoria %(pool)s "
+"non è attivo"
+
+#, python-format
+msgid ""
+"Unable to create storage volume %(name)s in storage pool %(pool)s. Details: "
+"%(err)s"
+msgstr ""
+"Impossibile creare il volume di memoria %(name)s nel pool di memoria "
+"%(pool)s. Dettagli: %(err)s"
+
+#, python-format
+msgid ""
+"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
+msgstr ""
+"Impossibile elencare i volumi di memoria nel pool di memoria %(pool)s. "
+"Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
+msgstr "Impossibile ripulire i volumi di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to delete storage volume %(name)s. Details: %(err)s"
+msgstr "Impossibile eliminare il volume di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to resize storage volume %(name)s. Details: %(err)s"
+msgstr ""
+"Impossibile ridimensionare il volume di memoria %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Storage type %(type)s does not support volume create and delete"
+msgstr ""
+"Il tipo di memoria %(type)s non supporta la creazione ed eliminazione del "
+"volume"
+
+msgid "Storage volume name must be a string"
+msgstr "Il nome del volume di memoria deve essere una stringa"
+
+msgid "Storage volume allocation must be an integer number"
+msgstr "L'assegnazione del volume di memoria deve essere un numero intero"
+
+msgid "Storage volume format not supported"
+msgstr "Formato del volume di memoria non supportato"
+
+msgid "Storage volume requires a volume name"
+msgstr "Il volume di memoria richiede un nome volume"
+
+#, python-format
+msgid ""
+"Unable to update database with storage volume information due error: %(err)s"
+msgstr ""
+"Impossibile aggiornare il database con informazioni sul volume di memoria a "
+"causa dell'errore: %(err)s"
+
+#, python-format
+msgid "Interface %(name)s does not exist"
+msgstr "L'interfaccia %(name)s non esiste"
+
+#, python-format
+msgid "Network %(name)s already exists"
+msgstr "Rete %(name)s già esistente"
+
+#, python-format
+msgid "Network %(name)s does not exist"
+msgstr "La rete %(name)s non esiste"
+
+#, python-format
+msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgstr ""
+"La sottorete %(subnet)s specificata per la rete %(network)s non è valida ."
+
+#, python-format
+msgid "Specify a network interface to create bridged network %(name)s"
+msgstr ""
+"Specificare un'interfaccia di rete per creare la rete con bridge %(name)s"
+
+#, python-format
+msgid "Unable to delete active network %(name)s"
+msgstr "Impossibile eliminare la rete attiva %(name)s"
+
+#, python-format
+msgid "Interface %(iface)s specified for network %(network)s is already in use"
+msgstr ""
+"L'interfaccia %(iface)s specificata per la rete %(network)s è già in uso"
+
+msgid "Interface should be bare NIC, bonding or bridge device."
+msgstr ""
+"L'interfaccia deve essere un dispositivo bridge o di collegamento NIC bare-"
+"metal."
+
+#, python-format
+msgid "Unable to create network %(name)s. Details: %(err)s"
+msgstr "Impossibile creare la rete %(name)s. Dettagli: %(err)s"
+
+#, python-format
+msgid "Unable to find a free IP address for network '%(name)s'"
+msgstr "Impossibile trovare un indirizzo IP libero per la rete '%(name)s'"
+
+msgid "Network name must be a string"
+msgstr "Il nome della rete deve essere una stringa"
+
+msgid "Supported network types are isolated, NAT and bridge"
+msgstr "I tipi di rete supportati sono isolata, NAT e   bridge"
+
+msgid "Network subnet must be a string with IP address and prefix or netmask"
+msgstr ""
+"La sottorete della rete deve essere una stringa con indirizzo IP e prefisso "
+"o maschera di rete"
+
+msgid "Network interface must be a string"
+msgstr "L'interfaccia di rete deve essere una stringa"
+
+msgid "Network VLAN ID must be an integer between 1 and 4094"
+msgstr "L'ID VLAN di rete deve essere un numero intero tra 1 e 4094"
+
+msgid "Specify name and type to create a Network"
+msgstr "Specificare nome e tipo per creare una rete"
+
+#, python-format
+msgid ""
+"Unable to delete network %(name)s. There are some virtual machines and/or "
+"templates linked to this network."
+msgstr ""
+"Impossibile eliminare la rete %(name)s. Ci sono alcune macchine virtuali e/o "
+"modelli collegati a tale rete."
+
+#, python-format
+msgid ""
+"Unable to deactivate network %(name)s. There are some virtual machines and/"
+"or templates linked to this network."
+msgstr ""
+"Impossibile disattivare la rete %(name)s. Ci sono alcune macchine virtualie/"
+"o modelli collegati a tale rete."
+
+#, python-format
+msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
+msgstr ""
+"Il dispositivo bridge %(name)s non può essere il dispositivo trunk di una "
+"VLAN."
+
+#, python-format
+msgid "Failed to activate interface %(iface)s: %(err)s."
+msgstr "Impossibile attivare l'interfaccia %(iface)s: %(err)s."
+
+#, python-format
+msgid ""
+"Failed to activate interface %(iface)s. Please check the physical link "
+"status."
+msgstr ""
+"Impossibile attivare l'interfaccia %(iface)s. Controllare lo stato del link "
+"fisico."
+
+#, python-format
+msgid "Debug report %(name)s does not exist"
+msgstr "Il report di debug %(name)s non esiste"
+
+msgid "Debug report tool not found in system"
+msgstr "Strumento report di debug non trovato nel sistema"
+
+#, python-format
+msgid "Unable to create debug report %(name)s. Details: %(err)s."
+msgstr "Impossibile creare il report di debug %(name)s. Dettagli: %(err)s."
+
+#, python-format
+msgid "Can not find any generated debug report matching name %(name)s"
+msgstr ""
+"Impossibile trovare alcun report di debug generato corrispondente al nome "
+"%(name)s"
+
+#, python-format
+msgid "Unable to generate debug report %(name)s. Details: %(err)s"
+msgstr "Impossibile generare il report di debug %(name)s. Dettagli: %(err)s"
+
+msgid "You should give a name for the debug file report."
+msgstr "È necessario fornire un nome per il report del file di debug."
+
+msgid ""
+"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
+"('-') are allowed."
+msgstr ""
+"Il nome deve essere una stringa. Sono consentiti solo lettere, cifre e "
+"trattini ('-')."
+
+#, python-format
+msgid ""
+"The debug report with specified name \"%(name)s\" already exists. Please use "
+"another one."
+msgstr ""
+"Un gruppo di volumi denominato '%(name)s' esiste già. Scegliere un altro "
+"nome per creare il pool logico."
+
+#, python-format
+msgid "Storage server %(server)s was not used by Kimchi"
+msgstr "Il server di memoria %(server)s non è stato utilizzato da Kimchi"
+
+#, python-format
+msgid "Distro '%(name)s' does not exist"
+msgstr "Distro '%(name)s' non esistente"
+
+#, python-format
+msgid "Partition %(name)s does not exist in the host"
+msgstr "La partizione %(name)s non esiste nell'host"
+
+msgid "Unable to shutdown host machine as there are running virtual machines"
+msgstr ""
+"Impossibile arrestare la macchina host poiché sono presenti macchine "
+"virtuali in esecuzione"
+
+msgid "Unable to reboot host machine as there are running virtual machines"
+msgstr ""
+"Impossibile riavviare la macchina host poiché sono presenti macchine "
+"virtuali in esecuzione"
+
+#, python-format
+msgid "Node device '%(name)s' not found"
+msgstr "Dispositivo nodo '%(name)s' non trovato"
+
+msgid "No packages marked for update"
+msgstr "Nessun pacchetto contrassegnato per l'aggiornamento"
+
+#, python-format
+msgid "Package %(name)s is not marked to be updated."
+msgstr "Il pacchetto %(name)s non è contrassegnato per l'aggiornamento."
+
+#, python-format
+msgid "Error while getting packages marked to be updated. Details: %(err)s"
+msgstr ""
+"Errore durante il richiamo dei pacchetti contrassegnati per l'aggiornamento. "
+"Dettagli: %(err)s"
+
+msgid "There is no compatible package manager for this system."
+msgstr "Non è presente un gestore pacchetti compatibile per questo sistema."
+
+#, python-format
+msgid "Unable to find %(item)s in datastore"
+msgstr "Impossibile trovare %(item)s nell'archivio dati"
+
+#, python-format
+msgid "Invalid URI %(uri)s"
+msgstr "URI %(uri)s non valido"
+
+#, python-format
+msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
+msgstr ""
+"È stato raggiunto il timeout durante l'esecuzione del comando '%(cmd)s' dopo "
+"%(seconds)s secondi"
+
+msgid "Unable to choose a virutal machine name"
+msgstr "Impossibile scegliere un nome di macchina virtuale"
+
+msgid "Invalid vm storage device name"
+msgstr "Nome dispositivo CDROM non valido"
+
+msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
+msgstr "Tipo di memoria non valido. I tipi supportati sono: 'cdrom'"
+
+#, python-format
+msgid "The path '%(value)s' is not valid local/remote path for the device"
+msgstr ""
+"Il percorso '%(value)s' non è un percorso locale/remoto valido per il "
+"dispositivo"
+
+#, python-format
+msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
+msgstr ""
+"Il nome dispositivo %(dev_name)s esiste già nella macchina virtuale "
+"%(vm_name)s"
+
+msgid "Just support cdrom path update"
+msgstr ""
+
+#, python-format
+msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
+msgstr ""
+"Il dispositivo di memoria %(dev_name)s non esiste nella macchina guest "
+"%(vm_name)s"
+
+#, python-format
+msgid "Error while creating new storage device: %(error)s"
+msgstr ""
+"Errore durante la creazione del nuovo dispositivo di memoria: %(error)s"
+
+#, python-format
+msgid "Error while updating storage device: %(error)s"
+msgstr "Errore durante l'aggiornamento del dispositivo di memoria: %(error)s"
+
+#, python-format
+msgid "Error while removing storage device: %(error)s"
+msgstr "Errore durante la rimozione del dispositivo di memoria: %(error)s"
+
+msgid "Do not support ide device hot plug"
+msgstr "Non supportare collegamento hot plug interfaccia guest"
+
+msgid ""
+"Specify type and path or type and pool/volume to add a new virtual machine "
+"disk"
+msgstr ""
+"Specificare tipo e percorso per aggiungere un nuovo disco della macchina "
+"virtuale"
+
+msgid "Specify path to update virtual machine disk"
+msgstr ""
+"Specificare il percorso per aggiornare il disco della macchina virtuale"
+
+#, python-format
+msgid "Controller type %(type)s limitation of %(limit)s devices reached"
+msgstr ""
+
+#, python-format
+msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgstr ""
+
+msgid "Volume already been used by other vm"
+msgstr ""
+
+msgid ""
+"Only one of path or pool/volume can be specified to add a new virtual "
+"machine disk"
+msgstr ""
+"Specificare tipo e percorso per aggiungere un nuovo disco della macchina "
+"virtuale"
+
+msgid "YUM Repository ID must be one word only string."
+msgstr "L'ID repository YUM deve essere una stringa di una sola parola."
+
+msgid "Repository URL must be an http://, ftp:// or file:// URL."
+msgstr "L'URL del repository deve essere http://, ftp:// o file:// URL."
+
+msgid ""
+"Repository configuration is a dictionary with specific values according to "
+"repository type."
+msgstr ""
+"La configurazione del repository è un dizionario con valori specifici in "
+"base al tipo di repository."
+
+msgid "Distribution to DEB repository must be a string"
+msgstr "La distribuzione al repository DEB deve essere una stringa"
+
+msgid "Components to DEB repository must be listed in a array"
+msgstr "I componenti per il repository DEB devono essere elencati in un array"
+
+msgid "Components to DEB repository must be a string"
+msgstr "I componenti per il repository DEB devono essere una stringa"
+
+msgid "Mirror list to DEB repository must be a string"
+msgstr ""
+"L'elenco di elementi speculari per il repository DEB deve essere una stringa"
+
+msgid "YUM Repository name must be string."
+msgstr "Il nome del repository YUM deve essere una stringa."
+
+msgid "GPG check must be a boolean value."
+msgstr "Il controllo GPG deve essere un valore booleano."
+
+msgid "GPG key must be a URL pointing to the ASCII-armored file."
+msgstr "La chiave GPG deve essere un URL che punta al file blindato ASCII."
+
+#, python-format
+msgid "Could not update repository %(repo_id)s."
+msgstr "Impossibile aggiornare il repository %(repo_id)s."
+
+#, python-format
+msgid "Repository %(repo_id)s does not exist."
+msgstr "Il repository %(repo_id)s non esiste."
+
+msgid ""
+"Specify repository base URL or mirror list in order to create a YUM "
+"repository."
+msgstr ""
+"Specificare l'URL di base del repository o l'elenco di elementi speculari "
+"per poter creare un repository YUM."
+
+msgid "Repository management tool was not recognized for your system."
+msgstr ""
+"Lo strumento di gestione del repository non è stato riconosciuto per il "
+"sistema."
+
+#, python-format
+msgid "Repository %(repo_id)s is already enabled."
+msgstr "Il repository %(repo_id)s è già abilitato."
+
+#, python-format
+msgid "Repository %(repo_id)s is already disabled."
+msgstr "Il repository %(repo_id)s è già disabilitato."
+
+#, python-format
+msgid "Could not remove repository %(repo_id)s."
+msgstr "Impossibile rimuovere il repository %(repo_id)s."
+
+#, python-format
+msgid "Could not write repository configuration file %(repo_file)s"
+msgstr ""
+"Impossibile scrivere il file di configurazione del repository %(repo_file)s"
+
+msgid "Specify repository distribution in order to create a DEB repository."
+msgstr ""
+"Specificare la distribuzione del repository per poter creare un repository "
+"DEB."
+
+#, python-format
+msgid "Could not enable repository %(repo_id)s."
+msgstr "Impossibile abilitare il repository %(repo_id)s."
+
+#, python-format
+msgid "Could not disable repository %(repo_id)s."
+msgstr "Impossibile disabilitare il repository %(repo_id)s."
+
+msgid "YUM Repository ID already exists"
+msgstr "ID repository YUM già esistente"
+
+msgid "YUM Repository name must be a string"
+msgstr "Il nome del repository YUM deve essere una stringa"
+
+#, python-format
+msgid "Unable to list repositories. Details: '%(err)s'"
+msgstr "Impossibile elencare i repository. Dettagli: '%(err)s'"
+
+#, python-format
+msgid "Unable to retrieve repository information. Details: '%(err)s'"
+msgstr ""
+"Impossibile richiamare le informazioni sul repository. Dettagli: '%(err)s'"
+
+#, python-format
+msgid "Unable to add repository. Details: '%(err)s'"
+msgstr "Impossibile aggiungere il repository. Dettagli: '%(err)s'"
+
+#, python-format
+msgid "Unable to remove repository. Details: '%(err)s'"
+msgstr "Impossibile rimuovere il repository. Dettagli: '%(err)s'"
+
+msgid "ERROR CODE"
+msgstr "CODICE DI ERRORE"
+
+msgid "REASON"
+msgstr "CAUSA"
+
+msgid "STACK"
+msgstr "STACK"
+
+msgid "Go to Homepage"
+msgstr "Vai alla home page"
+
+msgid "Create a New Virtual Machine"
+msgstr "Crea una nuova macchina virtuale"
+
+msgid "Virtual Machine Name"
+msgstr "Nome macchina virtuale"
+
+msgid ""
+"The name used to identify the virtual machine. If omitted, a name will be "
+"chosen based on the template used."
+msgstr ""
+"Il nome utilizzato per identificare la macchina virtuale. Se il nome viene "
+"omesso ne verrà scelto uno in base al modello utilizzato."
+
+msgid "Template"
+msgstr "Modello"
+
+msgid "Please create a template first."
+msgstr "Creare prima un modello."
+
+msgid "Create a Template"
+msgstr "Crea un modello"
+
+msgid "Please choose a template."
+msgstr "Scegliere un modello."
+
+msgid "OS"
+msgstr "SO"
+
+msgid "OS Version"
+msgstr "Versione SO"
+
+msgid "CPUS"
+msgstr "CPUS"
+
+msgid "Memory"
+msgstr "Memoria"
+
+msgid "Create"
+msgstr "Crea"
+
+msgid "Edit Guest"
+msgstr "Modifica guest"
+
+msgid "General"
+msgstr "Generale"
+
+msgid "Storage"
+msgstr "Memoria"
+
+msgid "Interface"
+msgstr "Interfaccia"
+
+msgid "Permission"
+msgstr "Versione"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "CPUs"
+msgstr "CPU"
+
+msgid "Memory (MB)"
+msgstr "Memoria"
+
+msgid "Icon"
+msgstr "Icona"
+
+msgid "Device"
+msgstr "Nome dispositivo"
+
+msgid "Path"
+msgstr "Percorso NFS"
+
+msgid "Network"
+msgstr "Rete"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Available system users and groups"
+msgstr ""
+
+msgid "Selected system users and groups"
+msgstr ""
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Replace"
+msgstr "Sostituisci"
+
+msgid "Detach"
+msgstr "Scollega"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Start"
+msgstr "Avvia"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Connect"
+msgstr "Connetti"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Shut Down"
+msgstr "Arresta"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Add a Storage Device to VM"
+msgstr "Aggiungi un dispositivo di memoria alla VM"
+
+msgid "Device Name"
+msgstr "Nome dispositivo"
+
+msgid ""
+"The name used to identify the device. If omitted, a name will be chosen "
+"automatically."
+msgstr ""
+"Il nome utilizzato per identificare il dispositivo. Se omesso, ne verrà "
+"scelto uno automaticamente."
+
+msgid "Device Type"
+msgstr "Tipo dispositivo"
+
+msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
+msgstr "Il tipo di dispositivo. Attualmente, è supportato solo \"cdrom\"."
+
+msgid "Storage Pool"
+msgstr "Pool di memoria"
+
+msgid "Storage pool which volume located in"
+msgstr "Il percorso del pool di memoria deve essere una stringa"
+
+msgid "Storage Volume"
+msgstr "Nome pool di memoria"
+
+msgid "Storage volume to be attached"
+msgstr "Il nome del volume di memoria deve essere una stringa"
+
+msgid "File Path"
+msgstr "Percorso file"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "Il percorso file ISO nel server per CDROM."
+
+msgid "Attach"
+msgstr "Allega"
+
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr ""
+"Il nome utente o la password immessi non sono corretti. Ripetere "
+"l'operazione."
+
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio."
+
+msgid "Log in"
+msgstr "Accedi"
+
+msgid "Logging in..."
+msgstr "Accesso in corso..."
+
+msgid "Host"
+msgstr "Host"
+
+msgid "Guests"
+msgstr "Guest"
+
+msgid "Templates"
+msgstr "Modelli"
+
+msgid "Invalid URL. Redireced to home page."
+msgstr "URL non valido. Reindirizzato alla home page."
+
+msgid "Failed to get application configuration"
+msgstr "Richiamo della configurazione dell'applicazione non riuscito"
+
+msgid "This is not a valid Linux path"
+msgstr "Non è un percorso Linux valido"
+
+msgid "This is not a valid URL."
+msgstr "Non è un URL valido."
+
+msgid "No such data available."
+msgstr "Dati indicati non disponibili."
+
+msgid "options needed."
+msgstr "opzioni necessarie."
+
+msgid ""
+"Can not contact the host system. Verify the host system is up and that you "
+"have network connectivity to it. HTTP request response %1. "
+msgstr ""
+"Impossibile contattare il sistema host. Verificare che il sistema host sia "
+"attivo e che si disponga della connettività di rete per tale sistema. "
+"Risposta alla richiesta HTTP %1. "
+
+msgid "Delete Confirmation"
+msgstr "Conferma eliminazione"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Confirm"
+msgstr "Conferma"
+
+msgid "Warning"
+msgstr "Avvertenza"
+
+msgid "Creating..."
+msgstr "Creazione in corso..."
+
+msgid "Loading..."
+msgstr "Caricamento in corso..."
+
+msgid "An error occurs while checking for packages update."
+msgstr ""
+"Si è verificato un errore durante la ricerca dell'aggiornamento dei "
+"pacchetti."
+
+msgid "Retry"
+msgstr "Riprova"
+
+msgid "Detailed message:"
+msgstr "Messaggio dettagliato:"
+
+msgid "No iso found"
+msgstr "Nessun file ISO trovato"
+
+msgid "This is not a valid ISO file."
+msgstr "Non è un file ISO valido."
+
+msgid "It will take long time. Do you want to continue?"
+msgstr "Richiederà molto tempo. Continuare?"
+
+msgid "This will permanently delete the template. Would you like to continue?"
+msgstr "L'azione eliminerà permanentemente il modello. Continuare?"
+
+msgid "Unable to shut down system as there are some virtual machines running!"
+msgstr ""
+"Impossibile arrestare il sistema poiché sono in esecuzione alcune macchine "
+"virtuali."
+
+msgid "Max:"
+msgstr "Massimo:"
+
+msgid "Utilization"
+msgstr "Utilizzo"
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Read Rate"
+msgstr "Velocità di lettura"
+
+msgid "Write Rate"
+msgstr "Velocità di scrittura"
+
+msgid "Received"
+msgstr "Ricevuti"
+
+msgid "Sent"
+msgstr "Inviati"
+
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
+msgstr ""
+"L'arresto o il riavvio dell'host provocherà la perdita del lavoro non "
+"salvato. Continuare con l'arresto o il riavvio?"
+
+msgid ""
+"Repository will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+"Il repository verrà rimosso permanentemente e non potrà essere ripristinato. "
+"Si desidera continuare?"
+
+msgid "Repositories"
+msgstr "Repository"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Base URL"
+msgstr "URL di base"
+
+msgid "Is Mirror"
+msgstr "È speculare"
+
+msgid "URL Args"
+msgstr "Argomenti URL"
+
+msgid "Enabled"
+msgstr "Abilitato"
+
+msgid "GPG Check"
+msgstr "Controllo GPG"
+
+msgid "GPG Key"
+msgstr "Chiave GPG"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Enable"
+msgstr "Abilita"
+
+msgid "Disable"
+msgstr "Disabilita"
+
+msgid "Software Updates"
+msgstr "Aggiornamenti del software"
+
+msgid "Package Name"
+msgstr "Nome pacchetto"
+
+msgid "Version"
+msgstr "Versione"
+
+msgid "Architecture"
+msgstr "Architettura"
+
+msgid "Repository"
+msgstr "Repository"
+
+msgid "Update All"
+msgstr "Aggiorna tutto"
+
+msgid "Updating..."
+msgstr "Aggiornamento in corso..."
+
+msgid "Failed to retrieve updates."
+msgstr "Richiamo degli aggiornamenti non riuscito."
+
+msgid "Failed to update package(s)."
+msgstr "Aggiornamento dei pacchetti non riuscito."
+
+msgid ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+"Il report del debug verrà rimosso permanentemente e non potrà essere "
+"ripristinato. Si desidera continuare?"
+
+msgid "Debug Reports"
+msgstr "Report di debug"
+
+msgid "Generated Time"
+msgstr "Ora di creazione"
+
+msgid "Generate"
+msgstr "Crea"
+
+msgid "Generating..."
+msgstr "Creazione in corso..."
+
+msgid "Rename"
+msgstr "Ridenomina"
+
+msgid "Download"
+msgstr "Scarica"
+
+msgid ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
+msgstr ""
+"Il nome del report può contenere solo lettere, cifre e/o trattini  ('-')."
+
+msgid "Pending..."
+msgstr "Caricamento in corso..."
+
+msgid ""
+"This will delete the virtual machine and its virtual disks. This operation "
+"cannot be undone. Would you like to continue?"
+msgstr ""
+"L'operazione eliminerà la macchina virtuale e i relativi dischi virtuali e "
+"non è reversibile. Continuare?"
+
+msgid "Power off Confirmation"
+msgstr "Conferma eliminazione"
+
+msgid ""
+"This action may produce undesirable results, for example unflushed disk "
+"cache in the guest. Would you like to continue?"
+msgstr ""
+
+msgid "Reset Confirmation"
+msgstr "Conferma eliminazione"
+
+msgid ""
+"There is a risk of data loss caused by reset without the guest OS shutdown. "
+"Would you like to continue?"
+msgstr ""
+
+msgid "Shut Down Confirmation"
+msgstr "Conferma eliminazione"
+
+msgid "Note the guest OS may ignore this request. Would you like to continue?"
+msgstr "L'azione eliminerà permanentemente il modello. Continuare?"
+
+msgid "VM Delete Confirmation"
+msgstr "Conferma eliminazione"
+
+msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgstr ""
+
+msgid ""
+"This CDROM will be detached permanently and you can re-attach it. Continue "
+"to detach it?"
+msgstr ""
+"Il CDROM verrà scollegato permanentemente e non sarà possibile ricollegarlo. "
+"Continuare con lo scollegamento?"
+
+msgid "Attaching..."
+msgstr "Collegamento in corso..."
+
+msgid "Replacing..."
+msgstr "Sostituzione in corso..."
+
+msgid "Successfully attached!"
+msgstr "Collegamento riuscito."
+
+msgid "Successfully replaced!"
+msgstr "Sostituzione riuscita."
+
+msgid "Successfully detached!"
+msgstr "Scollegamento riuscito."
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
+msgstr ""
+"Il CDROM verrà scollegato permanentemente e non sarà possibile ricollegarlo. "
+"Continuare con lo scollegamento?"
+
+msgid "The VLAN id must be between 1 and 4094."
+msgstr "L'ID VLAN deve essere compreso tra 1 e 4094."
+
+msgid "unavailable"
+msgstr "non disponibile"
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+"L'azione interromperà la connettività di rete per qualsiasi macchina "
+"virtuale che dipende da questa rete."
+
+msgid "Create a network"
+msgstr "Crea una rete"
+
+msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+"Il pool di memoria non è permanente. Invece di disattivarlo, l'azione lo "
+"eliminerà permanentemente. Continuare?"
+
+msgid ""
+"This will permanently delete the storage pool. Would you like to continue?"
+msgstr "L'azione eliminerà permanentemente il pool di memoria. Continuare?"
+
+msgid "This storage pool is empty."
+msgstr "Il pool di memoria è vuoto."
+
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+msgstr ""
+"Il disco verrà formattato e tutti i dati su di esso andranno persi, sicuri "
+"di voler continuare? "
+
+msgid "SCSI Fibre Channel"
+msgstr "Canale a fibre ottiche SCSI"
+
+msgid "No SCSI adapters found."
+msgstr "Nessun adattatore SCSI trovato."
+
+msgid "The storage pool name can not be blank."
+msgstr "Il campo per il nome del pool di memoria non può essere vuoto."
+
+msgid "The storage pool path can not be blank."
+msgstr "Il campo per il percorso del pool di memoria non può essere vuoto."
+
+msgid "NFS server mount path can not be blank."
+msgstr ""
+"Il campo per il percorso di montaggio del server NFS non può essere vuoto."
+
+msgid "Invalid storage pool name. It should not contain '/'."
+msgstr "Nome pool di memoria non valido. Non deve contenere '/'."
+
+msgid "Invalid NFS mount path."
+msgstr "Percorso di montaggio NFS non valido."
+
+msgid "No logical device selected."
+msgstr "Nessun dispositivo logico selezionato."
+
+msgid "The iSCSI target can not be blank."
+msgstr "Il campo per la destinazione iSCSI non può essere vuoto."
+
+msgid "Server name can not be blank."
+msgstr "Il campo per il nome del server non può essere vuoto."
+
+msgid "This is not a valid Server Name or IP. please, modify it."
+msgstr "Nome server o IP non validi. Modificarli."
+
+msgid "Looking for available partitions ..."
+msgstr "Ricerca di partizioni disponibili in corso..."
+
+msgid "No available partitions found."
+msgstr "Nessuna partizione disponibile trovata."
+
+msgid ""
+"This storage pool is not persistent. Instead of deactivate, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+"Il pool di memoria non è permanente. Invece di disattivarlo, l'azione lo "
+"eliminerà permanentemente. Continuare?"
+
+msgid "Unable to retrieve partitions information."
+msgstr ""
+"Impossibile richiamare le informazioni sul repository. Dettagli: '%(err)s'"
+
+msgid "CDROM path need to be a valid local path and cannot be blank."
+msgstr "Il campo per il percorso del pool di memoria non può essere vuoto."
+
+msgid "Disk pool or volume cannot be blank."
+msgstr "Il campo per il nome del pool di memoria non può essere vuoto."
+
+msgid "Help"
+msgstr "Guida"
+
+msgid "About"
+msgstr "Info su"
+
+msgid "Log out"
+msgstr "Disconnetti"
+
+msgid "Version:"
+msgstr "Versione:"
+
+msgid "Session timeout, please re-login."
+msgstr ""
+
+msgid "User Name"
+msgstr "Nome utente"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Generate a New Debug Report"
+msgstr "Crea un nuovo report di debug"
+
+msgid "Report Name"
+msgstr "Nome report"
+
+msgid ""
+"The name used to identify the report. If omitted, a name will be chosen "
+"based on current time. Name can contain: letters, digits, underscore (\"_\") "
+"and hyphen (\"-\")."
+msgstr ""
+"Il nome utilizzato per identificare il report. Se il nome viene omesso, ne "
+"viene scelto uno in base all'ora corrente. Il nome può contenere lettere, "
+"cifre e trattini (\"-\")."
+
+msgid "Rename a Debug Report"
+msgstr "Crea un nuovo report di debug"
+
+msgid ""
+"The name used to identify the report. Name can contain: letters, digits and "
+"hyphen (\"-\")."
+msgstr ""
+"Il nome utilizzato per identificare il report. Se il nome viene omesso, ne "
+"viene scelto uno in base all'ora corrente. Il nome può contenere lettere, "
+"cifre e trattini (\"-\")."
+
+msgid "Submit"
+msgstr ""
+
+msgid "Add a Repository"
+msgstr "Aggiungi un repository"
+
+msgid "Identifier"
+msgstr "Identificativo"
+
+msgid "Single word, unique identifier for the repository."
+msgstr "Identificativo univoco di una sola parola per il  repository."
+
+msgid "Textual name for the repository."
+msgstr "Nome in formato testo per il repository."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Required Field"
+msgstr "Campo obbligatorio"
+
+msgid "URL to the repository. Supported protocols are http, ftp, and file."
+msgstr "URL al repository. I protocolli supportati sono http, ftp e file."
+
+msgid "Repository is a mirror"
+msgstr "Il repository è un elemento speculare."
+
+msgid "Distribution"
+msgstr "Distribuzione"
+
+msgid "Distribution of the DEB repository."
+msgstr "Distribuzione del repository DEB."
+
+msgid "Components"
+msgstr "Componenti"
+
+msgid "List of components in DEB repository."
+msgstr "Elenco di componenti nel repository DEB."
+
+msgid "Edit Repository"
+msgstr "Modifica repository"
+
+msgid "Mirror List URL"
+msgstr "URL elenco elementi speculari"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Define a New Storage Pool"
+msgstr "Definisci un nuovo pool di memoria"
+
+msgid "Storage Pool Name"
+msgstr "Nome pool di memoria"
+
+msgid ""
+"The name used to identify the storage pools, and it should not be empty."
+msgstr ""
+"Il nome utilizzato per identificare i pool di memoria; il campo non deve "
+"essere vuoto."
+
+msgid "Storage Pool Type"
+msgstr "Tipo di pool di memoria"
+
+msgid "Storage Path"
+msgstr "Percorso di memoria"
+
+msgid ""
+"The path of the Storage Pool. Each Storage Pool must have a unique path."
+msgstr ""
+"Il percorso del pool di memoria. Ogni pool di memoria deve avere un percorso "
+"univoco."
+
+msgid ""
+"Kimchi will try to create the directory when it does not already exist in "
+"your system."
+msgstr ""
+"Kimchi tenterà di creare la directory nel caso non esista ancora sul sistema."
+
+msgid "NFS Server IP"
+msgstr "IP server NFS"
+
+msgid "NFS server IP or hostname. It can be input or chosen from history."
+msgstr ""
+"Il nome host o l'indirizzo IP del server NFS. È possibile immetterlo o "
+"sceglierlo dalla cronologia."
+
+msgid "NFS Path"
+msgstr "Percorso NFS"
+
+msgid "The NFS exported path on NFS server."
+msgstr "Il percorso esportato NFS sul server NFS."
+
+msgid "Device path"
+msgstr "Percorso dispositivo"
+
+msgid "iSCSI Server"
+msgstr "Server iSCSI"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr ""
+"Il nome host o l'indirizzo IP del server iSCSI. Il campo non deve essere "
+"vuoto."
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid "Target"
+msgstr "Destinazione"
+
+msgid "The iSCSI target on iSCSI server"
+msgstr "La destinazione iSCSI sul server iSCSI"
+
+msgid "Add iSCSI Authentication"
+msgstr "Aggiungi autenticazione iSCSI"
+
+msgid "iSCSI Authentication"
+msgstr "Autenticazione iSCSI"
+
+msgid "SCSI Adapter"
+msgstr "Adattatore SCSI"
+
+msgid "Please, wait..."
+msgstr "Attendere..."
+
+msgid "Add Template"
+msgstr "Aggiungi modello"
+
+msgid "Where is the source media for this template? "
+msgstr "Dov'è il supporto di origine per questo modello?"
+
+msgid "Local ISO Image"
+msgstr "Immagine ISO locale"
+
+msgid "Remote ISO Image"
+msgstr "Immagine ISO remota"
+
+msgid "Search ISOs"
+msgstr "Ricerca ISO"
+
+msgid "The following ISOs are available:"
+msgstr "Sono disponibili i seguenti file ISO:"
+
+msgid "All"
+msgstr "Tutti"
+
+msgid "OS: "
+msgstr "SO: "
+
+msgid "Version: "
+msgstr "Versione: "
+
+msgid "Size: "
+msgstr "Dimensione: "
+
+msgid "Search more ISOs"
+msgstr "Ricerca più ISO"
+
+msgid "Create Templates from Selected ISO"
+msgstr "Crea modelli da ISO selezionato"
+
+msgid "I want to use a specific ISO file"
+msgstr "Utilizzare un file ISO specifico"
+
+msgid "Loading default remote ISOs ..."
+msgstr "Caricamento di ISO remoti predefiniti in corso..."
+
+msgid "Arch: "
+msgstr "Arch: "
+
+msgid "I want to use a custom URL"
+msgstr "Utilizzare un URL personalizzato"
+
+msgid "Edit Template"
+msgstr "Modifica modello"
+
+msgid "Vendor"
+msgstr "Fornitore"
+
+msgid "CPU Number"
+msgstr "Numero CPU"
+
+msgid "Disk (GB)"
+msgstr "Disco (GB)"
+
+msgid "CDROM"
+msgstr "CDROM"
+
+msgid "Graphics"
+msgstr "Grafici"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Disk I/O"
+msgstr "I/O disco"
+
+msgid "Network I/O"
+msgstr "I/O di rete"
+
+msgid "Livetile"
+msgstr "Riquadro animato"
+
+msgid "No guests found."
+msgstr "Nessuna macchina guest trovata."
+
+msgid "Shut down"
+msgstr "Arresta"
+
+msgid "Restart"
+msgstr "Riavvia"
+
+msgid "Basic Information"
+msgstr "Informazioni di base"
+
+msgid "OS Distro"
+msgstr "Distro SO"
+
+msgid "OS Code Name"
+msgstr "Nome codice SO"
+
+msgid "Processor"
+msgstr "Processore"
+
+msgid "System Statistics"
+msgstr "Statistiche di sistema"
+
+msgid "Update Progress"
+msgstr "Avanzamento aggiornamento"
+
+msgid "Network Name"
+msgstr "Nome rete"
+
+msgid "State"
+msgstr "Stato"
+
+msgid "Network Type"
+msgstr "Tipo di Rete"
+
+msgid "Address Space"
+msgstr "Spazio indirizzo"
+
+msgid "Name should not contain '/' and '\"'."
+msgstr "Nome pool di memoria non valido. Non deve contenere '/'."
+
+msgid "Isolated: no external network connection"
+msgstr "Isolata: nessuna connessione di rete fisica"
+
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: solo connessione di rete fisica in uscita"
+
+msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr ""
+"Con bridge: le macchine virtuali sono connesse direttamente alla rete fisica"
+
+msgid "Destination"
+msgstr "Destinazione:"
+
+msgid "Enable VLAN"
+msgstr "Abilita VLAN:"
+
+msgid "VLAN ID"
+msgstr "ID VLAN:"
+
+msgid "Stop"
+msgstr "Arresta"
+
+msgid "Location"
+msgstr "Ubicazione"
+
+msgid "Capacity"
+msgstr "Capacità"
+
+msgid "Allocated"
+msgstr "Assegnato"
+
+msgid "active"
+msgstr "attivo"
+
+msgid "inactive"
+msgstr "non attivo"
+
+msgid "Deactivate"
+msgstr "Disattiva"
+
+msgid "Activate"
+msgstr "Attiva"
+
+msgid "Extend"
+msgstr ""
+
+msgid "Undefine"
+msgstr "Rimuovi definizione"
+
+msgid "Format"
+msgstr "Formato:"
+
+msgid "Allocation"
+msgstr "Allocazione:"
+
+msgid "No templates found."
+msgstr "Nessun modello trovato."
+
+msgid "Clone"
+msgstr ""
