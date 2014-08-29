@@ -319,7 +319,7 @@ class VMModel(object):
         if password is not None:
             graphics.attrib['passwd'] = password
 
-        expire = params.get("passwdValidTo")
+        expire = params['graphics'].get("passwdValidTo")
         to = graphics.attrib.get('passwdValidTo')
         if to is not None:
             if (time.mktime(time.strptime(to, '%Y-%m-%dT%H:%M:%S'))
