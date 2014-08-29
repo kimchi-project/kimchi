@@ -312,7 +312,7 @@ class VMModel(object):
             return xml
 
         password = params['graphics'].get("passwd")
-        if password and len(password.strip()) == 0:
+        if password is not None and len(password.strip()) == 0:
             password = "".join(random.sample(string.ascii_letters +
                                              string.digits, 8))
 
