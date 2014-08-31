@@ -26,18 +26,18 @@ Mobile Browser Support:
 Current-1 version denotes that we support the current stable version of the
 browser and the version that preceded it. For example, if the current version of
 a browser is 24.x, we support the 24.x and 23.x versions.This does not mean that
-kimchi cannot be used in other browsers, however, functionality and appearance
+Kimchi cannot be used in other browsers, however, functionality and appearance
 may be diminished and we may not be able to provide support for any problems you
 find.
 
 Hypervisor Distro Support
 =========================
 
-Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
+The Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
 described on the 'Getting Started' section below.
 
 The Kimchi community makes an effort to test with the latest versions of Fedora,
-RHEL, OpenSuSe, and Ubuntu.
+RHEL, openSUSE, and Ubuntu.
 
 Getting Started
 ===============
@@ -45,7 +45,7 @@ Getting Started
 Install Dependencies
 --------------------
 
-**For fedora and RHEL:**
+**For Fedora and RHEL:**
 
      $ sudo yum install gcc make autoconf automake gettext-devel git \
                         python-cherrypy python-cheetah libvirt-python \
@@ -69,7 +69,7 @@ EPEL repositories.  See
 [this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
 for more information on how to configure your system to access this repository.
 
-**For debian:**
+**For Debian:**
 
     $ sudo apt-get install gcc make autoconf automake gettext git \
                            python-cherrypy3 python-cheetah python-libvirt \
@@ -147,7 +147,7 @@ The template screen looks like:
 From this view, you can change the parameters of a template or create a
 new template using the "+" button in the upper right corner.
 
-To create a template, you need an ISO on your host or using remote one.
+To create a template, you need an ISO on your host or to use a remote one.
 If you are willing to use your own ISO, please copy it to out of box storage
 pool (default path is: /var/lib/kimchi/isos).
 
