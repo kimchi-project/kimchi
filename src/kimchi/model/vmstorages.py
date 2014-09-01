@@ -152,7 +152,10 @@ class VMStoragesModel(object):
                 raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
             if vol_info['ref_cnt'] != 0:
                 raise InvalidParameter("KCHVMSTOR0016E")
-            params['format'] = vol_info['format']
+
+            supported_format = ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"]
+            if vol_info['format'] in supported_format:
+                params['format'] = vol_info['format']
             params['path'] = vol_info['path']
         params['src_type'] = _check_path(params['path'])
         if (params['bus'] not in HOTPLUG_TYPE
