@@ -774,7 +774,9 @@ var kimchi = {
             contentType : 'application/json',
             dataType : 'json',
             success : suc,
-            error : err
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
         });
     },
 
@@ -1089,6 +1091,22 @@ var kimchi = {
     getHostGroups : function(suc, err) {
         kimchi.requestJSON({
             url : kimchi.url + 'host/groups',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    getISCSITargets : function(server, port, suc, err) {
+        server = encodeURIComponent(server);
+        port = port ? '&_server_port='+encodeURIComponent(port) : '';
+        kimchi.requestJSON({
+            url : kimchi.url + 'storageservers/'+server+'/storagetargets?_target_type=iscsi'+port,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',

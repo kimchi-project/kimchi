@@ -45,7 +45,7 @@
 
 
 .form-section input.invalid-field[type="text"] {
-    border-color: #FF4444;
+    border-color: #FF4444!important;
 }
 
 .text-help {
