@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <div class="window storage-window">
+    <div class="window storage-window storage-admin">
         <header>
             <h1 class="title">$_("Define a New Storage Pool")</h1>
             <div class="close">X</div>
@@ -111,7 +111,10 @@
                         <div class="field">
                             <p class="text-help">
                                 $_("iSCSI server IP or hostname. It should not be empty.")</p>
-                            <input id="iscsiserverId" placeholder="$_("Server")" type="text" class="text storage-base-input-width">
+                            <span class="filter-select popable" id="iSCSIServer">
+                                <input id="iscsiserverId" type="text" placeholder="$_("Server")">
+                                <div class="popover"><ul class="option select-list"></ul></div>
+                            </span>
                             <input id="iscsiportId" placeholder="$_("Port")" type="text" class="text storage-port-width" maxlength="4">
                         </div>
                     </section>
@@ -119,7 +122,10 @@
                         <h2>4. $_("Target")</h2>
                         <div class="field">
                             <p class="text-help">$_("The iSCSI target on iSCSI server")</p>
-                            <input id="iscsiTargetId" type="text" class="text storage-base-input-width">
+                            <span class="filter-select popable" id="iSCSITarget">
+                                <input id="iscsiTargetId" type="text">
+                                <div class="popover"><ul class="option select-list"></ul></div>
+                            </span>
                         </div>
                     </section>
                     <section class="form-section">

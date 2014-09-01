@@ -34,6 +34,93 @@ kimchi.storagepool_add_main = function() {
     });
 };
 
+kimchi.storageFilterSelect = function(id, isUpdate) {
+    var input = $('input', '#'+id);
+    var options = $(".option", '#'+id);
+    var filter = function(container, key){
+        container.children().each(function(){
+            $(this).css("display", $(this).text().indexOf(key)==-1 ? "none" : "");
+        });
+    };
+    if(!isUpdate){
+        input.on("keyup", function(){
+            filter(options, input.val());
+        });
+    }
+    options.children().each(function(){
+        $(this).click(function(){
+            options.children().removeClass("active");
+            input.val($(this).text());
+            input.trigger("change");
+            $(this).addClass("active");
+            filter(options, "");
+        });
+    });
+};
+
+kimchi.setupISCSI = function(){
+    var loadTargets = function(server, port, callback){
+        var isUpdate = $(".option", "#iSCSITarget").children().length > 0;
+        $(".option", "#iSCSITarget").empty();
+        $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6006M']);
+        kimchi.getISCSITargets(server, port, function(data){
+            if(data.length==0){
+                $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6007M']);
+            }else{
+                for(var i=0; i<data.length; i++){
+                    var itemNode = $.parseHTML("<li>"+data[i].target+"</li>");
+                    $(".option", "#iSCSITarget").append(itemNode);
+                }
+                $('input', "#iSCSITarget").attr("placeholder", "");
+                $(".popover", "#iSCSITarget").css("display", "block");
+            }
+            kimchi.storageFilterSelect('iSCSITarget', isUpdate);
+            $('input', "#iSCSITarget").trigger("focus");
+            callback();
+        }, function(data){
+            $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6008M']);
+            callback();
+            kimchi.message.error(data.responseJSON.reason);
+        });
+    };
+    var triggerLoadTarget = function(){
+        $('input', "#iSCSITarget").val("");
+        var server = $("#iscsiserverId").val().trim();
+        var port = $("#iscsiportId").val().trim();
+        if(server!="" && !$("#iscsiserverId").hasClass("invalid-field") && !$("#iscsiportId").hasClass("invalid-field")){
+            $("#iscsiserverId").attr("disabled", true);
+            $("#iscsiportId").attr("disabled", true);
+            loadTargets(server, port, function(){
+                $("#iscsiserverId").attr("disabled", false);
+                $("#iscsiportId").attr("disabled", false);
+            });
+        }
+    };
+    $("#iscsiserverId").change(function(){
+        $('input', "#iSCSITarget").off('focus', triggerLoadTarget);
+        $('input', "#iSCSITarget").one('focus', triggerLoadTarget);
+    });
+    $("#iscsiportId").change(function(){
+        $('input', "#iSCSITarget").off('focus', triggerLoadTarget);
+        $('input', "#iSCSITarget").one('focus', triggerLoadTarget);
+    });
+    var initISCSIServers = function(){
+        kimchi.getStorageServers("iscsi", function(data){
+            for(var i=0;i<data.length;i++){
+                var itemNode = $.parseHTML("<li>"+data[i].host+"</li>");
+                $(".option", "#iSCSIServer").append(itemNode);
+                $(itemNode).click(function(){
+                    $("#iscsiportId").val($(this).prop("port"));
+                    $("#iscsiserverId").val($(this).text());
+                    triggerLoadTarget();
+                }).prop("port", data[i].port);
+            }
+            kimchi.storageFilterSelect('iSCSIServer', false);
+         });
+    };
+    initISCSIServers();
+};
+
 kimchi.initStorageAddPage = function() {
     kimchi.listHostPartitions(function(data) {
         if (data.length > 0) {
@@ -158,8 +245,14 @@ kimchi.initStorageAddPage = function() {
         }
     });
     $('#iscsiportId').keyup(function(event) {
-        $(this).toggleClass("invalid-field",!/^[0-9]+$/.test($(this).val()));
+        $(this).toggleClass("invalid-field",!/^[0-9]*$/.test($(this).val()));
     });
+    $('#iscsiserverId').keyup(function(event) {
+        $(this).toggleClass("invalid-field",!kimchi.isServer($(this).val().trim()));
+    }).change(function(event) {
+        $(this).toggleClass("invalid-field",!kimchi.isServer($(this).val().trim()));
+    });
+    kimchi.setupISCSI();
 };
 
 /* Returns 'true' if all form fields were filled, 'false' if

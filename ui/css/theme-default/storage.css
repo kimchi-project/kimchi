@@ -315,7 +315,7 @@
 }
 
 .hide-content {
-    display: none;
+    display: none!important;
 }
 
 .volumeslist {
@@ -592,4 +592,33 @@
     background: #C0C0C0 url(../../images/theme-default/loading.gif) 7px
                 center no-repeat;
     padding: 0 20px 0 26px;
+}
+
+.storage-admin .filter-select {
+    display: inline-block;
+    position: relative;
+}
+
+#iscsiportId, .storage-admin .filter-select input {
+    border: 1px solid #CCCCCC;
+    border-radius: 1px;
+    font-size: 14px;
+    padding: 3px 3px 3px 10px;
+    height: 30px;
+}
+
+.storage-admin .filter-select input::-ms-clear {
+    display: none;
+}
+
+#iSCSIServer input {
+    width: 410px;
+}
+
+#iscsiportId {
+    width: 60px;
+}
+
+#iSCSITarget input {
+    width: 493px;
 }
