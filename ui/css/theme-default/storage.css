@@ -309,7 +309,7 @@
 .volumes {
     background: #73716F;
     width: 1004px;
-    display: inline-block;
+    display: none;
     margin-top: 10px;
     border: 1px solid rgb(204, 204, 204);
 }
