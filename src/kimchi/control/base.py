@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import cherrypy
+import re
 import urllib2
 
 
@@ -278,7 +279,8 @@ class Collection(object):
                 continue
 
             if all(key in res.data and
-                   (res.data[key] == val or res.data[key] in val)
+                   (res.data[key] == val or res.data[key] in val or
+                    re.match(val, res.data[key]))
                    for key, val in fields_filter.iteritems()):
                 data.append(res.data)
         return data

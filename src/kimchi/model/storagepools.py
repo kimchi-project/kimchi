@@ -167,8 +167,8 @@ class StoragePoolsModel(object):
 
         params['path'] = self.scanner.scan_dir_prepare(params['name'])
         scan_params['pool_path'] = params['path']
-        task_id = add_task('', self.scanner.start_scan, self.objstore,
-                           scan_params)
+        task_id = add_task('/storagepools/%s' % ISO_POOL_NAME,
+                           self.scanner.start_scan, self.objstore, scan_params)
         # Record scanning-task/storagepool mapping for future querying
         try:
             with self.objstore as session:

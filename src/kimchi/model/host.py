@@ -114,7 +114,8 @@ class HostModel(object):
             raise OperationFailed('KCHPKGUPD0001E')
 
         kimchi_log.debug('Host is going to be updated.')
-        taskid = add_task('', swupdate.doUpdate, self.objstore, None)
+        taskid = add_task('/host/swupdate', swupdate.doUpdate, self.objstore,
+                          None)
         return self.task.lookup(taskid)
 
     def shutdown(self, args=None):
