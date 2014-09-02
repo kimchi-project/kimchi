@@ -34,6 +34,4 @@ class Task(Resource):
 
     @property
     def data(self):
-        return {'id': self.ident,
-                'status': self.info['status'],
-                'message': self.info['message']}
+        return self.info
