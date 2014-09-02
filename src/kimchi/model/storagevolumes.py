@@ -27,8 +27,9 @@ from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
-from kimchi.utils import kimchi_log
+from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import VMsModel, VMModel
+from kimchi.utils import add_task, kimchi_log
 from kimchi.vmdisks import get_vm_disk, get_vm_disk_list
 
 
@@ -42,6 +43,7 @@ class StorageVolumesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
 
     def create(self, pool_name, params):
         vol_source = ['file', 'url', 'capacity']
@@ -58,9 +60,12 @@ class StorageVolumesModel(object):
         except AttributeError:
             raise InvalidParameter("KCHVOL0019E",
                                    {'param': vol_source[index_list[0]]})
-        return create_func(pool_name, params)
+        params['pool'] = pool_name
+        taskid = add_task('', create_func, self.objstore, params)
+        return self.task.lookup(taskid)
 
-    def _create_volume_with_capacity(self, pool_name, params):
+    def _create_volume_with_capacity(self, cb, params):
+        pool_name = params.pop('pool')
         vol_xml = """
         <volume>
           <name>%(name)s</name>
@@ -105,7 +110,7 @@ class StorageVolumesModel(object):
             kimchi_log.warning('Unable to store storage volume id in '
                                'objectstore due error: %s', e.message)
 
-        return name
+        cb('', True)
 
     def get_list(self, pool_name):
         pool = StoragePoolModel.get_storagepool(pool_name, self.conn)

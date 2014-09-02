@@ -492,9 +492,12 @@ class MockModel(object):
         except AttributeError:
             raise InvalidParameter("KCHVOL0019E",
                                    {'param': vol_source[index_list[0]]})
-        return create_func(pool_name, params)
+        params['pool'] = pool_name
+        taskid = self.add_task('', create_func, params)
+        return self.task_lookup(taskid)
 
-    def _create_volume_with_capacity(self, pool_name, params):
+    def _create_volume_with_capacity(self, cb, params):
+        pool_name = params.pop('pool')
         pool = self._get_storagepool(pool_name)
         if pool.info['state'] == 'inactive':
             raise InvalidOperation("KCHVOL0003E",
@@ -519,7 +522,7 @@ class MockModel(object):
             raise InvalidOperation("KCHVOL0001E", {'name': name})
 
         pool._volumes[name] = volume
-        return name
+        cb('OK', True)
 
     def storagevolume_lookup(self, pool, name):
         if self._get_storagepool(pool).info['state'] != 'active':

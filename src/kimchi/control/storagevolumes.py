@@ -18,11 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import kimchi.template
-from kimchi.control.base import Collection, Resource
+from kimchi.control.base import AsyncCollection, Collection, Resource
 from kimchi.control.utils import get_class_name, model_fn
 
 
-class StorageVolumes(Collection):
+class StorageVolumes(AsyncCollection):
     def __init__(self, model, pool):
         super(StorageVolumes, self).__init__(model)
         self.resource = StorageVolume
