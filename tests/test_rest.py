@@ -1521,6 +1521,8 @@ class RestTests(unittest.TestCase):
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
         self._wait_task(id2)
         foo2 = json.loads(self.request('/tasks/%s' % id2).read())
+        keys = ['id', 'status', 'message', 'target_uri']
+        self.assertEquals(sorted(keys), sorted(foo2.keys()))
         self.assertEquals('failed', foo2['status'])
         self._wait_task(id3)
         foo3 = json.loads(self.request('/tasks/%s' % id3).read())

@@ -584,6 +584,7 @@ server.
         * finished: The task has finished successfully
         * failed: The task failed
     * message: Human-readable details about the Task status
+    * target_uri: Resource URI related to the Task
 * **POST**: *See Task Actions*
 
 **Actions (POST):**
