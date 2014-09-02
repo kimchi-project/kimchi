@@ -495,7 +495,8 @@ class RestTests(unittest.TestCase):
                               'format': 'raw'})
             resp = self.request('/storagepools/tmp/storagevolumes',
                                 req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEquals(202, resp.status)
+            time.sleep(1)
 
             # Attach cdrom with both path and volume specified
             open('/tmp/existent.iso', 'w').close()
@@ -1007,8 +1008,9 @@ class RestTests(unittest.TestCase):
                               'format': 'raw'})
             resp = self.request('/storagepools/pool-1/storagevolumes',
                                 req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEquals(202, resp.status)
 
+        time.sleep(5)
         nr_vols = json.loads(
             self.request('/storagepools/pool-1').read())['nr_volumes']
         self.assertEquals(5, nr_vols)
@@ -1038,12 +1040,13 @@ class RestTests(unittest.TestCase):
                           'format': 'raw'})
         resp = self.request('/storagepools/pool-2/storagevolumes/',
                             req, 'POST')
-        self.assertEquals(400, resp.status)
+        self.assertEquals(202, resp.status)
         resp = self.request('/storagepools/pool-2/activate', '{}', 'POST')
         self.assertEquals(200, resp.status)
         resp = self.request('/storagepools/pool-2/storagevolumes/',
                             req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        time.sleep(1)
 
         # Verify the storage volume
         resp = self.request('/storagepools/pool-2/storagevolumes/test-volume')
@@ -1510,16 +1513,17 @@ class RestTests(unittest.TestCase):
                 time.sleep(1)
 
     def test_tasks(self):
-        model.add_task('', self._async_op)
-        model.add_task('', self._except_op)
-        model.add_task('', self._intermid_op)
+        id1 = model.add_task('', self._async_op)
+        id2 = model.add_task('', self._except_op)
+        id3 = model.add_task('', self._intermid_op)
         tasks = json.loads(self.request('/tasks').read())
-        self.assertEquals(3, len(tasks))
-        self._wait_task('2')
-        foo2 = json.loads(self.request('/tasks/%s' % '2').read())
+        tasks_ids = [int(t['id']) for t in tasks]
+        self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
+        self._wait_task(id2)
+        foo2 = json.loads(self.request('/tasks/%s' % id2).read())
         self.assertEquals('failed', foo2['status'])
-        self._wait_task('3')
-        foo3 = json.loads(self.request('/tasks/%s' % '3').read())
+        self._wait_task(id3)
+        foo3 = json.loads(self.request('/tasks/%s' % id3).read())
         self.assertEquals('in progress', foo3['message'])
         self.assertEquals('running', foo3['status'])
 

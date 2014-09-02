@@ -118,7 +118,9 @@ class ModelTests(unittest.TestCase):
                       'capacity': 1024,
                       'allocation': 1,
                       'format': 'qcow2'}
-            inst.storagevolumes_create('default', params)
+            task_id = inst.storagevolumes_create('default', params)['id']
+            self._wait_task(inst, task_id)
+            self.assertEquals('finished', inst.task_lookup(task_id)['status'])
             vol_path = inst.storagevolume_lookup('default', vol)['path']
             rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
 
@@ -527,7 +529,9 @@ class ModelTests(unittest.TestCase):
                       'capacity': 1024,
                       'allocation': 512,
                       'format': 'raw'}
-            inst.storagevolumes_create(pool, params)
+            task_id = inst.storagevolumes_create(pool, params)['id']
+            self._wait_task(inst, task_id)
+            self.assertEquals('finished', inst.task_lookup(task_id)['status'])
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
 
             fd, path = tempfile.mkstemp(dir=path)
