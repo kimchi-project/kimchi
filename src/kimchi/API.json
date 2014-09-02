@@ -165,6 +165,12 @@
                     "required": true,
                     "error": "KCHVOL0013E"
                 },
+                "capacity": {
+                    "description": "The total size (MiB) of the storage volume",
+                    "type": "number",
+                    "minimum": 1,
+                    "error": "KCHVOL0020E"
+                },
                 "allocation": {
                     "description": "The size(MiB) of allocation when create the storage volume",
                     "type": "number",

@@ -478,6 +478,23 @@ class MockModel(object):
             raise NotFoundError("KCHPOOL0002E", {'name': name})
 
     def storagevolumes_create(self, pool_name, params):
+        vol_source = ['file', 'url', 'capacity']
+
+        index_list = list(i for i in range(len(vol_source))
+                          if vol_source[i] in params)
+        if len(index_list) != 1:
+            raise InvalidParameter("KCHVOL0018E",
+                                   {'param': ",".join(vol_source)})
+
+        try:
+            create_func = getattr(self, "_create_volume_with_" +
+                                        vol_source[index_list[0]])
+        except AttributeError:
+            raise InvalidParameter("KCHVOL0019E",
+                                   {'param': vol_source[index_list[0]]})
+        return create_func(pool_name, params)
+
+    def _create_volume_with_capacity(self, pool_name, params):
         pool = self._get_storagepool(pool_name)
         if pool.info['state'] == 'inactive':
             raise InvalidOperation("KCHVOL0003E",

@@ -185,6 +185,9 @@ messages = {
     "KCHVOL0015E": _("Storage volume format not supported"),
     "KCHVOL0016E": _("Storage volume requires a volume name"),
     "KCHVOL0017E": _("Unable to update database with storage volume information due error: %(err)s"),
+    "KCHVOL0018E": _("Only one of %(param)s can be specified"),
+    "KCHVOL0019E": _("Creating volume from %(param)s is not supported"),
+    "KCHVOL0020E": _("Storage volume capacity must be an integer number."),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 
