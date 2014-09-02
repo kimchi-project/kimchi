@@ -859,7 +859,8 @@ class MockModel(object):
             raise NotFoundError("KCHDISTRO0001E", {'name': name})
 
     def _gen_debugreport_file(self, ident):
-        return self.add_task('', self._create_log, ident)
+        return self.add_task('/debugreports/%s' % ident, self._create_log,
+                             ident)
 
     def _create_log(self, cb, name):
         path = config.get_debugreports_path()
@@ -962,7 +963,8 @@ class MockModel(object):
         return self._mock_swupdate.getUpdate(pkg_name)
 
     def host_swupdate(self, args=None):
-        task_id = self.add_task('', self._mock_swupdate.doUpdate, None)
+        task_id = self.add_task('/host/swupdate', self._mock_swupdate.doUpdate,
+                                None)
         return self.task_lookup(task_id)
 
     def repositories_get_list(self):

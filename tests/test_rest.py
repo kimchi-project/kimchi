@@ -1513,9 +1513,15 @@ class RestTests(unittest.TestCase):
                 time.sleep(1)
 
     def test_tasks(self):
-        id1 = model.add_task('', self._async_op)
-        id2 = model.add_task('', self._except_op)
-        id3 = model.add_task('', self._intermid_op)
+        id1 = model.add_task('/tasks/1', self._async_op)
+        id2 = model.add_task('/tasks/2', self._except_op)
+        id3 = model.add_task('/tasks/3', self._intermid_op)
+
+        target_uri = urllib2.quote('^/tasks/*', safe="")
+        filter_data = 'status=running&target_uri=%s' % target_uri
+        tasks = json.loads(self.request('/tasks?%s' % filter_data).read())
+        self.assertEquals(3, len(tasks))
+
         tasks = json.loads(self.request('/tasks').read())
         tasks_ids = [int(t['id']) for t in tasks]
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))

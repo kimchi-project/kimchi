@@ -62,7 +62,8 @@ class DebugReportsModel(object):
         gen_cmd = self.get_system_report_tool()
 
         if gen_cmd is not None:
-            return add_task('', gen_cmd, self.objstore, name)
+            return add_task('/debugreports/%s' % name, gen_cmd, self.objstore,
+                            name)
 
         raise OperationFailed("KCHDR0002E")
 
