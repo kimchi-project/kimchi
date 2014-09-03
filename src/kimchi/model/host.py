@@ -280,8 +280,7 @@ class DevicesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.cap_map = \
-            {'fc_host': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_FC_HOST,
-             'net': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_NET,
+            {'net': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_NET,
              'pci': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_PCI_DEV,
              'scsi': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI,
              'scsi_host': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI_HOST,
@@ -289,6 +288,15 @@ class DevicesModel(object):
              'usb_device': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_DEV,
              'usb':
              libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_INTERFACE}
+        # TODO: when no longer supporting Libvirt < 1.0.5 distros
+        # (like RHEL6) remove this verification and insert the
+        # key 'fc_host' with the libvirt variable in the hash
+        # declaration above.
+        try:
+            self.cap_map['fc_host'] = \
+                libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_FC_HOST
+        except AttributeError:
+            self.cap_map['fc_host'] = None
 
     def get_list(self, _cap=None):
         if _cap == 'fc_host':
@@ -317,6 +325,12 @@ class DevicesModel(object):
                 if 'fc_host' in xmlutils.xpath_get_text(xml, path):
                     ret.append(host)
             return ret
+        # Double verification to catch the case where the libvirt
+        # supports fc_host but does not, for some reason, recognize
+        # the libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_FC_HOST
+        # attribute.
+        if not self.cap_map['fc_host']:
+            return conn.listDevices('fc_host', 0)
         return self._get_devices_with_capability('fc_host')
 
 
