@@ -43,7 +43,7 @@ except ImportError:
 
 from kimchi import config
 from kimchi.asynctask import AsyncTask
-from kimchi.config import config as kconfig
+from kimchi.config import READONLY_POOL_TYPE, config as kconfig
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
@@ -480,6 +480,8 @@ class MockModel(object):
     def storagevolumes_create(self, pool_name, params):
         vol_source = ['file', 'url', 'capacity']
 
+        name = params['name']
+
         index_list = list(i for i in range(len(vol_source))
                           if vol_source[i] in params)
         if len(index_list) != 1:
@@ -492,6 +494,16 @@ class MockModel(object):
         except AttributeError:
             raise InvalidParameter("KCHVOL0019E",
                                    {'param': vol_source[index_list[0]]})
+
+        pool = self._get_storagepool(pool_name)
+        if pool.info['type'] in READONLY_POOL_TYPE:
+            raise InvalidParameter("KCHVOL0012E", {'type': pool.info['type']})
+        if pool.info['state'] == 'inactive':
+            raise InvalidParameter('KCHVOL0003E', {'pool': pool_name,
+                                                   'volume': name})
+        if name in pool._volumes:
+            raise InvalidOperation("KCHVOL0001E", {'name': name})
+
         params['pool'] = pool_name
         taskid = self.add_task('', create_func, params)
         return self.task_lookup(taskid)
@@ -499,10 +511,6 @@ class MockModel(object):
     def _create_volume_with_capacity(self, cb, params):
         pool_name = params.pop('pool')
         pool = self._get_storagepool(pool_name)
-        if pool.info['state'] == 'inactive':
-            raise InvalidOperation("KCHVOL0003E",
-                                   {'pool': pool_name,
-                                    'volume': params['name']})
 
         try:
             name = params['name']
@@ -517,9 +525,6 @@ class MockModel(object):
         except KeyError, item:
             raise MissingParameter("KCHVOL0004E",
                                    {'item': str(item), 'volume': name})
-
-        if name in pool._volumes:
-            raise InvalidOperation("KCHVOL0001E", {'name': name})
 
         pool._volumes[name] = volume
         cb('OK', True)

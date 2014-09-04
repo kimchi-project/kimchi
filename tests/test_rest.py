@@ -1052,7 +1052,7 @@ class RestTests(unittest.TestCase):
                           'format': 'raw'})
         resp = self.request('/storagepools/pool-2/storagevolumes/',
                             req, 'POST')
-        self.assertEquals(202, resp.status)
+        self.assertEquals(400, resp.status)
         resp = self.request('/storagepools/pool-2/activate', '{}', 'POST')
         self.assertEquals(200, resp.status)
         resp = self.request('/storagepools/pool-2/storagevolumes/',
