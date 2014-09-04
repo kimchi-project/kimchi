@@ -79,7 +79,8 @@ class StorageVolumesModel(object):
             raise InvalidParameter('KCHVOL0001E', {'name': name})
 
         params['pool'] = pool_name
-        taskid = add_task('', create_func, self.objstore, params)
+        targeturi = '/storagepools/%s/storagevolumes/%s' % (pool_name, name)
+        taskid = add_task(targeturi, create_func, self.objstore, params)
         return self.task.lookup(taskid)
 
     def _create_volume_with_capacity(self, cb, params):
