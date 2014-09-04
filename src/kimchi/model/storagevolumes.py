@@ -138,6 +138,9 @@ class StorageVolumesModel(object):
 
         with contextlib.closing(urllib2.urlopen(url)) as response,\
                 open(file_path, 'w') as volume_file:
+            remote_size = response.info().getheader('Content-Length', '-')
+            downloaded_size = 0
+
             try:
                 while True:
                     chunk_data = response.read(DOWNLOAD_CHUNK_SIZE)
@@ -145,6 +148,8 @@ class StorageVolumesModel(object):
                         break
 
                     volume_file.write(chunk_data)
+                    downloaded_size += len(chunk_data)
+                    cb('%s/%s' % (downloaded_size, remote_size))
             except Exception, e:
                 raise OperationFailed('KCHVOL0007E', {'name': name,
                                                       'pool': pool_name,
