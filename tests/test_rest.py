@@ -1026,6 +1026,18 @@ class RestTests(unittest.TestCase):
         self.assertEquals('/var/lib/libvirt/images/volume-1',
                           storagevolume['path'])
 
+        req = json.dumps({'name': 'downloaded',
+                          'url': 'https://anyurl.wor.kz'})
+        resp = self.request('/storagepools/pool-1/storagevolumes', req, 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        self._wait_task(task['id'])
+        task = json.loads(self.request('/tasks/%s' % task['id']).read())
+        self.assertEquals('finished', task['status'])
+        resp = self.request('/storagepools/pool-1/storagevolumes/downloaded',
+                            '{}', 'GET')
+        self.assertEquals(200, resp.status)
+
         # Now remove the StoragePool from mock model
         self._delete_pool('pool-1')
 

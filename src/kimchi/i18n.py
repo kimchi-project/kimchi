@@ -188,6 +188,7 @@ messages = {
     "KCHVOL0018E": _("Only one of %(param)s can be specified"),
     "KCHVOL0019E": _("Creating volume from %(param)s is not supported"),
     "KCHVOL0020E": _("Storage volume capacity must be an integer number."),
+    "KCHVOL0021E": _("Storage volume URL must be http://, https://, ftp:// or ftps://."),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 

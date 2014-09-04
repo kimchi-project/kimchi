@@ -17,7 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import contextlib
 import os
+import urllib2
 
 import libvirt
 
@@ -37,6 +39,9 @@ VOLUME_TYPE_MAP = {0: 'file',
                    1: 'block',
                    2: 'directory',
                    3: 'network'}
+
+
+DOWNLOAD_CHUNK_SIZE = 1048576  # 1 MiB
 
 
 class StorageVolumesModel(object):
@@ -111,6 +116,33 @@ class StorageVolumesModel(object):
                                'objectstore due error: %s', e.message)
 
         cb('', True)
+
+    def _create_volume_with_url(self, cb, params):
+        pool_name = params['pool']
+        name = params['name']
+        url = params['url']
+
+        pool_model = StoragePoolModel(conn=self.conn,
+                                      objstore=self.objstore)
+        pool = pool_model.lookup(pool_name)
+        file_path = os.path.join(pool['path'], name)
+
+        with contextlib.closing(urllib2.urlopen(url)) as response,\
+                open(file_path, 'w') as volume_file:
+            try:
+                while True:
+                    chunk_data = response.read(DOWNLOAD_CHUNK_SIZE)
+                    if not chunk_data:
+                        break
+
+                    volume_file.write(chunk_data)
+            except Exception, e:
+                raise OperationFailed('KCHVOL0007E', {'name': name,
+                                                      'pool': pool_name,
+                                                      'err': e.message})
+
+        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh()
+        cb('OK', True)
 
     def get_list(self, pool_name):
         pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
