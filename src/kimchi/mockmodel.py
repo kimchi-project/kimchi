@@ -505,7 +505,8 @@ class MockModel(object):
             raise InvalidOperation("KCHVOL0001E", {'name': name})
 
         params['pool'] = pool_name
-        taskid = self.add_task('', create_func, params)
+        targeturi = '/storagepools/%s/storagevolumes/%s' % (pool_name, name)
+        taskid = self.add_task(targeturi, create_func, params)
         return self.task_lookup(taskid)
 
     def _create_volume_with_capacity(self, cb, params):
