@@ -53,6 +53,8 @@ class StorageVolumesModel(object):
     def create(self, pool_name, params):
         vol_source = ['file', 'url', 'capacity']
 
+        name = params['name']
+
         index_list = list(i for i in range(len(vol_source))
                           if vol_source[i] in params)
         if len(index_list) != 1:
@@ -65,6 +67,17 @@ class StorageVolumesModel(object):
         except AttributeError:
             raise InvalidParameter("KCHVOL0019E",
                                    {'param': vol_source[index_list[0]]})
+
+        pool_info = StoragePoolModel(conn=self.conn,
+                                     objstore=self.objstore).lookup(pool_name)
+        if pool_info['type'] in READONLY_POOL_TYPE:
+            raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
+        if pool_info['state'] == 'inactive':
+            raise InvalidParameter('KCHVOL0003E', {'pool': pool_name,
+                                                   'volume': name})
+        if name in self.get_list(pool_name):
+            raise InvalidParameter('KCHVOL0001E', {'name': name})
+
         params['pool'] = pool_name
         taskid = add_task('', create_func, self.objstore, params)
         return self.task.lookup(taskid)
@@ -95,10 +108,6 @@ class StorageVolumesModel(object):
             raise MissingParameter("KCHVOL0004E", {'item': str(item),
                                                    'volume': name})
 
-        pool_info = StoragePoolModel(conn=self.conn,
-                                     objstore=self.objstore).lookup(pool_name)
-        if pool_info['type'] in READONLY_POOL_TYPE:
-            raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
         try:
             pool.createXML(xml, 0)
         except libvirt.libvirtError as e:
