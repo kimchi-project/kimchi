@@ -418,6 +418,7 @@ A interface represents available network interface on VM.
     * capacity: The total space which can be used to store volumes
                 The unit is MBytes
     * format: The format of the defined Storage Volume
+    * url: URL to be downloaded
 
 ### Resource: Storage Volume
 

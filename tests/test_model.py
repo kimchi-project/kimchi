@@ -36,6 +36,7 @@ import iso_gen
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
+from kimchi.config import paths
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
@@ -556,6 +557,29 @@ class ModelTests(unittest.TestCase):
             self.assertEquals((1024 + 16) << 20, volinfo['capacity'])
             poolinfo = inst.storagepool_lookup(pool)
             self.assertEquals(len(vols), poolinfo['nr_volumes'])
+
+            # download remote volume
+            # 1) try an invalid URL
+            params = {'name': 'foo', 'url': 'http://www.invalid.url'}
+            taskid = inst.storagevolumes_create(pool, params)['id']
+            self._wait_task(inst, taskid)
+            self.assertEquals('failed', inst.task_lookup(taskid)['status'])
+            # 2) download Kimchi's "COPYING" from Github and compare its
+            #    content to the corresponding local file's
+            url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
+            params = {'name': 'copying', 'url': url}
+            taskid = inst.storagevolumes_create(pool, params)['id']
+            self._wait_task(inst, taskid)
+            self.assertEquals('finished', inst.task_lookup(taskid)['status'])
+            rollback.prependDefer(inst.storagevolume_delete, pool,
+                                  params['name'])
+            vol_path = os.path.join(args['path'], params['name'])
+            self.assertTrue(os.path.isfile(vol_path))
+            with open(vol_path) as vol_file:
+                vol_content = vol_file.read()
+            with open(os.path.join(paths.get_prefix(), 'COPYING')) as cp_file:
+                cp_content = cp_file.read()
+            self.assertEquals(vol_content, cp_content)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_storage_customise(self):

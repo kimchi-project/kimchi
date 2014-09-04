@@ -524,6 +524,26 @@ class MockModel(object):
         pool._volumes[name] = volume
         cb('OK', True)
 
+    def _create_volume_with_url(self, cb, params):
+        pool_name = params['pool']
+        name = params['name']
+        url = params['url']
+
+        pool = self._get_storagepool(pool_name)
+
+        file_path = os.path.join(pool.info['path'], name)
+
+        with open(file_path, 'w') as file:
+            file.write(url)
+
+        params['path'] = file_path
+        params['type'] = 'file'
+
+        volume = MockStorageVolume(pool, name, params)
+        pool._volumes[name] = volume
+
+        cb('OK', True)
+
     def storagevolume_lookup(self, pool, name):
         if self._get_storagepool(pool).info['state'] != 'active':
             raise InvalidOperation("KCHVOL0005E", {'pool': pool,

@@ -182,6 +182,12 @@
                     "type": "string",
                     "pattern": "^qcow2|raw$",
                     "error": "KCHVOL0015E"
+                },
+                "url": {
+                    "description": "The remote URL of the storage volume",
+                    "type": "string",
+                    "pattern": "^(http|ftp)[s]?://",
+                    "error": "KCHVOL0021E"
                 }
             }
         },
