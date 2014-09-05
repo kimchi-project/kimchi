@@ -86,6 +86,8 @@ def main(options):
     # Add non-option arguments
     setattr(options, 'ssl_cert', config.config.get('server', 'ssl_cert'))
     setattr(options, 'ssl_key', config.config.get('server', 'ssl_key'))
+    setattr(options, 'max_body_size',
+            config.config.get('server', 'max_body_size')*1024)
 
     kimchi.server.main(options)
 
