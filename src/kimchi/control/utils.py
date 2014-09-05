@@ -72,14 +72,16 @@ def mime_in_header(header, mime):
 def parse_request():
     if 'Content-Length' not in cherrypy.request.headers:
         return {}
-    rawbody = cherrypy.request.body.read()
 
     if mime_in_header('Content-Type', 'application/json'):
+        rawbody = cherrypy.request.body.read()
         try:
             return json.loads(rawbody)
         except ValueError:
             e = OperationFailed('KCHAPI0006E')
             raise cherrypy.HTTPError(400, e.message)
+    elif mime_in_header('Content-Type', 'multipart/form-data'):
+        return cherrypy.request.params
     else:
         e = OperationFailed('KCHAPI0007E')
         raise cherrypy.HTTPError(415, e.message)
