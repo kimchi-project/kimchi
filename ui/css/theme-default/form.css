@@ -43,13 +43,16 @@
     padding: 0 5px;
 }
 
-
-.form-section input.invalid-field[type="text"] {
-    border-color: #FF4444!important;
-}
-
 .text-help {
     font-size: 12px;
     color: #333;
     margin: 0 0 5px 5px;
+}
+
+input.invalid-field[type="text"] {
+    border-color: #FF4444!important;
+}
+
+input.invalid-field[type="text"][disabled] {
+    border-color: #666666!important;
 }

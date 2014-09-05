@@ -290,3 +290,24 @@
                 center no-repeat;
     padding: 0 20px 0 26px;
 }
+
+#vm-image-local-box .body {
+    margin: 30px 0 0 26px;
+}
+
+#vm-image-local-box .body input {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #BBBBBB;
+    border-radius: 5px 5px 5px 5px;
+    border-top: 1px solid #BBBBBB;
+    box-shadow: 2px 2px 2px #EEEEEE inset;
+    color: #333333;
+    font-size: 13px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 600px;
+}
+
+#vm-image-local-box .body button {
+    margin-left: 10px;
+}

@@ -332,6 +332,34 @@ kimchi.template_add_main = function() {
         }
     });
 
+    $('#vm-image-local').click(function(){
+        kimchi.switchPage('iso-type-box', 'vm-image-local-box');
+    });
+    $('#vm-image-local-box-back').click(function(){
+        kimchi.switchPage('vm-image-local-box', 'iso-type-box', 'right');
+    });
+    $('input', '#vm-image-local-box').on('keyup', function(){
+        var isValid = kimchi.template_check_path($(this).val());
+        $(this).toggleClass('invalid-field', !isValid);
+        $('button', $('.body', '#vm-image-local-box')).button(isValid ? "enable" : "disable");
+    });
+    $('button', $('.body', '#vm-image-local-box')).button({
+        disabled: true
+    }).click(function(){
+        $('input', '#vm-image-local-box').prop('disabled', true);
+        $(this).button('option', {
+            label: i18n['KCHAPI6008M'],
+            disabled: true
+        });
+        addTemplate({disks:[{base:$('input', '#vm-image-local-box').val()}]}, function(){
+            $('input', '#vm-image-local-box').prop('disabled', false);
+            $('button', $('.body', '#vm-image-local-box')).button('option', {
+                label: i18n['KCHAPI6005M'],
+                disabled: false
+            });
+        });
+    });
+
     $('#btn-template-url-create').click(function() {
         var isoUrl = $('#iso-url').val();
         if (!kimchi.template_check_url(isoUrl)) {
@@ -345,12 +373,14 @@ kimchi.template_add_main = function() {
     });
 
     //do create
-    var addTemplate = function(data) {
+    var addTemplate = function(data, callback) {
         kimchi.createTemplate(data, function() {
+            if(callback) callback();
             kimchi.doListTemplates();
             kimchi.window.close();
             kimchi.topic('templateCreated').publish();
         }, function(err) {
+            if(callback) callback();
             kimchi.message.error(err.responseJSON.reason);
         });
     };
