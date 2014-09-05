@@ -92,13 +92,17 @@ class StorageVolumesModel(object):
             raise InvalidParameter('KCHVOL0001E', {'name': params['name']})
 
         upload_file = params['file']
+        f_len = upload_file.fp.length
         try:
+            size = 0
             with open(file_path, 'wb') as f:
                 while True:
                     data = upload_file.file.read(8192)
                     if not data:
                         break
+                    size += len(data)
                     f.write(data)
+                    cb('%s/%s' % (size, f_len))
         except Exception as e:
             raise OperationFailed('KCHVOL0007E',
                                   {'name': params['name'],
