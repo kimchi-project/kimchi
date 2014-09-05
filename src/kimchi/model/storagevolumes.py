@@ -83,6 +83,33 @@ class StorageVolumesModel(object):
         taskid = add_task(targeturi, create_func, self.objstore, params)
         return self.task.lookup(taskid)
 
+    def _create_volume_with_file(self, cb, params):
+        pool_name = params.pop('pool')
+        dir_path = StoragePoolModel(
+            conn=self.conn, objstore=self.objstore).lookup(pool_name)['path']
+        file_path = os.path.join(dir_path, params['name'])
+        if os.path.exists(file_path):
+            raise InvalidParameter('KCHVOL0001E', {'name': params['name']})
+
+        upload_file = params['file']
+        try:
+            with open(file_path, 'wb') as f:
+                while True:
+                    data = upload_file.file.read(8192)
+                    if not data:
+                        break
+                    f.write(data)
+        except Exception as e:
+            raise OperationFailed('KCHVOL0007E',
+                                  {'name': params['name'],
+                                   'pool': pool_name,
+                                   'err': e.message})
+
+        # Refresh to make sure volume can be found in following lookup
+        pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
+        pool.refresh()
+        cb('OK', True)
+
     def _create_volume_with_capacity(self, cb, params):
         pool_name = params.pop('pool')
         vol_xml = """
