@@ -64,6 +64,7 @@ class MockModel(object):
     def __init__(self, objstore_loc=None):
         self.reset()
         self.objstore = ObjectStore(objstore_loc)
+        self.objstore_loc = objstore_loc
         self.distros = self._get_distros()
 
     def capabilities_lookup(self, *ident):
@@ -78,6 +79,8 @@ class MockModel(object):
                 'federation': 'off'}
 
     def reset(self):
+        if hasattr(self, 'objstore'):
+            self.objstore = ObjectStore(self.objstore_loc)
         self._mock_vms = {}
         self._mock_screenshots = {}
         self._mock_templates = {}
