@@ -22,6 +22,7 @@ import base64
 import json
 import os
 import random
+import requests
 import shutil
 import time
 import unittest
@@ -1058,7 +1059,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/storagepools/pool-2/storagevolumes/',
                             req, 'POST')
         self.assertEquals(202, resp.status)
-        time.sleep(1)
+        task_id = json.loads(resp.read())['id']
+        self._wait_task(task_id)
+        status = json.loads(self.request('/tasks/%s' % task_id).read())
+        self.assertEquals('finished', status['status'])
 
         # Verify the storage volume
         resp = self.request('/storagepools/pool-2/storagevolumes/test-volume')
@@ -1891,6 +1895,38 @@ class RestTests(unittest.TestCase):
         # Delete the repository
         resp = self.request('%s/fedora-fake' % base_uri, '{}', 'DELETE')
         self.assertEquals(204, resp.status)
+
+    def test_upload(self):
+        # If we use self.request, we may encode multipart formdata by ourselves
+        # requests lib take care of encode part, so use this lib instead
+        def fake_auth_header():
+            headers = {'Accept': 'application/json'}
+            user, pw = kimchi.mockmodel.fake_user.items()[0]
+            hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
+            headers['AUTHORIZATION'] = hdr
+            return headers
+
+        with RollbackContext() as rollback:
+            upload_path = '/tmp/vol'
+            f = open(upload_path, 'w')
+            f.write('abcd')
+            f.close()
+            rollback.prependDefer(os.remove, upload_path)
+
+            vol = open(upload_path, 'rb')
+            url = "https://%s:%s/storagepools/default/storagevolumes" %\
+                (host, ssl_port)
+
+            r = requests.post(url,
+                              files={'file': vol},
+                              data={'name': 'new_vol2'},
+                              verify=False,
+                              headers=fake_auth_header())
+            self.assertEquals(r.status_code, 202)
+            time.sleep(1)
+            vol_list = json.loads(
+                self.request('/storagepools/default/storagevolumes').read())
+            self.assertEquals('new_vol2', vol_list[0]['name'])
 
 
 class HttpsRestTests(RestTests):

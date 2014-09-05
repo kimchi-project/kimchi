@@ -27,6 +27,7 @@ Depends: python-cherrypy3 (>= 3.2.0),
          python-guestfs,
          libguestfs-tools
 Build-Depends: libxslt,
-               python-libxml2
+               python-libxml2,
+               python-requests
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server
