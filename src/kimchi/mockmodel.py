@@ -512,6 +512,27 @@ class MockModel(object):
         taskid = self.add_task(targeturi, create_func, params)
         return self.task_lookup(taskid)
 
+    def _create_volume_with_file(self, cb, params):
+        upload_file = params['file']
+        params['name'] = params['name']
+        params['format'] = 'raw'
+        params['capacity'] = upload_file.fp.length
+        size = 0
+        try:
+            while True:
+                data = upload_file.file.read(8192)
+                if not data:
+                        break
+                size += len(data)
+                cb('%s/%s' % (size, params['capacity']), True)
+        except Exception as e:
+            raise OperationFailed('KCHVOL0007E',
+                                  {'name': params['name'],
+                                   'pool': params['pool'],
+                                   'err': e.message})
+        self._create_volume_with_capacity(cb, params)
+        cb('%s/%s' % (size, params['capacity']), True)
+
     def _create_volume_with_capacity(self, cb, params):
         pool_name = params.pop('pool')
         pool = self._get_storagepool(pool_name)
