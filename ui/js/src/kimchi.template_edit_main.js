@@ -23,6 +23,14 @@ kimchi.template_edit_main = function() {
     kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
         origDisks =  template.disks;
         origPool = template.storagepool;
+        for(var i=0;i<template.disks.length;i++){
+            if(template.disks[i].base){
+                template["vm-image"] = template.disks[i].base;
+                $('#templ-edit-cdrom').addClass('hide-content');
+                $('#templ-edit-vm-image').removeClass('hide-content');
+                break;
+            }
+        }
         for ( var prop in template) {
             var value = template[prop];
             if (prop == 'graphics') {
