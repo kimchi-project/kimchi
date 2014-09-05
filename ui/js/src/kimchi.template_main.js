@@ -22,7 +22,17 @@ kimchi.doListTemplates = function() {
             var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
-                var isLocal = /^\//.test(value['cdrom']);
+                var isLocal;
+                if(value.cdrom){
+                    isLocal = /^\//.test(value['cdrom']);
+                }else{
+                    for(var i=0;i<value.disks.length;i++){
+                        if(value.disks[i].base){
+                            isLocal = /^\//.test(value.disks[i].base);
+                            break;
+                        }
+                    }
+                }
                 if(isLocal){
                     value.location = "images/theme-default/icon-local.png";
                 }else{
