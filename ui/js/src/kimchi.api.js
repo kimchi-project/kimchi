@@ -533,6 +533,18 @@ var kimchi = {
         });
     },
 
+    getTasksByFilter : function(filter, suc, err, sync) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'tasks?' + filter,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            async : !sync,
+            success : suc,
+            error : err
+        });
+    },
+
     login : function(settings, suc, err) {
         $.ajax({
             url : "/login",
