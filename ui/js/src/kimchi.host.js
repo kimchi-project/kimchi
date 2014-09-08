@@ -380,6 +380,39 @@ kimchi.host_main = function() {
         });
     };
 
+    var getPendingReports = function() {
+        var reports = []
+        var filter = 'status=running&target_uri=' + encodeURIComponent('^/debugreports/*')
+
+        kimchi.getTasksByFilter(filter, function(tasks) {
+            for(var i = 0; i < tasks.length; i++) {
+                reportName = tasks[i].target_uri.replace(/^\/debugreports\//, '') || i18n['KCHDR6012M'];
+                reports.push({'name': reportName, 'time': i18n['KCHDR6007M']})
+
+                if(kimchi.trackingTasks.indexOf(tasks[i].id) >= 0) {
+                    continue;
+                }
+
+                kimchi.trackTask(tasks[i].id, function(result) {
+                    kimchi.topic('kimchi/debugReportAdded').publish();
+                }, function(result) {
+                    // Error message from Async Task status
+                    if (result['message']) {
+                        var errText = result['message'];
+                    }
+                    // Error message from standard kimchi exception
+                    else {
+                        var errText = result['responseJSON']['reason'];
+                    }
+                    result && kimchi.message.error(errText);
+                    kimchi.topic('kimchi/debugReportAdded').publish();
+                }, null);
+            }
+        }, null, true);
+
+        return reports;
+    };
+
     var listDebugReports = function() {
         kimchi.listReports(function(reports) {
             $('#debug-report-section').removeClass('hidden');
