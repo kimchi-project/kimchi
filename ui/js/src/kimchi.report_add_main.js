@@ -17,24 +17,10 @@
  */
 kimchi.report_add_main = function() {
     var reportGridID = 'available-reports-grid';
-    var generateButton = $('#' + reportGridID + '-generate-button');
     var addReportForm = $('#form-report-add');
     var submitButton = $('#button-report-add');
     var nameTextbox = $('input[name="name"]', addReportForm);
     nameTextbox.select();
-
-    /*
-     * FIXME:
-     *   Currently, all buttons will be disabled when a report is being
-     * generated. Though operations on existing debug reports shouldn't
-     * be affected when a new one is being generated, and it's expected
-     * to enable Rename/Remove/Download Buttons whenever users click an
-     * existing report row in the grid.
-     */
-    var disableToolbarButtons = function(event, toEnable) {
-        $('#' + reportGridID + ' .grid-toolbar button')
-            .prop('disabled', !toEnable);
-    };
 
     var submitForm = function(event) {
         if(submitButton.prop('disabled')) {
@@ -57,10 +43,6 @@ kimchi.report_add_main = function() {
             kimchi.topic('kimchi/debugReportAdded').publish();
         };
 
-        disableToolbarButtons();
-        submitButton.prop('disabled', true);
-        $('.grid-body table tr', '#' + reportGridID)
-            .on('click', disableToolbarButtons);
         kimchi.createReport(formData, function(result) {
             onTaskAccepted();
             kimchi.topic('kimchi/debugReportAdded').publish();
@@ -74,12 +56,10 @@ kimchi.report_add_main = function() {
                 var errText = result['responseJSON']['reason'];
             }
             result && kimchi.message.error(errText);
+
             taskAccepted &&
                 $('.grid-body-view table tr:first-child',
                     '#' + reportGridID).remove();
-            $('.grid-body table tr', '#' + reportGridID)
-                .off('click', disableToolbarButtons);
-            generateButton.prop('disabled', false);
             submitButton.prop('disabled', false);
             nameTextbox.select();
         }, onTaskAccepted);
