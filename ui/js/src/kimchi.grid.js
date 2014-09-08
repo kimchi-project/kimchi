@@ -191,7 +191,8 @@ kimchi.widget.Grid.prototype = (function() {
             $('tr', this.gridBody).on('mouseover', {
                 grid: this
             }, function(event) {
-                stylingRow.call(event.data.grid, this, 'hover');
+                if (! $(this).hasClass('no-hover'))
+                    stylingRow.call(event.data.grid, this, 'hover');
             });
 
             $('tr', this.gridBody).on('mouseout', {

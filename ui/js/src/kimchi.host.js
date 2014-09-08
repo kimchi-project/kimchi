@@ -302,11 +302,7 @@ kimchi.host_main = function() {
                 id: reportGridID + '-generate-button',
                 label: i18n['KCHDR6006M'],
                 onClick: function(event) {
-                    kimchi.window.open('report-add.html', {
-                        close: function() {
-                            kimchi.stopTrackingReport = true;
-                        }
-                    });
+                    kimchi.window.open('report-add.html');
                 }
             }, {
                 id: reportGridID + '-rename-button',
@@ -364,7 +360,18 @@ kimchi.host_main = function() {
                 }
             }],
             onRowSelected: function(row) {
-                enableReportButtons(true);
+                var report = reportGrid.getSelected();
+                // Only enable report buttons if the selected line is not a
+                // pending report
+                if (report['time'] == i18n['KCHDR6007M']) {
+                    var gridElement = $('#'+ reportGridID);
+                    var row = $('tr:contains(' + report['name'] + ')', gridElement);
+                    enableReportButtons(false);
+                    row.attr('class', '');
+                }
+                else {
+                    enableReportButtons(true);
+                }
             },
             frozenFields: [],
             fields: [{
@@ -415,17 +422,27 @@ kimchi.host_main = function() {
 
     var listDebugReports = function() {
         kimchi.listReports(function(reports) {
+            pendingReports = getPendingReports();
+            allReports = pendingReports.concat(reports);
             $('#debug-report-section').removeClass('hidden');
 
             // Row selection will be cleared so disable buttons here
             enableReportButtons(false);
 
             if(reportGrid) {
-                reportGrid.setData(reports);
+                reportGrid.setData(allReports);
             }
             else {
-                initReportGrid(reports);
+                initReportGrid(allReports);
             }
+
+            // Set id-debug-img to pending reports
+            // It will display a loading icon
+            var gridElement = $('#' + reportGridID);
+                $.each($('td:contains(' + i18n['KCHDR6007M']  + ')', gridElement), function(index, row) {
+                $(row).parent().addClass('no-hover');
+                $(row).attr('id', 'id-debug-img');
+            });
         }, function(error) {
             if(error['status'] == 403) {
                 $('#debug-report-section').addClass('hidden');

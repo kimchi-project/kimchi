@@ -54,17 +54,7 @@ kimchi.report_add_main = function() {
             }
             taskAccepted = true;
             kimchi.window.close();
-            var reportName = nameTextbox.val() || i18n['KCHDR6012M'];
-            $('.grid-body-view table tbody', '#' + reportGridID).prepend(
-                '<tr>' +
-                    '<td>' +
-                        '<div class="cell-text-wrapper">' + reportName + '</div>' +
-                    '</td>' +
-                    '<td id ="id-debug-img">' +
-                        '<div class="cell-text-wrapper">' + i18n['KCHDR6007M'] + '</div>' +
-                    '</td>' +
-                '</tr>'
-            );
+            kimchi.topic('kimchi/debugReportAdded').publish();
         };
 
         disableToolbarButtons();
@@ -73,13 +63,7 @@ kimchi.report_add_main = function() {
             .on('click', disableToolbarButtons);
         kimchi.createReport(formData, function(result) {
             onTaskAccepted();
-            $('.grid-body-view table tr:first-child', '#' + reportGridID).remove();
-            $('.grid-body table tr', '#' + reportGridID)
-                .off('click', disableToolbarButtons);
-            generateButton.prop('disabled', false);
-            kimchi.topic('kimchi/debugReportAdded').publish({
-                result: result
-            });
+            kimchi.topic('kimchi/debugReportAdded').publish();
         }, function(result) {
             // Error message from Async Task status
             if (result['message']) {
