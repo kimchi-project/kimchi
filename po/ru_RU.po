@@ -1,15 +1,15 @@
 # English translations for kimchi package.
 # Copyright (C) 2013 ORGANIZATION
-# Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-28 13:37-0300\n"
-"PO-Revision-Date: 2013-07-11 17:32-0400\n"
-"Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
-"Language-Team: English\n"
+"POT-Creation-Date: 2014-09-10 16:51-0300\n"
+"PO-Revision-Date: 2014-08-28 17:32+0000\n"
+"Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
+"ru/)\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-format
-msgid "Unkown parameter specified %(value)s"
-msgstr "Указан неизвестный параметр %(value)s"
+msgid "Unknown parameter %(value)s"
+msgstr ""
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -95,8 +95,8 @@ msgid "Unable to login to iSCSI host %(host)s target %(target)s"
 msgstr "Не удалось войти в целевой %(target)s хоста iSCSI %(host)s"
 
 #, python-format
-msgid "Unable to find ISO file ISO %(filename)s"
-msgstr "Не найден файл ISO %(filename)s"
+msgid "Unable to find ISO file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -138,15 +138,15 @@ msgstr ""
 "рекомендуется) выполните команду 'chmod -R o+x 'path_to_iso'. Сведения: "
 "%(err)s"
 
-msgid "Error occurs when probing image os information."
+msgid "An error occurred when probing image OS information."
 msgstr ""
 
 msgid "No OS information found in given image."
 msgstr ""
 
 #, python-format
-msgid "Unable to find/read image file %(filename)s"
-msgstr "Не найден файл варианта ОС: %(filename)s"
+msgid "Unable to read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -158,11 +158,9 @@ msgstr "Виртуальная машина %(name)s не существует"
 
 #, python-format
 msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
-"exists or it is not powered off."
+"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
+"in use or the virtual machine is not powered off."
 msgstr ""
-"Не удалось переименовать виртуальную машину %(name)s. Имя %(new_name)s уже "
-"занято, или виртуальная машина работает."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -174,8 +172,8 @@ msgid "Remote ISO image is not supported by this server."
 msgstr "Удаленный образ ISO не поддерживается этим сервером."
 
 #, python-format
-msgid "Screenshot not supported for virtual machine %(name)s"
-msgstr "Снимок экрана не поддерживается для виртуальной машины %(name)s"
+msgid "Screenshot is not supported on virtual machine %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -190,23 +188,22 @@ msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
 msgstr "Не удалось получить виртуальную машину %(name)s. Сведения: %(err)s"
 
 #, python-format
-msgid "Unable to connect to powered off machine %(name)s."
-msgstr "Не удалось подключиться к выключенной машине %(name)s."
+msgid "Unable to connect to powered off virtual machine %(name)s."
+msgstr ""
 
 msgid "Virtual machine name must be a string"
 msgstr "Имя виртуальной машины должно быть строкой"
 
 #, python-format
-msgid "Invalid template URI: %(value)s specified for virtual machine"
-msgstr "Для виртуальной машины указан недопустимый URI шаблона %(value)s"
+msgid "Invalid template URI %(value)s specified for virtual machine"
+msgstr ""
 
 #, python-format
-msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
-msgstr "Для виртуальной машины указан недопустимый URI пула памяти %(value)s"
-
-msgid "Supported virtual machine graphics are spice or VNC"
+msgid "Invalid storage pool URI %(value)s specified for virtual machine"
 msgstr ""
-"Поддерживаемая графическая подсистема виртуальной машины: spice или VNC"
+
+msgid "Supported virtual machine graphics are Spice or VNC"
+msgstr ""
 
 msgid "Graphics address to listen on must be IPv4 or IPv6"
 msgstr ""
@@ -232,13 +229,13 @@ msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 "Не удалось переименовать виртуальную машину %(name)s. Сведения: %(err)s"
 
-msgid "User names list must be an array"
-msgstr "Имя сети должно быть строкой"
+msgid "User name list must be an array"
+msgstr ""
 
 msgid "User name must be a string"
 msgstr "Имя сети должно быть строкой"
 
-msgid "Group names list must be an array"
+msgid "Group name list must be an array"
 msgstr ""
 
 msgid "Group name must be a string"
@@ -261,10 +258,10 @@ msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
 msgstr "Не удалось запустить виртуальную машину %(name)s. Сведения: %(err)s"
 
-msgid "password of a vm ticket must be a string."
-msgstr "Пароль для входа в целевой объект iSCSI должен быть строкой"
+msgid "The guest console password must be a string."
+msgstr ""
 
-msgid "expire of a vm ticket must be a number."
+msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
@@ -357,12 +354,12 @@ msgstr "Укажите образ ISO в качестве CDROM для созд�
 msgid "All networks for the template must be specified in a list."
 msgstr "Все сети для шаблона должны быть указаны в списке."
 
-msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
-msgstr "Должен быть указан том для шаблона, когда пул памяти - iSCSI или SCSI"
+msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
+msgstr ""
 
 #, python-format
-msgid "The volume: %(volume)s in not in storage pool %(pool)s"
-msgstr "Том %(volume)s не в пуле памяти %(pool)s"
+msgid "The volume %(volume)s is not in storage pool %(pool)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -373,7 +370,7 @@ msgid "Unable to delete template due error: %(err)s"
 msgstr "Не удалось удалить шаблон из-за ошибки %(err)s"
 
 msgid "Disk size must be greater than 1GB."
-msgstr ""
+msgstr "Размер диска должен быть больше 1 Гб."
 
 msgid "Template base image must be a valid local image file"
 msgstr "CDROM шаблона должен быть локальным или удаленным файлом ISO"
@@ -443,14 +440,16 @@ msgid "Unsupported storage pool type: %(type)s"
 msgstr "Неподдерживаемый тип пула памяти: %(type)s"
 
 #, python-format
-msgid "Error while getting xml for storage pool %(pool)s"
-msgstr "Ошибка получения xml для пула памяти %(pool)s"
+msgid "Error while retrieving storage pool XML to %(pool)s"
+msgstr ""
 
 msgid "Storage pool name must be a string"
 msgstr "Имя пула памяти должно быть строкой"
 
-msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
-msgstr "Поддерживаемые типы пулов памяти: dir, netfs, logical и kimchi-iso"
+msgid ""
+"Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
+"iso"
+msgstr ""
 
 msgid "Storage pool path must be a string"
 msgstr "Путь к пулу памяти должен быть строкой"
@@ -458,8 +457,8 @@ msgstr "Путь к пулу памяти должен быть строкой"
 msgid "Storage pool host must be a IP or hostname"
 msgstr "Хост пула памяти должен быть IP-адресом или именем хоста"
 
-msgid "Storage pool devices must be the full path to the block device"
-msgstr "Устройства пула памяти должны быть полным путем к блочному устройству"
+msgid "Storage pool device must be the absolute path to the block device"
+msgstr ""
 
 msgid "Storage pool devices parameter must be a list"
 msgstr "Параметр устройств пула памяти должен быть списком"
@@ -470,11 +469,11 @@ msgstr "Целевой IQN пула iSCSI должен быть строкой"
 msgid "Port of a remote storage server must be an integer between 1 and 65535"
 msgstr "Порт удаленного сервера памяти должен быть целым числом от 1 до 65535"
 
-msgid "Login username of the iSCSI target must be a string"
-msgstr "Имя пользователя для входа в целевой объект iSCSI должно быть строкой"
+msgid "iSCSI target username must be a string"
+msgstr ""
 
-msgid "Login password of the iSCSI target must be a string"
-msgstr "Пароль для входа в целевой объект iSCSI должен быть строкой"
+msgid "iSCSI target password must be a string"
+msgstr ""
 
 msgid "Specify name and type to create a storage pool"
 msgstr "Укажите имя и тип для создания пула памяти"
@@ -488,8 +487,8 @@ msgstr ""
 "пул %(pool)s."
 
 #, python-format
-msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
-msgstr "Ошибка расширения логического пула %(pool)s. Сведения: %(err)s"
+msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
+msgstr ""
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr "Диски параметров можно обновлять только для логического пула памяти."
@@ -550,9 +549,9 @@ msgstr "Том %(name)s не существует в пуле памяти %(poo
 
 #, python-format
 msgid ""
-"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
-msgstr "Не удалось создать том %(volume)s: пул памяти %(pool)s не активен"
+msgstr ""
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
@@ -615,6 +614,20 @@ msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
 msgstr ""
 "Не удалось обновить базу данных с информацией о томах из-за ошибки %(err)s"
+
+#, python-format
+msgid "Only one of parameter %(param)s can be specified"
+msgstr ""
+
+#, python-format
+msgid "Create volume from %(param)s is not supported"
+msgstr ""
+
+msgid "Storage volume capacity must be an integer number."
+msgstr ""
+
+msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -722,21 +735,20 @@ msgid "Unable to create debug report %(name)s. Details: %(err)s."
 msgstr "Не удалось создать отладочный отчет %(name)s. Сведения: %(err)s."
 
 #, python-format
-msgid "Can not find any generated debug report matching name %(name)s"
-msgstr "Не найдено ни одного созданного отладочного отчета с именем %(name)s"
+msgid "Can not find any debug report with the given name %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr "Не удалось создать отладочный отчет %(name)s. Сведения: %(err)s"
 
-msgid "You should give a name for the debug file report."
-msgstr "Файлу отладочного отчета необходимо присвоить имя."
+msgid "You should give a name for the debug report file."
+msgstr ""
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
-"('-') are allowed."
+"Debug report name must be a string. Only letters, digits, underscore ('_') "
+"and hyphen ('-') are allowed."
 msgstr ""
-"Имя должно быть строкой. Допустимые символы: буквы, цифры и дефисы ('-')."
 
 #, python-format
 msgid ""
@@ -795,8 +807,8 @@ msgstr "Недопустимый URI %(uri)s"
 msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
 msgstr "Истек тайм-аут выполнения команды %(cmd)s (%(seconds)s с)"
 
-msgid "Unable to choose a virutal machine name"
-msgstr "Не удалось выбрать имя виртуальной машины"
+msgid "Unable to choose a virtual machine name"
+msgstr ""
 
 msgid "Invalid vm storage device name"
 msgstr "Недопустимое имя устройства CDROM"
@@ -805,23 +817,22 @@ msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "Недопустимый тип памяти. Поддерживаемые типы: cdrom"
 
 #, python-format
-msgid "The path '%(value)s' is not valid local/remote path for the device"
-msgstr ""
-"Путь %(value)s не является допустимым локальным/удаленным путем для "
-"устройства"
-
-#, python-format
-msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
-msgstr ""
-"Имя устройства %(dev_name)s уже существует в виртуальной машине %(vm_name)s"
-
-msgid "Just support cdrom path update"
+msgid "The path '%(value)s' is not a valid local/remote path for the device"
 msgstr ""
 
 #, python-format
-msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
+msgid ""
+"Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"
 msgstr ""
-"Устройство хранения %(dev_name)s не существует в гостевой системе %(vm_name)s"
+
+msgid "Only CDROM path can be update."
+msgstr ""
+
+#, python-format
+msgid ""
+"The storage device %(dev_name)s does not exist in the virtual machine "
+"%(vm_name)s"
+msgstr ""
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -835,8 +846,8 @@ msgstr "Ошибка обновления устройства хранения:
 msgid "Error while removing storage device: %(error)s"
 msgstr "Ошибка удаления устройства хранения: %(error)s"
 
-msgid "Do not support ide device hot plug"
-msgstr "Не поддерживается оперативное подключение интерфейсов гостевой системы"
+msgid "Do not support IDE device hot plug"
+msgstr ""
 
 msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
@@ -851,10 +862,10 @@ msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr ""
 
 #, python-format
-msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
 
-msgid "Volume already been used by other vm"
+msgid "Volume already in use by other virtual machine."
 msgstr ""
 
 msgid ""
@@ -976,7 +987,7 @@ msgid "STACK"
 msgstr "Стек"
 
 msgid "Go to Homepage"
-msgstr "Перейти на домашнюю страницу"
+msgstr "Перейти на главную страницу"
 
 msgid "Create a New Virtual Machine"
 msgstr "Создать новую виртуальную машину"
@@ -995,13 +1006,13 @@ msgid "Template"
 msgstr "Шаблон"
 
 msgid "Please create a template first."
-msgstr "Сначала создайте шаблон."
+msgstr "Пожалуйста, создайте шаблон в первую очередь."
 
 msgid "Create a Template"
 msgstr "Создать шаблон"
 
 msgid "Please choose a template."
-msgstr "Выберите шаблон."
+msgstr "Пожалуйста, выберите шаблон."
 
 msgid "OS"
 msgstr "ОС"
@@ -1022,10 +1033,10 @@ msgid "Edit Guest"
 msgstr "Изменить гостевую систему"
 
 msgid "General"
-msgstr "Общие"
+msgstr "Общее"
 
 msgid "Storage"
-msgstr "Дисковая память"
+msgstr "Хранилище"
 
 msgid "Interface"
 msgstr "Интерфейс"
@@ -1040,7 +1051,7 @@ msgid "CPUs"
 msgstr "Процессоры"
 
 msgid "Memory (MB)"
-msgstr "Память"
+msgstr "Память (Мб)"
 
 msgid "Icon"
 msgstr "Значок"
@@ -1079,10 +1090,10 @@ msgid "Start"
 msgstr "Запустить"
 
 msgid "Reset"
-msgstr "Сброс"
+msgstr "Сбросить"
 
 msgid "Power Off"
-msgstr ""
+msgstr "Выключить"
 
 msgid "Actions"
 msgstr "Действия"
@@ -1091,10 +1102,10 @@ msgid "Connect"
 msgstr "Подключить"
 
 msgid "Edit"
-msgstr "Изменить"
+msgstr "Редактировать"
 
 msgid "Shut Down"
-msgstr "Выключен"
+msgstr "Завершить работу"
 
 msgid "Delete"
 msgstr "Удалить"
@@ -1146,7 +1157,7 @@ msgid "This field is required."
 msgstr "Это обязательное поле."
 
 msgid "Log in"
-msgstr "Вход в систему"
+msgstr "Войти"
 
 msgid "Logging in..."
 msgstr "Вход..."
@@ -1175,8 +1186,8 @@ msgstr "Это недопустимый URL."
 msgid "No such data available."
 msgstr "Нет таких данных."
 
-msgid "options needed."
-msgstr "требуются параметры."
+msgid "Options needed."
+msgstr ""
 
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
@@ -1198,13 +1209,13 @@ msgid "Warning"
 msgstr "Предупреждение"
 
 msgid "Creating..."
-msgstr "Создание..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "Загружается..."
 
-msgid "An error occurs while checking for packages update."
-msgstr "Ошибка проверки наличия обновлений для пакетов."
+msgid "An error occurred while checking for packages update."
+msgstr ""
 
 msgid "Retry"
 msgstr "Повторить"
@@ -1212,8 +1223,8 @@ msgstr "Повторить"
 msgid "Detailed message:"
 msgstr "Подробное сообщение:"
 
-msgid "No iso found"
-msgstr "Не найден образ iso"
+msgid "No ISO found"
+msgstr ""
 
 msgid "This is not a valid ISO file."
 msgstr "Этот файл не является допустимым образом ISO."
@@ -1314,13 +1325,13 @@ msgid "Repository"
 msgstr "Хранилище"
 
 msgid "Update All"
-msgstr "Обновить все"
+msgstr "Обновить всё"
 
 msgid "Updating..."
 msgstr "Обновление..."
 
-msgid "Failed to retrieve updates."
-msgstr "Не удалось получить обновления."
+msgid "Failed to retrieve packages update information."
+msgstr ""
 
 msgid "Failed to update package(s)."
 msgstr "Не удалось обновить пакеты."
@@ -1386,10 +1397,11 @@ msgstr "Подтверждение удаления"
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
 msgstr "Шаблон будет безвозвратно удален. Продолжить?"
 
-msgid "VM Delete Confirmation"
-msgstr "Подтверждение удаления"
+msgid "Virtual Machine delete Confirmation"
+msgstr ""
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgid ""
+"This virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
 
 msgid ""
@@ -1417,7 +1429,6 @@ msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
 msgstr ""
-"Этот CDROM будет отключен. Его можно будет снова подключить. Отключить?"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "ИД VLAN должен быть от 1 до 4094."
@@ -1462,6 +1473,15 @@ msgstr "SCSI Fibre Channel"
 msgid "No SCSI adapters found."
 msgstr "Не найдены адаптеры SCSI."
 
+msgid "Loading iSCSI targets..."
+msgstr ""
+
+msgid "No iSCSI found. Please input one."
+msgstr ""
+
+msgid "Failed to load iSCSI targets."
+msgstr ""
+
 msgid "The storage pool name can not be blank."
 msgstr "Не указано имя пула памяти."
 
@@ -1486,8 +1506,8 @@ msgstr "Не указан целевой объект iSCSI."
 msgid "Server name can not be blank."
 msgstr "Не указано имя сервера."
 
-msgid "This is not a valid Server Name or IP. please, modify it."
-msgstr "Это имя сервера или IP-адрес не являются допустимыми. Исправьте."
+msgid "This is not a valid Server Name or IP. Please, modify it."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "Поиск доступных разделов..."
@@ -1505,20 +1525,29 @@ msgstr ""
 msgid "Unable to retrieve partitions information."
 msgstr "Не удалось получить информацию о хранилище. Сведения: %(err)s"
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr "Не указан путь к пулу памяти."
+msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "Не указано имя пула памяти."
 
+msgid "Peers"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "No peers found."
+msgstr ""
+
 msgid "Help"
-msgstr "Справка"
+msgstr "Помощь"
 
 msgid "About"
 msgstr "О программе"
 
 msgid "Log out"
-msgstr "Закрыть сеанс"
+msgstr "Выйти"
 
 msgid "Version:"
 msgstr "Версия:"
@@ -1557,7 +1586,7 @@ msgstr ""
 "основе текущего времени. Имя может содержать: буквы, цифры и дефисы (\"-\")."
 
 msgid "Submit"
-msgstr ""
+msgstr "Подтвердить"
 
 msgid "Add a Repository"
 msgstr "Добавить хранилище"
@@ -1688,6 +1717,9 @@ msgstr "Где находится исходный носитель для эт�
 msgid "Local ISO Image"
 msgstr "Локальный образ ISO"
 
+msgid "Local Image File"
+msgstr ""
+
 msgid "Remote ISO Image"
 msgstr "Удаленный образ ISO"
 
@@ -1741,6 +1773,9 @@ msgstr "Диск (ГБ)"
 
 msgid "CDROM"
 msgstr "CDROM"
+
+msgid "Image File"
+msgstr ""
 
 msgid "Graphics"
 msgstr "Графика"
@@ -1857,4 +1892,4 @@ msgid "No templates found."
 msgstr "Не найдены шаблоны."
 
 msgid "Clone"
-msgstr ""
+msgstr "Клонировать"

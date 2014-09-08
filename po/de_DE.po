@@ -1,12 +1,11 @@
 # English translations for kimchi package.
 # Copyright (C) 2013 ORGANIZATION
-# Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-28 13:37-0300\n"
+"POT-Creation-Date: 2014-09-10 16:51-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -18,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-format
-msgid "Unkown parameter specified %(value)s"
-msgstr "Unbekannter Parameter angegeben %(value)s"
+msgid "Unknown parameter %(value)s"
+msgstr ""
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -99,8 +98,8 @@ msgid "Unable to login to iSCSI host %(host)s target %(target)s"
 msgstr "Anmeldung bei iSCSI-Host %(host)s Ziel %(target)s nicht möglich"
 
 #, python-format
-msgid "Unable to find ISO file ISO %(filename)s"
-msgstr "ISO-Datei %(filename)s konnte nicht gefunden werden"
+msgid "Unable to find ISO file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -143,15 +142,15 @@ msgstr ""
 "für den Benutzer '%(user)s' oder fügen Sie '%(user)s' der ISO-Pfadgruppe "
 "hinzu oder (nicht empfohlen) 'chmod -R o+x 'path_to_iso'. Details: %(err)s"
 
-msgid "Error occurs when probing image os information."
+msgid "An error occurred when probing image OS information."
 msgstr ""
 
 msgid "No OS information found in given image."
 msgstr ""
 
 #, python-format
-msgid "Unable to find/read image file %(filename)s"
-msgstr "Distro-Datei konnte nicht gefunden werden: %(filename)s"
+msgid "Unable to read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -163,11 +162,9 @@ msgstr "Virtuelle Maschine %(name)s ist nicht vorhanden"
 
 #, python-format
 msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
-"exists or it is not powered off."
+"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
+"in use or the virtual machine is not powered off."
 msgstr ""
-"Virtuelle Maschine %(name)s konnte nicht umbenannt werden. Der Name "
-"%(new_name)s ist bereits vorhanden oder sie ist nicht ausgeschaltet."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -179,8 +176,8 @@ msgid "Remote ISO image is not supported by this server."
 msgstr "Fernes ISO-Image wird von diesem Server nicht unterstützt."
 
 #, python-format
-msgid "Screenshot not supported for virtual machine %(name)s"
-msgstr "Screenshot wird für virtuelle Maschine %(name)s nicht unterstützt"
+msgid "Screenshot is not supported on virtual machine %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -198,7 +195,7 @@ msgstr ""
 "Virtuelle Maschine %(name)s konnte nicht abgerufen werden. Details: %(err)s"
 
 #, python-format
-msgid "Unable to connect to powered off machine %(name)s."
+msgid "Unable to connect to powered off virtual machine %(name)s."
 msgstr ""
 "Verbindung zur abgeschalteten Maschine %(name)s konnte nicht hergestellt "
 "werden."
@@ -207,16 +204,15 @@ msgid "Virtual machine name must be a string"
 msgstr "Name der virtuellen Maschine muss eine Zeichenfolge sein"
 
 #, python-format
-msgid "Invalid template URI: %(value)s specified for virtual machine"
-msgstr "Ungültiger Vorlagen-URI: %(value)s für virtuelle Maschine angegeben"
+msgid "Invalid template URI %(value)s specified for virtual machine"
+msgstr ""
 
 #, python-format
-msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
+msgid "Invalid storage pool URI %(value)s specified for virtual machine"
 msgstr ""
-"Ungültiger Speicherpool-URI: %(value)s für virtuelle Maschine angegeben"
 
-msgid "Supported virtual machine graphics are spice or VNC"
-msgstr "Unterstützte Grafiken für virtuelle Maschine sind Spice oder VNC"
+msgid "Supported virtual machine graphics are Spice or VNC"
+msgstr ""
 
 msgid "Graphics address to listen on must be IPv4 or IPv6"
 msgstr "Zu überwachende Grafikadresse muss IPv4 oder IPv6 sein"
@@ -244,13 +240,13 @@ msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr ""
 "Virtuelle Maschine %(name)s konnte nicht umbenannt werden. Details: %(err)s"
 
-msgid "User names list must be an array"
-msgstr "Netzname muss eine Zeichenfolge sein"
+msgid "User name list must be an array"
+msgstr ""
 
 msgid "User name must be a string"
 msgstr "Netzname muss eine Zeichenfolge sein"
 
-msgid "Group names list must be an array"
+msgid "Group name list must be an array"
 msgstr ""
 
 msgid "Group name must be a string"
@@ -275,10 +271,10 @@ msgid ""
 msgstr ""
 "Virtuelle Maschine %(name)s konnte nicht gestartet werden. Details: %(err)s"
 
-msgid "password of a vm ticket must be a string."
-msgstr "Anmeldekennwort des iSCSI-Ziels muss eine Zeichenfolge sein"
+msgid "The guest console password must be a string."
+msgstr ""
 
-msgid "expire of a vm ticket must be a number."
+msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
@@ -387,15 +383,12 @@ msgstr "Geben Sie ein ISO-Image als CD-ROM an, um eine Vorlage zu erstellen"
 msgid "All networks for the template must be specified in a list."
 msgstr "Alle Netze für die Vorlage müssen in einer Liste angegeben werden."
 
-msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
+msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
 msgstr ""
-"Für eine Vorlage muss ein Datenträger angegeben werden, wenn der "
-"Speicherpool iSCSI oder SCSI ist"
 
 #, python-format
-msgid "The volume: %(volume)s in not in storage pool %(pool)s"
+msgid "The volume %(volume)s is not in storage pool %(pool)s"
 msgstr ""
-"Der Datenträger: %(volume)s ist nicht im Speicherpool %(pool)s vorhanden"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -480,14 +473,16 @@ msgid "Unsupported storage pool type: %(type)s"
 msgstr "Nicht unterstützter Speicherpooltyp: %(type)s"
 
 #, python-format
-msgid "Error while getting xml for storage pool %(pool)s"
-msgstr "Fehler beim Abrufen von xml für Speicherpool %(pool)s"
+msgid "Error while retrieving storage pool XML to %(pool)s"
+msgstr ""
 
 msgid "Storage pool name must be a string"
 msgstr "Speicherpoolname muss eine Zeichenfolge sein"
 
-msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
-msgstr "Unterstützte Speicherpooltypen sind dir, netfs, logisch und kimchi-iso"
+msgid ""
+"Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
+"iso"
+msgstr ""
 
 msgid "Storage pool path must be a string"
 msgstr "Speicherpoolpfad muss eine Zeichenfolge sein"
@@ -495,9 +490,8 @@ msgstr "Speicherpoolpfad muss eine Zeichenfolge sein"
 msgid "Storage pool host must be a IP or hostname"
 msgstr "Speicherpoolhost muss eine IP oder ein Hostname sein"
 
-msgid "Storage pool devices must be the full path to the block device"
+msgid "Storage pool device must be the absolute path to the block device"
 msgstr ""
-"Speicherpooleinheiten müssen den vollständigen Pfad zur Blockeinheit sein"
 
 msgid "Storage pool devices parameter must be a list"
 msgstr "Einheitenparameter des Speicherpools muss eine Liste sein"
@@ -510,11 +504,11 @@ msgstr ""
 "Port eines fernen Speicherservers muss eine Ganzzahl zwischen 1 und 65535 "
 "sein"
 
-msgid "Login username of the iSCSI target must be a string"
-msgstr "Anmeldebenutzername des iSCSI-Ziels muss eine Zeichenfolge sein"
+msgid "iSCSI target username must be a string"
+msgstr ""
 
-msgid "Login password of the iSCSI target must be a string"
-msgstr "Anmeldekennwort des iSCSI-Ziels muss eine Zeichenfolge sein"
+msgid "iSCSI target password must be a string"
+msgstr ""
 
 msgid "Specify name and type to create a storage pool"
 msgstr "Geben Sie Name und Typ an, um einen Speicherpool zu erstellen"
@@ -528,8 +522,8 @@ msgstr ""
 "werden zum Pool %(pool)s."
 
 #, python-format
-msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
-msgstr "Fehler beim Erweitern des logischen Pools %(pool)s. Details: %(err)s"
+msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
+msgstr ""
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr ""
@@ -596,11 +590,9 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
 msgstr ""
-"Speicherdatenträger %(volume)s konnte nicht erstellt werden, weil der "
-"Speicherpool %(pool)snicht aktiv ist"
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
@@ -676,6 +668,20 @@ msgid ""
 msgstr ""
 "Datenbank mit Datenträgerinformationen kann aufgrund des folgenden Fehlers "
 "nicht aktualisiert werden: %(err)s"
+
+#, python-format
+msgid "Only one of parameter %(param)s can be specified"
+msgstr ""
+
+#, python-format
+msgid "Create volume from %(param)s is not supported"
+msgstr ""
+
+msgid "Storage volume capacity must be an integer number."
+msgstr ""
+
+msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -785,24 +791,20 @@ msgid "Unable to create debug report %(name)s. Details: %(err)s."
 msgstr "Debugbericht %(name)s konnte nicht erstellt werden. Details: %(err)s."
 
 #, python-format
-msgid "Can not find any generated debug report matching name %(name)s"
+msgid "Can not find any debug report with the given name %(name)s"
 msgstr ""
-"Es kann kein übereinstimmender Name für den generierten Debugbericht "
-"%(name)s gefunden werden"
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr "Debugbericht %(name)s konnte nicht generiert werden. Details: %(err)s"
 
-msgid "You should give a name for the debug file report."
-msgstr "Sie sollten einen Namen für den Debugdateibericht angeben."
+msgid "You should give a name for the debug report file."
+msgstr ""
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
-"('-') are allowed."
+"Debug report name must be a string. Only letters, digits, underscore ('_') "
+"and hyphen ('-') are allowed."
 msgstr ""
-"Der Name sollte eine Zeichenfolge sein. Nur Buchstaben, Zahlen und "
-"Bindestriche ('-') sind zulässig."
 
 #, python-format
 msgid ""
@@ -868,8 +870,8 @@ msgstr ""
 "Zeitlimitüberschreitung beim Ausführen des Befehls '%(cmd)s' nach "
 "%(seconds)s Sekunden"
 
-msgid "Unable to choose a virutal machine name"
-msgstr "Name der virtuellen Maschine konnte nicht ausgewählt werden"
+msgid "Unable to choose a virtual machine name"
+msgstr ""
 
 msgid "Invalid vm storage device name"
 msgstr "Ungültiger CD-ROM-Einheitenname"
@@ -878,21 +880,22 @@ msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "Ungültiger Speichertyp. Unterstützte Typen: 'cdrom'"
 
 #, python-format
-msgid "The path '%(value)s' is not valid local/remote path for the device"
-msgstr ""
-"Der Pfad '%(value)s' ist kein gültiger lokaler/ferner Pfad für die Einheit"
-
-#, python-format
-msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
-msgstr "Einheitenname %(dev_name)s ist bereits in VM %(vm_name)s vorhanden"
-
-msgid "Just support cdrom path update"
+msgid "The path '%(value)s' is not a valid local/remote path for the device"
 msgstr ""
 
 #, python-format
-msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
+msgid ""
+"Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"
 msgstr ""
-"Die Speichereinheit %(dev_name)s ist nicht im Gast %(vm_name)s vorhanden"
+
+msgid "Only CDROM path can be update."
+msgstr ""
+
+#, python-format
+msgid ""
+"The storage device %(dev_name)s does not exist in the virtual machine "
+"%(vm_name)s"
+msgstr ""
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -906,8 +909,8 @@ msgstr "Fehler beim Aktualisieren einer Speichereinheit: %(error)s"
 msgid "Error while removing storage device: %(error)s"
 msgstr "Fehler beim Entfernen einer Speichereinheit: %(error)s"
 
-msgid "Do not support ide device hot plug"
-msgstr "Hot Plug-Anschluss der Gastschnittstelle wird nicht unterstützt"
+msgid "Do not support IDE device hot plug"
+msgstr ""
 
 msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
@@ -926,10 +929,10 @@ msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr ""
 
 #, python-format
-msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
 
-msgid "Volume already been used by other vm"
+msgid "Volume already in use by other virtual machine."
 msgstr ""
 
 msgid ""
@@ -1255,8 +1258,8 @@ msgstr "Dies ist kein gültiger URL."
 msgid "No such data available."
 msgstr "Keine solchen Daten verfügbar."
 
-msgid "options needed."
-msgstr "Optionen erforderlich."
+msgid "Options needed."
+msgstr ""
 
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
@@ -1278,14 +1281,13 @@ msgid "Warning"
 msgstr "Warnung"
 
 msgid "Creating..."
-msgstr "Wird generiert..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "Wird geladen..."
 
-msgid "An error occurs while checking for packages update."
+msgid "An error occurred while checking for packages update."
 msgstr ""
-"Bei der Überprüfung auf Paketaktualisierung ist ein Fehler aufgetreten."
 
 msgid "Retry"
 msgstr "Wiederholen"
@@ -1293,8 +1295,8 @@ msgstr "Wiederholen"
 msgid "Detailed message:"
 msgstr "Detaillierte Meldung:"
 
-msgid "No iso found"
-msgstr "Keine ISO-Datei gefunden"
+msgid "No ISO found"
+msgstr ""
 
 msgid "This is not a valid ISO file."
 msgstr "Dies ist keine gültige ISO-Datei."
@@ -1403,8 +1405,8 @@ msgstr "Alle aktualisieren"
 msgid "Updating..."
 msgstr "Wird aktualisiert..."
 
-msgid "Failed to retrieve updates."
-msgstr "Updates konnten nicht abgerufen werden."
+msgid "Failed to retrieve packages update information."
+msgstr ""
 
 msgid "Failed to update package(s)."
 msgstr "Pakete konnten nicht aktualisiert werden."
@@ -1473,10 +1475,11 @@ msgstr "Löschbestätigung"
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
 msgstr "Hiermit wird die Vorlage dauerhaft gelöscht. Möchten Sie fortfahren?"
 
-msgid "VM Delete Confirmation"
-msgstr "Löschbestätigung"
+msgid "Virtual Machine delete Confirmation"
+msgstr ""
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgid ""
+"This virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
 
 msgid ""
@@ -1505,8 +1508,6 @@ msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
 msgstr ""
-"Diese CD-ROM wird dauerhaft abgehängt und Sie können sie neu anhängen. "
-"Möchten Sie mit dem Abhängen fortfahren?"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "Die VLAN-ID muss zwischen 1 und 4094 liegen."
@@ -1552,6 +1553,15 @@ msgstr "SCSI-Fibre Channel"
 msgid "No SCSI adapters found."
 msgstr "Keine SCSI-Adapter gefunden."
 
+msgid "Loading iSCSI targets..."
+msgstr ""
+
+msgid "No iSCSI found. Please input one."
+msgstr ""
+
+msgid "Failed to load iSCSI targets."
+msgstr ""
+
 msgid "The storage pool name can not be blank."
 msgstr "Der Speicherpoolname darf nicht leer sein."
 
@@ -1576,10 +1586,8 @@ msgstr "Das iSCSI-Ziel darf nicht leer sein."
 msgid "Server name can not be blank."
 msgstr "Servername darf nicht leer sein."
 
-msgid "This is not a valid Server Name or IP. please, modify it."
+msgid "This is not a valid Server Name or IP. Please, modify it."
 msgstr ""
-"Dies ist kein gültiger Servername oder keine gültige IP. Ändern Sie diese(n) "
-"bitte."
 
 msgid "Looking for available partitions ..."
 msgstr "Es wird nach verfügbaren Partitionen gesucht..."
@@ -1598,11 +1606,20 @@ msgid "Unable to retrieve partitions information."
 msgstr ""
 "Repository-Informationen konnten nicht abgerufen werden. Details: '%(err)s'"
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr "Der Speicherpoolpfad darf nicht leer sein."
+msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "Der Speicherpoolname darf nicht leer sein."
+
+msgid "Peers"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "No peers found."
+msgstr ""
 
 msgid "Help"
 msgstr "Hilfe"
@@ -1789,6 +1806,9 @@ msgstr "Wo ist der Quellendatenträger für diese Vorlage?"
 msgid "Local ISO Image"
 msgstr "Lokales ISO-Image"
 
+msgid "Local Image File"
+msgstr ""
+
 msgid "Remote ISO Image"
 msgstr "Fernes ISO-Image"
 
@@ -1842,6 +1862,9 @@ msgstr "Festplatte (GB)"
 
 msgid "CDROM"
 msgstr "CD-ROM"
+
+msgid "Image File"
+msgstr ""
 
 msgid "Graphics"
 msgstr "Grafik"

@@ -1,5 +1,5 @@
 # i18n portable object for kimchi.
-# Copyright (C) IBM, Corp. 2013
+# Copyright (C) IBM, Corp. 2013-2014
 # ShaoHe Feng <shaohef@linux.vnet.ibm.com>, 2013-04-18.
 #
 # This library is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-28 13:37-0300\n"
+"POT-Creation-Date: 2014-09-10 16:51-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -34,8 +34,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #, python-format
-msgid "Unkown parameter specified %(value)s"
-msgstr "未知的指定参数：%(value)s"
+msgid "Unknown parameter %(value)s"
+msgstr ""
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -110,8 +110,8 @@ msgid "Unable to login to iSCSI host %(host)s target %(target)s"
 msgstr "无法登录iSCSI主机%(host)s上的目标%(target)s。"
 
 #, python-format
-msgid "Unable to find ISO file ISO %(filename)s"
-msgstr "找不到ISO文件： %(filename)s"
+msgid "Unable to find ISO file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -149,14 +149,14 @@ msgstr ""
 "录下；或为'%(user)s'用户设置访问权限；或将'%(user)s'用户增加到ISO路径的属组；"
 "或者为所有的用户增加访问权限 'chmod -R o+x '（不推荐）。详情：%(err)s"
 
-msgid "Error occurs when probing image os information."
+msgid "An error occurred when probing image OS information."
 msgstr ""
 
 msgid "No OS information found in given image."
 msgstr ""
 
 #, python-format
-msgid "Unable to find/read image file %(filename)s"
+msgid "Unable to read image file %(filename)s"
 msgstr ""
 
 #, python-format
@@ -169,10 +169,9 @@ msgstr "虚拟机%(name)s不存在"
 
 #, python-format
 msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
-"exists or it is not powered off."
+"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
+"in use or the virtual machine is not powered off."
 msgstr ""
-"不能重命名虚拟机%(name)s。虚拟机正在运行，或者‘%(new_name)s’名字已经存在。"
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -182,8 +181,8 @@ msgid "Remote ISO image is not supported by this server."
 msgstr "该服务器不支持远程ISO镜像。"
 
 #, python-format
-msgid "Screenshot not supported for virtual machine %(name)s"
-msgstr "虚拟机 %(name)s 不支持截屏"
+msgid "Screenshot is not supported on virtual machine %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -198,22 +197,22 @@ msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
 msgstr "不能获取虚拟机%(name)s。详情：%(err)s"
 
 #, python-format
-msgid "Unable to connect to powered off machine %(name)s."
-msgstr "不能连接已关闭的机器%(name)s。"
+msgid "Unable to connect to powered off virtual machine %(name)s."
+msgstr ""
 
 msgid "Virtual machine name must be a string"
 msgstr "虚拟机名字必须是个字符串"
 
 #, python-format
-msgid "Invalid template URI: %(value)s specified for virtual machine"
-msgstr "给虚拟机指定的模板URI%(value)s无效"
+msgid "Invalid template URI %(value)s specified for virtual machine"
+msgstr ""
 
 #, python-format
-msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
-msgstr "给虚拟机指定的存储池URI%(value)s无效"
+msgid "Invalid storage pool URI %(value)s specified for virtual machine"
+msgstr ""
 
-msgid "Supported virtual machine graphics are spice or VNC"
-msgstr "虚拟机图形可设置为Spice或者VNC"
+msgid "Supported virtual machine graphics are Spice or VNC"
+msgstr ""
 
 msgid "Graphics address to listen on must be IPv4 or IPv6"
 msgstr "远程图形访问的监听地址必须是IPv4或IPv6地址。"
@@ -237,14 +236,14 @@ msgstr "不能删除虚拟机 %(name)s。详情：%(err)s"
 msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr "未能重置虚拟机%(name)s。详情：%(err)s"
 
-msgid "User names list must be an array"
-msgstr "用户名列表必须是一个数组"
+msgid "User name list must be an array"
+msgstr ""
 
 msgid "User name must be a string"
 msgstr "用户名必须是一个字符串"
 
-msgid "Group names list must be an array"
-msgstr "用户组名称列表必须是一个数组"
+msgid "Group name list must be an array"
+msgstr ""
 
 msgid "Group name must be a string"
 msgstr "用户组名称必须是一个字符串"
@@ -266,10 +265,10 @@ msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
 msgstr "无法获得虚拟机 %(name)s的元数据，详情：%(err)s"
 
-msgid "password of a vm ticket must be a string."
+msgid "The guest console password must be a string."
 msgstr ""
 
-msgid "expire of a vm ticket must be a number."
+msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
@@ -360,12 +359,12 @@ msgstr ""
 msgid "All networks for the template must be specified in a list."
 msgstr "为模板指定的网络必须在一个列表中"
 
-msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
-msgstr "当模板的存储池是iscsi或scsi时，必须为模板指定一个卷"
+msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
+msgstr ""
 
 #, python-format
-msgid "The volume: %(volume)s in not in storage pool %(pool)s"
-msgstr "存储池%(pool)s中没有存储卷%(volume)s"
+msgid "The volume %(volume)s is not in storage pool %(pool)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -441,14 +440,16 @@ msgid "Unsupported storage pool type: %(type)s"
 msgstr "不支持的存储池类型：%(type)s"
 
 #, python-format
-msgid "Error while getting xml for storage pool %(pool)s"
-msgstr "获取存储池 %(pool)s 的xml时出错"
+msgid "Error while retrieving storage pool XML to %(pool)s"
+msgstr ""
 
 msgid "Storage pool name must be a string"
 msgstr "存储池名字必须是一个字符串"
 
-msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
-msgstr "支持的存储池类型是dir、netfs、logical 和 kimchi-iso"
+msgid ""
+"Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
+"iso"
+msgstr ""
 
 msgid "Storage pool path must be a string"
 msgstr "存储池路径必须是字符串"
@@ -456,8 +457,8 @@ msgstr "存储池路径必须是字符串"
 msgid "Storage pool host must be a IP or hostname"
 msgstr "存储池主机必须是一个IP后者主机名"
 
-msgid "Storage pool devices must be the full path to the block device"
-msgstr "存储池设备必须是完整的块设备路径"
+msgid "Storage pool device must be the absolute path to the block device"
+msgstr ""
 
 msgid "Storage pool devices parameter must be a list"
 msgstr "存储池设备参数必须是一个列表"
@@ -468,11 +469,11 @@ msgstr "iSCSI存储池的目标IQN必须是字符串"
 msgid "Port of a remote storage server must be an integer between 1 and 65535"
 msgstr "远程存储服务器的端口必须是1到65535之间的整数"
 
-msgid "Login username of the iSCSI target must be a string"
-msgstr "iSCSI目标的登录用户名必须是一个字符串"
+msgid "iSCSI target username must be a string"
+msgstr ""
 
-msgid "Login password of the iSCSI target must be a string"
-msgstr "iSCSI目标的登录密码必须是一个字符串"
+msgid "iSCSI target password must be a string"
+msgstr ""
 
 msgid "Specify name and type to create a storage pool"
 msgstr "为新存储池指定名字和类型"
@@ -484,8 +485,8 @@ msgid ""
 msgstr "%(disk)s 不是有效的磁盘/分区。不能被添加到存储池%(pool)s中"
 
 #, python-format
-msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
-msgstr "扩展逻辑卷%(pool)s失败。详情：%(err)s"
+msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
+msgstr ""
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr "只有逻辑存储池支持更新磁盘参数。"
@@ -537,9 +538,9 @@ msgstr "存储池%(pool)s中没有存储卷%(name)s"
 
 #, python-format
 msgid ""
-"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
-msgstr "不能创建存储卷%(volume)s，因为存储池%(pool)s没有激活"
+msgstr ""
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
@@ -599,6 +600,20 @@ msgstr "存储卷需要名字"
 msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
 msgstr "存储卷信息更新失败。详情：%(err)s"
+
+#, python-format
+msgid "Only one of parameter %(param)s can be specified"
+msgstr ""
+
+#, python-format
+msgid "Create volume from %(param)s is not supported"
+msgstr ""
+
+msgid "Storage volume capacity must be an integer number."
+msgstr ""
+
+msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -695,20 +710,20 @@ msgid "Unable to create debug report %(name)s. Details: %(err)s."
 msgstr "不能创建诊断报告%(name)s。详情：%(err)s"
 
 #, python-format
-msgid "Can not find any generated debug report matching name %(name)s"
-msgstr "找不到任何与%(name)s名字匹配的诊断报告"
+msgid "Can not find any debug report with the given name %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr "不能生成诊断报告%(name)s。详情：%(err)s"
 
-msgid "You should give a name for the debug file report."
-msgstr "应该为诊断文件报告指定一个名字。"
+msgid "You should give a name for the debug report file."
+msgstr ""
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
-"('-') are allowed."
-msgstr "名字必须是一个字符串。只允许字母、数字、下划线 ('_') 和连字符 ('-')。"
+"Debug report name must be a string. Only letters, digits, underscore ('_') "
+"and hyphen ('-') are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -764,8 +779,8 @@ msgstr "无效的URI %(uri)s"
 msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
 msgstr "命令'%(cmd)s'运行%(seconds)s秒后超时。"
 
-msgid "Unable to choose a virutal machine name"
-msgstr "不能选择虚拟机名字"
+msgid "Unable to choose a virtual machine name"
+msgstr ""
 
 msgid "Invalid vm storage device name"
 msgstr "无效的虚拟机存储设备名称"
@@ -774,19 +789,22 @@ msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "无效的存储类型。支持类型为：'cdrom'，'disk'"
 
 #, python-format
-msgid "The path '%(value)s' is not valid local/remote path for the device"
-msgstr "设备路径'%(value)s'不是一个有效的本地/远程路径"
+msgid "The path '%(value)s' is not a valid local/remote path for the device"
+msgstr ""
 
 #, python-format
-msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
-msgstr "设备%(dev_name)s在vm%(vm_name)s上已存在"
+msgid ""
+"Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"
+msgstr ""
 
-msgid "Just support cdrom path update"
-msgstr "仅支持cdrom路径更新"
+msgid "Only CDROM path can be update."
+msgstr ""
 
 #, python-format
-msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
-msgstr "存储设备%(dev_name)s在客户机%(vm_name)s上不存在。"
+msgid ""
+"The storage device %(dev_name)s does not exist in the virtual machine "
+"%(vm_name)s"
+msgstr ""
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -800,8 +818,8 @@ msgstr "更新存储设备时出错：%(error)s"
 msgid "Error while removing storage device: %(error)s"
 msgstr "移除存储设备时出错：%(error)s"
 
-msgid "Do not support ide device hot plug"
-msgstr "不支持ide设备热插拔"
+msgid "Do not support IDE device hot plug"
+msgstr ""
 
 msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
@@ -816,11 +834,11 @@ msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr "控制器类型为%(type)s的设备达到上限%(limit)s"
 
 #, python-format
-msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
-msgstr "使用给出的存储池/存储卷查找磁盘路径信息失败，详情：%(error)s"
+msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
+msgstr ""
 
-msgid "Volume already been used by other vm"
-msgstr "存储卷已经被其他虚拟机使用"
+msgid "Volume already in use by other virtual machine."
+msgstr ""
 
 msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
@@ -1129,8 +1147,8 @@ msgstr "这不是一个有效的URL"
 msgid "No such data available."
 msgstr "没有可用的数据"
 
-msgid "options needed."
-msgstr "选项缺失"
+msgid "Options needed."
+msgstr ""
 
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
@@ -1156,8 +1174,8 @@ msgstr ""
 msgid "Loading..."
 msgstr "正在加载..."
 
-msgid "An error occurs while checking for packages update."
-msgstr "检查软件更新时发生错误。"
+msgid "An error occurred while checking for packages update."
+msgstr ""
 
 msgid "Retry"
 msgstr "重试"
@@ -1165,8 +1183,8 @@ msgstr "重试"
 msgid "Detailed message:"
 msgstr "详细消息："
 
-msgid "No iso found"
-msgstr "没有发现ISO文件"
+msgid "No ISO found"
+msgstr ""
 
 msgid "This is not a valid ISO file."
 msgstr "这不是一个有效的ISO文件"
@@ -1268,8 +1286,8 @@ msgstr "更新所有"
 msgid "Updating..."
 msgstr "正在更新..."
 
-msgid "Failed to retrieve updates."
-msgstr "获取更新失败"
+msgid "Failed to retrieve packages update information."
+msgstr ""
 
 msgid "Failed to update package(s)."
 msgstr "更新软件包失败"
@@ -1332,10 +1350,11 @@ msgstr "关机确认"
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
 msgstr "注意，客户机操作系统可能会忽略这个请求，确认要继续吗？"
 
-msgid "VM Delete Confirmation"
-msgstr "虚拟机删除确认"
+msgid "Virtual Machine delete Confirmation"
+msgstr ""
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgid ""
+"This virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
 
 msgid ""
@@ -1402,6 +1421,15 @@ msgstr "SCSI光纤通道"
 msgid "No SCSI adapters found."
 msgstr "没有发现SCSI适配器"
 
+msgid "Loading iSCSI targets..."
+msgstr ""
+
+msgid "No iSCSI found. Please input one."
+msgstr ""
+
+msgid "Failed to load iSCSI targets."
+msgstr ""
+
 msgid "The storage pool name can not be blank."
 msgstr "存储池的名称不能为空"
 
@@ -1426,8 +1454,8 @@ msgstr "iSCSI目标不能为空"
 msgid "Server name can not be blank."
 msgstr "服务器不能为空"
 
-msgid "This is not a valid Server Name or IP. please, modify it."
-msgstr "这不是一个有效的服务器名或IP，请修改"
+msgid "This is not a valid Server Name or IP. Please, modify it."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "查找有效的分区 ..."
@@ -1443,11 +1471,20 @@ msgstr "对于非持久存储池，这个操作将会永久删除存储池而不
 msgid "Unable to retrieve partitions information."
 msgstr ""
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr "CDROM的路径必须是有效本地路径且不能为空"
+msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "存储池或卷不能为空"
+
+msgid "Peers"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "No peers found."
+msgstr ""
 
 msgid "Help"
 msgstr "帮助"
@@ -1622,6 +1659,9 @@ msgstr "模板的源介质在哪里？"
 msgid "Local ISO Image"
 msgstr "本地ISO镜像"
 
+msgid "Local Image File"
+msgstr ""
+
 msgid "Remote ISO Image"
 msgstr "远程ISO镜像"
 
@@ -1675,6 +1715,9 @@ msgstr "磁盘（GB）"
 
 msgid "CDROM"
 msgstr "光驱"
+
+msgid "Image File"
+msgstr ""
 
 msgid "Graphics"
 msgstr "图形"

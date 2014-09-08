@@ -1,12 +1,11 @@
 # English translations for kimchi package.
 # Copyright (C) 2013 ORGANIZATION
-# Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-28 13:37-0300\n"
+"POT-Creation-Date: 2014-09-10 16:51-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -18,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-format
-msgid "Unkown parameter specified %(value)s"
-msgstr "不明なパラメーター %(value)s が指定されました"
+msgid "Unknown parameter %(value)s"
+msgstr ""
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -100,8 +99,8 @@ msgid "Unable to login to iSCSI host %(host)s target %(target)s"
 msgstr "iSCSI ホスト %(host)s ターゲット %(target)s にログインできません"
 
 #, python-format
-msgid "Unable to find ISO file ISO %(filename)s"
-msgstr "ISO ファイル %(filename)s が見つかりません"
+msgid "Unable to find ISO file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -145,15 +144,15 @@ msgstr ""
 "るか、または「chmod -R o+x path_to_iso」を実行 (推奨されません) してくださ"
 "い。詳細: %(err)s"
 
-msgid "Error occurs when probing image os information."
+msgid "An error occurred when probing image OS information."
 msgstr ""
 
 msgid "No OS information found in given image."
 msgstr ""
 
 #, python-format
-msgid "Unable to find/read image file %(filename)s"
-msgstr "ディストリビューション・ファイル %(filename)s が見つかりません"
+msgid "Unable to read image file %(filename)s"
+msgstr ""
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -165,11 +164,9 @@ msgstr "仮想マシン %(name)s は存在しません"
 
 #, python-format
 msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s already "
-"exists or it is not powered off."
+"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
+"in use or the virtual machine is not powered off."
 msgstr ""
-"仮想マシン %(name)s を名前変更できません。名前 %(new_name)s は既に存在する"
-"か、電源オフになっていません。"
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -179,8 +176,8 @@ msgid "Remote ISO image is not supported by this server."
 msgstr "リモート ISO イメージは、このサーバーではサポートされていません。"
 
 #, python-format
-msgid "Screenshot not supported for virtual machine %(name)s"
-msgstr "仮想マシン %(name)s で、スクリーン・ショットはサポートされていません。"
+msgid "Screenshot is not supported on virtual machine %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -195,22 +192,22 @@ msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
 msgstr "仮想マシン %(name)s を取得できません。詳細: %(err)s"
 
 #, python-format
-msgid "Unable to connect to powered off machine %(name)s."
-msgstr "電源オフになっているマシン %(name)s には接続できません。"
+msgid "Unable to connect to powered off virtual machine %(name)s."
+msgstr ""
 
 msgid "Virtual machine name must be a string"
 msgstr "仮想マシン名はストリングでなければなりません"
 
 #, python-format
-msgid "Invalid template URI: %(value)s specified for virtual machine"
-msgstr "無効なテンプレート URI %(value)s が仮想マシンに指定されています"
+msgid "Invalid template URI %(value)s specified for virtual machine"
+msgstr ""
 
 #, python-format
-msgid "Invalid storage pool URI: %(value)s specified for virtual machine"
-msgstr "無効なストレージ・プール URI %(value)s が仮想マシンに指定されています"
+msgid "Invalid storage pool URI %(value)s specified for virtual machine"
+msgstr ""
 
-msgid "Supported virtual machine graphics are spice or VNC"
-msgstr "サポートされている仮想マシン・グラフィックスは、SPICE または VNC です"
+msgid "Supported virtual machine graphics are Spice or VNC"
+msgstr ""
 
 msgid "Graphics address to listen on must be IPv4 or IPv6"
 msgstr ""
@@ -236,13 +233,13 @@ msgstr "仮想マシン %(name)s を削除できません。詳細: %(err)s"
 msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr "仮想マシン %(name)s を名前変更できません。詳細: %(err)s"
 
-msgid "User names list must be an array"
-msgstr "ネットワーク名はストリングでなければなりません"
+msgid "User name list must be an array"
+msgstr ""
 
 msgid "User name must be a string"
 msgstr "ネットワーク名はストリングでなければなりません"
 
-msgid "Group names list must be an array"
+msgid "Group name list must be an array"
 msgstr ""
 
 msgid "Group name must be a string"
@@ -265,10 +262,10 @@ msgid ""
 "Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
 msgstr "仮想マシン %(name)s を始動できません。詳細: %(err)s"
 
-msgid "password of a vm ticket must be a string."
-msgstr "iSCSI ターゲットのログイン・パスワードはストリングでなければなりません"
+msgid "The guest console password must be a string."
+msgstr ""
 
-msgid "expire of a vm ticket must be a number."
+msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
@@ -383,14 +380,12 @@ msgstr ""
 msgid "All networks for the template must be specified in a list."
 msgstr "テンプレート用のネットワークをすべてリストに指定する必要があります。"
 
-msgid "Must specify a volume to a template, when storage pool is iscsi or scsi"
+msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
 msgstr ""
-"ストレージ・プールが iscsi または scsi であれば、ボリュームをテンプレートに指"
-"定する必要があります"
 
 #, python-format
-msgid "The volume: %(volume)s in not in storage pool %(pool)s"
-msgstr "ボリューム %(volume)s は、ストレージ・プール %(pool)s にありません"
+msgid "The volume %(volume)s is not in storage pool %(pool)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -475,17 +470,16 @@ msgid "Unsupported storage pool type: %(type)s"
 msgstr "サポートされていないストレージ・プール・タイプ: %(type)s"
 
 #, python-format
-msgid "Error while getting xml for storage pool %(pool)s"
+msgid "Error while retrieving storage pool XML to %(pool)s"
 msgstr ""
-"ストレージ・プール %(pool)s の XML を取得しているときに、エラーがありました"
 
 msgid "Storage pool name must be a string"
 msgstr "ストレージ・プール名はストリングでなければなりません"
 
-msgid "Supported storage pool types are dir, netfs, logical and kimchi-iso"
+msgid ""
+"Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
+"iso"
 msgstr ""
-"サポートされているストレージ・プール・タイプは dir、netfs、論理、および "
-"kimchi-iso です"
 
 msgid "Storage pool path must be a string"
 msgstr "ストレージ・プール・パスはストリングでなければなりません"
@@ -493,10 +487,8 @@ msgstr "ストレージ・プール・パスはストリングでなければな
 msgid "Storage pool host must be a IP or hostname"
 msgstr "ストレージ・プール・ホストは、IP またはホスト名でなければなりません"
 
-msgid "Storage pool devices must be the full path to the block device"
+msgid "Storage pool device must be the absolute path to the block device"
 msgstr ""
-"ストレージ・プール・デバイスは、ブロック・デバイスの絶対パスでなければなりま"
-"せん"
 
 msgid "Storage pool devices parameter must be a list"
 msgstr "ストレージ・プール・デバイス・パラメーターはリストでなければなりません"
@@ -509,11 +501,11 @@ msgstr ""
 "リモート・ストレージ・サーバーのポートは、1 から 65535 までの整数でなければな"
 "りません"
 
-msgid "Login username of the iSCSI target must be a string"
-msgstr "iSCSI ターゲットのログイン・ユーザー名はストリングでなければなりません"
+msgid "iSCSI target username must be a string"
+msgstr ""
 
-msgid "Login password of the iSCSI target must be a string"
-msgstr "iSCSI ターゲットのログイン・パスワードはストリングでなければなりません"
+msgid "iSCSI target password must be a string"
+msgstr ""
 
 msgid "Specify name and type to create a storage pool"
 msgstr "ストレージ・プールを作成するには、名前とタイプを指定してください"
@@ -527,9 +519,8 @@ msgstr ""
 "加できませんでした。"
 
 #, python-format
-msgid "Error while extending logical pool %(pool)s. Details: %(err)s"
+msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
 msgstr ""
-"論理プール %(pool)s を拡張しているときに、エラーがありました。詳細: %(err)s"
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr ""
@@ -597,11 +588,9 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Unable to create storage volume %(volume)s becuase storage pool %(pool)s is "
+"Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
 msgstr ""
-"ストレージ・プール %(pool)s が非アクティブであるため、ストレージ・ボリューム "
-"%(volume)s を作成できません"
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
@@ -675,6 +664,20 @@ msgid ""
 msgstr ""
 "次のエラーのため、データベースをストレージ・ボリューム情報で更新できません: "
 "%(err)s"
+
+#, python-format
+msgid "Only one of parameter %(param)s can be specified"
+msgstr ""
+
+#, python-format
+msgid "Create volume from %(param)s is not supported"
+msgstr ""
+
+msgid "Storage volume capacity must be an integer number."
+msgstr ""
+
+msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -788,22 +791,20 @@ msgid "Unable to create debug report %(name)s. Details: %(err)s."
 msgstr "デバッグ・レポート %(name)s を作成できません。詳細: %(err)s"
 
 #, python-format
-msgid "Can not find any generated debug report matching name %(name)s"
-msgstr "名前 %(name)s に一致する生成済みデバッグ・レポートが見つかりません"
+msgid "Can not find any debug report with the given name %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr "デバッグ・レポート %(name)s を生成できません。詳細: %(err)s"
 
-msgid "You should give a name for the debug file report."
-msgstr "デバッグ・ファイル・レポートに名前を付ける必要があります。"
+msgid "You should give a name for the debug report file."
+msgstr ""
 
 msgid ""
-"Name should be a string. Only letters, digits, underscore ('_') and hyphen "
-"('-') are allowed."
+"Debug report name must be a string. Only letters, digits, underscore ('_') "
+"and hyphen ('-') are allowed."
 msgstr ""
-"名前はストリングでなければなりません。英字、数字、およびハイフン (-) のみ許可"
-"されています。"
 
 #, python-format
 msgid ""
@@ -866,8 +867,8 @@ msgstr ""
 "コマンド「%(cmd)s」を実行していましたが、%(seconds)s 秒を経過してタイムアウト"
 "になりました"
 
-msgid "Unable to choose a virutal machine name"
-msgstr "仮想マシン名を選択できません"
+msgid "Unable to choose a virtual machine name"
+msgstr ""
 
 msgid "Invalid vm storage device name"
 msgstr "CDROM デバイス名が無効です"
@@ -877,21 +878,22 @@ msgstr ""
 "ストレージ・タイプが無効です。サポートされているタイプは「cdrom」です。"
 
 #, python-format
-msgid "The path '%(value)s' is not valid local/remote path for the device"
-msgstr ""
-"パス「%(value)s」は、デバイスの有効なローカル/リモート・パスではありません"
-
-#, python-format
-msgid "Device name %(dev_name)s already exists in vm %(vm_name)s"
-msgstr "デバイス名 %(dev_name)s は、既に vm %(vm_name)s に存在します"
-
-msgid "Just support cdrom path update"
+msgid "The path '%(value)s' is not a valid local/remote path for the device"
 msgstr ""
 
 #, python-format
-msgid "The storage device %(dev_name)s does not exist in the guest %(vm_name)s"
+msgid ""
+"Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"
 msgstr ""
-"ストレージ・デバイス %(dev_name)s は、ゲスト %(vm_name)s に存在しません"
+
+msgid "Only CDROM path can be update."
+msgstr ""
+
+#, python-format
+msgid ""
+"The storage device %(dev_name)s does not exist in the virtual machine "
+"%(vm_name)s"
+msgstr ""
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -908,8 +910,8 @@ msgid "Error while removing storage device: %(error)s"
 msgstr ""
 "ストレージ・デバイスを削除しているときに、エラーがありました: %(error)s"
 
-msgid "Do not support ide device hot plug"
-msgstr "ゲスト・インターフェース・ホット・プラグ接続をサポートしない"
+msgid "Do not support IDE device hot plug"
+msgstr ""
 
 msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
@@ -924,10 +926,10 @@ msgid "Controller type %(type)s limitation of %(limit)s devices reached"
 msgstr ""
 
 #, python-format
-msgid "Cannot lookup disk path information by given pool/volume: %(error)s"
+msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
 
-msgid "Volume already been used by other vm"
+msgid "Volume already in use by other virtual machine."
 msgstr ""
 
 msgid ""
@@ -1253,8 +1255,8 @@ msgstr "有効な URL ではありません。"
 msgid "No such data available."
 msgstr "そのようなデータはありません。"
 
-msgid "options needed."
-msgstr "オプションが必要です。"
+msgid "Options needed."
+msgstr ""
 
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
@@ -1276,13 +1278,13 @@ msgid "Warning"
 msgstr "警告"
 
 msgid "Creating..."
-msgstr "生成しています..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "ロードしています..."
 
-msgid "An error occurs while checking for packages update."
-msgstr "パッケージ更新を検査しているときに、エラーが発生しました。"
+msgid "An error occurred while checking for packages update."
+msgstr ""
 
 msgid "Retry"
 msgstr "再試行"
@@ -1290,8 +1292,8 @@ msgstr "再試行"
 msgid "Detailed message:"
 msgstr "詳細メッセージ:"
 
-msgid "No iso found"
-msgstr "ISO が見つかりません"
+msgid "No ISO found"
+msgstr ""
 
 msgid "This is not a valid ISO file."
 msgstr "有効な ISO ファイルではありません。"
@@ -1397,8 +1399,8 @@ msgstr "すべて更新"
 msgid "Updating..."
 msgstr "更新しています..."
 
-msgid "Failed to retrieve updates."
-msgstr "更新を取得できませんでした。"
+msgid "Failed to retrieve packages update information."
+msgstr ""
 
 msgid "Failed to update package(s)."
 msgstr "パッケージを更新できませんでした。"
@@ -1464,10 +1466,11 @@ msgstr "削除の確認"
 msgid "Note the guest OS may ignore this request. Would you like to continue?"
 msgstr "テンプレートは完全に削除されます。続行しますか?"
 
-msgid "VM Delete Confirmation"
-msgstr "削除の確認"
+msgid "Virtual Machine delete Confirmation"
+msgstr ""
 
-msgid "This VM is not persistent. Power Off will delete it. Continue?"
+msgid ""
+"This virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
 
 msgid ""
@@ -1495,7 +1498,6 @@ msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
 msgstr ""
-"この CDROM は完全に切り離されますが、再接続できます。切り離しを続行しますか?"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "VLAN ID は、1 から 4094 まででなければなりません。"
@@ -1539,6 +1541,15 @@ msgstr "SCSI ファイバー・チャネル"
 msgid "No SCSI adapters found."
 msgstr "SCSI アダプターが見つかりません。"
 
+msgid "Loading iSCSI targets..."
+msgstr ""
+
+msgid "No iSCSI found. Please input one."
+msgstr ""
+
+msgid "Failed to load iSCSI targets."
+msgstr ""
+
 msgid "The storage pool name can not be blank."
 msgstr "ストレージ・プール名をブランクにすることはできません。"
 
@@ -1563,8 +1574,8 @@ msgstr "iSCSI ターゲットをブランクにすることはできません。
 msgid "Server name can not be blank."
 msgstr "サーバー名をブランクにすることはできません。"
 
-msgid "This is not a valid Server Name or IP. please, modify it."
-msgstr "有効なサーバー名でも IP でもありません。変更してください。"
+msgid "This is not a valid Server Name or IP. Please, modify it."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "愛用可能なパーティションを探しています..."
@@ -1582,11 +1593,20 @@ msgstr ""
 msgid "Unable to retrieve partitions information."
 msgstr "リポジトリー情報を取得できません。詳細: 「%(err)s」"
 
-msgid "CDROM path need to be a valid local path and cannot be blank."
-msgstr "ストレージ・プール・パスをブランクにすることはできません。"
+msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "ストレージ・プール名をブランクにすることはできません。"
+
+msgid "Peers"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "No peers found."
+msgstr ""
 
 msgid "Help"
 msgstr "ヘルプ"
@@ -1772,6 +1792,9 @@ msgstr "このテンプレートのソース・メディアはどこにありま
 msgid "Local ISO Image"
 msgstr "ローカル ISO イメージ"
 
+msgid "Local Image File"
+msgstr ""
+
 msgid "Remote ISO Image"
 msgstr "リモート ISO イメージ"
 
@@ -1825,6 +1848,9 @@ msgstr "ディスク (GB)"
 
 msgid "CDROM"
 msgstr "CDROM"
+
+msgid "Image File"
+msgstr ""
 
 msgid "Graphics"
 msgstr "グラフィックス"
