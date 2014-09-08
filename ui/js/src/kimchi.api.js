@@ -21,6 +21,8 @@ var kimchi = {
 
     widget: {},
 
+    trackingTasks: [],
+
     /**
      * A wrapper of jQuery.ajax function to allow custom bindings.
      *
@@ -681,19 +683,15 @@ var kimchi = {
         });
     },
 
-    createReport: function(settings, suc, err, progress) {
-        var taskID = -1;
+    trackTask : function(taskID, suc, err, progress) {
         var onTaskResponse = function(result) {
             var taskStatus = result['status'];
             switch(taskStatus) {
             case 'running':
-                if(kimchi.stopTrackingReport === true) {
-                    return;
-                }
                 progress && progress(result);
                 setTimeout(function() {
-                    trackTask();
-                }, 200);
+                    kimchi.trackTask(taskID, suc, err, progress);
+                }, 2000);
                 break;
             case 'finished':
                 suc(result);
@@ -706,13 +704,15 @@ var kimchi = {
             }
         };
 
-        var trackTask = function() {
-            kimchi.getTask(taskID, onTaskResponse, err);
-        };
+        kimchi.getTask(taskID, onTaskResponse, err);
+        if(kimchi.trackingTasks.indexOf(taskID) < 0)
+            kimchi.trackingTasks.push(taskID);
+    },
 
+    createReport: function(settings, suc, err, progress) {
         var onResponse = function(data) {
             taskID = data['id'];
-            trackTask();
+            kimchi.trackTask(taskID, suc, err, progress);
         };
 
         kimchi.requestJSON({
