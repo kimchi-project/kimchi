@@ -38,6 +38,8 @@ http {
     access_log  /var/log/nginx/access.log  main;
     sendfile    on;
 
+    client_max_body_size ${max_body_size}k;
+
     # Timeout set to 10 minutes to avoid the 504 Gateway Timeout
     # when Kimchi is processing a request.
     proxy_connect_timeout       600;

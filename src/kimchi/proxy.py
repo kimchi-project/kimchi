@@ -31,7 +31,7 @@ from kimchi import sslcert
 from kimchi.config import paths
 
 
-def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
+def _create_proxy_config(options):
     """Create nginx configuration file based on current ports config
 
     To allow flexibility in which port kimchi runs, we need the same
@@ -41,11 +41,7 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
     proxy.
 
     Arguments:
-    p_port - proxy port
-    k_port - kimchid port
-    p_ssl_port - proxy SSL port
-    cert - cert file specified by user config
-    key - key file specified by user config
+    options - OptionParser object with Kimchi config options
     """
 
     # User that will run the worker process of the proxy. Fedora,
@@ -59,7 +55,7 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
 
     config_dir = paths.conf_dir
     # No certificates specified by the user
-    if not cert or not key:
+    if not options.ssl_cert or not options.ssl_key:
         cert = '%s/kimchi-cert.pem' % config_dir
         key = '%s/kimchi-key.pem' % config_dir
         # create cert files if they don't exist
@@ -76,10 +72,11 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
         data = template.read()
     data = Template(data)
     data = data.safe_substitute(user=user_proxy,
-                                proxy_port=p_port,
-                                kimchid_port=k_port,
-                                proxy_ssl_port=p_ssl_port,
-                                cert_pem=cert, cert_key=key)
+                                proxy_port=options.port,
+                                kimchid_port=options.cherrypy_port,
+                                proxy_ssl_port=options.ssl_port,
+                                cert_pem=cert, cert_key=key,
+                                max_body_size=eval(options.max_body_size))
 
     # Write file to be used for nginx.
     config_file = open(os.path.join(config_dir, "nginx_kimchi.conf"), "w")
@@ -89,11 +86,7 @@ def _create_proxy_config(p_port, k_port, p_ssl_port, cert, key):
 
 def start_proxy(options):
     """Start nginx reverse proxy."""
-    _create_proxy_config(options.port,
-                         options.cherrypy_port,
-                         options.ssl_port,
-                         options.ssl_cert,
-                         options.ssl_key)
+    _create_proxy_config(options)
     config_dir = paths.conf_dir
     config_file = "%s/nginx_kimchi.conf" % config_dir
     cmd = ['nginx', '-c', config_file]
