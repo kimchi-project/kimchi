@@ -35,6 +35,7 @@ from functools import partial
 import iso_gen
 import kimchi.mockmodel
 import kimchi.server
+from kimchi.config import paths
 from kimchi.rollbackcontext import RollbackContext
 from utils import get_free_port, patch_auth, request
 from utils import run_server
@@ -1907,26 +1908,62 @@ class RestTests(unittest.TestCase):
             return headers
 
         with RollbackContext() as rollback:
-            upload_path = '/tmp/vol'
-            f = open(upload_path, 'w')
-            f.write('abcd')
-            f.close()
-            rollback.prependDefer(os.remove, upload_path)
-
-            vol = open(upload_path, 'rb')
-            url = "https://%s:%s/storagepools/default/storagevolumes" %\
+            vol_name = 'COPYING'
+            vol_path = os.path.join(paths.get_prefix(), vol_name)
+            url = "https://%s:%s/storagepools/default/storagevolumes" % \
                 (host, ssl_port)
 
-            r = requests.post(url,
-                              files={'file': vol},
-                              data={'name': 'new_vol2'},
-                              verify=False,
-                              headers=fake_auth_header())
+            with open(vol_path, 'rb') as fd:
+                r = requests.post(url,
+                                  files={'file': fd},
+                                  data={'name': vol_name},
+                                  verify=False,
+                                  headers=fake_auth_header())
+
             self.assertEquals(r.status_code, 202)
-            time.sleep(1)
-            vol_list = json.loads(
-                self.request('/storagepools/default/storagevolumes').read())
-            self.assertEquals('new_vol2', vol_list[0]['name'])
+            self._wait_task(r.json()['id'])
+            resp = self.request('/storagepools/default/storagevolumes/%s' %
+                                vol_name)
+            self.assertEquals(200, resp.status)
+
+            # Create a file with 3M to upload
+            vol_name = '3m-file'
+            vol_path = os.path.join('/tmp', vol_name)
+            with open(vol_path, 'wb') as fd:
+                fd.seek(3*1024*1024-1)
+                fd.write("\0")
+            rollback.prependDefer(os.remove, vol_path)
+
+            with open(vol_path, 'rb') as fd:
+                r = requests.post(url,
+                                  files={'file': fd},
+                                  data={'name': vol_name},
+                                  verify=False,
+                                  headers=fake_auth_header())
+
+            self.assertEquals(r.status_code, 202)
+            self._wait_task(r.json()['id'])
+            resp = self.request('/storagepools/default/storagevolumes/%s' %
+                                vol_name)
+            self.assertEquals(200, resp.status)
+
+            # Create a file with 5M to upload
+            # Max body size is set to 4M so the upload will fail with 413
+            vol_name = '5m-file'
+            vol_path = os.path.join('/tmp', vol_name)
+            with open(vol_path, 'wb') as fd:
+                fd.seek(5*1024*1024-1)
+                fd.write("\0")
+            rollback.prependDefer(os.remove, vol_path)
+
+            with open(vol_path, 'rb') as fd:
+                r = requests.post(url,
+                                  files={'file': fd},
+                                  data={'name': vol_name},
+                                  verify=False,
+                                  headers=fake_auth_header())
+
+            self.assertEquals(r.status_code, 413)
 
 
 class HttpsRestTests(RestTests):
