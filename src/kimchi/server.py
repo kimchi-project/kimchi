@@ -87,7 +87,9 @@ class Server(object):
         # directly. You must go through the proxy.
         cherrypy.server.socket_host = '127.0.0.1'
         cherrypy.server.socket_port = options.cherrypy_port
-        cherrypy.server.max_request_body_size = eval(options.max_body_size)
+
+        max_body_size_in_bytes = eval(options.max_body_size) * 1024
+        cherrypy.server.max_request_body_size = max_body_size_in_bytes
 
         cherrypy.log.screen = True
         cherrypy.log.access_file = options.access_log
