@@ -490,6 +490,14 @@ class RestTests(unittest.TestCase):
             resp = self.request('/storagepools/tmp/activate', req, 'POST')
             self.assertEquals(200, resp.status)
 
+            # 'name' is required for this type of volume
+            req = json.dumps({'capacity': 1024,
+                              'allocation': 512,
+                              'type': 'disk',
+                              'format': 'raw'})
+            resp = self.request('/storagepools/tmp/storagevolumes',
+                                req, 'POST')
+            self.assertEquals(400, resp.status)
             req = json.dumps({'name': "attach-volume",
                               'capacity': 1024,
                               'allocation': 512,
@@ -1028,16 +1036,17 @@ class RestTests(unittest.TestCase):
         self.assertEquals('/var/lib/libvirt/images/volume-1',
                           storagevolume['path'])
 
-        req = json.dumps({'name': 'downloaded',
-                          'url': 'https://anyurl.wor.kz'})
+        req = json.dumps({'url': 'https://anyurl.wor.kz'})
         resp = self.request('/storagepools/pool-1/storagevolumes', req, 'POST')
         self.assertEquals(202, resp.status)
         task = json.loads(resp.read())
+        vol_name = task['target_uri'].split('/')[-1]
+        self.assertEquals('anyurl.wor.kz', vol_name)
         self._wait_task(task['id'])
         task = json.loads(self.request('/tasks/%s' % task['id']).read())
         self.assertEquals('finished', task['status'])
-        resp = self.request('/storagepools/pool-1/storagevolumes/downloaded',
-                            '{}', 'GET')
+        resp = self.request('/storagepools/pool-1/storagevolumes/%s' %
+                            vol_name, '{}', 'GET')
         self.assertEquals(200, resp.status)
 
         # Now remove the StoragePool from mock model
@@ -1908,27 +1917,25 @@ class RestTests(unittest.TestCase):
             return headers
 
         with RollbackContext() as rollback:
-            vol_name = 'COPYING'
-            vol_path = os.path.join(paths.get_prefix(), vol_name)
+            vol_path = os.path.join(paths.get_prefix(), 'COPYING')
             url = "https://%s:%s/storagepools/default/storagevolumes" % \
                 (host, ssl_port)
 
             with open(vol_path, 'rb') as fd:
                 r = requests.post(url,
                                   files={'file': fd},
-                                  data={'name': vol_name},
                                   verify=False,
                                   headers=fake_auth_header())
 
             self.assertEquals(r.status_code, 202)
-            self._wait_task(r.json()['id'])
+            task = r.json()
+            self._wait_task(task['id'])
             resp = self.request('/storagepools/default/storagevolumes/%s' %
-                                vol_name)
+                                task['target_uri'].split('/')[-1])
             self.assertEquals(200, resp.status)
 
             # Create a file with 3M to upload
-            vol_name = '3m-file'
-            vol_path = os.path.join('/tmp', vol_name)
+            vol_path = '/tmp/3m-file'
             with open(vol_path, 'wb') as fd:
                 fd.seek(3*1024*1024-1)
                 fd.write("\0")
@@ -1937,20 +1944,19 @@ class RestTests(unittest.TestCase):
             with open(vol_path, 'rb') as fd:
                 r = requests.post(url,
                                   files={'file': fd},
-                                  data={'name': vol_name},
                                   verify=False,
                                   headers=fake_auth_header())
 
             self.assertEquals(r.status_code, 202)
-            self._wait_task(r.json()['id'])
+            task = r.json()
+            self._wait_task(task['id'])
             resp = self.request('/storagepools/default/storagevolumes/%s' %
-                                vol_name)
+                                task['target_uri'].split('/')[-1])
             self.assertEquals(200, resp.status)
 
             # Create a file with 5M to upload
             # Max body size is set to 4M so the upload will fail with 413
-            vol_name = '5m-file'
-            vol_path = os.path.join('/tmp', vol_name)
+            vol_path = '/tmp/5m-file'
             with open(vol_path, 'wb') as fd:
                 fd.seek(5*1024*1024-1)
                 fd.write("\0")
@@ -1959,7 +1965,6 @@ class RestTests(unittest.TestCase):
             with open(vol_path, 'rb') as fd:
                 r = requests.post(url,
                                   files={'file': fd},
-                                  data={'name': vol_name},
                                   verify=False,
                                   headers=fake_auth_header())
 
