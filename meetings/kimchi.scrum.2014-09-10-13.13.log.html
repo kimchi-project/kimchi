@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:13:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:13:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 10 13:13:15 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:13:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:13:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:13:15</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:13:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:13:27</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:14:31</span><span class="nk"> &lt;alinefm&gt;</span> ok... so let's get started
+<a name="l-9"></a><span class="tm">13:14:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:14:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:15:05</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Template based on image file Patch sent</span>
+<a name="l-12"></a><span class="tm">13:15:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm exposed target_uri to Task resource so we can filter them</span>
+<a name="l-13"></a><span class="tm">13:16:15</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Planning to run testing today, do not have redhat 7, need to discuss to use redhat6 instead</span>
+<a name="l-14"></a><span class="tm">13:16:22</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent final version of the download volume patchset and finished that feature; apply updates to the upload volume patchset while royce was on vacation; sent a patch to use a default parameter 'name' value when downloading/uploading a volume; sent a patch to fix a bug where the maximum upload file size was not interpreted correctly;  reviewed patches on the mailing list</span>
+<a name="l-15"></a><span class="tm">13:16:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm tested upload/download feature and provide feedbacks on ML</span>
+<a name="l-16"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to increase max body side on nginx proxy to 4G (the same value set on cherrypy server)</span>
+<a name="l-17"></a><span class="tm">13:18:06</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, is it rhel6.5?
+<a name="l-18"></a><span class="tm">13:18:32</span><span class="nk"> &lt;YuXin&gt;</span> let me check
+<a name="l-19"></a><span class="tm">13:18:49</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Yes, that's what we use
+<a name="l-20"></a><span class="tm">13:19:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, ok - you can test on it
+<a name="l-21"></a><span class="tm">13:19:59</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-22"></a><span class="tm">13:20:14</span><span class="nk"> &lt;wenwang&gt;</span> ok
+<a name="l-23"></a><span class="tm">13:21:20</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, any update about upload/download UI?
+<a name="l-24"></a><span class="tm">13:21:50</span><span class="nk"> &lt;YuXin&gt;</span> hong liang is continuing to work on it
+<a name="l-25"></a><span class="tm">13:21:58</span><span class="nk"> &lt;YuXin&gt;</span> today
+<a name="l-26"></a><span class="tm">13:22:33</span><span class="nk"> &lt;YuXin&gt;</span> seems like he got some blocker on upload
+<a name="l-27"></a><span class="tm">13:22:48</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, do you know which blocker?
+<a name="l-28"></a><span class="tm">13:22:59</span><span class="nk"> &lt;YuXin&gt;</span> I would like to ask him to send patch of download first
+<a name="l-29"></a><span class="tm">13:23:18</span><span class="nk"> &lt;YuXin&gt;</span> he always fail to get upload to work
+<a name="l-30"></a><span class="tm">13:23:21</span><span class="nk"> &lt;alinefm&gt;</span> yeap - I've just checked the ML and the download patches are there
+<a name="l-31"></a><span class="tm">13:24:33</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, ok - I will try to talk to him tonight to see if I can help in anything
+<a name="l-32"></a><span class="tm">13:24:43</span><span class="nk"> &lt;alinefm&gt;</span> does this blocker is on UI or backend? do you know?
+<a name="l-33"></a><span class="tm">13:24:51</span><span class="nk"> &lt;YuXin&gt;</span> ok, I will look into upload with him together tomorrow to see whether we can get it done together
+<a name="l-34"></a><span class="tm">13:25:20</span><span class="nk"> &lt;YuXin&gt;</span> he told me that he has followed the REST API, but always failed
+<a name="l-35"></a><span class="tm">13:25:59</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-36"></a><span class="tm">13:26:14</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion
+<a name="l-37"></a><span class="tm">13:26:18</span><span class="nk"> &lt;YuXin&gt;</span> He has been working with Royce together to try to get it done, but still has not addressed that
+<a name="l-38"></a><span class="tm">13:26:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-39"></a><span class="tm">13:26:43</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-40"></a><span class="tm">13:27:04</span><span class="nk"> &lt;YuXin&gt;</span> aline, the latest kimchi souce still fail to start
+<a name="l-41"></a><span class="tm">13:27:13</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, really? oO
+<a name="l-42"></a><span class="tm">13:27:23</span><span class="nk"> &lt;alinefm&gt;</span> from package or source code?
+<a name="l-43"></a><span class="tm">13:27:44</span><span class="nk"> &lt;baude&gt;</span> <span class="cmd">#info </span><span class="cmdline">baude submitted patch to edit graphics type, add serial; waiting for acceptance to submit patch to rewrite the edit mechanism</span>
+<a name="l-44"></a><span class="tm">13:27:45</span><span class="nk"> &lt;YuXin&gt;</span> from source code
+<a name="l-45"></a><span class="tm">13:27:50</span><span class="nk"> &lt;YuXin&gt;</span> https://github.com/kimchi-project/kimchi/issues/412
+<a name="l-46"></a><span class="tm">13:28:34</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, oh, there is a patch on ML for it
+<a name="l-47"></a><span class="tm">13:28:38</span><span class="nk"> &lt;alinefm&gt;</span> I will apply today
+<a name="l-48"></a><span class="tm">13:28:43</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-49"></a><span class="tm">13:29:01</span><span class="nk"> &lt;alinefm&gt;</span> baude, I will review your patches today too =)
+<a name="l-50"></a><span class="tm">13:29:15</span><span class="nk"> &lt;alinefm&gt;</span> baude, do you know what is the process to the community uses the red hat logo?
+<a name="l-51"></a><span class="tm">13:29:15</span><span class="nk"> &lt;baude&gt;</span> my open topic for today is if anyone has considered a true netboot template.
+<a name="l-52"></a><span class="tm">13:29:26</span><span class="nk"> &lt;baude&gt;</span> alinefm, i dont unfortunately
+<a name="l-53"></a><span class="tm">13:29:36</span><span class="nk"> &lt;baude&gt;</span> alinefm, i can ask around
+<a name="l-54"></a><span class="tm">13:30:00</span><span class="nk"> &lt;alinefm&gt;</span> baude, please do
+<a name="l-55"></a><span class="tm">13:30:07</span><span class="nk"> &lt;alinefm&gt;</span> baude, about the netboot, yes
+<a name="l-56"></a><span class="tm">13:30:15</span><span class="nk"> &lt;baude&gt;</span> and?
+<a name="l-57"></a><span class="tm">13:30:23</span><span class="nk"> &lt;alinefm&gt;</span> pvital started something on backend and wenwang on the front end
+<a name="l-58"></a><span class="tm">13:30:28</span><span class="nk"> &lt;baude&gt;</span> ok
+<a name="l-59"></a><span class="tm">13:30:39</span><span class="nk"> &lt;alinefm&gt;</span> but probably will be ready just for next release
+<a name="l-60"></a><span class="tm">13:31:05</span><span class="nk"> &lt;baude&gt;</span> how about ability to select/modify boot order on a vm
+<a name="l-61"></a><span class="tm">13:31:30</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Yes, I have the back-end code and it's been hold for a while
+<a name="l-62"></a><span class="tm">13:32:43</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yeap - we can resume this work after 1.3 release
+<a name="l-63"></a><span class="tm">13:33:04</span><span class="nk"> &lt;alinefm&gt;</span> baude, also in backlog but anyone is working on it yet
+<a name="l-64"></a><span class="tm">13:33:20</span><span class="nk"> &lt;baude&gt;</span> alinefm, ok I'd be willing to do it
+<a name="l-65"></a><span class="tm">13:33:31</span><span class="nk"> &lt;baude&gt;</span> should be reasonably easy to do with the new edit mechanism
+<a name="l-66"></a><span class="tm">13:33:32</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-67"></a><span class="tm">13:33:57</span><span class="nk"> &lt;alinefm&gt;</span> baude, sure - it is all yours =)
+<a name="l-68"></a><span class="tm">13:34:45</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-69"></a><span class="tm">13:35:13</span><span class="nk"> &lt;baude&gt;</span> alinefm, also curious if anyone would think it would be a good add to be able to specific a vm's mac address?
+<a name="l-70"></a><span class="tm">13:35:38</span><span class="nk"> &lt;baude&gt;</span> able to define ^^
+<a name="l-71"></a><span class="tm">13:35:50</span><span class="nk"> &lt;alinefm&gt;</span> what are the advantages in doing it?
+<a name="l-72"></a><span class="tm">13:36:02</span><span class="nk"> &lt;alinefm&gt;</span> netboot?
+<a name="l-73"></a><span class="tm">13:36:08</span><span class="nk"> &lt;baude&gt;</span> yeah, that is the primary use
+<a name="l-74"></a><span class="tm">13:36:37</span><span class="nk"> &lt;baude&gt;</span> wenwang, im curious, have you tested netboot on a power system or just x86 ?
+<a name="l-75"></a><span class="tm">13:37:59</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">baude:</span> I just got pvital's code in the back-end and haven't tried it yes due to some work issues
+<a name="l-76"></a><span class="tm">13:38:33</span><span class="nk"> &lt;baude&gt;</span> ok
+<a name="l-77"></a><span class="tm">13:38:42</span><span class="nk"> &lt;baude&gt;</span> im unable to make netboot work on power with a fedora host fwiw
+<a name="l-78"></a><span class="tm">13:38:52</span><span class="nk"> &lt;alinefm&gt;</span> baude, I think when selecting a netboot template to create a vm we can add an option to specify the mac address
+<a name="l-79"></a><span class="tm">13:39:05</span><span class="nk"> &lt;baude&gt;</span> alinefm, ok i will noodle on that
+<a name="l-80"></a><span class="tm">13:39:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">baude:</span> I was blocked by the environment setting for the netboot, so...
+<a name="l-81"></a><span class="tm">13:39:26</span><span class="nk"> &lt;alinefm&gt;</span> but the default option would be "automatic generate a mac"
+<a name="l-82"></a><span class="tm">13:39:47</span><span class="nk"> &lt;baude&gt;</span> alinefm, i was thinking that specifying a mac could be an edit function on the defined vm
+<a name="l-83"></a><span class="tm">13:39:55</span><span class="nk"> &lt;baude&gt;</span> that way the default behaviour was always respected
+<a name="l-84"></a><span class="tm">13:40:15</span><span class="nk"> &lt;baude&gt;</span> we can discuss further in the future
+<a name="l-85"></a><span class="tm">13:40:31</span><span class="nk"> &lt;baude&gt;</span> wenwang, ok, if you get it to work, will you ping me?
+<a name="l-86"></a><span class="tm">13:40:40</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">baude:</span> sure
+<a name="l-87"></a><span class="tm">13:40:43</span><span class="nk"> &lt;baude&gt;</span> christyp, curious if you have tried this? ^^
+<a name="l-88"></a><span class="tm">13:41:07</span><span class="nk"> &lt;alinefm&gt;</span> baude, yeap - seems it is a better design
+<a name="l-89"></a><span class="tm">13:41:32</span><span class="nk"> &lt;alinefm&gt;</span> baude, maybe pvital did as he did the backend patches
+<a name="l-90"></a><span class="tm">13:41:41</span><span class="nk"> &lt;alinefm&gt;</span> hope he tested his patches =)
+<a name="l-91"></a><span class="tm">13:42:47</span><span class="nk"> &lt;baude&gt;</span> well i think it works on powerkvm ... just maybe not fedora which implies missing patches or mismatch versions
+<a name="l-92"></a><span class="tm">13:42:50</span><span class="nk"> &lt;baude&gt;</span> :(
+<a name="l-93"></a><span class="tm">13:43:39</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I have one topic to discuss
+<a name="l-94"></a><span class="tm">13:43:49</span><span class="nk"> &lt;alinefm&gt;</span> I will try to ask around about it
+<a name="l-95"></a><span class="tm">13:43:52</span><span class="nk"> &lt;alinefm&gt;</span> and let you know
+<a name="l-96"></a><span class="tm">13:43:55</span><span class="nk"> &lt;alinefm&gt;</span> vianac, yes
+<a name="l-97"></a><span class="tm">13:44:11</span><span class="nk"> &lt;vianac&gt;</span> regarding the default parameter 'name' value patch I sent this week
+<a name="l-98"></a><span class="tm">13:44:34</span><span class="nk"> &lt;vianac&gt;</span> I was assuming the parameter' file' when uploading a volume was the original file name, but it's not
+<a name="l-99"></a><span class="tm">13:44:38</span><span class="nk"> &lt;vianac&gt;</span> so my patch won't work
+<a name="l-100"></a><span class="tm">13:44:47</span><span class="nk"> &lt;vianac&gt;</span> what can we use as a default 'name' then?
+<a name="l-101"></a><span class="tm">13:44:59</span><span class="nk"> &lt;vianac&gt;</span> I guess we'll have to make it required...
+<a name="l-102"></a><span class="tm">13:45:15</span><span class="nk"> &lt;vianac&gt;</span> or is there a way to get the file name from it?
+<a name="l-103"></a><span class="tm">13:45:27</span><span class="nk"> &lt;vianac&gt;</span> (I still don't understand that parameter &gt;.&lt;)
+<a name="l-104"></a><span class="tm">13:46:00</span><span class="nk"> &lt;alinefm&gt;</span> the file parameter is a file descriptor
+<a name="l-105"></a><span class="tm">13:46:09</span><span class="nk"> &lt;alinefm&gt;</span> I think we can get the file name from it
+<a name="l-106"></a><span class="tm">13:46:15</span><span class="nk"> &lt;alinefm&gt;</span> let me do a quick test
+<a name="l-107"></a><span class="tm">13:47:32</span><span class="nk"> &lt;alinefm&gt;</span> &gt;&gt;&gt; fd = open("/home/alinefm/kimchi/COPYING", "rb")
+<a name="l-108"></a><span class="tm">13:47:32</span><span class="nk"> &lt;alinefm&gt;</span> &gt;&gt;&gt; fd.name
+<a name="l-109"></a><span class="tm">13:47:32</span><span class="nk"> &lt;alinefm&gt;</span> '/home/alinefm/kimchi/COPYING'
+<a name="l-110"></a><span class="tm">13:47:35</span><span class="nk"> &lt;alinefm&gt;</span> vianac, ^
+<a name="l-111"></a><span class="tm">13:48:18</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok, I'll try it
+<a name="l-112"></a><span class="tm">13:49:46</span><span class="nk"> &lt;vianac&gt;</span> alinefm, but I still think 'file' is not a regular file descriptor
+<a name="l-113"></a><span class="tm">13:49:55</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">baude:</span> no, i haven't tried netbooting at all
+<a name="l-114"></a><span class="tm">13:50:07</span><span class="nk"> &lt;vianac&gt;</span> in the upload code, it uses "file.fd.&lt;something&gt;"
+<a name="l-115"></a><span class="tm">13:50:27</span><span class="nk"> &lt;vianac&gt;</span> fd = open(...); I cant make fd.fd
+<a name="l-116"></a><span class="tm">13:50:30</span><span class="nk"> &lt;alinefm&gt;</span> vianac, agree - but there is something related to it too
+<a name="l-117"></a><span class="tm">13:50:34</span><span class="nk"> &lt;vianac&gt;</span> ok
+<a name="l-118"></a><span class="tm">13:50:42</span><span class="nk"> &lt;vianac&gt;</span> ill look into it...
+<a name="l-119"></a><span class="tm">13:50:55</span><span class="nk"> &lt;alinefm&gt;</span> vianac, thanks! ping me if you need help
+<a name="l-120"></a><span class="tm">13:50:59</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok
+<a name="l-121"></a><span class="tm">13:53:04</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-122"></a><span class="tm">13:54:40</span><span class="nk"> &lt;alinefm&gt;</span> apparently not
+<a name="l-123"></a><span class="tm">13:54:47</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining
+<a name="l-124"></a><span class="tm">13:55:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
