@@ -41,7 +41,7 @@ VOLUME_TYPE_MAP = {0: 'file',
                    3: 'network'}
 
 
-DOWNLOAD_CHUNK_SIZE = 1048576  # 1 MiB
+READ_CHUNK_SIZE = 1048576  # 1 MiB
 
 
 class StorageVolumesModel(object):
@@ -97,7 +97,7 @@ class StorageVolumesModel(object):
             size = 0
             with open(file_path, 'wb') as f:
                 while True:
-                    data = upload_file.file.read(8192)
+                    data = upload_file.file.read(READ_CHUNK_SIZE)
                     if not data:
                         break
                     size += len(data)
@@ -175,7 +175,7 @@ class StorageVolumesModel(object):
 
             try:
                 while True:
-                    chunk_data = response.read(DOWNLOAD_CHUNK_SIZE)
+                    chunk_data = response.read(READ_CHUNK_SIZE)
                     if not chunk_data:
                         break
 
