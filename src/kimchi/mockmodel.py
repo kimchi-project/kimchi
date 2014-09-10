@@ -482,8 +482,9 @@ class MockModel(object):
 
     def storagevolumes_create(self, pool_name, params):
         vol_source = ['file', 'url', 'capacity']
+        require_name_params = ['capacity']
 
-        name = params['name']
+        name = params.get('name')
 
         index_list = list(i for i in range(len(vol_source))
                           if vol_source[i] in params)
@@ -491,12 +492,25 @@ class MockModel(object):
             raise InvalidParameter("KCHVOL0018E",
                                    {'param': ",".join(vol_source)})
 
+        create_param = vol_source[index_list[0]]
+
+        if name is None:
+            if create_param in require_name_params:
+                raise InvalidParameter('KCHVOL0016E')
+
+            if create_param == 'file':
+                name = os.path.basename(params['file'].filename)
+            elif create_param == 'url':
+                name = os.path.basename(params['url'])
+            else:
+                name = 'upload-%s' % int(time.time())
+            params['name'] = name
+
         try:
-            create_func = getattr(self, "_create_volume_with_" +
-                                        vol_source[index_list[0]])
+            create_func = getattr(self, '_create_volume_with_%s' %
+                                        create_param)
         except AttributeError:
-            raise InvalidParameter("KCHVOL0019E",
-                                   {'param': vol_source[index_list[0]]})
+            raise InvalidParameter("KCHVOL0019E", {'param': create_param})
 
         pool = self._get_storagepool(pool_name)
         if pool.info['type'] in READONLY_POOL_TYPE:

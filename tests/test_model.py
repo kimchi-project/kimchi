@@ -526,10 +526,13 @@ class ModelTests(unittest.TestCase):
 
             vols = inst.storagevolumes_get_list(pool)
             num = len(vols) + 2
-            params = {'name': vol,
-                      'capacity': 1024,
+            params = {'capacity': 1024,
                       'allocation': 512,
                       'format': 'raw'}
+            # 'name' is required for this type of volume
+            self.assertRaises(InvalidParameter, inst.storagevolumes_create,
+                              pool, params)
+            params['name'] = vol
             task_id = inst.storagevolumes_create(pool, params)['id']
             self._wait_task(inst, task_id)
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
@@ -560,20 +563,23 @@ class ModelTests(unittest.TestCase):
 
             # download remote volume
             # 1) try an invalid URL
-            params = {'name': 'foo', 'url': 'http://www.invalid.url'}
+            params = {'url': 'http://www.invalid.url'}
             taskid = inst.storagevolumes_create(pool, params)['id']
             self._wait_task(inst, taskid)
             self.assertEquals('failed', inst.task_lookup(taskid)['status'])
             # 2) download Kimchi's "COPYING" from Github and compare its
             #    content to the corresponding local file's
             url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
-            params = {'name': 'copying', 'url': url}
-            taskid = inst.storagevolumes_create(pool, params)['id']
+            params = {'url': url}
+            task_response = inst.storagevolumes_create(pool, params)
+            taskid = task_response['id']
+            vol_name = task_response['target_uri'].split('/')[-1]
+            self.assertEquals('COPYING', vol_name)
             self._wait_task(inst, taskid)
             self.assertEquals('finished', inst.task_lookup(taskid)['status'])
             rollback.prependDefer(inst.storagevolume_delete, pool,
                                   params['name'])
-            vol_path = os.path.join(args['path'], params['name'])
+            vol_path = os.path.join(args['path'], vol_name)
             self.assertTrue(os.path.isfile(vol_path))
             with open(vol_path) as vol_file:
                 vol_content = vol_file.read()

@@ -19,6 +19,7 @@
 
 import contextlib
 import os
+import time
 import urllib2
 
 import libvirt
@@ -44,6 +45,9 @@ VOLUME_TYPE_MAP = {0: 'file',
 READ_CHUNK_SIZE = 1048576  # 1 MiB
 
 
+REQUIRE_NAME_PARAMS = ['capacity']
+
+
 class StorageVolumesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
@@ -53,7 +57,7 @@ class StorageVolumesModel(object):
     def create(self, pool_name, params):
         vol_source = ['file', 'url', 'capacity']
 
-        name = params['name']
+        name = params.get('name')
 
         index_list = list(i for i in range(len(vol_source))
                           if vol_source[i] in params)
@@ -61,12 +65,30 @@ class StorageVolumesModel(object):
             raise InvalidParameter("KCHVOL0018E",
                                    {'param': ",".join(vol_source)})
 
+        create_param = vol_source[index_list[0]]
+
+        if name is None:
+            # the methods listed in 'REQUIRE_NAME_PARAMS' cannot have
+            # 'name' == None
+            if create_param in REQUIRE_NAME_PARAMS:
+                raise InvalidParameter('KCHVOL0016E')
+
+            # if 'name' is omitted - except for the methods listed in
+            # 'REQUIRE_NAME_PARAMS' - the default volume name will be the
+            # file/URL basename.
+            if create_param == 'file':
+                name = os.path.basename(params['file'].filename)
+            elif create_param == 'url':
+                name = os.path.basename(params['url'])
+            else:
+                name = 'upload-%s' % int(time.time())
+            params['name'] = name
+
         try:
-            create_func = getattr(self, "_create_volume_with_" +
-                                        vol_source[index_list[0]])
+            create_func = getattr(self, '_create_volume_with_%s' %
+                                        create_param)
         except AttributeError:
-            raise InvalidParameter("KCHVOL0019E",
-                                   {'param': vol_source[index_list[0]]})
+            raise InvalidParameter("KCHVOL0019E", {'param': create_param})
 
         pool_info = StoragePoolModel(conn=self.conn,
                                      objstore=self.objstore).lookup(pool_name)
