@@ -56,7 +56,7 @@ class SoftwareUpdate(object):
                 kimchi_log.info("Loading AptUpdate features.")
                 self._pkg_mnger = AptUpdate()
             except ImportError:
-                zypper_help = "zypper --help"
+                zypper_help = ["zypper", "--help"]
                 (stdout, stderr, returncode) = run_command(zypper_help)
                 if returncode == 0:
                     kimchi_log.info("Loading ZypperUpdate features.")
