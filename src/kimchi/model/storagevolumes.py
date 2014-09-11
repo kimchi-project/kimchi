@@ -190,24 +190,24 @@ class StorageVolumesModel(object):
         pool = pool_model.lookup(pool_name)
         file_path = os.path.join(pool['path'], name)
 
-        with contextlib.closing(urllib2.urlopen(url)) as response,\
-                open(file_path, 'w') as volume_file:
-            remote_size = response.info().getheader('Content-Length', '-')
-            downloaded_size = 0
+        with contextlib.closing(urllib2.urlopen(url)) as response:
+            with open(file_path, 'w') as volume_file:
+                remote_size = response.info().getheader('Content-Length', '-')
+                downloaded_size = 0
 
-            try:
-                while True:
-                    chunk_data = response.read(READ_CHUNK_SIZE)
-                    if not chunk_data:
-                        break
+                try:
+                    while True:
+                        chunk_data = response.read(READ_CHUNK_SIZE)
+                        if not chunk_data:
+                            break
 
-                    volume_file.write(chunk_data)
-                    downloaded_size += len(chunk_data)
-                    cb('%s/%s' % (downloaded_size, remote_size))
-            except Exception, e:
-                raise OperationFailed('KCHVOL0007E', {'name': name,
-                                                      'pool': pool_name,
-                                                      'err': e.message})
+                        volume_file.write(chunk_data)
+                        downloaded_size += len(chunk_data)
+                        cb('%s/%s' % (downloaded_size, remote_size))
+                except Exception, e:
+                    raise OperationFailed('KCHVOL0007E', {'name': name,
+                                                          'pool': pool_name,
+                                                          'err': e.message})
 
         StoragePoolModel.get_storagepool(pool_name, self.conn).refresh()
         cb('OK', True)
