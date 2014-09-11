@@ -93,16 +93,18 @@ for more information on how to configure your system to access this repository.
                           python-pam python-M2Crypto python-jsonschema \
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-lxml nfs-client open-iscsi \
-                          libxslt-tools python-xml python-parted \
+                          libxslt-tools python-xml python-parted nginx \
                           python-libguestfs guestfs-tools python-requests
 
     Packages version requirement:
         python-psutil >= 0.6.0
 
-*Note for openSUSE users*: Some of the above packages are located in the
-openSUSE Systems Management repository. See
+*Note for openSUSE users*: Some of the above packages are located in different
+openSUSE repositories. See
+[this FAQ](http://download.opensuse.org/repositories/home:GRNET:synnefo/) for
+python-parted; and
 [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
-to get the correct repository based on your openSUSE version. And
+for python-ethtool to get the correct repository based on your openSUSE version. And
 [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
 information on how configure your system to access this repository.
 
