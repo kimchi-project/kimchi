@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 16:51-0300\n"
+"POT-Creation-Date: 2014-09-16 14:11-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1521,6 +1521,12 @@ msgstr ""
 msgid "Unable to retrieve partitions information."
 msgstr "저장소 정보를 나열할 수 없습니다. 세부사항: '%(err)s'"
 
+msgid "In progress..."
+msgstr ""
+
+msgid "Failed!"
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 
@@ -1705,6 +1711,21 @@ msgstr "SCSI 어댑터"
 msgid "Please, wait..."
 msgstr "잠시 기다려 주십시오."
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload an file"
+msgstr ""
+
+msgid "Choose the ISO file (with .iso suffix) you want to upload."
+msgstr ""
+
 msgid "Add Template"
 msgstr "템플리트 추가"
 
@@ -1872,6 +1893,9 @@ msgstr "비활성화"
 
 msgid "Activate"
 msgstr "활성화"
+
+msgid "Add Volume"
+msgstr ""
 
 msgid "Extend"
 msgstr ""
