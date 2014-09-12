@@ -1142,5 +1142,40 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    /**
+     * Add a volume to a given storage pool.
+     */
+    uploadVolumeToSP: function(settings, suc, err) {
+        var fd = settings['formData'];
+        var sp = encodeURIComponent(settings['sp']);
+        kimchi.requestJSON({
+            url : kimchi.url + 'storagepools/' + sp + '/storagevolumes',
+            type : 'POST',
+            data : fd,
+            processData : false,
+            contentType : false,
+            dataType: 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    /**
+     * Add a volume to a given storage pool by URL.
+     */
+    downloadVolumeToSP: function(settings, suc, err) {
+        var sp = encodeURIComponent(settings['sp']);
+        delete settings['sp'];
+        kimchi.requestJSON({
+            url : kimchi.url + 'storagepools/' + sp + '/storagevolumes',
+            type : 'POST',
+            data : JSON.stringify(settings),
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
     }
 };
