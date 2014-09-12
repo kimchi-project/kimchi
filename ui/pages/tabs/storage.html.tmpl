@@ -82,6 +82,7 @@
                     <div class="popover actionsheet right-side" style="width: 250px">
                         <button class="button-big pool-deactivate" data-stat="{state}" data-name="{name}" data-persistent="{persistent}"><span class="text">$_("Deactivate")</span></button>
                         <button class="button-big pool-activate" data-stat="{state}" data-name="{name}"><span class="text">$_("Activate")</span></button>
+                        <button class="button-big pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><span class="text">$_("Add Volume")</span></button>
                         <button class="button-big pool-extend {enableExt}" data-stat="{state}" data-name="{name}"><span class="text">$_("Extend")</span></button>
                         <button class="button-big red pool-delete" data-stat="{state}" data-name="{name}"><span class="text">$_("Undefine")</span></button>
                     </div>
@@ -98,11 +99,20 @@
     </li>
 </script>
 <script id="volumeTmpl" type="html/text">
-        <div class="volume-box white-box">
+        <div class="volume-box white-box" data-volume-name="{name}">
             <div class="storage-icon volume-default icon-{format} ">
             </div>
             <div class="volume-title">
                 <div class="volume-name" title="{name}">{name}</div>
+                <div class="volume-progress hidden">
+                    <div class="progress-bar-outer">
+                        <div class="progress-bar-inner"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span class="progress-status"></span>
+                        <span class="progress-transferred"></span>
+                    </div>
+                </div>
             </div>
             <div class="volume-setting">
             </div>
