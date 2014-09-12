@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 16:51-0300\n"
+"POT-Creation-Date: 2014-09-16 14:11-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1449,6 +1449,12 @@ msgstr ""
 msgid "Unable to retrieve partitions information."
 msgstr ""
 
+msgid "In progress..."
+msgstr ""
+
+msgid "Failed!"
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 
@@ -1626,6 +1632,21 @@ msgstr ""
 msgid "Please, wait..."
 msgstr ""
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload an file"
+msgstr ""
+
+msgid "Choose the ISO file (with .iso suffix) you want to upload."
+msgstr ""
+
 msgid "Add Template"
 msgstr ""
 
@@ -1792,6 +1813,9 @@ msgid "Deactivate"
 msgstr ""
 
 msgid "Activate"
+msgstr ""
+
+msgid "Add Volume"
 msgstr ""
 
 msgid "Extend"

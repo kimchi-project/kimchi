@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 16:51-0300\n"
+"POT-Creation-Date: 2014-09-16 14:11-0300\n"
 "PO-Revision-Date: 2014-08-28 20:24+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
@@ -1618,6 +1618,12 @@ msgstr ""
 msgid "Unable to retrieve partitions information."
 msgstr "Não foi possível recuperar as informações das partições."
 
+msgid "In progress..."
+msgstr ""
+
+msgid "Failed!"
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 "Caminho do CDROM precisa ser um caminho local válido e não pode ser vazio."
@@ -1804,6 +1810,21 @@ msgstr "Adaptador SCSI"
 msgid "Please, wait..."
 msgstr "Por favor, aguarde..."
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload an file"
+msgstr ""
+
+msgid "Choose the ISO file (with .iso suffix) you want to upload."
+msgstr ""
+
 msgid "Add Template"
 msgstr "Adicionar Modelo"
 
@@ -1972,6 +1993,9 @@ msgstr "Desativar"
 
 msgid "Activate"
 msgstr "Ativar"
+
+msgid "Add Volume"
+msgstr ""
 
 msgid "Extend"
 msgstr "Aumentar"
