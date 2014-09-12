@@ -336,7 +336,6 @@
     float: left;
     padding: 4px;
     margin-bottom: 5px;
-    height: 40px;
     width: 130px;
 }
 
@@ -622,3 +621,33 @@
 #iSCSITarget input {
     width: 493px;
 }
+
+/* Progress bar */
+.volume-progress {
+    clear: both;
+    width: 140px;
+}
+
+.volume-progress .progress-bar-outer {
+    background: #ccc;
+    height: 4px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.volume-progress .progress-bar-inner {
+    background: #090;
+    height: 100%;
+    width: 0%;
+}
+
+.volume-progress .progress-label {
+    color: #999;
+    font-size: 10px;
+    line-height: 16px;
+}
+
+.volume-progress .progress-transferred {
+    float: right;
+}
+/* End of Progress bar */

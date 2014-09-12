@@ -42,7 +42,6 @@ kimchi.doListStoragePools = function() {
     }, function(err) {
         kimchi.message.error(err.responseJSON.reason);
     });
-
 }
 
 kimchi.storageBindClick = function() {
@@ -75,6 +74,19 @@ kimchi.storageBindClick = function() {
         if ('active' === $(this).data('stat')) {
             $(this).show();
         } else {
+            $(this).hide();
+        }
+    });
+
+    $('.pool-add-volume').each(function(index) {
+        var canAddVolume =
+            $(this).data('stat') === 'active' &&
+            $(this).data('type') !== 'iscsi' &&
+            $(this).data('type') !== 'scsi';
+        if(canAddVolume) {
+            $(this).show();
+        }
+        else {
             $(this).hide();
         }
     });
@@ -135,6 +147,12 @@ kimchi.storageBindClick = function() {
             }
         });
 
+        $('.pool-add-volume').on('click', function(event) {
+            var poolName = $(this).data('name');
+            kimchi.selectedSP = poolName;
+            kimchi.window.open('storagepool-add-volume.html');
+        });
+
         $('.storage-action').on('click', function() {
             var storage_action = $(this);
             var deleteButton = storage_action.find('.pool-delete');
@@ -148,10 +166,6 @@ kimchi.storageBindClick = function() {
         $('.pool-extend').on('click', function() {
             $("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
             $("#logicalPoolExtend").dialog("open");
-        });
-
-        $('#volume-doAdd').on('click', function() {
-            kimchi.window.open('storagevolume-add.html');
         });
     }
 
@@ -173,29 +187,90 @@ kimchi.storageBindClick = function() {
     });
 }
 
+kimchi._generateVolumeHTML = function(volume) {
+    if(volume['type'] === 'kimchi-iso') {
+        return '';
+    }
+    var volumeHtml = $('#volumeTmpl').html();
+    volume.capacity = kimchi.changetoProperUnit(volume.capacity,1);
+    volume.allocation = kimchi.changetoProperUnit(volume.allocation,1);
+    return kimchi.substitute(volumeHtml, volume);
+};
+
 kimchi.doListVolumes = function(poolObj) {
-    var volumeDiv = $('#volume' + poolObj.data('name'));
+    var poolName = poolObj.data('name')
+
+    var getOngoingVolumes = function() {
+        var result = {}
+        var filter = 'status=running&target_uri=' + encodeURIComponent('^/storagepools/' + poolName + '/*')
+        kimchi.getTasksByFilter(filter, function(tasks) {
+            for(var i = 0; i < tasks.length; i++) {
+                var volumeName = tasks[i].target_uri.split('/').pop();
+                result[volumeName] = tasks[i];
+
+                if(kimchi.trackingTasks.indexOf(tasks[i].id) >= 0) {
+                    continue;
+                }
+
+                kimchi.trackTask(tasks[i].id, function(result) {
+                    kimchi.topic('kimchi/volumeTransferFinished').publish(result);
+                }, function(result) {
+                    kimchi.topic('kimchi/volumeTransferError').publish(result);
+                }, function(result) {
+                    kimchi.topic('kimchi/volumeTransferProgress').publish(result);
+                });
+            }
+        }, null, true);
+        return result;
+    };
+
+    var volumeDiv = $('#volume' + poolName);
+    $(volumeDiv).empty();
     var slide = poolObj.next('.volumes');
     var handleArrow = poolObj.children().last().children();
-    kimchi.listStorageVolumes(poolObj.data('name'), function(result) {
-        var volumeHtml = $('#volumeTmpl').html();
-        if (result) {
-            if (result.length) {
-                var listHtml = '';
-                $.each(result, function(index, value) {
-                    value.poolname = poolObj.data('name');
-                    value.capacity = kimchi.changetoProperUnit(value.capacity,1);
-                    value.allocation = kimchi.changetoProperUnit(value.allocation,1);
-                    listHtml += kimchi.substitute(volumeHtml, value);
-                });
-                volumeDiv.html(listHtml);
-            } else {
-                volumeDiv.html("<div class='pool-empty'>" + i18n['KCHPOOL6002M'] + "</div>");
+
+    kimchi.listStorageVolumes(poolName, function(result) {
+        var listHtml = '';
+        var ongoingVolumes = [];
+        var ongoingVolumesMap = getOngoingVolumes();
+        $.each(ongoingVolumesMap, function(volumeName, task) {
+            ongoingVolumes.push(volumeName)
+            var volume = {
+                poolName: poolName,
+                ref_cnt: 0,
+                capacity: 0,
+                name: volumeName,
+                format: '',
+                bootable: null,
+                os_distro: '',
+                allocation: 0,
+                os_version: '',
+                path: '',
+                type: 'file'
+            };
+            listHtml += kimchi._generateVolumeHTML(volume);
+        });
+
+        $.each(result, function(index, value) {
+            if (ongoingVolumes.indexOf(value.name) == -1) {
+                value.poolname = poolName;
+                listHtml += kimchi._generateVolumeHTML(value);
             }
-            poolObj.removeClass('in');
-            kimchi.changeArrow(handleArrow);
-            slide.slideDown('slow');
+        });
+
+        if (listHtml.length > 0) {
+            volumeDiv.html(listHtml);
+        } else {
+            volumeDiv.html("<div class='pool-empty'>" + i18n['KCHPOOL6002M'] + "</div>");
         }
+
+        $.each(ongoingVolumesMap, function(volumeName, task) {
+            kimchi.topic('kimchi/volumeTransferProgress').publish(task);
+        });
+
+        poolObj.removeClass('in');
+        kimchi.changeArrow(handleArrow);
+        slide.slideDown('slow');
     }, function(err) {
         kimchi.message.error(err.responseJSON.reason);
     });
@@ -255,7 +330,80 @@ kimchi.storage_main = function() {
     }
     kimchi.doListStoragePools();
     kimchi.initLogicalPoolExtend();
-}
+
+    kimchi.topic('kimchi/storageVolumeAdded').subscribe(function() {
+        pool = kimchi.selectedSP;
+        var poolNode = $('.storage-li[data-name="' + pool + '"]');
+        kimchi.doListVolumes(poolNode);
+    });
+
+    kimchi.topic('kimchi/volumeTransferProgress').subscribe(function(result) {
+        var extractProgressData = function(data) {
+            var sizeArray = /(\d+)\/(\d+)/g.exec(data) || [0, 0, 0];
+            var downloaded = sizeArray[1];
+            var percent = 0;
+            if(downloaded) {
+                var total = sizeArray[2];
+                if(!isNaN(total)) {
+                    percent = downloaded / total * 100;
+                }
+            }
+            var formatted = kimchi.formatMeasurement(downloaded);
+            var size = (1.0 * formatted['v']).toFixed(1) + formatted['s'];
+            return {
+                size: size,
+                percent: percent
+            };
+        };
+
+        var uriElements = result.target_uri.split('/');
+        var poolName = uriElements[2];
+        var volumeName = uriElements.pop();
+        var progress = extractProgressData(result['message']);
+        var size = progress['size'];
+        var percent = progress['percent'];
+
+        volumeBox = $('#volume' + poolName + ' [data-volume-name="' + volumeName + '"]');
+        $('.progress-bar-inner', volumeBox).css({
+            width: percent + '%'
+        });
+        $('.progress-transferred', volumeBox).text(size);
+        $('.volume-progress', volumeBox).removeClass('hidden');
+        $('.progress-status', volumeBox).text(i18n['KCHPOOL6014M']);
+    });
+
+    kimchi.topic('kimchi/volumeTransferFinished').subscribe(function(result) {
+        var uriElements = result.target_uri.split('/');
+        var poolName = uriElements[2];
+        var volumeName = uriElements.pop();
+        var volumeBox = $('#volume' + poolName + ' [data-volume-name="' + volumeName + '"]');
+        $('.volume-progress', volumeBox).addClass('hidden');
+        kimchi.getStoragePoolVolume(poolName, volumeName, function(volume) {
+            var html = kimchi._generateVolumeHTML(volume);
+            $(volumeBox).replaceWith(html);
+        }, function(err) {
+            kimchi.message.error(err.responseJSON.reason);
+        });
+    });
+
+    kimchi.topic('kimchi/volumeTransferError').subscribe(function(result) {
+        // Error message from Async Task status
+        if (result['message']) {
+            var errText = result['message'];
+        }
+        // Error message from standard kimchi exception
+        else {
+            var errText = result['responseJSON']['reason'];
+        }
+        result && kimchi.message.error(errText);
+
+        var uriElements = result.target_uri.split('/');
+        var poolName = uriElements[2];
+        var volumeName = uriElements.pop();
+        volumeBox = $('#volume' + poolName + ' [data-volume-name="' + volumeName + '"]');
+        $('.progress-status', volumeBox).text(i18n['KCHPOOL6015M']);
+    });
+};
 
 kimchi.changeArrow = function(obj) {
     if ($(obj).hasClass('arrow-down')) {
