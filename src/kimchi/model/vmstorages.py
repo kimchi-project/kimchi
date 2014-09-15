@@ -232,8 +232,9 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
-        if params.get('path'):
-            params['src_type'] = _check_path(params['path'])
+        path = params.get('path')
+        if path and len(path) != 0:
+            params['src_type'] = _check_path(path)
             ignore_source = False
         else:
             params['src_type'] = 'file'
@@ -251,6 +252,3 @@ class VMStorageModel(object):
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
         return dev_name
-
-    def eject(self, vm_name, dev_name):
-        return self.update(vm_name, dev_name, dict())

@@ -383,7 +383,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(iso_path, cdrom_info['path'])
 
             # eject cdrom
-            cdrom_dev = inst.vmstorage_eject(vm_name, cdrom_dev)
+            cdrom_dev = inst.vmstorage_update(vm_name, cdrom_dev, {'path': ''})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             self.assertEquals('', cdrom_info['path'])
             inst.vm_poweroff(vm_name)
