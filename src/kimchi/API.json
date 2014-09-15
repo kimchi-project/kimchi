@@ -526,7 +526,7 @@
                "path": {
                     "description": "Path of iso image file or disk mount point",
                     "type": "string",
-                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
+                    "pattern": "^(|(/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
                     "required": true,
                     "error": "KCHVMSTOR0003E"
                 }
