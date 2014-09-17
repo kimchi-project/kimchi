@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="it-it">
+<title>Guest</title>
+<shortdesc>La pagina <wintitle>Guest</wintitle> elenca le macchine virtuali
+KVM definite.</shortdesc>
+<csbody>
+<p>Per ciascuna macchina guest vengono visualizzate le seguenti informazioni:<dl><dlentry>
+<dt>Nome</dt>
+<dd>Il nome della macchina virtuale.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>La percentuale di utilizzo del processore nella macchina virtuale.</dd>
+</dlentry><dlentry>
+<dt>I/O di rete</dt>
+<dd>La velocità di trasmissione dell'input/output di rete in KB al  secondo.</dd>
+</dlentry><dlentry>
+<dt>I/O disco</dt>
+<dd>La velocità di trasmissione dell'input/output disco in KB al  secondo.</dd>
+</dlentry><dlentry>
+<dt>Riquadro animato</dt>
+<dd>Lo stato della console del sistema operativo della macchina guest o un'icona che rappresenta la distribuzione <tm tmtype="tm" trademark="Linux">Linux</tm> se la macchina guest non è attiva.</dd>
+</dlentry></dl></p>
+<p>Per ciascuna macchina guest vengono visualizzate le icone di azioni indicate di seguito:<dl>
+<dlentry>
+<dt>Reimposta</dt>
+<dd>Fare clic qui per reimpostare la macchina guest. </dd>
+</dlentry><dlentry>
+<dt>Alimentazione (Avvia o Arresta)</dt>
+<dd>Fare clic qui per accendere o spegnere la macchina guest. Se l'icona è rossa, la macchina è spenta, se è verde è accesa.</dd>
+</dlentry></dl> </p>
+<p>Per ciascuna macchina guest è possibile selezionare le azioni indicate di seguito:<ul>
+<li>Selezionare <uicontrol>Connetti</uicontrol> per effettuare la connessione alla console remota per il sistema operativo della macchina guest.</li>
+<li>Selezionare <uicontrol>Gestisci supporti</uicontrol> per modificare il percorso al supporto di installazione.</li>
+<li>Selezionare <uicontrol>Reimposta</uicontrol> per reimpostare la macchina guest.</li>
+<li>Selezionare <uicontrol>Modifica</uicontrol> per modificare le proprietà di una macchina guest esistente. È possibile modificare le macchine guest solo se sono arrestate.</li>
+<li>Selezionare <uicontrol>Elimina</uicontrol> per eliminare la macchina guest.</li>
+</ul>Per creare una macchina guest, o macchina virtuale, fare clic sull'icona <uicontrol>più
+(+)</uicontrol> nella parte in alto a destra della pagina.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="it-it">
+<title>Creare una macchina virtuale</title>
+<shortdesc>Creare una macchina virtuale utilizzando un modello esistente.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Immettere il nome da utilizzare per identificare la macchina virtuale.</li>
+<li rev="rev1">Selezionare un modello. <ul>
+<li>Se il modello esiste, selezionarlo dai modelli visualizzati.</li>
+<li>Se non esiste alcun modello, fare clic su <uicontrol>Crea un modello</uicontrol> per crearne uno.</li>
+</ul></li>
+<li>Fare clic su <uicontrol>Crea</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="it-it">
+<title>Modifica macchina guest</title>
+<shortdesc>Modificare le proprietà di una macchina virtuale esistente. Alcune proprietà possono essere
+modificate solo mentre la macchina guest è arrestata. Altre diventeranno effettive al prossimo avvio.</shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>Per ciascuna macchina guest vengono visualizzate le seguenti informazioni sulla scheda <wintitle>Generale</wintitle>:<dl>
+<dlentry>
+<dt>Nome</dt>
+<dd>Il nome della macchina virtuale. (Può essere modificato solo mentre la macchina guest è arrestata)</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>Il numero di processori. (Se la macchina guest è in esecuzione, la nuova quantità diventerà effettiva
+al prossimo avvio)</dd>
+</dlentry><dlentry>
+<dt>Memoria</dt>
+<dd>La quantità di memoria in MB. (Se la macchina guest è in esecuzione, la nuova quantità diventerà effettiva
+al prossimo avvio)</dd>
+</dlentry><dlentry>
+<dt>Icona</dt>
+<dd>L'immagine grafica che rappresenta la distribuzione Linux da visualizzare al posto dello stato corrente (Riquadro animato) quando la macchina guest non è attiva.</dd>
+</dlentry></dl></p>
+<p>Sulla scheda <wintitle>Memoria</wintitle> vengono visualizzate le seguenti informazioni.</p>
+<dl><dlentry>
+<dt>Memoria</dt>
+<dd>Visualizza l'ubicazione del file ISO utilizzato per  l'installazione.</dd>
+</dlentry></dl>
+<p> I campi non disabilitati possono essere modificati. Dopo aver modificato un campo, fare clic su <uicontrol>Salva</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="it-it">
+<title>Aggiungere, sostituire o scollegare un dispositivo di memoria.</title>
+<shortdesc rev="rev1">È possibile aggiungere, sostituire o scollegare un dispositivo di memoria per la macchina virtuale. L'unico dispositivo supportato è CDROM. Per modificare i dispositivi di memoria, attenersi alla seguente procedura:</shortdesc>
+<csbody>
+<ol>
+<li>Nella finestra <wintitle>Modifica macchina guest</wintitle>, selezionare <wintitle>Memoria</wintitle>.</li>
+<li>Per sostituire un dispositivo di memoria, fare clic sulla prima icona con la <uicontrol>barra (/) arancione</uicontrol>. Immettere il percorso del file ISO e fare clic su <uicontrol>Sostituisci</uicontrol>.</li>
+<li>Per scollegare un dispositivo di memoria, fare clic sulla seconda  icona con il <uicontrol>trattino (-) rosso</uicontrol>. Confermare l'eliminazione facendo clic su <uicontrol>OK</uicontrol>.</li>
+<li>Per aggiungere un dispositivo di memoria, fare clic sulla terza icona con il <uicontrol>segno più (+)</uicontrol> verde. Immettere un nome dispositivo e percorso file ISO e fare clic su <uicontrol>Collega</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="it-it">
+<title>Sostituisci un CDROM della macchina virtuale</title>
+<shortdesc rev="rev1">È possibile sostituire il contenuto del CDROM per una macchina virtuale dopo il completamento dell'installazione.</shortdesc>
+<csbody>
+<ol>
+<li>Assicurarsi che la macchina virtuale sia avviata.</li>
+<li>Dal menu Azioni, selezionare <uicontrol>Gestisci supporti</uicontrol>.</li>
+<li>Per modificare il contenuto correntemente caricato sul CDROM, fare clic sull'icona della <uicontrol>barra (/) arancione</uicontrol> accanto al campo hdc.</li>
+<li>Sulla pagina <wintitle>Sostituisci un CDROM della macchina virtuale</wintitle>, immettere il percorso del file ISO. Gli altri due campi sono di sola lettura.</li>
+<li>Fare clic su <uicontrol>Sostituisci</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="it-it">
+<title>Rete</title>
+<shortdesc>La pagina <wintitle>Rete</wintitle> visualizza le informazioni sulla connessione di rete.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>Nome rete</dt>
+<dd>Il nome della rete o il <uicontrol>valore predefinito</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Stato</dt>
+<dd>Lo stato della rete, attivo (verde) o non attivo (rosso). </dd>
+</dlentry><dlentry>
+<dt>Tipo di rete</dt>
+<dd>I tipo di rete, ad esempio, <uicontrol>NAT</uicontrol> (network
+address translation).</dd>
+</dlentry><dlentry>
+<dt>Interfaccia</dt>
+<dd>L'interfaccia di rete, ad esempio, <uicontrol>virbr0</uicontrol> (valore predefinito).</dd>
+</dlentry><dlentry>
+<dt>Spazio indirizzo</dt>
+<dd>L'indirizzo IP.</dd>
+</dlentry></dl></p>
+<p>È possibile selezionare le seguenti azioni:<ul>
+<li rev="rev1">Selezionare <uicontrol>Avvia</uicontrol> per iniziare la connessione di rete.</li>
+<li>Selezionare <uicontrol>Arresta</uicontrol> per terminare la connessione di rete.</li>
+<li>Selezionare <uicontrol>Elimina</uicontrol> per eliminare le informazioni di connessione.</li>
+</ul>Per creare una rete fare clic sull'icona <uicontrol>più
+(+)</uicontrol> nella parte in alto a destra del pannello.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="it-it">
+<title>Crea una rete</title>
+<shortdesc>Creare una rete.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Immettere il nome della rete.</li>
+<li>Fare clic per selezionare il tipo di rete. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Isolata</uicontrol></dt>
+<dd>La modalità isolata. Le macchine guest non possono inviare o ricevere comunicazioni verso o da i sistemi esterni.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>La modalità NAT (Network Address Translation). La comunicazione dalle macchine guest ai sistemi esterni utilizza l'indirizzo IP host. I sistemi esterni non possono iniziare la comunicazione con le macchine guest.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Con bridge</uicontrol></dt>
+<dd>La modalità con bridge. Le macchine guest possono comunicare con i sistemi esterni ed essere contattate dai sistemi esterni come se fossero sistemi fisici sulla rete. Per la modalità con bridge, è necessario specificare informazioni aggiuntive su destinazione e VLAN.</dd>
+</dlentry></dl></li>
+<li>Fare clic su <uicontrol>Crea</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
