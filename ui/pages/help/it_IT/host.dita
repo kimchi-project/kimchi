@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="it-it">
+<title>Host</title>
+<shortdesc>La pagina <wintitle>Host</wintitle> visualizza le informazioni sul sistema host e consente di arrestarlo, riavviarlo e connettersi ad esso.</shortdesc>
+<csbody>
+<p>È possibile effettuare le seguenti operazioni sull'host:<ul>
+<li>Selezionare <uicontrol>Arresta</uicontrol> per arrestare il sistema host.</li>
+<li>Selezionare <uicontrol>Riavvia</uicontrol> per riavviare il sistema host.</li>
+<li>Selezionare <uicontrol>Connetti</uicontrol> per aprire una connessione VNC al sistema host, se non è già connesso.</li>
+</ul></p>
+<p>Fare clic sulle seguenti sezioni per visualizzare le informazioni sull'host:<dl>
+<dlentry>
+<dt>Informazioni di base</dt>
+<dd>Questa sezione visualizza il nome codice, la versione e la distribuzione del sistema operativo, come pure il tipo di processore e la quantità di memoria in GB.</dd>
+</dlentry><dlentry>
+<dt>Statistiche di sistema</dt>
+<dd>Questa sezione visualizza i grafici che mostrano le statistiche per la CPU, la memoria, l'I/O disco e di rete per l'host. Selezionare <uicontrol>Raccolta dati all'uscita dalla pagina</uicontrol> per continuare la raccolta dei dati quando la scheda host non è più visibile.</dd>
+</dlentry><dlentry>
+<dt>Aggiornamenti del software</dt>
+<dd>Questa sezione visualizza le informazioni per tutti i pacchetti per cui sono disponibili gli aggiornamenti, incluso il nome, la versione, l'architettura e il repository del pacchetto. È possibile aggiornare tutti i pacchetti elencati, selezionando <uicontrol>Aggiorna tutto</uicontrol>. Non è possibile selezionare singoli pacchetti per gli aggiornamenti.</dd>
+</dlentry><dlentry>
+<dt>Repository</dt>
+<dd>Questa sezione visualizza i repository associati al sistema host. È possibile aggiungere, abilitare, modificare o rimuovere i repository. L'aggiunta di un repository lo associa al sistema host,  mentre l'abilitazione di un repository
+consente all'host di accedervi. Se il sistema è Red Hat Enterprise
+Linux o Fedora, è possibile aggiungere i repository <filepath>yum</filepath>.
+Se il sistema è Ubuntu o Debian, aggiungere i repository <filepath>deb</filepath>.<p>Se si stanno utilizzando i repository yum,  è possibile aggiungere un controllo GPG per verificare che un pacchetto da questo repository non sia stato corrotto.
+Selezionare un repository, quindi <uicontrol>Modifica</uicontrol>. Selezionare <uicontrol>Sì</uicontrol> per abilitare il controllo GPG, quindi immettere un URL al file di chiavi GPG per il
+repository.</p></dd>
+</dlentry><dlentry>
+<dt>Report di debug</dt>
+<dd>Questa sezione visualizza i report di debug, incluso il nome e il percorso file.
+Le opzioni disponibili consentono di generare un nuovo report oppure ridenominare, rimuovere o scaricare un report esistente.<p>Il report di debug viene generato utilizzando il comando <cmdname>sosreport</cmdname>. È disponibile per le distribuzioni Red
+Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora e Ubuntu. Il comando genera un file .tar che contiene informazioni di diagnostica e configurazione, come la versione del kernel in esecuzione, i moduli caricati e i file di configurazione del servizio e del sistema.
+Il comando esegue anche programmi esterni per raccogliere ulteriori informazioni e memorizza l'output nell'archivio risultante.</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

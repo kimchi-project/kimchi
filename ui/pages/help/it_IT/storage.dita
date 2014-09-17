@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="it-it">
+<title>Memoria</title>
+<shortdesc>La pagina <wintitle>Memoria</wintitle> elenca i pool di memoria
+disponibili, compresi i pool di memoria pronti per l'uso 'default' e 'ISO'.
+Se si desidera utilizzare un proprio ISO, aggiungerlo al percorso del pool di memoria 'ISO'.</shortdesc>
+<csbody>
+<p>Per ciascun pool di memoria vengono visualizzate le seguenti informazioni:<dl>
+<dlentry>
+<dt>Nome</dt>
+<dd>Il nome del pool di memoria e la percentuale utilizzata.</dd>
+</dlentry><dlentry>
+<dt>Stato</dt>
+<dd>Lo stato del pool di memoria, attivo (verde) o non attivo (rosso). </dd>
+</dlentry><dlentry>
+<dt>Ubicazione</dt>
+<dd>Il percorso file all'ubicazione del pool di memoria.</dd>
+</dlentry><dlentry>
+<dt>Tipo</dt>
+<dd>Il tipo di pool di memoria, ad esempio, <uicontrol>dir</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Capacità</dt>
+<dd>La quantità di spazio nel pool di memoria.</dd>
+</dlentry><dlentry>
+<dt>Assegnato</dt>
+<dd>La quantità di spazio già assegnato nel pool di memoria.</dd>
+</dlentry></dl></p>
+<p>Per ciascun pool di memoria è possibile selezionare le azioni indicate di seguito:<ul>
+<li>Selezionare <uicontrol>Attiva</uicontrol> per attivare il pool di memoria in modo da poterlo utilizzare.</li>
+<li>Selezionare <uicontrol>Disattiva</uicontrol> per disattivare un pool di memoria attivo.</li>
+<li>Selezionare <uicontrol>Rimuovi definizione</uicontrol> per rimuovere un pool di memoria non attivo.</li>
+</ul></p>
+<p>Per visualizzare i dettagli del volume di memoria per un pool di memoria, fare clic sulla freccia sul lato destro della riga del pool di memoria.  I dettagli includono:<dl><dlentry>
+<dt>Tipo</dt>
+<dd>Il tipo di volume, ad esempio, <uicontrol>file</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Formato</dt>
+<dd>Il formato, che varia in base al tipo.</dd>
+</dlentry><dlentry>
+<dt>Capacità</dt>
+<dd>La dimensione del volume di memoria.</dd>
+</dlentry><dlentry>
+<dt>Assegnazione</dt>
+<dd>La quantità di spazio già assegnato nel pool di memoria.</dd>
+</dlentry></dl>Per definire un pool di memoria fare clic sull'icona <uicontrol>più
+(+)</uicontrol> nella parte in alto a destra del pannello.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="it-it">
+<title>Definire un pool di memoria</title>
+<shortdesc> Definire un pool di memoria.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Nel campo <uicontrol>Nome pool di memoria</uicontrol>, immettere i l nome da utilizzare per definire il pool di memoria.</li>
+<li>Nell'elenco <uicontrol>Tipo pool di memoria</uicontrol>, selezionare il tipo: <dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>Specifica un pool directory. Quando si seleziona <uicontrol>DIR</uicontrol>,
+immettere il <uicontrol>Percorso di memoria</uicontrol> (percorso file al pool di memoria).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>Specifica un pool NFS (Network File System). Quando si seleziona <uicontrol>NFS</uicontrol>,
+immettere l'indirizzo <uicontrol>IP del server NFS</uicontrol> e il <uicontrol>Percorso NFS</uicontrol> (percorso alla  directory esportata).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Specifica un pool basato su una destinazione assegnata su un server iSCSI.
+Quando si seleziona <uicontrol>iSCSI</uicontrol>, immettere l'indirizzo IP del <uicontrol>Server iSCSI</uicontrol> e la <uicontrol>Destinazione</uicontrol> sul server iSCSI. È possibile, facoltativamente, selezionare di aggiungere l'autenticazione iSCSI.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Logico</uicontrol></dt>
+<dd>Specifica un pool di memoria di tipo volume logico. Selezionare l'ubicazione del dispositivo in <uicontrol>Percorso dispositivo</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Canale a fibre ottiche SCSI</uicontrol></dt>
+<dd>Specifica un pool basato su un canale a fibre ottiche SCSI. Selezionare quale adattatore
+SCSI utilizzare.</dd>
+</dlentry></dl></li>
+<li>Fare clic su <uicontrol>Crea</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
