@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="fr-fr">
+<title>Invités</title>
+<shortdesc>La page <wintitle>Invités</wintitle> répertorie les machines virtuelles KVM définies.</shortdesc>
+<csbody>
+<p>Pour chaque invité, les informations suivantes sont affichées :<dl><dlentry>
+<dt>Nom</dt>
+<dd>Nom de la machine virtuelle.</dd>
+</dlentry><dlentry>
+<dt>UC</dt>
+<dd>Pourcentage d'utilisation du processeur sur la machine virtuelle.</dd>
+</dlentry><dlentry>
+<dt>E-S réseau</dt>
+<dd>Vitesse de transmission d'entrée-sortie du réseau, exprimée en ko par seconde.</dd>
+</dlentry><dlentry>
+<dt>E-S disque</dt>
+<dd>Vitesse de transmission d'entrée-sortie du disque, exprimée en ko par seconde.</dd>
+</dlentry><dlentry>
+<dt>Livetile</dt>
+<dd>Etat de la console du système d'exploitation de l'hôte, ou
+icône représentant la distribution <tm tmtype="tm" trademark="Linux">Linux</tm>
+si l'invité n'est pas actif.</dd>
+</dlentry></dl></p>
+<p>Les icônes d'action suivantes sont affichées pour chaque invité :<dl>
+<dlentry>
+<dt>Réinitialiser</dt>
+<dd>Cliquez pour réinitialiser l'invité. </dd>
+</dlentry><dlentry>
+<dt>Alimentation (Démarrer ou Arrêter)</dt>
+<dd>Cliquez pour mettre sous ou hors tension l'invité. Si l'icône est rouge,
+l'alimentation est démarrée ; si l'icône est verte, l'alimentation est arrêtée.</dd>
+</dlentry></dl> </p>
+<p>Les actions suivantes peuvent être sélectionnées  pour chaque invité :<ul>
+<li>Sélectionnez <uicontrol>Connexion</uicontrol> pour vous connecter à la console
+distante du système d'exploitation invité.</li>
+<li>Sélectionnez <uicontrol>Gérer le support</uicontrol> pour modifier le chemin
+d'accès au support d'installation.</li>
+<li>Sélectionnez <uicontrol>Réinitialiser</uicontrol> pour réinitialiser l'invité.</li>
+<li>Sélectionnez <uicontrol>Editer</uicontrol> pour éditer les propriétés d'un invité existant. Les invités peuvent être édités uniquement lorsqu'ils sont à l'arrêt.</li>
+<li>Sélectionnez <uicontrol>Supprimer</uicontrol> pour supprimer l'invité.</li>
+</ul>Pour créer un invité, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>
+dans le coin supérieur droit de la page.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="fr-fr">
+<title>Créer une machine virtuelle</title>
+<shortdesc>Créez une machine virtuelle en utilisant un modèle existant.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Entrez le nom à utiliser pour identifier la machine virtuelle.</li>
+<li rev="rev1">Sélectionnez un modèle. <ul>
+<li>Si des modèles existent, faites un choix parmi les modèles affichés.</li>
+<li>Si aucun modèle n'existe, cliquez sur <uicontrol>Créer un modèle</uicontrol> pour créer un modèle.</li>
+</ul></li>
+<li>Cliquez sur <uicontrol>Créer</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="fr-fr">
+<title>Editer l'invité</title>
+<shortdesc>Editez les propriétés d'une machine virtuelle existante. Certaines propriétés
+peuvent être éditées uniquement lorsque l'invité est arrêté. D'autres seront appliquées à l'amorçage suivant.</shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>Pour chaque invité, les informations suivantes sont affichées dans l'onglet <wintitle>Général</wintitle> :<dl>
+<dlentry>
+<dt>Nom</dt>
+<dd>Nom de la machine virtuelle. (Ne peut être édité que lorsque l'invité est arrêté)</dd>
+</dlentry><dlentry>
+<dt>UC</dt>
+<dd>Nombre de processeurs. (Si l'invité est en cours d'exécution, la nouvelle quantité sera appliquée à l'amorçage suivant)</dd>
+</dlentry><dlentry>
+<dt>Mémoire</dt>
+<dd>Quantité de mémoire en Mo. (Si l'invité est en cours d'exécution, la nouvelle quantité sera appliquée à l'amorçage suivant)</dd>
+</dlentry><dlentry>
+<dt>Icône</dt>
+<dd>Image graphique représentant la distribution Linux à afficher à la place
+du statut en cours (Livetile) lorsque l'invité n'est pas actif.</dd>
+</dlentry></dl></p>
+<p>Les informations suivantes sont affichées dans l'onglet <wintitle>Stockage</wintitle>.</p>
+<dl><dlentry>
+<dt>Stockage</dt>
+<dd>Affiche l'emplacement du fichier ISO utilisé pour l'installation.</dd>
+</dlentry></dl>
+<p> Les zones qui ne sont pas désactivées peuvent être éditées. Après que vous avez édité une zone, cliquez sur <uicontrol>Sauvegarder</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="fr-fr">
+<title>Ajoutez, remplacez ou détachez une unité de stockage</title>
+<shortdesc rev="rev1">Vous pouvez ajouter, remplacer ou détacher une unité de stockage
+pour votre machine virtuelle. Seule une unité CD-ROM est prise en charge. Pour éditer vos unités de stockage, procédez comme suit :</shortdesc>
+<csbody>
+<ol>
+<li>Dans la fenêtre <wintitle>Editer l'invité</wintitle>, sélectionnez <wintitle>Stockage</wintitle>.</li>
+<li>Pour remplacer une unité de stockage, cliquez sur la première icône avec la <uicontrol>barre oblique (/) orange</uicontrol>. Entrez le chemin d'accès au fichier ISO et cliquez sur <uicontrol>Remplacer</uicontrol>.</li>
+<li>Pour détacher une unité de stockage, cliquez sur la deuxième icône avec le <uicontrol>tiret (-) rouge</uicontrol>. Confirmer la suppression et cliquez sur <uicontrol>OK</uicontrol>.</li>
+<li>Pour ajouter une unité de stockage, cliquez sur la troisième icône avec le <uicontrol>signe plus (+) vert</uicontrol>. Entrez un nom d'unité et un chemin d'accès au fichier ISO puis cliquez sur <uicontrol>Attacher</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="fr-fr">
+<title>Remplacer l'unité CD-ROM d'une machine virtuelle</title>
+<shortdesc rev="rev1">Vous pouvez remplacer le contenu du CD-ROM pour
+une machine virtuelle une fois l'installation terminée.</shortdesc>
+<csbody>
+<ol>
+<li>Vérifiez que la machine virtuelle est démarrée.</li>
+<li>Dans le menu Actions, sélectionnez <uicontrol>Gérer le support</uicontrol>.</li>
+<li>Pour modifier les données actuellement chargées dans l'unité de CD-ROM, cliquez sur l'icône
+<uicontrol>barre oblique (/) orange</uicontrol> en regard de la zone hdc.</li>
+<li>Sur la page <wintitle>Remplacer une unité CD-ROM d'une machine virtuelle</wintitle>,
+entrez le chemin d'accès au fichier ISO. Les deux autres zones sont en lecture seule.</li>
+<li>Cliquez sur <uicontrol>Remplacer</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

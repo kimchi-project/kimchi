@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="fr-fr">
+<title>Réseau</title>
+<shortdesc>La page <wintitle>Réseau</wintitle> affiche des informations sur la connexion réseau.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>Nom du réseau</dt>
+<dd>Nom du réseau, ou <uicontrol>par défaut</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Etat</dt>
+<dd>Etat du réseau, actif (vert) ou inactif (rouge). </dd>
+</dlentry><dlentry>
+<dt>Type de réseau</dt>
+<dd>Type du réseau, par exemple <uicontrol>NAT</uicontrol> (conversion d'adresses réseau).</dd>
+</dlentry><dlentry>
+<dt>Interface</dt>
+<dd>Interface réseau, par exemple <uicontrol>virbr0</uicontrol> (par défaut).</dd>
+</dlentry><dlentry>
+<dt>Espace adresse</dt>
+<dd>Adresse IP.</dd>
+</dlentry></dl></p>
+<p>Les actions suivantes peuvent être sélectionnées :<ul>
+<li rev="rev1">Sélectionnez <uicontrol>Démarrer</uicontrol> pour démarrer la connexion au réseau.</li>
+<li>Sélectionnez <uicontrol>Arrêter</uicontrol> pour mettre fin à la connexion au réseau.</li>
+<li>Sélectionnez <uicontrol>Supprimer</uicontrol> pour supprimer les informations de connexion.</li>
+</ul>Pour créer un réseau, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>
+dans le coin supérieur droit de l'écran.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="fr-fr">
+<title>Créer un réseau</title>
+<shortdesc>Créez un réseau.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Entrez le nom du réseau.</li>
+<li>Cliquez pour sélectionner le type de réseau. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Isolé</uicontrol></dt>
+<dd>Mode isolé. Les invités ne peuvent pas envoyer ni recevoir de communication avec des systèmes externes.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>Mode de conversion d'adresses réseau. La communication à partir d'invités
+vers des systèmes externes utilise l'adresse IP hôte. Les systèmes externes ne
+peuvent pas initier de communication vers les invités.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Routé</uicontrol></dt>
+<dd>Mode routé. Les invités peuvent communiquer avec des systèmes externes et
+être contactés par des systèmes externes comme s'il s'agissait de systèmes physiques
+sur le réseau. Pour le mode routé, vous devez spécifier des informations supplémentaires
+sur la destination et le réseau local virtuel.</dd>
+</dlentry></dl></li>
+<li>Cliquez sur <uicontrol>Créer</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
