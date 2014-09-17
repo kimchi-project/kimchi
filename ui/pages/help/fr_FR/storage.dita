@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="fr-fr">
+<title>Stockage</title>
+<shortdesc>La page <wintitle>Stockage</wintitle> répertorie les pools de stockage disponibles,
+y compris les pools de stockage 'default' et 'ISO' prêts à l'emploi.
+Si vous souhaitez utiliser votre propre pool de stockage ISO, ajoutez-le dans le chemin du pool de stockage 'ISO'.</shortdesc>
+<csbody>
+<p>Pour chaque pool de stockage, les informations suivantes sont affichées :<dl>
+<dlentry>
+<dt>Nom</dt>
+<dd>Nom du pool de stockage et pourcentage d'utilisation.</dd>
+</dlentry><dlentry>
+<dt>Etat</dt>
+<dd>Etat du pool de stockage, actif (vert) ou inactif (rouge). </dd>
+</dlentry><dlentry>
+<dt>Emplacement</dt>
+<dd>chemin d'accès au fichier pour l'emplacement du pool de stockage.</dd>
+</dlentry><dlentry>
+<dt>Type</dt>
+<dd>Type de pool de stockage, par exemple <uicontrol>dir</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Capacité</dt>
+<dd>Quantité d'espace dans le pool de stockage.</dd>
+</dlentry><dlentry>
+<dt>Alloué</dt>
+<dd>Quantité d'espace déjà allouée dans le pool de stockage.</dd>
+</dlentry></dl></p>
+<p>Les actions suivantes peuvent être sélectionnées  pour chaque pool de stockage :<ul>
+<li>Sélectionnez <uicontrol>Activer</uicontrol> pour activer le pool de stockage pour utilisation.</li>
+<li>Sélectionnez <uicontrol>Désactiver</uicontrol> pour désactiver un pool de stockage actif.</li>
+<li>Sélectionnez <uicontrol>Annuler définition</uicontrol> pour retirer un pool de stockage inactif.</li>
+</ul></p>
+<p>Pour afficher les détails de volume de stockage pour un pool de stockage, cliquez sur la
+flèche située à droite de la ligne du pool de stockage.  Détails inclus :<dl><dlentry>
+<dt>Type</dt>
+<dd>Type de volume, par exemple <uicontrol>file</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Format</dt>
+<dd>Format, variable selon le type.</dd>
+</dlentry><dlentry>
+<dt>Capacité</dt>
+<dd>Taille du volume de stockage.</dd>
+</dlentry><dlentry>
+<dt>Allocation</dt>
+<dd>Quantité d'espace déjà allouée dans le pool de stockage.</dd>
+</dlentry></dl>Pour définir un pool de stockage, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>
+dans le coin supérieur droit de l'écran.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="fr-fr">
+<title>Définir un pool de stockage</title>
+<shortdesc> Définissez un pool de stockage.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Dans la zone <uicontrol>Nom du pool de stockage</uicontrol>, entrez le nom à utiliser pour identifier le pool de stockage.</li>
+<li>Dans la zone <uicontrol>Type de pool de stockage</uicontrol>, sélectionnez le type : <dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>Indique un pool de répertoires. Lorsque vous sélectionnez <uicontrol>DIR</uicontrol>,
+indiquez le <uicontrol>Chemin de stockage</uicontrol> (chemin d'accès au fichier
+du pool de stockage).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>indique un pool de systèmes de fichiers réseau. Lorsque vous sélectionnez <uicontrol>NFS</uicontrol>,
+indiquez l'adresse <uicontrol>IP du serveur NFS</uicontrol> et le <uicontrol>Chemin NFS</uicontrol> (chemin d'accès au répertoire d'exportation).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Indique un pool basé sur une cible allouée sur un serveur iSCSI.
+Lorsque vous sélectionnez <uicontrol>iSCSI</uicontrol>, indiquez l'adresse IP du <uicontrol>Serveur iSCSI</uicontrol>
+et la <uicontrol>Cible</uicontrol> sur le serveur iSCSI. Vous avez la possibilité d'ajouter l'authentification iSCSI.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Logique</uicontrol></dt>
+<dd>Indique un pool de stockage de volumes logiques. Sélectionnez l'emplacement de l'unité dans <uicontrol>Chemin d'unité</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Fibre Channel SCSI</uicontrol></dt>
+<dd>Indique un pool basée sur une connexion Fibre Channel SCSI. Sélectionnez l'adaptateur SCSI à utiliser.</dd>
+</dlentry></dl></li>
+<li>Cliquez sur <uicontrol>Créer</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

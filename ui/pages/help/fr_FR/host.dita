@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="fr-fr">
+<title>Hôte</title>
+<shortdesc>La page <wintitle>Hôte</wintitle> affiche des informations
+sur le système hôte et vous permet d'arrêter, de redémarrer et de vous
+connecter à l'hôte.</shortdesc>
+<csbody>
+<p>Vous pouvez effectuer les actions suivantes sur l'hôte :<ul>
+<li>Sélectionnez <uicontrol>Arrêter</uicontrol> pour arrêter le système hôte.</li>
+<li>Sélectionnez <uicontrol>Redémarrer</uicontrol> pour redémarrer le système hôte.</li>
+<li>Sélectionnez <uicontrol>Connexion</uicontrol> pour ouvrir une connexion VNC
+au système hôte, si celui-ci n'est pas déjà connecté.</li>
+</ul></p>
+<p>Cliquez sur les sections suivantes pour afficher des informations sur l'hôte :<dl>
+<dlentry>
+<dt>Informations de base</dt>
+<dd>Cette section affiche la distribution, la version et le nom de code
+du système d'exploitation hôte, ainsi que le type de processeur et la quantité
+de mémoire en Go.</dd>
+</dlentry><dlentry>
+<dt>Statistiques système</dt>
+<dd>Cette section affiche les graphiques des statistiques pour l'UC, mémoire, ainsi que
+les E-S disque et E-S réseau pour l'hôte. Sélectionnez <uicontrol>Collecte des données une fois la page quittée</uicontrol>
+pour continuer la collecte de données lorsque l'onglet hôte n'est plus visible.</dd>
+</dlentry><dlentry>
+<dt>Mises à jour logicielles</dt>
+<dd>Cette section affiche des informations pour tous les modules qui
+disposent de mises à jour disponibles, y compris le nom de module, la version, l'architecture
+et le référentiel. Vous pouvez mettre à jour toutes les modules répertoriés en sélectionnant <uicontrol>Tout
+mettre à jour</uicontrol>. Vous ne pouvez pas sélectionner des modules individuels pour les mises à jour.</dd>
+</dlentry><dlentry>
+<dt>Référentiels</dt>
+<dd>Cette section affiche les référentiels associés au système hôte. Vous pouvez ajouter, activer, éditer ou retirer des référentiels. L'ajout d'un référentiel associe celui-ci au système hôte,
+tandis que l'activation d'un référentiel permet à l'hôte d'y accéder. Si votre système est Red Hat Enterprise Linux ou Fedora,
+vous pouvez ajouter des référentiels <filepath>yum</filepath>.
+Si votre système est de type Ubuntu ou Debian, ajoutez des référentiels
+<filepath>deb</filepath>.<p>Si vous travaillez avec des référentiels yum, vous pouvez ajouter un contrôle GPG
+afin de vérifier qu'un module provenant de ce référentiel n'a pas été endommagé.
+Sélectionnez un référentiel puis cliquez sur <uicontrol>Editer</uicontrol>. Sélectionnez <uicontrol>Oui</uicontrol> pour activer le contrôle GPG,
+puis entrez une URL pour le fichier de clés GPG du référentiel.</p></dd>
+</dlentry><dlentry>
+<dt>Rapports de débogage</dt>
+<dd>Cette section affiche les rapports de débogage, y compris le nom et le chemin du fichier.
+Vous pouvez faire un choix parmi les options afin de générer un nouveau rapport, ou renommer, supprimer,
+ou télécharger un rapport existant.<p>Le rapport de débogage est généré à
+l'aide de la commande <cmdname>sosreport</cmdname>. Cette option est disponible pour les distributions
+Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora et Ubuntu. La commande génère un fichier .tar contenant la configuration et des informations de diagnostic,
+telles que la version du noyau d'exécution, les modules chargés, ainsi que les fichiers de configuration
+du système et de la maintenance.
+La commande exécute également des programmes externes pour collecter des informations
+supplémentaires et stocke cette sortie dans l'archive résultante.</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
