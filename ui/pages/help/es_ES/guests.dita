@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="es-es">
+<title>Invitados</title>
+<shortdesc>La página <wintitle>Invitados</wintitle> lista las máquinas virtuales KVM definidas.</shortdesc>
+<csbody>
+<p>Se visualiza la siguiente información para cada invitado:<dl><dlentry>
+<dt>Nombre</dt>
+<dd>Nombre de la máquina virtual.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>Porcentaje de utilización de procesador en la máquina virtual.</dd>
+</dlentry><dlentry>
+<dt>E/S de red</dt>
+<dd>Velocidad de transmisión de entrada/salida de red en KB por segundos.</dd>
+</dlentry><dlentry>
+<dt>E/S de disco</dt>
+<dd>Velocidad de transmisión de entrada/salida de disco en KB por segundos.</dd>
+</dlentry><dlentry>
+<dt>Livetile</dt>
+<dd>Estado de la consola del sistema operativo invitado, o un icono que representa la distribución de <tm tmtype="tm" trademark="Linux">Linux</tm> si el invitado no está activo.</dd>
+</dlentry></dl></p>
+<p>Se visualizan los siguientes iconos de acciones para cada invitado:<dl>
+<dlentry>
+<dt>Restablecer</dt>
+<dd>Pulse aquí para restablecer el invitado. </dd>
+</dlentry><dlentry>
+<dt>Alimentación (Iniciar o Detener)</dt>
+<dd>Pulse aquí para encender o apagar el invitado. Si el icono es de color rojo, la alimentación está apagada; si el icono es de color verde, la alimentación está encendida.</dd>
+</dlentry></dl> </p>
+<p>Se pueden seleccionar las siguientes acciones para cada invitado:<ul>
+<li>Seleccione <uicontrol>Conectar</uicontrol> para conectarse a la consola remota para el sistema operativo invitado.</li>
+<li>Seleccione <uicontrol>Gestionar soporte</uicontrol> para cambiar la vía de acceso al soporte de instalación.</li>
+<li>Seleccione <uicontrol>Restablecer</uicontrol> para restablecer el invitado.</li>
+<li>Seleccione <uicontrol>Editar</uicontrol> para editar las propiedades de un invitado existente. Los invitados sólo pueden editarse mientras están detenidos.</li>
+<li>Seleccione <uicontrol>Suprimir</uicontrol> para suprimir el invitado.</li>
+</ul>Para crear un invitado o máquina virtual, pulse el icono <uicontrol>más (+)</uicontrol> en la esquina superior derecha de la página.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="es-es">
+<title>Crear máquina virtual</title>
+<shortdesc>Crear una máquina virtual utilizando una plantilla existente.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Escriba el nombre a utilizar para identificar la máquina virtual.</li>
+<li rev="rev1">Seleccione una plantilla. <ul>
+<li>Si existen plantillas, seleccione entre las plantillas mostradas.</li>
+<li>Si no existen plantillas, pulse <uicontrol>Crear una plantilla</uicontrol> para crear una plantilla.</li>
+</ul></li>
+<li>Pulse <uicontrol>Crear</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="es-es">
+<title>Editar invitado</title>
+<shortdesc>Editar las propiedades de una máquina virtual existente. Algunas propiedades pueden editarse sólo cuando el invitado se ha detenido. Otras surtirán efecto en el arranque siguiente.</shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>Se visualiza la siguiente información para cada invitado en la pestaña <wintitle>General</wintitle>:<dl>
+<dlentry>
+<dt>Nombre</dt>
+<dd>Nombre de la máquina virtual.(sólo puede editarse cuando el invitado se ha detenido)</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Número de procesadores.(si el invitado está en ejecución, la nueva cantidad surtirá efecto en el siguiente arranque)
+</dd>
+</dlentry><dlentry>
+<dt>Memoria</dt>
+<dd>Cantidad de memoria en MB.(si el invitado está en ejecución, la nueva cantidad surtirá efecto en el siguiente arranque)
+</dd>
+</dlentry><dlentry>
+<dt>Icono</dt>
+<dd>Imagen gráfica que representa la distribución de Linux a visualizar en lugar del estado actual (Livetile) cuando el invitado no está activo.</dd>
+</dlentry></dl></p>
+<p>Se visualiza la siguiente información en la pestaña <wintitle>Almacenamiento</wintitle>.</p>
+<dl><dlentry>
+<dt>Almacenamiento</dt>
+<dd>Muestra la ubicación del archivo ISO utilizado para la instalación.</dd>
+</dlentry></dl>
+<p> Los campos que no están inhabilitados pueden editarse. Después de editar un campo, pulse <uicontrol>Guardar</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="es-es">
+<title>Añadir, sustituir o desconectar un dispositivo de almacenamiento</title>
+<shortdesc rev="rev1">Puede añadir, sustituir o desconectar un dispositivo de almacenamiento a la máquina virtual. El único dispositivo soportado es CDROM. Para editar los dispositivos de almacenamiento, siga estos pasos:</shortdesc>
+<csbody>
+<ol>
+<li>En la ventana <wintitle>Editar invitado</wintitle>, seleccione <wintitle>Almacenamiento</wintitle>.</li>
+<li>Para sustituir un dispositivo de almacenamiento, pulse el primer icono con la <uicontrol>barra inclinada naranja (/)</uicontrol>. Especifique la vía de acceso del archivo ISO y pulse <uicontrol>Sustituir</uicontrol>.</li>
+<li>Para desconectar un dispositivo de almacenamiento, pulse el segundo icono con el <uicontrol>guión rojo (-)</uicontrol>. Confirme la supresión y pulse <uicontrol>Aceptar</uicontrol>.</li>
+<li>Para añadir un dispositivo de almacenamiento, pulse el tercer icono con el <uicontrol>signo más (+)</uicontrol> verde. Especifique un nombre de dispositivo y la vía de acceso del archivo ISO y pulse <uicontrol>Conectar</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="es-es">
+<title>Sustituir un CDROM de máquina virtual</title>
+<shortdesc rev="rev1">Puede sustituir el contenido del CDROM para una máquina virtual después de completarse la instalación.</shortdesc>
+<csbody>
+<ol>
+<li>Asegúrese de que la máquina virtual se ha iniciado.</li>
+<li>En el menú Acciones, seleccione <uicontrol>Gestionar soporte</uicontrol>.</li>
+<li>Para cambiar lo que está cargado actualmente en el CDROM, pulse el icono <uicontrol>barra inclinada naranja (/)</uicontrol> junto al campo hdc.</li>
+<li>En la página <wintitle>Sustituir un CDROM de máquina virtual</wintitle>, especifique la vía de acceso del archivo ISO. Los otros dos campos son de sólo lectura.</li>
+<li>Pulse <uicontrol>Sustituir</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

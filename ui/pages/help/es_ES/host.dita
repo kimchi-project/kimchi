@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="es-es">
+<title>Host</title>
+<shortdesc>La página <wintitle>Host</wintitle> muestra información sobre el sistema host y le permite concluir, reiniciar y conectar con el sistema principal.</shortdesc>
+<csbody>
+<p>Puede realizar las acciones siguientes en el host:<ul>
+<li>Seleccione <uicontrol>Concluir</uicontrol> para concluir el sistema host.</li>
+<li>Seleccione <uicontrol>Reiniciar</uicontrol> para reiniciar el sistema host.</li>
+<li>Seleccione <uicontrol>Conectar</uicontrol> para abrir una conexión VNC al sistema host, si no está conectado aún.</li>
+</ul></p>
+<p>Pulse en las secciones siguientes para visualizar información acerca del host:<dl>
+<dlentry>
+<dt>Información básica</dt>
+<dd>Esta sección muestra la distribución del sistema operativo de host, la versión y el nombre de código, así como el tipo de procesador y la cantidad de memoria en GB.</dd>
+</dlentry><dlentry>
+<dt>Estadísticas del sistema</dt>
+<dd>Esta sección muestra gráficos para mostrar estadísticas para CPU, memoria, E/S de disco y E/S de red para el host. Seleccione <uicontrol>Recoger datos después de salir de esta página</uicontrol> para continuar la recogida de datos cuando la pestaña principal ya no está a la vista.</dd>
+</dlentry><dlentry>
+<dt>Actualizaciones de software</dt>
+<dd>En esta sección se muestra información para todos los paquetes que tienen actualizaciones disponibles, incluido el nombre de paquete, versión, arquitectura y repositorio. Puede actualizar todos los paquetes listados seleccionando <uicontrol>Actualizar todo</uicontrol>. No puede seleccionar paquetes individuales para las actualizaciones.</dd>
+</dlentry><dlentry>
+<dt>Repositorios</dt>
+<dd>En esta sección se muestran los repositorios que están asociados con el sistema host. Puede añadir, habilitar, editar o eliminar repositorios. Añadir un repositorio lo asocia con el sistema host mientras que habilitar un repositorio permite que el host acceda a él. Si el sistema es Red Hat Enterprise
+Linux o Fedora, puede añadir repositorios <filepath>yum</filepath>.
+Si el sistema es Ubuntu o Debian, añada repositorios <filepath>deb</filepath>.<p>Si está trabajando con repositorios yum, puede añadir una comprobación GPG para verificar que un paquete de este repositorio no ha resultado dañado.
+Seleccione un repositorio y, a continuación, <uicontrol>Editar</uicontrol>. Seleccione <uicontrol>Sí</uicontrol> para habilitar la comprobación GPG y, a continuación, especifique un URL al archivo de claves GPG para el repositorio.</p></dd>
+</dlentry><dlentry>
+<dt>Informes de depuración</dt>
+<dd>En esta sección se muestran informes de depuración, incluido el nombre y la ruta de archivo.
+Puede seleccionar entre opciones para generar un informe nuevo, o bien redenominar, eliminar o descargar un informe existente.<p>El informe de depuración se genera utilizando el mandato <cmdname>sosreport</cmdname>. Está disponible para distribuciones de Red
+Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora y Ubuntu. El mandato genera un archivo .tar que contiene la información de configuración y de diagnóstico, como la versión de kernel en ejecución, los módulos de carga y los archivos de configuración del sistema y servicio.
+El mandato también ejecuta programas externos para recopilar información adicional y almacena esta salida en el archivo resultante.</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
