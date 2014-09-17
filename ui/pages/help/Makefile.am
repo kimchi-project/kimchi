@@ -14,7 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS = en_US pt_BR zh_CN
+SUBDIRS = $(dir $(wildcard */))
 
 DITA_HTML_FILES = $(patsubst %.dita,%.html,$(wildcard */*.dita))
 HTML_FILES = $(if $(DITA_HTML_FILES), $(DITA_HTML_FILES), $(wildcard */*.html))
