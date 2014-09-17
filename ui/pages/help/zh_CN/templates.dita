@@ -67,7 +67,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>添加模板</title>
-<shortdesc>从源介质中添加模板。</shortdesc>
+<shortdesc>从源介质中添加模板。您可以将您自己的 ISO 映像添加至“ISO”存储池以用于后续发现。</shortdesc>
 <csbody>
 <p>从以下选项选择源介质所在的位置：<dl>
 <dlentry>
@@ -106,6 +106,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 51078_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 229 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
