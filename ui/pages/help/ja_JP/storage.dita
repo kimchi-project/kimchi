@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="ja-jp">
+<title>ストレージ</title>
+<shortdesc><wintitle>「ストレージ」</wintitle>ページには、使用可能な
+ストレージ・プール (即時使用可能な「default」ストレージ・プールや「ISO」ストレージ・プールを含む) がリストされます。
+独自の ISO を使用する場合は、それを「ISO」ストレージ・プール・パスに追加してください。</shortdesc>
+<csbody>
+<p>ストレージ・プールごとに、以下の情報が表示されます。
+<dl>
+<dlentry>
+<dt>名前</dt>
+<dd>ストレージ・プールの名前および使用率。
+</dd>
+</dlentry><dlentry>
+<dt>状態</dt>
+<dd>ストレージ・プールの状態で、アクティブ (緑) または非アクティブ (赤) です。
+</dd>
+</dlentry><dlentry>
+<dt>ロケーション</dt>
+<dd>ストレージ・プールのロケーションのファイル・パス。
+</dd>
+</dlentry><dlentry>
+<dt>タイプ</dt>
+<dd>ストレージ・プールのタイプで、例えば <uicontrol>dir</uicontrol> です。
+</dd>
+</dlentry><dlentry>
+<dt>容量</dt>
+<dd>ストレージ・プールにおけるスペースの量。
+</dd>
+</dlentry><dlentry>
+<dt>割り当て済み</dt>
+<dd>既にストレージ・プールに割り当てられているスペースの量。
+</dd>
+</dlentry></dl></p>
+<p>ストレージ・プールごとに、以下のアクションを選択できます。
+<ul>
+<li>使用できるようストレージ・プールをアクティブにするには、<uicontrol>「アクティブにする」</uicontrol>を選択します。
+</li>
+<li>アクティブ・ストレージ・プールを非アクティブにするには、<uicontrol>「非アクティブにする」</uicontrol>を選択します。
+</li>
+<li>非アクティブ・ストレージ・プールを削除するには、<uicontrol>「定義を解除する」</uicontrol>を選択します。
+</li>
+</ul></p>
+<p>ストレージ・プールのストレージ・ボリューム詳細を表示するには、ストレージ・プール行の右側にある矢印をクリックしてください。
+詳細は以下のとおりです。
+<dl><dlentry>
+<dt>タイプ</dt>
+<dd>ボリュームのタイプで、例えば <uicontrol>file</uicontrol> です。
+</dd>
+</dlentry><dlentry>
+<dt>フォーマット</dt>
+<dd>タイプによって異なるフォーマット。
+</dd>
+</dlentry><dlentry>
+<dt>容量</dt>
+<dd>ストレージ・ボリュームのサイズ。
+</dd>
+</dlentry><dlentry>
+<dt>割り振り</dt>
+<dd>既にストレージ・プールに割り当てられているスペースの量。
+</dd>
+</dlentry></dl>ストレージ・プールを定義するには、表示の右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="ja-jp">
+<title>ストレージ・プールの定義</title>
+<shortdesc> ストレージ・プールを定義します。
+</shortdesc>
+<csbody>
+<p> <ol>
+<li><uicontrol>「ストレージ・プール名」</uicontrol>フィールドに、ストレージ・プールを識別するための名前を入力します。
+</li>
+<li><uicontrol>「ストレージ・プール・タイプ」</uicontrol>リストから、以下のタイプを選択します。
+<dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>ディレクトリー・プールを指定します。
+<uicontrol>DIR</uicontrol> を選択した場合、<uicontrol>ストレージ・パス</uicontrol> (ストレージ・プールのファイル・パス) を入力してください。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>ネットワーク・ファイルシステム・プールを指定します。
+<uicontrol>NFS</uicontrol> を選択した場合、<uicontrol>NFS サーバー IP</uicontrol> アドレスおよび <uicontrol>NFS パス</uicontrol>
+(エクスポートされるディレクトリーのパス) を入力してください。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>iSCSI サーバーに割り当てられているターゲットに基づいて、プールを指定します。
+<uicontrol>iSCSI</uicontrol> を選択した場合、<uicontrol>iSCSI サーバー</uicontrol> IP アドレスと、その iSCSI サーバー上の<uicontrol>ターゲット</uicontrol>を入力してください。
+必要に応じて、iSCSI 認証を追加するよう選択できます。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>論理</uicontrol></dt>
+<dd>論理ボリューム・ストレージ・プールを指定します。
+デバイスのロケーションを<uicontrol>「デバイス・パス」</uicontrol>で選択してください。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI ファイバー・チャネル</uicontrol></dt>
+<dd>SCSI ファイバー・チャネルに基づいてプールを選択します。
+使用する SCSI アダプターを選択してください。
+</dd>
+</dlentry></dl></li>
+<li><uicontrol>「作成」</uicontrol>をクリックしてください。
+</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

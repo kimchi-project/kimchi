@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="ja-jp">
+<title>テンプレート</title>
+<shortdesc><wintitle>「テンプレート」</wintitle>ページには、KVM ゲストを作成するために使用できる、定義済み仮想マシン・テンプレートが表示されます。
+</shortdesc>
+<csbody>
+<p>テンプレートごとに、以下の情報が表示されます。
+<dl>
+<dlentry>
+<dt>OS</dt>
+<dd>オペレーティング・システムまたはディストリビューションの名前。
+</dd>
+</dlentry><dlentry>
+<dt>バージョン</dt>
+<dd>オペレーティング・システムまたはディストリビューションのバージョン。
+</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>テンプレートに定義されているプロセッサーの数。
+</dd>
+</dlentry><dlentry>
+<dt>メモリー</dt>
+<dd>割り当てられるランダム・アクセス・メモリーの量 (MB 単位)。
+</dd>
+</dlentry></dl></p>
+<p>テンプレートごとに、以下のアクションを選択できます。
+<ul>
+<li>テンプレートを編集するには<uicontrol>「編集」</uicontrol>を選択します。
+</li>
+<li>テンプレートを削除するには<uicontrol>「削除」</uicontrol>を選択します。
+</li>
+</ul>テンプレートを追加するには、表示の右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="ja-jp">
+<title>テンプレートの編集</title>
+<shortdesc>既存のテンプレートを編集します。
+</shortdesc>
+<csbody>
+<p>テンプレートごとに、以下の情報が表示されます。
+<dl>
+<dlentry>
+<dt>名前</dt>
+<dd>テンプレートの名前。
+</dd>
+</dlentry><dlentry>
+<dt>ベンダー</dt>
+<dd>テンプレートが使用するよう構成されているオペレーティング・システムまたはディストリビューションを作成した会社の名前。
+</dd>
+</dlentry><dlentry>
+<dt>バージョン</dt>
+<dd>テンプレートが使用するよう構成されているオペレーティング・システムまたはディストリビューションのバージョン。
+</dd>
+</dlentry><dlentry>
+<dt>CPU 数</dt>
+<dd>テンプレートに定義されているプロセッサーの数。
+</dd>
+</dlentry><dlentry>
+<dt>メモリー</dt>
+<dd>仮想マシンに割り当てられるメモリーの量 (MB 単位)。
+</dd>
+</dlentry><dlentry>
+<dt>ディスク</dt>
+<dd>ディスク・サイズ (GB 単位)。
+</dd>
+</dlentry><dlentry>
+<dt>CDROM</dt>
+<dd>KVM ゲストをインストールするために使用される ISO ファイルのロケーションのファイル・パス。
+</dd>
+</dlentry><dlentry>
+<dt>ストレージ・プール</dt>
+<dd>特定のストレージ・プール、またはデフォルトのストレージ・プール。
+</dd>
+</dlentry><dlentry>
+<dt> ネットワーク</dt>
+<dd>KVM ゲストが使用できるデフォルトのネットワーク・インターフェース。
+複数のネットワークを選択することができます。
+</dd>
+</dlentry></dl> 使用不可になっていないフィールドを編集できます。
+フィールドを編集した後、<uicontrol>「保存」</uicontrol>をクリックしてください。
+</p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>テンプレートの追加</title>
+<shortdesc>テンプレートをソース・メディアから追加します。
+今後のディスカバリーのために、独自の ISO イメージを「ISO」ストレージ・プールに追加できます。</shortdesc>
+<csbody>
+<p>ソース・メディアのロケーションを以下のオプションから選択してください。
+<dl>
+<dlentry>
+<dt>ローカル ISO イメージ</dt>
+<dd>これを選択して、システムで使用可能なインストール ISO イメージを、ストレージ・プールでスキャンします。
+</dd>
+</dlentry><dlentry>
+<dt>リモート ISO イメージ</dt>
+<dd>これを選択して、インストール ISO イメージのリモート・ロケーションを指定します。
+</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>テンプレートの追加 - ローカル ISO イメージ</title>
+<shortdesc>テンプレートをローカル ISO イメージから追加します。
+</shortdesc>
+<csbody>
+<p>システムで使用可能な ISO イメージが表示されます。
+<dl><dlentry>
+<dt>OS</dt>
+<dd>オペレーティング・システムまたはディストリビューションの名前。
+</dd>
+</dlentry><dlentry>
+<dt>バージョン</dt>
+<dd>オペレーティング・システムまたはディストリビューションのバージョン。
+</dd>
+</dlentry><dlentry>
+<dt>サイズ</dt>
+<dd>ISO イメージのサイズ。
+</dd>
+</dlentry></dl></p>
+<p>テンプレートを ISO イメージから作成するには、以下のオプションを選択してください。
+<ul>
+<li>テンプレートを作成する元になる ISO イメージを選択して、<uicontrol>「選択した ISO からテンプレートを作成」</uicontrol>をクリックします。
+</li>
+<li>リストされている ISO イメージそれぞれからテンプレートを作成するには、<uicontrol>「すべて」</uicontrol>を選択してから<uicontrol>「選択した ISO からテンプレートを作成」</uicontrol>をクリックします。
+</li>
+<li>使用したい ISO イメージがスキャン結果に見つからない場合、以下のオプションを選択できます。
+<ul>
+<li>ISO イメージのパスを指定するには、<uicontrol>「特定の ISO ファイルを使用する」</uicontrol>を選択します。
+</li>
+<li>それ以上の ISO イメージを検索するには、<uicontrol>「ISO をさらに検索」</uicontrol>をクリックします。
+</li>
+</ul></li>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
