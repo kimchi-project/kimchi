@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="es-es">
+<title>Plantillas</title>
+<shortdesc>La página <wintitle>Plantillas</wintitle> muestra las plantillas de máquina virtual definidas que se pueden utilizar para crear invitados KVM.</shortdesc>
+<csbody>
+<p>Se visualiza la siguiente información para cada plantilla:<dl>
+<dlentry>
+<dt>SO</dt>
+<dd>Nombre del sistema operativo o distribución.</dd>
+</dlentry><dlentry>
+<dt>Versión</dt>
+<dd>Versión del sistema operativo o distribución.</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Número de procesadores que están definidos para la plantilla.</dd>
+</dlentry><dlentry>
+<dt>Memoria</dt>
+<dd>Cantidad de memoria de acceso aleatorio a asignar, en MB.</dd>
+</dlentry></dl></p>
+<p>Se pueden seleccionar las siguientes acciones para cada plantilla:<ul>
+<li>Seleccione <uicontrol>Editar</uicontrol> para editar la plantilla.</li>
+<li>Seleccione <uicontrol>Suprimir</uicontrol> para suprimir la plantilla.</li>
+</ul>Para añadir una plantilla, pulse en el icono <uicontrol>más (+)</uicontrol> en la esquina superior derecha de la pantalla.</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="es-es">
+<title>Editar plantilla</title>
+<shortdesc>Editar una plantilla existente.</shortdesc>
+<csbody>
+<p>Se visualiza la siguiente información para cada plantilla: <dl>
+<dlentry>
+<dt>Nombre</dt>
+<dd>Nombre de la plantilla.</dd>
+</dlentry><dlentry>
+<dt>Proveedor</dt>
+<dd>El nombre de la empresa que creó el sistema operativo o distribución que la plantilla está configurada para utilizar.</dd>
+</dlentry><dlentry>
+<dt>Versión</dt>
+<dd>La versión del sistema operativo o distribución que la plantilla está configurada para utilizar.</dd>
+</dlentry><dlentry>
+<dt>Número de CPU</dt>
+<dd>Número de procesadores que están definidos para la plantilla.</dd>
+</dlentry><dlentry>
+<dt>Memoria</dt>
+<dd>Cantidad de memoria en MB a asignar a la máquina virtual.</dd>
+</dlentry><dlentry>
+<dt>Disco</dt>
+<dd>Tamaño de disco en GB.</dd>
+</dlentry><dlentry>
+<dt>CDROM</dt>
+<dd>Vía de acceso de archivo a la ubicación del archivo ISO utilizado para instalar el invitado KVM.</dd>
+</dlentry><dlentry>
+<dt>Agrupación de almacenamiento</dt>
+<dd>Agrupación de almacenamiento específica o la agrupación de almacenamiento predeterminada.</dd>
+</dlentry><dlentry>
+<dt>Red</dt>
+<dd>Interfaces de red predeterminadas disponibles para el invitado KVM. Puede seleccionar varias redes.</dd>
+</dlentry></dl> Los campos que no están inhabilitados pueden editarse. Después de editar un campo, pulse <uicontrol>Guardar</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>Añadir plantilla</title>
+<shortdesc>Añadir una plantilla desde el soporte de origen. Puede añadir su propia imagen ISO a la agrupación de almacenamiento 'ISO' para el siguiente descubrimiento.</shortdesc>
+<csbody>
+<p>Seleccione la ubicación del soporte de origen entre una de las opciones siguientes:<dl>
+<dlentry>
+<dt>Imagen ISO local</dt>
+<dd>Seleccione esta opción para explorar las agrupaciones de almacenamiento en busca de imágenes ISO de instalación disponibles en el sistema.</dd>
+</dlentry><dlentry>
+<dt>Imagen ISO remota</dt>
+<dd>Seleccione esta opción para especificar una ubicación remota para una imagen ISO de instalación.</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>Añadir plantilla – imagen ISO local</title>
+<shortdesc>Añadir una plantilla desde una imagen ISO local.</shortdesc>
+<csbody>
+<p>Se visualizan las imágenes ISO disponibles en el sistema.<dl><dlentry>
+<dt>SO</dt>
+<dd>Nombre del sistema operativo o distribución.</dd>
+</dlentry><dlentry>
+<dt>Versión</dt>
+<dd>Versión del sistema operativo o distribución.</dd>
+</dlentry><dlentry>
+<dt>Tamaño</dt>
+<dd>Tamaño de la imagen ISO.</dd>
+</dlentry></dl></p>
+<p>Para crear una plantilla a partir de una imagen ISO, elija entre las opciones siguientes:<ul>
+<li>Seleccione una imagen ISO desde la que desea crear una plantilla y, a continuación, pulse <uicontrol>Crear plantillas desde ISO seleccionada</uicontrol>.</li>
+<li>Seleccione <uicontrol>Todo</uicontrol> para crear una plantilla desde cada imagen ISO en la lista y, a continuación, pulse <uicontrol>Crear plantillas desde ISO seleccionada</uicontrol>.</li>
+<li>Si la imagen ISO que desea utilizar no aparece en los resultados de la exploración, puede seleccionar entre las opciones siguientes:<ul>
+<li>Seleccione <uicontrol>Deseo utilizar un archivo ISO específico</uicontrol> para especificar una vía de acceso a la imagen ISO.</li>
+<li>Pulse <uicontrol>Buscar más ISO</uicontrol> para buscar más imágenes ISO.</li>
+</ul></li>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

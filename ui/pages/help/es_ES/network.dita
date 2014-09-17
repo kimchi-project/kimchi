@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="es-es">
+<title>Red</title>
+<shortdesc>La página <wintitle>Red</wintitle> muestra información sobre la conexión de red.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>Nombre de red</dt>
+<dd>Nombre de la red, o <uicontrol>predeterminado</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Estado</dt>
+<dd>Estado de la red, activa (verde) o inactiva (rojo). </dd>
+</dlentry><dlentry>
+<dt>Tipo de red</dt>
+<dd>Tipo de red, por ejemplo, <uicontrol>NAT</uicontrol> (conversión de direcciones de red).</dd>
+</dlentry><dlentry>
+<dt>Interfaz</dt>
+<dd>La interfaz de red, por ejemplo, <uicontrol>virbr0</uicontrol> (predeterminada).</dd>
+</dlentry><dlentry>
+<dt>Espacio de direcciones</dt>
+<dd>Dirección IP.</dd>
+</dlentry></dl></p>
+<p>Se pueden seleccionar las siguientes acciones:<ul>
+<li rev="rev1">Seleccione <uicontrol>Iniciar</uicontrol> para iniciar la conexión de red.</li>
+<li>Seleccione <uicontrol>Detener</uicontrol> para finalizar la conexión de red.</li>
+<li>Seleccione <uicontrol>Suprimir</uicontrol> para suprimir la información de conexión.</li>
+</ul>Para crear una red, pulse en el icono <uicontrol>más (+)</uicontrol> en la esquina superior derecha de la pantalla.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="es-es">
+<title>Crear una red</title>
+<shortdesc>Crear una red.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Escriba el nombre de la red.</li>
+<li>Pulse para seleccionar el tipo de red. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Aislada</uicontrol></dt>
+<dd>Modalidad aislada. Los invitados no pueden enviar ni recibir comunicación a sistemas externos o desde ellos.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>Modalidad de Conversión de direcciones de red. La comunicación de invitados a sistemas externos utiliza la dirección IP del host. Los sistemas externos no pueden iniciar la comunicación con los invitados.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Puenteada</uicontrol></dt>
+<dd>Modalidad puenteada. Los invitados pueden comunicarse con sistemas externos y ser contactados por sistemas externos como si fueran sistemas físicos en la red. Para la modalidad puenteada, debe especificar información de destino y VLAN adicional.</dd>
+</dlentry></dl></li>
+<li>Pulse <uicontrol>Crear</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

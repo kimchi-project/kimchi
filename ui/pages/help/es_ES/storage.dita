@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="es-es">
+<title>Almacenamiento</title>
+<shortdesc>La página <wintitle>Almacenamiento</wintitle> lista las agrupaciones de almacenamiento disponibles, incluyendo la agrupación de almacenamiento predefinida 'default' e 'ISO'.
+Si desea utilizar su propia ISO, añádala a la vía de acceso de la agrupación de almacenamiento 'ISO'.</shortdesc>
+<csbody>
+<p>Se visualiza la siguiente información para cada agrupación de almacenamiento:<dl>
+<dlentry>
+<dt>Nombre</dt>
+<dd>Nombre de la agrupación de almacenamiento y el porcentaje utilizado.</dd>
+</dlentry><dlentry>
+<dt>Estado</dt>
+<dd>Estado de la agrupación de almacenamiento, activa (verde) o inactiva (rojo). </dd>
+</dlentry><dlentry>
+<dt>Ubicación</dt>
+<dd>Vía de acceso de archivo a la ubicación de la agrupación de almacenamiento.</dd>
+</dlentry><dlentry>
+<dt>Tipo</dt>
+<dd>Tipo de agrupación de almacenamiento, por ejemplo, <uicontrol>dir</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Capacidad</dt>
+<dd>Cantidad de espacio en la agrupación de almacenamiento.</dd>
+</dlentry><dlentry>
+<dt>Asignado</dt>
+<dd>Cantidad de espacio que ya está asignado en la agrupación de almacenamiento.</dd>
+</dlentry></dl></p>
+<p>Se pueden seleccionar las siguientes acciones para cada agrupación de almacenamiento:<ul>
+<li>Seleccione <uicontrol>Activar</uicontrol> para activar la agrupación de almacenamiento para que pueda utilizarse.</li>
+<li>Seleccione <uicontrol>Desactivar</uicontrol> para desactivar una agrupación de almacenamiento activa.</li>
+<li>Seleccione <uicontrol>No definir</uicontrol> para eliminar una agrupación de almacenamiento inactiva.</li>
+</ul></p>
+<p>Para visualizar detalles de volumen de almacenamiento para una agrupación de almacenamiento, pulse la flecha situada en el lado derecho de la fila de agrupación de almacenamiento. Los detalles incluyen lo siguiente:<dl><dlentry>
+<dt>Tipo</dt>
+<dd>El tipo de volumen, por ejemplo, <uicontrol>archivo</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Formato</dt>
+<dd>El formato, variable dependiendo del tipo.</dd>
+</dlentry><dlentry>
+<dt>Capacidad</dt>
+<dd>Tamaño del volumen de almacenamiento.</dd>
+</dlentry><dlentry>
+<dt>Asignación</dt>
+<dd>Cantidad de espacio que ya está asignado en la agrupación de almacenamiento.</dd>
+</dlentry></dl>Para definir una agrupación de almacenamiento, pulse en el icono <uicontrol>más (+)</uicontrol> en la esquina superior derecha de la pantalla.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="es-es">
+<title>Definir una agrupación de almacenamiento</title>
+<shortdesc> Definir una agrupación de almacenamiento.</shortdesc>
+<csbody>
+<p> <ol>
+<li>En el campo <uicontrol>Nombre de agrupación de almacenamiento</uicontrol>, escriba el nombre que se utilizará para identificar la agrupación de almacenamiento.</li>
+<li>En la lista <uicontrol>Tipo de agrupación almacenamiento</uicontrol>, seleccione el tipo: <dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>Especifica una agrupación de directorio. Al seleccionar <uicontrol>DIR</uicontrol>, escriba la <uicontrol>Vía de acceso de almacenamiento</uicontrol> (vía de acceso de archivo a la agrupación de almacenamiento).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>Especifica una agrupación de sistema de archivos de red. Al seleccionar <uicontrol>NFS</uicontrol>, escriba la dirección <uicontrol>IP de servidor NFS</uicontrol> y <uicontrol>vía de acceso de NFS</uicontrol> (vía de acceso del directorio exportado).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Especifica una agrupación basada en un destino asignado en un servidor iSCSI.
+Al seleccionar <uicontrol>iSCSI</uicontrol>, escriba la dirección IP del <uicontrol>Servidor iSCSI</uicontrol> y el <uicontrol>Destino</uicontrol> en el servidor iSCSI. Opcionalmente puede seleccionar añadir autenticación iSCSI.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Lógico</uicontrol></dt>
+<dd>Especifica una agrupación de almacenamiento de volumen lógico. Seleccione la ubicación al dispositivo en <uicontrol>Vía de acceso de dispositivo</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Canal de fibra de SCSI</uicontrol></dt>
+<dd>Especifica una agrupación basada en un Canal de fibra SCSI. Seleccione qué adaptador SCSI se utilizará.</dd>
+</dlentry></dl></li>
+<li>Pulse <uicontrol>Crear</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
