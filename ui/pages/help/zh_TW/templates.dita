@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="zh-tw">
+<title>範本</title>
+<shortdesc>「<wintitle>範本</wintitle>」頁面會顯示可用來建立
+KVM 客體的已定義虛擬機器範本。</shortdesc>
+<csbody>
+<p>對於每一個範本，將會顯示下列資訊：<dl>
+<dlentry>
+<dt>OS</dt>
+<dd>作業系統的名稱或發行套件的名稱。</dd>
+</dlentry><dlentry>
+<dt>版本</dt>
+<dd>作業系統的版本或發行套件的版本。</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>為範本定義的處理器數目。</dd>
+</dlentry><dlentry>
+<dt>記憶體</dt>
+<dd>要配置的隨機存取記憶體數量 (MB)。</dd>
+</dlentry></dl></p>
+<p>可針對每一個範本選取下列動作：<ul>
+<li>選取<uicontrol>編輯</uicontrol>可編輯範本。</li>
+<li>選取<uicontrol>刪除</uicontrol>可刪除範本。</li>
+</ul>若要建立範本，請按一下顯示畫面右上方的<uicontrol>加號 (+)</uicontrol> 圖示。</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="zh-tw">
+<title>編輯範本</title>
+<shortdesc>編輯現有範本。</shortdesc>
+<csbody>
+<p>對於每一個範本，將會顯示下列資訊：<dl>
+<dlentry>
+<dt>名稱</dt>
+<dd>範本的名稱。</dd>
+</dlentry><dlentry>
+<dt>供應商</dt>
+<dd>建立配置給範本使用之作業系統或發行套件的公司的名稱。</dd>
+</dlentry><dlentry>
+<dt>版本</dt>
+<dd>配置給範本使用之作業系統或發行套件的版本。</dd>
+</dlentry><dlentry>
+<dt>CPU 數目</dt>
+<dd>為範本定義的處理器數目。</dd>
+</dlentry><dlentry>
+<dt>記憶體</dt>
+<dd>要配置給虛擬機器的記憶體數量 (MB)。</dd>
+</dlentry><dlentry>
+<dt>磁碟</dt>
+<dd>磁碟大小 (GB)。</dd>
+</dlentry><dlentry>
+<dt>CDROM</dt>
+<dd>用來安裝 KVM 客體之 ISO 檔案位置的檔案路徑。</dd>
+</dlentry><dlentry>
+<dt>儲存區</dt>
+<dd>特定儲存區或預設儲存區。</dd>
+</dlentry><dlentry>
+<dt>網路</dt>
+<dd>KVM 客體可使用的預設網路介面。您可以選取多個網路。</dd>
+</dlentry></dl> 可以編輯未停用的欄位。編輯欄位之後，按一下<uicontrol>儲存</uicontrol>。</p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>新增範本</title>
+<shortdesc>從來源媒體中新增範本。您可以將自己的 ISO 映像檔新增至 'ISO' 儲存區，以進行下列探索。</shortdesc>
+<csbody>
+<p>從下列選項中選取來源媒體的位置：<dl>
+<dlentry>
+<dt>本端 ISO 映像檔</dt>
+<dd>選取此項可掃描儲存區以取得系統上可用的安裝 ISO 映像檔。</dd>
+</dlentry><dlentry>
+<dt>遠端 ISO 映像檔</dt>
+<dd>選取此項可指定安裝 ISO 映像檔的遠端位置。</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>新增範本 - 本端 ISO 映像檔</title>
+<shortdesc>從本端 ISO 映像檔新增範本。</shortdesc>
+<csbody>
+<p>將會顯示系統上可用的 ISO 映像檔。<dl><dlentry>
+<dt>OS</dt>
+<dd>作業系統的名稱或發行套件的名稱。</dd>
+</dlentry><dlentry>
+<dt>版本</dt>
+<dd>作業系統的版本或發行套件的版本。</dd>
+</dlentry><dlentry>
+<dt>大小</dt>
+<dd>ISO 映像檔的大小。</dd>
+</dlentry></dl></p>
+<p>若要從 ISO 映像檔建立範本，請從下列選項中選擇：<ul>
+<li>選取要用來建立範本的 ISO 映像檔，然後按一下<uicontrol>從所選 ISO 建立範本</uicontrol>。</li>
+<li>選取<uicontrol>全部</uicontrol>以從每一個列出的 ISO 映像檔建立範本，然後按一下<uicontrol>從所選 ISO 建立範本</uicontrol>。</li>
+<li>如要要使用的 ISO 映像檔未出現在掃描結果中，則可以從下列選項中選擇：<ul>
+<li>選取<uicontrol>我想使用特定的 ISO 檔案</uicontrol>以指定 ISO 映像檔的路徑。</li>
+<li>按一下<uicontrol>搜尋更多 ISO</uicontrol> 以搜尋更多 ISO 映像檔。</li>
+</ul></li>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

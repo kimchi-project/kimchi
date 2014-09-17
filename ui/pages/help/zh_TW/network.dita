@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="zh-tw">
+<title>網路</title>
+<shortdesc>「<wintitle>網路</wintitle>」頁面會顯示網路連線的相關資訊。</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>網路名稱</dt>
+<dd>網路的名稱，或是<uicontrol>預設值</uicontrol>。</dd>
+</dlentry><dlentry>
+<dt>狀態</dt>
+<dd>網路的狀態：作用中（綠色）或非作用中（紅色）。</dd>
+</dlentry><dlentry>
+<dt>網路類型</dt>
+<dd>網路類型，例如，<uicontrol>NAT</uicontrol>（網址轉換）。</dd>
+</dlentry><dlentry>
+<dt>介面</dt>
+<dd>網路介面，例如，<uicontrol>virbr0</uicontrol>（預設值）。</dd>
+</dlentry><dlentry>
+<dt>位址空間</dt>
+<dd>IP 位址。</dd>
+</dlentry></dl></p>
+<p>可選取下列動作：<ul>
+<li rev="rev1">選取<uicontrol>開始</uicontrol>以開始網路連線。</li>
+<li>選取<uicontrol>停止</uicontrol>以結束網路連線。</li>
+<li>選取<uicontrol>刪除</uicontrol>以刪除連線資訊。</li>
+</ul>若要建立網路，請按一下顯示畫面右上方的<uicontrol>加號 (+)</uicontrol> 圖示。</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="zh-tw">
+<title>建立網路</title>
+<shortdesc>建立網路</shortdesc>
+<csbody>
+<p> <ol>
+<li>輸入網路的名稱。</li>
+<li>按一下以選取網路類型。<dl rev="rev1"><dlentry>
+<dt><uicontrol>已隔離</uicontrol></dt>
+<dd>已隔離模式。客體無法將通訊傳送至外部系統，也接收不到來自外部系統的通訊。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>網址轉換模式。從客體到外部系統的通訊使用主機 IP 位址。外部系統無法起始傳送至客體的通訊。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>已橋接</uicontrol></dt>
+<dd>已橋接模式。客體可以與外部系統通訊，並且外部系統可以連接至客體，就如客體是網路上的實體系統一樣。對於已橋接模式，您必須指定其他目的地和 VLAN 資訊。</dd>
+</dlentry></dl></li>
+<li>按一下<uicontrol>建立</uicontrol>。</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

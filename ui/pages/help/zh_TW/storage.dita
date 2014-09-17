@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="zh-tw">
+<title>儲存體</title>
+<shortdesc>「<wintitle>儲存體</wintitle>」頁面會列出可用的儲存區，包括現成可用的「預設」儲存區及 'ISO' 儲存區。如果要使用您自己的 ISO，請將其新增至 'ISO' 儲存區路徑。</shortdesc>
+<csbody>
+<p>對於每一個儲存區，將會顯示下列資訊：<dl>
+<dlentry>
+<dt>名稱</dt>
+<dd>儲存區的名稱及已使用百分比。</dd>
+</dlentry><dlentry>
+<dt>狀態</dt>
+<dd>儲存區的狀態：作用中（綠色）或非作用中（紅色）。</dd>
+</dlentry><dlentry>
+<dt>位置</dt>
+<dd>儲存區位置的檔案路徑。</dd>
+</dlentry><dlentry>
+<dt>類型</dt>
+<dd>儲存區的類型，例如，<uicontrol>dir</uicontrol>。</dd>
+</dlentry><dlentry>
+<dt>容量</dt>
+<dd>儲存區中空間的數量。</dd>
+</dlentry><dlentry>
+<dt>已配置</dt>
+<dd>儲存區中已配置的空間數量。</dd>
+</dlentry></dl></p>
+<p>可針對每一個儲存區選取下列動作：<ul>
+<li>選取<uicontrol>啟動</uicontrol>可啟動儲存區，使之可供使用。</li>
+<li>選取<uicontrol>取消啟動</uicontrol>可取消啟動作用中的儲存區。</li>
+<li>選取<uicontrol>取消定義</uicontrol>可移除非使用中的儲存區。</li>
+</ul></p>
+<p>若要顯示儲存區的儲存磁區詳細資料，請按一下儲存區列右側的箭頭。詳細資料包括下列各項：<dl><dlentry>
+<dt>類型</dt>
+<dd>磁區的類型，例如，<uicontrol>檔案</uicontrol>。</dd>
+</dlentry><dlentry>
+<dt>格式</dt>
+<dd>格式，因類型而異。</dd>
+</dlentry><dlentry>
+<dt>容量</dt>
+<dd>儲存磁區的大小。</dd>
+</dlentry><dlentry>
+<dt>配置</dt>
+<dd>儲存區中已配置的空間數量。</dd>
+</dlentry></dl>若要定義儲存區，請按一下顯示畫面右上方的<uicontrol>加號 (+)</uicontrol> 圖示。</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="zh-tw">
+<title>定義儲存區</title>
+<shortdesc> 定義儲存區。</shortdesc>
+<csbody>
+<p> <ol>
+<li>在<uicontrol>儲存區名稱</uicontrol>欄位中，輸入用來識別儲存區的名稱。</li>
+<li>在<uicontrol>儲存區類型</uicontrol>清單中，選取類型：<dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>指定目錄儲存區。當選取 <uicontrol>DIR</uicontrol> 時，請輸入<uicontrol>儲存體路徑</uicontrol>（儲存區的路徑）。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>指定網路檔案系統儲存區。當選取 <uicontrol>NFS</uicontrol> 時，請輸入
+<uicontrol>NFS 伺服器 IP</uicontrol> 位址及 <uicontrol>NFS
+路徑</uicontrol>（匯出的目錄的路徑）。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>根據再 iSCSI 伺服器上配置的目標，指定儲存區。當選取
+<uicontrol>iSCSI</uicontrol> 時，請輸入 <uicontrol>iSCSI
+伺服器</uicontrol> IP 位址及 iSCSI 伺服器上的<uicontrol>目標</uicontrol>。您可以選擇性地選取新增 iSCSI 鑑別。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>邏輯</uicontrol></dt>
+<dd>指定邏輯磁區儲存區。在<uicontrol>裝置路徑</uicontrol>中選擇裝置的位置。</dd>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI 光纖通道</uicontrol></dt>
+<dd>根據 SCSI 光纖通道指定儲存區。選取要使用的 SCSI 配接卡。</dd>
+</dlentry></dl></li>
+<li>按一下<uicontrol>建立</uicontrol>。</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
