@@ -9,7 +9,7 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="zh-cn">
 <title>存储器</title>
-<shortdesc>“<wintitle>存储器</wintitle>页面列示可用存储池，其中包括缺省存储池。</shortdesc>
+<shortdesc>“<wintitle>存储器</wintitle>页面列示可用存储池，其中包括现成的“缺省”和“ISO”存储池。如果您要使用您自己的 ISO，请将它添加至“ISO”存储池路径。</shortdesc>
 <csbody>
 <p>对于每个存储池，会显示以下信息：<dl>
 <dlentry>
@@ -79,6 +79,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 13901_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

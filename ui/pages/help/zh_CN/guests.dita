@@ -38,7 +38,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>可为每个访客选择以下操作：<ul>
 <li>选择<uicontrol>连接</uicontrol>以连接到访客操作系统的远程控制台。</li>
 <li>选择<uicontrol>管理介质</uicontrol>以更改安装介质的路径。</li>
-<li>选择<uicontrol>重新设置</uicontrol>以重新设置访客。</li>
+<li>选择<uicontrol>重置</uicontrol>以重置访客。</li>
 <li>选择<uicontrol>编辑</uicontrol>以编辑现有访客的属性。仅当停止时才可编辑访客。</li>
 <li>选择<uicontrol>删除</uicontrol>以删除访客。</li>
 </ul>要创建访客或虚拟机，请单击页面右上方的<uicontrol>加号键 (+) </uicontrol> 图标。</p>
@@ -59,19 +59,19 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="zh-cn">
 <title>编辑访客</title>
-<shortdesc>编辑现有虚拟机的属性。仅当停止时才可编辑访客。</shortdesc>
+<shortdesc>编辑现有虚拟机的属性。一些属性只能在访客已停止的情况下编辑。其他属性将在下一次引导时生效。</shortdesc>
 <csprolog><csmetadata></csmetadata></csprolog>
 <csbody>
 <p>对于每个访客，会在“<wintitle>常规</wintitle>”选项卡中显示以下信息：<dl>
 <dlentry>
 <dt>名称</dt>
-<dd>虚拟机的名称。</dd>
+<dd>虚拟机的名称。（只能在访客已停止的情况下编辑）</dd>
 </dlentry><dlentry>
 <dt>CPU 数</dt>
-<dd>处理器的数目。</dd>
+<dd>处理器的数目。（如果访客正在运行，新数量将在下一次引导时生效）</dd>
 </dlentry><dlentry>
 <dt>内存</dt>
-<dd>内存量（以 MB 计）。</dd>
+<dd>内存量（以 MB 计）。（如果访客正在运行，新数量将在下一次引导时生效）</dd>
 </dlentry><dlentry>
 <dt>图标</dt>
 <dd>访客处于非活动状态时，表示要显示的 Linux 分发版而不是当前状态 (Livetile) 的图形图像。</dd>
@@ -113,6 +113,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 59193_6 DO NOT REMOVE OR CHANGE THIS LINE -->
-<!-- T9N_SRC_ID 224 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 1 -->
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
