@@ -39,6 +39,7 @@ kimchi.setupPeers = function(){
 };
 
 kimchi.main = function() {
+    kimchi.isLoggingOut = false;
     kimchi.popable();
 
     var genTabs = function(tabs) {
@@ -253,6 +254,7 @@ kimchi.main = function() {
         // Perform logging out via Ajax request.
         $('#btn-logout').on('click', function() {
             kimchi.logout(function() {
+                kimchi.isLoggingOut = true;
                 document.location.href = "login.html";
             }, function(err) {
                 kimchi.message.error(err.responseJSON.reason);
@@ -281,7 +283,7 @@ kimchi.main = function() {
                 document.location.href= isSessionTimeout ? 'login.html?error=sessionTimeout' : 'login.html';
                 return;
             }
-            else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText)) {
+            else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText) && !kimchi.isLoggingOut) {
                 kimchi.message.error(i18n['KCHAPI6007E'].replace("%1", jqXHR.state()));
             }
             if(ajaxSettings['originalError']) {
