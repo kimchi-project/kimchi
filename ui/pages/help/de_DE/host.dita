@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="de-de">
+<title>Host</title>
+<shortdesc>Die Seite <wintitle>Host</wintitle> zeigt Informationen zum Hostsystem an und ermöglicht Ihnen, den Host herunterzufahren, erneut zu starten und eine Verbindung zu ihm herzustellen.</shortdesc>
+<csbody>
+<p>Sie können die folgenden Aktionen am Host durchführen:<ul>
+<li>Wählen Sie <uicontrol>Herunterfahren</uicontrol> aus, um das Hostsystem herunterzufahren.</li>
+<li>Wählen Sie <uicontrol>Erneut starten</uicontrol> aus, um das Hostsystem erneut zu starten.</li>
+<li>Wählen Sie <uicontrol>Verbinden</uicontrol> aus, um eine VNC-Verbindung zum Hostsystem herzustellen, wenn noch keine Verbindung besteht.</li>
+</ul></p>
+<p>Klicken Sie auf die folgenden Abschnitte, um Informationen zum Host anzuzeigen:<dl>
+<dlentry>
+<dt>Basisinformationen</dt>
+<dd>Dieser Abschnitt zeigt die Verteilung, die Version und den Codenamen des Hostbetriebssystems sowie den Prozessortyp und die Speicherkapazität in GB an.</dd>
+</dlentry><dlentry>
+<dt>Systemstatistik</dt>
+<dd>Dieser Abschnitt zeigt mithilfe von Grafiken Statistiken für CPU, Speicher, Platten-E/A und Netz-E/A für den Host an. Wählen Sie <uicontrol>Daten werden nach dem Verlassen dieser Seite gesammelt</uicontrol> aus, um mit der Sammlung von Daten fortzufahren, wenn die Host-Registerkarte nicht angezeigt wird.</dd>
+</dlentry><dlentry>
+<dt>Software-Updates</dt>
+<dd>Dieser Abschnitt zeigt Informationen für alle Pakete an, bei denen Aktualisierungen verfügbar sind, einschließlich Paketname, Version, Architektur und Repository. Sie können alle aufgelisteten Pakete aktualisieren, indem Sie <uicontrol>Alle aktualisieren</uicontrol> auswählen. Sie können nicht einzelne Pakete zur Aktualisierung auswählen.</dd>
+</dlentry><dlentry>
+<dt>Repositorys</dt>
+<dd>Dieser Abschnitt zeigt Repositorys an, die dem Hostsystem zugeordnet sind. Sie können Repositorys hinzufügen, aktivieren, bearbeiten oder entfernen. Beim Hinzufügen wird ein Repository dem Hostsystem zugeordnet. Das Aktivieren eines Repositorys dagegen ermöglicht dem Host den Zugriff auf das Repository. Wenn Ihr System Red Hat Enterprise
+Linux oder Fedora ist, können Sie <filepath>yum</filepath>-Repositorys hinzufügen.
+Wenn Ihr System Ubuntu oder Debian ist, fügen Sie <filepath>deb</filepath>-Repositorys hinzu.<p>Wenn Sie mit yum-Repositorys arbeiten, können Sie eine GPG-Prüfung hinzufügen, um sicherzustellen, dass ein Paket aus diesem Repository nicht beschädigt wurde.
+Wählen Sie ein Repository und dann <uicontrol>Bearbeiten</uicontrol> aus. Wählen Sie <uicontrol>Ja</uicontrol> aus, um die GPG-Prüfung zu aktivieren, und geben Sie dann ein URL zur GPG-Schlüsseldatei für das Repository ein.</p></dd>
+</dlentry><dlentry>
+<dt>Debugberichte</dt>
+<dd>Dieser Abschnitt zeigt Debugberichte, einschließlich Name und Dateipfad, an.
+Sie haben die Möglichkeit, einen neuen Bericht zu erstellen oder einen bestehenden Bericht umzubenennen, zu entfernen oder herunterzuladen.<p>Der Debugbericht wird während des Befehls <cmdname>sosreport</cmdname> generiert. Er ist verfügbar für Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>-, Fedora-
+und Ubuntu-Verteilungen. Der Befehl generiert eine .tar-Datei, die Konfigurations- und Diagnoseinformationen enthält, wie zum Beispiel Kernelversion, geladene Module sowie System- und Servicekonfigurationdateien.
+Der Befehl führt zudem externe Programme aus, um weitere Informationen zu sammeln, und speichert diese Ausgabe im resultierenden Archiv.</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

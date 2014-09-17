@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="de-de">
+<title>Vorlagen</title>
+<shortdesc>Die Seite <wintitle>Vorlagen</wintitle> zeigt die definierten Vorlagen der virtuellen Maschine an, die zum Erstellen von KVM-Gästen verwendet werden können.</shortdesc>
+<csbody>
+<p>Für jede Vorlage werden die folgenden Informationen angezeigt:<dl>
+<dlentry>
+<dt>BS</dt>
+<dd>Name des Betriebssystems oder der Verteilung.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>Version des Betriebssystems oder der Verteilung.</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Anzahl der Prozessoren, die für die Vorlage definiert sind.</dd>
+</dlentry><dlentry>
+<dt>Speicher</dt>
+<dd>Größe des zuzuordnenden Arbeitsspeichers in MB.</dd>
+</dlentry></dl></p>
+<p>Die folgenden Aktionen können für jede Vorlage ausgewählt werden:<ul>
+<li>Wählen Sie <uicontrol>Bearbeiten</uicontrol> aus, um die Vorlage zu bearbeiten.</li>
+<li>Wählen Sie <uicontrol>Löschen</uicontrol> aus, um die Vorlage zu löschen.</li>
+</ul>Um eine Vorlage hinzuzufügen, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol> oben rechts in der Anzeige.</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="de-de">
+<title>Vorlage bearbeiten</title>
+<shortdesc>Bearbeiten Sie eine bestehende Vorlage.</shortdesc>
+<csbody>
+<p>Für jede Vorlage werden die folgenden Informationen angezeigt: <dl>
+<dlentry>
+<dt>Name</dt>
+<dd>Name der Vorlage.</dd>
+</dlentry><dlentry>
+<dt>Anbieter</dt>
+<dd>Der Name des Unternehmens, das das Betriebssystem oder die Verteilung erstellt hat, für die die Vorlage konfiguriert ist.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>Die Version des Betriebssystems oder der Verteilung, für die die Vorlage konfiguriert ist.</dd>
+</dlentry><dlentry>
+<dt>CPU-Anzahl</dt>
+<dd>Anzahl der Prozessoren, die für die Vorlage definiert sind.</dd>
+</dlentry><dlentry>
+<dt>Speicher</dt>
+<dd>Speicherkapazität in MB, die der virtuellen Maschine zugeordnet werden soll.</dd>
+</dlentry><dlentry>
+<dt>Platte</dt>
+<dd>Plattengröße in GB.</dd>
+</dlentry><dlentry>
+<dt>CD-ROM</dt>
+<dd>Dateipfad zur Position der ISO-Datei an, die für die Installation des KVM-Gastes verwendet wird.</dd>
+</dlentry><dlentry>
+<dt>Speicherpool</dt>
+<dd>Bestimmter Speicherpool oder der Standardspeicherpool.</dd>
+</dlentry><dlentry>
+<dt>Netz</dt>
+<dd>Standardnetzschnittstelle, die für den KVM-Gast verfügbar ist. Sie können mehrere Netze auswählen.</dd>
+</dlentry></dl> Felder, die nicht inaktiviert sind, können bearbeitet werden. Nachdem Sie ein Feld bearbeitet haben, klicken Sie auf <uicontrol>Speichern</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>Vorlage hinzufügen</title>
+<shortdesc>Fügen Sie eine Vorlage vom Quellendatenträger hinzu. Sie können für eine nachfolgende Erkennung Ihr eigenes ISO-Image zum Speicherpool 'ISO' hinzufügen.</shortdesc>
+<csbody>
+<p>Wählen Sie die Position des Quellendatenträgers aus den folgenden Optionen aus:<dl>
+<dlentry>
+<dt>Lokales ISO-Image</dt>
+<dd>Wählen Sie diese Option aus, um Speicherpools nach Installations-ISO-Images zu durchsuchen, die im System verfügbar sind.</dd>
+</dlentry><dlentry>
+<dt>Fernes ISO-Image</dt>
+<dd>Wählen Sie diese Option aus, um eine ferne Position für ein Installations-ISO-Image anzugeben.</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>Vorlage hinzufügen - lokales ISO-Image</title>
+<shortdesc>Fügen Sie eine Vorlage aus einem lokalen ISO-Image hinzu.</shortdesc>
+<csbody>
+<p>Die im System verfügbaren ISO-Images werden angezeigt.<dl><dlentry>
+<dt>BS</dt>
+<dd>Name des Betriebssystems oder der Verteilung.</dd>
+</dlentry><dlentry>
+<dt>Version</dt>
+<dd>Version des Betriebssystems oder der Verteilung.</dd>
+</dlentry><dlentry>
+<dt>Größe</dt>
+<dd>Größe des ISO-Image.</dd>
+</dlentry></dl></p>
+<p>Um eine Vorlage aus einem ISO-Image zu erstellen, wählen Sie aus den folgenden
+Optionen aus:<ul>
+<li>Wählen Sie ein ISO-Image aus, aus dem Sie eine Vorlage erstellen möchten, und klicken Sie dann auf <uicontrol>Vorlagen aus ausgewähltem ISO erstellen</uicontrol>.</li>
+<li>Wählen Sie <uicontrol>Alle</uicontrol> aus, um eine Vorlage aus jedem aufgelisteten ISO-Image zu erstellen, und klicken Sie dann auf <uicontrol>Vorlagen aus ausgewähltem ISO erstellen</uicontrol>.</li>
+<li>Wenn das ISO-Image, das Sie verwenden möchten, nicht in den Suchergebnissen angezeigt wird, können Sie aus den folgenden Optionen auswählen:<ul>
+<li>Wählen Sie <uicontrol>Ich möchte eine bestimmte ISO-Datei verwenden</uicontrol> aus, um einen Pfad zum ISO-Image anzugeben.</li>
+<li>Klicken Sie auf <uicontrol>Weitere ISOs suchen</uicontrol>, um weitere ISO-Images zu suchen.</li>
+</ul></li>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
