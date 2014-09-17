@@ -9,8 +9,8 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="pt-br">
 <title>Armazenamento</title>
-<shortdesc>A página <wintitle>Armazenamento</wintitle> lista os conjuntos de armazenamentos
-disponíveis, incluindo o storage pool padrão.</shortdesc>
+<shortdesc>A página <wintitle>Armazenamento</wintitle> lista os conjuntos de armazenamentos disponíveis, inclusive o conjunto de armazenamentos 'padrão' e 'ISO' integrado.
+Se desejar usar seu próprio ISO, inclua-o em seu caminho do conjunto de armazenamentos 'ISO'.</shortdesc>
 <csbody>
 <p>Para cada storage pool, as informações a seguir são exibidas:<dl>
 <dlentry>
@@ -97,6 +97,6 @@ adaptador SCSI deve ser usado.</dd>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 13901_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

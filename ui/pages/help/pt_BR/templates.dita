@@ -74,7 +74,8 @@ de editar um campo, clique em <uicontrol>Salvar</uicontrol>. </p>
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>Incluir modelo</title>
-<shortdesc>Inclua um modelo a partir da mídia de origem.</shortdesc>
+<shortdesc>Inclua um modelo a partir da mídia de origem.
+É possível incluir sua própria imagem ISO em seu conjunto de armazenamentos 'ISO' para a descoberta a seguir.</shortdesc>
 <csbody>
 <p>Selecione o local da mídia de origem a partir das opções a seguir:<dl>
 <dlentry>
@@ -121,6 +122,6 @@ imagens ISO.</li>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 51078_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 229 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

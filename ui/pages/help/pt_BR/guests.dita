@@ -68,20 +68,19 @@ criar um modelo.</li>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="en-us">
 <title>Editar convidado</title>
-<shortdesc>Edite as propriedades de uma máquina virtual existente. Os Máquinas Virtuais
-podem ser editados somente quando interrompidos.</shortdesc>
+<shortdesc>Edite as propriedades de uma máquina virtual existente. Algumas propriedades podem ser editadas enquanto o convidado está interrompido. Outras entrarão em vigor na próxima inicialização.</shortdesc>
 <csprolog><csmetadata></csmetadata></csprolog>
 <csbody>
 <p>Para cada convidado, as informações a seguir são exibidas na guia <wintitle>Geral</wintitle>:<dl>
 <dlentry>
 <dt>Nome</dt>
-<dd>Nome da máquina virtual.</dd>
+<dd>Nome da máquina virtual. (somente pode ser editado enquanto o convidado está interrompido)</dd>
 </dlentry><dlentry>
 <dt>CPUs</dt>
-<dd>Número de processadores.</dd>
+<dd>Número de processadores. (se o convidado estiver em execução, uma nova quantia entrará em vigor na próxima inicialização)</dd>
 </dlentry><dlentry>
 <dt>Memória</dt>
-<dd>Quantia de memória em MB.</dd>
+<dd>Quantia de memória em MB. (se o convidado estiver em execução, uma nova quantia entrará em vigor na próxima inicialização)</dd>
 </dlentry><dlentry>
 <dt>Ícone</dt>
 <dd>Imagem gráfica representando a distribuição Linux a ser exibida
@@ -133,6 +132,6 @@ o caminho do arquivo ISO. Os outros dois campos são somente leitura.</li>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 59193_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 231 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
