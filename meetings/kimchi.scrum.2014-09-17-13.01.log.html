@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 17 13:01:12 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:22</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:01:52</span><span class="nk"> &lt;rotru&gt;</span> hi
+<a name="l-9"></a><span class="tm">13:02:39</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's get started
+<a name="l-10"></a><span class="tm">13:02:45</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin testing on redhat</span>
+<a name="l-11"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">13:03:05</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch fix bug 426 Create 'bridge' network, when no interface available, it popup error.</span>
+<a name="l-14"></a><span class="tm">13:03:51</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch fix bug #420 UI: Pop up errors when log out at "Host" tab</span>
+<a name="l-15"></a><span class="tm">13:04:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to update debug reports view in order to display the debug reports in progress for all users</span>
+<a name="l-16"></a><span class="tm">13:04:19</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce send patch to fix eject cdrom</span>
+<a name="l-17"></a><span class="tm">13:04:26</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang tested kimchi on rhel 6.5 help with test matrix filling</span>
+<a name="l-18"></a><span class="tm">13:04:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm helped Hongliang with the patches for upload/download UI</span>
+<a name="l-19"></a><span class="tm">13:05:08</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce help to look at filter volume when attaching disk problem, now writing patches</span>
+<a name="l-20"></a><span class="tm">13:05:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to fix some bugs related to nginx config and download/upload features</span>
+<a name="l-21"></a><span class="tm">13:05:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm testing Kimchi on openSUSE 13.1</span>
+<a name="l-22"></a><span class="tm">13:05:46</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce sent patch about software manger unexpeced config param problem</span>
+<a name="l-23"></a><span class="tm">13:06:06</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce testing Kimchi with ubuntu 14.04</span>
+<a name="l-24"></a><span class="tm">13:06:06</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac tested Kimchi on Fedora 20 and opened a few bugs; testing patch for issue #433; reviewed patches on the mailing list</span>
+<a name="l-25"></a><span class="tm">13:07:13</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, you are testing on RHEL6.5, right?
+<a name="l-26"></a><span class="tm">13:07:27</span><span class="nk"> &lt;alinefm&gt;</span> I will update the matrix header to reflect it
+<a name="l-27"></a><span class="tm">13:07:33</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-28"></a><span class="tm">13:07:46</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Yes
+<a name="l-29"></a><span class="tm">13:08:15</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for the tests!
+<a name="l-30"></a><span class="tm">13:08:28</span><span class="nk"> &lt;alinefm&gt;</span> now we have a bunch of bugs to fix =)
+<a name="l-31"></a><span class="tm">13:08:51</span><span class="nk"> &lt;alinefm&gt;</span> as we are one week before 1.3 GA I'd ask to everyone focus on bug fixes now
+<a name="l-32"></a><span class="tm">13:09:02</span><span class="nk"> &lt;alinefm&gt;</span> specially those found during the test phase
+<a name="l-33"></a><span class="tm">13:09:06</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-34"></a><span class="tm">13:09:08</span><span class="nk"> &lt;baude&gt;</span> <span class="cmd">#info </span><span class="cmdline">baude waiting for comments from alinefm on v2 of my graphics patch, submitted patch for adding custom mac addresses and I am addressing peer review comments.</span>
+<a name="l-35"></a><span class="tm">13:09:46</span><span class="nk"> &lt;royce&gt;</span> deal!
+<a name="l-36"></a><span class="tm">13:10:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Sure
+<a name="l-37"></a><span class="tm">13:11:00</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, wenwang, YuXin, our deadline to submit patches is next Wed
+<a name="l-38"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-39"></a><span class="tm">13:11:06</span><span class="nk"> &lt;baude&gt;</span> alinefm, fwiw i did get approval for the jsquery stuff from fedora packaging but the review found more things I will need exceptions for
+<a name="l-40"></a><span class="tm">13:11:08</span><span class="nk"> &lt;royce&gt;</span> sure
+<a name="l-41"></a><span class="tm">13:11:18</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-42"></a><span class="tm">13:11:30</span><span class="nk"> &lt;alinefm&gt;</span> baude, I will check your v2 soon
+<a name="l-43"></a><span class="tm">13:11:33</span><span class="nk"> &lt;baude&gt;</span> and also we have system libraries for some of those dependancies so I will need changes to the make files to detect and use those
+<a name="l-44"></a><span class="tm">13:11:45</span><span class="nk"> &lt;baude&gt;</span> alinefm, no problem on v2
+<a name="l-45"></a><span class="tm">13:11:50</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-46"></a><span class="tm">13:12:15</span><span class="nk"> &lt;alinefm&gt;</span> baude, yes! I plan to add a task to it on next sprint (after 1.3) so we can eliminate some imported code
+<a name="l-47"></a><span class="tm">13:12:36</span><span class="nk"> &lt;alinefm&gt;</span> anything else or we can move on to open discussion?
+<a name="l-48"></a><span class="tm">13:12:37</span><span class="nk"> &lt;baude&gt;</span> great
+<a name="l-49"></a><span class="tm">13:12:47</span><span class="nk"> &lt;baude&gt;</span> so those are blockers for me getting things into fedora proper
+<a name="l-50"></a><span class="tm">13:12:59</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok
+<a name="l-51"></a><span class="tm">13:13:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-52"></a><span class="tm">13:13:40</span><span class="nk"> &lt;alinefm&gt;</span> what do you have for today?
+<a name="l-53"></a><span class="tm">13:14:12</span><span class="nk"> &lt;YuXin&gt;</span> iscsi and scsi fc storage pool need a server, is there any shared server that can be leverage for testing?
+<a name="l-54"></a><span class="tm">13:15:21</span><span class="nk"> &lt;alinefm&gt;</span> you can configure a iscsi server on your system
+<a name="l-55"></a><span class="tm">13:15:23</span><span class="nk"> &lt;pvital&gt;</span> alinefm, you are too fast! I miss the status part :-D
+<a name="l-56"></a><span class="tm">13:15:34</span><span class="nk"> &lt;alinefm&gt;</span> I did it in a few steps - let me find the references I used
+<a name="l-57"></a><span class="tm">13:15:40</span><span class="nk"> &lt;alinefm&gt;</span> pvital, lol
+<a name="l-58"></a><span class="tm">13:15:43</span><span class="nk"> &lt;alinefm&gt;</span> pvital, or... =P
+<a name="l-59"></a><span class="tm">13:15:53</span><span class="nk"> &lt;alinefm&gt;</span> pvital, feel free to share your status now
+<a name="l-60"></a><span class="tm">13:16:09</span><span class="nk"> &lt;pvital&gt;</span> :-D
+<a name="l-61"></a><span class="tm">13:16:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the references are for fedora 20 but I could do the same steps on opensuse too
+<a name="l-62"></a><span class="tm">13:17:02</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-63"></a><span class="tm">13:17:05</span><span class="nk"> &lt;alinefm&gt;</span> Setup iSCSI server: http://www.server-world.info/en/note?os=Fedora_20&amp;p=iscsi&amp;f=2
+<a name="l-64"></a><span class="tm">13:17:30</span><span class="nk"> &lt;alinefm&gt;</span> Setup iSCSI targets: http://www.server-world.info/en/note?os=Fedora_20&amp;p=iscsi
+<a name="l-65"></a><span class="tm">13:17:52</span><span class="nk"> &lt;YuXin&gt;</span> good
+<a name="l-66"></a><span class="tm">13:17:57</span><span class="nk"> &lt;YuXin&gt;</span> how about scsi fc?
+<a name="l-67"></a><span class="tm">13:18:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, for iSCSI targets I create a img: dd if=/dev/urandom of=sample.img bs=1G count=1
+<a name="l-68"></a><span class="tm">13:18:42</span><span class="nk"> &lt;alinefm&gt;</span> and changed the /etc/tgt/targets.conf accordingly
+<a name="l-69"></a><span class="tm">13:18:53</span><span class="nk"> &lt;alinefm&gt;</span> I didn't use the first steps in the guide
+<a name="l-70"></a><span class="tm">13:19:01</span><span class="nk"> &lt;YuXin&gt;</span> ok, I will investigate how to setup iscsi on my redhat
+<a name="l-71"></a><span class="tm">13:19:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, about scsi fc, we have a problem
+<a name="l-72"></a><span class="tm">13:19:36</span><span class="nk"> &lt;alinefm&gt;</span> I know there are some machine setup for it, but it is power with powerkvm
+<a name="l-73"></a><span class="tm">13:19:45</span><span class="nk"> &lt;alinefm&gt;</span> =/
+<a name="l-74"></a><span class="tm">13:22:34</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patch with help pages translated to new languages</span>
+<a name="l-75"></a><span class="tm">13:22:49</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches on ML</span>
+<a name="l-76"></a><span class="tm">13:23:35</span><span class="nk"> &lt;alinefm&gt;</span> any other topic, team?
+<a name="l-77"></a><span class="tm">13:24:25</span><span class="nk"> &lt;wenwang&gt;</span> Has anyone worked on Chinese translation for kimchi 1.3?
+<a name="l-78"></a><span class="tm">13:26:00</span><span class="nk"> &lt;YuXin&gt;</span> I have not handled Chinese, wenwang, check the po file, if any translation missing, add them
+<a name="l-79"></a><span class="tm">13:26:18</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> okay
+<a name="l-80"></a><span class="tm">13:26:35</span><span class="nk"> &lt;YuXin&gt;</span> I tried add volume(download) today, I want know whether backend can get the total size of the file?
+<a name="l-81"></a><span class="tm">13:27:06</span><span class="nk"> &lt;YuXin&gt;</span> before download start
+<a name="l-82"></a><span class="tm">13:27:14</span><span class="nk"> &lt;royce&gt;</span> one more word,  I wondered why download or upload needs to be limited to .iso file?
+<a name="l-83"></a><span class="tm">13:27:44</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, you can do the chinese translations
+<a name="l-84"></a><span class="tm">13:27:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think it is from content-length
+<a name="l-85"></a><span class="tm">13:27:58</span><span class="nk"> &lt;alinefm&gt;</span> vianac, right ^ ?
+<a name="l-86"></a><span class="tm">13:28:15</span><span class="nk"> &lt;alinefm&gt;</span> royce, upload/download is not restricted for .iso files
+<a name="l-87"></a><span class="tm">13:28:21</span><span class="nk"> &lt;alinefm&gt;</span> you can upload/download any type of file
+<a name="l-88"></a><span class="tm">13:28:37</span><span class="nk"> &lt;YuXin&gt;</span> download does not limited to iso, but for upload, there is a hint that mentioned iso
+<a name="l-89"></a><span class="tm">13:29:05</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, ops... we should remove this hint so as the backend allow any type of file
+<a name="l-90"></a><span class="tm">13:29:13</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-91"></a><span class="tm">13:29:19</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> okay'
+<a name="l-92"></a><span class="tm">13:31:54</span><span class="nk"> &lt;alinefm&gt;</span> other topic?
+<a name="l-93"></a><span class="tm">13:36:07</span><span class="nk"> &lt;alinefm&gt;</span> ok - so everyone is ready to fix all bugs?! =)
+<a name="l-94"></a><span class="tm">13:36:30</span><span class="nk"> &lt;alinefm&gt;</span> I am kidding about the "all"
+<a name="l-95"></a><span class="tm">13:37:16</span><span class="nk"> &lt;YuXin&gt;</span> will focus on bugs
+<a name="l-96"></a><span class="tm">13:37:24</span><span class="nk"> &lt;royce&gt;</span> heheheh
+<a name="l-97"></a><span class="tm">13:37:30</span><span class="nk"> &lt;wenwang&gt;</span> sure, I will try to get more bugs to be fixed
+<a name="l-98"></a><span class="tm">13:37:35</span><span class="nk"> &lt;royce&gt;</span> sounds like eat all bugs
+<a name="l-99"></a><span class="tm">13:38:34</span><span class="nk"> &lt;alinefm&gt;</span> royce, \o/ at least someone laughed
+<a name="l-100"></a><span class="tm">13:39:01</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and for the hard work!
+<a name="l-101"></a><span class="tm">13:39:04</span><span class="nk"> &lt;royce&gt;</span> :)))
+<a name="l-102"></a><span class="tm">13:39:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

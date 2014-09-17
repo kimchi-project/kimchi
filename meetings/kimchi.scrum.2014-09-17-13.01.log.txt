@@ -1,0 +1,102 @@
+13:01:12 <alinefm> #startmeeting
+13:01:12 <kimchi-bot> Meeting started Wed Sep 17 13:01:12 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:12 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:12 <alinefm> #meetingname scrum
+13:01:12 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:22 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:22 <alinefm> anything else?
+13:01:52 <rotru> hi
+13:02:39 <alinefm> ok - let's get started
+13:02:45 <YuXin> #info YuXin testing on redhat
+13:02:47 <alinefm> #topic Status
+13:02:47 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:05 <wenwang> #info wenwang sent patch fix bug 426 Create 'bridge' network, when no interface available, it popup error.
+13:03:51 <wenwang> #info wenwang sent patch fix bug #420 UI: Pop up errors when log out at "Host" tab
+13:04:08 <alinefm> #info alinefm sent patches to update debug reports view in order to display the debug reports in progress for all users
+13:04:19 <royce> #info royce send patch to fix eject cdrom
+13:04:26 <wenwang> #info wenwang tested kimchi on rhel 6.5 help with test matrix filling
+13:04:29 <alinefm> #info alinefm helped Hongliang with the patches for upload/download UI
+13:05:08 <royce> #info royce help to look at filter volume when attaching disk problem, now writing patches
+13:05:18 <alinefm> #info alinefm sent patches to fix some bugs related to nginx config and download/upload features
+13:05:38 <alinefm> #info alinefm testing Kimchi on openSUSE 13.1
+13:05:46 <royce> #info royce sent patch about software manger unexpeced config param problem
+13:06:06 <royce> #info royce testing Kimchi with ubuntu 14.04
+13:06:06 <vianac> #info vianac tested Kimchi on Fedora 20 and opened a few bugs; testing patch for issue #433; reviewed patches on the mailing list
+13:07:13 <alinefm> YuXin, wenwang, you are testing on RHEL6.5, right?
+13:07:27 <alinefm> I will update the matrix header to reflect it
+13:07:33 <YuXin> yes
+13:07:46 <wenwang> alinefm: Yes
+13:08:15 <alinefm> thanks everyone for the tests!
+13:08:28 <alinefm> now we have a bunch of bugs to fix =)
+13:08:51 <alinefm> as we are one week before 1.3 GA I'd ask to everyone focus on bug fixes now
+13:09:02 <alinefm> specially those found during the test phase
+13:09:06 <alinefm> agree?
+13:09:08 <baude> #info baude waiting for comments from alinefm on v2 of my graphics patch, submitted patch for adding custom mac addresses and I am addressing peer review comments.
+13:09:46 <royce> deal!
+13:10:34 <wenwang> alinefm: Sure
+13:11:00 <alinefm> royce, vianac, wenwang, YuXin, our deadline to submit patches is next Wed
+13:11:04 <alinefm> ok?
+13:11:06 <baude> alinefm, fwiw i did get approval for the jsquery stuff from fedora packaging but the review found more things I will need exceptions for
+13:11:08 <royce> sure
+13:11:18 <YuXin> ok
+13:11:30 <alinefm> baude, I will check your v2 soon
+13:11:33 <baude> and also we have system libraries for some of those dependancies so I will need changes to the make files to detect and use those
+13:11:45 <baude> alinefm, no problem on v2
+13:11:50 <wenwang> alinefm: ok
+13:12:15 <alinefm> baude, yes! I plan to add a task to it on next sprint (after 1.3) so we can eliminate some imported code
+13:12:36 <alinefm> anything else or we can move on to open discussion?
+13:12:37 <baude> great
+13:12:47 <baude> so those are blockers for me getting things into fedora proper
+13:12:59 <vianac> alinefm, ok
+13:13:33 <alinefm> #topic Open Discussion
+13:13:40 <alinefm> what do you have for today?
+13:14:12 <YuXin> iscsi and scsi fc storage pool need a server, is there any shared server that can be leverage for testing?
+13:15:21 <alinefm> you can configure a iscsi server on your system
+13:15:23 <pvital> alinefm, you are too fast! I miss the status part :-D
+13:15:34 <alinefm> I did it in a few steps - let me find the references I used
+13:15:40 <alinefm> pvital, lol
+13:15:43 <alinefm> pvital, or... =P
+13:15:53 <alinefm> pvital, feel free to share your status now
+13:16:09 <pvital> :-D
+13:16:55 <alinefm> YuXin, the references are for fedora 20 but I could do the same steps on opensuse too
+13:17:02 <YuXin> ok
+13:17:05 <alinefm> Setup iSCSI server: http://www.server-world.info/en/note?os=Fedora_20&p=iscsi&f=2
+13:17:30 <alinefm> Setup iSCSI targets: http://www.server-world.info/en/note?os=Fedora_20&p=iscsi
+13:17:52 <YuXin> good
+13:17:57 <YuXin> how about scsi fc?
+13:18:08 <alinefm> YuXin, for iSCSI targets I create a img: dd if=/dev/urandom of=sample.img bs=1G count=1
+13:18:42 <alinefm> and changed the /etc/tgt/targets.conf accordingly
+13:18:53 <alinefm> I didn't use the first steps in the guide
+13:19:01 <YuXin> ok, I will investigate how to setup iscsi on my redhat
+13:19:12 <alinefm> YuXin, about scsi fc, we have a problem
+13:19:36 <alinefm> I know there are some machine setup for it, but it is power with powerkvm
+13:19:45 <alinefm> =/
+13:22:34 <pvital> #info pvital submitted patch with help pages translated to new languages
+13:22:49 <pvital> #info pvital reviewed some patches on ML
+13:23:35 <alinefm> any other topic, team?
+13:24:25 <wenwang> Has anyone worked on Chinese translation for kimchi 1.3?
+13:26:00 <YuXin> I have not handled Chinese, wenwang, check the po file, if any translation missing, add them
+13:26:18 <wenwang> YuXin: okay
+13:26:35 <YuXin> I tried add volume(download) today, I want know whether backend can get the total size of the file?
+13:27:06 <YuXin> before download start
+13:27:14 <royce> one more word,  I wondered why download or upload needs to be limited to .iso file?
+13:27:44 <alinefm> wenwang, you can do the chinese translations
+13:27:55 <alinefm> YuXin, I think it is from content-length
+13:27:58 <alinefm> vianac, right ^ ?
+13:28:15 <alinefm> royce, upload/download is not restricted for .iso files
+13:28:21 <alinefm> you can upload/download any type of file
+13:28:37 <YuXin> download does not limited to iso, but for upload, there is a hint that mentioned iso
+13:29:05 <alinefm> YuXin, ops... we should remove this hint so as the backend allow any type of file
+13:29:13 <YuXin> ok
+13:29:19 <wenwang> alinefm: okay'
+13:31:54 <alinefm> other topic?
+13:36:07 <alinefm> ok - so everyone is ready to fix all bugs?! =)
+13:36:30 <alinefm> I am kidding about the "all"
+13:37:16 <YuXin> will focus on bugs
+13:37:24 <royce> heheheh
+13:37:30 <wenwang> sure, I will try to get more bugs to be fixed
+13:37:35 <royce> sounds like eat all bugs
+13:38:34 <alinefm> royce, \o/ at least someone laughed
+13:39:01 <alinefm> thanks everyone for joining and for the hard work!
+13:39:04 <royce> :)))
+13:39:28 <alinefm> #endmeeting
