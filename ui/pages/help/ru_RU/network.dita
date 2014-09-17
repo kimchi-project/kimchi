@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="ru-ru">
+<title>Сеть</title>
+<shortdesc>На странице <wintitle>Сеть</wintitle> показывается информация о сетевом соединении.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>Имя сети</dt>
+<dd>Имя сети или <uicontrol>по умолчанию</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Состояние</dt>
+<dd>Состояние сети - активная (зеленый) или неактивная (красный). </dd>
+</dlentry><dlentry>
+<dt>Тип сети</dt>
+<dd>Тип сети, например <uicontrol>NAT</uicontrol> (преобразование сетевых адресов).</dd>
+</dlentry><dlentry>
+<dt>Интерфейс</dt>
+<dd>Сетевой интерфейс, например <uicontrol>virbr0</uicontrol> (по умолчанию).</dd>
+</dlentry><dlentry>
+<dt>Адресное пространство</dt>
+<dd>IP-адрес.</dd>
+</dlentry></dl></p>
+<p>Доступны следующие действия:<ul>
+<li rev="rev1"><uicontrol>Запустить</uicontrol> - открыть сетевое соединение.</li>
+<li><uicontrol>Остановить</uicontrol> - закрыть сетевое соединение.</li>
+<li><uicontrol>Удалить</uicontrol> - удалить информацию о соединении.</li>
+</ul>Для создания сети щелкните на значке <uicontrol>плюса (+)</uicontrol> в правом верхнем углу страницы.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="ru-ru">
+<title>Создание сети</title>
+<shortdesc>Создание сети.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Введите имя сети.</li>
+<li>Выберите тип сети. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Изолированный</uicontrol></dt>
+<dd>Изолированный режим. Гостевые системы не могут обмениваться данными с внешними системами.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>Режим преобразования сетевых адресов. Обмен данными между гостевыми и внешними системами осуществляется через IP-адрес хоста. Внешние системы не могут подключаться к гостевым.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Через мост</uicontrol></dt>
+<dd>Режим работы через мост. Гостевые системы могут обмениваться данными с внешними системами, и внешние системы могут подключаться к гостевым, как если бы те были физическими системами в сети. В режиме работы через мост необходимо указать дополнительную информацию о целевом расположении и VLAN.</dd>
+</dlentry></dl></li>
+<li>Щелкните на <uicontrol>Создать</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="ru-ru">
+<title>Дисковая память</title>
+<shortdesc>На странице <wintitle>Дисковая память</wintitle> показывается список доступных пулов памяти, включая пулы памяти 'по умолчанию' и 'ISO'.
+Если вы хотите использовать собственный ISO, добавьте его в путь дисковой памяти 'ISO'.</shortdesc>
+<csbody>
+<p>Для каждого пула памяти показывается следующая информация:<dl>
+<dlentry>
+<dt>Имя</dt>
+<dd>Имя пула памяти и процент использования.</dd>
+</dlentry><dlentry>
+<dt>Состояние</dt>
+<dd>Состояние пула памяти - активный (зеленый) или неактивный (красный). </dd>
+</dlentry><dlentry>
+<dt>Расположение</dt>
+<dd>Путь к расположению пула памяти.</dd>
+</dlentry><dlentry>
+<dt>Тип</dt>
+<dd>Тип пула памяти, например <uicontrol>каталог</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Емкость</dt>
+<dd>Объем пула памяти.</dd>
+</dlentry><dlentry>
+<dt>Выделено</dt>
+<dd>Объем выделенной памяти в пуле.</dd>
+</dlentry></dl></p>
+<p>Для каждого пула памяти можно выбирать следующие действия:<ul>
+<li><uicontrol>Активировать</uicontrol> - активировать пул памяти, чтобы его можно было использовать.</li>
+<li><uicontrol>Деактивировать</uicontrol> - деактивировать активный пул памяти.</li>
+<li><uicontrol>Удалить</uicontrol> - удалить неактивный пул памяти.</li>
+</ul></p>
+<p>Для просмотра сведений о томах пула памяти щелкните на стрелке в правой части строки пула памяти.  Сведения включают:<dl><dlentry>
+<dt>Тип</dt>
+<dd>Тип тома, например <uicontrol>файл</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Формат</dt>
+<dd>Формат (зависит от типа).</dd>
+</dlentry><dlentry>
+<dt>Емкость</dt>
+<dd>Размер тома.</dd>
+</dlentry><dlentry>
+<dt>Выделение</dt>
+<dd>Объем выделенной памяти в пуле.</dd>
+</dlentry></dl>Для создания пула памяти щелкните на значке <uicontrol>плюса (+)</uicontrol> в правом верхнем углу страницы.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="ru-ru">
+<title>Создание пула памяти</title>
+<shortdesc> Создание пула памяти.</shortdesc>
+<csbody>
+<p> <ol>
+<li>В поле <uicontrol>Имя пула памяти</uicontrol> введите имя для идентификации пула памяти.</li>
+<li>В списке <uicontrol>Тип пула памяти</uicontrol> выберите тип: <dl><dlentry>
+<dt><uicontrol>Каталог</uicontrol></dt>
+<dd>Задает пул-каталог. При выборе типа <uicontrol>Каталог</uicontrol> заполните поле
+<uicontrol>Путь к пулу памяти</uicontrol> (путь к пулу памяти в файловой системе).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>Задает пул на основе сетевой файловой системы. При выборе <uicontrol>NFS</uicontrol> укажите адрес в
+поле <uicontrol>IP-адрес сервера NFS</uicontrol> и путь к экспортированному каталогу в поле <uicontrol>Путь NFS</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Задает пул на основе целевого объекта, выделенного на сервере iSCSI.
+При выборе типа <uicontrol>iSCSI</uicontrol> укажите IP-адрес в поле <uicontrol>Сервер iSCSI</uicontrol> и целевой объект на сервере iSCSI в поле <uicontrol>Целевой объект</uicontrol>. Можно также добавить идентификацию iSCSI.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Логический</uicontrol></dt>
+<dd>Задает пул памяти на основе логического тома. Выберите расположение устройства в поле <uicontrol>Путь к устройству</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
+<dd>Задает пул на основе SCSI Fibre Channel. Выберите адаптер SCSI.</dd>
+</dlentry></dl></li>
+<li>Щелкните на <uicontrol>Создать</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
