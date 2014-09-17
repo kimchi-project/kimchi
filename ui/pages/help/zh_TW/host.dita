@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="zh-tw">
+<title>主機</title>
+<shortdesc>「<wintitle>主機</wintitle>」頁面會顯示主機系統的相關資訊，並容許您關閉、重新啟動以及連接到主機。</shortdesc>
+<csbody>
+<p>您可以針對主機執行下列動作：<ul>
+<li>選取<uicontrol>關閉</uicontrol>以關閉主機系統。</li>
+<li>選取<uicontrol>重新啟動</uicontrol>以重新啟動主機系統。</li>
+<li>選取<uicontrol>連接</uicontrol>以開啟與主機系統的 VNC 連線（如果尚未連線到主機系統）。</li>
+</ul></p>
+<p>按一下下列區段以顯示主機的相關資訊：<dl>
+<dlentry>
+<dt>基本資訊</dt>
+<dd>此區段會顯示主機作業系統發行套件、版本、程式碼名稱、處理器類型以及記憶體數量 (GB)。</dd>
+</dlentry><dlentry>
+<dt>系統統計資料</dt>
+<dd>此區段會顯示一些圖形，以顯示主機的 CPU、記憶體、磁碟 I/O 和網路 I/O 的統計資料。選取<uicontrol>離開此頁面之後收集資料</uicontrol>以在主機標籤從視線中消失之後繼續收集資料。</dd>
+</dlentry><dlentry>
+<dt>軟體更新</dt>
+<dd>此區段會顯示具有可用更新的所有套件的相關資訊，包括套件名稱、版本、架構和儲存庫。您可以透過選取<uicontrol>全部更新</uicontrol>來更新所有列出的套件。不能選取個別套件以進行更新。</dd>
+</dlentry><dlentry>
+<dt>儲存庫</dt>
+<dd>此區段會顯示與主機系統相關聯的儲存庫。您可以新增、啟用、編輯或移除儲存庫。新增儲存庫可使它與主機系統相關聯，而啟用儲存庫則容許主機存取儲存庫。如果您的系統是
+Red Hat Enterprise Linux 或 Fedora，則可以新增 <filepath>yum</filepath> 儲存庫。如果您的系統是
+Ubuntu 或 Debian，則可以新增 <filepath>deb</filepath> 儲存庫。<p>如果您正在使用
+yum 儲存庫，則可以新增 GPG 檢查以驗證此儲存庫中的某個套件是否未毀損。選取儲存庫，然後選取<uicontrol>編輯</uicontrol>。選取<uicontrol>是</uicontrol>以啟用
+GPG 檢查，然後輸入儲存庫的 GPG 金鑰檔的 URL。</p></dd>
+</dlentry><dlentry>
+<dt>除錯報告</dt>
+<dd>此區段顯示除錯報告，包括名稱和檔案路徑。您可以選取選項以產生新報告、或是重新命名、移除或下載現有報告。<p>除錯報告是使用
+<cmdname>sosreport</cmdname> 指令產生的。該指令可用於 Red
+Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>、Fedora
+及 Ubuntu 發行套件。該指令會產生 .tar 檔案，其包含配置與診斷資訊，例如執行中的核心版本、已載入模組以及系統和服務配置檔案。該指令還會執行外部程式來收集更多資訊並將此輸出儲存在產生的保存檔中。</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

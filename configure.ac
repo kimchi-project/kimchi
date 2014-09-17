@@ -123,6 +123,7 @@ AC_CONFIG_FILES([
     ui/pages/help/ja_JP/Makefile
     ui/pages/help/ko_KR/Makefile
     ui/pages/help/ru_RU/Makefile
+    ui/pages/help/zh_TW/Makefile
     ui/pages/tabs/Makefile
     ui/pages/websockify/Makefile
     contrib/Makefile

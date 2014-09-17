@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="zh-tw">
+<title>客體</title>
+<shortdesc>「<wintitle>客體</wintitle>」頁面會列出已定義的 KVM 虛擬機器。</shortdesc>
+<csbody>
+<p>對於每一個客體，將會顯示下列資訊：<dl><dlentry>
+<dt>名稱</dt>
+<dd>虛擬機器的名稱。</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>虛擬機器上處理器使用率的百分比。</dd>
+</dlentry><dlentry>
+<dt>網路 I/O</dt>
+<dd>網路輸入/輸出傳輸速率 (KB/s)。</dd>
+</dlentry><dlentry>
+<dt>磁碟 I/O</dt>
+<dd>磁碟輸入/輸出傳輸速率 (KB/s)。</dd>
+</dlentry><dlentry>
+<dt>Livetile</dt>
+<dd>客體作業系統主控台的狀態，或是表示 <tm tmtype="tm" trademark="Linux">Linux</tm> 發行套件的圖示（如果客體未處於作用中狀態）。</dd>
+</dlentry></dl></p>
+<p>對於每一個客體，將會顯示下列動作圖示：<dl>
+<dlentry>
+<dt>重設</dt>
+<dd>按一下可重設客體。</dd>
+</dlentry><dlentry>
+<dt>電源（啟動或停止）</dt>
+<dd>按一下可開啟或關閉客體的電源。如果該圖示為紅色，則表示電源關閉；如果該圖示為綠色，則表示電源開啟。</dd>
+</dlentry></dl> </p>
+<p>可針對每一個客體選取下列動作：<ul>
+<li>選取<uicontrol>連接</uicontrol>可連接至客體作業系統的遠端主控台。</li>
+<li>選取<uicontrol>管理媒體</uicontrol>可變更安裝媒體的路徑。</li>
+<li>選取<uicontrol>重設</uicontrol>可重設客體。</li>
+<li>選取<uicontrol>編輯</uicontrol>可編輯現有客體的內容。僅在停止時，才能編輯客體。</li>
+<li>選取<uicontrol>刪除</uicontrol>可刪除客體。</li>
+</ul>若要建立客體或虛擬機器，請按一下顯示頁面右上方的<uicontrol>加號 (+)</uicontrol> 圖示。</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="zh-tw">
+<title>建立虛擬機器</title>
+<shortdesc>使用現有範本建立虛擬機器。</shortdesc>
+<csbody>
+<p> <ol>
+<li>輸入用來識別虛擬機器的名稱。</li>
+<li rev="rev1">選取範本。<ul>
+<li>如果範本存在，請從顯示的範本中選取。</li>
+<li>如果沒有範本，請按一下<uicontrol>建立範本</uicontrol>來建立範本。</li>
+</ul></li>
+<li>按一下<uicontrol>建立</uicontrol>。</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="zh-tw">
+<title>編輯客體</title>
+<shortdesc>編輯現有虛擬機器的內容。部分內容只能在客體停止時進行編輯。其他內容將在下一次啟動時生效。</shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>對於每一個客體，將會在「<wintitle>一般</wintitle>」標籤上顯示下列資訊：<dl>
+<dlentry>
+<dt>名稱</dt>
+<dd>虛擬機器的名稱。（只能在客體停止時進行編輯）</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>處理器數目。（如果客體在執行中，則新數量將在下一次啟動時生效）</dd>
+</dlentry><dlentry>
+<dt>記憶體</dt>
+<dd>記憶體數量 (MB)。（如果客體在執行中，則新數量將在下一次啟動時生效）</dd>
+</dlentry><dlentry>
+<dt>圖示</dt>
+<dd>當客體不處於作用中狀態時，要取代現行狀態 (Livetile) 顯示的代表 Linux 發行套件的圖形影像。</dd>
+</dlentry></dl></p>
+<p>下列資訊會顯示在「<wintitle>儲存</wintitle>」標籤上。</p>
+<dl><dlentry>
+<dt>儲存體</dt>
+<dd>顯示用於安裝的 ISO 檔案的位置。</dd>
+</dlentry></dl>
+<p> 可以編輯未停用的欄位。編輯欄位之後，按一下<uicontrol>儲存</uicontrol>。</p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="zh-tw">
+<title>新增、取代或分離儲存裝置</title>
+<shortdesc rev="rev1">您可以新增、取代或分離虛擬機器的儲存裝置。唯一受支援的裝置是 CDROM。若要編輯儲存裝置，請遵循下列步驟：</shortdesc>
+<csbody>
+<ol>
+<li>在「<wintitle>編輯客體</wintitle>」視窗上，選取「<wintitle>儲存體</wintitle>」。</li>
+<li>若要取代儲存裝置，請按一下含有<uicontrol>橙色斜線 (/)</uicontrol> 的第一個圖示。輸入
+ISO 檔案路徑，然後按一下<uicontrol>取代</uicontrol>。</li>
+<li>若要分離儲存裝置，請按一下含有<uicontrol>紅色斜線 (/)</uicontrol> 的第二個圖示。確認刪除，然後按一下<uicontrol>確定</uicontrol>。</li>
+<li>若要新增儲存裝置，請按一下含有綠色<uicontrol>加號 (+)</uicontrol> 的第三個圖示。輸入裝置名稱及
+ISO 檔案路徑，然後按一下<uicontrol>連接</uicontrol>。</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="zh-tw">
+<title>取代虛擬機器的 CDROM</title>
+<shortdesc rev="rev1">安裝完成之後，您可以取代虛擬機器的 CDROM 的內容。</shortdesc>
+<csbody>
+<ol>
+<li>確定虛擬機器已啟動。</li>
+<li>從「動作」功能表中，選取<uicontrol>管理媒體</uicontrol>。</li>
+<li>若要變更目前在 CDROM 中加載的內容，請按一下 hdc 欄位旁邊的<uicontrol>橙色斜線 (/)</uicontrol> 圖示。</li>
+<li>在「<wintitle>取代虛擬機器的 CDROM</wintitle>」頁面上，輸入 ISO 檔案路徑。另外兩個欄位是唯讀的。</li>
+<li>按一下<uicontrol>取代</uicontrol>。</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
