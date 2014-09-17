@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="ko-kr">
+<title>호스트</title>
+<shortdesc><wintitle>호스트</wintitle> 페이지에는 호스트 시스템에 대한 정보가 표시되며 이 페이지를 사용하여 호스트를 종료 및 다시 시작하거나 호스트에 연결할 수 있습니다.</shortdesc>
+<csbody>
+<p>호스트에 대해 다음 조치를 수행할 수 있습니다.<ul>
+<li>호스트 시스템을 종료하려면 <uicontrol>시스템 종료</uicontrol>를 선택합니다.</li>
+<li>호스트 시스템을 다시 시작하려면 <uicontrol>다시 시작</uicontrol>을 선택합니다.</li>
+<li>이미 연결되어 있지 않은 경우, 호스트 시스템에 대한 VNC 연결을 시작하려면 <uicontrol>연결</uicontrol>을 선택합니다.</li>
+</ul></p>
+<p>호스트에 대한 정보를 표시하려면 다음 섹션을 클릭하십시오.<dl>
+<dlentry>
+<dt>기본 정보</dt>
+<dd>이 섹션에는 호스트 운영 체제 배포, 버전, 코드 이름, 프로세서 유형, 메모리 용량(GB) 등이 표시됩니다.</dd>
+</dlentry><dlentry>
+<dt>시스템 통계</dt>
+<dd>이 섹션에는 호스트의 CPU, 메모리, 디스크 I/O, 네트워크 I/O에 대한 통계를 표시하는 그래프가 표시됩니다. 호스트 탭을 떠났을 때 데이터 수집을 계속하려면 <uicontrol>이 페이지를 떠난 후에 데이터 수집</uicontrol>을 선택합니다.</dd>
+</dlentry><dlentry>
+<dt>소프트웨어 업데이트</dt>
+<dd>이 섹션에는 패키지 이름, 버전, 아키텍처, 저장소를 비롯하여 사용 가능한 업데이트가 있는 모든 패키지에 대한 정보가 표시됩니다. <uicontrol>모두 업데이트</uicontrol>를 선택하여 나열된 모든 패키지를 업데이트할 수 있습니다. 업데이트에 대해 개별 패키지를 선택할 수는 없습니다.</dd>
+</dlentry><dlentry>
+<dt>저장소</dt>
+<dd>이 섹션에는 호스트 시스템과 연관된 저장소가 표시됩니다. 저장소를 추가하거나, 사용으로 설정하거나, 편집하거나, 제거할 수 있습니다. 저장소를 추가하면 저장소가 호스트 시스템과 연관되며, 저장소를 사용으로 설정하면 호스트가 저장소에 액세스할 수 있습니다. 해당 시스템이 Red Hat Enterprise Linux 또는 Fedora인 경우, <filepath>yum</filepath> 저장소를 추가할 수 있습니다.
+해당 시스템이 Ubuntu 또는 Debian인 경우, <filepath>deb</filepath> 저장소를 추가하십시오.<p>yum 저장소로 작업하는 경우, GPG 검사를 추가하여 이 저장소의 패키지가 손상되지 않았는지 확인할 수 있습니다.
+저장소를 선택한 후 <uicontrol>편집</uicontrol>을 선택하십시오. <uicontrol>예</uicontrol>를 선택하여 GPG 검사를 사용으로 설정한 후 저장소에 대한 GPG 키 파일의 URL을 입력하십시오.</p></dd>
+</dlentry><dlentry>
+<dt>디버그 보고서</dt>
+<dd>이 섹션에는 이름 및 파일 경로를 포함한 디버그 보고서가 표시됩니다.
+새 보고서 생성, 기존 보고서 이름 바꾸기, 제거, 다운로드 등의 옵션 중에서 선택할 수 있습니다.<p>디버그 보고서는 <cmdname>sosreport</cmdname> 명령을 사용하여 생성됩니다. 이는 Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>, Fedora 및 Ubuntu 배포에서 사용 가능합니다. 이 명령은 구성 및 진단 정보(예: 실행 중인 커널 버전, 로드된 모듈, 시스템 및 서비스 구성 파일)를 포함하는 .tar 파일을 생성합니다.
+또한 이 명령은 외부 프로그램을 실행하여 추가 정보를 수집하고 결과 아카이브에 이 출력을 저장합니다.</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

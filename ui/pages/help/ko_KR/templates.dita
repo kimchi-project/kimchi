@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhtempl" xml:lang="ko-kr">
+<title>템플리트</title>
+<shortdesc><wintitle>템플리트</wintitle> 페이지에는 KVM 게스트를 작성하는 데 사용될 수 있는 정의된 가상 머신 템플리트가 표시됩니다.</shortdesc>
+<csbody>
+<p>각 템플리트에 대해 다음 정보가 표시됩니다.<dl>
+<dlentry>
+<dt>OS</dt>
+<dd>운영 체제 또는 배포의 이름입니다.</dd>
+</dlentry><dlentry>
+<dt>버전</dt>
+<dd>운영 체제 또는 배포의 버전입니다.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>템플리트에 대해 정의된 프로세서의 수입니다.</dd>
+</dlentry><dlentry>
+<dt>메모리</dt>
+<dd>할당될 RAM(Random Access Memory)의 양(MB)입니다.</dd>
+</dlentry></dl></p>
+<p>각 템플리트마다 다음 조치를 선택할 수 있습니다.<ul>
+<li>템플리트를 편집하려면 <uicontrol>편집</uicontrol>을 선택합니다.</li>
+<li>템플리트를 삭제하려면 <uicontrol>삭제</uicontrol>를 선택합니다.</li>
+</ul>템플리트를 추가하려면 화면 오른쪽 상단에 있는 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
+</csbody>
+<cshelp id="kimhedittempl" xml:lang="ko-kr">
+<title>템플리트 편집</title>
+<shortdesc>기존 템플리트를 편집합니다.</shortdesc>
+<csbody>
+<p>각 템플리트에 대해 다음 정보가 표시됩니다. <dl>
+<dlentry>
+<dt>이름</dt>
+<dd>템플리트의 이름입니다.</dd>
+</dlentry><dlentry>
+<dt>공급업체</dt>
+<dd>템플리트가 사용하도록 구성된 운영 체제 또는 배포를 작성한 회사의 이름입니다.</dd>
+</dlentry><dlentry>
+<dt>버전</dt>
+<dd>템플리트가 사용하도록 구성된 운영 체제 또는 배포의 버전입니다.</dd>
+</dlentry><dlentry>
+<dt>CPU 수</dt>
+<dd>템플리트에 대해 정의된 프로세서의 수입니다.</dd>
+</dlentry><dlentry>
+<dt>메모리</dt>
+<dd>가상 머신에 할당될 메모리 용량(MB)입니다.</dd>
+</dlentry><dlentry>
+<dt>디스크</dt>
+<dd>디스크 크기(GB)입니다.</dd>
+</dlentry><dlentry>
+<dt>CDROM</dt>
+<dd>KVM 게스트를 설치하는 데 사용된 ISO 파일의 위치에 대한 파일 경로입니다.</dd>
+</dlentry><dlentry>
+<dt>스토리지 풀</dt>
+<dd>특정 스토리지 풀 또는 기본 스토리지 풀입니다.</dd>
+</dlentry><dlentry>
+<dt>네트워크</dt>
+<dd>KVM 게스트에 사용 가능한 기본 네트워크 인터페이스입니다. 여러 네트워크를 선택할 수 있습니다.</dd>
+</dlentry></dl> 사용 안함으로 설정되지 않은 필드를 편집할 수 있습니다. 필드를 편집한 후에 <uicontrol>저장</uicontrol>을 클릭합니다. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddtempl">
+<title>템플리트 추가</title>
+<shortdesc>소스 매체로부터 템플리트를 추가합니다. 다음 검색에 대해 'ISO' 스토리지 풀에 사용자 전용 ISO 이미지를 추가할 수 있습니다. </shortdesc>
+<csbody>
+<p>다음 옵션 중에서 소스 매체의 위치를 선택하십시오.<dl>
+<dlentry>
+<dt>로컬 ISO 이미지</dt>
+<dd>시스템에서 사용 가능한 설치 ISO 이미지의 스토리지 풀을 스캔하려면 선택합니다.</dd>
+</dlentry><dlentry>
+<dt>원격 ISO 이미지</dt>
+<dd>설치 ISO 이미지의 원격 위치를 지정하려면 선택합니다.</dd>
+</dlentry></dl></p>
+</csbody>
+</cshelp>
+<cshelp id="kimhaddloct">
+<title>템플리트 추가 - 로컬 ISO 이미지</title>
+<shortdesc>로컬 ISO 이미지로부터 템플리트를 추가합니다.</shortdesc>
+<csbody>
+<p>시스템에서 사용 가능한 ISO 이미지가 표시됩니다.<dl><dlentry>
+<dt>OS</dt>
+<dd>운영 체제 또는 배포의 이름입니다.</dd>
+</dlentry><dlentry>
+<dt>버전</dt>
+<dd>운영 체제 또는 배포의 버전입니다.</dd>
+</dlentry><dlentry>
+<dt>크기</dt>
+<dd>ISO 이미지의 크기입니다.</dd>
+</dlentry></dl></p>
+<p>ISO 이미지로부터 템플리트를 작성하려면 다음 옵션 중에서 선택하십시오.<ul>
+<li>템플리트를 작성하기 위한 ISO 이미지를 선택한 후 <uicontrol>선택한 ISO로부터 템플리트 작성</uicontrol>을 클릭합니다.</li>
+<li>나열된 각 ISO 이미지로부터 템플리트를 작성하려면 <uicontrol>모두</uicontrol>를 선택한 후 <uicontrol>선택한 ISO로부터 템플리트 작성</uicontrol>을 클릭합니다.</li>
+<li>사용하려는 ISO 이미지가 스캔 결과에 표시되지 않는 경우, 다음 옵션 중에서 선택할 수 있습니다.<ul>
+<li>ISO 이미지의 경로를 지정하려면 <uicontrol>특정 ISO 파일을 사용하려고 합니다.</uicontrol>를 선택합니다.</li>
+<li>추가 ISO 이미지를 검색하려면 <uicontrol>추가 ISO 검색</uicontrol>을 클릭합니다.</li>
+</ul></li>
+</ul></p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 229 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

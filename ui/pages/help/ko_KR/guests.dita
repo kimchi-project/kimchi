@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="ko-kr">
+<title>게스트</title>
+<shortdesc><wintitle>게스트</wintitle> 페이지에는 정의된 KVM 가상 머신이 나열됩니다.</shortdesc>
+<csbody>
+<p>각 게스트에 대해 다음 정보가 표시됩니다.<dl><dlentry>
+<dt>이름</dt>
+<dd>가상 머신의 이름입니다.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>가상 머신의 프로세서 이용률입니다.</dd>
+</dlentry><dlentry>
+<dt>네트워크 I/O</dt>
+<dd>초당 네트워크 입/출력(I/O) 전송 속도(KB)입니다.</dd>
+</dlentry><dlentry>
+<dt>디스크 I/O</dt>
+<dd>초당 디스크 입/출력(I/O) 전송 속도(KB)입니다.</dd>
+</dlentry><dlentry>
+<dt>라이브타일</dt>
+<dd>게스트 운영 체제의 상태이거나, 게스트가 활성이 아닌 경우 <tm tmtype="tm" trademark="Linux">Linux</tm> 배포를 나타내는 아이콘입니다.</dd>
+</dlentry></dl></p>
+<p>다음 조치 아이콘이 각 게스트마다 표시됩니다.<dl>
+<dlentry>
+<dt>다시 설정</dt>
+<dd>게스트를 다시 설정하려면 클릭합니다. </dd>
+</dlentry><dlentry>
+<dt>전원(시작 또는 중지)</dt>
+<dd>게스트의 전원을 켜거나 끄려면 클릭합니다. 아이콘이 빨간색이면 전원이 꺼진 것이고 아이콘이 녹색이면 전원이 켜진 것입니다.</dd>
+</dlentry></dl> </p>
+<p>각 게스트마다 다음 조치를 선택할 수 있습니다.<ul>
+<li>게스트 운영 체제의 원격 콘솔에 연결하려면 <uicontrol>연결</uicontrol>을 선택합니다.</li>
+<li>경로를 설치 매체로 변경하려면 <uicontrol>매체 관리</uicontrol>를 선택합니다.</li>
+<li>게스트를 다시 설정하려면 <uicontrol>다시 설정</uicontrol>을 선택합니다.</li>
+<li>기존 게스트의 특성을 편집하려면 <uicontrol>편집</uicontrol>을 선택합니다. 게스트는 중지 상태일 때만 편집할 수 있습니다.</li>
+<li>게스트를 삭제하려면 <uicontrol>삭제</uicontrol>를 선택합니다.</li>
+</ul>게스트 또는 가상 머신을 작성하려면 페이지 오른쪽 상단에 있는 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="ko-kr">
+<title>가상 머신 작성</title>
+<shortdesc>기존 템플리트를 사용하여 가상 머신을 작성합니다.</shortdesc>
+<csbody>
+<p> <ol>
+<li>가상 머신을 식별하는 데 사용될 이름을 입력하십시오.</li>
+<li rev="rev1">템플리트를 선택하십시오. <ul>
+<li>템플리트가 존재하는 경우, 표시된 템플리트 중에서 선택하십시오.</li>
+<li>템플리트가 없는 경우, <uicontrol>템플리트 작성</uicontrol>을 클릭하여 템플리트를 작성하십시오.</li>
+</ul></li>
+<li><uicontrol>작성</uicontrol>을 클릭하십시오.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="ko-kr">
+<title>게스트 편집</title>
+<shortdesc>기존 가상 머신의 특성을 편집합니다. 일부 특성은 게스트가 중지된 동안에만 편집할 수 있습니다.
+다른 특성은 다음 부트에서 적용됩니다. </shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>각 게스트에 대해 다음 정보가 <wintitle>일반</wintitle> 탭에 표시됩니다.<dl>
+<dlentry>
+<dt>이름</dt>
+<dd>가상 머신의 이름입니다(게스트가 중지된 동안에만 편집할 수 있음).</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>프로세서 수입니다(게스트가 실행 중인 경우 새 크기는 다음 부트에서 적용됨).</dd>
+</dlentry><dlentry>
+<dt>메모리</dt>
+<dd>메모리 용량(MB)입니다(게스트가 실행 중인 경우 새 용량은 다음 부트에서 적용됨).</dd>
+</dlentry><dlentry>
+<dt>아이콘</dt>
+<dd>게스트가 활성이 아닐 때 현재 상태(라이브타일) 대신에 표시될 Linux 배포를 나타내는 그래픽 이미지입니다.</dd>
+</dlentry></dl></p>
+<p>다음 정보가 <wintitle>스토리지</wintitle> 탭에 표시됩니다.</p>
+<dl><dlentry>
+<dt>스토리지</dt>
+<dd>설치에 사용된 ISO 파일의 위치를 표시합니다.</dd>
+</dlentry></dl>
+<p> 사용 안함으로 설정되지 않은 필드를 편집할 수 있습니다. 필드를 편집한 후에 <uicontrol>저장</uicontrol>을 클릭합니다. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="ko-kr">
+<title>스토리지 장치 추가, 교체 또는 분리</title>
+<shortdesc rev="rev1">가상 머신에 대해 스토리지 장치를 추가, 교체 또는 분리할 수 있습니다. 지원되는 장치는 CDROM뿐입니다. 스토리지 장치를 편집하려면 다음 단계를 수행하십시오.</shortdesc>
+<csbody>
+<ol>
+<li><wintitle>게스트 편집</wintitle> 창에서 <wintitle>스토리지</wintitle>를 선택하십시오.</li>
+<li>스토리지 장치를 교체하려면 <uicontrol>주황색 슬래시(/)</uicontrol>가 있는 첫 번째 아이콘을 클릭하십시오. ISO 파일 경로를 입력하고 <uicontrol>교체</uicontrol>를 클릭하십시오.</li>
+<li>스토리지 장치를 분리하려면 <uicontrol>빨간색 대시(-)</uicontrol>가 있는 두 번째 아이콘을 클릭하십시오. 삭제 여부를 확인하고 <uicontrol>확인</uicontrol>을 클릭하십시오.</li>
+<li>스토리지 장치를 추가하려면 녹색 <uicontrol>더하기 부호(+)</uicontrol>가 있는 세 번째 아이콘을 클릭하십시오. 장치 이름 및 ISO 파일 경로를 입력하고 <uicontrol>분리</uicontrol>를 클릭하십시오.</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="ko-kr">
+<title>VM의 CDROM 교체</title>
+<shortdesc rev="rev1">설치가 완료된 후에 가상 머신에 대한 CDROM의 컨텐츠를 바꿀 수 있습니다.</shortdesc>
+<csbody>
+<ol>
+<li>가상 머신이 시작되었는지 확인하십시오.</li>
+<li>조치 메뉴에서 <uicontrol>매체 관리</uicontrol>를 선택하십시오.</li>
+<li>CDROM에 현재 로드된 항목을 변경하기 위해 hdc 필드 옆에 있는 <uicontrol>주황색 슬래시(/)</uicontrol> 아이콘을 클릭하십시오.</li>
+<li><wintitle>VM의 CDROM 교체</wintitle> 페이지에서 ISO 파일 경로를 입력하십시오. 다른 두 필드는 읽기 전용입니다.</li>
+<li><uicontrol>교체</uicontrol>를 클릭하십시오.</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
