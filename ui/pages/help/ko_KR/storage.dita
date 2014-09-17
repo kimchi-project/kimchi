@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="ko-kr">
+<title>스토리지</title>
+<shortdesc><wintitle>스토리지</wintitle> 페이지에는 바로 사용할 수 있는 '기본' 및 'ISO' 스토리지 풀을 포함하여 사용 가능한 스토리지 풀이 나열됩니다.
+사용자 전용 ISO를 사용하려면 이를 'ISO' 스토리지 풀 경로에 추가하십시오.</shortdesc>
+<csbody>
+<p>각 스토리지 풀에 대해 다음 정보가 표시됩니다.<dl>
+<dlentry>
+<dt>이름</dt>
+<dd>스토리지 풀의 이름 및 사용률입니다.</dd>
+</dlentry><dlentry>
+<dt>상태</dt>
+<dd>스토리지 풀의 상태(활성의 경우 녹색, 비활성의 경우 빨간색)입니다. </dd>
+</dlentry><dlentry>
+<dt>위치</dt>
+<dd>스토리지 풀의 위치에 대한 파일 경로입니다.</dd>
+</dlentry><dlentry>
+<dt>유형</dt>
+<dd>스토리지 풀의 유형입니다. 예: <uicontrol>dir</uicontrol></dd>
+</dlentry><dlentry>
+<dt>용량</dt>
+<dd>스토리지 풀에서 공간의 양입니다.</dd>
+</dlentry><dlentry>
+<dt>할당됨</dt>
+<dd>스토리지 풀에 이미 할당된 공간의 양입니다.</dd>
+</dlentry></dl></p>
+<p>각 스토리지 풀마다 다음 조치를 선택할 수 있습니다.<ul>
+<li>사용 가능하도록 스토리지 풀을 활성화하려면 <uicontrol>활성화</uicontrol>를 선택합니다.</li>
+<li>스토리지 풀을 비활성화하려면 <uicontrol>비활성화</uicontrol>를 선택합니다.</li>
+<li>비활성 스토리지 풀을 제거하려면 <uicontrol>정의 취소</uicontrol>를 선택합니다.</li>
+</ul></p>
+<p>스토리지 풀에 대한 스토리지 볼륨 세부사항을 표시하려면 스토리지 풀 행의 오른쪽에 있는 화살표를 클릭하십시오. 세부사항에는 다음이 포함됩니다.<dl><dlentry>
+<dt>유형</dt>
+<dd>볼륨의 유형입니다. 예: <uicontrol>파일</uicontrol></dd>
+</dlentry><dlentry>
+<dt>형식</dt>
+<dd>형식은 유형에 따라 달라집니다.</dd>
+</dlentry><dlentry>
+<dt>용량</dt>
+<dd>스토리지 볼륨의 크기입니다.</dd>
+</dlentry><dlentry>
+<dt>할당</dt>
+<dd>스토리지 풀에 이미 할당된 공간의 양입니다.</dd>
+</dlentry></dl>스토리지 풀을 정의하려면 화면 오른쪽 상단에 있는 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="ko-kr">
+<title>스토리지 풀 정의</title>
+<shortdesc> 스토리지 풀을 정의합니다.</shortdesc>
+<csbody>
+<p> <ol>
+<li><uicontrol>스토리지 풀 이름</uicontrol> 필드에서, 스토리지 풀을 식별하는 데 사용될 이름을 입력하십시오.</li>
+<li><uicontrol>스토리지 풀 유형</uicontrol> 목록에서 다음 유형을 선택하십시오. <dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>디렉토리 풀을 지정합니다. <uicontrol>DIR</uicontrol> 유형을 선택한 경우, <uicontrol>스토리지 경로</uicontrol>(스토리지 풀의 파일 경로)를 입력합니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>네트워크 파일 시스템 풀을 지정합니다. <uicontrol>NFS</uicontrol>를 선택한 경우, <uicontrol>NFS 서버 IP 주소</uicontrol> 및 <uicontrol>NFS 경로</uicontrol>(예상 디렉토리의 경로)를 입력합니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>iSCSI 서버에 할당된 대상을 기반으로 풀을 지정합니다.
+<uicontrol>iSCSI</uicontrol>를 선택한 경우, iSCSI 서버에 대한 <uicontrol>iSCSI 서버 IP 주소</uicontrol> 및 <uicontrol>대상</uicontrol>을 입력합니다. 선택적으로, iSCSI 인증을 추가하도록 선택할 수 있습니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>논리적</uicontrol></dt>
+<dd>논리적 볼륨 스토리지 풀을 지정합니다. <uicontrol>장치 경로</uicontrol>에서 장치에 대한 위치를 선택합니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI 파이버 채널</uicontrol></dt>
+<dd>SCSI 파이버 채널을 기반으로 풀을 지정합니다. 사용할 SCSI 어댑터를 선택합니다.</dd>
+</dlentry></dl></li>
+<li><uicontrol>작성</uicontrol>을 클릭하십시오.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

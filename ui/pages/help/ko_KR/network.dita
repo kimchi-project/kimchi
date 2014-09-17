@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="ko-kr">
+<title>네트워크</title>
+<shortdesc><wintitle>네트워크</wintitle> 페이지에는 네트워크 연결에 대한 정보가 표시됩니다.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>네트워크 이름</dt>
+<dd>네트워크의 이름 또는 <uicontrol>기본값</uicontrol>입니다.</dd>
+</dlentry><dlentry>
+<dt>상태</dt>
+<dd>네트워크의 상태(활성의 경우 녹색, 비활성의 경우 빨간색)입니다. </dd>
+</dlentry><dlentry>
+<dt>네트워크 유형</dt>
+<dd>네트워크 유형입니다. 예: <uicontrol>NAT</uicontrol>(Network Address Translation)</dd>
+</dlentry><dlentry>
+<dt>인터페이스</dt>
+<dd>네트워크 인터페이스입니다. 예: <uicontrol>virbr0</uicontrol>(기본값)</dd>
+</dlentry><dlentry>
+<dt>주소 공간</dt>
+<dd>IP 주소입니다.</dd>
+</dlentry></dl></p>
+<p>다음 조치를 선택할 수 있습니다.<ul>
+<li rev="rev1">네트워크 연결을 시작하려면 <uicontrol>시작</uicontrol>을 선택합니다.</li>
+<li>네트워크 연결을 종료하려면 <uicontrol>중지</uicontrol>를 선택합니다.</li>
+<li>연결 정보를 삭제하려면 <uicontrol>삭제</uicontrol>를 선택합니다.</li>
+</ul>네트워크를 작성하려면 화면 오른쪽 상단에 있는 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="ko-kr">
+<title>네트워크 작성</title>
+<shortdesc>네트워크를 작성합니다.</shortdesc>
+<csbody>
+<p> <ol>
+<li>네트워크의 이름을 입력하십시오.</li>
+<li>네트워크 유형을 선택하려면 클릭하십시오. <dl rev="rev1"><dlentry>
+<dt><uicontrol>격리됨</uicontrol></dt>
+<dd>격리 모드입니다. 게스트는 외부 시스템에 대해 통신을 보내거나 받을 수 없습니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>Network Address Translation 모드입니다. 게스트가 외부 시스템으로 보내는 통신에서 호스트 IP 주소를 사용합니다. 외부 시스템은 게스트로의 통신을 시작할 수 없습니다.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>브릿지됨</uicontrol></dt>
+<dd>브릿지 모드입니다. 게스트는 외부 시스템과 통신할 수 있고 외부 시스템은 네트워크상의 물리적 시스템처럼 게스트에 접속할 수 있습니다. 브릿지 모드의 경우, 추가 목적지 및 VLAN 정보를 지정해야 합니다.</dd>
+</dlentry></dl></li>
+<li><uicontrol>작성</uicontrol>을 클릭하십시오.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
