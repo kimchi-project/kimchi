@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhhost" xml:lang="ja-jp">
+<title>ホスト</title>
+<shortdesc><wintitle>「ホスト」</wintitle>ページには、ホスト・システムに関する情報が表示されます。ここで、ホストをシャットダウン、再始動、またホストに接続することができます。
+</shortdesc>
+<csbody>
+<p>以下のアクションをホストに対して実行できます。
+<ul>
+<li>ホスト・システムをシャットダウンするには<uicontrol>「シャットダウン」</uicontrol>を選択します。
+</li>
+<li>ホスト・システムを再始動するには<uicontrol>「再始動」</uicontrol>を選択します。
+</li>
+<li>ホスト・システムへの VNC 接続を (まだ接続されていない場合に) オープンするには、<uicontrol>「接続」</uicontrol>を選択します。
+</li>
+</ul></p>
+<p>ホストに関する情報を表示するには、以下の選択項目をクリックしてください。
+<dl>
+<dlentry>
+<dt>基本情報</dt>
+<dd>このセクションには、ホスト・オペレーティング・システムのディストリビューション、バージョン、およびコード名、さらにプロセッサー・タイプとメモリーの量 (GB 単位) が表示されます。
+</dd>
+</dlentry><dlentry>
+<dt>システム統計情報</dt>
+<dd>このセクションには、ホストの CPU、メモリー、ディスク入出力、およびネットワーク入出力の統計情報を表すグラフが表示されます。
+ホスト・タブを閉じたときにデータの収集を続行するには、<uicontrol>「このページを閉じた後、データを収集する」</uicontrol>を選択してください。
+</dd>
+</dlentry><dlentry>
+<dt>ソフトウェア更新</dt>
+<dd>このセクションには、更新が用意されているパッケージすべての情報
+(パッケージ名、バージョン、アーキテクチャー、リポジトリーなど) が表示されます。
+<uicontrol>「すべて更新」</uicontrol>を選択すると、リストされているパッケージすべてを更新できます。
+更新する対象として個別のパッケージを選択することはできません。
+</dd>
+</dlentry><dlentry>
+<dt>リポジトリー</dt>
+<dd>このセクションには、ホスト・システムに関連付けられているリポジトリーが表示されます。
+リポジトリーを追加する、有効にする、編集する、または削除することができます。
+リポジトリーを追加すると、そのリポジトリーがホスト・システムに関連付けられ、リポジトリーを有効にすると、そのリポジトリーにホストがアクセスできるようになります。
+システムが Red Hat Enterprise Linux または Fedora であれば、<filepath>yum</filepath> リポジトリーを追加できます。
+システムが Ubuntu または Debian であれば、<filepath>deb</filepath> リポジトリーを追加してください。
+<p>yum リポジトリーを操作している場合、そのリポジトリーに入っているパッケージが壊れていないことを確認するため、GPG チェックを追加できます。
+リポジトリーを選択し、<uicontrol>「編集」</uicontrol>をクリックしてください。
+<uicontrol>「はい」</uicontrol>を選択して GPG チェックを有効にしてから、そのリポジトリーの GPG 鍵ファイルの URL を入力してください。
+</p></dd>
+</dlentry><dlentry>
+<dt>デバッグ・レポート</dt>
+<dd>このセクションには、デバッグ・レポート (名前やファイル・パスなど) が表示されます。
+新しいレポートを生成、既存のレポートを名前変更、削除、またはダウンロードするためのオプションを選択できます。
+<p>デバッグ・レポートは、<cmdname>sosreport</cmdname> コマンドで生成されます。
+これは、Red Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>、Fedora、および Ubuntu ディストリビューションに用意されています。
+このコマンドは、構成および診断情報 (稼働中のカーネルのバージョン、ロードされているモジュール、システムおよびサービス構成ファイルなど) が入った .tar ファイルを生成します。
+このコマンドはまた、外部プログラムを実行して情報をさらに収集し、その出力を結果のアーカイブに保管します。
+</p> </dd>
+</dlentry></dl></p>
+</csbody>
+<?tm 1392659967 1?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 227 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 1 -->

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="ja-jp">
+<title>ゲスト</title>
+<shortdesc><wintitle>「ゲスト」</wintitle>ページには、定義済み KVM 仮想マシンがリストされます。
+</shortdesc>
+<csbody>
+<p>ゲストごとに、以下の情報が表示されます。
+<dl><dlentry>
+<dt>名前</dt>
+<dd>仮想マシンの名前。
+</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>仮想マシンにおけるプロセッサー使用率。
+</dd>
+</dlentry><dlentry>
+<dt>ネットワーク入出力</dt>
+<dd>ネットワーク入出力の速度 (KB/秒)。
+</dd>
+</dlentry><dlentry>
+<dt>ディスク入出力</dt>
+<dd>ディスク入出力の速度 (KB/秒)。
+</dd>
+</dlentry><dlentry>
+<dt>ライブタイル</dt>
+<dd>ゲスト・オペレーティング・システム・コンソールの状態、またはゲストがアクティブではない場合、<tm tmtype="tm" trademark="Linux">Linux</tm>
+ディストリビューションを表すアイコン。
+</dd>
+</dlentry></dl></p>
+<p>ゲストごとに、以下のアクション・アイコンが表示されます。
+<dl>
+<dlentry>
+<dt>リセット</dt>
+<dd>クリックしてゲストをリセットします。
+</dd>
+</dlentry><dlentry>
+<dt>電源 (開始または停止)</dt>
+<dd>クリックしてゲストの電源をオンまたはオフにします。
+このアイコンが赤であれば電源はオフになっています。緑であればオンになっています。
+</dd>
+</dlentry></dl> </p>
+<p>ゲストごとに、以下のアクションを選択できます。
+<ul>
+<li>ゲスト・オペレーティング・システムのリモート・コンソールに接続するには、<uicontrol>「接続」</uicontrol>を選択します。
+</li>
+<li>インストール・メディアのパスを変更するには、<uicontrol>「メディアの管理」</uicontrol>を選択します。
+</li>
+<li>ゲストをリセットするには<uicontrol>「リセット」</uicontrol>を選択します。
+</li>
+<li>既存のゲストのプロパティーを編集するには、<uicontrol>「編集」</uicontrol>を選択します。
+ゲストは、停止している間のみ編集できます。
+</li>
+<li>ゲストを削除するには<uicontrol>「削除」</uicontrol>を選択します。
+</li>
+</ul>ゲスト (仮想マシン) を作成するには、ページの右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="ja-jp">
+<title>仮想マシンの作成</title>
+<shortdesc>既存のテンプレートを編集することによって、仮想マシンを作成します。
+</shortdesc>
+<csbody>
+<p> <ol>
+<li>仮想マシンを識別するための名前を入力します。
+</li>
+<li rev="rev1">テンプレートを選択します。
+<ul>
+<li>テンプレートが存在する場合、表示されたテンプレートから選択してください。
+</li>
+<li>テンプレートが存在しない場合は、<uicontrol>「テンプレートの作成」</uicontrol>をクリックしてテンプレートを作成します。
+</li>
+</ul></li>
+<li><uicontrol>「作成」</uicontrol>をクリックしてください。
+</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="ja-jp">
+<title>ゲストの編集</title>
+<shortdesc>既存の仮想マシンのプロパティーを編集します。
+一部のプロパティーは、ゲストが停止している間に限り編集可能です。
+それとは別に、次のブートで有効になるプロパティーもあります。</shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>ゲストごとに、以下の情報が<wintitle>「一般」</wintitle>タブに表示されます。
+<dl>
+<dlentry>
+<dt>名前</dt>
+<dd>仮想マシンの名前。
+(ゲストが停止している間に限り編集可能)</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>プロセッサーの数。
+(ゲストが稼働している場合、新規の数は次のブートで有効になる)</dd>
+</dlentry><dlentry>
+<dt>メモリー</dt>
+<dd>メモリーの量 (MB 単位)。
+(ゲストが稼働している場合、新規の量は次のブートで有効になる)</dd>
+</dlentry><dlentry>
+<dt>アイコン</dt>
+<dd>ゲストがアクティブではない場合に現在の状況 (ライブタイル) として表示される、Linux ディストリビューションを表すグラフィック・イメージ。
+</dd>
+</dlentry></dl></p>
+<p>次の情報が<wintitle>「ストレージ」</wintitle>タブに表示されます。
+</p>
+<dl><dlentry>
+<dt>ストレージ</dt>
+<dd>インストールに使用される ISO ファイルのロケーションを表示します。
+</dd>
+</dlentry></dl>
+<p> 使用不可になっていないフィールドを編集できます。
+フィールドを編集した後、<uicontrol>「保存」</uicontrol>をクリックしてください。
+</p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="ja-jp">
+<title>ストレージ・デバイスの追加、交換、または切り離し</title>
+<shortdesc rev="rev1">仮想マシンにストレージ・デバイスを追加、デバイスを交換、または仮想マシンから切り離すことができます。
+サポートされているデバイスは CDROM だけです。
+ストレージ・デバイスを編集するには、以下の手順に従ってください。
+</shortdesc>
+<csbody>
+<ol>
+<li><wintitle>「ゲストの編集」</wintitle>ウィンドウで<wintitle>「ストレージ」</wintitle>を選択します。
+</li>
+<li>ストレージ・デバイスを交換するには、<uicontrol>オレンジのスラッシュ (/)</uicontrol> が付いた最初のアイコンをクリックしてください。
+ISO ファイル・パスを入力し、<uicontrol>「交換」</uicontrol>をクリックします。
+</li>
+<li>ストレージ・デバイスを切り離すには、<uicontrol>赤いダッシュ (-)</uicontrol> が付いた 2 番目のアイコンをクリックしてください。
+削除を確認して<uicontrol>「OK」</uicontrol>をクリックします。
+</li>
+<li>ストレージ・デバイスを追加するには、<uicontrol>緑の正符号 (+)</uicontrol> が付いた 3 番目のアイコンをクリックしてください。
+デバイス名と ISO ファイル・パスを入力し、<uicontrol>「接続」</uicontrol>をクリックします。
+</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="ja-jp">
+<title>VM の CDROM を交換</title>
+<shortdesc rev="rev1">インストールが完了した後で、仮想マシンの CDROM の内容を交換することができます。
+</shortdesc>
+<csbody>
+<ol>
+<li>仮想マシンが始動していることを確認します。
+</li>
+<li>「アクション」メニューから<uicontrol>「メディアの管理」</uicontrol>を選択します。
+</li>
+<li>CDROM にロードされている内容を変更するには、hdc フィールドの横にある<uicontrol>オレンジのスラッシュ (/)</uicontrol> アイコンをクリックします。
+</li>
+<li><wintitle>「VM の CDROM を交換」</wintitle>ページで、ISO ファイル・パスを入力します。
+これ以外の 2 つのフィールドは読み取り専用です。
+</li>
+<li><uicontrol>「交換」</uicontrol>をクリックしてください。
+</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

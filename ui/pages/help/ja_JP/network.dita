@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="ja-jp">
+<title> ネットワーク</title>
+<shortdesc><wintitle>「ネットワーク」</wintitle>ページには、ネットワーク接続に関する情報が表示されます。
+</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>ネットワーク名</dt>
+<dd>ネットワークの名前 (または <uicontrol>default</uicontrol>) です。
+</dd>
+</dlentry><dlentry>
+<dt>状態</dt>
+<dd>ネットワークの状態で、アクティブ (緑) または非アクティブ (赤) です。
+</dd>
+</dlentry><dlentry>
+<dt>ネットワーク・タイプ</dt>
+<dd>ネットワーク・タイプで、例えば <uicontrol>NAT</uicontrol> (ネットワーク・アドレス変換) です。
+</dd>
+</dlentry><dlentry>
+<dt>インターフェース</dt>
+<dd>ネットワーク・インターフェースで、例えば <uicontrol>virbr0</uicontrol> (デフォルト) です。
+</dd>
+</dlentry><dlentry>
+<dt>アドレス・スペース</dt>
+<dd>IP アドレス。</dd>
+</dlentry></dl></p>
+<p>以下のアクションを選択できます。
+<ul>
+<li rev="rev1">ネットワーク接続を開始するには<uicontrol>「開始」</uicontrol>を選択します。
+</li>
+<li>ネットワーク接続を終了するには<uicontrol>「停止」</uicontrol>を選択します。
+</li>
+<li>接続情報を削除するには<uicontrol>「削除」</uicontrol>を選択します。
+</li>
+</ul>ネットワークを作成するには、表示の右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="ja-jp">
+<title>ネットワークの作成</title>
+<shortdesc>ネットワークを作成します。
+</shortdesc>
+<csbody>
+<p> <ol>
+<li>ネットワークの名前を入力します。
+</li>
+<li>クリックしてネットワーク・タイプを選択します。
+<dl rev="rev1"><dlentry>
+<dt><uicontrol>隔離</uicontrol></dt>
+<dd>隔離モード。
+ゲストは、外部システムとの間の通信を行うことができません。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>ネットワーク・アドレス変換モード。
+ゲストから外部システムへの通信に、ホスト IP アドレスが使用されます。
+外部システムは、ゲストへの通信を開始できません。
+</dd>
+</dlentry><dlentry>
+<dt><uicontrol>ブリッジ</uicontrol></dt>
+<dd>ブリッジ・モード。
+ゲストは外部システムとの通信を行うことができ、ネットワーク上の物理システムであるかのように外部システムから接続できます。
+ブリッジ・モードでは、宛先および VLAN 情報をさらに指定する必要があります。
+</dd>
+</dlentry></dl></li>
+<li><uicontrol>「作成」</uicontrol>をクリックしてください。
+</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
