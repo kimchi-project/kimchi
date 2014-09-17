@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhnetw" xml:lang="de-de">
+<title>Netz</title>
+<shortdesc>Die Seite <wintitle>Netz</wintitle> zeigt Informationen zur Netzverbindung an.</shortdesc>
+<csbody>
+<p><dl><dlentry>
+<dt>Netzname</dt>
+<dd>Name des Netzes oder <uicontrol>Standard</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Status</dt>
+<dd>Status des Netzes, aktiv (grün) oder inaktiv (rot). </dd>
+</dlentry><dlentry>
+<dt>Netztyp</dt>
+<dd>Netztyp, zum Beispiel <uicontrol>NAT</uicontrol> (Network
+Address Translation, Netzadressumsetzung).</dd>
+</dlentry><dlentry>
+<dt>Schnittstelle</dt>
+<dd>Netzschnittstelle, zum Beispiel <uicontrol>virbr0</uicontrol> (Standard).</dd>
+</dlentry><dlentry>
+<dt>Adressraum</dt>
+<dd>IP-Adresse.</dd>
+</dlentry></dl></p>
+<p>Die folgenden Aktionen können ausgewählt werden:<ul>
+<li rev="rev1">Wählen Sie <uicontrol>Starten</uicontrol> aus, um die Netzverbindung herzustellen.</li>
+<li>Wählen Sie <uicontrol>Stoppen</uicontrol> aus, um die Netzverbindung zu beenden.</li>
+<li>Wählen Sie <uicontrol>Löschen</uicontrol> aus, um die Verbindungsinformationen zu löschen.</li>
+</ul>Um ein Netz zu erstellen, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol> oben rechts in der Anzeige.</p>
+</csbody>
+<cshelp id="kimhnetwcrt" xml:lang="de-de">
+<title>Netz erstellen</title>
+<shortdesc>Erstellen Sie ein Netz.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Geben Sie den Namen des Netzes ein.</li>
+<li>Klicken Sie hier, um den Netztyp auszuwählen. <dl rev="rev1"><dlentry>
+<dt><uicontrol>Isoliert</uicontrol></dt>
+<dd>Isolierter Modus. Gäste können keine Kommunikation an externe Systeme senden oder von ihnen empfangen.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NAT</uicontrol></dt>
+<dd>Network Address Translation-Modus. Bei der Kommunikation von Gästen mit externen Systemen wird die Host-IP-Adresse verwendet. Externe Systeme können keine Kommunikation mit Gästen initiieren.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Überbrückt</uicontrol></dt>
+<dd>Überbrückt-Modus. Gäste können mit externen Systemen kommunizieren und von externen Systemen kontaktiert werden, als ob sie physische Systeme im Netz wären. Für den Überbrückt-Modus müssen Sie zusätzliche Ziel- und VLAN-Informationen angeben.</dd>
+</dlentry></dl></li>
+<li>Klicken Sie auf <uicontrol>Erstellen</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 230 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->

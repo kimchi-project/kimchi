@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhstor" xml:lang="de-de">
+<title>Speicher</title>
+<shortdesc>Auf der Seite <wintitle>Speicher</wintitle> werden die verfügbaren Speicherpools aufgelistet, einschließlich der sofort einsatzfähigen Speicherpools 'default' und 'ISO'. Wenn Sie ein eigenes ISO-Image verwenden möchten, fügen Sie es zum Speicherpoolpfad 'ISO' hinzu.</shortdesc>
+<csbody>
+<p>Für jeden Speicherpool werden die folgenden Informationen angezeigt:<dl>
+<dlentry>
+<dt>Name</dt>
+<dd>Name des Speicherpools und genutzter Prozentsatz.</dd>
+</dlentry><dlentry>
+<dt>Status</dt>
+<dd>Status des Speicherpools, aktiv (grün) oder inaktiv (rot). </dd>
+</dlentry><dlentry>
+<dt>Position</dt>
+<dd>Dateipfad zur Position des Speicherpools.</dd>
+</dlentry><dlentry>
+<dt>Typ</dt>
+<dd>Typ des Speicherpools, zum Beispiel <uicontrol>dir</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Kapazität</dt>
+<dd>Speicherkapazität im Speicherpool.</dd>
+</dlentry><dlentry>
+<dt>Zugeordnet</dt>
+<dd>Speicherplatz, der bereits im Speicherpool zugeordnet ist.</dd>
+</dlentry></dl></p>
+<p>Die folgenden Aktionen können für jeden Speicherpool ausgewählt werden:<ul>
+<li>Wählen Sie <uicontrol>Aktivieren</uicontrol> aus, um den Speicherpool zu aktivieren, damit er genutzt werden kann.</li>
+<li>Wählen Sie <uicontrol>Inaktivieren</uicontrol> aus, um einen aktiven Speicherpool zu inaktivieren.</li>
+<li>Wählen Sie <uicontrol>Definition aufheben</uicontrol>, um einen inaktiven Speicherpool  zu entfernen.</li>
+</ul></p>
+<p>Um Details zum Speicherdatenträger anzuzeigen, klicken Sie auf den Pfeil auf der rechten Seite der Speicherpoolzeile.  Zu den Details gehören folgende Informationen:<dl><dlentry>
+<dt>Typ</dt>
+<dd>Typ des Datenträgers, zum Beispiel <uicontrol>file</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Format</dt>
+<dd>Das Format, variiert abhängig vom Typ.</dd>
+</dlentry><dlentry>
+<dt>Kapazität</dt>
+<dd>Größe des Speicherdatenträgers.</dd>
+</dlentry><dlentry>
+<dt>Zuordnung</dt>
+<dd>Speicherplatz, der bereits im Speicherpool zugeordnet ist.</dd>
+</dlentry></dl>Um einen Speicherpool zu definieren, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol> oben rechts in der Anzeige.</p>
+</csbody>
+<cshelp id="kimhdefstor" xml:lang="de-de">
+<title>Speicherpool definieren</title>
+<shortdesc> Definieren Sie einen Speicherpool.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Geben Sie im Feld <uicontrol>Speicherpoolname</uicontrol> den Namen ein, mit dem der Speicherpool gekennzeichnet werden soll.</li>
+<li>Wählen Sie aus der Liste <uicontrol>Speicherpooltyp</uicontrol> den Typ aus: <dl><dlentry>
+<dt><uicontrol>DIR</uicontrol></dt>
+<dd>Gibt einen Verzeichnispool an. Wenn Sie <uicontrol>DIR</uicontrol> auswählen, geben Sie den <uicontrol>Speicherpfad</uicontrol> ein (Dateipfad zum Speicherpool).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>NFS</uicontrol></dt>
+<dd>Gibt einen Netzdateisystempool an. Wenn Sie <uicontrol>NFS</uicontrol> auswählen,
+geben Sie <uicontrol>NFS-Server-IP</uicontrol> und <uicontrol>NFS-Pfad</uicontrol> an (Pfad des exportierten Verzeichnisses).</dd>
+</dlentry><dlentry>
+<dt><uicontrol>iSCSI</uicontrol></dt>
+<dd>Gibt einen Pool an, der auf einem Ziel basiert, der auf einem iSCSI-Server zugeordnet ist.
+Wenn Sie <uicontrol>iSCSI</uicontrol> auswählen, geben Sie die IP-Adresse vom <uicontrol>iSCSI-Server</uicontrol> und das <uicontrol>Ziel</uicontrol> auf dem iSCSI-Server an. Sie können optional iSCSI-Authentifizierung hinzufügen.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>Logisch</uicontrol></dt>
+<dd>Gibt einen Speicherpool aus logischen Datenträgern an. Wählen Sie die Position zur Einheit im <uicontrol>Einheitenpfad</uicontrol> aus.</dd>
+</dlentry><dlentry>
+<dt><uicontrol>SCSI-Fibre Channel</uicontrol></dt>
+<dd>Gibt einen Pool an, der auf einem SCSI-Fibre Channel basiert. Wählen Sie aus, welcher Adapter verwendet werden soll.</dd>
+</dlentry></dl></li>
+<li>Klicken Sie auf <uicontrol>Erstellen</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 233 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->

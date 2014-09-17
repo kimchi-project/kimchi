@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="kimhvirtm" xml:lang="de-de">
+<title>Gäste</title>
+<shortdesc>Auf der Seite <wintitle>Gäste</wintitle> sind die definierten virtuellen
+Maschinen von KVM aufgelistet.</shortdesc>
+<csbody>
+<p>Für jeden Gast werden die folgenden Informationen angezeigt:<dl><dlentry>
+<dt>Name</dt>
+<dd>Name der virtuellen Maschine.</dd>
+</dlentry><dlentry>
+<dt>CPU</dt>
+<dd>Prozentsatz der Prozessorauslastung in der virtuellen Maschine.</dd>
+</dlentry><dlentry>
+<dt>Netz-E/A</dt>
+<dd>Netz-E/A-Übertragungsrate in KB pro Sekunde.</dd>
+</dlentry><dlentry>
+<dt>Platten-E/A</dt>
+<dd>Platten-E/A-Übertragungsrate in KB pro Sekunde.</dd>
+</dlentry><dlentry>
+<dt>Live Tile</dt>
+<dd>Status der Konsole für das Gastbetriebssystem oder ein Symbol, das die
+<tm tmtype="tm" trademark="Linux">Linux</tm>-Verteilung darstellt, wenn
+der Gast nicht aktiv ist.</dd>
+</dlentry></dl></p>
+<p>Die folgenden Aktionssymbole werden für jeden Gast angezeigt:<dl>
+<dlentry>
+<dt>Zurücksetzen</dt>
+<dd>Klicken Sie hier, um den Gast zurückzusetzen. </dd>
+</dlentry><dlentry>
+<dt>Power (Starten oder Stoppen)</dt>
+<dd>Klicken Sie hier, um den Gast ein- bzw. auszuschalten. Wenn das Symbol rot ist,
+ist er ausgeschaltet. Wenn das Symbol grün ist, ist er eingeschaltet.</dd>
+</dlentry></dl> </p>
+<p>Die folgenden Aktionen können für jeden Gast ausgewählt werden:<ul>
+<li>Wählen Sie <uicontrol>Verbinden</uicontrol> aus, um eine Verbindung zur fernen Konsole
+für das Gastbetriebssystem herzustellen.</li>
+<li>Wählen Sie <uicontrol>Medien verwalten</uicontrol> aus, um den Pfad zu den
+Installationsmedien zu ändern.</li>
+<li>Wählen Sie <uicontrol>Zurücksetzen</uicontrol> aus, um den Gast zurückzusetzen.</li>
+<li>Wählen Sie <uicontrol>Bearbeiten</uicontrol> aus, um die Eigenschaften eines
+bestehenden Gastes zu bearbeiten. Gäste können nur bearbeitet werden, wenn sie gestoppt sind.</li>
+<li>Wählen Sie <uicontrol>Löschen</uicontrol> aus, um den Gast zu löschen.</li>
+</ul>Um einen Gast bzw. eine virtuelle Maschine zu erstellen, klicken Sie auf das <uicontrol>Plus (+)</uicontrol>-Symbol oben rechts auf der Seite.</p>
+</csbody>
+<cshelp id="kimhvirtmcrt" xml:lang="de-de">
+<title>Virtuelle Maschine erstellen</title>
+<shortdesc>Erstellen Sie eine virtuelle Maschine mithilfe einer bestehenden Vorlage.</shortdesc>
+<csbody>
+<p> <ol>
+<li>Geben Sie den Namen ein, mit dem die virtuelle Maschine gekennzeichnet wird.</li>
+<li rev="rev1">Wählen Sie eine Vorlage aus. <ul>
+<li>Wenn Vorlagen vorhanden sind, wählen Sie eine aus den angezeigten Vorlagen aus.</li>
+<li>Wenn keine Vorlagen vorhanden sind, klicken Sie auf <uicontrol>Vorlage erstellen</uicontrol>, um eine Vorlage zu erstellen.</li>
+</ul></li>
+<li>Klicken Sie auf <uicontrol>Erstellen</uicontrol>.</li>
+</ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhvirtmedit" xml:lang="de-de">
+<title>Gast bearbeiten</title>
+<shortdesc>Bearbeiten Sie die Eigenschaften einer bestehenden virtuellen Maschine. Einige Eigenschaften können nur bearbeitet werden, solange der Gast gestoppt ist. Andere Eigenschaften treten beim nächsten Booten in Kraft. </shortdesc>
+<csprolog><csmetadata></csmetadata></csprolog>
+<csbody>
+<p>Für jeden Gast werden die folgenden Informationen auf der Registerkarte <wintitle>Allgemein</wintitle> angezeigt:<dl>
+<dlentry>
+<dt>Name</dt>
+<dd>Name der virtuellen Maschine. (Kann nur bearbeitet werden, solange der Gast gestoppt ist.)</dd>
+</dlentry><dlentry>
+<dt>CPUs</dt>
+<dd>Anzahl der Prozessoren. (Wenn der Gast aktiv ist, tritt die neue Menge beim nächsten Booten in Kraft.)
+</dd>
+</dlentry><dlentry>
+<dt>Speicher</dt>
+<dd>Speicherkapazität in MB. (Wenn der Gast aktiv ist, tritt die neue Menge beim nächsten Booten in Kraft.)
+</dd>
+</dlentry><dlentry>
+<dt>Symbol</dt>
+<dd>Grafikbild, das die Linux-Verteilung darstellt und anstelle des aktuellen Status (Live Tile) angezeigt werden soll, wenn der Gast nicht aktiv ist.</dd>
+</dlentry></dl></p>
+<p>Die folgenden Informationen werden auf der Registerkarte <wintitle>Speicher</wintitle> angezeigt.</p>
+<dl><dlentry>
+<dt>Speicher</dt>
+<dd>Zeigt die Position der ISO-Datei an, die für die Installation verwendet wird.</dd>
+</dlentry></dl>
+<p> Felder, die nicht inaktiviert sind, können bearbeitet werden. Nachdem Sie ein Feld bearbeitet haben, klicken Sie auf <uicontrol>Speichern</uicontrol>. </p>
+</csbody>
+</cshelp>
+<cshelp id="kimstoragedevice" xml:lang="de-de">
+<title>Speichereinheit hinzufügen, ersetzen oder abhängen</title>
+<shortdesc rev="rev1">Sie können eine Speichereinheit zu Ihrer virtuellen Maschine hinzufügen oder diese ersetzen oder abhängen. Die einzige unterstützte Einheit ist CD-ROM. Führen Sie die folgenden Schritte aus, um Ihre Speichereinheiten zu bearbeiten:</shortdesc>
+<csbody>
+<ol>
+<li>Wählen Sie im Fenster <wintitle>Gast bearbeiten</wintitle> die Option <wintitle>Speicher</wintitle> aus.</li>
+<li>Um eine Speichereinheit zu ersetzen, klicken Sie auf das erste Symbol mit dem <uicontrol>orangefarbenen Schrägstrich (/)</uicontrol>. Geben Sie den ISO-Dateipfad ein und klicken Sie auf <uicontrol>Ersetzen</uicontrol>.</li>
+<li>Um eine Speichereinheit abzuhängen, klicken Sie auf das zweite Symbol mit dem <uicontrol>roten Gedankenstrich (-)</uicontrol>. Bestätigen Sie den Löschvorgang und klicken Sie auf <uicontrol>OK</uicontrol>.</li>
+<li>Um eine Speichereinheit hinzuzufügen, klicken Sie auf das dritte Symbol mit dem grünen <uicontrol>Pluszeichen (+)</uicontrol>. Geben Sie einen Einheitennamen und einen ISO-Dateipfad ein und klicken Sie auf <uicontrol>Anhängen</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<cshelp id="kimreplacemedia" xml:lang="de-de">
+<title>CD-ROM für VM ersetzen</title>
+<shortdesc rev="rev1">Sie können den Inhalt der CD-ROM für eine virtuelle Maschine nach Abschluss der Installation ersetzen.</shortdesc>
+<csbody>
+<ol>
+<li>Stellen Sie sicher, dass die virtuelle Maschine gestartet ist.</li>
+<li>Wählen Sie aus dem Aktionsmenü die Option <uicontrol>Medien verwalten</uicontrol> aus.</li>
+<li>Um das zu ändern, was aktuell in der CD-ROM geladen ist, klicken Sie auf das Symbol mit dem <uicontrol>orangefarbenen Schrägstrich (/)</uicontrol> neben dem hdc-Feld.</li>
+<li>Geben Sie auf der Seite <wintitle>CD-ROM für VM ersetzen</wintitle> den ISO-Dateipfad ein. Die anderen beiden Felder sind schreibgeschützt.</li>
+<li>Klicken Sie auf <uicontrol>Ersetzen</uicontrol>.</li>
+</ol>
+</csbody>
+</cshelp>
+<?tm 1391540919 3?>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 231 -->
+<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
