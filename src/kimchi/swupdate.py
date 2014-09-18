@@ -238,7 +238,7 @@ class ZypperUpdate(object):
         """
         Update the list of packages to be updated in the system.
         """
-        self._pkgs = {}
+        self._pkgs = []
         cmd = ["zypper", "list-updates"]
         (stdout, stderr, returncode) = run_command(cmd)
 
@@ -250,7 +250,7 @@ class ZypperUpdate(object):
                 info = line.split(' | ')
                 package = {'package_name': info[2], 'version': info[4],
                            'arch': info[5], 'repository': info[1]}
-                self._pkgs[info[2]] = package
+                self._pkgs.append(package)
 
     def getPackagesList(self):
         """
@@ -262,7 +262,4 @@ class ZypperUpdate(object):
         kimchiLock.acquire()
         self._refreshUpdateList()
         kimchiLock.release()
-        pkg_list = []
-        for pkg in self._pkgs:
-            pkg_list.append(pkg)
-        return pkg_list
+        return self._pkgs
