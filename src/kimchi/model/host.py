@@ -363,8 +363,6 @@ class PackagesUpdateModel(object):
             self.host_swupdate = SoftwareUpdate()
         except:
             self.host_swupdate = None
-        self.objstore = kargs['objstore']
-        self.task = TaskModel(**kargs)
 
     def get_list(self):
         if self.host_swupdate is None:
