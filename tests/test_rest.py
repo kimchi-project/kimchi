@@ -1406,7 +1406,7 @@ class RestTests(unittest.TestCase):
     def test_screenshot_refresh(self):
         # Create a VM
         req = json.dumps({'name': 'test', 'cdrom': '/nonexistent.iso'})
-        self.request('/templates', req, 'POST')
+        resp = self.request('/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         self.request('/vms', req, 'POST')
 

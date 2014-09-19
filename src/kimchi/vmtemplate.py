@@ -50,22 +50,23 @@ class VMTemplate(object):
         The only required parameter is a name for the VMTemplate.  If present,
         the os_distro and os_version fields are used to lookup recommended
         settings.  Any parameters provided by the caller will override the
-        defaults.  If scan is True and a cdrom is present, the operating system
-        will be detected by probing the installation media.
+        defaults.  If scan is True and a cdrom or a base img is present, the
+        operating system will be detected by probing the installation media.
         """
         self.info = {}
         self.fc_host_support = args.get('fc_host_support')
 
-        distro, version = self._get_os_info(args, scan)
         # Fetch defaults based on the os distro and version
+        distro, version = self._get_os_info(args, scan)
         os_distro = args.get('os_distro', distro)
         os_version = args.get('os_version', version)
-        if 'name' not in args or args['name'] == '':
-            args['name'] = self._gen_name(os_distro, os_version)
-        self.name = args['name']
-
         entry = osinfo.lookup(os_distro, os_version)
         self.info.update(entry)
+
+        # Auto-generate a template name and no one is passed
+        if 'name' not in args or args['name'] == '':
+            args['name'] = self._gen_name(distro, version)
+        self.name = args['name']
 
         # Override with the passed in parameters
         graph_args = args.get('graphics')
@@ -76,31 +77,34 @@ class VMTemplate(object):
         self.info.update(args)
 
     def _get_os_info(self, args, scan):
-        # Identify the cdrom if present
         distro = version = 'unknown'
+
+        # Identify the cdrom if present
         iso = args.get('cdrom', '')
-        valid = False
-        # if ISO not specified and base disk image specified,
-        # prevent cdrom from filling automatically
-        if len(iso) == 0 and 'disks' in args:
-            for d in args['disks']:
-                if 'base' in d:
-                    valid = True
+        if len(iso) > 0:
+            if not iso.startswith('/'):
+                self.info.update({'iso_stream': True})
+
+            if scan:
+                distro, version = self.get_iso_info(iso)
+
+            return distro, version
+
+        # CDROM is not presented: check for base image
+        base_imgs = []
+        for d in args.get('disks', []):
+            if 'base' in d.keys():
+                base_imgs.append(d)
+                if scan:
                     try:
                         distro, version = probe_image(d['base'])
                     except ImageFormatError:
                         pass
-                    if 'size' not in d:
-                        d['size'] = probe_img_info(d['base'])['virtual-size']
 
-        if len(iso) > 0:
-            valid = True
-            if scan:
-                distro, version = self.get_iso_info(iso)
-            if not iso.startswith('/'):
-                self.info.update({'iso_stream': True})
+                if 'size' not in d.keys():
+                    d['size'] = probe_img_info(d['base'])['virtual-size']
 
-        if not valid:
+        if len(base_imgs) == 0:
             raise MissingParameter("KCHTMPL0016E")
 
         return distro, version
