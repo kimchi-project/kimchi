@@ -163,7 +163,8 @@ kimchi.guest_edit_main = function() {
         $(".add", "#form-guest-edit-interface").button({
             icons: { primary: "ui-icon-plusthick" },
             text: false
-        }).click(function(){
+        }).click(function(evt){
+            evt.preventDefault();
             addItem({
                 mac: "",
                 network: "",
@@ -192,13 +193,15 @@ kimchi.guest_edit_main = function() {
                 disabled: true,
                 icons: { primary: "ui-icon-pencil" },
                 text: false
-            }).click(function(){
+            }).click(function(evt){
+                evt.preventDefault();
                 toggleEdit($(this).parent().parent(), true);
             });
             $(".delete", itemNode).button({
                 icons: { primary: "ui-icon-trash" },
                 text: false
-            }).click(function(){
+            }).click(function(evt){
+                evt.preventDefault();
                 var item = $(this).parent().parent();
                 kimchi.deleteGuestInterface(kimchi.selectedGuest, item.prop("id"), function(){
                     item.remove();
@@ -207,7 +210,8 @@ kimchi.guest_edit_main = function() {
             $(".save", itemNode).button({
                 icons: { primary: "ui-icon-disk" },
                 text: false
-            }).click(function(){
+            }).click(function(evt){
+                evt.preventDefault();
                 var item = $(this).parent().parent();
                 var interface = {
                     network: $("select", item).val(),
@@ -231,7 +235,8 @@ kimchi.guest_edit_main = function() {
             $(".cancel", itemNode).button({
                 icons: { primary: "ui-icon-arrowreturnthick-1-w" },
                 text: false
-            }).click(function(){
+            }).click(function(evt){
+                evt.preventDefault();
                 var item = $(this).parent().parent();
                 $("label", item).text()==="" ? item.remove() : toggleEdit(item, false);
             });
@@ -332,7 +337,8 @@ kimchi.guest_edit_main = function() {
             filterNodes(key, $("#permission-sel-users"));
             filterNodes(key, $("#permission-sel-groups"));
         });
-        $('#permissionGo').button().click(function() {
+        $('#permissionGo').button().click(function(evt) {
+            evt.preventDefault();
             $("#permission-avail-users").children(".item-picked").appendTo("#permission-sel-users").removeClass("item-picked");
             sortNodes($("#permission-sel-users"), true);
             $("#permission-avail-groups").children(".item-picked").appendTo("#permission-sel-groups").removeClass("item-picked");
@@ -341,7 +347,8 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-sel-users"));
             filterNodes("", $("#permission-sel-groups"));
         });
-        $('#permissionBack').button().click(function() {
+        $('#permissionBack').button().click(function(evt) {
+            evt.preventDefault();
             $("#permission-sel-users").children(".item-picked").appendTo("#permission-avail-users").removeClass("item-picked");
             sortNodes($("#permission-avail-users"), true);
             $("#permission-sel-groups").children(".item-picked").appendTo("#permission-avail-groups").removeClass("item-picked");
