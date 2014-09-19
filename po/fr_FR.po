@@ -1189,16 +1189,6 @@ msgstr "Supprimer"
 msgid "Add a Storage Device to VM"
 msgstr "Ajouter un Périphérique de Stockage à la VM"
 
-msgid "Device Name"
-msgstr "Nom de Périphérique"
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-"Le nom utilisé pour identifier le périphérique. Si omis, un nom sera choisi "
-"automatiquement."
-
 msgid "Device Type"
 msgstr "Type de Périphérique"
 

@@ -1113,16 +1113,6 @@ msgstr "Удалить"
 msgid "Add a Storage Device to VM"
 msgstr "Добавить устройство хранения в VM"
 
-msgid "Device Name"
-msgstr "Имя устройства"
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-"Имя для идентификации устройства. Если не указано, то имя будет выбрано "
-"автоматически."
-
 msgid "Device Type"
 msgstr "Тип устройства"
 

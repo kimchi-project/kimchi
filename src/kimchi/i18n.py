@@ -243,10 +243,8 @@ messages = {
     "KCHUTILS0002E": _("Timeout while running command '%(cmd)s' after %(seconds)s seconds"),
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
 
-    "KCHVMSTOR0001E": _("Invalid vm storage device name"),
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),
     "KCHVMSTOR0003E": _("The path '%(value)s' is not a valid local/remote path for the device"),
-    "KCHVMSTOR0004E": _("Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"),
     "KCHVMSTOR0006E": _("Only CDROM path can be update."),
     "KCHVMSTOR0007E": _("The storage device %(dev_name)s does not exist in the virtual machine %(vm_name)s"),
     "KCHVMSTOR0008E": _("Error while creating new storage device: %(error)s"),
