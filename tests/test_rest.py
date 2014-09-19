@@ -535,26 +535,23 @@ class RestTests(unittest.TestCase):
             self.assertEquals(400, resp.status)
 
             # Attach disk with pool and vol specified
-            req = json.dumps({'dev': 'hdx',
-                              'type': 'disk',
+            req = json.dumps({'type': 'disk',
                               'pool': 'tmp',
                               'vol': 'attach-volume'})
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(201, resp.status)
             cd_info = json.loads(resp.read())
-            self.assertEquals('hdx', cd_info['dev'])
             self.assertEquals('disk', cd_info['type'])
             self.assertEquals('tmp', cd_info['pool'])
             self.assertEquals('attach-volume', cd_info['vol'])
 
             # Attach a cdrom with existent dev name
-            req = json.dumps({'dev': 'hdk',
-                              'type': 'cdrom',
+            req = json.dumps({'type': 'cdrom',
                               'path': '/tmp/existent.iso'})
             resp = self.request('/vms/test-vm/storages', req, 'POST')
             self.assertEquals(201, resp.status)
             cd_info = json.loads(resp.read())
-            self.assertEquals('hdk', cd_info['dev'])
+            cd_dev = cd_info['dev']
             self.assertEquals('cdrom', cd_info['type'])
             self.assertEquals('/tmp/existent.iso', cd_info['path'])
             # Delete the file and cdrom
@@ -564,7 +561,7 @@ class RestTests(unittest.TestCase):
 
             # Change path of storage cdrom
             req = json.dumps({'path': 'http://myserver.com/myiso.iso'})
-            resp = self.request('/vms/test-vm/storages/hdx', req, 'PUT')
+            resp = self.request('/vms/test-vm/storages/'+cd_dev, req, 'PUT')
             self.assertEquals(200, resp.status)
             cd_info = json.loads(resp.read())
             self.assertEquals('http://myserver.com/myiso.iso', cd_info['path'])
@@ -574,7 +571,8 @@ class RestTests(unittest.TestCase):
             self.assertEquals(4, len(devs))
 
             # Detach storage cdrom
-            resp = self.request('/vms/test-vm/storages/hdx', '{}', 'DELETE')
+            resp = self.request('/vms/test-vm/storages/'+cd_dev,
+                                '{}', 'DELETE')
             self.assertEquals(204, resp.status)
 
             # Test GET

@@ -356,11 +356,6 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(u'cdrom', cd_info['type'])
             self.assertEquals(iso_path, cd_info['path'])
 
-            # create a cdrom with existing dev_name
-            cdrom_args['dev'] = cdrom_dev
-            self.assertRaises(OperationFailed, inst.vmstorages_create,
-                              vm_name, cdrom_args)
-
             # update path of existing cd with
             # non existent iso
             self.assertRaises(InvalidParameter, inst.vmstorage_update,

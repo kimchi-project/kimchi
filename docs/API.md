@@ -148,7 +148,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 **URI:** /vms/*:name*/storages
 * **GET**: Retrieve a summarized list of all storages of specified guest
 * **POST**: Attach a new storage or virtual drive to specified virtual machine.
-    * dev: The name of the storage in the vm.
     * type: The type of the storage (currently support 'cdrom' and 'disk').
     * path: Path of cdrom iso.
     * pool: Storage pool which disk image file locate in.
