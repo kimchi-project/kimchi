@@ -174,26 +174,19 @@ class VMStoragesModel(object):
         return params['dev']
 
     def _get_storage_device_name(self, vm_name, params):
-        if params.get('dev') is None:
-            bus_prefix = PREFIX_MAP[params['bus']]
-            dev_list = [dev for dev in self.get_list(vm_name)
-                        if dev.startswith(bus_prefix)]
-            if len(dev_list) == 0:
-                params['dev'] = bus_prefix + 'a'
-            else:
-                dev_list.sort()
-                last_dev = dev_list.pop()
-                # TODO: Improve to device names "greater then" hdz
-                next_dev_letter_pos =\
-                    string.ascii_lowercase.index(last_dev[2]) + 1
-                params['dev'] =\
-                    bus_prefix + string.ascii_lowercase[next_dev_letter_pos]
-
-        devices = self.get_list(vm_name)
-        if params['dev'] in devices:
-            raise OperationFailed(
-                'KCHVMSTOR0004E',
-                {'dev_name': params['dev'], 'vm_name': vm_name})
+        bus_prefix = PREFIX_MAP[params['bus']]
+        dev_list = [dev for dev in self.get_list(vm_name)
+                    if dev.startswith(bus_prefix)]
+        if len(dev_list) == 0:
+            params['dev'] = bus_prefix + 'a'
+        else:
+            dev_list.sort()
+            last_dev = dev_list.pop()
+            # TODO: Improve to device names "greater then" hdz
+            next_dev_letter_pos =\
+                string.ascii_lowercase.index(last_dev[2]) + 1
+            params['dev'] =\
+                bus_prefix + string.ascii_lowercase[next_dev_letter_pos]
 
     def get_list(self, vm_name):
         dom = VMModel.get_vm(vm_name, self.conn)

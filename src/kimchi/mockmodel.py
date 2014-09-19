@@ -801,13 +801,8 @@ class MockModel(object):
             except Exception as e:
                 raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
         dom = self._get_vm(vm_name)
-        dev = params.get('dev', None)
-        if dev and dev in self.vmstorages_get_list(vm_name):
-            return OperationFailed(
-                "KCHVMSTOR0004E", {'dev_name': dev, 'vm_name': vm_name})
-        if not dev:
-            index = len(dom.storagedevices.keys()) + 1
-            params['dev'] = "hd" + string.ascii_lowercase[index]
+        index = len(dom.storagedevices.keys()) + 1
+        params['dev'] = "hd" + string.ascii_lowercase[index]
 
         vmdev = MockVMStorageDevice(params)
         dom.storagedevices[params['dev']] = vmdev

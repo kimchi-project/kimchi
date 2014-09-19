@@ -486,12 +486,6 @@
             "type": "object",
             "error": "KCHVMSTOR0012E",
             "properties": {
-                "dev": {
-                    "description": "The storage device name",
-                    "type": "string",
-                    "pattern": "^h|vd[b-z]$",
-                    "error": "KCHVMSTOR0001E"
-                },
                 "type": {
                     "description": "The storage type",
                     "type": "string",
