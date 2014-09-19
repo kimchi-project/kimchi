@@ -28,7 +28,6 @@ kimchi.guest_storage_add_main = function() {
 
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
-    var nameTextbox = $('input[name="dev"]', storageAddForm);
     var typeTextbox = $('input[name="type"]', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
     var poolTextbox = $('input[name="pool"]', storageAddForm);
@@ -139,7 +138,7 @@ kimchi.guest_storage_add_main = function() {
         };
 
         $(submitButton).prop('disabled', true);
-        $.each([nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
+        $.each([pathTextbox, poolTextbox, volTextbox], function(i, c) {
             $(c).prop('disabled', true);
             val = $(c).val()
             if (val && val != '') {
@@ -150,7 +149,7 @@ kimchi.guest_storage_add_main = function() {
         validateSpecifiedForm = validator[settings['type']];
         if (!validateSpecifiedForm(settings)) {
             $(submitButton).prop('disabled', false);
-            $.each([submitButton, nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
+            $.each([submitButton, pathTextbox, poolTextbox, volTextbox], function(i, c) {
                 $(c).prop('disabled', false);
             });
             return false;
@@ -167,7 +166,7 @@ kimchi.guest_storage_add_main = function() {
                 result['responseJSON']['reason'];
             kimchi.message.error(errText);
 
-            $.each([submitButton, nameTextbox, pathTextbox, poolTextbox, volTextbox], function(i, c) {
+            $.each([submitButton, pathTextbox, poolTextbox, volTextbox], function(i, c) {
                 $(c).prop('disabled', false);
             });
             $(submitButton).removeClass('loading').text(i18n['KCHVMCD6002M']);

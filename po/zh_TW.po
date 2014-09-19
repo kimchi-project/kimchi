@@ -1060,14 +1060,6 @@ msgstr "刪除"
 msgid "Add a Storage Device to VM"
 msgstr "將儲存裝置新增至 VM"
 
-msgid "Device Name"
-msgstr "裝置名稱"
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr "用來識別裝置的名稱。如果省略，則將自動選擇一個名稱。"
-
 msgid "Device Type"
 msgstr "裝置類型"
 

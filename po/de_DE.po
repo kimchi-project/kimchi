@@ -1183,16 +1183,6 @@ msgstr "Löschen"
 msgid "Add a Storage Device to VM"
 msgstr "Speichereinheit zur virtuellen Maschine hinzufügen"
 
-msgid "Device Name"
-msgstr "Einheitenname"
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-"Der Name, mit dem die Einheit gekennzeichnet wird. Falls er ausgelassen "
-"wird, wird automatisch ein Name gewählt."
-
 msgid "Device Type"
 msgstr "Einheitentyp"
 

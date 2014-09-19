@@ -1113,15 +1113,6 @@ msgstr "삭제"
 msgid "Add a Storage Device to VM"
 msgstr "스토리지 장치를 VM에 추가"
 
-msgid "Device Name"
-msgstr "장치 이름"
-
-msgid ""
-"The name used to identify the device. If omitted, a name will be chosen "
-"automatically."
-msgstr ""
-"장치를 식별하는 데 사용되는 이름입니다. 생략 시 이름이 자동으로 선택됩니다."
-
 msgid "Device Type"
 msgstr "장치 유형"
 
