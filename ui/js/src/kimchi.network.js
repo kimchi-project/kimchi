@@ -247,17 +247,16 @@ kimchi.openNetworkDialog = function(okCallback) {
     kimchi.getInterfaces(function(result) {
         var options = [];
         $('#networkDestinationID').selectMenu();
-        $("#networkDestinationID").on('click',function(){
-        });
         var nics = {};
         for (var i = 0; i < result.length; i++) {
             options.push({label:result[i].name,value:result[i].name});
             nics[result[i].name] = result[i];
         }
-        $("#networkDestinationID").selectMenu("setData", options);
+        result.length>0 && $("#networkDestinationID").selectMenu("setData", options);
         onChange = function() {
             $("#networkDestinationLabel").text($("#networkDestinationID li:first-child").text());
-            if (nics[$("#networkDestinationLabel").text()].type === "bridge") {
+            $("#networkDestinationID li:first-child").addClass("active");
+            if (result.length>0 && nics[$("#networkDestinationLabel").text()].type === "bridge") {
                 $("#enableVlan").prop("checked", false);
                 $("#enableVlan").prop("disabled", true);
                 $("#networkVlanID").val("");
@@ -268,8 +267,8 @@ kimchi.openNetworkDialog = function(okCallback) {
             }
         };
         $("#networkDestinationLabel").on("change", onChange);
-        onChange();
         kimchi.setDefaultNetworkType(result.length!==0);
+        onChange();
     });
     $("#networkConfig").dialog({
         title : i18n.KCHNET6003M
@@ -318,10 +317,12 @@ kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
     $("#networkTypeNat").prop("checked", !isInterfaceAvail);
     if (!isInterfaceAvail) {
         kimchi.enableBridgeOptions(false);
+        $("#networkBriDisabledLabel").show();
     } else {
         $("#bridgeOptions").slideDown(100);
         $("#networkVlanID").toggle(false);
         $("#labelNetworkVlanID").toggle(false);
+        $("#networkBriDisabledLabel").hide();
     }
 };
 
