@@ -170,6 +170,12 @@
     height: 200px;
 }
 
+.network-config .section-container .bridged-inline {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 520px;
+}
+
 .network-config .section-header {
     font-weight: bold;
     font-size: 14px;

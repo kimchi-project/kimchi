@@ -65,8 +65,13 @@
                     <label for="networkTypeNat">$_("NAT: outbound physical network connection only")</label>
                 </div>
                 <div class="input-container">
-                    <input type="radio" id="networkTypeBri" name="networkType" value="bridged" />
-                    <label for="networkTypeBri">$_("Bridged: Virtual machines are connected to physical network directly")</label>
+                    <div class="bridged-inline">
+                        <input type="radio" id="networkTypeBri" name="networkType" value="bridged" />
+                    </div>
+                    <div class="bridged-inline">
+                        <label for="networkTypeBri">$_("Bridged: Virtual machines are connected to physical network directly")</label><br />
+                        <label id="networkBriDisabledLabel" style="display:none">$_("(No interfaces found)")</label>
+                    </div>
                 </div>
                 <div id="bridgeOptions">
                     <div>
