@@ -338,10 +338,12 @@ kimchi.template_add_main = function() {
     $('#vm-image-local-box-back').click(function(){
         kimchi.switchPage('vm-image-local-box', 'iso-type-box', 'right');
     });
-    $('input', '#vm-image-local-box').on('keyup', function(){
-        var isValid = kimchi.template_check_path($(this).val());
-        $(this).toggleClass('invalid-field', !isValid);
-        $('button', $('.body', '#vm-image-local-box')).button(isValid ? "enable" : "disable");
+    $('input', '#vm-image-local-box').on('keyup cut paste', function(){
+        setTimeout(function(){
+            var isValid = kimchi.template_check_path($('input', '#vm-image-local-box').val());
+            $('input', '#vm-image-local-box').toggleClass('invalid-field', !isValid);
+            $('button', $('.body', '#vm-image-local-box')).button(isValid ? "enable" : "disable");
+        }, 0);
     });
     $('button', $('.body', '#vm-image-local-box')).button({
         disabled: true
