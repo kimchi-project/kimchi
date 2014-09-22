@@ -132,8 +132,7 @@ class StorageVolumesModel(object):
                                    'err': e.message})
 
         # Refresh to make sure volume can be found in following lookup
-        pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
-        pool.refresh()
+        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh(0)
         cb('OK', True)
 
     def _create_volume_with_capacity(self, cb, params):
@@ -209,7 +208,7 @@ class StorageVolumesModel(object):
                                                           'pool': pool_name,
                                                           'err': e.message})
 
-        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh()
+        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh(0)
         cb('OK', True)
 
     def get_list(self, pool_name):
