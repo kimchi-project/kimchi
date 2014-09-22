@@ -161,6 +161,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/kimchi/plugins/*.py*
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md
+%{_datadir}/kimchi/doc/README-federation.md
 %{_datadir}/kimchi/doc/kimchi-guest.png
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo

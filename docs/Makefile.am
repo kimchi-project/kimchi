@@ -22,6 +22,7 @@ docdir = $(datadir)/kimchi/doc
 dist_doc_DATA = \
 	API.md \
 	README.md \
+	README-federation.md \
 	kimchi-guest.png \
 	kimchi-templates.png \
 	$(NULL)
