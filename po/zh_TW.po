@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 14:11-0300\n"
+"POT-Creation-Date: 2014-09-23 10:19-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -766,19 +766,11 @@ msgstr "執行指令 '%(cmd)s' %(seconds)s 秒之後逾時"
 msgid "Unable to choose a virtual machine name"
 msgstr ""
 
-msgid "Invalid vm storage device name"
-msgstr "CDROM 裝置名稱無效"
-
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "儲存體類型無效。受支援的類型：'cdrom'"
 
 #, python-format
 msgid "The path '%(value)s' is not a valid local/remote path for the device"
-msgstr ""
-
-#, python-format
-msgid ""
-"Device name %(dev_name)s already exists in the virtual machine %(vm_name)s"
 msgstr ""
 
 msgid "Only CDROM path can be update."
@@ -1299,6 +1291,9 @@ msgstr "報告名稱只應該包含字母、數字及/或連字號 ('-')。"
 
 msgid "Pending..."
 msgstr "正在載入..."
+
+msgid "Report name is the same as the original one."
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "

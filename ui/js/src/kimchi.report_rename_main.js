@@ -24,6 +24,14 @@ kimchi.report_rename_main = function() {
             return false;
         }
         var reportName = nameTextbox.val();
+
+        // if the user hasn't changed the report's name,
+        // nothing should be done.
+        if (reportName == kimchi.selectedReport) {
+            kimchi.message.error.code('KCHDR6013M');
+            return false;
+        }
+
         var validator = RegExp("^[A-Za-z0-9-]*$");
         if (!validator.test(reportName)) {
             kimchi.message.error.code('KCHDR6011M');
