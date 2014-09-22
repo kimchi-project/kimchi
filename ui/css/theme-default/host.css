@@ -216,7 +216,7 @@
 
 .debug-report-name,
 .debug-report-time {
-    width: 200px;
+    width: 424px;
 }
 
 #id-debug-img {
@@ -234,18 +234,14 @@
     width: 850px;
 }
 
-.software-update-id {
-    width: 30px;
-}
-
 .software-update-name,
 .software-update-repos {
-    width: 220px;
+    width: 224px;
 }
 
 .software-update-version,
 .software-update-arch {
-    width: 190px;
+    width: 200px;
 }
 
 .host-panel #software-updates-progress-textarea {
@@ -274,7 +270,7 @@
 }
 
 .host-panel #repositories-grid .repository-enabled {
-    width: 92px;
+    width: 88px;
 }
 
 .host-panel #repositories-grid .repository-baseurl.deb {
