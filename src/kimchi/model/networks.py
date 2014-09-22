@@ -216,12 +216,11 @@ class NetworksModel(object):
                                                    'err': error_msg})
 
         with RollbackContext() as rollback:
-
             try:
                 vlan_tagged_br = conn.interfaceDefineXML(br_xml, 0)
+                rollback.prependDefer(vlan_tagged_br.destroy)
                 vlan_tagged_br.create(0)
             except libvirt.libvirtError as e:
-                rollback.prependDefer(vlan_tagged_br.destroy)
                 raise OperationFailed(e.message)
             else:
                 return br_name
