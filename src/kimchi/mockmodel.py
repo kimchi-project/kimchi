@@ -575,13 +575,9 @@ class MockModel(object):
 
         pool = self._get_storagepool(pool_name)
 
-        file_path = os.path.join(pool.info['path'], name)
-
-        with open(file_path, 'w') as file:
-            file.write(url)
-
-        params['path'] = file_path
+        params['path'] = os.path.join(pool.info['path'], name)
         params['type'] = 'file'
+        params['base'] = url
 
         volume = MockStorageVolume(pool, name, params)
         pool._volumes[name] = volume
