@@ -21,7 +21,7 @@ kimchi.doListStoragePools = function() {
         if (result && result.length) {
             var listHtml = '';
             $.each(result, function(index, value) {
-                value.usage = parseInt(value.allocated / value.capacity * 100) || 0;
+                value.usage = Math.round(value.allocated / value.capacity * 100) || 0;
                 value.capacity = kimchi.changetoProperUnit(value.capacity,1);
                 value.allocated = kimchi.changetoProperUnit(value.allocated,1);
                 value.enableExt = value.type==="logical" ? "" : "hide-content";
@@ -313,7 +313,12 @@ kimchi.initLogicalPoolExtend = function() {
                 $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function(){
                     devicePaths.push($(this).prop('value'));
                 })
-                kimchi.updateStoragePool($("#logicalPoolExtend").dialog("option", "poolName"),{disks: devicePaths});
+                kimchi.updateStoragePool($("#logicalPoolExtend").dialog("option", "poolName"),{disks: devicePaths},function(data){
+                    var item = $("#"+$("#logicalPoolExtend").dialog("option", "poolName"));
+                    $(".usage", $(".storage-name", item)).text((Math.round(data.allocated/data.capacity*100)||0)+"%");
+                    $(".storage-text", $(".storage-capacity", item)).text(kimchi.changetoProperUnit(data.capacity,1));
+                    $(".storage-text", $(".storage-allocate", item)).text(kimchi.changetoProperUnit(data.allocated,1));
+                });
                 $(this).dialog("close");
             }
         }]
