@@ -33,6 +33,10 @@
     padding: 1em;
 }
 
+#form-guest-edit-general .edit-general-inline {
+    display: inline-block;
+}
+
 #form-guest-edit-storage input[readonly] {
     background: none;
     border-color: transparent;
@@ -43,16 +47,12 @@
     padding-right: 0;
 }
 
-.guest-edit-wrapper-label, .guest-edit-wrapper-controls {
-    display: inline-block;
-}
-
 .guest-edit-wrapper-label {
     height: 38px;
     line-height: 38px;
     margin-top: 5px;
     vertical-align: top;
-    width: 100px;
+    min-width: 100px;
 }
 
 #form-guest-edit-storage .guest-edit-wrapper-label {
