@@ -83,7 +83,7 @@ class StorageTargetsModel(object):
         # Filter target_list to not not show the used paths
         target_list = [elem for elem in target_list
                        if elem.get('target') not in used_paths]
-        return target_list
+        return [dict(t) for t in set(tuple(t.items()) for t in target_list)]
 
     def _get_storage_server_spec(self, **kwargs):
         # Required parameters:
