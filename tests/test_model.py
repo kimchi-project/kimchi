@@ -299,6 +299,11 @@ class ModelTests(unittest.TestCase):
             prev_count = len(inst.vmstorages_get_list(vm_name))
             self.assertEquals(1, prev_count)
 
+            # Volume format with mismatched type raise error
+            cdrom_args = {"type": "cdrom", "pool": pool, "vol": vol}
+            self.assertRaises(InvalidParameter, inst.vmstorages_create,
+                              vm_name, cdrom_args)
+
             # Cold plug and unplug a disk
             disk = _attach_disk()
             inst.vmstorage_delete(vm_name, disk)

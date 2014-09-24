@@ -153,9 +153,16 @@ class VMStoragesModel(object):
             if vol_info['ref_cnt'] != 0:
                 raise InvalidParameter("KCHVMSTOR0016E")
 
-            supported_format = ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"]
-            if vol_info['format'] in supported_format:
-                params['format'] = vol_info['format']
+            supported_format = {
+                "disk": ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"],
+                "cdrom": "iso"}
+            if vol_info['format'] in supported_format[params['type']]:
+                if params['type'] == 'disk':
+                    params['format'] = vol_info['format']
+            else:
+                raise InvalidParameter("KCHVMSTOR0018E",
+                                       {"format": vol_info['format'],
+                                        "type": params['type']})
             params['path'] = vol_info['path']
         params['src_type'] = _check_path(params['path'])
         if (params['bus'] not in HOTPLUG_TYPE
