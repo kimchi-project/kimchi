@@ -37,8 +37,8 @@ import kimchi.objectstore
 import utils
 from kimchi import netinfo
 from kimchi.config import paths
-from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import ImageFormatError, InvalidOperation
+from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
 from kimchi.model import model
 from kimchi.rollbackcontext import RollbackContext
@@ -126,10 +126,27 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
 
             params = {'name': 'test', 'disks': [{'base': vol_path}]}
-            inst.templates_create(params)
-            rollback.prependDefer(inst.template_delete, 'test')
+            self.assertRaises(ImageFormatError, inst.templates_create, params)
 
-            params = {'name': 'kimchi-vm', 'template': '/templates/test'}
+            # Hack the model objstore to add a new template
+            # It is needed as the image file must be a bootable image when
+            # using model
+            # As it is difficult to create one on test runtime, inject a
+            # template with an empty image file to the objstore to test the
+            # feature
+            tmpl_name = "img-tmpl"
+            tmpl_info = {"cpus": 1, "cdrom": "",
+                         "graphics": {"type": "vnc", "listen": "127.0.0.1"},
+                         "networks": ["default"], "memory": 1024, "folder": [],
+                         "icon": "images/icon-vm.png",
+                         "os_distro": "unknown", "os_version": "unknown",
+                         "disks": [{"base": vol_path, "size": 10}],
+                         "storagepool": "/storagepools/default"}
+
+            with inst.objstore as session:
+                session.store('template', tmpl_name, tmpl_info)
+
+            params = {'name': 'kimchi-vm', 'template': '/templates/img-tmpl'}
             inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 

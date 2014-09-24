@@ -29,8 +29,7 @@ from distutils.version import LooseVersion
 
 
 from kimchi import osinfo
-from kimchi.exception import InvalidParameter, IsoFormatError, ImageFormatError
-from kimchi.exception import MissingParameter
+from kimchi.exception import InvalidParameter, IsoFormatError, MissingParameter
 from kimchi.imageinfo import probe_image, probe_img_info
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
@@ -96,10 +95,7 @@ class VMTemplate(object):
             if 'base' in d.keys():
                 base_imgs.append(d)
                 if scan:
-                    try:
-                        distro, version = probe_image(d['base'])
-                    except ImageFormatError:
-                        pass
+                    distro, version = probe_image(d['base'])
 
                 if 'size' not in d.keys():
                     d['size'] = probe_img_info(d['base'])['virtual-size']
