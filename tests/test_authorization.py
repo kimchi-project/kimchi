@@ -121,10 +121,13 @@ class AuthorizationTests(unittest.TestCase):
         model.vms_create({'name': u'test-usera', 'template': '/templates/test'})
         model.vm_update(u'test-usera', {'users': [ 'userA' ], 'groups': []})
 
+        model.vms_create({'name': u'test-groupa', 'template': '/templates/test'})
+        model.vm_update(u'test-groupa', {'groups': [ 'groupA' ]})
+
         resp = self.request('/vms', '{}', 'GET')
         self.assertEquals(200, resp.status)
         vms_data = json.loads(resp.read())
-        self.assertEquals([ u'test-me' ], [ v['name'] for v in vms_data ])
+        self.assertEquals([ u'test-groupa', u'test-me' ], sorted([ v['name'] for v in vms_data ]))
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(403, resp.status)
 
