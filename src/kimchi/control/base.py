@@ -160,13 +160,10 @@ class Resource(object):
         users = self.data.get("users", None)
         groups = self.data.get("groups", None)
 
-        if (users is not None or groups is not None) and \
-            user_role and user_role != 'admin' and \
-            (user_name not in users or
-             (groups and list(set(user_groups) & set(groups)) == [])):
-            return False
+        if (users is None and groups is None) or user_role == 'admin':
+            return True
 
-        return True
+        return user_name in users or len(set(user_groups) & set(groups)) > 0
 
     def update(self):
         try:
