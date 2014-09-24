@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM, Corp. 2014
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import os
 import sys
 import guestfs
 
-from kimchi.exception import ImageFormatError, TimeoutExpired
+from kimchi.exception import ImageFormatError, InvalidParameter, TimeoutExpired
 from kimchi.utils import run_command, kimchi_log
 
 
@@ -42,15 +42,21 @@ def probe_img_info(path):
 
 
 def probe_image(image_path):
+    if not os.path.isfile(image_path):
+        raise InvalidParameter("KCHIMG0004E", {'filename': image_path})
+
+    if not os.access(image_path, os.R_OK):
+        raise ImageFormatError("KCHIMG0003E", {'filename': image_path})
+
     g = guestfs.GuestFS(python_return_dict=True)
     g.add_drive_opts(image_path, readonly=1)
     g.launch()
-    if not os.access(image_path, os.R_OK):
-        raise ImageFormatError("KCHIMG0003E", {'filename': image_path})
+
     try:
         roots = g.inspect_os()
     except:
         raise ImageFormatError("KCHIMG0001E")
+
     if len(roots) == 0:
         raise ImageFormatError("KCHIMG0002E")
 
