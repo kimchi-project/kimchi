@@ -204,6 +204,8 @@ class StorageVolumesModel(object):
                         downloaded_size += len(chunk_data)
                         cb('%s/%s' % (downloaded_size, remote_size))
                 except Exception, e:
+                    if os.path.isfile(file_path):
+                        os.remove(file_path)
                     raise OperationFailed('KCHVOL0007E', {'name': name,
                                                           'pool': pool_name,
                                                           'err': e.message})
