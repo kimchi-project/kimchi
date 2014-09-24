@@ -258,6 +258,7 @@ messages = {
     "KCHVMSTOR0015E": _("Cannot retrieve disk path information for given pool/volume: %(error)s"),
     "KCHVMSTOR0016E": _("Volume already in use by other virtual machine."),
     "KCHVMSTOR0017E": _("Only one of path or pool/volume can be specified to add a new virtual machine disk"),
+    "KCHVMSTOR0018E": _("Volume chosen with format %(format)s does not fit in the storage type %(type)s"),
 
     "KCHREPOS0001E": _("YUM Repository ID must be one word only string."),
     "KCHREPOS0002E": _("Repository URL must be an http://, ftp:// or file:// URL."),
