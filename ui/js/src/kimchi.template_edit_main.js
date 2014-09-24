@@ -19,6 +19,7 @@ kimchi.template_edit_main = function() {
     var templateEditForm = $('#form-template-edit');
     var origDisks;
     var origPool;
+    var templateDiskSize;
     $('#template-name', templateEditForm).val(kimchi.selectedTemplate);
     kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
         origDisks =  template.disks;
@@ -40,6 +41,7 @@ kimchi.template_edit_main = function() {
         }
         var disks = template.disks;
         $('input[name="disks"]').val(disks[0].size);
+        templateDiskSize = $('input[name="disks"]').val();
         if (disks[0].volume) {
             var spool_value = $('#form-template-edit [name="storagepool"]').val();
             $('input[name="storagepool"]', templateEditForm).val(spool_value + '/' + disks[0].volume);
@@ -131,15 +133,12 @@ kimchi.template_edit_main = function() {
                 kimchi.message.error(err.responseJSON.reason);
             });
         } else {
-            if (origPool == storagepool) {
-                // Previous disk size value
-                $('input[name="disks"]', templateEditForm).val(origDisks[0].size);
-            } else {
-                // Default disk size value
-                $('input[name="disks"]', templateEditForm).val(10);
-            }
             $('input[name="disks"]', templateEditForm).removeAttr('disabled');
+            $('input[name="disks"]', templateEditForm).val(templateDiskSize);
         }
+    });
+    $('input[name="disks"]', templateEditForm).keyup(function() {
+        templateDiskSize = $('input[name="disks"]', templateEditForm).val();
     });
 
     $('#tmpl-edit-button-save').on('click', function() {
