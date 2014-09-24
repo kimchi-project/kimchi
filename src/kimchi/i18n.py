@@ -128,7 +128,7 @@ messages = {
     "KCHTMPL0019E": _("The volume %(volume)s is not in storage pool %(pool)s"),
     "KCHTMPL0020E": _("Unable to create template due error: %(err)s"),
     "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
-    "KCHTMPL0022E": _("Disk size must be greater than 1GB."),
+    "KCHTMPL0022E": _("Disk size must be an integer greater than 1GB."),
     "KCHTMPL0023E": _("Template base image must be a valid local image file"),
     "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
 
