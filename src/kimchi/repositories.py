@@ -489,6 +489,8 @@ class AptRepo(object):
                 'config': {'type': 'deb', 'dist': r.dist,
                            'comps': r.comps}}
 
+        validate_repo_url(info['baseurl'])
+
         if 'config' in params.keys():
             config = params['config']
             info['config']['dist'] = config.get('dist', r.dist)
