@@ -45,6 +45,12 @@ from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
 
 
+invalid_repository_urls = ['www.fedora.org',       # missing protocol
+                           '://www.fedora.org',    # missing protocol
+                           'http://www.fedora',    # invalid domain name
+                           'file:///home/foobar']  # invalid path
+
+
 class ModelTests(unittest.TestCase):
     def setUp(self):
         self.tmp_store = '/tmp/kimchi-store-test'
@@ -1302,37 +1308,40 @@ class ModelTests(unittest.TestCase):
                       {'mirrorlist': 'http://www.fedoraproject.org',
                        'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}}]
 
-        deb_repos = [{'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+        deb_repos = [{'baseurl': 'http://archive.ubuntu.com/ubuntu/',
                       'config': {'dist': 'quantal'}},
-                     {'baseurl': 'http://br.archive.kimchi.com/ubuntu/fake',
+                     {'baseurl': 'http://archive.ubuntu.com/ubuntu/',
                       'config': {'dist': 'quantal', 'comps': ['main']}}]
+
+        yum_invalid_repos = []
+        deb_invalid_repos = []
+
+        for url in invalid_repository_urls:
+            wrong_baseurl = {'repo_id': 'wrong-id', 'baseurl': url}
+            wrong_mirrorlist = {'repo_id': 'wrong-id',
+                                'baseurl': 'www.example.com',
+                                'config': {'mirrorlist': url}}
+
+            yum_invalid_repos.append(wrong_baseurl)
+            yum_invalid_repos.append(wrong_mirrorlist)
+
+            wrong_baseurl['config'] = {'dist': 'tasty'}
+            deb_invalid_repos.append(wrong_baseurl)
 
         repo_type = inst.capabilities_lookup()['repo_mngt_tool']
         if repo_type == 'yum':
             test_repos = yum_repos
+            invalid_repos = yum_invalid_repos
         elif repo_type == 'deb':
             test_repos = deb_repos
+            invalid_repos = deb_invalid_repos
         else:
             # repository management tool was not recognized by Kimchi
             # skip test case
             return
 
-        invalid_urls = ['www.fedora.org',                 # missing protocol
-                        '://www.fedora.org',              # missing protocol
-                        'http://www.fedora',              # invalid domain name
-                        'file:///home/userdoesnotexist']  # invalid path
-
-        # create repositories with invalid baseurl
-        for url in invalid_urls:
-            repo = {'repo_id': 'repo_fake',
-                    'baseurl': url,
-                    'config': {'dist': 'quantal'}}
-            self.assertRaises(InvalidParameter, inst.repositories_create, repo)
-
-        # create repositories with invalid mirrorlist
-        for url in invalid_urls:
-            repo = {'repo_id': 'repo_fake',
-                    'config': {'mirrorlist': url, 'dist': 'quantal'}}
+        # create repositories with invalid data
+        for repo in invalid_repos:
             self.assertRaises(InvalidParameter, inst.repositories_create, repo)
 
         for repo in test_repos:
@@ -1372,17 +1381,34 @@ class ModelTests(unittest.TestCase):
                     'baseurl': 'http://www.fedora.org'}
         yum_new_repo = {'baseurl': 'http://www.fedoraproject.org'}
 
-        deb_repo = {'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+        deb_repo = {'baseurl': 'http://archive.ubuntu.com/ubuntu/',
                     'config': {'dist': 'quantal'}}
-        deb_new_repo = {'baseurl': 'http://archive.canonical.com/kimchi'}
+        deb_new_repo = {'baseurl': 'http://br.archive.canonical.com/ubuntu/',
+                        'config': {'dist': 'utopic'}}
+
+        yum_invalid_repos = []
+        deb_invalid_repos = []
+
+        for url in invalid_repository_urls:
+            wrong_baseurl = {'baseurl': url}
+            wrong_mirrorlist = {'baseurl': 'www.example.com',
+                                'config': {'mirrorlist': url}}
+
+            yum_invalid_repos.append(wrong_baseurl)
+            yum_invalid_repos.append(wrong_mirrorlist)
+
+            wrong_baseurl['config'] = {'dist': 'tasty'}
+            deb_invalid_repos.append(wrong_baseurl)
 
         repo_type = inst.capabilities_lookup()['repo_mngt_tool']
         if repo_type == 'yum':
             repo = yum_repo
             new_repo = yum_new_repo
+            invalid_repos = yum_invalid_repos
         elif repo_type == 'deb':
             repo = deb_repo
             new_repo = deb_new_repo
+            invalid_repos = deb_invalid_repos
         else:
             # repository management tool was not recognized by Kimchi
             # skip test case
@@ -1394,22 +1420,10 @@ class ModelTests(unittest.TestCase):
         host_repos = inst.repositories_get_list()
         self.assertEquals(system_host_repos + 1, len(host_repos))
 
-        invalid_urls = ['www.fedora.org',                 # missing protocol
-                        '://www.fedora.org',              # missing protocol
-                        'http://www.fedora',              # invalid domain name
-                        'file:///home/userdoesnotexist']  # invalid path
-
-        # update repositories with invalid baseurl
-        for url in invalid_urls:
-            wrong_repo = {'baseurl': url}
+        # update repositories with invalid data
+        for repo in invalid_repos:
             self.assertRaises(InvalidParameter, inst.repository_update,
-                              repo_id, wrong_repo)
-
-        # update repositories with invalid mirrorlist
-        for url in invalid_urls:
-            wrong_repo = {'config': {'mirrorlist': url}}
-            self.assertRaises(InvalidParameter, inst.repository_update,
-                              repo_id, wrong_repo)
+                              repo_id, repo)
 
         new_repo_id = inst.repository_update(repo_id, new_repo)
         repo_info = inst.repository_lookup(new_repo_id)
@@ -1427,7 +1441,7 @@ class ModelTests(unittest.TestCase):
 
         yum_repo = {'repo_id': 'fedora-fake',
                     'baseurl': 'http://www.fedora.org'}
-        deb_repo = {'baseurl': 'http://br.archive.ubuntu.com/kimchi/fake',
+        deb_repo = {'baseurl': 'http://archive.ubuntu.com/ubuntu/',
                     'config': {'dist': 'quantal'}}
 
         repo_type = inst.capabilities_lookup()['repo_mngt_tool']
