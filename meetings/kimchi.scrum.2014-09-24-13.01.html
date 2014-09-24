@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:01:08 UTC
+(<a href="kimchi.scrum.2014-09-24-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-6'>alinefm</a>,
+    13:01:26)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-09-24-13.01.log.html#l-9'>alinefm</a>, 13:04:00)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-10'>alinefm</a>,
+    13:04:00)</span></li>
+  <li><span class="INFO">YuXin Working on defects</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-11'>YuXin</a>,
+    13:04:17)</span></li>
+  <li><span class="INFO">vianac opened a few issues on Github while
+    testing Kimchi for the GA release; tested Kimchi on Fedora 20
+    according to the test matrix; closed bugs #415, #435, #447
+    (partially); sent first version of patchset to fix issue #433;
+    closed a bug where the mockmodel was writing actual files on the
+    disk when it shouldn't; reviewed some patches on the mailing
+    list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-12'>vianac</a>,
+    13:04:19)</span></li>
+  <li><span class="INFO">wenwang sent patch that fix bug UI: Pop up
+    errors when log out at "Host" tab</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-13'>wenwang</a>,
+    13:04:44)</span></li>
+  <li><span class="INFO">wenwang sent patch that fix bug#424 Edit
+    Template, "Disk (GB)" is always changing when select "Storage Pool",
+    user input is missing.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-14'>wenwang</a>,
+    13:05:28)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix issues #429, #430,
+    #452, #419 (already merged)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-15'>alinefm</a>,
+    13:06:04)</span></li>
+  <li><span class="INFO">wenwang sent patch that fix bug#426 Create
+    'bridge' network, when no interface available, it popup
+    error.</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-16'>wenwang</a>,
+    13:06:06)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix issues #417, #437,
+    #432 (waiting for reviews)</span> <span class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-17'>alinefm</a>,
+    13:06:38)</span></li>
+  <li><span class="INFO">royce fixed bug about: fake uri for repo test,
+    rollback in update repo, filter unsupported volumes from disk list
+    for attachment, took sick leave for two days</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-18'>royce</a>,
+    13:06:39)</span></li>
+  <li><span class="INFO">wenwang working on bug fix that edit guest did
+    not refresh volume when storage pool chages</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-09-24-13.01.log.html#l-19'>wenwang</a>,
+    13:06:52)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:15:24 UTC
+(<a href="kimchi.scrum.2014-09-24-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (89)</li>
+  <li>YuXin (33)</li>
+  <li>royce (22)</li>
+  <li>YuXin1 (7)</li>
+  <li>wenwang (6)</li>
+  <li>rotru (6)</li>
+  <li>fnovak (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>pvital (1)</li>
+  <li>vianac (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

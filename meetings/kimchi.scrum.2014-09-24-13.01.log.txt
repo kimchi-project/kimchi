@@ -1,0 +1,171 @@
+13:01:08 <alinefm> #startmeeting
+13:01:08 <kimchi-bot> Meeting started Wed Sep 24 13:01:08 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:08 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:08 <alinefm> #meetingname scrum
+13:01:08 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:26 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:26 <alinefm> anything else?
+13:01:43 <royce> good for me
+13:04:00 <alinefm> #topic Status
+13:04:00 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:17 <YuXin> #info YuXin Working on defects
+13:04:19 <vianac> #info vianac opened a few issues on Github while testing Kimchi for the GA release; tested Kimchi on Fedora 20 according to the test matrix; closed bugs #415, #435, #447 (partially); sent first version of patchset to fix issue #433; closed a bug where the mockmodel was writing actual files on the disk when it shouldn't; reviewed some patches on the mailing list
+13:04:44 <wenwang> #info wenwang sent patch that fix bug UI: Pop up errors when log out at "Host" tab
+13:05:28 <wenwang> #info wenwang sent patch that fix bug#424 Edit Template, "Disk (GB)" is always changing when select "Storage Pool", user input is missing.
+13:06:04 <alinefm> #info alinefm sent patch to fix issues #429, #430, #452, #419 (already merged)
+13:06:06 <wenwang> #info wenwang sent patch that fix bug#426 Create 'bridge' network, when no interface available, it popup error.
+13:06:38 <alinefm> #info alinefm sent patch to fix issues #417, #437, #432 (waiting for reviews)
+13:06:39 <royce> #info royce fixed bug about: fake uri for repo test, rollback in update repo, filter unsupported volumes from disk list for attachment, took sick leave for two days
+13:06:52 <wenwang> #info wenwang working on bug fix that edit guest did not refresh volume when storage pool chages
+13:06:59 <alinefm> royce, hope you are better now =)
+13:07:11 <royce> thanks alinefm
+13:07:49 <royce> better, if there are not much things need me, I hope I can go off-line earlier today, can I?
+13:08:28 <alinefm> sure!
+13:08:45 <royce> The whether in Beijing changes too fast.... Thanks a lot alinefm!
+13:08:56 <royce> I mean weather...
+13:09:27 <alinefm> just let me share what is coming after 1.3
+13:09:56 <alinefm> I have checked all open bugs yesterday night and there are still 10 that would be good to close for 1.3
+13:10:10 <alinefm> from those 10 at least 4 have patches on ML
+13:10:35 <alinefm> vianac and I will try to get them fixed today
+13:10:54 <alinefm> after that, we are ready for 1.3 unless any of you have more concerns
+13:10:58 <royce> are there anything I can help alinefm?
+13:11:32 <YuXin> any UI bugs left?
+13:11:37 <royce> The filter seems not rebased, do I need to rebase it today?
+13:11:50 <alinefm> royce, no - the bugs left seems to be easy to solve
+13:11:59 <alinefm> royce, it is time to you sleep =)
+13:12:06 <alinefm> I will check the filter and rebase for you
+13:12:34 <alinefm> YuXin, https://github.com/kimchi-project/kimchi/issues/445
+13:12:46 <alinefm> only this one ^that I think it is important for now
+13:12:48 <royce> Let me see, you can merge the UI first and I can send the backend tomorrow
+13:13:10 <royce> I don't want to leave trouble to you
+13:13:12 <alinefm> royce, today is our deadline
+13:13:13 <YuXin> I will fix 445 tomorrow
+13:13:21 <alinefm> we have to have everything merged today
+13:14:22 <YuXin> I do not have the environment to handle 445 noww
+13:14:33 <royce> Then I will rebase it today
+13:14:43 <YuXin> Alinefm, can you look into 445 today
+13:14:47 <alinefm> YuXin, I can do that
+13:14:54 <YuXin> many thanks
+13:15:02 <alinefm> YuXin, from what I see in the code I just need to move code around
+13:15:18 <YuXin> exactly
+13:15:46 <YuXin> all the code is there, just re-organize the code and send rtequests ou
+13:15:56 <YuXin> send requests out
+13:16:22 <YuXin> if the response is not that fast that you feel there is a delay when open the dropdown
+13:16:38 <YuXin> try setTimeout
+13:16:48 <alinefm> there is the "Searching..." label for that
+13:16:58 <alinefm> until get the response
+13:16:58 <YuXin> yes
+13:17:37 <YuXin> but each time user open the dropdown, he will see "Searching..."
+13:18:03 <alinefm> alright - and then we set the peers on response?
+13:18:24 <YuXin> and I remember that in a patch review, you found that the /peers request is not response fast, that is why we add "Searching..."
+13:18:44 <alinefm> yeap - I remember
+13:18:57 <alinefm> any more concerns for 1.3?
+13:19:10 <YuXin> so we can use setTimeout to periodically send /peers requests
+13:19:35 <YuXin> then we user open the dropdown, there is always a list of peers up to date
+13:19:55 <alinefm> how much periodically?
+13:19:58 <alinefm> 1min?
+13:20:51 <YuXin> how about 10 seconds
+13:21:58 <YuXin> or you know that the /peers request will trigger a big workload at backend?
+13:22:06 <alinefm> I don't think this information change so frequently
+13:22:31 <alinefm> seems a lot of requests that will not provide any new info
+13:22:46 <alinefm> do you think send the request on user selection is bad?
+13:23:00 <YuXin> now, each time user login, he will definitely get an updated list of peers, is this enough?
+13:23:43 <YuXin> if send the request on user selection, user will always see "Searching.." even no new peers are added
+13:24:12 <YuXin> if send the request on user selection, I recommend below
+13:24:30 <YuXin> 1. when user open the dropdown, send the request
+13:24:48 <YuXin> 2. keep the original list peers there before the response is back
+13:25:07 <YuXin> 3. At the bottom of the list, add a "Searching more...."
+13:25:23 <YuXin> 4. When response is back, update the whole list
+13:25:26 <YuXin> is this ok?
+13:25:53 <alinefm> I think it is better to clean up the list and only display "Searching..." because a previous peer listed before can not be available anymore
+13:26:09 <alinefm> so when the request completes the peer will be removed from list
+13:26:15 <alinefm> may cause confusion to user
+13:26:49 <YuXin> how long do you think the /peers request will be back in average?
+13:28:43 <alinefm> need to check but ~3 seconds
+13:28:57 <YuXin> within 3 seconds?
+13:29:08 <alinefm> yes
+13:29:11 <YuXin> ok
+13:29:31 <alinefm> it is not much but causes a delay on UI
+13:29:35 <YuXin> just make it "Searching" when user open the dropdown
+13:29:43 <alinefm> ok
+13:31:07 <alinefm> I will get merged everything today and prepare the release (update changelog, create the packages, update the github.io page, etc) tomorrow
+13:31:17 <alinefm> hopefully the announcement will be done tomorrow too
+13:31:24 <alinefm> I will send an email to ML as usual
+13:31:57 <alinefm> and then it is time to think about next release \o/
+13:32:14 <fnovak> i would err on showing existing list and updating (with searching more ) if that's the case...  Even if you wait and update, a sec later the peer could still drop off
+13:33:00 <fnovak> seems better than just showing 'searching'
+13:33:34 <fnovak> we just need to handle the 'peer no longer available'
+13:33:48 <alinefm> fnovak, yeap
+13:34:12 <alinefm> when a peer is not available the UI will not be loaded - I think it is a minimal corner case
+13:34:23 <alinefm> the UI = the new browser tab
+13:35:05 <YuXin> I am ok if it will resonse within 5 secs
+13:36:08 <YuXin> if the /peers request takes long to response, when I want jump to a peer that is already there, then I still need to wait
+13:37:35 <YuXin> as it is rare to add/remove peers, we are making a frequent operation bad for a rare case
+13:37:55 <alinefm> yes
+13:38:16 <alinefm> well, seems we have an agreement on it =)
+13:39:02 <alinefm> now I'd like to ask everyone to input your ideas in our backlog (https://github.com/kimchi-project/kimchi/wiki/todo-backlog) or send the RFC on ML
+13:39:23 <alinefm> so we can have the next release plan soon
+13:40:09 <alinefm> I am working with YuXin and wenwang with a new UI design. I will input everything we have on the github wiki so everyone can provide us feedbacks
+13:40:55 <alinefm> if we all agree we can start some work on it for next release
+13:41:12 <wenwang> Sure alinefm, great
+13:42:18 <alinefm> this release will be shorter than the usual due the holidays in the end of the year
+13:42:33 <alinefm> but I think we can do great things =)
+13:43:21 <alinefm> pvital, ramonn, rotru, royce, vianac, ^
+13:43:23 <alinefm> ok?
+13:43:32 <royce> Of course!
+13:43:35 <alinefm> (something I think no one is reading me heheh)
+13:43:49 <pvital> k
+13:43:57 <wenwang> Sure
+13:44:33 <royce> I was just rebasing
+13:44:52 <royce> now sent, hope it'll reduce your trouble, alinefm
+13:45:19 <alinefm> royce, thanks!
+13:45:34 <alinefm> anyone has topic for the open discussion section?
+13:46:01 <royce> my pleasure, the new UI sounds interesting
+13:46:46 <alinefm> royce, yeap! hope we can improve the mobile experience with that
+13:48:00 <YuXin1> aline, the new UI has not been contained in the backlog at all, part is already there?
+13:49:10 <alinefm> YuXin, we can add it to there and link to the wiki with the screen shots
+13:49:21 <royce> :O we are officially going to market now so we redesign the UI?
+13:49:32 <alinefm> but of course, for a devel perspective we will need to do the changes by parts to avoid conflicts
+13:50:22 <YuXin1> aline, ok
+13:50:40 <alinefm> royce, not sure I understood what you meant
+13:52:39 <YuXin1> royce, the current UI is not flat(the whole industry is embracing flat design)
+13:52:40 <royce> I wonder why we redesign current UI is because Kimchi is going to be widely used by clients and need to look better:)
+13:53:28 <YuXin1> the current UI can run on tablet, but it is not responsive at all
+13:53:39 <royce> OK
+13:53:59 <alinefm> royce, most of changes come from users feedbacks, specially on mobiles
+13:54:09 <YuXin1> we need shape the overall UI direction and style which sustain and for us to keep consistecy for long
+13:54:22 <royce> I will consult with you guys about responsive UI design:)
+13:54:37 <alinefm> I have a couple of links - one minute
+13:54:38 <YuXin1> sure
+13:56:29 <alinefm> royce, http://colly.com/
+13:56:50 <alinefm> open it in your browser and start re-sizing the browser window
+13:56:56 <alinefm> until get a tablet size
+13:57:20 <alinefm> it is like magic =D
+13:58:46 <alinefm> there are more examples here: http://designmodo.com/responsive-design-examples/
+14:01:05 <royce> Helpful! Thanks alinefm
+14:01:13 <YuXin1> good samples, layout adapt base on real screen estate
+14:02:38 <alinefm> royce, YuXin1, if you open Firebug and goes to  "CSS" tab you can see it is just one HTML and on CSS there are @media to describe the element position according to screen size
+14:03:06 <royce> yes!
+14:04:52 <alinefm> we are over time now
+14:04:56 <alinefm> anything else for today?
+14:05:35 <rotru> alinefm;  what about the help ?
+14:06:22 <alinefm> rotru, did you send a new version? if so, I will review and apply
+14:07:21 <rotru> alinefm;  I will merge the  functions as you asked, but its going to be ugly
+14:08:18 <alinefm> we can talk more after the meeting
+14:08:19 <rotru> alinefm; also, you said to the get plugin help html file from the configuration file ( [/help] ).... my code makes this not necessary
+14:08:52 <alinefm> rotru, why Kimchi should load plugin config?
+14:09:11 <alinefm> I mena, in your code Kimchi is responsible to set the help config for the plugin
+14:09:14 <alinefm> it is not needed
+14:09:30 <alinefm> each plugin has its own config file to be "free of kimchi"
+14:10:15 <rotru> alinefm;  it is just a convention ... kimchi is not setting anything ...
+14:11:33 <alinefm> rotru, if kimchi does need to do anything else than read the plugin config it is doing something =)
+14:12:29 <rotru> alinefm; we are going to fall in the same problem as before, plugins and kimchi running from different places ...  from git, from rpm installation , etc
+14:12:38 <alinefm> can we continue after meeting? I don't want to block people for long time
+14:12:48 <rotru> thats ok
+14:12:58 <alinefm> rotru, we have discussed to Zheng Zhou to use git-submodule, right?
+14:13:29 <alinefm> just one thing before finishing...
+14:13:50 <alinefm> I want to thank all of you for the hard and great job for 1.3
+14:14:12 <alinefm> without your commitment it would not be possible
+14:14:23 <alinefm> so many thanks!
+14:14:36 <royce> Thank you alinefm!
+14:15:24 <alinefm> #endmeeting

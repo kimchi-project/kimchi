@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:08</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 24 13:01:08 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:08</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:08</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:01:43</span><span class="nk"> &lt;royce&gt;</span> good for me
+<a name="l-9"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:17</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Working on defects</span>
+<a name="l-12"></a><span class="tm">13:04:19</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac opened a few issues on Github while testing Kimchi for the GA release; tested Kimchi on Fedora 20 according to the test matrix; closed bugs #415, #435, #447 (partially); sent first version of patchset to fix issue #433; closed a bug where the mockmodel was writing actual files on the disk when it shouldn't; reviewed some patches on the mailing list</span>
+<a name="l-13"></a><span class="tm">13:04:44</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that fix bug UI: Pop up errors when log out at "Host" tab</span>
+<a name="l-14"></a><span class="tm">13:05:28</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that fix bug#424 Edit Template, "Disk (GB)" is always changing when select "Storage Pool", user input is missing.</span>
+<a name="l-15"></a><span class="tm">13:06:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix issues #429, #430, #452, #419 (already merged)</span>
+<a name="l-16"></a><span class="tm">13:06:06</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that fix bug#426 Create 'bridge' network, when no interface available, it popup error.</span>
+<a name="l-17"></a><span class="tm">13:06:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix issues #417, #437, #432 (waiting for reviews)</span>
+<a name="l-18"></a><span class="tm">13:06:39</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed bug about: fake uri for repo test, rollback in update repo, filter unsupported volumes from disk list for attachment, took sick leave for two days</span>
+<a name="l-19"></a><span class="tm">13:06:52</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on bug fix that edit guest did not refresh volume when storage pool chages</span>
+<a name="l-20"></a><span class="tm">13:06:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, hope you are better now =)
+<a name="l-21"></a><span class="tm">13:07:11</span><span class="nk"> &lt;royce&gt;</span> thanks alinefm
+<a name="l-22"></a><span class="tm">13:07:49</span><span class="nk"> &lt;royce&gt;</span> better, if there are not much things need me, I hope I can go off-line earlier today, can I?
+<a name="l-23"></a><span class="tm">13:08:28</span><span class="nk"> &lt;alinefm&gt;</span> sure!
+<a name="l-24"></a><span class="tm">13:08:45</span><span class="nk"> &lt;royce&gt;</span> The whether in Beijing changes too fast.... Thanks a lot alinefm!
+<a name="l-25"></a><span class="tm">13:08:56</span><span class="nk"> &lt;royce&gt;</span> I mean weather...
+<a name="l-26"></a><span class="tm">13:09:27</span><span class="nk"> &lt;alinefm&gt;</span> just let me share what is coming after 1.3
+<a name="l-27"></a><span class="tm">13:09:56</span><span class="nk"> &lt;alinefm&gt;</span> I have checked all open bugs yesterday night and there are still 10 that would be good to close for 1.3
+<a name="l-28"></a><span class="tm">13:10:10</span><span class="nk"> &lt;alinefm&gt;</span> from those 10 at least 4 have patches on ML
+<a name="l-29"></a><span class="tm">13:10:35</span><span class="nk"> &lt;alinefm&gt;</span> vianac and I will try to get them fixed today
+<a name="l-30"></a><span class="tm">13:10:54</span><span class="nk"> &lt;alinefm&gt;</span> after that, we are ready for 1.3 unless any of you have more concerns
+<a name="l-31"></a><span class="tm">13:10:58</span><span class="nk"> &lt;royce&gt;</span> are there anything I can help alinefm?
+<a name="l-32"></a><span class="tm">13:11:32</span><span class="nk"> &lt;YuXin&gt;</span> any UI bugs left?
+<a name="l-33"></a><span class="tm">13:11:37</span><span class="nk"> &lt;royce&gt;</span> The filter seems not rebased, do I need to rebase it today?
+<a name="l-34"></a><span class="tm">13:11:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, no - the bugs left seems to be easy to solve
+<a name="l-35"></a><span class="tm">13:11:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, it is time to you sleep =)
+<a name="l-36"></a><span class="tm">13:12:06</span><span class="nk"> &lt;alinefm&gt;</span> I will check the filter and rebase for you
+<a name="l-37"></a><span class="tm">13:12:34</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, https://github.com/kimchi-project/kimchi/issues/445
+<a name="l-38"></a><span class="tm">13:12:46</span><span class="nk"> &lt;alinefm&gt;</span> only this one ^that I think it is important for now
+<a name="l-39"></a><span class="tm">13:12:48</span><span class="nk"> &lt;royce&gt;</span> Let me see, you can merge the UI first and I can send the backend tomorrow
+<a name="l-40"></a><span class="tm">13:13:10</span><span class="nk"> &lt;royce&gt;</span> I don't want to leave trouble to you
+<a name="l-41"></a><span class="tm">13:13:12</span><span class="nk"> &lt;alinefm&gt;</span> royce, today is our deadline
+<a name="l-42"></a><span class="tm">13:13:13</span><span class="nk"> &lt;YuXin&gt;</span> I will fix 445 tomorrow
+<a name="l-43"></a><span class="tm">13:13:21</span><span class="nk"> &lt;alinefm&gt;</span> we have to have everything merged today
+<a name="l-44"></a><span class="tm">13:14:22</span><span class="nk"> &lt;YuXin&gt;</span> I do not have the environment to handle 445 noww
+<a name="l-45"></a><span class="tm">13:14:33</span><span class="nk"> &lt;royce&gt;</span> Then I will rebase it today
+<a name="l-46"></a><span class="tm">13:14:43</span><span class="nk"> &lt;YuXin&gt;</span> Alinefm, can you look into 445 today
+<a name="l-47"></a><span class="tm">13:14:47</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I can do that
+<a name="l-48"></a><span class="tm">13:14:54</span><span class="nk"> &lt;YuXin&gt;</span> many thanks
+<a name="l-49"></a><span class="tm">13:15:02</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, from what I see in the code I just need to move code around
+<a name="l-50"></a><span class="tm">13:15:18</span><span class="nk"> &lt;YuXin&gt;</span> exactly
+<a name="l-51"></a><span class="tm">13:15:46</span><span class="nk"> &lt;YuXin&gt;</span> all the code is there, just re-organize the code and send rtequests ou
+<a name="l-52"></a><span class="tm">13:15:56</span><span class="nk"> &lt;YuXin&gt;</span> send requests out
+<a name="l-53"></a><span class="tm">13:16:22</span><span class="nk"> &lt;YuXin&gt;</span> if the response is not that fast that you feel there is a delay when open the dropdown
+<a name="l-54"></a><span class="tm">13:16:38</span><span class="nk"> &lt;YuXin&gt;</span> try setTimeout
+<a name="l-55"></a><span class="tm">13:16:48</span><span class="nk"> &lt;alinefm&gt;</span> there is the "Searching..." label for that
+<a name="l-56"></a><span class="tm">13:16:58</span><span class="nk"> &lt;alinefm&gt;</span> until get the response
+<a name="l-57"></a><span class="tm">13:16:58</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-58"></a><span class="tm">13:17:37</span><span class="nk"> &lt;YuXin&gt;</span> but each time user open the dropdown, he will see "Searching..."
+<a name="l-59"></a><span class="tm">13:18:03</span><span class="nk"> &lt;alinefm&gt;</span> alright - and then we set the peers on response?
+<a name="l-60"></a><span class="tm">13:18:24</span><span class="nk"> &lt;YuXin&gt;</span> and I remember that in a patch review, you found that the /peers request is not response fast, that is why we add "Searching..."
+<a name="l-61"></a><span class="tm">13:18:44</span><span class="nk"> &lt;alinefm&gt;</span> yeap - I remember
+<a name="l-62"></a><span class="tm">13:18:57</span><span class="nk"> &lt;alinefm&gt;</span> any more concerns for 1.3?
+<a name="l-63"></a><span class="tm">13:19:10</span><span class="nk"> &lt;YuXin&gt;</span> so we can use setTimeout to periodically send /peers requests
+<a name="l-64"></a><span class="tm">13:19:35</span><span class="nk"> &lt;YuXin&gt;</span> then we user open the dropdown, there is always a list of peers up to date
+<a name="l-65"></a><span class="tm">13:19:55</span><span class="nk"> &lt;alinefm&gt;</span> how much periodically?
+<a name="l-66"></a><span class="tm">13:19:58</span><span class="nk"> &lt;alinefm&gt;</span> 1min?
+<a name="l-67"></a><span class="tm">13:20:51</span><span class="nk"> &lt;YuXin&gt;</span> how about 10 seconds
+<a name="l-68"></a><span class="tm">13:21:58</span><span class="nk"> &lt;YuXin&gt;</span> or you know that the /peers request will trigger a big workload at backend?
+<a name="l-69"></a><span class="tm">13:22:06</span><span class="nk"> &lt;alinefm&gt;</span> I don't think this information change so frequently
+<a name="l-70"></a><span class="tm">13:22:31</span><span class="nk"> &lt;alinefm&gt;</span> seems a lot of requests that will not provide any new info
+<a name="l-71"></a><span class="tm">13:22:46</span><span class="nk"> &lt;alinefm&gt;</span> do you think send the request on user selection is bad?
+<a name="l-72"></a><span class="tm">13:23:00</span><span class="nk"> &lt;YuXin&gt;</span> now, each time user login, he will definitely get an updated list of peers, is this enough?
+<a name="l-73"></a><span class="tm">13:23:43</span><span class="nk"> &lt;YuXin&gt;</span> if send the request on user selection, user will always see "Searching.." even no new peers are added
+<a name="l-74"></a><span class="tm">13:24:12</span><span class="nk"> &lt;YuXin&gt;</span> if send the request on user selection, I recommend below
+<a name="l-75"></a><span class="tm">13:24:30</span><span class="nk"> &lt;YuXin&gt;</span> 1. when user open the dropdown, send the request
+<a name="l-76"></a><span class="tm">13:24:48</span><span class="nk"> &lt;YuXin&gt;</span> 2. keep the original list peers there before the response is back
+<a name="l-77"></a><span class="tm">13:25:07</span><span class="nk"> &lt;YuXin&gt;</span> 3. At the bottom of the list, add a "Searching more...."
+<a name="l-78"></a><span class="tm">13:25:23</span><span class="nk"> &lt;YuXin&gt;</span> 4. When response is back, update the whole list
+<a name="l-79"></a><span class="tm">13:25:26</span><span class="nk"> &lt;YuXin&gt;</span> is this ok?
+<a name="l-80"></a><span class="tm">13:25:53</span><span class="nk"> &lt;alinefm&gt;</span> I think it is better to clean up the list and only display "Searching..." because a previous peer listed before can not be available anymore
+<a name="l-81"></a><span class="tm">13:26:09</span><span class="nk"> &lt;alinefm&gt;</span> so when the request completes the peer will be removed from list
+<a name="l-82"></a><span class="tm">13:26:15</span><span class="nk"> &lt;alinefm&gt;</span> may cause confusion to user
+<a name="l-83"></a><span class="tm">13:26:49</span><span class="nk"> &lt;YuXin&gt;</span> how long do you think the /peers request will be back in average?
+<a name="l-84"></a><span class="tm">13:28:43</span><span class="nk"> &lt;alinefm&gt;</span> need to check but ~3 seconds
+<a name="l-85"></a><span class="tm">13:28:57</span><span class="nk"> &lt;YuXin&gt;</span> within 3 seconds?
+<a name="l-86"></a><span class="tm">13:29:08</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-87"></a><span class="tm">13:29:11</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-88"></a><span class="tm">13:29:31</span><span class="nk"> &lt;alinefm&gt;</span> it is not much but causes a delay on UI
+<a name="l-89"></a><span class="tm">13:29:35</span><span class="nk"> &lt;YuXin&gt;</span> just make it "Searching" when user open the dropdown
+<a name="l-90"></a><span class="tm">13:29:43</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-91"></a><span class="tm">13:31:07</span><span class="nk"> &lt;alinefm&gt;</span> I will get merged everything today and prepare the release (update changelog, create the packages, update the github.io page, etc) tomorrow
+<a name="l-92"></a><span class="tm">13:31:17</span><span class="nk"> &lt;alinefm&gt;</span> hopefully the announcement will be done tomorrow too
+<a name="l-93"></a><span class="tm">13:31:24</span><span class="nk"> &lt;alinefm&gt;</span> I will send an email to ML as usual
+<a name="l-94"></a><span class="tm">13:31:57</span><span class="nk"> &lt;alinefm&gt;</span> and then it is time to think about next release \o/
+<a name="l-95"></a><span class="tm">13:32:14</span><span class="nk"> &lt;fnovak&gt;</span> i would err on showing existing list and updating (with searching more ) if that's the case...  Even if you wait and update, a sec later the peer could still drop off
+<a name="l-96"></a><span class="tm">13:33:00</span><span class="nk"> &lt;fnovak&gt;</span> seems better than just showing 'searching'
+<a name="l-97"></a><span class="tm">13:33:34</span><span class="nk"> &lt;fnovak&gt;</span> we just need to handle the 'peer no longer available'
+<a name="l-98"></a><span class="tm">13:33:48</span><span class="nk"> &lt;alinefm&gt;</span> fnovak, yeap
+<a name="l-99"></a><span class="tm">13:34:12</span><span class="nk"> &lt;alinefm&gt;</span> when a peer is not available the UI will not be loaded - I think it is a minimal corner case
+<a name="l-100"></a><span class="tm">13:34:23</span><span class="nk"> &lt;alinefm&gt;</span> the UI = the new browser tab
+<a name="l-101"></a><span class="tm">13:35:05</span><span class="nk"> &lt;YuXin&gt;</span> I am ok if it will resonse within 5 secs
+<a name="l-102"></a><span class="tm">13:36:08</span><span class="nk"> &lt;YuXin&gt;</span> if the /peers request takes long to response, when I want jump to a peer that is already there, then I still need to wait
+<a name="l-103"></a><span class="tm">13:37:35</span><span class="nk"> &lt;YuXin&gt;</span> as it is rare to add/remove peers, we are making a frequent operation bad for a rare case
+<a name="l-104"></a><span class="tm">13:37:55</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-105"></a><span class="tm">13:38:16</span><span class="nk"> &lt;alinefm&gt;</span> well, seems we have an agreement on it =)
+<a name="l-106"></a><span class="tm">13:39:02</span><span class="nk"> &lt;alinefm&gt;</span> now I'd like to ask everyone to input your ideas in our backlog (https://github.com/kimchi-project/kimchi/wiki/todo-backlog) or send the RFC on ML
+<a name="l-107"></a><span class="tm">13:39:23</span><span class="nk"> &lt;alinefm&gt;</span> so we can have the next release plan soon
+<a name="l-108"></a><span class="tm">13:40:09</span><span class="nk"> &lt;alinefm&gt;</span> I am working with YuXin and wenwang with a new UI design. I will input everything we have on the github wiki so everyone can provide us feedbacks
+<a name="l-109"></a><span class="tm">13:40:55</span><span class="nk"> &lt;alinefm&gt;</span> if we all agree we can start some work on it for next release
+<a name="l-110"></a><span class="tm">13:41:12</span><span class="nk"> &lt;wenwang&gt;</span> Sure alinefm, great
+<a name="l-111"></a><span class="tm">13:42:18</span><span class="nk"> &lt;alinefm&gt;</span> this release will be shorter than the usual due the holidays in the end of the year
+<a name="l-112"></a><span class="tm">13:42:33</span><span class="nk"> &lt;alinefm&gt;</span> but I think we can do great things =)
+<a name="l-113"></a><span class="tm">13:43:21</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ramonn, rotru, royce, vianac, ^
+<a name="l-114"></a><span class="tm">13:43:23</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-115"></a><span class="tm">13:43:32</span><span class="nk"> &lt;royce&gt;</span> Of course!
+<a name="l-116"></a><span class="tm">13:43:35</span><span class="nk"> &lt;alinefm&gt;</span> (something I think no one is reading me heheh)
+<a name="l-117"></a><span class="tm">13:43:49</span><span class="nk"> &lt;pvital&gt;</span> k
+<a name="l-118"></a><span class="tm">13:43:57</span><span class="nk"> &lt;wenwang&gt;</span> Sure
+<a name="l-119"></a><span class="tm">13:44:33</span><span class="nk"> &lt;royce&gt;</span> I was just rebasing
+<a name="l-120"></a><span class="tm">13:44:52</span><span class="nk"> &lt;royce&gt;</span> now sent, hope it'll reduce your trouble, alinefm
+<a name="l-121"></a><span class="tm">13:45:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks!
+<a name="l-122"></a><span class="tm">13:45:34</span><span class="nk"> &lt;alinefm&gt;</span> anyone has topic for the open discussion section?
+<a name="l-123"></a><span class="tm">13:46:01</span><span class="nk"> &lt;royce&gt;</span> my pleasure, the new UI sounds interesting
+<a name="l-124"></a><span class="tm">13:46:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap! hope we can improve the mobile experience with that
+<a name="l-125"></a><span class="tm">13:48:00</span><span class="nk"> &lt;YuXin1&gt;</span> aline, the new UI has not been contained in the backlog at all, part is already there?
+<a name="l-126"></a><span class="tm">13:49:10</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, we can add it to there and link to the wiki with the screen shots
+<a name="l-127"></a><span class="tm">13:49:21</span><span class="nk"> &lt;royce&gt;</span> :O we are officially going to market now so we redesign the UI?
+<a name="l-128"></a><span class="tm">13:49:32</span><span class="nk"> &lt;alinefm&gt;</span> but of course, for a devel perspective we will need to do the changes by parts to avoid conflicts
+<a name="l-129"></a><span class="tm">13:50:22</span><span class="nk"> &lt;YuXin1&gt;</span> aline, ok
+<a name="l-130"></a><span class="tm">13:50:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, not sure I understood what you meant
+<a name="l-131"></a><span class="tm">13:52:39</span><span class="nk"> &lt;YuXin1&gt;</span> royce, the current UI is not flat(the whole industry is embracing flat design)
+<a name="l-132"></a><span class="tm">13:52:40</span><span class="nk"> &lt;royce&gt;</span> I wonder why we redesign current UI is because Kimchi is going to be widely used by clients and need to look better:)
+<a name="l-133"></a><span class="tm">13:53:28</span><span class="nk"> &lt;YuXin1&gt;</span> the current UI can run on tablet, but it is not responsive at all
+<a name="l-134"></a><span class="tm">13:53:39</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-135"></a><span class="tm">13:53:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, most of changes come from users feedbacks, specially on mobiles
+<a name="l-136"></a><span class="tm">13:54:09</span><span class="nk"> &lt;YuXin1&gt;</span> we need shape the overall UI direction and style which sustain and for us to keep consistecy for long
+<a name="l-137"></a><span class="tm">13:54:22</span><span class="nk"> &lt;royce&gt;</span> I will consult with you guys about responsive UI design:)
+<a name="l-138"></a><span class="tm">13:54:37</span><span class="nk"> &lt;alinefm&gt;</span> I have a couple of links - one minute
+<a name="l-139"></a><span class="tm">13:54:38</span><span class="nk"> &lt;YuXin1&gt;</span> sure
+<a name="l-140"></a><span class="tm">13:56:29</span><span class="nk"> &lt;alinefm&gt;</span> royce, http://colly.com/
+<a name="l-141"></a><span class="tm">13:56:50</span><span class="nk"> &lt;alinefm&gt;</span> open it in your browser and start re-sizing the browser window
+<a name="l-142"></a><span class="tm">13:56:56</span><span class="nk"> &lt;alinefm&gt;</span> until get a tablet size
+<a name="l-143"></a><span class="tm">13:57:20</span><span class="nk"> &lt;alinefm&gt;</span> it is like magic =D
+<a name="l-144"></a><span class="tm">13:58:46</span><span class="nk"> &lt;alinefm&gt;</span> there are more examples here: http://designmodo.com/responsive-design-examples/
+<a name="l-145"></a><span class="tm">14:01:05</span><span class="nk"> &lt;royce&gt;</span> Helpful! Thanks alinefm
+<a name="l-146"></a><span class="tm">14:01:13</span><span class="nk"> &lt;YuXin1&gt;</span> good samples, layout adapt base on real screen estate
+<a name="l-147"></a><span class="tm">14:02:38</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin1, if you open Firebug and goes to  "CSS" tab you can see it is just one HTML and on CSS there are @media to describe the element position according to screen size
+<a name="l-148"></a><span class="tm">14:03:06</span><span class="nk"> &lt;royce&gt;</span> yes!
+<a name="l-149"></a><span class="tm">14:04:52</span><span class="nk"> &lt;alinefm&gt;</span> we are over time now
+<a name="l-150"></a><span class="tm">14:04:56</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-151"></a><span class="tm">14:05:35</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  what about the help ?
+<a name="l-152"></a><span class="tm">14:06:22</span><span class="nk"> &lt;alinefm&gt;</span> rotru, did you send a new version? if so, I will review and apply
+<a name="l-153"></a><span class="tm">14:07:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I will merge the  functions as you asked, but its going to be ugly
+<a name="l-154"></a><span class="tm">14:08:18</span><span class="nk"> &lt;alinefm&gt;</span> we can talk more after the meeting
+<a name="l-155"></a><span class="tm">14:08:19</span><span class="nk"> &lt;rotru&gt;</span> alinefm; also, you said to the get plugin help html file from the configuration file ( [/help] ).... my code makes this not necessary
+<a name="l-156"></a><span class="tm">14:08:52</span><span class="nk"> &lt;alinefm&gt;</span> rotru, why Kimchi should load plugin config?
+<a name="l-157"></a><span class="tm">14:09:11</span><span class="nk"> &lt;alinefm&gt;</span> I mena, in your code Kimchi is responsible to set the help config for the plugin
+<a name="l-158"></a><span class="tm">14:09:14</span><span class="nk"> &lt;alinefm&gt;</span> it is not needed
+<a name="l-159"></a><span class="tm">14:09:30</span><span class="nk"> &lt;alinefm&gt;</span> each plugin has its own config file to be "free of kimchi"
+<a name="l-160"></a><span class="tm">14:10:15</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  it is just a convention ... kimchi is not setting anything ...
+<a name="l-161"></a><span class="tm">14:11:33</span><span class="nk"> &lt;alinefm&gt;</span> rotru, if kimchi does need to do anything else than read the plugin config it is doing something =)
+<a name="l-162"></a><span class="tm">14:12:29</span><span class="nk"> &lt;rotru&gt;</span> alinefm; we are going to fall in the same problem as before, plugins and kimchi running from different places ...  from git, from rpm installation , etc
+<a name="l-163"></a><span class="tm">14:12:38</span><span class="nk"> &lt;alinefm&gt;</span> can we continue after meeting? I don't want to block people for long time
+<a name="l-164"></a><span class="tm">14:12:48</span><span class="nk"> &lt;rotru&gt;</span> thats ok
+<a name="l-165"></a><span class="tm">14:12:58</span><span class="nk"> &lt;alinefm&gt;</span> rotru, we have discussed to Zheng Zhou to use git-submodule, right?
+<a name="l-166"></a><span class="tm">14:13:29</span><span class="nk"> &lt;alinefm&gt;</span> just one thing before finishing...
+<a name="l-167"></a><span class="tm">14:13:50</span><span class="nk"> &lt;alinefm&gt;</span> I want to thank all of you for the hard and great job for 1.3
+<a name="l-168"></a><span class="tm">14:14:12</span><span class="nk"> &lt;alinefm&gt;</span> without your commitment it would not be possible
+<a name="l-169"></a><span class="tm">14:14:23</span><span class="nk"> &lt;alinefm&gt;</span> so many thanks!
+<a name="l-170"></a><span class="tm">14:14:36</span><span class="nk"> &lt;royce&gt;</span> Thank you alinefm!
+<a name="l-171"></a><span class="tm">14:15:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
