@@ -32,11 +32,12 @@ kimchi.guest_storage_add_main = function() {
     var pathTextbox = $('input[name="path"]', storageAddForm);
     var poolTextbox = $('input[name="pool"]', storageAddForm);
     var volTextbox = $('input[name="vol"]', storageAddForm);
+    var selectType = $(typeTextbox).val();
 
     typeTextbox.change(function() {
         $('#guest-storage-bus').selectMenu();
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
-        var selectType = $(this).val();
+        selectType = $(this).val();
         $.each(pathObject, function(type, value) {
             if(selectType == type){
                 $(value).removeClass('hidden');
@@ -74,11 +75,12 @@ kimchi.guest_storage_add_main = function() {
     poolTextbox.change(function() {
         var options = [];
         kimchi.listStorageVolumes($(this).val(), function(result) {
+            var validVolType = { cdrom: /iso/, disk: /^(raw|qcow|qcow2|bochs|qed|vmdk)$/};
             $('#guest-disk').selectMenu();
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
-                    if (value.ref_cnt == 0) {
+                    if ((value.ref_cnt == 0) && (validVolType[selectType].test(value.format))) {
                         options.push({
                             label: value.name,
                             value: value.name
