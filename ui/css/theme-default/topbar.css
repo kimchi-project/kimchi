@@ -194,7 +194,7 @@ a#btn-logout:hover {
     width: 0;
 }
 
-.peers .drowdown {
+.peers .dropdown {
     top: 45px;
     right: 110px;
     color: black;
@@ -204,7 +204,7 @@ a#btn-logout:hover {
     width: inherit;
 }
 
-.peers .drowdown a {
+.peers .dropdown a {
     display: block;
     padding: 10px;
 }

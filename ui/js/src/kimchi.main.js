@@ -20,23 +20,12 @@ kimchi.tabMode = {};
 kimchi.capabilities = undefined;
 kimchi.getCapabilities(function(result) {
     kimchi.capabilities = result;
-    kimchi.setupPeers();
+
+    if(kimchi.capabilities.federation=="on")
+        $('#peers').removeClass('hide-content');
 }, function() {
     kimchi.capabilities = {};
 });
-
-kimchi.setupPeers = function(){
-    if(kimchi.capabilities.federation=="on"){
-        $('#peers').removeClass('hide-content');
-        kimchi.getPeers(function(data){
-            var hints = $('p', $('.drowdown', '#peers'));
-            data.length==0 ? hints.toggleClass('hide-content'): hints.addClass('hide-content');
-            for(var i=0; i<data.length; i++){
-                $('.drowdown', '#peers').append("<a href='"+data[i]+"' target='_blank'>"+data[i]+"</a>");
-            }
-        });
-    }
-};
 
 kimchi.main = function() {
     kimchi.isLoggingOut = false;
@@ -220,7 +209,11 @@ kimchi.main = function() {
      * 2) hashchange event
      * 3) Tab list click event
      * 4) Log-out button click event
+     * 5) About button click event
+     * 6) Help button click event
+     * 7) Peers button click event
      */
+    var searchingPeers = false;
     var initListeners = function() {
         kimchi.topic('languageChanged').subscribe(onLanguageChanged);
         kimchi.topic('redirect').subscribe(onKimchiRedirect);
@@ -260,12 +253,40 @@ kimchi.main = function() {
                 kimchi.message.error(err.responseJSON.reason);
             });
         });
+
+        // Set handler for about button
         $('#btn-about').on('click', function(event) {
             kimchi.window.open({"content": $('#about-tmpl').html()});
             event.preventDefault();
             });
 
+        // Set handler for help button
         $('#btn-help').on('click', kimchi.getHelp);
+
+        // Set handler to peers drop down
+        $('#peers').on('click', function() {
+
+            // Check if any request is in progress
+            if ($('.popover', '#peers').is(':visible') || searchingPeers == true)
+                return
+
+            $('#search-peers').show();
+            $('#no-peers').addClass('hide-content');
+            $('a', '#peers').remove();
+
+            searchingPeers = true;
+
+            kimchi.getPeers(function(data){
+                $('#search-peers').hide();
+                if (data.length == 0)
+                    $('#no-peers').removeClass('hide-content');
+
+                for(var i=0; i<data.length; i++){
+                    $('.dropdown', '#peers').append("<a href='"+data[i]+"' target='_blank'>"+data[i]+"</a>");
+                }
+                searchingPeers = false;
+            });
+        });
     };
 
     var initUI = function() {
