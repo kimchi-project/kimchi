@@ -585,7 +585,7 @@
                             },
                             "size": {
                                 "description": "Size (GB) of the disk",
-                                "type": "number",
+                                "type": "integer",
                                 "minimum": 1,
                                 "error": "KCHTMPL0022E"
                             }
