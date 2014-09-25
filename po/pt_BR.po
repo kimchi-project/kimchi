@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
-"PO-Revision-Date: 2014-08-28 20:24+0000\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"PO-Revision-Date: 2014-09-16 18:45+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -170,6 +170,14 @@ msgid "Unable to read image file %(filename)s"
 msgstr "Não foi possível ler o arquivo de imagem %(filename)s."
 
 #, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
+msgstr ""
+"Arquivo de imagem deve ser um arquivo existente no sistema. %(filename)s não "
+"é uma entrada válida."
+
+#, python-format
 msgid "Virtual machine %(name)s already exists"
 msgstr "Máquina virtual %(name)s já existe"
 
@@ -289,10 +297,10 @@ msgstr ""
 "%(err)s"
 
 msgid "The guest console password must be a string."
-msgstr "A senha para o console da máquina virtual deve ser um texto."
+msgstr "A senha para o console do guest deve ser um texto."
 
 msgid "The life time for the guest console password must be a number."
-msgstr ""
+msgstr "O tempo de vida da senha do console do guest deve ser um número."
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -396,7 +404,7 @@ msgstr ""
 
 #, python-format
 msgid "The volume %(volume)s is not in storage pool %(pool)s"
-msgstr ""
+msgstr "O volume %(volume)s não está no storage pool %(pool)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -406,8 +414,8 @@ msgstr "Não foi possível criar o modelo devido a um erro: %(err)s"
 msgid "Unable to delete template due error: %(err)s"
 msgstr "Não foi possível remover o modelo devido a um erro: %(err)s"
 
-msgid "Disk size must be greater than 1GB."
-msgstr "Tamanho do disco deve ser maior do que 1GB."
+msgid "Disk size must be an integer greater than 1GB."
+msgstr "O tamanho do disco deve ser um número inteiro maior que 1GB."
 
 msgid "Template base image must be a valid local image file"
 msgstr "Imagem base do modelo deve ser um arquivo de imagem local válido"
@@ -685,6 +693,10 @@ msgstr ""
 "URL para o storage volume deve ser http://, https://, ftp:// ou ftps://."
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr "Erro ao acessar arquivo %(url)s. Por favor, verifique isso."
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "Interface %(name)s não existe"
 
@@ -881,7 +893,7 @@ msgstr ""
 "dispositivo"
 
 msgid "Only CDROM path can be update."
-msgstr ""
+msgstr "Apenas o caminho do CD-ROM pode ser atualizado."
 
 #, python-format
 msgid ""
@@ -935,6 +947,14 @@ msgid ""
 msgstr ""
 "Somente um caminho ou pool/volume pode ser especificado para adicionar um "
 "novo disco da máquina virtual."
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr ""
+"Volume escolhido com formato %(format)s não se enquadra no tipo de storage "
+"%(type)s"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "ID do repositório YUM deve ser apenas uma palavra."
@@ -1434,7 +1454,7 @@ msgid "Pending..."
 msgstr "Pendente..."
 
 msgid "Report name is the same as the original one."
-msgstr ""
+msgstr "Nome do relatório é o mesmo que o original."
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1477,6 +1497,8 @@ msgstr "Confirmação de Remoção da Máquina Virtual"
 msgid ""
 "This virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
+"Essa máquina virtual não é persistente. O desligamento irá removê-la. Deseja "
+"continuar?"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1603,10 +1625,10 @@ msgid "Unable to retrieve partitions information."
 msgstr "Não foi possível recuperar as informações das partições."
 
 msgid "In progress..."
-msgstr ""
+msgstr "Em progresso..."
 
 msgid "Failed!"
-msgstr ""
+msgstr "Falhou!"
 
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
@@ -1616,7 +1638,7 @@ msgid "Disk pool or volume cannot be blank."
 msgstr "Pool ou volume do disco não pode ser vazio."
 
 msgid "Peers"
-msgstr ""
+msgstr "Peers"
 
 msgid "Searching"
 msgstr "Procurando"
@@ -1795,19 +1817,19 @@ msgid "Please, wait..."
 msgstr "Por favor, aguarde..."
 
 msgid "Add a Volume to Storage Pool"
-msgstr ""
+msgstr "Adicionar um volume ao Storage Pool"
 
 msgid "Fetch from remote URL"
-msgstr ""
+msgstr "Fazer download de uma URL remota"
 
 msgid "Enter the remote URL here."
-msgstr ""
+msgstr "Digite a URL remota aqui."
 
 msgid "Upload an file"
-msgstr ""
+msgstr "Fazer upload de um arquivo"
 
 msgid "Choose the ISO file (with .iso suffix) you want to upload."
-msgstr ""
+msgstr "Escolha o arquivo ISO (com extensão .iso) que você quer fazer upload."
 
 msgid "Add Template"
 msgstr "Adicionar Modelo"
@@ -1876,7 +1898,7 @@ msgid "CDROM"
 msgstr "CD-ROM"
 
 msgid "Image File"
-msgstr ""
+msgstr "Arquivo de imagem"
 
 msgid "Graphics"
 msgstr "Gráficos"
@@ -1945,6 +1967,9 @@ msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr ""
 "Bridged: Máquinas virtuais estão conectadas diretamente com a rede física"
 
+msgid "(No interfaces found)"
+msgstr "(Nenhuma interface encontrada)"
+
 msgid "Destination"
 msgstr "Destino"
 
@@ -1979,7 +2004,7 @@ msgid "Activate"
 msgstr "Ativar"
 
 msgid "Add Volume"
-msgstr ""
+msgstr "Adicionar volume"
 
 msgid "Extend"
 msgstr "Aumentar"

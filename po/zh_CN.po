@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 14:00-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -158,6 +158,12 @@ msgstr "在指定的镜像文件中未发现操作系统信息。"
 #, python-format
 msgid "Unable to read image file %(filename)s"
 msgstr "未能读取镜像文件 %(filename)s"
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
+msgstr "磁盘文件必须已存在系统中，%(filename)s不是合法文件名"
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -376,7 +382,7 @@ msgstr "创建模板失败。详情：%(err)s"
 msgid "Unable to delete template due error: %(err)s"
 msgstr "由于错误：%(err)s，未能删除模板"
 
-msgid "Disk size must be greater than 1GB."
+msgid "Disk size must be an integer greater than 1GB."
 msgstr "磁盘大小必须大于1GB。"
 
 msgid "Template base image must be a valid local image file"
@@ -618,6 +624,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr "存储卷URL必须为http://，https://，ftp://或ftps://"
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "接口%(name)s不存在"
 
@@ -840,6 +850,12 @@ msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
 msgstr "增加虚拟机磁盘时，仅能指定路径或存储池/存储卷中的一个"
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr "格式为%(format)s的卷不符合存储类型%(type)s"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "YUM软件仓库ID必须是只包含一个单词的字符串"
@@ -1853,3 +1869,7 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
+
+#~ msgid ""
+#~ "Configuration items: '%(items)s' are not supported by repository manager"
+#~ msgstr "软件仓库不支持配置类型: %(items)s"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -153,6 +153,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
 msgstr ""
 
 #, python-format
@@ -390,7 +396,7 @@ msgstr "Impossibile creare il modello a causa dell'errore: %(err)s"
 msgid "Unable to delete template due error: %(err)s"
 msgstr "Impossibile eliminare il modello a causa dell'errore: %(err)s"
 
-msgid "Disk size must be greater than 1GB."
+msgid "Disk size must be an integer greater than 1GB."
 msgstr ""
 
 msgid "Template base image must be a valid local image file"
@@ -666,6 +672,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr ""
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "L'interfaccia %(name)s non esiste"
 
@@ -917,6 +927,12 @@ msgid ""
 msgstr ""
 "Specificare tipo e percorso per aggiungere un nuovo disco della macchina "
 "virtuale"
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "L'ID repository YUM deve essere una stringa di una sola parola."
@@ -1925,6 +1941,9 @@ msgstr "NAT: solo connessione di rete fisica in uscita"
 msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr ""
 "Con bridge: le macchine virtuali sono connesse direttamente alla rete fisica"
+
+msgid "(No interfaces found)"
+msgstr ""
 
 msgid "Destination"
 msgstr "Destinazione:"

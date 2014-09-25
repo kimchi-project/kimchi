@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: 2014-08-27 21:30+0000\n"
 "Last-Translator: BobSynfig\n"
 "Language-Team: French (http://www.transifex.com/projects/p/kimchi/language/"
@@ -159,6 +159,12 @@ msgstr "Aucune information d'OS trouvée sur l'image donnée."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
 msgstr ""
 
 #, python-format
@@ -405,8 +411,8 @@ msgstr "Impossible de créer le modèle à cause de l'erreur: %(err)s"
 msgid "Unable to delete template due error: %(err)s"
 msgstr "Impossilbe de supprimer le modèle à cause de l'erreur: %(err)s"
 
-msgid "Disk size must be greater than 1GB."
-msgstr "La taille de disque doit être supérieure à 1Go"
+msgid "Disk size must be an integer greater than 1GB."
+msgstr ""
 
 msgid "Template base image must be a valid local image file"
 msgstr "L'image de base de modèle doit petre un fichier image local valide"
@@ -688,6 +694,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr ""
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "L'interface %(name)s n'existe pas"
 
@@ -939,6 +949,12 @@ msgid ""
 msgstr ""
 "Seul un chemin ou pool/volume peut être spécifié pour ajouter un nouveau "
 "disque de machine virtuelle"
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
 msgstr ""
@@ -1950,6 +1966,9 @@ msgstr "NAT: connexion physique au réseau sortant uniquement"
 msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr ""
 "Bridgé: Les macines virtuelles sont connectées directement au réseau physique"
+
+msgid "(No interfaces found)"
+msgstr ""
 
 msgid "Destination"
 msgstr "Destination"
