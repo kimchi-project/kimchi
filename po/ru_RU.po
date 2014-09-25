@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: 2014-08-28 17:32+0000\n"
 "Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
@@ -146,6 +146,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
 msgstr ""
 
 #, python-format
@@ -369,8 +375,8 @@ msgstr "Не удалось создать шаблон из-за ошибки %
 msgid "Unable to delete template due error: %(err)s"
 msgstr "Не удалось удалить шаблон из-за ошибки %(err)s"
 
-msgid "Disk size must be greater than 1GB."
-msgstr "Размер диска должен быть больше 1 Гб."
+msgid "Disk size must be an integer greater than 1GB."
+msgstr ""
 
 msgid "Template base image must be a valid local image file"
 msgstr "CDROM шаблона должен быть локальным или удаленным файлом ISO"
@@ -630,6 +636,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr ""
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "Интерфейс %(name)s не существует"
 
@@ -864,6 +874,12 @@ msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
 msgstr "Укажите тип и путь для добавления нового диска виртуальной машины"
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
 msgstr ""
@@ -1848,6 +1864,9 @@ msgstr "NAT (только исходящее физическое сетевое
 
 msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr "Через мост (прямое подключение виртуальных машин к физической сети)"
+
+msgid "(No interfaces found)"
+msgstr ""
 
 msgid "Destination"
 msgstr "Целевое расположение:"

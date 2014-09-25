@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -152,6 +152,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
 msgstr ""
 
 #, python-format
@@ -395,7 +401,7 @@ msgstr "次のエラーのため、テンプレートを作成できません: %
 msgid "Unable to delete template due error: %(err)s"
 msgstr "次のエラーのため、テンプレートを削除できません: %(err)s"
 
-msgid "Disk size must be greater than 1GB."
+msgid "Disk size must be an integer greater than 1GB."
 msgstr ""
 
 msgid "Template base image must be a valid local image file"
@@ -680,6 +686,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr ""
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "インターフェース %(name)s は存在しません"
 
@@ -928,6 +938,12 @@ msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
 msgstr "新しい仮想マシン・ディスクに追加するタイプおよびパスを指定します"
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
+msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "YUM リポジトリー ID は、1 ワードのみのストリングでなければなりません"
@@ -1923,6 +1939,9 @@ msgstr "NAT: アウトバウンド物理ネットワーク接続のみ"
 
 msgid "Bridged: Virtual machines are connected to physical network directly"
 msgstr "ブリッジ: 仮想マシンが直接物理ネットワークに接続される"
+
+msgid "(No interfaces found)"
+msgstr ""
 
 msgid "Destination"
 msgstr "宛先:"

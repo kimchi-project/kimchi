@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 10:19-0300\n"
+"POT-Creation-Date: 2014-09-25 13:47-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,6 +138,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Image file must be an existing file on system. %(filename)s is not a valid "
+"input."
 msgstr ""
 
 #, python-format
@@ -355,7 +361,7 @@ msgstr ""
 msgid "Unable to delete template due error: %(err)s"
 msgstr ""
 
-msgid "Disk size must be greater than 1GB."
+msgid "Disk size must be an integer greater than 1GB."
 msgstr ""
 
 msgid "Template base image must be a valid local image file"
@@ -597,6 +603,10 @@ msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
 msgstr ""
 
 #, python-format
+msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
 msgid "Interface %(name)s does not exist"
 msgstr ""
 
@@ -816,6 +826,12 @@ msgstr ""
 msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
+msgstr ""
+
+#, python-format
+msgid ""
+"Volume chosen with format %(format)s does not fit in the storage type "
+"%(type)s"
 msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
@@ -1767,6 +1783,9 @@ msgid "NAT: outbound physical network connection only"
 msgstr ""
 
 msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid "(No interfaces found)"
 msgstr ""
 
 msgid "Destination"
