@@ -67,6 +67,14 @@ class StorageVolumesModel(object):
 
         create_param = vol_source[index_list[0]]
 
+        # Verify if the URL is valid
+        if create_param == 'url':
+            url = params['url']
+            try:
+                urllib2.urlopen(url).close()
+            except:
+                raise InvalidParameter('KCHVOL0022E', {'url': url})
+
         if name is None:
             # the methods listed in 'REQUIRE_NAME_PARAMS' cannot have
             # 'name' == None

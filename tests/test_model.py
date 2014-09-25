@@ -587,9 +587,8 @@ class ModelTests(unittest.TestCase):
             # download remote volume
             # 1) try an invalid URL
             params = {'url': 'http://www.invalid.url'}
-            taskid = inst.storagevolumes_create(pool, params)['id']
-            self._wait_task(inst, taskid)
-            self.assertEquals('failed', inst.task_lookup(taskid)['status'])
+            self.assertRaises(InvalidParameter, inst.storagevolumes_create,
+                              pool, params)
             # 2) download Kimchi's "COPYING" from Github and compare its
             #    content to the corresponding local file's
             url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
