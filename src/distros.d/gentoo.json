@@ -1,9 +1,9 @@
 [
     {
-        "name": "gentoo-20140227",
+        "name": "gentoo-20140904",
         "os_distro": "gentoo",
         "os_arch": "x86_64",
-        "os_version": "20140227",
-        "path": "http://distfiles.gentoo.org/releases/amd64/autobuilds/current-iso/install-amd64-minimal-20140227.iso"
+        "os_version": "20140904",
+        "path": "http://distfiles.gentoo.org/releases/amd64/autobuilds/current-iso/install-amd64-minimal-20140904.iso"
     }
 ]
