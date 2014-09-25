@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import copy
 import os
 import time
 import urlparse
@@ -436,7 +437,6 @@ class AptRepo(object):
             kimchiLock.release()
             raise OperationFailed("KCHREPOS0026E", {'err': e.message})
         kimchiLock.release()
-
         return self._get_repo_id(source_entry)
 
     def toggleRepo(self, repo_id, enable):
@@ -480,24 +480,24 @@ class AptRepo(object):
         """
         Update a given repository in repositories.Repositories() format
         """
-        r = self._get_source_entry(repo_id)
-        if r is None:
-            raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
-
-        info = {'enabled': not r.disabled,
-                'baseurl': params.get('baseurl', r.uri),
-                'config': {'type': 'deb', 'dist': r.dist,
-                           'comps': r.comps}}
-
-        validate_repo_url(info['baseurl'])
+        old_info = self.getRepo(repo_id)
+        updated_info = copy.deepcopy(old_info)
+        updated_info['baseurl'] = params.get(
+            'baseurl', updated_info['baseurl'])
 
         if 'config' in params.keys():
             config = params['config']
-            info['config']['dist'] = config.get('dist', r.dist)
-            info['config']['comps'] = config.get('comps', r.comps)
+            updated_info['config']['dist'] = config.get(
+                'dist', old_info['config']['dist'])
+            updated_info['config']['comps'] = config.get(
+                'comps', old_info['config']['comps'])
 
         self.removeRepo(repo_id)
-        return self.addRepo(info)
+        try:
+            return self.addRepo(updated_info)
+        except:
+            self.addRepo(old_info)
+            raise
 
     def removeRepo(self, repo_id):
         """
