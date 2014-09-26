@@ -43,7 +43,7 @@ def get_vm_disk(dom, dev_name):
                 "KCHVMSTOR0007E",
                 {'dev_name': dev_name, 'vm_name': dom.name()})
     path = ""
-    dev_bus = 'ide'
+    dev_bus = disk.target.attrib['bus']
     try:
         source = disk.source
         if source is not None:
@@ -55,8 +55,6 @@ def get_vm_disk(dom, dev_name):
                         host.attrib['port'] + source.attrib['name'])
             else:
                 path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
-        # Retrieve storage bus type
-        dev_bus = disk.target.attrib['bus']
     except:
         pass
     dev_type = disk.attrib['device']
