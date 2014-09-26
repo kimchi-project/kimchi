@@ -534,7 +534,7 @@ class MockModel(object):
         size = 0
         try:
             while True:
-                data = upload_file.file.read(8192)
+                data = upload_file.file.read(8192*32)
                 if not data:
                         break
                 size += len(data)

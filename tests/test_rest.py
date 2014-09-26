@@ -1947,9 +1947,10 @@ class RestTests(unittest.TestCase):
 
             self.assertEquals(r.status_code, 202)
             task = r.json()
-            self._wait_task(task['id'])
+            self._wait_task(task['id'], 15)
             resp = self.request('/storagepools/default/storagevolumes/%s' %
                                 task['target_uri'].split('/')[-1])
+
             self.assertEquals(200, resp.status)
 
             # Create a file with 5M to upload
