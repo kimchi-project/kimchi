@@ -288,4 +288,5 @@ messages = {
     "KCHREPOS0025E": _("Unable to retrieve repository information. Details: '%(err)s'"),
     "KCHREPOS0026E": _("Unable to add repository. Details: '%(err)s'"),
     "KCHREPOS0027E": _("Unable to remove repository. Details: '%(err)s'"),
+    "KCHREPOS0028E": _("Configuration items: '%(items)s' are not supported by repository manager"),
 }

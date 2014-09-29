@@ -1309,8 +1309,7 @@ class ModelTests(unittest.TestCase):
                       'baseurl': 'http://www.fedora.org'},
                      {'repo_id': 'fedora-updates-fake',
                       'config':
-                      {'mirrorlist': 'http://www.fedoraproject.org',
-                       'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}}]
+                      {'mirrorlist': 'http://www.fedoraproject.org'}}]
 
         deb_repos = [{'baseurl': 'http://archive.ubuntu.com/ubuntu/',
                       'config': {'dist': 'quantal'}},
@@ -1325,12 +1324,22 @@ class ModelTests(unittest.TestCase):
             wrong_mirrorlist = {'repo_id': 'wrong-id',
                                 'baseurl': 'www.example.com',
                                 'config': {'mirrorlist': url}}
+            wrong_config_item = {
+                'repo_id': 'wrong-id',
+                'baseurl': 'www.example.com',
+                'config': {
+                    'gpgkey': 'file:///tmp/KEY-fedora-updates-fake-19'}}
 
             yum_invalid_repos.append(wrong_baseurl)
             yum_invalid_repos.append(wrong_mirrorlist)
+            yum_invalid_repos.append(wrong_config_item)
 
             wrong_baseurl['config'] = {'dist': 'tasty'}
+            wrong_config = {'baseurl': deb_repos[0]['baseurl'],
+                            'config': {
+                                'unsupported_item': "a_unsupported_item"}}
             deb_invalid_repos.append(wrong_baseurl)
+            deb_invalid_repos.append(wrong_config)
 
         repo_type = inst.capabilities_lookup()['repo_mngt_tool']
         if repo_type == 'yum':
