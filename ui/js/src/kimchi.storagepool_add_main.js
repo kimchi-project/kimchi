@@ -352,8 +352,6 @@ kimchi.validateLogicalForm = function () {
 
 kimchi.addPool = function(event) {
     if (kimchi.validateForm()) {
-        $('#pool-doAdd').hide();
-        $('#pool-loading').show();
         var formData = $('#form-pool-add').serializeObject();
         delete formData.authname;
         var poolType = $('#poolTypeId').selectMenu('value');
@@ -390,16 +388,11 @@ kimchi.addPool = function(event) {
         } else if (poolType === 'scsi'){
             formData.source = { adapter_name: $('#scsiAdapter').selectMenu('value') };
         }
-        $('input', '#form-pool-add').attr('disabled','disabled');
-        if (poolType === 'logical') {
-            var settings = {
-                title : i18n['KCHAPI6001M'],
-                content : i18n['KCHPOOL6003M'],
-                confirm : i18n['KCHAPI6002M'],
-                cancel : i18n['KCHAPI6003M']
-            };
-            kimchi.confirm(settings, function() {
-                kimchi.createStoragePool(formData, function() {
+        var storagePoolAddingFunc = function() {
+            $('input', '#form-pool-add').attr('disabled','disabled');
+            $('#pool-doAdd').hide();
+            $('#pool-loading').show();
+            kimchi.createStoragePool(formData, function() {
                     kimchi.doListStoragePools();
                     kimchi.window.close();
                 }, function(err) {
@@ -408,18 +401,20 @@ kimchi.addPool = function(event) {
                     $('#pool-loading').hide();
                     $('#pool-doAdd').show();
                 });
+        };
+        if (poolType === 'logical') {
+            var settings = {
+                title : i18n['KCHAPI6001M'],
+                content : i18n['KCHPOOL6003M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
+            };
+            kimchi.confirm(settings, function() {
+                storagePoolAddingFunc();
             }, function() {
             });
         } else {
-            kimchi.createStoragePool(formData, function() {
-                kimchi.doListStoragePools();
-                kimchi.window.close();
-            }, function(err) {
-                kimchi.message.error(err.responseJSON.reason);
-                $('input', '#form-pool-add').removeAttr('disabled');
-                $('#pool-loading').hide();
-                $('#pool-doAdd').show();
-            });
+            storagePoolAddingFunc();
         }
     }
 };
