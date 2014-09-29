@@ -36,8 +36,10 @@
             var selectedClass = 'active';
             var itemTag = 'li';
             var item;
+            that.listControl.find('li').remove();
+            that.label.text("");
+            that.target.val("");
             if (options.length > 0) {
-                that.listControl.find('li').remove();
                 $.each(options, function(index, option) {
                     item = $('<' + itemTag + '>' + option.label +'</' + itemTag + '>');
                     item.data('value', option.value);
@@ -58,8 +60,6 @@
                         that.target.change();
                     }
                 });
-            } else {
-                kimchi.message.error.code('KCHAPI6006E');
             }
         },
 

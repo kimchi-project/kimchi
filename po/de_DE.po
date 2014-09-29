@@ -1256,9 +1256,6 @@ msgstr "Dies ist kein gültiger URL."
 msgid "No such data available."
 msgstr "Keine solchen Daten verfügbar."
 
-msgid "Options needed."
-msgstr ""
-
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
 "have network connectivity to it. HTTP request response %1. "
