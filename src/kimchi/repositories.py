@@ -26,7 +26,7 @@ from ConfigParser import ConfigParser
 
 from kimchi.basemodel import Singleton
 from kimchi.config import kimchiLock
-from kimchi.exception import InvalidOperation
+from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 from kimchi.utils import validate_repo_url
 
@@ -52,6 +52,13 @@ class Repositories(object):
         """
         Add and enable a new repository
         """
+        config = params.get('config', {})
+        extra_keys = list(
+            set(config.keys()).difference(set(self._pkg_mnger.CONFIG_ENTRY)))
+        if len(extra_keys) > 0:
+            raise InvalidParameter("KCHREPOS0028E",
+                                   {'items': ",".join(extra_keys)})
+
         return self._pkg_mnger.addRepo(params)
 
     def getRepositories(self):
@@ -105,6 +112,7 @@ class YumRepo(object):
     """
     TYPE = 'yum'
     DEFAULT_CONF_DIR = "/etc/yum.repos.d"
+    CONFIG_ENTRY = ('repo_name', 'mirrorlist')
 
     def __init__(self):
         self._yb = getattr(__import__('yum'), 'YumBase')
@@ -319,6 +327,7 @@ class AptRepo(object):
     """
     TYPE = 'deb'
     KIMCHI_LIST = "kimchi-source.list"
+    CONFIG_ENTRY = ('dist', 'comps')
 
     def __init__(self):
         getattr(__import__('apt_pkg'), 'init_config')()
