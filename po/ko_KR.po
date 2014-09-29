@@ -1185,9 +1185,6 @@ msgstr "올바른 URL이 아닙니다."
 msgid "No such data available."
 msgstr "해당 데이터가 없습니다."
 
-msgid "Options needed."
-msgstr ""
-
 msgid ""
 "Can not contact the host system. Verify the host system is up and that you "
 "have network connectivity to it. HTTP request response %1. "
