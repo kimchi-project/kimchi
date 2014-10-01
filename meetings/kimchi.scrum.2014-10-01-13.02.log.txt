@@ -1,0 +1,128 @@
+13:02:39 <alinefm> #startmeeting
+13:02:39 <kimchi-bot> Meeting started Wed Oct  1 13:02:39 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:39 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:39 <alinefm> #meetingname scrum
+13:02:39 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:34 <alinefm> #info Agenda 1) Status 2) Kimchi 1.4 plan 3) Open discussion
+13:03:34 <alinefm> anything else?
+13:05:12 <alinefm> so let's get started
+13:05:27 <alinefm> #topic Status
+13:05:29 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:53 <vianac> #info vianac fixed the missing implementation of issue #447, fixed issues #443 and #462, generated some binary packages for the 1.3 release, sent a patch to use PEP8 against all Python files, sent a patch to display the file README with proper Markdown style on Github, reviewed some patches on the mailing list.
+13:07:14 <alinefm> #info alinefm sent patches to fix bugs #417, #432, #437, #445, #447, #454
+13:07:32 <alinefm> #info alinefm updated distros.d file to point to a valid ISO URL
+13:12:10 <alinefm> vianac, seems it is only you and me today =)
+13:12:50 <vianac> alinefm: yeah, it seems so ;p
+13:13:16 <alinefm> let's move on to Kimchi 1.4 plan
+13:13:22 <alinefm> #topic Kimchi 1.4 plan
+13:13:38 <alinefm> vianac, have you had a chance to see my email on ML with some proposals?
+13:13:50 <vianac> alinefm: yes
+13:14:22 <vianac> alinefm: is all that expected for 1.4?
+13:15:20 <alinefm> vianac, I think all that would be good to have on next release
+13:15:46 <alinefm> but due the holidays in the end of the year our plan will be short than usual
+13:16:53 <alinefm> do you have more items to include there?
+13:16:59 <alinefm> or items to remove from that list?
+13:17:10 <vianac> alinefm: no
+13:18:45 <alinefm> about the dates, I am thinking in do the GA on Dec 17th
+13:18:58 <alinefm> the code freeze would be on Nov 19th
+13:19:34 <alinefm> and instead of having 2 devel sprints and 2 stabilization sprints, we will have just one devel block and one stabilization block
+13:19:53 <alinefm> so from now to Nov 19th, it is time to do devel
+13:20:15 <alinefm> and from Nov 19th to Dec 10th, tests and bug fixes
+13:20:54 <vianac> alinefm: hum, that looks interesting
+13:20:56 <alinefm> and we have one week of hard code freeze - only for block issues
+13:22:41 <alinefm> vianac, yeap! hope it can work well for us
+13:23:36 <alinefm> we will have 1.5 months until the code freeze
+13:23:48 <alinefm> seems my list is a little bit big heheh
+13:24:18 <alinefm> and also, Don has sent to ML and updated the github wiki to include the new UI design screenshots
+13:24:26 <alinefm> anyone has comments on it?
+13:24:32 <alinefm> I haven't seen anything on ML yet
+13:25:09 <vianac> alinefm: I do, but I haven't finished writing my email.
+13:25:13 <pvital> alinefm, do you expect close all those items until Nov 19th?
+13:25:25 <pvital> I mean
+13:25:42 <vianac> but in overall, I really liked the new interface and I'm looking forward having it on kimchi.
+13:25:48 <pvital> IMO, there are a lot of items there for only 1.5months of development
+13:26:19 <vianac> my comments are about some details on the mock screen, like what do some buttons do, etc
+13:26:28 <alinefm> vianac, yeap - me too
+13:26:37 <alinefm> vianac, any comment is welcome
+13:26:52 <vianac> but I'll dive into details in my email
+13:27:10 <alinefm> pvital, I tried to include in my note what were the ideas shared before by the community
+13:27:24 <alinefm> pvital, I agree with you that it seems a lot to do in just 1.5 months
+13:28:10 <pvital> alinefm, so let's get the list and prioritize the items!
+13:28:30 <pvital> which one is the most important, and must be present in next release?
+13:29:02 <alinefm> it is a little bit complicated to do that on open source community
+13:29:18 <alinefm> for example, some of the features I listed is already under devel
+13:29:40 <alinefm> which let me think they should be on kimchi 1.4
+13:29:53 <alinefm> to encourage people to contribute and so
+13:31:32 <pvital> Ok, I know it's complicated to do that on OS community, but Kimchi project has this meeting to set project's directions
+13:31:33 <alinefm> we can discuss to have a prioritized list but it will not block any person to start with the last item =)
+13:32:00 <pvital> if no one of the community express their opinion here, I'm so sorry! :-)
+13:32:29 <alinefm> pvital, what do you want to see next on Kimchi? share your thoughts
+13:32:33 <alinefm> no one replied to my email on ML
+13:32:52 <pvital> from that list you sent, I see some items more important than others, like....
+13:33:05 * pvital is opening the email, just asec :-D
+13:33:46 <alinefm> http://lists.ovirt.org/pipermail/kimchi-devel/2014-September/008004.html
+13:35:41 <pvital> 1) SMT support; 2) Live migration; 3) Device (cpu and disk, specially) Hot plug; 4) Guest cloning and 5) Allow user adds volumes from different pools to a Template
+13:36:06 <pvital> I know that christyp is already working on SMT support
+13:36:34 <pvital> that is good, once we already have some discussions about it
+13:36:40 <alinefm> I don't expect to have live migration on kimchi 1.4
+13:37:00 <alinefm> we should start some investigation and define a devel plan to do that
+13:38:04 <pvital> Live migration is a big feature - need to split into small tasks and merge these little tasks
+13:38:40 <alinefm> yeap - because that I assume it will not be ready for 1.4
+13:38:51 <pvital> same for hot plug, we have {cpu, memory, disk, etc}  hot plug
+13:39:14 <pvital> alinefm, depends on how many developers you have to do this :-D
+13:39:56 <pvital> well, that's my prioritization :-D
+13:40:03 <alinefm> my list would be: A, B, D, F, E, G, H, J, I, K, C, N, L, M
+13:40:09 <pvital> if you want, I can reply the email with it
+13:40:34 * pvital needs open again the email to check the letters :-D
+13:41:06 <vianac> from portal's list, I can take 4) and maybe 5)
+13:41:16 <vianac> *pvital's list
+13:41:43 <vianac> but I was also thinking about implementing the snapshot feature and the mockmodel refactor
+13:42:13 <pvital> alinefm, I guess Zheng Sheng submitted yesterday a new version of G
+13:42:38 <alinefm> vianac, item 5 depends on "Template refactor"
+13:43:21 <alinefm> pvital, yes I saw
+13:43:54 <pvital> alinefm, so vianac will work on both :-D
+13:44:13 <alinefm> heheheh
+13:45:09 <alinefm> I will add all those items to the github wiki so anyone can check it and take the item
+13:45:28 <alinefm> remember to insert your name on wiki to let others know you are working on the item
+13:45:46 <vianac> yeah, ok... :p
+13:45:52 <alinefm> vianac, do you have in mind what would be your first item?
+13:45:57 <alinefm> pvital, ^
+13:46:00 <baude> alinefm, vianac fwiw, I have a patch that will make #4 trivial
+13:46:27 <baude> as part of my guest edit rewrite
+13:47:22 <baude> vianac, did you see my message ?
+13:47:24 <vianac> alinefm, well, so what would be the tasks assigned to me?
+13:47:26 <vianac> yes
+13:48:01 <vianac> guest cloning seems easier, so I could take that one first
+13:48:21 <vianac> snapshot also seems easier, but if we're doing it for this release
+13:48:45 <vianac> and then the storage pool / template, along with your patch
+13:48:49 <baude> vianac, i could share my patch with you and alinefm if you want to pick that up as part of the cloning stuff
+13:49:30 <alinefm> baude, you can send it to ML so everyone can be aware of it
+13:49:41 <alinefm> pvital, what about you? any idea already in mind?
+13:49:42 <vianac> baude, sure, that would be great
+13:50:00 <baude> yeah, but unfortunately it relies on the graphics update patch which hasn't been accepted yet
+13:50:01 <baude> will do
+13:50:21 <baude> maybe i can rewrite it to uncouple it
+13:51:39 <pvital> alinefm, about what?
+13:51:40 <pvital> :-D
+13:51:56 <alinefm> heheh
+13:52:00 <alinefm> pvital, 1.4 tasks?!
+13:52:08 <pvital> no no!
+13:52:26 <pvital> I'm just that guys that talks, talks and talks
+13:52:28 <pvital> :-D
+13:52:52 <alinefm> lol
+13:53:06 <alinefm> pvital, I was assuming you were so excited for them
+13:53:15 <pvital> hahahaha
+13:53:27 <pvital> alinefm, I would like to work on live mgration
+13:53:34 <pvital> and may be hot plug
+13:53:36 <pvital> :-D
+13:54:00 <alinefm> ok
+13:54:20 <alinefm> anything else in mind for 1.4?
+13:54:35 <alinefm> do you have topics for a open discussion session?
+13:54:49 <pvital> alinefm, I don't think so! let's discuss about 1.3 release party! :-D
+13:55:03 <alinefm> pvital, well remembered!
+13:55:05 <alinefm> =P
+13:55:10 <alinefm> where? when?
+13:56:51 <pvital> :-D
+13:57:44 <alinefm> #action alinefm update github wiki with 1.4 tasks and dates
+13:58:01 <alinefm> thanks everyone for joining!
+13:58:07 <alinefm> #endmeeting
