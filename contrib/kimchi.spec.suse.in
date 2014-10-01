@@ -12,6 +12,7 @@ Requires:	libvirt
 Requires:	libvirt-python
 Requires:	python-CherryPy >= 3.2.0
 Requires:	python-Cheetah
+Requires:	python-websockify
 Requires:	python-imaging
 Requires:	python-M2Crypto
 Requires:	python-libxml2

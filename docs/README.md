@@ -55,7 +55,7 @@ Install Dependencies
                         python-ipaddr python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
                         policycoreutils-python python-libguestfs \
-                        libguestfs-tools python-requests
+                        libguestfs-tools python-requests python-websockify
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
@@ -79,7 +79,7 @@ for more information on how to configure your system to access this repository.
                            sosreport python-ipaddr python-lxml nfs-common \
                            open-iscsi lvm2 xsltproc python-parted nginx \
                            firewalld python-guestfs libguestfs-tools \
-                           python-requests
+                           python-requests websockify
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
@@ -94,7 +94,8 @@ for more information on how to configure your system to access this repository.
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-lxml nfs-client open-iscsi \
                           libxslt-tools python-xml python-parted nginx \
-                          python-libguestfs guestfs-tools python-requests
+                          python-libguestfs guestfs-tools python-requests \
+                          python-websockify
 
     Packages version requirement:
         python-psutil >= 0.6.0
