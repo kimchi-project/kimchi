@@ -129,7 +129,7 @@ class Server(object):
 
         if isinstance(model_instance, model.Model):
             vnc_ws_proxy = vnc.new_ws_proxy()
-            cherrypy.engine.subscribe('exit', vnc_ws_proxy.kill)
+            cherrypy.engine.subscribe('exit', vnc_ws_proxy.terminate)
 
         for ident, node in sub_nodes.items():
             if node.url_auth:

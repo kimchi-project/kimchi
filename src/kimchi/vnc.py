@@ -21,8 +21,9 @@
 import base64
 import errno
 import os
-import subprocess
 
+from multiprocessing import Process
+from websockify import WebSocketProxy
 
 from kimchi.config import config, paths
 
@@ -43,13 +44,18 @@ def new_ws_proxy():
         cert = '%s/kimchi-cert.pem' % paths.conf_dir
         key = '%s/kimchi-key.pem' % paths.conf_dir
 
-    cmd = os.path.join(os.path.dirname(__file__), 'websockify.py')
-    args = ['python', cmd, config.get('display', 'display_proxy_port'),
-            '--target-config', WS_TOKENS_DIR, '--cert', cert, '--key', key,
-            '--web', os.path.join(paths.ui_dir, 'pages/websockify'),
-            '--ssl-only']
-    p = subprocess.Popen(args, close_fds=True)
-    return p
+    params = {'web': os.path.join(paths.ui_dir, 'pages/websockify'),
+              'listen_port': config.get('display', 'display_proxy_port'),
+              'target_cfg': WS_TOKENS_DIR,
+              'key': key, 'cert': cert, 'ssl_only': True}
+
+    def start_proxy():
+        server = WebSocketProxy(**params)
+        server.start_server()
+
+    proc = Process(target=start_proxy)
+    proc.start()
+    return proc
 
 
 def add_proxy_token(name, port):
