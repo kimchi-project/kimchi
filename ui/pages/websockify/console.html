@@ -14,7 +14,7 @@
         query = query.replace("kimchi=" + kimchi_port, "")
 
         var url = "https://" + location.hostname + ":" + kimchi_port + "/";
-        url += path + query
+        url += decodeURIComponent(path) + query
 
         window.location.replace(url)
       }

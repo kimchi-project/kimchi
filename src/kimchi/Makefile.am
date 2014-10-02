@@ -38,6 +38,7 @@ uninstall-local:
 
 do_substitution = \
 	sed -e 's,[@]prefix[@],$(prefix),g'             \
+	-e 's,[@]datadir[@],$(datadir),g'         \
 	-e 's,[@]sysconfdir[@],$(sysconfdir),g'         \
 	-e 's,[@]localstatedir[@],$(localstatedir),g'   \
 	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'         \

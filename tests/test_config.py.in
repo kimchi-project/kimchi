@@ -106,7 +106,10 @@ class ConfigTests(unittest.TestCase):
                 'tools.sessions.timeout': SESSIONSTIMEOUT,
                 'tools.kimchiauth.on': False
             },
-            '/vnc_auto.html': {
+            '/novnc': {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': '@datadir@/novnc',
+                'tools.nocache.on': True,
                 'tools.kimchiauth.on': True
             },
             '/spice.html': {

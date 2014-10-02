@@ -29,6 +29,7 @@ noinst_SCRIPTS = run_tests.sh
 do_substitution = \
 	sed -e 's,[@]HAVE_PYMOD_UNITTEST[@],$(HAVE_PYMOD_UNITTEST),g' \
 	-e 's,[@]prefix[@],$(prefix),g' \
+	-e 's,[@]datadir[@],$(datadir),g' \
 	-e 's,[@]PYTHON_VERSION[@],$(PYTHON_VERSION),g' \
 	-e 's,[@]kimchidir[@],$(pythondir)/kimchi,g' \
 	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'
