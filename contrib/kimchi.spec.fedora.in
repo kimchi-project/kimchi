@@ -13,6 +13,7 @@ Requires:	libvirt-python
 Requires:	python-cherrypy >= 3.2.0
 Requires:	python-cheetah
 Requires:	python-websockify
+Requires:	novnc
 Requires:	m2crypto
 Requires:	python-imaging
 Requires:	libxml2-python

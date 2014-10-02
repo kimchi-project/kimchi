@@ -353,7 +353,8 @@ var kimchi = {
                 dataType : "json"
             }).done(function() {
                 url = 'https://' + location.hostname + ':' + proxy_port;
-                url += "/console.html?url=vnc_auto.html&port=" + proxy_port;
+                url += "/console.html?url=" + encodeURIComponent("novnc/vnc_auto.html");
+                url += "&port=" + proxy_port;
                 /*
                  * From python documentation base64.urlsafe_b64encode(s)
                  * substitutes - instead of + and _ instead of / in the
