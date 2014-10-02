@@ -19,12 +19,6 @@
 
 SUBDIRS = src ui docs contrib tests po config plugins
 
-if FONTS
-DEFINE_FONTS = --define "with_fonts 1"
-else
-DEFINE_FONTS = --define "with_fonts 0"
-endif
-
 AUTOMAKE_OPTIONS = foreign
 
 ACLOCAL_AMFLAGS = --install -I m4
@@ -99,7 +93,7 @@ rpm: dist kimchi.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/kimchi.spec rpm/SPECS/kimchi.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
-	rpmbuild -ba $(DEFINE_FONTS) --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
+	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
 
 fedora-rpm: contrib/kimchi.spec.fedora
 	ln -sf contrib/kimchi.spec.fedora kimchi.spec

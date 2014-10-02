@@ -39,10 +39,6 @@ BuildRequires:	python-requests
 %global with_systemd 1
 %endif
 
-%if %{undefined with_fonts}
-%define with_fonts 1
-%endif
-
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict
 Requires:	python-imaging
@@ -70,11 +66,7 @@ Web server application to manage KVM/Qemu virtual machines
 
 
 %build
-%if %{with_fonts} == 0
-%configure --disable-fonts
-%else
 %configure
-%endif
 make
 
 
@@ -168,10 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
-%if %{with_fonts} == 1
-%{_datadir}/kimchi/ui/css/fonts/novnc/Orbitron700.*
-%endif
-%{_datadir}/kimchi/ui/css/novnc/base.css
 %{_datadir}/kimchi/ui/css/spice/spice.css
 %{_datadir}/kimchi/ui/css/theme-default.min.css
 %{_datadir}/kimchi/ui/images/*.png
@@ -180,11 +168,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/images/theme-default/*.gif
 %{_datadir}/kimchi/ui/js/kimchi.min.js
 %{_datadir}/kimchi/ui/js/modernizr.custom.2.6.2.min.js
-%{_datadir}/kimchi/ui/js/novnc/*.js
 %{_datadir}/kimchi/ui/js/spice/*.js
-%{_datadir}/kimchi/ui/js/novnc/web-socket-js/WebSocketMain.swf
-%{_datadir}/kimchi/ui/js/novnc/web-socket-js/swfobject.js
-%{_datadir}/kimchi/ui/js/novnc/web-socket-js/web_socket.js
 %{_datadir}/kimchi/ui/libs/jquery-ui-i18n.min.js
 %{_datadir}/kimchi/ui/libs/jquery-ui.min.js
 %{_datadir}/kimchi/ui/libs/jquery-1.10.0.min.js
