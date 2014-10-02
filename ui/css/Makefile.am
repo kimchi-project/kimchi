@@ -15,11 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = novnc spice
-
-if FONTS
-SUBDIRS += fonts
-endif
+SUBDIRS = spice
 
 EXTRA_DIST = theme-default
 

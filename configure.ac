@@ -64,18 +64,6 @@ else
 AC_SUBST([ENABLE_SAMPLE], [False])
 fi
 
-AC_ARG_ENABLE(
-    [fonts],
-    [AS_HELP_STRING(
-        [--enable-fonts],
-        [Build fonts files in package @<:@default=yes@:>@]
-    )],
-    ,
-    [enable_fonts="yes"]
-)
-
-AM_CONDITIONAL([FONTS], [test "${enable_fonts}" = "yes"])
-
 AC_CONFIG_FILES([
     po/Makefile.in
     po/gen-pot
@@ -97,16 +85,11 @@ AC_CONFIG_FILES([
     plugins/sample/ui/pages/Makefile
     ui/Makefile
     ui/css/Makefile
-    ui/css/novnc/Makefile
     ui/css/spice/Makefile
-    ui/css/fonts/Makefile
-    ui/css/fonts/novnc/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
-    ui/js/novnc/Makefile
     ui/js/spice/Makefile
-    ui/js/novnc/web-socket-js/Makefile
     ui/libs/Makefile
     ui/libs/themes/Makefile
     ui/libs/themes/base/Makefile
