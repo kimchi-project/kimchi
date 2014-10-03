@@ -25,6 +25,8 @@ else
 DEFINE_FONTS = --define "with_fonts 0"
 endif
 
+AUTOMAKE_OPTIONS = foreign
+
 ACLOCAL_AMFLAGS = --install -I m4
 
 EXTRA_DIST = \
