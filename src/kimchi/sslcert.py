@@ -19,7 +19,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import time
 
@@ -34,6 +34,7 @@ class SSLCert(object):
     def _gen(self):
         def keygen_cb(*args):
             pass
+
         def passphrase_cb(*args):
             return ''
 
@@ -53,7 +54,6 @@ class SSLCert(object):
         subject.C = 'US'
         subject.CN = 'kimchi'
         subject.O = 'kimchi-project.org'
-
 
         t = long(time.time()) + time.timezone
         now = ASN1.ASN1_UTCTIME()
@@ -79,6 +79,7 @@ class SSLCert(object):
 
     def key_pem(self):
         return self._key
+
 
 def main():
     c = SSLCert()

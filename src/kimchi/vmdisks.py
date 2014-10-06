@@ -39,9 +39,9 @@ def get_vm_disk(dom, dev_name):
     # Retrieve disk xml and format return dict
     disk = get_device_xml(dom, dev_name)
     if disk is None:
-        raise NotFoundError(
-                "KCHVMSTOR0007E",
-                {'dev_name': dev_name, 'vm_name': dom.name()})
+        raise NotFoundError("KCHVMSTOR0007E",
+                            {'dev_name': dev_name,
+                             'vm_name': dom.name()})
     path = ""
     dev_bus = disk.target.attrib['bus']
     try:

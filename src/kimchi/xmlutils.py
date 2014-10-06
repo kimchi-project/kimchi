@@ -26,7 +26,7 @@ from xml.etree import ElementTree
 def xpath_get_text(xml, expr):
     doc = libxml2.parseDoc(xml)
     res = doc.xpathEval(expr)
-    ret = [None if x.children == None else x.children.content for x in res]
+    ret = [None if x.children is None else x.children.content for x in res]
 
     doc.freeDoc()
     return ret

@@ -40,7 +40,7 @@ ssl_port = None
 def setUpModule():
     global test_server, model, host, port, ssl_port
 
-    patch_auth(sudo = False)
+    patch_auth(sudo=False)
     model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = get_free_port('http')
@@ -111,23 +111,27 @@ class AuthorizationTests(unittest.TestCase):
         resp = self.request('/templates/test', '{}', 'DELETE')
         self.assertEquals(403, resp.status)
 
-
         # Non-root users can only get vms authorized to them
         model.templates_create({'name': u'test', 'cdrom': '/nonexistent.iso'})
 
         model.vms_create({'name': u'test-me', 'template': '/templates/test'})
-        model.vm_update(u'test-me', {'users': [ kimchi.mockmodel.fake_user.keys()[0] ], 'groups': []})
+        model.vm_update(u'test-me',
+                        {'users': [kimchi.mockmodel.fake_user.keys()[0]],
+                         'groups': []})
 
-        model.vms_create({'name': u'test-usera', 'template': '/templates/test'})
-        model.vm_update(u'test-usera', {'users': [ 'userA' ], 'groups': []})
+        model.vms_create({'name': u'test-usera',
+                          'template': '/templates/test'})
+        model.vm_update(u'test-usera', {'users': ['userA'], 'groups': []})
 
-        model.vms_create({'name': u'test-groupa', 'template': '/templates/test'})
-        model.vm_update(u'test-groupa', {'groups': [ 'groupA' ]})
+        model.vms_create({'name': u'test-groupa',
+                          'template': '/templates/test'})
+        model.vm_update(u'test-groupa', {'groups': ['groupA']})
 
         resp = self.request('/vms', '{}', 'GET')
         self.assertEquals(200, resp.status)
         vms_data = json.loads(resp.read())
-        self.assertEquals([ u'test-groupa', u'test-me' ], sorted([ v['name'] for v in vms_data ]))
+        self.assertEquals([u'test-groupa', u'test-me'],
+                          sorted([v['name'] for v in vms_data]))
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(403, resp.status)
 

@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
 import glob
@@ -39,6 +39,7 @@ from kimchi.utils import kimchi_log
 (fd, pipe) = tempfile.mkstemp()
 stream_test_result = None
 
+
 class VMScreenshot(object):
     OUTDATED_SECS = 5
     THUMBNAIL_SIZE = (256, 256)
@@ -48,8 +49,9 @@ class VMScreenshot(object):
     def __init__(self, args):
         self.vm_uuid = args['uuid']
         args.setdefault('thumbnail',
-            os.path.join(config.get_screenshot_path(),
-                '%s-%s.png' % (self.vm_uuid, str(uuid.uuid4()))))
+                        os.path.join(config.get_screenshot_path(),
+                                     '%s-%s.png' %
+                                     (self.vm_uuid, str(uuid.uuid4()))))
         self.info = args
 
     @staticmethod
@@ -66,8 +68,8 @@ class VMScreenshot(object):
         if now - last_update > self.OUTDATED_SECS:
             self._clean_extra(self.LIVE_WINDOW)
             self._generate_thumbnail()
-        return '/data/screenshots/%s' % os.path.basename(self.info['thumbnail'])
-
+        return '/data/screenshots/%s' %\
+               os.path.basename(self.info['thumbnail'])
 
     def _clean_extra(self, window=-1):
         """
@@ -77,7 +79,8 @@ class VMScreenshot(object):
         try:
             now = time.time()
             clear_list = glob.glob("%s/%s-*.png" %
-                (config.get_screenshot_path(), self.vm_uuid))
+                                   (config.get_screenshot_path(),
+                                    self.vm_uuid))
             for f in clear_list:
                 if now - os.path.getmtime(f) > window:
                     os.unlink(f)
@@ -122,7 +125,7 @@ class VMScreenshot(object):
         else:
             counter = 0
             ret = os.waitpid(pid, os.WNOHANG)
-            while ret == (0,0) and counter < 3:
+            while ret == (0, 0) and counter < 3:
                 counter += 1
                 time.sleep(1)
                 ret = os.waitpid(pid, os.WNOHANG)

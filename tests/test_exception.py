@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import json
 import os
@@ -77,8 +77,8 @@ class ExceptionTests(unittest.TestCase):
         req = json.dumps({})
         resp = json.loads(request(host, ssl_port, '/vms', req, 'POST').read())
         self.assertEquals('400 Bad Request', resp.get('code'))
-        msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
-        self.assertEquals(msg, resp.get('reason'))
+        m = u"KCHVM0016E: Specify a template to create a virtual machine from"
+        self.assertEquals(m, resp.get('reason'))
         self.assertNotIn('call_stack', resp)
 
     def test_development_env(self):
@@ -106,7 +106,7 @@ class ExceptionTests(unittest.TestCase):
         # test 400 missing required parameter
         req = json.dumps({})
         resp = json.loads(request(host, ssl_port, '/vms', req, 'POST').read())
-        msg = u"KCHVM0016E: Specify a template to create a virtual machine from"
+        m = u"KCHVM0016E: Specify a template to create a virtual machine from"
         self.assertEquals('400 Bad Request', resp.get('code'))
-        self.assertEquals(msg, resp.get('reason'))
+        self.assertEquals(m, resp.get('reason'))
         self.assertIn('call_stack', resp)
