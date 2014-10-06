@@ -40,51 +40,7 @@ EXTRA_DIST = \
 	$(NULL)
 
 
-# When fixing a file to conform with pep8, add it to the WL here.
-# So it will be checked from now on.
-PEP8_WHITELIST = \
-	plugins/__init__.py \
-	plugins/sample/__init__.py \
-	plugins/sample/model.py \
-	src/kimchid.in \
-	src/kimchi/asynctask.py \
-	src/kimchi/auth.py \
-	src/kimchi/cachebust.py \
-	src/kimchi/config.py.in \
-	src/kimchi/control/*.py \
-	src/kimchi/control/vm/*.py \
-	src/kimchi/disks.py \
-	src/kimchi/distroloader.py \
-	src/kimchi/exception.py \
-	src/kimchi/featuretests.py \
-	src/kimchi/imageinfo.py \
-	src/kimchi/iscsi.py \
-	src/kimchi/isoinfo.py \
-	src/kimchi/kvmusertests.py \
-	src/kimchi/mockmodel.py \
-	src/kimchi/model/*.py \
-	src/kimchi/objectstore.py \
-	src/kimchi/osinfo.py \
-	src/kimchi/proxy.py \
-	src/kimchi/repositories.py \
-	src/kimchi/rollbackcontext.py \
-	src/kimchi/root.py \
-	src/kimchi/scan.py \
-	src/kimchi/server.py \
-	src/kimchi/swupdate.py \
-	src/kimchi/template.py \
-	src/kimchi/utils.py \
-	src/kimchi/vmtemplate.py \
-	tests/test_config.py.in \
-	tests/test_mockmodel.py \
-	tests/test_model.py \
-	tests/test_osinfo.py \
-	tests/test_plugin.py \
-	tests/test_rest.py \
-	tests/test_rollbackcontext.py \
-	tests/test_storagepool.py \
-	tests/utils.py \
-	$(NULL)
+PEP8_BLACKLIST = src/kimchi/config.py,src/kimchi/i18n.py,src/kimchi/websocket.py,src/kimchi/websockify.py,tests/test_config.py
 
 SKIP_PYFLAKES_ERR = "\./src/kimchi/websocket\.py"
 
@@ -100,7 +56,7 @@ check-local:
 		while read LINE; do echo "$$LINE"; false; done
 
 	$(PEP8) --version
-	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
+	$(PEP8) --filename '*.py,*.py.in' --exclude="$(PEP8_BLACKLIST)" .
 
 
 # Link built mo files in the source tree to enable use of translations from
