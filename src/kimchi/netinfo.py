@@ -185,7 +185,7 @@ def get_interface_type(iface):
 
 
 def get_interface_info(iface):
-    if not iface in ethtool.get_devices():
+    if iface not in ethtool.get_devices():
         raise ValueError('unknown interface: %s' % iface)
 
     ipaddr = ''
