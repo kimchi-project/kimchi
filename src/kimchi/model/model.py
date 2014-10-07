@@ -38,12 +38,13 @@ DEFAULT_POOLS = {'default': {'path': '/var/lib/libvirt/images'},
 
 
 class Model(BaseModel):
-    def __init__(self, libvirt_uri='qemu:///system', objstore_loc=None):
+    def __init__(self, libvirt_uri=None, objstore_loc=None):
+
         self.objstore = ObjectStore(objstore_loc)
         self.conn = LibvirtConnection(libvirt_uri)
         kargs = {'objstore': self.objstore, 'conn': self.conn}
 
-        if 'qemu:///' in libvirt_uri:
+        if self.conn.isQemuURI():
             for pool_name, pool_arg in DEFAULT_POOLS.iteritems():
                 self._default_pool_check(pool_name, pool_arg)
 

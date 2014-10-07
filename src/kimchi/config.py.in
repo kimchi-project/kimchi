@@ -62,7 +62,7 @@ def get_version():
 
 def find_qemu_binary(find_emulator=False):
     try:
-        connect = libvirt.open('qemu:///system')
+        connect = libvirt.open(None)
     except Exception, e:
         raise Exception("Unable to get qemu binary location: %s" % e)
     try:
