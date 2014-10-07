@@ -41,7 +41,7 @@ KIMCHI_BRIDGE_PREFIX = 'kb'
 class NetworksModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-        if 'qemu:///' in self.conn.get().getURI():
+        if self.conn.isQemuURI():
             self._default_network_check()
 
     def _default_network_check(self):

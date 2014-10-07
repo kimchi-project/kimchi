@@ -93,10 +93,13 @@ class LibvirtConnection(object):
                     except libvirt.libvirtError:
                         kimchi_log.error('Unable to connect to libvirt.')
                         if not retries:
-                            err = 'Libvirt is not available, exiting.'
-                            kimchi_log.error(err)
+                            kimchi_log.error("Unable to establish connection "
+                                             "with libvirt. Please check "
+                                             "your libvirt URI which is often "
+                                             "defined in "
+                                             "/etc/libvirt/libvirt.conf")
                             cherrypy.engine.stop()
-                            raise
+                            exit(1)
                     time.sleep(2)
 
                 for name in dir(libvirt.virConnect):
@@ -117,3 +120,14 @@ class LibvirtConnection(object):
                 # However the values need to be considered wisely to not affect
                 # hosts which are hosting a lot of virtual machines
             return conn
+
+    def isQemuURI(self):
+        """
+        This method will return True or Value when the system libvirt
+        URI is a qemu based URI.  For example:
+        qemu:///system or qemu+tcp://someipaddress/system
+        """
+        if self.get().getURI().startswith('qemu'):
+            return True
+        else:
+            return False

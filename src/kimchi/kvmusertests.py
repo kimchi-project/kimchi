@@ -49,7 +49,7 @@ class UserTests(object):
 
         xml = cls.SIMPLE_VM_XML % (vm_name, vm_uuid)
         with RollbackContext() as rollback:
-            conn = libvirt.open('qemu:///system')
+            conn = libvirt.open(None)
             rollback.prependDefer(conn.close)
             dom = conn.defineXML(xml)
             rollback.prependDefer(dom.undefine)

@@ -104,7 +104,7 @@ class FeatureTests(object):
         conn = None
         try:
             FeatureTests.disable_screen_error_logging()
-            conn = libvirt.open('qemu:///system')
+            conn = libvirt.open(None)
             dom = conn.defineXML(xml)
             dom.undefine()
             return True
@@ -122,7 +122,7 @@ class FeatureTests(object):
             xml = ET.tostring(obj)
             return xml
         try:
-            conn = libvirt.open('qemu:///system')
+            conn = libvirt.open(None)
             FeatureTests.disable_screen_error_logging()
             conn.findStoragePoolSources('netfs', _get_xml(), 0)
         except libvirt.libvirtError as e:
@@ -174,7 +174,7 @@ class FeatureTests(object):
     def libvirt_support_fc_host():
         try:
             FeatureTests.disable_screen_error_logging()
-            conn = libvirt.open('qemu:///system')
+            conn = libvirt.open(None)
             pool = None
             pool = conn.storagePoolDefineXML(SCSI_FC_XML, 0)
         except libvirt.libvirtError as e:
@@ -194,7 +194,7 @@ class FeatureTests(object):
         with RollbackContext() as rollback:
             FeatureTests.disable_screen_error_logging()
             rollback.prependDefer(FeatureTests.enable_screen_error_logging)
-            conn = libvirt.open('qemu:///system')
+            conn = libvirt.open(None)
             rollback.prependDefer(conn.close)
             dom = conn.defineXML(SIMPLE_VM_XML)
             rollback.prependDefer(dom.undefine)

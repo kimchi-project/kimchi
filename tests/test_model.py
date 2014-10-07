@@ -457,7 +457,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagepool(self):
-        inst = model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model(None, self.tmp_store)
 
         poolDefs = [
             {'type': 'dir',
@@ -524,7 +524,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagevolume(self):
-        inst = model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model(None, self.tmp_store)
 
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images'
@@ -742,7 +742,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_clone(self):
-        inst = model.Model('qemu:///system',
+        inst = model.Model(None,
                            objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             orig_params = {'name': 'test-template', 'memory': 1024,
@@ -761,7 +761,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_update(self):
-        inst = model.Model('qemu:///system',
+        inst = model.Model(None,
                            objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             net_name = 'test-network'
@@ -801,7 +801,7 @@ class ModelTests(unittest.TestCase):
                               'new-test', params)
 
     def test_vm_edit(self):
-        inst = model.Model('qemu:///system',
+        inst = model.Model(None,
                            objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1',
@@ -914,7 +914,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_network(self):
-        inst = model.Model('qemu:///system', self.tmp_store)
+        inst = model.Model(None, self.tmp_store)
 
         with RollbackContext() as rollback:
 
@@ -1240,7 +1240,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_get_hostinfo(self):
-        inst = model.Model('qemu:///system',
+        inst = model.Model(None,
                            objstore_loc=self.tmp_store)
         info = inst.host_lookup()
         distro, version, codename = platform.linux_distribution()
@@ -1279,7 +1279,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
-        inst = model.Model('qemu:///system',
+        inst = model.Model(None,
                            objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             path = '/tmp/kimchi-images/tmpdir'
