@@ -94,11 +94,9 @@ AC_CONFIG_FILES([
     plugins/sample/ui/pages/Makefile
     ui/Makefile
     ui/css/Makefile
-    ui/css/spice/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
-    ui/js/spice/Makefile
     ui/spice-html5/Makefile
     ui/spice-html5/css/Makefile
     ui/spice-html5/pages/Makefile
