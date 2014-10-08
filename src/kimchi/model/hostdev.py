@@ -17,7 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
 from pprint import pformat
+from pprint import pprint
 
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.utils import kimchi_log
@@ -36,7 +38,13 @@ def _get_dev_info_tree(dev_infos):
         if dev_info['parent'] is None:
             root = dev_info
             continue
-        parent = devs[dev_info['parent']]
+
+        try:
+            parent = devs[dev_info['parent']]
+        except KeyError:
+            kimchi_log.error('Parent %s of device %s does not exist.',
+                             dev_info['parent'], dev_info['name'])
+            continue
 
         try:
             children = parent['children']
@@ -45,6 +53,109 @@ def _get_dev_info_tree(dev_infos):
         else:
             children.append(dev_info)
     return root
+
+
+def _is_pci_qualified(pci_dev):
+    # PCI bridge is not suitable to passthrough
+    # KVM does not support passthrough graphic card now
+    blacklist_classes = (0x030000, 0x060000)
+
+    with open(os.path.join(pci_dev['path'], 'class')) as f:
+        pci_class = int(f.readline().strip(), 16)
+
+    if pci_class & 0xff0000 in blacklist_classes:
+        return False
+
+    return True
+
+
+def get_passthrough_dev_infos(libvirt_conn):
+    ''' Get devices eligible to be passed through to VM. '''
+
+    def is_eligible(dev):
+        return dev['device_type'] in ('usb_device', 'scsi') or \
+            (dev['device_type'] == 'pci' and _is_pci_qualified(dev))
+
+    dev_infos = _get_all_host_dev_infos(libvirt_conn)
+
+    return [dev_info for dev_info in dev_infos if is_eligible(dev_info)]
+
+
+def _get_same_iommugroup_devices(dev_infos, device_info):
+    dev_dict = dict([(dev_info['name'], dev_info) for dev_info in dev_infos])
+
+    def get_iommu_group(dev_info):
+        # Find out the iommu group of a given device.
+        # Child device belongs to the same iommu group as the parent device.
+        try:
+            return dev_info['iommuGroup']
+        except KeyError:
+            pass
+
+        parent = dev_info['parent']
+        while parent is not None:
+            try:
+                parent_info = dev_dict[parent]
+            except KeyError:
+                kimchi_log.error("Parent %s of device %s does not exist",
+                                 parent, dev_info['name'])
+                break
+
+            try:
+                iommuGroup = parent_info['iommuGroup']
+            except KeyError:
+                pass
+            else:
+                return iommuGroup
+
+            parent = parent_info['parent']
+
+        return None
+
+    iommu_group = get_iommu_group(device_info)
+
+    if iommu_group is None:
+        return []
+
+    return [dev_info for dev_info in dev_infos
+            if dev_info['name'] != device_info['name'] and
+            get_iommu_group(dev_info) == iommu_group]
+
+
+def _get_children_devices(dev_infos, device_info):
+    def get_children_recursive(parent):
+        try:
+            children = parent['children']
+        except KeyError:
+            return []
+
+        result = []
+        for child in children:
+            result.append(child)
+            result.extend(get_children_recursive(child))
+
+        return result
+
+    # Annotate every the dev_info element with children information
+    _get_dev_info_tree(dev_infos)
+
+    for dev_info in dev_infos:
+        if dev_info['name'] == device_info['name']:
+            return get_children_recursive(dev_info)
+
+    return []
+
+
+def get_affected_passthrough_devices(libvirt_conn, passthrough_dev):
+    dev_infos = _get_all_host_dev_infos(libvirt_conn)
+
+    group_devices = _get_same_iommugroup_devices(dev_infos, passthrough_dev)
+    if not group_devices:
+        # On host without iommu group support, the affected devices should
+        # at least include all children devices
+        group_devices.extend(_get_children_devices(dev_infos, passthrough_dev))
+
+    return group_devices
 
 
 def get_dev_info(node_dev):
@@ -168,8 +279,7 @@ def _get_usb_device_dev_info(info):
 
 
 # For test and debug
-def _print_host_dev_tree():
-    libvirt_conn = LibvirtConnection('qemu:///system').get()
+def _print_host_dev_tree(libvirt_conn):
     dev_infos = _get_all_host_dev_infos(libvirt_conn)
     root = _get_dev_info_tree(dev_infos)
     if root is None:
@@ -207,4 +317,7 @@ def _format_dev_node(node):
 
 
 if __name__ == '__main__':
-    _print_host_dev_tree()
+    libvirt_conn = LibvirtConnection('qemu:///system').get()
+    _print_host_dev_tree(libvirt_conn)
+    print 'Eligible passthrough devices:'
+    pprint(get_passthrough_dev_infos(libvirt_conn))

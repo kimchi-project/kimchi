@@ -233,6 +233,7 @@ messages = {
     "KCHHOST0001E": _("Unable to shutdown host machine as there are running virtual machines"),
     "KCHHOST0002E": _("Unable to reboot host machine as there are running virtual machines"),
     "KCHHOST0003E": _("Node device '%(name)s' not found"),
+    "KCHHOST0004E": _("Conflicting flag filters specified."),
 
     "KCHPKGUPD0001E": _("No packages marked for update"),
     "KCHPKGUPD0002E": _("Package %(name)s is not marked to be updated."),
