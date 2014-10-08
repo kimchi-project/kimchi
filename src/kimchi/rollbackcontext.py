@@ -64,3 +64,6 @@ class RollbackContext(object):
 
     def prependDefer(self, func, *args, **kwargs):
         self._finally.insert(0, (func, args, kwargs))
+
+    def commitAll(self):
+        self._finally = []

@@ -29,7 +29,7 @@ from lxml.builder import E
 
 
 from kimchi.rollbackcontext import RollbackContext
-from kimchi.utils import kimchi_log
+from kimchi.utils import kimchi_log, run_command
 
 
 ISO_STREAM_XML = """
@@ -206,3 +206,11 @@ class FeatureTests(object):
                 return True
             except libvirt.libvirtError:
                 return False
+
+    @staticmethod
+    def kernel_support_vfio():
+        out, err, rc = run_command(['modprobe', 'vfio-pci'])
+        if rc != 0:
+            kimchi_log.warning("Unable to load Kernal module vfio-pci.")
+            return False
+        return True
