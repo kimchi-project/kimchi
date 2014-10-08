@@ -68,5 +68,5 @@ kimchi.login_main = function() {
         return false;
     };
 
-    $('#form-login').on('submit', login);
+    $('#btn-login').bind('click', login);
 };
