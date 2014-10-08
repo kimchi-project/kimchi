@@ -180,34 +180,34 @@ class ScsiPoolDef(StoragePoolDef):
         self.poolArgs['source']['name'] = tmp_name.replace('scsi_', '')
         # fc_host adapters type are only available in libvirt >= 1.0.5
         if not self.poolArgs['fc_host_support']:
-            self.poolArgs['source']['adapter_type'] = 'scsi_host'
+            self.poolArgs['source']['adapter']['type'] = 'scsi_host'
             msg = "Libvirt version <= 1.0.5. Setting SCSI host name as '%s'; "\
                   "setting SCSI adapter type as 'scsi_host'; "\
                   "ignoring wwnn and wwpn." % tmp_name
             kimchi_log.info(msg)
         # Path for Fibre Channel scsi hosts
         self.poolArgs['path'] = '/dev/disk/by-path'
-        if not self.poolArgs['source']['adapter_type']:
-            self.poolArgs['source']['adapter_type'] = 'scsi_host'
+        if not self.poolArgs['source']['adapter']['type']:
+            self.poolArgs['source']['adapter']['type'] = 'scsi_host'
 
     @property
     def xml(self):
         # Required parameters
         # name:
-        # source[adapter_type]:
+        # source[adapter][type]:
         # source[name]:
-        # source[wwnn]:
-        # source[wwpn]:
+        # source[adapter][wwnn]:
+        # source[adapter][wwpn]:
         # path:
 
         xml = """
         <pool type='scsi'>
           <name>{name}</name>
           <source>
-            <adapter type='{source[adapter_type]}'\
+            <adapter type='{source[adapter][type]}'\
                      name='{source[name]}'\
-                     wwnn='{source[wwnn]}'\
-                     wwpn='{source[wwpn]}'/>
+                     wwnn='{source[adapter][wwnn]}'\
+                     wwpn='{source[adapter][wwpn]}'/>
           </source>
           <target>
             <path>{path}</path>

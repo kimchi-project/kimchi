@@ -912,12 +912,11 @@ stats history
 * **GET**: Retrieve information of a single pci device.
            Currently only scsi_host devices are supported:
     * name: The name of the device.
-    * adapter_type: The capability type of the scsi_host device (fc_host).
-                    Empty if pci device is not scsi_host.
-    * wwnn: The HBA Word Wide Node Name.
-            Empty if pci device is not scsi_host.
-    * wwpn: The HBA Word Wide Port Name
-            Empty if pci device is not scsi_host.
+    * path: Path of device in sysfs.
+    * adapter: Host adapter information. Empty if pci device is not scsi_host.
+        * type: The capability type of the scsi_host device (fc_host, vport_ops).
+        * wwnn: The HBA Word Wide Node Name. Empty if pci device is not fc_host.
+        * wwpn: The HBA Word Wide Port Name. Empty if pci device is not fc_host.
 
 ### Collection: Host Packages Update
 

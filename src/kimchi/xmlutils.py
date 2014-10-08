@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libxml2
+from lxml import objectify
 
 
 from xml.etree import ElementTree
@@ -37,3 +38,26 @@ def xml_item_update(xml, xpath, value):
     item = root.find(xpath)
     item.text = value
     return ElementTree.tostring(root, encoding="utf-8")
+
+
+def dictize(xmlstr):
+    root = objectify.fromstring(xmlstr)
+    return {root.tag: _dictize(root)}
+
+
+def _dictize(e):
+    d = {}
+    if e.text is not None:
+        if not e.attrib and e.countchildren() == 0:
+            return e.pyval
+        d['pyval'] = e.pyval
+    d.update(e.attrib)
+    for child in e.iterchildren():
+        if child.tag in d:
+            continue
+        if len(child) > 1:
+            d[child.tag] = [
+                _dictize(same_tag_child) for same_tag_child in child]
+        else:
+            d[child.tag] = _dictize(child)
+    return d

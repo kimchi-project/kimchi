@@ -617,9 +617,10 @@ class MockModel(object):
     def device_lookup(self, nodedev_name):
         return {
             'name': nodedev_name,
-            'adapter_type': 'fc_host',
-            'wwnn': uuid.uuid4().hex[:16],
-            'wwpn': uuid.uuid4().hex[:16]}
+            'adapter': {
+                'type': 'fc_host',
+                'wwnn': uuid.uuid4().hex[:16],
+                'wwpn': uuid.uuid4().hex[:16]}}
 
     def isopool_lookup(self, name):
         return {'state': 'active',
