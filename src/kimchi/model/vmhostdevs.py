@@ -293,3 +293,22 @@ class VMHostDevModel(object):
                 xmlstr = etree.tostring(e)
                 dom.detachDeviceFlags(
                     xmlstr, get_vm_config_flag(dom, mode='all'))
+
+
+class VMHoldersModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+
+    def get_list(self, device_id):
+        devsmodel = VMHostDevsModel(conn=self.conn)
+
+        conn = self.conn.get()
+        doms = conn.listAllDomains(0)
+
+        res = []
+        for dom in doms:
+            dom_name = dom.name()
+            if device_id in devsmodel.get_list(dom_name):
+                state = DOM_STATE_MAP[dom.info()[0]]
+                res.append({"name": dom_name, "state": state})
+        return res
