@@ -1,0 +1,181 @@
+13:02:36 <alinefm> #startmeeting
+13:02:36 <kimchi-bot> Meeting started Wed Oct  8 13:02:36 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:36 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:36 <alinefm> #meetingname scrum
+13:02:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:56 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:56 <alinefm> anything else?
+13:03:20 <royce> Good for me
+13:05:10 <alinefm> #topic Status
+13:05:10 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:43 <alinefm> #info alinefm created a wiki page for the todo list for 1.4 release (https://github.com/kimchi-project/kimchi/wiki/todo-1.4)
+13:06:14 <alinefm> #info info alinefm created a wiki page for 1.4 planning (https://github.com/kimchi-project/kimchi/wiki/planning-1.4)
+13:06:53 <alinefm> #info alinefm sent patches to remove imported websockets code from kimchi and use the python-websockify package available in all supported distros (already merged)
+13:06:59 <wenwang1> #info wenwang sent patch fix bug#414 Cannot login by clicking on the login button
+13:07:20 <alinefm> #info alinefm sent patches to remove import novnc code from Kimchi and use the novnc package (on ML)
+13:07:50 <alinefm> #info alinefm is working on spice code removal to depend on spice-html5 package
+13:08:26 <vianac> #info vianac sent RFC for the guest cloning feature; sent final versions of patches "Display README with markdown style on Github" and "pep8: Use blacklist instead of whitelist"; reviewed patches on the mailing list;
+13:08:57 <royce> #info royce has taken the whole week for holiday, no status from me this week, before holiday fix bug about change media, merged, and rebased remaining patches in ML
+13:09:14 <YuXin> #info YuXin learn responsive design & investigate bootstrap grid system
+13:11:03 <alinefm> royce, YuXin, wenwang1, feel free to get any unassigned task on https://github.com/kimchi-project/kimchi/wiki/todo-1.4
+13:11:50 <YuXin> aline, can you send a mail with a summary about each line item
+13:12:14 <alinefm> YuXin, I've already done it: http://lists.ovirt.org/pipermail/kimchi-devel/2014-September/008004.html
+13:12:25 <wenwang1> alinefm: sure
+13:12:45 <alinefm> there are 2 links to the ML archives in the top of the wiki page: one for the UI design and other from me about the tasks
+13:13:05 <royce> I would like to take the guest disk hot plug and LDAP one
+13:14:11 <alinefm> royce, sure! I have a upstream branch about LDAP - I will share it with you
+13:14:43 <royce> alinefm, you have patch already? do you mind if I take that?
+13:16:17 <YuXin> aline, what is the full name of SMT?
+13:16:52 <alinefm> royce, I start playing with it some time ago but you can take it for sure
+13:17:14 <alinefm> royce, if you want a start up: https://github.com/alinefm/kimchi/tree/alinefm/ldap =)
+13:17:21 <alinefm> YuXin, hmm let me find it
+13:17:29 <royce> thanks alinefm!
+13:17:48 <royce> I think that task would be interesting
+13:17:57 <christyp> yuxin - simultaneous multithreading
+13:18:28 <YuXin> christyp, so just an option to enable/disable?
+13:18:30 <christyp> but i think the LI name should be more generic, since intel calls theirs hyperthreading
+13:18:55 <christyp> yuxin - there's also going to be options to chose (for power) which SMT mode you want (like, SMT2, SMT4, or SMT8)
+13:19:12 <christyp> for x86, probably just enable
+13:19:35 <YuXin> ok
+13:20:04 <YuXin> Add support for serial console*, what is the serial console here means?
+13:20:29 <alinefm> it is a text console
+13:21:11 <alinefm> YuXin, I think baude has done some UI on his patches too
+13:21:25 <royce> YuXin with that we do not need vnc to connect guest
+13:21:50 <baude> yeah, esp for ppc, you want serial as an option
+13:21:55 <baude> think latency
+13:22:04 <baude> and also think about ability to copy and paste into the console
+13:22:08 <baude> which spice and vnc cannot!
+13:22:46 <YuXin> so just a command line tool to control vm?
+13:22:46 <YuXin> ok
+13:22:46 <YuXin> royce, remote command line, right?
+13:22:52 <royce> we use this text console just like you ssh to a guest, but this does not need network
+13:24:15 <royce> YuXin , you can understand that way:
+13:26:01 <royce> hejie and zhengsheng seems have patches in vdsm before about this, baude if you would like, you can take a look for some reference:)
+13:26:09 <YuXin> ok
+13:26:09 <YuXin> UI to allow user adds volumes from different pools to a Template
+13:26:09 <YuXin> template should be configured against storage pool, not volume per my understanding
+13:26:09 <YuXin> so what does this line item mean
+13:26:49 <alinefm> today the user can only specify one volume size to be created in a pool
+13:27:19 <alinefm> we should support user adds multiple disks to a template, ie, multiple disk sizes to different pools
+13:27:42 <alinefm> example: I want a template with 2 disks, one 10G on default pool and other 5G on NFS pool
+13:27:44 <baude> royce, i have submitted working patches several times to the list
+13:28:03 <alinefm> baude, you still need to resend it according to review comments
+13:28:25 <baude> i sent a fixed patch to you alinefm asking questions ... which I am waiting on answers for
+13:28:26 <royce> baude, that's great, haven't opened my mailbox these days due to holiday
+13:28:35 <baude> royce, this was months ago
+13:28:51 <royce> o_O
+13:29:11 <royce> sorry I haven't noticed, I will take a look on that
+13:30:28 <alinefm> well, let's move on to open discussion session
+13:30:33 <alinefm> #topic Open Discussion
+13:30:34 <baude> i can just redo the patch and resend if you guys prefer
+13:30:40 <alinefm> what are the topics for today?
+13:30:50 <royce> alinefm, will it be good to assign disk when creating vm and just add one root disk to template? Because if we want to have 3 disks, one from pool A, the other two from pool B, things will become complicated
+13:31:35 <YuXin1> why can not have 2 diskes from the same pool?
+13:31:36 <alinefm> royce, why?
+13:31:55 <alinefm> YuXin, you could have too
+13:33:04 <alinefm> royce, I think in {disks: {size: ..., pool: ..., }, {size:..., pool:...}}
+13:34:24 <royce> Specify one by one seems a burden for me I think...
+13:35:25 <christyp> some customers might want to have a lesser accessed disk on a slower/cheaper type of storage
+13:35:30 <YuXin> so in template, it should be
+13:35:31 <YuXin> disk1      10G        Pool-A
+13:35:31 <YuXin> disk2      10G        Pool-A
+13:35:31 <YuXin> disk3      10G        Pool-B
+13:35:31 <YuXin> disk4      10G        Pool-B
+13:36:33 <YuXin> always configured against a pool with a disk size, not a volume
+13:36:43 <alinefm> royce, but user will do that just once as it is on template
+13:36:54 <royce> christyp, got u, but I think that is from a single guest level, not from template level
+13:37:14 <christyp> royce: i guess i could see it going both ways
+13:37:14 <alinefm> YuXin, for iSCSI and SCSI instead of the size we will have the volume name as those pools are read only
+13:37:28 <alinefm> and in those cases the disk should be sharaeble
+13:37:31 <royce> because template is for most people, and a single guest is to customize this template of his own needs
+13:38:02 <YuXin> iSCSI and SCSI is read-only for create volume, but volumes in those pool are not read-only
+13:38:10 <alinefm> YuXin, correct
+13:38:39 <YuXin> so a template is created with iscsi volume, then multiple vms can be created from this template
+13:38:45 <alinefm> royce, let's say I want to all my VMs have access to a NFS pool as it contains some data needed by them
+13:38:48 <YuXin> then multiple vms share the same volume
+13:38:52 <alinefm> should I add it vm by vm?
+13:39:09 <YuXin> I think so
+13:39:21 <YuXin> when iscsi, only specify a pool without size
+13:39:35 <YuXin> when create vm from that template, list volumes for selection
+13:40:34 <alinefm> YuXin, it is also an idea
+13:40:43 <alinefm> but we should do it prior to any other change on template
+13:40:48 <alinefm> as it is independent
+13:41:00 <alinefm> YuXin, if you want I can add a task for it
+13:41:11 <YuXin> ok
+13:41:36 <royce> alinefm, your case makes sense , for iscsi and scsi pool I think add disk is better
+13:41:51 <alinefm> royce, do you mean what YuXin proposed?
+13:42:08 <royce> yes, I mean we need both cases
+13:42:17 <YuXin> royce, do you mean add disk to template or vm?
+13:42:36 <royce> the scsi and iscsi volumes are disk level so need to add to vm
+13:42:44 <alinefm> royce, YuXin, I don't want to insert a lot of information while creating the VM
+13:42:51 <alinefm> it must be as simple as possible
+13:42:53 <royce> and size and pool seems a template level thing, right?
+13:43:33 <YuXin> aline, we can try to simplify it, but current design has problem
+13:44:26 <alinefm> royce, yes - I think we 3 are saying the same
+13:44:56 <YuXin> for example, if a iscsi pool, when create vm, can we automatically pick up a volume?
+13:45:31 <royce> currently not, I suppose we'd better to change to this way
+13:45:33 <alinefm> based on each criteria? not in use yet?
+13:45:42 <YuXin> yes
+13:45:49 <YuXin> a volume not in use
+13:46:49 <alinefm> what about the disk size?
+13:46:59 <alinefm> maybe we could continue asking the disk size for the user
+13:47:28 <YuXin> each lun in an iscsi pool has a fixed size per my understanding, can that be changed?
+13:47:38 <royce> nope
+13:48:15 <alinefm> my point is, if we pick a volume automatically we can pick a 1G volume which is not enough to create a VM
+13:48:22 <alinefm> ie, an easy point of failure
+13:48:53 <royce> alinefm, previously markwu has proposed to form all volumes in scsi/iscsi to a VG then use it, the volume size can be dynamic, do we want to consider this usage?
+13:49:36 <alinefm> royce, create a LVM with iSCSI/SCSI volumes without the user be aware?
+13:49:45 <alinefm> if those volumes are used for other proposals too?
+13:51:07 <royce> There are cases we have original data in the volumes...But we loose elasticity
+13:51:25 <alinefm> royce, YuXin, if you think we need to move the volume selection to the VM, I am OK if we list the non-used volumes to user to he/she picks one
+13:51:40 <YuXin> ok
+13:52:09 <YuXin> add a task for tat
+13:52:12 <alinefm> because automatically select one is very dangerous from my view
+13:52:21 <YuXin> agree
+13:52:28 <royce> OK
+13:53:44 <YuXin> go back to "UI to allow user adds volumes from different pools to a Template"
+13:53:59 <YuXin> so this line item also need to be changed
+13:54:04 <alinefm> sounds good: "Move iSCSI/SCSI volume selection to VM creation instead of Template view"
+13:54:05 <alinefm> ?
+13:54:21 <royce> I think that still need to remain, YuXin
+13:54:27 <YuXin> why
+13:54:40 <YuXin> add volume to template, does not make sense as we discussed
+13:55:02 <alinefm> YuXin, maybe we need to change the statement
+13:55:15 <royce> :) disks from different pools
+13:55:18 <alinefm> but it is to add multiple "disk size/pool"
+13:55:18 <YuXin> so it just means to specify a size, right?
+13:55:27 <YuXin> ok, got it
+13:55:56 <alinefm> YuXin, if I change "volumes" to "disks" is better to understand?
+13:56:05 <YuXin> ok
+13:56:29 <alinefm> YuXin, royce, look: https://github.com/kimchi-project/kimchi/wiki/Todo-1.4
+13:56:51 <alinefm> I added the iSCSI/SCSI task and changed 'volumes' to 'disks' on "UI to allow user adds volumes from different pools to a Template"
+13:57:43 <royce> Thanks for the patient explanation :)))alinefm
+13:57:54 <YuXin> I will take a further look tomorrow and take over some line items
+13:58:08 <alinefm> royce, it is my pleasure
+13:58:24 <alinefm> I missed you all on last scrum meeting
+13:58:29 <alinefm> YuXin, thanks
+13:58:39 <alinefm> royce, YuXin, wenwang1, and don't forget the RFC's
+13:58:42 <alinefm> or mockups
+13:58:48 <YuXin> sure
+13:58:51 <royce> Yes! We too!
+13:59:00 <alinefm> just to we get agreement before implementation
+13:59:25 <wenwang1> sure alinefm
+13:59:42 <alinefm> any other topic for today?
+14:00:06 <alinefm> oh I forgot to mention to you about the planning
+14:01:04 <alinefm> instead of having 2 devel sprints and 2 stabilization sprints, we will have one single devel phase until 11/19
+14:01:20 <royce> ok
+14:01:23 <alinefm> from 11/19 to 12/10 it is code freeze - only bug fixes will be merged
+14:01:57 <alinefm> and the final week (from 12/10 to 12/17) it is hard code freeze which means only blocks bug fixes will be merged
+14:02:06 <alinefm> and the announcement on 12/19
+14:02:13 <alinefm> makes sense for you?
+14:02:19 <YuXin> ok
+14:02:23 <wenwang1> ok
+14:02:38 <royce> Good plan! we do not want to submit patch on dead lines
+14:02:56 <alinefm> royce, yeap! me too =)
+14:03:02 <royce> quality can't gaurentee
+14:04:07 <alinefm> anything else?
+14:05:16 <alinefm> any comments? doubts? suggestions?
+14:06:11 <royce> not any more:)
+14:07:42 <alinefm> well, any time you can ping me here or send email do ML
+14:08:02 <alinefm> thanks everyone for joining
+14:08:32 <alinefm> #endmeeting

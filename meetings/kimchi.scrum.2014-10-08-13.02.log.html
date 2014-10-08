@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct  8 13:02:36 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:20</span><span class="nk"> &lt;royce&gt;</span> Good for me
+<a name="l-9"></a><span class="tm">13:05:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm created a wiki page for the todo list for 1.4 release (https://github.com/kimchi-project/kimchi/wiki/todo-1.4)</span>
+<a name="l-12"></a><span class="tm">13:06:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">info alinefm created a wiki page for 1.4 planning (https://github.com/kimchi-project/kimchi/wiki/planning-1.4)</span>
+<a name="l-13"></a><span class="tm">13:06:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to remove imported websockets code from kimchi and use the python-websockify package available in all supported distros (already merged)</span>
+<a name="l-14"></a><span class="tm">13:06:59</span><span class="nk"> &lt;wenwang1&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch fix bug#414 Cannot login by clicking on the login button</span>
+<a name="l-15"></a><span class="tm">13:07:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to remove import novnc code from Kimchi and use the novnc package (on ML)</span>
+<a name="l-16"></a><span class="tm">13:07:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on spice code removal to depend on spice-html5 package</span>
+<a name="l-17"></a><span class="tm">13:08:26</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent RFC for the guest cloning feature; sent final versions of patches "Display README with markdown style on Github" and "pep8: Use blacklist instead of whitelist"; reviewed patches on the mailing list;</span>
+<a name="l-18"></a><span class="tm">13:08:57</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce has taken the whole week for holiday, no status from me this week, before holiday fix bug about change media, merged, and rebased remaining patches in ML</span>
+<a name="l-19"></a><span class="tm">13:09:14</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin learn responsive design &amp; investigate bootstrap grid system</span>
+<a name="l-20"></a><span class="tm">13:11:03</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, wenwang1, feel free to get any unassigned task on https://github.com/kimchi-project/kimchi/wiki/todo-1.4
+<a name="l-21"></a><span class="tm">13:11:50</span><span class="nk"> &lt;YuXin&gt;</span> aline, can you send a mail with a summary about each line item
+<a name="l-22"></a><span class="tm">13:12:14</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I've already done it: http://lists.ovirt.org/pipermail/kimchi-devel/2014-September/008004.html
+<a name="l-23"></a><span class="tm">13:12:25</span><span class="nk"> &lt;wenwang1&gt;</span> <span class="hi">alinefm:</span> sure
+<a name="l-24"></a><span class="tm">13:12:45</span><span class="nk"> &lt;alinefm&gt;</span> there are 2 links to the ML archives in the top of the wiki page: one for the UI design and other from me about the tasks
+<a name="l-25"></a><span class="tm">13:13:05</span><span class="nk"> &lt;royce&gt;</span> I would like to take the guest disk hot plug and LDAP one
+<a name="l-26"></a><span class="tm">13:14:11</span><span class="nk"> &lt;alinefm&gt;</span> royce, sure! I have a upstream branch about LDAP - I will share it with you
+<a name="l-27"></a><span class="tm">13:14:43</span><span class="nk"> &lt;royce&gt;</span> alinefm, you have patch already? do you mind if I take that?
+<a name="l-28"></a><span class="tm">13:16:17</span><span class="nk"> &lt;YuXin&gt;</span> aline, what is the full name of SMT?
+<a name="l-29"></a><span class="tm">13:16:52</span><span class="nk"> &lt;alinefm&gt;</span> royce, I start playing with it some time ago but you can take it for sure
+<a name="l-30"></a><span class="tm">13:17:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, if you want a start up: https://github.com/alinefm/kimchi/tree/alinefm/ldap =)
+<a name="l-31"></a><span class="tm">13:17:21</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, hmm let me find it
+<a name="l-32"></a><span class="tm">13:17:29</span><span class="nk"> &lt;royce&gt;</span> thanks alinefm!
+<a name="l-33"></a><span class="tm">13:17:48</span><span class="nk"> &lt;royce&gt;</span> I think that task would be interesting
+<a name="l-34"></a><span class="tm">13:17:57</span><span class="nk"> &lt;christyp&gt;</span> yuxin - simultaneous multithreading
+<a name="l-35"></a><span class="tm">13:18:28</span><span class="nk"> &lt;YuXin&gt;</span> christyp, so just an option to enable/disable?
+<a name="l-36"></a><span class="tm">13:18:30</span><span class="nk"> &lt;christyp&gt;</span> but i think the LI name should be more generic, since intel calls theirs hyperthreading
+<a name="l-37"></a><span class="tm">13:18:55</span><span class="nk"> &lt;christyp&gt;</span> yuxin - there's also going to be options to chose (for power) which SMT mode you want (like, SMT2, SMT4, or SMT8)
+<a name="l-38"></a><span class="tm">13:19:12</span><span class="nk"> &lt;christyp&gt;</span> for x86, probably just enable
+<a name="l-39"></a><span class="tm">13:19:35</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-40"></a><span class="tm">13:20:04</span><span class="nk"> &lt;YuXin&gt;</span> Add support for serial console*, what is the serial console here means?
+<a name="l-41"></a><span class="tm">13:20:29</span><span class="nk"> &lt;alinefm&gt;</span> it is a text console
+<a name="l-42"></a><span class="tm">13:21:11</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think baude has done some UI on his patches too
+<a name="l-43"></a><span class="tm">13:21:25</span><span class="nk"> &lt;royce&gt;</span> YuXin with that we do not need vnc to connect guest
+<a name="l-44"></a><span class="tm">13:21:50</span><span class="nk"> &lt;baude&gt;</span> yeah, esp for ppc, you want serial as an option
+<a name="l-45"></a><span class="tm">13:21:55</span><span class="nk"> &lt;baude&gt;</span> think latency
+<a name="l-46"></a><span class="tm">13:22:04</span><span class="nk"> &lt;baude&gt;</span> and also think about ability to copy and paste into the console
+<a name="l-47"></a><span class="tm">13:22:08</span><span class="nk"> &lt;baude&gt;</span> which spice and vnc cannot!
+<a name="l-48"></a><span class="tm">13:22:46</span><span class="nk"> &lt;YuXin&gt;</span> so just a command line tool to control vm?
+<a name="l-49"></a><span class="tm">13:22:46</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-50"></a><span class="tm">13:22:46</span><span class="nk"> &lt;YuXin&gt;</span> royce, remote command line, right?
+<a name="l-51"></a><span class="tm">13:22:52</span><span class="nk"> &lt;royce&gt;</span> we use this text console just like you ssh to a guest, but this does not need network
+<a name="l-52"></a><span class="tm">13:24:15</span><span class="nk"> &lt;royce&gt;</span> YuXin , you can understand that way:
+<a name="l-53"></a><span class="tm">13:26:01</span><span class="nk"> &lt;royce&gt;</span> hejie and zhengsheng seems have patches in vdsm before about this, baude if you would like, you can take a look for some reference:)
+<a name="l-54"></a><span class="tm">13:26:09</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-55"></a><span class="tm">13:26:09</span><span class="nk"> &lt;YuXin&gt;</span> UI to allow user adds volumes from different pools to a Template
+<a name="l-56"></a><span class="tm">13:26:09</span><span class="nk"> &lt;YuXin&gt;</span> template should be configured against storage pool, not volume per my understanding
+<a name="l-57"></a><span class="tm">13:26:09</span><span class="nk"> &lt;YuXin&gt;</span> so what does this line item mean
+<a name="l-58"></a><span class="tm">13:26:49</span><span class="nk"> &lt;alinefm&gt;</span> today the user can only specify one volume size to be created in a pool
+<a name="l-59"></a><span class="tm">13:27:19</span><span class="nk"> &lt;alinefm&gt;</span> we should support user adds multiple disks to a template, ie, multiple disk sizes to different pools
+<a name="l-60"></a><span class="tm">13:27:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> I want a template with 2 disks, one 10G on default pool and other 5G on NFS pool
+<a name="l-61"></a><span class="tm">13:27:44</span><span class="nk"> &lt;baude&gt;</span> royce, i have submitted working patches several times to the list
+<a name="l-62"></a><span class="tm">13:28:03</span><span class="nk"> &lt;alinefm&gt;</span> baude, you still need to resend it according to review comments
+<a name="l-63"></a><span class="tm">13:28:25</span><span class="nk"> &lt;baude&gt;</span> i sent a fixed patch to you alinefm asking questions ... which I am waiting on answers for
+<a name="l-64"></a><span class="tm">13:28:26</span><span class="nk"> &lt;royce&gt;</span> baude, that's great, haven't opened my mailbox these days due to holiday
+<a name="l-65"></a><span class="tm">13:28:35</span><span class="nk"> &lt;baude&gt;</span> royce, this was months ago
+<a name="l-66"></a><span class="tm">13:28:51</span><span class="nk"> &lt;royce&gt;</span> o_O
+<a name="l-67"></a><span class="tm">13:29:11</span><span class="nk"> &lt;royce&gt;</span> sorry I haven't noticed, I will take a look on that
+<a name="l-68"></a><span class="tm">13:30:28</span><span class="nk"> &lt;alinefm&gt;</span> well, let's move on to open discussion session
+<a name="l-69"></a><span class="tm">13:30:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-70"></a><span class="tm">13:30:34</span><span class="nk"> &lt;baude&gt;</span> i can just redo the patch and resend if you guys prefer
+<a name="l-71"></a><span class="tm">13:30:40</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-72"></a><span class="tm">13:30:50</span><span class="nk"> &lt;royce&gt;</span> alinefm, will it be good to assign disk when creating vm and just add one root disk to template? Because if we want to have 3 disks, one from pool A, the other two from pool B, things will become complicated
+<a name="l-73"></a><span class="tm">13:31:35</span><span class="nk"> &lt;YuXin1&gt;</span> why can not have 2 diskes from the same pool?
+<a name="l-74"></a><span class="tm">13:31:36</span><span class="nk"> &lt;alinefm&gt;</span> royce, why?
+<a name="l-75"></a><span class="tm">13:31:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, you could have too
+<a name="l-76"></a><span class="tm">13:33:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think in {disks: {size: ..., pool: ..., }, {size:..., pool:...}}
+<a name="l-77"></a><span class="tm">13:34:24</span><span class="nk"> &lt;royce&gt;</span> Specify one by one seems a burden for me I think...
+<a name="l-78"></a><span class="tm">13:35:25</span><span class="nk"> &lt;christyp&gt;</span> some customers might want to have a lesser accessed disk on a slower/cheaper type of storage
+<a name="l-79"></a><span class="tm">13:35:30</span><span class="nk"> &lt;YuXin&gt;</span> so in template, it should be
+<a name="l-80"></a><span class="tm">13:35:31</span><span class="nk"> &lt;YuXin&gt;</span> disk1      10G        Pool-A
+<a name="l-81"></a><span class="tm">13:35:31</span><span class="nk"> &lt;YuXin&gt;</span> disk2      10G        Pool-A
+<a name="l-82"></a><span class="tm">13:35:31</span><span class="nk"> &lt;YuXin&gt;</span> disk3      10G        Pool-B
+<a name="l-83"></a><span class="tm">13:35:31</span><span class="nk"> &lt;YuXin&gt;</span> disk4      10G        Pool-B
+<a name="l-84"></a><span class="tm">13:36:33</span><span class="nk"> &lt;YuXin&gt;</span> always configured against a pool with a disk size, not a volume
+<a name="l-85"></a><span class="tm">13:36:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, but user will do that just once as it is on template
+<a name="l-86"></a><span class="tm">13:36:54</span><span class="nk"> &lt;royce&gt;</span> christyp, got u, but I think that is from a single guest level, not from template level
+<a name="l-87"></a><span class="tm">13:37:14</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">royce:</span> i guess i could see it going both ways
+<a name="l-88"></a><span class="tm">13:37:14</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, for iSCSI and SCSI instead of the size we will have the volume name as those pools are read only
+<a name="l-89"></a><span class="tm">13:37:28</span><span class="nk"> &lt;alinefm&gt;</span> and in those cases the disk should be sharaeble
+<a name="l-90"></a><span class="tm">13:37:31</span><span class="nk"> &lt;royce&gt;</span> because template is for most people, and a single guest is to customize this template of his own needs
+<a name="l-91"></a><span class="tm">13:38:02</span><span class="nk"> &lt;YuXin&gt;</span> iSCSI and SCSI is read-only for create volume, but volumes in those pool are not read-only
+<a name="l-92"></a><span class="tm">13:38:10</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, correct
+<a name="l-93"></a><span class="tm">13:38:39</span><span class="nk"> &lt;YuXin&gt;</span> so a template is created with iscsi volume, then multiple vms can be created from this template
+<a name="l-94"></a><span class="tm">13:38:45</span><span class="nk"> &lt;alinefm&gt;</span> royce, let's say I want to all my VMs have access to a NFS pool as it contains some data needed by them
+<a name="l-95"></a><span class="tm">13:38:48</span><span class="nk"> &lt;YuXin&gt;</span> then multiple vms share the same volume
+<a name="l-96"></a><span class="tm">13:38:52</span><span class="nk"> &lt;alinefm&gt;</span> should I add it vm by vm?
+<a name="l-97"></a><span class="tm">13:39:09</span><span class="nk"> &lt;YuXin&gt;</span> I think so
+<a name="l-98"></a><span class="tm">13:39:21</span><span class="nk"> &lt;YuXin&gt;</span> when iscsi, only specify a pool without size
+<a name="l-99"></a><span class="tm">13:39:35</span><span class="nk"> &lt;YuXin&gt;</span> when create vm from that template, list volumes for selection
+<a name="l-100"></a><span class="tm">13:40:34</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, it is also an idea
+<a name="l-101"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> but we should do it prior to any other change on template
+<a name="l-102"></a><span class="tm">13:40:48</span><span class="nk"> &lt;alinefm&gt;</span> as it is independent
+<a name="l-103"></a><span class="tm">13:41:00</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if you want I can add a task for it
+<a name="l-104"></a><span class="tm">13:41:11</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-105"></a><span class="tm">13:41:36</span><span class="nk"> &lt;royce&gt;</span> alinefm, your case makes sense , for iscsi and scsi pool I think add disk is better
+<a name="l-106"></a><span class="tm">13:41:51</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you mean what YuXin proposed?
+<a name="l-107"></a><span class="tm">13:42:08</span><span class="nk"> &lt;royce&gt;</span> yes, I mean we need both cases
+<a name="l-108"></a><span class="tm">13:42:17</span><span class="nk"> &lt;YuXin&gt;</span> royce, do you mean add disk to template or vm?
+<a name="l-109"></a><span class="tm">13:42:36</span><span class="nk"> &lt;royce&gt;</span> the scsi and iscsi volumes are disk level so need to add to vm
+<a name="l-110"></a><span class="tm">13:42:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, I don't want to insert a lot of information while creating the VM
+<a name="l-111"></a><span class="tm">13:42:51</span><span class="nk"> &lt;alinefm&gt;</span> it must be as simple as possible
+<a name="l-112"></a><span class="tm">13:42:53</span><span class="nk"> &lt;royce&gt;</span> and size and pool seems a template level thing, right?
+<a name="l-113"></a><span class="tm">13:43:33</span><span class="nk"> &lt;YuXin&gt;</span> aline, we can try to simplify it, but current design has problem
+<a name="l-114"></a><span class="tm">13:44:26</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - I think we 3 are saying the same
+<a name="l-115"></a><span class="tm">13:44:56</span><span class="nk"> &lt;YuXin&gt;</span> for example, if a iscsi pool, when create vm, can we automatically pick up a volume?
+<a name="l-116"></a><span class="tm">13:45:31</span><span class="nk"> &lt;royce&gt;</span> currently not, I suppose we'd better to change to this way
+<a name="l-117"></a><span class="tm">13:45:33</span><span class="nk"> &lt;alinefm&gt;</span> based on each criteria? not in use yet?
+<a name="l-118"></a><span class="tm">13:45:42</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-119"></a><span class="tm">13:45:49</span><span class="nk"> &lt;YuXin&gt;</span> a volume not in use
+<a name="l-120"></a><span class="tm">13:46:49</span><span class="nk"> &lt;alinefm&gt;</span> what about the disk size?
+<a name="l-121"></a><span class="tm">13:46:59</span><span class="nk"> &lt;alinefm&gt;</span> maybe we could continue asking the disk size for the user
+<a name="l-122"></a><span class="tm">13:47:28</span><span class="nk"> &lt;YuXin&gt;</span> each lun in an iscsi pool has a fixed size per my understanding, can that be changed?
+<a name="l-123"></a><span class="tm">13:47:38</span><span class="nk"> &lt;royce&gt;</span> nope
+<a name="l-124"></a><span class="tm">13:48:15</span><span class="nk"> &lt;alinefm&gt;</span> my point is, if we pick a volume automatically we can pick a 1G volume which is not enough to create a VM
+<a name="l-125"></a><span class="tm">13:48:22</span><span class="nk"> &lt;alinefm&gt;</span> ie, an easy point of failure
+<a name="l-126"></a><span class="tm">13:48:53</span><span class="nk"> &lt;royce&gt;</span> alinefm, previously markwu has proposed to form all volumes in scsi/iscsi to a VG then use it, the volume size can be dynamic, do we want to consider this usage?
+<a name="l-127"></a><span class="tm">13:49:36</span><span class="nk"> &lt;alinefm&gt;</span> royce, create a LVM with iSCSI/SCSI volumes without the user be aware?
+<a name="l-128"></a><span class="tm">13:49:45</span><span class="nk"> &lt;alinefm&gt;</span> if those volumes are used for other proposals too?
+<a name="l-129"></a><span class="tm">13:51:07</span><span class="nk"> &lt;royce&gt;</span> There are cases we have original data in the volumes...But we loose elasticity
+<a name="l-130"></a><span class="tm">13:51:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, if you think we need to move the volume selection to the VM, I am OK if we list the non-used volumes to user to he/she picks one
+<a name="l-131"></a><span class="tm">13:51:40</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-132"></a><span class="tm">13:52:09</span><span class="nk"> &lt;YuXin&gt;</span> add a task for tat
+<a name="l-133"></a><span class="tm">13:52:12</span><span class="nk"> &lt;alinefm&gt;</span> because automatically select one is very dangerous from my view
+<a name="l-134"></a><span class="tm">13:52:21</span><span class="nk"> &lt;YuXin&gt;</span> agree
+<a name="l-135"></a><span class="tm">13:52:28</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-136"></a><span class="tm">13:53:44</span><span class="nk"> &lt;YuXin&gt;</span> go back to "UI to allow user adds volumes from different pools to a Template"
+<a name="l-137"></a><span class="tm">13:53:59</span><span class="nk"> &lt;YuXin&gt;</span> so this line item also need to be changed
+<a name="l-138"></a><span class="tm">13:54:04</span><span class="nk"> &lt;alinefm&gt;</span> sounds good: "Move iSCSI/SCSI volume selection to VM creation instead of Template view"
+<a name="l-139"></a><span class="tm">13:54:05</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-140"></a><span class="tm">13:54:21</span><span class="nk"> &lt;royce&gt;</span> I think that still need to remain, YuXin
+<a name="l-141"></a><span class="tm">13:54:27</span><span class="nk"> &lt;YuXin&gt;</span> why
+<a name="l-142"></a><span class="tm">13:54:40</span><span class="nk"> &lt;YuXin&gt;</span> add volume to template, does not make sense as we discussed
+<a name="l-143"></a><span class="tm">13:55:02</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, maybe we need to change the statement
+<a name="l-144"></a><span class="tm">13:55:15</span><span class="nk"> &lt;royce&gt;</span> :) disks from different pools
+<a name="l-145"></a><span class="tm">13:55:18</span><span class="nk"> &lt;alinefm&gt;</span> but it is to add multiple "disk size/pool"
+<a name="l-146"></a><span class="tm">13:55:18</span><span class="nk"> &lt;YuXin&gt;</span> so it just means to specify a size, right?
+<a name="l-147"></a><span class="tm">13:55:27</span><span class="nk"> &lt;YuXin&gt;</span> ok, got it
+<a name="l-148"></a><span class="tm">13:55:56</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if I change "volumes" to "disks" is better to understand?
+<a name="l-149"></a><span class="tm">13:56:05</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-150"></a><span class="tm">13:56:29</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, royce, look: https://github.com/kimchi-project/kimchi/wiki/Todo-1.4
+<a name="l-151"></a><span class="tm">13:56:51</span><span class="nk"> &lt;alinefm&gt;</span> I added the iSCSI/SCSI task and changed 'volumes' to 'disks' on "UI to allow user adds volumes from different pools to a Template"
+<a name="l-152"></a><span class="tm">13:57:43</span><span class="nk"> &lt;royce&gt;</span> Thanks for the patient explanation :)))alinefm
+<a name="l-153"></a><span class="tm">13:57:54</span><span class="nk"> &lt;YuXin&gt;</span> I will take a further look tomorrow and take over some line items
+<a name="l-154"></a><span class="tm">13:58:08</span><span class="nk"> &lt;alinefm&gt;</span> royce, it is my pleasure
+<a name="l-155"></a><span class="tm">13:58:24</span><span class="nk"> &lt;alinefm&gt;</span> I missed you all on last scrum meeting
+<a name="l-156"></a><span class="tm">13:58:29</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, thanks
+<a name="l-157"></a><span class="tm">13:58:39</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, wenwang1, and don't forget the RFC's
+<a name="l-158"></a><span class="tm">13:58:42</span><span class="nk"> &lt;alinefm&gt;</span> or mockups
+<a name="l-159"></a><span class="tm">13:58:48</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-160"></a><span class="tm">13:58:51</span><span class="nk"> &lt;royce&gt;</span> Yes! We too!
+<a name="l-161"></a><span class="tm">13:59:00</span><span class="nk"> &lt;alinefm&gt;</span> just to we get agreement before implementation
+<a name="l-162"></a><span class="tm">13:59:25</span><span class="nk"> &lt;wenwang1&gt;</span> sure alinefm
+<a name="l-163"></a><span class="tm">13:59:42</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-164"></a><span class="tm">14:00:06</span><span class="nk"> &lt;alinefm&gt;</span> oh I forgot to mention to you about the planning
+<a name="l-165"></a><span class="tm">14:01:04</span><span class="nk"> &lt;alinefm&gt;</span> instead of having 2 devel sprints and 2 stabilization sprints, we will have one single devel phase until 11/19
+<a name="l-166"></a><span class="tm">14:01:20</span><span class="nk"> &lt;royce&gt;</span> ok
+<a name="l-167"></a><span class="tm">14:01:23</span><span class="nk"> &lt;alinefm&gt;</span> from 11/19 to 12/10 it is code freeze - only bug fixes will be merged
+<a name="l-168"></a><span class="tm">14:01:57</span><span class="nk"> &lt;alinefm&gt;</span> and the final week (from 12/10 to 12/17) it is hard code freeze which means only blocks bug fixes will be merged
+<a name="l-169"></a><span class="tm">14:02:06</span><span class="nk"> &lt;alinefm&gt;</span> and the announcement on 12/19
+<a name="l-170"></a><span class="tm">14:02:13</span><span class="nk"> &lt;alinefm&gt;</span> makes sense for you?
+<a name="l-171"></a><span class="tm">14:02:19</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-172"></a><span class="tm">14:02:23</span><span class="nk"> &lt;wenwang1&gt;</span> ok
+<a name="l-173"></a><span class="tm">14:02:38</span><span class="nk"> &lt;royce&gt;</span> Good plan! we do not want to submit patch on dead lines
+<a name="l-174"></a><span class="tm">14:02:56</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap! me too =)
+<a name="l-175"></a><span class="tm">14:03:02</span><span class="nk"> &lt;royce&gt;</span> quality can't gaurentee
+<a name="l-176"></a><span class="tm">14:04:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-177"></a><span class="tm">14:05:16</span><span class="nk"> &lt;alinefm&gt;</span> any comments? doubts? suggestions?
+<a name="l-178"></a><span class="tm">14:06:11</span><span class="nk"> &lt;royce&gt;</span> not any more:)
+<a name="l-179"></a><span class="tm">14:07:42</span><span class="nk"> &lt;alinefm&gt;</span> well, any time you can ping me here or send email do ML
+<a name="l-180"></a><span class="tm">14:08:02</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining
+<a name="l-181"></a><span class="tm">14:08:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
