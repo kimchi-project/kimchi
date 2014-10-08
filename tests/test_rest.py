@@ -157,13 +157,14 @@ class RestTests(unittest.TestCase):
         self.assertHTTPStatus(406, "/", None, 'GET', h)
 
     def test_host_devices(self):
-        nodedevs = json.loads(self.request('/host/devices').read())
+        resp = self.request('/host/devices?_cap=scsi_host')
+        nodedevs = json.loads(resp.read())
         # Mockmodel brings 3 preconfigured scsi fc_host
         self.assertEquals(3, len(nodedevs))
 
-        nodedev = json.loads(self.request('/host/devices/scsi_host4').read())
+        nodedev = json.loads(self.request('/host/devices/scsi_host2').read())
         # Mockmodel generates random wwpn and wwnn
-        self.assertEquals('scsi_host4', nodedev['name'])
+        self.assertEquals('scsi_host2', nodedev['name'])
         self.assertEquals('fc_host', nodedev['adapter']['type'])
         self.assertEquals(16, len(nodedev['adapter']['wwpn']))
         self.assertEquals(16, len(nodedev['adapter']['wwnn']))

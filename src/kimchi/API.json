@@ -721,6 +721,44 @@
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"
+        },
+        "devices_get_list": {
+            "type": "object",
+            "properties": {
+                "_cap": {
+                    "description": "List specific type of device",
+                    "type": "string",
+                    "pattern": "^fc_host|net|pci|scsi|scsi_host|storage|system|usb|usb_device$",
+                    "error": "KCHDEVS0001E"
+                },
+                "_passthrough": {
+                    "description": "List only devices eligible to be assigned to guest",
+                    "type": "string",
+                    "pattern": "^true|false$",
+                    "error": "KCHDEVS0002E"
+                },
+                "_passthrough_affected_by": {
+                    "description": "List the affected devices in the same group of a certain device to be assigned to guest",
+                    "type": "string",
+                    "pattern": "^[_A-Za-z0-9-]+$",
+                    "error": "KCHDEVS0003E"
+                }
+            },
+            "additionalProperties": false,
+            "error": "KCHAPI0001E"
+        },
+        "vmhostdevs_create": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Then name of the device to assign to VM",
+                    "type": "string",
+                    "pattern": "^[_A-Za-z0-9-]+$",
+                    "required": true,
+                    "error": "KCHVMHDEV0004E"
+                }
+            },
+            "error": "KCHAPI0001E"
         }
     }
 }

@@ -1059,6 +1059,37 @@ class ModelTests(unittest.TestCase):
             self.assertIn('ipaddr', iface)
             self.assertIn('netmask', iface)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_get_devices(self):
+        def asset_devices_type(devices, dev_type):
+            for dev in devices:
+                self.assertEquals(dev['device_type'], dev_type)
+
+        inst = model.Model('qemu:///system',
+                           objstore_loc=self.tmp_store)
+
+        devs = inst.devices_get_list()
+
+        for dev_type in ('pci', 'usb_device', 'scsi'):
+            names = inst.devices_get_list(_cap=dev_type)
+            self.assertTrue(set(names) <= set(devs))
+            infos = [inst.device_lookup(name) for name in names]
+            asset_devices_type(infos, dev_type)
+
+        passthru_devs = inst.devices_get_list(_passthrough='true')
+        self.assertTrue(set(passthru_devs) <= set(devs))
+
+        for dev_type in ('pci', 'usb_device', 'scsi'):
+            names = inst.devices_get_list(_cap=dev_type, _passthrough='true')
+            self.assertTrue(set(names) <= set(devs))
+            infos = [inst.device_lookup(name) for name in names]
+            asset_devices_type(infos, dev_type)
+
+        for dev_name in passthru_devs:
+            affected_devs = inst.devices_get_list(
+                _passthrough_affected_by=dev_name)
+            self.assertTrue(set(affected_devs) <= set(devs))
+
     def test_async_tasks(self):
         class task_except(Exception):
             pass
