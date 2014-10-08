@@ -53,6 +53,7 @@ class CapabilitiesModel(object):
         self.libvirt_stream_protocols = []
         self.fc_host_support = False
         self.metadata_support = False
+        self.kernel_vfio = False
 
         # Subscribe function to set host capabilities to be run when cherrypy
         # server is up
@@ -66,6 +67,7 @@ class CapabilitiesModel(object):
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe()
         self.fc_host_support = FeatureTests.libvirt_support_fc_host()
         self.metadata_support = FeatureTests.has_metadata_support()
+        self.kernel_vfio = FeatureTests.kernel_support_vfio()
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
@@ -110,7 +112,9 @@ class CapabilitiesModel(object):
                 'system_report_tool': bool(report_tool),
                 'update_tool': update_tool,
                 'repo_mngt_tool': repo_mngt_tool,
-                'federation': kconfig.get("server", "federation")}
+                'federation': kconfig.get("server", "federation"),
+                'kernel_vfio': self.kernel_vfio,
+                }
 
 
 class DistrosModel(object):
