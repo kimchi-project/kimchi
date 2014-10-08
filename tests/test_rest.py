@@ -164,9 +164,9 @@ class RestTests(unittest.TestCase):
         nodedev = json.loads(self.request('/host/devices/scsi_host4').read())
         # Mockmodel generates random wwpn and wwnn
         self.assertEquals('scsi_host4', nodedev['name'])
-        self.assertEquals('fc_host', nodedev['adapter_type'])
-        self.assertEquals(16, len(nodedev['wwpn']))
-        self.assertEquals(16, len(nodedev['wwnn']))
+        self.assertEquals('fc_host', nodedev['adapter']['type'])
+        self.assertEquals(16, len(nodedev['adapter']['wwpn']))
+        self.assertEquals(16, len(nodedev['adapter']['wwnn']))
 
     def test_get_vms(self):
         vms = json.loads(self.request('/vms').read())

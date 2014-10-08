@@ -33,6 +33,7 @@ from kimchi import netinfo
 from kimchi import xmlutils
 from kimchi.basemodel import Singleton
 from kimchi.exception import InvalidOperation, NotFoundError, OperationFailed
+from kimchi.model import hostdev
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import DOM_STATE_MAP
@@ -341,20 +342,10 @@ class DeviceModel(object):
     def lookup(self, nodedev_name):
         conn = self.conn.get()
         try:
-            dev_xml = conn.nodeDeviceLookupByName(nodedev_name).XMLDesc(0)
+            dev = conn.nodeDeviceLookupByName(nodedev_name)
         except:
             raise NotFoundError('KCHHOST0003E', {'name': nodedev_name})
-        cap_type = xmlutils.xpath_get_text(
-            dev_xml, '/device/capability/capability/@type')
-        wwnn = xmlutils.xpath_get_text(
-            dev_xml, '/device/capability/capability/wwnn')
-        wwpn = xmlutils.xpath_get_text(
-            dev_xml, '/device/capability/capability/wwpn')
-        return {
-            'name': nodedev_name,
-            'adapter_type': cap_type[0] if len(cap_type) >= 1 else '',
-            'wwnn': wwnn[0] if len(wwnn) == 1 else '',
-            'wwpn': wwpn[0] if len(wwpn) == 1 else ''}
+        return hostdev.get_dev_info(dev)
 
 
 class PackagesUpdateModel(object):

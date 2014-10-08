@@ -145,9 +145,10 @@ class storagepoolTests(unittest.TestCase):
                  'path': '/dev/disk/by-path',
                  'source': {
                      'name': 'scsi_host3',
-                     'adapter_type': 'fc_host',
-                     'wwpn': '0123456789abcdef',
-                     'wwnn': 'abcdef0123456789'}},
+                     'adapter': {
+                         'type': 'fc_host',
+                         'wwpn': '0123456789abcdef',
+                         'wwnn': 'abcdef0123456789'}}},
              'xml':
              """
              <pool type='scsi'>
