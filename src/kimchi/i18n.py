@@ -40,6 +40,10 @@ messages = {
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
     "KCHAUTH0003E": _("Specify %(item)s to login into Kimchi"),
 
+    "KCHDEVS0001E": _('Unknown "_cap" specified'),
+    "KCHDEVS0002E": _('"_passthrough" should be "true" or "false"'),
+    "KCHDEVS0003E": _('"_passthrough_affected_by" should be a device name string'),
+
     "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
     "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),
 
@@ -104,6 +108,7 @@ messages = {
                         "Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify the Kernel is compiled with IOMMU support. "
                         "For Intel CPU, add intel_iommu=on to your Kernel parameter in /boot/grub2/grub.conf. "
                         "For AMD CPU, add iommu=pt iommu=1."),
+    "KCHVMHDEV0004E": _('"name" should be a device name string'),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),

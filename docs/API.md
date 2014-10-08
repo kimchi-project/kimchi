@@ -168,6 +168,21 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 **Actions (POST):**
 
 
+### Sub-collection: Virtual Machine Passthrough Devices
+**URI:** /vms/*:name*/hostdevs
+* **GET**: Retrieve a summarized list of all directly assigned host device of
+           specified guest.
+* **POST**: Directly assign a host device to guest.
+    * name: The name of the host device to be assigned to vm.
+
+### Sub-resource: Device
+**URI:** /vms/*:name*/hostdevs/*:dev*
+* **GET**: Retrieve assigned device information
+    * name: The name of the assigned device.
+    * type: The type of the assigned device.
+* **DELETE**: Detach the host device from VM.
+
+
 ### Collection: Templates
 
 **URI:** /templates
@@ -897,11 +912,17 @@ stats history
 
 **Methods:**
 
-* **GET**: Retrieves list of host pci devices (Node Devices).
-           Currently only scsi_host devices are supported:
+* **GET**: Retrieves list of host devices (Node Devices).
     * Parameters:
         * _cap: Filter node device list with given node device capability.
                 To list Fibre Channel SCSI Host devices, use "_cap=fc_host".
+                Other available values are "fc_host", "net", "pci", "scsi",
+                "storage", "system", "usb" and "usb_device".
+        * _passthrough: Filter devices eligible to be assigned to guest
+                        directly. Possible values are "ture" and "false".
+        * _passthrough_affected_by: Filter the affected devices in the same
+                                    group of a certain directly assigned device.
+                                    The value should be the name of a device.
 
 ### Resource: Device
 
@@ -909,14 +930,40 @@ stats history
 
 **Methods:**
 
-* **GET**: Retrieve information of a single pci device.
-           Currently only scsi_host devices are supported:
+* **GET**: Retrieve information of a single host device.
+    * device_type: Type of the device, supported types are "net", "pci", "scsi",
+                   "storage", "system", "usb" and "usb_device".
     * name: The name of the device.
     * path: Path of device in sysfs.
-    * adapter: Host adapter information. Empty if pci device is not scsi_host.
+    * parent: The name of the parent parent device.
+    * adapter: Host adapter information of a "scsi_host" or "fc_host" device.
         * type: The capability type of the scsi_host device (fc_host, vport_ops).
         * wwnn: The HBA Word Wide Node Name. Empty if pci device is not fc_host.
         * wwpn: The HBA Word Wide Port Name. Empty if pci device is not fc_host.
+    * domain: Domain number of a "pci" device.
+    * bus: Bus number of a "pci" device.
+    * slot: Slot number of a "pci" device.
+    * function: Function number of a "pci" device.
+    * vendor: Vendor information of a "pci" device.
+        * id: Vendor id of a "pci" device.
+        * description: Vendor description of a "pci" device.
+    * product: Product information of a "pci" device.
+        * id: Product id of a "pci" device.
+        * description: Product description of a "pci" device.
+    * iommuGroup: IOMMU group number of a "pci" device. Would be None/null if
+	              host does not enable IOMMU support.
+
+
+### Sub-collection: VMs with the device assigned.
+**URI:** /host/devices/*:name*/vmholders
+* **GET**: Retrieve a summarized list of all VMs holding the device.
+
+### Sub-resource: VM holder
+**URI:** /host/devices/*:name*/vmholders/*:vm*
+* **GET**: Retrieve information of the VM which is holding the device
+    * name: The name of the VM.
+    * state: The power state of the VM. Could be "running" and "shutdown".
+
 
 ### Collection: Host Packages Update
 

@@ -91,6 +91,7 @@ class MockModel(object):
         self.next_taskid = 1
         self.storagepool_activate('default')
         self._mock_host_repositories = MockRepositories()
+        self._mock_devices = MockDevices()
 
     def _static_vm_update(self, dom, params):
         state = dom.info['state']
@@ -611,16 +612,15 @@ class MockModel(object):
             raise InvalidOperation("KCHVOL0006E", {'pool': pool})
         return res._volumes.keys()
 
-    def devices_get_list(self, _cap=None):
-        return ['scsi_host3', 'scsi_host4', 'scsi_host5']
+    def devices_get_list(self, _cap=None, _passthrough=None,
+                         _passthrough_affected_by=None):
+        if _cap is None:
+            return self._mock_devices.devices.keys()
+        return [dev['name'] for dev in self._mock_devices.devices.values()
+                if dev['device_type'] == _cap]
 
-    def device_lookup(self, nodedev_name):
-        return {
-            'name': nodedev_name,
-            'adapter': {
-                'type': 'fc_host',
-                'wwnn': uuid.uuid4().hex[:16],
-                'wwpn': uuid.uuid4().hex[:16]}}
+    def device_lookup(self, dev_name):
+        return self._mock_devices.devices[dev_name]
 
     def isopool_lookup(self, name):
         return {'state': 'active',
@@ -1416,6 +1416,83 @@ class MockRepositories(object):
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
         del self._repos[repo_id]
+
+
+class MockDevices(object):
+    def __init__(self):
+        self.devices = {
+            'computer': {'device_type': 'system',
+                         'firmware': {'release_date': '01/01/2012',
+                                      'vendor': 'LENOVO',
+                                      'version': 'XXXXX (X.XX )'},
+                         'hardware': {'serial': 'PXXXXX',
+                                      'uuid':
+                                      '9d660370-820f-4241-8731-5a60c97e8aa6',
+                                      'vendor': 'LENOVO',
+                                      'version': 'ThinkPad T420'},
+                         'name': 'computer',
+                         'parent': None,
+                         'product': '4180XXX'},
+            'pci_0000_03_00_0': {'bus': 3,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'iwlwifi'},
+                                 'function': 0,
+                                 'iommuGroup': 7,
+                                 'name': 'pci_0000_03_00_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:03:00.0',
+                                 'product': {
+                                     'description':
+                                     'Centrino Advanced-N 6205 [Taylor Peak]',
+                                     'id': '0x0085'},
+                                 'slot': 0,
+                                 'vendor': {'description': 'Intel Corporation',
+                                            'id': '0x8086'}},
+            'pci_0000_0d_00_0': {'bus': 13,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'sdhci-pci'},
+                                 'function': 0,
+                                 'iommuGroup': 7,
+                                 'name': 'pci_0000_0d_00_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:0d:00.0',
+                                 'product': {'description':
+                                             'PCIe SDXC/MMC Host Controller',
+                                             'id': '0xe823'},
+                                 'slot': 0,
+                                 'vendor': {'description': 'Ricoh Co Ltd',
+                                            'id': '0x1180'}},
+            'scsi_host0': {'adapter': {'fabric_wwn': '37df6c1efa1b4388',
+                                       'type': 'fc_host',
+                                       'wwnn': 'efb6563f06434a98',
+                                       'wwpn': '742f32073aab45d7'},
+                           'device_type': 'scsi_host',
+                           'host': 0,
+                           'name': 'scsi_host0',
+                           'parent': 'computer',
+                           'path': '/sys/devices/pci0000:00/0000:40:00.0/0'},
+            'scsi_host1': {'adapter': {'fabric_wwn': '542efa5dced34123',
+                                       'type': 'fc_host',
+                                       'wwnn': 'b7433a40c9b84092',
+                                       'wwpn': '25c1f485ae42497f'},
+                           'device_type': 'scsi_host',
+                           'host': 0,
+                           'name': 'scsi_host1',
+                           'parent': 'computer',
+                           'path': '/sys/devices/pci0000:00/0000:40:00.0/1'},
+            'scsi_host2': {'adapter': {'fabric_wwn': '5c373c334c20478d',
+                                       'type': 'fc_host',
+                                       'wwnn': 'f2030bec4a254e6b',
+                                       'wwpn': '07dbca4164d44096'},
+                           'device_type': 'scsi_host',
+                           'host': 0,
+                           'name': 'scsi_host2',
+                           'parent': 'computer',
+                           'path': '/sys/devices/pci0000:00/0000:40:00.0/2'}}
 
 
 def get_mock_environment():
