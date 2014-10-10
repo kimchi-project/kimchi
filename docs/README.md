@@ -57,6 +57,10 @@ Install Dependencies
                         policycoreutils-python python-libguestfs \
                         libguestfs-tools python-requests python-websockify \
                         novnc
+
+     # If using RHEL6 or Fedora, install the following additional package:
+     $ sudo yum install spice-html5
+
      # If using RHEL6, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
      # Restart libvirt to allow configuration changes to take effect
@@ -80,7 +84,7 @@ for more information on how to configure your system to access this repository.
                            sosreport python-ipaddr python-lxml nfs-common \
                            open-iscsi lvm2 xsltproc python-parted nginx \
                            firewalld python-guestfs libguestfs-tools \
-                           python-requests websockify novnc
+                           python-requests websockify novnc spice-html5
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
@@ -112,8 +116,12 @@ information on how configure your system to access this repository.
 
 Build and Install
 -----------------
+    For RHEL7 and openSUSE 13.1:
+    $ ./autogen.sh --with-spice-html5
 
+    Otherwise:
     $ ./autogen.sh --system
+
     $ make
     $ sudo make install   # Optional if running from the source tree
 

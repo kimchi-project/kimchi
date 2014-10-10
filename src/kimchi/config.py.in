@@ -31,6 +31,7 @@ from kimchi.xmlutils import xpath_get_text
 
 __version__ = "@kimchiversion@"
 __release__ = "@kimchirelease@"
+__with_spice__ = "@withspice@"
 
 DEFAULT_LOG_LEVEL = "debug"
 
@@ -87,6 +88,21 @@ class Paths(object):
     def __init__(self):
         self.prefix = self.get_prefix()
         self.installed = (self.prefix == '@pkgdatadir@')
+        self.ui_dir = self.add_prefix('ui')
+        self.spice_file = os.path.join(self.ui_dir,
+                                       'spice-html5/pages/spice_auto.html')
+
+        if __with_spice__ == 'yes':
+            self.spice_dir = self.add_prefix('ui/spice-html5')
+        elif os.path.exists('@datadir@/spice-html5'):
+            self.spice_dir = '@datadir@/spice-html5'
+        else:
+            self.spice_dir = '/usr/share/spice-html5'
+
+        if os.path.exists('@datadir@/novnc'):
+            self.novnc_dir = '@datadir@/novnc'
+        else:
+            self.novnc_dir = '/usr/share/novnc'
 
         if self.installed:
             self.state_dir = '@localstatedir@/lib/kimchi'
@@ -94,19 +110,16 @@ class Paths(object):
             self.conf_dir = '@sysconfdir@/kimchi'
             self.src_dir = '@kimchidir@'
             self.plugins_dir = '@kimchidir@/plugins'
+            self.mo_dir = '@prefix@/share/locale'
+            self.spice_css_file = os.path.join(self.spice_dir, 'spice.css')
         else:
             self.state_dir = self.add_prefix('data')
             self.log_dir = self.add_prefix('log')
             self.conf_dir = self.add_prefix('src')
             self.src_dir = self.add_prefix('src/kimchi')
             self.plugins_dir = self.add_prefix('plugins')
-
-        self.ui_dir = self.add_prefix('ui')
-
-        if self.installed:
-            self.mo_dir = '@prefix@/share/locale'
-        else:
             self.mo_dir = self.add_prefix('mo')
+            self.spice_css_file = os.path.join(self.spice_dir, 'css/spice.css')
 
     def get_prefix(self):
         if __file__.startswith("/"):
@@ -187,12 +200,25 @@ class KimchiConfig(dict):
         },
         '/novnc': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': '@datadir@/novnc',
+            'tools.staticdir.dir': paths.novnc_dir,
             'tools.nocache.on': True,
             'tools.kimchiauth.on': True
         },
-        '/spice.html': {
+        '/spice_auto.html': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': paths.spice_file,
+            'tools.nocache.on': True,
             'tools.kimchiauth.on': True
+        },
+        '/spice-html5': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': paths.spice_dir,
+            'tools.nocache.on': True
+        },
+        '/spice-html5/spice.css': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': paths.spice_css_file,
+            'tools.nocache.on': True,
         },
         '/kimchi-ui.html': {
             'tools.kimchiauth.on': True

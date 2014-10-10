@@ -45,7 +45,7 @@ Web server application to manage KVM/Qemu virtual machines
 %setup
 
 %build
-%configure
+%configure --with-spice-html5
 make
 
 %install

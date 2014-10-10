@@ -112,8 +112,21 @@ class ConfigTests(unittest.TestCase):
                 'tools.nocache.on': True,
                 'tools.kimchiauth.on': True
             },
-            '/spice.html': {
+            '/spice_auto.html': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': paths.spice_file,
+                'tools.nocache.on': True,
                 'tools.kimchiauth.on': True
+            },
+            '/spice-html5': {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': paths.spice_dir,
+                'tools.nocache.on': True
+            },
+            '/spice-html5/spice.css': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': paths.spice_css_file,
+                'tools.nocache.on': True,
             },
             '/kimchi-ui.html': {
                 'tools.kimchiauth.on': True
