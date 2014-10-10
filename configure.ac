@@ -64,6 +64,15 @@ else
 AC_SUBST([ENABLE_SAMPLE], [False])
 fi
 
+AC_ARG_WITH(
+    [spice-html5],
+    [AS_HELP_STRING([--with-spice-html5],
+                    [Build Kimchi with spice-html5 @<:@default=no@:>@])],
+    ,
+    [with_spice_html5="no"]
+)
+AM_CONDITIONAL([WITH_SPICE], [test "x$with_spice_html5" = xyes])
+
 AC_CONFIG_FILES([
     po/Makefile.in
     po/gen-pot
@@ -90,6 +99,10 @@ AC_CONFIG_FILES([
     ui/images/theme-default/Makefile
     ui/js/Makefile
     ui/js/spice/Makefile
+    ui/spice-html5/Makefile
+    ui/spice-html5/css/Makefile
+    ui/spice-html5/pages/Makefile
+    ui/spice-html5/thirdparty/Makefile
     ui/libs/Makefile
     ui/libs/themes/Makefile
     ui/libs/themes/base/Makefile
