@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM, Corp. 2014
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,4 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = css images js libs pages spice-html5
+spicepagesdir = $(datadir)/kimchi/ui/spice-html5/pages
+
+dist_spicepages_DATA = $(wildcard *.html) $(NULL)
