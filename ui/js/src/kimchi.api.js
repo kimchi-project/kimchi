@@ -385,7 +385,7 @@ var kimchi = {
                 dataType : "json"
             }).done(function(data, textStatus, xhr) {
                 url = 'https://' + location.hostname + ':' + proxy_port;
-                url += "/console.html?url=spice.html&port=" + proxy_port;
+                url += "/console.html?url=spice_auto.html&port=" + proxy_port;
                 url += "&listen=" + location.hostname;
                 /*
                  * From python documentation base64.urlsafe_b64encode(s)
