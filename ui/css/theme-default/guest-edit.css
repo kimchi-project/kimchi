@@ -17,8 +17,8 @@
  */
 #guest-edit-window {
     font-size: 13px;
-    height: 400px;
-    width: 610px;
+    height: 420px;
+    width: 820px;
 }
 
 #guest-edit-tabs {
@@ -260,4 +260,90 @@
 .guest-edit-permission .selected {
     width: 46%;
     float: right;
+}
+
+.guest-edit-pci {
+    height: 79%;
+    overflow: auto;
+    font-size: 12px;
+}
+
+.guest-edit-pci .guest-scroll-indent {
+    width: 783px;
+}
+
+.guest-edit-pci .filter {
+    height: 35px;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.guest-edit-pci .group {
+    float: right;
+}
+
+.guest-edit-pci .filter .control {
+    border: 1px solid #AAAAAA;
+    font-size: 12px;
+    background-color: white;
+}
+
+.guest-edit-pci .filter select {
+    border-right: 0px!important;
+    border-radius: 7px 0px 0px 7px;
+    padding: 2px 2px 2px 7px;
+    width: 100px;
+}
+
+.guest-edit-pci .filter select option {
+    padding-left: 7px;
+}
+
+.guest-edit-pci .filter input {
+    border-radius: 0px 7px 7px 0px;
+    padding: 3px 3px 3px 10px;
+    width: 200px;
+    font-style: italic;
+}
+
+.guest-edit-pci .header {
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    font-weight: bold;
+    border-bottom: 1px solid #999999;
+}
+
+.guest-edit-pci .item {
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+
+.guest-edit-pci .cell {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.guest-edit-pci .item button {
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+
+.guest-edit-pci .name {
+    width: 18%;
+    max-width: 18%;
+}
+
+.guest-edit-pci .product {
+    width: 45%;
+    max-width: 45%;
+}
+
+.guest-edit-pci .vendor {
+    width: 25%;
+    max-width: 25%;
 }

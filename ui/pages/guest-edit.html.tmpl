@@ -41,6 +41,9 @@
                 <li>
                     <a href="#form-guest-edit-permission">$_("Permission")</a>
                 </li>
+                <li>
+                    <a href="#form-guest-edit-pci">$_("Host PCI Device")</a>
+                </li>
             </ul>
             <form id="form-guest-edit-general">
                 <fieldset class="guest-edit-fieldset">
@@ -138,6 +141,25 @@
                         </div>
                     </div>
             </form>
+            <form id="form-guest-edit-pci" class="guest-edit-pci">
+                <div class="guest-scroll-indent">
+                    <div class="filter">
+                        <span class="group">
+                            <select class="control">
+                                <option value="all">$_("All")</option>
+                                <option value="toAdd">$_("To Add")</option>
+                                <option value="added">$_("Added")</option>
+                            </select><input type="text" class="control" placeholder="$_("filter")">
+                        </span>
+                    </div>
+                    <div class="header">
+                        <span class="cell name">$_("Name")</span>
+                        <span class="cell product">$_("Product")</span>
+                        <span class="cell vendor">$_("Vendor")</span>
+                    </div>
+                    <div class="body"></div>
+                </div>
+            </form>
         </div>
     </div>
     <footer>
@@ -219,6 +241,14 @@
 <div class="item">
     <span class="icon {class}"></span>
     <label>{val}</label>
+</div>
+</script>
+<script id="pci-tmpl" type="text/html">
+<div class="item" id="{name}">
+    <span class="cell name" title="{name}">{name}</span>
+    <span class="cell product" title="{product}">{product}</span>
+    <span class="cell vendor" title="{vendor}">{vendor}</span>
+    <button></button>
 </div>
 </script>
 <script type="text/javascript">
