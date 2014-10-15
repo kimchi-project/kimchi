@@ -17,4 +17,4 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-EXTRA_DIST = i18n.json.tmpl tab.html.tmpl
+EXTRA_DIST = i18n.json.tmpl sample-tab1.html.tmpl sample-tab2.html.tmpl

@@ -4,7 +4,14 @@
         <access role="admin" mode="admin"/>
         <access role="user" mode="none"/>
 
-        <title>SampleTab</title>
-        <path>plugins/sample/tab.html</path>
+        <title>SampleTab 1</title>
+        <path>plugins/sample/sample-tab1.html</path>
+    </tab>
+    <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+
+        <title>SampleTab 2</title>
+        <path>plugins/sample/sample-tab2.html</path>
     </tab>
 </tabs-ext>

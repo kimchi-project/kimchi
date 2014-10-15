@@ -20,3 +20,8 @@ tools.kimchiauth.on = True
 
 [/circles]
 tools.kimchiauth.on = True
+
+[/help]
+tools.staticdir.on = True
+tools.nocache.on = True
+tools.staticdir.dir = kimchi.config.PluginPaths('sample').ui_dir + '/pages/help'
