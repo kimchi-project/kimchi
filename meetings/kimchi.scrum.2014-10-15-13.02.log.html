@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:04</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 15 13:02:04 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:04</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:04</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:05</span><span class="nk"> &lt;royce&gt;</span> Hey aline
+<a name="l-7"></a><span class="tm">13:02:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:02:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-9"></a><span class="tm">13:03:03</span><span class="nk"> &lt;royce&gt;</span> good for me
+<a name="l-10"></a><span class="tm">13:03:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:03:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:03:41</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Design UI of 'guest clone', 'serial console', 'new UI header'</span>
+<a name="l-13"></a><span class="tm">13:04:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to use installed spice-html5 code when possible (opensuse13.1 and rhel7 don't have this package so Kimchi must be build with --with-spice-html5)</span>
+<a name="l-14"></a><span class="tm">13:04:54</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce investigated about integrate LDAP with kimchi, sent an RFC to ML, now implementing authentication part, will send v1 before this Friday</span>
+<a name="l-15"></a><span class="tm">13:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on vm template refactor</span>
+<a name="l-16"></a><span class="tm">13:05:23</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">worked on the cloning feature, reviewed patches on the mailing list</span>
+<a name="l-17"></a><span class="tm">13:05:27</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac worked on the cloning feature, reviewed patches on the mailing list</span>
+<a name="l-18"></a><span class="tm">13:05:27</span><span class="nk"> &lt;vianac&gt;</span> ops
+<a name="l-19"></a><span class="tm">13:05:30</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru sent V5 of patches to fix help</span>
+<a name="l-20"></a><span class="tm">13:06:09</span><span class="nk"> &lt;alinefm&gt;</span> good progress team!
+<a name="l-21"></a><span class="tm">13:06:28</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of PCI passthough UI</span>
+<a name="l-22"></a><span class="tm">13:07:19</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on designing UI to allow user adds disks from different pools to a Template</span>
+<a name="l-23"></a><span class="tm">13:07:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a patch that revamps the use of the console log</span>
+<a name="l-24"></a><span class="tm">13:08:04</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on redesigning "Edit Template" function</span>
+<a name="l-25"></a><span class="tm">13:09:01</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-26"></a><span class="tm">13:09:05</span><span class="nk"> &lt;alinefm&gt;</span> shall we move on to open discussion?
+<a name="l-27"></a><span class="tm">13:09:36</span><span class="nk"> &lt;royce&gt;</span> ok
+<a name="l-28"></a><span class="tm">13:09:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-29"></a><span class="tm">13:09:45</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-30"></a><span class="tm">13:10:08</span><span class="nk"> &lt;YuXin&gt;</span> for serial console, seems like virt-manager enabled it by default
+<a name="l-31"></a><span class="tm">13:10:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I was reading zheng zhou replies on it
+<a name="l-32"></a><span class="tm">13:10:55</span><span class="nk"> &lt;YuXin&gt;</span> why not enable it by default in kimchi?
+<a name="l-33"></a><span class="tm">13:11:03</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-34"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> yeap! I think it would be the best solution
+<a name="l-35"></a><span class="tm">13:11:29</span><span class="nk"> &lt;alinefm&gt;</span> baude, have you had type to check the ML about the serial console?
+<a name="l-36"></a><span class="tm">13:11:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, so user will always have serial on their vms in addition to vnc/spice
+<a name="l-37"></a><span class="tm">13:12:00</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-38"></a><span class="tm">13:12:11</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, do you know some open source project to enable the text console on web?
+<a name="l-39"></a><span class="tm">13:12:17</span><span class="nk"> &lt;alinefm&gt;</span> by using websockets...
+<a name="l-40"></a><span class="tm">13:12:30</span><span class="nk"> &lt;YuXin&gt;</span> not investigated that yet
+<a name="l-41"></a><span class="tm">13:12:36</span><span class="nk"> &lt;baude&gt;</span> alinefm, no i hadnt seen it, i see it now
+<a name="l-42"></a><span class="tm">13:12:45</span><span class="nk"> &lt;wenwang&gt;</span> about the "Edit template", I think we should move "UI to allow user adds disks from different pools to a Template(wenwang)" and "Move iSCSI/SCSI volume selection to VM creation instead of Template view(wenwang)" together since we are going to enable volume eidt in the new "Edit Template" function
+<a name="l-43"></a><span class="tm">13:13:18</span><span class="nk"> &lt;YuXin&gt;</span> if enable serial console by default, then no UI is needed for that
+<a name="l-44"></a><span class="tm">13:13:24</span><span class="nk"> &lt;YuXin&gt;</span> ignore my design
+<a name="l-45"></a><span class="tm">13:14:05</span><span class="nk"> &lt;baude&gt;</span> looks like my work isnt needed alinefm
+<a name="l-46"></a><span class="tm">13:14:08</span><span class="nk"> &lt;royce&gt;</span> alinefm YuXin, I heard from zhengsheng that there is some emulator of console of web, he tried it before
+<a name="l-47"></a><span class="tm">13:15:13</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap! I've just read it on ML
+<a name="l-48"></a><span class="tm">13:15:21</span><span class="nk"> &lt;YuXin&gt;</span> we need to think about security first for web text console
+<a name="l-49"></a><span class="tm">13:15:30</span><span class="nk"> &lt;alinefm&gt;</span> some kind of wspty
+<a name="l-50"></a><span class="tm">13:15:43</span><span class="nk"> &lt;alinefm&gt;</span> baude, yes =/
+<a name="l-51"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, agree - I will remove the seconds from wiki page
+<a name="l-52"></a><span class="tm">13:16:15</span><span class="nk"> &lt;YuXin&gt;</span> the only security control there is the login of linux command line
+<a name="l-53"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, seems Zheng Zhou has provided a solution for the security
+<a name="l-54"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> the kimchi login isn't enough?
+<a name="l-55"></a><span class="tm">13:17:00</span><span class="nk"> &lt;baude&gt;</span> alinefm, I will warn you, its a bad assumption that serial and graphical are complimentary.
+<a name="l-56"></a><span class="tm">13:17:23</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Thanks
+<a name="l-57"></a><span class="tm">13:17:35</span><span class="nk"> &lt;baude&gt;</span> distro installers, if they detect both, will send information to the graphical console that isn't available on serial
+<a name="l-58"></a><span class="tm">13:17:39</span><span class="nk"> &lt;YuXin&gt;</span> web socket -&gt; serial port -&gt; guest console
+<a name="l-59"></a><span class="tm">13:17:58</span><span class="nk"> &lt;baude&gt;</span> with the current proposal, there should be an off option for graphical
+<a name="l-60"></a><span class="tm">13:18:00</span><span class="nk"> &lt;YuXin&gt;</span> kimchi can be bypassed to access web socket
+<a name="l-61"></a><span class="tm">13:18:03</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> also, I think now "Guest disk hot plug UI(wenwang)" is enabled after talked to royce
+<a name="l-62"></a><span class="tm">13:18:27</span><span class="nk"> &lt;YuXin&gt;</span> so only guest console need login
+<a name="l-63"></a><span class="tm">13:18:31</span><span class="nk"> &lt;royce&gt;</span> yes, we wandered why we need this task
+<a name="l-64"></a><span class="tm">13:20:15</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, royce, AFAIK I am not able to add a disk to a running vm
+<a name="l-65"></a><span class="tm">13:20:22</span><span class="nk"> &lt;alinefm&gt;</span> only when it is stopped
+<a name="l-66"></a><span class="tm">13:20:33</span><span class="nk"> &lt;alinefm&gt;</span> baude, most of installers do that way?
+<a name="l-67"></a><span class="tm">13:20:44</span><span class="nk"> &lt;baude&gt;</span> and boot time as well alinefm
+<a name="l-68"></a><span class="tm">13:21:00</span><span class="nk"> &lt;royce&gt;</span> if (params['bus'] not in HOTPLUG_TYPE
+<a name="l-69"></a><span class="tm">13:21:01</span><span class="nk"> &lt;royce&gt;</span> and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+<a name="l-70"></a><span class="tm">13:21:01</span><span class="nk"> &lt;royce&gt;</span> raise InvalidOperation('KCHVMSTOR0011E')
+<a name="l-71"></a><span class="tm">13:21:03</span><span class="nk"> &lt;baude&gt;</span> its a simple add alinefm
+<a name="l-72"></a><span class="tm">13:21:12</span><span class="nk"> &lt;YuXin&gt;</span> so need to evaluate exposing serial port of guest vm without security control
+<a name="l-73"></a><span class="tm">13:21:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, even the serial port exposed the user will only access it through Kimchi web text console, right?
+<a name="l-74"></a><span class="tm">13:22:06</span><span class="nk"> &lt;alinefm&gt;</span> this web text console will be protected by kimchi authentication, right?
+<a name="l-75"></a><span class="tm">13:22:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, hmm.. so we need to enable it on UI
+<a name="l-76"></a><span class="tm">13:22:56</span><span class="nk"> &lt;YuXin&gt;</span> the web socket that host opened can be accessed out of kimchi, right?
+<a name="l-77"></a><span class="tm">13:23:19</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, no - it connects to localhost
+<a name="l-78"></a><span class="tm">13:23:33</span><span class="nk"> &lt;alinefm&gt;</span> if I remember correctly
+<a name="l-79"></a><span class="tm">13:24:06</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I think we have it enabled in earlier patches
+<a name="l-80"></a><span class="tm">13:24:32</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, let me check
+<a name="l-81"></a><span class="tm">13:24:36</span><span class="nk"> &lt;royce&gt;</span> I resolved a bug about UI passing bus type, I deleted the bus type, backend pick the right one, so backend will pick virtio if vm is labled
+<a name="l-82"></a><span class="tm">13:24:52</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, you mean only kimchi UI can access the web socket?
+<a name="l-83"></a><span class="tm">13:24:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Now we can not only change the disk as well as clear the input
+<a name="l-84"></a><span class="tm">13:25:44</span><span class="nk"> &lt;royce&gt;</span> let me verify wenwang, alinefm
+<a name="l-85"></a><span class="tm">13:26:03</span><span class="nk"> &lt;alinefm&gt;</span> royce, wenwang, on a running VM, I select "Edit" then "Storage" tab and there is no button to add more disks or change the current vda
+<a name="l-86"></a><span class="tm">13:26:18</span><span class="nk"> &lt;alinefm&gt;</span> royce, wenwang, with vm running I can only change the cdrom value
+<a name="l-87"></a><span class="tm">13:26:29</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I see
+<a name="l-88"></a><span class="tm">13:26:33</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-89"></a><span class="tm">13:26:51</span><span class="nk"> &lt;YuXin&gt;</span> ok, I think that is enough
+<a name="l-90"></a><span class="tm">13:26:56</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I need to test to confirm, but I remember the web sockets connects to localhost
+<a name="l-91"></a><span class="tm">13:27:07</span><span class="nk"> &lt;alinefm&gt;</span> to prevent others to get its connection outside
+<a name="l-92"></a><span class="tm">13:27:39</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I will have it done ASAP, thanks
+<a name="l-93"></a><span class="tm">13:27:46</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, so you tend to make 'web text console in kimchi UI' to be contained in 1.4?
+<a name="l-94"></a><span class="tm">13:28:19</span><span class="nk"> &lt;YuXin&gt;</span> or it is low priority that we make it a run-at
+<a name="l-95"></a><span class="tm">13:28:20</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if it is easy as Zheng Zhou said I think we can try to do it for 1.4
+<a name="l-96"></a><span class="tm">13:28:48</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-97"></a><span class="tm">13:28:51</span><span class="nk"> &lt;alinefm&gt;</span> we can test what he said and see how it will work
+<a name="l-98"></a><span class="tm">13:29:01</span><span class="nk"> &lt;alinefm&gt;</span> if we identify a lot of bugs we drop it for next release
+<a name="l-99"></a><span class="tm">13:29:07</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, make sense?
+<a name="l-100"></a><span class="tm">13:29:08</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-101"></a><span class="tm">13:29:11</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-102"></a><span class="tm">13:29:39</span><span class="nk"> &lt;YuXin&gt;</span> serial console and vnc/spice can coexist
+<a name="l-103"></a><span class="tm">13:29:47</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-104"></a><span class="tm">13:30:03</span><span class="nk"> &lt;YuXin&gt;</span> so in vm actions, connect need to split into 2 actions
+<a name="l-105"></a><span class="tm">13:30:27</span><span class="nk"> &lt;YuXin&gt;</span> ok, I will try more about it
+<a name="l-106"></a><span class="tm">13:30:30</span><span class="nk"> &lt;alinefm&gt;</span> we can add a new action "Text Console" or something like it
+<a name="l-107"></a><span class="tm">13:30:37</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-108"></a><span class="tm">13:30:49</span><span class="nk"> &lt;alinefm&gt;</span> baude, is there a way to choose between the consoles on installation time?
+<a name="l-109"></a><span class="tm">13:31:08</span><span class="nk"> &lt;baude&gt;</span> yes, console= on the bootloader, but most people dont understand that
+<a name="l-110"></a><span class="tm">13:31:35</span><span class="nk"> &lt;baude&gt;</span> and most distros autodetect consoles, but usually if they see graphical, they assume graphical
+<a name="l-111"></a><span class="tm">13:31:35</span><span class="nk"> &lt;alinefm&gt;</span> isn't there a libvirt config to do that?
+<a name="l-112"></a><span class="tm">13:32:19</span><span class="nk"> &lt;baude&gt;</span> alinefm, think of it like this ... you have two consoles open, if you boot an iso, its very likely the graphical installer will open on the graphics device, meanwhile you see little after the kernel boots on serial
+<a name="l-113"></a><span class="tm">13:32:23</span><span class="nk"> &lt;alinefm&gt;</span> royce, about the disk hot plug, so the backend is done? just need to enable on UI?
+<a name="l-114"></a><span class="tm">13:32:26</span><span class="nk"> &lt;baude&gt;</span> how can you predict which on the user looks at
+<a name="l-115"></a><span class="tm">13:32:52</span><span class="nk"> &lt;royce&gt;</span> yes, alinefm, I checked, and I have added testcases for it
+<a name="l-116"></a><span class="tm">13:33:09</span><span class="nk"> &lt;alinefm&gt;</span> royce, great! =)
+<a name="l-117"></a><span class="tm">13:33:11</span><span class="nk"> &lt;royce&gt;</span> wenwang, if you have any problem, feel free to talk to me
+<a name="l-118"></a><span class="tm">13:33:56</span><span class="nk"> &lt;alinefm&gt;</span> baude, I mean, if there is an libvirt option for it, we could enable user to select which console he wants to use for installation, for example
+<a name="l-119"></a><span class="tm">13:34:31</span><span class="nk"> &lt;baude&gt;</span> no there isnt, libvirt just makes the devices available
+<a name="l-120"></a><span class="tm">13:34:40</span><span class="nk"> &lt;baude&gt;</span> the kernel will see both if present
+<a name="l-121"></a><span class="tm">13:34:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">royce:</span> thanks
+<a name="l-122"></a><span class="tm">13:35:01</span><span class="nk"> &lt;royce&gt;</span> yw
+<a name="l-123"></a><span class="tm">13:35:42</span><span class="nk"> &lt;alinefm&gt;</span> baude, hmm got it
+<a name="l-124"></a><span class="tm">13:37:20</span><span class="nk"> &lt;YuXin&gt;</span> for guest clone, whether pre-check will be added to see whether enough space for storage pool?
+<a name="l-125"></a><span class="tm">13:38:07</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I was talking to vianac about it yesterday and we have agreed to don't require any user input on clone
+<a name="l-126"></a><span class="tm">13:38:43</span><span class="nk"> &lt;alinefm&gt;</span> we will check the space in the current storage pool and if it is full or *SCSI we fallback to default pool
+<a name="l-127"></a><span class="tm">13:39:00</span><span class="nk"> &lt;alinefm&gt;</span> what do you think about it?
+<a name="l-128"></a><span class="tm">13:40:16</span><span class="nk"> &lt;YuXin&gt;</span> I think it will work and any failure, kimchi UI will report that
+<a name="l-129"></a><span class="tm">13:40:18</span><span class="nk"> &lt;royce&gt;</span> shall we reject it directly?
+<a name="l-130"></a><span class="tm">13:40:47</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-131"></a><span class="tm">13:40:59</span><span class="nk"> &lt;YuXin&gt;</span> royce, if rejected, we also need to give user a way the perform the clone
+<a name="l-132"></a><span class="tm">13:41:01</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you mean reject clone?
+<a name="l-133"></a><span class="tm">13:41:15</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-134"></a><span class="tm">13:41:29</span><span class="nk"> &lt;alinefm&gt;</span> in which scenarios? *SCSI?
+<a name="l-135"></a><span class="tm">13:41:39</span><span class="nk"> &lt;royce&gt;</span> I'm not sure fallback to default pool is expected behavior
+<a name="l-136"></a><span class="tm">13:42:09</span><span class="nk"> &lt;YuXin&gt;</span> default pool will not be expected, at least user may want to create a new pool
+<a name="l-137"></a><span class="tm">13:42:42</span><span class="nk"> &lt;alinefm&gt;</span> I was reluctant about it too but we can document it as well
+<a name="l-138"></a><span class="tm">13:42:53</span><span class="nk"> &lt;alinefm&gt;</span> so user can be able to easily clone you vm using scsi disks
+<a name="l-139"></a><span class="tm">13:43:35</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac has noticed virt-manager reject it by default, ie, you can not create a clone from a vm using *scsi disks
+<a name="l-140"></a><span class="tm">13:43:47</span><span class="nk"> &lt;alinefm&gt;</span> which is bad IMO
+<a name="l-141"></a><span class="tm">13:43:55</span><span class="nk"> &lt;YuXin&gt;</span> maybe, we can add a feature to move volumes between pools
+<a name="l-142"></a><span class="tm">13:45:02</span><span class="nk"> &lt;royce&gt;</span> that's true, for scsi disks, if you don't input we can only choose default
+<a name="l-143"></a><span class="tm">13:45:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, or we could add a confirmation dialog on UI, if the vm to be cloned has *SCSI disks (we can know it on UI I think) we display a dialog: "The iSCSI and SCSI disks will be cloned on default storage pool. Do you want to continue?"
+<a name="l-144"></a><span class="tm">13:45:31</span><span class="nk"> &lt;YuXin&gt;</span> so default behavior requires fewest user actions, but if user really want to ajust the pools for volumes
+<a name="l-145"></a><span class="tm">13:45:40</span><span class="nk"> &lt;alinefm&gt;</span> and after confirmation we do the clone
+<a name="l-146"></a><span class="tm">13:46:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, hmm... are you saying to allow user move the disks around pools? from default pool to X pool?
+<a name="l-147"></a><span class="tm">13:46:58</span><span class="nk"> &lt;YuXin&gt;</span> all SCSI disks will be cloned to default? I remember it will be read out and copy to another volume in the same iscsi pool
+<a name="l-148"></a><span class="tm">13:47:05</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-149"></a><span class="tm">13:47:08</span><span class="nk"> &lt;royce&gt;</span> alinefm that can do, and we may want to allow user to clone to scsi pool because technichally it is easy right?
+<a name="l-150"></a><span class="tm">13:47:53</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, royce, both iSCSI and SCSI disks will be clone on default pool - it is just a copy/paste of the disk content to other file
+<a name="l-151"></a><span class="tm">13:48:14</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I think it can be a good feature to have - we can add it to backlog
+<a name="l-152"></a><span class="tm">13:48:27</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-153"></a><span class="tm">13:48:58</span><span class="nk"> &lt;royce&gt;</span> I know, I mean, pick a SCSI volume and copy the content of another SCSI volume to it is easy technically, but need more input
+<a name="l-154"></a><span class="tm">13:48:58</span><span class="nk"> &lt;YuXin&gt;</span> I want to guanartee that user at least have a way to make a cloned vm to have diskes at their expected pool
+<a name="l-155"></a><span class="tm">13:50:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-156"></a><span class="tm">13:51:53</span><span class="nk"> &lt;royce&gt;</span> I'm ok with putting scsi pick to backlog, I suggest for full pool we reject
+<a name="l-157"></a><span class="tm">13:52:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you mean fallback *SCSI to default pool and only reject when pool is full?
+<a name="l-158"></a><span class="tm">13:53:04</span><span class="nk"> &lt;royce&gt;</span> alinefm, do you wanna talk about LDAP authorization
+<a name="l-159"></a><span class="tm">13:53:12</span><span class="nk"> &lt;royce&gt;</span> yes~
+<a name="l-160"></a><span class="tm">13:53:18</span><span class="nk"> &lt;YuXin&gt;</span> if default pool is full, we can reject and leave a message that move volumes from default pool to other pools
+<a name="l-161"></a><span class="tm">13:53:40</span><span class="nk"> &lt;YuXin&gt;</span> as we have feature to move volumes between pools, then user can try to adjust
+<a name="l-162"></a><span class="tm">13:54:21</span><span class="nk"> &lt;alinefm&gt;</span> royce, and if the pool is full and it is not the default, we fallabck to default too?
+<a name="l-163"></a><span class="tm">13:54:59</span><span class="nk"> &lt;vianac&gt;</span> if we could allow the user to move existing disk files from one pool to another one, they could do that after cloning if Kimchi created a disk in a pool they didn't want to
+<a name="l-164"></a><span class="tm">13:55:26</span><span class="nk"> &lt;royce&gt;</span> full pool reject I mean, alinefm:)
+<a name="l-165"></a><span class="tm">13:56:30</span><span class="nk"> &lt;YuXin&gt;</span> if reject, I think let user select whether to copy to default pool
+<a name="l-166"></a><span class="tm">13:56:34</span><span class="nk"> &lt;YuXin&gt;</span> is better
+<a name="l-167"></a><span class="tm">13:56:44</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, YuXin, alright! let me do a compilation of what we have discussed
+<a name="l-168"></a><span class="tm">13:57:00</span><span class="nk"> &lt;royce&gt;</span> :)
+<a name="l-169"></a><span class="tm">13:57:04</span><span class="nk"> &lt;alinefm&gt;</span> - iSCSI and SCSI disks will be cloned on *default* storage pool
+<a name="l-170"></a><span class="tm">13:57:13</span><span class="nk"> &lt;alinefm&gt;</span> vianac, YuXin, royce agree?
+<a name="l-171"></a><span class="tm">13:57:23</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-172"></a><span class="tm">13:57:25</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-173"></a><span class="tm">13:57:28</span><span class="nk"> &lt;vianac&gt;</span> yes
+<a name="l-174"></a><span class="tm">13:57:33</span><span class="nk"> &lt;alinefm&gt;</span> should we display a confirmation dialog in this case?
+<a name="l-175"></a><span class="tm">13:57:38</span><span class="nk"> &lt;YuXin&gt;</span> no
+<a name="l-176"></a><span class="tm">13:57:50</span><span class="nk"> &lt;royce&gt;</span> I would say yes...
+<a name="l-177"></a><span class="tm">13:57:55</span><span class="nk"> &lt;YuXin&gt;</span> doc it will be enough
+<a name="l-178"></a><span class="tm">13:58:23</span><span class="nk"> &lt;YuXin&gt;</span> the confirmation dialog, if user select no, what is next?
+<a name="l-179"></a><span class="tm">13:58:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, don't clone the VM
+<a name="l-180"></a><span class="tm">13:58:46</span><span class="nk"> &lt;vianac&gt;</span> IMO there should never be a confirmation dialog. Kimchi will always clone to a new, working VM, it should always work (unless an error occurs, of course)
+<a name="l-181"></a><span class="tm">13:58:47</span><span class="nk"> &lt;royce&gt;</span> Cancel and Yes:) Hehehhh
+<a name="l-182"></a><span class="tm">13:59:06</span><span class="nk"> &lt;vianac&gt;</span> the user should be able to edit the new VM (name, disks) later in "Edit Guest" if they want to
+<a name="l-183"></a><span class="tm">13:59:07</span><span class="nk"> &lt;royce&gt;</span> Cancel or Yes
+<a name="l-184"></a><span class="tm">13:59:09</span><span class="nk"> &lt;alinefm&gt;</span> vianac, so your vote is for no?
+<a name="l-185"></a><span class="tm">13:59:13</span><span class="nk"> &lt;vianac&gt;</span> alinefm, yes
+<a name="l-186"></a><span class="tm">13:59:21</span><span class="nk"> &lt;YuXin&gt;</span> don't clone the vm, so a  vm with a iscsi volume  will never have a way to be cloned?
+<a name="l-187"></a><span class="tm">13:59:44</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if the confirmation dialog it will be possible if user selects "Yes"
+<a name="l-188"></a><span class="tm">13:59:53</span><span class="nk"> &lt;alinefm&gt;</span> *with the confirmation...
+<a name="l-189"></a><span class="tm">14:00:22</span><span class="nk"> &lt;alinefm&gt;</span> I am fine with both solutions
+<a name="l-190"></a><span class="tm">14:00:30</span><span class="nk"> &lt;YuXin&gt;</span> so only one way is given to the user, if he/she want to clone the vm with iscsi volume, he need to agree to clone it to default
+<a name="l-191"></a><span class="tm">14:00:36</span><span class="nk"> &lt;alinefm&gt;</span> I mean, the doc would be enough for that
+<a name="l-192"></a><span class="tm">14:00:46</span><span class="nk"> &lt;alinefm&gt;</span> (but who reads the doc? =))
+<a name="l-193"></a><span class="tm">14:00:52</span><span class="nk"> &lt;royce&gt;</span> yeah!
+<a name="l-194"></a><span class="tm">14:00:56</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-195"></a><span class="tm">14:01:12</span><span class="nk"> &lt;YuXin&gt;</span> clone to default, no harm at all I think
+<a name="l-196"></a><span class="tm">14:01:51</span><span class="nk"> &lt;royce&gt;</span> especially when you have interactive UI, no one reads doc at all, UI for user, doc for admin:)
+<a name="l-197"></a><span class="tm">14:01:58</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, vianac, royce, ok - let's do without the confirmation dialog for now and collect feedbacks on it
+<a name="l-198"></a><span class="tm">14:02:05</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-199"></a><span class="tm">14:02:16</span><span class="nk"> &lt;alinefm&gt;</span> seconds point:
+<a name="l-200"></a><span class="tm">14:02:42</span><span class="nk"> &lt;alinefm&gt;</span> - if pool is full, rejects the clone with an error message
+<a name="l-201"></a><span class="tm">14:02:49</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, YuXin agree ^
+<a name="l-202"></a><span class="tm">14:02:58</span><span class="nk"> &lt;royce&gt;</span> +1
+<a name="l-203"></a><span class="tm">14:03:18</span><span class="nk"> &lt;vianac&gt;</span> alinefm, which pool?
+<a name="l-204"></a><span class="tm">14:03:24</span><span class="nk"> &lt;YuXin&gt;</span> if I still want to clone the vm, what is the way as other pools still have space
+<a name="l-205"></a><span class="tm">14:03:31</span><span class="nk"> &lt;vianac&gt;</span> the default one? the one from the original VM?
+<a name="l-206"></a><span class="tm">14:03:59</span><span class="nk"> &lt;alinefm&gt;</span> I think we have 2 views on it:
+<a name="l-207"></a><span class="tm">14:04:00</span><span class="nk"> &lt;royce&gt;</span> yes, YuXin..
+<a name="l-208"></a><span class="tm">14:04:27</span><span class="nk"> &lt;alinefm&gt;</span> 1) if original VM pool is full -&gt; fallback to default pool and only rejects if default pool is full
+<a name="l-209"></a><span class="tm">14:04:29</span><span class="nk"> &lt;royce&gt;</span> and even default pool would be full and others empty:)
+<a name="l-210"></a><span class="tm">14:04:30</span><span class="nk"> &lt;YuXin&gt;</span> so here, default pool is just like a backup pool when other pools are full
+<a name="l-211"></a><span class="tm">14:04:39</span><span class="nk"> &lt;alinefm&gt;</span> 2) if original VM pool is full -&gt; rejects
+<a name="l-212"></a><span class="tm">14:04:50</span><span class="nk"> &lt;YuXin&gt;</span> I think 1) is good
+<a name="l-213"></a><span class="tm">14:04:54</span><span class="nk"> &lt;vianac&gt;</span> I vote for 1
+<a name="l-214"></a><span class="tm">14:04:58</span><span class="nk"> &lt;vianac&gt;</span> o/ (1)
+<a name="l-215"></a><span class="tm">14:05:06</span><span class="nk"> &lt;alinefm&gt;</span> royce, ?
+<a name="l-216"></a><span class="tm">14:05:35</span><span class="nk"> &lt;royce&gt;</span> I'd like users to pick...:)
+<a name="l-217"></a><span class="tm">14:05:50</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-218"></a><span class="tm">14:06:00</span><span class="nk"> &lt;royce&gt;</span> But I respect you guys opinion
+<a name="l-219"></a><span class="tm">14:06:12</span><span class="nk"> &lt;royce&gt;</span> after all I'm not the user
+<a name="l-220"></a><span class="tm">14:06:33</span><span class="nk"> &lt;YuXin&gt;</span> I think all we are trying to achieve is to make clone without any user input as default
+<a name="l-221"></a><span class="tm">14:06:33</span><span class="nk"> &lt;alinefm&gt;</span> yes, you are
+<a name="l-222"></a><span class="tm">14:06:39</span><span class="nk"> &lt;royce&gt;</span> I don't know if specify pool would bother him or benefit him
+<a name="l-223"></a><span class="tm">14:06:42</span><span class="nk"> &lt;alinefm&gt;</span> at least I hope you use kimchi =P
+<a name="l-224"></a><span class="tm">14:07:15</span><span class="nk"> &lt;YuXin&gt;</span> if a dialog for user to specify, then the whole story is different
+<a name="l-225"></a><span class="tm">14:07:23</span><span class="nk"> &lt;royce&gt;</span> For me I don't like people make decision for me,hehhe
+<a name="l-226"></a><span class="tm">14:07:46</span><span class="nk"> &lt;royce&gt;</span> when I'm not aware
+<a name="l-227"></a><span class="tm">14:08:21</span><span class="nk"> &lt;alinefm&gt;</span> royce, you will be aware about the "default fallback" on clone as we will doc it =)
+<a name="l-228"></a><span class="tm">14:08:22</span><span class="nk"> &lt;YuXin&gt;</span> we can popup a dialog with default assignment of pools and user can select the target pool for any volume
+<a name="l-229"></a><span class="tm">14:08:32</span><span class="nk"> &lt;alinefm&gt;</span> I think we can try that way and collect feedbacks
+<a name="l-230"></a><span class="tm">14:08:37</span><span class="nk"> &lt;royce&gt;</span> hahah, ok~
+<a name="l-231"></a><span class="tm">14:08:51</span><span class="nk"> &lt;alinefm&gt;</span> from my user view, the only thing I want is to clone my vm
+<a name="l-232"></a><span class="tm">14:09:01</span><span class="nk"> &lt;alinefm&gt;</span> honestly I don't care where the disks are in the first moment
+<a name="l-233"></a><span class="tm">14:09:23</span><span class="nk"> &lt;royce&gt;</span> yes, I only worried about some pool would be slow
+<a name="l-234"></a><span class="tm">14:09:26</span><span class="nk"> &lt;YuXin&gt;</span> I agree default can be this
+<a name="l-235"></a><span class="tm">14:09:56</span><span class="nk"> &lt;alinefm&gt;</span> vianac, ?
+<a name="l-236"></a><span class="tm">14:10:13</span><span class="nk"> &lt;YuXin&gt;</span> 2 clones: default clone and customized clone
+<a name="l-237"></a><span class="tm">14:10:29</span><span class="nk"> &lt;YuXin&gt;</span> now provide a defaut clone withouot any user input
+<a name="l-238"></a><span class="tm">14:10:33</span><span class="nk"> &lt;royce&gt;</span> So if like a pool in nfs I might want to dir, and because scsi's faster than dir, I would wish use scsi
+<a name="l-239"></a><span class="tm">14:10:51</span><span class="nk"> &lt;YuXin&gt;</span> if there is feedbac to customize, another clone can be added with full user confiuration
+<a name="l-240"></a><span class="tm">14:12:19</span><span class="nk"> &lt;royce&gt;</span> Just my opinion, I'm not very insist on this problem:)
+<a name="l-241"></a><span class="tm">14:12:54</span><span class="nk"> &lt;YuXin&gt;</span> clone -&gt; default clone(no user input)
+<a name="l-242"></a><span class="tm">14:12:55</span><span class="nk"> &lt;YuXin&gt;</span> customized clone(disks -&gt; pools configuration)
+<a name="l-243"></a><span class="tm">14:13:00</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, agree
+<a name="l-244"></a><span class="tm">14:13:07</span><span class="nk"> &lt;vianac&gt;</span> I still think the user should clone and change the VM configuration if they want to; that's how it is now when creating a new guest (it uses a lot of default values); that's how it is now when creating a new template; that's how it is now when cloning a template
+<a name="l-245"></a><span class="tm">14:13:43</span><span class="nk"> &lt;alinefm&gt;</span> alright! I think we get an agreement on it =)
+<a name="l-246"></a><span class="tm">14:13:53</span><span class="nk"> &lt;alinefm&gt;</span> we are over time and think there is more topics for today
+<a name="l-247"></a><span class="tm">14:13:55</span><span class="nk"> &lt;royce&gt;</span> when I check virt-clone, they allow to pass a customised storage path
+<a name="l-248"></a><span class="tm">14:14:03</span><span class="nk"> &lt;vianac&gt;</span> the common behaviour in other parts of Kimchi is creating things and then editting them later
+<a name="l-249"></a><span class="tm">14:14:05</span><span class="nk"> &lt;royce&gt;</span> still you can use default one
+<a name="l-250"></a><span class="tm">14:14:33</span><span class="nk"> &lt;YuXin&gt;</span> vianac, so we need the feature to move volumes between pools
+<a name="l-251"></a><span class="tm">14:14:40</span><span class="nk"> &lt;vianac&gt;</span> YuXin, sure
+<a name="l-252"></a><span class="tm">14:14:50</span><span class="nk"> &lt;royce&gt;</span> alinefm, shall we talk about LDAP?
+<a name="l-253"></a><span class="tm">14:14:55</span><span class="nk"> &lt;vianac&gt;</span> that'll be useful even for non-clone situations
+<a name="l-254"></a><span class="tm">14:14:58</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I will add it to backlog because I think we already have a big feature list for 1.4
+<a name="l-255"></a><span class="tm">14:15:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap
+<a name="l-256"></a><span class="tm">14:15:08</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-257"></a><span class="tm">14:15:36</span><span class="nk"> &lt;royce&gt;</span> Have you read my mail for authorization today?
+<a name="l-258"></a><span class="tm">14:15:38</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think we are diverging about it because you can use LDAP for authorization and I think it only for authentication
+<a name="l-259"></a><span class="tm">14:15:41</span><span class="nk"> &lt;YuXin&gt;</span> ldap authentication or ldap authorization, just confirm?
+<a name="l-260"></a><span class="tm">14:15:43</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-261"></a><span class="tm">14:15:58</span><span class="nk"> &lt;royce&gt;</span> I'd like to use it for both
+<a name="l-262"></a><span class="tm">14:16:32</span><span class="nk"> &lt;YuXin&gt;</span> why ldap is involved in authorization?
+<a name="l-263"></a><span class="tm">14:16:34</span><span class="nk"> &lt;royce&gt;</span> authorization because LDAP is already able to cover, write this part ourselves seems no benefit
+<a name="l-264"></a><span class="tm">14:16:39</span><span class="nk"> &lt;alinefm&gt;</span> let me check your email first (I lost my internet connection yesterday afternoon and it only came up again this morning)
+<a name="l-265"></a><span class="tm">14:16:54</span><span class="nk"> &lt;royce&gt;</span> LDAP has role maintainence, YuXin
+<a name="l-266"></a><span class="tm">14:17:24</span><span class="nk"> &lt;royce&gt;</span> If we don't keep user roles in LDAP, we need a dedicate db for roles
+<a name="l-267"></a><span class="tm">14:17:29</span><span class="nk"> &lt;YuXin&gt;</span> but now there  is no role in kimchi
+<a name="l-268"></a><span class="tm">14:17:41</span><span class="nk"> &lt;royce&gt;</span> also this cannot share among cluster of hosts
+<a name="l-269"></a><span class="tm">14:17:47</span><span class="nk"> &lt;royce&gt;</span> there is YuXin
+<a name="l-270"></a><span class="tm">14:17:55</span><span class="nk"> &lt;royce&gt;</span> now just user and admin
+<a name="l-271"></a><span class="tm">14:18:05</span><span class="nk"> &lt;royce&gt;</span> for each tab
+<a name="l-272"></a><span class="tm">14:18:21</span><span class="nk"> &lt;YuXin&gt;</span> so ldap is integrated into kimchi rather than linux os?
+<a name="l-273"></a><span class="tm">14:18:41</span><span class="nk"> &lt;royce&gt;</span> def get_roles(self):
+<a name="l-274"></a><span class="tm">14:18:41</span><span class="nk"> &lt;royce&gt;</span> if self.has_sudo():
+<a name="l-275"></a><span class="tm">14:18:41</span><span class="nk"> &lt;royce&gt;</span> # after adding support to change user roles that info should be
+<a name="l-276"></a><span class="tm">14:18:41</span><span class="nk"> &lt;royce&gt;</span> # read from a specific objstore and fallback to default only if
+<a name="l-277"></a><span class="tm">14:18:41</span><span class="nk"> &lt;royce&gt;</span> # any entry is found
+<a name="l-278"></a><span class="tm">14:18:43</span><span class="nk"> &lt;royce&gt;</span> self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+<a name="l-279"></a><span class="tm">14:19:10</span><span class="nk"> &lt;royce&gt;</span> you see, we already planned to do distinguish the first time we add role
+<a name="l-280"></a><span class="tm">14:19:17</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-281"></a><span class="tm">14:19:23</span><span class="nk"> &lt;YuXin&gt;</span> my first question is that whether the ldap user will be a linux os user after integrated?
+<a name="l-282"></a><span class="tm">14:19:52</span><span class="nk"> &lt;alinefm&gt;</span> I point of view is the same described by Zheng Zhou
+<a name="l-283"></a><span class="tm">14:19:55</span><span class="nk"> &lt;royce&gt;</span> http://www.ibm.com/developerworks/cloud/library/cl-ldap-keystone/index.html
+<a name="l-284"></a><span class="tm">14:20:07</span><span class="nk"> &lt;alinefm&gt;</span> we can't compare openstack with Kimchi as it is
+<a name="l-285"></a><span class="tm">14:20:19</span><span class="nk"> &lt;royce&gt;</span> we still want cluster, right?
+<a name="l-286"></a><span class="tm">14:20:23</span><span class="nk"> &lt;alinefm&gt;</span> Kimchi is for small environments and need to coexist with existing applications
+<a name="l-287"></a><span class="tm">14:20:39</span><span class="nk"> &lt;alinefm&gt;</span> openstack has it own dedicated applications and so
+<a name="l-288"></a><span class="tm">14:21:31</span><span class="nk"> &lt;alinefm&gt;</span> most of time, the LDAP server will be already setup for someone and if the admin wants Kimchi to use it he doesn't want to change it configuration
+<a name="l-289"></a><span class="tm">14:21:46</span><span class="nk"> &lt;royce&gt;</span> I can't connect AT&amp;T, so can't see his comments, alinefm
+<a name="l-290"></a><span class="tm">14:21:46</span><span class="nk"> &lt;alinefm&gt;</span> think about a company (for example IBM)
+<a name="l-291"></a><span class="tm">14:22:11</span><span class="nk"> &lt;royce&gt;</span> then how can we setup the role information?
+<a name="l-292"></a><span class="tm">14:22:16</span><span class="nk"> &lt;alinefm&gt;</span> if I want to user its LDAP server for authentication, it is fine because I just need to match criterias
+<a name="l-293"></a><span class="tm">14:22:31</span><span class="nk"> &lt;alinefm&gt;</span> but if I need to change its setup it will be a nightmare
+<a name="l-294"></a><span class="tm">14:22:34</span><span class="nk"> &lt;royce&gt;</span> we need user/role map
+<a name="l-295"></a><span class="tm">14:22:44</span><span class="nk"> &lt;alinefm&gt;</span> first, I doubt anyone will allow me to do that
+<a name="l-296"></a><span class="tm">14:23:15</span><span class="nk"> &lt;royce&gt;</span> if we are a small cluster there would be small number of people using it:)
+<a name="l-297"></a><span class="tm">14:23:22</span><span class="nk"> &lt;alinefm&gt;</span> royce, for the authorization schema, I think we can follow the same approach for PAM authentication
+<a name="l-298"></a><span class="tm">14:23:48</span><span class="nk"> &lt;alinefm&gt;</span> ie, have a objectstore to hold the user/role map
+<a name="l-299"></a><span class="tm">14:24:03</span><span class="nk"> &lt;royce&gt;</span> how can it spread to other host?
+<a name="l-300"></a><span class="tm">14:24:25</span><span class="nk"> &lt;alinefm&gt;</span> about the cluster concern you have (to share the same information between hosts) we can use the peers as Zheng Zhou suggested
+<a name="l-301"></a><span class="tm">14:24:50</span><span class="nk"> &lt;alinefm&gt;</span> for example, we can have a new tab for kimchi configuration where admin will assign user roles, etc...
+<a name="l-302"></a><span class="tm">14:24:55</span><span class="nk"> &lt;royce&gt;</span> Haven't read it, could you explain
+<a name="l-303"></a><span class="tm">14:25:09</span><span class="nk"> &lt;alinefm&gt;</span> and in that tab we can have a "Import authorization schema"
+<a name="l-304"></a><span class="tm">14:25:20</span><span class="nk"> &lt;YuXin&gt;</span> current kimchi authentication and authorization are all based on linux, so if the ldap can be integrated at OS level to make ldap user to be the host OS user, then all will be streamlined
+<a name="l-305"></a><span class="tm">14:25:27</span><span class="nk"> &lt;alinefm&gt;</span> that feature will allow you import an authorization schema from other kimchi server
+<a name="l-306"></a><span class="tm">14:25:50</span><span class="nk"> &lt;alinefm&gt;</span> so they can share the same config without requiring any manual intervention
+<a name="l-307"></a><span class="tm">14:26:43</span><span class="nk"> &lt;royce&gt;</span> OK, acceptable
+<a name="l-308"></a><span class="tm">14:26:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, it is not possible - LDAP does not communicate with OS level
+<a name="l-309"></a><span class="tm">14:27:25</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, example, you use your intranet credentials to login, right? the idea is make you able to use those credentials to login into kimchi
+<a name="l-310"></a><span class="tm">14:27:47</span><span class="nk"> &lt;alinefm&gt;</span> but it does not have any relation to OS
+<a name="l-311"></a><span class="tm">14:27:52</span><span class="nk"> &lt;alinefm&gt;</span> makes more sense now?
+<a name="l-312"></a><span class="tm">14:28:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, I will add Zheng Zhou's idea to our backlog
+<a name="l-313"></a><span class="tm">14:29:03</span><span class="nk"> &lt;royce&gt;</span> ok
+<a name="l-314"></a><span class="tm">14:29:03</span><span class="nk"> &lt;alinefm&gt;</span> (about this configuration tab and import authorization schema)
+<a name="l-315"></a><span class="tm">14:29:29</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, what we need to think is how we will present the user/group information in the "Permission" tab
+<a name="l-316"></a><span class="tm">14:29:39</span><span class="nk"> &lt;alinefm&gt;</span> today we list all the system users and groups
+<a name="l-317"></a><span class="tm">14:29:50</span><span class="nk"> &lt;alinefm&gt;</span> but it is not feasible for LDAP
+<a name="l-318"></a><span class="tm">14:30:00</span><span class="nk"> &lt;royce&gt;</span> we just list logged ones
+<a name="l-319"></a><span class="tm">14:30:24</span><span class="nk"> &lt;royce&gt;</span> because we store in objstore about role info, we can add this, is that OK?
+<a name="l-320"></a><span class="tm">14:31:04</span><span class="nk"> &lt;royce&gt;</span> log in ones
+<a name="l-321"></a><span class="tm">14:31:15</span><span class="nk"> &lt;alinefm&gt;</span> but I would need to ask a user to login into Kimchi prior to assign him to a vm
+<a name="l-322"></a><span class="tm">14:31:22</span><span class="nk"> &lt;alinefm&gt;</span> I don't think it is good
+<a name="l-323"></a><span class="tm">14:31:29</span><span class="nk"> &lt;alinefm&gt;</span> I thought in do it in a search process
+<a name="l-324"></a><span class="tm">14:31:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> user enter "alinefm" and click on "Search" button
+<a name="l-325"></a><span class="tm">14:32:04</span><span class="nk"> &lt;alinefm&gt;</span> it will produce a request GET /user?username=alinefm*
+<a name="l-326"></a><span class="tm">14:32:25</span><span class="nk"> &lt;alinefm&gt;</span> and then we list all the mail address in LDAP that matches with "alinefm"
+<a name="l-327"></a><span class="tm">14:33:00</span><span class="nk"> &lt;alinefm&gt;</span> but in that case we will need a different "Permission" tab when the authentication method is LDAP
+<a name="l-328"></a><span class="tm">14:33:53</span><span class="nk"> &lt;YuXin&gt;</span> http://www.howtoforge.com/linux_ldap_authentication
+<a name="l-329"></a><span class="tm">14:33:53</span><span class="nk"> &lt;YuXin&gt;</span> if I understand correctly, linux can leverage ldap for authentication, then ldap user is just like linux OS user
+<a name="l-330"></a><span class="tm">14:34:33</span><span class="nk"> &lt;royce&gt;</span> if a user does not tagged with group and role, only list the user does not make sense, resources and permission is related with roles
+<a name="l-331"></a><span class="tm">14:34:55</span><span class="nk"> &lt;royce&gt;</span> YuXin, this is a doc about how you migrate linux system users to LDAP
+<a name="l-332"></a><span class="tm">14:35:03</span><span class="nk"> &lt;alinefm&gt;</span> it is another way to setup LDAP on OS
+<a name="l-333"></a><span class="tm">14:35:33</span><span class="nk"> &lt;alinefm&gt;</span> royce, the admin user for LDAP authentication will be listed on kimchi config file
+<a name="l-334"></a><span class="tm">14:35:46</span><span class="nk"> &lt;alinefm&gt;</span> all others users have "user" role
+<a name="l-335"></a><span class="tm">14:35:48</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-336"></a><span class="tm">14:36:14</span><span class="nk"> &lt;alinefm&gt;</span> let's say I am a normal user in a LDAP setup for kimchi
+<a name="l-337"></a><span class="tm">14:36:23</span><span class="nk"> &lt;alinefm&gt;</span> and you are an admin user
+<a name="l-338"></a><span class="tm">14:36:27</span><span class="nk"> &lt;YuXin&gt;</span> I will investigate more about it tomorrow, I exactly remember even windows, there domain users.
+<a name="l-339"></a><span class="tm">14:36:35</span><span class="nk"> &lt;alinefm&gt;</span> royce, you want to assign a VM for me
+<a name="l-340"></a><span class="tm">14:36:49</span><span class="nk"> &lt;alinefm&gt;</span> how did you find out me on "Permission" tab?
+<a name="l-341"></a><span class="tm">14:37:32</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, you can integrate LDAP authentication to OS authentication too, but it is not what we want for Kimchi
+<a name="l-342"></a><span class="tm">14:37:33</span><span class="nk"> &lt;royce&gt;</span> got u, alinef
+<a name="l-343"></a><span class="tm">14:37:37</span><span class="nk"> &lt;royce&gt;</span> alinefm
+<a name="l-344"></a><span class="tm">14:38:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the OS will continue using PAM for authenticate the users through SSH for example but Kimchi will be setup to use LDAP
+<a name="l-345"></a><span class="tm">14:38:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, because that I thought about the search process
+<a name="l-346"></a><span class="tm">14:38:44</span><span class="nk"> &lt;royce&gt;</span> but in that case we will need a different "Permission" tab when the authentication method is LDAP--You mean not list users?
+<a name="l-347"></a><span class="tm">14:39:01</span><span class="nk"> &lt;alinefm&gt;</span> it can work well but we will have 2 different UI according to authentication method
+<a name="l-348"></a><span class="tm">14:39:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, exatcly
+<a name="l-349"></a><span class="tm">14:39:17</span><span class="nk"> &lt;alinefm&gt;</span> *exactly
+<a name="l-350"></a><span class="tm">14:39:23</span><span class="nk"> &lt;royce&gt;</span> I still think admin need to see users, at least tagged ones
+<a name="l-351"></a><span class="tm">14:39:39</span><span class="nk"> &lt;royce&gt;</span> others not tagged can be ignored
+<a name="l-352"></a><span class="tm">14:39:51</span><span class="nk"> &lt;royce&gt;</span> but if someone is store admin/net admin
+<a name="l-353"></a><span class="tm">14:40:11</span><span class="nk"> &lt;royce&gt;</span> Admin would like to know or deprive there authorization
+<a name="l-354"></a><span class="tm">14:40:17</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, if there is not a layer on top of native and ldap for abstraction, but kimchi integrate ldap by itself, then there will be 2 paths for native and ldap authentication separately in the future.
+<a name="l-355"></a><span class="tm">14:40:35</span><span class="nk"> &lt;royce&gt;</span> search does not able to fulfill  this
+<a name="l-356"></a><span class="tm">14:41:43</span><span class="nk"> &lt;YuXin&gt;</span> if a power linux already have a ldap authentication configured, will kimchi leverage that?
+<a name="l-357"></a><span class="tm">14:42:06</span><span class="nk"> &lt;royce&gt;</span> yes, YuXin
+<a name="l-358"></a><span class="tm">14:42:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the LDAP config will be on kimchi config file
+<a name="l-359"></a><span class="tm">14:42:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, not sure I understood your point
+<a name="l-360"></a><span class="tm">14:42:41</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin, I am worried about the time for you guys - it must be too late for you
+<a name="l-361"></a><span class="tm">14:42:59</span><span class="nk"> &lt;royce&gt;</span> I mean, in permission tab, you use search for adding user autorization and assigning vm, right?
+<a name="l-362"></a><span class="tm">14:43:05</span><span class="nk"> &lt;YuXin&gt;</span> before kimchi is installed, a power linux already configured ldap authentication, then kimchi installed, whether kimchi will have those ldap users?
+<a name="l-363"></a><span class="tm">14:43:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-364"></a><span class="tm">14:43:21</span><span class="nk"> &lt;royce&gt;</span> Still we need to delete/ change these authorization
+<a name="l-365"></a><span class="tm">14:43:49</span><span class="nk"> &lt;royce&gt;</span> then we need to know, who is in a group, who has the role of network admin
+<a name="l-366"></a><span class="tm">14:43:57</span><span class="nk"> &lt;royce&gt;</span> then we need to list users
+<a name="l-367"></a><span class="tm">14:44:07</span><span class="nk"> &lt;alinefm&gt;</span> there is no network admin by now
+<a name="l-368"></a><span class="tm">14:44:12</span><span class="nk"> &lt;royce&gt;</span> alinefm, we can hold on for a while
+<a name="l-369"></a><span class="tm">14:44:28</span><span class="nk"> &lt;royce&gt;</span> alinefm, the role is per tab
+<a name="l-370"></a><span class="tm">14:44:41</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - it will continue like that
+<a name="l-371"></a><span class="tm">14:45:06</span><span class="nk"> &lt;royce&gt;</span> there is a network tab
+<a name="l-372"></a><span class="tm">14:45:44</span><span class="nk"> &lt;royce&gt;</span> point is, we need to know what users authorized of what role/permission
+<a name="l-373"></a><span class="tm">14:46:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, I am talking about this Permission tab: http://picpaste.com/_7530EE84039C7ECD-YUzIEaN9.jpg
+<a name="l-374"></a><span class="tm">14:46:15</span><span class="nk"> &lt;alinefm&gt;</span> on guest edit
+<a name="l-375"></a><span class="tm">14:46:48</span><span class="nk"> &lt;alinefm&gt;</span> royce, the admin users for LDAP will be listed on kimchi config file
+<a name="l-376"></a><span class="tm">14:46:56</span><span class="nk"> &lt;alinefm&gt;</span> all other users are normal user
+<a name="l-377"></a><span class="tm">14:47:21</span><span class="nk"> &lt;alinefm&gt;</span> so if a LDAP ID is listed as kimchi admin on config file it will be admin on all tabs
+<a name="l-378"></a><span class="tm">14:47:48</span><span class="nk"> &lt;royce&gt;</span> this is the same, like we have a group, br group and china goup
+<a name="l-379"></a><span class="tm">14:47:56</span><span class="nk"> &lt;royce&gt;</span> each group have some machines
+<a name="l-380"></a><span class="tm">14:47:58</span><span class="nk"> &lt;alinefm&gt;</span> my concern right now (to enable LDAP authentication) is we need to change the Permission tab (on guest edit) to get the users on LDAP server
+<a name="l-381"></a><span class="tm">14:48:48</span><span class="nk"> &lt;royce&gt;</span> alinefm, I understand, we can't list all users on LDAP server
+<a name="l-382"></a><span class="tm">14:48:57</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - I also think the "group" in LDAP will be handle as a LDAP domain
+<a name="l-383"></a><span class="tm">14:49:36</span><span class="nk"> &lt;royce&gt;</span> and if tivoli and LTC group?
+<a name="l-384"></a><span class="tm">14:49:58</span><span class="nk"> &lt;alinefm&gt;</span> there are filter for ldap domain that can be used for it
+<a name="l-385"></a><span class="tm">14:50:26</span><span class="nk"> &lt;royce&gt;</span> as you said we can't depend on it for role, group neither, because you don't use it  for authorization
+<a name="l-386"></a><span class="tm">14:50:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> "o=cn.ibm.com"
+<a name="l-387"></a><span class="tm">14:50:44</span><span class="nk"> &lt;alinefm&gt;</span> or "o=br.ibm.com"
+<a name="l-388"></a><span class="tm">14:50:59</span><span class="nk"> &lt;royce&gt;</span> I understand this
+<a name="l-389"></a><span class="tm">14:51:17</span><span class="nk"> &lt;alinefm&gt;</span> royce, why can't we use it?
+<a name="l-390"></a><span class="tm">14:51:25</span><span class="nk"> &lt;alinefm&gt;</span> after user selection we will store it on VM
+<a name="l-391"></a><span class="tm">14:51:30</span><span class="nk"> &lt;royce&gt;</span> we can't manipulate group then
+<a name="l-392"></a><span class="tm">14:51:45</span><span class="nk"> &lt;royce&gt;</span> if we don't have a w3 LDAP
+<a name="l-393"></a><span class="tm">14:51:55</span><span class="nk"> &lt;royce&gt;</span> LDAP can be whatever LDAP
+<a name="l-394"></a><span class="tm">14:52:37</span><span class="nk"> &lt;royce&gt;</span> the user/group mapping cannot depend on LDAP server query
+<a name="l-395"></a><span class="tm">14:52:57</span><span class="nk"> &lt;royce&gt;</span> it needs to go to objstore, right?
+<a name="l-396"></a><span class="tm">14:53:16</span><span class="nk"> &lt;alinefm&gt;</span> on guest edit and Permission tab: user will input user as "alinefm@..." and group as "o=cn.ibm.com" to a VM
+<a name="l-397"></a><span class="tm">14:53:28</span><span class="nk"> &lt;alinefm&gt;</span> we will store it on VM metadata (as we did today)
+<a name="l-398"></a><span class="tm">14:54:20</span><span class="nk"> &lt;alinefm&gt;</span> when checking if a user has access to this VM we will search if the user is "alinefm@..." or if it is on "o=cn.ibm.com" result
+<a name="l-399"></a><span class="tm">14:55:09</span><span class="nk"> &lt;royce&gt;</span> I mean, if we have a LDAP setup without group in its schema, all users under same orgnization, what shall we do?
+<a name="l-400"></a><span class="tm">14:55:58</span><span class="nk"> &lt;alinefm&gt;</span> the group is not in its schema, it is a filter expression
+<a name="l-401"></a><span class="tm">14:56:45</span><span class="nk"> &lt;alinefm&gt;</span> royce, when you setup a LDAP server you need to know the server, the base domain and the filter
+<a name="l-402"></a><span class="tm">14:57:03</span><span class="nk"> &lt;alinefm&gt;</span> the base domain is an expression on how parameters you want to care about
+<a name="l-403"></a><span class="tm">14:57:17</span><span class="nk"> &lt;alinefm&gt;</span> the "group" will be some base domain expression
+<a name="l-404"></a><span class="tm">14:57:22</span><span class="nk"> &lt;royce&gt;</span> you are talking about the dynamic group of filtering
+<a name="l-405"></a><span class="tm">14:57:45</span><span class="nk"> &lt;royce&gt;</span> static group is a LDAP entity
+<a name="l-406"></a><span class="tm">14:58:10</span><span class="nk"> &lt;alinefm&gt;</span> yes - I don't want a LDAP has a "group" setting
+<a name="l-407"></a><span class="tm">14:58:28</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think we can continue it on ML
+<a name="l-408"></a><span class="tm">14:58:31</span><span class="nk"> &lt;alinefm&gt;</span> it is too late there
+<a name="l-409"></a><span class="tm">14:58:43</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-410"></a><span class="tm">14:59:00</span><span class="nk"> &lt;alinefm&gt;</span> royce, you can talk to YuXin and think about a new UI for "Permission" tab when the authentication is LDAP
+<a name="l-411"></a><span class="tm">14:59:05</span><span class="nk"> &lt;alinefm&gt;</span> and share on ML
+<a name="l-412"></a><span class="tm">14:59:08</span><span class="nk"> &lt;royce&gt;</span> but the filter string can be unstable...
+<a name="l-413"></a><span class="tm">14:59:24</span><span class="nk"> &lt;alinefm&gt;</span> royce, probably
+<a name="l-414"></a><span class="tm">14:59:34</span><span class="nk"> &lt;alinefm&gt;</span> it was the first idea that came to my mind
+<a name="l-415"></a><span class="tm">14:59:42</span><span class="nk"> &lt;alinefm&gt;</span> but we can think in a better solution
+<a name="l-416"></a><span class="tm">15:00:00</span><span class="nk"> &lt;royce&gt;</span> sure
+<a name="l-417"></a><span class="tm">15:00:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks for the great discussion! =)
+<a name="l-418"></a><span class="tm">15:00:38</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-419"></a><span class="tm">15:00:44</span><span class="nk"> &lt;alinefm&gt;</span> sorry about the time =$
+<a name="l-420"></a><span class="tm">15:00:46</span><span class="nk"> &lt;royce&gt;</span> thank you alinefm for keeping providing ideas!
+<a name="l-421"></a><span class="tm">15:00:56</span><span class="nk"> &lt;royce&gt;</span> Bye!
+<a name="l-422"></a><span class="tm">15:01:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, will try =)
+<a name="l-423"></a><span class="tm">15:01:05</span><span class="nk"> &lt;alinefm&gt;</span> bye!
+<a name="l-424"></a><span class="tm">15:01:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

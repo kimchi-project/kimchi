@@ -1,0 +1,424 @@
+13:02:04 <alinefm> #startmeeting
+13:02:04 <kimchi-bot> Meeting started Wed Oct 15 13:02:04 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:04 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:04 <alinefm> #meetingname scrum
+13:02:04 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:05 <royce> Hey aline
+13:02:18 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:18 <alinefm> anything else?
+13:03:03 <royce> good for me
+13:03:19 <alinefm> #topic Status
+13:03:19 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:41 <YuXin> #info YuXin Design UI of 'guest clone', 'serial console', 'new UI header'
+13:04:16 <alinefm> #info alinefm sent patches to use installed spice-html5 code when possible (opensuse13.1 and rhel7 don't have this package so Kimchi must be build with --with-spice-html5)
+13:04:54 <royce> #info royce investigated about integrate LDAP with kimchi, sent an RFC to ML, now implementing authentication part, will send v1 before this Friday
+13:05:02 <alinefm> #info alinefm is working on vm template refactor
+13:05:23 <vianac> #info worked on the cloning feature, reviewed patches on the mailing list
+13:05:27 <vianac> #info vianac worked on the cloning feature, reviewed patches on the mailing list
+13:05:27 <vianac> ops
+13:05:30 <rotru> #info rotru sent V5 of patches to fix help
+13:06:09 <alinefm> good progress team!
+13:06:28 <wenwang> #info wenwang sent patch of PCI passthough UI
+13:07:19 <wenwang> #info wenwang working on designing UI to allow user adds disks from different pools to a Template
+13:07:53 <danielhb> #info danielhb sent a patch that revamps the use of the console log
+13:08:04 <wenwang> #info wenwang working on redesigning "Edit Template" function
+13:09:01 <alinefm> great!
+13:09:05 <alinefm> shall we move on to open discussion?
+13:09:36 <royce> ok
+13:09:39 <alinefm> #topic Open Discussion
+13:09:45 <alinefm> what do you want to discuss today?
+13:10:08 <YuXin> for serial console, seems like virt-manager enabled it by default
+13:10:54 <alinefm> YuXin, I was reading zheng zhou replies on it
+13:10:55 <YuXin> why not enable it by default in kimchi?
+13:11:03 <YuXin> ok
+13:11:08 <alinefm> yeap! I think it would be the best solution
+13:11:29 <alinefm> baude, have you had type to check the ML about the serial console?
+13:11:45 <alinefm> YuXin, so user will always have serial on their vms in addition to vnc/spice
+13:12:00 <YuXin> yes
+13:12:11 <alinefm> YuXin, do you know some open source project to enable the text console on web?
+13:12:17 <alinefm> by using websockets...
+13:12:30 <YuXin> not investigated that yet
+13:12:36 <baude> alinefm, no i hadnt seen it, i see it now
+13:12:45 <wenwang> about the "Edit template", I think we should move "UI to allow user adds disks from different pools to a Template(wenwang)" and "Move iSCSI/SCSI volume selection to VM creation instead of Template view(wenwang)" together since we are going to enable volume eidt in the new "Edit Template" function
+13:13:18 <YuXin> if enable serial console by default, then no UI is needed for that
+13:13:24 <YuXin> ignore my design
+13:14:05 <baude> looks like my work isnt needed alinefm
+13:14:08 <royce> alinefm YuXin, I heard from zhengsheng that there is some emulator of console of web, he tried it before
+13:15:13 <alinefm> royce, yeap! I've just read it on ML
+13:15:21 <YuXin> we need to think about security first for web text console
+13:15:30 <alinefm> some kind of wspty
+13:15:43 <alinefm> baude, yes =/
+13:16:08 <alinefm> wenwang, agree - I will remove the seconds from wiki page
+13:16:15 <YuXin> the only security control there is the login of linux command line
+13:16:25 <alinefm> YuXin, seems Zheng Zhou has provided a solution for the security
+13:16:50 <alinefm> the kimchi login isn't enough?
+13:17:00 <baude> alinefm, I will warn you, its a bad assumption that serial and graphical are complimentary.
+13:17:23 <wenwang> alinefm: Thanks
+13:17:35 <baude> distro installers, if they detect both, will send information to the graphical console that isn't available on serial
+13:17:39 <YuXin> web socket -> serial port -> guest console
+13:17:58 <baude> with the current proposal, there should be an off option for graphical
+13:18:00 <YuXin> kimchi can be bypassed to access web socket
+13:18:03 <wenwang> alinefm: also, I think now "Guest disk hot plug UI(wenwang)" is enabled after talked to royce
+13:18:27 <YuXin> so only guest console need login
+13:18:31 <royce> yes, we wandered why we need this task
+13:20:15 <alinefm> wenwang, royce, AFAIK I am not able to add a disk to a running vm
+13:20:22 <alinefm> only when it is stopped
+13:20:33 <alinefm> baude, most of installers do that way?
+13:20:44 <baude> and boot time as well alinefm
+13:21:00 <royce> if (params['bus'] not in HOTPLUG_TYPE
+13:21:01 <royce> and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+13:21:01 <royce> raise InvalidOperation('KCHVMSTOR0011E')
+13:21:03 <baude> its a simple add alinefm
+13:21:12 <YuXin> so need to evaluate exposing serial port of guest vm without security control
+13:21:54 <alinefm> YuXin, even the serial port exposed the user will only access it through Kimchi web text console, right?
+13:22:06 <alinefm> this web text console will be protected by kimchi authentication, right?
+13:22:55 <alinefm> royce, hmm.. so we need to enable it on UI
+13:22:56 <YuXin> the web socket that host opened can be accessed out of kimchi, right?
+13:23:19 <alinefm> YuXin, no - it connects to localhost
+13:23:33 <alinefm> if I remember correctly
+13:24:06 <wenwang> alinefm: I think we have it enabled in earlier patches
+13:24:32 <alinefm> wenwang, let me check
+13:24:36 <royce> I resolved a bug about UI passing bus type, I deleted the bus type, backend pick the right one, so backend will pick virtio if vm is labled
+13:24:52 <YuXin> alinefm, you mean only kimchi UI can access the web socket?
+13:24:55 <wenwang> alinefm: Now we can not only change the disk as well as clear the input
+13:25:44 <royce> let me verify wenwang, alinefm
+13:26:03 <alinefm> royce, wenwang, on a running VM, I select "Edit" then "Storage" tab and there is no button to add more disks or change the current vda
+13:26:18 <alinefm> royce, wenwang, with vm running I can only change the cdrom value
+13:26:29 <wenwang> alinefm: I see
+13:26:33 <alinefm> YuXin, yes
+13:26:51 <YuXin> ok, I think that is enough
+13:26:56 <alinefm> YuXin, I need to test to confirm, but I remember the web sockets connects to localhost
+13:27:07 <alinefm> to prevent others to get its connection outside
+13:27:39 <wenwang> alinefm: I will have it done ASAP, thanks
+13:27:46 <YuXin> alinefm, so you tend to make 'web text console in kimchi UI' to be contained in 1.4?
+13:28:19 <YuXin> or it is low priority that we make it a run-at
+13:28:20 <alinefm> YuXin, if it is easy as Zheng Zhou said I think we can try to do it for 1.4
+13:28:48 <YuXin> ok
+13:28:51 <alinefm> we can test what he said and see how it will work
+13:29:01 <alinefm> if we identify a lot of bugs we drop it for next release
+13:29:07 <alinefm> YuXin, make sense?
+13:29:08 <YuXin> ok
+13:29:11 <YuXin> sure
+13:29:39 <YuXin> serial console and vnc/spice can coexist
+13:29:47 <alinefm> yes
+13:30:03 <YuXin> so in vm actions, connect need to split into 2 actions
+13:30:27 <YuXin> ok, I will try more about it
+13:30:30 <alinefm> we can add a new action "Text Console" or something like it
+13:30:37 <YuXin> yes
+13:30:49 <alinefm> baude, is there a way to choose between the consoles on installation time?
+13:31:08 <baude> yes, console= on the bootloader, but most people dont understand that
+13:31:35 <baude> and most distros autodetect consoles, but usually if they see graphical, they assume graphical
+13:31:35 <alinefm> isn't there a libvirt config to do that?
+13:32:19 <baude> alinefm, think of it like this ... you have two consoles open, if you boot an iso, its very likely the graphical installer will open on the graphics device, meanwhile you see little after the kernel boots on serial
+13:32:23 <alinefm> royce, about the disk hot plug, so the backend is done? just need to enable on UI?
+13:32:26 <baude> how can you predict which on the user looks at
+13:32:52 <royce> yes, alinefm, I checked, and I have added testcases for it
+13:33:09 <alinefm> royce, great! =)
+13:33:11 <royce> wenwang, if you have any problem, feel free to talk to me
+13:33:56 <alinefm> baude, I mean, if there is an libvirt option for it, we could enable user to select which console he wants to use for installation, for example
+13:34:31 <baude> no there isnt, libvirt just makes the devices available
+13:34:40 <baude> the kernel will see both if present
+13:34:55 <wenwang> royce: thanks
+13:35:01 <royce> yw
+13:35:42 <alinefm> baude, hmm got it
+13:37:20 <YuXin> for guest clone, whether pre-check will be added to see whether enough space for storage pool?
+13:38:07 <alinefm> YuXin, I was talking to vianac about it yesterday and we have agreed to don't require any user input on clone
+13:38:43 <alinefm> we will check the space in the current storage pool and if it is full or *SCSI we fallback to default pool
+13:39:00 <alinefm> what do you think about it?
+13:40:16 <YuXin> I think it will work and any failure, kimchi UI will report that
+13:40:18 <royce> shall we reject it directly?
+13:40:47 <alinefm> YuXin, yes
+13:40:59 <YuXin> royce, if rejected, we also need to give user a way the perform the clone
+13:41:01 <alinefm> royce, do you mean reject clone?
+13:41:15 <royce> yes
+13:41:29 <alinefm> in which scenarios? *SCSI?
+13:41:39 <royce> I'm not sure fallback to default pool is expected behavior
+13:42:09 <YuXin> default pool will not be expected, at least user may want to create a new pool
+13:42:42 <alinefm> I was reluctant about it too but we can document it as well
+13:42:53 <alinefm> so user can be able to easily clone you vm using scsi disks
+13:43:35 <alinefm> royce, vianac has noticed virt-manager reject it by default, ie, you can not create a clone from a vm using *scsi disks
+13:43:47 <alinefm> which is bad IMO
+13:43:55 <YuXin> maybe, we can add a feature to move volumes between pools
+13:45:02 <royce> that's true, for scsi disks, if you don't input we can only choose default
+13:45:30 <alinefm> royce, YuXin, or we could add a confirmation dialog on UI, if the vm to be cloned has *SCSI disks (we can know it on UI I think) we display a dialog: "The iSCSI and SCSI disks will be cloned on default storage pool. Do you want to continue?"
+13:45:31 <YuXin> so default behavior requires fewest user actions, but if user really want to ajust the pools for volumes
+13:45:40 <alinefm> and after confirmation we do the clone
+13:46:55 <alinefm> YuXin, hmm... are you saying to allow user move the disks around pools? from default pool to X pool?
+13:46:58 <YuXin> all SCSI disks will be cloned to default? I remember it will be read out and copy to another volume in the same iscsi pool
+13:47:05 <YuXin> yes
+13:47:08 <royce> alinefm that can do, and we may want to allow user to clone to scsi pool because technichally it is easy right?
+13:47:53 <alinefm> YuXin, royce, both iSCSI and SCSI disks will be clone on default pool - it is just a copy/paste of the disk content to other file
+13:48:14 <alinefm> YuXin, I think it can be a good feature to have - we can add it to backlog
+13:48:27 <YuXin> ok
+13:48:58 <royce> I know, I mean, pick a SCSI volume and copy the content of another SCSI volume to it is easy technically, but need more input
+13:48:58 <YuXin> I want to guanartee that user at least have a way to make a cloned vm to have diskes at their expected pool
+13:50:14 <alinefm> royce, yes
+13:51:53 <royce> I'm ok with putting scsi pick to backlog, I suggest for full pool we reject
+13:52:46 <alinefm> royce, do you mean fallback *SCSI to default pool and only reject when pool is full?
+13:53:04 <royce> alinefm, do you wanna talk about LDAP authorization
+13:53:12 <royce> yes~
+13:53:18 <YuXin> if default pool is full, we can reject and leave a message that move volumes from default pool to other pools
+13:53:40 <YuXin> as we have feature to move volumes between pools, then user can try to adjust
+13:54:21 <alinefm> royce, and if the pool is full and it is not the default, we fallabck to default too?
+13:54:59 <vianac> if we could allow the user to move existing disk files from one pool to another one, they could do that after cloning if Kimchi created a disk in a pool they didn't want to
+13:55:26 <royce> full pool reject I mean, alinefm:)
+13:56:30 <YuXin> if reject, I think let user select whether to copy to default pool
+13:56:34 <YuXin> is better
+13:56:44 <alinefm> vianac, royce, YuXin, alright! let me do a compilation of what we have discussed
+13:57:00 <royce> :)
+13:57:04 <alinefm> - iSCSI and SCSI disks will be cloned on *default* storage pool
+13:57:13 <alinefm> vianac, YuXin, royce agree?
+13:57:23 <YuXin> ok
+13:57:25 <royce> yes
+13:57:28 <vianac> yes
+13:57:33 <alinefm> should we display a confirmation dialog in this case?
+13:57:38 <YuXin> no
+13:57:50 <royce> I would say yes...
+13:57:55 <YuXin> doc it will be enough
+13:58:23 <YuXin> the confirmation dialog, if user select no, what is next?
+13:58:45 <alinefm> YuXin, don't clone the VM
+13:58:46 <vianac> IMO there should never be a confirmation dialog. Kimchi will always clone to a new, working VM, it should always work (unless an error occurs, of course)
+13:58:47 <royce> Cancel and Yes:) Hehehhh
+13:59:06 <vianac> the user should be able to edit the new VM (name, disks) later in "Edit Guest" if they want to
+13:59:07 <royce> Cancel or Yes
+13:59:09 <alinefm> vianac, so your vote is for no?
+13:59:13 <vianac> alinefm, yes
+13:59:21 <YuXin> don't clone the vm, so a  vm with a iscsi volume  will never have a way to be cloned?
+13:59:44 <alinefm> YuXin, if the confirmation dialog it will be possible if user selects "Yes"
+13:59:53 <alinefm> *with the confirmation...
+14:00:22 <alinefm> I am fine with both solutions
+14:00:30 <YuXin> so only one way is given to the user, if he/she want to clone the vm with iscsi volume, he need to agree to clone it to default
+14:00:36 <alinefm> I mean, the doc would be enough for that
+14:00:46 <alinefm> (but who reads the doc? =))
+14:00:52 <royce> yeah!
+14:00:56 <alinefm> YuXin, yes
+14:01:12 <YuXin> clone to default, no harm at all I think
+14:01:51 <royce> especially when you have interactive UI, no one reads doc at all, UI for user, doc for admin:)
+14:01:58 <alinefm> YuXin, vianac, royce, ok - let's do without the confirmation dialog for now and collect feedbacks on it
+14:02:05 <royce> OK
+14:02:16 <alinefm> seconds point:
+14:02:42 <alinefm> - if pool is full, rejects the clone with an error message
+14:02:49 <alinefm> vianac, royce, YuXin agree ^
+14:02:58 <royce> +1
+14:03:18 <vianac> alinefm, which pool?
+14:03:24 <YuXin> if I still want to clone the vm, what is the way as other pools still have space
+14:03:31 <vianac> the default one? the one from the original VM?
+14:03:59 <alinefm> I think we have 2 views on it:
+14:04:00 <royce> yes, YuXin..
+14:04:27 <alinefm> 1) if original VM pool is full -> fallback to default pool and only rejects if default pool is full
+14:04:29 <royce> and even default pool would be full and others empty:)
+14:04:30 <YuXin> so here, default pool is just like a backup pool when other pools are full
+14:04:39 <alinefm> 2) if original VM pool is full -> rejects
+14:04:50 <YuXin> I think 1) is good
+14:04:54 <vianac> I vote for 1
+14:04:58 <vianac> o/ (1)
+14:05:06 <alinefm> royce, ?
+14:05:35 <royce> I'd like users to pick...:)
+14:05:50 <alinefm> hehehe
+14:06:00 <royce> But I respect you guys opinion
+14:06:12 <royce> after all I'm not the user
+14:06:33 <YuXin> I think all we are trying to achieve is to make clone without any user input as default
+14:06:33 <alinefm> yes, you are
+14:06:39 <royce> I don't know if specify pool would bother him or benefit him
+14:06:42 <alinefm> at least I hope you use kimchi =P
+14:07:15 <YuXin> if a dialog for user to specify, then the whole story is different
+14:07:23 <royce> For me I don't like people make decision for me,hehhe
+14:07:46 <royce> when I'm not aware
+14:08:21 <alinefm> royce, you will be aware about the "default fallback" on clone as we will doc it =)
+14:08:22 <YuXin> we can popup a dialog with default assignment of pools and user can select the target pool for any volume
+14:08:32 <alinefm> I think we can try that way and collect feedbacks
+14:08:37 <royce> hahah, ok~
+14:08:51 <alinefm> from my user view, the only thing I want is to clone my vm
+14:09:01 <alinefm> honestly I don't care where the disks are in the first moment
+14:09:23 <royce> yes, I only worried about some pool would be slow
+14:09:26 <YuXin> I agree default can be this
+14:09:56 <alinefm> vianac, ?
+14:10:13 <YuXin> 2 clones: default clone and customized clone
+14:10:29 <YuXin> now provide a defaut clone withouot any user input
+14:10:33 <royce> So if like a pool in nfs I might want to dir, and because scsi's faster than dir, I would wish use scsi
+14:10:51 <YuXin> if there is feedbac to customize, another clone can be added with full user confiuration
+14:12:19 <royce> Just my opinion, I'm not very insist on this problem:)
+14:12:54 <YuXin> clone -> default clone(no user input)
+14:12:55 <YuXin> customized clone(disks -> pools configuration)
+14:13:00 <alinefm> YuXin, agree
+14:13:07 <vianac> I still think the user should clone and change the VM configuration if they want to; that's how it is now when creating a new guest (it uses a lot of default values); that's how it is now when creating a new template; that's how it is now when cloning a template
+14:13:43 <alinefm> alright! I think we get an agreement on it =)
+14:13:53 <alinefm> we are over time and think there is more topics for today
+14:13:55 <royce> when I check virt-clone, they allow to pass a customised storage path
+14:14:03 <vianac> the common behaviour in other parts of Kimchi is creating things and then editting them later
+14:14:05 <royce> still you can use default one
+14:14:33 <YuXin> vianac, so we need the feature to move volumes between pools
+14:14:40 <vianac> YuXin, sure
+14:14:50 <royce> alinefm, shall we talk about LDAP?
+14:14:55 <vianac> that'll be useful even for non-clone situations
+14:14:58 <alinefm> YuXin, I will add it to backlog because I think we already have a big feature list for 1.4
+14:15:05 <alinefm> royce, yeap
+14:15:08 <YuXin> ok
+14:15:36 <royce> Have you read my mail for authorization today?
+14:15:38 <alinefm> royce, I think we are diverging about it because you can use LDAP for authorization and I think it only for authentication
+14:15:41 <YuXin> ldap authentication or ldap authorization, just confirm?
+14:15:43 <royce> yes
+14:15:58 <royce> I'd like to use it for both
+14:16:32 <YuXin> why ldap is involved in authorization?
+14:16:34 <royce> authorization because LDAP is already able to cover, write this part ourselves seems no benefit
+14:16:39 <alinefm> let me check your email first (I lost my internet connection yesterday afternoon and it only came up again this morning)
+14:16:54 <royce> LDAP has role maintainence, YuXin
+14:17:24 <royce> If we don't keep user roles in LDAP, we need a dedicate db for roles
+14:17:29 <YuXin> but now there  is no role in kimchi
+14:17:41 <royce> also this cannot share among cluster of hosts
+14:17:47 <royce> there is YuXin
+14:17:55 <royce> now just user and admin
+14:18:05 <royce> for each tab
+14:18:21 <YuXin> so ldap is integrated into kimchi rather than linux os?
+14:18:41 <royce> def get_roles(self):
+14:18:41 <royce> if self.has_sudo():
+14:18:41 <royce> # after adding support to change user roles that info should be
+14:18:41 <royce> # read from a specific objstore and fallback to default only if
+14:18:41 <royce> # any entry is found
+14:18:43 <royce> self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+14:19:10 <royce> you see, we already planned to do distinguish the first time we add role
+14:19:17 <royce> yes
+14:19:23 <YuXin> my first question is that whether the ldap user will be a linux os user after integrated?
+14:19:52 <alinefm> I point of view is the same described by Zheng Zhou
+14:19:55 <royce> http://www.ibm.com/developerworks/cloud/library/cl-ldap-keystone/index.html
+14:20:07 <alinefm> we can't compare openstack with Kimchi as it is
+14:20:19 <royce> we still want cluster, right?
+14:20:23 <alinefm> Kimchi is for small environments and need to coexist with existing applications
+14:20:39 <alinefm> openstack has it own dedicated applications and so
+14:21:31 <alinefm> most of time, the LDAP server will be already setup for someone and if the admin wants Kimchi to use it he doesn't want to change it configuration
+14:21:46 <royce> I can't connect AT&T, so can't see his comments, alinefm
+14:21:46 <alinefm> think about a company (for example IBM)
+14:22:11 <royce> then how can we setup the role information?
+14:22:16 <alinefm> if I want to user its LDAP server for authentication, it is fine because I just need to match criterias
+14:22:31 <alinefm> but if I need to change its setup it will be a nightmare
+14:22:34 <royce> we need user/role map
+14:22:44 <alinefm> first, I doubt anyone will allow me to do that
+14:23:15 <royce> if we are a small cluster there would be small number of people using it:)
+14:23:22 <alinefm> royce, for the authorization schema, I think we can follow the same approach for PAM authentication
+14:23:48 <alinefm> ie, have a objectstore to hold the user/role map
+14:24:03 <royce> how can it spread to other host?
+14:24:25 <alinefm> about the cluster concern you have (to share the same information between hosts) we can use the peers as Zheng Zhou suggested
+14:24:50 <alinefm> for example, we can have a new tab for kimchi configuration where admin will assign user roles, etc...
+14:24:55 <royce> Haven't read it, could you explain
+14:25:09 <alinefm> and in that tab we can have a "Import authorization schema"
+14:25:20 <YuXin> current kimchi authentication and authorization are all based on linux, so if the ldap can be integrated at OS level to make ldap user to be the host OS user, then all will be streamlined
+14:25:27 <alinefm> that feature will allow you import an authorization schema from other kimchi server
+14:25:50 <alinefm> so they can share the same config without requiring any manual intervention
+14:26:43 <royce> OK, acceptable
+14:26:45 <alinefm> YuXin, it is not possible - LDAP does not communicate with OS level
+14:27:25 <alinefm> YuXin, example, you use your intranet credentials to login, right? the idea is make you able to use those credentials to login into kimchi
+14:27:47 <alinefm> but it does not have any relation to OS
+14:27:52 <alinefm> makes more sense now?
+14:28:43 <alinefm> royce, I will add Zheng Zhou's idea to our backlog
+14:29:03 <royce> ok
+14:29:03 <alinefm> (about this configuration tab and import authorization schema)
+14:29:29 <alinefm> royce, YuXin, what we need to think is how we will present the user/group information in the "Permission" tab
+14:29:39 <alinefm> today we list all the system users and groups
+14:29:50 <alinefm> but it is not feasible for LDAP
+14:30:00 <royce> we just list logged ones
+14:30:24 <royce> because we store in objstore about role info, we can add this, is that OK?
+14:31:04 <royce> log in ones
+14:31:15 <alinefm> but I would need to ask a user to login into Kimchi prior to assign him to a vm
+14:31:22 <alinefm> I don't think it is good
+14:31:29 <alinefm> I thought in do it in a search process
+14:31:44 <alinefm> example: user enter "alinefm" and click on "Search" button
+14:32:04 <alinefm> it will produce a request GET /user?username=alinefm*
+14:32:25 <alinefm> and then we list all the mail address in LDAP that matches with "alinefm"
+14:33:00 <alinefm> but in that case we will need a different "Permission" tab when the authentication method is LDAP
+14:33:53 <YuXin> http://www.howtoforge.com/linux_ldap_authentication
+14:33:53 <YuXin> if I understand correctly, linux can leverage ldap for authentication, then ldap user is just like linux OS user
+14:34:33 <royce> if a user does not tagged with group and role, only list the user does not make sense, resources and permission is related with roles
+14:34:55 <royce> YuXin, this is a doc about how you migrate linux system users to LDAP
+14:35:03 <alinefm> it is another way to setup LDAP on OS
+14:35:33 <alinefm> royce, the admin user for LDAP authentication will be listed on kimchi config file
+14:35:46 <alinefm> all others users have "user" role
+14:35:48 <royce> yes
+14:36:14 <alinefm> let's say I am a normal user in a LDAP setup for kimchi
+14:36:23 <alinefm> and you are an admin user
+14:36:27 <YuXin> I will investigate more about it tomorrow, I exactly remember even windows, there domain users.
+14:36:35 <alinefm> royce, you want to assign a VM for me
+14:36:49 <alinefm> how did you find out me on "Permission" tab?
+14:37:32 <alinefm> YuXin, you can integrate LDAP authentication to OS authentication too, but it is not what we want for Kimchi
+14:37:33 <royce> got u, alinef
+14:37:37 <royce> alinefm
+14:38:08 <alinefm> YuXin, the OS will continue using PAM for authenticate the users through SSH for example but Kimchi will be setup to use LDAP
+14:38:40 <alinefm> royce, because that I thought about the search process
+14:38:44 <royce> but in that case we will need a different "Permission" tab when the authentication method is LDAP--You mean not list users?
+14:39:01 <alinefm> it can work well but we will have 2 different UI according to authentication method
+14:39:10 <alinefm> royce, exatcly
+14:39:17 <alinefm> *exactly
+14:39:23 <royce> I still think admin need to see users, at least tagged ones
+14:39:39 <royce> others not tagged can be ignored
+14:39:51 <royce> but if someone is store admin/net admin
+14:40:11 <royce> Admin would like to know or deprive there authorization
+14:40:17 <YuXin> alinefm, if there is not a layer on top of native and ldap for abstraction, but kimchi integrate ldap by itself, then there will be 2 paths for native and ldap authentication separately in the future.
+14:40:35 <royce> search does not able to fulfill  this
+14:41:43 <YuXin> if a power linux already have a ldap authentication configured, will kimchi leverage that?
+14:42:06 <royce> yes, YuXin
+14:42:08 <alinefm> YuXin, the LDAP config will be on kimchi config file
+14:42:19 <alinefm> royce, not sure I understood your point
+14:42:41 <alinefm> royce, YuXin, I am worried about the time for you guys - it must be too late for you
+14:42:59 <royce> I mean, in permission tab, you use search for adding user autorization and assigning vm, right?
+14:43:05 <YuXin> before kimchi is installed, a power linux already configured ldap authentication, then kimchi installed, whether kimchi will have those ldap users?
+14:43:19 <alinefm> royce, yes
+14:43:21 <royce> Still we need to delete/ change these authorization
+14:43:49 <royce> then we need to know, who is in a group, who has the role of network admin
+14:43:57 <royce> then we need to list users
+14:44:07 <alinefm> there is no network admin by now
+14:44:12 <royce> alinefm, we can hold on for a while
+14:44:28 <royce> alinefm, the role is per tab
+14:44:41 <alinefm> royce, yes - it will continue like that
+14:45:06 <royce> there is a network tab
+14:45:44 <royce> point is, we need to know what users authorized of what role/permission
+14:46:07 <alinefm> royce, I am talking about this Permission tab: http://picpaste.com/_7530EE84039C7ECD-YUzIEaN9.jpg
+14:46:15 <alinefm> on guest edit
+14:46:48 <alinefm> royce, the admin users for LDAP will be listed on kimchi config file
+14:46:56 <alinefm> all other users are normal user
+14:47:21 <alinefm> so if a LDAP ID is listed as kimchi admin on config file it will be admin on all tabs
+14:47:48 <royce> this is the same, like we have a group, br group and china goup
+14:47:56 <royce> each group have some machines
+14:47:58 <alinefm> my concern right now (to enable LDAP authentication) is we need to change the Permission tab (on guest edit) to get the users on LDAP server
+14:48:48 <royce> alinefm, I understand, we can't list all users on LDAP server
+14:48:57 <alinefm> royce, yes - I also think the "group" in LDAP will be handle as a LDAP domain
+14:49:36 <royce> and if tivoli and LTC group?
+14:49:58 <alinefm> there are filter for ldap domain that can be used for it
+14:50:26 <royce> as you said we can't depend on it for role, group neither, because you don't use it  for authorization
+14:50:36 <alinefm> example: "o=cn.ibm.com"
+14:50:44 <alinefm> or "o=br.ibm.com"
+14:50:59 <royce> I understand this
+14:51:17 <alinefm> royce, why can't we use it?
+14:51:25 <alinefm> after user selection we will store it on VM
+14:51:30 <royce> we can't manipulate group then
+14:51:45 <royce> if we don't have a w3 LDAP
+14:51:55 <royce> LDAP can be whatever LDAP
+14:52:37 <royce> the user/group mapping cannot depend on LDAP server query
+14:52:57 <royce> it needs to go to objstore, right?
+14:53:16 <alinefm> on guest edit and Permission tab: user will input user as "alinefm@..." and group as "o=cn.ibm.com" to a VM
+14:53:28 <alinefm> we will store it on VM metadata (as we did today)
+14:54:20 <alinefm> when checking if a user has access to this VM we will search if the user is "alinefm@..." or if it is on "o=cn.ibm.com" result
+14:55:09 <royce> I mean, if we have a LDAP setup without group in its schema, all users under same orgnization, what shall we do?
+14:55:58 <alinefm> the group is not in its schema, it is a filter expression
+14:56:45 <alinefm> royce, when you setup a LDAP server you need to know the server, the base domain and the filter
+14:57:03 <alinefm> the base domain is an expression on how parameters you want to care about
+14:57:17 <alinefm> the "group" will be some base domain expression
+14:57:22 <royce> you are talking about the dynamic group of filtering
+14:57:45 <royce> static group is a LDAP entity
+14:58:10 <alinefm> yes - I don't want a LDAP has a "group" setting
+14:58:28 <alinefm> royce, I think we can continue it on ML
+14:58:31 <alinefm> it is too late there
+14:58:43 <royce> OK
+14:59:00 <alinefm> royce, you can talk to YuXin and think about a new UI for "Permission" tab when the authentication is LDAP
+14:59:05 <alinefm> and share on ML
+14:59:08 <royce> but the filter string can be unstable...
+14:59:24 <alinefm> royce, probably
+14:59:34 <alinefm> it was the first idea that came to my mind
+14:59:42 <alinefm> but we can think in a better solution
+15:00:00 <royce> sure
+15:00:30 <alinefm> royce, thanks for the great discussion! =)
+15:00:38 <alinefm> thanks everyone for joining!
+15:00:44 <alinefm> sorry about the time =$
+15:00:46 <royce> thank you alinefm for keeping providing ideas!
+15:00:56 <royce> Bye!
+15:01:04 <alinefm> royce, will try =)
+15:01:05 <alinefm> bye!
+15:01:10 <alinefm> #endmeeting

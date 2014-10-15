@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:04 UTC
+(<a href="kimchi.scrum.2014-10-15-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-7'>alinefm</a>,
+    13:02:18)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-10-15-13.02.log.html#l-10'>alinefm</a>, 13:03:19)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-11'>alinefm</a>,
+    13:03:19)</span></li>
+  <li><span class="INFO">YuXin Design UI of 'guest clone', 'serial
+    console', 'new UI header'</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-12'>YuXin</a>,
+    13:03:41)</span></li>
+  <li><span class="INFO">alinefm sent patches to use installed
+    spice-html5 code when possible (opensuse13.1 and rhel7 don't have
+    this package so Kimchi must be build with --with-spice-html5)</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-13'>alinefm</a>,
+    13:04:16)</span></li>
+  <li><span class="INFO">royce investigated about integrate LDAP with
+    kimchi, sent an RFC to ML, now implementing authentication part,
+    will send v1 before this Friday</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-14'>royce</a>,
+    13:04:54)</span></li>
+  <li><span class="INFO">alinefm is working on vm template
+    refactor</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-15'>alinefm</a>,
+    13:05:02)</span></li>
+  <li><span class="INFO">worked on the cloning feature, reviewed patches
+    on the mailing list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-16'>vianac</a>,
+    13:05:23)</span></li>
+  <li><span class="INFO">vianac worked on the cloning feature, reviewed
+    patches on the mailing list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-17'>vianac</a>,
+    13:05:27)</span></li>
+  <li><span class="INFO">rotru sent V5 of patches to fix help</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-19'>rotru</a>,
+    13:05:30)</span></li>
+  <li><span class="INFO">wenwang sent patch of PCI passthough UI</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-21'>wenwang</a>,
+    13:06:28)</span></li>
+  <li><span class="INFO">wenwang working on designing UI to allow user
+    adds disks from different pools to a Template</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-22'>wenwang</a>,
+    13:07:19)</span></li>
+  <li><span class="INFO">danielhb sent a patch that revamps the use of
+    the console log</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-23'>danielhb</a>,
+    13:07:53)</span></li>
+  <li><span class="INFO">wenwang working on redesigning "Edit Template"
+    function</span> <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-24'>wenwang</a>,
+    13:08:04)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-10-15-13.02.log.html#l-28'>alinefm</a>, 13:09:39)</span>
+<ol type="a">
+  <li><a
+    href="http://www.ibm.com/developerworks/cloud/library/cl-ldap-keystone/index.html">http://www.ibm.com/developerworks/cloud/library/cl-ldap-keystone/index.html</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-283'>royce</a>,
+    14:19:55)</span></li>
+  <li><a
+    href="http://www.howtoforge.com/linux_ldap_authentication">http://www.howtoforge.com/linux_ldap_authentication</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-10-15-13.02.log.html#l-328'>YuXin</a>,
+    14:33:53)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 15:01:10 UTC
+(<a href="kimchi.scrum.2014-10-15-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (188)</li>
+  <li>royce (118)</li>
+  <li>YuXin (73)</li>
+  <li>vianac (16)</li>
+  <li>baude (13)</li>
+  <li>wenwang (11)</li>
+  <li>kimchi-bot (3)</li>
+  <li>danielhb (1)</li>
+  <li>rotru (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
