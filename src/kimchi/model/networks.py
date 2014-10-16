@@ -27,11 +27,12 @@ from xml.sax.saxutils import escape
 
 from kimchi import netinfo
 from kimchi import network as knetwork
-from kimchi import networkxml
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
+from kimchi.xmlutils.network import create_vlan_tagged_bridge_xml
+from kimchi.xmlutils.network import to_network_xml
 from kimchi.xmlutils.utils import xpath_get_text
 
 
@@ -100,7 +101,7 @@ class NetworksModel(object):
             self._set_network_bridge(params)
 
         params['name'] = escape(params['name'])
-        xml = networkxml.to_network_xml(**params)
+        xml = to_network_xml(**params)
 
         try:
             network = conn.networkDefineXML(xml.encode("utf-8"))
@@ -206,8 +207,7 @@ class NetworksModel(object):
         # Truncate the interface name if it exceeds 8 characters to make sure
         # the length of bridge name is less than 15 (its maximum value).
         br_name = KIMCHI_BRIDGE_PREFIX + interface[-8:] + '-' + vlan_id
-        br_xml = networkxml.create_vlan_tagged_bridge_xml(br_name, interface,
-                                                          vlan_id)
+        br_xml = create_vlan_tagged_bridge_xml(br_name, interface, vlan_id)
         conn = self.conn.get()
 
         if br_name in [net.bridgeName() for net in conn.listAllNetworks()]:

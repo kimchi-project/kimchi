@@ -19,12 +19,11 @@
 
 import ipaddr
 import unittest
+import lxml.etree as ET
 
-
-import kimchi.networkxml as nxml
 import utils
 
-
+from kimchi.xmlutils import network as nxml
 from kimchi.xmlutils.utils import xpath_get_text
 
 
@@ -42,18 +41,18 @@ class NetworkXmlTests(unittest.TestCase):
                  "ip": "192.168.122.11"}
         params = {}
 
-        xml = nxml._get_dhcp_xml(**params)
-        self.assertEquals("", xml)
+        dhcp = nxml._get_dhcp_elem(**params)
+        self.assertEquals(None, dhcp)
 
         params["range"] = dhcp_range
-        xml = nxml._get_dhcp_xml(**params)
+        xml = ET.tostring(nxml._get_dhcp_elem(**params))
         start = xpath_get_text(xml, "/dhcp/range/@start")
         end = xpath_get_text(xml, "/dhcp/range/@end")
         self.assertEquals(dhcp_range['start'], start[0])
         self.assertEquals(dhcp_range['end'], end[0])
 
         params["hosts"] = [host1, host2]
-        xml = nxml._get_dhcp_xml(**params)
+        xml = ET.tostring(nxml._get_dhcp_elem(**params))
         ip = xpath_get_text(xml, "/dhcp/host/@ip")
         self.assertEquals(ip, [host1['ip'], host2['ip']])
 
@@ -64,12 +63,12 @@ class NetworkXmlTests(unittest.TestCase):
         dhcp_range = {"start": "192.168.122.100", "end": "192.168.122.254"}
         params = {}
 
-        xml = nxml._get_dhcp_xml(**params)
-        self.assertEquals("", xml)
+        dhcp = nxml._get_dhcp_elem(**params)
+        self.assertEquals(None, dhcp)
 
         params["net"] = "192.168.122.0/255.255.255.0"
         params["dhcp"] = {'range': dhcp_range}
-        xml = nxml._get_ip_xml(**params)
+        xml = ET.tostring(nxml._get_ip_elem(**params))
         start = xpath_get_text(xml, "/ip/dhcp/range/@start")[0]
         end = xpath_get_text(xml, "/ip/dhcp/range/@end")[0]
         self.assertEquals(dhcp_range['start'], start)
@@ -83,7 +82,7 @@ class NetworkXmlTests(unittest.TestCase):
         # test _get_ip_xml can accepts strings: '192.168.122.0/24',
         # which is same as "192.168.122.0/255.255.255.0"
         params["net"] = "192.168.122.0/24"
-        xml = nxml._get_ip_xml(**params)
+        xml = ET.tostring(nxml._get_ip_elem(**params))
         netmask = xpath_get_text(xml, "/ip/@netmask")[0]
         self.assertEquals(netmask,
                           str(ipaddr.IPNetwork(params["net"]).netmask))
@@ -94,12 +93,12 @@ class NetworkXmlTests(unittest.TestCase):
         """
         params = {"mode": None}
 
-        xml = nxml._get_forward_xml(**params)
-        self.assertEquals("", xml)
+        forward = nxml._get_forward_elem(**params)
+        self.assertEquals(None, forward)
 
         params["mode"] = 'nat'
         params["dev"] = 'eth0'
-        xml = nxml._get_forward_xml(**params)
+        xml = ET.tostring(nxml._get_forward_elem(**params))
         mode = xpath_get_text(xml, "/forward/@mode")[0]
         dev = xpath_get_text(xml, "/forward/@dev")[0]
         self.assertEquals(params['mode'], mode)
