@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2014
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,11 @@
 import ipaddr
 import lxml.etree as ET
 
-
 from lxml.builder import E
 
 
 # FIXME, do not support ipv6
-
-def _get_dhcp_xml(**kwargs):
+def _get_dhcp_elem(**kwargs):
     """
     <dhcp>
       <range start="192.168.122.100" end="192.168.122.254" />
@@ -34,20 +32,22 @@ def _get_dhcp_xml(**kwargs):
       <host mac="00:16:3e:3e:a9:1a" name="bar.test.com" ip="192.168.122.11" />
     </dhcp>
     """
-    xml = ''
-    dhcp_range = "  <range start='%(start)s' end='%(end)s' />"
-    ipv4host = "  <host mac='%(mac)s' name='%(name)s' ip='%(ip)s' />"
-    dhcp = []
+    dhcp = E.dhcp()
     if 'range' in kwargs.keys():
-        dhcp.append(dhcp_range % kwargs['range'])
+        dhcp_range = E.range(start=kwargs['range']['start'],
+                             end=kwargs['range']['end'])
+        dhcp.append(dhcp_range)
+
     if 'hosts' in kwargs.keys():
-        dhcp.extend([ipv4host % host for host in kwargs['hosts']])
-    if dhcp:
-        xml = "\n".join(["<dhcp>"] + dhcp + ["</dhcp>"])
-    return xml
+        for host in kwargs['hosts']:
+            dhcp.append(E.host(mac=host['mac'],
+                               name=host['name'],
+                               ip=host['ip']))
+
+    return dhcp if len(dhcp) > 0 else None
 
 
-def _get_ip_xml(**kwargs):
+def _get_ip_elem(**kwargs):
     """
     <ip address="192.168.152.1" netmask="255.255.255.0">
       <dhcp>
@@ -55,61 +55,57 @@ def _get_ip_xml(**kwargs):
       </dhcp>
     </ip>
     """
-    xml = ""
-    if 'net' in kwargs.keys():
-        net = ipaddr.IPNetwork(kwargs['net'])
-        address = str(net.ip)
-        netmask = str(net.netmask)
-        dhcp_params = kwargs.get('dhcp', {})
-        dhcp = _get_dhcp_xml(**dhcp_params)
-        xml = """
-          <ip address='%s' netmask='%s'>"
-            %s
-          </ip>""" % (address, netmask, dhcp)
-    return xml
+    if 'net' not in kwargs.keys():
+        return None
+
+    net = ipaddr.IPNetwork(kwargs['net'])
+    ip = E.ip(address=str(net.ip), netmask=str(net.netmask))
+
+    dhcp_params = kwargs.get('dhcp', {})
+    dhcp = _get_dhcp_elem(**dhcp_params)
+    if dhcp is not None:
+        ip.append(dhcp)
+
+    return ip
 
 
-def _get_forward_xml(**kwargs):
+def _get_forward_elem(**kwargs):
     """
     <forward mode='hostdev' dev='eth0' managed='yes'>
     </forward>
     """
-
     if "mode" in kwargs.keys() and kwargs['mode'] is None:
-        return ""
-    mode = " mode='%s'" % kwargs['mode'] if 'mode' in kwargs.keys() else ""
-    dev = " dev='%s'" % kwargs['dev'] if 'dev' in kwargs.keys() else ""
-    managed = (" managed='%s'" % kwargs['managed']
-               if 'managed' in kwargs.keys() else "")
-    xml = """
-      <forward %s%s%s>
-      </forward>
-    """ % (mode, dev, managed)
-    return xml
+        return None
+
+    forward = E.forward()
+    if 'mode' in kwargs.keys():
+        forward.set('mode', kwargs['mode'])
+
+    if 'dev' in kwargs.keys():
+        forward.set('dev', kwargs['dev'])
+
+    if 'managed' in kwargs.keys():
+        forward.set('managed', kwargs['managed'])
+
+    return forward
 
 
 def to_network_xml(**kwargs):
-
-    params = {'name': kwargs['name']}
-    # None means is Isolated network, {} means default mode nat
-    forward = kwargs.get('forward', {"mode": None})
-    ip = {'net': kwargs['net']} if 'net' in kwargs else {}
-    ip['dhcp'] = kwargs.get('dhcp', {})
+    network = E.network(E.name(kwargs['name']))
     bridge = kwargs.get('bridge')
-    params = {'name': kwargs['name'],
-              'forward': _get_forward_xml(**forward),
-              'bridge': "<bridge name='%s' />" % bridge if bridge else "",
-              'ip': _get_ip_xml(**ip)}
+    if bridge:
+        network.append(E.bridge(name=bridge))
 
-    xml = """
-    <network>
-      <name>%(name)s</name>
-        %(bridge)s
-        %(forward)s
-        %(ip)s
-    </network>
-    """ % params
-    return xml
+    # None means is Isolated network, {} means default mode nat
+    params = kwargs.get('forward', {"mode": None})
+    forward = _get_forward_elem(**params)
+    if forward is not None:
+        network.append(forward)
+
+    if 'net' in kwargs:
+        network.append(_get_ip_elem(**kwargs))
+
+    return ET.tostring(network)
 
 
 def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
