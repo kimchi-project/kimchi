@@ -28,11 +28,11 @@ from xml.sax.saxutils import escape
 from kimchi import netinfo
 from kimchi import network as knetwork
 from kimchi import networkxml
-from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 KIMCHI_BRIDGE_PREFIX = 'kb'
@@ -301,7 +301,7 @@ class NetworkModel(object):
     def _vm_get_networks(self, dom):
         xml = dom.XMLDesc(0)
         xpath = "/domain/devices/interface[@type='network']/source/@network"
-        return xmlutils.xpath_get_text(xml, xpath)
+        return xpath_get_text(xml, xpath)
 
     def activate(self, name):
         network = self.get_network(self.conn.get(), name)
@@ -335,25 +335,23 @@ class NetworkModel(object):
 
     @staticmethod
     def get_network_from_xml(xml):
-        address = xmlutils.xpath_get_text(xml, "/network/ip/@address")
+        address = xpath_get_text(xml, "/network/ip/@address")
         address = address and address[0] or ''
-        netmask = xmlutils.xpath_get_text(xml, "/network/ip/@netmask")
+        netmask = xpath_get_text(xml, "/network/ip/@netmask")
         netmask = netmask and netmask[0] or ''
         net = address and netmask and "/".join([address, netmask]) or ''
 
-        dhcp_start = xmlutils.xpath_get_text(xml,
-                                             "/network/ip/dhcp/range/@start")
+        dhcp_start = xpath_get_text(xml, "/network/ip/dhcp/range/@start")
         dhcp_start = dhcp_start and dhcp_start[0] or ''
-        dhcp_end = xmlutils.xpath_get_text(xml, "/network/ip/dhcp/range/@end")
+        dhcp_end = xpath_get_text(xml, "/network/ip/dhcp/range/@end")
         dhcp_end = dhcp_end and dhcp_end[0] or ''
         dhcp = {'start': dhcp_start, 'end': dhcp_end}
 
-        forward_mode = xmlutils.xpath_get_text(xml, "/network/forward/@mode")
+        forward_mode = xpath_get_text(xml, "/network/forward/@mode")
         forward_mode = forward_mode and forward_mode[0] or ''
-        forward_if = xmlutils.xpath_get_text(xml,
-                                             "/network/forward/interface/@dev")
-        forward_pf = xmlutils.xpath_get_text(xml, "/network/forward/pf/@dev")
-        bridge = xmlutils.xpath_get_text(xml, "/network/bridge/@name")
+        forward_if = xpath_get_text(xml, "/network/forward/interface/@dev")
+        forward_pf = xpath_get_text(xml, "/network/forward/pf/@dev")
+        bridge = xpath_get_text(xml, "/network/bridge/@name")
         bridge = bridge and bridge[0] or ''
         return {'subnet': net, 'dhcp': dhcp, 'bridge': bridge,
                 'forward': {'mode': forward_mode,

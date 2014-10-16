@@ -30,7 +30,6 @@ from cherrypy.process.plugins import BackgroundTask
 
 from kimchi import disks
 from kimchi import netinfo
-from kimchi import xmlutils
 from kimchi.basemodel import Singleton
 from kimchi.model import hostdev
 from kimchi.exception import InvalidOperation, InvalidParameter
@@ -41,6 +40,7 @@ from kimchi.model.vms import DOM_STATE_MAP
 from kimchi.repositories import Repositories
 from kimchi.swupdate import SoftwareUpdate
 from kimchi.utils import add_task, kimchi_log
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 HOST_STATS_INTERVAL = 1
@@ -348,7 +348,7 @@ class DevicesModel(object):
             for host in scsi_hosts:
                 xml = conn.nodeDeviceLookupByName(host).XMLDesc(0)
                 path = '/device/capability/capability/@type'
-                if 'fc_host' in xmlutils.xpath_get_text(xml, path):
+                if 'fc_host' in xpath_get_text(xml, path):
                     ret.append(host)
             return ret
         # Double verification to catch the case where the libvirt

@@ -23,7 +23,7 @@ from pprint import pprint
 
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.utils import kimchi_log
-from kimchi.xmlutils import dictize
+from kimchi.xmlutils.utils import dictize
 
 
 def _get_all_host_dev_infos(libvirt_conn):

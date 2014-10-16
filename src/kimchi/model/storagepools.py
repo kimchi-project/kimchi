@@ -19,7 +19,6 @@
 
 import libvirt
 
-from kimchi import xmlutils
 from kimchi.scan import Scanner
 from kimchi.exception import InvalidOperation, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
@@ -27,6 +26,7 @@ from kimchi.model.config import CapabilitiesModel
 from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.utils import add_task, kimchi_log, pool_name_from_uri, run_command
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -212,7 +212,7 @@ class StoragePoolModel(object):
             return source
 
         for key, val in STORAGE_SOURCES[pool_type].items():
-            res = xmlutils.xpath_get_text(pool_xml, val)
+            res = xpath_get_text(pool_xml, val)
             if len(res) == 1:
                 source[key] = res[0]
             elif len(res) == 0:
@@ -224,7 +224,7 @@ class StoragePoolModel(object):
     def _nfs_status_online(self, pool, poolArgs=None):
         if not poolArgs:
             xml = pool.XMLDesc(0)
-            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            pool_type = xpath_get_text(xml, "/pool/@type")[0]
             source = self._get_storage_source(pool_type, xml)
             poolArgs = {}
             poolArgs['name'] = pool.name()
@@ -245,8 +245,8 @@ class StoragePoolModel(object):
         autostart = True if pool.autostart() else False
         persistent = True if pool.isPersistent() else False
         xml = pool.XMLDesc(0)
-        path = xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
-        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        path = xpath_get_text(xml, "/pool/target/path")[0]
+        pool_type = xpath_get_text(xml, "/pool/@type")[0]
         source = self._get_storage_source(pool_type, xml)
         # FIXME: nfs workaround - prevent any libvirt operation
         # for a nfs if the corresponding NFS server is down.
@@ -319,7 +319,7 @@ class StoragePoolModel(object):
         if 'disks' in params:
             # check if pool is type 'logical'
             xml = pool.XMLDesc(0)
-            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            pool_type = xpath_get_text(xml, "/pool/@type")[0]
             if pool_type != 'logical':
                 raise InvalidOperation('KCHPOOL0029E')
             self._update_lvm_disks(name, params['disks'])
@@ -331,7 +331,7 @@ class StoragePoolModel(object):
         # FIXME: nfs workaround - do not activate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
-        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        pool_type = xpath_get_text(xml, "/pool/@type")[0]
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
             # block the user from activating the pool.
             source = self._get_storage_source(pool_type, xml)
@@ -362,7 +362,7 @@ class StoragePoolModel(object):
         # FIXME: nfs workaround - do not try to deactivate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
-        pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        pool_type = xpath_get_text(xml, "/pool/@type")[0]
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
             # block the user from dactivating the pool.
             source = self._get_storage_source(pool_type, xml)

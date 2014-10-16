@@ -25,7 +25,7 @@ import kimchi.networkxml as nxml
 import utils
 
 
-from kimchi.xmlutils import xpath_get_text
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 class NetworkXmlTests(unittest.TestCase):

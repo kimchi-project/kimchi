@@ -27,7 +27,7 @@ import threading
 from ConfigParser import SafeConfigParser
 
 
-from kimchi.xmlutils import xpath_get_text
+from kimchi.xmlutils.utils import xpath_get_text
 
 __version__ = "@kimchiversion@"
 __release__ = "@kimchirelease@"
