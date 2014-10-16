@@ -17,12 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
-import libxml2
+import lxml.etree as ET
 import unittest
 
 
 from kimchi.model.libvirtstoragepool import StoragePoolDef
-from kimchi.rollbackcontext import RollbackContext
 
 
 class storagepoolTests(unittest.TestCase):
@@ -166,11 +165,8 @@ class storagepoolTests(unittest.TestCase):
         for poolDef in poolDefs:
             defObj = StoragePoolDef.create(poolDef['def'])
             xmlStr = defObj.xml
-            with RollbackContext() as rollback:
-                t1 = libxml2.readDoc(xmlStr, URL='', encoding='UTF-8',
-                                     options=libxml2.XML_PARSE_NOBLANKS)
-                rollback.prependDefer(t1.freeDoc)
-                t2 = libxml2.readDoc(poolDef['xml'], URL='', encoding='UTF-8',
-                                     options=libxml2.XML_PARSE_NOBLANKS)
-                rollback.prependDefer(t2.freeDoc)
-                self.assertEquals(t1.serialize(), t2.serialize())
+
+            parser = ET.XMLParser(remove_blank_text=True)
+            t1 = ET.fromstring(xmlStr, parser)
+            t2 = ET.fromstring(poolDef['xml'], parser)
+            self.assertEquals(ET.tostring(t1), ET.tostring(t2))
