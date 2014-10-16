@@ -17,9 +17,10 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import copy
 import os
 import tempfile
+import lxml.etree as ET
+from lxml.builder import E
 
 import libvirt
 
@@ -65,15 +66,10 @@ class DirPoolDef(StoragePoolDef):
         # name:
         # type:
         # path:
-        xml = u"""
-        <pool type='dir'>
-          <name>{name}</name>
-          <target>
-            <path>{path}</path>
-          </target>
-        </pool>
-        """.format(**self.poolArgs)
-        return xml
+        pool = E.pool(type='dir')
+        pool.append(E.name(self.poolArgs['name']))
+        pool.append(E.target(E.path(self.poolArgs['path'])))
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
 
 class NetfsPoolDef(StoragePoolDef):
@@ -120,21 +116,16 @@ class NetfsPoolDef(StoragePoolDef):
         # type:
         # source[host]:
         # source[path]:
-        poolArgs = copy.deepcopy(self.poolArgs)
-        poolArgs['path'] = self.path
-        xml = u"""
-        <pool type='netfs'>
-          <name>{name}</name>
-          <source>
-            <host name='{source[host]}'/>
-            <dir path='{source[path]}'/>
-          </source>
-          <target>
-            <path>{path}</path>
-          </target>
-        </pool>
-        """.format(**poolArgs)
-        return xml
+        pool = E.pool(type='netfs')
+        pool.append(E.name(self.poolArgs['name']))
+
+        source = E.source()
+        source.append(E.host(name=self.poolArgs['source']['host']))
+        source.append(E.dir(path=self.poolArgs['source']['path']))
+
+        pool.append(source)
+        pool.append(E.target(E.path(self.path)))
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
 
 class LogicalPoolDef(StoragePoolDef):
@@ -150,26 +141,16 @@ class LogicalPoolDef(StoragePoolDef):
         # name:
         # type:
         # source[devices]:
-        poolArgs = copy.deepcopy(self.poolArgs)
-        devices = []
-        for device_path in poolArgs['source']['devices']:
-            devices.append('<device path="%s" />' % device_path)
+        pool = E.pool(type='logical')
+        pool.append(E.name(self.poolArgs['name']))
 
-        poolArgs['source']['devices'] = ''.join(devices)
-        poolArgs['path'] = self.path
+        source = E.source()
+        for device_path in self.poolArgs['source']['devices']:
+            source.append(E.device(path=device_path))
 
-        xml = u"""
-        <pool type='logical'>
-        <name>{name}</name>
-            <source>
-            {source[devices]}
-            </source>
-        <target>
-            <path>{path}</path>
-        </target>
-        </pool>
-        """.format(**poolArgs)
-        return xml
+        pool.append(source)
+        pool.append(E.target(E.path(self.path)))
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
 
 class ScsiPoolDef(StoragePoolDef):
@@ -199,22 +180,17 @@ class ScsiPoolDef(StoragePoolDef):
         # source[adapter][wwnn]:
         # source[adapter][wwpn]:
         # path:
+        pool = E.pool(type='scsi')
+        pool.append(E.name(self.poolArgs['name']))
 
-        xml = """
-        <pool type='scsi'>
-          <name>{name}</name>
-          <source>
-            <adapter type='{source[adapter][type]}'\
-                     name='{source[name]}'\
-                     wwnn='{source[adapter][wwnn]}'\
-                     wwpn='{source[adapter][wwpn]}'/>
-          </source>
-          <target>
-            <path>{path}</path>
-          </target>
-        </pool>
-        """.format(**self.poolArgs)
-        return xml
+        adapter = E.adapter(type=self.poolArgs['source']['adapter']['type'])
+        adapter.set('name', self.poolArgs['source']['name'])
+        adapter.set('wwnn', self.poolArgs['source']['adapter']['wwnn'])
+        adapter.set('wwpn', self.poolArgs['source']['adapter']['wwpn'])
+
+        pool.append(E.source(adapter))
+        pool.append(E.target(E.path(self.poolArgs['path'])))
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
 
 class IscsiPoolDef(StoragePoolDef):
@@ -237,36 +213,19 @@ class IscsiPoolDef(StoragePoolDef):
             virSecret = conn.secretLookupByUsage(
                 libvirt.VIR_SECRET_USAGE_TYPE_ISCSI, self.poolArgs['name'])
         except libvirt.libvirtError:
-            xml = '''
-            <secret ephemeral='no' private='yes'>
-              <description>Secret for iSCSI storage pool {name}</description>
-              <auth type='chap' username='{username}'/>
-              <usage type='iscsi'>
-                <target>{name}</target>
-              </usage>
-            </secret>'''.format(name=self.poolArgs['name'],
-                                username=auth['username'])
-            virSecret = conn.secretDefineXML(xml)
+            secret = E.secret(ephemeral='no', private='yes')
+
+            description = E.description('Secret for iSCSI storage pool %s' %
+                                        self.poolArgs['name'])
+            secret.append(description)
+            secret.append(E.auth(type='chap', username=auth['username']))
+
+            usage = E.usage(type='iscsi')
+            usage.append(E.target(self.poolArgs['name']))
+            secret.append(usage)
+            virSecret = conn.secretDefineXML(ET.tostring(secret))
 
         virSecret.setValue(auth['password'])
-
-    def _format_port(self, poolArgs):
-        try:
-            port = poolArgs['source']['port']
-        except KeyError:
-            return ""
-        return "port='%s'" % port
-
-    def _format_auth(self, poolArgs):
-        try:
-            auth = poolArgs['source']['auth']
-        except KeyError:
-            return ""
-
-        return '''
-        <auth type='chap' username='{username}'>
-          <secret type='iscsi' usage='{name}'/>
-        </auth>'''.format(name=poolArgs['name'], username=auth['username'])
 
     @property
     def xml(self):
@@ -278,22 +237,28 @@ class IscsiPoolDef(StoragePoolDef):
         #
         # Optional parameters
         # source[port]:
-        poolArgs = copy.deepcopy(self.poolArgs)
-        poolArgs['source'].update({'port': self._format_port(poolArgs),
-                                   'auth': self._format_auth(poolArgs)})
-        poolArgs['path'] = '/dev/disk/by-id'
+        pool = E.pool(type='iscsi')
+        pool.append(E.name(self.poolArgs['name']))
 
-        xml = u"""
-        <pool type='iscsi'>
-          <name>{name}</name>
-          <source>
-            <host name='{source[host]}' {source[port]}/>
-            <device path='{source[target]}'/>
-            {source[auth]}
-          </source>
-          <target>
-            <path>{path}</path>
-          </target>
-        </pool>
-        """.format(**poolArgs)
-        return xml
+        host = E.host(name=self.poolArgs['source']['host'])
+        port = self.poolArgs['source'].get('port')
+        if port is not None:
+            host.set('port', str(port))
+
+        source = E.source(host)
+        source.append(E.device(path=self.poolArgs['source']['target']))
+
+        source_auth = self.poolArgs['source'].get('auth')
+        if source_auth is not None:
+            auth = E.auth(type='chap')
+            auth.set('username', source_auth['username'])
+
+            secret = E.secret(type='iscsi')
+            secret.set('usage', self.poolArgs['name'])
+            auth.append(secret)
+
+            source.append(auth)
+
+        pool.append(source)
+        pool.append(E.target(E.path('/dev/disk/by-id')))
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
