@@ -24,7 +24,6 @@ import urllib2
 
 import libvirt
 
-from kimchi import xmlutils
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
@@ -34,6 +33,7 @@ from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import VMsModel, VMModel
 from kimchi.utils import add_task, kimchi_log
 from kimchi.vmdisks import get_vm_disk, get_vm_disk_list
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 VOLUME_TYPE_MAP = {0: 'file',
@@ -286,8 +286,7 @@ class StorageVolumeModel(object):
         info = vol.info()
         xml = vol.XMLDesc(0)
         try:
-            fmt = xmlutils.xpath_get_text(
-                xml, "/volume/target/format/@type")[0]
+            fmt = xpath_get_text(xml, "/volume/target/format/@type")[0]
         except IndexError:
             # Not all types of libvirt storage can provide volume format
             # infomation. When there is no format information, we assume

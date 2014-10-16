@@ -23,7 +23,7 @@ import uuid
 
 
 from kimchi.vmtemplate import VMTemplate
-from kimchi.xmlutils import xpath_get_text
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 class VMTemplateTests(unittest.TestCase):

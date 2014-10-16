@@ -31,7 +31,6 @@ import libvirt
 from cherrypy.process.plugins import BackgroundTask
 
 from kimchi import vnc
-from kimchi import xmlutils
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
@@ -43,7 +42,7 @@ from kimchi.model.utils import set_metadata_node
 from kimchi.screenshot import VMScreenshot
 from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
-from kimchi.xmlutils import xpath_get_text
+from kimchi.xmlutils.utils import xpath_get_text, xml_item_update
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -352,7 +351,7 @@ class VMModel(object):
                 if type(val) == int:
                     val = str(val)
                 xpath = VM_STATIC_UPDATE_PARAMS[key]
-                new_xml = xmlutils.xml_item_update(new_xml, xpath, val)
+                new_xml = xml_item_update(new_xml, xpath, val)
 
         if 'graphics' in params:
             new_xml = self._update_graphics(dom, new_xml, params)
@@ -445,7 +444,7 @@ class VMModel(object):
     def _vm_get_disk_paths(self, dom):
         xml = dom.XMLDesc(0)
         xpath = "/domain/devices/disk[@device='disk']/source/@file"
-        return xmlutils.xpath_get_text(xml, xpath)
+        return xpath_get_text(xml, xpath)
 
     @staticmethod
     def get_vm(name, conn):
@@ -480,7 +479,7 @@ class VMModel(object):
             vol = conn.storageVolLookupByPath(path)
             pool = vol.storagePoolLookupByVolume()
             xml = pool.XMLDesc(0)
-            pool_type = xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+            pool_type = xpath_get_text(xml, "/pool/@type")[0]
             if pool_type not in READONLY_POOL_TYPE:
                 vol.delete(0)
         try:
@@ -498,7 +497,7 @@ class VMModel(object):
         dom = self.get_vm(name, self.conn)
         xml = dom.XMLDesc(0)
         xpath = "/domain/devices/disk[@device='cdrom']/source/@file"
-        isofiles = xmlutils.xpath_get_text(xml, xpath)
+        isofiles = xpath_get_text(xml, xpath)
         for iso in isofiles:
             run_setfacl_set_attr(iso)
 
@@ -538,25 +537,25 @@ class VMModel(object):
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
 
         expr = "/domain/devices/graphics/@type"
-        res = xmlutils.xpath_get_text(xml, expr)
+        res = xpath_get_text(xml, expr)
         graphics_type = res[0] if res else None
 
         expr = "/domain/devices/graphics/@listen"
-        res = xmlutils.xpath_get_text(xml, expr)
+        res = xpath_get_text(xml, expr)
         graphics_listen = res[0] if res else None
 
         graphics_port = graphics_passwd = graphics_passwdValidTo = None
         if graphics_type:
             expr = "/domain/devices/graphics[@type='%s']/@port"
-            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
+            res = xpath_get_text(xml, expr % graphics_type)
             graphics_port = int(res[0]) if res else None
 
             expr = "/domain/devices/graphics[@type='%s']/@passwd"
-            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
+            res = xpath_get_text(xml, expr % graphics_type)
             graphics_passwd = res[0] if res else None
 
             expr = "/domain/devices/graphics[@type='%s']/@passwdValidTo"
-            res = xmlutils.xpath_get_text(xml, expr % graphics_type)
+            res = xpath_get_text(xml, expr % graphics_type)
             if res:
                 to = time.mktime(time.strptime(res[0], '%Y-%m-%dT%H:%M:%S'))
                 graphics_passwdValidTo = to - time.mktime(time.gmtime())

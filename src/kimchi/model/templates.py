@@ -22,13 +22,13 @@ import os
 
 import libvirt
 
-from kimchi import xmlutils
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.kvmusertests import UserTests
 from kimchi.utils import pool_name_from_uri
 from kimchi.utils import probe_file_permission_as_user
 from kimchi.vmtemplate import VMTemplate
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 class TemplatesModel(object):
@@ -88,7 +88,7 @@ class TemplatesModel(object):
 
     def template_volume_validate(self, tmp_volumes, pool):
         kwargs = {'conn': self.conn, 'objstore': self.objstore}
-        pool_type = xmlutils.xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
+        pool_type = xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
         pool_name = pool.name()
 
         # as we discussion, we do not mix disks from 2 different types of
@@ -235,12 +235,12 @@ class LibvirtVMTemplate(VMTemplate):
     def _get_storage_path(self):
         pool = self._storage_validate()
         xml = pool.XMLDesc(0)
-        return xmlutils.xpath_get_text(xml, "/pool/target/path")[0]
+        return xpath_get_text(xml, "/pool/target/path")[0]
 
     def _get_storage_type(self):
         pool = self._storage_validate()
         xml = pool.XMLDesc(0)
-        return xmlutils.xpath_get_text(xml, "/pool/@type")[0]
+        return xpath_get_text(xml, "/pool/@type")[0]
 
     def _get_volume_path(self, pool, vol):
         pool = self._storage_validate()
