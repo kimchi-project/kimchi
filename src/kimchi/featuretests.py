@@ -80,30 +80,31 @@ SCSI_FC_XML = """
 class FeatureTests(object):
 
     @staticmethod
-    def disable_screen_error_logging():
+    def disable_libvirt_error_logging():
         def libvirt_errorhandler(userdata, error):
             # A libvirt error handler to ignore annoying messages in stderr
             pass
 
+        # Filter functions are enable only in production env
+        if cherrypy.config.get('environment') != 'production':
+            return
         # Register the error handler to hide libvirt error in stderr
         libvirt.registerErrorHandler(f=libvirt_errorhandler, ctx=None)
-        # Disable cherrypy screen logging, in order to log errors on kimchi
-        # file without displaying them on screen
-        cherrypy.log.screen = False
 
     @staticmethod
-    def enable_screen_error_logging():
+    def enable_libvirt_error_logging():
+        # Filter functions are enable only in production env
+        if cherrypy.config.get('environment') != 'production':
+            return
         # Unregister the error handler
         libvirt.registerErrorHandler(f=None, ctx=None)
-        # Enable cherrypy screen logging
-        cherrypy.log.screen = True
 
     @staticmethod
     def libvirt_supports_iso_stream(protocol):
         xml = ISO_STREAM_XML % {'protocol': protocol}
         conn = None
         try:
-            FeatureTests.disable_screen_error_logging()
+            FeatureTests.disable_libvirt_error_logging()
             conn = libvirt.open(None)
             dom = conn.defineXML(xml)
             dom.undefine()
@@ -112,7 +113,7 @@ class FeatureTests(object):
             kimchi_log.error(e.message)
             return False
         finally:
-            FeatureTests.enable_screen_error_logging()
+            FeatureTests.enable_libvirt_error_logging()
             conn is None or conn.close()
 
     @staticmethod
@@ -123,7 +124,7 @@ class FeatureTests(object):
             return xml
         try:
             conn = libvirt.open(None)
-            FeatureTests.disable_screen_error_logging()
+            FeatureTests.disable_libvirt_error_logging()
             conn.findStoragePoolSources('netfs', _get_xml(), 0)
         except libvirt.libvirtError as e:
             kimchi_log.error(e.message)
@@ -132,7 +133,7 @@ class FeatureTests(object):
                 # it returns 38--general system call failure
                 return False
         finally:
-            FeatureTests.enable_screen_error_logging()
+            FeatureTests.enable_libvirt_error_logging()
             conn is None or conn.close()
 
         return True
@@ -173,7 +174,7 @@ class FeatureTests(object):
     @staticmethod
     def libvirt_support_fc_host():
         try:
-            FeatureTests.disable_screen_error_logging()
+            FeatureTests.disable_libvirt_error_logging()
             conn = libvirt.open(None)
             pool = None
             pool = conn.storagePoolDefineXML(SCSI_FC_XML, 0)
@@ -182,7 +183,7 @@ class FeatureTests(object):
                 # Libvirt requires adapter name, not needed when supports to FC
                 return False
         finally:
-            FeatureTests.enable_screen_error_logging()
+            FeatureTests.enable_libvirt_error_logging()
             pool is None or pool.undefine()
             conn is None or conn.close()
         return True
@@ -192,8 +193,8 @@ class FeatureTests(object):
         KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi/"
         KIMCHI_NAMESPACE = "kimchi"
         with RollbackContext() as rollback:
-            FeatureTests.disable_screen_error_logging()
-            rollback.prependDefer(FeatureTests.enable_screen_error_logging)
+            FeatureTests.disable_libvirt_error_logging()
+            rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
             conn = libvirt.open(None)
             rollback.prependDefer(conn.close)
             dom = conn.defineXML(SIMPLE_VM_XML)

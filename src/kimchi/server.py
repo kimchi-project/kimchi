@@ -91,12 +91,16 @@ class Server(object):
         max_body_size_in_bytes = eval(options.max_body_size) * 1024
         cherrypy.server.max_request_body_size = max_body_size_in_bytes
 
-        cherrypy.log.screen = True
         cherrypy.log.access_file = options.access_log
         cherrypy.log.error_file = options.error_log
 
         logLevel = LOGGING_LEVEL.get(options.log_level, logging.DEBUG)
         dev_env = options.environment != 'production'
+
+        # Enable cherrypy screen logging if running environment
+        # is not 'production'
+        if dev_env:
+            cherrypy.log.screen = True
 
         # Create handler to rotate access log file
         h = logging.handlers.RotatingFileHandler(options.access_log, 'a',
