@@ -1,0 +1,197 @@
+13:03:26 <alinefm> #startmeeting
+13:03:26 <kimchi-bot> Meeting started Wed Oct 22 13:03:26 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:27 <alinefm> #meetingname scrum
+13:03:27 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:48 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:48 <alinefm> anything else?
+13:04:25 <royce> Good for me
+13:04:47 <alinefm> #topic Status
+13:04:47 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:52 <YuXin> #info YuXin Guest Clone UI Patch sent
+13:05:12 <vianac> #info vianac sent initial version of the patchset to clone a VM; reviewed patches on the mailing list
+13:05:26 <YuXin> #info YuXin Investigate Brower based web console to access Serial Console
+13:05:28 <wenwang> #info wenwang sent patch Guest disk hot plug UI
+13:05:52 <alinefm> #info alinefm got the spice patches merged (it uses the spice-html5 package when possible)
+13:06:09 <royce> #info royce sent v1 patches about  authentication for LDAP, verified common scenarios, now still discussing authorization part
+13:06:14 <wenwang> #info wenwang working on redefining the template dialogue
+13:06:14 <alinefm> #info alinefm sent patches to create a new module xmlutils to hold all the XML manipulation (already merged)
+13:06:37 <alinefm> #info alinefm is now working on VMTemplate refactor to put all XML manipulation under /xmlutils
+13:06:52 <royce> #info royce is writing UI change graphics for vm, plan to send tomorrow, also some patch reviews
+13:06:55 <wenwang> #info wenwang working with Zheng Sheng improve PCI Passthrough
+13:07:43 <alinefm> royce, do you mean, the patches sent before by Simon?
+13:08:12 <alinefm> YuXin, wenwang, royce, have you investigated the problem with upload feature? any update on that?
+13:08:46 <royce> alinefm, did simon working on patch of that? I was assigned of the UI
+13:09:36 <royce> alinefm, not yet for the upload, but  I can take a look afterwards
+13:09:40 <alinefm> royce, not sure it is the same
+13:09:43 <alinefm> royce, [v3 0/1] Ticket UI to set vnc ticket password
+13:09:55 <wenwang> alinefm: not yet, still working on redefining the template
+13:10:09 <alinefm> then I commented we will add the graphics switch too and we could add a new tab to handle all tab: graphics type, password and expiration time
+13:10:33 <royce> aline, it is just password, right?
+13:10:44 <alinefm> royce, wenwang, (about upload) ok - take you time - I only think we need to have it working for 1.4
+13:10:46 <wenwang> alinefm: I will do that after that patch finished. Also, I might need some help of the back-end
+13:11:03 <royce> alinefm, +1, will get it work
+13:11:15 <wenwang> alinefm: Ok, I think we can finish it
+13:11:23 <alinefm> wenwang, feel free to ping me or ask for help on ML
+13:12:11 <alinefm> royce, my comments: http://fpaste.org/144148/41398350/
+13:12:12 <wenwang> alinefm: Sure, thanks for your support
+13:12:16 <alinefm> on Simon patches
+13:12:17 <wenwang> :-D
+13:13:15 <alinefm> any more status or can we move on to open discussion?
+13:13:28 <royce> alinefm, OK, I will ask him if he want to continue or transfer to me
+13:13:53 <alinefm> royce, OK - he hasn't replied to my comments so... =)
+13:14:08 <alinefm> #topic Open Discussion
+13:14:14 <alinefm> what are the topics for today?
+13:14:21 <royce> Authorization,still
+13:14:45 <alinefm> royce, please, go ahead
+13:15:15 <royce> when assign vm to user under PAM
+13:16:07 <royce> seems now we just tag the vm, and the tag not constrains user who can manipulate
+13:17:03 <alinefm> it constrains so
+13:17:17 <alinefm> when the logged user has sudo permissions he has access to all VMs
+13:17:24 <alinefm> independent who is assigned to the VM
+13:17:52 <alinefm> BUT if the logged user does not have sudo permissions he can only see and manipulate the VMs assigned to him or his group
+13:18:49 <alinefm> makes sense?
+13:19:13 <royce> Is it already in now?
+13:19:23 <alinefm> yeap
+13:19:38 <alinefm> you can create a user in your system without sudo permissions and test
+13:19:49 <alinefm> I've just tested here to make sure it is working and it is =)
+13:20:11 <royce> As I git grep "access" just  in "lookup vm" and "update vm", haven't seen any where
+13:20:40 <royce> It is control at backend, alinefm?
+13:23:25 <alinefm> royce, it is on control/base.py
+13:23:31 <alinefm> on filter_data() or something like it
+13:23:50 <alinefm> royce, we match the logged user with the users and groups on resource
+13:24:17 <royce> OK, that is great
+13:24:27 <royce> than when it comes to LDAP
+13:24:42 <royce> I have concern about if users change from PAM to LDAP
+13:24:49 <royce> or different LDAP server
+13:25:03 <royce> the access label would be different
+13:25:51 <royce> just destory all previous labels,  or keep two types of labels?
+13:25:55 <alinefm> while using LDAP, we will set the users are the emails: alinefm@...., royce@...
+13:26:17 <alinefm> are you saying when switching from PAM to LDAP or vice versa?
+13:26:19 <royce> yes, I mean, if previously my machine use PAM
+13:26:22 <royce> yes
+13:26:40 <royce> or switch from one LDAP to another
+13:27:02 <alinefm> hmm... we could destroy the previous labels, but how we identify the authentication method was changed?
+13:27:38 <royce> compare the label and current config
+13:27:46 <royce> that need to extend the label
+13:28:57 <alinefm> do you mean have: users: {pam: [....], ldap: [...]} ?
+13:29:35 <alinefm> and get/update the values according to auth type?
+13:29:51 <alinefm> so during the switch the user does not loose data
+13:29:51 <alinefm> ?
+13:29:57 <royce> I mean in access metadata in vm add: authorization method, and base info
+13:30:00 <alinefm> is that what you have in mind?
+13:30:17 <royce> for two tyes it is as you said
+13:30:31 <royce> but still change from one LDAP to another lose data
+13:31:40 <alinefm> royce, yes - but in that case we can't ensure the data is correct, so we will ignore
+13:31:44 <alinefm> royce, http://fpaste.org/144157/41398465/
+13:31:54 <alinefm> that is how the metadata is set today ^
+13:32:20 <royce> 1. keep or destroy previous metadata, 2. how to identify change authorization method
+13:32:55 <alinefm> http://fpaste.org/144158/14139847/
+13:33:08 <alinefm> do you think the "method" attrib is good for it?
+13:33:26 <alinefm> 1. keep
+13:33:51 <alinefm> 2. we can not do it
+13:35:02 <royce> for ldap, if server changes or search base changes, still the previous data needs to be destoried
+13:35:09 <royce> but chances are smaller
+13:35:41 <royce> chances of switch between two ldap is smaller
+13:36:06 <alinefm> royce, the big problem is how identify it
+13:36:30 <alinefm> wait, we can verify the users set with the current authentication method
+13:36:50 <alinefm> example: my-vm has "alinefm, vianac" set as users
+13:37:06 <alinefm> and when switching to ldap those values will not be valid
+13:37:21 <royce> alinefm, we have filter
+13:37:47 <royce> we can let the UI carry this message too
+13:37:53 <alinefm> so on vm lookup we can check: for each users in vm-users: if users not in auth-method.users: remove user from vm settings
+13:38:23 <alinefm> auth-method.users() will be a function to verify a specific user exists or not
+13:38:45 <alinefm> that way we ensure only valid data will be on VM according to auth method
+13:38:47 <royce> after session established
+13:38:58 <alinefm> including when changing LDAP server
+13:39:02 <royce> where can we get password?
+13:39:22 <alinefm> password for what?
+13:40:10 <alinefm> the password is only required for login
+13:40:14 <royce> if user like you, alinefm you used in your PC, also use in bluepage ldap alinefm@br.ibm.com
+13:41:02 <alinefm> "alinefm" does not exist in LDAP - but "alinefm@..." exists
+13:41:16 <royce> OK, we do this way
+13:41:25 <alinefm> if you query for "alinefm" on LDAP it will fail
+13:41:27 <royce> very creative
+13:41:59 <royce> it is like openstack keystone, apis and users both query ldap for authentication
+13:42:29 <alinefm> so on vm.lookup() you can verify the valid users according to auth method and only return them
+13:42:55 <alinefm> agree?
+13:43:11 <royce> agree!
+13:44:19 <alinefm> royce, and we will have a new UI for "Permission" tab when the auth method is LDAP?
+13:44:34 <alinefm> and only allow setting user on that case
+13:44:35 <royce> then no more questions for me, besides, alinefm, can you take another look at my patch and comments?
+13:44:41 <alinefm> as groups does not make sense in that case?
+13:44:44 <royce> ok, alinefm
+13:44:53 <alinefm> YuXin, wenwang, are you OK with that ^?
+13:45:08 <royce> That one is assigned to me:)
+13:45:15 <alinefm> royce, the UI?
+13:45:19 <royce> yeah
+13:45:20 <alinefm> great! =)
+13:45:30 <alinefm> royce, what do you have in mind for it?
+13:45:37 <YuXin> when no group, just an empty list is the group column
+13:45:48 <alinefm> the user enter a new email? or a string for search?
+13:46:22 <YuXin> search or filter?
+13:46:29 <royce> Need to check ldap api, but I suppose there will be such support
+13:46:39 <alinefm> in LDAP case, it is search
+13:46:44 <YuXin> ok
+13:47:00 <YuXin> can ldap and linux local user coexist at the same time?
+13:47:08 <alinefm> for example I enter: "alinefm" and the API list all the "alinefm" emails for  the user
+13:47:16 <alinefm> YuXin, for kImchi, no
+13:47:43 <royce> yeah, I see in blue page even you enter Aline there will be list of candidate
+13:47:55 <alinefm> royce, yeap - maybe a big list =P
+13:48:04 <royce> So I suppose there will be such support in LDAP
+13:48:10 <YuXin> then before switch to ldap, how can make a certain person to be super admin?
+13:48:24 <royce> I'll look at LDAP apis
+13:48:25 <alinefm> royce, you will need to change the host Users() and Groups() to do that
+13:48:31 <YuXin> I mean ldap user
+13:48:46 <alinefm> YuXin, for LDAP, a list of IDs will be on Kimchi config file
+13:48:58 <alinefm> ldap_admin_users = "alinefm@... yuxin@... royce@..."
+13:49:11 <alinefm> all users not listed there have "user" role
+13:49:24 <YuXin> ok
+13:49:46 <alinefm> royce, I've already replied to your comments on ML
+13:49:54 <alinefm> do you have more questions related to them?
+13:50:13 <royce> royce, you will need to change the host Users() and Groups() to do that---For search?
+13:50:33 <royce> alinefm, let me see
+13:50:34 <alinefm> (are you talking alone? hehe)
+13:50:40 <alinefm> royce, I think so
+13:51:03 <alinefm> today we call GET /host/users and GET /host/groups to get all the system users and groups
+13:51:10 <alinefm> but it is only valid for pam authentication
+13:51:20 <alinefm> for ldap UI, we need to have a new API to do the search
+13:51:38 <alinefm> I mean, not modify /host/users but create a new API for LDAP matters
+13:52:04 <YuXin> since linux os users and ldap users are exclusive, so for UI, when ldap, just remove the group columns in both available and select box
+13:52:21 <royce> OK, alinefm
+13:52:38 <alinefm> YuXin, yes - but for groups there is no way to list all LDAP users as we do for pam
+13:52:38 <YuXin> when user input some search text, for available users, dynamically add the users to the available box
+13:53:07 <YuXin> yes, we use search
+13:53:14 <alinefm> oh yeap
+13:53:16 <alinefm> got it
+13:53:30 <royce> alinefm, then we do not need to expose user or group query for users any more...
+13:53:39 <YuXin> initially, the box is empty, only when input text, then  trigger search, when got response, fill in that box
+13:53:51 <royce> I mean /host/users will not be available anymore
+13:53:54 <alinefm> YuXin, yeap - that is what I had in mind too
+13:54:04 <alinefm> royce, it is! it is used for pam
+13:54:12 <royce> OK
+13:54:27 <royce> so under ldap just disable these api
+13:55:19 <alinefm> just don't use it
+13:55:48 <alinefm> for example, on model/vms.py in _vm_update_access_metadata() we verify the values against those APIs
+13:56:00 <alinefm> but when using LDAP you will verify if against a new API
+13:56:15 <alinefm> you can do the same refactor you did for auth.py
+13:56:21 <royce> OK, seems I occupied all the time
+13:56:35 <alinefm> don't worried about it! =D
+13:56:43 <alinefm> any other topic for today?
+13:56:58 <alinefm> royce, important is to use this time to solve all doubts
+13:57:27 <royce> But still /host/users/ are expoesed as REST
+13:57:31 <alinefm> yes
+13:58:10 <royce> so we need not to reload some function, and when no get_user function under LDAPUser we just deny it
+13:59:24 <alinefm> yes
+14:00:22 <royce> no doubt now
+14:00:30 <alinefm> you can change the API /host/users to /users and make the get_list() return according to auth method
+14:00:49 <alinefm> example: on PAM: GET /users will identify it is PAM and return the system users
+14:01:22 <alinefm> on LDAP: GET /users will identify it is LDAP and expect an query parameter (/users?username=alinefm)
+14:01:26 <alinefm> it is just an idea
+14:01:43 <alinefm> you can verify what is the best solution to handle both cases
+14:01:52 <royce> OK
+14:01:59 <royce> that is a good idea
+14:02:28 <alinefm> anything else, team?
+14:04:41 <alinefm> well... apparently not
+14:04:55 <alinefm> so thanks everyone for joining and for the great discussions
+14:05:02 <alinefm> #endmeeting

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 22 13:03:26 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:27</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:48</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:25</span><span class="nk"> &lt;royce&gt;</span> Good for me
+<a name="l-9"></a><span class="tm">13:04:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:52</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Guest Clone UI Patch sent</span>
+<a name="l-12"></a><span class="tm">13:05:12</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent initial version of the patchset to clone a VM; reviewed patches on the mailing list</span>
+<a name="l-13"></a><span class="tm">13:05:26</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Investigate Brower based web console to access Serial Console</span>
+<a name="l-14"></a><span class="tm">13:05:28</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch Guest disk hot plug UI</span>
+<a name="l-15"></a><span class="tm">13:05:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got the spice patches merged (it uses the spice-html5 package when possible)</span>
+<a name="l-16"></a><span class="tm">13:06:09</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce sent v1 patches about  authentication for LDAP, verified common scenarios, now still discussing authorization part</span>
+<a name="l-17"></a><span class="tm">13:06:14</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working on redefining the template dialogue</span>
+<a name="l-18"></a><span class="tm">13:06:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to create a new module xmlutils to hold all the XML manipulation (already merged)</span>
+<a name="l-19"></a><span class="tm">13:06:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on VMTemplate refactor to put all XML manipulation under /xmlutils</span>
+<a name="l-20"></a><span class="tm">13:06:52</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is writing UI change graphics for vm, plan to send tomorrow, also some patch reviews</span>
+<a name="l-21"></a><span class="tm">13:06:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working with Zheng Sheng improve PCI Passthrough</span>
+<a name="l-22"></a><span class="tm">13:07:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you mean, the patches sent before by Simon?
+<a name="l-23"></a><span class="tm">13:08:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, royce, have you investigated the problem with upload feature? any update on that?
+<a name="l-24"></a><span class="tm">13:08:46</span><span class="nk"> &lt;royce&gt;</span> alinefm, did simon working on patch of that? I was assigned of the UI
+<a name="l-25"></a><span class="tm">13:09:36</span><span class="nk"> &lt;royce&gt;</span> alinefm, not yet for the upload, but  I can take a look afterwards
+<a name="l-26"></a><span class="tm">13:09:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, not sure it is the same
+<a name="l-27"></a><span class="tm">13:09:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, [v3 0/1] Ticket UI to set vnc ticket password
+<a name="l-28"></a><span class="tm">13:09:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> not yet, still working on redefining the template
+<a name="l-29"></a><span class="tm">13:10:09</span><span class="nk"> &lt;alinefm&gt;</span> then I commented we will add the graphics switch too and we could add a new tab to handle all tab: graphics type, password and expiration time
+<a name="l-30"></a><span class="tm">13:10:33</span><span class="nk"> &lt;royce&gt;</span> aline, it is just password, right?
+<a name="l-31"></a><span class="tm">13:10:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, wenwang, (about upload) ok - take you time - I only think we need to have it working for 1.4
+<a name="l-32"></a><span class="tm">13:10:46</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I will do that after that patch finished. Also, I might need some help of the back-end
+<a name="l-33"></a><span class="tm">13:11:03</span><span class="nk"> &lt;royce&gt;</span> alinefm, +1, will get it work
+<a name="l-34"></a><span class="tm">13:11:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Ok, I think we can finish it
+<a name="l-35"></a><span class="tm">13:11:23</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, feel free to ping me or ask for help on ML
+<a name="l-36"></a><span class="tm">13:12:11</span><span class="nk"> &lt;alinefm&gt;</span> royce, my comments: http://fpaste.org/144148/41398350/
+<a name="l-37"></a><span class="tm">13:12:12</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Sure, thanks for your support
+<a name="l-38"></a><span class="tm">13:12:16</span><span class="nk"> &lt;alinefm&gt;</span> on Simon patches
+<a name="l-39"></a><span class="tm">13:12:17</span><span class="nk"> &lt;wenwang&gt;</span> :-D
+<a name="l-40"></a><span class="tm">13:13:15</span><span class="nk"> &lt;alinefm&gt;</span> any more status or can we move on to open discussion?
+<a name="l-41"></a><span class="tm">13:13:28</span><span class="nk"> &lt;royce&gt;</span> alinefm, OK, I will ask him if he want to continue or transfer to me
+<a name="l-42"></a><span class="tm">13:13:53</span><span class="nk"> &lt;alinefm&gt;</span> royce, OK - he hasn't replied to my comments so... =)
+<a name="l-43"></a><span class="tm">13:14:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-44"></a><span class="tm">13:14:14</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-45"></a><span class="tm">13:14:21</span><span class="nk"> &lt;royce&gt;</span> Authorization,still
+<a name="l-46"></a><span class="tm">13:14:45</span><span class="nk"> &lt;alinefm&gt;</span> royce, please, go ahead
+<a name="l-47"></a><span class="tm">13:15:15</span><span class="nk"> &lt;royce&gt;</span> when assign vm to user under PAM
+<a name="l-48"></a><span class="tm">13:16:07</span><span class="nk"> &lt;royce&gt;</span> seems now we just tag the vm, and the tag not constrains user who can manipulate
+<a name="l-49"></a><span class="tm">13:17:03</span><span class="nk"> &lt;alinefm&gt;</span> it constrains so
+<a name="l-50"></a><span class="tm">13:17:17</span><span class="nk"> &lt;alinefm&gt;</span> when the logged user has sudo permissions he has access to all VMs
+<a name="l-51"></a><span class="tm">13:17:24</span><span class="nk"> &lt;alinefm&gt;</span> independent who is assigned to the VM
+<a name="l-52"></a><span class="tm">13:17:52</span><span class="nk"> &lt;alinefm&gt;</span> BUT if the logged user does not have sudo permissions he can only see and manipulate the VMs assigned to him or his group
+<a name="l-53"></a><span class="tm">13:18:49</span><span class="nk"> &lt;alinefm&gt;</span> makes sense?
+<a name="l-54"></a><span class="tm">13:19:13</span><span class="nk"> &lt;royce&gt;</span> Is it already in now?
+<a name="l-55"></a><span class="tm">13:19:23</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-56"></a><span class="tm">13:19:38</span><span class="nk"> &lt;alinefm&gt;</span> you can create a user in your system without sudo permissions and test
+<a name="l-57"></a><span class="tm">13:19:49</span><span class="nk"> &lt;alinefm&gt;</span> I've just tested here to make sure it is working and it is =)
+<a name="l-58"></a><span class="tm">13:20:11</span><span class="nk"> &lt;royce&gt;</span> As I git grep "access" just  in "lookup vm" and "update vm", haven't seen any where
+<a name="l-59"></a><span class="tm">13:20:40</span><span class="nk"> &lt;royce&gt;</span> It is control at backend, alinefm?
+<a name="l-60"></a><span class="tm">13:23:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, it is on control/base.py
+<a name="l-61"></a><span class="tm">13:23:31</span><span class="nk"> &lt;alinefm&gt;</span> on filter_data() or something like it
+<a name="l-62"></a><span class="tm">13:23:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, we match the logged user with the users and groups on resource
+<a name="l-63"></a><span class="tm">13:24:17</span><span class="nk"> &lt;royce&gt;</span> OK, that is great
+<a name="l-64"></a><span class="tm">13:24:27</span><span class="nk"> &lt;royce&gt;</span> than when it comes to LDAP
+<a name="l-65"></a><span class="tm">13:24:42</span><span class="nk"> &lt;royce&gt;</span> I have concern about if users change from PAM to LDAP
+<a name="l-66"></a><span class="tm">13:24:49</span><span class="nk"> &lt;royce&gt;</span> or different LDAP server
+<a name="l-67"></a><span class="tm">13:25:03</span><span class="nk"> &lt;royce&gt;</span> the access label would be different
+<a name="l-68"></a><span class="tm">13:25:51</span><span class="nk"> &lt;royce&gt;</span> just destory all previous labels,  or keep two types of labels?
+<a name="l-69"></a><span class="tm">13:25:55</span><span class="nk"> &lt;alinefm&gt;</span> while using LDAP, we will set the users are the emails: alinefm@...., royce@...
+<a name="l-70"></a><span class="tm">13:26:17</span><span class="nk"> &lt;alinefm&gt;</span> are you saying when switching from PAM to LDAP or vice versa?
+<a name="l-71"></a><span class="tm">13:26:19</span><span class="nk"> &lt;royce&gt;</span> yes, I mean, if previously my machine use PAM
+<a name="l-72"></a><span class="tm">13:26:22</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-73"></a><span class="tm">13:26:40</span><span class="nk"> &lt;royce&gt;</span> or switch from one LDAP to another
+<a name="l-74"></a><span class="tm">13:27:02</span><span class="nk"> &lt;alinefm&gt;</span> hmm... we could destroy the previous labels, but how we identify the authentication method was changed?
+<a name="l-75"></a><span class="tm">13:27:38</span><span class="nk"> &lt;royce&gt;</span> compare the label and current config
+<a name="l-76"></a><span class="tm">13:27:46</span><span class="nk"> &lt;royce&gt;</span> that need to extend the label
+<a name="l-77"></a><span class="tm">13:28:57</span><span class="nk"> &lt;alinefm&gt;</span> do you mean have: users: {pam: [....], ldap: [...]} ?
+<a name="l-78"></a><span class="tm">13:29:35</span><span class="nk"> &lt;alinefm&gt;</span> and get/update the values according to auth type?
+<a name="l-79"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> so during the switch the user does not loose data
+<a name="l-80"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-81"></a><span class="tm">13:29:57</span><span class="nk"> &lt;royce&gt;</span> I mean in access metadata in vm add: authorization method, and base info
+<a name="l-82"></a><span class="tm">13:30:00</span><span class="nk"> &lt;alinefm&gt;</span> is that what you have in mind?
+<a name="l-83"></a><span class="tm">13:30:17</span><span class="nk"> &lt;royce&gt;</span> for two tyes it is as you said
+<a name="l-84"></a><span class="tm">13:30:31</span><span class="nk"> &lt;royce&gt;</span> but still change from one LDAP to another lose data
+<a name="l-85"></a><span class="tm">13:31:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes - but in that case we can't ensure the data is correct, so we will ignore
+<a name="l-86"></a><span class="tm">13:31:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, http://fpaste.org/144157/41398465/
+<a name="l-87"></a><span class="tm">13:31:54</span><span class="nk"> &lt;alinefm&gt;</span> that is how the metadata is set today ^
+<a name="l-88"></a><span class="tm">13:32:20</span><span class="nk"> &lt;royce&gt;</span> 1. keep or destroy previous metadata, 2. how to identify change authorization method
+<a name="l-89"></a><span class="tm">13:32:55</span><span class="nk"> &lt;alinefm&gt;</span> http://fpaste.org/144158/14139847/
+<a name="l-90"></a><span class="tm">13:33:08</span><span class="nk"> &lt;alinefm&gt;</span> do you think the "method" attrib is good for it?
+<a name="l-91"></a><span class="tm">13:33:26</span><span class="nk"> &lt;alinefm&gt;</span> 1. keep
+<a name="l-92"></a><span class="tm">13:33:51</span><span class="nk"> &lt;alinefm&gt;</span> 2. we can not do it
+<a name="l-93"></a><span class="tm">13:35:02</span><span class="nk"> &lt;royce&gt;</span> for ldap, if server changes or search base changes, still the previous data needs to be destoried
+<a name="l-94"></a><span class="tm">13:35:09</span><span class="nk"> &lt;royce&gt;</span> but chances are smaller
+<a name="l-95"></a><span class="tm">13:35:41</span><span class="nk"> &lt;royce&gt;</span> chances of switch between two ldap is smaller
+<a name="l-96"></a><span class="tm">13:36:06</span><span class="nk"> &lt;alinefm&gt;</span> royce, the big problem is how identify it
+<a name="l-97"></a><span class="tm">13:36:30</span><span class="nk"> &lt;alinefm&gt;</span> wait, we can verify the users set with the current authentication method
+<a name="l-98"></a><span class="tm">13:36:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> my-vm has "alinefm, vianac" set as users
+<a name="l-99"></a><span class="tm">13:37:06</span><span class="nk"> &lt;alinefm&gt;</span> and when switching to ldap those values will not be valid
+<a name="l-100"></a><span class="tm">13:37:21</span><span class="nk"> &lt;royce&gt;</span> alinefm, we have filter
+<a name="l-101"></a><span class="tm">13:37:47</span><span class="nk"> &lt;royce&gt;</span> we can let the UI carry this message too
+<a name="l-102"></a><span class="tm">13:37:53</span><span class="nk"> &lt;alinefm&gt;</span> so on vm lookup we can check: for each users in vm-users: if users not in auth-method.users: remove user from vm settings
+<a name="l-103"></a><span class="tm">13:38:23</span><span class="nk"> &lt;alinefm&gt;</span> auth-method.users() will be a function to verify a specific user exists or not
+<a name="l-104"></a><span class="tm">13:38:45</span><span class="nk"> &lt;alinefm&gt;</span> that way we ensure only valid data will be on VM according to auth method
+<a name="l-105"></a><span class="tm">13:38:47</span><span class="nk"> &lt;royce&gt;</span> after session established
+<a name="l-106"></a><span class="tm">13:38:58</span><span class="nk"> &lt;alinefm&gt;</span> including when changing LDAP server
+<a name="l-107"></a><span class="tm">13:39:02</span><span class="nk"> &lt;royce&gt;</span> where can we get password?
+<a name="l-108"></a><span class="tm">13:39:22</span><span class="nk"> &lt;alinefm&gt;</span> password for what?
+<a name="l-109"></a><span class="tm">13:40:10</span><span class="nk"> &lt;alinefm&gt;</span> the password is only required for login
+<a name="l-110"></a><span class="tm">13:40:14</span><span class="nk"> &lt;royce&gt;</span> if user like you, alinefm you used in your PC, also use in bluepage ldap alinefm@br.ibm.com
+<a name="l-111"></a><span class="tm">13:41:02</span><span class="nk"> &lt;alinefm&gt;</span> "alinefm" does not exist in LDAP - but "alinefm@..." exists
+<a name="l-112"></a><span class="tm">13:41:16</span><span class="nk"> &lt;royce&gt;</span> OK, we do this way
+<a name="l-113"></a><span class="tm">13:41:25</span><span class="nk"> &lt;alinefm&gt;</span> if you query for "alinefm" on LDAP it will fail
+<a name="l-114"></a><span class="tm">13:41:27</span><span class="nk"> &lt;royce&gt;</span> very creative
+<a name="l-115"></a><span class="tm">13:41:59</span><span class="nk"> &lt;royce&gt;</span> it is like openstack keystone, apis and users both query ldap for authentication
+<a name="l-116"></a><span class="tm">13:42:29</span><span class="nk"> &lt;alinefm&gt;</span> so on vm.lookup() you can verify the valid users according to auth method and only return them
+<a name="l-117"></a><span class="tm">13:42:55</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-118"></a><span class="tm">13:43:11</span><span class="nk"> &lt;royce&gt;</span> agree!
+<a name="l-119"></a><span class="tm">13:44:19</span><span class="nk"> &lt;alinefm&gt;</span> royce, and we will have a new UI for "Permission" tab when the auth method is LDAP?
+<a name="l-120"></a><span class="tm">13:44:34</span><span class="nk"> &lt;alinefm&gt;</span> and only allow setting user on that case
+<a name="l-121"></a><span class="tm">13:44:35</span><span class="nk"> &lt;royce&gt;</span> then no more questions for me, besides, alinefm, can you take another look at my patch and comments?
+<a name="l-122"></a><span class="tm">13:44:41</span><span class="nk"> &lt;alinefm&gt;</span> as groups does not make sense in that case?
+<a name="l-123"></a><span class="tm">13:44:44</span><span class="nk"> &lt;royce&gt;</span> ok, alinefm
+<a name="l-124"></a><span class="tm">13:44:53</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, are you OK with that ^?
+<a name="l-125"></a><span class="tm">13:45:08</span><span class="nk"> &lt;royce&gt;</span> That one is assigned to me:)
+<a name="l-126"></a><span class="tm">13:45:15</span><span class="nk"> &lt;alinefm&gt;</span> royce, the UI?
+<a name="l-127"></a><span class="tm">13:45:19</span><span class="nk"> &lt;royce&gt;</span> yeah
+<a name="l-128"></a><span class="tm">13:45:20</span><span class="nk"> &lt;alinefm&gt;</span> great! =)
+<a name="l-129"></a><span class="tm">13:45:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, what do you have in mind for it?
+<a name="l-130"></a><span class="tm">13:45:37</span><span class="nk"> &lt;YuXin&gt;</span> when no group, just an empty list is the group column
+<a name="l-131"></a><span class="tm">13:45:48</span><span class="nk"> &lt;alinefm&gt;</span> the user enter a new email? or a string for search?
+<a name="l-132"></a><span class="tm">13:46:22</span><span class="nk"> &lt;YuXin&gt;</span> search or filter?
+<a name="l-133"></a><span class="tm">13:46:29</span><span class="nk"> &lt;royce&gt;</span> Need to check ldap api, but I suppose there will be such support
+<a name="l-134"></a><span class="tm">13:46:39</span><span class="nk"> &lt;alinefm&gt;</span> in LDAP case, it is search
+<a name="l-135"></a><span class="tm">13:46:44</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-136"></a><span class="tm">13:47:00</span><span class="nk"> &lt;YuXin&gt;</span> can ldap and linux local user coexist at the same time?
+<a name="l-137"></a><span class="tm">13:47:08</span><span class="nk"> &lt;alinefm&gt;</span> for example I enter: "alinefm" and the API list all the "alinefm" emails for  the user
+<a name="l-138"></a><span class="tm">13:47:16</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, for kImchi, no
+<a name="l-139"></a><span class="tm">13:47:43</span><span class="nk"> &lt;royce&gt;</span> yeah, I see in blue page even you enter Aline there will be list of candidate
+<a name="l-140"></a><span class="tm">13:47:55</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap - maybe a big list =P
+<a name="l-141"></a><span class="tm">13:48:04</span><span class="nk"> &lt;royce&gt;</span> So I suppose there will be such support in LDAP
+<a name="l-142"></a><span class="tm">13:48:10</span><span class="nk"> &lt;YuXin&gt;</span> then before switch to ldap, how can make a certain person to be super admin?
+<a name="l-143"></a><span class="tm">13:48:24</span><span class="nk"> &lt;royce&gt;</span> I'll look at LDAP apis
+<a name="l-144"></a><span class="tm">13:48:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, you will need to change the host Users() and Groups() to do that
+<a name="l-145"></a><span class="tm">13:48:31</span><span class="nk"> &lt;YuXin&gt;</span> I mean ldap user
+<a name="l-146"></a><span class="tm">13:48:46</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, for LDAP, a list of IDs will be on Kimchi config file
+<a name="l-147"></a><span class="tm">13:48:58</span><span class="nk"> &lt;alinefm&gt;</span> ldap_admin_users = "alinefm@... yuxin@... royce@..."
+<a name="l-148"></a><span class="tm">13:49:11</span><span class="nk"> &lt;alinefm&gt;</span> all users not listed there have "user" role
+<a name="l-149"></a><span class="tm">13:49:24</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-150"></a><span class="tm">13:49:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, I've already replied to your comments on ML
+<a name="l-151"></a><span class="tm">13:49:54</span><span class="nk"> &lt;alinefm&gt;</span> do you have more questions related to them?
+<a name="l-152"></a><span class="tm">13:50:13</span><span class="nk"> &lt;royce&gt;</span> royce, you will need to change the host Users() and Groups() to do that---For search?
+<a name="l-153"></a><span class="tm">13:50:33</span><span class="nk"> &lt;royce&gt;</span> alinefm, let me see
+<a name="l-154"></a><span class="tm">13:50:34</span><span class="nk"> &lt;alinefm&gt;</span> (are you talking alone? hehe)
+<a name="l-155"></a><span class="tm">13:50:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think so
+<a name="l-156"></a><span class="tm">13:51:03</span><span class="nk"> &lt;alinefm&gt;</span> today we call GET /host/users and GET /host/groups to get all the system users and groups
+<a name="l-157"></a><span class="tm">13:51:10</span><span class="nk"> &lt;alinefm&gt;</span> but it is only valid for pam authentication
+<a name="l-158"></a><span class="tm">13:51:20</span><span class="nk"> &lt;alinefm&gt;</span> for ldap UI, we need to have a new API to do the search
+<a name="l-159"></a><span class="tm">13:51:38</span><span class="nk"> &lt;alinefm&gt;</span> I mean, not modify /host/users but create a new API for LDAP matters
+<a name="l-160"></a><span class="tm">13:52:04</span><span class="nk"> &lt;YuXin&gt;</span> since linux os users and ldap users are exclusive, so for UI, when ldap, just remove the group columns in both available and select box
+<a name="l-161"></a><span class="tm">13:52:21</span><span class="nk"> &lt;royce&gt;</span> OK, alinefm
+<a name="l-162"></a><span class="tm">13:52:38</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes - but for groups there is no way to list all LDAP users as we do for pam
+<a name="l-163"></a><span class="tm">13:52:38</span><span class="nk"> &lt;YuXin&gt;</span> when user input some search text, for available users, dynamically add the users to the available box
+<a name="l-164"></a><span class="tm">13:53:07</span><span class="nk"> &lt;YuXin&gt;</span> yes, we use search
+<a name="l-165"></a><span class="tm">13:53:14</span><span class="nk"> &lt;alinefm&gt;</span> oh yeap
+<a name="l-166"></a><span class="tm">13:53:16</span><span class="nk"> &lt;alinefm&gt;</span> got it
+<a name="l-167"></a><span class="tm">13:53:30</span><span class="nk"> &lt;royce&gt;</span> alinefm, then we do not need to expose user or group query for users any more...
+<a name="l-168"></a><span class="tm">13:53:39</span><span class="nk"> &lt;YuXin&gt;</span> initially, the box is empty, only when input text, then  trigger search, when got response, fill in that box
+<a name="l-169"></a><span class="tm">13:53:51</span><span class="nk"> &lt;royce&gt;</span> I mean /host/users will not be available anymore
+<a name="l-170"></a><span class="tm">13:53:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap - that is what I had in mind too
+<a name="l-171"></a><span class="tm">13:54:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, it is! it is used for pam
+<a name="l-172"></a><span class="tm">13:54:12</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-173"></a><span class="tm">13:54:27</span><span class="nk"> &lt;royce&gt;</span> so under ldap just disable these api
+<a name="l-174"></a><span class="tm">13:55:19</span><span class="nk"> &lt;alinefm&gt;</span> just don't use it
+<a name="l-175"></a><span class="tm">13:55:48</span><span class="nk"> &lt;alinefm&gt;</span> for example, on model/vms.py in _vm_update_access_metadata() we verify the values against those APIs
+<a name="l-176"></a><span class="tm">13:56:00</span><span class="nk"> &lt;alinefm&gt;</span> but when using LDAP you will verify if against a new API
+<a name="l-177"></a><span class="tm">13:56:15</span><span class="nk"> &lt;alinefm&gt;</span> you can do the same refactor you did for auth.py
+<a name="l-178"></a><span class="tm">13:56:21</span><span class="nk"> &lt;royce&gt;</span> OK, seems I occupied all the time
+<a name="l-179"></a><span class="tm">13:56:35</span><span class="nk"> &lt;alinefm&gt;</span> don't worried about it! =D
+<a name="l-180"></a><span class="tm">13:56:43</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-181"></a><span class="tm">13:56:58</span><span class="nk"> &lt;alinefm&gt;</span> royce, important is to use this time to solve all doubts
+<a name="l-182"></a><span class="tm">13:57:27</span><span class="nk"> &lt;royce&gt;</span> But still /host/users/ are expoesed as REST
+<a name="l-183"></a><span class="tm">13:57:31</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-184"></a><span class="tm">13:58:10</span><span class="nk"> &lt;royce&gt;</span> so we need not to reload some function, and when no get_user function under LDAPUser we just deny it
+<a name="l-185"></a><span class="tm">13:59:24</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-186"></a><span class="tm">14:00:22</span><span class="nk"> &lt;royce&gt;</span> no doubt now
+<a name="l-187"></a><span class="tm">14:00:30</span><span class="nk"> &lt;alinefm&gt;</span> you can change the API /host/users to /users and make the get_list() return according to auth method
+<a name="l-188"></a><span class="tm">14:00:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">example:</span> on PAM: GET /users will identify it is PAM and return the system users
+<a name="l-189"></a><span class="tm">14:01:22</span><span class="nk"> &lt;alinefm&gt;</span> on LDAP: GET /users will identify it is LDAP and expect an query parameter (/users?username=alinefm)
+<a name="l-190"></a><span class="tm">14:01:26</span><span class="nk"> &lt;alinefm&gt;</span> it is just an idea
+<a name="l-191"></a><span class="tm">14:01:43</span><span class="nk"> &lt;alinefm&gt;</span> you can verify what is the best solution to handle both cases
+<a name="l-192"></a><span class="tm">14:01:52</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-193"></a><span class="tm">14:01:59</span><span class="nk"> &lt;royce&gt;</span> that is a good idea
+<a name="l-194"></a><span class="tm">14:02:28</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-195"></a><span class="tm">14:04:41</span><span class="nk"> &lt;alinefm&gt;</span> well... apparently not
+<a name="l-196"></a><span class="tm">14:04:55</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining and for the great discussions
+<a name="l-197"></a><span class="tm">14:05:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
