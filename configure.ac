@@ -84,6 +84,7 @@ AC_CONFIG_FILES([
     src/kimchi/control/Makefile
     src/kimchi/control/vm/Makefile
     src/kimchi/model/Makefile
+    src/kimchi/xmlutils/Makefile
     plugins/Makefile
     plugins/sample/Makefile
     plugins/sample/po/Makefile.in
