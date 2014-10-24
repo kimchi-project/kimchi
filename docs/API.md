@@ -152,7 +152,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: Path of cdrom iso.
     * pool: Storage pool which disk image file locate in.
     * vol: Storage volume name of disk image.
-    * bus: Target bus type for disk to attach.
 
 ### Sub-resource: storage
 **URI:** /vms/*:name*/storages/*:dev*
