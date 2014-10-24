@@ -31,7 +31,7 @@ BUS_TO_DEV_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 DEV_TYPE_SRC_ATTR_MAP = {'file': 'file', 'block': 'dev'}
 
 
-def get_disk_xml(src_type, params, ignore_src=False):
+def get_disk_xml(src_type, params):
     """
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
@@ -57,7 +57,7 @@ def get_disk_xml(src_type, params, ignore_src=False):
             bus=params['address']['bus'], target='0',
             unit=params['address']['unit']))
 
-    if ignore_src:
+    if len(params['path']) == 0:
         return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
 
     if src_type == 'network':

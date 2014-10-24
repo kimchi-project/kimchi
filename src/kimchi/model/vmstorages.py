@@ -190,13 +190,12 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
-        path = params.get('path')
-        if path and len(path) != 0:
+        path = params.get('path', '')
+        params['path'] = path
+        if len(path) != 0:
             src_type = _check_path(path)
-            ignore_source = False
         else:
             src_type = 'file'
-            ignore_source = True
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
