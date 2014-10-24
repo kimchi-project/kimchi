@@ -17,8 +17,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import os
-import stat
 import string
 
 from lxml import etree
@@ -28,7 +26,6 @@ from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.model.utils import get_vm_config_flag
-from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
 from kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
@@ -42,24 +39,6 @@ def _get_device_bus(dev_type, dom):
     except:
         version, distro = ('unknown', 'unknown')
     return lookup(distro, version)[dev_type+'_bus']
-
-
-def _check_path(path):
-    if check_url_path(path):
-        src_type = 'network'
-    # Check if path is a valid local path
-    elif os.path.exists(path):
-        if os.path.isfile(path):
-            src_type = 'file'
-        else:
-            r_path = os.path.realpath(path)
-            if not stat.S_ISBLK(os.stat(r_path).st_mode):
-                raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
-
-            src_type = 'block'
-    else:
-        raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
-    return src_type
 
 
 class VMStoragesModel(object):
@@ -144,7 +123,7 @@ class VMStoragesModel(object):
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
         # Add device to VM
-        dev, xml = get_disk_xml(_check_path(params['path']), params)
+        dev, xml = get_disk_xml(params)
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
@@ -190,20 +169,16 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
     def update(self, vm_name, dev_name, params):
-        path = params.get('path', '')
-        params['path'] = path
-        if len(path) != 0:
-            src_type = _check_path(path)
-        else:
-            src_type = 'file'
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
 
+        params['path'] = params.get('path', '')
         dev_info.update(params)
-        dev, xml = get_disk_xml(src_type, dev_info, ignore_source)
+
+        dev, xml = get_disk_xml(dev_info)
         try:
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:

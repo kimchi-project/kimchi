@@ -18,20 +18,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import lxml.etree as ET
+import os
 import socket
+import stat
 import string
 import urlparse
 
 from lxml import objectify
 from lxml.builder import E
 
-from kimchi.exception import NotFoundError
+from kimchi.exception import InvalidParameter, NotFoundError
+from kimchi.utils import check_url_path
 
 BUS_TO_DEV_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 DEV_TYPE_SRC_ATTR_MAP = {'file': 'file', 'block': 'dev'}
 
 
-def get_disk_xml(src_type, params):
+def get_disk_xml(params):
     """
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
@@ -42,7 +45,9 @@ def get_disk_xml(src_type, params):
       <readonly/>
     </disk>
     """
-    disk = E.disk(type=src_type, device=params['type'])
+    path = params['path']
+    disk_type = _get_disk_type(path) if len(path) > 0 else 'file'
+    disk = E.disk(type=disk_type, device=params['type'])
     disk.append(E.driver(name='qemu', type=params['format']))
 
     # Get device name according to bus and index values
@@ -60,7 +65,7 @@ def get_disk_xml(src_type, params):
     if len(params['path']) == 0:
         return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
 
-    if src_type == 'network':
+    if disk_type == 'network':
         """
         <source protocol='%(protocol)s' name='%(url_path)s'>
           <host name='%(hostname)s' port='%(port)s'/>
@@ -76,10 +81,28 @@ def get_disk_xml(src_type, params):
         <source file='%(src)s' />
         """
         source = E.source()
-        source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params['path'])
+        source.set(DEV_TYPE_SRC_ATTR_MAP[disk_type], params['path'])
 
     disk.append(source)
     return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
+
+
+def _get_disk_type(path):
+    if check_url_path(path):
+        return 'network'
+
+    if not os.path.exists(path):
+        raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
+
+    # Check if path is a valid local path
+    if os.path.isfile(path):
+        return 'file'
+
+    r_path = os.path.realpath(path)
+    if stat.S_ISBLK(os.stat(r_path).st_mode):
+        return 'block'
+
+    raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
 
 
 def get_device_node(dom, dev_name):
