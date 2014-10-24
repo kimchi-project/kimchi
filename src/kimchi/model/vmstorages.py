@@ -30,8 +30,8 @@ from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.model.utils import get_vm_config_flag
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
-from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
-from kimchi.xmlutils.disk import get_disk_xml
+from kimchi.xmlutils.disk import get_device_node, get_disk_xml
+from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disk_list
 
 HOTPLUG_TYPE = ['scsi', 'virtio']
 PREFIX_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -78,7 +78,7 @@ class VMStoragesModel(object):
         valid_id = [('0', '0'), ('0', '1'), ('1', '0'), ('1', '1')]
         controller_id = '0'
         for dev_name in disks:
-            disk = get_device_xml(dom, dev_name)
+            disk = get_device_node(dom, dev_name)
             if disk.target.attrib['bus'] == 'ide':
                 controller_id = disk.address.attrib['controller']
                 bus_id = disk.address.attrib['bus']
@@ -170,7 +170,7 @@ class VMStorageModel(object):
     def lookup(self, vm_name, dev_name):
         # Retrieve disk xml and format return dict
         dom = VMModel.get_vm(vm_name, self.conn)
-        return get_vm_disk(dom, dev_name)
+        return get_vm_disk_info(dom, dev_name)
 
     def delete(self, vm_name, dev_name):
         # Get storage device xml
@@ -188,7 +188,7 @@ class VMStorageModel(object):
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
-            disk = get_device_xml(dom, dev_name)
+            disk = get_device_node(dom, dev_name)
             dom.detachDeviceFlags(etree.tostring(disk),
                                   get_vm_config_flag(dom, 'all'))
         except Exception as e:
