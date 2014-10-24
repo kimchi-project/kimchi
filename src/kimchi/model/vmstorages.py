@@ -18,14 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import socket
 import stat
 import string
-import urlparse
 
-import lxml.etree as ET
 from lxml import etree
-from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
@@ -35,7 +31,7 @@ from kimchi.model.utils import get_vm_config_flag
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
 from kimchi.vmdisks import get_device_xml, get_vm_disk, get_vm_disk_list
-from kimchi.vmdisks import DEV_TYPE_SRC_ATTR_MAP
+from kimchi.xmlutils.disk import get_disk_xml
 
 HOTPLUG_TYPE = ['scsi', 'virtio']
 PREFIX_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
@@ -47,39 +43,6 @@ def _get_device_bus(dev_type, dom):
     except:
         version, distro = ('unknown', 'unknown')
     return lookup(distro, version)[dev_type+'_bus']
-
-
-def _get_storage_xml(params, ignore_source=False):
-    src_type = params.get('src_type')
-    disk = E.disk(type=src_type, device=params.get('type'))
-    disk.append(E.driver(name='qemu', type=params['format']))
-
-    disk.append(E.target(dev=params.get('dev'), bus=params['bus']))
-    if params.get('address'):
-        # ide disk target id is always '0'
-        disk.append(E.address(
-            type='drive', controller=params['address']['controller'],
-            bus=params['address']['bus'], target='0',
-            unit=params['address']['unit']))
-
-    if ignore_source:
-        return ET.tostring(disk)
-
-    # Working with url paths
-    if src_type == 'network':
-        output = urlparse.urlparse(params.get('path'))
-        port = str(output.port or socket.getservbyname(output.scheme))
-        host = E.host(name=output.hostname, port=port)
-        source = E.source(protocol=output.scheme, name=output.path)
-        source.append(host)
-        disk.append(source)
-    else:
-        # Fixing source attribute
-        source = E.source()
-        source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params.get('path'))
-        disk.append(source)
-
-    return ET.tostring(disk)
 
 
 def _check_path(path):
@@ -164,14 +127,14 @@ class VMStoragesModel(object):
                                        {"format": vol_info['format'],
                                         "type": params['type']})
             params['path'] = vol_info['path']
-        params['src_type'] = _check_path(params['path'])
+
         if (params['bus'] not in HOTPLUG_TYPE
                 and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
         # Add device to VM
-        dev_xml = _get_storage_xml(params)
+        dev_xml = get_disk_xml(_check_path(params['path']), params)
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
@@ -234,10 +197,10 @@ class VMStorageModel(object):
     def update(self, vm_name, dev_name, params):
         path = params.get('path')
         if path and len(path) != 0:
-            params['src_type'] = _check_path(path)
+            src_type = _check_path(path)
             ignore_source = False
         else:
-            params['src_type'] = 'file'
+            src_type = 'file'
             ignore_source = True
         dom = VMModel.get_vm(vm_name, self.conn)
 
@@ -245,8 +208,8 @@ class VMStorageModel(object):
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
         dev_info.update(params)
-        xml = _get_storage_xml(dev_info, ignore_source)
 
+        xml = get_disk_xml(src_type, dev_info, ignore_source)
         try:
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
