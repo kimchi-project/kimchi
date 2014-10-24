@@ -32,7 +32,7 @@ from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import VMsModel, VMModel
 from kimchi.utils import add_task, kimchi_log
-from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disk_list
+from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from kimchi.xmlutils.utils import xpath_get_text
 
 
@@ -265,8 +265,8 @@ class StorageVolumeModel(object):
                     vms = VMsModel.get_vms(self.conn)
                     for vm in vms:
                         dom = VMModel.get_vm(vm, self.conn)
-                        storages = get_vm_disk_list(dom)
-                        for disk in storages:
+                        storages = get_vm_disks(dom)
+                        for disk in storages.keys():
                             d_info = get_vm_disk_info(dom, disk)
                             if path == d_info['path']:
                                 ref_cnt = ref_cnt + 1

@@ -19,6 +19,7 @@
 
 import lxml.etree as ET
 import socket
+import string
 import urlparse
 
 from lxml import objectify
@@ -26,6 +27,7 @@ from lxml.builder import E
 
 from kimchi.exception import NotFoundError
 
+BUS_TO_DEV_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 DEV_TYPE_SRC_ATTR_MAP = {'file': 'file', 'block': 'dev'}
 
 
@@ -42,7 +44,11 @@ def get_disk_xml(src_type, params, ignore_src=False):
     """
     disk = E.disk(type=src_type, device=params['type'])
     disk.append(E.driver(name='qemu', type=params['format']))
-    disk.append(E.target(dev=params['dev'], bus=params['bus']))
+
+    # Get device name according to bus and index values
+    dev = params.get('dev', (BUS_TO_DEV_MAP[params['bus']] +
+                             string.lowercase[params.get('index', 0)]))
+    disk.append(E.target(dev=dev, bus=params['bus']))
 
     if params.get('address'):
         # ide disk target id is always '0'
@@ -52,7 +58,7 @@ def get_disk_xml(src_type, params, ignore_src=False):
             unit=params['address']['unit']))
 
     if ignore_src:
-        return ET.tostring(disk, encoding='utf-8', pretty_print=True)
+        return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
 
     if src_type == 'network':
         """
@@ -73,7 +79,7 @@ def get_disk_xml(src_type, params, ignore_src=False):
         source.set(DEV_TYPE_SRC_ATTR_MAP[src_type], params['path'])
 
     disk.append(source)
-    return ET.tostring(disk, encoding='utf-8', pretty_print=True)
+    return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
 
 
 def get_device_node(dom, dev_name):
@@ -116,11 +122,14 @@ def get_vm_disk_info(dom, dev_name):
             'bus': disk.target.attrib['bus']}
 
 
-def get_vm_disk_list(dom):
+def get_vm_disks(dom):
     xml = dom.XMLDesc(0)
     devices = objectify.fromstring(xml).devices
-    storages = [disk.target.attrib['dev']
-                for disk in devices.xpath("./disk[@device='disk']")]
-    storages += [disk.target.attrib['dev']
-                 for disk in devices.xpath("./disk[@device='cdrom']")]
+
+    storages = {}
+    all_disks = devices.xpath("./disk[@device='disk']")
+    all_disks.extend(devices.xpath("./disk[@device='cdrom']"))
+    for disk in all_disks:
+        storages[disk.target.attrib['dev']] = disk.target.attrib['bus']
+
     return storages

@@ -31,10 +31,9 @@ from kimchi.model.utils import get_vm_config_flag
 from kimchi.utils import check_url_path
 from kimchi.osinfo import lookup
 from kimchi.xmlutils.disk import get_device_node, get_disk_xml
-from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disk_list
+from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
 HOTPLUG_TYPE = ['scsi', 'virtio']
-PREFIX_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 
 
 def _get_device_bus(dev_type, dom):
@@ -95,14 +94,28 @@ class VMStoragesModel(object):
             return dict(address=address)
 
     def create(self, vm_name, params):
-        dom = VMModel.get_vm(vm_name, self.conn)
-        params['bus'] = _get_device_bus(params['type'], dom)
-        self._get_storage_device_name(vm_name, params)
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
-        params['format'] = 'raw'
         if not ('vol' in params) ^ ('path' in params):
             raise InvalidParameter("KCHVMSTOR0017E")
+
+        dom = VMModel.get_vm(vm_name, self.conn)
+        params['bus'] = _get_device_bus(params['type'], dom)
+        params['format'] = 'raw'
+
+        dev_list = [dev for dev, bus in get_vm_disks(dom).iteritems()
+                    if bus == params['bus']]
+        dev_list.sort()
+        if len(dev_list) == 0:
+            params['index'] = 0
+        else:
+            char = dev_list.pop()[2]
+            params['index'] = string.ascii_lowercase.index(char) + 1
+
+        if (params['bus'] not in HOTPLUG_TYPE
+                and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+            raise InvalidOperation('KCHVMSTOR0011E')
+
         if params.get('vol'):
             try:
                 pool = params['pool']
@@ -119,48 +132,30 @@ class VMStoragesModel(object):
             supported_format = {
                 "disk": ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"],
                 "cdrom": "iso"}
-            if vol_info['format'] in supported_format[params['type']]:
-                if params['type'] == 'disk':
-                    params['format'] = vol_info['format']
-            else:
+            if vol_info['format'] not in supported_format[params['type']]:
                 raise InvalidParameter("KCHVMSTOR0018E",
                                        {"format": vol_info['format'],
                                         "type": params['type']})
-            params['path'] = vol_info['path']
 
-        if (params['bus'] not in HOTPLUG_TYPE
-                and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
-            raise InvalidOperation('KCHVMSTOR0011E')
+            if params['type'] == 'disk':
+                params['format'] = vol_info['format']
+
+            params['path'] = vol_info['path']
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
         # Add device to VM
-        dev_xml = get_disk_xml(_check_path(params['path']), params)
+        dev, xml = get_disk_xml(_check_path(params['path']), params)
         try:
             conn = self.conn.get()
             dom = conn.lookupByName(vm_name)
-            dom.attachDeviceFlags(dev_xml, get_vm_config_flag(dom, 'all'))
+            dom.attachDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
-        return params['dev']
-
-    def _get_storage_device_name(self, vm_name, params):
-        bus_prefix = PREFIX_MAP[params['bus']]
-        dev_list = [dev for dev in self.get_list(vm_name)
-                    if dev.startswith(bus_prefix)]
-        if len(dev_list) == 0:
-            params['dev'] = bus_prefix + 'a'
-        else:
-            dev_list.sort()
-            last_dev = dev_list.pop()
-            # TODO: Improve to device names "greater then" hdz
-            next_dev_letter_pos =\
-                string.ascii_lowercase.index(last_dev[2]) + 1
-            params['dev'] =\
-                bus_prefix + string.ascii_lowercase[next_dev_letter_pos]
+        return dev
 
     def get_list(self, vm_name):
         dom = VMModel.get_vm(vm_name, self.conn)
-        return get_vm_disk_list(dom)
+        return get_vm_disks(dom).keys()
 
 
 class VMStorageModel(object):
@@ -207,11 +202,11 @@ class VMStorageModel(object):
         dev_info = self.lookup(vm_name, dev_name)
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
-        dev_info.update(params)
 
-        xml = get_disk_xml(src_type, dev_info, ignore_source)
+        dev_info.update(params)
+        dev, xml = get_disk_xml(src_type, dev_info, ignore_source)
         try:
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
-        return dev_name
+        return dev
