@@ -34,8 +34,7 @@ from kimchi.imageinfo import probe_image, probe_img_info
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from kimchi.xmlutils.disk import get_disk_xml
-
-QEMU_NAMESPACE = "xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'"
+from kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 
 
 class VMTemplate(object):
@@ -131,17 +130,6 @@ class VMTemplate(object):
         params['index'] = self.info['cdrom_index']
         params['path'] = self.info['cdrom']
 
-        qemu_stream_cmdline = """
-            <qemu:commandline>
-              <qemu:arg value='-drive'/>
-              <qemu:arg value='file=%(path)s,if=none,id=drive-%(bus)s0-1-0,\
-readonly=on,format=%(format)s'/>
-              <qemu:arg value='-device'/>
-              <qemu:arg value='%(bus)s-cd,bus=%(bus)s.1,unit=0,\
-drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
-            </qemu:commandline>
-        """
-
         hostname = urlparse.urlparse(params['path']).hostname
         if hostname is not None and not qemu_stream_dns:
             ip = socket.gethostbyname(hostname)
@@ -150,8 +138,17 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
         if self.info.get('iso_stream', False):
             protocol = urlparse.urlparse(params['path']).scheme
             if protocol not in libvirt_stream_protocols:
+                driveOpt = 'file=%(path)s,if=none,id=drive-%(bus)s0-1-0,'
+                driveOpt += 'readonly=on,format=%(format)s'
+
+                deviceOpt = '%(bus)s-cd,bus=%(bus)s.1,unit=0,'
+                deviceOpt += 'drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'
+
+                args = {}
+                args['-drive'] = driveOpt % params
+                args['-device'] = deviceOpt % params
                 # return qemucmdline XML
-                return qemu_stream_cmdline % params
+                return get_qemucmdline_xml(args)
 
         dev, xml = get_disk_xml(params)
         return xml
@@ -372,13 +369,12 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
         if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
                 libvirt_stream_protocols and \
                 params.get('iso_stream', False):
-            params['qemu-namespace'] = QEMU_NAMESPACE
             params['qemu-stream-cmdline'] = cdrom_xml
         else:
             params['cdroms'] = cdrom_xml
 
         xml = """
-        <domain type='%(domain)s' %(qemu-namespace)s>
+        <domain type='%(domain)s'>
           %(qemu-stream-cmdline)s
           <name>%(name)s</name>
           <uuid>%(uuid)s</uuid>
