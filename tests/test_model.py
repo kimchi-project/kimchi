@@ -126,10 +126,10 @@ class ModelTests(unittest.TestCase):
                       'allocation': 1,
                       'format': 'qcow2'}
             task_id = inst.storagevolumes_create('default', params)['id']
+            rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
             self._wait_task(inst, task_id)
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
             vol_path = inst.storagevolume_lookup('default', vol)['path']
-            rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
 
             params = {'name': 'test', 'disks': [{'base': vol_path}]}
             self.assertRaises(ImageFormatError, inst.templates_create, params)
@@ -225,9 +225,9 @@ class ModelTests(unittest.TestCase):
                           "network": "test-network",
                           "model": "virtio"}
             mac = inst.vmifaces_create('kimchi-ifaces', iface_args)
-            self.assertEquals(17, len(mac))
             # detach network interface from vm
             rollback.prependDefer(inst.vmiface_delete, 'kimchi-ifaces', mac)
+            self.assertEquals(17, len(mac))
 
             iface = inst.vmiface_lookup('kimchi-ifaces', mac)
             self.assertEquals("network", iface["type"])
@@ -557,9 +557,9 @@ class ModelTests(unittest.TestCase):
                               pool, params)
             params['name'] = vol
             task_id = inst.storagevolumes_create(pool, params)['id']
+            rollback.prependDefer(inst.storagevolume_delete, pool, vol)
             self._wait_task(inst, task_id)
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
-            rollback.prependDefer(inst.storagevolume_delete, pool, vol)
 
             fd, path = tempfile.mkstemp(dir=path)
             name = os.path.basename(path)
@@ -594,13 +594,13 @@ class ModelTests(unittest.TestCase):
             url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
             params = {'url': url}
             task_response = inst.storagevolumes_create(pool, params)
+            rollback.prependDefer(inst.storagevolume_delete, pool,
+                                  params['name'])
             taskid = task_response['id']
             vol_name = task_response['target_uri'].split('/')[-1]
             self.assertEquals('COPYING', vol_name)
-            self._wait_task(inst, taskid)
+            self._wait_task(inst, taskid, timeout=60)
             self.assertEquals('finished', inst.task_lookup(taskid)['status'])
-            rollback.prependDefer(inst.storagevolume_delete, pool,
-                                  params['name'])
             vol_path = os.path.join(args['path'], vol_name)
             self.assertTrue(os.path.isfile(vol_path))
             with open(vol_path) as vol_file:
@@ -1460,24 +1460,24 @@ class ModelTests(unittest.TestCase):
 
         system_host_repos = len(inst.repositories_get_list())
 
-        repo_id = inst.repositories_create(repo)
-        host_repos = inst.repositories_get_list()
-        self.assertEquals(system_host_repos + 1, len(host_repos))
+        with RollbackContext() as rollback:
+            repo_id = inst.repositories_create(repo)
+            rollback.prependDefer(inst.repository_delete, repo_id)
 
-        # update repositories with invalid data
-        for repo in invalid_repos:
-            self.assertRaises(InvalidParameter, inst.repository_update,
-                              repo_id, repo)
+            host_repos = inst.repositories_get_list()
+            self.assertEquals(system_host_repos + 1, len(host_repos))
 
-        new_repo_id = inst.repository_update(repo_id, new_repo)
-        repo_info = inst.repository_lookup(new_repo_id)
+            # update repositories with invalid data
+            for repo in invalid_repos:
+                self.assertRaises(InvalidParameter, inst.repository_update,
+                                  repo_id, repo)
+
+            new_repo_id = inst.repository_update(repo_id, new_repo)
+            repo_info = inst.repository_lookup(new_repo_id)
 
         self.assertEquals(new_repo_id, repo_info['repo_id'])
         self.assertEquals(new_repo['baseurl'], repo_info['baseurl'])
         self.assertEquals(True, repo_info['enabled'])
-
-        # remove files creates
-        inst.repository_delete(new_repo_id)
 
     def test_repository_disable_enable(self):
         inst = model.Model('test:///default',
