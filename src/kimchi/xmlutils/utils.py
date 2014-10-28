@@ -17,27 +17,21 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import libxml2
+import lxml.etree as ET
 from lxml import objectify
 
 
-from xml.etree import ElementTree
-
-
 def xpath_get_text(xml, expr):
-    doc = libxml2.parseDoc(xml)
-    res = doc.xpathEval(expr)
-    ret = [None if x.children is None else x.children.content for x in res]
-
-    doc.freeDoc()
-    return ret
+    doc = ET.fromstring(xml)
+    res = [x.text if not isinstance(x, str) else x for x in doc.xpath(expr)]
+    return res
 
 
 def xml_item_update(xml, xpath, value):
-    root = ElementTree.fromstring(xml)
+    root = ET.fromstring(xml)
     item = root.find(xpath)
     item.text = value
-    return ElementTree.tostring(root, encoding="utf-8")
+    return ET.tostring(root, encoding="utf-8")
 
 
 def dictize(xmlstr):
