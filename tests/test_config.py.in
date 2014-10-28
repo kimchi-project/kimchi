@@ -108,7 +108,7 @@ class ConfigTests(unittest.TestCase):
             },
             '/novnc': {
                 'tools.staticdir.on': True,
-                'tools.staticdir.dir': '@datadir@/novnc',
+                'tools.staticdir.dir': paths.novnc_dir,
                 'tools.nocache.on': True,
                 'tools.kimchiauth.on': True
             },
