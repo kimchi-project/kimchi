@@ -275,6 +275,9 @@ class MockModel(object):
                 msg_args = {'network': net_name, 'template': name}
                 raise InvalidParameter("KCHTMPL0003E", msg_args)
 
+        if params.get('cpu_info') is None:
+            params['cpu_info'] = dict()
+
         t = MockVMTemplate(params, self)
         if t.name in self._mock_templates:
             raise InvalidOperation("KCHTMPL0001E", {'name': name})
