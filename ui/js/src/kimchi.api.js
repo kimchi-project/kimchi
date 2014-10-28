@@ -1129,6 +1129,20 @@ var kimchi = {
         });
     },
 
+    getPCIDeviceCompanions : function(pcidev, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/devices?_passthrough_affected_by=' + pcidev,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
     getISCSITargets : function(server, port, suc, err) {
         server = encodeURIComponent(server);
         port = port ? '&_server_port='+encodeURIComponent(port) : '';
