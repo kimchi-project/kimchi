@@ -143,6 +143,8 @@ messages = {
     "KCHTMPL0022E": _("Disk size must be an integer greater than 1GB."),
     "KCHTMPL0023E": _("Template base image must be a valid local image file"),
     "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
+    "KCHTMPL0025E": _("When specifying CPU topology, VCPUs must be a product of sockets, cores, and threads."),
+    "KCHTMPL0026E": _("When specifying CPU topology, each element must be an integer greater than zero."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),

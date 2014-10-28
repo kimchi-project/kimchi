@@ -358,6 +358,19 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
             input_output += sound % self.info
         return input_output
 
+    def _get_cpu_xml(self):
+
+        cpu_info = self.info.get('cpu_info')
+        if cpu_info is None:
+            return ""
+        cpu_topo = cpu_info.get('topology')
+        if cpu_topo is None:
+            return ""
+        return etree.tostring(E.cpu(E.topology(
+            sockets=str(cpu_topo['sockets']),
+            cores=str(cpu_topo['cores']),
+            threads=str(cpu_topo['threads']))))
+
     def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
         params['name'] = vm_name
@@ -369,6 +382,7 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
         params['qemu-stream-cmdline'] = ''
         graphics = kwargs.get('graphics')
         params['graphics'] = self._get_graphics_xml(graphics)
+        params['cpu_info'] = self._get_cpu_xml()
 
         # Current implementation just allows to create disk in one single
         # storage pool, so we cannot mix the types (scsi volumes vs img file)
@@ -400,6 +414,7 @@ drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
           <uuid>%(uuid)s</uuid>
           <memory unit='MiB'>%(memory)s</memory>
           <vcpu>%(cpus)s</vcpu>
+          %(cpu_info)s
           <os>
             <type arch='%(arch)s'>hvm</type>
             <boot dev='hd'/>

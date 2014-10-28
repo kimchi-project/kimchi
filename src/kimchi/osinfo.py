@@ -32,9 +32,8 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'power': ('ppc', 'ppc64')}
 
 
-common_spec = {'cpus': 1, 'cpu_cores': 1, 'cpu_threads': 1, 'memory': 1024,
-               'disks': [{'index': 0, 'size': 10}], 'cdrom_bus': 'ide',
-               'cdrom_index': 2, 'mouse_bus': 'ps2'}
+common_spec = {'cpus': 1, 'memory': 1024, 'disks': [{'index': 0, 'size': 10}],
+               'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
 
 
 modern_spec = dict(common_spec, disk_bus='virtio', nic_model='virtio')
