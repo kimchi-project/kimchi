@@ -90,6 +90,30 @@ class MockModelTests(unittest.TestCase):
             else:
                 self.fail("Expected exception not raised")
 
+    def test_template_cpu_info(self):
+        # Create default template
+        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        resp = request(host, ssl_port, '/templates', req, 'POST')
+        rsp_body = resp.read()
+        template_data = json.loads(rsp_body)
+        # GET of cpu_info will be {}
+        cpu_info = template_data['cpu_info']
+        self.assertEquals(cpu_info, {})
+        self.assertEquals(cpu_info.get('topology'), None)
+
+        # Update topology
+        # GET of cpu_info will contain 'topology'
+        req = json.dumps({'cpu_info': {'topology': {'sockets': 1,
+                                                    'cores': 1,
+                                                    'threads': 1}}})
+        resp = request(host, ssl_port, '/templates/test', req, 'PUT')
+        rsp_body = resp.read()
+        template_data = json.loads(rsp_body)
+        cpu_info = template_data['cpu_info']
+        self.assertEquals(cpu_info, {'topology': {'sockets': 1,
+                                                  'cores': 1,
+                                                  'threads': 1}})
+
     def test_screenshot_refresh(self):
         # Create a VM
         req = json.dumps({'name': 'test', 'cdrom': fake_iso})

@@ -795,6 +795,19 @@ class ModelTests(unittest.TestCase):
             for key in params.keys():
                 self.assertEquals(params[key], info[key])
 
+            # test cpu_info
+            # new-test has 1 cpu, so this should fail:
+            params['cpu_info'] = {"topology":
+                                  {"sockets": 1, "cores": 1, "threads": 2}}
+            self.assertRaises(InvalidParameter, inst.template_update,
+                              'new-test', params)
+
+            params['cpus'] = 2
+            inst.template_update('new-test', params)
+            info = inst.template_lookup('new-test')
+            for key in params.keys():
+                self.assertEquals(params[key], info[key])
+
             # test update with non-existent network
             params = {'networks': ["no-exist"]}
             self.assertRaises(InvalidParameter, inst.template_update,
