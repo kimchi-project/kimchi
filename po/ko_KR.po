@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -66,6 +66,15 @@ msgstr "Kimchi에 액세스할 권한이 없습니다."
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Kimchi에 로그인하려면 %(item)s을(를) 지정하십시오."
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -268,6 +277,26 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+#, python-format
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "가상 머신 %(name)s에 %(iface)s 인터페이스가 없습니다."
 
@@ -385,6 +414,16 @@ msgstr "템플리트 CDROM은 로컬 또는 원격 ISO 파일이어야 합니다
 
 #, python-format
 msgid "Cannot identify base image %(path)s format"
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
 msgstr ""
 
 #, python-format
@@ -796,6 +835,9 @@ msgstr "가상 머신을 실행 중인 호스트 머신을 다시 부팅할 수 
 msgid "Node device '%(name)s' not found"
 msgstr "노드 장치 '%(name)s'이(가) 없습니다."
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr "업데이트 표시된 패키지가 없습니다."
 
@@ -985,6 +1027,11 @@ msgstr "저장소를 추가할 수 없습니다. 세부사항: '%(err)s'"
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "저장소를 제거할 수 없습니다. 세부사항: '%(err)s'"
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "오류 코드"
 
@@ -1052,6 +1099,9 @@ msgstr "인터페이스"
 msgid "Permission"
 msgstr "버전"
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr "이름"
 
@@ -1081,6 +1131,24 @@ msgstr ""
 
 msgid "Selected system users and groups"
 msgstr ""
+
+msgid "All"
+msgstr "모두"
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
+msgstr "공급업체"
 
 msgid "Save"
 msgstr "저장"
@@ -1746,9 +1814,6 @@ msgstr "ISO 검색"
 msgid "The following ISOs are available:"
 msgstr "다음 ISO가 사용 가능합니다."
 
-msgid "All"
-msgstr "모두"
-
 msgid "OS: "
 msgstr "OS: "
 
@@ -1778,9 +1843,6 @@ msgstr "사용자 정의 URL을 사용하려고 합니다."
 
 msgid "Edit Template"
 msgstr "템플리트 편집"
-
-msgid "Vendor"
-msgstr "공급업체"
 
 msgid "CPU Number"
 msgstr "CPU 번호"

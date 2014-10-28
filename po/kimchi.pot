@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,6 +66,15 @@ msgstr ""
 
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
+msgstr ""
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
 msgstr ""
 
 #, python-format
@@ -259,6 +268,26 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+#, python-format
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr ""
 
@@ -369,6 +398,16 @@ msgstr ""
 
 #, python-format
 msgid "Cannot identify base image %(path)s format"
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
 msgstr ""
 
 #, python-format
@@ -744,6 +783,9 @@ msgstr ""
 msgid "Node device '%(name)s' not found"
 msgstr ""
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr ""
 
@@ -931,6 +973,11 @@ msgstr ""
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr ""
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr ""
 
@@ -996,6 +1043,9 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -1024,6 +1074,24 @@ msgid "Available system users and groups"
 msgstr ""
 
 msgid "Selected system users and groups"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
 msgstr ""
 
 msgid "Save"
@@ -1668,9 +1736,6 @@ msgstr ""
 msgid "The following ISOs are available:"
 msgstr ""
 
-msgid "All"
-msgstr ""
-
 msgid "OS: "
 msgstr ""
 
@@ -1699,9 +1764,6 @@ msgid "I want to use a custom URL"
 msgstr ""
 
 msgid "Edit Template"
-msgstr ""
-
-msgid "Vendor"
 msgstr ""
 
 msgid "CPU Number"

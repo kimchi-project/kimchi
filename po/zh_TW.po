@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -66,6 +66,15 @@ msgstr "您未獲授權來存取 Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "指定 %(item)s 以登入 Kimchi"
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -262,6 +271,26 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+#, python-format
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "介面 %(iface)s 不存在於虛擬機器 %(name)s 中"
 
@@ -372,6 +401,16 @@ msgstr "範本 CDROM 必須是本端或遠端 ISO 檔案"
 
 #, python-format
 msgid "Cannot identify base image %(path)s format"
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
 msgstr ""
 
 #, python-format
@@ -747,6 +786,9 @@ msgstr "無法將主機重新開機，因為有一些虛擬機器正在執行中
 msgid "Node device '%(name)s' not found"
 msgstr "找不到節點裝置 '%(name)s'"
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr "沒有套件標示為要進行更新"
 
@@ -934,6 +976,11 @@ msgstr "無法新增儲存庫。詳細資料：'%(err)s'"
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "無法移除儲存庫。詳細資料：'%(err)s'"
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "錯誤碼"
 
@@ -999,6 +1046,9 @@ msgstr "介面"
 msgid "Permission"
 msgstr "版本"
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr "名稱"
 
@@ -1028,6 +1078,24 @@ msgstr ""
 
 msgid "Selected system users and groups"
 msgstr ""
+
+msgid "All"
+msgstr "全部"
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
+msgstr "供應商"
 
 msgid "Save"
 msgstr "儲存"
@@ -1682,9 +1750,6 @@ msgstr "搜尋 ISO"
 msgid "The following ISOs are available:"
 msgstr "下列 ISO 可用："
 
-msgid "All"
-msgstr "全部"
-
 msgid "OS: "
 msgstr "OS："
 
@@ -1714,9 +1779,6 @@ msgstr "我想使用自訂 URL"
 
 msgid "Edit Template"
 msgstr "編輯範本"
-
-msgid "Vendor"
-msgstr "供應商"
 
 msgid "CPU Number"
 msgstr "CPU 數目"
