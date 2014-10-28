@@ -76,26 +76,33 @@ class VMsModel(object):
         vm_list = self.get_list()
 
         for name in vm_list:
-            dom = VMModel.get_vm(name, self.conn)
-            vm_uuid = dom.UUIDString()
-            info = dom.info()
-            state = DOM_STATE_MAP[info[0]]
+            try:
+                dom = VMModel.get_vm(name, self.conn)
 
-            if state != 'running':
-                stats[vm_uuid] = {}
+                vm_uuid = dom.UUIDString()
+                info = dom.info()
+                state = DOM_STATE_MAP[info[0]]
+
+                if state != 'running':
+                    stats[vm_uuid] = {}
+                    continue
+
+                if stats.get(vm_uuid, None) is None:
+                    stats[vm_uuid] = {}
+
+                timestamp = time.time()
+                prevStats = stats.get(vm_uuid, {})
+                seconds = timestamp - prevStats.get('timestamp', 0)
+                stats[vm_uuid].update({'timestamp': timestamp})
+
+                self._get_percentage_cpu_usage(vm_uuid, info, seconds)
+                self._get_network_io_rate(vm_uuid, dom, seconds)
+                self._get_disk_io_rate(vm_uuid, dom, seconds)
+            except Exception as e:
+                # VM might be deleted just after we get the list.
+                # This is OK, just skip.
+                kimchi_log.debug('Error processing VM stats: %s', e.message)
                 continue
-
-            if stats.get(vm_uuid, None) is None:
-                stats[vm_uuid] = {}
-
-            timestamp = time.time()
-            prevStats = stats.get(vm_uuid, {})
-            seconds = timestamp - prevStats.get('timestamp', 0)
-            stats[vm_uuid].update({'timestamp': timestamp})
-
-            self._get_percentage_cpu_usage(vm_uuid, info, seconds)
-            self._get_network_io_rate(vm_uuid, dom, seconds)
-            self._get_disk_io_rate(vm_uuid, dom, seconds)
 
     def _get_percentage_cpu_usage(self, vm_uuid, info, seconds):
         prevCpuTime = stats[vm_uuid].get('cputime', 0)
