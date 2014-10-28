@@ -16,7 +16,6 @@ Requires:	python-websockify
 Requires:	novnc
 Requires:	m2crypto
 Requires:	python-imaging
-Requires:	libxml2-python
 Requires:	PyPAM
 Requires:	pyparted
 Requires:	python-psutil >= 0.6.0
@@ -32,7 +31,7 @@ Requires:	policycoreutils-python
 Requires:	python-libguestfs
 Requires:	libguestfs-tools
 BuildRequires:	libxslt
-BuildRequires:	libxml2-python
+BuildRequires:	python-lxml
 BuildRequires:	python-requests
 
 %if 0%{?rhel} == 6 || 0%{?fedora} >= 19

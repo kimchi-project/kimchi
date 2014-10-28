@@ -49,12 +49,11 @@ Install Dependencies
 
      $ sudo yum install gcc make autoconf automake gettext-devel git \
                         python-cherrypy python-cheetah libvirt-python \
-                        libvirt libxml2-python python-imaging \
-                        PyPAM m2crypto python-jsonschema rpm-build \
-                        qemu-kvm python-psutil python-ethtool sos \
-                        python-ipaddr python-lxml nfs-utils \
-                        iscsi-initiator-utils libxslt pyparted nginx \
-                        policycoreutils-python python-libguestfs \
+                        libvirt python-imaging PyPAM m2crypto \
+                        python-jsonschema rpm-build qemu-kvm python-psutil \
+                        python-ethtool sos python-ipaddr python-lxml \
+                        nfs-utils iscsi-initiator-utils libxslt pyparted \
+                        nginx policycoreutils-python python-libguestfs \
                         libguestfs-tools python-requests python-websockify \
                         novnc
 
@@ -78,9 +77,9 @@ for more information on how to configure your system to access this repository.
 
     $ sudo apt-get install gcc make autoconf automake gettext git \
                            python-cherrypy3 python-cheetah python-libvirt \
-                           libvirt-bin python-libxml2 python-imaging \
-                           python-pam python-m2crypto python-jsonschema \
-                           qemu-kvm libtool python-psutil python-ethtool \
+                           libvirt-bin python-imaging python-pam \
+                           python-m2crypto python-jsonschema qemu-kvm \
+                           libtool python-psutil python-ethtool \
                            sosreport python-ipaddr python-lxml nfs-common \
                            open-iscsi lvm2 xsltproc python-parted nginx \
                            firewalld python-guestfs libguestfs-tools \
@@ -94,13 +93,12 @@ for more information on how to configure your system to access this repository.
 
     $ sudo zypper install gcc make autoconf automake gettext-tools git \
                           python-CherryPy python-Cheetah libvirt-python \
-                          libvirt python-libxml2 python-imaging \
-                          python-pam python-M2Crypto python-jsonschema \
-                          rpm-build kvm python-psutil python-ethtool \
-                          python-ipaddr python-lxml nfs-client open-iscsi \
-                          libxslt-tools python-xml python-parted nginx \
-                          python-libguestfs guestfs-tools python-requests \
-                          python-websockify novnc
+                          libvirt python-imaging python-pam python-M2Crypto \
+                          python-jsonschema rpm-build kvm python-psutil \
+                          python-ethtool python-ipaddr python-lxml \
+                          nfs-client open-iscsi libxslt-tools python-xml \
+                          python-parted nginx python-libguestfs \
+                          guestfs-tools python-requests python-websockify novnc
 
     Packages version requirement:
         python-psutil >= 0.6.0

@@ -16,7 +16,6 @@ Requires:	python-websockify
 Requires:	novnc
 Requires:	python-imaging
 Requires:	python-M2Crypto
-Requires:	python-libxml2
 Requires:	python-pam
 Requires:	python-parted
 Requires:	python-psutil >= 0.6.0
@@ -31,7 +30,7 @@ Requires:	open-iscsi
 Requires:	python-libguestfs
 Requires:	guestfs-tools
 BuildRequires:	libxslt-tools
-BuildRequires:	python-libxml2
+BuildRequires:	python-lxml
 BuildRequires:	python-requests
 
 %if 0%{?sles_version} == 11
