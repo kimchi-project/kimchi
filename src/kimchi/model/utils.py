@@ -17,14 +17,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import re
-from kimchi.exception import OperationFailed
-from kimchi.featuretests import FeatureTests
-from kimchi.model.config import CapabilitiesModel
 import libvirt
+import re
+import socket
+import urlparse
 from lxml import etree
 from lxml.builder import E, ElementMaker
 
+from kimchi.exception import OperationFailed
+from kimchi.featuretests import FeatureTests
+from kimchi.model.config import CapabilitiesModel
 
 KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
 KIMCHI_NAMESPACE = "kimchi"
@@ -38,6 +40,15 @@ def get_vm_name(vm_name, t_name, name_list):
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("KCHUTILS0003E")
+
+
+def check_remote_disk_path(path):
+    hostname = urlparse.urlparse(path).hostname
+    if hostname is not None and not CapabilitiesModel().qemu_stream_dns:
+        ip = socket.gethostbyname(hostname)
+        return path.replace(hostname, ip)
+
+    return path
 
 
 def get_vm_config_flag(dom, mode="persistent"):
