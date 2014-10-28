@@ -407,6 +407,30 @@ kimchi.guest_edit_main = function() {
                                 });
                             }
                         });
+                        kimchi.getPCIDeviceCompanions(hostPCIs[i].name, function(infoData) {
+                            var pciTitle = i18n["KCHVMED6007M"] + "\n";
+                            var haveCompanions = false;
+                            for(var p=0; p<infoData.length; p++) {
+                                if(infoData[p].device_type === "net") {
+                                    haveCompanions = true;
+                                    pciTitle += "   " + infoData[p].name + "\n";
+                                    pciTitle += "      " + i18n["KCHVMED6001M"] + " " + infoData[p].interface;
+                                    pciTitle += ", " + i18n["KCHVMED6002M"] + " " + infoData[p].address;
+                                    pciTitle += ", " + i18n["KCHVMED6003M"] + " " + infoData[p].link_type + "\n";
+                                } else if(infoData[p].device_type === "storage") {
+                                    haveCompanions = true;
+                                    pciTitle += "   " + infoData[p].name + "\n";
+                                    pciTitle += "      " + i18n["KCHVMED6004M"] + " " + infoData[p].block;
+                                    pciTitle += ", " + i18n["KCHVMED6005M"] + " " + infoData[p].drive_type;
+                                    pciTitle += ", " + i18n["KCHVMED6006M"] + " " + infoData[p].model + "\n";
+                                }
+                            }
+                            for(var q=0; q<infoData.length; q++) {
+                                haveCompanions && $(".name", "#" + infoData[q].parent).attr("title", pciTitle);
+                                haveCompanions && $(".product", "#" + infoData[q].parent).attr("title", pciTitle);
+                                haveCompanions && $(".vendor", "#" + infoData[q].parent).attr("title", pciTitle);
+                            }
+                        });
                     }
                 });
             });
