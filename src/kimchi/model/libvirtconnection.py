@@ -27,10 +27,14 @@ from kimchi.utils import kimchi_log
 
 
 class LibvirtConnection(object):
+    _connections = {}
+    _connectionLock = threading.Lock()
+
     def __init__(self, uri):
         self.uri = uri
-        self._connections = {}
-        self._connectionLock = threading.Lock()
+        if self.uri not in LibvirtConnection._connections:
+            LibvirtConnection._connections[self.uri] = {}
+        self._connections = LibvirtConnection._connections[self.uri]
         self.wrappables = self.get_wrappable_objects()
 
     def get_wrappable_objects(self):
@@ -74,14 +78,14 @@ class LibvirtConnection(object):
                         kimchi_log.error('Connection to libvirt broken. '
                                          'Recycling. ecode: %d edom: %d' %
                                          (ecode, edom))
-                        with self._connectionLock:
+                        with LibvirtConnection._connectionLock:
                             self._connections[conn_id] = None
                     raise
             wrapper.__name__ = f.__name__
             wrapper.__doc__ = f.__doc__
             return wrapper
 
-        with self._connectionLock:
+        with LibvirtConnection._connectionLock:
             conn = self._connections.get(conn_id)
             if not conn:
                 retries = 5
