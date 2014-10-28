@@ -25,7 +25,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
-from kimchi.model.utils import get_vm_config_flag
+from kimchi.model.utils import check_remote_disk_path, get_vm_config_flag
 from kimchi.osinfo import lookup
 from kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
@@ -122,6 +122,8 @@ class VMStoragesModel(object):
             params['path'] = vol_info['path']
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
+        params['path'] = check_remote_disk_path(params['path'])
+
         # Add device to VM
         dev, xml = get_disk_xml(params)
         try:
@@ -175,10 +177,10 @@ class VMStorageModel(object):
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
 
-        params['path'] = params.get('path', '')
+        params['path'] = check_remote_disk_path(params.get('path', ''))
         dev_info.update(params)
-
         dev, xml = get_disk_xml(dev_info)
+
         try:
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
