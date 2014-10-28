@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -83,6 +83,15 @@ msgstr "您没有被授权访问Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "指定登录Kimchi的%(item)s"
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -280,6 +289,25 @@ msgid "The life time for the guest console password must be a number."
 msgstr "客户机命令行密码有效时间必须是一个数字。"
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "虚拟机 %(name)s 中没有接口 %(iface)s"
 
@@ -391,6 +419,16 @@ msgstr "模板基础镜像必须为一个有效的本地镜像文件"
 #, python-format
 msgid "Cannot identify base image %(path)s format"
 msgstr "未能识别基础镜像%(path)s格式"
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -767,6 +805,9 @@ msgstr "有虚拟机在运行，不能重起主机"
 msgid "Node device '%(name)s' not found"
 msgstr "没有找到节点设备'%(name)s'"
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr "没有软件包标识要升级"
 
@@ -954,6 +995,11 @@ msgstr "不能增加软件仓库。详情：'%(err)s'"
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "不能移除软件仓库。详情：'%(err)s'"
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr "软件仓库不支持配置类型: %(items)s"
+
 msgid "ERROR CODE"
 msgstr "错误码"
 
@@ -1019,6 +1065,9 @@ msgstr "网络接口"
 msgid "Permission"
 msgstr "权限"
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr "名称"
 
@@ -1048,6 +1097,24 @@ msgstr "可选的系统用户及用户组"
 
 msgid "Selected system users and groups"
 msgstr "已选的系统用户及用户组"
+
+msgid "All"
+msgstr "所有"
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
+msgstr "厂商"
 
 msgid "Save"
 msgstr "保存"
@@ -1696,9 +1763,6 @@ msgstr "搜索ISO"
 msgid "The following ISOs are available:"
 msgstr "可用ISO文件如下"
 
-msgid "All"
-msgstr "所有"
-
 msgid "OS: "
 msgstr "操作系统： "
 
@@ -1728,9 +1792,6 @@ msgstr "我想用一个自定义的URL"
 
 msgid "Edit Template"
 msgstr "编辑模板"
-
-msgid "Vendor"
-msgstr "厂商"
 
 msgid "CPU Number"
 msgstr "CPU个数"
@@ -1866,7 +1927,3 @@ msgstr "没有发现模板"
 
 msgid "Clone"
 msgstr "制作副本"
-
-#~ msgid ""
-#~ "Configuration items: '%(items)s' are not supported by repository manager"
-#~ msgstr "软件仓库不支持配置类型: %(items)s"

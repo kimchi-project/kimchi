@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -67,6 +67,15 @@ msgstr "Kimchi へのアクセスを許可されていません"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Kimchi にログインするには、%(item)s を指定します"
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -275,6 +284,26 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+#, python-format
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "インターフェース %(iface)s は仮想マシン %(name)s には存在しません"
 
@@ -411,6 +440,16 @@ msgstr ""
 
 #, python-format
 msgid "Cannot identify base image %(path)s format"
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
 msgstr ""
 
 #, python-format
@@ -847,6 +886,9 @@ msgstr "稼働中の仮想マシンがあるため、ホスト・マシンをリ
 msgid "Node device '%(name)s' not found"
 msgstr "ノード・デバイス「%(name)s」が見つかりません"
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr "更新の対象としてマークされているパッケージはありません"
 
@@ -1054,6 +1096,11 @@ msgstr "リポジトリーを追加できません。詳細: 「%(err)s」"
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "リポジトリーを削除できません。詳細: 「%(err)s」"
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "エラー・コード"
 
@@ -1121,6 +1168,9 @@ msgstr "インターフェース"
 msgid "Permission"
 msgstr "バージョン"
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr "名前"
 
@@ -1150,6 +1200,24 @@ msgstr ""
 
 msgid "Selected system users and groups"
 msgstr ""
+
+msgid "All"
+msgstr "すべて"
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
+msgstr "ベンダー"
 
 msgid "Save"
 msgstr "保存"
@@ -1823,9 +1891,6 @@ msgstr "ISO の検索"
 msgid "The following ISOs are available:"
 msgstr "次の ISO が使用可能です:"
 
-msgid "All"
-msgstr "すべて"
-
 msgid "OS: "
 msgstr "OS: "
 
@@ -1855,9 +1920,6 @@ msgstr "カスタム URL を使用する"
 
 msgid "Edit Template"
 msgstr "テンプレートの編集"
-
-msgid "Vendor"
-msgstr "ベンダー"
 
 msgid "CPU Number"
 msgstr "CPU 数"

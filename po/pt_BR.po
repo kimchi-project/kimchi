@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 13:47-0300\n"
+"POT-Creation-Date: 2014-10-22 13:00-0500\n"
 "PO-Revision-Date: 2014-09-16 18:45+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
@@ -86,6 +86,15 @@ msgstr "Você não está autorizado para acessar o Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Especifique %(item)s para autenticar no Kimchi"
+
+msgid "Unknown \"_cap\" specified"
+msgstr ""
+
+msgid "\"_passthrough\" should be \"true\" or \"false\""
+msgstr ""
+
+msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -303,6 +312,25 @@ msgid "The life time for the guest console password must be a number."
 msgstr "O tempo de vida da senha do console do guest deve ser um número."
 
 #, python-format
+msgid ""
+"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
+msgstr ""
+
+msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
+msgstr ""
+
+msgid ""
+"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
+"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
+"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
+"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
+"iommu=1."
+msgstr ""
+
+msgid "\"name\" should be a device name string"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "Interface %(iface)s não existe na máquina virtual %(name)s"
 
@@ -423,6 +451,16 @@ msgstr "Imagem base do modelo deve ser um arquivo de imagem local válido"
 #, python-format
 msgid "Cannot identify base image %(path)s format"
 msgstr "Não foi possível identificar o formato da imagem base %(path)s"
+
+msgid ""
+"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
+"threads."
+msgstr ""
+
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
+msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -853,6 +891,9 @@ msgstr ""
 msgid "Node device '%(name)s' not found"
 msgstr "Dispositivo de nó '%(name)s' não encontrado"
 
+msgid "Conflicting flag filters specified."
+msgstr ""
+
 msgid "No packages marked for update"
 msgstr "Nenhum pacote marcado para atualização"
 
@@ -1064,6 +1105,11 @@ msgstr "Não foi possível adicionar o repositório. Detalhes: '%(err)s'"
 msgid "Unable to remove repository. Details: '%(err)s'"
 msgstr "Não foi possível remover o repositório. Detalhes: '%(err)s'"
 
+#, python-format
+msgid ""
+"Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "CÓDIGO DE ERRO"
 
@@ -1131,6 +1177,9 @@ msgstr "Interface"
 msgid "Permission"
 msgstr "Permissão"
 
+msgid "Host PCI Device"
+msgstr ""
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1160,6 +1209,24 @@ msgstr "Usuários e grupos de sistema disponíveis"
 
 msgid "Selected system users and groups"
 msgstr "Usuários e grupos de sistema selecionados"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "To Add"
+msgstr ""
+
+msgid "Added"
+msgstr ""
+
+msgid "filter"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Vendor"
+msgstr "Vendor"
 
 msgid "Save"
 msgstr "Salvar"
@@ -1849,9 +1916,6 @@ msgstr "Procurar ISOs"
 msgid "The following ISOs are available:"
 msgstr "As seguintes ISOs estão disponíveis:"
 
-msgid "All"
-msgstr "Todos"
-
 msgid "OS: "
 msgstr "Sistema Operacional: "
 
@@ -1881,9 +1945,6 @@ msgstr "Eu quero usar uma URL personalizada"
 
 msgid "Edit Template"
 msgstr "Editar Modelo"
-
-msgid "Vendor"
-msgstr "Vendor"
 
 msgid "CPU Number"
 msgstr "Quantidade de CPUs"
