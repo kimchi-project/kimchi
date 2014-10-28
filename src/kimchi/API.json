@@ -26,6 +26,36 @@
                         ]
                 }
             }
+        },
+        "cpu_info": {
+            "description": "Configure CPU specifics for a VM.",
+            "type": "object",
+            "properties": {
+                "topology": {
+                    "description": "Configure the guest CPU topology.",
+                    "type": "object",
+                    "properties": {
+                        "sockets": {
+                            "type": "integer",
+                            "required": true,
+                            "minimum": 1,
+                            "error": "KCHTMPL0026E"
+                        },
+                        "cores": {
+                            "type": "integer",
+                            "required": true,
+                            "minimum": 1,
+                            "error": "KCHTMPL0026E"
+                        },
+                        "threads": {
+                            "type": "integer",
+                            "required": true,
+                            "minimum": 1,
+                            "error": "KCHTMPL0026E"
+                        }
+                    }
+                }
+            }
         }
     },
     "properties": {
@@ -448,7 +478,8 @@
                     "type": "array",
                     "items": { "type": "string" }
                 },
-                "graphics": { "$ref": "#/kimchitype/graphics" }
+                "graphics": { "$ref": "#/kimchitype/graphics" },
+                "cpu_info": { "$ref": "#/kimchitype/cpu_info" }
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"
@@ -612,7 +643,8 @@
                     "type": "array",
                     "items": { "type": "string" }
                 },
-                "graphics": { "$ref": "#/kimchitype/graphics" }
+                "graphics": { "$ref": "#/kimchitype/graphics" },
+                "cpu_info": { "$ref": "#/kimchitype/cpu_info" }
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"

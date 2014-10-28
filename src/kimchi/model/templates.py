@@ -48,6 +48,23 @@ class TemplatesModel(object):
                                        {'filename': iso, 'user': user,
                                         'err': excp})
 
+        cpu_info = params.get('cpu_info')
+        if cpu_info:
+            topology = cpu_info.get('topology')
+            # Check, even though currently only topology
+            #   is supported.
+            if topology:
+                sockets = topology['sockets']
+                cores = topology['cores']
+                threads = topology['threads']
+                vcpus = params.get('cpus')
+                if vcpus is None:
+                    params['cpus'] = sockets * cores * threads
+                elif vcpus != sockets * cores * threads:
+                    raise InvalidParameter("KCHTMPL0025E")
+        else:
+            params['cpu_info'] = dict()
+
         conn = self.conn.get()
         pool_uri = params.get(u'storagepool', '')
         if pool_uri:
@@ -156,6 +173,10 @@ class TemplateModel(object):
         old_t = self.lookup(name)
         new_t = copy.copy(old_t)
         new_t.update(params)
+
+        if not self._validate_updated_cpu_params(new_t):
+            raise InvalidParameter('KCHTMPL0025E')
+
         ident = name
 
         conn = self.conn.get()
@@ -186,6 +207,17 @@ class TemplateModel(object):
             ident = self.templates.create(old_t)
             raise
         return ident
+
+    def _validate_updated_cpu_params(self, info):
+        # Note: cpu_info is the parent of topology. cpus is vcpus
+        vcpus = info['cpus']
+        cpu_info = info.get('cpu_info')
+        # cpu_info will always be at least an empty dict
+        topology = cpu_info.get('topology')
+        if topology is None:
+            return True
+        return vcpus == topology['sockets'] * topology['cores'] * \
+            topology['threads']
 
 
 class LibvirtVMTemplate(VMTemplate):

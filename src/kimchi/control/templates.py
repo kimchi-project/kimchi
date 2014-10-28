@@ -38,22 +38,25 @@ class Template(Resource):
         self.update_params = ["name", "folder", "icon", "os_distro",
                               "storagepool", "os_version", "cpus",
                               "memory", "cdrom", "disks", "networks",
-                              "graphics"]
+                              "graphics", "cpu_info"]
         self.uri_fmt = "/templates/%s"
         self.clone = self.generate_action_handler('clone')
 
     @property
     def data(self):
-        return {'name': self.ident,
-                'icon': self.info['icon'],
-                'invalid': self.info['invalid'],
-                'os_distro': self.info['os_distro'],
-                'os_version': self.info['os_version'],
-                'cpus': self.info['cpus'],
-                'memory': self.info['memory'],
-                'cdrom': self.info.get('cdrom', None),
-                'disks': self.info['disks'],
-                'storagepool': self.info['storagepool'],
-                'networks': self.info['networks'],
-                'folder': self.info.get('folder', []),
-                'graphics': self.info['graphics']}
+        return {
+            'name': self.ident,
+            'icon': self.info['icon'],
+            'invalid': self.info['invalid'],
+            'os_distro': self.info['os_distro'],
+            'os_version': self.info['os_version'],
+            'cpus': self.info['cpus'],
+            'memory': self.info['memory'],
+            'cdrom': self.info.get('cdrom', None),
+            'disks': self.info['disks'],
+            'storagepool': self.info['storagepool'],
+            'networks': self.info['networks'],
+            'folder': self.info.get('folder', []),
+            'graphics': self.info['graphics'],
+            'cpu_info': self.info.get('cpu_info')
+        }

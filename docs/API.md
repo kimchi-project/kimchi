@@ -194,7 +194,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * name: The name of the Template.  Used to identify the Template in this API
     * os_distro *(optional)*: The operating system distribution
     * os_version *(optional)*: The version of the operating system distribution
-    * cpus *(optional)*: The number of CPUs assigned to the VM. Default is 1.
+    * cpus *(optional)*: The number of CPUs assigned to the VM.
+          Default is 1, unlees specifying a cpu topology. In that case, cpus
+          will default to a product of the topology values (see cpu_info).
     * memory *(optional)*: The amount of memory assigned to the VM.
       Default is 1024M.
     * cdrom *(optional)*: A volume name or URI to an ISO image.
@@ -216,6 +218,15 @@ Represents a snapshot of the Virtual Machine's primary monitor.
                      Independent Computing Environments
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
+    * cpu_info *(optional)*: CPU-specific information.
+        * topology: Specify sockets, threads, and cores to run the virtual CPU
+            threads on.
+            All three are required in order to specify cpu topology.
+            * sockets - The number of sockets to use.
+            * cores   - The number of cores per socket.
+            * threads - The number of threads per core.
+            If specifying both cpus and CPU topology, make sure cpus is
+            equal to the product of sockets, cores, and threads.
 
 ### Sub-Collection: Virtual Machine Network Interfaces
 
