@@ -18,7 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import libxml2
+import lxml.etree as ET
 import sys
 
 
@@ -44,14 +44,13 @@ def main():
     input_files = sys.argv[1:]
 
     pages = {}
+
     for f in sorted(input_files):
         with open(f) as fd:
             xml = fd.read()
-            doc = libxml2.parseDoc(xml)
-            node = doc.xpathEval('/cshelp/title')[0]
-            name = node.children.content
-            pages[f.replace('.dita', '.html')] = name
-            doc.freeDoc()
+            doc = ET.fromstring(xml)
+            name = doc.xpath('./title')[0].text
+            pages[f.replace('.dita', '.html')] = name.encode('utf-8')
 
     print HTML_HEAD
     for page, name in pages.iteritems():
