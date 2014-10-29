@@ -1,0 +1,195 @@
+13:01:39 <alinefm> #startmeeting
+13:01:39 <kimchi-bot> Meeting started Wed Oct 29 13:01:39 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:39 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:39 <alinefm> #meetingname scrum
+13:01:39 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:49 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:50 <alinefm> anything else?
+13:02:47 <alinefm> apparently not
+13:02:51 <alinefm> so let's get started
+13:03:00 <alinefm> #topic Status
+13:03:01 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:12 <wenwang> #info wenwang sent patch V3 Guest disk hot plug UI
+13:03:20 <YuXin> #info YuXin Guest Clone UI patch v2
+13:03:22 <alinefm> #info alinefm sent patch to use lxml.etree on libvirtstoragepool.py
+13:03:23 <royce> #info royce finished authentication and authorization of LDAP at backend v2
+13:03:24 <danielhb> #info danielhb reviewed a handful of patches in the ML
+13:03:48 <YuXin> #info YuXin Investigate browser base terminal to access guest serial console
+13:04:01 <wenwang> #info wenwang sent patch V3 improve PCI tab in guest edit
+13:04:06 <alinefm> #info alinefm sent patch to create a common xmlutils/disk.py module to hold all the guest disk XML manipulation and also use the same functions on vmstorages.py and vmtemplate.py
+13:04:07 <YuXin> #info YuXin review patches
+13:04:14 <royce> #info royce is working on UI ldap, discussed with YuXin, will send out a mock tomorrow
+13:04:34 <vianac> #info vianac worked on the clone feature; reviewed patches on the mailing list
+13:04:42 <christyp> #info christyp sent v8 of templates backend fpr cpu_info
+13:04:42 <alinefm> #info alinefm sent patch to use lxml.etree to create the <qemu:commandline> XML
+13:04:49 <wenwang> #info wenwang working on refining template edit and will be finished by the end of this week
+13:06:09 <christyp> #info christyp worked on the logic for SMT/HT and will test this week
+13:07:20 <alinefm> royce, do you mind if I send a patch to fix https://github.com/kimchi-project/kimchi/issues/466 ? it is blocking christyp
+13:08:08 <royce> alinefm, I haven't noticed your reply, sorry
+13:08:24 <alinefm> np at all - I know you are busy with LDAP support
+13:08:29 <royce> my ml doesn't inform me...I will send out a patch tomorrow
+13:08:54 <alinefm> ok
+13:08:54 <royce> often I got informed by mail of these issues...
+13:08:54 <christyp> thanks royce and alinefm. i had almost forgott about that
+13:09:04 <christyp> *forgotten
+13:09:10 <alinefm> royce, have you started some tests about the CDROM with SCSI? do you need help on it?
+13:09:40 <royce> alinefm, tested, I will send that one this week too
+13:10:12 <alinefm> royce, did it work in all supported distros??
+13:10:13 <royce> I had a newly installed fedora yesterday, rhel haven't
+13:10:26 <royce> except rhel, haven't checked
+13:10:46 <alinefm> royce, I can check RHEL for you - I have some VMs running
+13:10:52 <alinefm> and send you a note
+13:11:17 <alinefm> ok... any more update or can we move on to open discussion?
+13:11:24 <royce> OK, thanks, I will send out that one later, the tests are out of date
+13:11:42 <alinefm> ok
+13:12:05 <alinefm> #topic Open Discussion
+13:12:19 <alinefm> so.. what will we talk about?
+13:12:25 <YuXin> for browser based terminal to access guest serial console, I identified a jquery plugin named jquery terminal
+13:12:59 <YuXin> it can handle the command input and interaction with user with the output
+13:13:25 <YuXin> I will create a html to wrap it
+13:13:26 <alinefm> great - have you setup it and test?
+13:13:41 <YuXin> there is a demo quite straight-forward
+13:13:47 <alinefm> what is the license? is there a package for it or do we need to import its code?
+13:14:01 <YuXin> LGPL
+13:14:17 <YuXin> I sent out a mail about it, it is a repository on github
+13:14:40 <YuXin> in html, open a websocket connection to kimchi server side
+13:15:02 <YuXin> then just get user input(command) and send to web sockdet
+13:15:20 <alinefm> YuXin, sorry, I haven't checked all the mails on ML this week yet
+13:15:20 <alinefm> I will do that today
+13:15:30 <YuXin> and receieve response web socket and pass to jquery terminal plugin to display the result
+13:15:43 <YuXin> one thing I want to discuss is the authentication
+13:15:52 <YuXin> the guest serial console will need login
+13:16:02 <YuXin> then a session need to be maintained
+13:16:32 <YuXin> as vnc also use web socket and has a session
+13:16:42 <YuXin> can we copy the same way to maintain session?
+13:16:47 <alinefm> 1) did you check how we connect websockets with serial console?
+13:16:56 <YuXin> no
+13:16:59 <alinefm> 2) for authentication, we can protect the XML you will create
+13:17:09 <alinefm> in a similar way we do for novnc and spice
+13:17:19 <alinefm> s/XML/HTML
+13:17:49 <YuXin> I mean after login, user input a command in browser terminal, then the command is sent to server
+13:18:15 <YuXin> server(guest serial console) need to know that the user is already authenticated
+13:18:23 <YuXin> and run the command
+13:19:04 <alinefm> if the user gets the console (ie, Kimchi open the text console on browser) he is already authenticated on Kimchi
+13:19:18 <YuXin> yes
+13:19:45 <YuXin> then serial console will need to authenticate again in guest space, right?
+13:21:34 <alinefm> it depends on guest configuration
+13:22:03 <alinefm> I mean, you can set to ask the user to login in the console or not
+13:22:25 <alinefm> there is a way to configure it to auto-login
+13:22:33 <alinefm> but it depends on how user configured it
+13:23:35 <YuXin> for example, if I use ssh to access a linux server remoted, I need to authenticate  first, then all the following command does not need to authenticate again, so there is a session maintained someway
+13:24:01 <YuXin> for serial console, between guest and brower terminal, such a session also need to be maintained, right?
+13:24:32 <alinefm> yes - but it is done by bash
+13:24:53 <alinefm> the browser terminal is only a interface to user enters commands
+13:25:05 <alinefm> we get and redirect it to the real console
+13:25:19 <YuXin> so you mean the session will be maintained at server side?
+13:25:23 <alinefm> yes
+13:25:26 <YuXin> ok
+13:25:58 <alinefm> YuXin, we need to check how connect the serial console to the websockets
+13:26:32 <YuXin> websocket is controled by kimchi code and serial console should have a interface to access it, right?
+13:26:52 <alinefm> from the last email I saw on ML from Zheng Zhou, his proposal would not work with guests created outside Kimchi - which is not feasible for us
+13:27:09 <alinefm> yes
+13:27:36 <YuXin> so to me, just some python code to link web socket and guest serial console
+13:28:08 <alinefm> in fact is is that, the problem is "how"
+13:28:29 <alinefm> I will try to investigate it soon
+13:28:53 <alinefm> YuXin, you can also talk to Zheng Zhou to see if he has a new solution
+13:29:07 <YuXin> ok, virsh console can be a sample
+13:30:13 <alinefm> YuXin, do you want to talk about the confirmation dialog on clone UI?
+13:30:44 <YuXin> aline, are you worrying about how to get command from websocket and pass to guest serial console
+13:31:06 <alinefm> YuXin, yes
+13:31:21 <alinefm> it is related to the connection between websockets and serial console
+13:31:40 <YuXin> so currently, kimchi has no server side code to minitor the websocket?
+13:32:20 <alinefm> kimchi starts a second process that launch websockify (which it is the server)
+13:32:41 <alinefm> then we just configure the websockify
+13:32:56 <YuXin> ok, for websocket on a port, the connection will sustain until client or server explicitly close it
+13:33:15 <alinefm> for example, we use a dir to hold all the tokens - when you ask for  the guest console we add the token and port to a file in this dir
+13:33:19 <alinefm> and websockify uses it
+13:33:51 <YuXin> the once the websocket at server side accept a connection, the connection between brower and websocket will be kept
+13:33:58 <alinefm> yes
+13:34:08 <alinefm> until the user close the browser console
+13:34:33 <YuXin> when websocket server side accept the connetion, some parameter will be passed along to identify the guest
+13:34:35 <alinefm> or the vm is powered off
+13:35:03 <YuXin> then the websocket can connect guest serial console
+13:35:17 <YuXin> and this connection should also be kept
+13:35:54 <YuXin> for each connection, a new thread can started
+13:36:03 <YuXin> a new thread can be started
+13:36:37 <YuXin> it is identical to java socket programming I believe
+13:37:13 <YuXin> for server side design, let me get you a sample
+13:37:56 <alinefm> ok
+13:38:25 <YuXin> http://docs.oracle.com/javaee/7/tutorial/doc/websocket.htm
+13:39:23 <YuXin> j2ee standard already support websocket in JSR 356, there is a model about how j2ee server handle websocket connection
+13:40:06 <YuXin> basically, it has a component technology called endpoint at server side
+13:40:16 <YuXin> each endpoint is identified with a uri
+13:40:44 <YuXin> browser side connect to the endpoint with the uri through the websocket
+13:41:28 <YuXin> once the connection is establised. that endpoint will peer to a brower and their conversation can start
+13:41:30 <alinefm> yes - I will do some tests on it
+13:42:21 <YuXin> for serial  console, in endpoint, it should connect to the guest serial console and maintain that connection in the endpoint
+13:42:41 <YuXin> then the 2 connections will be kept for user commands
+13:44:01 <alinefm> yeap - it is how we did for novnc and spice
+13:44:12 <YuXin> and you said, in endpoint, there should be a client to connect to guest serial console, the console session will be maintained there
+13:44:25 <alinefm> I think before we do real tests on it, it is difficult to know how it will work for us
+13:44:31 <alinefm> yeap
+13:44:46 <YuXin> ok, let us move to guest clone UI
+13:45:06 <YuXin> anything more about serial console, right now?
+13:45:17 <alinefm> I'd like to know, if you need a new API to do the pre-check or if it is possible on UI
+13:45:18 <alinefm> ?
+13:45:46 <alinefm> YuXin, no - we can move on. I will do some tests on websockify and serial console and share on ML what I find
+13:45:56 <YuXin> ok
+13:46:20 <YuXin> for guest clone UI precheck, I do not think we need new API
+13:46:56 <YuXin> for iscsi and scsi fc, at client side we can get it
+13:47:15 <YuXin> we can alert that message
+13:47:53 <alinefm> right - and for the pool capacity, can you check the free space on pool and compare to the disk size?
+13:48:36 <YuXin> all are available at client side?
+13:49:38 <YuXin> so we have size of all virtual disks of a guest and we have its pool size
+13:49:57 <alinefm> hmm... thinking...
+13:50:14 <YuXin> can we get the the virtual disk belong to which pool?
+13:50:44 <alinefm> http://fpaste.org/146148/45906381/
+13:50:53 <alinefm> no - we don't have the disk size and its pool
+13:50:56 <alinefm> only the path
+13:52:56 <YuXin> so some attribute are missing in this uri, right?
+13:53:43 <YuXin> anyway, I think we just need to enhance some API, right?
+13:53:56 <alinefm> yes
+13:54:09 <alinefm> we can add pool and size to GET /vms/<name>/storages
+13:54:56 <alinefm> but I am thinking if it wouldn't be faster with we did a new API to check all the cases
+13:55:16 <alinefm> for example: POST /vms/<name>/clone {mode: 'dry-run'}
+13:56:14 <alinefm> YuXin, what do you think?
+13:56:21 <alinefm> vianac, royce ^
+13:56:41 <alinefm> or just change the /vms/<name>/storages to add pool and size?
+13:57:28 <YuXin> I think enhance API is more strategic
+13:57:59 <royce> I agree with the latter
+13:58:58 <alinefm> vianac, /
+13:58:59 <alinefm> ?
+13:59:09 <YuXin> aline, if you worry about the time, for short-term, add a precheck API is also ok
+13:59:44 <YuXin> but scsi and iscsi check does not need to be in that precheck API, right?
+13:59:49 <vianac> both approaches look fine to me, but I'd choose changing the storages API
+14:00:56 <alinefm> ok - I will do those changes on storages API and so we do the pre-check on UI
+14:01:03 <YuXin> ok
+14:01:17 <YuXin> thanks, I have nothing more
+14:01:39 <alinefm> YuXin, please, how a dialog with "Verifying guest disks..." while doing the pre-check and then hide it and show the confirmation dialog if needed
+14:01:45 <alinefm> agree ^?
+14:01:50 <alinefm> other suggestions?
+14:03:11 <YuXin> how about add this message to that being cloned guest
+14:04:35 <alinefm> hm... it will not let user think the clone already began?
+14:05:29 <YuXin> before showing that 'cloning guest...', we show 'verifying guest disks....'
+14:06:15 <YuXin> if failed, then popup a dialog to ask user to confirm
+14:06:37 <YuXin> if succeed, replace that message with 'cloning guest...'
+14:06:41 <alinefm> and if you switch tabs while the pre-check?
+14:07:26 <alinefm> how will you know if pre-check ends/fails or succeed?
+14:08:15 <YuXin> fail, popup a dialog to tell user that pool run out of capacity, will be cloned to default pool, continue?
+14:08:40 <YuXin> succeed, just let the clone progress
+14:09:07 <alinefm> 1) I select "Clone" and a new entry will be shown "Verifying disks..."
+14:09:16 <alinefm> 2) I switch to Templates tab
+14:09:23 <alinefm> 3) I come back to Guests tab
+14:09:35 <alinefm> the Guests tab will be built again from scratch
+14:09:49 <YuXin> for 1), no new entry will be created, just let the original clone continue
+14:10:37 <alinefm> the new entry will be created only after the pre-check?
+14:11:10 <YuXin> for 2) when click on clone, he will not switch to other tab at once, that request will be fast and calculation will be fast, I do  not think this will truly happen
+14:11:29 <alinefm> hm.. ok
+14:11:43 <alinefm> got it
+14:11:44 <alinefm> thanks!
+14:11:47 <YuXin> yes, precheck will be quite fast
+14:11:48 <YuXin> ok
+14:12:01 <alinefm> anything else for today?
+14:12:16 <YuXin> I have nothing else
+14:12:33 <alinefm> thanks everyone for joining!!
+14:12:38 <alinefm> #endmeeting
