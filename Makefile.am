@@ -118,4 +118,4 @@ VERSION:
 clean-local:
 	rm -rf mo rpm
 
-CLEANFILES = kimchi.spec
+CLEANFILES = kimchi.spec `find "$(top_srcdir)" -type f -name "*.pyc" -print`
