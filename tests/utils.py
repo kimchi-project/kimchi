@@ -25,6 +25,7 @@ import json
 import os
 import socket
 import sys
+import time
 import threading
 import unittest
 
@@ -36,6 +37,7 @@ import kimchi.mockmodel
 import kimchi.server
 from kimchi.config import paths
 from kimchi.exception import OperationFailed
+from kimchi.utils import kimchi_log
 
 _ports = {}
 
@@ -195,3 +197,16 @@ def patch_auth(sudo=True):
 def normalize_xml(xml_str):
     return etree.tostring(etree.fromstring(xml_str,
                           etree.XMLParser(remove_blank_text=True)))
+
+
+def wait_task(task_lookup, taskid, timeout=10):
+    for i in range(0, timeout):
+        task_info = task_lookup(taskid)
+        if task_info['status'] == "running":
+            kimchi_log.info("Waiting task %s, message: %s",
+                            taskid, task_info['message'])
+            time.sleep(1)
+        else:
+            return
+    kimchi_log.error("Timeout while process long-run task, "
+                     "try to increase timeout value.")

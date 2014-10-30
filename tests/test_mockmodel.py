@@ -26,6 +26,7 @@ import unittest
 
 import kimchi.mockmodel
 from utils import get_free_port, patch_auth, request, run_server
+from utils import wait_task
 from kimchi.control.base import Collection, Resource
 
 
@@ -198,3 +199,4 @@ class MockModelTests(unittest.TestCase):
         task = model.host_swupdate()
         task_params = [u'id', u'message', u'status', u'target_uri']
         self.assertEquals(sorted(task_params), sorted(task.keys()))
+        wait_task(model.task_lookup, task['id'])

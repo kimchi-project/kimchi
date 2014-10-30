@@ -49,10 +49,8 @@ class AsyncTask(object):
             self._save_helper()
             return
 
-        if success:
-            self.status = 'finished'
-        else:
-            self.status = 'failed'
+        if success is not None:
+            self.status = 'finished' if success else 'failed'
         self.message = message
         self._save_helper()
 

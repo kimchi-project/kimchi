@@ -38,7 +38,7 @@ import kimchi.server
 from kimchi.config import paths
 from kimchi.rollbackcontext import RollbackContext
 from utils import get_free_port, patch_auth, request
-from utils import run_server
+from utils import run_server, wait_task
 
 
 test_server = None
@@ -1041,7 +1041,7 @@ class RestTests(unittest.TestCase):
         task = json.loads(resp.read())
         vol_name = task['target_uri'].split('/')[-1]
         self.assertEquals('anyurl.wor.kz', vol_name)
-        self._wait_task(task['id'])
+        wait_task(self._task_lookup, task['id'])
         task = json.loads(self.request('/tasks/%s' % task['id']).read())
         self.assertEquals('finished', task['status'])
         resp = self.request('/storagepools/pool-1/storagevolumes/%s' %
@@ -1069,7 +1069,7 @@ class RestTests(unittest.TestCase):
                             req, 'POST')
         self.assertEquals(202, resp.status)
         task_id = json.loads(resp.read())['id']
-        self._wait_task(task_id)
+        wait_task(self._task_lookup, task_id)
         status = json.loads(self.request('/tasks/%s' % task_id).read())
         self.assertEquals('finished', status['status'])
 
@@ -1531,11 +1531,8 @@ class RestTests(unittest.TestCase):
                        'DELETE')
         self.assertEquals(204, resp.status)
 
-    def _wait_task(self, taskid, timeout=5):
-        for i in range(0, timeout):
-            task = json.loads(self.request('/tasks/%s' % taskid).read())
-            if task['status'] == 'running':
-                time.sleep(1)
+    def _task_lookup(self, taskid):
+        return json.loads(self.request('/tasks/%s' % taskid).read())
 
     def test_tasks(self):
         id1 = model.add_task('/tasks/1', self._async_op)
@@ -1550,12 +1547,12 @@ class RestTests(unittest.TestCase):
         tasks = json.loads(self.request('/tasks').read())
         tasks_ids = [int(t['id']) for t in tasks]
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
-        self._wait_task(id2)
+        wait_task(self._task_lookup, id2)
         foo2 = json.loads(self.request('/tasks/%s' % id2).read())
         keys = ['id', 'status', 'message', 'target_uri']
         self.assertEquals(sorted(keys), sorted(foo2.keys()))
         self.assertEquals('failed', foo2['status'])
-        self._wait_task(id3)
+        wait_task(self._task_lookup, id3)
         foo3 = json.loads(self.request('/tasks/%s' % id3).read())
         self.assertEquals('in progress', foo3['message'])
         self.assertEquals('running', foo3['status'])
@@ -1717,7 +1714,7 @@ class RestTests(unittest.TestCase):
             task = json.loads(resp.read())
             # make sure the debugreport doesn't exist until the
             # the task is finished
-            self._wait_task(task['id'])
+            wait_task(self._task_lookup, task['id'])
             rollback.prependDefer(self._report_delete, 'report2')
             resp = request(host, ssl_port, '/debugreports/report1')
             debugreport = json.loads(resp.read())
@@ -1736,7 +1733,7 @@ class RestTests(unittest.TestCase):
             task = json.loads(resp.read())
             # make sure the debugreport doesn't exist until the
             # the task is finished
-            self._wait_task(task['id'], 20)
+            wait_task(self._task_lookup, task['id'], 20)
             rollback.prependDefer(self._report_delete, 'report1')
             resp = request(host, ssl_port, '/debugreports/report1')
             debugreport = json.loads(resp.read())
@@ -1928,7 +1925,7 @@ class RestTests(unittest.TestCase):
 
             self.assertEquals(r.status_code, 202)
             task = r.json()
-            self._wait_task(task['id'])
+            wait_task(self._task_lookup, task['id'])
             resp = self.request('/storagepools/default/storagevolumes/%s' %
                                 task['target_uri'].split('/')[-1])
             self.assertEquals(200, resp.status)
@@ -1948,7 +1945,7 @@ class RestTests(unittest.TestCase):
 
             self.assertEquals(r.status_code, 202)
             task = r.json()
-            self._wait_task(task['id'], 15)
+            wait_task(self._task_lookup, task['id'], 15)
             resp = self.request('/storagepools/default/storagevolumes/%s' %
                                 task['target_uri'].split('/')[-1])
 
