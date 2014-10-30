@@ -81,14 +81,15 @@ class HostModel(object):
     def _get_host_info(self):
         res = {}
         if platform.machine().startswith('ppc'):
-            res['cpu'] = self._get_ppc_cpu_info()
+            res['cpu_model'] = self._get_ppc_cpu_info()
         else:
             with open('/proc/cpuinfo') as f:
                 for line in f.xreadlines():
                     if "model name" in line:
-                        res['cpu'] = line.split(':')[1].strip()
+                        res['cpu_model'] = line.split(':')[1].strip()
                         break
 
+        res['cpus'] = psutil.NUM_CPUS
         res['memory'] = psutil.TOTAL_PHYMEM
 
         # Include IBM PowerKVM name to supported distro names

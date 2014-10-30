@@ -24,8 +24,8 @@ to the host system, if it is not already connected.</li>
 <dlentry>
 <dt>Basic information</dt>
 <dd>This section displays the host operating system distribution,
-version, and code name, as well as the processor type and amount of
-memory in GB.</dd>
+version, and code name, as well as the processor type, the number of
+online CPUs and amount of memory in GB.</dd>
 </dlentry><dlentry>
 <dt>System statistics</dt>
 <dd>This section displays graphs to show statistics for CPU, memory,

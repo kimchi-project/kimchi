@@ -936,7 +936,8 @@ class MockModel(object):
     def host_lookup(self, *name):
         res = {}
         res['memory'] = 6114058240
-        res['cpu'] = 'Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz'
+        res['cpu_model'] = 'Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz'
+        res['cpus'] = 4
         res['os_distro'] = 'Red Hat Enterprise Linux Server'
         res['os_version'] = '6.4'
         res['os_codename'] = 'Santiago'
