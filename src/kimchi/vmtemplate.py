@@ -196,27 +196,21 @@ class VMTemplate(object):
         return graphics_xml
 
     def _get_scsi_disks_xml(self):
+        ret = ""
         luns = [disk['volume'] for disk in self.info.get('disks', {})
                 if 'volume' in disk]
 
-        ret = ""
-        # Passthrough configuration
-        disk_xml = """
-            <disk type='volume' device='lun'>
-              <driver name='qemu' type='raw' cache='none'/>
-              <source dev='%(src)s'/>
-              <target dev='%(dev)s' bus='scsi'/>
-            </disk>"""
-        if not self.fc_host_support:
-            disk_xml = disk_xml.replace('volume', 'block')
-
-        pool = self._storage_validate()
-        # Creating disk xml for each lun passed
+        pool_name = pool_name_from_uri(self.info['storagepool'])
         for index, lun in enumerate(luns):
-            path = pool.storageVolLookupByName(lun).path()
-            dev = "sd%s" % string.lowercase[index]
-            params = {'src': path, 'dev': dev}
-            ret = ret + disk_xml % params
+            params = {}
+            params['disk'] = 'volume' if self.fc_host_support else 'block'
+            params['type'] = 'lun'
+            params['format'] = 'raw'
+            params['bus'] = 'scsi'
+            params['index'] = index
+            params['path'] = self._get_volume_path(pool_name, lun)
+            ret += get_disk_xml(params)[1]
+
         return ret
 
     def _get_iscsi_disks_xml(self):
