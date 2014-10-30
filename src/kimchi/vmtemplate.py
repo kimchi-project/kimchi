@@ -153,27 +153,22 @@ class VMTemplate(object):
         return xml
 
     def _get_disks_xml(self, vm_uuid):
-        storage_path = self._get_storage_path()
         ret = ""
+        storage_path = self._get_storage_path()
+        storage_type = self._get_storage_type()
+
         for i, disk in enumerate(self.info['disks']):
-            index = disk.get('index', i)
-            volume = "%s-%s.img" % (vm_uuid, index)
-            src = os.path.join(storage_path, volume)
-            dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
-                            string.lowercase[index])
-            if self._get_storage_type() in ['logical']:
-                fmt = 'raw'
-            else:
-                fmt = disk.get('format', 'qcow2')
-            params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus'],
-                      'type': fmt}
-            ret += """
-            <disk type='file' device='disk'>
-              <driver name='qemu' type='%(type)s' cache='none'/>
-              <source file='%(src)s' />
-              <target dev='%(dev)s' bus='%(bus)s' />
-            </disk>
-            """ % params
+            params = {}
+            params['type'] = 'disk'
+            params['disk'] = 'file'
+            params['index'] = disk.get('index', i)
+            params['bus'] = self.info['disk_bus']
+            volume = "%s-%s.img" % (vm_uuid, params['index'])
+            params['path'] = os.path.join(storage_path, volume)
+            params['format'] = 'raw' if storage_type in ['logical'] \
+                               else disk.get('format', 'qcow2')
+            ret += get_disk_xml(params)[1]
+
         return ret
 
     def _get_graphics_xml(self, params):
