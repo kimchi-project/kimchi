@@ -1753,8 +1753,9 @@ class RestTests(unittest.TestCase):
         self.assertEquals('6.4', info['os_version'])
         self.assertEquals('Santiago', info['os_codename'])
         self.assertEquals('Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz',
-                          info['cpu'])
+                          info['cpu_model'])
         self.assertEquals(6114058240, info['memory'])
+        self.assertEquals(4, info['cpus'])
 
     def test_hoststats(self):
         stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
