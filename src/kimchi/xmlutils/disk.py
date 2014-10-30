@@ -46,7 +46,9 @@ def get_disk_xml(params):
     </disk>
     """
     path = params['path']
-    disk_type = _get_disk_type(path) if len(path) > 0 else 'file'
+    disk_type = params.get('disk', None)
+    if disk_type is None:
+        disk_type = _get_disk_type(path) if len(path) > 0 else 'file'
     disk = E.disk(type=disk_type, device=params['type'])
     disk.append(E.driver(name='qemu', type=params['format']))
 
