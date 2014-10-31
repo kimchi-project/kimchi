@@ -639,6 +639,20 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(InvalidParameter, inst.template_update,
                               'test', params)
 
+            # For all supported formats, edit the template and check if
+            # the change was made.
+            disk_formats = ['bochs', 'cloop', 'cow', 'dmg', 'qcow', 'qcow2',
+                            'qed', 'raw', 'vmdk', 'vpc']
+            for disk_format in disk_formats:
+                disk_data = {'disks': [{'index': 0, 'format': disk_format,
+                                       'size': 1}]}
+                inst.template_update('test', disk_data)
+                updated_template = inst.template_lookup('test')
+                self.assertEquals(updated_template['disks'],
+                                  disk_data['disks'])
+            # Restore disk data to default value
+            inst.template_update('test', {'disks': [{'index': 0, 'size': 1}]})
+
             args = {'name': pool,
                     'path': path,
                     'type': 'dir'}
