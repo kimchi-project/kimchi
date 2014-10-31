@@ -108,18 +108,18 @@ class VMStoragesModel(object):
             if vol_info['ref_cnt'] != 0:
                 raise InvalidParameter("KCHVMSTOR0016E")
 
-            supported_format = {
+            params['path'] = vol_info['path']
+            valid_format = {
                 "disk": ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"],
                 "cdrom": "iso"}
-            if vol_info['format'] not in supported_format[params['type']]:
-                raise InvalidParameter("KCHVMSTOR0018E",
-                                       {"format": vol_info['format'],
-                                        "type": params['type']})
-
-            if params['type'] == 'disk':
-                params['format'] = vol_info['format']
-
-            params['path'] = vol_info['path']
+            if vol_info['type'] == 'file':
+                if (params['type'] == 'disk' and
+                        vol_info['format'] in valid_format[params['type']]):
+                    params['format'] = vol_info['format']
+                else:
+                    raise InvalidParameter("KCHVMSTOR0018E",
+                                           {"format": vol_info['format'],
+                                            "type": params['type']})
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
         params['path'] = check_remote_disk_path(params['path'])
