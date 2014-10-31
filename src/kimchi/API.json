@@ -208,7 +208,7 @@
                 "format": {
                     "description": "The format of the volume",
                     "type": "string",
-                    "pattern": "^qcow2|raw$",
+                    "pattern": "^(bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
                     "error": "KCHVOL0015E"
                 },
                 "url": {
@@ -619,6 +619,12 @@
                                 "type": "integer",
                                 "minimum": 1,
                                 "error": "KCHTMPL0022E"
+                            },
+                            "format": {
+                                "description": "Type of the image of the disk",
+                                "type": "string",
+                                "pattern":  "^(bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
+                                "error": "KCHTMPL0027E"
                             }
                         }
                     },

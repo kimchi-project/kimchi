@@ -162,7 +162,10 @@ class VMTemplate(object):
             src = os.path.join(storage_path, volume)
             dev = "%s%s" % (self._bus_to_dev[self.info['disk_bus']],
                             string.lowercase[index])
-            fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
+            if self._get_storage_type() in ['logical']:
+                fmt = 'raw'
+            else:
+                fmt = disk.get('format', 'qcow2')
             params = {'src': src, 'dev': dev, 'bus': self.info['disk_bus'],
                       'type': fmt}
             ret += """
