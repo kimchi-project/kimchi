@@ -153,23 +153,39 @@ class VMTemplate(object):
         return xml
 
     def _get_disks_xml(self, vm_uuid):
-        ret = ""
+        # Current implementation just allows to create disk in one single
+        # storage pool, so we cannot mix the types (scsi volumes vs img file)
+        storage_type = self._get_storage_type()
         storage_path = self._get_storage_path()
         storage_type = self._get_storage_type()
 
-        for i, disk in enumerate(self.info['disks']):
-            params = {}
-            params['type'] = 'disk'
-            params['disk'] = 'file'
-            params['index'] = disk.get('index', i)
-            params['bus'] = self.info['disk_bus']
-            volume = "%s-%s.img" % (vm_uuid, params['index'])
-            params['path'] = os.path.join(storage_path, volume)
-            params['format'] = 'raw' if storage_type in ['logical'] \
-                               else disk.get('format', 'qcow2')
-            ret += get_disk_xml(params)[1]
+        base_disk_params = {'type': 'disk', 'disk': 'file',
+                            'bus': self.info['disk_bus'], 'format': 'qcow2'}
+        logical_disk_params = {'format': 'raw'}
+        iscsi_disk_params = {'disk': 'block', 'format': 'raw'}
 
-        return ret
+        scsi_disk = 'volume' if self.fc_host_support else 'block'
+        scsi_disk_params = {'disk': scsi_disk, 'type': 'lun',
+                            'format': 'raw', 'bus': 'scsi'}
+
+        disks_xml = ''
+        pool_name = pool_name_from_uri(self.info['storagepool'])
+        for index, disk in enumerate(self.info['disks']):
+            params = dict(base_disk_params)
+            params['format'] = disk.get('format', params['format'])
+            params.update(locals().get('%s_disk_params' % storage_type, {}))
+            params['index'] = index
+
+            volume = disk.get('volume')
+            if volume is not None:
+                params['path'] = self._get_volume_path(pool_name, volume)
+            else:
+                volume = "%s-%s.img" % (vm_uuid, params['index'])
+                params['path'] = os.path.join(storage_path, volume)
+
+            disks_xml += get_disk_xml(params)[1]
+
+        return disks_xml
 
     def _get_graphics_xml(self, params):
         graphics_xml = """
