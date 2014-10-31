@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import string
 import socket
 import time
 import urlparse
@@ -214,24 +213,17 @@ class VMTemplate(object):
         return ret
 
     def _get_iscsi_disks_xml(self):
-        def build_disk_xml(children=[]):
-            disk = E.disk(type='block', device='disk')
-            disk.extend(children)
-            return etree.tostring(disk)
-
         ret = ""
-        children = []
-        children.append(E.driver(name='qemu', type='raw'))
-        disk_bus = self.info['disk_bus']
-        dev_prefix = self._bus_to_dev[disk_bus]
         pool_name = pool_name_from_uri(self.info['storagepool'])
         for i, d in enumerate(self.info['disks']):
-            source = E.source(dev=self._get_volume_path(pool_name,
-                                                        d.get('volume')))
-            # FIXME if more than 26 disks
-            target = E.target(dev=dev_prefix + string.lowercase[i],
-                              bus=disk_bus)
-            ret += build_disk_xml(children+[source, target])
+            params = {}
+            params['disk'] = 'block'
+            params['type'] = 'disk'
+            params['format'] = 'raw'
+            params['bus'] = self.info['disk_bus']
+            params['index'] = i
+            params['path'] = self._get_volume_path(pool_name, d.get('volume'))
+            ret += get_disk_xml(params)
 
         return ret
 
