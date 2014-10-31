@@ -37,8 +37,6 @@ from kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 
 
 class VMTemplate(object):
-    _bus_to_dev = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
-
     def __init__(self, args, scan=False):
         """
         Construct a VM Template from a widely variable amount of information.
@@ -204,39 +202,6 @@ class VMTemplate(object):
         if graphics['type'] == 'spice':
             graphics_xml = graphics_xml + spicevmc_xml
         return graphics_xml
-
-    def _get_scsi_disks_xml(self):
-        ret = ""
-        luns = [disk['volume'] for disk in self.info.get('disks', {})
-                if 'volume' in disk]
-
-        pool_name = pool_name_from_uri(self.info['storagepool'])
-        for index, lun in enumerate(luns):
-            params = {}
-            params['disk'] = 'volume' if self.fc_host_support else 'block'
-            params['type'] = 'lun'
-            params['format'] = 'raw'
-            params['bus'] = 'scsi'
-            params['index'] = index
-            params['path'] = self._get_volume_path(pool_name, lun)
-            ret += get_disk_xml(params)[1]
-
-        return ret
-
-    def _get_iscsi_disks_xml(self):
-        ret = ""
-        pool_name = pool_name_from_uri(self.info['storagepool'])
-        for i, d in enumerate(self.info['disks']):
-            params = {}
-            params['disk'] = 'block'
-            params['type'] = 'disk'
-            params['format'] = 'raw'
-            params['bus'] = self.info['disk_bus']
-            params['index'] = i
-            params['path'] = self._get_volume_path(pool_name, d.get('volume'))
-            ret += get_disk_xml(params)
-
-        return ret
 
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
