@@ -50,7 +50,11 @@ def get_disk_xml(params):
     if disk_type is None:
         disk_type = _get_disk_type(path) if len(path) > 0 else 'file'
     disk = E.disk(type=disk_type, device=params['type'])
-    disk.append(E.driver(name='qemu', type=params['format']))
+    driver = E.driver(name='qemu', type=params['format'])
+    if params['type'] != 'cdrom':
+        driver.set('cache', 'none')
+
+    disk.append(driver)
 
     # Get device name according to bus and index values
     dev = params.get('dev', (BUS_TO_DEV_MAP[params['bus']] +
