@@ -304,7 +304,8 @@ A interface represents available network interface on VM.
         * index: The device index
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
-    * graphcis: A dict of graphics paramenters of this template
+        * format: Format of the image. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc.
+    * graphics: A dict of graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
                    Computing protocol
@@ -337,7 +338,8 @@ A interface represents available network interface on VM.
         * index: The device index
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
-    * graphcis *(optional)*: A dict of graphics paramenters of this template
+        * format: Format of the image. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc.
+    * graphics *(optional)*: A dict of graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
                    Computing protocol

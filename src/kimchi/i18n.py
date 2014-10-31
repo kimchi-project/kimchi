@@ -145,6 +145,7 @@ messages = {
     "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
     "KCHTMPL0025E": _("When specifying CPU topology, VCPUs must be a product of sockets, cores, and threads."),
     "KCHTMPL0026E": _("When specifying CPU topology, each element must be an integer greater than zero."),
+    "KCHTMPL0027E": _("Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
@@ -197,7 +198,7 @@ messages = {
     "KCHVOL0012E": _("Storage type %(type)s does not support volume create and delete"),
     "KCHVOL0013E": _("Storage volume name must be a string"),
     "KCHVOL0014E": _("Storage volume allocation must be an integer number"),
-    "KCHVOL0015E": _("Storage volume format not supported"),
+    "KCHVOL0015E": _("Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
     "KCHVOL0016E": _("Storage volume requires a volume name"),
     "KCHVOL0017E": _("Unable to update database with storage volume information due error: %(err)s"),
     "KCHVOL0018E": _("Only one of parameter %(param)s can be specified"),
