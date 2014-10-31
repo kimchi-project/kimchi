@@ -267,12 +267,13 @@ class ModelTests(unittest.TestCase):
 
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            path = '/tmp/kimchi-images'
+            path = os.path.join(os.getcwd(), 'kimchi-images')
             pool = 'test-pool'
             vol = 'test-volume.img'
             vol_path = "%s/%s" % (path, vol)
             if not os.path.exists(path):
                 os.mkdir(path)
+            rollback.prependDefer(shutil.rmtree, path)
 
             args = {'name': pool,
                     'path': path,
