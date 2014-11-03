@@ -38,13 +38,6 @@ class VMIfacesModel(object):
         return macs
 
     def create(self, vm, params):
-        def randomMAC():
-            mac = [0x52, 0x54, 0x00,
-                   random.randint(0x00, 0x7f),
-                   random.randint(0x00, 0xff),
-                   random.randint(0x00, 0xff)]
-            return ':'.join(map(lambda x: "%02x" % x, mac))
-
         conn = self.conn.get()
         networks = conn.listNetworks() + conn.listDefinedNetworks()
 
@@ -59,11 +52,10 @@ class VMIfacesModel(object):
         macs = (iface.mac.get('address')
                 for iface in self.get_vmifaces(vm, self.conn))
 
-        mac = randomMAC()
         while True:
+            mac = VMIfacesModel.random_mac()
             if mac not in macs:
                 break
-            mac = randomMAC()
 
         children = [E.mac(address=mac)]
         ("network" in params.keys() and
@@ -85,6 +77,14 @@ class VMIfacesModel(object):
         root = objectify.fromstring(xml)
 
         return root.devices.findall("interface")
+
+    @staticmethod
+    def random_mac():
+        mac = [0x52, 0x54, 0x00,
+               random.randint(0x00, 0x7f),
+               random.randint(0x00, 0xff),
+               random.randint(0x00, 0xff)]
+        return ':'.join(map(lambda x: u'%02x' % x, mac))
 
 
 class VMIfaceModel(object):
