@@ -27,10 +27,13 @@ def xpath_get_text(xml, expr):
     return res
 
 
-def xml_item_update(xml, xpath, value):
+def xml_item_update(xml, xpath, value, attr=None):
     root = ET.fromstring(xml)
     item = root.find(xpath)
-    item.text = value
+    if attr is None:
+        item.text = value
+    else:
+        item.set(attr, value)
     return ET.tostring(root, encoding="utf-8")
 
 
