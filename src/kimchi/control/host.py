@@ -17,12 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import cherrypy
-
 from kimchi.control.base import Collection, Resource, SimpleCollection
-from kimchi.control.utils import UrlSubNode, validate_method
-from kimchi.exception import OperationFailed, NotFoundError
-from kimchi.template import render
+from kimchi.control.utils import UrlSubNode
+from kimchi.exception import NotFoundError
 
 
 @UrlSubNode('host', True)
@@ -41,16 +38,7 @@ class Host(Resource):
         self.repositories = Repositories(self.model)
         self.users = Users(self.model)
         self.groups = Groups(self.model)
-
-    @cherrypy.expose
-    def swupdate(self):
-        validate_method(('POST'), self.role_key, self.admin_methods)
-        try:
-            task = self.model.host_swupdate()
-            cherrypy.response.status = 202
-            return render("Task", task)
-        except OperationFailed, e:
-            raise cherrypy.HTTPError(500, e.message)
+        self.swupdate = self.generate_action_handler_task('swupdate')
 
     @property
     def data(self):

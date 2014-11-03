@@ -65,6 +65,29 @@ class Resource(object):
             raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
 
     def generate_action_handler(self, action_name, action_args=None):
+        def _render_element(self, ident):
+            self._redirect(ident)
+            uri_params = []
+            for arg in self.model_args:
+                if arg is None:
+                    arg = ''
+                uri_params.append(urllib2.quote(arg.encode('utf-8'),
+                                  safe=""))
+            raise internal_redirect(self.uri_fmt % tuple(uri_params))
+
+        return self._generate_action_handler_base(action_name, _render_element,
+                                                  action_args)
+
+    def generate_action_handler_task(self, action_name, action_args=None):
+        def _render_task(self, task):
+            cherrypy.response.status = 202
+            return kimchi.template.render('Task', task)
+
+        return self._generate_action_handler_base(action_name, _render_task,
+                                                  action_args)
+
+    def _generate_action_handler_base(self, action_name, render_fn,
+                                      action_args=None):
         def wrapper(*args, **kwargs):
             validate_method(('POST'), self.role_key, self.admin_methods)
             try:
@@ -76,16 +99,10 @@ class Resource(object):
                 if action_args is not None:
                     request = parse_request()
                     model_args.extend(request[key] for key in action_args)
-                fn = getattr(self.model, model_fn(self, action_name))
-                ident = fn(*model_args)
-                self._redirect(ident)
-                uri_params = []
-                for arg in self.model_args:
-                    if arg is None:
-                        arg = ''
-                    uri_params.append(urllib2.quote(arg.encode('utf-8'),
-                                      safe=""))
-                raise internal_redirect(self.uri_fmt % tuple(uri_params))
+
+                action_fn = getattr(self.model, model_fn(self, action_name))
+                action_result = action_fn(*model_args)
+                return render_fn(self, action_result)
             except MissingParameter, e:
                 raise cherrypy.HTTPError(400, e.message)
             except InvalidParameter, e:
