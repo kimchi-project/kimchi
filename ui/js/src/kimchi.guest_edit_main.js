@@ -57,16 +57,14 @@ kimchi.guest_edit_main = function() {
                 text: false
             });
 
-            if(kimchi.thisVMState != "running") {
-                $('.detach', container).button({
-                    icons: {
-                        primary: 'ui-icon-trash'
-                    },
-                    text: false
-                });
-
-            } else {
-                $('.detach', container).remove();
+            $('.detach', container).button({
+                icons: {
+                    primary: 'ui-icon-trash'
+                },
+                text: false
+            });
+            if (kimchi.thisVMState === 'running') {
+                $('.detach[data-type="cdrom"]', container).remove();
             }
 
             $('.save', container).button({
@@ -467,14 +465,8 @@ kimchi.guest_edit_main = function() {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
         kimchi.thisVMState = guest['state'];
-
         refreshCDROMs();
-        if(kimchi.thisVMState === "running") {
-            $("#form-guest-edit-general input").prop("disabled", "disabled");
-            $("#guest-edit-attach-cdrom-button").remove();
-            $("#form-guest-edit-interface .header button").remove();
-        } else {
-            $('#guest-edit-attach-cdrom-button').button({
+        $('#guest-edit-attach-cdrom-button').button({
                 icons: {
                     primary: "ui-icon-plusthick"
                 },
@@ -483,6 +475,10 @@ kimchi.guest_edit_main = function() {
                 event.preventDefault();
                 kimchi.window.open("guest-storage-add.html");
             });
+        if(kimchi.thisVMState === "running") {
+            $("#form-guest-edit-general input").prop("disabled", true);
+            $("#form-guest-edit-interface .header button").remove();
+        } else {
             $("#action-button-container").removeClass("hidden");
         }
 
