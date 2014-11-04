@@ -695,10 +695,10 @@ var kimchi = {
                 }, 2000);
                 break;
             case 'finished':
-                suc(result);
+                suc && suc(result);
                 break;
             case 'failed':
-                err(result);
+                err && err(result);
                 break;
             default:
                 break;
@@ -1246,6 +1246,19 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err
+        });
+    },
+
+    cloneGuest: function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'vms/'+encodeURIComponent(vm)+"/clone",
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
         });
     }
 };

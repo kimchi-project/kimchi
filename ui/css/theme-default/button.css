@@ -50,6 +50,10 @@
     cursor: pointer;
 }
 
+.btn[disabled] {
+    opacity: 0.3;
+}
+
 .btn:not([disabled]):hover {
     box-shadow: -2px -2px 2px #dadada, 2px 2px 2px #fff, 3px 3px 3px white
                 inset, -3px -3px 3px rgba(0, 0, 0, .25) inset;

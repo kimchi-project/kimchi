@@ -15,6 +15,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+kimchi.sampleGuestObject = {
+    "name": "",
+    "uuid": "",
+    "state": "shutoff",
+    "persistent": true,
+    "icon": null,
+    "cpus": 0,
+    "memory": 0,
+    "stats": {
+        "net_throughput": 0,
+        "io_throughput_peak": 100,
+        "cpu_utilization": 0,
+        "io_throughput": 0,
+        "net_throughput_peak": 100
+    },
+    "screenshot": null,
+    "graphics": {
+        "passwd": null,
+        "passwdValidTo": null,
+        "type": "vnc",
+        "port": null,
+        "listen": "127.0.0.1"
+    },
+    "users": [],
+    "groups": [],
+    "access": "full"
+};
+
 
 kimchi.vmstart = function(event) {
     var button=$(this);
@@ -173,8 +201,24 @@ kimchi.listVmsAuto = function() {
     if (kimchi.vmTimeout) {
         clearTimeout(kimchi.vmTimeout);
     }
+    var getCloningGuests = function(){
+        var guests = [];
+        kimchi.getTasksByFilter('status=running&target_uri='+encodeURIComponent('^/vms/*'), function(tasks) {
+            for(var i=0;i<tasks.length;i++){
+                var guestUri = tasks[i].target_uri;
+                var guestName = guestUri.substring(guestUri.lastIndexOf('/')+1, guestUri.length);
+                guests.push($.extend({}, kimchi.sampleGuestObject, {name: guestName, isCloning: true}));
+                if(kimchi.trackingTasks.indexOf(tasks[i].id)==-1)
+                    kimchi.trackTask(tasks[i].id, null, function(err){
+                        kimchi.message.error(err.message);
+                    }, null);
+            }
+        }, null, true);
+        return guests;
+    };
     kimchi.listVMs(function(result, textStatus, jqXHR) {
         if (result && textStatus=="success") {
+            result = getCloningGuests().concat(result);
             if(result.length) {
                 var listHtml = '';
                 var guestTemplate = kimchi.guestTemplate;
@@ -233,14 +277,16 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     imgLoad.attr('src',load_src);
 
     //Link the stopped tile to the start action, the running tile to open the console
-    if (vmRunningBool) {
-        liveTile.off("click", kimchi.vmstart);
-        liveTile.on("click", kimchi.openVmConsole);
-    }
-    else {
-        liveTile.off("click", kimchi.openVmConsole);
-        liveTile.on("click", kimchi.vmstart);
-        liveTile.hover(function(event){$(this).find('.overlay').show()}, function(event){$(this).find('.overlay').hide()});
+    if(!vmObject.isCloning){
+        if (vmRunningBool) {
+            liveTile.off("click", kimchi.vmstart);
+            liveTile.on("click", kimchi.openVmConsole);
+        }
+        else {
+            liveTile.off("click", kimchi.openVmConsole);
+            liveTile.on("click", kimchi.vmstart);
+            liveTile.hover(function(event){$(this).find('.overlay').show()}, function(event){$(this).find('.overlay').hide()});
+        }
     }
 
 
@@ -257,6 +303,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     //Setup the VM Actions
     var guestActions=result.find("div[name=guest-actions]");
     guestActions.find(".shutoff-disabled").prop('disabled', !vmRunningBool );
+    guestActions.find(".running-disabled").prop('disabled', vmRunningBool );
 
     if (vmRunningBool) {
         guestActions.find(".running-hidden").hide();
@@ -276,21 +323,41 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     }
 
     //Setup action event handlers
-    guestActions.find("[name=vm-start]").on({click : kimchi.vmstart});
-    guestActions.find("[name=vm-poweroff]").on({click : kimchi.vmpoweroff});
-    if (vmRunningBool) {  //If the guest is not running, do not enable reset
-        guestActions.find("[name=vm-reset]").on({click : kimchi.vmreset});
-    }
-    if (vmRunningBool) {  //If the guest is not running, do not enable shutdown
-        guestActions.find("[name=vm-shutdown]").on({click : kimchi.vmshutdown});
-    }
-    guestActions.find("[name=vm-edit]").on({click : kimchi.vmedit});
-    guestActions.find("[name=vm-delete]").on({click : kimchi.vmdelete});
+    if(!vmObject.isCloning){
+        guestActions.find("[name=vm-start]").on({click : kimchi.vmstart});
+        guestActions.find("[name=vm-poweroff]").on({click : kimchi.vmpoweroff});
+        if (vmRunningBool) {  //If the guest is not running, do not enable reset
+            guestActions.find("[name=vm-reset]").on({click : kimchi.vmreset});
+        }
+        if (vmRunningBool) {  //If the guest is not running, do not enable shutdown
+            guestActions.find("[name=vm-shutdown]").on({click : kimchi.vmshutdown});
+        }
+        guestActions.find("[name=vm-edit]").on({click : kimchi.vmedit});
+        guestActions.find("[name=vm-delete]").on({click : kimchi.vmdelete});
+        guestActions.find("[name=vm-clone]").click(function(){
+            var guest = $(this).closest('li[name=guest]').attr("id");
+            kimchi.confirm({
+                title : i18n['KCHAPI6006M'],
+                content : i18n['KCHVM6010M'],
+                confirm : i18n['KCHAPI6002M'],
+                cancel : i18n['KCHAPI6003M']
+            }, function() {
+                kimchi.cloneGuest(guest, function(data){
+                    kimchi.listVmsAuto();
+                });
+            }, null);
+        });
 
-    //Maintain menu open state
-    var actionMenu=guestActions.find("div[name=actionmenu]");
-    if (openMenu) {
-        $('.popover', actionMenu).toggle();
+        //Maintain menu open state
+        var actionMenu=guestActions.find("div[name=actionmenu]");
+        if (openMenu) {
+            $('.popover', actionMenu).toggle();
+        }
+
+    }else{
+        guestActions.find('.btn').attr('disabled', true);
+        result.find('.guest-clone').removeClass('hide-content');
+        $('.popover', guestActions.find("div[name=actionmenu]")).remove();
     }
 
     return result;
