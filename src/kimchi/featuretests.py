@@ -33,7 +33,7 @@ from kimchi.utils import kimchi_log, run_command
 
 
 ISO_STREAM_XML = """
-<domain type='kvm'>
+<domain type='%(domain)s'>
   <name>ISO_STREAMING</name>
   <memory unit='KiB'>1048576</memory>
   <os>
@@ -55,7 +55,7 @@ ISO_STREAM_XML = """
 </domain>"""
 
 SIMPLE_VM_XML = """
-<domain type='kvm'>
+<domain type='%(domain)s'>
   <name>A_SIMPLE_VM</name>
   <memory unit='KiB'>10240</memory>
   <os>
@@ -101,7 +101,8 @@ class FeatureTests(object):
 
     @staticmethod
     def libvirt_supports_iso_stream(conn, protocol):
-        xml = ISO_STREAM_XML % {'protocol': protocol}
+        domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
+        xml = ISO_STREAM_XML % {'domain': domain_type, 'protocol': protocol}
         try:
             FeatureTests.disable_libvirt_error_logging()
             dom = conn.defineXML(xml)
@@ -188,7 +189,8 @@ class FeatureTests(object):
         with RollbackContext() as rollback:
             FeatureTests.disable_libvirt_error_logging()
             rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
-            dom = conn.defineXML(SIMPLE_VM_XML)
+            domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
+            dom = conn.defineXML(SIMPLE_VM_XML % {'domain': domain_type})
             rollback.prependDefer(dom.undefine)
             try:
                 dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
