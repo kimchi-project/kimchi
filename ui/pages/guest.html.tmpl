@@ -26,6 +26,9 @@
                 <div class="guest-general">
                     <h2 class="title" title="{name}">{name}</h2>
                 </div>
+                <div class="guest-clone hide-content">
+                    <span class="icon"></span><span class="text">$_("Cloning")...</span>
+                </div>
             </div>
             <div name="cpu_utilization" class="sortable">
                 <div class="circleGauge"></div>
@@ -56,7 +59,8 @@
                         <span class="text">$_("Actions")</span><span class="arrow"></span>
                         <div class="popover actionsheet right-side" style="width: 250px">
                             <button class="button-big shutoff-disabled" name="vm-console" ><span class="text">$_("Connect")</span></button>
-                            <button class="button-big running-disabled" name="vm-edit"><span class="text">$_("Edit")</span></button>
+                            <button class="button-big running-disabled" name="vm-clone"><span class="text">$_("Clone")</span></button>
+                            <button class="button-big" name="vm-edit"><span class="text">$_("Edit")</span></button>
                             <button class="button-big shutoff-hidden" name="vm-reset"><span class="text">$_("Reset")</span></button>
                             <button class="button-big shutoff-hidden" name="vm-shutdown"><span class="text">$_("Shut Down")</span></button>
                             <button class="button-big running-hidden" name="vm-start"><span class="text">$_("Start")</span></button>
