@@ -100,12 +100,10 @@ class FeatureTests(object):
         libvirt.registerErrorHandler(f=None, ctx=None)
 
     @staticmethod
-    def libvirt_supports_iso_stream(protocol):
+    def libvirt_supports_iso_stream(conn, protocol):
         xml = ISO_STREAM_XML % {'protocol': protocol}
-        conn = None
         try:
             FeatureTests.disable_libvirt_error_logging()
-            conn = libvirt.open(None)
             dom = conn.defineXML(xml)
             dom.undefine()
             return True
@@ -114,16 +112,14 @@ class FeatureTests(object):
             return False
         finally:
             FeatureTests.enable_libvirt_error_logging()
-            conn is None or conn.close()
 
     @staticmethod
-    def libvirt_support_nfs_probe():
+    def libvirt_support_nfs_probe(conn):
         def _get_xml():
             obj = E.source(E.host(name='localhost'), E.format(type='nfs'))
             xml = ET.tostring(obj)
             return xml
         try:
-            conn = libvirt.open(None)
             FeatureTests.disable_libvirt_error_logging()
             conn.findStoragePoolSources('netfs', _get_xml(), 0)
         except libvirt.libvirtError as e:
@@ -134,7 +130,6 @@ class FeatureTests(object):
                 return False
         finally:
             FeatureTests.enable_libvirt_error_logging()
-            conn is None or conn.close()
 
         return True
 
@@ -172,10 +167,9 @@ class FeatureTests(object):
         return True
 
     @staticmethod
-    def libvirt_support_fc_host():
+    def libvirt_support_fc_host(conn):
         try:
             FeatureTests.disable_libvirt_error_logging()
-            conn = libvirt.open(None)
             pool = None
             pool = conn.storagePoolDefineXML(SCSI_FC_XML, 0)
         except libvirt.libvirtError as e:
@@ -185,18 +179,15 @@ class FeatureTests(object):
         finally:
             FeatureTests.enable_libvirt_error_logging()
             pool is None or pool.undefine()
-            conn is None or conn.close()
         return True
 
     @staticmethod
-    def has_metadata_support():
+    def has_metadata_support(conn):
         KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi/"
         KIMCHI_NAMESPACE = "kimchi"
         with RollbackContext() as rollback:
             FeatureTests.disable_libvirt_error_logging()
             rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
-            conn = libvirt.open(None)
-            rollback.prependDefer(conn.close)
             dom = conn.defineXML(SIMPLE_VM_XML)
             rollback.prependDefer(dom.undefine)
             try:
