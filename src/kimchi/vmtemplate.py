@@ -23,7 +23,6 @@ import time
 import urlparse
 import uuid
 
-from distutils.version import LooseVersion
 from lxml import etree
 from lxml.builder import E
 
@@ -34,6 +33,7 @@ from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from kimchi.xmlutils.disk import get_disk_xml
 from kimchi.xmlutils.graphics import get_graphics_xml
+from kimchi.xmlutils.interface import get_iface_xml
 from kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 
 
@@ -221,30 +221,15 @@ class VMTemplate(object):
             ret.append(info)
         return ret
 
-    def _disable_vhost(self):
-        # Hack to disable vhost feature in Ubuntu LE and SLES LE (PPC)
-        driver = ""
-        if self.info['arch'] == 'ppc64' and \
-            ((self.info['os_distro'] == 'ubuntu' and LooseVersion(
-             self.info['os_version']) >= LooseVersion('14.04')) or
-             (self.info['os_distro'] == 'sles' and LooseVersion(
-              self.info['os_version']) >= LooseVersion('12'))):
-            driver = "  <driver name='qemu'/>\n            "
-        return driver
-
     def _get_networks_xml(self):
-        network = """
-            <interface type='network'>
-              <source network='%(network)s'/>
-              <model type='%(nic_model)s'/>
-            %(driver)s</interface>
-        """
         networks = ""
-        net_info = {"nic_model": self.info['nic_model'],
-                    "driver": self._disable_vhost()}
+        params = {'type': 'network',
+                  'model': self.info['nic_model']}
         for nw in self.info['networks']:
-            net_info['network'] = nw
-            networks += network % net_info
+            params['network'] = nw
+            networks += get_iface_xml(params, self.info['arch'],
+                                      self.info['os_distro'],
+                                      self.info['os_version'])
         return networks
 
     def _get_input_output_xml(self):

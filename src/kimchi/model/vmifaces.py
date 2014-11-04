@@ -21,10 +21,10 @@ import random
 
 import libvirt
 from lxml import etree, objectify
-from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
+from kimchi.xmlutils.interface import get_iface_xml
 
 
 class VMIfacesModel(object):
@@ -53,22 +53,15 @@ class VMIfacesModel(object):
                 for iface in self.get_vmifaces(vm, self.conn))
 
         while True:
-            mac = VMIfacesModel.random_mac()
-            if mac not in macs:
+            params['mac'] = VMIfacesModel.random_mac()
+            if params['mac'] not in macs:
                 break
 
-        children = [E.mac(address=mac)]
-        ("network" in params.keys() and
-         children.append(E.source(network=params['network'])))
-        ("model" in params.keys() and
-         children.append(E.model(type=params['model'])))
-        attrib = {"type": params["type"]}
-
-        xml = etree.tostring(E.interface(*children, **attrib))
-
+        os_distro, os_version = VMModel.vm_get_os_metadata(dom)
+        xml = get_iface_xml(params, conn.getInfo()[0], os_distro, os_version)
         dom.attachDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
 
-        return mac
+        return params['mac']
 
     @staticmethod
     def get_vmifaces(vm, conn):
