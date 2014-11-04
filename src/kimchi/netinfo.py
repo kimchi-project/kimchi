@@ -101,16 +101,21 @@ def is_bondlave(nic):
 
 
 def operstate(dev):
-    # try to read interface status
+    link_status = link_detected(dev)
+    return "down" if link_status == "n/a" else "up"
+
+
+def link_detected(dev):
+    # try to read interface carrier (link) status
     try:
-        open(NET_STATE % dev).readline().strip()
+        carrier = open(NET_STATE % dev).readline().strip()
     # when IOError is raised, interface is down
     except IOError:
-        return "down"
+        return "n/a"
 
     # if value is 1, interface up with cable connected
     # 0 corresponds to interface up with cable disconnected
-    return "up"
+    return "yes" if carrier == '1' else "no"
 
 
 def get_vlan_device(vlan):
@@ -196,8 +201,12 @@ def get_interface_info(iface):
     except IOError:
         pass
 
+    iface_link_detected = link_detected(iface)
+    iface_status = 'active' if iface_link_detected != "n/a" else "inactive"
+
     return {'name': iface,
             'type': get_interface_type(iface),
-            'status': 'active' if operstate(iface) == 'up' else 'inactive',
+            'status': iface_status,
+            'link_detected': iface_link_detected,
             'ipaddr': ipaddr,
             'netmask': netmask}
