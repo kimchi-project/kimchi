@@ -212,7 +212,7 @@ class VMsModel(object):
         if t._get_storage_type() not in ["iscsi", "scsi"]:
             vol_list = t.fork_vm_storage(vm_uuid)
 
-        graphics = params.get('graphics')
+        graphics = params.get('graphics', {})
         stream_protocols = self.caps.libvirt_stream_protocols
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,

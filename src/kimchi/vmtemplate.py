@@ -33,6 +33,7 @@ from kimchi.imageinfo import probe_image, probe_img_info
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from kimchi.xmlutils.disk import get_disk_xml
+from kimchi.xmlutils.graphics import get_graphics_xml
 from kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 
 
@@ -184,24 +185,6 @@ class VMTemplate(object):
 
         return disks_xml
 
-    def _get_graphics_xml(self, params):
-        graphics_xml = """
-            <graphics type='%(type)s' autoport='yes' listen='%(listen)s'>
-            </graphics>
-        """
-        spicevmc_xml = """
-            <channel type='spicevmc'>
-              <target type='virtio' name='com.redhat.spice.0'/>
-            </channel>
-        """
-        graphics = dict(self.info['graphics'])
-        if params:
-            graphics.update(params)
-        graphics_xml = graphics_xml % graphics
-        if graphics['type'] == 'spice':
-            graphics_xml = graphics_xml + spicevmc_xml
-        return graphics_xml
-
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
         fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
@@ -311,10 +294,12 @@ class VMTemplate(object):
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
-        graphics = kwargs.get('graphics')
-        params['graphics'] = self._get_graphics_xml(graphics)
         params['cpu_info'] = self._get_cpu_xml()
         params['disks'] = self._get_disks_xml(vm_uuid)
+
+        graphics = dict(self.info['graphics'])
+        graphics.update(kwargs.get('graphics', {}))
+        params['graphics'] = get_graphics_xml(graphics)
 
         qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
