@@ -26,8 +26,8 @@ from kimchi.config import config as kconfig
 from kimchi.config import find_qemu_binary, get_version
 from kimchi.distroloader import DistroLoader
 from kimchi.exception import NotFoundError
-from kimchi.featuretests import FeatureTests
 from kimchi.model.debugreports import DebugReportsModel
+from kimchi.model.featuretests import FeatureTests
 from kimchi.repositories import Repositories
 from kimchi.screenshot import VMScreenshot
 from kimchi.swupdate import SoftwareUpdate

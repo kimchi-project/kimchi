@@ -25,8 +25,8 @@ from lxml import etree
 from lxml.builder import E, ElementMaker
 
 from kimchi.exception import OperationFailed
-from kimchi.featuretests import FeatureTests
 from kimchi.model.config import CapabilitiesModel
+from kimchi.model.featuretests import FeatureTests
 
 KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
 KIMCHI_NAMESPACE = "kimchi"
