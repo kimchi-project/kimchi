@@ -24,7 +24,10 @@ kimchi.guest_storage_add_main = function() {
         label: 'disk',
         value: 'disk',
     }];
-    kimchi.select('guest-storage-type-list', types);
+    var typesRunning = [{
+        label: 'disk',
+        value: 'disk'
+    }];
 
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
@@ -32,10 +35,8 @@ kimchi.guest_storage_add_main = function() {
     var pathTextbox = $('input[name="path"]', storageAddForm);
     var poolTextbox = $('input[name="pool"]', storageAddForm);
     var volTextbox = $('input[name="vol"]', storageAddForm);
-    var selectType = $(typeTextbox).val();
 
     typeTextbox.change(function() {
-        $('#guest-storage-bus').selectMenu();
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
         selectType = $(this).val();
         $.each(pathObject, function(type, value) {
@@ -84,7 +85,7 @@ kimchi.guest_storage_add_main = function() {
                         options.push({
                             label: value.name,
                             value: value.name
-                          });
+                        });
                     }
                 });
                 if (options.length) {
@@ -108,6 +109,15 @@ kimchi.guest_storage_add_main = function() {
             }
         });
     });
+
+    if (kimchi.thisVMState === 'running') {
+        types =typesRunning;
+        $(typeTextbox).val('disk');
+        typeTextbox.change();
+        poolTextbox.change();
+    }
+    var selectType = $(typeTextbox).val();
+    kimchi.select('guest-storage-type-list', types);
 
     var validateCDROM = function(settings) {
         if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path']))
