@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:04:13 UTC
+(<a href="kimchi.scrum.2014-11-05-13.04.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-6'>alinefm</a>,
+    13:04:29)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2014-11-05-13.04.log.html#l-9'>alinefm</a>, 13:05:14)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-10'>alinefm</a>,
+    13:05:14)</span></li>
+  <li><span class="INFO">vianac sent patchset v1 for the clone feature;
+    sent RFC for the snapshot feature; worked on the next patchset for
+    the clone feature; worked on the snapshot feature; reviewed patches
+    on the mailing list</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-11'>vianac</a>,
+    13:05:26)</span></li>
+  <li><span class="INFO">YuXin Guest Clone UI v5</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-12'>YuXin</a>,
+    13:05:40)</span></li>
+  <li><span class="INFO">wenwang Finished Guest disk hot plug UI</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-13'>wenwang</a>,
+    13:05:49)</span></li>
+  <li><span class="INFO">Simon send out vm migration v1 patch to ML,
+    working on v2 base  on comments from alinefm.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-14'>Guest512</a>,
+    13:06:00)</span></li>
+  <li><span class="INFO">alinefm removed libxml2-python as Kimchi
+    dependency and use lxml module to do XML manipulation</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-15'>alinefm</a>,
+    13:06:05)</span></li>
+  <li><span class="INFO">danielhb reviewed a dozen patches in the ML,
+    sent patch set to edit disk type in the template, sent patch to add
+    a new attribute to netinfo.get_interface_info</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-16'>danielhb</a>,
+    13:06:09)</span></li>
+  <li><span class="INFO">royce finished v1 patch of UI for ldap, rebased
+    testcases for scsi cdrom found it not working for hotplug,
+    abandoned</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-17'>royce</a>,
+    13:06:10)</span></li>
+  <li><span class="INFO">wenwang sent patch that redesign the template
+    edit</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-18'>wenwang</a>,
+    13:06:23)</span></li>
+  <li><span class="INFO">alinefm refactor VMTemplate to use a common
+    module to get guest disk XML</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-19'>alinefm</a>,
+    13:06:31)</span></li>
+  <li><span class="INFO">alinefm generate qemu commandline XML using
+    lxml.builder</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-20'>alinefm</a>,
+    13:07:14)</span></li>
+  <li><span class="INFO">alinefm sent patches to fix some issues on
+    featuretests.py</span> <span class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-21'>alinefm</a>,
+    13:07:42)</span></li>
+  <li><span class="INFO">alinefm sent patches to refactor VMTemplate to
+    use a common module to generate guest interface XML</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-22'>alinefm</a>,
+    13:08:05)</span></li>
+  <li><span class="INFO">alinefm sent patch to delete
+    ui/js/modernizr.custom.2.6.2.min.js as it is not in use</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-23'>alinefm</a>,
+    13:08:37)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2014-11-05-13.04.log.html#l-88'>alinefm</a>, 13:28:35)</span>
+<ol type="a">
+  <li><a href="http://modernizr.com/">http://modernizr.com/</a> <span
+    class="details">(<a
+    href='kimchi.scrum.2014-11-05-13.04.log.html#l-184'>YuXin</a>,
+    14:08:12)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:19:26 UTC
+(<a href="kimchi.scrum.2014-11-05-13.04.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (127)</li>
+  <li>YuXin (39)</li>
+  <li>wenwang (18)</li>
+  <li>royce (16)</li>
+  <li>vianac (11)</li>
+  <li>Guest512 (10)</li>
+  <li>kimchi-bot (3)</li>
+  <li>danielhb (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

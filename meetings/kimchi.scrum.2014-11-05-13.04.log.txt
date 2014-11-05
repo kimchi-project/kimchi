@@ -1,0 +1,225 @@
+13:04:13 <alinefm> #startmeeting
+13:04:13 <kimchi-bot> Meeting started Wed Nov  5 13:04:13 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:04:13 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:04:13 <alinefm> #meetingname scrum
+13:04:13 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:29 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:04:29 <alinefm> anything else?
+13:04:40 <royce> good
+13:05:14 <alinefm> #topic Status
+13:05:14 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:26 <vianac> #info vianac sent patchset v1 for the clone feature; sent RFC for the snapshot feature; worked on the next patchset for the clone feature; worked on the snapshot feature; reviewed patches on the mailing list
+13:05:40 <YuXin> #info YuXin Guest Clone UI v5
+13:05:49 <wenwang> #info wenwang Finished Guest disk hot plug UI
+13:06:00 <Guest512> #info Simon send out vm migration v1 patch to ML, working on v2 base  on comments from alinefm.
+13:06:05 <alinefm> #info alinefm removed libxml2-python as Kimchi dependency and use lxml module to do XML manipulation
+13:06:09 <danielhb> #info danielhb reviewed a dozen patches in the ML, sent patch set to edit disk type in the template, sent patch to add a new attribute to netinfo.get_interface_info
+13:06:10 <royce> #info royce finished v1 patch of UI for ldap, rebased testcases for scsi cdrom found it not working for hotplug, abandoned
+13:06:23 <wenwang> #info wenwang sent patch that redesign the template edit
+13:06:31 <alinefm> #info alinefm refactor VMTemplate to use a common module to get guest disk XML
+13:07:14 <alinefm> #info alinefm generate qemu commandline XML using lxml.builder
+13:07:42 <alinefm> #info alinefm sent patches to fix some issues on featuretests.py
+13:08:05 <alinefm> #info alinefm sent patches to refactor VMTemplate to use a common module to generate guest interface XML
+13:08:37 <alinefm> #info alinefm sent patch to delete ui/js/modernizr.custom.2.6.2.min.js as it is not in use
+13:09:15 <alinefm> anything else?
+13:10:07 <alinefm> alright...
+13:10:29 <alinefm> we have just more 2 weeks by the end of the devel phase (https://github.com/kimchi-project/kimchi/wiki/todo-1.4)
+13:10:44 <alinefm> and we have a lot of unfinished tasks
+13:11:08 <alinefm> so if you want your task to be on 1.4, you need to send patches ASAP to get review and merge in time
+13:11:28 <alinefm> any of you think some task will not be completed on time?
+13:11:51 <royce> Guest512, if you don't mind, I can take the set passwd UI, is that ok?
+13:12:08 <Guest512> royce, that's great, thanks
+13:12:29 <YuXin> I have concern about the new UI header
+13:12:29 <alinefm> royce, but first, let's get LDAP merged
+13:12:39 <alinefm> I mean, LDAP has high priority
+13:12:45 <royce> sure, alinefm
+13:13:04 <alinefm> YuXin, it is has low priority right now - so you can move it to the end of your todo list
+13:13:26 <YuXin> ok, I will focus on the UI of serial console next
+13:13:29 <Guest512> alinefm: peer(remote server)authentication still block vm migration
+13:13:58 <Guest512> still have some issue with authentication via ssh
+13:14:48 <alinefm> YuXin, I'd say to you send a mockup for snapshots
+13:14:50 <Guest512> do you think it's possible that we will support peer authentication infra in kimchi in near future ?
+13:14:57 <wenwang> What's the status of back-end of the adding disk from different storage pool?
+13:14:57 <alinefm> vianac, do you think you can complete snapshots in 2 weeks?
+13:15:04 <vianac> alinefm, yes
+13:15:26 <alinefm> Guest512, what is the problem with the SSH authentication?
+13:15:42 <wenwang> alinefm: Also, we shall talk about the iscsi volume choose when creating a VM
+13:15:51 <alinefm> Guest512, do you mean user select a peer and provide its username and password to authenticate there?
+13:16:14 <alinefm> rotru, do you have any update about "adding disk from different storage pool" ?
+13:16:32 <Guest512> well, even 2 peers have ssh key exchanged, migration still failed due to failed authentication
+13:17:20 <Guest512> and also libvirt remote connection still need password input manully
+13:17:35 <alinefm> oO
+13:18:11 <Guest512> i'm trying to figure how virt-manger do migration via ssh
+13:18:35 <alinefm> it is a good start point
+13:19:00 <alinefm> libvirt will always require a password to connect to it? or it depends on libvirt config?
+13:19:24 <alinefm> I mean, after logging to server using hostname/password, it will always require a second password?
+13:19:43 <alinefm> wenwang, yes - we can talk about it on open discussion
+13:19:59 <alinefm> wenwang, did you do any investigation about the storage volume upload?
+13:19:59 <wenwang> alinefm: sure
+13:20:15 <alinefm> I really want to have upload enable on 1.4
+13:20:28 <alinefm> *enabled
+13:20:34 <wenwang> alinefm: Not yet. Just finished the template task. I will start tomorrow and update with my status
+13:20:43 <alinefm> wenwang, great! thanks
+13:20:52 <wenwang> alinefm: yw
+13:21:59 <Guest512> alinefm: that best sulution is that use  sshpass -p to estiblish a ssh connection that libvirt can use it to connect a remote peer, but libvirt doesn't provide a API to reuse a ssh connection.
+13:22:02 <royce> I will also help to look at upload, still working with LDAP things
+13:23:28 <alinefm> ok - thanks
+13:23:34 <alinefm> Guest512, got it
+13:23:56 <alinefm> Guest512, I will try to do some investigation on it too and share what I find on ML
+13:24:13 <alinefm> all: from my view the following tasks MUST be done by 1.4:
+13:24:25 <alinefm> - SMT support (christy)
+13:24:32 <alinefm> - Guest cloning (vianac)
+13:24:33 <Guest512> thanks, i will send out a email later to provide some detail on this problem
+13:24:43 <alinefm> - LDAP authentication support (royce)
+13:24:52 <alinefm> Prevent disks from being added more than once to guest (christy)
+13:25:06 <alinefm> - Fix and upload file to a storage pool（wenwang)
+13:25:15 <alinefm> and the UI related to those backend tasks
+13:25:34 <alinefm> The following tasks would be great to have if time permits us:
+13:25:44 <alinefm> - Snapshot support (vianac)
+13:25:52 <alinefm> - Live migration (simon)
+13:25:59 <alinefm> what do you think about it?
+13:26:51 <YuXin> I will look around these items and figure out how much UI content needed
+13:27:00 <royce> cool with me
+13:27:22 <vianac> fine with me
+13:27:36 <wenwang> Fine with me
+13:27:49 <alinefm> great!
+13:28:04 <alinefm> any problem, just send an email on ML, ok?
+13:28:30 <alinefm> so let's move on to open discussion
+13:28:35 <alinefm> #topic Open Discussion
+13:28:57 <alinefm> what do you have in mind for today?
+13:29:49 <wenwang> alinefm: iSCSI volume choose when creating a VM
+13:30:27 <alinefm> wenwang, yeap
+13:30:47 <alinefm> as I said on ML I am a little afraid in moving it to VM because it may cause problems there
+13:31:03 <alinefm> the vm creation process must always work
+13:31:22 <alinefm> if we let user choose a volume there it will break the process
+13:31:43 <alinefm> so I'd propose to use the shareable option when creating a vm using those volumes
+13:31:51 <alinefm> then the reuse will not cause problems
+13:32:30 <wenwang> alinefm: That means we don't need to change for current design?
+13:32:30 <YuXin> but that disk maybe used as OS disk, right?
+13:32:47 <alinefm> wenwang, correct
+13:32:50 <alinefm> YuXin, yes
+13:33:13 <YuXin> How can an OS disk to be shared?
+13:33:14 <alinefm> YuXin, but kimchi always tries to boot the VM by disk and if any OS found in disks it fallback to cdrom
+13:33:28 <alinefm> so we don't have problem in override a OS disk
+13:33:45 <YuXin> after OS is installed
+13:34:42 <YuXin> I mean OS is installed on the disk, then 2 vms will share one OS disk
+13:35:04 <YuXin> OS will definitely write to that disk, so 2 VMs will write to the same disk?
+13:37:27 <wenwang> Yeah, I have the same concern
+13:37:49 <alinefm> yeap
+13:38:30 <alinefm> the ideal solution would use the backingstore if the volume already has a OS
+13:39:25 <alinefm> wenwang, YuXin, on backing store you have 2 disks to format 1: one is the base (read-only) and other is a new disk (read-write)
+13:39:40 <alinefm> so the difference between the base / disk will be on read-write disk
+13:39:42 <alinefm> makes sense?
+13:40:08 <alinefm> royce, do you know if it is possible to do that ^with iscsi/scsi volumes?
+13:40:17 <YuXin> I think when create vm from template, if it is iscsi or scsi fc, list volumes without OS for selection, why not this way?
+13:40:57 <royce> alinefm, yes, I thought  we did that in ovirt before
+13:41:37 <alinefm> YuXin, it will only until the template is used by first time
+13:42:06 <YuXin> why only the 1st time?
+13:42:25 <alinefm> once I used the template to create a vm, I installed an OS on this volume
+13:42:36 <alinefm> on second time I will use the same template, the volume will have an OS
+13:43:18 <YuXin> I mean list volumes in that iscsi or scsi pools for selection
+13:43:33 <YuXin> if a volume already has an OS, it should be fitered out
+13:45:05 <YuXin> so any vm created will use a different volume in that iscsi or scsi fc pool
+13:45:22 <wenwang> Is it the fact that when user create an iscsi or scsi based VM, then the used volume could not be retrieved again?
+13:45:58 <YuXin> yes, a volume already associated with a vm should be filtered out
+13:46:02 <alinefm> I think using backing store will be the best solution for it - so we don't restrict user on volume selection
+13:46:12 <alinefm> but I agree it will need time to do that
+13:46:14 <wenwang> I mean from the response of the listStorageVolume, we cannot see the volume of iscsi/scsi for selection?
+13:46:25 <YuXin> yes
+13:47:42 <wenwang> Then it won't be a problem for adding the unused volume to the template cause once used we maynot get the response of it
+13:47:42 <royce> alinefm, we may want to specify scenario when we want to create cow on readonly and when we just overwrite the original one
+13:48:18 <alinefm> royce, we only create the cow if the base volume has an OS
+13:48:27 <alinefm> I think we can use libguestfs to discover it
+13:48:38 <alinefm> royce, the same you did for image files
+13:49:21 <royce> since we are template based, why there are two disks with os and need to have cow?
+13:50:30 <alinefm> let's say you configure a template to use iscsi volume X
+13:50:49 <alinefm> if volume X does not have an OS on it, it will store the new OS from a fresh install, ok?
+13:51:03 <royce> I mean, the scenario is: create a template base on a image, then add disk array, at this point, I found another disk has a os and want it have cow?
+13:51:29 <YuXin> I am still trying to understand how it work, vm-1 is using a scsi volume as disk and change it along with time
+13:51:55 <YuXin> vm-2 using this scsi volume as base and base is always changing unexpectedly
+13:52:04 <alinefm> royce, do you mean allow user add disks used by other vms?
+13:52:43 <royce> YuXin, once it becames base, vm-1 and vm-2 both use the base and write to copy on write disk, no one writing base
+13:53:43 <royce> alinefm, we are not talking to this scenario? I suppose we are talking about adding scsi disk to a vm then found the scsi has a OS, is that so?
+13:54:08 <alinefm> royce, I was talking on template level =)
+13:55:13 <YuXin> if this way, 1) VM-1 need also use scsi volume as base. 2) copy on write will need a dir(default) volume. 3) finally, all scsi volumes will be used only as OS base disk along with time
+13:55:25 <YuXin> I do not think this is user's objective
+13:56:14 <alinefm> I had an idea =)
+13:56:26 <YuXin> scsi volumes will have much better performance then other types of pools, by this way, I think it will impact vm performance.
+13:56:33 <alinefm> look: we keep the template as it is
+13:56:48 <alinefm> AND when listing the templates to create a new VM, we do a filter there
+13:57:03 <alinefm> and if a template points to a use iscso volume we don't list it
+13:57:14 <alinefm> so we make sure the just one vm will use it
+13:57:19 <alinefm> what do you think?
+13:57:50 <wenwang> I am okay with this solution
+13:58:05 <YuXin> by this way, a scsi pool with 1000 volumes, then user need to create 1000 templates
+13:58:07 <alinefm> we can use the "invalid" parameter for it
+13:58:20 <alinefm> YuXin, or change the previous one
+13:59:21 <YuXin> what is the difference between  volumes in scsi pool?
+13:59:53 <YuXin> if no difference, just automatically pick one
+13:59:54 <royce> size?
+14:00:14 <royce> YuXin, only thing we concern is there would be already data in
+14:00:16 <alinefm> size, format...
+14:02:38 <YuXin> when vm using a volume as os disk, it will format it again, right?
+14:03:01 <royce> Guys, my husband's sick and I need to take care of him, so I must get going, sorry
+14:03:24 <alinefm> royce, please, go
+14:03:27 <alinefm> YuXin, no
+14:03:32 <alinefm> the disk size keeps as it is
+14:03:35 <royce> thanks alinefm, bye guys
+14:03:44 <wenwang> see you royce
+14:03:49 <YuXin> ok, so we need to ask user to select scsi volume
+14:04:36 <alinefm> YuXin, does it mean you agreed with the filter template on VM creation?
+14:04:44 <YuXin> ok
+14:05:05 <alinefm> I will check the API and see if needs some change on backend
+14:05:12 <alinefm> I have 2 more topics
+14:05:21 <alinefm> I hope they are simpler =)
+14:05:43 <wenwang> alinefm: great
+14:06:20 <alinefm> baude asked me about this file: ./ui/libs/modernizr.custom.76777.js
+14:06:28 <alinefm> YuXin, wenwang, do we really need it?
+14:06:53 <YuXin> I have no idea about this file
+14:07:04 <YuXin> can you copy some content in it?
+14:07:25 <wenwang> alinefm: I don't know about this
+14:07:30 <alinefm> it is an imported file
+14:07:43 <alinefm> I also don't have any idea about its content
+14:08:07 <alinefm> YuXin, wenwang, may I remove it and test Kimchi UI and if no change remove it from Kimchi?
+14:08:12 <YuXin> http://modernizr.com/
+14:09:34 <YuXin> aline, all the browsers kimchi support already support html5 and css3 I think
+14:09:44 <alinefm> YuXin, me too
+14:09:56 <alinefm> so apparently no problem in removing it, right?
+14:10:01 <YuXin> so this file does not needed any more
+14:10:07 <YuXin> if there is no reference to it
+14:10:21 <YuXin> so just remove it and do a testing, if no error, then it is ok to remove it
+14:10:33 <alinefm> great! thanks
+14:10:47 <alinefm> other topic: about the clone pre-check
+14:10:58 <alinefm> I started doing some code and faced a problem
+14:11:08 <alinefm> a vm disk may not be in a pool
+14:11:32 <alinefm> in that case, I'd return pool=''
+14:11:36 <alinefm> makes sense?
+14:11:47 <alinefm> so on pre-check those disks would be ignored
+14:12:17 <YuXin> if the disk has no pool, then it will be cloned on default pool?
+14:12:30 <alinefm> vianac, ^
+14:13:09 <YuXin> I think we can only clone it to default pool
+14:13:15 <vianac> maybe
+14:13:24 <vianac> I haven't found a case when a disk is not in a pool
+14:13:48 <alinefm> you can manually edit your vm XML to test it
+14:14:19 <alinefm> vianac, did you test the clone feature with a vm using backingstore?
+14:14:23 <YuXin> ok, since it will definitely copy to default pool, then pre-check should ignore it
+14:14:47 <alinefm> or check the default pool has enough size to this new cloned disk?
+14:15:23 <YuXin> if default pool does not have enough space, then an error will be responsed
+14:15:45 <vianac> alinefm, what's backingstore?
+14:16:05 <alinefm> vianac, a volume composed by base and cow image
+14:16:19 <alinefm> vianac, you get one when creating a vm from a image file template
+14:16:54 <vianac> alinefm, so I did, and the VM is cloned to the default pool
+14:17:14 <alinefm> vianac, and did you start the clone vm?
+14:17:15 <vianac> actually, the original VM disk is already in the default pool, it's not different for the clone process
+14:17:31 <vianac> err, no.
+14:17:34 <vianac> I will test it
+14:17:35 <vianac> :P
+14:17:45 <YuXin> base should not be copied, and backingstore should be copied to the same pool
+14:17:53 <alinefm> YuXin, yeap
+14:17:58 <alinefm> vianac, so test it, please
+14:18:06 <alinefm> the base will not be cloned, only the cow file
+14:18:34 <alinefm> ok team
+14:18:39 <alinefm> anything else for today?
+14:19:10 <alinefm> ok.. sorry about the time again =$
+14:19:15 <alinefm> thanks everyone for joining
+14:19:26 <alinefm> #endmeeting
