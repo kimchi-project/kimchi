@@ -155,7 +155,6 @@ class VMTemplate(object):
         # storage pool, so we cannot mix the types (scsi volumes vs img file)
         storage_type = self._get_storage_type()
         storage_path = self._get_storage_path()
-        storage_type = self._get_storage_type()
 
         base_disk_params = {'type': 'disk', 'disk': 'file',
                             'bus': self.info['disk_bus'], 'format': 'qcow2'}
@@ -315,16 +314,7 @@ class VMTemplate(object):
         graphics = kwargs.get('graphics')
         params['graphics'] = self._get_graphics_xml(graphics)
         params['cpu_info'] = self._get_cpu_xml()
-
-        # Current implementation just allows to create disk in one single
-        # storage pool, so we cannot mix the types (scsi volumes vs img file)
-        storage_type = self._get_storage_type()
-        if storage_type == "iscsi":
-            params['disks'] = self._get_iscsi_disks_xml()
-        elif storage_type == "scsi":
-            params['disks'] = self._get_scsi_disks_xml()
-        else:
-            params['disks'] = self._get_disks_xml(vm_uuid)
+        params['disks'] = self._get_disks_xml(vm_uuid)
 
         qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
