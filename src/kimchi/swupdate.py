@@ -154,6 +154,7 @@ class YumUpdate(object):
             yb.doLock()
             self._pkgs = yb.doPackageLists('updates')
             yb.doUnlock()
+            del yb
         except Exception, e:
             kimchiLock.release()
             raise OperationFailed('KCHPKGUPD0003E', {'err': str(e)})
