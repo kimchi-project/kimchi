@@ -142,7 +142,7 @@ kimchi.initStorageAddPage = function() {
         $('.host-partition').addClass('text-help');
     });
 
-    kimchi.getHostPCIDevices(function(data){
+    kimchi.getHostFCDevices(function(data){
         if(data.length>0){
             for(var i=0;i<data.length;i++){
                 data[i].label = data[i].name;
