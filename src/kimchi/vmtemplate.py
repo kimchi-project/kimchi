@@ -330,6 +330,16 @@ class VMTemplate(object):
           </devices>
         </domain>
         """ % params
+
+        # Adding PPC console configuration
+        if params['arch'] in ['ppc', 'ppc64']:
+            ppc_console = """<memballoon model='virtio' />
+            <console type='pty'>
+              <target type='serial' port='1'/>
+              <address type='spapr-vio' reg='0x30001000'/>
+            </console>"""
+            xml = xml.replace("<memballoon model='virtio' />", ppc_console)
+
         return xml
 
     def validate(self):
