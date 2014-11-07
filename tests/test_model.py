@@ -1255,6 +1255,44 @@ class ModelTests(unittest.TestCase):
 
             self.assertEquals(vms, sorted(vms, key=unicode.lower))
 
+    def test_vm_clone(self):
+        inst = model.Model('test:///default', objstore_loc=self.tmp_store)
+
+        all_vm_names = inst.vms_get_list()
+        name = all_vm_names[0]
+
+        original_vm = inst.vm_lookup(name)
+
+        # the VM 'test' should be running by now, so we can't clone it yet
+        self.assertRaises(InvalidParameter, inst.vm_clone, name)
+
+        with RollbackContext() as rollback:
+            inst.vm_poweroff(name)
+            rollback.prependDefer(inst.vm_start, name)
+
+            task = inst.vm_clone(name)
+            clone_name = task['target_uri'].split('/')[-1]
+            rollback.prependDefer(inst.vm_delete, clone_name)
+            inst.task_wait(task['id'])
+
+            # update the original VM info because its state has changed
+            original_vm = inst.vm_lookup(name)
+            clone_vm = inst.vm_lookup(clone_name)
+
+            self.assertNotEqual(original_vm['name'], clone_vm['name'])
+            self.assertTrue(re.match(u'%s-clone-\d+' % original_vm['name'],
+                                     clone_vm['name']))
+            del original_vm['name']
+            del clone_vm['name']
+
+            self.assertNotEqual(original_vm['uuid'], clone_vm['uuid'])
+            del original_vm['uuid']
+            del clone_vm['uuid']
+
+            # compare all VM settings except the ones already compared
+            # (and removed) above (i.e. 'name' and 'uuid')
+            self.assertEquals(original_vm, clone_vm)
+
     def test_use_test_host(self):
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)

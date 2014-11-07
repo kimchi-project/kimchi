@@ -181,6 +181,47 @@ class MockModel(object):
     def vm_connect(self, name):
         pass
 
+    def vm_clone(self, name):
+        vm = self._mock_vms[name]
+        if vm.info['state'] != u'shutoff':
+            raise InvalidParameter('KCHVM0033E', {'name': name})
+
+        new_name = get_next_clone_name(self.vms_get_list(), name)
+
+        taskid = self.add_task(u'/vms/%s' % new_name, self._do_clone,
+                               {'name': name, 'new_name': new_name})
+        return self.task_lookup(taskid)
+
+    def _do_clone(self, cb, params):
+        name = params['name']
+        new_name = params['new_name']
+
+        vm = self._mock_vms[name]
+        new_vm = copy.deepcopy(vm)
+
+        new_uuid = unicode(uuid.uuid4())
+
+        new_vm.name = new_name
+        new_vm.info['name'] = new_name
+        new_vm.uuid = new_uuid
+        new_vm.info['uuid'] = new_uuid
+
+        for mac, iface in new_vm.ifaces.items():
+            new_mac = MockVMIface.get_mac()
+            iface.info['mac'] = new_mac
+            new_vm.ifaces[new_mac] = iface
+
+        storage_names = new_vm.storagedevices.keys()
+        for i, storage_name in enumerate(storage_names):
+            storage = new_vm.storagedevices[storage_name]
+            basename, ext = os.path.splitext(storage.info['path'])
+            new_path = u'%s-%d%s' % (basename, i, ext)
+            new_vm.storagedevices[storage_name].path = new_path
+
+        self._mock_vms[new_name] = new_vm
+
+        cb('OK', True)
+
     def vms_create(self, params):
         t_name = template_name_from_uri(params['template'])
         name = get_vm_name(params.get('name'), t_name, self._mock_vms.keys())
