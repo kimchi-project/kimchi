@@ -1047,6 +1047,29 @@ class RestTests(unittest.TestCase):
         resp = self.request('/storagepools/pool-1/storagevolumes/%s' %
                             vol_name, '{}', 'GET')
         self.assertEquals(200, resp.status)
+        vol = json.loads(resp.read())
+
+        # clone the volume created above
+        resp = self.request('/storagepools/pool-1/storagevolumes/%s/clone' %
+                            vol_name, {}, 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        cloned_vol_name = task['target_uri'].split('/')[-1]
+        wait_task(self._task_lookup, task['id'])
+        task = json.loads(self.request('/tasks/%s' % task['id']).read())
+        self.assertEquals('finished', task['status'])
+        resp = self.request('/storagepools/pool-1/storagevolumes/%s' %
+                            cloned_vol_name, '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        cloned_vol = json.loads(resp.read())
+
+        self.assertNotEquals(vol['name'], cloned_vol['name'])
+        del vol['name']
+        del cloned_vol['name']
+        self.assertNotEquals(vol['path'], cloned_vol['path'])
+        del vol['path']
+        del cloned_vol['path']
+        self.assertEquals(vol, cloned_vol)
 
         # Now remove the StoragePool from mock model
         self._delete_pool('pool-1')

@@ -478,6 +478,9 @@ A interface represents available network interface on VM.
     * size: resize the total space which can be used to store data
             The unit is MBytes
 * wipe: Wipe a Storage Volume
+* clone: Clone a Storage Volume.
+    * pool: The name of the destination pool (optional).
+    * name: The new storage volume name (optional).
 
 
 ### Collection: Interfaces

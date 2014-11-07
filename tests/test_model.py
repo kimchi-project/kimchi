@@ -623,6 +623,24 @@ class ModelTests(unittest.TestCase):
                 cp_content = cp_file.read()
             self.assertEquals(vol_content, cp_content)
 
+            # clone the volume created above
+            task = inst.storagevolume_clone(pool, vol_name)
+            taskid = task['id']
+            cloned_vol_name = task['target_uri'].split('/')[-1]
+            inst.task_wait(taskid)
+            self.assertEquals('finished', inst.task_lookup(taskid)['status'])
+            rollback.prependDefer(inst.storagevolume_delete, pool,
+                                  cloned_vol_name)
+
+            orig_vol = inst.storagevolume_lookup(pool, vol_name)
+            cloned_vol = inst.storagevolume_lookup(pool, cloned_vol_name)
+
+            self.assertNotEquals(orig_vol['path'], cloned_vol['path'])
+            del orig_vol['path']
+            del cloned_vol['path']
+
+            self.assertEquals(orig_vol, cloned_vol)
+
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_storage_customise(self):
         inst = model.Model(objstore_loc=self.tmp_store)

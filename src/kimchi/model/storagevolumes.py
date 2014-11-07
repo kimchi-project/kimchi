@@ -18,9 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import contextlib
+import lxml.etree as ET
 import os
 import time
 import urllib2
+from lxml.builder import E
 
 import libvirt
 
@@ -31,7 +33,7 @@ from kimchi.isoinfo import IsoImage
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import VMsModel, VMModel
-from kimchi.utils import add_task, kimchi_log
+from kimchi.utils import add_task, get_next_clone_name, kimchi_log
 from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from kimchi.xmlutils.utils import xpath_get_text
 
@@ -238,6 +240,8 @@ class StorageVolumeModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
+        self.storagevolumes = StorageVolumesModel(**kargs)
 
     def _get_storagevolume(self, poolname, name):
         pool = StoragePoolModel.get_storagepool(poolname, self.conn)
@@ -344,6 +348,97 @@ class StorageVolumeModel(object):
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVOL0011E",
                                   {'name': name, 'err': e.get_error_message()})
+
+    def clone(self, pool, name, new_pool=None, new_name=None):
+        """Clone a storage volume.
+
+        Arguments:
+        pool -- The name of the original pool.
+        name -- The name of the original volume.
+        new_pool -- The name of the destination pool (optional). If omitted,
+            the new volume will be created on the same pool as the
+            original one.
+        new_name -- The name of the new volume (optional). If omitted, a new
+            value based on the original volume's name will be used.
+
+        Return:
+        A Task running the clone operation.
+        """
+        pool = pool.decode('utf-8')
+        name = name.decode('utf-8')
+
+        # the same pool will be used if no pool is specified
+        if new_pool is None:
+            new_pool = pool
+
+        # a default name based on the original name will be used if no name
+        # is specified
+        if new_name is None:
+            base, ext = os.path.splitext(name)
+            new_name = get_next_clone_name(self.storagevolumes.get_list(pool),
+                                           base, ext)
+
+        params = {'pool': pool,
+                  'name': name,
+                  'new_pool': new_pool,
+                  'new_name': new_name}
+        taskid = add_task(u'/storagepools/%s/storagevolumes/%s' %
+                          (pool, new_name), self._clone_task, self.objstore,
+                          params)
+        return self.task.lookup(taskid)
+
+    def _clone_task(self, cb, params):
+        """Asynchronous function which performs the clone operation.
+
+        This function copies all the data inside the original volume into the
+        new one.
+
+        Arguments:
+        cb -- A callback function to signal the Task's progress.
+        params -- A dict with the following values:
+            "pool": The name of the original pool.
+            "name": The name of the original volume.
+            "new_pool": The name of the destination pool.
+            "new_name": The name of the new volume.
+        """
+        orig_pool_name = params['pool'].decode('utf-8')
+        orig_vol_name = params['name'].decode('utf-8')
+        new_pool_name = params['new_pool'].decode('utf-8')
+        new_vol_name = params['new_name'].decode('utf-8')
+
+        try:
+            cb('setting up volume cloning')
+            orig_vir_vol = self._get_storagevolume(orig_pool_name,
+                                                   orig_vol_name)
+            orig_vol = self.lookup(orig_pool_name, orig_vol_name)
+            new_vir_pool = StoragePoolModel.get_storagepool(new_pool_name,
+                                                            self.conn)
+
+            cb('building volume XML')
+            root_elem = E.volume()
+            root_elem.append(E.name(new_vol_name))
+            root_elem.append(E.capacity(unicode(orig_vol['capacity']),
+                                        unit='bytes'))
+            target_elem = E.target()
+            target_elem.append(E.format(type=orig_vol['format']))
+            root_elem.append(target_elem)
+            new_vol_xml = ET.tostring(root_elem, encoding='utf-8',
+                                      pretty_print=True)
+
+            cb('cloning volume')
+            new_vir_pool.createXMLFrom(new_vol_xml, orig_vir_vol, 0)
+        except (InvalidOperation, NotFoundError, libvirt.libvirtError), e:
+            raise OperationFailed('KCHVOL0023E',
+                                  {'name': orig_vol_name,
+                                   'pool': orig_pool_name,
+                                   'err': e.get_error_message()})
+
+        cb('adding volume to the object store')
+        new_vol_id = '%s:%s' % (new_pool_name, new_vol_name)
+        with self.objstore as session:
+            session.store('storagevolume', new_vol_id, {'ref_cnt': 0})
+
+        cb('OK', True)
 
 
 class IsoVolumesModel(object):
