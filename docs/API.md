@@ -133,6 +133,13 @@ the following general conventions:
          risk of data loss caused by reset without the guest OS shutdown.
 * connect: Prepare the connection for spice or vnc
 
+* clone: Create a new VM identical to this VM. The new VM's name, UUID and
+         network MAC addresses will be generated automatically. Each existing
+         disks will be copied to a new volume in the same storage pool. If
+         there is no available space on that storage pool to hold the new
+         volume, it will be created on the pool 'default'. This action returns
+         a Task.
+
 ### Sub-resource: Virtual Machine Screenshot
 
 **URI:** /vms/*:name*/screenshot
