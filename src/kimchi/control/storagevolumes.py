@@ -47,6 +47,7 @@ class StorageVolume(Resource):
         self.uri_fmt = '/storagepools/%s/storagevolumes/%s'
         self.resize = self.generate_action_handler('resize', ['size'])
         self.wipe = self.generate_action_handler('wipe')
+        self.clone = self.generate_action_handler_task('clone')
 
     @property
     def data(self):

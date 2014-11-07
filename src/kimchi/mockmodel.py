@@ -52,8 +52,8 @@ from kimchi.model.storageservers import STORAGE_SERVERS
 from kimchi.model.utils import get_vm_name
 from kimchi.objectstore import ObjectStore
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import pool_name_from_uri, validate_repo_url
-from kimchi.utils import template_name_from_uri
+from kimchi.utils import get_next_clone_name, pool_name_from_uri
+from kimchi.utils import validate_repo_url, template_name_from_uri
 from kimchi.vmtemplate import VMTemplate
 
 
@@ -585,6 +585,47 @@ class MockModel(object):
 
         volume = MockStorageVolume(pool, name, params)
         pool._volumes[name] = volume
+
+        cb('OK', True)
+
+    def storagevolume_clone(self, pool, name, new_pool=None, new_name=None):
+        if new_name is None:
+            base, ext = os.path.splitext(name)
+            new_name = get_next_clone_name(self.vms_get_list(), base, ext)
+
+        if new_pool is None:
+            new_pool = pool
+
+        params = {'name': name,
+                  'pool': pool,
+                  'new_name': new_name,
+                  'new_pool': new_pool}
+        taskid = self.add_task('/storagepools/%s/storagevolumes/%s' %
+                               (new_pool, new_name),
+                               self._storagevolume_clone_task, params)
+        return self.task_lookup(taskid)
+
+    def _storagevolume_clone_task(self, cb, params):
+        try:
+            vol_name = params['name'].decode('utf-8')
+            pool_name = params['pool'].decode('utf-8')
+            new_vol_name = params['new_name'].decode('utf-8')
+            new_pool_name = params['new_pool'].decode('utf-8')
+
+            orig_pool = self._get_storagepool(pool_name)
+            orig_vol = self._get_storagevolume(pool_name, vol_name)
+
+            new_vol = copy.deepcopy(orig_vol)
+            new_vol.info['name'] = new_vol_name
+            new_vol.info['path'] = os.path.join(orig_pool.info['path'],
+                                                new_vol_name)
+
+            new_pool = self._get_storagepool(new_pool_name)
+            new_pool._volumes[new_vol_name] = new_vol
+        except (KeyError, NotFoundError), e:
+            raise OperationFailed('KCHVOL0023E',
+                                  {'name': vol_name, 'pool': pool_name,
+                                   'err': e.message})
 
         cb('OK', True)
 
