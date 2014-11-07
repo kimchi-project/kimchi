@@ -45,7 +45,6 @@ from kimchi.iscsi import TargetClient
 from kimchi.model import model
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
-from utils import wait_task
 
 
 invalid_repository_urls = ['www.fedora.org',       # missing protocol
@@ -130,7 +129,7 @@ class ModelTests(unittest.TestCase):
                       'format': 'qcow2'}
             task_id = inst.storagevolumes_create('default', params)['id']
             rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
-            wait_task(inst.task_lookup, task_id)
+            inst.task_wait(task_id)
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
             vol_path = inst.storagevolume_lookup('default', vol)['path']
 
@@ -291,7 +290,7 @@ class ModelTests(unittest.TestCase):
                       'format': 'qcow2'}
             task_id = inst.storagevolumes_create(pool, params)['id']
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
-            wait_task(inst.task_lookup, task_id)
+            inst.task_wait(task_id)
 
             vm_name = 'kimchi-cdrom'
             params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
@@ -570,7 +569,7 @@ class ModelTests(unittest.TestCase):
             params['name'] = vol
             task_id = inst.storagevolumes_create(pool, params)['id']
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
-            wait_task(inst.task_lookup, task_id)
+            inst.task_wait(task_id)
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
 
             fd, path = tempfile.mkstemp(dir=path)
@@ -611,7 +610,7 @@ class ModelTests(unittest.TestCase):
             taskid = task_response['id']
             vol_name = task_response['target_uri'].split('/')[-1]
             self.assertEquals('COPYING', vol_name)
-            wait_task(inst.task_lookup, taskid, timeout=60)
+            inst.task_wait(taskid, timeout=60)
             self.assertEquals('finished', inst.task_lookup(taskid)['status'])
             vol_path = os.path.join(args['path'], vol_name)
             self.assertTrue(os.path.isfile(vol_path))
@@ -1156,7 +1155,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)
         taskid = add_task('', quick_op, inst.objstore, 'Hello')
-        wait_task(inst.task_lookup, taskid)
+        inst.task_wait(taskid)
         self.assertEquals(1, taskid)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
@@ -1167,12 +1166,12 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(2, taskid)
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         self.assertEquals('OK', inst.task_lookup(taskid)['message'])
-        wait_task(inst.task_lookup, taskid)
+        inst.task_wait(taskid)
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
         self.assertEquals('It was not meant to be',
                           inst.task_lookup(taskid)['message'])
         taskid = add_task('', abnormal_op, inst.objstore, {})
-        wait_task(inst.task_lookup, taskid)
+        inst.task_wait(taskid)
         self.assertEquals('Exception raised',
                           inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
@@ -1180,7 +1179,7 @@ class ModelTests(unittest.TestCase):
         taskid = add_task('', continuous_ops, inst.objstore,
                           {'result': True})
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
-        wait_task(inst.task_lookup, taskid, timeout=10)
+        inst.task_wait(taskid, timeout=10)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
 
     # This wrapper function is needed due to the new backend messaging in
@@ -1286,7 +1285,7 @@ class ModelTests(unittest.TestCase):
                 task = inst.debugreports_create({'name': reportName})
                 rollback.prependDefer(inst.debugreport_delete, tmp_name)
                 taskid = task['id']
-                wait_task(inst.task_lookup, taskid, timeout)
+                inst.task_wait(taskid, timeout)
                 self.assertEquals('finished',
                                   inst.task_lookup(taskid)['status'],
                                   "It is not necessary an error.  "

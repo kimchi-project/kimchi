@@ -35,6 +35,7 @@ messages = {
 
     "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
     "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
+    "KCHASYNC0003E": _("Timeout of %(seconds)s seconds expired while running task '%(task)s."),
 
     "KCHAUTH0001E": _("Authentication failed for user '%(username)s'. [Error code: %(code)s]"),
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
