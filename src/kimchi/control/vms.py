@@ -46,6 +46,7 @@ class VM(Resource):
         self.shutdown = self.generate_action_handler('shutdown')
         self.reset = self.generate_action_handler('reset')
         self.connect = self.generate_action_handler('connect')
+        self.clone = self.generate_action_handler_task('clone')
 
     @property
     def data(self):

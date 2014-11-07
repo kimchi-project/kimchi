@@ -30,17 +30,20 @@ from xml.etree import ElementTree
 import libvirt
 from cherrypy.process.plugins import BackgroundTask
 
-from kimchi import vnc
+from kimchi import model, vnc
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
+from kimchi.model.tasks import TaskModel
 from kimchi.model.templates import TemplateModel
 from kimchi.model.utils import get_vm_name
 from kimchi.model.utils import get_metadata_node
 from kimchi.model.utils import set_metadata_node
+from kimchi.rollbackcontext import RollbackContext
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
+from kimchi.utils import add_task, get_next_clone_name, import_class
+from kimchi.utils import kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
 from kimchi.xmlutils.utils import xpath_get_text, xml_item_update
 
@@ -61,6 +64,15 @@ VM_STATIC_UPDATE_PARAMS = {'name': './name',
 VM_LIVE_UPDATE_PARAMS = {}
 
 stats = {}
+
+
+XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
+XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
+XPATH_DOMAIN_NAME = '/domain/name'
+XPATH_DOMAIN_MAC = "/domain/devices/interface[@type='network']/mac/@address"
+XPATH_DOMAIN_MAC_BY_ADDRESS = "./devices/interface[@type='network']/"\
+                              "mac[@address='%s']"
+XPATH_DOMAIN_UUID = '/domain/uuid'
 
 
 class VMsModel(object):
@@ -251,12 +263,276 @@ class VMModel(object):
         self.vmscreenshot = VMScreenshotModel(**kargs)
         self.users = import_class('kimchi.model.host.UsersModel')(**kargs)
         self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
+        self.vms = VMsModel(**kargs)
+        self.task = TaskModel(**kargs)
+        self.storagepool = model.storagepools.StoragePoolModel(**kargs)
+        self.storagevolume = model.storagevolumes.StorageVolumeModel(**kargs)
+        self.storagevolumes = model.storagevolumes.StorageVolumesModel(**kargs)
 
     def update(self, name, params):
         dom = self.get_vm(name, self.conn)
         dom = self._static_vm_update(dom, params)
         self._live_vm_update(dom, params)
         return dom.name().decode('utf-8')
+
+    def clone(self, name):
+        """Clone a virtual machine based on an existing one.
+
+        The new virtual machine will have the exact same configuration as the
+        original VM, except for the name, UUID, MAC addresses and disks. The
+        name will have the form "<name>-clone-<number>", with <number> starting
+        at 1; the UUID will be generated randomly; the MAC addresses will be
+        generated randomly with no conflicts within the original and the new
+        VM; and the disks will be new volumes [mostly] on the same storage
+        pool, with the same content as the original disks. The storage pool
+        'default' will always be used when cloning SCSI and iSCSI disks and
+        when the original storage pool cannot hold the new volume.
+
+        An exception will be raised if the virtual machine <name> is not
+        shutoff, if there is no available space to copy a new volume to the
+        storage pool 'default' (when there was also no space to copy it to the
+        original storage pool) and if one of the virtual machine's disks belong
+        to a storage pool not supported by Kimchi.
+
+        Parameters:
+        name -- The name of the existing virtual machine to be cloned.
+
+        Return:
+        A Task running the clone operation.
+        """
+        name = name.decode('utf-8')
+
+        # VM must be shutoff in order to clone it
+        info = self.lookup(name)
+        if info['state'] != u'shutoff':
+            raise InvalidParameter('KCHVM0033E', {'name': name})
+
+        # this name will be used as the Task's 'target_uri' so it needs to be
+        # defined now.
+        new_name = get_next_clone_name(self.vms.get_list(), name)
+
+        # create a task with the actual clone function
+        taskid = add_task(u'/vms/%s' % new_name, self._clone_task,
+                          self.objstore,
+                          {'name': name, 'new_name': new_name})
+
+        return self.task.lookup(taskid)
+
+    def _clone_task(self, cb, params):
+        """Asynchronous function which performs the clone operation.
+
+        Parameters:
+        cb -- A callback function to signal the Task's progress.
+        params -- A dict with the following values:
+            "name": the name of the original VM.
+            "new_name": the name of the new VM.
+        """
+        name = params['name']
+        new_name = params['new_name']
+        vir_conn = self.conn.get()
+
+        # fetch base XML
+        cb('reading source VM XML')
+        try:
+            vir_dom = vir_conn.lookupByName(name)
+            flags = libvirt.VIR_DOMAIN_XML_SECURE
+            xml = vir_dom.XMLDesc(flags).decode('utf-8')
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHVM0035E', {'name': name,
+                                                 'err': e.message})
+
+        # update UUID
+        cb('updating VM UUID')
+        old_uuid = xpath_get_text(xml, XPATH_DOMAIN_UUID)[0]
+        new_uuid = unicode(uuid.uuid4())
+        xml = xml_item_update(xml, './uuid', new_uuid)
+
+        # update MAC addresses
+        cb('updating VM MAC addresses')
+        xml = self._clone_update_mac_addresses(xml)
+
+        with RollbackContext() as rollback:
+            # copy disks
+            cb('copying VM disks')
+            xml = self._clone_update_disks(xml, rollback)
+
+            # update objstore entry
+            cb('updating object store')
+            self._clone_update_objstore(old_uuid, new_uuid, rollback)
+
+            # update name
+            cb('updating VM name')
+            xml = xml_item_update(xml, './name', new_name)
+
+            # create new guest
+            cb('defining new VM')
+            try:
+                vir_conn.defineXML(xml)
+            except libvirt.libvirtError, e:
+                raise OperationFailed('KCHVM0035E', {'name': name,
+                                                     'err': e.message})
+
+            rollback.commitAll()
+
+        cb('OK', True)
+
+    @staticmethod
+    def _clone_update_mac_addresses(xml):
+        """Update the MAC addresses with new values in the XML descriptor of a
+        cloning domain.
+
+        The new MAC addresses will be generated randomly, and their values are
+        guaranteed to be distinct from the ones in the original VM.
+
+        Arguments:
+        xml -- The XML descriptor of the original domain.
+
+        Return:
+        The XML descriptor <xml> with the new MAC addresses instead of the
+        old ones.
+        """
+        old_macs = xpath_get_text(xml, XPATH_DOMAIN_MAC)
+        new_macs = []
+
+        for mac in old_macs:
+            while True:
+                new_mac = model.vmifaces.VMIfacesModel.random_mac()
+                # make sure the new MAC doesn't conflict with the original VM
+                # and with the new values on the new VM.
+                if new_mac not in (old_macs + new_macs):
+                    new_macs.append(new_mac)
+                    break
+
+            xml = xml_item_update(xml, XPATH_DOMAIN_MAC_BY_ADDRESS % mac,
+                                  new_mac, 'address')
+
+        return xml
+
+    def _clone_update_disks(self, xml, rollback):
+        """Clone disks from a virtual machine. The disks are copied as new
+        volumes and the new VM's XML is updated accordingly.
+
+        Arguments:
+        xml -- The XML descriptor of the original VM + new value for
+            "/domain/uuid".
+        rollback -- A rollback context so the new volumes can be removed if an
+            error occurs during the cloning operation.
+
+        Return:
+        The XML descriptor <xml> with the new disk paths instead of the
+        old ones.
+        """
+        # the UUID will be used to create the disk paths
+        uuid = xpath_get_text(xml, XPATH_DOMAIN_UUID)[0]
+        all_paths = xpath_get_text(xml, XPATH_DOMAIN_DISK)
+
+        vir_conn = self.conn.get()
+
+        for i, path in enumerate(all_paths):
+            try:
+                vir_orig_vol = vir_conn.storageVolLookupByPath(path)
+                vir_pool = vir_orig_vol.storagePoolLookupByVolume()
+
+                orig_pool_name = vir_pool.name().decode('utf-8')
+                orig_vol_name = vir_orig_vol.name().decode('utf-8')
+            except libvirt.libvirtError, e:
+                domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
+                raise OperationFailed('KCHVM0035E', {'name': domain_name,
+                                                     'err': e.message})
+
+            orig_pool = self.storagepool.lookup(orig_pool_name)
+            orig_vol = self.storagevolume.lookup(orig_pool_name, orig_vol_name)
+
+            new_pool_name = orig_pool_name
+            new_pool = orig_pool
+
+            if orig_pool['type'] in ['dir', 'netfs', 'logical']:
+                # if a volume in a pool 'dir', 'netfs' or 'logical' cannot hold
+                # a new volume with the same size, the pool 'default' should
+                # be used
+                if orig_vol['capacity'] > orig_pool['available']:
+                    kimchi_log.warning('storage pool \'%s\' doesn\'t have '
+                                       'enough free space to store image '
+                                       '\'%s\'; falling back to \'default\'',
+                                       orig_pool_name, path)
+                    new_pool_name = u'default'
+                    new_pool = self.storagepool.lookup(u'default')
+
+                    # ...and if even the pool 'default' cannot hold a new
+                    # volume, raise an exception
+                    if orig_vol['capacity'] > new_pool['available']:
+                        domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
+                        raise InvalidOperation('KCHVM0034E',
+                                               {'name': domain_name})
+
+            elif orig_pool['type'] in ['scsi', 'iscsi']:
+                # SCSI and iSCSI always fall back to the storage pool 'default'
+                kimchi_log.warning('cannot create new volume for clone in '
+                                   'storage pool \'%s\'; falling back to '
+                                   '\'default\'', orig_pool_name)
+                new_pool_name = u'default'
+                new_pool = self.storagepool.lookup(u'default')
+
+                # if the pool 'default' cannot hold a new volume, raise
+                # an exception
+                if orig_vol['capacity'] > new_pool['available']:
+                    domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
+                    raise InvalidOperation('KCHVM0034E', {'name': domain_name})
+
+            else:
+                # unexpected storage pool type
+                raise InvalidOperation('KCHPOOL0014E',
+                                       {'type': orig_pool['type']})
+
+            # new volume name: <UUID>-<loop-index>.<original extension>
+            # e.g. 1234-5678-9012-3456-0.img
+            ext = os.path.splitext(path)[1]
+            new_vol_name = u'%s-%d%s' % (uuid, i, ext)
+            task = self.storagevolume.clone(orig_pool_name, orig_vol_name,
+                                            new_name=new_vol_name)
+            self.task.wait(task['id'], 3600)  # 1 h
+
+            # get the new volume path and update the XML descriptor
+            new_vol = self.storagevolume.lookup(new_pool_name, new_vol_name)
+            xml = xml_item_update(xml, XPATH_DOMAIN_DISK_BY_FILE % path,
+                                  new_vol['path'], 'file')
+
+            # remove the new volume should an error occur later
+            rollback.prependDefer(self.storagevolume.delete, new_pool_name,
+                                  new_vol_name)
+
+        return xml
+
+    def _clone_update_objstore(self, old_uuid, new_uuid, rollback):
+        """Update Kimchi's object store with the cloning VM.
+
+        Arguments:
+        old_uuid -- The UUID of the original VM.
+        new_uuid -- The UUID of the new, clonning VM.
+        rollback -- A rollback context so the object store entry can be removed
+            if an error occurs during the cloning operation.
+        """
+        with self.objstore as session:
+            try:
+                vm = session.get('vm', old_uuid)
+                icon = vm['icon']
+                session.store('vm', new_uuid, {'icon': icon})
+            except NotFoundError:
+                # if we cannot find an object store entry for the original VM,
+                # don't store one with an empty value.
+                pass
+            else:
+                # we need to define a custom function to prepend to the
+                # rollback context because the object store session needs to be
+                # opened and closed correctly (i.e. "prependDefer" only
+                # accepts one command at a time but we need more than one to
+                # handle an object store).
+                def _rollback_objstore():
+                    with self.objstore as session_rb:
+                        session_rb.delete('vm', new_uuid, ignore_missing=True)
+
+                # remove the new object store entry should an error occur later
+                rollback.prependDefer(_rollback_objstore)
 
     def _build_access_elem(self, users, groups):
         access = E.access()
