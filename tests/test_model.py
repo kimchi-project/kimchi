@@ -492,6 +492,8 @@ class ModelTests(unittest.TestCase):
                 num = len(pools) + 1
 
                 inst.storagepools_create(poolDef)
+                if poolDef['type'] == 'dir':
+                    rollback.prependDefer(shutil.rmtree, poolDef['path'])
                 rollback.prependDefer(inst.storagepool_delete, name)
 
                 pools = inst.storagepools_get_list()
@@ -548,6 +550,7 @@ class ModelTests(unittest.TestCase):
                     'path': path,
                     'type': 'dir'}
             inst.storagepools_create(args)
+            rollback.prependDefer(shutil.rmtree, args['path'])
             rollback.prependDefer(inst.storagepool_delete, pool)
 
             self.assertRaises(InvalidOperation, inst.storagevolumes_get_list,
@@ -657,6 +660,7 @@ class ModelTests(unittest.TestCase):
                     'path': path,
                     'type': 'dir'}
             inst.storagepools_create(args)
+            rollback.prependDefer(shutil.rmtree, args['path'])
             rollback.prependDefer(inst.storagepool_delete, pool)
 
             inst.template_update('test', params)
@@ -1373,6 +1377,8 @@ class ModelTests(unittest.TestCase):
                     'path': '/tmp/kimchi-images',
                     'type': 'kimchi-iso'}
             inst.storagepools_create(args)
+            rollback.prependDefer(shutil.rmtree, '/tmp/kimchi-images')
+            rollback.prependDefer(shutil.rmtree, args['path'])
             rollback.prependDefer(inst.storagepool_deactivate, args['name'])
 
             time.sleep(1)
