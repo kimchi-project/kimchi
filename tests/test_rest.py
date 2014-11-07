@@ -22,6 +22,7 @@ import base64
 import json
 import os
 import random
+import re
 import requests
 import shutil
 import time
@@ -341,6 +342,10 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
+        # Clone a running VM
+        resp = self.request('/vms/test-vm/clone', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+
         # Force poweroff the VM
         resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
         vm = json.loads(self.request('/vms/test-vm').read())
@@ -350,6 +355,32 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         resp = self.request('/vms', req, 'POST')
         self.assertEquals(400, resp.status)
+
+        # Clone a VM
+        resp = self.request('/vms/test-vm/clone', '{}', 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        task = json.loads(self.request('/tasks/%s' % task['id'], '{}').read())
+        self.assertEquals('finished', task['status'])
+        clone_vm_name = task['target_uri'].split('/')[-1]
+        self.assertTrue(re.match(u'test-vm-clone-\d+', clone_vm_name))
+
+        resp = self.request('/vms/test-vm', '{}')
+        original_vm_info = json.loads(resp.read())
+        resp = self.request('/vms/%s' % clone_vm_name, '{}')
+        self.assertEquals(200, resp.status)
+        clone_vm_info = json.loads(resp.read())
+
+        self.assertNotEqual(original_vm_info['name'], clone_vm_info['name'])
+        del original_vm_info['name']
+        del clone_vm_info['name']
+
+        self.assertNotEqual(original_vm_info['uuid'], clone_vm_info['uuid'])
+        del original_vm_info['uuid']
+        del clone_vm_info['uuid']
+
+        self.assertEquals(original_vm_info, clone_vm_info)
 
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
