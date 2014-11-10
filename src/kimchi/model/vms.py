@@ -761,12 +761,17 @@ class VMModel(object):
                                   {'name': name, 'err': e.get_error_message()})
 
         for path in paths:
-            vol = conn.storageVolLookupByPath(path)
-            pool = vol.storagePoolLookupByVolume()
-            xml = pool.XMLDesc(0)
-            pool_type = xpath_get_text(xml, "/pool/@type")[0]
-            if pool_type not in READONLY_POOL_TYPE:
-                vol.delete(0)
+            try:
+                vol = conn.storageVolLookupByPath(path)
+                pool = vol.storagePoolLookupByVolume()
+                xml = pool.XMLDesc(0)
+                pool_type = xpath_get_text(xml, "/pool/@type")[0]
+                if pool_type not in READONLY_POOL_TYPE:
+                    vol.delete(0)
+            except Exception as e:
+                kimchi_log.error('Unable to get storage volume by path: %s' %
+                                 e.message)
+
         try:
             with self.objstore as session:
                 session.delete('vm', dom.UUIDString(), ignore_missing=True)
