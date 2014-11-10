@@ -24,11 +24,23 @@ PYTHON_VER=@PYTHON_VERSION@
 if [ $# -ne 0 ]; then
     ARGS="$@"
 else
-    ARGS="discover"
+    ARGS=`find -name "test_*.py" | xargs -I @ basename @ .py`
 fi
 
 if [ "$HAVE_UNITTEST" != "yes" -o "$PYTHON_VER" == "2.6" ]; then
-    PYTHONPATH=../src:./:../ unit2 $ARGS
+    CMD="unit2"
 else
-    PYTHONPATH=../src:../ python -m unittest $ARGS
+    CMD="python -m unittest"
 fi
+
+SORTED_LIST=($ARGS)
+for ((i=0;i<${#SORTED_LIST[@]};i++)); do
+
+    if [[ ${SORTED_LIST[$i]} == test_model* ]]; then
+        FIRST=${SORTED_LIST[$i]}
+        SORTED_LIST[$i]=${SORTED_LIST[0]}
+        SORTED_LIST[0]=$FIRST
+    fi
+done
+
+PYTHONPATH=../src:../ $CMD ${SORTED_LIST[@]}

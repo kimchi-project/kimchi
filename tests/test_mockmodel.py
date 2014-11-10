@@ -38,24 +38,29 @@ ssl_port = None
 fake_iso = None
 
 
+def setUpModule():
+    global host, port, ssl_port, model, test_server, fake_iso
+    cherrypy.request.headers = {'Accept': 'application/json'}
+    model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
+    patch_auth()
+    port = get_free_port('http')
+    ssl_port = get_free_port('https')
+    host = '127.0.0.1'
+    test_server = run_server(host, port, ssl_port, test_mode=True,
+                             model=model)
+    fake_iso = '/tmp/fake.iso'
+    open(fake_iso, 'w').close()
+
+
+def tearDown():
+    test_server.stop()
+    os.unlink('/tmp/obj-store-test')
+    os.unlink(fake_iso)
+
+
 class MockModelTests(unittest.TestCase):
     def setUp(self):
-        global host, port, ssl_port, model, test_server, fake_iso
-        cherrypy.request.headers = {'Accept': 'application/json'}
-        model = kimchi.mockmodel.MockModel('/tmp/obj-store-test')
-        patch_auth()
-        port = get_free_port('http')
-        ssl_port = get_free_port('https')
-        host = '127.0.0.1'
-        test_server = run_server(host, port, ssl_port, test_mode=True,
-                                 model=model)
-        fake_iso = '/tmp/fake.iso'
-        open(fake_iso, 'w').close()
-
-    def tearDown(self):
-        test_server.stop()
-        os.unlink('/tmp/obj-store-test')
-        os.unlink(fake_iso)
+        model.reset()
 
     def test_collection(self):
         c = Collection(model)
@@ -190,38 +195,37 @@ class MockModelTests(unittest.TestCase):
         request(host, ssl_port, '/templates', req, 'POST')
 
         def add_vm(name):
-
             # Create a VM
             req = json.dumps({'name': name, 'template': '/templates/test'})
             request(host, ssl_port, '/vms', req, 'POST')
 
-        add_vm('bca')
-        add_vm('xba')
-        add_vm('abc')
-        add_vm('cab')
+        vms = [u'abc', u'bca', u'cab', u'xba']
+        for vm in vms:
+            add_vm(vm)
 
-        self.assertEqual(model.vms_get_list(), ['abc', 'bca', 'cab', 'xba'])
+        vms.append(u'test')
+        self.assertEqual(model.vms_get_list(), sorted(vms))
 
     def test_vm_info(self):
         model.templates_create({'name': u'test',
                                 'cdrom': fake_iso})
-        model.vms_create({'name': u'test', 'template': '/templates/test'})
+        model.vms_create({'name': u'test-vm', 'template': '/templates/test'})
         vms = model.vms_get_list()
-        self.assertEquals(1, len(vms))
-        self.assertEquals(u'test', vms[0])
+        self.assertEquals(2, len(vms))
+        self.assertIn(u'test-vm', vms)
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access'))
+                    'access', 'persistent'))
 
         stats_keys = set(('cpu_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))
 
-        info = model.vm_lookup(u'test')
+        info = model.vm_lookup(u'test-vm')
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('shutoff', info['state'])
-        self.assertEquals('test', info['name'])
+        self.assertEquals('test-vm', info['name'])
         self.assertEquals(1024, info['memory'])
         self.assertEquals(1, info['cpus'])
         self.assertEquals('images/icon-vm.png', info['icon'])
