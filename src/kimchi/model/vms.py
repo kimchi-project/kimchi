@@ -650,7 +650,9 @@ class VMModel(object):
                 dom.undefine()
 
             root = ET.fromstring(new_xml)
-            root.remove(root.find('.currentMemory'))
+            currentMem = root.find('.currentMemory')
+            if currentMem is not None:
+                root.remove(currentMem)
             dom = conn.defineXML(ET.tostring(root, encoding="utf-8"))
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
