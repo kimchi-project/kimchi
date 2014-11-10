@@ -124,7 +124,6 @@ messages = {
     "KCHVMIF0008E": _("Specify type and network to update a virtual machine interface"),
 
     "KCHTMPL0001E": _("Template %(name)s already exists"),
-    "KCHTMPL0002E": _("Template %(name)s does not exist"),
     "KCHTMPL0003E": _("Network '%(network)s' specified for template %(template)s does not exist"),
     "KCHTMPL0004E": _("Storage pool %(pool)s specified for template %(template)s does not exist"),
     "KCHTMPL0005E": _("Storage pool %(pool)s specified for template %(template)s is not active"),
@@ -192,7 +191,6 @@ messages = {
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),
     "KCHVOL0003E": _("Unable to create storage volume %(volume)s because storage pool %(pool)s is not active"),
     "KCHVOL0004E": _("Specify %(item)s in order to create storage volume %(volume)s"),
-    "KCHVOL0005E": _("Unable to retrieve storage volume %(volume)s because storage pool %(pool)s is not active"),
     "KCHVOL0006E": _("Unable to list storage volumes because storage pool %(pool)s is not active"),
     "KCHVOL0007E": _("Unable to create storage volume %(name)s in storage pool %(pool)s. Details: %(err)s"),
     "KCHVOL0008E": _("Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"),
@@ -317,7 +315,6 @@ messages = {
     "KCHSNAP0004E": _("Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0005E": _("Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
-    "KCHSNAP0007E": _("Virtual machine '%(vm)s' does not have a current snapshot."),
     "KCHSNAP0008E": _("Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
 }

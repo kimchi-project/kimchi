@@ -26,9 +26,9 @@ import uuid
 from lxml import etree
 from lxml.builder import E
 
+from kimchi import imageinfo
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError, MissingParameter
-from kimchi.imageinfo import probe_image, probe_img_info
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from kimchi.xmlutils.disk import get_disk_xml
@@ -90,10 +90,11 @@ class VMTemplate(object):
             if 'base' in d.keys():
                 base_imgs.append(d)
                 if scan:
-                    distro, version = probe_image(d['base'])
+                    distro, version = imageinfo.probe_image(d['base'])
 
                 if 'size' not in d.keys():
-                    d['size'] = probe_img_info(d['base'])['virtual-size']
+                    d_info = imageinfo.probe_img_info(d['base'])
+                    d['size'] = d_info['virtual-size']
 
         if len(base_imgs) == 0:
             raise MissingParameter("KCHTMPL0016E")
@@ -201,7 +202,7 @@ class VMTemplate(object):
 
             if 'base' in d:
                 info['base'] = dict()
-                base_fmt = probe_img_info(d['base'])['format']
+                base_fmt = imageinfo.probe_img_info(d['base'])['format']
                 if base_fmt is None:
                     raise InvalidParameter("KCHTMPL0024E", {'path': d['base']})
                 info['base']['path'] = d['base']

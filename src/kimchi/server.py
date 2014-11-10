@@ -127,7 +127,7 @@ class Server(object):
         if hasattr(options, 'model'):
             model_instance = options.model
         elif options.test:
-            model_instance = mockmodel.get_mock_environment()
+            model_instance = mockmodel.MockModel()
         else:
             model_instance = model.Model()
 

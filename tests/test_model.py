@@ -43,6 +43,7 @@ from kimchi.exception import ImageFormatError, InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
 from kimchi.model import model
+from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
 
@@ -63,6 +64,10 @@ class ModelTests(unittest.TestCase):
         iso_gen.construct_fake_iso(self.kimchi_iso, True, '12.04', 'ubuntu')
 
     def tearDown(self):
+        # FIXME: Tests using 'test:///default' URI should be moved to
+        # test_rest or test_mockmodel to avoid overriding problems
+        LibvirtConnection._connections['test:///default'] = {}
+
         os.unlink(self.tmp_store)
         shutil.rmtree(self.iso_path)
 
