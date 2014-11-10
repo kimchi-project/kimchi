@@ -18,10 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
-import re
 import socket
 import urlparse
-from lxml import etree
+from lxml import etree, objectify
 from lxml.builder import E, ElementMaker
 
 from kimchi.exception import OperationFailed
@@ -136,17 +135,16 @@ def _kimchi_get_metadata_node(dom, tag):
     root = etree.fromstring(xml)
     kimchi = root.find("metadata/{%s}kimchi" % KIMCHI_META_URL)
     # remove the "kimchi" prefix of xml
-    # some developers may do not like to remove prefix by children iteration
-    # so here, use re to remove the "kimchi" prefix of xml
-    # and developers please don not define element like this:
-    #     <foo attr="foo<kimchi:abcd>foo"></foo>
     if kimchi is not None:
-        kimchi_xml = etree.tostring(kimchi)
-        ns_pattern = re.compile(" xmlns:.*?=((\".*?\")|('.*?'))")
-        kimchi_xml = ns_pattern.sub("", kimchi_xml)
-        prefix_pattern = re.compile("(?<=<)[^/]*?:|(?<=</).*?:")
-        kimchi_xml = prefix_pattern.sub("", kimchi_xml)
-        return etree.fromstring(kimchi_xml)
+        for elem in kimchi.getiterator():
+            if not hasattr(elem.tag, 'find'):
+                continue
+            i = elem.tag.find('}')
+            if i >= 0:
+                elem.tag = elem.tag[i+1:]
+
+        objectify.deannotate(kimchi, cleanup_namespaces=True)
+        return kimchi
     return None
 
 
