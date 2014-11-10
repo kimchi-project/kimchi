@@ -74,6 +74,7 @@ class TemplatesModel(object):
             except Exception:
                 raise InvalidParameter("KCHTMPL0004E", {'pool': pool_name,
                                                         'template': name})
+
             tmp_volumes = [disk['volume'] for disk in params.get('disks', [])
                            if 'volume' in disk]
             self.template_volume_validate(tmp_volumes, pool)
@@ -94,7 +95,9 @@ class TemplatesModel(object):
                 if name in session.get_list('template'):
                     raise InvalidOperation("KCHTMPL0001E", {'name': name})
                 session.store('template', name, t.info)
-        except Exception as e:
+        except InvalidOperation:
+            raise
+        except Exception, e:
             raise OperationFailed('KCHTMPL0020E', {'err': e.message})
 
         return name
