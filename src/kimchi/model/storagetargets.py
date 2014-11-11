@@ -30,7 +30,7 @@ from kimchi.utils import kimchi_log, patch_find_nfs_target
 class StorageTargetsModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-        self.caps = CapabilitiesModel()
+        self.caps = CapabilitiesModel(**kargs)
 
     def get_list(self, storage_server, _target_type=None, _server_port=None):
         target_list = list()

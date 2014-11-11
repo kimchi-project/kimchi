@@ -54,7 +54,7 @@ class StoragePoolsModel(object):
         self.objstore = kargs['objstore']
         self.scanner = Scanner(self._clean_scan)
         self.scanner.delete()
-        self.caps = CapabilitiesModel()
+        self.caps = CapabilitiesModel(**kargs)
         self.device = DeviceModel(**kargs)
 
     def get_list(self):

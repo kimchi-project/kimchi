@@ -36,6 +36,7 @@ from kimchi.utils import kimchi_log, run_command
 class VMHostDevsModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.caps = CapabilitiesModel(**kargs)
 
     def get_list(self, vmid):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -161,7 +162,7 @@ class VMHostDevsModel(object):
         # Due to libvirt limitation, we don't support live assigne device to
         # vfio driver.
         driver = ('vfio' if DOM_STATE_MAP[dom.info()[0]] == "shutoff" and
-                  CapabilitiesModel().kernel_vfio else 'kvm')
+                  self.caps.kernel_vfio else 'kvm')
 
         # Attach all PCI devices in the same IOMMU group
         dev_model = DeviceModel(conn=self.conn)

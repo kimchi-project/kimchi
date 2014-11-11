@@ -23,6 +23,7 @@ import libvirt
 from lxml import etree, objectify
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
+from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.xmlutils.interface import get_iface_xml
 
@@ -30,6 +31,7 @@ from kimchi.xmlutils.interface import get_iface_xml
 class VMIfacesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.caps = CapabilitiesModel(**kargs)
 
     def get_list(self, vm):
         macs = []
@@ -57,7 +59,8 @@ class VMIfacesModel(object):
             if params['mac'] not in macs:
                 break
 
-        os_distro, os_version = VMModel.vm_get_os_metadata(dom)
+        os_data = VMModel.vm_get_os_metadata(dom, self.caps.metadata_support)
+        os_distro, os_version = os_data
         xml = get_iface_xml(params, conn.getInfo()[0], os_distro, os_version)
         dom.attachDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
 

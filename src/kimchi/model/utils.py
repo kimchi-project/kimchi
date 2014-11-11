@@ -24,7 +24,6 @@ from lxml import etree, objectify
 from lxml.builder import E, ElementMaker
 
 from kimchi.exception import OperationFailed
-from kimchi.model.config import CapabilitiesModel
 from kimchi.model.featuretests import FeatureTests
 
 KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
@@ -41,9 +40,9 @@ def get_vm_name(vm_name, t_name, name_list):
     raise OperationFailed("KCHUTILS0003E")
 
 
-def check_remote_disk_path(path):
+def check_remote_disk_path(path, qemu_stream_dns):
     hostname = urlparse.urlparse(path).hostname
-    if hostname is not None and not CapabilitiesModel().qemu_stream_dns:
+    if hostname is not None and not qemu_stream_dns:
         ip = socket.gethostbyname(hostname)
         return path.replace(hostname, ip)
 
@@ -107,10 +106,10 @@ def libvirt_get_kimchi_metadata_node(dom, mode="current"):
         FeatureTests.enable_libvirt_error_logging()
 
 
-def set_metadata_node(dom, node, mode="all"):
-    if CapabilitiesModel().metadata_support:
+def set_metadata_node(dom, node, metadata_support, mode="all"):
+    if metadata_support:
         kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
-        kimchi = E.kimchi() if kimchi is None else kimchi
+        kimchi = E.metadata(E.kimchi()) if kimchi is None else kimchi
 
         update_node(kimchi, node)
         kimchi_xml = etree.tostring(kimchi)
@@ -148,8 +147,8 @@ def _kimchi_get_metadata_node(dom, tag):
     return None
 
 
-def get_metadata_node(dom, tag, mode="current"):
-    if CapabilitiesModel().metadata_support:
+def get_metadata_node(dom, tag, metadata_support, mode="current"):
+    if metadata_support:
         kimchi = libvirt_get_kimchi_metadata_node(dom, mode)
     else:
         # FIXME remove this code when all distro libvirt supports metadata

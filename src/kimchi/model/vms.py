@@ -79,7 +79,7 @@ class VMsModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
-        self.caps = CapabilitiesModel()
+        self.caps = CapabilitiesModel(**kargs)
         self.guests_stats_thread = BackgroundTask(GUESTS_STATS_INTERVAL,
                                                   self._update_guests_stats)
         self.guests_stats_thread.start()
@@ -242,7 +242,8 @@ class VMsModel(object):
             raise OperationFailed("KCHVM0007E", {'name': name,
                                                  'err': e.get_error_message()})
 
-        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info)
+        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info,
+                                      self.caps.metadata_support)
 
         return name
 
@@ -260,6 +261,7 @@ class VMModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.caps = CapabilitiesModel(**kargs)
         self.vmscreenshot = VMScreenshotModel(**kargs)
         self.users = import_class('kimchi.model.host.UsersModel')(**kargs)
         self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
@@ -562,7 +564,8 @@ class VMModel(object):
         if users is None and groups is None:
             return
 
-        access_xml = (get_metadata_node(dom, "access") or
+        access_xml = (get_metadata_node(dom, "access",
+                                        self.caps.metadata_support) or
                       """<access></access>""")
         old_users = xpath_get_text(access_xml, "/access/user")
         old_groups = xpath_get_text(access_xml, "/access/group")
@@ -570,22 +573,23 @@ class VMModel(object):
         groups = old_groups if groups is None else groups
 
         node = self._build_access_elem(users, groups)
-        set_metadata_node(dom, node)
+        set_metadata_node(dom, node, self.caps.metadata_support)
 
     @staticmethod
-    def vm_get_os_metadata(dom):
-        os_xml = get_metadata_node(dom, "os") or """<os></os>"""
+    def vm_get_os_metadata(dom, metadata_support):
+        os_xml = (get_metadata_node(dom, "os", metadata_support) or
+                  """<os></os>""")
         os_elem = ET.fromstring(os_xml)
         return (os_elem.attrib.get("version"), os_elem.attrib.get("distro"))
 
     @staticmethod
-    def vm_update_os_metadata(dom, params):
+    def vm_update_os_metadata(dom, params, metadata_support):
         distro = params.get("os_distro")
         version = params.get("os_version")
         if distro is None:
             return
         os_elem = E.os({"distro": distro, "version": version})
-        set_metadata_node(dom, os_elem)
+        set_metadata_node(dom, os_elem, metadata_support)
 
     def _update_graphics(self, dom, xml, params):
         root = objectify.fromstring(xml)
@@ -701,7 +705,8 @@ class VMModel(object):
         res['io_throughput'] = vm_stats.get('disk_io', 0)
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
 
-        access_xml = (get_metadata_node(dom, "access") or
+        access_xml = (get_metadata_node(dom, "access",
+                                        self.caps.metadata_support) or
                       """<access></access>""")
         users = xpath_get_text(access_xml, "/access/user")
         groups = xpath_get_text(access_xml, "/access/group")
