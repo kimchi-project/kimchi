@@ -46,6 +46,7 @@
                     if(option.value === value) {
                         item.addClass(selectedClass);
                         that.label.text(option.label);
+                        that.target.val(option.value);
                     }
                     that.listControl.append(item);
                 });
