@@ -23,6 +23,7 @@ from lxml import etree
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
 from kimchi.exception import OperationFailed
+from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.model.utils import check_remote_disk_path, get_vm_config_flag
@@ -35,9 +36,9 @@ from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 HOTPLUG_TYPE = ['scsi', 'virtio']
 
 
-def _get_device_bus(dev_type, dom):
+def _get_device_bus(dev_type, dom, metadata_support):
     try:
-        version, distro = VMModel.vm_get_os_metadata(dom)
+        version, distro = VMModel.vm_get_os_metadata(dom, metadata_support)
     except:
         version, distro = ('unknown', 'unknown')
     return lookup(distro, version)[dev_type+'_bus']
@@ -47,6 +48,7 @@ class VMStoragesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.caps = CapabilitiesModel(**kargs)
 
     def _get_available_bus_address(self, bus_type, vm_name):
         if bus_type not in ['ide']:
@@ -82,7 +84,8 @@ class VMStoragesModel(object):
             raise InvalidParameter("KCHVMSTOR0017E")
 
         dom = VMModel.get_vm(vm_name, self.conn)
-        params['bus'] = _get_device_bus(params['type'], dom)
+        params['bus'] = _get_device_bus(params['type'], dom,
+                                        self.caps.metadata_support)
         params['format'] = 'raw'
 
         dev_list = [dev for dev, bus in get_vm_disks(dom).iteritems()
@@ -128,7 +131,8 @@ class VMStoragesModel(object):
             params['disk'] = vol_info['type']
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
-        params['path'] = check_remote_disk_path(params['path'])
+        params['path'] = check_remote_disk_path(params['path'],
+                                                self.caps.qemu_stream_dns)
 
         # Add device to VM
         dev, xml = get_disk_xml(params)
@@ -157,6 +161,7 @@ class VMStorageModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.caps = CapabilitiesModel(**kargs)
 
     def lookup(self, vm_name, dev_name):
         # Retrieve disk xml and format return dict
@@ -210,7 +215,8 @@ class VMStorageModel(object):
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
 
-        params['path'] = check_remote_disk_path(params.get('path', ''))
+        params['path'] = check_remote_disk_path(params.get('path', ''),
+                                                self.caps.qemu_stream_dns)
 
         old_disk_path = dev_info['path']
         new_disk_path = params['path']

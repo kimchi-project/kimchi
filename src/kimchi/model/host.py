@@ -282,6 +282,7 @@ class PartitionModel(object):
 class DevicesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.caps = CapabilitiesModel(**kargs)
         self.cap_map = \
             {'net': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_NET,
              'pci': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_PCI_DEV,
@@ -343,7 +344,7 @@ class DevicesModel(object):
     def _get_devices_fc_host(self):
         conn = self.conn.get()
         # Libvirt < 1.0.5 does not support fc_host capability
-        if not CapabilitiesModel().fc_host_support:
+        if not self.caps.fc_host_support:
             ret = []
             scsi_hosts = self._get_devices_with_capability('scsi_host')
             for host in scsi_hosts:
