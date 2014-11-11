@@ -27,6 +27,8 @@ from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.model.utils import check_remote_disk_path, get_vm_config_flag
 from kimchi.osinfo import lookup
+from kimchi.model.diskutils import get_disk_ref_cnt, set_disk_ref_cnt
+from kimchi.utils import kimchi_log
 from kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
@@ -73,6 +75,7 @@ class VMStoragesModel(object):
             return dict(address=address)
 
     def create(self, vm_name, params):
+        vol_model = None
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         if not ('vol' in params) ^ ('path' in params):
@@ -98,9 +101,9 @@ class VMStoragesModel(object):
         if params.get('vol'):
             try:
                 pool = params['pool']
-                vol_info = StorageVolumeModel(
-                    conn=self.conn,
-                    objstore=self.objstore).lookup(pool, params['vol'])
+                vol_model = StorageVolumeModel(conn=self.conn,
+                                               objstore=self.objstore)
+                vol_info = vol_model.lookup(pool, params['vol'])
             except KeyError:
                 raise InvalidParameter("KCHVMSTOR0012E")
             except Exception as e:
@@ -135,6 +138,14 @@ class VMStoragesModel(object):
             dom.attachDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
+
+        # Don't put a try-block here. Let the exception be raised. If we
+        #   allow disks ref_cnts to be out of sync, data corruption could
+        #   occour if a disk is added to two guests unknowingly.
+        if params.get('vol'):
+            set_disk_ref_cnt(self.objstore, params['path'],
+                             vol_info['ref_cnt'] + 1)
+
         return dev
 
     def get_list(self, vm_name):
@@ -145,6 +156,7 @@ class VMStoragesModel(object):
 class VMStorageModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
 
     def lookup(self, vm_name, dev_name):
         # Retrieve disk xml and format return dict
@@ -152,28 +164,46 @@ class VMStorageModel(object):
         return get_vm_disk_info(dom, dev_name)
 
     def delete(self, vm_name, dev_name):
-        # Get storage device xml
-        dom = VMModel.get_vm(vm_name, self.conn)
+        conn = self.conn.get()
+
         try:
             bus_type = self.lookup(vm_name, dev_name)['bus']
+            dom = conn.lookupByName(vm_name)
         except NotFoundError:
             raise
 
-        dom = VMModel.get_vm(vm_name, self.conn)
         if (bus_type not in HOTPLUG_TYPE and
                 DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
 
         try:
-            conn = self.conn.get()
-            dom = conn.lookupByName(vm_name)
             disk = get_device_node(dom, dev_name)
+            path = get_vm_disk_info(dom, dev_name)['path']
+            if path is None or len(path) < 1:
+                path = self.lookup(vm_name, dev_name)['path']
+            # This has to be done before it's detached. If it wasn't
+            #   in the obj store, its ref count would have been updated
+            #   by get_disk_ref_cnt()
+            if path is not None:
+                ref_cnt = get_disk_ref_cnt(self.objstore, self.conn, path)
+            else:
+                kimchi_log.error("Unable to decrement volume ref_cnt on"
+                                 " delete because no path could be found.")
             dom.detachDeviceFlags(etree.tostring(disk),
                                   get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
+        if ref_cnt is not None and ref_cnt > 0:
+            set_disk_ref_cnt(self.objstore, path, ref_cnt - 1)
+        else:
+            kimchi_log.error("Unable to decrement %s:%s ref_cnt on delete."
+                             % (vm_name, dev_name))
+
     def update(self, vm_name, dev_name, params):
+        old_disk_ref_cnt = None
+        new_disk_ref_cnt = None
+
         dom = VMModel.get_vm(vm_name, self.conn)
 
         dev_info = self.lookup(vm_name, dev_name)
@@ -181,6 +211,18 @@ class VMStorageModel(object):
             raise InvalidOperation("KCHVMSTOR0006E")
 
         params['path'] = check_remote_disk_path(params.get('path', ''))
+
+        old_disk_path = dev_info['path']
+        new_disk_path = params['path']
+        if new_disk_path != old_disk_path:
+            # An empty path means a CD-ROM was empty or ejected:
+            if old_disk_path is not '':
+                old_disk_ref_cnt = get_disk_ref_cnt(
+                    self.objstore, self.conn, old_disk_path)
+            if new_disk_path is not '':
+                new_disk_ref_cnt = get_disk_ref_cnt(
+                    self.objstore, self.conn, new_disk_path)
+
         dev_info.update(params)
         dev, xml = get_disk_xml(dev_info)
 
@@ -188,4 +230,16 @@ class VMStorageModel(object):
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
+
+        try:
+            if old_disk_ref_cnt is not None and \
+               old_disk_ref_cnt > 0:
+                set_disk_ref_cnt(self.objstore, old_disk_path,
+                                 old_disk_ref_cnt - 1)
+            if new_disk_ref_cnt is not None:
+                set_disk_ref_cnt(self.objstore, new_disk_path,
+                                 new_disk_ref_cnt + 1)
+        except Exception as e:
+            kimchi_log.error("Unable to update dev ref_cnt on update due to"
+                             " %s:" % e.message)
         return dev
