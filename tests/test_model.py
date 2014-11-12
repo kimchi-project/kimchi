@@ -109,10 +109,68 @@ class ModelTests(unittest.TestCase):
             self.assertTrue('kimchi-vm' in vms)
 
             inst.vm_start('kimchi-vm')
-            rollback.prependDefer(inst.vm_poweroff, 'kimchi-vm')
 
             info = inst.vm_lookup('kimchi-vm')
             self.assertEquals('running', info['state'])
+
+            self.assertRaises(InvalidOperation, inst.vmsnapshots_create,
+                              u'kimchi-vm')
+
+            inst.vm_poweroff(u'kimchi-vm')
+            vm = inst.vm_lookup(u'kimchi-vm')
+
+            self.assertRaises(NotFoundError, inst.currentvmsnapshot_lookup,
+                              u'kimchi-vm')
+
+            params = {'name': u'mysnap'}
+            task = inst.vmsnapshots_create(u'kimchi-vm', params)
+            rollback.prependDefer(inst.vmsnapshot_delete,
+                                  u'kimchi-vm', params['name'])
+            inst.task_wait(task['id'])
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
+
+            self.assertRaises(NotFoundError, inst.vmsnapshot_lookup,
+                              u'kimchi-vm', u'foobar')
+
+            snap = inst.vmsnapshot_lookup(u'kimchi-vm', params['name'])
+            self.assertTrue(int(time.time()) >= int(snap['created']))
+            self.assertEquals(vm['state'], snap['state'])
+            self.assertEquals(params['name'], snap['name'])
+            self.assertEquals(u'', snap['parent'])
+
+            snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
+            self.assertEquals([params['name']], snaps)
+
+            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            self.assertEquals(snap, current_snap)
+
+            task = inst.vmsnapshots_create(u'kimchi-vm')
+            snap_name = task['target_uri'].split('/')[-1]
+            rollback.prependDefer(inst.vmsnapshot_delete,
+                                  u'kimchi-vm', snap_name)
+            inst.task_wait(task['id'])
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
+
+            snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
+            self.assertEquals(sorted([params['name'], snap_name],
+                              key=unicode.lower), snaps)
+
+            snap = inst.vmsnapshot_lookup(u'kimchi-vm', snap_name)
+            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            self.assertEquals(snap, current_snap)
+
+            snap = inst.vmsnapshot_lookup(u'kimchi-vm', params['name'])
+            inst.vmsnapshot_revert(u'kimchi-vm', params['name'])
+            vm = inst.vm_lookup(u'kimchi-vm')
+            self.assertEquals(vm['state'], snap['state'])
+
+            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            self.assertEquals(params['name'], current_snap['name'])
+
+            self.assertRaises(NotFoundError, inst.vmsnapshot_delete,
+                              u'kimchi-vm', u'foobar')
 
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-vm' in vms)
