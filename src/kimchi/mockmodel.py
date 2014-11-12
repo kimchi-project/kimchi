@@ -1025,6 +1025,20 @@ class MockModel(object):
         except KeyError:
             raise NotFoundError('KCHSNAP0003E', {'vm': vm_name, 'name': name})
 
+    def vmsnapshot_revert(self, vm_name, name):
+        vm = self._get_vm(vm_name)
+
+        try:
+            snap = vm.snapshots[name]
+        except KeyError:
+            raise NotFoundError('KCHSNAP0003E', {'vm': vm_name, 'name': name})
+
+        current_snapshot_name = self.currentvmsnapshot_lookup(vm_name)['name']
+        vm.snapshots[current_snapshot_name].current = False
+        snap.current = True
+
+        vm.info['state'] = snap.info['state']
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')

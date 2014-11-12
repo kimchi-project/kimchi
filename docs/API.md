@@ -206,6 +206,11 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * state: The corresponding domain's state when the snapshot was created.
 * **DELETE**: Delete snapshot. If the snapshot has any children, they will be
               merged automatically with the snapshot's parent.
+* **POST**: See "Snapshot actions (POST)"
+
+**Snapshot Actions (POST):**
+
+* revert: Revert the domain to the given snapshot.
 
 ### Sub-resource: Current snapshot
 **URI:** /vms/*:name*/snapshots/current

@@ -39,6 +39,7 @@ class VMSnapshot(Resource):
         self.ident = ident
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/snapshots/%s'
+        self.revert = self.generate_action_handler('revert')
 
     @property
     def data(self):
