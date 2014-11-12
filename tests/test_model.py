@@ -122,10 +122,9 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(NotFoundError, inst.currentvmsnapshot_lookup,
                               u'kimchi-vm')
 
+            # this snapshot should be deleted when its VM is deleted
             params = {'name': u'mysnap'}
             task = inst.vmsnapshots_create(u'kimchi-vm', params)
-            rollback.prependDefer(inst.vmsnapshot_delete,
-                                  u'kimchi-vm', params['name'])
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
