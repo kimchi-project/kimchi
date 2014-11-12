@@ -218,6 +218,8 @@ class MockModel(object):
             new_path = u'%s-%d%s' % (basename, i, ext)
             new_vm.storagedevices[storage_name].path = new_path
 
+        new_vm.snapshots = copy.deepcopy(vm.snapshots)
+
         self._mock_vms[new_name] = new_vm
 
         cb('OK', True)
