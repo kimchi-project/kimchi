@@ -1262,6 +1262,8 @@ class ModelTests(unittest.TestCase):
         name = all_vm_names[0]
 
         original_vm = inst.vm_lookup(name)
+        if original_vm['state'] == u'shutoff':
+            inst.vm_start(name)
 
         # the VM 'test' should be running by now, so we can't clone it yet
         self.assertRaises(InvalidParameter, inst.vm_clone, name)
@@ -1274,6 +1276,8 @@ class ModelTests(unittest.TestCase):
             clone_name = task['target_uri'].split('/')[-1]
             rollback.prependDefer(inst.vm_delete, clone_name)
             inst.task_wait(task['id'])
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
 
             # update the original VM info because its state has changed
             original_vm = inst.vm_lookup(name)
