@@ -194,6 +194,16 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * name: The snapshot name (optional, defaults to a value based on the
             current time).
 
+### Sub-resource: Snapshot
+**URI:** /vms/*:name*/snapshots/*:snapshot*
+* **GET**: Retrieve snapshot information.
+    * created: The time when the snapshot was created
+               (in seconds, since the epoch).
+    * name: The snapshot name.
+    * parent: The name of the parent snapshot, or an empty string if there is
+              no parent.
+    * state: The corresponding domain's state when the snapshot was created.
+
 ### Collection: Templates
 
 **URI:** /templates

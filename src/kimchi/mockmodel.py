@@ -996,6 +996,14 @@ class MockModel(object):
 
         cb('OK', True)
 
+    def vmsnapshot_lookup(self, vm_name, name):
+        vm = self._get_vm(vm_name)
+
+        try:
+            return vm.snapshots[name].info
+        except KeyError:
+            raise NotFoundError('KCHSNAP0003E', {'vm': vm_name, 'name': name})
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')

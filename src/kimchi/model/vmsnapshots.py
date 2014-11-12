@@ -21,6 +21,7 @@ import time
 
 import libvirt
 import lxml.etree as ET
+from lxml import objectify
 from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, NotFoundError, OperationFailed
@@ -89,3 +90,45 @@ class VMSnapshotsModel(object):
                                    'err': e.message})
 
         cb('OK', True)
+
+
+class VMSnapshotModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+
+    def lookup(self, vm_name, name):
+        vir_snap = self.get_vmsnapshot(vm_name, name)
+
+        try:
+            snap_xml_str = vir_snap.getXMLDesc(0).decode('utf-8')
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHSNAP0004E', {'name': name,
+                                                   'vm': vm_name,
+                                                   'err': e.message})
+
+        snap_xml = objectify.fromstring(snap_xml_str)
+
+        try:
+            parent = unicode(snap_xml.parent.name)
+        except AttributeError:
+            parent = u''
+
+        return {'created': unicode(snap_xml.creationTime),
+                'name': unicode(snap_xml.name),
+                'parent': parent,
+                'state': unicode(snap_xml.state)}
+
+    def get_vmsnapshot(self, vm_name, name):
+        vir_dom = VMModel.get_vm(vm_name, self.conn)
+
+        try:
+            return vir_dom.snapshotLookupByName(name)
+        except libvirt.libvirtError, e:
+            code = e.get_error_code()
+            if code == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
+                raise NotFoundError('KCHSNAP0003E', {'name': name,
+                                                     'vm': vm_name})
+            else:
+                raise OperationFailed('KCHSNAP0004E', {'name': name,
+                                                       'vm': vm_name,
+                                                       'err': e.message})

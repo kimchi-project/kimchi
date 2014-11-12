@@ -396,6 +396,18 @@ class RestTests(unittest.TestCase):
         task = json.loads(self.request('/tasks/%s' % task['id']).read())
         self.assertEquals('finished', task['status'])
 
+        # Look up a snapshot
+        resp = self.request('/vms/test-vm/snapshots/foobar', '{}', 'GET')
+        self.assertEquals(404, resp.status)
+        resp = self.request('/vms/test-vm/snapshots/%s' % params['name'], '{}',
+                            'GET')
+        self.assertEquals(200, resp.status)
+        snap = json.loads(resp.read())
+        self.assertTrue(int(time.time()) >= int(snap['created']))
+        self.assertEquals(params['name'], snap['name'])
+        self.assertEquals(u'', snap['parent'])
+        self.assertEquals(u'shutoff', snap['state'])
+
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)
