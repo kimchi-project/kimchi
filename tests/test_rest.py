@@ -408,6 +408,24 @@ class RestTests(unittest.TestCase):
         self.assertEquals(u'', snap['parent'])
         self.assertEquals(u'shutoff', snap['state'])
 
+        resp = self.request('/vms/test-vm/snapshots', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        snaps = json.loads(resp.read())
+        self.assertEquals(1, len(snaps))
+
+        resp = self.request('/vms/test-vm/snapshots', '{}', 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        resp = self.request('/tasks/%s' % task['id'], '{}', 'GET')
+        task = json.loads(resp.read())
+        self.assertEquals('finished', task['status'])
+
+        resp = self.request('/vms/test-vm/snapshots', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        snaps = json.loads(resp.read())
+        self.assertEquals(2, len(snaps))
+
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)

@@ -996,6 +996,10 @@ class MockModel(object):
 
         cb('OK', True)
 
+    def vmsnapshots_get_list(self, vm_name):
+        vm = self._get_vm(vm_name)
+        return sorted(vm.snapshots.keys(), key=unicode.lower)
+
     def vmsnapshot_lookup(self, vm_name, name):
         vm = self._get_vm(vm_name)
 

@@ -91,6 +91,17 @@ class VMSnapshotsModel(object):
 
         cb('OK', True)
 
+    def get_list(self, vm_name):
+        vir_dom = VMModel.get_vm(vm_name, self.conn)
+
+        try:
+            vir_snaps = vir_dom.listAllSnapshots(0)
+            return sorted([s.getName().decode('utf-8') for s in vir_snaps],
+                          key=unicode.lower)
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHSNAP0005E',
+                                  {'vm': vm_name, 'err': e.message})
+
 
 class VMSnapshotModel(object):
     def __init__(self, **kargs):
