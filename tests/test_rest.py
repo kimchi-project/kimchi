@@ -346,6 +346,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/test-vm/clone', '{}', 'POST')
         self.assertEquals(400, resp.status)
 
+        # Create a snapshot on a running VM
+        resp = self.request('/vms/test-vm/snapshots', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+
         # Force poweroff the VM
         resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
         vm = json.loads(self.request('/vms/test-vm').read())
@@ -381,6 +385,16 @@ class RestTests(unittest.TestCase):
         del clone_vm_info['uuid']
 
         self.assertEquals(original_vm_info, clone_vm_info)
+
+        # Create a snapshot on a stopped VM
+        params = {'name': 'test-snap'}
+        resp = self.request('/vms/test-vm/snapshots', json.dumps(params),
+                            'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        task = json.loads(self.request('/tasks/%s' % task['id']).read())
+        self.assertEquals('finished', task['status'])
 
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')

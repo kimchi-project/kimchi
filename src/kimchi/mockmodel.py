@@ -965,6 +965,37 @@ class MockModel(object):
             info['model'] = params['model']
         return mac
 
+    def vmsnapshots_create(self, vm_name, params):
+        name = params.get('name', unicode(int(time.time())))
+
+        vm = self._get_vm(vm_name)
+        if vm.info['state'] != 'shutoff':
+            raise InvalidOperation('KCHSNAP0001E', {'vm': vm_name})
+
+        params = {'vm_name': vm_name, 'name': name}
+        taskid = self.add_task(u'/vms/%s/snapshots/%s' % (vm_name, name),
+                               self._vmsnapshots_create_task, params)
+        return self.task_lookup(taskid)
+
+    def _vmsnapshots_create_task(self, cb, params):
+        vm_name = params['vm_name']
+        name = params['name']
+
+        vm = self._get_vm(vm_name)
+
+        parent = u''
+        for sn, s in vm.snapshots.iteritems():
+            if s.current:
+                s.current = False
+                parent = sn
+                break
+
+        snap_info = {'parent': parent,
+                     'state': vm.info['state']}
+        vm.snapshots[name] = MockVMSnapshot(vm_name, name, snap_info)
+
+        cb('OK', True)
+
     def tasks_get_list(self):
         with self.objstore as session:
             return session.get_list('task')
@@ -1230,6 +1261,7 @@ class MockVM(object):
         ifaces = [MockVMIface(net) for net in self.networks]
         self.storagedevices = {}
         self.ifaces = dict([(iface.info['mac'], iface) for iface in ifaces])
+        self.snapshots = {}
 
         stats = {'cpu_utilization': 20,
                  'net_throughput': 35,
@@ -1579,6 +1611,19 @@ class MockDevices(object):
                            'name': 'scsi_host2',
                            'parent': 'computer',
                            'path': '/sys/devices/pci0000:00/0000:40:00.0/2'}}
+
+
+class MockVMSnapshot(object):
+    def __init__(self, vm_name, name, params={}):
+        self.vm = vm_name
+        self.name = name
+        self.current = True
+
+        self.info = {'created': params.get('created',
+                                           unicode(int(time.time()))),
+                     'name': name,
+                     'parent': params.get('parent', u''),
+                     'state': params.get('state', u'shutoff')}
 
 
 def get_mock_environment():
