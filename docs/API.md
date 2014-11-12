@@ -193,6 +193,7 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **POST**: Create a new snapshot on a VM.
     * name: The snapshot name (optional, defaults to a value based on the
             current time).
+* **GET**: Retrieve a list of snapshots on a VM.
 
 ### Sub-resource: Snapshot
 **URI:** /vms/*:name*/snapshots/*:snapshot*
