@@ -426,6 +426,16 @@ class RestTests(unittest.TestCase):
         snaps = json.loads(resp.read())
         self.assertEquals(2, len(snaps))
 
+        # Delete a snapshot
+        resp = self.request('/vms/test-vm/snapshots/foobar', '{}', 'DELETE')
+        self.assertEquals(404, resp.status)
+        resp = self.request('/vms/test-vm/snapshots/%s' % params['name'],
+                            '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+        resp = self.request('/vms/test-vm/snapshots/%s' % params['name'],
+                            '{}', 'GET')
+        self.assertEquals(404, resp.status)
+
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)

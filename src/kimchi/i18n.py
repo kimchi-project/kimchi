@@ -316,4 +316,5 @@ messages = {
     "KCHSNAP0003E": _("Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."),
     "KCHSNAP0004E": _("Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0005E": _("Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"),
+    "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
 }
