@@ -138,6 +138,16 @@ class VMSnapshotModel(object):
                                                    'vm': vm_name,
                                                    'err': e.message})
 
+    def revert(self, vm_name, name):
+        try:
+            vir_dom = VMModel.get_vm(vm_name, self.conn)
+            vir_snap = self.get_vmsnapshot(vm_name, name)
+            vir_dom.revertToSnapshot(vir_snap, 0)
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHSNAP0009E', {'name': name,
+                                                   'vm': vm_name,
+                                                   'err': e.message})
+
     def get_vmsnapshot(self, vm_name, name):
         vir_dom = VMModel.get_vm(vm_name, self.conn)
 

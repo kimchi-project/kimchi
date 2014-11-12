@@ -319,4 +319,5 @@ messages = {
     "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0007E": _("Virtual machine '%(vm)s' does not have a current snapshot."),
     "KCHSNAP0008E": _("Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: %(err)s"),
+    "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
 }

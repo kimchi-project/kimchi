@@ -443,6 +443,20 @@ class RestTests(unittest.TestCase):
         snap = json.loads(resp.read())
         self.assertEquals(snap_name, snap['name'])
 
+        # Revert to snapshot
+        resp = self.request('/vms/test-vm/snapshots/%s/revert' %
+                            params['name'], '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        snap = json.loads(resp.read())
+        resp = self.request('/vms/test-vm', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        vm = json.loads(resp.read())
+        self.assertEquals(vm['state'], snap['state'])
+        resp = self.request('/vms/test-vm/snapshots/current', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        current_snap = json.loads(resp.read())
+        self.assertEquals(snap, current_snap)
+
         # Delete a snapshot
         resp = self.request('/vms/test-vm/snapshots/foobar', '{}', 'DELETE')
         self.assertEquals(404, resp.status)
