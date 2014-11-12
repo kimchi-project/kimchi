@@ -188,6 +188,11 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * type: The type of the assigned device.
 * **DELETE**: Detach the host device from VM.
 
+### Sub-collection: Virtual Machine Snapshots
+**URI:** /vms/*:name*/snapshots
+* **POST**: Create a new snapshot on a VM.
+    * name: The snapshot name (optional, defaults to a value based on the
+            current time).
 
 ### Collection: Templates
 

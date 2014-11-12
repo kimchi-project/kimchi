@@ -310,4 +310,7 @@ messages = {
     "KCHREPOS0026E": _("Unable to add repository. Details: '%(err)s'"),
     "KCHREPOS0027E": _("Unable to remove repository. Details: '%(err)s'"),
     "KCHREPOS0028E": _("Configuration items: '%(items)s' are not supported by repository manager"),
+
+    "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."),
+    "KCHSNAP0002E": _("Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
 }
