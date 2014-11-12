@@ -434,8 +434,8 @@ class RestTests(unittest.TestCase):
 
         resp = self.request('/vms/test-vm/snapshots', '{}', 'GET')
         self.assertEquals(200, resp.status)
-        snaps = json.loads(resp.read())
-        self.assertEquals(2, len(snaps))
+        orig_snaps = json.loads(resp.read())
+        self.assertEquals(2, len(orig_snaps))
 
         # Look up current snapshot (the one created above)
         resp = self.request('/vms/test-vm/snapshots/current', '{}', 'GET')
@@ -456,6 +456,21 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         current_snap = json.loads(resp.read())
         self.assertEquals(snap, current_snap)
+
+        # Clone a VM with snapshot
+        resp = self.request('/vms/test-vm/clone', '{}', 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        resp = self.request('/tasks/%s' % task['id'], '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        task = json.loads(resp.read())
+        self.assertEquals('finished', task['status'])
+        vm_name = task['target_uri'].split('/')[-1]
+        resp = self.request('/vms/%s/snapshots' % vm_name, '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        clone_snaps = json.loads(resp.read())
+        self.assertEquals(orig_snaps, clone_snaps)
 
         # Delete a snapshot
         resp = self.request('/vms/test-vm/snapshots/foobar', '{}', 'DELETE')
