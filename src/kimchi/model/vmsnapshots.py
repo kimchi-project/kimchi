@@ -152,3 +152,24 @@ class VMSnapshotModel(object):
                 raise OperationFailed('KCHSNAP0004E', {'name': name,
                                                        'vm': vm_name,
                                                        'err': e.message})
+
+
+class CurrentVMSnapshotModel(object):
+    def __init__(self, **kargs):
+        self.conn = kargs['conn']
+        self.vmsnapshot = VMSnapshotModel(**kargs)
+
+    def lookup(self, vm_name):
+        vir_dom = VMModel.get_vm(vm_name, self.conn)
+
+        try:
+            vir_snap = vir_dom.snapshotCurrent(0)
+            snap_name = vir_snap.getName().decode('utf-8')
+        except libvirt.libvirtError, e:
+            if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
+                raise NotFoundError('KCHSNAP007E', {'vm': vm_name})
+
+            raise OperationFailed('KCHSNAP0008E',
+                                  {'vm': vm_name, 'err': e.message})
+
+        return self.vmsnapshot.lookup(vm_name, snap_name)

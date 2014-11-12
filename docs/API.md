@@ -207,6 +207,10 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **DELETE**: Delete snapshot. If the snapshot has any children, they will be
               merged automatically with the snapshot's parent.
 
+### Sub-resource: Current snapshot
+**URI:** /vms/*:name*/snapshots/current
+* **GET**: Retrieve current snapshot information for the virtual machine.
+
 ### Collection: Templates
 
 **URI:** /templates
