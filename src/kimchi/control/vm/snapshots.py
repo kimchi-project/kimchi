@@ -29,6 +29,7 @@ class VMSnapshots(AsyncCollection):
         self.vm = vm
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
+        self.current = CurrentVMSnapshot(model, vm)
 
 
 class VMSnapshot(Resource):
@@ -38,6 +39,18 @@ class VMSnapshot(Resource):
         self.ident = ident
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/snapshots/%s'
+
+    @property
+    def data(self):
+        return self.info
+
+
+class CurrentVMSnapshot(Resource):
+    def __init__(self, model, vm):
+        super(CurrentVMSnapshot, self).__init__(model)
+        self.vm = vm
+        self.model_args = [self.vm]
+        self.uri_fmt = '/vms/%s/snapshots/current'
 
     @property
     def data(self):

@@ -983,12 +983,12 @@ class MockModel(object):
 
         vm = self._get_vm(vm_name)
 
-        parent = u''
-        for sn, s in vm.snapshots.iteritems():
-            if s.current:
-                s.current = False
-                parent = sn
-                break
+        try:
+            parent = self.currentvmsnapshot_lookup(vm_name)['name']
+        except NotFoundError:
+            parent = u''
+        else:
+            vm.snapshots[parent].current = False
 
         snap_info = {'parent': parent,
                      'state': vm.info['state']}
@@ -999,6 +999,15 @@ class MockModel(object):
     def vmsnapshots_get_list(self, vm_name):
         vm = self._get_vm(vm_name)
         return sorted(vm.snapshots.keys(), key=unicode.lower)
+
+    def currentvmsnapshot_lookup(self, vm_name):
+        vm = self._get_vm(vm_name)
+
+        for sn, s in vm.snapshots.iteritems():
+            if s.current:
+                return s.info
+
+        raise NotFoundError('KCHSNAP0007E', {'vm': vm_name})
 
     def vmsnapshot_lookup(self, vm_name, name):
         vm = self._get_vm(vm_name)
