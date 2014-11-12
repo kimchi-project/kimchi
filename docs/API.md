@@ -204,6 +204,8 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * parent: The name of the parent snapshot, or an empty string if there is
               no parent.
     * state: The corresponding domain's state when the snapshot was created.
+* **DELETE**: Delete snapshot. If the snapshot has any children, they will be
+              merged automatically with the snapshot's parent.
 
 ### Collection: Templates
 

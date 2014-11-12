@@ -129,6 +129,15 @@ class VMSnapshotModel(object):
                 'parent': parent,
                 'state': unicode(snap_xml.state)}
 
+    def delete(self, vm_name, name):
+        try:
+            vir_snap = self.get_vmsnapshot(vm_name, name)
+            vir_snap.delete(0)
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHSNAP0006E', {'name': name,
+                                                   'vm': vm_name,
+                                                   'err': e.message})
+
     def get_vmsnapshot(self, vm_name, name):
         vir_dom = VMModel.get_vm(vm_name, self.conn)
 
