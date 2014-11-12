@@ -1,0 +1,192 @@
+13:07:18 <alinefm> #startmeeting
+13:07:18 <kimchi-bot> Meeting started Wed Nov 12 13:07:18 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:07:18 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:07:18 <alinefm> #meetingname scrum
+13:07:18 <kimchi-bot> The meeting name has been set to 'scrum'
+13:07:43 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:07:44 <alinefm> anything else?
+13:09:05 <alinefm> #topic Status
+13:09:05 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:09:10 <YuXin> #info YuXin Working on browser based text console terminal(basically UI side is done, need to discuss interface with backend)
+13:10:07 <wenwang> #info wenwang invesgated in storage upload
+13:10:10 <vianac> #info vianac sent final patchset of the VM cloning feature; sent first patchset of the VM snapshot feature; reviewed patches on the mailing list.
+13:10:24 <alinefm> #info alinefm sent patches to create a new and simpler mockmodel based on model(test:///default)
+13:10:26 <rotru> #info rotru sent V2 of 4 patches to fix problems with PPC architecture and improve other parts of Kimchi
+13:11:59 <alinefm> YuXin, I don't think we will have backend done in time for it. I'd say to you send out to ML what you have now and focus in other task until we decide the backend
+13:12:21 <Guest1333> #info Simon send out v2 patch of migration, still trying to figure a way to workaround libvirt connection issue due to  kimchi  running as sudo
+13:13:01 <alinefm> Guest1333, what is the problem with sudo?
+13:13:12 <YuXin> but the current UI side will not work, as the beginning of the code is to connect to websocket
+13:13:24 <Guest1333> already send out the issue in ML,
+13:13:52 <YuXin> Ok, I will mockup something there and send out a patch as RFC
+13:13:58 <Guest1333> libvirt can't connect to a remote host when kimchi running as sudo
+13:14:04 <alinefm> Guest1333, I will check there so
+13:14:29 <alinefm> YuXin, wenwang, I am concerned about the UI for SMT, Snapshot and the upload function
+13:14:42 <Guest1333> same issue with ssh connect, sudo ssh .... doesn't work without passwd input
+13:14:52 <alinefm> christyp has sent a note about what she expected for the SMT feature. Have you checked it?
+13:14:59 <YuXin> Snapshot is similiar with clone, right?
+13:15:03 <wenwang> alinefm: I have tried the upload and find out it worked fine
+13:15:14 <pvital> #info pvital fixed issue 473
+13:15:39 <alinefm> YuXin, no
+13:15:43 <wenwang> alinefm: I have uploaded a Fedora 20 iso file and it succeeded uploading and I have sent you an email also
+13:15:50 <YuXin> aline, do you have some description about snapshot
+13:16:09 <alinefm> for snapshot we need to display 2 actions: list all snapshots and let user select one for delete or revert
+13:16:17 <alinefm> and also allow user create a new snapshot
+13:16:32 <alinefm> vianac, did you send to ML what you have in mind for the snapshot UI?
+13:16:57 <YuXin> as a backup for open discussion
+13:17:06 <vianac> alinefm, no. I have just finished the snapshot implementation, now I'll work on the following tasks, like that one
+13:17:38 <alinefm> YuXin, I thought in adding a new Tab on guest edit "Snapshots", that tab would list a table with snapshost information (like we have for debug reports)
+13:17:54 <alinefm> then user can select one for "Revert" or "Delete"
+13:18:04 <alinefm> and an additional option to create a new one
+13:18:16 <alinefm> the snapshot creation return a Task (the same way on debug reports)
+13:18:21 <alinefm> vianac, is that correct ^?
+13:18:51 <vianac> alinefm, correct
+13:19:02 <YuXin> what does snapshot used for?
+13:19:17 <YuXin> only a state of vm at a certain timestamp?
+13:19:29 <alinefm> yes
+13:19:59 <alinefm> when you create a snapshot the vm state is save (memory, disk, etc) so you can move on modifying the guest...
+13:20:11 <YuXin> so snapshot is to capture guest state at a certain timestamp and used for restore purpose, right?
+13:20:11 <alinefm> once you revert to that snapshot you get the previous guest state
+13:20:22 <alinefm> correct
+13:20:50 <alinefm> vianac, it is only available for stopped guests right now, right?
+13:20:58 <YuXin> if I have 3 snapshots, and I stored to the 2nd one, whether the 3rd one still make sense?
+13:21:14 <vianac> alinefm, right
+13:21:27 <alinefm> YuXin, yes
+13:21:41 <YuXin> ok, got it
+13:21:54 <alinefm> YuXin, could you send a mockup for it?
+13:22:00 <YuXin> yes
+13:22:02 <alinefm> you can use vianac's patches on ML
+13:22:19 <YuXin> vianac, please send all your snapshot API to mail list
+13:22:40 <YuXin> ok
+13:22:43 <YuXin> I will check it
+13:22:55 <YuXin> how about SMT
+13:23:00 <alinefm> christyp, ^
+13:23:18 <alinefm> the SMT feature will have different UI according to Host arch
+13:23:29 <alinefm> ppc or x86
+13:23:47 <vianac> YuXin, I just sent the patches on the mailing list. in the comment section of every patch, there's the description of the new API command it adds or changes.
+13:24:19 <alinefm> YuXin, http://ocdc.hursley.ibm.com/pastebin/m1142f3b6
+13:24:28 <YuXin> ok for snapshot, vianac
+13:25:07 <YuXin> aline, can you make it somewhere publically available
+13:25:39 <alinefm> YuXin, http://lists.ovirt.org/pipermail/kimchi-devel/2014-November/008660.html
+13:25:41 <alinefm> it is on ML
+13:26:08 <lagarcia> alinefm, does it make sense to have SMT selection in x86?
+13:26:35 <alinefm> lagarcia, for x86 christyp proposed to only have a check box to enable or not HT
+13:27:07 <lagarcia> alinefm, ok
+13:28:14 <YuXin> so in kimchi, only x86 need to be supported I think
+13:28:24 <alinefm> no - both
+13:28:39 <YuXin> why/
+13:28:39 <alinefm> we also want to have the SMT support on power available upstream
+13:28:55 <YuXin> that is what plugin should do, right?
+13:29:24 <alinefm> no - kimchi is responsible to the virtualization features independent of host arch
+13:29:33 <alinefm> the ginger plugin is responsible for host management
+13:29:51 <alinefm> as SMT is a virtualization feature it must be on kimchi
+13:30:58 <YuXin> if there are other hardware arch, then kimchi support them all?
+13:31:13 <alinefm> yeap
+13:31:25 <alinefm> the idea is kimchi works in any arch
+13:31:46 <YuXin> do you know how virt-manager handle it?
+13:32:01 <lagarcia> YuXin, AFAIK virt-manager doesn't allow you to control SMT of the guest.
+13:32:16 <alinefm> I am not sure we have virt-manager for power
+13:32:20 <alinefm> lagarcia, ^
+13:32:32 <lagarcia> alinefm, virt-manager is arch independent as well
+13:32:42 <lagarcia> alinefm, it runs fine with power
+13:33:43 <YuXin> smt is short for 'Surface-mount_technology'?
+13:34:47 <lagarcia> YuXin, simultaneos multi-threading
+13:35:17 <lagarcia> YuXin, the possibility to run more than one thread in a physical core
+13:35:18 <alinefm> YuXin, for more details: https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/enabling_smt_on_powerkvm_guests?lang=en
+13:36:12 <YuXin> so for x86, it is only a feature to enable or disable
+13:37:52 <YuXin> anyway, this will be a new section in host tab
+13:37:52 <alinefm> yes
+13:38:05 <alinefm> no - it is on template level
+13:38:13 <alinefm> the SMT/HT is a feature for the guest
+13:38:42 <alinefm> based on host arch and cores
+13:38:42 <YuXin> you mean when edit template?
+13:38:45 <alinefm> yes
+13:39:30 <YuXin> template has been re-designed to have multiple tabs, right?
+13:40:15 <YuXin> whether patch for that got merged?
+13:41:03 <alinefm> I have commented on it that the disk size is still enabled for edition when a iscsi volume is selected
+13:41:09 <alinefm> I tested on fiferox 33
+13:41:16 <alinefm> wenwang, which browser did you test it ^?
+13:41:22 <wenwang> ff
+13:41:31 <alinefm> 33?
+13:42:06 <YuXin> wenwang, how many tabs are there in template now and what are they
+13:42:09 <alinefm> for me, when I select a iscsi volume it keeps showing 10 as disk size with the input box enabled
+13:42:16 <wenwang> I didn't check. It's definately 30+
+13:42:17 <alinefm> and my iscsi volume has 1 G
+13:42:55 <wenwang> YuXin: for the redesigned template, 3 tabs: General, Storage, Interface
+13:43:14 <wenwang> alinefm: strange
+13:43:24 <YuXin> aline, so smt should be new items in General tab, I think
+13:43:34 <wenwang> alinefm: I have posted the code in the mail
+13:43:39 <alinefm> YuXin, yes
+13:43:54 <alinefm> wenwang, I saw it - because that I suspect about on browser version or something
+13:44:08 <YuXin> ok, so issue left is whether kimchi to support power specific items
+13:44:15 <wenwang> alinefm: You are using ff 33?
+13:44:44 <alinefm> ys
+13:45:23 <wenwang> alinefm: Strange. I have tested twice and it came out with the same result
+13:45:47 <alinefm> wenwang, I will do some investigation after meeting and post on ML if I find anything
+13:46:30 <christyp> morning. sorry, i keep forgetting this meeting is at 7 a.m. now that the time changed.
+13:46:34 <wenwang> alinefm: Thanks a lot, that will  be great. If there exists anything wrong, I will have it fixed ASAP
+13:46:42 <alinefm> wenwang, thanks
+13:46:46 <alinefm> I will do the same for the upload
+13:46:54 <YuXin> aline, in coding, anyway to get rid of any check of hardware arch, but just invoke some common API, and base on the result, then show different items
+13:46:59 <alinefm> wenwang, have you tested upload on which host OS and browser?
+13:47:16 <wenwang> alinefm: yes. it work
+13:47:26 <alinefm> YuXin, yes - the API /host will return the host arch
+13:47:34 <wenwang> RHEL6.5 FF3?
+13:47:38 <alinefm> if x86 => only display the check box
+13:47:56 <alinefm> if ppc or ppc64 => display what christyp suggested on ML
+13:48:07 <wenwang> alinefm: Sorry that I didn't remember the exact version of firefox
+13:48:25 <alinefm> wenwang, np - I will test on fedora 20 and chrome and ff
+13:49:10 <wenwang> alinefm: okay, I have uploaded a fedora 20 iso and I have to say the waiting for the post finish is very long
+13:49:31 <alinefm> wenwang, isn't there a way to fix it?
+13:49:43 <alinefm> I mean, you were able to swicth kimchi tabs, etc?
+13:49:55 <wenwang> alinefm: no
+13:49:56 <alinefm> or you stay stuck on Storage tab...?
+13:50:16 <wenwang> I didn't change anything
+13:50:26 <wenwang> just waiting and it worked
+13:51:18 <wenwang> I don't think it will work if we change the tabs
+13:51:32 <alinefm> wenwang, yes - it is my concern
+13:52:01 <YuXin> ok, I take this as a certain hardware arch that is more capable to support virtualization and kimchi should enable to leverage that
+13:52:04 <wenwang> so the problem is to enable it when changing the tabs?
+13:52:23 <alinefm> YuXin, yes
+13:52:38 <alinefm> wenwang, I think the problem is on that line:
+13:52:45 <alinefm> *fd.append('file', blobFile)*
+13:53:02 <alinefm> instead of load the whole file at once, we should try to read it by parts
+13:53:10 <alinefm> prior to send the request
+13:53:13 <YuXin> I will try to get both smt and snapshot UI mockup out tomorrow
+13:53:23 <alinefm> but I need to test to see if it will work
+13:53:29 <alinefm> YuXin, great! and thanks so much
+13:54:03 <alinefm> wenwang, so once user selects a file to upload, we already display the fake volume on pool with a message "Preparing for upload..."
+13:54:30 <alinefm> while this message is shown we read the file part by part (let's say 50MB)
+13:54:54 <alinefm> once we get the whole file read, we send the POST request and update the fake vol with the proper information
+13:55:53 <wenwang> So we need to have the parted file sent to server part by part
+13:56:39 <alinefm> no - read it by parts only on UI until get the whole file
+13:56:53 <alinefm> once we have the whole file content we sent it in a single POST request
+13:57:58 <wenwang> where are we going to store the parted file and what's the advantage of reading the file part by part?
+13:58:29 <wenwang> since the post request is sent once and for all
+13:59:21 <YuXin> wenwang, there is no javascript API to real local file, right?
+14:00:05 <wenwang> YuXin: I think so
+14:00:10 <YuXin> so at front end, the whole upload is just an ajax call
+14:00:23 <wenwang> exactly
+14:00:24 <alinefm> wenwang, well, I think that way we will deliver a better usability to user as *I think* that way user will be able to switch tabs without being affected by the upload action
+14:01:33 <wenwang> alinefm: I don't think we can store the file in browser
+14:02:24 <YuXin> so currently, swtich tab will make the upload process interrupted?
+14:02:48 <wenwang> alinefm: breaking the file into pieces need some support from back end also
+14:02:55 <wenwang> YuXin: I think so
+14:04:58 <wenwang> YuXin: maybe not. I remember alinefm has fixed the task issue when changing the tabs using tasks
+14:05:17 <YuXin> but, upload will not be a long task
+14:05:32 <alinefm> YuXin, depends on file size
+14:05:45 <YuXin> that ajax request will keep ongoing until the upload complete
+14:05:46 <alinefm> usually a ISO image has almost 1G
+14:06:13 <wenwang> YuXin: I think that might work
+14:06:28 <wenwang> I will have that tested tomorrow and update with my status
+14:06:36 <alinefm> wenwang, ok - thanks
+14:06:40 <alinefm> I will also do more tests on it
+14:06:53 <alinefm> anything else for today? we are over time again =)
+14:06:59 <YuXin> at least, if F5, it will be lost I believe
+14:07:11 <YuXin> anyway, let us check it tomorrow
+14:07:34 <wenwang> alinefm: np
+14:08:03 <alinefm> ok
+14:08:09 <alinefm> thanks everyone for joining
+14:08:25 <alinefm> and just a reminder: we have just ONE more week to code freeze
+14:08:41 <alinefm> that will start on 11/19
+14:08:42 <wenwang> ok
+14:08:51 <alinefm> #endmeeting

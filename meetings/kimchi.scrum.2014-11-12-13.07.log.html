@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:07:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:07:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 12 13:07:18 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:07:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:07:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:07:18</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:07:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:07:44</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:09:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:09:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:09:10</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Working on browser based text console terminal(basically UI side is done, need to discuss interface with backend)</span>
+<a name="l-11"></a><span class="tm">13:10:07</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang invesgated in storage upload</span>
+<a name="l-12"></a><span class="tm">13:10:10</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent final patchset of the VM cloning feature; sent first patchset of the VM snapshot feature; reviewed patches on the mailing list.</span>
+<a name="l-13"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to create a new and simpler mockmodel based on model(test:///default)</span>
+<a name="l-14"></a><span class="tm">13:10:26</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru sent V2 of 4 patches to fix problems with PPC architecture and improve other parts of Kimchi</span>
+<a name="l-15"></a><span class="tm">13:11:59</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I don't think we will have backend done in time for it. I'd say to you send out to ML what you have now and focus in other task until we decide the backend
+<a name="l-16"></a><span class="tm">13:12:21</span><span class="nk"> &lt;Guest1333&gt;</span> <span class="cmd">#info </span><span class="cmdline">Simon send out v2 patch of migration, still trying to figure a way to workaround libvirt connection issue due to  kimchi  running as sudo</span>
+<a name="l-17"></a><span class="tm">13:13:01</span><span class="nk"> &lt;alinefm&gt;</span> Guest1333, what is the problem with sudo?
+<a name="l-18"></a><span class="tm">13:13:12</span><span class="nk"> &lt;YuXin&gt;</span> but the current UI side will not work, as the beginning of the code is to connect to websocket
+<a name="l-19"></a><span class="tm">13:13:24</span><span class="nk"> &lt;Guest1333&gt;</span> already send out the issue in ML,
+<a name="l-20"></a><span class="tm">13:13:52</span><span class="nk"> &lt;YuXin&gt;</span> Ok, I will mockup something there and send out a patch as RFC
+<a name="l-21"></a><span class="tm">13:13:58</span><span class="nk"> &lt;Guest1333&gt;</span> libvirt can't connect to a remote host when kimchi running as sudo
+<a name="l-22"></a><span class="tm">13:14:04</span><span class="nk"> &lt;alinefm&gt;</span> Guest1333, I will check there so
+<a name="l-23"></a><span class="tm">13:14:29</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, I am concerned about the UI for SMT, Snapshot and the upload function
+<a name="l-24"></a><span class="tm">13:14:42</span><span class="nk"> &lt;Guest1333&gt;</span> same issue with ssh connect, sudo ssh .... doesn't work without passwd input
+<a name="l-25"></a><span class="tm">13:14:52</span><span class="nk"> &lt;alinefm&gt;</span> christyp has sent a note about what she expected for the SMT feature. Have you checked it?
+<a name="l-26"></a><span class="tm">13:14:59</span><span class="nk"> &lt;YuXin&gt;</span> Snapshot is similiar with clone, right?
+<a name="l-27"></a><span class="tm">13:15:03</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I have tried the upload and find out it worked fine
+<a name="l-28"></a><span class="tm">13:15:14</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital fixed issue 473</span>
+<a name="l-29"></a><span class="tm">13:15:39</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, no
+<a name="l-30"></a><span class="tm">13:15:43</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I have uploaded a Fedora 20 iso file and it succeeded uploading and I have sent you an email also
+<a name="l-31"></a><span class="tm">13:15:50</span><span class="nk"> &lt;YuXin&gt;</span> aline, do you have some description about snapshot
+<a name="l-32"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> for snapshot we need to display 2 actions: list all snapshots and let user select one for delete or revert
+<a name="l-33"></a><span class="tm">13:16:17</span><span class="nk"> &lt;alinefm&gt;</span> and also allow user create a new snapshot
+<a name="l-34"></a><span class="tm">13:16:32</span><span class="nk"> &lt;alinefm&gt;</span> vianac, did you send to ML what you have in mind for the snapshot UI?
+<a name="l-35"></a><span class="tm">13:16:57</span><span class="nk"> &lt;YuXin&gt;</span> as a backup for open discussion
+<a name="l-36"></a><span class="tm">13:17:06</span><span class="nk"> &lt;vianac&gt;</span> alinefm, no. I have just finished the snapshot implementation, now I'll work on the following tasks, like that one
+<a name="l-37"></a><span class="tm">13:17:38</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I thought in adding a new Tab on guest edit "Snapshots", that tab would list a table with snapshost information (like we have for debug reports)
+<a name="l-38"></a><span class="tm">13:17:54</span><span class="nk"> &lt;alinefm&gt;</span> then user can select one for "Revert" or "Delete"
+<a name="l-39"></a><span class="tm">13:18:04</span><span class="nk"> &lt;alinefm&gt;</span> and an additional option to create a new one
+<a name="l-40"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> the snapshot creation return a Task (the same way on debug reports)
+<a name="l-41"></a><span class="tm">13:18:21</span><span class="nk"> &lt;alinefm&gt;</span> vianac, is that correct ^?
+<a name="l-42"></a><span class="tm">13:18:51</span><span class="nk"> &lt;vianac&gt;</span> alinefm, correct
+<a name="l-43"></a><span class="tm">13:19:02</span><span class="nk"> &lt;YuXin&gt;</span> what does snapshot used for?
+<a name="l-44"></a><span class="tm">13:19:17</span><span class="nk"> &lt;YuXin&gt;</span> only a state of vm at a certain timestamp?
+<a name="l-45"></a><span class="tm">13:19:29</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-46"></a><span class="tm">13:19:59</span><span class="nk"> &lt;alinefm&gt;</span> when you create a snapshot the vm state is save (memory, disk, etc) so you can move on modifying the guest...
+<a name="l-47"></a><span class="tm">13:20:11</span><span class="nk"> &lt;YuXin&gt;</span> so snapshot is to capture guest state at a certain timestamp and used for restore purpose, right?
+<a name="l-48"></a><span class="tm">13:20:11</span><span class="nk"> &lt;alinefm&gt;</span> once you revert to that snapshot you get the previous guest state
+<a name="l-49"></a><span class="tm">13:20:22</span><span class="nk"> &lt;alinefm&gt;</span> correct
+<a name="l-50"></a><span class="tm">13:20:50</span><span class="nk"> &lt;alinefm&gt;</span> vianac, it is only available for stopped guests right now, right?
+<a name="l-51"></a><span class="tm">13:20:58</span><span class="nk"> &lt;YuXin&gt;</span> if I have 3 snapshots, and I stored to the 2nd one, whether the 3rd one still make sense?
+<a name="l-52"></a><span class="tm">13:21:14</span><span class="nk"> &lt;vianac&gt;</span> alinefm, right
+<a name="l-53"></a><span class="tm">13:21:27</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-54"></a><span class="tm">13:21:41</span><span class="nk"> &lt;YuXin&gt;</span> ok, got it
+<a name="l-55"></a><span class="tm">13:21:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, could you send a mockup for it?
+<a name="l-56"></a><span class="tm">13:22:00</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-57"></a><span class="tm">13:22:02</span><span class="nk"> &lt;alinefm&gt;</span> you can use vianac's patches on ML
+<a name="l-58"></a><span class="tm">13:22:19</span><span class="nk"> &lt;YuXin&gt;</span> vianac, please send all your snapshot API to mail list
+<a name="l-59"></a><span class="tm">13:22:40</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-60"></a><span class="tm">13:22:43</span><span class="nk"> &lt;YuXin&gt;</span> I will check it
+<a name="l-61"></a><span class="tm">13:22:55</span><span class="nk"> &lt;YuXin&gt;</span> how about SMT
+<a name="l-62"></a><span class="tm">13:23:00</span><span class="nk"> &lt;alinefm&gt;</span> christyp, ^
+<a name="l-63"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> the SMT feature will have different UI according to Host arch
+<a name="l-64"></a><span class="tm">13:23:29</span><span class="nk"> &lt;alinefm&gt;</span> ppc or x86
+<a name="l-65"></a><span class="tm">13:23:47</span><span class="nk"> &lt;vianac&gt;</span> YuXin, I just sent the patches on the mailing list. in the comment section of every patch, there's the description of the new API command it adds or changes.
+<a name="l-66"></a><span class="tm">13:24:19</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, http://ocdc.hursley.ibm.com/pastebin/m1142f3b6
+<a name="l-67"></a><span class="tm">13:24:28</span><span class="nk"> &lt;YuXin&gt;</span> ok for snapshot, vianac
+<a name="l-68"></a><span class="tm">13:25:07</span><span class="nk"> &lt;YuXin&gt;</span> aline, can you make it somewhere publically available
+<a name="l-69"></a><span class="tm">13:25:39</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, http://lists.ovirt.org/pipermail/kimchi-devel/2014-November/008660.html
+<a name="l-70"></a><span class="tm">13:25:41</span><span class="nk"> &lt;alinefm&gt;</span> it is on ML
+<a name="l-71"></a><span class="tm">13:26:08</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, does it make sense to have SMT selection in x86?
+<a name="l-72"></a><span class="tm">13:26:35</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, for x86 christyp proposed to only have a check box to enable or not HT
+<a name="l-73"></a><span class="tm">13:27:07</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok
+<a name="l-74"></a><span class="tm">13:28:14</span><span class="nk"> &lt;YuXin&gt;</span> so in kimchi, only x86 need to be supported I think
+<a name="l-75"></a><span class="tm">13:28:24</span><span class="nk"> &lt;alinefm&gt;</span> no - both
+<a name="l-76"></a><span class="tm">13:28:39</span><span class="nk"> &lt;YuXin&gt;</span> why/
+<a name="l-77"></a><span class="tm">13:28:39</span><span class="nk"> &lt;alinefm&gt;</span> we also want to have the SMT support on power available upstream
+<a name="l-78"></a><span class="tm">13:28:55</span><span class="nk"> &lt;YuXin&gt;</span> that is what plugin should do, right?
+<a name="l-79"></a><span class="tm">13:29:24</span><span class="nk"> &lt;alinefm&gt;</span> no - kimchi is responsible to the virtualization features independent of host arch
+<a name="l-80"></a><span class="tm">13:29:33</span><span class="nk"> &lt;alinefm&gt;</span> the ginger plugin is responsible for host management
+<a name="l-81"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> as SMT is a virtualization feature it must be on kimchi
+<a name="l-82"></a><span class="tm">13:30:58</span><span class="nk"> &lt;YuXin&gt;</span> if there are other hardware arch, then kimchi support them all?
+<a name="l-83"></a><span class="tm">13:31:13</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-84"></a><span class="tm">13:31:25</span><span class="nk"> &lt;alinefm&gt;</span> the idea is kimchi works in any arch
+<a name="l-85"></a><span class="tm">13:31:46</span><span class="nk"> &lt;YuXin&gt;</span> do you know how virt-manager handle it?
+<a name="l-86"></a><span class="tm">13:32:01</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, AFAIK virt-manager doesn't allow you to control SMT of the guest.
+<a name="l-87"></a><span class="tm">13:32:16</span><span class="nk"> &lt;alinefm&gt;</span> I am not sure we have virt-manager for power
+<a name="l-88"></a><span class="tm">13:32:20</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, ^
+<a name="l-89"></a><span class="tm">13:32:32</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, virt-manager is arch independent as well
+<a name="l-90"></a><span class="tm">13:32:42</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, it runs fine with power
+<a name="l-91"></a><span class="tm">13:33:43</span><span class="nk"> &lt;YuXin&gt;</span> smt is short for 'Surface-mount_technology'?
+<a name="l-92"></a><span class="tm">13:34:47</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, simultaneos multi-threading
+<a name="l-93"></a><span class="tm">13:35:17</span><span class="nk"> &lt;lagarcia&gt;</span> YuXin, the possibility to run more than one thread in a physical core
+<a name="l-94"></a><span class="tm">13:35:18</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, for more details: https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/enabling_smt_on_powerkvm_guests?lang=en
+<a name="l-95"></a><span class="tm">13:36:12</span><span class="nk"> &lt;YuXin&gt;</span> so for x86, it is only a feature to enable or disable
+<a name="l-96"></a><span class="tm">13:37:52</span><span class="nk"> &lt;YuXin&gt;</span> anyway, this will be a new section in host tab
+<a name="l-97"></a><span class="tm">13:37:52</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-98"></a><span class="tm">13:38:05</span><span class="nk"> &lt;alinefm&gt;</span> no - it is on template level
+<a name="l-99"></a><span class="tm">13:38:13</span><span class="nk"> &lt;alinefm&gt;</span> the SMT/HT is a feature for the guest
+<a name="l-100"></a><span class="tm">13:38:42</span><span class="nk"> &lt;alinefm&gt;</span> based on host arch and cores
+<a name="l-101"></a><span class="tm">13:38:42</span><span class="nk"> &lt;YuXin&gt;</span> you mean when edit template?
+<a name="l-102"></a><span class="tm">13:38:45</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-103"></a><span class="tm">13:39:30</span><span class="nk"> &lt;YuXin&gt;</span> template has been re-designed to have multiple tabs, right?
+<a name="l-104"></a><span class="tm">13:40:15</span><span class="nk"> &lt;YuXin&gt;</span> whether patch for that got merged?
+<a name="l-105"></a><span class="tm">13:41:03</span><span class="nk"> &lt;alinefm&gt;</span> I have commented on it that the disk size is still enabled for edition when a iscsi volume is selected
+<a name="l-106"></a><span class="tm">13:41:09</span><span class="nk"> &lt;alinefm&gt;</span> I tested on fiferox 33
+<a name="l-107"></a><span class="tm">13:41:16</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, which browser did you test it ^?
+<a name="l-108"></a><span class="tm">13:41:22</span><span class="nk"> &lt;wenwang&gt;</span> ff
+<a name="l-109"></a><span class="tm">13:41:31</span><span class="nk"> &lt;alinefm&gt;</span> 33?
+<a name="l-110"></a><span class="tm">13:42:06</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, how many tabs are there in template now and what are they
+<a name="l-111"></a><span class="tm">13:42:09</span><span class="nk"> &lt;alinefm&gt;</span> for me, when I select a iscsi volume it keeps showing 10 as disk size with the input box enabled
+<a name="l-112"></a><span class="tm">13:42:16</span><span class="nk"> &lt;wenwang&gt;</span> I didn't check. It's definately 30+
+<a name="l-113"></a><span class="tm">13:42:17</span><span class="nk"> &lt;alinefm&gt;</span> and my iscsi volume has 1 G
+<a name="l-114"></a><span class="tm">13:42:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> for the redesigned template, 3 tabs: General, Storage, Interface
+<a name="l-115"></a><span class="tm">13:43:14</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> strange
+<a name="l-116"></a><span class="tm">13:43:24</span><span class="nk"> &lt;YuXin&gt;</span> aline, so smt should be new items in General tab, I think
+<a name="l-117"></a><span class="tm">13:43:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I have posted the code in the mail
+<a name="l-118"></a><span class="tm">13:43:39</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-119"></a><span class="tm">13:43:54</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I saw it - because that I suspect about on browser version or something
+<a name="l-120"></a><span class="tm">13:44:08</span><span class="nk"> &lt;YuXin&gt;</span> ok, so issue left is whether kimchi to support power specific items
+<a name="l-121"></a><span class="tm">13:44:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> You are using ff 33?
+<a name="l-122"></a><span class="tm">13:44:44</span><span class="nk"> &lt;alinefm&gt;</span> ys
+<a name="l-123"></a><span class="tm">13:45:23</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Strange. I have tested twice and it came out with the same result
+<a name="l-124"></a><span class="tm">13:45:47</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I will do some investigation after meeting and post on ML if I find anything
+<a name="l-125"></a><span class="tm">13:46:30</span><span class="nk"> &lt;christyp&gt;</span> morning. sorry, i keep forgetting this meeting is at 7 a.m. now that the time changed.
+<a name="l-126"></a><span class="tm">13:46:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Thanks a lot, that will  be great. If there exists anything wrong, I will have it fixed ASAP
+<a name="l-127"></a><span class="tm">13:46:42</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, thanks
+<a name="l-128"></a><span class="tm">13:46:46</span><span class="nk"> &lt;alinefm&gt;</span> I will do the same for the upload
+<a name="l-129"></a><span class="tm">13:46:54</span><span class="nk"> &lt;YuXin&gt;</span> aline, in coding, anyway to get rid of any check of hardware arch, but just invoke some common API, and base on the result, then show different items
+<a name="l-130"></a><span class="tm">13:46:59</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, have you tested upload on which host OS and browser?
+<a name="l-131"></a><span class="tm">13:47:16</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yes. it work
+<a name="l-132"></a><span class="tm">13:47:26</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes - the API /host will return the host arch
+<a name="l-133"></a><span class="tm">13:47:34</span><span class="nk"> &lt;wenwang&gt;</span> RHEL6.5 FF3?
+<a name="l-134"></a><span class="tm">13:47:38</span><span class="nk"> &lt;alinefm&gt;</span> if x86 =&gt; only display the check box
+<a name="l-135"></a><span class="tm">13:47:56</span><span class="nk"> &lt;alinefm&gt;</span> if ppc or ppc64 =&gt; display what christyp suggested on ML
+<a name="l-136"></a><span class="tm">13:48:07</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Sorry that I didn't remember the exact version of firefox
+<a name="l-137"></a><span class="tm">13:48:25</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, np - I will test on fedora 20 and chrome and ff
+<a name="l-138"></a><span class="tm">13:49:10</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> okay, I have uploaded a fedora 20 iso and I have to say the waiting for the post finish is very long
+<a name="l-139"></a><span class="tm">13:49:31</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, isn't there a way to fix it?
+<a name="l-140"></a><span class="tm">13:49:43</span><span class="nk"> &lt;alinefm&gt;</span> I mean, you were able to swicth kimchi tabs, etc?
+<a name="l-141"></a><span class="tm">13:49:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> no
+<a name="l-142"></a><span class="tm">13:49:56</span><span class="nk"> &lt;alinefm&gt;</span> or you stay stuck on Storage tab...?
+<a name="l-143"></a><span class="tm">13:50:16</span><span class="nk"> &lt;wenwang&gt;</span> I didn't change anything
+<a name="l-144"></a><span class="tm">13:50:26</span><span class="nk"> &lt;wenwang&gt;</span> just waiting and it worked
+<a name="l-145"></a><span class="tm">13:51:18</span><span class="nk"> &lt;wenwang&gt;</span> I don't think it will work if we change the tabs
+<a name="l-146"></a><span class="tm">13:51:32</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yes - it is my concern
+<a name="l-147"></a><span class="tm">13:52:01</span><span class="nk"> &lt;YuXin&gt;</span> ok, I take this as a certain hardware arch that is more capable to support virtualization and kimchi should enable to leverage that
+<a name="l-148"></a><span class="tm">13:52:04</span><span class="nk"> &lt;wenwang&gt;</span> so the problem is to enable it when changing the tabs?
+<a name="l-149"></a><span class="tm">13:52:23</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-150"></a><span class="tm">13:52:38</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I think the problem is on that line:
+<a name="l-151"></a><span class="tm">13:52:45</span><span class="nk"> &lt;alinefm&gt;</span> *fd.append('file', blobFile)*
+<a name="l-152"></a><span class="tm">13:53:02</span><span class="nk"> &lt;alinefm&gt;</span> instead of load the whole file at once, we should try to read it by parts
+<a name="l-153"></a><span class="tm">13:53:10</span><span class="nk"> &lt;alinefm&gt;</span> prior to send the request
+<a name="l-154"></a><span class="tm">13:53:13</span><span class="nk"> &lt;YuXin&gt;</span> I will try to get both smt and snapshot UI mockup out tomorrow
+<a name="l-155"></a><span class="tm">13:53:23</span><span class="nk"> &lt;alinefm&gt;</span> but I need to test to see if it will work
+<a name="l-156"></a><span class="tm">13:53:29</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, great! and thanks so much
+<a name="l-157"></a><span class="tm">13:54:03</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, so once user selects a file to upload, we already display the fake volume on pool with a message "Preparing for upload..."
+<a name="l-158"></a><span class="tm">13:54:30</span><span class="nk"> &lt;alinefm&gt;</span> while this message is shown we read the file part by part (let's say 50MB)
+<a name="l-159"></a><span class="tm">13:54:54</span><span class="nk"> &lt;alinefm&gt;</span> once we get the whole file read, we send the POST request and update the fake vol with the proper information
+<a name="l-160"></a><span class="tm">13:55:53</span><span class="nk"> &lt;wenwang&gt;</span> So we need to have the parted file sent to server part by part
+<a name="l-161"></a><span class="tm">13:56:39</span><span class="nk"> &lt;alinefm&gt;</span> no - read it by parts only on UI until get the whole file
+<a name="l-162"></a><span class="tm">13:56:53</span><span class="nk"> &lt;alinefm&gt;</span> once we have the whole file content we sent it in a single POST request
+<a name="l-163"></a><span class="tm">13:57:58</span><span class="nk"> &lt;wenwang&gt;</span> where are we going to store the parted file and what's the advantage of reading the file part by part?
+<a name="l-164"></a><span class="tm">13:58:29</span><span class="nk"> &lt;wenwang&gt;</span> since the post request is sent once and for all
+<a name="l-165"></a><span class="tm">13:59:21</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, there is no javascript API to real local file, right?
+<a name="l-166"></a><span class="tm">14:00:05</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> I think so
+<a name="l-167"></a><span class="tm">14:00:10</span><span class="nk"> &lt;YuXin&gt;</span> so at front end, the whole upload is just an ajax call
+<a name="l-168"></a><span class="tm">14:00:23</span><span class="nk"> &lt;wenwang&gt;</span> exactly
+<a name="l-169"></a><span class="tm">14:00:24</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, well, I think that way we will deliver a better usability to user as *I think* that way user will be able to switch tabs without being affected by the upload action
+<a name="l-170"></a><span class="tm">14:01:33</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I don't think we can store the file in browser
+<a name="l-171"></a><span class="tm">14:02:24</span><span class="nk"> &lt;YuXin&gt;</span> so currently, swtich tab will make the upload process interrupted?
+<a name="l-172"></a><span class="tm">14:02:48</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> breaking the file into pieces need some support from back end also
+<a name="l-173"></a><span class="tm">14:02:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> I think so
+<a name="l-174"></a><span class="tm">14:04:58</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> maybe not. I remember alinefm has fixed the task issue when changing the tabs using tasks
+<a name="l-175"></a><span class="tm">14:05:17</span><span class="nk"> &lt;YuXin&gt;</span> but, upload will not be a long task
+<a name="l-176"></a><span class="tm">14:05:32</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, depends on file size
+<a name="l-177"></a><span class="tm">14:05:45</span><span class="nk"> &lt;YuXin&gt;</span> that ajax request will keep ongoing until the upload complete
+<a name="l-178"></a><span class="tm">14:05:46</span><span class="nk"> &lt;alinefm&gt;</span> usually a ISO image has almost 1G
+<a name="l-179"></a><span class="tm">14:06:13</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> I think that might work
+<a name="l-180"></a><span class="tm">14:06:28</span><span class="nk"> &lt;wenwang&gt;</span> I will have that tested tomorrow and update with my status
+<a name="l-181"></a><span class="tm">14:06:36</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, ok - thanks
+<a name="l-182"></a><span class="tm">14:06:40</span><span class="nk"> &lt;alinefm&gt;</span> I will also do more tests on it
+<a name="l-183"></a><span class="tm">14:06:53</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today? we are over time again =)
+<a name="l-184"></a><span class="tm">14:06:59</span><span class="nk"> &lt;YuXin&gt;</span> at least, if F5, it will be lost I believe
+<a name="l-185"></a><span class="tm">14:07:11</span><span class="nk"> &lt;YuXin&gt;</span> anyway, let us check it tomorrow
+<a name="l-186"></a><span class="tm">14:07:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> np
+<a name="l-187"></a><span class="tm">14:08:03</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-188"></a><span class="tm">14:08:09</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining
+<a name="l-189"></a><span class="tm">14:08:25</span><span class="nk"> &lt;alinefm&gt;</span> and just a reminder: we have just ONE more week to code freeze
+<a name="l-190"></a><span class="tm">14:08:41</span><span class="nk"> &lt;alinefm&gt;</span> that will start on 11/19
+<a name="l-191"></a><span class="tm">14:08:42</span><span class="nk"> &lt;wenwang&gt;</span> ok
+<a name="l-192"></a><span class="tm">14:08:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
