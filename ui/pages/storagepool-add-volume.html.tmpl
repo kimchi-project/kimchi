@@ -18,7 +18,7 @@
 #unicode UTF-8
 #import gettext
 #from kimchi.cachebust import href
-#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
 <div id="sp-add-volume-window" class="window">
