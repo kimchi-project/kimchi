@@ -40,6 +40,7 @@ messages = {
     "KCHAUTH0001E": _("Authentication failed for user '%(username)s'. [Error code: %(code)s]"),
     "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
     "KCHAUTH0003E": _("Specify %(item)s to login into Kimchi"),
+    "KCHAUTH0005E": _("Invalid LDAP configuration: %(item)s : %(value)s"),
 
     "KCHDEVS0001E": _('Unknown "_cap" specified'),
     "KCHDEVS0002E": _('"_passthrough" should be "true" or "false"'),

@@ -28,6 +28,7 @@ Requires:	nfs-utils
 Requires:	nginx
 Requires:	iscsi-initiator-utils
 Requires:	policycoreutils-python
+Requires:	python-ldap
 Requires:	python-libguestfs
 Requires:	libguestfs-tools
 BuildRequires:	libxslt
