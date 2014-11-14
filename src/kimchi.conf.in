@@ -43,3 +43,17 @@
 [display]
 # Port for websocket proxy to listen on
 #display_proxy_port = 64667
+
+[authentication]
+# Authentication method, available option: pam, ldap.
+# method = pam
+
+# If specified method to ldap, following fields need to be specified.
+# ldap server domain name used to authenticate.
+# ldap_server = "localhost"
+
+# Search tree base in ldap
+# ldap_search_base = "ou=People, dc=kimchi, dc=org"
+
+# User id filter
+# ldap_search_filter = "uid=%(username)s"
