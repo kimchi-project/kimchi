@@ -20,6 +20,7 @@
 import base64
 import cherrypy
 import fcntl
+import ldap
 import multiprocessing
 import os
 import PAM
@@ -177,17 +178,58 @@ class PAMUser(User):
 
 class LDAPUser(User):
     auth_type = "ldap"
+
     def __init__(self, username):
         self.user = {}
         self.user[USER_NAME] = username
-        self.user[USER_GROUPS] = None
+        self.user[USER_GROUPS] = list()
         # FIXME: user roles will be changed according roles assignment after
         # objstore is integrated
         self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
     @staticmethod
     def authenticate(username, password):
-        return False
+        ldap_server = config.get("authentication", "ldap_server").strip('"')
+        ldap_search_base = config.get(
+            "authentication", "ldap_search_base").strip('"')
+        ldap_search_filter = config.get(
+            "authentication", "ldap_search_filter",
+            vars={"username": username.encode("utf-8")}).strip('"')
+
+        connect = ldap.open(ldap_server)
+        try:
+            result = connect.search_s(
+                ldap_search_base, ldap.SCOPE_SUBTREE, ldap_search_filter)
+            if len(result) == 0:
+                entity = ldap_search_filter % {'username': username}
+                raise ldap.LDAPError("Invalid ldap entity:%s" % entity)
+
+            connect.bind_s(result[0][0], password)
+            connect.unbind_s()
+            return True
+        except ldap.INVALID_CREDENTIALS:
+                # invalid user password
+            raise OperationFailed("KCHAUTH0002E")
+        except ldap.NO_SUCH_OBJECT:
+            # ldap search base specified wrongly.
+            raise OperationFailed("KCHAUTH0005E", {"item": 'ldap_search_base',
+                                                   "value": ldap_search_base})
+        except ldap.LDAPError, e:
+            arg = {"username": username, "code": e.message}
+            raise OperationFailed("KCHAUTH0001E", arg)
+
+    def get_groups(self):
+        return self.user[USER_GROUPS]
+
+    def get_roles(self):
+        admin_id = config.get("authentication", "ldap_admin_id").strip('"')
+        if self.user[USER_NAME] in admin_id.split(','):
+            self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+        return self.user[USER_ROLES]
+
+    def get_user(self):
+        return self.user
+
 
 def from_browser():
     # Enable Basic Authentication for REST tools.

@@ -57,3 +57,6 @@
 
 # User id filter
 # ldap_search_filter = "uid=%(username)s"
+
+# User IDs regarded as kimchi admin
+# ldap_admin_id = "foo@foo.com, bar@bar.com"
