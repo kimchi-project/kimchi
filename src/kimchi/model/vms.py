@@ -773,9 +773,23 @@ class VMModel(object):
                 pool_type = xpath_get_text(xml, "/pool/@type")[0]
                 if pool_type not in READONLY_POOL_TYPE:
                     vol.delete(0)
-            except Exception as e:
+                    # Update objstore to remove the volume
+                    with self.objstore as session:
+                        session.delete('storagevolume', path,
+                                       ignore_missing=True)
+            except libvirt.libvirtError as e:
                 kimchi_log.error('Unable to get storage volume by path: %s' %
                                  e.message)
+            except Exception as e:
+                raise OperationFailed('KCHVOL0017E', {'err': e.message})
+
+            try:
+                with self.objstore as session:
+                    if path in session.get_list('storagevolume'):
+                        n = session.get('storagevolume', path)['ref_cnt']
+                        session.store('storagevolume', path, {'ref_cnt': n-1})
+            except Exception as e:
+                raise OperationFailed('KCHVOL0017E', {'err': e.message})
 
         try:
             with self.objstore as session:
