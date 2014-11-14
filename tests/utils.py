@@ -35,7 +35,8 @@ from lxml import etree
 
 import kimchi.mockmodel
 import kimchi.server
-from kimchi.config import paths
+from kimchi.config import config, paths
+from kimchi.auth import User, USER_NAME, USER_GROUPS, USER_ROLES, tabs
 from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 
@@ -169,29 +170,43 @@ def get_remote_iso_path():
     return remote_path
 
 
-def patch_auth(sudo=True):
-    """
-    Override the authenticate function with a simple test against an
-    internal dict of users and passwords.
-    """
+class FakeUser(User):
+    auth_type = "fake"
+    sudo = True
 
-    def _get_groups(self):
+    def __init__(self, username):
+        self.user = {}
+        self.user[USER_NAME] = username
+        self.user[USER_GROUPS] = None
+        self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
+
+    def get_groups(self):
         return ['groupA', 'groupB', 'wheel']
 
-    def _has_sudo(self, result):
-        result.value = sudo
+    def get_roles(self):
+        if self.sudo:
+            self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+        return self.user[USER_ROLES]
 
-    def _authenticate(username, password, service="passwd"):
+    def get_user(self):
+        return self.user
+
+    @staticmethod
+    def authenticate(username, password, service="passwd"):
         try:
             return kimchi.mockmodel.fake_user[username] == password
         except KeyError, e:
             raise OperationFailed("KCHAUTH0001E", {'username': 'username',
                                                    'code': e.message})
 
-    import kimchi.auth
-    kimchi.auth.authenticate = _authenticate
-    kimchi.auth.User.get_groups = _get_groups
-    kimchi.auth.User._has_sudo = _has_sudo
+
+def patch_auth(sudo=True):
+    """
+    Override the authenticate function with a simple test against an
+    internal dict of users and passwords.
+    """
+    config.set("authentication", "method", "fake")
+    FakeUser.sudo = sudo
 
 
 def normalize_xml(xml_str):
