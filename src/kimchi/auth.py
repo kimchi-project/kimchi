@@ -31,6 +31,7 @@ import urllib2
 
 
 from kimchi import template
+from kimchi.config import config
 from kimchi.exception import InvalidOperation, OperationFailed
 from kimchi.utils import get_all_tabs, run_command
 
@@ -59,6 +60,22 @@ def debug(msg):
 
 
 class User(object):
+    @classmethod
+    def get(cls, auth_args):
+        auth_type = auth_args.pop('auth_type')
+        for klass in cls.__subclasses__():
+            if auth_type == klass.auth_type:
+                try:
+                    if not klass.authenticate(**auth_args):
+                        debug("cannot verify user with the given password")
+                        return None
+                except OperationFailed:
+                    raise
+                return klass(auth_args['username'])
+
+
+class PAMUser(User):
+    auth_type = "pam"
 
     def __init__(self, username):
         self.user = {}
@@ -124,39 +141,53 @@ class User(object):
     def get_user(self):
         return self.user
 
+    @staticmethod
+    def authenticate(username, password, service="passwd"):
+        '''Returns True if authenticate is OK via PAM.'''
+        def _pam_conv(auth, query_list, userData=None):
+            resp = []
+            for i in range(len(query_list)):
+                query, qtype = query_list[i]
+                if qtype == PAM.PAM_PROMPT_ECHO_ON:
+                    resp.append((username, 0))
+                elif qtype == PAM.PAM_PROMPT_ECHO_OFF:
+                    resp.append((password, 0))
+                elif qtype == PAM.PAM_PROMPT_ERROR_MSG:
+                    cherrypy.log.error_log.error(
+                        "PAM authenticate prompt error: %s" % query)
+                    resp.append(('', 0))
+                elif qtype == PAM.PAM_PROMPT_TEXT_INFO:
+                    resp.append(('', 0))
+                else:
+                    return None
+            return resp
 
-def authenticate(username, password, service="passwd"):
-    '''Returns True if authenticate is OK via PAM.'''
-    def _pam_conv(auth, query_list, userData=None):
-        resp = []
-        for i in range(len(query_list)):
-            query, qtype = query_list[i]
-            if qtype == PAM.PAM_PROMPT_ECHO_ON:
-                resp.append((username, 0))
-            elif qtype == PAM.PAM_PROMPT_ECHO_OFF:
-                resp.append((password, 0))
-            elif qtype == PAM.PAM_PROMPT_ERROR_MSG:
-                cherrypy.log.error_log.error("PAM authenticate prompt error "
-                                             "message: %s" % query)
-                resp.append(('', 0))
-            elif qtype == PAM.PAM_PROMPT_TEXT_INFO:
-                resp.append(('', 0))
-            else:
-                return None
-        return resp
+        auth = PAM.pam()
+        auth.start(service)
+        auth.set_item(PAM.PAM_USER, username)
+        auth.set_item(PAM.PAM_CONV, _pam_conv)
+        try:
+            auth.authenticate()
+        except PAM.error, (resp, code):
+            msg_args = {'username': username, 'code': code}
+            raise OperationFailed("KCHAUTH0001E", msg_args)
 
-    auth = PAM.pam()
-    auth.start(service)
-    auth.set_item(PAM.PAM_USER, username)
-    auth.set_item(PAM.PAM_CONV, _pam_conv)
+        return True
 
-    try:
-        auth.authenticate()
-    except PAM.error:
-        raise
 
-    return True
+class LDAPUser(User):
+    auth_type = "ldap"
+    def __init__(self, username):
+        self.user = {}
+        self.user[USER_NAME] = username
+        self.user[USER_GROUPS] = None
+        # FIXME: user roles will be changed according roles assignment after
+        # objstore is integrated
+        self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
+    @staticmethod
+    def authenticate(username, password):
+        return False
 
 def from_browser():
     # Enable Basic Authentication for REST tools.
@@ -216,15 +247,15 @@ def check_auth_httpba():
 
 
 def login(username, password, **kwargs):
-    try:
-        if not authenticate(username, password):
-            debug("User cannot be verified with the supplied password")
-            return None
-    except PAM.error, (resp, code):
-        msg_args = {'username': username, 'code': code}
-        raise OperationFailed("KCHAUTH0001E", msg_args)
+    auth_args = {'auth_type': config.get("authentication", "method"),
+                 'username': username,
+                 'password': password}
 
-    user = User(username)
+    user = User.get(auth_args)
+    if not user:
+        debug("User cannot be verified with the supplied password")
+        return None
+
     debug("User verified, establishing session")
     cherrypy.session.acquire_lock()
     cherrypy.session.regenerate()

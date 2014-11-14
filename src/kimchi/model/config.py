@@ -115,6 +115,7 @@ class CapabilitiesModel(object):
                 'update_tool': update_tool,
                 'repo_mngt_tool': repo_mngt_tool,
                 'federation': kconfig.get("server", "federation"),
+                'auth': kconfig.get("authentication", "method"),
                 'kernel_vfio': self.kernel_vfio,
                 }
 

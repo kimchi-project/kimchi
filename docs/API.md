@@ -696,6 +696,7 @@ creation.
     * repo_mngt_tool: 'deb', 'yum' or None - when the repository management
       tool is not identified
     * federation: 'on' if federation feature is enabled, 'off' otherwise.
+    * auth: authentication type, 'pam' and 'ldap' are supported.
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**
