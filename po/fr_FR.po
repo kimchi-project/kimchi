@@ -19,7 +19,7 @@ msgstr ""
 
 #, python-format
 msgid "Unknown parameter %(value)s"
-msgstr ""
+msgstr "Paramètre inconnu %(value)s"
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -37,7 +37,7 @@ msgstr ""
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
-msgstr "La créatio n'est pas autorisée pour %(resource)s"
+msgstr "La création n'est pas autorisée pour %(resource)s"
 
 msgid "Unable to parse JSON request"
 msgstr "Impossible de parser la requête JSON"
@@ -68,20 +68,20 @@ msgstr ""
 "d'Erreur: %(code)s]"
 
 msgid "You are not authorized to access Kimchi"
-msgstr "Vous n'êtes pas autorisé à accéder à  Kimchi"
+msgstr "Vous n'êtes pas autorisé à accéder à Kimchi"
 
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Spécifiez %(item)s pour vous logguer dans Kimchi"
 
 msgid "Unknown \"_cap\" specified"
-msgstr ""
+msgstr "\"_cap\" spécifiée inconnue"
 
 msgid "\"_passthrough\" should be \"true\" or \"false\""
-msgstr ""
+msgstr "\"_passthrough\" doit être \"true\" ou \"false\""
 
 msgid "\"_passthrough_affected_by\" should be a device name string"
-msgstr ""
+msgstr "\"_passthrough_affected_by\" doit être un nom de périphérique"
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -115,7 +115,7 @@ msgstr "Impossible de se connecter à l'hôte iSCSI %(host)s cible %(target)s"
 
 #, python-format
 msgid "Unable to find ISO file %(filename)s"
-msgstr ""
+msgstr "Impossible de trouver le fichier ISO %(filename)s"
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -161,20 +161,22 @@ msgstr ""
 "%(err)s"
 
 msgid "An error occurred when probing image OS information."
-msgstr ""
+msgstr "Une erreur est survenue lors de la détection de l'information d'OS de l'image."
 
 msgid "No OS information found in given image."
 msgstr "Aucune information d'OS trouvée sur l'image donnée."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
-msgstr ""
+msgstr "Impossible de lire le fichier image %(filename)s"
 
 #, python-format
 msgid ""
 "Image file must be an existing file on system. %(filename)s is not a valid "
 "input."
 msgstr ""
+"Le fichier image doit être un fichier existant sur le système. %(filename)s n'est "
+"pas une donnée valide."
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -189,6 +191,8 @@ msgid ""
 "Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
 "in use or the virtual machine is not powered off."
 msgstr ""
+"Impossible de renommer la machine virtuelle %(name)s. Le nom %(new_name)s est "
+"déja utilisé ou la machine virtuelle n'est pas éteinte."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -201,7 +205,7 @@ msgstr "L'image ISO distante n'est pas supportée par le serveur."
 
 #, python-format
 msgid "Screenshot is not supported on virtual machine %(name)s"
-msgstr ""
+msgstr "Copie d'écran non supportée par la machine virtuelle %(name)s"
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -219,7 +223,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to connect to powered off virtual machine %(name)s."
-msgstr ""
+msgstr "Impossible de se connecter à la machine virtuelle éteinte %(name)s."
 
 msgid "Virtual machine name must be a string"
 msgstr "Le nom de la machine virtuelle doit être une chaîne de caractères."
@@ -293,19 +297,23 @@ msgstr ""
 "%(err)s"
 
 msgid "The guest console password must be a string."
-msgstr ""
+msgstr "Le mot de passe de console invitée doit être une chaîne de caractères."
 
 msgid "The life time for the guest console password must be a number."
-msgstr ""
+msgstr "La durée de vie du mot de passe de console invitée doit être un nombre"
 
 #, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
+"La machine virtuelle %(vmid)s ne peut pas contenir le périphérique hôte "
+"directement assigné %(dev_name)s."
 
 #, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
 msgstr ""
+"The périphérique hôte %(dev_name)s ne peut être directement assigné à "
+"la machine virtuelle"
 
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
@@ -316,7 +324,7 @@ msgid ""
 msgstr ""
 
 msgid "\"name\" should be a device name string"
-msgstr ""
+msgstr "\"name\" doit être un nom de périphérique"
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -430,7 +438,7 @@ msgstr ""
 
 #, python-format
 msgid "The volume %(volume)s is not in storage pool %(pool)s"
-msgstr ""
+msgstr "Le volume %(volume)s n'est pas dans le pool de stockage %(pool)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -441,7 +449,7 @@ msgid "Unable to delete template due error: %(err)s"
 msgstr "Impossilbe de supprimer le modèle à cause de l'erreur: %(err)s"
 
 msgid "Disk size must be an integer greater than 1GB."
-msgstr ""
+msgstr "La taille de disque doit être un entier supérieur à 1Go."
 
 msgid "Template base image must be a valid local image file"
 msgstr "L'image de base de modèle doit petre un fichier image local valide"
@@ -458,7 +466,8 @@ msgstr ""
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
-msgstr ""
+msgstr "Dans la topologie de CPU, chaque élément doit être un entier "
+"strictement positif."
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -534,6 +543,8 @@ msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
 "iso"
 msgstr ""
+"Les types de pool de stockage supportés sont: dir, netfs, logical, "
+"iscsi, isci et kimchi-iso"
 
 msgid "Storage pool path must be a string"
 msgstr "Le chemin du pool de stockage doit être une chaîne de caractères"
@@ -556,10 +567,10 @@ msgstr ""
 "et 65535"
 
 msgid "iSCSI target username must be a string"
-msgstr ""
+msgstr "Le nom d'utilisateur de la cible iSCSI doit être une chaîne de caractères"
 
 msgid "iSCSI target password must be a string"
-msgstr ""
+msgstr "Le mot de passe de la cible iSCSI doit être une chaîne de caractères"
 
 msgid "Specify name and type to create a storage pool"
 msgstr "Spécifier un nom et un type pour créer un pool de stockage"
@@ -574,7 +585,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
-msgstr ""
+msgstr "Impossible d'agrandir le pool logique %(pool)s. Détails: %(err)s"
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr ""
@@ -644,6 +655,8 @@ msgid ""
 "Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
 msgstr ""
+"Impossible de créer le volume de stockage %(volume)s car le pool de "
+"stockage %(pool)s n'est pas actif"
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
@@ -720,21 +733,21 @@ msgstr ""
 
 #, python-format
 msgid "Only one of parameter %(param)s can be specified"
-msgstr ""
+msgstr "Seulement un seul des paramêtre %(param)s peut être spécifié"
 
 #, python-format
 msgid "Create volume from %(param)s is not supported"
-msgstr ""
+msgstr "La création de volume avec %(param)s n'est pas supportée"
 
 msgid "Storage volume capacity must be an integer number."
-msgstr ""
+msgstr "La capacité du volume de stockage doit être un nombre entier."
 
 msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
-msgstr ""
+msgstr "L'URL du volume de stockage doit être http://, https://, ftp:// ou ftps://."
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
-msgstr ""
+msgstr "Impossible d'accéder au fichier %(url)s. Veuillez le vérifier."
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -833,7 +846,7 @@ msgstr ""
 
 #, python-format
 msgid "Debug report %(name)s does not exist"
-msgstr "LE rapport de déboggage %(name)s n'existe pas"
+msgstr "Le rapport de déboggage %(name)s n'existe pas"
 
 msgid "Debug report tool not found in system"
 msgstr "L'outil de rapport de déboggage n'a pas été trouvé dans le système"
@@ -846,6 +859,7 @@ msgstr ""
 #, python-format
 msgid "Can not find any debug report with the given name %(name)s"
 msgstr ""
+"Impossible de trouver un rapport de déboggage avec le nom fourni %(name)s"
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
@@ -853,12 +867,14 @@ msgstr ""
 "Impossible de générer le rapport de déboggage %(name)s. Détails: %(err)s"
 
 msgid "You should give a name for the debug report file."
-msgstr ""
+msgstr "Vous devriez donner un nom au fichier de rapport de déboggage."
 
 msgid ""
 "Debug report name must be a string. Only letters, digits, underscore ('_') "
 "and hyphen ('-') are allowed."
 msgstr ""
+"Le nom du rapport de déboggage doit être une chaîne de caractères. Seulement "
+"les lettres, chiffres, blanc souligné ('_') et tirets ('-') sont acceptés."
 
 #, python-format
 msgid ""
@@ -882,12 +898,12 @@ msgstr "La partition %(name)s n'existe pas sur cet hôte"
 
 msgid "Unable to shutdown host machine as there are running virtual machines"
 msgstr ""
-"Impossilbe d'éteindre la machine hôte car des machines virtuelles en sont "
+"Impossible d'éteindre la machine hôte car des machines virtuelles en sont "
 "cours d'exécution"
 
 msgid "Unable to reboot host machine as there are running virtual machines"
 msgstr ""
-"Impossilbe de rebooter la machine hôte car des machines virtuelles en sont "
+"Impossible de redémarrer la machine hôte car des machines virtuelles en sont "
 "cours d'exécution"
 
 #, python-format
@@ -895,7 +911,7 @@ msgid "Node device '%(name)s' not found"
 msgstr "Périphérique de noeud '%(name)s' non trouvé"
 
 msgid "Conflicting flag filters specified."
-msgstr ""
+msgstr "Filtres incompatibles spécifiés."
 
 msgid "No packages marked for update"
 msgstr "Aucun paquet marqué pour mise à jour"
@@ -928,7 +944,7 @@ msgstr ""
 "secondes"
 
 msgid "Unable to choose a virtual machine name"
-msgstr ""
+msgstr "Impossible de sélectionner un nom de machine virtuelle"
 
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "Type de stockage invalide. Les Types supportés sont: 'cdrom', 'disk'"
@@ -938,13 +954,15 @@ msgid "The path '%(value)s' is not a valid local/remote path for the device"
 msgstr ""
 
 msgid "Only CDROM path can be update."
-msgstr ""
+msgstr "Seulement le chemin d'un CDROM peut être modifié."
 
 #, python-format
 msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
 msgstr ""
+"Le périphérique de stockage %(dev_name)s n'existe pas dans la machine virtuelle "
+"%(vm_name)s"
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -960,7 +978,7 @@ msgid "Error while removing storage device: %(error)s"
 msgstr "Erreur durant le retrait du périphérique de stockage: %(error)s"
 
 msgid "Do not support IDE device hot plug"
-msgstr ""
+msgstr "Ne pas supporter le branchement à chaud de périphérique IDE"
 
 msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
@@ -997,6 +1015,8 @@ msgid ""
 "Volume chosen with format %(format)s does not fit in the storage type "
 "%(type)s"
 msgstr ""
+"Le volume de format %(format)s sélectionné ne correspond pas "
+"au type de stockage %(type)s"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr ""
@@ -1106,7 +1126,7 @@ msgstr "Impossible de supprimer un dépôt. Détails: '%(err)s'"
 #, python-format
 msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
-msgstr ""
+msgstr "Éléments de configurations: %(items)s ne sont pas supportés par le gestionnaire de dépôt"
 
 msgid "ERROR CODE"
 msgstr "ERROR CODE"
@@ -1176,7 +1196,7 @@ msgid "Permission"
 msgstr "Permission"
 
 msgid "Host PCI Device"
-msgstr ""
+msgstr "Périphérique PCI Hôte"
 
 msgid "Name"
 msgstr "Nom"
@@ -1212,16 +1232,16 @@ msgid "All"
 msgstr "Tous"
 
 msgid "To Add"
-msgstr ""
+msgstr "À Ajouter"
 
 msgid "Added"
-msgstr ""
+msgstr "Ajouter"
 
 msgid "filter"
-msgstr ""
+msgstr "Filtre"
 
 msgid "Product"
-msgstr ""
+msgstr "Produit"
 
 msgid "Vendor"
 msgstr "Vendeur"
@@ -1352,13 +1372,13 @@ msgid "Warning"
 msgstr "Avertissement"
 
 msgid "Creating..."
-msgstr ""
+msgstr "Création en cours..."
 
 msgid "Loading..."
 msgstr "Chargement en cours..."
 
 msgid "An error occurred while checking for packages update."
-msgstr ""
+msgstr "Une erreur est survenue lors de la vérification des mises-à-jour de paquets."
 
 msgid "Retry"
 msgstr "Essayer à nouveau"
@@ -1367,7 +1387,7 @@ msgid "Detailed message:"
 msgstr "Message détaillé:"
 
 msgid "No ISO found"
-msgstr ""
+msgstr "Aucune ISO détectée"
 
 msgid "This is not a valid ISO file."
 msgstr "Ce n'est pas un fichier ISO valide."
@@ -1477,7 +1497,7 @@ msgid "Updating..."
 msgstr "En cours de mise à jour..."
 
 msgid "Failed to retrieve packages update information."
-msgstr ""
+msgstr "Échec de récupération des informations de mise-à-jour des paquets."
 
 msgid "Failed to update package(s)."
 msgstr "Échec durant la mise à jour du/des paquet(s)"
@@ -1518,7 +1538,7 @@ msgid "Pending..."
 msgstr "En attente..."
 
 msgid "Report name is the same as the original one."
-msgstr ""
+msgstr "Le nom du rapport est le même que celui d'origine."
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1555,7 +1575,7 @@ msgstr ""
 "Noter que l'OS invité pourrait ignorer cette requête. Voulez-vous continuer ?"
 
 msgid "Virtual Machine delete Confirmation"
-msgstr ""
+msgstr "Confirmation de suppression de Machine Virtuelle"
 
 msgid ""
 "This virtual machine is not persistent. Power Off will delete it. Continue?"
@@ -1587,6 +1607,8 @@ msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
 msgstr ""
+"Ce disque sera définitivement détaché et peut être ré-attaché. Continuer "
+"à le détacher ?"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "L'id du VLAN doit être entre 1 et 4094."
@@ -1686,13 +1708,13 @@ msgid "Unable to retrieve partitions information."
 msgstr "Impossible de récupérer les informations des partitions."
 
 msgid "In progress..."
-msgstr ""
+msgstr "En cours..."
 
 msgid "Failed!"
-msgstr ""
+msgstr "Échec!"
 
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
-msgstr ""
+msgstr "Le chemin de CDROM doit être un chemin local/distant valide et ne peut être virge."
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "Le pool de disque ou le volume ne peut être vierge."
@@ -1719,7 +1741,7 @@ msgid "Version:"
 msgstr "Version:"
 
 msgid "Session timeout, please re-login."
-msgstr "Session expirée, veuillez vous reconecter."
+msgstr "Session expirée, veuillez vous reconnecter."
 
 msgid "User Name"
 msgstr "Nom d'Utilisateur"
@@ -1879,22 +1901,22 @@ msgid "SCSI Adapter"
 msgstr "Adaptateur SCSI"
 
 msgid "Please, wait..."
-msgstr "Vauillez patienter..."
+msgstr "Veuillez patienter..."
 
 msgid "Add a Volume to Storage Pool"
-msgstr ""
+msgstr "iAjouter un Volume au Pool de Stockage"
 
 msgid "Fetch from remote URL"
 msgstr ""
 
 msgid "Enter the remote URL here."
-msgstr ""
+msgstr "Saisir une URL distante ici"
 
 msgid "Upload an file"
-msgstr ""
+msgstr "Charger un fichier"
 
 msgid "Choose the ISO file (with .iso suffix) you want to upload."
-msgstr ""
+msgstr "Sélectionner le fichier ISO (avec suffixe .iso) à charger"
 
 msgid "Add Template"
 msgstr "Ajouter un Modèle"
@@ -1906,7 +1928,7 @@ msgid "Local ISO Image"
 msgstr "Image ISO Locale"
 
 msgid "Local Image File"
-msgstr ""
+msgstr "Fichier Image Local"
 
 msgid "Remote ISO Image"
 msgstr "Image ISO Distante"
@@ -1918,13 +1940,13 @@ msgid "The following ISOs are available:"
 msgstr "Les ISOs suivants sont disponibles:"
 
 msgid "OS: "
-msgstr "OS:"
+msgstr "OS: "
 
 msgid "Version: "
-msgstr "Version:"
+msgstr "Version: "
 
 msgid "Size: "
-msgstr "Taille:"
+msgstr "Taille: "
 
 msgid "Search more ISOs"
 msgstr "Chercher plus d'ISOs"
@@ -1936,10 +1958,10 @@ msgid "I want to use a specific ISO file"
 msgstr "Je veux utiliser un fichier ISO spécifique"
 
 msgid "Loading default remote ISOs ..."
-msgstr "En cours de chargement des ISOs distants par défaut..."
+msgstr "Chargement des ISOs distants par défaut en cours..."
 
 msgid "Arch: "
-msgstr "Arch:"
+msgstr "Arch: "
 
 msgid "I want to use a custom URL"
 msgstr "Je veux utiliser une URL personnalisée"
@@ -1957,7 +1979,7 @@ msgid "CDROM"
 msgstr "CDROM"
 
 msgid "Image File"
-msgstr ""
+msgstr "Fichier Image"
 
 msgid "Graphics"
 msgstr "Graphiques"
@@ -2017,7 +2039,7 @@ msgid "Name should not contain '/' and '\"'."
 msgstr "Le nom ne devrait pas contenir '/' et '\"'."
 
 msgid "Isolated: no external network connection"
-msgstr "Isolated: pas de connexion à un réseau externe"
+msgstr "Isolé: pas de connexion à un réseau externe"
 
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: connexion physique au réseau sortant uniquement"
@@ -2027,7 +2049,7 @@ msgstr ""
 "Bridgé: Les macines virtuelles sont connectées directement au réseau physique"
 
 msgid "(No interfaces found)"
-msgstr ""
+msgstr "(Aucune interface trouvée)"
 
 msgid "Destination"
 msgstr "Destination"
@@ -2063,13 +2085,13 @@ msgid "Activate"
 msgstr "Activer"
 
 msgid "Add Volume"
-msgstr ""
+msgstr "Ajouter un Volume"
 
 msgid "Extend"
 msgstr "Étendre"
 
 msgid "Undefine"
-msgstr "Indéfini"
+msgstr "Supprimer"
 
 msgid "Format"
 msgstr "Format"
