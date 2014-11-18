@@ -142,7 +142,8 @@ def _kimchi_get_metadata_node(dom, tag):
             if i >= 0:
                 elem.tag = elem.tag[i+1:]
 
-        objectify.deannotate(kimchi, cleanup_namespaces=True)
+        objectify.deannotate(kimchi)
+        etree.cleanup_namespaces(kimchi)
         return kimchi
     return None
 
