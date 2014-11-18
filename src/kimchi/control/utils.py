@@ -74,6 +74,9 @@ def parse_request():
         return {}
 
     if mime_in_header('Content-Type', 'application/json'):
+        if cherrypy.request.body.length == 0:
+            return {}
+
         rawbody = cherrypy.request.body.read()
         try:
             return json.loads(rawbody)
