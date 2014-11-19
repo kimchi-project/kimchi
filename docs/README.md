@@ -169,9 +169,7 @@ pool (default path is: /var/lib/kimchi/isos).
 Known Issues
 ------------
 
-1. Kimchi is still experimental and should not be used in a production
-environment.
-2. When you are using NFS as storage pool, check the nfs export path permission
+1. When you are using NFS as storage pool, check the nfs export path permission
 is configured as:
     (1) export path need to be squashed as kvm gid and libvirt uid:
         /my_export_path *(all_squash,anongid=<kvm-gid>, anonuid=<libvirt-uid>,rw,sync)
