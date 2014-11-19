@@ -44,6 +44,9 @@
                 <li>
                     <a href="#form-guest-edit-pci">$_("Host PCI Device")</a>
                 </li>
+                <li>
+                    <a href="#form-guest-edit-snapshot">$_("Snapshot")</a>
+                </li>
             </ul>
             <form id="form-guest-edit-general">
                 <fieldset class="guest-edit-fieldset">
@@ -160,6 +163,16 @@
                     <div class="body"></div>
                 </div>
             </form>
+            <form id="form-guest-edit-snapshot" class="guest-edit-snapshot">
+                <div class="header">
+                    <span class="cell sel"></span>
+                    <span class="cell name">$_("Name")</span>
+                    <span class="cell created">$_("Created")</span>
+                    <button class="add action-area"></button>
+                </div>
+                <div class="task"></div>
+                <div class="body"></div>
+            </form>
         </div>
     </div>
     <footer>
@@ -250,6 +263,20 @@
     <span class="cell vendor" title="{vendor}">{vendor}</span>
     <button></button>
 </div>
+</script>
+<script id="snapshot-tmpl" type="text/html">
+    <div class="item" id="{name}">
+        <span class="cell sel">
+            <span class="icon {createMode}"></span>
+            <span class="ui-icon ui-icon-check hide"></span>
+        </span>
+        <span class="cell name">{name}</span>
+        <span class="cell created">{created}</span>
+        <span class="action-area">
+            <button class="revert {listMode}" title="$_("revert")"></button>
+            <button class="delete {listMode}"></button>
+        </span>
+    <div>
 </script>
 <script type="text/javascript">
     kimchi.guest_edit_main();
