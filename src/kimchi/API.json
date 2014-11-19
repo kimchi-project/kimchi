@@ -470,7 +470,6 @@
                     "description": "list of which networks will be assigned to the new VM.",
                     "type": "array",
                     "items": { "type": "string" },
-                    "uniqueItems": true,
                     "error": "KCHTMPL0017E"
                 },
                 "folder": {
@@ -641,7 +640,6 @@
                     "description": "list of which networks will be assigned to the new VM.",
                     "type": "array",
                     "items": { "type": "string" },
-                    "uniqueItems": true,
                     "error": "KCHTMPL0017E"
                 },
                 "folder": {
