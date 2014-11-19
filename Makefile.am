@@ -34,7 +34,7 @@ EXTRA_DIST = \
 	$(NULL)
 
 
-PEP8_BLACKLIST = src/kimchi/config.py,src/kimchi/i18n.py,tests/test_config.py
+PEP8_BLACKLIST = *src/kimchi/config.py,*src/kimchi/i18n.py,*tests/test_config.py
 
 SKIP_PYFLAKES_ERR = "\./src/kimchi/websocket\.py"
 
