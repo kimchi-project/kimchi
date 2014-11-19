@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:58</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 19 13:01:58 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:58</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:58</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> wel... apparently not
+<a name="l-9"></a><span class="tm">13:03:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got new MockModel merged and also fixed some bugs on Model to do the MockModel transition happens</span>
+<a name="l-12"></a><span class="tm">13:04:41</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch UI: edit template redefined</span>
+<a name="l-13"></a><span class="tm">13:04:52</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce update ldap authentication &amp; authorization to v6, authentication part merged</span>
+<a name="l-14"></a><span class="tm">13:05:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that disable "create" button when create a vm</span>
+<a name="l-15"></a><span class="tm">13:05:28</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed two bugs related to lxml lib and pep8</span>
+<a name="l-16"></a><span class="tm">13:06:32</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent fixes to the snapshot feature (send empty JSON data in POST/PUT methods; fix error code when current snapshot doesn't exist); reviewed patches on the mailing list</span>
+<a name="l-17"></a><span class="tm">13:06:45</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang discussed with alinefm that we might need to change the storage upload function to part to part transfer in back-end then have it enabled</span>
+<a name="l-18"></a><span class="tm">13:06:47</span><span class="nk"> &lt;Guest209&gt;</span> <span class="cmd">#info </span><span class="cmdline">Simon send out migration v4/v5</span>
+<a name="l-19"></a><span class="tm">13:08:51</span><span class="nk"> &lt;alinefm&gt;</span> today would start the code freeze but I'd like to hear from you if we postpone it one week we will get SMT (backend and UI) and LDAP authorization (UI) done ?
+<a name="l-20"></a><span class="tm">13:09:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, christyp, wenwang, ^
+<a name="l-21"></a><span class="tm">13:09:28</span><span class="nk"> &lt;alinefm&gt;</span> vianac, the same question for you about the issues with snapshot and raw images
+<a name="l-22"></a><span class="tm">13:09:35</span><span class="nk"> &lt;alinefm&gt;</span> vianac, the snapshot UI is done?
+<a name="l-23"></a><span class="tm">13:09:36</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-24"></a><span class="tm">13:09:57</span><span class="nk"> &lt;royce&gt;</span> alinefm, I talked with Yuxin about UI of LDAP
+<a name="l-25"></a><span class="tm">13:10:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, any progress? news?
+<a name="l-26"></a><span class="tm">13:10:27</span><span class="nk"> &lt;royce&gt;</span> We think it better be different with PAM ones, we can talk about it later
+<a name="l-27"></a><span class="tm">13:10:33</span><span class="nk"> &lt;christyp&gt;</span> alinefm, i think SMT is done now, aside from the weird mockmodel test issue, so a week would be good for me
+<a name="l-28"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-29"></a><span class="tm">13:10:51</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#YuXin </span><span class="cmdline">UI Guest Clone v1/v2/v3</span>
+<a name="l-30"></a><span class="tm">13:11:02</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, YuXin, we can discuss the SMT UI later but one week is enough to get it done?
+<a name="l-31"></a><span class="tm">13:11:13</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-32"></a><span class="tm">13:11:25</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-33"></a><span class="tm">13:11:28</span><span class="nk"> &lt;vianac&gt;</span> vianac, the backend still needs to be updated, the snapshot support in libvirt isn't consistent.
+<a name="l-34"></a><span class="tm">13:11:31</span><span class="nk"> &lt;vianac&gt;</span> ops
+<a name="l-35"></a><span class="tm">13:11:34</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ^
+<a name="l-36"></a><span class="tm">13:11:57</span><span class="nk"> &lt;vianac&gt;</span> alinefm, the UI is ready for what we have now. but if the backend gets updated, it might need to change as well.
+<a name="l-37"></a><span class="tm">13:12:09</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> YuXin is on that task and I am glad to help if needed:-). One week is good
+<a name="l-38"></a><span class="tm">13:12:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">postpone 1.4 code freeze one week to 11/26 to get SMT feature (backend and UI) and LDAP authorization UI</span>
+<a name="l-39"></a><span class="tm">13:12:28</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, thanks
+<a name="l-40"></a><span class="tm">13:12:36</span><span class="nk"> &lt;vianac&gt;</span> soI'd like that one extra week to make sure the snapshot works well across all different cases
+<a name="l-41"></a><span class="tm">13:12:39</span><span class="nk"> &lt;alinefm&gt;</span> vianac, do you mean you will change the API?
+<a name="l-42"></a><span class="tm">13:12:50</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> yw
+<a name="l-43"></a><span class="tm">13:12:52</span><span class="nk"> &lt;vianac&gt;</span> alinefm, no, but what cases work and what cases don't
+<a name="l-44"></a><span class="tm">13:12:59</span><span class="nk"> &lt;alinefm&gt;</span> because if the API does not change the UI can be merged
+<a name="l-45"></a><span class="tm">13:13:01</span><span class="nk"> &lt;vianac&gt;</span> so the UI can disable some possibilities
+<a name="l-46"></a><span class="tm">13:13:16</span><span class="nk"> &lt;YuXin&gt;</span> merge the current UI and we can change along with backend change
+<a name="l-47"></a><span class="tm">13:13:29</span><span class="nk"> &lt;vianac&gt;</span> for example, creating a snapshot on a shutoff VM with a raw disk is definitely impossible (with Fedora 20's libvirt, at least).
+<a name="l-48"></a><span class="tm">13:13:37</span><span class="nk"> &lt;vianac&gt;</span> but it works if the VM is running (!)
+<a name="l-49"></a><span class="tm">13:14:26</span><span class="nk"> &lt;vianac&gt;</span> and there's a different situation with qcow2 image disks
+<a name="l-50"></a><span class="tm">13:14:26</span><span class="nk"> &lt;vianac&gt;</span> so we might want to disable some cases in the UI when we find out how all this works exactl, and that would need UI change
+<a name="l-51"></a><span class="tm">13:14:26</span><span class="nk"> &lt;vianac&gt;</span> but it's not about the API
+<a name="l-52"></a><span class="tm">13:14:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, vianac, ok
+<a name="l-53"></a><span class="tm">13:14:41</span><span class="nk"> &lt;alinefm&gt;</span> vianac, please, review the snapshot UI so I can merge it and help with the tests
+<a name="l-54"></a><span class="tm">13:14:42</span><span class="nk"> &lt;vianac&gt;</span> we can discuss this better in the open discussion section :)
+<a name="l-55"></a><span class="tm">13:15:15</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-56"></a><span class="tm">13:15:26</span><span class="nk"> &lt;alinefm&gt;</span> so let's move on
+<a name="l-57"></a><span class="tm">13:15:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-58"></a><span class="tm">13:15:45</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, who wants to start?
+<a name="l-59"></a><span class="tm">13:15:56</span><span class="nk"> &lt;vianac&gt;</span> o/
+<a name="l-60"></a><span class="tm">13:16:02</span><span class="nk"> &lt;royce&gt;</span> OK, you first
+<a name="l-61"></a><span class="tm">13:16:12</span><span class="nk"> &lt;vianac&gt;</span> alinefm, here's what I found out about the snapshot support on my Fedora 20
+<a name="l-62"></a><span class="tm">13:16:43</span><span class="nk"> &lt;vianac&gt;</span> I cannot take snapshots on a VM with raw disks if it's shutoff
+<a name="l-63"></a><span class="tm">13:16:49</span><span class="nk"> &lt;vianac&gt;</span> it just doesn't work, libvirt fails
+<a name="l-64"></a><span class="tm">13:16:53</span><span class="nk"> &lt;vianac&gt;</span> virsh cannot do it
+<a name="l-65"></a><span class="tm">13:16:59</span><span class="nk"> &lt;vianac&gt;</span> virt-manager cannot do it
+<a name="l-66"></a><span class="tm">13:17:02</span><span class="nk"> &lt;vianac&gt;</span> it's libvirt
+<a name="l-67"></a><span class="tm">13:17:21</span><span class="nk"> &lt;vianac&gt;</span> if I start that VM, I'm able to create a snapshot
+<a name="l-68"></a><span class="tm">13:17:27</span><span class="nk"> &lt;vianac&gt;</span> but I'm not able to delete it (!)
+<a name="l-69"></a><span class="tm">13:17:44</span><span class="nk"> &lt;vianac&gt;</span> so raw support is very broken
+<a name="l-70"></a><span class="tm">13:17:55</span><span class="nk"> &lt;royce&gt;</span> This is supported when we were using ovirt: http://www.ovirt.org/Live_Snapshots
+<a name="l-71"></a><span class="tm">13:17:57</span><span class="nk"> &lt;christyp&gt;</span> that stinks
+<a name="l-72"></a><span class="tm">13:18:08</span><span class="nk"> &lt;alinefm&gt;</span> vianac, and if my VM has 2 disks; 1 raw and 1 qcow2, it fails too?
+<a name="l-73"></a><span class="tm">13:18:26</span><span class="nk"> &lt;vianac&gt;</span> royce, are you sure it works on a Fedora 20?
+<a name="l-74"></a><span class="tm">13:18:48</span><span class="nk"> &lt;royce&gt;</span> it worked when we were on fedora18 at that time
+<a name="l-75"></a><span class="tm">13:18:57</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I haven't tested that. but I believe having a raw image will fail everything
+<a name="l-76"></a><span class="tm">13:19:01</span><span class="nk"> &lt;vianac&gt;</span> (that'd my view only)
+<a name="l-77"></a><span class="tm">13:19:04</span><span class="nk"> &lt;vianac&gt;</span> *that's
+<a name="l-78"></a><span class="tm">13:19:40</span><span class="nk"> &lt;vianac&gt;</span> royce, is that libvirt snapshots?
+<a name="l-79"></a><span class="tm">13:19:55</span><span class="nk"> &lt;vianac&gt;</span> hum it looks like
+<a name="l-80"></a><span class="tm">13:20:18</span><span class="nk"> &lt;vianac&gt;</span> I'll read that link carefully later
+<a name="l-81"></a><span class="tm">13:20:41</span><span class="nk"> &lt;vianac&gt;</span> using qcow2 images, I'm able to create snapshots whether the VM is shutoff or running
+<a name="l-82"></a><span class="tm">13:20:46</span><span class="nk"> &lt;vianac&gt;</span> and I'm able to delete them
+<a name="l-83"></a><span class="tm">13:20:57</span><span class="nk"> &lt;vianac&gt;</span> and that's the image type for VMs created by Kimchi
+<a name="l-84"></a><span class="tm">13:21:01</span><span class="nk"> &lt;YuXin&gt;</span> since no way to get a complete list of what or what is not supported, I recomment to leave as current and refine the error message to make error is reported
+<a name="l-85"></a><span class="tm">13:21:11</span><span class="nk"> &lt;royce&gt;</span> I suppose it leverage libvirt
+<a name="l-86"></a><span class="tm">13:21:33</span><span class="nk"> &lt;vianac&gt;</span> so qcow2-based VMs are looking fine
+<a name="l-87"></a><span class="tm">13:21:37</span><span class="nk"> &lt;vianac&gt;</span> *at least in Fedora 20*
+<a name="l-88"></a><span class="tm">13:21:44</span><span class="nk"> &lt;vianac&gt;</span> I can't say for the other systems yet
+<a name="l-89"></a><span class="tm">13:21:59</span><span class="nk"> &lt;YuXin&gt;</span> it is too confusing that something is disabled, but user has no way to exactly determine why it is disabled
+<a name="l-90"></a><span class="tm">13:22:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, were you able to create a snapshot from a  raw disk in a powered off VM?
+<a name="l-91"></a><span class="tm">13:22:13</span><span class="nk"> &lt;vianac&gt;</span> YuXin, I agree with you
+<a name="l-92"></a><span class="tm">13:22:24</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">vianac:</span> is the snapshot internal or external?
+<a name="l-93"></a><span class="tm">13:22:41</span><span class="nk"> &lt;YuXin&gt;</span> so an error message telling the exact error will be more helpful
+<a name="l-94"></a><span class="tm">13:22:46</span><span class="nk"> &lt;vianac&gt;</span> royce, it depends on which case you're talking about :)
+<a name="l-95"></a><span class="tm">13:22:51</span><span class="nk"> &lt;alinefm&gt;</span> vianac, but 'raw' is definitively a disk format that we must support
+<a name="l-96"></a><span class="tm">13:22:55</span><span class="nk"> &lt;royce&gt;</span> alinefm, I haven't tried with kimchi snapshot yet
+<a name="l-97"></a><span class="tm">13:22:58</span><span class="nk"> &lt;vianac&gt;</span> with raw images, I can't create snapshots, internal or external
+<a name="l-98"></a><span class="tm">13:23:03</span><span class="nk"> &lt;vianac&gt;</span> if it's shutoff
+<a name="l-99"></a><span class="tm">13:23:05</span><span class="nk"> &lt;vianac&gt;</span> I tried both
+<a name="l-100"></a><span class="tm">13:23:20</span><span class="nk"> &lt;royce&gt;</span> alinefm, but ovirt support raw on shutoff vm
+<a name="l-101"></a><span class="tm">13:23:21</span><span class="nk"> &lt;vianac&gt;</span> if it's running, it only works with external snapshot (raw doesn't support internal at all)
+<a name="l-102"></a><span class="tm">13:23:44</span><span class="nk"> &lt;vianac&gt;</span> with qcow2 images, we can use internal snapshots
+<a name="l-103"></a><span class="tm">13:24:48</span><span class="nk"> &lt;royce&gt;</span> ok, so if it is external, it should work no matter the base is...I haven't tried recently, not sure if it get breaks by libvirt
+<a name="l-104"></a><span class="tm">13:25:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, could you help vianac with it?
+<a name="l-105"></a><span class="tm">13:25:24</span><span class="nk"> &lt;alinefm&gt;</span> providing what you have already done with it
+<a name="l-106"></a><span class="tm">13:25:37</span><span class="nk"> &lt;royce&gt;</span> alinefm, I will help to take a look
+<a name="l-107"></a><span class="tm">13:26:52</span><span class="nk"> &lt;vianac&gt;</span> alinefm, royce thanks
+<a name="l-108"></a><span class="tm">13:27:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-109"></a><span class="tm">13:27:07</span><span class="nk"> &lt;alinefm&gt;</span> royce,  your turn =)
+<a name="l-110"></a><span class="tm">13:27:10</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-111"></a><span class="tm">13:27:24</span><span class="nk"> &lt;royce&gt;</span> vianac, you're welcome
+<a name="l-112"></a><span class="tm">13:27:36</span><span class="nk"> &lt;royce&gt;</span> it is PAM and LDAP UI
+<a name="l-113"></a><span class="tm">13:27:37</span><span class="nk"> &lt;YuXin&gt;</span> if guest snapshot UI has no problem, I am going to move to SMT tomorrow
+<a name="l-114"></a><span class="tm">13:28:29</span><span class="nk"> &lt;royce&gt;</span> PAM adopted a column based UI, left column is exsisted users/groups, right is vm's user/groups
+<a name="l-115"></a><span class="tm">13:28:33</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, once vianac reviewed it I will apply
+<a name="l-116"></a><span class="tm">13:28:40</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-117"></a><span class="tm">13:28:42</span><span class="nk"> &lt;YuXin&gt;</span> for smt
+<a name="l-118"></a><span class="tm">13:28:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I will talk about the SMT UI later today too
+<a name="l-119"></a><span class="tm">13:28:50</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-120"></a><span class="tm">13:28:56</span><span class="nk"> &lt;royce&gt;</span> but when it comes to LDAP, first we don't have available users/groups listed in left
+<a name="l-121"></a><span class="tm">13:29:10</span><span class="nk"> &lt;christyp&gt;</span> alinefm, yuxin: i tried to sum up what we'd talked about in the v6 cover-letter
+<a name="l-122"></a><span class="tm">13:29:28</span><span class="nk"> &lt;YuXin&gt;</span> christyp, thanks
+<a name="l-123"></a><span class="tm">13:29:29</span><span class="nk"> &lt;royce&gt;</span> 2. if we validate user given one by one, that would be many steps
+<a name="l-124"></a><span class="tm">13:31:11</span><span class="nk"> &lt;royce&gt;</span> So YuXin and I suppose we'd better use a UI similar to interface adding
+<a name="l-125"></a><span class="tm">13:31:36</span><span class="nk"> &lt;YuXin&gt;</span> for ldap user, it is neither search or filter, it is only add along with a validation
+<a name="l-126"></a><span class="tm">13:31:46</span><span class="nk"> &lt;royce&gt;</span> And all user added to vm can be validated at once with "check" or "warning"
+<a name="l-127"></a><span class="tm">13:32:20</span><span class="nk"> &lt;YuXin&gt;</span> admin need to know the full user  name and add it
+<a name="l-128"></a><span class="tm">13:32:26</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, royce, so I select the + icon to add a new user, type the user mail and select "save" icon ?
+<a name="l-129"></a><span class="tm">13:32:35</span><span class="nk"> &lt;alinefm&gt;</span> the "save" will do the validation?
+<a name="l-130"></a><span class="tm">13:32:41</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-131"></a><span class="tm">13:32:47</span><span class="nk"> &lt;royce&gt;</span> alinefm, yes
+<a name="l-132"></a><span class="tm">13:32:49</span><span class="nk"> &lt;alinefm&gt;</span> and that is the flow for each user added?
+<a name="l-133"></a><span class="tm">13:32:51</span><span class="nk"> &lt;YuXin&gt;</span> validate against ldap to make sure the user exist
+<a name="l-134"></a><span class="tm">13:32:59</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-135"></a><span class="tm">13:33:14</span><span class="nk"> &lt;alinefm&gt;</span> sounds pretty good and simple for me
+<a name="l-136"></a><span class="tm">13:33:14</span><span class="nk"> &lt;YuXin&gt;</span> if add user one by one, then validation is done along with each user
+<a name="l-137"></a><span class="tm">13:34:04</span><span class="nk"> &lt;alinefm&gt;</span> ok - go for it =)
+<a name="l-138"></a><span class="tm">13:34:16</span><span class="nk"> &lt;royce&gt;</span> alinefm, we are open about press "save "button and all validate at once, or after typing validation
+<a name="l-139"></a><span class="tm">13:34:56</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think validating after typing is better
+<a name="l-140"></a><span class="tm">13:35:15</span><span class="nk"> &lt;alinefm&gt;</span> I mean, at once, we will need to identify each user fails and each succeeds
+<a name="l-141"></a><span class="tm">13:35:18</span><span class="nk"> &lt;alinefm&gt;</span> and then inform to user
+<a name="l-142"></a><span class="tm">13:35:33</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-143"></a><span class="tm">13:36:09</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, the problem is that when save, need to post all users in one request
+<a name="l-144"></a><span class="tm">13:36:41</span><span class="nk"> &lt;YuXin&gt;</span> including already existing users
+<a name="l-145"></a><span class="tm">13:36:50</span><span class="nk"> &lt;alinefm&gt;</span> hm... =/
+<a name="l-146"></a><span class="tm">13:36:55</span><span class="nk"> &lt;royce&gt;</span> if we do this, if a user deleted by ldap, but labeled in vm access info, existed user cannot get the warning
+<a name="l-147"></a><span class="tm">13:37:21</span><span class="nk"> &lt;YuXin&gt;</span> so even in UI, along with each user, there is a save button, when client on save, not only save that user, but save all users
+<a name="l-148"></a><span class="tm">13:37:25</span><span class="nk"> &lt;royce&gt;</span> so we need to fix this corner case
+<a name="l-149"></a><span class="tm">13:38:08</span><span class="nk"> &lt;YuXin&gt;</span> and this occurs on all items when vm edit if I remember corrently
+<a name="l-150"></a><span class="tm">13:38:29</span><span class="nk"> &lt;YuXin&gt;</span> no
+<a name="l-151"></a><span class="tm">13:38:34</span><span class="nk"> &lt;YuXin&gt;</span> not all items
+<a name="l-152"></a><span class="tm">13:38:35</span><span class="nk"> &lt;royce&gt;</span> but I think after typing makes people feels UI is response them
+<a name="l-153"></a><span class="tm">13:39:05</span><span class="nk"> &lt;YuXin&gt;</span> how about add a new API, add user to vm
+<a name="l-154"></a><span class="tm">13:39:25</span><span class="nk"> &lt;alinefm&gt;</span> in one week??
+<a name="l-155"></a><span class="tm">13:39:33</span><span class="nk"> &lt;alinefm&gt;</span> I don't think it is reasonable
+<a name="l-156"></a><span class="tm">13:40:22</span><span class="nk"> &lt;alinefm&gt;</span> I'd say to allow user to enter the user mails and don't have the "save" icon - only the save button
+<a name="l-157"></a><span class="tm">13:40:34</span><span class="nk"> &lt;alinefm&gt;</span> on save button is selected we send the PUT request
+<a name="l-158"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> and them all inputs will be validate at once
+<a name="l-159"></a><span class="tm">13:41:05</span><span class="nk"> &lt;royce&gt;</span> That is good
+<a name="l-160"></a><span class="tm">13:41:09</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-161"></a><span class="tm">13:41:23</span><span class="nk"> &lt;royce&gt;</span> I won't need to change now\o/
+<a name="l-162"></a><span class="tm">13:41:31</span><span class="nk"> &lt;alinefm&gt;</span> yeap =)
+<a name="l-163"></a><span class="tm">13:41:42</span><span class="nk"> &lt;alinefm&gt;</span> if we think it is better to change we do it for after 1.4
+<a name="l-164"></a><span class="tm">13:41:42</span><span class="nk"> &lt;royce&gt;</span> Still I need to rebase it
+<a name="l-165"></a><span class="tm">13:41:51</span><span class="nk"> &lt;YuXin&gt;</span> then if some users validation failed
+<a name="l-166"></a><span class="tm">13:41:53</span><span class="nk"> &lt;alinefm&gt;</span> I don't want to do big changes one week to code freeze
+<a name="l-167"></a><span class="tm">13:42:07</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the PUT request will fail
+<a name="l-168"></a><span class="tm">13:42:27</span><span class="nk"> &lt;YuXin&gt;</span> response will have which user validation fail?
+<a name="l-169"></a><span class="tm">13:42:51</span><span class="nk"> &lt;alinefm&gt;</span> OR before PUT request we go user by user GET /users/_user_id=X
+<a name="l-170"></a><span class="tm">13:43:07</span><span class="nk"> &lt;alinefm&gt;</span> if all those GET succeeds we send the PUT request
+<a name="l-171"></a><span class="tm">13:43:20</span><span class="nk"> &lt;YuXin&gt;</span> good
+<a name="l-172"></a><span class="tm">13:43:26</span><span class="nk"> &lt;alinefm&gt;</span> otherwise we inform with an icon or so which user is invalid on UI and get user to update it
+<a name="l-173"></a><span class="tm">13:43:51</span><span class="nk"> &lt;YuXin&gt;</span> yes, need to indicate which users fail on UI
+<a name="l-174"></a><span class="tm">13:45:39</span><span class="nk"> &lt;alinefm&gt;</span> royce, YuXin sounds a good plan?
+<a name="l-175"></a><span class="tm">13:45:45</span><span class="nk"> &lt;YuXin&gt;</span> good to me
+<a name="l-176"></a><span class="tm">13:46:13</span><span class="nk"> &lt;alinefm&gt;</span> so let's move to SMT UI
+<a name="l-177"></a><span class="tm">13:46:30</span><span class="nk"> &lt;alinefm&gt;</span> christyp, ^
+<a name="l-178"></a><span class="tm">13:46:33</span><span class="nk"> &lt;YuXin&gt;</span> for SMT, if x86, only enable/disable
+<a name="l-179"></a><span class="tm">13:46:47</span><span class="nk"> &lt;YuXin&gt;</span> for power, I want to know how to get the options in combobox
+<a name="l-180"></a><span class="tm">13:46:50</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, no
+<a name="l-181"></a><span class="tm">13:46:55</span><span class="nk"> &lt;alinefm&gt;</span> we changed everything =P
+<a name="l-182"></a><span class="tm">13:47:04</span><span class="nk"> &lt;royce&gt;</span> good!
+<a name="l-183"></a><span class="tm">13:47:05</span><span class="nk"> &lt;YuXin&gt;</span> ok, go ahead
+<a name="l-184"></a><span class="tm">13:47:07</span><span class="nk"> &lt;christyp&gt;</span> lol
+<a name="l-185"></a><span class="tm">13:47:31</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the UI will be the same for x86 and power
+<a name="l-186"></a><span class="tm">13:47:39</span><span class="nk"> &lt;YuXin&gt;</span> good
+<a name="l-187"></a><span class="tm">13:47:44</span><span class="nk"> &lt;christyp&gt;</span> except for the label?
+<a name="l-188"></a><span class="tm">13:47:52</span><span class="nk"> &lt;alinefm&gt;</span> I thought in adding a new tab on Edit Template named "Processor"
+<a name="l-189"></a><span class="tm">13:48:03</span><span class="nk"> &lt;alinefm&gt;</span> on first view, this tab will have one input box and one check box
+<a name="l-190"></a><span class="tm">13:48:03</span><span class="nk"> &lt;christyp&gt;</span> oh man. this is new, alinefm
+<a name="l-191"></a><span class="tm">13:48:28</span><span class="nk"> &lt;alinefm&gt;</span> christyp, haven't I talked to you about it? lol
+<a name="l-192"></a><span class="tm">13:48:30</span><span class="nk"> &lt;YuXin&gt;</span> royce, let us discuss to add something in UI for ldap users tomorrow
+<a name="l-193"></a><span class="tm">13:48:37</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">alinefim:</span> not the tab :)
+<a name="l-194"></a><span class="tm">13:48:46</span><span class="nk"> &lt;alinefm&gt;</span> CPU number: [_________]
+<a name="l-195"></a><span class="tm">13:48:58</span><span class="nk"> &lt;alinefm&gt;</span> [ ] Manually inform vCPU topology
+<a name="l-196"></a><span class="tm">13:49:15</span><span class="nk"> &lt;christyp&gt;</span> ^ Manually configure vCPU topology
+<a name="l-197"></a><span class="tm">13:49:16</span><span class="nk"> &lt;royce&gt;</span> ok YuXin
+<a name="l-198"></a><span class="tm">13:49:31</span><span class="nk"> &lt;alinefm&gt;</span> when user selects the check box to inform the topology 2 more fields will be displayed
+<a name="l-199"></a><span class="tm">13:49:39</span><span class="nk"> &lt;alinefm&gt;</span> one combo box and one input box
+<a name="l-200"></a><span class="tm">13:49:55</span><span class="nk"> &lt;alinefm&gt;</span> Threads per core (SMT): [&lt;combo box&gt;]
+<a name="l-201"></a><span class="tm">13:50:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">Sockets:</span> [&lt;input box&gt;]
+<a name="l-202"></a><span class="tm">13:50:10</span><span class="nk"> &lt;christyp&gt;</span> nope
+<a name="l-203"></a><span class="tm">13:50:11</span><span class="nk"> &lt;christyp&gt;</span> cores
+<a name="l-204"></a><span class="tm">13:50:13</span><span class="nk"> &lt;christyp&gt;</span> not sockets :)
+<a name="l-205"></a><span class="tm">13:50:16</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-206"></a><span class="tm">13:50:18</span><span class="nk"> &lt;alinefm&gt;</span> sorry
+<a name="l-207"></a><span class="tm">13:50:23</span><span class="nk"> &lt;alinefm&gt;</span> again =)
+<a name="l-208"></a><span class="tm">13:50:25</span><span class="nk"> &lt;christyp&gt;</span> hehe
+<a name="l-209"></a><span class="tm">13:50:25</span><span class="nk"> &lt;alinefm&gt;</span> Threads per core (SMT): [&lt;combo box&gt;]
+<a name="l-210"></a><span class="tm">13:50:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">Cores:</span> [&lt;input box&gt;]
+<a name="l-211"></a><span class="tm">13:50:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, christyp, ok by now?
+<a name="l-212"></a><span class="tm">13:50:50</span><span class="nk"> &lt;christyp&gt;</span> yah
+<a name="l-213"></a><span class="tm">13:50:58</span><span class="nk"> &lt;YuXin&gt;</span> understanding
+<a name="l-214"></a><span class="tm">13:51:38</span><span class="nk"> &lt;alinefm&gt;</span> one important missing point: when user selects the check box to inform the topology the "CPU number" input box will be disabled
+<a name="l-215"></a><span class="tm">13:52:17</span><span class="nk"> &lt;alinefm&gt;</span> then on each change on threads/cores the CPU field will be updated according to threads * cores
+<a name="l-216"></a><span class="tm">13:52:24</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-217"></a><span class="tm">13:52:57</span><span class="nk"> &lt;YuXin&gt;</span> so cpu number and "manually inform topoloty" is exclusive
+<a name="l-218"></a><span class="tm">13:53:02</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-219"></a><span class="tm">13:53:24</span><span class="nk"> &lt;YuXin&gt;</span> Threads per core (SMT): [&lt;combo box&gt;]
+<a name="l-220"></a><span class="tm">13:53:45</span><span class="nk"> &lt;YuXin&gt;</span> for the conent of this combo box, whether it is static or dynamic
+<a name="l-221"></a><span class="tm">13:54:07</span><span class="nk"> &lt;alinefm&gt;</span> static
+<a name="l-222"></a><span class="tm">13:54:14</span><span class="nk"> &lt;alinefm&gt;</span> christyp, how is the API to get it?
+<a name="l-223"></a><span class="tm">13:55:21</span><span class="nk"> &lt;christyp&gt;</span> yuxin, alinefm: that's the only thing that hasn't changed over the past 3 iterations. you'll use threads_per_core, and the options will be all the powers of two less than tpc
+<a name="l-224"></a><span class="tm">13:55:49</span><span class="nk"> &lt;christyp&gt;</span> so, GET /host/cpuinfo
+<a name="l-225"></a><span class="tm">13:55:50</span><span class="nk"> &lt;YuXin&gt;</span> so it is dynamic?
+<a name="l-226"></a><span class="tm">13:55:52</span><span class="nk"> &lt;christyp&gt;</span> yes
+<a name="l-227"></a><span class="tm">13:56:21</span><span class="nk"> &lt;YuXin&gt;</span> can you further explain the logics to create the options in combobox
+<a name="l-228"></a><span class="tm">13:57:08</span><span class="nk"> &lt;christyp&gt;</span> it would be like, list.add(n) while 2^n &lt; log(tpc, 2)
+<a name="l-229"></a><span class="tm">13:57:31</span><span class="nk"> &lt;christyp&gt;</span> wait. there's an 'n' in the wrong place i think...
+<a name="l-230"></a><span class="tm">13:58:17</span><span class="nk"> &lt;YuXin&gt;</span> can you take an example about how to calculate
+<a name="l-231"></a><span class="tm">13:58:21</span><span class="nk"> &lt;christyp&gt;</span> list.add(2^n) while 2^n &lt; tpc
+<a name="l-232"></a><span class="tm">13:58:41</span><span class="nk"> &lt;christyp&gt;</span> so if tpc is 2, you do 2^0 = 0, 2^1, 2, and you're done
+<a name="l-233"></a><span class="tm">13:58:55</span><span class="nk"> &lt;christyp&gt;</span> oops
+<a name="l-234"></a><span class="tm">13:59:07</span><span class="nk"> &lt;christyp&gt;</span> so if tpc is 2, you do 2^0 = 1, 2^1, 2, and you're done
+<a name="l-235"></a><span class="tm">14:00:14</span><span class="nk"> &lt;christyp&gt;</span> if tpc is 4, you do 2^0 = 0, 2^1 = 2, 2^2 = 4, and you're done
+<a name="l-236"></a><span class="tm">14:00:15</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">yuxin:</span> better?
+<a name="l-237"></a><span class="tm">14:00:15</span><span class="nk"> &lt;YuXin&gt;</span> 2^n &lt;= tpc
+<a name="l-238"></a><span class="tm">14:00:15</span><span class="nk"> &lt;christyp&gt;</span> yep. &lt;=
+<a name="l-239"></a><span class="tm">14:00:20</span><span class="nk"> &lt;christyp&gt;</span> sorry
+<a name="l-240"></a><span class="tm">14:00:48</span><span class="nk"> &lt;YuXin&gt;</span> ok, for(var i=0;2^i&lt;tpc;i++)
+<a name="l-241"></a><span class="tm">14:01:23</span><span class="nk"> &lt;YuXin&gt;</span> is there any constraint on the cpu number and socket number
+<a name="l-242"></a><span class="tm">14:01:56</span><span class="nk"> &lt;YuXin&gt;</span> sorry, cores
+<a name="l-243"></a><span class="tm">14:02:32</span><span class="nk"> &lt;christyp&gt;</span> yuxin, alinefm and i talked about that, and, the backend will just enforce constraints
+<a name="l-244"></a><span class="tm">14:02:52</span><span class="nk"> &lt;YuXin&gt;</span> I mean those 2 input boxes, cpu number and cores
+<a name="l-245"></a><span class="tm">14:03:03</span><span class="nk"> &lt;YuXin&gt;</span> you mean front end does not need to check
+<a name="l-246"></a><span class="tm">14:03:32</span><span class="nk"> &lt;christyp&gt;</span> for cores, can you just check that cores &lt; cores returned by the host/cpuinfo API?
+<a name="l-247"></a><span class="tm">14:03:52</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-248"></a><span class="tm">14:04:08</span><span class="nk"> &lt;YuXin&gt;</span> how about cpu number, the 1st input box
+<a name="l-249"></a><span class="tm">14:04:40</span><span class="nk"> &lt;christyp&gt;</span> nope. that one don't worry about checking
+<a name="l-250"></a><span class="tm">14:04:45</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-251"></a><span class="tm">14:04:48</span><span class="nk"> &lt;YuXin&gt;</span> got it
+<a name="l-252"></a><span class="tm">14:05:10</span><span class="nk"> &lt;YuXin&gt;</span> cpu number: input box, arbitrary value
+<a name="l-253"></a><span class="tm">14:05:22</span><span class="nk"> &lt;YuXin&gt;</span> cores &lt;= or &lt;
+<a name="l-254"></a><span class="tm">14:05:29</span><span class="nk"> &lt;YuXin&gt;</span> ?
+<a name="l-255"></a><span class="tm">14:05:42</span><span class="nk"> &lt;christyp&gt;</span> cpu number is calculated by the UI
+<a name="l-256"></a><span class="tm">14:05:54</span><span class="nk"> &lt;christyp&gt;</span> cores &lt;=
+<a name="l-257"></a><span class="tm">14:06:13</span><span class="nk"> &lt;YuXin&gt;</span> how to calculate cpu number
+<a name="l-258"></a><span class="tm">14:06:14</span><span class="nk"> &lt;christyp&gt;</span> vcpus = threads * cores
+<a name="l-259"></a><span class="tm">14:06:34</span><span class="nk"> &lt;christyp&gt;</span> so the user will not be able to change the box. it will be updated when they change a cores or threads value
+<a name="l-260"></a><span class="tm">14:06:50</span><span class="nk"> &lt;christyp&gt;</span> that's what alinefm meant by "disabled"
+<a name="l-261"></a><span class="tm">14:07:24</span><span class="nk"> &lt;christyp&gt;</span> and when you pass in the topology values, you can pass 'sockets' = 1
+<a name="l-262"></a><span class="tm">14:07:47</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">alinefm:</span> do you want to display a placeholder for sockets, or leave it off completely?
+<a name="l-263"></a><span class="tm">14:08:03</span><span class="nk"> &lt;YuXin&gt;</span> if user leave the checkbox there, but only fill in that 1st cpu number, no constraint, right?
+<a name="l-264"></a><span class="tm">14:08:09</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">yuxin:</span> right
+<a name="l-265"></a><span class="tm">14:08:18</span><span class="nk"> &lt;YuXin&gt;</span> ok, so got below
+<a name="l-266"></a><span class="tm">14:08:31</span><span class="nk"> &lt;YuXin&gt;</span> cpu number: arbitrary value, no constraint
+<a name="l-267"></a><span class="tm">14:09:17</span><span class="nk"> &lt;YuXin&gt;</span> cores combobox: (var i=0;i&lt;=tpc;i++)  combox add option i
+<a name="l-268"></a><span class="tm">14:09:34</span><span class="nk"> &lt;christyp&gt;</span> that's threads
+<a name="l-269"></a><span class="tm">14:09:38</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-270"></a><span class="tm">14:09:52</span><span class="nk"> &lt;YuXin&gt;</span> for cores, cores &lt;= cores
+<a name="l-271"></a><span class="tm">14:09:54</span><span class="nk"> &lt;YuXin&gt;</span> that is all
+<a name="l-272"></a><span class="tm">14:10:16</span><span class="nk"> &lt;YuXin&gt;</span> I will try to get it out tomorrow
+<a name="l-273"></a><span class="tm">14:10:59</span><span class="nk"> &lt;YuXin&gt;</span> if snapshot still have issues, then wenwang can work on smt
+<a name="l-274"></a><span class="tm">14:11:24</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> Sure
+<a name="l-275"></a><span class="tm">14:11:28</span><span class="nk"> &lt;YuXin&gt;</span> thanks
+<a name="l-276"></a><span class="tm">14:11:36</span><span class="nk"> &lt;wenwang&gt;</span> np
+<a name="l-277"></a><span class="tm">14:11:40</span><span class="nk"> &lt;YuXin&gt;</span> anything else today?
+<a name="l-278"></a><span class="tm">14:12:33</span><span class="nk"> &lt;christyp&gt;</span> thanks yuxin
+<a name="l-279"></a><span class="tm">14:12:45</span><span class="nk"> &lt;YuXin&gt;</span> welcome
+<a name="l-280"></a><span class="tm">14:13:11</span><span class="nk"> &lt;royce&gt;</span> nope
+<a name="l-281"></a><span class="tm">14:13:17</span><span class="nk"> &lt;alinefm&gt;</span> I am OK too
+<a name="l-282"></a><span class="tm">14:13:21</span><span class="nk"> &lt;wenwang&gt;</span> nope
+<a name="l-283"></a><span class="tm">14:13:33</span><span class="nk"> &lt;alinefm&gt;</span> christyp, thanks for the explanation
+<a name="l-284"></a><span class="tm">14:13:57</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, please, let me know if you have doubts about it
+<a name="l-285"></a><span class="tm">14:14:07</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-286"></a><span class="tm">14:14:21</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-287"></a><span class="tm">14:14:21</span><span class="nk"> &lt;christyp&gt;</span> <span class="hi">alinefm:</span> thanks for all the help in honing this feature! it certainly evolved from beginning to (what i hope is the) end :)
+<a name="l-288"></a><span class="tm">14:15:04</span><span class="nk"> &lt;alinefm&gt;</span> christyp, it is my pleasure
+<a name="l-289"></a><span class="tm">14:15:13</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-290"></a><span class="tm">14:15:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

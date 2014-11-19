@@ -1,0 +1,290 @@
+13:01:58 <alinefm> #startmeeting
+13:01:58 <kimchi-bot> Meeting started Wed Nov 19 13:01:58 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:58 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:58 <alinefm> #meetingname scrum
+13:01:58 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:06 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:07 <alinefm> anything else?
+13:03:30 <alinefm> wel... apparently not
+13:03:50 <alinefm> #topic Status
+13:03:50 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:34 <alinefm> #info alinefm got new MockModel merged and also fixed some bugs on Model to do the MockModel transition happens
+13:04:41 <wenwang> #info wenwang sent patch UI: edit template redefined
+13:04:52 <royce> #info royce update ldap authentication & authorization to v6, authentication part merged
+13:05:15 <wenwang> #info wenwang sent patch that disable "create" button when create a vm
+13:05:28 <royce> #info royce fixed two bugs related to lxml lib and pep8
+13:06:32 <vianac> #info vianac sent fixes to the snapshot feature (send empty JSON data in POST/PUT methods; fix error code when current snapshot doesn't exist); reviewed patches on the mailing list
+13:06:45 <wenwang> #info wenwang discussed with alinefm that we might need to change the storage upload function to part to part transfer in back-end then have it enabled
+13:06:47 <Guest209> #info Simon send out migration v4/v5
+13:08:51 <alinefm> today would start the code freeze but I'd like to hear from you if we postpone it one week we will get SMT (backend and UI) and LDAP authorization (UI) done ?
+13:09:04 <alinefm> royce, christyp, wenwang, ^
+13:09:28 <alinefm> vianac, the same question for you about the issues with snapshot and raw images
+13:09:35 <alinefm> vianac, the snapshot UI is done?
+13:09:36 <royce> OK
+13:09:57 <royce> alinefm, I talked with Yuxin about UI of LDAP
+13:10:14 <alinefm> royce, any progress? news?
+13:10:27 <royce> We think it better be different with PAM ones, we can talk about it later
+13:10:33 <christyp> alinefm, i think SMT is done now, aside from the weird mockmodel test issue, so a week would be good for me
+13:10:34 <alinefm> ok
+13:10:51 <YuXin> #YuXin UI Guest Clone v1/v2/v3
+13:11:02 <alinefm> wenwang, YuXin, we can discuss the SMT UI later but one week is enough to get it done?
+13:11:13 <YuXin> yes
+13:11:25 <alinefm> ok...
+13:11:28 <vianac> vianac, the backend still needs to be updated, the snapshot support in libvirt isn't consistent.
+13:11:31 <vianac> ops
+13:11:34 <vianac> alinefm, ^
+13:11:57 <vianac> alinefm, the UI is ready for what we have now. but if the backend gets updated, it might need to change as well.
+13:12:09 <wenwang> alinefm: YuXin is on that task and I am glad to help if needed:-). One week is good
+13:12:12 <alinefm> #info postpone 1.4 code freeze one week to 11/26 to get SMT feature (backend and UI) and LDAP authorization UI
+13:12:28 <alinefm> wenwang, thanks
+13:12:36 <vianac> soI'd like that one extra week to make sure the snapshot works well across all different cases
+13:12:39 <alinefm> vianac, do you mean you will change the API?
+13:12:50 <wenwang> alinefm: yw
+13:12:52 <vianac> alinefm, no, but what cases work and what cases don't
+13:12:59 <alinefm> because if the API does not change the UI can be merged
+13:13:01 <vianac> so the UI can disable some possibilities
+13:13:16 <YuXin> merge the current UI and we can change along with backend change
+13:13:29 <vianac> for example, creating a snapshot on a shutoff VM with a raw disk is definitely impossible (with Fedora 20's libvirt, at least).
+13:13:37 <vianac> but it works if the VM is running (!)
+13:14:26 <vianac> and there's a different situation with qcow2 image disks
+13:14:26 <vianac> so we might want to disable some cases in the UI when we find out how all this works exactl, and that would need UI change
+13:14:26 <vianac> but it's not about the API
+13:14:41 <alinefm> YuXin, vianac, ok
+13:14:41 <alinefm> vianac, please, review the snapshot UI so I can merge it and help with the tests
+13:14:42 <vianac> we can discuss this better in the open discussion section :)
+13:15:15 <alinefm> ok
+13:15:26 <alinefm> so let's move on
+13:15:37 <alinefm> #topic Open Discussion
+13:15:45 <alinefm> royce, vianac, who wants to start?
+13:15:56 <vianac> o/
+13:16:02 <royce> OK, you first
+13:16:12 <vianac> alinefm, here's what I found out about the snapshot support on my Fedora 20
+13:16:43 <vianac> I cannot take snapshots on a VM with raw disks if it's shutoff
+13:16:49 <vianac> it just doesn't work, libvirt fails
+13:16:53 <vianac> virsh cannot do it
+13:16:59 <vianac> virt-manager cannot do it
+13:17:02 <vianac> it's libvirt
+13:17:21 <vianac> if I start that VM, I'm able to create a snapshot
+13:17:27 <vianac> but I'm not able to delete it (!)
+13:17:44 <vianac> so raw support is very broken
+13:17:55 <royce> This is supported when we were using ovirt: http://www.ovirt.org/Live_Snapshots
+13:17:57 <christyp> that stinks
+13:18:08 <alinefm> vianac, and if my VM has 2 disks; 1 raw and 1 qcow2, it fails too?
+13:18:26 <vianac> royce, are you sure it works on a Fedora 20?
+13:18:48 <royce> it worked when we were on fedora18 at that time
+13:18:57 <vianac> alinefm, I haven't tested that. but I believe having a raw image will fail everything
+13:19:01 <vianac> (that'd my view only)
+13:19:04 <vianac> *that's
+13:19:40 <vianac> royce, is that libvirt snapshots?
+13:19:55 <vianac> hum it looks like
+13:20:18 <vianac> I'll read that link carefully later
+13:20:41 <vianac> using qcow2 images, I'm able to create snapshots whether the VM is shutoff or running
+13:20:46 <vianac> and I'm able to delete them
+13:20:57 <vianac> and that's the image type for VMs created by Kimchi
+13:21:01 <YuXin> since no way to get a complete list of what or what is not supported, I recomment to leave as current and refine the error message to make error is reported
+13:21:11 <royce> I suppose it leverage libvirt
+13:21:33 <vianac> so qcow2-based VMs are looking fine
+13:21:37 <vianac> *at least in Fedora 20*
+13:21:44 <vianac> I can't say for the other systems yet
+13:21:59 <YuXin> it is too confusing that something is disabled, but user has no way to exactly determine why it is disabled
+13:22:07 <alinefm> royce, were you able to create a snapshot from a  raw disk in a powered off VM?
+13:22:13 <vianac> YuXin, I agree with you
+13:22:24 <royce> vianac: is the snapshot internal or external?
+13:22:41 <YuXin> so an error message telling the exact error will be more helpful
+13:22:46 <vianac> royce, it depends on which case you're talking about :)
+13:22:51 <alinefm> vianac, but 'raw' is definitively a disk format that we must support
+13:22:55 <royce> alinefm, I haven't tried with kimchi snapshot yet
+13:22:58 <vianac> with raw images, I can't create snapshots, internal or external
+13:23:03 <vianac> if it's shutoff
+13:23:05 <vianac> I tried both
+13:23:20 <royce> alinefm, but ovirt support raw on shutoff vm
+13:23:21 <vianac> if it's running, it only works with external snapshot (raw doesn't support internal at all)
+13:23:44 <vianac> with qcow2 images, we can use internal snapshots
+13:24:48 <royce> ok, so if it is external, it should work no matter the base is...I haven't tried recently, not sure if it get breaks by libvirt
+13:25:10 <alinefm> royce, could you help vianac with it?
+13:25:24 <alinefm> providing what you have already done with it
+13:25:37 <royce> alinefm, I will help to take a look
+13:26:52 <vianac> alinefm, royce thanks
+13:27:07 <alinefm> royce, thanks
+13:27:07 <alinefm> royce,  your turn =)
+13:27:10 <royce> OK
+13:27:24 <royce> vianac, you're welcome
+13:27:36 <royce> it is PAM and LDAP UI
+13:27:37 <YuXin> if guest snapshot UI has no problem, I am going to move to SMT tomorrow
+13:28:29 <royce> PAM adopted a column based UI, left column is exsisted users/groups, right is vm's user/groups
+13:28:33 <alinefm> YuXin, once vianac reviewed it I will apply
+13:28:40 <YuXin> ok
+13:28:42 <YuXin> for smt
+13:28:45 <alinefm> YuXin, I will talk about the SMT UI later today too
+13:28:50 <YuXin> ok
+13:28:56 <royce> but when it comes to LDAP, first we don't have available users/groups listed in left
+13:29:10 <christyp> alinefm, yuxin: i tried to sum up what we'd talked about in the v6 cover-letter
+13:29:28 <YuXin> christyp, thanks
+13:29:29 <royce> 2. if we validate user given one by one, that would be many steps
+13:31:11 <royce> So YuXin and I suppose we'd better use a UI similar to interface adding
+13:31:36 <YuXin> for ldap user, it is neither search or filter, it is only add along with a validation
+13:31:46 <royce> And all user added to vm can be validated at once with "check" or "warning"
+13:32:20 <YuXin> admin need to know the full user  name and add it
+13:32:26 <alinefm> YuXin, royce, so I select the + icon to add a new user, type the user mail and select "save" icon ?
+13:32:35 <alinefm> the "save" will do the validation?
+13:32:41 <YuXin> yes
+13:32:47 <royce> alinefm, yes
+13:32:49 <alinefm> and that is the flow for each user added?
+13:32:51 <YuXin> validate against ldap to make sure the user exist
+13:32:59 <YuXin> yes
+13:33:14 <alinefm> sounds pretty good and simple for me
+13:33:14 <YuXin> if add user one by one, then validation is done along with each user
+13:34:04 <alinefm> ok - go for it =)
+13:34:16 <royce> alinefm, we are open about press "save "button and all validate at once, or after typing validation
+13:34:56 <alinefm> royce, I think validating after typing is better
+13:35:15 <alinefm> I mean, at once, we will need to identify each user fails and each succeeds
+13:35:18 <alinefm> and then inform to user
+13:35:33 <royce> yes
+13:36:09 <YuXin> alinefm, the problem is that when save, need to post all users in one request
+13:36:41 <YuXin> including already existing users
+13:36:50 <alinefm> hm... =/
+13:36:55 <royce> if we do this, if a user deleted by ldap, but labeled in vm access info, existed user cannot get the warning
+13:37:21 <YuXin> so even in UI, along with each user, there is a save button, when client on save, not only save that user, but save all users
+13:37:25 <royce> so we need to fix this corner case
+13:38:08 <YuXin> and this occurs on all items when vm edit if I remember corrently
+13:38:29 <YuXin> no
+13:38:34 <YuXin> not all items
+13:38:35 <royce> but I think after typing makes people feels UI is response them
+13:39:05 <YuXin> how about add a new API, add user to vm
+13:39:25 <alinefm> in one week??
+13:39:33 <alinefm> I don't think it is reasonable
+13:40:22 <alinefm> I'd say to allow user to enter the user mails and don't have the "save" icon - only the save button
+13:40:34 <alinefm> on save button is selected we send the PUT request
+13:40:43 <alinefm> and them all inputs will be validate at once
+13:41:05 <royce> That is good
+13:41:09 <YuXin> ok
+13:41:23 <royce> I won't need to change now\o/
+13:41:31 <alinefm> yeap =)
+13:41:42 <alinefm> if we think it is better to change we do it for after 1.4
+13:41:42 <royce> Still I need to rebase it
+13:41:51 <YuXin> then if some users validation failed
+13:41:53 <alinefm> I don't want to do big changes one week to code freeze
+13:42:07 <alinefm> YuXin, the PUT request will fail
+13:42:27 <YuXin> response will have which user validation fail?
+13:42:51 <alinefm> OR before PUT request we go user by user GET /users/_user_id=X
+13:43:07 <alinefm> if all those GET succeeds we send the PUT request
+13:43:20 <YuXin> good
+13:43:26 <alinefm> otherwise we inform with an icon or so which user is invalid on UI and get user to update it
+13:43:51 <YuXin> yes, need to indicate which users fail on UI
+13:45:39 <alinefm> royce, YuXin sounds a good plan?
+13:45:45 <YuXin> good to me
+13:46:13 <alinefm> so let's move to SMT UI
+13:46:30 <alinefm> christyp, ^
+13:46:33 <YuXin> for SMT, if x86, only enable/disable
+13:46:47 <YuXin> for power, I want to know how to get the options in combobox
+13:46:50 <alinefm> YuXin, no
+13:46:55 <alinefm> we changed everything =P
+13:47:04 <royce> good!
+13:47:05 <YuXin> ok, go ahead
+13:47:07 <christyp> lol
+13:47:31 <alinefm> YuXin, the UI will be the same for x86 and power
+13:47:39 <YuXin> good
+13:47:44 <christyp> except for the label?
+13:47:52 <alinefm> I thought in adding a new tab on Edit Template named "Processor"
+13:48:03 <alinefm> on first view, this tab will have one input box and one check box
+13:48:03 <christyp> oh man. this is new, alinefm
+13:48:28 <alinefm> christyp, haven't I talked to you about it? lol
+13:48:30 <YuXin> royce, let us discuss to add something in UI for ldap users tomorrow
+13:48:37 <christyp> alinefim: not the tab :)
+13:48:46 <alinefm> CPU number: [_________]
+13:48:58 <alinefm> [ ] Manually inform vCPU topology
+13:49:15 <christyp> ^ Manually configure vCPU topology
+13:49:16 <royce> ok YuXin
+13:49:31 <alinefm> when user selects the check box to inform the topology 2 more fields will be displayed
+13:49:39 <alinefm> one combo box and one input box
+13:49:55 <alinefm> Threads per core (SMT): [<combo box>]
+13:50:07 <alinefm> Sockets: [<input box>]
+13:50:10 <christyp> nope
+13:50:11 <christyp> cores
+13:50:13 <christyp> not sockets :)
+13:50:16 <alinefm> yeap
+13:50:18 <alinefm> sorry
+13:50:23 <alinefm> again =)
+13:50:25 <christyp> hehe
+13:50:25 <alinefm> Threads per core (SMT): [<combo box>]
+13:50:30 <alinefm> Cores: [<input box>]
+13:50:45 <alinefm> YuXin, christyp, ok by now?
+13:50:50 <christyp> yah
+13:50:58 <YuXin> understanding
+13:51:38 <alinefm> one important missing point: when user selects the check box to inform the topology the "CPU number" input box will be disabled
+13:52:17 <alinefm> then on each change on threads/cores the CPU field will be updated according to threads * cores
+13:52:24 <alinefm> ok?
+13:52:57 <YuXin> so cpu number and "manually inform topoloty" is exclusive
+13:53:02 <alinefm> yes
+13:53:24 <YuXin> Threads per core (SMT): [<combo box>]
+13:53:45 <YuXin> for the conent of this combo box, whether it is static or dynamic
+13:54:07 <alinefm> static
+13:54:14 <alinefm> christyp, how is the API to get it?
+13:55:21 <christyp> yuxin, alinefm: that's the only thing that hasn't changed over the past 3 iterations. you'll use threads_per_core, and the options will be all the powers of two less than tpc
+13:55:49 <christyp> so, GET /host/cpuinfo
+13:55:50 <YuXin> so it is dynamic?
+13:55:52 <christyp> yes
+13:56:21 <YuXin> can you further explain the logics to create the options in combobox
+13:57:08 <christyp> it would be like, list.add(n) while 2^n < log(tpc, 2)
+13:57:31 <christyp> wait. there's an 'n' in the wrong place i think...
+13:58:17 <YuXin> can you take an example about how to calculate
+13:58:21 <christyp> list.add(2^n) while 2^n < tpc
+13:58:41 <christyp> so if tpc is 2, you do 2^0 = 0, 2^1, 2, and you're done
+13:58:55 <christyp> oops
+13:59:07 <christyp> so if tpc is 2, you do 2^0 = 1, 2^1, 2, and you're done
+14:00:14 <christyp> if tpc is 4, you do 2^0 = 0, 2^1 = 2, 2^2 = 4, and you're done
+14:00:15 <christyp> yuxin: better?
+14:00:15 <YuXin> 2^n <= tpc
+14:00:15 <christyp> yep. <=
+14:00:20 <christyp> sorry
+14:00:48 <YuXin> ok, for(var i=0;2^i<tpc;i++)
+14:01:23 <YuXin> is there any constraint on the cpu number and socket number
+14:01:56 <YuXin> sorry, cores
+14:02:32 <christyp> yuxin, alinefm and i talked about that, and, the backend will just enforce constraints
+14:02:52 <YuXin> I mean those 2 input boxes, cpu number and cores
+14:03:03 <YuXin> you mean front end does not need to check
+14:03:32 <christyp> for cores, can you just check that cores < cores returned by the host/cpuinfo API?
+14:03:52 <YuXin> ok
+14:04:08 <YuXin> how about cpu number, the 1st input box
+14:04:40 <christyp> nope. that one don't worry about checking
+14:04:45 <YuXin> ok
+14:04:48 <YuXin> got it
+14:05:10 <YuXin> cpu number: input box, arbitrary value
+14:05:22 <YuXin> cores <= or <
+14:05:29 <YuXin> ?
+14:05:42 <christyp> cpu number is calculated by the UI
+14:05:54 <christyp> cores <=
+14:06:13 <YuXin> how to calculate cpu number
+14:06:14 <christyp> vcpus = threads * cores
+14:06:34 <christyp> so the user will not be able to change the box. it will be updated when they change a cores or threads value
+14:06:50 <christyp> that's what alinefm meant by "disabled"
+14:07:24 <christyp> and when you pass in the topology values, you can pass 'sockets' = 1
+14:07:47 <christyp> alinefm: do you want to display a placeholder for sockets, or leave it off completely?
+14:08:03 <YuXin> if user leave the checkbox there, but only fill in that 1st cpu number, no constraint, right?
+14:08:09 <christyp> yuxin: right
+14:08:18 <YuXin> ok, so got below
+14:08:31 <YuXin> cpu number: arbitrary value, no constraint
+14:09:17 <YuXin> cores combobox: (var i=0;i<=tpc;i++)  combox add option i
+14:09:34 <christyp> that's threads
+14:09:38 <YuXin> yes
+14:09:52 <YuXin> for cores, cores <= cores
+14:09:54 <YuXin> that is all
+14:10:16 <YuXin> I will try to get it out tomorrow
+14:10:59 <YuXin> if snapshot still have issues, then wenwang can work on smt
+14:11:24 <wenwang> YuXin: Sure
+14:11:28 <YuXin> thanks
+14:11:36 <wenwang> np
+14:11:40 <YuXin> anything else today?
+14:12:33 <christyp> thanks yuxin
+14:12:45 <YuXin> welcome
+14:13:11 <royce> nope
+14:13:17 <alinefm> I am OK too
+14:13:21 <wenwang> nope
+14:13:33 <alinefm> christyp, thanks for the explanation
+14:13:57 <alinefm> YuXin, wenwang, please, let me know if you have doubts about it
+14:14:07 <YuXin> ok
+14:14:21 <wenwang> alinefm: ok
+14:14:21 <christyp> alinefm: thanks for all the help in honing this feature! it certainly evolved from beginning to (what i hope is the) end :)
+14:15:04 <alinefm> christyp, it is my pleasure
+14:15:13 <alinefm> thanks everyone for joining!
+14:15:17 <alinefm> #endmeeting
