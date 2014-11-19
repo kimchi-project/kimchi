@@ -16,19 +16,23 @@
  * limitations under the License.
  */
 kimchi.template_edit_main = function() {
-    var templateEditForm = $('#form-template-edit');
+    var templateEditMain = $('#edit-template-tabs');
     var origDisks;
     var origPool;
+    var origNetworks;
     var templateDiskSize;
-    $('#template-name', templateEditForm).val(kimchi.selectedTemplate);
-    kimchi.retrieveTemplate(kimchi.selectedTemplate, function(template) {
+    $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
+    templateEditMain.tabs();
+
+    var initTemplate = function(template) {
         origDisks =  template.disks;
         origPool = template.storagepool;
+        origNetworks = template.networks;
         for(var i=0;i<template.disks.length;i++){
             if(template.disks[i].base){
                 template["vm-image"] = template.disks[i].base;
-                $('#templ-edit-cdrom').addClass('hide-content');
-                $('#templ-edit-vm-image').removeClass('hide-content');
+                $('.templ-edit-cdrom').addClass('hide');
+                $('.templ-edit-vm-image').removeClass('hide');
                 break;
             }
         }
@@ -37,18 +41,12 @@ kimchi.template_edit_main = function() {
             if (prop == 'graphics') {
                value = value["type"];
             }
-            $('input[name="' + prop + '"]', templateEditForm).val(value);
-        }
-        var disks = template.disks;
-        $('input[name="disks"]').val(disks[0].size);
-        templateDiskSize = $('input[name="disks"]').val();
-        if (disks[0].volume) {
-            var spool_value = $('#form-template-edit [name="storagepool"]').val();
-            $('input[name="storagepool"]', templateEditForm).val(spool_value + '/' + disks[0].volume);
-            $('input[name="disks"]', templateEditForm).attr('disabled','disabled');
+            $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
 
         var vncOpt = [{label: 'VNC', value: 'vnc'}];
+        $('#template-edit-graphics').append('<option selected>VNC</option>');
+        $('#template-edit-graphics').append('<option>Spice</option>');
         kimchi.select('template-edit-graphics-list', vncOpt);
         var enableSpice = function() {
             if (kimchi.capabilities == undefined) {
@@ -61,119 +59,199 @@ kimchi.template_edit_main = function() {
             }
         };
         enableSpice();
-
-        var scsipools = {};
-        kimchi.listStoragePools(function(result) {
-            var options = [];
-            if (result && result.length) {
-                $.each(result, function(index, storagePool) {
-                    if ((storagePool.state=="active") && (storagePool.type !== 'kimchi-iso')) {
-                        if ((storagePool.type == 'iscsi') || (storagePool.type == 'scsi')){
-                            scsipools[storagePool.name] = [];
-                            kimchi.listStorageVolumes(storagePool.name, function(result) {
-                                if (result && result.length) {
-                                    $.each(result, function(index, storageVolume) {
-                                        options.push({
-                                            label: storagePool.name + '/' + storageVolume.name,
-                                            value: '/storagepools/' + storagePool.name + '/' + storageVolume.name
-                                        });
-                                        scsipools[storagePool.name].push(storageVolume)
-                                    });
-                                }
-                                kimchi.select('template-edit-storagePool-list', options);
-                            });
-                        }
-                        else {
-                            options.push({
-                                label: storagePool.name,
-                                value: '/storagepools/' + storagePool.name
-                            });
+        var initStorage = function(result) {
+            var scsipools = {};
+            var addStorageItem = function(storageData) {
+                var thisName = storageData.storageName;
+                var nodeStorage = $.parseHTML(kimchi.substitute($('#template-storage-pool-tmpl').html(), storageData));
+                $('.template-tab-body', '#form-template-storage').append(nodeStorage);
+                var storageOptions = '';
+                var scsiOptions = '';
+                $('select', '#form-template-storage').find('option').remove();
+                $.each(result, function(index, storageEntities) {
+                    if((storageEntities.state === 'active') && (storageEntities.type != 'kimchi-iso')) {
+                        if(storageEntities.type === 'iscsi' || storageEntities.type === 'scsi') {
+                            kimchi.listStorageVolumes(storageEntities.name, function(currentVolume) {
+                                $.each(currentVolume, function(indexSCSI, scsiEntities) {
+                                    var tmpPath = storageEntities.name + '/' + scsiEntities.name;
+                                    var isSlected = tmpPath === thisName ? ' selected' : '';
+                                    scsiOptions += '<option' + isSlected + '>' + tmpPath + '</option>';
+                                });
+                                $('select', '#form-template-storage').append(scsiOptions);
+                            }, function() {});
+                        } else {
+                            var isSlected = storageEntities.name === thisName ? ' selected' : '';
+                            storageOptions += '<option' + isSlected + '>' + storageEntities.name + '</option>';
                         }
                     }
                 });
-            }
-            if ($.isEmptyObject(scsipools)) {
-                kimchi.select('template-edit-storagePool-list', options);
-            }
-        });
-        kimchi.listNetworks(function(result) {
-            if(result && result.length > 0) {
-                var html = '';
-                var tmpl = $('#tmpl-network').html();
-                $.each(result, function(index, network) {
-                    if (result[index].state === 'active')
-                        html += kimchi.substitute(tmpl, network);
-                });
-                $('#template-edit-network-list').html(html).show();
-                if(template.networks && template.networks.length > 0) {
-                    $('input[name="networks"]', templateEditForm).each(function(index, element) {
-                        var value = $(element).val();
-                        if(template.networks.indexOf(value) >= 0) {
-                            $(element).prop('checked', true);
+                $('select', '#form-template-storage').append(storageOptions);
+                $('select', '#form-template-storage').change(function() {
+                    var selectedItem = $(this).parent().parent();
+                    var tempStorageNameFull = $(this).val();
+                    var tempType;
+                    var tempStorageName =tempStorageNameFull.split('/')[0];
+                    var scsiCap;
+                    $.each(result, function(index, storageEntities) {
+                        if (tempStorageName === storageEntities.name) {
+                            selectedItem.find('.template-storage-type').val(storageEntities.type);
+                            scsiCap = storageEntities.capacity / Math.pow(1024, 3);
+                            tempType = storageEntities.type;
                         }
                     });
-                }
-            } else {
-                $('#template-edit-network-list').hide();
-            }
-        });
-    });
+                    if (tempType === 'iscsi' || tempType === 'scsi') {
+                        $('.template-storage-disk', selectedItem).attr('readonly', true).val(scsiCap);
+                    } else {
+                        $('.template-storage-disk', selectedItem).attr('readonly', false).val('10');
+                    }
+                    $('.template-storage-name').val(tempStorageNameFull);
+                });
+            };
 
-    $('#template-edit-storagePool').change(function() {
-        storagepool = $(this).val();
-        var storageArray = storagepool.split("/");
-        if (storageArray.length > 3) {
-            volumeName = storageArray.pop();
-            poolName = storageArray.pop();
-            kimchi.getStoragePoolVolume(poolName, volumeName, function(result) {
-                $('input[name="disks"]', templateEditForm).val(result.capacity / Math.pow(1024,3));
-                $('input[name="disks"]', templateEditForm).attr('disabled','disabled');
-                return false;
-            }, function (err) {
-                kimchi.message.error(err.responseJSON.reason);
+            if ((origDisks && origDisks.length) && (origPool && origPool.length)) {
+                splitPool = origPool.split('/');
+                var defaultPool;
+                var defaultType;
+                $.each(result, function(index, poolEntities) {
+                    if (poolEntities.name === splitPool[splitPool.length-1]) {
+                        defaultType = poolEntities.type;
+                        defaultPool = splitPool[splitPool.length-1]
+                    }
+                });
+                if (origDisks[0]['volume']) {
+                    defaultPool = defaultPool + '/' + origDisks[0]['volume'];
+                }
+                $.each(origDisks, function(index, diskEntities) {
+                    var storageNodeData = {
+                        viewMode : '',
+                        editMode : 'hide',
+                        storageName : defaultPool,
+                        storageType : defaultType,
+                        storageDisk : diskEntities.size
+                    }
+                    addStorageItem(storageNodeData);
+                });
+                if(defaultType === 'iscsi' || defaultType === 'scsi') {
+                    $('.template-storage-disk').attr('readonly', true);
+                }
+            }
+
+            $('#template-edit-storage-add-button').button({
+                icons: {
+                    primary: "ui-icon-plusthick"
+                },
+                text: false,
+                disabled: true
+            }).click(function(event) {
+                event.preventDefault();
+                var storageNodeData = {
+                    viewMode : 'hide',
+                    editMode : '',
+                    storageName : 'null',
+                    storageType : 'dir',
+                    storageDisk : '10'
+                }
+                addStorageItem(storageNodeData);
             });
-        } else {
-            $('input[name="disks"]', templateEditForm).removeAttr('disabled');
-            $('input[name="disks"]', templateEditForm).val(templateDiskSize);
-        }
-    });
-    $('input[name="disks"]', templateEditForm).keyup(function() {
-        templateDiskSize = $('input[name="disks"]', templateEditForm).val();
-    });
+        };
+        var initInterface = function(result) {
+            var networkItemNum = 0;
+            var addInterfaceItem = function(networkData) {
+                var networkName = networkData.networkV;
+                var nodeInterface = $.parseHTML(kimchi.substitute($('#template-interface-tmpl').html(), networkData));
+                $('.template-tab-body', '#form-template-interface').append(nodeInterface);
+                $('.delete', '#form-template-interface').button({
+                    icons : {primary : 'ui-icon-trash'},
+                    text : false
+                }).click(function(evt) {
+                    evt.preventDefault();
+                    $(this).parent().parent().remove();
+                });
+                var networkOptions = '';
+                for(var i=0;i<result.length;i++){
+                    if(result[i].state === "active") {
+                        var isSlected = networkName===result[i].name ? ' selected' : '';
+                        networkOptions += '<option' + isSlected + '>' + result[i].name + '</option>';
+                    }
+                }
+                $('select', '#form-template-interface #networkID' + networkItemNum).append(networkOptions);
+                networkItemNum += 1;
+            };
+            if(result && result.length > 0) {
+                for(var i=0;i<origNetworks.length;i++) {
+                    addInterfaceItem({
+                        networkID : 'networkID' + networkItemNum,
+                        networkV : origNetworks[i],
+                        type : 'network'
+                    });
+                }
+            }
+            $('#template-edit-interface-add-button').button({
+                icons: {
+                    primary: 'ui-icon-plusthick'
+                },
+                text: false
+            }).click(function(evt) {
+                evt.preventDefault();
+                addInterfaceItem({
+                    networkID : 'networkID' + networkItemNum,
+                    networkV : 'default',
+                    type : 'network'
+                });
+            });
+        };
+        kimchi.listNetworks(initInterface);
+        kimchi.listStoragePools(initStorage);
+    };
+    kimchi.retrieveTemplate(kimchi.selectedTemplate, initTemplate);
+
 
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'cpus', 'memory', 'storagepool', 'disks', 'graphics'];
+        var editableFields = [ 'name', 'cpus', 'memory', 'disks', 'graphics'];
         var data = {};
+        //Fix me: Only support one storage pool now
+        var storages = $('.template-tab-body .item', '#form-template-storage');
+        var tempName = $('.template-storage-name', storages).val();
+        tempName = tempName.split('/');
+        var tempNameHead =tempName[0];
+        var tempNameTail = tempNameHead;
+        if(tempNameHead === 'iscsi' || tempNameHead =='scsi') {
+            tempNameTail = tempName[tempName.length-1];
+        }
+        tempName = '/storagepools/' + tempNameHead;
+        data['storagepool'] = tempName;
         $.each(editableFields, function(i, field) {
             /* Support only 1 disk at this moment */
             if (field == 'disks') {
-               origDisks[0].size = Number($('#form-template-edit [name="' + field + '"]').val());
+                var tmpItem = $('#form-template-storage .item');
+                origDisks[0].size = Number($('.template-storage-disk', tmpItem).val());
+                if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() =='scsi') {
+                    origDisks[0]['volume'] = tempNameTail;
+                } else {
+                    origDisks[0]['volume'] && delete origDisks[0]['volume'];
+                }
                data[field] = origDisks;
             }
             else if (field == 'graphics') {
-               var type = $('#form-template-edit [name="' + field + '"]').val();
+               var type = $('#form-template-general [name="' + field + '"]').val();
                data[field] = {'type': type};
             }
             else {
-               data[field] = $('#form-template-edit [name="' + field + '"]').val();
+               data[field] = $('#form-template-general [name="' + field + '"]').val();
             }
         });
         data['memory'] = Number(data['memory']);
         data['cpus']   = Number(data['cpus']);
-        storagepool = data['storagepool'];
-        storageArray = storagepool.split("/");
-        if (storageArray.length > 3){
-            /* Support only 1 disk at this moment */
-            data["disks"][0].volume = storageArray.pop();
-            data['storagepool'] = storageArray.join("/");
-        } else if (data["disks"][0].volume) {
-            delete data["disks"][0].volume;
-        }
-        var networks = templateEditForm.serializeObject().networks;
-        if (networks instanceof Array) {
-            data.networks = networks;
-        } else if (networks != null) {
-            data.networks = [networks];
+        var networks = $('.template-tab-body .item', '#form-template-interface');
+        var networkForUpdate = new Array();
+        $.each(networks, function(index, networkEntities) {
+            var thisValue = $('select', networkEntities).val();
+            networkForUpdate.push(thisValue);
+        });
+        if (networkForUpdate instanceof Array) {
+            data.networks = networkForUpdate;
+        } else if (networkForUpdate != null) {
+            data.networks = [networkForUpdate];
         } else {
             data.networks = [];
         }

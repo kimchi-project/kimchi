@@ -17,24 +17,33 @@
  */
 #template-edit-window {
     font-size: 13px;
-    height: 600px;
-    width: 1000px;
+    height: 500px;
+    width: 800px;
 }
 
-.template-edit-fieldset {
-    float: left;
-    padding: 1em;
+#edit-template-tabs {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    height: 100%;
+    padding: 0;
 }
 
-.template-edit-wrapper-label, .template-edit-wrapper-controls {
+#edit-template-tabs .form-template-inline-wrapper {
+    display: inline-block;
     vertical-align: top;
-    width: 470px;
 }
 
 .template-edit-wrapper-label {
-    height: 18px;
-    line-height: 18px;
-    margin-top: 8px;
+    vertical-align: top;
+    min-width: 100px;
+    height: 35px;
+    line-height: 35px;
+    margin: 7px 0 8px;
+}
+
+.template-edit-wrapper-controls {
+    vertical-align: top;
+    width: 400px;
 }
 
 .template-edit-wrapper-controls input[type="text"] {
@@ -56,7 +65,7 @@
 
 .template-edit-wrapper-controls > .dropdown {
     margin: 5px 0 0 1px;
-    width: 440px;
+    width: 372px;
 }
 
 .template-edit-wrapper-controls input[type="text"][disabled] {
@@ -65,41 +74,72 @@
     cursor: not-allowed;
 }
 
-.hidden-area {
+#edit-template-tabs .template-tab-header {
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    font-weight: bold;
+    border-bottom: 1px solid #999999;
+    overflow: hidden;
+}
+
+#edit-template-tabs .template-tab-header .action-area {
+    float: right;
+    height: 20px;
+    width: 20px;
+}
+
+#edit-template-tabs .template-interface-cell {
+    display: inline-block;
+    width: 250px;
+}
+
+#edit-template-tabs .template-storage-cell{
+    display: inline-block;
+    width: 230px;
+}
+
+#edit-template-tabs .template-storage-cell label {
+    height: 25px;
+    padding: 2px;
+    border: 1px;
+}
+
+#form-template-storage .template-tab-body select {
+    width: 140px;
+}
+
+#form-template-storage .template-tab-body input {
+    width: 56px;
+    height: 17px;
+}
+
+#form-template-storage .template-tab-body .template-storage-name {
+    width: 220px;
+}
+
+#edit-template-tabs .template-tab-body input[readonly] {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: transparent;
+    text-overflow: ellipsis;
+}
+
+#edit-template-tabs .template-tab-body .item {
+    height: 25px;
+}
+
+#form-template-interface .template-tab-body select {
+    width: 180px;
+}
+
+#edit-template-tabs .template-tab-body .action-area {
+    float: right;
+}
+
+#edit-template-tabs .template-tab-body .action-area button {
+    width: 20px;
+    height: 20px;
+}
+
+#edit-template-tabs .hide {
     display: none;
-}
-
-.template-edit-wrapper-controls .select-list-box {
-    width: 464px;
-    max-height: 168px;
-    overflow: auto;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-}
-
-.template-edit-wrapper-controls .select-list-box>li>label {
-    display: block;
-}
-
-.template-edit-wrapper-controls .select-list-box>li>label>
-input[type="checkbox"] {
-    display: none;
-}
-
-.template-edit-wrapper-controls .select-list-box>li>label>.item {
-    display: block;
-    height: 41px;
-    line-height: 41px;
-    padding: 0 20px 0 40px;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 0px 1px 1px #fff;
-    text-shadow: -1px -1px 1px #ddd, 1px 1px 1px #fff;
-    color: #222;
-    font-size: 12px;
-}
-
-.template-edit-wrapper-controls .select-list-box>li>label>
-input[type="checkbox"]:CHECKED+.item {
-    background: #f8f8f8 url(../images/theme-default/check-green.png) no-repeat
-                10px center;
 }

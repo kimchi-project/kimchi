@@ -28,74 +28,67 @@
         <div class="close">X</div>
     </header>
     <div class="content">
-        <form id="form-template-edit">
+        <div id="edit-template-tabs">
             <input type="hidden" id="template-name" name="templateName" />
-            <fieldset class="template-edit-fieldset">
-                <div>
+            <ul>
+                <li>
+                    <a href="#form-template-general">$_("General")</a>
+                </li>
+                <li>
+                    <a href="#form-template-storage">$_("Storage")</a>
+                </li>
+                <li>
+                    <a href="#form-template-interface">$_("Interface")</a>
+                </li>
+            </ul>
+            <form id="form-template-general">
+                <div class="form-template-inline-wrapper">
                     <div class="template-edit-wrapper-label">
                         <label for="template-edit-id-textbox">$_("Name")</label>
                     </div>
-                    <div class="template-edit-wrapper-controls">
-                        <input id="template-edit-id-textbox" name="name" type="text" />
-                    </div>
-                </div>
-                <div>
                     <div class="template-edit-wrapper-label">
                         <label for="template-edit-vendor-textbox">$_("Vendor")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-version-textbox">$_("Version")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-cpu-textbox">$_("CPU Number")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label">
+                        <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label templ-edit-cdrom">
+                        <label for="template-edit-cdrom-textbox">$_("CDROM")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label templ-edit-vm-image hide">
+                        <label for="template-edit-vmimage-textbox">$_("Image File")</label>
+                    </div>
+                    <div class="template-edit-wrapper-label">
+                        <label>$_("Graphics")</label>
+                    </div>
+                </div>
+                <div class="form-template-inline-wrapper">
+                    <div class="template-edit-wrapper-controls">
+                        <input id="template-edit-id-textbox" name="name" type="text" />
                     </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-vendor-textbox" name="os_distro" type="text" disabled="disabled" />
                     </div>
-                </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-version-textbox">$_("Version")</label>
-                    </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-version-textbox" name="os_version" type="text" disabled="disabled" />
-                    </div>
-                </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-cpu-textbox">$_("CPU Number")</label>
                     </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-cpu-textbox" name="cpus" type="text" />
                     </div>
-                </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
-                    </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-memory-textbox" name="memory" type="text" />
                     </div>
-                </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-disk-textbox">$_("Disk (GB)")</label>
+                    <div class="template-edit-wrapper-controls templ-edit-cdrom">
+                        <input id="template-edit-cdrom-textbox" name="cdrom" type="text" disabled="disabled" />
                     </div>
-                    <div class="template-edit-wrapper-controls">
-                        <input id="template-edit-disk-textbox" name="disks" type="text" />
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset class="template-edit-fieldset">
-                <div id="templ-edit-cdrom">
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-cdrom-textbox">$_("CDROM")</label>
-                    </div>
-                    <div class="template-edit-wrapper-controls">
-                        <input id="template-edit-cdrom-textbox" name="cdrom" type="text" disabled="disabled"/>
-                    </div>
-                </div>
-                <div id="templ-edit-vm-image" class="hide-content">
-                    <div class="template-edit-wrapper-label">$_("Image File")</div>
-                    <div class="template-edit-wrapper-controls"><input name="vm-image" type="text" disabled/></div>
-                </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label>$_("Graphics")</label>
+                    <div class="template-edit-wrapper-controls templ-edit-vm-image hide">
+                        <input id="template-edit-vmimage-textbox" name="vm-image" type="text" disabled="disabled" />
                     </div>
                     <div class="template-edit-wrapper-controls">
                         <div class="btn dropdown popable">
@@ -108,40 +101,26 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label>$_("Storage Pool")</label>
-                    </div>
-                    <div class="template-edit-wrapper-controls">
-                        <div class="btn dropdown popable">
-                            <input id="template-edit-storagePool" name="storagepool" type="hidden" />
-                            <span class="text" id="template-edit-storage-label"></span><span class="arrow"></span>
-                            <div class="popover" style="width: 100%">
-                                <ul class="select-list" id="template-edit-storagePool-list" data-target="template-edit-storagePool" data-label="template-edit-storage-label">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+            </form>
+            <form id="form-template-storage">
+                <div class="template-tab-header">
+                    <span class="template-storage-cell">$_("Storage Pool")</span>
+                    <span class="template-storage-cell">$_("Type")</span>
+                    <span class="template-storage-cell">$_("Disk(GB)")</span>
+                    <button type="button" id="template-edit-storage-add-button" class="action-area"></button>
                 </div>
-                <div>
-                    <div class="template-edit-wrapper-label">
-                        <label>$_("Network")</label>
-                    </div>
-                    <div class="template-edit-wrapper-controls">
-                        <ul class="select-list-box" id="template-edit-network-list">
-                        </ul>
-                        <script id="tmpl-network" type="text/html">
-                            <li>
-                                <label>
-                                    <input name="networks" type="checkbox" value="{name}" />
-                                    <span class="item">{name}</span>
-                                </label>
-                            </li>
-                        </script>
-                    </div>
+                <div class="template-tab-body">
                 </div>
-            </fieldset>
-        </form>
+            </form>
+            <form id="form-template-interface">
+                <div class="template-tab-header">
+                    <span class="template-interface-cell">$_("Network")</span>
+                    <span class="template-interface-cell">$_("Type")</span>
+                    <button type="button" id="template-edit-interface-add-button" class="action-area"></button>
+                </div>
+                <div class="template-tab-body"></div>
+            </form>
+        </div>
     </div>
     <footer>
         <div class="btn-group">
@@ -151,4 +130,31 @@
 </div>
 <script>
     kimchi.template_edit_main();
+</script>
+<script id="template-storage-pool-tmpl" type="text/html">
+    <div class='item'>
+        <span class="template-storage-cell">
+            <input class="template-storage-name" value={storageName} type="text" style="display:none" />
+            <select></select>
+        </span>
+        <span class="template-storage-cell">
+            <input class="template-storage-type" value={storageType} readonly=true type="text" />
+        </span>
+        <span class="template-storage-cell">
+            <input class="template-storage-disk" value={storageDisk} type="text" />
+        </span>
+    </div>
+</script>
+<script id="template-interface-tmpl" type="text/html">
+    <div class="item" id={networkID}>
+        <span class="template-interface-cell">
+            <select></select>
+        </span>
+        <span class="template-interface-cell">
+            <input value={type} readonly=true type="text" />
+        </span>
+        <span class="action-area">
+            <button class="delete"></button>
+        </span>
+    </div>
 </script>
