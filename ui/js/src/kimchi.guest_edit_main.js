@@ -461,6 +461,111 @@ kimchi.guest_edit_main = function() {
         });
     };
 
+    var setupSnapshot = function() {
+        var currentSnapshot;
+        var setCurrentSnapshot = function(aSnapshot){
+            if(!aSnapshot)
+                kimchi.getCurrentSnapshot(kimchi.selectedGuest, function(snapshot){
+                    if(snapshot&&snapshot.name) aSnapshot = snapshot.name;
+                }, null, true);
+            if(aSnapshot){
+                if(currentSnapshot) $(".ui-icon-check", "#"+currentSnapshot).addClass("hide");
+                $(".ui-icon-check", "#"+aSnapshot).removeClass("hide");
+                currentSnapshot = aSnapshot;
+            }
+        };
+        var addItem = function(data, container) {
+            var itemNode = $.parseHTML(kimchi.substitute($('#snapshot-tmpl').html(),data));
+            $("."+container, "#form-guest-edit-snapshot").append(itemNode);
+            $(".delete", itemNode).button({
+                icons: { primary: "ui-icon-trash" },
+                text: false
+            }).click(function(evt){
+                evt.preventDefault();
+                var item = $(this).parent().parent();
+                $("button", "#form-guest-edit-snapshot").button("disable");
+                kimchi.deleteSnapshot(kimchi.selectedGuest, item.prop("id"), function(){
+                    item.remove();
+                    setCurrentSnapshot();
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                }, function(data){
+                    kimchi.message.error(data.responseJSON.reason);
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                });
+            });
+            $(".revert", itemNode).button({
+                icons: { primary: "ui-icon-arrowthick-1-ne" },
+                text: false
+            }).click(function(evt){
+                evt.preventDefault();
+                var item = $(this).parent().parent();
+                $(".ui-icon-check", item).addClass("hide");
+                $(".icon", item).removeClass("hide");
+                $("button", "#form-guest-edit-snapshot").button("disable");
+                kimchi.revertSnapshot(kimchi.selectedGuest, item.prop("id"), function(){
+                    $(".icon", item).addClass("hide");
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                    setCurrentSnapshot(item.prop("id"));
+                }, function(data){
+                    kimchi.message.error(data.responseJSON.reason);
+                    $(".icon", item).addClass("hide");
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                });
+            });
+        };
+        var addOngoingItem = function(task){
+            var uri = task.target_uri;
+            addItem({
+                name: uri.substring(uri.lastIndexOf('/')+1, uri.length),
+                created: "",
+                listMode: "hide",
+                createMode: ""
+            }, 'task');
+            if(kimchi.trackingTasks.indexOf(task.id)==-1)
+                kimchi.trackTask(task.id, function(task){
+                    listGeneratingSnapshots();
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                }, function(err){
+                    kimchi.message.error(err.message);
+                    listGeneratingSnapshots();
+                    $("button", "#form-guest-edit-snapshot").button("enable");
+                });
+        };
+        var listGeneratingSnapshots = function(){
+            kimchi.getTasksByFilter('status=running&target_uri='+encodeURIComponent('^/snapshots/*'), function(tasks) {
+                $(".task", "#form-guest-edit-snapshot").empty();
+                for(var i=0;i<tasks.length;i++){
+                    addOngoingItem(tasks[i]);
+                }
+                if(tasks.length==0) listSnapshots();
+            });
+        };
+        var listSnapshots = function(){
+            kimchi.listSnapshots(kimchi.selectedGuest, function(data){
+                $(".body", "#form-guest-edit-snapshot").empty();
+                for(var i=0;i<data.length;i++){
+                    data[i].created = new Date(data[i].created*1000).toLocaleString();
+                    data[i].createMode = "hide";
+                    data[i].listMode = "";
+                    addItem(data[i], 'body');
+                }
+                setCurrentSnapshot();
+            });
+        };
+        listGeneratingSnapshots();
+        $(".add", "#form-guest-edit-snapshot").button({
+            icons: { primary: "ui-icon-plusthick" },
+            text: false
+        }).click(function(evt){
+            evt.preventDefault();
+            kimchi.createSnapshot(kimchi.selectedGuest, function(task){
+                $("button", "#form-guest-edit-snapshot").button("disable");
+                addOngoingItem(task);
+            });
+        });
+        if(kimchi.thisVMState=="running") $("button", "#form-guest-edit-snapshot").remove();
+    };
+
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
@@ -496,6 +601,7 @@ kimchi.guest_edit_main = function() {
         setupInterface();
         setupPermission();
         setupPCIDevice();
+        setupSnapshot();
 
         kimchi.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
         kimchi.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);

@@ -1260,5 +1260,73 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    listSnapshots : function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    getCurrentSnapshot : function(vm, suc, err, sync) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/current',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            async : !sync,
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    revertSnapshot : function(vm, snapshot, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot)+'/revert',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    createSnapshot : function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    deleteSnapshot : function(vm, snapshot, suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot),
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 };

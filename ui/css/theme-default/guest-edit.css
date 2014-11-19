@@ -96,6 +96,7 @@
 }
 
 #form-guest-edit-storage .header,
+.guest-edit-snapshot .header,
 .guest-edit-interface .header {
     margin-bottom: 8px;
     padding-bottom: 2px;
@@ -105,6 +106,8 @@
 }
 
 #form-guest-edit-storage .body .item,
+.guest-edit-snapshot .body .item,
+.guest-edit-snapshot .task .item,
 .guest-edit-interface .body .item {
     margin: 5px 0;
 }
@@ -112,6 +115,32 @@
 #form-guest-edit-storage .cell,
 .guest-edit-interface .cell {
     display: inline-block;
+    width: 250px;
+}
+
+.guest-edit-snapshot .cell {
+    display: inline-block;
+}
+
+.guest-edit-snapshot .sel {
+    width: 35px;
+    vertical-align: top;
+}
+
+.guest-edit-snapshot .icon {
+    background: url('../../images/theme-default/kimchi-loading15x15.gif') no-repeat;
+    display: block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.guest-edit-snapshot .name {
+    width: 400px;
+}
+
+.guest-edit-snapshot .created {
     width: 250px;
 }
 
@@ -135,6 +164,7 @@
 }
 
 #form-guest-edit-storage .action-area,
+.guest-edit-snapshot .action-area,
 .guest-edit-interface .action-area {
     float: right;
 }
@@ -144,12 +174,14 @@
 }
 
 #form-guest-edit-storage button,
+.guest-edit-snapshot button,
 .guest-edit-interface button {
     width: 20px;
     height: 20px;
 }
 
 #form-guest-edit-storage .header button,
+.guest-edit-snapshot .header button,
 .guest-edit-interface .header button {
     margin-bottom: 1px;
 }
@@ -159,8 +191,9 @@
     margin-right: 2px;
 }
 
+.guest-edit-snapshot .hide,
 .guest-edit-interface .hide {
-    display: none;
+    display: none!important;
 }
 
 .guest-edit-permission {
