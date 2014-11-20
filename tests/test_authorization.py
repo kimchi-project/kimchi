@@ -131,7 +131,8 @@ class AuthorizationTests(unittest.TestCase):
 
         model.vms_create({'name': u'test-groupa',
                           'template': '/templates/test'})
-        model.vm_update(u'test-groupa', {'groups': ['wheel']})
+        a_group = model.groups_get_list()[0]
+        model.vm_update(u'test-groupa', {'groups': [a_group]})
 
         resp = self.request('/vms', '{}', 'GET')
         self.assertEquals(200, resp.status)

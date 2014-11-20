@@ -20,6 +20,7 @@
 
 import base64
 import cherrypy
+import grp
 import httplib
 import json
 import os
@@ -181,7 +182,7 @@ class FakeUser(User):
         self.user[USER_ROLES] = dict.fromkeys(tabs, 'user')
 
     def get_groups(self):
-        return ['groupA', 'groupB', 'wheel']
+        return sorted([group.gr_name for group in grp.getgrall()])[0:3]
 
     def get_roles(self):
         if self.sudo:

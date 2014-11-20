@@ -38,7 +38,7 @@ import iso_gen
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
-from kimchi.config import paths
+from kimchi.config import config, paths
 from kimchi.exception import ImageFormatError, InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
@@ -934,6 +934,7 @@ class ModelTests(unittest.TestCase):
                               'new-test', params)
 
     def test_vm_edit(self):
+        config.set("authentication", "method", "pam")
         inst = model.Model(None,
                            objstore_loc=self.tmp_store)
 

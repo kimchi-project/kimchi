@@ -33,6 +33,8 @@ from kimchi.model.host import DeviceModel
 from kimchi.model.model import Model
 from kimchi.model.storagevolumes import StorageVolumesModel
 from kimchi.model.templates import LibvirtVMTemplate
+from kimchi.model.users import PAMUsersModel
+from kimchi.model.groups import PAMGroupsModel
 from kimchi.objectstore import ObjectStore
 from kimchi.utils import add_task, get_next_clone_name
 from kimchi.vmtemplate import VMTemplate
@@ -73,6 +75,8 @@ class MockModel(Model):
         libvirt.virDomain.updateDeviceFlags = MockModel.updateDeviceFlags
         libvirt.virStorageVol.resize = MockModel.volResize
         libvirt.virStorageVol.wipePattern = MockModel.volWipePattern
+        PAMUsersModel.auth_type = 'fake'
+        PAMGroupsModel.auth_type = 'fake'
 
         super(MockModel, self).__init__('test:///default', objstore_loc)
         self.objstore_loc = objstore_loc
