@@ -846,23 +846,26 @@ Contains information of host.
 * swupdate: Start the update of packages in background and return a Task resource
     * task resource.  * See Resource: Task *
 
-### Resource: Host users
+### Resource: Users
 
-**URI:** /host/users
-List of system users in the host.
-
-**Methods:**
-
-* **GET**: Retrieve list of system users in the host.
-
-### Resource: Host groups
-
-**URI:** /host/groups
-List of system groups in the host.
+**URI:** /users
+List of available users.
 
 **Methods:**
 
-* **GET**: Retrieve list of system groups in the host.
+* **GET**: Retrieve list of available users.
+    * Parameters:
+        * _user_id: Validate whether user exists.
+                    Essential for 'ldap' authentication.
+
+### Resource: Groups
+
+**URI:** /groups
+List of available groups.
+
+**Methods:**
+
+* **GET**: Retrieve list of available groups, only support 'pam' authentication.
 
 ### Resource: HostStats
 

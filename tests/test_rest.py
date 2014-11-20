@@ -282,7 +282,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(params[key], vm[key])
 
         # change only VM users - groups are not changed (default is empty)
-        resp = self.request('/host/users', '{}', 'GET')
+        resp = self.request('/users', '{}', 'GET')
         users = json.loads(resp.read())
         req = json.dumps({'users': users})
         resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
@@ -291,7 +291,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(users, info['users'])
 
         # change only VM groups - users are not changed (default is empty)
-        resp = self.request('/host/groups', '{}', 'GET')
+        resp = self.request('/groups', '{}', 'GET')
         groups = json.loads(resp.read())
         req = json.dumps({'groups': groups})
         resp = self.request('/vms/∨м-црdαtеd', req, 'PUT')
