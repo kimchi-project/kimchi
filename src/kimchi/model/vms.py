@@ -581,16 +581,16 @@ class VMModel(object):
         users = groups = None
         if "users" in params:
             users = params["users"]
-            invalid_users = set(users) - set(self.users.get_list())
-            if len(invalid_users) != 0:
-                raise InvalidParameter("KCHVM0027E",
-                                       {'users': ", ".join(invalid_users)})
+            for user in users:
+                if not self.users.validate(user):
+                    raise InvalidParameter("KCHVM0027E",
+                                           {'users': user})
         if "groups" in params:
             groups = params["groups"]
-            invalid_groups = set(groups) - set(self.groups.get_list())
-            if len(invalid_groups) != 0:
-                raise InvalidParameter("KCHVM0028E",
-                                       {'groups': ", ".join(invalid_groups)})
+            for group in groups:
+                if not self.groups.validate(group):
+                    raise InvalidParameter("KCHVM0028E",
+                                           {'groups': group})
 
         if users is None and groups is None:
             return
