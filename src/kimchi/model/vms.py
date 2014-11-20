@@ -31,7 +31,7 @@ import libvirt
 from cherrypy.process.plugins import BackgroundTask
 
 from kimchi import model, vnc
-from kimchi.config import READONLY_POOL_TYPE
+from kimchi.config import READONLY_POOL_TYPE, config
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
@@ -46,6 +46,7 @@ from kimchi.utils import add_task, get_next_clone_name, import_class
 from kimchi.utils import kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
 from kimchi.xmlutils.utils import xpath_get_text, xml_item_update
+from kimchi.xmlutils.utils import dictize
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -568,13 +569,16 @@ class VMModel(object):
                                                          'err': e.message})
 
     def _build_access_elem(self, users, groups):
-        access = E.access()
+        auth = config.get("authentication", "method")
+        auth_elem = E.auth(type=auth)
         for user in users:
-            access.append(E.user(user))
+            auth_elem.append(E.user(user))
 
         for group in groups:
-            access.append(E.group(group))
+            auth_elem.append(E.group(group))
 
+        access = E.access()
+        access.append(auth_elem)
         return access
 
     def _vm_update_access_metadata(self, dom, params):
@@ -595,16 +599,32 @@ class VMModel(object):
         if users is None and groups is None:
             return
 
-        access_xml = (get_metadata_node(dom, "access",
-                                        self.caps.metadata_support) or
-                      """<access></access>""")
-        old_users = xpath_get_text(access_xml, "/access/user")
-        old_groups = xpath_get_text(access_xml, "/access/group")
+        old_users, old_groups = self._get_access_info(dom)
         users = old_users if users is None else users
         groups = old_groups if groups is None else groups
 
         node = self._build_access_elem(users, groups)
         set_metadata_node(dom, node, self.caps.metadata_support)
+
+    def _get_access_info(self, dom):
+        users = groups = list()
+        access_xml = (get_metadata_node(dom, "access",
+                                        self.caps.metadata_support) or
+                      """<access></access>""")
+        access_info = dictize(access_xml)
+        auth = config.get("authentication", "method")
+        if ('auth' in access_info['access'] and
+                ('type' in access_info['access']['auth'] or
+                 len(access_info['access']['auth']) > 1)):
+            users = xpath_get_text(access_xml,
+                                   "/access/auth[@type='%s']/user" % auth)
+            groups = xpath_get_text(access_xml,
+                                    "/access/auth[@type='%s']/group" % auth)
+        elif auth == 'pam':
+            # Compatible to old permission tagging
+            users = xpath_get_text(access_xml, "/access/user")
+            groups = xpath_get_text(access_xml, "/access/group")
+        return users, groups
 
     @staticmethod
     def vm_get_os_metadata(dom, metadata_support):
@@ -735,12 +755,7 @@ class VMModel(object):
         res['net_throughput_peak'] = vm_stats.get('max_net_io', 100)
         res['io_throughput'] = vm_stats.get('disk_io', 0)
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
-
-        access_xml = (get_metadata_node(dom, "access",
-                                        self.caps.metadata_support) or
-                      """<access></access>""")
-        users = xpath_get_text(access_xml, "/access/user")
-        groups = xpath_get_text(access_xml, "/access/group")
+        users, groups = self._get_access_info(dom)
 
         return {'name': name,
                 'state': state,
