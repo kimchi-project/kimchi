@@ -124,8 +124,8 @@ class ModelTests(unittest.TestCase):
             inst.vm_poweroff(u'kimchi-vm')
             vm = inst.vm_lookup(u'kimchi-vm')
 
-            self.assertRaises(NotFoundError, inst.currentvmsnapshot_lookup,
-                              u'kimchi-vm')
+            empty_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            self.assertEquals({}, empty_snap)
 
             # this snapshot should be deleted when its VM is deleted
             params = {'name': u'mysnap'}

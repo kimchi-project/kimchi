@@ -177,7 +177,7 @@ class CurrentVMSnapshotModel(object):
             snap_name = vir_snap.getName().decode('utf-8')
         except libvirt.libvirtError, e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
-                raise NotFoundError('KCHSNAP0007E', {'vm': vm_name})
+                return {}
 
             raise OperationFailed('KCHSNAP0008E',
                                   {'vm': vm_name, 'err': e.message})
