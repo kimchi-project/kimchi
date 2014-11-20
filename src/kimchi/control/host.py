@@ -36,8 +36,6 @@ class Host(Resource):
         self.devices = Devices(self.model)
         self.packagesupdate = PackagesUpdate(self.model)
         self.repositories = Repositories(self.model)
-        self.users = Users(self.model)
-        self.groups = Groups(self.model)
         self.swupdate = self.generate_action_handler_task('swupdate')
 
     @property
@@ -159,15 +157,3 @@ class Repository(Resource):
     @property
     def data(self):
         return self.info
-
-
-class Users(SimpleCollection):
-    def __init__(self, model):
-        super(Users, self).__init__(model)
-        self.role_key = 'guests'
-
-
-class Groups(SimpleCollection):
-    def __init__(self, model):
-        super(Groups, self).__init__(model)
-        self.role_key = 'guests'

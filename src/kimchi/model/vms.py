@@ -263,8 +263,8 @@ class VMModel(object):
         self.objstore = kargs['objstore']
         self.caps = CapabilitiesModel(**kargs)
         self.vmscreenshot = VMScreenshotModel(**kargs)
-        self.users = import_class('kimchi.model.host.UsersModel')(**kargs)
-        self.groups = import_class('kimchi.model.host.GroupsModel')(**kargs)
+        self.users = import_class('kimchi.model.users.UsersModel')(**kargs)
+        self.groups = import_class('kimchi.model.groups.GroupsModel')(**kargs)
         self.vms = VMsModel(**kargs)
         self.task = TaskModel(**kargs)
         self.storagepool = model.storagepools.StoragePoolModel(**kargs)
