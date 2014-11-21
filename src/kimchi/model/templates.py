@@ -290,7 +290,10 @@ class LibvirtVMTemplate(VMTemplate):
         # TODO: Rebase on the storage API once upstream
         pool = self._storage_validate()
         vol_list = self.to_volume_list(vm_uuid)
-        for v in vol_list:
-            # outgoing text to libvirt, encode('utf-8')
-            pool.createXML(v['xml'].encode('utf-8'), 0)
+        try:
+            for v in vol_list:
+                # outgoing text to libvirt, encode('utf-8')
+                pool.createXML(v['xml'].encode('utf-8'), 0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
         return vol_list
