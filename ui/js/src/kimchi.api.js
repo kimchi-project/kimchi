@@ -1328,5 +1328,19 @@ var kimchi = {
                 kimchi.message.error(data.responseJSON.reason);
             }
         });
+    },
+
+    getCPUInfo : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'host/cpuinfo',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
     }
 };

@@ -40,6 +40,9 @@
                 <li>
                     <a href="#form-template-interface">$_("Interface")</a>
                 </li>
+                <li>
+                    <a href="#form-template-processor">$_("Processor")</a>
+                </li>
             </ul>
             <form id="form-template-general">
                 <div class="form-template-inline-wrapper">
@@ -51,9 +54,6 @@
                     </div>
                     <div class="template-edit-wrapper-label">
                         <label for="template-edit-version-textbox">$_("Version")</label>
-                    </div>
-                    <div class="template-edit-wrapper-label">
-                        <label for="template-edit-cpu-textbox">$_("CPU Number")</label>
                     </div>
                     <div class="template-edit-wrapper-label">
                         <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
@@ -77,9 +77,6 @@
                     </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-version-textbox" name="os_version" type="text" disabled="disabled" />
-                    </div>
-                    <div class="template-edit-wrapper-controls">
-                        <input id="template-edit-cpu-textbox" name="cpus" type="text" />
                     </div>
                     <div class="template-edit-wrapper-controls">
                         <input id="template-edit-memory-textbox" name="memory" type="text" />
@@ -119,6 +116,14 @@
                     <button type="button" id="template-edit-interface-add-button" class="action-area"></button>
                 </div>
                 <div class="template-tab-body"></div>
+            </form>
+            <form id="form-template-processor">
+                <div>$_("CPU Number"):<input type="text" value="1" id="cpus"></div>
+                <div class="manual"><input type="checkbox">$_("Manually set CPU topology")</div>
+                <div class="topology hide">
+                    <div>$_("Cores"):<input type="text" value="1"  id="cores"></div>
+                    <div>$_("Threads"):<select id="threads"></select></div>
+                </div>
             </form>
         </div>
     </div>
