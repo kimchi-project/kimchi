@@ -899,6 +899,30 @@ Contains the host sample data.
 
 *No actions defined*
 
+### Resource: HostStats
+
+**URI:** /host/cpuinfo
+
+The cores and sockets of a hosts's CPU. Useful when sizing VMs to take
+advantages of the perforamance benefits of SMT (Power) or Hyper-Threading (Intel).
+
+**Methods:**
+
+* **GET**: Retreives the sockets, cores, and threads values.
+    * threading_enabled: Whether CPU topology is supported on this system.
+    * sockets: The number of total sockets on a system.
+    * cores: The total number of cores per socket.
+    * threads_per_core: The threads per core.
+
+**Actions (PUT):**
+
+*No actions defined*
+
+**Actions (POST):**
+
+*No actions defined*
+
+
 ### Resource: HostStatsHistory
 
 **URI:** /host/stats/history

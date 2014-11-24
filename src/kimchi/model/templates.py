@@ -25,6 +25,7 @@ import libvirt
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.kvmusertests import UserTests
+from kimchi.model.cpuinfo import CPUInfoModel
 from kimchi.utils import pool_name_from_uri
 from kimchi.utils import probe_file_permission_as_user
 from kimchi.vmtemplate import VMTemplate
@@ -57,11 +58,12 @@ class TemplatesModel(object):
                 sockets = topology['sockets']
                 cores = topology['cores']
                 threads = topology['threads']
-                vcpus = params.get('cpus')
-                if vcpus is None:
+                if params.get('cpus') is None:
                     params['cpus'] = sockets * cores * threads
-                elif vcpus != sockets * cores * threads:
-                    raise InvalidParameter("KCHTMPL0025E")
+                # check_topoology will raise the appropriate
+                # exception if a topology is invalid.
+                CPUInfoModel(conn=self.conn).\
+                    check_topology(params['cpus'], topology)
         else:
             params['cpu_info'] = dict()
 
