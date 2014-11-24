@@ -319,4 +319,9 @@ messages = {
     "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0008E": _("Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
+
+    "KCHCPUINF0001E": _("The number of vCPUs is too large for this system."),
+    "KCHCPUINF0002E": _("Invalid vCPU/topology combination."),
+    "KCHCPUINF0003E": _("This host (or current configuration) does not allow CPU topology."),
+
 }

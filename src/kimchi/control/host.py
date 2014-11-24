@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from kimchi.control.cpuinfo import CPUInfo
 from kimchi.control.base import Collection, Resource, SimpleCollection
 from kimchi.control.utils import UrlSubNode
 from kimchi.exception import NotFoundError
@@ -37,6 +38,7 @@ class Host(Resource):
         self.packagesupdate = PackagesUpdate(self.model)
         self.repositories = Repositories(self.model)
         self.swupdate = self.generate_action_handler_task('swupdate')
+        self.cpuinfo = CPUInfo(self.model)
 
     @property
     def data(self):
