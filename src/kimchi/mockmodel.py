@@ -23,6 +23,8 @@ import os
 import random
 import time
 
+import kimchi.model.cpuinfo
+
 from lxml import objectify
 
 from kimchi import config
@@ -67,6 +69,8 @@ class MockModel(Model):
         self._mock_swupdate = MockSoftwareUpdate()
         self._mock_repositories = MockRepositories()
 
+        kimchi.model.cpuinfo.get_topo_capabilities = \
+            MockModel.get_topo_capabilities
         libvirt.virConnect.defineXML = MockModel.domainDefineXML
         libvirt.virDomain.XMLDesc = MockModel.domainXMLDesc
         libvirt.virDomain.undefine = MockModel.undefineDomain
@@ -132,6 +136,12 @@ class MockModel(Model):
         volumes = self.storagevolumes_get_list('default-pool')
         for v in volumes:
             self.storagevolume_delete('default-pool', v)
+
+    @staticmethod
+    def get_topo_capabilities(conn):
+        # The libvirt test driver doesn't return topology.
+        xml = "<topology sockets='1' cores='2' threads='2'/>"
+        return ET.fromstring(xml)
 
     @staticmethod
     def domainDefineXML(conn, xml):
