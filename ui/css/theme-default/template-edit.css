@@ -143,3 +143,29 @@
 #edit-template-tabs .hide {
     display: none;
 }
+
+#form-template-processor select,
+#form-template-processor input[type="text"] {
+    margin-left: 10px;
+}
+
+#form-template-processor input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#form-template-processor .manual {
+    margin-top: 10px;
+    margin-left: -3px;
+}
+
+#form-template-processor .topology {
+    margin: 10px 30px;
+}
+
+#form-template-processor .topology div {
+    margin-bottom: 10px;
+}
+
+#form-template-processor .topology select {
+    width: 80px;
+}
