@@ -161,17 +161,6 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(sorted([params['name'], snap_name],
                               key=unicode.lower), snaps)
 
-            # Clone the VM and check whether the snapshots have been cloned
-            # as well
-            task = inst.vm_clone(u'kimchi-vm')
-            clone_name = task['target_uri'].split('/')[-1]
-            rollback.prependDefer(inst.vm_delete, clone_name)
-            inst.task_wait(task['id'])
-            task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
-            clone_snaps = inst.vmsnapshots_get_list(clone_name)
-            self.assertEquals(snaps, clone_snaps)
-
             snap = inst.vmsnapshot_lookup(u'kimchi-vm', snap_name)
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
             self.assertEquals(snap, current_snap)
