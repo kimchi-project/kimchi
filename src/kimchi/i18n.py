@@ -319,6 +319,7 @@ messages = {
     "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0008E": _("Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
+    "KCHSNAP0010E": _("Unable to create snapshot on virtual machine '%(vm)s' because it contains a disk with format '%(format)s'; only 'qcow2' is supported."),
 
     "KCHCPUINF0001E": _("The number of vCPUs is too large for this system."),
     "KCHCPUINF0002E": _("Invalid vCPU/topology combination."),
