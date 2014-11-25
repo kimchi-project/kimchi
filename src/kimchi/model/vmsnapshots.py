@@ -27,6 +27,7 @@ from lxml.builder import E
 from kimchi.exception import InvalidOperation, NotFoundError, OperationFailed
 from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
+from kimchi.model.vmstorages import VMStorageModel, VMStoragesModel
 from kimchi.utils import add_task
 
 
@@ -35,12 +36,14 @@ class VMSnapshotsModel(object):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
         self.task = TaskModel(**kargs)
+        self.vmstorages = VMStoragesModel(**kargs)
+        self.vmstorage = VMStorageModel(**kargs)
 
     def create(self, vm_name, params={}):
         """Create a snapshot with the current domain state.
 
-        The VM must be stopped before creating a snapshot on it; otherwise, an
-        exception will be raised.
+        The VM must be stopped and contain only disks with format 'qcow2';
+        otherwise an exception will be raised.
 
         Parameters:
         vm_name -- the name of the VM where the snapshot will be created.
@@ -54,6 +57,16 @@ class VMSnapshotsModel(object):
         vir_dom = VMModel.get_vm(vm_name, self.conn)
         if DOM_STATE_MAP[vir_dom.info()[0]] != u'shutoff':
             raise InvalidOperation('KCHSNAP0001E', {'vm': vm_name})
+
+        # if the VM has a non-CDROM disk with type 'raw', abort.
+        for storage_name in self.vmstorages.get_list(vm_name):
+            storage = self.vmstorage.lookup(vm_name, storage_name)
+            type = storage['type']
+            format = storage['format']
+
+            if type != u'cdrom' and format != u'qcow2':
+                raise InvalidOperation('KCHSNAP0010E', {'vm': vm_name,
+                                                        'format': format})
 
         name = params.get('name', unicode(int(time.time())))
 
