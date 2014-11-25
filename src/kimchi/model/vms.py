@@ -374,15 +374,10 @@ class VMModel(object):
             # create new guest
             cb('defining new VM')
             try:
-                vir_new_dom = vir_conn.defineXML(xml)
+                vir_conn.defineXML(xml)
             except libvirt.libvirtError, e:
                 raise OperationFailed('KCHVM0035E', {'name': name,
                                                      'err': e.message})
-            rollback.prependDefer(vir_new_dom.undefine)
-
-            # copy snapshots
-            cb('copying VM snapshots')
-            self._clone_copy_snapshots(name, new_name)
 
             rollback.commitAll()
 
@@ -545,28 +540,6 @@ class VMModel(object):
 
                 # remove the new object store entry should an error occur later
                 rollback.prependDefer(_rollback_objstore)
-
-    def _clone_copy_snapshots(self, vm_name, new_vm_name):
-        dom = self.get_vm(new_vm_name, self.conn)
-        flags = libvirt.VIR_DOMAIN_XML_SECURE
-
-        # libvirt's Test driver does not support the function
-        # "virDomainListAllSnapshots", so "VMSnapshots.get_list" will raise
-        # "OperationFailed" in that case.
-        try:
-            snapshot_names = self.vmsnapshots.get_list(vm_name)
-        except OperationFailed, e:
-            kimchi_log.error('cannot list snapshots: %s; '
-                             'skipping snapshot cloning...' % e.message)
-        else:
-            for s in snapshot_names:
-                vir_snap = self.vmsnapshot.get_vmsnapshot(vm_name, s)
-                try:
-                    snap_xml = vir_snap.getXMLDesc(flags).decode('utf-8')
-                    dom.snapshotCreateXML(snap_xml)
-                except libvirt.libvirtError, e:
-                    raise OperationFailed('KCHVM0035E', {'name': vm_name,
-                                                         'err': e.message})
 
     def _build_access_elem(self, users, groups):
         auth = config.get("authentication", "method")
