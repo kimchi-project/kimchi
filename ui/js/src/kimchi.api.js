@@ -1087,9 +1087,24 @@ var kimchi = {
         });
     },
 
-    getHostUsers : function(suc, err) {
+    getUserById : function(data, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/users',
+            url : kimchi.url + 'users?_user_id=' + data.user_id,
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            async : false,
+            success : suc && suc(data),
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
+    getUsers : function(suc, err) {
+        kimchi.requestJSON({
+            url : kimchi.url + 'users',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1101,9 +1116,9 @@ var kimchi = {
         });
     },
 
-    getHostGroups : function(suc, err) {
+    getGroups : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/groups',
+            url : kimchi.url + 'groups',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
