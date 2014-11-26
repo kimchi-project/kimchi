@@ -28,8 +28,7 @@
     padding: 0;
 }
 
-#form-guest-edit-general,
-#form-guest-edit-storage {
+#form-guest-edit-general {
     padding: 1em;
 }
 
@@ -97,7 +96,8 @@
 
 #form-guest-edit-storage .header,
 .guest-edit-snapshot .header,
-.guest-edit-interface .header {
+.guest-edit-interface .header,
+#form-guest-edit-permission .ldap .header {
     margin-bottom: 8px;
     padding-bottom: 2px;
     font-weight: bold;
@@ -123,7 +123,7 @@
 }
 
 .guest-edit-snapshot .sel {
-    width: 35px;
+    width: 25px;
     vertical-align: top;
 }
 
@@ -180,12 +180,6 @@
     height: 20px;
 }
 
-#form-guest-edit-storage .header button,
-.guest-edit-snapshot .header button,
-.guest-edit-interface .header button {
-    margin-bottom: 1px;
-}
-
 #form-guest-edit-storage .body button:not(:last-child),
 .guest-edit-interface .body button:not(:last-child) {
     margin-right: 2px;
@@ -196,27 +190,31 @@
     display: none!important;
 }
 
-.guest-edit-permission {
-    height: 240px;
+.guest-edit-permission .pam {
+    height: 220px;
     padding: 5px 10px!important;
 }
 
-.guest-edit-permission .column {
+.guest-edit-permission .hide {
+    display: none;
+}
+
+.guest-edit-permission .pam .column {
     display: inline-block;
     vertical-align: top;
 }
 
-.guest-edit-permission .title {
+.guest-edit-permission .pam .title {
     margin-bottom: 3px;
 }
 
-.guest-edit-permission input[type="text"] {
+.guest-edit-permission .pam input[type="text"] {
     margin-bottom: 3px;
     font-size: 12px;
     width: 97%;
 }
 
-.guest-edit-permission .body {
+.guest-edit-permission .pam .body {
     border: 1px solid #999999;
     font-size: 12px;
     padding: 1px;
@@ -224,75 +222,111 @@
     overflow: auto;
 }
 
-.guest-edit-permission .body .head {
+.guest-edit-permission .pam .body .head {
     margin-bottom: 3px;
     font-weight: bold;
     background: linear-gradient(to bottom, #E5E5E5 0%, #C4C4C4 100%) repeat scroll 0 0 transparent;
 }
 
-.guest-edit-permission .body .item {
+.guest-edit-permission .pam .body .item {
     padding: 2px 3px;
     margin-bottom: 1px;
     cursor: pointer;
 }
 
-.guest-edit-permission .body .item:hover {
+.guest-edit-permission .pam .body .item:hover {
     background-color: #AAAAAA;
 }
 
-.guest-edit-permission .body .item-picked {
+.guest-edit-permission .pam .body .item-picked {
     background-color: #BBBBBB;
 }
 
-.guest-edit-permission .body .item .icon {
+.guest-edit-permission .pam .body .item .icon {
     display: inline-block;
     height: 15px;
     width: 15px;
     vertical-align: bottom;
 }
 
-.guest-edit-permission .body .item .user-icon {
+.guest-edit-permission .pam .body .item .user-icon {
     background: url('/images/theme-default/user.png') no-repeat scroll;
     background-size: 15px 15px;
 }
 
-.guest-edit-permission .body .item .group-icon {
+.guest-edit-permission .pam .body .item .group-icon {
     background: url('/images/theme-default/group.png') no-repeat scroll;
     background-size: 15px 15px;
 }
 
-.guest-edit-permission .body .column-user {
+.guest-edit-permission .pam .body .column-user {
     width: 48%;
 }
-.guest-edit-permission .body .column-group {
+.guest-edit-permission .pam .body .column-group {
     width: 50%;
 }
 
-.guest-edit-permission .control {
+.guest-edit-permission .pam .control {
     width: 5%;
 }
 
-.guest-edit-permission .control button {
+.guest-edit-permission .pam .control button {
     width: 26px;
     margin-left: 7px;
 }
 
-.guest-edit-permission .control button:first-child {
+.guest-edit-permission .pam .control button:first-child {
     margin-top: 110px;
     margin-bottom: 2px;
 }
 
-.guest-edit-permission .control .ui-button-text-only .ui-button-text {
+.guest-edit-permission .pam .control .ui-button-text-only .ui-button-text {
     padding: 2px 8px;
 }
 
-.guest-edit-permission .avail {
+.guest-edit-permission .pam .avail {
     width: 46%;
 }
 
-.guest-edit-permission .selected {
+.guest-edit-permission .pam .selected {
     width: 46%;
     float: right;
+}
+
+#form-guest-edit-permission .ldap .body .item {
+    margin: 8px 0;
+}
+
+#form-guest-edit-permission .ldap .cell {
+    width: 250px;
+}
+
+#form-guest-edit-permission .ldap .action-area {
+    float: right;
+    line-height: 24px;
+}
+
+#form-guest-edit-permission .ldap button {
+    width: 20px;
+    height: 20px;
+}
+
+#form-guest-edit-permission input[type="text"] {
+    width: 300px;
+}
+
+#form-guest-edit-permission .ldap .header button {
+    margin-bottom: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked {
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked.hide {
+    display: none;
 }
 
 .guest-edit-pci {
