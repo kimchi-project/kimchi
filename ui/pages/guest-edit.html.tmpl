@@ -115,6 +115,7 @@
                 <div class="body"></div>
             </form>
             <form id="form-guest-edit-permission" class="guest-edit-permission">
+                <div class="pam">
                     <div class="column avail">
                         <div class="title">$_("Available system users and groups")</div>
                         <input type="text" id="permission-avail-searchBox">
@@ -143,6 +144,14 @@
                             <div id="permission-sel-groups"  class="column column-group"></div>
                         </div>
                     </div>
+                </div>
+                <div class="ldap">
+                    <div class="header">
+                        <span class="cell">$_("User")</span>
+                        <button type="button" id="guest-edit-add-user-button" class="action-area add"></button>
+                    </div>
+                    <div class="body"></div>
+                </div>
             </form>
             <form id="form-guest-edit-pci" class="guest-edit-pci">
                 <div class="guest-scroll-indent">
@@ -231,6 +240,17 @@
         </span>
     <div>
 </script>
+<script id="ldap-user-tmpl" type="text/html">
+    <div class="item" id="{user}">
+        <span class="cell">
+            <label class="{viewMode}">{user}</label>
+            <input type="text"  placeholder="LDAP User ID,e.g.foo@foo.com" class="{editMode}"/>
+        </span>
+        <span class="action-area">
+            <button class="delete"></button>
+        </span>
+    <div>
+</script>
 <script id="disk-row-tmpl" type="text/html">
     <div class="item" id="cdrom-{dev}">
         <span class="cell dev">
@@ -250,7 +270,7 @@
         </span>
     </div>
 </script>
-<script id="permission-item" type="text/html">
+<script id="permission-item-pam" type="text/html">
 <div class="item">
     <span class="icon {class}"></span>
     <label>{val}</label>
