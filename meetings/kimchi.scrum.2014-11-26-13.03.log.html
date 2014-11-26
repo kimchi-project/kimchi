@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 26 13:03:07 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:16</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:18</span><span class="nk"> &lt;alinefm&gt;</span> ok... so let's get started
+<a name="l-9"></a><span class="tm">13:05:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:29</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin UI: CPU Topology  Patch v1/v2/v3</span>
+<a name="l-12"></a><span class="tm">13:06:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm focused on patches reviews and testing</span>
+<a name="l-13"></a><span class="tm">13:06:09</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce rebased backend and UI according to comments, backend merged, UI now available for v4, ready to merge</span>
+<a name="l-14"></a><span class="tm">13:06:48</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang discussed solutions of non-persistent vm problems</span>
+<a name="l-15"></a><span class="tm">13:08:38</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">sent patch fixing an issue with raw disk images</span>
+<a name="l-16"></a><span class="tm">13:08:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, I've made some minor comments in the LDAP UI patches
+<a name="l-17"></a><span class="tm">13:08:55</span><span class="nk"> &lt;royce&gt;</span> today?
+<a name="l-18"></a><span class="tm">13:09:01</span><span class="nk"> &lt;alinefm&gt;</span> if you don't mind, I can get your patches, apply the comments and resend to review
+<a name="l-19"></a><span class="tm">13:09:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-20"></a><span class="tm">13:09:19</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent bugfixes for the snapshot feature; reviewed patches on the mailing list</span>
+<a name="l-21"></a><span class="tm">13:09:21</span><span class="nk"> &lt;alinefm&gt;</span> so vianac or danielhb can review and I merge at the end of the day today
+<a name="l-22"></a><span class="tm">13:09:32</span><span class="nk"> &lt;royce&gt;</span> that'll be helpful, thanks alinefm
+<a name="l-23"></a><span class="tm">13:09:44</span><span class="nk"> &lt;alinefm&gt;</span> royce, thank you! =)
+<a name="l-24"></a><span class="tm">13:10:09</span><span class="nk"> &lt;alinefm&gt;</span> after getting the LDAP UI merged I will created a tag 1.4.0-rc1
+<a name="l-25"></a><span class="tm">13:10:18</span><span class="nk"> &lt;alinefm&gt;</span> that will be our base for the 1.4 tests
+<a name="l-26"></a><span class="tm">13:10:19</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-27"></a><span class="tm">13:10:35</span><span class="nk"> &lt;royce&gt;</span> sure!
+<a name="l-28"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> baude, and then you can get this new tarball to provide to fedora as well
+<a name="l-29"></a><span class="tm">13:11:42</span><span class="nk"> &lt;alinefm&gt;</span> I will create the test matrix today and we can start filling it =)
+<a name="l-30"></a><span class="tm">13:11:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm create 1.4 test matrix</span>
+<a name="l-31"></a><span class="tm">13:13:31</span><span class="nk"> &lt;alinefm&gt;</span> we need to test Kimchi on opensuse 13.2, ubuntu 14.04, rhel7 and fedora 20
+<a name="l-32"></a><span class="tm">13:13:31</span><span class="nk"> &lt;Guest908&gt;</span> <span class="cmd">#info </span><span class="cmdline">Simon send out migration v5 patch</span>
+<a name="l-33"></a><span class="tm">13:14:07</span><span class="nk"> &lt;alinefm&gt;</span> any volunteers?
+<a name="l-34"></a><span class="tm">13:14:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, Guest908, ^
+<a name="l-35"></a><span class="tm">13:14:23</span><span class="nk"> &lt;royce&gt;</span> me for ubuntu14.04
+<a name="l-36"></a><span class="tm">13:14:23</span><span class="nk"> &lt;alinefm&gt;</span> which distro do you want to be responsible for the tests?
+<a name="l-37"></a><span class="tm">13:14:46</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I have fedora 20
+<a name="l-38"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is responsible for testing 1.4.0-rc1 on Ubuntu 14.04</span>
+<a name="l-39"></a><span class="tm">13:15:08</span><span class="nk"> &lt;wenwang&gt;</span> can help with that
+<a name="l-40"></a><span class="tm">13:15:13</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, shouldn't we test in ubuntu 14.10?
+<a name="l-41"></a><span class="tm">13:15:20</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, can you test on IE?
+<a name="l-42"></a><span class="tm">13:15:25</span><span class="nk"> &lt;vianac&gt;</span> Fedora 20
+<a name="l-43"></a><span class="tm">13:15:26</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, I mean... I thought we were testing on the last available release...
+<a name="l-44"></a><span class="tm">13:15:31</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I can
+<a name="l-45"></a><span class="tm">13:15:48</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I will take the IE testting
+<a name="l-46"></a><span class="tm">13:15:50</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yeap! sure
+<a name="l-47"></a><span class="tm">13:16:04</span><span class="nk"> &lt;alinefm&gt;</span> I was thinking about LTS version, sorry
+<a name="l-48"></a><span class="tm">13:16:06</span><span class="nk"> &lt;lagarcia&gt;</span> royce, ^ I think you should test ubuntu 14.10 instead of 14.04
+<a name="l-49"></a><span class="tm">13:16:16</span><span class="nk"> &lt;alinefm&gt;</span> royce, ok for ubuntu 14.10?
+<a name="l-50"></a><span class="tm">13:16:19</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-51"></a><span class="tm">13:16:25</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, oh, well... yeah... that might be good as well. I am OK either way
+<a name="l-52"></a><span class="tm">13:16:37</span><span class="nk"> &lt;royce&gt;</span> Will update my system
+<a name="l-53"></a><span class="tm">13:16:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce is responsible for testing 1.4.0-rc1 on Ubuntu 14.10</span>
+<a name="l-54"></a><span class="tm">13:16:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac is responsible for testing 1.4.0-rc1 on Fedora 20</span>
+<a name="l-55"></a><span class="tm">13:17:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang is responsible for testing 1.4.0-rc1 on IE</span>
+<a name="l-56"></a><span class="tm">13:17:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> no problem
+<a name="l-57"></a><span class="tm">13:17:23</span><span class="nk"> &lt;alinefm&gt;</span> Guest908, are you OK with opensuse 13.2?
+<a name="l-58"></a><span class="tm">13:19:16</span><span class="nk"> &lt;alinefm&gt;</span> I can get RHEL7 for testing
+<a name="l-59"></a><span class="tm">13:19:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is responsible for testing 1.4.0-rc1 on RHEL7</span>
+<a name="l-60"></a><span class="tm">13:20:00</span><span class="nk"> &lt;Guest908&gt;</span> i can take opensuse 13.2
+<a name="l-61"></a><span class="tm">13:20:09</span><span class="nk"> &lt;alinefm&gt;</span> thanks!
+<a name="l-62"></a><span class="tm">13:20:12</span><span class="nk"> &lt;YuXin&gt;</span> I will focus on testing on mobile
+<a name="l-63"></a><span class="tm">13:20:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Guest908 (simon) is responsible for testing 1.4.0-rc1 on openSUSE 13.2</span>
+<a name="l-64"></a><span class="tm">13:20:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin is responsible for testing 1.4.0-rc1 on mobile browsers</span>
+<a name="l-65"></a><span class="tm">13:21:35</span><span class="nk"> &lt;alinefm&gt;</span> thanks all!
+<a name="l-66"></a><span class="tm">13:21:49</span><span class="nk"> &lt;alinefm&gt;</span> anything else or we can move on to open discussion?
+<a name="l-67"></a><span class="tm">13:23:09</span><span class="nk"> &lt;royce&gt;</span> let's move on~
+<a name="l-68"></a><span class="tm">13:23:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-69"></a><span class="tm">13:23:35</span><span class="nk"> &lt;alinefm&gt;</span> I only have one topic today
+<a name="l-70"></a><span class="tm">13:23:52</span><span class="nk"> &lt;vianac&gt;</span> Fedora 21 is supposed to be released next week
+<a name="l-71"></a><span class="tm">13:24:04</span><span class="nk"> &lt;vianac&gt;</span> I might give it a test after Fedora 20 as well Ç)
+<a name="l-72"></a><span class="tm">13:24:13</span><span class="nk"> &lt;vianac&gt;</span> :)
+<a name="l-73"></a><span class="tm">13:24:21</span><span class="nk"> &lt;alinefm&gt;</span> vianac, thanks!
+<a name="l-74"></a><span class="tm">13:24:31</span><span class="nk"> &lt;alinefm&gt;</span> alanoe contacted me as he wants to do the netboot feature for Kimchi
+<a name="l-75"></a><span class="tm">13:24:44</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, did paulo send to you his patches on this feature?
+<a name="l-76"></a><span class="tm">13:24:54</span><span class="nk"> &lt;alinefm&gt;</span> I remember you were working on UI, right?
+<a name="l-77"></a><span class="tm">13:25:03</span><span class="nk"> &lt;wenwang&gt;</span> I am afraid I haven't got it
+<a name="l-78"></a><span class="tm">13:25:23</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> What's it about?
+<a name="l-79"></a><span class="tm">13:25:38</span><span class="nk"> &lt;alanoe&gt;</span> support distro installation via netboot in a KVM guest
+<a name="l-80"></a><span class="tm">13:26:12</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, let me find the bug on github
+<a name="l-81"></a><span class="tm">13:26:14</span><span class="nk"> &lt;alinefm&gt;</span> one minute
+<a name="l-82"></a><span class="tm">13:26:20</span><span class="nk"> &lt;alanoe&gt;</span> https://github.com/kimchi-project/kimchi/issues/372
+<a name="l-83"></a><span class="tm">13:26:22</span><span class="nk"> &lt;alanoe&gt;</span> alinefm ^
+<a name="l-84"></a><span class="tm">13:26:33</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> That would be great
+<a name="l-85"></a><span class="tm">13:26:35</span><span class="nk"> &lt;alinefm&gt;</span> alanoe, thanks
+<a name="l-86"></a><span class="tm">13:26:39</span><span class="nk"> &lt;alanoe&gt;</span> yw
+<a name="l-87"></a><span class="tm">13:26:40</span><span class="nk"> &lt;wenwang&gt;</span> thanks alinefm
+<a name="l-88"></a><span class="tm">13:27:54</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, you have sent a mockup for it some time ago: http://lists.ovirt.org/pipermail/kimchi-devel/2014-August/006879.html
+<a name="l-89"></a><span class="tm">13:28:15</span><span class="nk"> &lt;alinefm&gt;</span> but I am wondering about the backend patches
+<a name="l-90"></a><span class="tm">13:28:26</span><span class="nk"> &lt;alinefm&gt;</span> if you got them from paulo or not
+<a name="l-91"></a><span class="tm">13:30:32</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I remembered that. And I have his code which could probably need some minor change since it's a long time ago. Sorry that drop out of my working list
+<a name="l-92"></a><span class="tm">13:30:53</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, don't worry about it
+<a name="l-93"></a><span class="tm">13:31:02</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I will find it out tomorrow and work on that
+<a name="l-94"></a><span class="tm">13:31:08</span><span class="nk"> &lt;alinefm&gt;</span> I mean, I only want to share the backend patches with alanoe
+<a name="l-95"></a><span class="tm">13:31:21</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, on UI, you dont need to do anything
+<a name="l-96"></a><span class="tm">13:31:52</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> ok. Do you need the original Paulo's patch?
+<a name="l-97"></a><span class="tm">13:31:58</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, yeap
+<a name="l-98"></a><span class="tm">13:32:00</span><span class="nk"> &lt;alinefm&gt;</span> do you have them?
+<a name="l-99"></a><span class="tm">13:32:18</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I think I have it
+<a name="l-100"></a><span class="tm">13:32:35</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Will sent it to you tomorrow
+<a name="l-101"></a><span class="tm">13:32:46</span><span class="nk"> &lt;alinefm&gt;</span> if you find it, please send to ML as WIP so alanoe can get it and continue the work
+<a name="l-102"></a><span class="tm">13:32:51</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, thanks
+<a name="l-103"></a><span class="tm">13:33:14</span><span class="nk"> &lt;alanoe&gt;</span> <span class="hi">alinefm:</span> maybe it is valid to rebase it based on master/next (dont know kimchi branching model) before sending to mailing list?
+<a name="l-104"></a><span class="tm">13:33:33</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> No problem.
+<a name="l-105"></a><span class="tm">13:33:39</span><span class="nk"> &lt;alinefm&gt;</span> alanoe, I can do the rebase for you
+<a name="l-106"></a><span class="tm">13:33:40</span><span class="nk"> &lt;alanoe&gt;</span> should be quick if there werent major changes
+<a name="l-107"></a><span class="tm">13:33:43</span><span class="nk"> &lt;alanoe&gt;</span> <span class="hi">alinefm:</span> ty
+<a name="l-108"></a><span class="tm">13:34:12</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, and again, you don't need to do anything about the UI for it
+<a name="l-109"></a><span class="tm">13:34:22</span><span class="nk"> &lt;alinefm&gt;</span> now we will focus on bug fixes and tests for 1.4 release
+<a name="l-110"></a><span class="tm">13:35:34</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Okay
+<a name="l-111"></a><span class="tm">13:37:08</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-112"></a><span class="tm">13:37:24</span><span class="nk"> &lt;alanoe&gt;</span> <span class="hi">alinefm:</span> question: how can I test kimchi backend? automated tests, manual calls to REST API?
+<a name="l-113"></a><span class="tm">13:37:57</span><span class="nk"> &lt;alinefm&gt;</span> alanoe, we have some unit tests, you can check them under /tests
+<a name="l-114"></a><span class="tm">13:38:05</span><span class="nk"> &lt;alanoe&gt;</span> <span class="hi">alinefm:</span> ok, thanks
+<a name="l-115"></a><span class="tm">13:38:05</span><span class="nk"> &lt;alinefm&gt;</span> and run using "make check"
+<a name="l-116"></a><span class="tm">13:38:32</span><span class="nk"> &lt;alanoe&gt;</span> I'll start working on this as soon as I get paulo's patch
+<a name="l-117"></a><span class="tm">13:38:35</span><span class="nk"> &lt;alanoe&gt;</span> I have nothing else
+<a name="l-118"></a><span class="tm">13:38:40</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-119"></a><span class="tm">13:38:51</span><span class="nk"> &lt;alinefm&gt;</span> any problem you can ping us here or send a note to ML
+<a name="l-120"></a><span class="tm">13:38:57</span><span class="nk"> &lt;alanoe&gt;</span> sure
+<a name="l-121"></a><span class="tm">13:39:12</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-122"></a><span class="tm">13:41:17</span><span class="nk"> &lt;alinefm&gt;</span> well, so thanks everyone for the great work for 1.4 and let's test =D
+<a name="l-123"></a><span class="tm">13:42:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

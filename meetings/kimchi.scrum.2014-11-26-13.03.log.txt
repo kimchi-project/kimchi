@@ -1,0 +1,123 @@
+13:03:07 <alinefm> #startmeeting
+13:03:07 <kimchi-bot> Meeting started Wed Nov 26 13:03:07 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:07 <alinefm> #meetingname scrum
+13:03:07 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:16 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:16 <alinefm> anything else?
+13:05:18 <alinefm> ok... so let's get started
+13:05:19 <alinefm> #topic Status
+13:05:20 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:29 <YuXin> #info YuXin UI: CPU Topology  Patch v1/v2/v3
+13:06:01 <alinefm> #info alinefm focused on patches reviews and testing
+13:06:09 <royce> #info royce rebased backend and UI according to comments, backend merged, UI now available for v4, ready to merge
+13:06:48 <wenwang> #info wenwang discussed solutions of non-persistent vm problems
+13:08:38 <danielhb> #info sent patch fixing an issue with raw disk images
+13:08:44 <alinefm> royce, I've made some minor comments in the LDAP UI patches
+13:08:55 <royce> today?
+13:09:01 <alinefm> if you don't mind, I can get your patches, apply the comments and resend to review
+13:09:05 <alinefm> royce, yes
+13:09:19 <vianac> #info vianac sent bugfixes for the snapshot feature; reviewed patches on the mailing list
+13:09:21 <alinefm> so vianac or danielhb can review and I merge at the end of the day today
+13:09:32 <royce> that'll be helpful, thanks alinefm
+13:09:44 <alinefm> royce, thank you! =)
+13:10:09 <alinefm> after getting the LDAP UI merged I will created a tag 1.4.0-rc1
+13:10:18 <alinefm> that will be our base for the 1.4 tests
+13:10:19 <alinefm> ok?
+13:10:35 <royce> sure!
+13:11:08 <alinefm> baude, and then you can get this new tarball to provide to fedora as well
+13:11:42 <alinefm> I will create the test matrix today and we can start filling it =)
+13:11:56 <alinefm> #action alinefm create 1.4 test matrix
+13:13:31 <alinefm> we need to test Kimchi on opensuse 13.2, ubuntu 14.04, rhel7 and fedora 20
+13:13:31 <Guest908> #info Simon send out migration v5 patch
+13:14:07 <alinefm> any volunteers?
+13:14:14 <alinefm> royce, vianac, Guest908, ^
+13:14:23 <royce> me for ubuntu14.04
+13:14:23 <alinefm> which distro do you want to be responsible for the tests?
+13:14:46 <wenwang> alinefm: I have fedora 20
+13:14:58 <alinefm> #info royce is responsible for testing 1.4.0-rc1 on Ubuntu 14.04
+13:15:08 <wenwang> can help with that
+13:15:13 <lagarcia> alinefm, shouldn't we test in ubuntu 14.10?
+13:15:20 <alinefm> wenwang, can you test on IE?
+13:15:25 <vianac> Fedora 20
+13:15:26 <lagarcia> alinefm, I mean... I thought we were testing on the last available release...
+13:15:31 <wenwang> alinefm: I can
+13:15:48 <wenwang> alinefm: I will take the IE testting
+13:15:50 <alinefm> lagarcia, yeap! sure
+13:16:04 <alinefm> I was thinking about LTS version, sorry
+13:16:06 <lagarcia> royce, ^ I think you should test ubuntu 14.10 instead of 14.04
+13:16:16 <alinefm> royce, ok for ubuntu 14.10?
+13:16:19 <royce> OK
+13:16:25 <lagarcia> alinefm, oh, well... yeah... that might be good as well. I am OK either way
+13:16:37 <royce> Will update my system
+13:16:42 <alinefm> #info royce is responsible for testing 1.4.0-rc1 on Ubuntu 14.10
+13:16:53 <alinefm> #info vianac is responsible for testing 1.4.0-rc1 on Fedora 20
+13:17:09 <alinefm> #info wenwang is responsible for testing 1.4.0-rc1 on IE
+13:17:22 <wenwang> alinefm: no problem
+13:17:23 <alinefm> Guest908, are you OK with opensuse 13.2?
+13:19:16 <alinefm> I can get RHEL7 for testing
+13:19:31 <alinefm> #info alinefm is responsible for testing 1.4.0-rc1 on RHEL7
+13:20:00 <Guest908> i can take opensuse 13.2
+13:20:09 <alinefm> thanks!
+13:20:12 <YuXin> I will focus on testing on mobile
+13:20:29 <alinefm> #info Guest908 (simon) is responsible for testing 1.4.0-rc1 on openSUSE 13.2
+13:20:41 <alinefm> #info YuXin is responsible for testing 1.4.0-rc1 on mobile browsers
+13:21:35 <alinefm> thanks all!
+13:21:49 <alinefm> anything else or we can move on to open discussion?
+13:23:09 <royce> let's move on~
+13:23:27 <alinefm> #topic Open Discussion
+13:23:35 <alinefm> I only have one topic today
+13:23:52 <vianac> Fedora 21 is supposed to be released next week
+13:24:04 <vianac> I might give it a test after Fedora 20 as well Ç)
+13:24:13 <vianac> :)
+13:24:21 <alinefm> vianac, thanks!
+13:24:31 <alinefm> alanoe contacted me as he wants to do the netboot feature for Kimchi
+13:24:44 <alinefm> wenwang, did paulo send to you his patches on this feature?
+13:24:54 <alinefm> I remember you were working on UI, right?
+13:25:03 <wenwang> I am afraid I haven't got it
+13:25:23 <wenwang> alinefm: What's it about?
+13:25:38 <alanoe> support distro installation via netboot in a KVM guest
+13:26:12 <alinefm> wenwang, let me find the bug on github
+13:26:14 <alinefm> one minute
+13:26:20 <alanoe> https://github.com/kimchi-project/kimchi/issues/372
+13:26:22 <alanoe> alinefm ^
+13:26:33 <wenwang> alinefm: That would be great
+13:26:35 <alinefm> alanoe, thanks
+13:26:39 <alanoe> yw
+13:26:40 <wenwang> thanks alinefm
+13:27:54 <alinefm> wenwang, you have sent a mockup for it some time ago: http://lists.ovirt.org/pipermail/kimchi-devel/2014-August/006879.html
+13:28:15 <alinefm> but I am wondering about the backend patches
+13:28:26 <alinefm> if you got them from paulo or not
+13:30:32 <wenwang> alinefm: I remembered that. And I have his code which could probably need some minor change since it's a long time ago. Sorry that drop out of my working list
+13:30:53 <alinefm> wenwang, don't worry about it
+13:31:02 <wenwang> alinefm: I will find it out tomorrow and work on that
+13:31:08 <alinefm> I mean, I only want to share the backend patches with alanoe
+13:31:21 <alinefm> wenwang, on UI, you dont need to do anything
+13:31:52 <wenwang> alinefm: ok. Do you need the original Paulo's patch?
+13:31:58 <alinefm> wenwang, yeap
+13:32:00 <alinefm> do you have them?
+13:32:18 <wenwang> alinefm: I think I have it
+13:32:35 <wenwang> alinefm: Will sent it to you tomorrow
+13:32:46 <alinefm> if you find it, please send to ML as WIP so alanoe can get it and continue the work
+13:32:51 <alinefm> wenwang, thanks
+13:33:14 <alanoe> alinefm: maybe it is valid to rebase it based on master/next (dont know kimchi branching model) before sending to mailing list?
+13:33:33 <wenwang> alinefm: No problem.
+13:33:39 <alinefm> alanoe, I can do the rebase for you
+13:33:40 <alanoe> should be quick if there werent major changes
+13:33:43 <alanoe> alinefm: ty
+13:34:12 <alinefm> wenwang, and again, you don't need to do anything about the UI for it
+13:34:22 <alinefm> now we will focus on bug fixes and tests for 1.4 release
+13:35:34 <wenwang> alinefm: Okay
+13:37:08 <alinefm> any other topic?
+13:37:24 <alanoe> alinefm: question: how can I test kimchi backend? automated tests, manual calls to REST API?
+13:37:57 <alinefm> alanoe, we have some unit tests, you can check them under /tests
+13:38:05 <alanoe> alinefm: ok, thanks
+13:38:05 <alinefm> and run using "make check"
+13:38:32 <alanoe> I'll start working on this as soon as I get paulo's patch
+13:38:35 <alanoe> I have nothing else
+13:38:40 <alinefm> great!
+13:38:51 <alinefm> any problem you can ping us here or send a note to ML
+13:38:57 <alanoe> sure
+13:39:12 <alinefm> anything else, team?
+13:41:17 <alinefm> well, so thanks everyone for the great work for 1.4 and let's test =D
+13:42:30 <alinefm> #endmeeting
