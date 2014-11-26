@@ -35,6 +35,7 @@ kimchi.guest_edit_main = function() {
 
     var guestEditForm = $('#form-guest-edit-general');
     var saveButton = $('#guest-edit-button-save');
+    var authType;
 
     var refreshCDROMs = function() {
         kimchi.listVMStorages({
@@ -42,7 +43,6 @@ kimchi.guest_edit_main = function() {
         }, function(storages) {
             var container = $('#form-guest-edit-storage .body');
             $(container).empty();
-
             $.each(storages, function(index, storage) {
                 storage['vm'] = kimchi.selectedGuest;
                 rowHTML = $('#' + storage['type'] + '-row-tmpl').html();
@@ -256,25 +256,86 @@ kimchi.guest_edit_main = function() {
     };
 
     var setupPermission = function() {
-        var userNodes = {}, groupNodes = {};
-        kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
-            kimchi.getHostUsers(function(users){
-                kimchi.getHostGroups(function(groups){
-                    var subArray = function(a1, a2){ //a1-a2
-                        for(var i=0; i<a2.length; i++){
-                            for(var j=0; j<a1.length; j++){
-                                if(a2[i] == a1[j]){
-                                    a1.splice(j, 1);
-                                    break;
-                                }
-                            }
-                        }
-                    };
-                    subArray(users, vm.users); subArray(groups, vm.groups);
-                    init(users, groups, vm.users, vm.groups);
-                });
+       //set up for LDAP
+       $(".add", "#form-guest-edit-permission").button({
+            icons: { primary: "ui-icon-plusthick" },
+            text: false
+        }).click(function(evt){
+            evt.preventDefault();
+            addItem({
+                user: "",
+                freeze: false,
+                viewMode: "hide",
+                editMode: "",
+                checked: true
             });
         });
+        var addItem = function(data) {
+            var itemNode = $.parseHTML(kimchi.substitute($('#ldap-user-tmpl').html(),data));
+            $(".body", "#form-guest-edit-permission .ldap").append(itemNode);
+            $(".delete", itemNode).button({
+                icons: { primary: "ui-icon-trash" },
+                text: false
+            }).click(function(evt){
+                evt.preventDefault();
+                var item = $(this).parent().parent();
+                item.remove();
+            });
+            $("input").focusout(function() {
+                var item = $(this).parent().parent();
+                var user= $(this).val();
+                item.prop("id", user);
+                $("label", item).text(user);
+            });
+            $("input").focusin(function() {
+                $(this).removeClass("checked");
+            });
+
+            if (data.checked == true) {
+                $(".checked", itemNode).addClass("hide");
+            }
+        };
+        var toggleEdit = function(item, on){
+            $("label", item).toggleClass("hide", on);
+            $("input", item).toggleClass("hide", !on);
+            $(".action-area", item).toggleClass("hide");
+        };
+        //set up for PAM
+        var userNodes = {}, groupNodes = {};
+        authType = kimchi.capabilities['auth']
+        if (authType == 'pam') {
+            $("#form-guest-edit-permission .ldap").hide();
+            kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
+                kimchi.getUsers(function(users){
+                    kimchi.getGroups(function(groups){
+                        var subArray = function(a1, a2){ //a1-a2
+                            for(var i=0; i<a2.length; i++){
+                                for(var j=0; j<a1.length; j++){
+                                    if(a2[i] == a1[j]){
+                                        a1.splice(j, 1);
+                                        break;
+                                    }
+                                }
+                            }
+                        };
+                        subArray(users, vm.users); subArray(groups, vm.groups);
+                        init(users, groups, vm.users, vm.groups);
+                    });
+                });
+            });
+        } else if (authType == 'ldap') {
+            $("#form-guest-edit-permission .pam").hide();
+            kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
+                for (var i=0; i<vm.users.length; i++) {
+                    addItem({
+                        user: vm.users[i],
+                        viewMode: "",
+                        freeze: true,
+                        editMode: "hide",
+                        checked: true});
+                }
+           });
+        }
         var sortNodes = function(container, isUser){
             nodes = container.children();
             var keys = [];
@@ -294,7 +355,7 @@ kimchi.guest_edit_main = function() {
         var init = function(availUsers, availGroups, selUsers, selGroups){
             var initNode = function(key, isUserNode){
                 var nodeGroups = isUserNode ? userNodes : groupNodes;
-                nodeGroups[key] = $.parseHTML(kimchi.substitute($('#permission-item').html(), {
+                nodeGroups[key] = $.parseHTML(kimchi.substitute($('#permission-item-pam').html(), {
                     val: key,
                     class: isUserNode? "user-icon" : "group-icon"
                 }));
@@ -355,8 +416,7 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-avail-users"));
             filterNodes("", $("#permission-avail-groups"));
         });
-    };
-
+    }
     var setupPCIDevice = function(){
         kimchi.getHostPCIDevices(function(hostPCIs){
             kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs){
@@ -637,15 +697,41 @@ kimchi.guest_edit_main = function() {
 
     var permissionSubmit = function(event) {
         var content = { users: [], groups: [] };
-        $("#permission-sel-users").children().each(function(){
-            content.users.push($("label", this).text());
-        });
-        $("#permission-sel-groups").children().each(function(){
-            content.groups.push($("label", this).text());
-        });
-        kimchi.updateVM(kimchi.selectedGuest, content, function(){
-            kimchi.window.close();
-        });
+        authType = kimchi.capabilities['auth']
+        if (authType == 'pam') {
+            $("#permission-sel-users").children().each(function(){
+                content.users.push($("label", this).text());
+            });
+            $("#permission-sel-groups").children().each(function(){
+                content.groups.push($("label", this).text());
+            });
+            kimchi.updateVM(kimchi.selectedGuest, content, function(){
+                kimchi.window.close();
+            });
+        } else if (authType == 'ldap') {
+            $(saveButton).prop('disabled', true);
+            var errors = 0;
+
+            $(".body", "#form-guest-edit-permission .ldap").children().each(function () {
+                var elem = $(this);
+                content.users.push(elem.attr("id"));
+
+                if (!$('input', elem).hasClass('hide')) {
+                    var user = {'user_id': $(this).attr("id")};
+                    kimchi.getUserById(user, null, function (data) {
+                        errors += 1;
+                        $("input", elem).addClass("checked");
+                    });
+                }
+            });
+            if (errors == 0) {
+                kimchi.updateVM(kimchi.selectedGuest, content, function(){
+                   kimchi.window.close();
+                });
+            } else {
+                $(saveButton).prop('disabled', false);
+            }
+        }
     }
 
     // tap map, "general": 0, "storage": 1, "interface": 2, "permission": 3, "password": 4
