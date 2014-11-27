@@ -228,6 +228,17 @@
     padding: 7px 10px;
 }
 
+.guest-actions .top button {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+}
+
+.guest-actions .top button span {
+    margin-left: -3px;
+    margin-top: -1px;
+}
+
 .guest-actions .bottom {
     padding: 0 10px;
 }

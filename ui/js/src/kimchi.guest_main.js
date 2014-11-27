@@ -252,6 +252,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
 
     //Setup the VM list entry
     var vmRunningBool=(vmObject.state=="running");
+    var vmPersistent = (vmObject.persistent == true);
     result.attr('id',vmObject.name);
     result.data(vmObject);
 
@@ -302,8 +303,10 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
 
     //Setup the VM Actions
     var guestActions=result.find("div[name=guest-actions]");
-    guestActions.find(".shutoff-disabled").prop('disabled', !vmRunningBool );
-    guestActions.find(".running-disabled").prop('disabled', vmRunningBool );
+    guestActions.find(".shutoff-disabled").prop("disabled", !vmRunningBool);
+    guestActions.find(".running-disabled").prop("disabled", vmRunningBool);
+    guestActions.find(".non-persistent-disabled").prop("disabled", !vmPersistent);
+    guestActions.find(".reset-disabled").prop("disabled", !vmRunningBool || !vmPersistent);
 
     if (vmRunningBool) {
         guestActions.find(".running-hidden").hide();
