@@ -32,7 +32,8 @@ def get_graphics_xml(params):
       <target type='virtio' name='com.redhat.spice.0'/>
     </channel>
     """
-    graphics = E.graphics(type=params['type'], listen=params['listen'])
+    graphics = E.graphics(type=params['type'], autoport='yes',
+                          listen=params['listen'])
     graphics_xml = ET.tostring(graphics, encoding='utf-8', pretty_print=True)
 
     if params['type'] == 'vnc':
