@@ -74,6 +74,9 @@ EPEL repositories.  See
 [this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
 for more information on how to configure your system to access this repository.
 
+And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional"
+channel at RHN Classic or Red Hat Satellite.
+
 **For debian:**
 
     $ sudo apt-get install gcc make autoconf automake gettext git \
