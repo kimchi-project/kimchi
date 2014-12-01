@@ -2,6 +2,7 @@ CHANGELOG
 =========
 
 #### [1.4.0-rc1] ####
+ * [61f6ba3] Update ChangeLog for 1.4.0-rc1                                                 (Aline Manera)
  * [b76db0e] Change guest edit permission logic                                             (Royce Lv)
  * [f9e2d28] UI: support ldap vm permission tag                                             (Royce Lv)
  * [fa07b67] vmtemplate: allow allocation = 0 for type 'raw'                                (Daniel Henrique Barboza)

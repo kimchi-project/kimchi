@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 13:00-0500\n"
+"POT-Creation-Date: 2014-12-01 12:26-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -57,6 +57,10 @@ msgid "Unable to start task due error: %(err)s"
 msgstr "오류 때문에 작업을 시작할 수 없음: %(err)s"
 
 #, python-format
+msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
+msgstr ""
+
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr "사용자 '%(username)s'의 인증이 실패했습니다. [오류 코드: %(code)s]"
 
@@ -66,6 +70,14 @@ msgstr "Kimchi에 액세스할 권한이 없습니다."
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Kimchi에 로그인하려면 %(item)s을(를) 지정하십시오."
+
+#, python-format
+msgid "User %(user_id)s not found with given LDAP settings."
+msgstr ""
+
+#, python-format
+msgid "Invalid LDAP configuration: %(item)s : %(value)s"
+msgstr ""
 
 msgid "Unknown \"_cap\" specified"
 msgstr ""
@@ -277,6 +289,18 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid "Virtual machine '%(name)s' must be stopped before cloning it."
+msgstr ""
+
+#, python-format
+msgid "Insufficient disk space to clone virtual machine '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
@@ -328,10 +352,6 @@ msgstr "새 가상 머신 인터페이스를 추가할 유형 및 네트워크�
 #, python-format
 msgid "Template %(name)s already exists"
 msgstr "템플리트 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid "Template %(name)s does not exist"
-msgstr "템플리트 %(name)s이(가) 없습니다."
 
 #, python-format
 msgid ""
@@ -424,6 +444,11 @@ msgstr ""
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
+msgstr ""
+
+msgid ""
+"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
+"qcow2, qed, raw, vmdk, vpc."
 msgstr ""
 
 #, python-format
@@ -605,14 +630,6 @@ msgstr "스토리지 볼륨 %(volume)s을(를) 작성하려면 %(item)s을(를) 
 
 #, python-format
 msgid ""
-"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
-"is not active"
-msgstr ""
-"스토리지 풀 %(pool)s이(가) 활성이 아니므로 스토리지 볼륨 %(volume)s을(를) 검"
-"색할 수 없습니다."
-
-#, python-format
-msgid ""
 "Unable to list storage volumes because storage pool %(pool)s is not active"
 msgstr ""
 "스토리지 풀 %(pool)s이(가) 활성이 아니므로 스토리지 볼륨을 나열할 수 없습니"
@@ -654,8 +671,10 @@ msgstr "스토리지 볼륨 이름은 문자열이어야 합니다."
 msgid "Storage volume allocation must be an integer number"
 msgstr "스토리지 볼륨 할당은 정수여야 합니다."
 
-msgid "Storage volume format not supported"
-msgstr "스토리지 볼륨 형식이 지원되지 않습니다."
+msgid ""
+"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
+"qcow, qcow2, qed, raw, vmdk, vpc."
+msgstr ""
 
 msgid "Storage volume requires a volume name"
 msgstr "스토리지 볼륨은 볼륨 이름이 필요합니다."
@@ -682,6 +701,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
+"%(err)s"
 msgstr ""
 
 #, python-format
@@ -1032,6 +1057,58 @@ msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr ""
 
+#, python-format
+msgid ""
+"Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
+"%(err)s"
+msgstr ""
+
+msgid "The number of vCPUs is too large for this system."
+msgstr ""
+
+msgid "Invalid vCPU/topology combination."
+msgstr ""
+
+msgid "This host (or current configuration) does not allow CPU topology."
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "오류 코드"
 
@@ -1084,6 +1161,9 @@ msgstr "메모리"
 msgid "Create"
 msgstr "작성"
 
+msgid "Creating..."
+msgstr ""
+
 msgid "Edit Guest"
 msgstr "게스트 편집"
 
@@ -1100,6 +1180,9 @@ msgid "Permission"
 msgstr "버전"
 
 msgid "Host PCI Device"
+msgstr ""
+
+msgid "Snapshot"
 msgstr ""
 
 msgid "Name"
@@ -1132,6 +1215,9 @@ msgstr ""
 msgid "Selected system users and groups"
 msgstr ""
 
+msgid "User"
+msgstr ""
+
 msgid "All"
 msgstr "모두"
 
@@ -1150,6 +1236,9 @@ msgstr ""
 msgid "Vendor"
 msgstr "공급업체"
 
+msgid "Created"
+msgstr ""
+
 msgid "Save"
 msgstr "저장"
 
@@ -1161,6 +1250,12 @@ msgstr "분리"
 
 msgid "Cancel"
 msgstr "취소"
+
+msgid "revert"
+msgstr ""
+
+msgid "Cloning"
+msgstr ""
 
 msgid "Start"
 msgstr "시작"
@@ -1176,6 +1271,9 @@ msgstr "조치"
 
 msgid "Connect"
 msgstr "연결"
+
+msgid "Clone"
+msgstr ""
 
 msgid "Edit"
 msgstr "편집"
@@ -1271,9 +1369,6 @@ msgstr "확인"
 
 msgid "Warning"
 msgstr "경고"
-
-msgid "Creating..."
-msgstr ""
 
 msgid "Loading..."
 msgstr "로드 중..."
@@ -1470,6 +1565,12 @@ msgid ""
 msgstr ""
 
 msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
 "to detach it?"
 msgstr ""
@@ -1494,6 +1595,27 @@ msgstr "분리되었습니다."
 msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
+msgstr ""
+
+msgid "interface:"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "link_type:"
+msgstr ""
+
+msgid "block:"
+msgstr ""
+
+msgid "drive_type:"
+msgstr ""
+
+msgid "model:"
+msgstr ""
+
+msgid "Affected devices:"
 msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
@@ -1844,11 +1966,8 @@ msgstr "사용자 정의 URL을 사용하려고 합니다."
 msgid "Edit Template"
 msgstr "템플리트 편집"
 
-msgid "CPU Number"
-msgstr "CPU 번호"
-
-msgid "Disk (GB)"
-msgstr "디스크(GB)"
+msgid "Processor"
+msgstr "프로세서"
 
 msgid "CDROM"
 msgstr "CDROM"
@@ -1858,6 +1977,21 @@ msgstr ""
 
 msgid "Graphics"
 msgstr "그래픽"
+
+msgid "Disk(GB)"
+msgstr ""
+
+msgid "CPU Number"
+msgstr "CPU 번호"
+
+msgid "Manually set CPU topology"
+msgstr ""
+
+msgid "Cores"
+msgstr ""
+
+msgid "Threads"
+msgstr ""
 
 msgid "CPU"
 msgstr "CPU"
@@ -1889,8 +2023,8 @@ msgstr "OS Distro"
 msgid "OS Code Name"
 msgstr "OS 코드 이름"
 
-msgid "Processor"
-msgstr "프로세서"
+msgid "CPU(s)"
+msgstr ""
 
 msgid "System Statistics"
 msgstr "시스템 통계"
@@ -1975,6 +2109,3 @@ msgstr "할당:"
 
 msgid "No templates found."
 msgstr "템플리트가 없습니다."
-
-msgid "Clone"
-msgstr ""
