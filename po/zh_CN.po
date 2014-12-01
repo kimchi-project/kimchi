@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 13:00-0500\n"
+"POT-Creation-Date: 2014-12-01 12:26-0200\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -74,6 +74,10 @@ msgid "Unable to start task due error: %(err)s"
 msgstr "由于错误%(err)s任务启动失败"
 
 #, python-format
+msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
+msgstr ""
+
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr "用户'%(username)s'身份验证失败.[错误代码：%(code)s]"
 
@@ -83,6 +87,14 @@ msgstr "您没有被授权访问Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "指定登录Kimchi的%(item)s"
+
+#, python-format
+msgid "User %(user_id)s not found with given LDAP settings."
+msgstr ""
+
+#, python-format
+msgid "Invalid LDAP configuration: %(item)s : %(value)s"
+msgstr ""
 
 msgid "Unknown \"_cap\" specified"
 msgstr ""
@@ -289,10 +301,23 @@ msgid "The life time for the guest console password must be a number."
 msgstr "客户机命令行密码有效时间必须是一个数字。"
 
 #, python-format
+msgid "Virtual machine '%(name)s' must be stopped before cloning it."
+msgstr ""
+
+#, python-format
+msgid "Insufficient disk space to clone virtual machine '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
 
+#, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
 msgstr ""
 
@@ -337,10 +362,6 @@ msgstr "为更新虚拟机接口指定类型和网络"
 #, python-format
 msgid "Template %(name)s already exists"
 msgstr "模板 %(name)s 已经存在"
-
-#, python-format
-msgid "Template %(name)s does not exist"
-msgstr "模板 %(name)s 不存在"
 
 #, python-format
 msgid ""
@@ -428,6 +449,11 @@ msgstr ""
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
+msgstr ""
+
+msgid ""
+"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
+"qcow2, qed, raw, vmdk, vpc."
 msgstr ""
 
 #, python-format
@@ -594,12 +620,6 @@ msgstr "为新存储卷%(volume)s指定指定%(item)s"
 
 #, python-format
 msgid ""
-"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
-"is not active"
-msgstr "不能获取存储卷%(volume)s，因为存储池%(pool)s没有激活"
-
-#, python-format
-msgid ""
 "Unable to list storage volumes because storage pool %(pool)s is not active"
 msgstr "不能列出存储卷，因为存储池%(pool)s没有激活"
 
@@ -636,8 +656,10 @@ msgstr "存储卷的名字必须是字符串"
 msgid "Storage volume allocation must be an integer number"
 msgstr "存储卷分配额必须是整数"
 
-msgid "Storage volume format not supported"
-msgstr "存储卷格式不支持"
+msgid ""
+"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
+"qcow, qcow2, qed, raw, vmdk, vpc."
+msgstr ""
 
 msgid "Storage volume requires a volume name"
 msgstr "存储卷需要名字"
@@ -663,6 +685,12 @@ msgstr "存储卷URL必须为http://，https://，ftp://或ftps://"
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
+"%(err)s"
 msgstr ""
 
 #, python-format
@@ -1000,6 +1028,58 @@ msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr "软件仓库不支持配置类型: %(items)s"
 
+#, python-format
+msgid ""
+"Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
+"%(err)s"
+msgstr ""
+
+msgid "The number of vCPUs is too large for this system."
+msgstr ""
+
+msgid "Invalid vCPU/topology combination."
+msgstr ""
+
+msgid "This host (or current configuration) does not allow CPU topology."
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "错误码"
 
@@ -1050,6 +1130,9 @@ msgstr "内存"
 msgid "Create"
 msgstr "创建"
 
+msgid "Creating..."
+msgstr "正在创建..."
+
 msgid "Edit Guest"
 msgstr "修改客户机"
 
@@ -1066,6 +1149,9 @@ msgid "Permission"
 msgstr "权限"
 
 msgid "Host PCI Device"
+msgstr ""
+
+msgid "Snapshot"
 msgstr ""
 
 msgid "Name"
@@ -1098,6 +1184,9 @@ msgstr "可选的系统用户及用户组"
 msgid "Selected system users and groups"
 msgstr "已选的系统用户及用户组"
 
+msgid "User"
+msgstr ""
+
 msgid "All"
 msgstr "所有"
 
@@ -1116,6 +1205,9 @@ msgstr ""
 msgid "Vendor"
 msgstr "厂商"
 
+msgid "Created"
+msgstr ""
+
 msgid "Save"
 msgstr "保存"
 
@@ -1127,6 +1219,12 @@ msgstr "卸载"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "revert"
+msgstr ""
+
+msgid "Cloning"
+msgstr ""
 
 msgid "Start"
 msgstr "启用"
@@ -1142,6 +1240,9 @@ msgstr "操作"
 
 msgid "Connect"
 msgstr "连接到"
+
+msgid "Clone"
+msgstr "制作副本"
 
 msgid "Edit"
 msgstr "编辑"
@@ -1235,9 +1336,6 @@ msgstr "确认"
 
 msgid "Warning"
 msgstr "警告"
-
-msgid "Creating..."
-msgstr "正在创建..."
 
 msgid "Loading..."
 msgstr "正在加载..."
@@ -1429,6 +1527,12 @@ msgid ""
 msgstr "该虚拟机不是一个稳定的虚拟机，关机将会删除它，是否继续？"
 
 msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
 "to detach it?"
 msgstr "CDROM将被永久卸载，你可以重新装载它。继续卸载？"
@@ -1452,6 +1556,27 @@ msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
 msgstr "该磁盘将会被永久卸载，你可以重新添加它，继续执行卸载操作吗?"
+
+msgid "interface:"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "link_type:"
+msgstr ""
+
+msgid "block:"
+msgstr ""
+
+msgid "drive_type:"
+msgstr ""
+
+msgid "model:"
+msgstr ""
+
+msgid "Affected devices:"
+msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "VLAN 标识符必须在1至4094之间"
@@ -1793,11 +1918,8 @@ msgstr "我想用一个自定义的URL"
 msgid "Edit Template"
 msgstr "编辑模板"
 
-msgid "CPU Number"
-msgstr "CPU个数"
-
-msgid "Disk (GB)"
-msgstr "磁盘（GB）"
+msgid "Processor"
+msgstr "处理器"
 
 msgid "CDROM"
 msgstr "光驱"
@@ -1807,6 +1929,21 @@ msgstr "镜像文件"
 
 msgid "Graphics"
 msgstr "图形"
+
+msgid "Disk(GB)"
+msgstr ""
+
+msgid "CPU Number"
+msgstr "CPU个数"
+
+msgid "Manually set CPU topology"
+msgstr ""
+
+msgid "Cores"
+msgstr ""
+
+msgid "Threads"
+msgstr ""
 
 msgid "CPU"
 msgstr "处理器"
@@ -1838,8 +1975,8 @@ msgstr "操作系统发行版"
 msgid "OS Code Name"
 msgstr "操作系统代号"
 
-msgid "Processor"
-msgstr "处理器"
+msgid "CPU(s)"
+msgstr ""
 
 msgid "System Statistics"
 msgstr "系统统计信息"
@@ -1924,6 +2061,3 @@ msgstr "分配"
 
 msgid "No templates found."
 msgstr "没有发现模板"
-
-msgid "Clone"
-msgstr "制作副本"

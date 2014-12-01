@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 13:00-0500\n"
+"POT-Creation-Date: 2014-12-01 12:26-0200\n"
 "PO-Revision-Date: 2014-09-16 18:45+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
@@ -76,6 +76,10 @@ msgid "Unable to start task due error: %(err)s"
 msgstr "Não foi possível iniciar a tarefa devido a um erro: %(err)s"
 
 #, python-format
+msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
+msgstr ""
+
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr ""
 "Autenticação falhou para o usuário '%(username)s'. [Código de erro: %(code)s]"
@@ -86,6 +90,14 @@ msgstr "Você não está autorizado para acessar o Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Especifique %(item)s para autenticar no Kimchi"
+
+#, python-format
+msgid "User %(user_id)s not found with given LDAP settings."
+msgstr ""
+
+#, python-format
+msgid "Invalid LDAP configuration: %(item)s : %(value)s"
+msgstr ""
 
 msgid "Unknown \"_cap\" specified"
 msgstr ""
@@ -312,10 +324,23 @@ msgid "The life time for the guest console password must be a number."
 msgstr "O tempo de vida da senha do console do guest deve ser um número."
 
 #, python-format
+msgid "Virtual machine '%(name)s' must be stopped before cloning it."
+msgstr ""
+
+#, python-format
+msgid "Insufficient disk space to clone virtual machine '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
 
+#, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
 msgstr ""
 
@@ -364,10 +389,6 @@ msgstr ""
 #, python-format
 msgid "Template %(name)s already exists"
 msgstr "Modelo %(name)s já existe"
-
-#, python-format
-msgid "Template %(name)s does not exist"
-msgstr "Modelo %(name)s não existe"
 
 #, python-format
 msgid ""
@@ -460,6 +481,11 @@ msgstr ""
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
+msgstr ""
+
+msgid ""
+"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
+"qcow2, qed, raw, vmdk, vpc."
 msgstr ""
 
 #, python-format
@@ -653,14 +679,6 @@ msgstr "Especifique %(item)s para poder criar o volume %(volume)s"
 
 #, python-format
 msgid ""
-"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
-"is not active"
-msgstr ""
-"Não foi possível achar o volume %(volume)s porque o storage pool %(pool)s "
-"não está ativo"
-
-#, python-format
-msgid ""
 "Unable to list storage volumes because storage pool %(pool)s is not active"
 msgstr ""
 "Não foi possível listar volumes pois o storage pool %(pool)s não está ativo"
@@ -702,8 +720,10 @@ msgstr "Nome do volume deve ser um texto"
 msgid "Storage volume allocation must be an integer number"
 msgstr "Alocação do volume de storage deve ser um número inteiro"
 
-msgid "Storage volume format not supported"
-msgstr "Formato do volume de storage não suportado"
+msgid ""
+"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
+"qcow, qcow2, qed, raw, vmdk, vpc."
+msgstr ""
 
 msgid "Storage volume requires a volume name"
 msgstr "Volume de storage requer um nome"
@@ -733,6 +753,12 @@ msgstr ""
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
 msgstr "Erro ao acessar arquivo %(url)s. Por favor, verifique isso."
+
+#, python-format
+msgid ""
+"Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
+"%(err)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -1110,6 +1136,58 @@ msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr ""
 
+#, python-format
+msgid ""
+"Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
+"%(err)s"
+msgstr ""
+
+msgid "The number of vCPUs is too large for this system."
+msgstr ""
+
+msgid "Invalid vCPU/topology combination."
+msgstr ""
+
+msgid "This host (or current configuration) does not allow CPU topology."
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "CÓDIGO DE ERRO"
 
@@ -1162,6 +1240,9 @@ msgstr "Memória"
 msgid "Create"
 msgstr "Criar"
 
+msgid "Creating..."
+msgstr "Criando..."
+
 msgid "Edit Guest"
 msgstr "Editar Guest"
 
@@ -1178,6 +1259,9 @@ msgid "Permission"
 msgstr "Permissão"
 
 msgid "Host PCI Device"
+msgstr ""
+
+msgid "Snapshot"
 msgstr ""
 
 msgid "Name"
@@ -1210,6 +1294,9 @@ msgstr "Usuários e grupos de sistema disponíveis"
 msgid "Selected system users and groups"
 msgstr "Usuários e grupos de sistema selecionados"
 
+msgid "User"
+msgstr ""
+
 msgid "All"
 msgstr "Todos"
 
@@ -1228,6 +1315,9 @@ msgstr ""
 msgid "Vendor"
 msgstr "Vendor"
 
+msgid "Created"
+msgstr ""
+
 msgid "Save"
 msgstr "Salvar"
 
@@ -1239,6 +1329,12 @@ msgstr "Remover"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "revert"
+msgstr ""
+
+msgid "Cloning"
+msgstr ""
 
 msgid "Start"
 msgstr "Iniciar"
@@ -1254,6 +1350,9 @@ msgstr "Ações"
 
 msgid "Connect"
 msgstr "Conectar"
+
+msgid "Clone"
+msgstr "Clonar"
 
 msgid "Edit"
 msgstr "Editar"
@@ -1351,9 +1450,6 @@ msgstr "Confirmar"
 
 msgid "Warning"
 msgstr "Aviso"
-
-msgid "Creating..."
-msgstr "Criando..."
 
 msgid "Loading..."
 msgstr "Carregando..."
@@ -1565,6 +1661,12 @@ msgstr ""
 "continuar?"
 
 msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
 "to detach it?"
 msgstr ""
@@ -1592,6 +1694,27 @@ msgid ""
 msgstr ""
 "Esse disco será desconectado permanentemente e você pode reconectá-lo. "
 "Deseja continuar a remoção? "
+
+msgid "interface:"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "link_type:"
+msgstr ""
+
+msgid "block:"
+msgstr ""
+
+msgid "drive_type:"
+msgstr ""
+
+msgid "model:"
+msgstr ""
+
+msgid "Affected devices:"
+msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "ID da VLAN deve ser um número entre 1 e 4094."
@@ -1946,11 +2069,8 @@ msgstr "Eu quero usar uma URL personalizada"
 msgid "Edit Template"
 msgstr "Editar Modelo"
 
-msgid "CPU Number"
-msgstr "Quantidade de CPUs"
-
-msgid "Disk (GB)"
-msgstr "Disco (GB)"
+msgid "Processor"
+msgstr "Processador"
 
 msgid "CDROM"
 msgstr "CD-ROM"
@@ -1960,6 +2080,21 @@ msgstr "Arquivo de imagem"
 
 msgid "Graphics"
 msgstr "Gráficos"
+
+msgid "Disk(GB)"
+msgstr ""
+
+msgid "CPU Number"
+msgstr "Quantidade de CPUs"
+
+msgid "Manually set CPU topology"
+msgstr ""
+
+msgid "Cores"
+msgstr ""
+
+msgid "Threads"
+msgstr ""
 
 msgid "CPU"
 msgstr "CPU"
@@ -1991,8 +2126,8 @@ msgstr "Distribuição"
 msgid "OS Code Name"
 msgstr "Nome-código do sistema operacional"
 
-msgid "Processor"
-msgstr "Processador"
+msgid "CPU(s)"
+msgstr ""
 
 msgid "System Statistics"
 msgstr "Estatísticas do sistema"
@@ -2078,6 +2213,3 @@ msgstr "Alocação"
 
 msgid "No templates found."
 msgstr "Nenhum modelo encontrado."
-
-msgid "Clone"
-msgstr "Clonar"

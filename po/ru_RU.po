@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 13:00-0500\n"
+"POT-Creation-Date: 2014-12-01 12:26-0200\n"
 "PO-Revision-Date: 2014-08-28 17:32+0000\n"
 "Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
@@ -58,6 +58,10 @@ msgid "Unable to start task due error: %(err)s"
 msgstr "Не удалось запустить задачу из-за ошибки %(err)s"
 
 #, python-format
+msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
+msgstr ""
+
+#, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
 msgstr "Сбой идентификации пользователя %(username)s. [Код ошибки: %(code)s]"
 
@@ -67,6 +71,14 @@ msgstr "Нет прав доступа к Kimchi"
 #, python-format
 msgid "Specify %(item)s to login into Kimchi"
 msgstr "Укажите %(item)s для входа в Kimchi"
+
+#, python-format
+msgid "User %(user_id)s not found with given LDAP settings."
+msgstr ""
+
+#, python-format
+msgid "Invalid LDAP configuration: %(item)s : %(value)s"
+msgstr ""
 
 msgid "Unknown \"_cap\" specified"
 msgstr ""
@@ -280,6 +292,18 @@ msgid "The life time for the guest console password must be a number."
 msgstr ""
 
 #, python-format
+msgid "Virtual machine '%(name)s' must be stopped before cloning it."
+msgstr ""
+
+#, python-format
+msgid "Insufficient disk space to clone virtual machine '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
@@ -331,10 +355,6 @@ msgstr "Укажите тип и сеть для добавления новог
 #, python-format
 msgid "Template %(name)s already exists"
 msgstr "Шаблон %(name)s уже существует"
-
-#, python-format
-msgid "Template %(name)s does not exist"
-msgstr "Шаблон %(name)s не существует"
 
 #, python-format
 msgid ""
@@ -422,6 +442,11 @@ msgstr ""
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
+msgstr ""
+
+msgid ""
+"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
+"qcow2, qed, raw, vmdk, vpc."
 msgstr ""
 
 #, python-format
@@ -604,12 +629,6 @@ msgstr "Укажите %(item)s для создания тома %(volume)s"
 
 #, python-format
 msgid ""
-"Unable to retrieve storage volume %(volume)s because storage pool %(pool)s "
-"is not active"
-msgstr "Не удалось получить том %(volume)s: пул памяти %(pool)s не активен"
-
-#, python-format
-msgid ""
 "Unable to list storage volumes because storage pool %(pool)s is not active"
 msgstr "Не удалось вывести список томов: пул памяти %(pool)s не активен"
 
@@ -648,8 +667,10 @@ msgstr "Имя тома должно быть строкой"
 msgid "Storage volume allocation must be an integer number"
 msgstr "Выделение тома должно быть целым числом"
 
-msgid "Storage volume format not supported"
-msgstr "Формат тома не поддерживается"
+msgid ""
+"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
+"qcow, qcow2, qed, raw, vmdk, vpc."
+msgstr ""
 
 msgid "Storage volume requires a volume name"
 msgstr "Тому требуется имя"
@@ -676,6 +697,12 @@ msgstr ""
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
+"%(err)s"
 msgstr ""
 
 #, python-format
@@ -1032,6 +1059,58 @@ msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr ""
 
+#, python-format
+msgid ""
+"Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
+"%(err)s"
+msgstr ""
+
+msgid "The number of vCPUs is too large for this system."
+msgstr ""
+
+msgid "Invalid vCPU/topology combination."
+msgstr ""
+
+msgid "This host (or current configuration) does not allow CPU topology."
+msgstr ""
+
 msgid "ERROR CODE"
 msgstr "Код ошибки"
 
@@ -1084,6 +1163,9 @@ msgstr "Память"
 msgid "Create"
 msgstr "Создать"
 
+msgid "Creating..."
+msgstr ""
+
 msgid "Edit Guest"
 msgstr "Изменить гостевую систему"
 
@@ -1100,6 +1182,9 @@ msgid "Permission"
 msgstr "Версия"
 
 msgid "Host PCI Device"
+msgstr ""
+
+msgid "Snapshot"
 msgstr ""
 
 msgid "Name"
@@ -1132,6 +1217,9 @@ msgstr ""
 msgid "Selected system users and groups"
 msgstr ""
 
+msgid "User"
+msgstr ""
+
 msgid "All"
 msgstr "Все"
 
@@ -1150,6 +1238,9 @@ msgstr ""
 msgid "Vendor"
 msgstr "Вендор"
 
+msgid "Created"
+msgstr ""
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -1161,6 +1252,12 @@ msgstr "Отключить"
 
 msgid "Cancel"
 msgstr "Отмена"
+
+msgid "revert"
+msgstr ""
+
+msgid "Cloning"
+msgstr ""
 
 msgid "Start"
 msgstr "Запустить"
@@ -1176,6 +1273,9 @@ msgstr "Действия"
 
 msgid "Connect"
 msgstr "Подключить"
+
+msgid "Clone"
+msgstr "Клонировать"
 
 msgid "Edit"
 msgstr "Редактировать"
@@ -1270,9 +1370,6 @@ msgstr "Подтвердить"
 
 msgid "Warning"
 msgstr "Предупреждение"
-
-msgid "Creating..."
-msgstr ""
 
 msgid "Loading..."
 msgstr "Загружается..."
@@ -1471,6 +1568,12 @@ msgid ""
 msgstr ""
 
 msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
 "to detach it?"
 msgstr ""
@@ -1494,6 +1597,27 @@ msgstr "Успешно отключен!"
 msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
+msgstr ""
+
+msgid "interface:"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "link_type:"
+msgstr ""
+
+msgid "block:"
+msgstr ""
+
+msgid "drive_type:"
+msgstr ""
+
+msgid "model:"
+msgstr ""
+
+msgid "Affected devices:"
 msgstr ""
 
 msgid "The VLAN id must be between 1 and 4094."
@@ -1846,11 +1970,8 @@ msgstr "Использовать другой URL"
 msgid "Edit Template"
 msgstr "Изменить шаблон"
 
-msgid "CPU Number"
-msgstr "Количество процессоров"
-
-msgid "Disk (GB)"
-msgstr "Диск (ГБ)"
+msgid "Processor"
+msgstr "Процессор"
 
 msgid "CDROM"
 msgstr "CDROM"
@@ -1860,6 +1981,21 @@ msgstr ""
 
 msgid "Graphics"
 msgstr "Графика"
+
+msgid "Disk(GB)"
+msgstr ""
+
+msgid "CPU Number"
+msgstr "Количество процессоров"
+
+msgid "Manually set CPU topology"
+msgstr ""
+
+msgid "Cores"
+msgstr ""
+
+msgid "Threads"
+msgstr ""
 
 msgid "CPU"
 msgstr "Процессор"
@@ -1891,8 +2027,8 @@ msgstr "Вариант ОС"
 msgid "OS Code Name"
 msgstr "Кодовое имя ОС"
 
-msgid "Processor"
-msgstr "Процессор"
+msgid "CPU(s)"
+msgstr ""
 
 msgid "System Statistics"
 msgstr "Системная статистика"
@@ -1977,6 +2113,3 @@ msgstr "Выделение ресурсов:"
 
 msgid "No templates found."
 msgstr "Не найдены шаблоны."
-
-msgid "Clone"
-msgstr "Клонировать"
