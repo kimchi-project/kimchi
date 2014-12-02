@@ -1644,16 +1644,17 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(system_host_repos + 1, len(host_repos))
 
             # update repositories with invalid data
-            for repo in invalid_repos:
+            for tmp_repo in invalid_repos:
                 self.assertRaises(InvalidParameter, inst.repository_update,
-                                  repo_id, repo)
+                                  repo_id, tmp_repo)
 
             new_repo_id = inst.repository_update(repo_id, new_repo)
             repo_info = inst.repository_lookup(new_repo_id)
 
-        self.assertEquals(new_repo_id, repo_info['repo_id'])
-        self.assertEquals(new_repo['baseurl'], repo_info['baseurl'])
-        self.assertEquals(True, repo_info['enabled'])
+            self.assertEquals(new_repo_id, repo_info['repo_id'])
+            self.assertEquals(new_repo['baseurl'], repo_info['baseurl'])
+            self.assertEquals(True, repo_info['enabled'])
+            inst.repository_update(new_repo_id, repo)
 
     def test_repository_disable_enable(self):
         inst = model.Model('test:///default',
