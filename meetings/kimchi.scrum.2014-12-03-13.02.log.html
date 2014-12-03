@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec  3 13:02:12 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:33</span><span class="nk"> &lt;royce&gt;</span> good for me
+<a name="l-9"></a><span class="tm">13:02:52</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Test on iPad(afari+chrome)</span>
+<a name="l-10"></a><span class="tm">13:03:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:03:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:03:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang tested kimchi on IE</span>
+<a name="l-13"></a><span class="tm">13:03:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm tagged 1.4.0-rc1 and updated ChangeLog, Version and po files</span>
+<a name="l-14"></a><span class="tm">13:03:32</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac tested Kimchi 1.4.0-rc1 on Fedora 20 and opened bugs</span>
+<a name="l-15"></a><span class="tm">13:03:32</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang reported related bugs</span>
+<a name="l-16"></a><span class="tm">13:03:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to update RHEL7 information on README</span>
+<a name="l-17"></a><span class="tm">13:03:49</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce tested on Ubuntu 14.10, found some bugs related to build, testcases</span>
+<a name="l-18"></a><span class="tm">13:04:28</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce sent patch for pep8, testcase, now working on fixing ldap authentication bugs</span>
+<a name="l-19"></a><span class="tm">13:06:12</span><span class="nk"> &lt;alinefm&gt;</span> from the test matrix we still have a lot of tests to do: https://github.com/kimchi-project/kimchi/wiki/Testing-1.4
+<a name="l-20"></a><span class="tm">13:06:37</span><span class="nk"> &lt;alinefm&gt;</span> in one week we will start the hard code freeze which means only critical bug fixes will be merged upstream
+<a name="l-21"></a><span class="tm">13:06:49</span><span class="nk"> &lt;Guest393&gt;</span> <span class="cmd">#info </span><span class="cmdline">Simon test kimchi 1.4 on opensuse13.2</span>
+<a name="l-22"></a><span class="tm">13:07:06</span><span class="nk"> &lt;alinefm&gt;</span> so it is really important to complete the tests by the end of the day tomorrow and then we focus on providing patches to the bugs open
+<a name="l-23"></a><span class="tm">13:07:12</span><span class="nk"> &lt;alinefm&gt;</span> does that make sense?
+<a name="l-24"></a><span class="tm">13:08:07</span><span class="nk"> &lt;royce&gt;</span> Got it
+<a name="l-25"></a><span class="tm">13:08:25</span><span class="nk"> &lt;alinefm&gt;</span> if we complete the tests tomorrow we have only *one week* to focus on bug fixes
+<a name="l-26"></a><span class="tm">13:08:40</span><span class="nk"> &lt;alinefm&gt;</span> vianac, Guest393, YuXin, wenwang, agree?
+<a name="l-27"></a><span class="tm">13:08:45</span><span class="nk"> &lt;wenwang&gt;</span> agree
+<a name="l-28"></a><span class="tm">13:09:00</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, need one column for mobile
+<a name="l-29"></a><span class="tm">13:09:17</span><span class="nk"> &lt;YuXin&gt;</span> I mean in test matrix
+<a name="l-30"></a><span class="tm">13:09:31</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I can add one if you want
+<a name="l-31"></a><span class="tm">13:09:36</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-32"></a><span class="tm">13:09:41</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Also, for browsers, I remember we had it before
+<a name="l-33"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">each test focal point will complete the test matrix by the end of the day tomorrow (12/04)</span>
+<a name="l-34"></a><span class="tm">13:10:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm add columns to mobile and browser on test matrix</span>
+<a name="l-35"></a><span class="tm">13:11:03</span><span class="nk"> &lt;wenwang&gt;</span> thanks alinefm
+<a name="l-36"></a><span class="tm">13:11:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1.4 hard code freeze starts in one week (12/10)</span>
+<a name="l-37"></a><span class="tm">13:11:46</span><span class="nk"> &lt;alinefm&gt;</span> once we complete the tests, please, take as many bugs as you can to provide patches so we can get a stable version before 12/10
+<a name="l-38"></a><span class="tm">13:11:48</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-39"></a><span class="tm">13:12:06</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-40"></a><span class="tm">13:12:07</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-41"></a><span class="tm">13:12:24</span><span class="nk"> &lt;alinefm&gt;</span> vianac, Guest393, wenwang ^
+<a name="l-42"></a><span class="tm">13:12:30</span><span class="nk"> &lt;wenwang&gt;</span> ok
+<a name="l-43"></a><span class="tm">13:13:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-44"></a><span class="tm">13:14:11</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-45"></a><span class="tm">13:14:38</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, if I remember corrently, you have ever tired vnc console on mobile in last release?
+<a name="l-46"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap - I tested on Android phones
+<a name="l-47"></a><span class="tm">13:15:24</span><span class="nk"> &lt;YuXin&gt;</span> the ssl certificate is manually imported, right?
+<a name="l-48"></a><span class="tm">13:15:24</span><span class="nk"> &lt;alinefm&gt;</span> on Android it works well as we don't have the cert issue there
+<a name="l-49"></a><span class="tm">13:15:36</span><span class="nk"> &lt;alinefm&gt;</span> nope
+<a name="l-50"></a><span class="tm">13:15:52</span><span class="nk"> &lt;YuXin&gt;</span> so all through brower?
+<a name="l-51"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> you only need to manually import the cert for iOS phones/tablets
+<a name="l-52"></a><span class="tm">13:16:04</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-53"></a><span class="tm">13:16:19</span><span class="nk"> &lt;YuXin&gt;</span> but the default cert of kimchi can not be imported into iPad as trusted
+<a name="l-54"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> on Android you accept the cert in the same way you do on desktop browsers
+<a name="l-55"></a><span class="tm">13:16:38</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap - it is a known issue
+<a name="l-56"></a><span class="tm">13:17:01</span><span class="nk"> &lt;alinefm&gt;</span> for iOS devices the user must provide a trusted cert OR manually import the cert before access kimchi on browser
+<a name="l-57"></a><span class="tm">13:17:15</span><span class="nk"> &lt;YuXin&gt;</span> if leverage brower, the cert will not be imported on ipad, it is taken as ssl excpetion
+<a name="l-58"></a><span class="tm">13:17:57</span><span class="nk"> &lt;YuXin&gt;</span> if manually import(send the cert file as a mail attachment, then open cert from mail on ipad), the cert is still taken as untrusted on ipad
+<a name="l-59"></a><span class="tm">13:18:27</span><span class="nk"> &lt;YuXin&gt;</span> the cert file is created by kimchi, right?
+<a name="l-60"></a><span class="tm">13:18:31</span><span class="nk"> &lt;alinefm&gt;</span> really? I have read on some blogs that the manually import worked
+<a name="l-61"></a><span class="tm">13:18:52</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, if the user does not provide one, kimchi generates one
+<a name="l-62"></a><span class="tm">13:18:54</span><span class="nk"> &lt;YuXin&gt;</span> seems like the 'issued to' attribute of the cert file has some problem
+<a name="l-63"></a><span class="tm">13:19:01</span><span class="nk"> &lt;wenwang&gt;</span> I encourtered this when using ipad too
+<a name="l-64"></a><span class="tm">13:19:32</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, for current kimchi cert file, whether it is generated by kimchi?
+<a name="l-65"></a><span class="tm">13:20:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, on kimchi.conf file you can specify you own cert file
+<a name="l-66"></a><span class="tm">13:20:24</span><span class="nk"> &lt;alinefm&gt;</span> if you don't specify it, Kimchi will generate one cert for you
+<a name="l-67"></a><span class="tm">13:20:40</span><span class="nk"> &lt;alinefm&gt;</span> and there is no way to change the way kimchi generate it to be trusted to iOS
+<a name="l-68"></a><span class="tm">13:20:59</span><span class="nk"> &lt;alinefm&gt;</span> to be a trusted cert we need to pay a cert assigner and it will no happen
+<a name="l-69"></a><span class="tm">13:21:01</span><span class="nk"> &lt;alinefm&gt;</span> *not
+<a name="l-70"></a><span class="tm">13:21:16</span><span class="nk"> &lt;YuXin&gt;</span> can you copy the command to generate cert file? I want to try if I can modify some params when generate cert file to make it work on iPad
+<a name="l-71"></a><span class="tm">13:23:07</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, you can check sslcert.py
+<a name="l-72"></a><span class="tm">13:23:14</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-73"></a><span class="tm">13:23:19</span><span class="nk"> &lt;alinefm&gt;</span> but again, there is nothing we can do to solve it
+<a name="l-74"></a><span class="tm">13:24:07</span><span class="nk"> &lt;alinefm&gt;</span> if user want to use VNC on iOS devices he/she must provide a different SSL cert or import the non-trusted cert manually
+<a name="l-75"></a><span class="tm">13:24:54</span><span class="nk"> &lt;YuXin&gt;</span> the problem is that even manually import, not all cert file will be taken as trusted
+<a name="l-76"></a><span class="tm">13:25:16</span><span class="nk"> &lt;YuXin&gt;</span> so I want to get what a cert file can be manually imported as trusted on ipad
+<a name="l-77"></a><span class="tm">13:26:06</span><span class="nk"> &lt;YuXin&gt;</span> I will investigate all options when generating a cert file to see whether I can get a self-sighed cert file to be trusted on iPAD
+<a name="l-78"></a><span class="tm">13:26:19</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, did you follow those references: http://lists.ovirt.org/pipermail/kimchi-devel/2014-August/006935.html ?
+<a name="l-79"></a><span class="tm">13:29:03</span><span class="nk"> &lt;YuXin&gt;</span> I guest it is not for iOS7 or iOS8
+<a name="l-80"></a><span class="tm">13:29:48</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, what I remember is: once you accept the cert on browser you need to do a reset in the device to then import the cert manually
+<a name="l-81"></a><span class="tm">13:29:56</span><span class="nk"> &lt;alinefm&gt;</span> otherwise the manually import will not work
+<a name="l-82"></a><span class="tm">13:30:18</span><span class="nk"> &lt;YuXin&gt;</span> I got kimchi cert file on desktop, send the cert file to my mail box
+<a name="l-83"></a><span class="tm">13:30:22</span><span class="nk"> &lt;YuXin&gt;</span> as an attachement
+<a name="l-84"></a><span class="tm">13:30:43</span><span class="nk"> &lt;alinefm&gt;</span> and have you never accept the kimchi cert in your iOS device before it?
+<a name="l-85"></a><span class="tm">13:30:45</span><span class="nk"> &lt;YuXin&gt;</span> open my mailbox on iPad, open the cert file attachement with safari
+<a name="l-86"></a><span class="tm">13:31:17</span><span class="nk"> &lt;YuXin&gt;</span> then iOS ask me to import the cert file, there is no option about whether import it as trusted or not
+<a name="l-87"></a><span class="tm">13:31:53</span><span class="nk"> &lt;YuXin&gt;</span> then I continue to import, then check the cert file, it is marked as untrusted
+<a name="l-88"></a><span class="tm">13:33:08</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, you need to install the cert instead of open it on Safari
+<a name="l-89"></a><span class="tm">13:33:14</span><span class="nk"> &lt;alinefm&gt;</span> https://blog.httpwatch.com/2013/12/12/five-tips-for-using-self-signed-ssl-certificates-with-ios/
+<a name="l-90"></a><span class="tm">13:34:07</span><span class="nk"> &lt;YuXin&gt;</span> I checked this link today, and there is "It most cases the computer name will not match the intended host name  and you end up with a self-signed certificate that is never trusted –  even when it is added to iOS:"
+<a name="l-91"></a><span class="tm">13:34:45</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, anyway, I think we should add those links to the troubleshooting section on README
+<a name="l-92"></a><span class="tm">13:35:01</span><span class="nk"> &lt;alinefm&gt;</span> and let user provide a different cert if he/she wants to use kimchi on iOS devices
+<a name="l-93"></a><span class="tm">13:35:45</span><span class="nk"> &lt;YuXin&gt;</span> if user can provide a trusted cert file signed offically, then it will must work
+<a name="l-94"></a><span class="tm">13:35:55</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-95"></a><span class="tm">13:37:14</span><span class="nk"> &lt;YuXin&gt;</span> ok, I willl investigate more about whether there is a way to make a self-sighed cert file to be trusted in iPad
+<a name="l-96"></a><span class="tm">13:37:55</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-97"></a><span class="tm">13:38:50</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-98"></a><span class="tm">13:39:14</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, the distributions and versions on test matrix page are all  kimchi supported?
+<a name="l-99"></a><span class="tm">13:39:25</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yes
+<a name="l-100"></a><span class="tm">13:39:29</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-101"></a><span class="tm">13:39:41</span><span class="nk"> &lt;YuXin&gt;</span> I have nothing more today
+<a name="l-102"></a><span class="tm">13:39:42</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, kimchi supports the latest version of RHEL, Ubuntu, Fedora and OpenSUSE
+<a name="l-103"></a><span class="tm">13:39:54</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-104"></a><span class="tm">13:40:10</span><span class="nk"> &lt;wenwang&gt;</span> nothing from me
+<a name="l-105"></a><span class="tm">13:40:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, Guest393, anything else?
+<a name="l-106"></a><span class="tm">13:40:50</span><span class="nk"> &lt;vianac&gt;</span> <span class="hi">alinefm:</span> no
+<a name="l-107"></a><span class="tm">13:41:56</span><span class="nk"> &lt;royce&gt;</span> nope
+<a name="l-108"></a><span class="tm">13:43:06</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-109"></a><span class="tm">13:43:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
