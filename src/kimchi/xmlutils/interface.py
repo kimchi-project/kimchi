@@ -32,7 +32,9 @@ def get_iface_xml(params, arch=None, os_distro=None, os_version=None):
     """
     interface = E.interface(type=params['type'])
     interface.append(E.source(network=params['network']))
-    interface.append(E.model(type=params['model']))
+
+    if 'model' in params.keys():
+        interface.append(E.model(type=params['model']))
 
     mac = params.get('mac', None)
     if mac is not None:
