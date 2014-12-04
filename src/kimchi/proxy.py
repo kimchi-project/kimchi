@@ -43,7 +43,6 @@ def _create_proxy_config(options):
     Arguments:
     options - OptionParser object with Kimchi config options
     """
-
     # User that will run the worker process of the proxy. Fedora,
     # RHEL and Suse creates an user called 'nginx' when installing
     # the proxy. Ubuntu creates an user 'www-data' for it.
@@ -54,8 +53,11 @@ def _create_proxy_config(options):
         user_proxy = 'www-data'
 
     config_dir = paths.conf_dir
+    cert = options.ssl_cert
+    key = options.ssl_key
+
     # No certificates specified by the user
-    if not options.ssl_cert or not options.ssl_key:
+    if not cert or not key:
         cert = '%s/kimchi-cert.pem' % config_dir
         key = '%s/kimchi-key.pem' % config_dir
         # create cert files if they don't exist
