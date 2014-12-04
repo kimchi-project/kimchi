@@ -298,6 +298,16 @@ class ModelTests(unittest.TestCase):
             self.assertEquals("test-network", iface['network'])
             self.assertEquals("virtio", iface["model"])
 
+            # attach network interface to vm without providing model
+            iface_args = {"type": "network",
+                          "network": "test-network"}
+            mac = inst.vmifaces_create('kimchi-ifaces', iface_args)
+            rollback.prependDefer(inst.vmiface_delete, 'kimchi-ifaces', mac)
+
+            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
+            self.assertEquals("network", iface["type"])
+            self.assertEquals("test-network", iface['network'])
+
             # update vm interface
             iface_args = {"network": "default",
                           "model": "e1000"}
