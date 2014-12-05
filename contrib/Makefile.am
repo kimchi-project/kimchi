@@ -17,6 +17,7 @@
 SUBDIRS = DEBIAN
 
 EXTRA_DIST = \
+	check_i18n.py \
 	kimchid.sysvinit \
 	kimchid.service.fedora \
 	kimchi.spec.fedora.in \
