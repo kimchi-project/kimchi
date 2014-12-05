@@ -311,15 +311,15 @@ messages = {
     "KCHREPOS0027E": _("Unable to remove repository. Details: '%(err)s'"),
     "KCHREPOS0028E": _("Configuration items: '%(items)s' are not supported by repository manager"),
 
-    "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."),
+    "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."),
     "KCHSNAP0002E": _("Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0003E": _("Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."),
     "KCHSNAP0004E": _("Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0005E": _("Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0006E": _("Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
-    "KCHSNAP0008E": _("Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: %(err)s"),
+    "KCHSNAP0008E": _("Unable to retrieve current snapshot of virtual machine '%(vm)s'. Details: %(err)s"),
     "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
-    "KCHSNAP0010E": _("Unable to create snapshot on virtual machine '%(vm)s' because it contains a disk with format '%(format)s'; only 'qcow2' is supported."),
+    "KCHSNAP0010E": _("Unable to create snapshot of virtual machine '%(vm)s' because it contains a disk with format '%(format)s'; only 'qcow2' is supported."),
 
     "KCHCPUINF0001E": _("The number of vCPUs is too large for this system."),
     "KCHCPUINF0002E": _("Invalid vCPU/topology combination."),
