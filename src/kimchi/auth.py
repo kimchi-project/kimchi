@@ -222,9 +222,11 @@ class LDAPUser(User):
         return self.user[USER_GROUPS]
 
     def get_roles(self):
-        admin_id = config.get("authentication", "ldap_admin_id").strip('"')
-        if self.user[USER_NAME] in admin_id.split(','):
-            self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
+        admin_ids = config.get(
+            "authentication", "ldap_admin_id").strip('"').split(',')
+        for admin_id in admin_ids:
+            if self.user[USER_NAME] == admin_id.strip():
+                self.user[USER_ROLES] = dict.fromkeys(tabs, 'admin')
         return self.user[USER_ROLES]
 
     def get_user(self):
