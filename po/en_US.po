@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-01 12:26-0200\n"
+"POT-Creation-Date: 2014-12-05 13:40-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1007,7 +1007,7 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Virtual machine '%(vm)s' must be stopped before creating a snapshot on it."
+"Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
 msgstr ""
 
 #, python-format
@@ -1038,7 +1038,7 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Unable to retrieve current snapshot on virtual machine '%(vm)s'. Details: "
+"Unable to retrieve current snapshot of virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr ""
 
@@ -1046,6 +1046,12 @@ msgstr ""
 msgid ""
 "Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
 "%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create snapshot of virtual machine '%(vm)s' because it contains a "
+"disk with format '%(format)s'; only 'qcow2' is supported."
 msgstr ""
 
 msgid "The number of vCPUs is too large for this system."
@@ -1281,7 +1287,7 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-msgid "Invalid URL. Redireced to home page."
+msgid "Invalid URL. Redirected to home page."
 msgstr ""
 
 msgid "Failed to get application configuration"
@@ -1833,10 +1839,10 @@ msgstr ""
 msgid "Enter the remote URL here."
 msgstr ""
 
-msgid "Upload an file"
+msgid "Upload a file"
 msgstr ""
 
-msgid "Choose the ISO file (with .iso suffix) you want to upload."
+msgid "Choose the file you want to upload."
 msgstr ""
 
 msgid "Add Template"
