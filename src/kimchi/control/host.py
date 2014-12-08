@@ -96,8 +96,6 @@ class Partition(Resource):
 class Devices(Collection):
     def __init__(self, model):
         super(Devices, self).__init__(model)
-        self.role_key = 'storage'
-        self.admin_methods = ['GET']
         self.resource = Device
 
 
@@ -109,8 +107,6 @@ class VMHolders(SimpleCollection):
 
 class Device(Resource):
     def __init__(self, model, id):
-        self.role_key = 'storage'
-        self.admin_methods = ['GET']
         super(Device, self).__init__(model, id)
         self.vm_holders = VMHolders(self.model, id)
 
