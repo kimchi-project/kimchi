@@ -184,6 +184,11 @@ kimchi.addNetworkActions = function(network) {
 kimchi.initNetworkCreation = function() {
     $("#networkAdd").on("click", function() {
         kimchi.openNetworkDialog(function() {
+            var errorCallback = function(){
+                $("#networkFormOk").button("enable");
+                $("#networkName").removeAttr("readonly");
+                $("#networkFormOk span").text(i18n.KCHAPI6005M);
+            };
             var network = kimchi.getNetworkDialogValues();
             var data = {
                 name : network.name,
@@ -196,6 +201,7 @@ kimchi.initNetworkCreation = function() {
                     data.vlan_id = network.vlan_id;
                     if (!(data.vlan_id >=1 && data.vlan_id <= 4094)) {
                         kimchi.message.error.code('KCHNET6001E');
+                        errorCallback();
                         return;
                     }
                 }
@@ -209,9 +215,7 @@ kimchi.initNetworkCreation = function() {
                 $("#networkConfig").dialog("close");
             }, function(data) {
                 kimchi.message.error(data.responseJSON.reason);
-                $("#networkFormOk").button("enable");
-                $("#networkName").removeAttr("readonly");
-                $("#networkFormOk span").text(i18n.KCHAPI6005M);
+                errorCallback();
             });
         });
     });
