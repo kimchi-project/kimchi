@@ -38,7 +38,7 @@ class PeersModel(object):
         cmd = ["slptool", "register",
                "service:kimchid://%s" % self.url]
         out, error, ret = run_command(cmd)
-        if len(out) != 0:
+        if out and len(out) != 0:
             kimchi_log.error("Unable to register server on openSLP."
                              " Details: %s" % out)
 
@@ -47,9 +47,12 @@ class PeersModel(object):
         if config.get("server", "federation") == "off":
             return []
 
-        peers = []
         cmd = ["slptool", "findsrvs", "service:kimchid"]
         out, error, ret = run_command(cmd)
+        if ret != 0:
+            return []
+
+        peers = []
         for server in out.strip().split("\n"):
             match = re.match("service:kimchid://(.*?),.*", server)
             peer = match.group(1)

@@ -27,7 +27,7 @@
 #environment = production
 
 # Federation feature: register Kimchi server on openSLP and discover peers
-# at the same network
+# in the same network. Check README-federation for more details.
 #federation = off
 
 # Max request body size in KB, default value is 4GB

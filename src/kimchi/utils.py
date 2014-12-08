@@ -224,7 +224,7 @@ def run_command(cmd, timeout=None):
     except Exception as e:
         msg = "Failed to run command: %s." % " ".join(cmd)
         msg = msg if proc is None else msg + "\n  error code: %s."
-        kimchi_log.error("%s\n  %s", msg, e)
+        kimchi_log.error("%s %s", msg, e)
 
         if proc:
             return out, error, proc.returncode
