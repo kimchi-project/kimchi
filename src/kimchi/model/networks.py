@@ -305,7 +305,11 @@ class NetworkModel(object):
 
     def activate(self, name):
         network = self.get_network(self.conn.get(), name)
-        network.create()
+        try:
+            network.create()
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHNET0022E', {'name': name,
+                                                  'err': e.message})
 
     def deactivate(self, name):
         if self._is_network_in_use(name):
