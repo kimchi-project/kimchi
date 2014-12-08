@@ -70,8 +70,9 @@ def main(options):
     parser.add_option('--environment', default=runningEnv,
                       help="Running environment of kimchi server")
     parser.add_option('--federation', default=federation,
-                      help="Register and discover Kimchi peers at the same "
-                           "network using openSLP")
+                      help="Register and discover Kimchi peers in the same "
+                           "network using openSLP. Check README-federation for"
+                           " more details.")
     parser.add_option('--test', action='store_true',
                       help="Run server in mock model")
     (options, args) = parser.parse_args()
