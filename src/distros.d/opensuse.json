@@ -12,5 +12,12 @@
         "os_arch": "x86_64",
         "os_version": "13.1",
         "path": "http://suse.mirrors.tds.net/pub/opensuse/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso"
+    },
+    {
+        "name": "opensuse-13.2",
+        "os_distro": "opensuse",
+        "os_arch": "x86_64",
+        "os_version": "13.2",
+        "path": "http://suse.mirrors.tds.net/pub/opensuse/distribution/13.2/iso/openSUSE-13.2-DVD-x86_64.iso"
     }
 ]
