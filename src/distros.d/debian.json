@@ -3,7 +3,7 @@
         "name": "debian-Wheezy",
         "os_distro": "debian",
         "os_arch": "x86_64",
-        "os_version": "7.6.0",
-        "path": "http://ftp.acc.umu.se/debian-cd/7.6.0-live/amd64/iso-hybrid/debian-live-7.6.0-amd64-gnome-desktop.iso"
+        "os_version": "7.7.0",
+        "path": "http://caesar.acc.umu.se/debian-cd/7.7.0/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso"
     }
 ]

@@ -26,5 +26,12 @@
         "os_arch": "x86_64",
         "os_version": "14.04",
         "path": "http://releases.ubuntu.com/14.04/ubuntu-14.04-desktop-amd64.iso"
+    },
+    {
+        "name": "Ubuntu Server 14.10 (Utopic Unicorn)",
+        "os_distro": "ubuntu",
+        "os_arch": "x86_64",
+        "os_version": "14.10",
+        "path": "http://releases.ubuntu.com/14.10/ubuntu-14.10-desktop-amd64.iso"
     }
 ]
