@@ -148,7 +148,6 @@ kimchi.main = function() {
          */
         var tab = $('#nav-menu a[href="' + url + '"]');
         if (tab.length === 0) {
-            kimchi.message.error.code('KCHAPI6001E');
             location.hash = '';
             return;
         }
