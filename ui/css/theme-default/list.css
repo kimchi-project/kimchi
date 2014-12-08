@@ -234,9 +234,11 @@
     height: 42px;
 }
 
-.guest-actions .top button span {
-    margin-left: -3px;
-    margin-top: -1px;
+@-moz-document url-prefix() {
+    .guest-actions .top button span {
+        margin-left: -3px;
+        margin-top: -1px;
+    }
 }
 
 .guest-actions .bottom {
