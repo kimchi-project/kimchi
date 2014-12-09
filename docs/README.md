@@ -55,8 +55,7 @@ Install Dependencies
                         python-ipaddr python-ldap python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
                         policycoreutils-python python-libguestfs \
-                        libguestfs-tools python-requests python-websockify \
-                        novnc
+                        libguestfs-tools python-websockify novnc
 
      # If using RHEL6 or Fedora, install the following additional package:
      $ sudo yum install spice-html5
@@ -68,6 +67,9 @@ Install Dependencies
 
     Packages version requirement:
         python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo yum install pyflakes python-pep8 python-requests
 
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
 EPEL repositories.  See
@@ -88,11 +90,14 @@ channel at RHN Classic or Red Hat Satellite.
                            python-lxml nfs-common open-iscsi lvm2 xsltproc \
                            python-parted nginx \
                            firewalld python-guestfs libguestfs-tools \
-                           python-requests websockify novnc spice-html5
+                           websockify novnc spice-html5
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
         python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo apt-get install pep8 pyflakes python-requests
 
 **For openSUSE:**
 
@@ -103,12 +108,14 @@ channel at RHN Classic or Red Hat Satellite.
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-ldap python-lxml nfs-client \
                           open-iscsi libxslt-tools python-xml \
-                          python-parted nginx \
-                          python-libguestfs guestfs-tools python-requests \
-                          python-websockify novnc
+                          python-parted nginx python-libguestfs \
+                          guestfs-tools python-websockify novnc
 
     Packages version requirement:
         python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo zypper install python-pyflakes python-pep8 python-requests
 
 *Note for openSUSE users*: Some of the above packages are located in different
 openSUSE repositories. See
@@ -134,6 +141,16 @@ Run
 ---
 
     $ sudo kimchid --host=0.0.0.0
+
+
+Test
+----
+
+    $ make check-local # check for i18n and formatting errors
+    $ sudo make check
+
+After all tests are executed, a summary will be displayed containing any
+errors/failures which might have occurred.
 
 Usage
 -----

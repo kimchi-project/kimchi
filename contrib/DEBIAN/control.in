@@ -30,7 +30,6 @@ Depends: python-cherrypy3 (>= 3.2.0),
          libguestfs-tools,
          spice-html5
 Build-Depends: libxslt,
-               python-lxml,
-               python-requests
+               python-lxml
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web server
