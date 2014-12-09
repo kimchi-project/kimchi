@@ -32,7 +32,6 @@ Requires:	python-libguestfs
 Requires:	guestfs-tools
 BuildRequires:	libxslt-tools
 BuildRequires:	python-lxml
-BuildRequires:	python-requests
 
 %if 0%{?sles_version} == 11
 Requires:       python-ordereddict

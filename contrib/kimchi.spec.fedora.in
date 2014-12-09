@@ -33,7 +33,6 @@ Requires:	python-libguestfs
 Requires:	libguestfs-tools
 BuildRequires:	libxslt
 BuildRequires:	python-lxml
-BuildRequires:	python-requests
 
 %if 0%{?rhel} == 6 || 0%{?fedora} >= 19
 Requires:	spice-html5
