@@ -172,6 +172,10 @@ class Server(object):
             cherrypy.tree.mount(plugin_app, script_name, plugin_config)
 
     def start(self):
+        # Subscribe to SignalHandler plugin
+        if hasattr(cherrypy.engine, 'signal_handler'):
+            cherrypy.engine.signal_handler.subscribe()
+
         cherrypy.engine.start()
         cherrypy.engine.block()
 
