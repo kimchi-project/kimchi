@@ -23,7 +23,14 @@ from lxml import objectify
 
 def xpath_get_text(xml, expr):
     doc = ET.fromstring(xml)
-    res = [x.text if not isinstance(x, str) else x for x in doc.xpath(expr)]
+
+    res = []
+    for x in doc.xpath(expr):
+        if isinstance(x, unicode):
+            x = x.encode('utf-8')
+        elif not isinstance(x, str):
+            x = x.text
+        res.append(x)
     return res
 
 
