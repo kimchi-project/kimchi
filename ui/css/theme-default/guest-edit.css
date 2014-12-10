@@ -360,6 +360,7 @@
     border-radius: 7px 0px 0px 7px;
     padding: 2px 2px 2px 7px;
     width: 100px;
+    height: 24px;
 }
 
 .guest-edit-pci .filter select option {
@@ -370,6 +371,7 @@
     border-radius: 0px 7px 7px 0px;
     padding: 3px 3px 3px 10px;
     width: 200px;
+    height: 16px;
     font-style: italic;
 }
 
