@@ -1,0 +1,192 @@
+13:01:26 <alinefm> #startmeeting
+13:01:26 <kimchi-bot> Meeting started Wed Dec 10 13:01:26 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:26 <alinefm> #meetingname scrum
+13:01:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:42 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:42 <alinefm> anything else?
+13:03:07 <alinefm> #topic Status
+13:03:07 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:21 <YuXin> #info YuXin Finished testing on iPad(safari and chrome) and updated on test matrix page
+13:03:22 <YuXin> #info YuXin Patches to fix 482/485/487/499/495/546
+13:03:22 <YuXin> #info YuXin Investigated 463, should not be front end issue, backend need to check whether non-ascii got decoded correctly
+13:03:23 <wenwang> #info wenwang tested kimchi and reported bugs
+13:03:53 <wenwang> #info wenwang sent patch that fix bug#549 VM button icons unaligned
+13:04:02 <alinefm> #info alinefm sent patches to fix issues #475, #491, #498, #479, #443, #530, #529
+13:04:17 <royce> #info royce tested on Ubuntu 14.10, documented bugs as well as provided fixes for 4 bugs
+13:04:21 <wenwang> #info wenwang sent patch that fix bug#477 Snapshot page ain't aligned using IE
+13:04:49 <alinefm> #info alinefm sent patch to use cached capabilities values when get PCI passthrough result
+13:05:39 <Guest1153> #info simon complete 1.4 test on opensuse13.2
+13:05:56 <wenwang> #info wenwang investigated on bug#518 Unable to download ISO to storage pool on Firefox 31.3.0 ESR and reported related bug to firefox forum
+13:06:58 <alinefm> thanks all!
+13:07:16 <alinefm> today, we are entering the hard code freeze which means only critical bug fixes will be merged upstream
+13:07:47 <alinefm> it does not block any of you continue to fixing bugs and send for review on ML
+13:07:53 <alinefm> but they will be merged after 1.4 release
+13:07:58 <alinefm> sounds good?
+13:08:01 <royce> ok
+13:08:10 <YuXin> any label on bug to identify critical issue?
+13:08:12 <wenwang> sure
+13:08:39 <royce> it said 1.4 milestone
+13:09:08 <YuXin> so all bugs labeled 1.4 milestone are critical?
+13:09:27 <alinefm> not yet
+13:09:38 <alinefm> I will do a clean up on there today after meeting
+13:10:05 <YuXin> ok, it will be helpful for us to figure out priority
+13:10:11 <alinefm> yeap
+13:10:29 <alinefm> I will send an email to ML informing the update
+13:10:38 <alinefm> and also asking for the translations
+13:10:39 <YuXin> good
+13:10:49 <YuXin> ok
+13:11:20 <alinefm> #topic Open Discussion
+13:11:27 <alinefm> what do you have for today?
+13:12:18 <YuXin> for debug report, 1) on ipad, the download fail without any message. 2) I do not think there is any tool on iPad to open debug report
+13:12:55 <alinefm> YuXin, did you check the kimchi logs? no errors there?
+13:13:16 <alinefm> even if a mobile device can not open a debug report file, the user can mail it to somewhere, etc
+13:13:47 <YuXin> but on ipad where the debug report will be downloaded to, I am thinking
+13:14:14 <alinefm> the mobile devices have own download location
+13:14:28 <alinefm> for example, on Android devices we have a "Downloads" folder
+13:14:30 <YuXin> have you even tried on android device?
+13:14:40 <alinefm> no
+13:15:03 <YuXin> ok, I will check backend log to see any error occured there
+13:15:30 <YuXin> for 463
+13:15:33 <alinefm> YuXin, about 463: the kimchi server works with unicode: so it should receive unicode and return unicode
+13:16:16 <YuXin> I see a log at backend and it says something like unicode decode fail
+13:16:29 <alinefm> in this bug, the server returns "\uae40\uce-58-net" and UI uses "김치-net"
+13:16:59 <alinefm> when sending the request back to server, we should use "\uae40\uce-58-net" instead of "김치-net"
+13:17:19 <alinefm> YuXin, there is no traceback on backend related to unicode decode error
+13:17:39 <alinefm> the problem is the server can not find the element "김치-net" because it has "\uae40\uce-58-net" instead
+13:17:39 <YuXin> "\uae40\uce-58" are just javascript unicode literal
+13:18:00 <alinefm> yeap - the encodeURICompenent()
+13:18:24 <YuXin> why backend does not use utf-8 to persist it
+13:18:36 <alinefm> backend is alwasy unicode
+13:19:02 <alinefm> we already use encodeURICompenent() in most of our calls to server
+13:19:05 <YuXin> encodeURICompenent() will not transform non-ascii to unicode
+13:19:11 <YuXin> it is another encoding
+13:19:13 <alinefm> we just need to make sure all the data is using it too
+13:19:36 <YuXin> alinefm, the current problem is somewhere like template
+13:19:52 <YuXin> add a network with a Chinese name to template
+13:20:03 <alinefm> I know the problem
+13:20:14 <YuXin> then the Chinese network name will be posted as message body, not on url as parameters
+13:20:19 <alinefm> if happens because we are not encoding the network name to send to server
+13:20:31 <alinefm> server knows "\uae40\uce-58-net" instead of "김치-net"
+13:20:42 <alinefm> you receive "\uae40\uce-58-net" from server
+13:20:47 <alinefm> and then send "김치-net"
+13:21:22 <YuXin> \uae40\uce-58-net means nothing at backend I think
+13:22:03 <alinefm> it means a valid network =)
+13:22:12 <alinefm> look: https://cloud.githubusercontent.com/assets/4921718/5362735/ecb912f2-7fbc-11e4-9774-1856888cdf0c.jpg
+13:22:18 <alinefm> that is the server response
+13:22:25 <alinefm> take a look in the network name
+13:22:27 <YuXin> for "\uae40\uce-58-net", it is kimchi created and persisted through libvirt, right?
+13:22:45 <alinefm> yes
+13:23:11 <YuXin> then virt-manage will definitely fail to interprete this name, right?
+13:23:18 <alinefm> why?
+13:23:53 <YuXin> how can virt-manager know whether "\uae40\uce-58-net" is unicode or just user named it like this
+13:24:16 <YuXin> let me try
+13:24:20 <YuXin> a moment please
+13:24:53 <alinefm> "\uae40\uce-58-net" is used by Kimchi
+13:25:04 <alinefm> when creating the network we encode it to utf-8
+13:26:57 <YuXin> utf-8 will work well
+13:27:24 <YuXin> as the Chinese network name in template are posted to backend encoded in utf-8
+13:27:52 <YuXin> backend got this name, decode with utf-8, it will have the network name in python runtime
+13:28:16 <YuXin> then just use it as a python string to query the network from libvirt, then it will work
+13:29:21 <YuXin> aline, I do not have vnc on this machine, it takes time to download
+13:29:57 <alinefm> the server returns the data encoded!
+13:30:01 <alinefm> and we will not change it
+13:30:13 <alinefm> so the requests must do the same
+13:30:41 <alinefm> it is the same case when you will start/stop a network named "김치-net"
+13:30:50 <alinefm> you send the data encoded to "\uae40\uce-58-net"
+13:31:55 <YuXin> let me try
+13:32:32 <YuXin> https://9.123.141.22:8001/networks/%E6%88%91%E7%9A%84/activate
+13:33:03 <YuXin> the network name is encoded using encodeURICompenent()
+13:33:12 <YuXin> it is not unicode
+13:33:44 <YuXin> the unicode is "\u6211\u7684"
+13:34:04 <alinefm> >>> unicode("김치-net", "utf-8")
+13:34:05 <alinefm> u'\uae40\uce58-net'
+13:34:37 <YuXin> these unicode are javascript literal, not for backend persistency and logical processing
+13:35:17 <alinefm> YuXin, sorry, but I am not understanding your point
+13:36:15 <alinefm> my point is: you receive '\uae40\uce58-net' from backend, uses decodeURIComponent() to get "김치-net" and display on UI
+13:36:31 <alinefm> then you need to use encodeURIComponent() to get the real value to send back to server
+13:37:19 <YuXin> let me show you what decodeURIComonent("\uae40\uce58-net")
+13:39:19 <YuXin> to show "\uae40\uce58-net", no decodeURIComonent is needed
+13:39:19 <YuXin> do below
+13:39:34 <YuXin> var t = "\uae40\uce58-net";
+13:39:44 <YuXin> console.log(t);
+13:40:27 <YuXin> encodeURIComponent() is not to transform a string into unicode literal expression
+13:41:26 <YuXin> http://www.w3schools.com/jsref/jsref_encodeURIComponent.asp
+13:42:10 <alinefm> if you receive '\uae40\uce58-net' from server, how the UI display "김치-net" ?
+13:43:45 <YuXin> $('network-name-div').innerHTML = '\uae40\uce58-net';
+13:44:05 <YuXin> aline, do you have firebug right now
+13:44:10 <alinefm> yes
+13:44:17 <YuXin> turn on firebug
+13:44:32 <YuXin> go to the console tab
+13:44:50 <alinefm> I am there
+13:44:58 <YuXin> in console tab, at the bottom, you can input any javascript code and run it
+13:45:34 <YuXin> please input '\uae40\uce58-net'
+13:45:47 <YuXin> have you found that?
+13:46:21 <YuXin> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FValues%2C_variables%2C_and_literals#Unicode
+13:46:51 <YuXin> go to this page, search "var x = "\u00A9 Netscape Communications";", read that section
+13:47:15 <alinefm> so you don't need to do any type of encoding on "'\uae40\uce58-net'" and it is converted to "김치-net" on browser
+13:47:23 <YuXin> yes
+13:48:13 <YuXin> "\uae40\uce58" are just unicode literal, a way to express text, especially those beyond keyboard input
+13:48:47 <alinefm> so in the network combobox you should use <option "value='\uae40\uce58-net' >\uae40\uce58-net</option>"
+13:48:57 <alinefm> I hope the "value" is keep as it is
+13:48:58 <YuXin> that is ok
+13:50:08 <alinefm> but I am wondering now how the activate/deactivate network works
+13:50:10 <YuXin> this can work as html source, once it is loaded by browser, check html dom in firebug, it will be <option "value='김치-net' >김치-net</option>
+13:50:25 <alinefm> do you have the same map somewhere there?
+13:50:50 <YuXin> did not get you, what do you want
+13:51:33 <YuXin> encodeURIComponent & decodeURIComponent, they are on top of utf-8
+13:52:46 <YuXin> encodeURIComponent will transform the string into a series of ascii character
+13:53:54 <YuXin> aline, what right now is confusing you
+13:54:51 <alinefm> I deactivated the network "김치-net" and I got the request: POST https://localhost:8001/networks/%EA%B9%80%EC%B9%98-net/deactivate
+13:55:15 <YuXin> in this url, it is encodeURIComponent
+13:55:29 <alinefm> I assume "%EA%B9%80%EC%B9%98-net" is encodeURIComponent("김치-net") result
+13:55:30 <alinefm> right/
+13:55:34 <alinefm> yes...
+13:55:37 <YuXin> correct
+13:55:45 <alinefm> so it should work in the template list as well
+13:56:06 <alinefm> without needing the map value ( <option "value='\uae40\uce58-net' >\uae40\uce58-net</option>)
+13:56:42 <YuXin> when template, the Chinse network name is in message body, not on url
+13:57:22 <YuXin> the message body can contain whatever text
+13:57:52 <alinefm> ok... and?
+13:58:25 <YuXin> those text in message body are encoded with utf-8 by browser and  post to backend
+13:58:52 <YuXin> backend got the message, just decode with utf-8, then backend will get python string
+13:59:25 <YuXin> that python string is language expression and can be used to whatever compare
+13:59:55 <YuXin> I mean programming language expression
+14:00:19 <alinefm> hmm ok
+14:00:54 <alinefm> so the only solution is use the value attr in <option> tag?
+14:01:20 <YuXin> no
+14:01:26 <YuXin> we need to try below
+14:01:58 <YuXin> in the post of add network to template, when the backend got the posted content(Chinese network name is in)
+14:02:25 <YuXin> in python code, try to print it out to see whether the Chinese netowrk name got interpreted correct
+14:03:04 <alinefm> I did it: it returns "김치-net"
+14:03:04 <YuXin> if the Chinese network name is interpreted correctly, just use it to query the network
+14:03:10 <YuXin> ok
+14:03:37 <YuXin> then just use it to query the netowrk, whether can get the network
+14:03:44 <alinefm> but for kimchi the network names '\uae40\uce58-net'
+14:04:01 <alinefm> so "김치-net" does not exist
+14:04:08 <YuXin> in libvirt or qemu, what is it
+14:04:41 <YuXin> let me try it on virt-manager
+14:05:50 <alinefm> http://fpaste.org/158336/18220348/
+14:05:54 <alinefm> kimchi fails there ^
+14:06:32 <YuXin> virt-manager does not allow to create a network with Chinese name
+14:07:45 <YuXin> so libvirt or qemu does not permit to create network with a Chinese name, so we have a workaround to use unicode
+14:07:56 <alinefm> that is not true
+14:08:11 <YuXin> so that is the limitation of virt-manager only
+14:08:13 <YuXin> ?
+14:08:49 <alinefm> look: http://fpaste.org/158338/18220525/
+14:08:57 <alinefm> yeap
+14:09:00 <alinefm> libvirt allows it
+14:09:58 <alinefm> we are over time
+14:10:11 <alinefm> YuXin, I will do the tests you suggested
+14:10:20 <alinefm> hopefully we can get it fixed
+14:10:29 <alinefm> and I post what I find at ML
+14:10:33 <YuXin> ok, I will investigate it tomorrow and send to maillist
+14:10:48 <YuXin> not a tough issue, we definitely can fix it
+14:10:57 <alinefm> agree
+14:11:05 <YuXin> a pervasive issue in web application
+14:11:30 <alinefm> encode/decode is always a issue
+14:11:42 <YuXin> especially for Chinese web site, a lot input with Chinese
+14:11:59 <alinefm> the issue happens also with Portuguese
+14:12:02 <YuXin> indeed, all input are Chinese
+14:12:21 <alinefm> ok... so thanks everyone for joining!
+14:12:25 <alinefm> #endmeeting
