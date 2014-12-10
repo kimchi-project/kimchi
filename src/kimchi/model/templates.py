@@ -83,7 +83,7 @@ class TemplatesModel(object):
 
         for net_name in params.get(u'networks', []):
             try:
-                conn.networkLookupByName(net_name)
+                conn.networkLookupByName(net_name.encode('utf-8'))
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
@@ -200,7 +200,7 @@ class TemplateModel(object):
 
         for net_name in params.get(u'networks', []):
             try:
-                conn.networkLookupByName(net_name)
+                conn.networkLookupByName(net_name.encode('utf-8'))
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
@@ -260,7 +260,7 @@ class LibvirtVMTemplate(VMTemplate):
         for name in names:
             try:
                 conn = self.conn.get()
-                network = conn.networkLookupByName(name)
+                network = conn.networkLookupByName(name.encode('utf-8'))
             except libvirt.libvirtError:
                 raise InvalidParameter("KCHTMPL0003E", {'network': name,
                                                         'template': self.name})

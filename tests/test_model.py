@@ -889,6 +889,17 @@ class ModelTests(unittest.TestCase):
                         'subnet': '127.0.100.0/24'}
             inst.networks_create(net_args)
             rollback.prependDefer(inst.network_delete, net_name)
+            inst.network_activate(net_name)
+            rollback.prependDefer(inst.network_deactivate, net_name)
+
+            net_name = u'kīмсhī-пet'
+            net_args = {'name': net_name,
+                        'connection': 'nat',
+                        'subnet': '127.0.20.0/24'}
+            inst.networks_create(net_args)
+            rollback.prependDefer(inst.network_delete, net_name)
+            inst.network_activate(net_name)
+            rollback.prependDefer(inst.network_deactivate, net_name)
 
             orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1,
                            'cdrom': self.kimchi_iso}
@@ -908,7 +919,7 @@ class ModelTests(unittest.TestCase):
             self.assertEquals("default", info["networks"][0])
 
             params = {'name': 'new-test', 'memory': 1024, 'cpus': 1,
-                      'networks': ['default', 'test-network']}
+                      'networks': ['default', 'test-network', u'kīмсhī-пet']}
             inst.template_update('new-test', params)
             info = inst.template_lookup('new-test')
             for key in params.keys():
@@ -931,6 +942,14 @@ class ModelTests(unittest.TestCase):
             params = {'networks': ["no-exist"]}
             self.assertRaises(InvalidParameter, inst.template_update,
                               'new-test', params)
+
+            params = {'name': 'some-vm', 'template': '/templates/new-test'}
+            self.assertEquals('some-vm', inst.vms_create(params))
+            rollback.prependDefer(inst.vm_delete, 'some-vm')
+
+            iface_args = {'type': 'network', 'network': u'kīмсhī-пet'}
+            mac = inst.vmifaces_create('some-vm', iface_args)
+            self.assertEquals(17, len(mac))
 
     def test_vm_edit(self):
         config.set("authentication", "method", "pam")

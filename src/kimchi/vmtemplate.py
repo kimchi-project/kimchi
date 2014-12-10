@@ -188,7 +188,7 @@ class VMTemplate(object):
 
             disks_xml += get_disk_xml(params)[1]
 
-        return disks_xml
+        return unicode(disks_xml, 'utf-8')
 
     def to_volume_list(self, vm_uuid):
         storage_path = self._get_storage_path()
@@ -236,7 +236,7 @@ class VMTemplate(object):
             networks += get_iface_xml(params, self.info['arch'],
                                       self.info['os_distro'],
                                       self.info['os_version'])
-        return networks
+        return unicode(networks, 'utf-8')
 
     def _get_input_output_xml(self):
         sound = """

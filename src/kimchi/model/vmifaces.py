@@ -42,6 +42,7 @@ class VMIfacesModel(object):
     def create(self, vm, params):
         conn = self.conn.get()
         networks = conn.listNetworks() + conn.listDefinedNetworks()
+        networks = map(lambda x: x.decode('utf-8'), networks)
 
         if params["type"] == "network" and params["network"] not in networks:
             raise InvalidParameter("KCHVMIF0002E",
