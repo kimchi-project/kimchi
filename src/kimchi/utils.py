@@ -351,3 +351,38 @@ def get_next_clone_name(all_names, basename, name_suffix=''):
         new_name = new_name + name_suffix
 
     return new_name
+
+
+def get_unique_file_name(all_names, name):
+    """Find the next available, unique name for a file.
+
+    If a file named "<name>" isn't found in "<all_names>", use that same
+    "<name>".  There's no need to generate a new name in that case.
+
+    If any file named "<name> (<number>)" is found in "all_names", use the
+    maximum "number" + 1; else, use 1.
+
+    Arguments:
+    all_names -- All existing file names. This list will be used to make sure
+        the new name won't conflict with existing names.
+    name -- The name of the original file.
+
+    Return:
+    A string in the format "<name> (<number>)", or "<name>".
+    """
+    if name not in all_names:
+        return name
+
+    re_group_num = 'num'
+
+    re_expr = u'%s \((?P<%s>\d+)\)' % (name, re_group_num)
+
+    max_num = 0
+    re_compiled = re.compile(re_expr)
+
+    for n in all_names:
+        match = re_compiled.match(n)
+        if match is not None:
+            max_num = max(max_num, int(match.group(re_group_num)))
+
+    return u'%s (%d)' % (name, max_num + 1)
