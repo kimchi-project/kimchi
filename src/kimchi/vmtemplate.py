@@ -29,6 +29,7 @@ from lxml.builder import E
 from kimchi import imageinfo
 from kimchi import osinfo
 from kimchi.exception import InvalidParameter, IsoFormatError, MissingParameter
+from kimchi.exception import ImageFormatError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
 from kimchi.xmlutils.disk import get_disk_xml
@@ -51,7 +52,10 @@ class VMTemplate(object):
         self.fc_host_support = args.get('fc_host_support')
 
         # Fetch defaults based on the os distro and version
-        distro, version = self._get_os_info(args, scan)
+        try:
+            distro, version = self._get_os_info(args, scan)
+        except ImageFormatError as e:
+            raise OperationFailed('KCHTMPL0020E', {'err': e.message})
         os_distro = args.get('os_distro', distro)
         os_version = args.get('os_version', version)
         entry = osinfo.lookup(os_distro, os_version)
