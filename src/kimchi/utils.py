@@ -335,7 +335,7 @@ def get_next_clone_name(all_names, basename, name_suffix=''):
 
     re_expr = u'%s-clone-(?P<%s>\d+)' % (basename, re_group_num)
     if name_suffix != '':
-        re_expr = u'%s-%s' % (re_expr, name_suffix)
+        re_expr = u'%s%s' % (re_expr, name_suffix)
 
     max_num = 0
     re_compiled = re.compile(re_expr)
