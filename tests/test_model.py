@@ -39,7 +39,7 @@ import kimchi.objectstore
 import utils
 from kimchi import netinfo
 from kimchi.config import config, paths
-from kimchi.exception import ImageFormatError, InvalidOperation
+from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.iscsi import TargetClient
 from kimchi.model import model
@@ -196,7 +196,7 @@ class ModelTests(unittest.TestCase):
             vol_path = inst.storagevolume_lookup('default', vol)['path']
 
             params = {'name': 'test', 'disks': [{'base': vol_path}]}
-            self.assertRaises(ImageFormatError, inst.templates_create, params)
+            self.assertRaises(OperationFailed, inst.templates_create, params)
 
             # Hack the model objstore to add a new template
             # It is needed as the image file must be a bootable image when
