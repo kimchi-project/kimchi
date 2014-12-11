@@ -33,7 +33,8 @@ from kimchi.isoinfo import IsoImage
 from kimchi.model.diskutils import get_disk_ref_cnt
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.tasks import TaskModel
-from kimchi.utils import add_task, get_next_clone_name, kimchi_log
+from kimchi.utils import add_task, get_next_clone_name, get_unique_file_name
+from kimchi.utils import kimchi_log
 from kimchi.xmlutils.utils import xpath_get_text
 
 
@@ -76,6 +77,8 @@ class StorageVolumesModel(object):
             except:
                 raise InvalidParameter('KCHVOL0022E', {'url': url})
 
+        all_vol_names = self.get_list(pool_name)
+
         if name is None:
             # the methods listed in 'REQUIRE_NAME_PARAMS' cannot have
             # 'name' == None
@@ -91,6 +94,8 @@ class StorageVolumesModel(object):
                 name = os.path.basename(params['url'])
             else:
                 name = 'upload-%s' % int(time.time())
+
+            name = get_unique_file_name(all_vol_names, name)
             params['name'] = name
 
         try:
@@ -106,7 +111,7 @@ class StorageVolumesModel(object):
         if pool_info['state'] == 'inactive':
             raise InvalidParameter('KCHVOL0003E', {'pool': pool_name,
                                                    'volume': name})
-        if name in self.get_list(pool_name):
+        if name in all_vol_names:
             raise InvalidParameter('KCHVOL0001E', {'name': name})
 
         params['pool'] = pool_name
