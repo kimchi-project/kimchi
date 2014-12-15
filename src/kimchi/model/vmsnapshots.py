@@ -165,7 +165,7 @@ class VMSnapshotModel(object):
         vir_dom = VMModel.get_vm(vm_name, self.conn)
 
         try:
-            return vir_dom.snapshotLookupByName(name)
+            return vir_dom.snapshotLookupByName(name, 0)
         except libvirt.libvirtError, e:
             code = e.get_error_code()
             if code == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
