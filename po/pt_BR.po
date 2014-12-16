@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
-"PO-Revision-Date: 2014-09-16 18:45+0000\n"
+"POT-Creation-Date: 2014-12-15 11:13-0200\n"
+"PO-Revision-Date: 2014-12-02 12:15+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -78,6 +78,8 @@ msgstr "Não foi possível iniciar a tarefa devido a um erro: %(err)s"
 #, python-format
 msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
 msgstr ""
+"Limite de tempo de %(seconds)s segundos expirado ao executar a tarefa "
+"'%(task)s'."
 
 #, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
@@ -93,20 +95,20 @@ msgstr "Especifique %(item)s para autenticar no Kimchi"
 
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
-msgstr ""
+msgstr "Usuário %(user_id)s não encontrado com as configurações LDAP dadas."
 
 #, python-format
 msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr ""
+msgstr "Configurações LDAP inválidas: %(item)s : %(value)s"
 
 msgid "Unknown \"_cap\" specified"
-msgstr ""
+msgstr "\"_cap\" desconhecido especificado"
 
 msgid "\"_passthrough\" should be \"true\" or \"false\""
-msgstr ""
+msgstr "\"_passthrough\" deve ser \"true\" ou \"false\""
 
 msgid "\"_passthrough_affected_by\" should be a device name string"
-msgstr ""
+msgstr "\"_passthrough_affected_by\" deve ser um texto do nome do dispositivo"
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -325,24 +327,27 @@ msgstr "O tempo de vida da senha do console do guest deve ser um número."
 
 #, python-format
 msgid "Virtual machine '%(name)s' must be stopped before cloning it."
-msgstr ""
+msgstr "A máquina virtual '%(name)s' deve estar parada antes de cloná-la."
 
 #, python-format
 msgid "Insufficient disk space to clone virtual machine '%(name)s'"
-msgstr ""
+msgstr "Espaço em disco insuficiente para clonar a máquina virtual '%(name)s'"
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
-msgstr ""
+msgstr "Não foi possível clonar a VM '%(name)s'. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
+"A VM %(vmid)s não contém o dispositivo de host atribuído diretamente "
+"%(dev_name)s."
 
 #, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
 msgstr ""
+"Não é permitido atribuir diretamente o dispositivo de host %(dev_name)s."
 
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
@@ -351,9 +356,14 @@ msgid ""
 "to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
 "iommu=1."
 msgstr ""
+"Nenhum grupo IOMMU encontrado. Passthrough de host PCI necessita do grupo "
+"IOMMU para funcionar corretamente. Por favor, habilite o suporte ao Intel VT-"
+"d ou AMD IOMMU. Para uma CPU Intel, adicione \"intel_iommu=on\" nos seus "
+"parâmetros de kernel em \"/boot/grub2/grub.conf\". Para uma CPU AMD, "
+"adicione \"iommu=pt iommu=1\"."
 
 msgid "\"name\" should be a device name string"
-msgstr ""
+msgstr "\"nome\" deve ser um texto do nome do dispositivo."
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -477,16 +487,22 @@ msgid ""
 "When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
 "threads."
 msgstr ""
+"Ao especificar a topologia de CPU, VCPUs deve ser um produto de sockets, "
+"cores e threads."
 
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr ""
+"Ao especificar a topologia de CPU, cada elemento deve ser um número inteiro "
+"maior do que zero."
 
 msgid ""
 "Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
 "qcow2, qed, raw, vmdk, vpc."
 msgstr ""
+"Formato de imagem de disco inválido. Formatos válidos: bochs, cloop, cow, "
+"dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -724,6 +740,8 @@ msgid ""
 "Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
 "qcow, qcow2, qed, raw, vmdk, vpc."
 msgstr ""
+"Formato de volume de storage inválido. Formatos válidos: bochs, cloop, cow, "
+"dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 msgid "Storage volume requires a volume name"
 msgstr "Volume de storage requer um nome"
@@ -759,6 +777,8 @@ msgid ""
 "Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível clonar o volume de storage '%(name)s' no pool '%(pool)s'. "
+"Detalhes: %(err)s"
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -922,7 +942,7 @@ msgid "Node device '%(name)s' not found"
 msgstr "Dispositivo de nó '%(name)s' não encontrado"
 
 msgid "Conflicting flag filters specified."
-msgstr ""
+msgstr "Foram especificados filtros de flag com conflito."
 
 msgid "No packages marked for update"
 msgstr "Nenhum pacote marcado para atualização"
@@ -1139,64 +1159,81 @@ msgstr "Não foi possível remover o repositório. Detalhes: '%(err)s'"
 msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr ""
+"Itens de configuração '%(items)s' não são suportados pelo gerenciador de "
+"repositórios."
 
 #, python-format
 msgid ""
 "Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
 msgstr ""
+"A máquina virtual '%(vm)s' deve estar parada antes de criar um snapshot dela"
 
 #, python-format
 msgid ""
 "Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível criar o snapshot '%(name)s' na máquina virtual '%(vm)s'. "
+"Detalhes: %(err)s"
 
 #, python-format
 msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
-msgstr ""
+msgstr "O snapshot '%(name)s' não existe na máquina virtual '%(vm)s'."
 
 #, python-format
 msgid ""
 "Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível recuperar o snapshot '%(name)s' da máquina virtual "
+"'%(vm)s'. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
 msgstr ""
+"Não foi possível listar os snapshots da máquina virtual '%(vm)s'. Detalhes: "
+"%(err)s"
 
 #, python-format
 msgid ""
 "Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível remover o snapshot '%(name)s' da máquina virtual '%(vm)s'. "
+"Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to retrieve current snapshot of virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível recuperar o snapshot atual da máquina virtual '%(vm)s'. "
+"Detalhes: %(err)s."
 
 #, python-format
 msgid ""
 "Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
 "%(err)s"
 msgstr ""
+"Não foi possível reverter a máquina virtual '%(vm)s' para o snapshot "
+"'%(name)s'. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to create snapshot of virtual machine '%(vm)s' because it contains a "
 "disk with format '%(format)s'; only 'qcow2' is supported."
 msgstr ""
+"Não foi possível criar o snapshot para a máquina virtual '%(vm)s' porque ela "
+"contém discos no formato '%(format)s'; somente 'qcow2' é suportado."
 
 msgid "The number of vCPUs is too large for this system."
-msgstr ""
+msgstr "O número de VCPUs é grande demais para esse sistema."
 
 msgid "Invalid vCPU/topology combination."
-msgstr ""
+msgstr "Combinação inválida de VCPU/topologia."
 
 msgid "This host (or current configuration) does not allow CPU topology."
-msgstr ""
+msgstr "Este host (ou configuração atual) não permite topologia de CPU."
 
 msgid "ERROR CODE"
 msgstr "CÓDIGO DE ERRO"
@@ -1269,10 +1306,10 @@ msgid "Permission"
 msgstr "Permissão"
 
 msgid "Host PCI Device"
-msgstr ""
+msgstr "Dispositivo de host PCI"
 
 msgid "Snapshot"
-msgstr ""
+msgstr "Snapshot"
 
 msgid "Name"
 msgstr "Nome"
@@ -1305,28 +1342,28 @@ msgid "Selected system users and groups"
 msgstr "Usuários e grupos de sistema selecionados"
 
 msgid "User"
-msgstr ""
+msgstr "Usuário"
 
 msgid "All"
 msgstr "Todos"
 
 msgid "To Add"
-msgstr ""
+msgstr "Para adicionar"
 
 msgid "Added"
-msgstr ""
+msgstr "Adicionado"
 
 msgid "filter"
-msgstr ""
+msgstr "filtro"
 
 msgid "Product"
-msgstr ""
+msgstr "Produto"
 
 msgid "Vendor"
 msgstr "Vendor"
 
 msgid "Created"
-msgstr ""
+msgstr "Criado"
 
 msgid "Save"
 msgstr "Salvar"
@@ -1341,10 +1378,10 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "revert"
-msgstr ""
+msgstr "Reverter"
 
 msgid "Cloning"
-msgstr ""
+msgstr "Clonando"
 
 msgid "Start"
 msgstr "Iniciar"
@@ -1672,6 +1709,9 @@ msgid ""
 "default storage pool. The same will happen when the target pool does not "
 "have enough space to clone the volumes. Do you want to continue?"
 msgstr ""
+"Quando o guest de destino tiver volumes SCSI ou iSCSI, eles serão clonados "
+"no storage pool padrão. O mesmo vai acontecer quando o pool de destino não "
+"tiver espaço suficiente para clonar os volumes. Você deseja continuar?"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1703,25 +1743,25 @@ msgstr ""
 "Deseja continuar a remoção? "
 
 msgid "interface:"
-msgstr ""
+msgstr "interface:"
 
 msgid "address:"
-msgstr ""
+msgstr "endereço:"
 
 msgid "link_type:"
-msgstr ""
+msgstr "tipo do link:"
 
 msgid "block:"
-msgstr ""
+msgstr "bloco:"
 
 msgid "drive_type:"
-msgstr ""
+msgstr "tipo do drive:"
 
 msgid "model:"
-msgstr ""
+msgstr "modelo:"
 
 msgid "Affected devices:"
-msgstr ""
+msgstr "Dispositivos afetados:"
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "ID da VLAN deve ser um número entre 1 e 4094."
@@ -2023,7 +2063,7 @@ msgid "Upload a file"
 msgstr "Fazer upload de um arquivo"
 
 msgid "Choose the file you want to upload."
-msgstr ""
+msgstr "Escolha o arquivo que você quer fazer upload."
 
 msgid "Add Template"
 msgstr "Adicionar Modelo"
@@ -2089,19 +2129,19 @@ msgid "Graphics"
 msgstr "Gráficos"
 
 msgid "Disk(GB)"
-msgstr ""
+msgstr "Disco (GB)"
 
 msgid "CPU Number"
 msgstr "Quantidade de CPUs"
 
 msgid "Manually set CPU topology"
-msgstr ""
+msgstr "Configurar manualmente a topologia de CPU"
 
 msgid "Cores"
-msgstr ""
+msgstr "Cores"
 
 msgid "Threads"
-msgstr ""
+msgstr "Threads"
 
 msgid "CPU"
 msgstr "CPU"
@@ -2134,7 +2174,7 @@ msgid "OS Code Name"
 msgstr "Nome-código do sistema operacional"
 
 msgid "CPU(s)"
-msgstr ""
+msgstr "CPU(s)"
 
 msgid "System Statistics"
 msgstr "Estatísticas do sistema"
