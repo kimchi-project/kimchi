@@ -564,6 +564,8 @@ kimchi.guest_edit_main = function() {
                     $(".icon", item).addClass("hide");
                     $("button", "#form-guest-edit-snapshot").button("enable");
                     setCurrentSnapshot(item.prop("id"));
+                    kimchi.listVmsAuto();
+                    kimchi.window.close();
                 }, function(data){
                     kimchi.message.error(data.responseJSON.reason);
                     $(".icon", item).addClass("hide");
