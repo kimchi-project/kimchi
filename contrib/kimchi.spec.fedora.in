@@ -82,6 +82,16 @@ rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
 %if 0%{?with_systemd}
+
+# create /var/lib/kimchi structure
+mkdir -p %{buildroot}/%{_sharedstatedir}/kimchi/{debugreports,screenshots,vnc-tokens,isos}
+touch %{buildroot}/%{_sharedstatedir}/kimchi/objectstore
+
+# create /var/log/kimchi structure
+mkdir -p %{buildroot}/%{_localstatedir}/log/kimchi/
+touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-access.log
+touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
+
 # Install the systemd scripts
 install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}%{_unitdir}/kimchid.service
 install -Dm 0640 src/firewalld.xml %{buildroot}%{_prefix}/lib/firewalld/services/kimchid.xml
@@ -147,7 +157,6 @@ exit 0
 # Rollback SELinux rules
 semanage permissive -d httpd_t
 
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -161,6 +170,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/kimchi/xmlutils/*.py*
 %{python_sitelib}/kimchi/API.json
 %{python_sitelib}/kimchi/plugins/*.py*
+%{python_sitelib}/kimchi/
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md
 %{_datadir}/kimchi/doc/README-federation.md
@@ -169,6 +179,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
 %{_datadir}/kimchi/ui/
+%{_datadir}/kimchi
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
@@ -176,6 +187,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/opensuse.json
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
+%{_sysconfdir}/kimchi/
+%{_sharedstatedir}/kimchi/debugreports/
+%{_sharedstatedir}/kimchi/screenshots/
+%{_sharedstatedir}/kimchi/vnc-tokens/
+%{_sharedstatedir}/kimchi/isos/
+%{_sharedstatedir}/kimchi/
+%{_localstatedir}/log/kimchi/*
+%{_localstatedir}/log/kimchi/
 
 %if 0%{?with_systemd}
 %{_unitdir}/kimchid.service
