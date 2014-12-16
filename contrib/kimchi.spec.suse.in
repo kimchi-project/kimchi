@@ -51,9 +51,17 @@ make
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
+# create /var/lib/kimchi structure
+mkdir -p %{buildroot}/%{_var}/lib/kimchi/{debugreports,screenshots,vnc-tokens,isos}
+touch %{buildroot}/%{_var}/lib/kimchi/objectstore
+
+# create /var/log/kimchi structure
+mkdir -p %{buildroot}/%{_localstatedir}/log/kimchi/
+touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-access.log
+touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
+
 # Install the SysV init scripts
 install -Dm 0755 contrib/kimchid.sysvinit %{buildroot}%{_initrddir}/kimchid
-
 
 %post
 chkconfig kimchid on
@@ -74,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/kimchi/xmlutils/*.py*
 %{python_sitelib}/kimchi/API.json
 %{python_sitelib}/kimchi/plugins/*.py*
+%{python_sitelib}/kimchi/
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md
 %{_datadir}/kimchi/doc/README-federation.md
@@ -82,6 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/kimchi/config/ui/*.xml
 %{_datadir}/kimchi/ui/
+%{_datadir}/kimchi
 %{_sysconfdir}/kimchi/kimchi.conf
 %{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
@@ -90,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_initrddir}/kimchid
+%{_sysconfdir}/kimchi/
+%{_var}/lib/kimchi/debugreports/
+%{_var}/lib/kimchi/screenshots/
+%{_var}/lib/kimchi/vnc-tokens/
+%{_var}/lib/kimchi/isos/
+%{_var}/lib/kimchi/
+%{_localstatedir}/log/kimchi/*
+%{_localstatedir}/log/kimchi/
 
 %changelog
 * Tue Feb 11 2014 Crístian Viana <vianac@linux.vnet.ibm.com> 1.1.0
