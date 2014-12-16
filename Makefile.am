@@ -68,6 +68,11 @@ all-local:
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
+	mkdir -p $(DESTDIR)/var/lib/kimchi/debugreports
+	mkdir -p $(DESTDIR)/var/lib/kimchi/screenshots
+	mkdir -p $(DESTDIR)/var/lib/kimchi/vnc-tokens
+	mkdir -p $(DESTDIR)/var/lib/kimchi/isos
+	touch $(DESTDIR)/var/lib/kimchi/objectstore
 	$(MKDIR_P) $(DESTDIR)/etc/init
 	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
 	cp -R $(top_srcdir)/contrib/kimchid-upstart.conf.debian \
