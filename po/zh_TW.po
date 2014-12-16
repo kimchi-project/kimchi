@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:40-0200\n"
+"POT-Creation-Date: 2014-12-15 11:01-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -759,6 +759,10 @@ msgid ""
 msgstr "無法啟動介面 %(iface)s。請檢查實際鏈結狀態。"
 
 #, python-format
+msgid "Failed to start network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr "除錯報告 %(name)s 不存在"
 
@@ -1289,9 +1293,6 @@ msgstr "客體"
 
 msgid "Templates"
 msgstr "範本"
-
-msgid "Invalid URL. Redirected to home page."
-msgstr "URL 無效。已重新導向至首頁。"
 
 msgid "Failed to get application configuration"
 msgstr "無法取得應用程式配置"

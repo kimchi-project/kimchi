@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:40-0200\n"
+"POT-Creation-Date: 2014-12-15 11:01-0200\n"
 "PO-Revision-Date: 2014-08-27 21:30+0000\n"
 "Last-Translator: BobSynfig\n"
 "Language-Team: French (http://www.transifex.com/projects/p/kimchi/language/"
@@ -875,6 +875,10 @@ msgstr ""
 "statut du lien physique."
 
 #, python-format
+msgid "Failed to start network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr "Le rapport de déboggage %(name)s n'existe pas"
 
@@ -1446,9 +1450,6 @@ msgstr "Invités"
 
 msgid "Templates"
 msgstr "Modèles"
-
-msgid "Invalid URL. Redirected to home page."
-msgstr "URL invalide. Redirigé vers la page d'accueil."
 
 msgid "Failed to get application configuration"
 msgstr "Échec lors de l'obtention de la configuration de l'application"

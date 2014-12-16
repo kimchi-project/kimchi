@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:40-0200\n"
+"POT-Creation-Date: 2014-12-15 11:01-0200\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -777,6 +777,10 @@ msgid ""
 msgstr "网络接口%(iface)s启动失败，请检查网络连接情况。"
 
 #, python-format
+msgid "Failed to start network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr "诊断报告%(name)s不存在"
 
@@ -1309,9 +1313,6 @@ msgstr "客户机"
 
 msgid "Templates"
 msgstr "模板"
-
-msgid "Invalid URL. Redirected to home page."
-msgstr "无效的URL，已重定向到首页"
 
 msgid "Failed to get application configuration"
 msgstr "获取应用配置失败"

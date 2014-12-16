@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:40-0200\n"
+"POT-Creation-Date: 2014-12-15 11:01-0200\n"
 "PO-Revision-Date: 2014-08-28 17:32+0000\n"
 "Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
@@ -800,6 +800,10 @@ msgstr ""
 "линии связи. "
 
 #, python-format
+msgid "Failed to start network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr "Отладочный отчет %(name)s не существует"
 
@@ -1342,9 +1346,6 @@ msgstr "Гостевые системы"
 
 msgid "Templates"
 msgstr "Шаблоны"
-
-msgid "Invalid URL. Redirected to home page."
-msgstr "Недопустимый URL. Перенаправление на домашнюю страницу."
 
 msgid "Failed to get application configuration"
 msgstr "Не удалось получить конфигурацию приложения"
