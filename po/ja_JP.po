@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:40-0200\n"
+"POT-Creation-Date: 2014-12-15 11:01-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -854,6 +854,10 @@ msgstr ""
 "ださい。"
 
 #, python-format
+msgid "Failed to start network %(name)s. Details: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Debug report %(name)s does not exist"
 msgstr "デバッグ・レポート %(name)s は存在しません。"
 
@@ -1409,9 +1413,6 @@ msgstr "ゲスト"
 
 msgid "Templates"
 msgstr "テンプレート"
-
-msgid "Invalid URL. Redirected to home page."
-msgstr "URL が無効です。ホーム・ページにリダイレクトします。"
 
 msgid "Failed to get application configuration"
 msgstr "アプリケーション構成を取得できませんでした"
