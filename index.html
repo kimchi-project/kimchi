@@ -58,38 +58,50 @@ RHEL, OpenSuSe, and Ubuntu.</p>
 
 <pre><code>$ sudo yum install gcc make autoconf automake gettext-devel git \
                    python-cherrypy python-cheetah libvirt-python \
-                   libvirt libxml2-python python-imaging \
+                   libvirt python-imaging \
                    PyPAM m2crypto python-jsonschema rpm-build \
                    qemu-kvm python-psutil python-ethtool sos \
-                   python-ipaddr python-lxml nfs-utils \
+                   python-ipaddr python-ldap python-lxml nfs-utils \
                    iscsi-initiator-utils libxslt pyparted nginx \
                    policycoreutils-python python-libguestfs \
-                   libguestfs-tools python-requests
+                   libguestfs-tools python-websockify novnc
+
+ # If using RHEL6 or Fedora, install the following additional package:
+ $ sudo yum install spice-html5
 
  # If using RHEL6, install the following additional packages:
  $ sudo yum install python-unittest2 python-ordereddict
  # Restart libvirt to allow configuration changes to take effect
  $ sudo service libvirtd restart
 
+ # These dependencies are only required if you want to run the tests:
+ $ sudo yum install pyflakes python-pep8 python-requests
+
 Packages version requirement:
-    python-psutil &gt;= 0.6.0
+   python-psutil &gt;= 0.6.0
 </code></pre>
 
 <p><em>Note for RHEL users</em>: Some of the above packages are located in the Red Hat
-EPEL repositories.
-See <a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this FAQ</a> for more information on how to configure your system to access this repository.</p>
+EPEL repositories. See <a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this FAQ</a>
+for more information on how to configure your system to access this repository.
+
+And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional" channel at RHN Classic or Red Hat Satellite.</p>
 
 <p><strong>For debian:</strong></p>
 
 <pre><code>$ sudo apt-get install gcc make autoconf automake gettext git \
                        python-cherrypy3 python-cheetah python-libvirt \
-                       libvirt-bin python-libxml2 python-imaging \
+                       libvirt-bin python-imaging \
                        python-pam python-m2crypto python-jsonschema \
                        qemu-kvm libtool python-psutil python-ethtool \
-                       sosreport python-ipaddr python-lxml nfs-common \
-                       open-iscsi lvm2 xsltproc python-parted nginx \
+                       sosreport python-ipaddr python-ldap \
+                       python-lxml nfs-common open-iscsi lvm2 xsltproc \
+                       python-parted nginx \
                        firewalld python-guestfs libguestfs-tools \
-                       python-requests
+                       websockify novnc spice-html5
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo apt-get install pep8 pyflakes python-requests
 
 Packages version requirement:
     python-jsonschema &gt;= 1.3.0
@@ -100,12 +112,16 @@ Packages version requirement:
 
 <pre><code>$ sudo zypper install gcc make autoconf automake gettext-tools git \
                       python-CherryPy python-Cheetah libvirt-python \
-                      libvirt python-libxml2 python-imaging \
+                      libvirt python-imaging \
                       python-pam python-M2Crypto python-jsonschema \
                       rpm-build kvm python-psutil python-ethtool \
-                      python-ipaddr python-lxml nfs-client open-iscsi \
-                      libxslt-tools python-xml python-parted nginx \
-                      python-libguestfs guestfs-tools python-requests
+                      python-ipaddr python-ldap python-lxml nfs-client \
+                      open-iscsi libxslt-tools python-xml \
+                      python-parted nginx python-libguestfs \
+                      guestfs-tools python-websockify novnc
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo zypper install python-pyflakes python-pep8 python-requests
 
 Packages version requirement:
     python-psutil &gt;= 0.6.0
@@ -123,9 +139,14 @@ information on how configure your system to access this repository.</p>
 <h2>
 <a name="build-and-install" class="anchor" href="#build-and-install"><span class="octicon octicon-link"></span></a>Build and Install</h2>
 
-<pre><code>$ ./autogen.sh --system
+<pre><code># For RHEL7 and openSUSE 13.1:
+$ ./autogen.sh --with-spice-html5
+
+# Otherwise:
+$ ./autogen.sh --system
+
 $ make
-$ sudo make install
+$ sudo make install   # Optional if running from the source tree
 </code></pre>
 
 <h2>
@@ -139,7 +160,7 @@ $ sudo make install
 
 <p>Connect your browser to https://localhost:8001.</p>
 
-<p>Kimchi uses PAM to authenticate users so you can log in with the same username
+<p>By default, Kimchi uses PAM to authenticate users so you can log in with the same username
 and password that you would use to log in to the machine itself.  Once logged in
 you will see the Guests tab.</p>
 
