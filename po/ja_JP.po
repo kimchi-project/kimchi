@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1333,36 +1333,6 @@ msgstr "取消"
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr "開始"
-
-msgid "Reset"
-msgstr "リセット"
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr "アクション"
-
-msgid "Connect"
-msgstr "接続"
-
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr "編集"
-
-msgid "Shut Down"
-msgstr "シャットダウン"
-
-msgid "Delete"
-msgstr "削除"
-
 msgid "Add a Storage Device to VM"
 msgstr "VM にストレージ・デバイスを追加"
 
@@ -1392,6 +1362,36 @@ msgstr "サーバー内での CDROM の ISO ファイル・パス。"
 
 msgid "Attach"
 msgstr "接続"
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "アクション"
+
+msgid "Connect"
+msgstr "接続"
+
+msgid "Clone"
+msgstr ""
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Shut Down"
+msgstr "シャットダウン"
+
+msgid "Delete"
+msgstr "削除"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "入力したユーザー名またはパスワードが誤っています。やり直してください。"
@@ -1907,6 +1907,21 @@ msgstr " はい"
 msgid "No"
 msgstr " いいえ"
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload a file"
+msgstr ""
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr "新規ストレージ・プールの定義"
 
@@ -1983,21 +1998,6 @@ msgstr "SCSI アダプター"
 
 msgid "Please, wait..."
 msgstr "お待ちください..."
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
-msgstr ""
 
 msgid "Add Template"
 msgstr "テンプレートの追加"
