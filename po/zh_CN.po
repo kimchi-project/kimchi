@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:57+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -75,7 +75,7 @@ msgstr "由于错误%(err)s任务启动失败"
 
 #, python-format
 msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr ""
+msgstr "任务'%(task)s超时%(seconds)s秒。"
 
 #, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
@@ -90,20 +90,20 @@ msgstr "指定登录Kimchi的%(item)s"
 
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
-msgstr ""
+msgstr "使用指定的LDAP配置未找到%(user_id)s用户"
 
 #, python-format
 msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr ""
+msgstr "无效的LDAP配置：%(item)s : %(value)s"
 
 msgid "Unknown \"_cap\" specified"
-msgstr ""
+msgstr "未识别的\"_cap\""
 
 msgid "\"_passthrough\" should be \"true\" or \"false\""
-msgstr ""
+msgstr "\"_passthrough\"值应为\"true\"或者\"false\""
 
 msgid "\"_passthrough_affected_by\" should be a device name string"
-msgstr ""
+msgstr "\"_passthrough_affected_by\"应为一个字符串型设备名"
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -302,24 +302,24 @@ msgstr "客户机命令行密码有效时间必须是一个数字。"
 
 #, python-format
 msgid "Virtual machine '%(name)s' must be stopped before cloning it."
-msgstr ""
+msgstr "虚拟机'%(name)s'在制作副本前必须关机。"
 
 #, python-format
 msgid "Insufficient disk space to clone virtual machine '%(name)s'"
-msgstr ""
+msgstr "制作虚拟机'%(name)s'副本所需的磁盘空间不足"
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
-msgstr ""
+msgstr "未能成功制作虚拟机'%(name)s'副本。详情：%(err)s"
 
 #, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
-msgstr ""
+msgstr "虚拟机%(vmid)s未指明被分配的主机%(dev_name)s。"
 
 #, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
-msgstr ""
+msgstr "主机%(dev_name)s不允许直接分配给虚拟机。"
 
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
@@ -328,9 +328,13 @@ msgid ""
 "to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
 "iommu=1."
 msgstr ""
+"未找到IOMMU groups。主机PCI pass through需要IOMMU group才可以正确工作。请在"
+"BIOS设置里将Intel VT-d 或者 AMD IOMMU 设为使能，而后确认内核支持IOMMU。对于"
+"Intel CPU，在路径/boot/grub2/grub.conf中添加内核变量intel_iommu=on。对于AMD "
+"CPU，则添加iommu=pt iommu=1。"
 
 msgid "\"name\" should be a device name string"
-msgstr ""
+msgstr "\"name\"应该为一个字符串型的设备名"
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -444,17 +448,19 @@ msgstr "未能识别基础镜像%(path)s格式"
 msgid ""
 "When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
 "threads."
-msgstr ""
+msgstr "CPU拓扑中，VCPUs必须包括sockets, cores 以及threads。"
 
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
-msgstr ""
+msgstr "CPU拓扑中，每一个参数必须为大于零的整数。"
 
 msgid ""
 "Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
 "qcow2, qed, raw, vmdk, vpc."
 msgstr ""
+"无效的磁盘镜像格式。有效的格式为：bochs, cloop, cow, dmg, qcow, qcow2, qed, "
+"raw, vmdk, vpc。"
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
@@ -660,6 +666,8 @@ msgid ""
 "Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
 "qcow, qcow2, qed, raw, vmdk, vpc."
 msgstr ""
+"不支持该存储卷格式，支持的格式：bochs, cloop, cow, dmg, qcow, qcow2, qed, "
+"raw, vmdk, vpc。"
 
 msgid "Storage volume requires a volume name"
 msgstr "存储卷需要名字"
@@ -685,13 +693,13 @@ msgstr "存储卷URL必须为http://，https://，ftp://或ftps://"
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
-msgstr ""
+msgstr "未能连接文件%(url)s，请检查该文件是否存在。"
 
 #, python-format
 msgid ""
 "Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能于存储池'%(pool)s'制作存储卷'%(name)s'的副本，详情：%(err)s"
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -778,7 +786,7 @@ msgstr "网络接口%(iface)s启动失败，请检查网络连接情况。"
 
 #, python-format
 msgid "Failed to start network %(name)s. Details: %(err)s"
-msgstr ""
+msgstr "启动网络%(name)s失败，详情：%(err)s"
 
 #, python-format
 msgid "Debug report %(name)s does not exist"
@@ -838,7 +846,7 @@ msgid "Node device '%(name)s' not found"
 msgstr "没有找到节点设备'%(name)s'"
 
 msgid "Conflicting flag filters specified."
-msgstr ""
+msgstr "flag filters冲突。"
 
 msgid "No packages marked for update"
 msgstr "没有软件包标识要升级"
@@ -1035,60 +1043,62 @@ msgstr "软件仓库不支持配置类型: %(items)s"
 #, python-format
 msgid ""
 "Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
-msgstr ""
+msgstr "虚拟机'%(vm)s'在制作快照前必须关机。"
 
 #, python-format
 msgid ""
 "Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能为虚拟机'%(vm)s'制作快照'%(name)s'。详情：%(err)s"
 
 #, python-format
 msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
-msgstr ""
+msgstr "快照'%(name)s'不存在虚拟机'%(vm)s'上。"
 
 #, python-format
 msgid ""
 "Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能在虚拟机'%(vm)s'找到快照'%(name)s'。详情：%(err)s"
 
 #, python-format
 msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
-msgstr ""
+msgstr "未能列出虚拟机'%(vm)s'的快照。详情：%(err)s"
 
 #, python-format
 msgid ""
 "Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能删除虚拟机'%(vm)s'快照'%(name)s'。详情：%(err)s"
 
 #, python-format
 msgid ""
 "Unable to retrieve current snapshot of virtual machine '%(vm)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能找到虚拟机'%(vm)s'当前快照。详情：%(err)s"
 
 #, python-format
 msgid ""
 "Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
 "%(err)s"
-msgstr ""
+msgstr "未能恢复虚拟机'%(vm)s'到快照'%(name)s'。详情：%(err)s"
 
 #, python-format
 msgid ""
 "Unable to create snapshot of virtual machine '%(vm)s' because it contains a "
 "disk with format '%(format)s'; only 'qcow2' is supported."
 msgstr ""
+"未能为虚拟机'%(vm)s'创建快照因为其使用了格式为'%(format)s'的磁盘；当前仅支"
+"持'qcow2'格式。"
 
 msgid "The number of vCPUs is too large for this system."
-msgstr ""
+msgstr "vCPUs的数量对该系统而言太大。"
 
 msgid "Invalid vCPU/topology combination."
-msgstr ""
+msgstr "无效的vCPU/topology组合。"
 
 msgid "This host (or current configuration) does not allow CPU topology."
-msgstr ""
+msgstr "当前主机（或当前配置）不允许CPU拓扑。"
 
 msgid "ERROR CODE"
 msgstr "错误码"
@@ -1159,10 +1169,10 @@ msgid "Permission"
 msgstr "权限"
 
 msgid "Host PCI Device"
-msgstr ""
+msgstr "主机PCI设备"
 
 msgid "Snapshot"
-msgstr ""
+msgstr "快照"
 
 msgid "Name"
 msgstr "名称"
@@ -1195,28 +1205,28 @@ msgid "Selected system users and groups"
 msgstr "已选的系统用户及用户组"
 
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 msgid "All"
 msgstr "所有"
 
 msgid "To Add"
-msgstr ""
+msgstr "待添加"
 
 msgid "Added"
-msgstr ""
+msgstr "已添加"
 
 msgid "filter"
-msgstr ""
+msgstr "过滤器"
 
 msgid "Product"
-msgstr ""
+msgstr "产品"
 
 msgid "Vendor"
 msgstr "厂商"
 
 msgid "Created"
-msgstr ""
+msgstr "创建于"
 
 msgid "Save"
 msgstr "保存"
@@ -1231,10 +1241,10 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "revert"
-msgstr ""
+msgstr "恢复"
 
 msgid "Cloning"
-msgstr ""
+msgstr "正在制作副本"
 
 msgid "Start"
 msgstr "启用"
@@ -1538,6 +1548,8 @@ msgid ""
 "default storage pool. The same will happen when the target pool does not "
 "have enough space to clone the volumes. Do you want to continue?"
 msgstr ""
+"当目标客户机使用SCSI或者iSCSI存储卷时，这些存储卷的副本将被放置于默认存储池"
+"中。在目标存储池没有足够空间放置其他存储卷的时候也会如此。确认继续？"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1565,25 +1577,25 @@ msgid ""
 msgstr "该磁盘将会被永久卸载，你可以重新添加它，继续执行卸载操作吗?"
 
 msgid "interface:"
-msgstr ""
+msgstr "接口："
 
 msgid "address:"
-msgstr ""
+msgstr "地址："
 
 msgid "link_type:"
-msgstr ""
+msgstr "连接类型："
 
 msgid "block:"
-msgstr ""
+msgstr "块："
 
 msgid "drive_type:"
-msgstr ""
+msgstr "设备类型："
 
 msgid "model:"
-msgstr ""
+msgstr "模型："
 
 msgid "Affected devices:"
-msgstr ""
+msgstr "被影响的设备："
 
 msgid "The VLAN id must be between 1 and 4094."
 msgstr "VLAN 标识符必须在1至4094之间"
@@ -1872,7 +1884,7 @@ msgid "Upload a file"
 msgstr "上传一个文件"
 
 msgid "Choose the file you want to upload."
-msgstr ""
+msgstr "选择需要上传的文件。"
 
 msgid "Add Template"
 msgstr "创建模板"
@@ -1938,19 +1950,19 @@ msgid "Graphics"
 msgstr "图形"
 
 msgid "Disk(GB)"
-msgstr ""
+msgstr "磁盘(GB)"
 
 msgid "CPU Number"
 msgstr "CPU个数"
 
 msgid "Manually set CPU topology"
-msgstr ""
+msgstr "手动配置CPU拓扑"
 
 msgid "Cores"
-msgstr ""
+msgstr "内核数"
 
 msgid "Threads"
-msgstr ""
+msgstr "线程"
 
 msgid "CPU"
 msgstr "处理器"
@@ -1983,7 +1995,7 @@ msgid "OS Code Name"
 msgstr "操作系统代号"
 
 msgid "CPU(s)"
-msgstr ""
+msgstr "CPU(s)"
 
 msgid "System Statistics"
 msgstr "系统统计信息"
