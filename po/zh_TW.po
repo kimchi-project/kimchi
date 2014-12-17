@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1213,36 +1213,6 @@ msgstr "取消 "
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr "開始"
-
-msgid "Reset"
-msgstr "重設"
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr "動作"
-
-msgid "Connect"
-msgstr "連接"
-
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr "編輯"
-
-msgid "Shut Down"
-msgstr "關閉"
-
-msgid "Delete"
-msgstr "刪除"
-
 msgid "Add a Storage Device to VM"
 msgstr "將儲存裝置新增至 VM"
 
@@ -1272,6 +1242,36 @@ msgstr "CDROM 的 ISO 檔案路徑在伺服器中。"
 
 msgid "Attach"
 msgstr "連接"
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Reset"
+msgstr "重設"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "動作"
+
+msgid "Connect"
+msgstr "連接"
+
+msgid "Clone"
+msgstr ""
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Shut Down"
+msgstr "關閉"
+
+msgid "Delete"
+msgstr "刪除"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "您輸入的使用者名稱或密碼不正確。請重試。"
@@ -1775,6 +1775,21 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload a file"
+msgstr ""
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr "定義新的儲存區"
 
@@ -1844,21 +1859,6 @@ msgstr "SCSI 配接卡"
 
 msgid "Please, wait..."
 msgstr "請稍候..."
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
-msgstr ""
 
 msgid "Add Template"
 msgstr "新增範本"

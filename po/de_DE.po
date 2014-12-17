@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1334,36 +1334,6 @@ msgstr "Abbrechen"
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr "Starten"
-
-msgid "Reset"
-msgstr "Zurücksetzen"
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr "Aktionen"
-
-msgid "Connect"
-msgstr "Verbinden"
-
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Shut Down"
-msgstr "Herunterfahren"
-
-msgid "Delete"
-msgstr "Löschen"
-
 msgid "Add a Storage Device to VM"
 msgstr "Speichereinheit zur virtuellen Maschine hinzufügen"
 
@@ -1393,6 +1363,36 @@ msgstr "Der ISO-Dateipfad auf dem Server für die CD-ROM."
 
 msgid "Attach"
 msgstr "Anhängen"
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr "Starten"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Connect"
+msgstr "Verbinden"
+
+msgid "Clone"
+msgstr ""
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Shut Down"
+msgstr "Herunterfahren"
+
+msgid "Delete"
+msgstr "Löschen"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
@@ -1920,6 +1920,21 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nein"
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload a file"
+msgstr ""
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr "Neuen Speicherpool definieren"
 
@@ -1997,21 +2012,6 @@ msgstr "SCSI-Adapter"
 
 msgid "Please, wait..."
 msgstr "Bitte warten..."
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
-msgstr ""
 
 msgid "Add Template"
 msgstr "Vorlage hinzufügen"

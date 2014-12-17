@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: 2014-08-27 21:30+0000\n"
 "Last-Translator: BobSynfig\n"
 "Language-Team: French (http://www.transifex.com/projects/p/kimchi/language/"
@@ -1367,36 +1367,6 @@ msgstr "Annuler"
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr "Démarrer"
-
-msgid "Reset"
-msgstr "Réinitialiser"
-
-msgid "Power Off"
-msgstr "Mettre hors tension"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "Connect"
-msgstr "Connecter"
-
-msgid "Clone"
-msgstr "Cloner"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Shut Down"
-msgstr "Éteindre"
-
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Add a Storage Device to VM"
 msgstr "Ajouter un Périphérique de Stockage à la VM"
 
@@ -1427,6 +1397,36 @@ msgstr "Le chemin de fichier ISO sur le serveur comme CDROM."
 
 msgid "Attach"
 msgstr "Attacher"
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr "Démarrer"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "Power Off"
+msgstr "Mettre hors tension"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Connect"
+msgstr "Connecter"
+
+msgid "Clone"
+msgstr "Cloner"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Shut Down"
+msgstr "Éteindre"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
@@ -1964,6 +1964,21 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
+msgid "Add a Volume to Storage Pool"
+msgstr "iAjouter un Volume au Pool de Stockage"
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr "Saisir une URL distante ici"
+
+msgid "Upload a file"
+msgstr "Charger un fichier"
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr "Définir un Nouveau Pool de Stockage"
 
@@ -2041,21 +2056,6 @@ msgstr "Adaptateur SCSI"
 
 msgid "Please, wait..."
 msgstr "Veuillez patienter..."
-
-msgid "Add a Volume to Storage Pool"
-msgstr "iAjouter un Volume au Pool de Stockage"
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr "Saisir une URL distante ici"
-
-msgid "Upload a file"
-msgstr "Charger un fichier"
-
-msgid "Choose the file you want to upload."
-msgstr ""
 
 msgid "Add Template"
 msgstr "Ajouter un Modèle"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1210,36 +1210,6 @@ msgstr ""
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr ""
-
-msgid "Connect"
-msgstr ""
-
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Shut Down"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
 msgid "Add a Storage Device to VM"
 msgstr ""
 
@@ -1268,6 +1238,36 @@ msgid "The ISO file path in the server for CDROM."
 msgstr ""
 
 msgid "Attach"
+msgstr ""
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
+msgid "Clone"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Shut Down"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "The username or password you entered is incorrect. Please try again."
@@ -1761,6 +1761,21 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload a file"
+msgstr ""
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr ""
 
@@ -1829,21 +1844,6 @@ msgid "SCSI Adapter"
 msgstr ""
 
 msgid "Please, wait..."
-msgstr ""
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
 msgstr ""
 
 msgid "Add Template"

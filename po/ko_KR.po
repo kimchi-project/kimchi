@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 11:01-0200\n"
+"POT-Creation-Date: 2014-12-17 13:48-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1264,36 +1264,6 @@ msgstr "취소"
 msgid "revert"
 msgstr ""
 
-msgid "Cloning"
-msgstr ""
-
-msgid "Start"
-msgstr "시작"
-
-msgid "Reset"
-msgstr "다시 설정"
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr "조치"
-
-msgid "Connect"
-msgstr "연결"
-
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr "편집"
-
-msgid "Shut Down"
-msgstr "시스템 종료"
-
-msgid "Delete"
-msgstr "삭제"
-
 msgid "Add a Storage Device to VM"
 msgstr "스토리지 장치를 VM에 추가"
 
@@ -1323,6 +1293,36 @@ msgstr "CDROM을 위한 서버의 ISO 파일 경로입니다."
 
 msgid "Attach"
 msgstr "연결"
+
+msgid "Cloning"
+msgstr ""
+
+msgid "Start"
+msgstr "시작"
+
+msgid "Reset"
+msgstr "다시 설정"
+
+msgid "Power Off"
+msgstr ""
+
+msgid "Actions"
+msgstr "조치"
+
+msgid "Connect"
+msgstr "연결"
+
+msgid "Clone"
+msgstr ""
+
+msgid "Edit"
+msgstr "편집"
+
+msgid "Shut Down"
+msgstr "시스템 종료"
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
@@ -1834,6 +1834,21 @@ msgstr "예"
 msgid "No"
 msgstr "아니오"
 
+msgid "Add a Volume to Storage Pool"
+msgstr ""
+
+msgid "Fetch from remote URL"
+msgstr ""
+
+msgid "Enter the remote URL here."
+msgstr ""
+
+msgid "Upload a file"
+msgstr ""
+
+msgid "Choose the file you want to upload."
+msgstr ""
+
 msgid "Define a New Storage Pool"
 msgstr "새 스토리지 풀 정의"
 
@@ -1906,21 +1921,6 @@ msgstr "SCSI 어댑터"
 
 msgid "Please, wait..."
 msgstr "잠시 기다려 주십시오."
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
-msgstr ""
 
 msgid "Add Template"
 msgstr "템플리트 추가"
