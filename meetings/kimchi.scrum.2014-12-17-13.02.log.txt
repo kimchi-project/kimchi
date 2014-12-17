@@ -1,0 +1,167 @@
+13:02:26 <alinefm> #startmeeting
+13:02:26 <kimchi-bot> Meeting started Wed Dec 17 13:02:26 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:27 <alinefm> #meetingname scrum
+13:02:27 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:39 <royce> hi alinefm, do you celebrate Christmas in Braizil?
+13:02:46 <alinefm> royce, yeap
+13:03:04 <royce> Great! envy!
+13:03:20 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:21 <alinefm> anything else?
+13:03:27 <alinefm> royce, thanks!
+13:03:58 <royce> Do we need to start next release?
+13:04:47 <alinefm> royce, sure
+13:05:27 <alinefm> I was planning to cover it during open discussion
+13:06:30 <royce> OK, let's move~
+13:07:01 <alinefm> #topic Status
+13:07:02 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:07:04 <YuXin> #info YuXin Patches to fix 539/461
+13:07:14 <royce> #info royce fixed image with unknown os probe problem, fixed ldap_admin_id absence problem, reviewed Simon's migration patch
+13:07:22 <wenwang> #info wenwang sent patch of Chinese translation
+13:07:40 <alinefm> #info alinefm sent patch to fix #463 and updated po files for 1.4 release
+13:08:06 <vianac> #info vianac opened Github issues; fixed issues #438, #504, #543; working on issues #526, #544; reviewed patches on the mailing list; added translation for pt_BR
+13:09:38 <wenwang> #info wenwang sent patch that fix bug#527 Reverting a snapshot doesn't change the initial state of the dialog "Edit Guest"
+13:10:24 <alinefm> wenwang, I received your patch with the Chinese translations but I couldn't send it to ML as a problem in my imap server
+13:10:37 <alinefm> I am wondering if I can apply the email directly
+13:10:41 <alinefm> royce, vianac ^
+13:11:03 <alinefm> s/email/patch
+13:11:03 <royce> I have a problem with my imap too, just apply it alinefm
+13:11:32 <alinefm> thanks, royce
+13:12:02 <wenwang> alinefm: Thanks alinefm, please try it again before you go home. If you couldn't send it, I will try to sent it tomorrow
+13:12:29 <alinefm> so I will do everything need for the 1.4 release: create tag, packages, update web page, etc...
+13:12:43 <alinefm> I hope to send the announcement email by Friday morning \o/
+13:13:21 <royce> I was having my system reinstall to RHEL 6.5 today because ITCS3000 does not support  ubuntu 14.10, so haven't tried wenwang's patch yet:(
+13:13:30 <wenwang> Sounds great! thanks alinefm
+13:14:17 <alinefm> I want to thank everyone for the great work done in the last months that allow we release 1.4 with high quality
+13:14:58 <royce> We must thank you! alinefm
+13:16:04 <alinefm> =)
+13:16:15 <alinefm> so let's move on to open discussion
+13:17:03 <alinefm> #topic Open Discussion
+13:17:17 <alinefm> So now it is time to start thinking about the next release
+13:17:54 <alinefm> As we have a lot of bugs and enhancements open I'd suggest to make a stabilization release (1.4.1 ) to try to close as much as we can
+13:18:13 <alinefm> of course we can also investigate new enhancements to do among those already open
+13:18:32 <alinefm> I also think in let the UI guys free to devel the new UI
+13:19:01 <alinefm> so I'd create a new branch to get the new UI patches applied and once we have everything done we merge into merge to 1.5 release
+13:19:07 <YuXin> good, there is nearly no UI bugs left
+13:19:41 <alinefm> YuXin, yeap and I'd say to keep them there and devel the new UI
+13:19:47 <wenwang> sounds great
+13:20:00 <YuXin> ok
+13:20:13 <alinefm> YuXin, wenwang, so you two will be only focus on new UI during 1.4.1 devel phase
+13:20:22 <YuXin> ok
+13:20:24 <wenwang> ok
+13:20:30 <alinefm> and once 1.4.1 is released, we announce the new UI for 1.5 (end of June)
+13:20:40 <YuXin> ok
+13:20:40 <alinefm> YuXin, wenwang sounds good?
+13:20:45 <YuXin> yes
+13:20:49 <wenwang> yes
+13:21:30 <alinefm> royce, vianac, and we focus on backend enhancements and bug fixes
+13:21:41 <royce> ack
+13:22:10 <alinefm> I also want to do a refactor in your tests as we have a new mockmodel seems many tests are redundant
+13:22:32 <alinefm> we could create a test file per resource: test_vms.py, test_templates.py, test_networks.py etc
+13:22:49 <alinefm> and only create separated mock tests when mockmodel differs from model
+13:22:54 <royce> OK
+13:22:57 <alinefm> royce, vianac what do  you think?
+13:23:25 <royce> do we still do rest test?
+13:23:26 <lagarcia> alinefm, I think it would be good to start something with automated WUI tests as well, as soon as YuXin and wenwang were able to develop some of the new interface.
+13:23:41 <alinefm> lagarcia, yeap - it was my next point
+13:23:42 <alinefm> =)
+13:23:45 <lagarcia> :D
+13:24:00 <alinefm> royce, yeap - I think we could do all tests using the rest api
+13:24:13 <vianac> alinefm, sure, I agree we should do that. it's very confusing to know which file a test should go to now
+13:24:14 <alinefm> as it is the way we use
+13:25:06 <alinefm> and as lagarcia pointed out we need some automated tests for WUI too
+13:25:31 <alinefm> so as the new UI will be delivering we create tests for it
+13:25:48 <alinefm> I only know about Selenium framework to do that
+13:25:58 <alinefm> so I am completely open for suggestions
+13:26:19 <alinefm> I heard about some framework which has integration with different browsers so we could do test on them
+13:26:25 <alinefm> but I need to search more about it
+13:26:26 <YuXin> selenium is good, I know many people are using it
+13:27:02 <lagarcia> alinefm, YuXin I have only heard about Selenium....
+13:27:09 <lagarcia> but I am far from an expert on the area :)
+13:27:21 <YuXin> but I am not sure whether it support screen recording
+13:27:44 <alinefm> YuXin, I *think* it has
+13:28:03 <YuXin> if it does, then it is quite simple.
+13:28:10 <alinefm> when I used selenium (some years ago) I used a firefox plugin to record the test in a XML format
+13:28:34 <alinefm> when an error occurred I could see the screen result
+13:28:34 <YuXin> just launch it and go thorugh kimchi UI
+13:28:43 <alinefm> I mean, like a screenshot of the error
+13:29:33 <YuXin> I mean if the automation scripts can be generated by go through kimchi UI, then it will be quite easy
+13:29:49 <YuXin> let me check
+13:29:51 <alinefm> yeap
+13:29:55 <YuXin> ok
+13:30:08 <alinefm> we just need to make sure the HTML elements has a unique ID
+13:30:12 <YuXin> if it selenium support this, I think it is ok
+13:30:21 <alinefm> YuXin, we could ensure it when doing the new UI
+13:30:33 <wenwang> I think we should write the script ourselves
+13:30:41 <wenwang> probably
+13:31:13 <YuXin> I believe it will not only support ID, should have multiple ways to identify elements, like css
+13:31:35 <alinefm> yes
+13:31:43 <alinefm> id = element identifier
+13:31:52 <YuXin> wenwang, you can write script, which will make the test scripts more modulized
+13:32:15 <wenwang> YuXin: okay. I can do that
+13:32:17 <YuXin> modularized
+13:32:31 <alinefm> YuXin, wenwang, the firefox plugin is only to make it easier to do
+13:33:11 <YuXin> if by screen-recording, it will be fast, but each time new UI is added, need to screen-recording again
+13:33:59 <YuXin> both are ok I think
+13:34:13 <alinefm> for me too
+13:34:29 <wenwang> I am okay with both too
+13:35:22 <alinefm> great!
+13:36:03 <alinefm> I will think about the dates for 1.4.1 release but it should be announce on March 27th
+13:36:50 <alinefm> any more ideas/topics for the next release?
+13:39:45 <alinefm> ok...
+13:40:04 <alinefm> so feel free to sent ideas to kimchi ML
+13:40:37 <alinefm> I think we already have a good start point in https://github.com/kimchi-project/kimchi/issues
+13:40:46 <wenwang> sure
+13:40:56 <alinefm> and also the upload feature! =)
+13:40:57 <royce> OK
+13:41:11 <alinefm> we should change it to receive the file part by part
+13:41:24 <royce> I will take care of it
+13:41:32 <alinefm> thanks royce
+13:41:38 <royce> :)
+13:41:40 <alinefm> anything else for today?
+13:41:49 <alinefm> I've already talked a lot =)
+13:42:02 <wenwang> I will help royce with the front-end
+13:42:16 <royce> thanks wenwang
+13:42:21 <wenwang> yw
+13:43:06 <alinefm> wenwang, no - focus on new UI =)
+13:43:13 <pvital> alinefm, yes!
+13:43:23 <alinefm> royce, I can help you on UI part if needed
+13:43:23 <pvital> where we'll celebrate 1.4?
+13:43:28 <pvital> :-P
+13:43:58 <wenwang> alinefm: ok
+13:44:13 <alinefm> pvital, good question! =)
+13:44:22 <royce> OK, heh, how long will you be on vacation during Xmas BTW?
+13:44:29 <alinefm> we need to do a virtual party
+13:44:36 <alinefm> royce, well remembered!
+13:44:54 <alinefm> the next 2 weeks I will need to move this meeting to Tuesday due the holidays
+13:44:54 <royce> hahahah, great!
+13:45:02 <pvital> alinefm, I'll be in Campinas on 26/dec
+13:45:05 <pvital> :-P
+13:45:22 <alinefm> vianac, royce, wenwang, YuXin,  any problem for you?
+13:45:31 <royce> I'm OK with it
+13:45:43 <YuXin> no problem
+13:45:50 <alinefm> I will properly send a note to ML to make sure everyone is aware of it
+13:45:58 <royce> yes
+13:46:05 <wenwang> I  am okay with it
+13:46:36 <alinefm> royce, wenwang YuXin, vianac, I will be out only Dec 24-25 and Dec 31 - Jan 02
+13:47:26 <wenwang> alinefm: Ok
+13:47:32 <royce> Not a long holiday, :)
+13:47:56 <royce> In spring festival we usually leave for half month:D
+13:48:12 <alinefm> wow!
+13:48:14 <lagarcia> royce, and you were envy about xmas :P
+13:48:16 <alinefm> when is it?
+13:48:24 <wenwang> enjoy your holiday alinefm
+13:48:41 <royce> heh, lagarcia, I thought your will be longer, but it turns out...
+13:48:50 <royce> alinefm, in Feb this year
+13:48:51 <wenwang> It's Feb. 18th -25 this year
+13:49:30 <royce> We have seven day national holiday and the whole country do not work\O/
+13:50:15 <royce> and we can ask for some more days  leave in addition to that
+13:50:52 <alinefm> that is grea!T
+13:51:35 <royce> yes!
+13:52:01 <YuXin> spring festival and national day are busy time for retail and distribution guys
+13:52:29 <royce> but it is still long so now we hope we can still celeberate Xmas
+13:53:09 <alinefm> hehehe
+13:53:43 <alinefm> I dont think we have much more for today
+13:53:50 <alinefm> so thanks everyone for joining!
+13:54:12 <royce> bye guys~
+13:54:22 <alinefm> #endmeeting

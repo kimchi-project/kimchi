@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec 17 13:02:26 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:27</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:39</span><span class="nk"> &lt;royce&gt;</span> hi alinefm, do you celebrate Christmas in Braizil?
+<a name="l-7"></a><span class="tm">13:02:46</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap
+<a name="l-8"></a><span class="tm">13:03:04</span><span class="nk"> &lt;royce&gt;</span> Great! envy!
+<a name="l-9"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-10"></a><span class="tm">13:03:21</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-11"></a><span class="tm">13:03:27</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks!
+<a name="l-12"></a><span class="tm">13:03:58</span><span class="nk"> &lt;royce&gt;</span> Do we need to start next release?
+<a name="l-13"></a><span class="tm">13:04:47</span><span class="nk"> &lt;alinefm&gt;</span> royce, sure
+<a name="l-14"></a><span class="tm">13:05:27</span><span class="nk"> &lt;alinefm&gt;</span> I was planning to cover it during open discussion
+<a name="l-15"></a><span class="tm">13:06:30</span><span class="nk"> &lt;royce&gt;</span> OK, let's move~
+<a name="l-16"></a><span class="tm">13:07:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-17"></a><span class="tm">13:07:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-18"></a><span class="tm">13:07:04</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patches to fix 539/461</span>
+<a name="l-19"></a><span class="tm">13:07:14</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce fixed image with unknown os probe problem, fixed ldap_admin_id absence problem, reviewed Simon's migration patch</span>
+<a name="l-20"></a><span class="tm">13:07:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of Chinese translation</span>
+<a name="l-21"></a><span class="tm">13:07:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix #463 and updated po files for 1.4 release</span>
+<a name="l-22"></a><span class="tm">13:08:06</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac opened Github issues; fixed issues #438, #504, #543; working on issues #526, #544; reviewed patches on the mailing list; added translation for pt_BR</span>
+<a name="l-23"></a><span class="tm">13:09:38</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that fix bug#527 Reverting a snapshot doesn't change the initial state of the dialog "Edit Guest"</span>
+<a name="l-24"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I received your patch with the Chinese translations but I couldn't send it to ML as a problem in my imap server
+<a name="l-25"></a><span class="tm">13:10:37</span><span class="nk"> &lt;alinefm&gt;</span> I am wondering if I can apply the email directly
+<a name="l-26"></a><span class="tm">13:10:41</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac ^
+<a name="l-27"></a><span class="tm">13:11:03</span><span class="nk"> &lt;alinefm&gt;</span> s/email/patch
+<a name="l-28"></a><span class="tm">13:11:03</span><span class="nk"> &lt;royce&gt;</span> I have a problem with my imap too, just apply it alinefm
+<a name="l-29"></a><span class="tm">13:11:32</span><span class="nk"> &lt;alinefm&gt;</span> thanks, royce
+<a name="l-30"></a><span class="tm">13:12:02</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Thanks alinefm, please try it again before you go home. If you couldn't send it, I will try to sent it tomorrow
+<a name="l-31"></a><span class="tm">13:12:29</span><span class="nk"> &lt;alinefm&gt;</span> so I will do everything need for the 1.4 release: create tag, packages, update web page, etc...
+<a name="l-32"></a><span class="tm">13:12:43</span><span class="nk"> &lt;alinefm&gt;</span> I hope to send the announcement email by Friday morning \o/
+<a name="l-33"></a><span class="tm">13:13:21</span><span class="nk"> &lt;royce&gt;</span> I was having my system reinstall to RHEL 6.5 today because ITCS3000 does not support  ubuntu 14.10, so haven't tried wenwang's patch yet:(
+<a name="l-34"></a><span class="tm">13:13:30</span><span class="nk"> &lt;wenwang&gt;</span> Sounds great! thanks alinefm
+<a name="l-35"></a><span class="tm">13:14:17</span><span class="nk"> &lt;alinefm&gt;</span> I want to thank everyone for the great work done in the last months that allow we release 1.4 with high quality
+<a name="l-36"></a><span class="tm">13:14:58</span><span class="nk"> &lt;royce&gt;</span> We must thank you! alinefm
+<a name="l-37"></a><span class="tm">13:16:04</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-38"></a><span class="tm">13:16:15</span><span class="nk"> &lt;alinefm&gt;</span> so let's move on to open discussion
+<a name="l-39"></a><span class="tm">13:17:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-40"></a><span class="tm">13:17:17</span><span class="nk"> &lt;alinefm&gt;</span> So now it is time to start thinking about the next release
+<a name="l-41"></a><span class="tm">13:17:54</span><span class="nk"> &lt;alinefm&gt;</span> As we have a lot of bugs and enhancements open I'd suggest to make a stabilization release (1.4.1 ) to try to close as much as we can
+<a name="l-42"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> of course we can also investigate new enhancements to do among those already open
+<a name="l-43"></a><span class="tm">13:18:32</span><span class="nk"> &lt;alinefm&gt;</span> I also think in let the UI guys free to devel the new UI
+<a name="l-44"></a><span class="tm">13:19:01</span><span class="nk"> &lt;alinefm&gt;</span> so I'd create a new branch to get the new UI patches applied and once we have everything done we merge into merge to 1.5 release
+<a name="l-45"></a><span class="tm">13:19:07</span><span class="nk"> &lt;YuXin&gt;</span> good, there is nearly no UI bugs left
+<a name="l-46"></a><span class="tm">13:19:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, yeap and I'd say to keep them there and devel the new UI
+<a name="l-47"></a><span class="tm">13:19:47</span><span class="nk"> &lt;wenwang&gt;</span> sounds great
+<a name="l-48"></a><span class="tm">13:20:00</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-49"></a><span class="tm">13:20:13</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, so you two will be only focus on new UI during 1.4.1 devel phase
+<a name="l-50"></a><span class="tm">13:20:22</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-51"></a><span class="tm">13:20:24</span><span class="nk"> &lt;wenwang&gt;</span> ok
+<a name="l-52"></a><span class="tm">13:20:30</span><span class="nk"> &lt;alinefm&gt;</span> and once 1.4.1 is released, we announce the new UI for 1.5 (end of June)
+<a name="l-53"></a><span class="tm">13:20:40</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-54"></a><span class="tm">13:20:40</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang sounds good?
+<a name="l-55"></a><span class="tm">13:20:45</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-56"></a><span class="tm">13:20:49</span><span class="nk"> &lt;wenwang&gt;</span> yes
+<a name="l-57"></a><span class="tm">13:21:30</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, and we focus on backend enhancements and bug fixes
+<a name="l-58"></a><span class="tm">13:21:41</span><span class="nk"> &lt;royce&gt;</span> ack
+<a name="l-59"></a><span class="tm">13:22:10</span><span class="nk"> &lt;alinefm&gt;</span> I also want to do a refactor in your tests as we have a new mockmodel seems many tests are redundant
+<a name="l-60"></a><span class="tm">13:22:32</span><span class="nk"> &lt;alinefm&gt;</span> we could create a test file per resource: test_vms.py, test_templates.py, test_networks.py etc
+<a name="l-61"></a><span class="tm">13:22:49</span><span class="nk"> &lt;alinefm&gt;</span> and only create separated mock tests when mockmodel differs from model
+<a name="l-62"></a><span class="tm">13:22:54</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-63"></a><span class="tm">13:22:57</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac what do  you think?
+<a name="l-64"></a><span class="tm">13:23:25</span><span class="nk"> &lt;royce&gt;</span> do we still do rest test?
+<a name="l-65"></a><span class="tm">13:23:26</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, I think it would be good to start something with automated WUI tests as well, as soon as YuXin and wenwang were able to develop some of the new interface.
+<a name="l-66"></a><span class="tm">13:23:41</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yeap - it was my next point
+<a name="l-67"></a><span class="tm">13:23:42</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-68"></a><span class="tm">13:23:45</span><span class="nk"> &lt;lagarcia&gt;</span> :D
+<a name="l-69"></a><span class="tm">13:24:00</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap - I think we could do all tests using the rest api
+<a name="l-70"></a><span class="tm">13:24:13</span><span class="nk"> &lt;vianac&gt;</span> alinefm, sure, I agree we should do that. it's very confusing to know which file a test should go to now
+<a name="l-71"></a><span class="tm">13:24:14</span><span class="nk"> &lt;alinefm&gt;</span> as it is the way we use
+<a name="l-72"></a><span class="tm">13:25:06</span><span class="nk"> &lt;alinefm&gt;</span> and as lagarcia pointed out we need some automated tests for WUI too
+<a name="l-73"></a><span class="tm">13:25:31</span><span class="nk"> &lt;alinefm&gt;</span> so as the new UI will be delivering we create tests for it
+<a name="l-74"></a><span class="tm">13:25:48</span><span class="nk"> &lt;alinefm&gt;</span> I only know about Selenium framework to do that
+<a name="l-75"></a><span class="tm">13:25:58</span><span class="nk"> &lt;alinefm&gt;</span> so I am completely open for suggestions
+<a name="l-76"></a><span class="tm">13:26:19</span><span class="nk"> &lt;alinefm&gt;</span> I heard about some framework which has integration with different browsers so we could do test on them
+<a name="l-77"></a><span class="tm">13:26:25</span><span class="nk"> &lt;alinefm&gt;</span> but I need to search more about it
+<a name="l-78"></a><span class="tm">13:26:26</span><span class="nk"> &lt;YuXin&gt;</span> selenium is good, I know many people are using it
+<a name="l-79"></a><span class="tm">13:27:02</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, YuXin I have only heard about Selenium....
+<a name="l-80"></a><span class="tm">13:27:09</span><span class="nk"> &lt;lagarcia&gt;</span> but I am far from an expert on the area :)
+<a name="l-81"></a><span class="tm">13:27:21</span><span class="nk"> &lt;YuXin&gt;</span> but I am not sure whether it support screen recording
+<a name="l-82"></a><span class="tm">13:27:44</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I *think* it has
+<a name="l-83"></a><span class="tm">13:28:03</span><span class="nk"> &lt;YuXin&gt;</span> if it does, then it is quite simple.
+<a name="l-84"></a><span class="tm">13:28:10</span><span class="nk"> &lt;alinefm&gt;</span> when I used selenium (some years ago) I used a firefox plugin to record the test in a XML format
+<a name="l-85"></a><span class="tm">13:28:34</span><span class="nk"> &lt;alinefm&gt;</span> when an error occurred I could see the screen result
+<a name="l-86"></a><span class="tm">13:28:34</span><span class="nk"> &lt;YuXin&gt;</span> just launch it and go thorugh kimchi UI
+<a name="l-87"></a><span class="tm">13:28:43</span><span class="nk"> &lt;alinefm&gt;</span> I mean, like a screenshot of the error
+<a name="l-88"></a><span class="tm">13:29:33</span><span class="nk"> &lt;YuXin&gt;</span> I mean if the automation scripts can be generated by go through kimchi UI, then it will be quite easy
+<a name="l-89"></a><span class="tm">13:29:49</span><span class="nk"> &lt;YuXin&gt;</span> let me check
+<a name="l-90"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-91"></a><span class="tm">13:29:55</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-92"></a><span class="tm">13:30:08</span><span class="nk"> &lt;alinefm&gt;</span> we just need to make sure the HTML elements has a unique ID
+<a name="l-93"></a><span class="tm">13:30:12</span><span class="nk"> &lt;YuXin&gt;</span> if it selenium support this, I think it is ok
+<a name="l-94"></a><span class="tm">13:30:21</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, we could ensure it when doing the new UI
+<a name="l-95"></a><span class="tm">13:30:33</span><span class="nk"> &lt;wenwang&gt;</span> I think we should write the script ourselves
+<a name="l-96"></a><span class="tm">13:30:41</span><span class="nk"> &lt;wenwang&gt;</span> probably
+<a name="l-97"></a><span class="tm">13:31:13</span><span class="nk"> &lt;YuXin&gt;</span> I believe it will not only support ID, should have multiple ways to identify elements, like css
+<a name="l-98"></a><span class="tm">13:31:35</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-99"></a><span class="tm">13:31:43</span><span class="nk"> &lt;alinefm&gt;</span> id = element identifier
+<a name="l-100"></a><span class="tm">13:31:52</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, you can write script, which will make the test scripts more modulized
+<a name="l-101"></a><span class="tm">13:32:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> okay. I can do that
+<a name="l-102"></a><span class="tm">13:32:17</span><span class="nk"> &lt;YuXin&gt;</span> modularized
+<a name="l-103"></a><span class="tm">13:32:31</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, the firefox plugin is only to make it easier to do
+<a name="l-104"></a><span class="tm">13:33:11</span><span class="nk"> &lt;YuXin&gt;</span> if by screen-recording, it will be fast, but each time new UI is added, need to screen-recording again
+<a name="l-105"></a><span class="tm">13:33:59</span><span class="nk"> &lt;YuXin&gt;</span> both are ok I think
+<a name="l-106"></a><span class="tm">13:34:13</span><span class="nk"> &lt;alinefm&gt;</span> for me too
+<a name="l-107"></a><span class="tm">13:34:29</span><span class="nk"> &lt;wenwang&gt;</span> I am okay with both too
+<a name="l-108"></a><span class="tm">13:35:22</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-109"></a><span class="tm">13:36:03</span><span class="nk"> &lt;alinefm&gt;</span> I will think about the dates for 1.4.1 release but it should be announce on March 27th
+<a name="l-110"></a><span class="tm">13:36:50</span><span class="nk"> &lt;alinefm&gt;</span> any more ideas/topics for the next release?
+<a name="l-111"></a><span class="tm">13:39:45</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-112"></a><span class="tm">13:40:04</span><span class="nk"> &lt;alinefm&gt;</span> so feel free to sent ideas to kimchi ML
+<a name="l-113"></a><span class="tm">13:40:37</span><span class="nk"> &lt;alinefm&gt;</span> I think we already have a good start point in https://github.com/kimchi-project/kimchi/issues
+<a name="l-114"></a><span class="tm">13:40:46</span><span class="nk"> &lt;wenwang&gt;</span> sure
+<a name="l-115"></a><span class="tm">13:40:56</span><span class="nk"> &lt;alinefm&gt;</span> and also the upload feature! =)
+<a name="l-116"></a><span class="tm">13:40:57</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-117"></a><span class="tm">13:41:11</span><span class="nk"> &lt;alinefm&gt;</span> we should change it to receive the file part by part
+<a name="l-118"></a><span class="tm">13:41:24</span><span class="nk"> &lt;royce&gt;</span> I will take care of it
+<a name="l-119"></a><span class="tm">13:41:32</span><span class="nk"> &lt;alinefm&gt;</span> thanks royce
+<a name="l-120"></a><span class="tm">13:41:38</span><span class="nk"> &lt;royce&gt;</span> :)
+<a name="l-121"></a><span class="tm">13:41:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-122"></a><span class="tm">13:41:49</span><span class="nk"> &lt;alinefm&gt;</span> I've already talked a lot =)
+<a name="l-123"></a><span class="tm">13:42:02</span><span class="nk"> &lt;wenwang&gt;</span> I will help royce with the front-end
+<a name="l-124"></a><span class="tm">13:42:16</span><span class="nk"> &lt;royce&gt;</span> thanks wenwang
+<a name="l-125"></a><span class="tm">13:42:21</span><span class="nk"> &lt;wenwang&gt;</span> yw
+<a name="l-126"></a><span class="tm">13:43:06</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, no - focus on new UI =)
+<a name="l-127"></a><span class="tm">13:43:13</span><span class="nk"> &lt;pvital&gt;</span> alinefm, yes!
+<a name="l-128"></a><span class="tm">13:43:23</span><span class="nk"> &lt;alinefm&gt;</span> royce, I can help you on UI part if needed
+<a name="l-129"></a><span class="tm">13:43:23</span><span class="nk"> &lt;pvital&gt;</span> where we'll celebrate 1.4?
+<a name="l-130"></a><span class="tm">13:43:28</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-131"></a><span class="tm">13:43:58</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> ok
+<a name="l-132"></a><span class="tm">13:44:13</span><span class="nk"> &lt;alinefm&gt;</span> pvital, good question! =)
+<a name="l-133"></a><span class="tm">13:44:22</span><span class="nk"> &lt;royce&gt;</span> OK, heh, how long will you be on vacation during Xmas BTW?
+<a name="l-134"></a><span class="tm">13:44:29</span><span class="nk"> &lt;alinefm&gt;</span> we need to do a virtual party
+<a name="l-135"></a><span class="tm">13:44:36</span><span class="nk"> &lt;alinefm&gt;</span> royce, well remembered!
+<a name="l-136"></a><span class="tm">13:44:54</span><span class="nk"> &lt;alinefm&gt;</span> the next 2 weeks I will need to move this meeting to Tuesday due the holidays
+<a name="l-137"></a><span class="tm">13:44:54</span><span class="nk"> &lt;royce&gt;</span> hahahah, great!
+<a name="l-138"></a><span class="tm">13:45:02</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I'll be in Campinas on 26/dec
+<a name="l-139"></a><span class="tm">13:45:05</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-140"></a><span class="tm">13:45:22</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, wenwang, YuXin,  any problem for you?
+<a name="l-141"></a><span class="tm">13:45:31</span><span class="nk"> &lt;royce&gt;</span> I'm OK with it
+<a name="l-142"></a><span class="tm">13:45:43</span><span class="nk"> &lt;YuXin&gt;</span> no problem
+<a name="l-143"></a><span class="tm">13:45:50</span><span class="nk"> &lt;alinefm&gt;</span> I will properly send a note to ML to make sure everyone is aware of it
+<a name="l-144"></a><span class="tm">13:45:58</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-145"></a><span class="tm">13:46:05</span><span class="nk"> &lt;wenwang&gt;</span> I  am okay with it
+<a name="l-146"></a><span class="tm">13:46:36</span><span class="nk"> &lt;alinefm&gt;</span> royce, wenwang YuXin, vianac, I will be out only Dec 24-25 and Dec 31 - Jan 02
+<a name="l-147"></a><span class="tm">13:47:26</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> Ok
+<a name="l-148"></a><span class="tm">13:47:32</span><span class="nk"> &lt;royce&gt;</span> Not a long holiday, :)
+<a name="l-149"></a><span class="tm">13:47:56</span><span class="nk"> &lt;royce&gt;</span> In spring festival we usually leave for half month:D
+<a name="l-150"></a><span class="tm">13:48:12</span><span class="nk"> &lt;alinefm&gt;</span> wow!
+<a name="l-151"></a><span class="tm">13:48:14</span><span class="nk"> &lt;lagarcia&gt;</span> royce, and you were envy about xmas :P
+<a name="l-152"></a><span class="tm">13:48:16</span><span class="nk"> &lt;alinefm&gt;</span> when is it?
+<a name="l-153"></a><span class="tm">13:48:24</span><span class="nk"> &lt;wenwang&gt;</span> enjoy your holiday alinefm
+<a name="l-154"></a><span class="tm">13:48:41</span><span class="nk"> &lt;royce&gt;</span> heh, lagarcia, I thought your will be longer, but it turns out...
+<a name="l-155"></a><span class="tm">13:48:50</span><span class="nk"> &lt;royce&gt;</span> alinefm, in Feb this year
+<a name="l-156"></a><span class="tm">13:48:51</span><span class="nk"> &lt;wenwang&gt;</span> It's Feb. 18th -25 this year
+<a name="l-157"></a><span class="tm">13:49:30</span><span class="nk"> &lt;royce&gt;</span> We have seven day national holiday and the whole country do not work\O/
+<a name="l-158"></a><span class="tm">13:50:15</span><span class="nk"> &lt;royce&gt;</span> and we can ask for some more days  leave in addition to that
+<a name="l-159"></a><span class="tm">13:50:52</span><span class="nk"> &lt;alinefm&gt;</span> that is grea!T
+<a name="l-160"></a><span class="tm">13:51:35</span><span class="nk"> &lt;royce&gt;</span> yes!
+<a name="l-161"></a><span class="tm">13:52:01</span><span class="nk"> &lt;YuXin&gt;</span> spring festival and national day are busy time for retail and distribution guys
+<a name="l-162"></a><span class="tm">13:52:29</span><span class="nk"> &lt;royce&gt;</span> but it is still long so now we hope we can still celeberate Xmas
+<a name="l-163"></a><span class="tm">13:53:09</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-164"></a><span class="tm">13:53:43</span><span class="nk"> &lt;alinefm&gt;</span> I dont think we have much more for today
+<a name="l-165"></a><span class="tm">13:53:50</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-166"></a><span class="tm">13:54:12</span><span class="nk"> &lt;royce&gt;</span> bye guys~
+<a name="l-167"></a><span class="tm">13:54:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
