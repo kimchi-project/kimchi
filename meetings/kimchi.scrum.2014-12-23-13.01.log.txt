@@ -1,0 +1,153 @@
+13:01:50 <alinefm> #startmeeting
+13:01:50 <kimchi-bot> Meeting started Tue Dec 23 13:01:50 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:50 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:50 <alinefm> #meetingname scrum
+13:01:50 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:57 <alinefm> #info Agenda 1) Status 2) Kimchi 1.4.1 Plan 3) Open discussion
+13:02:58 <alinefm> anything else?
+13:04:40 <alinefm> ok... let's get started
+13:04:40 <alinefm> #topic Status
+13:04:41 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:11 <royce> #royce is enhancing storage volume upload, addressed problem of distingushing duplicate name and sliced volume upload, still have another problem to discuss--Every upload slice has a different task_id
+13:05:22 <vianac> #info vianac worked on bugs #526, #544
+13:06:44 <alinefm> #info alinefm updated kimchi pages for 1.4 released and generated distros packages
+13:06:52 <alinefm> #info alinefm working on 1.4.1 plan
+13:07:28 <Guest2704> #info simon send out migration v7 patch
+13:09:15 <wenwang> #info wenwang doing related work of Kimchi new UI
+13:10:45 <alinefm> thanks all for the update
+13:11:01 <alinefm> moving on to 1.4.1 plan
+13:11:02 <alinefm> #topic Kimchi 1.4.1 Plan
+13:11:08 <alinefm> https://github.com/kimchi-project/kimchi/wiki/Planning-1.4.1
+13:11:27 <alinefm> Kimchi 1.4.1 will be released on March 27th
+13:11:59 <alinefm> as it is a stabilization release, I  expect to have most of the open issues and enhancements closed https://github.com/kimchi-project/kimchi/issues
+13:12:09 <alinefm> in addition to any other items we find in the way
+13:13:04 <alinefm> I am still creating the ToDo page but it includes what we have already talked in the last scrum meeting related to tests refactoring, UI tests and new UI
+13:13:28 <alinefm> wenwang, YuXin, I have created a new branch named "next" to merge the new UI pages
+13:13:37 <alinefm> s/pages/patches
+13:13:38 <YuXin> ok
+13:14:24 <wenwang> thanks alinefm
+13:14:54 <alinefm> any question/concern/suggestion?
+13:16:05 <YuXin> we are reviewing the new UI desigh and try to figure out re-usabled/common widgets
+13:16:29 <YuXin> then those widgets and form elements will be built first
+13:16:38 <alinefm> great!
+13:16:50 <alinefm> I thought in the same approach
+13:17:12 <YuXin> then most UI content will re-using those assets, this is the way to minimize efforts and improve quality
+13:17:13 <alinefm> creating those widgets we make sure all them will have the same style around the whole app
+13:17:46 <YuXin> once those widget is created, then they will be re-used, then consistent style will be guaranteed
+13:18:25 <alinefm> yeap
+13:18:53 <YuXin> the new UI design is going to be sent out to mail list
+13:19:12 <YuXin> so team, please actively evaluate and have your comments and feedback
+13:19:32 <wenwang> sure, thanks YuXin
+13:19:38 <alinefm> vianac, royce ^ =)
+13:20:07 <royce> OK
+13:20:13 <vianac> ok
+13:20:56 <alinefm> shall we move on to open discussion?
+13:21:07 <royce> ACK
+13:22:18 <alinefm> #topic Open Discussion
+13:22:22 <alinefm> royce, do you want to start?
+13:23:47 <royce> yes, about each slice with one task id, I'm afraid this will be troublesome for frontend
+13:24:36 <alinefm> I don't think it can be a problem as the frontend track each task in running state
+13:24:47 <royce> also big files will be many slices left in objstore
+13:25:00 <alinefm> I suppose one task is created only when the previous one is finished, right?
+13:25:16 <royce> slice id left in objstore
+13:25:40 <alinefm> hmm.. about that we could have a way to clean the old tasks in the objstore
+13:25:44 <royce> created when previous finished, why?
+13:26:39 <royce> we are a multi-request server, as far as I understand, we are able to create many tasks
+13:26:44 <royce> concurrently
+13:26:55 <alinefm> agree - but we are writing a file
+13:27:29 <royce> Ehhhhh...we need file lock, another problem
+13:27:32 <alinefm> so I will only accept the second slice of file and the first one was created
+13:28:02 <alinefm> vianac, don't you want to share what you have investigated about upload?
+13:28:05 <royce> nope, we use seek and write, sequence is not important
+13:28:47 <alinefm> and how you guarantee the file will not be corrupted?
+13:29:18 <alinefm> royce, how are you thinking about the API?
+13:29:28 <alinefm> one POST and many of PUT requests?
+13:29:52 <alinefm> how did you identify when the file is fully uploaded?
+13:29:57 <vianac> alinefm, I investigated on how other file upload implementations work, and they all upload the file data one chunk at a time
+13:29:59 <royce> yeah, reasonable about API change
+13:30:11 <vianac> they don't send the whole content at once, as we're doing currently
+13:30:57 <royce> alinefm, identify full upload is easy
+13:31:02 <vianac> so we need to send the file in different parts, keeping track of the upload current progress (i.e. offset)
+13:31:25 <alinefm> royce, how?
+13:31:26 <royce> chunk size + current size = file size
+13:31:42 <vianac> so we can do something like: POST /storagepools/pool/storagevolumes/<name>, return some ID
+13:32:14 <vianac> then POST /storagepools/pool/storagevolumes/<name> {id: id, offset: 0, length: 1024, data: <data>}
+13:32:31 <vianac> and repeat the step above a few times until all the data has been sent
+13:32:32 <alinefm> I'd say the second request is PUT =)
+13:32:41 <vianac> alinefm, yes, you're right
+13:32:43 <royce> ACK
+13:32:47 <vianac> we should use PUT then
+13:32:52 <alinefm> vianac, how do you know all the data was sent?
+13:33:24 <royce> {length: chunk_size, file_size:xxx}
+13:33:44 <vianac> we can 1) send a different parameter to flag that we have finished, or 2) the server can find out everything has been uploaded if we send the size in the first request as well
+13:34:00 <vianac> so if we say we're going to send 1000 bytes, and we have sent 1000 bytes, it's finished
+13:34:05 <vianac> I guess I prefer option 2
+13:34:37 <alinefm> vianac, royce, I don't think the frontend can know the total size without reading the whole file
+13:34:44 <vianac> alinefm, yes, it can
+13:34:54 <royce> UI split it
+13:35:18 <royce> and in formdata, it has the length
+13:36:09 <vianac> http://stackoverflow.com/questions/7497404/get-file-size-before-uploading
+13:36:34 <alinefm> great
+13:36:50 <alinefm> so I suggest to send the total size in the POST request
+13:36:57 <royce> OK
+13:37:03 <alinefm> POST /storagepools/pool/storagevolumes/<name> {size: XXX}
+13:37:13 <alinefm> and then a sequece of PUT requests
+13:37:52 <alinefm> vianac, why the POST request need to return an ID? and why the ID need to be in the PUT request?
+13:38:13 <vianac> alinefm, because we need to keep track of which uploading session we're sending the data
+13:38:28 <vianac> several upload instances may be running at that moment
+13:38:38 <alinefm> and...?
+13:38:45 <royce> is vol_name enough?
+13:38:47 <alinefm> we have the <name> as the identifier
+13:39:10 <vianac> alinefm, ok, we can use the name for that
+13:40:19 <vianac> we'd also need a background task to check whether an upload session has been inactive for some time, and clean it up
+13:41:10 <alinefm> agree
+13:41:12 <royce> the last request need to do the clean task id job as for me
+13:41:45 <alinefm> royce, vianac is talking when an upload started and not finished
+13:41:58 <alinefm> in that case we may have leftovers in the system that must be clean up
+13:42:27 <alinefm> so we need to establish a timeout between the POST and PUT requests
+13:42:44 <alinefm> if we don't receive the next request in X minutes we need to abort the upload
+13:42:49 <alinefm> and clean up the system
+13:43:31 <royce> You mean clean up the part volume?
+13:44:01 <alinefm> yes
+13:45:17 <royce> we can use udev change maybe
+13:46:39 <alinefm> probably
+13:46:41 <royce> when an upload started create a cleaner at same time
+13:46:56 <alinefm> or store in objstore the time of each upload request and check them on a BackgroundTask
+13:47:50 <royce> Yeah, we can do that too
+13:51:05 <alinefm> any other point to discuss related to upload?
+13:55:28 <alinefm> alright...
+13:55:33 <alinefm> any other topic for today?
+13:57:42 <alinefm> royce, vianac, wenwang YuXin ^
+13:57:56 <wenwang> no from me
+13:58:47 <YuXin> no
+14:02:22 <alinefm> so thanks everyone for joining
+14:02:27 <royce> I'm considering if file writes need to be protected by the lock, as they write different parts, they seek to different pointers, I suppose they would not corrupt each other
+14:03:15 <alinefm> after seeking to a specify position we need to make sure that position is free before writing
+14:04:38 <royce> seek is to seek the right file position for the chunk, if it is received for the first time, it is ok for writing
+14:04:59 <alinefm> how do you know it is the first time receiving the chunk?
+14:05:14 <royce> every chunk just sent once right?
+14:05:16 <alinefm> let's say you already have received a chunk for offset 1024
+14:05:45 <alinefm> royce,  in a non-malicious world,  yes =)
+14:06:04 <alinefm> and other person send a chunk for 1030
+14:06:19 <alinefm> if you write the content you will create a corrupted file
+14:07:11 <royce> chunk is splitted by UI, every of them does not share content with others
+14:08:26 <alinefm> royce, once the upload process starts (after POST request) everyone is aware about it - it will appears on UI with a progress bar
+14:08:48 <alinefm> let's say I am a bad girl and "hnmm... let's corrupt that upload started by royce"
+14:09:10 <alinefm> and then I manually send a request "PUT {offset:X, data: Y}"
+14:09:25 <alinefm> and then you have a corrupted file and a security issue
+14:10:03 <royce> it just override my data, even if chunks in order
+14:10:41 <royce> we are talking about if mis-order concurrently chunks will corrupt the file ,right?
+14:11:37 <alinefm> yes and also how guarantee we will not create a corrupted file
+14:12:03 <alinefm> if someone else send chunks for the same upload file
+14:13:36 <alinefm> if you seek to 1024 and it is not free you should reject the chunk
+14:13:52 <alinefm> we can also make sure all the requests is from the same user by checking the request header
+14:14:49 <royce> if  some one also send  right offset with wrong data what shall we do then?
+14:15:22 <royce> this can just be garenteed by something like TCP checksum
+14:15:48 <alinefm> on POST request we can get the username from request header and only accept the PUT from the same user
+14:17:59 <alinefm> we are over time
+14:18:16 <alinefm> royce, please, send any other point you want to discuss to ML
+14:18:27 <royce> OK, I'll do some test then discuss this
+14:18:50 <alinefm> great!
+14:19:02 <alinefm> thanks everyone for joining!
+14:19:04 <royce> Merry Christmas!
+14:19:05 <alinefm> #endmeeting

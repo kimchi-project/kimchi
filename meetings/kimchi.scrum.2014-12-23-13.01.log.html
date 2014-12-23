@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Tue Dec 23 13:01:50 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Kimchi 1.4.1 Plan 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:58</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:40</span><span class="nk"> &lt;alinefm&gt;</span> ok... let's get started
+<a name="l-9"></a><span class="tm">13:04:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:04:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:11</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#royce </span><span class="cmdline">is enhancing storage volume upload, addressed problem of distingushing duplicate name and sliced volume upload, still have another problem to discuss--Every upload slice has a different task_id</span>
+<a name="l-12"></a><span class="tm">13:05:22</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac worked on bugs #526, #544</span>
+<a name="l-13"></a><span class="tm">13:06:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated kimchi pages for 1.4 released and generated distros packages</span>
+<a name="l-14"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm working on 1.4.1 plan</span>
+<a name="l-15"></a><span class="tm">13:07:28</span><span class="nk"> &lt;Guest2704&gt;</span> <span class="cmd">#info </span><span class="cmdline">simon send out migration v7 patch</span>
+<a name="l-16"></a><span class="tm">13:09:15</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang doing related work of Kimchi new UI</span>
+<a name="l-17"></a><span class="tm">13:10:45</span><span class="nk"> &lt;alinefm&gt;</span> thanks all for the update
+<a name="l-18"></a><span class="tm">13:11:01</span><span class="nk"> &lt;alinefm&gt;</span> moving on to 1.4.1 plan
+<a name="l-19"></a><span class="tm">13:11:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi 1.4.1 Plan</span>
+<a name="l-20"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/kimchi/wiki/Planning-1.4.1
+<a name="l-21"></a><span class="tm">13:11:27</span><span class="nk"> &lt;alinefm&gt;</span> Kimchi 1.4.1 will be released on March 27th
+<a name="l-22"></a><span class="tm">13:11:59</span><span class="nk"> &lt;alinefm&gt;</span> as it is a stabilization release, I  expect to have most of the open issues and enhancements closed https://github.com/kimchi-project/kimchi/issues
+<a name="l-23"></a><span class="tm">13:12:09</span><span class="nk"> &lt;alinefm&gt;</span> in addition to any other items we find in the way
+<a name="l-24"></a><span class="tm">13:13:04</span><span class="nk"> &lt;alinefm&gt;</span> I am still creating the ToDo page but it includes what we have already talked in the last scrum meeting related to tests refactoring, UI tests and new UI
+<a name="l-25"></a><span class="tm">13:13:28</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, YuXin, I have created a new branch named "next" to merge the new UI pages
+<a name="l-26"></a><span class="tm">13:13:37</span><span class="nk"> &lt;alinefm&gt;</span> s/pages/patches
+<a name="l-27"></a><span class="tm">13:13:38</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-28"></a><span class="tm">13:14:24</span><span class="nk"> &lt;wenwang&gt;</span> thanks alinefm
+<a name="l-29"></a><span class="tm">13:14:54</span><span class="nk"> &lt;alinefm&gt;</span> any question/concern/suggestion?
+<a name="l-30"></a><span class="tm">13:16:05</span><span class="nk"> &lt;YuXin&gt;</span> we are reviewing the new UI desigh and try to figure out re-usabled/common widgets
+<a name="l-31"></a><span class="tm">13:16:29</span><span class="nk"> &lt;YuXin&gt;</span> then those widgets and form elements will be built first
+<a name="l-32"></a><span class="tm">13:16:38</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-33"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> I thought in the same approach
+<a name="l-34"></a><span class="tm">13:17:12</span><span class="nk"> &lt;YuXin&gt;</span> then most UI content will re-using those assets, this is the way to minimize efforts and improve quality
+<a name="l-35"></a><span class="tm">13:17:13</span><span class="nk"> &lt;alinefm&gt;</span> creating those widgets we make sure all them will have the same style around the whole app
+<a name="l-36"></a><span class="tm">13:17:46</span><span class="nk"> &lt;YuXin&gt;</span> once those widget is created, then they will be re-used, then consistent style will be guaranteed
+<a name="l-37"></a><span class="tm">13:18:25</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-38"></a><span class="tm">13:18:53</span><span class="nk"> &lt;YuXin&gt;</span> the new UI design is going to be sent out to mail list
+<a name="l-39"></a><span class="tm">13:19:12</span><span class="nk"> &lt;YuXin&gt;</span> so team, please actively evaluate and have your comments and feedback
+<a name="l-40"></a><span class="tm">13:19:32</span><span class="nk"> &lt;wenwang&gt;</span> sure, thanks YuXin
+<a name="l-41"></a><span class="tm">13:19:38</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce ^ =)
+<a name="l-42"></a><span class="tm">13:20:07</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-43"></a><span class="tm">13:20:13</span><span class="nk"> &lt;vianac&gt;</span> ok
+<a name="l-44"></a><span class="tm">13:20:56</span><span class="nk"> &lt;alinefm&gt;</span> shall we move on to open discussion?
+<a name="l-45"></a><span class="tm">13:21:07</span><span class="nk"> &lt;royce&gt;</span> ACK
+<a name="l-46"></a><span class="tm">13:22:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-47"></a><span class="tm">13:22:22</span><span class="nk"> &lt;alinefm&gt;</span> royce, do you want to start?
+<a name="l-48"></a><span class="tm">13:23:47</span><span class="nk"> &lt;royce&gt;</span> yes, about each slice with one task id, I'm afraid this will be troublesome for frontend
+<a name="l-49"></a><span class="tm">13:24:36</span><span class="nk"> &lt;alinefm&gt;</span> I don't think it can be a problem as the frontend track each task in running state
+<a name="l-50"></a><span class="tm">13:24:47</span><span class="nk"> &lt;royce&gt;</span> also big files will be many slices left in objstore
+<a name="l-51"></a><span class="tm">13:25:00</span><span class="nk"> &lt;alinefm&gt;</span> I suppose one task is created only when the previous one is finished, right?
+<a name="l-52"></a><span class="tm">13:25:16</span><span class="nk"> &lt;royce&gt;</span> slice id left in objstore
+<a name="l-53"></a><span class="tm">13:25:40</span><span class="nk"> &lt;alinefm&gt;</span> hmm.. about that we could have a way to clean the old tasks in the objstore
+<a name="l-54"></a><span class="tm">13:25:44</span><span class="nk"> &lt;royce&gt;</span> created when previous finished, why?
+<a name="l-55"></a><span class="tm">13:26:39</span><span class="nk"> &lt;royce&gt;</span> we are a multi-request server, as far as I understand, we are able to create many tasks
+<a name="l-56"></a><span class="tm">13:26:44</span><span class="nk"> &lt;royce&gt;</span> concurrently
+<a name="l-57"></a><span class="tm">13:26:55</span><span class="nk"> &lt;alinefm&gt;</span> agree - but we are writing a file
+<a name="l-58"></a><span class="tm">13:27:29</span><span class="nk"> &lt;royce&gt;</span> Ehhhhh...we need file lock, another problem
+<a name="l-59"></a><span class="tm">13:27:32</span><span class="nk"> &lt;alinefm&gt;</span> so I will only accept the second slice of file and the first one was created
+<a name="l-60"></a><span class="tm">13:28:02</span><span class="nk"> &lt;alinefm&gt;</span> vianac, don't you want to share what you have investigated about upload?
+<a name="l-61"></a><span class="tm">13:28:05</span><span class="nk"> &lt;royce&gt;</span> nope, we use seek and write, sequence is not important
+<a name="l-62"></a><span class="tm">13:28:47</span><span class="nk"> &lt;alinefm&gt;</span> and how you guarantee the file will not be corrupted?
+<a name="l-63"></a><span class="tm">13:29:18</span><span class="nk"> &lt;alinefm&gt;</span> royce, how are you thinking about the API?
+<a name="l-64"></a><span class="tm">13:29:28</span><span class="nk"> &lt;alinefm&gt;</span> one POST and many of PUT requests?
+<a name="l-65"></a><span class="tm">13:29:52</span><span class="nk"> &lt;alinefm&gt;</span> how did you identify when the file is fully uploaded?
+<a name="l-66"></a><span class="tm">13:29:57</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I investigated on how other file upload implementations work, and they all upload the file data one chunk at a time
+<a name="l-67"></a><span class="tm">13:29:59</span><span class="nk"> &lt;royce&gt;</span> yeah, reasonable about API change
+<a name="l-68"></a><span class="tm">13:30:11</span><span class="nk"> &lt;vianac&gt;</span> they don't send the whole content at once, as we're doing currently
+<a name="l-69"></a><span class="tm">13:30:57</span><span class="nk"> &lt;royce&gt;</span> alinefm, identify full upload is easy
+<a name="l-70"></a><span class="tm">13:31:02</span><span class="nk"> &lt;vianac&gt;</span> so we need to send the file in different parts, keeping track of the upload current progress (i.e. offset)
+<a name="l-71"></a><span class="tm">13:31:25</span><span class="nk"> &lt;alinefm&gt;</span> royce, how?
+<a name="l-72"></a><span class="tm">13:31:26</span><span class="nk"> &lt;royce&gt;</span> chunk size + current size = file size
+<a name="l-73"></a><span class="tm">13:31:42</span><span class="nk"> &lt;vianac&gt;</span> so we can do something like: POST /storagepools/pool/storagevolumes/&lt;name&gt;, return some ID
+<a name="l-74"></a><span class="tm">13:32:14</span><span class="nk"> &lt;vianac&gt;</span> then POST /storagepools/pool/storagevolumes/&lt;name&gt; {id: id, offset: 0, length: 1024, data: &lt;data&gt;}
+<a name="l-75"></a><span class="tm">13:32:31</span><span class="nk"> &lt;vianac&gt;</span> and repeat the step above a few times until all the data has been sent
+<a name="l-76"></a><span class="tm">13:32:32</span><span class="nk"> &lt;alinefm&gt;</span> I'd say the second request is PUT =)
+<a name="l-77"></a><span class="tm">13:32:41</span><span class="nk"> &lt;vianac&gt;</span> alinefm, yes, you're right
+<a name="l-78"></a><span class="tm">13:32:43</span><span class="nk"> &lt;royce&gt;</span> ACK
+<a name="l-79"></a><span class="tm">13:32:47</span><span class="nk"> &lt;vianac&gt;</span> we should use PUT then
+<a name="l-80"></a><span class="tm">13:32:52</span><span class="nk"> &lt;alinefm&gt;</span> vianac, how do you know all the data was sent?
+<a name="l-81"></a><span class="tm">13:33:24</span><span class="nk"> &lt;royce&gt;</span> <span class="hi">{length:</span> chunk_size, file_size:xxx}
+<a name="l-82"></a><span class="tm">13:33:44</span><span class="nk"> &lt;vianac&gt;</span> we can 1) send a different parameter to flag that we have finished, or 2) the server can find out everything has been uploaded if we send the size in the first request as well
+<a name="l-83"></a><span class="tm">13:34:00</span><span class="nk"> &lt;vianac&gt;</span> so if we say we're going to send 1000 bytes, and we have sent 1000 bytes, it's finished
+<a name="l-84"></a><span class="tm">13:34:05</span><span class="nk"> &lt;vianac&gt;</span> I guess I prefer option 2
+<a name="l-85"></a><span class="tm">13:34:37</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, I don't think the frontend can know the total size without reading the whole file
+<a name="l-86"></a><span class="tm">13:34:44</span><span class="nk"> &lt;vianac&gt;</span> alinefm, yes, it can
+<a name="l-87"></a><span class="tm">13:34:54</span><span class="nk"> &lt;royce&gt;</span> UI split it
+<a name="l-88"></a><span class="tm">13:35:18</span><span class="nk"> &lt;royce&gt;</span> and in formdata, it has the length
+<a name="l-89"></a><span class="tm">13:36:09</span><span class="nk"> &lt;vianac&gt;</span> http://stackoverflow.com/questions/7497404/get-file-size-before-uploading
+<a name="l-90"></a><span class="tm">13:36:34</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-91"></a><span class="tm">13:36:50</span><span class="nk"> &lt;alinefm&gt;</span> so I suggest to send the total size in the POST request
+<a name="l-92"></a><span class="tm">13:36:57</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-93"></a><span class="tm">13:37:03</span><span class="nk"> &lt;alinefm&gt;</span> POST /storagepools/pool/storagevolumes/&lt;name&gt; {size: XXX}
+<a name="l-94"></a><span class="tm">13:37:13</span><span class="nk"> &lt;alinefm&gt;</span> and then a sequece of PUT requests
+<a name="l-95"></a><span class="tm">13:37:52</span><span class="nk"> &lt;alinefm&gt;</span> vianac, why the POST request need to return an ID? and why the ID need to be in the PUT request?
+<a name="l-96"></a><span class="tm">13:38:13</span><span class="nk"> &lt;vianac&gt;</span> alinefm, because we need to keep track of which uploading session we're sending the data
+<a name="l-97"></a><span class="tm">13:38:28</span><span class="nk"> &lt;vianac&gt;</span> several upload instances may be running at that moment
+<a name="l-98"></a><span class="tm">13:38:38</span><span class="nk"> &lt;alinefm&gt;</span> and...?
+<a name="l-99"></a><span class="tm">13:38:45</span><span class="nk"> &lt;royce&gt;</span> is vol_name enough?
+<a name="l-100"></a><span class="tm">13:38:47</span><span class="nk"> &lt;alinefm&gt;</span> we have the &lt;name&gt; as the identifier
+<a name="l-101"></a><span class="tm">13:39:10</span><span class="nk"> &lt;vianac&gt;</span> alinefm, ok, we can use the name for that
+<a name="l-102"></a><span class="tm">13:40:19</span><span class="nk"> &lt;vianac&gt;</span> we'd also need a background task to check whether an upload session has been inactive for some time, and clean it up
+<a name="l-103"></a><span class="tm">13:41:10</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-104"></a><span class="tm">13:41:12</span><span class="nk"> &lt;royce&gt;</span> the last request need to do the clean task id job as for me
+<a name="l-105"></a><span class="tm">13:41:45</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac is talking when an upload started and not finished
+<a name="l-106"></a><span class="tm">13:41:58</span><span class="nk"> &lt;alinefm&gt;</span> in that case we may have leftovers in the system that must be clean up
+<a name="l-107"></a><span class="tm">13:42:27</span><span class="nk"> &lt;alinefm&gt;</span> so we need to establish a timeout between the POST and PUT requests
+<a name="l-108"></a><span class="tm">13:42:44</span><span class="nk"> &lt;alinefm&gt;</span> if we don't receive the next request in X minutes we need to abort the upload
+<a name="l-109"></a><span class="tm">13:42:49</span><span class="nk"> &lt;alinefm&gt;</span> and clean up the system
+<a name="l-110"></a><span class="tm">13:43:31</span><span class="nk"> &lt;royce&gt;</span> You mean clean up the part volume?
+<a name="l-111"></a><span class="tm">13:44:01</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-112"></a><span class="tm">13:45:17</span><span class="nk"> &lt;royce&gt;</span> we can use udev change maybe
+<a name="l-113"></a><span class="tm">13:46:39</span><span class="nk"> &lt;alinefm&gt;</span> probably
+<a name="l-114"></a><span class="tm">13:46:41</span><span class="nk"> &lt;royce&gt;</span> when an upload started create a cleaner at same time
+<a name="l-115"></a><span class="tm">13:46:56</span><span class="nk"> &lt;alinefm&gt;</span> or store in objstore the time of each upload request and check them on a BackgroundTask
+<a name="l-116"></a><span class="tm">13:47:50</span><span class="nk"> &lt;royce&gt;</span> Yeah, we can do that too
+<a name="l-117"></a><span class="tm">13:51:05</span><span class="nk"> &lt;alinefm&gt;</span> any other point to discuss related to upload?
+<a name="l-118"></a><span class="tm">13:55:28</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-119"></a><span class="tm">13:55:33</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-120"></a><span class="tm">13:57:42</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac, wenwang YuXin ^
+<a name="l-121"></a><span class="tm">13:57:56</span><span class="nk"> &lt;wenwang&gt;</span> no from me
+<a name="l-122"></a><span class="tm">13:58:47</span><span class="nk"> &lt;YuXin&gt;</span> no
+<a name="l-123"></a><span class="tm">14:02:22</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining
+<a name="l-124"></a><span class="tm">14:02:27</span><span class="nk"> &lt;royce&gt;</span> I'm considering if file writes need to be protected by the lock, as they write different parts, they seek to different pointers, I suppose they would not corrupt each other
+<a name="l-125"></a><span class="tm">14:03:15</span><span class="nk"> &lt;alinefm&gt;</span> after seeking to a specify position we need to make sure that position is free before writing
+<a name="l-126"></a><span class="tm">14:04:38</span><span class="nk"> &lt;royce&gt;</span> seek is to seek the right file position for the chunk, if it is received for the first time, it is ok for writing
+<a name="l-127"></a><span class="tm">14:04:59</span><span class="nk"> &lt;alinefm&gt;</span> how do you know it is the first time receiving the chunk?
+<a name="l-128"></a><span class="tm">14:05:14</span><span class="nk"> &lt;royce&gt;</span> every chunk just sent once right?
+<a name="l-129"></a><span class="tm">14:05:16</span><span class="nk"> &lt;alinefm&gt;</span> let's say you already have received a chunk for offset 1024
+<a name="l-130"></a><span class="tm">14:05:45</span><span class="nk"> &lt;alinefm&gt;</span> royce,  in a non-malicious world,  yes =)
+<a name="l-131"></a><span class="tm">14:06:04</span><span class="nk"> &lt;alinefm&gt;</span> and other person send a chunk for 1030
+<a name="l-132"></a><span class="tm">14:06:19</span><span class="nk"> &lt;alinefm&gt;</span> if you write the content you will create a corrupted file
+<a name="l-133"></a><span class="tm">14:07:11</span><span class="nk"> &lt;royce&gt;</span> chunk is splitted by UI, every of them does not share content with others
+<a name="l-134"></a><span class="tm">14:08:26</span><span class="nk"> &lt;alinefm&gt;</span> royce, once the upload process starts (after POST request) everyone is aware about it - it will appears on UI with a progress bar
+<a name="l-135"></a><span class="tm">14:08:48</span><span class="nk"> &lt;alinefm&gt;</span> let's say I am a bad girl and "hnmm... let's corrupt that upload started by royce"
+<a name="l-136"></a><span class="tm">14:09:10</span><span class="nk"> &lt;alinefm&gt;</span> and then I manually send a request "PUT {offset:X, data: Y}"
+<a name="l-137"></a><span class="tm">14:09:25</span><span class="nk"> &lt;alinefm&gt;</span> and then you have a corrupted file and a security issue
+<a name="l-138"></a><span class="tm">14:10:03</span><span class="nk"> &lt;royce&gt;</span> it just override my data, even if chunks in order
+<a name="l-139"></a><span class="tm">14:10:41</span><span class="nk"> &lt;royce&gt;</span> we are talking about if mis-order concurrently chunks will corrupt the file ,right?
+<a name="l-140"></a><span class="tm">14:11:37</span><span class="nk"> &lt;alinefm&gt;</span> yes and also how guarantee we will not create a corrupted file
+<a name="l-141"></a><span class="tm">14:12:03</span><span class="nk"> &lt;alinefm&gt;</span> if someone else send chunks for the same upload file
+<a name="l-142"></a><span class="tm">14:13:36</span><span class="nk"> &lt;alinefm&gt;</span> if you seek to 1024 and it is not free you should reject the chunk
+<a name="l-143"></a><span class="tm">14:13:52</span><span class="nk"> &lt;alinefm&gt;</span> we can also make sure all the requests is from the same user by checking the request header
+<a name="l-144"></a><span class="tm">14:14:49</span><span class="nk"> &lt;royce&gt;</span> if  some one also send  right offset with wrong data what shall we do then?
+<a name="l-145"></a><span class="tm">14:15:22</span><span class="nk"> &lt;royce&gt;</span> this can just be garenteed by something like TCP checksum
+<a name="l-146"></a><span class="tm">14:15:48</span><span class="nk"> &lt;alinefm&gt;</span> on POST request we can get the username from request header and only accept the PUT from the same user
+<a name="l-147"></a><span class="tm">14:17:59</span><span class="nk"> &lt;alinefm&gt;</span> we are over time
+<a name="l-148"></a><span class="tm">14:18:16</span><span class="nk"> &lt;alinefm&gt;</span> royce, please, send any other point you want to discuss to ML
+<a name="l-149"></a><span class="tm">14:18:27</span><span class="nk"> &lt;royce&gt;</span> OK, I'll do some test then discuss this
+<a name="l-150"></a><span class="tm">14:18:50</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-151"></a><span class="tm">14:19:02</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-152"></a><span class="tm">14:19:04</span><span class="nk"> &lt;royce&gt;</span> Merry Christmas!
+<a name="l-153"></a><span class="tm">14:19:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
