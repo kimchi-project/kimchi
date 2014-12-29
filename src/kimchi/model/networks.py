@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -211,9 +211,7 @@ class NetworksModel(object):
         conn = self.conn.get()
 
         if br_name in [net.bridgeName() for net in conn.listAllNetworks()]:
-            error_msg = 'The interface %s already exist' % br_name
-            raise InvalidOperation("KCHNET0010E", {'iface': br_name,
-                                                   'err': error_msg})
+            raise InvalidOperation("KCHNET0010E", {'iface': br_name})
 
         with RollbackContext() as rollback:
             try:
