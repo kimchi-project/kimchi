@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,6 @@ class MockModel(Model):
         osinfo.defaults = dict(defaults)
 
         self._mock_devices = MockDevices()
-        self._mock_interfaces = MockInterfaces()
         self._mock_storagevolumes = MockStorageVolumes()
         self._mock_swupdate = MockSoftwareUpdate()
         self._mock_repositories = MockRepositories()
@@ -284,12 +283,6 @@ class MockModel(Model):
 
         return self._model_storagevolume_lookup(pool, vol)
 
-    def _mock_interfaces_get_list(self):
-        return self._mock_interfaces.ifaces.keys()
-
-    def _mock_interface_lookup(self, name):
-        return self._mock_interfaces.ifaces[name]
-
     def _mock_devices_get_list(self, _cap=None, _passthrough=None,
                                _passthrough_affected_by=None):
         if _cap is None:
@@ -427,19 +420,6 @@ class MockStorageVolumes(object):
                                             'type': 'block',
                                             'path': base_path + '2',
                                             'ref_cnt': 0}}
-
-
-class MockInterfaces(object):
-    def __init__(self):
-        self.ifaces = {}
-        params = {"eth1": "nic", "bond0": "bonding",
-                  "eth1.10": "vlan", "bridge0": "bridge"}
-        for i, name in enumerate(params.iterkeys()):
-            info = {'name': name, 'type': params[name],
-                    'ipaddr': '192.168.%s.101' % (i + 1),
-                    'netmask': '255.255.255.0', 'status': 'active'}
-            self.ifaces[name] = info
-        self.ifaces['eth1']['ipaddr'] = '192.168.0.101'
 
 
 class MockDevices(object):
