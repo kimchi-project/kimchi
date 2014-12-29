@@ -565,19 +565,18 @@ A interface represents available interface on host.
 * **GET**: Retrieve a summarized list of all defined Networks
 * **POST**: Create a new Network
     * name: The name of the Network
-    * subnet *(optional)*: Network segment in slash-separated format with ip address and
-                           prefix or netmask. It is always ignored for bridge network.
     * connection: Specifies how this network should be connected to the other
                   networks visible to this host.
         * isolated: Create a private, isolated virtual network.
         * nat: Outgoing traffic will be routed through the host.
         * bridge: All traffic on this network will be bridged through the indicated
                   interface.
-    * interface: The name of a network interface on the host.
+    * subnet *(optional)*: Network segment in slash-separated format with ip address and
+                           prefix or netmask used to create nat network.
+    * interface *(optional)*: The name of a network interface on the host.
                  For bridge network, the interface can be a bridge or nic/bonding
-                 device. For isolated or NAT network, the interface is ignored.
-    * in_use: True if network is in use by a template or virtual machine;
-              False, otherwise.
+                 device.
+    * vlan_id *(optional)*: VLAN tagging ID for the bridge network.
 
 ### Resource: Network
 
