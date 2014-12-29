@@ -1074,69 +1074,6 @@ class ModelTests(unittest.TestCase):
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
-    def test_network(self):
-        inst = model.Model(None, self.tmp_store)
-
-        with RollbackContext() as rollback:
-
-            # Regression test:
-            # Kimchi fails creating new network #318
-            name = 'test-network-no-subnet'
-
-            networks = inst.networks_get_list()
-            num = len(networks) + 1
-            args = {'name': name,
-                    'connection': 'nat',
-                    'subnet': ''}
-            inst.networks_create(args)
-            rollback.prependDefer(inst.network_delete, name)
-
-            networks = inst.networks_get_list()
-            self.assertEquals(num, len(networks))
-            networkinfo = inst.network_lookup(name)
-            self.assertNotEqual(args['subnet'], networkinfo['subnet'])
-            self.assertEqual(args['connection'], networkinfo['connection'])
-            self.assertEquals('inactive', networkinfo['state'])
-            self.assertEquals([], networkinfo['vms'])
-            self.assertTrue(networkinfo['autostart'])
-            self.assertTrue(networkinfo['persistent'])
-
-            inst.network_activate(name)
-            rollback.prependDefer(inst.network_deactivate, name)
-
-            networkinfo = inst.network_lookup(name)
-            self.assertEquals('active', networkinfo['state'])
-
-            # test network creation with subnet passed
-            name = 'test-network-subnet'
-
-            networks = inst.networks_get_list()
-            num = len(networks) + 1
-            args = {'name': name,
-                    'connection': 'nat',
-                    'subnet': '127.0.100.0/24'}
-            inst.networks_create(args)
-            rollback.prependDefer(inst.network_delete, name)
-
-            networks = inst.networks_get_list()
-            self.assertEquals(num, len(networks))
-            networkinfo = inst.network_lookup(name)
-            self.assertEqual(args['subnet'], networkinfo['subnet'])
-            self.assertEqual(args['connection'], networkinfo['connection'])
-            self.assertEquals('inactive', networkinfo['state'])
-            self.assertEquals([], networkinfo['vms'])
-            self.assertTrue(networkinfo['autostart'])
-
-            inst.network_activate(name)
-            rollback.prependDefer(inst.network_deactivate, name)
-
-            networkinfo = inst.network_lookup(name)
-            self.assertEquals('active', networkinfo['state'])
-
-        networks = inst.networks_get_list()
-        self.assertEquals((num - 2), len(networks))
-
     def test_multithreaded_connection(self):
         def worker():
             for i in xrange(100):
@@ -1305,8 +1242,6 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         inst.task_wait(taskid, timeout=10)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
-
-
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_delete_running_vm(self):
