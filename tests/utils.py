@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,7 @@ import kimchi.mockmodel
 import kimchi.server
 from kimchi.config import config, paths
 from kimchi.auth import User, USER_NAME, USER_GROUPS, USER_ROLES, tabs
-from kimchi.exception import OperationFailed
+from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log
 
 _ports = {}
@@ -226,3 +226,16 @@ def wait_task(task_lookup, taskid, timeout=10):
             return
     kimchi_log.error("Timeout while process long-run task, "
                      "try to increase timeout value.")
+
+
+# The action functions in model backend raise NotFoundError exception if the
+# element is not found. But in some tests, these functions are called after
+# the element has been deleted if test finishes correctly, then NofFoundError
+# exception is raised and rollback breaks. To avoid it, this wrapper ignores
+# the NotFoundError.
+def rollback_wrapper(func, resource):
+    try:
+        func(resource)
+    except NotFoundError:
+        # VM has been deleted already
+        return
