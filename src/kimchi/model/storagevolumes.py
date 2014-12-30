@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -249,8 +249,9 @@ class StorageVolumeModel(object):
         self.task = TaskModel(**kargs)
         self.storagevolumes = StorageVolumesModel(**kargs)
 
-    def _get_storagevolume(self, poolname, name):
-        pool = StoragePoolModel.get_storagepool(poolname, self.conn)
+    @staticmethod
+    def get_storagevolume(poolname, name, conn):
+        pool = StoragePoolModel.get_storagepool(poolname, conn)
         if not pool.isActive():
             raise InvalidOperation("KCHVOL0006E", {'name': pool})
         try:
@@ -263,7 +264,7 @@ class StorageVolumeModel(object):
                 raise
 
     def lookup(self, pool, name):
-        vol = self._get_storagevolume(pool, name)
+        vol = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
         path = vol.path()
         info = vol.info()
         xml = vol.XMLDesc(0)
@@ -297,7 +298,7 @@ class StorageVolumeModel(object):
         return res
 
     def wipe(self, pool, name):
-        volume = self._get_storagevolume(pool, name)
+        volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
         try:
             volume.wipePattern(libvirt.VIR_STORAGE_VOL_WIPE_ALG_ZERO, 0)
         except libvirt.libvirtError as e:
@@ -310,7 +311,7 @@ class StorageVolumeModel(object):
         if pool_info['type'] in READONLY_POOL_TYPE:
             raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
 
-        volume = self._get_storagevolume(pool, name)
+        volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
         try:
             volume.delete(0)
         except libvirt.libvirtError as e:
@@ -319,7 +320,7 @@ class StorageVolumeModel(object):
 
     def resize(self, pool, name, size):
         size = size << 20
-        volume = self._get_storagevolume(pool, name)
+        volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
         try:
             volume.resize(size, 0)
         except libvirt.libvirtError as e:
@@ -385,8 +386,9 @@ class StorageVolumeModel(object):
 
         try:
             cb('setting up volume cloning')
-            orig_vir_vol = self._get_storagevolume(orig_pool_name,
-                                                   orig_vol_name)
+            orig_vir_vol = StorageVolumeModel.get_storagevolume(orig_pool_name,
+                                                                orig_vol_name,
+                                                                self.conn)
             orig_vol = self.lookup(orig_pool_name, orig_vol_name)
             new_vir_pool = StoragePoolModel.get_storagepool(new_pool_name,
                                                             self.conn)
