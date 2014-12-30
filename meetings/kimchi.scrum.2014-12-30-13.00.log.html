@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Tue Dec 30 13:00:46 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:00</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:01:13</span><span class="nk"> &lt;royce&gt;</span> good for me
+<a name="l-9"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:01:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:01:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches for bug fixes and network tests</span>
+<a name="l-12"></a><span class="tm">13:02:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm tagged some issues to 1.4.1 release: https://github.com/kimchi-project/kimchi/milestones/Kimchi%201.4.1</span>
+<a name="l-13"></a><span class="tm">13:02:35</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce implementing sliced upload, now working on tests, also sent a patch of storage volume ref_count</span>
+<a name="l-14"></a><span class="tm">13:02:42</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Reviewing new UI spec in detail from implementation perspective</span>
+<a name="l-15"></a><span class="tm">13:03:29</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Design &amp; Impl Grid Widget</span>
+<a name="l-16"></a><span class="tm">13:04:39</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac worked on issue #544</span>
+<a name="l-17"></a><span class="tm">13:07:21</span><span class="nk"> &lt;alinefm&gt;</span> thanks for the update, team!
+<a name="l-18"></a><span class="tm">13:07:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-19"></a><span class="tm">13:07:38</span><span class="nk"> &lt;alinefm&gt;</span> any topic for today?
+<a name="l-20"></a><span class="tm">13:08:09</span><span class="nk"> &lt;lagarcia&gt;</span> hehe seems this one is going to be the fastest scrum ever :)
+<a name="l-21"></a><span class="tm">13:08:39</span><span class="nk"> &lt;YuXin&gt;</span> jquery UI 1.11 is released and there is a new widget added
+<a name="l-22"></a><span class="tm">13:08:52</span><span class="nk"> &lt;YuXin&gt;</span> we should upgrade jquery UI to 1.11
+<a name="l-23"></a><span class="tm">13:09:09</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, I have the same feeling =)
+<a name="l-24"></a><span class="tm">13:09:12</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, good for me
+<a name="l-25"></a><span class="tm">13:09:22</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the license keeps the same, right?
+<a name="l-26"></a><span class="tm">13:09:28</span><span class="nk"> &lt;alinefm&gt;</span> I mean, the jquery 1.11
+<a name="l-27"></a><span class="tm">13:09:28</span><span class="nk"> &lt;YuXin&gt;</span> should be
+<a name="l-28"></a><span class="tm">13:09:32</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-29"></a><span class="tm">13:09:39</span><span class="nk"> &lt;alinefm&gt;</span> so no problem
+<a name="l-30"></a><span class="tm">13:09:53</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-31"></a><span class="tm">13:10:07</span><span class="nk"> &lt;YuXin&gt;</span> http://api.jqueryui.com/selectmenu/
+<a name="l-32"></a><span class="tm">13:11:02</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-33"></a><span class="tm">13:12:03</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-34"></a><span class="tm">13:12:32</span><span class="nk"> &lt;alinefm&gt;</span> royce, could you solve the problems with the sliced upload?
+<a name="l-35"></a><span class="tm">13:13:35</span><span class="nk"> &lt;alinefm&gt;</span> oh I forgot to mention, but I haven't created a todo page for 1.4.1 release because I think we can use the issues for this release
+<a name="l-36"></a><span class="tm">13:13:48</span><span class="nk"> &lt;alinefm&gt;</span> if you think we still need the todo page, let me know
+<a name="l-37"></a><span class="tm">13:13:49</span><span class="nk"> &lt;royce&gt;</span> yes, the cleaning part I'm doing, but the test fails today, I haven't changed tests completely
+<a name="l-38"></a><span class="tm">13:15:19</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-39"></a><span class="tm">13:15:52</span><span class="nk"> &lt;royce&gt;</span> BTW, my manager asked about Simon's migration
+<a name="l-40"></a><span class="tm">13:16:11</span><span class="nk"> &lt;royce&gt;</span> about if we are planning to merge that in this release...
+<a name="l-41"></a><span class="tm">13:16:27</span><span class="nk"> &lt;alinefm&gt;</span> no... it will be merged for 1.5 release
+<a name="l-42"></a><span class="tm">13:16:37</span><span class="nk"> &lt;alinefm&gt;</span> I don't think it is ready now
+<a name="l-43"></a><span class="tm">13:17:01</span><span class="nk"> &lt;alinefm&gt;</span> so if needed we can assign it to someone else
+<a name="l-44"></a><span class="tm">13:18:15</span><span class="nk"> &lt;royce&gt;</span> Got it
+<a name="l-45"></a><span class="tm">13:20:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-46"></a><span class="tm">13:21:42</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-47"></a><span class="tm">13:21:50</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-48"></a><span class="tm">13:21:55</span><span class="nk"> &lt;alinefm&gt;</span> and Happy new Year! =)
+<a name="l-49"></a><span class="tm">13:22:39</span><span class="nk"> &lt;alinefm&gt;</span> looking forward for what we will do in 2015
+<a name="l-50"></a><span class="tm">13:22:39</span><span class="nk"> &lt;YuXin&gt;</span> happy new year
+<a name="l-51"></a><span class="tm">13:22:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

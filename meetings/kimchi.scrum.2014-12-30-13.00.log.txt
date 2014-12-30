@@ -1,0 +1,51 @@
+13:00:46 <alinefm> #startmeeting
+13:00:46 <kimchi-bot> Meeting started Tue Dec 30 13:00:46 2014 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:46 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:46 <alinefm> #meetingname scrum
+13:00:46 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:00 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:00 <alinefm> anything else?
+13:01:13 <royce> good for me
+13:01:26 <alinefm> #topic Status
+13:01:26 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:01:42 <alinefm> #info alinefm sent patches for bug fixes and network tests
+13:02:17 <alinefm> #info alinefm tagged some issues to 1.4.1 release: https://github.com/kimchi-project/kimchi/milestones/Kimchi%201.4.1
+13:02:35 <royce> #info royce implementing sliced upload, now working on tests, also sent a patch of storage volume ref_count
+13:02:42 <YuXin> #info YuXin Reviewing new UI spec in detail from implementation perspective
+13:03:29 <YuXin> #info YuXin Design & Impl Grid Widget
+13:04:39 <vianac> #info vianac worked on issue #544
+13:07:21 <alinefm> thanks for the update, team!
+13:07:33 <alinefm> #topic Open Discussion
+13:07:38 <alinefm> any topic for today?
+13:08:09 <lagarcia> hehe seems this one is going to be the fastest scrum ever :)
+13:08:39 <YuXin> jquery UI 1.11 is released and there is a new widget added
+13:08:52 <YuXin> we should upgrade jquery UI to 1.11
+13:09:09 <alinefm> lagarcia, I have the same feeling =)
+13:09:12 <alinefm> YuXin, good for me
+13:09:22 <alinefm> YuXin, the license keeps the same, right?
+13:09:28 <alinefm> I mean, the jquery 1.11
+13:09:28 <YuXin> should be
+13:09:32 <YuXin> yes
+13:09:39 <alinefm> so no problem
+13:09:53 <YuXin> ok
+13:10:07 <YuXin> http://api.jqueryui.com/selectmenu/
+13:11:02 <alinefm> great
+13:12:03 <alinefm> anything else?
+13:12:32 <alinefm> royce, could you solve the problems with the sliced upload?
+13:13:35 <alinefm> oh I forgot to mention, but I haven't created a todo page for 1.4.1 release because I think we can use the issues for this release
+13:13:48 <alinefm> if you think we still need the todo page, let me know
+13:13:49 <royce> yes, the cleaning part I'm doing, but the test fails today, I haven't changed tests completely
+13:15:19 <alinefm> ok
+13:15:52 <royce> BTW, my manager asked about Simon's migration
+13:16:11 <royce> about if we are planning to merge that in this release...
+13:16:27 <alinefm> no... it will be merged for 1.5 release
+13:16:37 <alinefm> I don't think it is ready now
+13:17:01 <alinefm> so if needed we can assign it to someone else
+13:18:15 <royce> Got it
+13:20:33 <alinefm> anything else for today?
+13:21:42 <alinefm> ok...
+13:21:50 <alinefm> thanks everyone for joining!
+13:21:55 <alinefm> and Happy new Year! =)
+13:22:39 <alinefm> looking forward for what we will do in 2015
+13:22:39 <YuXin> happy new year
+13:22:41 <alinefm> #endmeeting
