@@ -154,8 +154,8 @@ class StorageVolumesModel(object):
         vol_xml = """
         <volume>
           <name>%(name)s</name>
-          <allocation unit="MiB">%(allocation)s</allocation>
-          <capacity unit="MiB">%(capacity)s</capacity>
+          <allocation unit='bytes'>%(allocation)s</allocation>
+          <capacity unit='bytes'>%(capacity)s</capacity>
           <source>
           </source>
           <target>
@@ -319,7 +319,6 @@ class StorageVolumeModel(object):
                                   {'name': name, 'err': e.get_error_message()})
 
     def resize(self, pool, name, size):
-        size = size << 20
         volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
         try:
             volume.resize(size, 0)
