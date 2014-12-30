@@ -20,6 +20,7 @@
 import contextlib
 import lxml.etree as ET
 import os
+import tempfile
 import time
 import urllib2
 from lxml.builder import E
@@ -203,7 +204,11 @@ class StorageVolumesModel(object):
         pool_model = StoragePoolModel(conn=self.conn,
                                       objstore=self.objstore)
         pool = pool_model.lookup(pool_name)
-        file_path = os.path.join(pool['path'], name)
+
+        if pool['type'] in ['dir', 'netfs']:
+            file_path = os.path.join(pool['path'], name)
+        else:
+            file_path = tempfile.mkstemp(prefix=name)[1]
 
         with contextlib.closing(urllib2.urlopen(url)) as response:
             with open(file_path, 'w') as volume_file:
@@ -219,14 +224,55 @@ class StorageVolumesModel(object):
                         volume_file.write(chunk_data)
                         downloaded_size += len(chunk_data)
                         cb('%s/%s' % (downloaded_size, remote_size))
-                except Exception, e:
+                except (IOError, libvirt.libvirtError) as e:
                     if os.path.isfile(file_path):
                         os.remove(file_path)
+
                     raise OperationFailed('KCHVOL0007E', {'name': name,
                                                           'pool': pool_name,
                                                           'err': e.message})
 
-        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh(0)
+        if pool['type'] in ['dir', 'netfs']:
+            virt_pool = StoragePoolModel.get_storagepool(pool_name, self.conn)
+            virt_pool.refresh(0)
+        else:
+            def _stream_handler(stream, nbytes, fd):
+                return fd.read(nbytes)
+
+            virt_stream = virt_vol = None
+
+            try:
+                task = self.create(pool_name, {'name': name,
+                                               'format': 'raw',
+                                               'capacity': downloaded_size,
+                                               'allocation': downloaded_size})
+                self.task.wait(task['id'])
+                virt_vol = StorageVolumeModel.get_storagevolume(pool_name,
+                                                                name,
+                                                                self.conn)
+
+                virt_stream = self.conn.get().newStream(0)
+                virt_vol.upload(virt_stream, 0, downloaded_size, 0)
+
+                with open(file_path) as fd:
+                    virt_stream.sendAll(_stream_handler, fd)
+
+                virt_stream.finish()
+            except (IOError, libvirt.libvirtError) as e:
+                try:
+                    if virt_stream:
+                        virt_stream.abort()
+                    if virt_vol:
+                        virt_vol.delete(0)
+                except libvirt.libvirtError, virt_e:
+                    kimchi_log.error(virt_e.message)
+                finally:
+                    raise OperationFailed('KCHVOL0007E', {'name': name,
+                                                          'pool': pool_name,
+                                                          'err': e.message})
+            finally:
+                os.remove(file_path)
+
         cb('OK', True)
 
     def get_list(self, pool_name):
