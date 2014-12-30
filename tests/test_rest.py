@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -1189,8 +1189,8 @@ class RestTests(unittest.TestCase):
 
         # Create a storage volume can only be successful for active pool
         req = json.dumps({'name': 'test-volume',
-                          'capacity': 1024,
-                          'allocation': 512,
+                          'capacity': 1073741824,  # 1 GiB
+                          'allocation': 536870912,  # 512 MiB
                           'type': 'disk',
                           'format': 'raw'})
         resp = self.request('/storagepools/pool-2/storagevolumes/',
@@ -1212,12 +1212,12 @@ class RestTests(unittest.TestCase):
         self.assertEquals('raw', storagevolume['format'])
 
         # Resize the storage volume
-        req = json.dumps({'size': 768})
+        req = json.dumps({'size': 805306368})  # 768 MiB
         uri = '/storagepools/pool-2/storagevolumes/test-volume/resize'
         resp = self.request(uri, req, 'POST')
         uri = '/storagepools/pool-2/storagevolumes/test-volume'
         storagevolume = json.loads(self.request(uri).read())
-        self.assertEquals(768 << 20, storagevolume['capacity'])
+        self.assertEquals(805306368, storagevolume['capacity'])  # 768 MiB
 
         # Wipe the storage volume
         uri = '/storagepools/pool-2/storagevolumes/test-volume/wipe'
@@ -1489,7 +1489,7 @@ class RestTests(unittest.TestCase):
         self._create_pool('pool-3')
         self.request('/storagepools/pool-3/activate', '{}', 'POST')
         params = {'name': 'fedora.iso',
-                  'capacity': 1024,
+                  'capacity': 1073741824,  # 1 GiB
                   'type': 'file',
                   'format': 'iso'}
         model.storagevolumes_create('pool-3', params)
@@ -1500,7 +1500,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals('iso', storagevolume['format'])
         self.assertEquals('/var/lib/libvirt/images/fedora.iso',
                           storagevolume['path'])
-        self.assertEquals(1024 << 20, storagevolume['capacity'])
+        self.assertEquals(1073741824, storagevolume['capacity'])  # 1 GiB
         self.assertEquals(0, storagevolume['allocation'])
         self.assertEquals('unknown', storagevolume['os_version'])
         self.assertEquals('unknown', storagevolume['os_distro'])

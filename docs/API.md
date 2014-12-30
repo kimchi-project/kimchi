@@ -475,7 +475,7 @@ A interface represents available network interface on VM.
     * name: The name of the Storage Volume
     * type: The type of the defined Storage Volume
     * capacity: The total space which can be used to store volumes
-                The unit is MBytes
+                The unit is bytes
     * format: The format of the defined Storage Volume
     * file: File to be uploaded, passed through form data
     * url: URL to be downloaded
@@ -510,7 +510,7 @@ A interface represents available network interface on VM.
 
 * resize: Resize a Storage Volume
     * size: resize the total space which can be used to store data
-            The unit is MBytes
+            The unit is bytes
 * wipe: Wipe a Storage Volume
 * clone: Clone a Storage Volume.
     * pool: The name of the destination pool (optional).

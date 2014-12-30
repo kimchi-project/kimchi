@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -186,8 +186,8 @@ class ModelTests(unittest.TestCase):
         with RollbackContext() as rollback:
             vol = 'base-vol.img'
             params = {'name': vol,
-                      'capacity': 1024,
-                      'allocation': 1,
+                      'capacity': 1073741824,  # 1 GiB
+                      'allocation': 1048576,  # 1 MiB
                       'format': 'qcow2'}
             task_id = inst.storagevolumes_create('default', params)['id']
             rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
@@ -357,8 +357,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.storagepool_deactivate, pool)
 
             params = {'name': vol,
-                      'capacity': 1024,
-                      'allocation': 512,
+                      'capacity': 1073741824,  # 1 GiB
+                      'allocation': 536870912,  # 512 MiB
                       'format': 'qcow2'}
             task_id = inst.storagevolumes_create(pool, params)['id']
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
@@ -635,8 +635,8 @@ class ModelTests(unittest.TestCase):
 
             vols = inst.storagevolumes_get_list(pool)
             num = len(vols) + 2
-            params = {'capacity': 1024,
-                      'allocation': 512,
+            params = {'capacity': 1073741824,  # 1 GiB
+                      'allocation': 536870912,  # 512 MiB
                       'format': 'raw'}
             # 'name' is required for this type of volume
             self.assertRaises(InvalidParameter, inst.storagevolumes_create,
@@ -660,13 +660,12 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(0, volinfo['ref_cnt'])
 
             volinfo = inst.storagevolume_lookup(pool, vol)
-            # Define the size = capacity + 16M
-            capacity = volinfo['capacity'] >> 20
-            size = capacity + 16
+            # Define the size = capacity + 16 MiB
+            size = volinfo['capacity'] + 16777216
             inst.storagevolume_resize(pool, vol, size)
 
             volinfo = inst.storagevolume_lookup(pool, vol)
-            self.assertEquals((1024 + 16) << 20, volinfo['capacity'])
+            self.assertEquals(size, volinfo['capacity'])
             poolinfo = inst.storagepool_lookup(pool)
             self.assertEquals(len(vols), poolinfo['nr_volumes'])
 
