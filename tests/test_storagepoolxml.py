@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,10 @@
 import lxml.etree as ET
 import unittest
 
-
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 
 
-class storagepoolTests(unittest.TestCase):
+class StoragepoolXMLTests(unittest.TestCase):
     def test_get_storagepool_xml(self):
         poolDefs = [
             {'def':
