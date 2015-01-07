@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan  7 13:01:23 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:36</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:36</span><span class="nk"> &lt;royce&gt;</span> Good for me
+<a name="l-9"></a><span class="tm">13:03:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:03:30</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Reviewed new UI design and sent comments out to mail list</span>
+<a name="l-12"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm</span>
+<a name="l-13"></a><span class="tm">13:03:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on storage pool tests</span>
+<a name="l-14"></a><span class="tm">13:03:46</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang working with kimchi new UI, now working on building the widget.</span>
+<a name="l-15"></a><span class="tm">13:03:54</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch to define font style, scale, weight for new UI</span>
+<a name="l-16"></a><span class="tm">13:04:14</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Continue to work on data grid widget</span>
+<a name="l-17"></a><span class="tm">13:04:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch minor fix the Chinese translation</span>
+<a name="l-18"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got reviews on network tests and now I am working on changing mockmodel to add a test for VLAN tagging bridged network as it can not be tested on model</span>
+<a name="l-19"></a><span class="tm">13:04:57</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that update jQuery UI from 1.10.3 to 1.11.2</span>
+<a name="l-20"></a><span class="tm">13:05:16</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce finished upload storagevolume, finished model tests, abandoned tasks because when task created, data already in mem and task quickly finished, no need to track</span>
+<a name="l-21"></a><span class="tm">13:06:58</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent fix for issue #544; worked on issue #539; reviewed patches on the mailing list</span>
+<a name="l-22"></a><span class="tm">13:08:13</span><span class="nk"> &lt;alinefm&gt;</span> good progress
+<a name="l-23"></a><span class="tm">13:08:16</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-24"></a><span class="tm">13:10:02</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">working on issue #456</span>
+<a name="l-25"></a><span class="tm">13:10:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-26"></a><span class="tm">13:11:08</span><span class="nk"> &lt;alinefm&gt;</span> I have only one topic today related to my email asking for Linux distro focal points
+<a name="l-27"></a><span class="tm">13:12:04</span><span class="nk"> &lt;alinefm&gt;</span> the focal point will be responsible for testing, reporting issues and sending patches when a problem is found in a specific distro
+<a name="l-28"></a><span class="tm">13:12:58</span><span class="nk"> &lt;alinefm&gt;</span> so feel free to choose which distro you'd like
+<a name="l-29"></a><span class="tm">13:13:11</span><span class="nk"> &lt;royce&gt;</span> I recently switched to FC20 because ISAM issue :(
+<a name="l-30"></a><span class="tm">13:13:51</span><span class="nk"> &lt;royce&gt;</span> I can take this distro only now...
+<a name="l-31"></a><span class="tm">13:15:41</span><span class="nk"> &lt;ramonn&gt;</span> i am able to install suse on my laptop
+<a name="l-32"></a><span class="tm">13:15:43</span><span class="nk"> &lt;ramonn&gt;</span> *opensuse
+<a name="l-33"></a><span class="tm">13:15:54</span><span class="nk"> &lt;ramonn&gt;</span> ibm has openclient for this one?
+<a name="l-34"></a><span class="tm">13:16:17</span><span class="nk"> &lt;wenwang&gt;</span> I am using fedora 21 now and works just fine
+<a name="l-35"></a><span class="tm">13:16:58</span><span class="nk"> &lt;royce&gt;</span> I couldn't properly install openclient on Ubuntu 14.10... Others encountered this?
+<a name="l-36"></a><span class="tm">13:16:59</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, you don't need to reinstall your laptop - you can create a vm and test kimchi with nested virt
+<a name="l-37"></a><span class="tm">13:17:15</span><span class="nk"> &lt;alinefm&gt;</span> royce, I installed it some weeks ago
+<a name="l-38"></a><span class="tm">13:17:37</span><span class="nk"> &lt;alinefm&gt;</span> I needed to do the manual install to get everything working fine
+<a name="l-39"></a><span class="tm">13:20:02</span><span class="nk"> &lt;royce&gt;</span> Just let it go~Installing these bothers:P
+<a name="l-40"></a><span class="tm">13:20:30</span><span class="nk"> &lt;royce&gt;</span> alinefm, about upload: I will send the test script against real model/kimchi server tomorrow so reviewer can try it, but for mock test I think we can only do a basic one against REST API not against the upload logic, what do you think?
+<a name="l-41"></a><span class="tm">13:21:10</span><span class="nk"> &lt;alinefm&gt;</span> royce, agree
+<a name="l-42"></a><span class="tm">13:21:23</span><span class="nk"> &lt;alinefm&gt;</span> in the test refactoring I am doing all tests by REST API
+<a name="l-43"></a><span class="tm">13:21:34</span><span class="nk"> &lt;alinefm&gt;</span> so we can eliminate almost all the mock tests
+<a name="l-44"></a><span class="tm">13:21:51</span><span class="nk"> &lt;alinefm&gt;</span> royce, but as it will take some time to get it done, do that way you proposed
+<a name="l-45"></a><span class="tm">13:23:23</span><span class="nk"> &lt;royce&gt;</span> Do you mean not mock the upload, alinefm?
+<a name="l-46"></a><span class="tm">13:25:05</span><span class="nk"> &lt;alinefm&gt;</span> royce, yes
+<a name="l-47"></a><span class="tm">13:25:33</span><span class="nk"> &lt;royce&gt;</span> I meant to propose it against a mock one because real upload can be time consuming
+<a name="l-48"></a><span class="tm">13:26:09</span><span class="nk"> &lt;royce&gt;</span> when we want to upload a 100M file, e.g.
+<a name="l-49"></a><span class="tm">13:26:13</span><span class="nk"> &lt;alinefm&gt;</span> are you testing with bug files?
+<a name="l-50"></a><span class="tm">13:26:19</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-51"></a><span class="tm">13:26:19</span><span class="nk"> &lt;alinefm&gt;</span> oh... ok
+<a name="l-52"></a><span class="tm">13:27:01</span><span class="nk"> &lt;ramonn&gt;</span> ok, so i can handle opensuse alinefm
+<a name="l-53"></a><span class="tm">13:27:04</span><span class="nk"> &lt;royce&gt;</span> Do you think we need to include test a big file?
+<a name="l-54"></a><span class="tm">13:27:44</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, please, reply to ML to everyone be aware about it
+<a name="l-55"></a><span class="tm">13:27:56</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think it is good as we had problems with big files
+<a name="l-56"></a><span class="tm">13:28:04</span><span class="nk"> &lt;royce&gt;</span> I think file such as 100M is OK, but 1G really takes more than 30s
+<a name="l-57"></a><span class="tm">13:29:04</span><span class="nk"> &lt;alinefm&gt;</span> royce, I think 30s is fine as only developers run the tests
+<a name="l-58"></a><span class="tm">13:29:25</span><span class="nk"> &lt;alinefm&gt;</span> you can only insert a message informing the upload test will start and can take some time to finish
+<a name="l-59"></a><span class="tm">13:29:58</span><span class="nk"> &lt;royce&gt;</span> OK, we can give it a try
+<a name="l-60"></a><span class="tm">13:31:34</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-61"></a><span class="tm">13:34:17</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-62"></a><span class="tm">13:34:29</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-63"></a><span class="tm">13:35:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

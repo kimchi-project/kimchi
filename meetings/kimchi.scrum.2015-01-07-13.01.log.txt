@@ -1,0 +1,63 @@
+13:01:23 <alinefm> #startmeeting
+13:01:23 <kimchi-bot> Meeting started Wed Jan  7 13:01:23 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:23 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:24 <alinefm> #meetingname scrum
+13:01:24 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:36 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:36 <alinefm> anything else?
+13:02:36 <royce> Good for me
+13:03:27 <alinefm> #topic Status
+13:03:28 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:30 <YuXin> #info YuXin Reviewed new UI design and sent comments out to mail list
+13:03:31 <alinefm> #info alinefm
+13:03:43 <alinefm> #info alinefm is working on storage pool tests
+13:03:46 <wenwang> #info wenwang working with kimchi new UI, now working on building the widget.
+13:03:54 <YuXin> #info YuXin Patch to define font style, scale, weight for new UI
+13:04:14 <YuXin> #info YuXin Continue to work on data grid widget
+13:04:22 <wenwang> #info wenwang sent patch minor fix the Chinese translation
+13:04:34 <alinefm> #info alinefm got reviews on network tests and now I am working on changing mockmodel to add a test for VLAN tagging bridged network as it can not be tested on model
+13:04:57 <wenwang> #info wenwang sent patch that update jQuery UI from 1.10.3 to 1.11.2
+13:05:16 <royce> #info royce finished upload storagevolume, finished model tests, abandoned tasks because when task created, data already in mem and task quickly finished, no need to track
+13:06:58 <vianac> #info vianac sent fix for issue #544; worked on issue #539; reviewed patches on the mailing list
+13:08:13 <alinefm> good progress
+13:08:16 <alinefm> anything else?
+13:10:02 <ramonn> #info working on issue #456
+13:10:42 <alinefm> #topic Open Discussion
+13:11:08 <alinefm> I have only one topic today related to my email asking for Linux distro focal points
+13:12:04 <alinefm> the focal point will be responsible for testing, reporting issues and sending patches when a problem is found in a specific distro
+13:12:58 <alinefm> so feel free to choose which distro you'd like
+13:13:11 <royce> I recently switched to FC20 because ISAM issue :(
+13:13:51 <royce> I can take this distro only now...
+13:15:41 <ramonn> i am able to install suse on my laptop
+13:15:43 <ramonn> *opensuse
+13:15:54 <ramonn> ibm has openclient for this one?
+13:16:17 <wenwang> I am using fedora 21 now and works just fine
+13:16:58 <royce> I couldn't properly install openclient on Ubuntu 14.10... Others encountered this?
+13:16:59 <alinefm> ramonn, you don't need to reinstall your laptop - you can create a vm and test kimchi with nested virt
+13:17:15 <alinefm> royce, I installed it some weeks ago
+13:17:37 <alinefm> I needed to do the manual install to get everything working fine
+13:20:02 <royce> Just let it go~Installing these bothers:P
+13:20:30 <royce> alinefm, about upload: I will send the test script against real model/kimchi server tomorrow so reviewer can try it, but for mock test I think we can only do a basic one against REST API not against the upload logic, what do you think?
+13:21:10 <alinefm> royce, agree
+13:21:23 <alinefm> in the test refactoring I am doing all tests by REST API
+13:21:34 <alinefm> so we can eliminate almost all the mock tests
+13:21:51 <alinefm> royce, but as it will take some time to get it done, do that way you proposed
+13:23:23 <royce> Do you mean not mock the upload, alinefm?
+13:25:05 <alinefm> royce, yes
+13:25:33 <royce> I meant to propose it against a mock one because real upload can be time consuming
+13:26:09 <royce> when we want to upload a 100M file, e.g.
+13:26:13 <alinefm> are you testing with bug files?
+13:26:19 <royce> yes
+13:26:19 <alinefm> oh... ok
+13:27:01 <ramonn> ok, so i can handle opensuse alinefm
+13:27:04 <royce> Do you think we need to include test a big file?
+13:27:44 <alinefm> ramonn, please, reply to ML to everyone be aware about it
+13:27:56 <alinefm> royce, I think it is good as we had problems with big files
+13:28:04 <royce> I think file such as 100M is OK, but 1G really takes more than 30s
+13:29:04 <alinefm> royce, I think 30s is fine as only developers run the tests
+13:29:25 <alinefm> you can only insert a message informing the upload test will start and can take some time to finish
+13:29:58 <royce> OK, we can give it a try
+13:31:34 <alinefm> any other topic?
+13:34:17 <alinefm> alright...
+13:34:29 <alinefm> thanks everyone for joining!
+13:35:17 <alinefm> #endmeeting
