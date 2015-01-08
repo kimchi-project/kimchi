@@ -102,7 +102,18 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            vol_params = {'name': u'test-vol', 'capacity': 1024}
+            task = inst.storagevolumes_create(u'default', vol_params)
+            rollback.prependDefer(inst.storagevolume_delete, u'default',
+                                  vol_params['name'])
+            inst.task_wait(task['id'])
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
+            vol = inst.storagevolume_lookup(u'default', vol_params['name'])
+
+            params = {'name': 'test', 'disks': [{'base': vol['path'],
+                                                 'size': 1}],
+                      'cdrom': self.kimchi_iso}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
