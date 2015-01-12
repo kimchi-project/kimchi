@@ -316,6 +316,10 @@ class MockModel(Model):
                                _passthrough_affected_by=None):
         if _cap is None:
             return self._mock_devices.devices.keys()
+
+        if _cap == 'fc_host':
+            _cap = 'scsi_host'
+
         return [dev['name'] for dev in self._mock_devices.devices.values()
                 if dev['device_type'] == _cap]
 
