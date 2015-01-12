@@ -17,4 +17,4 @@
 
 imagesdir = $(datadir)/kimchi/ui/libs/themes/base/images
 
-dist_images_DATA = *.png *.gif
+dist_images_DATA = *.png

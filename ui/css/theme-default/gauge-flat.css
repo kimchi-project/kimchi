@@ -1,0 +1,52 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.ui-gauge-flat {
+    height: 15px;
+    width: 100px;
+    text-align: left;
+    overflow: hidden;
+    background: #E6E7E8;
+    border: 0 none;
+    border-radius: 0;
+}
+
+.ui-gauge-flat .ui-gauge-flat-value {
+    margin: -1px;
+    height: 100%;
+    border-radius: 0;
+}
+
+.ui-gauge-flat .red {
+    background: #D9182D;
+    border:1px solid #D9182D;
+}
+
+.ui-gauge-flat .blue {
+    background: #008ABF;
+    border:1px solid #008ABF;
+}
+
+.ui-gauge-flat .yellow {
+    background: #FDB813;
+    border:1px solid #FDB813;
+}
+
+.ui-gauge-flat .purple {
+    background: #7F1C7D;
+    border:1px solid #7F1C7D;
+}

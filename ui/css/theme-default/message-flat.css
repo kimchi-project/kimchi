@@ -1,0 +1,87 @@
+/*
+* Project Kimchi
+*
+* Copyright IBM, Corp. 2015
+*
+* Licensed under the Apache License, Version 2.0 (the 'License');
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an 'AS IS' BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+.border-grey {
+    background-clip: border-box;
+    border: 6px solid rgba(170,170,170,0.3);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 502px;
+    height: 202px;
+    border-radius: 5px;
+}
+
+.message-dialog {
+    border: 3px solid #999999;
+    height: 198px;
+    width: 498px;
+    background: white;
+}
+
+.message-dialog .message-inline {
+    display: inline-block;
+}
+
+.message-dialog .message-type-icon {
+    position: absolute;
+    margin: 20px 20px;
+    color: #008ABF;
+    font-size: 50px;
+}
+
+.message-dialog .message-main {
+    position: relative;
+    margin: 30px 0 0 110px;
+    width: 350px;
+}
+
+.message-dialog .message-confirm-info {
+    margin: 20px 0 0 110px;
+    width: 350px;
+}
+
+.message-dialog .message-footer {
+    position: absolute;
+    left: 3px;
+    right: 1px;
+    bottom: 1px;
+    height: 50px;
+    background-color: #008ABF;
+}
+
+.message-dialog .message-footer .message-button {
+    display: inline-block;
+    background-color: white;
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.message-dialog .message-footer .message-button:hover{
+    background-color: #EEEEEE;
+    cursor: pointer;
+}
