@@ -1,0 +1,89 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.menu-content {
+    position: relative;
+    height: 35px;
+    width: 170px;
+}
+
+.menu-box {
+    width: 100%;
+    height: 30px;
+    border-radius: 3px 3px 0 3px;
+    cursor: pointer;
+    vertical-align: middle;
+    background: #4E4D4F;
+    color: #EDEDED;
+    float: right;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.menu-label {
+    position: relative;
+}
+
+.menu-icon-front,
+.list-icon-front {
+    position: relative;
+    font-size: 17px;
+    line-height: 32px;
+    padding-right: 10px;
+    padding-left: 5px;
+    color: #EDEDED;
+}
+
+.menu-icon {
+    position: relative;
+    float: right;
+    line-height: 35px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #CFCFCF;
+    font-size: 10px;
+    border-top-right-radius: 3px;
+}
+
+.menu-container {
+    border: 1px solid #999999;
+    width: 100px;
+}
+
+.menu-list {
+    position: absolute;
+    z-index: 3;
+    float: right;
+    width: 100%;
+    top: 35px;
+    padding-left: 0;
+    cursor: pointer;
+    background: #3A393B;
+    margin: 0;
+}
+
+.menu-list li {
+    list-style: none;
+    position: relative;
+    color: #EDEDED;
+    border-top: 1px groove black;
+}
+
+.menu-list li:first-child {
+    border: none;
+}

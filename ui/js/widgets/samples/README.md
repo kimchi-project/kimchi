@@ -1,0 +1,1 @@
+This folder contains the usage of Kimchi new UI design widgets.
