@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:48-0200\n"
+"POT-Creation-Date: 2015-01-12 10:43+0800\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -315,11 +315,11 @@ msgstr "未能成功制作虚拟机'%(name)s'副本。详情：%(err)s"
 #, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
-msgstr "虚拟机%(vmid)s未指明被分配的主机%(dev_name)s。"
+msgstr "虚拟机%(vmid)s未指明被分配的主机设备%(dev_name)s。"
 
 #, python-format
 msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
-msgstr "主机%(dev_name)s不允许直接分配给虚拟机。"
+msgstr "主机设备%(dev_name)s不允许直接分配给虚拟机。"
 
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
@@ -693,7 +693,7 @@ msgstr "存储卷URL必须为http://，https://，ftp://或ftps://"
 
 #, python-format
 msgid "Unable to access file %(url)s. Please, check it."
-msgstr "未能连接文件%(url)s，请检查该文件是否存在。"
+msgstr "不能访问文件%(url)s，请检查该文件是否存在。"
 
 #, python-format
 msgid ""
@@ -1243,36 +1243,6 @@ msgstr "取消"
 msgid "revert"
 msgstr "恢复"
 
-msgid "Add a Storage Device to VM"
-msgstr "为虚拟机添加一个存储设备"
-
-msgid "Device Type"
-msgstr "设备类型"
-
-msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
-msgstr "设备类型。目前支持设备类型：\"cdrom\"和\"disk\"。 "
-
-msgid "Storage Pool"
-msgstr "存储池"
-
-msgid "Storage pool which volume located in"
-msgstr "存储卷所在的存储池"
-
-msgid "Storage Volume"
-msgstr "存储卷"
-
-msgid "Storage volume to be attached"
-msgstr "被添加的存储卷"
-
-msgid "File Path"
-msgstr "文件路径"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "服务器端CDROM所使用的ISO文件路径"
-
-msgid "Attach"
-msgstr "装载"
-
 msgid "Cloning"
 msgstr "正在制作副本"
 
@@ -1302,6 +1272,36 @@ msgstr "关机"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "Add a Storage Device to VM"
+msgstr "为虚拟机添加一个存储设备"
+
+msgid "Device Type"
+msgstr "设备类型"
+
+msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
+msgstr "设备类型。目前支持设备类型：\"cdrom\"和\"disk\"。 "
+
+msgid "Storage Pool"
+msgstr "存储池"
+
+msgid "Storage pool which volume located in"
+msgstr "存储卷所在的存储池"
+
+msgid "Storage Volume"
+msgstr "存储卷"
+
+msgid "Storage volume to be attached"
+msgstr "被添加的存储卷"
+
+msgid "File Path"
+msgstr "文件路径"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "服务器端CDROM所使用的ISO文件路径"
+
+msgid "Attach"
+msgstr "装载"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "用户名或密码错误，请重新输入。"
@@ -1801,21 +1801,6 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-msgid "Add a Volume to Storage Pool"
-msgstr "为存储池添加一个卷"
-
-msgid "Fetch from remote URL"
-msgstr "从远程URL获取"
-
-msgid "Enter the remote URL here."
-msgstr "在这里输入远程URL。"
-
-msgid "Upload a file"
-msgstr "上传一个文件"
-
-msgid "Choose the file you want to upload."
-msgstr "选择需要上传的文件。"
-
 msgid "Define a New Storage Pool"
 msgstr "定义一个新的存储池"
 
@@ -1885,6 +1870,21 @@ msgstr "SCSI适配器"
 
 msgid "Please, wait..."
 msgstr "请等待..."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "为存储池添加一个卷"
+
+msgid "Fetch from remote URL"
+msgstr "从远程URL获取"
+
+msgid "Enter the remote URL here."
+msgstr "在这里输入远程URL。"
+
+msgid "Upload a file"
+msgstr "上传一个文件"
+
+msgid "Choose the file you want to upload."
+msgstr "选择需要上传的文件。"
 
 msgid "Add Template"
 msgstr "创建模板"
