@@ -417,7 +417,7 @@ A interface represents available network interface on VM.
                              Pool types: 'iscsi'.
             * username: Login username of the iSCSI target.
             * password: Login password of the iSCSI target.
-        * adapter_name *(optional)*: Scsi host name.
+        * adapter_name: SCSI host name.
 
 ### Resource: Storage Pool
 
@@ -444,9 +444,12 @@ A interface represents available network interface on VM.
     * nr_volumes: The number of storage volumes for active pools, 0 for inactive pools
     * autostart: Whether the storage pool will be enabled
                  automatically when the system boots
+    * persistent: True, when pool persist after a system reboot or be stopped.
+                  All storage pools created by Kimchi are persistent.
     * source: Source of the storage pool,
         * addr: mount address of this storage pool(for 'netfs' pool)
         * path: export path of this storage pool(for 'netfs' pool)
+
 * **PUT**: Set whether the Storage Pool should be enabled automatically when the
            system boots
     * autostart: Toggle the autostart flag of the VM. This flag sets whether
