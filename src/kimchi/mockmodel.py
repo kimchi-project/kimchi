@@ -26,6 +26,7 @@ import time
 import kimchi.model.cpuinfo
 
 from lxml import objectify
+from lxml.builder import E
 
 from kimchi import config
 from kimchi import imageinfo
@@ -35,6 +36,7 @@ from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import IscsiPoolDef, NetfsPoolDef
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.model.model import Model
+from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.storagevolumes import StorageVolumesModel
 from kimchi.model.templates import LibvirtVMTemplate
 from kimchi.model.users import PAMUsersModel
@@ -107,6 +109,7 @@ class MockModel(Model):
                 setattr(self, m, mock_method)
 
         DeviceModel.lookup = self._mock_device_lookup
+        StoragePoolModel._update_lvm_disks = self._update_lvm_disks
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
         DebugReportsModel._gen_debugreport_file = self._gen_debugreport_file
         LibvirtVMTemplate._get_volume_path = self._get_volume_path
@@ -255,6 +258,20 @@ class MockModel(Model):
                 length = length - 1
         os.rename(tmpf, realf)
         cb("OK", True)
+
+    def _update_lvm_disks(self, pool_name, disks):
+        conn = self.conn.get()
+        pool = conn.storagePoolLookupByName(pool_name.encode('utf-8'))
+        xml = pool.XMLDesc(0)
+
+        root = ET.fromstring(xml)
+        source = root.xpath('./source')[0]
+
+        for d in disks:
+            dev = E.device(path=d)
+            source.append(dev)
+
+        conn.storagePoolDefineXML(ET.tostring(root), 0)
 
     def _mock_storagevolumes_create(self, pool, params):
         vol_source = ['file', 'url', 'capacity']
