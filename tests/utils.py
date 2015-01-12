@@ -239,3 +239,14 @@ def rollback_wrapper(func, resource):
     except NotFoundError:
         # VM has been deleted already
         return
+
+
+# This function is used to test storage volume upload.
+# If we use self.request, we may encode multipart formdata by ourselves
+# requests lib take care of encode part, so use this lib instead
+def fake_auth_header():
+    headers = {'Accept': 'application/json'}
+    user, pw = kimchi.mockmodel.fake_user.items()[0]
+    hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
+    headers['AUTHORIZATION'] = hdr
+    return headers
