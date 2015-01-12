@@ -41,7 +41,7 @@ from kimchi import netinfo
 from kimchi.config import config, paths
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
-from kimchi.iscsi import TargetClient
+from kimchi.model.featuretests import FeatureTests
 from kimchi.model import model
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.rollbackcontext import RollbackContext
@@ -529,13 +529,15 @@ class ModelTests(unittest.TestCase):
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             cur_cdrom_path = re.sub(":80/", '/', cdrom_info['path'])
 
-            # As Kimchi server is not running during this test case
-            # CapabilitiesModel.qemu_stream_dns will be always False
-            # so we need to convert the hostname to IP
-            output = urlparse.urlparse(valid_remote_iso_path)
-            hostname = socket.gethostbyname(output.hostname)
-            url = valid_remote_iso_path.replace(output.hostname, hostname)
-            self.assertEquals(url, cur_cdrom_path)
+            # Check QEMU stream DNS to determine the cdrom path
+            qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
+            if not qemu_stream_dns:
+                output = urlparse.urlparse(valid_remote_iso_path)
+                hostname = socket.gethostbyname(output.hostname)
+                url = valid_remote_iso_path.replace(output.hostname, hostname)
+                self.assertEquals(url, cur_cdrom_path)
+            else:
+                self.assertEquals(valid_remote_iso_path, cur_cdrom_path)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
@@ -556,75 +558,6 @@ class ModelTests(unittest.TestCase):
                 inst.storagepool_lookup('default')['path'], vm_info['uuid'])
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
-
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
-    def test_storagepool(self):
-        inst = model.Model(None, self.tmp_store)
-
-        poolDefs = [
-            {'type': 'dir',
-             'name': u'kīмсhīUnitTestDirPool',
-             'path': '/tmp/kimchi-images'},
-            {'type': 'iscsi',
-             'name': u'kīмсhīUnitTestISCSIPool',
-             'source': {'host': '127.0.0.1',
-                        'target': 'iqn.2013-12.localhost.kimchiUnitTest'}}]
-
-        for poolDef in poolDefs:
-            with RollbackContext() as rollback:
-                path = poolDef.get('path')
-                name = poolDef['name']
-
-                if poolDef['type'] == 'iscsi':
-                    if not TargetClient(**poolDef['source']).validate():
-                        continue
-
-                pools = inst.storagepools_get_list()
-                num = len(pools) + 1
-
-                inst.storagepools_create(poolDef)
-                if poolDef['type'] == 'dir':
-                    rollback.prependDefer(shutil.rmtree, poolDef['path'])
-                rollback.prependDefer(inst.storagepool_delete, name)
-
-                pools = inst.storagepools_get_list()
-                self.assertEquals(num, len(pools))
-
-                poolinfo = inst.storagepool_lookup(name)
-                if path is not None:
-                    self.assertEquals(path, poolinfo['path'])
-                self.assertEquals('inactive', poolinfo['state'])
-                if poolinfo['type'] == 'dir':
-                    self.assertEquals(True, poolinfo['autostart'])
-                else:
-                    self.assertEquals(False, poolinfo['autostart'])
-
-                inst.storagepool_activate(name)
-                rollback.prependDefer(inst.storagepool_deactivate, name)
-
-                poolinfo = inst.storagepool_lookup(name)
-                self.assertEquals('active', poolinfo['state'])
-
-                autostart = poolinfo['autostart']
-                ori_params = {'autostart':
-                              True} if autostart else {'autostart': False}
-                for i in [True, False]:
-                    params = {'autostart': i}
-                    inst.storagepool_update(name, params)
-                    rollback.prependDefer(inst.storagepool_update, name,
-                                          ori_params)
-                    poolinfo = inst.storagepool_lookup(name)
-                    self.assertEquals(i, poolinfo['autostart'])
-                inst.storagepool_update(name, ori_params)
-
-        pools = inst.storagepools_get_list()
-        self.assertIn('default', pools)
-        poolinfo = inst.storagepool_lookup('default')
-        self.assertEquals('active', poolinfo['state'])
-        self.assertIn('ISO', pools)
-        poolinfo = inst.storagepool_lookup('ISO')
-        self.assertEquals('active', poolinfo['state'])
-        self.assertEquals((num - 1), len(pools))
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_storagevolume(self):

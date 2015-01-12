@@ -34,10 +34,9 @@ from functools import partial
 import iso_gen
 import kimchi.mockmodel
 import kimchi.server
-from kimchi.config import paths
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
-from utils import get_free_port, patch_auth, request
+from utils import fake_auth_header, get_free_port, patch_auth, request
 from utils import run_server, wait_task
 
 
@@ -1010,99 +1009,6 @@ class RestTests(unittest.TestCase):
             self.request('/storagepools/default-pool/storagevolumes').read())
         self.assertEquals(1, len(resp))
 
-    def test_get_storagepools(self):
-        storagepools = json.loads(self.request('/storagepools').read())
-        self.assertEquals(2, len(storagepools))
-        self.assertEquals('default-pool', storagepools[0]['name'])
-        self.assertEquals('active', storagepools[0]['state'])
-        self.assertEquals('kimchi_isos', storagepools[1]['name'])
-        self.assertEquals('kimchi-iso', storagepools[1]['type'])
-
-        # Now add a couple of StoragePools to the mock model
-        for i in xrange(5):
-            name = 'kīмсhī-storagepool-%i' % i
-            req = json.dumps({'name': name,
-                              'capacity': 1024,
-                              'allocated': 512,
-                              'path': '/var/lib/libvirt/images/%i' % i,
-                              'type': 'dir'})
-            resp = self.request('/storagepools', req, 'POST')
-            self.assertEquals(201, resp.status)
-
-        req = json.dumps({'name': 'kīмсhī-storagepool-1',
-                          'capacity': 1024,
-                          'allocated': 512,
-                          'path': '/var/lib/libvirt/images/%i' % i,
-                          'type': 'dir'})
-        resp = self.request('/storagepools', req, 'POST')
-        self.assertEquals(400, resp.status)
-
-        # Reserved pool return 400
-        req = json.dumps({'name': 'kimchi_isos',
-                          'capacity': 1024,
-                          'allocated': 512,
-                          'path': '/var/lib/libvirt/images/%i' % i,
-                          'type': 'dir'})
-        resp = request(host, ssl_port, '/storagepools', req, 'POST')
-        self.assertEquals(400, resp.status)
-
-        storagepools = json.loads(self.request('/storagepools').read())
-        self.assertEquals(7, len(storagepools))
-
-        resp = self.request('/storagepools/kīмсhī-storagepool-1')
-        storagepool = json.loads(resp.read())
-        self.assertEquals('kīмсhī-storagepool-1',
-                          storagepool['name'].encode("utf-8"))
-        self.assertEquals('inactive', storagepool['state'])
-        self.assertIn('source', storagepool)
-
-    def test_storagepool_action(self):
-        # Create a storage pool
-        req = json.dumps({'name': 'test-pool',
-                          'capacity': 1024,
-                          'allocated': 512,
-                          'path': '/var/lib/libvirt/images/',
-                          'type': 'dir'})
-        resp = self.request('/storagepools', req, 'POST')
-        self.assertEquals(201, resp.status)
-
-        # Verify the storage pool
-        storagepool = json.loads(
-            self.request('/storagepools/test-pool').read())
-        self.assertEquals('inactive', storagepool['state'])
-        if storagepool['type'] == 'dir':
-            self.assertEquals(True, storagepool['autostart'])
-        else:
-            self.assertEquals(False, storagepool['autostart'])
-
-        # Test if storage pool is persistent
-        self.assertEquals(True, storagepool['persistent'])
-
-        # activate the storage pool
-        resp = self.request('/storagepools/test-pool/activate', '{}', 'POST')
-        storagepool = json.loads(
-            self.request('/storagepools/test-pool').read())
-        self.assertEquals('active', storagepool['state'])
-
-        # Deactivate the storage pool
-        resp = self.request('/storagepools/test-pool/deactivate', '{}', 'POST')
-        storagepool = json.loads(
-            self.request('/storagepools/test-pool').read())
-        self.assertEquals('inactive', storagepool['state'])
-
-        # Set autostart flag of the storage pool
-        for autostart in [True, False]:
-            t = {'autostart': autostart}
-            req = json.dumps(t)
-            resp = self.request('/storagepools/test-pool', req, 'PUT')
-            storagepool = json.loads(
-                self.request('/storagepools/test-pool').read())
-            self.assertEquals(autostart, storagepool['autostart'])
-
-        # Delete the storage pool
-        resp = self.request('/storagepools/test-pool', '{}', 'DELETE')
-        self.assertEquals(204, resp.status)
-
     def test_get_storagevolumes(self):
         # Now add a StoragePool to the mock model
         self._create_pool('pool-1')
@@ -1935,32 +1841,9 @@ class RestTests(unittest.TestCase):
         self.assertEquals(204, resp.status)
 
     def test_upload(self):
-        # If we use self.request, we may encode multipart formdata by ourselves
-        # requests lib take care of encode part, so use this lib instead
-        def fake_auth_header():
-            headers = {'Accept': 'application/json'}
-            user, pw = kimchi.mockmodel.fake_user.items()[0]
-            hdr = "Basic " + base64.b64encode("%s:%s" % (user, pw))
-            headers['AUTHORIZATION'] = hdr
-            return headers
-
         with RollbackContext() as rollback:
-            vol_path = os.path.join(paths.get_prefix(), 'COPYING')
             url = "https://%s:%s/storagepools/default-pool/storagevolumes" % \
                 (host, ssl_port)
-
-            with open(vol_path, 'rb') as fd:
-                r = requests.post(url,
-                                  files={'file': fd},
-                                  verify=False,
-                                  headers=fake_auth_header())
-
-            self.assertEquals(r.status_code, 202)
-            task = r.json()
-            wait_task(self._task_lookup, task['id'])
-            uri = '/storagepools/default-pool/storagevolumes/%s'
-            resp = self.request(uri % task['target_uri'].split('/')[-1])
-            self.assertEquals(200, resp.status)
 
             # Create a file with 3M to upload
             vol_path = '/tmp/3m-file'
@@ -1978,6 +1861,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(r.status_code, 202)
             task = r.json()
             wait_task(self._task_lookup, task['id'], 15)
+            uri = '/storagepools/default-pool/storagevolumes/%s'
             resp = self.request(uri % task['target_uri'].split('/')[-1])
 
             self.assertEquals(200, resp.status)
