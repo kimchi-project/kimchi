@@ -47,17 +47,23 @@ kimchi.initNetworkListView = function() {
             network.persistent = data[i].persistent;
             kimchi.addNetworkItem(network);
         }
+        $('#networkGrid').grid({enableSorting: false});
+        $('input', $('.grid-control', '#network-content')).on('keyup', function(){
+            $('#networkGrid').grid('filter', $(this).val());
+        });
     });
 };
 
 kimchi.addNetworkItem = function(network) {
-    $("#networkBody").append(kimchi.getNetworkItemHtml(network));
+    var itemNode = $.parseHTML(kimchi.getNetworkItemHtml(network));
+    $("#networkBody").append(itemNode);
     if(kimchi.tabMode["network"] === "admin") {
         $(".column-action").attr("style","display");
     } else {
         $(".column-space").addClass('column-space-no-border-right');
     }
     kimchi.addNetworkActions(network);
+    return itemNode;
 };
 
 kimchi.getNetworkItemHtml = function(network) {
@@ -149,7 +155,7 @@ kimchi.addNetworkActions = function(network) {
                 };
                 kimchi.confirm(settings, function() {
                     kimchi.stopNetwork(network, menu);
-                    $(evt.currentTarget).parents(".item").remove();
+                    $('#networkGrid').grid('deleteRow', $(evt.currentTarget).parents(".row"));
                 }, null);
             }
             else {
@@ -167,7 +173,7 @@ kimchi.addNetworkActions = function(network) {
                 cancel : i18n['KCHAPI6003M']
             }, function() {
                 kimchi.deleteNetwork(network.name, function() {
-                    $(evt.currentTarget).parents(".item").remove();
+                    $('#networkGrid').grid('deleteRow', $(evt.currentTarget).parents(".row"));
                 });
             }, null);
         }
@@ -211,7 +217,7 @@ kimchi.initNetworkCreation = function() {
                 network.interface = result.interface ? result.interface : i18n["KCHNET6001M"];
                 network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
                 network.persistent = result.persistent;
-                kimchi.addNetworkItem(network);
+                $('#networkGrid').grid('addRow', kimchi.addNetworkItem(network));
                 $("#networkConfig").dialog("close");
             }, function(data) {
                 kimchi.message.error(data.responseJSON.reason);

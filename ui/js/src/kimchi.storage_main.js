@@ -29,12 +29,18 @@ kimchi.doListStoragePools = function() {
                     listHtml += kimchi.substitute(storageHtml, value);
                 }
             });
+            if($('#storageGrid').hasClass('grid'))
+                $('#storageGrid').grid('destroy');
             $('#storagepoolsList').html(listHtml);
             if(kimchi.tabMode['storage'] === 'admin') {
                 $('.storage-button').attr('style','display');
             } else {
                 $('.storage-allocate').addClass('storage-allocate-padding-user');
             }
+            $('#storageGrid').grid({enableSorting: false});
+            $('input', $('.grid-control', '.storage')).on('keyup', function(){
+                $('#storageGrid').grid('filter', $(this).val());
+            });
             kimchi.storageBindClick();
         } else {
             $('#storagepoolsList').html('');
@@ -169,18 +175,21 @@ kimchi.storageBindClick = function() {
         });
     }
 
-    $('.storage-li').on('click', function(event) {
+    $('.row').on('click', function(event) {
         if (!$(event.target).parents().hasClass('bottom')) {
             if ($(this).data('stat') === 'active') {
                 var that = $(this);
                 var volumeDiv = $('#volume' + that.data('name'));
-                var slide = $(this).next('.volumes');
+                var slide = $('.volumes', this);
                 if (that.hasClass('in')) {
+                    that.css('height','auto');
                     kimchi.doListVolumes(that);
                 } else {
-                    slide.slideUp('slow');
+                    slide.slideUp('slow', function(){
+                        that.css('height','');
+                    });
                     that.addClass('in');
-                    kimchi.changeArrow(that.children().last().children());
+                    kimchi.changeArrow($('.arrow-up', this));
                 }
             }
         }
@@ -226,8 +235,8 @@ kimchi.doListVolumes = function(poolObj) {
 
     var volumeDiv = $('#volume' + poolName);
     $(volumeDiv).empty();
-    var slide = poolObj.next('.volumes');
-    var handleArrow = poolObj.children().last().children();
+    var slide = $('.volumes', poolObj);
+    var handleArrow = $('.arrow-down', poolObj);
 
     kimchi.listStorageVolumes(poolName, function(result) {
         var listHtml = '';

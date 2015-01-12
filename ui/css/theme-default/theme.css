@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-body {
-    background: #FFFFFF;
+
+.ui-widget {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
 }
 
-.tmpl-html {
-    display: none;
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
 }
 
-.container {
-    margin: 0 auto;
-    max-width: 1170px;
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+    color: #222222;
 }
 
-.hidden {
-    display: none;
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #222222;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    font-weight: normal;
+}
+
+.ui-widget-content {
+    background: none;
 }

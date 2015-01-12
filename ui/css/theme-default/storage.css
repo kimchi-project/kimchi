@@ -16,101 +16,29 @@
  * limitations under the License.
  */
 /*   STORAGE   */
-.handle {
-    width: 49px;
+.storage {
+    margin: 5px;
+}
+
+
+.storage .grid-control {
+    height: 40px;
+    padding: 5px 0;
+}
+
+.storage .grid-control .filter {
+    width: 300px;
+    padding: 5px;
+    float: right;
 }
 
 .storage-allocate-padding-user {
     padding-right: 108px;
 }
 
-.storage-title {
-    font-size: 13px;
-    height: 18px;
-    padding: 10px;
-    color: #666;
-    float: left;
-    max-width: 85px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    line-height: 18px;
-    white-space: nowrap;
-}
-
 .usage {
-    font-size: 13px;
-    height: 18px;
-    padding: 10px;
-    color: #666;
     float: right;
-    font-weight: bold;
-    line-height: 18px;
-}
-
-.storage-text {
-    font-size: 12px;
-    min-height: 18px;
-    padding: 10px;
-    color: #999999;
-    font-weight: bold;
-    line-height: 18px;
-}
-
-.list-storage {
-    margin: 10px;
-}
-
-.list-storage .storage-li {
-    width: 1004px;
-    margin-top: 10px;
-    background: #ffffff;
-    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -webkit-gradient(linear, left top, left bottom,
-                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
-    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
-        endColorstr='#e5e5e5', GradientType=0);
-    border: 1px solid #ccc;
-    color: #333;
-    -moz-border-top-left-radius: 8px;
-    -moz-border-top-right-radius: 8px;
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-bottom-left-radius: 8px;
-    -moz-border-bottom-right-radius: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -webkit-border-bottom-right-radius: 8px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.list-storage .storage-li>* {
-    height: 25px;
-    display: table-cell;
-    vertical-align: middle;
-    position: relative;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #fff;
-}
-
-.list-storage .storage-li>*:FIRST-CHILD {
-    border-left: none;
-}
-
-.list-storage .storage-li>*:LAST-CHILD {
-    border-right: none;
-}
-
-.list-storage .storage-li[data-stat="active"]:hover {
-    border: 1px solid rgb(11, 107, 173);
-    box-shadow: 0px 0px 5px rgb(11, 107, 173);
-    cursor: default;
+    margin-right: 30px;
 }
 
 .list-storage .storage-li>.guest-tile {
@@ -152,67 +80,35 @@
 }
 
 .storage-name {
-    width: 199px;
+    width: 15%;
 }
 
 .storage-state {
-    width: 51px;
-}
-
-.storage-location {
-    width: 288px;
+    width: 10%;
 }
 
 .storage-type {
-    width: 98px;
+    width: 10%;
 }
 
 .storage-capacity {
-    width: 98px;
+    width: 10%;
 }
 
 .storage-allocate {
-    width: 98px;
+    width: 10%;
 }
 
+.storage-location {
+    width: 30%;
+}
 
 .storage-button {
-    width: 108px;
-    text-align: center;
+    width: 9%;
 }
 
-.title-name {
-    width: 199px;
-}
-
-.title-usage {
-    padding-right: 10px;
-    float: right;
-}
-
-.title-state {
-    width: 51px;
-}
-
-.title-location {
-    width: 288px;
-}
-
-.title-type {
-    width: 98px;
-}
-
-.title-capacity {
-    width: 98px;
-}
-
-.title-allocate {
-    width: 98px;
-}
-
-
-.title-action {
-    width: 108px;
+.handle {
+    width: 2%;
 }
 
 .status-dot {
@@ -223,8 +119,8 @@
     border-radius: 13px;
     box-shadow: 3px 3px 3px #FFFFFF, -3px -3px 3px #DDDDDD;
     height: 13px;
-    margin: 20px 18px;
     width: 13px;
+    margin-left: 10px;
 }
 
 .toolable {
@@ -464,22 +360,22 @@
 .list-storage .storage-li[data-stat="active"]>.handle>.arrow-down {
     background: url(../images/theme-default/arrow-down.png) no-repeat center
         center;
-    height: 52px;
-    width: 45px;
+    height: 18px;
+    width: 18px;
 }
 
 .list-storage .storage-li[data-stat="inactive"]>.handle>.arrow-down {
     background: url(../images/theme-default/arrow-down-disable.png) no-repeat
                 center center;
-    height: 52px;
-    width: 45px;
+    height: 18px;
+    width: 18px;
 }
 
 .arrow-up {
     background: url(../images/theme-default/arrow-up.png) no-repeat center
         center;
-    height: 52px;
-    width: 45px;
+    height: 18px;
+    width: 18px;
 }
 
 .storage-icon {

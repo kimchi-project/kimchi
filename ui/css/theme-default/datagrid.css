@@ -1,0 +1,58 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.grid span {
+    display: inline-block;
+}
+
+.grid .header {
+    padding-bottom: 3px;
+    border-bottom: solid 2px #ededed;
+}
+
+.grid .header span span {
+    vertical-align: middle;
+}
+
+.grid .header .sort-up {
+    margin-bottom: -9px;
+    cursor: pointer;
+}
+
+.grid .header .sort-down {
+    margin-top: -9px;
+    cursor: pointer;
+}
+
+.grid .body .row {
+    height: 46px;
+    line-height: 46px;
+    border-bottom: solid 1px #ededed;
+}
+
+.grid .body .row[disabled] {
+    color: #999999;
+}
+
+.grid .body .odd {
+    background-color: #ffffff;
+}
+
+.grid .body .even {
+    background-color: #f9f9f9;
+}

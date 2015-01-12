@@ -29,20 +29,19 @@
         <a id="storage-pool-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
     </div>
 </div>
-<div>
-    <div class="list-title">
-        <li class="title-name">
-		<span>$_("Name")</span>
-		<span class="title-usage">$_("%Used")</span>
-        </li>
-        <li class="title-state" >$_("State")</li>
-        <li class="title-location">$_("Location")</li>
-        <li class="title-type">$_("Type")</li>
-        <li class="title-capacity">$_("Capacity")</li>
-        <li class="title-allocate">$_("Allocated")</li>
-        <li class="title-actions" style="display:none">$_("Actions")</li>
+<div class='storage'>
+<div class="grid-control"><input type="text" class="filter" placeholder="$_("Filter")"></div>
+<div id='storageGrid'>
+    <div>
+        <span class="storage-name">$_("Name")</span>
+        <span class="storage-state" >$_("State")</span>
+        <span class="storage-type">$_("Type")</span>
+        <span class="storage-capacity">$_("Capacity")</span>
+        <span class="storage-allocate">$_("Allocated")</span>
+        <span class="storage-location">$_("Location")</span>
     </div>
-    <ul id="storagepoolsList" class="list-storage empty-when-logged-off"></ul>
+    <div id="storagepoolsList" class="list-storage empty-when-logged-off"></div>
+</div>
 </div>
 <div id="logicalPoolExtend" title="$_("Device path")">
      <p id="loading-info" class="text-help">
@@ -53,33 +52,32 @@
      </div>
 </div>
 <script id="storageTmpl" type="html/text">
-    <li id="{name}">
-        <div class="storage-li in" data-name="{name}" data-stat="{state}">
-            <div class="storage-name">
-                <span class="storage-title" title="{name}">{name}</span>
-                <span class="storage-title usage">{usage}%</span>
-            </div>
-            <div class="storage-state">
+        <div id="{name}" class="storage-li in" data-name="{name}" data-stat="{state}">
+            <span class="storage-name" val="{name}{usage}%">
+                <span title="{name}">{name}</span>
+                <span class="usage">{usage}%</span>
+            </span>
+            <span class="storage-state">
                 <div class="status-dot toolable active" data-state="{state}">
                     <label class="tooltip">$_("active")</label>
                 </div>
                 <div class="status-dot toolable inactive" data-state="{state}">
                     <label class="tooltip">$_("inactive")</label>
                 </div>
-            </div>
-            <div class="storage-location">
-                <div class="storage-text">{path}</div>
-            </div>
-            <div class="storage-type">
-                <div class="storage-text">{type}</div>
-            </div>
-            <div class="storage-capacity">
-                <div class="storage-text" data-type="{type}">{capacity}</div>
-            </div>
-            <div class="storage-allocate">
-                <div class="storage-text" data-type="{type}">{allocated}</div>
-            </div>
-            <div class="bottom storage-button" style="display:none">
+            </span>
+            <span class="storage-type" val="{type}">
+                <div>{type}</div>
+            </span>
+            <span class="storage-capacity" val="{capacity}">
+                <div data-type="{type}">{capacity}</div>
+            </span>
+            <span class="storage-allocate" val="{allocated}">
+                <div data-type="{type}">{allocated}</div>
+            </span>
+            <span class="storage-location" val="{path}">
+                <div>{path}</div>
+            </span>
+            <span class="bottom storage-button" style="display:none">
                 <div class="btn dropdown popable storage-action" data-state="{state}" data-type="{type}" data-name="{name}">
                     <span class="text">$_("Actions")</span><span class="arrow"></span>
                     <div class="popover actionsheet right-side" style="width: 250px">
@@ -90,16 +88,15 @@
                         <button class="button-big red pool-delete" data-stat="{state}" data-name="{name}"><span class="text">$_("Undefine")</span></button>
                     </div>
                 </div>
-            </div>
-            <div class="handle">
+            </span>
+            <span class="handle">
                 <div class="arrow-down"></div>
-            </div>
-        </div>
+            </span>
         <div class="volumes">
            <div id="volume{name}" class="volumeslist" data-name="{name}" ></div>
            <div class="clear"></div>
         </div>
-    </li>
+        </div>
 </script>
 <script id="volumeTmpl" type="html/text">
         <div class="volume-box white-box" data-volume-name="{name}">
@@ -131,7 +128,7 @@
 </script>
 <script id="logicalPoolExtendTmpl" type="html/text">
     <div>
-        <input type="checkbox" value="{path}" name="devices" id="{name}">
+        <input type="checkbox" value="{path}" name="devices">
         <label for="{name}">{path}</label>
     </div>
 </script>

@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,91 +17,46 @@
  */
 
 .network {
-    font-size: 12px;
-    font-weight: bold;
-    color: #666666;
+    margin: 5px;
 }
 
-.network .list {
-    margin: 0px 10px;
+.network .grid-control {
+    height: 40px;
+    padding: 5px 0;
 }
 
-.network .list .header > * {
-    margin-right: 2px;
-}
-
-.network .list .item {
-    margin-bottom: 10px;
-    border-radius: 8px 8px 8px 8px;
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat
-                scroll 0 0 transparent;
-    border: 1px solid #CCCCCC;
-    position: relative;
-    height: 54px;
-}
-
-.network .list .item > *:first-child {
-    border-left: none;
-}
-
-.network .list .item > * {
-    border-left: 1px solid #CCCCCC;
-    border-right: 1px solid #FFFFFF;
-}
-
-.network .list .item > *:last-child {
-    border-right: none;
-}
-
-.network .list .column {
-    display: inline-block;
-    padding: 10px 10px 10px 2px;
-    overflow: hidden;
-}
-
-.network .list .item .cell {
-    padding: 19px 10px 17px 2px;
-    height: 19px;
-    color: #999999;
-}
-
-.network .list .item .cell:first-child {
-    padding-left: 10px;
-    width: 183px;
-    max-width: 183px;
-    color: #666666;
+.network .grid-control .filter {
+    width: 300px;
+    padding: 5px;
+    float: right;
 }
 
 .network .list .column-name {
-    width: 190px;
-    max-width: 190px;
+    width: 20%;
+    max-width: 20%;
     text-overflow: ellipsis;
 }
 
 .network .list .column-state {
-    width: 70px;
+    width: 10%;
 }
 
 .network .list .column-type {
-    width: 130px;
+    width: 15%;
 }
 
 .network .list .column-interface {
-    width: 130px;
+    width: 15%;
 }
 
 .network .list .column-space {
-    width: 270px;
-}
-
-.network .list .item .column-space-no-border-right {
-    border-right: none;
+    width: 25%;
 }
 
 .network .list .column-action {
     display: inline-block;
-    position: absolute;
-    height: 55px;
+    float: right;
+    height: 40px;
 }
 
 .network .list .hide-action-item {
@@ -115,7 +70,7 @@
 
 .network .list .action-button {
     float: right;
-    margin-top: 5px;
+    margin-top: 2px;
     margin-left: 5px;
 }
 
@@ -133,7 +88,7 @@
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    margin-left: 29px;
+    margin-left: 10px;
 }
 
 .network .list .nw-loading {
