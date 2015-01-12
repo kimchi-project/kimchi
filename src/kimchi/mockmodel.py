@@ -32,6 +32,8 @@ from kimchi import imageinfo
 from kimchi import osinfo
 from kimchi.model.debugreports import DebugReportsModel
 from kimchi.model.host import DeviceModel
+from kimchi.model.libvirtstoragepool import IscsiPoolDef, NetfsPoolDef
+from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.model.model import Model
 from kimchi.model.storagevolumes import StorageVolumesModel
 from kimchi.model.templates import LibvirtVMTemplate
@@ -78,6 +80,9 @@ class MockModel(Model):
         libvirt.virDomain.updateDeviceFlags = MockModel.updateDeviceFlags
         libvirt.virStorageVol.resize = MockModel.volResize
         libvirt.virStorageVol.wipePattern = MockModel.volWipePattern
+
+        IscsiPoolDef.prepare = NetfsPoolDef.prepare = StoragePoolDef.prepare
+
         PAMUsersModel.auth_type = 'fake'
         PAMGroupsModel.auth_type = 'fake'
 
