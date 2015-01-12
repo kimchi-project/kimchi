@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -79,7 +79,7 @@ class StoragePoolsModel(object):
             # used before but a volume group will already exist with this name
             # So check the volume group does not exist to create the pool
             if params['type'] == 'logical':
-                vgdisplay_cmd = ['vgdisplay', name]
+                vgdisplay_cmd = ['vgdisplay', name.encode('utf-8')]
                 output, error, returncode = run_command(vgdisplay_cmd)
                 # From vgdisplay error codes:
                 # 1  error reading VGDA
@@ -333,7 +333,7 @@ class StoragePoolModel(object):
                 raise InvalidOperation('KCHPOOL0029E')
             self._update_lvm_disks(name, params['disks'])
         ident = pool.name()
-        return ident
+        return ident.decode('utf-8')
 
     def activate(self, name):
         pool = self.get_storagepool(name, self.conn)
