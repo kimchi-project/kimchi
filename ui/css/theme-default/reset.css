@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ audio,video,button {
     margin: 0;
     padding: 0;
     border: 0;
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section

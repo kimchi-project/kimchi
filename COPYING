@@ -7,6 +7,7 @@ Kimchi makes use of different projects and they are placed as below:
 (http://cgit.freedesktop.org/spice/spice-html5);
 - the code under ui/libs which is imported from JQuery UI (http://jqueryui.com);
 - the code under ui/base64 is imported from Jquery Base64 (https://plugins.jquery.com/base64/).
+- the code under ui/fontello is imported from Fontello (http://fontello.com).
 
 The rest of this distribution is governed by the GNU Lesser General Public
 License version 3.
