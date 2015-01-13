@@ -311,14 +311,20 @@ class NetworkModel(object):
 
     def deactivate(self, name):
         if self._is_network_in_use(name):
-            raise InvalidOperation("KCHNET0018E", {'name': name})
+            vms = self._get_vms_attach_to_a_network(name)
+            vms.sort()
+            raise InvalidOperation("KCHNET0018E", {'name': name,
+                                                   'vms': ', '.join(vms)})
 
         network = self.get_network(self.conn.get(), name)
         network.destroy()
 
     def delete(self, name):
         if self._is_network_in_use(name):
-            raise InvalidOperation("KCHNET0017E", {'name': name})
+            vms = self._get_vms_attach_to_a_network(name)
+            vms.sort()
+            raise InvalidOperation("KCHNET0017E", {'name': name,
+                                                   'vms': ', '.join(vms)})
 
         network = self.get_network(self.conn.get(), name)
         if network.isActive():
