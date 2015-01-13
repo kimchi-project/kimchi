@@ -1300,16 +1300,24 @@ class ModelTests(unittest.TestCase):
             inst.vm_poweroff(name)
             rollback.prependDefer(inst.vm_start, name)
 
-            task = inst.vm_clone(name)
-            clone_name = task['target_uri'].split('/')[-1]
-            rollback.prependDefer(inst.vm_delete, clone_name)
-            inst.task_wait(task['id'])
-            task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            # create two simultaneous clones of the same VM
+            # and make sure both of them complete successfully
+            task1 = inst.vm_clone(name)
+            task2 = inst.vm_clone(name)
+            clone1_name = task1['target_uri'].split('/')[-1]
+            rollback.prependDefer(inst.vm_delete, clone1_name)
+            clone2_name = task2['target_uri'].split('/')[-1]
+            rollback.prependDefer(inst.vm_delete, clone2_name)
+            inst.task_wait(task1['id'])
+            task1 = inst.task_lookup(task1['id'])
+            self.assertEquals('finished', task1['status'])
+            inst.task_wait(task2['id'])
+            task2 = inst.task_lookup(task2['id'])
+            self.assertEquals('finished', task2['status'])
 
             # update the original VM info because its state has changed
             original_vm = inst.vm_lookup(name)
-            clone_vm = inst.vm_lookup(clone_name)
+            clone_vm = inst.vm_lookup(clone1_name)
 
             self.assertNotEqual(original_vm['name'], clone_vm['name'])
             self.assertTrue(re.match(u'%s-clone-\d+' % original_vm['name'],

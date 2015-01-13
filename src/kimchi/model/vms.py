@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -314,9 +314,22 @@ class VMModel(object):
         if info['state'] != u'shutoff':
             raise InvalidParameter('KCHVM0033E', {'name': name})
 
-        # this name will be used as the Task's 'target_uri' so it needs to be
-        # defined now.
-        new_name = get_next_clone_name(self.vms.get_list(), name)
+        # the new VM's name will be used as the Task's 'target_uri' so it needs
+        # to be defined now.
+
+        vms_being_created = []
+
+        # lookup names of VMs being created right now
+        with self.objstore as session:
+            task_names = session.get_list('task')
+            for tn in task_names:
+                t = session.get('task', tn)
+                if t['target_uri'].startswith('/vms/'):
+                    uri_name = t['target_uri'][5:]  # 5 = len('/vms/')
+                    vms_being_created.append(uri_name)
+
+        current_vm_names = self.vms.get_list() + vms_being_created
+        new_name = get_next_clone_name(current_vm_names, name)
 
         # create a task with the actual clone function
         taskid = add_task(u'/vms/%s' % new_name, self._clone_task,
