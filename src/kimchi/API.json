@@ -80,7 +80,8 @@
                     "pattern": "^[_A-Za-z0-9-]*$",
                     "error": "KCHDR0007E"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "storagepools_create": {
             "type": "object",
@@ -182,7 +183,8 @@
                     "minItems": 1,
                     "uniqueItems": true
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "storagevolumes_create": {
             "type": "object",
@@ -303,7 +305,8 @@
                     "minimum": 512,
                     "error": "KCHTMPL0013E"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "networks_create": {
             "type": "object",
@@ -382,7 +385,8 @@
                     "enum": ["ne2k_pci", "i82551", "i82557b", "i82559er", "rtl8139", "e1000", "pcnet", "virtio", "spapr-vlan"],
                     "error": "KCHVMIF0006E"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "templates_create": {
             "type": "object",
@@ -554,7 +558,8 @@
                     "required": true,
                     "error": "KCHVMSTOR0003E"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "template_update": {
             "type": "object",

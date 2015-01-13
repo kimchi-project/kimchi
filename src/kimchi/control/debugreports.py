@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,6 @@ class DebugReport(Resource):
         super(DebugReport, self).__init__(model, ident)
         self.role_key = 'host'
         self.admin_methods = ['GET', 'PUT', 'POST']
-        self.update_params = ["name"]
         self.uri_fmt = '/debugreports/%s'
         self.content = DebugReportContent(model, ident)
 

@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,6 @@ class Resource(object):
         self.model = model
         self.ident = ident
         self.model_args = (ident,)
-        self.update_params = []
         self.role_key = None
         self.admin_methods = []
 
@@ -192,15 +191,6 @@ class Resource(object):
 
         params = parse_request()
         validate_params(params, self, 'update')
-
-        if self.update_params is not None:
-            invalids = [v for v in params.keys() if
-                        v not in self.update_params]
-            if invalids:
-                msg_args = {'params': ", ".join(invalids),
-                            'resource': get_class_name(self)}
-                e = InvalidOperation('KCHAPI0004E', msg_args)
-                raise cherrypy.HTTPError(405, e.message)
 
         args = list(self.model_args) + [params]
         ident = update(*args)

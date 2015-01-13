@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -77,7 +77,6 @@ class StoragePool(Resource):
         super(StoragePool, self).__init__(model, ident)
         self.role_key = 'storage'
         self.admin_methods = ['PUT', 'POST', 'DELETE']
-        self.update_params = ["autostart", "disks"]
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')
