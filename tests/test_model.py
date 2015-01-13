@@ -991,6 +991,9 @@ class ModelTests(unittest.TestCase):
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm1' in vms)
 
+            # make sure "vm_update" works when the domain has a snapshot
+            inst.vmsnapshots_create(u'kimchi-vm1')
+
             # update vm graphics when vm is not running
             inst.vm_update(u'kimchi-vm1',
                            {"graphics": {"passwd": "123456"}})
