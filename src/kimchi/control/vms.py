@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,8 +35,6 @@ class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
         self.role_key = 'guests'
-        self.update_params = ["name", "users", "groups", "cpus", "memory",
-                              "graphics"]
         self.screenshot = VMScreenShot(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():

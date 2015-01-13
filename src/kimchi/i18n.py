@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,6 @@ messages = {
     "KCHAPI0001E": _("Unknown parameter %(value)s"),
     "KCHAPI0002E": _("Delete is not allowed for %(resource)s"),
     "KCHAPI0003E": _("%(resource)s does not implement update method"),
-    "KCHAPI0004E": _("Parameters %(params)s are not allowed to be updated in %(resource)s"),
     "KCHAPI0005E": _("Create is not allowed for %(resource)s"),
     "KCHAPI0006E": _("Unable to parse JSON request"),
     "KCHAPI0007E": _("This API only supports JSON"),

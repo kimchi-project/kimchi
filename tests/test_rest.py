@@ -217,6 +217,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1/start', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
+        req = json.dumps({'unsupported-attr': 'attr'})
+        resp = self.request('/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
         req = json.dumps({'name': 'new-vm'})
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
@@ -271,7 +275,7 @@ class RestTests(unittest.TestCase):
 
         req = json.dumps({'name': 'new-name', 'cpus': 5, 'UUID': 'notallowed'})
         resp = self.request('/vms/vm-1', req, 'PUT')
-        self.assertEquals(405, resp.status)
+        self.assertEquals(400, resp.status)
 
         params = {'name': u'∨м-црdαtеd', 'cpus': 5, 'memory': 4096}
         req = json.dumps(params)

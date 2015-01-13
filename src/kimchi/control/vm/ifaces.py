@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ class VMIfaces(Collection):
 class VMIface(Resource):
     def __init__(self, model, vm, ident):
         super(VMIface, self).__init__(model, ident)
-        self.update_params = ["model", "network"]
         self.vm = vm
         self.ident = ident
         self.info = {}

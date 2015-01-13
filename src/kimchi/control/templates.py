@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,10 +35,6 @@ class Template(Resource):
         super(Template, self).__init__(model, ident)
         self.role_key = 'templates'
         self.admin_methods = ['PUT', 'POST', 'DELETE']
-        self.update_params = ["name", "folder", "icon", "os_distro",
-                              "storagepool", "os_version", "cpus",
-                              "memory", "cdrom", "disks", "networks",
-                              "graphics", "cpu_info"]
         self.uri_fmt = "/templates/%s"
         self.clone = self.generate_action_handler('clone')
 

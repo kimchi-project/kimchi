@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -147,7 +147,6 @@ class Repository(Resource):
         super(Repository, self).__init__(model, id)
         self.role_key = 'host'
         self.admin_methods = ['GET', 'PUT', 'POST', 'DELETE']
-        self.update_params = ["config", "baseurl"]
         self.uri_fmt = "/host/repositories/%s"
         self.enable = self.generate_action_handler('enable')
         self.disable = self.generate_action_handler('disable')
