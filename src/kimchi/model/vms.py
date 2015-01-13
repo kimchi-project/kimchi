@@ -662,6 +662,39 @@ class VMModel(object):
                               libvirt.VIR_DOMAIN_AFFECT_LIVE)
         return xml
 
+    def _backup_snapshots(self, snap, all_info):
+        """ Append "snap" and the children of "snap" to the list "all_info".
+
+        The list *must* always contain the parent snapshots before their
+        children so the function "_redefine_snapshots" can work correctly.
+
+        Arguments:
+        snap -- a native domain snapshot.
+        all_info -- a list of dict keys:
+                "{'xml': <snap XML>, 'current': <is snap current?>'}"
+        """
+        all_info.append({'xml': snap.getXMLDesc(0),
+                         'current': snap.isCurrent(0)})
+
+        for child in snap.listAllChildren(0):
+            self._backup_snapshots(child, all_info)
+
+    def _redefine_snapshots(self, dom, all_info):
+        """ Restore the snapshots stored in "all_info" to the domain "dom".
+
+        Arguments:
+        dom -- the domain which will have its snapshots restored.
+        all_info -- a list of dict keys, as described in "_backup_snapshots",
+            containing the original snapshot information.
+        """
+        for info in all_info:
+            flags = libvirt.VIR_DOMAIN_SNAPSHOT_CREATE_REDEFINE
+
+            if info['current']:
+                flags |= libvirt.VIR_DOMAIN_SNAPSHOT_CREATE_CURRENT
+
+            dom.snapshotCreateXML(info['xml'], flags)
+
     def _static_vm_update(self, dom, params):
         state = DOM_STATE_MAP[dom.info()[0]]
         old_xml = new_xml = dom.XMLDesc(0)
@@ -680,12 +713,25 @@ class VMModel(object):
         if 'graphics' in params:
             new_xml = self._update_graphics(dom, new_xml, params)
 
+        snapshots_info = []
+        vm_name = dom.name()
         conn = self.conn.get()
         try:
             if 'name' in params:
                 if state == 'running':
-                    msg_args = {'name': dom.name(), 'new_name': params['name']}
+                    msg_args = {'name': vm_name, 'new_name': params['name']}
                     raise InvalidParameter("KCHVM0003E", msg_args)
+
+                lflags = libvirt.VIR_DOMAIN_SNAPSHOT_LIST_ROOTS
+                dflags = (libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN |
+                          libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY)
+
+                for virt_snap in dom.listAllSnapshots(lflags):
+                    snapshots_info.append({'xml': virt_snap.getXMLDesc(0),
+                                           'current': virt_snap.isCurrent(0)})
+                    self._backup_snapshots(virt_snap, snapshots_info)
+
+                    virt_snap.delete(dflags)
 
                 # Undefine old vm, only if name is going to change
                 dom.undefine()
@@ -694,10 +740,16 @@ class VMModel(object):
             currentMem = root.find('.currentMemory')
             if currentMem is not None:
                 root.remove(currentMem)
+
             dom = conn.defineXML(ET.tostring(root, encoding="utf-8"))
+            if 'name' in params:
+                self._redefine_snapshots(dom, snapshots_info)
         except libvirt.libvirtError as e:
             dom = conn.defineXML(old_xml)
-            raise OperationFailed("KCHVM0008E", {'name': dom.name(),
+            if 'name' in params:
+                self._redefine_snapshots(dom, snapshots_info)
+
+            raise OperationFailed("KCHVM0008E", {'name': vm_name,
                                                  'err': e.get_error_message()})
         return dom
 
