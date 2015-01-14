@@ -113,23 +113,6 @@ if [ $1 -eq 1 ] ; then
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 fi
 
-%if 0%{?with_systemd}
-service firewalld status >/dev/null 2>&1
-if [ $? -ne 0 ]; then
-    service firewalld start >/dev/null 2>&1
-fi
-# Add firewalld rules to open 8000 and 8001 port
-firewall-cmd --reload >/dev/null 2>&1
-firewall-cmd --add-service kimchid >/dev/null 2>&1
-%else
-# Add default iptable rules to open 8000 and 8001 port
-iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
-iptables -I INPUT -p tcp --dport 8001 -j ACCEPT
-iptables -I INPUT -p tcp --dport 64667 -j ACCEPT
-service iptables save >/dev/null 2>&1
-%endif
-# Add SELinux rules to "open" Kimchi ports
-semanage permissive -a httpd_t
 
 %preun
 
@@ -137,13 +120,6 @@ if [ $1 -eq 0 ] ; then
     # Package removal, not upgrade
     /bin/systemctl --no-reload disable kimchid.service > /dev/null 2>&1 || :
     /bin/systemctl stop kimchid.service > /dev/null 2>&1 || :
-    %if 0%{?with_systemd}
-        firewall-cmd --remove-service kimchid >/dev/null 2>&1 || :
-    %else
-        iptables -D INPUT -p tcp --dport 8000 -j ACCEPT || :
-        iptables -D INPUT -p tcp --dport 8001 -j ACCEPT || :
-        iptables -D INPUT -p tcp --dport 64667 -j ACCEPT || :
-    %endif
 fi
 
 exit 0
@@ -154,8 +130,6 @@ if [ "$1" -ge 1 ] ; then
     /bin/systemctl try-restart kimchid.service >/dev/null 2>&1 || :
 fi
 exit 0
-# Rollback SELinux rules
-semanage permissive -d httpd_t
 
 %clean
 rm -rf $RPM_BUILD_ROOT
