@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:39</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 14 13:00:39 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:39</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:39</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:00:49</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:17</span><span class="nk"> &lt;alinefm&gt;</span> ok... so let's get started
+<a name="l-9"></a><span class="tm">13:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:02:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:02:26</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch to define font size/weight/color v2</span>
+<a name="l-12"></a><span class="tm">13:02:26</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch to add web font icon library</span>
+<a name="l-13"></a><span class="tm">13:02:26</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch to add Grid Widget</span>
+<a name="l-14"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches regarding storage pool tests and bug fixes related to it</span>
+<a name="l-15"></a><span class="tm">13:02:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on storage volumes test cases</span>
+<a name="l-16"></a><span class="tm">13:03:43</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that update jQueryUI fron 1.10.3 to 1.11.2</span>
+<a name="l-17"></a><span class="tm">13:03:55</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce rebased patch of jsonschema for update, finished using libvirt upload api for upload volume, but test showed for big file, it terminated for open too much file, now debuging</span>
+<a name="l-18"></a><span class="tm">13:04:18</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch minor fix Chinese translation</span>
+<a name="l-19"></a><span class="tm">13:04:27</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent patches "Do not reuse names when cloning the same VM more than once at the same time", "Add a disk to the VM when testing snapshot"; volunteered as a Fedora tester; updated some Github issues status; reviewed patches on the mailing list</span>
+<a name="l-20"></a><span class="tm">13:04:55</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that create new UI widget of gauge</span>
+<a name="l-21"></a><span class="tm">13:05:06</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that create new UI widget of messagebar</span>
+<a name="l-22"></a><span class="tm">13:07:33</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, YuXin, do you know when we will start seeing the new UI?
+<a name="l-23"></a><span class="tm">13:07:54</span><span class="nk"> &lt;YuXin&gt;</span> we will first get all base widgets completed
+<a name="l-24"></a><span class="tm">13:08:29</span><span class="nk"> &lt;YuXin&gt;</span> for me, I will going to work on chart and tab widget which at least takes 2 weeks
+<a name="l-25"></a><span class="tm">13:08:44</span><span class="nk"> &lt;YuXin&gt;</span> and wen has a series widgets to work on
+<a name="l-26"></a><span class="tm">13:09:04</span><span class="nk"> &lt;YuXin&gt;</span> once these widgets got completed, then we will start to work on new header
+<a name="l-27"></a><span class="tm">13:09:13</span><span class="nk"> &lt;alinefm&gt;</span> alright - so only in Feb we will have them done to start working on UI redesign
+<a name="l-28"></a><span class="tm">13:09:39</span><span class="nk"> &lt;YuXin&gt;</span> then update kimchi tabs one by one using those widgets specially created for kimchi
+<a name="l-29"></a><span class="tm">13:09:48</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-30"></a><span class="tm">13:09:54</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, I am only concerned about the time as we need to have it done by end of March
+<a name="l-31"></a><span class="tm">13:10:20</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> we will do our best
+<a name="l-32"></a><span class="tm">13:10:38</span><span class="nk"> &lt;YuXin&gt;</span> I think it is ok, as once based widget is completed, it will save a lot of work by reuse
+<a name="l-33"></a><span class="tm">13:10:39</span><span class="nk"> &lt;alinefm&gt;</span> let me know if you need help or something
+<a name="l-34"></a><span class="tm">13:10:55</span><span class="nk"> &lt;wenwang&gt;</span> sure. thx alinefm
+<a name="l-35"></a><span class="tm">13:11:23</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, when merging UI patch, if you see any issue that you can add to get it resolved, just feel free to do it
+<a name="l-36"></a><span class="tm">13:11:26</span><span class="nk"> &lt;YuXin&gt;</span> that will save time
+<a name="l-37"></a><span class="tm">13:11:55</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, thanks!
+<a name="l-38"></a><span class="tm">13:12:24</span><span class="nk"> &lt;alinefm&gt;</span> I always like to ask for confirmation as some people may don't like it =)
+<a name="l-39"></a><span class="tm">13:12:39</span><span class="nk"> &lt;YuXin&gt;</span> I never mind
+<a name="l-40"></a><span class="tm">13:12:51</span><span class="nk"> &lt;alinefm&gt;</span> good to know
+<a name="l-41"></a><span class="tm">13:13:01</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-42"></a><span class="tm">13:13:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-43"></a><span class="tm">13:13:13</span><span class="nk"> &lt;alinefm&gt;</span> what are the topics for today?
+<a name="l-44"></a><span class="tm">13:13:51</span><span class="nk"> &lt;YuXin&gt;</span> we need a open source javascript charting library, then we can wrap it into jquery widget, anyone has any idea, please send it to mail list
+<a name="l-45"></a><span class="tm">13:14:35</span><span class="nk"> &lt;alinefm&gt;</span> is it  for the new host stats widget?
+<a name="l-46"></a><span class="tm">13:14:40</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-47"></a><span class="tm">13:15:14</span><span class="nk"> &lt;alinefm&gt;</span> I will do some investigation on it
+<a name="l-48"></a><span class="tm">13:15:24</span><span class="nk"> &lt;YuXin&gt;</span> thanks
+<a name="l-49"></a><span class="tm">13:15:33</span><span class="nk"> &lt;alinefm&gt;</span> but can't we reuse the chart we are using now and only change the style?
+<a name="l-50"></a><span class="tm">13:16:27</span><span class="nk"> &lt;YuXin&gt;</span> but if we got charting library, that will be strategic
+<a name="l-51"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-52"></a><span class="tm">13:16:54</span><span class="nk"> &lt;YuXin&gt;</span> I have ever used dojo, it has a charting libary of line/colume/bar/pie widgets
+<a name="l-53"></a><span class="tm">13:17:18</span><span class="nk"> &lt;YuXin&gt;</span> it has quite complete functionality and quite strong customization capability
+<a name="l-54"></a><span class="tm">13:17:51</span><span class="nk"> &lt;YuXin&gt;</span> usually, we did not develop these mature things by ourselves, but re-use a good one
+<a name="l-55"></a><span class="tm">13:17:57</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-56"></a><span class="tm">13:18:03</span><span class="nk"> &lt;alinefm&gt;</span> let's try to find something
+<a name="l-57"></a><span class="tm">13:18:14</span><span class="nk"> &lt;alinefm&gt;</span> and we also need to care about the license
+<a name="l-58"></a><span class="tm">13:18:38</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-59"></a><span class="tm">13:18:38</span><span class="nk"> &lt;YuXin&gt;</span> http://demos.dojotoolkit.org/demos/
+<a name="l-60"></a><span class="tm">13:20:09</span><span class="nk"> &lt;alinefm&gt;</span> very nice
+<a name="l-61"></a><span class="tm">13:20:54</span><span class="nk"> &lt;alinefm&gt;</span> ok - I have one point
+<a name="l-62"></a><span class="tm">13:21:56</span><span class="nk"> &lt;alinefm&gt;</span> maybe all of you've already seen some discussion on ML to replace nginx to a lightweight proxy
+<a name="l-63"></a><span class="tm">13:22:05</span><span class="nk"> &lt;alinefm&gt;</span> as nginx has a lot of dependencies and so
+<a name="l-64"></a><span class="tm">13:22:22</span><span class="nk"> &lt;alinefm&gt;</span> so I thought about lighttpd
+<a name="l-65"></a><span class="tm">13:22:40</span><span class="nk"> &lt;alinefm&gt;</span> any other suggestion?
+<a name="l-66"></a><span class="tm">13:23:18</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, ramonn, danielhb, ^
+<a name="l-67"></a><span class="tm">13:23:45</span><span class="nk"> &lt;royce&gt;</span> I didn't use any other ones than apache, django, cherrypy, but I can do some research
+<a name="l-68"></a><span class="tm">13:24:43</span><span class="nk"> &lt;alinefm&gt;</span> royce, ramonn is working on that
+<a name="l-69"></a><span class="tm">13:24:55</span><span class="nk"> &lt;royce&gt;</span> cool
+<a name="l-70"></a><span class="tm">13:25:05</span><span class="nk"> &lt;alinefm&gt;</span> his first attempt was using lighttpd which works fine
+<a name="l-71"></a><span class="tm">13:26:24</span><span class="nk"> &lt;alinefm&gt;</span> but seems no opposition to replace nginx =)
+<a name="l-72"></a><span class="tm">13:26:32</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-73"></a><span class="tm">13:29:33</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-74"></a><span class="tm">13:29:41</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-75"></a><span class="tm">13:29:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

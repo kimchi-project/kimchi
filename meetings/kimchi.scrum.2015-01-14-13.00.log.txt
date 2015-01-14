@@ -1,0 +1,75 @@
+13:00:39 <alinefm> #startmeeting
+13:00:39 <kimchi-bot> Meeting started Wed Jan 14 13:00:39 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:39 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:39 <alinefm> #meetingname scrum
+13:00:39 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:49 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:00:49 <alinefm> anything else?
+13:02:17 <alinefm> ok... so let's get started
+13:02:20 <alinefm> #topic Status
+13:02:22 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:26 <YuXin> #info YuXin Patch to define font size/weight/color v2
+13:02:26 <YuXin> #info YuXin Patch to add web font icon library
+13:02:26 <YuXin> #info YuXin Patch to add Grid Widget
+13:02:47 <alinefm> #info alinefm sent patches regarding storage pool tests and bug fixes related to it
+13:02:58 <alinefm> #info alinefm is now working on storage volumes test cases
+13:03:43 <wenwang> #info wenwang sent patch that update jQueryUI fron 1.10.3 to 1.11.2
+13:03:55 <royce> #info royce rebased patch of jsonschema for update, finished using libvirt upload api for upload volume, but test showed for big file, it terminated for open too much file, now debuging
+13:04:18 <wenwang> #info wenwang sent patch minor fix Chinese translation
+13:04:27 <vianac> #info vianac sent patches "Do not reuse names when cloning the same VM more than once at the same time", "Add a disk to the VM when testing snapshot"; volunteered as a Fedora tester; updated some Github issues status; reviewed patches on the mailing list
+13:04:55 <wenwang> #info wenwang sent patch that create new UI widget of gauge
+13:05:06 <wenwang> #info wenwang sent patch that create new UI widget of messagebar
+13:07:33 <alinefm> wenwang, YuXin, do you know when we will start seeing the new UI?
+13:07:54 <YuXin> we will first get all base widgets completed
+13:08:29 <YuXin> for me, I will going to work on chart and tab widget which at least takes 2 weeks
+13:08:44 <YuXin> and wen has a series widgets to work on
+13:09:04 <YuXin> once these widgets got completed, then we will start to work on new header
+13:09:13 <alinefm> alright - so only in Feb we will have them done to start working on UI redesign
+13:09:39 <YuXin> then update kimchi tabs one by one using those widgets specially created for kimchi
+13:09:48 <alinefm> ok
+13:09:54 <alinefm> YuXin, wenwang, I am only concerned about the time as we need to have it done by end of March
+13:10:20 <wenwang> alinefm: we will do our best
+13:10:38 <YuXin> I think it is ok, as once based widget is completed, it will save a lot of work by reuse
+13:10:39 <alinefm> let me know if you need help or something
+13:10:55 <wenwang> sure. thx alinefm
+13:11:23 <YuXin> alinefm, when merging UI patch, if you see any issue that you can add to get it resolved, just feel free to do it
+13:11:26 <YuXin> that will save time
+13:11:55 <alinefm> YuXin, thanks!
+13:12:24 <alinefm> I always like to ask for confirmation as some people may don't like it =)
+13:12:39 <YuXin> I never mind
+13:12:51 <alinefm> good to know
+13:13:01 <alinefm> let's move on
+13:13:06 <alinefm> #topic Open Discussion
+13:13:13 <alinefm> what are the topics for today?
+13:13:51 <YuXin> we need a open source javascript charting library, then we can wrap it into jquery widget, anyone has any idea, please send it to mail list
+13:14:35 <alinefm> is it  for the new host stats widget?
+13:14:40 <YuXin> yes
+13:15:14 <alinefm> I will do some investigation on it
+13:15:24 <YuXin> thanks
+13:15:33 <alinefm> but can't we reuse the chart we are using now and only change the style?
+13:16:27 <YuXin> but if we got charting library, that will be strategic
+13:16:50 <alinefm> yes
+13:16:54 <YuXin> I have ever used dojo, it has a charting libary of line/colume/bar/pie widgets
+13:17:18 <YuXin> it has quite complete functionality and quite strong customization capability
+13:17:51 <YuXin> usually, we did not develop these mature things by ourselves, but re-use a good one
+13:17:57 <alinefm> sure
+13:18:03 <alinefm> let's try to find something
+13:18:14 <alinefm> and we also need to care about the license
+13:18:38 <alinefm> any other topic?
+13:18:38 <YuXin> http://demos.dojotoolkit.org/demos/
+13:20:09 <alinefm> very nice
+13:20:54 <alinefm> ok - I have one point
+13:21:56 <alinefm> maybe all of you've already seen some discussion on ML to replace nginx to a lightweight proxy
+13:22:05 <alinefm> as nginx has a lot of dependencies and so
+13:22:22 <alinefm> so I thought about lighttpd
+13:22:40 <alinefm> any other suggestion?
+13:23:18 <alinefm> vianac, royce, ramonn, danielhb, ^
+13:23:45 <royce> I didn't use any other ones than apache, django, cherrypy, but I can do some research
+13:24:43 <alinefm> royce, ramonn is working on that
+13:24:55 <royce> cool
+13:25:05 <alinefm> his first attempt was using lighttpd which works fine
+13:26:24 <alinefm> but seems no opposition to replace nginx =)
+13:26:32 <alinefm> any other topic for today?
+13:29:33 <alinefm> alright...
+13:29:41 <alinefm> so thanks everyone for joining!
+13:29:47 <alinefm> #endmeeting
