@@ -157,7 +157,7 @@ kimchi.addNetworkActions = function(network) {
                 network.state = "down";
             }
         } else if ($(evt.currentTarget).attr("nwAct") === "delete") {
-            if (network.state === "up") {
+            if (network.state === "up" || network.in_use) {
                 return false;
             }
             kimchi.confirm({
