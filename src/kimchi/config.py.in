@@ -245,6 +245,10 @@ class KimchiConfig(dict):
             'tools.staticfile.on': True,
             'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
         },
+        '/robots.txt': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
+        },
         '/help': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': '%s/ui/pages/help' % paths.prefix,
