@@ -88,8 +88,7 @@ channel at RHN Classic or Red Hat Satellite.
                            qemu-kvm libtool python-psutil python-ethtool \
                            sosreport python-ipaddr python-ldap \
                            python-lxml nfs-common open-iscsi lvm2 xsltproc \
-                           python-parted nginx \
-                           firewalld python-guestfs libguestfs-tools \
+                           python-parted nginx python-guestfs libguestfs-tools \
                            websockify novnc spice-html5
 
     Packages version requirement:
