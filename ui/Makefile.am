@@ -16,3 +16,7 @@
 # limitations under the License.
 
 SUBDIRS = css images js libs pages spice-html5
+
+uidir = $(datadir)/kimchi/ui
+
+dist_ui_DATA = robots.txt
