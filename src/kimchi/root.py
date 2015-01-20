@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -120,8 +120,8 @@ class KimchiRoot(Root):
         self.default_page = 'kimchi-ui.html'
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(model))
-        self.api_schema = json.load(open(os.path.join(paths.src_dir,
-                                                      'API.json')))
+        with open(os.path.join(paths.src_dir, 'API.json')) as f:
+            self.api_schema = json.load(f)
         self.paths = paths
         self.domain = 'kimchi'
         self.messages = messages
