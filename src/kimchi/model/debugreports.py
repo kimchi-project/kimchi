@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -112,8 +112,9 @@ class DebugReportsModel(object):
             # Deleting md5
             msg = 'Deleting report md5 file: "%s"' % (md5_report_file)
             kimchi_log.info(msg)
-            md5 = open(md5_report_file).read().strip()
-            kimchi_log.info('Md5 file content: "%s"', md5)
+            with open(md5_report_file) as f:
+                md5 = f.read().strip()
+                kimchi_log.info('Md5 file content: "%s"', md5)
             os.remove(md5_report_file)
             cb('OK', True)
             return
