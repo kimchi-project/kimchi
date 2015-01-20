@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import contextlib
 import glob
 import platform
 import os
@@ -414,8 +415,8 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
             request = urllib2.Request(self.path)
             range_header = "bytes=%d-%d" % (offset, offset + size - 1)
             request.add_header("range", range_header)
-            response = urllib2.urlopen(request)
-            data = response.read()
+            with contextlib.closing(urllib2.urlopen(request)) as response:
+                data = response.read()
         else:
             with open(self.path) as fd:
                 fd.seek(offset)
