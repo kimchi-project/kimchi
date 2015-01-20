@@ -1,6 +1,6 @@
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -85,7 +85,9 @@ def all_interfaces():
 
 
 def slaves(bonding):
-    return open(BONDING_SLAVES % bonding).readline().split()
+    with open(BONDING_SLAVES % bonding) as bonding_file:
+        res = bonding_file.readline().split()
+    return res
 
 
 def ports(bridge):
@@ -108,7 +110,8 @@ def operstate(dev):
 def link_detected(dev):
     # try to read interface carrier (link) status
     try:
-        carrier = open(NET_STATE % dev).readline().strip()
+        with open(NET_STATE % dev) as dev_file:
+            carrier = dev_file.readline().strip()
     # when IOError is raised, interface is down
     except IOError:
         return "n/a"
@@ -123,10 +126,11 @@ def get_vlan_device(vlan):
     dev = None
 
     if os.path.exists(PROC_NET_VLAN + vlan):
-        for line in open(PROC_NET_VLAN + vlan):
-            if "Device:" in line:
-                dummy, dev = line.split()
-                break
+        with open(PROC_NET_VLAN + vlan) as vlan_file:
+            for line in vlan_file:
+                if "Device:" in line:
+                    dummy, dev = line.split()
+                    break
     return dev
 
 
