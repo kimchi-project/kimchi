@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -167,8 +167,9 @@ class HostStatsModel(object):
         # FIXME when we upgrade psutil, we can get uptime by psutil.uptime
         # we get uptime by float(open("/proc/uptime").readline().split()[0])
         # and calculate the first io_rate after the OS started.
-        seconds = (timestamp - preTimeStamp if preTimeStamp else
-                   float(open("/proc/uptime").readline().split()[0]))
+        with open("/proc/uptime") as time_f:
+            seconds = (timestamp - preTimeStamp if preTimeStamp else
+                       float(time_f.readline().split()[0]))
 
         self.host_stats['timestamp'] = timestamp
         self._get_host_disk_io_rate(seconds)
