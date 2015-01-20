@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 #
 
 import cherrypy
+import contextlib
 import grp
 import os
 import psutil
@@ -147,7 +148,8 @@ def check_url_path(path):
         urlpath = parse_result.path
         if not urlpath:
             # Just a server, as with a repo.
-            code = urllib2.urlopen(path).getcode()
+            with contextlib.closing(urllib2.urlopen(path)) as res:
+                code = res.getcode()
         else:
             # socket.gaierror could be raised,
             #   which is a child class of IOError
