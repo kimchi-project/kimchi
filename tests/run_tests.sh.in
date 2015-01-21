@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -33,14 +33,16 @@ else
     CMD="python -m unittest"
 fi
 
-SORTED_LIST=($ARGS)
-for ((i=0;i<${#SORTED_LIST[@]};i++)); do
+LIST=($ARGS)
+MODEL_LIST=()
+MOCK_LIST=()
+for ((i=0;i<${#LIST[@]};i++)); do
 
-    if [[ ${SORTED_LIST[$i]} == test_model* ]]; then
-        FIRST=${SORTED_LIST[$i]}
-        SORTED_LIST[$i]=${SORTED_LIST[0]}
-        SORTED_LIST[0]=$FIRST
+    if [[ ${LIST[$i]} == test_model* ]]; then
+        MODEL_LIST+=(${LIST[$i]})
+    else
+        MOCK_LIST+=(${LIST[$i]})
     fi
 done
 
-PYTHONPATH=../src:../ $CMD ${SORTED_LIST[@]}
+PYTHONPATH=../src:../ $CMD ${MODEL_LIST[@]} ${MOCK_LIST[@]}
