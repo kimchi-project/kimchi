@@ -366,8 +366,19 @@ class StorageVolumeModel(object):
 
     def resize(self, pool, name, size):
         volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
+
+        # When decreasing the storage volume capacity, the flag
+        # VIR_STORAGE_VOL_RESIZE_SHRINK must be used
+        flags = 0
+        if volume.info()[1] > size:
+            # FIXME: Even using VIR_STORAGE_VOL_RESIZE_SHRINK flag it is not
+            # possible to decrease the volume capacity due a libvirt bug
+            # For reference:
+            # - https://bugzilla.redhat.com/show_bug.cgi?id=1021802
+            flags = libvirt.VIR_STORAGE_VOL_RESIZE_SHRINK
+
         try:
-            volume.resize(size, 0)
+            volume.resize(size, flags)
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVOL0011E",
                                   {'name': name, 'err': e.get_error_message()})
