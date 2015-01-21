@@ -476,10 +476,10 @@ A interface represents available network interface on VM.
             The return resource is a task resource * See Resource: Task *
             Only one of 'file', 'capacity', 'url' can be specified.
     * name: The name of the Storage Volume
-    * type: The type of the defined Storage Volume
     * capacity: The total space which can be used to store volumes
                 The unit is bytes
-    * format: The format of the defined Storage Volume
+    * format: The format of the defined Storage Volume. Only used when creating
+              a storage volume with 'capacity'.
     * file: File to be uploaded, passed through form data
     * url: URL to be downloaded
 
