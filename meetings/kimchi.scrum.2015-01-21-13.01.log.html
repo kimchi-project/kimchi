@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 21 13:01:24 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:35</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:02:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:02:40</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch of Tab Container Widget</span>
+<a name="l-11"></a><span class="tm">13:02:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on storage pool and storage volumes test cases</span>
+<a name="l-12"></a><span class="tm">13:02:59</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of kimchi ui widget of gauge</span>
+<a name="l-13"></a><span class="tm">13:03:06</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of kimchi ui widget of messagebar</span>
+<a name="l-14"></a><span class="tm">13:03:12</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of kimchi ui widget of message</span>
+<a name="l-15"></a><span class="tm">13:03:22</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of kimchi ui widget of dialog</span>
+<a name="l-16"></a><span class="tm">13:03:24</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce debuged with problem of leaking file handler of upload, it turned to be kimchi server fh leak, sent series patch fixing leak, now resolving libvirt stream locking</span>
+<a name="l-17"></a><span class="tm">13:03:33</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac worked on patches to allow creating/reverting a snapshot of a running domain, and to allow VM suspended state; reviewed patches on the mailing list</span>
+<a name="l-18"></a><span class="tm">13:03:40</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of kimchi ui widget of button</span>
+<a name="l-19"></a><span class="tm">13:03:40</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Investigated 6 Javascript Charting Library, Identified 3 that Kimchi can leverage, Tend to use ChartJS, Will prototype with it</span>
+<a name="l-20"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got a Kimchi presentation accepted for LF Collab Summit</span>
+<a name="l-21"></a><span class="tm">13:04:11</span><span class="nk"> &lt;royce&gt;</span> Great!
+<a name="l-22"></a><span class="tm">13:05:04</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-23"></a><span class="tm">13:05:14</span><span class="nk"> &lt;alinefm&gt;</span> royce, anything you need help with the upload issues?
+<a name="l-24"></a><span class="tm">13:05:27</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch of Web Font Icon Library</span>
+<a name="l-25"></a><span class="tm">13:05:29</span><span class="nk"> &lt;alinefm&gt;</span> vianac, weren't the patches ready?
+<a name="l-26"></a><span class="tm">13:06:20</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I just need to finish the tests for the snapshot patches
+<a name="l-27"></a><span class="tm">13:06:36</span><span class="nk"> &lt;vianac&gt;</span> and the one related to the suspended state is still being done
+<a name="l-28"></a><span class="tm">13:06:37</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patch to remove firewalld as Debian dependency from README and sources to create deb packages</span>
+<a name="l-29"></a><span class="tm">13:07:22</span><span class="nk"> &lt;alinefm&gt;</span> vianac, ok
+<a name="l-30"></a><span class="tm">13:07:28</span><span class="nk"> &lt;royce&gt;</span> alinefm, when I resolved the fh leak, found libvirt upload stream can cause volume corruption when doing concurrently, do we need to give each volume a lock, and limit the concurrent upload to like 5 uploads?
+<a name="l-31"></a><span class="tm">13:08:16</span><span class="nk"> &lt;alinefm&gt;</span> royce, I suppose the issue in only uploading many files to the same pool
+<a name="l-32"></a><span class="tm">13:08:25</span><span class="nk"> &lt;alinefm&gt;</span> or it does not matter?
+<a name="l-33"></a><span class="tm">13:08:58</span><span class="nk"> &lt;royce&gt;</span> and about the fh leak of PAM validation, I felt putting in a process is urgly, but found no better solution, any idea?
+<a name="l-34"></a><span class="tm">13:09:36</span><span class="nk"> &lt;royce&gt;</span> alinefm, let me find the code
+<a name="l-35"></a><span class="tm">13:09:52</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-36"></a><span class="tm">13:10:53</span><span class="nk"> &lt;royce&gt;</span> two issues 1. file handler fixing 2. uploading lock
+<a name="l-37"></a><span class="tm">13:11:58</span><span class="nk"> &lt;royce&gt;</span> wait a sec, vpn blocks me
+<a name="l-38"></a><span class="tm">13:12:07</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-39"></a><span class="tm">13:13:30</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discuss so we can continue
+<a name="l-40"></a><span class="tm">13:13:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-41"></a><span class="tm">13:14:00</span><span class="nk"> &lt;alinefm&gt;</span> anyone else has more topics?
+<a name="l-42"></a><span class="tm">13:14:00</span><span class="nk"> &lt;YuXin&gt;</span> about web font icon library, aline, do you still have any concern?
+<a name="l-43"></a><span class="tm">13:14:03</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I have a topic
+<a name="l-44"></a><span class="tm">13:14:31</span><span class="nk"> &lt;YuXin&gt;</span> I replied a mail with its license statements
+<a name="l-45"></a><span class="tm">13:14:56</span><span class="nk"> &lt;YuXin&gt;</span> all files in that patch are needed
+<a name="l-46"></a><span class="tm">13:16:44</span><span class="nk"> &lt;royce&gt;</span> +            st = self.conn.get().newStream(0)
+<a name="l-47"></a><span class="tm">13:16:45</span><span class="nk"> &lt;royce&gt;</span> +            st.upload(vol, pos, chunk_size, 0)
+<a name="l-48"></a><span class="tm">13:16:45</span><span class="nk"> &lt;royce&gt;</span> +            st.send(params['chunk'].fullvalue())
+<a name="l-49"></a><span class="tm">13:16:45</span><span class="nk"> &lt;royce&gt;</span> +
+<a name="l-50"></a><span class="tm">13:16:45</span><span class="nk"> &lt;royce&gt;</span> +            st.finish()
+<a name="l-51"></a><span class="tm">13:16:46</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I am just waiting from a reply from baude
+<a name="l-52"></a><span class="tm">13:16:51</span><span class="nk"> &lt;pvital&gt;</span> alinefm, kimchi is using some python libraries that are not available as packages to Debian Stable (version 7 - codiname: wheezy) - the current README, shows apt-get command that works only on Ubuntu and Debian Testing (next version 8 - codiname: jessy)
+<a name="l-53"></a><span class="tm">13:16:57</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-54"></a><span class="tm">13:17:38</span><span class="nk"> &lt;alinefm&gt;</span> pvital, we don't have anyone testing kimchi on debian AFAIK
+<a name="l-55"></a><span class="tm">13:17:56</span><span class="nk"> &lt;alinefm&gt;</span> pvital, we have 2 distro focal points: for Fedora and openSUSE
+<a name="l-56"></a><span class="tm">13:18:08</span><span class="nk"> &lt;pvital&gt;</span> alinefm, my sugestion is express on README to officially support Debian starting on  Jessy version
+<a name="l-57"></a><span class="tm">13:18:08</span><span class="nk"> &lt;alinefm&gt;</span> so probably there will be problem on debian
+<a name="l-58"></a><span class="tm">13:18:38</span><span class="nk"> &lt;alinefm&gt;</span> pvital, if you already confirmed that, please, send a patch
+<a name="l-59"></a><span class="tm">13:19:28</span><span class="nk"> &lt;royce&gt;</span> The above peice of code need a lock to synchronize because each volume can just have one active stream, problem is if two concurrent requests come in, we need to distinguish they are for two volumes or for the same volume, which means one lock per volume
+<a name="l-60"></a><span class="tm">13:19:43</span><span class="nk"> &lt;pvital&gt;</span> alinefm, OK! I'm trying to see if there's some other package on stable version that works. But will send a patch!
+<a name="l-61"></a><span class="tm">13:20:14</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> also, after talking with YuXin, we don't think we have enough time to create sample for each widget since time is limited. I have a suggestion that we can write the comment to show how it works in kimchi, is that ok?
+<a name="l-62"></a><span class="tm">13:20:26</span><span class="nk"> &lt;alinefm&gt;</span> pvital, thanks
+<a name="l-63"></a><span class="tm">13:20:50</span><span class="nk"> &lt;alinefm&gt;</span> royce, got it
+<a name="l-64"></a><span class="tm">13:21:30</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, how are you testing the code without a sample?
+<a name="l-65"></a><span class="tm">13:21:49</span><span class="nk"> &lt;wenwang&gt;</span> we are building the widget based on kimchi
+<a name="l-66"></a><span class="tm">13:21:58</span><span class="nk"> &lt;royce&gt;</span> but we don't want so many locks, we can just afford some locks I call it the active uploading limit
+<a name="l-67"></a><span class="tm">13:22:32</span><span class="nk"> &lt;royce&gt;</span> the lock is global because we want it survive between requests
+<a name="l-68"></a><span class="tm">13:22:33</span><span class="nk"> &lt;YuXin&gt;</span> we write the widget on top of current kimchi UI content, so we can see the display, but only send patch with widget content
+<a name="l-69"></a><span class="tm">13:23:40</span><span class="nk"> &lt;alinefm&gt;</span> royce, yeap
+<a name="l-70"></a><span class="tm">13:23:48</span><span class="nk"> &lt;YuXin&gt;</span> after need week, widget work will be done. then we will start to work on the Kimchi UI content by using these widgets created
+<a name="l-71"></a><span class="tm">13:24:15</span><span class="nk"> &lt;YuXin&gt;</span> aline, I think currently you do not need to merge the widget patches
+<a name="l-72"></a><span class="tm">13:24:22</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, so input in the commit message, the code to use the widget
+<a name="l-73"></a><span class="tm">13:24:30</span><span class="nk"> &lt;alinefm&gt;</span> so I can create a sample from it
+<a name="l-74"></a><span class="tm">13:24:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, why not?
+<a name="l-75"></a><span class="tm">13:25:20</span><span class="nk"> &lt;wenwang&gt;</span> sure alinefm
+<a name="l-76"></a><span class="tm">13:25:29</span><span class="nk"> &lt;YuXin&gt;</span> when we start to build kimchi UI content with these widgets, each time when we using a widget, we will re-send the patch with both kimchi UI and the widget
+<a name="l-77"></a><span class="tm">13:25:59</span><span class="nk"> &lt;YuXin&gt;</span> then team can review the widget and the kimchi funtional UI content at the same time
+<a name="l-78"></a><span class="tm">13:26:14</span><span class="nk"> &lt;YuXin&gt;</span> this way will save time, is that ok?
+<a name="l-79"></a><span class="tm">13:26:35</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, the reason why I think the samples are important is because they can be reused by plugins and so
+<a name="l-80"></a><span class="tm">13:26:42</span><span class="nk"> &lt;alinefm&gt;</span> so anyone would be able to reuse them
+<a name="l-81"></a><span class="tm">13:26:58</span><span class="nk"> &lt;alinefm&gt;</span> I prefer to merge the widgets patches as soon as they are ready to avoid any delay
+<a name="l-82"></a><span class="tm">13:27:15</span><span class="nk"> &lt;YuXin&gt;</span> but these widgets are kimchi specific, they can only be used inside kimchi
+<a name="l-83"></a><span class="tm">13:27:18</span><span class="nk"> &lt;alinefm&gt;</span> if you input the widget usage in the commit message I can send a separated patch with a sample
+<a name="l-84"></a><span class="tm">13:27:32</span><span class="nk"> &lt;YuXin&gt;</span> if we create sample, in the sample
+<a name="l-85"></a><span class="tm">13:27:48</span><span class="nk"> &lt;YuXin&gt;</span> 1. we need a html which is url addressable to be loaded from cherry web server
+<a name="l-86"></a><span class="tm">13:28:19</span><span class="nk"> &lt;alinefm&gt;</span> the widget samples will not be accessible through kimchi
+<a name="l-87"></a><span class="tm">13:28:34</span><span class="nk"> &lt;YuXin&gt;</span> 2. in this html, we need to reference kimchi css files and js files, so this html need to be placed somethere in kimchi source that can access kimchi web resoures
+<a name="l-88"></a><span class="tm">13:29:06</span><span class="nk"> &lt;YuXin&gt;</span> if the sample can not be accessed from kimchi, how it can be tested
+<a name="l-89"></a><span class="tm">13:29:16</span><span class="nk"> &lt;alinefm&gt;</span> firefox sample.html
+<a name="l-90"></a><span class="tm">13:29:39</span><span class="nk"> &lt;YuXin&gt;</span> load a local html file with filebox, you mean?
+<a name="l-91"></a><span class="tm">13:29:51</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-92"></a><span class="tm">13:29:54</span><span class="nk"> &lt;alinefm&gt;</span> just for testing
+<a name="l-93"></a><span class="tm">13:30:10</span><span class="nk"> &lt;alinefm&gt;</span> it will not be packaged or anything
+<a name="l-94"></a><span class="tm">13:30:22</span><span class="nk"> &lt;alinefm&gt;</span> it only will be on source code for devel matters
+<a name="l-95"></a><span class="tm">13:30:26</span><span class="nk"> &lt;YuXin&gt;</span> wenwang, have you tried whether the sample can work if load it locally?
+<a name="l-96"></a><span class="tm">13:30:57</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, I did =)
+<a name="l-97"></a><span class="tm">13:31:16</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-98"></a><span class="tm">13:31:27</span><span class="nk"> &lt;YuXin&gt;</span> so the sample will be writen this way
+<a name="l-99"></a><span class="tm">13:31:46</span><span class="nk"> &lt;YuXin&gt;</span> 1. it will be placed in a folder in the source
+<a name="l-100"></a><span class="tm">13:31:58</span><span class="nk"> &lt;YuXin&gt;</span> 2. it reference to kimchi css/js files with relative patch
+<a name="l-101"></a><span class="tm">13:32:13</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">YuXin:</span> I have tried saperately, it works. But within kimchi, there might be a little problem running independently. But can work in kimchi project
+<a name="l-102"></a><span class="tm">13:32:14</span><span class="nk"> &lt;YuXin&gt;</span> 3. it can work if load locally with browser
+<a name="l-103"></a><span class="tm">13:32:39</span><span class="nk"> &lt;YuXin&gt;</span> alinefm, it works inside kimchi is ok, right?
+<a name="l-104"></a><span class="tm">13:32:41</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, that is the way wenwang did the samples I tested
+<a name="l-105"></a><span class="tm">13:33:08</span><span class="nk"> &lt;YuXin&gt;</span> I mean placed inside kimcih source
+<a name="l-106"></a><span class="tm">13:33:25</span><span class="nk"> &lt;alinefm&gt;</span> there is a directory for it ui/js/widgets/samples/.
+<a name="l-107"></a><span class="tm">13:33:31</span><span class="nk"> &lt;alinefm&gt;</span> in the next branch
+<a name="l-108"></a><span class="tm">13:34:14</span><span class="nk"> &lt;YuXin&gt;</span> then only work when loading the sample html from this directory is ok, right?
+<a name="l-109"></a><span class="tm">13:34:21</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-110"></a><span class="tm">13:34:28</span><span class="nk"> &lt;alinefm&gt;</span> sounds pretty good for me
+<a name="l-111"></a><span class="tm">13:34:57</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-112"></a><span class="tm">13:35:19</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-113"></a><span class="tm">13:35:36</span><span class="nk"> &lt;YuXin&gt;</span> I send a mail with 3 identified chart library
+<a name="l-114"></a><span class="tm">13:36:02</span><span class="nk"> &lt;YuXin&gt;</span> I did not get which one is strickly better than others
+<a name="l-115"></a><span class="tm">13:36:21</span><span class="nk"> &lt;YuXin&gt;</span> so would like team to take a look see whether any idea
+<a name="l-116"></a><span class="tm">13:36:27</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-117"></a><span class="tm">13:36:35</span><span class="nk"> &lt;alinefm&gt;</span> is there some online tool to test them?
+<a name="l-118"></a><span class="tm">13:36:51</span><span class="nk"> &lt;alinefm&gt;</span> (I haven't checked the email yet)
+<a name="l-119"></a><span class="tm">13:36:51</span><span class="nk"> &lt;YuXin&gt;</span> 3 web sites for them
+<a name="l-120"></a><span class="tm">13:36:58</span><span class="nk"> &lt;YuXin&gt;</span> there is is demo
+<a name="l-121"></a><span class="tm">13:37:03</span><span class="nk"> &lt;YuXin&gt;</span> doc about API
+<a name="l-122"></a><span class="tm">13:38:08</span><span class="nk"> &lt;YuXin&gt;</span> those charts are fully customizable
+<a name="l-123"></a><span class="tm">13:38:38</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-124"></a><span class="tm">13:38:47</span><span class="nk"> &lt;alinefm&gt;</span> I will do some tests later today and send my comments to ML
+<a name="l-125"></a><span class="tm">13:38:48</span><span class="nk"> &lt;YuXin&gt;</span> for example, line chart, the axis, tick, line boldness, color, grid backgroud, tooltip, all can be customized
+<a name="l-126"></a><span class="tm">13:39:22</span><span class="nk"> &lt;YuXin&gt;</span> take a look at its API, there is a big list of options for customizatoin
+<a name="l-127"></a><span class="tm">13:39:40</span><span class="nk"> &lt;alinefm&gt;</span> will do
+<a name="l-128"></a><span class="tm">13:40:02</span><span class="nk"> &lt;YuXin&gt;</span> I will prototype a line chart with ChartJS tomorrow follow new kimchi UI design
+<a name="l-129"></a><span class="tm">13:40:41</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-130"></a><span class="tm">13:40:45</span><span class="nk"> &lt;YuXin&gt;</span> ok
+<a name="l-131"></a><span class="tm">13:41:14</span><span class="nk"> &lt;YuXin&gt;</span> all for me today
+<a name="l-132"></a><span class="tm">13:41:54</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, wenwang, anything else from your side?
+<a name="l-133"></a><span class="tm">13:43:07</span><span class="nk"> &lt;wenwang&gt;</span> nope from me
+<a name="l-134"></a><span class="tm">13:43:13</span><span class="nk"> &lt;royce&gt;</span> me neither
+<a name="l-135"></a><span class="tm">13:43:34</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-136"></a><span class="tm">13:43:40</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-137"></a><span class="tm">13:43:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

@@ -1,0 +1,137 @@
+13:01:24 <alinefm> #startmeeting
+13:01:24 <kimchi-bot> Meeting started Wed Jan 21 13:01:24 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:24 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:24 <alinefm> #meetingname scrum
+13:01:24 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:34 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:35 <alinefm> anything else?
+13:02:33 <alinefm> #topic Status
+13:02:33 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:40 <YuXin> #info YuXin Patch of Tab Container Widget
+13:02:52 <alinefm> #info alinefm is working on storage pool and storage volumes test cases
+13:02:59 <wenwang> #info wenwang sent patch of kimchi ui widget of gauge
+13:03:06 <wenwang> #info wenwang sent patch of kimchi ui widget of messagebar
+13:03:12 <wenwang> #info wenwang sent patch of kimchi ui widget of message
+13:03:22 <wenwang> #info wenwang sent patch of kimchi ui widget of dialog
+13:03:24 <royce> #info royce debuged with problem of leaking file handler of upload, it turned to be kimchi server fh leak, sent series patch fixing leak, now resolving libvirt stream locking
+13:03:33 <vianac> #info vianac worked on patches to allow creating/reverting a snapshot of a running domain, and to allow VM suspended state; reviewed patches on the mailing list
+13:03:40 <wenwang> #info wenwang sent patch of kimchi ui widget of button
+13:03:40 <YuXin> #info YuXin Investigated 6 Javascript Charting Library, Identified 3 that Kimchi can leverage, Tend to use ChartJS, Will prototype with it
+13:03:53 <alinefm> #info alinefm got a Kimchi presentation accepted for LF Collab Summit
+13:04:11 <royce> Great!
+13:05:04 <alinefm> yeap
+13:05:14 <alinefm> royce, anything you need help with the upload issues?
+13:05:27 <YuXin> #info YuXin Patch of Web Font Icon Library
+13:05:29 <alinefm> vianac, weren't the patches ready?
+13:06:20 <vianac> alinefm, I just need to finish the tests for the snapshot patches
+13:06:36 <vianac> and the one related to the suspended state is still being done
+13:06:37 <pvital> #info pvital submitted patch to remove firewalld as Debian dependency from README and sources to create deb packages
+13:07:22 <alinefm> vianac, ok
+13:07:28 <royce> alinefm, when I resolved the fh leak, found libvirt upload stream can cause volume corruption when doing concurrently, do we need to give each volume a lock, and limit the concurrent upload to like 5 uploads?
+13:08:16 <alinefm> royce, I suppose the issue in only uploading many files to the same pool
+13:08:25 <alinefm> or it does not matter?
+13:08:58 <royce> and about the fh leak of PAM validation, I felt putting in a process is urgly, but found no better solution, any idea?
+13:09:36 <royce> alinefm, let me find the code
+13:09:52 <alinefm> ok
+13:10:53 <royce> two issues 1. file handler fixing 2. uploading lock
+13:11:58 <royce> wait a sec, vpn blocks me
+13:12:07 <alinefm> sure
+13:13:30 <alinefm> let's move on to open discuss so we can continue
+13:13:34 <alinefm> #topic Open Discussion
+13:14:00 <alinefm> anyone else has more topics?
+13:14:00 <YuXin> about web font icon library, aline, do you still have any concern?
+13:14:03 <pvital> alinefm, I have a topic
+13:14:31 <YuXin> I replied a mail with its license statements
+13:14:56 <YuXin> all files in that patch are needed
+13:16:44 <royce> +            st = self.conn.get().newStream(0)
+13:16:45 <royce> +            st.upload(vol, pos, chunk_size, 0)
+13:16:45 <royce> +            st.send(params['chunk'].fullvalue())
+13:16:45 <royce> +
+13:16:45 <royce> +            st.finish()
+13:16:46 <alinefm> YuXin, I am just waiting from a reply from baude
+13:16:51 <pvital> alinefm, kimchi is using some python libraries that are not available as packages to Debian Stable (version 7 - codiname: wheezy) - the current README, shows apt-get command that works only on Ubuntu and Debian Testing (next version 8 - codiname: jessy)
+13:16:57 <YuXin> ok
+13:17:38 <alinefm> pvital, we don't have anyone testing kimchi on debian AFAIK
+13:17:56 <alinefm> pvital, we have 2 distro focal points: for Fedora and openSUSE
+13:18:08 <pvital> alinefm, my sugestion is express on README to officially support Debian starting on  Jessy version
+13:18:08 <alinefm> so probably there will be problem on debian
+13:18:38 <alinefm> pvital, if you already confirmed that, please, send a patch
+13:19:28 <royce> The above peice of code need a lock to synchronize because each volume can just have one active stream, problem is if two concurrent requests come in, we need to distinguish they are for two volumes or for the same volume, which means one lock per volume
+13:19:43 <pvital> alinefm, OK! I'm trying to see if there's some other package on stable version that works. But will send a patch!
+13:20:14 <wenwang> alinefm: also, after talking with YuXin, we don't think we have enough time to create sample for each widget since time is limited. I have a suggestion that we can write the comment to show how it works in kimchi, is that ok?
+13:20:26 <alinefm> pvital, thanks
+13:20:50 <alinefm> royce, got it
+13:21:30 <alinefm> wenwang, how are you testing the code without a sample?
+13:21:49 <wenwang> we are building the widget based on kimchi
+13:21:58 <royce> but we don't want so many locks, we can just afford some locks I call it the active uploading limit
+13:22:32 <royce> the lock is global because we want it survive between requests
+13:22:33 <YuXin> we write the widget on top of current kimchi UI content, so we can see the display, but only send patch with widget content
+13:23:40 <alinefm> royce, yeap
+13:23:48 <YuXin> after need week, widget work will be done. then we will start to work on the Kimchi UI content by using these widgets created
+13:24:15 <YuXin> aline, I think currently you do not need to merge the widget patches
+13:24:22 <alinefm> YuXin, wenwang, so input in the commit message, the code to use the widget
+13:24:30 <alinefm> so I can create a sample from it
+13:24:41 <alinefm> YuXin, why not?
+13:25:20 <wenwang> sure alinefm
+13:25:29 <YuXin> when we start to build kimchi UI content with these widgets, each time when we using a widget, we will re-send the patch with both kimchi UI and the widget
+13:25:59 <YuXin> then team can review the widget and the kimchi funtional UI content at the same time
+13:26:14 <YuXin> this way will save time, is that ok?
+13:26:35 <alinefm> YuXin, the reason why I think the samples are important is because they can be reused by plugins and so
+13:26:42 <alinefm> so anyone would be able to reuse them
+13:26:58 <alinefm> I prefer to merge the widgets patches as soon as they are ready to avoid any delay
+13:27:15 <YuXin> but these widgets are kimchi specific, they can only be used inside kimchi
+13:27:18 <alinefm> if you input the widget usage in the commit message I can send a separated patch with a sample
+13:27:32 <YuXin> if we create sample, in the sample
+13:27:48 <YuXin> 1. we need a html which is url addressable to be loaded from cherry web server
+13:28:19 <alinefm> the widget samples will not be accessible through kimchi
+13:28:34 <YuXin> 2. in this html, we need to reference kimchi css files and js files, so this html need to be placed somethere in kimchi source that can access kimchi web resoures
+13:29:06 <YuXin> if the sample can not be accessed from kimchi, how it can be tested
+13:29:16 <alinefm> firefox sample.html
+13:29:39 <YuXin> load a local html file with filebox, you mean?
+13:29:51 <alinefm> yes
+13:29:54 <alinefm> just for testing
+13:30:10 <alinefm> it will not be packaged or anything
+13:30:22 <alinefm> it only will be on source code for devel matters
+13:30:26 <YuXin> wenwang, have you tried whether the sample can work if load it locally?
+13:30:57 <alinefm> YuXin, I did =)
+13:31:16 <YuXin> ok
+13:31:27 <YuXin> so the sample will be writen this way
+13:31:46 <YuXin> 1. it will be placed in a folder in the source
+13:31:58 <YuXin> 2. it reference to kimchi css/js files with relative patch
+13:32:13 <wenwang> YuXin: I have tried saperately, it works. But within kimchi, there might be a little problem running independently. But can work in kimchi project
+13:32:14 <YuXin> 3. it can work if load locally with browser
+13:32:39 <YuXin> alinefm, it works inside kimchi is ok, right?
+13:32:41 <alinefm> YuXin, that is the way wenwang did the samples I tested
+13:33:08 <YuXin> I mean placed inside kimcih source
+13:33:25 <alinefm> there is a directory for it ui/js/widgets/samples/.
+13:33:31 <alinefm> in the next branch
+13:34:14 <YuXin> then only work when loading the sample html from this directory is ok, right?
+13:34:21 <alinefm> sure
+13:34:28 <alinefm> sounds pretty good for me
+13:34:57 <YuXin> ok
+13:35:19 <alinefm> anything else for today?
+13:35:36 <YuXin> I send a mail with 3 identified chart library
+13:36:02 <YuXin> I did not get which one is strickly better than others
+13:36:21 <YuXin> so would like team to take a look see whether any idea
+13:36:27 <alinefm> sure
+13:36:35 <alinefm> is there some online tool to test them?
+13:36:51 <alinefm> (I haven't checked the email yet)
+13:36:51 <YuXin> 3 web sites for them
+13:36:58 <YuXin> there is is demo
+13:37:03 <YuXin> doc about API
+13:38:08 <YuXin> those charts are fully customizable
+13:38:38 <alinefm> great!
+13:38:47 <alinefm> I will do some tests later today and send my comments to ML
+13:38:48 <YuXin> for example, line chart, the axis, tick, line boldness, color, grid backgroud, tooltip, all can be customized
+13:39:22 <YuXin> take a look at its API, there is a big list of options for customizatoin
+13:39:40 <alinefm> will do
+13:40:02 <YuXin> I will prototype a line chart with ChartJS tomorrow follow new kimchi UI design
+13:40:41 <alinefm> ok
+13:40:45 <YuXin> ok
+13:41:14 <YuXin> all for me today
+13:41:54 <alinefm> vianac, royce, wenwang, anything else from your side?
+13:43:07 <wenwang> nope from me
+13:43:13 <royce> me neither
+13:43:34 <alinefm> ok...
+13:43:40 <alinefm> thanks everyone for joining!
+13:43:44 <alinefm> #endmeeting
