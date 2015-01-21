@@ -398,9 +398,6 @@ class StorageVolumeModel(object):
         Return:
         A Task running the clone operation.
         """
-        pool = pool.decode('utf-8')
-        name = name.decode('utf-8')
-
         # the same pool will be used if no pool is specified
         if new_pool is None:
             new_pool = pool
@@ -435,10 +432,10 @@ class StorageVolumeModel(object):
             "new_pool": The name of the destination pool.
             "new_name": The name of the new volume.
         """
-        orig_pool_name = params['pool'].decode('utf-8')
-        orig_vol_name = params['name'].decode('utf-8')
-        new_pool_name = params['new_pool'].decode('utf-8')
-        new_vol_name = params['new_name'].decode('utf-8')
+        orig_pool_name = params['pool']
+        orig_vol_name = params['name']
+        new_pool_name = params['new_pool']
+        new_vol_name = params['new_name']
 
         try:
             cb('setting up volume cloning')
