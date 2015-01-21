@@ -25,7 +25,7 @@ import unittest
 from functools import partial
 
 from kimchi.mockmodel import MockModel
-from test_network import _do_network_test
+from test_model_network import _do_network_test
 from utils import get_free_port, patch_auth, request, run_server
 
 
