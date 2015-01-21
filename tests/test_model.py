@@ -26,7 +26,6 @@ import pwd
 import re
 import shutil
 import socket
-import tempfile
 import threading
 import time
 import urlparse
@@ -38,7 +37,7 @@ import iso_gen
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
-from kimchi.config import config, paths
+from kimchi.config import config
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.model.featuretests import FeatureTests
@@ -558,111 +557,6 @@ class ModelTests(unittest.TestCase):
                 inst.storagepool_lookup('default')['path'], vm_info['uuid'])
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
-
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
-    def test_storagevolume(self):
-        inst = model.Model(None, self.tmp_store)
-
-        with RollbackContext() as rollback:
-            path = '/tmp/kimchi-images'
-            pool = 'test-pool'
-            vol = 'test-volume.img'
-            if not os.path.exists(path):
-                os.mkdir(path)
-
-            args = {'name': pool,
-                    'path': path,
-                    'type': 'dir'}
-            inst.storagepools_create(args)
-            rollback.prependDefer(shutil.rmtree, args['path'])
-            rollback.prependDefer(inst.storagepool_delete, pool)
-
-            self.assertRaises(InvalidOperation, inst.storagevolumes_get_list,
-                              pool)
-            poolinfo = inst.storagepool_lookup(pool)
-            self.assertEquals(0, poolinfo['nr_volumes'])
-            # Activate the pool before adding any volume
-            inst.storagepool_activate(pool)
-            rollback.prependDefer(inst.storagepool_deactivate, pool)
-
-            vols = inst.storagevolumes_get_list(pool)
-            num = len(vols) + 2
-            params = {'capacity': 1073741824,  # 1 GiB
-                      'allocation': 536870912,  # 512 MiB
-                      'format': 'raw'}
-            # 'name' is required for this type of volume
-            self.assertRaises(InvalidParameter, inst.storagevolumes_create,
-                              pool, params)
-            params['name'] = vol
-            task_id = inst.storagevolumes_create(pool, params)['id']
-            rollback.prependDefer(inst.storagevolume_delete, pool, vol)
-            inst.task_wait(task_id)
-            self.assertEquals('finished', inst.task_lookup(task_id)['status'])
-
-            fd, path = tempfile.mkstemp(dir=path)
-            name = os.path.basename(path)
-            rollback.prependDefer(inst.storagevolume_delete, pool, name)
-            vols = inst.storagevolumes_get_list(pool)
-            self.assertIn(name, vols)
-            self.assertEquals(num, len(vols))
-
-            inst.storagevolume_wipe(pool, vol)
-            volinfo = inst.storagevolume_lookup(pool, vol)
-            self.assertEquals(0, volinfo['allocation'])
-            self.assertEquals(0, volinfo['ref_cnt'])
-
-            volinfo = inst.storagevolume_lookup(pool, vol)
-            # Define the size = capacity + 16 MiB
-            size = volinfo['capacity'] + 16777216
-            inst.storagevolume_resize(pool, vol, size)
-
-            volinfo = inst.storagevolume_lookup(pool, vol)
-            self.assertEquals(size, volinfo['capacity'])
-            poolinfo = inst.storagepool_lookup(pool)
-            self.assertEquals(len(vols), poolinfo['nr_volumes'])
-
-            # download remote volume
-            # 1) try an invalid URL
-            params = {'url': 'http://www.invalid.url'}
-            self.assertRaises(InvalidParameter, inst.storagevolumes_create,
-                              pool, params)
-            # 2) download Kimchi's "COPYING" from Github and compare its
-            #    content to the corresponding local file's
-            url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
-            params = {'url': url}
-            task_response = inst.storagevolumes_create(pool, params)
-            rollback.prependDefer(inst.storagevolume_delete, pool,
-                                  params['name'])
-            taskid = task_response['id']
-            vol_name = task_response['target_uri'].split('/')[-1]
-            self.assertEquals('COPYING', vol_name)
-            inst.task_wait(taskid, timeout=60)
-            self.assertEquals('finished', inst.task_lookup(taskid)['status'])
-            vol_path = os.path.join(args['path'], vol_name)
-            self.assertTrue(os.path.isfile(vol_path))
-            with open(vol_path) as vol_file:
-                vol_content = vol_file.read()
-            with open(os.path.join(paths.get_prefix(), 'COPYING')) as cp_file:
-                cp_content = cp_file.read()
-            self.assertEquals(vol_content, cp_content)
-
-            # clone the volume created above
-            task = inst.storagevolume_clone(pool, vol_name)
-            taskid = task['id']
-            cloned_vol_name = task['target_uri'].split('/')[-1]
-            inst.task_wait(taskid)
-            self.assertEquals('finished', inst.task_lookup(taskid)['status'])
-            rollback.prependDefer(inst.storagevolume_delete, pool,
-                                  cloned_vol_name)
-
-            orig_vol = inst.storagevolume_lookup(pool, vol_name)
-            cloned_vol = inst.storagevolume_lookup(pool, cloned_vol_name)
-
-            self.assertNotEquals(orig_vol['path'], cloned_vol['path'])
-            del orig_vol['path']
-            del cloned_vol['path']
-
-            self.assertEquals(orig_vol, cloned_vol)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_template_storage_customise(self):
