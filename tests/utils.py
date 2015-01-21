@@ -233,9 +233,9 @@ def wait_task(task_lookup, taskid, timeout=10):
 # the element has been deleted if test finishes correctly, then NofFoundError
 # exception is raised and rollback breaks. To avoid it, this wrapper ignores
 # the NotFoundError.
-def rollback_wrapper(func, resource):
+def rollback_wrapper(func, resource, *args):
     try:
-        func(resource)
+        func(resource, *args)
     except NotFoundError:
         # VM has been deleted already
         return
