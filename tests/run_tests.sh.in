@@ -21,6 +21,13 @@
 HAVE_UNITTEST=@HAVE_PYMOD_UNITTEST@
 PYTHON_VER=@PYTHON_VERSION@
 
+if [ "$1" = "-v" ]; then
+    OPTS="-v"
+    shift
+else
+    OPTS=""
+fi
+
 if [ $# -ne 0 ]; then
     ARGS="$@"
 else
@@ -45,4 +52,4 @@ for ((i=0;i<${#LIST[@]};i++)); do
     fi
 done
 
-PYTHONPATH=../src:../ $CMD ${MODEL_LIST[@]} ${MOCK_LIST[@]}
+PYTHONPATH=../src:../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
