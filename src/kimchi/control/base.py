@@ -57,10 +57,18 @@ class Resource(object):
         self.role_key = None
         self.admin_methods = []
 
-    def _redirect(self, ident, code=303):
-        if ident is not None and ident != self.ident:
+    def _redirect(self, action_result, code=303):
+        if isinstance(action_result, list):
+            uri_params = []
+            for arg in action_result:
+                if arg is None:
+                    arg = ''
+                uri_params.append(urllib2.quote(arg.encode('utf-8'), safe=""))
+            raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
+        elif action_result is not None and action_result != self.ident:
             uri_params = list(self.model_args[:-1])
-            uri_params += [urllib2.quote(ident.encode('utf-8'), safe="")]
+            uri_params += [urllib2.quote(action_result.encode('utf-8'),
+                           safe="")]
             raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
 
     def generate_action_handler(self, action_name, action_args=None):
