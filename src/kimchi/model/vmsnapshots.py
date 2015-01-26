@@ -29,6 +29,7 @@ from kimchi.model.tasks import TaskModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.vmstorages import VMStorageModel, VMStoragesModel
 from kimchi.utils import add_task
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 class VMSnapshotsModel(object):
@@ -156,6 +157,11 @@ class VMSnapshotModel(object):
             vir_dom = VMModel.get_vm(vm_name, self.conn)
             vir_snap = self.get_vmsnapshot(vm_name, name)
             vir_dom.revertToSnapshot(vir_snap, 0)
+
+            # get vm name recorded in the snapshot and return new uri params
+            vm_new_name = xpath_get_text(vir_snap.getXMLDesc(0),
+                                         'domain/name')[0]
+            return [vm_new_name, name]
         except libvirt.libvirtError, e:
             raise OperationFailed('KCHSNAP0009E', {'name': name,
                                                    'vm': vm_name,

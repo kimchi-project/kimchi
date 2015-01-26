@@ -176,8 +176,16 @@ class ModelTests(unittest.TestCase):
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
             self.assertEquals(snap, current_snap)
 
-            snap = inst.vmsnapshot_lookup(u'kimchi-vm', params['name'])
-            inst.vmsnapshot_revert(u'kimchi-vm', params['name'])
+            # update vm name
+            inst.vm_update('kimchi-vm', {'name': u'kimchi-vm-new'})
+
+            # Look up the first created snapshot from the renamed vm
+            snap = inst.vmsnapshot_lookup(u'kimchi-vm-new', params['name'])
+
+            # snapshot revert to the first created vm
+            result = inst.vmsnapshot_revert(u'kimchi-vm-new', params['name'])
+            self.assertEquals(result, [u'kimchi-vm', snap['name']])
+
             vm = inst.vm_lookup(u'kimchi-vm')
             self.assertEquals(vm['state'], snap['state'])
 
