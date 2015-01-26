@@ -102,7 +102,7 @@ kimchi.template_edit_main = function() {
                     if (tempType === 'iscsi' || tempType === 'scsi') {
                         $('.template-storage-disk', selectedItem).attr('readonly', true).val(scsiCap);
                     } else {
-                        $('.template-storage-disk', selectedItem).attr('readonly', false).val('10');
+                        $('.template-storage-disk', selectedItem).attr('readonly', false);
                     }
                     $('.template-storage-name').val(tempStorageNameFull);
                 });
