@@ -54,8 +54,8 @@ Install Dependencies
                         qemu-kvm python-psutil python-ethtool sos \
                         python-ipaddr python-ldap python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
-                        policycoreutils-python python-libguestfs \
-                        libguestfs-tools python-websockify novnc
+                        python-libguestfs libguestfs-tools python-websockify \
+                        novnc
 
      # If using RHEL6 or Fedora, install the following additional package:
      $ sudo yum install spice-html5
