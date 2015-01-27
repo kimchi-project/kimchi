@@ -3,6 +3,7 @@ Version:	@PACKAGE_VERSION@
 Release:	@PACKAGE_RELEASE@%{?dist}
 Summary:	Kimchi server application
 BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+BuildArch:	noarch
 Group:		System Environment/Base
 License:	LGPL/ASL2
 Source0:	%{name}-%{version}.tar.gz
