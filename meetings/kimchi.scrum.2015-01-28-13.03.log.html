@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 28 13:03:26 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:09</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-9"></a><span class="tm">13:05:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:13</span><span class="nk"> &lt;YuXin&gt;</span> <span class="cmd">#info </span><span class="cmdline">YuXin Patch of Line Chart Widget(Got 3 blocking issues of ChartJS. As javascript chart library is strategic, will continue to track and push issue fix, even join ChartJS community to contribute code).</span>
+<a name="l-12"></a><span class="tm">13:05:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm got the pools tests merged</span>
+<a name="l-13"></a><span class="tm">13:05:43</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of widget for radio</span>
+<a name="l-14"></a><span class="tm">13:05:50</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of widget for checkbox</span>
+<a name="l-15"></a><span class="tm">13:05:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm still waiting for review on vol tests</span>
+<a name="l-16"></a><span class="tm">13:06:01</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of widget for selectmenu</span>
+<a name="l-17"></a><span class="tm">13:06:01</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce finished lock for upload, addressed all relate issue, will send upload patch today</span>
+<a name="l-18"></a><span class="tm">13:06:10</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch of widget for textbox</span>
+<a name="l-19"></a><span class="tm">13:06:14</span><span class="nk"> &lt;royce&gt;</span> alinefm, I will review it tomorrow
+<a name="l-20"></a><span class="tm">13:06:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to fix copyright date according to latest changes and remove policycoreutils-python as kimchi dependency</span>
+<a name="l-21"></a><span class="tm">13:06:36</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang menu widget will come tomorrow</span>
+<a name="l-22"></a><span class="tm">13:06:59</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-23"></a><span class="tm">13:07:04</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">will resend v5 of "support kimchi on le systems"</span>
+<a name="l-24"></a><span class="tm">13:07:15</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">after this, will take a look for a new task</span>
+<a name="l-25"></a><span class="tm">13:07:29</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">waiting review of "build kimchi as noarch"</span>
+<a name="l-26"></a><span class="tm">13:07:59</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, I reviewed the pending widgets patches yesterday
+<a name="l-27"></a><span class="tm">13:08:11</span><span class="nk"> &lt;alinefm&gt;</span> I made some comments regarding code style and asking for the sample
+<a name="l-28"></a><span class="tm">13:08:38</span><span class="nk"> &lt;royce&gt;</span> ramonn, I will take a look at v5 "le systems"
+<a name="l-29"></a><span class="tm">13:08:57</span><span class="nk"> &lt;ramonn&gt;</span> rotru, thank you
+<a name="l-30"></a><span class="tm">13:09:03</span><span class="nk"> &lt;ramonn&gt;</span> ops
+<a name="l-31"></a><span class="tm">13:09:11</span><span class="nk"> &lt;ramonn&gt;</span> royce, thank you
+<a name="l-32"></a><span class="tm">13:10:03</span><span class="nk"> &lt;alinefm&gt;</span> any other update?
+<a name="l-33"></a><span class="tm">13:10:21</span><span class="nk"> &lt;wenwang&gt;</span> thans alinefm, I read it and it seems we are short of time building the samples
+<a name="l-34"></a><span class="tm">13:10:21</span><span class="nk"> &lt;alinefm&gt;</span> YuXin, wenwang, how much time do you need to complete the widgets?
+<a name="l-35"></a><span class="tm">13:10:47</span><span class="nk"> &lt;wenwang&gt;</span> <span class="hi">alinefm:</span> I will have my part finished by the end of this week
+<a name="l-36"></a><span class="tm">13:10:56</span><span class="nk"> &lt;YuXin&gt;</span> by this week, I will start to build samples for all widgets tomorrow
+<a name="l-37"></a><span class="tm">13:11:03</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-38"></a><span class="tm">13:11:31</span><span class="nk"> &lt;alinefm&gt;</span> I was concerned about the time and as you will be out for the Chinese holidays in Feb
+<a name="l-39"></a><span class="tm">13:11:42</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent a patch to fix Yum restart when Kimchi updates itself</span>
+<a name="l-40"></a><span class="tm">13:13:06</span><span class="nk"> &lt;YuXin&gt;</span> we will try to get all framework level content finished before Chinese New Year
+<a name="l-41"></a><span class="tm">13:13:47</span><span class="nk"> &lt;alinefm&gt;</span> framework level = widgets? or something more?
+<a name="l-42"></a><span class="tm">13:14:26</span><span class="nk"> &lt;YuXin&gt;</span> widgets + header + content(dialog + grid view)
+<a name="l-43"></a><span class="tm">13:15:10</span><span class="nk"> &lt;YuXin&gt;</span> for individual panel content, will handle that after Chinese New Year
+<a name="l-44"></a><span class="tm">13:15:18</span><span class="nk"> &lt;alinefm&gt;</span> wow! that is great
+<a name="l-45"></a><span class="tm">13:15:26</span><span class="nk"> &lt;alinefm&gt;</span> so we will start seeing some changes on UI soon
+<a name="l-46"></a><span class="tm">13:15:35</span><span class="nk"> &lt;YuXin&gt;</span> sure
+<a name="l-47"></a><span class="tm">13:16:13</span><span class="nk"> &lt;YuXin&gt;</span> then during Chinese New Year, you can also handle some UI work piece by piece
+<a name="l-48"></a><span class="tm">13:17:43</span><span class="nk"> &lt;alinefm&gt;</span> sue
+<a name="l-49"></a><span class="tm">13:17:45</span><span class="nk"> &lt;alinefm&gt;</span> *sure
+<a name="l-50"></a><span class="tm">13:19:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-51"></a><span class="tm">13:19:21</span><span class="nk"> &lt;alinefm&gt;</span> anyone has topics for today?
+<a name="l-52"></a><span class="tm">13:20:37</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, rotru, wenwang, YuXin, eveything under control? =)
+<a name="l-53"></a><span class="tm">13:20:47</span><span class="nk"> &lt;wenwang&gt;</span> yes alinefm
+<a name="l-54"></a><span class="tm">13:21:23</span><span class="nk"> &lt;YuXin&gt;</span> yes
+<a name="l-55"></a><span class="tm">13:21:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm; I think so
+<a name="l-56"></a><span class="tm">13:21:43</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-57"></a><span class="tm">13:21:50</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-58"></a><span class="tm">13:23:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

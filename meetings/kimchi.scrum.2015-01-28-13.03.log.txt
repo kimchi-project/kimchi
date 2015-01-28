@@ -1,0 +1,58 @@
+13:03:26 <alinefm> #startmeeting
+13:03:26 <kimchi-bot> Meeting started Wed Jan 28 13:03:26 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:26 <alinefm> #meetingname scrum
+13:03:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:40 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:40 <alinefm> anything else?
+13:05:09 <alinefm> so let's get started
+13:05:09 <alinefm> #topic Status
+13:05:10 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:13 <YuXin> #info YuXin Patch of Line Chart Widget(Got 3 blocking issues of ChartJS. As javascript chart library is strategic, will continue to track and push issue fix, even join ChartJS community to contribute code).
+13:05:21 <alinefm> #info alinefm got the pools tests merged
+13:05:43 <wenwang> #info wenwang sent patch of widget for radio
+13:05:50 <wenwang> #info wenwang sent patch of widget for checkbox
+13:05:51 <alinefm> #info alinefm still waiting for review on vol tests
+13:06:01 <wenwang> #info wenwang sent patch of widget for selectmenu
+13:06:01 <royce> #info royce finished lock for upload, addressed all relate issue, will send upload patch today
+13:06:10 <wenwang> #info wenwang sent patch of widget for textbox
+13:06:14 <royce> alinefm, I will review it tomorrow
+13:06:22 <alinefm> #info alinefm sent patches to fix copyright date according to latest changes and remove policycoreutils-python as kimchi dependency
+13:06:36 <wenwang> #info wenwang menu widget will come tomorrow
+13:06:59 <alinefm> royce, thanks
+13:07:04 <ramonn> #info will resend v5 of "support kimchi on le systems"
+13:07:15 <ramonn> #info after this, will take a look for a new task
+13:07:29 <ramonn> #info waiting review of "build kimchi as noarch"
+13:07:59 <alinefm> wenwang, I reviewed the pending widgets patches yesterday
+13:08:11 <alinefm> I made some comments regarding code style and asking for the sample
+13:08:38 <royce> ramonn, I will take a look at v5 "le systems"
+13:08:57 <ramonn> rotru, thank you
+13:09:03 <ramonn> ops
+13:09:11 <ramonn> royce, thank you
+13:10:03 <alinefm> any other update?
+13:10:21 <wenwang> thans alinefm, I read it and it seems we are short of time building the samples
+13:10:21 <alinefm> YuXin, wenwang, how much time do you need to complete the widgets?
+13:10:47 <wenwang> alinefm: I will have my part finished by the end of this week
+13:10:56 <YuXin> by this week, I will start to build samples for all widgets tomorrow
+13:11:03 <alinefm> great!
+13:11:31 <alinefm> I was concerned about the time and as you will be out for the Chinese holidays in Feb
+13:11:42 <rotru> #info rotru Sent a patch to fix Yum restart when Kimchi updates itself
+13:13:06 <YuXin> we will try to get all framework level content finished before Chinese New Year
+13:13:47 <alinefm> framework level = widgets? or something more?
+13:14:26 <YuXin> widgets + header + content(dialog + grid view)
+13:15:10 <YuXin> for individual panel content, will handle that after Chinese New Year
+13:15:18 <alinefm> wow! that is great
+13:15:26 <alinefm> so we will start seeing some changes on UI soon
+13:15:35 <YuXin> sure
+13:16:13 <YuXin> then during Chinese New Year, you can also handle some UI work piece by piece
+13:17:43 <alinefm> sue
+13:17:45 <alinefm> *sure
+13:19:16 <alinefm> #topic Open Discussion
+13:19:21 <alinefm> anyone has topics for today?
+13:20:37 <alinefm> ramonn, rotru, wenwang, YuXin, eveything under control? =)
+13:20:47 <wenwang> yes alinefm
+13:21:23 <YuXin> yes
+13:21:31 <rotru> alinefm; I think so
+13:21:43 <alinefm> alright...
+13:21:50 <alinefm> so thanks everyone for joining!
+13:23:01 <alinefm> #endmeeting
