@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
+import platform
 import struct
 
 from kimchi.isoinfo import IsoImage
@@ -57,6 +58,17 @@ iso_des = [
 
 class FakeIsoImage(object):
     def _build_iso(self, fd, iso_volid, bootable):
+        if platform.machine().startswith('ppc'):
+            self._build_powerpc_bootable_iso(fd, iso_volid)
+            return
+        self._build_intel_iso(fd, iso_volid, bootable)
+
+    def _build_powerpc_bootable_iso(self, fd, iso_volid):
+        self._build_prim_vol(fd, iso_volid)
+        self._build_bootable_ppc_path_table(fd)
+
+    def _build_intel_iso(self, fd, iso_volid, bootable):
+        # Do not change the order of the method calls
         self._build_el_boot(fd, bootable)
         self._build_prim_vol(fd, iso_volid)
         self._build_el_torito(fd)
@@ -123,6 +135,46 @@ class FakeIsoImage(object):
         fd.write(s)
 
         s = 'a' * IsoImage.SECTOR_SIZE
+        fd.write(s)
+
+    def _build_bootable_ppc_path_table(self, fd):
+        # write path table locator
+        PATH_TABLE_LOC_OFFSET = 16 * IsoImage.SECTOR_SIZE + 132
+        PATH_TABLE_SIZE_LOC = struct.Struct("<I 4s I")
+        path_table_size = 64
+        path_table_loc = 18
+        fd.seek(PATH_TABLE_LOC_OFFSET)
+        fmt = PATH_TABLE_SIZE_LOC
+        data = (path_table_size, 4*'0', path_table_loc)
+        s = fmt.pack(*data)
+        fd.write(s)
+        # write path table entry
+        fd.seek(path_table_loc * IsoImage.SECTOR_SIZE)
+        DIR_NAMELEN_LOCATION_PARENT = struct.Struct("<B B I H 3s")
+        dir_namelen = 3
+        dir_loc = 19
+        dir_parent = 1
+        dir_name = 'ppc'
+        data = (dir_namelen, 0, dir_loc, dir_parent, dir_name)
+        fmt = DIR_NAMELEN_LOCATION_PARENT
+        s = fmt.pack(*data)
+        fd.write(s)
+        # write 'ppc' dir record
+        ppc_dir_offset = dir_loc * IsoImage.SECTOR_SIZE
+        fd.seek(ppc_dir_offset)
+        STATIC_DIR_RECORD_FMT = struct.Struct("<B 9s I 11s B 6s B 12s")
+        dir_rec_len = 1
+        unused1 = 9 * '0'
+        dir_size = 100
+        unused2 = 11 * '0'
+        file_flags = 0
+        unused3 = 6 * '0'
+        file_name_len = 12
+        boot_file_name = "bootinfo.txt"
+        data = (dir_rec_len, unused1, dir_size, unused2, file_flags,
+                unused3, file_name_len, boot_file_name)
+        fmt = STATIC_DIR_RECORD_FMT
+        s = fmt.pack(*data)
         fd.write(s)
 
 
