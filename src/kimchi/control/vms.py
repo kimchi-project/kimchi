@@ -40,9 +40,12 @@ class VM(Resource):
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(model, self.ident))
         self.start = self.generate_action_handler('start')
-        self.poweroff = self.generate_action_handler('poweroff')
-        self.shutdown = self.generate_action_handler('shutdown')
-        self.reset = self.generate_action_handler('reset')
+        self.poweroff = self.generate_action_handler('poweroff',
+                                                     destructive=True)
+        self.shutdown = self.generate_action_handler('shutdown',
+                                                     destructive=True)
+        self.reset = self.generate_action_handler('reset',
+                                                  destructive=True)
         self.connect = self.generate_action_handler('connect')
         self.clone = self.generate_action_handler_task('clone')
 

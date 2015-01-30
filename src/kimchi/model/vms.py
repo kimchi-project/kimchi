@@ -836,6 +836,9 @@ class VMModel(object):
     def delete(self, name):
         conn = self.conn.get()
         dom = self.get_vm(name, self.conn)
+        if not dom.isPersistent():
+            raise InvalidOperation("KCHVM0036E", {'name': name})
+
         self._vmscreenshot_delete(dom.UUIDString())
         paths = self._vm_get_disk_paths(dom)
         info = self.lookup(name)
