@@ -106,6 +106,7 @@ messages = {
     "KCHVM0033E": _("Virtual machine '%(name)s' must be stopped before cloning it."),
     "KCHVM0034E": _("Insufficient disk space to clone virtual machine '%(name)s'"),
     "KCHVM0035E": _("Unable to clone VM '%(name)s'. Details: %(err)s"),
+    "KCHVM0036E": _("Invalid operation for non-persistent virtual machine %(name)s"),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
