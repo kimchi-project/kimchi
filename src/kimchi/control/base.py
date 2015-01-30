@@ -71,7 +71,8 @@ class Resource(object):
                            safe="")]
             raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
 
-    def generate_action_handler(self, action_name, action_args=None):
+    def generate_action_handler(self, action_name, action_args=None,
+                                destructive=False):
         def _render_element(self, ident):
             self._redirect(ident)
             uri_params = []
@@ -83,7 +84,8 @@ class Resource(object):
             raise internal_redirect(self.uri_fmt % tuple(uri_params))
 
         return self._generate_action_handler_base(action_name, _render_element,
-                                                  action_args)
+                                                  destructive=destructive,
+                                                  action_args=action_args)
 
     def generate_action_handler_task(self, action_name, action_args=None):
         def _render_task(self, task):
@@ -91,10 +93,10 @@ class Resource(object):
             return kimchi.template.render('Task', task)
 
         return self._generate_action_handler_base(action_name, _render_task,
-                                                  action_args)
+                                                  action_args=action_args)
 
     def _generate_action_handler_base(self, action_name, render_fn,
-                                      action_args=None):
+                                      destructive=False, action_args=None):
         def wrapper(*args, **kwargs):
             validate_method(('POST'), self.role_key, self.admin_methods)
             try:
@@ -109,7 +111,10 @@ class Resource(object):
 
                 action_fn = getattr(self.model, model_fn(self, action_name))
                 action_result = action_fn(*model_args)
-                return render_fn(self, action_result)
+                if destructive is False or \
+                    ('persistent' in self.info.keys()
+                     and self.info['persistent'] is True):
+                    return render_fn(self, action_result)
             except MissingParameter, e:
                 raise cherrypy.HTTPError(400, e.message)
             except InvalidParameter, e:
