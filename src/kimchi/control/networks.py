@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,7 +37,8 @@ class Network(Resource):
         self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.uri_fmt = "/networks/%s"
         self.activate = self.generate_action_handler('activate')
-        self.deactivate = self.generate_action_handler('deactivate')
+        self.deactivate = self.generate_action_handler('deactivate',
+                                                       destructive=True)
 
     @property
     def data(self):
