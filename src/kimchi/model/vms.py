@@ -844,9 +844,18 @@ class VMModel(object):
             self.poweroff(name)
 
         # delete existing snapshots before deleting VM
-        snapshot_names = self.vmsnapshots.get_list(name)
-        for s in snapshot_names:
-            self.vmsnapshot.delete(name, s)
+
+        # libvirt's Test driver does not support the function
+        # "virDomainListAllSnapshots", so "VMSnapshots.get_list" will raise
+        # "OperationFailed" in that case.
+        try:
+            snapshot_names = self.vmsnapshots.get_list(name)
+        except OperationFailed, e:
+            kimchi_log.error('cannot list snapshots: %s; '
+                             'skipping snapshot deleting...' % e.message)
+        else:
+            for s in snapshot_names:
+                self.vmsnapshot.delete(name, s)
 
         try:
             dom.undefine()
