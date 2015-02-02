@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@
 import cherrypy
 import libvirt
 import lxml.etree as ET
+import platform
 import socket
 import subprocess
 import threading
@@ -37,7 +38,7 @@ ISO_STREAM_XML = """
   <name>ISO_STREAMING</name>
   <memory unit='KiB'>1048576</memory>
   <os>
-    <type>hvm</type>
+    <type arch='%(arch)s'>hvm</type>
     <boot dev='cdrom'/>
   </os>
   <devices>
@@ -59,7 +60,7 @@ SIMPLE_VM_XML = """
   <name>A_SIMPLE_VM</name>
   <memory unit='KiB'>10240</memory>
   <os>
-    <type>hvm</type>
+    <type arch='%(arch)s'>hvm</type>
     <boot dev='hd'/>
   </os>
 </domain>"""
@@ -102,7 +103,10 @@ class FeatureTests(object):
     @staticmethod
     def libvirt_supports_iso_stream(conn, protocol):
         domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
-        xml = ISO_STREAM_XML % {'domain': domain_type, 'protocol': protocol}
+        arch = 'ppc64' if platform.machine() == 'ppc64le' \
+            else platform.machine()
+        xml = ISO_STREAM_XML % {'domain': domain_type, 'protocol': protocol,
+                                'arch': arch}
         try:
             FeatureTests.disable_libvirt_error_logging()
             dom = conn.defineXML(xml)
@@ -190,7 +194,10 @@ class FeatureTests(object):
             FeatureTests.disable_libvirt_error_logging()
             rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
             domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
-            dom = conn.defineXML(SIMPLE_VM_XML % {'domain': domain_type})
+            arch = 'ppc64' if platform.machine() == 'ppc64le' \
+                else platform.machine()
+            dom = conn.defineXML(SIMPLE_VM_XML % {'domain': domain_type,
+                                                  'arch': arch})
             rollback.prependDefer(dom.undefine)
             try:
                 dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,

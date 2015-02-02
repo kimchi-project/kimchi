@@ -1,6 +1,6 @@
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,12 +16,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
+import platform
 import psutil
 import uuid
 
-
 import libvirt
-
 
 from kimchi.rollbackcontext import RollbackContext
 
@@ -29,11 +28,11 @@ from kimchi.rollbackcontext import RollbackContext
 class UserTests(object):
     SIMPLE_VM_XML = """
     <domain type='kvm'>
-      <name>%s</name>
-      <uuid>%s</uuid>
+      <name>%(vm_name)s</name>
+      <uuid>%(vm_uuid)s</uuid>
       <memory unit='KiB'>262144</memory>
       <os>
-        <type>hvm</type>
+        <type arch='%(arch)s'>hvm</type>
         <boot dev='hd'/>
       </os>
     </domain>"""
@@ -46,8 +45,12 @@ class UserTests(object):
 
         vm_uuid = uuid.uuid1()
         vm_name = "kimchi_test_%s" % vm_uuid
+        arch = 'ppc64' if platform.machine() == 'ppc64le' \
+            else platform.machine()
 
-        xml = cls.SIMPLE_VM_XML % (vm_name, vm_uuid)
+        xml = cls.SIMPLE_VM_XML % {'vm_name': vm_name, 'vm_uuid': vm_uuid,
+                                   'arch': arch}
+
         with RollbackContext() as rollback:
             conn = libvirt.open(None)
             rollback.prependDefer(conn.close)
