@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,8 @@ from kimchi.config import paths
 
 
 SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
-                   'power': ('ppc', 'ppc64')}
+                   'power': ('ppc', 'ppc64'),
+                   'ppc64le': ('ppc64le')}
 
 
 common_spec = {'cpus': 1, 'memory': 1024, 'disks': [{'index': 0, 'size': 10}],
@@ -47,13 +48,30 @@ template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
                   'power': {'old': dict(common_spec, disk_bus='scsi',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
+                                        kbd_type="kbd",
                                         kbd_bus='usb', mouse_bus='usb',
                                         tablet_bus='usb', memory=1280),
                             'modern': dict(common_spec, disk_bus='virtio',
                                            nic_model='virtio',
-                                           cdrom_bus='scsi', kbd_bus='usb',
+                                           cdrom_bus='scsi',
+                                           kbd_bus='usb',
+                                           kbd_type="kbd",
                                            mouse_bus='usb', tablet_bus='usb',
-                                           memory=1280)}}
+                                           memory=1280)},
+                  'ppc64le': {'old': dict(common_spec, disk_bus='virtio',
+                                          nic_model='virtio',
+                                          cdrom_bus='scsi',
+                                          kbd_bus='usb',
+                                          kbd_type="keyboard",
+                                          mouse_bus='usb', tablet_bus='usb',
+                                          memory=1280),
+                              'modern': dict(common_spec, disk_bus='virtio',
+                                             nic_model='virtio',
+                                             cdrom_bus='scsi',
+                                             kbd_bus='usb',
+                                             kbd_type="keyboard",
+                                             mouse_bus='usb', tablet_bus='usb',
+                                             memory=1280)}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
@@ -63,7 +81,11 @@ modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                         'power': {'rhel': '6.5', 'fedora': '19',
                                   'ubuntu': '14.04',
                                   'opensuse': '13.1',
-                                  'sles': '11sp3'}}
+                                  'sles': '11sp3'},
+                        'ppc64le': {'rhel': '6.5', 'fedora': '19',
+                                    'ubuntu': '14.04',
+                                    'opensuse': '13.1',
+                                    'sles': '11sp3'}}
 
 
 icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
@@ -93,6 +115,10 @@ def lookup(distro, version):
     params['os_distro'] = distro
     params['os_version'] = version
     arch = _get_arch()
+
+    # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
+    if params["arch"] == "ppc64le":
+        params["arch"] = "ppc64"
 
     if distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(

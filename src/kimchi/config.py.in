@@ -68,12 +68,19 @@ def find_qemu_binary(find_emulator=False):
         raise Exception("Unable to get qemu binary location: %s" % e)
     try:
         xml = connect.getCapabilities()
+
+        # On Little Endian system, the qemu binary is
+        # qemu-system-ppc64, not qemu-system-ppc64le as expected
+        arch = platform.machine()
+        if arch == "ppc64le":
+            arch = "ppc64"
+
         if find_emulator:
             expr = "/capabilities/guest/arch[@name='%s']\
-                    /emulator" % platform.machine()
+                    /emulator" % arch
         else:
             expr = "/capabilities/guest/arch[@name='%s']\
-                    /domain[@type='kvm']/emulator" % platform.machine()
+                    /domain[@type='kvm']/emulator" % arch
         res = xpath_get_text(xml, expr)
         location = res[0]
     except Exception, e:

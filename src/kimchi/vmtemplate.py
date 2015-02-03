@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -245,9 +245,11 @@ class VMTemplate(object):
         mouse = """
             <input type='mouse' bus='%(mouse_bus)s'/>
         """
+
         keyboard = """
-            <input type='kbd' bus='%(kbd_bus)s'> </input>
+            <input type='%(kbd_type)s' bus='%(kbd_bus)s'> </input>
         """
+
         tablet = """
             <input type='tablet' bus='%(kbd_bus)s'> </input>
         """

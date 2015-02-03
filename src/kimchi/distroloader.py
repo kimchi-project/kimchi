@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,8 @@ from kimchi.utils import kimchi_log
 
 ARCHS = {'x86_64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
          'amd64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
-         'ppc64': ['ppc', 'ppc64']}
+         'ppc64': ['ppc', 'ppc64'],
+         'ppc64le': ['ppc64', 'ppc64le']}
 
 
 class DistroLoader(object):
