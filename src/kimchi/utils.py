@@ -390,6 +390,14 @@ def get_unique_file_name(all_names, name):
     return u'%s (%d)' % (name, max_num + 1)
 
 
+def servermethod(f):
+    def wrapper(*args, **kwargs):
+        if str(cherrypy.engine.state) != "states.STARTED":
+            return False
+        return f(*args, **kwargs)
+    return wrapper
+
+
 def convert_data_size(value, from_unit, to_unit='B'):
     """Convert a data value from one unit to another unit
     (e.g. 'MiB' -> 'GiB').

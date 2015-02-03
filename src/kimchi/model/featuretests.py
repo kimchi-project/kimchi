@@ -28,7 +28,7 @@ from lxml.builder import E
 
 from kimchi import osinfo
 from kimchi.rollbackcontext import RollbackContext
-from kimchi.utils import kimchi_log, run_command
+from kimchi.utils import kimchi_log, run_command, servermethod
 
 FEATURETEST_VM_NAME = "FEATURETEST_VM"
 FEATURETEST_POOL_NAME = "FEATURETEST_POOL"
@@ -140,6 +140,7 @@ class FeatureTests(object):
         return True
 
     @staticmethod
+    @servermethod
     def qemu_supports_iso_stream():
         host = cherrypy.server.socket_host
         port = cherrypy.server.socket_port
@@ -151,6 +152,7 @@ class FeatureTests(object):
         return len(stderr) == 0
 
     @staticmethod
+    @servermethod
     def qemu_iso_stream_dns():
         host = socket.getfqdn(cherrypy.server.socket_host)
         port = cherrypy.server.socket_port
@@ -158,6 +160,7 @@ class FeatureTests(object):
                (host, port), "-c", "'read -v 0 512'"]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
+
         thread = threading.Thread(target=proc.communicate)
         thread.start()
         thread.join(5)
