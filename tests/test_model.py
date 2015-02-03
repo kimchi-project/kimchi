@@ -40,7 +40,6 @@ from kimchi import netinfo
 from kimchi.config import config
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
-from kimchi.model.featuretests import FeatureTests
 from kimchi.model import model
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.rollbackcontext import RollbackContext
@@ -528,15 +527,13 @@ class ModelTests(unittest.TestCase):
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             cur_cdrom_path = re.sub(":80/", '/', cdrom_info['path'])
 
-            # Check QEMU stream DNS to determine the cdrom path
-            qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
-            if not qemu_stream_dns:
-                output = urlparse.urlparse(valid_remote_iso_path)
-                hostname = socket.gethostbyname(output.hostname)
-                url = valid_remote_iso_path.replace(output.hostname, hostname)
-                self.assertEquals(url, cur_cdrom_path)
-            else:
-                self.assertEquals(valid_remote_iso_path, cur_cdrom_path)
+            # As Kimchi server is not running during this test case
+            # CapabilitiesModel.qemu_stream_dns will be always False
+            # so we need to convert the hostname to IP
+            output = urlparse.urlparse(valid_remote_iso_path)
+            hostname = socket.gethostbyname(output.hostname)
+            url = valid_remote_iso_path.replace(output.hostname, hostname)
+            self.assertEquals(url, cur_cdrom_path)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
