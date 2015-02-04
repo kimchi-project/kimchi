@@ -1,0 +1,93 @@
+13:05:17 <alinefm> #startmeeting
+13:05:17 <kimchi-bot> Meeting started Wed Feb  4 13:05:17 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:05:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:05:18 <alinefm> #meetingname scrum
+13:05:18 <kimchi-bot> The meeting name has been set to 'scrum'
+13:05:26 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:05:26 <alinefm> anything else?
+13:07:56 <alinefm> so let's get started
+13:08:06 <alinefm> #topic Status
+13:08:06 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:10 <YuXin> #info YuXin Patch v2 of Webfont Icon Library to re-organize folder and Add License
+13:08:10 <YuXin> #info YuXin Patch v2/v3 of Grid Widget with Sample
+13:08:10 <YuXin> #info YuXin Patch v2 of Tabs Widget with Sample
+13:08:10 <YuXin> #info YuXin Patch v2 of Line Chart Widget with Sample
+13:08:10 <YuXin> #info YuXin Patch v1 of Grid View of Network
+13:08:16 <alinefm> #info alinefm got storage volumes patches merged
+13:08:26 <alinefm> #info alinefm is now working on templates tests
+13:08:38 <wenwang> #info wenwang sent patch of menu widget
+13:08:47 <alinefm> #info alinefm reviewed new UI widgets
+13:08:49 <wenwang> #info wenwang sent patch of list widget
+13:09:12 <royce> #info royce submitted patchset fixing error usage of feature tests, submitted upload volume patches, reviewed patches in ML
+13:10:04 <wenwang> #info wenwang sent patch of select menu
+13:10:16 <wenwang> #info wenwang sent patch of sample to each widget
+13:10:41 <ramonn> #info worked on test_vm_disk fails issue. Discovery that the issue only happens on /root directory.
+13:10:50 <ramonn> #info searching for another bug
+13:10:54 <wenwang> #info wenwang is working on changing kimchi UI with new widget now
+13:11:28 <YuXin> #info YuXin Plan of UI Phase 2
+13:11:28 <YuXin> YuXin:
+13:11:28 <YuXin> Grid View of Network/Storage/Template/Guest
+13:11:28 <YuXin> Tabs and Grid of Each Tab of Guest Create/Edit Dialog
+13:11:28 <YuXin> New Host Layout, Line Chart of CPU/Memory/Disk IO/Network IO, Grid View of Software updates
+13:11:30 <YuXin> Header
+13:11:30 <YuXin> Login Page
+13:11:32 <YuXin> WenWang
+13:11:32 <YuXin> Create/Edit Dialog of Network/Storage/Template/Guest
+13:11:34 <YuXin> Action Menu and Gauge of Network/Storage/Template/Guest Tab
+13:11:34 <YuXin> TextBox/Select/Checkbox/Radio/Button in all Create/Edit Dialogs
+13:11:36 <YuXin> TextBox/Select/Checkbox/Radio/Button in Host Tab
+13:11:36 <YuXin> List View of Basic Information/Repositories/Debug Report in Host TAb
+13:12:50 <alinefm> YuXin, great!
+13:13:09 <alinefm> when will we start and finish the phase 2?
+13:13:17 <alinefm> I suppose after it the new UI will be done, right?
+13:14:05 <YuXin> 1. Phase 2 already started since yesterday, I sent out a patch of "grid view of network tab"
+13:15:06 <YuXin> 2. we target to finish it in the mid of March
+13:15:17 <alinefm> alright! sounds a good plan
+13:15:35 <alinefm> the Chinese New Year is next week, right?
+13:16:18 <royce> the week after next actually:)
+13:16:18 <blergh-> nice nice
+13:16:19 <YuXin> 3. For the new UI, beyond content of Phase 1 and Phase 2, there are also gallery view and responsiveness which is not covered in this release
+13:16:29 <blergh-> good work so far, it´s been a while since it got some love
+13:16:34 <wenwang> the week after
+13:16:38 <wenwang> Feb. 18th.
+13:17:15 <alinefm> YuXin, ok
+13:17:28 <YuXin> Chinese New Year: Feb. 18 -- Feb. 24(Official Holiday)
+13:17:34 <alinefm> YuXin, wenwang, royce, well, I will also be out on Feb 18th week for the Collab Summit
+13:18:16 <royce> That's great
+13:18:37 <wenwang> sure, have a nice trip
+13:18:46 <alinefm> thanks
+13:18:47 <YuXin> 4. For UI Phase 2 content, work will be done strictly follow the order I listed above to maximum concurrency and avoid conflicts
+13:19:02 <alinefm> YuXin, ok - no problem
+13:19:16 <wenwang> alinefm:  I saw some patch has been merged and I will try to resend all the other patch after the scrum meeting
+13:19:18 <alinefm> YuXin, wenwang, only point to me any patch that is required to apply a specific one
+13:19:35 <alinefm> as a dependency
+13:19:55 <alinefm> wenwang, ok - I will continue my tests on the widgets today and merge everything ready
+13:20:04 <YuXin> ok
+13:20:49 <wenwang> alinefm: I am working on the dialog widget replacement, And there are some details that I need to change in the widget, I think it's better that you merged the widget first and I can have the rest changed after since part of Kimchi coded in jquery UI and part using jauery
+13:20:58 <wenwang> thanks alinefm
+13:21:06 <alinefm> ok
+13:21:32 <alinefm> let's move on to open discussion
+13:21:38 <alinefm> #topic Open Discussion
+13:21:54 <alinefm> YuXin, I've just seen you note about the Firefox issue
+13:22:01 <alinefm> the issue is restrict when running local?
+13:22:11 <alinefm> s/you/your
+13:22:15 <YuXin> yes
+13:22:31 <alinefm> whew! =)
+13:22:42 <alinefm> I will test on chrome so
+13:23:19 <YuXin> the current sample is loaded with browser from local file, only firefox will fail when loading web fonts in this case, other browsers work well
+13:23:33 <alinefm> ok
+13:23:36 <YuXin> if load it from a server with a url, it will be no problem
+13:23:42 <alinefm> do you know why only firefox fails on that?
+13:23:50 <YuXin> so it is a problem specific to sample in firefox only
+13:24:33 <YuXin> I have tried to configure firefox to workaround the limitation, but failed.
+13:25:07 <YuXin> since it is only a problem of kimchi, right now, is not worth to spend a lot of time on it
+13:25:22 <YuXin> sorry, only a problem of sample, not kimchi problem
+13:25:40 <alinefm> YuXin, agree - no problem on that
+13:25:45 <alinefm> anything else to discuss today?
+13:25:49 <YuXin> once most UI content is done, I will re-visit the problem to get the root cause
+13:27:44 <alinefm> ok - but as it is restricted to the samples, I don't think it is important to get it solved
+13:27:55 <YuXin> agree
+13:29:28 <alinefm> other topics for today?
+13:33:28 <alinefm> alright...
+13:33:35 <alinefm> so thanks everyone for joining
+13:33:56 <alinefm> #endmeeting
