@@ -20,15 +20,13 @@
 import cherrypy
 import libvirt
 import lxml.etree as ET
-import platform
 import socket
 import subprocess
 import threading
 
-
 from lxml.builder import E
 
-
+from kimchi import osinfo
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
 
@@ -103,8 +101,8 @@ class FeatureTests(object):
     @staticmethod
     def libvirt_supports_iso_stream(conn, protocol):
         domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
-        arch = 'ppc64' if platform.machine() == 'ppc64le' \
-            else platform.machine()
+        arch = osinfo.defaults['arch']
+        arch = 'ppc64' if arch == 'ppc64le' else arch
         xml = ISO_STREAM_XML % {'domain': domain_type, 'protocol': protocol,
                                 'arch': arch}
         try:
@@ -194,8 +192,8 @@ class FeatureTests(object):
             FeatureTests.disable_libvirt_error_logging()
             rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
             domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
-            arch = 'ppc64' if platform.machine() == 'ppc64le' \
-                else platform.machine()
+            arch = osinfo.defaults['arch']
+            arch = 'ppc64' if arch == 'ppc64le' else arch
             dom = conn.defineXML(SIMPLE_VM_XML % {'domain': domain_type,
                                                   'arch': arch})
             rollback.prependDefer(dom.undefine)
