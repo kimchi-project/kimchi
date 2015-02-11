@@ -18,18 +18,18 @@
 
 import platform
 import psutil
-import uuid
 
 import libvirt
 
 from kimchi.rollbackcontext import RollbackContext
 
+KVMUSERTEST_VM_NAME = "KVMUSERTEST_VM"
+
 
 class UserTests(object):
     SIMPLE_VM_XML = """
     <domain type='kvm'>
-      <name>%(vm_name)s</name>
-      <uuid>%(vm_uuid)s</uuid>
+      <name>%(name)s</name>
       <memory unit='KiB'>262144</memory>
       <os>
         <type arch='%(arch)s'>hvm</type>
@@ -43,22 +43,19 @@ class UserTests(object):
         if cls.user:
             return cls.user
 
-        vm_uuid = uuid.uuid1()
-        vm_name = "kimchi_test_%s" % vm_uuid
         arch = 'ppc64' if platform.machine() == 'ppc64le' \
             else platform.machine()
 
-        xml = cls.SIMPLE_VM_XML % {'vm_name': vm_name, 'vm_uuid': vm_uuid,
-                                   'arch': arch}
+        xml = cls.SIMPLE_VM_XML % {'name': KVMUSERTEST_VM_NAME, 'arch': arch}
 
         with RollbackContext() as rollback:
             conn = libvirt.open(None)
             rollback.prependDefer(conn.close)
-            dom = conn.defineXML(xml)
-            rollback.prependDefer(dom.undefine)
-            dom.create()
+            dom = conn.createXML(xml,
+                                 flags=libvirt.VIR_DOMAIN_START_AUTODESTROY)
             rollback.prependDefer(dom.destroy)
-            with open('/var/run/libvirt/qemu/%s.pid' % vm_name) as f:
+            filename = '/var/run/libvirt/qemu/%s.pid' % KVMUSERTEST_VM_NAME
+            with open(filename) as f:
                 pidStr = f.read()
             p = psutil.Process(int(pidStr))
 

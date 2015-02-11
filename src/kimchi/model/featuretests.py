@@ -30,10 +30,12 @@ from kimchi import osinfo
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
 
+FEATURETEST_VM_NAME = "FEATURETEST_VM"
+FEATURETEST_POOL_NAME = "FEATURETEST_POOL"
 
 ISO_STREAM_XML = """
 <domain type='%(domain)s'>
-  <name>ISO_STREAMING</name>
+  <name>%(name)s</name>
   <memory unit='KiB'>1048576</memory>
   <os>
     <type arch='%(arch)s'>hvm</type>
@@ -55,7 +57,7 @@ ISO_STREAM_XML = """
 
 SIMPLE_VM_XML = """
 <domain type='%(domain)s'>
-  <name>A_SIMPLE_VM</name>
+  <name>%(name)s</name>
   <memory unit='KiB'>10240</memory>
   <os>
     <type arch='%(arch)s'>hvm</type>
@@ -65,7 +67,7 @@ SIMPLE_VM_XML = """
 
 SCSI_FC_XML = """
 <pool type='scsi'>
-  <name>TEST_SCSI_FC_POOL</name>
+  <name>%(name)s</name>
   <source>
     <adapter type='fc_host' wwnn='1234567890abcdef' wwpn='abcdef1234567890'/>
   </source>
@@ -103,7 +105,8 @@ class FeatureTests(object):
         domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
         arch = osinfo.defaults['arch']
         arch = 'ppc64' if arch == 'ppc64le' else arch
-        xml = ISO_STREAM_XML % {'domain': domain_type, 'protocol': protocol,
+        xml = ISO_STREAM_XML % {'name': FEATURETEST_VM_NAME,
+                                'domain': domain_type, 'protocol': protocol,
                                 'arch': arch}
         try:
             FeatureTests.disable_libvirt_error_logging()
@@ -174,7 +177,8 @@ class FeatureTests(object):
         try:
             FeatureTests.disable_libvirt_error_logging()
             pool = None
-            pool = conn.storagePoolDefineXML(SCSI_FC_XML, 0)
+            pool_xml = SCSI_FC_XML % {'name': FEATURETEST_POOL_NAME}
+            pool = conn.storagePoolDefineXML(pool_xml, 0)
         except libvirt.libvirtError as e:
             if e.get_error_code() == 27:
                 # Libvirt requires adapter name, not needed when supports to FC
@@ -194,7 +198,8 @@ class FeatureTests(object):
             domain_type = 'test' if conn.getType().lower() == 'test' else 'kvm'
             arch = osinfo.defaults['arch']
             arch = 'ppc64' if arch == 'ppc64le' else arch
-            dom = conn.defineXML(SIMPLE_VM_XML % {'domain': domain_type,
+            dom = conn.defineXML(SIMPLE_VM_XML % {'name': FEATURETEST_VM_NAME,
+                                                  'domain': domain_type,
                                                   'arch': arch})
             rollback.prependDefer(dom.undefine)
             try:
