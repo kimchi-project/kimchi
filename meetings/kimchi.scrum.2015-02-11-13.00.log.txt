@@ -1,0 +1,47 @@
+13:00:59 <alinefm> #startmeeting
+13:00:59 <kimchi-bot> Meeting started Wed Feb 11 13:00:59 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:59 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:59 <alinefm> #meetingname scrum
+13:00:59 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:14 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:15 <alinefm> anything else?
+13:02:14 <alinefm> alright...
+13:02:15 <alinefm> #topic Status
+13:02:15 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:30 <alinefm> #info alinefm working on template tests and bug #589
+13:02:55 <wenwang> #info wenwang sent patch that change kimchi dialog to new style
+13:04:12 <alinefm> wenwang, there are some patches for widgets that I haven't merged yet because I got confused on which sample to merge together
+13:04:25 <alinefm> wenwang, could you please send them again in a single patchset?
+13:04:34 <vianac> #info vianac returned yesterday from vacations, checking up emails and issues to work on
+13:04:37 <alinefm> so it is easier to me to identify what to review/merge
+13:06:18 <wenwang> alinefm: Okay
+13:06:53 <alinefm> thanks
+13:07:00 <alinefm> wenwang, do you knwo about royce and Yu Xin?
+13:07:00 <wenwang> yw
+13:07:23 <wenwang> Yu Xin might be on the way home since we had a pretty late meeting
+13:07:55 <alinefm> ok - no problem
+13:08:08 <alinefm> I was wondering if they already get out to the holidays
+13:08:41 <alinefm> seems it will be our shortest meeting
+13:08:51 <alinefm> moving on to open discussion
+13:08:56 <alinefm> #topic Open Discussion
+13:09:03 <alinefm> I just have one topic for today
+13:09:13 <alinefm> and it is related to the bugs open
+13:09:54 <alinefm> Kimchi 1.4.1 is a stabilization release so our main focus is on bug fixing but the issues on github get stuck and we are not closing as many bugs as we can do
+13:10:07 <alinefm> and we just have one month for the release
+13:10:29 <alinefm> that said, I'd like to ask your attention on bugs
+13:10:42 <alinefm> vianac, ^
+13:14:16 <alinefm> the other topic I have is about the scrum meeting next week
+13:14:17 <vianac> OK
+13:14:51 <alinefm> I will cancel it because I will be out for the collab summit
+13:15:04 <alinefm> vianac, wenwang, danielhb, rotru, ramonn ^
+13:15:21 <alinefm> I will send a appropriate note to ML to remember you about it
+13:15:40 <ramonn> ok
+13:15:49 <danielhb> alinefm, having fun eh
+13:16:04 <alinefm> danielhb, will try ;-)
+13:16:15 <wenwang> ok
+13:16:40 <alinefm> vianac, wenwang, danielhb, rotru, ramonn any of you have more topics to discuss today?
+13:16:45 <rotru> no
+13:18:15 <wenwang> no
+13:19:19 <alinefm> ok
+13:19:24 <alinefm> so thanks everyone for joining
+13:19:27 <alinefm> #endmeeting
