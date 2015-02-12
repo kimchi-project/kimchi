@@ -117,6 +117,7 @@ iso_dir = [
     ('fedora', lambda m: m.group(1), 'Fedora.*-(\d+)-'),
     ('gentoo', lambda m: m.group(1), 'Gentoo Linux \w+ (\d+)'),
     ('powerkvm', 'live_cd', 'POWERKVM_LIVECD'),
+    ('arch', lambda m: m.group(1), 'ARCH_(\d+)'),
 ]
 
 
