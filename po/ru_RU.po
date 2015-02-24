@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:48-0200\n"
+"POT-Creation-Date: 2015-02-25 11:06-0300\n"
 "PO-Revision-Date: 2014-08-28 17:32+0000\n"
 "Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
@@ -28,10 +28,6 @@ msgstr "Удаление запрещено для %(resource)s"
 #, python-format
 msgid "%(resource)s does not implement update method"
 msgstr "%(resource)s не реализуют метод обновления"
-
-#, python-format
-msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
-msgstr "Обновление параметров %(params)s запрещено в %(resource)s"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
@@ -301,6 +297,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
@@ -747,6 +747,10 @@ msgstr "Не удалось создать сеть %(name)s. Сведения: 
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr "Не найден свободный IP-адрес для сети %(name)s"
 
+#, python-format
+msgid "The interface %(iface)s already exists."
+msgstr ""
+
 msgid "Network name must be a string"
 msgstr "Имя сети должно быть строкой"
 
@@ -768,19 +772,15 @@ msgstr "Укажите имя и тип для создания сети"
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines and/or "
-"templates linked to this network."
+"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
+"and/or templates linked to this network."
 msgstr ""
-"Не удалось удалить сеть %(name)s. Есть виртуальные машины или шаблоны, "
-"связанные с этой сетью."
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines and/"
-"or templates linked to this network."
+"Unable to deactivate network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"Не удалось деактивировать сеть %(name)s. Есть виртуальные машины илишаблоны, "
-"связанные с этой сетью."
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1396,7 +1396,7 @@ msgstr ""
 msgid "This is not a valid ISO file."
 msgstr "Этот файл не является допустимым образом ISO."
 
-msgid "It will take long time. Do you want to continue?"
+msgid "This may take a long time. Do you want to continue?"
 msgstr "Это займет много времени. Продолжить?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
@@ -2120,3 +2120,6 @@ msgstr "Выделение ресурсов:"
 
 msgid "No templates found."
 msgstr "Не найдены шаблоны."
+
+#~ msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+#~ msgstr "Обновление параметров %(params)s запрещено в %(resource)s"

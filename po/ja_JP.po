@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:48-0200\n"
+"POT-Creation-Date: 2015-02-25 11:06-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -27,10 +27,6 @@ msgstr "%(resource)s の削除は許可されません"
 #, python-format
 msgid "%(resource)s does not implement update method"
 msgstr "%(resource)s は更新メソッドを実装していません"
-
-#, python-format
-msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
-msgstr "パラメーター %(params)s を %(resource)s で更新することは許可されません"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
@@ -305,6 +301,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
@@ -799,6 +799,10 @@ msgstr "ネットワーク %(name)s を作成できません。詳細: %(err)s"
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr "ネットワーク「%(name)s」のフリー IP アドレスが見つかりません。"
 
+#, python-format
+msgid "The interface %(iface)s already exists."
+msgstr ""
+
 msgid "Network name must be a string"
 msgstr "ネットワーク名はストリングでなければなりません"
 
@@ -821,19 +825,15 @@ msgstr "ネットワークを作成するには、名前とタイプを指定し
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines and/or "
-"templates linked to this network."
+"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
+"and/or templates linked to this network."
 msgstr ""
-"ネットワーク %(name)s を削除できません。いくつかの仮想マシン/テンプレートが、"
-"このネットワークにリンクしています。"
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines and/"
-"or templates linked to this network."
+"Unable to deactivate network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"ネットワーク %(name)s を非アクティブにできません。いくつかの仮想マシン/テンプ"
-"レートが、このネットワークにリンクしています。"
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1463,7 +1463,7 @@ msgstr ""
 msgid "This is not a valid ISO file."
 msgstr "有効な ISO ファイルではありません。"
 
-msgid "It will take long time. Do you want to continue?"
+msgid "This may take a long time. Do you want to continue?"
 msgstr "しばらく時間がかかることがあります。続行しますか?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
@@ -2193,3 +2193,7 @@ msgstr "割り振り:"
 
 msgid "No templates found."
 msgstr "テンプレートが見つかりません。"
+
+#~ msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+#~ msgstr ""
+#~ "パラメーター %(params)s を %(resource)s で更新することは許可されません"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:48-0200\n"
+"POT-Creation-Date: 2015-02-25 11:06-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -27,10 +27,6 @@ msgstr "%(resource)s의 삭제는 허용되지 않음"
 #, python-format
 msgid "%(resource)s does not implement update method"
 msgstr "%(resource)s에서는 업데이트 메소드를 구현하지 않음"
-
-#, python-format
-msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
-msgstr "%(resource)s에서는 %(params)s 매개변수를 업데이트할 수 없음"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
@@ -298,6 +294,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
@@ -752,6 +752,10 @@ msgstr "네트워크 %(name)s을(를) 작성할 수 없습니다. 세부사항: 
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr "네트워크 '%(name)s'에 대한 여유 IP 주소를 찾을 수 없습니다."
 
+#, python-format
+msgid "The interface %(iface)s already exists."
+msgstr ""
+
 msgid "Network name must be a string"
 msgstr "네트워크 이름은 문자열이어야 합니다."
 
@@ -773,19 +777,15 @@ msgstr "네트워크를 작성하려면 이름 및 유형을 지정하십시오.
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines and/or "
-"templates linked to this network."
+"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
+"and/or templates linked to this network."
 msgstr ""
-"%(name)s 네트워크를 삭제할 수 없습니다. 이 네트워크에 일부 가상 머신 및/또는 "
-"템플리트가 링크되어 있습니다."
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines and/"
-"or templates linked to this network."
+"Unable to deactivate network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"%(name)s 네트워크를 비활성화할 수 없습니다. 이 네트워크에 일부 가상 머신 및/"
-"또는템플리트가 링크되어 있습니다."
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1395,7 +1395,7 @@ msgstr ""
 msgid "This is not a valid ISO file."
 msgstr "올바른 ISO 파일이 아닙니다."
 
-msgid "It will take long time. Do you want to continue?"
+msgid "This may take a long time. Do you want to continue?"
 msgstr "시간이 오래 걸립니다. 계속하시겠습니까?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
@@ -2116,3 +2116,6 @@ msgstr "할당:"
 
 msgid "No templates found."
 msgstr "템플리트가 없습니다."
+
+#~ msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+#~ msgstr "%(resource)s에서는 %(params)s 매개변수를 업데이트할 수 없음"

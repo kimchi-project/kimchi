@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:48-0200\n"
+"POT-Creation-Date: 2015-02-25 11:06-0300\n"
 "PO-Revision-Date: 2014-08-27 21:30+0000\n"
 "Last-Translator: BobSynfig\n"
 "Language-Team: French (http://www.transifex.com/projects/p/kimchi/language/"
@@ -28,12 +28,6 @@ msgstr "La suppression n'est pas autorisée pour %(resource)s"
 #, python-format
 msgid "%(resource)s does not implement update method"
 msgstr "%(resource)s n'implémente pas de méthode de mise à jour"
-
-#, python-format
-msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
-msgstr ""
-"Les paramètres %(params)s ne sont pas autorisés à être mis à jour dans "
-"%(resource)s"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
@@ -326,6 +320,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
@@ -821,6 +819,10 @@ msgstr "Impossible de créer le réseau %(name)s. Détails: %(err)s"
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr "Impossible de trouver une adresse IP libre pour le réseau '%(name)s'"
 
+#, python-format
+msgid "The interface %(iface)s already exists."
+msgstr "L'interface %(iface)s existe déjà"
+
 msgid "Network name must be a string"
 msgstr "Le nom de réseau doit être une chaîne de caractères"
 
@@ -843,19 +845,19 @@ msgstr "Spécifiez un nom et un type pour créer un réseau"
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines and/or "
-"templates linked to this network."
+"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
+"and/or templates linked to this network."
 msgstr ""
 "Impossible de supprimer le réseau %(name)s. Il y a des machines virtuelles "
-"et/ou des modèles liés à ce réseau. "
+"%(vms)s et/ou des modèles liés à ce réseau. "
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines and/"
-"or templates linked to this network."
+"Unable to deactivate network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"Impossible de désactiver réseau %(name)s. Il y a des machines virtuelles et/"
-"ou des modèles liés à ce réseau. "
+"Impossible de désactiver réseau %(name)s. Il y a des machines virtuelles"
+"%(vms)s et/ou des modèles liés à ce réseau. "
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1502,7 +1504,7 @@ msgstr "Aucune ISO détectée"
 msgid "This is not a valid ISO file."
 msgstr "Ce n'est pas un fichier ISO valide."
 
-msgid "It will take long time. Do you want to continue?"
+msgid "This may take a long time. Do you want to continue?"
 msgstr "Cela va prendre un long moment. Voulez-vous continuer ?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
@@ -2252,3 +2254,8 @@ msgstr "Allocation"
 
 msgid "No templates found."
 msgstr "Aucun modèle trouvé."
+
+#~ msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+#~ msgstr ""
+#~ "Les paramètres %(params)s ne sont pas autorisés à être mis à jour dans "
+#~ "%(resource)s"
