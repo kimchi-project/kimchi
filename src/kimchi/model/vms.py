@@ -552,18 +552,48 @@ class VMModel(object):
                 # remove the new object store entry should an error occur later
                 rollback.prependDefer(_rollback_objstore)
 
-    def _build_access_elem(self, users, groups):
+    def _build_access_elem(self, dom, users, groups):
         auth = config.get("authentication", "method")
-        auth_elem = E.auth(type=auth)
-        for user in users:
-            auth_elem.append(E.user(user))
+        access_xml = get_metadata_node(dom, "access",
+                                       self.caps.metadata_support)
 
-        for group in groups:
-            auth_elem.append(E.group(group))
+        auth_elem = None
 
-        access = E.access()
-        access.append(auth_elem)
-        return access
+        if not access_xml:
+            # there is no metadata element 'access'
+            access_elem = E.access()
+        else:
+            access_elem = ET.fromstring(access_xml)
+
+            same_auth = access_elem.xpath('./auth[@type="%s"]' % auth)
+            if len(same_auth) > 0:
+                # there is already a sub-element 'auth' with the same type;
+                # update it.
+                auth_elem = same_auth[0]
+
+                if users is not None:
+                    for u in auth_elem.findall('user'):
+                        auth_elem.remove(u)
+
+                if groups is not None:
+                    for g in auth_elem.findall('group'):
+                        auth_elem.remove(g)
+
+        if auth_elem is None:
+            # there is no sub-element 'auth' with the same type
+            # (or no 'auth' at all); create it.
+            auth_elem = E.auth(type=auth)
+            access_elem.append(auth_elem)
+
+        if users is not None:
+            for u in users:
+                auth_elem.append(E.user(u))
+
+        if groups is not None:
+            for g in groups:
+                auth_elem.append(E.group(g))
+
+        return access_elem
 
     def _vm_update_access_metadata(self, dom, params):
         users = groups = None
@@ -583,11 +613,7 @@ class VMModel(object):
         if users is None and groups is None:
             return
 
-        old_users, old_groups = self._get_access_info(dom)
-        users = old_users if users is None else users
-        groups = old_groups if groups is None else groups
-
-        node = self._build_access_elem(users, groups)
+        node = self._build_access_elem(dom, users, groups)
         set_metadata_node(dom, node, self.caps.metadata_support)
 
     def _get_access_info(self, dom):
