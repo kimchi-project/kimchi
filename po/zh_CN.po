@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 10:43+0800\n"
+"POT-Creation-Date: 2015-02-25 11:06-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -44,10 +44,6 @@ msgstr "不允许删除%(resource)s"
 #, python-format
 msgid "%(resource)s does not implement update method"
 msgstr "不支持更新%(resource)s"
-
-#, python-format
-msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
-msgstr "不允许更新%(resource)s的%(params)s参数。"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
@@ -311,6 +307,10 @@ msgstr "制作虚拟机'%(name)s'副本所需的磁盘空间不足"
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
 msgstr "未能成功制作虚拟机'%(name)s'副本。详情：%(err)s"
+
+#, python-format
+msgid "Invalid operation for non-persistent virtual machine %(name)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -740,6 +740,10 @@ msgstr "不能创建网络%(name)s。详情：%(err)s"
 msgid "Unable to find a free IP address for network '%(name)s'"
 msgstr "不能为网络'%(name)s'找到一个未使用的IP网络地址。"
 
+#, python-format
+msgid "The interface %(iface)s already exists."
+msgstr ""
+
 msgid "Network name must be a string"
 msgstr "网络名称必须是字符串"
 
@@ -760,15 +764,15 @@ msgstr "为新网络指定名字和类型"
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines and/or "
-"templates linked to this network."
-msgstr "不能删除网络%(name)s。有虚拟机或者模板与这个网络关联"
+"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
+"and/or templates linked to this network."
+msgstr ""
 
 #, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines and/"
-"or templates linked to this network."
-msgstr "不能停用网络%(name)s。有虚拟机或者模板与这个网络关联"
+"Unable to deactivate network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
+msgstr ""
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1243,36 +1247,6 @@ msgstr "取消"
 msgid "revert"
 msgstr "恢复"
 
-msgid "Cloning"
-msgstr "正在制作副本"
-
-msgid "Start"
-msgstr "启用"
-
-msgid "Reset"
-msgstr "重置"
-
-msgid "Power Off"
-msgstr "关闭电源"
-
-msgid "Actions"
-msgstr "操作"
-
-msgid "Connect"
-msgstr "连接到"
-
-msgid "Clone"
-msgstr "制作副本"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Shut Down"
-msgstr "关机"
-
-msgid "Delete"
-msgstr "删除"
-
 msgid "Add a Storage Device to VM"
 msgstr "为虚拟机添加一个存储设备"
 
@@ -1302,6 +1276,36 @@ msgstr "服务器端CDROM所使用的ISO文件路径"
 
 msgid "Attach"
 msgstr "装载"
+
+msgid "Cloning"
+msgstr "正在制作副本"
+
+msgid "Start"
+msgstr "启用"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Power Off"
+msgstr "关闭电源"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Connect"
+msgstr "连接到"
+
+msgid "Clone"
+msgstr "制作副本"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Shut Down"
+msgstr "关机"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr "用户名或密码错误，请重新输入。"
@@ -1372,7 +1376,7 @@ msgstr "没有发现ISO文件"
 msgid "This is not a valid ISO file."
 msgstr "这不是一个有效的ISO文件"
 
-msgid "It will take long time. Do you want to continue?"
+msgid "This may take a long time. Do you want to continue?"
 msgstr "这需要一段时间。是否继续？"
 
 msgid "This will permanently delete the template. Would you like to continue?"
@@ -1801,6 +1805,21 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
+msgid "Add a Volume to Storage Pool"
+msgstr "为存储池添加一个卷"
+
+msgid "Fetch from remote URL"
+msgstr "从远程URL获取"
+
+msgid "Enter the remote URL here."
+msgstr "在这里输入远程URL。"
+
+msgid "Upload a file"
+msgstr "上传一个文件"
+
+msgid "Choose the file you want to upload."
+msgstr "选择需要上传的文件。"
+
 msgid "Define a New Storage Pool"
 msgstr "定义一个新的存储池"
 
@@ -1870,21 +1889,6 @@ msgstr "SCSI适配器"
 
 msgid "Please, wait..."
 msgstr "请等待..."
-
-msgid "Add a Volume to Storage Pool"
-msgstr "为存储池添加一个卷"
-
-msgid "Fetch from remote URL"
-msgstr "从远程URL获取"
-
-msgid "Enter the remote URL here."
-msgstr "在这里输入远程URL。"
-
-msgid "Upload a file"
-msgstr "上传一个文件"
-
-msgid "Choose the file you want to upload."
-msgstr "选择需要上传的文件。"
 
 msgid "Add Template"
 msgstr "创建模板"
@@ -2080,3 +2084,6 @@ msgstr "分配"
 
 msgid "No templates found."
 msgstr "没有发现模板"
+
+#~ msgid "Parameters %(params)s are not allowed to be updated in %(resource)s"
+#~ msgstr "不允许更新%(resource)s的%(params)s参数。"
