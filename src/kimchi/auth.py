@@ -30,12 +30,10 @@ import termios
 import time
 import urllib2
 
-
 from kimchi import template
 from kimchi.config import config
 from kimchi.exception import InvalidOperation, OperationFailed
 from kimchi.utils import get_all_tabs, run_command
-
 
 USER_NAME = 'username'
 USER_GROUPS = 'groups'
@@ -164,25 +162,26 @@ class PAMUser(User):
                         return None
                 return resp
 
-            result.value = False
             auth = PAM.pam()
             auth.start(service)
             auth.set_item(PAM.PAM_USER, username)
             auth.set_item(PAM.PAM_CONV, _pam_conv)
             try:
                 auth.authenticate()
+                result.value = 0
             except PAM.error, (resp, code):
-                msg_args = {'username': username, 'code': code}
-                raise OperationFailed("KCHAUTH0001E", msg_args)
-
-            result.value = True
+                result.value = code
 
         result = multiprocessing.Value('i', 0, lock=False)
         p = multiprocessing.Process(target=_auth, args=(result, ))
         p.start()
         p.join()
 
-        return result.value
+        if result.value != 0:
+            msg_args = {'username': username, 'code': result.value}
+            raise OperationFailed("KCHAUTH0001E", msg_args)
+
+        return True
 
 
 class LDAPUser(User):
