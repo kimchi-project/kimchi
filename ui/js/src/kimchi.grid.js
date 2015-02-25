@@ -503,7 +503,7 @@ kimchi.widget.Grid.prototype = (function() {
         $('.retry-button', domNode).on('click', {
             grid: this
         }, function(event) {
-            grid.reload();
+            event.data.grid.reload();
         });
     };
 
