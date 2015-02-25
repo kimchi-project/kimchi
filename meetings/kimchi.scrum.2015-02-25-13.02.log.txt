@@ -1,0 +1,33 @@
+13:02:36 <alinefm> #startmeeting
+13:02:36 <kimchi-bot> Meeting started Wed Feb 25 13:02:36 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:36 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:36 <alinefm> #meetingname scrum
+13:02:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:51 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:51 <alinefm> anything else?
+13:06:14 <alinefm> ok... so let's get started
+13:06:22 <alinefm> #topic Status
+13:06:22 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:06:25 <vianac> #info vianac fixed issues #512, #545; tested and followed up some issues on Github; reviewed patches on the mailing list
+13:06:38 <alinefm> #info alinefm attended the LF Collaboration Summit last week and presented about Kimchi
+13:07:17 <alinefm> #info alinefm is now working on reviews and merging patches
+13:07:29 <alinefm> #info alinefm will finish the templates tests soon and send to ML
+13:09:31 <alinefm> I don't think we will have much for today because of the Chinese holidays
+13:09:42 <alinefm> vianac, only us today =)
+13:10:11 <vianac> yeah, I guess so
+13:11:18 <lagarcia> alinefm, I am here as well :P but no updates from me :(
+13:11:32 <ramonn> #info ramonn opened bug to fix libvirt issue on default network creationg
+13:11:45 <alinefm> lagarcia, hehehe
+13:13:54 <alinefm> anything else or can we move on?
+13:14:23 <vianac> let's move on
+13:15:22 <alinefm> #topic Open Discussion
+13:15:28 <alinefm> I have one topic
+13:15:33 <alinefm> it is related to the planning
+13:15:47 <alinefm> basically to remember we have only one more week to the code freeze
+13:17:14 <alinefm> https://github.com/kimchi-project/kimchi/wiki/planning-1.4.1
+13:19:31 <alinefm> vianac, lagarcia, ramonn, any other topic?
+13:19:40 <ramonn> nop
+13:20:43 <vianac> no
+13:22:28 <alinefm> ok
+13:22:39 <alinefm> thanks everyone for joining
+13:22:41 <alinefm> #endmeeting
