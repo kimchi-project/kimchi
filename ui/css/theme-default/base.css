@@ -22,7 +22,7 @@ html, body {
 
 /* header text size */
 .h1 {
-    font-size: 18px;
+    font-size: 22px;
 }
 
 /* base content text size */
@@ -65,4 +65,8 @@ html, body {
 
 .light {
     font-weight: lighter;
+}
+
+.help-inline {
+    display: inline-block;
 }

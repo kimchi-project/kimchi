@@ -452,38 +452,61 @@
     height: 38px;
     margin: 9px 3px;
     vertical-align: top;
-    background: #06F;
+    background: #FFFFFF;
     line-height: 38px;
     padding: 0 20px;
-    color: #EEE;
-    border-radius: 8px;
+    color: #444444;
     font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-normal span {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    font-weight: lighter;
 }
 
 .btn-normal:not([disabled]):hover {
-    background: #04D;
+    background: #EEEEEE;
 }
 
 .btn-normal:not([disabled]):active {
-    box-shadow: -1px -1px 1px #eee, 1px 1px 1px #ccc, 2px 2px 2px #ccc inset,
-                -2px -2px 2px #aaa inset;
-    background: -moz-linear-gradient(top, #04d 0%, #06f 100%);
-    background: -webkit-gradient(linear, left top, left bottom,
-                color-stop(0%, #04d), color-stop(100%, #06f));
-    background: -webkit-linear-gradient(top, #04d 0%, #ff3019 100%);
-    background: -o-linear-gradient(top, #04d 0%, #06f 100%);
-    background: -ms-linear-gradient(top, #04d 0%, #06f 100%);
-    background: linear-gradient(to bottom, #04d 0%, #06f 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#04d',
-            endColorstr='#06f', GradientType=0);
+    background: #999999;
 }
 
 .btn-normal[disabled] {
-    background-color: silver;
+    color: #CCCCCC;
+    cursor: default;
+}
+
+.btn-normal-1 {
+    display: inline-block;
+    height: 38px;
+    margin: 9px 3px;
+    vertical-align: top;
+    background: #008abf;
+    line-height: 38px;
+    padding: 0 20px;
+    color: #FFFFFF;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-normal-1 span {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    font-weight: lighter;
+}
+
+.btn-normal-1:not([disabled]):active {
+    background: #999999;
+}
+
+.btn-normal-1[disabled] {
+    background: #999999;
+    cursor: default;
 }
 
 .btn-group {
-    float: right;
+    float: left;
     padding: 0 10px;
 }
 

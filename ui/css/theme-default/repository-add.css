@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,4 +33,10 @@
 
 #repository-add-window .textbox-wrapper label {
     vertical-align: middle;
+}
+
+#isMirrorLabel {
+    font-size: 14px;
+    font-weight: lighter;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
 }

@@ -231,9 +231,17 @@ kimchi.initNetworkDialog = function() {
     buttonsObj= {};
     buttonsObj['id'] = "networkFormOk";
     buttonsObj['text'] = i18n.KCHAPI6005M;
-    buttonsObj['class'] = "ui-button-primary";
+    buttonsObj['class'] = "btn-normal";
     buttonsObj['disabled'] = true;
     buttonsObj['click'] = function() { };
+    buttonsObjCancel= {};
+    buttonsObjCancel['id'] = "networkFormCancel";
+    buttonsObjCancel['text'] = i18n.KCHAPI6003M;
+    buttonsObjCancel['class'] = "btn-normal";
+    buttonsObjCancel['disabled'] = false;
+    buttonsObjCancel['click'] = function() {
+        $(this).dialog("close");
+    };
     $("#networkConfig").dialog({
         autoOpen : false,
         modal : true,
@@ -244,11 +252,48 @@ kimchi.initNetworkDialog = function() {
         dialogClass : "network-ui-dialog remove-when-logged-off",
         open : function(){
             $(".ui-dialog-titlebar-close", $("#networkConfig").parent()).removeAttr("title");
+            $(".ui-widget-overlay").css({
+                "background": "#FFFFFF",
+                "opacity": "0.5"
+            });
         },
         beforeClose : function() {
             kimchi.cleanNetworkDialog();
         },
-        buttons : [buttonsObj]
+        buttons : [buttonsObj, buttonsObjCancel]
+    });
+    $("#networkConfig").parent().css({
+        "background": "#FFFFFF",
+        "border-radius": 0,
+        "border": "2px solid #999999"
+    });
+    $(".ui-dialog-titlebar button", $("#networkConfig").parent()).remove();
+    $(".ui-dialog-titlebar span", $("#networkConfig").parent()).css({
+        "font-weight": "lighter",
+        "height": "48px",
+        "line-height": "48px",
+        "margin": "0 30px",
+        "color": "#444444",
+        "font-size": "22px"
+    });
+    $(".ui-dialog-titlebar", $("#networkConfig").parent()).css({
+        "box-shadow": "none",
+        "padding": "0",
+    });
+    $(".ui-dialog-buttonpane", $("#networkConfig").parent()).css({
+        "background": "#008ABF"
+    });
+    $(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css({
+        "padding": "0 10px",
+        "float": "left"
+    });
+    $(".ui-dialog-buttonpane .ui-dialog-buttonset button").removeClass("ui-corner-all");
+    $(".ui-dialog-buttonpane .ui-dialog-buttonset button").css({
+        "background": "#FFFFFF",
+        "color": "#444444",
+        "font-size": "13px",
+        "border-radius": "0",
+        "opacity": "1"
     });
     kimchi.setupNetworkFormEvent();
 };

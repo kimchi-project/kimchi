@@ -37,6 +37,10 @@
     overflow: hidden;
 }
 
+.button-group {
+    margin-left: 5px;
+}
+
 .back {
     float: left; display : block;
     width: 50px;
