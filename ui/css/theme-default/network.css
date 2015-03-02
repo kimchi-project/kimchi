@@ -132,13 +132,12 @@
 }
 
 .network-config .section-header {
-    font-weight: bold;
     font-size: 14px;
+    font-weight: lighter;
 }
 
 .network-config .section-content {
     margin-top: 10px;
-    margin-left: 20px;
 }
 
 .network-config input[type="text"] {
@@ -254,21 +253,15 @@
 }
 
 .network-config .input-hint-text {
-    vertical-align: top;
-}
-
-.network-label {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-left: 1px solid #BBBBBB;
-    border-radius: 5px 5px 5px 5px;
-    border-top: 1px solid #BBBBBB;
-    box-shadow: 2px 2px 2px #EEEEEE inset;
-    color: #333333;
-    font-size: 13px;
-    padding: 10px;
-    width: 100%;
+    color: #999999;
+    font-weight: lighter;
+    font-size: 12px;
 }
 
 .ui-state-default a {
     color: #212121;
+}
+
+#networkConfig {
+    padding-left: 30px;
 }

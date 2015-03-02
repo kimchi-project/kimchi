@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,7 @@
 <div id="repository-edit-window" class="window">
     <form id="form-repository-edit">
         <header>
-            <h1 class="title">$_("Edit Repository")</h1>
-            <div class="close">X</div>
+            <h1 class="title h1 grey">$_("Edit Repository")</h1>
         </header>
         <div class="content">
             <section id="form-repository-edit">
@@ -103,8 +102,11 @@
         </div>
         <footer>
             <div class="btn-group">
-                <button type="submit id="repository-edit-button-save" class="btn-normal">
+                <button type="submit" id="repository-edit-button-save" class="btn-normal">
                     <span class="text">$_("Save")</span>
+                </button>
+                <button type="button" id="repository-edit-button-cancel" class="close btn-normal">
+                    <span class="text">$_("Cancel")</span>
                 </button>
             </div>
         </footer>

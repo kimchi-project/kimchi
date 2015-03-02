@@ -21,16 +21,15 @@ kimchi.storagepool_add_main = function() {
     $('#form-pool-add').on('submit', kimchi.addPool);
     $('#pool-doAdd').on('click', kimchi.addPool);
     // 'pool-doAdd' button starts as disabled.
-    $("#pool-doAdd").button();
-    $("#pool-doAdd").button("disable");
+    $("#pool-doAdd").attr("disabled", true);
     // Make any change in the form fields enables the
     // 'pool-doAdd' button if all the visible form
     // fields are filled, disables it otherwise.
     $('#form-pool-add').on('input change propertychange', function() {
         if (!kimchi.inputsNotBlank())
-            $("#pool-doAdd").button("disable");
+            $("#pool-doAdd").attr("disabled", true);
         else
-           $("#pool-doAdd").button("enable");
+           $("#pool-doAdd").attr("disabled", false);
     });
 };
 

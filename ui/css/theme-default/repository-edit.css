@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,19 +28,20 @@
 
 .repository-edit-fieldset {
     float: left;
-    padding: 1em;
+    padding: 0 30px;
     width: 95%;
 }
 
 .repository-edit-wrapper-label, .repository-edit-wrapper-controls {
     display: inline-block;
-    height: 38px;
-    line-height: 38px;
-    margin-top: 5px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
     vertical-align: top;
 }
 
 .repository-edit-wrapper-label {
+    margin-top: 10px;
     width: 150px;
 }
 
@@ -54,16 +55,13 @@
 
 .repository-edit-wrapper-controls input[type="text"] {
     font-size: 16px;
-    height: 38px;
-    line-height: 38px;
-    background: #fff;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px #eee inset;
-    border-top: 1px solid #bbb;
-    border-left: 1px solid #bbb;
+    height: 30px;
+    line-height: 30px;
     padding: 0 10px;
     width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #CCCCCC;
 }
 
 

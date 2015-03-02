@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,7 @@
 <!DOCTYPE html>
 <div id="report-add-window" class="window">
     <header>
-        <h1 class="title">$_("Generate a New Debug Report")</h1>
-        <div class="close">X</div>
+        <h1 class="title h1 grey">$_("Generate a New Debug Report")</h1>
     </header>
     <div class="content">
         <form id="form-report-add">
@@ -34,10 +33,11 @@
                     <label for="report-name-textbox">$_("Report Name")</label>
                 </h2>
                 <div class="field">
-                    <span>
+                    <input type="text" class="text" id="report-name-textbox" name="name" />
+                    <span class="icon-info-circled light-grey c1"></span>
+                    <span class="info-add-debug-report">
                         $_("The name used to identify the report. If omitted, a name will be chosen based on current time. Name can contain: letters, digits, underscore (\"_\") and hyphen (\"-\").")
                     </span>
-                    <input type="text" class="text" id="report-name-textbox" name="name" />
                 </div>
             </section>
         </form>
@@ -45,6 +45,9 @@
     <footer>
         <div class="btn-group">
             <button id="button-report-add" class="btn-normal"><span class="text">$_("Generate")</span></button>
+            <button id="button-report-cancel" class="btn-normal close" type="button">
+                <span calss="text">$_("Cancel")</span>
+            </button>
         </div>
     </footer>
 </div>

@@ -21,6 +21,14 @@
     width: 820px;
 }
 
+#guest-edit-window #action-button-container {
+    padding-right: 0;
+}
+
+#guest-edit-window #guest-edit-button-cancel {
+    margin-left: 10px;
+}
+
 #guest-edit-tabs {
     background: transparent;
     border: none;
@@ -47,11 +55,13 @@
 }
 
 .guest-edit-wrapper-label {
-    height: 38px;
-    line-height: 38px;
-    margin-top: 5px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
     vertical-align: top;
     min-width: 100px;
+    font-weight: lighter;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
 }
 
 #form-guest-edit-storage .guest-edit-wrapper-label {
@@ -60,6 +70,7 @@
 
 .guest-edit-wrapper-controls {
     width: 470px;
+    margin-top: 5px;ß
 }
 
 #form-guest-edit-storage .guest-edit-wrapper-controls {
@@ -68,21 +79,16 @@
 
 .guest-edit-wrapper-controls input[type="text"] {
     font-size: 16px;
-    height: 38px;
-    background: #fff;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px #eee inset;
-    border-top: 1px solid #bbb;
-    border-left: 1px solid #bbb;
-    padding-left: 10px;
+    height: 30px;
     width: 450px;
+    border: 1px solid #CCCCCC;
 }
 
 .guest-edit-wrapper-controls input[type="text"][disabled] {
     color: #bbb;
     background-color: #fafafa;
     cursor: not-allowed;
+    border: 1px solid #CCCCCC;
 }
 
 .guest-edit-cdrom-row-container {
