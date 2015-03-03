@@ -388,3 +388,148 @@ def get_unique_file_name(all_names, name):
             max_num = max(max_num, int(match.group(re_group_num)))
 
     return u'%s (%d)' % (name, max_num + 1)
+
+
+def convert_data_size(value, from_unit, to_unit='B'):
+    """Convert a data value from one unit to another unit
+    (e.g. 'MiB' -> 'GiB').
+
+    The data units supported by this function are made up of one prefix and one
+    suffix. The valid prefixes are those defined in the SI (i.e. metric system)
+    and those defined by the IEC, and the valid suffixes indicate if the base
+    unit is bit or byte.
+    Take a look at the tables below for the possible values:
+
+    Prefixes:
+
+    ==================================     ===================================
+    PREFIX (SI) | DESCRIPTION | VALUE      PREFIX (IEC) | DESCRIPTION | VALUE
+    ==================================     ===================================
+    k           | kilo        | 1000       Ki           | kibi        | 1024
+    ----------------------------------     -----------------------------------
+    M           | mega        | 1000^2     Mi           | mebi        | 1024^2
+    ----------------------------------     -----------------------------------
+    G           | giga        | 1000^3     Gi           | gibi        | 1024^3
+    ----------------------------------     -----------------------------------
+    T           | tera        | 1000^4     Ti           | tebi        | 1024^4
+    ----------------------------------     -----------------------------------
+    P           | peta        | 1000^5     Pi           | pebi        | 1024^5
+    ----------------------------------     -----------------------------------
+    E           | exa         | 1000^6     Ei           | exbi        | 1024^6
+    ----------------------------------     -----------------------------------
+    Z           | zetta       | 1000^7     Zi           | zebi        | 1024^7
+    ----------------------------------     -----------------------------------
+    Y           | yotta       | 1000^8     Yi           | yobi        | 1024^8
+    ==================================     ===================================
+
+    Suffixes:
+
+    =======================
+    SUFFIX | DESCRIPTION
+    =======================
+    b      | bit
+    -----------------------
+    B      | byte (default)
+    =======================
+
+    See http://en.wikipedia.org/wiki/Binary_prefix for more details on
+    those units.
+
+    If a wrong unit is provided, an error will be raised.
+
+    Examples:
+        convert_data_size(5, 'MiB', 'KiB') -> 5120.0
+        convert_data_size(5, 'MiB', 'M')   -> 5.24288
+        convert_data_size(5, 'MiB', 'GiB') -> 0.0048828125
+        convert_data_size(5, 'MiB', 'Tb')  -> 4.194304e-05
+        convert_data_size(5, 'MiB')        -> 5242880.0
+        convert_data_size(5, 'mib')        -> #ERROR# (invalid from_unit)
+
+    Parameters:
+    value -- the value to be converted, in the unit specified by 'from_unit'.
+             this parameter can be of any type which can be cast to float
+             (e.g. int, float, str).
+    from_unit -- the unit of 'value', as described above.
+    to_unit -- the unit of the return value, as described above.
+
+    Return:
+    A float number representing 'value' (in 'from_unit') converted
+    to 'to_unit'.
+    """
+    SI_PREFIXES = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
+    # The IEC prefixes are the equivalent SI prefixes + 'i'
+    # but, exceptionally, 'k' becomes 'Ki' instead of 'ki'.
+    IEC_PREFIXES = map(lambda p: 'Ki' if p == 'k' else p + 'i', SI_PREFIXES)
+    PREFIXES_BY_BASE = {1000: SI_PREFIXES,
+                        1024: IEC_PREFIXES}
+
+    SUFFIXES_WITH_MULT = {'b': 1,
+                          'B': 8}
+    DEFAULT_SUFFIX = 'B'
+
+    if not from_unit:
+        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+    if not to_unit:
+        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+
+    # set the default suffix
+    if from_unit[-1] not in SUFFIXES_WITH_MULT:
+        from_unit += DEFAULT_SUFFIX
+    if to_unit[-1] not in SUFFIXES_WITH_MULT:
+        to_unit += DEFAULT_SUFFIX
+
+    # split prefix and suffix for better parsing
+    from_p = from_unit[:-1]
+    from_s = from_unit[-1]
+    to_p = to_unit[:-1]
+    to_s = to_unit[-1]
+
+    # validate parameters
+    try:
+        value = float(value)
+    except TypeError:
+        raise InvalidParameter('KCHUTILS0004E', {'value': value})
+    if from_p != '' and from_p not in (SI_PREFIXES + IEC_PREFIXES):
+        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+    if from_s not in SUFFIXES_WITH_MULT:
+        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+    if to_p != '' and to_p not in (SI_PREFIXES + IEC_PREFIXES):
+        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+    if to_s not in SUFFIXES_WITH_MULT:
+        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+
+    # if the units are the same, return the input value
+    if from_unit == to_unit:
+        return value
+
+    # convert 'value' to the most basic unit (bits)...
+    bits = value
+
+    for suffix, mult in SUFFIXES_WITH_MULT.iteritems():
+        if from_s == suffix:
+            bits *= mult
+            break
+
+    if from_p != '':
+        for base, prefixes in PREFIXES_BY_BASE.iteritems():
+            for i, p in enumerate(prefixes):
+                if from_p == p:
+                    bits *= base**(i + 1)
+                    break
+
+    # ...then convert the value in bits to the destination unit
+    ret = bits
+
+    for suffix, mult in SUFFIXES_WITH_MULT.iteritems():
+        if to_s == suffix:
+            ret /= float(mult)
+            break
+
+    if to_p != '':
+        for base, prefixes in PREFIXES_BY_BASE.iteritems():
+            for i, p in enumerate(prefixes):
+                if to_p == p:
+                    ret /= float(base)**(i + 1)
+                    break
+
+    return ret
