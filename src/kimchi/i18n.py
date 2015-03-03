@@ -267,6 +267,8 @@ messages = {
     "KCHUTILS0001E": _("Invalid URI %(uri)s"),
     "KCHUTILS0002E": _("Timeout while running command '%(cmd)s' after %(seconds)s seconds"),
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
+    "KCHUTILS0004E": _("Invalid data value '%(value)s'"),
+    "KCHUTILS0005E": _("Invalid data unit '%(unit)s'"),
 
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),
     "KCHVMSTOR0003E": _("The path '%(value)s' is not a valid local/remote path for the device"),
