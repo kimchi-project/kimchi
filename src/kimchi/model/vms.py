@@ -41,8 +41,8 @@ from kimchi.model.utils import get_metadata_node
 from kimchi.model.utils import set_metadata_node
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.screenshot import VMScreenshot
-from kimchi.utils import add_task, get_next_clone_name, import_class
-from kimchi.utils import kimchi_log, run_setfacl_set_attr
+from kimchi.utils import add_task, convert_data_size, get_next_clone_name
+from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
 from kimchi.xmlutils.utils import xpath_get_text, xml_item_update
 from kimchi.xmlutils.utils import dictize
@@ -70,6 +70,8 @@ XPATH_DOMAIN_NAME = '/domain/name'
 XPATH_DOMAIN_MAC = "/domain/devices/interface[@type='network']/mac/@address"
 XPATH_DOMAIN_MAC_BY_ADDRESS = "./devices/interface[@type='network']/"\
                               "mac[@address='%s']"
+XPATH_DOMAIN_MEMORY = '/domain/memory'
+XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
 
 
@@ -819,11 +821,23 @@ class VMModel(object):
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
         users, groups = self._get_access_info(dom)
 
+        if state == 'shutoff':
+            xml = dom.XMLDesc(0)
+            val = xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]
+            unit_list = xpath_get_text(xml, XPATH_DOMAIN_MEMORY_UNIT)
+            if len(unit_list) > 0:
+                unit = unit_list[0]
+            else:
+                unit = 'KiB'
+            memory = convert_data_size(val, unit, 'MiB')
+        else:
+            memory = info[2] >> 10
+
         return {'name': name,
                 'state': state,
                 'stats': res,
                 'uuid': dom.UUIDString(),
-                'memory': info[2] >> 10,
+                'memory': memory,
                 'cpus': info[3],
                 'screenshot': screenshot,
                 'icon': icon,
