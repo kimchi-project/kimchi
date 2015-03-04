@@ -1,0 +1,58 @@
+13:02:51 <alinefm> #startmeeting
+13:02:51 <kimchi-bot> Meeting started Wed Mar  4 13:02:51 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:51 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:51 <alinefm> #meetingname scrum
+13:02:51 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:34 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:35 <alinefm> anything else?
+13:04:59 <alinefm> alright... so let's get started
+13:05:00 <alinefm> #topic Status
+13:05:01 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:22 <alinefm> #info alinefm sent patch to set a common message to KCHGRD6002M
+13:05:29 <wenwang> #info wenwang sent patch that change kimchi dialog to new style
+13:05:42 <alinefm> #info alinefm sent patch to reload grid content when it was not loaded in first time
+13:05:59 <royce> #info royce rebasing uploading patches according to comments. reviewed patches in ML
+13:06:12 <alinefm> #info alinefm sent patch to raise authenticate error in the main process when login fails
+13:06:47 <alinefm> #info alinefm reviewed patches on ML and still working on template tests
+13:10:50 <alinefm> wenwang, those patch set are independents:  "[PATCH 0/6] Kimchi Dialog refine patch" and "[PATCH 0/8] UI: Change dialogs of kimchi"
+13:10:52 <alinefm> ?
+13:11:35 <wenwang> yes
+13:11:52 <alinefm> ok
+13:11:56 <alinefm> vianac, any update?
+13:12:03 <wenwang> please apply [PATCH 0/8] UI: Change dialogs of kimchi first
+13:12:55 <vianac> #info vianac fixed issues #545, #595; reviewed patches on the mailing list
+13:13:19 <alinefm> wenwang, ok
+13:13:33 <alinefm> anything else or can we move on?
+13:15:07 <alinefm> #topic Open Discussion
+13:15:52 <alinefm> Today we start the code freeze for 1.4.1 release according to our planning: https://github.com/kimchi-project/kimchi/wiki/planning-1.4.1
+13:16:17 <alinefm> I will only merge the pending patches on ML and then we start the tests
+13:16:33 <alinefm> I will update the test matrix for 1.4.1 and share with you on ML
+13:16:47 <alinefm> from what I remember vianac is the fedora test focal point
+13:16:58 <alinefm> so we need volunteers to test Kimchi on Ubuntu and RHEL
+13:17:39 <royce> I can do Ubuntu
+13:18:18 <alinefm> I will contact Cedric to confirm he will test on openSUSE
+13:18:22 <alinefm> royce, thanks
+13:18:27 <alinefm> I will take RHEL
+13:18:49 <alinefm> #info vianac will be responsible to test Kimchi 1.4.1 on Fedora
+13:18:57 <alinefm> #info royce will be responsible to test Kimchi 1.4.1 on Ubuntu
+13:19:04 <alinefm> #info alinefm will be responsible to test Kimchi 1.4.1 on RHEL
+13:19:32 <alinefm> anyone has more topics for today?
+13:22:14 <pradeep> alinefm: lagarcia: can we have new feature like : Deploying golden image?
+13:22:42 <pradeep> for ex: I have an image which is already installed on other machine. Just want to boot up from kimchi
+13:22:54 <pradeep> simple enough to do it
+13:23:05 <alinefm> pradeep, a disk image, you mean?
+13:23:08 <pradeep> Dont ask me to do :)
+13:23:10 <pradeep> yes
+13:23:18 <pradeep> alinefm: ^
+13:23:25 <alinefm> you can create a temlate using it and then create a vm
+13:23:34 <alinefm> pradeep, it is already available on upstream
+13:23:54 <pradeep> kool.
+13:24:05 <alinefm> pradeep, while creating a template select the option "Template from local disk file" (or something like it)
+13:24:57 <pradeep> alinefm: Ok. That should be fine.
+13:24:59 <pradeep> Thanks
+13:25:03 <alinefm> pradeep, yw
+13:25:50 <alinefm> vianac, royce, wenwang, anything else?
+13:26:29 <royce> nothing from me
+13:27:17 <alinefm> ok...
+13:27:24 <alinefm> thanks everyone for joining!
+13:27:26 <alinefm> #endmeeting

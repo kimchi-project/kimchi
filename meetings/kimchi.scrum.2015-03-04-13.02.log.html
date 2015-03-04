@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar  4 13:02:51 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:35</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:59</span><span class="nk"> &lt;alinefm&gt;</span> alright... so let's get started
+<a name="l-9"></a><span class="tm">13:05:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to set a common message to KCHGRD6002M</span>
+<a name="l-12"></a><span class="tm">13:05:29</span><span class="nk"> &lt;wenwang&gt;</span> <span class="cmd">#info </span><span class="cmdline">wenwang sent patch that change kimchi dialog to new style</span>
+<a name="l-13"></a><span class="tm">13:05:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to reload grid content when it was not loaded in first time</span>
+<a name="l-14"></a><span class="tm">13:05:59</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce rebasing uploading patches according to comments. reviewed patches in ML</span>
+<a name="l-15"></a><span class="tm">13:06:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to raise authenticate error in the main process when login fails</span>
+<a name="l-16"></a><span class="tm">13:06:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm reviewed patches on ML and still working on template tests</span>
+<a name="l-17"></a><span class="tm">13:10:50</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, those patch set are independents:  "[PATCH 0/6] Kimchi Dialog refine patch" and "[PATCH 0/8] UI: Change dialogs of kimchi"
+<a name="l-18"></a><span class="tm">13:10:52</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-19"></a><span class="tm">13:11:35</span><span class="nk"> &lt;wenwang&gt;</span> yes
+<a name="l-20"></a><span class="tm">13:11:52</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-21"></a><span class="tm">13:11:56</span><span class="nk"> &lt;alinefm&gt;</span> vianac, any update?
+<a name="l-22"></a><span class="tm">13:12:03</span><span class="nk"> &lt;wenwang&gt;</span> please apply [PATCH 0/8] UI: Change dialogs of kimchi first
+<a name="l-23"></a><span class="tm">13:12:55</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac fixed issues #545, #595; reviewed patches on the mailing list</span>
+<a name="l-24"></a><span class="tm">13:13:19</span><span class="nk"> &lt;alinefm&gt;</span> wenwang, ok
+<a name="l-25"></a><span class="tm">13:13:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else or can we move on?
+<a name="l-26"></a><span class="tm">13:15:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-27"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> Today we start the code freeze for 1.4.1 release according to our planning: https://github.com/kimchi-project/kimchi/wiki/planning-1.4.1
+<a name="l-28"></a><span class="tm">13:16:17</span><span class="nk"> &lt;alinefm&gt;</span> I will only merge the pending patches on ML and then we start the tests
+<a name="l-29"></a><span class="tm">13:16:33</span><span class="nk"> &lt;alinefm&gt;</span> I will update the test matrix for 1.4.1 and share with you on ML
+<a name="l-30"></a><span class="tm">13:16:47</span><span class="nk"> &lt;alinefm&gt;</span> from what I remember vianac is the fedora test focal point
+<a name="l-31"></a><span class="tm">13:16:58</span><span class="nk"> &lt;alinefm&gt;</span> so we need volunteers to test Kimchi on Ubuntu and RHEL
+<a name="l-32"></a><span class="tm">13:17:39</span><span class="nk"> &lt;royce&gt;</span> I can do Ubuntu
+<a name="l-33"></a><span class="tm">13:18:18</span><span class="nk"> &lt;alinefm&gt;</span> I will contact Cedric to confirm he will test on openSUSE
+<a name="l-34"></a><span class="tm">13:18:22</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-35"></a><span class="tm">13:18:27</span><span class="nk"> &lt;alinefm&gt;</span> I will take RHEL
+<a name="l-36"></a><span class="tm">13:18:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac will be responsible to test Kimchi 1.4.1 on Fedora</span>
+<a name="l-37"></a><span class="tm">13:18:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce will be responsible to test Kimchi 1.4.1 on Ubuntu</span>
+<a name="l-38"></a><span class="tm">13:19:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm will be responsible to test Kimchi 1.4.1 on RHEL</span>
+<a name="l-39"></a><span class="tm">13:19:32</span><span class="nk"> &lt;alinefm&gt;</span> anyone has more topics for today?
+<a name="l-40"></a><span class="tm">13:22:14</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> lagarcia: can we have new feature like : Deploying golden image?
+<a name="l-41"></a><span class="tm">13:22:42</span><span class="nk"> &lt;pradeep&gt;</span> for ex: I have an image which is already installed on other machine. Just want to boot up from kimchi
+<a name="l-42"></a><span class="tm">13:22:54</span><span class="nk"> &lt;pradeep&gt;</span> simple enough to do it
+<a name="l-43"></a><span class="tm">13:23:05</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, a disk image, you mean?
+<a name="l-44"></a><span class="tm">13:23:08</span><span class="nk"> &lt;pradeep&gt;</span> Dont ask me to do :)
+<a name="l-45"></a><span class="tm">13:23:10</span><span class="nk"> &lt;pradeep&gt;</span> yes
+<a name="l-46"></a><span class="tm">13:23:18</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> ^
+<a name="l-47"></a><span class="tm">13:23:25</span><span class="nk"> &lt;alinefm&gt;</span> you can create a temlate using it and then create a vm
+<a name="l-48"></a><span class="tm">13:23:34</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, it is already available on upstream
+<a name="l-49"></a><span class="tm">13:23:54</span><span class="nk"> &lt;pradeep&gt;</span> kool.
+<a name="l-50"></a><span class="tm">13:24:05</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, while creating a template select the option "Template from local disk file" (or something like it)
+<a name="l-51"></a><span class="tm">13:24:57</span><span class="nk"> &lt;pradeep&gt;</span> <span class="hi">alinefm:</span> Ok. That should be fine.
+<a name="l-52"></a><span class="tm">13:24:59</span><span class="nk"> &lt;pradeep&gt;</span> Thanks
+<a name="l-53"></a><span class="tm">13:25:03</span><span class="nk"> &lt;alinefm&gt;</span> pradeep, yw
+<a name="l-54"></a><span class="tm">13:25:50</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, wenwang, anything else?
+<a name="l-55"></a><span class="tm">13:26:29</span><span class="nk"> &lt;royce&gt;</span> nothing from me
+<a name="l-56"></a><span class="tm">13:27:17</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-57"></a><span class="tm">13:27:24</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-58"></a><span class="tm">13:27:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
