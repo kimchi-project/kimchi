@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -95,74 +95,6 @@ class MockModelTests(unittest.TestCase):
                 self.assertEquals(405, e.code)
             else:
                 self.fail("Expected exception not raised")
-
-    def test_template_cpu_info(self):
-        template = self._create_default_template()
-        # GET of cpu_info will be {}
-        cpu_info = template['cpu_info']
-        self.assertEquals(cpu_info, {})
-        self.assertEquals(cpu_info.get('topology'), None)
-
-        # Update topology
-        # GET of cpu_info will contain 'topology'
-        cpu_info_data = {'cpu_info': {'topology': {'sockets': 1,
-                                                   'cores': 1,
-                                                   'threads': 1}}}
-        _, resp_code = self._send_url_request('PUT', '/templates/test',
-                                              cpu_info_data)
-        self.assertEquals(200, resp_code)
-
-        updated_template, resp_code = \
-            self._send_url_request('GET', '/templates/test')
-        self.assertEquals(200, resp_code)
-        self.assertEquals(updated_template['cpu_info'],
-                          cpu_info_data['cpu_info'])
-
-    def test_template_update_disk_type(self):
-        def _get_default_disk_data(disk_type):
-            return {'disks': [{'index': 0, 'format': disk_type, 'size': 10}]}
-
-        template = self._create_default_template()
-        # Default template is created with 1 disk without any declared
-        # type.
-        disk_data = template['disks']
-        self.assertEquals(disk_data, [{'index': 0, 'size': 10}])
-
-        # For all supported types, edit the template and check if
-        # the change was made.
-        disk_types = ['bochs', 'cloop', 'cow', 'dmg', 'qcow', 'qcow2',
-                      'qed', 'raw', 'vmdk', 'vpc']
-        for disk_type in disk_types:
-            disk_data = _get_default_disk_data(disk_type)
-            _, resp_code = self._send_url_request('PUT', '/templates/test',
-                                                  disk_data)
-            self.assertEquals(200, resp_code)
-
-            updated_template, resp_code = \
-                self._send_url_request('GET', '/templates/test')
-            self.assertEquals(200, resp_code)
-            self.assertEquals(updated_template['disks'], disk_data['disks'])
-
-        # Check Bad Request when type is invalid
-        bad_disk_data = _get_default_disk_data('invalid_disk_type')
-        _, resp_code = self._send_url_request('PUT', '/templates/test',
-                                              bad_disk_data)
-        self.assertEquals(400, resp_code)
-
-    def _create_default_template(self):
-        params = {'name': 'test', 'cdrom': fake_iso}
-        template, resp_code = self._send_url_request('POST', '/templates',
-                                                     params)
-        self.assertEquals(201, resp_code)
-        return template
-
-    def _send_url_request(self, method, url, data=None):
-        req = None
-        if data:
-            req = json.dumps(data)
-        resp = request(host, ssl_port, url, req, method)
-        rsp_body = resp.read()
-        return json.loads(rsp_body), resp.status
 
     def test_screenshot_refresh(self):
         # Create a VM
