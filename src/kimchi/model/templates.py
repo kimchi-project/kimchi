@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -111,7 +111,7 @@ class TemplatesModel(object):
     def template_volume_validate(self, tmp_volumes, pool):
         kwargs = {'conn': self.conn, 'objstore': self.objstore}
         pool_type = xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
-        pool_name = pool.name()
+        pool_name = unicode(pool.name(), 'utf-8')
 
         # as we discussion, we do not mix disks from 2 different types of
         # storage pools, for instance: we do not create a template with 2
