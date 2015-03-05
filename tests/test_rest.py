@@ -1264,7 +1264,8 @@ class RestTests(unittest.TestCase):
                   'capacity': 1073741824,  # 1 GiB
                   'type': 'file',
                   'format': 'iso'}
-        model.storagevolumes_create('pool-3', params)
+        task_info = model.storagevolumes_create('pool-3', params)
+        wait_task(self._task_lookup, task_info['id'])
 
         storagevolume = json.loads(self.request(
             '/storagepools/kimchi_isos/storagevolumes/').read())[0]
