@@ -34,7 +34,7 @@ Requires:	libguestfs-tools
 BuildRequires:	libxslt
 BuildRequires:	python-lxml
 
-%if 0%{?rhel} == 6 || 0%{?fedora} >= 19
+%if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
 Requires:	spice-html5
 %endif
 
@@ -69,7 +69,7 @@ Web server application to manage KVM/Qemu virtual machines
 
 
 %build
-%if 0%{?rhel} == 6 || 0%{?fedora} >= 19
+%if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
 %configure
 %else
 %configure --with-spice-html5
