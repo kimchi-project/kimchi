@@ -55,13 +55,11 @@ Install Dependencies
                         python-ipaddr python-ldap python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
                         python-libguestfs libguestfs-tools python-websockify \
-                        novnc
+                        novnc spice-html5
 
-     # If using RHEL6 or Fedora, install the following additional package:
-     $ sudo yum install spice-html5
-
-     # If using RHEL6, install the following additional packages:
+     # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
+
      # Restart libvirt to allow configuration changes to take effect
      $ sudo service libvirtd restart
 
@@ -127,7 +125,7 @@ information on how configure your system to access this repository.
 
 Build and Install
 -----------------
-    For RHEL7 and openSUSE 13.1:
+    For openSUSE 13.1:
     $ ./autogen.sh --with-spice-html5
 
     Otherwise:
