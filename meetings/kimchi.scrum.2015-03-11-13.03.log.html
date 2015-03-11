@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:04</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 11 13:03:04 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:04</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:17</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:34</span><span class="nk"> &lt;alinefm&gt;</span> ok... let's get started
+<a name="l-9"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:05:49</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac tested Kimchi on Fedora 21; managed issues on Github; reviewed patches on the mailing list</span>
+<a name="l-12"></a><span class="tm">13:06:03</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce did tests on Ubuntu 14.04 and fixed bugs, include: vcpu count validation and tests, testcase on storagevolume, testcase on iso streaming</span>
+<a name="l-13"></a><span class="tm">13:06:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm started working on RHEL7.1 tests</span>
+<a name="l-14"></a><span class="tm">13:07:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch regarding the Templates tests and to fix an issue related to iSCSI/SCSI encoding</span>
+<a name="l-15"></a><span class="tm">13:07:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to guide user to install and use spice-html5 on RHEL7 as the package is now available on EPEL7</span>
+<a name="l-16"></a><span class="tm">13:09:45</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-17"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> alright - let's move on
+<a name="l-18"></a><span class="tm">13:10:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-19"></a><span class="tm">13:10:42</span><span class="nk"> &lt;alinefm&gt;</span> I just want to pass through our schedule for 1.4.1 release
+<a name="l-20"></a><span class="tm">13:10:52</span><span class="nk"> &lt;alinefm&gt;</span> we have one more week to the hard code freeze
+<a name="l-21"></a><span class="tm">13:12:21</span><span class="nk"> &lt;alinefm&gt;</span> and Kimchi 1.4.1 will be released on March 27th (ie, in 2 weeks)
+<a name="l-22"></a><span class="tm">13:12:47</span><span class="nk"> &lt;alinefm&gt;</span> so, please, keep focusing on bug fixes so we can deliver a stable version
+<a name="l-23"></a><span class="tm">13:13:50</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-24"></a><span class="tm">13:13:57</span><span class="nk"> &lt;alinefm&gt;</span> royce, vianac ^
+<a name="l-25"></a><span class="tm">13:14:04</span><span class="nk"> &lt;vianac&gt;</span> ok
+<a name="l-26"></a><span class="tm">13:14:19</span><span class="nk"> &lt;royce&gt;</span> sure!
+<a name="l-27"></a><span class="tm">13:14:28</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, any other topics you have?
+<a name="l-28"></a><span class="tm">13:14:44</span><span class="nk"> &lt;royce&gt;</span> I have one
+<a name="l-29"></a><span class="tm">13:15:09</span><span class="nk"> &lt;royce&gt;</span> distro.d/fedora.json contains some stale links of fedora isos
+<a name="l-30"></a><span class="tm">13:15:49</span><span class="nk"> &lt;royce&gt;</span> In some official mirror, fedora 18 and 19 ISOs are removed, so we can't download
+<a name="l-31"></a><span class="tm">13:16:16</span><span class="nk"> &lt;royce&gt;</span> So I sent a patch to remove these entries
+<a name="l-32"></a><span class="tm">13:16:35</span><span class="nk"> &lt;alinefm&gt;</span> royce, I have noticed a similar problem in a test case
+<a name="l-33"></a><span class="tm">13:17:03</span><span class="nk"> &lt;royce&gt;</span> shall we remove them or find valid link to keep them?
+<a name="l-34"></a><span class="tm">13:17:42</span><span class="nk"> &lt;alinefm&gt;</span> I think we can remove them as they were removed from official mirror
+<a name="l-35"></a><span class="tm">13:17:42</span><span class="nk"> &lt;lagarcia&gt;</span> this is only for automatic installation through network, correct?
+<a name="l-36"></a><span class="tm">13:17:53</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, they were not removed from the official mirror
+<a name="l-37"></a><span class="tm">13:17:58</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, they were removed from some mirrors
+<a name="l-38"></a><span class="tm">13:18:19</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, some mirrors usually remove old distros (no rule about what to get removed) when they need to free up space
+<a name="l-39"></a><span class="tm">13:18:30</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, so are still there mirrors to fedora 18 and 19?
+<a name="l-40"></a><span class="tm">13:18:35</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, pretty sure
+<a name="l-41"></a><span class="tm">13:18:50</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, is this feature only for automatic installation through network?
+<a name="l-42"></a><span class="tm">13:18:58</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yes
+<a name="l-43"></a><span class="tm">13:19:05</span><span class="nk"> &lt;royce&gt;</span> lagarcia, the official site will redirect you to a mirror which you can not predict it exist or not:)
+<a name="l-44"></a><span class="tm">13:19:08</span><span class="nk"> &lt;vianac&gt;</span> the current approach will always break eventually
+<a name="l-45"></a><span class="tm">13:19:13</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, is the user able to specify his own URL to download direct froma mirror?
+<a name="l-46"></a><span class="tm">13:19:20</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, yes
+<a name="l-47"></a><span class="tm">13:19:27</span><span class="nk"> &lt;royce&gt;</span> I agree with vianac
+<a name="l-48"></a><span class="tm">13:19:28</span><span class="nk"> &lt;vianac&gt;</span> we'll need to keep updating the distro URLs forever
+<a name="l-49"></a><span class="tm">13:19:49</span><span class="nk"> &lt;vianac&gt;</span> we need to come up with a way to fetch that info automatically, which should work with newer versions
+<a name="l-50"></a><span class="tm">13:20:01</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, soh, in this case, I would suggest we keep only the "supported" versions. In the case of Fedora, it is n and n-1. FEdora 19 is already EOL.
+<a name="l-51"></a><span class="tm">13:20:06</span><span class="nk"> &lt;vianac&gt;</span> (as long as the server doesn't change its behavior :) )
+<a name="l-52"></a><span class="tm">13:20:24</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, agree
+<a name="l-53"></a><span class="tm">13:20:30</span><span class="nk"> &lt;alinefm&gt;</span> we just need to change it =)
+<a name="l-54"></a><span class="tm">13:20:32</span><span class="nk"> &lt;royce&gt;</span> lagarcia, +1
+<a name="l-55"></a><span class="tm">13:20:50</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, mirrors usually don't remove versions that are not EOL
+<a name="l-56"></a><span class="tm">13:21:07</span><span class="nk"> &lt;lagarcia&gt;</span> and if someone really wants an older distro, they can point the URL directly
+<a name="l-57"></a><span class="tm">13:21:15</span><span class="nk"> &lt;royce&gt;</span> true
+<a name="l-58"></a><span class="tm">13:21:30</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, ok - agree
+<a name="l-59"></a><span class="tm">13:23:35</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, vianac, royce, other topic?
+<a name="l-60"></a><span class="tm">13:23:59</span><span class="nk"> &lt;lagarcia&gt;</span> none from me
+<a name="l-61"></a><span class="tm">13:24:09</span><span class="nk"> &lt;royce&gt;</span> nope
+<a name="l-62"></a><span class="tm">13:25:45</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-63"></a><span class="tm">13:25:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

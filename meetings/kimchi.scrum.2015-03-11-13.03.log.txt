@@ -1,0 +1,63 @@
+13:03:04 <alinefm> #startmeeting
+13:03:04 <kimchi-bot> Meeting started Wed Mar 11 13:03:04 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:04 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:05 <alinefm> #meetingname scrum
+13:03:05 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:17 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:17 <alinefm> anything else?
+13:05:34 <alinefm> ok... let's get started
+13:05:36 <alinefm> #topic Status
+13:05:36 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:49 <vianac> #info vianac tested Kimchi on Fedora 21; managed issues on Github; reviewed patches on the mailing list
+13:06:03 <royce> #info royce did tests on Ubuntu 14.04 and fixed bugs, include: vcpu count validation and tests, testcase on storagevolume, testcase on iso streaming
+13:06:17 <alinefm> #info alinefm started working on RHEL7.1 tests
+13:07:20 <alinefm> #info alinefm sent patch regarding the Templates tests and to fix an issue related to iSCSI/SCSI encoding
+13:07:46 <alinefm> #info alinefm sent patch to guide user to install and use spice-html5 on RHEL7 as the package is now available on EPEL7
+13:09:45 <alinefm> anything else?
+13:10:24 <alinefm> alright - let's move on
+13:10:29 <alinefm> #topic Open Discussion
+13:10:42 <alinefm> I just want to pass through our schedule for 1.4.1 release
+13:10:52 <alinefm> we have one more week to the hard code freeze
+13:12:21 <alinefm> and Kimchi 1.4.1 will be released on March 27th (ie, in 2 weeks)
+13:12:47 <alinefm> so, please, keep focusing on bug fixes so we can deliver a stable version
+13:13:50 <alinefm> ok?
+13:13:57 <alinefm> royce, vianac ^
+13:14:04 <vianac> ok
+13:14:19 <royce> sure!
+13:14:28 <alinefm> vianac, royce, any other topics you have?
+13:14:44 <royce> I have one
+13:15:09 <royce> distro.d/fedora.json contains some stale links of fedora isos
+13:15:49 <royce> In some official mirror, fedora 18 and 19 ISOs are removed, so we can't download
+13:16:16 <royce> So I sent a patch to remove these entries
+13:16:35 <alinefm> royce, I have noticed a similar problem in a test case
+13:17:03 <royce> shall we remove them or find valid link to keep them?
+13:17:42 <alinefm> I think we can remove them as they were removed from official mirror
+13:17:42 <lagarcia> this is only for automatic installation through network, correct?
+13:17:53 <lagarcia> alinefm, they were not removed from the official mirror
+13:17:58 <lagarcia> alinefm, they were removed from some mirrors
+13:18:19 <lagarcia> alinefm, some mirrors usually remove old distros (no rule about what to get removed) when they need to free up space
+13:18:30 <alinefm> lagarcia, so are still there mirrors to fedora 18 and 19?
+13:18:35 <lagarcia> alinefm, pretty sure
+13:18:50 <lagarcia> alinefm, is this feature only for automatic installation through network?
+13:18:58 <alinefm> lagarcia, yes
+13:19:05 <royce> lagarcia, the official site will redirect you to a mirror which you can not predict it exist or not:)
+13:19:08 <vianac> the current approach will always break eventually
+13:19:13 <lagarcia> alinefm, is the user able to specify his own URL to download direct froma mirror?
+13:19:20 <alinefm> lagarcia, yes
+13:19:27 <royce> I agree with vianac
+13:19:28 <vianac> we'll need to keep updating the distro URLs forever
+13:19:49 <vianac> we need to come up with a way to fetch that info automatically, which should work with newer versions
+13:20:01 <lagarcia> alinefm, soh, in this case, I would suggest we keep only the "supported" versions. In the case of Fedora, it is n and n-1. FEdora 19 is already EOL.
+13:20:06 <vianac> (as long as the server doesn't change its behavior :) )
+13:20:24 <alinefm> vianac, royce, agree
+13:20:30 <alinefm> we just need to change it =)
+13:20:32 <royce> lagarcia, +1
+13:20:50 <lagarcia> alinefm, mirrors usually don't remove versions that are not EOL
+13:21:07 <lagarcia> and if someone really wants an older distro, they can point the URL directly
+13:21:15 <royce> true
+13:21:30 <alinefm> lagarcia, ok - agree
+13:23:35 <alinefm> lagarcia, vianac, royce, other topic?
+13:23:59 <lagarcia> none from me
+13:24:09 <royce> nope
+13:25:45 <alinefm> thanks everyone for joining!
+13:25:48 <alinefm> #endmeeting
