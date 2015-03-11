@@ -1,19 +1,5 @@
 [
     {
-        "name": "Fedora 18",
-        "os_distro": "fedora",
-        "os_arch": "x86_64",
-        "os_version": "18",
-        "path": "http://fedora.mirrors.tds.net/pub/fedora/releases/18/Live/x86_64/Fedora-18-x86_64-Live-Desktop.iso"
-    },
-    {
-        "name": "Fedora 19",
-        "os_distro": "fedora",
-        "os_arch": "x86_64",
-        "os_version": "19",
-        "path": "http://fedora.mirrors.tds.net/pub/fedora/releases/19/Live/x86_64/Fedora-Live-Desktop-x86_64-19-1.iso"
-    },
-    {
         "name": "Fedora 20",
         "os_distro": "fedora",
         "os_arch": "x86_64",

@@ -1171,13 +1171,13 @@ class RestTests(unittest.TestCase):
             self.assertIn('path', distro)
 
         # Test in X86
-        ident = "Fedora 19"
+        ident = "Fedora 20"
         resp = self.request('/config/distros/%s' % urllib2.quote(ident)).read()
         distro = json.loads(resp)
         if os.uname()[4] in ['x86_64', 'amd64']:
             self.assertEquals(distro['name'], ident)
             self.assertEquals(distro['os_distro'], "fedora")
-            self.assertEquals(distro['os_version'], "19")
+            self.assertEquals(distro['os_version'], "20")
             self.assertEquals(distro['os_arch'], "x86_64")
             self.assertIn('path', distro)
         else:
