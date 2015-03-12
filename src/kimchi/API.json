@@ -233,7 +233,7 @@
                 "template": {
                     "description": "The URI of a template to use when building a VM",
                     "type": "string",
-                    "pattern": "^/templates/[^/]+/?$",
+                    "pattern": "^/templates/(.*?)/?$",
                     "required": true,
                     "error": "KCHVM0012E"
                 },
