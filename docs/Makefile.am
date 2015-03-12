@@ -25,4 +25,5 @@ dist_doc_DATA = \
 	README-federation.md \
 	kimchi-guest.png \
 	kimchi-templates.png \
+	kimchid.8 \
 	$(NULL)

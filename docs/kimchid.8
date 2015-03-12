@@ -1,0 +1,156 @@
+.TH KIMCHI 1 "February 05, 2015" "Version 1.4.0" "Kimchi Manual"
+.SH NAME
+Kimchi \- HTML5 based management tool for KVM
+.SH SYNOPSIS
+.B kimchid
+[\fB-h\fP|\fB--help\fP] [\fB--host\fP \fIhost\fP] [\fB--port\fP \fIport\fP]
+[\fB--ssl-port\fP \fIssl_port\fP] [\fB--cherrypy_port\fP \fIcherrypy_port\fP]
+[\fB--log-level\fP \fIlog_level\fP] [\fB--access-log\fP \fIaccess_log\fP]
+[\fB--error-log\fP \fIerror_log\fP] [\fB--environment\fP \fIenvironment\fP]
+[\fB--federation\fP \fIfederation\fP] [\fB--test\fP]
+.SH DESCRIPTION
+\fBKimchi\fP is an HTML5 based management tool for KVM. It is designed to make
+it as easy as possible to get started with KVM and create your first guest.
+\fBkimchid\fP launches the daemon on the hypervisor host which manages KVM guests through
+libvirt. The management interface is accessed over the web using a browser that
+supports HTML5.
+.SH OPTIONS
+The following options are supported:
+.TP
+\fB-h\fP , \fB--help\fP
+Show this help message and exit.
+.TP
+\fB--host\fP \fIhost\fP
+Specify the hostname or IP to listen on.
+.TP
+\fB--port\fP \fIport\fP
+Specify the HTTP port (default \fI8000\fP).
+.TP
+\fB--ssl-port\fP \fIssl_port\fP
+Specify the HTTPS port (default \fI8001\fP).
+.TP
+\fB--cherrypy_port\fP \fIcherrypy_port\fP
+Specify the Cherrypy server port (default \fI8010\fP).
+.TP
+\fB--log-level\fP [\fIdebug\fP | \fIinfo\fP | \fIwarning\fP | \fIerror\fP | \fIcritical\fP]
+Specify the log level (default \fIdebug\fP).
+.TP
+\fB--access-log\fP \fIaccess_log\fP
+Specify the access log location where kimchi should create the access log file.
+.TP
+\fB--environment\fP [\fIdevelopment\fP | \fIproduction\fP]
+Specify the running environment of kimchi server. Check cherrypy documentation for more details (default \fIproduction\fP).
+.TP
+\fB--federation\fP [\fIon\fP | \fIoff\fP]
+Register and discover Kimchi peers in the same network using OpenSLP. Check
+below the \fBFEDERATION\fP section for more details (default \fIoff\fP).
+.TP
+\fB--test\fP
+Run kimchi on a mock version that does not affect the system. For testing proposals.
+.SH FEDERATION
+Federation feature is a mechanism to discover Kimchi peers in the same network.
+It uses OpenSLP tool (http://www.openslp.org/) to register and find the Kimchi
+servers.
+
+By default this feature is disabled on Kimchi as it is not critical for KVM
+virtualization and requires additional software installation.
+
+To enable it, do the following:
+
+1. Install OpenSLP server package
+
+2. OpenSLP uses port 427 (UDP) and port 427 (TCP) so make sure to open those
+   ports in your firewall configuration
+
+   For system using firewalld, do:
+   sudo firewall-cmd --permanent --add-port=427/udp
+   sudo firewall-cmd --permanent --add-port=427/tcp
+   sudo firewall-cmd --reload
+
+   For openSUSE systems, do:
+   sudo /sbin/SuSEfirewall2 open EXT TCP 427
+   sudo /sbin/SuSEfirewall2 open EXT UDP 427
+
+   For system using iptables, do:
+   sudo iptables -A INPUT -p tcp --dport 427 -j ACCEPT
+   sudo iptables -A INPUT -p udp --dport 427 -j ACCEPT
+
+3. In addition to the OpenSLP ports, you also need to allow multicast in the
+   firewall configuration
+
+   For system using firewalld, do:
+   sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -s <subnet> -j ACCEPT
+
+   For openSUSE systems, do:
+   Add the subnet to the trusted networks listed on FW_TRUSTED_NETS in
+   /etc/sysconfig/SuSEfirewall2 file.
+   Make sure to restart /sbin/SuSEfirewall2 after modifying /etc/sysconfig/SuSEfirewall2
+
+   For system using iptables, do:
+   sudo iptables -A INPUT -s <subnet> -j ACCEPT
+
+4. Start slpd service and make sure it is up while running Kimchi
+   sudo service slpd start
+
+5. Enable federation on Kimchi by editing the /etc/kimchi/kimchi.conf file:
+
+   federation = on
+
+6. Then start Kimchi service
+   sudo service kimchid start
+
+The Kimchi server will be registered on OpenSLP on server starting up and will
+be found by other Kimchi peers (with federation feature enabled) in the same
+network.
+.SH LICENCE
+.br
+Kimchi is distributed pursuant to the terms of two different licenses.
+The user interface (located in ui/ in this distribution) is governed by
+the Apache License version 2.0.
+
+The code under ui/spice-html5 is imported from spice-html5 project
+(http://cgit.freedesktop.org/spice/spice-html5) and the code under ui/libs which is
+imported from JQuery UI (http://jqueryui.com)
+
+The rest of this distribution is governed by the GNU Lesser General Public
+License version 3.
+
+See COPYING.LGPL and COPYING.ASL2.
+.SH BUGS
+Current bugs can be found here : https://github.com/kimchi-project/kimchi/issues
+.br
+If you find any, please open an issue : https://github.com/kimchi-project/kimchi/issues/new
+.SH AUTHOR
+\fBAdam King\fP <rak@linux.vnet.ibm.com>,
+\fBAdam Litke\fP <agl@linux.vnet.ibm.com>,
+\fBAdriano Botega\fP <abotega@linux.vnet.ibm.com>,
+\fBAlexandre Tanaka Hirata\fP <hirata@linux.vnet.ibm.com>,
+\fBAline Manera\fP <alinefm@br.ibm.com>,
+\fBapporc\fP <appleorchard2000@gmail.com>,
+\fBAnthony Liguori\fP <aliguori@us.ibm.com>,
+\fBBing Bu Cao\fP <mars@linux.vnet.ibm.com>,
+\fBChristy Perez\fP <christy@linux.vnet.ibm.com>,
+\fBCole Robinson\fP <crobinso@redhat.com>,
+\fBCrístian Viana\fP <vianac@linux.vnet.ibm.com>,
+\fBDaniel H Barboza\fP <danielhb@linux.vnet.ibm.com>,
+\fBEduardo Elias Ferreira\fP <edusf@linux.vnet.ibm.com>,
+\fBEli Qiao(Li Yong Qiao)\fP <taget@linux.vnet.ibm.com>,
+\fBHongliang Wang\fP <hlwang@linux.vnet.ibm.com>,
+\fBLeonardo Garcia\fP <lagarcia@br.ibm.com>,
+\fBLise Noble\fP <lwnoble@us.ibm.com>,
+\fBMalcolm Yu\fP <minghaoyusombie@gmail.com>,
+\fBMark Wu\fP <wudxw@linux.vnet.ibm.com>,
+\fBMei Na Zhou\fP <zhoumein@linux.vnet.ibm.com>,
+\fBPaulo Vital\fP <pvital@linux.vnet.ibm.com>,
+\fBPradeep K Surisetty\fP <psuriset@linux.vnet.ibm.com>,
+\fBRamon Medeiros\fP <ramonn@linux.vnet.ibm.com>,
+\fBRodrigo Trujilo\fP <rodrigo.trujillo@linux.vnet.ibm.com>,
+\fBRoyce Lv\fP <lvroyce@linux.vnet.ibm.com>,
+\fBShaoHe Feng\fP <shaohef@linux.vnet.ibm.com>,
+\fBShu Ming\fP <shuming@linux.vnet.ibm.com>,
+\fBToby Allsopp\fP <toby@MI6.GEN.NZ>,
+\fBTony Breeds\fP <tonyb@au1.ibm.com>,
+\fBXin BJ Ding\fP <xinding@cn.ibm.com>,
+\fBYu Xin Huo\fP <huoyuxin@linux.vnet.ibm.com>,
+\fBZhou Zheng Sheng\fP <zhshzhou@linux.vnet.ibm.com>,
+.SH SEE ALSO
