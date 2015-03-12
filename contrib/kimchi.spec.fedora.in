@@ -169,6 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sharedstatedir}/kimchi/
 %{_localstatedir}/log/kimchi/*
 %{_localstatedir}/log/kimchi/
+%{_mandir}/man8/kimchid.8.gz
 
 %if 0%{?with_systemd}
 %{_unitdir}/kimchid.service
@@ -182,6 +183,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Feb 26 2015 Frédéric Bonnard <frediz@linux.vnet.ibm.com> 1.4.0
+- Add man page for kimchid
+
 * Tue Feb 11 2014 Crístian Viana <vianac@linux.vnet.ibm.com> 1.1.0
 - Add help pages and XSLT dependency
 

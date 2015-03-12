@@ -19,6 +19,8 @@
 
 SUBDIRS = src ui docs contrib tests po config plugins
 
+man_MANS = docs/kimchid.8
+
 AUTOMAKE_OPTIONS = foreign
 
 ACLOCAL_AMFLAGS = --install -I m4

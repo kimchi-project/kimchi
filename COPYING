@@ -2,9 +2,10 @@ Kimchi is distributed pursuant to the terms of two different licenses.
 The user interface (located in ui/ in this distribution) is governed by
 the Apache License version 2.0.
 
-Except the code under ui/spice-html5 which is imported from spice-html5 project
-(http://cgit.freedesktop.org/spice/spice-html5) and under ui/libs which is
 imported from JQuery UI (http://jqueryui.com)
+The code under ui/spice-html5 is imported from spice-html5 project
+(http://cgit.freedesktop.org/spice/spice-html5) and the code under ui/libs
+which is imported from JQuery UI (http://jqueryui.com)
 
 The rest of this distribution is governed by the GNU Lesser General Public
 License version 3.
