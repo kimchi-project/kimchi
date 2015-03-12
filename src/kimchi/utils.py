@@ -45,7 +45,7 @@ task_id = 0
 
 
 def _uri_to_name(collection, uri):
-    expr = '/%s/(.*?)/?$' % collection
+    expr = '/%s/(.*?)$' % collection
     m = re.match(expr, uri)
     if not m:
         raise InvalidParameter("KCHUTILS0001E", {'uri': uri})
