@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,11 +118,23 @@
                 <div class="template-tab-body"></div>
             </form>
             <form id="form-template-processor">
-                <div>$_("CPU Number"):<input type="text" value="1" id="cpus"></div>
-                <div class="manual"><input type="checkbox">$_("Manually set CPU topology")</div>
+                <div>
+                    <label for="cpus">$_("CPU Number"):</label>
+                    <input type="text" value="1" id="cpus" />
+                </div>
+                <div class="manual">
+                    <input type="checkbox" id="cpus-check" />
+                    <label for="cpus-check">$_("Manually set CPU topology")</label>
+                </div>
                 <div class="topology hide">
-                    <div>$_("Cores"):<input type="text" value="1"  id="cores"></div>
-                    <div>$_("Threads"):<select id="threads"></select></div>
+                    <div>
+                        <label for="cores">$_("Cores"):</label>
+                        <input type="text" value="1" id="cores" />
+                    </div>
+                    <div>
+                        <label for="threads">$_("Threads"):</label>
+                        <select id="threads"></select>
+                    </div>
                 </div>
             </form>
         </div>
