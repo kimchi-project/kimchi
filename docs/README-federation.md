@@ -10,7 +10,9 @@ virtualization and requires additional software installation.
 
 To enable it, do the following:
 
-1. Install openslp and openslp-server packages
+1. Install openslp and openslp-server rpm packages,
+   or install slpd and slptool deb packages.
+
 2. openSLP uses port 427 (UDP) and port 427 (TCP) so make sure to open those
    ports in your firewall configuration
 
