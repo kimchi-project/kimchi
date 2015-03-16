@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import re
 import socket
 
@@ -40,6 +41,15 @@ class PeersModel(object):
         out, error, ret = run_command(cmd)
         if out and len(out) != 0:
             kimchi_log.error("Unable to register server on openSLP."
+                             " Details: %s" % out)
+        cherrypy.engine.subscribe('exit', self._peer_deregister)
+
+    def _peer_deregister(self):
+        cmd = ["slptool", "deregister",
+               "service:kimchid://%s" % self.url]
+        out, error, ret = run_command(cmd)
+        if out and len(out) != 0:
+            kimchi_log.error("Unable to deregister server on openSLP."
                              " Details: %s" % out)
 
     def get_list(self):
