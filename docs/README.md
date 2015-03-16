@@ -145,9 +145,9 @@ If you cannot access Kimchi, take a look at these 2 points:
 Kimchi uses by default the ports 8000, 8001 and 64667. To allow incoming connections:
 
     For system using firewalld, do:
-    sudo firewall-cmd --add-port 8000 --permanent
-    sudo firewall-cmd --add-port 8001 --permanent
-    sudo firewall-cmd --add-port 64667 --permanent
+    sudo firewall-cmd --add-port=8000/tcp --permanent
+    sudo firewall-cmd --add-port=8001/tcp --permanent
+    sudo firewall-cmd --add-port=64667/tcp --permanent
     sudo firewall-cmd --reload
 
     For openSUSE systems, do:
