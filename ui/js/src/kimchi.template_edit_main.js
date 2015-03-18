@@ -89,51 +89,54 @@ kimchi.template_edit_main = function() {
                 $('select', '#form-template-storage').change(function() {
                     var selectedItem = $(this).parent().parent();
                     var tempStorageNameFull = $(this).val();
-                    var tempType;
-                    var tempStorageName =tempStorageNameFull.split('/')[0];
-                    var scsiCap;
-                    $.each(result, function(index, storageEntities) {
-                        if (tempStorageName === storageEntities.name) {
-                            selectedItem.find('.template-storage-type').val(storageEntities.type);
-                            scsiCap = storageEntities.capacity / Math.pow(1024, 3);
-                            tempType = storageEntities.type;
+                    var tempName = tempStorageNameFull.split('/');
+                    var tempStorageName = tempName[0];
+                    $('.template-storage-name').val(tempStorageNameFull);
+                    kimchi.getStoragePool(tempStorageName, function(info) {
+                        tempType = info.type;
+                        selectedItem.find('.template-storage-type').val(tempType);
+                        if (tempType === 'iscsi' || tempType === 'scsi') {
+                            kimchi.getStoragePoolVolume(tempStorageName, tempName[tempName.length-1], function(info) {
+                                volSize = info.capacity / Math.pow(1024, 3);
+                                $('.template-storage-disk', selectedItem).attr('readonly', true).val(volSize);
+                            });
+                        } else {
+                            $('.template-storage-disk', selectedItem).attr('readonly', false);
                         }
                     });
-                    if (tempType === 'iscsi' || tempType === 'scsi') {
-                        $('.template-storage-disk', selectedItem).attr('readonly', true).val(scsiCap);
-                    } else {
-                        $('.template-storage-disk', selectedItem).attr('readonly', false);
-                    }
-                    $('.template-storage-name').val(tempStorageNameFull);
                 });
             };
 
             if ((origDisks && origDisks.length) && (origPool && origPool.length)) {
                 splitPool = origPool.split('/');
-                var defaultPool;
+                var defaultPool = splitPool[splitPool.length-1];
                 var defaultType;
-                $.each(result, function(index, poolEntities) {
-                    if (poolEntities.name === splitPool[splitPool.length-1]) {
-                        defaultType = poolEntities.type;
-                        defaultPool = splitPool[splitPool.length-1]
-                    }
+
+                kimchi.getStoragePool(defaultPool, function(info) {
+                    defaultType = info.type;
+                    $.each(origDisks, function(index, diskEntities) {
+                        var storageNodeData = {
+                            viewMode : '',
+                            editMode : 'hide',
+                            storageName : defaultPool,
+                            storageType : defaultType,
+                            storageDisk : diskEntities.size
+                        }
+
+                        if (diskEntities.volume) {
+                            kimchi.getStoragePoolVolume(defaultPool, diskEntities.volume, function(info) {
+                                var volSize = info.capacity / Math.pow(1024, 3);
+                                var nodeData = storageNodeData
+                                nodeData.storageName = defaultPool + '/' + diskEntities.volume;
+                                nodeData.storageDisk = volSize;
+                                addStorageItem(nodeData);
+                                $('.template-storage-disk').attr('readonly', true);
+                            });
+                        } else {
+                            addStorageItem(storageNodeData);
+                        }
+                    });
                 });
-                if (origDisks[0]['volume']) {
-                    defaultPool = defaultPool + '/' + origDisks[0]['volume'];
-                }
-                $.each(origDisks, function(index, diskEntities) {
-                    var storageNodeData = {
-                        viewMode : '',
-                        editMode : 'hide',
-                        storageName : defaultPool,
-                        storageType : defaultType,
-                        storageDisk : diskEntities.size
-                    }
-                    addStorageItem(storageNodeData);
-                });
-                if(defaultType === 'iscsi' || defaultType === 'scsi') {
-                    $('.template-storage-disk').attr('readonly', true);
-                }
             }
 
             $('#template-edit-storage-add-button').button({
@@ -249,10 +252,11 @@ kimchi.template_edit_main = function() {
         //Fix me: Only support one storage pool now
         var storages = $('.template-tab-body .item', '#form-template-storage');
         var tempName = $('.template-storage-name', storages).val();
+        var tmpItem = $('#form-template-storage .item');
         tempName = tempName.split('/');
-        var tempNameHead =tempName[0];
+        var tempNameHead = tempName[0];
         var tempNameTail = tempNameHead;
-        if(tempNameHead === 'iscsi' || tempNameHead =='scsi') {
+        if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() == 'scsi') {
             tempNameTail = tempName[tempName.length-1];
         }
         tempName = '/storagepools/' + tempNameHead;
@@ -260,12 +264,12 @@ kimchi.template_edit_main = function() {
         $.each(editableFields, function(i, field) {
             /* Support only 1 disk at this moment */
             if (field == 'disks') {
-                var tmpItem = $('#form-template-storage .item');
-                origDisks[0].size = Number($('.template-storage-disk', tmpItem).val());
-                if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() =='scsi') {
+                if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() == 'scsi') {
+                    origDisks[0]['size'] && delete origDisks[0]['size'];
                     origDisks[0]['volume'] = tempNameTail;
                 } else {
                     origDisks[0]['volume'] && delete origDisks[0]['volume'];
+                    origDisks[0].size = Number($('.template-storage-disk', tmpItem).val());
                 }
                data[field] = origDisks;
             }
