@@ -1,0 +1,29 @@
+13:02:02 <alinefm> #startmeeting
+13:02:02 <kimchi-bot> Meeting started Wed Mar 18 13:02:02 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:02 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:03 <alinefm> #meetingname scrum
+13:02:03 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:13 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:13 <alinefm> anything else?
+13:04:54 <alinefm> so let's get started
+13:05:08 <alinefm> #topic Status
+13:05:08 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:45 <royce> #info royce keep on testing kimchi, reported bugs about storage and federation, sent patches about peer deregistery
+13:05:53 <alinefm> #info alinefm sent patch to fix issue #597
+13:06:05 <alinefm> #info alinefm sent patch to update the firewall commands on README
+13:06:17 <vianac> #info vianac started to help managing the Github issues; worked on issues #564, #565; reviewed patches on the mailing list
+13:06:24 <alinefm> #info alinefm completed tests on RHEL7.1
+13:08:45 <vianac> #info vianac tested Kimchi on Fedora 21
+13:13:33 <alinefm> Today we are entering the hard code freeze phase
+13:13:44 <alinefm> so only critical bugs will be merged until next week
+13:13:59 <alinefm> Kimchi 1.4.1 announcement will happen on Mar 27th
+13:14:32 <alinefm> vianac, royce, ok?
+13:14:47 <royce> OK
+13:15:02 <vianac> OK
+13:18:38 <alinefm> #topic Open Discussion
+13:18:43 <alinefm> vianac, royce, any topics for today?
+13:20:19 <royce> nothing from me
+13:28:02 <alinefm> ok
+13:28:18 <alinefm> please, continue focusing on bug fixes during this week
+13:28:28 <alinefm> and thanks everyone for joining!
+13:28:31 <alinefm> #endmeeting
