@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -795,6 +795,19 @@ var kimchi = {
 
     getStorageTargets: function(server,type, suc, err) {
         var url = kimchi.url + 'storageservers/' + server + '/storagetargets?_target_type=' + type;
+        kimchi.requestJSON({
+            url : url,
+            type : 'GET',
+            contentType : 'application/json',
+            timeout: 2000,
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    getStoragePool: function(poolName, suc, err) {
+        var url = kimchi.url + 'storagepools/' + encodeURIComponent(poolName);
         kimchi.requestJSON({
             url : url,
             type : 'GET',
