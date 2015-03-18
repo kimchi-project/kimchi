@@ -210,7 +210,17 @@ class NetworksModel(object):
         br_xml = create_vlan_tagged_bridge_xml(br_name, interface, vlan_id)
         conn = self.conn.get()
 
-        if br_name in [net.bridgeName() for net in conn.listAllNetworks()]:
+        bridges = []
+        for net in conn.listAllNetworks():
+            # Bridged networks do not have a bridge name
+            # So in those cases, libvirt raises an error when trying to get
+            # the bridge name
+            try:
+                bridges.append(net.bridgeName())
+            except libvirt.libvirtError, e:
+                kimchi_log.error(e.message)
+
+        if br_name in bridges:
             raise InvalidOperation("KCHNET0010E", {'iface': br_name})
 
         with RollbackContext() as rollback:
