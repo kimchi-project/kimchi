@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -269,18 +269,24 @@ class YumRepo(object):
         if repo_id not in repos.repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        config = params.get('config', {})
         entry = repos.getRepo(repo_id)
 
         baseurl = params.get('baseurl', None)
+        config = params.get('config', {})
         mirrorlist = config.get('mirrorlist', None)
+
+        if len(baseurl.strip()) == 0:
+            baseurl = None
+
+        if len(mirrorlist.strip()) == 0:
+            mirrorlist = None
+
+        if baseurl is None and mirrorlist is None:
+            raise MissingParameter("KCHREPOS0013E")
 
         if baseurl is not None:
             validate_repo_url(baseurl)
             entry.baseurl = baseurl
-
-        if mirrorlist == '':
-            mirrorlist = None
 
         if mirrorlist is not None:
             validate_repo_url(mirrorlist)

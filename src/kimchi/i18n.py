@@ -298,7 +298,7 @@ messages = {
     "KCHREPOS0010E": _("GPG key must be a URL pointing to the ASCII-armored file."),
     "KCHREPOS0011E": _("Could not update repository %(repo_id)s."),
     "KCHREPOS0012E": _("Repository %(repo_id)s does not exist."),
-    "KCHREPOS0013E": _("Specify repository base URL or mirror list in order to create a YUM repository."),
+    "KCHREPOS0013E": _("Specify repository base URL or mirror list in order to create or update a YUM repository."),
     "KCHREPOS0014E": _("Repository management tool was not recognized for your system."),
     "KCHREPOS0015E": _("Repository %(repo_id)s is already enabled."),
     "KCHREPOS0016E": _("Repository %(repo_id)s is already disabled."),
