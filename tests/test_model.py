@@ -37,6 +37,7 @@ import iso_gen
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
+from kimchi.basemodel import Singleton
 from kimchi.config import config
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
@@ -51,15 +52,32 @@ invalid_repository_urls = ['www.fedora.org',       # missing protocol
                            'http://www.fedora',    # invalid domain name
                            'file:///home/foobar']  # invalid path
 
+ISO_PATH = '/tmp/kimchi-model-iso/'
+UBUNTU_ISO = ISO_PATH + 'ubuntu12.04.iso'
+
+
+def setUpModule():
+    if not os.path.exists(ISO_PATH):
+        os.makedirs(ISO_PATH)
+
+    iso_gen.construct_fake_iso(UBUNTU_ISO, True, '12.04', 'ubuntu')
+
+    # Some FeatureTests functions depend on server to validate their result.
+    # As CapabilitiesModel is a Singleton class it will get the first result
+    # from FeatureTests which may be wrong when using the Model instance
+    # directly - the case of this test_model.py
+    # So clean Singleton instances to make sure to get the right result when
+    # running the following tests.
+    Singleton._instances = {}
+
+
+def tearDownModule():
+    shutil.rmtree(ISO_PATH)
+
 
 class ModelTests(unittest.TestCase):
     def setUp(self):
         self.tmp_store = '/tmp/kimchi-store-test'
-        self.iso_path = '/tmp/kimchi-model-iso/'
-        if not os.path.exists(self.iso_path):
-            os.makedirs(self.iso_path)
-        self.kimchi_iso = self.iso_path + 'ubuntu12.04.iso'
-        iso_gen.construct_fake_iso(self.kimchi_iso, True, '12.04', 'ubuntu')
 
     def tearDown(self):
         # FIXME: Tests using 'test:///default' URI should be moved to
@@ -67,7 +85,6 @@ class ModelTests(unittest.TestCase):
         LibvirtConnection._connections['test:///default'] = {}
 
         os.unlink(self.tmp_store)
-        shutil.rmtree(self.iso_path)
 
     def test_vm_info(self):
         inst = model.Model('test:///default', self.tmp_store)
@@ -111,7 +128,7 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': 'test', 'disks': [{'base': vol['path'],
                                                  'size': 1}],
-                      'cdrom': self.kimchi_iso}
+                      'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -249,7 +266,7 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+        params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
         inst.templates_create(params)
         with RollbackContext() as rollback:
             params = {'name': 'kimchi-vnc', 'template': '/templates/test'}
@@ -276,7 +293,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_ifaces(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': 'kimchi-ifaces', 'template': '/templates/test'}
@@ -382,7 +399,7 @@ class ModelTests(unittest.TestCase):
             inst.task_wait(task_id)
 
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name, 'template': '/templates/test'}
@@ -419,7 +436,7 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(
                 InvalidParameter, inst.vmstorages_create, vm_name, disk_args)
 
-            old_distro_iso = self.iso_path + 'rhel4_8.iso'
+            old_distro_iso = ISO_PATH + 'rhel4_8.iso'
             iso_gen.construct_fake_iso(old_distro_iso, True, '4.8', 'rhel')
 
             vm_name = 'kimchi-ide-bus-vm'
@@ -446,7 +463,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name, 'template': '/templates/test'}
@@ -541,7 +558,7 @@ class ModelTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [{'size': 1}],
-                      'cdrom': self.kimchi_iso}
+                      'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -561,7 +578,7 @@ class ModelTests(unittest.TestCase):
                            objstore_loc=self.tmp_store)
 
         orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1',
-                       'cdrom': self.kimchi_iso}
+                       'cdrom': UBUNTU_ISO}
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
@@ -845,7 +862,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': u'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            params = {'name': u'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -868,7 +885,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso}
+            params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -935,7 +952,7 @@ class ModelTests(unittest.TestCase):
                            objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [], 'cdrom': self.kimchi_iso,
+            params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO,
                       'storagepool': '/storagepools/default-pool',
                       'domain': 'test',
                       'arch': 'i686'}
