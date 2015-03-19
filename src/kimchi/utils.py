@@ -392,7 +392,8 @@ def get_unique_file_name(all_names, name):
 
 def servermethod(f):
     def wrapper(*args, **kwargs):
-        if str(cherrypy.engine.state) != "states.STARTED":
+        server_state = str(cherrypy.engine.state)
+        if server_state not in ["states.STARTED", "states.STARTING"]:
             return False
         return f(*args, **kwargs)
     return wrapper
