@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -84,6 +84,8 @@ class CPUInfoModel(object):
             if not rc:
                 self.threads_per_core = int(out.split()[-1])
             self.sockets = self.cores_present/self.threads_per_core
+            if self.sockets == 0:
+                self.sockets = 1
             self.cores_per_socket = self.cores_present/self.sockets
         else:
             # Intel or AMD
