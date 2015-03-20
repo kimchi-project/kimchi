@@ -294,6 +294,7 @@ class StorageVolumeModel(object):
         self.objstore = kargs['objstore']
         self.task = TaskModel(**kargs)
         self.storagevolumes = StorageVolumesModel(**kargs)
+        self.storagepool = StoragePoolModel(**kargs)
 
     @staticmethod
     def get_storagevolume(poolname, name, conn):
@@ -321,6 +322,21 @@ class StorageVolumeModel(object):
             # infomation. When there is no format information, we assume
             # it's 'raw'.
             fmt = 'raw'
+
+        iso_img = None
+
+        # 'raw' volumes from 'logical' pools may actually be 'iso';
+        # libvirt always reports them as 'raw'
+        pool_info = self.storagepool.lookup(pool)
+        if pool_info['type'] == 'logical' and fmt == 'raw':
+            try:
+                iso_img = IsoImage(path)
+            except IsoFormatError:
+                # not 'iso' afterall
+                pass
+            else:
+                fmt = 'iso'
+
         ref_cnt = get_disk_ref_cnt(self.objstore, self.conn, path)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
@@ -333,7 +349,8 @@ class StorageVolumeModel(object):
                 path = os.path.join(os.path.dirname(path), os.readlink(path))
             os_distro = os_version = 'unknown'
             try:
-                iso_img = IsoImage(path)
+                if iso_img is None:
+                    iso_img = IsoImage(path)
                 os_distro, os_version = iso_img.probe()
                 bootable = True
             except IsoFormatError:
