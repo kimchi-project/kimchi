@@ -33,6 +33,7 @@ from kimchi import model, vnc
 from kimchi.config import READONLY_POOL_TYPE, config
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.kvmusertests import UserTests
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.tasks import TaskModel
 from kimchi.model.templates import TemplateModel
@@ -946,8 +947,10 @@ class VMModel(object):
         xml = dom.XMLDesc(0)
         xpath = "/domain/devices/disk[@device='cdrom']/source/@file"
         isofiles = xpath_get_text(xml, xpath)
+
+        user = UserTests.probe_user()
         for iso in isofiles:
-            run_setfacl_set_attr(iso)
+            run_setfacl_set_attr(iso, user=user)
 
         dom = self.get_vm(name, self.conn)
         try:
