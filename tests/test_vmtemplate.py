@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ import unittest
 import uuid
 
 
+from kimchi.osinfo import get_template_default
 from kimchi.vmtemplate import VMTemplate
 from kimchi.xmlutils.utils import xpath_get_text
 
@@ -35,10 +36,13 @@ class VMTemplateTests(unittest.TestCase):
         os.unlink(self.iso)
 
     def test_minimal_construct(self):
+        disk_bus = get_template_default('old', 'disk_bus')
+        memory = get_template_default('old', 'memory')
+        nic_model = get_template_default('old', 'nic_model')
         fields = (('name', 'test'), ('os_distro', 'unknown'),
                   ('os_version', 'unknown'), ('cpus', 1),
-                  ('memory', 1024), ('networks', ['default']),
-                  ('disk_bus', 'ide'), ('nic_model', 'e1000'),
+                  ('memory', memory), ('networks', ['default']),
+                  ('disk_bus', disk_bus), ('nic_model', nic_model),
                   ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}),
                   ('cdrom', self.iso))
 

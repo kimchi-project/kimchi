@@ -28,6 +28,7 @@ import kimchi.mockmodel
 from utils import get_free_port, patch_auth, request, run_server
 from utils import wait_task
 from kimchi.control.base import Collection, Resource
+from kimchi.osinfo import get_template_default
 
 
 test_server = None
@@ -158,7 +159,8 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('shutoff', info['state'])
         self.assertEquals('test-vm', info['name'])
-        self.assertEquals(1024, info['memory'])
+        self.assertEquals(get_template_default('old', 'memory'),
+                          info['memory'])
         self.assertEquals(1, info['cpus'])
         self.assertEquals('images/icon-vm.png', info['icon'])
         self.assertEquals(stats_keys, set(info['stats'].keys()))
