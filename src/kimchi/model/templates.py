@@ -28,7 +28,7 @@ from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.kvmusertests import UserTests
 from kimchi.model.cpuinfo import CPUInfoModel
 from kimchi.utils import pool_name_from_uri
-from kimchi.utils import probe_file_permission_as_user
+from kimchi.utils import probe_file_permission_as_user, run_setfacl_set_attr
 from kimchi.vmtemplate import VMTemplate
 from kimchi.xmlutils.utils import xpath_get_text
 
@@ -46,6 +46,7 @@ class TemplatesModel(object):
             st_mode = os.stat(iso).st_mode
             if stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode):
                 user = UserTests().probe_user()
+                run_setfacl_set_attr(iso, user=user)
                 ret, excp = probe_file_permission_as_user(iso, user)
                 if ret is False:
                     raise InvalidParameter('KCHISO0008E',
