@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -425,19 +425,9 @@ kimchi.template_add_main = function() {
 };
 
 kimchi.template_check_url = function(url) {
-    var protocols = "((https|http|ftp|ftps|tftp)?://)?",
-        userinfo = "(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-z_!~*'().&=+$%-]+@)?",
-        ip = "(\\d{1,3}\.){3}\\d{1,3}",
-        domain = "([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}",
-        port = "(:\\d{1,5})?",
-        address = "(/[\\w!~*'().;?:@&=+$,%#-]+)+",
-        domaintype = [ protocols, userinfo, domain, port, address ],
-        ipType = [ protocols, userinfo, ip, port, address ],
-        validate = function(type) {
-            return new RegExp('^' + type.join('') + '$');
-        };
+    var reg = /(https|http|ftp|ftps|tftp):\/\//;
     if (url.constructor === String) {
-        return validate(domaintype).test(url) || validate(ipType).test(url);
+        return reg.test(url);
     }
     return false;
 };
