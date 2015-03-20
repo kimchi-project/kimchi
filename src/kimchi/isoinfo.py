@@ -22,6 +22,7 @@ import glob
 import platform
 import os
 import re
+import stat
 import struct
 import sys
 import urllib2
@@ -151,8 +152,10 @@ class IsoImage(object):
         self._scan()
 
     def _is_iso_remote(self):
-        if os.path.isfile(self.path):
-            return False
+        if os.path.exists(self.path):
+            st_mode = os.stat(self.path).st_mode
+            if stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode):
+                return False
 
         if check_url_path(self.path):
             return True

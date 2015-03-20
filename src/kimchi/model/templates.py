@@ -19,6 +19,7 @@
 
 import copy
 import os
+import stat
 
 import libvirt
 
@@ -41,13 +42,15 @@ class TemplatesModel(object):
         name = params.get('name', '').strip()
         iso = params.get('cdrom')
         # check search permission
-        if iso and iso.startswith('/') and os.path.isfile(iso):
-            user = UserTests().probe_user()
-            ret, excp = probe_file_permission_as_user(iso, user)
-            if ret is False:
-                raise InvalidParameter('KCHISO0008E',
-                                       {'filename': iso, 'user': user,
-                                        'err': excp})
+        if iso and iso.startswith('/') and os.path.exists(iso):
+            st_mode = os.stat(iso).st_mode
+            if stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode):
+                user = UserTests().probe_user()
+                ret, excp = probe_file_permission_as_user(iso, user)
+                if ret is False:
+                    raise InvalidParameter('KCHISO0008E',
+                                           {'filename': iso, 'user': user,
+                                            'err': excp})
 
         cpu_info = params.get('cpu_info')
         if cpu_info:

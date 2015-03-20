@@ -19,6 +19,7 @@
 
 import os
 import socket
+import stat
 import time
 import urlparse
 import uuid
@@ -403,8 +404,13 @@ class VMTemplate(object):
         # validate iso integrity
         # FIXME when we support multiples cdrom devices
         iso = self.info.get('cdrom')
-        if iso and not (os.path.isfile(iso) or check_url_path(iso)):
-            invalid['cdrom'] = [iso]
+        if iso:
+            if os.path.exists(iso):
+                st_mode = os.stat(iso).st_mode
+                if not (stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode)):
+                    invalid['cdrom'] = [iso]
+            elif not check_url_path(iso):
+                invalid['cdrom'] = [iso]
 
         self.info['invalid'] = invalid
 
