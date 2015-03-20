@@ -33,6 +33,7 @@ from functools import partial
 import iso_gen
 import kimchi.mockmodel
 import kimchi.server
+from kimchi.osinfo import get_template_default
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
 from utils import fake_auth_header, get_free_port, patch_auth, request
@@ -730,7 +731,8 @@ class RestTests(unittest.TestCase):
                                               iface['mac']).read())
                 self.assertEquals('default', res['network'])
                 self.assertEquals(17, len(res['mac']))
-                self.assertEquals('e1000', res['model'])
+                self.assertEquals(get_template_default('old', 'nic_model'),
+                                  res['model'])
 
             # attach network interface to vm
             req = json.dumps({"type": "network",
@@ -957,7 +959,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals('test', t['name'])
         self.assertEquals('unknown', t['os_distro'])
         self.assertEquals('unknown', t['os_version'])
-        self.assertEquals(1024, t['memory'])
+        self.assertEquals(get_template_default('old', 'memory'), t['memory'])
 
         # Deactivate or destroy scan pool return 405
         resp = self.request('/storagepools/kimchi_isos/storagevolumes'
