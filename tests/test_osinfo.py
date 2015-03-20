@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,8 @@
 import unittest
 
 
-from kimchi.osinfo import lookup, modern_version_bases, _get_arch
+from kimchi.osinfo import _get_arch, get_template_default, lookup
+from kimchi.osinfo import modern_version_bases
 
 
 class OSInfoTests(unittest.TestCase):
@@ -35,20 +36,35 @@ class OSInfoTests(unittest.TestCase):
                         'centos': '5.1', 'rhel': '5.1', 'fedora': '15'}
         for distro, version in old_versions.iteritems():
             entry = lookup(distro, version)
-            self.assertEquals(entry['disk_bus'], 'ide')
-            self.assertEquals(entry['nic_model'], 'e1000')
+            self.assertEquals(entry['disk_bus'],
+                              get_template_default('old', 'disk_bus'))
+            self.assertEquals(entry['nic_model'],
+                              get_template_default('old', 'nic_model'))
 
     def test_modern_bases(self):
         for distro, version in modern_version_bases[_get_arch()].iteritems():
             entry = lookup(distro, version)
-            self.assertEquals(entry['disk_bus'], 'virtio')
-            self.assertEquals(entry['nic_model'], 'virtio')
+            self.assertEquals(entry['disk_bus'],
+                              get_template_default('modern', 'disk_bus'))
+            self.assertEquals(entry['nic_model'],
+                              get_template_default('modern', 'nic_model'))
 
     def test_modern_distros(self):
-        modern_versions = {'debian': '7.0', 'ubuntu': '12.04',
-                           'opensuse': '12.3', 'centos': '6.4', 'rhel': '6.3',
-                           'fedora': '18', 'gentoo': '12.1'}
+        # versions based on ppc64 modern distros
+        modern_versions = {'ubuntu': '14.04', 'opensuse': '13.1',
+                           'rhel': '6.5', 'fedora': '19', 'sles': '11sp3'}
         for distro, version in modern_versions.iteritems():
             entry = lookup(distro, version)
-            self.assertEquals(entry['disk_bus'], 'virtio')
-            self.assertEquals(entry['nic_model'], 'virtio')
+            self.assertEquals(entry['disk_bus'],
+                              get_template_default('modern', 'disk_bus'))
+            self.assertEquals(entry['nic_model'],
+                              get_template_default('modern', 'nic_model'))
+
+    def test_lookup_unknown_distro_version_returns_old_distro(self):
+        distro = 'unknown_distro'
+        version = 'unknown_version'
+        entry = lookup(distro, version)
+        self.assertEquals(entry['disk_bus'],
+                          get_template_default('old', 'disk_bus'))
+        self.assertEquals(entry['nic_model'],
+                          get_template_default('old', 'nic_model'))
