@@ -104,6 +104,15 @@ def _get_arch():
             return arch
 
 
+def get_template_default(template_type, field):
+    host_arch = _get_arch()
+    # Assuming 'power' = 'ppc64le' because lookup() does the same,
+    # claiming libvirt compatibility.
+    if host_arch in ('power', 'ppc64le'):
+        return template_specs['power'][template_type][field]
+    return template_specs[host_arch][template_type][field]
+
+
 def lookup(distro, version):
     """
     Lookup all parameters needed to run a VM of a known or unknown operating
