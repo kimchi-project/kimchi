@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-25 16:00-0300\n"
+"POT-Creation-Date: 2015-03-23 09:36-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -942,6 +942,14 @@ msgstr ""
 msgid "Unable to choose a virtual machine name"
 msgstr ""
 
+#, python-format
+msgid "Invalid data value '%(value)s'"
+msgstr ""
+
+#, python-format
+msgid "Invalid data unit '%(unit)s'"
+msgstr ""
+
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "Tipo di memoria non valido. I tipi supportati sono: 'cdrom'"
 
@@ -1053,11 +1061,9 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "Il repository %(repo_id)s non esiste."
 
 msgid ""
-"Specify repository base URL or mirror list in order to create a YUM "
-"repository."
+"Specify repository base URL or mirror list in order to create or update a "
+"YUM repository."
 msgstr ""
-"Specificare l'URL di base del repository o l'elenco di elementi speculari "
-"per poter creare un repository YUM."
 
 msgid "Repository management tool was not recognized for your system."
 msgstr ""
