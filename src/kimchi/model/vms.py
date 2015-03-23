@@ -449,6 +449,10 @@ class VMModel(object):
 
         vir_conn = self.conn.get()
 
+        def _delete_disk_from_objstore(path):
+            with self.objstore as session:
+                session.delete('storagevolume', path)
+
         for i, path in enumerate(all_paths):
             try:
                 vir_orig_vol = vir_conn.storageVolLookupByPath(path)
@@ -517,6 +521,11 @@ class VMModel(object):
             new_vol = self.storagevolume.lookup(new_pool_name, new_vol_name)
             xml = xml_item_update(xml, XPATH_DOMAIN_DISK_BY_FILE % path,
                                   new_vol['path'], 'file')
+
+            # set the new disk's ref_cnt
+            with self.objstore as session:
+                session.store('storagevolume', new_vol['path'], {'ref_cnt': 1})
+            rollback.prependDefer(_delete_disk_from_objstore, new_vol['path'])
 
             # remove the new volume should an error occur later
             rollback.prependDefer(self.storagevolume.delete, new_pool_name,
