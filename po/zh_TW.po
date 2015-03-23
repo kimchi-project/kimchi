@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-25 16:00-0300\n"
+"POT-Creation-Date: 2015-03-23 09:36-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -853,6 +853,14 @@ msgstr "執行指令 '%(cmd)s' %(seconds)s 秒之後逾時"
 msgid "Unable to choose a virtual machine name"
 msgstr ""
 
+#, python-format
+msgid "Invalid data value '%(value)s'"
+msgstr ""
+
+#, python-format
+msgid "Invalid data unit '%(unit)s'"
+msgstr ""
+
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "儲存體類型無效。受支援的類型：'cdrom'"
 
@@ -955,9 +963,9 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "儲存庫 %(repo_id)s 不存在。"
 
 msgid ""
-"Specify repository base URL or mirror list in order to create a YUM "
-"repository."
-msgstr "指定儲存庫基本 URL 或鏡映清單以建立 YUM 儲存庫。"
+"Specify repository base URL or mirror list in order to create or update a "
+"YUM repository."
+msgstr ""
 
 msgid "Repository management tool was not recognized for your system."
 msgstr "未能辨識系統的儲存庫管理工具。"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-25 16:00-0300\n"
+"POT-Creation-Date: 2015-03-23 09:36-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -898,6 +898,14 @@ msgstr "%(seconds)s초 후에 '%(cmd)s' 명령 실행 중 제한시간이 초과
 msgid "Unable to choose a virtual machine name"
 msgstr ""
 
+#, python-format
+msgid "Invalid data value '%(value)s'"
+msgstr ""
+
+#, python-format
+msgid "Invalid data unit '%(unit)s'"
+msgstr ""
+
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "올바르지 않은 스토리지 유형입니다. 지원되는 유형: 'cdrom'"
 
@@ -1000,9 +1008,9 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "%(repo_id)s 저장소가 없습니다."
 
 msgid ""
-"Specify repository base URL or mirror list in order to create a YUM "
-"repository."
-msgstr "YUM 저장소를 작성하려면 저장소 기본 URL 또는 미러 목록을 지정하십시오."
+"Specify repository base URL or mirror list in order to create or update a "
+"YUM repository."
+msgstr ""
 
 msgid "Repository management tool was not recognized for your system."
 msgstr "해당 시스템에 대한 저장소 관리 도구가 인식되지 않았습니다."
