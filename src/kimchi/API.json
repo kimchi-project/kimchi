@@ -319,6 +319,7 @@
                     "description": "The name of the new network",
                     "type": "string",
                     "minLength": 1,
+                    "pattern": "^[^/\"]*$",
                     "required": true,
                     "error": "KCHNET0011E"
                 },
