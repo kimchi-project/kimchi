@@ -83,7 +83,7 @@ messages = {
     "KCHVM0008E": _("Unable to update virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0009E": _("Unable to retrieve virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0010E": _("Unable to connect to powered off virtual machine %(name)s."),
-    "KCHVM0011E": _("Virtual machine name must be a string"),
+    "KCHVM0011E": _("Virtual machine name must be a string without slashes (/)"),
     "KCHVM0012E": _("Invalid template URI %(value)s specified for virtual machine"),
     "KCHVM0013E": _("Invalid storage pool URI %(value)s specified for virtual machine"),
     "KCHVM0014E": _("Supported virtual machine graphics are Spice or VNC"),

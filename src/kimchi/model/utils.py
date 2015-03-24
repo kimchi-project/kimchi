@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,8 @@ def get_vm_name(vm_name, t_name, name_list):
     if vm_name:
         return vm_name
     for i in xrange(1, 1000):
-        vm_name = "%s-vm-%i" % (t_name, i)
+        # VM will have templace name, but without slashes
+        vm_name = "%s-vm-%i" % (t_name.replace('/', '-'), i)
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("KCHUTILS0003E")
