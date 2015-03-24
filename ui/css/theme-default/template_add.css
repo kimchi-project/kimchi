@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@
     float: left; display : block;
     width: 50px;
     height: 52px;
-    background: url(../../images/theme-default/icon-back.png) center
+    background: url(../images/theme-default/icon-back.png) center
                 center no-repeat;
     cursor: pointer;
     display: block;
@@ -59,17 +59,17 @@
     margin: 0 10px 10px;
     padding: 20px 10px 20px 65px;
     border: 2px solid #ccc;
-    background: url(../../images/theme-default/icon-local.png) 15px
+    background: url(../images/theme-default/icon-local.png) 15px
                 center no-repeat;
     cursor: pointer;
 }
 
 .step-choose>li>a.local {
-    background-image: url(../../images/theme-default/icon-local.png);
+    background-image: url(../images/theme-default/icon-local.png);
 }
 
 .step-choose>li>a.remote {
-    background-image: url(../../images/theme-default/icon-remote.png);
+    background-image: url(../images/theme-default/icon-remote.png);
 }
 
 .step-choose>li>a:HOVER {
@@ -176,27 +176,27 @@
 }
 
 .iso-icon.centos {
-    background-image: url(../../images/icon-centos.png);
+    background-image: url(../images/icon-centos.png);
 }
 
 .iso-icon.debian {
-    background-image: url(../../images/icon-debian.png);
+    background-image: url(../images/icon-debian.png);
 }
 
 .iso-icon.fedora {
-    background-image: url(../../images/icon-fedora.png);
+    background-image: url(../images/icon-fedora.png);
 }
 
 .iso-icon.opensuse {
-    background-image: url(../../images/icon-opensuse.png);
+    background-image: url(../images/icon-opensuse.png);
 }
 
 .iso-icon.ubuntu {
-    background-image: url(../../images/icon-ubuntu.png);
+    background-image: url(../images/icon-ubuntu.png);
 }
 
 .iso-icon.gentoo {
-    background-image: url(../../images/icon-gentoo.png);
+    background-image: url(../images/icon-gentoo.png);
 }
 
 .list-iso {

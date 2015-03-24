@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ kimchi.login_main = function() {
                 var next_url = lastPage ? lastPage.replace(/\"/g,'') : "/";
             }
             kimchi.cookie.set('roles',JSON.stringify(data.roles));
-            window.location.replace(next_url)
+            window.location.replace(window.location.pathname.replace(/\/+login.html/, '') + next_url)
         }, function() {
             $("#messUserPass").show();
             $("#messSession").hide();
