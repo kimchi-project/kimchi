@@ -91,6 +91,7 @@
                     "description": "The name of the Storage Pool",
                     "type": "string",
                     "minLength": 1,
+                    "pattern": "^[^/]*$",
                     "required": true,
                     "error": "KCHPOOL0016E"
                 },

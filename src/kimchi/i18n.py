@@ -166,7 +166,7 @@ messages = {
     "KCHPOOL0013E": _("Unable to create NFS Pool as export path %(path)s mount failed"),
     "KCHPOOL0014E": _("Unsupported storage pool type: %(type)s"),
     "KCHPOOL0015E": _("Error while retrieving storage pool XML to %(pool)s"),
-    "KCHPOOL0016E": _("Storage pool name must be a string"),
+    "KCHPOOL0016E": _("Storage pool name must be a string without slashes (/)"),
     "KCHPOOL0017E": _("Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-iso"),
     "KCHPOOL0018E": _("Storage pool path must be a string"),
     "KCHPOOL0019E": _("Storage pool host must be a IP or hostname"),
