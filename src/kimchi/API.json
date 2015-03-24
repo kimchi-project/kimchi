@@ -228,6 +228,7 @@
                 "name": {
                     "description": "The name of the new VM",
                     "type": "string",
+                    "pattern": "^[^/]*$",
                     "error": "KCHVM0011E"
                 },
                 "template": {
@@ -252,6 +253,7 @@
                 "name": {
                     "description": "New name of VM",
                     "type": "string",
+                    "pattern": "^[^/]*$",
                     "minLength": 1,
                     "error": "KCHVM0011E"
                 },
