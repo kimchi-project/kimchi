@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,7 @@ def _get_dev_major_min(name):
     dev_list = _get_lsblk_devs(keys)
 
     for dev in dev_list:
-        if dev['name'] == name:
+        if dev['name'].split()[0] == name:
             maj_min = dev['maj:min']
             break
     else:
