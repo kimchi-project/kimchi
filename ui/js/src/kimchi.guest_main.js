@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -261,7 +261,10 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     guestTitle.html(vmObject.name);
 
     //Setup the VM console thumbnail display
-    var curImg = vmObject.screenshot || vmObject.icon;
+    var curImg = vmObject.icon;
+    if (vmObject.screenshot) {
+        curImg = vmObject.screenshot.replace(/^\//,'');
+    }
     var load_src = curImg || 'images/icon-vm.png';
     var tile_src = prevScreenImage || vmObject['load-src'];
     var liveTile=result.find('div[name=guest-tile] > .tile');

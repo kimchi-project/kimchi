@@ -54,7 +54,7 @@ var kimchi = {
     getCapabilities : function(suc, err, done) {
         done = typeof done !== 'undefined' ? done: function(){};
         kimchi.requestJSON({
-            url : "/config/capabilities",
+            url : "config/capabilities",
             type : "GET",
             contentType : "application/json",
             dataType : "json",
@@ -69,7 +69,7 @@ var kimchi = {
      */
     getI18n: function(suc, err, url, sync) {
         kimchi.requestJSON({
-            url : url ? url : kimchi.url + 'i18n.json',
+            url : url ? url : 'i18n.json',
             type : 'GET',
             resend: true,
             dataType : 'json',
@@ -84,7 +84,7 @@ var kimchi = {
      */
     getHost: function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host',
+            url : 'host',
             type : 'GET',
             resend: true,
             contentType : 'application/json',
@@ -99,7 +99,7 @@ var kimchi = {
      */
     getHostStats : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/stats',
+            url : 'host/stats',
             type : 'GET',
             contentType : 'application/json',
             headers: {'Kimchi-Robot': 'kimchi-robot'},
@@ -114,7 +114,7 @@ var kimchi = {
      */
     getHostStatsHistory : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/stats/history',
+            url : 'host/stats/history',
             type : 'GET',
             resend: true,
             contentType : 'application/json',
@@ -138,7 +138,7 @@ var kimchi = {
      */
     createVM : function(settings, suc, err) {
         kimchi.requestJSON({
-            url : "/vms",
+            url : "vms",
             type : "POST",
             contentType : "application/json",
             data : JSON.stringify(settings),
@@ -154,7 +154,7 @@ var kimchi = {
      */
     createTemplate : function(settings, suc, err) {
         kimchi.requestJSON({
-            url : "/templates",
+            url : "templates",
             type : "POST",
             contentType : "application/json",
             data : JSON.stringify(settings),
@@ -166,7 +166,7 @@ var kimchi = {
 
     deleteTemplate : function(tem, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'templates/' + encodeURIComponent(tem),
+            url : 'templates/' + encodeURIComponent(tem),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -177,7 +177,7 @@ var kimchi = {
 
     cloneTemplate : function(tem, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'templates/' + encodeURIComponent(tem) + "/clone",
+            url : 'templates/' + encodeURIComponent(tem) + "/clone",
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -188,7 +188,7 @@ var kimchi = {
 
     listTemplates : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'templates',
+            url : 'templates',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -202,7 +202,7 @@ var kimchi = {
      */
     retrieveTemplate : function(templateName, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + "templates/" + encodeURIComponent(templateName),
+            url : "templates/" + encodeURIComponent(templateName),
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json'
@@ -216,7 +216,7 @@ var kimchi = {
      */
     updateTemplate : function(name, settings, suc, err) {
         $.ajax({
-            url : kimchi.url + "templates/" + encodeURIComponent(name),
+            url : "templates/" + encodeURIComponent(name),
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -232,7 +232,7 @@ var kimchi = {
      */
     createStoragePool : function(settings, suc, err) {
         kimchi.requestJSON({
-            url : '/storagepools',
+            url : 'storagepools',
             type : 'POST',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -242,7 +242,7 @@ var kimchi = {
 
     updateStoragePool : function(name, content, suc, err) {
         $.ajax({
-            url : kimchi.url + "storagepools/" + encodeURIComponent(name),
+            url : "storagepools/" + encodeURIComponent(name),
             type : 'PUT',
             contentType : 'application/json',
             dataType : 'json',
@@ -254,7 +254,7 @@ var kimchi = {
 
     startVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/start',
+            url : 'vms/' + encodeURIComponent(vm) + '/start',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -265,7 +265,7 @@ var kimchi = {
 
     poweroffVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/poweroff',
+            url : 'vms/' + encodeURIComponent(vm) + '/poweroff',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -276,7 +276,7 @@ var kimchi = {
 
     shutdownVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/shutdown',
+            url : 'vms/' + encodeURIComponent(vm) + '/shutdown',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -287,7 +287,7 @@ var kimchi = {
 
     resetVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) + '/reset',
+            url : 'vms/' + encodeURIComponent(vm) + '/reset',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -305,7 +305,7 @@ var kimchi = {
      */
     retrieveVM : function(vm, suc, err) {
         $.ajax({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm),
+            url : 'vms/' + encodeURIComponent(vm),
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -319,7 +319,7 @@ var kimchi = {
      */
     updateVM : function(name, settings, suc, err) {
         $.ajax({
-            url : kimchi.url + "vms/" + encodeURIComponent(name),
+            url : "vms/" + encodeURIComponent(name),
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -331,7 +331,7 @@ var kimchi = {
 
     deleteVM : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm),
+            url : 'vms/' + encodeURIComponent(vm),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -342,13 +342,13 @@ var kimchi = {
 
     vncToVM : function(vm) {
         kimchi.requestJSON({
-            url : '/config',
+            url : 'config',
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
             proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
-                url : "/vms/" + encodeURIComponent(vm) + "/connect",
+                url : "vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function() {
@@ -374,13 +374,13 @@ var kimchi = {
 
     spiceToVM : function(vm) {
         kimchi.requestJSON({
-            url : '/config',
+            url : 'config',
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
             proxy_port = data['display_proxy_port'];
             kimchi.requestJSON({
-                url : "/vms/" + encodeURIComponent(vm) + "/connect",
+                url : "vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function(data, textStatus, xhr) {
@@ -406,7 +406,7 @@ var kimchi = {
 
     listVMs : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms',
+            url : 'vms',
             type : 'GET',
             contentType : 'application/json',
             headers: {'Kimchi-Robot': 'kimchi-robot'},
@@ -419,7 +419,7 @@ var kimchi = {
 
     listTemplates : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'templates',
+            url : 'templates',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -431,7 +431,7 @@ var kimchi = {
 
     listStoragePools : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'storagepools',
+            url : 'storagepools',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -443,7 +443,7 @@ var kimchi = {
 
     listStorageVolumes : function(poolName, suc, err) {
         $.ajax({
-            url : kimchi.url + 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes',
+            url : 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -454,7 +454,7 @@ var kimchi = {
 
     listIsos : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'storagepools/kimchi_isos/storagevolumes',
+            url : 'storagepools/kimchi_isos/storagevolumes',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -465,7 +465,7 @@ var kimchi = {
 
     listDistros : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'config/distros',
+            url : 'config/distros',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -527,7 +527,7 @@ var kimchi = {
 
     getTask : function(taskId, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'tasks/' + encodeURIComponent(taskId),
+            url : 'tasks/' + encodeURIComponent(taskId),
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -538,7 +538,7 @@ var kimchi = {
 
     getTasksByFilter : function(filter, suc, err, sync) {
         kimchi.requestJSON({
-            url : kimchi.url + 'tasks?' + filter,
+            url : 'tasks?' + filter,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -550,7 +550,7 @@ var kimchi = {
 
     login : function(settings, suc, err) {
         $.ajax({
-            url : "/login",
+            url : "login",
             type : "POST",
             contentType : "application/json",
             data : JSON.stringify(settings),
@@ -560,7 +560,7 @@ var kimchi = {
 
     logout : function(suc, err) {
         kimchi.requestJSON({
-            url : '/logout',
+            url : 'logout',
             type : 'POST',
             contentType : "application/json",
             dataType : "json"
@@ -569,7 +569,7 @@ var kimchi = {
 
     deleteStoragePool : function(poolName, suc, err) {
         $.ajax({
-            url : kimchi.url + 'storagepools/' + encodeURIComponent(poolName),
+            url : 'storagepools/' + encodeURIComponent(poolName),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -581,7 +581,7 @@ var kimchi = {
     changePoolState : function(poolName, state, suc, err) {
         if (state === 'activate' || state === 'deactivate')
             $.ajax({
-                url : kimchi.url + 'storagepools/' + encodeURIComponent(poolName) + '/' + state,
+                url : 'storagepools/' + encodeURIComponent(poolName) + '/' + state,
                 type : 'POST',
                 contentType : 'application/json',
                 dataType : 'json',
@@ -592,7 +592,7 @@ var kimchi = {
 
     listPlugins : function(suc, err, sync) {
         kimchi.requestJSON({
-            url : kimchi.url + 'plugins',
+            url : 'plugins',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -605,7 +605,7 @@ var kimchi = {
 
     listNetworks : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'networks',
+            url : 'networks',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -620,7 +620,7 @@ var kimchi = {
     toggleNetwork : function(name, on, suc, err) {
         var action = on ? "activate" : "deactivate";
         kimchi.requestJSON({
-            url : kimchi.url + 'networks/' + encodeURIComponent(name) + '/' + action,
+            url : 'networks/' + encodeURIComponent(name) + '/' + action,
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -633,7 +633,7 @@ var kimchi = {
 
     createNetwork : function(network, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'networks',
+            url : 'networks',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -647,7 +647,7 @@ var kimchi = {
 
     getInterfaces : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'interfaces',
+            url : 'interfaces',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -661,7 +661,7 @@ var kimchi = {
 
     deleteNetwork : function(name, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'networks/' + encodeURIComponent(name),
+            url : 'networks/' + encodeURIComponent(name),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -674,7 +674,7 @@ var kimchi = {
 
     listReports : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'debugreports',
+            url : 'debugreports',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -717,7 +717,7 @@ var kimchi = {
         };
 
         kimchi.requestJSON({
-            url : kimchi.url + 'debugreports',
+            url : 'debugreports',
             type : "POST",
             contentType : "application/json",
             data : JSON.stringify(settings),
@@ -729,7 +729,7 @@ var kimchi = {
 
     renameReport : function(name, settings, suc, err) {
         $.ajax({
-            url : kimchi.url + "debugreports/" + encodeURIComponent(name),
+            url : "debugreports/" + encodeURIComponent(name),
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -742,7 +742,7 @@ var kimchi = {
     deleteReport: function(settings, suc, err) {
         var reportName = encodeURIComponent(settings['name']);
         kimchi.requestJSON({
-            url : kimchi.url + 'debugreports/' + reportName,
+            url : 'debugreports/' + reportName,
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -757,7 +757,7 @@ var kimchi = {
 
     shutdown: function(settings, suc, err) {
         var reboot = settings && settings['reboot'] === true;
-        var url = kimchi.url + 'host/' + (reboot ? 'reboot' : 'shutdown');
+        var url = 'host/' + (reboot ? 'reboot' : 'shutdown');
         kimchi.requestJSON({
             url : url,
             type : 'POST',
@@ -770,7 +770,7 @@ var kimchi = {
 
     listHostPartitions : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/partitions',
+            url : 'host/partitions',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -780,7 +780,7 @@ var kimchi = {
     },
 
     getStorageServers: function(type, suc, err) {
-        var url = kimchi.url + 'storageservers?_target_type=' + type;
+        var url = 'storageservers?_target_type=' + type;
         kimchi.requestJSON({
             url : url,
             type : 'GET',
@@ -794,7 +794,7 @@ var kimchi = {
     },
 
     getStorageTargets: function(server,type, suc, err) {
-        var url = kimchi.url + 'storageservers/' + server + '/storagetargets?_target_type=' + type;
+        var url = 'storageservers/' + server + '/storagetargets?_target_type=' + type;
         kimchi.requestJSON({
             url : url,
             type : 'GET',
@@ -820,7 +820,7 @@ var kimchi = {
     },
 
     getStoragePoolVolume: function(poolName, volumeName, suc, err) {
-        var url = kimchi.url + 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName);
+        var url = 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName);
         kimchi.requestJSON({
             url : url,
             type : 'GET',
@@ -836,7 +836,7 @@ var kimchi = {
         var vm = encodeURIComponent(settings['vm']);
         delete settings['vm'];
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + vm + '/storages',
+            url : 'vms/' + vm + '/storages',
             type : 'POST',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -850,7 +850,7 @@ var kimchi = {
         var vm = encodeURIComponent(settings['vm']);
         var dev = encodeURIComponent(settings['dev']);
         kimchi.requestJSON({
-            url : kimchi.url + "vms/" + vm + '/storages/' + dev,
+            url : "vms/" + vm + '/storages/' + dev,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -863,7 +863,7 @@ var kimchi = {
         var vm = encodeURIComponent(settings['vm']);
         var dev = encodeURIComponent(settings['dev']);
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + vm + '/storages/' + dev,
+            url : 'vms/' + vm + '/storages/' + dev,
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify({
@@ -879,7 +879,7 @@ var kimchi = {
         var vm = settings['vm'];
         var dev = settings['dev'];
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/' + encodeURIComponent(vm) +
+            url : 'vms/' + encodeURIComponent(vm) +
                       '/storages/' + encodeURIComponent(dev),
             type : 'DELETE',
             contentType : 'application/json',
@@ -892,7 +892,7 @@ var kimchi = {
     listVMStorages : function(params, suc, err) {
         var vm = encodeURIComponent(params['vm']);
         var type = params['storageType'];
-        var url = kimchi.url + 'vms/' + vm + '/storages';
+        var url = 'vms/' + vm + '/storages';
         if(type) {
             url += '?type=' + type;
         }
@@ -908,7 +908,7 @@ var kimchi = {
 
     listSoftwareUpdates : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/packagesupdate',
+            url : 'host/packagesupdate',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -948,7 +948,7 @@ var kimchi = {
         };
 
         kimchi.requestJSON({
-            url : kimchi.url + 'host/swupdate',
+            url : 'host/swupdate',
             type : "POST",
             contentType : "application/json",
             dataType : "json",
@@ -972,7 +972,7 @@ var kimchi = {
     retrieveRepository : function(repository, suc, err) {
         var reposID = encodeURIComponent(repository);
         kimchi.requestJSON({
-            url : kimchi.url + "host/repositories/" + reposID,
+            url : "host/repositories/" + reposID,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -984,7 +984,7 @@ var kimchi = {
     updateRepository : function(name, settings, suc, err) {
         var reposID = encodeURIComponent(name);
         $.ajax({
-            url : kimchi.url + "host/repositories/" + reposID,
+            url : "host/repositories/" + reposID,
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify(settings),
@@ -997,7 +997,7 @@ var kimchi = {
     enableRepository : function(name, enable, suc, err) {
         var reposID = encodeURIComponent(name);
         $.ajax({
-            url : kimchi.url + "host/repositories/" + reposID +
+            url : "host/repositories/" + reposID +
                 '/' + (enable === true ? 'enable' : 'disable'),
             type : 'POST',
             contentType : 'application/json',
@@ -1010,7 +1010,7 @@ var kimchi = {
     deleteRepository : function(repository, suc, err) {
         var reposID = encodeURIComponent(repository);
         kimchi.requestJSON({
-            url : kimchi.url + 'host/repositories/' + reposID,
+            url : 'host/repositories/' + reposID,
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -1021,7 +1021,7 @@ var kimchi = {
 
     listRepositories : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/repositories',
+            url : 'host/repositories',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1032,7 +1032,7 @@ var kimchi = {
     },
 
     getHostFCDevices: function(suc, err) {
-        var url = kimchi.url+'host/devices?_cap=fc_host';
+        var url = 'host/devices?_cap=fc_host';
         kimchi.requestJSON({
             url : url,
             type : 'GET',
@@ -1046,7 +1046,7 @@ var kimchi = {
     },
 
     getGuestInterfaces: function(name, suc, err) {
-        var url = kimchi.url+'vms/'+encodeURIComponent(name)+'/ifaces';
+        var url = 'vms/'+encodeURIComponent(name)+'/ifaces';
         kimchi.requestJSON({
             url : url,
             type : 'GET',
@@ -1061,7 +1061,7 @@ var kimchi = {
 
     createGuestInterface : function(name, interface, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(name)+'/ifaces',
+            url : 'vms/'+encodeURIComponent(name)+'/ifaces',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -1075,7 +1075,7 @@ var kimchi = {
 
     deleteGuestInterface : function(vm, mac, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
+            url : 'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -1088,7 +1088,7 @@ var kimchi = {
 
     updateGuestInterface : function(vm, mac, interface, suc, err) {
         $.ajax({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
+            url : 'vms/'+encodeURIComponent(vm)+'/ifaces/'+encodeURIComponent(mac),
             type : 'PUT',
             contentType : 'application/json',
             data : JSON.stringify(interface),
@@ -1102,7 +1102,7 @@ var kimchi = {
 
     getUserById : function(data, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'users?_user_id=' + data.user_id,
+            url : 'users?_user_id=' + data.user_id,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1117,7 +1117,7 @@ var kimchi = {
 
     getUsers : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'users',
+            url : 'users',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1131,7 +1131,7 @@ var kimchi = {
 
     getGroups : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'groups',
+            url : 'groups',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1145,7 +1145,7 @@ var kimchi = {
 
     getHostPCIDevices : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/devices?_passthrough=true&_cap=pci',
+            url : 'host/devices?_passthrough=true&_cap=pci',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1159,7 +1159,7 @@ var kimchi = {
 
     getPCIDeviceCompanions : function(pcidev, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/devices?_passthrough_affected_by=' + pcidev,
+            url : 'host/devices?_passthrough_affected_by=' + pcidev,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1175,7 +1175,7 @@ var kimchi = {
         server = encodeURIComponent(server);
         port = port ? '&_server_port='+encodeURIComponent(port) : '';
         kimchi.requestJSON({
-            url : kimchi.url + 'storageservers/'+server+'/storagetargets?_target_type=iscsi'+port,
+            url : 'storageservers/'+server+'/storagetargets?_target_type=iscsi'+port,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1189,7 +1189,7 @@ var kimchi = {
 
     getPeers : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'peers',
+            url : 'peers',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1203,7 +1203,7 @@ var kimchi = {
 
     getVMPCIDevices : function(id, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/'+encodeURIComponent(id)+'/hostdevs',
+            url : 'vms/'+encodeURIComponent(id)+'/hostdevs',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1217,7 +1217,7 @@ var kimchi = {
 
     addVMPCIDevice : function(vm, device, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/'+ encodeURIComponent(vm) +'/hostdevs',
+            url : 'vms/'+ encodeURIComponent(vm) +'/hostdevs',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -1231,7 +1231,7 @@ var kimchi = {
 
     removeVMPCIDevice : function(vm, device, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/'+ encodeURIComponent(vm) +'/hostdevs/' + encodeURIComponent(device),
+            url : 'vms/'+ encodeURIComponent(vm) +'/hostdevs/' + encodeURIComponent(device),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -1249,7 +1249,7 @@ var kimchi = {
         var fd = settings['formData'];
         var sp = encodeURIComponent(settings['sp']);
         kimchi.requestJSON({
-            url : kimchi.url + 'storagepools/' + sp + '/storagevolumes',
+            url : 'storagepools/' + sp + '/storagevolumes',
             type : 'POST',
             data : fd,
             processData : false,
@@ -1267,7 +1267,7 @@ var kimchi = {
         var sp = encodeURIComponent(settings['sp']);
         delete settings['sp'];
         kimchi.requestJSON({
-            url : kimchi.url + 'storagepools/' + sp + '/storagevolumes',
+            url : 'storagepools/' + sp + '/storagevolumes',
             type : 'POST',
             data : JSON.stringify(settings),
             contentType : 'application/json',
@@ -1279,7 +1279,7 @@ var kimchi = {
 
     cloneGuest: function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'vms/'+encodeURIComponent(vm)+"/clone",
+            url : 'vms/'+encodeURIComponent(vm)+"/clone",
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -1292,7 +1292,7 @@ var kimchi = {
 
     listSnapshots : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots',
+            url : 'vms/'+encodeURIComponent(vm)+'/snapshots',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1306,7 +1306,7 @@ var kimchi = {
 
     getCurrentSnapshot : function(vm, suc, err, sync) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/current',
+            url : 'vms/'+encodeURIComponent(vm)+'/snapshots/current',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -1321,7 +1321,7 @@ var kimchi = {
 
     revertSnapshot : function(vm, snapshot, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot)+'/revert',
+            url : 'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot)+'/revert',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -1334,7 +1334,7 @@ var kimchi = {
 
     createSnapshot : function(vm, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots',
+            url : 'vms/'+encodeURIComponent(vm)+'/snapshots',
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
@@ -1347,7 +1347,7 @@ var kimchi = {
 
     deleteSnapshot : function(vm, snapshot, suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url+'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot),
+            url : 'vms/'+encodeURIComponent(vm)+'/snapshots/'+encodeURIComponent(snapshot),
             type : 'DELETE',
             contentType : 'application/json',
             dataType : 'json',
@@ -1360,7 +1360,7 @@ var kimchi = {
 
     getCPUInfo : function(suc, err) {
         kimchi.requestJSON({
-            url : kimchi.url + 'host/cpuinfo',
+            url : 'host/cpuinfo',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',

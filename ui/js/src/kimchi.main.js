@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,8 +90,8 @@ kimchi.main = function() {
         return tabs;
     };
 
-    var tabConfigUrl = '/config/ui/tabs.xml';
-    var pluginConfigUrl = '/plugins/{plugin}/ui/config/tab-ext.xml';
+    var tabConfigUrl = 'config/ui/tabs.xml';
+    var pluginConfigUrl = 'plugins/{plugin}/ui/config/tab-ext.xml';
     var pluginI18nUrl = 'plugins/{plugin}/i18n.json';
     var DEFAULT_HASH;
     var buildTabs = function(callback) {
@@ -344,9 +344,9 @@ kimchi.checkHelpFile = function(path) {
     var url = ""
     // Find help page path according to tab name
     if (/^tabs/.test(path))
-        url = path.replace("tabs", "/help/" + lang);
+        url = path.replace("tabs", "help/" + lang);
     else if (/^plugins/.test(path))
-        url = path.slice(0, path.lastIndexOf('/')) + "/help/" + lang + path.slice(path.lastIndexOf('/'));
+        url = path.slice(0, path.lastIndexOf('/')) + "help/" + lang + path.slice(path.lastIndexOf('/'));
     // Checking if help page exist.
     $.ajax({
         url: url,
