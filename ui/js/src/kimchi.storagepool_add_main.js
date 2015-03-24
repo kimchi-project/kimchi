@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -282,12 +282,7 @@ kimchi.inputsNotBlank = function() {
 };
 
 kimchi.validateForm = function() {
-    var name = $('#poolId').val();
     var poolType = $("#poolTypeInputId").val();
-    if (name.indexOf("/")!=-1) {
-        kimchi.message.error.code('KCHPOOL6004E');
-        return false;
-    }
     if (poolType === "dir") {
         return kimchi.validateDirForm();
     } else if (poolType === "netfs") {
