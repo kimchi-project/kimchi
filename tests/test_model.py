@@ -41,6 +41,7 @@ from kimchi.basemodel import Singleton
 from kimchi.config import config
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
+from kimchi.osinfo import get_template_default
 from kimchi.model import model
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.rollbackcontext import RollbackContext
@@ -53,14 +54,14 @@ invalid_repository_urls = ['www.fedora.org',       # missing protocol
                            'file:///home/foobar']  # invalid path
 
 ISO_PATH = '/tmp/kimchi-model-iso/'
-UBUNTU_ISO = ISO_PATH + 'ubuntu12.04.iso'
+UBUNTU_ISO = ISO_PATH + 'ubuntu14.04.iso'
 
 
 def setUpModule():
     if not os.path.exists(ISO_PATH):
         os.makedirs(ISO_PATH)
 
-    iso_gen.construct_fake_iso(UBUNTU_ISO, True, '12.04', 'ubuntu')
+    iso_gen.construct_fake_iso(UBUNTU_ISO, True, '14.04', 'ubuntu')
 
     # Some FeatureTests functions depend on server to validate their result.
     # As CapabilitiesModel is a Singleton class it will get the first result
@@ -354,8 +355,9 @@ class ModelTests(unittest.TestCase):
     def test_vm_disk(self):
         disk_path = '/tmp/existent2.iso'
         open(disk_path, 'w').close()
+        modern_disk_bus = get_template_default('modern', 'disk_bus')
 
-        def _attach_disk(expect_bus='virtio'):
+        def _attach_disk(expect_bus=modern_disk_bus):
             disk_args = {"type": "disk",
                          "pool": pool,
                          "vol": vol}
@@ -449,8 +451,8 @@ class ModelTests(unittest.TestCase):
             inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, vm_name)
 
-            # Attach will choose IDE bus for old distro
-            disk = _attach_disk('ide')
+            # Need to check the right disk_bus for old distro
+            disk = _attach_disk(get_template_default('old', 'disk_bus'))
             inst.vmstorage_delete('kimchi-ide-bus-vm', disk)
 
             # Hot plug IDE bus disk does not work
