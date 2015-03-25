@@ -1,0 +1,121 @@
+13:02:26 <alinefm> #startmeeting
+13:02:26 <alinefm> #meetingname scrum
+13:02:26 <kimchi-bot> Meeting started Wed Mar 25 13:02:26 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:02 <rotru> Morning
+13:03:19 <rotru> (or evening :] )
+13:03:41 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:41 <alinefm> anything else?
+13:03:49 <alinefm> morning, rotru!
+13:04:37 <vianac> alinefm, I'd like to follow up on issues which have the label NEEDINFO
+13:06:00 <alinefm> sure
+13:06:02 <alinefm> #info Agenda 1) Status 2) Issues 3) Open discussion
+13:07:44 <alinefm> #topic Status
+13:07:45 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:16 <royce> #info royce rebased vcpu validation patch, also send patch about host disk listing, finished test on Ubuntu
+13:08:47 <alinefm> #info alinefm fixed issues #597, #617, #620, #621
+13:09:21 <rotru> #info rotru Sent patches to fix VM, POOL and NETWORK name validation in backend, when user creates new entity
+13:09:22 <alinefm> #info alinefm fixed iso streaming detecting and adjusted some documentation
+13:09:24 <vianac> #info vianac fixed issues #518, #564, #565, #628, sent backend fix for issue #461; translated new strings for pt_BR
+13:11:37 <alinefm> anything else?
+13:13:33 <alinefm> #topic Issues
+13:13:53 <alinefm> vianac, go ahead
+13:14:06 <vianac> alinefm, thanks
+13:15:04 <vianac> I'd like to follow up on issues with the label NEEDINFO every week in our scrums from now on, so we can understand and fix them sooner
+13:15:28 <vianac> currently, we have 9 issues with the label NEEDINFO
+13:16:07 <vianac> issues #499, #500 and #503 are related to using Kimchi on Safari on an iPad
+13:16:26 <vianac> does anyone have that device to test those issues and make sure they still occur?
+13:17:25 <alinefm> vianac, I don't
+13:17:30 <royce> me neither
+13:18:11 <vianac> alinefm, should we deal with issues exclusively related to mobile devices (iOS/Android)?
+13:19:02 <alinefm> vianac, how much time those issues are labeled with NEEDINFO?
+13:19:20 <vianac> alinefm, since last December
+13:19:22 <alinefm> do not the reporters send any more details or info?
+13:19:28 <vianac> more than 4 months now
+13:19:44 <vianac> alinefm, no
+13:19:45 <rotru> vianac; I have safari
+13:19:48 <alinefm> vianac, I think we can close them and ask the reporter to reopen when they have the requested information
+13:19:49 <rotru> alinefm;  ^
+13:20:00 <alinefm> rotru, Safari on iOS?
+13:20:09 <rotru> alinefm;  in my mac
+13:20:39 <royce> we can borrow one from YuXin if we need:)
+13:20:59 <royce> They bought some for development
+13:21:28 <vianac> royce, that would be great! he's the one who opened the issues, actually.
+13:21:43 <rotru> lol
+13:21:49 <vianac> so I believe he can provide us with more details to help us solve the issues
+13:21:57 <royce> OK, I'll contact him tomorrow
+13:22:13 <vianac> otherwise, we'll do as alinefm said and close the issues for lack of information
+13:22:16 <vianac> royce, thanks!
+13:22:24 <royce> yw:)
+13:22:58 <vianac> rotru, the issues mention Safari on iPad, so I think we should test on that device
+13:23:34 <vianac> issue #609: Ubuntu: generating error report fails
+13:23:37 <rotru> vianac;  yeap, I was asking myself if Safaris are the same
+13:24:02 <vianac> royce, could you reproduce that issue on Ubuntu 14.10?
+13:24:19 <royce> yes
+13:24:50 <royce> I tried to read the html on my own found nothing special...
+13:24:58 <vianac> royce, OK, thanks. I'll update the issue and confirm it as a bug.
+13:26:12 <vianac> royce, nothing special should be done, a debug report should always be generated. that seems to be an actual bug.
+13:26:21 <vianac> issue #610: Tests broken on ppc64el
+13:26:45 <alinefm> I think danielhb was working on it ^
+13:26:54 <vianac> danielhb, I see you've been working on fixing the tests on ppc64el, but that issue only mentions "tests broken", and not exactly which ones.
+13:27:23 <vianac> danielhb, could you list the tests which are broken on that issue?
+13:27:46 <vianac> otherwise we might be fixing it forever, if newer tests start failing as well... :)
+13:28:52 <vianac> issue #623: error while creating logical storage pool
+13:29:37 <vianac> royce, I see you sent a patch fixing it, but were you able to reproduce on Ubuntu 14.10 as well?
+13:29:48 <royce> Patch sent for this one, I will add some background information to it
+13:29:53 <royce> yes, reproducible
+13:30:07 <royce> it is related to the naming pattern on Ubuntu
+13:30:31 <vianac> royce, OK, thanks.
+13:31:30 <vianac> there a few other issues with NEEDINFO but they haven't been updated by their authors.
+13:31:35 <royce> it names lv as "data_lv (dm-1)" our programe just stripped the "(dm-1)" part, so following name match fails when querying device details
+13:31:36 <vianac> do we have any policy to close inactive and unreproducible issues?
+13:32:13 <alinefm> I don't have any rule for that right now
+13:32:15 <vianac> or should we just keep them open forever?
+13:32:46 <alinefm> but if the issues were not updated for a long time IMO we can close them and ask the reporter to reopen when he/she has the requested information
+13:32:48 <danielhb> vianac, the tests were broken because the template verification was checking for x86_64 defaults when running in Power
+13:33:07 <danielhb> vianac, well, at least some of  the tests. That bug is extremely generic. It's like "Kimchi has problems"
+13:33:35 <vianac> alinefm, does "long time" have a period? :)
+13:33:45 <vianac> 3 months? the next Kimchi release?
+13:34:18 <vianac> danielhb, exactly, that issue is generic, that's what I'm trying to solve.
+13:34:21 <alinefm> vianac, 3 months is more than enough
+13:34:50 <vianac> danielhb, if you could put the name of the failing tests on the issue page, we will know when it gets solved.
+13:35:16 <vianac> ideally, we should have a different issue for each failing test case, so they can be solved independently
+13:35:24 <vianac> royce, thanks for the update, that's nice
+13:35:45 <danielhb> vianac, I have some notes here about the Power tests. I can share in that bug
+13:35:57 <vianac> alinefm, OK, so I'll close issues which have been inactive for more than 3 months with a note to reopen them if necessary.
+13:36:03 <danielhb> vianac, I would recommend to open new issues though
+13:36:16 <alinefm> vianac, sounds good
+13:37:00 <vianac> danielhb, if those tests are the ones you're supposed to be fixing for that issue, post on that issue page; otherwise, I also recommend opening new issues for new failing tests
+13:37:26 <vianac> alinefm, thanks, we can move on to the next topic.
+13:37:34 <alinefm> thanks vianac !
+13:37:40 <alinefm> #topic Open Discussion
+13:37:50 <alinefm> I have some topics for today
+13:38:23 <alinefm> I am closing the Kimchi 1.4.1 release today and will send the announcement note by the end of this week
+13:38:37 <alinefm> so those days I will work on close the release
+13:38:49 <alinefm> thanks everyone who make it happen!
+13:39:12 <alinefm> and then we start planning the  next Kimchi release that would be 1.5
+13:39:38 <alinefm> I want to ask you to send your ideas to the ML until next Wed so we can close our plan for 1.5
+13:40:39 <alinefm> If you already have a clear idea of the feature you can also send the API related to it so we can start that discussion earlier
+13:40:42 <alinefm> agree?
+13:40:54 <royce> OK
+13:41:09 <rotru> OK
+13:42:18 <alinefm> vianac, gutoyr, lucio, vianac, ziviani, danielhb ^
+13:42:43 <vianac> OK
+13:43:32 <lucio> alinefm, OK
+13:45:32 <gutoyr> ok
+13:46:02 <alinefm> great!
+13:46:12 <alinefm> any other topic do you want to discuss today?
+13:46:33 <rotru> alinefm;  i got a topic
+13:46:41 <alinefm> rotru, go ahead
+13:48:28 <rotru> alinefm;  I wonder why template and storagepool names must have the url part in the begging of the name  "/templates/MYTEMPLATE"   or "/storagepools/MYPOOL"  .   I was checking the template code and seems it is not necessary anymore..  I thing this design was made in the past because of some api calls
+13:48:41 <rotru> alitke; do you know ??  ^^
+13:50:00 <alitke> rotru, Yes... I designed it that way because in REST APIs, a resource is identified by its URI
+13:50:45 <alitke> the idea is that you can get the URI from one API call and just use it in another call without needing to parse out just the last component or something.
+13:52:18 <rotru> alitke;  ah, ok! Got the idea!
+13:52:52 <rotru> alitke; thanks you
+13:53:13 <alitke> rotru, yw !
+13:54:34 <alinefm> anything else for today?
+13:56:56 <alinefm> ok...
+13:57:09 <alinefm> thanks everyone for joining and I am looking forward for Kimchi 1.5 =)
+13:57:16 <alinefm> #endmeeting

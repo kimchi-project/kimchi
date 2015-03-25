@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-3"></a><span class="tm">13:02:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 25 13:02:26 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-4"></a><span class="tm">13:02:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-5"></a><span class="tm">13:02:26</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:02</span><span class="nk"> &lt;rotru&gt;</span> Morning
+<a name="l-7"></a><span class="tm">13:03:19</span><span class="nk"> &lt;rotru&gt;</span> (or evening :] )
+<a name="l-8"></a><span class="tm">13:03:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:03:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:03:49</span><span class="nk"> &lt;alinefm&gt;</span> morning, rotru!
+<a name="l-11"></a><span class="tm">13:04:37</span><span class="nk"> &lt;vianac&gt;</span> alinefm, I'd like to follow up on issues which have the label NEEDINFO
+<a name="l-12"></a><span class="tm">13:06:00</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-13"></a><span class="tm">13:06:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Issues 3) Open discussion</span>
+<a name="l-14"></a><span class="tm">13:07:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-15"></a><span class="tm">13:07:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-16"></a><span class="tm">13:08:16</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce rebased vcpu validation patch, also send patch about host disk listing, finished test on Ubuntu</span>
+<a name="l-17"></a><span class="tm">13:08:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed issues #597, #617, #620, #621</span>
+<a name="l-18"></a><span class="tm">13:09:21</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to fix VM, POOL and NETWORK name validation in backend, when user creates new entity</span>
+<a name="l-19"></a><span class="tm">13:09:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed iso streaming detecting and adjusted some documentation</span>
+<a name="l-20"></a><span class="tm">13:09:24</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac fixed issues #518, #564, #565, #628, sent backend fix for issue #461; translated new strings for pt_BR</span>
+<a name="l-21"></a><span class="tm">13:11:37</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-22"></a><span class="tm">13:13:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Issues</span>
+<a name="l-23"></a><span class="tm">13:13:53</span><span class="nk"> &lt;alinefm&gt;</span> vianac, go ahead
+<a name="l-24"></a><span class="tm">13:14:06</span><span class="nk"> &lt;vianac&gt;</span> alinefm, thanks
+<a name="l-25"></a><span class="tm">13:15:04</span><span class="nk"> &lt;vianac&gt;</span> I'd like to follow up on issues with the label NEEDINFO every week in our scrums from now on, so we can understand and fix them sooner
+<a name="l-26"></a><span class="tm">13:15:28</span><span class="nk"> &lt;vianac&gt;</span> currently, we have 9 issues with the label NEEDINFO
+<a name="l-27"></a><span class="tm">13:16:07</span><span class="nk"> &lt;vianac&gt;</span> issues #499, #500 and #503 are related to using Kimchi on Safari on an iPad
+<a name="l-28"></a><span class="tm">13:16:26</span><span class="nk"> &lt;vianac&gt;</span> does anyone have that device to test those issues and make sure they still occur?
+<a name="l-29"></a><span class="tm">13:17:25</span><span class="nk"> &lt;alinefm&gt;</span> vianac, I don't
+<a name="l-30"></a><span class="tm">13:17:30</span><span class="nk"> &lt;royce&gt;</span> me neither
+<a name="l-31"></a><span class="tm">13:18:11</span><span class="nk"> &lt;vianac&gt;</span> alinefm, should we deal with issues exclusively related to mobile devices (iOS/Android)?
+<a name="l-32"></a><span class="tm">13:19:02</span><span class="nk"> &lt;alinefm&gt;</span> vianac, how much time those issues are labeled with NEEDINFO?
+<a name="l-33"></a><span class="tm">13:19:20</span><span class="nk"> &lt;vianac&gt;</span> alinefm, since last December
+<a name="l-34"></a><span class="tm">13:19:22</span><span class="nk"> &lt;alinefm&gt;</span> do not the reporters send any more details or info?
+<a name="l-35"></a><span class="tm">13:19:28</span><span class="nk"> &lt;vianac&gt;</span> more than 4 months now
+<a name="l-36"></a><span class="tm">13:19:44</span><span class="nk"> &lt;vianac&gt;</span> alinefm, no
+<a name="l-37"></a><span class="tm">13:19:45</span><span class="nk"> &lt;rotru&gt;</span> vianac; I have safari
+<a name="l-38"></a><span class="tm">13:19:48</span><span class="nk"> &lt;alinefm&gt;</span> vianac, I think we can close them and ask the reporter to reopen when they have the requested information
+<a name="l-39"></a><span class="tm">13:19:49</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  ^
+<a name="l-40"></a><span class="tm">13:20:00</span><span class="nk"> &lt;alinefm&gt;</span> rotru, Safari on iOS?
+<a name="l-41"></a><span class="tm">13:20:09</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  in my mac
+<a name="l-42"></a><span class="tm">13:20:39</span><span class="nk"> &lt;royce&gt;</span> we can borrow one from YuXin if we need:)
+<a name="l-43"></a><span class="tm">13:20:59</span><span class="nk"> &lt;royce&gt;</span> They bought some for development
+<a name="l-44"></a><span class="tm">13:21:28</span><span class="nk"> &lt;vianac&gt;</span> royce, that would be great! he's the one who opened the issues, actually.
+<a name="l-45"></a><span class="tm">13:21:43</span><span class="nk"> &lt;rotru&gt;</span> lol
+<a name="l-46"></a><span class="tm">13:21:49</span><span class="nk"> &lt;vianac&gt;</span> so I believe he can provide us with more details to help us solve the issues
+<a name="l-47"></a><span class="tm">13:21:57</span><span class="nk"> &lt;royce&gt;</span> OK, I'll contact him tomorrow
+<a name="l-48"></a><span class="tm">13:22:13</span><span class="nk"> &lt;vianac&gt;</span> otherwise, we'll do as alinefm said and close the issues for lack of information
+<a name="l-49"></a><span class="tm">13:22:16</span><span class="nk"> &lt;vianac&gt;</span> royce, thanks!
+<a name="l-50"></a><span class="tm">13:22:24</span><span class="nk"> &lt;royce&gt;</span> yw:)
+<a name="l-51"></a><span class="tm">13:22:58</span><span class="nk"> &lt;vianac&gt;</span> rotru, the issues mention Safari on iPad, so I think we should test on that device
+<a name="l-52"></a><span class="tm">13:23:34</span><span class="nk"> &lt;vianac&gt;</span> issue #609: Ubuntu: generating error report fails
+<a name="l-53"></a><span class="tm">13:23:37</span><span class="nk"> &lt;rotru&gt;</span> vianac;  yeap, I was asking myself if Safaris are the same
+<a name="l-54"></a><span class="tm">13:24:02</span><span class="nk"> &lt;vianac&gt;</span> royce, could you reproduce that issue on Ubuntu 14.10?
+<a name="l-55"></a><span class="tm">13:24:19</span><span class="nk"> &lt;royce&gt;</span> yes
+<a name="l-56"></a><span class="tm">13:24:50</span><span class="nk"> &lt;royce&gt;</span> I tried to read the html on my own found nothing special...
+<a name="l-57"></a><span class="tm">13:24:58</span><span class="nk"> &lt;vianac&gt;</span> royce, OK, thanks. I'll update the issue and confirm it as a bug.
+<a name="l-58"></a><span class="tm">13:26:12</span><span class="nk"> &lt;vianac&gt;</span> royce, nothing special should be done, a debug report should always be generated. that seems to be an actual bug.
+<a name="l-59"></a><span class="tm">13:26:21</span><span class="nk"> &lt;vianac&gt;</span> issue #610: Tests broken on ppc64el
+<a name="l-60"></a><span class="tm">13:26:45</span><span class="nk"> &lt;alinefm&gt;</span> I think danielhb was working on it ^
+<a name="l-61"></a><span class="tm">13:26:54</span><span class="nk"> &lt;vianac&gt;</span> danielhb, I see you've been working on fixing the tests on ppc64el, but that issue only mentions "tests broken", and not exactly which ones.
+<a name="l-62"></a><span class="tm">13:27:23</span><span class="nk"> &lt;vianac&gt;</span> danielhb, could you list the tests which are broken on that issue?
+<a name="l-63"></a><span class="tm">13:27:46</span><span class="nk"> &lt;vianac&gt;</span> otherwise we might be fixing it forever, if newer tests start failing as well... :)
+<a name="l-64"></a><span class="tm">13:28:52</span><span class="nk"> &lt;vianac&gt;</span> issue #623: error while creating logical storage pool
+<a name="l-65"></a><span class="tm">13:29:37</span><span class="nk"> &lt;vianac&gt;</span> royce, I see you sent a patch fixing it, but were you able to reproduce on Ubuntu 14.10 as well?
+<a name="l-66"></a><span class="tm">13:29:48</span><span class="nk"> &lt;royce&gt;</span> Patch sent for this one, I will add some background information to it
+<a name="l-67"></a><span class="tm">13:29:53</span><span class="nk"> &lt;royce&gt;</span> yes, reproducible
+<a name="l-68"></a><span class="tm">13:30:07</span><span class="nk"> &lt;royce&gt;</span> it is related to the naming pattern on Ubuntu
+<a name="l-69"></a><span class="tm">13:30:31</span><span class="nk"> &lt;vianac&gt;</span> royce, OK, thanks.
+<a name="l-70"></a><span class="tm">13:31:30</span><span class="nk"> &lt;vianac&gt;</span> there a few other issues with NEEDINFO but they haven't been updated by their authors.
+<a name="l-71"></a><span class="tm">13:31:35</span><span class="nk"> &lt;royce&gt;</span> it names lv as "data_lv (dm-1)" our programe just stripped the "(dm-1)" part, so following name match fails when querying device details
+<a name="l-72"></a><span class="tm">13:31:36</span><span class="nk"> &lt;vianac&gt;</span> do we have any policy to close inactive and unreproducible issues?
+<a name="l-73"></a><span class="tm">13:32:13</span><span class="nk"> &lt;alinefm&gt;</span> I don't have any rule for that right now
+<a name="l-74"></a><span class="tm">13:32:15</span><span class="nk"> &lt;vianac&gt;</span> or should we just keep them open forever?
+<a name="l-75"></a><span class="tm">13:32:46</span><span class="nk"> &lt;alinefm&gt;</span> but if the issues were not updated for a long time IMO we can close them and ask the reporter to reopen when he/she has the requested information
+<a name="l-76"></a><span class="tm">13:32:48</span><span class="nk"> &lt;danielhb&gt;</span> vianac, the tests were broken because the template verification was checking for x86_64 defaults when running in Power
+<a name="l-77"></a><span class="tm">13:33:07</span><span class="nk"> &lt;danielhb&gt;</span> vianac, well, at least some of  the tests. That bug is extremely generic. It's like "Kimchi has problems"
+<a name="l-78"></a><span class="tm">13:33:35</span><span class="nk"> &lt;vianac&gt;</span> alinefm, does "long time" have a period? :)
+<a name="l-79"></a><span class="tm">13:33:45</span><span class="nk"> &lt;vianac&gt;</span> 3 months? the next Kimchi release?
+<a name="l-80"></a><span class="tm">13:34:18</span><span class="nk"> &lt;vianac&gt;</span> danielhb, exactly, that issue is generic, that's what I'm trying to solve.
+<a name="l-81"></a><span class="tm">13:34:21</span><span class="nk"> &lt;alinefm&gt;</span> vianac, 3 months is more than enough
+<a name="l-82"></a><span class="tm">13:34:50</span><span class="nk"> &lt;vianac&gt;</span> danielhb, if you could put the name of the failing tests on the issue page, we will know when it gets solved.
+<a name="l-83"></a><span class="tm">13:35:16</span><span class="nk"> &lt;vianac&gt;</span> ideally, we should have a different issue for each failing test case, so they can be solved independently
+<a name="l-84"></a><span class="tm">13:35:24</span><span class="nk"> &lt;vianac&gt;</span> royce, thanks for the update, that's nice
+<a name="l-85"></a><span class="tm">13:35:45</span><span class="nk"> &lt;danielhb&gt;</span> vianac, I have some notes here about the Power tests. I can share in that bug
+<a name="l-86"></a><span class="tm">13:35:57</span><span class="nk"> &lt;vianac&gt;</span> alinefm, OK, so I'll close issues which have been inactive for more than 3 months with a note to reopen them if necessary.
+<a name="l-87"></a><span class="tm">13:36:03</span><span class="nk"> &lt;danielhb&gt;</span> vianac, I would recommend to open new issues though
+<a name="l-88"></a><span class="tm">13:36:16</span><span class="nk"> &lt;alinefm&gt;</span> vianac, sounds good
+<a name="l-89"></a><span class="tm">13:37:00</span><span class="nk"> &lt;vianac&gt;</span> danielhb, if those tests are the ones you're supposed to be fixing for that issue, post on that issue page; otherwise, I also recommend opening new issues for new failing tests
+<a name="l-90"></a><span class="tm">13:37:26</span><span class="nk"> &lt;vianac&gt;</span> alinefm, thanks, we can move on to the next topic.
+<a name="l-91"></a><span class="tm">13:37:34</span><span class="nk"> &lt;alinefm&gt;</span> thanks vianac !
+<a name="l-92"></a><span class="tm">13:37:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-93"></a><span class="tm">13:37:50</span><span class="nk"> &lt;alinefm&gt;</span> I have some topics for today
+<a name="l-94"></a><span class="tm">13:38:23</span><span class="nk"> &lt;alinefm&gt;</span> I am closing the Kimchi 1.4.1 release today and will send the announcement note by the end of this week
+<a name="l-95"></a><span class="tm">13:38:37</span><span class="nk"> &lt;alinefm&gt;</span> so those days I will work on close the release
+<a name="l-96"></a><span class="tm">13:38:49</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone who make it happen!
+<a name="l-97"></a><span class="tm">13:39:12</span><span class="nk"> &lt;alinefm&gt;</span> and then we start planning the  next Kimchi release that would be 1.5
+<a name="l-98"></a><span class="tm">13:39:38</span><span class="nk"> &lt;alinefm&gt;</span> I want to ask you to send your ideas to the ML until next Wed so we can close our plan for 1.5
+<a name="l-99"></a><span class="tm">13:40:39</span><span class="nk"> &lt;alinefm&gt;</span> If you already have a clear idea of the feature you can also send the API related to it so we can start that discussion earlier
+<a name="l-100"></a><span class="tm">13:40:42</span><span class="nk"> &lt;alinefm&gt;</span> agree?
+<a name="l-101"></a><span class="tm">13:40:54</span><span class="nk"> &lt;royce&gt;</span> OK
+<a name="l-102"></a><span class="tm">13:41:09</span><span class="nk"> &lt;rotru&gt;</span> OK
+<a name="l-103"></a><span class="tm">13:42:18</span><span class="nk"> &lt;alinefm&gt;</span> vianac, gutoyr, lucio, vianac, ziviani, danielhb ^
+<a name="l-104"></a><span class="tm">13:42:43</span><span class="nk"> &lt;vianac&gt;</span> OK
+<a name="l-105"></a><span class="tm">13:43:32</span><span class="nk"> &lt;lucio&gt;</span> alinefm, OK
+<a name="l-106"></a><span class="tm">13:45:32</span><span class="nk"> &lt;gutoyr&gt;</span> ok
+<a name="l-107"></a><span class="tm">13:46:02</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-108"></a><span class="tm">13:46:12</span><span class="nk"> &lt;alinefm&gt;</span> any other topic do you want to discuss today?
+<a name="l-109"></a><span class="tm">13:46:33</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  i got a topic
+<a name="l-110"></a><span class="tm">13:46:41</span><span class="nk"> &lt;alinefm&gt;</span> rotru, go ahead
+<a name="l-111"></a><span class="tm">13:48:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm;  I wonder why template and storagepool names must have the url part in the begging of the name  "/templates/MYTEMPLATE"   or "/storagepools/MYPOOL"  .   I was checking the template code and seems it is not necessary anymore..  I thing this design was made in the past because of some api calls
+<a name="l-112"></a><span class="tm">13:48:41</span><span class="nk"> &lt;rotru&gt;</span> alitke; do you know ??  ^^
+<a name="l-113"></a><span class="tm">13:50:00</span><span class="nk"> &lt;alitke&gt;</span> rotru, Yes... I designed it that way because in REST APIs, a resource is identified by its URI
+<a name="l-114"></a><span class="tm">13:50:45</span><span class="nk"> &lt;alitke&gt;</span> the idea is that you can get the URI from one API call and just use it in another call without needing to parse out just the last component or something.
+<a name="l-115"></a><span class="tm">13:52:18</span><span class="nk"> &lt;rotru&gt;</span> alitke;  ah, ok! Got the idea!
+<a name="l-116"></a><span class="tm">13:52:52</span><span class="nk"> &lt;rotru&gt;</span> alitke; thanks you
+<a name="l-117"></a><span class="tm">13:53:13</span><span class="nk"> &lt;alitke&gt;</span> rotru, yw !
+<a name="l-118"></a><span class="tm">13:54:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-119"></a><span class="tm">13:56:56</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-120"></a><span class="tm">13:57:09</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and I am looking forward for Kimchi 1.5 =)
+<a name="l-121"></a><span class="tm">13:57:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
