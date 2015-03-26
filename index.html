@@ -63,22 +63,20 @@ RHEL, OpenSuSe, and Ubuntu.</p>
                    qemu-kvm python-psutil python-ethtool sos \
                    python-ipaddr python-ldap python-lxml nfs-utils \
                    iscsi-initiator-utils libxslt pyparted nginx \
-                   policycoreutils-python python-libguestfs \
-                   libguestfs-tools python-websockify novnc
+                   python-libguestfs libguestfs-tools python-websockify \
+                   novnc spice-html5
 
- # If using RHEL6 or Fedora, install the following additional package:
- $ sudo yum install spice-html5
-
- # If using RHEL6, install the following additional packages:
+ # If using RHEL, install the following additional packages:
  $ sudo yum install python-unittest2 python-ordereddict
+
  # Restart libvirt to allow configuration changes to take effect
  $ sudo service libvirtd restart
 
+ Packages version requirement:
+     python-psutil &gt;= 0.6.0
+
  # These dependencies are only required if you want to run the tests:
  $ sudo yum install pyflakes python-pep8 python-requests
-
-Packages version requirement:
-   python-psutil &gt;= 0.6.0
 </code></pre>
 
 <p><em>Note for RHEL users</em>: Some of the above packages are located in the Red Hat
@@ -96,8 +94,7 @@ And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional" 
                        qemu-kvm libtool python-psutil python-ethtool \
                        sosreport python-ipaddr python-ldap \
                        python-lxml nfs-common open-iscsi lvm2 xsltproc \
-                       python-parted nginx \
-                       firewalld python-guestfs libguestfs-tools \
+                       python-parted nginx python-guestfs libguestfs-tools \
                        websockify novnc spice-html5
 
     # These dependencies are only required if you want to run the tests:
@@ -139,7 +136,7 @@ information on how configure your system to access this repository.</p>
 <h2>
 <a name="build-and-install" class="anchor" href="#build-and-install"><span class="octicon octicon-link"></span></a>Build and Install</h2>
 
-<pre><code># For RHEL7 and openSUSE 13.1:
+<pre><code># For openSUSE 13.2:
 $ ./autogen.sh --with-spice-html5
 
 # Otherwise:
