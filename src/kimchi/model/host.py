@@ -87,8 +87,8 @@ class HostModel(object):
                         res['cpu_model'] = line.split(':')[1].strip()
                         break
 
-        res['cpus'] = psutil.NUM_CPUS
-        res['memory'] = psutil.TOTAL_PHYMEM
+        res['cpus'] = 0
+        res['memory'] = 0L
 
         # Include IBM PowerKVM name to supported distro names
         _sup_distros = platform._supported_dists + ('ibm_powerkvm',)
@@ -102,6 +102,18 @@ class HostModel(object):
         return res
 
     def lookup(self, *name):
+        cpus = 0
+
+        # Only newer psutil versions have a portable method to get
+        # the number of cpus
+        try:
+            cpus = psutil.cpu_count()
+
+        except AttributeError:
+            cpus = psutil._psplatform.get_num_cpus()
+
+        self.host_info['cpus'] = cpus
+        self.host_info['memory'] = psutil.phymem_usage().total
         return self.host_info
 
     def swupdate(self, *name):
