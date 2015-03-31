@@ -298,7 +298,7 @@ messages = {
     "KCHREPOS0010E": _("GPG key must be a URL pointing to the ASCII-armored file."),
     "KCHREPOS0011E": _("Could not update repository %(repo_id)s."),
     "KCHREPOS0012E": _("Repository %(repo_id)s does not exist."),
-    "KCHREPOS0013E": _("Specify repository base URL or mirror list in order to create or update a YUM repository."),
+    "KCHREPOS0013E": _("Specify repository base URL,  mirror list or metalink in order to create or update a YUM repository."),
     "KCHREPOS0014E": _("Repository management tool was not recognized for your system."),
     "KCHREPOS0015E": _("Repository %(repo_id)s is already enabled."),
     "KCHREPOS0016E": _("Repository %(repo_id)s is already disabled."),
@@ -314,6 +314,8 @@ messages = {
     "KCHREPOS0026E": _("Unable to add repository. Details: '%(err)s'"),
     "KCHREPOS0027E": _("Unable to remove repository. Details: '%(err)s'"),
     "KCHREPOS0028E": _("Configuration items: '%(items)s' are not supported by repository manager"),
+    "KCHREPOS0029E": _("Repository metalink must be an http://, ftp:// or file:// URL."),
+    "KCHREPOS0030E": _("Cannot specify mirrorlist and metalink at the same time."),
 
     "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."),
     "KCHSNAP0002E": _("Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),

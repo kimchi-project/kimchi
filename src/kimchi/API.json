@@ -705,6 +705,11 @@
                             "description": "URL to a file containing a list of baseurls",
                             "type": "string",
                             "error": "KCHREPOS0007E"
+                        },
+                        "metalink": {
+                            "description": "URL to a metalink file for the repomd.xml",
+                            "type": "string",
+                            "error": "KCHREPOS0029E"
                         }
                     }
                 }
