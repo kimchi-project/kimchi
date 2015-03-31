@@ -112,7 +112,7 @@ class YumRepo(object):
     """
     TYPE = 'yum'
     DEFAULT_CONF_DIR = "/etc/yum.repos.d"
-    CONFIG_ENTRY = ('repo_name', 'mirrorlist')
+    CONFIG_ENTRY = ('repo_name', 'mirrorlist', 'metalink')
 
     def __init__(self):
         self._yb = getattr(__import__('yum'), 'YumBase')
@@ -173,6 +173,7 @@ class YumRepo(object):
         info['config']['gpgcheck'] = entry.gpgcheck
         info['config']['gpgkey'] = entry.gpgkey
         info['config']['mirrorlist'] = entry.mirrorlist or ''
+        info['config']['metalink'] = entry.metalink or ''
         return info
 
     def addRepo(self, params):
@@ -184,7 +185,8 @@ class YumRepo(object):
 
         config = params.get('config', {})
         mirrorlist = config.get('mirrorlist', '')
-        if not baseurl and not mirrorlist:
+        metalink = config.get('metalink', '')
+        if not baseurl and not mirrorlist and not metalink:
             raise MissingParameter("KCHREPOS0013E")
 
         if baseurl:
@@ -192,6 +194,12 @@ class YumRepo(object):
 
         if mirrorlist:
             validate_repo_url(mirrorlist)
+
+        if metalink:
+            validate_repo_url(metalink)
+
+        if mirrorlist and metalink:
+            raise InvalidOperation('KCHREPOS0030E')
 
         repo_id = params.get('repo_id', None)
         if repo_id is None:
@@ -206,7 +214,7 @@ class YumRepo(object):
         repo_name = config.get('repo_name', repo_id)
         repo = {'baseurl': baseurl, 'mirrorlist': mirrorlist,
                 'name': repo_name, 'gpgcheck': 1,
-                'gpgkey': [], 'enabled': 1}
+                'gpgkey': [], 'enabled': 1, 'metalink': metalink}
 
         # write a repo file in the system with repo{} information.
         parser = ConfigParser()
@@ -274,6 +282,7 @@ class YumRepo(object):
         baseurl = params.get('baseurl', None)
         config = params.get('config', {})
         mirrorlist = config.get('mirrorlist', None)
+        metalink = config.get('metalink', None)
 
         if baseurl is not None and len(baseurl.strip()) == 0:
             baseurl = None
@@ -281,7 +290,10 @@ class YumRepo(object):
         if mirrorlist is not None and len(mirrorlist.strip()) == 0:
             mirrorlist = None
 
-        if baseurl is None and mirrorlist is None:
+        if metalink is not None and len(metalink.strip()) == 0:
+            metalink = None
+
+        if baseurl is None and mirrorlist is None and metalink is None:
             raise MissingParameter("KCHREPOS0013E")
 
         if baseurl is not None:
@@ -291,6 +303,13 @@ class YumRepo(object):
         if mirrorlist is not None:
             validate_repo_url(mirrorlist)
             entry.mirrorlist = mirrorlist
+
+        if metalink is not None:
+            validate_repo_url(metalink)
+            entry.metalink = metalink
+
+        if mirrorlist and metalink:
+            raise InvalidOperation('KCHREPOS0030E')
 
         entry.id = params.get('repo_id', repo_id)
         entry.name = config.get('repo_name', entry.name)
