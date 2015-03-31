@@ -275,10 +275,10 @@ class YumRepo(object):
         config = params.get('config', {})
         mirrorlist = config.get('mirrorlist', None)
 
-        if len(baseurl.strip()) == 0:
+        if baseurl is not None and len(baseurl.strip()) == 0:
             baseurl = None
 
-        if len(mirrorlist.strip()) == 0:
+        if mirrorlist is not None and len(mirrorlist.strip()) == 0:
             mirrorlist = None
 
         if baseurl is None and mirrorlist is None:
