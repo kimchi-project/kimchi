@@ -292,7 +292,7 @@ messages = {
     "KCHREPOS0004E": _("Distribution to DEB repository must be a string"),
     "KCHREPOS0005E": _("Components to DEB repository must be listed in a array"),
     "KCHREPOS0006E": _("Components to DEB repository must be a string"),
-    "KCHREPOS0007E": _("Mirror list to DEB repository must be a string"),
+    "KCHREPOS0007E": _("Mirror list to repository must be a string"),
     "KCHREPOS0008E": _("YUM Repository name must be string."),
     "KCHREPOS0009E": _("GPG check must be a boolean value."),
     "KCHREPOS0010E": _("GPG key must be a URL pointing to the ASCII-armored file."),
