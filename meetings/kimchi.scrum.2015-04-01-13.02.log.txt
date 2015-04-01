@@ -1,0 +1,77 @@
+13:02:36 <alinefm> #startmeeting
+13:02:36 <kimchi-bot> Meeting started Wed Apr  1 13:02:36 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:36 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:36 <alinefm> #meetingname scrum
+13:02:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:06 <alinefm> #info Agenda 1) Status 2) Kimchi 1.5 Plan 3) Open discussion
+13:03:07 <alinefm> anything else?
+13:05:37 <alinefm> ok.. so let's get started
+13:05:49 <alinefm> #topic Status
+13:05:49 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:06:44 <ziviani> #info ziviani Sent a V3 of a patch ([PATCH V3] Number of CPUs and Physical Memory)
+13:06:45 <ziviani> #info ziviani Sent a RFC about serial console tool in Kimchi.
+13:06:45 <ziviani> #info ziviani I'm currently testing PCI hotplug in X86_64 and PPC64.
+13:06:47 <vianac> #info vianac sent RFC for hotplug a new disk, hotplug a network interface, add suspend/resume, change ref_cnt; sent another revision of fix for #461;
+13:06:47 <alinefm> #info alinefm worked for 1.4.1 release: update package, changelog, github main page, etc
+13:07:11 <alinefm> #info alinefm sent RFC to make template defaults configurable
+13:07:45 <royce> #info royce invested about using puppet to setup kimchi, tested the UI bugs on ipad, started writing patch for logical pool for existed VG
+13:09:07 <alinefm> royce, could you send a RFC about creating a storage pool from an existing VG?
+13:09:19 <alinefm> so we can get agreement on API before you start working
+13:09:26 <alinefm> just to make it easier
+13:09:58 <royce> I thought it is a small feature, so planned to send the patch with API spec...
+13:11:11 <royce> I will send it tomorrow
+13:11:31 <alinefm> royce, thanks
+13:11:42 <alinefm> anything else?
+13:12:56 <alinefm> #topic Kimchi 1.5 Plan
+13:13:06 <alinefm> I have created the schedule in the github wiki: https://github.com/kimchi-project/kimchi/wiki/planning-1.5
+13:13:14 <alinefm> please check the dates in the link
+13:13:51 <alinefm> I will create the todo page later today after reading all the RFC on ML and check the open issues
+13:14:04 <alinefm> any questions? doubts? suggestion?
+13:16:00 <alinefm> vianac, royce, ziviani, danielhb, ^
+13:16:12 <vianac> alinefm, no
+13:16:21 <danielhb> alinefm, I have none
+13:17:00 <alinefm> #topic Open Discussion
+13:17:07 <alinefm> what do you want to discuss today?
+13:19:34 <alinefm> vianac, any update about the needinfo issues?
+13:20:29 <vianac> alinefm, no, any new issue with that status
+13:21:20 <alinefm> ok
+13:21:51 <alinefm> vianac, royce, danielhb, ziviani, if you don't have anything else we can finish the meeting for today
+13:22:12 <danielhb> alinefm, did you had the time to look at that github issue I talked about yesterday?
+13:22:22 <royce> I sent a RFC about using puppet to set up kimchi environment, because I find every release it is painful for me to set up a complete test env
+13:23:36 <danielhb> alinefm, I believe that Kimchi shouldn't bother resolving host name to IP if qemu can't handle hostnames. It creates a whole new different issue on Kimchi side. I'd rather ask people to download the ISO or update their qemu than to rely on the randomness we have today with the remote streaming
+13:25:14 <alinefm> danielhb, just read it
+13:25:34 <alinefm> danielhb, removing it now we cause a regression for fedora users
+13:25:49 <danielhb> alinefm, it works in F21
+13:26:15 <alinefm> danielhb, qemu can resolve hostnames on F21?
+13:26:35 <danielhb> alinefm, vianac said that he can't reproduce the issue in his F21. vianac ?
+13:27:01 <alinefm> danielhb, are you on f21?
+13:27:35 <lagarcia> alinefm, danielhb does it work in RHEL 6.x? or is this feature not available in older distros?
+13:27:38 <danielhb> alinefm, and even if F21 is bugged, I don't consider it a regression because now Kimchi has the option to download the ISO. And, again, unless Kimchi can guarantee that the remote server will resolve the URL correctly, the feature is flawed
+13:28:45 <alinefm> lagarcia, RHEL 6.X does not have support for iso streaming on qemu
+13:28:54 <lagarcia> alinefm, ok
+13:29:44 <alinefm> danielhb, I agree but I suggest to find a way to improve the hostname-IP resolution Kimchi is doing before removing this
+13:30:25 <alinefm> danielhb, for example, I have tested long time ago, the resolution failed in the original URL redirects to other one
+13:30:47 <alinefm> I think we first need to get the final URL and then resolve the hostname
+13:31:00 <alinefm> so it may work in all cases
+13:31:12 <alinefm> *but* we need to test and investigate it is a good solution
+13:32:12 <danielhb> alinefm, I believe it will fail the same way as it does now. If you insert an URL like http://n.n.n.n:80/my_link there is no guarantee that the webserver will redirect you to http://nameserver.com/my_link
+13:32:36 <danielhb> alinefm, we can't control how the remote server resolves the incoming URL
+13:33:06 <danielhb> alinefm, but I do not oppose testing other ways before ditching this design
+13:33:53 <danielhb> brb
+13:34:48 <alinefm> danielhb, we need also to confirm all the current qemu versions still have this issues on resolving hostnames
+13:34:58 <alinefm> otherwise we can remove it IMO
+13:36:21 <alinefm> royce, about the complete test env, vianac is using a script to do that on his vms
+13:37:59 <vianac> danielhb, alinefm: on Fedora 21, that issue doesn't exist because its qemu-io version can handle DNS names, so we don't need to convert anything
+13:40:45 <alinefm> I will test it on RHEL7, opensuse and ubuntu
+13:41:01 <alinefm> probably the qemu versions there is also working now
+13:41:08 <alinefm> any other topic for today?
+13:42:00 <royce> I tried to write script too, but found set up like iscsi server and ldap needs some intervention. So I planned to switch to puppet
+13:43:02 <alinefm> oh.. vianac's script is simpler than that
+13:43:16 <alinefm> it is just to run "make check" inside the vm
+13:43:49 <royce> Oh, it's like jenkins, right?
+13:44:27 <royce> I just meant to make user easier to set up a sand box to play with kimchi's all features
+13:45:01 <alinefm> got it
+13:48:41 <alinefm> any other topic?
+13:49:33 <ziviani> no
+13:51:53 <alinefm> thanks everyone for joining!
+13:51:56 <alinefm> #endmeeting

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr  1 13:02:36 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Kimchi 1.5 Plan 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:37</span><span class="nk"> &lt;alinefm&gt;</span> ok.. so let's get started
+<a name="l-9"></a><span class="tm">13:05:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:06:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani Sent a V3 of a patch ([PATCH V3] Number of CPUs and Physical Memory)</span>
+<a name="l-12"></a><span class="tm">13:06:45</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani Sent a RFC about serial console tool in Kimchi.</span>
+<a name="l-13"></a><span class="tm">13:06:45</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani I'm currently testing PCI hotplug in X86_64 and PPC64.</span>
+<a name="l-14"></a><span class="tm">13:06:47</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac sent RFC for hotplug a new disk, hotplug a network interface, add suspend/resume, change ref_cnt; sent another revision of fix for #461;</span>
+<a name="l-15"></a><span class="tm">13:06:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm worked for 1.4.1 release: update package, changelog, github main page, etc</span>
+<a name="l-16"></a><span class="tm">13:07:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent RFC to make template defaults configurable</span>
+<a name="l-17"></a><span class="tm">13:07:45</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce invested about using puppet to setup kimchi, tested the UI bugs on ipad, started writing patch for logical pool for existed VG</span>
+<a name="l-18"></a><span class="tm">13:09:07</span><span class="nk"> &lt;alinefm&gt;</span> royce, could you send a RFC about creating a storage pool from an existing VG?
+<a name="l-19"></a><span class="tm">13:09:19</span><span class="nk"> &lt;alinefm&gt;</span> so we can get agreement on API before you start working
+<a name="l-20"></a><span class="tm">13:09:26</span><span class="nk"> &lt;alinefm&gt;</span> just to make it easier
+<a name="l-21"></a><span class="tm">13:09:58</span><span class="nk"> &lt;royce&gt;</span> I thought it is a small feature, so planned to send the patch with API spec...
+<a name="l-22"></a><span class="tm">13:11:11</span><span class="nk"> &lt;royce&gt;</span> I will send it tomorrow
+<a name="l-23"></a><span class="tm">13:11:31</span><span class="nk"> &lt;alinefm&gt;</span> royce, thanks
+<a name="l-24"></a><span class="tm">13:11:42</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-25"></a><span class="tm">13:12:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi 1.5 Plan</span>
+<a name="l-26"></a><span class="tm">13:13:06</span><span class="nk"> &lt;alinefm&gt;</span> I have created the schedule in the github wiki: https://github.com/kimchi-project/kimchi/wiki/planning-1.5
+<a name="l-27"></a><span class="tm">13:13:14</span><span class="nk"> &lt;alinefm&gt;</span> please check the dates in the link
+<a name="l-28"></a><span class="tm">13:13:51</span><span class="nk"> &lt;alinefm&gt;</span> I will create the todo page later today after reading all the RFC on ML and check the open issues
+<a name="l-29"></a><span class="tm">13:14:04</span><span class="nk"> &lt;alinefm&gt;</span> any questions? doubts? suggestion?
+<a name="l-30"></a><span class="tm">13:16:00</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, ziviani, danielhb, ^
+<a name="l-31"></a><span class="tm">13:16:12</span><span class="nk"> &lt;vianac&gt;</span> alinefm, no
+<a name="l-32"></a><span class="tm">13:16:21</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have none
+<a name="l-33"></a><span class="tm">13:17:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-34"></a><span class="tm">13:17:07</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-35"></a><span class="tm">13:19:34</span><span class="nk"> &lt;alinefm&gt;</span> vianac, any update about the needinfo issues?
+<a name="l-36"></a><span class="tm">13:20:29</span><span class="nk"> &lt;vianac&gt;</span> alinefm, no, any new issue with that status
+<a name="l-37"></a><span class="tm">13:21:20</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-38"></a><span class="tm">13:21:51</span><span class="nk"> &lt;alinefm&gt;</span> vianac, royce, danielhb, ziviani, if you don't have anything else we can finish the meeting for today
+<a name="l-39"></a><span class="tm">13:22:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, did you had the time to look at that github issue I talked about yesterday?
+<a name="l-40"></a><span class="tm">13:22:22</span><span class="nk"> &lt;royce&gt;</span> I sent a RFC about using puppet to set up kimchi environment, because I find every release it is painful for me to set up a complete test env
+<a name="l-41"></a><span class="tm">13:23:36</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I believe that Kimchi shouldn't bother resolving host name to IP if qemu can't handle hostnames. It creates a whole new different issue on Kimchi side. I'd rather ask people to download the ISO or update their qemu than to rely on the randomness we have today with the remote streaming
+<a name="l-42"></a><span class="tm">13:25:14</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, just read it
+<a name="l-43"></a><span class="tm">13:25:34</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, removing it now we cause a regression for fedora users
+<a name="l-44"></a><span class="tm">13:25:49</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, it works in F21
+<a name="l-45"></a><span class="tm">13:26:15</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, qemu can resolve hostnames on F21?
+<a name="l-46"></a><span class="tm">13:26:35</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, vianac said that he can't reproduce the issue in his F21. vianac ?
+<a name="l-47"></a><span class="tm">13:27:01</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, are you on f21?
+<a name="l-48"></a><span class="tm">13:27:35</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, danielhb does it work in RHEL 6.x? or is this feature not available in older distros?
+<a name="l-49"></a><span class="tm">13:27:38</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, and even if F21 is bugged, I don't consider it a regression because now Kimchi has the option to download the ISO. And, again, unless Kimchi can guarantee that the remote server will resolve the URL correctly, the feature is flawed
+<a name="l-50"></a><span class="tm">13:28:45</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, RHEL 6.X does not have support for iso streaming on qemu
+<a name="l-51"></a><span class="tm">13:28:54</span><span class="nk"> &lt;lagarcia&gt;</span> alinefm, ok
+<a name="l-52"></a><span class="tm">13:29:44</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I agree but I suggest to find a way to improve the hostname-IP resolution Kimchi is doing before removing this
+<a name="l-53"></a><span class="tm">13:30:25</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, for example, I have tested long time ago, the resolution failed in the original URL redirects to other one
+<a name="l-54"></a><span class="tm">13:30:47</span><span class="nk"> &lt;alinefm&gt;</span> I think we first need to get the final URL and then resolve the hostname
+<a name="l-55"></a><span class="tm">13:31:00</span><span class="nk"> &lt;alinefm&gt;</span> so it may work in all cases
+<a name="l-56"></a><span class="tm">13:31:12</span><span class="nk"> &lt;alinefm&gt;</span> *but* we need to test and investigate it is a good solution
+<a name="l-57"></a><span class="tm">13:32:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I believe it will fail the same way as it does now. If you insert an URL like http://n.n.n.n:80/my_link there is no guarantee that the webserver will redirect you to http://nameserver.com/my_link
+<a name="l-58"></a><span class="tm">13:32:36</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, we can't control how the remote server resolves the incoming URL
+<a name="l-59"></a><span class="tm">13:33:06</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, but I do not oppose testing other ways before ditching this design
+<a name="l-60"></a><span class="tm">13:33:53</span><span class="nk"> &lt;danielhb&gt;</span> brb
+<a name="l-61"></a><span class="tm">13:34:48</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, we need also to confirm all the current qemu versions still have this issues on resolving hostnames
+<a name="l-62"></a><span class="tm">13:34:58</span><span class="nk"> &lt;alinefm&gt;</span> otherwise we can remove it IMO
+<a name="l-63"></a><span class="tm">13:36:21</span><span class="nk"> &lt;alinefm&gt;</span> royce, about the complete test env, vianac is using a script to do that on his vms
+<a name="l-64"></a><span class="tm">13:37:59</span><span class="nk"> &lt;vianac&gt;</span> danielhb, alinefm: on Fedora 21, that issue doesn't exist because its qemu-io version can handle DNS names, so we don't need to convert anything
+<a name="l-65"></a><span class="tm">13:40:45</span><span class="nk"> &lt;alinefm&gt;</span> I will test it on RHEL7, opensuse and ubuntu
+<a name="l-66"></a><span class="tm">13:41:01</span><span class="nk"> &lt;alinefm&gt;</span> probably the qemu versions there is also working now
+<a name="l-67"></a><span class="tm">13:41:08</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-68"></a><span class="tm">13:42:00</span><span class="nk"> &lt;royce&gt;</span> I tried to write script too, but found set up like iscsi server and ldap needs some intervention. So I planned to switch to puppet
+<a name="l-69"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> oh.. vianac's script is simpler than that
+<a name="l-70"></a><span class="tm">13:43:16</span><span class="nk"> &lt;alinefm&gt;</span> it is just to run "make check" inside the vm
+<a name="l-71"></a><span class="tm">13:43:49</span><span class="nk"> &lt;royce&gt;</span> Oh, it's like jenkins, right?
+<a name="l-72"></a><span class="tm">13:44:27</span><span class="nk"> &lt;royce&gt;</span> I just meant to make user easier to set up a sand box to play with kimchi's all features
+<a name="l-73"></a><span class="tm">13:45:01</span><span class="nk"> &lt;alinefm&gt;</span> got it
+<a name="l-74"></a><span class="tm">13:48:41</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-75"></a><span class="tm">13:49:33</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-76"></a><span class="tm">13:51:53</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-77"></a><span class="tm">13:51:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
