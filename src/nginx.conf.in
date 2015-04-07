@@ -53,6 +53,7 @@ http {
         ssl_certificate ${cert_pem};
         ssl_certificate_key ${cert_key};
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers ECDH@STRENGTH:DH@STRENGTH:HIGH:!RC4:!MD5:!DES:!aNULL:!eNULL;
 
         add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
         add_header X-Frame-Options DENY;
