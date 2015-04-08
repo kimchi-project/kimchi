@@ -651,7 +651,7 @@ class VMModel(object):
         try:
             if 'name' in params:
                 state = DOM_STATE_MAP[dom.info()[0]]
-                if state == 'running':
+                if state != 'shutoff':
                     msg_args = {'name': vm_name, 'new_name': params['name']}
                     raise InvalidParameter("KCHVM0003E", msg_args)
 
@@ -884,7 +884,7 @@ class VMModel(object):
         paths = self._vm_get_disk_paths(dom)
         info = self.lookup(name)
 
-        if info['state'] == 'running':
+        if info['state'] != 'shutoff':
             self.poweroff(name)
 
         # delete existing snapshots before deleting VM
