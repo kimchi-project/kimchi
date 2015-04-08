@@ -459,6 +459,34 @@ class RestTests(unittest.TestCase):
                             '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
+        # Suspend the VM
+        resp = self.request('/vms/test-vm', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        vm = json.loads(resp.read())
+        self.assertEquals(vm['state'], 'shutoff')
+        resp = self.request('/vms/test-vm/suspend', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+        resp = self.request('/vms/test-vm/start', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/vms/test-vm', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        vm = json.loads(resp.read())
+        self.assertEquals(vm['state'], 'running')
+        resp = self.request('/vms/test-vm/suspend', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/vms/test-vm', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        vm = json.loads(resp.read())
+        self.assertEquals(vm['state'], 'paused')
+
+        # Resume the VM
+        resp = self.request('/vms/test-vm/resume', '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/vms/test-vm', '{}', 'GET')
+        self.assertEquals(200, resp.status)
+        vm = json.loads(resp.read())
+        self.assertEquals(vm['state'], 'running')
+
         # Delete the VM
         resp = self.request('/vms/test-vm', '{}', 'DELETE')
         self.assertEquals(204, resp.status)

@@ -211,6 +211,26 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(NotFoundError, inst.vmsnapshot_delete,
                               u'kimchi-vm', u'foobar')
 
+            # suspend and resume the VM
+            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertEquals(info['state'], 'shutoff')
+            self.assertRaises(InvalidOperation, inst.vm_suspend, u'kimchi-vm')
+            inst.vm_start(u'kimchi-vm')
+            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertEquals(info['state'], 'running')
+            inst.vm_suspend(u'kimchi-vm')
+            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertEquals(info['state'], 'paused')
+            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm',
+                              {'name': 'foo'})
+            inst.vm_resume(u'kimchi-vm')
+            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertEquals(info['state'], 'running')
+            self.assertRaises(InvalidOperation, inst.vm_resume, u'kimchi-vm')
+            # leave the VM suspended to make sure a paused VM can be
+            # deleted correctly
+            inst.vm_suspend(u'kimchi-vm')
+
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-vm' in vms)
 
