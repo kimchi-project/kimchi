@@ -629,7 +629,6 @@ class VMModel(object):
             dom.snapshotCreateXML(info['xml'], flags)
 
     def _static_vm_update(self, dom, params):
-        state = DOM_STATE_MAP[dom.info()[0]]
         old_xml = new_xml = dom.XMLDesc(0)
 
         for key, val in params.items():
@@ -651,6 +650,7 @@ class VMModel(object):
         conn = self.conn.get()
         try:
             if 'name' in params:
+                state = DOM_STATE_MAP[dom.info()[0]]
                 if state == 'running':
                     msg_args = {'name': vm_name, 'new_name': params['name']}
                     raise InvalidParameter("KCHVM0003E", msg_args)
