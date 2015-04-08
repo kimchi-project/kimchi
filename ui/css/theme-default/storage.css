@@ -185,6 +185,11 @@
     width: 199px;
 }
 
+.title-usage {
+    padding-right: 10px;
+    float: right;
+}
+
 .title-state {
     width: 51px;
 }
