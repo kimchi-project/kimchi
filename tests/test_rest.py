@@ -18,7 +18,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import base64
 import json
 import os
 import re
@@ -93,70 +92,6 @@ class RestTests(unittest.TestCase):
     def assertHTTPStatus(self, code, *args):
         resp = self.request(*args)
         self.assertEquals(code, resp.status)
-
-    def assertValidJSON(self, txt):
-        try:
-            json.loads(txt)
-        except ValueError:
-            self.fail("Invalid JSON: %s" % txt)
-
-    def test_404(self):
-        """
-        A non-existent path should return HTTP:404
-        """
-        url_list = ['/doesnotexist', '/vms/blah']
-        for url in url_list:
-            self.assertHTTPStatus(404, url)
-
-        # Make sure it fails for bad HTML requests
-        # We must be authenticated first.  Otherwise all requests will return
-        # HTTP:401.  Since HTTP Simple Auth is not allowed for text/html, we
-        # need to use the login API and establish a session.
-        user, pw = kimchi.mockmodel.fake_user.items()[0]
-        req = json.dumps({'username': user, 'password': pw})
-        resp = self.request('/login', req, 'POST')
-        self.assertEquals(200, resp.status)
-        cookie = resp.getheader('set-cookie')
-
-        self.assertHTTPStatus(404, url, None, 'GET',
-                              {'Accept': 'text/html',
-                               'Cookie': cookie})
-
-        # Verify it works for DELETE too
-        self.assertHTTPStatus(404, '/templates/blah', '', 'DELETE')
-
-    def test_accepts(self):
-        """
-        Verify the following expectations regarding the client Accept header:
-          If omitted, default to html
-          If 'application/json', serve the rest api
-          If 'text/html', serve the UI
-          If both of the above (in any order), serve the rest api
-          If neither of the above, HTTP:406
-        """
-        resp = self.request("/", headers={})
-        location = resp.getheader('location')
-        self.assertTrue(location.endswith("login.html"))
-        resp = self.request("/login.html", headers={})
-        self.assertTrue('<!doctype html>' in resp.read().lower())
-
-        resp = self.request("/", headers={'Accept': 'application/json'})
-        self.assertValidJSON(resp.read())
-
-        resp = self.request("/", headers={'Accept': 'text/html'})
-        location = resp.getheader('location')
-        self.assertTrue(location.endswith("login.html"))
-
-        resp = self.request("/", headers={'Accept':
-                                          'application/json, text/html'})
-        self.assertValidJSON(resp.read())
-
-        resp = self.request("/", headers={'Accept':
-                                          'text/html, application/json'})
-        self.assertValidJSON(resp.read())
-
-        h = {'Accept': 'text/plain'}
-        self.assertHTTPStatus(406, "/", None, 'GET', h)
 
     def test_host_devices(self):
         resp = self.request('/host/devices?_cap=scsi_host')
@@ -1105,92 +1040,6 @@ class RestTests(unittest.TestCase):
         resp = self.request('/peers').read()
         self.assertEquals([], json.loads(resp))
 
-    def test_auth_unprotected(self):
-        hdrs = {'AUTHORIZATION': ''}
-        uris = ['/js/kimchi.min.js',
-                '/css/theme-default.min.css',
-                '/libs/jquery-1.10.0.min.js',
-                '/images/icon-vm.png',
-                '/login.html',
-                '/logout']
-        for uri in uris:
-            resp = self.request(uri, None, 'HEAD', hdrs)
-            self.assertEquals(200, resp.status)
-
-        user, pw = kimchi.mockmodel.fake_user.items()[0]
-        req = json.dumps({'username': user, 'password': pw})
-        resp = self.request('/login', req, 'POST', hdrs)
-        self.assertEquals(200, resp.status)
-
-    def test_auth_protected(self):
-        hdrs = {'AUTHORIZATION': ''}
-        uris = ['/vms',
-                '/vms/doesnotexist',
-                '/tasks']
-        for uri in uris:
-            resp = self.request(uri, None, 'GET', hdrs)
-            self.assertEquals(401, resp.status)
-
-    def test_auth_bad_creds(self):
-        # Test HTTPBA
-        hdrs = {'AUTHORIZATION': "Basic " + base64.b64encode("nouser:badpass")}
-        resp = self.request('/vms', None, 'GET', hdrs)
-        self.assertEquals(401, resp.status)
-
-        # Test REST API
-        hdrs = {'AUTHORIZATION': ''}
-        req = json.dumps({'username': 'nouser', 'password': 'badpass'})
-        resp = self.request('/login', req, 'POST', hdrs)
-        self.assertEquals(401, resp.status)
-
-    def test_auth_browser_no_httpba(self):
-        # Kimchi detects REST requests from the browser by looking for a
-        # specific header
-        hdrs = {"X-Requested-With": "XMLHttpRequest"}
-
-        # Try our request (Note that request() will add a valid HTTPBA header)
-        resp = self.request('/vms', None, 'GET', hdrs)
-        self.assertEquals(401, resp.status)
-        self.assertEquals(None, resp.getheader('WWW-Authenticate'))
-
-    def test_auth_session(self):
-        hdrs = {'AUTHORIZATION': '',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'}
-
-        # Test we are logged out
-        resp = self.request('/tasks', None, 'GET', hdrs)
-        self.assertEquals(401, resp.status)
-
-        # Execute a login call
-        user, pw = kimchi.mockmodel.fake_user.items()[0]
-        req = json.dumps({'username': user, 'password': pw})
-        resp = self.request('/login', req, 'POST', hdrs)
-        self.assertEquals(200, resp.status)
-
-        user_info = json.loads(resp.read())
-        self.assertEquals(sorted(user_info.keys()),
-                          ['groups', 'roles', 'username'])
-        roles = user_info['roles']
-        for tab, role in roles.iteritems():
-            self.assertEquals(role, u'admin')
-
-        cookie = resp.getheader('set-cookie')
-        hdrs['Cookie'] = cookie
-
-        # Test we are logged in with the cookie
-        resp = self.request('/tasks', None, 'GET', hdrs)
-        self.assertEquals(200, resp.status)
-
-        # Execute a logout call
-        resp = self.request('/logout', '{}', 'POST', hdrs)
-        self.assertEquals(200, resp.status)
-        del hdrs['Cookie']
-
-        # Test we are logged out
-        resp = self.request('/tasks', None, 'GET', hdrs)
-        self.assertEquals(401, resp.status)
-
     def test_distros(self):
         resp = self.request('/config/distros').read()
         distros = json.loads(resp)
@@ -1333,31 +1182,6 @@ class RestTests(unittest.TestCase):
         task_info = json.loads(resp.read())
         self.assertEquals(task_info['status'], 'finished')
         self.assertIn(u'All packages updated', task_info['message'])
-
-    def test_get_param(self):
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
-        self.request('/templates', req, 'POST')
-
-        # Create a VM
-        req = json.dumps({'name': 'test-vm1', 'template': '/templates/test'})
-        resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
-        req = json.dumps({'name': 'test-vm2', 'template': '/templates/test'})
-        resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
-
-        resp = request(host, ssl_port, '/vms')
-        self.assertEquals(200, resp.status)
-        res = json.loads(resp.read())
-        self.assertEquals(3, len(res))
-
-        # FIXME: control/base.py also allows filter by regex so it is returning
-        # 2 vms when querying for 'test-vm1': 'test' and 'test-vm1'
-        resp = request(host, ssl_port, '/vms?name=test-vm1')
-        self.assertEquals(200, resp.status)
-        res = json.loads(resp.read())
-        self.assertEquals(2, len(res))
-        self.assertIn('test-vm1', [r['name'] for r in res])
 
     def test_repositories(self):
         def verify_repo(t, res):

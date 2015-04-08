@@ -26,7 +26,6 @@ import pwd
 import re
 import shutil
 import socket
-import threading
 import time
 import urlparse
 import unittest
@@ -709,22 +708,6 @@ class ModelTests(unittest.TestCase):
             inst.vm_update(u'пeω-∨м', {'users': [], 'groups': []})
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
-
-    def test_multithreaded_connection(self):
-        def worker():
-            for i in xrange(100):
-                ret = inst.vms_get_list()
-                self.assertEquals('test', ret[0])
-
-        inst = model.Model('test:///default', self.tmp_store)
-        threads = []
-        for i in xrange(100):
-            t = threading.Thread(target=worker)
-            t.setDaemon(True)
-            t.start()
-            threads.append(t)
-        for t in threads:
-            t.join()
 
     def test_get_interfaces(self):
         inst = model.Model('test:///default',
