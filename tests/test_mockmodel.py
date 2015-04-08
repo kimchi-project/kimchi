@@ -27,7 +27,6 @@ import unittest
 import kimchi.mockmodel
 from utils import get_free_port, patch_auth, request, run_server
 from utils import wait_task
-from kimchi.control.base import Collection, Resource
 from kimchi.osinfo import get_template_default
 
 
@@ -62,40 +61,6 @@ def tearDown():
 class MockModelTests(unittest.TestCase):
     def setUp(self):
         model.reset()
-
-    def test_collection(self):
-        c = Collection(model)
-
-        # The base Collection is always empty
-        cherrypy.request.method = 'GET'
-        self.assertEquals('[]', c.index())
-
-        # POST and DELETE raise HTTP:405 by default
-        for method in ('POST', 'DELETE'):
-            cherrypy.request.method = method
-            try:
-                c.index()
-            except cherrypy.HTTPError, e:
-                self.assertEquals(405, e.code)
-            else:
-                self.fail("Expected exception not raised")
-
-    def test_resource(self):
-        r = Resource(model)
-
-        # Test the base Resource representation
-        cherrypy.request.method = 'GET'
-        self.assertEquals('{}', r.index())
-
-        # POST and DELETE raise HTTP:405 by default
-        for method in ('POST', 'DELETE'):
-            cherrypy.request.method = method
-            try:
-                r.index()
-            except cherrypy.HTTPError, e:
-                self.assertEquals(405, e.code)
-            else:
-                self.fail("Expected exception not raised")
 
     def test_screenshot_refresh(self):
         # Create a VM
