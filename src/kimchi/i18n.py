@@ -107,6 +107,10 @@ messages = {
     "KCHVM0034E": _("Insufficient disk space to clone virtual machine '%(name)s'"),
     "KCHVM0035E": _("Unable to clone VM '%(name)s'. Details: %(err)s"),
     "KCHVM0036E": _("Invalid operation for non-persistent virtual machine %(name)s"),
+    "KCHVM0037E": _("Cannot suspend VM '%(name)s' because it is not running."),
+    "KCHVM0038E": _("Unable to suspend VM '%(name)s'. Details: %(err)s"),
+    "KCHVM0039E": _("Cannot resume VM '%(name)s' because it is not paused."),
+    "KCHVM0040E": _("Unable to resume VM '%(name)s'. Details: %(err)s"),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),

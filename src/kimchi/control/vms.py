@@ -48,6 +48,8 @@ class VM(Resource):
                                                   destructive=True)
         self.connect = self.generate_action_handler('connect')
         self.clone = self.generate_action_handler_task('clone')
+        self.suspend = self.generate_action_handler('suspend')
+        self.resume = self.generate_action_handler('resume')
 
     @property
     def data(self):

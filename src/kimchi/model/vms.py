@@ -1037,6 +1037,47 @@ class VMModel(object):
             kimchi_log.error('Error trying to delete vm screenshot from '
                              'database due error: %s', e.message)
 
+    def suspend(self, name):
+        """Suspend the virtual machine's execution and puts it in the
+        state 'paused'. Use the function "resume" to restore its state.
+        If the VM is not running, an exception will be raised.
+
+        Parameters:
+        name -- the name of the VM to be suspended.
+        """
+        vm = self.lookup(name)
+        if vm['state'] != 'running':
+            raise InvalidOperation('KCHVM0037E', {'name': name})
+
+        vir_dom = self.get_vm(name, self.conn)
+
+        try:
+            vir_dom.suspend()
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHVM0038E', {'name': name,
+                                                 'err': e.message})
+
+    def resume(self, name):
+        """Resume the virtual machine's execution and puts it in the
+        state 'running'. The VM should have been suspended previously by the
+        function "suspend" and be in the state 'paused', otherwise an exception
+        will be raised.
+
+        Parameters:
+        name -- the name of the VM to be resumed.
+        """
+        vm = self.lookup(name)
+        if vm['state'] != 'paused':
+            raise InvalidOperation('KCHVM0039E', {'name': name})
+
+        vir_dom = self.get_vm(name, self.conn)
+
+        try:
+            vir_dom.resume()
+        except libvirt.libvirtError, e:
+            raise OperationFailed('KCHVM0040E', {'name': name,
+                                                 'err': e.message})
+
 
 class VMScreenshotModel(object):
     def __init__(self, **kargs):
