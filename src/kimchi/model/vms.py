@@ -63,8 +63,6 @@ VM_STATIC_UPDATE_PARAMS = {'name': './name',
                            'memory': './memory'}
 VM_LIVE_UPDATE_PARAMS = {}
 
-stats = {}
-
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
 XPATH_DOMAIN_NAME = '/domain/name'
@@ -81,105 +79,6 @@ class VMsModel(object):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
         self.caps = CapabilitiesModel(**kargs)
-
-    @staticmethod
-    def _update_guest_stats(name, conn):
-        try:
-            dom = VMModel.get_vm(name, conn)
-
-            vm_uuid = dom.UUIDString()
-            info = dom.info()
-            state = DOM_STATE_MAP[info[0]]
-
-            if state != 'running':
-                stats[vm_uuid] = {}
-                return
-
-            if stats.get(vm_uuid, None) is None:
-                stats[vm_uuid] = {}
-
-            timestamp = time.time()
-            prevStats = stats.get(vm_uuid, {})
-            seconds = timestamp - prevStats.get('timestamp', 0)
-            stats[vm_uuid].update({'timestamp': timestamp})
-
-            VMsModel._get_percentage_cpu_usage(vm_uuid, info, seconds)
-            VMsModel._get_network_io_rate(vm_uuid, dom, seconds)
-            VMsModel._get_disk_io_rate(vm_uuid, dom, seconds)
-        except Exception as e:
-            # VM might be deleted just after we get the list.
-            # This is OK, just skip.
-            kimchi_log.debug('Error processing VM stats: %s', e.message)
-
-    @staticmethod
-    def _get_percentage_cpu_usage(vm_uuid, info, seconds):
-        prevCpuTime = stats[vm_uuid].get('cputime', 0)
-
-        cpus = info[3]
-        cpuTime = info[4] - prevCpuTime
-
-        base = (((cpuTime) * 100.0) / (seconds * 1000.0 * 1000.0 * 1000.0))
-        percentage = max(0.0, min(100.0, base / cpus))
-
-        stats[vm_uuid].update({'cputime': info[4], 'cpu': percentage})
-
-    @staticmethod
-    def _get_network_io_rate(vm_uuid, dom, seconds):
-        prevNetRxKB = stats[vm_uuid].get('netRxKB', 0)
-        prevNetTxKB = stats[vm_uuid].get('netTxKB', 0)
-        currentMaxNetRate = stats[vm_uuid].get('max_net_io', 100)
-
-        rx_bytes = 0
-        tx_bytes = 0
-
-        tree = ElementTree.fromstring(dom.XMLDesc(0))
-        for target in tree.findall('devices/interface/target'):
-            dev = target.get('dev')
-            io = dom.interfaceStats(dev)
-            rx_bytes += io[0]
-            tx_bytes += io[4]
-
-        netRxKB = float(rx_bytes) / 1000
-        netTxKB = float(tx_bytes) / 1000
-
-        rx_stats = (netRxKB - prevNetRxKB) / seconds
-        tx_stats = (netTxKB - prevNetTxKB) / seconds
-
-        rate = rx_stats + tx_stats
-        max_net_io = round(max(currentMaxNetRate, int(rate)), 1)
-
-        stats[vm_uuid].update({'net_io': rate, 'max_net_io': max_net_io,
-                               'netRxKB': netRxKB, 'netTxKB': netTxKB})
-
-    @staticmethod
-    def _get_disk_io_rate(vm_uuid, dom, seconds):
-        prevDiskRdKB = stats[vm_uuid].get('diskRdKB', 0)
-        prevDiskWrKB = stats[vm_uuid].get('diskWrKB', 0)
-        currentMaxDiskRate = stats[vm_uuid].get('max_disk_io', 100)
-
-        rd_bytes = 0
-        wr_bytes = 0
-
-        tree = ElementTree.fromstring(dom.XMLDesc(0))
-        for target in tree.findall("devices/disk/target"):
-            dev = target.get("dev")
-            io = dom.blockStats(dev)
-            rd_bytes += io[1]
-            wr_bytes += io[3]
-
-        diskRdKB = float(rd_bytes) / 1024
-        diskWrKB = float(wr_bytes) / 1024
-
-        rd_stats = (diskRdKB - prevDiskRdKB) / seconds
-        wr_stats = (diskWrKB - prevDiskWrKB) / seconds
-
-        rate = rd_stats + wr_stats
-        max_disk_io = round(max(currentMaxDiskRate, int(rate)), 1)
-
-        stats[vm_uuid].update({'disk_io': rate,
-                               'max_disk_io': max_disk_io,
-                               'diskRdKB': diskRdKB,
-                               'diskWrKB': diskWrKB})
 
     def create(self, params):
         conn = self.conn.get()
@@ -273,6 +172,7 @@ class VMModel(object):
         self.vmsnapshot = cls(**kargs)
         cls = import_class('kimchi.model.vmsnapshots.VMSnapshotsModel')
         self.vmsnapshots = cls(**kargs)
+        self.stats = {}
 
     def update(self, name, params):
         dom = self.get_vm(name, self.conn)
@@ -793,6 +693,101 @@ class VMModel(object):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
         return dom.find('devices/video') is not None
 
+    def _update_guest_stats(self, name):
+        try:
+            dom = VMModel.get_vm(name, self.conn)
+
+            vm_uuid = dom.UUIDString()
+            info = dom.info()
+            state = DOM_STATE_MAP[info[0]]
+
+            if state != 'running':
+                self.stats[vm_uuid] = {}
+                return
+
+            if self.stats.get(vm_uuid, None) is None:
+                self.stats[vm_uuid] = {}
+
+            timestamp = time.time()
+            prevStats = self.stats.get(vm_uuid, {})
+            seconds = timestamp - prevStats.get('timestamp', 0)
+            self.stats[vm_uuid].update({'timestamp': timestamp})
+
+            self._get_percentage_cpu_usage(vm_uuid, info, seconds)
+            self._get_network_io_rate(vm_uuid, dom, seconds)
+            self._get_disk_io_rate(vm_uuid, dom, seconds)
+        except Exception as e:
+            # VM might be deleted just after we get the list.
+            # This is OK, just skip.
+            kimchi_log.debug('Error processing VM stats: %s', e.message)
+
+    def _get_percentage_cpu_usage(self, vm_uuid, info, seconds):
+        prevCpuTime = self.stats[vm_uuid].get('cputime', 0)
+
+        cpus = info[3]
+        cpuTime = info[4] - prevCpuTime
+
+        base = (((cpuTime) * 100.0) / (seconds * 1000.0 * 1000.0 * 1000.0))
+        percentage = max(0.0, min(100.0, base / cpus))
+
+        self.stats[vm_uuid].update({'cputime': info[4], 'cpu': percentage})
+
+    def _get_network_io_rate(self, vm_uuid, dom, seconds):
+        prevNetRxKB = self.stats[vm_uuid].get('netRxKB', 0)
+        prevNetTxKB = self.stats[vm_uuid].get('netTxKB', 0)
+        currentMaxNetRate = self.stats[vm_uuid].get('max_net_io', 100)
+
+        rx_bytes = 0
+        tx_bytes = 0
+
+        tree = ElementTree.fromstring(dom.XMLDesc(0))
+        for target in tree.findall('devices/interface/target'):
+            dev = target.get('dev')
+            io = dom.interfaceStats(dev)
+            rx_bytes += io[0]
+            tx_bytes += io[4]
+
+        netRxKB = float(rx_bytes) / 1000
+        netTxKB = float(tx_bytes) / 1000
+
+        rx_stats = (netRxKB - prevNetRxKB) / seconds
+        tx_stats = (netTxKB - prevNetTxKB) / seconds
+
+        rate = rx_stats + tx_stats
+        max_net_io = round(max(currentMaxNetRate, int(rate)), 1)
+
+        self.stats[vm_uuid].update({'net_io': rate, 'max_net_io': max_net_io,
+                                    'netRxKB': netRxKB, 'netTxKB': netTxKB})
+
+    def _get_disk_io_rate(self, vm_uuid, dom, seconds):
+        prevDiskRdKB = self.stats[vm_uuid].get('diskRdKB', 0)
+        prevDiskWrKB = self.stats[vm_uuid].get('diskWrKB', 0)
+        currentMaxDiskRate = self.stats[vm_uuid].get('max_disk_io', 100)
+
+        rd_bytes = 0
+        wr_bytes = 0
+
+        tree = ElementTree.fromstring(dom.XMLDesc(0))
+        for target in tree.findall("devices/disk/target"):
+            dev = target.get("dev")
+            io = dom.blockStats(dev)
+            rd_bytes += io[1]
+            wr_bytes += io[3]
+
+        diskRdKB = float(rd_bytes) / 1024
+        diskWrKB = float(wr_bytes) / 1024
+
+        rd_stats = (diskRdKB - prevDiskRdKB) / seconds
+        wr_stats = (diskWrKB - prevDiskWrKB) / seconds
+
+        rate = rd_stats + wr_stats
+        max_disk_io = round(max(currentMaxDiskRate, int(rate)), 1)
+
+        self.stats[vm_uuid].update({'disk_io': rate,
+                                    'max_disk_io': max_disk_io,
+                                    'diskRdKB': diskRdKB,
+                                    'diskWrKB': diskWrKB})
+
     def lookup(self, name):
         dom = self.get_vm(name, self.conn)
         info = dom.info()
@@ -808,7 +803,7 @@ class VMModel(object):
             elif state == 'shutoff':
                 # reset vm stats when it is powered off to avoid sending
                 # incorrect (old) data
-                stats[dom.UUIDString()] = {}
+                self.stats[dom.UUIDString()] = {}
         except NotFoundError:
             pass
 
@@ -819,8 +814,8 @@ class VMModel(object):
                 extra_info = {}
         icon = extra_info.get('icon')
 
-        VMsModel._update_guest_stats(name, self.conn.get())
-        vm_stats = stats.get(dom.UUIDString(), {})
+        self._update_guest_stats(name)
+        vm_stats = self.stats.get(dom.UUIDString(), {})
         res = {}
         res['cpu_utilization'] = vm_stats.get('cpu', 0)
         res['net_throughput'] = vm_stats.get('net_io', 0)
