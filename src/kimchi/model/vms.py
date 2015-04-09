@@ -83,35 +83,33 @@ class VMsModel(object):
         self.caps = CapabilitiesModel(**kargs)
 
     @staticmethod
-    def _update_guests_stats(names, conn):
-        for name in names:
-            try:
-                dom = VMModel.get_vm(name, conn)
+    def _update_guest_stats(name, conn):
+        try:
+            dom = VMModel.get_vm(name, conn)
 
-                vm_uuid = dom.UUIDString()
-                info = dom.info()
-                state = DOM_STATE_MAP[info[0]]
+            vm_uuid = dom.UUIDString()
+            info = dom.info()
+            state = DOM_STATE_MAP[info[0]]
 
-                if state != 'running':
-                    stats[vm_uuid] = {}
-                    continue
+            if state != 'running':
+                stats[vm_uuid] = {}
+                return
 
-                if stats.get(vm_uuid, None) is None:
-                    stats[vm_uuid] = {}
+            if stats.get(vm_uuid, None) is None:
+                stats[vm_uuid] = {}
 
-                timestamp = time.time()
-                prevStats = stats.get(vm_uuid, {})
-                seconds = timestamp - prevStats.get('timestamp', 0)
-                stats[vm_uuid].update({'timestamp': timestamp})
+            timestamp = time.time()
+            prevStats = stats.get(vm_uuid, {})
+            seconds = timestamp - prevStats.get('timestamp', 0)
+            stats[vm_uuid].update({'timestamp': timestamp})
 
-                VMsModel._get_percentage_cpu_usage(vm_uuid, info, seconds)
-                VMsModel._get_network_io_rate(vm_uuid, dom, seconds)
-                VMsModel._get_disk_io_rate(vm_uuid, dom, seconds)
-            except Exception as e:
-                # VM might be deleted just after we get the list.
-                # This is OK, just skip.
-                kimchi_log.debug('Error processing VM stats: %s', e.message)
-                continue
+            VMsModel._get_percentage_cpu_usage(vm_uuid, info, seconds)
+            VMsModel._get_network_io_rate(vm_uuid, dom, seconds)
+            VMsModel._get_disk_io_rate(vm_uuid, dom, seconds)
+        except Exception as e:
+            # VM might be deleted just after we get the list.
+            # This is OK, just skip.
+            kimchi_log.debug('Error processing VM stats: %s', e.message)
 
     @staticmethod
     def _get_percentage_cpu_usage(vm_uuid, info, seconds):
@@ -255,7 +253,6 @@ class VMsModel(object):
         conn_ = conn.get()
         names = [dom.name().decode('utf-8') for dom in conn_.listAllDomains(0)]
         names = sorted(names, key=unicode.lower)
-        VMsModel._update_guests_stats(names, conn)
         return names
 
 
@@ -822,6 +819,7 @@ class VMModel(object):
                 extra_info = {}
         icon = extra_info.get('icon')
 
+        VMsModel._update_guest_stats(name, self.conn.get())
         vm_stats = stats.get(dom.UUIDString(), {})
         res = {}
         res['cpu_utilization'] = vm_stats.get('cpu', 0)
