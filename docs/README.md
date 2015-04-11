@@ -62,6 +62,7 @@ Install Dependencies
 
      # Restart libvirt to allow configuration changes to take effect
      $ sudo service libvirtd restart
+     $ sudo systemctl restart libvirtd (when RHEL7)
 
     Packages version requirement:
         python-psutil >= 0.6.0
