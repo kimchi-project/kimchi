@@ -61,6 +61,10 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/kimchi/
 touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-access.log
 touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
 
+# create /etc/kimchi structure
+mkdir -p %{buildroot}/%{_sysconfdir}/kimchi/
+touch %{buildroot}/%{_sysconfdir}/kimchi/nginx_kimchi.conf
+
 # Install the SysV init scripts
 install -Dm 0755 contrib/kimchid.sysvinit %{buildroot}%{_initrddir}/kimchid
 
@@ -94,12 +98,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/ui/
 %{_datadir}/kimchi
 %{_sysconfdir}/kimchi/kimchi.conf
-%{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
 %{_sysconfdir}/kimchi/distros.d/fedora.json
 %{_sysconfdir}/kimchi/distros.d/opensuse.json
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
+%{_sysconfdir}/kimchi/nginx_kimchi.conf
+%{_sysconfdir}/kimchi
 %{_initrddir}/kimchid
 %{_sysconfdir}/kimchi/
 %{_var}/lib/kimchi/debugreports/
