@@ -316,9 +316,6 @@ class ModelTests(unittest.TestCase):
             params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
-            params = {'name': 'kimchi-ifaces', 'template': '/templates/test'}
-            inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'kimchi-ifaces')
 
             # Create a network
             net_name = 'test-network'
@@ -330,45 +327,50 @@ class ModelTests(unittest.TestCase):
             inst.network_activate(net_name)
             rollback.prependDefer(inst.network_deactivate, net_name)
 
-            ifaces = inst.vmifaces_get_list('kimchi-ifaces')
-            self.assertEquals(1, len(ifaces))
+            for vm_name in ['kimchi-ifaces', 'kimchi-ifaces-running']:
+                params = {'name': vm_name, 'template': '/templates/test'}
+                inst.vms_create(params)
+                rollback.prependDefer(inst.vm_delete, vm_name)
 
-            iface = inst.vmiface_lookup('kimchi-ifaces', ifaces[0])
-            self.assertEquals(17, len(iface['mac']))
-            self.assertEquals("default", iface['network'])
-            self.assertIn("model", iface)
+                ifaces = inst.vmifaces_get_list(vm_name)
+                self.assertEquals(1, len(ifaces))
 
-            # attach network interface to vm
-            iface_args = {"type": "network",
-                          "network": "test-network",
-                          "model": "virtio"}
-            mac = inst.vmifaces_create('kimchi-ifaces', iface_args)
-            # detach network interface from vm
-            rollback.prependDefer(inst.vmiface_delete, 'kimchi-ifaces', mac)
-            self.assertEquals(17, len(mac))
+                iface = inst.vmiface_lookup(vm_name, ifaces[0])
+                self.assertEquals(17, len(iface['mac']))
+                self.assertEquals("default", iface['network'])
+                self.assertIn("model", iface)
 
-            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
-            self.assertEquals("network", iface["type"])
-            self.assertEquals("test-network", iface['network'])
-            self.assertEquals("virtio", iface["model"])
+                # attach network interface to vm
+                iface_args = {"type": "network",
+                              "network": "test-network",
+                              "model": "virtio"}
+                mac = inst.vmifaces_create(vm_name, iface_args)
+                # detach network interface from vm
+                rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
+                self.assertEquals(17, len(mac))
 
-            # attach network interface to vm without providing model
-            iface_args = {"type": "network",
-                          "network": "test-network"}
-            mac = inst.vmifaces_create('kimchi-ifaces', iface_args)
-            rollback.prependDefer(inst.vmiface_delete, 'kimchi-ifaces', mac)
+                iface = inst.vmiface_lookup(vm_name, mac)
+                self.assertEquals("network", iface["type"])
+                self.assertEquals("test-network", iface['network'])
+                self.assertEquals("virtio", iface["model"])
 
-            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
-            self.assertEquals("network", iface["type"])
-            self.assertEquals("test-network", iface['network'])
+                # attach network interface to vm without providing model
+                iface_args = {"type": "network",
+                              "network": "test-network"}
+                mac = inst.vmifaces_create(vm_name, iface_args)
+                rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
 
-            # update vm interface
-            iface_args = {"network": "default",
-                          "model": "e1000"}
-            inst.vmiface_update('kimchi-ifaces', mac, iface_args)
-            iface = inst.vmiface_lookup('kimchi-ifaces', mac)
-            self.assertEquals("default", iface['network'])
-            self.assertEquals("e1000", iface["model"])
+                iface = inst.vmiface_lookup(vm_name, mac)
+                self.assertEquals("network", iface["type"])
+                self.assertEquals("test-network", iface['network'])
+
+                # update vm interface
+                iface_args = {"network": "default",
+                              "model": "e1000"}
+                inst.vmiface_update(vm_name, mac, iface_args)
+                iface = inst.vmiface_lookup(vm_name, mac)
+                self.assertEquals("default", iface['network'])
+                self.assertEquals("e1000", iface["model"])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):

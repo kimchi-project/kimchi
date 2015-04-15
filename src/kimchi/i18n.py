@@ -122,7 +122,6 @@ messages = {
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),
-    "KCHVMIF0003E": _("Do not support guest interface hot plug attachment"),
     "KCHVMIF0004E": _("Supported virtual machine interfaces type is only network"),
     "KCHVMIF0005E": _("Network name for virtual machine interface must be a string"),
     "KCHVMIF0006E": _("Invalid network model card specified for virtual machine interface"),
