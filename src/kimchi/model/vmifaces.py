@@ -22,7 +22,8 @@ import random
 import libvirt
 from lxml import etree, objectify
 
-from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
+from kimchi.exception import InvalidOperation, InvalidParameter
+from kimchi.exception import MissingParameter, NotFoundError
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.xmlutils.interface import get_iface_xml
@@ -44,9 +45,15 @@ class VMIfacesModel(object):
         networks = conn.listNetworks() + conn.listDefinedNetworks()
         networks = map(lambda x: x.decode('utf-8'), networks)
 
-        if params["type"] == "network" and params["network"] not in networks:
-            raise InvalidParameter("KCHVMIF0002E",
-                                   {'name': vm, 'network': params["network"]})
+        if params['type'] == 'network':
+            network = params.get("network")
+
+            if network is None:
+                raise MissingParameter('KCHVMIF0007E')
+
+            if network not in networks:
+                raise InvalidParameter('KCHVMIF0002E',
+                                       {'name': vm, 'network': network})
 
         dom = VMModel.get_vm(vm, self.conn)
         if DOM_STATE_MAP[dom.info()[0]] != "shutoff":

@@ -697,6 +697,11 @@ class RestTests(unittest.TestCase):
                 self.assertEquals(get_template_default('old', 'nic_model'),
                                   res['model'])
 
+            # try to attach an interface without specifying 'model'
+            req = json.dumps({'type': 'network'})
+            resp = self.request('/vms/test-vm/ifaces', req, 'POST')
+            self.assertEquals(400, resp.status)
+
             # attach network interface to vm
             req = json.dumps({"type": "network",
                               "network": "test-network",
