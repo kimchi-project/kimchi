@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -61,7 +61,7 @@ class VMIfacesModel(object):
                 break
 
         os_data = VMModel.vm_get_os_metadata(dom, self.caps.metadata_support)
-        os_distro, os_version = os_data
+        os_version, os_distro = os_data
         xml = get_iface_xml(params, conn.getInfo()[0], os_distro, os_version)
         dom.attachDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
 
