@@ -1,0 +1,43 @@
+13:01:40 <alinefm> #startmeeting
+13:01:40 <kimchi-bot> Meeting started Wed Apr 15 13:01:40 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:40 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:40 <alinefm> #meetingname scrum
+13:01:40 <kimchi-bot> The meeting name has been set to 'scrum'
+13:06:34 <kimchi-bot`> alinefm_: Error: Can't start another meeting, one is in progress.
+13:06:35 <alinefm_> #meetingname scrum
+13:06:35 <alinefm_> #info Agenda 1) Status 2) Open discussion
+13:06:35 <alinefm_> anything else?
+13:06:35 <kimchi-bot`> The meeting name has been set to 'scrum'
+13:07:04 <alinefm_> let's get started
+13:07:05 <alinefm_> #topic Status
+13:07:05 <alinefm_> #info Please provide your status using the #info command: #info <nickname> <status>
+13:07:49 <ziviani> #info ziviani is working on the issue https://github.com/kimchi-project/kimchi/issues/619
+13:08:17 <alinefm_> #info alinefm sent patches to refactor server and objectore tests
+13:08:24 <royce> #info royce sent patch of creating logic pool based on existed vg, and fixed a bug related to run_command file handler leak, rebasing upload storage volume this week,addressing testcase issues
+13:08:37 <alinefm_> #info alinefm sent patch to disable RC4 to prevent Bar Mitzvah attacks
+13:08:54 <alinefm_> #info alinefm still working on make template defaults configurable
+13:09:07 <alinefm_> #info vianac sent patch for issue #548; sent patches fixing other issues regarding network interfaces; reviewed patches on the mailing list.
+13:11:21 <alinefm> anything else?
+13:11:28 <ziviani> no
+13:12:23 <ramonn> #info ramonn sent patch for issue 496, discovered that kimchi can handle cd/dvd installation, so can close another bug. Will work on issue #450
+13:15:40 <alinefm> ok... so let's move on
+13:15:43 <alinefm> #topic Open Discussion
+13:16:14 <alinefm> danielhb, lagarcia, ramonn, rotru, royce, ziviani, any topic for today?
+13:16:28 <ziviani> no
+13:16:57 <ramonn> no
+13:16:58 <royce> no
+13:17:27 <lagarcia> no
+13:18:21 <alinefm> no??!
+13:18:26 <alinefm> hehehe
+13:19:02 <alinefm> I just want to ask you a favor
+13:19:07 <alinefm> it is related to reviews
+13:19:30 <alinefm> I see always the same people reviewing patches, so I'd like to ask you to be more involved on that
+13:19:52 <alinefm> specially for a major release when the patches are more frequently
+13:19:58 <alinefm> danielhb, lagarcia, ramonn, rotru, royce, ziviani, ^
+13:20:25 <ziviani> alinefm, ok
+13:20:38 <ramonn> ok
+13:20:58 <royce> OK
+13:21:13 <alinefm> thank you, guys!
+13:21:18 <alinefm> so we have finished for today
+13:21:25 <alinefm> thanks everyone for joining!
+13:21:28 <alinefm> #endmeeting
