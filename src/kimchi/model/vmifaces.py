@@ -22,8 +22,7 @@ import random
 import libvirt
 from lxml import etree, objectify
 
-from kimchi.exception import InvalidOperation, InvalidParameter
-from kimchi.exception import MissingParameter, NotFoundError
+from kimchi.exception import InvalidParameter, MissingParameter, NotFoundError
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.xmlutils.interface import get_iface_xml
@@ -55,10 +54,6 @@ class VMIfacesModel(object):
                 raise InvalidParameter('KCHVMIF0002E',
                                        {'name': vm, 'network': network})
 
-        dom = VMModel.get_vm(vm, self.conn)
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-            raise InvalidOperation("KCHVMIF0003E")
-
         macs = (iface.mac.get('address')
                 for iface in self.get_vmifaces(vm, self.conn))
 
@@ -67,10 +62,19 @@ class VMIfacesModel(object):
             if params['mac'] not in macs:
                 break
 
+        dom = VMModel.get_vm(vm, self.conn)
+
         os_data = VMModel.vm_get_os_metadata(dom, self.caps.metadata_support)
         os_version, os_distro = os_data
         xml = get_iface_xml(params, conn.getInfo()[0], os_distro, os_version)
-        dom.attachDeviceFlags(xml, libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+
+        flags = 0
+        if dom.isPersistent():
+            flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
+        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
+
+        dom.attachDeviceFlags(xml, flags)
 
         return params['mac']
 
@@ -125,14 +129,16 @@ class VMIfaceModel(object):
         dom = VMModel.get_vm(vm, self.conn)
         iface = self._get_vmiface(vm, mac)
 
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-            raise InvalidOperation("KCHVMIF0003E")
-
         if iface is None:
             raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
 
-        dom.detachDeviceFlags(etree.tostring(iface),
-                              libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+        flags = 0
+        if dom.isPersistent():
+            flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
+        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
+
+        dom.detachDeviceFlags(etree.tostring(iface), flags)
 
     def update(self, vm, mac, params):
         dom = VMModel.get_vm(vm, self.conn)
@@ -141,16 +147,22 @@ class VMIfaceModel(object):
         if iface is None:
             raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
 
-        # FIXME we will support to change the live VM configuration later.
+        flags = 0
+        if dom.isPersistent():
+            flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
+        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
+
         if iface.attrib['type'] == 'network' and 'network' in params:
             iface.source.attrib['network'] = params['network']
             xml = etree.tostring(iface)
-            dom.updateDeviceFlags(xml, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
 
-        # change on the persisted VM configuration only.
-        if 'model' in params and dom.isPersistent():
+            dom.updateDeviceFlags(xml, flags=flags)
+
+        if 'model' in params:
             iface.model.attrib["type"] = params['model']
             xml = etree.tostring(iface)
-            dom.updateDeviceFlags(xml, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+
+            dom.updateDeviceFlags(xml, flags=flags)
 
         return mac
