@@ -86,6 +86,9 @@ class TemplateTests(unittest.TestCase):
         tmpl = json.loads(self.request('/templates/test').read())
         self.assertEquals(sorted(tmpl.keys()), sorted(keys))
 
+        # Verify if default disk format was configured
+        self.assertEquals(tmpl['disks'][0]['format'], 'qcow2')
+
         # Clone a template
         resp = self.request('/templates/test/clone', '{}', 'POST')
         self.assertEquals(303, resp.status)
@@ -112,6 +115,15 @@ class TemplateTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         self.assertEquals(201, resp.status)
         os.remove('/tmp/mock.img')
+
+        # Test disk format
+        t = {'name': 'test-format', 'cdrom': '/tmp/mock.iso',
+             'disks': [{'index': 0, 'size': 10, 'format': 'vmdk'}]}
+        req = json.dumps(t)
+        resp = self.request('/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+        tmpl = json.loads(self.request('/templates/test-format').read())
+        self.assertEquals(tmpl['disks'][0]['format'], 'vmdk')
 
     def test_customized_tmpl(self):
         # Create a template
