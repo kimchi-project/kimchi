@@ -33,7 +33,8 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'ppc64le': ('ppc64le')}
 
 
-common_spec = {'cpus': 1, 'memory': 1024, 'disks': [{'index': 0, 'size': 10}],
+common_spec = {'cpus': 1, 'memory': 1024, 'disks': [{'index': 0, 'size': 10,
+                                                     'format': 'qcow2'}],
                'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
 
 
