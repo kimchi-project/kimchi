@@ -317,6 +317,8 @@ class TemplateTests(unittest.TestCase):
 
         pool = {'type': 'dir', 'name': 'dir-pool', 'path': '/tmp/dir-pool'}
         self.request('/storagepools', json.dumps(pool), 'POST')
+        pool_uri = '/storagepools/%s' % pool['name'].encode('utf-8')
+        self.request(pool_uri + '/activate', '{}', 'POST')
 
         # Create a template using the custom network and pool
         t = {'name': 'test', 'cdrom': '/tmp/mock.iso',

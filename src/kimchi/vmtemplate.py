@@ -75,6 +75,11 @@ class VMTemplate(object):
             args['graphics'] = graphics
         self.info.update(args)
 
+        # Assign right disk format to logical and [i]scsi storagepools
+        if self._get_storage_type() in ['logical', 'iscsi', 'scsi']:
+            for i, disk in enumerate(self.info['disks']):
+                self.info['disks'][i]['format'] = 'raw'
+
     def _get_os_info(self, args, scan):
         distro = version = 'unknown'
 

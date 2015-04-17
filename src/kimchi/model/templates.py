@@ -94,7 +94,7 @@ class TemplatesModel(object):
         # Creates the template class with necessary information
         # Checkings will be done while creating this class, so any exception
         # will be raised here
-        t = LibvirtVMTemplate(params, scan=True)
+        t = LibvirtVMTemplate(params, scan=True, conn=self.conn)
         name = params['name']
         try:
             with self.objstore as session:
@@ -231,8 +231,8 @@ class TemplateModel(object):
 
 class LibvirtVMTemplate(VMTemplate):
     def __init__(self, args, scan=False, conn=None):
-        VMTemplate.__init__(self, args, scan)
         self.conn = conn
+        VMTemplate.__init__(self, args, scan)
 
     def _storage_validate(self):
         pool_uri = self.info['storagepool']
