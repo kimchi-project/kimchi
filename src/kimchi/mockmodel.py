@@ -31,6 +31,7 @@ from lxml.builder import E
 from kimchi import config
 from kimchi import imageinfo
 from kimchi import osinfo
+from kimchi.exception import NotFoundError
 from kimchi.model.debugreports import DebugReportsModel
 from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import IscsiPoolDef, NetfsPoolDef
@@ -424,6 +425,8 @@ class MockModel(Model):
         for sn in MockModel._mock_snapshots.get(vm_name, []):
             if sn.name == name:
                 return sn.info
+
+        raise NotFoundError('KCHSNAP0003E', {'name': name, 'vm': vm_name})
 
     def _mock_vmsnapshot_delete(self, vm_name, name):
         snapshots = MockModel._mock_snapshots.get(vm_name, [])
