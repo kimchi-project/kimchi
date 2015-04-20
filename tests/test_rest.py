@@ -327,6 +327,10 @@ class RestTests(unittest.TestCase):
         task = json.loads(self.request('/tasks/%s' % task['id']).read())
         self.assertEquals('finished', task['status'])
 
+        # Look up a non-existing snapshot
+        resp = self.request('/vms/test-vm/snapshots/snap404', '{}', 'GET')
+        self.assertEquals(404, resp.status)
+
         # Look up a snapshot
         resp = self.request('/vms/test-vm/snapshots/%s' % params['name'], '{}',
                             'GET')
