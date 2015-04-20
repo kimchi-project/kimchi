@@ -985,6 +985,7 @@ stats history
     * size: The total size of the partition, in bytes
     * mountpoint: If the partition is mounted, represents the mountpoint.
       Otherwise blank.
+    * available: false, if the partition is in use by system; true, otherwise.
 
 ### Collection: Devices
 

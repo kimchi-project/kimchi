@@ -26,7 +26,6 @@ import unittest
 
 import kimchi.mockmodel
 from utils import get_free_port, patch_auth, request, run_server
-from utils import wait_task
 from kimchi.osinfo import get_template_default
 
 
@@ -131,19 +130,3 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertEquals('vnc', info['graphics']['type'])
         self.assertEquals('127.0.0.1', info['graphics']['listen'])
-
-    def test_packages_update(self):
-        pkgs = model.packagesupdate_get_list()
-        self.assertEquals(3, len(pkgs))
-
-        for pkg_name in pkgs:
-            pkgupdate = model.packageupdate_lookup(pkg_name)
-            self.assertIn('package_name', pkgupdate.keys())
-            self.assertIn('repository', pkgupdate.keys())
-            self.assertIn('arch', pkgupdate.keys())
-            self.assertIn('version', pkgupdate.keys())
-
-        task = model.host_swupdate()
-        task_params = [u'id', u'message', u'status', u'target_uri']
-        self.assertEquals(sorted(task_params), sorted(task.keys()))
-        wait_task(model.task_lookup, task['id'])
