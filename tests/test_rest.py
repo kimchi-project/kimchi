@@ -93,19 +93,6 @@ class RestTests(unittest.TestCase):
         resp = self.request(*args)
         self.assertEquals(code, resp.status)
 
-    def test_host_devices(self):
-        resp = self.request('/host/devices?_cap=scsi_host')
-        nodedevs = json.loads(resp.read())
-        # Mockmodel brings 3 preconfigured scsi fc_host
-        self.assertEquals(3, len(nodedevs))
-
-        nodedev = json.loads(self.request('/host/devices/scsi_host2').read())
-        # Mockmodel generates random wwpn and wwnn
-        self.assertEquals('scsi_host2', nodedev['name'])
-        self.assertEquals('fc_host', nodedev['adapter']['type'])
-        self.assertEquals(16, len(nodedev['adapter']['wwpn']))
-        self.assertEquals(16, len(nodedev['adapter']['wwnn']))
-
     def test_get_vms(self):
         vms = json.loads(self.request('/vms').read())
         # test_rest.py uses MockModel() which connects to libvirt URI
@@ -1128,65 +1115,6 @@ class RestTests(unittest.TestCase):
             debugre = json.loads(resp.read())
             resp = request(host, ssl_port, debugre['uri'])
             self.assertEquals(200, resp.status)
-
-    def test_host(self):
-        resp = self.request('/host').read()
-        info = json.loads(resp)
-
-        keys = ['os_distro', 'os_version', 'os_codename', 'cpu_model',
-                'memory', 'cpus']
-        self.assertEquals(sorted(keys), sorted(info.keys()))
-
-    def test_hoststats(self):
-        stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
-                      'disk_write_rate', 'net_recv_rate', 'net_sent_rate']
-        resp = self.request('/host/stats').read()
-        stats = json.loads(resp)
-        self.assertEquals(sorted(stats_keys), sorted(stats.keys()))
-
-        cpu_utilization = stats['cpu_utilization']
-        self.assertIsInstance(cpu_utilization, float)
-        self.assertGreaterEqual(cpu_utilization, 0.0)
-        self.assertTrue(cpu_utilization <= 100.0)
-
-        memory_stats = stats['memory']
-        self.assertIn('total', memory_stats)
-        self.assertIn('free', memory_stats)
-        self.assertIn('cached', memory_stats)
-        self.assertIn('buffers', memory_stats)
-        self.assertIn('avail', memory_stats)
-
-        resp = self.request('/host/stats/history').read()
-        history = json.loads(resp)
-        self.assertEquals(sorted(stats_keys), sorted(history.keys()))
-
-    def test_packages_update(self):
-        resp = self.request('/host/packagesupdate', None, 'GET')
-        pkgs = json.loads(resp.read())
-        self.assertEquals(3, len(pkgs))
-
-        for p in pkgs:
-            name = p['package_name']
-            resp = self.request('/host/packagesupdate/' + name, None, 'GET')
-            info = json.loads(resp.read())
-            self.assertIn('package_name', info.keys())
-            self.assertIn('repository', info.keys())
-            self.assertIn('arch', info.keys())
-            self.assertIn('version', info.keys())
-
-        resp = self.request('/host/swupdate', '{}', 'POST')
-        task = json.loads(resp.read())
-        task_params = [u'id', u'message', u'status', u'target_uri']
-        self.assertEquals(sorted(task_params), sorted(task.keys()))
-
-        resp = self.request('/tasks/' + task[u'id'], None, 'GET')
-        task_info = json.loads(resp.read())
-        self.assertEquals(task_info['status'], 'running')
-        wait_task(self._task_lookup, task_info['id'])
-        resp = self.request('/tasks/' + task[u'id'], None, 'GET')
-        task_info = json.loads(resp.read())
-        self.assertEquals(task_info['status'], 'finished')
-        self.assertIn(u'All packages updated', task_info['message'])
 
     def test_repositories(self):
         def verify_repo(t, res):

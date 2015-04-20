@@ -20,8 +20,6 @@
 
 import grp
 import os
-import platform
-import psutil
 import pwd
 import re
 import shutil
@@ -725,37 +723,6 @@ class ModelTests(unittest.TestCase):
             self.assertIn('ipaddr', iface)
             self.assertIn('netmask', iface)
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
-    def test_get_devices(self):
-        def asset_devices_type(devices, dev_type):
-            for dev in devices:
-                self.assertEquals(dev['device_type'], dev_type)
-
-        inst = model.Model('qemu:///system',
-                           objstore_loc=self.tmp_store)
-
-        devs = inst.devices_get_list()
-
-        for dev_type in ('pci', 'usb_device', 'scsi'):
-            names = inst.devices_get_list(_cap=dev_type)
-            self.assertTrue(set(names) <= set(devs))
-            infos = [inst.device_lookup(name) for name in names]
-            asset_devices_type(infos, dev_type)
-
-        passthru_devs = inst.devices_get_list(_passthrough='true')
-        self.assertTrue(set(passthru_devs) <= set(devs))
-
-        for dev_type in ('pci', 'usb_device', 'scsi'):
-            names = inst.devices_get_list(_cap=dev_type, _passthrough='true')
-            self.assertTrue(set(names) <= set(devs))
-            infos = [inst.device_lookup(name) for name in names]
-            asset_devices_type(infos, dev_type)
-
-        for dev_name in passthru_devs:
-            affected_devs = inst.devices_get_list(
-                _passthrough_affected_by=dev_name)
-            self.assertTrue(set(affected_devs) <= set(devs))
-
     def test_async_tasks(self):
         class task_except(Exception):
             pass
@@ -981,46 +948,6 @@ class ModelTests(unittest.TestCase):
             self.assertIn('os_version', distro)
             self.assertIn('os_arch', distro)
             self.assertIn('path', distro)
-
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
-    def test_get_hostinfo(self):
-        inst = model.Model(None,
-                           objstore_loc=self.tmp_store)
-        info = inst.host_lookup()
-        distro, version, codename = platform.linux_distribution()
-        self.assertIn('cpu_model', info)
-        self.assertIn('cpus', info)
-        self.assertEquals(distro, info['os_distro'])
-        self.assertEquals(version, info['os_version'])
-        self.assertEquals(unicode(codename, "utf-8"), info['os_codename'])
-        self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
-
-    def test_get_hoststats(self):
-        inst = model.Model('test:///default',
-                           objstore_loc=self.tmp_store)
-        time.sleep(1.5)
-        stats = inst.hoststats_lookup()
-        stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
-                      'disk_write_rate', 'net_recv_rate', 'net_sent_rate']
-        self.assertEquals(sorted(stats_keys), sorted(stats.keys()))
-        cpu_utilization = stats['cpu_utilization']
-        # cpu_utilization is set int 0, after first stats sample
-        # the cpu_utilization is float in range [0.0, 100.0]
-        self.assertIsInstance(cpu_utilization, float)
-        self.assertGreaterEqual(cpu_utilization, 0.0)
-        self.assertTrue(cpu_utilization <= 100.0)
-
-        memory_stats = stats['memory']
-        self.assertIn('total', memory_stats)
-        self.assertIn('free', memory_stats)
-        self.assertIn('cached', memory_stats)
-        self.assertIn('buffers', memory_stats)
-        self.assertIn('avail', memory_stats)
-
-        history = inst.hoststatshistory_lookup()
-        self.assertEquals(sorted(stats_keys), sorted(history.keys()))
-        for key, value in history.iteritems():
-            self.assertEquals(type(value), list)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
