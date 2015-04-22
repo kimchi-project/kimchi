@@ -156,7 +156,7 @@ class Resource(object):
             raise cherrypy.HTTPError(400, e.message)
 
     @cherrypy.expose
-    def index(self):
+    def index(self, *args, **kargs):
         method = validate_method(('GET', 'DELETE', 'PUT'),
                                  self.role_key, self.admin_methods)
 
@@ -167,7 +167,7 @@ class Resource(object):
 
             return {'GET': self.get,
                     'DELETE': self.delete,
-                    'PUT': self.update}[method]()
+                    'PUT': self.update}[method](*args, **kargs)
         except InvalidOperation, e:
             raise cherrypy.HTTPError(400, e.message)
         except InvalidParameter, e:
@@ -194,7 +194,7 @@ class Resource(object):
 
         return user_name in users or len(set(user_groups) & set(groups)) > 0
 
-    def update(self):
+    def update(self, *args, **kargs):
         try:
             update = getattr(self.model, model_fn(self, 'update'))
         except AttributeError:
