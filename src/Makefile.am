@@ -27,7 +27,7 @@ EXTRA_DIST = kimchid.in \
 bin_SCRIPTS = kimchid
 
 confdir = $(sysconfdir)/kimchi
-dist_conf_DATA = kimchi.conf
+dist_conf_DATA = kimchi.conf template.conf
 
 BUILT_SOURCES = kimchi.conf
 

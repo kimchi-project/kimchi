@@ -55,7 +55,7 @@ Install Dependencies
                         python-ipaddr python-ldap python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
                         python-libguestfs libguestfs-tools python-websockify \
-                        novnc spice-html5
+                        novnc spice-html5 python-configobj
 
      # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
@@ -81,7 +81,7 @@ channel at RHN Classic or Red Hat Satellite.
 
     $ sudo apt-get install gcc make autoconf automake gettext git \
                            python-cherrypy3 python-cheetah python-libvirt \
-                           libvirt-bin python-imaging \
+                           libvirt-bin python-imaging python-configobj \
                            python-pam python-m2crypto python-jsonschema \
                            qemu-kvm libtool python-psutil python-ethtool \
                            sosreport python-ipaddr python-ldap \
@@ -104,8 +104,8 @@ channel at RHN Classic or Red Hat Satellite.
                           python-imaging python-M2Crypto python-jsonschema \
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-ldap python-lxml nfs-client \
-                          open-iscsi libxslt-tools python-xml \
-                          python-parted nginx python-libguestfs \
+                          open-iscsi libxslt-tools python-xml python-parted \
+                          nginx python-libguestfs python-configobj \
                           guestfs-tools python-websockify novnc
 
     Packages version requirement:

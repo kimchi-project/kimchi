@@ -21,9 +21,9 @@ import copy
 import glob
 import os
 
-
+from collections import defaultdict
+from configobj import ConfigObj
 from distutils.version import LooseVersion
-
 
 from kimchi.config import paths
 
@@ -85,14 +85,72 @@ icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % paths.ui_dir, 'icon-*.png')]
 
 
-defaults = {'networks': ['default'],
-            'storagepool': '/storagepools/default',
-            'domain': 'kvm', 'arch': os.uname()[4],
-            'graphics': {'type': 'vnc', 'listen': '127.0.0.1'},
-            'cpus': 1,
-            'memory': 1024,
-            'disks': [{'index': 0, 'size': 10, 'format': 'qcow2'}],
-            'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
+def _get_tmpl_defaults():
+    """
+    ConfigObj returns a dict like below when no changes were made in the
+    template configuration file (template.conf)
+
+    {'main': {}, 'storage': {'disk.0': {}}, 'processor': {}, 'graphics': {}}
+
+    The default values should be like below:
+
+    {'main': {'networks': ['default'], 'memory': '1024'},
+     'storage': {'pool': 'default',
+                 'disk.0': {'format': 'qcow2', 'size': '10'}},
+     'processor': {'cpus': '1'},
+     'graphics': {'type': 'spice', 'listen': '127.0.0.1'}}
+    """
+    # Create dict with default values
+    tmpl_defaults = defaultdict(dict)
+    tmpl_defaults['main']['networks'] = ['default']
+    tmpl_defaults['main']['memory'] = 1024
+    tmpl_defaults['storage']['pool'] = 'default'
+    tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2'}
+    tmpl_defaults['processor']['cpus'] = 1
+    tmpl_defaults['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
+
+    default_config = ConfigObj(tmpl_defaults)
+
+    # Load template configuration file
+    config_file = os.path.join(paths.conf_dir, 'template.conf')
+    config = ConfigObj(config_file)
+
+    # Merge default configuration with file configuration
+    default_config.merge(config)
+
+    # Create a dict with default values according to data structure
+    # expected by VMTemplate
+    defaults = {'domain': 'kvm', 'arch': os.uname()[4],
+                'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
+
+    # Parse main section to get networks and memory values
+    main_section = default_config.pop('main')
+    defaults.update(main_section)
+
+    # Parse storage section to get storage pool and disks values
+    storage_section = default_config.pop('storage')
+    defaults['storagepool'] = '/storagepools/' + storage_section.pop('pool')
+    defaults['disks'] = []
+    for disk in storage_section.keys():
+        data = storage_section[disk]
+        data['index'] = int(disk.split('.')[1])
+        defaults['disks'].append(data)
+
+    # Parse processor section to get cpus and cpu_topology values
+    processor_section = default_config.pop('processor')
+    defaults['cpus'] = processor_section.pop('cpus')
+    defaults['cpu_info'] = {}
+    if len(processor_section.keys()) > 0:
+        defaults['cpu_info']['topology'] = processor_section
+
+    # Update defaults values with graphics values
+    defaults['graphics'] = default_config.pop('graphics')
+
+    return defaults
+
+
+# Set defaults values according to template.conf file
+defaults = _get_tmpl_defaults()
 
 
 def _get_arch():
