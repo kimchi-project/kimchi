@@ -68,8 +68,6 @@ class TemplatesModel(object):
                 # exception if a topology is invalid.
                 CPUInfoModel(conn=self.conn).\
                     check_topology(params['cpus'], topology)
-        else:
-            params['cpu_info'] = dict()
 
         conn = self.conn.get()
         pool_uri = params.get(u'storagepool', '')
