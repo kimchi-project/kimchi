@@ -33,37 +33,32 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'ppc64le': ('ppc64le')}
 
 
-common_spec = {'cpus': 1, 'memory': 1024, 'disks': [{'index': 0, 'size': 10,
-                                                     'format': 'qcow2'}],
-               'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
-
-
-template_specs = {'x86': {'old': dict(common_spec, disk_bus='ide',
+template_specs = {'x86': {'old': dict(disk_bus='ide',
                                       nic_model='e1000', sound_model='ich6'),
-                          'modern': dict(common_spec, disk_bus='virtio',
+                          'modern': dict(disk_bus='virtio',
                                          nic_model='virtio',
                                          sound_model='ich6')},
-                  'power': {'old': dict(common_spec, disk_bus='scsi',
+                  'power': {'old': dict(disk_bus='scsi',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
                                         kbd_type="kbd",
                                         kbd_bus='usb', mouse_bus='usb',
                                         tablet_bus='usb', memory=1280),
-                            'modern': dict(common_spec, disk_bus='virtio',
+                            'modern': dict(disk_bus='virtio',
                                            nic_model='virtio',
                                            cdrom_bus='scsi',
                                            kbd_bus='usb',
                                            kbd_type="kbd",
                                            mouse_bus='usb', tablet_bus='usb',
                                            memory=1280)},
-                  'ppc64le': {'old': dict(common_spec, disk_bus='virtio',
+                  'ppc64le': {'old': dict(disk_bus='virtio',
                                           nic_model='virtio',
                                           cdrom_bus='scsi',
                                           kbd_bus='usb',
                                           kbd_type="keyboard",
                                           mouse_bus='usb', tablet_bus='usb',
                                           memory=1280),
-                              'modern': dict(common_spec, disk_bus='virtio',
+                              'modern': dict(disk_bus='virtio',
                                              nic_model='virtio',
                                              cdrom_bus='scsi',
                                              kbd_bus='usb',
@@ -93,7 +88,11 @@ icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
 defaults = {'networks': ['default'],
             'storagepool': '/storagepools/default',
             'domain': 'kvm', 'arch': os.uname()[4],
-            'graphics': {'type': 'vnc', 'listen': '127.0.0.1'}}
+            'graphics': {'type': 'vnc', 'listen': '127.0.0.1'},
+            'cpus': 1,
+            'memory': 1024,
+            'disks': [{'index': 0, 'size': 10, 'format': 'qcow2'}],
+            'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
 
 
 def _get_arch():
@@ -106,9 +105,10 @@ def get_template_default(template_type, field):
     host_arch = _get_arch()
     # Assuming 'power' = 'ppc64le' because lookup() does the same,
     # claiming libvirt compatibility.
-    if host_arch in ('power', 'ppc64le'):
-        return template_specs['power'][template_type][field]
-    return template_specs[host_arch][template_type][field]
+    host_arch = 'power' if host_arch == 'ppc64le' else host_arch
+    tmpl_defaults = copy.deepcopy(defaults)
+    tmpl_defaults.update(template_specs[host_arch][template_type])
+    return tmpl_defaults[field]
 
 
 def lookup(distro, version):
