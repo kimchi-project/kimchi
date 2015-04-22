@@ -1,0 +1,47 @@
+13:03:42 <alinefm> #startmeeting
+13:03:42 <kimchi-bot> Meeting started Wed Apr 22 13:03:42 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:42 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:42 <alinefm> #meetingname scrum
+13:03:42 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:53 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:53 <alinefm> anything else?
+13:05:49 <alinefm> ok... so let's get started
+13:05:50 <alinefm> #topic Status
+13:05:51 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:06:12 <alinefm> #info alinefm sent patches related to host tests
+13:06:19 <ziviani> #info ziviani sent patch to address the issue: https://github.com/kimchi-project/kimchi/issues/619
+13:07:21 <royce> #info royce sent rebased version of storage volume upload, reviewed some patches on ML. Now is trying the puppet setup
+13:07:38 <ramon> #info ramonn sent patch for issue 596, discussed issue 450 with vianac and tested some security issues on kimchi (login)
+13:07:58 <alinefm> #info alinefm continue working on make template defaults configurable
+13:09:01 <rotru> #info rotru Sent a couple of patches related to templates backend and frontend, to enable disk image format selection
+13:10:30 <vianac> #info vianac fixed issue #548 (NIC hotplug); sent patch which prevents ref_cnt from blocking the user to create storage volumes; sent patchset to allow create snapshots of running VMs; reviewed patches on the mailing list
+13:11:50 <alinefm> thanks for the update, guys!
+13:12:31 <alinefm> I also have new news about Kimchi package on Fedora! Now it is official! Kimchi was included into Fedora 21 and Fedora 22 repositories
+13:12:44 <alinefm> thanks a lot baude to make it happen
+13:13:13 <baude> i am recieving some odd feedback from users on some of it, but its in
+13:13:45 <alinefm> baude, really? could you share those feedbacks with us? so we can try to address them
+13:13:53 <baude> for example, has anyone seen an issue related to login where using the fully qualified host and domain name wont login but using it by ip and just the host name will ?
+13:14:56 <alinefm> I haven't seen it before
+13:15:09 <alinefm> in fact, I have never done a test like it
+13:16:25 <alinefm> baude, you can open issues on github so we can track and investigate
+13:16:30 <baude> sure
+13:16:44 <baude> also complaints about the lack of customizable MAC addresses
+13:16:55 <baude> and the granularity of cpus
+13:17:14 <alinefm> baude, granularity of cpus? we have it on templates
+13:17:26 <baude> ok i will look closer
+13:17:42 <baude> it now does the threads/cpus
+13:17:43 <baude> ?
+13:18:00 <alinefm> baude, yeap
+13:18:03 <alinefm> on Template level
+13:19:22 <alinefm> let's moving on to open discussion
+13:19:25 <alinefm> #topic Open Discussion
+13:19:31 <alinefm> what do you want to discuss today?
+13:23:38 <alinefm> nothing else for today?
+13:23:56 <alinefm> danielhb, ramon, rotru, royce, vianac, ziviani ^
+13:24:28 <ziviani> alinefm, I don't have anything for today
+13:24:58 <danielhb> alinefm, I have nothing
+13:25:06 <royce> don't have anything special today
+13:25:10 <alinefm> hehehe
+13:25:12 <alinefm> alright
+13:25:17 <alinefm> thanks everyone for joining!
+13:25:20 <alinefm> #endmeeting

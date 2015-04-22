@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 22 13:03:42 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:05:49</span><span class="nk"> &lt;alinefm&gt;</span> ok... so let's get started
+<a name="l-9"></a><span class="tm">13:05:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:06:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches related to host tests</span>
+<a name="l-12"></a><span class="tm">13:06:19</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patch to address the issue: https://github.com/kimchi-project/kimchi/issues/619</span>
+<a name="l-13"></a><span class="tm">13:07:21</span><span class="nk"> &lt;royce&gt;</span> <span class="cmd">#info </span><span class="cmdline">royce sent rebased version of storage volume upload, reviewed some patches on ML. Now is trying the puppet setup</span>
+<a name="l-14"></a><span class="tm">13:07:38</span><span class="nk"> &lt;ramon&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn sent patch for issue 596, discussed issue 450 with vianac and tested some security issues on kimchi (login)</span>
+<a name="l-15"></a><span class="tm">13:07:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm continue working on make template defaults configurable</span>
+<a name="l-16"></a><span class="tm">13:09:01</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent a couple of patches related to templates backend and frontend, to enable disk image format selection</span>
+<a name="l-17"></a><span class="tm">13:10:30</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac fixed issue #548 (NIC hotplug); sent patch which prevents ref_cnt from blocking the user to create storage volumes; sent patchset to allow create snapshots of running VMs; reviewed patches on the mailing list</span>
+<a name="l-18"></a><span class="tm">13:11:50</span><span class="nk"> &lt;alinefm&gt;</span> thanks for the update, guys!
+<a name="l-19"></a><span class="tm">13:12:31</span><span class="nk"> &lt;alinefm&gt;</span> I also have new news about Kimchi package on Fedora! Now it is official! Kimchi was included into Fedora 21 and Fedora 22 repositories
+<a name="l-20"></a><span class="tm">13:12:44</span><span class="nk"> &lt;alinefm&gt;</span> thanks a lot baude to make it happen
+<a name="l-21"></a><span class="tm">13:13:13</span><span class="nk"> &lt;baude&gt;</span> i am recieving some odd feedback from users on some of it, but its in
+<a name="l-22"></a><span class="tm">13:13:45</span><span class="nk"> &lt;alinefm&gt;</span> baude, really? could you share those feedbacks with us? so we can try to address them
+<a name="l-23"></a><span class="tm">13:13:53</span><span class="nk"> &lt;baude&gt;</span> for example, has anyone seen an issue related to login where using the fully qualified host and domain name wont login but using it by ip and just the host name will ?
+<a name="l-24"></a><span class="tm">13:14:56</span><span class="nk"> &lt;alinefm&gt;</span> I haven't seen it before
+<a name="l-25"></a><span class="tm">13:15:09</span><span class="nk"> &lt;alinefm&gt;</span> in fact, I have never done a test like it
+<a name="l-26"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> baude, you can open issues on github so we can track and investigate
+<a name="l-27"></a><span class="tm">13:16:30</span><span class="nk"> &lt;baude&gt;</span> sure
+<a name="l-28"></a><span class="tm">13:16:44</span><span class="nk"> &lt;baude&gt;</span> also complaints about the lack of customizable MAC addresses
+<a name="l-29"></a><span class="tm">13:16:55</span><span class="nk"> &lt;baude&gt;</span> and the granularity of cpus
+<a name="l-30"></a><span class="tm">13:17:14</span><span class="nk"> &lt;alinefm&gt;</span> baude, granularity of cpus? we have it on templates
+<a name="l-31"></a><span class="tm">13:17:26</span><span class="nk"> &lt;baude&gt;</span> ok i will look closer
+<a name="l-32"></a><span class="tm">13:17:42</span><span class="nk"> &lt;baude&gt;</span> it now does the threads/cpus
+<a name="l-33"></a><span class="tm">13:17:43</span><span class="nk"> &lt;baude&gt;</span> ?
+<a name="l-34"></a><span class="tm">13:18:00</span><span class="nk"> &lt;alinefm&gt;</span> baude, yeap
+<a name="l-35"></a><span class="tm">13:18:03</span><span class="nk"> &lt;alinefm&gt;</span> on Template level
+<a name="l-36"></a><span class="tm">13:19:22</span><span class="nk"> &lt;alinefm&gt;</span> let's moving on to open discussion
+<a name="l-37"></a><span class="tm">13:19:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-38"></a><span class="tm">13:19:31</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-39"></a><span class="tm">13:23:38</span><span class="nk"> &lt;alinefm&gt;</span> nothing else for today?
+<a name="l-40"></a><span class="tm">13:23:56</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ramon, rotru, royce, vianac, ziviani ^
+<a name="l-41"></a><span class="tm">13:24:28</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, I don't have anything for today
+<a name="l-42"></a><span class="tm">13:24:58</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have nothing
+<a name="l-43"></a><span class="tm">13:25:06</span><span class="nk"> &lt;royce&gt;</span> don't have anything special today
+<a name="l-44"></a><span class="tm">13:25:10</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-45"></a><span class="tm">13:25:12</span><span class="nk"> &lt;alinefm&gt;</span> alright
+<a name="l-46"></a><span class="tm">13:25:17</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-47"></a><span class="tm">13:25:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
