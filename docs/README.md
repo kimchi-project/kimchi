@@ -49,7 +49,7 @@ Install Dependencies
 
      $ sudo yum install gcc make autoconf automake gettext-devel git \
                         python-cherrypy python-cheetah libvirt-python \
-                        libvirt python-imaging \
+                        libvirt libvirt-daemon-config-network python-imaging \
                         PyPAM m2crypto python-jsonschema rpm-build \
                         qemu-kvm python-psutil python-ethtool sos \
                         python-ipaddr python-ldap python-lxml nfs-utils \
@@ -100,8 +100,8 @@ channel at RHN Classic or Red Hat Satellite.
 
     $ sudo zypper install gcc make autoconf automake gettext-tools git \
                           python-CherryPy python-Cheetah libvirt-python \
-                          libvirt python-imaging \
-                          python-pam python-M2Crypto python-jsonschema \
+                          libvirt libvirt-daemon-config-network python-pam \
+                          python-imaging python-M2Crypto python-jsonschema \
                           rpm-build kvm python-psutil python-ethtool \
                           python-ipaddr python-ldap python-lxml nfs-client \
                           open-iscsi libxslt-tools python-xml \

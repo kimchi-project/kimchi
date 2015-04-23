@@ -11,6 +11,7 @@ Requires:	qemu-kvm
 Requires:	gettext-devel
 Requires:	libvirt
 Requires:	libvirt-python
+Requires:	libvirt-daemon-config-network
 Requires:	python-cherrypy >= 3.2.0
 Requires:	python-cheetah
 Requires:	python-websockify
