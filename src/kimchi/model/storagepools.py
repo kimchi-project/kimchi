@@ -18,18 +18,28 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
+import lxml.etree as ET
+import sys
 
+from lxml.builder import E
+
+from kimchi.config import config, paths
 from kimchi.scan import Scanner
 from kimchi.exception import InvalidOperation, MissingParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import StoragePoolDef
+from kimchi.osinfo import defaults as tmpl_defaults
 from kimchi.utils import add_task, kimchi_log, pool_name_from_uri, run_command
 from kimchi.xmlutils.utils import xpath_get_text
 
 
+DEFAULT_POOLS = {'default': {'path': '/var/lib/libvirt/images'},
+                 'ISO': {'path': '/var/lib/kimchi/isos'}}
+
 ISO_POOL_NAME = u'kimchi_isos'
+
 POOL_STATE_MAP = {0: 'inactive',
                   1: 'initializing',
                   2: 'active',
@@ -56,6 +66,61 @@ class StoragePoolsModel(object):
         self.scanner.delete()
         self.caps = CapabilitiesModel(**kargs)
         self.device = DeviceModel(**kargs)
+
+        if self.conn.isQemuURI():
+            self._check_default_pools()
+
+    def _check_default_pools(self):
+        default_pool = tmpl_defaults['storagepool']
+        default_pool = default_pool.split('/')[2]
+
+        if default_pool != 'default':
+            del DEFAULT_POOLS['default']
+            DEFAULT_POOLS[default_pool] = {}
+
+        if config.get("server", "create_iso_pool") != "true":
+            del DEFAULT_POOLS['ISO']
+
+        error_msg = ("Please, check the configuration in %s/template.conf to "
+                     "ensure it has a valid storage pool." % paths.conf_dir)
+
+        conn = self.conn.get()
+        for pool_name in DEFAULT_POOLS:
+            try:
+                pool = conn.storagePoolLookupByName(pool_name)
+            except libvirt.libvirtError, e:
+                pool_path = DEFAULT_POOLS[pool_name].get('path')
+                if pool_path is None:
+                    msg = "Fatal: Unable to find storage pool %s. " + error_msg
+                    kimchi_log.error(msg % pool_name)
+                    kimchi_log.error("Details: %s", e.message)
+                    sys.exit(1)
+
+                # Try to create the pool
+                pool = E.pool(E.name(pool_name), type='dir')
+                pool.append(E.target(E.path(pool_path)))
+                xml = ET.tostring(pool)
+                try:
+                    pool = conn.storagePoolDefineXML(xml, 0)
+                    # Add build step to make sure target directory created
+                    pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
+                    pool.setAutostart(1)
+                except libvirt.libvirtError, e:
+                    msg = "Fatal: Unable to create storage pool %s. "
+                    msg += error_msg
+                    kimchi_log.error(msg % pool_name)
+                    kimchi_log.error("Details: %s", e.message)
+                    sys.exit(1)
+
+            if pool.isActive() == 0:
+                try:
+                    pool.create(0)
+                except libvirt.libvirtError, e:
+                    msg = "Fatal: Unable to craete storage pool %s. "
+                    msg += error_msg
+                    kimchi_log.error(msg % pool_name)
+                    kimchi_log.error("Details: %s", e.message)
+                    sys.exit(1)
 
     def get_list(self):
         try:
