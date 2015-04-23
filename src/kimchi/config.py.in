@@ -297,6 +297,7 @@ def _get_config():
     config.set("server", "ssl_key", "")
     config.set("server", "environment", "production")
     config.set("server", "federation", "off")
+    config.set("server", "create_iso_pool", "true")
     config.set('server', 'max_body_size', '4*1024*1024')
     config.add_section("authentication")
     config.set("authentication", "method", "pam")

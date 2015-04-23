@@ -33,6 +33,9 @@
 # Max request body size in KB, default value is 4GB
 #max_body_size = 4 * 1024 * 1024
 
+# Automatically create ISO pool on server start up
+#create_iso_pool = true
+
 [logging]
 # Log directory
 #log_dir = @localstatedir@/log/kimchi
