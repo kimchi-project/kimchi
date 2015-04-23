@@ -27,8 +27,10 @@ from xml.sax.saxutils import escape
 
 from kimchi import netinfo
 from kimchi import network as knetwork
+from kimchi.config import paths
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
+from kimchi.osinfo import defaults as tmpl_defaults
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
 from kimchi.xmlutils.network import create_vlan_tagged_bridge_xml
@@ -43,42 +45,33 @@ class NetworksModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         if self.conn.isQemuURI():
-            self._default_network_check()
+            self._check_default_networks()
 
-    def _default_network_check(self):
-        def create_default_network():
+    def _check_default_networks(self):
+        networks = list(set(tmpl_defaults['networks']))
+        conn = self.conn.get()
+
+        error_msg = ("Please, check the configuration in %s/template.conf to "
+                     "ensure it lists only valid networks." % paths.conf_dir)
+
+        for net_name in networks:
             try:
-                subnet = self._get_available_address(knetwork.DefaultNetsPool)
-                params = {"name": "default", "connection": "nat",
-                          "subnet": subnet}
-                self.create(params)
-                return conn.networkLookupByName("default")
-            except Exception as e:
-                kimchi_log.error("Fatal: Cannot create default network "
-                                 "because of %s, exit kimchid", e.message)
+                net = conn.networkLookupByName(net_name)
+            except libvirt.libvirtError, e:
+                msg = "Fatal: Unable to find network %s."
+                kimchi_log.error(msg, net_name)
+                kimchi_log.error(error_msg)
+                kimchi_log.error("Details: %s", e.message)
                 sys.exit(1)
 
-        conn = self.conn.get()
-        try:
-            net = conn.networkLookupByName("default")
-        except libvirt.libvirtError:
-            net = create_default_network()
-
-        if net.isActive() == 0:
-            try:
-                net.create()
-            except libvirt.libvirtError as e:
-                # FIXME we can not distinguish this error from other internal
-                # error by error code.
-                if ("network is already in use by interface"
-                        in e.message.lower()):
-                    # libvirt do not support update IP element, so delete the
-                    # the network and create new one.
-                    net.undefine()
-                    create_default_network()
-                else:
-                    kimchi_log.error("Fatal: Cannot activate default network "
-                                     "because of %s, exit kimchid", e.message)
+            if net.isActive() == 0:
+                try:
+                    net.create()
+                except libvirt.libvirtError as e:
+                    msg = "Fatal: Unable to activate network %s."
+                    kimchi_log.error(msg, net_name)
+                    kimchi_log.error(error_msg)
+                    kimchi_log.error("Details: %s", e.message)
                     sys.exit(1)
 
     def create(self, params):
@@ -274,10 +267,10 @@ class NetworkModel(object):
                 'persistent': True if network.isPersistent() else False}
 
     def _is_network_in_use(self, name):
-        # The network "default" is used for Kimchi proposal and should not be
-        # deactivate or deleted. Otherwise, we will allow user create
+        # All the networks listed as default in template.conf file should not
+        # be deactivate or deleted. Otherwise, we will allow user create
         # inconsistent templates from scratch
-        if name == 'default':
+        if name in tmpl_defaults['networks']:
             return True
 
         vms = self._get_vms_attach_to_a_network(name)
