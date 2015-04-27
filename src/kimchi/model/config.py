@@ -51,7 +51,6 @@ class CapabilitiesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.qemu_stream = False
-        self.qemu_stream_dns = False
         self.libvirt_stream_protocols = []
         self.fc_host_support = False
         self.metadata_support = False
@@ -88,7 +87,6 @@ class CapabilitiesModel(object):
         kimchi_log.info("*** Running feature tests ***")
         conn = self.conn.get()
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
-        self.qemu_stream_dns = FeatureTests.qemu_iso_stream_dns()
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
         self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
         self.metadata_support = FeatureTests.has_metadata_support(conn)

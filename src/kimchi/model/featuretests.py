@@ -21,9 +21,7 @@ import cherrypy
 import libvirt
 import lxml.etree as ET
 import platform
-import socket
 import subprocess
-import threading
 
 from lxml.builder import E
 
@@ -151,30 +149,6 @@ class FeatureTests(object):
                                 stderr=subprocess.PIPE, shell=True)
         stdout, stderr = proc.communicate()
         return len(stderr) == 0
-
-    @staticmethod
-    @servermethod
-    def qemu_iso_stream_dns():
-        host = socket.getfqdn(cherrypy.server.socket_host)
-        port = cherrypy.server.socket_port
-        cmd = ["qemu-io", "-r", "http://%s:%d/images/icon-fedora.png" %
-               (host, port), "-c", "'read -v 0 512'"]
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        thread = threading.Thread(target=proc.communicate)
-        thread.start()
-        thread.join(5)
-
-        if thread.is_alive():
-            proc.kill()
-            thread.join()
-            return False
-
-        if proc.returncode != 0:
-            return False
-
-        return True
 
     @staticmethod
     def libvirt_support_fc_host(conn):

@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ from kimchi.exception import OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
-from kimchi.model.utils import check_remote_disk_path, get_vm_config_flag
+from kimchi.model.utils import get_vm_config_flag
 from kimchi.osinfo import lookup
 from kimchi.model.diskutils import get_disk_ref_cnt, set_disk_ref_cnt
 from kimchi.utils import kimchi_log
@@ -131,8 +131,6 @@ class VMStoragesModel(object):
             params['disk'] = vol_info['type']
 
         params.update(self._get_available_bus_address(params['bus'], vm_name))
-        params['path'] = check_remote_disk_path(params['path'],
-                                                self.caps.qemu_stream_dns)
 
         # Add device to VM
         dev, xml = get_disk_xml(params)
@@ -215,9 +213,7 @@ class VMStorageModel(object):
         if dev_info['type'] != 'cdrom':
             raise InvalidOperation("KCHVMSTOR0006E")
 
-        params['path'] = check_remote_disk_path(params.get('path', ''),
-                                                self.caps.qemu_stream_dns)
-
+        params['path'] = params.get('path', '')
         old_disk_path = dev_info['path']
         new_disk_path = params['path']
         if new_disk_path != old_disk_path:

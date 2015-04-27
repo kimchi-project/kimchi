@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import socket
 import stat
 import time
 import urlparse
@@ -128,7 +127,7 @@ class VMTemplate(object):
         except IsoFormatError:
             raise InvalidParameter("KCHISO0001E", {'filename': iso})
 
-    def _get_cdrom_xml(self, libvirt_stream_protocols, qemu_stream_dns):
+    def _get_cdrom_xml(self, libvirt_stream_protocols):
         if 'cdrom' not in self.info:
             return ''
 
@@ -138,11 +137,6 @@ class VMTemplate(object):
         params['bus'] = self.info['cdrom_bus']
         params['index'] = self.info['cdrom_index']
         params['path'] = self.info['cdrom']
-
-        hostname = urlparse.urlparse(params['path']).hostname
-        if hostname is not None and not qemu_stream_dns:
-            ip = socket.gethostbyname(hostname)
-            params['path'] = params['path'].replace(hostname, ip)
 
         if self.info.get('iso_stream', False):
             protocol = urlparse.urlparse(params['path']).scheme
@@ -304,10 +298,8 @@ class VMTemplate(object):
         graphics.update(kwargs.get('graphics', {}))
         params['graphics'] = get_graphics_xml(graphics)
 
-        qemu_stream_dns = kwargs.get('qemu_stream_dns', False)
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
-        cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols,
-                                        qemu_stream_dns)
+        cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols)
 
         if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
                 libvirt_stream_protocols and \
