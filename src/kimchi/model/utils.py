@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
-import socket
-import urlparse
 from lxml import etree, objectify
 from lxml.builder import E, ElementMaker
 
@@ -39,15 +37,6 @@ def get_vm_name(vm_name, t_name, name_list):
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("KCHUTILS0003E")
-
-
-def check_remote_disk_path(path, qemu_stream_dns):
-    hostname = urlparse.urlparse(path).hostname
-    if hostname is not None and not qemu_stream_dns:
-        ip = socket.gethostbyname(hostname)
-        return path.replace(hostname, ip)
-
-    return path
 
 
 def get_vm_config_flag(dom, mode="persistent"):

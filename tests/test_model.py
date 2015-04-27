@@ -23,9 +23,7 @@ import os
 import pwd
 import re
 import shutil
-import socket
 import time
-import urlparse
 import unittest
 import uuid
 
@@ -564,14 +562,7 @@ class ModelTests(unittest.TestCase):
                                   {'path': valid_remote_iso_path})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
             cur_cdrom_path = re.sub(":80/", '/', cdrom_info['path'])
-
-            # As Kimchi server is not running during this test case
-            # CapabilitiesModel.qemu_stream_dns will be always False
-            # so we need to convert the hostname to IP
-            output = urlparse.urlparse(valid_remote_iso_path)
-            hostname = socket.gethostbyname(output.hostname)
-            url = valid_remote_iso_path.replace(output.hostname, hostname)
-            self.assertEquals(url, cur_cdrom_path)
+            self.assertEquals(valid_remote_iso_path, cur_cdrom_path)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
