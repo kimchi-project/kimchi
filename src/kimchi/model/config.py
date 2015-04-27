@@ -140,6 +140,7 @@ class CapabilitiesModel(object):
                 'federation': kconfig.get("server", "federation"),
                 'auth': kconfig.get("authentication", "method"),
                 'kernel_vfio': self.kernel_vfio,
+                'nm_running': FeatureTests.is_nm_running(),
                 }
 
 

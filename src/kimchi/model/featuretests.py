@@ -223,3 +223,13 @@ class FeatureTests(object):
             kimchi_log.warning("Unable to load Kernal module vfio-pci.")
             return False
         return True
+
+    @staticmethod
+    def is_nm_running():
+        '''Tries to determine whether NetworkManager is running.'''
+
+        out, err, rc = run_command(['nmcli', 'dev', 'status'])
+        if rc != 0:
+            return False
+
+        return True
