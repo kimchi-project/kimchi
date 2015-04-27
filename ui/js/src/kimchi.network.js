@@ -323,6 +323,9 @@ kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
         kimchi.enableBridgeOptions(false);
         $("#networkBriDisabledLabel").show();
     } else {
+        if (kimchi.capabilities && kimchi.capabilities.nm_running) {
+            kimchi.message.warn(i18n['KCHNET6001W']);
+        }
         $("#bridgeOptions").slideDown(100);
         $("#networkVlanID").toggle(false);
         $("#labelNetworkVlanID").toggle(false);
