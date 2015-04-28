@@ -112,6 +112,7 @@ class Paths(object):
             self.novnc_dir = '/usr/share/novnc'
 
         if self.installed:
+            self.nginx_conf_dir = '@sysconfdir@/nginx/conf.d'
             self.state_dir = '@localstatedir@/lib/kimchi'
             self.log_dir = '@localstatedir@/log/kimchi'
             self.conf_dir = '@sysconfdir@/kimchi'
@@ -120,6 +121,7 @@ class Paths(object):
             self.mo_dir = '@prefix@/share/locale'
             self.spice_css_file = os.path.join(self.spice_dir, 'spice.css')
         else:
+            self.nginx_conf_dir = self.add_prefix('src/nginx')
             self.state_dir = self.add_prefix('data')
             self.log_dir = self.add_prefix('log')
             self.conf_dir = self.add_prefix('src')

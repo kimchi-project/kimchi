@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM Corp, 2013
+# Copyright IBM Corp, 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -80,6 +80,7 @@ AC_CONFIG_FILES([
     docs/Makefile
     src/Makefile
     src/distros.d/Makefile
+    src/nginx/Makefile
     src/kimchi/Makefile
     src/kimchi/control/Makefile
     src/kimchi/control/vm/Makefile
