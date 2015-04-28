@@ -94,7 +94,7 @@ touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
 
 # create /etc/kimchi structure
 mkdir -p %{buildroot}/%{_sysconfdir}/kimchi/
-touch %{buildroot}/%{_sysconfdir}/kimchi/nginx_kimchi.conf
+touch %{buildroot}/%{_sysconfdir}/nginx/conf.d/kimchi.conf
 
 # Install the systemd scripts
 install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}%{_unitdir}/kimchid.service
@@ -158,14 +158,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/config/ui/*.xml
 %{_datadir}/kimchi/ui/
 %{_datadir}/kimchi
+%{_sysconfdir}/nginx/conf.d/kimchi.conf.in
+%{_sysconfdir}/nginx/conf.d/kimchi.conf
 %{_sysconfdir}/kimchi/kimchi.conf
-%{_sysconfdir}/kimchi/nginx.conf.in
 %{_sysconfdir}/kimchi/distros.d/debian.json
 %{_sysconfdir}/kimchi/distros.d/fedora.json
 %{_sysconfdir}/kimchi/distros.d/opensuse.json
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
-%{_sysconfdir}/kimchi/nginx_kimchi.conf
 %{_sysconfdir}/kimchi/
 %{_sharedstatedir}/kimchi/debugreports/
 %{_sharedstatedir}/kimchi/screenshots/

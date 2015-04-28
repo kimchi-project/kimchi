@@ -28,7 +28,7 @@ stamp-po
 kimchi-*.tar.gz
 src/kimchid
 src/kimchi.conf
-src/nginx_kimchi.conf
+src/nginx/kimchi.conf
 src/kimchi/config.py
 tests/run_tests.sh
 tests/test_config.py

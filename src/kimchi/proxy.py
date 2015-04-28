@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,8 +37,7 @@ def _create_proxy_config(options):
     To allow flexibility in which port kimchi runs, we need the same
     flexibility with the nginx proxy. This method creates the config
     file dynamically by using 'nginx.conf.in' as a template, creating
-    the file 'nginx_kimchi.config' which will be used to launch the
-    proxy.
+    the file 'kimchi.conf' which will be used to launch the proxy.
 
     Arguments:
     options - OptionParser object with Kimchi config options
@@ -53,6 +52,7 @@ def _create_proxy_config(options):
         user_proxy = 'www-data'
 
     config_dir = paths.conf_dir
+    nginx_config_dir = paths.nginx_conf_dir
     cert = options.ssl_cert
     key = options.ssl_key
 
@@ -70,7 +70,7 @@ def _create_proxy_config(options):
 
     # Read template file and create a new config file
     # with the specified parameters.
-    with open(os.path.join(config_dir, "nginx.conf.in")) as template:
+    with open(os.path.join(nginx_config_dir, "kimchi.conf.in")) as template:
         data = template.read()
     data = Template(data)
     data = data.safe_substitute(user=user_proxy,
@@ -81,7 +81,7 @@ def _create_proxy_config(options):
                                 max_body_size=eval(options.max_body_size))
 
     # Write file to be used for nginx.
-    config_file = open(os.path.join(config_dir, "nginx_kimchi.conf"), "w")
+    config_file = open(os.path.join(nginx_config_dir, "kimchi.conf"), "w")
     config_file.write(data)
     config_file.close()
 
@@ -89,8 +89,8 @@ def _create_proxy_config(options):
 def start_proxy(options):
     """Start nginx reverse proxy."""
     _create_proxy_config(options)
-    config_dir = paths.conf_dir
-    config_file = "%s/nginx_kimchi.conf" % config_dir
+    nginx_config_dir = paths.nginx_conf_dir
+    config_file = "%s/kimchi.conf" % nginx_config_dir
     cmd = ['nginx', '-c', config_file]
     subprocess.call(cmd)
 
