@@ -102,15 +102,20 @@ class HostModel(object):
         return res
 
     def lookup(self, *name):
-        cpus = 0
+        cpus = psutil.NUM_CPUS
 
-        # Only newer psutil versions have a portable method to get
-        # the number of cpus
-        try:
+        # psutil is unstable on how to get the number of
+        # cpus, different versions call it differently
+        if hasattr(psutil, 'cpu_count'):
             cpus = psutil.cpu_count()
 
-        except AttributeError:
-            cpus = psutil._psplatform.get_num_cpus()
+        elif hasattr(psutil, '_psplatform'):
+            for method_name in ['_get_num_cpus', 'get_num_cpus']:
+
+                method = getattr(psutil._psplatform, method_name, None)
+                if method is not None:
+                    cpus = method()
+                    break
 
         self.host_info['cpus'] = cpus
         self.host_info['memory'] = psutil.phymem_usage().total
