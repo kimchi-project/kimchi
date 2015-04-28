@@ -229,9 +229,8 @@ class VMModel(object):
         new_name = get_next_clone_name(current_vm_names, name)
 
         # create a task with the actual clone function
-        taskid = add_task(u'/vms/%s' % new_name, self._clone_task,
-                          self.objstore,
-                          {'name': name, 'new_name': new_name})
+        taskid = add_task(u'/vms/%s/clone' % new_name, self._clone_task,
+                          self.objstore, {'name': name, 'new_name': new_name})
 
         return self.task.lookup(taskid)
 
