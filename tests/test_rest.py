@@ -292,7 +292,7 @@ class RestTests(unittest.TestCase):
         wait_task(self._task_lookup, task['id'])
         task = json.loads(self.request('/tasks/%s' % task['id'], '{}').read())
         self.assertEquals('finished', task['status'])
-        clone_vm_name = task['target_uri'].split('/')[-1]
+        clone_vm_name = task['target_uri'].split('/')[-2]
         self.assertTrue(re.match(u'test-vm-clone-\d+', clone_vm_name))
 
         resp = self.request('/vms/test-vm', '{}')

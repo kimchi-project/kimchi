@@ -829,9 +829,9 @@ class ModelTests(unittest.TestCase):
             # and make sure both of them complete successfully
             task1 = inst.vm_clone(name)
             task2 = inst.vm_clone(name)
-            clone1_name = task1['target_uri'].split('/')[-1]
+            clone1_name = task1['target_uri'].split('/')[-2]
             rollback.prependDefer(inst.vm_delete, clone1_name)
-            clone2_name = task2['target_uri'].split('/')[-1]
+            clone2_name = task2['target_uri'].split('/')[-2]
             rollback.prependDefer(inst.vm_delete, clone2_name)
             inst.task_wait(task1['id'])
             task1 = inst.task_lookup(task1['id'])
