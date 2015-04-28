@@ -203,10 +203,10 @@ kimchi.listVmsAuto = function() {
     }
     var getCloningGuests = function(){
         var guests = [];
-        kimchi.getTasksByFilter('status=running&target_uri='+encodeURIComponent('^/vms/*'), function(tasks) {
+        kimchi.getTasksByFilter('status=running&target_uri='+encodeURIComponent('^/vms/.+/clone'), function(tasks) {
             for(var i=0;i<tasks.length;i++){
                 var guestUri = tasks[i].target_uri;
-                var guestName = guestUri.substring(guestUri.lastIndexOf('/')+1, guestUri.length);
+                var guestName = guestUri.split('/')[2]
                 guests.push($.extend({}, kimchi.sampleGuestObject, {name: guestName, isCloning: true}));
                 if(kimchi.trackingTasks.indexOf(tasks[i].id)==-1)
                     kimchi.trackTask(tasks[i].id, null, function(err){
