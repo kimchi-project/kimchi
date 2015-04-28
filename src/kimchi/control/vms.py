@@ -17,13 +17,13 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from kimchi.control.base import Collection, Resource
+from kimchi.control.base import AsyncCollection, Resource
 from kimchi.control.utils import internal_redirect, UrlSubNode
 from kimchi.control.vm import sub_nodes
 
 
 @UrlSubNode('vms', True)
-class VMs(Collection):
+class VMs(AsyncCollection):
     def __init__(self, model):
         super(VMs, self).__init__(model)
         self.resource = VM

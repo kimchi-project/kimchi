@@ -79,11 +79,10 @@ class VMsModel(object):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
         self.caps = CapabilitiesModel(**kargs)
+        self.task = TaskModel(**kargs)
 
     def create(self, params):
-        conn = self.conn.get()
         t_name = template_name_from_uri(params['template'])
-        vm_uuid = str(uuid.uuid4())
         vm_list = self.get_list()
         name = get_vm_name(params.get('name'), t_name, vm_list)
         # incoming text, from js json, is unicode, do not need decode
@@ -102,7 +101,26 @@ class VMsModel(object):
             raise InvalidOperation("KCHVM0005E")
 
         t.validate()
+        data = {'name': name, 'template': t,
+                'graphics': params.get('graphics', {})}
+        taskid = add_task(u'/vms/%s' % name, self._create_task,
+                          self.objstore, data)
 
+        return self.task.lookup(taskid)
+
+    def _create_task(self, cb, params):
+        """
+        params: A dict with the following values:
+            - vm_uuid: The UUID of the VM being created
+            - template: The template being used to create the VM
+            - name: The name for the new VM
+        """
+        vm_uuid = str(uuid.uuid4())
+        t = params['template']
+        name = params['name']
+        conn = self.conn.get()
+
+        cb('Storing VM icon')
         # Store the icon for displaying later
         icon = t.info.get('icon')
         if icon:
@@ -117,6 +135,7 @@ class VMsModel(object):
 
         # If storagepool is SCSI, volumes will be LUNs and must be passed by
         # the user from UI or manually.
+        cb('Provisioning storage for new VM')
         vol_list = []
         if t._get_storage_type() not in ["iscsi", "scsi"]:
             vol_list = t.fork_vm_storage(vm_uuid)
@@ -128,6 +147,7 @@ class VMsModel(object):
                           graphics=graphics,
                           volumes=vol_list)
 
+        cb('Defining new VM')
         try:
             conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
@@ -138,10 +158,10 @@ class VMsModel(object):
             raise OperationFailed("KCHVM0007E", {'name': name,
                                                  'err': e.get_error_message()})
 
+        cb('Updating VM metadata')
         VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info,
                                       self.caps.metadata_support)
-
-        return name
+        cb('OK', True)
 
     def get_list(self):
         return VMsModel.get_vms(self.conn)
