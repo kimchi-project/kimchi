@@ -263,29 +263,25 @@ class ServerTests(unittest.TestCase):
         mockiso = '/tmp/mock.iso'
         open('/tmp/mock.iso', 'w').close()
 
-        req = json.dumps({'name': 'test', 'cdrom': mockiso})
+        # Create 2 different templates
+        req = json.dumps({'name': 'test-tmpl1', 'cdrom': mockiso})
         self.request('/templates', req, 'POST')
 
-        # Create a VM
-        req = json.dumps({'name': 'test-vm1', 'template': '/templates/test'})
-        resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
-        req = json.dumps({'name': 'test-vm2', 'template': '/templates/test'})
-        resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        req = json.dumps({'name': 'test-tmpl2', 'cdrom': mockiso})
+        self.request('/templates', req, 'POST')
 
         # Remove mock iso
         os.unlink(mockiso)
 
-        resp = self.request('/vms')
-        self.assertEquals(200, resp.status)
-        res = json.loads(resp.read())
-        self.assertEquals(3, len(res))
-
-        # FIXME: control/base.py also allows filter by regex so it is returning
-        # 2 vms when querying for 'test-vm1': 'test' and 'test-vm1'
-        resp = self.request('/vms?name=test-vm1')
+        # Get the templates
+        resp = self.request('/templates')
         self.assertEquals(200, resp.status)
         res = json.loads(resp.read())
         self.assertEquals(2, len(res))
-        self.assertIn('test-vm1', [r['name'] for r in res])
+
+        # Get a specific template
+        resp = self.request('/templates?name=test-tmpl1')
+        self.assertEquals(200, resp.status)
+        res = json.loads(resp.read())
+        self.assertEquals(1, len(res))
+        self.assertEquals('test-tmpl1', res[0]['name'])

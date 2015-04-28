@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ from functools import partial
 import kimchi.mockmodel
 from iso_gen import construct_fake_iso
 from utils import get_free_port, patch_auth, request
-from utils import run_server
+from utils import run_server, wait_task
 
 
 test_server = None
@@ -118,19 +118,24 @@ class AuthorizationTests(unittest.TestCase):
         # Non-root users can only get vms authorized to them
         model.templates_create({'name': u'test', 'cdrom': fake_iso})
 
-        model.vms_create({'name': u'test-me', 'template': '/templates/test'})
+        task_info = model.vms_create({'name': u'test-me',
+                                      'template': '/templates/test'})
+        wait_task(model.task_lookup, task_info['id'])
+
         model.vm_update(u'test-me',
                         {'users': [kimchi.mockmodel.fake_user.keys()[0]],
                          'groups': []})
 
-        model.vms_create({'name': u'test-usera',
-                          'template': '/templates/test'})
+        task_info = model.vms_create({'name': u'test-usera',
+                                      'template': '/templates/test'})
+        wait_task(model.task_lookup, task_info['id'])
 
         non_root = list(set(model.users_get_list()) - set(['root']))[0]
         model.vm_update(u'test-usera', {'users': [non_root], 'groups': []})
 
-        model.vms_create({'name': u'test-groupa',
-                          'template': '/templates/test'})
+        task_info = model.vms_create({'name': u'test-groupa',
+                                      'template': '/templates/test'})
+        wait_task(model.task_lookup, task_info['id'])
         a_group = model.groups_get_list()[0]
         model.vm_update(u'test-groupa', {'groups': [a_group]})
 
@@ -143,9 +148,9 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(403, resp.status)
 
         # Create a vm using mockmodel directly to test Resource access
-        model.vms_create({'name': 'kimchi-test',
-                          'template': '/templates/test'})
-
+        task_info = model.vms_create({'name': 'kimchi-test',
+                                      'template': '/templates/test'})
+        wait_task(model.task_lookup, task_info['id'])
         resp = self.request('/vms/kimchi-test', '{}', 'PUT')
         self.assertEquals(403, resp.status)
         resp = self.request('/vms/kimchi-test', '{}', 'DELETE')
