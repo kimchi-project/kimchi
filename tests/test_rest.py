@@ -112,7 +112,9 @@ class RestTests(unittest.TestCase):
             req = json.dumps({'name': name, 'template': '/templates/test',
                              'users': test_users, 'groups': test_groups})
             resp = self.request('/vms', req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
 
         vms = json.loads(self.request('/vms').read())
         self.assertEquals(11, len(vms))
@@ -130,7 +132,9 @@ class RestTests(unittest.TestCase):
 
         req = json.dumps({'name': 'vm-1', 'template': '/templates/test'})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
 
         vm = json.loads(self.request('/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
@@ -247,7 +251,9 @@ class RestTests(unittest.TestCase):
         # Create a VM
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        self.assertEquals(202, resp.status)
 
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
@@ -429,7 +435,9 @@ class RestTests(unittest.TestCase):
         # Create a VM with default args
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('127.0.0.1', vm['graphics']['listen'])
@@ -443,7 +451,9 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
                           'graphics': graphics})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('127.0.0.1', vm['graphics']['listen'])
@@ -457,7 +467,9 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
                           'graphics': graphics})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('fe00::0', vm['graphics']['listen'])
@@ -471,7 +483,9 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
                           'graphics': graphics})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
         # Verify the VM
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('127.0.0.1', vm['graphics']['listen'])
@@ -513,7 +527,9 @@ class RestTests(unittest.TestCase):
             req = json.dumps({'name': 'test-vm',
                               'template': '/templates/test'})
             resp = self.request('/vms', req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
             # Delete the VM
             rollback.prependDefer(self.request,
                                   '/vms/test-vm', '{}', 'DELETE')
@@ -658,7 +674,9 @@ class RestTests(unittest.TestCase):
             req = json.dumps({'name': 'test-vm',
                               'template': '/templates/test'})
             resp = self.request('/vms', req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
             # Delete the VM
             rollback.prependDefer(self.request,
                                   '/vms/test-vm', '{}', 'DELETE')
@@ -738,7 +756,10 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test',
                           'storagepool': '/storagepools/alt'})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        resp = self.request('/vms/test-vm', {}, 'GET')
         vm_info = json.loads(resp.read())
 
         # Test template not changed after vm customise its pool
@@ -791,7 +812,9 @@ class RestTests(unittest.TestCase):
         req = json.dumps({'name': 'test-vm',
                           'template': '/templates/test_fc_pool'})
         resp = self.request('/vms', req, 'POST')
-        self.assertEquals(201, resp.status)
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
 
         # Start the VM
         resp = self.request('/vms/test-vm/start', '{}', 'POST')
@@ -816,8 +839,10 @@ class RestTests(unittest.TestCase):
         # Create 5 unnamed vms from this template
         for i in xrange(1, 6):
             req = json.dumps({'template': '/templates/test'})
-            vm = json.loads(self.request('/vms', req, 'POST').read())
-            self.assertEquals('test-vm-%i' % i, vm['name'])
+            task = json.loads(self.request('/vms', req, 'POST').read())
+            wait_task(self._task_lookup, task['id'])
+            resp = self.request('/vms/test-vm-%i' % i, {}, 'GET')
+            self.assertEquals(resp.status, 200)
         count = len(json.loads(self.request('/vms').read()))
         self.assertEquals(6, count)
 
@@ -849,7 +874,10 @@ class RestTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         req = json.dumps({'template': '/templates/test'})
-        json.loads(self.request('/vms', req, 'POST').read())
+        resp = self.request('/vms', req, 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
 
         # Test storage volume created with backing store of base file
         resp = json.loads(
@@ -939,6 +967,8 @@ class RestTests(unittest.TestCase):
         resp = self.request('/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
         resp = self.request('/vms', req, 'POST')
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
 
         # Test screenshot for shut-off state vm
         resp = self.request('/vms/test-vm/screenshot')

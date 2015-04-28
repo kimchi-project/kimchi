@@ -129,8 +129,11 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'test')
 
             params = {'name': 'kimchi-vm', 'template': '/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
+            inst.task_wait(task['id'], 10)
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
 
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm' in vms)
@@ -267,7 +270,8 @@ class ModelTests(unittest.TestCase):
                 session.store('template', tmpl_name, tmpl_info)
 
             params = {'name': 'kimchi-vm', 'template': '/templates/img-tmpl'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
@@ -286,7 +290,8 @@ class ModelTests(unittest.TestCase):
         inst.templates_create(params)
         with RollbackContext() as rollback:
             params = {'name': 'kimchi-vnc', 'template': '/templates/test'}
-            inst.vms_create(params)
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-vnc')
 
             info = inst.vm_lookup('kimchi-vnc')
@@ -296,7 +301,8 @@ class ModelTests(unittest.TestCase):
             graphics = {'type': 'spice', 'listen': '127.0.0.1'}
             params = {'name': 'kimchi-spice', 'template': '/templates/test',
                       'graphics': graphics}
-            inst.vms_create(params)
+            task2 = inst.vms_create(params)
+            inst.task_wait(task2['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-spice')
 
             info = inst.vm_lookup('kimchi-spice')
@@ -325,7 +331,8 @@ class ModelTests(unittest.TestCase):
 
             for vm_name in ['kimchi-ifaces', 'kimchi-ifaces-running']:
                 params = {'name': vm_name, 'template': '/templates/test'}
-                inst.vms_create(params)
+                task = inst.vms_create(params)
+                inst.task_wait(task['id'])
                 rollback.prependDefer(inst.vm_delete, vm_name)
 
                 ifaces = inst.vmifaces_get_list(vm_name)
@@ -422,7 +429,8 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name, 'template': '/templates/test'}
-            inst.vms_create(params)
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             prev_count = len(inst.vmstorages_get_list(vm_name))
@@ -465,7 +473,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'old_distro_template')
             params = {'name': vm_name,
                       'template': '/templates/old_distro_template'}
-            inst.vms_create(params)
+            task2 = inst.vms_create(params)
+            inst.task_wait(task2['id'])
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             # Need to check the right disk_bus for old distro
@@ -486,7 +495,8 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name, 'template': '/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             prev_count = len(inst.vmstorages_get_list(vm_name))
@@ -575,7 +585,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'test')
 
             params = {'name': 'test-vm-1', 'template': '/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
             vm_info = inst.vm_lookup(params['name'])
@@ -596,10 +607,12 @@ class ModelTests(unittest.TestCase):
         with RollbackContext() as rollback:
             params_1 = {'name': 'kimchi-vm1', 'template': '/templates/test'}
             params_2 = {'name': 'kimchi-vm2', 'template': '/templates/test'}
-            inst.vms_create(params_1)
+            task1 = inst.vms_create(params_1)
+            inst.task_wait(task1['id'])
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   'kimchi-vm1')
-            inst.vms_create(params_2)
+            task2 = inst.vms_create(params_2)
+            inst.task_wait(task2['id'])
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   'kimchi-vm2')
 
@@ -778,11 +791,13 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'test')
 
             params = {'name': u'kīмсhī-∨м', 'template': u'/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   u'kīмсhī-∨м')
 
             inst.vm_start(u'kīмсhī-∨м')
+            self.assertEquals(inst.vm_lookup(u'kīмсhī-∨м')['state'], 'running')
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
                                   u'kīмсhī-∨м')
 
@@ -801,7 +816,8 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.template_delete, 'test')
 
             params = {'name': 'kimchi-vm', 'template': '/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
@@ -873,7 +889,8 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': 'kimchi-vm',
                       'template': '/templates/test'}
-            inst.vms_create(params)
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
 
             vms = inst.vms_get_list()
