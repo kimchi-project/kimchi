@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -289,11 +289,11 @@
     padding-left: 10px;
 }
 
-.guest-clone {
+.guest-pending {
     margin: 10px;
 }
 
-.guest-clone .icon {
+.guest-pending .icon {
     background: url('../../images/theme-default/kimchi-loading15x15.gif') no-repeat;
     display: inline-block;
     width: 20px;
@@ -301,7 +301,7 @@
     vertical-align: middle;
 }
 
-.guest-clone .text {
+.guest-pending .text {
     color: #666666;
     margin-left: 5px;
     text-shadow: -1px -1px 1px #CCCCCC, 1px 1px 1px #FFFFFF;
