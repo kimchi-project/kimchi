@@ -1,0 +1,51 @@
+13:01:26 <alinefm> #startmeeting
+13:01:26 <kimchi-bot> Meeting started Wed Apr 29 13:01:26 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:26 <alinefm> #meetingname scrum
+13:01:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:10 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:11 <alinefm> anything else?
+13:02:16 <ramonn> #info ramonn sent patches for metadata issue and unicode issue. Ramon is looking for another task
+13:02:56 <alinefm> ramonn, we will start soon =)
+13:03:04 <ramonn> sorry :P
+13:03:13 <alinefm> no problem at all
+13:03:16 <alinefm> #topic Status
+13:03:17 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:31 <ziviani> #info ziviani Sent patch - [PATCH] Improve code to retrieve the number of host CPUs
+13:03:31 <ziviani> #info ziviani issue https://github.com/kimchi-project/kimchi/issues/616 - Sent patch [PATCH] Move kimchi nginx config file to nginx default directory.
+13:03:31 <ziviani> #info ziviani issue https://github.com/kimchi-project/kimchi/issues/619 – Sent patch [PATCH V3 0/2] Warn users about NetworkManager instability.
+13:03:31 <ziviani> #info ziviani is currently working to display (and edit) guest MAC addresses in Kimchi.
+13:03:37 <alinefm> #info alinefm sent patch to remove hostname to IP resolution for remote ISOs
+13:03:55 <alinefm> #info alinefm sent patches to make Template defaults configurable through a file - still waiting for reviews
+13:04:12 <vianac> #info vianac working on another version of the patch to not block operations due to ref_cnt; working on issue #78; implementing storage volume downloads of FTP URLs; reviewed patches on the mailing list
+13:04:34 <alinefm> vianac, you forgot my patches =p
+13:04:38 <alinefm> hehehe
+13:04:48 <royce> #info royce is working on writing puppet manifest to setup kimchi services, now investigating on how openstack use puppet
+13:05:06 <vianac> alinefm, what patches?
+13:05:22 <alinefm> vianac, to make Template defaults configurable
+13:05:49 <vianac> alinefm, yes, I still have to review them
+13:06:00 <alinefm> vianac, thanks
+13:06:12 <alinefm> ramonn, do you need help to figure out your next task?
+13:06:15 <ramonn> #info ramonn sent patches for metadata issue and unicode issue( #450). Ramon is looking for another task
+13:06:56 <ramonn> alinefm, i have some bugs in NEEDINFO, but if you have a new task, you can send for me :)
+13:06:58 <ramonn> thanks
+13:07:15 <alinefm> ramonn, sure! I will do that right after the scrum
+13:09:32 <alinefm> #topic Open Discussion
+13:09:51 <alinefm> ramonn, royce, vianac, ziviani, any topic fot today?
+13:10:02 <alinefm> danielhb, ^
+13:10:20 <ramonn> nop
+13:10:36 <danielhb> alinefm,  I have nothing
+13:10:54 <ziviani> nope
+13:10:58 <royce> I just want to ask if our community is interested in puppet set up
+13:11:31 <alinefm> royce, I think we got some replies on ML, right?
+13:11:36 <royce> If not, I will find something else to do
+13:11:54 <alinefm> I don't think it is high priority but it is interesting
+13:12:26 <royce> got it
+13:13:11 <alinefm> royce, if you want to focus on bugs or smaller features already planned a long ago would be better in first moment
+13:13:18 <alinefm> and then go back to puppet setup
+13:14:34 <royce> OK
+13:15:15 <alinefm> anything else?
+13:16:05 <ziviani> nope
+13:19:44 <alinefm> ok...
+13:19:48 <alinefm> thanks everyone for joining!
+13:19:52 <alinefm> #endmeeting
