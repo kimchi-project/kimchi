@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:49</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May  6 13:01:49 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:49</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:49</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:51</span><span class="nk"> &lt;lucio&gt;</span> hi
+<a name="l-7"></a><span class="tm">13:02:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:02:04</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-9"></a><span class="tm">13:03:01</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-10"></a><span class="tm">13:03:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:03:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to do not resolve hostname to IP for remote ISOs</span>
+<a name="l-13"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm worked with christy to the the UI done for the VM async creation task</span>
+<a name="l-14"></a><span class="tm">13:03:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent V2 patch to make Template defaults configuration - waiting for review</span>
+<a name="l-15"></a><span class="tm">13:03:33</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on a new feature to show (and edit) the mac address of guest network interfaces</span>
+<a name="l-16"></a><span class="tm">13:04:15</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac working on a new version of the patchset which replaces ref_cnt with used_by; working on issue #78; reviewed patches on the mailing list</span>
+<a name="l-17"></a><span class="tm">13:06:14</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, danielhb, rotru, anything else from you?
+<a name="l-18"></a><span class="tm">13:06:21</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn reading reviews to resend patches. Sent patch v2 for metadata, now working on unicode issues (i'm seeing other issues that the patch is creating)</span>
+<a name="l-19"></a><span class="tm">13:06:50</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have nothing for this week
+<a name="l-20"></a><span class="tm">13:06:57</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn specially the unicode issue can take more time. Some tests are brokin</span>
+<a name="l-21"></a><span class="tm">13:07:01</span><span class="nk"> &lt;ramonn&gt;</span> *broking
+<a name="l-22"></a><span class="tm">13:07:30</span><span class="nk"> &lt;ramonn&gt;</span> **breaking
+<a name="l-23"></a><span class="tm">13:08:13</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, let me know if you need some help on it
+<a name="l-24"></a><span class="tm">13:08:27</span><span class="nk"> &lt;alinefm&gt;</span> the tests should continue working
+<a name="l-25"></a><span class="tm">13:08:28</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru I am working in hot memory plug</span>
+<a name="l-26"></a><span class="tm">13:08:49</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru I am working in Memory hot plug</span>
+<a name="l-27"></a><span class="tm">13:10:27</span><span class="nk"> &lt;alinefm&gt;</span> rotru, you have some pending patches on ML - do you need help to apply reviews and resend them?
+<a name="l-28"></a><span class="tm">13:11:30</span><span class="nk"> &lt;rotru&gt;</span> alinefm, not sure ...
+<a name="l-29"></a><span class="tm">13:12:30</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I am having problems with my machine, hopefully I will fix this fast
+<a name="l-30"></a><span class="tm">13:12:42</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-31"></a><span class="tm">13:12:56</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-32"></a><span class="tm">13:13:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-33"></a><span class="tm">13:13:19</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ramonn, rotru, vianac, ziviani, do you have any topic for today?
+<a name="l-34"></a><span class="tm">13:16:47</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-35"></a><span class="tm">13:16:54</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-36"></a><span class="tm">13:16:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

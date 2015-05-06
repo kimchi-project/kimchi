@@ -1,0 +1,36 @@
+13:01:49 <alinefm> #startmeeting
+13:01:49 <kimchi-bot> Meeting started Wed May  6 13:01:49 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:49 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:49 <alinefm> #meetingname scrum
+13:01:49 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:51 <lucio> hi
+13:02:03 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:02:04 <alinefm> anything else?
+13:03:01 <alinefm> so let's get started
+13:03:02 <alinefm> #topic Status
+13:03:02 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:20 <alinefm> #info alinefm sent patch to do not resolve hostname to IP for remote ISOs
+13:03:20 <alinefm> #info alinefm worked with christy to the the UI done for the VM async creation task
+13:03:20 <alinefm> #info alinefm sent V2 patch to make Template defaults configuration - waiting for review
+13:03:33 <ziviani> #info ziviani is working on a new feature to show (and edit) the mac address of guest network interfaces
+13:04:15 <vianac> #info vianac working on a new version of the patchset which replaces ref_cnt with used_by; working on issue #78; reviewed patches on the mailing list
+13:06:14 <alinefm> ramonn, danielhb, rotru, anything else from you?
+13:06:21 <ramonn> #info ramonn reading reviews to resend patches. Sent patch v2 for metadata, now working on unicode issues (i'm seeing other issues that the patch is creating)
+13:06:50 <danielhb> alinefm, I have nothing for this week
+13:06:57 <ramonn> #info ramonn specially the unicode issue can take more time. Some tests are brokin
+13:07:01 <ramonn> *broking
+13:07:30 <ramonn> **breaking
+13:08:13 <alinefm> ramonn, let me know if you need some help on it
+13:08:27 <alinefm> the tests should continue working
+13:08:28 <rotru> #info rotru I am working in hot memory plug
+13:08:49 <rotru> #info rotru I am working in Memory hot plug
+13:10:27 <alinefm> rotru, you have some pending patches on ML - do you need help to apply reviews and resend them?
+13:11:30 <rotru> alinefm, not sure ...
+13:12:30 <rotru> alinefm,  I am having problems with my machine, hopefully I will fix this fast
+13:12:42 <alinefm> rotru, ok
+13:12:56 <alinefm> moving on...
+13:13:01 <alinefm> #topic Open Discussion
+13:13:19 <alinefm> danielhb, ramonn, rotru, vianac, ziviani, do you have any topic for today?
+13:16:47 <alinefm> alright...
+13:16:54 <alinefm> thanks everyone for joining!
+13:16:56 <alinefm> #endmeeting
