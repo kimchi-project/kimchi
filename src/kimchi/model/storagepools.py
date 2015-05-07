@@ -35,9 +35,6 @@ from kimchi.utils import add_task, kimchi_log, pool_name_from_uri, run_command
 from kimchi.xmlutils.utils import xpath_get_text
 
 
-DEFAULT_POOLS = {'default': {'path': '/var/lib/libvirt/images'},
-                 'ISO': {'path': '/var/lib/kimchi/isos'}}
-
 ISO_POOL_NAME = u'kimchi_isos'
 
 POOL_STATE_MAP = {0: 'inactive',
@@ -71,25 +68,27 @@ class StoragePoolsModel(object):
             self._check_default_pools()
 
     def _check_default_pools(self):
+        pools = {}
+
         default_pool = tmpl_defaults['storagepool']
         default_pool = default_pool.split('/')[2]
 
-        if default_pool != 'default':
-            del DEFAULT_POOLS['default']
-            DEFAULT_POOLS[default_pool] = {}
+        pools[default_pool] = {}
+        if default_pool == 'default':
+            pools[default_pool] = {'path': '/var/lib/libvirt/images'}
 
-        if config.get("server", "create_iso_pool") != "true":
-            del DEFAULT_POOLS['ISO']
+        if config.get("server", "create_iso_pool") == "true":
+            pools['ISO'] = {'path': '/var/lib/kimchi/isos'}
 
         error_msg = ("Please, check the configuration in %s/template.conf to "
                      "ensure it has a valid storage pool." % paths.conf_dir)
 
         conn = self.conn.get()
-        for pool_name in DEFAULT_POOLS:
+        for pool_name in pools:
             try:
                 pool = conn.storagePoolLookupByName(pool_name)
             except libvirt.libvirtError, e:
-                pool_path = DEFAULT_POOLS[pool_name].get('path')
+                pool_path = pools[pool_name].get('path')
                 if pool_path is None:
                     msg = "Fatal: Unable to find storage pool %s. " + error_msg
                     kimchi_log.error(msg % pool_name)
