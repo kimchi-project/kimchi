@@ -140,6 +140,13 @@ the following general conventions:
          volume, it will be created on the pool 'default'. This action returns
          a Task.
 
+* suspend: Suspend an active domain. The process is frozen without further
+           access to CPU resources and I/O but the memory used by the domain at
+           the hypervisor level will stay allocated.
+
+* resume: Resume a suspended domain. The process is restarted from the state
+          where it was frozen by calling "suspend".
+
 ### Sub-resource: Virtual Machine Screenshot
 
 **URI:** /vms/*:name*/screenshot
