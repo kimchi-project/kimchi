@@ -481,7 +481,7 @@ A interface represents available network interface on VM.
            in the defined Storage Pool
 * **POST**: Create a new Storage Volume in the Storage Pool
             The return resource is a task resource * See Resource: Task *
-            Only one of 'file', 'capacity', 'url' can be specified.
+            Only one of 'capacity', 'url' can be specified.
     * name: The name of the Storage Volume
     * capacity: The total space which can be used to store volumes
                 The unit is bytes
@@ -490,7 +490,6 @@ A interface represents available network interface on VM.
     * upload: True to start an upload process. False, otherwise.
               Only used when creating a storage volume 'capacity' parameter.
     * file: File to be uploaded, passed through form data
-    * url: URL to be downloaded
 
 ### Resource: Storage Volume
 

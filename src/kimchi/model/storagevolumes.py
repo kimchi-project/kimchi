@@ -58,7 +58,7 @@ class StorageVolumesModel(object):
         self.task = TaskModel(**kargs)
 
     def create(self, pool_name, params):
-        vol_source = ['file', 'url', 'capacity']
+        vol_source = ['url', 'capacity']
 
         name = params.get('name')
 
@@ -89,9 +89,7 @@ class StorageVolumesModel(object):
             # if 'name' is omitted - except for the methods listed in
             # 'REQUIRE_NAME_PARAMS' - the default volume name will be the
             # file/URL basename.
-            if create_param == 'file':
-                name = os.path.basename(params['file'].filename)
-            elif create_param == 'url':
+            if create_param == 'url':
                 name = os.path.basename(params['url'])
             else:
                 name = 'upload-%s' % int(time.time())
@@ -119,36 +117,6 @@ class StorageVolumesModel(object):
         targeturi = '/storagepools/%s/storagevolumes/%s' % (pool_name, name)
         taskid = add_task(targeturi, create_func, self.objstore, params)
         return self.task.lookup(taskid)
-
-    def _create_volume_with_file(self, cb, params):
-        pool_name = params.pop('pool')
-        dir_path = StoragePoolModel(
-            conn=self.conn, objstore=self.objstore).lookup(pool_name)['path']
-        file_path = os.path.join(dir_path, params['name'])
-        if os.path.exists(file_path):
-            raise InvalidParameter('KCHVOL0001E', {'name': params['name']})
-
-        upload_file = params['file']
-        f_len = upload_file.fp.length
-        try:
-            size = 0
-            with open(file_path, 'wb') as f:
-                while True:
-                    data = upload_file.file.read(READ_CHUNK_SIZE)
-                    if not data:
-                        break
-                    size += len(data)
-                    f.write(data)
-                    cb('%s/%s' % (size, f_len))
-        except Exception as e:
-            raise OperationFailed('KCHVOL0007E',
-                                  {'name': params['name'],
-                                   'pool': pool_name,
-                                   'err': e.message})
-
-        # Refresh to make sure volume can be found in following lookup
-        StoragePoolModel.get_storagepool(pool_name, self.conn).refresh(0)
-        cb('OK', True)
 
     def _create_volume_with_capacity(self, cb, params):
         pool_name = params.pop('pool')

@@ -282,21 +282,15 @@ class MockModel(Model):
         kimchi_log.info("The host system will be rebooted")
 
     def _mock_storagevolumes_create(self, pool, params):
-        vol_source = ['file', 'url', 'capacity']
+        vol_source = ['url', 'capacity']
         index_list = list(i for i in range(len(vol_source))
                           if vol_source[i] in params)
         create_param = vol_source[index_list[0]]
         name = params.get('name')
-        if name is None:
-            if create_param == 'file':
-                name = os.path.basename(params['file'].filename)
-                del params['file']
-                params['capacity'] = 1024
-            elif create_param == 'url':
-                name = os.path.basename(params['url'])
-                del params['url']
-                params['capacity'] = 1024
-            params['name'] = name
+        if name is None and create_param == 'url':
+            params['name'] = os.path.basename(params['url'])
+            del params['url']
+            params['capacity'] = 1024
 
         return self._model_storagevolumes_create(pool, params)
 
