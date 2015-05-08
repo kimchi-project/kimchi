@@ -31,14 +31,14 @@ from lxml.builder import E
 from kimchi import config
 from kimchi import imageinfo
 from kimchi import osinfo
-from kimchi.exception import NotFoundError
+from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.debugreports import DebugReportsModel
 from kimchi.model.host import DeviceModel
 from kimchi.model.libvirtstoragepool import IscsiPoolDef, NetfsPoolDef
 from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.model.model import Model
 from kimchi.model.storagepools import StoragePoolModel
-from kimchi.model.storagevolumes import StorageVolumesModel
+from kimchi.model.storagevolumes import StorageVolumeModel, StorageVolumesModel
 from kimchi.model.templates import LibvirtVMTemplate
 from kimchi.model.users import PAMUsersModel
 from kimchi.model.groups import PAMGroupsModel
@@ -112,6 +112,7 @@ class MockModel(Model):
         DeviceModel.lookup = self._mock_device_lookup
         StoragePoolModel._update_lvm_disks = self._update_lvm_disks
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
+        StorageVolumeModel.doUpload = self._mock_storagevolume_doUpload
         DebugReportsModel._gen_debugreport_file = self._gen_debugreport_file
         LibvirtVMTemplate._get_volume_path = self._get_volume_path
         VMTemplate.get_iso_info = self._probe_image
@@ -312,6 +313,25 @@ class MockModel(Model):
             return self._mock_storagevolumes.scsi_volumes[vol]
 
         return self._model_storagevolume_lookup(pool, vol)
+
+    def _mock_storagevolume_doUpload(self, vol, offset, data, data_size):
+        vol_path = vol.path()
+
+        # MockModel does not create the storage volume as a file
+        # So create it to do the file upload
+        if offset == 0:
+            dirname = os.path.dirname(vol_path)
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+            open(vol_path, 'w').close()
+
+        try:
+            with open(vol_path, 'a') as fd:
+                fd.seek(offset)
+                fd.write(data)
+        except Exception, e:
+            os.remove(vol_path)
+            raise OperationFailed("KCHVOL0029E", {"err": e.message})
 
     def _mock_partitions_get_list(self):
         return self._mock_partitions.partitions.keys()
