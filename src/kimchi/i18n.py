@@ -214,6 +214,12 @@ messages = {
     "KCHVOL0021E": _("Storage volume URL must be http://, https://, ftp:// or ftps://."),
     "KCHVOL0022E": _("Unable to access file %(url)s. Please, check it."),
     "KCHVOL0023E": _("Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: %(err)s"),
+    "KCHVOL0024E": _("Specify chunk data and its size to upload a file."),
+    "KCHVOL0025E": _("In order to upload a storage volume, specify the 'upload' parameter."),
+    "KCHVOL0026E": _("Unable to upload chunk data as it does not match with requested chunk size."),
+    "KCHVOL0027E": _("The storage volume %(vol)s is not under an upload process."),
+    "KCHVOL0028E": _("The upload chunk data will exceed the storage volume size."),
+    "KCHVOL0029E": _("Unable to upload chunk data to storage volume. Details: %(err)s."),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
 

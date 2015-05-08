@@ -149,24 +149,82 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             resp = self.request(vol_uri)
             self.assertEquals(404, resp.status)
 
-        # Create storage volume with 'file'
-        filepath = os.path.join(paths.get_prefix(), 'COPYING.LGPL')
-        url = 'https://%s:%s' % (host, ssl_port) + uri
-        with open(filepath, 'rb') as fd:
-            r = requests.post(url, files={'file': fd},
-                              verify=False,
-                              headers=fake_auth_header())
+        # Storage volume upload
+        # It is done through a sequence of POST and several PUT requests
+        filename = 'COPYING.LGPL'
+        filepath = os.path.join(paths.get_prefix(), filename)
+        filesize = os.stat(filepath).st_size
 
+        # Create storage volume for upload
+        req = json.dumps({'name': filename, 'format': 'raw',
+                          'capacity': filesize, 'upload': True})
+        resp = self.request(uri, req, 'POST')
         if pool_info['type'] in READONLY_POOL_TYPE:
-            self.assertEquals(r.status_code, 400)
+            self.assertEquals(400, resp.status)
         else:
-            rollback.prependDefer(model.storagevolume_delete, pool_name,
-                                  'COPYING.LGPL')
-            self.assertEquals(r.status_code, 202)
-            task = r.json()
-            wait_task(_task_lookup, task['id'])
-            resp = self.request(uri + '/COPYING.LGPL')
+            rollback.prependDefer(rollback_wrapper, model.storagevolume_delete,
+                                  pool_name, filename)
+            self.assertEquals(202, resp.status)
+            task_id = json.loads(resp.read())['id']
+            wait_task(_task_lookup, task_id)
+            status = json.loads(self.request('/tasks/%s' % task_id).read())
+            self.assertEquals('finished', status['status'])
+
+            # Upload volume content
+            url = 'https://%s:%s' % (host, ssl_port) + uri + '/' + filename
+
+            # Create a file with 5M to upload
+            # Max body size is set to 4M so the upload will fail with 413
+            newfile = '/tmp/5m-file'
+            with open(newfile, 'wb') as fd:
+                fd.seek(5*1024*1024-1)
+                fd.write("\0")
+            rollback.prependDefer(os.remove, newfile)
+
+            with open(newfile, 'rb') as fd:
+                with open(newfile + '.tmp', 'wb') as tmp_fd:
+                    data = fd.read()
+                    tmp_fd.write(data)
+
+                with open(newfile + '.tmp', 'rb') as tmp_fd:
+                    r = requests.put(url, data={'chunk_size': len(data)},
+                                     files={'chunk': tmp_fd},
+                                     verify=False,
+                                     headers=fake_auth_header())
+                    self.assertEquals(r.status_code, 413)
+
+            # Do upload
+            index = 0
+            chunk_size = 2 * 1024
+            content = ''
+
+            with open(filepath, 'rb') as fd:
+                while True:
+                    with open(filepath + '.tmp', 'wb') as tmp_fd:
+                        fd.seek(index*chunk_size)
+                        data = fd.read(chunk_size)
+                        tmp_fd.write(data)
+
+                    with open(filepath + '.tmp', 'rb') as tmp_fd:
+                        r = requests.put(url, data={'chunk_size': len(data)},
+                                         files={'chunk': tmp_fd},
+                                         verify=False,
+                                         headers=fake_auth_header())
+                        self.assertEquals(r.status_code, 200)
+                        content += data
+                        index = index + 1
+
+                    if len(data) < chunk_size:
+                        break
+
+            rollback.prependDefer(os.remove, filepath + '.tmp')
+            resp = self.request(uri + '/' + filename)
             self.assertEquals(200, resp.status)
+            uploaded_path = json.loads(resp.read())['path']
+            with open(uploaded_path) as fd:
+                uploaded_content = fd.read()
+
+            self.assertEquals(content, uploaded_content)
 
         # Create storage volume with 'url'
         url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'

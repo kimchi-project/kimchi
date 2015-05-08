@@ -21,6 +21,7 @@ import contextlib
 import lxml.etree as ET
 import os
 import tempfile
+import threading
 import time
 import urllib2
 from lxml.builder import E
@@ -44,11 +45,10 @@ VOLUME_TYPE_MAP = {0: 'file',
                    2: 'directory',
                    3: 'network'}
 
-
 READ_CHUNK_SIZE = 1048576  # 1 MiB
-
-
 REQUIRE_NAME_PARAMS = ['capacity']
+
+upload_volumes = dict()
 
 
 class StorageVolumesModel(object):
@@ -186,10 +186,13 @@ class StorageVolumesModel(object):
                                       objstore=self.objstore).lookup(pool_name,
                                                                      name)
 
+        vol_path = vol_info['path']
+        if params.get('upload', False):
+            upload_volumes[vol_path] = {'lock': threading.Lock(), 'offset': 0}
+
         try:
             with self.objstore as session:
-                session.store('storagevolume', vol_info['path'],
-                              {'ref_cnt': 0})
+                session.store('storagevolume', vol_path, {'ref_cnt': 0})
         except Exception as e:
             # If the storage volume was created flawlessly, then lets hide this
             # error to avoid more error in the VM creation process
@@ -490,6 +493,48 @@ class StorageVolumeModel(object):
             session.store('storagevolume', new_vol_id, {'ref_cnt': 0})
 
         cb('OK', True)
+
+    def doUpload(self, vol, offset, data, data_size):
+        try:
+            st = self.conn.get().newStream(0)
+            vol.upload(st, offset, data_size)
+            st.send(data)
+            st.finish()
+        except Exception as e:
+            st and st.abort()
+            try:
+                vol.delete(0)
+            except Exception as e:
+                pass
+
+            raise OperationFailed("KCHVOL0029E", {"err": e.message})
+
+    def update(self, pool, name, params):
+        chunk_data = params['chunk'].fullvalue()
+        chunk_size = int(params['chunk_size'])
+
+        if len(chunk_data) != chunk_size:
+            raise OperationFailed("KCHVOL0026E")
+
+        vol = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
+        vol_path = vol.path()
+        vol_capacity = vol.info()[1]
+
+        vol_data = upload_volumes.get(vol_path)
+        if vol_data is None:
+            raise OperationFailed("KCHVOL0027E", {"vol": vol_path})
+
+        lock = vol_data['lock']
+        with lock:
+            offset = vol_data['offset']
+            if (offset + chunk_size) > vol_capacity:
+                raise OperationFailed("KCHVOL0028E")
+
+            self.doUpload(vol, offset, chunk_data, chunk_size)
+
+            vol_data['offset'] += chunk_size
+            if vol_data['offset'] == vol_capacity:
+                del upload_volumes[vol_path]
 
 
 class IsoVolumesModel(object):

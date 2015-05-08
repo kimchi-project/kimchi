@@ -21,7 +21,6 @@
 import json
 import os
 import re
-import requests
 import time
 import unittest
 import urllib2
@@ -35,7 +34,7 @@ import kimchi.server
 from kimchi.osinfo import get_template_default
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
-from utils import fake_auth_header, get_free_port, patch_auth, request
+from utils import get_free_port, patch_auth, request
 from utils import run_server, wait_task
 
 
@@ -1187,48 +1186,6 @@ class RestTests(unittest.TestCase):
         # Delete the repository
         resp = self.request('%s/fedora-fake' % base_uri, '{}', 'DELETE')
         self.assertEquals(204, resp.status)
-
-    def test_upload(self):
-        with RollbackContext() as rollback:
-            url = "https://%s:%s/storagepools/default-pool/storagevolumes" % \
-                (host, ssl_port)
-
-            # Create a file with 3M to upload
-            vol_path = '/tmp/3m-file'
-            with open(vol_path, 'wb') as fd:
-                fd.seek(3*1024*1024-1)
-                fd.write("\0")
-            rollback.prependDefer(os.remove, vol_path)
-
-            with open(vol_path, 'rb') as fd:
-                r = requests.post(url,
-                                  files={'file': fd},
-                                  verify=False,
-                                  headers=fake_auth_header())
-
-            self.assertEquals(r.status_code, 202)
-            task = r.json()
-            wait_task(self._task_lookup, task['id'], 15)
-            uri = '/storagepools/default-pool/storagevolumes/%s'
-            resp = self.request(uri % task['target_uri'].split('/')[-1])
-
-            self.assertEquals(200, resp.status)
-
-            # Create a file with 5M to upload
-            # Max body size is set to 4M so the upload will fail with 413
-            vol_path = '/tmp/5m-file'
-            with open(vol_path, 'wb') as fd:
-                fd.seek(5*1024*1024-1)
-                fd.write("\0")
-            rollback.prependDefer(os.remove, vol_path)
-
-            with open(vol_path, 'rb') as fd:
-                r = requests.post(url,
-                                  files={'file': fd},
-                                  verify=False,
-                                  headers=fake_auth_header())
-
-            self.assertEquals(r.status_code, 413)
 
 
 class HttpsRestTests(RestTests):

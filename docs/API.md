@@ -487,6 +487,8 @@ A interface represents available network interface on VM.
                 The unit is bytes
     * format: The format of the defined Storage Volume. Only used when creating
               a storage volume with 'capacity'.
+    * upload: True to start an upload process. False, otherwise.
+              Only used when creating a storage volume 'capacity' parameter.
     * file: File to be uploaded, passed through form data
     * url: URL to be downloaded
 
@@ -515,6 +517,9 @@ A interface represents available network interface on VM.
 
 * **DELETE**: Remove the Storage Volume
 * **POST**: *See Storage Volume Actions*
+* **PUT**: Upload storage volume chunk
+    * chunk_size: Chunk size of the slice in Bytes.
+    * chunk: Actual data of uploaded file
 
 **Actions (POST):**
 

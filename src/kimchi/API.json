@@ -202,6 +202,11 @@
                     "minimum": 1,
                     "error": "KCHVOL0020E"
                 },
+                "upload": {
+                    "description": "When the storage volume will be uploaded",
+                    "type": "boolean",
+                    "error": "KCHVOL0025E"
+                },
                 "allocation": {
                     "description": "The size(MiB) of allocation when create the storage volume",
                     "type": "number",
@@ -221,6 +226,23 @@
                     "error": "KCHVOL0021E"
                 }
             }
+        },
+        "storagevolume_update": {
+            "type": "object",
+            "properties": {
+                "chunk": {
+                    "description": "Upload storage volume chunk",
+                    "error": "KCHVOL0024E",
+                    "required": true
+                },
+                "chunk_size": {
+                    "description": "Chunk size of uploaded storage volume",
+                    "type": "string",
+                    "error": "KCHVOL0024E",
+                    "required": true
+                }
+            },
+            "additionalProperties": false
         },
         "vms_create": {
             "type": "object",
