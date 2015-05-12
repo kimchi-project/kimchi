@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ def get_disk_ref_cnt(objstore, conn, path):
         with objstore as session:
             try:
                 ref_cnt = session.get('storagevolume', path)['ref_cnt']
-            except NotFoundError:
+            except (KeyError, NotFoundError):
                 kimchi_log.info('Volume %s not found in obj store.' % path)
                 ref_cnt = 0
                 # try to find this volume in existing vm
