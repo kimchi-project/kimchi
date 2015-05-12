@@ -182,12 +182,14 @@ class StorageVolumesModel(object):
                                   {'name': name, 'pool': pool,
                                    'err': e.get_error_message()})
 
-        path = StoragePoolModel(
-            conn=self.conn, objstore=self.objstore).lookup(pool_name)['path']
+        vol_info = StorageVolumeModel(conn=self.conn,
+                                      objstore=self.objstore).lookup(pool_name,
+                                                                     name)
 
         try:
             with self.objstore as session:
-                session.store('storagevolume', path, {'ref_cnt': 0})
+                session.store('storagevolume', vol_info['path'],
+                              {'ref_cnt': 0})
         except Exception as e:
             # If the storage volume was created flawlessly, then lets hide this
             # error to avoid more error in the VM creation process
