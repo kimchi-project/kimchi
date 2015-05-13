@@ -1,0 +1,43 @@
+13:03:25 <alinefm> #startmeeting
+13:03:25 <kimchi-bot> Meeting started Wed May 13 13:03:25 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:25 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:25 <alinefm> #meetingname scrum
+13:03:25 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:38 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:38 <alinefm> anything else?
+13:05:03 <alinefm> apparently not
+13:05:07 <alinefm> so let's get started
+13:05:21 <alinefm> #topic Status
+13:05:22 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:55 <ziviani> #info ziviani sent [PATCH 0/5] View/Edit guest MAC address to review
+13:05:55 <ziviani> #info ziviani is applying the code review
+13:05:55 <alinefm> #info alinefm resent the storage volume upload patches to ML as royce will be out on next weeks
+13:06:07 <alinefm> #info alinefm is now working on UI to storage volume upload
+13:06:38 <vianac> #info vianac sent another revision of patch to replace storage volume ref_cnt with used_by; updated documentation of suspend/resume actions; working on issue #78; reviewed patches on the mailing list
+13:08:07 <alinefm> danielhb, ramonn, rotru, anything else to share with us?
+13:08:35 <danielhb> alinefm, nope
+13:08:45 <rotru> #info rotru sent a patch to fix bug in new template config schema
+13:11:28 <alinefm> thanks!
+13:11:34 <alinefm> #topic Open Discussion
+13:11:57 <alinefm> danielhb, lagarcia, ramonn, rotru, vianac, ziviani, any topics for today?
+13:12:16 <rotru> no
+13:12:50 <lagarcia> no
+13:12:52 <alinefm> I have one
+13:13:03 <alinefm> I'd like to propose to change the scrum meeting frequency
+13:13:16 <alinefm> I don't think we have topics for every week
+13:13:26 <alinefm> so I'd propose to do it bi-weekly at the same time
+13:13:38 <alinefm> what do you think about it?
+13:13:43 <ziviani> alinefm, agreed
+13:13:58 <lagarcia> alinefm, fine for me. I think we should change the scheduled time as well, so that socorro can participate.
+13:15:17 <alinefm> lagarcia, I will talk to her to get a better time if she wants to attend this meeting
+13:15:23 <lagarcia> alinefm, k
+13:16:14 <alinefm> danielhb, ramonn, rotru, vianac, what about you?
+13:16:34 <vianac> alinefm, ok, I agree
+13:17:05 <rotru> ok
+13:19:25 <alinefm> alright... so next week we will not have the scrum meeting
+13:19:35 <alinefm> I will send a note to the ML to inform everyone
+13:19:40 <alinefm> anything else for today?
+13:19:43 <lagarcia> nope
+13:19:47 <ziviani> nope
+13:20:32 <alinefm> thanks everyone for joining!
+13:20:35 <alinefm> #endmeeting
