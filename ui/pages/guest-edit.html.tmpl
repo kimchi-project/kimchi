@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,6 +110,7 @@
                 <div class="header">
                     <span class="cell">$_("Network")</span>
                     <span class="cell">$_("Type")</span>
+                    <span class="cell">$_("MAC Address")</span>
                     <button class="add action-area"></button>
                 </div>
                 <div class="body"></div>
@@ -231,6 +232,9 @@
         </span>
         <span class="cell">
             <span>{type}</span>
+        </span>
+        <span class="cell">
+            <span>{mac}</span>
         </span>
         <span class="action-area {editMode}">
             <button class="save"></button><button class="cancel"></button>
