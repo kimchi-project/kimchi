@@ -38,7 +38,7 @@ class VMIface(Resource):
         self.ident = ident
         self.info = {}
         self.model_args = [self.vm, self.ident]
-        self.uri_fmt = '/vms/%s/iface/%s'
+        self.uri_fmt = '/vms/%s/ifaces/%s'
 
     @property
     def data(self):
