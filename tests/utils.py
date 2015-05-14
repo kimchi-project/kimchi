@@ -22,9 +22,11 @@ import base64
 import cherrypy
 import grp
 import httplib
+import inspect
 import json
 import os
 import socket
+import ssl
 import sys
 import time
 import threading
@@ -148,7 +150,13 @@ def _request(conn, path, data, method, headers):
 
 
 def request(host, port, path, data=None, method='GET', headers=None):
-    conn = httplib.HTTPSConnection(host, port)
+    # verify if HTTPSConnection has context parameter
+    if "context" in inspect.getargspec(httplib.HTTPSConnection.__init__).args:
+        context = ssl._create_unverified_context()
+        conn = httplib.HTTPSConnection(host, port, context=context)
+    else:
+        conn = httplib.HTTPSConnection(host, port)
+
     return _request(conn, path, data, method, headers)
 
 
