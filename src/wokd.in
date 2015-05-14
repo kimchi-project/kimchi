@@ -1,0 +1,99 @@
+#!/usr/bin/env python2
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2013-2015
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA  02110-1301  USA
+
+import os
+import sys
+sys.path.insert(1, '@pythondir@')
+
+from optparse import OptionParser
+
+import wok.server
+import wok.config as config
+
+
+if not config.paths.installed:
+    sys.path.append(config.paths.prefix)
+
+ACCESS_LOG = "wok-access.log"
+ERROR_LOG = "wok-error.log"
+
+
+def main(options):
+    # Script must run as root or with sudo.
+    if not os.geteuid() == 0:
+        sys.exit("\nMust be root to run this script. Exiting ...\n")
+
+    host = config.config.get("server", "host")
+    port = config.config.get("server", "port")
+    ssl_port = config.config.get("server", "ssl_port")
+    cherrypy_port = config.config.get("server", "cherrypy_port")
+    runningEnv = config.config.get("server", "environment")
+    federation = config.config.get("server", "federation")
+    isopool = config.config.get("server", "create_iso_pool")
+    logDir = config.config.get("logging", "log_dir")
+    logLevel = config.config.get("logging", "log_level")
+
+    parser = OptionParser()
+    parser.add_option('--host', type="string", default=host,
+                      help="Hostname to listen on")
+    parser.add_option('--port', type="int", default=port,
+                      help="Port to listen on (default %s)" % port)
+    parser.add_option('--ssl-port', type="int", default=ssl_port,
+                      help="Port to enable SSL (default %s)" % ssl_port)
+    parser.add_option('--cherrypy_port', type="int", default=cherrypy_port,
+                      help="Cherrypy server port (default %s)" % cherrypy_port)
+    parser.add_option('--log-level', default=logLevel,
+                      help="Logging level")
+    parser.add_option('--access-log',
+                      default=os.path.join(logDir, ACCESS_LOG),
+                      help="Access log file")
+    parser.add_option('--error-log',
+                      default=os.path.join(logDir, ERROR_LOG),
+                      help="Error log file")
+    parser.add_option('--environment', default=runningEnv,
+                      help="Running environment of wok server")
+    parser.add_option('--federation', default=federation,
+                      help="Register and discover Kimchi peers in the same "
+                           "network using openSLP. Check README-federation for"
+                           " more details.")
+    parser.add_option('--create_iso_pool', default=isopool,
+                      help="Automatically create ISO pool on server start up.")
+    parser.add_option('--test', action='store_true',
+                      help="Run server in mock model")
+    (options, args) = parser.parse_args()
+
+    # Update config.config with the command line values
+    # So the whole application will have access to accurate values
+    for sec in config.config.sections():
+        for item in config.config.options(sec):
+            if hasattr(options, item):
+                config.config.set(sec, item, str(getattr(options, item)))
+
+    # Add non-option arguments
+    setattr(options, 'ssl_cert', config.config.get('server', 'ssl_cert'))
+    setattr(options, 'ssl_key', config.config.get('server', 'ssl_key'))
+    setattr(options, 'max_body_size',
+            config.config.get('server', 'max_body_size'))
+
+    wok.server.main(options)
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

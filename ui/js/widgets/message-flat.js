@@ -28,7 +28,7 @@
 */
 
 (function( $ ) {
-    $.widget("kimchi.messageFlat", {
+    $.widget("wok.messageFlat", {
         options: {
             autoOpen: true,
             contentMain: null,

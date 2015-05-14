@@ -26,7 +26,7 @@
 
  (function($) {
 
-    $.widget("kimchi.listFlat", {
+    $.widget("wok.listFlat", {
 
         options: {
             title: null

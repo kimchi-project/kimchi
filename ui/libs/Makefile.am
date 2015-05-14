@@ -17,6 +17,6 @@
 
 SUBDIRS = themes
 
-jsdir = $(datadir)/kimchi/ui/libs
+jsdir = $(datadir)/wok/ui/libs
 
 dist_js_DATA = $(wildcard *.js) $(NULL)

@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = base64 css fontello images js libs pages spice-html5
+SUBDIRS = base64 css fontello images js libs pages
 
-uidir = $(datadir)/kimchi/ui
+uidir = $(datadir)/wok/ui
 
 dist_ui_DATA = robots.txt

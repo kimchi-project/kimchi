@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-03/schema#",
     "title": "Plugin Sample API",
-    "description": "Json schema for Kimchi's Sample Plugin API",
+    "description": "Json schema for Wok's Sample Plugin API",
     "type": "object",
     "error": "SPAPI0001E",
     "properties": {

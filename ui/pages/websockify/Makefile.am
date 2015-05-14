@@ -15,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-websockifyhtmldir = $(datadir)/kimchi/ui/pages/websockify
+websockifyhtmldir = $(datadir)/wok/ui/pages/websockify
 
 dist_websockifyhtml_DATA = $(wildcard *.html) $(NULL)

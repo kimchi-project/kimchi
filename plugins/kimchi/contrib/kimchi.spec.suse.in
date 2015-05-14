@@ -1,0 +1,114 @@
+Name:		kimchi
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@%{?dist}
+Summary:	Kimchi server application
+BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+BuildArch:	noarch
+Group:		System Environment/Base
+License:	LGPL/ASL2
+Source0:	%{name}-%{version}.tar.gz
+Requires:	wok
+Requires:	kvm
+Requires:	gettext-tools
+Requires:	libvirt
+Requires:	libvirt-python
+Requires:	libvirt-daemon-config-network
+Requires:	python-CherryPy >= 3.2.0
+Requires:	python-Cheetah
+Requires:	python-websockify
+Requires:	python-configobj
+Requires:	novnc
+Requires:	python-imaging
+Requires:	python-M2Crypto
+Requires:	python-pam
+Requires:	python-parted
+Requires:	python-psutil >= 0.6.0
+Requires:	python-jsonschema >= 1.3.0
+Requires:	python-ethtool
+Requires:	python-ipaddr
+Requires:	python-ldap
+Requires:	python-lxml
+Requires:	python-xml
+Requires:	nfs-client
+Requires:	nginx
+Requires:	open-iscsi
+Requires:	python-libguestfs
+Requires:	guestfs-tools
+Requires:	python-magic
+BuildRequires:	libxslt-tools
+BuildRequires:	python-lxml
+
+%if 0%{?suse_version} == 1100
+Requires:       python-ordereddict
+%endif
+
+%if 0%{?suse_version} > 1140
+%global with_systemd 1
+%endif
+
+%description
+Web application to manage KVM/Qemu virtual machines
+
+%prep
+%setup
+
+%build
+%configure --with-spice-html5
+make
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%attr(-,root,root)
+%{python_sitelib}/wok/plugins/kimchi/*.py*
+%{python_sitelib}/wok/plugins/kimchi/control/*.py*
+%{python_sitelib}/wok/plugins/kimchi/control/vm/*.py*
+%{python_sitelib}/wok/plugins/kimchi/model/*.py*
+%{python_sitelib}/wok/plugins/kimchi/API.json
+%{python_sitelib}/wok/plugins/kimchi/
+%{_datadir}/kimchi/doc/API.md
+%{_datadir}/kimchi/doc/README.md
+%{_datadir}/kimchi/doc/README-federation.md
+%{_datadir}/kimchi/doc/kimchi-guest.png
+%{_datadir}/kimchi/doc/kimchi-templates.png
+%{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
+%{_datadir}/wok/plugins/kimchi/ui/config/*.xml
+%{_datadir}/wok/plugins/kimchi/ui/
+%{_datadir}/wok/plugins/kimchi
+%{_sysconfdir}/wok/plugins.d/kimchi.conf
+%{_sysconfdir}/wok/plugins.d/template.conf
+%{_sysconfdir}/kimchi/distros.d/debian.json
+%{_sysconfdir}/kimchi/distros.d/fedora.json
+%{_sysconfdir}/kimchi/distros.d/opensuse.json
+%{_sysconfdir}/kimchi/distros.d/ubuntu.json
+%{_sysconfdir}/kimchi/distros.d/gentoo.json
+%{_sysconfdir}/kimchi/
+%{_var}/lib/kimchi/debugreports/
+%{_var}/lib/kimchi/screenshots/
+%{_var}/lib/kimchi/isos/
+%{_var}/lib/kimchi/
+
+
+
+%changelog
+* Thu Jun 18 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 1.6
+- Run kimchi as a plugin
+
+* Thu Feb 26 2015 Frédéric Bonnard <frediz@linux.vnet.ibm.com> 1.4.0
+- Add man page for kimchid
+
+* Tue Feb 11 2014 Crístian Viana <vianac@linux.vnet.ibm.com> 1.1.0
+- Add help pages and XSLT dependency
+
+* Thu Jul 18 2013 Adam Litke <agl@us.ibm.com> 0.1.0-1
+- Adapted for autotools build
+- Split Suse and Fedora spec files
+
+* Thu Apr 04 2013 Aline Manera <alinefm@br.ibm.com> 0.0-1
+- First build

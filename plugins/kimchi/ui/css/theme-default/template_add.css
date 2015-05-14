@@ -1,0 +1,317 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013-2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.page-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.page {
+    position: absolute;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.page>header {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-group {
+    margin-left: 5px;
+}
+
+.back {
+    float: left; display : block;
+    width: 50px;
+    height: 52px;
+    background: url(../images/theme-default/icon-back.png) center
+                center no-repeat;
+    cursor: pointer;
+    display: block;
+}
+
+.step-title {
+    color: #333;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 15px 10px;
+}
+
+.step-choose>li>a {
+    display: block;
+    margin: 0 10px 10px;
+    padding: 20px 10px 20px 65px;
+    border: 2px solid #ccc;
+    background: url(../images/theme-default/icon-local.png) 15px
+                center no-repeat;
+    cursor: pointer;
+}
+
+.step-choose>li>a.local {
+    background-image: url(../images/theme-default/icon-local.png);
+}
+
+.step-choose>li>a.remote {
+    background-image: url(../images/theme-default/icon-remote.png);
+}
+
+.step-choose>li>a:HOVER {
+    border: 2px solid #06C;
+}
+
+.step-subtitle {
+    font-size: 16px;
+    height: 48px;
+    line-height: 48px;
+    color: #06C;
+    margin: 0 10px;
+    font-weight: bold;
+    text-shadow: -1px -1px 1px #eaeaea, 1px 1px 1px #fff;
+}
+
+.custom-iso-field {
+    position: relative;
+    padding: 0 10px 10px;
+}
+
+.custom-iso-field>.input-wrapper {
+    margin-right: 110px;
+}
+
+.custom-iso-field>.input-wrapper>input.text {
+    padding: 10px;
+    color: #333;
+    font-size: 13px;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee inset;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    width: 100%;
+}
+
+.custom-iso-field>button {
+    position: absolute;
+    top: -6px;
+    right: 8px;
+}
+
+.iso-field .button-field {
+    padding: 0 20px;
+    text-align: right;
+}
+
+.check-all {
+    display: inline-block;
+    position: relative;
+    height: 38px;
+    line-height: 38px;
+    margin: 5px;
+    font-size: 13px;
+}
+
+.check-all input {
+    margin: 0 5px 0 0;
+}
+
+.box {
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-gradient(linear, left top, left bottom,
+                color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+            endColorstr='#e5e5e5', GradientType=0);
+    border: 1px solid #ccc;
+    color: #333;
+    text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.box:HOVER {
+    border: 1px solid #aaa;
+    -webkit-box-shadow: #bbb 0px 0px 5px;
+    box-shadow: #bbb 0px 0px 5px;
+}
+
+.box-iso {
+    padding: 10px;
+    margin: 5px;
+    overflow: hidden;
+}
+
+.iso-icon {
+    float: left;
+    width: 58px;
+    height: 58px;
+    margin: 0 5px 0 0;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    background: url(../images/icon-vm.png) center center no-repeat;
+    background-size: 58px;
+}
+
+.iso-icon.centos {
+    background-image: url(../images/icon-centos.png);
+}
+
+.iso-icon.debian {
+    background-image: url(../images/icon-debian.png);
+}
+
+.iso-icon.fedora {
+    background-image: url(../images/icon-fedora.png);
+}
+
+.iso-icon.opensuse {
+    background-image: url(../images/icon-opensuse.png);
+}
+
+.iso-icon.ubuntu {
+    background-image: url(../images/icon-ubuntu.png);
+}
+
+.iso-icon.gentoo {
+    background-image: url(../images/icon-gentoo.png);
+}
+
+.list-iso {
+    overflow: hidden;
+    margin: 5px;
+}
+
+.list-iso li {
+    float: left;
+    width: 320px;
+}
+
+.list-iso>li>label {
+    display: block;
+    cursor: pointer;
+}
+
+.list-iso>li>label>input[type="checkbox"] {
+    display: none;
+}
+
+.list-iso>li>label>input[type="checkbox"]:CHECKED+.box-iso {
+    border: 1px solid rgb(11, 107, 173);
+    -webkit-box-shadow: rgb(11, 107, 173) 0px 0px 4px;
+    box-shadow: rgb(11, 107, 173) 0px 0px 4px;
+}
+
+.iso-title {
+    margin: 0;
+    display: block;
+    position: relative;
+    height: 23px;
+    line-height: 23px;
+    font-size: 14px;
+    font-weight: normal;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.iso-title>label>input {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 2px;
+}
+
+.iso-info {
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.iso-info-col {
+    float: left;
+    width: 50%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 0 0 5px;
+}
+
+.iso-info-col:FIRST-CHILD {
+    padding: 0 5px 0 0;
+    border-right: 1px solid #999;
+}
+
+.iso-info-item {
+    font-weight: bold;
+    color: #999;
+    font-size: 11px;
+    line-height: 18px;
+    max-width: 106px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#iso-search {
+    margin: 10px 15px;
+}
+
+#iso-search-loading {
+    margin: 10px 15px;
+    background: #C0C0C0 url(../images/theme-default/loading.gif) 7px
+                center no-repeat;
+    padding: 0 20px 0 26px;
+}
+
+#iso-more-loading {
+    background: #C0C0C0 url(../images/theme-default/loading.gif) 7px
+                center no-repeat;
+    padding: 0 20px 0 26px;
+}
+
+#vm-image-local-box .body {
+    margin: 30px 0 0 26px;
+}
+
+#vm-image-local-box .body input {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #BBBBBB;
+    border-radius: 5px 5px 5px 5px;
+    border-top: 1px solid #BBBBBB;
+    box-shadow: 2px 2px 2px #EEEEEE inset;
+    color: #333333;
+    font-size: 13px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 600px;
+}
+
+#vm-image-local-box .body button {
+    margin-left: 10px;
+}

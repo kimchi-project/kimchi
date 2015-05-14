@@ -17,7 +17,7 @@
  */
 
 $(function(){
-$.widget("kimchi.grid", {
+$.widget("wok.grid", {
     options: {
         enableSorting: true
     },

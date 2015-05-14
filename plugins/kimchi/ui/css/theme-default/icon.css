@@ -1,0 +1,106 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013-2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /* Generated at http://colorzilla.com/gradient-editor/ */
+
+.btn.loading {
+    box-shadow: none;
+    cursor: default;
+}
+
+.btn.loading .icon {
+    background: url(../images/theme-default/icon-load.png) center
+                center no-repeat;
+}
+
+.btn.pause-gray .icon {
+    background: url(../images/theme-default/ac22_pause_grey.png) center
+                center no-repeat;
+}
+
+.btn.resume-gray .icon {
+    background: url(../images/theme-default/ac24_resume_grey.png) center
+                center no-repeat;
+}
+
+.icon.reset {
+    background: url(../images/theme-default/icon-reset.png) center
+                center no-repeat;
+}
+
+.icon.power-up {
+    background: url(../images/theme-default/icon-power-up.png) center
+                center no-repeat;
+}
+
+.icon.power-down {
+    background: url(../images/theme-default/icon-power-down.png) center
+                center no-repeat;
+}
+
+.icon.pause {
+    background: url(../images/theme-default/ac22_pause.png) center
+                center no-repeat;
+}
+
+.icon.resume {
+    background: url(../images/theme-default/ac24_resume.png) center
+                center no-repeat;
+}
+
+.icon.search {
+    background: url(../images/theme-default/icon-search.png) no-repeat
+                center center;
+}
+
+.icon.sort {
+    background: url(../images/theme-default/icon-sort.png) no-repeat
+                center center;
+}
+
+.icon.design {
+    background: url(../images/theme-default/icon-design.png) no-repeat
+                center center;
+}
+
+.icon.list {
+    background: url(../images/theme-default/icon-list.png) no-repeat
+                center center;
+}
+
+.icon.detail {
+    background: url(../images/theme-default/icon-detail.png) no-repeat
+                center center;
+}
+
+.icon.add {
+    line-height: 32px;
+    text-align: center;
+    text-shadow: -1px -1px 1px #aaa, 1px 1px 1px #eee;
+    font-size: 38px;
+    font-weight: bold;
+    color: #7cae0a;
+}
+
+.icon.tree {
+    width: 42px;
+    background: url(../images/theme-default/icon-tree.png) no-repeat
+                center center;
+}
+
+

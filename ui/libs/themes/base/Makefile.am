@@ -17,6 +17,6 @@
 
 SUBDIRS = images
 
-basedir = $(datadir)/kimchi/ui/libs/themes/base
+basedir = $(datadir)/wok/ui/libs/themes/base
 
 dist_base_DATA = $(wildcard *.css) $(NULL)

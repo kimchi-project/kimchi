@@ -22,7 +22,7 @@
 //     });
 
  (function($) {
-    $.widget("kimchi.textboxFlat", {
+    $.widget("wok.textboxFlat", {
         optons: {
             hint: ""
         },

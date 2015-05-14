@@ -17,9 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-EXTRA_DIST = kimchi.conf.in
+EXTRA_DIST = wok.conf.in
 
 confdir = $(sysconfdir)/nginx/conf.d
-dist_conf_DATA = kimchi.conf.in
+dist_conf_DATA = wok.conf.in
 
-CLEANFILES = kimchi.conf
+CLEANFILES = wok.conf

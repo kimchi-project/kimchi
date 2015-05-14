@@ -28,7 +28,7 @@
 
 
  (function( $ ) {
-    $.widget("kimchi.selectmenuFlat", {
+    $.widget("wok.selectmenuFlat", {
 
         options: {
             content: null,

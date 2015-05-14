@@ -16,7 +16,7 @@
  * limitations under the License.
  */
  (function($) {
-    $.widget('kimchi.circleGauge', {
+    $.widget('wok.circleGauge', {
 
         options : {
             color : '#87C004',
@@ -95,6 +95,6 @@
     });
 }(jQuery));
 
-kimchi.circleGauge = function(selector) {
+wok.circleGauge = function(selector) {
     $(selector).circleGauge();
 };

@@ -19,14 +19,14 @@
 
 import json
 import os
-
-
 from cherrypy import expose
 
 
-from kimchi.config import PluginPaths
-from kimchi.control.base import Collection, Resource
-from kimchi.root import Root
+from wok.config import PluginPaths
+from wok.control.base import Collection, Resource
+from wok.root import WokRoot
+
+
 from plugins.sample.i18n import messages
 from plugins.sample.model import Model
 
@@ -34,8 +34,8 @@ from plugins.sample.model import Model
 model = Model()
 
 
-class Drawings(Root):
-    def __init__(self):
+class Drawings(WokRoot):
+    def __init__(self, wok_options):
         Resource.__init__(self, model)
         self.description = Description(model)
         self.rectangles = Rectangles(model)
@@ -48,7 +48,7 @@ class Drawings(Root):
 
     @expose
     def index(self):
-        return 'This is a sample plugin for Kimchi'
+        return 'This is a sample plugin for Wok'
 
 
 class Description(Resource):

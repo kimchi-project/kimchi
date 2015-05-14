@@ -1,0 +1,13 @@
+[Unit]
+Description=Wok - Webserver Originated from Kimchi
+Requires=libvirtd.service
+After=libvirtd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wokd
+ExecStop=/bin/kill -TERM $MAINPID
+EnvironmentFile=/etc/wok/wok.conf
+
+[Install]
+WantedBy=multi-user.target

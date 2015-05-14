@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 (function($) {
-    $.widget('kimchi.dropdownButton', {
+    $.widget('wok.dropdownButton', {
 
         _create : function() {
             this.actionDiv = this.element;

@@ -20,9 +20,9 @@
 
 case "$1" in
     remove)
-        rm -rf /var/log/kimchi /var/run/kimchi.pid
+        rm -rf /var/log/wok /var/run/wok.pid
     ;;
     purge)
-        rm -rf /var/log/kimchi /var/run/kimchi.pid /usr/share/kimchi/
+        rm -rf /var/log/wok /var/run/wok.pid /usr/share/wok/
     ;;
 esac

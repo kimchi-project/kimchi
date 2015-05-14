@@ -33,7 +33,7 @@
 
 
  (function( $ ) {
-    $.widget("kimchi.menuFlat", {
+    $.widget("wok.menuFlat", {
 
         options: {
             content: null,

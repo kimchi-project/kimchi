@@ -17,7 +17,7 @@
  */
 
 $(function(){
-$.widget("kimchi.line", {
+$.widget("wok.line", {
     options: {
         xShift: true,
         minVal: 0,

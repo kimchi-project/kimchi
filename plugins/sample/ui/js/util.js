@@ -19,15 +19,15 @@
 sample = {};
 
 sample.description = function(suc, err){
-    kimchi.requestJSON({
-        url : kimchi.url + 'plugins/sample/description',
+    wok.requestJSON({
+        url : 'plugins/sample/description',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
         resend : true,
         success : suc,
         error : err || function(data) {
-            kimchi.message.error(data.responseJSON.reason);
+            wok.message.error(data.responseJSON.reason);
         }
     });
 };

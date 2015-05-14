@@ -33,7 +33,7 @@
 
 (function( $ ) {
 
-return $.widget( "kimchi.gaugeFlat", {
+return $.widget( "wok.gaugeFlat", {
     version: "@VERSION",
     options: {
         max: 100,

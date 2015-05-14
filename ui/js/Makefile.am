@@ -17,11 +17,11 @@
 
 EXTRA_DIST = src widgets
 
-jsdir = $(datadir)/kimchi/ui/js
+jsdir = $(datadir)/wok/ui/js
 
-dist_js_DATA = kimchi.min.js $(filter-out kimchi.min.js, $(wildcard *.js))
+dist_js_DATA = wok.min.js $(filter-out wok.min.js, $(wildcard *.js))
 
-kimchi.min.js: widgets/*.js src/*.js
+wok.min.js: widgets/*.js src/*.js
 	cat $(sort $^) > $@
 
-CLEANFILES = kimchi.min.js
+CLEANFILES = wok.min.js

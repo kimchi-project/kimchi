@@ -15,5 +15,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-jquerybase64dir = $(datadir)/kimchi/ui/base64
+jquerybase64dir = $(datadir)/wok/ui/base64
 dist_jquerybase64_DATA = $(wildcard *.js) $(NULL)

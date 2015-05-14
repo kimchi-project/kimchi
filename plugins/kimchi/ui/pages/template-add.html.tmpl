@@ -1,0 +1,233 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013-2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<div class="window" style="width: 992px;height: 660px;">
+    <header>
+        <h1 class="title h1 grey">$_("Add Template")</h1>
+    </header>
+    <div class="content" style="margin-bottom: 0">
+        <div class="page-list">
+            <!-- 1 -->
+            <div class="page" id="iso-type-box" style="left:0">
+                <h2 class="step-title">$_("Where is the source media for this template? ")</h2>
+                <ul class="step-choose">
+                    <li>
+                        <a id="iso-local" class="local">$_("Local ISO Image")</a>
+                    </li>
+                    <li>
+                        <a id="vm-image-local" class="local">$_("Local Image File")</a>
+                    </li>
+                    <li>
+                        <a id="iso-remote" class="remote">$_("Remote ISO Image")</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 1-1 -->
+            <div class="page" id="iso-local-box">
+                <header>
+                    <a class="back" id="iso-local-box-back"></a>
+                    <h2 class="step-title">$_("Local ISO Image")</h2>
+                </header>
+
+                <button class="btn-normal" id="iso-search" style="display: none"><span class="text">$_("Search ISOs")</span></button>
+                <button class="btn-normal" id="iso-search-loading" style="display: none"><span class="text">$_("Please, wait...")</span></button>
+                <!-- 1-1-1 -->
+                <div id="local-iso-field" class="iso-field" style="display: none;">
+                    <h3 class="step-subtitle">
+                        $_("The following ISOs are available:")
+                    </h3>
+                    <div class="toolbar">
+                        <label class="check-all">
+                            <input type="checkbox" id="select-all-local-iso">$_("All")
+                        </label>
+                    </div>
+                    <div>
+                        <form id="form-local-iso">
+                        <ul id="list-local-iso" class="list-iso">
+                        </ul>
+                        </form>
+                        <script id="tmpl-list-local-iso" type="text/html">
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="iso" value="{isoId}">
+                                    <div class="box box-iso">
+                                        <div class="iso-icon {os_distro}">
+                                        </div>
+                                        <h3 class="iso-title" title="{name}">
+                                            {name}
+                                        </h3>
+                                        <div class="iso-info">
+                                            <div class="iso-info-col">
+                                                <div class="iso-info-item" title="{os_distro}">
+                                                    $_("OS: "){os_distro}
+                                                </div>
+                                                <div class="iso-info-item" title="{os_version}">
+                                                    $_("Version: "){os_version}
+                                                </div>
+                                            </div>
+                                            <div class="iso-info-col">
+                                                <div class="iso-info-item" title="{capacity}">
+                                                    $_("Size: "){capacity}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </script>
+                    </div>
+                    <div class="button-field">
+                        <button class="btn-normal" id="iso-more" style="display: none"><span class="text">$_("Search more ISOs")</span></button>
+                        <button class="btn-normal" id="iso-more-loading" style="display: none"><span class="text">$_("Please, wait...")</span></button>
+                        <button class="btn-normal" id="btn-template-local-iso-create" disabled="disabled"><span class="text">$_("Create Templates from Selected ISO")</span></button>
+                    </div>
+                </div>
+
+                <!-- 1-1-2 -->
+                <div id="iso-file-field">
+                    <h3 class="step-subtitle">
+                        <label>
+                            <input type="checkbox" id="iso-file-check">
+                            $_("I want to use a specific ISO file")
+                        </label>
+                    </h3>
+                    <div id="iso-file-box" class="custom-iso-field">
+                        <div class="input-wrapper"><input type="text" class="text" id="iso-file" name="iso-file"></div>
+                        <button class="btn-normal" id="btn-template-file-create" disabled="disabled"><span class="text">$_("Create")</span></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="page" id="vm-image-local-box">
+                <header>
+                    <a class="back" id="vm-image-local-box-back"></a>
+                    <h2 class="step-title">$_("Local Image File")</h2>
+                </header>
+                <div class="body">
+                    <label for="vm-image-local-text">$_("File Path:")</label>
+                    <input type="text" id="vm-image-local-text" />
+                    <button class="ui-button-primary">$_("Create")</button>
+                </div>
+            </div>
+
+            <!-- 1-2 -->
+            <div class="page" id="iso-remote-box">
+                <header>
+                    <a class="back" id="iso-remote-box-back"></a>
+                    <h2 class="step-title">$_("Remote ISO Image")</h2>
+                </header>
+
+                <!-- 1-2-0 -->
+                <div id="load-remote-iso">
+                    <h3 class="step-subtitle">
+                        <label>
+                            <img src = "plugins/kimchi/images/theme-default/loading.gif" />
+                            $_("Loading default remote ISOs ...")
+                        </label>
+                    </h3>
+                </div>
+
+                <!-- 1-2-1 -->
+                <div id="remote-iso-field" class="iso-field" style="display: none;">
+                    <h3 class="step-subtitle">
+                        $_("The following ISOs are available:")
+                    </h3>
+                    <div class="toolbar">
+                        <label class="check-all">
+                            <input type="checkbox" id="select-all-remote-iso">$_("All")
+                        </label>
+                    </div>
+                    <div>
+                        <form id="form-remote-iso">
+                        <ul id="list-remote-iso" class="list-iso">
+                        </ul>
+                        </form>
+                        <script id="tmpl-list-remote-iso" type="text/html">
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="iso" value="{isoId}">
+                                    <div class="box box-iso">
+                                        <div class="iso-icon {os_distro}">
+                                        </div>
+                                        <h3 class="iso-title" title="{name}">
+                                            {name}
+                                        </h3>
+                                        <div class="iso-info">
+                                            <div class="iso-info-col">
+                                                <div class="iso-info-item" title="{os_distro}">
+                                                    $_("OS: "){os_distro}
+                                                </div>
+                                                <div class="iso-info-item" title="{os_version}">
+                                                    $_("Version: "){os_version}
+                                                </div>
+
+                                            </div>
+                                            <div class="iso-info-col">
+                                                <div class="iso-info-item" title="{os_arch}">
+                                                    $_("Arch: "){os_arch}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </script>
+                    </div>
+                    <div class="button-field">
+                        <button class="btn-normal" id="btn-template-remote-iso-create" disabled="disabled"><span class="text">$_("Create Templates from Selected ISO")</span></button>
+                    </div>
+                </div>
+
+                <!-- 1-2-2 -->
+                <div id="iso-url-field" style="display: none;">
+                    <h3 class="step-subtitle">
+                        <label>
+                            <input type="checkbox" id="iso-url-check">
+                            $_("I want to use a custom URL")
+                        </label>
+                    </h3>
+                    <div id="iso-url-box" class="custom-iso-field">
+                        <div class="input-wrapper"><input type="text" class="text" id="iso-url" name="iso-url"></div>
+                        <button class="btn-normal" id="btn-template-url-create" disabled="disabled"><span class="text">$_("Create")</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="button-group">
+            <button class="btn-normal close" type="button"><span type="text">$_("Cancel")</span></button>
+        </div>
+    </footer>
+</div>
+<script>
+kimchi.template_add_main();
+</script>
+</body>
+</html>

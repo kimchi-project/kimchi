@@ -1,0 +1,219 @@
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2013-2015
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+#
+
+import os
+from ConfigParser import SafeConfigParser
+
+
+__version__ = "@wokversion@"
+__release__ = "@wokrelease@"
+
+DEFAULT_LOG_LEVEL = "debug"
+
+
+def get_object_store():
+    return os.path.join(paths.state_dir, 'objectstore')
+
+
+def get_version():
+    return "-".join([__version__, __release__])
+
+
+class Paths(object):
+
+    def __init__(self):
+        self.prefix = self.get_prefix()
+        self.installed = (self.prefix == '@pkgdatadir@')
+        self.ui_dir = self.add_prefix('ui')
+
+        if self.installed:
+            self.nginx_conf_dir = '@sysconfdir@/nginx/conf.d'
+            self.state_dir = '@localstatedir@/lib/wok'
+            self.log_dir = '@localstatedir@/log/wok'
+            self.conf_dir = '@sysconfdir@/wok'
+            self.src_dir = '@wokdir@'
+            self.plugins_dir = '@wokdir@/plugins'
+            self.mo_dir = '@prefix@/share/locale'
+        else:
+            self.nginx_conf_dir = self.add_prefix('src/nginx')
+            self.state_dir = self.add_prefix('data')
+            self.log_dir = self.add_prefix('log')
+            self.conf_dir = self.add_prefix('src')
+            self.src_dir = self.add_prefix('src/wok')
+            self.plugins_dir = self.add_prefix('plugins')
+            self.mo_dir = self.add_prefix('mo')
+
+    def get_prefix(self):
+        if __file__.startswith("/"):
+            base = os.path.dirname(__file__)
+        else:
+            base = os.path.dirname('./%s' % __file__)
+
+        if os.access('%s/../../src/wok/config.py' % base, os.F_OK):
+            return os.path.abspath('%s/../..' % base)
+        else:
+            return '@pkgdatadir@'
+
+    def add_prefix(self, subdir):
+        return os.path.join(self.prefix, subdir)
+
+    def get_template_path(self, resource):
+        return os.path.join(self.ui_dir, 'pages/%s.tmpl' % resource)
+
+
+paths = Paths()
+
+
+class PluginPaths(Paths):
+
+    def __init__(self, name):
+        super(PluginPaths, self).__init__()
+        self.plugin_dir = os.path.join('plugins', name)
+
+        if self.installed:
+            self.state_dir = '@localstatedir@/lib/%s' % name
+            self.conf_dir = '@sysconfdir@/wok/plugins.d'
+            self.src_dir = os.path.join('@wokdir@', self.plugin_dir)
+            self.mo_dir = '@prefix@/share/locale'
+        else:
+            self.state_dir = self.add_prefix(os.path.join(self.plugin_dir,
+                                             'data'))
+            self.conf_dir = self.add_prefix(self.plugin_dir)
+            self.src_dir = self.add_prefix(self.plugin_dir)
+            self.mo_dir = self.add_prefix(os.path.join(self.plugin_dir, 'mo'))
+
+        self.ui_dir = self.add_prefix(os.path.join(self.plugin_dir, 'ui'))
+        self.conf_file = os.path.join(self.conf_dir, '%s.conf' % name)
+
+
+class UIConfig(dict):
+
+    # expires is one year.
+    CACHEEXPIRES = 31536000
+
+    def __init__(self, paths):
+        ui_configs = {}
+        for sub_dir in ('css', 'fontello', 'js', 'libs', 'images'):
+            ui_configs['/' + sub_dir] = {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': os.path.join(paths.ui_dir, sub_dir),
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False}
+            if sub_dir != 'images':
+                ui_configs['/' + sub_dir].update({
+                    'tools.expires.on': True,
+                    'tools.expires.secs': self.CACHEEXPIRES})
+        self.update(ui_configs)
+
+
+class WokConfig(dict):
+    # session time out is 10 minutes
+    SESSIONSTIMEOUT = 10
+
+    wok_config = {
+        '/': {
+            'tools.trailing_slash.on': False,
+            'request.methods_with_bodies': ('POST', 'PUT'),
+            'tools.nocache.on': True,
+            'tools.proxy.on': True,
+            'tools.sessions.on': True,
+            'tools.sessions.name': 'wok',
+            'tools.sessions.secure': True,
+            'tools.sessions.httponly': True,
+            'tools.sessions.locking': 'explicit',
+            'tools.sessions.storage_type': 'ram',
+            'tools.sessions.timeout': SESSIONSTIMEOUT,
+            'tools.wokauth.on': False
+        },
+        '/base64/jquery.base64.js': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/base64/jquery.base64.js' %
+                                         paths.ui_dir,
+            'tools.nocache.on': True,
+        },
+        '/wok-ui.html': {
+            'tools.wokauth.on': True
+        },
+        '/favicon.ico': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/images/logo.ico' % paths.ui_dir
+        },
+        '/robots.txt': {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
+        },
+    }
+
+    def __init__(self):
+        super(WokConfig, self).__init__(self)
+        self.update(self.wok_config)
+        self.update(UIConfig(paths))
+
+
+class PluginConfig(dict):
+    def __init__(self, plugin_name):
+        super(PluginConfig, self).__init__(self)
+        plugin_config = {
+            '/ui/config/tab-ext.xml': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                os.path.join(PluginPaths(plugin_name).ui_dir,
+                             'config/tab-ext.xml'),
+                'tools.nocache.on': True}}
+        self.update(plugin_config)
+        self.update(UIConfig(PluginPaths(plugin_name)))
+
+
+def _get_config():
+    config = SafeConfigParser()
+    config.add_section("server")
+    config.set("server", "host", "0.0.0.0")
+    config.set("server", "port", "8000")
+    config.set("server", "ssl_port", "8001")
+    config.set("server", "cherrypy_port", "8010")
+    config.set("server", "ssl_cert", "")
+    config.set("server", "ssl_key", "")
+    config.set("server", "environment", "production")
+    config.set("server", "federation", "off")
+    config.set("server", "create_iso_pool", "true")
+    config.set('server', 'max_body_size', '4*1024*1024')
+    config.add_section("authentication")
+    config.set("authentication", "method", "pam")
+    config.set("authentication", "ldap_server", "")
+    config.set("authentication", "ldap_search_base", "")
+    config.set("authentication", "ldap_search_filter", "")
+    config.set("authentication", "ldap_admin_id", "")
+    config.add_section("logging")
+    config.set("logging", "log_dir", paths.log_dir)
+    config.set("logging", "log_level", DEFAULT_LOG_LEVEL)
+    config.add_section("display")
+    config.set("display", "display_proxy_port", "64667")
+
+    config_file = os.path.join(paths.conf_dir, 'wok.conf')
+    if os.path.exists(config_file):
+        config.read(config_file)
+    return config
+
+
+config = _get_config()
+
+
+if __name__ == '__main__':
+    print paths.prefix
