@@ -17,7 +17,7 @@
 
 EXTRA_DIST = theme-default
 
-cssdir = $(datadir)/kimchi/ui/css
+cssdir = $(datadir)/wok/ui/css
 dist_css_DATA = theme-default.min.css
 
 theme-default.min.css: theme-default/*.css

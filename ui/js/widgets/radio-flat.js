@@ -36,7 +36,7 @@
 
  (function($) {
 
-    $.widget("kimchi.radioFlat", {
+    $.widget("wok.radioFlat", {
         options: {
             id: "",
             name: "",

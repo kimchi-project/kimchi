@@ -1,0 +1,177 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2013-2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="plugins/kimchi/css/theme-default.min.css">
+<script src="plugins/kimchi/js/kimchi.min.js"></script>
+</head>
+<body>
+<div id="host-root-container">
+    <div class="toolbar">
+        <div class="tools">
+        </div>
+    </div>
+    <div id="host-content-container" class="empty-when-logged-off"></div>
+</div>
+
+<script id="host-tmpl" type="kimchi/template">
+    <div class="host-panel">
+        <div class="logo-container">
+            <div class="logo" style="background-image: url({logo});"></div>
+        </div>
+        <div id="host-info-container" class="info-container">
+            <h2 class="hostname">{hostname}</h2>
+            <div class="action-panel">
+                <button id="host-button-shutdown" class="btn-normal-1 stop">
+                    <div class="button-icon action-icon-stop"></div>
+                    $_("Shut down")
+                </button>
+                <button id="host-button-restart" class="btn-normal-1 restart">
+                    <div class="button-icon action-icon-restart"></div>
+                    $_("Restart")
+                </button>
+                <button class="btn-normal-1 connect" disabled="disabled">
+                    <div class="button-icon action-icon-connect"></div>
+                    $_("Connect")
+                </button>
+            </div>
+            <div class="host-section">
+                <h3 class="section-header"
+                    aria-expanded="false"
+                    aria-controls="content-sys-info">
+                    $_("Basic Information")
+                </h3>
+                <div id="content-sys-info" class="section-content">
+                    <div class="section-row">
+                        <div class="section-label">$_("OS Distro")</div>
+                        <div class="section-value">{os_distro}</div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("OS Version")</div>
+                        <div class="section-value">{os_version}</div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("OS Code Name")</div>
+                        <div class="section-value">{os_codename}</div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("Processor")</div>
+                        <div class="section-value">{cpu_model}</div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("CPU(s)")</div>
+                        <div class="section-value">{cpus}</div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("Memory")</div>
+                        <div class="section-value">{memory}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="host-section">
+                <h3 class="section-header"
+                    aria-controls="content-sys-statistics">
+                    $_("System Statistics")
+                </h3>
+                <div id="content-sys-statistics" class="section-content">
+                    <div class="section-row">
+                        <div class="section-label">$_("CPU")</div>
+                        <div class="section-value">
+                            <div id="container-chart-cpu" class="inline-block"></div>
+                        </div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("Memory")</div>
+                        <div class="section-value">
+                            <div id="container-chart-memory" class="inline-block"></div>
+                        </div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("Disk I/O")</div>
+                        <div class="section-value">
+                            <div id="container-chart-disk-io" class="inline-block"></div>
+                        </div>
+                    </div>
+                    <div class="section-row">
+                        <div class="section-label">$_("Network I/O")</div>
+                        <div class="section-value">
+                            <div id="container-chart-network-io" class="inline-block"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="software-update-section" class="host-section hidden">
+                <h3 class="section-header"
+                    aria-controls="content-software-update">
+                    $_("Software Updates")
+                </h3>
+                <div id="content-software-update" class="section-content">
+                    <div class="section-row">
+                        <div class="section-value">
+                            <div id="software-updates-grid-container"></div>
+                            <div id="software-updates-progress-container" class="hidden">
+                                <label for="software-updates-progress-textarea">$_("Update Progress")</label>
+                                <textarea id="software-updates-progress-textarea" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="repositories-section" class="host-section hidden">
+                <h3 class="section-header"
+                    aria-controls="content-repositories">
+                    $_("Repositories")
+                </h3>
+                <div id="content-repositories" class="section-content">
+                    <div class="section-row">
+                        <div class="section-value">
+                            <div id="repositories-grid-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="debug-report-section" class="host-section hidden">
+                <h3 class="section-header"
+                    aria-controls="content-sys-reports">
+                    $_("Debug Reports")
+                </h3>
+                <div id="content-sys-reports" class="section-content">
+                    <div class="section-row">
+                        <div class="section-value">
+                            <div id="available-reports-grid-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    kimchi.host_main();
+</script>
+</body>
+</html>

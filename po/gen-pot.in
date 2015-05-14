@@ -6,4 +6,4 @@ for src in $@; do
     else
         cat $src | @CHEETAH@ compile -
     fi
-done | xgettext --no-location -o kimchi.pot -L Python -
+done | xgettext --no-location -o wok.pot -L Python -

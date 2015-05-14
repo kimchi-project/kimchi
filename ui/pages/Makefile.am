@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = help tabs websockify
+SUBDIRS = websockify
 
-htmldir = $(datadir)/kimchi/ui/pages
+htmldir = $(datadir)/wok/ui/pages
 
 dist_html_DATA = $(wildcard *.tmpl) $(NULL)

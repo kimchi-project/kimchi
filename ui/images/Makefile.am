@@ -17,6 +17,6 @@
 
 SUBDIRS = theme-default
 
-imagedir = $(datadir)/kimchi/ui/images
+imagedir = $(datadir)/wok/ui/images
 
-dist_image_DATA = *.png *.ico
+dist_image_DATA = *.ico

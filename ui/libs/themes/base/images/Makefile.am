@@ -15,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-imagesdir = $(datadir)/kimchi/ui/libs/themes/base/images
+imagesdir = $(datadir)/wok/ui/libs/themes/base/images
 
 dist_images_DATA = *.png

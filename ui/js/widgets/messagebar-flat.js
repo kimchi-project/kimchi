@@ -27,7 +27,7 @@
 */
 
 (function($) {
-    $.widget("kimchi.messagebarFlat", {
+    $.widget("wok.messagebarFlat", {
         options : {
             content : null,
             color : "red",

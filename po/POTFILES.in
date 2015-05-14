@@ -1,4 +1,3 @@
 # List of source files which contain translatable strings.
-src/kimchi/i18n.py
+src/wok/i18n.py
 ui/pages/*.tmpl
-ui/pages/tabs/*.tmpl

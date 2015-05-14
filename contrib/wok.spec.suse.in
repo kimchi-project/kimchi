@@ -1,0 +1,133 @@
+Name:		wok
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@%{?dist}
+Summary:	Wok - Webserver Originated from Kimchi
+BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+BuildArch:	noarch
+Group:		System Environment/Base
+License:	LGPL/ASL2
+Source0:	%{name}-%{version}.tar.gz
+Requires:	gettext-tools
+Requires:	python-CherryPy >= 3.2.0
+Requires:	python-Cheetah
+Requires:	python-websockify
+Requires:	novnc
+Requires:	python-imaging
+Requires:	python-M2Crypto
+Requires:	python-pam
+Requires:	python-jsonschema >= 1.3.0
+Requires:	python-ldap
+Requires:	python-lxml
+Requires:	python-xml
+Requires:	nginx
+BuildRequires:	libxslt-tools
+BuildRequires:	openssl
+BuildRequires:	python-lxml
+
+%if 0%{?suse_version} == 1100
+Requires:       python-ordereddict
+%endif
+
+%if 0%{?suse_version} > 1140
+%global with_systemd 1
+%endif
+
+%description
+Wok is Webserver Originated from Kimchi.
+
+%prep
+%setup
+
+%build
+%configure --with-spice-html5
+make
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+
+
+%post
+%if 0%{?with_systemd}
+    /bin/systemctl enable wokd.service >/dev/null 2>&1 || :
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+%else
+    chkconfig wokd on
+%endif
+exit 0
+
+
+%preun
+%if 0%{?with_systemd}
+    /bin/systemctl --no-reload disable wokd.service > /dev/null 2>&1 || :
+    /bin/systemctl stop wokd.service > /dev/null 2>&1 || :
+%else
+    service wokd stop
+%endif
+exit 0
+
+
+%postun
+%if 0%{?with_systemd}
+    /bin/systemctl try-restart wokd.service >/dev/null 2>&1 || :
+%endif
+exit 0
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%attr(-,root,root)
+%{_bindir}/wokd
+%{python_sitelib}/wok/*.py*
+%{python_sitelib}/wok/control/*.py*
+%{python_sitelib}/wok/model/*.py*
+%{python_sitelib}/wok/xmlutils/*.py*
+%{python_sitelib}/wok/API.json
+%{python_sitelib}/wok/plugins/*.py*
+%{python_sitelib}/wok/
+%{_prefix}/share/locale/*/LC_MESSAGES/wok.mo
+%{_datadir}/wok/ui/
+%{_datadir}/wok
+%{_sysconfdir}/wok/wok.conf
+%{_sysconfdir}/wok/
+%{_sysconfdir}/nginx/conf.d/wok.conf.in
+%{_sysconfdir}/nginx/conf.d/wok.conf
+%{_var}/lib/wok/vnc-tokens/
+%{_var}/lib/wok/
+%{_localstatedir}/log/wok/*
+%{_localstatedir}/log/wok/
+%{_mandir}/man8/wokd.8.gz
+
+%if 0%{?with_systemd}
+%{_unitdir}/wokd.service
+%else
+%{_initrddir}/wokd
+%endif
+
+
+
+%if 0%{?with_systemd}
+%{_unitdir}/kimchid.service
+%else
+%{_initrddir}/kimchid
+%endif
+
+
+%changelog
+* Fri Jun 19 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 1.6
+- Rename to wokd
+- Remove kimchi specifics
+
+* Thu Feb 26 2015 Frédéric Bonnard <frediz@linux.vnet.ibm.com> 1.4.0
+- Add man page for kimchid
+
+* Tue Feb 11 2014 Crístian Viana <vianac@linux.vnet.ibm.com> 1.1.0
+- Add help pages and XSLT dependency
+
+* Thu Jul 18 2013 Adam Litke <agl@us.ibm.com> 0.1.0-1
+- Adapted for autotools build
+- Split Suse and Fedora spec files
+
+* Thu Apr 04 2013 Aline Manera <alinefm@br.ibm.com> 0.0-1
+- First build

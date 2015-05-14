@@ -17,15 +17,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-docdir = $(datadir)/kimchi/doc
+docdir = $(datadir)/wok/doc
 
 dist_doc_DATA = \
 	API.md \
 	README.md \
-	README-federation.md \
-	kimchi-guest.png \
-	kimchi-templates.png \
-	kimchid.8 \
+	wokd.8 \
 	$(NULL)
 
-CLEANFILES = kimchid.8
+CLEANFILES = wokd.8

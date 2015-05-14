@@ -6,32 +6,18 @@ Architecture: all
 Depends: python-cherrypy3 (>= 3.2.0),
          python-cheetah,
          python-imaging,
-         python-configobj,
          websockify,
          novnc,
          python-jsonschema (>= 1.3.0),
-         python-libvirt,
          gettext,
-         libvirt-bin,
-         nfs-common,
          python-m2crypto,
-         qemu-kvm,
          python-pam,
-         python-parted,
-         python-psutil (>= 0.6.0),
-         python-ethtool,
-         sosreport,
-         python-ipaddr,
          python-lxml,
-         open-iscsi,
          nginx,
-         python-guestfs,
          python-ldap,
-         libguestfs-tools,
-         spice-html5,
-         python-magic
+         spice-html5
 Build-Depends: libxslt,
                openssl,
                python-lxml
 Maintainer: Aline Manera <alinefm@br.ibm.com>
-Description: Kimchi web server
+Description: Wok - Webserver Originated from Kimchi

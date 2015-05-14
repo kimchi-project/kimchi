@@ -208,3 +208,7 @@ a#btn-logout:hover {
     display: block;
     padding: 10px;
 }
+
+.hide-content {
+    display: none!important;
+}

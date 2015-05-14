@@ -17,12 +17,12 @@
  *#
 #unicode UTF-8
 #import gettext
-#from kimchi.cachebust import href
+#from wok.cachebust import href
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
 #silent next = "?next=%s" % $getVar('data.next', '') if $getVar('data.next', '') else ""
-#from kimchi.config import get_version
+#from wok.config import get_version
 <!DOCTYPE html>
 <html lang="$lang.lang[0]">
 <head>
@@ -35,7 +35,7 @@
 <script src="$href('libs/jquery-1.10.0.min.js')"></script>
 <script src="$href('libs/jquery-ui.min.js')"></script>
 <script src="$href('libs/jquery-ui-i18n.min.js')"></script>
-<script src="$href('js/kimchi.min.js')"></script>
+<script src="$href('js/wok.min.js')"></script>
 <style type="text/css">
 .topbar select {
     float: right;
@@ -57,7 +57,7 @@
 }
 </style>
 </head>
-<body onload="kimchi.login_main()">
+<body onload="wok.login_main()">
 <div class="container topbar">
     <span id="logo"><img alt="Project Kimchi" src="images/theme-default/logo-white.png"></span>
     <select id="userLang">

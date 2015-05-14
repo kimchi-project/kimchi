@@ -22,4 +22,4 @@ SUBDIRS = sample
 plugins_PYTHON = \
 	__init__.py
 
-pluginsdir = $(pythondir)/kimchi/plugins
+pluginsdir = $(pythondir)/wok/plugins

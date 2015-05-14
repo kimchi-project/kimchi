@@ -59,7 +59,7 @@ var lastActive,
         return radios;
     };
 
-$.widget( "kimchi.buttonFlat", {
+$.widget( "wok.buttonFlat", {
     version: "@VERSION",
     defaultElement: "<button>",
     options: {

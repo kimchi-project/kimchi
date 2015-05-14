@@ -30,7 +30,7 @@
  */
 
 (function( $ ) {
-    $.widget("kimchi.dialogFlat", {
+    $.widget("wok.dialogFlat", {
         options: {
             title: "",
             autoOpen: true,

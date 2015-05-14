@@ -1,0 +1,553 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-01 16:40-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Delete is not allowed for %(resource)s"
+msgstr ""
+
+#, python-format
+msgid "%(resource)s does not implement update method"
+msgstr ""
+
+#, python-format
+msgid "Create is not allowed for %(resource)s"
+msgstr ""
+
+msgid "Unable to parse JSON request"
+msgstr ""
+
+msgid "This API only supports JSON"
+msgstr ""
+
+#, python-format
+msgid "Parameters does not match requirement in schema: %(err)s"
+msgstr ""
+
+msgid "You don't have permission to perform this operation."
+msgstr ""
+
+msgid "Datastore is not initiated in the model object."
+msgstr ""
+
+#, python-format
+msgid "Unable to start task due error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
+msgstr ""
+
+msgid "You are not authorized to access Kimchi"
+msgstr ""
+
+#, python-format
+msgid "Specify %(item)s to login into Kimchi"
+msgstr ""
+
+#, python-format
+msgid "Invalid LDAP configuration: %(item)s : %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to find %(item)s in datastore"
+msgstr ""
+
+#, python-format
+msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
+msgstr ""
+
+#, python-format
+msgid "Invalid data value '%(value)s'"
+msgstr ""
+
+#, python-format
+msgid "Invalid data unit '%(unit)s'"
+msgstr ""
+
+msgid "ERROR CODE"
+msgstr ""
+
+msgid "REASON"
+msgstr ""
+
+msgid "STACK"
+msgstr ""
+
+msgid "Go to Homepage"
+msgstr ""
+
+msgid "The username or password you entered is incorrect. Please try again."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Host"
+msgstr ""
+
+msgid "Guests"
+msgstr ""
+
+msgid "Templates"
+msgstr ""
+
+msgid "Storage"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
+msgid "Failed to get application configuration"
+msgstr ""
+
+msgid "This is not a valid Linux path"
+msgstr ""
+
+msgid "This is not a valid URL."
+msgstr ""
+
+msgid "No such data available."
+msgstr ""
+
+msgid ""
+"Can not contact the host system. Verify the host system is up and that you "
+"have network connectivity to it. HTTP request response %1. "
+msgstr ""
+
+msgid "Unable to read file."
+msgstr ""
+
+msgid "Error while uploading file."
+msgstr ""
+
+msgid "Delete Confirmation"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Creating..."
+msgstr ""
+
+msgid "Cloning..."
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "An error occurred while retrieving system information."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Detailed message:"
+msgstr ""
+
+msgid "No ISO found"
+msgstr ""
+
+msgid "This is not a valid ISO file."
+msgstr ""
+
+msgid "This may take a long time. Do you want to continue?"
+msgstr ""
+
+msgid "This will permanently delete the template. Would you like to continue?"
+msgstr ""
+
+msgid "Unable to shut down system as there are some virtual machines running!"
+msgstr ""
+
+msgid "Max:"
+msgstr ""
+
+msgid "Utilization"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Read Rate"
+msgstr ""
+
+msgid "Write Rate"
+msgstr ""
+
+msgid "Received"
+msgstr ""
+
+msgid "Sent"
+msgstr ""
+
+msgid ""
+"Shutting down or restarting host will cause unsaved work lost. Continue to "
+"shut down/restarting?"
+msgstr ""
+
+msgid ""
+"Repository will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Repositories"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Base URL"
+msgstr ""
+
+msgid "Is Mirror"
+msgstr ""
+
+msgid "URL Args"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "GPG Check"
+msgstr ""
+
+msgid "GPG Key"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
+msgid "Software Updates"
+msgstr ""
+
+msgid "Package Name"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Architecture"
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Update All"
+msgstr ""
+
+msgid "Updating..."
+msgstr ""
+
+msgid "Failed to retrieve packages update information."
+msgstr ""
+
+msgid "Failed to update package(s)."
+msgstr ""
+
+msgid ""
+"Debug report will be removed permanently and can't be recovered. Do you want "
+"to continue?"
+msgstr ""
+
+msgid "Debug Reports"
+msgstr ""
+
+msgid "Generated Time"
+msgstr ""
+
+msgid "Generate"
+msgstr ""
+
+msgid "Generating..."
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid ""
+"Report name should contain only letters, digits, underscore ('_') and/or "
+"hyphen ('-')."
+msgstr ""
+
+msgid "Pending..."
+msgstr ""
+
+msgid "Report name is the same as the original one."
+msgstr ""
+
+msgid ""
+"This will delete the virtual machine and its virtual disks. This operation "
+"cannot be undone. Would you like to continue?"
+msgstr ""
+
+msgid "Power off Confirmation"
+msgstr ""
+
+msgid ""
+"This action may produce undesirable results, for example unflushed disk "
+"cache in the guest. Would you like to continue?"
+msgstr ""
+
+msgid "Reset Confirmation"
+msgstr ""
+
+msgid ""
+"There is a risk of data loss caused by reset without the guest OS shutdown. "
+"Would you like to continue?"
+msgstr ""
+
+msgid "Shut Down Confirmation"
+msgstr ""
+
+msgid "Note the guest OS may ignore this request. Would you like to continue?"
+msgstr ""
+
+msgid "Virtual Machine delete Confirmation"
+msgstr ""
+
+msgid ""
+"This virtual machine is not persistent. Power Off will delete it. Continue?"
+msgstr ""
+
+msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid ""
+"This CDROM will be detached permanently and you can re-attach it. Continue "
+"to detach it?"
+msgstr ""
+
+msgid "Attach"
+msgstr ""
+
+msgid "Attaching..."
+msgstr ""
+
+msgid "Replace"
+msgstr ""
+
+msgid "Replacing..."
+msgstr ""
+
+msgid "Successfully attached!"
+msgstr ""
+
+msgid "Successfully replaced!"
+msgstr ""
+
+msgid "Successfully detached!"
+msgstr ""
+
+msgid ""
+"This disk will be detached permanently and you can re-attach it. Continue to "
+"detach it?"
+msgstr ""
+
+msgid "interface:"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "link_type:"
+msgstr ""
+
+msgid "block:"
+msgstr ""
+
+msgid "drive_type:"
+msgstr ""
+
+msgid "model:"
+msgstr ""
+
+msgid "Affected devices:"
+msgstr ""
+
+msgid "The VLAN id must be between 1 and 4094."
+msgstr ""
+
+msgid "unavailable"
+msgstr ""
+
+msgid ""
+"This action will interrupt network connectivity for any virtual machine that "
+"depend on this network."
+msgstr ""
+
+msgid "Create a network"
+msgstr ""
+
+msgid ""
+"This network is not persistent. Instead of stop, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid ""
+"The bridged VLAN tag may not work well with NetworkManager enabled. You "
+"should consider disabling it."
+msgstr ""
+
+msgid ""
+"This will permanently delete the storage pool. Would you like to continue?"
+msgstr ""
+
+msgid "This storage pool is empty."
+msgstr ""
+
+msgid ""
+"It will format your disk and you will loose any data in there, are you sure "
+"to continue? "
+msgstr ""
+
+msgid "SCSI Fibre Channel"
+msgstr ""
+
+msgid "No SCSI adapters found."
+msgstr ""
+
+msgid "Loading iSCSI targets..."
+msgstr ""
+
+msgid "No iSCSI found. Please input one."
+msgstr ""
+
+msgid "Failed to load iSCSI targets."
+msgstr ""
+
+msgid "The storage pool name can not be blank."
+msgstr ""
+
+msgid "The storage pool path can not be blank."
+msgstr ""
+
+msgid "NFS server mount path can not be blank."
+msgstr ""
+
+msgid "Invalid NFS mount path."
+msgstr ""
+
+msgid "No logical device selected."
+msgstr ""
+
+msgid "The iSCSI target can not be blank."
+msgstr ""
+
+msgid "Server name can not be blank."
+msgstr ""
+
+msgid "This is not a valid Server Name or IP. Please, modify it."
+msgstr ""
+
+msgid "Looking for available partitions ..."
+msgstr ""
+
+msgid "No available partitions found."
+msgstr ""
+
+msgid ""
+"This storage pool is not persistent. Instead of deactivate, this action will "
+"permanently delete it. Would you like to continue?"
+msgstr ""
+
+msgid "Unable to retrieve partitions information."
+msgstr ""
+
+msgid "In progress..."
+msgstr ""
+
+msgid "Failed!"
+msgstr ""
+
+msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
+
+msgid "Disk pool or volume cannot be blank."
+msgstr ""
+
+msgid "Session timeout, please re-login."
+msgstr ""
+
+msgid "User Name"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Peers"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "No peers found."
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "Version:"
+msgstr ""

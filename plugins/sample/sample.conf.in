@@ -1,4 +1,4 @@
-[kimchi]
+[wok]
 enable = @ENABLE_SAMPLE@
 plugin_class = "Drawings"
 uri = "/plugins/sample"
@@ -7,21 +7,21 @@ uri = "/plugins/sample"
 tools.nocache.on = True
 tools.trailing_slash.on = False
 tools.sessions.on = True
-tools.sessions.name = 'kimchi'
+tools.sessions.name = 'wok'
 tools.sessions.httponly = True
 tools.sessions.locking = 'explicit'
 tools.sessions.storage_type = 'ram'
 
 [/description]
-tools.kimchiauth.on = True
+tools.wokauth.on = True
 
 [/rectangles]
-tools.kimchiauth.on = True
+tools.wokauth.on = True
 
 [/circles]
-tools.kimchiauth.on = True
+tools.wokauth.on = True
 
 [/help]
 tools.staticdir.on = True
 tools.nocache.on = True
-tools.staticdir.dir = kimchi.config.PluginPaths('sample').ui_dir + '/pages/help'
+tools.staticdir.dir = wok.config.PluginPaths('sample').ui_dir + '/pages/help'

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 (function($) {
-    $.widget('kimchi.combobox', {
+    $.widget('wok.combobox', {
         _create : function() {
             this.selectDiv = this.element;
             this.listControl = this.selectDiv.find('ul').first();

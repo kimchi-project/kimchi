@@ -29,7 +29,7 @@
 //     });
 
  (function($) {
-    $.widget("kimchi.checkboxFlat", {
+    $.widget("wok.checkboxFlat", {
         options: {
             id: "",
             name: "",

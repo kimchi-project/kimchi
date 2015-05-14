@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-AC_INIT([kimchi], [m4_esyscmd([./build-aux/pkg-version --version])])
+AC_INIT([wok], [m4_esyscmd([./build-aux/pkg-version --version])])
 
 AC_SUBST([PACKAGE_VERSION],
          [m4_esyscmd([./build-aux/pkg-version --version])])
@@ -87,15 +87,13 @@ AC_CONFIG_FILES([
     po/gen-pot
     Makefile
     docs/Makefile
-    docs/kimchid.8
+    docs/wokd.8
     src/Makefile
-    src/distros.d/Makefile
     src/nginx/Makefile
-    src/kimchi/Makefile
-    src/kimchi/control/Makefile
-    src/kimchi/control/vm/Makefile
-    src/kimchi/model/Makefile
-    src/kimchi/xmlutils/Makefile
+    src/wok/Makefile
+    src/wok/control/Makefile
+    src/wok/model/Makefile
+    src/wok/xmlutils/Makefile
     plugins/Makefile
     plugins/sample/Makefile
     plugins/sample/po/Makefile.in
@@ -113,37 +111,17 @@ AC_CONFIG_FILES([
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
-    ui/spice-html5/Makefile
-    ui/spice-html5/css/Makefile
-    ui/spice-html5/pages/Makefile
-    ui/spice-html5/thirdparty/Makefile
     ui/libs/Makefile
     ui/libs/themes/Makefile
     ui/libs/themes/base/Makefile
     ui/libs/themes/base/images/Makefile
     ui/pages/Makefile
-    ui/pages/help/Makefile
-    ui/pages/help/en_US/Makefile
-    ui/pages/help/de_DE/Makefile
-    ui/pages/help/es_ES/Makefile
-    ui/pages/help/fr_FR/Makefile
-    ui/pages/help/it_IT/Makefile
-    ui/pages/help/ja_JP/Makefile
-    ui/pages/help/ko_KR/Makefile
-    ui/pages/help/pt_BR/Makefile
-    ui/pages/help/ru_RU/Makefile
-    ui/pages/help/zh_CN/Makefile
-    ui/pages/help/zh_TW/Makefile
-    ui/pages/tabs/Makefile
     ui/pages/websockify/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
-    contrib/kimchi.spec.fedora
-    contrib/kimchi.spec.suse
-    tests/Makefile
-    config/Makefile
-    config/ui/Makefile
+    contrib/wok.spec.fedora
+    contrib/wok.spec.suse
 ],[
     chmod +x po/gen-pot
 ])

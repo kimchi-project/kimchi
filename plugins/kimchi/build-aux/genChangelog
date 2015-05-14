@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# This script is based on code from the Kandan project:
+# https://github.com/kandanapp/kandan/blob/master/gen-changelog.sh
+
+echo "CHANGELOG"
+echo "========="
+echo
+git for-each-ref --sort='*authordate' --format='%(tag)' refs/tags | tac |grep -v '^$' | while read TAG ; do
+    if [ $NEXT ]; then
+        echo "#### [$NEXT] ####"
+    elif [ "$1" != "--release" ]; then
+        echo "#### [Current] ####"
+    else
+        NEXT=$TAG
+        continue
+    fi
+    GIT_PAGER=cat git log --pretty=format:" * [%h] %<(78,trunc)%s (%an)" $TAG..$NEXT
+    NEXT=$TAG
+    echo; echo
+done
+FIRST=$(git for-each-ref --sort='*authordate' --format='%(tag)' refs/tags | head -1)
+
+echo "#### [$FIRST] ####"
+GIT_PAGER=cat git log --pretty=format:" * [%h] %<(78,trunc)%s (%an)" $FIRST

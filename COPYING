@@ -1,6 +1,6 @@
-Kimchi is distributed pursuant to the terms of two different licenses.
-The user interface (located in ui/ in this distribution) is governed by
-the Apache License version 2.0.
+Wok/Kimchi are distributed pursuant to the terms of two different licenses.
+The user interface (located in ui/ and plugins/kimchi/ui in this distribution)
+is governed by the Apache License version 2.0.
 
 Kimchi makes use of different projects and they are placed as below:
 - the code under ui/spice-html5 is imported from spice-html5 project
