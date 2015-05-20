@@ -308,7 +308,7 @@ class MockModel(Model):
 
         return self._model_storagevolume_lookup(pool, vol)
 
-    def _mock_storagevolume_doUpload(self, vol, offset, data, data_size):
+    def _mock_storagevolume_doUpload(self, cb, vol, offset, data, data_size):
         vol_path = vol.path()
 
         # MockModel does not create the storage volume as a file
@@ -325,6 +325,7 @@ class MockModel(Model):
                 fd.write(data)
         except Exception, e:
             os.remove(vol_path)
+            cb('', False)
             raise OperationFailed("KCHVOL0029E", {"err": e.message})
 
     def _mock_partitions_get_list(self):
