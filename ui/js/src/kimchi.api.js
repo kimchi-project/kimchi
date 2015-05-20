@@ -1243,14 +1243,29 @@ var kimchi = {
     },
 
     /**
-     * Add a volume to a given storage pool.
+     * Create a new volume with capacity
      */
-    uploadVolumeToSP: function(settings, suc, err) {
-        var fd = settings['formData'];
-        var sp = encodeURIComponent(settings['sp']);
+    createVolumeWithCapacity: function(poolName, settings, suc, err) {
         kimchi.requestJSON({
-            url : 'storagepools/' + sp + '/storagevolumes',
+            url : 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes',
             type : 'POST',
+            contentType : "application/json",
+            data : JSON.stringify(settings),
+            dataType : "json",
+            success : suc,
+            error : err
+        });
+    },
+
+    /**
+     * Upload volume content
+     */
+    uploadVolumeToSP: function(poolName, volumeName, settings, suc, err) {
+        var url = 'storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName);
+        var fd = settings['formData'];
+        kimchi.requestJSON({
+            url : url,
+            type : 'PUT',
             data : fd,
             processData : false,
             contentType : false,
