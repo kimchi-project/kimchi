@@ -216,7 +216,7 @@
                 "format": {
                     "description": "The format of the volume",
                     "type": "string",
-                    "pattern": "^(bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
+                    "pattern": "^(|bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
                     "error": "KCHVOL0015E"
                 },
                 "url": {
