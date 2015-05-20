@@ -155,12 +155,14 @@ class StorageVolumesModel(object):
                                                                      name)
 
         vol_path = vol_info['path']
-        if params.get('upload', False):
-            upload_volumes[vol_path] = {'lock': threading.Lock(), 'offset': 0}
-
         set_disk_used_by(self.objstore, vol_info['path'], [])
 
-        cb('', True)
+        if params.get('upload', False):
+            upload_volumes[vol_path] = {'lock': threading.Lock(),
+                                        'offset': 0, 'cb': cb}
+            cb('ready for upload')
+        else:
+            cb('OK', True)
 
     def _create_volume_with_url(self, cb, params):
         pool_name = params['pool']
@@ -459,7 +461,7 @@ class StorageVolumeModel(object):
 
         cb('OK', True)
 
-    def doUpload(self, vol, offset, data, data_size):
+    def doUpload(self, cb, vol, offset, data, data_size):
         try:
             st = self.conn.get().newStream(0)
             vol.upload(st, offset, data_size)
@@ -467,6 +469,8 @@ class StorageVolumeModel(object):
             st.finish()
         except Exception as e:
             st and st.abort()
+            cb('', False)
+
             try:
                 vol.delete(0)
             except Exception as e:
@@ -489,17 +493,21 @@ class StorageVolumeModel(object):
         if vol_data is None:
             raise OperationFailed("KCHVOL0027E", {"vol": vol_path})
 
+        cb = vol_data['cb']
         lock = vol_data['lock']
         with lock:
             offset = vol_data['offset']
             if (offset + chunk_size) > vol_capacity:
                 raise OperationFailed("KCHVOL0028E")
 
-            self.doUpload(vol, offset, chunk_data, chunk_size)
+            cb('%s/%s' % (offset, vol_capacity))
+            self.doUpload(cb, vol, offset, chunk_data, chunk_size)
+            cb('%s/%s' % (offset + chunk_size, vol_capacity))
 
             vol_data['offset'] += chunk_size
             if vol_data['offset'] == vol_capacity:
                 del upload_volumes[vol_path]
+                cb('OK', True)
 
 
 class IsoVolumesModel(object):

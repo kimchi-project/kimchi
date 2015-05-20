@@ -168,7 +168,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             task_id = json.loads(resp.read())['id']
             wait_task(_task_lookup, task_id)
             status = json.loads(self.request('/tasks/%s' % task_id).read())
-            self.assertEquals('finished', status['status'])
+            self.assertEquals('ready for upload', status['message'])
 
             # Upload volume content
             url = 'https://%s:%s' % (host, ssl_port) + uri + '/' + filename
