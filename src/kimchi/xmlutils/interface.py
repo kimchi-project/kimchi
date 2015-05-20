@@ -56,7 +56,7 @@ def get_iface_xml(params, arch=None, os_distro=None, os_version=None):
        ((os_distro == 'ubuntu' and
          LooseVersion(os_version) >= LooseVersion('14.04')) or
         (os_distro == 'sles' and
-         LooseVersion(os_version >= LooseVersion('12')))):
+         LooseVersion(os_version) >= LooseVersion('12'))):
         interface.append(E.driver(name='qemu'))
 
     return ET.tostring(interface, encoding='utf-8', pretty_print=True)
