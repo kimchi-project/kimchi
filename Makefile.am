@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
 SUBDIRS = src ui docs contrib tests po config plugins
 
 man_MANS = docs/kimchid.8
@@ -115,12 +114,35 @@ ChangeLog:
 		$(top_srcdir)/build-aux/genChangelog --release > $@; \
 	fi
 
+install-data-local:
+	@if  test -d /usr/lib/systemd/system/ ; then \
+		$(INSTALL_DATA) contrib/kimchid.service.fedora /usr/lib/systemd/system/kimchid.service; \
+		systemctl daemon-reload; \
+	elif test -d /etc/systemd/system; then \
+		$(INSTALL_DATA) contrib/kimchid.service.fedora /etc/systemd/system/kimchid.service; \
+		systemctl daemon-reload; \
+    else \
+		$(INSTALL_DATA) contrib/kimchid.sysvinit /etc/init.d/kimchid; \
+		chmod +x /etc/init.d/kimchid; \
+    fi 
+
+uninstall-local:
+	@if test -f /usr/lib/systemd/system/kimchid.service; then \
+		$(RM) /usr/lib/systemd/system/kimchid.service; \
+		systemctl daemon-reload; \
+	elif test -f /etc/systemd/system/kimchid.service; then \
+        $(RM) /etc/systemd/system/kimchid.service; \
+	elif test -f /etc/init.d/kimchid; then \
+		$(RM) /etc/init.d/kimchid; \
+	fi
+				
 VERSION:
 	@if test -d .git; then                                \
 		git describe --abbrev=0 > $@;                     \
 	fi
 
 .PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog VERSION
+
 
 clean-local:
 	rm -rf mo rpm
