@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,10 +180,6 @@ kimchi.guest_edit_main = function() {
             var itemNode = $.parseHTML(kimchi.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
-            if(kimchi.thisVMState === "running") {
-                $("#form-guest-edit-interface .delete").remove();
-                $("#form-guest-edit-interface .edit").remove();
-            }
             if(data.network!==""){
                 $("select", itemNode).val(data.network);
             }
@@ -642,7 +638,6 @@ kimchi.guest_edit_main = function() {
             });
         if(kimchi.thisVMState === "running") {
             $("#form-guest-edit-general input").prop("disabled", true);
-            $("#form-guest-edit-interface .header button").remove();
         } else {
             $("#action-button-container").removeClass("hidden");
         }
