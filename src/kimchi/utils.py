@@ -223,6 +223,11 @@ def run_command(cmd, timeout=None):
         return out, error, proc.returncode
     except TimeoutExpired:
         raise
+    except OSError as e:
+        msg = "Impossible to execute '%s'" % ' '.join(cmd)
+        kimchi_log.debug("%s", msg)
+
+        return None, "%s %s" % (msg, e), -1
     except Exception as e:
         msg = "Failed to run command: %s." % " ".join(cmd)
         msg = msg if proc is None else msg + "\n  error code: %s."
