@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,7 @@ from kimchi.model.utils import get_vm_config_flag
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import kimchi_log, run_command
+import platform
 
 
 class VMHostDevsModel(object):
@@ -163,6 +164,11 @@ class VMHostDevsModel(object):
         # vfio driver.
         driver = ('vfio' if DOM_STATE_MAP[dom.info()[0]] == "shutoff" and
                   self.caps.kernel_vfio else 'kvm')
+
+        # on powerkvm systems it must be vfio driver.
+        distro, _, _ = platform.linux_distribution()
+        if distro == 'IBM_PowerKVM':
+            driver = 'vfio'
 
         # Attach all PCI devices in the same IOMMU group
         dev_model = DeviceModel(conn=self.conn)
