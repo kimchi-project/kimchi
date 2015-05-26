@@ -78,6 +78,7 @@ AC_CONFIG_FILES([
     po/gen-pot
     Makefile
     docs/Makefile
+    docs/kimchid.8
     src/Makefile
     src/distros.d/Makefile
     src/nginx/Makefile
