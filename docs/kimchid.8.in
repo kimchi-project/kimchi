@@ -1,4 +1,4 @@
-.TH KIMCHI 8 "February 05, 2015" "Version 1.4.0" "Kimchi Manual"
+.TH KIMCHI 8 "February 05, 2015" "Version @PACKAGE_VERSION@" "Kimchi Manual"
 .SH NAME
 Kimchi \- HTML5 based management tool for KVM
 .SH SYNOPSIS

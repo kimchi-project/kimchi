@@ -21,6 +21,7 @@ contrib/DEBIAN/control
 contrib/kimchi.spec.fedora
 contrib/kimchi.spec.suse
 contrib/make-deb.sh
+docs/kimchid.8
 *.min.css
 *.min.js
 *.gmo

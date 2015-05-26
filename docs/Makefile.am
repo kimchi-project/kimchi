@@ -27,3 +27,5 @@ dist_doc_DATA = \
 	kimchi-templates.png \
 	kimchid.8 \
 	$(NULL)
+
+CLEANFILES = kimchid.8
