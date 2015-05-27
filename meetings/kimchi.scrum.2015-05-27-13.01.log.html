@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May 27 13:01:19 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:01:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:21</span><span class="nk"> &lt;alinefm&gt;</span> ok... let's get started
+<a name="l-9"></a><span class="tm">13:03:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:03:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm changed the upload API to be a sequence of POST and several PUT requests</span>
+<a name="l-12"></a><span class="tm">13:03:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to enable storage volume upload on UI (waiting for reviews)</span>
+<a name="l-13"></a><span class="tm">13:04:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm enabled virtual NIC hot plug on UI</span>
+<a name="l-14"></a><span class="tm">13:05:01</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patch [PATCH V2] Add vfio driver as default for powerkvm systems.</span>
+<a name="l-15"></a><span class="tm">13:05:01</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patch [PATCH V3 0/3] Edit guest MAC address</span>
+<a name="l-16"></a><span class="tm">13:05:01</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patch [PATCH] Change log message if command to run is not found</span>
+<a name="l-17"></a><span class="tm">13:06:27</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ramonn, rotru, vianac, anything to share with us?
+<a name="l-18"></a><span class="tm">13:06:49</span><span class="nk"> &lt;ramonn&gt;</span> yes
+<a name="l-19"></a><span class="tm">13:07:16</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn found a bug on make install. Will sent a patch soon</span>
+<a name="l-20"></a><span class="tm">13:07:36</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac worked on issue #78, working on another revision of the ref_cnt -&gt; used_by patchset; reviewed patches on the mailing list</span>
+<a name="l-21"></a><span class="tm">13:07:52</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent first version of Memory HotPlug backend patch</span>
+<a name="l-22"></a><span class="tm">13:08:47</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru I am fixing some problem in the patchset above, so, a V2 will be sent soon</span>
+<a name="l-23"></a><span class="tm">13:09:52</span><span class="nk"> &lt;alinefm&gt;</span> ok - thanks for all the updates
+<a name="l-24"></a><span class="tm">13:09:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-25"></a><span class="tm">13:10:03</span><span class="nk"> &lt;alinefm&gt;</span> I have only one topic for today
+<a name="l-26"></a><span class="tm">13:10:15</span><span class="nk"> &lt;alinefm&gt;</span> and it is related to Kimchi 1.5 code freeze which starts next Wed
+<a name="l-27"></a><span class="tm">13:10:27</span><span class="nk"> &lt;alinefm&gt;</span> so if we want to get anything else merged it must be done in one week
+<a name="l-28"></a><span class="tm">13:10:36</span><span class="nk"> &lt;alinefm&gt;</span> ok?
+<a name="l-29"></a><span class="tm">13:10:56</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-30"></a><span class="tm">13:11:16</span><span class="nk"> &lt;rotru&gt;</span> nope
+<a name="l-31"></a><span class="tm">13:12:09</span><span class="nk"> &lt;alinefm&gt;</span> rotru, any problem?
+<a name="l-32"></a><span class="tm">13:14:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  ops, sorry, nope == I have no issues
+<a name="l-33"></a><span class="tm">13:14:16</span><span class="nk"> &lt;rotru&gt;</span> lol
+<a name="l-34"></a><span class="tm">13:14:44</span><span class="nk"> &lt;alinefm&gt;</span> rotru, whew! =P
+<a name="l-35"></a><span class="tm">13:14:52</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-36"></a><span class="tm">13:15:18</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  so, next wednesday is the  code cut off /
+<a name="l-37"></a><span class="tm">13:15:20</span><span class="nk"> &lt;rotru&gt;</span> ?
+<a name="l-38"></a><span class="tm">13:15:26</span><span class="nk"> &lt;rotru&gt;</span> for kimchi 1.5 ?
+<a name="l-39"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yes - only bug fixes will be merged from 03/06
+<a name="l-40"></a><span class="tm">13:16:29</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  ok
+<a name="l-41"></a><span class="tm">13:17:10</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-42"></a><span class="tm">13:17:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

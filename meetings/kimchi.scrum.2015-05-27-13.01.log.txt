@@ -1,0 +1,42 @@
+13:01:19 <alinefm> #startmeeting
+13:01:19 <kimchi-bot> Meeting started Wed May 27 13:01:19 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:19 <alinefm> #meetingname scrum
+13:01:19 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:30 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:31 <alinefm> anything else?
+13:03:21 <alinefm> ok... let's get started
+13:03:22 <alinefm> #topic Status
+13:03:22 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:39 <alinefm> #info alinefm changed the upload API to be a sequence of POST and several PUT requests
+13:03:59 <alinefm> #info alinefm sent patches to enable storage volume upload on UI (waiting for reviews)
+13:04:09 <alinefm> #info alinefm enabled virtual NIC hot plug on UI
+13:05:01 <ziviani> #info ziviani sent patch [PATCH V2] Add vfio driver as default for powerkvm systems.
+13:05:01 <ziviani> #info ziviani sent patch [PATCH V3 0/3] Edit guest MAC address
+13:05:01 <ziviani> #info ziviani sent patch [PATCH] Change log message if command to run is not found
+13:06:27 <alinefm> danielhb, ramonn, rotru, vianac, anything to share with us?
+13:06:49 <ramonn> yes
+13:07:16 <ramonn> #info ramonn found a bug on make install. Will sent a patch soon
+13:07:36 <vianac> #info vianac worked on issue #78, working on another revision of the ref_cnt -> used_by patchset; reviewed patches on the mailing list
+13:07:52 <rotru> #info rotru Sent first version of Memory HotPlug backend patch
+13:08:47 <rotru> #info rotru I am fixing some problem in the patchset above, so, a V2 will be sent soon
+13:09:52 <alinefm> ok - thanks for all the updates
+13:09:57 <alinefm> #topic Open Discussion
+13:10:03 <alinefm> I have only one topic for today
+13:10:15 <alinefm> and it is related to Kimchi 1.5 code freeze which starts next Wed
+13:10:27 <alinefm> so if we want to get anything else merged it must be done in one week
+13:10:36 <alinefm> ok?
+13:10:56 <ziviani> ok
+13:11:16 <rotru> nope
+13:12:09 <alinefm> rotru, any problem?
+13:14:06 <rotru> alinefm,  ops, sorry, nope == I have no issues
+13:14:16 <rotru> lol
+13:14:44 <alinefm> rotru, whew! =P
+13:14:52 <alinefm> any other topic for today?
+13:15:18 <rotru> alinefm,  so, next wednesday is the  code cut off /
+13:15:20 <rotru> ?
+13:15:26 <rotru> for kimchi 1.5 ?
+13:16:08 <alinefm> rotru, yes - only bug fixes will be merged from 03/06
+13:16:29 <rotru> alinefm,  ok
+13:17:10 <alinefm> so thanks everyone for joining!
+13:17:13 <alinefm> #endmeeting
