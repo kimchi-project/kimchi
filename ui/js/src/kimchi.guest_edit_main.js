@@ -164,6 +164,7 @@ kimchi.guest_edit_main = function() {
         }).click(function(evt){
             evt.preventDefault();
             addItem({
+                id: -1,
                 mac: "",
                 network: "",
                 type: "network",
@@ -171,12 +172,17 @@ kimchi.guest_edit_main = function() {
                 editMode: ""
             });
         });
-        var toggleEdit = function(item, on){
-            $("label", item).toggleClass("hide", on);
-            $("select", item).toggleClass("hide", !on);
+        var toggleEdit = function(item, on, itemId){
+            $("#label-mac-" + itemId, item).toggleClass("hide", on);
+            $("#edit-mac-" + itemId, item).toggleClass("hide", !on);
+            $("#label-network-" + itemId, item).toggleClass("hide", false);
+            $("select", item).toggleClass("hide", true);
             $(".action-area", item).toggleClass("hide");
         };
         var addItem = function(data) {
+            if (data.id == -1) {
+                data.id = $('#form-guest-edit-interface > .body').children().size()
+            }
             var itemNode = $.parseHTML(kimchi.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
@@ -184,12 +190,12 @@ kimchi.guest_edit_main = function() {
                 $("select", itemNode).val(data.network);
             }
             $(".edit", itemNode).button({
-                disabled: true,
+                disabled: kimchi.thisVMState === "running",
                 icons: { primary: "ui-icon-pencil" },
                 text: false
             }).click(function(evt){
                 evt.preventDefault();
-                toggleEdit($(this).parent().parent(), true);
+                toggleEdit($(this).closest('div'), true, data.id);
             });
             $(".delete", itemNode).button({
                 icons: { primary: "ui-icon-trash" },
@@ -209,21 +215,30 @@ kimchi.guest_edit_main = function() {
                 var item = $(this).parent().parent();
                 var interface = {
                     network: $("select", item).val(),
-                    type: "network"
+                    type: "network",
+                    mac: $(":text", item).val()
                 };
-                var postUpdate = function(){
-                    $("label", item).text(interface.network);
-                    toggleEdit(item, false);
+                var postUpdate = function(mac){
+                    $("#label-network-" + data.id, item).text(interface.network);
+                    $("#label-mac-" + data.id, item).text(mac);
+                    $("#edit-mac-" + data.id, item).val(mac);
+                    toggleEdit(item, false, data.id);
                 };
                 if(item.prop("id")==""){
                     kimchi.createGuestInterface(kimchi.selectedGuest, interface, function(data){
                         item.prop("id", data.mac);
-                        postUpdate();
+                        postUpdate(data.mac);
                     });
                 }else{
-                    kimchi.updateGuestInterface(kimchi.selectedGuest, item.prop("id"), interface, function(){
-                        postUpdate();
-                    });
+                    if (item.prop('id') == interface.mac) {
+                        toggleEdit(item, false, data.id);
+                    } else {
+                        kimchi.updateGuestInterface(kimchi.selectedGuest, item.prop('id'),
+                                interface, function(data){
+                            item.prop("id", data.mac);
+                            postUpdate(data.mac);
+                        });
+                    }
                 }
             });
             $(".cancel", itemNode).button({
@@ -232,7 +247,7 @@ kimchi.guest_edit_main = function() {
             }).click(function(evt){
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                $("label", item).text()==="" ? item.remove() : toggleEdit(item, false);
+                $("label", item).text()==="" ? item.remove() : toggleEdit(item, false, data.id);
             });
         };
         var networkOptions = "";
@@ -245,6 +260,7 @@ kimchi.guest_edit_main = function() {
                 for(var i=0;i<data.length;i++){
                     data[i].viewMode = "";
                     data[i].editMode = "hide";
+                    data[i].id = i;
                     addItem(data[i]);
                 }
             });
