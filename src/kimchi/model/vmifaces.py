@@ -22,7 +22,8 @@ import random
 import libvirt
 from lxml import etree, objectify
 
-from kimchi.exception import InvalidParameter, MissingParameter, NotFoundError
+from kimchi.exception import InvalidParameter, MissingParameter
+from kimchi.exception import NotFoundError, InvalidOperation
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.xmlutils.interface import get_iface_xml
@@ -57,10 +58,19 @@ class VMIfacesModel(object):
         macs = (iface.mac.get('address')
                 for iface in self.get_vmifaces(vm, self.conn))
 
-        while True:
-            params['mac'] = VMIfacesModel.random_mac()
-            if params['mac'] not in macs:
-                break
+        # user defined customized mac address
+        if 'mac' in params and params['mac']:
+            # make sure it is unique
+            if params['mac'] in macs:
+                raise InvalidParameter('KCHVMIF0009E',
+                                       {'name': vm, 'mac': params['mac']})
+
+        # otherwise choose a random mac address
+        else:
+            while True:
+                params['mac'] = VMIfacesModel.random_mac()
+                if params['mac'] not in macs:
+                    break
 
         dom = VMModel.get_vm(vm, self.conn)
 
@@ -147,22 +157,30 @@ class VMIfaceModel(object):
         if iface is None:
             raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
 
+        # cannot change mac address in a running system
+        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            raise InvalidOperation('KCHVMIF0011E')
+
+        # mac address is a required parameter
+        if 'mac' not in params:
+            raise MissingParameter('KCHVMIF0008E')
+
+        # new mac address must be unique
+        if self._get_vmiface(vm, params['mac']) is not None:
+            raise InvalidParameter('KCHVMIF0009E',
+                                   {'name': vm, 'mac': params['mac']})
+
         flags = 0
         if dom.isPersistent():
             flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-            flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
 
-        if iface.attrib['type'] == 'network' and 'network' in params:
-            iface.source.attrib['network'] = params['network']
-            xml = etree.tostring(iface)
+        # remove the current nic
+        xml = etree.tostring(iface)
+        dom.detachDeviceFlags(xml, flags=flags)
 
-            dom.updateDeviceFlags(xml, flags=flags)
+        # add the nic with the desired mac address
+        iface.mac.attrib['address'] = params['mac']
+        xml = etree.tostring(iface)
+        dom.attachDeviceFlags(xml, flags=flags)
 
-        if 'model' in params:
-            iface.model.attrib["type"] = params['model']
-            xml = etree.tostring(iface)
-
-            dom.updateDeviceFlags(xml, flags=flags)
-
-        return mac
+        return [vm, params['mac']]
