@@ -227,14 +227,16 @@
 <script id="interface-tmpl" type="text/html">
     <div class="item" id="{mac}">
         <span class="cell">
-            <label class="{viewMode}">{network}</label>
+            <label id="label-network-{id}" class="{viewMode}">{network}</label>
             <select class="{editMode}"></select>
         </span>
         <span class="cell">
             <span>{type}</span>
         </span>
         <span class="cell">
-            <span>{mac}</span>
+            <label id="label-mac-{id}" class="{viewMode}">{mac}</label>
+            <input class="{editMode}" type="text" 
+               id="edit-mac-{id}" name="{mac}" value="{mac}" />
         </span>
         <span class="action-area {editMode}">
             <button class="save"></button><button class="cancel"></button>
