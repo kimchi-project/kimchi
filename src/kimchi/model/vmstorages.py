@@ -28,7 +28,7 @@ from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.model.storagevolumes import StorageVolumeModel
 from kimchi.model.utils import get_vm_config_flag
 from kimchi.osinfo import lookup
-from kimchi.model.diskutils import get_disk_ref_cnt, set_disk_ref_cnt
+from kimchi.model.diskutils import get_disk_used_by, set_disk_used_by
 from kimchi.utils import kimchi_log
 from kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
@@ -111,7 +111,7 @@ class VMStoragesModel(object):
                 raise InvalidParameter("KCHVMSTOR0012E")
             except Exception as e:
                 raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
-            if vol_info['ref_cnt'] != 0:
+            if len(vol_info['used_by']) != 0:
                 raise InvalidParameter("KCHVMSTOR0016E")
 
             valid_format = {
@@ -142,11 +142,12 @@ class VMStoragesModel(object):
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
 
         # Don't put a try-block here. Let the exception be raised. If we
-        #   allow disks ref_cnts to be out of sync, data corruption could
+        #   allow disks used_by to be out of sync, data corruption could
         #   occour if a disk is added to two guests unknowingly.
         if params.get('vol'):
-            set_disk_ref_cnt(self.objstore, params['path'],
-                             vol_info['ref_cnt'] + 1)
+            used_by = vol_info['used_by']
+            used_by.append(vm_name)
+            set_disk_used_by(self.objstore, params['path'], used_by)
 
         return dev
 
@@ -186,26 +187,27 @@ class VMStorageModel(object):
                 path = self.lookup(vm_name, dev_name)['path']
             # This has to be done before it's detached. If it wasn't
             #   in the obj store, its ref count would have been updated
-            #   by get_disk_ref_cnt()
+            #   by get_disk_used_by()
             if path is not None:
-                ref_cnt = get_disk_ref_cnt(self.objstore, self.conn, path)
+                used_by = get_disk_used_by(self.objstore, self.conn, path)
             else:
-                kimchi_log.error("Unable to decrement volume ref_cnt on"
+                kimchi_log.error("Unable to decrement volume used_by on"
                                  " delete because no path could be found.")
             dom.detachDeviceFlags(etree.tostring(disk),
                                   get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
 
-        if ref_cnt is not None and ref_cnt > 0:
-            set_disk_ref_cnt(self.objstore, path, ref_cnt - 1)
+        if used_by is not None and vm_name in used_by:
+            used_by.remove(vm_name)
+            set_disk_used_by(self.objstore, path, used_by)
         else:
-            kimchi_log.error("Unable to decrement %s:%s ref_cnt on delete."
+            kimchi_log.error("Unable to update %s:%s used_by on delete."
                              % (vm_name, dev_name))
 
     def update(self, vm_name, dev_name, params):
-        old_disk_ref_cnt = None
-        new_disk_ref_cnt = None
+        old_disk_used_by = None
+        new_disk_used_by = None
 
         dom = VMModel.get_vm(vm_name, self.conn)
 
@@ -219,10 +221,10 @@ class VMStorageModel(object):
         if new_disk_path != old_disk_path:
             # An empty path means a CD-ROM was empty or ejected:
             if old_disk_path is not '':
-                old_disk_ref_cnt = get_disk_ref_cnt(
+                old_disk_used_by = get_disk_used_by(
                     self.objstore, self.conn, old_disk_path)
             if new_disk_path is not '':
-                new_disk_ref_cnt = get_disk_ref_cnt(
+                new_disk_used_by = get_disk_used_by(
                     self.objstore, self.conn, new_disk_path)
 
         dev_info.update(params)
@@ -234,14 +236,16 @@ class VMStorageModel(object):
             raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
 
         try:
-            if old_disk_ref_cnt is not None and \
-               old_disk_ref_cnt > 0:
-                set_disk_ref_cnt(self.objstore, old_disk_path,
-                                 old_disk_ref_cnt - 1)
-            if new_disk_ref_cnt is not None:
-                set_disk_ref_cnt(self.objstore, new_disk_path,
-                                 new_disk_ref_cnt + 1)
+            if old_disk_used_by is not None and \
+               vm_name in old_disk_used_by:
+                old_disk_used_by.remove(vm_name)
+                set_disk_used_by(self.objstore, old_disk_path,
+                                 old_disk_used_by)
+            if new_disk_used_by is not None:
+                new_disk_used_by.append(vm_name)
+                set_disk_used_by(self.objstore, new_disk_path,
+                                 new_disk_used_by)
         except Exception as e:
-            kimchi_log.error("Unable to update dev ref_cnt on update due to"
+            kimchi_log.error("Unable to update dev used_by on update due to"
                              " %s:" % e.message)
         return dev

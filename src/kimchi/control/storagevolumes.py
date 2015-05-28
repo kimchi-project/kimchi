@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -56,7 +56,7 @@ class StorageVolume(Resource):
                'capacity': self.info['capacity'],
                'allocation': self.info['allocation'],
                'path': self.info['path'],
-               'ref_cnt': self.info['ref_cnt'],
+               'used_by': self.info['used_by'],
                'format': self.info['format']}
 
         for key in ('os_version', 'os_distro', 'bootable', 'base'):
