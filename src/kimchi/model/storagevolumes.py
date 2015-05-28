@@ -239,6 +239,11 @@ class StorageVolumesModel(object):
             finally:
                 os.remove(file_path)
 
+        vol_info = StorageVolumeModel(conn=self.conn,
+                                      objstore=self.objstore).lookup(pool_name,
+                                                                     name)
+        set_disk_used_by(self.objstore, vol_info['path'], [])
+
         cb('OK', True)
 
     def get_list(self, pool_name):
