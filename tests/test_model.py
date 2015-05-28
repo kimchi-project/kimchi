@@ -368,12 +368,17 @@ class ModelTests(unittest.TestCase):
                 self.assertEquals("test-network", iface['network'])
 
                 # update vm interface
-                iface_args = {"network": "default",
-                              "model": "e1000"}
+                newMacAddr = '54:50:e3:44:8a:af'
+                iface_args = {"mac": newMacAddr}
                 inst.vmiface_update(vm_name, mac, iface_args)
+                iface = inst.vmiface_lookup(vm_name, newMacAddr)
+                self.assertEquals(newMacAddr, iface['mac'])
+
+                # undo mac address change
+                iface_args = {"mac": mac}
+                inst.vmiface_update(vm_name, newMacAddr, iface_args)
                 iface = inst.vmiface_lookup(vm_name, mac)
-                self.assertEquals("default", iface['network'])
-                self.assertEquals("e1000", iface["model"])
+                self.assertEquals(mac, iface['mac'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):

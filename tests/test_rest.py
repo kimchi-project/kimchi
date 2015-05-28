@@ -724,13 +724,15 @@ class RestTests(unittest.TestCase):
             self.assertEquals('network', iface['type'])
 
             # update vm interface
-            req = json.dumps({"network": "default", "model": "virtio"})
+            newMacAddr = '54:50:e3:44:8a:af'
+            req = json.dumps({"network": "default", "model": "virtio",
+                             "type": "network", "mac": newMacAddr})
             resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
                                 req, 'PUT')
-            self.assertEquals(200, resp.status)
-            update_iface = json.loads(resp.read())
-            self.assertEquals(u'virtio', update_iface['model'])
-            self.assertEquals('default', update_iface['network'])
+            self.assertEquals(303, resp.status)
+            iface = json.loads(self.request('/vms/test-vm/ifaces/%s' %
+                                            newMacAddr).read())
+            self.assertEquals(newMacAddr, iface['mac'])
 
             # detach network interface from vm
             resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
