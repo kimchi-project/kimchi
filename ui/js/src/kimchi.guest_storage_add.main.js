@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ kimchi.guest_storage_add_main = function() {
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
-                    if ((value.ref_cnt == 0) && (value.type != 'file' || validVolType[selectType].test(value.format))) {
+                    if (value.used_by.length == 0 && (value.type != 'file' || validVolType[selectType].test(value.format))) {
                         options.push({
                             label: value.name,
                             value: value.name

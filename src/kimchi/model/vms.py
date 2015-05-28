@@ -368,6 +368,8 @@ class VMModel(object):
             with self.objstore as session:
                 session.delete('storagevolume', path)
 
+        domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
+
         for i, path in enumerate(all_paths):
             try:
                 vir_orig_vol = vir_conn.storageVolLookupByPath(path)
@@ -376,7 +378,6 @@ class VMModel(object):
                 orig_pool_name = vir_pool.name().decode('utf-8')
                 orig_vol_name = vir_orig_vol.name().decode('utf-8')
             except libvirt.libvirtError, e:
-                domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
                 raise OperationFailed('KCHVM0035E', {'name': domain_name,
                                                      'err': e.message})
 
@@ -437,9 +438,10 @@ class VMModel(object):
             xml = xml_item_update(xml, XPATH_DOMAIN_DISK_BY_FILE % path,
                                   new_vol['path'], 'file')
 
-            # set the new disk's ref_cnt
+            # set the new disk's used_by
             with self.objstore as session:
-                session.store('storagevolume', new_vol['path'], {'ref_cnt': 1})
+                session.store('storagevolume', new_vol['path'],
+                              {'used_by': [domain_name]})
             rollback.prependDefer(_delete_disk_from_objstore, new_vol['path'])
 
             # remove the new volume should an error occur later
@@ -946,8 +948,10 @@ class VMModel(object):
             try:
                 with self.objstore as session:
                     if path in session.get_list('storagevolume'):
-                        n = session.get('storagevolume', path)['ref_cnt']
-                        session.store('storagevolume', path, {'ref_cnt': n-1})
+                        used_by = session.get('storagevolume', path)['used_by']
+                        used_by.remove(name)
+                        session.store('storagevolume', path,
+                                      {'used_by': used_by})
             except Exception as e:
                 raise OperationFailed('KCHVOL0017E', {'err': e.message})
 

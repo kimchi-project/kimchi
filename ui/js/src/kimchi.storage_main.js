@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -237,7 +237,7 @@ kimchi.doListVolumes = function(poolObj) {
             ongoingVolumes.push(volumeName)
             var volume = {
                 poolName: poolName,
-                ref_cnt: 0,
+                used_by: [],
                 capacity: 0,
                 name: volumeName,
                 format: '',

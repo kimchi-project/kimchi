@@ -510,9 +510,7 @@ A interface represents available network interface on VM.
     * os_distro *(optional)*: os distribution of the volume, for iso volume only.
     * os_version *(optional)*: os version of the volume, for iso volume only.
     * bootable *(optional)*: True if iso image is bootable and not corrupted.
-    * ref_cnt: Number of vms which used this volume,
-                 0 for volumes which are available for attachment.
-                 >1 indicate number of vms used this volume.
+    * used_by: Name of vms which use this volume.
 
 * **DELETE**: Remove the Storage Volume
 * **POST**: *See Storage Volume Actions*

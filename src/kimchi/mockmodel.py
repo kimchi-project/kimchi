@@ -469,13 +469,13 @@ class MockStorageVolumes(object):
                                             'allocation': 512,
                                             'type': 'block',
                                             'path': base_path + '1',
-                                            'ref_cnt': 0},
+                                            'used_by': []},
                              'unit:0:0:2': {'capacity': 2048,
                                             'format': 'unknown',
                                             'allocation': 512,
                                             'type': 'block',
                                             'path': base_path + '2',
-                                            'ref_cnt': 0}}
+                                            'used_by': []}}
 
 
 class MockPartitions(object):

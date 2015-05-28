@@ -264,7 +264,7 @@ class RestTests(unittest.TestCase):
         resp = self.request(vol_uri % vm['uuid'])
         vol = json.loads(resp.read())
         self.assertEquals(1 << 30, vol['capacity'])
-        self.assertEquals(1, vol['ref_cnt'])
+        self.assertEquals(['test-vm'], vol['used_by'])
 
         # Start the VM
         resp = self.request('/vms/test-vm/start', '{}', 'POST')

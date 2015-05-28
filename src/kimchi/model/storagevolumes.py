@@ -32,7 +32,7 @@ from kimchi.config import READONLY_POOL_TYPE
 from kimchi.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from kimchi.exception import MissingParameter, NotFoundError, OperationFailed
 from kimchi.isoinfo import IsoImage
-from kimchi.model.diskutils import get_disk_ref_cnt
+from kimchi.model.diskutils import get_disk_used_by, set_disk_used_by
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.tasks import TaskModel
 from kimchi.utils import add_task, get_next_clone_name, get_unique_file_name
@@ -158,14 +158,7 @@ class StorageVolumesModel(object):
         if params.get('upload', False):
             upload_volumes[vol_path] = {'lock': threading.Lock(), 'offset': 0}
 
-        try:
-            with self.objstore as session:
-                session.store('storagevolume', vol_path, {'ref_cnt': 0})
-        except Exception as e:
-            # If the storage volume was created flawlessly, then lets hide this
-            # error to avoid more error in the VM creation process
-            kimchi_log.warning('Unable to store storage volume id in '
-                               'objectstore due error: %s', e.message)
+        set_disk_used_by(self.objstore, vol_info['path'], [])
 
         cb('', True)
 
@@ -310,12 +303,12 @@ class StorageVolumeModel(object):
             else:
                 fmt = 'iso'
 
-        ref_cnt = get_disk_ref_cnt(self.objstore, self.conn, path)
+        used_by = get_disk_used_by(self.objstore, self.conn, path)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
                    path=path,
-                   ref_cnt=ref_cnt,
+                   used_by=used_by,
                    format=fmt)
         if fmt == 'iso':
             if os.path.islink(path):
@@ -455,10 +448,9 @@ class StorageVolumeModel(object):
                                    'pool': orig_pool_name,
                                    'err': e.get_error_message()})
 
+        new_vol = self.lookup(new_pool_name, new_vol_name)
         cb('adding volume to the object store')
-        new_vol_id = '%s:%s' % (new_pool_name, new_vol_name)
-        with self.objstore as session:
-            session.store('storagevolume', new_vol_id, {'ref_cnt': 0})
+        set_disk_used_by(self.objstore, new_vol['path'], [])
 
         cb('OK', True)
 
