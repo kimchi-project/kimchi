@@ -126,7 +126,10 @@ messages = {
     "KCHVMIF0005E": _("Network name for virtual machine interface must be a string"),
     "KCHVMIF0006E": _("Invalid network model card specified for virtual machine interface"),
     "KCHVMIF0007E": _("Specify type and network to add a new virtual machine interface"),
-    "KCHVMIF0008E": _("Specify type and network to update a virtual machine interface"),
+    "KCHVMIF0008E": _("MAC Address must respect this format FF:FF:FF:FF:FF:FF"),
+    "KCHVMIF0009E": _("MAC Address %(mac)s already exists in virtual machine %(name)s"),
+    "KCHVMIF0010E": _("Invalid MAC Address"),
+    "KCHVMIF0011E": _("Cannot change MAC address of a running virtual machine"),
 
     "KCHTMPL0001E": _("Template %(name)s already exists"),
     "KCHTMPL0003E": _("Network '%(network)s' specified for template %(template)s does not exist"),
