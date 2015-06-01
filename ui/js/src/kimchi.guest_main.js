@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 kimchi.sampleGuestObject = {
     "name": "",
     "uuid": "",
@@ -43,7 +44,6 @@ kimchi.sampleGuestObject = {
     "access": "full"
 };
 
-
 kimchi.vmstart = function(event) {
     var button=$(this);
     if (!button.hasClass('loading')) {
@@ -55,6 +55,48 @@ kimchi.vmstart = function(event) {
             kimchi.listVmsAuto();
             }, function(err) {
                 button.removeClass('loading');
+                kimchi.message.error(err.responseJSON.reason);
+            }
+        );
+    } else {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+    }
+};
+
+kimchi.vmsuspend = function(event) {
+    var button=$(this);
+    if (!button.hasClass('pause-gray')) {
+        button.addClass('pause-gray');
+        var vm=$(this).closest('li[name=guest]');
+        var vm_id=vm.attr("id");
+        kimchi.suspendVM(vm_id, function(result) {
+            button.removeClass('pause-gray');
+            kimchi.listVmsAuto();
+            }, function(err) {
+                button.removeClass('pause-gray');
+                kimchi.message.error(err.responseJSON.reason);
+            }
+        );
+    } else {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+    }
+};
+
+kimchi.vmresume = function(event) {
+    var button=$(this);
+    if (!button.hasClass('resume-gray')) {
+        button.addClass('resume-gray');
+        var vm=$(this).closest('li[name=guest]');
+        var vm_id=vm.attr("id");
+        kimchi.resumeVM(vm_id, function(result) {
+            button.removeClass('resume-gray');
+            kimchi.listVmsAuto();
+            }, function(err) {
+                button.removeClass('resume-gray');
                 kimchi.message.error(err.responseJSON.reason);
             }
         );
@@ -265,9 +307,11 @@ kimchi.listVmsAuto = function() {
 
 kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     var result=kimchi.guestElem.clone();
-
+    
     //Setup the VM list entry
     var vmRunningBool=(vmObject.state=="running");
+    var vmSuspendedBool = (vmObject.state=="paused");
+    var vmPoweredOffBool = (vmObject.state=="shutoff");
     var vmPersistent = (vmObject.persistent == true);
     result.attr('id',vmObject.name);
     result.data(vmObject);
@@ -296,19 +340,28 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
                                    });
     imgLoad.attr('src',load_src);
 
-    //Link the stopped tile to the start action, the running tile to open the console
+    //Link the stopped tile to the start action, the running tile to open the console, and the paused tile to resume
     if(!(vmObject.isCloning || vmObject.isCreating)){
-        if (vmRunningBool) {
-            liveTile.off("click", kimchi.vmstart);
-            liveTile.on("click", kimchi.openVmConsole);
-        }
-        else {
+        if (vmPoweredOffBool) {
             liveTile.off("click", kimchi.openVmConsole);
+ 	    liveTile.off("click", kimchi.vmresume);
             liveTile.on("click", kimchi.vmstart);
             liveTile.hover(function(event){$(this).find('.overlay').show()}, function(event){$(this).find('.overlay').hide()});
+        } else if (vmSuspendedBool) {
+	    liveTile.off("click", kimchi.vmstart);
+	    liveTile.off("click", kimchi.openVmConsole);
+            liveTile.on("click", kimchi.vmresume);
+	    if(vmObject.state="paused") {
+	        liveTile.find('.overlay').attr('src',"/images/theme-default/ac24_resume.png");
+	        liveTile.find('.overlay').attr('alt',"Resume");
+	    }
+            liveTile.hover(function(event){$(this).find('.overlay').show()}, function(event){$(this).find('.overlay').hide()});
+        } else {
+            liveTile.off("click", kimchi.vmstart);
+ 	    liveTile.off("click", kimchi.vmresume);
+            liveTile.on("click", kimchi.openVmConsole);
         }
     }
-
 
     //Setup the gauges
     var stats=vmObject.stats;
@@ -325,13 +378,29 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     guestActions.find(".shutoff-disabled").prop("disabled", !vmRunningBool);
     guestActions.find(".running-disabled").prop("disabled", vmRunningBool);
     guestActions.find(".non-persistent-disabled").prop("disabled", !vmPersistent);
-    guestActions.find(".reset-disabled").prop("disabled", !vmRunningBool || !vmPersistent);
+    guestActions.find(".reset-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
 
-    if (vmRunningBool) {
+    if (vmSuspendedBool) { //VM is paused
+        //Hide Start
         guestActions.find(".running-hidden").hide();
+        //Hide Pause
+        guestActions.find(".pause-hidden").hide();
+    }	
+
+    if (vmRunningBool) { //VM IS running
+        //Hide Start
+        guestActions.find(".running-hidden").hide();
+        //Hide Resume
+        guestActions.find(".resume-hidden").hide();
     }
-    else {
+
+    if (vmPoweredOffBool) { //VM is powered off
+        //Hide PowerOff
         guestActions.find(".shutoff-hidden").hide();
+        //Hide Pause
+        guestActions.find(".pause-hidden").hide();
+        //Hide Resume
+        guestActions.find(".resume-hidden").hide();
     }
 
     var consoleActions=guestActions.find("[name=vm-console]");
@@ -348,12 +417,22 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     if(!(vmObject.isCloning || vmObject.isCreating)){
         guestActions.find("[name=vm-start]").on({click : kimchi.vmstart});
         guestActions.find("[name=vm-poweroff]").on({click : kimchi.vmpoweroff});
-        if (vmRunningBool) {  //If the guest is not running, do not enable reset
+        if ((vmRunningBool) || (vmSuspendedBool)) {  
+            //If the guest is not running, do not enable reset; otherwise, reset is enabled (when running or paused)
             guestActions.find("[name=vm-reset]").on({click : kimchi.vmreset});
-        }
-        if (vmRunningBool) {  //If the guest is not running, do not enable shutdown
+
+	    //If the guest is not running, do not enable shutdown;otherwise, shutdown is enabled (when running or paused)
             guestActions.find("[name=vm-shutdown]").on({click : kimchi.vmshutdown});
         }
+
+        if (vmSuspendedBool) {
+            guestActions.find("[name=vm-resume]").on({click : kimchi.vmresume});
+        }
+
+        if (vmRunningBool) {
+            guestActions.find("[name=vm-pause]").on({click : kimchi.vmsuspend});
+        }
+
         guestActions.find("[name=vm-edit]").on({click : kimchi.vmedit});
         guestActions.find("[name=vm-delete]").on({click : kimchi.vmdelete});
         guestActions.find("[name=vm-clone]").click(function(){

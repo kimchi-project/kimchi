@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,6 +91,16 @@
 
 .btn.loading .icon {
     background: url(../images/theme-default/icon-load.png) center
+                center no-repeat;
+}
+
+.btn.pause-gray .icon {
+    background: url(../images/theme-default/ac22_pause_grey.png) center
+                center no-repeat;
+}
+
+.btn.resume-gray .icon {
+    background: url(../images/theme-default/ac24_resume_grey.png) center
                 center no-repeat;
 }
 
@@ -223,6 +233,16 @@
 
 .icon.power-down {
     background: url(../images/theme-default/icon-power-down.png) center
+                center no-repeat;
+}
+
+.icon.pause {
+    background: url(../images/theme-default/ac22_pause.png) center
+                center no-repeat;
+}
+
+.icon.resume {
+    background: url(../images/theme-default/ac24_resume.png) center
                 center no-repeat;
 }
 

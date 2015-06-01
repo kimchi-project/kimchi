@@ -296,6 +296,28 @@ var kimchi = {
         });
     },
 
+    suspendVM : function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : 'vms/' + encodeURIComponent(vm) + '/suspend',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    resumeVM : function(vm, suc, err) {
+        kimchi.requestJSON({
+            url : 'vms/' + encodeURIComponent(vm) + '/resume',
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+     },
+
     /**
      * Retrieve the information of a given VM by its name.
      *
