@@ -61,12 +61,15 @@ def setUpModule():
 
     # Create fake ISO to do the tests
     iso_gen.construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
+    iso_gen.construct_fake_iso("/var/lib/libvirt/images/fedora.iso", True,
+                               "17", "fedora")
 
 
 def tearDownModule():
     test_server.stop()
     os.unlink('/tmp/obj-store-test')
     os.unlink(fake_iso)
+    os.unlink("/var/lib/libvirt/images/fedora.iso")
 
 
 class RestTests(unittest.TestCase):
@@ -928,9 +931,9 @@ class RestTests(unittest.TestCase):
                           storagevolume['path'])
         self.assertEquals(1073741824, storagevolume['capacity'])  # 1 GiB
         self.assertEquals(0, storagevolume['allocation'])
-        self.assertEquals('unknown', storagevolume['os_version'])
-        self.assertEquals('unknown', storagevolume['os_distro'])
-        self.assertEquals(False, storagevolume['bootable'])
+        self.assertEquals('17', storagevolume['os_version'])
+        self.assertEquals('fedora', storagevolume['os_distro'])
+        self.assertEquals(True, storagevolume['bootable'])
 
         # Create a template
         # In real model os distro/version can be omitted
@@ -945,8 +948,8 @@ class RestTests(unittest.TestCase):
         # Verify the template
         t = json.loads(self.request('/templates/test').read())
         self.assertEquals('test', t['name'])
-        self.assertEquals('unknown', t['os_distro'])
-        self.assertEquals('unknown', t['os_version'])
+        self.assertEquals('fedora', t['os_distro'])
+        self.assertEquals('17', t['os_version'])
         self.assertEquals(get_template_default('old', 'memory'), t['memory'])
 
         # Deactivate or destroy scan pool return 405
