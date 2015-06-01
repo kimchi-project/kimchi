@@ -101,6 +101,16 @@
     position: relative;
 }
 
+.list-vm .tile.paused .imgactive {
+    max-height: 110px;
+    max-width: 170px;
+    height: auto;
+    width: auto;
+    display:inline;
+    border: none;
+    position: relative;
+}
+
 .list-vm .tile.running .imgactive{
     max-height: 110px;
     max-width: 170px;
@@ -226,6 +236,7 @@
 
 .guest-actions .top {
     padding: 7px 10px;
+    width: 200px;
 }
 
 .guest-actions .top button {
@@ -253,11 +264,9 @@
     margin: 10px;
 }
 
-
-.list-vm .tile:not(.shutoff) img {
+.list-vm .tile:not(.shutoff) && .tile:not(.paused) img {
     box-shadow: -1px -1px 2px rgb(0, 0, 0, .25), 3px 3px 3px #fff;
 }
-
 
 .list-vm .shutoff {
     position: relative;
@@ -266,6 +275,15 @@
 
 .list-vm .shutoff img {
     opacity: 0.4;
+}
+
+.list-vm .paused {
+    position: relative;
+    box-shadow: none !important;
+}
+
+.list-vm .paused img {
+    opacity: 0.1;
 }
 
 .list-title {
