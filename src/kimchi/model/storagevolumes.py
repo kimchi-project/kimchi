@@ -535,7 +535,7 @@ class IsoVolumesModel(object):
             for volume in volumes:
                 res = self.storagevolume.lookup(pool_name,
                                                 volume.decode("utf-8"))
-                if res['format'] == 'iso':
+                if res['format'] == 'iso' and res['bootable']:
                     res['name'] = '%s' % volume
                     iso_volumes.append(res)
         return iso_volumes
