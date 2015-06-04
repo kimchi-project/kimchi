@@ -22,7 +22,6 @@ from lxml import etree, objectify
 from lxml.builder import E, ElementMaker
 
 from kimchi.exception import OperationFailed
-from kimchi.model.featuretests import FeatureTests
 
 KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
 KIMCHI_NAMESPACE = "kimchi"
@@ -84,7 +83,8 @@ def _kimchi_set_metadata_node(dom, node):
 
 
 def libvirt_get_kimchi_metadata_node(dom, mode="current"):
-    FeatureTests.disable_libvirt_error_logging()
+    if not metadata_exists(dom):
+        return None
     try:
         xml = dom.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
                            KIMCHI_META_URL,
@@ -92,8 +92,6 @@ def libvirt_get_kimchi_metadata_node(dom, mode="current"):
         return etree.fromstring(xml)
     except libvirt.libvirtError:
         return None
-    finally:
-        FeatureTests.enable_libvirt_error_logging()
 
 
 def set_metadata_node(dom, node, metadata_support, mode="all"):
@@ -151,3 +149,12 @@ def get_metadata_node(dom, tag, metadata_support, mode="current"):
         if node is not None:
             return etree.tostring(node)
     return ""
+
+
+def metadata_exists(dom):
+    xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
+    root = etree.fromstring(xml)
+
+    if root.find("metadata") is None:
+        return False
+    return True
