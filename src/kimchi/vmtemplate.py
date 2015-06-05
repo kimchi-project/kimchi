@@ -32,6 +32,7 @@ from kimchi.exception import InvalidParameter, IsoFormatError, MissingParameter
 from kimchi.exception import ImageFormatError, OperationFailed
 from kimchi.isoinfo import IsoImage
 from kimchi.utils import check_url_path, pool_name_from_uri
+from kimchi.xmlutils.cpu import get_cpu_xml
 from kimchi.xmlutils.disk import get_disk_xml
 from kimchi.xmlutils.graphics import get_graphics_xml
 from kimchi.xmlutils.interface import get_iface_xml
@@ -270,17 +271,13 @@ class VMTemplate(object):
         return input_output
 
     def _get_cpu_xml(self):
-
+        # Include CPU topology, if provided
         cpu_info = self.info.get('cpu_info')
-        if cpu_info is None:
-            return ""
-        cpu_topo = cpu_info.get('topology')
-        if cpu_topo is None:
-            return ""
-        return etree.tostring(E.cpu(E.topology(
-            sockets=str(cpu_topo['sockets']),
-            cores=str(cpu_topo['cores']),
-            threads=str(cpu_topo['threads']))))
+        if cpu_info is not None:
+            cpu_topo = cpu_info.get('topology')
+        return get_cpu_xml(self.info.get('cpus'),
+                           self.info.get('memory') << 10,
+                           cpu_topo)
 
     def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
@@ -308,11 +305,22 @@ class VMTemplate(object):
         else:
             params['cdroms'] = cdrom_xml
 
+        # Setting maximum number of slots to avoid errors when hotplug memory
+        # Number of slots are the numbers of chunks of 1GB that fit inside
+        # the max_memory of the host minus memory assigned to the VM
+        params['slots'] = ((params['max_memory'] >> 10) -
+                           params['memory']) >> 10
+        if params['slots'] < 0:
+            raise OperationFailed("KCHVM0041E")
+        elif params['slots'] == 0:
+            params['slots'] = 1
+
         xml = """
         <domain type='%(domain)s'>
           %(qemu-stream-cmdline)s
           <name>%(name)s</name>
           <uuid>%(uuid)s</uuid>
+          <maxMemory slots='%(slots)s' unit='KiB'>%(max_memory)s</maxMemory>
           <memory unit='MiB'>%(memory)s</memory>
           <vcpu>%(cpus)s</vcpu>
           %(cpu_info)s

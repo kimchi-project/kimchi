@@ -45,6 +45,7 @@ from kimchi.screenshot import VMScreenshot
 from kimchi.utils import add_task, convert_data_size, get_next_clone_name
 from kimchi.utils import import_class, kimchi_log, run_setfacl_set_attr
 from kimchi.utils import template_name_from_uri
+from kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from kimchi.xmlutils.utils import xpath_get_text, xml_item_update
 from kimchi.xmlutils.utils import dictize
 
@@ -59,8 +60,7 @@ DOM_STATE_MAP = {0: 'nostate',
                  7: 'pmsuspended'}
 
 VM_STATIC_UPDATE_PARAMS = {'name': './name',
-                           'cpus': './vcpu',
-                           'memory': './memory'}
+                           'cpus': './vcpu'}
 VM_LIVE_UPDATE_PARAMS = {}
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
@@ -72,6 +72,8 @@ XPATH_DOMAIN_MAC_BY_ADDRESS = "./devices/interface[@type='network']/"\
 XPATH_DOMAIN_MEMORY = '/domain/memory'
 XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
+
+XPATH_NUMA_CELL = './cpu/numa/cell'
 
 
 class VMsModel(object):
@@ -653,14 +655,23 @@ class VMModel(object):
 
         for key, val in params.items():
             if key in VM_STATIC_UPDATE_PARAMS:
-                if key == 'memory':
-                    # Libvirt saves memory in KiB. Retrieved xml has memory
-                    # in KiB too, so new valeu must be in KiB here
-                    val = val * 1024
                 if type(val) == int:
                     val = str(val)
                 xpath = VM_STATIC_UPDATE_PARAMS[key]
                 new_xml = xml_item_update(new_xml, xpath, val)
+
+        # Updating memory and NUMA if necessary, if vm is offline
+        if not dom.isActive():
+            if 'memory' in params:
+                new_xml = self._update_memory_config(new_xml, params)
+            elif 'cpus' in params and \
+                 (xpath_get_text(new_xml, XPATH_NUMA_CELL + '/@memory') != []):
+                vcpus = params['cpus']
+                new_xml = xml_item_update(
+                    new_xml,
+                    XPATH_NUMA_CELL,
+                    value='0-' + str(vcpus - 1) if vcpus > 1 else '0',
+                    attr='cpus')
 
         if 'graphics' in params:
             new_xml = self._update_graphics(dom, new_xml, params)
@@ -689,12 +700,7 @@ class VMModel(object):
                 # Undefine old vm, only if name is going to change
                 dom.undefine()
 
-            root = ET.fromstring(new_xml)
-            currentMem = root.find('.currentMemory')
-            if currentMem is not None:
-                root.remove(currentMem)
-
-            dom = conn.defineXML(ET.tostring(root, encoding="utf-8"))
+            dom = conn.defineXML(new_xml)
             if 'name' in params:
                 self._redefine_snapshots(dom, snapshots_info)
         except libvirt.libvirtError as e:
@@ -706,8 +712,127 @@ class VMModel(object):
                                                  'err': e.get_error_message()})
         return dom
 
+    def _update_memory_config(self, xml, params):
+        # Checks if NUMA memory is already configured, if not, checks if CPU
+        # element is already configured (topology). Then add NUMA element as
+        # apropriated
+        root = ET.fromstring(xml)
+        numa_mem = xpath_get_text(xml, XPATH_NUMA_CELL + '/@memory')
+        vcpus = params.get('cpus')
+        if numa_mem == []:
+            if vcpus is None:
+                vcpus = int(xpath_get_text(xml,
+                                           VM_STATIC_UPDATE_PARAMS['cpus'])[0])
+            cpu = root.find('./cpu')
+            if cpu is None:
+                cpu = get_cpu_xml(vcpus, params['memory'] << 10)
+                root.insert(0, ET.fromstring(cpu))
+            else:
+                numa_element = get_numa_xml(vcpus, params['memory'] << 10)
+                cpu.insert(0, ET.fromstring(numa_element))
+        else:
+            if vcpus is not None:
+                xml = xml_item_update(
+                    xml,
+                    XPATH_NUMA_CELL,
+                    value='0-' + str(vcpus - 1) if vcpus > 1 else '0',
+                    attr='cpus')
+            root = ET.fromstring(xml_item_update(xml, XPATH_NUMA_CELL,
+                                                 str(params['memory'] << 10),
+                                                 attr='memory'))
+
+        # Remove currentMemory, automatically set later by libvirt
+        currentMem = root.find('.currentMemory')
+        if currentMem is not None:
+            root.remove(currentMem)
+
+        memory = root.find('.memory')
+        # Update/Adds maxMemory accordingly
+        if not self.caps.mem_hotplug_support:
+            if memory is not None:
+                memory.text = str(params['memory'] << 10)
+        else:
+            if memory is not None:
+                root.remove(memory)
+            maxMem = root.find('.maxMemory')
+            host_mem = self.conn.get().getInfo()[1]
+            slots = (host_mem - params['memory']) >> 10
+            # Libvirt does not accepts slots <= 1
+            if slots < 0:
+                raise OperationFailed("KCHVM0041E")
+            elif slots == 0:
+                slots = 1
+            if maxMem is None:
+                max_mem_xml = E.maxMemory(
+                    str(host_mem * 1024),
+                    unit='Kib',
+                    slots=str(slots))
+                root.insert(0, max_mem_xml)
+                new_xml = ET.tostring(root, encoding="utf-8")
+            else:
+                # Update slots only
+                new_xml = xml_item_update(ET.tostring(root, encoding="utf-8"),
+                                          './maxMemory',
+                                          str(slots),
+                                          attr='slots')
+            return new_xml
+        return ET.tostring(root, encoding="utf-8")
+
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)
+        if 'memory' in params and dom.isActive():
+            self._update_memory_live(dom, params)
+
+    def _update_memory_live(self, dom, params):
+        # Check if host supports memory device
+        if not self.caps.mem_hotplug_support:
+            raise InvalidOperation("KCHVM0046E")
+
+        # Check if the vm xml supports memory hotplug, if not, static update
+        # must be done firstly, then Kimchi is going to update the xml
+        xml = dom.XMLDesc(0)
+        numa_mem = xpath_get_text(xml, XPATH_NUMA_CELL + '/@memory')
+        max_mem = xpath_get_text(xml, './maxMemory')
+        if numa_mem == [] or max_mem == []:
+            raise OperationFailed('KCHVM0042E', {'name': dom.name()})
+
+        # Memory live update must be done in chunks of 1024 Mib or 1Gib
+        new_mem = params['memory']
+        old_mem = int(xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]) >> 10
+        if new_mem < old_mem:
+            raise OperationFailed('KCHVM0043E')
+        if (new_mem - old_mem) % 1024 != 0:
+            raise OperationFailed('KCHVM0044E')
+
+        # Check slot spaces:
+        total_slots = int(xpath_get_text(xml, './maxMemory/@slots')[0])
+        needed_slots = (new_mem - old_mem) / 1024
+        used_slots = len(xpath_get_text(xml, './devices/memory'))
+        if needed_slots > (total_slots - used_slots):
+            raise OperationFailed('KCHVM0045E')
+        elif needed_slots == 0:
+            # New memory value is same that current memory set
+            return
+
+        # Finally, we are ok to hot add the memory devices
+        try:
+            self._hot_add_memory_devices(dom, needed_slots)
+        except Exception as e:
+            raise OperationFailed("KCHVM0047E", {'error': e.message})
+
+    def _hot_add_memory_devices(self, dom, amount):
+        # Hot add given number of memory devices in the guest
+        flags = libvirt.VIR_DOMAIN_MEM_CONFIG | libvirt.VIR_DOMAIN_MEM_LIVE
+        # Create memory device xml
+        mem_dev_xml = etree.tostring(
+            E.memory(
+                E.target(
+                    E.size('1', unit='GiB'),
+                    E.node('0')),
+                model='dimm'))
+        # Add chunks of 1G of memory
+        for i in range(amount):
+            dom.attachDeviceFlags(mem_dev_xml, flags)
 
     def _has_video(self, dom):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
