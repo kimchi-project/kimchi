@@ -104,6 +104,7 @@
                     <span class="template-storage-cell">$_("Storage Pool")</span>
                     <span class="template-storage-cell">$_("Type")</span>
                     <span class="template-storage-cell">$_("Disk(GB)")</span>
+                    <span class="template-storage-cell">$_("Disk Format")</span>
                     <button type="button" id="template-edit-storage-add-button" class="action-area"></button>
                 </div>
                 <div class="template-tab-body">
@@ -152,13 +153,28 @@
     <div class='item'>
         <span class="template-storage-cell">
             <input class="template-storage-name" value={storageName} type="text" style="display:none" />
-            <select></select>
+            <select id="selectStorageName"></select>
         </span>
         <span class="template-storage-cell">
             <input class="template-storage-type" value={storageType} readonly=true type="text" />
         </span>
         <span class="template-storage-cell">
             <input class="template-storage-disk" value={storageDisk} type="text" />
+        </span>
+        <span class="template-storage-cell">
+            <input class="template-storage-disk-format" value={storageDiskFormat} type="text" style="display:none" />
+            <select id="diskFormat">
+               <option value="qcow2">qcow2</option>
+               <option value="raw">raw</option>
+               <option value="bochs">bochs</option>
+               <option value="cloop">cloop</option>
+               <option value="cow">cow</option>
+               <option value="dmg">dmg</option>
+               <option value="qcow">qcow</option>
+               <option value="qed">qed</option>
+               <option value="vmdk">vmdk</option>
+               <option value="vpc">vpc</option>
+            </select>
         </span>
     </div>
 </script>
