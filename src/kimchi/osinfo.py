@@ -20,6 +20,7 @@
 import copy
 import glob
 import os
+import psutil
 
 from collections import defaultdict
 from configobj import ConfigObj
@@ -180,6 +181,9 @@ def lookup(distro, version):
     params['os_distro'] = distro
     params['os_version'] = version
     arch = _get_arch()
+
+    # Setting maxMemory of the VM, which will be equal total Host memory in Kib
+    params['max_memory'] = psutil.TOTAL_PHYMEM >> 10
 
     # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
     if params["arch"] == "ppc64le":
