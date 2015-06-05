@@ -112,8 +112,8 @@ class Resource(object):
                 action_fn = getattr(self.model, model_fn(self, action_name))
                 action_result = action_fn(*model_args)
                 if destructive is False or \
-                    ('persistent' in self.info.keys()
-                     and self.info['persistent'] is True):
+                    ('persistent' in self.info.keys() and
+                     self.info['persistent'] is True):
                     return render_fn(self, action_result)
             except MissingParameter, e:
                 raise cherrypy.HTTPError(400, e.message)

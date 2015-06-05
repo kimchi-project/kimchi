@@ -55,8 +55,8 @@ def check_obsolete_messages(path, messages):
         for root, dirs, files in os.walk(path):
             for f in files:
                 fname = os.path.join(root, f)
-                if (not fname.endswith("i18n.py") and fname.endswith(".py")
-                   or fname.endswith(".json")):
+                if (not fname.endswith("i18n.py") and fname.endswith(".py") or
+                   fname.endswith(".json")):
                     with open(fname) as f:
                         string = "".join(f.readlines())
                         if k in string:
