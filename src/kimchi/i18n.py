@@ -111,6 +111,13 @@ messages = {
     "KCHVM0038E": _("Unable to suspend VM '%(name)s'. Details: %(err)s"),
     "KCHVM0039E": _("Cannot resume VM '%(name)s' because it is not paused."),
     "KCHVM0040E": _("Unable to resume VM '%(name)s'. Details: %(err)s"),
+    "KCHVM0041E": _("Memory assigned is higher then the maximum allowed in the host."),
+    "KCHVM0042E": _("VM '%(name)s' does not support live memory update. Update the memory with the machine offline to enable this feature."),
+    "KCHVM0043E": _("Only increase memory is allowed in active VMs"),
+    "KCHVM0044E": _("For live memory update, new memory value must be equal old memory value plus multiples of 1024 Mib"),
+    "KCHVM0045E": _("There are not enough free slots of 1024 Mib in the guest."),
+    "KCHVM0046E": _("Host's libvirt version does not support memory devices. Libvirt must be >= 1.2.14"),
+    "KCHVM0047E": _("Error attaching memory device. Details: %(error)s"),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
