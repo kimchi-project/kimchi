@@ -67,7 +67,7 @@ kimchi.template_edit_main = function() {
                 $('.template-tab-body', '#form-template-storage').append(nodeStorage);
                 var storageOptions = '';
                 var scsiOptions = '';
-                $('select', '#form-template-storage').find('option').remove();
+                $('#selectStorageName').find('option').remove();
                 $.each(result, function(index, storageEntities) {
                     if((storageEntities.state === 'active') && (storageEntities.type != 'kimchi-iso')) {
                         if(storageEntities.type === 'iscsi' || storageEntities.type === 'scsi') {
@@ -77,7 +77,7 @@ kimchi.template_edit_main = function() {
                                     var isSlected = tmpPath === thisName ? ' selected' : '';
                                     scsiOptions += '<option' + isSlected + '>' + tmpPath + '</option>';
                                 });
-                                $('select', '#form-template-storage').append(scsiOptions);
+                                $('#selectStorageName').append(scsiOptions);
                             }, function() {});
                         } else {
                             var isSlected = storageEntities.name === thisName ? ' selected' : '';
@@ -85,8 +85,15 @@ kimchi.template_edit_main = function() {
                         }
                     }
                 });
-                $('select', '#form-template-storage').append(storageOptions);
-                $('select', '#form-template-storage').change(function() {
+                $('#selectStorageName').append(storageOptions);
+
+                // Set disk format
+                $('#diskFormat').val(storageData.storageDiskFormat);
+                $('#diskFormat').on('change', function() {
+                    $('.template-storage-disk-format').val($(this).val());
+                });
+
+                $('#selectStorageName').change(function() {
                     var selectedItem = $(this).parent().parent();
                     var tempStorageNameFull = $(this).val();
                     var tempName = tempStorageNameFull.split('/');
@@ -99,9 +106,19 @@ kimchi.template_edit_main = function() {
                             kimchi.getStoragePoolVolume(tempStorageName, tempName[tempName.length-1], function(info) {
                                 volSize = info.capacity / Math.pow(1024, 3);
                                 $('.template-storage-disk', selectedItem).attr('readonly', true).val(volSize);
+                                $('#diskFormat').val('raw');
+                                $('#diskFormat').prop('disabled', true).change();
                             });
+                        } else if (tempType === 'logical') {
+                            $('.template-storage-disk', selectedItem).attr('readonly', false);
+                            $('#diskFormat').val('raw');
+                            $('#diskFormat').prop('disabled', true).change();
                         } else {
                             $('.template-storage-disk', selectedItem).attr('readonly', false);
+                            if ($('#diskFormat').prop('disabled') == true) {
+                                $('#diskFormat').val('qcow2');
+                                $('#diskFormat').prop('disabled', false).change();
+                            }
                         }
                     });
                 });
@@ -120,7 +137,8 @@ kimchi.template_edit_main = function() {
                             editMode : 'hide',
                             storageName : defaultPool,
                             storageType : defaultType,
-                            storageDisk : diskEntities.size
+                            storageDisk : diskEntities.size,
+                            storageDiskFormat : diskEntities.format ? diskEntities.format : 'qcow2'
                         }
 
                         if (diskEntities.volume) {
@@ -131,7 +149,13 @@ kimchi.template_edit_main = function() {
                                 nodeData.storageDisk = volSize;
                                 addStorageItem(nodeData);
                                 $('.template-storage-disk').attr('readonly', true);
+                                $('#diskFormat').val('raw');
+                                $('#diskFormat').prop('disabled', true).change();
                             });
+                        } else if (defaultType === 'logical') {
+                            addStorageItem(storageNodeData);
+                            $('#diskFormat').val('raw');
+                            $('#diskFormat').prop('disabled', true).change();
                         } else {
                             addStorageItem(storageNodeData);
                         }
@@ -271,7 +295,8 @@ kimchi.template_edit_main = function() {
                     origDisks[0]['volume'] && delete origDisks[0]['volume'];
                     origDisks[0].size = Number($('.template-storage-disk', tmpItem).val());
                 }
-               data[field] = origDisks;
+                origDisks[0].format = $('.template-storage-disk-format', tmpItem).val();
+                data[field] = origDisks;
             }
             else if (field == 'graphics') {
                var type = $('#form-template-general [name="' + field + '"]').val();

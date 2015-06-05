@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,7 +95,7 @@
 
 #edit-template-tabs .template-storage-cell{
     display: inline-block;
-    width: 230px;
+    width: 180px;
 }
 
 #edit-template-tabs .template-storage-cell label {
@@ -114,7 +114,11 @@
 }
 
 #form-template-storage .template-tab-body .template-storage-name {
-    width: 220px;
+    width: 170px;
+}
+
+#form-template-storage .template-tab-body .template-storage-disk-format {
+    width: 160px;
 }
 
 #edit-template-tabs .template-tab-body input[readonly] {
