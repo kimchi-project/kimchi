@@ -63,6 +63,25 @@ SIMPLE_VM_XML = """
   </os>
 </domain>"""
 
+MAXMEM_VM_XML = """
+<domain type='%(domain)s'>
+  <name>%(name)s</name>
+  <maxMemory slots='1' unit='KiB'>20480</maxMemory>
+  <memory unit='KiB'>10240</memory>
+  <os>
+    <type arch='%(arch)s'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+</domain>"""
+
+DEV_MEM_XML = """
+<memory model='dimm'>
+  <target>
+    <size unit='KiB'>10240</size>
+    <node>0</node>
+  </target>
+</memory>"""
+
 SCSI_FC_XML = """
 <pool type='scsi'>
   <name>%(name)s</name>
@@ -207,3 +226,34 @@ class FeatureTests(object):
             return False
 
         return True
+
+    @staticmethod
+    def has_mem_hotplug_support(conn):
+        '''
+        A memory device can be hot-plugged or hot-unplugged since libvirt
+        version 1.2.14.
+        '''
+        # Libvirt < 1.2.14 does not support memory devices, so firstly, check
+        # its version, then try to attach a device. These steps avoid errors
+        # with Libvirt 'test' driver for KVM
+        version = 1000000*1 + 1000*2 + 14
+        if libvirt.getVersion() < version:
+            return False
+
+        with RollbackContext() as rollback:
+            FeatureTests.disable_libvirt_error_logging()
+            rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
+            conn_type = conn.getType().lower()
+            domain_type = 'test' if conn_type == 'test' else 'kvm'
+            arch = 'i686' if conn_type == 'test' else platform.machine()
+            arch = 'ppc64' if arch == 'ppc64le' else arch
+            dom = conn.defineXML(MAXMEM_VM_XML % {'name': FEATURETEST_VM_NAME,
+                                                  'domain': domain_type,
+                                                  'arch': arch})
+            rollback.prependDefer(dom.undefine)
+            try:
+                dom.attachDeviceFlags(DEV_MEM_XML,
+                                      libvirt.VIR_DOMAIN_MEM_CONFIG)
+                return True
+            except libvirt.libvirtError:
+                return False
