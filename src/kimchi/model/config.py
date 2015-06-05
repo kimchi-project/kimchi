@@ -55,6 +55,7 @@ class CapabilitiesModel(object):
         self.fc_host_support = False
         self.metadata_support = False
         self.kernel_vfio = False
+        self.mem_hotplug_support = False
 
         # Subscribe function to set host capabilities to be run when cherrypy
         # server is up
@@ -91,6 +92,7 @@ class CapabilitiesModel(object):
         self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
         self.metadata_support = FeatureTests.has_metadata_support(conn)
         self.kernel_vfio = FeatureTests.kernel_support_vfio()
+        self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
@@ -139,6 +141,7 @@ class CapabilitiesModel(object):
                 'auth': kconfig.get("authentication", "method"),
                 'kernel_vfio': self.kernel_vfio,
                 'nm_running': FeatureTests.is_nm_running(),
+                'mem_hotplug_support': self.mem_hotplug_support
                 }
 
 
