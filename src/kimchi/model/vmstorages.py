@@ -97,8 +97,8 @@ class VMStoragesModel(object):
             char = dev_list.pop()[2]
             params['index'] = string.ascii_lowercase.index(char) + 1
 
-        if (params['bus'] not in HOTPLUG_TYPE
-                and DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+        if (params['bus'] not in HOTPLUG_TYPE and
+           DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
             raise InvalidOperation('KCHVMSTOR0011E')
 
         if params.get('vol'):

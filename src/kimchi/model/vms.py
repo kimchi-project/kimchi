@@ -598,8 +598,8 @@ class VMModel(object):
         expire = params['graphics'].get("passwdValidTo")
         to = graphics.attrib.get('passwdValidTo')
         if to is not None:
-            if (time.mktime(time.strptime(to, '%Y-%m-%dT%H:%M:%S'))
-               - time.time() <= 0):
+            if (time.mktime(time.strptime(to, '%Y-%m-%dT%H:%M:%S')) -
+               time.time() <= 0):
                 expire = expire if expire is not None else 30
 
         if expire is not None:
