@@ -83,7 +83,12 @@ class VMTemplateTests(unittest.TestCase):
     def test_to_xml(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         vm_uuid = str(uuid.uuid4()).replace('-', '')
-        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso})
+        if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
+            maxmem = 3328
+        else:
+            maxmem = 3072
+        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso,
+                       'max_memory': maxmem << 10})
         xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
         self.assertEquals(vm_uuid, xpath_get_text(xml, "/domain/uuid")[0])
         self.assertEquals('test-vm', xpath_get_text(xml, "/domain/name")[0])
@@ -91,6 +96,8 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals(graphics['type'], xpath_get_text(xml, expr)[0])
         expr = "/domain/devices/graphics/@listen"
         self.assertEquals(graphics['listen'], xpath_get_text(xml, expr)[0])
+        expr = "/domain/maxMemory/@slots"
+        self.assertEquals('2', xpath_get_text(xml, expr)[0])
 
     def test_arg_merging(self):
         """

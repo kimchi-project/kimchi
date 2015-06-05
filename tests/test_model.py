@@ -600,12 +600,41 @@ class ModelTests(unittest.TestCase):
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
 
+    def test_vm_memory_hotplug(self):
+        config.set("authentication", "method", "pam")
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+        orig_params = {'name': 'test', 'memory': 1024, 'cdrom': UBUNTU_ISO}
+        inst.templates_create(orig_params)
+
+        with RollbackContext() as rollback:
+            params = {'name': 'kimchi-vm1', 'template': '/templates/test'}
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
+            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
+                                  'kimchi-vm1')
+            # Start vm
+            inst.vm_start('kimchi-vm1')
+            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
+                                  'kimchi-vm1')
+
+            # Hotplug memory, only available in Libvirt >= 1.2.14
+            params = {'memory': 2048}
+            if inst.capabilities_lookup()['mem_hotplug_support']:
+                inst.vm_update('kimchi-vm1', params)
+                rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
+                                      'kimchi-vm1')
+                self.assertEquals(params['memory'],
+                                  inst.vm_lookup('kimchi-vm1')['memory'])
+            else:
+                self.assertRaises(InvalidOperation, inst.vm_update,
+                                  'kimchi-vm1', params)
+
     def test_vm_edit(self):
         config.set("authentication", "method", "pam")
         inst = model.Model(None,
                            objstore_loc=self.tmp_store)
 
-        orig_params = {'name': 'test', 'memory': '1024', 'cpus': '1',
+        orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1,
                        'cdrom': UBUNTU_ISO}
         inst.templates_create(orig_params)
 

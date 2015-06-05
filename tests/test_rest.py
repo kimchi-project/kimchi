@@ -156,9 +156,15 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(200, resp.status)
 
+        # Check if there is support to memory hotplug, once vm is running
+        resp = self.request('/config/capabilities').read()
+        conf = json.loads(resp)
         req = json.dumps({'memory': 2048})
         resp = self.request('/vms/vm-1', req, 'PUT')
-        self.assertEquals(200, resp.status)
+        if conf['mem_hotplug_support']:
+            self.assertEquals(200, resp.status)
+        else:
+            self.assertEquals(400, resp.status)
 
         req = json.dumps({"graphics": {'passwd': "abcdef"}})
         resp = self.request('/vms/vm-1', req, 'PUT')
@@ -204,7 +210,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        params = {'name': u'∨м-црdαtеd', 'cpus': 5, 'memory': 4096}
+        params = {'name': u'∨м-црdαtеd', 'cpus': 5, 'memory': 3072}
         req = json.dumps(params)
         resp = self.request('/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)
@@ -1064,7 +1070,7 @@ class RestTests(unittest.TestCase):
         keys = [u'libvirt_stream_protocols', u'qemu_stream', u'qemu_spice',
                 u'screenshot', u'system_report_tool', u'update_tool',
                 u'repo_mngt_tool', u'federation', u'kernel_vfio', u'auth',
-                u'nm_running']
+                u'nm_running', u'mem_hotplug_support']
         self.assertEquals(sorted(keys), sorted(conf.keys()))
 
     def test_peers(self):
