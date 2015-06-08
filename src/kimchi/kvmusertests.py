@@ -18,6 +18,7 @@
 
 import platform
 import psutil
+import threading
 
 import libvirt
 
@@ -36,12 +37,14 @@ class UserTests(object):
         <boot dev='hd'/>
       </os>
     </domain>"""
+    lock = threading.Lock()
     user = None
 
     @classmethod
     def probe_user(cls):
-        if cls.user:
-            return cls.user
+        with cls.lock:
+            if cls.user:
+                return cls.user
 
         arch = 'ppc64' if platform.machine() == 'ppc64le' \
             else platform.machine()
@@ -49,23 +52,24 @@ class UserTests(object):
         xml = cls.SIMPLE_VM_XML % {'name': KVMUSERTEST_VM_NAME, 'arch': arch}
 
         with RollbackContext() as rollback:
-            conn = libvirt.open(None)
-            rollback.prependDefer(conn.close)
-            dom = conn.createXML(xml,
-                                 flags=libvirt.VIR_DOMAIN_START_AUTODESTROY)
-            rollback.prependDefer(dom.destroy)
-            filename = '/var/run/libvirt/qemu/%s.pid' % KVMUSERTEST_VM_NAME
-            with open(filename) as f:
-                pidStr = f.read()
-            p = psutil.Process(int(pidStr))
+            with cls.lock:
+                conn = libvirt.open(None)
+                rollback.prependDefer(conn.close)
+                f = libvirt.VIR_DOMAIN_START_AUTODESTROY
+                dom = conn.createXML(xml, flags=f)
+                rollback.prependDefer(dom.destroy)
+                filename = '/var/run/libvirt/qemu/%s.pid' % KVMUSERTEST_VM_NAME
+                with open(filename) as f:
+                    pidStr = f.read()
+                p = psutil.Process(int(pidStr))
 
-            # bug fix #357
-            # in psutil 2.0 and above versions, username will be a method,
-            # not a string
-            if callable(p.username):
-                cls.user = p.username()
-            else:
-                cls.user = p.username
+                # bug fix #357
+                # in psutil 2.0 and above versions, username will be a method,
+                # not a string
+                if callable(p.username):
+                    cls.user = p.username()
+                else:
+                    cls.user = p.username
 
         return cls.user
 
