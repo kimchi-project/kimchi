@@ -51,24 +51,24 @@
            <div class="sortable guest-actions" name="guest-actions">
                 <div class="top">
                     <button class="btn reset-disabled" name="vm-reset" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></button>
+		    <button class="btn pause-disabled" name="vm-pause" href="javascript:void(0);" title="$_("Pause")"><span class="icon pause"></span></button>
+		    <button class="btn resume-hidden" name="vm-resume" href="javascript:void(0);" title="$_("Resume")"><span class="icon resume"></span></button>
                     <button class="btn running-hidden" name="vm-start" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></button>
                     <button class="btn shutoff-hidden" name="vm-poweroff" href="javascript:void(0);" title="$_("Power Off")"><span class="icon power-up"></span></button>
-		    <button class="btn pause-hidden" name="vm-pause" href="javascript:void(0);" title="$_("Pause")"><span class="icon pause"></span></button>
-		    <button class="btn resume-hidden" name="vm-resume" href="javascript:void(0);" title="$_("Resume")"><span class="icon resume"></span></button>
                 </div>
                 <div class="bottom">
-                    <div name="actionmenu" class="btn dropdown popable vm-action" style="width: 70px">
+                    <div name="actionmenu" class="btn dropdown popable vm-action" style="width: 126px">
                         <span class="text">$_("Actions")</span><span class="arrow"></span>
                         <div class="popover actionsheet right-side" style="width: 250px">
                             <button class="button-big shutoff-disabled" name="vm-console" ><span class="text">$_("Connect")</span></button>
                             <button class="button-big running-disabled" name="vm-clone"><span class="text">$_("Clone")</span></button>
                             <button class="button-big" name="vm-edit"><span class="text">$_("Edit")</span></button>
                             <button class="button-big shutoff-hidden non-persistent-disabled" name="vm-reset"><span class="text">$_("Reset")</span></button>
+			    <button class="button-big pause-hidden non-persistent-disabled" name="vm-pause"><span class="text">$_("Pause")</span></button>
+			    <button class="button-big resume-hidden" name="vm-resume"><span class="text">$_("Resume")</span></button>
                             <button class="button-big shutoff-hidden" name="vm-shutdown"><span class="text">$_("Shut Down")</span></button>
                             <button class="button-big running-hidden" name="vm-start"><span class="text">$_("Start")</span></button>
                             <button class="button-big shutoff-hidden" name="vm-poweroff"><span class="text">$_("Power Off")</span></button>
-			    <button class="button-big pause-hidden" name="vm-pause"><span class="text">$_("Pause")</span></button>
-			    <button class="button-big resume-hidden" name="vm-resume"><span class="text">$_("Resume")</span></button>
                             <button class="button-big red non-persistent-disabled" name="vm-delete">$_("Delete")</button>
                         </div>
                     </div>

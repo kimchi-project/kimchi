@@ -379,11 +379,13 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     guestActions.find(".running-disabled").prop("disabled", vmRunningBool);
     guestActions.find(".non-persistent-disabled").prop("disabled", !vmPersistent);
     guestActions.find(".reset-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
+    guestActions.find(".pause-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
 
     if (vmSuspendedBool) { //VM is paused
         //Hide Start
         guestActions.find(".running-hidden").hide();
-        //Hide Pause
+        //Hide Pause button and menu
+        guestActions.find(".pause-disabled").hide();
         guestActions.find(".pause-hidden").hide();
     }	
 
