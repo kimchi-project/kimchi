@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@ from kimchi.basemodel import Singleton
 from kimchi.config import kimchiLock
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log, run_command
+from kimchi.yumparser import get_yum_packages_list_update
 
 
 class SoftwareUpdate(object):
@@ -150,14 +151,12 @@ class YumUpdate(object):
         Update the list of packages to be updated in the system.
         """
         try:
-            yb = getattr(__import__('yum'), 'YumBase')()
-            yb.doLock()
-            self._pkgs = yb.doPackageLists('updates')
-            yb.doUnlock()
-            del yb
+            kimchiLock.acquire()
+            self._pkgs = get_yum_packages_list_update()
         except Exception, e:
-            kimchiLock.release()
             raise OperationFailed('KCHPKGUPD0003E', {'err': str(e)})
+        finally:
+            kimchiLock.release()
 
     def getPackagesList(self):
         """
@@ -166,13 +165,10 @@ class YumUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
-        kimchiLock.acquire()
         self._refreshUpdateList()
-        kimchiLock.release()
         pkg_list = []
         for pkg in self._pkgs:
-            package = {'package_name': pkg.name,
-                       'version': "%s-%s" % (pkg.version, pkg.release),
+            package = {'package_name': pkg.name, 'version': pkg.version,
                        'arch': pkg.arch, 'repository': pkg.ui_from_repo}
             pkg_list.append(package)
         return pkg_list

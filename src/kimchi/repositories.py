@@ -29,6 +29,7 @@ from kimchi.config import kimchiLock
 from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 from kimchi.utils import validate_repo_url
+from kimchi.yumparser import get_yum_repositories, write_repo_to_file
 
 
 class Repositories(object):
@@ -115,25 +116,17 @@ class YumRepo(object):
     CONFIG_ENTRY = ('repo_name', 'mirrorlist', 'metalink')
 
     def __init__(self):
-        self._yb = getattr(__import__('yum'), 'YumBase')
-        self._conf = getattr(__import__('yum'), 'config')
-
         self._confdir = self.DEFAULT_CONF_DIR
-        reposdir = self._yb().conf.reposdir
-        for d in reposdir:
-            if os.path.isdir(d):
-                self._confdir = d
-                break
 
     def _get_repos(self, errcode):
         try:
-            yb = self._yb()
-            yb.doLock()
-            repos = yb.repos
-            yb.doUnlock()
+            kimchiLock.acquire()
+            repos = get_yum_repositories()
         except Exception, e:
             kimchiLock.release()
             raise OperationFailed(errcode, {'err': str(e)})
+        finally:
+            kimchiLock.release()
 
         return repos
 
@@ -141,37 +134,28 @@ class YumRepo(object):
         """
         Return a list of repositories IDs
         """
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0024E')
-        kimchiLock.release()
-        return repos.repos.keys()
+        return repos.keys()
 
     def getRepo(self, repo_id):
         """
         Return a dictionary in the repositories.Repositories() of the given
         repository ID format with the information of a YumRepository object.
         """
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0025E')
-        kimchiLock.release()
 
-        if repo_id not in repos.repos.keys():
+        if repo_id not in repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        entry = repos.getRepo(repo_id)
+        entry = repos.get(repo_id)
 
         info = {}
         info['enabled'] = entry.enabled
-
-        baseurl = ''
-        if entry.baseurl:
-            baseurl = entry.baseurl[0]
-
-        info['baseurl'] = baseurl
+        info['baseurl'] = entry.baseurl or ''
         info['config'] = {}
-        info['config']['repo_name'] = entry.name
+        info['config']['repo_name'] = entry.name or ''
         info['config']['gpgcheck'] = entry.gpgcheck
-        info['config']['gpgkey'] = entry.gpgkey
+        info['config']['gpgkey'] = entry.gpgkey or ''
         info['config']['mirrorlist'] = entry.mirrorlist or ''
         info['config']['metalink'] = entry.metalink or ''
         return info
@@ -205,10 +189,8 @@ class YumRepo(object):
         if repo_id is None:
             repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
 
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0026E')
-        kimchiLock.release()
-        if repo_id in repos.repos.keys():
+        if repo_id in repos.keys():
             raise InvalidOperation("KCHREPOS0022E", {'repo_id': repo_id})
 
         repo_name = config.get('repo_name', repo_id)
@@ -235,13 +217,11 @@ class YumRepo(object):
         return repo_id
 
     def toggleRepo(self, repo_id, enable):
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0011E')
-        kimchiLock.release()
-        if repo_id not in repos.repos.keys():
+        if repo_id not in repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        entry = repos.getRepo(repo_id)
+        entry = repos.get(repo_id)
         if enable and entry.enabled:
             raise InvalidOperation("KCHREPOS0015E", {'repo_id': repo_id})
 
@@ -255,9 +235,8 @@ class YumRepo(object):
             else:
                 entry.disable()
 
-            self._conf.writeRawRepoFile(entry)
+            write_repo_to_file(entry)
         except:
-            kimchiLock.release()
             if enable:
                 raise OperationFailed("KCHREPOS0020E", {'repo_id': repo_id})
 
@@ -271,13 +250,11 @@ class YumRepo(object):
         """
         Update a given repository in repositories.Repositories() format
         """
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0011E')
-        kimchiLock.release()
-        if repo_id not in repos.repos.keys():
+        if repo_id not in repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        entry = repos.getRepo(repo_id)
+        entry = repos.get(repo_id)
 
         baseurl = params.get('baseurl', None)
         config = params.get('config', {})
@@ -316,7 +293,7 @@ class YumRepo(object):
         entry.gpgcheck = config.get('gpgcheck', entry.gpgcheck)
         entry.gpgkey = config.get('gpgkey', entry.gpgkey)
         kimchiLock.acquire()
-        self._conf.writeRawRepoFile(entry)
+        write_repo_to_file(entry)
         kimchiLock.release()
         return repo_id
 
@@ -324,13 +301,11 @@ class YumRepo(object):
         """
         Remove a given repository
         """
-        kimchiLock.acquire()
         repos = self._get_repos('KCHREPOS0027E')
-        kimchiLock.release()
-        if repo_id not in repos.repos.keys():
+        if repo_id not in repos.keys():
             raise NotFoundError("KCHREPOS0012E", {'repo_id': repo_id})
 
-        entry = repos.getRepo(repo_id)
+        entry = repos.get(repo_id)
         parser = ConfigParser()
         with open(entry.repofile) as fd:
             parser.readfp(fd)
