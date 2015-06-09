@@ -68,6 +68,9 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                                              memory=1280)}}
 
 
+custom_specs = {'fedora': {'22': dict(video_model='qxl')}}
+
+
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
                                 'opensuse': '10.3', 'centos': '5.3',
                                 'rhel': '6.0', 'fedora': '16', 'gentoo': '0',
@@ -198,6 +201,9 @@ def lookup(distro, version):
     else:
         params['os_distro'] = params['os_version'] = "unknown"
         params.update(template_specs[arch]['old'])
+
+    # Get custom specifications
+    params.update(custom_specs.get(distro, {}).get(version, {}))
 
     if distro in icon_available_distros:
         params['icon'] = 'images/icon-%s.png' % distro
