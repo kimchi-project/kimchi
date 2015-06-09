@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-23 09:36-0300\n"
+"POT-Creation-Date: 2015-06-09 17:37-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -225,8 +225,8 @@ msgstr "不能获取虚拟机%(name)s。详情：%(err)s"
 msgid "Unable to connect to powered off virtual machine %(name)s."
 msgstr "虚拟机%(name)s已关机，连接失败。"
 
-msgid "Virtual machine name must be a string"
-msgstr "虚拟机名字必须是个字符串"
+msgid "Virtual machine name must be a string without slashes (/)"
+msgstr ""
 
 #, python-format
 msgid "Invalid template URI %(value)s specified for virtual machine"
@@ -313,6 +313,51 @@ msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
+msgid "Cannot suspend VM '%(name)s' because it is not running."
+msgstr ""
+
+#, python-format
+msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Cannot resume VM '%(name)s' because it is not paused."
+msgstr ""
+
+#, python-format
+msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+msgid "Memory assigned is higher then the maximum allowed in the host."
+msgstr ""
+
+#, python-format
+msgid ""
+"VM '%(name)s' does not support live memory update. Update the memory with "
+"the machine offline to enable this feature."
+msgstr ""
+
+msgid "Only increase memory is allowed in active VMs"
+msgstr ""
+
+msgid ""
+"For live memory update, new memory value must be equal old memory value plus "
+"multiples of 1024 Mib"
+msgstr ""
+
+msgid "There are not enough free slots of 1024 Mib in the guest."
+msgstr ""
+
+msgid ""
+"Host's libvirt version does not support memory devices. Libvirt must be >= "
+"1.2.14"
+msgstr ""
+
+#, python-format
+msgid "Error attaching memory device. Details: %(error)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr "虚拟机%(vmid)s未指明被分配的主机设备%(dev_name)s。"
@@ -345,9 +390,6 @@ msgid ""
 "Network %(network)s specified for virtual machine %(name)s does not exist"
 msgstr "为虚拟机%(name)s指定的网络%(network)s不存在"
 
-msgid "Do not support guest interface hot plug attachment"
-msgstr "不支持客户机接口的热插拔"
-
 msgid "Supported virtual machine interfaces type is only network"
 msgstr "只支持网络类型的虚拟机接口"
 
@@ -360,8 +402,18 @@ msgstr "虚拟机接口指定的网络模型卡无效"
 msgid "Specify type and network to add a new virtual machine interface"
 msgstr "为新的虚拟机接口指定类型和网络"
 
-msgid "Specify type and network to update a virtual machine interface"
-msgstr "为更新虚拟机接口指定类型和网络"
+msgid "MAC Address must respect this format FF:FF:FF:FF:FF:FF"
+msgstr ""
+
+#, python-format
+msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
+msgstr ""
+
+msgid "Invalid MAC Address"
+msgstr ""
+
+msgid "Cannot change MAC address of a running virtual machine"
+msgstr ""
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -521,8 +573,8 @@ msgstr "不支持的存储池类型：%(type)s"
 msgid "Error while retrieving storage pool XML to %(pool)s"
 msgstr "查询存储池XML到%(pool)s时出现错误"
 
-msgid "Storage pool name must be a string"
-msgstr "存储池名字必须是一个字符串"
+msgid "Storage pool name must be a string without slashes (/)"
+msgstr ""
 
 msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
@@ -701,6 +753,27 @@ msgid ""
 "%(err)s"
 msgstr "未能于存储池'%(pool)s'制作存储卷'%(name)s'的副本，详情：%(err)s"
 
+msgid "Specify chunk data and its size to upload a file."
+msgstr ""
+
+msgid "In order to upload a storage volume, specify the 'upload' parameter."
+msgstr ""
+
+msgid ""
+"Unable to upload chunk data as it does not match with requested chunk size."
+msgstr ""
+
+#, python-format
+msgid "The storage volume %(vol)s is not under an upload process."
+msgstr ""
+
+msgid "The upload chunk data will exceed the storage volume size."
+msgstr ""
+
+#, python-format
+msgid "Unable to upload chunk data to storage volume. Details: %(err)s."
+msgstr ""
+
 #, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "接口%(name)s不存在"
@@ -744,8 +817,8 @@ msgstr "不能为网络'%(name)s'找到一个未使用的IP网络地址。"
 msgid "The interface %(iface)s already exists."
 msgstr ""
 
-msgid "Network name must be a string"
-msgstr "网络名称必须是字符串"
+msgid "Network name must be a string without slashes (/) or quotes (\")"
+msgstr ""
 
 msgid "Supported network types are isolated, NAT and bridge"
 msgstr "支持的网络类型有隔离、NAT和桥接"
@@ -970,8 +1043,8 @@ msgstr "DEB仓库的组件必须以数组形式列出"
 msgid "Components to DEB repository must be a string"
 msgstr "DEB仓库的组件必须是一个字符串"
 
-msgid "Mirror list to DEB repository must be a string"
-msgstr "DEB仓库的镜像列表必须是一个字符串"
+msgid "Mirror list to repository must be a string"
+msgstr ""
 
 msgid "YUM Repository name must be string."
 msgstr "YUM仓库的名字必须是一个字符串"
@@ -991,8 +1064,8 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "软件仓库%(repo_id)s不存在。"
 
 msgid ""
-"Specify repository base URL or mirror list in order to create or update a "
-"YUM repository."
+"Specify repository base URL,  mirror list or metalink in order to create or "
+"update a YUM repository."
 msgstr ""
 
 msgid "Repository management tool was not recognized for your system."
@@ -1051,6 +1124,12 @@ msgstr "不能移除软件仓库。详情：'%(err)s'"
 msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr "软件仓库不支持配置类型: %(items)s"
+
+msgid "Repository metalink must be an http://, ftp:// or file:// URL."
+msgstr ""
+
+msgid "Cannot specify mirrorlist and metalink at the same time."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1210,6 +1289,9 @@ msgstr "网络"
 msgid "Type"
 msgstr "类型"
 
+msgid "MAC Address"
+msgstr ""
+
 msgid "Available system users and groups"
 msgstr "可选的系统用户及用户组"
 
@@ -1285,14 +1367,17 @@ msgstr "服务器端CDROM所使用的ISO文件路径"
 msgid "Attach"
 msgstr "装载"
 
-msgid "Cloning"
-msgstr "正在制作副本"
-
 msgid "Start"
 msgstr "启用"
 
 msgid "Reset"
 msgstr "重置"
+
+msgid "Pause"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Power Off"
 msgstr "关闭电源"
@@ -1354,6 +1439,12 @@ msgid ""
 msgstr ""
 "连接不上主机。请确保主机系统已启动，并且能通过网络连接主机。HTTP请求响应：%1"
 
+msgid "Unable to read file."
+msgstr ""
+
+msgid "Error while uploading file."
+msgstr ""
+
 msgid "Delete Confirmation"
 msgstr "删除确认"
 
@@ -1365,6 +1456,9 @@ msgstr "确认"
 
 msgid "Warning"
 msgstr "警告"
+
+msgid "Cloning..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "正在加载..."
@@ -1631,6 +1725,11 @@ msgstr ""
 "续吗？"
 
 msgid ""
+"The bridged VLAN tag may not work well with NetworkManager enabled. You "
+"should consider disabling it."
+msgstr ""
+
+msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr "这将永久删除存储池。是否继续？"
 
@@ -1665,9 +1764,6 @@ msgstr "存储池的路径不能为空。"
 
 msgid "NFS server mount path can not be blank."
 msgstr "NFS服务器挂载路径不能为空。"
-
-msgid "Invalid storage pool name. It should not contain '/'."
-msgstr "无效的存储池的名字。名字中不能包含‘/’。"
 
 msgid "Invalid NFS mount path."
 msgstr "无效的NFS挂载路径。"
@@ -1964,6 +2060,9 @@ msgstr "图形"
 msgid "Disk(GB)"
 msgstr "磁盘(GB)"
 
+msgid "Disk Format"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "CPU个数"
 
@@ -2053,6 +2152,9 @@ msgstr "VLAN号"
 
 msgid "Stop"
 msgstr "停止"
+
+msgid "%Used"
+msgstr ""
 
 msgid "Location"
 msgstr "路径"

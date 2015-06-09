@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 14:42-0300\n"
+"POT-Creation-Date: 2015-06-09 17:37-0300\n"
 "PO-Revision-Date: 2015-03-23 12:57+0000\n"
 "Last-Translator: Crístian Deives dos Santos Viana <cristiandeives@gmail."
 "com>\n"
@@ -240,8 +240,8 @@ msgstr ""
 msgid "Unable to connect to powered off virtual machine %(name)s."
 msgstr "Não foi possível conectar à máquina virtual desligada %(name)s."
 
-msgid "Virtual machine name must be a string"
-msgstr "Nome da máquina virtual deve ser um texto"
+msgid "Virtual machine name must be a string without slashes (/)"
+msgstr ""
 
 #, python-format
 msgid "Invalid template URI %(value)s specified for virtual machine"
@@ -335,6 +335,51 @@ msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr "Operação inválida para máquina virtual não-persistente %(name)s"
 
 #, python-format
+msgid "Cannot suspend VM '%(name)s' because it is not running."
+msgstr ""
+
+#, python-format
+msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Cannot resume VM '%(name)s' because it is not paused."
+msgstr ""
+
+#, python-format
+msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+msgid "Memory assigned is higher then the maximum allowed in the host."
+msgstr ""
+
+#, python-format
+msgid ""
+"VM '%(name)s' does not support live memory update. Update the memory with "
+"the machine offline to enable this feature."
+msgstr ""
+
+msgid "Only increase memory is allowed in active VMs"
+msgstr ""
+
+msgid ""
+"For live memory update, new memory value must be equal old memory value plus "
+"multiples of 1024 Mib"
+msgstr ""
+
+msgid "There are not enough free slots of 1024 Mib in the guest."
+msgstr ""
+
+msgid ""
+"Host's libvirt version does not support memory devices. Libvirt must be >= "
+"1.2.14"
+msgstr ""
+
+#, python-format
+msgid "Error attaching memory device. Details: %(error)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
@@ -372,9 +417,6 @@ msgid ""
 msgstr ""
 "Rede %(network)s especificada para a máquina virtual %(name)s não existe"
 
-msgid "Do not support guest interface hot plug attachment"
-msgstr "Não suporte conexão hot plug na interface do guest"
-
 msgid "Supported virtual machine interfaces type is only network"
 msgstr "Tipo de interface suportado das máquinas virtuais é somente rede"
 
@@ -389,9 +431,18 @@ msgstr ""
 "Especifique o tipo e a rede para adicionar uma nova interface da máquina "
 "virtual"
 
-msgid "Specify type and network to update a virtual machine interface"
+msgid "MAC Address must respect this format FF:FF:FF:FF:FF:FF"
 msgstr ""
-"Especifique o tipo e a rede para atualizar uma interface da máquina virtual"
+
+#, python-format
+msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
+msgstr ""
+
+msgid "Invalid MAC Address"
+msgstr ""
+
+msgid "Cannot change MAC address of a running virtual machine"
+msgstr ""
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -566,8 +617,8 @@ msgstr "Tipo de storage pool não suportado: %(type)s"
 msgid "Error while retrieving storage pool XML to %(pool)s"
 msgstr "Erro durante a leitura do XML do storage pool %(pool)s"
 
-msgid "Storage pool name must be a string"
-msgstr "Nome do storage pool deve ser um texto"
+msgid "Storage pool name must be a string without slashes (/)"
+msgstr ""
 
 msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
@@ -777,6 +828,27 @@ msgstr ""
 "Não foi possível clonar o volume de storage '%(name)s' no pool '%(pool)s'. "
 "Detalhes: %(err)s"
 
+msgid "Specify chunk data and its size to upload a file."
+msgstr ""
+
+msgid "In order to upload a storage volume, specify the 'upload' parameter."
+msgstr ""
+
+msgid ""
+"Unable to upload chunk data as it does not match with requested chunk size."
+msgstr ""
+
+#, python-format
+msgid "The storage volume %(vol)s is not under an upload process."
+msgstr ""
+
+msgid "The upload chunk data will exceed the storage volume size."
+msgstr ""
+
+#, python-format
+msgid "Unable to upload chunk data to storage volume. Details: %(err)s."
+msgstr ""
+
 #, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "Interface %(name)s não existe"
@@ -822,8 +894,8 @@ msgstr "Não foi possível encontrar um endereço IP livre para a rede '%(name)s
 msgid "The interface %(iface)s already exists."
 msgstr "A interface %(iface)s já existe"
 
-msgid "Network name must be a string"
-msgstr "Nome da rede deve ser um texto"
+msgid "Network name must be a string without slashes (/) or quotes (\")"
+msgstr ""
 
 msgid "Supported network types are isolated, NAT and bridge"
 msgstr "Tipos de rede suportados são isolada, NAT e bridge"
@@ -1078,8 +1150,8 @@ msgstr "Componentes para o repositório DEB deve ser um array"
 msgid "Components to DEB repository must be a string"
 msgstr "Componentes para o repositório DEB deve ser um texto"
 
-msgid "Mirror list to DEB repository must be a string"
-msgstr "Lista de mirror para o repositório DEB deve ser um texto"
+msgid "Mirror list to repository must be a string"
+msgstr ""
 
 msgid "YUM Repository name must be string."
 msgstr "Nome do repositório YUM deve ser um texto."
@@ -1100,11 +1172,9 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "Repositório %(repo_id)s não existe."
 
 msgid ""
-"Specify repository base URL or mirror list in order to create or update a "
-"YUM repository."
+"Specify repository base URL,  mirror list or metalink in order to create or "
+"update a YUM repository."
 msgstr ""
-"Especifique a URL base do repositório ou a lista de mirror para criar ou "
-"atualizar um repositório YUM."
 
 msgid "Repository management tool was not recognized for your system."
 msgstr ""
@@ -1170,6 +1240,12 @@ msgid ""
 msgstr ""
 "Itens de configuração '%(items)s' não são suportados pelo gerenciador de "
 "repositórios."
+
+msgid "Repository metalink must be an http://, ftp:// or file:// URL."
+msgstr ""
+
+msgid "Cannot specify mirrorlist and metalink at the same time."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1344,6 +1420,9 @@ msgstr "Rede"
 msgid "Type"
 msgstr "Tipo"
 
+msgid "MAC Address"
+msgstr ""
+
 msgid "Available system users and groups"
 msgstr "Usuários e grupos de sistema disponíveis"
 
@@ -1420,14 +1499,17 @@ msgstr "O caminho do arquivo ISO para o CDROM no servidor."
 msgid "Attach"
 msgstr "Adicionar"
 
-msgid "Cloning"
-msgstr "Clonando"
-
 msgid "Start"
 msgstr "Iniciar"
 
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgid "Pause"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Power Off"
 msgstr "Forçar desligamento"
@@ -1492,6 +1574,12 @@ msgstr ""
 "ligado e se você possui conectividade de rede com ele. Resposta da "
 "requisição HTTP %1. "
 
+msgid "Unable to read file."
+msgstr ""
+
+msgid "Error while uploading file."
+msgstr ""
+
 msgid "Delete Confirmation"
 msgstr "Confirmação de remoção"
 
@@ -1503,6 +1591,9 @@ msgstr "Confirmar"
 
 msgid "Warning"
 msgstr "Aviso"
+
+msgid "Cloning..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "Carregando..."
@@ -1796,6 +1887,11 @@ msgstr ""
 "permantemente. Deseja continuar?"
 
 msgid ""
+"The bridged VLAN tag may not work well with NetworkManager enabled. You "
+"should consider disabling it."
+msgstr ""
+
+msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr "O storage pool vai ser permanentemente removido. Deseja continuar?"
 
@@ -1832,9 +1928,6 @@ msgstr "O caminho do storage pool não pode ser vazio."
 
 msgid "NFS server mount path can not be blank."
 msgstr "Caminho de montagem do servidor de NFS não pode ser vazio."
-
-msgid "Invalid storage pool name. It should not contain '/'."
-msgstr "Nome do storage pool inválido. Ele não deve conter '/'."
 
 msgid "Invalid NFS mount path."
 msgstr "Caminho de montagem do NFS inválido."
@@ -2140,6 +2233,9 @@ msgstr "Gráficos"
 msgid "Disk(GB)"
 msgstr "Disco (GB)"
 
+msgid "Disk Format"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "Quantidade de CPUs"
 
@@ -2230,6 +2326,9 @@ msgstr "ID da VLAN"
 
 msgid "Stop"
 msgstr "Parar"
+
+msgid "%Used"
+msgstr ""
 
 msgid "Location"
 msgstr "Localização"
