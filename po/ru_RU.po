@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-23 09:36-0300\n"
+"POT-Creation-Date: 2015-06-09 17:37-0300\n"
 "PO-Revision-Date: 2014-08-28 17:32+0000\n"
 "Last-Translator: Aline Manera <aline.manera@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kimchi/language/"
@@ -214,8 +214,8 @@ msgstr "Не удалось получить виртуальную машину
 msgid "Unable to connect to powered off virtual machine %(name)s."
 msgstr ""
 
-msgid "Virtual machine name must be a string"
-msgstr "Имя виртуальной машины должно быть строкой"
+msgid "Virtual machine name must be a string without slashes (/)"
+msgstr ""
 
 #, python-format
 msgid "Invalid template URI %(value)s specified for virtual machine"
@@ -304,6 +304,51 @@ msgid "Invalid operation for non-persistent virtual machine %(name)s"
 msgstr ""
 
 #, python-format
+msgid "Cannot suspend VM '%(name)s' because it is not running."
+msgstr ""
+
+#, python-format
+msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Cannot resume VM '%(name)s' because it is not paused."
+msgstr ""
+
+#, python-format
+msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
+msgstr ""
+
+msgid "Memory assigned is higher then the maximum allowed in the host."
+msgstr ""
+
+#, python-format
+msgid ""
+"VM '%(name)s' does not support live memory update. Update the memory with "
+"the machine offline to enable this feature."
+msgstr ""
+
+msgid "Only increase memory is allowed in active VMs"
+msgstr ""
+
+msgid ""
+"For live memory update, new memory value must be equal old memory value plus "
+"multiples of 1024 Mib"
+msgstr ""
+
+msgid "There are not enough free slots of 1024 Mib in the guest."
+msgstr ""
+
+msgid ""
+"Host's libvirt version does not support memory devices. Libvirt must be >= "
+"1.2.14"
+msgstr ""
+
+#, python-format
+msgid "Error attaching memory device. Details: %(error)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
@@ -333,9 +378,6 @@ msgid ""
 msgstr ""
 "Сеть %(network)s, указанная для виртуальной машины %(name)s, не существует"
 
-msgid "Do not support guest interface hot plug attachment"
-msgstr "Не поддерживается оперативное подключение интерфейсов гостевой системы"
-
 msgid "Supported virtual machine interfaces type is only network"
 msgstr "Поддерживается только один тип интерфейсов виртуальной машины - сеть"
 
@@ -349,8 +391,18 @@ msgstr ""
 msgid "Specify type and network to add a new virtual machine interface"
 msgstr "Укажите тип и сеть для добавления нового интерфейса виртуальной машины"
 
-msgid "Specify type and network to update a virtual machine interface"
-msgstr "Укажите тип и сеть для добавления нового интерфейса виртуальной машины"
+msgid "MAC Address must respect this format FF:FF:FF:FF:FF:FF"
+msgstr ""
+
+#, python-format
+msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
+msgstr ""
+
+msgid "Invalid MAC Address"
+msgstr ""
+
+msgid "Cannot change MAC address of a running virtual machine"
+msgstr ""
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -513,8 +565,8 @@ msgstr "Неподдерживаемый тип пула памяти: %(type)s"
 msgid "Error while retrieving storage pool XML to %(pool)s"
 msgstr ""
 
-msgid "Storage pool name must be a string"
-msgstr "Имя пула памяти должно быть строкой"
+msgid "Storage pool name must be a string without slashes (/)"
+msgstr ""
 
 msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
@@ -705,6 +757,27 @@ msgid ""
 "%(err)s"
 msgstr ""
 
+msgid "Specify chunk data and its size to upload a file."
+msgstr ""
+
+msgid "In order to upload a storage volume, specify the 'upload' parameter."
+msgstr ""
+
+msgid ""
+"Unable to upload chunk data as it does not match with requested chunk size."
+msgstr ""
+
+#, python-format
+msgid "The storage volume %(vol)s is not under an upload process."
+msgstr ""
+
+msgid "The upload chunk data will exceed the storage volume size."
+msgstr ""
+
+#, python-format
+msgid "Unable to upload chunk data to storage volume. Details: %(err)s."
+msgstr ""
+
 #, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "Интерфейс %(name)s не существует"
@@ -751,8 +824,8 @@ msgstr "Не найден свободный IP-адрес для сети %(nam
 msgid "The interface %(iface)s already exists."
 msgstr ""
 
-msgid "Network name must be a string"
-msgstr "Имя сети должно быть строкой"
+msgid "Network name must be a string without slashes (/) or quotes (\")"
+msgstr ""
 
 msgid "Supported network types are isolated, NAT and bridge"
 msgstr "Поддерживаемые типы сетей: isolated, NAT и bridge"
@@ -985,8 +1058,8 @@ msgstr "Компоненты для хранилища DEB должны быть
 msgid "Components to DEB repository must be a string"
 msgstr "Компоненты для хранилища DEB должны быть строкой"
 
-msgid "Mirror list to DEB repository must be a string"
-msgstr "Список зеркальных копий для хранилища DEB должен быть строкой"
+msgid "Mirror list to repository must be a string"
+msgstr ""
 
 msgid "YUM Repository name must be string."
 msgstr "Имя хранилища YUM должно быть строкой."
@@ -1008,8 +1081,8 @@ msgid "Repository %(repo_id)s does not exist."
 msgstr "Хранилище %(repo_id)s не существует."
 
 msgid ""
-"Specify repository base URL or mirror list in order to create or update a "
-"YUM repository."
+"Specify repository base URL,  mirror list or metalink in order to create or "
+"update a YUM repository."
 msgstr ""
 
 msgid "Repository management tool was not recognized for your system."
@@ -1067,6 +1140,12 @@ msgstr "Не удалось удалить хранилище. Сведения:
 #, python-format
 msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
+msgstr ""
+
+msgid "Repository metalink must be an http://, ftp:// or file:// URL."
+msgstr ""
+
+msgid "Cannot specify mirrorlist and metalink at the same time."
 msgstr ""
 
 #, python-format
@@ -1227,6 +1306,9 @@ msgstr "Сеть"
 msgid "Type"
 msgstr "Тип"
 
+msgid "MAC Address"
+msgstr ""
+
 msgid "Available system users and groups"
 msgstr ""
 
@@ -1302,14 +1384,17 @@ msgstr "Путь к файлу ISO для CDROM на сервере."
 msgid "Attach"
 msgstr "Подключить"
 
-msgid "Cloning"
-msgstr ""
-
 msgid "Start"
 msgstr "Запустить"
 
 msgid "Reset"
 msgstr "Сбросить"
+
+msgid "Pause"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Power Off"
 msgstr "Выключить"
@@ -1372,6 +1457,12 @@ msgstr ""
 "Нет связи с системой хоста. Убедитесь, что система хоста работает и доступна "
 "для подключения. Ответ на запрос HTTP: %1. "
 
+msgid "Unable to read file."
+msgstr ""
+
+msgid "Error while uploading file."
+msgstr ""
+
 msgid "Delete Confirmation"
 msgstr "Подтверждение удаления"
 
@@ -1383,6 +1474,9 @@ msgstr "Подтвердить"
 
 msgid "Warning"
 msgstr "Предупреждение"
+
+msgid "Cloning..."
+msgstr ""
 
 msgid "Loading..."
 msgstr "Загружается..."
@@ -1657,6 +1751,11 @@ msgstr ""
 "его удалит. Продолжить?"
 
 msgid ""
+"The bridged VLAN tag may not work well with NetworkManager enabled. You "
+"should consider disabling it."
+msgstr ""
+
+msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr "Пул памяти будет безвозвратно удален. Продолжить?"
 
@@ -1693,9 +1792,6 @@ msgstr "Не указан путь к пулу памяти."
 
 msgid "NFS server mount path can not be blank."
 msgstr "Не указан путь монтирования сервера NFS."
-
-msgid "Invalid storage pool name. It should not contain '/'."
-msgstr "Недопустимое имя пула памяти. В имени не должно быть символов '/'."
 
 msgid "Invalid NFS mount path."
 msgstr "Недопустимый путь монтирования NFS."
@@ -1998,6 +2094,9 @@ msgstr "Графика"
 msgid "Disk(GB)"
 msgstr ""
 
+msgid "Disk Format"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "Количество процессоров"
 
@@ -2087,6 +2186,9 @@ msgstr ""
 
 msgid "Stop"
 msgstr "Завершить"
+
+msgid "%Used"
+msgstr ""
 
 msgid "Location"
 msgstr "Расположение"
