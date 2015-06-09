@@ -259,6 +259,12 @@ class VMTemplate(object):
             <input type='tablet' bus='%(kbd_bus)s'> </input>
         """
 
+        video = """
+            <video>
+                <model type='%(video_model)s'/>
+            </video>
+        """
+
         input_output = ""
         if 'mouse_bus' in self.info.keys():
             input_output += mouse % self.info
@@ -268,6 +274,8 @@ class VMTemplate(object):
             input_output += tablet % self.info
         if 'sound_model' in self.info.keys():
             input_output += sound % self.info
+        if 'video_model' in self.info.keys():
+            input_output += video % self.info
         return input_output
 
     def _get_cpu_xml(self):
