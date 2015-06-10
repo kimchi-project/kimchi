@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun 10 13:02:17 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:03:06</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-9"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-10"></a><span class="tm">13:04:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to enable storage volume upload on UI</span>
+<a name="l-11"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated the .po files for 1.5 release</span>
+<a name="l-12"></a><span class="tm">13:04:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now testing Kimchi and working on bug fixes</span>
+<a name="l-13"></a><span class="tm">13:05:09</span><span class="nk"> &lt;vianac&gt;</span> <span class="cmd">#info </span><span class="cmdline">vianac testing Kimchi on Fedora 22 and filling up the test matrix; reviewed patches on the mailing list; will translate the new strings for pt_BR;</span>
+<a name="l-14"></a><span class="tm">13:05:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">alinefm needs to update the po files in the Transifex</span>
+<a name="l-15"></a><span class="tm">13:05:47</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to enable guest memory hotplug</span>
+<a name="l-16"></a><span class="tm">13:05:56</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent YUM API replacement patches</span>
+<a name="l-17"></a><span class="tm">13:05:58</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed a handful of patches in Kimchi ML.</span>
+<a name="l-18"></a><span class="tm">13:06:50</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to enable UI of disk format selection in Template edit screen</span>
+<a name="l-19"></a><span class="tm">13:07:49</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, any update?
+<a name="l-20"></a><span class="tm">13:08:00</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Working in fixes for some tests</span>
+<a name="l-21"></a><span class="tm">13:09:06</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-22"></a><span class="tm">13:09:10</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-23"></a><span class="tm">13:09:15</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-24"></a><span class="tm">13:09:33</span><span class="nk"> &lt;alinefm&gt;</span> I have sent an email about the code freeze for 1.5 release and pointing to the test matrix
+<a name="l-25"></a><span class="tm">13:09:44</span><span class="nk"> &lt;alinefm&gt;</span> vianac will do the tests on Fedora as usual
+<a name="l-26"></a><span class="tm">13:09:49</span><span class="nk"> &lt;alinefm&gt;</span> I am testing on Ubuntu
+<a name="l-27"></a><span class="tm">13:10:15</span><span class="nk"> &lt;alinefm&gt;</span> I will ask ramonn to test on RHEL so we can make sure everything is working properly on major Linux distributions
+<a name="l-28"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> but as I said the focus during this phase is on bugs
+<a name="l-29"></a><span class="tm">13:10:59</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, rotru, danielhb, vianac, ok?
+<a name="l-30"></a><span class="tm">13:11:06</span><span class="nk"> &lt;vianac&gt;</span> ok
+<a name="l-31"></a><span class="tm">13:11:14</span><span class="nk"> &lt;alinefm&gt;</span> and do you have any other topic for today?
+<a name="l-32"></a><span class="tm">13:11:42</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I want to ask about the distro support. Does kimchi support all that distros yet?
+<a name="l-33"></a><span class="tm">13:11:50</span><span class="nk"> &lt;rotru&gt;</span> ok
+<a name="l-34"></a><span class="tm">13:11:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, opensuse, centOS .... ?
+<a name="l-35"></a><span class="tm">13:12:04</span><span class="nk"> &lt;ramonn&gt;</span> sorry for being late
+<a name="l-36"></a><span class="tm">13:12:17</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn working on review for fix make install</span>
+<a name="l-37"></a><span class="tm">13:12:44</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, Kimchi does not support any distro officially =D
+<a name="l-38"></a><span class="tm">13:12:47</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn investigating why debian is not being installed on pkvm</span>
+<a name="l-39"></a><span class="tm">13:12:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, lol true
+<a name="l-40"></a><span class="tm">13:12:57</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, let me rephrase
+<a name="l-41"></a><span class="tm">13:13:00</span><span class="nk"> &lt;alinefm&gt;</span> we make an effort to make sure Kimchi runs well on most of them
+<a name="l-42"></a><span class="tm">13:13:15</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, vianac is the official Fedora focal point
+<a name="l-43"></a><span class="tm">13:13:24</span><span class="nk"> &lt;alinefm&gt;</span> and Cedric for openSUSE
+<a name="l-44"></a><span class="tm">13:13:25</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, when testing for a release, do we need to care about opensuse and centos?
+<a name="l-45"></a><span class="tm">13:13:29</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, i can run the tests on rhel
+<a name="l-46"></a><span class="tm">13:14:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, for openSUSE, Cedric keeps one eye on it
+<a name="l-47"></a><span class="tm">13:14:19</span><span class="nk"> &lt;alinefm&gt;</span> for centos, I don't know if there is someone using Kimchi on it
+<a name="l-48"></a><span class="tm">13:14:32</span><span class="nk"> &lt;alinefm&gt;</span> but from the github issues I can see some issues reported on centos
+<a name="l-49"></a><span class="tm">13:14:38</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I am asking about it because I've read something about CentOS in IRC or perhaps github ...
+<a name="l-50"></a><span class="tm">13:14:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, yeap
+<a name="l-51"></a><span class="tm">13:15:06</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, usually we most test on Fedora and Ubuntu
+<a name="l-52"></a><span class="tm">13:15:20</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I believe this approach "best effort" applies to browsers ?
+<a name="l-53"></a><span class="tm">13:15:27</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-54"></a><span class="tm">13:15:42</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I can think we have many people testing on IE, for example
+<a name="l-55"></a><span class="tm">13:15:45</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, alright. thanks for clarifying
+<a name="l-56"></a><span class="tm">13:15:48</span><span class="nk"> &lt;alinefm&gt;</span> even on mobile browsers
+<a name="l-57"></a><span class="tm">13:16:01</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, who uses mobile browsers anyway
+<a name="l-58"></a><span class="tm">13:16:07</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, kimchi needs an app!!!!
+<a name="l-59"></a><span class="tm">13:16:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">ramonn will do the tests on RHEL for 1.5 release</span>
+<a name="l-60"></a><span class="tm">13:16:22</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, agree!
+<a name="l-61"></a><span class="tm">13:16:32</span><span class="nk"> &lt;alinefm&gt;</span> we could start with Android =D
+<a name="l-62"></a><span class="tm">13:16:35</span><span class="nk"> &lt;alinefm&gt;</span> vianac, ^ hehehe
+<a name="l-63"></a><span class="tm">13:16:41</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, LOL
+<a name="l-64"></a><span class="tm">13:17:11</span><span class="nk"> &lt;vianac&gt;</span> heheh
+<a name="l-65"></a><span class="tm">13:17:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-66"></a><span class="tm">13:18:47</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-67"></a><span class="tm">13:19:07</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining! And I am looking forward for the 1.5 GA
+<a name="l-68"></a><span class="tm">13:19:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

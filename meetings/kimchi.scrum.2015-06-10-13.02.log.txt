@@ -1,0 +1,68 @@
+13:02:17 <alinefm> #startmeeting
+13:02:17 <kimchi-bot> Meeting started Wed Jun 10 13:02:17 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:17 <alinefm> #meetingname scrum
+13:02:17 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:06 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:03:06 <alinefm> anything else?
+13:04:00 <alinefm> #topic Status
+13:04:00 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:27 <alinefm> #info alinefm sent patches to enable storage volume upload on UI
+13:04:35 <alinefm> #info alinefm updated the .po files for 1.5 release
+13:04:45 <alinefm> #info alinefm is now testing Kimchi and working on bug fixes
+13:05:09 <vianac> #info vianac testing Kimchi on Fedora 22 and filling up the test matrix; reviewed patches on the mailing list; will translate the new strings for pt_BR;
+13:05:39 <alinefm> #action alinefm needs to update the po files in the Transifex
+13:05:47 <rotru> #info rotru Sent patches to enable guest memory hotplug
+13:05:56 <danielhb> #info danielhb sent YUM API replacement patches
+13:05:58 <danielhb> #info danielhb reviewed a handful of patches in Kimchi ML.
+13:06:50 <rotru> #info rotru Sent patches to enable UI of disk format selection in Template edit screen
+13:07:49 <alinefm> ramonn, any update?
+13:08:00 <rotru> #info rotru Working in fixes for some tests
+13:09:06 <alinefm> alright...
+13:09:10 <alinefm> let's move on
+13:09:15 <alinefm> #topic Open Discussion
+13:09:33 <alinefm> I have sent an email about the code freeze for 1.5 release and pointing to the test matrix
+13:09:44 <alinefm> vianac will do the tests on Fedora as usual
+13:09:49 <alinefm> I am testing on Ubuntu
+13:10:15 <alinefm> I will ask ramonn to test on RHEL so we can make sure everything is working properly on major Linux distributions
+13:10:34 <alinefm> but as I said the focus during this phase is on bugs
+13:10:59 <alinefm> ramonn, rotru, danielhb, vianac, ok?
+13:11:06 <vianac> ok
+13:11:14 <alinefm> and do you have any other topic for today?
+13:11:42 <danielhb> alinefm, I want to ask about the distro support. Does kimchi support all that distros yet?
+13:11:50 <rotru> ok
+13:11:55 <danielhb> alinefm, opensuse, centOS .... ?
+13:12:04 <ramonn> sorry for being late
+13:12:17 <ramonn> #info ramonn working on review for fix make install
+13:12:44 <alinefm> danielhb, Kimchi does not support any distro officially =D
+13:12:47 <ramonn> #info ramonn investigating why debian is not being installed on pkvm
+13:12:53 <danielhb> alinefm, lol true
+13:12:57 <danielhb> alinefm, let me rephrase
+13:13:00 <alinefm> we make an effort to make sure Kimchi runs well on most of them
+13:13:15 <alinefm> danielhb, vianac is the official Fedora focal point
+13:13:24 <alinefm> and Cedric for openSUSE
+13:13:25 <danielhb> alinefm, when testing for a release, do we need to care about opensuse and centos?
+13:13:29 <ramonn> alinefm, i can run the tests on rhel
+13:14:03 <alinefm> danielhb, for openSUSE, Cedric keeps one eye on it
+13:14:19 <alinefm> for centos, I don't know if there is someone using Kimchi on it
+13:14:32 <alinefm> but from the github issues I can see some issues reported on centos
+13:14:38 <danielhb> alinefm, I am asking about it because I've read something about CentOS in IRC or perhaps github ...
+13:14:52 <alinefm> danielhb, yeap
+13:15:06 <alinefm> danielhb, usually we most test on Fedora and Ubuntu
+13:15:20 <danielhb> alinefm, I believe this approach "best effort" applies to browsers ?
+13:15:27 <alinefm> yeap
+13:15:42 <alinefm> danielhb, I can think we have many people testing on IE, for example
+13:15:45 <danielhb> alinefm, alright. thanks for clarifying
+13:15:48 <alinefm> even on mobile browsers
+13:16:01 <danielhb> alinefm, who uses mobile browsers anyway
+13:16:07 <danielhb> alinefm, kimchi needs an app!!!!
+13:16:20 <alinefm> #action ramonn will do the tests on RHEL for 1.5 release
+13:16:22 <alinefm> danielhb, agree!
+13:16:32 <alinefm> we could start with Android =D
+13:16:35 <alinefm> vianac, ^ hehehe
+13:16:41 <danielhb> alinefm, LOL
+13:17:11 <vianac> heheh
+13:17:31 <alinefm> anything else, guys?
+13:18:47 <alinefm> ok...
+13:19:07 <alinefm> thanks everyone for joining! And I am looking forward for the 1.5 GA
+13:19:14 <alinefm> #endmeeting
