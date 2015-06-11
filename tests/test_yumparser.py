@@ -23,6 +23,7 @@ import unittest
 
 from kimchi.model import model
 from kimchi.yumparser import delete_repo_from_file, get_repo_files
+from kimchi.yumparser import get_yum_packages_list_update
 from kimchi.yumparser import get_yum_repositories, write_repo_to_file
 from kimchi.yumparser import YumRepoObject
 
@@ -58,6 +59,22 @@ def _create_fake_repos_file():
         f.writelines(file_data)
 
     return tmp_file_name
+
+
+def _generate_yumcheckupdate_output():
+    output = """
+Repository 'REPOSITORY1' is missing name in configuration, using id
+Repository 'REPOSITORY1-OPTIONAL' is missing name in configuration, using id
+
+PACKAGE1.noarch         20150611.-gg-FAKE1       REPOSITORY1
+PACKAGE2.x86_64         20150611.-no-FAKE2       REPOSITORY2
+PACKAGE3.dot.dot.i386   20150611.-re-FAKE3       REPOSITORY3
+
+Obsoleting Packages
+OBSOLETE4.dot.dot.i386       20150611.FAKE4       REPOSITORY4
+OBSOLETE5.dot.dot.fakearch   20150611.FAKE5       REPOSITORY5
+    """
+    return output
 
 
 @unittest.skipIf(not _is_yum_distro(), 'Skipping: YUM exclusive test')
@@ -109,3 +126,13 @@ class YumParserTests(unittest.TestCase):
         repos = get_yum_repositories()
         repos_id = repos.keys()
         self.assertNotIn('fake-repo-3', repos_id)
+
+    def test_yum_checkupdate_parsing(self):
+        output = _generate_yumcheckupdate_output()
+        packages = get_yum_packages_list_update(output)
+        self.assertEqual(len(packages), 5)
+        self.assertEqual(packages[0].ui_from_repo, 'REPOSITORY1')
+        self.assertEqual(packages[1].version, '20150611.-no-FAKE2')
+        self.assertEqual(packages[2].name, 'PACKAGE3.dot.dot')
+        self.assertEqual(packages[3].arch, 'i386')
+        self.assertEqual(packages[4].arch, 'fakearch')
