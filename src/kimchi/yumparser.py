@@ -216,6 +216,27 @@ class YumUpdatePackageObject(object):
         self.ui_from_repo = repo
 
 
+def _include_line_checkupdate_output(line):
+    tokens = line.split()
+
+    if len(tokens) != 3:
+        return False
+
+    if '.' not in tokens[0]:
+        return False
+
+    return True
+
+
+def _filter_lines_checkupdate_output(output):
+    if output is None:
+        return []
+
+    out = [l for l in output.split('\n')
+           if _include_line_checkupdate_output(l)]
+    return out
+
+
 def _get_yum_checkupdate_output():
     cmd = ['yum', 'check-update', '-d0']
     yum_update_cmd = subprocess.Popen(cmd,
@@ -225,23 +246,24 @@ def _get_yum_checkupdate_output():
     if error != '':
         return None
 
-    return out.split()
+    return out
 
 
-def get_yum_packages_list_update():
-    yum_checkupdate_output = _get_yum_checkupdate_output()
-    if yum_checkupdate_output is None:
-        return None
+def get_yum_packages_list_update(checkupdate_output=None):
+    if checkupdate_output is None:
+        checkupdate_output = _get_yum_checkupdate_output()
+
+    filtered_output = _filter_lines_checkupdate_output(checkupdate_output)
 
     packages = []
-    index = 0
-    while index < len(yum_checkupdate_output):
-        name_arch = yum_checkupdate_output[index]
+    for line in filtered_output:
+        line = line.split()
+        index = 0
+        name_arch = line[index]
         index += 1
-        version = yum_checkupdate_output[index]
+        version = line[index]
         index += 1
-        repo = yum_checkupdate_output[index]
-        index += 1
+        repo = line[index]
         name, arch = name_arch.rsplit('.', 1)
         packages.append(YumUpdatePackageObject(name, arch, version, repo))
 
