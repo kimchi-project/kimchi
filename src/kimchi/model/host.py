@@ -91,7 +91,7 @@ class HostModel(object):
         res['memory'] = 0L
 
         # Include IBM PowerKVM name to supported distro names
-        _sup_distros = platform._supported_dists + ('ibm_powerkvm',)
+        _sup_distros = platform._supported_dists + ('ibm_powerkvm','arch',)
         # 'fedora' '17' 'Beefy Miracle'
         distro, version, codename = platform.linux_distribution(
             supported_dists=_sup_distros)

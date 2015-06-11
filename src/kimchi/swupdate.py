@@ -26,6 +26,9 @@ from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log, run_command
 from kimchi.yumparser import get_yum_packages_list_update
 
+import re
+import os
+
 
 class SoftwareUpdate(object):
     __metaclass__ = Singleton
@@ -63,8 +66,14 @@ class SoftwareUpdate(object):
                     kimchi_log.info("Loading ZypperUpdate features.")
                     self._pkg_mnger = ZypperUpdate()
                 else:
-                    raise Exception("There is no compatible package manager "
-                                    "for this system.")
+                    pacman_help = ["pacman", "--help"]
+                    (stdout, stderr, returncode) = run_command(pacman_help)
+                    if returncode == 0:
+                        kimchi_log.info("Loading PacmanUpdate features.")
+                        self._pkg_mnger = PacmanUpdate()
+                    else:
+                        raise Exception("There is no compatible package manager "
+                                        "for this system.")
 
     def _scanUpdates(self):
         """
@@ -260,3 +269,66 @@ class ZypperUpdate(object):
         self._refreshUpdateList()
         kimchiLock.release()
         return self._pkgs
+
+class PacmanUpdate(object):
+    """
+    Class to represent and operate with Pacman software update system.
+    It's loaded only on those systems listed at PACMAN_DISTROS and loads
+    necessary modules in runtime.
+    """
+
+    def __init__(self):
+        self._pkgs = {}
+        self.update_cmd = ["pacman", "-Su", "--noconfirm", "--noprogressbar"]
+
+    def _refreshUpdateList(self):
+        """
+        Update the list of packages to be updated in the system.
+        """
+        self._pkgs = []
+        cmd_update = ["pacman", "-Sy"]
+        cmd_list = ["pacman", "-Qu"]
+        (stdout, stderr, rc) = run_command(cmd_update)
+        if rc > 0:
+            raise OperationFailed('KCHPKGUPD0003E', {'err': stderr})
+
+        (stdout, stderr, rc) = run_command(cmd_list)
+        if rc > 0:
+            if not (rc == 1 and len(stdout)==0):
+                raise OperationFailed('KCHPKGUPD0003E', {'err': stderr})
+
+        os.environ['LANG'] = 'C'
+
+        for line in stdout.split('\n'):
+            if line.find('->') >= 0:
+                info = line.split(" ")
+                (sout, serr, ret) = run_command(["pacman", "-Si", info[0]])
+                if len(sout) > 0:
+                    for l in sout.split('\n'):
+                        i = re.split('\s+', l.strip())
+                        if len(i) >= 2:
+                            if i[0] == "Repository":
+                                repo = i[2]
+                            elif i[0] == "Architecture":
+                                arch = i[2]
+                if arch == "any":
+                    arch = "noarch"
+                package = {
+                    'package_name': info[0],
+                    'version': info[3],
+                    'arch': arch,
+                    'repository': repo
+                    }
+                self._pkgs.append(package)
+
+    def getPackagesList(self):
+        """
+        Return a list of package's dictionaries. Each dictionary contains the
+        information about a package, in the format
+        package = {'package_name': <string>, 'version': <string>,
+                   'arch': <string>, 'repository': <string>}
+        """
+        self._refreshUpdateList()
+        return self._pkgs
+
+
