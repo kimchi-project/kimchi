@@ -25,6 +25,7 @@ from lxml import etree, objectify
 from lxml.builder import E
 
 from kimchi.exception import InvalidOperation, InvalidParameter, NotFoundError
+from kimchi.exception import OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.host import DeviceModel, DevicesModel
 from kimchi.model.utils import get_vm_config_flag
@@ -122,9 +123,23 @@ class VMHostDevsModel(object):
         dev_name = params['name']
         self._passthrough_device_validate(dev_name)
         dev_info = DeviceModel(conn=self.conn).lookup(dev_name)
-        attach_device = getattr(
-            self, '_attach_%s_device' % dev_info['device_type'])
-        return attach_device(vmid, dev_info)
+
+        with RollbackContext() as rollback:
+            try:
+                dev = self.conn.get().nodeDeviceLookupByName(dev_name)
+                dev.dettach()
+            except Exception:
+                raise OperationFailed('KCHVMHDEV0005E', {'name': dev_name})
+            else:
+                rollback.prependDefer(dev.reAttach)
+
+            attach_device = getattr(
+                self, '_attach_%s_device' % dev_info['device_type'])
+
+            info = attach_device(vmid, dev_info)
+            rollback.commitAll()
+
+        return info
 
     def _get_pci_device_xml(self, dev_info):
         if 'detach_driver' not in dev_info:
