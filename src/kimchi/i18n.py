@@ -126,6 +126,7 @@ messages = {
                         "For Intel CPU, add intel_iommu=on to your Kernel parameter in /boot/grub2/grub.conf. "
                         "For AMD CPU, add iommu=pt iommu=1."),
     "KCHVMHDEV0004E": _('"name" should be a device name string'),
+    "KCHVMHDEV0005E": _('The device %(name)s is probably in use by the host. Unable to attach it to the guest.'),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),
