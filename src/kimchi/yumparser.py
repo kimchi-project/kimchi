@@ -109,8 +109,9 @@ def _get_repos_from_file(repo_file):
             value = value.strip()
             current_repo.set_attribute(key, value)
 
-        # add the last repo from file
-        repos_from_file[current_repo_id] = current_repo
+        # add the last repo from file.
+        if current_repo is not None:
+            repos_from_file[current_repo_id] = current_repo
 
     return repos_from_file
 
