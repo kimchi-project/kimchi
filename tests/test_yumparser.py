@@ -22,6 +22,7 @@ import tempfile
 import unittest
 
 from kimchi.model import model
+from kimchi.rollbackcontext import RollbackContext
 from kimchi.yumparser import delete_repo_from_file, get_repo_files
 from kimchi.yumparser import get_yum_packages_list_update
 from kimchi.yumparser import get_yum_repositories, write_repo_to_file
@@ -44,6 +45,21 @@ def _create_fake_repos(repo_file_name):
     repo4 = YumRepoObject('fake-repo-4', repo_file_name)
     repos = [repo1, repo2, repo3, repo4]
     return repos
+
+
+def _create_empty_repo_file():
+    data = """
+#
+# This is a repository file with no repositories at all
+# No repositories must be added after reading this file.
+#
+    """
+    _, tmp_file_name = tempfile.mkstemp(suffix='.repo',
+                                        dir='/etc/yum.repos.d')
+    with open(tmp_file_name, 'w') as f:
+        f.writelines(data)
+
+    return tmp_file_name
 
 
 def _create_fake_repos_file():
@@ -95,6 +111,14 @@ class YumParserTests(unittest.TestCase):
         repo_files = get_repo_files()
         repo_objects = get_yum_repositories()
         self.assertGreaterEqual(len(repo_objects), len(repo_files))
+
+    def test_empty_repo_file(self):
+        with RollbackContext() as rollback:
+            repos = get_yum_repositories()
+            tmp_file_name = _create_empty_repo_file()
+            rollback.prependDefer(os.remove, tmp_file_name)
+            repos_after = get_yum_repositories()
+            self.assertEqual(len(repos_after), len(repos))
 
     def test_update_repo_attributes(self):
         repos = get_yum_repositories()
