@@ -308,7 +308,7 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
             if dir_parent == 1:
                 # read the dir name using the namelen
                 dir_name = path_table_data[i: i+dir_namelen].rstrip()
-                if dir_name == 'ppc':
+                if dir_name.lower() == 'ppc':
                     # stop searching, dir was found
                     break
             # Need to consider the optional padding field as well
@@ -378,7 +378,7 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
                                    static_rec_size + file_name_len].rstrip()
             # The second bit of the file_flags indicate if this record
             # is a directory.
-            if filename == BOOT_FILE_NAME and (file_flags & 2) != 1:
+            if BOOT_FILE_NAME in filename.lower() and (file_flags & 2) != 1:
                 self.bootable = True
                 return
 
