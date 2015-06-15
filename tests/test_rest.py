@@ -713,6 +713,7 @@ class RestTests(unittest.TestCase):
                 self.assertEquals(17, len(res['mac']))
                 self.assertEquals(get_template_default('old', 'nic_model'),
                                   res['model'])
+                self.assertTrue('ips' in res)
 
             # try to attach an interface without specifying 'model'
             req = json.dumps({'type': 'network'})
@@ -742,6 +743,21 @@ class RestTests(unittest.TestCase):
             iface = json.loads(self.request('/vms/test-vm/ifaces/%s' %
                                             newMacAddr).read())
             self.assertEquals(newMacAddr, iface['mac'])
+
+            # Start the VM
+            resp = self.request('/vms/test-vm/start', '{}', 'POST')
+            vm = json.loads(self.request('/vms/test-vm').read())
+            self.assertEquals('running', vm['state'])
+
+            # Check for an IP address
+            iface = json.loads(self.request('/vms/test-vm/ifaces/%s' %
+                                            newMacAddr).read())
+            self.assertTrue(len(iface['ips']) > 0)
+
+            # Force poweroff the VM
+            resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
+            vm = json.loads(self.request('/vms/test-vm').read())
+            self.assertEquals('shutoff', vm['state'])
 
             # detach network interface from vm
             resp = self.request('/vms/test-vm/ifaces/%s' % iface['mac'],
