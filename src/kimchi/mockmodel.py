@@ -24,6 +24,7 @@ import random
 import time
 
 import kimchi.model.cpuinfo
+import kimchi.model.vmifaces
 
 from lxml import objectify
 from lxml.builder import E
@@ -76,6 +77,7 @@ class MockModel(Model):
 
         kimchi.model.cpuinfo.get_topo_capabilities = \
             MockModel.get_topo_capabilities
+        kimchi.model.vmifaces.getDHCPLeases = MockModel.getDHCPLeases
         libvirt.virConnect.defineXML = MockModel.domainDefineXML
         libvirt.virDomain.XMLDesc = MockModel.domainXMLDesc
         libvirt.virDomain.undefine = MockModel.undefineDomain
@@ -234,6 +236,13 @@ class MockModel(Model):
         vol.delete(0)
         pool = vol.storagePoolLookupByVolume()
         pool.createXML(new_xml)
+
+    @staticmethod
+    def getDHCPLeases(net, mac):
+        return [{'iface': 'virbr1', 'ipaddr': '192.168.0.167',
+                 'hostname': 'kimchi', 'expirytime': 1433285036L,
+                 'prefix': 24, 'clientid': '01:%s' % mac,
+                 'mac': mac, 'iaid': None, 'type': 0}]
 
     def _probe_image(self, path):
         return ('unknown', 'unknown')
