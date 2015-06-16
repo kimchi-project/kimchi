@@ -54,24 +54,6 @@ make
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
-# create /var/lib/kimchi structure
-mkdir -p %{buildroot}/%{_var}/lib/kimchi/{debugreports,screenshots,vnc-tokens,isos}
-touch %{buildroot}/%{_var}/lib/kimchi/objectstore
-
-# create /var/log/kimchi structure
-mkdir -p %{buildroot}/%{_localstatedir}/log/kimchi/
-touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-access.log
-touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
-
-# create /etc/kimchi structure
-mkdir -p %{buildroot}/%{_sysconfdir}/kimchi/
-
-# create nginx configuration
-touch %{buildroot}/%{_sysconfdir}/nginx/conf.d/kimchi.conf
-
-# Install the SysV init scripts
-install -Dm 0755 contrib/kimchid.sysvinit %{buildroot}%{_initrddir}/kimchid
-
 %post
 chkconfig kimchid on
 

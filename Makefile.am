@@ -115,27 +115,41 @@ ChangeLog:
 	fi
 
 install-data-local:
-	@if  test -d /usr/lib/systemd/system/ ; then \
-		$(INSTALL_DATA) contrib/kimchid.service.fedora /usr/lib/systemd/system/kimchid.service; \
-		systemctl daemon-reload; \
-	elif test -d /etc/systemd/system; then \
-		$(INSTALL_DATA) contrib/kimchid.service.fedora /etc/systemd/system/kimchid.service; \
-		systemctl daemon-reload; \
-    else \
-		$(INSTALL_DATA) contrib/kimchid.sysvinit /etc/init.d/kimchid; \
-		chmod +x /etc/init.d/kimchid; \
-    fi 
+	@if  test -d $(systemdsystemunitdir) ; then \
+		mkdir -p $(DESTDIR)/$(systemdsystemunitdir); \
+		$(INSTALL_DATA) contrib/kimchid.service.fedora $(DESTDIR)/$(systemdsystemunitdir)/kimchid.service; \
+	else \
+		mkdir -p $(DESTDIR)/etc/init.d/ \
+		$(INSTALL_DATA) contrib/kimchid.sysvinit $(DESTDIR)/etc/init.d/kimchid; \
+		chmod +x $(DESTDIR)/etc/init.d/kimchid; \
+    fi; \
+	if test -d /usr/lib/firewalld/services/; then \
+		mkdir -p $(DESTDIR)/usr/lib/firewalld/services/; \
+		$(INSTALL_DATA) src/firewalld.xml $(DESTDIR)/usr/lib/firewalld/services/kimchid.xml; \
+	fi; \
+	mkdir -p $(DESTDIR)/var/lib/kimchi/{debugreports,screenshots,vnc-tokens,isos}
+	touch $(DESTDIR)/var/lib/kimchi/objectstore
+	mkdir -p $(DESTDIR)/var/log/kimchi/
+	touch $(DESTDIR)/var/log/kimchi/kimchi-access.log
+	touch $(DESTDIR)/var/log/kimchi/kimchi-error.log
+	mkdir -p $(DESTDIR)/etc/kimchi/
+	touch $(DESTDIR)/etc/nginx/conf.d/kimchi.conf
 
 uninstall-local:
-	@if test -f /usr/lib/systemd/system/kimchid.service; then \
-		$(RM) /usr/lib/systemd/system/kimchid.service; \
-		systemctl daemon-reload; \
-	elif test -f /etc/systemd/system/kimchid.service; then \
-        $(RM) /etc/systemd/system/kimchid.service; \
+	@if test -f $(systemdsystemunitdir)/kimchid.service; then \
+		$(RM) $(DESTDIR)/$(systemdsystemunitdir)/kimchid.service; \
 	elif test -f /etc/init.d/kimchid; then \
-		$(RM) /etc/init.d/kimchid; \
-	fi
-				
+		$(RM) $(DESTDIR)/etc/init.d/kimchid; \
+		$(RM) $(DESTDIR)/etc/init/kimchi.conf; \
+	fi; \
+	if test -d /usr/lib/firewalld/services/; then \
+		$(RM) $(DESTDIR)/usr/lib/firewalld/services/kimchid.xml; \
+	fi; \
+	$(RM) -rf $(DESTDIR)/var/lib/kimchi
+	$(RM) -rf $(DESTDIR)/var/log/kimchi
+	$(RM) -rf $(DESTDIR)/etc/kimchi
+	$(RM) $(DESTDIR)/etc/nginx/conf.d/kimchi.conf
+
 VERSION:
 	@if test -d .git; then                                \
 		git describe --abbrev=0 > $@;                     \
