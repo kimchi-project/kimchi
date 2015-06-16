@@ -48,13 +48,13 @@ invalid_repository_urls = ['www.fedora.org',       # missing protocol
                            'http://www.fedora',    # invalid domain name
                            'file:///home/foobar']  # invalid path
 
-ISO_PATH = '/tmp/kimchi-model-iso/'
-UBUNTU_ISO = ISO_PATH + 'ubuntu14.04.iso'
+TMP_DIR = '/var/lib/kimchi/tests/'
+UBUNTU_ISO = TMP_DIR + 'ubuntu14.04.iso'
 
 
 def setUpModule():
-    if not os.path.exists(ISO_PATH):
-        os.makedirs(ISO_PATH)
+    if not os.path.exists(TMP_DIR):
+        os.makedirs(TMP_DIR)
 
     iso_gen.construct_fake_iso(UBUNTU_ISO, True, '14.04', 'ubuntu')
 
@@ -68,7 +68,7 @@ def setUpModule():
 
 
 def tearDownModule():
-    shutil.rmtree(ISO_PATH)
+    shutil.rmtree(TMP_DIR)
 
 
 class ModelTests(unittest.TestCase):
@@ -382,7 +382,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):
-        disk_path = '/tmp/existent2.iso'
+        disk_path = os.path.join(TMP_DIR, 'existent2.iso')
         open(disk_path, 'w').close()
         modern_disk_bus = get_template_default('modern', 'disk_bus')
 
@@ -403,7 +403,7 @@ class ModelTests(unittest.TestCase):
 
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            path = os.path.join(os.getcwd(), 'kimchi-images')
+            path = os.path.join(TMP_DIR, 'kimchi-images')
             pool = 'test-pool'
             vol = 'test-volume.img'
             vol_path = "%s/%s" % (path, vol)
@@ -468,7 +468,7 @@ class ModelTests(unittest.TestCase):
             self.assertRaises(
                 InvalidParameter, inst.vmstorages_create, vm_name, disk_args)
 
-            old_distro_iso = ISO_PATH + 'rhel4_8.iso'
+            old_distro_iso = TMP_DIR + 'rhel4_8.iso'
             iso_gen.construct_fake_iso(old_distro_iso, True, '4.8', 'rhel')
 
             vm_name = 'kimchi-ide-bus-vm'
@@ -508,8 +508,8 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(1, prev_count)
 
             # dummy .iso files
-            iso_path = '/tmp/existent.iso'
-            iso_path2 = '/tmp/existent2.iso'
+            iso_path = os.path.join(TMP_DIR, 'existent.iso')
+            iso_path2 = os.path.join(TMP_DIR, 'existent2.iso')
             open(iso_path, 'w').close()
             rollback.prependDefer(os.remove, iso_path)
             open(iso_path2, 'w').close()
@@ -996,20 +996,20 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None,
                            objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            path = '/tmp/kimchi-images/tmpdir'
-            if not os.path.exists(path):
-                os.makedirs(path)
-            iso_gen.construct_fake_iso('/tmp/kimchi-images/tmpdir/'
-                                       'ubuntu12.04.iso', True,
-                                       '12.04', 'ubuntu')
-            iso_gen.construct_fake_iso('/tmp/kimchi-images/sles10.iso',
-                                       True, '10', 'sles')
+            deep_path = os.path.join(TMP_DIR, 'deep-scan')
+            subdir_path = os.path.join(deep_path, 'isos')
+            if not os.path.exists(subdir_path):
+                os.makedirs(subdir_path)
+            ubuntu_iso = os.path.join(deep_path, 'ubuntu12.04.iso')
+            sles_iso = os.path.join(subdir_path, 'sles10.iso')
+            iso_gen.construct_fake_iso(ubuntu_iso, True, '12.04', 'ubuntu')
+            iso_gen.construct_fake_iso(sles_iso, True, '10', 'sles')
 
             args = {'name': 'kimchi-scanning-pool',
-                    'path': '/tmp/kimchi-images',
+                    'path': deep_path,
                     'type': 'kimchi-iso'}
             inst.storagepools_create(args)
-            rollback.prependDefer(shutil.rmtree, '/tmp/kimchi-images')
+            rollback.prependDefer(shutil.rmtree, deep_path)
             rollback.prependDefer(shutil.rmtree, args['path'])
             rollback.prependDefer(inst.storagepool_deactivate, args['name'])
 
