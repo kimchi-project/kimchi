@@ -85,22 +85,6 @@ make DESTDIR=%{buildroot} install
 
 %if 0%{?with_systemd}
 
-# create /var/lib/kimchi structure
-mkdir -p %{buildroot}/%{_sharedstatedir}/kimchi/{debugreports,screenshots,vnc-tokens,isos}
-touch %{buildroot}/%{_sharedstatedir}/kimchi/objectstore
-
-# create /var/log/kimchi structure
-mkdir -p %{buildroot}/%{_localstatedir}/log/kimchi/
-touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-access.log
-touch %{buildroot}/%{_localstatedir}/log/kimchi/kimchi-error.log
-
-# create /etc/kimchi structure
-mkdir -p %{buildroot}/%{_sysconfdir}/kimchi/
-touch %{buildroot}/%{_sysconfdir}/nginx/conf.d/kimchi.conf
-
-# Install the systemd scripts
-install -Dm 0644 contrib/kimchid.service.fedora %{buildroot}%{_unitdir}/kimchid.service
-install -Dm 0640 src/firewalld.xml %{buildroot}%{_prefix}/lib/firewalld/services/kimchid.xml
 %endif
 
 %if 0%{?rhel} == 6
