@@ -21,3 +21,5 @@ EXTRA_DIST = kimchi.conf.in
 
 confdir = $(sysconfdir)/nginx/conf.d
 dist_conf_DATA = kimchi.conf.in
+
+CLEANFILES = kimchi.conf

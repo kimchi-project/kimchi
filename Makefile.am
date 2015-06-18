@@ -133,6 +133,7 @@ install-data-local:
 	touch $(DESTDIR)/var/log/kimchi/kimchi-access.log
 	touch $(DESTDIR)/var/log/kimchi/kimchi-error.log
 	mkdir -p $(DESTDIR)/etc/kimchi/
+	$(INSTALL_DATA) src/dhparams.pem $(DESTDIR)/etc/kimchi/dhparams.pem
 	touch $(DESTDIR)/etc/nginx/conf.d/kimchi.conf
 
 uninstall-local:
