@@ -34,6 +34,7 @@ Requires:	python-ldap
 Requires:	python-libguestfs
 Requires:	libguestfs-tools
 BuildRequires:	libxslt
+BuildRequires:	openssl
 BuildRequires:	python-lxml
 
 %if 0%{?rhel} >= 6 || 0%{?fedora} >= 19

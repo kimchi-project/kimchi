@@ -45,4 +45,10 @@ kimchid: kimchid.in Makefile
 kimchi.conf: kimchi.conf.in Makefile
 	$(do_substitution) < kimchi.conf.in > kimchi.conf
 
-CLEANFILES = $(bin_SCRIPTS) $(BUILT_SOURCES)
+# Generate unique Diffie-Hellman group with 2048-bit
+all-local: dhparams.pem
+
+dhparams.pem:
+	openssl dhparam -out dhparams.pem 2048
+
+CLEANFILES = $(bin_SCRIPTS) $(BUILT_SOURCES) dhparams.pem
