@@ -1,0 +1,41 @@
+13:01:29 <alinefm> #startmeeting
+13:01:29 <kimchi-bot> Meeting started Wed Jun 24 13:01:29 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:29 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:30 <alinefm> #meetingname scrum
+13:01:30 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:13 <alinefm> #info Agenda 1) Status 2) Next release 3) Open discussion
+13:02:13 <alinefm> anything else?
+13:06:09 <alinefm> alright.. so let's get started
+13:06:17 <alinefm> #topic Status
+13:06:17 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:06:20 <ramonn> #info ramonn just open a bug "Libvirt flooding messages when user try to edit VM #669"
+13:06:21 <ramonn> #info ramonn still working on bug about pam module taking too long
+13:07:39 <alinefm> #info alinefm worked on bug fixes: allow creating multiple templates at once, detach host device prior to attach to guest and fix directory permission on tests
+13:08:06 <alinefm> #info alinefm is now working on 1.5 release - generating the packages, tags, updating the web page, etc
+13:09:01 <alinefm> ramonn, about the pam issue, I think a possible solution will cache the result on UI
+13:09:08 <alinefm> the same we do for capabilities
+13:09:26 <alinefm> so we call /users or /groups only once and use the value everywhere
+13:09:51 <ramonn> alinefm, well, when i debugged with vianac, we found that the time to fetch users was less than 1 s
+13:09:59 <alinefm> as that information does not change with high frequency I don't see it as an issue and the user can also refresh the page to get the updated values
+13:10:36 <alinefm> ramonn, have you tested in the machine the problem was identified?
+13:10:38 <ramonn> alinefm, i need more time on user machine
+13:10:42 <ramonn> alinefm, yes
+13:10:53 <ramonn> alinefm, but the machine is not available anymore
+13:10:54 <alinefm> ramonn, hrm... ok
+13:11:39 <alinefm> moving on
+13:11:44 <alinefm> #topic Next release
+13:12:03 <alinefm> Kimchi 1.5 will be announced this Firday - I am working on final details to do that
+13:12:12 <alinefm> and then it is time to think about the next release
+13:12:40 <alinefm> I was thinking in doing a stabilization release, ie, 1.5.1 to focus on bug fixes as we have a lot of them open on github
+13:13:18 <alinefm> danielhb, fnovak, lagarcia, ramonn, socorro, ^
+13:13:37 <alinefm> and if we get new people to working on UI we can also focus on new UI design to be released after 1.5.1
+13:13:41 <alinefm> what do you think?
+13:13:44 <danielhb> alinefm, works for me
+13:13:50 <ramonn> alinefm, ok for me
+13:13:53 <lagarcia> alinefm, sounds good
+13:14:38 <alinefm> great! I will properly send an email to ML to inform everyone about that decision
+13:15:39 <alinefm> #topic Open Discussion
+13:15:53 <alinefm> any other topic to discuss today?
+13:19:10 <alinefm> ok...
+13:19:17 <alinefm> thanks everyone for joining!
+13:19:19 <alinefm> #endmeeting
