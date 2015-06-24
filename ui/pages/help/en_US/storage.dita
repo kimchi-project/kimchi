@@ -10,13 +10,17 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="en-us">
 <title>Storage</title>
 <shortdesc>The <wintitle>Storage</wintitle> page lists the available
-storage pools, including the out of box 'default' and 'ISO' storage pool.
-If you want to use your own ISO, please add it to 'ISO' storage pool path.</shortdesc>
+storage pools, including the out of box 'default' and 'ISO' storage
+pool. If you want to use your own ISO, please add it to 'ISO' storage
+pool path.</shortdesc>
 <csbody>
 <p>For each storage pool, the following information is displayed:<dl>
 <dlentry>
 <dt>Name</dt>
-<dd>Name of the storage pool and percentage used.</dd>
+<dd>Name of the storage pool.</dd>
+</dlentry><dlentry>
+<dt>% Used</dt>
+<dd>Percentage of the storage pool that is being used.</dd>
 </dlentry><dlentry>
 <dt>State</dt>
 <dd>State of the storage pool, active (green) or inactive (red). </dd>
@@ -38,25 +42,14 @@ If you want to use your own ISO, please add it to 'ISO' storage pool path.</shor
 pool so that it can be used.</li>
 <li>Select <uicontrol>Deactivate</uicontrol> to deactivate an active
 storage pool.</li>
+<li>Select <uicontrol>Add Volume</uicontrol> to add more volume to
+an active storage pool.</li>
 <li>Select <uicontrol>Undefine</uicontrol> to remove an inactive storage
 pool.</li>
 </ul></p>
 <p>To display storage volume details for a storage pool, click the
-arrow on the right side of the storage pool row.  Details include
-the following:<dl><dlentry>
-<dt>Type</dt>
-<dd>The type of volume, for example, <uicontrol>file</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Format</dt>
-<dd>The format, varying dependent on the type.</dd>
-</dlentry><dlentry>
-<dt>Capacity</dt>
-<dd>Size of the storage volume.</dd>
-</dlentry><dlentry>
-<dt>Allocation</dt>
-<dd>Amount of space that is already allocated in the storage pool.</dd>
-</dlentry></dl>To define a storage pool, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the display.</p>
+arrow on the right side of the storage pool row.  To define a storage
+pool, click the <uicontrol>plus (+)</uicontrol> icon.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="en-us">
 <title>Define a storage pool</title>
@@ -90,10 +83,27 @@ the device in <uicontrol>Device path</uicontrol>.</dd>
 <dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
 <dd>Specifies a pool based on an SCSI Fibre Channel. Select which
 SCSI adapter to use.</dd>
-</dlentry></dl><?Pub Caret 0?></li>
+</dlentry></dl></li>
+<li>Specify a storage path for the storage pool. The storage path
+is the location in the local file system that the pool is mapped to.
+The path must be unique. If the directory does not exist when the
+pool is created, it will be created for you.</li>
 <li>Click <uicontrol>Create</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
+<cshelp id="kimhdefstor" xml:lang="en-us">
+<title>Add volume</title>
+<shortdesc>Adds volume to a storage pool.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Fetch from remote URL</dt>
+<dd>Specifies a location to download the volume from. For example: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Upload a file</dt>
+<dd>Specifies a location on your local system.</dd>
+</dlentry></dl><?Pub Caret 57?>
+</csbody>
 </cshelp>
-<?Pub *0000003914?>
+</cshelp>
+<?Pub *0000004416?>
