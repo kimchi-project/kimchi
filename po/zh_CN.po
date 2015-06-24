@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-09 17:37-0300\n"
+"POT-Creation-Date: 2015-06-24 09:39-0300\n"
 "PO-Revision-Date: 2013-06-27 10:48+0000\n"
 "Last-Translator: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
 "Language-Team: ShaoHe Feng <shaohef@linux.vnet.ibm.com>\n"
@@ -380,6 +380,12 @@ msgstr ""
 
 msgid "\"name\" should be a device name string"
 msgstr "\"name\"应该为一个字符串型的设备名"
+
+#, python-format
+msgid ""
+"The device %(name)s is probably in use by the host. Unable to attach it to "
+"the guest."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
