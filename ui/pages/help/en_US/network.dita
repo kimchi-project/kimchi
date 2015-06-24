@@ -35,8 +35,7 @@ connection.</li>
 <li>Select <uicontrol>Stop</uicontrol> to end the network connection.</li>
 <li>Select <uicontrol>Delete</uicontrol> to delete the connection
 information.</li>
-</ul>To create a network, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+</ul>To create a network, click the <uicontrol>plus (+)</uicontrol> icon.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="en-us">
 <title>Create a network</title>
@@ -59,10 +58,10 @@ initiate communication to guests.</dd>
 be contacted by external systems as if they were physical systems
 on the network. For bridged mode, you must specify additional destination
 and VLAN information.</dd>
-</dlentry></dl><?Pub Caret 224?></li>
+</dlentry></dl></li><?Pub Caret -2?>
 <li>Click <uicontrol>Create</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 </cshelp>
-<?Pub *0000002571?>
+<?Pub *0000002536?>

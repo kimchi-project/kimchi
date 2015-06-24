@@ -20,18 +20,16 @@ system.</li>
 <li>Select <uicontrol>Connect</uicontrol> to open a VNC connection
 to the host system, if it is not already connected.</li>
 </ul></p>
-<p>Click the following sections to display information about the host:<dl>
-<dlentry>
+<p>Click the following sections to display information about the host:</p>
+<dl><dlentry>
 <dt>Basic information</dt>
 <dd>This section displays the host operating system distribution,
-version, and code name, as well as the processor type, the number of
-online CPUs and amount of memory in GB.</dd>
+version, and code name, as well as the processor type, the number
+of online CPUs and amount of memory in GB.</dd>
 </dlentry><dlentry>
 <dt>System statistics</dt>
 <dd>This section displays graphs to show statistics for CPU, memory,
-disk I/O, and network I/O for the host. Select <uicontrol>Collecting
-data after leaving this page</uicontrol> to continue collecting data
-when the host tab is out of view.</dd>
+disk I/O, and network I/O for the host. </dd>
 </dlentry><dlentry>
 <dt>Software Updates</dt>
 <dd>This section displays information for all of the packages that
@@ -49,8 +47,8 @@ If your system is Ubuntu or Debian, then add <filepath>deb</filepath> repositori
 you are working with yum repositories, you can add a GPG check to
 verify that a package from this repository have not been corrupted.
 Select a repository and then <uicontrol>Edit</uicontrol>. Select <uicontrol>Yes</uicontrol> to
-enable GPG Check and then enter a URL to the GPG key file for the
-repository.</p><?Pub Caret 156?></dd>
+enable <uicontrol>GPG Check</uicontrol> and then enter a URL to the
+GPG key file for the repository.</p></dd>
 </dlentry><dlentry>
 <dt>Debug reports</dt>
 <dd>This section displays debug reports, including name and file path.
@@ -63,8 +61,8 @@ configuration and diagnostic information, such as the running kernel
 version, loaded modules, and system and service configuration files.
 The command also runs external programs to collect further information
 and stores this output in the resulting archive.</p> </dd>
-</dlentry></dl></p>
-</csbody>
+</dlentry></dl>
+</csbody><?Pub Caret -1?>
 <?tm 1392659967 1?>
 </cshelp>
-<?Pub *0000003492?>
+<?Pub *0000003410?>
