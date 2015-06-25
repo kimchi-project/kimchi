@@ -229,9 +229,20 @@ def _include_line_checkupdate_output(line):
     return True
 
 
+def _ignore_obsoleting_packages_in(output):
+    out = ''
+    for l in output.split('\n'):
+        if 'Obsoleting ' in l:
+            break
+        out += l + '\n'
+    return out
+
+
 def _filter_lines_checkupdate_output(output):
     if output is None:
         return []
+
+    output = _ignore_obsoleting_packages_in(output)
 
     out = [l for l in output.split('\n')
            if _include_line_checkupdate_output(l)]
@@ -244,7 +255,8 @@ def _get_yum_checkupdate_output():
                                       stdout=subprocess.PIPE,
                                       stderr=subprocess.PIPE)
     out, error = yum_update_cmd.communicate()
-    if error != '':
+    return_code = yum_update_cmd.returncode
+    if return_code == 1:
         return None
 
     return out

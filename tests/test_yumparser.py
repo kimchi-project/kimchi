@@ -154,9 +154,8 @@ class YumParserTests(unittest.TestCase):
     def test_yum_checkupdate_parsing(self):
         output = _generate_yumcheckupdate_output()
         packages = get_yum_packages_list_update(output)
-        self.assertEqual(len(packages), 5)
+        self.assertEqual(len(packages), 3)
         self.assertEqual(packages[0].ui_from_repo, 'REPOSITORY1')
         self.assertEqual(packages[1].version, '20150611.-no-FAKE2')
         self.assertEqual(packages[2].name, 'PACKAGE3.dot.dot')
-        self.assertEqual(packages[3].arch, 'i386')
-        self.assertEqual(packages[4].arch, 'fakearch')
+        self.assertEqual(packages[2].arch, 'i386')
