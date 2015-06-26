@@ -101,15 +101,23 @@ class StoragePoolsModel(object):
                 xml = ET.tostring(pool)
                 try:
                     pool = conn.storagePoolDefineXML(xml, 0)
-                    # Add build step to make sure target directory created
-                    pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
-                    pool.setAutostart(1)
                 except libvirt.libvirtError, e:
                     msg = "Fatal: Unable to create storage pool %s. "
                     msg += error_msg
                     kimchi_log.error(msg % pool_name)
                     kimchi_log.error("Details: %s", e.message)
                     sys.exit(1)
+
+                # Build and set autostart value to pool
+                # Ignore error as the pool was already successfully created
+                try:
+                    # Add build step to make sure target directory created
+                    # The build process may fail when the pool directory
+                    # already exists on system
+                    pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
+                    pool.setAutostart(1)
+                except:
+                    pass
 
             if pool.isActive() == 0:
                 try:
@@ -182,18 +190,23 @@ class StoragePoolsModel(object):
                 return name
 
             pool = conn.storagePoolDefineXML(xml, 0)
-            if params['type'] in ['logical', 'dir', 'netfs', 'scsi']:
-                pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
-                # autostart dir, logical, netfs and scsi storage pools created
-                # from kimchi
-                pool.setAutostart(1)
-            else:
-                # disable autostart for others
-                pool.setAutostart(0)
         except libvirt.libvirtError as e:
             kimchi_log.error("Problem creating Storage Pool: %s", e)
             raise OperationFailed("KCHPOOL0007E",
                                   {'name': name, 'err': e.get_error_message()})
+
+        # Build and set autostart value to pool
+        # Ignore error as the pool was already successfully created
+        # The build process fails when the pool directory already exists
+        try:
+            if params['type'] in ['logical', 'dir', 'netfs', 'scsi']:
+                pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
+                pool.setAutostart(1)
+            else:
+                pool.setAutostart(0)
+        except:
+            pass
+
         if params['type'] == 'netfs':
             output, error, returncode = run_command(['setsebool', '-P',
                                                     'virt_use_nfs=1'])

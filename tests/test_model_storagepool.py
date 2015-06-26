@@ -20,6 +20,7 @@
 
 import json
 import os
+import tempfile
 import unittest
 
 from functools import partial
@@ -65,7 +66,7 @@ class StoragepoolTests(unittest.TestCase):
         self.assertIn('default', [pool['name'] for pool in storagepools])
 
         with RollbackContext() as rollback:
-            # Now add a couple of StoragePools to the mock model
+            # Now add a couple of storage pools
             for i in xrange(3):
                 name = u'kīмсhī-storagepool-%i' % i
                 req = json.dumps({'name': name, 'type': 'dir',
@@ -96,6 +97,15 @@ class StoragepoolTests(unittest.TestCase):
 
             pools = json.loads(self.request('/storagepools').read())
             self.assertEquals(len(storagepools) + 3, len(pools))
+
+            # Create a pool with an existing path
+            tmp_path = tempfile.mkdtemp(dir='/var/lib/kimchi')
+            rollback.prependDefer(os.rmdir, tmp_path)
+            req = json.dumps({'name': 'existing_path', 'type': 'dir',
+                              'path': tmp_path})
+            resp = self.request('/storagepools', req, 'POST')
+            rollback.prependDefer(model.storagepool_delete, 'existing_path')
+            self.assertEquals(201, resp.status)
 
             # Reserved pool return 400
             req = json.dumps({'name': 'kimchi_isos', 'type': 'dir',
