@@ -37,8 +37,12 @@ BuildRequires:	libxslt-tools
 BuildRequires:	openssl
 BuildRequires:	python-lxml
 
-%if 0%{?sles_version} == 11
+%if 0%{?suse_version} == 1100
 Requires:       python-ordereddict
+%endif
+
+%if 0%{?suse_version} > 1140
+%global with_systemd 1
 %endif
 
 %description
@@ -56,10 +60,30 @@ rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
 %post
-chkconfig kimchid on
+%if 0%{?with_systemd}
+    /bin/systemctl enable kimchid.service >/dev/null 2>&1 || :
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+%else
+    chkconfig kimchid on
+%endif
+exit 0
+
 
 %preun
-service kimchid stop
+%if 0%{?with_systemd}
+    /bin/systemctl --no-reload disable kimchid.service > /dev/null 2>&1 || :
+    /bin/systemctl stop kimchid.service > /dev/null 2>&1 || :
+%else
+    service kimchid stop
+%endif
+exit 0
+
+
+%postun
+%if 0%{?with_systemd}
+    /bin/systemctl try-restart kimchid.service >/dev/null 2>&1 || :
+%endif
+exit 0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,7 +118,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_sysconfdir}/kimchi
-%{_initrddir}/kimchid
 %{_sysconfdir}/kimchi/
 %{_var}/lib/kimchi/debugreports/
 %{_var}/lib/kimchi/screenshots/
@@ -104,6 +127,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/log/kimchi/*
 %{_localstatedir}/log/kimchi/
 %{_mandir}/man8/kimchid.8.gz
+
+%if 0%{?with_systemd}
+%{_unitdir}/kimchid.service
+%else
+%{_initrddir}/kimchid
+%endif
+
 
 %changelog
 * Thu Feb 26 2015 Frédéric Bonnard <frediz@linux.vnet.ibm.com> 1.4.0
