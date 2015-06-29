@@ -115,11 +115,11 @@ ChangeLog:
 	fi
 
 install-data-local:
-	@if  test -d $(systemdsystemunitdir) ; then \
+	@if test -d "$(systemdsystemunitdir)" ; then \
 		mkdir -p $(DESTDIR)/$(systemdsystemunitdir); \
 		$(INSTALL_DATA) contrib/kimchid.service.fedora $(DESTDIR)/$(systemdsystemunitdir)/kimchid.service; \
 	else \
-		mkdir -p $(DESTDIR)/etc/init.d/ \
+		mkdir -p $(DESTDIR)/etc/init.d/; \
 		$(INSTALL_DATA) contrib/kimchid.sysvinit $(DESTDIR)/etc/init.d/kimchid; \
 		chmod +x $(DESTDIR)/etc/init.d/kimchid; \
     fi; \
