@@ -107,6 +107,9 @@ AC_CONFIG_FILES([
     ui/Makefile
     ui/base64/Makefile
     ui/css/Makefile
+    ui/fontello/Makefile
+    ui/fontello/css/Makefile
+    ui/fontello/font/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
