@@ -17,35 +17,35 @@ supports HTML5.
 .SH OPTIONS
 The following options are supported:
 .TP
-\fB-h\fP , \fB--help\fP
+\fB\-h\fP , \fB\-\-help\fP
 Show this help message and exit.
 .TP
-\fB--host\fP \fIhost\fP
+\fB\-\-host\fP \fIhost\fP
 Specify the hostname or IP to listen on.
 .TP
-\fB--port\fP \fIport\fP
+\fB\-\-port\fP \fIport\fP
 Specify the HTTP port (default \fI8000\fP).
 .TP
-\fB--ssl-port\fP \fIssl_port\fP
+\fB\-\-ssl-port\fP \fIssl_port\fP
 Specify the HTTPS port (default \fI8001\fP).
 .TP
-\fB--cherrypy_port\fP \fIcherrypy_port\fP
+\fB\-\-cherrypy_port\fP \fIcherrypy_port\fP
 Specify the Cherrypy server port (default \fI8010\fP).
 .TP
-\fB--log-level\fP [\fIdebug\fP | \fIinfo\fP | \fIwarning\fP | \fIerror\fP | \fIcritical\fP]
+\fB\-\-log-level\fP [\fIdebug\fP | \fIinfo\fP | \fIwarning\fP | \fIerror\fP | \fIcritical\fP]
 Specify the log level (default \fIdebug\fP).
 .TP
-\fB--access-log\fP \fIaccess_log\fP
+\fB\-\-access-log\fP \fIaccess_log\fP
 Specify the access log location where kimchi should create the access log file.
 .TP
-\fB--environment\fP [\fIdevelopment\fP | \fIproduction\fP]
+\fB\-\-environment\fP [\fIdevelopment\fP | \fIproduction\fP]
 Specify the running environment of kimchi server. Check cherrypy documentation for more details (default \fIproduction\fP).
 .TP
-\fB--federation\fP [\fIon\fP | \fIoff\fP]
+\fB\-\-federation\fP [\fIon\fP | \fIoff\fP]
 Register and discover Kimchi peers in the same network using OpenSLP. Check
 below the \fBFEDERATION\fP section for more details (default \fIoff\fP).
 .TP
-\fB--test\fP
+\fB\-\-test\fP
 Run kimchi on a mock version that does not affect the system. For testing proposals.
 .SH FEDERATION
 Federation feature is a mechanism to discover Kimchi peers in the same network.
@@ -63,23 +63,23 @@ To enable it, do the following:
    ports in your firewall configuration
 
    For system using firewalld, do:
-   sudo firewall-cmd --permanent --add-port=427/udp
-   sudo firewall-cmd --permanent --add-port=427/tcp
-   sudo firewall-cmd --reload
+   sudo firewall-cmd \-\-permanent \-\-add-port=427/udp
+   sudo firewall-cmd \-\-permanent \-\-add-port=427/tcp
+   sudo firewall-cmd \-\-reload
 
    For openSUSE systems, do:
    sudo /sbin/SuSEfirewall2 open EXT TCP 427
    sudo /sbin/SuSEfirewall2 open EXT UDP 427
 
    For system using iptables, do:
-   sudo iptables -A INPUT -p tcp --dport 427 -j ACCEPT
-   sudo iptables -A INPUT -p udp --dport 427 -j ACCEPT
+   sudo iptables \-A INPUT \-p tcp \-\-dport 427 \-j ACCEPT
+   sudo iptables \-A INPUT \-p udp \-\-dport 427 \-j ACCEPT
 
 3. In addition to the OpenSLP ports, you also need to allow multicast in the
    firewall configuration
 
    For system using firewalld, do:
-   sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -s <subnet> -j ACCEPT
+   sudo firewall-cmd \-\-direct \-\-add-rule ipv4 filter INPUT 0 \-s <subnet> \-j ACCEPT
 
    For openSUSE systems, do:
    Add the subnet to the trusted networks listed on FW_TRUSTED_NETS in
@@ -87,7 +87,7 @@ To enable it, do the following:
    Make sure to restart /sbin/SuSEfirewall2 after modifying /etc/sysconfig/SuSEfirewall2
 
    For system using iptables, do:
-   sudo iptables -A INPUT -s <subnet> -j ACCEPT
+   sudo iptables \-A INPUT \-s <subnet> \-j ACCEPT
 
 4. Start slpd service and make sure it is up while running Kimchi
    sudo service slpd start
