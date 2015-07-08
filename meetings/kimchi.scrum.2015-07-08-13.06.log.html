@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:06:40</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:06:40</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul  8 13:06:40 2015 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:06:40</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:06:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:06:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:06:54</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:07:06</span><span class="nk"> &lt;danielhb&gt;</span> anyone wants to add anything for today's agenda?
+<a name="l-8"></a><span class="tm">13:07:21</span><span class="nk"> &lt;alinefm&gt;</span> it is good for me
+<a name="l-9"></a><span class="tm">13:07:33</span><span class="nk"> &lt;danielhb&gt;</span> moving on in 10
+<a name="l-10"></a><span class="tm">13:07:45</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:07:46</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:08:32</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb set up OFTC bot to host the scrum meetings while alinefm is away</span>
+<a name="l-13"></a><span class="tm">13:09:12</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb set up a temporary repository to push community patches and fixes during alinefm absence</span>
+<a name="l-14"></a><span class="tm">13:09:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm pushed new branches upstream do handle different types of development: master (current release devel), next (new features), wok (wok framework + new UI)</span>
+<a name="l-15"></a><span class="tm">13:10:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm there is also a branch named new-ui which is based on master branch but I suggest to have the new UI devel done on wok to avoid conflits when pushing everything to a new release</span>
+<a name="l-16"></a><span class="tm">13:10:39</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on PCI hotplug feature for kimchi</span>
+<a name="l-17"></a><span class="tm">13:10:48</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">Status samhenri reviewing Bootstrap CSS and Foundation 5 for the new-ui, working on wok branch</span>
+<a name="l-18"></a><span class="tm">13:12:17</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, any conclusion on which one would be good to use for kimchi?
+<a name="l-19"></a><span class="tm">13:13:41</span><span class="nk"> &lt;samhenri&gt;</span> well, i think you can find more resources for bootstrap than foundation
+<a name="l-20"></a><span class="tm">13:14:11</span><span class="nk"> &lt;samhenri&gt;</span> so people developing plugins wouldn't have any trouble with the ui
+<a name="l-21"></a><span class="tm">13:16:39</span><span class="nk"> &lt;samhenri&gt;</span> Foundation is mobile-first oriented
+<a name="l-22"></a><span class="tm">13:17:33</span><span class="nk"> &lt;samhenri&gt;</span> and this is something that i believe is not covered in the new ui proposals
+<a name="l-23"></a><span class="tm">13:18:08</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, well... UI and responsive design is definitely important. But the main focus of the community has been on web browsers... so your analysis is correct.
+<a name="l-24"></a><span class="tm">13:18:16</span><span class="nk"> &lt;lagarcia&gt;</span> s/UI/mobile
+<a name="l-25"></a><span class="tm">13:20:59</span><span class="nk"> &lt;danielhb&gt;</span> anything else ?
+<a name="l-26"></a><span class="tm">13:22:50</span><span class="nk"> &lt;samhenri&gt;</span> lgarcia, what do you mean by UI/mobile? is this on the wiki?
+<a name="l-27"></a><span class="tm">13:24:09</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, I was actually trying to say that where I said UI in the first sentence, I was meaning mobile
+<a name="l-28"></a><span class="tm">13:24:32</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, mobile and responsive design are important... but, as you said, focus has been in web browsers
+<a name="l-29"></a><span class="tm">13:24:48</span><span class="nk"> &lt;samhenri&gt;</span> ah, ok
+<a name="l-30"></a><span class="tm">13:24:51</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, I don't think there was suggestions around mobile interfaces yet
+<a name="l-31"></a><span class="tm">13:25:43</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, lagarcia does Bootstrap provides support to more desktop browsers than foundation? because if  that's the case + more resources available ......
+<a name="l-32"></a><span class="tm">13:26:23</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn pretend to solve pci caching today. Also, will investigate bug about "handler exception: WSRequestHandler instance has no attribute 'last_code'"</span>
+<a name="l-33"></a><span class="tm">13:30:02</span><span class="nk"> &lt;samhenri&gt;</span> the main difference is that foundation was built thinking in mobile interfaces and responsiveness first. Bootstrap has a lot of styles that we don't end up using, however you can find several themes, js plugins and other resources
+<a name="l-34"></a><span class="tm">13:30:41</span><span class="nk"> &lt;samhenri&gt;</span> that can speed up kimchi plugins development
+<a name="l-35"></a><span class="tm">13:32:38</span><span class="nk"> &lt;samhenri&gt;</span> and it seems that foundation 5 is not fully supported by IE9
+<a name="l-36"></a><span class="tm">13:33:12</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, from what you're saying I believe bootstrap is the winner
+<a name="l-37"></a><span class="tm">13:33:45</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, and after you said about foundation not fully supported in IE9, definitely the winner
+<a name="l-38"></a><span class="tm">13:34:27</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, we definitely do not want to face avoidable, annoying problems with IE or even Safari
+<a name="l-39"></a><span class="tm">13:34:49</span><span class="nk"> &lt;samhenri&gt;</span> yes, Safari is the new IE
+<a name="l-40"></a><span class="tm">13:35:10</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, and perhaps Bootstrap has some mobile support? I think in our case it is better to have a solid desktop UI with a 'best effort' mobile support than the other way around
+<a name="l-41"></a><span class="tm">13:36:26</span><span class="nk"> &lt;samhenri&gt;</span> it does have media queries but it is kinda heavy
+<a name="l-42"></a><span class="tm">13:37:01</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, I see
+<a name="l-43"></a><span class="tm">13:38:02</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, well, your call obviously, just doing my uninformed backend python guy opinion hehehe
+<a name="l-44"></a><span class="tm">13:39:20</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can focus on the latest browser versions, ie, IE9 is a little bit old
+<a name="l-45"></a><span class="tm">13:39:25</span><span class="nk"> &lt;alinefm&gt;</span> as we ar eon IE 11, right?
+<a name="l-46"></a><span class="tm">13:39:30</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-47"></a><span class="tm">13:39:42</span><span class="nk"> &lt;samhenri&gt;</span> and the new Edge browser coming with Windows 10
+<a name="l-48"></a><span class="tm">13:40:01</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, by that logic IE is old news. we need to support Spartan
+<a name="l-49"></a><span class="tm">13:40:07</span><span class="nk"> &lt;danielhb&gt;</span> lol
+<a name="l-50"></a><span class="tm">13:40:52</span><span class="nk"> &lt;samhenri&gt;</span> I'm going to switch the CSS files to Sass, that way I can choose which Bootstrap modules I'm going to load and it also makes support for older browsers easier
+<a name="l-51"></a><span class="tm">13:42:07</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, please, as soon as you have something barely working, share with the community. That way others can see what you are doing and even give a try... don't wait to have a fully complete working solution before submitting it for review.
+<a name="l-52"></a><span class="tm">13:42:17</span><span class="nk"> &lt;samhenri&gt;</span> If we have to support older browsers, I just send a parameter to sass and it will compile with prefixes for last gen browsers
+<a name="l-53"></a><span class="tm">13:42:35</span><span class="nk"> &lt;samhenri&gt;</span> sure
+<a name="l-54"></a><span class="tm">13:42:39</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, that sounds good to me
+<a name="l-55"></a><span class="tm">13:43:01</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, and as lagarcia said feel free to send an email to Kimchi ML with your findings
+<a name="l-56"></a><span class="tm">13:43:48</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-57"></a><span class="tm">13:43:52</span><span class="nk"> &lt;samhenri&gt;</span> one more thing
+<a name="l-58"></a><span class="tm">13:44:28</span><span class="nk"> &lt;samhenri&gt;</span> can somebody send me kimchi logo in higher resolution?
+<a name="l-59"></a><span class="tm">13:45:04</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ^
+<a name="l-60"></a><span class="tm">13:45:11</span><span class="nk"> &lt;samhenri&gt;</span> in the pdf we have a file named kimchi.png
+<a name="l-61"></a><span class="tm">13:45:34</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, the logos available are in the git repository
+<a name="l-62"></a><span class="tm">13:45:40</span><span class="nk"> &lt;alinefm&gt;</span> otherwise we need to build new ones
+<a name="l-63"></a><span class="tm">13:45:49</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can check on ui/images directory
+<a name="l-64"></a><span class="tm">13:45:59</span><span class="nk"> &lt;samhenri&gt;</span> the current version in the wok branch is logo-white.png
+<a name="l-65"></a><span class="tm">13:47:56</span><span class="nk"> &lt;samhenri&gt;</span> I got confused because in the pdf it has a different name and doesn't have kimchi text on it
+<a name="l-66"></a><span class="tm">13:48:43</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, everything in the PDF is a mock up
+<a name="l-67"></a><span class="tm">13:48:51</span><span class="nk"> &lt;alinefm&gt;</span> the file names can not be the same on there
+<a name="l-68"></a><span class="tm">13:48:58</span><span class="nk"> &lt;samhenri&gt;</span> but since it has a transparent background I can use it
+<a name="l-69"></a><span class="tm">13:48:59</span><span class="nk"> &lt;alinefm&gt;</span> we can rename the files if needed
+<a name="l-70"></a><span class="tm">13:49:15</span><span class="nk"> &lt;alinefm&gt;</span> to get closer to the definition doc
+<a name="l-71"></a><span class="tm">13:49:45</span><span class="nk"> &lt;samhenri&gt;</span> ok, the same goes for the svg icons for the OS, right?
+<a name="l-72"></a><span class="tm">13:50:38</span><span class="nk"> &lt;alinefm&gt;</span> correct
+<a name="l-73"></a><span class="tm">13:50:59</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-74"></a><span class="tm">13:51:11</span><span class="nk"> &lt;alinefm&gt;</span> I saw you bug related to the svg icons (sorry to don't replay on github) but we need to pass through a legal process to include trademarks into Kimchi
+<a name="l-75"></a><span class="tm">13:51:22</span><span class="nk"> &lt;alinefm&gt;</span> so we need to contact, red hat, microsoft, etc
+<a name="l-76"></a><span class="tm">13:52:39</span><span class="nk"> &lt;samhenri&gt;</span> oh, i see
+<a name="l-77"></a><span class="tm">13:52:54</span><span class="nk"> &lt;danielhb&gt;</span> let's move the discussion to the open discussion topic
+<a name="l-78"></a><span class="tm">13:52:59</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-79"></a><span class="tm">13:59:03</span><span class="nk"> &lt;danielhb&gt;</span> alright, let's end the scrum today. thanks for joining!
+<a name="l-80"></a><span class="tm">13:59:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

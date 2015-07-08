@@ -1,0 +1,80 @@
+13:06:40 <danielhb> #startmeeting
+13:06:40 <kimchi-bot> Meeting started Wed Jul  8 13:06:40 2015 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:06:40 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:06:47 <danielhb> #meetingname scrum
+13:06:47 <kimchi-bot> The meeting name has been set to 'scrum'
+13:06:54 <danielhb> #info Agenda 1) Status 2) Open discussion
+13:07:06 <danielhb> anyone wants to add anything for today's agenda?
+13:07:21 <alinefm> it is good for me
+13:07:33 <danielhb> moving on in 10
+13:07:45 <danielhb> #topic Status
+13:07:46 <danielhb> #info Please provide your status using the #info command: #info <nickname> <status>
+13:08:32 <danielhb> #info danielhb set up OFTC bot to host the scrum meetings while alinefm is away
+13:09:12 <danielhb> #info danielhb set up a temporary repository to push community patches and fixes during alinefm absence
+13:09:51 <alinefm> #info alinefm pushed new branches upstream do handle different types of development: master (current release devel), next (new features), wok (wok framework + new UI)
+13:10:29 <alinefm> #info alinefm there is also a branch named new-ui which is based on master branch but I suggest to have the new UI devel done on wok to avoid conflits when pushing everything to a new release
+13:10:39 <ziviani> #info ziviani is working on PCI hotplug feature for kimchi
+13:10:48 <samhenri> #info Status samhenri reviewing Bootstrap CSS and Foundation 5 for the new-ui, working on wok branch
+13:12:17 <alinefm> samhenri, any conclusion on which one would be good to use for kimchi?
+13:13:41 <samhenri> well, i think you can find more resources for bootstrap than foundation
+13:14:11 <samhenri> so people developing plugins wouldn't have any trouble with the ui
+13:16:39 <samhenri> Foundation is mobile-first oriented
+13:17:33 <samhenri> and this is something that i believe is not covered in the new ui proposals
+13:18:08 <lagarcia> samhenri, well... UI and responsive design is definitely important. But the main focus of the community has been on web browsers... so your analysis is correct.
+13:18:16 <lagarcia> s/UI/mobile
+13:20:59 <danielhb> anything else ?
+13:22:50 <samhenri> lgarcia, what do you mean by UI/mobile? is this on the wiki?
+13:24:09 <lagarcia> samhenri, I was actually trying to say that where I said UI in the first sentence, I was meaning mobile
+13:24:32 <lagarcia> samhenri, mobile and responsive design are important... but, as you said, focus has been in web browsers
+13:24:48 <samhenri> ah, ok
+13:24:51 <lagarcia> samhenri, I don't think there was suggestions around mobile interfaces yet
+13:25:43 <danielhb> samhenri, lagarcia does Bootstrap provides support to more desktop browsers than foundation? because if  that's the case + more resources available ......
+13:26:23 <ramonn> #info ramonn pretend to solve pci caching today. Also, will investigate bug about "handler exception: WSRequestHandler instance has no attribute 'last_code'"
+13:30:02 <samhenri> the main difference is that foundation was built thinking in mobile interfaces and responsiveness first. Bootstrap has a lot of styles that we don't end up using, however you can find several themes, js plugins and other resources
+13:30:41 <samhenri> that can speed up kimchi plugins development
+13:32:38 <samhenri> and it seems that foundation 5 is not fully supported by IE9
+13:33:12 <danielhb> samhenri, from what you're saying I believe bootstrap is the winner
+13:33:45 <danielhb> samhenri, and after you said about foundation not fully supported in IE9, definitely the winner
+13:34:27 <danielhb> samhenri, we definitely do not want to face avoidable, annoying problems with IE or even Safari
+13:34:49 <samhenri> yes, Safari is the new IE
+13:35:10 <danielhb> samhenri, and perhaps Bootstrap has some mobile support? I think in our case it is better to have a solid desktop UI with a 'best effort' mobile support than the other way around
+13:36:26 <samhenri> it does have media queries but it is kinda heavy
+13:37:01 <danielhb> samhenri, I see
+13:38:02 <danielhb> samhenri, well, your call obviously, just doing my uninformed backend python guy opinion hehehe
+13:39:20 <alinefm> samhenri, you can focus on the latest browser versions, ie, IE9 is a little bit old
+13:39:25 <alinefm> as we ar eon IE 11, right?
+13:39:30 <samhenri> yes
+13:39:42 <samhenri> and the new Edge browser coming with Windows 10
+13:40:01 <danielhb> alinefm, by that logic IE is old news. we need to support Spartan
+13:40:07 <danielhb> lol
+13:40:52 <samhenri> I'm going to switch the CSS files to Sass, that way I can choose which Bootstrap modules I'm going to load and it also makes support for older browsers easier
+13:42:07 <lagarcia> samhenri, please, as soon as you have something barely working, share with the community. That way others can see what you are doing and even give a try... don't wait to have a fully complete working solution before submitting it for review.
+13:42:17 <samhenri> If we have to support older browsers, I just send a parameter to sass and it will compile with prefixes for last gen browsers
+13:42:35 <samhenri> sure
+13:42:39 <danielhb> samhenri, that sounds good to me
+13:43:01 <danielhb> samhenri, and as lagarcia said feel free to send an email to Kimchi ML with your findings
+13:43:48 <samhenri> ok
+13:43:52 <samhenri> one more thing
+13:44:28 <samhenri> can somebody send me kimchi logo in higher resolution?
+13:45:04 <danielhb> alinefm, ^
+13:45:11 <samhenri> in the pdf we have a file named kimchi.png
+13:45:34 <alinefm> samhenri, the logos available are in the git repository
+13:45:40 <alinefm> otherwise we need to build new ones
+13:45:49 <alinefm> samhenri, you can check on ui/images directory
+13:45:59 <samhenri> the current version in the wok branch is logo-white.png
+13:47:56 <samhenri> I got confused because in the pdf it has a different name and doesn't have kimchi text on it
+13:48:43 <alinefm> samhenri, everything in the PDF is a mock up
+13:48:51 <alinefm> the file names can not be the same on there
+13:48:58 <samhenri> but since it has a transparent background I can use it
+13:48:59 <alinefm> we can rename the files if needed
+13:49:15 <alinefm> to get closer to the definition doc
+13:49:45 <samhenri> ok, the same goes for the svg icons for the OS, right?
+13:50:38 <alinefm> correct
+13:50:59 <samhenri> ok
+13:51:11 <alinefm> I saw you bug related to the svg icons (sorry to don't replay on github) but we need to pass through a legal process to include trademarks into Kimchi
+13:51:22 <alinefm> so we need to contact, red hat, microsoft, etc
+13:52:39 <samhenri> oh, i see
+13:52:54 <danielhb> let's move the discussion to the open discussion topic
+13:52:59 <danielhb> #topic Open Discussion
+13:59:03 <danielhb> alright, let's end the scrum today. thanks for joining!
+13:59:05 <danielhb> #endmeeting
