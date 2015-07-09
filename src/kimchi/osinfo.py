@@ -186,8 +186,10 @@ def lookup(distro, version):
     arch = _get_arch()
 
     # Setting maxMemory of the VM, which will be equal total Host memory in Kib
-    params['max_memory'] = psutil.TOTAL_PHYMEM >> 10
-
+    if hasattr(psutil, 'virtual_memory'):
+        params['max_memory'] = psutil.virtual_memory().total >> 10
+    else:
+        params['max_memory'] = psutil.TOTAL_PHYMEM >> 10
     # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
     if params["arch"] == "ppc64le":
         params["arch"] = "ppc64"
