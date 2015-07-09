@@ -103,12 +103,15 @@ class HostModel(object):
         return res
 
     def lookup(self, *name):
-        cpus = psutil.NUM_CPUS
+        cpus = 0
 
         # psutil is unstable on how to get the number of
         # cpus, different versions call it differently
         if hasattr(psutil, 'cpu_count'):
             cpus = psutil.cpu_count()
+
+        elif hasattr(psutil, 'NUM_CPUS'):
+            cpus = psutil.NUM_CPUS
 
         elif hasattr(psutil, '_psplatform'):
             for method_name in ['_get_num_cpus', 'get_num_cpus']:
@@ -119,7 +122,10 @@ class HostModel(object):
                     break
 
         self.host_info['cpus'] = cpus
-        self.host_info['memory'] = psutil.phymem_usage().total
+        if hasattr(psutil, 'phymem_usage'):
+            self.host_info['memory'] = psutil.phymem_usage().total
+        elif hasattr(psutil, 'virtual_memory'):
+            self.host_info['memory'] = psutil.virtual_memory().total
         return self.host_info
 
     def swupdate(self, *name):
@@ -249,7 +255,12 @@ class HostStatsModel(object):
         prev_recv_bytes = net_recv_bytes[-1] if net_recv_bytes else 0
         prev_sent_bytes = net_sent_bytes[-1] if net_sent_bytes else 0
 
-        net_ios = psutil.network_io_counters(True)
+        net_ios = None
+        if hasattr(psutil, 'net_io_counters'):
+            net_ios = psutil.net_io_counters(True)
+        elif hasattr(psutil, 'network_io_counters'):
+            net_ios = psutil.network_io_counters(True)
+
         recv_bytes = 0
         sent_bytes = 0
         for key in set(netinfo.nics() +
