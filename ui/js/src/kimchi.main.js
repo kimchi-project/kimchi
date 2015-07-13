@@ -300,6 +300,7 @@ kimchi.main = function() {
     };
 
     var initUI = function() {
+        var errorMsg = "";
         $(document).bind('ajaxError', function(event, jqXHR, ajaxSettings, errorThrown) {
             if (!ajaxSettings['kimchi']) {
                 return;
@@ -314,8 +315,9 @@ kimchi.main = function() {
                 document.location.href= isSessionTimeout ? 'login.html?error=sessionTimeout' : 'login.html';
                 return;
             }
-            else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText) && !kimchi.isLoggingOut) {
-                kimchi.message.error(i18n['KCHAPI6007E'].replace("%1", jqXHR.state()));
+            else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText) && !kimchi.isLoggingOut && errorMsg == "") {
+               errorMsg = i18n['KCHAPI6007E'].replace("%1", jqXHR.state());
+               kimchi.message.error(errorMsg);
             }
             if(ajaxSettings['originalError']) {
                 ajaxSettings['originalError'](jqXHR, jqXHR.statusText, errorThrown);
