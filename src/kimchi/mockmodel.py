@@ -335,7 +335,8 @@ class MockModel(Model):
         return self._mock_partitions.partitions[name]
 
     def _mock_devices_get_list(self, _cap=None, _passthrough=None,
-                               _passthrough_affected_by=None):
+                               _passthrough_affected_by=None,
+                               _available_only=None):
         if _cap is None:
             return self._mock_devices.devices.keys()
 
