@@ -49,69 +49,7 @@ class VMHostDevsModel(object):
         except AttributeError:
             return []
 
-        return [self._deduce_dev_name(e) for e in hostdev]
-
-    @staticmethod
-    def _toint(num_str):
-        if num_str.startswith('0x'):
-            return int(num_str, 16)
-        elif num_str.startswith('0'):
-            return int(num_str, 8)
-        else:
-            return int(num_str)
-
-    def _deduce_dev_name(self, e):
-        return getattr(self, '_deduce_dev_name_%s' % e.attrib['type'])(e)
-
-    def _deduce_dev_name_pci(self, e):
-        attrib = {}
-        for field in ('domain', 'bus', 'slot', 'function'):
-            attrib[field] = self._toint(e.source.address.attrib[field])
-        return 'pci_%(domain)04x_%(bus)02x_%(slot)02x_%(function)x' % attrib
-
-    def _deduce_dev_name_scsi(self, e):
-        attrib = {}
-        for field in ('bus', 'target', 'unit'):
-            attrib[field] = self._toint(e.source.address.attrib[field])
-        attrib['host'] = self._toint(
-            e.source.adapter.attrib['name'][len('scsi_host'):])
-        return 'scsi_%(host)d_%(bus)d_%(target)d_%(unit)d' % attrib
-
-    def _deduce_dev_name_usb(self, e):
-        dev_names = DevicesModel(conn=self.conn).get_list(_cap='usb_device')
-        usb_infos = [DeviceModel(conn=self.conn).lookup(dev_name)
-                     for dev_name in dev_names]
-
-        unknown_dev = None
-
-        try:
-            evendor = self._toint(e.source.vendor.attrib['id'])
-            eproduct = self._toint(e.source.product.attrib['id'])
-        except AttributeError:
-            evendor = 0
-            eproduct = 0
-        else:
-            unknown_dev = 'usb_vendor_%s_product_%s' % (evendor, eproduct)
-
-        try:
-            ebus = self._toint(e.source.address.attrib['bus'])
-            edevice = self._toint(e.source.address.attrib['device'])
-        except AttributeError:
-            ebus = -1
-            edevice = -1
-        else:
-            unknown_dev = 'usb_bus_%s_device_%s' % (ebus, edevice)
-
-        for usb_info in usb_infos:
-            ivendor = self._toint(usb_info['vendor']['id'])
-            iproduct = self._toint(usb_info['product']['id'])
-            if evendor == ivendor and eproduct == iproduct:
-                return usb_info['name']
-            ibus = usb_info['bus']
-            idevice = usb_info['device']
-            if ebus == ibus and edevice == idevice:
-                return usb_info['name']
-        return unknown_dev
+        return [DeviceModel.deduce_dev_name(e, self.conn) for e in hostdev]
 
     def _passthrough_device_validate(self, dev_name):
         eligible_dev_names = \
@@ -262,10 +200,8 @@ class VMHostDevModel(object):
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
 
-        devsmodel = VMHostDevsModel(conn=self.conn)
-
         for e in hostdev:
-            deduced_name = devsmodel._deduce_dev_name(e)
+            deduced_name = DeviceModel.deduce_dev_name(e, self.conn)
             if deduced_name == dev_name:
                 return {'name': dev_name, 'type': e.attrib['type']}
 
@@ -283,12 +219,11 @@ class VMHostDevModel(object):
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
 
-        devsmodel = VMHostDevsModel(conn=self.conn)
-        pci_devs = [(devsmodel._deduce_dev_name(e), e) for e in hostdev
-                    if e.attrib['type'] == 'pci']
+        pci_devs = [(DeviceModel.deduce_dev_name(e, self.conn), e)
+                    for e in hostdev if e.attrib['type'] == 'pci']
 
         for e in hostdev:
-            if devsmodel._deduce_dev_name(e) == dev_name:
+            if DeviceModel.deduce_dev_name(e, self.conn) == dev_name:
                 xmlstr = etree.tostring(e)
                 dom.detachDeviceFlags(
                     xmlstr, get_vm_config_flag(dom, mode='all'))
