@@ -1013,6 +1013,8 @@ stats history
         * _passthrough_affected_by: Filter the affected devices in the same
                                     group of a certain directly assigned device.
                                     The value should be the name of a device.
+        * _available_only: Filter to list only the host devices that are not
+                           attached to a VM.
 
 ### Resource: Device
 
