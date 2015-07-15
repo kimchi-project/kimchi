@@ -23,11 +23,13 @@ import time
 import urlparse
 import uuid
 
+from configobj import ConfigObj
 from lxml import etree
 from lxml.builder import E
 
 from kimchi import imageinfo
 from kimchi import osinfo
+from kimchi.config import paths
 from kimchi.exception import InvalidParameter, IsoFormatError, MissingParameter
 from kimchi.exception import ImageFormatError, OperationFailed
 from kimchi.isoinfo import IsoImage
@@ -157,6 +159,13 @@ class VMTemplate(object):
         dev, xml = get_disk_xml(params)
         return xml
 
+    def _get_default_disk0_format(self):
+        config_file = os.path.join(paths.conf_dir, 'template.conf')
+        config = ConfigObj(config_file)
+
+        default_vol_format = config['storage']['disk.0'].get('format', 'qcow2')
+        return default_vol_format
+
     def _get_disks_xml(self, vm_uuid):
         # Current implementation just allows to create disk in one single
         # storage pool, so we cannot mix the types (scsi volumes vs img file)
@@ -164,7 +173,8 @@ class VMTemplate(object):
         storage_path = self._get_storage_path()
 
         base_disk_params = {'type': 'disk', 'disk': 'file',
-                            'bus': self.info['disk_bus'], 'format': 'qcow2'}
+                            'bus': self.info['disk_bus'],
+                            'format': self._get_default_disk0_format()}
         logical_disk_params = {'format': 'raw'}
         iscsi_disk_params = {'disk': 'block', 'format': 'raw'}
 
@@ -192,8 +202,8 @@ class VMTemplate(object):
         return unicode(disks_xml, 'utf-8')
 
     def to_volume_list(self, vm_uuid):
+        default_vol_format = self._get_default_disk0_format()
         storage_path = self._get_storage_path()
-        fmt = 'raw' if self._get_storage_type() in ['logical'] else 'qcow2'
         ret = []
         for i, d in enumerate(self.info['disks']):
             index = d.get('index', i)
@@ -201,11 +211,11 @@ class VMTemplate(object):
 
             info = {'name': volume,
                     'capacity': d['size'],
-                    'format': fmt,
+                    'format': d.get('format', default_vol_format),
                     'path': '%s/%s' % (storage_path, volume)}
 
             if 'logical' == self._get_storage_type() or \
-               fmt not in ['qcow2', 'raw']:
+               info['format'] not in ['qcow2', 'raw']:
                 info['allocation'] = info['capacity']
             else:
                 info['allocation'] = 0
