@@ -33,14 +33,16 @@ import kimchi.objectstore
 import utils
 from kimchi import netinfo
 from kimchi.basemodel import Singleton
-from kimchi.config import config
+from kimchi.config import config, paths
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.osinfo import get_template_default
 from kimchi.model import model
 from kimchi.model.libvirtconnection import LibvirtConnection
+from kimchi.model.vms import VMModel
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.utils import add_task
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 invalid_repository_urls = ['www.fedora.org',       # missing protocol
@@ -599,6 +601,108 @@ class ModelTests(unittest.TestCase):
                 inst.storagepool_lookup('default')['path'], vm_info['uuid'])
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
+
+    def _create_template_conf_with_disk_format(self, vol_format):
+        if vol_format is None:
+            conf_file_data = "[main]\n\n[storage]\n\n[[disk.0]]\n" \
+                             "#format = \n\n[graphics]\n\n[processor]\n"
+        else:
+            conf_file_data = "[main]\n\n[storage]\n\n[[disk.0]]\n" \
+                             "format = %s\n\n[graphics]\n\n[processor]\n"\
+                             % vol_format
+
+        config_file = os.path.join(paths.conf_dir, 'template.conf')
+        config_bkp_file = \
+            os.path.join(paths.conf_dir, 'template.conf-unit_test_bkp')
+
+        os.rename(config_file, config_bkp_file)
+
+        with open(config_file, 'w') as f:
+            f.write(conf_file_data)
+
+    def _restore_template_conf_file(self):
+        config_file = os.path.join(paths.conf_dir, 'template.conf')
+        config_bkp_file = \
+            os.path.join(paths.conf_dir, 'template.conf-unit_test_bkp')
+        os.rename(config_bkp_file, config_file)
+
+    def _get_disk_format_from_vm(self, vm, conn):
+        dom = VMModel.get_vm(vm, conn)
+        xml = dom.XMLDesc(0)
+        xpath = "/domain/devices/disk[@device='disk']/driver/@type"
+        return xpath_get_text(xml, xpath)[0]
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_get_default_vol_format_from_conf(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+
+        with RollbackContext() as rollback:
+            self._create_template_conf_with_disk_format('vmdk')
+            rollback.prependDefer(self._restore_template_conf_file)
+
+            params = {'name': 'test', 'disks': [{'size': 1}],
+                      'cdrom': UBUNTU_ISO}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'test-vm-1', 'template': '/templates/test'}
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
+            rollback.prependDefer(inst.vm_delete, 'test-vm-1')
+
+            created_disk_format = self._get_disk_format_from_vm(
+                'test-vm-1', inst.conn
+            )
+            self.assertEqual(created_disk_format, 'vmdk')
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_creates_user_defined_vol_format_instead_default(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+
+        default_vol = 'vmdk'
+        user_vol = 'raw'
+        with RollbackContext() as rollback:
+            self._create_template_conf_with_disk_format(default_vol)
+            rollback.prependDefer(self._restore_template_conf_file)
+
+            params = {'name': 'test',
+                      'disks': [{'size': 1, 'format': user_vol}],
+                      'cdrom': UBUNTU_ISO}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'test-vm-1', 'template': '/templates/test'}
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
+            rollback.prependDefer(inst.vm_delete, 'test-vm-1')
+
+            created_disk_format = self._get_disk_format_from_vm(
+                'test-vm-1', inst.conn
+            )
+            self.assertEqual(created_disk_format, user_vol)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_template_uses_qcow2_format_if_no_user_or_default_defined(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+
+        with RollbackContext() as rollback:
+            self._create_template_conf_with_disk_format(None)
+            rollback.prependDefer(self._restore_template_conf_file)
+
+            params = {'name': 'test',
+                      'disks': [{'size': 1}], 'cdrom': UBUNTU_ISO}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test')
+
+            params = {'name': 'test-vm-1', 'template': '/templates/test'}
+            task = inst.vms_create(params)
+            inst.task_wait(task['id'])
+            rollback.prependDefer(inst.vm_delete, 'test-vm-1')
+
+            created_disk_format = self._get_disk_format_from_vm(
+                'test-vm-1', inst.conn
+            )
+            self.assertEqual(created_disk_format, 'qcow2')
 
     def test_vm_memory_hotplug(self):
         config.set("authentication", "method", "pam")
