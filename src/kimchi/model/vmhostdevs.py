@@ -134,6 +134,22 @@ class VMHostDevsModel(object):
         pci_infos = [dev_model.lookup(dev_name) for dev_name in group_names]
         pci_infos.append(dev_info)
 
+        # all devices in the group that is going to be attached to the vm
+        # must be detached from the host first
+        with RollbackContext() as rollback:
+            for pci_info in pci_infos:
+                try:
+                    dev = self.conn.get().nodeDeviceLookupByName(
+                        pci_info['name'])
+                    dev.dettach()
+                except Exception:
+                    raise OperationFailed('KCHVMHDEV0005E',
+                                          {'name': pci_info['name']})
+                else:
+                    rollback.prependDefer(dev.reAttach)
+
+            rollback.commitAll()
+
         device_flags = get_vm_config_flag(dom, mode='all')
 
         with RollbackContext() as rollback:
