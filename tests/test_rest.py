@@ -645,8 +645,8 @@ class RestTests(unittest.TestCase):
             os.remove('/tmp/existent.iso')
 
             # Change path of storage cdrom
-            cdrom = u'http://fedora.mirrors.tds.net/pub/fedora/releases/20/'\
-                    'Live/x86_64/Fedora-Live-Desktop-x86_64-20-1.iso'
+            cdrom = u'http://mirrors.kernel.org/fedora/releases/21/Live/'\
+                    'x86_64/Fedora-Live-KDE-x86_64-21-5.iso'
             req = json.dumps({'path': cdrom})
             resp = self.request('/vms/test-vm/storages/' + cd_dev, req, 'PUT')
             self.assertEquals(200, resp.status)
