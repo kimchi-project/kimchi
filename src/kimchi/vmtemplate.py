@@ -159,7 +159,8 @@ class VMTemplate(object):
         dev, xml = get_disk_xml(params)
         return xml
 
-    def _get_default_disk0_format(self):
+    @staticmethod
+    def get_default_disk0_format():
         config_file = os.path.join(paths.conf_dir, 'template.conf')
         config = ConfigObj(config_file)
 
@@ -174,7 +175,7 @@ class VMTemplate(object):
 
         base_disk_params = {'type': 'disk', 'disk': 'file',
                             'bus': self.info['disk_bus'],
-                            'format': self._get_default_disk0_format()}
+                            'format': self.get_default_disk0_format()}
         logical_disk_params = {'format': 'raw'}
         iscsi_disk_params = {'disk': 'block', 'format': 'raw'}
 
@@ -202,7 +203,7 @@ class VMTemplate(object):
         return unicode(disks_xml, 'utf-8')
 
     def to_volume_list(self, vm_uuid):
-        default_vol_format = self._get_default_disk0_format()
+        default_vol_format = self.get_default_disk0_format()
         storage_path = self._get_storage_path()
         ret = []
         for i, d in enumerate(self.info['disks']):

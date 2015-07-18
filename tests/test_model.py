@@ -738,8 +738,11 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None,
                            objstore_loc=self.tmp_store)
 
+        # template disk format must be qcow2 because vmsnapshot
+        # only supports this format
         orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1,
-                       'cdrom': UBUNTU_ISO}
+                       'cdrom': UBUNTU_ISO,
+                       'disks': [{'size': 1, 'format': 'qcow2'}]}
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
