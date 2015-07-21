@@ -31,8 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li rev="rev1">Sélectionnez <uicontrol>Démarrer</uicontrol> pour démarrer la connexion au réseau.</li>
 <li>Sélectionnez <uicontrol>Arrêter</uicontrol> pour mettre fin à la connexion au réseau.</li>
 <li>Sélectionnez <uicontrol>Supprimer</uicontrol> pour supprimer les informations de connexion.</li>
-</ul>Pour créer un réseau, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>
-dans le coin supérieur droit de l'écran.</p>
+</ul>Pour créer un réseau, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="fr-fr">
 <title>Créer un réseau</title>
@@ -62,6 +61,6 @@ sur la destination et le réseau local virtuel.</dd>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

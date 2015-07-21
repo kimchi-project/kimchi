@@ -14,7 +14,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>對於每一個儲存區，將會顯示下列資訊：<dl>
 <dlentry>
 <dt>名稱</dt>
-<dd>儲存區的名稱及已使用百分比。</dd>
+<dd>儲存區的名稱。</dd>
+</dlentry><dlentry>
+<dt>已使用百分比</dt>
+<dd>所使用的儲存區百分比。</dd>
 </dlentry><dlentry>
 <dt>狀態</dt>
 <dd>儲存區的狀態：作用中（綠色）或非作用中（紅色）。</dd>
@@ -34,21 +37,12 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>可針對每一個儲存區選取下列動作：<ul>
 <li>選取<uicontrol>啟動</uicontrol>可啟動儲存區，使之可供使用。</li>
 <li>選取<uicontrol>取消啟動</uicontrol>可取消啟動作用中的儲存區。</li>
+<li>選取<uicontrol>新增磁區</uicontrol>可將其他磁區新增至作用中的儲存區。
+</li>
 <li>選取<uicontrol>取消定義</uicontrol>可移除非使用中的儲存區。</li>
 </ul></p>
-<p>若要顯示儲存區的儲存磁區詳細資料，請按一下儲存區列右側的箭頭。詳細資料包括下列各項：<dl><dlentry>
-<dt>類型</dt>
-<dd>磁區的類型，例如，<uicontrol>檔案</uicontrol>。</dd>
-</dlentry><dlentry>
-<dt>格式</dt>
-<dd>格式，因類型而異。</dd>
-</dlentry><dlentry>
-<dt>容量</dt>
-<dd>儲存磁區的大小。</dd>
-</dlentry><dlentry>
-<dt>配置</dt>
-<dd>儲存區中已配置的空間數量。</dd>
-</dlentry></dl>若要定義儲存區，請按一下顯示畫面右上方的<uicontrol>加號 (+)</uicontrol> 圖示。</p>
+<p>若要顯示儲存區的儲存磁區詳細資料，請按一下儲存區列右側的箭頭。如果要定義儲存區，請按一下<uicontrol>加號 (+)</uicontrol> 圖示。
+</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="zh-tw">
 <title>定義儲存區</title>
@@ -76,13 +70,29 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt><uicontrol>SCSI 光纖通道</uicontrol></dt>
 <dd>根據 SCSI 光纖通道指定儲存區。選取要使用的 SCSI 配接卡。</dd>
 </dlentry></dl></li>
+<li>指定儲存區的儲存體路徑。儲存體路徑是本端檔案系統中將儲存區對映至的位置。
+該路徑必須是唯一的。建立儲存區時，如果該目錄不存在，則將為您建立該目錄。
+</li>
 <li>按一下<uicontrol>建立</uicontrol>。</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="zh-tw">
+<title>新增磁區</title>
+<shortdesc>將磁區新增至儲存區。</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>從遠端 URL 提取</dt>
+<dd>指定從其下載磁區的位置。例如：<filepath>https://my-server/fedora22.img</filepath>。</dd>
+</dlentry><dlentry>
+<dt>上傳檔案</dt>
+<dd>指定本端系統上的某個位置。</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

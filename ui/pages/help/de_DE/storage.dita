@@ -14,7 +14,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>Für jeden Speicherpool werden die folgenden Informationen angezeigt:<dl>
 <dlentry>
 <dt>Name</dt>
-<dd>Name des Speicherpools und genutzter Prozentsatz.</dd>
+<dd>Name des Speicherpools. </dd>
+</dlentry><dlentry>
+<dt>% belegt</dt>
+<dd>Prozentsatz des Speicherpools, der momentan belegt ist. </dd>
 </dlentry><dlentry>
 <dt>Status</dt>
 <dd>Status des Speicherpools, aktiv (grün) oder inaktiv (rot). </dd>
@@ -34,21 +37,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>Die folgenden Aktionen können für jeden Speicherpool ausgewählt werden:<ul>
 <li>Wählen Sie <uicontrol>Aktivieren</uicontrol> aus, um den Speicherpool zu aktivieren, damit er genutzt werden kann.</li>
 <li>Wählen Sie <uicontrol>Inaktivieren</uicontrol> aus, um einen aktiven Speicherpool zu inaktivieren.</li>
-<li>Wählen Sie <uicontrol>Definition aufheben</uicontrol>, um einen inaktiven Speicherpool  zu entfernen.</li>
+<li>Wählen Sie <uicontrol>Datenträger hinzufügen</uicontrol> aus, um einem aktiven Speicherpool weitere Datenträger hinzuzufügen. </li>
+<li>Wählen Sie <uicontrol>Definition aufheben</uicontrol>, um einen inaktiven Speicherpool zu entfernen.</li>
 </ul></p>
-<p>Um Details zum Speicherdatenträger anzuzeigen, klicken Sie auf den Pfeil auf der rechten Seite der Speicherpoolzeile.  Zu den Details gehören folgende Informationen:<dl><dlentry>
-<dt>Typ</dt>
-<dd>Typ des Datenträgers, zum Beispiel <uicontrol>file</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Format</dt>
-<dd>Das Format, variiert abhängig vom Typ.</dd>
-</dlentry><dlentry>
-<dt>Kapazität</dt>
-<dd>Größe des Speicherdatenträgers.</dd>
-</dlentry><dlentry>
-<dt>Zuordnung</dt>
-<dd>Speicherplatz, der bereits im Speicherpool zugeordnet ist.</dd>
-</dlentry></dl>Um einen Speicherpool zu definieren, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol> oben rechts in der Anzeige.</p>
+<p>Um Details zum Speicherdatenträger anzuzeigen, klicken Sie auf den Pfeil auf der rechten Seite der Speicherpoolzeile. Um einen Speicherpool zu definieren, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol>. </p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="de-de">
 <title>Speicherpool definieren</title>
@@ -74,13 +66,28 @@ Wenn Sie <uicontrol>iSCSI</uicontrol> auswählen, geben Sie die IP-Adresse vom <
 <dt><uicontrol>SCSI-Fibre Channel</uicontrol></dt>
 <dd>Gibt einen Pool an, der auf einem SCSI-Fibre Channel basiert. Wählen Sie aus, welcher Adapter verwendet werden soll.</dd>
 </dlentry></dl></li>
+<li>Geben Sie einen Speicherpfad für den Speicherpool an. Der Speicherpfad gibt die Position im lokalen Dateisystem an, der der Pool zugeordnet ist.
+Der Pfad muss eindeutig sein. Wenn das Verzeichnis bei der Poolerstellung noch nicht vorhanden ist, dann wird es vom System für Sie erstellt. </li>
 <li>Klicken Sie auf <uicontrol>Erstellen</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="de-de">
+<title>Datenträger hinzufügen</title>
+<shortdesc>Fügt einen Datenträger zu einem Speicherpool hinzu. </shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Über Remote URL abrufen</dt>
+<dd>Gibt eine Position an, von der der Datenträger heruntergeladen werden soll. Beispiel: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Datei hochladen</dt>
+<dd>Gibt eine Position auf Ihrem lokalen System an. </dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
