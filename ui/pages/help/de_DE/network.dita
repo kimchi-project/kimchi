@@ -32,7 +32,7 @@ Address Translation, Netzadressumsetzung).</dd>
 <li rev="rev1">Wählen Sie <uicontrol>Starten</uicontrol> aus, um die Netzverbindung herzustellen.</li>
 <li>Wählen Sie <uicontrol>Stoppen</uicontrol> aus, um die Netzverbindung zu beenden.</li>
 <li>Wählen Sie <uicontrol>Löschen</uicontrol> aus, um die Verbindungsinformationen zu löschen.</li>
-</ul>Um ein Netz zu erstellen, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol> oben rechts in der Anzeige.</p>
+</ul>Um ein Netz zu erstellen, klicken Sie auf das Symbol <uicontrol>Plus (+)</uicontrol>. </p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="de-de">
 <title>Netz erstellen</title>
@@ -57,6 +57,6 @@ Address Translation, Netzadressumsetzung).</dd>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

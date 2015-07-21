@@ -31,7 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li rev="rev1">네트워크 연결을 시작하려면 <uicontrol>시작</uicontrol>을 선택합니다.</li>
 <li>네트워크 연결을 종료하려면 <uicontrol>중지</uicontrol>를 선택합니다.</li>
 <li>연결 정보를 삭제하려면 <uicontrol>삭제</uicontrol>를 선택합니다.</li>
-</ul>네트워크를 작성하려면 화면 오른쪽 상단에 있는 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
+</ul>네트워크를 작성하려면 <uicontrol>더하기(+)</uicontrol> 아이콘을 클릭합니다.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="ko-kr">
 <title>네트워크 작성</title>
@@ -56,6 +56,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

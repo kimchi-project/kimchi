@@ -19,17 +19,15 @@ connecter à l'hôte.</shortdesc>
 <li>Sélectionnez <uicontrol>Connexion</uicontrol> pour ouvrir une connexion VNC
 au système hôte, si celui-ci n'est pas déjà connecté.</li>
 </ul></p>
-<p>Cliquez sur les sections suivantes pour afficher des informations sur l'hôte :<dl>
-<dlentry>
+<p>Cliquez sur les sections suivantes pour afficher des informations sur l'hôte :</p>
+<dl><dlentry>
 <dt>Informations de base</dt>
 <dd>Cette section affiche la distribution, la version et le nom de code
-du système d'exploitation hôte, ainsi que le type de processeur et la quantité
-de mémoire en Go.</dd>
+du système d'exploitation hôte, ainsi que le type de processeur, le nombre d'UC en ligne et la quantité de mémoire en Go.</dd>
 </dlentry><dlentry>
 <dt>Statistiques système</dt>
 <dd>Cette section affiche les graphiques des statistiques pour l'UC, mémoire, ainsi que
-les E-S disque et E-S réseau pour l'hôte. Sélectionnez <uicontrol>Collecte des données une fois la page quittée</uicontrol>
-pour continuer la collecte de données lorsque l'onglet hôte n'est plus visible.</dd>
+les E-S disque et E-S réseau pour l'hôte. </dd>
 </dlentry><dlentry>
 <dt>Mises à jour logicielles</dt>
 <dd>Cette section affiche des informations pour tous les modules qui
@@ -44,8 +42,7 @@ vous pouvez ajouter des référentiels <filepath>yum</filepath>.
 Si votre système est de type Ubuntu ou Debian, ajoutez des référentiels
 <filepath>deb</filepath>.<p>Si vous travaillez avec des référentiels yum, vous pouvez ajouter un contrôle GPG
 afin de vérifier qu'un module provenant de ce référentiel n'a pas été endommagé.
-Sélectionnez un référentiel puis cliquez sur <uicontrol>Editer</uicontrol>. Sélectionnez <uicontrol>Oui</uicontrol> pour activer le contrôle GPG,
-puis entrez une URL pour le fichier de clés GPG du référentiel.</p></dd>
+Sélectionnez un référentiel puis cliquez sur <uicontrol>Editer</uicontrol>. Sélectionnez <uicontrol>Oui</uicontrol> pour activer <uicontrol>Contrôle GPG</uicontrol>, puis entrez une URL pour le fichier de clés GPG du référentiel.</p></dd>
 </dlentry><dlentry>
 <dt>Rapports de débogage</dt>
 <dd>Cette section affiche les rapports de débogage, y compris le nom et le chemin du fichier.
@@ -57,12 +54,12 @@ telles que la version du noyau d'exécution, les modules chargés, ainsi que les
 du système et de la maintenance.
 La commande exécute également des programmes externes pour collecter des informations
 supplémentaires et stocke cette sortie dans l'archive résultante.</p> </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42248_4 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 232 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

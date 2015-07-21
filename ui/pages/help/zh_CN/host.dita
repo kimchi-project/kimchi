@@ -16,30 +16,30 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li>选择<uicontrol>重新启动</uicontrol>以重新启动主机系统。</li>
 <li>选择<uicontrol>连接</uicontrol>以打开与主机系统的 VNC 连接（如果尚未连接）。</li>
 </ul></p>
-<p>单击以下部分以显示有关主机的信息：<dl>
-<dlentry>
+<p>单击以下部分以显示有关主机的信息：</p>
+<dl><dlentry>
 <dt>基本信息</dt>
-<dd>本部分显示主机操作系统分发版、版本和代码名称以及处理器类型和内存量（以 GB 计）。</dd>
+<dd>本部分显示主机操作系统分发版、版本和代码名称以及处理器类型、联机 CPU 的数目和内存量（以 GB 计）。</dd>
 </dlentry><dlentry>
 <dt>系统统计信息</dt>
-<dd>本部分显示图形，以显示主机有关 CPU、内存、磁盘 I/O 和网络 I/O 的统计信息。选择<uicontrol>离开此页面之后收集数据</uicontrol>以继续在主机选项卡不在视图中时收集数据。</dd>
+<dd>本部分显示图形，以显示主机有关 CPU、内存、磁盘 I/O 和网络 I/O 的统计信息。</dd>
 </dlentry><dlentry>
 <dt>软件更新</dt>
 <dd>本部分显示有更新可用的所有软件包的信息，其中包括软件包名称、版本、体系结构和存储库。可通过选择<uicontrol>全部更新</uicontrol>来更新所列示的所有软件包。不能针对更新选择各个软件包。</dd>
 </dlentry><dlentry>
 <dt>存储库</dt>
-<dd>本部分显示与主机系统关联的存储库。您可以添加、启用、编辑或除去存储库。当启用存储库会允许主机对其进行访问时，添加存储库会将其与主机系统关联。如果您的系统为 Red Hat Enterprise Linux 或 Fedora，那么可添加 <filepath>yum</filepath> 存储库。如果您的系统为 Ubuntu 或 Debian，那么请添加 <filepath>deb</filepath> 存储库。<p>如果要处理 Yum 存储库，您可以添加 GPG 检查以验证此存储库中的软件包是否已损坏。选择一个存储库，然后选择<uicontrol>编辑</uicontrol>。选择<uicontrol>是</uicontrol>以启用 GPG 检查，然后输入存储库中 GPG 密钥文件的 URL。</p></dd>
+<dd>本部分显示与主机系统关联的存储库。您可以添加、启用、编辑或除去存储库。当启用存储库会允许主机对其进行访问时，添加存储库会将其与主机系统关联。如果您的系统为 Red Hat Enterprise Linux 或 Fedora，那么可添加 <filepath>yum</filepath> 存储库。如果您的系统为 Ubuntu 或 Debian，那么请添加 <filepath>deb</filepath> 存储库。<p>如果要处理 Yum 存储库，您可以添加 GPG 检查以验证此存储库中的软件包是否已损坏。选择一个存储库，然后选择<uicontrol>编辑</uicontrol>。选择<uicontrol>是</uicontrol>以启用 <uicontrol>GPG 检查</uicontrol>，然后输入存储库的 GPG 密钥文件的 URL。</p></dd>
 </dlentry><dlentry>
 <dt>调试报告</dt>
 <dd>本部分显示调试报告，其中包括名称和文件路径。您可以从选项中进行选择以生成新报告，或者对现有报告进行重命名、除去或下载。<p>调试报告将使用
 <cmdname>sosreport</cmdname> 命令生成。该报告可用于 Red
 Hat Enterprise <tm tmtype="tm" trademark="Linux">Linux</tm>、Fedora 和 Ubuntu 分发版。该命令将生成包含配置和诊断信息的 .tar 文件，例如，正在运行的内核版本、已装入的模块以及系统和服务配置文件。该命令还会运行外部程序以收集更多信息并将此输出存储在生成的归档中。</p> </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42248_4 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 232 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
