@@ -472,7 +472,7 @@ msgstr ""
 msgid ""
 "Network %(network)s specified for virtual machine %(name)s does not exist"
 msgstr ""
-"为以下虚拟机指定的网络 %(network)s 不存在：%(name)"
+"为以下虚拟机指定的网络 %(network)s 不存在：%(name)s"
 
 msgid "Supported virtual machine interfaces type is only network"
 msgstr ""

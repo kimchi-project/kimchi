@@ -834,13 +834,13 @@ msgid ""
 "Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
 msgstr ""
-"스토리지 풀 %(pool)이(가) 활성이 아니므로 스토리지 볼륨 %(volume)s을(를)"
+"스토리지 풀 %(pool)s 이(가) 활성이 아니므로 스토리지 볼륨 %(volume)s 을(를)"
 "작성할 수 없습니다."
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
 msgstr ""
-"스토리지 볼륨 %(name)s을(를) 작성하려면 %(item)s을(를) 지정하십시오."
+"스토리지 볼륨 %(volume)s 을(를) 작성하려면 %(item)s을(를) 지정하십시오."
 
 #, python-format
 msgid ""
