@@ -1,0 +1,72 @@
+13:02:51 <danielhb> #startmeeting
+13:02:51 <kimchi-bot> Meeting started Wed Jul 22 13:02:51 2015 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:51 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:51 <danielhb> #meetingname scrum
+13:02:51 <danielhb> #info Agenda 1) Status 2) Open discussion
+13:02:51 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:58 <danielhb> all: any other topics?
+13:03:04 <ziviani> no
+13:03:34 <danielhb> #topic Status
+13:03:34 <danielhb> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:00 <WalterNik> #info WalterNik working on a proposal to move functionality from Kimchi to Ginger based on the wok branch. Planning to submit a UI mockup for review.
+13:04:10 <danielhb> #info danielhb sent a dozen of patches, reviewed a handful and pushed them to the temporary kimchi branch https://github.com/danielhb/kimchi
+13:04:31 <ziviani> #info ziviani sent patches to ML, which were applied and reviewed code
+13:04:41 <chandra> #info chandra working on the GUI issues on wok branch after kimchi separation from the base frame work
+13:05:21 <samhenri> #info samhenri working on the new-ui widgets
+13:07:45 <WalterNik> samhenri, is this a prototype you're working on ?
+13:08:11 <samhenri> yes, it is
+13:08:21 <WalterNik> asking because the functionality separation will bring some UI changes
+13:08:29 <WalterNik> great, thanks !!!
+13:08:30 <ramonn> #info ramonn focusing on bugs about sriov, looking for a machine. Still waiting for help in js code about caching pci devices query
+13:09:58 <herch> #info looking into issues on wok branch
+13:10:30 <jkatta> #info I have started looking into an issue on wok branch issue #709
+13:14:37 <suresh> #info looking into issue on wok branch
+13:14:51 <samhenri> jkatta, i believe some css and maybe js assets were not loaded because the firmware upgrade div element should have "display: none;" in style attribute
+13:17:58 <herch> any possible pointers for issue https://github.com/kimchi-project/kimchi/issues/711?
+13:20:57 <Archana> #topic archana any ideas for logo text for base faremwork in wok
+13:21:07 <chandra> samhenri, Some times the firmware section shows forever on x86 and some times it is taking while in order to hide the firmware section on x86
+13:22:54 <suresh> any possible pointer to https://github.com/kimchi-project/kimchi/issues/705?
+13:27:11 <chandra> #help, How to assign the wok branch UI issues to the people we are planning to work ?
+13:33:06 <samhenri> chandra, must be a problem with ginger.getCapabilities() function then. I think as a temporary fix, this section should be hidden by default and then the content revealed if the machine is ppc enabled. A better solution would be to load this panel asynchronously before jquery-ui classes are added
+13:34:56 <chandra> #agreed, thanks samhenri for the hint. Will start deeper look ...
+13:35:57 <jkatta> #agreed
+13:36:24 <samhenri> in the future once the new-ui is fully applied I think we can drop jquery-ui accordions and use bootstrap accordions instead
+13:36:24 <chandra> #help, samhenri, FYI the UI issues reported #704 to 709, can be reproduced if we install only the base frame work
+13:36:41 <chandra> #agreed
+13:37:36 <samhenri> oh, ok
+13:37:50 <samhenri> i've tried to reproduce this but got a 404
+13:38:49 <chandra> #help, ok. samhenri also please suggest is it good idea to fix these issues in a short run till we have the new-ui changes ?
+13:40:09 <samhenri> chandra, i think it its
+13:40:29 <samhenri> for now i'm working on prototypes based on the current markup
+13:40:55 <chandra> thanks !!!
+13:41:09 <chandra> #help, How to assign the wok branch UI issues to the people we are planning to work ?
+13:41:27 <samhenri> and adding bootstrap classes but keeping the old classes and ids so when I move the new assets it won't broke
+13:42:04 <chandra> #agreed. I think that is a good idea !!!
+13:42:30 <jkatta> #agreed
+13:43:38 <chandra> #idea, Also I was thinking in the lines of adding version to the URI of REST API's for kimchi/ginger and future plugins to be developed.
+13:44:06 <chandra> In that way it could come up with enhancements with out braking the existing API's
+13:44:31 <chandra> Any other suggestions are welcome ...
+13:47:47 <danielhb> #topic Open Discussion
+13:47:58 <danielhb> all: anything else?
+13:48:09 <samhenri> i have a question
+13:48:48 <samhenri> in the new-ui design spec theres a component that looks like a drop down but it has two sets of arrows
+13:49:11 <samhenri> you can see a mockup in page 29, i've mentioned this in my last e-mail
+13:50:08 <samhenri> what does the set of double arrows/carets do?
+13:50:19 <samhenri> does it goes up and down without opening the drop-down?
+13:50:56 <samhenri> or it changes the order by ascending / descending?
+13:51:08 <danielhb> samhenri, two sets of arrows, one up and other down?
+13:51:17 <samhenri> I don't think we have something like this in the current ui
+13:51:21 <samhenri> yes
+13:51:27 <danielhb> samhenri, I'd go with toggle the value without opening the drop down
+13:52:16 <samhenri> yes, that what i thought
+13:52:32 <samhenri> do we have a document to confirm this?
+13:55:44 <danielhb> samhenri, I am not sure, but I can try to find out
+13:56:03 <samhenri> ok, thanks
+13:56:30 <danielhb> samhenri, for now I think you can assume this is the proper behavior of the widget. Make some notes and ask them all to Aline when she gets back hehehe
+13:57:03 <danielhb> samhenri, unfortunately she is the only one that was deeply involved in the new UI docs and requirements
+13:57:44 <samhenri> sure, no problem
+13:58:07 <samhenri> I'm still working on the first page
+13:58:12 <danielhb> samhenri, alright
+13:58:18 <danielhb> all: anything else?
+13:59:34 <danielhb> thanks for joining!
+13:59:36 <danielhb> #endmeeting

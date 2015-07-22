@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:51</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 22 13:02:51 2015 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:51</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:51</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-6"></a><span class="tm">13:02:51</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-7"></a><span class="tm">13:02:58</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> any other topics?
+<a name="l-8"></a><span class="tm">13:03:04</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-9"></a><span class="tm">13:03:34</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:34</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:00</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik working on a proposal to move functionality from Kimchi to Ginger based on the wok branch. Planning to submit a UI mockup for review.</span>
+<a name="l-12"></a><span class="tm">13:04:10</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a dozen of patches, reviewed a handful and pushed them to the temporary kimchi branch https://github.com/danielhb/kimchi</span>
+<a name="l-13"></a><span class="tm">13:04:31</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patches to ML, which were applied and reviewed code</span>
+<a name="l-14"></a><span class="tm">13:04:41</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">chandra working on the GUI issues on wok branch after kimchi separation from the base frame work</span>
+<a name="l-15"></a><span class="tm">13:05:21</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri working on the new-ui widgets</span>
+<a name="l-16"></a><span class="tm">13:07:45</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, is this a prototype you're working on ?
+<a name="l-17"></a><span class="tm">13:08:11</span><span class="nk"> &lt;samhenri&gt;</span> yes, it is
+<a name="l-18"></a><span class="tm">13:08:21</span><span class="nk"> &lt;WalterNik&gt;</span> asking because the functionality separation will bring some UI changes
+<a name="l-19"></a><span class="tm">13:08:29</span><span class="nk"> &lt;WalterNik&gt;</span> great, thanks !!!
+<a name="l-20"></a><span class="tm">13:08:30</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn focusing on bugs about sriov, looking for a machine. Still waiting for help in js code about caching pci devices query</span>
+<a name="l-21"></a><span class="tm">13:09:58</span><span class="nk"> &lt;herch&gt;</span> <span class="cmd">#info </span><span class="cmdline">looking into issues on wok branch</span>
+<a name="l-22"></a><span class="tm">13:10:30</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">I have started looking into an issue on wok branch issue #709</span>
+<a name="l-23"></a><span class="tm">13:14:37</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">looking into issue on wok branch</span>
+<a name="l-24"></a><span class="tm">13:14:51</span><span class="nk"> &lt;samhenri&gt;</span> jkatta, i believe some css and maybe js assets were not loaded because the firmware upgrade div element should have "display: none;" in style attribute
+<a name="l-25"></a><span class="tm">13:17:58</span><span class="nk"> &lt;herch&gt;</span> any possible pointers for issue https://github.com/kimchi-project/kimchi/issues/711?
+<a name="l-26"></a><span class="tm">13:20:57</span><span class="nk"> &lt;Archana&gt;</span> <span class="topic">#topic </span><span class="topicline">archana any ideas for logo text for base faremwork in wok</span>
+<a name="l-27"></a><span class="tm">13:21:07</span><span class="nk"> &lt;chandra&gt;</span> samhenri, Some times the firmware section shows forever on x86 and some times it is taking while in order to hide the firmware section on x86
+<a name="l-28"></a><span class="tm">13:22:54</span><span class="nk"> &lt;suresh&gt;</span> any possible pointer to https://github.com/kimchi-project/kimchi/issues/705?
+<a name="l-29"></a><span class="tm">13:27:11</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#help, </span><span class="cmdline">How to assign the wok branch UI issues to the people we are planning to work ?</span>
+<a name="l-30"></a><span class="tm">13:33:06</span><span class="nk"> &lt;samhenri&gt;</span> chandra, must be a problem with ginger.getCapabilities() function then. I think as a temporary fix, this section should be hidden by default and then the content revealed if the machine is ppc enabled. A better solution would be to load this panel asynchronously before jquery-ui classes are added
+<a name="l-31"></a><span class="tm">13:34:56</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#agreed, </span><span class="cmdline">thanks samhenri for the hint. Will start deeper look ...</span>
+<a name="l-32"></a><span class="tm">13:35:57</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#agreed</span><span class="cmdline"></span>
+<a name="l-33"></a><span class="tm">13:36:24</span><span class="nk"> &lt;samhenri&gt;</span> in the future once the new-ui is fully applied I think we can drop jquery-ui accordions and use bootstrap accordions instead
+<a name="l-34"></a><span class="tm">13:36:24</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#help, </span><span class="cmdline">samhenri, FYI the UI issues reported #704 to 709, can be reproduced if we install only the base frame work</span>
+<a name="l-35"></a><span class="tm">13:36:41</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#agreed</span><span class="cmdline"></span>
+<a name="l-36"></a><span class="tm">13:37:36</span><span class="nk"> &lt;samhenri&gt;</span> oh, ok
+<a name="l-37"></a><span class="tm">13:37:50</span><span class="nk"> &lt;samhenri&gt;</span> i've tried to reproduce this but got a 404
+<a name="l-38"></a><span class="tm">13:38:49</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#help, </span><span class="cmdline">ok. samhenri also please suggest is it good idea to fix these issues in a short run till we have the new-ui changes ?</span>
+<a name="l-39"></a><span class="tm">13:40:09</span><span class="nk"> &lt;samhenri&gt;</span> chandra, i think it its
+<a name="l-40"></a><span class="tm">13:40:29</span><span class="nk"> &lt;samhenri&gt;</span> for now i'm working on prototypes based on the current markup
+<a name="l-41"></a><span class="tm">13:40:55</span><span class="nk"> &lt;chandra&gt;</span> thanks !!!
+<a name="l-42"></a><span class="tm">13:41:09</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#help, </span><span class="cmdline">How to assign the wok branch UI issues to the people we are planning to work ?</span>
+<a name="l-43"></a><span class="tm">13:41:27</span><span class="nk"> &lt;samhenri&gt;</span> and adding bootstrap classes but keeping the old classes and ids so when I move the new assets it won't broke
+<a name="l-44"></a><span class="tm">13:42:04</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#agreed. </span><span class="cmdline">I think that is a good idea !!!</span>
+<a name="l-45"></a><span class="tm">13:42:30</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#agreed</span><span class="cmdline"></span>
+<a name="l-46"></a><span class="tm">13:43:38</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#idea, </span><span class="cmdline">Also I was thinking in the lines of adding version to the URI of REST API's for kimchi/ginger and future plugins to be developed.</span>
+<a name="l-47"></a><span class="tm">13:44:06</span><span class="nk"> &lt;chandra&gt;</span> In that way it could come up with enhancements with out braking the existing API's
+<a name="l-48"></a><span class="tm">13:44:31</span><span class="nk"> &lt;chandra&gt;</span> Any other suggestions are welcome ...
+<a name="l-49"></a><span class="tm">13:47:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-50"></a><span class="tm">13:47:58</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> anything else?
+<a name="l-51"></a><span class="tm">13:48:09</span><span class="nk"> &lt;samhenri&gt;</span> i have a question
+<a name="l-52"></a><span class="tm">13:48:48</span><span class="nk"> &lt;samhenri&gt;</span> in the new-ui design spec theres a component that looks like a drop down but it has two sets of arrows
+<a name="l-53"></a><span class="tm">13:49:11</span><span class="nk"> &lt;samhenri&gt;</span> you can see a mockup in page 29, i've mentioned this in my last e-mail
+<a name="l-54"></a><span class="tm">13:50:08</span><span class="nk"> &lt;samhenri&gt;</span> what does the set of double arrows/carets do?
+<a name="l-55"></a><span class="tm">13:50:19</span><span class="nk"> &lt;samhenri&gt;</span> does it goes up and down without opening the drop-down?
+<a name="l-56"></a><span class="tm">13:50:56</span><span class="nk"> &lt;samhenri&gt;</span> or it changes the order by ascending / descending?
+<a name="l-57"></a><span class="tm">13:51:08</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, two sets of arrows, one up and other down?
+<a name="l-58"></a><span class="tm">13:51:17</span><span class="nk"> &lt;samhenri&gt;</span> I don't think we have something like this in the current ui
+<a name="l-59"></a><span class="tm">13:51:21</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-60"></a><span class="tm">13:51:27</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, I'd go with toggle the value without opening the drop down
+<a name="l-61"></a><span class="tm">13:52:16</span><span class="nk"> &lt;samhenri&gt;</span> yes, that what i thought
+<a name="l-62"></a><span class="tm">13:52:32</span><span class="nk"> &lt;samhenri&gt;</span> do we have a document to confirm this?
+<a name="l-63"></a><span class="tm">13:55:44</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, I am not sure, but I can try to find out
+<a name="l-64"></a><span class="tm">13:56:03</span><span class="nk"> &lt;samhenri&gt;</span> ok, thanks
+<a name="l-65"></a><span class="tm">13:56:30</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, for now I think you can assume this is the proper behavior of the widget. Make some notes and ask them all to Aline when she gets back hehehe
+<a name="l-66"></a><span class="tm">13:57:03</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, unfortunately she is the only one that was deeply involved in the new UI docs and requirements
+<a name="l-67"></a><span class="tm">13:57:44</span><span class="nk"> &lt;samhenri&gt;</span> sure, no problem
+<a name="l-68"></a><span class="tm">13:58:07</span><span class="nk"> &lt;samhenri&gt;</span> I'm still working on the first page
+<a name="l-69"></a><span class="tm">13:58:12</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, alright
+<a name="l-70"></a><span class="tm">13:58:18</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> anything else?
+<a name="l-71"></a><span class="tm">13:59:34</span><span class="nk"> &lt;danielhb&gt;</span> thanks for joining!
+<a name="l-72"></a><span class="tm">13:59:36</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
