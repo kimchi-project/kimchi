@@ -102,7 +102,8 @@ class VMHostDevsModel(object):
 
         # Enable virt_use_sysfs on RHEL6 and older distributions
         # In recent Fedora, there is no virt_use_sysfs.
-        out, err, rc = run_command(['getsebool', 'virt_use_sysfs'])
+        out, err, rc = run_command(['getsebool', 'virt_use_sysfs'],
+                                   silent=True)
         if rc == 0 and out.rstrip('\n') != "virt_use_sysfs --> on":
             out, err, rc = run_command(['setsebool', '-P',
                                         'virt_use_sysfs=on'])
