@@ -217,10 +217,15 @@ class VMHostDevModel(object):
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
 
+        dev_model = DeviceModel(conn=self.conn)
         for e in hostdev:
             deduced_name = DeviceModel.deduce_dev_name(e, self.conn)
             if deduced_name == dev_name:
-                return {'name': dev_name, 'type': e.attrib['type']}
+                dev_info = dev_model.lookup(dev_name)
+                return {'name': dev_name,
+                        'type': e.attrib['type'],
+                        'product': dev_info.get('product', None),
+                        'vendor': dev_info.get('vendor', None)}
 
         raise NotFoundError('KCHVMHDEV0001E',
                             {'vmid': vmid, 'dev_name': dev_name})
