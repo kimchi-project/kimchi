@@ -429,81 +429,7 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-avail-groups"));
         });
     }
-    var setupPCIDevice = function(){
-        kimchi.getHostPCIDevices(function(hostPCIs){
-            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs){
-                var pciEnabled = kimchi.capabilities.kernel_vfio;
-                for(var i=0; i<hostPCIs.length; i++){
-                    var itemNode = $.parseHTML(kimchi.substitute($('#pci-tmpl').html(),{
-                        name: hostPCIs[i].name,
-                        product: hostPCIs[i].product.description,
-                        vendor: hostPCIs[i].vendor.description
-                    }));
-                    $(".body", "#form-guest-edit-pci").append(itemNode);
-                    var iconClass = "ui-icon-plus";
-                    for(var j=0; j<vmPCIs.length; j++){
-                        if(hostPCIs[i].name==vmPCIs[j].name){
-                            iconClass = "ui-icon-minus";
-                            break;
-                        }
-                    }
-                    pciEnabled || $("button", itemNode).remove();
-                    $("button", itemNode).button({
-                        icons: { primary: iconClass },
-                        text: false
-                    }).click(function(){
-                        var obj = $(this);
-                        if(obj.button("option", "icons").primary == "ui-icon-minus"){
-                            kimchi.removeVMPCIDevice(kimchi.selectedGuest, obj.parent().prop("id"), function(){
-                                kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
-                                    for(var k=0; k<hostPCIs.length; k++) {
-                                        $("button", "#" + hostPCIs[k].name).button("option", "icons", {primary: "ui-icon-plus"});
-                                    }
-                                    for(var k=0; k<vmPCIs1.length; k++) {
-                                        $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
-                                    }
-                                });
-                                filterNodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
-                            });
-                        } else {
-                            kimchi.addVMPCIDevice(kimchi.selectedGuest, { name: obj.parent().prop("id") }, function(){
-                                kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
-                                    for(var k=0; k<vmPCIs1.length; k++) {
-                                        $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
-                                    }
-                                });
-                                filterNodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
-                            });
-                        }
-                    });
-                    kimchi.getPCIDeviceCompanions(hostPCIs[i].name, function(infoData) {
-                        var pciTitle = i18n["KCHVMED6007M"] + "\n";
-                        var haveCompanions = false;
-                        for(var p=0; p<infoData.length; p++) {
-                            if(infoData[p].device_type === "net") {
-                                haveCompanions = true;
-                                pciTitle += "   " + infoData[p].name + "\n";
-                                pciTitle += "      " + i18n["KCHVMED6001M"] + " " + infoData[p].interface;
-                                pciTitle += ", " + i18n["KCHVMED6002M"] + " " + infoData[p].address;
-                                pciTitle += ", " + i18n["KCHVMED6003M"] + " " + infoData[p].link_type + "\n";
-                            } else if(infoData[p].device_type === "storage") {
-                                haveCompanions = true;
-                                pciTitle += "   " + infoData[p].name + "\n";
-                                pciTitle += "      " + i18n["KCHVMED6004M"] + " " + infoData[p].block;
-                                pciTitle += ", " + i18n["KCHVMED6005M"] + " " + infoData[p].drive_type;
-                                pciTitle += ", " + i18n["KCHVMED6006M"] + " " + infoData[p].model + "\n";
-                            }
-                        }
-                        for(var q=0; q<infoData.length; q++) {
-                            haveCompanions && $(".name", "#" + infoData[q].parent).attr("title", pciTitle);
-                            haveCompanions && $(".product", "#" + infoData[q].parent).attr("title", pciTitle);
-                            haveCompanions && $(".vendor", "#" + infoData[q].parent).attr("title", pciTitle);
-                        }
-                    });
-                }
-            });
-        });
-        var filterNodes = function(group, text){
+    var filterPCINodes = function(group, text){
             text = text.toLowerCase();
             $(".body", "#form-guest-edit-pci").children().each(function(){
                 var textFilter = $(".name", this).text().toLowerCase().indexOf(text)!=-1;
@@ -522,13 +448,97 @@ kimchi.guest_edit_main = function() {
                 }
                 $(this).css("display", display);
             });
-        };
+        }
+    var setupPCIDevice = function(){
+        kimchi.getAvailableHostPCIDevices(function(hostPCIs){
+            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs){
+                setupNode(hostPCIs, "ui-icon-plus");
+                setupNode(vmPCIs, "ui-icon-minus");
+            });
+        });
         $("select", "#form-guest-edit-pci").change(function(){
-            filterNodes($(this).val(), $("input", "#form-guest-edit-pci").val());
+            filterPCINodes($(this).val(), $("input", "#form-guest-edit-pci").val());
         });
         $("input", "#form-guest-edit-pci").on("keyup", function() {
-            filterNodes($("select", "#form-guest-edit-pci").val(), $(this).val());
+            filterPCINodes($("select", "#form-guest-edit-pci").val(), $(this).val());
         });
+    };
+
+    var setupNode = function(arrPCIDevices, iconClass) {
+        var pciEnabled = kimchi.capabilities.kernel_vfio;
+        var pciDeviceName, pciDeviceProduct, pciDeviceProductDesc, pciDeviceVendor, pciDeviceVendorDesc;
+        for(var i=0; i<arrPCIDevices.length; i++){
+            pciDeviceName = arrPCIDevices[i].name;
+            pciDeviceProduct = arrPCIDevices[i].product;
+            pciDeviceVendor = arrPCIDevices[i].vendor;
+            if(pciDeviceProduct!=null) {
+                pciDeviceProductDesc = pciDeviceProduct.description;
+            }
+            if(pciDeviceVendor!=null) {
+                pciDeviceVendorDesc = pciDeviceVendor.description;
+            }
+            var itemNode = $.parseHTML(kimchi.substitute($('#pci-tmpl').html(),{
+                  name: pciDeviceName,
+                  product: pciDeviceProductDesc,
+                  vendor: pciDeviceVendorDesc
+            }));
+            $(".body", "#form-guest-edit-pci").append(itemNode);
+            pciEnabled || $("button", itemNode).remove();
+            $("button", itemNode).button({
+                icons: { primary: iconClass },
+                text: false
+            }).click(function(){
+                var obj = $(this);
+                if(obj.button("option", "icons").primary == "ui-icon-minus"){
+                    kimchi.removeVMPCIDevice(kimchi.selectedGuest, obj.parent().prop("id"), function(){
+                        kimchi.getAvailableHostPCIDevices(function(arrPCIDevices1){
+                            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
+                                for(var k=0; k<arrPCIDevices1.length; k++) {
+                                    $("button", "#" + arrPCIDevices1[k].name).button("option", "icons", {primary: "ui-icon-plus"});
+                                }
+                                for(var k=0; k<vmPCIs1.length; k++) {
+                                    $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
+                                }
+                            });
+                        });
+                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
+                    });
+                } else {
+                    kimchi.addVMPCIDevice(kimchi.selectedGuest, { name: obj.parent().prop("id") }, function(){
+                        kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
+                            for(var k=0; k<vmPCIs1.length; k++) {
+                                $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
+                            }
+                        });
+                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
+                    });
+                }
+            });
+            kimchi.getPCIDeviceCompanions(pciDeviceName, function(infoData) {
+                var pciTitle = i18n["KCHVMED6007M"] + "\n";
+                var haveCompanions = false;
+                for(var p=0; p<infoData.length; p++) {
+                    if(infoData[p].device_type === "net") {
+                        haveCompanions = true;
+                        pciTitle += "   " + infoData[p].name + "\n";
+                        pciTitle += "      " + i18n["KCHVMED6001M"] + " " + infoData[p].interface;
+                        pciTitle += ", " + i18n["KCHVMED6002M"] + " " + infoData[p].address;
+                        pciTitle += ", " + i18n["KCHVMED6003M"] + " " + infoData[p].link_type + "\n";
+                    } else if(infoData[p].device_type === "storage") {
+                        haveCompanions = true;
+                        pciTitle += "   " + infoData[p].name + "\n";
+                        pciTitle += "      " + i18n["KCHVMED6004M"] + " " + infoData[p].block;
+                        pciTitle += ", " + i18n["KCHVMED6005M"] + " " + infoData[p].drive_type;
+                        pciTitle += ", " + i18n["KCHVMED6006M"] + " " + infoData[p].model + "\n";
+                    }
+                }
+                for(var q=0; q<infoData.length; q++) {
+                    haveCompanions && $(".name", "#" + infoData[q].parent).attr("title", pciTitle);
+                    haveCompanions && $(".product", "#" + infoData[q].parent).attr("title", pciTitle);
+                    haveCompanions && $(".vendor", "#" + infoData[q].parent).attr("title", pciTitle);
+                }
+            });
+        }
     };
 
     var setupSnapshot = function() {
