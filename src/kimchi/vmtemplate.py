@@ -232,12 +232,18 @@ class VMTemplate(object):
             v_tree = E.volume(E.name(info['name']))
             v_tree.append(E.allocation(str(info['allocation']), unit='G'))
             v_tree.append(E.capacity(str(info['capacity']), unit='G'))
-            target = E.target(
-                E.format(type=info['format']), E.path(info['path']))
+
+            target_fmt = info['format']
             if 'base' in d:
+                # target must be qcow2 in order to use a backing file
+                target_fmt = 'qcow2'
+
                 v_tree.append(E.backingStore(
                     E.path(info['base']['path']),
                     E.format(type=info['base']['format'])))
+
+            target = E.target(
+                E.format(type=target_fmt), E.path(info['path']))
             v_tree.append(target)
             info['xml'] = etree.tostring(v_tree)
             ret.append(info)
