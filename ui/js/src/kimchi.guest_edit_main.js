@@ -375,23 +375,23 @@ kimchi.guest_edit_main = function() {
             for(var i=0; i<availUsers.length; i++){
                 initNode(availUsers[i], true);
                 $("#permission-avail-users").append(userNodes[availUsers[i]]);
-                sortNodes($("#permission-avail-users"), true);
             }
+            sortNodes($("#permission-avail-users"), true);
             for(var i=0; i<selUsers.length; i++){
                 initNode(selUsers[i], true);
                 $("#permission-sel-users").append(userNodes[selUsers[i]]);
-                sortNodes($("#permission-sel-users"), true);
             }
+            sortNodes($("#permission-sel-users"), true);
             for(var i=0; i<availGroups.length; i++){
                 initNode(availGroups[i], false);
                 $("#permission-avail-groups").append(groupNodes[availGroups[i]]);
-                sortNodes($("#permission-avail-groups"), false);
             }
+            sortNodes($("#permission-avail-groups"), false);
             for(var i=0; i<selGroups.length; i++){
                 initNode(selGroups[i], false);
                 $("#permission-sel-groups").append(groupNodes[selGroups[i]]);
-                sortNodes($("#permission-sel-groups"), false);
             }
+            sortNodes($("#permission-sel-groups"), false);
         };
         var filterNodes = function(key, container){
             container.children().each(function(){
