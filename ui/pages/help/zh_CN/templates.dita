@@ -11,8 +11,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <title>模板</title>
 <shortdesc>“<wintitle>模板</wintitle>”页面显示可用于创建 KVM 访客的已定义虚拟机模板。</shortdesc>
 <csbody>
-<p>对于每个模板，会显示以下信息：<dl>
-<dlentry>
+<p>对于每个模板，会显示以下信息：</p>
+<dl><dlentry>
 <dt>操作系统</dt>
 <dd>操作系统或分发版的名称。</dd>
 </dlentry><dlentry>
@@ -24,66 +24,59 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </dlentry><dlentry>
 <dt>内存</dt>
 <dd>要分配的随机存取存储量（以 MB 计）。</dd>
-</dlentry></dl></p>
-<p>可为每个模板选择以下操作：<ul>
+</dlentry></dl>
+<p>可为每个模板选择以下操作：</p>
+<ul>
 <li>选择<uicontrol>编辑</uicontrol>以编辑模板。</li>
+<li>选择<uicontrol>克隆</uicontrol>以复制模板。</li>
 <li>选择<uicontrol>删除</uicontrol>以删除模板。</li>
-</ul>要添加模板，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
+</ul>
+<p>要添加模板，请单击<uicontrol>加号 (+)</uicontrol> 图标。</p>
 </csbody>
 <cshelp id="kimhedittempl" xml:lang="zh-cn">
 <title>编辑模板</title>
 <shortdesc>编辑现有模板。</shortdesc>
 <csbody>
-<p>对于每个模板，会显示以下信息：<dl>
-<dlentry>
-<dt>名称</dt>
-<dd>模板的名称。</dd>
+<p>对于每个模板，会显示以下信息：</p>
+<dl><dlentry>
+<dt>常规</dt>
+<dd>显示名称、供应商分发版、版本、内存、ISO 文件的文件路径以及图形首选项。</dd>
 </dlentry><dlentry>
-<dt>供应商</dt>
-<dd>公司名称，该公司创建了模板已配置使用的操作系统或分发版。</dd>
+<dt>存储器</dt>
+<dd>指定模板的存储池信息。</dd>
 </dlentry><dlentry>
-<dt>版本</dt>
-<dd>模板已配置使用的操作系统或分发版的版本。</dd>
+<dt>接口</dt>
+<dd>显示可供 KVM 访客使用的缺省网络接口。您可以选择多个网络。</dd>
 </dlentry><dlentry>
-<dt>CPU 数量</dt>
-<dd>为模板定义的处理器数。</dd>
-</dlentry><dlentry>
-<dt>内存</dt>
-<dd>要分配给虚拟机的内存量（以 MB 计）。</dd>
-</dlentry><dlentry>
-<dt>磁盘</dt>
-<dd>磁盘大小（以 GB 计）。</dd>
-</dlentry><dlentry>
-<dt>CDROM</dt>
-<dd>用于安装 KVM 访客的 ISO 文件所在位置的文件路径。</dd>
-</dlentry><dlentry>
-<dt>存储池</dt>
-<dd>特定存储池或缺省存储池。</dd>
-</dlentry><dlentry>
-<dt>网络</dt>
-<dd>可供 KVM 访客使用的缺省网络接口。您可以选择多个网络。</dd>
-</dlentry></dl> 可对未禁用的字段进行编辑。编辑字段之后，请单击<uicontrol>保存</uicontrol>。</p>
+<dt>处理器</dt>
+<dd>在 <uicontrol>CPU 数</uicontrol>字段中，指定已为模板定义的处理器数。</dd>
+<dd>选择此项以手动设置每个访客的 CPU 拓扑。</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>添加模板</title>
 <shortdesc>从源介质中添加模板。您可以将您自己的 ISO 映像添加至“ISO”存储池以用于后续发现。</shortdesc>
 <csbody>
-<p>从以下选项选择源介质所在的位置：<dl>
-<dlentry>
+<p>从以下选项选择源介质所在的位置：</p>
+<dl><dlentry>
 <dt>本地 ISO 映像</dt>
-<dd>选择此项以对系统上可用的安装 ISO 映像的存储池进行扫描。</dd>
+<dd>选择此项以对存储池进行扫描，从而获取系统上可用的安装 ISO 映像。</dd>
+</dlentry><dlentry>
+<dt>本地映像文件</dt>
+<dd>选择此项以指定本地映像文件的路径。</dd>
 </dlentry><dlentry>
 <dt>远程 ISO 映像</dt>
 <dd>选择此项以指定安装 ISO 映像的远程位置。</dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddloct">
-<title>添加模板 - 本地 ISO 映像</title>
-<shortdesc>从本地 ISO 映像添加模板。</shortdesc>
+<title>添加模板 - ISO 映像</title>
+<shortdesc>从 ISO 映像中添加模板。</shortdesc>
 <csbody>
-<p>会显示系统上可用的 ISO 映像。<dl><dlentry>
+<p>将显示系统上可以远程使用的 ISO 映像。</p>
+<dl><dlentry>
 <dt>操作系统</dt>
 <dd>操作系统或分发版的名称。</dd>
 </dlentry><dlentry>
@@ -92,20 +85,21 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </dlentry><dlentry>
 <dt>大小</dt>
 <dd>ISO 映像的大小。</dd>
-</dlentry></dl></p>
-<p>要从 ISO 映像创建模板，请从以下选项中选择：<ul>
+</dlentry></dl>
+<p>要从 ISO 映像创建模板，请从以下选项中选择：</p>
+<ul>
 <li>选择要从其创建模板的 ISO 映像，然后单击<uicontrol>从所选 ISO 创建模板</uicontrol>。</li>
 <li>选择<uicontrol>全部</uicontrol>以从每个所列示的 ISO 映像创建模板，然后单击<uicontrol>从所选 ISO 创建模板</uicontrol>。</li>
-<li>如果您要使用的 ISO 映像未出现在扫描结果中，那么可从以下选项中选择：<ul>
+<li>如果要使用的 ISO 映像未显示在扫描结果中，那么可从以下选项中选择：<ul>
 <li>选择<uicontrol>我要使用特定 ISO 文件</uicontrol>以指定 ISO 映像的路径。</li>
 <li>单击<uicontrol>搜索更多 ISO</uicontrol> 以搜索更多 ISO 映像。</li>
 </ul></li>
-</ul></p>
+</ul>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 24458_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 229 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

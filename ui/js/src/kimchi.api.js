@@ -1179,6 +1179,20 @@ var kimchi = {
         });
     },
 
+    getAvailableHostPCIDevices : function(suc, err) {
+        kimchi.requestJSON({
+            url : 'host/devices?_passthrough=true&_cap=pci&_available_only=true',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                kimchi.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
     getPCIDeviceCompanions : function(pcidev, suc, err) {
         kimchi.requestJSON({
             url : 'host/devices?_passthrough_affected_by=' + pcidev,

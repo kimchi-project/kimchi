@@ -10,20 +10,20 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhvirtm" xml:lang="en-us">
 <title>Guests</title>
 <shortdesc>The <wintitle>Guests</wintitle> page lists the defined
-KVM virtual machines.</shortdesc>
+guests for your server.</shortdesc>
 <csbody>
 <p>For each guest, the following information is displayed:<dl><dlentry>
 <dt>Name</dt>
-<dd>Name of the virtual machine.</dd>
+<dd>Name of the guest.</dd>
 </dlentry><dlentry>
 <dt>CPU</dt>
-<dd>Percentage of processor utilization in the virtual machine.</dd>
-</dlentry><dlentry>
-<dt>Network I/O</dt>
-<dd>Network input/output transmission rate in KB per seconds.</dd>
+<dd>Percentage of processor utilization in the guest.</dd>
 </dlentry><dlentry>
 <dt>Disk I/O</dt>
 <dd>Disk input/output transmission rate in KB per seconds.</dd>
+</dlentry><dlentry>
+<dt>Network I/O</dt>
+<dd>Network input/output transmission rate in KB per seconds.</dd>
 </dlentry><dlentry>
 <dt>Livetile</dt>
 <dd>State of guest operating system console, or an icon that represents
@@ -42,95 +42,93 @@ the power is off; if the icon is green, the power is on.</dd>
 <p>The following actions can be selected for each guest:<ul>
 <li>Select <uicontrol>Connect</uicontrol> to connect to the remote
 console for the guest operating system.</li>
-<li>Select <uicontrol>Manage media</uicontrol> to change the path
-to the installation media.</li>
-<li>Select <uicontrol>Reset</uicontrol> to reset the guest.</li>
+<li>Select <uicontrol>Clone</uicontrol> to copy an existing guest
+definition to create a guest.</li>
+<li>Select <uicontrol>Reset</uicontrol> to reset the guest. You can
+only reset a guest that is started.</li>
 <li>Select <uicontrol>Edit</uicontrol> to edit the properties of an
 existing guest. Guests can be edited only while stopped.</li>
+<li>Select <uicontrol>Start</uicontrol> to start a guest</li>
+<li>Select <uicontrol>Shut Down</uicontrol> to shut down a guest gracefully.</li>
+<li>Select <uicontrol>Power Off</uicontrol> to force an immediate
+shut down of the guest.</li>
 <li>Select <uicontrol>Delete</uicontrol> to delete the guest.</li>
-</ul>To create a guest, or virtual machine, click the <uicontrol>plus
-(+)</uicontrol> icon in the upper right of the page.</p>
+</ul>To create a guest, click the <uicontrol>plus (+)</uicontrol> icon
+on the page.</p>
 </csbody>
 <cshelp id="kimhvirtmcrt" xml:lang="en-us">
-<title>Create virtual machine</title>
-<shortdesc>Create a virtual machine by using an existing template.</shortdesc>
+<title>Create a guest</title>
+<shortdesc>Create a guest by using an existing template.</shortdesc>
 <csbody>
 <p> <ol>
-<li>Type the name to be used to identify the virtual machine.</li>
-<li rev="rev1">Select a template. <ul>
+<li>Type the name to be used to identify the guest.</li>
+<li>Select a template. <ul>
 <li>If templates exist, select from displayed templates.</li>
 <li>If no templates exist, click <uicontrol>Create a template</uicontrol> to
 create a template.</li>
-</ul></li>
+</ul>You can view information about a template by hovering over it.</li>
 <li>Click <uicontrol>Create</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="en-us">
 <title>Edit guest</title>
-<shortdesc>Edit the properties of an existing virtual machine. Some properties
-can be edited only while guest is stopped. Others will take effect in next boot.</shortdesc>
-<csprolog><csmetadata></csmetadata></csprolog>
+<shortdesc>Edit the properties of an existing guest. Some properties
+can be edited only while guest is stopped. Others will take effect
+in next boot.</shortdesc>
 <csbody>
-<p>For each guest, the following information is displayed on the <wintitle>General</wintitle> tab:<dl>
-<dlentry>
-<dt>Name</dt>
-<dd>Name of the virtual machine. (can only be edited while guest is stopped)</dd>
-</dlentry><dlentry>
-<dt>CPUs</dt>
-<dd>Number of processors. (if guest is running, new amount will take effect
-in next boot)</dd>
-</dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB. (if guest is running, new amount will take effect
-in next boot)</dd>
-</dlentry><dlentry>
-<dt>Icon</dt>
-<dd>Graphic image representing the Linux distribution to be displayed
-in place of current status (Livetile) when the guest is not active.</dd>
-</dlentry></dl></p>
-<p>The following information is displayed on the <wintitle>Storage</wintitle> tab.</p>
 <dl><dlentry>
+<dt>General</dt>
+<dd>Displays information about your guest, including name, CPUs, memory,
+and icon to use for your guest. You can edit the name of a stopped
+guest. Changing the CPUs and memory takes effect after the next boot.</dd>
+</dlentry><dlentry>
 <dt>Storage</dt>
-<dd>Displays the location of the ISO file used for installation.</dd>
-</dlentry></dl><?Pub Caret -2?>
+<dd>Displays the device and path for storage for the selected guest.
+You can add, edit, and remove storage devices for your guest.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Interface</dt>
+<dd>Displays network information for the guest, including name, type,
+and MAC address. You can add, edit, and remove interfaces for your
+guest.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Permission</dt>
+<dd>Displays the users and groups that are authorized for the guest. </dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Host PCI Device</dt>
+<dd>Displays a list of all PCI devices available on the host. </dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Snapshot</dt>
+<dd>Displays snapshots of the guest. You can create, edit, or delete
+a snapshot. By selecting a snapshot and selecting revert, the guest
+is restored to a point in the past, determined by the snapshot data,
+and discards any changes made beyond that point in time.</dd>
+</dlentry></dl>
 <p> Fields that are not disabled can be edited. After you edit a field,
 click <uicontrol>Save</uicontrol>. </p>
 </csbody>
 </cshelp>
-<cshelp id="kimstoragedevice" xml:lang="en-us">
-<title>Add, replace, or detach a storage device</title>
-<shortdesc rev="rev1">You can add, replace, or detach a storage device
-to your virtual machine. The only supported device is CDROM. To edit
-your storage devices, follow these steps:</shortdesc>
+<cshelp id="kimhvirtmclone" xml:lang="en-us">
+<title>Cloning a guest</title>
+<shortdesc>Cloning a guests allows you to create a copy of a guest.</shortdesc>
 <csbody>
+<p>To clone a guest:</p>
 <ol>
-<li>On the <wintitle>Edit Guest</wintitle> window, select <wintitle>Storage</wintitle>.</li>
-<li>To replace a storage device, click the first icon with the <uicontrol>orange
-slash (/)</uicontrol>. Enter the ISO file path and click <uicontrol>Replace</uicontrol>.</li>
-<li>To detach a storage device, click the second icon with the <uicontrol>red
-dash (-)</uicontrol>. Confirm the deletion and click <uicontrol>OK</uicontrol>.</li>
-<li>To add a storage device, click the third icon with the green <uicontrol>plus
-sign (+)</uicontrol>. Enter a device name and ISO file path and click <uicontrol>Attach</uicontrol>.</li>
+<li>Select <uicontrol>Clone</uicontrol> from the Action menu of a
+guest.</li>
+<li>Accept the warning. <note>When a target guest is using SCSI or
+iSCSI volumes or if the target pool does not have enough space, the
+clone will be created on a default storage pool. </note></li>
 </ol>
-</csbody>
-</cshelp>
-<cshelp id="kimreplacemedia" xml:lang="en-us">
-<title>Replace a CDROM of VM</title>
-<shortdesc rev="rev1">You can replace the contents of the CDROM for
-a virtual machine after the installation is complete.</shortdesc>
-<csbody>
-<ol>
-<li>Ensure that the virtual machine is started.</li>
-<li>From the Actions menu, select <uicontrol>Manage Media</uicontrol>.</li>
-<li>To change what is currently loaded in the CDROM, click the <uicontrol>orange
-slash (/)</uicontrol> icon next to the hdc field.</li>
-<li>On the <wintitle>Replace a CDROM of VM</wintitle> page, enter
-the ISO file path. The other two fields are read-only.</li>
-<li>Click <uicontrol>Replace</uicontrol>.</li>
-</ol>
+<p>A guest appears in your list with the label <uicontrol>Cloning...</uicontrol> When
+the process is complete, the cloned guest is available to use.</p><?Pub
+Caret 45?>
 </csbody>
 </cshelp>
 <?tm 1391540919 3?>
 </cshelp>
-<?Pub *0000005541?>
+<?Pub *0000005287?>

@@ -190,3 +190,14 @@ class HostTests(unittest.TestCase):
                                 dev)
             affected_devs = [dev['name'] for dev in json.loads(resp.read())]
             self.assertTrue(set(affected_devs) <= set(dev_names))
+
+    def test_get_available_passthrough_devices(self):
+        resp = self.request('/host/devices?_passthrough=true')
+        all_devs = [dev['name'] for dev in json.loads(resp.read())]
+
+        resp = self.request(
+            '/host/devices?_passthrough=true&_available_only=true'
+        )
+        available_devs = [dev['name'] for dev in json.loads(resp.read())]
+
+        self.assertLessEqual(len(available_devs), len(all_devs))

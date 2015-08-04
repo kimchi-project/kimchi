@@ -24,6 +24,7 @@ import unittest
 
 from functools import partial
 
+from kimchi.vmtemplate import VMTemplate
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.mockmodel import MockModel
 from utils import get_free_port, patch_auth, request, run_server
@@ -87,7 +88,8 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(sorted(tmpl.keys()), sorted(keys))
 
         # Verify if default disk format was configured
-        self.assertEquals(tmpl['disks'][0]['format'], 'qcow2')
+        default_disk_format = VMTemplate.get_default_disk0_format()
+        self.assertEquals(tmpl['disks'][0]['format'], default_disk_format)
 
         # Clone a template
         resp = self.request('/templates/test/clone', '{}', 'POST')

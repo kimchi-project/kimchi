@@ -9,13 +9,15 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="ru-ru">
 <title>Дисковая память</title>
-<shortdesc>На странице <wintitle>Дисковая память</wintitle> показывается список доступных пулов памяти, включая пулы памяти 'по умолчанию' и 'ISO'.
-Если вы хотите использовать собственный ISO, добавьте его в путь дисковой памяти 'ISO'.</shortdesc>
+<shortdesc>На странице <wintitle>Дисковая память</wintitle> показывается список доступных пулов памяти, включая пулы памяти 'по умолчанию' и 'ISO'. Для использования собственного ISO добавьте его в путь к пулу памяти 'ISO'.</shortdesc>
 <csbody>
 <p>Для каждого пула памяти показывается следующая информация:<dl>
 <dlentry>
 <dt>Имя</dt>
-<dd>Имя пула памяти и процент использования.</dd>
+<dd>Имя пула памяти.</dd>
+</dlentry><dlentry>
+<dt>% занято</dt>
+<dd>Процент занятого места в пуле памяти.</dd>
 </dlentry><dlentry>
 <dt>Состояние</dt>
 <dd>Состояние пула памяти - активный (зеленый) или неактивный (красный). </dd>
@@ -30,26 +32,15 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dd>Объем пула памяти.</dd>
 </dlentry><dlentry>
 <dt>Выделено</dt>
-<dd>Объем выделенной памяти в пуле.</dd>
+<dd>Объем выделенной памяти в пуле памяти.</dd>
 </dlentry></dl></p>
 <p>Для каждого пула памяти можно выбирать следующие действия:<ul>
 <li><uicontrol>Активировать</uicontrol> - активировать пул памяти, чтобы его можно было использовать.</li>
 <li><uicontrol>Деактивировать</uicontrol> - деактивировать активный пул памяти.</li>
+<li>Выберите <uicontrol>Добавить том</uicontrol>, чтобы добавить дополнительный том в активный пул памяти. </li>
 <li><uicontrol>Удалить</uicontrol> - удалить неактивный пул памяти.</li>
 </ul></p>
-<p>Для просмотра сведений о томах пула памяти щелкните на стрелке в правой части строки пула памяти.  Сведения включают:<dl><dlentry>
-<dt>Тип</dt>
-<dd>Тип тома, например <uicontrol>файл</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Формат</dt>
-<dd>Формат (зависит от типа).</dd>
-</dlentry><dlentry>
-<dt>Емкость</dt>
-<dd>Размер тома.</dd>
-</dlentry><dlentry>
-<dt>Выделение</dt>
-<dd>Объем выделенной памяти в пуле.</dd>
-</dlentry></dl>Для создания пула памяти щелкните на значке <uicontrol>плюса (+)</uicontrol> в правом верхнем углу страницы.</p>
+<p>Для просмотра сведений о томах пула памяти щелкните на стрелке в правой части строки пула памяти. Для того чтобы создать пул памяти, щелкните на значке <uicontrol>плюса (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="ru-ru">
 <title>Создание пула памяти</title>
@@ -76,13 +67,27 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt><uicontrol>SCSI Fibre Channel</uicontrol></dt>
 <dd>Задает пул на основе SCSI Fibre Channel. Выберите адаптер SCSI.</dd>
 </dlentry></dl></li>
+<li>Укажите путь к пулу памяти. Путь к пулу памяти указывает на место в файловой системе, куда отображен пул памяти. Путь должен быть уникальным. Если каталог не существует в момент создания пула, он будет создан автоматически.</li>
 <li>Щелкните на <uicontrol>Создать</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="ru-ru">
+<title>Добавление тома</title>
+<shortdesc>Добавление тома в пул памяти.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Загрузить с удаленного URL</dt>
+<dd>Указывает, откуда следует загрузить том. Пример: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Передать файл</dt>
+<dd>Задает место в локальной системе.</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
