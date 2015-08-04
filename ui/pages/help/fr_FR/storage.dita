@@ -10,13 +10,15 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="fr-fr">
 <title>Stockage</title>
 <shortdesc>La page <wintitle>Stockage</wintitle> répertorie les pools de stockage disponibles,
-y compris les pools de stockage 'default' et 'ISO' prêts à l'emploi.
-Si vous souhaitez utiliser votre propre pool de stockage ISO, ajoutez-le dans le chemin du pool de stockage 'ISO'.</shortdesc>
+y compris les pools de stockage 'default' et 'ISO' prêts à l'emploi. Si vous souhaitez utiliser votre propre pool de stockage ISO, ajoutez-le dans le chemin du pool de stockage 'ISO'.</shortdesc>
 <csbody>
 <p>Pour chaque pool de stockage, les informations suivantes sont affichées :<dl>
 <dlentry>
 <dt>Nom</dt>
-<dd>Nom du pool de stockage et pourcentage d'utilisation.</dd>
+<dd>Nom du pool de stockage.</dd>
+</dlentry><dlentry>
+<dt>% utilisé</dt>
+<dd>Pourcentage du pool de stockage utilisé.</dd>
 </dlentry><dlentry>
 <dt>Etat</dt>
 <dd>Etat du pool de stockage, actif (vert) ou inactif (rouge). </dd>
@@ -36,23 +38,11 @@ Si vous souhaitez utiliser votre propre pool de stockage ISO, ajoutez-le dans le
 <p>Les actions suivantes peuvent être sélectionnées  pour chaque pool de stockage :<ul>
 <li>Sélectionnez <uicontrol>Activer</uicontrol> pour activer le pool de stockage pour utilisation.</li>
 <li>Sélectionnez <uicontrol>Désactiver</uicontrol> pour désactiver un pool de stockage actif.</li>
+<li>Sélectionnez <uicontrol>Ajouter un volume</uicontrol> pour ajouter un volume supplémentaire à un pool de stockage actif.</li>
 <li>Sélectionnez <uicontrol>Annuler définition</uicontrol> pour retirer un pool de stockage inactif.</li>
 </ul></p>
 <p>Pour afficher les détails de volume de stockage pour un pool de stockage, cliquez sur la
-flèche située à droite de la ligne du pool de stockage.  Détails inclus :<dl><dlentry>
-<dt>Type</dt>
-<dd>Type de volume, par exemple <uicontrol>file</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Format</dt>
-<dd>Format, variable selon le type.</dd>
-</dlentry><dlentry>
-<dt>Capacité</dt>
-<dd>Taille du volume de stockage.</dd>
-</dlentry><dlentry>
-<dt>Allocation</dt>
-<dd>Quantité d'espace déjà allouée dans le pool de stockage.</dd>
-</dlentry></dl>Pour définir un pool de stockage, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>
-dans le coin supérieur droit de l'écran.</p>
+flèche située à droite de la ligne du pool de stockage.  Pour définir un pool de stockage, cliquez sur l'icône <uicontrol>plus (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="fr-fr">
 <title>Définir un pool de stockage</title>
@@ -81,13 +71,28 @@ et la <uicontrol>Cible</uicontrol> sur le serveur iSCSI. Vous avez la possibilit
 <dt><uicontrol>Fibre Channel SCSI</uicontrol></dt>
 <dd>Indique un pool basée sur une connexion Fibre Channel SCSI. Sélectionnez l'adaptateur SCSI à utiliser.</dd>
 </dlentry></dl></li>
+<li>Indiquez un chemin de stockage pour le pool de stockage. Le chemin de stockage est l'emplacement sur le système de fichiers local vers lequel le pool est mappé.
+Le chemin doit être unique. Si le répertoire n'existe pas lorsque le pool est créé, il est créé.</li>
 <li>Cliquez sur <uicontrol>Créer</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="fr-fr">
+<title>Ajouter un volume</title>
+<shortdesc>Ajoute un volume à un pool de stockage.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Extraire de l'URL distante</dt>
+<dd>Indiquez l'emplacement à partir duquel le volume est téléchargé. Exemple : <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Télécharger un fichier</dt>
+<dd>Indique un emplacement sur le système local.</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

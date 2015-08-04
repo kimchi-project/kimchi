@@ -9,20 +9,20 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhvirtm" xml:lang="zh-cn">
 <title>访客</title>
-<shortdesc>“<wintitle>访客</wintitle>”页面列示已定义的 KVM 虚拟机。</shortdesc>
+<shortdesc>“<wintitle>访客</wintitle>”页面列示已为服务器定义的访客。</shortdesc>
 <csbody>
 <p>对于每个访客，会显示以下信息：<dl><dlentry>
 <dt>名称</dt>
-<dd>虚拟机的名称。</dd>
+<dd>访客的名称。</dd>
 </dlentry><dlentry>
 <dt>CPU</dt>
-<dd>虚拟机中处理器使用百分比。</dd>
-</dlentry><dlentry>
-<dt>网络 I/O</dt>
-<dd>网络输入/输出传输速度（按 KB/秒计）。</dd>
+<dd>访客中的处理器使用百分比。</dd>
 </dlentry><dlentry>
 <dt>磁盘 I/O</dt>
 <dd>磁盘输入/输出传输速度（按 KB/秒计）。</dd>
+</dlentry><dlentry>
+<dt>网络 I/O</dt>
+<dd>网络输入/输出传输速度（按 KB/秒计）。</dd>
 </dlentry><dlentry>
 <dt>Livetile</dt>
 <dd>访客处于非活动状态时，访客操作系统控制台的状态，或者表示 <tm tmtype="tm" trademark="Linux">Linux</tm> 分发版的图标。</dd>
@@ -37,82 +37,78 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </dlentry></dl> </p>
 <p>可为每个访客选择以下操作：<ul>
 <li>选择<uicontrol>连接</uicontrol>以连接到访客操作系统的远程控制台。</li>
-<li>选择<uicontrol>管理介质</uicontrol>以更改安装介质的路径。</li>
-<li>选择<uicontrol>重置</uicontrol>以重置访客。</li>
+<li>选择<uicontrol>克隆</uicontrol>以复制现有访客定义来创建访客。</li>
+<li>选择<uicontrol>重置</uicontrol>以重置访客。您只能重置已启动的访客。</li>
 <li>选择<uicontrol>编辑</uicontrol>以编辑现有访客的属性。仅当停止时才可编辑访客。</li>
+<li>选择<uicontrol>启动</uicontrol>以启动访客。</li>
+<li>选择<uicontrol>关闭</uicontrol>以正常关闭访客。</li>
+<li>选择<uicontrol>关闭电源</uicontrol>以强制立即关闭访客。</li>
 <li>选择<uicontrol>删除</uicontrol>以删除访客。</li>
-</ul>要创建访客或虚拟机，请单击页面右上方的<uicontrol>加号键 (+) </uicontrol> 图标。</p>
+</ul>要创建访客，请单击页面上的<uicontrol>加号 (+)</uicontrol> 图标。</p>
 </csbody>
 <cshelp id="kimhvirtmcrt" xml:lang="zh-cn">
-<title>创建虚拟机</title>
-<shortdesc>通过使用现有模板创建虚拟机。</shortdesc>
+<title>创建访客</title>
+<shortdesc>通过使用现有模板来创建访客。</shortdesc>
 <csbody>
 <p> <ol>
-<li>输入用于标识虚拟机的名称。</li>
-<li rev="rev1">选择模板。<ul>
-<li>如果模板已存在，请从所显示的的模板中选择。</li>
+<li>输入用于标识访客的名称。</li>
+<li>选择模板。<ul>
+<li>如果模板已存在，请从所显示的模板中选择。</li>
 <li>如果不存在任何模板，请单击<uicontrol>创建模板</uicontrol>以创建模板。</li>
-</ul></li>
+</ul>可以通过将鼠标指针悬浮在模板上来查看有关该模板的信息。</li>
 <li>单击<uicontrol>创建</uicontrol>。</li>
 </ol> </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="zh-cn">
 <title>编辑访客</title>
-<shortdesc>编辑现有虚拟机的属性。一些属性只能在访客已停止的情况下编辑。其他属性将在下一次引导时生效。</shortdesc>
-<csprolog><csmetadata></csmetadata></csprolog>
+<shortdesc>编辑现有访客的属性。一些属性只能在访客已停止的情况下编辑。其他属性将在下一次引导时生效。</shortdesc>
 <csbody>
-<p>对于每个访客，会在“<wintitle>常规</wintitle>”选项卡中显示以下信息：<dl>
-<dlentry>
-<dt>名称</dt>
-<dd>虚拟机的名称。（只能在访客已停止的情况下编辑）</dd>
-</dlentry><dlentry>
-<dt>CPU 数</dt>
-<dd>处理器的数目。（如果访客正在运行，新数量将在下一次引导时生效）</dd>
-</dlentry><dlentry>
-<dt>内存</dt>
-<dd>内存量（以 MB 计）。（如果访客正在运行，新数量将在下一次引导时生效）</dd>
-</dlentry><dlentry>
-<dt>图标</dt>
-<dd>访客处于非活动状态时，表示要显示的 Linux 分发版而不是当前状态 (Livetile) 的图形图像。</dd>
-</dlentry></dl></p>
-<p>会在“<wintitle>存储器</wintitle>”选项卡中显示以下信息。</p>
 <dl><dlentry>
+<dt>常规</dt>
+<dd>显示有关访客的信息，其中包括要用于访客的名称、CPU、内存和图标。您可以编辑已停止访客的名称。对 CPU
+和内存的更改将在下次引导后生效。</dd>
+</dlentry><dlentry>
 <dt>存储器</dt>
-<dd>显示用于安装的 ISO 文件所在的位置。</dd>
+<dd>显示所选访客的存储器的设备和路径。您可以添加、编辑和移除访客的存储设备。</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>接口</dt>
+<dd>显示访客的网络信息，其中包括名称、类型和 MAC 地址。您可以添加、编辑和移除访客的接口。</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>许可权</dt>
+<dd>显示访客有权使用的用户和组。</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>主机 PCI 设备</dt>
+<dd>显示主机上所有可用 PCI 设备的列表。</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>快照</dt>
+<dd>显示访客的快照。您可以创建、编辑或删除快照。通过选择快照并选择还原，会将访客复原到过去的某个时间点（由快照数据确定），并且将废弃该时间点之后作出的所有更改。</dd>
 </dlentry></dl>
 <p> 可对未禁用的字段进行编辑。编辑字段之后，请单击<uicontrol>保存</uicontrol>。</p>
 </csbody>
 </cshelp>
-<cshelp id="kimstoragedevice" xml:lang="zh-cn">
-<title>添加、替换或拆离存储设备</title>
-<shortdesc rev="rev1">您可以对虚拟机添加、替换或拆离存储设备。唯一受支持的设备为 CDROM。要编辑存储设备，请遵循以下步骤：</shortdesc>
+<cshelp id="kimhvirtmclone" xml:lang="zh-cn">
+<title>对访客进行克隆</title>
+<shortdesc>通过对访客进行克隆，可以创建访客的副本。</shortdesc>
 <csbody>
+<p>要对访客进行克隆，请执行以下操作：</p>
 <ol>
-<li>在“<wintitle>编辑访客</wintitle>”窗口中，选择“<wintitle>存储器</wintitle>”。</li>
-<li>要替换存储设备，请单击第一个图标，带有<uicontrol>橙色斜杠 (/)</uicontrol>。输入 ISO 文件路径并单击<uicontrol>替换</uicontrol>。</li>
-<li>要拆离存储设备，请单击第二个图标，带有<uicontrol>红色短划线 (-)</uicontrol>。确认删除操作，然后单击<uicontrol>确定</uicontrol>。</li>
-<li>要添加存储设备，请单击第三个图标，带有<uicontrol>绿色加号键 (+)</uicontrol>。输入设备名和 ISO 文件路径并单击<uicontrol>拆离</uicontrol>。</li>
+<li>从访客的“操作”菜单中选择<uicontrol>克隆</uicontrol>。</li>
+<li>接受警告。<note>如果目标访客正在使用 SCSI 或
+iSCSI 卷，或者目标池不具有足够的空间，那么将在缺省存储池中创建克隆。</note></li>
 </ol>
-</csbody>
-</cshelp>
-<cshelp id="kimreplacemedia" xml:lang="zh-cn">
-<title>替换 VM 的 CDROM</title>
-<shortdesc rev="rev1">安装完成之后，您可以替换虚拟机的 CDROM 的内容。</shortdesc>
-<csbody>
-<ol>
-<li>请确保已启动虚拟机。</li>
-<li>从“操作”菜单中，选择<uicontrol>管理介质</uicontrol>。</li>
-<li>要更改当前装入到 CDROM 中的内容，请单击 hdc 字段旁边的<uicontrol>橙色斜杠 (/)</uicontrol> 图标。</li>
-<li>在“<wintitle>替换 VM 的 CDROM</wintitle>”页面中，输入 ISO 文件路径。另外两个字段为只读。</li>
-<li>单击<uicontrol>替换</uicontrol>。</li>
-</ol>
+<p>访客将显示在列表中并具有标签<uicontrol>正在克隆...</uicontrol>，完成该过程后，克隆的访客可供使用。</p>
+
 </csbody>
 </cshelp>
 <?tm 1391540919 3?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 04963_6 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 231 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

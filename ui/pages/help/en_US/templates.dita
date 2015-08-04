@@ -12,8 +12,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <shortdesc>The <wintitle>Templates</wintitle> page shows the defined
 virtual machine templates that can be used to create KVM guests.</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed:<dl>
-<dlentry>
+<p>For each template, the following information is displayed:</p>
+<dl><dlentry>
 <dt>OS</dt>
 <dd>Name of the operating system or distribution.</dd>
 </dlentry><dlentry>
@@ -25,74 +25,64 @@ virtual machine templates that can be used to create KVM guests.</shortdesc>
 </dlentry><dlentry>
 <dt>Memory</dt>
 <dd>Amount of random access memory to be allocated, in MB.</dd>
-</dlentry></dl></p>
-<p>The following actions can be selected for each template:<ul>
+</dlentry></dl>
+<p>The following actions can be selected for each template:</p>
+<ul>
 <li>Select <uicontrol>Edit</uicontrol> to edit the template.</li>
+<li>Select <uicontrol>Clone</uicontrol> to copy a template.</li>
 <li>Select <uicontrol>Delete</uicontrol> to delete the template.</li>
-</ul>To add a template, click the <uicontrol>plus (+)</uicontrol> icon
-in the upper right of the display.</p>
+</ul>
+<p>To add a template, click the <uicontrol>plus (+)</uicontrol> icon.</p>
 </csbody>
 <cshelp id="kimhedittempl" xml:lang="en-us">
 <title>Edit template</title>
 <shortdesc>Edit an existing template.</shortdesc>
 <csbody>
-<p>For each template, the following information is displayed: <dl>
-<dlentry>
-<dt>Name</dt>
-<dd>Name of the template.</dd>
+<p>For each template, the following information is displayed: </p>
+<dl><dlentry>
+<dt>General</dt>
+<dd>Displays the name, vendor distribution, version, memory, file
+path to ISO file, and graphics preferences.</dd>
 </dlentry><dlentry>
-<dt>Vendor</dt>
-<dd>The name of the company that created the operating system or distribution
-that the template is configured to use.</dd>
+<dt>Storage</dt>
+<dd>Specify the storage pool information for the template.</dd>
 </dlentry><dlentry>
-<dt>Version</dt>
-<dd>The version of the operating system or distribution that the template
-is configured to use.</dd>
+<dt>Interface</dt>
+<dd>Displays the default network interfaces available to the KVM guest.
+You can select multiple networks.</dd>
 </dlentry><dlentry>
-<dt>CPU number</dt>
-<dd>Number of processors that are defined for the template.</dd>
-</dlentry><dlentry>
-<dt>Memory</dt>
-<dd>Amount of memory in MB to be allocated to the virtual machine.</dd>
-</dlentry><dlentry>
-<dt>Disk</dt>
-<dd>Disk size in GB.</dd>
-</dlentry><dlentry>
-<dt>CDROM</dt>
-<dd>File path to the location of the ISO file used to install the
-KVM guest.</dd>
-</dlentry><dlentry>
-<dt>Storage pool</dt>
-<dd>Specific storage pool or the default storage pool.</dd>
-</dlentry><dlentry>
-<dt>Network</dt>
-<dd>Default network interfaces available to the KVM guest. You can
-select multiple networks.</dd>
-</dlentry></dl> Fields that are not disabled can be edited. After
-you edit a field, click <uicontrol>Save</uicontrol>. </p>
+<dt>Processor</dt>
+<dd>In the <uicontrol>CPU Number</uicontrol> field, specify the number
+of processors that are defined for the template.</dd>
+<dd>Select to Manually set CPU topology for each guest.</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>Add template</title>
-<shortdesc>Add a template from source media.
-You can add your own ISO image to 'ISO' storage pool for following discovery.</shortdesc>
+<shortdesc>Add a template from source media. You can add your own
+ISO image to 'ISO' storage pool for following discovery.</shortdesc>
 <csbody>
-<p>Select the location of the source media from the following options:<dl>
-<dlentry>
+<p>Select the location of the source media from the following options:</p>
+<dl><dlentry>
 <dt>Local ISO image</dt>
 <dd>Select to scan storage pools for installation ISO images available
 on the system.</dd>
 </dlentry><dlentry>
+<dt>Local Image File</dt>
+<dd>Select to specify a path to the local image file.</dd>
+</dlentry><dlentry>
 <dt>Remote ISO image</dt>
 <dd>Select to specify a remote location for an installation ISO image.</dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddloct">
-<title>Add template - local ISO image</title>
-<shortdesc>Add a template from a local ISO image.</shortdesc>
+<title>Add template - ISO image</title>
+<shortdesc>Add a template from a ISO image.</shortdesc>
 <csbody>
-<p>The ISO images available on the system are displayed.<dl><dlentry>
+<p>The ISO images available on the system are remotely are displayed.</p>
+<dl><dlentry>
 <dt>OS</dt>
 <dd>Name of the operating system or distribution.</dd>
 </dlentry><dlentry>
@@ -101,13 +91,14 @@ on the system.</dd>
 </dlentry><dlentry>
 <dt>Size</dt>
 <dd>Size of the ISO image.</dd>
-</dlentry></dl></p>
+</dlentry></dl>
 <p>To create a template from an ISO image, choose from the following
-options:<ul>
+options:</p>
+<ul>
 <li>Select an ISO image from which to create a template, then click <uicontrol>Create
 Templates from Selected ISO</uicontrol>.</li>
 <li>Select <uicontrol>All</uicontrol> to create a template from each
- listed ISO image, then click <uicontrol>Create Templates from Selected
+listed ISO image, then click <uicontrol>Create Templates from Selected
 ISO</uicontrol>.</li>
 <li>If the ISO image that you want to use does not appear in the scan
 results, you can select from the following options:<ul>
@@ -115,9 +106,9 @@ results, you can select from the following options:<ul>
 specify a path to the ISO image.</li>
 <li>Click <uicontrol>Search more ISOs</uicontrol> to search for more
 ISO images.</li>
-</ul></li><?Pub Caret 0?>
-</ul></p>
-</csbody>
+</ul></li>
+</ul>
+</csbody><?Pub Caret -2?>
 </cshelp>
 </cshelp>
-<?Pub *0000004433?>
+<?Pub *0000004194?>

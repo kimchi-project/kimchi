@@ -15,7 +15,10 @@ Si desea utilizar su propia ISO, añádala a la vía de acceso de la agrupación
 <p>Se visualiza la siguiente información para cada agrupación de almacenamiento:<dl>
 <dlentry>
 <dt>Nombre</dt>
-<dd>Nombre de la agrupación de almacenamiento y el porcentaje utilizado.</dd>
+<dd>El nombre de la agrupación de almacenamiento. </dd>
+</dlentry><dlentry>
+<dt>% utilizado</dt>
+<dd>Porcentaje de la agrupación de almacenamiento que se está utilizando. </dd>
 </dlentry><dlentry>
 <dt>Estado</dt>
 <dd>Estado de la agrupación de almacenamiento, activa (verde) o inactiva (rojo). </dd>
@@ -35,21 +38,10 @@ Si desea utilizar su propia ISO, añádala a la vía de acceso de la agrupación
 <p>Se pueden seleccionar las siguientes acciones para cada agrupación de almacenamiento:<ul>
 <li>Seleccione <uicontrol>Activar</uicontrol> para activar la agrupación de almacenamiento para que pueda utilizarse.</li>
 <li>Seleccione <uicontrol>Desactivar</uicontrol> para desactivar una agrupación de almacenamiento activa.</li>
+<li>Seleccione <uicontrol>Añadir volumen</uicontrol> para añadir más volumen a una agrupación de almacenamiento activa. </li>
 <li>Seleccione <uicontrol>No definir</uicontrol> para eliminar una agrupación de almacenamiento inactiva.</li>
 </ul></p>
-<p>Para visualizar detalles de volumen de almacenamiento para una agrupación de almacenamiento, pulse la flecha situada en el lado derecho de la fila de agrupación de almacenamiento. Los detalles incluyen lo siguiente:<dl><dlentry>
-<dt>Tipo</dt>
-<dd>El tipo de volumen, por ejemplo, <uicontrol>archivo</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Formato</dt>
-<dd>El formato, variable dependiendo del tipo.</dd>
-</dlentry><dlentry>
-<dt>Capacidad</dt>
-<dd>Tamaño del volumen de almacenamiento.</dd>
-</dlentry><dlentry>
-<dt>Asignación</dt>
-<dd>Cantidad de espacio que ya está asignado en la agrupación de almacenamiento.</dd>
-</dlentry></dl>Para definir una agrupación de almacenamiento, pulse en el icono <uicontrol>más (+)</uicontrol> en la esquina superior derecha de la pantalla.</p>
+<p>Para visualizar detalles de volumen de almacenamiento para una agrupación de almacenamiento, pulse la flecha situada en el lado derecho de la fila de agrupación de almacenamiento. Para definir una agrupación de almacenamiento, pulse el icono <uicontrol>más (+)</uicontrol>. </p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="es-es">
 <title>Definir una agrupación de almacenamiento</title>
@@ -74,13 +66,28 @@ Al seleccionar <uicontrol>iSCSI</uicontrol>, escriba la dirección IP del <uicon
 <dt><uicontrol>Canal de fibra de SCSI</uicontrol></dt>
 <dd>Especifica una agrupación basada en un Canal de fibra SCSI. Seleccione qué adaptador SCSI se utilizará.</dd>
 </dlentry></dl></li>
+<li>Especifique una vía de acceso de almacenamiento para la agrupación de almacenamiento. La vía de acceso de almacenamiento es la ubicación en el sistema de archivos local al que se correlaciona la agrupación.
+La vía de acceso debe ser exclusiva. Si el directorio no existe cuando se crea la agrupación, se creará para el usuario. </li>
 <li>Pulse <uicontrol>Crear</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="es-es">
+<title>Añadir volumen</title>
+<shortdesc>Añade volumen a una agrupación de almacenamiento. </shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Captar de URL remoto</dt>
+<dd>Especifica una ubicación de donde descargar el volumen. Por ejemplo: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Cargar un archivo</dt>
+<dd>Especifica una ubicación en su sistema local. </dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

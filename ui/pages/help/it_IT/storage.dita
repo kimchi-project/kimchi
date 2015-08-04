@@ -10,13 +10,15 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="it-it">
 <title>Memoria</title>
 <shortdesc>La pagina <wintitle>Memoria</wintitle> elenca i pool di memoria
-disponibili, compresi i pool di memoria pronti per l'uso 'default' e 'ISO'.
-Se si desidera utilizzare un proprio ISO, aggiungerlo al percorso del pool di memoria 'ISO'.</shortdesc>
+disponibili, compresi i pool di memoria pronti per l'uso 'default' e 'ISO'. Se si desidera utilizzare un proprio ISO, aggiungerlo al percorso del pool di memoria 'ISO'.</shortdesc>
 <csbody>
 <p>Per ciascun pool di memoria vengono visualizzate le seguenti informazioni:<dl>
 <dlentry>
 <dt>Nome</dt>
-<dd>Il nome del pool di memoria e la percentuale utilizzata.</dd>
+<dd>Il nome del pool di memoria.</dd>
+</dlentry><dlentry>
+<dt>% utilizzata</dt>
+<dd>La percentuale del pool di memoria utilizzata. </dd>
 </dlentry><dlentry>
 <dt>Stato</dt>
 <dd>Lo stato del pool di memoria, attivo (verde) o non attivo (rosso). </dd>
@@ -36,22 +38,11 @@ Se si desidera utilizzare un proprio ISO, aggiungerlo al percorso del pool di me
 <p>Per ciascun pool di memoria è possibile selezionare le azioni indicate di seguito:<ul>
 <li>Selezionare <uicontrol>Attiva</uicontrol> per attivare il pool di memoria in modo da poterlo utilizzare.</li>
 <li>Selezionare <uicontrol>Disattiva</uicontrol> per disattivare un pool di memoria attivo.</li>
+<li>Selezionare <uicontrol>Aggiungi volume</uicontrol> per aggiungere altri volumi a un pool di memoria attivo.</li>
 <li>Selezionare <uicontrol>Rimuovi definizione</uicontrol> per rimuovere un pool di memoria non attivo.</li>
 </ul></p>
-<p>Per visualizzare i dettagli del volume di memoria per un pool di memoria, fare clic sulla freccia sul lato destro della riga del pool di memoria.  I dettagli includono:<dl><dlentry>
-<dt>Tipo</dt>
-<dd>Il tipo di volume, ad esempio, <uicontrol>file</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Formato</dt>
-<dd>Il formato, che varia in base al tipo.</dd>
-</dlentry><dlentry>
-<dt>Capacità</dt>
-<dd>La dimensione del volume di memoria.</dd>
-</dlentry><dlentry>
-<dt>Assegnazione</dt>
-<dd>La quantità di spazio già assegnato nel pool di memoria.</dd>
-</dlentry></dl>Per definire un pool di memoria fare clic sull'icona <uicontrol>più
-(+)</uicontrol> nella parte in alto a destra del pannello.</p>
+<p>Per visualizzare i dettagli del volume di memoria per un pool di memoria, fare clic sulla freccia sul lato destro della riga del pool di memoria.  Per definire un pool di memoria fare clic sull'icona <uicontrol>più
+(+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="it-it">
 <title>Definire un pool di memoria</title>
@@ -79,13 +70,29 @@ Quando si seleziona <uicontrol>iSCSI</uicontrol>, immettere l'indirizzo IP del <
 <dd>Specifica un pool basato su un canale a fibre ottiche SCSI. Selezionare quale adattatore
 SCSI utilizzare.</dd>
 </dlentry></dl></li>
+<li>Specificare un percorso di memoria per il pool di memoria. Il percorso di memoria è l'ubicazione nel file system locale con cui il pool è associato.
+Il percorso deve essere univoco. Se la directory non esiste al momento della creazione del
+pool, verrà creata per l'utente. </li>
 <li>Fare clic su <uicontrol>Crea</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="it-it">
+<title>Aggiungi volume</title>
+<shortdesc>Aggiunge volumi a un pool di memoria.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Richiama da URL remoto</dt>
+<dd>Specifica un'ubicazione da cui scaricare il volume. Ad esempio: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Carica un file</dt>
+<dd>Specifica un'ubicazione sul sistema locale. </dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

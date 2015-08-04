@@ -165,11 +165,13 @@ def check_url_path(path):
     return True
 
 
-def run_command(cmd, timeout=None):
+def run_command(cmd, timeout=None, silent=False):
     """
     cmd is a sequence of command arguments.
     timeout is a float number in seconds.
     timeout default value is None, means command run without timeout.
+    silent is bool, it will log errors using debug handler not error.
+    silent default value is False.
     """
     # subprocess.kill() can leave descendants running
     # and halting the execution. Using psutil to
@@ -206,8 +208,14 @@ def run_command(cmd, timeout=None):
             kimchi_log.debug("out:\n%s", out)
 
         if proc.returncode != 0:
-            kimchi_log.error("rc: %s error: %s returned from cmd: %s",
-                             proc.returncode, error, ' '.join(cmd))
+            msg = "rc: %s error: %s returned from cmd: %s" %\
+                  (proc.returncode, error, ' '.join(cmd))
+
+            if silent:
+                kimchi_log.debug(msg)
+
+            else:
+                kimchi_log.error(msg)
         elif error:
             kimchi_log.debug("error: %s returned from cmd: %s",
                              error, ' '.join(cmd))

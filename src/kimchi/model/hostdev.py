@@ -169,14 +169,15 @@ def get_dev_info(node_dev):
     scsi_target is not documented in libvirt official website. Try to
     parse scsi_target according to the libvirt commit db19834a0a.
     '''
-
     xmlstr = node_dev.XMLDesc(0)
     info = dictize(xmlstr)['device']
     dev_type = info['capability'].pop('type')
     info['device_type'] = dev_type
     cap_dict = info.pop('capability')
     info.update(cap_dict)
-    info['parent'] = node_dev.parent()
+
+    # parent device not found: set as None
+    info["parent"] = info.get("parent")
 
     if dev_type in ('scsi', 'scsi_generic', 'scsi_target', 'system', 'usb'):
         return info

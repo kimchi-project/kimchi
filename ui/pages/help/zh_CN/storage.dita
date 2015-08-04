@@ -14,7 +14,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>对于每个存储池，会显示以下信息：<dl>
 <dlentry>
 <dt>名称</dt>
-<dd>存储池的名称以及使用百分比。</dd>
+<dd>存储池的名称。</dd>
+</dlentry><dlentry>
+<dt>已用百分比</dt>
+<dd>正在使用的存储池的百分比。</dd>
 </dlentry><dlentry>
 <dt>状态</dt>
 <dd>存储池的状态，活动（绿色）或非活动（红色）。</dd>
@@ -34,21 +37,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <p>可为每个存储池选择以下操作：<ul>
 <li>选择<uicontrol>激活</uicontrol>以激活存储池以使其可使用。</li>
 <li>选择<uicontrol>取消激活</uicontrol>以取消激活活动存储池。</li>
+<li>选择<uicontrol>添加卷</uicontrol>以将更多卷添加至活动存储池。</li>
 <li>选择<uicontrol>取消定义</uicontrol>以除去非活动存储池。</li>
 </ul></p>
-<p>要显示存储池的存储卷详细信息，请单击存储池行右端的箭头。详细信息包括以下内容：<dl><dlentry>
-<dt>类型</dt>
-<dd>卷的类型，例如，<uicontrol>文件</uicontrol>。</dd>
-</dlentry><dlentry>
-<dt>格式</dt>
-<dd>格式因类型而有所不同。</dd>
-</dlentry><dlentry>
-<dt>容量</dt>
-<dd>存储卷的大小。</dd>
-</dlentry><dlentry>
-<dt>分配</dt>
-<dd>存储池中已分配的空间量。</dd>
-</dlentry></dl>要定义存储池，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
+<p>要显示存储池的存储卷详细信息，请单击存储池行右端的箭头。要定义存储池，请单击<uicontrol>加号 (+)</uicontrol> 图标。</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="zh-cn">
 <title>定义存储池</title>
@@ -72,13 +64,28 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt><uicontrol>SCSI 光纤通道</uicontrol></dt>
 <dd>根据 SCSI 光纤通道指定池。选择要使用的 SCSI 适配器。</dd>
 </dlentry></dl></li>
+<li>指定存储池的存储路径。存储路径是本地文件系统中该池所映射到的位置。该路径必须唯一。如果创建该池时此目录不存在，那么系统将为您创建此目录。
+</li>
 <li>单击<uicontrol>创建</uicontrol>。</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="zh-cn">
+<title>添加卷</title>
+<shortdesc>将卷添加至存储池。</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>从远程 URL 中访存</dt>
+<dd>指定要从中下载卷的位置。例如：<filepath>https://my-server/fedora22.img</filepath>。</dd>
+</dlentry><dlentry>
+<dt>上载文件</dt>
+<dd>指定本地系统上的位置。</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

@@ -31,7 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li rev="rev1">选择<uicontrol>开始</uicontrol>以开始网络连接。</li>
 <li>选择<uicontrol>停止</uicontrol>以结束网络连接。</li>
 <li>选择<uicontrol>删除</uicontrol>以删除连接信息。</li>
-</ul>要创建网络，请单击显示屏右上方的<uicontrol>加号键 (+)</uicontrol> 图标。</p>
+</ul>要创建网络，请单击<uicontrol>加号 (+)</uicontrol> 图标。</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="zh-cn">
 <title>创建网络</title>
@@ -56,6 +56,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

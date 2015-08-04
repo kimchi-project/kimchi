@@ -31,7 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li rev="rev1"><uicontrol>Запустить</uicontrol> - открыть сетевое соединение.</li>
 <li><uicontrol>Остановить</uicontrol> - закрыть сетевое соединение.</li>
 <li><uicontrol>Удалить</uicontrol> - удалить информацию о соединении.</li>
-</ul>Для создания сети щелкните на значке <uicontrol>плюса (+)</uicontrol> в правом верхнем углу страницы.</p>
+</ul>Для создания сети щелкните на значке <uicontrol>плюса (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="ru-ru">
 <title>Создание сети</title>
@@ -56,6 +56,6 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

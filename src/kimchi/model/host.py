@@ -22,6 +22,7 @@ import os
 import time
 import platform
 from collections import defaultdict
+from lxml import objectify
 
 import psutil
 from cherrypy.process.plugins import BackgroundTask
@@ -34,7 +35,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.model.config import CapabilitiesModel
 from kimchi.model.tasks import TaskModel
-from kimchi.model.vms import DOM_STATE_MAP
+from kimchi.model.vms import DOM_STATE_MAP, VMModel, VMsModel
 from kimchi.repositories import Repositories
 from kimchi.swupdate import SoftwareUpdate
 from kimchi.utils import add_task, kimchi_log
@@ -318,8 +319,29 @@ class DevicesModel(object):
         except AttributeError:
             self.cap_map['fc_host'] = None
 
+    def _get_unavailable_devices(self):
+        vm_list = VMsModel.get_vms(self.conn)
+        unavailable_devs = []
+        for vm in vm_list:
+            dom = VMModel.get_vm(vm, self.conn)
+            xmlstr = dom.XMLDesc(0)
+            root = objectify.fromstring(xmlstr)
+            try:
+                hostdev = root.devices.hostdev
+            except AttributeError:
+                continue
+
+            vm_devs = [DeviceModel.deduce_dev_name(e, self.conn)
+                       for e in hostdev]
+
+            for dev in vm_devs:
+                unavailable_devs.append(dev)
+
+        return unavailable_devs
+
     def get_list(self, _cap=None, _passthrough=None,
-                 _passthrough_affected_by=None):
+                 _passthrough_affected_by=None,
+                 _available_only=None):
         if _passthrough_affected_by is not None:
             # _passthrough_affected_by conflicts with _cap and _passthrough
             if (_cap, _passthrough) != (None, None):
@@ -336,7 +358,14 @@ class DevicesModel(object):
             conn = self.conn.get()
             passthrough_names = [
                 dev['name'] for dev in hostdev.get_passthrough_dev_infos(conn)]
+
             dev_names = list(set(dev_names) & set(passthrough_names))
+
+            if _available_only is not None and _available_only.lower() \
+                    == 'true':
+                unavailable_devs = self._get_unavailable_devices()
+                dev_names = [dev for dev in dev_names
+                             if dev not in unavailable_devs]
 
         dev_names.sort()
         return dev_names
@@ -389,6 +418,78 @@ class DeviceModel(object):
         except:
             raise NotFoundError('KCHHOST0003E', {'name': nodedev_name})
         return hostdev.get_dev_info(dev)
+
+    @staticmethod
+    def _toint(num_str):
+        if num_str.startswith('0x'):
+            return int(num_str, 16)
+        elif num_str.startswith('0'):
+            return int(num_str, 8)
+        else:
+            return int(num_str)
+
+    @staticmethod
+    def deduce_dev_name(e, conn):
+        if e.attrib['type'] == 'pci':
+            return DeviceModel._deduce_dev_name_pci(e)
+        elif e.attrib['type'] == 'scsi':
+            return DeviceModel._deduce_dev_name_scsi(e)
+        elif e.attrib['type'] == 'usb':
+            return DeviceModel._deduce_dev_name_usb(e, conn)
+        return None
+
+    @staticmethod
+    def _deduce_dev_name_pci(e):
+        attrib = {}
+        for field in ('domain', 'bus', 'slot', 'function'):
+            attrib[field] = DeviceModel._toint(e.source.address.attrib[field])
+        return 'pci_%(domain)04x_%(bus)02x_%(slot)02x_%(function)x' % attrib
+
+    @staticmethod
+    def _deduce_dev_name_scsi(e):
+        attrib = {}
+        for field in ('bus', 'target', 'unit'):
+            attrib[field] = DeviceModel._toint(e.source.address.attrib[field])
+        attrib['host'] = DeviceModel._toint(
+            e.source.adapter.attrib['name'][len('scsi_host'):])
+        return 'scsi_%(host)d_%(bus)d_%(target)d_%(unit)d' % attrib
+
+    @staticmethod
+    def _deduce_dev_name_usb(e, conn):
+        dev_names = DevicesModel(conn=conn).get_list(_cap='usb_device')
+        usb_infos = [DeviceModel(conn=conn).lookup(dev_name)
+                     for dev_name in dev_names]
+
+        unknown_dev = None
+
+        try:
+            evendor = DeviceModel._toint(e.source.vendor.attrib['id'])
+            eproduct = DeviceModel._toint(e.source.product.attrib['id'])
+        except AttributeError:
+            evendor = 0
+            eproduct = 0
+        else:
+            unknown_dev = 'usb_vendor_%s_product_%s' % (evendor, eproduct)
+
+        try:
+            ebus = DeviceModel._toint(e.source.address.attrib['bus'])
+            edevice = DeviceModel._toint(e.source.address.attrib['device'])
+        except AttributeError:
+            ebus = -1
+            edevice = -1
+        else:
+            unknown_dev = 'usb_bus_%s_device_%s' % (ebus, edevice)
+
+        for usb_info in usb_infos:
+            ivendor = DeviceModel._toint(usb_info['vendor']['id'])
+            iproduct = DeviceModel._toint(usb_info['product']['id'])
+            if evendor == ivendor and eproduct == iproduct:
+                return usb_info['name']
+            ibus = usb_info['bus']
+            idevice = usb_info['device']
+            if ebus == ibus and edevice == idevice:
+                return usb_info['name']
+        return unknown_dev
 
 
 class PackagesUpdateModel(object):
