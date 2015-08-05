@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug  5 13:02:13 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:02</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-9"></a><span class="tm">13:03:29</span><span class="nk"> &lt;danielhb&gt;</span> nop
+<a name="l-10"></a><span class="tm">13:04:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:04:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:04:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated all the upstream branches according to the latest patches sent to ML</span>
+<a name="l-13"></a><span class="tm">13:04:34</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent patches to ML and is working on bugs</span>
+<a name="l-14"></a><span class="tm">13:04:40</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed and pushed patches to his personal Kimchi fork. This fork is no longer necessary now that alinefm is back</span>
+<a name="l-15"></a><span class="tm">13:04:53</span><span class="nk"> &lt;alinefm&gt;</span> I also want to thank danielhb for the terrific job when I was out in the last weeks
+<a name="l-16"></a><span class="tm">13:05:10</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a couple of patches to fix issues with PCI API and memory usage in Power Systems</span>
+<a name="l-17"></a><span class="tm">13:05:19</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, thanks! :)
+<a name="l-18"></a><span class="tm">13:05:31</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri ported some wok widgets to bootstrap markup and css</span>
+<a name="l-19"></a><span class="tm">13:06:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now reviewing all pending patches on ML and will work with lcorreia to make the wok branch more stable</span>
+<a name="l-20"></a><span class="tm">13:06:30</span><span class="nk"> &lt;herch&gt;</span> <span class="cmd">#info </span><span class="cmdline">harch understanding the UI flow, host tab movement from kimchi to ginger and investigation on authentication module for wok</span>
+<a name="l-21"></a><span class="tm">13:06:36</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you are working on top of origin/wok branch, right?
+<a name="l-22"></a><span class="tm">13:07:03</span><span class="nk"> &lt;samhenri&gt;</span> well, for now i'm still working with prototypes
+<a name="l-23"></a><span class="tm">13:07:04</span><span class="nk"> &lt;alinefm&gt;</span> herch, do you plan to move the whole host tab to ginger?
+<a name="l-24"></a><span class="tm">13:07:17</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok - any patches you can send to ML for review?
+<a name="l-25"></a><span class="tm">13:07:35</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, it'd be better to send small patches to review instead of a large patch set
+<a name="l-26"></a><span class="tm">13:07:47</span><span class="nk"> &lt;WalterNik&gt;</span> info WalterNik worked out a proposal for a new function-split between Kimchi and Ginger.
+<a name="l-27"></a><span class="tm">13:07:47</span><span class="nk"> &lt;WalterNik&gt;</span> Available for review. Got some feedback via the mailinglist
+<a name="l-28"></a><span class="tm">13:07:53</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, have you checked the bootstrap license? it is compatible with Apache v2?
+<a name="l-29"></a><span class="tm">13:08:12</span><span class="nk"> &lt;herch&gt;</span> alinefm, Right now yes, but the final version might vary. We can add/drop things when we move that tab to ginger. Do you have anything specific about this in mind?
+<a name="l-30"></a><span class="tm">13:08:12</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn waiting response from libvirt team about USB controllers</span>
+<a name="l-31"></a><span class="tm">13:08:18</span><span class="nk"> &lt;samhenri&gt;</span> it is licensed under MIT
+<a name="l-32"></a><span class="tm">13:08:34</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn reading bugs about &lt;interface type=hostdev&gt;</span>
+<a name="l-33"></a><span class="tm">13:08:53</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, good!
+<a name="l-34"></a><span class="tm">13:09:06</span><span class="nk"> &lt;Abhiram&gt;</span> <span class="cmd">#info </span><span class="cmdline">Abhiram understanding the backend flow of host functionality and move the same to ginger.</span>
+<a name="l-35"></a><span class="tm">13:09:27</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info, </span><span class="cmdline">Chandra working upon introducing version into REST API of wok branch for Kimchi/Ginger</span>
+<a name="l-36"></a><span class="tm">13:09:56</span><span class="nk"> &lt;alinefm&gt;</span> herch, I had a discussion about that with danielhb (the ginger maintainer) some time ago, and we agreed to move everything from host tab to ginger *except* the host basic info and stats
+<a name="l-37"></a><span class="tm">13:10:11</span><span class="nk"> &lt;samhenri&gt;</span> I can send a patch with some assets that I've been working on but for now I won't include them in the .html pages
+<a name="l-38"></a><span class="tm">13:10:18</span><span class="nk"> &lt;alinefm&gt;</span> as those kind of information may be useful to user balance his/her virtual machines according to host performance
+<a name="l-39"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, sounds good!
+<a name="l-40"></a><span class="tm">13:10:38</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">Jkatta  understanding the back end flow of host functionality and move the same to ginger</span>
+<a name="l-41"></a><span class="tm">13:10:48</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, why would you keep host basic info and stats in Kimchi ?
+<a name="l-42"></a><span class="tm">13:10:53</span><span class="nk"> &lt;herch&gt;</span> alinefm, so danielhb is already working on it?
+<a name="l-43"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, there are some widgets test files - that load only  the widget in a simple HTML - just for test
+<a name="l-44"></a><span class="tm">13:11:04</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">submitted patch for wok base help page, supporting en_US only for now</span>
+<a name="l-45"></a><span class="tm">13:11:29</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can update them to use the new bootstrap style - so we can see how it will look like
+<a name="l-46"></a><span class="tm">13:11:36</span><span class="nk"> &lt;chandra&gt;</span> Aline, all the host information still be part of Ginger and make it as default plugin
+<a name="l-47"></a><span class="tm">13:11:43</span><span class="nk"> &lt;danielhb&gt;</span> herch, at this moment, no. but it is in my short-term TO-DO list
+<a name="l-48"></a><span class="tm">13:12:13</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, we have a usecase where we kimchi will initially not be available but we still want the host basic info and stats
+<a name="l-49"></a><span class="tm">13:12:23</span><span class="nk"> &lt;pawan&gt;</span> <span class="cmd">#info </span><span class="cmdline">pawan REST API versioning for Kimchi plugin Network tab for WOK</span>
+<a name="l-50"></a><span class="tm">13:12:30</span><span class="nk"> &lt;herch&gt;</span> danielhb, let me know if you want me to take it up.
+<a name="l-51"></a><span class="tm">13:13:10</span><span class="nk"> &lt;atreyee_&gt;</span> understanding the UI flow, host tab movement from kimchi to ginger
+<a name="l-52"></a><span class="tm">13:13:34</span><span class="nk"> &lt;herch&gt;</span> danielhb, just want to avoid the duplication.
+<a name="l-53"></a><span class="tm">13:13:47</span><span class="nk"> &lt;meghasmriti&gt;</span> <span class="cmd">#info  </span><span class="cmdline">REST API versioning for Kimchi plugin Host tab for WOK</span>
+<a name="l-54"></a><span class="tm">13:13:49</span><span class="nk"> &lt;pooja&gt;</span> <span class="cmd">#info </span><span class="cmdline">pooja REST API versioning for kimchi plugin Storage tab for WOK</span>
+<a name="l-55"></a><span class="tm">13:13:55</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, herch, chandra, I have an idea to solve that
+<a name="l-56"></a><span class="tm">13:14:07</span><span class="nk"> &lt;herch&gt;</span> alinefm, ok...
+<a name="l-57"></a><span class="tm">13:14:07</span><span class="nk"> &lt;alinefm&gt;</span> let's continue on open discussion session
+<a name="l-58"></a><span class="tm">13:14:22</span><span class="nk"> &lt;alinefm&gt;</span> so we can keep focus on one topic per time =)
+<a name="l-59"></a><span class="tm">13:14:23</span><span class="nk"> &lt;samhenri&gt;</span> alinefm i think most of the elements won't show properly if i just edit the html and include the new assets. some of them already have bootstrap classes
+<a name="l-60"></a><span class="tm">13:14:23</span><span class="nk"> &lt;danielhb&gt;</span> herch,  feel free to take it the task if you like :) I am not going to look into it until the end of this month
+<a name="l-61"></a><span class="tm">13:14:39</span><span class="nk"> &lt;herch&gt;</span> alinefm, do you want to talk about this by opening an issue on github? many projects to that for such kinda things.
+<a name="l-62"></a><span class="tm">13:14:57</span><span class="nk"> &lt;danielhb&gt;</span> herch, at first the features I would migrate is software updates, repositories and debug reports. alinefm is ok with those 3 features going to ginger
+<a name="l-63"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alinefm&gt;</span> herch, I prefer the ML
+<a name="l-64"></a><span class="tm">13:15:23</span><span class="nk"> &lt;danielhb&gt;</span> herch, after that we can discuss moving the other features
+<a name="l-65"></a><span class="tm">13:15:35</span><span class="nk"> &lt;herch&gt;</span> alinefm, no problem. ML it is.
+<a name="l-66"></a><span class="tm">13:15:42</span><span class="nk"> &lt;samhenri&gt;</span> alinefm other elements may stop working or showing because bootstrap css overrides a lot of styles
+<a name="l-67"></a><span class="tm">13:16:07</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I mean the HTML specific for each widget
+<a name="l-68"></a><span class="tm">13:16:12</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, look at - ui/js/widgets/samples/
+<a name="l-69"></a><span class="tm">13:16:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, each sample file only loads one widget in the HTML
+<a name="l-70"></a><span class="tm">13:16:53</span><span class="nk"> &lt;alinefm&gt;</span> so we can see how it looks like without breaking anything on kimchi
+<a name="l-71"></a><span class="tm">13:16:57</span><span class="nk"> &lt;herch&gt;</span> alinefm, while danielhb focuses on the software updates, repositories and debug reports, should I take the moving host tab to ginger?
+<a name="l-72"></a><span class="tm">13:16:57</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, makes sense now?
+<a name="l-73"></a><span class="tm">13:17:04</span><span class="nk"> &lt;herch&gt;</span> alinefm, let me know what do you think
+<a name="l-74"></a><span class="tm">13:17:23</span><span class="nk"> &lt;samhenri&gt;</span> alinefm, these are the files that i'm editing right now
+<a name="l-75"></a><span class="tm">13:17:28</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-76"></a><span class="tm">13:17:48</span><span class="nk"> &lt;samhenri&gt;</span> alinefm i had to change some lines in the js
+<a name="l-77"></a><span class="tm">13:17:59</span><span class="nk"> &lt;alinefm&gt;</span> herch, AFAIU danielhb asked you to start moving software updates, repositories and debug reports to ginger
+<a name="l-78"></a><span class="tm">13:18:10</span><span class="nk"> &lt;alinefm&gt;</span> herch, and then we can discuss more about basic info and stats
+<a name="l-79"></a><span class="tm">13:18:33</span><span class="nk"> &lt;herch&gt;</span> alinefm, got ya
+<a name="l-80"></a><span class="tm">13:19:05</span><span class="nk"> &lt;chandra&gt;</span> Herch, as aline mentioned lets have more debate in the open discussion on this topic ...
+<a name="l-81"></a><span class="tm">13:19:06</span><span class="nk"> &lt;samhenri&gt;</span> alinefm dialog widget for instance, I was going to remove it, since Bootstrap has a modal window widget
+<a name="l-82"></a><span class="tm">13:19:22</span><span class="nk"> &lt;herch&gt;</span> chandra, sure.
+<a name="l-83"></a><span class="tm">13:20:12</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, great! just keep us posted in your work - so we can discuss prior you really implement anything
+<a name="l-84"></a><span class="tm">13:20:18</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, just to avoid extra work
+<a name="l-85"></a><span class="tm">13:20:31</span><span class="nk"> &lt;samhenri&gt;</span> alinefm, sure
+<a name="l-86"></a><span class="tm">13:21:11</span><span class="nk"> &lt;samhenri&gt;</span> alinefm one more thing, have you seen my e-mail regarding Helvetica Neue font?
+<a name="l-87"></a><span class="tm">13:21:29</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I saw on ML but havent read it yet =x
+<a name="l-88"></a><span class="tm">13:21:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I plan to read/reply all the emails on ML by today/tomorrow
+<a name="l-89"></a><span class="tm">13:22:18</span><span class="nk"> &lt;samhenri&gt;</span> alinefm, ok, no problem
+<a name="l-90"></a><span class="tm">13:22:25</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do we need to import the bootstrap files into kimchi or there are system packages we will depend on?
+<a name="l-91"></a><span class="tm">13:25:56</span><span class="nk"> &lt;alinefm&gt;</span> ok - let's move on to open discussion
+<a name="l-92"></a><span class="tm">13:26:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-93"></a><span class="tm">13:26:22</span><span class="nk"> &lt;samhenri&gt;</span> alinefm i'm editing bootstrap sass files so we may need to include gulp, bower and other dependencies like SASS if people want to build just the new UI assets
+<a name="l-94"></a><span class="tm">13:27:03</span><span class="nk"> &lt;chandra&gt;</span> alinefm, danielhb : iterating on what walternik mentioned "why would you keep host basic info and stats in Kimchi ?"
+<a name="l-95"></a><span class="tm">13:27:04</span><span class="nk"> &lt;samhenri&gt;</span> otherwise we can just add the generated CSS/images/font/svg files
+<a name="l-96"></a><span class="tm">13:27:16</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ny saying 'build just the new assets' it means it will be a build dependency only?
+<a name="l-97"></a><span class="tm">13:28:26</span><span class="nk"> &lt;alinefm&gt;</span> *by
+<a name="l-98"></a><span class="tm">13:28:59</span><span class="nk"> &lt;alinefm&gt;</span> chandra, those kind of information may be useful to user balance his/her virtual machines according to host performance
+<a name="l-99"></a><span class="tm">13:29:20</span><span class="nk"> &lt;samhenri&gt;</span> alinefm, yes. Suppose we have to fix a css bug/issue, instead of editing the CSS files we would have to edit the SCSS files
+<a name="l-100"></a><span class="tm">13:29:38</span><span class="nk"> &lt;alinefm&gt;</span> for example, the number of cpus and amount of memory on host may impact the amount of memory and cpus on guest
+<a name="l-101"></a><span class="tm">13:30:03</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I can see that ... but do you expect users to install only Kimchi without any Host Management ?
+<a name="l-102"></a><span class="tm">13:30:08</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so once built the files we don't need the bootstrap files anymore?
+<a name="l-103"></a><span class="tm">13:30:14</span><span class="nk"> &lt;chandra&gt;</span> alinefm, If user have Ginger as well he can very well look into that..
+<a name="l-104"></a><span class="tm">13:30:27</span><span class="nk"> &lt;samhenri&gt;</span> alinefm for now I'm using gulp that is a JS task runner to run libsass and compile SCSS files to CSS
+<a name="l-105"></a><span class="tm">13:30:36</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I mean, when building the Kimchi package we will include one single file that was built from bootstrap, is that correct?
+<a name="l-106"></a><span class="tm">13:30:43</span><span class="nk"> &lt;samhenri&gt;</span> alinefm correct
+<a name="l-107"></a><span class="tm">13:31:01</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yeap! most of our users do that
+<a name="l-108"></a><span class="tm">13:31:25</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, right now true ... but they have the host tab with all the good features
+<a name="l-109"></a><span class="tm">13:32:19</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, if we take out debug reports, code update ... they will miss a lot of functionality without the host plugin
+<a name="l-110"></a><span class="tm">13:32:27</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra, I also understand that some user running only with Ginger would like the basic info and stats
+<a name="l-111"></a><span class="tm">13:32:39</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, tyes
+<a name="l-112"></a><span class="tm">13:32:46</span><span class="nk"> &lt;alinefm&gt;</span> so it'd propose to move those APIs to wok
+<a name="l-113"></a><span class="tm">13:32:47</span><span class="nk"> &lt;samhenri&gt;</span> alinefm and then if we have to edit or add something new we would have to edit the original files that includes bootstrap original source, our customized version of it and our new widgets
+<a name="l-114"></a><span class="tm">13:33:04</span><span class="nk"> &lt;alinefm&gt;</span> so kimchi and ginger plugins (and any other plugin) can use them
+<a name="l-115"></a><span class="tm">13:33:23</span><span class="nk"> &lt;chandra&gt;</span> In future it could be containers as well
+<a name="l-116"></a><span class="tm">13:33:35</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, uff ... but from a functionality point of view these are host aspects
+<a name="l-117"></a><span class="tm">13:34:00</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-118"></a><span class="tm">13:34:05</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, this would show also on the API uri ...
+<a name="l-119"></a><span class="tm">13:34:36</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra, I don't want to remove the Host tab from Kimchi as it will be used for the Federation feature as well
+<a name="l-120"></a><span class="tm">13:34:54</span><span class="nk"> &lt;alinefm&gt;</span> in which user will be able to add/remove host peers to do migration and so
+<a name="l-121"></a><span class="tm">13:35:00</span><span class="nk"> &lt;Abhiram&gt;</span> so kimchi UI page/ginger UI page both will display host basic info and stats if user installs both?
+<a name="l-122"></a><span class="tm">13:35:30</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, yes and no
+<a name="l-123"></a><span class="tm">13:36:04</span><span class="nk"> &lt;alinefm&gt;</span> it'd be good to display just in one place when both kimchi/ginger are loaded
+<a name="l-124"></a><span class="tm">13:36:22</span><span class="nk"> &lt;alinefm&gt;</span> for example, and both plugins are loaded we can display the info on kimchi only
+<a name="l-125"></a><span class="tm">13:36:31</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, and from a resource model point of view ... how would that work ?
+<a name="l-126"></a><span class="tm">13:36:33</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, each plugin display the info
+<a name="l-127"></a><span class="tm">13:36:39</span><span class="nk"> &lt;chandra&gt;</span> I hope this can be imagined if you want to let us say update the "software" for all the peers. Still I am missing the link on being host tab part of Kimchi
+<a name="l-128"></a><span class="tm">13:36:42</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, the model would be on wok
+<a name="l-129"></a><span class="tm">13:36:51</span><span class="nk"> &lt;alinefm&gt;</span> the base framework for the plugins
+<a name="l-130"></a><span class="tm">13:37:35</span><span class="nk"> &lt;alinefm&gt;</span> chandra, wait - the peers feature is only a link to other servers
+<a name="l-131"></a><span class="tm">13:37:46</span><span class="nk"> &lt;alinefm&gt;</span> chandra, we will not have a single UI covering multiple servers
+<a name="l-132"></a><span class="tm">13:37:53</span><span class="nk"> &lt;alinefm&gt;</span> 1 kimchi = 1 server
+<a name="l-133"></a><span class="tm">13:38:34</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I guess this multihost functionality requires some additional calrification then ....
+<a name="l-134"></a><span class="tm">13:38:35</span><span class="nk"> &lt;alinefm&gt;</span> chandra, so to update the software to all the peers, you will need to access the link to each peer, login and then go to the update
+<a name="l-135"></a><span class="tm">13:38:56</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, sure! what are the doubts?
+<a name="l-136"></a><span class="tm">13:38:56</span><span class="nk"> &lt;chandra&gt;</span> ok understood. Also when we talk about the migration then are we only talking about one server ?
+<a name="l-137"></a><span class="tm">13:39:58</span><span class="nk"> &lt;alinefm&gt;</span> chandra, the idea is, select a guest and then select a destination host (that can be a peer or not) and do the migration
+<a name="l-138"></a><span class="tm">13:40:08</span><span class="nk"> &lt;alinefm&gt;</span> by peer I mean other server running kimchi
+<a name="l-139"></a><span class="tm">13:40:11</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, there are some requirements for performing the same actions on multiple servers ... but this is going far beyond our current discussion scope I guess
+<a name="l-140"></a><span class="tm">13:40:32</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yeap
+<a name="l-141"></a><span class="tm">13:40:54</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, we first need to identify which operations would be good to do in multiple servers and why
+<a name="l-142"></a><span class="tm">13:41:05</span><span class="nk"> &lt;alinefm&gt;</span> and then think in a strategy to cover them
+<a name="l-143"></a><span class="tm">13:41:21</span><span class="nk"> &lt;alinefm&gt;</span> maybe other plugin separated from kimchi and ginger?
+<a name="l-144"></a><span class="tm">13:41:26</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I still don't have a clear picture on your proposal ... would it be possible to have some sketch ?
+<a name="l-145"></a><span class="tm">13:42:11</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, about the peers or about the basic info + stats?
+<a name="l-146"></a><span class="tm">13:42:35</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, no about your proposal of functionality separation ?
+<a name="l-147"></a><span class="tm">13:42:43</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-148"></a><span class="tm">13:43:00</span><span class="nk"> &lt;alinefm&gt;</span> move basic info + stats to wok framework
+<a name="l-149"></a><span class="tm">13:43:21</span><span class="nk"> &lt;alinefm&gt;</span> on Kimchi UI, always load it
+<a name="l-150"></a><span class="tm">13:43:31</span><span class="nk"> &lt;alinefm&gt;</span> on Ginger UI, only loads it if Kimchi is not up
+<a name="l-151"></a><span class="tm">13:43:41</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, agree ^?
+<a name="l-152"></a><span class="tm">13:44:11</span><span class="nk"> &lt;chandra&gt;</span> Aline this might defeat the purpose of having host plugin separate and again have some functionality part of base ...
+<a name="l-153"></a><span class="tm">13:44:28</span><span class="nk"> &lt;chandra&gt;</span> which is suppose to be of host information
+<a name="l-154"></a><span class="tm">13:45:10</span><span class="nk"> &lt;alinefm&gt;</span> chandra, the wok framework already provides basic APIs
+<a name="l-155"></a><span class="tm">13:45:20</span><span class="nk"> &lt;alinefm&gt;</span> to login, logout, system config, etc
+<a name="l-156"></a><span class="tm">13:45:39</span><span class="nk"> &lt;alinefm&gt;</span> I don't see host information as too specific to not be part of it
+<a name="l-157"></a><span class="tm">13:45:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I don't see why makes it conditional for kimchi. IMO wok should always show the 'Basic info' tab, doesn't matter which plug-ins are loaded or not
+<a name="l-158"></a><span class="tm">13:46:30</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, hmm... I was not thinking in that way
+<a name="l-159"></a><span class="tm">13:46:45</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, but it seems to be a better approach IMO
+<a name="l-160"></a><span class="tm">13:47:04</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I thought in only move the API to wok and keep the UI on kimchi/ginger
+<a name="l-161"></a><span class="tm">13:47:21</span><span class="nk"> &lt;alinefm&gt;</span> but let the wok load a "Basic Information" tab is good
+<a name="l-162"></a><span class="tm">13:47:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, what I've thought was to actually add a 'basic info' tab in wok. If you run wok standalone, it'll have this tab. I believe the information that is generic enough for any future plug-in
+<a name="l-163"></a><span class="tm">13:48:24</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, yeap - but it breaks the idea to have a plugin framework
+<a name="l-164"></a><span class="tm">13:48:33</span><span class="nk"> &lt;alinefm&gt;</span> as wok would be a 'plugin' in some way
+<a name="l-165"></a><span class="tm">13:48:36</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, why exctly this functionality ?
+<a name="l-166"></a><span class="tm">13:48:46</span><span class="nk"> &lt;chandra&gt;</span> Right that was the point even I have ...
+<a name="l-167"></a><span class="tm">13:48:59</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, because it is useful for kimchi and ginger at same time
+<a name="l-168"></a><span class="tm">13:49:40</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, the alternative would be to have yet another plug-in for basic information
+<a name="l-169"></a><span class="tm">13:49:49</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, wouldn't be debug report usefull for both as well ?
+<a name="l-170"></a><span class="tm">13:49:49</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, can be done too
+<a name="l-171"></a><span class="tm">13:50:47</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, danielhb, you see that I have difficulties understanding how you sourt out the functions
+<a name="l-172"></a><span class="tm">13:50:55</span><span class="nk"> &lt;Abhiram&gt;</span> i was thinking what if complete ginger can be considered as wok along with current wok we have... it means whenever we install wok it installs ginger something meaningful functionality
+<a name="l-173"></a><span class="tm">13:51:02</span><span class="nk"> &lt;lcorreia&gt;</span> danielhb, that's a better approach IMO
+<a name="l-174"></a><span class="tm">13:51:11</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, yes it should
+<a name="l-175"></a><span class="tm">13:52:10</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, I guess we really need to go trough the functionality and decide where it should go ...
+<a name="l-176"></a><span class="tm">13:52:30</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, the sort of functions, at least in my head, is 'which features are required for kimchi/ginger'
+<a name="l-177"></a><span class="tm">13:52:44</span><span class="nk"> &lt;chandra&gt;</span> I even agree, we need some extensive discussion before we conclude some thing on this topic...
+<a name="l-178"></a><span class="tm">13:53:03</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, true ... this is the better formulation
+<a name="l-179"></a><span class="tm">13:53:19</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, in my opinion, Kimchi is about VMs. Software Update and Repositories are clearly out of Kimchi scope, in my opinion
+<a name="l-180"></a><span class="tm">13:53:32</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, agreed
+<a name="l-181"></a><span class="tm">13:54:00</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, but then, "memory available" is something that both Kimchi and Ginger uses. This is the kind of feature that we need to decide what to do, because both plug-ins need this info
+<a name="l-182"></a><span class="tm">13:54:08</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, WalterNik, agreed
+<a name="l-183"></a><span class="tm">13:54:49</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, in my oppinion everything which is currently in the host tab + the admin tab features are host scope
+<a name="l-184"></a><span class="tm">13:55:09</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, as chandra said, we can have an extensive ML discussion (Walter already started one yesterday) about (1) which features matches this profile of 'useful for both' and (2) how to implement/move them to a common 'area'
+<a name="l-185"></a><span class="tm">13:55:17</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, host scope ... not saying that they are not usefull elsewhere
+<a name="l-186"></a><span class="tm">13:55:37</span><span class="nk"> &lt;chandra&gt;</span> WalterNik I agree, except let us say platform specific functionality
+<a name="l-187"></a><span class="tm">13:55:40</span><span class="nk"> &lt;chandra&gt;</span> from Ginger
+<a name="l-188"></a><span class="tm">13:57:18</span><span class="nk"> &lt;alinefm&gt;</span> to do not block any progress on that side, I'd say we can start moving software update and repositories to ginger
+<a name="l-189"></a><span class="tm">13:57:19</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, chandra, ok lets try on the ML ...
+<a name="l-190"></a><span class="tm">13:57:25</span><span class="nk"> &lt;alinefm&gt;</span> as we have already agreed about them
+<a name="l-191"></a><span class="tm">13:57:37</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, agree
+<a name="l-192"></a><span class="tm">13:57:52</span><span class="nk"> &lt;alinefm&gt;</span> and we continue on ML about basic info + stats + debug reports
+<a name="l-193"></a><span class="tm">13:58:03</span><span class="nk"> &lt;Abhiram&gt;</span> shutdown restart ?
+<a name="l-194"></a><span class="tm">13:58:03</span><span class="nk"> &lt;chandra&gt;</span> alinefm, danielhb, walternik,  agree
+<a name="l-195"></a><span class="tm">13:58:05</span><span class="nk"> &lt;alinefm&gt;</span> sounds a good plan by now?
+<a name="l-196"></a><span class="tm">13:58:14</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, also move to ginger
+<a name="l-197"></a><span class="tm">13:58:17</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, sounds good
+<a name="l-198"></a><span class="tm">13:58:20</span><span class="nk"> &lt;Abhiram&gt;</span> ok
+<a name="l-199"></a><span class="tm">13:58:28</span><span class="nk"> &lt;Archana&gt;</span> Walter,danielhb,chandra, does read only info can be included in common and any admin actions can go to ginger?
+<a name="l-200"></a><span class="tm">13:59:18</span><span class="nk"> &lt;chandra&gt;</span> Archana, we are going back again, What do you mean by common ... according to me all these are host functionality
+<a name="l-201"></a><span class="tm">14:00:00</span><span class="nk"> &lt;alinefm&gt;</span> chandra, by common = useful to kimchi and ginger
+<a name="l-202"></a><span class="tm">14:00:08</span><span class="nk"> &lt;Abhiram&gt;</span> i suppose archana means wok chandra
+<a name="l-203"></a><span class="tm">14:00:51</span><span class="nk"> &lt;Archana&gt;</span> chandra, i meant common which needed to both kimchi ginger.. if come to tab name yes host
+<a name="l-204"></a><span class="tm">14:01:02</span><span class="nk"> &lt;chandra&gt;</span> Right
+<a name="l-205"></a><span class="tm">14:02:01</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, chandra, WalterNik, danielhb, the ideal solution to that would have a type of plugin that is embedded to an existing tab
+<a name="l-206"></a><span class="tm">14:02:25</span><span class="nk"> &lt;alinefm&gt;</span> so we could create a simple plugin that does not have interface
+<a name="l-207"></a><span class="tm">14:02:33</span><span class="nk"> &lt;alinefm&gt;</span> and other interface loads it
+<a name="l-208"></a><span class="tm">14:02:56</span><span class="nk"> &lt;alinefm&gt;</span> I think eclipse has something similar to it
+<a name="l-209"></a><span class="tm">14:03:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, are you eclipse specialist?
+<a name="l-210"></a><span class="tm">14:03:10</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-211"></a><span class="tm">14:03:11</span><span class="nk"> &lt;Archana&gt;</span> alinefm, does seperate basic plugin make more sense to have common stuff, do it will become optional for user to have it or not
+<a name="l-212"></a><span class="tm">14:03:26</span><span class="nk"> &lt;alinefm&gt;</span> Archana, agree
+<a name="l-213"></a><span class="tm">14:03:42</span><span class="nk"> &lt;alinefm&gt;</span> when we start discussing about plugins long time ago, we thought about those 2 types of plugins
+<a name="l-214"></a><span class="tm">14:03:59</span><span class="nk"> &lt;alinefm&gt;</span> those which has UI (tabs and so) and those which can be loaded as part of an existing UI
+<a name="l-215"></a><span class="tm">14:04:09</span><span class="nk"> &lt;alinefm&gt;</span> but we only implemented the first one =P
+<a name="l-216"></a><span class="tm">14:04:19</span><span class="nk"> &lt;alinefm&gt;</span> maybe it is time to resume the discussion on that
+<a name="l-217"></a><span class="tm">14:04:54</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, Archana, we should think about the APIs as well ... I expect exploiters on it
+<a name="l-218"></a><span class="tm">14:05:35</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, Archana, since the plugin may be relfected there
+<a name="l-219"></a><span class="tm">14:05:54</span><span class="nk"> &lt;Archana&gt;</span> if we think that basic info is any way needed for any plugin, then I think lets not keep this as optional to user by making it plugin. What does rest of team think on this?
+<a name="l-220"></a><span class="tm">14:06:15</span><span class="nk"> &lt;suresh&gt;</span> yes
+<a name="l-221"></a><span class="tm">14:06:49</span><span class="nk"> &lt;Archana&gt;</span> WalterNik, agreed
+<a name="l-222"></a><span class="tm">14:06:49</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I was :P
+<a name="l-223"></a><span class="tm">14:07:31</span><span class="nk"> &lt;alinefm&gt;</span> Archana, "needed by any plugin" is restricted to kimchi and ginger now
+<a name="l-224"></a><span class="tm">14:07:53</span><span class="nk"> &lt;alinefm&gt;</span> but thinking wok as a framework I may want to create a plugin to hold makeup tips =)
+<a name="l-225"></a><span class="tm">14:08:03</span><span class="nk"> &lt;alinefm&gt;</span> so I don't care about host info
+<a name="l-226"></a><span class="tm">14:08:20</span><span class="nk"> &lt;Archana&gt;</span> alinefm, hmm.. true
+<a name="l-227"></a><span class="tm">14:08:59</span><span class="nk"> &lt;alinefm&gt;</span> Archana, maybe create a plugin that only expose the API without any UI would be good for us
+<a name="l-228"></a><span class="tm">14:09:11</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra ^
+<a name="l-229"></a><span class="tm">14:09:16</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, are we really assuming that the framework is such a generic thingy ?
+<a name="l-230"></a><span class="tm">14:09:50</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, wok is just a web server that loads plugins
+<a name="l-231"></a><span class="tm">14:10:01</span><span class="nk"> &lt;alinefm&gt;</span> plugins can be related to anything
+<a name="l-232"></a><span class="tm">14:10:20</span><span class="nk"> &lt;Abhiram&gt;</span> i agree with this
+<a name="l-233"></a><span class="tm">14:10:22</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I wouldn't put anything directly in the framwork anyhow ... make it rather a default plugin
+<a name="l-234"></a><span class="tm">14:10:31</span><span class="nk"> &lt;chandra&gt;</span> I guess plugin make sense when it comes to any functionality we want on top of base
+<a name="l-235"></a><span class="tm">14:10:40</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, me neither
+<a name="l-236"></a><span class="tm">14:10:47</span><span class="nk"> &lt;Archana&gt;</span> WalterNik, agreed to have default plugin
+<a name="l-237"></a><span class="tm">14:11:18</span><span class="nk"> &lt;alinefm&gt;</span> we are over time now
+<a name="l-238"></a><span class="tm">14:11:28</span><span class="nk"> &lt;alinefm&gt;</span> we can continue on ML
+<a name="l-239"></a><span class="tm">14:11:41</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, but it was worth it :-)
+<a name="l-240"></a><span class="tm">14:12:00</span><span class="nk"> &lt;chandra&gt;</span> I feel we had some good discussion..
+<a name="l-241"></a><span class="tm">14:12:06</span><span class="nk"> &lt;Archana&gt;</span> Thanks everyone.. nice discussion
+<a name="l-242"></a><span class="tm">14:12:23</span><span class="nk"> &lt;alinefm&gt;</span> yeap! I was missing scrum meeting like that =P
+<a name="l-243"></a><span class="tm">14:12:32</span><span class="nk"> &lt;Archana&gt;</span> :)
+<a name="l-244"></a><span class="tm">14:12:32</span><span class="nk"> &lt;chandra&gt;</span> Let us continue over ML and then have better conclusion ..
+<a name="l-245"></a><span class="tm">14:12:35</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and for the great discussion!
+<a name="l-246"></a><span class="tm">14:12:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
