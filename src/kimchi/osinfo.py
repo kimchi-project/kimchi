@@ -44,28 +44,26 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                                         cdrom_bus='scsi',
                                         kbd_type="kbd",
                                         kbd_bus='usb', mouse_bus='usb',
-                                        tablet_bus='usb', memory=1280),
+                                        tablet_bus='usb'),
                             'modern': dict(disk_bus='virtio',
                                            nic_model='virtio',
                                            cdrom_bus='scsi',
                                            kbd_bus='usb',
                                            kbd_type="kbd",
-                                           mouse_bus='usb', tablet_bus='usb',
-                                           memory=1280)},
+                                           mouse_bus='usb', tablet_bus='usb')},
                   'ppc64le': {'old': dict(disk_bus='virtio',
                                           nic_model='virtio',
                                           cdrom_bus='scsi',
                                           kbd_bus='usb',
                                           kbd_type="keyboard",
-                                          mouse_bus='usb', tablet_bus='usb',
-                                          memory=1280),
+                                          mouse_bus='usb', tablet_bus='usb'),
                               'modern': dict(disk_bus='virtio',
                                              nic_model='virtio',
                                              cdrom_bus='scsi',
                                              kbd_bus='usb',
                                              kbd_type="keyboard",
-                                             mouse_bus='usb', tablet_bus='usb',
-                                             memory=1280)}}
+                                             mouse_bus='usb',
+                                             tablet_bus='usb')}}
 
 
 custom_specs = {'fedora': {'22': dict(video_model='qxl')}}
@@ -89,6 +87,16 @@ icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % paths.ui_dir, 'icon-*.png')]
 
 
+def _get_arch():
+    for arch, sub_archs in SUPPORTED_ARCHS.iteritems():
+        if os.uname()[4] in sub_archs:
+            return arch
+
+
+def _get_default_template_mem():
+    return 1024 if _get_arch() == 'x86' else 2048
+
+
 def _get_tmpl_defaults():
     """
     ConfigObj returns a dict like below when no changes were made in the
@@ -107,7 +115,7 @@ def _get_tmpl_defaults():
     # Create dict with default values
     tmpl_defaults = defaultdict(dict)
     tmpl_defaults['main']['networks'] = ['default']
-    tmpl_defaults['main']['memory'] = 1024
+    tmpl_defaults['main']['memory'] = _get_default_template_mem()
     tmpl_defaults['storage']['pool'] = 'default'
     tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2'}
     tmpl_defaults['processor']['cpus'] = 1
@@ -155,12 +163,6 @@ def _get_tmpl_defaults():
 
 # Set defaults values according to template.conf file
 defaults = _get_tmpl_defaults()
-
-
-def _get_arch():
-    for arch, sub_archs in SUPPORTED_ARCHS.iteritems():
-        if os.uname()[4] in sub_archs:
-            return arch
 
 
 def get_template_default(template_type, field):
