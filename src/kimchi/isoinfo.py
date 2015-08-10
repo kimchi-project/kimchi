@@ -97,7 +97,7 @@ iso_dir = [
          '|HRM_CENNA_X64FREV|HRM_CENNA_X64CHKV|HRM_CENA_X64FREV' +
          '|HRM_CENA_X64CHKV|HRM_CPRA_X64FREV|HRM_CPRNA_X64FREV')),
     ('sles', '10', 'SLES10|SUSE-Linux-Enterprise-Server.001'),
-    ('sles', '11', 'SUSE_SLES-11-0-0'),
+    ('sles', '11', 'SUSE_SLES-11-0-0|SLE-11'),
     ('sles', '12', 'SLE-12'),
     ('sles', lambda m: "11sp%s" % m.group(1), 'SLES-11-SP(\d+)'),
     ('opensuse', lambda m: m.group(1), 'openSUSE[ -](\d+\.\d+)'),
