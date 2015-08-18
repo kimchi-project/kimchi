@@ -24,7 +24,7 @@ import unittest
 
 from functools import partial
 
-from kimchi.vmtemplate import VMTemplate
+from kimchi import osinfo
 from kimchi.config import READONLY_POOL_TYPE
 from kimchi.mockmodel import MockModel
 from utils import get_free_port, patch_auth, request, run_server
@@ -88,7 +88,7 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(sorted(tmpl.keys()), sorted(keys))
 
         # Verify if default disk format was configured
-        default_disk_format = VMTemplate.get_default_disk0_format()
+        default_disk_format = osinfo.defaults['disks'][0]['format']
         self.assertEquals(tmpl['disks'][0]['format'], default_disk_format)
 
         # Clone a template
@@ -199,8 +199,8 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(update_tmpl['cdrom'], cdrom_data['cdrom'])
 
         # Update disks
-        disk_data = {'disks': [{'index': 0, 'size': 10},
-                               {'index': 1, 'size': 20}]}
+        disk_data = {'disks': [{'index': 0, 'size': 10, 'format': 'raw'},
+                               {'index': 1, 'size': 20, 'format': 'raw'}]}
         resp = self.request(new_tmpl_uri, json.dumps(disk_data), 'PUT')
         self.assertEquals(200, resp.status)
         resp = self.request(new_tmpl_uri)

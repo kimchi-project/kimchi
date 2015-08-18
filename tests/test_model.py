@@ -32,11 +32,11 @@ import iso_gen
 import kimchi.objectstore
 import utils
 from kimchi import netinfo
+from kimchi import osinfo
 from kimchi.basemodel import Singleton
 from kimchi.config import config, paths
 from kimchi.exception import InvalidOperation
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
-from kimchi.osinfo import get_template_default
 from kimchi.model import model
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.model.vms import VMModel
@@ -386,7 +386,7 @@ class ModelTests(unittest.TestCase):
     def test_vm_disk(self):
         disk_path = os.path.join(TMP_DIR, 'existent2.iso')
         open(disk_path, 'w').close()
-        modern_disk_bus = get_template_default('modern', 'disk_bus')
+        modern_disk_bus = osinfo.get_template_default('modern', 'disk_bus')
 
         def _attach_disk(expect_bus=modern_disk_bus):
             disk_args = {"type": "disk",
@@ -485,7 +485,7 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             # Need to check the right disk_bus for old distro
-            disk = _attach_disk(get_template_default('old', 'disk_bus'))
+            disk = _attach_disk(osinfo.get_template_default('old', 'disk_bus'))
             inst.vmstorage_delete('kimchi-ide-bus-vm', disk)
 
             # Hot plug IDE bus disk does not work
@@ -620,11 +620,14 @@ class ModelTests(unittest.TestCase):
         with open(config_file, 'w') as f:
             f.write(conf_file_data)
 
+        osinfo.defaults = osinfo._get_tmpl_defaults()
+
     def _restore_template_conf_file(self):
         config_file = os.path.join(paths.conf_dir, 'template.conf')
         config_bkp_file = \
             os.path.join(paths.conf_dir, 'template.conf-unit_test_bkp')
         os.rename(config_bkp_file, config_file)
+        osinfo.defaults = osinfo._get_tmpl_defaults()
 
     def _get_disk_format_from_vm(self, vm, conn):
         dom = VMModel.get_vm(vm, conn)
