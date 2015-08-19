@@ -1,0 +1,161 @@
+13:01:40 <alinefm> #startmeeting
+13:01:40 <kimchi-bot> Meeting started Wed Aug 19 13:01:40 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:40 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:40 <alinefm> #meetingname scrum
+13:01:40 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:56 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:01:57 <alinefm> anything else?
+13:04:25 <alinefm> ok... so let's get started
+13:04:36 <alinefm> #topic Status
+13:04:36 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:03 <alinefm> #info danielhb is out attending LinuxCon North America. He also presented there about Ginger
+13:05:24 <alinefm> #info alinefm working on bug fixes - sent 2 patches to ML (waiting for reviews)
+13:05:55 <ramon> #info ramonn working on exception bugs. Also, need to understand about maximum length of interfaces name on Z
+13:06:15 <jansch> #info jansch Initial GUI prototype for new UI with Pencil mockup tool covering base navigation
+13:06:54 <samhenri> #info samhenri adding bootstrap styles to wok branch, fixed some JS files and removed fontello and webfont files from source tree, submitting patch soon
+13:07:06 <alinefm> #info alinefm is now working on bug #450
+13:07:38 <pooja> #info pooja sent a patch for adding mock tests to ginger-wok branch
+13:07:41 <atreyee> #info atreyee understanding bootstrap framework
+13:07:58 <WalterNik> #info WalterNik working on High Level Use-Cases for Linux on z support in Ginger.
+13:08:15 <alinefm> samhenri, I was planning to send a patch to add the fontawesome packages as Kimchi dependencies and properly configure them to expose the files in the web server
+13:08:35 <alinefm> samhenri, are you already working on that? or should I do it? =)
+13:10:02 <samhenri> alinefm nope, for now I'm referencing local files, i just changed fontello references to fontawesome in the config temporally so I can use fontawesome icons with wok branch
+13:10:26 <alinefm> samhenri, ok - I will do a patch for that so
+13:10:43 <WalterNik> ramon, you're asking about network interface name lenght limitations on system z ?
+13:11:07 <samhenri> alinefm thanks!
+13:12:03 <samhenri> alinefm can we do the same for open sans? I'm still waiting a response from Don
+13:12:53 <alinefm> samhenri, hrm.. I will try to contact Don again regarding it
+13:13:08 <alinefm> samhenri, is there a package (rpm/deb) which provides the open sans font?
+13:13:50 <samhenri> alinefm yes, http://rpmfind.net//linux/RPM/fedora/devel/rawhide/s390x/o/open-sans-fonts-1.10-3.fc23.noarch.html
+13:13:53 <alinefm> WalterNik, I think there is a github issue open to cover that
+13:14:08 <alinefm> but I don't have much details now
+13:14:29 <alinefm> WalterNik, do you have any input about the name lenght limitations?
+13:14:50 <WalterNik> alinefm, thanks I'll update that one with the limitation details: it's 15 chars
+13:14:53 <samhenri> alinefm the right ones should only have TTF files in it
+13:15:15 <alinefm> samhenri, great! I will check the package is available for fedora, opensuse, ubuntu and redhat
+13:15:22 <alinefm> and if so we already have a solution for that
+13:16:02 <samhenri> ok!
+13:16:54 <alinefm> WalterNik, please, also check if there are characters not allowed
+13:17:00 <WalterNik> alinefm, samhenri, spontanous question from my side:  do we really need special additional fonts or could we choose some "default" fonts which would be available on alomost all distros by defautlt ?
+13:17:22 <WalterNik> alinefm, I'll check that one
+13:18:09 <alinefm> WalterNik, I say to choose one available on most distros by default
+13:18:30 <alinefm> but I think samhenri has a better view on that
+13:19:02 <alinefm> AFAIU, open sans is the most close font to helvetica - font used for the new UI design
+13:19:04 <samhenri> WalterNik well, the ui specs recommends different font weights that I'm not sure if all available fonts on different distros have
+13:20:14 <samhenri> WalterNik I've sent an e-mail comparing some fonts in the ML
+13:20:26 <ramon> Yes WalterNik
+13:21:08 <WalterNik> samhenri, assuming we could change the spec ... would you see good alternatives on the fonts ?  Sorry, I didn't focus on the fonts yet ... I'll look at the mail
+13:23:22 <samhenri> WalterNik well, Arial has only 3 different font-weights, Helvetica neue has 9 and open sans has 5
+13:24:06 <alinefm> samhenri, can't we use CSS config to adjust the font-weight as we want?
+13:24:36 <alinefm> for example, assuming we decide to use Arial, is there CSS config to ver the other 6 different font-weights provided by Helvetica?
+13:24:41 <samhenri> WalterNik besides, some widgets and elements have a specific width / height that if we change the font, this elements might get bigger or smaller
+13:25:08 <samhenri> Even if I put "font-weight: 300;" in an element, the hostname for instance
+13:25:21 <samhenri> If the font file doesn't have this specific style
+13:25:30 <samhenri> It will load the default (400)
+13:26:30 <alinefm> hrm... got it
+13:26:42 <WalterNik> samhenri, thanks ... I just realize that I don't have enough background on these details, I got worried about the additional dependencies
+13:26:53 <samhenri> So if I want to make an element use the "light" version of it and the next one use the regular one, both elements will look the same
+13:27:14 <alinefm> WalterNik, I have the same concern
+13:27:36 <samhenri> the open sans package contains all the different styles
+13:27:39 <alinefm> WalterNik, samhenri, I will check on how frequency the open sans font is installed on most used Linux distros
+13:27:53 <alinefm> maybe it can not be a problem
+13:28:21 <WalterNik> alinefm, thanks ... I can check it on Linux on z
+13:28:28 <alinefm> WalterNik, please! =)
+13:28:31 <alinefm> and thanks
+13:28:46 <samhenri> I'm more worried about fontawesome, because it does have some trademarked icons
+13:28:55 <alinefm> let's move on to open discussion (as we have already started it in fact hehe)
+13:28:58 <samhenri> unless the Fedora distributions doesn't have it
+13:29:00 <alinefm> #topic Open Discussion
+13:29:29 <alinefm> samhenri, but aren't those 2 packages we found enough?
+13:31:03 <samhenri> yes but I wonder if they removed these trademarked icons
+13:31:14 <samhenri> or got away with it
+13:32:14 <alinefm> the trademarked icons are part of fontawesome 'config', right?
+13:32:36 <alinefm> so I doubt it will happen as many others projects use it too
+13:32:50 <samhenri> yes
+13:33:05 <samhenri> i think they probably have removed the "brand" icons
+13:34:25 <samhenri> anyway, i'm going to use our customized version of FontAwesome CSS so I can remove these references
+13:34:43 <alinefm> what is a 'brand' icon?
+13:34:50 <alinefm> just for understanding
+13:35:04 <samhenri> http://fontawesome.io/icon/windows/
+13:35:20 <samhenri> windows, facebook, twitter, pinterest and other company logos
+13:35:29 <alinefm> hmmmm...
+13:36:34 <alinefm> samhenri, and when you say "use our customized version of FontAwesome CSS so I can remove these references" means we will not use those 'brand' icons or ..?
+13:36:51 <samhenri> yes, I'll remove this entire section from the CSS
+13:37:23 <alinefm> oh ok
+13:38:01 <alinefm> any other topic to cover today?
+13:38:28 <WalterNik> Yes, I was wondering how we keep master and wok branch in synch when it comes to bug fixes reported on master
+13:39:27 <alinefm> I can merge them together if needed
+13:39:42 <alinefm> I haven't done it yet because there are only few patches merged on master
+13:40:03 <WalterNik> Ok, sounds good for me. Thanks.
+13:40:29 <alinefm> WalterNik, do you want to propose a frequency to get those branches merged?
+13:41:55 <WalterNik> I didn't think about it, I was just trying to understand how we can make sure that we don't loose patches. You may have some more experience on this
+13:42:52 <alinefm> it is the first time we work with multiple branches so any idea is welcome
+13:44:04 <WalterNik> the most reliable possibility would be to simply provide the patches by default for both branches
+13:45:16 <alinefm> I don't know how welcome it would be for a devel perspective
+13:45:48 <alinefm> I will try to do the merge this week and on any problem I contact the devel
+13:46:32 <samhenri> what about the ui patches?
+13:46:36 <WalterNik> ok, sounds good ... so you're talking care of the burden :-)
+13:46:47 <samhenri> won't they break anything on master?
+13:47:39 <samhenri> I had to edit some js files and change references to css classes to support bootstrap components
+13:48:06 <samhenri> if we merge them now they won't work on master
+13:48:17 <alinefm> samhenri, I will merge master into wok branch
+13:48:31 <WalterNik> samhenri, the concern is about patches added to master and to make sure we get into wok. The other way around isn't applicable I think
+13:48:39 <alinefm> so the UI chnages will keep restricted to wok branch
+13:49:02 <alinefm> WalterNik, samhenri, after 1.5.1 release, the wok branch will become our master
+13:49:10 <samhenri> ok
+13:49:25 <WalterNik> alinefm, yes this makes sense
+13:50:08 <alinefm> anything else guys?
+13:51:11 <WalterNik> not sure if we should discuss it here, but I guess we need to come up with a name and logo for wok and a logo for ginger ?
+13:51:44 <alinefm> well remembered! =)
+13:51:50 <WalterNik> and think about how we present the combinations of the plugins
+13:51:55 <alinefm> samhenri, how is your skill to create logos?! =)
+13:52:21 <samhenri> well, i did recreate kimchi logo in SVG
+13:52:24 <samhenri> but I don't have the tools
+13:52:43 <samhenri> I mena, it can be done in Inkscape and Gimp
+13:52:48 <samhenri> mean*
+13:52:57 <alinefm> samhenri, and can you do that?
+13:53:14 <alinefm> I mea, have you already create logos? have graphics skills, etc?
+13:53:34 <samhenri> yes, I do
+13:53:49 <alinefm> great!
+13:53:59 <samhenri> I'm not familiar with these open source tools though
+13:54:16 <samhenri> But I'll see what I can do
+13:54:27 <alinefm> WalterNik, samhenri, I thought in a wok logo to represent a pan and when loading wok + plugins, we show the pan logo and on top of it all the plugins logos
+13:54:41 <alinefm> samhenri, I think for now we just need ideas =)
+13:55:03 <WalterNik> alinefm, great idea :-)
+13:55:34 <alinefm> WalterNik, but I don't have graphics skills heheh
+13:56:07 <alinefm> I can try to create some mock for it, but probably very very basic
+13:56:43 <WalterNik> I guess on the logos that would work perfect from my point of view ... the Name of the Application is another interesting question especially the various combinations
+13:57:13 <samhenri> My only concern with different colored logos is that in usability tests, changing colors might produce a short moment of confusion to the users
+13:57:36 <samhenri> and we already have different colors for each plugin in the navbar
+13:57:53 <alinefm> samhenri, agree! I think we should keep using one color to all tabs and logos
+13:58:33 <alinefm> WalterNik, do you mean which name we will display on UI?
+13:59:01 <samhenri> in the elements inside the page and in the toolbar i don't think it is a big issue, in fact it looks good and not confusing at all because they are not mixed up
+13:59:12 <WalterNik> alinefm, My first reaction on the different colors for the tabs was positive ... it give you a great indication in what scope yopu are working
+13:59:21 <samhenri> the user won't see a Blue dialog window in Guets page for instance
+13:59:40 <samhenri> yes, in this specific case the different colors work
+13:59:41 <jansch> WalterNik, I agree
+13:59:52 <alinefm> samhenri, hm.. so the external tabs would have the same color but the inside tab color could be different
+13:59:58 <alinefm> is that what you are saying?
+14:00:28 <WalterNik> alinefm, yes exacly ... where we display "Kimchi" right now what would we display if we have wok, kimchi and ginger isntalled
+14:00:52 <samhenri> no, i meant the colors are used to indicate the scope you're working and that works great
+14:00:57 <samhenri> but if we keep changing the logo
+14:01:13 <samhenri> and the text, that might confuse the users
+14:01:28 <samhenri> I think we should create some sort of "priorities" for loading the logo and application name
+14:01:42 <alinefm> samhenri, oh no! the logos will be loaded together in never change while switching tabs IMO
+14:01:54 <samhenri> Oh, ok
+14:02:15 <alinefm> for example, we load the wok + kimchi + ginger together and always display it
+14:02:16 <samhenri> I tought that It was going to be something like if you're only going to use Ginger, then only show Ginger logo and name
+14:02:39 <samhenri> and then when you switch from one tab to another, it would change the logo
+14:02:50 <WalterNik> samhenri, so the logo will change only if a plugin is added or removed
+14:02:58 <alinefm> WalterNik, got it... I think we can always display only "Wok" bigger and the Plugins name below (a little bit smaller)
+14:03:06 <alinefm> WalterNik, yeap!
+14:03:41 <samhenri> hmm I think we can create something like a wok with different "flavors" then
+14:04:14 <alinefm> and how do we specify the flavors?
+14:04:37 <alinefm> we can have a big range of plugins installed or not and a vary of combinations of them
+14:04:50 <alinefm> so we need to think in a generic solution
+14:05:10 <WalterNik> alinefm, agree
+14:05:48 <alinefm> team, we are over time! (just noticed)
+14:06:06 <alinefm> I will finish the meeting but we can continue discussing on it
+14:06:14 <samhenri> ok
+14:06:23 <alinefm> thanks everyone for joining!
+14:06:27 <alinefm> #endmeeting
