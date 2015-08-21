@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-24 09:39-0300\n"
+"POT-Creation-Date: 2015-08-21 09:52-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -83,6 +83,9 @@ msgid "\"_passthrough\" should be \"true\" or \"false\""
 msgstr ""
 
 msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
+
+msgid "\"_available_only\" should be \"true\" or \"false\""
 msgstr ""
 
 #, python-format
