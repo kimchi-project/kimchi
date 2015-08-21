@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-24 09:39-0300\n"
+"POT-Creation-Date: 2015-08-21 09:52-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,6 +83,9 @@ msgid "\"_passthrough\" should be \"true\" or \"false\""
 msgstr ""
 
 msgid "\"_passthrough_affected_by\" should be a device name string"
+msgstr ""
+
+msgid "\"_available_only\" should be \"true\" or \"false\""
 msgstr ""
 
 #, python-format
