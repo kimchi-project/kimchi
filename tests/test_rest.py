@@ -275,10 +275,26 @@ class RestTests(unittest.TestCase):
         self.assertEquals(1 << 30, vol['capacity'])
         self.assertEquals(['test-vm'], vol['used_by'])
 
+        # verify if poweroff command returns correct status
+        resp = self.request('/vms/test-vm/poweroff', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+
+        # verify if shutdown command returns correct status
+        resp = self.request('/vms/test-vm/shutdown', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+
+        # verify if reset command returns correct status
+        resp = self.request('/vms/test-vm/reset', '{}', 'POST')
+        self.assertEquals(400, resp.status)
+
         # Start the VM
         resp = self.request('/vms/test-vm/start', '{}', 'POST')
         vm = json.loads(self.request('/vms/test-vm').read())
         self.assertEquals('running', vm['state'])
+
+        # verify if start command returns correct status
+        resp = self.request('/vms/test-vm/start', '{}', 'POST')
+        self.assertEquals(400, resp.status)
 
         # Test screenshot
         resp = self.request(vm['screenshot'], method='HEAD')
