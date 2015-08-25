@@ -118,6 +118,10 @@ messages = {
     "KCHVM0045E": _("There are not enough free slots of 1024 Mib in the guest."),
     "KCHVM0046E": _("Host's libvirt version does not support memory devices. Libvirt must be >= 1.2.14"),
     "KCHVM0047E": _("Error attaching memory device. Details: %(error)s"),
+    "KCHVM0048E": _("Cannot start %(name)s. Virtual machine is already running."),
+    "KCHVM0049E": _("Cannot power off %(name)s. Virtual machine is shut off."),
+    "KCHVM0050E": _("Cannot shutdown %(name)s. Virtual machine is shut off."),
+    "KCHVM0051E": _("Cannot reset %(name)s. Virtual machine is already shut off."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),

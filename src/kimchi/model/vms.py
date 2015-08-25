@@ -1134,6 +1134,11 @@ class VMModel(object):
             run_setfacl_set_attr(iso, user=user)
 
         dom = self.get_vm(name, self.conn)
+
+        # vm already running: return error 400
+        if DOM_STATE_MAP[dom.info()[0]] == "running":
+            raise InvalidOperation("KCHVM0048E", {'name': name})
+
         try:
             dom.create()
         except libvirt.libvirtError as e:
@@ -1142,6 +1147,11 @@ class VMModel(object):
 
     def poweroff(self, name):
         dom = self.get_vm(name, self.conn)
+
+        # vm already powered off: return error 400
+        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+            raise InvalidOperation("KCHVM0049E", {'name': name})
+
         try:
             dom.destroy()
         except libvirt.libvirtError as e:
@@ -1150,6 +1160,11 @@ class VMModel(object):
 
     def shutdown(self, name):
         dom = self.get_vm(name, self.conn)
+
+        # vm already powered off: return error 400
+        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+            raise InvalidOperation("KCHVM0050E", {'name': name})
+
         try:
             dom.shutdown()
         except libvirt.libvirtError as e:
@@ -1158,6 +1173,11 @@ class VMModel(object):
 
     def reset(self, name):
         dom = self.get_vm(name, self.conn)
+
+        # vm already powered off: return error 400
+        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+            raise InvalidOperation("KCHVM0051E", {'name': name})
+
         try:
             dom.reset(flags=0)
         except libvirt.libvirtError as e:
