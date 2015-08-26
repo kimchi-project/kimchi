@@ -58,6 +58,12 @@ kimchi.template_edit_main = function() {
                 kimchi.select('template-edit-graphics-list', spiceOpt);
             }
         };
+        var isImageBasedTemplate = function() {
+            if (template["vm-image"] && typeof template["vm-image"] == "string") {
+                return true;
+            }
+            return false;
+        }
         enableSpice();
         var initStorage = function(result) {
             var scsipools = {};
@@ -88,10 +94,16 @@ kimchi.template_edit_main = function() {
                 $('#selectStorageName').append(storageOptions);
 
                 // Set disk format
-                $('#diskFormat').val(storageData.storageDiskFormat);
-                $('#diskFormat').on('change', function() {
-                    $('.template-storage-disk-format').val($(this).val());
-                });
+                if (isImageBasedTemplate()) {
+                    $('#diskFormat').val('qcow2');
+                    $('#diskFormat').prop('disabled', 'disabled');
+                }
+                else {
+                    $('#diskFormat').val(storageData.storageDiskFormat);
+                    $('#diskFormat').on('change', function() {
+                        $('.template-storage-disk-format').val($(this).val());
+                    });
+                }
 
                 $('#selectStorageName').change(function() {
                     var selectedItem = $(this).parent().parent();
@@ -106,16 +118,21 @@ kimchi.template_edit_main = function() {
                             kimchi.getStoragePoolVolume(tempStorageName, tempName[tempName.length-1], function(info) {
                                 volSize = info.capacity / Math.pow(1024, 3);
                                 $('.template-storage-disk', selectedItem).attr('readonly', true).val(volSize);
-                                $('#diskFormat').val('raw');
-                                $('#diskFormat').prop('disabled', true).change();
+                                if (!isImageBasedTemplate()) {
+                                    $('#diskFormat').val('raw');
+                                    $('#diskFormat').prop('disabled', true).change();
+                                }
                             });
                         } else if (tempType === 'logical') {
                             $('.template-storage-disk', selectedItem).attr('readonly', false);
-                            $('#diskFormat').val('raw');
-                            $('#diskFormat').prop('disabled', true).change();
+                            if (!isImageBasedTemplate()) {
+                                $('#diskFormat').val('raw');
+                                $('#diskFormat').prop('disabled', true).change();
+                            }
                         } else {
                             $('.template-storage-disk', selectedItem).attr('readonly', false);
-                            if ($('#diskFormat').prop('disabled') == true) {
+                            if ($('#diskFormat').prop('disabled') == true &&
+                               !isImageBasedTemplate()) {
                                 $('#diskFormat').val('qcow2');
                                 $('#diskFormat').prop('disabled', false).change();
                             }
