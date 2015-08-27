@@ -40,7 +40,7 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                           'modern': dict(disk_bus='virtio',
                                          nic_model='virtio',
                                          sound_model='ich6', 
-                                         mouse_bus='usb', tablet_bus='usb')}
+                                         mouse_bus='usb', tablet_bus='usb')},
                   'power': {'old': dict(disk_bus='scsi',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
