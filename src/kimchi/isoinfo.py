@@ -96,6 +96,8 @@ iso_dir = [
          '|HRM_CCSA_X64CHK|HRM_CCSNA_X64FRE|HRM_CCSNA_X64CHK' +
          '|HRM_CENNA_X64FREV|HRM_CENNA_X64CHKV|HRM_CENA_X64FREV' +
          '|HRM_CENA_X64CHKV|HRM_CPRA_X64FREV|HRM_CPRNA_X64FREV')),
+    ('windows', '2012r2',
+        ('IRM_SSS_X64FRE|IR3_SSS_X64FRE')),
     ('sles', '10', 'SLES10|SUSE-Linux-Enterprise-Server.001'),
     ('sles', '11', 'SUSE_SLES-11-0-0|SLE-11'),
     ('sles', '12', 'SLE-12'),
