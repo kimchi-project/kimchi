@@ -35,10 +35,12 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
 
 
 template_specs = {'x86': {'old': dict(disk_bus='ide',
-                                      nic_model='e1000', sound_model='ich6'),
+                                      nic_model='e1000', sound_model='ich6',
+                                      mouse_bus='usb', tablet_bus='usb'),
                           'modern': dict(disk_bus='virtio',
                                          nic_model='virtio',
-                                         sound_model='ich6')},
+                                         sound_model='ich6', 
+                                         mouse_bus='usb', tablet_bus='usb')}
                   'power': {'old': dict(disk_bus='scsi',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
