@@ -128,12 +128,12 @@ class HostTests(unittest.TestCase):
         task_params = [u'id', u'message', u'status', u'target_uri']
         self.assertEquals(sorted(task_params), sorted(task.keys()))
 
-        resp = self.request('/plugins/kimchi/tasks/' + task[u'id'], None,
+        resp = self.request('/tasks/' + task[u'id'], None,
                             'GET')
         task_info = json.loads(resp.read())
         self.assertEquals(task_info['status'], 'running')
         wait_task(_task_lookup, task_info['id'])
-        resp = self.request('/plugins/kimchi/tasks/' + task[u'id'], None,
+        resp = self.request('/tasks/' + task[u'id'], None,
                             'GET')
         task_info = json.loads(resp.read())
         self.assertEquals(task_info['status'], 'finished')

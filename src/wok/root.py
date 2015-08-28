@@ -132,7 +132,7 @@ class WokRoot(Root):
             username = params['username']
             password = params['password']
         except KeyError, item:
-            e = MissingParameter('KCHAUTH0003E', {'item': str(item)})
+            e = MissingParameter('WOKAUTH0003E', {'item': str(item)})
             raise cherrypy.HTTPError(400, e.message)
 
         try:

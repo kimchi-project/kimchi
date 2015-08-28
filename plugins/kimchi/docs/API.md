@@ -637,37 +637,6 @@ A interface represents available interface on host.
 * deactivate: Deactivate an active Network
 
 
-### Collection: Tasks
-
-**URI:** /plugins/kimchi/tasks
-
-**Methods:**
-
-* **GET**: Retrieve a summarized list of current Tasks
-
-### Resource: Task
-
-**URI:** /plugins/kimchi/tasks/*:id*
-
-A task represents an asynchronous operation that is being performed by the
-server.
-
-**Methods:**
-
-* **GET**: Retrieve the full description of the Task
-    * id: The Task ID is used to identify this Task in the API.
-    * status: The current status of the Task
-        * running: The task is running
-        * finished: The task has finished successfully
-        * failed: The task failed
-    * message: Human-readable details about the Task status
-    * target_uri: Resource URI related to the Task
-* **POST**: *See Task Actions*
-
-**Actions (POST):**
-
-*No actions defined*
-
 ### Resource: Configuration
 
 **URI:** /plugins/kimchi/config

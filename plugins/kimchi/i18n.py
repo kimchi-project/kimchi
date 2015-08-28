@@ -273,7 +273,6 @@ messages = {
     "KCHPKGUPD0003E": _("Error while getting packages marked to be updated. Details: %(err)s"),
     "KCHPKGUPD0004E": _("There is no compatible package manager for this system."),
 
-    "KCHUTILS0001E": _("Invalid URI %(uri)s"),
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
 
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),

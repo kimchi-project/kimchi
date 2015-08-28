@@ -29,9 +29,9 @@ from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.exception import WokException
 from wok.utils import add_task, wok_log
 from wok.utils import run_command
+from wok.model.tasks import TaskModel
 
 from .. import config
-from tasks import TaskModel
 
 
 class DebugReportsModel(object):

@@ -79,12 +79,12 @@ def parse_request():
         try:
             return json.loads(rawbody)
         except ValueError:
-            e = OperationFailed('KCHAPI0006E')
+            e = OperationFailed('WOKAPI0006E')
             raise cherrypy.HTTPError(400, e.message)
     elif mime_in_header('Content-Type', 'multipart/form-data'):
         return cherrypy.request.params
     else:
-        e = OperationFailed('KCHAPI0007E')
+        e = OperationFailed('WOKAPI0007E')
         raise cherrypy.HTTPError(415, e.message)
 
 
@@ -111,7 +111,7 @@ def validate_params(params, instance, action):
             raise InvalidParameter(e.schema['error'], {'value':
                                                        str(e.instance)})
         else:
-            raise InvalidParameter("KCHAPI0008E", {"err": str(e.message)})
+            raise InvalidParameter("WOKAPI0008E", {"err": str(e.message)})
 
 
 class UrlSubNode(object):

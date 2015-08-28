@@ -27,7 +27,7 @@ def _uri_to_name(collection, uri):
     expr = '/plugins/kimchi/%s/(.*?)$' % collection
     m = re.match(expr, uri)
     if not m:
-        raise InvalidParameter("KCHUTILS0001E", {'uri': uri})
+        raise InvalidParameter("WOKUTILS0001E", {'uri': uri})
     return m.group(1)
 
 

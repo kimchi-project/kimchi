@@ -33,12 +33,12 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.utils import add_task, get_next_clone_name, get_unique_file_name
 from wok.utils import wok_log
 from wok.xmlutils.utils import xpath_get_text
+from wok.model.tasks import TaskModel
 
 from ..config import READONLY_POOL_TYPE
 from ..isoinfo import IsoImage
 from diskutils import get_disk_used_by, set_disk_used_by
 from storagepools import StoragePoolModel
-from tasks import TaskModel
 
 
 VOLUME_TYPE_MAP = {0: 'file',

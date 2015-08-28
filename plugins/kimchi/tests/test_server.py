@@ -194,7 +194,7 @@ class ServerTests(unittest.TestCase):
         hdrs = {'AUTHORIZATION': ''}
         uris = ['/plugins/kimchi/vms',
                 '/plugins/kimchi/vms/doesnotexist',
-                '/plugins/kimchi/tasks']
+                '/tasks']
 
         for uri in uris:
             resp = self.request(uri, None, 'GET', hdrs)
@@ -228,7 +228,7 @@ class ServerTests(unittest.TestCase):
                 'Accept': 'application/json'}
 
         # Test we are logged out
-        resp = self.request('/plugins/kimchi/tasks', None, 'GET', hdrs)
+        resp = self.request('/tasks', None, 'GET', hdrs)
         self.assertEquals(401, resp.status)
 
         # Execute a login call
@@ -248,7 +248,7 @@ class ServerTests(unittest.TestCase):
         hdrs['Cookie'] = cookie
 
         # Test we are logged in with the cookie
-        resp = self.request('/plugins/kimchi/tasks', None, 'GET', hdrs)
+        resp = self.request('/tasks', None, 'GET', hdrs)
         self.assertEquals(200, resp.status)
 
         # Execute a logout call
@@ -257,7 +257,7 @@ class ServerTests(unittest.TestCase):
         del hdrs['Cookie']
 
         # Test we are logged out
-        resp = self.request('/plugins/kimchi/tasks', None, 'GET', hdrs)
+        resp = self.request('/tasks', None, 'GET', hdrs)
         self.assertEquals(401, resp.status)
 
     def test_get_param(self):

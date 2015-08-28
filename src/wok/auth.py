@@ -179,7 +179,7 @@ class PAMUser(User):
 
         if result.value != 0:
             msg_args = {'username': username, 'code': result.value}
-            raise OperationFailed("KCHAUTH0001E", msg_args)
+            raise OperationFailed("WOKAUTH0001E", msg_args)
 
         return True
 
@@ -217,14 +217,14 @@ class LDAPUser(User):
             return True
         except ldap.INVALID_CREDENTIALS:
                 # invalid user password
-            raise OperationFailed("KCHAUTH0002E")
+            raise OperationFailed("WOKAUTH0002E")
         except ldap.NO_SUCH_OBJECT:
             # ldap search base specified wrongly.
-            raise OperationFailed("KCHAUTH0005E", {"item": 'ldap_search_base',
+            raise OperationFailed("WOKAUTH0005E", {"item": 'ldap_search_base',
                                                    "value": ldap_search_base})
         except ldap.LDAPError, e:
             arg = {"username": username, "code": e.message}
-            raise OperationFailed("KCHAUTH0001E", arg)
+            raise OperationFailed("WOKAUTH0001E", arg)
 
     def get_groups(self):
         return self.user[USER_GROUPS]
@@ -348,5 +348,5 @@ def wokauth():
     if not from_browser():
         cherrypy.response.headers['WWW-Authenticate'] = 'Basic realm=wok'
 
-    e = InvalidOperation('KCHAUTH0002E')
+    e = InvalidOperation('WOKAUTH0002E')
     raise cherrypy.HTTPError(401, e.message.encode('utf-8'))

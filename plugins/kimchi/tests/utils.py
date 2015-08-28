@@ -205,7 +205,7 @@ class FakeUser(User):
         try:
             return mockmodel.fake_user[username] == password
         except KeyError, e:
-            raise OperationFailed("KCHAUTH0001E", {'username': 'username',
+            raise OperationFailed("WOKAUTH0001E", {'username': 'username',
                                                    'code': e.message})
 
 
