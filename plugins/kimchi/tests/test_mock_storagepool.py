@@ -61,7 +61,7 @@ class MockStoragepoolTests(unittest.TestCase):
 
     def _task_lookup(self, taskid):
         return json.loads(
-            self.request('/plugins/kimchi/tasks/%s' % taskid).read()
+            self.request('/tasks/%s' % taskid).read()
         )
 
     def test_storagepool(self):

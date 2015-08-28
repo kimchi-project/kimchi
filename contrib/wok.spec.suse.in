@@ -20,6 +20,7 @@ Requires:	python-ldap
 Requires:	python-lxml
 Requires:	python-xml
 Requires:	nginx
+Requires:	python-psutil >= 0.6.0
 BuildRequires:	libxslt-tools
 BuildRequires:	openssl
 BuildRequires:	python-lxml

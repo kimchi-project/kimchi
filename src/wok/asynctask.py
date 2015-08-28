@@ -28,7 +28,7 @@ from wok.exception import OperationFailed
 class AsyncTask(object):
     def __init__(self, id, target_uri, fn, objstore, opaque=None):
         if objstore is None:
-            raise OperationFailed("KCHASYNC0001E")
+            raise OperationFailed("WOKASYNC0001E")
 
         self.id = str(id)
         self.target_uri = target_uri
@@ -62,7 +62,7 @@ class AsyncTask(object):
             with self.objstore as session:
                 session.store('task', self.id, obj)
         except Exception as e:
-            raise OperationFailed('KCHASYNC0002E', {'err': e.message})
+            raise OperationFailed('WOKASYNC0002E', {'err': e.message})
 
     def _run_helper(self, opaque, cb):
         cherrypy.serving.request = self._cp_request

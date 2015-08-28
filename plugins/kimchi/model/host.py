@@ -31,6 +31,7 @@ from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, wok_log
 from wok.xmlutils.utils import xpath_get_text
+from wok.model.tasks import TaskModel
 
 import hostdev
 from .. import disks
@@ -38,7 +39,6 @@ from .. import netinfo
 from ..repositories import Repositories
 from ..swupdate import SoftwareUpdate
 from config import CapabilitiesModel
-from tasks import TaskModel
 from vms import DOM_STATE_MAP, VMModel, VMsModel
 
 

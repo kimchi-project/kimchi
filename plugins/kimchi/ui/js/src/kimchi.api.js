@@ -525,7 +525,7 @@ var kimchi = {
 
     getTask : function(taskId, suc, err) {
         wok.requestJSON({
-            url : 'plugins/kimchi/tasks/' + encodeURIComponent(taskId),
+            url : 'tasks/' + encodeURIComponent(taskId),
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
@@ -536,7 +536,7 @@ var kimchi = {
 
     getTasksByFilter : function(filter, suc, err, sync) {
         wok.requestJSON({
-            url : 'plugins/kimchi/tasks?' + filter,
+            url : 'tasks?' + filter,
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',

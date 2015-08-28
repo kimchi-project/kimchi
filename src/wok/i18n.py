@@ -23,25 +23,26 @@ _ = gettext.gettext
 
 
 messages = {
-    "KCHAPI0002E": _("Delete is not allowed for %(resource)s"),
-    "KCHAPI0003E": _("%(resource)s does not implement update method"),
-    "KCHAPI0005E": _("Create is not allowed for %(resource)s"),
-    "KCHAPI0006E": _("Unable to parse JSON request"),
-    "KCHAPI0007E": _("This API only supports JSON"),
-    "KCHAPI0008E": _("Parameters does not match requirement in schema: %(err)s"),
-    "KCHAPI0009E": _("You don't have permission to perform this operation."),
+    "WOKAPI0002E": _("Delete is not allowed for %(resource)s"),
+    "WOKAPI0003E": _("%(resource)s does not implement update method"),
+    "WOKAPI0005E": _("Create is not allowed for %(resource)s"),
+    "WOKAPI0006E": _("Unable to parse JSON request"),
+    "WOKAPI0007E": _("This API only supports JSON"),
+    "WOKAPI0008E": _("Parameters does not match requirement in schema: %(err)s"),
+    "WOKAPI0009E": _("You don't have permission to perform this operation."),
 
-    "KCHASYNC0001E": _("Datastore is not initiated in the model object."),
-    "KCHASYNC0002E": _("Unable to start task due error: %(err)s"),
+    "WOKASYNC0001E": _("Datastore is not initiated in the model object."),
+    "WOKASYNC0002E": _("Unable to start task due error: %(err)s"),
 
-    "KCHAUTH0001E": _("Authentication failed for user '%(username)s'. [Error code: %(code)s]"),
-    "KCHAUTH0002E": _("You are not authorized to access Kimchi"),
-    "KCHAUTH0003E": _("Specify %(item)s to login into Kimchi"),
-    "KCHAUTH0005E": _("Invalid LDAP configuration: %(item)s : %(value)s"),
+    "WOKAUTH0001E": _("Authentication failed for user '%(username)s'. [Error code: %(code)s]"),
+    "WOKAUTH0002E": _("You are not authorized to access Kimchi"),
+    "WOKAUTH0003E": _("Specify %(item)s to login into Kimchi"),
+    "WOKAUTH0005E": _("Invalid LDAP configuration: %(item)s : %(value)s"),
 
-    "KCHOBJST0001E": _("Unable to find %(item)s in datastore"),
+    "WOKOBJST0001E": _("Unable to find %(item)s in datastore"),
 
-    "KCHUTILS0002E": _("Timeout while running command '%(cmd)s' after %(seconds)s seconds"),
-    "KCHUTILS0004E": _("Invalid data value '%(value)s'"),
-    "KCHUTILS0005E": _("Invalid data unit '%(unit)s'"),
+    "WOKUTILS0001E": _("Invalid URI %(uri)s"),
+    "WOKUTILS0002E": _("Timeout while running command '%(cmd)s' after %(seconds)s seconds"),
+    "WOKUTILS0004E": _("Invalid data value '%(value)s'"),
+    "WOKUTILS0005E": _("Invalid data unit '%(unit)s'"),
 }

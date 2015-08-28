@@ -63,7 +63,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test 405 wrong method
         resp = json.loads(request(host, ssl_port, '/', None, 'DELETE').read())
-        msg = u'KCHAPI0002E: Delete is not allowed for wokroot'
+        msg = u'WOKAPI0002E: Delete is not allowed for wokroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
@@ -71,7 +71,7 @@ class ExceptionTests(unittest.TestCase):
         resp = json.loads(
             request(host, ssl_port, '/plugins/kimchi/vms', '{', 'POST').read()
         )
-        msg = u'KCHAPI0006E: Unable to parse JSON request'
+        msg = u'WOKAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertNotIn('call_stack', resp)
@@ -99,7 +99,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test 405 wrong method
         resp = json.loads(request(host, ssl_port, '/', None, 'DELETE').read())
-        msg = u'KCHAPI0002E: Delete is not allowed for wokroot'
+        msg = u'WOKAPI0002E: Delete is not allowed for wokroot'
         self.assertEquals('405 Method Not Allowed', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
 
@@ -107,7 +107,7 @@ class ExceptionTests(unittest.TestCase):
         resp = json.loads(
             request(host, ssl_port, '/plugins/kimchi/vms', '{', 'POST').read()
         )
-        msg = u'KCHAPI0006E: Unable to parse JSON request'
+        msg = u'WOKAPI0006E: Unable to parse JSON request'
         self.assertEquals('400 Bad Request', resp.get('code'))
         self.assertEquals(msg, resp.get('reason'))
         self.assertIn('call_stack', resp)

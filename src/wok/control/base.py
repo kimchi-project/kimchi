@@ -102,7 +102,7 @@ class Resource(object):
             try:
                 self.lookup()
                 if not self.is_authorized():
-                    raise UnauthorizedError('KCHAPI0009E')
+                    raise UnauthorizedError('WOKAPI0009E')
 
                 model_args = list(self.model_args)
                 if action_args is not None:
@@ -147,7 +147,7 @@ class Resource(object):
             fn(*self.model_args)
             cherrypy.response.status = 204
         except AttributeError:
-            e = InvalidOperation('KCHAPI0002E', {'resource':
+            e = InvalidOperation('WOKAPI0002E', {'resource':
                                                  get_class_name(self)})
             raise cherrypy.HTTPError(405, e.message)
         except OperationFailed, e:
@@ -163,7 +163,7 @@ class Resource(object):
         try:
             self.lookup()
             if not self.is_authorized():
-                raise UnauthorizedError('KCHAPI0009E')
+                raise UnauthorizedError('WOKAPI0009E')
 
             return {'GET': self.get,
                     'DELETE': self.delete,
@@ -198,7 +198,7 @@ class Resource(object):
         try:
             update = getattr(self.model, model_fn(self, 'update'))
         except AttributeError:
-            e = InvalidOperation('KCHAPI0003E', {'resource':
+            e = InvalidOperation('WOKAPI0003E', {'resource':
                                                  get_class_name(self)})
             raise cherrypy.HTTPError(405, e.message)
 
@@ -253,7 +253,7 @@ class Collection(object):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
-            e = InvalidOperation('KCHAPI0005E', {'resource':
+            e = InvalidOperation('WOKAPI0005E', {'resource':
                                                  get_class_name(self)})
             raise cherrypy.HTTPError(405, e.message)
 
@@ -353,7 +353,7 @@ class AsyncCollection(Collection):
         try:
             create = getattr(self.model, model_fn(self, 'create'))
         except AttributeError:
-            e = InvalidOperation('KCHAPI0005E', {'resource':
+            e = InvalidOperation('WOKAPI0005E', {'resource':
                                                  get_class_name(self)})
             raise cherrypy.HTTPError(405, e.message)
 

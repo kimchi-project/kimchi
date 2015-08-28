@@ -220,7 +220,7 @@ def run_command(cmd, timeout=None, silent=False):
             wok_log.error(msg)
 
             msg_args = {'cmd': " ".join(cmd), 'seconds': str(timeout)}
-            raise TimeoutExpired("KCHUTILS0002E", msg_args)
+            raise TimeoutExpired("WOKUTILS0002E", msg_args)
 
         return out, error, proc.returncode
     except TimeoutExpired:
@@ -313,10 +313,10 @@ def validate_repo_url(url):
 
     if url_parts[0] in ['http', 'https', 'ftp']:
         if not check_url_path(url):
-            raise InvalidParameter("KCHUTILS0001E", {'uri': url})
+            raise InvalidParameter("WOKUTILS0001E", {'uri': url})
     elif url_parts[0] == 'file':
         if not os.path.exists(url_parts[1]):
-            raise InvalidParameter("KCHUTILS0001E", {'uri': url})
+            raise InvalidParameter("WOKUTILS0001E", {'uri': url})
     else:
         raise InvalidParameter("KCHREPOS0002E")
 
@@ -484,9 +484,9 @@ def convert_data_size(value, from_unit, to_unit='B'):
     DEFAULT_SUFFIX = 'B'
 
     if not from_unit:
-        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': from_unit})
     if not to_unit:
-        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': to_unit})
 
     # set the default suffix
     if from_unit[-1] not in SUFFIXES_WITH_MULT:
@@ -504,15 +504,15 @@ def convert_data_size(value, from_unit, to_unit='B'):
     try:
         value = float(value)
     except TypeError:
-        raise InvalidParameter('KCHUTILS0004E', {'value': value})
+        raise InvalidParameter('WOKUTILS0004E', {'value': value})
     if from_p != '' and from_p not in (SI_PREFIXES + IEC_PREFIXES):
-        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': from_unit})
     if from_s not in SUFFIXES_WITH_MULT:
-        raise InvalidParameter('KCHUTILS0005E', {'unit': from_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': from_unit})
     if to_p != '' and to_p not in (SI_PREFIXES + IEC_PREFIXES):
-        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': to_unit})
     if to_s not in SUFFIXES_WITH_MULT:
-        raise InvalidParameter('KCHUTILS0005E', {'unit': to_unit})
+        raise InvalidParameter('WOKUTILS0005E', {'unit': to_unit})
 
     # if the units are the same, return the input value
     if from_unit == to_unit:

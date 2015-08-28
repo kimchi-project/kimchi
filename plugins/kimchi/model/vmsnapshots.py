@@ -26,8 +26,8 @@ from lxml.builder import E
 from wok.exception import InvalidOperation, NotFoundError, OperationFailed
 from wok.utils import add_task
 from wok.xmlutils.utils import xpath_get_text
+from wok.model.tasks import TaskModel
 
-from tasks import TaskModel
 from vms import DOM_STATE_MAP, VMModel
 from vmstorages import VMStorageModel, VMStoragesModel
 
