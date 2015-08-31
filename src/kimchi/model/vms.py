@@ -161,8 +161,7 @@ class VMsModel(object):
                                                  'err': e.get_error_message()})
 
         cb('Updating VM metadata')
-        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info,
-                                      self.caps.metadata_support)
+        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info)
         cb('OK', True)
 
     def get_list(self):
@@ -485,8 +484,7 @@ class VMModel(object):
 
     def _build_access_elem(self, dom, users, groups):
         auth = config.get("authentication", "method")
-        access_xml = get_metadata_node(dom, "access",
-                                       self.caps.metadata_support)
+        access_xml = get_metadata_node(dom, "access")
 
         auth_elem = None
 
@@ -545,12 +543,11 @@ class VMModel(object):
             return
 
         node = self._build_access_elem(dom, users, groups)
-        set_metadata_node(dom, node, self.caps.metadata_support)
+        set_metadata_node(dom, node)
 
     def _get_access_info(self, dom):
         users = groups = list()
-        access_xml = (get_metadata_node(dom, "access",
-                                        self.caps.metadata_support) or
+        access_xml = (get_metadata_node(dom, "access") or
                       """<access></access>""")
         access_info = dictize(access_xml)
         auth = config.get("authentication", "method")
@@ -568,20 +565,20 @@ class VMModel(object):
         return users, groups
 
     @staticmethod
-    def vm_get_os_metadata(dom, metadata_support):
-        os_xml = (get_metadata_node(dom, "os", metadata_support) or
+    def vm_get_os_metadata(dom):
+        os_xml = (get_metadata_node(dom, "os") or
                   """<os></os>""")
         os_elem = ET.fromstring(os_xml)
         return (os_elem.attrib.get("version"), os_elem.attrib.get("distro"))
 
     @staticmethod
-    def vm_update_os_metadata(dom, params, metadata_support):
+    def vm_update_os_metadata(dom, params):
         distro = params.get("os_distro")
         version = params.get("os_version")
         if distro is None:
             return
         os_elem = E.os({"distro": distro, "version": version})
-        set_metadata_node(dom, os_elem, metadata_support)
+        set_metadata_node(dom, os_elem)
 
     def _update_graphics(self, dom, xml, params):
         root = objectify.fromstring(xml)

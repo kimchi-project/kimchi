@@ -74,7 +74,7 @@ class VMIfacesModel(object):
 
         dom = VMModel.get_vm(vm, self.conn)
 
-        os_data = VMModel.vm_get_os_metadata(dom, self.caps.metadata_support)
+        os_data = VMModel.vm_get_os_metadata(dom)
         os_version, os_distro = os_data
         xml = get_iface_xml(params, conn.getInfo()[0], os_distro, os_version)
 
