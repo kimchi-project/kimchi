@@ -36,9 +36,9 @@ from kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 HOTPLUG_TYPE = ['scsi', 'virtio']
 
 
-def _get_device_bus(dev_type, dom, metadata_support):
+def _get_device_bus(dev_type, dom):
     try:
-        version, distro = VMModel.vm_get_os_metadata(dom, metadata_support)
+        version, distro = VMModel.vm_get_os_metadata(dom)
     except:
         version, distro = ('unknown', 'unknown')
     return lookup(distro, version)[dev_type+'_bus']
@@ -84,8 +84,7 @@ class VMStoragesModel(object):
             raise InvalidParameter("KCHVMSTOR0017E")
 
         dom = VMModel.get_vm(vm_name, self.conn)
-        params['bus'] = _get_device_bus(params['type'], dom,
-                                        self.caps.metadata_support)
+        params['bus'] = _get_device_bus(params['type'], dom)
         params['format'] = 'raw'
 
         dev_list = [dev for dev, bus in get_vm_disks(dom).iteritems()

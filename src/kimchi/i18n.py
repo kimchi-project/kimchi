@@ -101,7 +101,6 @@ messages = {
     "KCHVM0027E": _("User(s) '%(users)s' do not exist"),
     "KCHVM0028E": _("Group(s) '%(groups)s' do not exist"),
     "KCHVM0029E": _("Unable to shutdown virtual machine %(name)s. Details: %(err)s"),
-    "KCHVM0030E": _("Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"),
     "KCHVM0031E": _("The guest console password must be a string."),
     "KCHVM0032E": _("The life time for the guest console password must be a number."),
     "KCHVM0033E": _("Virtual machine '%(name)s' must be stopped before cloning it."),

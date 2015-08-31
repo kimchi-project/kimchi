@@ -186,30 +186,6 @@ class FeatureTests(object):
         return True
 
     @staticmethod
-    def has_metadata_support(conn):
-        KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi/"
-        KIMCHI_NAMESPACE = "kimchi"
-        with RollbackContext() as rollback:
-            FeatureTests.disable_libvirt_error_logging()
-            rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
-            conn_type = conn.getType().lower()
-            domain_type = 'test' if conn_type == 'test' else 'kvm'
-            arch = 'i686' if conn_type == 'test' else platform.machine()
-            arch = 'ppc64' if arch == 'ppc64le' else arch
-            dom = conn.defineXML(SIMPLE_VM_XML % {'name': FEATURETEST_VM_NAME,
-                                                  'domain': domain_type,
-                                                  'arch': arch})
-            rollback.prependDefer(dom.undefine)
-            try:
-                dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
-                                "<metatest/>", KIMCHI_NAMESPACE,
-                                KIMCHI_META_URL,
-                                flags=libvirt.VIR_DOMAIN_AFFECT_CURRENT)
-                return True
-            except libvirt.libvirtError:
-                return False
-
-    @staticmethod
     def kernel_support_vfio():
         out, err, rc = run_command(['modprobe', 'vfio-pci'])
         if rc != 0:
