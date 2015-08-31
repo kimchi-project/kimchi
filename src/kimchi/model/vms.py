@@ -543,7 +543,7 @@ class VMModel(object):
             return
 
         node = self._build_access_elem(dom, users, groups)
-        set_metadata_node(dom, node)
+        set_metadata_node(dom, [node])
 
     def _get_access_info(self, dom):
         users = groups = list()
@@ -578,7 +578,7 @@ class VMModel(object):
         if distro is None:
             return
         os_elem = E.os({"distro": distro, "version": version})
-        set_metadata_node(dom, os_elem)
+        set_metadata_node(dom, [os_elem])
 
     def _update_graphics(self, dom, xml, params):
         root = objectify.fromstring(xml)

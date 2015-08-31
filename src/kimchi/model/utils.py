@@ -71,11 +71,13 @@ def get_kimchi_metadata_node(dom, mode="current"):
         return None
 
 
-def set_metadata_node(dom, node, mode="all"):
+def set_metadata_node(dom, nodes, mode="all"):
     kimchi = get_kimchi_metadata_node(dom, mode)
     kimchi = E.metadata() if kimchi is None else kimchi
 
-    update_node(kimchi, node)
+    for n in nodes:
+        update_node(kimchi, n)
+
     kimchi_xml = etree.tostring(kimchi)
     # From libvirt doc, Passing None for @metadata says to remove that
     # element from the domain XML (passing the empty string leaves the
