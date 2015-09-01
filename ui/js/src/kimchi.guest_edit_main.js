@@ -662,7 +662,7 @@ kimchi.guest_edit_main = function() {
                 event.preventDefault();
                 kimchi.window.open("guest-storage-add.html");
             });
-        if(kimchi.thisVMState === "running") {
+        if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
             $("#form-guest-edit-general input").prop("disabled", true);
         } else {
             $("#action-button-container").removeClass("hidden");
