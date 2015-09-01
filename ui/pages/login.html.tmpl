@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@
         <div id="messUserPass" class="err-mess" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
         <div id="messSession" class="err-mess" style="display: none;">$_("Session timeout, please re-login.")</div>
     </div>
-    <form id="form-login" class="login-panel">
+    <form id="form-login" class="login-panel" method="post">
         <div class="row">
             <input type="text" id="username" name="username" required="required" placeholder="$_("User Name")" autofocus/>
             <div id="username-msg" class="msg-required"></div>
