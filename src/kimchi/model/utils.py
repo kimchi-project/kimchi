@@ -17,7 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import base64
 import libvirt
+
 from lxml import etree
 from lxml.builder import E
 
@@ -36,6 +38,16 @@ def get_vm_name(vm_name, t_name, name_list):
         if vm_name not in name_list:
             return vm_name
     raise OperationFailed("KCHUTILS0003E")
+
+
+def get_ascii_nonascii_name(name):
+    nonascii_name = None
+    if name.encode('ascii', 'ignore') != name:
+        nonascii_name = name
+        name = base64.urlsafe_b64encode(name.encode('utf-8')).rstrip('=')
+        name = unicode(name)
+
+    return (name, nonascii_name)
 
 
 def get_vm_config_flag(dom, mode="persistent"):
