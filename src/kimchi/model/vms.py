@@ -17,14 +17,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from lxml.builder import E
+import copy
 import lxml.etree as ET
-from lxml import etree, objectify
 import os
 import random
 import string
 import time
 import uuid
+
+from lxml import etree, objectify
+from lxml.builder import E
 from xml.etree import ElementTree
 
 import libvirt
@@ -35,10 +37,11 @@ from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.kvmusertests import UserTests
 from kimchi.model.config import CapabilitiesModel
+from kimchi.model.featuretests import FeatureTests
 from kimchi.model.tasks import TaskModel
 from kimchi.model.templates import TemplateModel
-from kimchi.model.utils import get_vm_name
-from kimchi.model.utils import get_metadata_node
+from kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
+from kimchi.model.utils import get_metadata_node, remove_metadata_node
 from kimchi.model.utils import set_metadata_node
 from kimchi.rollbackcontext import RollbackContext
 from kimchi.screenshot import VMScreenshot
@@ -119,7 +122,7 @@ class VMsModel(object):
         """
         vm_uuid = str(uuid.uuid4())
         t = params['template']
-        name = params['name']
+        name, nonascii_name = get_ascii_nonascii_name(params['name'])
         conn = self.conn.get()
 
         cb('Storing VM icon')
@@ -161,7 +164,17 @@ class VMsModel(object):
                                                  'err': e.get_error_message()})
 
         cb('Updating VM metadata')
-        VMModel.vm_update_os_metadata(VMModel.get_vm(name, self.conn), t.info)
+        meta_elements = []
+
+        distro = t.info.get("os_distro")
+        version = t.info.get("os_version")
+        if distro is not None:
+            meta_elements.append(E.os({"distro": distro, "version": version}))
+
+        if nonascii_name is not None:
+            meta_elements.append(E.name(nonascii_name))
+
+        set_metadata_node(VMModel.get_vm(name, self.conn), meta_elements)
         cb('OK', True)
 
     def get_list(self):
@@ -170,7 +183,14 @@ class VMsModel(object):
     @staticmethod
     def get_vms(conn):
         conn_ = conn.get()
-        names = [dom.name().decode('utf-8') for dom in conn_.listAllDomains(0)]
+        names = []
+        for dom in conn_.listAllDomains(0):
+            nonascii_xml = get_metadata_node(dom, 'name')
+            if nonascii_xml:
+                nonascii_node = ET.fromstring(nonascii_xml)
+                names.append(nonascii_node.text)
+            else:
+                names.append(dom.name().decode('utf-8'))
         names = sorted(names, key=unicode.lower)
         return names
 
@@ -196,9 +216,9 @@ class VMModel(object):
 
     def update(self, name, params):
         dom = self.get_vm(name, self.conn)
-        dom = self._static_vm_update(dom, params)
+        vm_name, dom = self._static_vm_update(name, dom, params)
         self._live_vm_update(dom, params)
-        return dom.name().decode('utf-8')
+        return vm_name
 
     def clone(self, name):
         """Clone a virtual machine based on an existing one.
@@ -225,8 +245,6 @@ class VMModel(object):
         Return:
         A Task running the clone operation.
         """
-        name = name.decode('utf-8')
-
         # VM must be shutoff in order to clone it
         info = self.lookup(name)
         if info['state'] != u'shutoff':
@@ -266,12 +284,11 @@ class VMModel(object):
         """
         name = params['name']
         new_name = params['new_name']
-        vir_conn = self.conn.get()
 
         # fetch base XML
         cb('reading source VM XML')
         try:
-            vir_dom = vir_conn.lookupByName(name)
+            vir_dom = self.get_vm(name, self.conn)
             flags = libvirt.VIR_DOMAIN_XML_SECURE
             xml = vir_dom.XMLDesc(flags).decode('utf-8')
         except libvirt.libvirtError, e:
@@ -299,12 +316,15 @@ class VMModel(object):
 
             # update name
             cb('updating VM name')
+            new_name, nonascii_name = get_ascii_nonascii_name(new_name)
             xml = xml_item_update(xml, './name', new_name)
 
             # create new guest
             cb('defining new VM')
             try:
-                vir_conn.defineXML(xml)
+                vir_conn = self.conn.get()
+                dom = vir_conn.defineXML(xml)
+                self._update_metadata_name(dom, nonascii_name)
             except libvirt.libvirtError, e:
                 raise OperationFailed('KCHVM0035E', {'name': name,
                                                      'err': e.message})
@@ -571,15 +591,6 @@ class VMModel(object):
         os_elem = ET.fromstring(os_xml)
         return (os_elem.attrib.get("version"), os_elem.attrib.get("distro"))
 
-    @staticmethod
-    def vm_update_os_metadata(dom, params):
-        distro = params.get("os_distro")
-        version = params.get("os_version")
-        if distro is None:
-            return
-        os_elem = E.os({"distro": distro, "version": version})
-        set_metadata_node(dom, [os_elem])
-
     def _update_graphics(self, dom, xml, params):
         root = objectify.fromstring(xml)
         graphics = root.devices.find("graphics")
@@ -647,8 +658,25 @@ class VMModel(object):
 
             dom.snapshotCreateXML(info['xml'], flags)
 
-    def _static_vm_update(self, dom, params):
+    def _update_metadata_name(self, dom, nonascii_name):
+        if nonascii_name is not None:
+            set_metadata_node(dom, [E.name(nonascii_name)])
+        else:
+            remove_metadata_node(dom, 'name')
+
+    def _static_vm_update(self, vm_name, dom, params):
         old_xml = new_xml = dom.XMLDesc(0)
+
+        params = copy.deepcopy(params)
+        name = params.get('name')
+        nonascii_name = None
+        if name is not None:
+            state = DOM_STATE_MAP[dom.info()[0]]
+            if state != 'shutoff':
+                msg_args = {'name': vm_name, 'new_name': params['name']}
+                raise InvalidParameter("KCHVM0003E", msg_args)
+
+            params['name'], nonascii_name = get_ascii_nonascii_name(name)
 
         for key, val in params.items():
             if key in VM_STATIC_UPDATE_PARAMS:
@@ -674,15 +702,9 @@ class VMModel(object):
             new_xml = self._update_graphics(dom, new_xml, params)
 
         snapshots_info = []
-        vm_name = dom.name()
         conn = self.conn.get()
         try:
             if 'name' in params:
-                state = DOM_STATE_MAP[dom.info()[0]]
-                if state != 'shutoff':
-                    msg_args = {'name': vm_name, 'new_name': params['name']}
-                    raise InvalidParameter("KCHVM0003E", msg_args)
-
                 lflags = libvirt.VIR_DOMAIN_SNAPSHOT_LIST_ROOTS
                 dflags = (libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN |
                           libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY)
@@ -698,6 +720,7 @@ class VMModel(object):
                 dom.undefine()
 
             dom = conn.defineXML(new_xml)
+            self._update_metadata_name(dom, nonascii_name)
             if 'name' in params:
                 self._redefine_snapshots(dom, snapshots_info)
         except libvirt.libvirtError as e:
@@ -707,7 +730,7 @@ class VMModel(object):
 
             raise OperationFailed("KCHVM0008E", {'name': vm_name,
                                                  'err': e.get_error_message()})
-        return dom
+        return (nonascii_name if nonascii_name is not None else vm_name, dom)
 
     def _update_memory_config(self, xml, params):
         # Checks if NUMA memory is already configured, if not, checks if CPU
@@ -1005,16 +1028,28 @@ class VMModel(object):
 
     @staticmethod
     def get_vm(name, conn):
-        conn = conn.get()
-        try:
-            # outgoing text to libvirt, encode('utf-8')
-            return conn.lookupByName(name.encode("utf-8"))
-        except libvirt.libvirtError as e:
-            if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN:
+        def raise_exception(error_code):
+            if error_code == libvirt.VIR_ERR_NO_DOMAIN:
                 raise NotFoundError("KCHVM0002E", {'name': name})
             else:
                 raise OperationFailed("KCHVM0009E", {'name': name,
                                                      'err': e.message})
+        conn = conn.get()
+        FeatureTests.disable_libvirt_error_logging()
+        try:
+            # outgoing text to libvirt, encode('utf-8')
+            return conn.lookupByName(name.encode("utf-8"))
+        except libvirt.libvirtError as e:
+            name, nonascii_name = get_ascii_nonascii_name(name)
+            if nonascii_name is None:
+                raise_exception(e.get_error_code())
+
+            try:
+                return conn.lookupByName(name)
+            except libvirt.libvirtError as e:
+                raise_exception(e.get_error_code())
+
+        FeatureTests.enable_libvirt_error_logging()
 
     def delete(self, name):
         conn = self.conn.get()
@@ -1164,7 +1199,7 @@ class VMModel(object):
         # (type, listen, port, passwd, passwdValidTo)
         graphics_port = self._vm_get_graphics(name)[2]
         if graphics_port is not None:
-            vnc.add_proxy_token(name, graphics_port)
+            vnc.add_proxy_token(name.encode('utf-8'), graphics_port)
         else:
             raise OperationFailed("KCHVM0010E", {'name': name})
 

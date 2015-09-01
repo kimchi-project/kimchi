@@ -134,8 +134,7 @@ class VMStoragesModel(object):
         # Add device to VM
         dev, xml = get_disk_xml(params)
         try:
-            conn = self.conn.get()
-            dom = conn.lookupByName(vm_name)
+            dom = VMModel.get_vm(vm_name, self.conn)
             dom.attachDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
@@ -167,11 +166,9 @@ class VMStorageModel(object):
         return get_vm_disk_info(dom, dev_name)
 
     def delete(self, vm_name, dev_name):
-        conn = self.conn.get()
-
         try:
             bus_type = self.lookup(vm_name, dev_name)['bus']
-            dom = conn.lookupByName(vm_name)
+            dom = VMModel.get_vm(vm_name, self.conn)
         except NotFoundError:
             raise
 
