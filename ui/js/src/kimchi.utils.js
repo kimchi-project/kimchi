@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -185,9 +185,9 @@ kimchi.escapeStr = function(str) {
 };
 
 kimchi.urlSafeB64Decode = function(str) {
-    return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+    return $.base64.atob(str.replace(/-/g, '+').replace(/_/g, '/'), true);
 }
 
 kimchi.urlSafeB64Encode = function(str) {
-    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_');
+    return $.base64.btoa(str, true).replace(/\+/g, '-').replace(/\//g, '_');
 }
