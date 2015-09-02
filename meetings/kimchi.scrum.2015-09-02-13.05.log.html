@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:05:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep  2 13:05:07 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:05:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:05:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:05:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:05:43</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:09:56</span><span class="nk"> &lt;alinefm&gt;</span> ok... let's get started
+<a name="l-9"></a><span class="tm">13:10:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:10:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:10:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to allow user create guests with non-ASCII characters in name</span>
+<a name="l-12"></a><span class="tm">13:10:43</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital helped user to create template based on image - issue #725</span>
+<a name="l-13"></a><span class="tm">13:10:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed ramonn's [PATCH v3] Issue #694: VLAN ID accepting only one digit</span>
+<a name="l-14"></a><span class="tm">13:10:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted [PATCH] [WOK] Issue #726 - solve ImportError on  kimchi tests</span>
+<a name="l-15"></a><span class="tm">13:11:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is working on bug related to render the guest console when using non-ASCII characters. For that we will need to use jquery Base64</span>
+<a name="l-16"></a><span class="tm">13:11:44</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri is still working on hosts tab components</span>
+<a name="l-17"></a><span class="tm">13:12:14</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani send patch to ML "Disallow storage format changes in UI for templates based on image file"</span>
+<a name="l-18"></a><span class="tm">13:12:16</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on community bug</span>
+<a name="l-19"></a><span class="tm">13:12:38</span><span class="nk"> &lt;ramonn_&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn just sent patch for issues nfo ramonn just sent patches for issues #682/#684/#685/#694/#667</span>
+<a name="l-20"></a><span class="tm">13:12:45</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed patches in kimchi ML</span>
+<a name="l-21"></a><span class="tm">13:12:49</span><span class="nk"> &lt;ramonn_&gt;</span> <span class="cmd">#info </span><span class="cmdline">will start new issue today</span>
+<a name="l-22"></a><span class="tm">13:14:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-23"></a><span class="tm">13:16:20</span><span class="nk"> &lt;alinefm&gt;</span> alright...
+<a name="l-24"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-25"></a><span class="tm">13:17:15</span><span class="nk"> &lt;alinefm&gt;</span> I want to remind you that hard code freeze for 1.5.1 starts in 2 weeks
+<a name="l-26"></a><span class="tm">13:18:02</span><span class="nk"> &lt;alinefm&gt;</span> which means during hard code freeze only critical bugs will be accepted for 1.5.1
+<a name="l-27"></a><span class="tm">13:18:22</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-28"></a><span class="tm">13:20:16</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, pvital, ziviani, danielhb, ramonn_ ^
+<a name="l-29"></a><span class="tm">13:21:02</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-30"></a><span class="tm">13:22:03</span><span class="nk"> &lt;chandra&gt;</span> samhenri, do you need any help in the new ui development?
+<a name="l-31"></a><span class="tm">13:22:15</span><span class="nk"> &lt;samhenri&gt;</span> well, yes
+<a name="l-32"></a><span class="tm">13:22:29</span><span class="nk"> &lt;samhenri&gt;</span> this is more like an enhancement for the next versions, but as I'm working with hosts tab and kimchi grid widget...
+<a name="l-33"></a><span class="tm">13:23:00</span><span class="nk"> &lt;samhenri&gt;</span> In the current new-ui design spec, the action button for repositories and debug-reports is located next to each item
+<a name="l-34"></a><span class="tm">13:23:24</span><span class="nk"> &lt;chandra&gt;</span> Sure, let me know the topics that can be picked up ...
+<a name="l-35"></a><span class="tm">13:23:37</span><span class="nk"> &lt;samhenri&gt;</span> but in the current version, they're located at the top, like the Software Updates
+<a name="l-36"></a><span class="tm">13:24:32</span><span class="nk"> &lt;samhenri&gt;</span> They also don't have a "header", so I was thinking in splitting debug reports and repositories into a new widget, an unordered list
+<a name="l-37"></a><span class="tm">13:24:42</span><span class="nk"> &lt;samhenri&gt;</span> since we don't have controls to sort them by ascending or descending
+<a name="l-38"></a><span class="tm">13:24:51</span><span class="nk"> &lt;samhenri&gt;</span> and keep using the grid component for software updates
+<a name="l-39"></a><span class="tm">13:25:13</span><span class="nk"> &lt;chandra&gt;</span> Sure, we can look into that...
+<a name="l-40"></a><span class="tm">13:25:17</span><span class="nk"> &lt;samhenri&gt;</span> I know it might look like code duplication
+<a name="l-41"></a><span class="tm">13:25:18</span><span class="nk"> &lt;alinefm&gt;</span> sounds good for me
+<a name="l-42"></a><span class="tm">13:26:00</span><span class="nk"> &lt;samhenri&gt;</span> because on the hosts.js file their "models" will look the same, but these two will use a different component
+<a name="l-43"></a><span class="tm">13:26:08</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, seems it will be the same list we will have for the storage and network tabs, right?
+<a name="l-44"></a><span class="tm">13:26:18</span><span class="nk"> &lt;alinefm&gt;</span> but in a smaller size
+<a name="l-45"></a><span class="tm">13:26:21</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-46"></a><span class="tm">13:27:06</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-47"></a><span class="tm">13:27:31</span><span class="nk"> &lt;samhenri&gt;</span> and the grid component in software updates can be used by Ginger
+<a name="l-48"></a><span class="tm">13:28:03</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-49"></a><span class="tm">13:28:19</span><span class="nk"> &lt;samhenri&gt;</span> in configuration backup, san adapters and sensor monitor
+<a name="l-50"></a><span class="tm">13:28:22</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, and how can chandra help on it?
+<a name="l-51"></a><span class="tm">13:28:32</span><span class="nk"> &lt;alinefm&gt;</span> by creating the widget?
+<a name="l-52"></a><span class="tm">13:29:14</span><span class="nk"> &lt;samhenri&gt;</span> I guess creating the simple list widget
+<a name="l-53"></a><span class="tm">13:29:26</span><span class="nk"> &lt;samhenri&gt;</span> because I already did some cleanup on kimchi grid
+<a name="l-54"></a><span class="tm">13:29:34</span><span class="nk"> &lt;samhenri&gt;</span> Iwas trying to make it as flexible as possible
+<a name="l-55"></a><span class="tm">13:30:15</span><span class="nk"> &lt;samhenri&gt;</span> but due to how we get the repositories and and debug-reports json, it wasn't looking good
+<a name="l-56"></a><span class="tm">13:31:08</span><span class="nk"> &lt;alinefm&gt;</span> ok - np
+<a name="l-57"></a><span class="tm">13:31:20</span><span class="nk"> &lt;alinefm&gt;</span> and when do you expect to have it done to be integrated to the host tab?
+<a name="l-58"></a><span class="tm">13:31:21</span><span class="nk"> &lt;chandra&gt;</span> In my view we could have the Action on top of the Repositories or Debug reports and have selection to each of the list items ...
+<a name="l-59"></a><span class="tm">13:31:47</span><span class="nk"> &lt;chandra&gt;</span> And then provide the right action details based on  selections..
+<a name="l-60"></a><span class="tm">13:32:00</span><span class="nk"> &lt;samhenri&gt;</span> yes, if we keep the action on top like the mockups in december 2014 then we won't need to create another widget
+<a name="l-61"></a><span class="tm">13:33:16</span><span class="nk"> &lt;chandra&gt;</span> make sense to me...
+<a name="l-62"></a><span class="tm">13:33:44</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, chandra, no =)
+<a name="l-63"></a><span class="tm">13:34:01</span><span class="nk"> &lt;alinefm&gt;</span> during the new UI design this specific point was very well discussed
+<a name="l-64"></a><span class="tm">13:34:27</span><span class="nk"> &lt;alinefm&gt;</span> from the feedbacks we got, the user prefers to know on each element the action will be applied
+<a name="l-65"></a><span class="tm">13:34:37</span><span class="nk"> &lt;alinefm&gt;</span> the point discussed was when the list is too big
+<a name="l-66"></a><span class="tm">13:34:56</span><span class="nk"> &lt;alinefm&gt;</span> so after doing a multiple selection it was confusing to remember on each items the action was applied
+<a name="l-67"></a><span class="tm">13:35:16</span><span class="nk"> &lt;alinefm&gt;</span> and also make the error message mechanism complex
+<a name="l-68"></a><span class="tm">13:35:35</span><span class="nk"> &lt;alinefm&gt;</span> because that we decide to keep the action box in the list for each element
+<a name="l-69"></a><span class="tm">13:36:24</span><span class="nk"> &lt;samhenri&gt;</span> yeah, I was thinking about size limit
+<a name="l-70"></a><span class="tm">13:37:13</span><span class="nk"> &lt;chandra&gt;</span> I agree to some extent but as per my experience of using modern UI's do not provide such actions at element level
+<a name="l-71"></a><span class="tm">13:37:41</span><span class="nk"> &lt;chandra&gt;</span> Think of a scenario where you want to select multiple items and want to update or perform delete operations..
+<a name="l-72"></a><span class="tm">13:37:55</span><span class="nk"> &lt;samhenri&gt;</span> so these panels will also have an inner scrollbar, right?
+<a name="l-73"></a><span class="tm">13:37:59</span><span class="nk"> &lt;chandra&gt;</span> By the existing design end user has to select each element to do such operations...
+<a name="l-74"></a><span class="tm">13:38:48</span><span class="nk"> &lt;chandra&gt;</span> There are advantages by combining such operations even though it might be bit complex for the UI developers to accomplish the action..
+<a name="l-75"></a><span class="tm">13:39:50</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, yes - for the inner scroll bar
+<a name="l-76"></a><span class="tm">13:40:16</span><span class="nk"> &lt;alinefm&gt;</span> chandra, yes - I understand
+<a name="l-77"></a><span class="tm">13:40:52</span><span class="nk"> &lt;samhenri&gt;</span> ok, does it have to be a custom scrollbar or system default?
+<a name="l-78"></a><span class="tm">13:41:19</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, isn't there any mockup with scroll in the new UI design doc?
+<a name="l-79"></a><span class="tm">13:41:33</span><span class="nk"> &lt;samhenri&gt;</span> it does, in the peer hosts drop-down
+<a name="l-80"></a><span class="tm">13:41:53</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I'd say the system default if it looks harmonic with the UI style
+<a name="l-81"></a><span class="tm">13:42:01</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is it customized?
+<a name="l-82"></a><span class="tm">13:42:49</span><span class="nk"> &lt;samhenri&gt;</span> Well, it doesn't look like Windows, OS X or Linux distro I've worked with
+<a name="l-83"></a><span class="tm">13:42:50</span><span class="nk"> &lt;alinefm&gt;</span> chandra, regarding the multiple selection action, I only see one scenario on which it can be applied which is for deleting debug reports
+<a name="l-84"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, heheheh
+<a name="l-85"></a><span class="tm">13:43:20 </span><span class="nka">* alinefm</span> <span class="ac">checking the doc</span>
+<a name="l-86"></a><span class="tm">13:43:22</span><span class="nk"> &lt;chandra&gt;</span> alinefm, Well this can be applied to networks/storage/templates etc...
+<a name="l-87"></a><span class="tm">13:43:37</span><span class="nk"> &lt;samhenri&gt;</span> For webkit browsers like Chrome and Safari this can be easily done with CSS
+<a name="l-88"></a><span class="tm">13:43:51</span><span class="nk"> &lt;chandra&gt;</span> Even guests too
+<a name="l-89"></a><span class="tm">13:44:13</span><span class="nk"> &lt;samhenri&gt;</span> Firefox and IE I would have to use some JS to emulate a scrollbar with that look and feel
+<a name="l-90"></a><span class="tm">13:45:35</span><span class="nk"> &lt;chandra&gt;</span> One another fine example is selecting multiple networks and perform online or offline operations ie bring up/down
+<a name="l-91"></a><span class="tm">13:45:50</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, the scroll there is in the drop down menu, right?
+<a name="l-92"></a><span class="tm">13:45:57</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-93"></a><span class="tm">13:45:59</span><span class="nk"> &lt;chandra&gt;</span> I guess same with respect to storage too...
+<a name="l-94"></a><span class="tm">13:47:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I don't think it applies to the list widget
+<a name="l-95"></a><span class="tm">13:47:21</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, we can try the system default and see how it looks like
+<a name="l-96"></a><span class="tm">13:47:37</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, unless you already think it will not be harmonic
+<a name="l-97"></a><span class="tm">13:48:04</span><span class="nk"> &lt;alinefm&gt;</span> chandra, Kimchi is to manage a small amount of resources
+<a name="l-98"></a><span class="tm">13:49:15</span><span class="nk"> &lt;samhenri&gt;</span> I think we would have resize the columns
+<a name="l-99"></a><span class="tm">13:49:24</span><span class="nk"> &lt;samhenri&gt;</span> each system scrollbar has a different size
+<a name="l-100"></a><span class="tm">13:49:47</span><span class="nk"> &lt;chandra&gt;</span> Well, I understand this is the case right now. But there are platforms which do require bigger resources... esp when we talk about virtualization ...
+<a name="l-101"></a><span class="tm">13:50:01</span><span class="nk"> &lt;samhenri&gt;</span> windows usually is 17px, linux 20px, OS X doesn't affect container width (it floats above content)
+<a name="l-102"></a><span class="tm">13:50:25</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, hmm... so probably a custom scroll bar would have it easier
+<a name="l-103"></a><span class="tm">13:50:43</span><span class="nk"> &lt;alinefm&gt;</span> chandra, it is not the case right now - it is the kimchi proposal
+<a name="l-104"></a><span class="tm">13:52:47</span><span class="nk"> &lt;samhenri&gt;</span> alinefm yes, but, should it be always visible?
+<a name="l-105"></a><span class="tm">13:53:23</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I don't think so - only when the list size exceeds the box size ?
+<a name="l-106"></a><span class="tm">13:53:51</span><span class="nk"> &lt;samhenri&gt;</span> yes, but in that case, should it act like OS X / Android?
+<a name="l-107"></a><span class="tm">13:53:54</span><span class="nk"> &lt;samhenri&gt;</span> https://jamesflorentino.github.io/nanoScrollerJS/
+<a name="l-108"></a><span class="tm">13:54:50</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, it would be great =D
+<a name="l-109"></a><span class="tm">13:54:52</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-110"></a><span class="tm">13:55:12</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, how easy is to do that?
+<a name="l-111"></a><span class="tm">13:55:18</span><span class="nk"> &lt;alinefm&gt;</span> or how complex =)
+<a name="l-112"></a><span class="tm">13:55:53</span><span class="nk"> &lt;samhenri&gt;</span> just linking the JS and CSS files
+<a name="l-113"></a><span class="tm">13:56:02</span><span class="nk"> &lt;samhenri&gt;</span> and putting the right css classes to each container
+<a name="l-114"></a><span class="tm">13:57:03</span><span class="nk"> &lt;alinefm&gt;</span> if you say! =)
+<a name="l-115"></a><span class="tm">14:01:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-116"></a><span class="tm">14:01:43</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, chandra?
+<a name="l-117"></a><span class="tm">14:01:51</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-118"></a><span class="tm">14:02:20</span><span class="nk"> &lt;chandra&gt;</span> Sure, samhenri, may I request to send an email to the community with help you are expecting ...
+<a name="l-119"></a><span class="tm">14:02:48</span><span class="nk"> &lt;chandra&gt;</span> Feel free to ask for help and we are ready to take them up ...
+<a name="l-120"></a><span class="tm">14:03:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, also include the expect deadline you need to have the widget done to do not affect the host tab development
+<a name="l-121"></a><span class="tm">14:04:02</span><span class="nk"> &lt;samhenri&gt;</span> Sure
+<a name="l-122"></a><span class="tm">14:04:14</span><span class="nk"> &lt;chandra&gt;</span> From above chart I will try to digest but mail with exact requirements help us....
+<a name="l-123"></a><span class="tm">14:04:26</span><span class="nk"> &lt;chandra&gt;</span> thanks to samhenri and alinefm ...
+<a name="l-124"></a><span class="tm">14:04:46</span><span class="nk"> &lt;alinefm&gt;</span> chandra, samhenri, thank you
+<a name="l-125"></a><span class="tm">14:04:49</span><span class="nk"> &lt;samhenri&gt;</span> Ok, I'll send the specification in the ml
+<a name="l-126"></a><span class="tm">14:04:56</span><span class="nk"> &lt;alinefm&gt;</span> and everyone for joining!
+<a name="l-127"></a><span class="tm">14:05:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

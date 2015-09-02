@@ -1,0 +1,127 @@
+13:05:07 <alinefm> #startmeeting
+13:05:07 <kimchi-bot> Meeting started Wed Sep  2 13:05:07 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:05:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:05:07 <alinefm> #meetingname scrum
+13:05:07 <kimchi-bot> The meeting name has been set to 'scrum'
+13:05:43 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:05:43 <alinefm> anything else?
+13:09:56 <alinefm> ok... let's get started
+13:10:05 <alinefm> #topic Status
+13:10:05 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:10:25 <alinefm> #info alinefm sent patch to allow user create guests with non-ASCII characters in name
+13:10:43 <pvital> #info pvital helped user to create template based on image - issue #725
+13:10:44 <pvital> #info pvital reviewed ramonn's [PATCH v3] Issue #694: VLAN ID accepting only one digit
+13:10:44 <pvital> #info pvital submitted [PATCH] [WOK] Issue #726 - solve ImportError on  kimchi tests
+13:11:21 <alinefm> #info alinefm is working on bug related to render the guest console when using non-ASCII characters. For that we will need to use jquery Base64
+13:11:44 <samhenri> #info samhenri is still working on hosts tab components
+13:12:14 <ziviani> #info ziviani send patch to ML "Disallow storage format changes in UI for templates based on image file"
+13:12:16 <ziviani> #info ziviani is working on community bug
+13:12:38 <ramonn_> #info ramonn just sent patch for issues nfo ramonn just sent patches for issues #682/#684/#685/#694/#667
+13:12:45 <danielhb> #info danielhb reviewed patches in kimchi ML
+13:12:49 <ramonn_> #info will start new issue today
+13:14:33 <alinefm> anything else, guys?
+13:16:20 <alinefm> alright...
+13:16:25 <alinefm> #topic Open Discussion
+13:17:15 <alinefm> I want to remind you that hard code freeze for 1.5.1 starts in 2 weeks
+13:18:02 <alinefm> which means during hard code freeze only critical bugs will be accepted for 1.5.1
+13:18:22 <alinefm> any other topic for today?
+13:20:16 <alinefm> samhenri, pvital, ziviani, danielhb, ramonn_ ^
+13:21:02 <ziviani> nope
+13:22:03 <chandra> samhenri, do you need any help in the new ui development?
+13:22:15 <samhenri> well, yes
+13:22:29 <samhenri> this is more like an enhancement for the next versions, but as I'm working with hosts tab and kimchi grid widget...
+13:23:00 <samhenri> In the current new-ui design spec, the action button for repositories and debug-reports is located next to each item
+13:23:24 <chandra> Sure, let me know the topics that can be picked up ...
+13:23:37 <samhenri> but in the current version, they're located at the top, like the Software Updates
+13:24:32 <samhenri> They also don't have a "header", so I was thinking in splitting debug reports and repositories into a new widget, an unordered list
+13:24:42 <samhenri> since we don't have controls to sort them by ascending or descending
+13:24:51 <samhenri> and keep using the grid component for software updates
+13:25:13 <chandra> Sure, we can look into that...
+13:25:17 <samhenri> I know it might look like code duplication
+13:25:18 <alinefm> sounds good for me
+13:26:00 <samhenri> because on the hosts.js file their "models" will look the same, but these two will use a different component
+13:26:08 <alinefm> samhenri, seems it will be the same list we will have for the storage and network tabs, right?
+13:26:18 <alinefm> but in a smaller size
+13:26:21 <samhenri> yes
+13:27:06 <alinefm> ok
+13:27:31 <samhenri> and the grid component in software updates can be used by Ginger
+13:28:03 <alinefm> yeap
+13:28:19 <samhenri> in configuration backup, san adapters and sensor monitor
+13:28:22 <alinefm> samhenri, and how can chandra help on it?
+13:28:32 <alinefm> by creating the widget?
+13:29:14 <samhenri> I guess creating the simple list widget
+13:29:26 <samhenri> because I already did some cleanup on kimchi grid
+13:29:34 <samhenri> Iwas trying to make it as flexible as possible
+13:30:15 <samhenri> but due to how we get the repositories and and debug-reports json, it wasn't looking good
+13:31:08 <alinefm> ok - np
+13:31:20 <alinefm> and when do you expect to have it done to be integrated to the host tab?
+13:31:21 <chandra> In my view we could have the Action on top of the Repositories or Debug reports and have selection to each of the list items ...
+13:31:47 <chandra> And then provide the right action details based on  selections..
+13:32:00 <samhenri> yes, if we keep the action on top like the mockups in december 2014 then we won't need to create another widget
+13:33:16 <chandra> make sense to me...
+13:33:44 <alinefm> samhenri, chandra, no =)
+13:34:01 <alinefm> during the new UI design this specific point was very well discussed
+13:34:27 <alinefm> from the feedbacks we got, the user prefers to know on each element the action will be applied
+13:34:37 <alinefm> the point discussed was when the list is too big
+13:34:56 <alinefm> so after doing a multiple selection it was confusing to remember on each items the action was applied
+13:35:16 <alinefm> and also make the error message mechanism complex
+13:35:35 <alinefm> because that we decide to keep the action box in the list for each element
+13:36:24 <samhenri> yeah, I was thinking about size limit
+13:37:13 <chandra> I agree to some extent but as per my experience of using modern UI's do not provide such actions at element level
+13:37:41 <chandra> Think of a scenario where you want to select multiple items and want to update or perform delete operations..
+13:37:55 <samhenri> so these panels will also have an inner scrollbar, right?
+13:37:59 <chandra> By the existing design end user has to select each element to do such operations...
+13:38:48 <chandra> There are advantages by combining such operations even though it might be bit complex for the UI developers to accomplish the action..
+13:39:50 <alinefm> samhenri, yes - for the inner scroll bar
+13:40:16 <alinefm> chandra, yes - I understand
+13:40:52 <samhenri> ok, does it have to be a custom scrollbar or system default?
+13:41:19 <alinefm> samhenri, isn't there any mockup with scroll in the new UI design doc?
+13:41:33 <samhenri> it does, in the peer hosts drop-down
+13:41:53 <alinefm> samhenri, I'd say the system default if it looks harmonic with the UI style
+13:42:01 <alinefm> samhenri, is it customized?
+13:42:49 <samhenri> Well, it doesn't look like Windows, OS X or Linux distro I've worked with
+13:42:50 <alinefm> chandra, regarding the multiple selection action, I only see one scenario on which it can be applied which is for deleting debug reports
+13:43:02 <alinefm> samhenri, heheheh
+13:43:20 * alinefm checking the doc
+13:43:22 <chandra> alinefm, Well this can be applied to networks/storage/templates etc...
+13:43:37 <samhenri> For webkit browsers like Chrome and Safari this can be easily done with CSS
+13:43:51 <chandra> Even guests too
+13:44:13 <samhenri> Firefox and IE I would have to use some JS to emulate a scrollbar with that look and feel
+13:45:35 <chandra> One another fine example is selecting multiple networks and perform online or offline operations ie bring up/down
+13:45:50 <alinefm> samhenri, the scroll there is in the drop down menu, right?
+13:45:57 <samhenri> yes
+13:45:59 <chandra> I guess same with respect to storage too...
+13:47:04 <alinefm> samhenri, I don't think it applies to the list widget
+13:47:21 <alinefm> samhenri, we can try the system default and see how it looks like
+13:47:37 <alinefm> samhenri, unless you already think it will not be harmonic
+13:48:04 <alinefm> chandra, Kimchi is to manage a small amount of resources
+13:49:15 <samhenri> I think we would have resize the columns
+13:49:24 <samhenri> each system scrollbar has a different size
+13:49:47 <chandra> Well, I understand this is the case right now. But there are platforms which do require bigger resources... esp when we talk about virtualization ...
+13:50:01 <samhenri> windows usually is 17px, linux 20px, OS X doesn't affect container width (it floats above content)
+13:50:25 <alinefm> samhenri, hmm... so probably a custom scroll bar would have it easier
+13:50:43 <alinefm> chandra, it is not the case right now - it is the kimchi proposal
+13:52:47 <samhenri> alinefm yes, but, should it be always visible?
+13:53:23 <alinefm> samhenri, I don't think so - only when the list size exceeds the box size ?
+13:53:51 <samhenri> yes, but in that case, should it act like OS X / Android?
+13:53:54 <samhenri> https://jamesflorentino.github.io/nanoScrollerJS/
+13:54:50 <alinefm> samhenri, it would be great =D
+13:54:52 <alinefm> hehehe
+13:55:12 <alinefm> samhenri, how easy is to do that?
+13:55:18 <alinefm> or how complex =)
+13:55:53 <samhenri> just linking the JS and CSS files
+13:56:02 <samhenri> and putting the right css classes to each container
+13:57:03 <alinefm> if you say! =)
+14:01:40 <alinefm> anything else, team?
+14:01:43 <alinefm> samhenri, chandra?
+14:01:51 <samhenri> nope
+14:02:20 <chandra> Sure, samhenri, may I request to send an email to the community with help you are expecting ...
+14:02:48 <chandra> Feel free to ask for help and we are ready to take them up ...
+14:03:41 <alinefm> samhenri, also include the expect deadline you need to have the widget done to do not affect the host tab development
+14:04:02 <samhenri> Sure
+14:04:14 <chandra> From above chart I will try to digest but mail with exact requirements help us....
+14:04:26 <chandra> thanks to samhenri and alinefm ...
+14:04:46 <alinefm> chandra, samhenri, thank you
+14:04:49 <samhenri> Ok, I'll send the specification in the ml
+14:04:56 <alinefm> and everyone for joining!
+14:05:06 <alinefm> #endmeeting
