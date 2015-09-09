@@ -105,6 +105,7 @@ AC_CONFIG_FILES([
     plugins/sample/ui/js/Makefile
     plugins/sample/ui/pages/Makefile
     ui/Makefile
+    ui/base64/Makefile
     ui/css/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
