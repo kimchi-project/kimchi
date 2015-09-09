@@ -14,6 +14,13 @@
         "path": "http://mirrors.kernel.org/fedora/releases/21/Live/x86_64/Fedora-Live-KDE-x86_64-21-5.iso"
     },
     {
+        "name": "Fedora 22",
+        "os_distro": "fedora",
+        "os_arch": "x86_64",
+        "os_version": "22",
+        "path": "http://mirrors.kernel.org/fedora/releases/22/Live/x86_64/Fedora-Live-KDE-x86_64-22-3.iso"
+    },
+    {
         "name": "Fedora 18 (PPC64)",
         "os_distro": "fedora",
         "os_arch": "ppc64",
