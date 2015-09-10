@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 09:52-0300\n"
+"POT-Creation-Date: 2015-09-11 14:12-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -273,11 +273,6 @@ msgstr "组“%(groups)s”不存在"
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr "无法关闭虚拟机 %(name)s。详细信息：%(err)s"
 
-#, python-format
-msgid ""
-"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
-msgstr "无法访问虚拟机 %(name)s 的元数据。详细信息：%(err)s"
-
 msgid "The guest console password must be a string."
 msgstr "访客控制台密码必须是字符串。"
 
@@ -345,6 +340,22 @@ msgstr "主机的 Libvirt 版本不支持内存设备。Libvirt 必须 >= 1.2.14
 #, python-format
 msgid "Error attaching memory device. Details: %(error)s"
 msgstr "连接内存设备时出错。详细信息：%(error)s"
+
+#, python-format
+msgid "Cannot start %(name)s. Virtual machine is already running."
+msgstr ""
+
+#, python-format
+msgid "Cannot power off %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot reset %(name)s. Virtual machine is already shut off."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1291,6 +1302,12 @@ msgstr "MAC 地址"
 
 msgid "Available system users and groups"
 msgstr "可用系统用户和组"
+
+msgid "Users"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
 
 msgid "Selected system users and groups"
 msgstr "所选系统用户和组"
