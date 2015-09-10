@@ -30,6 +30,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 from kimchi.utils import validate_repo_url
 from kimchi.yumparser import get_yum_repositories, write_repo_to_file
+from kimchi.yumparser import get_display_name
 
 
 class Repositories(object):
@@ -149,10 +150,13 @@ class YumRepo(object):
 
         entry = repos.get(repo_id)
 
+        display_name = get_display_name(entry.name)
+
         info = {}
         info['enabled'] = entry.enabled
         info['baseurl'] = entry.baseurl or ''
         info['config'] = {}
+        info['config']['display_repo_name'] = display_name
         info['config']['repo_name'] = entry.name or ''
         info['config']['gpgcheck'] = entry.gpgcheck
         info['config']['gpgkey'] = entry.gpgkey or ''
