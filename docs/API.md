@@ -1116,6 +1116,8 @@ http://, ftp:// or file://  URL.
     * config: A dictionary that contains specific data according to repository
       type.
         * repo_name: Human-readable string describing the YUM repository.
+        * display_repo_name: The same name retrieve from repo_name with any
+          possible variable expanded.
         * mirrorlist: Specifies a URL to a file containing a list of baseurls
           for YUM repository
         * gpgcheck: True, to enable GPG signature verification; False, otherwise.
