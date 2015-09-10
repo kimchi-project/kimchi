@@ -40,6 +40,7 @@ from kimchi.config import paths, PluginPaths
 from kimchi.exception import InvalidParameter, TimeoutExpired
 
 
+MAX_REDIRECTION_ALLOWED = 5
 kimchi_log = cherrypy.log.error_log
 task_id = 0
 
@@ -140,7 +141,9 @@ def import_module(module_name):
     return __import__(module_name, globals(), locals(), [''])
 
 
-def check_url_path(path):
+def check_url_path(path, redirected=0):
+    if redirected > MAX_REDIRECTION_ALLOWED:
+        return False
     try:
         code = ''
         parse_result = urlparse(path)
@@ -156,9 +159,16 @@ def check_url_path(path):
             conn = HTTPConnection(server_name, timeout=15)
             # Don't try to get the whole file:
             conn.request('HEAD', path)
-            code = conn.getresponse().status
+            response = conn.getresponse()
+            code = response.status
             conn.close()
-        if code != 200:
+        if code == 200:
+            return True
+        elif code == 301 or code == 302:
+            for header in response.getheaders():
+                if header[0] == 'location':
+                    return check_url_path(header[1], redirected+1)
+        else:
             return False
     except (urllib2.URLError, HTTPException, IOError, ValueError):
         return False
