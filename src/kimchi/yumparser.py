@@ -249,21 +249,33 @@ def _get_all_yum_vars():
     return variables
 
 
-def get_display_name(name):
-    if not name:
-        return ''
-
+def _expand_variables(stringvar, split_char=' '):
     yum_variables = _get_all_yum_vars()
     yum_variables['releasever'] = _get_releasever()
     yum_variables['basearch'] = _get_basearch()
 
-    name_vars = [var for var in name.split()
+    name_vars = [var for var in stringvar.split(split_char)
                  if var.startswith('$') and var.strip('$') in yum_variables]
 
     return reduce(lambda nm, var:
                   nm.replace(var, yum_variables[var.strip('$')]),
                   name_vars,
-                  name)
+                  stringvar)
+
+
+def get_display_name(name):
+    if not name or '$' not in name:
+        return name
+
+    return _expand_variables(name)
+
+
+def get_expanded_url(url):
+    url_path = url.split('://')
+    if len(url_path) != 2 or '$' not in url:
+        return url
+
+    return _expand_variables(url, '/')
 
 
 class YumUpdatePackageObject(object):
