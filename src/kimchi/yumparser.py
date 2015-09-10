@@ -17,9 +17,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import subprocess
+import glob
 
 from os import listdir
-from os.path import isfile, splitext
+from os.path import isfile, splitext, basename
+
+try:
+    import rpm
+except ImportError:
+    pass
 
 
 class YumRepoObject(object):
@@ -206,6 +212,58 @@ def delete_repo_from_file(repo):
 
     with open(repo.repofile, 'w') as f:
         f.writelines(data)
+
+
+def _get_releasever():
+    release_file = glob.glob('/etc/*-release')[0]
+    transaction = rpm.TransactionSet()
+    match_iter = transaction.dbMatch('basenames', release_file)
+
+    ret = '%releasever'
+    try:
+        ret = match_iter.next()['version']
+
+    except StopIteration:
+        pass
+
+    return ret
+
+
+def _get_basearch():
+    cmd = ['uname', '-i']
+    uname = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    return uname.communicate()[0].strip('"\n')
+
+
+def _get_all_yum_vars():
+    variables = {}
+
+    def _get_var_content(varfile):
+        with open(varfile) as f:
+            variables[basename(varfile)] = f.read().strip('\n')
+
+    map(lambda vfile:
+        _get_var_content(vfile),
+        glob.glob('/etc/yum/vars/*'))
+
+    return variables
+
+
+def get_display_name(name):
+    if not name:
+        return ''
+
+    yum_variables = _get_all_yum_vars()
+    yum_variables['releasever'] = _get_releasever()
+    yum_variables['basearch'] = _get_basearch()
+
+    name_vars = [var for var in name.split()
+                 if var.startswith('$') and var.strip('$') in yum_variables]
+
+    return reduce(lambda nm, var:
+                  nm.replace(var, yum_variables[var.strip('$')]),
+                  name_vars,
+                  name)
 
 
 class YumUpdatePackageObject(object):
