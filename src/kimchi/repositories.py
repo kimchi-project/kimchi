@@ -30,7 +30,7 @@ from kimchi.exception import InvalidOperation, InvalidParameter
 from kimchi.exception import OperationFailed, NotFoundError, MissingParameter
 from kimchi.utils import validate_repo_url
 from kimchi.yumparser import get_yum_repositories, write_repo_to_file
-from kimchi.yumparser import get_display_name
+from kimchi.yumparser import get_display_name, get_expanded_url
 
 
 class Repositories(object):
@@ -178,13 +178,13 @@ class YumRepo(object):
             raise MissingParameter("KCHREPOS0013E")
 
         if baseurl:
-            validate_repo_url(baseurl)
+            validate_repo_url(get_expanded_url(baseurl))
 
         if mirrorlist:
-            validate_repo_url(mirrorlist)
+            validate_repo_url(get_expanded_url(mirrorlist))
 
         if metalink:
-            validate_repo_url(metalink)
+            validate_repo_url(get_expanded_url(metalink))
 
         if mirrorlist and metalink:
             raise InvalidOperation('KCHREPOS0030E')
@@ -278,15 +278,15 @@ class YumRepo(object):
             raise MissingParameter("KCHREPOS0013E")
 
         if baseurl is not None:
-            validate_repo_url(baseurl)
+            validate_repo_url(get_expanded_url(baseurl))
             entry.baseurl = baseurl
 
         if mirrorlist is not None:
-            validate_repo_url(mirrorlist)
+            validate_repo_url(get_expanded_url(mirrorlist))
             entry.mirrorlist = mirrorlist
 
         if metalink is not None:
-            validate_repo_url(metalink)
+            validate_repo_url(get_expanded_url(metalink))
             entry.metalink = metalink
 
         if mirrorlist and metalink:
@@ -437,7 +437,7 @@ class AptRepo(object):
         dist = config['dist']
         comps = config.get('comps', [])
 
-        validate_repo_url(uri)
+        validate_repo_url(get_expanded_url(uri))
 
         kimchiLock.acquire()
         try:
