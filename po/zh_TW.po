@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 09:52-0300\n"
+"POT-Creation-Date: 2015-09-11 14:12-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -85,9 +85,8 @@ msgstr "\"_passthrough\" 應該是 \"true\" 或 \"false\""
 msgid "\"_passthrough_affected_by\" should be a device name string"
 msgstr "\"_passthrough_affected_by\" 應該是裝置名稱字串"
 
-#, fuzzy
 msgid "\"_available_only\" should be \"true\" or \"false\""
-msgstr "\"_passthrough\" 應該是 \"true\" 或 \"false\""
+msgstr ""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -274,11 +273,6 @@ msgstr "群組 '%(groups)s' 不存在"
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr "無法關閉虛擬機器 %(name)s。詳細資料：%(err)s"
 
-#, python-format
-msgid ""
-"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
-msgstr "無法取得虛擬機器 %(name)s 的存取 meta 資料。詳細資料：%(err)s"
-
 msgid "The guest console password must be a string."
 msgstr "客體主控台密碼必須是字串。"
 
@@ -347,6 +341,22 @@ msgstr "主機的 libvirt 版本不支援記憶體裝置。Libvirt 必須大於�
 #, python-format
 msgid "Error attaching memory device. Details: %(error)s"
 msgstr "連接記憶體裝置時發生錯誤。詳細資料：%(error)s"
+
+#, python-format
+msgid "Cannot start %(name)s. Virtual machine is already running."
+msgstr ""
+
+#, python-format
+msgid "Cannot power off %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot reset %(name)s. Virtual machine is already shut off."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1293,6 +1303,12 @@ msgstr "MAC 位址"
 msgid "Available system users and groups"
 msgstr "可用的系統使用者及群組"
 
+msgid "Users"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
 msgid "Selected system users and groups"
 msgstr "選定的系統使用者及群組"
 
@@ -2196,3 +2212,8 @@ msgstr "配置"
 
 msgid "No templates found."
 msgstr "找不到範本。"
+
+#~ msgid ""
+#~ "Unable to get access metadata of virtual machine %(name)s. Details: "
+#~ "%(err)s"
+#~ msgstr "無法取得虛擬機器 %(name)s 的存取 meta 資料。詳細資料：%(err)s"

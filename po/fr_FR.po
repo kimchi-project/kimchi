@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 09:52-0300\n"
+"POT-Creation-Date: 2015-09-11 14:12-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -314,13 +314,6 @@ msgstr "Le ou les groupes '%(groups)s' n'existent pas"
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
 msgstr "Impossible d'arrêter la machine virtuelle %(name)s. Détails : %(err)s"
 
-#, python-format
-msgid ""
-"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
-msgstr ""
-"Impossible d'obtenir l'accès aux métadonnées de la machine virtuelle "
-"%(name)s. Détails : %(err)s"
-
 msgid "The guest console password must be a string."
 msgstr "Le mot de passe de la console invité doit être une chaîne."
 
@@ -408,6 +401,22 @@ msgstr ""
 #, python-format
 msgid "Error attaching memory device. Details: %(error)s"
 msgstr "Erreur d'attachement de l'unité de mémoire. Détails : %(error)s"
+
+#, python-format
+msgid "Cannot start %(name)s. Virtual machine is already running."
+msgstr ""
+
+#, python-format
+msgid "Cannot power off %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
+msgstr ""
+
+#, python-format
+msgid "Cannot reset %(name)s. Virtual machine is already shut off."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1521,6 +1530,12 @@ msgstr "Adresse MAC"
 
 msgid "Available system users and groups"
 msgstr "Groupes et utilisateurs système disponibles"
+
+msgid "Users"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
 
 msgid "Selected system users and groups"
 msgstr "Groupes et utilisateurs système sélectionnés"
