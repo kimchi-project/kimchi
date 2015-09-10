@@ -429,26 +429,31 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-avail-groups"));
         });
     }
-    var filterPCINodes = function(group, text){
-            text = text.toLowerCase();
-            $(".body", "#form-guest-edit-pci").children().each(function(){
-                var textFilter = $(".name", this).text().toLowerCase().indexOf(text)!=-1;
-                textFilter = textFilter || $(".product", this).text().toLowerCase().indexOf(text)!=-1;
-                textFilter = textFilter || $(".vendor", this).text().toLowerCase().indexOf(text)!=-1;
-                var display = "none";
-                var itemGroup = $("button", this).button("option", "icons").primary;
-                if(textFilter){
-                    if(group == "all"){
-                        display = "";
-                    }else if(group=="toAdd" && itemGroup=="ui-icon-plus"){
-                        display = ""
-                    }else if(group == "added" && itemGroup=="ui-icon-minus"){
-                        display = ""
-                    }
+    var filterPCINodes = function(group, text, targetName, targetIcon){
+        text = text.toLowerCase();
+        targetName = targetName.toLowerCase();
+        $(".body", "#form-guest-edit-pci").children().each(function(){
+            var currentName = $(".name", this).text().toLowerCase();
+            var textFilter = currentName.indexOf(text)!=-1;
+            textFilter = textFilter || $(".product", this).text().toLowerCase().indexOf(text)!=-1;
+            textFilter = textFilter || $(".vendor", this).text().toLowerCase().indexOf(text)!=-1;
+            var display = "none";
+            var itemGroup = $("button", this).button("option", "icons").primary;
+            if (currentName == targetName){
+                itemGroup = targetIcon;                 
+            }
+            if(textFilter){
+                if(group == "all"){
+                    display = "";
+                }else if(group=="toAdd" && itemGroup=="ui-icon-plus"){
+                    display = ""
+                }else if(group == "added" && itemGroup=="ui-icon-minus"){
+                    display = ""
                 }
-                $(this).css("display", display);
-            });
-        }
+            }
+            $(this).css("display", display);
+        });
+    }
     var setupPCIDevice = function(){
         kimchi.getAvailableHostPCIDevices(function(hostPCIs){
             kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs){
@@ -457,24 +462,23 @@ kimchi.guest_edit_main = function() {
             });
         });
         $("select", "#form-guest-edit-pci").change(function(){
-            filterPCINodes($(this).val(), $("input", "#form-guest-edit-pci").val());
+            filterPCINodes($(this).val(), $("input", "#form-guest-edit-pci").val(), "", "");
         });
         $("input", "#form-guest-edit-pci").on("keyup", function() {
-            filterPCINodes($("select", "#form-guest-edit-pci").val(), $(this).val());
+            filterPCINodes($("select", "#form-guest-edit-pci").val(), $(this).val(), "", "");
         });
     };
-
-    var setupNode = function(arrPCIDevices, iconClass) {
+    var setupNode = function(arrPCIDevices, iconClass){
         var pciEnabled = kimchi.capabilities.kernel_vfio;
-        var pciDeviceName, pciDeviceProduct, pciDeviceProductDesc, pciDeviceVendor, pciDeviceVendorDesc;
+        var pciDeviceName, pciDeviceProduct, pciDeviceProductDesc, pciDeviceVendor, pciDeviceVendorDesc;        
         for(var i=0; i<arrPCIDevices.length; i++){
             pciDeviceName = arrPCIDevices[i].name;
             pciDeviceProduct = arrPCIDevices[i].product;
             pciDeviceVendor = arrPCIDevices[i].vendor;
-            if(pciDeviceProduct!=null) {
+            if(pciDeviceProduct!=null){
                 pciDeviceProductDesc = pciDeviceProduct.description;
             }
-            if(pciDeviceVendor!=null) {
+            if(pciDeviceVendor!=null){
                 pciDeviceVendorDesc = pciDeviceVendor.description;
             }
             var itemNode = $.parseHTML(kimchi.substitute($('#pci-tmpl').html(),{
@@ -489,8 +493,9 @@ kimchi.guest_edit_main = function() {
                 text: false
             }).click(function(){
                 var obj = $(this);
+                var id = obj.parent().prop("id");
                 if(obj.button("option", "icons").primary == "ui-icon-minus"){
-                    kimchi.removeVMPCIDevice(kimchi.selectedGuest, obj.parent().prop("id"), function(){
+                    kimchi.removeVMPCIDevice(kimchi.selectedGuest, id, function(){
                         kimchi.getAvailableHostPCIDevices(function(arrPCIDevices1){
                             kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
                                 for(var k=0; k<arrPCIDevices1.length; k++) {
@@ -501,16 +506,18 @@ kimchi.guest_edit_main = function() {
                                 }
                             });
                         });
-                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
+                        //id is for the object that is being added back to the available PCI devices
+                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val(), id, "ui-icon-plus");
                     });
                 } else {
-                    kimchi.addVMPCIDevice(kimchi.selectedGuest, { name: obj.parent().prop("id") }, function(){
+                    kimchi.addVMPCIDevice(kimchi.selectedGuest, { name: id }, function(){
                         kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
                             for(var k=0; k<vmPCIs1.length; k++) {
                                 $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
                             }
                         });
-                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val());
+                        //id is for the object that is being removed from the available PCI devices
+                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val(), id, "ui-icon-minus");
                     });
                 }
             });
