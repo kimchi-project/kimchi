@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ kimchi.host_main = function() {
                     label: i18n['KCHREPO6004M'],
                     'class': 'repository-id'
                 }, {
-                    name: 'config[repo_name]',
+                    name: 'config[display_repo_name]',
                     label: i18n['KCHREPO6005M'],
                     'class': 'repository-name'
                 }, {
