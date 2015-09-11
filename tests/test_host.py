@@ -135,6 +135,12 @@ class HostTests(unittest.TestCase):
         pkgs = model.packagesupdate_get_list()
         self.assertEquals(0, len(pkgs))
 
+    def test_create_dasd_host_partition(self):
+        self.fail("create a partition")
+
+    def test_delete_dasd_host_partition(self):
+        self.fail("delete a partition")
+
     def test_host_partitions(self):
         resp = self.request('/host/partitions')
         self.assertEquals(200, resp.status)
