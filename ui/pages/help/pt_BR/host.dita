@@ -20,18 +20,16 @@ host.</li>
 <li>Selecione <uicontrol>Conectar</uicontrol> para abrir uma conexão VNC
 para o sistema host, se ele já não estiver conectado.</li>
 </ul></p>
-<p>Clique nas seções a seguir para exibir informações sobre o host:<dl>
-<dlentry>
+<p>Clique nas seções a seguir para exibir informações sobre o host:</p>
+<dl><dlentry>
 <dt>Informações básicas</dt>
 <dd>Esta seção exibe a distribuição do sistema operacional do host,
-a versão e o nome do código, bem como o tipo de processador e quantia de
+a versão e o nome do código, bem como o tipo de processador, o número de CPUs on-line e a quantia de
 memória em GB.</dd>
 </dlentry><dlentry>
 <dt>Estatísticas do sistema</dt>
 <dd>Esta seção exibe gráficos para mostrar estatísticas para CPU, memória,
-E/S de disco e E/S de rede para o host. Selecione <uicontrol>Coletando
-dados depois de sair desta página</uicontrol> para continuar a coletar dados
-quando a guia do host estiver fora de visualização.</dd>
+E/S de disco e E/S de rede para o host. </dd>
 </dlentry><dlentry>
 <dt>Atualizações de software</dt>
 <dd>Esta seção exibe informações de todos os pacotes que
@@ -49,7 +47,7 @@ Se o seu sistema for Ubuntu ou Debian, inclua repositórios <filepath>deb</filep
 você estiver trabalhando com repositórios yum, será possível incluir uma verificação de GPG para
 verificar se um pacote desse repositório não foi corrompido.
 Selecione um repositório e, em seguida, <uicontrol>Editar</uicontrol>. Selecione <uicontrol>Sim</uicontrol> para
-ativar a Verificação de GPG e, em seguida, insira uma URL no arquivo-chave de GPG para o
+ativar a <uicontrol>Verificação de GPG</uicontrol> e, então, insira uma URL no arquivo-chave de GPG para o
 repositório.</p></dd>
 </dlentry><dlentry>
 <dt>Relatórios de depuração</dt>
@@ -63,12 +61,12 @@ informações de configuração e de diagnóstico, como versão do kernel
 em execução, módulos carregados e arquivos de configuração de sistema e de serviço.
 O comando também executa programas externos para coletar informações adicionais
 e armazena essa saída no archive resultante.</p> </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42248_4 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 232 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

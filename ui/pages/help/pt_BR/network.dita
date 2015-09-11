@@ -35,8 +35,7 @@ de rede.</li>
 <li>Selecione <uicontrol>Parar</uicontrol> para terminar a conexão de rede.</li>
 <li>Selecione <uicontrol>Excluir</uicontrol> para excluir as informações
 de conexão.</li>
-</ul>Para criar uma rede, clique no ícone <uicontrol>mais (+)</uicontrol> na
-parte superior direita da exibição.</p>
+</ul>Para criar uma rede, clique no ícone de <uicontrol>mais (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhnetwcrt" xml:lang="en-us">
 <title>Criar uma rede</title>
@@ -67,6 +66,6 @@ de destino e de VLAN.</dd>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47050_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 42005_3 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 230 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 3 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

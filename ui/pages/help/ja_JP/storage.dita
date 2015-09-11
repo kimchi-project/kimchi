@@ -17,8 +17,10 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dl>
 <dlentry>
 <dt>名前</dt>
-<dd>ストレージ・プールの名前および使用率。
-</dd>
+<dd>ストレージ・プールの名前。</dd>
+</dlentry><dlentry>
+<dt>使用率(%)</dt>
+<dd>使用されているストレージ・プールのパーセンテージ。</dd>
 </dlentry><dlentry>
 <dt>状態</dt>
 <dd>ストレージ・プールの状態で、アクティブ (緑) または非アクティブ (赤) です。
@@ -42,32 +44,16 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </dlentry></dl></p>
 <p>ストレージ・プールごとに、以下のアクションを選択できます。
 <ul>
-<li>使用できるようストレージ・プールをアクティブにするには、<uicontrol>「アクティブにする」</uicontrol>を選択します。
+<li>使用できるようストレージ・プールをアクティブにするには、<uicontrol>「アクティブ化」</uicontrol>を選択します。
 </li>
-<li>アクティブ・ストレージ・プールを非アクティブにするには、<uicontrol>「非アクティブにする」</uicontrol>を選択します。
+<li>アクティブ・ストレージ・プールを非アクティブにするには、<uicontrol>「非アクティブ化」</uicontrol>を選択します。
 </li>
-<li>非アクティブ・ストレージ・プールを削除するには、<uicontrol>「定義を解除する」</uicontrol>を選択します。
+<li>アクティブ・ストレージ・プールにボリュームをさらに追加するには、<uicontrol>「ボリュームの追加」</uicontrol>を選択します。</li>
+<li>非アクティブ・ストレージ・プールを削除するには、<uicontrol>「定義の解除」</uicontrol>を選択します。
 </li>
 </ul></p>
 <p>ストレージ・プールのストレージ・ボリューム詳細を表示するには、ストレージ・プール行の右側にある矢印をクリックしてください。
-詳細は以下のとおりです。
-<dl><dlentry>
-<dt>タイプ</dt>
-<dd>ボリュームのタイプで、例えば <uicontrol>file</uicontrol> です。
-</dd>
-</dlentry><dlentry>
-<dt>フォーマット</dt>
-<dd>タイプによって異なるフォーマット。
-</dd>
-</dlentry><dlentry>
-<dt>容量</dt>
-<dd>ストレージ・ボリュームのサイズ。
-</dd>
-</dlentry><dlentry>
-<dt>割り振り</dt>
-<dd>既にストレージ・プールに割り当てられているスペースの量。
-</dd>
-</dlentry></dl>ストレージ・プールを定義するには、表示の右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+ストレージ・プールを定義するには、<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
 </p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="ja-jp">
@@ -107,14 +93,29 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 使用する SCSI アダプターを選択してください。
 </dd>
 </dlentry></dl></li>
+<li>ストレージ・プールのストレージ・パスを指定します。ストレージ・パスは、プールのマップ先である、ローカル・ファイルシステム内のロケーションです。
+パスは固有でなければなりません。プールの作成時にそのディレクトリーが存在しない場合は、ディレクトリーが自動的に作成されます。</li>
 <li><uicontrol>「作成」</uicontrol>をクリックしてください。
 </li>
 </ol> </p>
 </csbody>
 </cshelp>
+<cshelp id="kimhdefstor" xml:lang="ja-jp">
+<title>ボリュームの追加</title>
+<shortdesc>ボリュームをストレージ・プールに追加します。</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>リモート URL からフェッチ</dt>
+<dd>ボリュームのダウンロード元のロケーションを指定します。例えば、<filepath>https://my-server/fedora22.img</filepath> を指定します。</dd>
+</dlentry><dlentry>
+<dt>ファイルのアップロード</dt>
+<dd>ローカル・システム上のロケーションを指定します。</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

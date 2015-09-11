@@ -22,15 +22,14 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </li>
 </ul></p>
 <p>ホストに関する情報を表示するには、以下の選択項目をクリックしてください。
-<dl>
-<dlentry>
+</p>
+<dl><dlentry>
 <dt>基本情報</dt>
-<dd>このセクションには、ホスト・オペレーティング・システムのディストリビューション、バージョン、およびコード名、さらにプロセッサー・タイプとメモリーの量 (GB 単位) が表示されます。
+<dd>このセクションには、ホスト・オペレーティング・システムのディストリビューション、バージョン、およびコード名、さらにプロセッサー・タイプ、オンライン CPU の数、およびメモリーの量 (GB 単位)が表示されます。
 </dd>
 </dlentry><dlentry>
 <dt>システム統計情報</dt>
 <dd>このセクションには、ホストの CPU、メモリー、ディスク入出力、およびネットワーク入出力の統計情報を表すグラフが表示されます。
-ホスト・タブを閉じたときにデータの収集を続行するには、<uicontrol>「このページを閉じた後、データを収集する」</uicontrol>を選択してください。
 </dd>
 </dlentry><dlentry>
 <dt>ソフトウェア更新</dt>
@@ -48,7 +47,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 システムが Ubuntu または Debian であれば、<filepath>deb</filepath> リポジトリーを追加してください。
 <p>yum リポジトリーを操作している場合、そのリポジトリーに入っているパッケージが壊れていないことを確認するため、GPG チェックを追加できます。
 リポジトリーを選択し、<uicontrol>「編集」</uicontrol>をクリックしてください。
-<uicontrol>「はい」</uicontrol>を選択して GPG チェックを有効にしてから、そのリポジトリーの GPG 鍵ファイルの URL を入力してください。
+<uicontrol>「はい」</uicontrol>を選択して<uicontrol>「GPG チェック」</uicontrol>を有効にしてから、そのリポジトリーの GPG 鍵ファイルの URL を入力してください。
 </p></dd>
 </dlentry><dlentry>
 <dt>デバッグ・レポート</dt>
@@ -59,12 +58,12 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 このコマンドは、構成および診断情報 (稼働中のカーネルのバージョン、ロードされているモジュール、システムおよびサービス構成ファイルなど) が入った .tar ファイルを生成します。
 このコマンドはまた、外部プログラムを実行して情報をさらに収集し、その出力を結果のアーカイブに保管します。
 </p> </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 <?tm 1392659967 1?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 47930_4 DO NOT REMOVE OR CHANGE THIS LINE -->
-<!-- T9N_SRC_ID 227 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 1 -->
+<!-- ENGL1SH_VERS10N 42248_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 232 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
