@@ -9,21 +9,20 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhvirtm" xml:lang="pt-br">
 <title>Máquinas Virtuais</title>
-<shortdesc>A página <wintitle>Máquinas Virtuais</wintitle> lista as máquinas virtuais
-KVM definidas.</shortdesc>
+<shortdesc>A página <wintitle>Convidados</wintitle> lista os convidados definidos para o seu servidor.</shortdesc>
 <csbody>
 <p>Para cada convidado, as informações a seguir são exibidas:<dl><dlentry>
 <dt>Nome</dt>
-<dd>Nome da máquina virtual.</dd>
+<dd>Nome do convidado.</dd>
 </dlentry><dlentry>
 <dt>CPU</dt>
-<dd>Porcentagem de utilização do processador na máquina virtual.</dd>
-</dlentry><dlentry>
-<dt>E/S de rede</dt>
-<dd>Taxa de transmissão de entrada/saída de rede em KB por segundo.</dd>
+<dd>Porcentagem de utilização do processador no convidado.</dd>
 </dlentry><dlentry>
 <dt>E/S de disco</dt>
 <dd>Taxa de transmissão de entrada/saída de disco em KB por segundo.</dd>
+</dlentry><dlentry>
+<dt>E/S de rede</dt>
+<dd>Taxa de transmissão de entrada/saída de rede em KB por segundo.</dd>
 </dlentry><dlentry>
 <dt>Livetile</dt>
 <dd>Estado do console do sistema operacional guest ou um ícone que representa
@@ -42,96 +41,80 @@ a energia está desligada; se o ícone estiver verde, a energia está ligada.</d
 <p>As ações a seguir podem ser selecionadas para cada convidado:<ul>
 <li>Selecione <uicontrol>Conectar</uicontrol> para conectar-se ao console
 remoto para o sistema operacional guest.</li>
-<li>Selecione <uicontrol>Gerenciar mídia</uicontrol> para alterar o caminho
-para a mídia de instalação.</li>
-<li>Selecione <uicontrol>Reiniciar</uicontrol> para Reiniciar o convidado.</li>
+<li>Selecione <uicontrol>Clonar</uicontrol> para copiar uma definição de convidado existente para criar um convidado.</li>
+<li>Selecione <uicontrol>Reiniciar</uicontrol> para Reiniciar o convidado. Somente é possível reconfigurar um convidado que esteja iniciado.</li>
 <li>Selecione <uicontrol>Editar</uicontrol> para editar as propriedades de um
 convidado existente. Os Máquinas Virtuais podem ser editados somente quando interrompidos.</li>
+<li>Selecione <uicontrol>Iniciar</uicontrol> para iniciar um convidado.</li>
+<li>Selecione <uicontrol>Encerrar</uicontrol> para encerrar um convidado corretamente.</li>
+<li>Selecione <uicontrol>Desligar</uicontrol> para forçar um encerramento imediato do convidado.</li>
 <li>Selecione <uicontrol>Excluir</uicontrol> para excluir o convidado.</li>
-</ul>Para criar um convidado, ou máquina virtual, clique no ícone <uicontrol>mais
-(+)</uicontrol> na parte superior direita da página.</p>
+</ul>Para criar um convidado, clique no ícone de <uicontrol>mais (+)</uicontrol> na página.</p>
 </csbody>
 <cshelp id="kimhvirtmcrt" xml:lang="en-us">
-<title>Criar máquina virtual</title>
-<shortdesc>Crie uma máquina virtual usando um modelo existente.</shortdesc>
+<title>Criar um convidado</title>
+<shortdesc>Crie um convidado usando um modelo existente.</shortdesc>
 <csbody>
 <p> <ol>
-<li>Digite o nome a ser usado para identificar a máquina virtual.</li>
-<li rev="rev1">Selecione um modelo. <ul>
+<li>Digite o nome a ser usado para identificar o convidado.</li>
+<li>Selecione um modelo. <ul>
 <li>Se existirem modelos, selecione a partir dos modelos exibidos.</li>
 <li>Se não existir nenhum modelo, clique em <uicontrol>Criar um modelo</uicontrol> para
 criar um modelo.</li>
-</ul></li>
+</ul>É possível visualizar informações sobre um modelo passando o mouse sobre ele.</li>
 <li>Clique em <uicontrol>Criar</uicontrol>.</li>
 </ol> </p>
 </csbody>
 </cshelp>
 <cshelp id="kimhvirtmedit" xml:lang="en-us">
 <title>Editar convidado</title>
-<shortdesc>Edite as propriedades de uma máquina virtual existente. Algumas propriedades podem ser editadas enquanto o convidado está interrompido. Outras entrarão em vigor na próxima inicialização.</shortdesc>
-<csprolog><csmetadata></csmetadata></csprolog>
+<shortdesc>Edite as propriedades de um convidado existente. Algumas propriedades podem ser editadas enquanto a máquina virtual está interrompida. Outras entrarão em vigor na próxima inicialização.</shortdesc>
 <csbody>
-<p>Para cada convidado, as informações a seguir são exibidas na guia <wintitle>Geral</wintitle>:<dl>
-<dlentry>
-<dt>Nome</dt>
-<dd>Nome da máquina virtual. (somente pode ser editado enquanto o convidado está interrompido)</dd>
-</dlentry><dlentry>
-<dt>CPUs</dt>
-<dd>Número de processadores. (se o convidado estiver em execução, uma nova quantia entrará em vigor na próxima inicialização)</dd>
-</dlentry><dlentry>
-<dt>Memória</dt>
-<dd>Quantia de memória em MB. (se o convidado estiver em execução, uma nova quantia entrará em vigor na próxima inicialização)</dd>
-</dlentry><dlentry>
-<dt>Ícone</dt>
-<dd>Imagem gráfica representando a distribuição Linux a ser exibida
-no lugar do status atual (Livetile) quando o convidado não está ativo.</dd>
-</dlentry></dl></p>
-<p>As informações a seguir são exibidas na guia <wintitle>Armazenamento</wintitle>.</p>
 <dl><dlentry>
+<dt>Geral</dt>
+<dd>Exibe informações sobre o seu convidado, incluindo nome, CPUs, memória e ícone para usar para o seu convidado. É possível editar o nome de um convidado interrompido. A mudança de CPUs e memória entra em vigor após a próxima inicialização.</dd>
+</dlentry><dlentry>
 <dt>Armazenamento</dt>
-<dd>Exibe o local do arquivo ISO usado para instalação.</dd>
+<dd>Exibe o dispositivo e o caminho para armazenamento para o convidado selecionado.
+É possível incluir, editar e remover dispositivos de armazenamento para o seu convidado.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Interface</dt>
+<dd>Exibe informações de rede para o convidado, incluindo nome, tipo e endereço MAC. É possível incluir, editar e remover interfaces para o seu convidado.</dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Permissão</dt>
+<dd>Exibe os usuários e grupos que estão autorizados para o convidado. </dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Dispositivo PCI do host</dt>
+<dd>Exibe uma lista de todos os dispositivos PCI disponíveis no host. </dd>
+</dlentry></dl>
+<dl><dlentry>
+<dt>Captura instantânea</dt>
+<dd>Exibe capturas instantâneas do convidado.É possível criar, editar ou excluir uma captura instantânea. Ao selecionar uma captura instantânea e selecionar reverter, o convidado é restaurado para um ponto no passado, determinado pelos dados da captura instantânea e descarta quaisquer mudanças feitas além desse momento.</dd>
 </dlentry></dl>
 <p> Os campos que não estão desativados podem ser editados. Depois de editar um campo,
 clique em <uicontrol>Salvar</uicontrol>. </p>
 </csbody>
 </cshelp>
-<cshelp id="kimstoragedevice" xml:lang="en-us">
-<title>Incluir, substituir ou remover um dispositivo de armazenamento</title>
-<shortdesc rev="rev1">É possível incluir, substituir ou remover um dispositivo de armazenamento
-para sua máquina virtual. O único dispositivo suportado é CD-ROM. Para editar
-seus dispositivos de armazenamento, siga estas etapas:</shortdesc>
+<cshelp id="kimhvirtmclone" xml:lang="en-us">
+<title>Clonando um convidado</title>
+<shortdesc>A clonagem de convidados permite criar uma cópia de um convidado.</shortdesc>
 <csbody>
+<p>Para clonar um convidado:</p>
 <ol>
-<li>Na janela <wintitle>Editar convidado</wintitle>, selecione <wintitle>Armazenamento</wintitle>.</li>
-<li>Para substituir um dispositivo de armazenamento, clique no primeiro ícone com a <uicontrol>barra
-laranja (/)</uicontrol>. Insira o caminho do arquivo ISO e clique em <uicontrol>Substituir</uicontrol>.</li>
-<li>Para remover um dispositivo de armazenamento, clique no segundo ícone com o <uicontrol>traço
-vermelho (-)</uicontrol>. Confirme a exclusão e clique em <uicontrol>OK</uicontrol>.</li>
-<li>Para incluir um dispositivo de armazenamento, clique no terceiro ícone com o <uicontrol>sinal de
-mais (+)</uicontrol> verde. Insira um nome de dispositivo e um caminho de arquivo ISO e clique em <uicontrol>Conectar</uicontrol>.</li>
+<li>Selecione <uicontrol>Clonar</uicontrol> no menu Ação de um convidado.</li>
+<li>Aceite o aviso. <note>Quando um convidado de destino está usando volumes SCSI ou iSCSI ou se o conjunto de destino não tiver espaço suficiente, o clone será criado em um conjunto de armazenamentos padrão. </note></li>
 </ol>
-</csbody>
-</cshelp>
-<cshelp id="kimreplacemedia" xml:lang="en-us">
-<title>Substituir um CD-ROM da VM</title>
-<shortdesc rev="rev1">É possível substituir o conteúdo do CD-ROM para
-uma máquina virtual após a instalação ser concluída.</shortdesc>
-<csbody>
-<ol>
-<li>Assegure-se de que a máquina virtual esteja iniciada.</li>
-<li>No menu Ações, selecione <uicontrol>Gerenciar mídia</uicontrol>.</li>
-<li>Para alterar o que está atualmente carregado no CD-ROM, clique no ícone <uicontrol>barra
-laranja (/)</uicontrol> próximo ao campo hdc.</li>
-<li>Na página <wintitle>Substituir um CD-ROM da VM</wintitle>, insira
-o caminho do arquivo ISO. Os outros dois campos são somente leitura.</li>
-<li>Clique em <uicontrol>Substituir</uicontrol>.</li>
-</ol>
+<p>Um convidado aparece na sua lista com o rótulo <uicontrol>Clonando...</uicontrol> Quando o processo for concluído, o convidado clonado estará disponível para uso.</p>
+
 </csbody>
 </cshelp>
 <?tm 1391540919 3?>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 45645_6 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 04963_6 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 231 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

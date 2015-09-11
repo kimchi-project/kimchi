@@ -9,13 +9,15 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="kimhstor" xml:lang="pt-br">
 <title>Armazenamento</title>
-<shortdesc>A página <wintitle>Armazenamento</wintitle> lista os conjuntos de armazenamentos disponíveis, inclusive o conjunto de armazenamentos 'padrão' e 'ISO' integrado.
-Se desejar usar seu próprio ISO, inclua-o em seu caminho do conjunto de armazenamentos 'ISO'.</shortdesc>
+<shortdesc>A página <wintitle>Armazenamento</wintitle> lista os conjuntos de armazenamentos disponíveis, inclusive o conjunto de armazenamentos 'padrão' e 'ISO' integrado. Se desejar usar seu próprio ISO, inclua-o em seu caminho do conjunto de armazenamentos 'ISO'.</shortdesc>
 <csbody>
 <p>Para cada storage pool, as informações a seguir são exibidas:<dl>
 <dlentry>
 <dt>Nome</dt>
-<dd>Nome do storage pool e porcentagem usada.</dd>
+<dd>Nome do conjunto de armazenamentos.</dd>
+</dlentry><dlentry>
+<dt>% Usado</dt>
+<dd>Porcentagem do conjunto de armazenamentos que está sendo usada.</dd>
 </dlentry><dlentry>
 <dt>Estado</dt>
 <dd>Estado do storage pool, ativo (verde) ou inativo (vermelho). </dd>
@@ -37,25 +39,12 @@ Se desejar usar seu próprio ISO, inclua-o em seu caminho do conjunto de armazen
 para que ele possa ser usado.</li>
 <li>Selecione <uicontrol>Desativar</uicontrol> para desativar um storage pool
 ativo.</li>
+<li>Selecione <uicontrol>Incluir volume</uicontrol> para incluir mais volume em um conjunto de armazenamentos ativo.</li>
 <li>Selecione <uicontrol>Indefinir</uicontrol> para remover um storage pool
 inativo.</li>
 </ul></p>
 <p>Para exibir detalhes do volume de armazenamento para um storage pool, clique na
-seta no lado direito da linha do storage pool.  Os detalhes incluem
-os seguintes:<dl><dlentry>
-<dt>Tipo</dt>
-<dd>O tipo de volume, por exemplo, <uicontrol>arquivo</uicontrol>.</dd>
-</dlentry><dlentry>
-<dt>Formato</dt>
-<dd>O formato, que varia dependendo do tipo.</dd>
-</dlentry><dlentry>
-<dt>Capacidade</dt>
-<dd>Tamanho do volume de armazenamento.</dd>
-</dlentry><dlentry>
-<dt>Alocação</dt>
-<dd>Quantia de espaço já alocado no storage pool.</dd>
-</dlentry></dl>Para definir um storage pool, clique no ícone <uicontrol>mais
-(+)</uicontrol> na parte superior direita da exibição.</p>
+seta no lado direito da linha do storage pool.  Para definir um conjunto de armazenamentos, clique no ícone de <uicontrol>mais (+)</uicontrol>.</p>
 </csbody>
 <cshelp id="kimhdefstor" xml:lang="en-us">
 <title>Definir um storage pool</title>
@@ -90,13 +79,28 @@ o dispositivo em <uicontrol>Caminho do dispositivo</uicontrol>.</dd>
 <dd>Especifica um conjunto com base em um Fibre Channel SCSI. Selecione qual
 adaptador SCSI deve ser usado.</dd>
 </dlentry></dl></li>
+<li>Especifique um caminho do armazenamento para o conjunto de armazenamentos. O caminho do armazenamento é o local no sistema de arquivos local para o qual o conjunto está mapeado.
+O caminho deve ser exclusivo. Se o diretório não existir quando o conjunto for criado, ele será criado para você.</li>
 <li>Clique em <uicontrol>Criar</uicontrol>.</li>
 </ol> </p>
+</csbody>
+</cshelp>
+<cshelp id="kimhdefstor" xml:lang="en-us">
+<title>Incluir volume</title>
+<shortdesc>Inclui volume em um conjunto de armazenamentos.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>Buscar a partir da URL remota</dt>
+<dd>Especifica um local do qual fazer o download do volume. Por exemplo: <filepath>https://my-server/fedora22.img</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Fazer upload de um arquivo</dt>
+<dd>Especifica um local em seu sistema local. </dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 22336_4 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 52145_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 233 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

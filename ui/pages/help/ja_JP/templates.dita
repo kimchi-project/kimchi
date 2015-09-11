@@ -13,8 +13,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </shortdesc>
 <csbody>
 <p>テンプレートごとに、以下の情報が表示されます。
-<dl>
-<dlentry>
+</p>
+<dl><dlentry>
 <dt>OS</dt>
 <dd>オペレーティング・システムまたはディストリビューションの名前。
 </dd>
@@ -30,14 +30,18 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt>メモリー</dt>
 <dd>割り当てられるランダム・アクセス・メモリーの量 (MB 単位)。
 </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 <p>テンプレートごとに、以下のアクションを選択できます。
+</p>
 <ul>
 <li>テンプレートを編集するには<uicontrol>「編集」</uicontrol>を選択します。
 </li>
+<li>テンプレートをコピーするには<uicontrol>「クローン」</uicontrol>を選択します。
+</li>
 <li>テンプレートを削除するには<uicontrol>「削除」</uicontrol>を選択します。
 </li>
-</ul>テンプレートを追加するには、表示の右上にある<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
+</ul>
+<p>テンプレートを追加するには、<uicontrol>正符号 (+)</uicontrol> アイコンをクリックしてください。
 </p>
 </csbody>
 <cshelp id="kimhedittempl" xml:lang="ja-jp">
@@ -46,47 +50,23 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </shortdesc>
 <csbody>
 <p>テンプレートごとに、以下の情報が表示されます。
-<dl>
-<dlentry>
-<dt>名前</dt>
-<dd>テンプレートの名前。
-</dd>
+</p>
+<dl><dlentry>
+<dt>一般</dt>
+<dd>名前、ベンダーのディストリビューション、バージョン、メモリー、ISO ファイルのファイル・パス、およびグラフィックスの設定を表示します。</dd>
 </dlentry><dlentry>
-<dt>ベンダー</dt>
-<dd>テンプレートが使用するよう構成されているオペレーティング・システムまたはディストリビューションを作成した会社の名前。
-</dd>
+<dt>ストレージ</dt>
+<dd>テンプレートのストレージ・プール情報を指定します。</dd>
 </dlentry><dlentry>
-<dt>バージョン</dt>
-<dd>テンプレートが使用するよう構成されているオペレーティング・システムまたはディストリビューションのバージョン。
-</dd>
-</dlentry><dlentry>
-<dt>CPU 数</dt>
-<dd>テンプレートに定義されているプロセッサーの数。
-</dd>
-</dlentry><dlentry>
-<dt>メモリー</dt>
-<dd>仮想マシンに割り当てられるメモリーの量 (MB 単位)。
-</dd>
-</dlentry><dlentry>
-<dt>ディスク</dt>
-<dd>ディスク・サイズ (GB 単位)。
-</dd>
-</dlentry><dlentry>
-<dt>CDROM</dt>
-<dd>KVM ゲストをインストールするために使用される ISO ファイルのロケーションのファイル・パス。
-</dd>
-</dlentry><dlentry>
-<dt>ストレージ・プール</dt>
-<dd>特定のストレージ・プール、またはデフォルトのストレージ・プール。
-</dd>
-</dlentry><dlentry>
-<dt> ネットワーク</dt>
-<dd>KVM ゲストが使用できるデフォルトのネットワーク・インターフェース。
+<dt>インターフェース</dt>
+<dd>KVM ゲストが使用できるデフォルトのネットワーク・インターフェースを表示します。
 複数のネットワークを選択することができます。
 </dd>
-</dlentry></dl> 使用不可になっていないフィールドを編集できます。
-フィールドを編集した後、<uicontrol>「保存」</uicontrol>をクリックしてください。
-</p>
+</dlentry><dlentry>
+<dt>プロセッサー</dt>
+<dd><uicontrol>「CPU 数」</uicontrol>フィールドで、テンプレートに定義されるプロセッサーの数を指定します。</dd>
+<dd>これを選択して、ゲストごとに CPU トポロジーを手動で設定します。</dd>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddtempl">
@@ -95,24 +75,27 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 今後のディスカバリーのために、独自の ISO イメージを「ISO」ストレージ・プールに追加できます。</shortdesc>
 <csbody>
 <p>ソース・メディアのロケーションを以下のオプションから選択してください。
-<dl>
-<dlentry>
+</p>
+<dl><dlentry>
 <dt>ローカル ISO イメージ</dt>
 <dd>これを選択して、システムで使用可能なインストール ISO イメージを、ストレージ・プールでスキャンします。
 </dd>
 </dlentry><dlentry>
+<dt>ローカル・イメージ・ファイル</dt>
+<dd>これを選択して、ローカル・イメージ・ファイルのパスを指定します。</dd>
+</dlentry><dlentry>
 <dt>リモート ISO イメージ</dt>
 <dd>これを選択して、インストール ISO イメージのリモート・ロケーションを指定します。
 </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 </csbody>
 </cshelp>
 <cshelp id="kimhaddloct">
-<title>テンプレートの追加 - ローカル ISO イメージ</title>
-<shortdesc>テンプレートをローカル ISO イメージから追加します。
-</shortdesc>
+<title>テンプレートの追加 - ISO イメージ</title>
+<shortdesc>テンプレートを ISO イメージから追加します。</shortdesc>
 <csbody>
-<p>システムで使用可能な ISO イメージが表示されます。
+<p>システム上で使用可能な ISO イメージがリモート側で表示されます。
+</p>
 <dl><dlentry>
 <dt>OS</dt>
 <dd>オペレーティング・システムまたはディストリビューションの名前。
@@ -125,8 +108,9 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt>サイズ</dt>
 <dd>ISO イメージのサイズ。
 </dd>
-</dlentry></dl></p>
+</dlentry></dl>
 <p>テンプレートを ISO イメージから作成するには、以下のオプションを選択してください。
+</p>
 <ul>
 <li>テンプレートを作成する元になる ISO イメージを選択して、<uicontrol>「選択した ISO からテンプレートを作成」</uicontrol>をクリックします。
 </li>
@@ -139,12 +123,12 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <li>それ以上の ISO イメージを検索するには、<uicontrol>「ISO をさらに検索」</uicontrol>をクリックします。
 </li>
 </ul></li>
-</ul></p>
+</ul>
 </csbody>
 </cshelp>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 61085_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 24458_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 229 -->
-<!-- T9N_SH1P_STR1NG KV211AAP001 1 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
