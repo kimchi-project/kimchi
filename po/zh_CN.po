@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 14:12-0300\n"
+"POT-Creation-Date: 2015-09-14 14:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1348,6 +1348,9 @@ msgstr "拆离"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "LDAP User ID,e.g.foo@foo.com"
+msgstr ""
+
 msgid "revert"
 msgstr "还原"
 
@@ -2049,6 +2052,9 @@ msgstr "从所选 ISO 创建模板"
 
 msgid "I want to use a specific ISO file"
 msgstr "我要使用特定 ISO 文件"
+
+msgid "File Path:"
+msgstr ""
 
 msgid "Loading default remote ISOs ..."
 msgstr "正在装入缺省远程 ISO..."
