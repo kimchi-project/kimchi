@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 14:12-0300\n"
+"POT-Creation-Date: 2015-09-14 14:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1327,6 +1327,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "LDAP User ID,e.g.foo@foo.com"
+msgstr ""
+
 msgid "revert"
 msgstr ""
 
@@ -2017,6 +2020,9 @@ msgid "Create Templates from Selected ISO"
 msgstr ""
 
 msgid "I want to use a specific ISO file"
+msgstr ""
+
+msgid "File Path:"
 msgstr ""
 
 msgid "Loading default remote ISOs ..."

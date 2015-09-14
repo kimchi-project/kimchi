@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 14:12-0300\n"
+"POT-Creation-Date: 2015-09-14 14:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -1430,6 +1430,9 @@ msgstr "분리"
 msgid "Cancel"
 msgstr "취소"
 
+msgid "LDAP User ID,e.g.foo@foo.com"
+msgstr ""
+
 msgid "revert"
 msgstr "되돌리기"
 
@@ -2158,6 +2161,9 @@ msgstr "선택한 ISO로부터 템플리트 작성"
 
 msgid "I want to use a specific ISO file"
 msgstr "특정 ISO 파일을 사용하려고 합니다."
+
+msgid "File Path:"
+msgstr ""
 
 msgid "Loading default remote ISOs ..."
 msgstr "기본 원격 ISO 로드 중..."
