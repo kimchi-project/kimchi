@@ -16,7 +16,9 @@ Depends: python-cherrypy3 (>= 3.2.0),
          nginx,
          python-ldap,
          spice-html5,
-         python-psutil (>= 0.6.0)
+         python-psutil (>= 0.6.0),
+         fonts-font-awesome,
+         texlive-fonts-extra
 Build-Depends: libxslt,
                openssl,
                python-lxml
