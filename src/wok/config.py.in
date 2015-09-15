@@ -27,6 +27,28 @@ __release__ = "@wokrelease@"
 
 DEFAULT_LOG_LEVEL = "debug"
 
+FONT_FILES = {'fontawesome': ['fontawesome-webfont.ttf'],
+              'opensans': ['OpenSans-ExtraBoldItalic.ttf',
+                           'OpenSans-ExtraBold.ttf',
+                           'OpenSans-LightItalic.ttf',
+                           'OpenSans-Light.ttf',
+                           'OpenSans-SemiboldItalic.ttf',
+                           'OpenSans-BoldItalic.ttf',
+                           'OpenSans-Italic.ttf',
+                           'OpenSans-Bold.ttf',
+                           'OpenSans-Semibold.ttf',
+                           'OpenSans-Regular.ttf']}
+
+FONTS_PATH = {
+    'fontawesome':
+        ['/usr/share/fonts/fontawesome',
+         '/usr/share/fonts/truetype/font-awesome',
+         '/usr/share/fonts/truetype'],
+    'opensans':
+        ['/usr/share/fonts/open-sans',
+         '/usr/share/fonts/truetype/',
+         '/usr/share/texlive/texmf-dist/fonts/truetype/public/opensans']}
+
 
 def get_object_store():
     return os.path.join(paths.state_dir, 'objectstore')
@@ -120,6 +142,19 @@ class UIConfig(dict):
                 ui_configs['/' + sub_dir].update({
                     'tools.expires.on': True,
                     'tools.expires.secs': self.CACHEEXPIRES})
+
+        for font, files in FONT_FILES.iteritems():
+            paths = FONTS_PATH[font]
+            for path in paths:
+                for filename in files:
+                    font_file = os.path.join(path, filename)
+                    if os.path.exists(font_file):
+                        ui_configs['/fonts/%s' % filename] = {
+                            'tools.staticfile.on': True,
+                            'tools.staticfile.filename': font_file,
+                            'tools.wokauth.on': False,
+                            'tools.nocache.on': False}
+
         self.update(ui_configs)
 
 
