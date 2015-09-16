@@ -23,7 +23,7 @@ import os
 import platform
 import threading
 
-from wok.config import PluginConfig, PluginPaths
+from wok.config import CACHEEXPIRES, PluginConfig, PluginPaths
 from wok.xmlutils.utils import xpath_get_text
 
 kimchiLock = threading.Lock()
@@ -107,32 +107,38 @@ class KimchiConfig(PluginConfig):
     def __init__(self):
         super(KimchiConfig, self).__init__('kimchi')
 
-        custom_config = {
-            '/novnc': {
+        static_config = {
+            '/novnc': {'type': 'dir',
+                       'path': kimchiPaths.novnc_dir},
+            '/spice-html5': {'type': 'dir',
+                             'path': kimchiPaths.spice_dir},
+            '/spice_auto.html': {'type': 'file',
+                                 'path': kimchiPaths.spice_file},
+            '/spice-html5/spice.css': {'type': 'file',
+                                       'path': kimchiPaths.spice_css_file}}
+
+        custom_config = {}
+        for uri, data in static_config.iteritems():
+            custom_config[uri] = {'tools.nocache.on': True,
+                                  'tools.wokauth.on': True}
+            path = data['path']
+            if data['type'] == 'dir':
+                custom_config[uri].update({'tools.staticdir.on': True,
+                                           'tools.staticdir.dir': path})
+            elif data['type'] == 'file':
+                custom_config[uri].update({'tools.staticfile.on': True,
+                                           'tools.staticfile.filename': path})
+
+        for dirname in ('css', 'js', 'images'):
+            custom_config['/' + dirname] = {
                 'tools.staticdir.on': True,
-                'tools.staticdir.dir': kimchiPaths.novnc_dir,
-                'tools.nocache.on': True,
-                'tools.wokauth.on': True,
-            },
-
-            '/spice_auto.html': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': kimchiPaths.spice_file,
-                'tools.nocache.on': True,
-                'tools.wokauth.on': True,
-            },
-
-            '/spice-html5': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': kimchiPaths.spice_dir,
-                'tools.nocache.on': True,
-            },
-
-            '/spice-html5/spice.css': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': kimchiPaths.spice_css_file,
-                'tools.nocache.on': True,
-            },
-        }
+                'tools.staticdir.dir': os.path.join(kimchiPaths.ui_dir,
+                                                    dirname),
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False}
+            if dirname != 'images':
+                custom_config['/' + dirname].update({
+                    'tools.expires.on': True,
+                    'tools.expires.secs': CACHEEXPIRES})
 
         self.update(custom_config)

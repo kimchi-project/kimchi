@@ -10,10 +10,7 @@ Source0:	%{name}-%{version}.tar.gz
 Requires:	gettext
 Requires:	python-cherrypy >= 3.2.0
 Requires:	python-cheetah
-Requires:	python-websockify
-Requires:	novnc
 Requires:	m2crypto
-Requires:	python-imaging
 Requires:	PyPAM
 Requires:	python-jsonschema >= 1.3.0
 Requires:	python-lxml
@@ -25,10 +22,6 @@ Requires:	open-sans-fonts
 BuildRequires:	libxslt
 BuildRequires:	openssl
 BuildRequires:	python-lxml
-
-%if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
-Requires:	spice-html5
-%endif
 
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 %global with_systemd 1
@@ -61,11 +54,7 @@ Wok is Webserver Originated from Kimchi.
 
 
 %build
-%if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
 %configure
-%else
-%configure --with-spice-html5
-%endif
 make
 
 
@@ -130,7 +119,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?with_systemd}
 %{_sysconfdir}/nginx/conf.d/wok.conf
-%{_sharedstatedir}/wok/vnc-tokens/
 %{_sharedstatedir}/wok/
 %{_localstatedir}/log/wok/*
 %{_localstatedir}/log/wok/

@@ -25,6 +25,7 @@ from ConfigParser import SafeConfigParser
 __version__ = "@wokversion@"
 __release__ = "@wokrelease@"
 
+CACHEEXPIRES = 31536000     # expires is one year.
 DEFAULT_LOG_LEVEL = "debug"
 
 FONT_FILES = {'fontawesome': ['fontawesome-webfont.ttf'],
@@ -126,10 +127,6 @@ class PluginPaths(Paths):
 
 
 class UIConfig(dict):
-
-    # expires is one year.
-    CACHEEXPIRES = 31536000
-
     def __init__(self, paths):
         ui_configs = {}
         for sub_dir in ('css', 'js', 'libs', 'images'):
@@ -141,7 +138,7 @@ class UIConfig(dict):
             if sub_dir != 'images':
                 ui_configs['/' + sub_dir].update({
                     'tools.expires.on': True,
-                    'tools.expires.secs': self.CACHEEXPIRES})
+                    'tools.expires.secs': CACHEEXPIRES})
 
         for font, files in FONT_FILES.iteritems():
             paths = FONTS_PATH[font]
@@ -213,7 +210,6 @@ class PluginConfig(dict):
                              'config/tab-ext.xml'),
                 'tools.nocache.on': True}}
         self.update(plugin_config)
-        self.update(UIConfig(PluginPaths(plugin_name)))
 
 
 def _get_config():
