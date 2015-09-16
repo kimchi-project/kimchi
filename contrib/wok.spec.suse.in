@@ -10,9 +10,6 @@ Source0:	%{name}-%{version}.tar.gz
 Requires:	gettext-tools
 Requires:	python-CherryPy >= 3.2.0
 Requires:	python-Cheetah
-Requires:	python-websockify
-Requires:	novnc
-Requires:	python-imaging
 Requires:	python-M2Crypto
 Requires:	python-pam
 Requires:	python-jsonschema >= 1.3.0
@@ -42,7 +39,6 @@ Wok is Webserver Originated from Kimchi.
 %setup
 
 %build
-%configure --with-spice-html5
 make
 
 %install
@@ -96,7 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/wok/
 %{_sysconfdir}/nginx/conf.d/wok.conf.in
 %{_sysconfdir}/nginx/conf.d/wok.conf
-%{_var}/lib/wok/vnc-tokens/
 %{_var}/lib/wok/
 %{_localstatedir}/log/wok/*
 %{_localstatedir}/log/wok/

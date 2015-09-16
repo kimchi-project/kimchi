@@ -69,7 +69,6 @@ all-local:
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
-	mkdir -p $(DESTDIR)/var/lib/wok/vnc-tokens
 	touch $(DESTDIR)/var/lib/wok/objectstore
 	$(MKDIR_P) $(DESTDIR)/etc/init
 	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
@@ -124,7 +123,6 @@ install-data-local:
 		mkdir -p $(DESTDIR)/usr/lib/firewalld/services/; \
 		$(INSTALL_DATA) src/firewalld.xml $(DESTDIR)/usr/lib/firewalld/services/wokd.xml; \
 	fi; \
-	mkdir -p $(DESTDIR)/var/lib/wok/vnc-tokens
 	touch $(DESTDIR)/var/lib/wok/objectstore
 	mkdir -p $(DESTDIR)/var/log/wok/
 	touch $(DESTDIR)/var/log/wok/wok-access.log
