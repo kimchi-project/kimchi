@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:19</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 16 13:02:19 2015 UTC.  The chair is alinefm_. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:19</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:23</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:23</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:54</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:54</span><span class="nk"> &lt;alinefm_&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:07</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-9"></a><span class="tm">13:04:00</span><span class="nk"> &lt;pvital_&gt;</span> no
+<a name="l-10"></a><span class="tm">13:04:03</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:04:03</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:04:23</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani solved issues 662 and 727</span>
+<a name="l-13"></a><span class="tm">13:04:23</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent a patch to ML for review</span>
+<a name="l-14"></a><span class="tm">13:04:23</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on issue #557</span>
+<a name="l-15"></a><span class="tm">13:04:51</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm worked on issues to create guests with non-ASCII characters</span>
+<a name="l-16"></a><span class="tm">13:05:24</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm included jquery.base64.js to source code to fix a UI issue related on how to encode/decode strings to base64</span>
+<a name="l-17"></a><span class="tm">13:05:55</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on wok branch to expose the font files needed by the new UI. By now fontawesome and opensans will be exposed to server</span>
+<a name="l-18"></a><span class="tm">13:05:59</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn worked on translation issues (isolate strings on kimchi)</span>
+<a name="l-19"></a><span class="tm">13:06:13</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri checking JS errors using ESlint in wok.grid.js and wok.list.js</span>
+<a name="l-20"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patch to solve issue #731</span>
+<a name="l-21"></a><span class="tm">13:06:44</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn looking for bugs that were fixed, but not closed</span>
+<a name="l-22"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches</span>
+<a name="l-23"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital working on build process (make, rpm and deb generation, etc) of the new Wok framework</span>
+<a name="l-24"></a><span class="tm">13:07:02</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri sent patch with the latest wok new-ui assets</span>
+<a name="l-25"></a><span class="tm">13:07:47</span><span class="nk"> &lt;WaltNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik working to get on track after vacation. Plan to work on some System z usecases next.</span>
+<a name="l-26"></a><span class="tm">13:08:35</span><span class="nk"> &lt;alinefm_&gt;</span> WaltNik, before doing any code, please, send a RFC to the ML explain the feature and the API related to it
+<a name="l-27"></a><span class="tm">13:08:47</span><span class="nk"> &lt;alinefm_&gt;</span> just to make sure we are in the same page before developing
+<a name="l-28"></a><span class="tm">13:08:48</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm sure
+<a name="l-29"></a><span class="tm">13:09:06</span><span class="nk"> &lt;jansch&gt;</span> <span class="cmd">#info </span><span class="cmdline">jansch back from holidays - working on UI useases</span>
+<a name="l-30"></a><span class="tm">13:09:44</span><span class="nk"> &lt;alinefm_&gt;</span> thanks for all the updates!
+<a name="l-31"></a><span class="tm">13:10:18</span><span class="nk"> &lt;alinefm_&gt;</span> I have some comments about Kimchi 1.5.1 before moving to open discussion
+<a name="l-32"></a><span class="tm">13:10:23</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi 1.5.1</span>
+<a name="l-33"></a><span class="tm">13:10:37</span><span class="nk"> &lt;alinefm_&gt;</span> We are entering the hard code freeze today!
+<a name="l-34"></a><span class="tm">13:10:51</span><span class="nk"> &lt;alinefm_&gt;</span> which means only critical bug fixes will be accepted from now on
+<a name="l-35"></a><span class="tm">13:11:21</span><span class="nk"> &lt;alinefm_&gt;</span> I'd like to ask your help to test Kimchi in the next 2 weeks to make sure it is in a good shape for 1.5.1 announcement
+<a name="l-36"></a><span class="tm">13:12:09</span><span class="nk"> &lt;pvital&gt;</span> ok
+<a name="l-37"></a><span class="tm">13:12:38</span><span class="nk"> &lt;pvital&gt;</span> is there any test plan to follow?
+<a name="l-38"></a><span class="tm">13:14:00</span><span class="nk"> &lt;alinefm_&gt;</span> yeap
+<a name="l-39"></a><span class="tm">13:14:11</span><span class="nk"> &lt;alinefm_&gt;</span> I will create one according to https://github.com/kimchi-project/kimchi/wiki/testing-1.5
+<a name="l-40"></a><span class="tm">13:14:25</span><span class="nk"> &lt;alinefm_&gt;</span> I'll send the link to the ML later today
+<a name="l-41"></a><span class="tm">13:14:32</span><span class="nk"> &lt;pvital&gt;</span> ok
+<a name="l-42"></a><span class="tm">13:14:45</span><span class="nk"> &lt;alinefm_&gt;</span> any question on that?
+<a name="l-43"></a><span class="tm">13:14:53</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-44"></a><span class="tm">13:16:44</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-45"></a><span class="tm">13:16:49</span><span class="nk"> &lt;alinefm_&gt;</span> what do you want to discuss today?
+<a name="l-46"></a><span class="tm">13:19:04</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm_ How is the wok branch doing ? Are we on track with that one or do we need any special focus ? I have not be able to read all mails yet.
+<a name="l-47"></a><span class="tm">13:21:10</span><span class="nk"> &lt;alinefm_&gt;</span> WaltNik, we still have a lot to do on that
+<a name="l-48"></a><span class="tm">13:21:20</span><span class="nk"> &lt;alinefm_&gt;</span> I am more focus on it now, pvital is too
+<a name="l-49"></a><span class="tm">13:21:35</span><span class="nk"> &lt;alinefm_&gt;</span> so hopefully we get it completed by end of September as planned
+<a name="l-50"></a><span class="tm">13:22:16</span><span class="nk"> &lt;alinefm_&gt;</span> I was also talking to samhenri to have  a entire code freeze for 2 weeks in the beginning of Oct to have everything merged together
+<a name="l-51"></a><span class="tm">13:22:59</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm_ Sounds promising.
+<a name="l-52"></a><span class="tm">13:23:52</span><span class="nk"> &lt;alinefm_&gt;</span> =)
+<a name="l-53"></a><span class="tm">13:23:54</span><span class="nk"> &lt;alinefm_&gt;</span> anything else?
+<a name="l-54"></a><span class="tm">13:24:25</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-55"></a><span class="tm">13:25:31</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-56"></a><span class="tm">13:25:48</span><span class="nk"> &lt;alinefm_&gt;</span> thanks everyone for joining!
+<a name="l-57"></a><span class="tm">13:26:04</span><span class="nk"> &lt;alinefm_&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

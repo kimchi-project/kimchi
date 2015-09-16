@@ -1,0 +1,57 @@
+13:02:19 <alinefm_> #startmeeting
+13:02:19 <kimchi-bot> Meeting started Wed Sep 16 13:02:19 2015 UTC.  The chair is alinefm_. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:23 <alinefm_> #meetingname scrum
+13:02:23 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:54 <alinefm_> #info Agenda 1) Status 2) Open discussion
+13:02:54 <alinefm_> anything else?
+13:03:07 <ziviani> nope
+13:04:00 <pvital_> no
+13:04:03 <alinefm_> #topic Status
+13:04:03 <alinefm_> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:23 <ziviani> #info ziviani solved issues 662 and 727
+13:04:23 <ziviani> #info ziviani sent a patch to ML for review
+13:04:23 <ziviani> #info ziviani is working on issue #557
+13:04:51 <alinefm_> #info alinefm worked on issues to create guests with non-ASCII characters
+13:05:24 <alinefm_> #info alinefm included jquery.base64.js to source code to fix a UI issue related on how to encode/decode strings to base64
+13:05:55 <alinefm_> #info alinefm is now working on wok branch to expose the font files needed by the new UI. By now fontawesome and opensans will be exposed to server
+13:05:59 <ramonn> #info ramonn worked on translation issues (isolate strings on kimchi)
+13:06:13 <samhenri> #info samhenri checking JS errors using ESlint in wok.grid.js and wok.list.js
+13:06:44 <pvital> #info pvital submitted patch to solve issue #731
+13:06:44 <ramonn> #info ramonn looking for bugs that were fixed, but not closed
+13:06:44 <pvital> #info pvital reviewed some patches
+13:06:44 <pvital> #info pvital working on build process (make, rpm and deb generation, etc) of the new Wok framework
+13:07:02 <samhenri> #info samhenri sent patch with the latest wok new-ui assets
+13:07:47 <WaltNik> #info WalterNik working to get on track after vacation. Plan to work on some System z usecases next.
+13:08:35 <alinefm_> WaltNik, before doing any code, please, send a RFC to the ML explain the feature and the API related to it
+13:08:47 <alinefm_> just to make sure we are in the same page before developing
+13:08:48 <WaltNik> alinefm sure
+13:09:06 <jansch> #info jansch back from holidays - working on UI useases
+13:09:44 <alinefm_> thanks for all the updates!
+13:10:18 <alinefm_> I have some comments about Kimchi 1.5.1 before moving to open discussion
+13:10:23 <alinefm_> #topic Kimchi 1.5.1
+13:10:37 <alinefm_> We are entering the hard code freeze today!
+13:10:51 <alinefm_> which means only critical bug fixes will be accepted from now on
+13:11:21 <alinefm_> I'd like to ask your help to test Kimchi in the next 2 weeks to make sure it is in a good shape for 1.5.1 announcement
+13:12:09 <pvital> ok
+13:12:38 <pvital> is there any test plan to follow?
+13:14:00 <alinefm_> yeap
+13:14:11 <alinefm_> I will create one according to https://github.com/kimchi-project/kimchi/wiki/testing-1.5
+13:14:25 <alinefm_> I'll send the link to the ML later today
+13:14:32 <pvital> ok
+13:14:45 <alinefm_> any question on that?
+13:14:53 <pvital> no
+13:16:44 <alinefm_> #topic Open Discussion
+13:16:49 <alinefm_> what do you want to discuss today?
+13:19:04 <WaltNik> alinefm_ How is the wok branch doing ? Are we on track with that one or do we need any special focus ? I have not be able to read all mails yet.
+13:21:10 <alinefm_> WaltNik, we still have a lot to do on that
+13:21:20 <alinefm_> I am more focus on it now, pvital is too
+13:21:35 <alinefm_> so hopefully we get it completed by end of September as planned
+13:22:16 <alinefm_> I was also talking to samhenri to have  a entire code freeze for 2 weeks in the beginning of Oct to have everything merged together
+13:22:59 <WaltNik> alinefm_ Sounds promising.
+13:23:52 <alinefm_> =)
+13:23:54 <alinefm_> anything else?
+13:24:25 <pvital> no
+13:25:31 <ziviani> no
+13:25:48 <alinefm_> thanks everyone for joining!
+13:26:04 <alinefm_> #endmeeting
