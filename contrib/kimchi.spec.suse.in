@@ -33,6 +33,7 @@ Requires:	nginx
 Requires:	open-iscsi
 Requires:	python-libguestfs
 Requires:	guestfs-tools
+Requires:	python-magic
 BuildRequires:	libxslt-tools
 BuildRequires:	openssl
 BuildRequires:	python-lxml

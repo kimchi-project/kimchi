@@ -55,7 +55,7 @@ Install Dependencies
                         python-ipaddr python-ldap python-lxml nfs-utils \
                         iscsi-initiator-utils libxslt pyparted nginx \
                         python-libguestfs libguestfs-tools python-websockify \
-                        novnc spice-html5 python-configobj
+                        novnc spice-html5 python-configobj python-magic
 
      # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
@@ -87,7 +87,7 @@ channel at RHN Classic or Red Hat Satellite.
                            sosreport python-ipaddr python-ldap \
                            python-lxml nfs-common open-iscsi lvm2 xsltproc \
                            python-parted nginx python-guestfs libguestfs-tools \
-                           websockify novnc spice-html5
+                           websockify novnc spice-html5 python-magic
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
@@ -106,7 +106,7 @@ channel at RHN Classic or Red Hat Satellite.
                           python-ipaddr python-ldap python-lxml nfs-client \
                           open-iscsi libxslt-tools python-xml python-parted \
                           nginx python-libguestfs python-configobj \
-                          guestfs-tools python-websockify novnc
+                          guestfs-tools python-websockify novnc python-magic
 
     Packages version requirement:
         python-psutil >= 0.6.0
@@ -117,9 +117,8 @@ channel at RHN Classic or Red Hat Satellite.
 *Note for openSUSE users*: Some of the above packages are located in different
 openSUSE repositories. See
 [this FAQ](http://download.opensuse.org/repositories/home:GRNET:synnefo/) for
-python-parted; and
-[this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
-for python-ethtool to get the correct repository based on your openSUSE version. And
+python-parted, [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
+for python-ethtool, and [this FAQ](http://download.opensuse.org/repositories/home:/Simmphonie:/python/) for python-magic to get the correct repository based on your openSUSE version. And
 [this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
 information on how configure your system to access this repository.
 

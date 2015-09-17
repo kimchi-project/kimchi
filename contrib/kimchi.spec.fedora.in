@@ -33,6 +33,7 @@ Requires:	iscsi-initiator-utils
 Requires:	python-ldap
 Requires:	python-libguestfs
 Requires:	libguestfs-tools
+Requires:	python-magic
 BuildRequires:	libxslt
 BuildRequires:	openssl
 BuildRequires:	python-lxml
