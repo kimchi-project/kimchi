@@ -253,7 +253,7 @@ class StorageVolumeTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
 
         keys = [u'name', u'type', u'capacity', u'allocation', u'path',
-                u'used_by', u'format']
+                u'used_by', u'format', u'isvalid']
         for vol in json.loads(resp.read()):
             resp = self.request(uri + '/' + vol['name'])
             self.assertEquals(200, resp.status)
