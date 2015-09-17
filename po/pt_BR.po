@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #, python-format
 msgid "Unknown parameter %(value)s"
-msgstr "Parâmetro desconhecido %(value)s "
+msgstr "Parâmetro desconhecido %(value)s"
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
-msgstr "A exclusão não é permitida para %(resource)s "
+msgstr "A exclusão não é permitida para %(resource)s"
 
 #, python-format
 msgid "%(resource)s does not implement update method"
@@ -31,7 +31,7 @@ msgstr "%(resource)s não implementa o método de atualização"
 
 #, python-format
 msgid "Create is not allowed for %(resource)s"
-msgstr "A criação não é permitida para %(resource)s "
+msgstr "A criação não é permitida para %(resource)s"
 
 msgid "Unable to parse JSON request"
 msgstr "Não é possível analisar a solicitação JSON"
@@ -51,7 +51,7 @@ msgstr "O armazenamento de dados não é iniciado no objeto modelo."
 
 #, python-format
 msgid "Unable to start task due error: %(err)s"
-msgstr "Não é possível iniciar a tarefa devido ao erro: %(err)s "
+msgstr "Não é possível iniciar a tarefa devido ao erro: %(err)s"
 
 #, python-format
 msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
@@ -78,7 +78,7 @@ msgstr ""
 
 #, python-format
 msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr "Configuração de LDAP inválida: %(item)s: %(value)s "
+msgstr "Configuração de LDAP inválida: %(item)s: %(value)s"
 
 msgid "Unknown \"_cap\" specified"
 msgstr "\"_cap\" desconhecido especificado"
@@ -95,7 +95,7 @@ msgstr "\"_available_only\" deve ser \"true\" ou \"false\""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
-msgstr "Erro ao obter dispositivos de bloco. Detalhes: %(err)s "
+msgstr "Erro ao obter dispositivos de bloco. Detalhes: %(err)s"
 
 #, python-format
 msgid "Error while getting block device information for %(device)s."
@@ -104,7 +104,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to find distro file: %(filename)s"
-msgstr "Não é possível localizar o arquivo distro: %(filename)s "
+msgstr "Não é possível localizar o arquivo distro: %(filename)s"
 
 #, python-format
 msgid ""
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Unable to login to iSCSI host target %(portal)s. Details: %(err)s"
 msgstr ""
 "Não é possível efetuar login no destino do host iSCSI %(portal)s. Detalhes: "
-"%(err)s "
+"%(err)s"
 
 #, python-format
 msgid "Unable to login to iSCSI host %(host)s target %(target)s"
@@ -126,7 +126,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to find ISO file %(filename)s"
-msgstr "Não é possível localizar o arquivo ISO %(filename)s "
+msgstr "Não é possível localizar o arquivo ISO %(filename)s"
 
 #, python-format
 msgid "The ISO file %(filename)s is not bootable"
@@ -140,19 +140,19 @@ msgstr ""
 
 #, python-format
 msgid "Invalid El Torito validation entry in ISO %(filename)s"
-msgstr "Entrada de validação El Torito inválida no ISO %(filename)s "
+msgstr "Entrada de validação El Torito inválida no ISO %(filename)s"
 
 #, python-format
 msgid "Invalid El Torito boot indicator in ISO %(filename)s"
-msgstr "Indicador de inicialização El Torito inválido no ISO %(filename)s "
+msgstr "Indicador de inicialização El Torito inválido no ISO %(filename)s"
 
 #, python-format
 msgid "Unexpected volume type for primary volume in ISO %(filename)s"
-msgstr "Tipo de volume inesperado para o volume primário no ISO %(filename)s "
+msgstr "Tipo de volume inesperado para o volume primário no ISO %(filename)s"
 
 #, python-format
 msgid "Bad format while reading volume descriptor in ISO %(filename)s"
-msgstr "Formato inválido ao ler o descritor de volume no ISO %(filename)s "
+msgstr "Formato inválido ao ler o descritor de volume no ISO %(filename)s"
 
 #, python-format
 msgid ""
@@ -166,7 +166,7 @@ msgstr ""
 "movê-lo sob /var/lib/libvirt ou configure a permissão de procura para listas "
 "de controle de acesso de arquivo para o usuário '%(user)s', se possível, ou "
 "inclua o '%(user)s' no grupo de caminhos ISO ou (não recomendado) 'chmod -R o"
-"+x 'path_to_iso'.Detalhes: %(err)s "
+"+x 'path_to_iso'.Detalhes: %(err)s"
 
 msgid "An error occurred when probing image OS information."
 msgstr "Ocorreu um erro com a imagem de análise das informações de S.O."
@@ -176,15 +176,15 @@ msgstr "Nenhuma informação de S.O. localizada na imagem fornecida."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
-msgstr "Não é possível ler o arquivo de imagem %(filename)s "
+msgstr "Não é possível ler o arquivo de imagem %(filename)s"
 
 #, python-format
 msgid ""
 "Image file must be an existing file on system. %(filename)s is not a valid "
 "input."
 msgstr ""
-"O arquivo de imagem deve ser um arquivo existente no sistema. %(filename)s "
-"não é uma entrada válida."
+"O arquivo de imagem deve ser um arquivo existente no sistema. O %(filename)s "
+"não é valido válida."
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -200,20 +200,20 @@ msgid ""
 "in use or the virtual machine is not powered off."
 msgstr ""
 "Não é possível renomear a máquina virtual %(name)s. O nome %(new_name)s já "
-"existeem uso ou a máquina virtual não está desligada."
+"existe em uso ou a máquina virtual não está desligada."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
 msgstr ""
 "Não é possível recuperar a captura de tela para a máquina virtual "
-"interrompida %(name)s "
+"interrompida %(name)s"
 
 msgid "Remote ISO image is not supported by this server."
 msgstr "A imagem ISO remota não é suportada por este servidor."
 
 #, python-format
 msgid "Screenshot is not supported on virtual machine %(name)s"
-msgstr "A captura de tela não é suportada em máquina virtual %(name)s "
+msgstr "A captura de tela não é suportada em máquina virtual %(name)s"
 
 #, python-format
 msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
@@ -225,12 +225,11 @@ msgstr "Não é possível atualizar a máquina virtual %(name)s. Detalhes: %(err
 
 #, python-format
 msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
-msgstr ""
-"Não é possível recuperar a máquina virtual %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível recuperar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to connect to powered off virtual machine %(name)s."
-msgstr "Não é possível se conectar à máquina virtual desligada %(name)s. "
+msgstr "Não é possível se conectar à máquina virtual desligada %(name)s."
 
 msgid "Virtual machine name must be a string without slashes (/)"
 msgstr "O nome da máquina virtual deve ser uma sequência sem barras (/)"
@@ -256,20 +255,20 @@ msgstr "Especifique um modelo para criar uma máquina virtual a partir dele"
 
 #, python-format
 msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
-msgstr "Não é possível iniciar a máquina virtual %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível iniciar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
-msgstr "Não é possível desligar a máquina virtual %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível desligar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
-msgstr "Não é possível excluir a máquina virtual %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível excluir a máquina virtual %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível reconfigurar a máquina virtual %(name)s. Detalhes: %(err)s "
+"Não é possível reconfigurar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 msgid "User name list must be an array"
 msgstr "A lista de nomes de usuário deve ser uma matriz"
@@ -293,7 +292,7 @@ msgstr "O(s) grupo(s) '%(groups)s' não existem"
 
 #, python-format
 msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
-msgstr "Não é possível encerrar a máquina virtual %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível encerrar a máquina virtual %(name)s. Detalhes: %(err)s"
 
 msgid "The guest console password must be a string."
 msgstr "A senha do console do convidado deve ser uma sequência."
@@ -313,11 +312,11 @@ msgstr "Espaço em disco insuficiente para clonar a máquina virtual '%(name)s'.
 
 #, python-format
 msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
-msgstr "Não é possível clonar a VM '%(name)s'. Detalhes: %(err)s "
+msgstr "Não é possível clonar a VM '%(name)s'. Detalhes: %(err)s"
 
 #, python-format
 msgid "Invalid operation for non-persistent virtual machine %(name)s"
-msgstr "Operação inválida para máquina virtual não persistente %(name)s "
+msgstr "Operação inválida para máquina virtual não persistente %(name)s"
 
 #, python-format
 msgid "Cannot suspend VM '%(name)s' because it is not running."
@@ -326,7 +325,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
-msgstr "Não é possível suspender a VM '%(name)s'. Detalhes: %(err)s "
+msgstr "Não é possível suspender a VM '%(name)s'. Detalhes: %(err)s"
 
 #, python-format
 msgid "Cannot resume VM '%(name)s' because it is not paused."
@@ -334,7 +333,7 @@ msgstr "Não é possível continuar a VM '%(name)s' porque ela não está pausad
 
 #, python-format
 msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
-msgstr "Não é possível continuar a VM %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível continuar a VM %(name)s. Detalhes: %(err)s"
 
 msgid "Memory assigned is higher then the maximum allowed in the host."
 msgstr "Memória designada é mais alta do que o máximo permitido no host."
@@ -369,23 +368,25 @@ msgstr ""
 
 #, python-format
 msgid "Error attaching memory device. Details: %(error)s"
-msgstr "Erro ao anexar dispositivo de memória. Detalhes: %(error)s "
+msgstr "Erro ao anexar dispositivo de memória. Detalhes: %(error)s"
 
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
-msgstr "Não é possível ligar a VM '%(name)s' porque ela está em execução."
+msgstr ""
+"Não é possível iniciar o %(name)s. A máquina virtual já está em execução."
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "Não é possível desligar o %(name)s. A máquina virtual está desligada."
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "Não é possível encerrar o %(name)s. A máquina virtual está desligada."
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
+"Não é possível reconfigurar o %(name)s. A máquina virtual já está desligada."
 
 #, python-format
 msgid ""
@@ -456,7 +457,7 @@ msgstr "O Endereço MAC deve respeitar esse formato FF:FF:FF:FF:FF:FF"
 
 #, python-format
 msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
-msgstr "O Endereço MAC %(mac)s já existe na máquina virtual %(name)s "
+msgstr "O Endereço MAC %(mac)s já existe na máquina virtual %(name)s"
 
 msgid "Invalid MAC Address"
 msgstr "Endereço MAC inválido"
@@ -539,15 +540,15 @@ msgstr ""
 
 #, python-format
 msgid "The volume %(volume)s is not in storage pool %(pool)s"
-msgstr "O volume %(volume)s não está no conjunto de armazenamentos %(pool)s "
+msgstr "O volume %(volume)s não está no conjunto de armazenamentos %(pool)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
-msgstr "Não é possível criar o modelo devido ao erro: %(err)s "
+msgstr "Não é possível criar o modelo devido ao erro: %(err)s"
 
 #, python-format
 msgid "Unable to delete template due error: %(err)s"
-msgstr "Não é possível excluir o modelo devido ao erro: %(err)s "
+msgstr "Não é possível excluir o modelo devido ao erro: %(err)s"
 
 msgid "Disk size must be an integer greater than 1GB."
 msgstr "O tamanho do disco deve ser um número inteiro maior que 1 GB."
@@ -557,7 +558,7 @@ msgstr "A imagem base do modelo deve ser um arquivo de imagem local válido"
 
 #, python-format
 msgid "Cannot identify base image %(path)s format"
-msgstr "Não é possível identificar o formato da imagem base %(path)s "
+msgstr "Não é possível identificar o formato da imagem base %(path)s"
 
 msgid ""
 "When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
@@ -571,13 +572,13 @@ msgid ""
 "zero."
 msgstr ""
 "Ao especificar a topologia da CPU, cada elemento deve ser um número inteiro "
-"maior quezero."
+"maior que zero."
 
 msgid ""
 "Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
 "qcow2, qed, raw, vmdk, vpc."
 msgstr ""
-"Formato da imagem do disco inválido.Formatos válidos: bochs, cloop, cow, "
+"Formato da imagem do disco inválido. Formatos válidos: bochs, cloop, cow, "
 "dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 #, python-format
@@ -590,22 +591,21 @@ msgstr "O conjunto de armazenamentos %(name)s não existe"
 
 #, python-format
 msgid "Specify %(item)s in order to create the storage pool %(name)s"
-msgstr "Especifique %(item)s para criar o conjunto de armazenamentos %(name)s "
+msgstr "Especifique %(item)s para criar o conjunto de armazenamentos %(name)s"
 
 #, python-format
 msgid "Unable to delete active storage pool %(name)s"
-msgstr "Não é possível excluir o conjunto de armazenamentos ativo %(name)s "
+msgstr "Não é possível excluir o conjunto de armazenamentos ativo %(name)s"
 
 #, python-format
 msgid "Unable to list storage pools. Details: %(err)s"
 msgstr ""
-"Não é possível listar os conjuntos de armazenamentos. Detalhes: %(err)s "
+"Não é possível listar os conjuntos de armazenamentos. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível criar o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s "
+"Não é possível criar o conjunto de armazenamentos %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
@@ -619,19 +619,19 @@ msgstr ""
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
 msgstr ""
 "Não é possível ativar o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s "
+"%(err)s"
 
 #, python-format
 msgid "Unable to deactivate storage pool %(name)s. Details: %(err)s"
 msgstr ""
 "Não é possível desativar o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s "
+"%(err)s"
 
 #, python-format
 msgid "Unable to delete storage pool %(name)s. Details: %(err)s"
 msgstr ""
 "Não é possível excluir o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s "
+"%(err)s"
 
 #, python-format
 msgid ""
@@ -648,11 +648,11 @@ msgstr ""
 
 #, python-format
 msgid "Unsupported storage pool type: %(type)s"
-msgstr "Tipo de conjunto de armazenamentos não suportado: %(type)s "
+msgstr "Tipo de conjunto de armazenamentos não suportado: %(type)s"
 
 #, python-format
 msgid "Error while retrieving storage pool XML to %(pool)s"
-msgstr "Erro ao recuperar o conjunto de armazenamentos XML para %(pool)s "
+msgstr "Erro ao recuperar o conjunto de armazenamentos XML para %(pool)s"
 
 msgid "Storage pool name must be a string without slashes (/)"
 msgstr ""
@@ -706,7 +706,7 @@ msgstr ""
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
-msgstr "Não é possível estender o conjunto lógico %(pool)s. Detalhes: %(err)s "
+msgstr "Não é possível estender o conjunto lógico %(pool)s. Detalhes: %(err)s"
 
 msgid "The parameter disks only can be updated for logical storage pool."
 msgstr "O parâmetro disks só pode ser atualizado para o storage pool lógico."
@@ -751,14 +751,14 @@ msgid ""
 "A volume group named '%(name)s' already exists. Please, choose another name "
 "to create the logical pool."
 msgstr ""
-"Um grupo de volumes nomeado '%(name)s' já existe. Escolha outro nomepara "
+"Um grupo de volumes nomeado '%(name)s' já existe. Escolha outro nome para "
 "criar o conjunto lógico."
 
 #, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
 msgstr ""
 "Não é possível atualizar o banco de dados com informações de varredura "
-"completas devido ao erro: %(err)s "
+"completas devido ao erro: %(err)s"
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -768,7 +768,7 @@ msgstr "O volume de armazenamento %(name)s já existe"
 msgid "Storage volume %(name)s does not exist in storage pool %(pool)s"
 msgstr ""
 "O volume de armazenamento %(name)s não existe no conjunto de armazenamentos "
-"%(pool)s "
+"%(pool)s"
 
 #, python-format
 msgid ""
@@ -802,23 +802,23 @@ msgid ""
 "Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
 msgstr ""
 "Não é possível listar volumes de armazenamento no conjunto de armazenamentos "
-"%(pool)s. Detalhes: %(err)s "
+"%(pool)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível limpar volumes de armazenamento %(name)s. Detalhes: %(err)s "
+"Não é possível limpar volumes de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to delete storage volume %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível excluir o volume de armazenamento %(name)s. Detalhes: %(err)s "
+"Não é possível excluir o volume de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to resize storage volume %(name)s. Details: %(err)s"
 msgstr ""
 "Não é possível redimensionar o volume de armazenamento %(name)s. Detalhes: "
-"%(err)s "
+"%(err)s"
 
 #, python-format
 msgid "Storage type %(type)s does not support volume create and delete"
@@ -846,7 +846,7 @@ msgid ""
 "Unable to update database with storage volume information due error: %(err)s"
 msgstr ""
 "Não é possível atualizar o banco de dados com informações de volume de "
-"armazenamento devido ao erro: %(err)s "
+"armazenamento devido ao erro: %(err)s"
 
 #, python-format
 msgid "Only one of parameter %(param)s can be specified"
@@ -927,11 +927,11 @@ msgstr ""
 #, python-format
 msgid "Specify a network interface to create bridged network %(name)s"
 msgstr ""
-"Especifique uma interface de rede para criar uma rede em bridge %(name)s "
+"Especifique uma interface de rede para criar uma rede em bridge %(name)s"
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
-msgstr "Não é possível excluir a rede ativa %(name)s "
+msgstr "Não é possível excluir a rede ativa %(name)s"
 
 #, python-format
 msgid "Interface %(iface)s specified for network %(network)s is already in use"
@@ -943,7 +943,7 @@ msgstr "A interface deve ser um dispositivo bare NIC, de ligação ou bridge."
 
 #, python-format
 msgid "Unable to create network %(name)s. Details: %(err)s"
-msgstr "Não é possível criar a rede %(name)s. Detalhes: %(err)s "
+msgstr "Não é possível criar a rede %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to find a free IP address for network '%(name)s'"
@@ -1007,7 +1007,7 @@ msgstr "Falha ao ativar a interface %(iface)s. Verifique o link físico físico.
 
 #, python-format
 msgid "Failed to start network %(name)s. Details: %(err)s"
-msgstr "Falha ao iniciar a rede %(name)s. Detalhes: %(err)s "
+msgstr "Falha ao iniciar a rede %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Debug report %(name)s does not exist"
@@ -1025,12 +1025,12 @@ msgstr ""
 msgid "Can not find any debug report with the given name %(name)s"
 msgstr ""
 "Não é possível localizar nenhum relatório de depuração com o nome fornecido "
-"%(name)s "
+"%(name)s"
 
 #, python-format
 msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível gerar o relatório de depuração %(name)s. Detalhes: %(err)s "
+"Não é possível gerar o relatório de depuração %(name)s. Detalhes: %(err)s"
 
 msgid "You should give a name for the debug report file."
 msgstr ""
@@ -1089,7 +1089,7 @@ msgstr "O pacote %(name)s não está marcado para ser atualizado."
 
 #, python-format
 msgid "Error while getting packages marked to be updated. Details: %(err)s"
-msgstr "Erro ao obter pacotes marcados para atualização. Detalhes: %(err)s "
+msgstr "Erro ao obter pacotes marcados para atualização. Detalhes: %(err)s"
 
 msgid "There is no compatible package manager for this system."
 msgstr "Não há nenhum gerenciador de pacotes compatível para este sistema."
@@ -1134,20 +1134,20 @@ msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
 msgstr ""
-"O dispositivo de armazenamento %(dev_name)s não existe na máquina virtual"
+"O dispositivo de armazenamento %(dev_name)s não existe na máquina virtual "
 "%(vm_name)s"
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
-msgstr "Erro ao criar o novo dispositivo de armazenamento: %(error)s "
+msgstr "Erro ao criar o novo dispositivo de armazenamento: %(error)s"
 
 #, python-format
 msgid "Error while updating storage device: %(error)s"
-msgstr "Erro ao atualizar o dispositivo de armazenamento: %(error)s "
+msgstr "Erro ao atualizar o dispositivo de armazenamento: %(error)s"
 
 #, python-format
 msgid "Error while removing storage device: %(error)s"
-msgstr "Erro ao remover o dispositivo de armazenamento: %(error)s "
+msgstr "Erro ao remover o dispositivo de armazenamento: %(error)s"
 
 msgid "Do not support IDE device hot plug"
 msgstr "Não suportar hot plug de dispositivo IDE"
@@ -1171,7 +1171,7 @@ msgstr ""
 msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
 "Não é possível recuperar informações de caminho do disco para o conjunto/"
-"volume fornecido: %(error)s "
+"volume fornecido: %(error)s"
 
 msgid "Volume already in use by other virtual machine."
 msgstr "O volume já está sendo usado por outra máquina virtual."
@@ -1189,7 +1189,7 @@ msgid ""
 "%(type)s"
 msgstr ""
 "O volume escolhido com o formato %(format)s não se ajusta no tipo de "
-"armazenamento%(type)s"
+"armazenamento %(type)s"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "O ID do Repositório YUM deve ser um texto de apenas uma palavra."
@@ -1346,7 +1346,7 @@ msgstr ""
 msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
 msgstr ""
 "Não é possível listar capturas instantâneas na máquina virtual '%(vm)s'. "
-"Detalhes: %(err)s "
+"Detalhes: %(err)s"
 
 #, python-format
 msgid ""
@@ -1542,7 +1542,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "ID do usuário LDAP, por ex., foo@foo.com"
 
 msgid "revert"
 msgstr "reverter"
@@ -1649,7 +1649,7 @@ msgid ""
 "have network connectivity to it. HTTP request response %1. "
 msgstr ""
 "Não é possível entrar em contato com o sistema host. Verifique se o sistema "
-"host está ativo e se você tem conectividade de rede com ele.  Resposta da "
+"host está ativo e se você tem conectividade de rede com ele. Resposta da "
 "solicitação de HTTP %1. "
 
 msgid "Unable to read file."
@@ -1830,7 +1830,7 @@ msgid ""
 "hyphen ('-')."
 msgstr ""
 "O nome do relatório deve conter somente letras, dígitos, sublinhado ('_') e/"
-"ouhífen ('-')."
+"ou hífen ('-')."
 
 msgid "Pending..."
 msgstr "Pendente..."
@@ -1853,7 +1853,7 @@ msgid ""
 "cache in the guest. Would you like to continue?"
 msgstr ""
 "Essa ação pode produzir resultados indesejáveis, por exemplo, cache de disco "
-"não alinhado armazenar em cache no convidado.Deseja continuar?"
+"não alinhado armazenar em cache no convidado. Deseja continuar?"
 
 msgid "Reset Confirmation"
 msgstr "Confirmação de Reconfiguração"
@@ -1887,8 +1887,8 @@ msgid ""
 "have enough space to clone the volumes. Do you want to continue?"
 msgstr ""
 "Quando o convidado de destino tiver volumes SCSI ou iSCSI, eles serão "
-"clonados no conjunto de armazenamentos padrão.O mesmo ocorrerá quando o "
-"conjunto de destino nãotiver espaço suficiente para clonar os volumes. "
+"clonados no conjunto de armazenamentos padrão. O mesmo ocorrerá quando o "
+"conjunto de destino não tiver espaço suficiente para clonar os volumes. "
 "Deseja continuar?"
 
 msgid ""
@@ -1924,7 +1924,7 @@ msgid "interface:"
 msgstr "interface:"
 
 msgid "address:"
-msgstr "endereço: "
+msgstr "endereço:"
 
 msgid "link_type:"
 msgstr "link_type:"
@@ -2039,7 +2039,7 @@ msgstr ""
 "excluirá permanentemente. Deseja continuar?"
 
 msgid "Unable to retrieve partitions information."
-msgstr "Não é possível recuperar as informações da partição. "
+msgstr "Não é possível recuperar as informações da partição."
 
 msgid "In progress..."
 msgstr "Em andamento..."
@@ -2293,7 +2293,7 @@ msgid "I want to use a specific ISO file"
 msgstr "Eu desejo usar um arquivo ISO específico"
 
 msgid "File Path:"
-msgstr ""
+msgstr "Caminho do arquivo: "
 
 msgid "Loading default remote ISOs ..."
 msgstr "Carregando ISOs remotos padrão..."
@@ -2314,7 +2314,7 @@ msgid "CDROM"
 msgstr "CD-ROM"
 
 msgid "Image File"
-msgstr "Arquivo de imagem "
+msgstr "Arquivo de imagem"
 
 msgid "Graphics"
 msgstr "Gráficos"

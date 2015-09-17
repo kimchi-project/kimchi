@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -168,7 +168,7 @@ msgstr "无法读取映像文件 %(filename)s"
 msgid ""
 "Image file must be an existing file on system. %(filename)s is not a valid "
 "input."
-msgstr "映像文件必须是系统上的现有文件。%(filename)s 不是有效输入。"
+msgstr "映像文件必须是系统上的现有文件。%(filename)s 为无效输入。"
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -343,19 +343,19 @@ msgstr "连接内存设备时出错。详细信息：%(error)s"
 
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
-msgstr ""
+msgstr "无法启动 %(name)s。虚拟机正在运行。"
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "无法关闭 %(name)s。虚拟机已关机。"
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "无法关闭 %(name)s。虚拟机已关机。"
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
-msgstr ""
+msgstr "无法重置 %(name)s。虚拟机已关机。"
 
 #, python-format
 msgid ""
@@ -618,7 +618,7 @@ msgstr "指定名称和类型以创建存储池"
 msgid ""
 "%(disk)s is not a valid disk/partition. Could not add it to the pool "
 "%(pool)s."
-msgstr "%(disk)s 不是有效磁盘/分区。无法将其添加至池%(pool)s。"
+msgstr "%(disk)s 不是有效磁盘/分区。无法将其添加至池%(pool)s."
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
@@ -984,7 +984,7 @@ msgstr "只能更新 CDROM 路径。"
 msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
-msgstr "存储设备 %(dev_name)s 在虚拟机 %(vm_name)s 中不存在"
+msgstr "存储设备 %(dev_name)s 在虚拟机 %(vm_name)s"
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -1301,16 +1301,16 @@ msgid "MAC Address"
 msgstr "MAC 地址"
 
 msgid "Available system users and groups"
-msgstr "可用系统用户和组"
+msgstr "可用的系统用户和组"
 
 msgid "Users"
-msgstr ""
+msgstr "用户"
 
 msgid "Groups"
-msgstr ""
+msgstr "组"
 
 msgid "Selected system users and groups"
-msgstr "所选系统用户和组"
+msgstr "所选的系统用户和组"
 
 msgid "User"
 msgstr "用户"
@@ -1334,7 +1334,7 @@ msgid "Vendor"
 msgstr "供应商"
 
 msgid "Created"
-msgstr "已创建"
+msgstr "创建时间"
 
 msgid "Save"
 msgstr "保存"
@@ -1349,7 +1349,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "LDAP 用户标识，如 foo@foo.com"
 
 msgid "revert"
 msgstr "还原"
@@ -2054,7 +2054,7 @@ msgid "I want to use a specific ISO file"
 msgstr "我要使用特定 ISO 文件"
 
 msgid "File Path:"
-msgstr ""
+msgstr "文件路径："
 
 msgid "Loading default remote ISOs ..."
 msgstr "正在装入缺省远程 ISO..."

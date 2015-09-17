@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -44,7 +44,7 @@ msgid "Parameters does not match requirement in schema: %(err)s"
 msgstr "I parametri non corrispondono ai requisiti nello schema: %(err)s"
 
 msgid "You don't have permission to perform this operation."
-msgstr "Non si dispone dell'autorizzazione per eseguire questa operazione. "
+msgstr "Non si dispone dell'autorizzazione per eseguire questa operazione."
 
 msgid "Datastore is not initiated in the model object."
 msgstr "Archivio dati non inizializzato nell'oggetto modello."
@@ -74,7 +74,7 @@ msgstr "Specificare %(item)s per accedere a Kimchi"
 
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
-msgstr "Utente %(user_id)s non trovato con le impostazioni LDAP fornite. "
+msgstr "Utente %(user_id)s non trovato con le impostazioni LDAP fornite."
 
 #, python-format
 msgid "Invalid LDAP configuration: %(item)s : %(value)s"
@@ -300,18 +300,18 @@ msgstr "Impossibile arrestare la macchina virtuale %(name)s. Dettagli: %(err)s"
 
 msgid "The guest console password must be a string."
 msgstr ""
-"La password della console della macchina guest deve essere una stringa. "
+"La password della console della macchina guest deve essere una stringa."
 
 msgid "The life time for the guest console password must be a number."
 msgstr ""
 "La durata per la password della console della macchina guest deve essere un "
-"numero. "
+"numero."
 
 #, python-format
 msgid "Virtual machine '%(name)s' must be stopped before cloning it."
 msgstr ""
 "La macchina virtuale '%(name)s' deve essere arrestata prima di poterla "
-"clonare. "
+"clonare."
 
 #, python-format
 msgid "Insufficient disk space to clone virtual machine '%(name)s'"
@@ -329,7 +329,7 @@ msgstr ""
 
 #, python-format
 msgid "Cannot suspend VM '%(name)s' because it is not running."
-msgstr "Impossibile sospendere la VM '%(name)s' perché non è in esecuzione. "
+msgstr "Impossibile sospendere la VM '%(name)s' perché non è in esecuzione."
 
 #, python-format
 msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
@@ -337,14 +337,14 @@ msgstr "Impossibile sospendere la VM '%(name)s'. Dettagli: %(err)s"
 
 #, python-format
 msgid "Cannot resume VM '%(name)s' because it is not paused."
-msgstr "Impossibile riprendere la VM '%(name)s' perché non è in pausa. "
+msgstr "Impossibile riprendere la VM '%(name)s' perché non è in pausa."
 
 #, python-format
 msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
 msgstr "Impossibile riprendere la VM '%(name)s'. Dettagli: %(err)s"
 
 msgid "Memory assigned is higher then the maximum allowed in the host."
-msgstr "La memoria assegnata è superiore al massimo consentito nell'host. "
+msgstr "La memoria assegnata è superiore al massimo consentito nell'host."
 
 #, python-format
 msgid ""
@@ -352,17 +352,17 @@ msgid ""
 "the machine offline to enable this feature."
 msgstr ""
 "La VM '%(name)s' non supporta l'aggiornamento della memoria live. Aggiornare "
-"la memoria conla macchina fuori linea per abilitare questa funzione. "
+"la memoria con la macchina fuori linea per abilitare questa funzione."
 
 msgid "Only increase memory is allowed in active VMs"
-msgstr "Nelle VM attive è consentito solo aumentare la memoria. "
+msgstr "Nelle VM attive è consentito solo aumentare la memoria."
 
 msgid ""
 "For live memory update, new memory value must be equal old memory value plus "
 "multiples of 1024 Mib"
 msgstr ""
 "Per l'aggiornamento della memoria live, il nuovo valore di memoria deve "
-"essere uguale al vecchio piùmultipli di 1024 Mib"
+"essere uguale al vecchio più multipli di 1024 Mib"
 
 msgid "There are not enough free slots of 1024 Mib in the guest."
 msgstr ""
@@ -384,18 +384,19 @@ msgstr ""
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
 msgstr ""
+"Impossibile avviare %(name)s. La macchina virtuale è già in esecuzione."
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "Impossibile spegnere %(name)s. La macchina virtuale è spenta. "
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "Impossibile arrestare %(name)s. La macchina virtuale è spenta. "
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
-msgstr ""
+msgstr "Impossibile reimpostare %(name)s. La macchina virtuale è già spenta. "
 
 #, python-format
 msgid ""
@@ -432,7 +433,7 @@ msgid ""
 "the guest."
 msgstr ""
 "Il dispositivo %(name)s è probabilmente utilizzato dall'host. Impossibile "
-"collegarloalla macchina guest."
+"collegarlo alla macchina guest."
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -574,14 +575,14 @@ msgid ""
 "threads."
 msgstr ""
 "Quando si specifica la topologia CPU, le VCPU devono essere composte da "
-"socket, core ethread."
+"socket, core e thread."
 
 msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr ""
 "Quando si specifica la topologia CPU, ogni elemento deve essere un numero "
-"intero maggiore dizero."
+"intero maggiore di zero."
 
 msgid ""
 "Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
@@ -701,7 +702,7 @@ msgid ""
 "%(disk)s is not a valid disk/partition. Could not add it to the pool "
 "%(pool)s."
 msgstr ""
-"%(disk)s non è un disco/partizione valido. Impossibile aggiungerlo al pool"
+"%(disk)s non è un disco/partizione valido. Impossibile aggiungerlo al pool "
 "%(pool)s."
 
 #, python-format
@@ -871,31 +872,30 @@ msgstr ""
 "Dettagli: %(err)s"
 
 msgid "Specify chunk data and its size to upload a file."
-msgstr "Specificare dati sezione e dimensioni per caricare un file. "
+msgstr "Specificare dati sezione e dimensioni per caricare un file."
 
 msgid "In order to upload a storage volume, specify the 'upload' parameter."
-msgstr "Per caricare un volume di memoria, specificare il parametro 'upload'. "
+msgstr "Per caricare un volume di memoria, specificare il parametro 'upload'."
 
 msgid ""
 "Unable to upload chunk data as it does not match with requested chunk size."
 msgstr ""
 "Impossibile caricare i dati sezione perché non corrispondono con la "
-"dimensione sezione richiesta. "
+"dimensione sezione richiesta."
 
 #, python-format
 msgid "The storage volume %(vol)s is not under an upload process."
 msgstr ""
-"Il volume di memoria %(vol)s non è sottoposto a un processo di caricamento. "
+"Il volume di memoria %(vol)s non è sottoposto a un processo di caricamento."
 
 msgid "The upload chunk data will exceed the storage volume size."
 msgstr ""
-"I dati sezione da caricare supereranno la dimensione del volume di memoria. "
+"I dati sezione da caricare supereranno la dimensione del volume di memoria."
 
 #, python-format
 msgid "Unable to upload chunk data to storage volume. Details: %(err)s."
 msgstr ""
-"Impossibile caricare i dati sezione nel volume di memoria. Dettagli: "
-"%(err)s. "
+"Impossibile caricare i dati sezione nel volume di memoria. Dettagli: %(err)s."
 
 #, python-format
 msgid "Interface %(name)s does not exist"
@@ -1013,7 +1013,7 @@ msgstr "Strumento report di debug non trovato nel sistema"
 
 #, python-format
 msgid "Unable to create debug report %(name)s. Details: %(err)s."
-msgstr "Impossibile creare il report di debug %(name)s. Dettagli: %(err)s. "
+msgstr "Impossibile creare il report di debug %(name)s. Dettagli: %(err)s."
 
 #, python-format
 msgid "Can not find any debug report with the given name %(name)s"
@@ -1024,7 +1024,7 @@ msgid "Unable to generate debug report %(name)s. Details: %(err)s"
 msgstr "Impossibile generare il report di debug %(name)s. Dettagli: %(err)s"
 
 msgid "You should give a name for the debug report file."
-msgstr "È necessario fornire un nome per il file report di debug. "
+msgstr "È necessario fornire un nome per il file report di debug."
 
 msgid ""
 "Debug report name must be a string. Only letters, digits, underscore ('_') "
@@ -1075,7 +1075,7 @@ msgstr "Nessun pacchetto contrassegnato per l'aggiornamento"
 
 #, python-format
 msgid "Package %(name)s is not marked to be updated."
-msgstr "Il pacchetto %(name)s non è contrassegnato per l'aggiornamento. "
+msgstr "Il pacchetto %(name)s non è contrassegnato per l'aggiornamento."
 
 #, python-format
 msgid "Error while getting packages marked to be updated. Details: %(err)s"
@@ -1127,7 +1127,7 @@ msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
 msgstr ""
-"Il dispositivo di memoria %(dev_name)s non esiste nella macchina virtuale"
+"Il dispositivo di memoria %(dev_name)s non esiste nella macchina virtuale "
 "%(vm_name)s"
 
 #, python-format
@@ -1177,7 +1177,7 @@ msgid ""
 "machine disk"
 msgstr ""
 "È possibile specificare solo uno tra percorso o pool/volume per aggiungere "
-"un nuovodisco di macchina virtuale"
+"un nuovo disco di macchina virtuale"
 
 #, python-format
 msgid ""
@@ -1299,8 +1299,7 @@ msgstr "Impossibile rimuovere il repository. Dettagli: '%(err)s'"
 msgid ""
 "Configuration items: '%(items)s' are not supported by repository manager"
 msgstr ""
-"Elementi di configurazione: '%(items)s' non supportati dal gestore "
-"repository "
+"Elementi di configurazione: '%(items)s' non supportati dal gestore repository"
 
 msgid "Repository metalink must be an http://, ftp:// or file:// URL."
 msgstr "Il metalink del repository deve essere http://, ftp:// o file:// URL."
@@ -1308,14 +1307,14 @@ msgstr "Il metalink del repository deve essere http://, ftp:// o file:// URL."
 msgid "Cannot specify mirrorlist and metalink at the same time."
 msgstr ""
 "Impossibile specificare contemporaneamente elenco di elementi speculari e "
-"metalink. "
+"metalink."
 
 #, python-format
 msgid ""
 "Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
 msgstr ""
 "La macchina virtuale '%(vm)s' deve essere arrestata prima di poterne creare "
-"l'istantanea. "
+"l'istantanea."
 
 #, python-format
 msgid ""
@@ -1376,10 +1375,10 @@ msgstr ""
 "contiene un disco con formato '%(format)s'; solo 'qcow2' è supportato."
 
 msgid "The number of vCPUs is too large for this system."
-msgstr "Il numero di vCPU è troppo grande per questo sistema. "
+msgstr "Il numero di vCPU è troppo grande per questo sistema."
 
 msgid "Invalid vCPU/topology combination."
-msgstr "Combinazione vCPU/topologia non valida. "
+msgstr "Combinazione vCPU/topologia non valida."
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "Questo host (o configurazione corrente) non consente la topologia CPU."
@@ -1473,7 +1472,7 @@ msgid "Icon"
 msgstr "Icona"
 
 msgid "Device"
-msgstr "Unità"
+msgstr "Dispositivo"
 
 msgid "Path"
 msgstr "Percorso"
@@ -1491,16 +1490,16 @@ msgid "Available system users and groups"
 msgstr "Utenti e gruppi di sistema disponibili"
 
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 msgid "Groups"
-msgstr ""
+msgstr "Gruppi"
 
 msgid "Selected system users and groups"
 msgstr "Utenti e gruppi di sistema selezionati"
 
 msgid "User"
-msgstr "Utente "
+msgstr "Utente"
 
 msgid "All"
 msgstr "Tutti"
@@ -1536,7 +1535,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "ID utente LDAP, ad esempio foo@foo.com"
 
 msgid "revert"
 msgstr "Inverti"
@@ -1673,7 +1672,7 @@ msgstr "Caricamento in corso..."
 
 msgid "An error occurred while retrieving system information."
 msgstr ""
-"Si è verificato un errore durante il richiamo delle informazioni di sistema. "
+"Si è verificato un errore durante il richiamo delle informazioni di sistema."
 
 msgid "Retry"
 msgstr "Riprova"
@@ -1833,7 +1832,7 @@ msgid "Pending..."
 msgstr "In sospeso..."
 
 msgid "Report name is the same as the original one."
-msgstr "Il nome report è uguale a quello originale. "
+msgstr "Il nome report è uguale a quello originale."
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1885,8 +1884,8 @@ msgid ""
 "have enough space to clone the volumes. Do you want to continue?"
 msgstr ""
 "Quando la macchina guest di destinazione ha volumi SCSI o iSCSI, essi "
-"verranno clonati sulpool di memoria predefinito. Lo stesso accadrà se il "
-"pool di destinazione nonha spazio sufficiente per clonare i volumi. Si "
+"verranno clonati sul pool di memoria predefinito. Lo stesso accadrà se il "
+"pool di destinazione non ha spazio sufficiente per clonare i volumi. Si "
 "desidera continuare?"
 
 msgid ""
@@ -1967,7 +1966,7 @@ msgid ""
 "should consider disabling it."
 msgstr ""
 "La tag VLAN con bridge potrebbe non funzionare bene con NetworkManager "
-"abilitato. Si dovrebbe prendere in considerazione la sua disabilitazione. "
+"abilitato. Si dovrebbe prendere in considerazione la sua disabilitazione."
 
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
@@ -2039,7 +2038,7 @@ msgstr ""
 "eliminerà permanentemente. Si desidera continuare?"
 
 msgid "Unable to retrieve partitions information."
-msgstr "Impossibile caricare le informazioni sulla partizione. "
+msgstr "Impossibile caricare le informazioni sulla partizione."
 
 msgid "In progress..."
 msgstr "In corso..."
@@ -2059,10 +2058,10 @@ msgid "Peers"
 msgstr "Peer"
 
 msgid "Searching"
-msgstr "Ricerca "
+msgstr "Ricerca"
 
 msgid "No peers found."
-msgstr "Nessun peer trovato. "
+msgstr "Nessun peer trovato."
 
 msgid "Help"
 msgstr "Guida"
@@ -2096,9 +2095,9 @@ msgid ""
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
 msgstr ""
-"Il nome utilizzato per identificare il report. Se il nome viene omesso, ne "
-"viene scelto uno in base all'ora corrente. Il nome può contenere lettere, "
-"cifre, sottolineature (\"_\") e trattini (\"-\")."
+"Il nome utilizzato per identificare il report. Se omesso, ne verrà scelto "
+"uno in base all'ora corrente. Il nome può contenere lettere, cifre, "
+"sottolineature (\"_\") e trattini (\"-\")."
 
 msgid "Rename a Debug Report"
 msgstr "Ridenomina un report di debug"
@@ -2108,7 +2107,7 @@ msgid ""
 "hyphen (\"-\")."
 msgstr ""
 "Il nome utilizzato per identificare il report. Il nome può contenere "
-"lettere, cifre etrattini (\"-\")."
+"lettere, cifre e trattini (\"-\")."
 
 msgid "Submit"
 msgstr "Inoltra"
@@ -2168,13 +2167,13 @@ msgid "Fetch from remote URL"
 msgstr "Richiama da URL remoto"
 
 msgid "Enter the remote URL here."
-msgstr "Immettere qui l'URL remoto. "
+msgstr "Immettere qui l'URL remoto."
 
 msgid "Upload a file"
 msgstr "Carica un file"
 
 msgid "Choose the file you want to upload."
-msgstr "Selezionare il file da caricare. "
+msgstr "Selezionare il file da caricare."
 
 msgid "Define a New Storage Pool"
 msgstr "Definisci un nuovo pool di memoria"
@@ -2295,7 +2294,7 @@ msgid "I want to use a specific ISO file"
 msgstr "Utilizzare un file ISO specifico"
 
 msgid "File Path:"
-msgstr ""
+msgstr "Percorso file:"
 
 msgid "Loading default remote ISOs ..."
 msgstr "Caricamento di ISO remoti predefiniti in corso..."
@@ -2316,7 +2315,7 @@ msgid "CDROM"
 msgstr "CDROM"
 
 msgid "Image File"
-msgstr "File immagine "
+msgstr "File immagine"
 
 msgid "Graphics"
 msgstr "Grafici"
