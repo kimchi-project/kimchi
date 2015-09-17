@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #, python-format
 msgid "Unknown parameter %(value)s"
-msgstr "알 수 없는 매개변수 %(value)s"
+msgstr "Unknown parameter %(value)s"
 
 #, python-format
 msgid "Delete is not allowed for %(resource)s"
@@ -55,7 +55,7 @@ msgstr "오류 때문에 작업을 시작할 수 없음: %(err)s"
 
 #, python-format
 msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr "'%(task)s 태스크 실행 중에 %(seconds)s초의 제한시간이 만료되었습니다."
+msgstr "Timeout of %(seconds)s seconds expired while running task '%(task)s."
 
 #, python-format
 msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
@@ -156,7 +156,8 @@ msgstr ""
 "하이퍼바이저가 이 ISO %(filename)s을(를) 사용할 권한이 없습니다. 이를 /var/"
 "lib/libvirt 아래로 이동시키거나 (가능한 경우) 검색 권한을 '%(user)s' 사용자"
 "의 파일 액세스 제어 목록에 설정하거나 '%(user)s'을(를) ISO 경로 그룹 또는 (권"
-"장하지 않음) 'chmod -R o+x 'path_to_iso'에 추가하십시오. 세부사항: %(err)s"
+"장하지 않음) 'chmod -R o+x 'path_to_iso'(권장되지 않음)에 추가하십시오. 세부"
+"사항: %(err)s"
 
 msgid "An error occurred when probing image OS information."
 msgstr "이미지 OS 정보를 프로브하는 중에 오류가 발생했습니다."
@@ -174,7 +175,7 @@ msgid ""
 "input."
 msgstr ""
 "이미지 파일은 시스템에 있는 기존 파일이여야 합니다. %(filename)s은(는) 유효하"
-"지 않은입력입니다."
+"지 않은 입력입니다."
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -357,19 +358,20 @@ msgstr "메모리 장치를 연결하는 중 오류가 발생했습니다. 세�
 
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
-msgstr ""
+msgstr "%(name)s을(를) 시작할 수 없습니다. 가상 머신이 이미 실행 중입니다."
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "%(name)s의 전원을 끌 수 없습니다. 가상 머신이 꺼진 상태입니다."
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "%(name)s을(를) 종료할 수 없습니다. 가상 머신이 꺼진 상태입니다."
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
+"%(name)s을(를) 다시 설정할 수 없습니다. 가상 머신이 이미 꺼진 상태입니다."
 
 #, python-format
 msgid ""
@@ -412,7 +414,7 @@ msgstr "가상 머신 %(name)s에 %(iface)s 인터페이스가 없습니다."
 #, python-format
 msgid ""
 "Network %(network)s specified for virtual machine %(name)s does not exist"
-msgstr "가상 머신 %(name)s에 지정된 %(network)s 네트워크가 없습니다."
+msgstr "가상 머신 %(name)s에 대해 지정된 %(network)s 네트워크가 없습니다."
 
 msgid "Supported virtual machine interfaces type is only network"
 msgstr "지원되는 가상 머신 인터페이스 유형은 네트워크뿐입니다."
@@ -433,7 +435,7 @@ msgstr "MAC 주소는 FF:FF:FF:FF:FF:FF 형식을 준수해야 합니다."
 
 #, python-format
 msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
-msgstr "가상 머신 %(name)s에 MAC 주소 %(mac)s이(가) 이미 존재합니다."
+msgstr "MAC 주소 %(mac)s이(가) 가상 머신 %(name)s에 이미 존재합니다."
 
 msgid "Invalid MAC Address"
 msgstr "올바르지 않은 MAC 주소입니다."
@@ -466,7 +468,8 @@ msgstr "CDROM에 대해 올바르지 않은 매개변수 '%(param)s' 이(가) �
 
 #, python-format
 msgid "Network %(network)s specified for template %(template)s is not active"
-msgstr "%(template)s 템플리트에 지정된 %(network)s 네트워크가 활성이 아닙니다."
+msgstr ""
+"템플리트 %(template)s에 대해 지정된 %(network)s 네트워크가 활성이 아닙니다."
 
 msgid "Template name must be a string"
 msgstr "템플리트 이름은 문자열이어야 합니다."
@@ -648,9 +651,7 @@ msgstr "스토리지 풀을 작성하려면 이름 및 유형을 지정하십시
 msgid ""
 "%(disk)s is not a valid disk/partition. Could not add it to the pool "
 "%(pool)s."
-msgstr ""
-"%(disk)s은(는) 유효한 디스크/파티션이 아닙니다. 이를 풀%(pool)s에 추가할 수 "
-"없습니다."
+msgstr "%(disk)s은(는) 유효한 디스크/파티션이 아닙니다. 이를 풀%(pool)s."
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
@@ -846,7 +847,8 @@ msgstr "%(name)s 네트워크가 없습니다."
 
 #, python-format
 msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
-msgstr "%(network)s 네트워크에 지정된 %(subnet)s 서브넷이 유효하지 않습니다."
+msgstr ""
+"네트워크 %(network)s에 대해 지정된 서브넷 %(subnet)s이(가) 유효하지 않습니다."
 
 #, python-format
 msgid "Specify a network interface to create bridged network %(name)s"
@@ -860,7 +862,8 @@ msgstr "활성 네트워크 %(name)s을(를) 삭제할 수 없습니다."
 #, python-format
 msgid "Interface %(iface)s specified for network %(network)s is already in use"
 msgstr ""
-"%(network)s 네트워크에 지정된 %(iface)s 인터페이스가 이미 사용 중입니다."
+"네트워크 %(network)s에 대해 지정된 인터페이스 %(iface)s이(가) 이미 사용 중입"
+"니다."
 
 msgid "Interface should be bare NIC, bonding or bridge device."
 msgstr "인터페이스는 순수 NIC, 본딩 또는 브릿지 장치여야 합니다."
@@ -920,7 +923,7 @@ msgstr "브릿지 장치 %(name)s은(는) VLAN의 트렁크 장치가 될 수 �
 
 #, python-format
 msgid "Failed to activate interface %(iface)s: %(err)s."
-msgstr "%(iface)s 인터페이스 활성화 실패: %(err)s."
+msgstr "%(iface)s 인터페이스를 활성화하지 못함: %(err)s."
 
 #, python-format
 msgid ""
@@ -1021,8 +1024,7 @@ msgstr "올바르지 않은 URI %(uri)s"
 
 #, python-format
 msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
-msgstr ""
-"%(seconds)s초 후 '%(cmd)s' 명령을 실행하는 중에 제한시간이 초과되었습니다."
+msgstr "%(seconds)s초 후에 '%(cmd)s' 명령 실행 중 제한시간이 초과되었습니다."
 
 msgid "Unable to choose a virtual machine name"
 msgstr "가상 머신 이름을 선택할 수 없습니다."
@@ -1049,7 +1051,7 @@ msgstr "CDROM 경로만 업데이트할 수 있습니다."
 msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
-msgstr "스토리지 장치 %(dev_name)s이(가) 가상 머신%(vm_name)s에 없습니다."
+msgstr "스토리지 장치 %(dev_name)s이(가) 가상 머신%(vm_name)s"
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -1078,7 +1080,7 @@ msgstr "가상 머신 디스크를 업데이트할 경로를 지정하십시오.
 
 #, python-format
 msgid "Controller type %(type)s limitation of %(limit)s devices reached"
-msgstr "장치의 제어기 유형 %(type)s 한계 %(limit)s에 도달했습니다."
+msgstr " %(limit)s 장치의 제어기 유형 %(type)s 한계에 도달했습니다."
 
 #, python-format
 msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
@@ -1097,8 +1099,7 @@ msgstr ""
 msgid ""
 "Volume chosen with format %(format)s does not fit in the storage type "
 "%(type)s"
-msgstr ""
-"%(format)s 형식으로 선택한 볼륨이 스토리지 유형%(type)s에 적합하지 않습니다."
+msgstr "%(format)s 형식으로 선택한 볼륨이 스토리지 유형%(type)s"
 
 msgid "YUM Repository ID must be one word only string."
 msgstr "YUM 저장소 ID는 단일 단어의 문자열이어야 합니다."
@@ -1386,10 +1387,10 @@ msgid "Available system users and groups"
 msgstr "사용 가능한 시스템 사용자 및 그룹"
 
 msgid "Users"
-msgstr ""
+msgstr "사용자"
 
 msgid "Groups"
-msgstr ""
+msgstr "그룹"
 
 msgid "Selected system users and groups"
 msgstr "선택한 시스템 사용자 및 그룹"
@@ -1431,7 +1432,7 @@ msgid "Cancel"
 msgstr "취소"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "LDAP 사용자 ID, 예: foo@foo.com"
 
 msgid "revert"
 msgstr "되돌리기"
@@ -1970,9 +1971,9 @@ msgid ""
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
 msgstr ""
-"보고서를 식별하는 데 사용되는 이름입니다. 생략되면 이름은 현재 시간을 기반으"
-"로 선택됩니다. 이름에는 문자, 숫자, 밑줄(\"_\")및 하이픈(\"-\")을 포함할 수 "
-"있습니다."
+"보고서를 식별하는 데 사용하는 이름입니다. 생략하는 경우 현재 시간을 기반으로 "
+"이름이 선택됩니다. 이름에는 문자, 숫자, 밑줄(\"_\")및 하이픈(\"-\")을 포함할 "
+"수 있습니다."
 
 msgid "Rename a Debug Report"
 msgstr "디버그 보고서 이름 바꾸기"
@@ -2163,7 +2164,7 @@ msgid "I want to use a specific ISO file"
 msgstr "특정 ISO 파일을 사용하려고 합니다."
 
 msgid "File Path:"
-msgstr ""
+msgstr "파일 경로:"
 
 msgid "Loading default remote ISOs ..."
 msgstr "기본 원격 ISO 로드 중..."
@@ -2286,7 +2287,7 @@ msgid "Stop"
 msgstr "중지"
 
 msgid "%Used"
-msgstr "%Used"
+msgstr "사용량(%)"
 
 msgid "Location"
 msgstr "위치"

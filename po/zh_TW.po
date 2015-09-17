@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -86,7 +86,7 @@ msgid "\"_passthrough_affected_by\" should be a device name string"
 msgstr "\"_passthrough_affected_by\" 應該是裝置名稱字串"
 
 msgid "\"_available_only\" should be \"true\" or \"false\""
-msgstr ""
+msgstr "\"_available_only\" 應該是 \"true\" 或 \"false\""
 
 #, python-format
 msgid "Error while getting block devices. Details: %(err)s"
@@ -344,19 +344,19 @@ msgstr "連接記憶體裝置時發生錯誤。詳細資料：%(error)s"
 
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
-msgstr ""
+msgstr "無法啟動 %(name)s。虛擬機器已在執行中。"
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "無法關閉 %(name)s。關閉虛擬機器。"
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "無法關閉 %(name)s。關閉虛擬機器。"
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
-msgstr ""
+msgstr "無法重設 %(name)s。已關閉虛擬機器。"
 
 #, python-format
 msgid ""
@@ -619,7 +619,7 @@ msgstr "指定名稱和類型以建立儲存區"
 msgid ""
 "%(disk)s is not a valid disk/partition. Could not add it to the pool "
 "%(pool)s."
-msgstr "%(disk)s 不是有效的磁碟/分割區。無法將其新增至儲存區%(pool)s。"
+msgstr "%(disk)s 不是有效的磁碟/分割區。無法將其新增至儲存區%(pool)s."
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
@@ -1304,10 +1304,10 @@ msgid "Available system users and groups"
 msgstr "可用的系統使用者及群組"
 
 msgid "Users"
-msgstr ""
+msgstr "使用者"
 
 msgid "Groups"
-msgstr ""
+msgstr "群組"
 
 msgid "Selected system users and groups"
 msgstr "選定的系統使用者及群組"
@@ -1334,7 +1334,7 @@ msgid "Vendor"
 msgstr "供應商"
 
 msgid "Created"
-msgstr "已建立"
+msgstr "建立時間"
 
 msgid "Save"
 msgstr "儲存"
@@ -1349,7 +1349,7 @@ msgid "Cancel"
 msgstr "取消 "
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "LDAP 使用者 ID，例如 foo@foo.com"
 
 msgid "revert"
 msgstr "回復"
@@ -1868,7 +1868,7 @@ msgid ""
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
 msgstr ""
-"用來識別報告的名稱。如果省略，則會基於現行時間來選擇名稱。名稱可以包含：字"
+"用於識別報告的名稱。如果省略，則會基於現行時間來選擇名稱。名稱可以包含：字"
 "母、數字、底線 (\"_\")及連字號 (\"-\")。"
 
 msgid "Rename a Debug Report"
@@ -2055,7 +2055,7 @@ msgid "I want to use a specific ISO file"
 msgstr "我想使用特定的 ISO 檔案"
 
 msgid "File Path:"
-msgstr ""
+msgstr "檔案路徑："
 
 msgid "Loading default remote ISOs ..."
 msgstr "正在載入預設遠端 ISO ..."
@@ -2218,8 +2218,3 @@ msgstr "配置"
 
 msgid "No templates found."
 msgstr "找不到範本。"
-
-#~ msgid ""
-#~ "Unable to get access metadata of virtual machine %(name)s. Details: "
-#~ "%(err)s"
-#~ msgstr "無法取得虛擬機器 %(name)s 的存取 meta 資料。詳細資料：%(err)s"

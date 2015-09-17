@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -189,7 +189,7 @@ msgid ""
 "input."
 msgstr ""
 "El archivo de imágenes debe ser un archivo existente en el sistema. "
-"%(filename)s no es una entradaválida. "
+"%(filename)s no es una entrada válida. "
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -388,19 +388,19 @@ msgstr "Error al conectar el dispositivo de memoria. Detalles: %(error)s"
 
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
-msgstr ""
+msgstr "No se puede iniciar %(name)s. La máquina virtual ya está en ejecución."
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "No se puede apagar %(name)s. La máquina virtual está apagada."
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
-msgstr ""
+msgstr "No se puede apagar %(name)s. La máquina virtual está apagada."
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
-msgstr ""
+msgstr "No se puede restablecer %(name)s. La máquina virtual ya está apagada."
 
 #, python-format
 msgid ""
@@ -1528,10 +1528,10 @@ msgid "Available system users and groups"
 msgstr "Usuarios y grupos del sistema disponibles"
 
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 msgid "Selected system users and groups"
 msgstr "Usuarios y grupos del sistema seleccionados"
@@ -1573,7 +1573,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "ID de usuario LDAP, p.e. foo@foo.com"
 
 msgid "revert"
 msgstr "revertir"
@@ -1761,7 +1761,7 @@ msgid ""
 "shut down/restarting?"
 msgstr ""
 "Concluir o reiniciar el host hará que se pierda el trabajo no guardado. "
-"¿Desea continuar para concluir/reiniciar?"
+"¿Desea continuarpara concluir/reiniciar?"
 
 msgid ""
 "Repository will be removed permanently and can't be recovered. Do you want "
@@ -2135,9 +2135,9 @@ msgid ""
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
 msgstr ""
-"El nombre que se utiliza para identificar el informe. Si se omite, se "
-"elegirá un nombre en base a la hora actual. El nombre puede contener: "
-"letras, dígitos, carácter de subrayado (\"_\") y de guión (\"-\")."
+"El nombre utilizado para identificar el informe. Si se omite, se elegirá un "
+"nombre en base a la hora actual. El nombre puede contener: letras, dígitos, "
+"carácter de subrayado (\"_\") y de guión (\"-\")."
 
 msgid "Rename a Debug Report"
 msgstr "Renombre un informe de depuración"
@@ -2331,7 +2331,7 @@ msgid "I want to use a specific ISO file"
 msgstr "Deseo utilizar un archivo ISO específico"
 
 msgid "File Path:"
-msgstr ""
+msgstr "Vía de acceso del archivo:"
 
 msgid "Loading default remote ISOs ..."
 msgstr "Cargando ISO remotas predeterminadas ..."

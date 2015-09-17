@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 14:43-0300\n"
+"POT-Creation-Date: 2015-09-18 10:40-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -186,7 +186,7 @@ msgid ""
 "input."
 msgstr ""
 "Bei der Imagedatei muss es sich um eine auf dem System vorhandene Datei "
-"handeln. %(filename)s ist keine gültige Eingabe."
+"handeln. %(filename)s ist nicht gültig Eingabe."
 
 #, python-format
 msgid "Virtual machine %(name)s already exists"
@@ -403,18 +403,26 @@ msgstr "Fehler beim Anschließen der Speichereinheit. Details: %(error)s"
 #, python-format
 msgid "Cannot start %(name)s. Virtual machine is already running."
 msgstr ""
+"%(name)s kann nicht gestartet werden. Virtuelle Maschine wird bereits "
+"ausgeführt."
 
 #, python-format
 msgid "Cannot power off %(name)s. Virtual machine is shut off."
 msgstr ""
+"%(name)s kann nicht ausgeschaltet werden. Virtuelle Maschine ist "
+"ausgeschaltet."
 
 #, python-format
 msgid "Cannot shutdown %(name)s. Virtual machine is shut off."
 msgstr ""
+"%(name)s kann nicht heruntergefahren werden. Virtuelle Maschine ist "
+"ausgeschaltet."
 
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
+"%(name)s kann nicht zurückgesetzt werden. Virtuelle Maschine ist bereits "
+"ausgeschaltet."
 
 #, python-format
 msgid ""
@@ -1169,8 +1177,7 @@ msgid ""
 "The storage device %(dev_name)s does not exist in the virtual machine "
 "%(vm_name)s"
 msgstr ""
-"Die Speichereinheit %(dev_name)s ist in der virtuellen Maschine %(vm_name)s "
-"nicht vorhanden"
+"Die Speichereinheit %(dev_name)s ist in der virtuellen Maschine %(vm_name)s"
 
 #, python-format
 msgid "Error while creating new storage device: %(error)s"
@@ -1530,10 +1537,10 @@ msgid "Available system users and groups"
 msgstr "Verfügbare Systembenutzer und -gruppen"
 
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 msgid "Groups"
-msgstr ""
+msgstr "Gruppen"
 
 msgid "Selected system users and groups"
 msgstr "Ausgewählte Systembenutzer und -gruppen"
@@ -1575,7 +1582,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
-msgstr ""
+msgstr "LDAP-Benutzer-ID, z. B. foo@foo.com"
 
 msgid "revert"
 msgstr "zurücksetzen"
@@ -2134,10 +2141,10 @@ msgid ""
 "based on current time. Name can contain: letters, digits, underscore (\"_\") "
 "and hyphen (\"-\")."
 msgstr ""
-"Der Name, mit dem der Bericht angegeben wird. Falls keine Angabe erfolgt, "
-"wird ein Name auf Basis der aktuellen Uhrzeit ausgewählt. Der Name kann "
-"Buchstaben, Ziffern, Unterstreichungszeichen (\"_\") und Bindestriche (\"-"
-"\") enthalten."
+"Der Name, mit dem der Bericht angegeben wird. Wenn kein Name angegeben wird, "
+"wird ein Name gewählt auf Basis der aktuellen Uhrzeit ausgewählt. Der Name "
+"kann Buchstaben, Ziffern, Unterstreichungszeichen (\"_\") und Bindestriche "
+"(\"-\") enthalten."
 
 msgid "Rename a Debug Report"
 msgstr "Debugbericht umbenennen"
@@ -2333,7 +2340,7 @@ msgid "I want to use a specific ISO file"
 msgstr "Ich möchte eine bestimmte ISO-Datei verwenden"
 
 msgid "File Path:"
-msgstr ""
+msgstr "Dateipfad:"
 
 msgid "Loading default remote ISOs ..."
 msgstr "Standardmäßige ferne ISOs werden geladen..."
@@ -2457,7 +2464,7 @@ msgid "Stop"
 msgstr "Stoppen"
 
 msgid "%Used"
-msgstr "% belegt"
+msgstr "%Belegt"
 
 msgid "Location"
 msgstr "Position"
