@@ -126,6 +126,10 @@ class VMStoragesModel(object):
                                            {"format": vol_info['format'],
                                             "type": params['type']})
 
+            if (params['format'] == 'raw' and not vol_info['isvalid']):
+                message = 'This is not a valid RAW disk image.'
+                raise OperationFailed('KCHVMSTOR0008E', {'error': message})
+
             params['path'] = vol_info['path']
             params['disk'] = vol_info['type']
 
