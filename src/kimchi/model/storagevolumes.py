@@ -19,6 +19,7 @@
 
 import contextlib
 import lxml.etree as ET
+import magic
 import os
 import tempfile
 import threading
@@ -47,6 +48,10 @@ VOLUME_TYPE_MAP = {0: 'file',
 
 READ_CHUNK_SIZE = 1048576  # 1 MiB
 REQUIRE_NAME_PARAMS = ['capacity']
+
+VALID_RAW_CONTENT = ['dos/mbr boot sector',
+                     'x86 boot sector',
+                     'data']
 
 upload_volumes = dict()
 
@@ -310,13 +315,27 @@ class StorageVolumeModel(object):
             else:
                 fmt = 'iso'
 
+        # 'raw' volumes can not be valid image disks (e.g. XML, PDF, TXT are
+        # raw files), so it's necessary check the 'content' of them
+        isvalid = True
+        if fmt == 'raw':
+            try:
+                ms = magic.open(magic.NONE)
+                ms.load()
+                if ms.file(path).lower() not in VALID_RAW_CONTENT:
+                    isvalid = False
+                ms.close()
+            except UnicodeDecodeError:
+                isvalid = False
+
         used_by = get_disk_used_by(self.objstore, self.conn, path)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
                    path=path,
                    used_by=used_by,
-                   format=fmt)
+                   format=fmt,
+                   isvalid=isvalid)
         if fmt == 'iso':
             if os.path.islink(path):
                 path = os.path.join(os.path.dirname(path), os.readlink(path))

@@ -511,6 +511,7 @@ A interface represents available network interface on VM.
     * os_version *(optional)*: os version of the volume, for iso volume only.
     * bootable *(optional)*: True if iso image is bootable and not corrupted.
     * used_by: Name of vms which use this volume.
+    * isvalid: True if is a valid volume.
 
 * **DELETE**: Remove the Storage Volume
 * **POST**: *See Storage Volume Actions*

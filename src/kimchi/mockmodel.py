@@ -39,6 +39,7 @@ from kimchi.model.libvirtstoragepool import StoragePoolDef
 from kimchi.model.model import Model
 from kimchi.model.storagepools import StoragePoolModel
 from kimchi.model.storagevolumes import StorageVolumeModel, StorageVolumesModel
+from kimchi.model import storagevolumes
 from kimchi.model.templates import LibvirtVMTemplate
 from kimchi.model.users import PAMUsersModel
 from kimchi.model.groups import PAMGroupsModel
@@ -51,6 +52,9 @@ from kimchi.xmlutils.utils import xml_item_update
 fake_user = {'root': 'letmein!'}
 mockmodel_defaults = {'storagepool': '/storagepools/default-pool',
                       'domain': 'test', 'arch': 'i686'}
+storagevolumes.VALID_RAW_CONTENT = ['dos/mbr boot sector',
+                                    'x86 boot sector',
+                                    'data', 'empty']
 
 
 class MockModel(Model):
@@ -471,13 +475,15 @@ class MockStorageVolumes(object):
                                             'allocation': 512,
                                             'type': 'block',
                                             'path': base_path + '1',
-                                            'used_by': []},
+                                            'used_by': [],
+                                            'isvalid': True},
                              'unit:0:0:2': {'capacity': 2048,
                                             'format': 'unknown',
                                             'allocation': 512,
                                             'type': 'block',
                                             'path': base_path + '2',
-                                            'used_by': []}}
+                                            'used_by': [],
+                                            'isvalid': True}}
 
 
 class MockPartitions(object):

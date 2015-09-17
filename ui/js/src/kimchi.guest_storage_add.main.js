@@ -81,7 +81,7 @@ kimchi.guest_storage_add_main = function() {
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
-                    if (value.used_by.length == 0 && (value.type != 'file' || validVolType[selectType].test(value.format))) {
+                    if (value.used_by.length == 0 && value.isvalid && (value.type != 'file' || validVolType[selectType].test(value.format))) {
                         options.push({
                             label: value.name,
                             value: value.name
