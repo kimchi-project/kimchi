@@ -594,6 +594,7 @@ class RestTests(unittest.TestCase):
             self.assertEquals(200, resp.status)
 
             # 'name' is required for this type of volume
+            open('/tmp/attach-volume', 'w').close()
             req = json.dumps({'capacity': 1024,
                               'allocation': 512,
                               'type': 'disk',
@@ -659,6 +660,7 @@ class RestTests(unittest.TestCase):
             rollback.prependDefer(self.request,
                                   '/vms/test-vm/storages/hdx', '{}', 'DELETE')
             os.remove('/tmp/existent.iso')
+            os.remove('/tmp/attach-volume')
 
             # Change path of storage cdrom
             cdrom = u'http://mirrors.kernel.org/fedora/releases/21/Live/'\
