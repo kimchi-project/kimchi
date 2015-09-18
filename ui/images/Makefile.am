@@ -19,4 +19,4 @@ SUBDIRS = theme-default
 
 imagedir = $(datadir)/wok/ui/images
 
-dist_image_DATA = *.ico
+dist_image_DATA = *.ico *.png

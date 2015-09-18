@@ -132,7 +132,7 @@ class UIConfig(dict):
 
     def __init__(self, paths):
         ui_configs = {}
-        for sub_dir in ('css', 'fontello', 'js', 'libs', 'images'):
+        for sub_dir in ('css', 'js', 'libs', 'images'):
             ui_configs['/' + sub_dir] = {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': os.path.join(paths.ui_dir, sub_dir),

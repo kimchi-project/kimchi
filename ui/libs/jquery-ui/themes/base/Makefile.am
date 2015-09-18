@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = base64 css images js libs pages
+SUBDIRS = images
 
-uidir = $(datadir)/wok/ui
+basedir = $(datadir)/wok/ui/libs/jquery-ui/themes/base
 
-dist_ui_DATA = robots.txt
+dist_base_DATA = $(wildcard *.css) $(NULL)
