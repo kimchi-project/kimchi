@@ -127,14 +127,6 @@ class ConfigTests(unittest.TestCase):
                 'tools.nocache.on': False,
                 'tools.wokauth.on': False
             },
-            '/fontello': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/fontello' % paths.prefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
             '/js': {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
@@ -230,14 +222,6 @@ class ConfigTests(unittest.TestCase):
             '/css': {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': '%s/ui/css' % pluginPrefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
-            '/fontello': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/fontello' % pluginPrefix,
                 'tools.expires.on': True,
                 'tools.expires.secs': CACHEEXPIRES,
                 'tools.nocache.on': False,

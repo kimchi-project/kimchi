@@ -15,8 +15,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = themes
-
-jsdir = $(datadir)/wok/ui/libs
-
-dist_js_DATA = $(wildcard *.js) $(NULL)
+SUBDIRS = bootstrap jquery jquery-ui bootstrap-select es5-shim jquery-i18n

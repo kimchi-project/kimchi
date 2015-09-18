@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+Copyright (c) 2014-2015, Team Redux (http://reduxframework.com),
+with Elusive Icons.
+Copyright (c) 2014-2015, Dave Gandy (http://elusiveicons.com),
+with Elusive Icons.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+#################################
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+#################################
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting - in part or in whole - any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+-->
+    <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="edit-alt" height="20" width="20">
+        <title id="title4694">Elusive Icons by Team Redux - http://reduxframework.com/</title>
+        <metadata id="metadata4152">
+            <rdf:RDF>
+                <cc:Work rdf:about="">
+                    <dc:format>image/svg+xml</dc:format>
+                    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                    <dc:title>Elusive Icons by Team Redux - http://reduxframework.com/</dc:title>
+                    <cc:license rdf:resource="http://scripts.sil.org/OFL" />
+                    <dc:creator>
+                        <cc:Agent>
+                            <dc:title>Elusive Icons by Dave Gandy - http://elusiveicons.com</dc:title>
+                        </cc:Agent>
+                    </dc:creator>
+                    <dc:rights>
+                        <cc:Agent>
+                            <dc:title>Team Redux</dc:title>
+                        </cc:Agent>
+                    </dc:rights>
+                </cc:Work>
+                <cc:License rdf:about="http://scripts.sil.org/OFL">
+                    <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Reproduction" />
+                    <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Distribution" />
+                    <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Embedding" />
+                    <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeWorks" />
+                    <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/Notice" />
+                    <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/Attribution" />
+                    <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/ShareAlike" />
+                    <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeRenaming" />
+                    <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/BundlingWhenSelling" />
+                </cc:License>
+            </rdf:RDF>
+        </metadata>
+        <path id="path4656" d="M 0,20 C 0,13.333333 0,6.666667 0,0 4.3066666,0 8.6133335,0 12.92,0 11.826667,1.093333 10.733334,2.186667 9.6400001,3.28 c -2.12,0 -4.24,0 -6.3600001,0 0,4.48 0,8.96 0,13.44 4.4800001,0 8.96,0 13.44,0 0,-2.126667 0,-4.253333 0,-6.38 1.093333,-1.093333 2.186667,-2.186667 3.28,-3.28 0,4.313333 0,8.626667 0,12.94 -6.666667,0 -13.3333333,0 -20,0 z m 7.2600001,-7.26 c 0,-0.786667 0,-1.573333 0,-2.36 1.2707368,-0.104839 2.347146,1.140345 2.34,2.36 -0.78,0 -1.56,0 -2.34,0 z m 1.02,-3.52 C 10.726667,6.773333 13.173334,4.326667 15.62,1.88 c 0.833334,0.833333 1.666667,1.666667 2.5,2.5 -2.446666,2.446667 -4.893333,4.893333 -7.34,7.34 C 9.9466667,10.886667 9.1133335,10.053333 8.2800001,9.22 Z M 16.22,1.28 C 16.646667,0.853333 17.073334,0.426667 17.5,0 18.333333,0.833333 19.166667,1.666667 20,2.5 19.573333,2.926667 19.146667,3.353333 18.72,3.78 17.886667,2.946667 17.053334,2.113333 16.22,1.28 Z" style="fill:#ffffff" />
+    </svg>

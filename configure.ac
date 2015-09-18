@@ -105,16 +105,21 @@ AC_CONFIG_FILES([
     ui/Makefile
     ui/base64/Makefile
     ui/css/Makefile
-    ui/fontello/Makefile
-    ui/fontello/css/Makefile
-    ui/fontello/font/Makefile
+    ui/css/fontawesome/Makefile
+    ui/css/opensans/Makefile
     ui/images/Makefile
     ui/images/theme-default/Makefile
     ui/js/Makefile
     ui/libs/Makefile
-    ui/libs/themes/Makefile
-    ui/libs/themes/base/Makefile
-    ui/libs/themes/base/images/Makefile
+    ui/libs/bootstrap/Makefile
+    ui/libs/bootstrap-select/Makefile
+    ui/libs/es5-shim/Makefile
+    ui/libs/jquery/Makefile
+    ui/libs/jquery-i18n/Makefile
+    ui/libs/jquery-ui/Makefile
+    ui/libs/jquery-ui/themes/Makefile
+    ui/libs/jquery-ui/themes/base/Makefile
+    ui/libs/jquery-ui/themes/base/images/Makefile
     ui/pages/Makefile
     ui/pages/websockify/Makefile
     contrib/Makefile
