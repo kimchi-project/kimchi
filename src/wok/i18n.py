@@ -33,6 +33,8 @@ messages = {
 
     "WOKASYNC0001E": _("Datastore is not initiated in the model object."),
     "WOKASYNC0002E": _("Unable to start task due error: %(err)s"),
+    "WOKASYNC0003E": _("Timeout of %(seconds)s seconds expired while running task '%(task)s."),
+
 
     "WOKAUTH0001E": _("Authentication failed for user '%(username)s'. [Error code: %(code)s]"),
     "WOKAUTH0002E": _("You are not authorized to access Kimchi"),

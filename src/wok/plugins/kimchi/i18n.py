@@ -25,8 +25,6 @@ _ = gettext.gettext
 messages = {
     "KCHAPI0001E": _("Unknown parameter %(value)s"),
 
-    "KCHASYNC0003E": _("Timeout of %(seconds)s seconds expired while running task '%(task)s."),
-
     "KCHAUTH0004E": _("User %(user_id)s not found with given LDAP settings."),
 
     "KCHDEVS0001E": _('Unknown "_cap" specified'),

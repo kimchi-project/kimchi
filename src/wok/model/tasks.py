@@ -60,5 +60,5 @@ class TaskModel(object):
 
             time.sleep(1)
 
-        raise TimeoutExpired('KCHASYNC0003E', {'seconds': timeout,
+        raise TimeoutExpired('WOKASYNC0003E', {'seconds': timeout,
                                                'task': task['target_uri']})
