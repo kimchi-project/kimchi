@@ -80,7 +80,7 @@ class Paths(object):
             self.log_dir = self.add_prefix('log')
             self.conf_dir = self.add_prefix('src')
             self.src_dir = self.add_prefix('src/wok')
-            self.plugins_dir = self.add_prefix('plugins')
+            self.plugins_dir = self.add_prefix('src/wok/plugins')
             self.mo_dir = self.add_prefix('mo')
 
     def get_prefix(self):
@@ -108,14 +108,15 @@ class PluginPaths(Paths):
 
     def __init__(self, name):
         super(PluginPaths, self).__init__()
-        self.plugin_dir = os.path.join('plugins', name)
 
         if self.installed:
-            self.state_dir = '@localstatedir@/lib/%s' % name
+            self.plugin_dir = os.path.join('plugins', name)
+            self.state_dir = os.path.join(paths.state_dir, self.plugin_dir)
             self.conf_dir = '@sysconfdir@/wok/plugins.d'
             self.src_dir = os.path.join('@wokdir@', self.plugin_dir)
             self.mo_dir = '@prefix@/share/locale'
         else:
+            self.plugin_dir = os.path.join(paths.plugins_dir, name)
             self.state_dir = self.add_prefix(os.path.join(self.plugin_dir,
                                              'data'))
             self.conf_dir = self.add_prefix(self.plugin_dir)

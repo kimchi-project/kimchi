@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-SUBDIRS = src ui docs contrib po plugins
+
+SUBDIRS = src ui docs contrib po
 
 man_MANS = docs/wokd.8
 
@@ -35,11 +36,11 @@ EXTRA_DIST = \
 	$(NULL)
 
 
-PEP8_BLACKLIST = *src/wok/config.py,*src/wok/i18n.py,*plugins/kimchi
+PEP8_BLACKLIST = *src/wok/config.py,*src/wok/i18n.py,*src/wok/plugins/kimchi
 
 SKIP_PYFLAKES_ERR = "\./src/wok/websocket\.py"
 
-I18N_FILES = plugins/*/i18n.py \
+I18N_FILES = src/wok/plugins/*/i18n.py \
 	src/wok/i18n.py \
 	$(NULL)
 
@@ -69,7 +70,6 @@ all-local:
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
-	touch $(DESTDIR)/var/lib/wok/objectstore
 	$(MKDIR_P) $(DESTDIR)/etc/init
 	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
 	cp -R $(top_srcdir)/contrib/wokd-upstart.conf.debian \
@@ -123,10 +123,10 @@ install-data-local:
 		mkdir -p $(DESTDIR)/usr/lib/firewalld/services/; \
 		$(INSTALL_DATA) src/firewalld.xml $(DESTDIR)/usr/lib/firewalld/services/wokd.xml; \
 	fi; \
-	touch $(DESTDIR)/var/lib/wok/objectstore
-	mkdir -p $(DESTDIR)/var/log/wok/
-	touch $(DESTDIR)/var/log/wok/wok-access.log
-	touch $(DESTDIR)/var/log/wok/wok-error.log
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/
+	mkdir -p $(DESTDIR)/$(localstatedir)/log/wok/
+	touch $(DESTDIR)/$(localstatedir)/log/wok/wok-access.log
+	touch $(DESTDIR)/$(localstatedir)/log/wok/wok-error.log
 	mkdir -p $(DESTDIR)/etc/wok/
 	$(INSTALL_DATA) src/dhparams.pem $(DESTDIR)/etc/wok/dhparams.pem
 	touch $(DESTDIR)/etc/nginx/conf.d/wok.conf
@@ -141,8 +141,8 @@ uninstall-local:
 	if test -d /usr/lib/firewalld/services/; then \
 		$(RM) $(DESTDIR)/usr/lib/firewalld/services/wokd.xml; \
 	fi; \
-	$(RM) -rf $(DESTDIR)/var/lib/wok
-	$(RM) -rf $(DESTDIR)/var/log/wok
+	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/wok
+	$(RM) -rf $(DESTDIR)/$(localstatedir)/log/wok
 	$(RM) -rf $(DESTDIR)/etc/wok
 	$(RM) $(DESTDIR)/etc/nginx/conf.d/wok.conf
 

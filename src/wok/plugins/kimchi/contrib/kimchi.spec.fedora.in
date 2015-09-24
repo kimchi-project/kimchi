@@ -96,11 +96,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_sysconfdir}/kimchi/
-%{_sharedstatedir}/kimchi/debugreports/
-%{_sharedstatedir}/kimchi/isos/
-%{_sharedstatedir}/kimchi/screenshots/
-%{_sharedstatedir}/kimchi/vnc-tokens/
-%{_sharedstatedir}/kimchi/
+%{_sharedstatedir}/wok/plugins/kimchi/debugreports/
+%{_sharedstatedir}/wok/plugins/kimchi/isos/
+%{_sharedstatedir}/wok/plugins/kimchi/screenshots/
+%{_sharedstatedir}/wok/plugins/kimchi/vnc-tokens/
+%{_sharedstatedir}/wok/plugins/kimchi/
+%{_sharedstatedir}/wok/objectstore
 
 
 %changelog

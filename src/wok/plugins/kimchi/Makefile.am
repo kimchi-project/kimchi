@@ -98,10 +98,12 @@ config.py: config.py.in Makefile
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
-	mkdir -p $(DESTDIR)/var/lib/kimchi/vnc-tokens
-	mkdir -p $(DESTDIR)/var/lib/kimchi/debugreports
-	mkdir -p $(DESTDIR)/var/lib/kimchi/screenshots
-	mkdir -p $(DESTDIR)/var/lib/kimchi/isos
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/
+	touch $(DESTDIR)/$(localstatedir)/lib/wok/objectstore
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/vnc-tokens
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/debugreports
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/screenshots
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/isos
 
 
 deb: contrib/make-deb.sh
@@ -137,14 +139,16 @@ ChangeLog:
 	fi
 
 install-data-local:
+	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/wok/
+	touch $(DESTDIR)/$(localstatedir)/lib/wok/objectstore
 	$(MKDIR_P) $(DESTDIR)$(kimchidir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(kimchidir)/API.json
-	mkdir -p $(DESTDIR)/var/lib/kimchi/vnc-tokens
-	mkdir -p $(DESTDIR)/var/lib/kimchi/{debugreports,isos,screenshots}
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/vnc-tokens
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi/{debugreports,isos,screenshots}
 
 uninstall-local:
 	$(RM) $(DESTDIR)$(kimchidir)/API.json
-	$(RM) -rf $(DESTDIR)/var/lib/kimchi
+	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/wok/plugins/kimchi
 
 VERSION:
 	@if test -d .git; then                                \
