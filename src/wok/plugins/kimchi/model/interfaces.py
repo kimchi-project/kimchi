@@ -19,7 +19,7 @@
 
 from wok.exception import NotFoundError
 
-from .. import netinfo
+from wok.plugins.kimchi import netinfo
 from networks import NetworksModel
 
 

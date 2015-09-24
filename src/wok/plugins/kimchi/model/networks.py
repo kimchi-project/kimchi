@@ -30,11 +30,11 @@ from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from .. import netinfo
-from .. import network as knetwork
-from ..osinfo import defaults as tmpl_defaults
-from ..xmlutils.network import create_vlan_tagged_bridge_xml
-from ..xmlutils.network import to_network_xml
+from wok.plugins.kimchi import netinfo
+from wok.plugins.kimchi import network as knetwork
+from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
+from wok.plugins.kimchi.xmlutils.network import create_vlan_tagged_bridge_xml
+from wok.plugins.kimchi.xmlutils.network import to_network_xml
 
 
 KIMCHI_BRIDGE_PREFIX = 'kb'

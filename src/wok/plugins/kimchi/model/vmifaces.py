@@ -24,7 +24,7 @@ from lxml import etree, objectify
 from wok.exception import InvalidParameter, MissingParameter
 from wok.exception import NotFoundError, InvalidOperation
 
-from ..xmlutils.interface import get_iface_xml
+from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from config import CapabilitiesModel
 from vms import DOM_STATE_MAP, VMModel
 

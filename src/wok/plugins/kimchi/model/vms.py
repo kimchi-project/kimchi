@@ -39,13 +39,13 @@ from wok.utils import import_class, run_setfacl_set_attr, wok_log
 from wok.xmlutils.utils import xpath_get_text, xml_item_update
 from wok.xmlutils.utils import dictize
 
-from .. import model
-from .. import vnc
-from ..config import READONLY_POOL_TYPE
-from ..kvmusertests import UserTests
-from ..screenshot import VMScreenshot
-from ..utils import template_name_from_uri
-from ..xmlutils.cpu import get_cpu_xml, get_numa_xml
+from wok.plugins.kimchi import model
+from wok.plugins.kimchi import vnc
+from wok.plugins.kimchi.config import READONLY_POOL_TYPE
+from wok.plugins.kimchi.kvmusertests import UserTests
+from wok.plugins.kimchi.screenshot import VMScreenshot
+from wok.plugins.kimchi.utils import template_name_from_uri
+from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from config import CapabilitiesModel
 from featuretests import FeatureTests
 from templates import TemplateModel

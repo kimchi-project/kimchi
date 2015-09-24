@@ -27,9 +27,9 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import probe_file_permission_as_user, run_setfacl_set_attr
 from wok.xmlutils.utils import xpath_get_text
 
-from ..kvmusertests import UserTests
-from ..utils import pool_name_from_uri
-from ..vmtemplate import VMTemplate
+from wok.plugins.kimchi.kvmusertests import UserTests
+from wok.plugins.kimchi.utils import pool_name_from_uri
+from wok.plugins.kimchi.vmtemplate import VMTemplate
 from cpuinfo import CPUInfoModel
 
 

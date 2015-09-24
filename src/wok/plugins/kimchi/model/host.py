@@ -34,10 +34,10 @@ from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
 import hostdev
-from .. import disks
-from .. import netinfo
-from ..repositories import Repositories
-from ..swupdate import SoftwareUpdate
+from wok.plugins.kimchi import disks
+from wok.plugins.kimchi import netinfo
+from wok.plugins.kimchi.repositories import Repositories
+from wok.plugins.kimchi.swupdate import SoftwareUpdate
 from config import CapabilitiesModel
 from vms import DOM_STATE_MAP, VMModel, VMsModel
 

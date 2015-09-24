@@ -24,7 +24,7 @@ from wok.control.utils import get_class_name, model_fn
 from wok.control.utils import validate_params
 from wok.control.utils import UrlSubNode
 
-from ..model.storagepools import ISO_POOL_NAME
+from wok.plugins.kimchi.model.storagepools import ISO_POOL_NAME
 from storagevolumes import IsoVolumes, StorageVolumes
 
 

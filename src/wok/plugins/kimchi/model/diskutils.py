@@ -20,7 +20,7 @@
 from wok.exception import OperationFailed, NotFoundError
 from wok.utils import wok_log
 
-from ..xmlutils.disk import get_vm_disk_info, get_vm_disks
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from vms import VMModel, VMsModel
 
 """
