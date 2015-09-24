@@ -64,7 +64,7 @@ RHEL, OpenSuSe, and Ubuntu.</p>
                    python-ipaddr python-ldap python-lxml nfs-utils \
                    iscsi-initiator-utils libxslt pyparted nginx \
                    python-libguestfs libguestfs-tools python-websockify \
-                   novnc spice-html5 python-configobj
+                   novnc spice-html5 python-configobj python-magic
 
  # If using RHEL, install the following additional packages:
  $ sudo yum install python-unittest2 python-ordereddict
@@ -95,7 +95,7 @@ And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional" 
                        sosreport python-ipaddr python-ldap \
                        python-lxml nfs-common open-iscsi lvm2 xsltproc \
                        python-parted nginx python-guestfs libguestfs-tools \
-                       websockify novnc spice-html5
+                       websockify novnc spice-html5 python-magic
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests
@@ -115,7 +115,7 @@ Packages version requirement:
                       python-ipaddr python-ldap python-lxml nfs-client \
                       open-iscsi libxslt-tools python-xml python-parted \
                       nginx python-libguestfs python-configobj \
-                      guestfs-tools python-websockify novnc
+                      guestfs-tools python-websockify novnc python-magic
 
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests
@@ -127,9 +127,11 @@ Packages version requirement:
 <p><em>Note for openSUSE users</em>: Some of the above packages are located in different
 openSUSE repositories. See
 <a href="http://download.opensuse.org/repositories/home:GRNET:synnefo/">this FAQ</a>
-for python-parted; and
+for python-parted;
 <a href="http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/">this FAQ</a>
-for python-ethtool to get the correct repository based on your openSUSE version. And
+for python-ethtool, and
+<a href="http://download.opensuse.org/repositories/home:/Simmphonie:/python/">this FAQ</a>
+for python-magic to get the correct repository based on your openSUSE version. And
 <a href="http://en.opensuse.org/SDB:Add_package_repositories">this FAQ</a> for more
 information on how configure your system to access this repository.</p>
 
