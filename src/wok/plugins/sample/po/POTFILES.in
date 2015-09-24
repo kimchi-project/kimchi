@@ -1,2 +1,2 @@
 # List of source files which contain translatable strings.
-plugins/sample/ui/pages/*.tmpl
+src/wok/plugins/sample/ui/pages/*.tmpl

@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = control model xmlutils
+SUBDIRS = control model xmlutils plugins
 
 wok_PYTHON = $(filter-out config.py, $(wildcard *.py))
 

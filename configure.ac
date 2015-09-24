@@ -94,14 +94,14 @@ AC_CONFIG_FILES([
     src/wok/control/Makefile
     src/wok/model/Makefile
     src/wok/xmlutils/Makefile
-    plugins/Makefile
-    plugins/sample/Makefile
-    plugins/sample/po/Makefile.in
-    plugins/sample/sample.conf
-    plugins/sample/ui/Makefile
-    plugins/sample/ui/config/Makefile
-    plugins/sample/ui/js/Makefile
-    plugins/sample/ui/pages/Makefile
+    src/wok/plugins/Makefile
+    src/wok/plugins/sample/Makefile
+    src/wok/plugins/sample/po/Makefile.in
+    src/wok/plugins/sample/sample.conf
+    src/wok/plugins/sample/ui/Makefile
+    src/wok/plugins/sample/ui/config/Makefile
+    src/wok/plugins/sample/ui/js/Makefile
+    src/wok/plugins/sample/ui/pages/Makefile
     ui/Makefile
     ui/base64/Makefile
     ui/css/Makefile
