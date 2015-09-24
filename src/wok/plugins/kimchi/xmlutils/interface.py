@@ -21,7 +21,7 @@ import lxml.etree as ET
 from distutils.version import LooseVersion
 from lxml.builder import E
 
-from .. import osinfo
+from wok.plugins.kimchi import osinfo
 
 
 def get_iface_xml(params, arch=None, os_distro=None, os_version=None):

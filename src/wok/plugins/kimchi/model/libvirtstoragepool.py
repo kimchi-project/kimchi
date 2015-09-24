@@ -27,7 +27,7 @@ from wok.exception import InvalidParameter, OperationFailed, TimeoutExpired
 from wok.rollbackcontext import RollbackContext
 from wok.utils import parse_cmd_output, run_command, wok_log
 
-from ..iscsi import TargetClient
+from wok.plugins.kimchi.iscsi import TargetClient
 
 
 class StoragePoolDef(object):

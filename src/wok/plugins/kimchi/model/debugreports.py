@@ -31,7 +31,7 @@ from wok.utils import add_task, wok_log
 from wok.utils import run_command
 from wok.model.tasks import TaskModel
 
-from .. import config
+from wok.plugins.kimchi import config
 
 
 class DebugReportsModel(object):

@@ -24,9 +24,9 @@ from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.utils import wok_log
 
-from ..osinfo import lookup
-from ..xmlutils.disk import get_device_node, get_disk_xml
-from ..xmlutils.disk import get_vm_disk_info, get_vm_disks
+from wok.plugins.kimchi.osinfo import lookup
+from wok.plugins.kimchi.xmlutils.disk import get_device_node, get_disk_xml
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from config import CapabilitiesModel
 from diskutils import get_disk_used_by, set_disk_used_by
 from storagevolumes import StorageVolumeModel

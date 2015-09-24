@@ -28,9 +28,9 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from ..osinfo import defaults as tmpl_defaults
-from ..scan import Scanner
-from ..utils import pool_name_from_uri
+from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
+from wok.plugins.kimchi.scan import Scanner
+from wok.plugins.kimchi.utils import pool_name_from_uri
 from config import CapabilitiesModel
 from host import DeviceModel
 from libvirtstoragepool import StoragePoolDef
