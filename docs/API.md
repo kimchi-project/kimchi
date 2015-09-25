@@ -299,6 +299,7 @@ A interface represents available network interface on VM.
     * bridge *(optional)*: the name of resource bridge, only be available when the
               interface type is bridge.
     * mac: Media Access Control Address of the VM interface.
+    * ips: A list of IP addresses associated with this MAC.
     * model *(optional)*: model of emulated network interface card. It will be one of these models:
              ne2k_pci, i82551, i82557b, i82559er, rtl8139, e1000, pcnet and virtio.
     * network *(optional)*: the name of resource network, only be available when the
