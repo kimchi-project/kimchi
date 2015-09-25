@@ -29,6 +29,14 @@ from kimchi.model.vms import DOM_STATE_MAP, VMModel
 from kimchi.xmlutils.interface import get_iface_xml
 
 
+def getDHCPLeases(net, mac):
+    try:
+        leases = net.DHCPLeases(mac)
+        return leases
+    except libvirt.libvirtError:
+        return []
+
+
 class VMIfacesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
@@ -132,8 +140,35 @@ class VMIfaceModel(object):
             info['network'] = iface.source.get('network')
         if info['type'] == 'bridge':
             info['bridge'] = iface.source.get('bridge')
+        info['ips'] = self._get_ips(vm, info['mac'], info['network'])
 
         return info
+
+    def _get_ips(self, vm, mac, network):
+        ips = []
+
+        # Return empty list if shutoff, even if leases still valid or ARP
+        #   cache has entries for this MAC.
+        conn = self.conn.get()
+        dom = VMModel.get_vm(vm, self.conn)
+        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+            return ips
+
+        # An iface may have multiple IPs
+        # An IP could have been assigned without libvirt.
+        # First check the ARP cache.
+        with open('/proc/net/arp') as f:
+            ips = [line.split()[0] for line in f.xreadlines() if mac in line]
+        # Some ifaces may be inactive, so if the ARP cache didn't have them,
+        # and they happen to be assigned via DHCP, we can check there too.
+        net = conn.networkLookupByName(network)
+        leases = getDHCPLeases(net, mac)
+        for lease in leases:
+            ip = lease.get('ipaddr')
+            if ip not in ips:
+                ips.append(ip)
+
+        return ips
 
     def delete(self, vm, mac):
         dom = VMModel.get_vm(vm, self.conn)
