@@ -93,7 +93,16 @@ def _get_arch():
 
 
 def _get_default_template_mem():
-    return 1024 if _get_arch() == 'x86' else 2048
+    if hasattr(psutil, 'virtual_memory'):
+        mem = psutil.virtual_memory().total >> 10 >> 10
+    else:
+        mem = psutil.TOTAL_PHYMEM >> 10 >> 10
+    if _get_arch() == 'x86':
+        return 1024 if mem > 1024 else mem
+    else:
+        # In PPC some guests does not boot with less than 2G of memory. However
+        # we can do nothing if host has less than that amount.
+        return 2048 if mem > 2048 else mem
 
 
 def _get_tmpl_defaults():
