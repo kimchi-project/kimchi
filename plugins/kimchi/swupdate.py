@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+import signal
 import subprocess
 import time
 
@@ -110,6 +112,14 @@ class SoftwareUpdate(object):
         self._scanUpdates()
         return self._num2update
 
+    def preUpdate(self):
+        """
+        Make adjustments before executing the command in
+        a child process.
+        """
+        os.setsid()
+        signal.signal(signal.SIGTERM, signal.SIG_IGN)
+
     def doUpdate(self, cb, params):
         """
         Execute the update
@@ -119,7 +129,8 @@ class SoftwareUpdate(object):
 
         cmd = self._pkg_mnger.update_cmd
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+                                stderr=subprocess.PIPE,
+                                preexec_fn=self.preUpdate)
         msgs = []
         while proc.poll() is None:
             msgs.append(proc.stdout.readline())
