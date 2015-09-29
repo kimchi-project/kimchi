@@ -102,10 +102,15 @@ wok.main = function() {
             var defaultTab = tabs[0]
 
             var defaultTabPath = defaultTab && defaultTab['path']
+
+            //redirect to empty page when no plugin installed
+            if(tabs.length===0){
+             DEFAULT_HASH = 'wok-empty';
+            }else{
             // Remove file extension from 'defaultTabPath'
             DEFAULT_HASH = defaultTabPath &&
                 defaultTabPath.substring(0, defaultTabPath.lastIndexOf('.'))
-
+            }
             $('#nav-menu').append(genTabs(tabs));
 
             callback && callback();
@@ -136,11 +141,16 @@ wok.main = function() {
          * and clear location.hash to jump to home page.
          */
         var tab = $('#nav-menu a[href="' + url + '"]');
-        if (tab.length === 0) {
+        if (tab.length === 0 && url!='wok-empty.html') {
             location.hash = '';
             return;
         }
 
+        //Remove the tab arrow indicator for no plugin
+        if(url=='wok-empty.html'){
+          $('.menu-arrow').hide();
+          $('#main').html('No plugins installed currently.You can download the available plugins <a href="https://github.com/kimchi-project/kimchi">Kimchi</a> and <a href="https://github.com/kimchi-project/ginger">Ginger</a> from Github').addClass('noPluginMessage');
+        }else{
         // Animate arrow indicator.
         var left = $(tab).parent().position().left;
         var width = $(tab).parent().width();
@@ -163,6 +173,7 @@ wok.main = function() {
         }
         // Load page content.
         loadPage(url);
+       }
     };
 
     /**
