@@ -133,3 +133,13 @@
     border: 2px solid #444;
     color: #444;
 }
+
+.noPluginMessage{
+    font-size: 18px;
+    height: 48px;
+    line-height: 48px;
+    text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #fff;
+    padding-left: 10px;
+    padding-top:10px;
+
+}
