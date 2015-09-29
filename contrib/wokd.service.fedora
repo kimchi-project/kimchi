@@ -8,6 +8,7 @@ Type=simple
 ExecStart=/usr/bin/wokd
 ExecStop=/bin/kill -TERM $MAINPID
 EnvironmentFile=/etc/wok/wok.conf
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
