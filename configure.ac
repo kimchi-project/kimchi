@@ -127,6 +127,7 @@ AC_CONFIG_FILES([
     contrib/DEBIAN/control
     contrib/wok.spec.fedora
     contrib/wok.spec.suse
+    tests/Makefile
 ],[
     chmod +x po/gen-pot
 ])
