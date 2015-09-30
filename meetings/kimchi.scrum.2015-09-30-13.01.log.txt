@@ -1,0 +1,122 @@
+13:01:46 <alinefm> #startmeeting
+13:01:46 <kimchi-bot> Meeting started Wed Sep 30 13:01:46 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:46 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:46 <alinefm> #meetingname scrum
+13:01:46 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:16 <alinefm> #info Agenda 1) Status 2) Kimchi 2.0 Plan 3) Open discussion
+13:02:18 <alinefm> anything else?
+13:02:38 <ziviani> no
+13:02:56 <alinefm> #topic Status
+13:02:57 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:24 <alinefm> #info alinefm worked for Kimchi 1.5.1 released - generated the packages, updated the web pages, etc
+13:03:33 <alinefm> #info alinefm merged next and wok branches into master
+13:03:44 <ziviani> #info ziviani rebased, applied code review and sent to ML the patch "Improve VM CPU update code"
+13:03:44 <ziviani> #info ziviani will rebase on wok (new master) the patch "Improve VM CPU update code" and re-send to ML
+13:03:44 <ziviani> #info ziviani will retest the issue https://github.com/kimchi-project/kimchi/issues/736 "deb package for Ubuntu > 15.04 doesn't work"
+13:03:44 <ziviani> #info ziviani sent the patch "Issue 557 - Package Update Improvements - Part I" to ML for review
+13:03:44 <ziviani> #info ziviani is working on "Issue 557 - Package Update Improvements - Part II", that will enable users to follow the package update even after a kimchid restart
+13:04:34 <lcorreia> #infolucio  rebased kimchi wok and ginger-wok branches with master
+13:04:40 <lcorreia> #info lucio  rebased kimchi wok and ginger-wok branches with master
+13:05:17 <pvital> #info pvital submitted V2 patches to solve issue #731
+13:05:18 <pvital> #info pvital submitted patches to make Wok and Kimchi (as plugin) stable: Move Tasks to Wok; Move KCHUTILS0001E to Wok; Update Wok messages codes; Move KCHASYNC0003E to Wok and update code; Wok tests; Set new structure to Wok plugins (patch-set).
+13:05:18 <pvital> #info pvital re-submitted Atreyee's patches to community to solve Issue #704.
+13:05:18 <pvital> #info pvital sent RFC to Update objectstore information while migrating to new Wok structure.
+13:05:18 <pvital> #info pvital is working in Wok and Kimchi (as plugin) stabilization.
+13:05:31 <alinefm> #info alinefm is now working on wok stabilization so a new repository can be created for it (kimchi and ginger will be git-submodules of wok repo)
+13:06:53 <ramonn> #info ramonn interacting with sosreport community (sosreport cannot create name with special characteres)
+13:07:21 <samhenri> #info samhenri working on the new-ui, applying patches from ML to rebase hosts page patches. For now porting modal windows pages (Guests, Networks and Storage)
+13:07:22 <jkatta> info jkatta investigation on tools that can be used for network operation in ginger
+13:08:13 <jkatta> #info jkatta investigation on tools that can be used for network operation in ginger
+13:08:35 <alinefm> anything else, team?
+13:08:47 <rotru> #info rotru Sent a patch to fix defaul memory allocation in templates
+13:09:23 <Abhiram> #info chandra : re-worked on ginger base to take care of review comments and pushed to upstream.
+13:11:10 <alinefm> good progress, guys!
+13:11:18 <alinefm> can we move on?
+13:11:36 <ziviani> yes
+13:12:08 <alinefm> #topic Kimchi 2.0 Plan
+13:12:26 <alinefm> First of all, I'd like to thank you all for the good work to have Kimchi 1.5.1 released!
+13:12:43 <alinefm> And now it is time to plan the next release! \o/
+13:13:20 <alinefm> I was firstly talking about Kimchi 1.6 but after discussing with some of you, we decided 2.0 will be better as we will have a lot of changes: wok, new-ui, gingerbase, etc
+13:13:28 <alinefm> any comments on that?
+13:14:07 <pvital> no
+13:14:17 <jkatta> no
+13:14:50 <lcorreia> no
+13:14:57 <alinefm> just a clarification, in the December release all projects (wok, kimchi, ginger, gingerbase) will be released with 2.0 version and after that each project will keep track on its own version
+13:15:07 <samhenri> does the new-ui has to support mobile / responsive design in 2.0?
+13:15:31 <alinefm> if we can do it, it would be great!
+13:15:40 <alinefm> samhenri, what is your thoughts on it?
+13:16:26 <samhenri> well, i'm already using some of bootstrap responsive utils
+13:17:12 <WaltNik> alinefm, samhenri, would we want to consider accessabiltiy support/qualification as a target feature ?
+13:17:43 <samhenri> but as I saw the mobile mockups, I think we will have to review some widgets because on desktop we have certain design and user experience patterns
+13:17:45 <WaltNik> samhenri, maybe it comes already for free :-)
+13:18:05 <samhenri> and in mobile they are different
+13:18:24 <samhenri> for instance, in host page we now have a button for each repository and debug report on the list
+13:19:04 <samhenri> but on mobile I think a multi-select button like old-ui would be better
+13:19:46 <alinefm> samhenri, we have 2 months for 2.0 release, you can do a plan and verify which fits on it
+13:20:12 <samhenri> I'll draw some low fidelity mockups once we get the new-ui stable, for now I'm just going to use Bootstrap utils but I don't think we can deliver a full mobile experience for December
+13:20:39 <alinefm> ok
+13:21:01 <alinefm> we don't need a full support by december but the user must continue to use the mobile browser without problems
+13:21:45 <samhenri> WaltNik I'm using some WAI-ARIA roles in the new-ui but I'm not testing them for now
+13:22:47 <samhenri> WaltNik old-ui already had some of them but I don't know if they were tested
+13:23:39 <samhenri> we can set a test routine with NVDA (open source screen reader)
+13:23:57 <WaltNik> samhenri, I'm not familiar with these roles but I interprete this as accessabilty is kind of build in but has to tested and potential adaptions may be required ?
+13:24:21 <samhenri> yes, exactly
+13:24:37 <samhenri> these roles are metatags that enhance user experience in screen readers
+13:24:47 <WaltNik> samhenri, thanks this is great !
+13:25:10 <samhenri> they tell that a list or another html element is behaving like a "button" or "table" for example
+13:25:35 <samhenri> the good thing is that most of Bootstrap components already have these ARIA roles and they were tested
+13:26:50 <alinefm> good
+13:26:58 <WaltNik> samhenri, looks like this was the right choice on the framework :-)
+13:27:32 <alinefm> The December release probably will be on 12/18 (the laste Friday before the holidays)
+13:27:53 <alinefm> So please, send to the ML your ideas/suggestions on what on want to see in this new release
+13:28:08 <WaltNik> samhenri, by when do you think that we could a first running version of the new UI out of the repo ?
+13:28:21 <alinefm> the RFC + patch must be accepted upstream by the beginning of December to be included in the release
+13:28:30 <alinefm> so keep it in mind when proposing features
+13:30:09 <samhenri> WaltNik I still have to apply the latest patches, after the merge I ran into some problems with the current build so I went back to CSS/static mockups
+13:30:42 <Abhiram> I feel wiki pages of kimchi,ginger should be updated features to implemented in 2.0 release. So we all are on same page
+13:31:24 <samhenri> WaltNik I'll rebase and send a patch containing Login page + Host Tab + Modal windows but I warn that some pages with the old-ui will be broken until I add Bootstrap classes to them
+13:31:48 <alinefm> Abhiram, once we define the features a wiki page is created (Todo-2.0) to list all them
+13:31:59 <alinefm> Abhiram, and on each scrum we get updates on them
+13:32:14 <Abhiram> ok that sounds great
+13:32:36 <samhenri> WaltNik I expect to finish at least the bootstrap customization until the end of next week, since I don't need to have Wok running to do that
+13:33:41 <WaltNik> samhenri, thanks sounds good ... pls reach out via ML if we can help.
+13:34:10 <alinefm> Abhiram, whem this wiki page is created I send a note to the ML informing everyone about it
+13:34:36 <samhenri> WaltNik But I'll send a patch containing Login, Host tab + All dialogs in the new-ui once I rebase my latest patches, you can apply them on your local branch to see the changes but I don't think they'll be applied to master branch until they are stable enough
+13:36:02 <WaltNik> samhenri, ok thanks
+13:38:06 <alinefm> ok, team?!
+13:38:09 <alinefm> can we move on?
+13:38:13 <samhenri> ok
+13:39:59 <alinefm> #topic Open Discussion
+13:40:06 <alinefm> what do you want to discuss today?
+13:40:22 <samhenri> kinda of off-topic, but once we run wokd process, where does nginx instance keeps the files? in wok branch they were located in /usr/share/wok/
+13:40:49 <alinefm> yes
+13:41:00 <alinefm> the file is created on wok startup and used by nginx process
+13:42:33 <alinefm> WaltNik, danielhb, lcorreia, pvital, ramonn, rotru, samhenri, ziviani, any topics for today?
+13:42:40 <pvital> no
+13:42:41 <ramonn> nop
+13:42:47 <ziviani> no
+13:42:47 <WaltNik> alinefm, sorry I joined late ... reading trough the protocol I learned that you are planning to consolidate all plugins into one got repo. What's the reason of this ?
+13:42:56 <lcorreia> no
+13:42:59 <samhenri> ok, but if I want to do a quick test in a js or css file, before the merge with master branch i could manually edit the files in /usr/share/wok/ui/, now I have to stop service and sudo ./autogen.sh --system && sudo make
+13:43:46 <alinefm> WaltNik, consolidate all the plugins in ONE repo?!
+13:43:52 <alinefm> WaltNik, nope - it will not be done
+13:44:00 <alinefm> I will create a separate repo for wok
+13:44:23 <alinefm> and the plugins repos will be configured as git-submodules of wok repo
+13:45:03 <alinefm> samhenri, you can edit the files there (there will be just one file wok.min.js) and restart the service
+13:45:18 <alinefm> samhenri, sudo make && wokd
+13:45:25 <alinefm> samhenri, sudo make && sudo wokd
+13:45:44 <samhenri> ok
+13:47:24 <WaltNik> alinefm, ahh ok but there will be still individual repos for kimchi and ginger ... I missunderstood the git-submodule concept then
+13:47:49 <danielhb> WaltNik, it's not 'one repo' . kimchi and ginger will retain their own repos as it is today. WoK will have it's own repo and will 'encapsulate' the existing repos using git submodule
+13:48:37 <alinefm> the follow will be: git clone wok
+13:48:39 <danielhb> WaltNik, the idea is to be able to get WoK code and all its plug-ins easily. The alternative would be to individually clone all the plug-ins separately
+13:48:44 <alinefm> git sub-module update
+13:49:06 <WaltNik> danielhb, it reflects the plugin infrastructure I guess
+13:49:28 <WaltNik> alinefm, thanks for the explanation
+13:50:55 <alinefm> yw
+13:51:40 <alinefm> anything else, guys?
+13:52:13 <WaltNik> no
+13:52:48 <alinefm> alright!
+13:52:53 <alinefm> thanks everyone for joining!
+13:53:06 <alinefm> I am looking forward for 2.0 release! \o/
+13:53:09 <alinefm> #endmeeting

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:01:46 UTC
+(<a href="kimchi.scrum.2015-09-30-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Kimchi 2.0 Plan 3) Open
+    discussion</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-6'>alinefm</a>,
+    13:02:16)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2015-09-30-13.01.log.html#l-9'>alinefm</a>, 13:02:56)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-10'>alinefm</a>,
+    13:02:57)</span></li>
+  <li><span class="INFO">alinefm worked for Kimchi 1.5.1 released -
+    generated the packages, updated the web pages, etc</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-11'>alinefm</a>,
+    13:03:24)</span></li>
+  <li><span class="INFO">alinefm merged next and wok branches into
+    master</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-12'>alinefm</a>,
+    13:03:33)</span></li>
+  <li><span class="INFO">ziviani rebased, applied code review and sent
+    to ML the patch "Improve VM CPU update code"</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-13'>ziviani</a>,
+    13:03:44)</span></li>
+  <li><span class="INFO">ziviani will rebase on wok (new master) the
+    patch "Improve VM CPU update code" and re-send to ML</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-14'>ziviani</a>,
+    13:03:44)</span></li>
+  <li><span class="INFO">ziviani will retest the issue
+    https://github.com/kimchi-project/kimchi/issues/736 "deb package for
+    Ubuntu &gt; 15.04 doesn't work"</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-15'>ziviani</a>,
+    13:03:44)</span></li>
+  <li><span class="INFO">ziviani sent the patch "Issue 557 - Package
+    Update Improvements - Part I" to ML for review</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-16'>ziviani</a>,
+    13:03:44)</span></li>
+  <li><span class="INFO">ziviani is working on "Issue 557 - Package
+    Update Improvements - Part II", that will enable users to follow the
+    package update even after a kimchid restart</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-17'>ziviani</a>,
+    13:03:44)</span></li>
+  <li><span class="INFO">lucio  rebased kimchi wok and ginger-wok
+    branches with master</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-19'>lcorreia</a>,
+    13:04:40)</span></li>
+  <li><span class="INFO">pvital submitted V2 patches to solve issue
+    #731</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-20'>pvital</a>,
+    13:05:17)</span></li>
+  <li><span class="INFO">pvital submitted patches to make Wok and Kimchi
+    (as plugin) stable: Move Tasks to Wok; Move KCHUTILS0001E to Wok;
+    Update Wok messages codes; Move KCHASYNC0003E to Wok and update
+    code; Wok tests; Set new structure to Wok plugins
+    (patch-set).</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-21'>pvital</a>,
+    13:05:18)</span></li>
+  <li><span class="INFO">pvital re-submitted Atreyee's patches to
+    community to solve Issue #704.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-22'>pvital</a>,
+    13:05:18)</span></li>
+  <li><span class="INFO">pvital sent RFC to Update objectstore
+    information while migrating to new Wok structure.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-23'>pvital</a>,
+    13:05:18)</span></li>
+  <li><span class="INFO">pvital is working in Wok and Kimchi (as plugin)
+    stabilization.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-24'>pvital</a>,
+    13:05:18)</span></li>
+  <li><span class="INFO">alinefm is now working on wok stabilization so
+    a new repository can be created for it (kimchi and ginger will be
+    git-submodules of wok repo)</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-25'>alinefm</a>,
+    13:05:31)</span></li>
+  <li><span class="INFO">ramonn interacting with sosreport community
+    (sosreport cannot create name with special characteres)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-26'>ramonn</a>,
+    13:06:53)</span></li>
+  <li><span class="INFO">samhenri working on the new-ui, applying
+    patches from ML to rebase hosts page patches. For now porting modal
+    windows pages (Guests, Networks and Storage)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-27'>samhenri</a>,
+    13:07:21)</span></li>
+  <li><span class="INFO">jkatta investigation on tools that can be used
+    for network operation in ginger</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-29'>jkatta</a>,
+    13:08:13)</span></li>
+  <li><span class="INFO">rotru Sent a patch to fix defaul memory
+    allocation in templates</span> <span class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-31'>rotru</a>,
+    13:08:47)</span></li>
+  <li><span class="INFO">chandra : re-worked on ginger base to take care
+    of review comments and pushed to upstream.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-09-30-13.01.log.html#l-32'>Abhiram</a>,
+    13:09:23)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Kimchi 2.0 Plan</b> <span class="details">(<a href='kimchi.scrum.2015-09-30-13.01.log.html#l-36'>alinefm</a>, 13:12:08)</span>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2015-09-30-13.01.log.html#l-89'>alinefm</a>, 13:39:59)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:53:09 UTC
+(<a href="kimchi.scrum.2015-09-30-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (53)</li>
+  <li>samhenri (23)</li>
+  <li>WaltNik (13)</li>
+  <li>ziviani (8)</li>
+  <li>pvital (7)</li>
+  <li>lcorreia (4)</li>
+  <li>Abhiram (3)</li>
+  <li>jkatta (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>ramonn (2)</li>
+  <li>danielhb (2)</li>
+  <li>rotru (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

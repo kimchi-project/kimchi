@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 30 13:01:46 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:46</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Kimchi 2.0 Plan 3) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:02:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:02:38</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-9"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:02:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:03:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm worked for Kimchi 1.5.1 released - generated the packages, updated the web pages, etc</span>
+<a name="l-12"></a><span class="tm">13:03:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm merged next and wok branches into master</span>
+<a name="l-13"></a><span class="tm">13:03:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani rebased, applied code review and sent to ML the patch "Improve VM CPU update code"</span>
+<a name="l-14"></a><span class="tm">13:03:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani will rebase on wok (new master) the patch "Improve VM CPU update code" and re-send to ML</span>
+<a name="l-15"></a><span class="tm">13:03:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani will retest the issue https://github.com/kimchi-project/kimchi/issues/736 "deb package for Ubuntu &gt; 15.04 doesn't work"</span>
+<a name="l-16"></a><span class="tm">13:03:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent the patch "Issue 557 - Package Update Improvements - Part I" to ML for review</span>
+<a name="l-17"></a><span class="tm">13:03:44</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on "Issue 557 - Package Update Improvements - Part II", that will enable users to follow the package update even after a kimchid restart</span>
+<a name="l-18"></a><span class="tm">13:04:34</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#infolucio  </span><span class="cmdline">rebased kimchi wok and ginger-wok branches with master</span>
+<a name="l-19"></a><span class="tm">13:04:40</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio  rebased kimchi wok and ginger-wok branches with master</span>
+<a name="l-20"></a><span class="tm">13:05:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted V2 patches to solve issue #731</span>
+<a name="l-21"></a><span class="tm">13:05:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patches to make Wok and Kimchi (as plugin) stable: Move Tasks to Wok; Move KCHUTILS0001E to Wok; Update Wok messages codes; Move KCHASYNC0003E to Wok and update code; Wok tests; Set new structure to Wok plugins (patch-set).</span>
+<a name="l-22"></a><span class="tm">13:05:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital re-submitted Atreyee's patches to community to solve Issue #704.</span>
+<a name="l-23"></a><span class="tm">13:05:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital sent RFC to Update objectstore information while migrating to new Wok structure.</span>
+<a name="l-24"></a><span class="tm">13:05:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in Wok and Kimchi (as plugin) stabilization.</span>
+<a name="l-25"></a><span class="tm">13:05:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on wok stabilization so a new repository can be created for it (kimchi and ginger will be git-submodules of wok repo)</span>
+<a name="l-26"></a><span class="tm">13:06:53</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn interacting with sosreport community (sosreport cannot create name with special characteres)</span>
+<a name="l-27"></a><span class="tm">13:07:21</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri working on the new-ui, applying patches from ML to rebase hosts page patches. For now porting modal windows pages (Guests, Networks and Storage)</span>
+<a name="l-28"></a><span class="tm">13:07:22</span><span class="nk"> &lt;jkatta&gt;</span> info jkatta investigation on tools that can be used for network operation in ginger
+<a name="l-29"></a><span class="tm">13:08:13</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">jkatta investigation on tools that can be used for network operation in ginger</span>
+<a name="l-30"></a><span class="tm">13:08:35</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-31"></a><span class="tm">13:08:47</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent a patch to fix defaul memory allocation in templates</span>
+<a name="l-32"></a><span class="tm">13:09:23</span><span class="nk"> &lt;Abhiram&gt;</span> <span class="cmd">#info </span><span class="cmdline">chandra : re-worked on ginger base to take care of review comments and pushed to upstream.</span>
+<a name="l-33"></a><span class="tm">13:11:10</span><span class="nk"> &lt;alinefm&gt;</span> good progress, guys!
+<a name="l-34"></a><span class="tm">13:11:18</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-35"></a><span class="tm">13:11:36</span><span class="nk"> &lt;ziviani&gt;</span> yes
+<a name="l-36"></a><span class="tm">13:12:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi 2.0 Plan</span>
+<a name="l-37"></a><span class="tm">13:12:26</span><span class="nk"> &lt;alinefm&gt;</span> First of all, I'd like to thank you all for the good work to have Kimchi 1.5.1 released!
+<a name="l-38"></a><span class="tm">13:12:43</span><span class="nk"> &lt;alinefm&gt;</span> And now it is time to plan the next release! \o/
+<a name="l-39"></a><span class="tm">13:13:20</span><span class="nk"> &lt;alinefm&gt;</span> I was firstly talking about Kimchi 1.6 but after discussing with some of you, we decided 2.0 will be better as we will have a lot of changes: wok, new-ui, gingerbase, etc
+<a name="l-40"></a><span class="tm">13:13:28</span><span class="nk"> &lt;alinefm&gt;</span> any comments on that?
+<a name="l-41"></a><span class="tm">13:14:07</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-42"></a><span class="tm">13:14:17</span><span class="nk"> &lt;jkatta&gt;</span> no
+<a name="l-43"></a><span class="tm">13:14:50</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-44"></a><span class="tm">13:14:57</span><span class="nk"> &lt;alinefm&gt;</span> just a clarification, in the December release all projects (wok, kimchi, ginger, gingerbase) will be released with 2.0 version and after that each project will keep track on its own version
+<a name="l-45"></a><span class="tm">13:15:07</span><span class="nk"> &lt;samhenri&gt;</span> does the new-ui has to support mobile / responsive design in 2.0?
+<a name="l-46"></a><span class="tm">13:15:31</span><span class="nk"> &lt;alinefm&gt;</span> if we can do it, it would be great!
+<a name="l-47"></a><span class="tm">13:15:40</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, what is your thoughts on it?
+<a name="l-48"></a><span class="tm">13:16:26</span><span class="nk"> &lt;samhenri&gt;</span> well, i'm already using some of bootstrap responsive utils
+<a name="l-49"></a><span class="tm">13:17:12</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm, samhenri, would we want to consider accessabiltiy support/qualification as a target feature ?
+<a name="l-50"></a><span class="tm">13:17:43</span><span class="nk"> &lt;samhenri&gt;</span> but as I saw the mobile mockups, I think we will have to review some widgets because on desktop we have certain design and user experience patterns
+<a name="l-51"></a><span class="tm">13:17:45</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, maybe it comes already for free :-)
+<a name="l-52"></a><span class="tm">13:18:05</span><span class="nk"> &lt;samhenri&gt;</span> and in mobile they are different
+<a name="l-53"></a><span class="tm">13:18:24</span><span class="nk"> &lt;samhenri&gt;</span> for instance, in host page we now have a button for each repository and debug report on the list
+<a name="l-54"></a><span class="tm">13:19:04</span><span class="nk"> &lt;samhenri&gt;</span> but on mobile I think a multi-select button like old-ui would be better
+<a name="l-55"></a><span class="tm">13:19:46</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, we have 2 months for 2.0 release, you can do a plan and verify which fits on it
+<a name="l-56"></a><span class="tm">13:20:12</span><span class="nk"> &lt;samhenri&gt;</span> I'll draw some low fidelity mockups once we get the new-ui stable, for now I'm just going to use Bootstrap utils but I don't think we can deliver a full mobile experience for December
+<a name="l-57"></a><span class="tm">13:20:39</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-58"></a><span class="tm">13:21:01</span><span class="nk"> &lt;alinefm&gt;</span> we don't need a full support by december but the user must continue to use the mobile browser without problems
+<a name="l-59"></a><span class="tm">13:21:45</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik I'm using some WAI-ARIA roles in the new-ui but I'm not testing them for now
+<a name="l-60"></a><span class="tm">13:22:47</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik old-ui already had some of them but I don't know if they were tested
+<a name="l-61"></a><span class="tm">13:23:39</span><span class="nk"> &lt;samhenri&gt;</span> we can set a test routine with NVDA (open source screen reader)
+<a name="l-62"></a><span class="tm">13:23:57</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, I'm not familiar with these roles but I interprete this as accessabilty is kind of build in but has to tested and potential adaptions may be required ?
+<a name="l-63"></a><span class="tm">13:24:21</span><span class="nk"> &lt;samhenri&gt;</span> yes, exactly
+<a name="l-64"></a><span class="tm">13:24:37</span><span class="nk"> &lt;samhenri&gt;</span> these roles are metatags that enhance user experience in screen readers
+<a name="l-65"></a><span class="tm">13:24:47</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, thanks this is great !
+<a name="l-66"></a><span class="tm">13:25:10</span><span class="nk"> &lt;samhenri&gt;</span> they tell that a list or another html element is behaving like a "button" or "table" for example
+<a name="l-67"></a><span class="tm">13:25:35</span><span class="nk"> &lt;samhenri&gt;</span> the good thing is that most of Bootstrap components already have these ARIA roles and they were tested
+<a name="l-68"></a><span class="tm">13:26:50</span><span class="nk"> &lt;alinefm&gt;</span> good
+<a name="l-69"></a><span class="tm">13:26:58</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, looks like this was the right choice on the framework :-)
+<a name="l-70"></a><span class="tm">13:27:32</span><span class="nk"> &lt;alinefm&gt;</span> The December release probably will be on 12/18 (the laste Friday before the holidays)
+<a name="l-71"></a><span class="tm">13:27:53</span><span class="nk"> &lt;alinefm&gt;</span> So please, send to the ML your ideas/suggestions on what on want to see in this new release
+<a name="l-72"></a><span class="tm">13:28:08</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, by when do you think that we could a first running version of the new UI out of the repo ?
+<a name="l-73"></a><span class="tm">13:28:21</span><span class="nk"> &lt;alinefm&gt;</span> the RFC + patch must be accepted upstream by the beginning of December to be included in the release
+<a name="l-74"></a><span class="tm">13:28:30</span><span class="nk"> &lt;alinefm&gt;</span> so keep it in mind when proposing features
+<a name="l-75"></a><span class="tm">13:30:09</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik I still have to apply the latest patches, after the merge I ran into some problems with the current build so I went back to CSS/static mockups
+<a name="l-76"></a><span class="tm">13:30:42</span><span class="nk"> &lt;Abhiram&gt;</span> I feel wiki pages of kimchi,ginger should be updated features to implemented in 2.0 release. So we all are on same page
+<a name="l-77"></a><span class="tm">13:31:24</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik I'll rebase and send a patch containing Login page + Host Tab + Modal windows but I warn that some pages with the old-ui will be broken until I add Bootstrap classes to them
+<a name="l-78"></a><span class="tm">13:31:48</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, once we define the features a wiki page is created (Todo-2.0) to list all them
+<a name="l-79"></a><span class="tm">13:31:59</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, and on each scrum we get updates on them
+<a name="l-80"></a><span class="tm">13:32:14</span><span class="nk"> &lt;Abhiram&gt;</span> ok that sounds great
+<a name="l-81"></a><span class="tm">13:32:36</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik I expect to finish at least the bootstrap customization until the end of next week, since I don't need to have Wok running to do that
+<a name="l-82"></a><span class="tm">13:33:41</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, thanks sounds good ... pls reach out via ML if we can help.
+<a name="l-83"></a><span class="tm">13:34:10</span><span class="nk"> &lt;alinefm&gt;</span> Abhiram, whem this wiki page is created I send a note to the ML informing everyone about it
+<a name="l-84"></a><span class="tm">13:34:36</span><span class="nk"> &lt;samhenri&gt;</span> WaltNik But I'll send a patch containing Login, Host tab + All dialogs in the new-ui once I rebase my latest patches, you can apply them on your local branch to see the changes but I don't think they'll be applied to master branch until they are stable enough
+<a name="l-85"></a><span class="tm">13:36:02</span><span class="nk"> &lt;WaltNik&gt;</span> samhenri, ok thanks
+<a name="l-86"></a><span class="tm">13:38:06</span><span class="nk"> &lt;alinefm&gt;</span> ok, team?!
+<a name="l-87"></a><span class="tm">13:38:09</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-88"></a><span class="tm">13:38:13</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-89"></a><span class="tm">13:39:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-90"></a><span class="tm">13:40:06</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-91"></a><span class="tm">13:40:22</span><span class="nk"> &lt;samhenri&gt;</span> kinda of off-topic, but once we run wokd process, where does nginx instance keeps the files? in wok branch they were located in /usr/share/wok/
+<a name="l-92"></a><span class="tm">13:40:49</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-93"></a><span class="tm">13:41:00</span><span class="nk"> &lt;alinefm&gt;</span> the file is created on wok startup and used by nginx process
+<a name="l-94"></a><span class="tm">13:42:33</span><span class="nk"> &lt;alinefm&gt;</span> WaltNik, danielhb, lcorreia, pvital, ramonn, rotru, samhenri, ziviani, any topics for today?
+<a name="l-95"></a><span class="tm">13:42:40</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-96"></a><span class="tm">13:42:41</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-97"></a><span class="tm">13:42:47</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-98"></a><span class="tm">13:42:47</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm, sorry I joined late ... reading trough the protocol I learned that you are planning to consolidate all plugins into one got repo. What's the reason of this ?
+<a name="l-99"></a><span class="tm">13:42:56</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-100"></a><span class="tm">13:42:59</span><span class="nk"> &lt;samhenri&gt;</span> ok, but if I want to do a quick test in a js or css file, before the merge with master branch i could manually edit the files in /usr/share/wok/ui/, now I have to stop service and sudo ./autogen.sh --system &amp;&amp; sudo make
+<a name="l-101"></a><span class="tm">13:43:46</span><span class="nk"> &lt;alinefm&gt;</span> WaltNik, consolidate all the plugins in ONE repo?!
+<a name="l-102"></a><span class="tm">13:43:52</span><span class="nk"> &lt;alinefm&gt;</span> WaltNik, nope - it will not be done
+<a name="l-103"></a><span class="tm">13:44:00</span><span class="nk"> &lt;alinefm&gt;</span> I will create a separate repo for wok
+<a name="l-104"></a><span class="tm">13:44:23</span><span class="nk"> &lt;alinefm&gt;</span> and the plugins repos will be configured as git-submodules of wok repo
+<a name="l-105"></a><span class="tm">13:45:03</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can edit the files there (there will be just one file wok.min.js) and restart the service
+<a name="l-106"></a><span class="tm">13:45:18</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, sudo make &amp;&amp; wokd
+<a name="l-107"></a><span class="tm">13:45:25</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, sudo make &amp;&amp; sudo wokd
+<a name="l-108"></a><span class="tm">13:45:44</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-109"></a><span class="tm">13:47:24</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm, ahh ok but there will be still individual repos for kimchi and ginger ... I missunderstood the git-submodule concept then
+<a name="l-110"></a><span class="tm">13:47:49</span><span class="nk"> &lt;danielhb&gt;</span> WaltNik, it's not 'one repo' . kimchi and ginger will retain their own repos as it is today. WoK will have it's own repo and will 'encapsulate' the existing repos using git submodule
+<a name="l-111"></a><span class="tm">13:48:37</span><span class="nk"> &lt;alinefm&gt;</span> the follow will be: git clone wok
+<a name="l-112"></a><span class="tm">13:48:39</span><span class="nk"> &lt;danielhb&gt;</span> WaltNik, the idea is to be able to get WoK code and all its plug-ins easily. The alternative would be to individually clone all the plug-ins separately
+<a name="l-113"></a><span class="tm">13:48:44</span><span class="nk"> &lt;alinefm&gt;</span> git sub-module update
+<a name="l-114"></a><span class="tm">13:49:06</span><span class="nk"> &lt;WaltNik&gt;</span> danielhb, it reflects the plugin infrastructure I guess
+<a name="l-115"></a><span class="tm">13:49:28</span><span class="nk"> &lt;WaltNik&gt;</span> alinefm, thanks for the explanation
+<a name="l-116"></a><span class="tm">13:50:55</span><span class="nk"> &lt;alinefm&gt;</span> yw
+<a name="l-117"></a><span class="tm">13:51:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-118"></a><span class="tm">13:52:13</span><span class="nk"> &lt;WaltNik&gt;</span> no
+<a name="l-119"></a><span class="tm">13:52:48</span><span class="nk"> &lt;alinefm&gt;</span> alright!
+<a name="l-120"></a><span class="tm">13:52:53</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-121"></a><span class="tm">13:53:06</span><span class="nk"> &lt;alinefm&gt;</span> I am looking forward for 2.0 release! \o/
+<a name="l-122"></a><span class="tm">13:53:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
