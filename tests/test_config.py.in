@@ -1,0 +1,107 @@
+#
+# Project Wok
+#
+# Copyright IBM, Corp. 2015
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+import unittest
+
+from wok.config import Paths, WokConfig
+
+
+get_prefix = None
+
+
+def setUpModule():
+    global get_prefix
+    get_prefix = Paths.get_prefix
+
+
+def tearDownModule():
+    Paths.get_prefix = get_prefix
+
+
+class ConfigTests(unittest.TestCase):
+    def assertInstalledPath(self, actual, expected):
+        if '@pkgdatadir@' != '/usr/share/wok':
+            usr_local = '/usr/local'
+            if not expected.startswith('/usr'):
+                expected = usr_local + expected
+        self.assertEquals(actual, expected)
+
+    def test_installed_paths(self):
+        Paths.get_prefix = lambda self: '@datadir@/wok'
+        paths = Paths()
+        self.assertInstalledPath(paths.state_dir, '/var/lib/wok')
+        self.assertInstalledPath(paths.log_dir, '/var/log/wok')
+        self.assertInstalledPath(paths.conf_dir, '/etc/wok')
+        self.assertInstalledPath(paths.src_dir, '@wokdir@')
+        self.assertInstalledPath(paths.plugins_dir, '@wokdir@/plugins')
+        self.assertInstalledPath(paths.ui_dir, '@datadir@/wok/ui')
+        self.assertInstalledPath(paths.mo_dir, '@prefix@/share/locale')
+
+    def test_uninstalled_paths(self):
+        Paths.get_prefix = lambda self: '/home/user/wok'
+        paths = Paths()
+        self.assertEquals(paths.state_dir, '/home/user/wok/data')
+        self.assertEquals(paths.log_dir, '/home/user/wok/log')
+        self.assertEquals(paths.conf_dir, '/home/user/wok/src')
+        self.assertEquals(paths.src_dir, '/home/user/wok/src/wok')
+        self.assertEquals(paths.plugins_dir, '/home/user/wok/src/wok/plugins')
+        self.assertEquals(paths.ui_dir, '/home/user/wok/ui')
+        self.assertEquals(paths.mo_dir, '/home/user/wok/mo')
+
+    def test_wok_config(self):
+        Paths.get_prefix = get_prefix
+        paths = Paths()
+        SESSIONSTIMEOUT = 10
+        configObj = {
+            '/': {
+                'tools.trailing_slash.on': False,
+                'request.methods_with_bodies': ('POST', 'PUT'),
+                'tools.nocache.on': True,
+                'tools.proxy.on': True,
+                'tools.sessions.on': True,
+                'tools.sessions.name': 'wok',
+                'tools.sessions.secure': True,
+                'tools.sessions.httponly': True,
+                'tools.sessions.locking': 'explicit',
+                'tools.sessions.storage_type': 'ram',
+                'tools.sessions.timeout': SESSIONSTIMEOUT,
+                'tools.wokauth.on': False
+            },
+            '/base64/jquery.base64.js': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': '%s/base64/jquery.base64.js' %
+                                             paths.ui_dir,
+                'tools.nocache.on': True,
+            },
+            '/wok-ui.html': {
+                'tools.wokauth.on': True
+            },
+            '/favicon.ico': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                '%s/images/logo.ico' % paths.ui_dir
+            },
+            '/robots.txt': {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
+            },
+        }
+
+        wok_config = WokConfig.wok_config
+        self.assertEquals(wok_config, configObj)

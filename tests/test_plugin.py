@@ -1,7 +1,9 @@
 #
-# Project Kimchi
+# Project Wok
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
+#
+# Code delivered from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,13 +20,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import json
-import os
 import unittest
 from functools import partial
 
 from wok.utils import get_enabled_plugins
-
-from wok.plugins.kimchi import mockmodel
 
 import utils
 
@@ -40,17 +39,14 @@ def setUpModule():
     global test_server, model, host, port, ssl_port
 
     utils.patch_auth()
-    model = mockmodel.MockModel('/tmp/obj-store-test')
     host = '127.0.0.1'
     port = utils.get_free_port('http')
     ssl_port = utils.get_free_port('https')
-    test_server = utils.run_server(host, port, ssl_port, test_mode=True,
-                                   model=model)
+    test_server = utils.run_server(host, port, ssl_port, test_mode=True)
 
 
 def tearDownModule():
     test_server.stop()
-    os.unlink('/tmp/obj-store-test')
 
 
 @unittest.skipUnless(

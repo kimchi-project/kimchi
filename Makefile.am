@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-SUBDIRS = src ui docs contrib po
+SUBDIRS = src ui docs contrib po tests
 
 man_MANS = docs/wokd.8
 
@@ -36,7 +36,7 @@ EXTRA_DIST = \
 	$(NULL)
 
 
-PEP8_BLACKLIST = *src/wok/config.py,*src/wok/i18n.py,*src/wok/plugins/kimchi
+PEP8_BLACKLIST = *src/wok/config.py,*src/wok/i18n.py,*src/wok/plugins/kimchi,*tests/test_config.py
 
 SKIP_PYFLAKES_ERR = "\./src/wok/websocket\.py"
 
