@@ -35,8 +35,8 @@ src/nginx/wok.conf
 src/wok/config.py
 tests/run_tests.sh
 tests/test_config.py
-plugins/sample/po/POTFILES
-plugins/sample/sample.conf
+src/wok/plugins/sample/po/POTFILES
+src/wok/plugins/sample/sample.conf
 po/POTFILES
 po/gen-pot
 *.orig
