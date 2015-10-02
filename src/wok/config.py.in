@@ -43,14 +43,17 @@ FONT_FILES = {'fontawesome': ['fontawesome-webfont.ttf'],
                            'OpenSans-Regular.ttf']}
 
 FONTS_PATH = {
-    'fontawesome':
-        ['/usr/share/fonts/fontawesome',
-         '/usr/share/fonts/truetype/font-awesome',
-         '/usr/share/fonts/truetype'],
-    'opensans':
-        ['/usr/share/fonts/open-sans',
-         '/usr/share/fonts/truetype/',
-         '/usr/share/texlive/texmf-dist/fonts/truetype/public/opensans']}
+    'fontawesome': [
+        '/usr/share/fonts/fontawesome',
+        '/usr/share/fonts/truetype/font-awesome',
+        '/usr/share/fonts/truetype'
+    ],
+    'opensans': [
+        '/usr/share/fonts/open-sans',
+        '/usr/share/fonts/truetype/',
+        '/usr/share/texlive/texmf-dist/fonts/truetype/public/opensans'
+    ]
+}
 
 
 def get_object_store():
