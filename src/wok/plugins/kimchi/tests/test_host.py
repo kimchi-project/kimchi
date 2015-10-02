@@ -209,9 +209,8 @@ class HostTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/host/devices?_passthrough=true')
         all_devs = [dev['name'] for dev in json.loads(resp.read())]
 
-        resp = self.request(
-        '/plugins/kimchi/host/devices?_passthrough=true&_available_only=true'
-        )
+        resp = self.request('/plugins/kimchi/host/devices?'
+                            '_passthrough=true&_available_only=true')
         available_devs = [dev['name'] for dev in json.loads(resp.read())]
 
         self.assertLessEqual(len(available_devs), len(all_devs))

@@ -163,7 +163,6 @@ class ConfigTests(unittest.TestCase):
         wok_config = WokConfig()
         self.assertEquals(wok_config, configObj)
 
-
     def test_kimchi_config(self):
         KimchiPaths.get_prefix = PluginPaths.get_prefix = get_prefix
         paths = KimchiPaths()
