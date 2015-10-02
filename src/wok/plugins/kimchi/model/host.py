@@ -338,12 +338,12 @@ class DevicesModel(object):
             xmlstr = dom.XMLDesc(0)
             root = objectify.fromstring(xmlstr)
             try:
-                hostdev = root.devices.hostdev
+                hostDevices = root.devices.hostdev
             except AttributeError:
                 continue
 
             vm_devs = [DeviceModel.deduce_dev_name(e, self.conn)
-                       for e in hostdev]
+                       for e in hostDevices]
 
             for dev in vm_devs:
                 unavailable_devs.append(dev)
