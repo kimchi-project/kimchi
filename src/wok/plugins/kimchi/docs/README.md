@@ -11,30 +11,30 @@ over the web using a browser that supports HTML5.
 
 Browser Support
 ===============
+
+Wok and its plugin can run in any web browser that supports HTML5. The
+Kimchi community (responsible for Wok project) makes an effort to
+test it with the latest versions of Chrome and Firefox browsers, but the
+following list can be used as reference to browser support.
+
 Desktop Browser Support:
 -----------------------
-* **Internet Explorer:** IE9+
-* **Chrome:** Current-1 version
-* **Firefox:** Current-1 version Firefox 24ESR
-* **Safari:** Current-1 version
-* **Opera:** Current-1 version
+* **Internet Explorer:** Current version
+* **Chrome:** Current version
+* **Firefox:** Current version
+* **Safari:** Current version
+* **Opera:** Current version
 
 Mobile Browser Support:
 -----------------------
-* **Safari iOS:** Current-1 version
-* **Android Browser** Current-1 version
+* **Safari iOS:** Current version
+* **Android Browser** Current version
 
-Current-1 version denotes that we support the current stable version of the
-browser and the version that preceded it. For example, if the current version of
-a browser is 24.x, we support the 24.x and 23.x versions.This does not mean that
-kimchi cannot be used in other browsers, however, functionality and appearance
-may be diminished and we may not be able to provide support for any problems you
-find.
 
 Hypervisor Distro Support
 =========================
 
-Kimchi and Wok might run on any GNU/Linux distribution that meets the conditions
+Kimchi might run on any GNU/Linux distribution that meets the conditions
 described on the 'Getting Started' section below.
 
 The Kimchi community makes an effort to test it with the latest versions of
@@ -48,24 +48,19 @@ Install Dependencies
 
 **For fedora and RHEL:**
 
-     $ sudo yum install gcc make autoconf automake gettext-devel git \
-                        python-cherrypy python-cheetah libvirt-python \
-                        libvirt libvirt-daemon-config-network python-imaging \
-                        PyPAM m2crypto python-jsonschema rpm-build \
-                        qemu-kvm python-psutil python-ethtool sos \
-                        python-ipaddr python-ldap python-lxml nfs-utils \
-                        iscsi-initiator-utils libxslt pyparted nginx \
-                        python-libguestfs libguestfs-tools python-websockify \
-                        novnc spice-html5 python-configobj python-magic
+     $ sudo yum install wok libvirt-python libvirt \
+                        libvirt-daemon-config-network python-imaging \
+                        qemu-kvm python-ethtool sos python-ipaddr \
+                        nfs-utils iscsi-initiator-utils pyparted \
+                        python-libguestfs libguestfs-tools \
+                        python-websockify novnc spice-html5 \
+                        python-configobj python-magic
 
      # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
 
      # Restart libvirt to allow configuration changes to take effect
      $ sudo service libvirtd restart
-
-    Packages version requirement:
-        python-psutil >= 0.6.0
 
     # These dependencies are only required if you want to run the tests:
     $ sudo yum install pyflakes python-pep8 python-requests
@@ -78,39 +73,26 @@ for more information on how to configure your system to access this repository.
 And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional"
 channel at RHN Classic or Red Hat Satellite.
 
-**For debian:**
+**For Ubuntu (Debian-based):**
 
-    $ sudo apt-get install gcc make autoconf automake gettext git \
-                           python-cherrypy3 python-cheetah python-libvirt \
-                           libvirt-bin python-imaging python-configobj \
-                           python-pam python-m2crypto python-jsonschema \
-                           qemu-kvm libtool python-psutil python-ethtool \
-                           sosreport python-ipaddr python-ldap \
-                           python-lxml nfs-common open-iscsi lvm2 xsltproc \
-                           python-parted nginx python-guestfs libguestfs-tools \
-                           websockify novnc spice-html5 python-magic
-
-    Packages version requirement:
-        python-jsonschema >= 1.3.0
-        python-psutil >= 0.6.0
+    $ sudo apt-get install wok python-imaging python-configobj websockify \
+                           novnc python-libvirt libvirt-bin nfs-common \
+                           qemu-kvm python-parted python-ethtool sosreport \
+                           python-ipaddr python-lxml open-iscsi \
+                           python-guestfs libguestfs-tools spice-html5 \
+                           python-magic \
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests
 
 **For openSUSE:**
 
-    $ sudo zypper install gcc make autoconf automake gettext-tools git \
-                          python-CherryPy python-Cheetah libvirt-python \
-                          libvirt libvirt-daemon-config-network python-pam \
-                          python-imaging python-M2Crypto python-jsonschema \
-                          rpm-build kvm python-psutil python-ethtool \
-                          python-ipaddr python-ldap python-lxml nfs-client \
-                          open-iscsi libxslt-tools python-xml python-parted \
-                          nginx python-libguestfs python-configobj \
-                          guestfs-tools python-websockify novnc python-magic
-
-    Packages version requirement:
-        python-psutil >= 0.6.0
+    $ sudo zypper install wok libvirt-python libvirt \
+                          libvirt-daemon-config-network python-imaging \
+                          kvm python-ethtool python-ipaddr nfs-client \
+                          open-iscsi python-parted python-libguestfs \
+                          python-configobj guestfs-tools python-websockify \
+                          novnc python-magic
 
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests

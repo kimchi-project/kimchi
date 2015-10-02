@@ -10,6 +10,99 @@ Examples of such plugins are Kimchi (Virtualization Management) and Ginger
 Wok runs through wokd daemon.
 
 
+Browser Support
+===============
+
+Wok and its plugins can run in any web browser that supports HTML5. The
+Kimchi community (responsible for Wok project) makes an effort to
+test it with the latest versions of Chrome and Firefox browsers, but the
+following list can be used as reference to browser support.
+
+Desktop Browser Support:
+-----------------------
+* **Internet Explorer:** Current version
+* **Chrome:** Current version
+* **Firefox:** Current version
+* **Safari:** Current version
+* **Opera:** Current version
+
+Mobile Browser Support:
+-----------------------
+* **Safari iOS:** Current version
+* **Android Browser** Current version
+
+
+Hypervisor Distro Support
+=========================
+
+Wok might run on any GNU/Linux distribution that meets the conditions
+described on the 'Getting Started' section below.
+
+The Kimchi community (responsible for Wok project) makes an effort to
+test it with the latest versions of Fedora, RHEL, OpenSUSE, and Ubuntu.
+
+Getting Started
+===============
+
+Install Dependencies
+--------------------
+
+**For Fedora and RHEL:**
+
+     $ sudo yum install gcc make autoconf automake gettext git \
+                        python-cherrypy python-cheetah python-imaging\
+                        PyPAM m2crypto python-jsonschema rpm-build \
+                        python-psutil python-ldap python-lxml \
+                        libxslt nginx openssl
+
+
+     # If using RHEL, install the following additional packages:
+     $ sudo yum install python-unittest2 python-ordereddict
+
+    Packages version requirement:
+        python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo yum install pyflakes python-pep8 python-requests
+
+*Note for RHEL users*: Some of the above packages are located in the Red Hat
+EPEL repositories.  See
+[this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
+for more information on how to configure your system to access this repository.
+
+And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional"
+channel at RHN Classic or Red Hat Satellite.
+
+**For Ubuntu (Debian-based):**
+
+    $ sudo apt-get install gcc make autoconf automake gettext git \
+                           python-cherrypy3 python-cheetah python-imaging \
+                           python-pam python-m2crypto python-jsonschema \
+                           python-psutil python-ldap python-lxml nginx \
+                           libxslt openssl
+
+    Packages version requirement:
+        python-jsonschema >= 1.3.0
+        python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo apt-get install pep8 pyflakes python-requests
+
+**For openSUSE:**
+
+    $ sudo zypper install gcc make autoconf automake gettext-tools git \
+                          python-CherryPy python-Cheetah python-pam \
+                          python-imaging python-M2Crypto python-jsonschema \
+                          rpm-build python-psutil python-ldap python-lxml \
+                          libxslt-tools python-xml nginx openssl
+
+    Packages version requirement:
+        python-psutil >= 0.6.0
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo zypper install python-pyflakes python-pep8 python-requests
+
+
 Build and Install
 -----------------
 
