@@ -1,8 +1,10 @@
 #
-# Project Kimchi
+# Project Wok
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM, Corp. 2013-2015
 # Copyright (C) 2004-2005 OSAF. All Rights Reserved.
+#
+# Code derived from Project Kimchi
 #
 # Portions of this file were derived from the python-m2crypto unit tests:
 #     http://svn.osafoundation.org/m2crypto/trunk/tests/test_x509.py
