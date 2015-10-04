@@ -23,6 +23,7 @@ import lxml.etree as ET
 import os
 import random
 import string
+import threading
 import time
 import uuid
 from lxml import etree, objectify
@@ -78,6 +79,9 @@ XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
 
 XPATH_NUMA_CELL = './cpu/numa/cell'
+
+# key: VM name; value: lock object
+vm_locks = {}
 
 
 class VMsModel(object):
@@ -220,10 +224,16 @@ class VMModel(object):
         self.stats = {}
 
     def update(self, name, params):
-        dom = self.get_vm(name, self.conn)
-        vm_name, dom = self._static_vm_update(name, dom, params)
-        self._live_vm_update(dom, params)
-        return vm_name
+        lock = vm_locks.get(name)
+        if lock is None:
+            lock = threading.Lock()
+            vm_locks[name] = lock
+
+        with lock:
+            dom = self.get_vm(name, self.conn)
+            vm_name, dom = self._static_vm_update(name, dom, params)
+            self._live_vm_update(dom, params)
+            return vm_name
 
     def clone(self, name):
         """Clone a virtual machine based on an existing one.
