@@ -10,7 +10,7 @@ Kimchi makes use of different projects and they are placed as below:
 - the code under ui/fontello is imported from Fontello (http://fontello.com).
 
 The rest of this distribution is governed by the GNU Lesser General Public
-License version 3.
+License version 2.1.
 
 See COPYING.LGPL and COPYING.ASL2.
 
