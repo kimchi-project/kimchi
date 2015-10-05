@@ -72,10 +72,16 @@ all-local:
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
-	$(MKDIR_P) $(DESTDIR)/etc/init
+	@if test -d "$(systemdsystemunitdir)" ; then \
+		$(MKDIR_P) $(DESTDIR)/$(systemdsystemunitdir); \
+		cp -R contrib/wokd.service.fedora \
+			$(DESTDIR)/$(systemdsystemunitdir)/wokd.service; \
+	else \
+		$(MKDIR_P) $(DESTDIR)/etc/init; \
+		cp -R $(top_srcdir)/contrib/wokd-upstart.conf.debian \
+			$(DESTDIR)/etc/init/wokd.conf; \
+	fi
 	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
-	cp -R $(top_srcdir)/contrib/wokd-upstart.conf.debian \
-		$(DESTDIR)/etc/init/wokd.conf
 	cp -R $(top_srcdir)/src/firewalld.xml \
 		$(DESTDIR)/usr/lib/firewalld/services/wokd.xml
 
