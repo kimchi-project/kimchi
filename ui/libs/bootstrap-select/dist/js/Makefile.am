@@ -17,4 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = dist
+bootstrapselectjsdir = $(datadir)/wok/ui/libs/bootstrap-select/dist/js
+
+dist_bootstrapselectjs_DATA = $(wildcard *.js) $(NULL)
