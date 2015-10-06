@@ -17,4 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = dist
+bootstrapselectcssdir = $(datadir)/wok/ui/libs/bootstrap-select/dist/css
+
+dist_bootstrapselectcss_DATA = $(wildcard *.css) $(NULL)
