@@ -884,6 +884,45 @@ var kimchi = {
         });
     },
 
+    softwareUpdateProgress : function(suc, err, progress) {
+        var taskID = -1;
+        var onResponse = function(data) {
+            taskID = data['id'];
+            trackTask();
+        };
+
+        var trackTask = function() {
+            kimchi.getTask(taskID, onTaskResponse, err);
+        };
+
+        var onTaskResponse = function(result) {
+            var taskStatus = result['status'];
+            switch(taskStatus) {
+            case 'running':
+                progress && progress(result);
+                setTimeout(function() {
+                    trackTask();
+                }, 1000);
+                break;
+            case 'finished':
+            case 'failed':
+                suc(result);
+                break;
+            default:
+                break;
+            }
+        };
+
+        wok.requestJSON({
+            url : 'plugins/kimchi/host/swupdateprogress',
+            type : "GET",
+            contentType : "application/json",
+            dataType : "json",
+            success : onResponse,
+            error : err
+        });
+    },
+
     updateSoftware : function(suc, err, progress) {
         var taskID = -1;
         var onResponse = function(data) {
