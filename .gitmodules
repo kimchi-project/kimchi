@@ -1,0 +1,3 @@
+[submodule "src/wok/plugins/kimchi"]
+	path = src/wok/plugins/kimchi
+	url = https://github.com/kimchi-project/kimchi.git
