@@ -123,6 +123,59 @@ class SoftwareUpdate(object):
         os.setsid()
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
+    def tailUpdateLogs(self, cb, params):
+        """
+        When the package manager is already running (started outside kimchi or
+        if wokd is restarted) we can only know what's happening by reading the
+        logfiles. This method acts like a 'tail -f' on the default package
+        manager logfile. If the logfile is not found, a simple '*' is
+        displayed to track progress. This will be until the process finishes.
+        """
+        if not self._pkg_mnger.isRunning():
+            return
+
+        fd = None
+        try:
+            fd = os.open(self._pkg_mnger.logfile, os.O_RDONLY)
+
+        # cannot open logfile, print something to let users know that the
+        # system is being upgrading until the package manager finishes its
+        # job
+        except (TypeError, OSError):
+            msgs = []
+            while self._pkg_mnger.isRunning():
+                msgs.append('*')
+                cb(''.join(msgs))
+                time.sleep(1)
+            msgs.append('\n')
+            cb(''.join(msgs), True)
+            return
+
+        # go to the end of logfile and starts reading, if nothing is read or
+        # a pattern is not found in the message just wait and retry until
+        # the package manager finishes
+        os.lseek(fd, 0, os.SEEK_END)
+        msgs = []
+        progress = []
+        while True:
+            read = os.read(fd, 1024)
+            if not read:
+                if not self._pkg_mnger.isRunning():
+                    break
+
+                if not msgs:
+                    progress.append('*')
+                    cb(''.join(progress))
+
+                time.sleep(1)
+                continue
+
+            msgs.append(read)
+            cb(''.join(msgs))
+
+        os.close(fd)
+        return cb(''.join(msgs), True)
+
     def doUpdate(self, cb, params):
         """
         Execute the update
