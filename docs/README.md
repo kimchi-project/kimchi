@@ -148,6 +148,31 @@ Allow httpd_t context for Wok web server:
         $ sudo semanage permissive -a httpd_t
 
 
+Wok Plugins
+-----------
+
+Wok provides a Sample plugin to education purposes that can be used to create
+new plugins. Also, by default, Wok is linked to Kimchi (Virtualization
+ Management) and Ginger (System Administration) repositories as git submodules.
+
+To clone Kimchi source code, execute:
+
+    $ cd src/wok/plugins/kimchi
+    $ git submodule init
+    $ git submodule update
+
+To clone Ginger source code, execute:
+
+    $ cd src/wok/plugins/ginger
+    $ git submodule init
+    $ git submodule update
+
+To automatically clone all plugins linked with Wok, use the following git
+command when cloning Wok project:
+
+    $ git clone --recursive https://github.com/kimchi-project/wok.git
+
+
 Participating
 -------------
 
