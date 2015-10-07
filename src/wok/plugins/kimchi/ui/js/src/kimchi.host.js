@@ -258,6 +258,24 @@ kimchi.host_main = function() {
         });
     };
 
+    var startSoftwareUpdateProgress = function() {
+        var progressArea = $('#' + progressAreaID)[0];
+        $('#software-updates-progress-container').removeClass('hidden');
+        $(progressArea).text('');
+        !wok.isElementInViewport(progressArea) &&
+            progressArea.scrollIntoView();
+
+        kimchi.softwareUpdateProgress(function(result) {
+            reloadProgressArea(result);
+            wok.topic('kimchi/softwareUpdated').publish({
+                result: result
+            });
+            wok.message.warn(i18n['KCHUPD6010M']);
+        }, function(error) {
+            wok.message.error(i18n['KCHUPD6011M']);
+        }, reloadProgressArea);
+    };
+
     var listSoftwareUpdates = function(gridCallback) {
         kimchi.listSoftwareUpdates(function(softwareUpdates) {
             if($.isFunction(gridCallback)) {
@@ -276,6 +294,17 @@ kimchi.host_main = function() {
             $(updateButton).prop('disabled', softwareUpdates.length === 0);
         }, function(error) {
             var message = error && error['responseJSON'] && error['responseJSON']['reason'];
+
+            // cannot get the list of packages because there is another
+            // package manager instance running, so follow that instance updates
+            if (message.indexOf("KCHPKGUPD0005E") !== -1) {
+                startSoftwareUpdateProgress();
+                if($.isFunction(gridCallback)) {
+                    gridCallback([]);
+                }
+                return;
+            }
+
             if($.isFunction(gridCallback)) {
                 gridCallback([]);
             }
