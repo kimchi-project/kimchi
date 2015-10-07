@@ -17,7 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import Collection, Resource, SimpleCollection
+from wok.control.base import AsyncResource, Collection
+from wok.control.base import Resource, SimpleCollection
 from wok.control.utils import UrlSubNode
 from wok.exception import NotFoundError
 
@@ -39,7 +40,19 @@ class Host(Resource):
         self.packagesupdate = PackagesUpdate(self.model)
         self.repositories = Repositories(self.model)
         self.swupdate = self.generate_action_handler_task('swupdate')
+        self.swupdateprogress = SoftwareUpdateProgress(self.model)
         self.cpuinfo = CPUInfo(self.model)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class SoftwareUpdateProgress(AsyncResource):
+    def __init__(self, model, id=None):
+        super(SoftwareUpdateProgress, self).__init__(model, id)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
 
     @property
     def data(self):

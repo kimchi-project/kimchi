@@ -226,6 +226,24 @@ class Resource(object):
         return {}
 
 
+class AsyncResource(Resource):
+    """
+    AsyncResource is a specialized Resource to handle async task.
+    """
+    def __init__(self, model, ident=None):
+        super(AsyncResource, self).__init__(model, ident)
+
+    def lookup(self):
+        try:
+            lookup = getattr(self.model, model_fn(self, 'lookup'))
+            self.info = lookup(*self.model_args)
+        except AttributeError:
+            self.info = {}
+
+        cherrypy.response.status = 202
+        return wok.template.render('Task', self.info)
+
+
 class Collection(object):
     """
     A Collection is a container for Resource objects.  To create a new

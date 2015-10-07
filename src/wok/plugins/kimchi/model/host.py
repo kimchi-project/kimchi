@@ -168,6 +168,22 @@ class HostModel(object):
                 if (DOM_STATE_MAP[dom.info()[0]]) == state]
 
 
+class SoftwareUpdateProgressModel(object):
+    def __init__(self, **kargs):
+        self.task = TaskModel(**kargs)
+        self.objstore = kargs['objstore']
+
+    def lookup(self, *name):
+        try:
+            swupdate = SoftwareUpdate()
+        except:
+            raise OperationFailed('KCHPKGUPD0004E')
+
+        taskid = add_task('/plugins/kimchi/host/swupdateprogress',
+                          swupdate.tailUpdateLogs, self.objstore, None)
+        return self.task.lookup(taskid)
+
+
 class HostStatsModel(object):
     __metaclass__ = Singleton
 
