@@ -1,0 +1,121 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+/* Bootstrap Tables override */
+
+.table > tbody > tr:first-child > td {
+    border-color: $table-first-row-border-color;
+}
+
+/* Wok Grid widget */
+
+.wok-grid-content .btn-group {
+    padding-bottom: 16px;
+}
+
+.wok-grid-mask {
+    top: 100px !important;
+}
+
+.wok-list-mask {
+    top: 37px !important;
+}
+
+.wok-grid-mask, .wok-list-mask {
+    @extend .absolute-middle;
+    background: rgba(255,255,255,.7);
+}
+
+.wok-grid-loading, .wok-list-loading {
+    width: 100%;
+    white-space: nowrap;
+    @extend .absolute-middle;
+}
+
+.wok-grid-loader-container, .wok-list-loader-container {
+    width: 120px;
+    height: 40px;
+    @extend .absolute-middle;
+}
+
+.wok-grid-loading-icon, .wok-list-loading-icon{
+    background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%; 
+    @include animation(spin 2s infinite linear);
+    height: 20px;
+    width: 20px;
+    @extend .absolute-middle;
+}
+
+.wok-grid-loading-text, .wok-list-loading-text {
+    color: $gray;
+    padding-top: 40px;
+    text-shadow: 0px 0px 10px #fff;
+}
+
+.wok-list-cell {
+    position: relative;
+    padding-left: 45px;
+}
+
+.wok-repository-status {
+    position: absolute;
+    left: 6px;
+    top: 0;
+}
+
+.wok-repository-status .fa {
+    font-size: 23px;
+    color: #a8d46f;
+}
+
+.wok-list-name, .wok-list-description {
+    display: block;
+}
+
+.wok-list-name {
+    font-weight: 600;
+    font-size: 13pt;
+}
+
+.wok-list-description {
+    font-weight: 300;
+    font-size: 10pt;
+    width: 196px;
+    overflow: hidden;
+}
+
+.wok-list-content tbody tr,  .wok-list-content tbody tr * {
+    @include user-select(none);
+}
+
+.wok-list-content tbody tr:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.wok-list-content tbody tr.selected {
+    background: #ddd;
+}
+
+span.wok-repository-status.disabled {
+    display: none;
+}
+
+.wok-list-cell.disabled span {
+    color: #999;
+}
