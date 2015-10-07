@@ -827,6 +827,9 @@ Contains information of host.
             Only allowed if there is not vm running.
 * swupdate: Start the update of packages in background and return a Task resource
     * task resource.  * See Resource: Task *
+* swupdateprogress: Read the package manager logfile in background and return a
+            Task resource.
+    * task resource.  * See Resource: Task *
 
 ### Resource: Users
 
