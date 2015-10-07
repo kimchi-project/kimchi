@@ -39,6 +39,10 @@ src/wok/plugins/sample/po/POTFILES
 src/wok/plugins/sample/sample.conf
 po/POTFILES
 po/gen-pot
+ui/css/wok.css
+ui/css/bootstrap.custom.css
+ui/css/bootstrap-select.custom.css
+!ui/css/src/modules
 *.orig
 *.rej
 *.pem

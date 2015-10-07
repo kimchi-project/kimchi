@@ -1,0 +1,210 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Code derived from Project Kimchi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+.chart-container {
+    background: #fff;
+}
+
+.line-chart {
+    overflow: hidden;
+}
+
+.line-chart .background {
+    fill: #fff;
+}
+
+.line-chart text {
+    color: red;
+    font-size: 12px;
+}
+
+.line-chart polyline {
+    fill: none;
+    stroke-width: 3px; 
+    stroke-linejoin: round;
+}
+
+#container-chart-cpu{
+
+    .line-chart polyline {
+        stroke: #d9182d; 
+    }
+
+    .line-chart path {
+        fill: url(#patternbg);        
+    }
+
+}
+
+#container-chart-memory {
+
+    .line-chart polyline {
+        stroke: #008abf;
+    }
+
+    .line-chart path {
+        fill: url(#patternbg);        
+    }
+
+}
+
+#container-chart-disk-io  {
+
+    .line-chart polyline {
+        stroke: #00a6a0; 
+
+        &.disk-write {
+            stroke: #fdb813;
+            }
+
+        }   
+
+    .line-chart path {
+        fill: none;
+        &.disk-write {
+            fill: url(#patternbg);       
+        }
+
+    }
+
+}
+
+
+#container-chart-network-io {
+
+    .line-chart polyline {
+        stroke: #7f1c7d; 
+
+        &.network-sent {
+            stroke: #8cc63f; 
+            }
+        }
+
+            .line-chart path {
+                fill: none;
+                &.network-sent {
+                    fill: url(#patternbg);
+                }
+            }
+}
+
+.chart-container,
+.chart-legend-container,
+.chart-label {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.chart-legend-container {
+    width: 310px;
+    white-space: nowrap;
+    margin-bottom: 40px;
+    margin-right: 0;
+}
+
+.chart-vaxis-container {
+    width: 120px;
+    position: absolute;
+    text-align: left;
+    display: block;
+    height: 22px;
+    margin-left: 15px;
+    top: 78px;
+    font-size: 13pt;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+#disk-dashboard .chart-vaxis-container,
+#network-dashboard .chart-vaxis-container {
+    top: 99px;
+}
+
+.chart-legend-container .legend-wrapper {
+    margin: 0;
+    position: relative;
+    height: 40px;
+    width: 120px;
+    white-space: nowrap;
+}
+
+#disk-dashboard, #network-dashboard {
+
+     .legend-wrapper {
+        width: 134px;
+        float: left;
+    }
+
+     span.legend-string {
+        display: block;
+        margin-top: -16px;
+        white-space: nowrap;
+     }
+
+}
+
+#disk-dashboard .legend-wrapper:first-child {
+        width: 162px;
+        margin-right: 7px;
+}
+
+#network-dashboard .legend-wrapper {
+    float: right !important;
+    margin-right: 14px;
+}
+
+#network-dashboard .legend-wrapper:first-child {
+    width: 118px;
+    margin-left: 30px;
+}
+
+.chart-legend-container .legend-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+}
+
+.chart-legend-container span.legend-label, .chart-legend-container span.legend-string {
+    font-size: 18px;
+    font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "HelveticaNeue Bold", "Helvetica Neue Bold", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.chart-legend-container span.legend-label {
+    margin: 0 3px;
+}
+
+.chart-legend-container .latest-value {
+    position: relative;
+    text-align: left;
+    display: inline-block;
+    height: 22px;
+    margin-left: 15px;    
+
+        span.number {
+        top: -9px;
+        position: relative;
+        vertical-align: top;
+        font-weight: 700;
+        font-size: 27px;
+        font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "HelveticaNeue Bold", "Helvetica Neue Bold", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    }
+
+}
