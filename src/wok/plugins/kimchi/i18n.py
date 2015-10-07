@@ -269,6 +269,7 @@ messages = {
     "KCHPKGUPD0002E": _("Package %(name)s is not marked to be updated."),
     "KCHPKGUPD0003E": _("Error while getting packages marked to be updated. Details: %(err)s"),
     "KCHPKGUPD0004E": _("There is no compatible package manager for this system."),
+    "KCHPKGUPD0005E": _("There is a package manager instance running in the system."),
 
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
 

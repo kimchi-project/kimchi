@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import fcntl
 import os
 import signal
 import subprocess
@@ -27,6 +28,8 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 
 from config import kimchiLock
+from configobj import ConfigObj, ConfigObjError
+from psutil import pid_exists
 from yumparser import get_yum_packages_list_update
 
 
@@ -157,6 +160,23 @@ class YumUpdate(object):
     def __init__(self):
         self._pkgs = {}
         self.update_cmd = ["yum", "-y", "update"]
+        self.logfile = self._get_output_log()
+
+    def _get_output_log(self):
+        """
+        Return the logfile path
+        """
+        yumcfg = None
+        try:
+            yumcfg = ConfigObj('/etc/yum.conf')
+
+        except ConfigObjError:
+            return None
+
+        if 'main' in yumcfg and 'logfile' in yumcfg['main']:
+            return yumcfg['main']['logfile']
+
+        return None
 
     def _refreshUpdateList(self):
         """
@@ -177,6 +197,9 @@ class YumUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        if self.isRunning():
+            raise OperationFailed('KCHPKGUPD0005E')
+
         self._refreshUpdateList()
         pkg_list = []
         for pkg in self._pkgs:
@@ -184,6 +207,25 @@ class YumUpdate(object):
                        'arch': pkg.arch, 'repository': pkg.ui_from_repo}
             pkg_list.append(package)
         return pkg_list
+
+    def isRunning(self):
+        """
+        Return True whether the YUM package manager is already running or
+        False otherwise.
+        """
+        try:
+            with open('/var/run/yum.pid', 'r') as pidfile:
+                pid = int(pidfile.read().rstrip('\n'))
+
+        # cannot find pidfile, assumes yum is not running
+        except (IOError, ValueError):
+            return False
+
+        # the pidfile exists and it lives in process table
+        if pid_exists(pid):
+            return True
+
+        return False
 
 
 class AptUpdate(object):
@@ -196,6 +238,7 @@ class AptUpdate(object):
         self._pkgs = {}
         self.pkg_lock = getattr(__import__('apt_pkg'), 'SystemLock')
         self.update_cmd = ['apt-get', 'upgrade', '-y']
+        self.logfile = '/var/log/apt/term.log'
 
     def _refreshUpdateList(self):
         """
@@ -218,6 +261,9 @@ class AptUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        if self.isRunning():
+            raise OperationFailed('KCHPKGUPD0005E')
+
         kimchiLock.acquire()
         self._refreshUpdateList()
         kimchiLock.release()
@@ -231,6 +277,22 @@ class AptUpdate(object):
 
         return pkg_list
 
+    def isRunning(self):
+        """
+        Return True whether the APT package manager is already running or
+        False otherwise.
+        """
+        try:
+            with open('/var/lib/dpkg/lock', 'w') as lockfile:
+                fcntl.lockf(lockfile, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+        # cannot open dpkg lock file to write in exclusive mode means the
+        # apt is currently running
+        except IOError:
+            return True
+
+        return False
+
 
 class ZypperUpdate(object):
     """
@@ -242,6 +304,7 @@ class ZypperUpdate(object):
         self._pkgs = {}
         self.update_cmd = ["zypper", "--non-interactive", "update",
                            "--auto-agree-with-licenses"]
+        self.logfile = '/var/log/zypp/history'
 
     def _refreshUpdateList(self):
         """
@@ -268,7 +331,29 @@ class ZypperUpdate(object):
         package = {'package_name': <string>, 'version': <string>,
                    'arch': <string>, 'repository': <string>}
         """
+        if self.isRunning():
+            raise OperationFailed('KCHPKGUPD0005E')
+
         kimchiLock.acquire()
         self._refreshUpdateList()
         kimchiLock.release()
         return self._pkgs
+
+    def isRunning(self):
+        """
+        Return True whether the Zypper package manager is already running or
+        False otherwise.
+        """
+        try:
+            with open('/var/run/zypp.pid', 'r') as pidfile:
+                pid = int(pidfile.read().rstrip('\n'))
+
+        # cannot find pidfile, assumes yum is not running
+        except (IOError, ValueError):
+            return False
+
+        # the pidfile exists and it lives in process table
+        if pid_exists(pid):
+            return True
+
+        return False
