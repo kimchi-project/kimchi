@@ -53,7 +53,7 @@ Install Dependencies
                         python-cherrypy python-cheetah python-imaging\
                         PyPAM m2crypto python-jsonschema rpm-build \
                         python-psutil python-ldap python-lxml \
-                        libxslt nginx openssl
+                        libxslt nginx openssl python-dev python-pip
 
 
      # If using RHEL, install the following additional packages:
@@ -79,7 +79,7 @@ channel at RHN Classic or Red Hat Satellite.
                            python-cherrypy3 python-cheetah python-imaging \
                            python-pam python-m2crypto python-jsonschema \
                            python-psutil python-ldap python-lxml nginx \
-                           libxslt openssl
+                           libxslt openssl python-dev python-pip
 
     Packages version requirement:
         python-jsonschema >= 1.3.0
@@ -94,7 +94,8 @@ channel at RHN Classic or Red Hat Satellite.
                           python-CherryPy python-Cheetah python-pam \
                           python-imaging python-M2Crypto python-jsonschema \
                           rpm-build python-psutil python-ldap python-lxml \
-                          libxslt-tools python-xml nginx openssl
+                          libxslt-tools python-xml nginx openssl python-dev \
+                          python-pip
 
     Packages version requirement:
         python-psutil >= 0.6.0

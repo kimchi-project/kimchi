@@ -23,6 +23,8 @@ Requires:	google-opensans-fonts
 BuildRequires:	libxslt-tools
 BuildRequires:	openssl
 BuildRequires:	python-lxml
+BuildRequires:	python-dev
+BuildRequires:	python-pip
 
 %if 0%{?suse_version} == 1100
 Requires:       python-ordereddict

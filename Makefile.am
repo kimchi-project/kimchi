@@ -65,6 +65,8 @@ all-local:
 		$(MKDIR_P) $$dir ;                             \
 		ln -sf ../../../po/$$L.gmo $$dir/wok.mo ;   \
 	done < po/LINGUAS
+	pip install cython --no-input
+	pip install libsass --no-input --upgrade
 
 #
 # Packaging helpers
