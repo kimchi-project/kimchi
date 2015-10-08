@@ -26,6 +26,8 @@ Depends: wok,
          spice-html5,
          python-magic
 Build-Depends: libxslt,
-               python-lxml
+               python-lxml,
+               python-dev,
+               python-pip
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web application

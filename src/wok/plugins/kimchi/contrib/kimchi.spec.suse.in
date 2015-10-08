@@ -31,6 +31,8 @@ Requires:	guestfs-tools
 Requires:	python-magic
 BuildRequires:	libxslt-tools
 BuildRequires:	python-lxml
+BuildRequires:	python-dev
+BuildRequires:	python-pip
 
 %if 0%{?suse_version} == 1100
 Requires:       python-ordereddict
