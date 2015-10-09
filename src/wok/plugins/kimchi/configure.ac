@@ -64,6 +64,15 @@ else
 AC_SUBST([ENABLE_SAMPLE], [False])
 fi
 
+# check for systemd
+PKG_PROG_PKG_CONFIG
+AC_ARG_WITH([systemdsystemunitdir],
+    AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
+    [], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
+if test "x$with_systemdsystemunitdir" != xno; then
+    AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
+fi
+
 AC_ARG_WITH(
     [spice-html5],
     [AS_HELP_STRING([--with-spice-html5],

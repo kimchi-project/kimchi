@@ -1,7 +1,5 @@
 [Unit]
 Description=Wok - Webserver Originated from Kimchi
-Requires=libvirtd.service
-After=libvirtd.service
 
 [Service]
 Type=simple
