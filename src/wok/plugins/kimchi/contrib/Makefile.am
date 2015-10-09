@@ -1,4 +1,7 @@
-# Copyright IBM Corp, 2013
+#
+# Kimchi
+#
+# Copyright IBM Corp, 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,6 +21,7 @@ SUBDIRS = DEBIAN
 
 EXTRA_DIST = \
 	check_i18n.py \
+	kimchid.service.fedora \
 	kimchi.spec.fedora.in \
 	make-deb.sh.in \
 	$(NULL)

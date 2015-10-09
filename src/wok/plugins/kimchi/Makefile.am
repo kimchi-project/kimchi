@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM Corp, 2013
+# Copyright IBM Corp, 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -139,6 +139,10 @@ ChangeLog:
 	fi
 
 install-data-local:
+	@if test -d "$(systemdsystemunitdir)" ; then \
+		mkdir -p $(DESTDIR)/etc/systemd/system/wokd.service.d; \
+		$(INSTALL_DATA) contrib/kimchid.service.fedora $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
+	fi; \
 	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/kimchi/
 	touch $(DESTDIR)/$(localstatedir)/lib/wok/objectstore
 	$(MKDIR_P) $(DESTDIR)$(kimchidir)
@@ -149,6 +153,9 @@ install-data-local:
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/isos
 
 uninstall-local:
+	@if test -f $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; then \
+		$(RM) $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
+	fi; \
 	$(RM) $(DESTDIR)$(kimchidir)/API.json
 	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/kimchi
 
