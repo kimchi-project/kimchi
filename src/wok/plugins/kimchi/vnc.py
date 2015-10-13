@@ -24,10 +24,10 @@ import os
 from multiprocessing import Process
 from websockify import WebSocketProxy
 
-from wok.config import config, paths
+from wok.config import config, paths, PluginPaths
 
 
-WS_TOKENS_DIR = '/var/lib/wok/vnc-tokens'
+WS_TOKENS_DIR = os.path.join(PluginPaths('kimchi').state_dir, 'vnc-tokens')
 
 
 def new_ws_proxy():

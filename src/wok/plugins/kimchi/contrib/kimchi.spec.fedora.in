@@ -98,16 +98,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kimchi/distros.d/ubuntu.json
 %{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_sysconfdir}/kimchi/
-%{_sharedstatedir}/wok/plugins/kimchi/debugreports/
-%{_sharedstatedir}/wok/plugins/kimchi/isos/
-%{_sharedstatedir}/wok/plugins/kimchi/screenshots/
-%{_sharedstatedir}/wok/plugins/kimchi/vnc-tokens/
-%{_sharedstatedir}/wok/plugins/kimchi/
+%{_sharedstatedir}/kimchi/debugreports/
+%{_sharedstatedir}/kimchi/isos/
+%{_sharedstatedir}/kimchi/screenshots/
+%{_sharedstatedir}/kimchi/vnc-tokens/
+%{_sharedstatedir}/kimchi/
 %{_sharedstatedir}/wok/objectstore
 
 
 %changelog
-* Thu Jun 18 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 1.6
+* Thu Jun 18 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 2.0
 - Run kimchi as a plugin
 
 * Thu Feb 26 2015 Frédéric Bonnard <frediz@linux.vnet.ibm.com> 1.4.0
