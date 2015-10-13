@@ -55,6 +55,8 @@ FONTS_PATH = {
     ]
 }
 
+SESSIONSTIMEOUT = 10    # session time out is 10 minutes
+
 
 def get_object_store():
     return os.path.join(paths.state_dir, 'objectstore')
@@ -87,6 +89,13 @@ class Paths(object):
             self.src_dir = self.add_prefix('src/wok')
             self.plugins_dir = self.add_prefix('src/wok/plugins')
             self.mo_dir = self.add_prefix('mo')
+
+        for font in FONT_FILES.keys():
+            paths = FONTS_PATH[font]
+            for path in paths:
+                font_file = os.path.join(path, FONT_FILES[font][0])
+                if os.path.exists(font_file):
+                    setattr(self, '%s_dir' % font, path)
 
     def get_prefix(self):
         if __file__.startswith("/"):
@@ -147,24 +156,20 @@ class UIConfig(dict):
                     'tools.expires.secs': CACHEEXPIRES})
 
         for font, files in FONT_FILES.iteritems():
-            paths = FONTS_PATH[font]
-            for path in paths:
-                for filename in files:
-                    font_file = os.path.join(path, filename)
-                    if os.path.exists(font_file):
-                        ui_configs['/fonts/%s' % filename] = {
-                            'tools.staticfile.on': True,
-                            'tools.staticfile.filename': font_file,
-                            'tools.wokauth.on': False,
-                            'tools.nocache.on': False}
+            font_dir = getattr(paths, "%s_dir" % font)
+            for filename in files:
+                font_file = os.path.join(font_dir, filename)
+                if os.path.exists(font_file):
+                    ui_configs['/fonts/%s' % filename] = {
+                        'tools.staticfile.on': True,
+                        'tools.staticfile.filename': font_file,
+                        'tools.wokauth.on': False,
+                        'tools.nocache.on': False}
 
         self.update(ui_configs)
 
 
 class WokConfig(dict):
-    # session time out is 10 minutes
-    SESSIONSTIMEOUT = 10
-
     wok_config = {
         '/': {
             'tools.trailing_slash.on': False,
