@@ -55,7 +55,6 @@ messages = {
                      "Details: %(err)s" ),
 
     "KCHIMG0001E": _("An error occurred when probing image OS information."),
-    "KCHIMG0002E": _("No OS information found in given image."),
     "KCHIMG0003E": _("Unable to read image file %(filename)s"),
     "KCHIMG0004E": _("Image file must be an existing file on system. %(filename)s is not a valid input."),
 

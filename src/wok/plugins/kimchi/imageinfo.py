@@ -51,14 +51,15 @@ def probe_image(image_path):
     g = guestfs.GuestFS(python_return_dict=True)
     g.add_drive_opts(image_path, readonly=1)
     g.launch()
-
     try:
         roots = g.inspect_os()
     except:
         raise ImageFormatError("KCHIMG0001E")
 
     if len(roots) == 0:
-        raise ImageFormatError("KCHIMG0002E")
+        # If we are unable to detect the OS, still add the image
+        # but make distro and vendor 'unknown'
+        return ("unknown", "unknown")
 
     for root in roots:
         version = "%d.%d" % (g.inspect_get_major_version(root),
