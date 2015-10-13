@@ -19,7 +19,7 @@
 
 import unittest
 
-from wok.config import Paths, WokConfig
+from wok.config import CACHEEXPIRES, Paths, WokConfig
 
 
 get_prefix = None
@@ -94,14 +94,121 @@ class ConfigTests(unittest.TestCase):
             },
             '/favicon.ico': {
                 'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                '%s/images/logo.ico' % paths.ui_dir
+                'tools.staticfile.filename': '%s/images/logo.ico' %
+                                             paths.ui_dir
             },
             '/robots.txt': {
                 'tools.staticfile.on': True,
                 'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
             },
+            '/libs': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': '%s/ui/libs' % paths.prefix,
+                'tools.expires.on': True,
+                'tools.expires.secs': CACHEEXPIRES,
+                'tools.staticdir.on': True
+            },
+            '/css': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
+                'tools.expires.on': True,
+                'tools.expires.secs': CACHEEXPIRES,
+                'tools.staticdir.on': True
+            },
+            '/js': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
+                'tools.expires.on': True,
+                'tools.expires.secs': CACHEEXPIRES,
+                'tools.staticdir.on': True
+            },
+            '/images': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': '%s/ui/images' % paths.prefix,
+                'tools.staticdir.on': True
+            },
+            '/fonts/fontawesome-webfont.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/fontawesome-webfont.ttf' % paths.fontawesome_dir
+            },
+            '/fonts/OpenSans-LightItalic.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-LightItalic.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-Bold.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-Bold.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-Italic.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-Italic.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-Semibold.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-Semibold.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-Light.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-Light.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-SemiboldItalic.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-SemiboldItalic.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-ExtraBold.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-ExtraBold.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-BoldItalic.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-BoldItalic.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-ExtraBoldItalic.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-ExtraBoldItalic.ttf' % paths.opensans_dir
+            },
+            '/fonts/OpenSans-Regular.ttf': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename':
+                    '%s/OpenSans-Regular.ttf' % paths.opensans_dir
+            }
         }
 
-        wok_config = WokConfig.wok_config
+        wok_config = WokConfig()
         self.assertEquals(wok_config, configObj)

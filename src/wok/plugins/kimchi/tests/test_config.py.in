@@ -20,7 +20,8 @@
 import unittest
 from cherrypy.lib.reprconf import Parser
 
-from wok.config import Paths, PluginPaths, WokConfig
+from wok.config import CACHEEXPIRES, SESSIONSTIMEOUT
+from wok.config import Paths, PluginPaths
 
 from wok.plugins.kimchi.config import get_debugreports_path
 from wok.plugins.kimchi.config import get_screenshot_path
@@ -47,28 +48,6 @@ class ConfigTests(unittest.TestCase):
                 expected = usr_local + expected
         self.assertEquals(actual, expected)
 
-    def test_installed_paths(self):
-        Paths.get_prefix = lambda self: '@datadir@/wok'
-        paths = Paths()
-        self.assertInstalledPath(paths.state_dir, '/var/lib/wok')
-        self.assertInstalledPath(paths.log_dir, '/var/log/wok')
-        self.assertInstalledPath(paths.conf_dir, '/etc/wok')
-        self.assertInstalledPath(paths.src_dir, '@wokdir@')
-        self.assertInstalledPath(paths.plugins_dir, '@wokdir@/plugins')
-        self.assertInstalledPath(paths.ui_dir, '@datadir@/wok/ui')
-        self.assertInstalledPath(paths.mo_dir, '@prefix@/share/locale')
-
-    def test_uninstalled_paths(self):
-        Paths.get_prefix = lambda self: '/home/user/wok'
-        paths = Paths()
-        self.assertEquals(paths.state_dir, '/home/user/wok/data')
-        self.assertEquals(paths.log_dir, '/home/user/wok/log')
-        self.assertEquals(paths.conf_dir, '/home/user/wok/src')
-        self.assertEquals(paths.src_dir, '/home/user/wok/src/wok')
-        self.assertEquals(paths.plugins_dir, '/home/user/wok/plugins')
-        self.assertEquals(paths.ui_dir, '/home/user/wok/ui')
-        self.assertEquals(paths.mo_dir, '/home/user/wok/mo')
-
     def test_installed_plugin_paths(self):
         KimchiPaths.get_prefix = lambda self: '@datadir@/wok'
         paths = KimchiPaths()
@@ -81,100 +60,27 @@ class ConfigTests(unittest.TestCase):
         self.assertInstalledPath(paths.mo_dir, '@prefix@/share/locale')
 
     def test_uninstalled_plugin_paths(self):
-        KimchiPaths.get_prefix = lambda self: '/home/user/wok'
         paths = KimchiPaths()
-        self.assertEquals(paths.conf_dir, '/home/user/wok/plugins/kimchi')
-        self.assertEquals(
-            paths.conf_file, '/home/user/wok/plugins/kimchi/kimchi.conf')
-        self.assertEquals(paths.src_dir, '/home/user/wok/plugins/kimchi')
-        self.assertEquals(paths.ui_dir, '/home/user/wok/plugins/kimchi/ui')
-        self.assertEquals(paths.mo_dir, '/home/user/wok/plugins/kimchi/mo')
-
-    def test_wok_config(self):
-        Paths.get_prefix = PluginPaths.get_prefix = get_prefix
-        paths = Paths()
-        CACHEEXPIRES = 31536000
-        SESSIONSTIMEOUT = 10
-        configObj = {
-            '/': {
-                'tools.trailing_slash.on': False,
-                'request.methods_with_bodies': ('POST', 'PUT'),
-                'tools.nocache.on': True,
-                'tools.proxy.on': True,
-                'tools.sessions.on': True,
-                'tools.sessions.name': 'wok',
-                'tools.sessions.secure': True,
-                'tools.sessions.httponly': True,
-                'tools.sessions.locking': 'explicit',
-                'tools.sessions.storage_type': 'ram',
-                'tools.sessions.timeout': SESSIONSTIMEOUT,
-                'tools.wokauth.on': False
-            },
-            '/base64/jquery.base64.js': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/base64/jquery.base64.js' %
-                                             paths.ui_dir,
-                'tools.nocache.on': True,
-            },
-            '/wok-ui.html': {
-                'tools.wokauth.on': True
-            },
-            '/css': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
-            '/js': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
-            '/libs': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/libs' % paths.prefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
-            '/images': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/images' % paths.prefix,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
-            },
-            '/favicon.ico': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                '%s/images/logo.ico' % paths.ui_dir
-            },
-            '/robots.txt': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
-            },
-        }
-
-        wok_config = WokConfig()
-        self.assertEquals(wok_config, configObj)
+        prefix = paths.prefix
+        self.assertEquals(paths.conf_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEquals(paths.conf_file,
+                          '%s/src/wok/plugins/kimchi/kimchi.conf' % prefix)
+        self.assertEquals(paths.src_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEquals(paths.ui_dir,
+                          '%s/src/wok/plugins/kimchi/ui' % prefix)
+        self.assertEquals(paths.mo_dir,
+                          '%s/src/wok/plugins/kimchi/mo' % prefix)
 
     def test_kimchi_config(self):
         KimchiPaths.get_prefix = PluginPaths.get_prefix = get_prefix
         paths = KimchiPaths()
         pluginPrefix = paths.add_prefix(paths.plugin_dir)
-        CACHEEXPIRES = 31536000
-        SESSIONSTIMEOUT = 10
         configObj = {
             'wok': {
+                'plugin_class': 'KimchiRoot',
                 'enable': True,
-                'plugin_class': "KimchiRoot",
-                'uri': '/%s' % paths.plugin_dir,
-                'extra_auth_api_class': "control.sub_nodes"
+                'uri': '/plugins/kimchi',
+                'extra_auth_api_class': 'control.sub_nodes'
             },
             '/': {
                 'tools.trailing_slash.on': False,
@@ -191,79 +97,73 @@ class ConfigTests(unittest.TestCase):
                 'tools.wokauth.on': True
             },
             '/novnc': {
-                'tools.staticdir.on': True,
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
                 'tools.staticdir.dir': paths.novnc_dir,
-                'tools.nocache.on': True,
-                'tools.wokauth.on': True
-            },
-            '/spice_auto.html': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': paths.spice_file,
-                'tools.nocache.on': True,
-                'tools.wokauth.on': True
+                'tools.staticdir.on': True
             },
             '/spice-html5': {
-                'tools.staticdir.on': True,
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
                 'tools.staticdir.dir': paths.spice_dir,
-                'tools.nocache.on': True
+                'tools.staticdir.on': True
+            },
+            '/spice_auto.html': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': paths.spice_file,
             },
             '/spice-html5/spice.css': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
                 'tools.staticfile.on': True,
                 'tools.staticfile.filename': paths.spice_css_file,
+            },
+            '/help': {
                 'tools.nocache.on': True,
-            },
-            '/ui/config/tab-ext.xml': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/ui/config/tab-ext.xml' %
-                pluginPrefix,
-                'tools.nocache.on': True
-            },
-            '/css': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/css' % pluginPrefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
+                'tools.staticdir.dir': '%s/ui/pages/help' % pluginPrefix,
+                'tools.staticdir.on': True
             },
             '/js': {
-                'tools.staticdir.on': True,
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
                 'tools.staticdir.dir': '%s/ui/js' % pluginPrefix,
                 'tools.expires.on': True,
                 'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False
+                'tools.staticdir.on': True
             },
-            '/libs': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/libs' % pluginPrefix,
+            '/css': {
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': '%s/ui/css' % pluginPrefix,
                 'tools.expires.on': True,
                 'tools.expires.secs': CACHEEXPIRES,
-                'tools.nocache.on': False,
-                'tools.wokauth.on': False,
+                'tools.staticdir.on': True
             },
             '/images': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/images' % pluginPrefix,
+                'tools.wokauth.on': False,
                 'tools.nocache.on': False,
-                'tools.wokauth.on': False
+                'tools.staticdir.dir': '%s/ui/images' % pluginPrefix,
+                'tools.staticdir.on': True
             },
             '/data/screenshots': {
-                'tools.staticdir.on': True,
+                'tools.nocache.on': False,
                 'tools.staticdir.dir': get_screenshot_path(),
-                'tools.nocache.on': False
+                'tools.staticdir.on': True
+            },
+            '/ui/config/tab-ext.xml': {
+                'tools.nocache.on': True,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': '%s/ui/config/tab-ext.xml' %
+                pluginPrefix,
             },
             '/data/debugreports': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': get_debugreports_path(),
-                'tools.nocache.on': False,
                 'tools.wokauth.on': True,
-                'tools.staticdir.content_types': {'xz': 'application/x-xz'}
-            },
-            '/help': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': '%s/ui/pages/help' % pluginPrefix,
-                'tools.nocache.on': True
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': get_debugreports_path(),
+                'tools.staticdir.content_types': {'xz': 'application/x-xz'},
+                'tools.staticdir.on': True
             }
         }
 
