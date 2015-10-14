@@ -123,8 +123,8 @@ class TemplatesModel(object):
             if not tmp_volumes:
                 raise InvalidParameter("KCHTMPL0018E")
 
-            storagevolumes = __import__("kimchi.model.storagevolumes",
-                                        fromlist=[''])
+            storagevolumes = __import__(
+                "wok.plugins.kimchi.model.storagevolumes", fromlist=[''])
             pool_volumes = storagevolumes.StorageVolumesModel(
                 **kwargs).get_list(pool_name)
             vols = set(tmp_volumes) - set(pool_volumes)
