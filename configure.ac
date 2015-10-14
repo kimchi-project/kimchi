@@ -38,6 +38,7 @@ AM_INIT_AUTOMAKE([-Wno-portability])
 AM_PATH_PYTHON([2.6])
 AC_PATH_PROG([PEP8], [pep8], [/usr/bin/pep8])
 AC_PYTHON_MODULE([unittest])
+AC_PYTHON_MODULE([cython], [fatal])
 AC_SUBST([HAVE_PYMOD_UNITTEST])
 AC_SUBST([PYTHON_VERSION])
 AM_GNU_GETTEXT([external])
@@ -48,6 +49,12 @@ AC_PATH_PROG([CHEETAH], [cheetah], [/usr/bin/cheetah])
 AC_PATH_PROG([PYFLAKES], [pyflakes])
 if test "x$PYFLAKES" = "x"; then
   AC_MSG_WARN([pyflakes not found])
+fi
+
+# Checking for libsass
+AC_PATH_PROG([LIBSASS], [sassc])
+if test "x$LIBSASS" = "x"; then
+    AC_MSG_ERROR([sassc not found. Please execute "pip install libsass"])
 fi
 
 AC_ARG_ENABLE(
