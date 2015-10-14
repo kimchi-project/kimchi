@@ -55,6 +55,8 @@ Install Dependencies
                         python-psutil python-ldap python-lxml \
                         libxslt nginx openssl python-dev python-pip
 
+     $ sudo pip install cython libsass
+
 
      # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
@@ -81,6 +83,8 @@ channel at RHN Classic or Red Hat Satellite.
                            python-psutil python-ldap python-lxml nginx \
                            libxslt openssl python-dev python-pip
 
+    $ sudo pip install cython libsass
+
     Packages version requirement:
         python-jsonschema >= 1.3.0
         python-psutil >= 0.6.0
@@ -96,6 +100,8 @@ channel at RHN Classic or Red Hat Satellite.
                           rpm-build python-psutil python-ldap python-lxml \
                           libxslt-tools python-xml nginx openssl python-dev \
                           python-pip
+
+    $ sudo pip install cython libsass
 
     Packages version requirement:
         python-psutil >= 0.6.0
