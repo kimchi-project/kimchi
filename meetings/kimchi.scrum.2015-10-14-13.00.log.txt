@@ -1,0 +1,216 @@
+13:00:15 <alinefm> #startmeeting
+13:00:15 <kimchi-bot> Meeting started Wed Oct 14 13:00:15 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:15 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:16 <alinefm> #meetingname scrum
+13:00:16 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:09 <alinefm> #info Agenda 1) Status 2) Kimchi 2.0 3) Open discussion
+13:01:09 <alinefm> anything else?
+13:02:34 <pvital> no
+13:02:42 <alinefm> so let's get started
+13:02:43 <alinefm> #topic Status
+13:02:44 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:03:17 <lcorreia> #info lucio fixed issue #738 - sent to ML
+13:03:34 <alinefm> #info alinefm sent patch to fix PYTHONPATH to run the test cases
+13:03:46 <alinefm> #info alinefm reviewed/applied patches
+13:04:07 <alinefm> #info alinefm is now working on fixing test cases that are failing
+13:04:08 <pvital> #info pvital has been working in Wok and Kimchi (as plugin) stabilization (sent some patches related to this).
+13:04:09 <pvital> #info pvital reviewed some patches from Kimchi and Ginger.
+13:04:09 <pvital> #info pvital opened wok issue #740.
+13:04:22 <ziviani> #info ziviani sent code to review ([PATCH v4 0/4] Issue 557 - Package Update Improvements - Part II)
+13:04:22 <ziviani> #info ziviani sent code to review ([PATCH v6 0/2] Improve VM CPU update code)
+13:04:22 <ziviani> #info ziviani got the task 'Create logical pool from existing VG'
+13:04:30 <ziviani> #info ziviani worked on bugs
+13:04:39 <ramonn> #info ramonn working on add support for linux bridge and macvtap. Cannot look to ML because got some issues with authentication. Solving this now
+13:05:27 <WalterNik> #info WalterNik working with Jan on the UI Navigation proposal of the Ginger/Host tab
+13:05:33 <alinefm> ziviani, ramonn, please, before coding, send an RFC to the ML just to avoid waste of work
+13:05:42 <ramonn> alinefm, ok
+13:05:46 <ziviani> alinefm, ok
+13:06:11 <alinefm> pvital, I ran into the same problem while building kimchi on fedora22
+13:06:13 <samhenri> #info samhenri namespacing some kimchi CSS classes in order to make old-ui work with new-ui at the same time
+13:06:26 <alinefm> pvital, I needed to install gcc-c++. Please, try it there too
+13:06:33 <pawan> #info pawan working on dasd formatting and listing
+13:06:41 <pvital> alinefm, nice!!!
+13:07:32 <jkatta> #info jkatta started working on Configuration of HOST-NICs (ipv4, ipv6 via iproute2)
+13:07:34 <pvital> alinefm, I gonna check this
+13:07:40 <Archana> #info Archana Working on #737 issue
+13:07:51 <samhenri> btw something happened with my environment and I'm unable to run Kimchi. libvirt and qemu errors
+13:08:04 <Archana> #info Archana 737:Wok base framework calls resource model's lookup twice
+13:08:19 <alinefm> samhenri, omg
+13:08:48 <chandra> #info, chandra pushed gingerbase v5 patch versions
+13:09:05 <samhenri> libvirt: QEMU Driver error : Domain not found: no domain with matching name 'FEATURETEST_VM'
+13:09:09 <alinefm> samhenri, did you do some system update? try to restart the libvirtd service or check if you can use virsh command line
+13:09:16 <samhenri> libvirt: Storage Driver error : Storage pool not found: no storage pool with matching name 'FEATURETEST_POOL'
+13:09:25 <samhenri> these two lines end wokd proccess
+13:09:41 <alinefm> samhenri, we can investigate together later
+13:09:46 <samhenri> sure
+13:10:08 <alinefm> anything else, team?
+13:10:17 <pvital> no
+13:10:20 <andreteodoro> #info andreteodoro working on the templates screen to aplly the new UI
+13:10:48 <alinefm> andreteodoro, btw, welcome to your first scrum meeting! =)
+13:11:07 <andreteodoro> tks =)
+13:11:36 <alinefm> can we move on?
+13:12:04 <pooja> #info pooja sent proposal to include filesystem management in ginger
+13:13:19 <atreyee> #info atreyee working on UI mockups
+13:14:31 <alinefm> #topic Kimchi 2.0
+13:14:56 <alinefm> I've sent a quick note to the ML about the dates and tasks, hope you all have seen it =)
+13:15:14 <alinefm> #info Kimchi 2.0 planning: https://github.com/kimchi-project/kimchi/wiki/Planning-2.0
+13:15:27 <alinefm> #info Kimchi 2.0 ToDo: https://github.com/kimchi-project/kimchi/wiki/Todo-2.0
+13:15:46 <alinefm> As I said feel free to edit the wik to add any new feature you want in Kimchi/Wok 2.0
+13:16:08 <alinefm> any question about that?
+13:18:09 <alinefm> apparently not =)
+13:18:12 <alinefm> moving on...
+13:18:16 <alinefm> #topic Open Discussion
+13:18:24 <alinefm> any topic for today?
+13:19:52 <Archana> #topic Archana Intiliated discussion on CURL GET list of resources for 2500+ resource in list, timed-out.
+13:19:55 <Archana> in ML
+13:20:39 <alinefm> WalterNik, about the UI navigation
+13:20:46 <alinefm> do you want to discuss more about it?
+13:20:54 <alinefm> I havent read you reply yet - sorry
+13:20:55 <WalterNik> alinefm, I'm wondering about the UI discussion as well :-)
+13:21:06 <samhenri> yes, i was about to mention that
+13:21:16 <alinefm> WalterNik, samhenri sure
+13:21:20 <alinefm> who is first?! =)
+13:21:30 <samhenri> but first, I have a question, since Chandra is moving Hosts tab to Gingerbase
+13:21:32 <WalterNik> alinefm Not sure what's more effective ... ML or here ...
+13:22:14 <samhenri> I still have Hosts tab in Kimchi
+13:22:47 <samhenri> And I did a lot of changes with the JS files, wok.grid.js and wok.list.js in Wok
+13:22:54 <samhenri> and kimchi.hosts.js in Kimchi
+13:23:30 <samhenri> I also have updated wok.window.js to load bootstrap modal windows instead of the old-ui html
+13:23:38 <samhenri> and updated the modal windows related to Hosts tab
+13:23:46 <alinefm> samhenri, I plan to merge your patches first as chandra used git-mv to move files around it will not impact the gingerbase patches
+13:23:52 <samhenri> Add/Edit Repository and Reports
+13:23:53 <samhenri> oh, ok
+13:24:12 <alinefm> WalterNik, here you have my attention for a more long time =P
+13:24:31 <samhenri> I was worried that we would have to merge files and look for changes
+13:24:32 <pvital> :-)
+13:24:36 <samhenri> because automerge won't work in this case
+13:24:50 <WalterNik> alinefm, then lets have it here :-)
+13:25:04 <samhenri> regardless, I'm planning to include in the next patches the namespaced old-ui templates
+13:25:17 <samhenri> but I'm also updating all the modal windows with the new-ui
+13:25:23 <alinefm> samhenri, great!
+13:25:29 <alinefm> samhenri, when can we have it upstream?
+13:25:57 <alinefm> I mean, without templates and guests for a while
+13:25:58 <alinefm> =)
+13:26:02 <samhenri> I was planning to release a patch today but some people reported problems with Libsass
+13:26:16 <alinefm> samhenri, seems we need to install gcc-c++ too
+13:26:22 <samhenri> yes
+13:26:29 <alinefm> I asked pvital to try it out
+13:26:29 <samhenri> and python-devel instead of python-dev
+13:26:39 <samhenri> I was going to investigate if old dristros can find python-devel
+13:26:45 <alinefm> samhenri, ok
+13:26:53 <samhenri> because fedora 22 can't find python-dev
+13:27:11 <alinefm> samhenri, but we will need to change the build process to do not use pip as we were talking with baude yesterday
+13:27:25 <alinefm> samhenri, but we can do it later
+13:27:30 <samhenri> ok
+13:27:31 <alinefm> after getting some new UI up
+13:27:46 <alinefm> WalterNik, about the UI navigation: I agree in having the 2 level tabs
+13:27:51 <pvital> alinefm, samhenri: also I found issues with the pip commands added in latest commits
+13:28:00 <pvital> alinefm, samhenri: sendin a fix soon
+13:28:04 <WalterNik> alinefm, that's great !!!
+13:28:18 <samhenri> pvital thanks
+13:28:19 <alinefm> WalterNik, and also to use the plugin domain as the first tab (instead of plugin name, as I have proposed in the ML)
+13:28:26 <baude> IMHO, there should be zero pip commands in your packages
+13:28:34 <alinefm> WalterNik, I was thinking more about a devel which install Kimchi and knows which is it
+13:28:41 <baude> configure should check for deps and fail if it cannot find them, not install them via pip
+13:28:45 <alinefm> but from a user point of view, the plugin domain is better
+13:28:51 <WalterNik> alinefm thanks, that helps.
+13:29:02 <samhenri> pivtal Socorro had different issues installing pip, cython and sassc, apparently the libraries were installed but it was requiring permission to install "python six"
+13:29:08 <alinefm> WalterNik, I only don't agree in having vertical menus
+13:29:40 <alinefm> WalterNik, As we will have 2 level tabs, we can split the tab content per content (network, storage, etc)
+13:29:52 <alinefm> and use collapsed content inside each tab
+13:30:04 <WalterNik> alinefm, would you rather preffer to have the Ginger tabs being hortizontally ?
+13:30:32 <samhenri> I think we have to consider small screen resolutions
+13:30:34 <alinefm> WalterNik, yes if it is the same we did on Kimchi, for example
+13:30:39 <samhenri> And by that I don't mean mobile screens
+13:30:40 <WalterNik> alinefm, the collapsing doesn't scale ... we have more than dumplicated the functionlaity
+13:31:04 <samhenri> but If you look in the pdf files, the screen resolution is 1680 pixels wide
+13:31:42 <alinefm> samhenri, but for that we have responsive design, right?
+13:32:10 <samhenri> we do but it is not that simple
+13:32:15 <WalterNik> alinefm, the only issue I have with the horizontal tabs is:  at least 2 of those tabs have some subtabs and I don't know how to solve that one horizontally
+13:32:41 <samhenri> for now I'm just going to adjust font-size, the margins and paddings (inner margins)
+13:32:48 <WalterNik> samhenri, maybe you have a suggestion on this ... or others
+13:33:16 <samhenri> but I was thinking, even if we do that, suppose we create a different tab for each Ginger collapsible panel
+13:33:20 <samhenri> and create new panels
+13:34:07 <samhenri> what if we have over 10 tabs?
+13:34:13 <alinefm> samhenri, I don't think in having one tab for each ginger collapsible panel
+13:34:17 <alinefm> no no
+13:34:22 <samhenri> oh, ok
+13:34:25 <alinefm> I can see only 3 tabs
+13:34:26 <WalterNik> alinefm, for example storage:  block devices   -  filesystem info and actions
+13:34:26 <WalterNik> -  logical volumes and their management
+13:34:26 <WalterNik> -  SAN Adapters
+13:34:26 <WalterNik> -  SWAP devices
+13:34:32 <alinefm> general, storage and network
+13:34:48 <WalterNik> alinefm, I agree ... we would combine some stuff
+13:35:17 <alinefm> WalterNik, samhenri, and inside those tabs the content collapsed
+13:35:24 <samhenri> i think we have to set a "limit" in the smallest screen size and put the tabs that don't fit in a "more" drop-down
+13:35:45 <samhenri> like the NBC screenshot that I've sent in the ML
+13:36:12 <WalterNik> alinefm, samhenri, and on the block devices there would be a potentially huge list (1000 or more) that would wrap out the other sections
+13:36:49 <alinefm> WalterNik, for each we can have a fixed size for each collapsible area and do the scroll only there
+13:36:54 <samhenri> I'm not sure if just adjusting font-size and width all content in the navbar would fit in all different languages
+13:36:57 <alinefm> WalterNik, does that make sense?
+13:37:56 <alinefm> samhenri, I like it - to have a fixed tabs numbers and merge the others in a "drop down" menu
+13:38:07 <WalterNik> alinefm, trying to envison it ...
+13:38:32 <alinefm> WalterNik, you will scroll the area, not the whole page
+13:40:39 <WalterNik> alinefm, that's much better than all on one page ... but I guess I need a picture. Lets go with this for now
+13:41:50 <samhenri> ok
+13:42:10 <WalterNik> alinefm, daneilhb, I guess the next discussion is about grouping the functionlity into the main tabs
+13:42:37 <WalterNik> alinefm, danielhb, the horizontal tabs in Host
+13:42:58 <alinefm> WalterNik, do you see we need more than those 3 tabs I mentioned?
+13:44:46 <WalterNik> alinefm, the General tab sounds to generic on a first glance in order to make sombody understand what's behind it , lets take look at the functionalities in detail
+13:45:33 <alinefm> WalterNik, basically gingerbase
+13:45:47 <alinefm> + firmware update
+13:46:02 <alinefm> danielhb, i don't recall all the ginger functionalities by hand =x
+13:47:17 <WalterNik> alinefm, same with me ... this is why I proposed to have the detailed look ... we can do this on ML
+13:47:57 <danielhb> alinefm, that's the same as saying 'kimchi starts VMs and ... I guess that's it "
+13:49:44 <alinefm> danielhb, =o
+13:49:47 <alinefm> danielhb, sorry!
+13:49:57 <alinefm> WalterNik, danielhb, yeap, let do that on ML
+13:50:02 <WalterNik> alinefm, what's your major concern with the vertical menue ?
+13:50:16 <alinefm> WalterNik, looks like IBM apps =$
+13:50:34 <WalterNik> alinefm, asking because ... :-)
+13:51:15 <chandra> Alinefm, But on the other hand do we have better solution ?
+13:51:27 <alinefm> WalterNik, I also think it is too much 2 level tabs + vertical menus
+13:51:34 <alinefm> seems we will have more menus than content
+13:52:02 <chandra> From my point of view having additional tabs in dropdown will not give good impression.
+13:52:06 <WalterNik> alinefm, we more than dumplicated our functionality in Ginger .. or plan to do
+13:52:31 <alinefm> chandra, we will need that anyway for smaller screens
+13:52:56 <chandra> Will not be any better idea in case of small screens?
+13:53:26 <samhenri> small screens != than mobile
+13:53:35 <chandra> alinefm, could you please let me help in understanding what would be the problem from small screen point of view ?
+13:53:37 <samhenri> because mobile would have to use a sidebar anyway
+13:53:47 <samhenri> or a collapsable menu, like Bootstrap does
+13:53:57 <alinefm> WalterNik, I know! but we can split the content by core functionalities
+13:54:18 <WalterNik> Hi all, so far we have not heard many other oppinions ... and you are users as well
+13:54:39 <samhenri> http://getbootstrap.com/examples/navbar-fixed-top/
+13:54:56 <samhenri> if you resize the window, it will show the infamous hamburger button
+13:55:06 <samhenri> i think we can get rid of the hamburger icon
+13:55:16 <samhenri> and use a "more" or menu text instead
+13:55:23 <WalterNik> alinefm, Sure we will need the grouping anyhow independent where the navigation is going
+13:55:41 <samhenri> and instead of a sidebar, we follow this example
+13:56:01 <samhenri> that drops a list above the main content
+13:56:52 <alinefm> hmm... yes! it is better IMO
+13:59:37 <WalterNik> samhenri, it would be a solution ... but I'm already wondering why did we implement a clean separation by main tabs in kimchi ?
+14:00:41 <WalterNik> samhenri, alinefm, the navigation is Kimchi is great ... why not have soemething similar in ginger ?
+14:01:08 <alinefm> WalterNik, I think we could do similar there too
+14:01:14 <alinefm> danielhb, ^
+14:01:49 <alinefm> WalterNik, the historic is there were different people working for UI on Kimchi and Ginger
+14:01:59 <alinefm> so they, now, looks different
+14:02:11 <WalterNik> alinefm, I understand
+14:02:13 <alinefm> we are moving to use the same UI elements with new UI
+14:02:38 <alinefm> we can also change that IMO!! *but* we need to discuss on ginger community as well
+14:02:44 <chandra> alinefm, from the design document I see they are thinking differently...
+14:02:49 <alinefm> as danielhb is the master boss =)
+14:03:20 <WalterNik> alinefm, sure lets continue on the ginger ml ..
+14:03:33 <alinefm> great!
+14:03:33 <samhenri> yes, I joined Kimchi project in june/july so I just had the new-ui design spec material and the old-ui as reference to work with
+14:04:15 <alinefm> anything else, team?
+14:04:21 <alinefm> just noticed we are  over time
+14:05:00 <chandra> I guess we need to discuss more to have good understanding...
+14:05:19 <alinefm> we can continue after meeting
+14:05:27 <alinefm> or on ML
+14:05:40 <alinefm> some of that discussion must be aligned on ginger community too
+14:06:45 <chandra> well, we should course correct wherever required.
+14:07:30 <alinefm> i will end the meeting and we can continue discuss here
+14:07:41 <alinefm> thanks everyone for joining!
+14:07:44 <alinefm> #endmeeting

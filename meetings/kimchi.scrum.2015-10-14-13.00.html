@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:00:15 UTC
+(<a href="kimchi.scrum.2015-10-14-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Kimchi 2.0 3) Open
+    discussion</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-6'>alinefm</a>,
+    13:01:09)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2015-10-14-13.00.log.html#l-10'>alinefm</a>, 13:02:43)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-11'>alinefm</a>,
+    13:02:44)</span></li>
+  <li><span class="INFO">lucio fixed issue #738 - sent to ML</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-12'>lcorreia</a>,
+    13:03:17)</span></li>
+  <li><span class="INFO">alinefm sent patch to fix PYTHONPATH to run the
+    test cases</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-13'>alinefm</a>,
+    13:03:34)</span></li>
+  <li><span class="INFO">alinefm reviewed/applied patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-14'>alinefm</a>,
+    13:03:46)</span></li>
+  <li><span class="INFO">alinefm is now working on fixing test cases
+    that are failing</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-15'>alinefm</a>,
+    13:04:07)</span></li>
+  <li><span class="INFO">pvital has been working in Wok and Kimchi (as
+    plugin) stabilization (sent some patches related to this).</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-16'>pvital</a>,
+    13:04:08)</span></li>
+  <li><span class="INFO">pvital reviewed some patches from Kimchi and
+    Ginger.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-17'>pvital</a>,
+    13:04:09)</span></li>
+  <li><span class="INFO">pvital opened wok issue #740.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-18'>pvital</a>,
+    13:04:09)</span></li>
+  <li><span class="INFO">ziviani sent code to review ([PATCH v4 0/4]
+    Issue 557 - Package Update Improvements - Part II)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-19'>ziviani</a>,
+    13:04:22)</span></li>
+  <li><span class="INFO">ziviani sent code to review ([PATCH v6 0/2]
+    Improve VM CPU update code)</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-20'>ziviani</a>,
+    13:04:22)</span></li>
+  <li><span class="INFO">ziviani got the task 'Create logical pool from
+    existing VG'</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-21'>ziviani</a>,
+    13:04:22)</span></li>
+  <li><span class="INFO">ziviani worked on bugs</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-22'>ziviani</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">ramonn working on add support for linux bridge
+    and macvtap. Cannot look to ML because got some issues with
+    authentication. Solving this now</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-23'>ramonn</a>,
+    13:04:39)</span></li>
+  <li><span class="INFO">WalterNik working with Jan on the UI Navigation
+    proposal of the Ginger/Host tab</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-24'>WalterNik</a>,
+    13:05:27)</span></li>
+  <li><span class="INFO">samhenri namespacing some kimchi CSS classes in
+    order to make old-ui work with new-ui at the same time</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-29'>samhenri</a>,
+    13:06:13)</span></li>
+  <li><span class="INFO">pawan working on dasd formatting and
+    listing</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-31'>pawan</a>,
+    13:06:33)</span></li>
+  <li><span class="INFO">jkatta started working on Configuration of
+    HOST-NICs (ipv4, ipv6 via iproute2)</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-33'>jkatta</a>,
+    13:07:32)</span></li>
+  <li><span class="INFO">Archana Working on #737 issue</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-35'>Archana</a>,
+    13:07:40)</span></li>
+  <li><span class="INFO">Archana 737:Wok base framework calls resource
+    model's lookup twice</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-37'>Archana</a>,
+    13:08:04)</span></li>
+  <li><span class="INFO">, chandra pushed gingerbase v5 patch
+    versions</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-39'>chandra</a>,
+    13:08:48)</span></li>
+  <li><span class="INFO">andreteodoro working on the templates screen to
+    aplly the new UI</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-48'>andreteodoro</a>,
+    13:10:20)</span></li>
+  <li><span class="INFO">pooja sent proposal to include filesystem
+    management in ginger</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-52'>pooja</a>,
+    13:12:04)</span></li>
+  <li><span class="INFO">atreyee working on UI mockups</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-53'>atreyee</a>,
+    13:13:19)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Kimchi 2.0</b> <span class="details">(<a href='kimchi.scrum.2015-10-14-13.00.log.html#l-54'>alinefm</a>, 13:14:31)</span>
+<ol type="a">
+  <li><span class="INFO">Kimchi 2.0 planning:
+    https://github.com/kimchi-project/kimchi/wiki/Planning-2.0</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-56'>alinefm</a>,
+    13:15:14)</span></li>
+  <li><span class="INFO">Kimchi 2.0 ToDo:
+    https://github.com/kimchi-project/kimchi/wiki/Todo-2.0</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-57'>alinefm</a>,
+    13:15:27)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2015-10-14-13.00.log.html#l-62'>alinefm</a>, 13:18:16)</span>
+<ol type="a">
+  <li><a
+    href="http://getbootstrap.com/examples/navbar-fixed-top/">http://getbootstrap.com/examples/navbar-fixed-top/</a>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-14-13.00.log.html#l-185'>samhenri</a>,
+    13:54:39)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:07:44 UTC
+(<a href="kimchi.scrum.2015-10-14-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (93)</li>
+  <li>samhenri (50)</li>
+  <li>WalterNik (31)</li>
+  <li>pvital (10)</li>
+  <li>chandra (8)</li>
+  <li>ziviani (5)</li>
+  <li>Archana (4)</li>
+  <li>kimchi-bot (3)</li>
+  <li>baude (2)</li>
+  <li>ramonn (2)</li>
+  <li>andreteodoro (2)</li>
+  <li>pooja (1)</li>
+  <li>atreyee (1)</li>
+  <li>pawan (1)</li>
+  <li>lcorreia (1)</li>
+  <li>danielhb (1)</li>
+  <li>jkatta (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
