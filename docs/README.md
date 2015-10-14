@@ -53,7 +53,7 @@ Install Dependencies
                         python-cherrypy python-cheetah python-imaging\
                         PyPAM m2crypto python-jsonschema rpm-build \
                         python-psutil python-ldap python-lxml \
-                        libxslt nginx openssl python-dev python-pip
+                        libxslt nginx openssl python-devel python-pip
 
      $ sudo pip install cython libsass
 
@@ -98,7 +98,7 @@ channel at RHN Classic or Red Hat Satellite.
                           python-CherryPy python-Cheetah python-pam \
                           python-imaging python-M2Crypto python-jsonschema \
                           rpm-build python-psutil python-ldap python-lxml \
-                          libxslt-tools python-xml nginx openssl python-dev \
+                          libxslt-tools python-xml nginx openssl python-devel \
                           python-pip
 
     $ sudo pip install cython libsass
