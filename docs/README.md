@@ -53,7 +53,8 @@ Install Dependencies
                         python-cherrypy python-cheetah python-imaging\
                         PyPAM m2crypto python-jsonschema rpm-build \
                         python-psutil python-ldap python-lxml \
-                        libxslt nginx openssl python-devel python-pip
+                        libxslt nginx openssl python-devel python-pip \
+                        gcc-c++ open-sans-fonts fontawesome-fonts
 
      $ sudo pip install cython libsass
 
@@ -81,7 +82,8 @@ channel at RHN Classic or Red Hat Satellite.
                            python-cherrypy3 python-cheetah python-imaging \
                            python-pam python-m2crypto python-jsonschema \
                            python-psutil python-ldap python-lxml nginx \
-                           libxslt openssl python-dev python-pip
+                           libxslt openssl python-dev python-pip \
+                           g++ fonts-font-awesome texlive-fonts-extra
 
     $ sudo pip install cython libsass
 
@@ -99,7 +101,8 @@ channel at RHN Classic or Red Hat Satellite.
                           python-imaging python-M2Crypto python-jsonschema \
                           rpm-build python-psutil python-ldap python-lxml \
                           libxslt-tools python-xml nginx openssl python-devel \
-                          python-pip
+                          python-pip gcc-c++ google-opensans-fonts \
+                          fontawesome-fonts
 
     $ sudo pip install cython libsass
 
