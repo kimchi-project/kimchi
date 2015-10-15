@@ -21,7 +21,7 @@ import json
 import os
 import cherrypy
 
-from wok.i18n import messages
+from wok.plugins.kimchi.i18n import messages
 from wok.root import WokRoot
 
 import config
