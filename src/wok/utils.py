@@ -315,10 +315,10 @@ def validate_repo_url(url):
 
     if url_parts[0] in ['http', 'https', 'ftp']:
         if not check_url_path(url):
-            raise InvalidParameter("WOKUTILS0001E", {'uri': url})
+            raise InvalidParameter("WOKUTILS0001E", {'url': url})
     elif url_parts[0] == 'file':
         if not os.path.exists(url_parts[1]):
-            raise InvalidParameter("WOKUTILS0001E", {'uri': url})
+            raise InvalidParameter("WOKUTILS0001E", {'url': url})
     else:
         raise InvalidParameter("KCHREPOS0002E")
 

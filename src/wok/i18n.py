@@ -45,7 +45,7 @@ messages = {
 
     "WOKOBJST0001E": _("Unable to find %(item)s in datastore"),
 
-    "WOKUTILS0001E": _("Invalid URI %(uri)s"),
+    "WOKUTILS0001E": _("Unable to reach %(url)s. Make sure it is accessible and try again."),
     "WOKUTILS0002E": _("Timeout while running command '%(cmd)s' after %(seconds)s seconds"),
     "WOKUTILS0004E": _("Invalid data value '%(value)s'"),
     "WOKUTILS0005E": _("Invalid data unit '%(unit)s'"),
