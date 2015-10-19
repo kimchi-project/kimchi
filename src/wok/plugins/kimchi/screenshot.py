@@ -33,7 +33,7 @@ except ImportError:
 
 from wok.utils import wok_log
 
-import config
+from wok.plugins.kimchi import config
 
 
 (fd, pipe) = tempfile.mkstemp()

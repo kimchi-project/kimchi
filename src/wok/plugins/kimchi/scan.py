@@ -27,7 +27,7 @@ import time
 
 from wok.utils import wok_log
 
-from isoinfo import IsoImage, probe_iso
+from wok.plugins.kimchi.isoinfo import IsoImage, probe_iso
 
 
 SCAN_IGNORE = ['/tmp/kimchi-scan-*']

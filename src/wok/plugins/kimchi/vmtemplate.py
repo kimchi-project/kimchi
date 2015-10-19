@@ -27,17 +27,16 @@ from lxml.builder import E
 
 from wok.exception import InvalidParameter, ImageFormatError, IsoFormatError
 from wok.exception import MissingParameter, OperationFailed
-from wok.plugins.kimchi.utils import check_url_path
 
-import imageinfo
-import osinfo
-from isoinfo import IsoImage
-from utils import pool_name_from_uri
-from xmlutils.cpu import get_cpu_xml
-from xmlutils.disk import get_disk_xml
-from xmlutils.graphics import get_graphics_xml
-from xmlutils.interface import get_iface_xml
-from xmlutils.qemucmdline import get_qemucmdline_xml
+from wok.plugins.kimchi import imageinfo
+from wok.plugins.kimchi import osinfo
+from wok.plugins.kimchi.isoinfo import IsoImage
+from wok.plugins.kimchi.utils import check_url_path, pool_name_from_uri
+from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml
+from wok.plugins.kimchi.xmlutils.disk import get_disk_xml
+from wok.plugins.kimchi.xmlutils.graphics import get_graphics_xml
+from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
+from wok.plugins.kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 
 
 class VMTemplate(object):

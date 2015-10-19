@@ -33,13 +33,13 @@ from wok.utils import add_task, wok_log
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
-import hostdev
 from wok.plugins.kimchi import disks
 from wok.plugins.kimchi import netinfo
+from wok.plugins.kimchi.model import hostdev
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel, VMsModel
 from wok.plugins.kimchi.repositories import Repositories
 from wok.plugins.kimchi.swupdate import SoftwareUpdate
-from config import CapabilitiesModel
-from vms import DOM_STATE_MAP, VMModel, VMsModel
 
 
 HOST_STATS_INTERVAL = 1

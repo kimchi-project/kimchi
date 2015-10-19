@@ -24,14 +24,15 @@ from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.utils import wok_log
 
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.diskutils import get_disk_used_by
+from wok.plugins.kimchi.model.diskutils import set_disk_used_by
+from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
+from wok.plugins.kimchi.model.utils import get_vm_config_flag
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
 from wok.plugins.kimchi.osinfo import lookup
 from wok.plugins.kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
-from config import CapabilitiesModel
-from diskutils import get_disk_used_by, set_disk_used_by
-from storagevolumes import StorageVolumeModel
-from utils import get_vm_config_flag
-from vms import DOM_STATE_MAP, VMModel
 
 
 HOTPLUG_TYPE = ['scsi', 'virtio']

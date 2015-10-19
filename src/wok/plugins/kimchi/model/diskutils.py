@@ -20,8 +20,9 @@
 from wok.exception import OperationFailed, NotFoundError
 from wok.utils import wok_log
 
+from wok.plugins.kimchi.model.vms import VMModel, VMsModel
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
-from vms import VMModel, VMsModel
+
 
 """
     Functions that multiple storage-related models (e.g. VMStoragesModel,

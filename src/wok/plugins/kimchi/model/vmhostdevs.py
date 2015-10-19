@@ -29,10 +29,10 @@ from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command, wok_log
 
-from config import CapabilitiesModel
-from host import DeviceModel, DevicesModel
-from utils import get_vm_config_flag
-from vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.host import DeviceModel, DevicesModel
+from wok.plugins.kimchi.model.utils import get_vm_config_flag
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
 
 
 class VMHostDevsModel(object):

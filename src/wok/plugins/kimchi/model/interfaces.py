@@ -20,7 +20,7 @@
 from wok.exception import NotFoundError
 
 from wok.plugins.kimchi import netinfo
-from networks import NetworksModel
+from wok.plugins.kimchi.model.networks import NetworksModel
 
 
 class InterfacesModel(object):

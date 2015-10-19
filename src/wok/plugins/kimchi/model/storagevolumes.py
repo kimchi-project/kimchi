@@ -37,8 +37,9 @@ from wok.model.tasks import TaskModel
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.isoinfo import IsoImage
-from diskutils import get_disk_used_by, set_disk_used_by
-from storagepools import StoragePoolModel
+from wok.plugins.kimchi.model.diskutils import get_disk_used_by
+from wok.plugins.kimchi.model.diskutils import set_disk_used_by
+from wok.plugins.kimchi.model.storagepools import StoragePoolModel
 
 
 VOLUME_TYPE_MAP = {0: 'file',

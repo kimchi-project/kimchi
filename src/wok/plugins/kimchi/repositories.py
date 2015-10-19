@@ -26,11 +26,12 @@ from ConfigParser import ConfigParser
 from wok.basemodel import Singleton
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import OperationFailed, NotFoundError, MissingParameter
-from wok.plugins.kimchi.utils import validate_repo_url
 
-from config import kimchiLock
-from yumparser import get_yum_repositories, write_repo_to_file
-from yumparser import get_display_name, get_expanded_url
+from wok.plugins.kimchi.config import kimchiLock
+from wok.plugins.kimchi.utils import validate_repo_url
+from wok.plugins.kimchi.yumparser import get_yum_repositories
+from wok.plugins.kimchi.yumparser import write_repo_to_file, get_display_name
+from wok.plugins.kimchi.yumparser import get_expanded_url
 
 
 class Repositories(object):

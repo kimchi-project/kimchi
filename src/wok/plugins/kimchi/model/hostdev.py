@@ -24,7 +24,7 @@ from pprint import pprint
 from wok.utils import wok_log
 from wok.xmlutils.utils import dictize
 
-from libvirtconnection import LibvirtConnection
+from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 
 
 def _get_all_host_dev_infos(libvirt_conn):

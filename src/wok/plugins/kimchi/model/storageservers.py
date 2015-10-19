@@ -19,7 +19,8 @@
 
 from wok.exception import NotFoundError
 
-from storagepools import StoragePoolModel, StoragePoolsModel
+from wok.plugins.kimchi.model.storagepools import StoragePoolModel
+from wok.plugins.kimchi.model.storagepools import StoragePoolsModel
 
 # Types of remote storage servers supported
 STORAGE_SERVERS = ['netfs', 'iscsi']
