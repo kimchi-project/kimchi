@@ -27,7 +27,7 @@ from lxml.builder import E
 
 from wok.exception import InvalidParameter, ImageFormatError, IsoFormatError
 from wok.exception import MissingParameter, OperationFailed
-from wok.utils import check_url_path
+from wok.plugins.kimchi.utils import check_url_path
 
 import imageinfo
 import osinfo

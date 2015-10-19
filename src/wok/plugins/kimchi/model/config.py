@@ -24,7 +24,8 @@ from wok.basemodel import Singleton
 from wok.config import config as kconfig
 from wok.config import get_version
 from wok.exception import NotFoundError
-from wok.utils import check_url_path, run_command, wok_log
+from wok.plugins.kimchi.utils import check_url_path
+from wok.utils import run_command, wok_log
 
 from ..config import find_qemu_binary
 from ..distroloader import DistroLoader
