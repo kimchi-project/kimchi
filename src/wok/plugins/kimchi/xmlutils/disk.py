@@ -27,7 +27,7 @@ from lxml import objectify
 from lxml.builder import E
 
 from wok.exception import InvalidParameter, NotFoundError
-from wok.utils import check_url_path
+from wok.plugins.kimchi.utils import check_url_path
 
 
 BUS_TO_DEV_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}

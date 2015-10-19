@@ -29,7 +29,8 @@ import urllib2
 
 
 from wok.exception import IsoFormatError
-from wok.utils import check_url_path, wok_log
+from wok.plugins.kimchi.utils import check_url_path
+from wok.utils import wok_log
 
 
 iso_dir = [

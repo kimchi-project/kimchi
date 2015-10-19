@@ -26,7 +26,7 @@ from ConfigParser import ConfigParser
 from wok.basemodel import Singleton
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import OperationFailed, NotFoundError, MissingParameter
-from wok.utils import validate_repo_url
+from wok.plugins.kimchi.utils import validate_repo_url
 
 from config import kimchiLock
 from yumparser import get_yum_repositories, write_repo_to_file

@@ -21,7 +21,6 @@
 #
 
 import cherrypy
-import contextlib
 import grp
 import os
 import psutil
@@ -29,20 +28,16 @@ import pwd
 import re
 import subprocess
 import traceback
-import urllib2
 import xml.etree.ElementTree as ET
 from cherrypy.lib.reprconf import Parser
-from httplib import HTTPConnection, HTTPException
 from multiprocessing import Process, Queue
 from threading import Timer
-from urlparse import urlparse
 
 from wok.asynctask import AsyncTask
 from wok.config import paths, PluginPaths
 from wok.exception import InvalidParameter, TimeoutExpired
 
 
-MAX_REDIRECTION_ALLOWED = 5
 wok_log = cherrypy.log.error_log
 task_id = 0
 
@@ -125,40 +120,6 @@ def import_class(class_path):
 
 def import_module(module_name, class_name=''):
     return __import__(module_name, globals(), locals(), [class_name])
-
-
-def check_url_path(path, redirected=0):
-    if redirected > MAX_REDIRECTION_ALLOWED:
-        return False
-    try:
-        code = ''
-        parse_result = urlparse(path)
-        server_name = parse_result.netloc
-        urlpath = parse_result.path
-        if not urlpath:
-            # Just a server, as with a repo.
-            with contextlib.closing(urllib2.urlopen(path)) as res:
-                code = res.getcode()
-        else:
-            # socket.gaierror could be raised,
-            #   which is a child class of IOError
-            conn = HTTPConnection(server_name, timeout=15)
-            # Don't try to get the whole file:
-            conn.request('HEAD', path)
-            response = conn.getresponse()
-            code = response.status
-            conn.close()
-        if code == 200:
-            return True
-        elif code == 301 or code == 302:
-            for header in response.getheaders():
-                if header[0] == 'location':
-                    return check_url_path(header[1], redirected+1)
-        else:
-            return False
-    except (urllib2.URLError, HTTPException, IOError, ValueError):
-        return False
-    return True
 
 
 def run_command(cmd, timeout=None, silent=False):
@@ -305,22 +266,6 @@ def probe_file_permission_as_user(file, user):
     p.start()
     p.join()
     return queue.get()
-
-
-def validate_repo_url(url):
-    url_parts = url.split('://')  # [0] = prefix, [1] = rest of URL
-
-    if url_parts[0] == '':
-        raise InvalidParameter("KCHREPOS0002E")
-
-    if url_parts[0] in ['http', 'https', 'ftp']:
-        if not check_url_path(url):
-            raise InvalidParameter("WOKUTILS0001E", {'url': url})
-    elif url_parts[0] == 'file':
-        if not os.path.exists(url_parts[1]):
-            raise InvalidParameter("WOKUTILS0001E", {'url': url})
-    else:
-        raise InvalidParameter("KCHREPOS0002E")
 
 
 def get_next_clone_name(all_names, basename, name_suffix=''):
