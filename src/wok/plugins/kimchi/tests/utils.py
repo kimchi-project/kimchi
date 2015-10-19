@@ -37,7 +37,7 @@ from lxml import etree
 import wok.server
 from wok.config import config, PluginPaths
 from wok.auth import User, USER_NAME, USER_GROUPS, USER_ROLES, tabs
-from wok.exception import NotFoundError, OperationFailed
+from wok.exception import NotFoundError
 from wok.utils import wok_log
 
 from wok.plugins.kimchi import mockmodel
@@ -204,9 +204,8 @@ class FakeUser(User):
     def authenticate(username, password, service="passwd"):
         try:
             return mockmodel.fake_user[username] == password
-        except KeyError, e:
-            raise OperationFailed("WOKAUTH0001E", {'username': 'username',
-                                                   'code': e.message})
+        except KeyError:
+            raise cherrypy.HTTPError(500, "Authentication failed")
 
 
 def patch_auth(sudo=True):
