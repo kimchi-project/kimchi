@@ -271,6 +271,7 @@ messages = {
     "KCHPKGUPD0004E": _("There is no compatible package manager for this system."),
     "KCHPKGUPD0005E": _("There is a package manager instance running in the system."),
 
+    "KCHUTILS0001E": _("Invalid Kimchi URI %(uri)s."),
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
 
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),
