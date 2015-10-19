@@ -24,17 +24,18 @@ from wok.basemodel import Singleton
 from wok.config import config as kconfig
 from wok.config import get_version
 from wok.exception import NotFoundError
-from wok.plugins.kimchi.utils import check_url_path
 from wok.utils import run_command, wok_log
 
-from ..config import find_qemu_binary
-from ..distroloader import DistroLoader
-from ..repositories import Repositories
-from ..screenshot import VMScreenshot
-from ..swupdate import SoftwareUpdate
-from debugreports import DebugReportsModel
-from featuretests import FeatureTests, FEATURETEST_POOL_NAME
-from featuretests import FEATURETEST_VM_NAME
+from wok.plugins.kimchi.config import find_qemu_binary
+from wok.plugins.kimchi.distroloader import DistroLoader
+from wok.plugins.kimchi.model.debugreports import DebugReportsModel
+from wok.plugins.kimchi.model.featuretests import FeatureTests
+from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
+from wok.plugins.kimchi.model.featuretests import FEATURETEST_VM_NAME
+from wok.plugins.kimchi.repositories import Repositories
+from wok.plugins.kimchi.screenshot import VMScreenshot
+from wok.plugins.kimchi.swupdate import SoftwareUpdate
+from wok.plugins.kimchi.utils import check_url_path
 
 
 class ConfigModel(object):

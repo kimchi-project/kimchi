@@ -28,8 +28,8 @@ from wok.utils import add_task
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
-from vms import DOM_STATE_MAP, VMModel
-from vmstorages import VMStorageModel, VMStoragesModel
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.vmstorages import VMStorageModel, VMStoragesModel
 
 
 class VMSnapshotsModel(object):

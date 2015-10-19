@@ -44,15 +44,16 @@ from wok.plugins.kimchi import model
 from wok.plugins.kimchi import vnc
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.kvmusertests import UserTests
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.featuretests import FeatureTests
+from wok.plugins.kimchi.model.templates import TemplateModel
+from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
+from wok.plugins.kimchi.model.utils import get_metadata_node
+from wok.plugins.kimchi.model.utils import remove_metadata_node
+from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
-from config import CapabilitiesModel
-from featuretests import FeatureTests
-from templates import TemplateModel
-from utils import get_ascii_nonascii_name, get_vm_name
-from utils import get_metadata_node, remove_metadata_node
-from utils import set_metadata_node
 
 
 DOM_STATE_MAP = {0: 'nostate',

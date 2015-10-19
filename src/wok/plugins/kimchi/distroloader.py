@@ -22,11 +22,10 @@ import glob
 import json
 import os
 
-
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import wok_log
 
-import config
+from wok.plugins.kimchi import config
 
 
 ARCHS = {'x86_64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],

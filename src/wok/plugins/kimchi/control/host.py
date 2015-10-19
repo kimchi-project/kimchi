@@ -22,7 +22,7 @@ from wok.control.base import Resource, SimpleCollection
 from wok.control.utils import UrlSubNode
 from wok.exception import NotFoundError
 
-from cpuinfo import CPUInfo
+from wok.plugins.kimchi.control.cpuinfo import CPUInfo
 
 
 @UrlSubNode('host', True)

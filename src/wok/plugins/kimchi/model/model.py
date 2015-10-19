@@ -25,7 +25,7 @@ from wok.objectstore import ObjectStore
 from wok.plugins.kimchi import config
 from wok.utils import import_module, listPathModules
 
-from libvirtconnection import LibvirtConnection
+from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 
 
 class Model(BaseModel):

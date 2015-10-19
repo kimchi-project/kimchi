@@ -30,23 +30,25 @@ from wok.objectstore import ObjectStore
 from wok.utils import add_task, get_next_clone_name, wok_log
 from wok.xmlutils.utils import xml_item_update
 
-import config
-import imageinfo
-import osinfo
-from model import cpuinfo
-from model import vmifaces
-from model.debugreports import DebugReportsModel
-from model.host import DeviceModel
-from model.libvirtstoragepool import IscsiPoolDef, NetfsPoolDef
-from model.libvirtstoragepool import StoragePoolDef
-from model.model import Model
-from model.storagepools import StoragePoolModel
-from model.storagevolumes import StorageVolumeModel, StorageVolumesModel
-from model import storagevolumes
-from model.templates import LibvirtVMTemplate
-from model.users import PAMUsersModel
-from model.groups import PAMGroupsModel
-from vmtemplate import VMTemplate
+from wok.plugins.kimchi import config
+from wok.plugins.kimchi import imageinfo
+from wok.plugins.kimchi import osinfo
+from wok.plugins.kimchi.model import cpuinfo
+from wok.plugins.kimchi.model import vmifaces
+from wok.plugins.kimchi.model.debugreports import DebugReportsModel
+from wok.plugins.kimchi.model.host import DeviceModel
+from wok.plugins.kimchi.model.libvirtstoragepool import IscsiPoolDef
+from wok.plugins.kimchi.model.libvirtstoragepool import NetfsPoolDef
+from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
+from wok.plugins.kimchi.model.model import Model
+from wok.plugins.kimchi.model.storagepools import StoragePoolModel
+from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
+from wok.plugins.kimchi.model.storagevolumes import StorageVolumesModel
+from wok.plugins.kimchi.model import storagevolumes
+from wok.plugins.kimchi.model.templates import LibvirtVMTemplate
+from wok.plugins.kimchi.model.users import PAMUsersModel
+from wok.plugins.kimchi.model.groups import PAMGroupsModel
+from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 
 fake_user = {'root': 'letmein!'}

@@ -22,15 +22,15 @@ import os
 import signal
 import subprocess
 import time
+from configobj import ConfigObj, ConfigObjError
+from psutil import pid_exists
 
 from wok.basemodel import Singleton
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 
-from config import kimchiLock
-from configobj import ConfigObj, ConfigObjError
-from psutil import pid_exists
-from yumparser import get_yum_packages_list_update
+from wok.plugins.kimchi.config import kimchiLock
+from wok.plugins.kimchi.yumparser import get_yum_packages_list_update
 
 
 class SoftwareUpdate(object):

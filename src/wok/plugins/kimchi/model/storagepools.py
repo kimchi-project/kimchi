@@ -28,12 +28,12 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.host import DeviceModel
+from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.scan import Scanner
 from wok.plugins.kimchi.utils import pool_name_from_uri
-from config import CapabilitiesModel
-from host import DeviceModel
-from libvirtstoragepool import StoragePoolDef
 
 
 ISO_POOL_NAME = u'kimchi_isos'

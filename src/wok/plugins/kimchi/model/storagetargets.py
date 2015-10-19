@@ -24,8 +24,8 @@ from lxml.builder import E
 
 from wok.utils import patch_find_nfs_target, wok_log
 
-from config import CapabilitiesModel
-from storageservers import STORAGE_SERVERS
+from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.storageservers import STORAGE_SERVERS
 
 
 class StorageTargetsModel(object):
