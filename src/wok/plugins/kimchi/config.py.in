@@ -42,6 +42,10 @@ def get_debugreports_path():
     return os.path.join(PluginPaths('kimchi').state_dir, 'debugreports')
 
 
+def get_object_store():
+    return os.path.join(PluginPaths('kimchi').state_dir, 'objectstore')
+
+
 def get_screenshot_path():
     return os.path.join(PluginPaths('kimchi').state_dir, 'screenshots')
 

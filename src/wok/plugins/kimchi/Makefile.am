@@ -99,7 +99,6 @@ config.py: config.py.in Makefile
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi
-	touch $(DESTDIR)/$(localstatedir)/lib/wok/objectstore
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/vnc-tokens
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/screenshots
@@ -144,7 +143,6 @@ install-data-local:
 		$(INSTALL_DATA) contrib/kimchid.service.fedora $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
 	fi; \
 	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/kimchi/
-	touch $(DESTDIR)/$(localstatedir)/lib/wok/objectstore
 	$(MKDIR_P) $(DESTDIR)$(kimchidir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(kimchidir)/API.json
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/vnc-tokens

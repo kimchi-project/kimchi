@@ -81,6 +81,7 @@ install-deb: install
 		cp -R $(top_srcdir)/contrib/wokd-upstart.conf.debian \
 			$(DESTDIR)/etc/init/wokd.conf; \
 	fi
+	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/wok/
 	$(MKDIR_P) $(DESTDIR)/usr/lib/firewalld/services
 	cp -R $(top_srcdir)/src/firewalld.xml \
 		$(DESTDIR)/usr/lib/firewalld/services/wokd.xml
@@ -126,7 +127,7 @@ install-data-local:
 		mkdir -p $(DESTDIR)/etc/init.d/; \
 		$(INSTALL_DATA) contrib/wokd.sysvinit $(DESTDIR)/etc/init.d/wokd; \
 		chmod +x $(DESTDIR)/etc/init.d/wokd; \
-    fi; \
+	fi; \
 	if test -d /usr/lib/firewalld/services/; then \
 		mkdir -p $(DESTDIR)/usr/lib/firewalld/services/; \
 		$(INSTALL_DATA) src/firewalld.xml $(DESTDIR)/usr/lib/firewalld/services/wokd.xml; \
