@@ -82,7 +82,7 @@ channel at RHN Classic or Red Hat Satellite.
                            python-cherrypy3 python-cheetah python-imaging \
                            python-pam python-m2crypto python-jsonschema \
                            python-psutil python-ldap python-lxml nginx \
-                           libxslt openssl python-dev python-pip \
+                           xsltproc openssl python-dev python-pip \
                            g++ fonts-font-awesome texlive-fonts-extra
 
     $ sudo pip install cython libsass
