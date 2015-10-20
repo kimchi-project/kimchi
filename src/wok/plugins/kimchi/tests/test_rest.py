@@ -335,7 +335,7 @@ class RestTests(unittest.TestCase):
         task = json.loads(resp.read())
         wait_task(self._task_lookup, task['id'])
         task = json.loads(
-            self.request('/tasks/%s' % task['id'], '{}').read()
+            self.request('/plugins/kimchi/tasks/%s' % task['id'], '{}').read()
         )
         self.assertEquals('finished', task['status'])
         clone_vm_name = task['target_uri'].split('/')[-2]
@@ -366,7 +366,7 @@ class RestTests(unittest.TestCase):
         task = json.loads(resp.read())
         wait_task(self._task_lookup, task['id'])
         task = json.loads(
-            self.request('/tasks/%s' % task['id']).read()
+            self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
         )
         self.assertEquals('finished', task['status'])
 
@@ -404,7 +404,7 @@ class RestTests(unittest.TestCase):
         task = json.loads(resp.read())
         snap_name = task['target_uri'].split('/')[-1]
         wait_task(self._task_lookup, task['id'])
-        resp = self.request('/tasks/%s' % task['id'], '{}',
+        resp = self.request('/plugins/kimchi/tasks/%s' % task['id'], '{}',
                             'GET')
         task = json.loads(resp.read())
         self.assertEquals('finished', task['status'])
@@ -1172,37 +1172,37 @@ class RestTests(unittest.TestCase):
 
     def _task_lookup(self, taskid):
         return json.loads(
-            self.request('/tasks/%s' % taskid).read()
+            self.request('/plugins/kimchi/tasks/%s' % taskid).read()
         )
 
     def test_tasks(self):
-        id1 = add_task('/tasks/1', self._async_op,
+        id1 = add_task('/plugins/kimchi/tasks/1', self._async_op,
                        model.objstore)
-        id2 = add_task('/tasks/2', self._except_op,
+        id2 = add_task('/plugins/kimchi/tasks/2', self._except_op,
                        model.objstore)
-        id3 = add_task('/tasks/3', self._intermid_op,
+        id3 = add_task('/plugins/kimchi/tasks/3', self._intermid_op,
                        model.objstore)
 
-        target_uri = urllib2.quote('^/tasks/*', safe="")
+        target_uri = urllib2.quote('^/plugins/kimchi/tasks/*', safe="")
         filter_data = 'status=running&target_uri=%s' % target_uri
         tasks = json.loads(
-            self.request('/tasks?%s' % filter_data).read()
+            self.request('/plugins/kimchi/tasks?%s' % filter_data).read()
         )
         self.assertEquals(3, len(tasks))
 
-        tasks = json.loads(self.request('/tasks').read())
+        tasks = json.loads(self.request('/plugins/kimchi/tasks').read())
         tasks_ids = [int(t['id']) for t in tasks]
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
         wait_task(self._task_lookup, id2)
         foo2 = json.loads(
-            self.request('/tasks/%s' % id2).read()
+            self.request('/plugins/kimchi/tasks/%s' % id2).read()
         )
         keys = ['id', 'status', 'message', 'target_uri']
         self.assertEquals(sorted(keys), sorted(foo2.keys()))
         self.assertEquals('failed', foo2['status'])
         wait_task(self._task_lookup, id3)
         foo3 = json.loads(
-            self.request('/tasks/%s' % id3).read()
+            self.request('/plugins/kimchi/tasks/%s' % id3).read()
         )
         self.assertEquals('in progress', foo3['message'])
         self.assertEquals('running', foo3['status'])

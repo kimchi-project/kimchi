@@ -64,7 +64,7 @@ def tearDownModule():
 def _do_volume_test(self, model, host, ssl_port, pool_name):
     def _task_lookup(taskid):
         return json.loads(
-            self.request('/tasks/%s' % taskid).read()
+            self.request('/plugins/kimchi/tasks/%s' % taskid).read()
         )
 
     uri = '/plugins/kimchi/storagepools/%s/storagevolumes' \
@@ -91,7 +91,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             task_id = json.loads(resp.read())['id']
             wait_task(_task_lookup, task_id)
             status = json.loads(
-                self.request('/tasks/%s' % task_id).read()
+                self.request('/plugins/kimchi/tasks/%s' % task_id).read()
             )
             self.assertEquals('finished', status['status'])
             vol_info = json.loads(self.request(vol_uri).read())
@@ -137,7 +137,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
                                   cloned_vol_name)
             wait_task(_task_lookup, task['id'])
             task = json.loads(
-                self.request('/tasks/%s' % task['id']).read()
+                self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
             )
             self.assertEquals('finished', task['status'])
             resp = self.request(uri + '/' + cloned_vol_name.encode('utf-8'))
@@ -177,7 +177,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             self.assertEquals(202, resp.status)
             task_id = json.loads(resp.read())['id']
             wait_task(_task_lookup, task_id)
-            status = json.loads(self.request('/tasks/%s' %
+            status = json.loads(self.request('/plugins/kimchi/tasks/%s' %
                                              task_id).read())
             self.assertEquals('ready for upload', status['message'])
 
