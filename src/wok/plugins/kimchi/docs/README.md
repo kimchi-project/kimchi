@@ -78,7 +78,7 @@ channel at RHN Classic or Red Hat Satellite.
     $ sudo apt-get install wok python-imaging python-configobj websockify \
                            novnc python-libvirt libvirt-bin nfs-common \
                            qemu-kvm python-parted python-ethtool sosreport \
-                           python-ipaddr python-lxml open-iscsi \
+                           xsltproc python-ipaddr python-lxml open-iscsi \
                            python-guestfs libguestfs-tools spice-html5 \
                            python-magic \
 

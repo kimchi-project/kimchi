@@ -25,7 +25,7 @@ Depends: wok,
          libguestfs-tools,
          spice-html5,
          python-magic
-Build-Depends: libxslt,
+Build-Depends: xsltproc,
                python-lxml,
                python-dev,
                python-pip
