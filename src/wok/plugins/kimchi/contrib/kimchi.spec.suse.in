@@ -90,7 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/lib/kimchi/screenshots/
 %{_var}/lib/kimchi/vnc-tokens/
 %{_var}/lib/kimchi/
-%{_var}/lib/wok/objectstore
 
 
 %changelog

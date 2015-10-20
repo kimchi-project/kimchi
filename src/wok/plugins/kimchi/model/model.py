@@ -22,6 +22,7 @@ import os
 
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
+from wok.plugins.kimchi import config
 from wok.utils import import_module, listPathModules
 
 from libvirtconnection import LibvirtConnection
@@ -41,7 +42,7 @@ class Model(BaseModel):
 
             return instances
 
-        self.objstore = ObjectStore(objstore_loc)
+        self.objstore = ObjectStore(objstore_loc or config.get_object_store())
         self.conn = LibvirtConnection(libvirt_uri)
         kargs = {'objstore': self.objstore, 'conn': self.conn}
         models = []

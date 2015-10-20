@@ -103,7 +103,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sharedstatedir}/kimchi/screenshots/
 %{_sharedstatedir}/kimchi/vnc-tokens/
 %{_sharedstatedir}/kimchi/
-%{_sharedstatedir}/wok/objectstore
 
 
 %changelog

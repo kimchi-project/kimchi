@@ -115,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jun 19 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 1.6
+* Fri Jun 19 2015 Lucio Correia <luciojhc@linux.vnet.ibm.com> 2.0
 - Rename to wokd
 - Remove kimchi specifics
 

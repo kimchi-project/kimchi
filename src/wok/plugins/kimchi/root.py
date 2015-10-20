@@ -54,6 +54,7 @@ class KimchiRoot(WokRoot):
         self.messages = messages
 
         make_dirs = [
+            os.path.dirname(os.path.abspath(config.get_object_store())),
             os.path.abspath(config.get_distros_store()),
             os.path.abspath(config.get_debugreports_path()),
             os.path.abspath(config.get_screenshot_path())

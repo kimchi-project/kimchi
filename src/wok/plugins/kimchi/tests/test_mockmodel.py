@@ -135,7 +135,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(get_template_default('old', 'memory'),
                           info['memory'])
         self.assertEquals(1, info['cpus'])
-        self.assertEquals('images/icon-vm.png', info['icon'])
+        self.assertEquals('plugins/kimchi/images/icon-vm.png', info['icon'])
         self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertEquals('vnc', info['graphics']['type'])
         self.assertEquals('127.0.0.1', info['graphics']['listen'])
