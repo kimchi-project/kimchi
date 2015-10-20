@@ -30,23 +30,37 @@ from libvirtconnection import LibvirtConnection
 class Model(BaseModel):
     def __init__(self, libvirt_uri=None, objstore_loc=None):
 
+        def get_instances(module_name):
+            instances = []
+            module = import_module(module_name)
+            members = inspect.getmembers(module, inspect.isclass)
+            for cls_name, instance in members:
+                if inspect.getmodule(instance) == module and \
+                   cls_name.endswith('Model'):
+                    instances.append(instance)
+
+            return instances
+
         self.objstore = ObjectStore(objstore_loc)
         self.conn = LibvirtConnection(libvirt_uri)
         kargs = {'objstore': self.objstore, 'conn': self.conn}
+        models = []
 
+        # Import task model from Wok
+        instances = get_instances('wok.model.tasks')
+        for instance in instances:
+            models.append(instance(**kargs))
+
+        # Import all Kimchi plugin models
         this = os.path.basename(__file__)
         this_mod = os.path.splitext(this)[0]
 
-        models = []
         for mod_name in listPathModules(os.path.dirname(__file__)):
             if mod_name.startswith("_") or mod_name == this_mod:
                 continue
 
-            module = import_module('plugins.kimchi.model.' + mod_name)
-            members = inspect.getmembers(module, inspect.isclass)
-            for cls_name, instance in members:
-                if inspect.getmodule(instance) == module:
-                    if cls_name.endswith('Model'):
-                        models.append(instance(**kargs))
+            instances = get_instances('wok.plugins.kimchi.model.' + mod_name)
+            for instance in instances:
+                models.append(instance(**kargs))
 
         return super(Model, self).__init__(models)
