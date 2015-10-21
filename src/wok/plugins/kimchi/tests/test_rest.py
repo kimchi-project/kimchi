@@ -309,7 +309,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         # Test screenshot
-        resp = self.request(vm['screenshot'], method='HEAD')
+        resp = self.request('/' + vm['screenshot'], method='HEAD')
         self.assertEquals(200, resp.status)
         self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
@@ -1130,7 +1130,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/test-vm/start', '{}', 'POST')
         vm = json.loads(self.request('/plugins/kimchi/vms/test-vm').read())
 
-        resp = self.request(vm['screenshot'], method='HEAD')
+        resp = self.request('/' + vm['screenshot'], method='HEAD')
         self.assertEquals(200, resp.status)
         self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
@@ -1159,7 +1159,7 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/plugins/kimchi/vms/test-vm').read())
         img_lnk = vm['screenshot']
         self.request('/plugins/kimchi/vms/test-vm', '{}', 'DELETE')
-        resp = self.request(img_lnk)
+        resp = self.request('/' + img_lnk)
         self.assertEquals(404, resp.status)
 
     def test_interfaces(self):
@@ -1317,7 +1317,7 @@ class RestTests(unittest.TestCase):
             resp = request(host, ssl_port,
                            '/plugins/kimchi/debugreports/report1')
             debugre = json.loads(resp.read())
-            resp = request(host, ssl_port, debugre['uri'])
+            resp = request(host, ssl_port, '/' + debugre['uri'])
             self.assertEquals(200, resp.status)
 
     def test_repositories(self):

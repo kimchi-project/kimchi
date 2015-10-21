@@ -81,7 +81,7 @@ class MockModelTests(unittest.TestCase):
         resp1 = request(host, ssl_port, '/plugins/kimchi/vms/test-vm')
         rspBody = resp1.read()
         testvm_Data = json.loads(rspBody)
-        screenshotURL = testvm_Data['screenshot']
+        screenshotURL = '/' + testvm_Data['screenshot']
         time.sleep(5)
         resp2 = request(host, ssl_port, screenshotURL)
         self.assertEquals(200, resp2.status)
