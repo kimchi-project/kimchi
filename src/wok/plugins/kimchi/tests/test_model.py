@@ -253,9 +253,6 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('finished', inst.task_lookup(task_id)['status'])
             vol_path = inst.storagevolume_lookup('default', vol)['path']
 
-            params = {'name': 'test', 'disks': [{'base': vol_path}]}
-            self.assertRaises(OperationFailed, inst.templates_create, params)
-
             # Hack the model objstore to add a new template
             # It is needed as the image file must be a bootable image when
             # using model
