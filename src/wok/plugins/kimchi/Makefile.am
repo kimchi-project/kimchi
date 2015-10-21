@@ -100,7 +100,6 @@ install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/vnc-tokens
-	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/screenshots
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/isos
 
@@ -146,7 +145,6 @@ install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(kimchidir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(kimchidir)/API.json
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/vnc-tokens
-	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/screenshots
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/isos
 

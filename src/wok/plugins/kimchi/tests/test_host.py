@@ -20,16 +20,13 @@
 
 import json
 import os
-import platform
-import psutil
 import tempfile
-import time
 import unittest
 from functools import partial
 
 from wok.plugins.kimchi.mockmodel import MockModel
 
-from utils import get_free_port, patch_auth, request, run_server, wait_task
+from utils import get_free_port, patch_auth, request, run_server
 
 
 test_server = None
@@ -61,98 +58,6 @@ def tearDownModule():
 class HostTests(unittest.TestCase):
     def setUp(self):
         self.request = partial(request, host, ssl_port)
-
-    def test_hostinfo(self):
-        resp = self.request('/plugins/kimchi/host').read()
-        info = json.loads(resp)
-        keys = ['os_distro', 'os_version', 'os_codename', 'cpu_model',
-                'memory', 'cpus']
-        self.assertEquals(sorted(keys), sorted(info.keys()))
-
-        distro, version, codename = platform.linux_distribution()
-        self.assertEquals(distro, info['os_distro'])
-        self.assertEquals(version, info['os_version'])
-        self.assertEquals(unicode(codename, "utf-8"), info['os_codename'])
-        self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
-
-    def test_hoststats(self):
-        time.sleep(1)
-        stats_keys = ['cpu_utilization', 'memory', 'disk_read_rate',
-                      'disk_write_rate', 'net_recv_rate', 'net_sent_rate']
-        resp = self.request('/plugins/kimchi/host/stats').read()
-        stats = json.loads(resp)
-        self.assertEquals(sorted(stats_keys), sorted(stats.keys()))
-
-        cpu_utilization = stats['cpu_utilization']
-        self.assertIsInstance(cpu_utilization, float)
-        self.assertGreaterEqual(cpu_utilization, 0.0)
-        self.assertTrue(cpu_utilization <= 100.0)
-
-        memory_stats = stats['memory']
-        self.assertIn('total', memory_stats)
-        self.assertIn('free', memory_stats)
-        self.assertIn('cached', memory_stats)
-        self.assertIn('buffers', memory_stats)
-        self.assertIn('avail', memory_stats)
-
-        resp = self.request('/plugins/kimchi/host/stats/history').read()
-        history = json.loads(resp)
-        self.assertEquals(sorted(stats_keys), sorted(history.keys()))
-
-    def test_host_actions(self):
-        def _task_lookup(taskid):
-            return json.loads(
-                self.request('/plugins/kimchi/tasks/%s' % taskid).read()
-            )
-
-        resp = self.request('/plugins/kimchi/host/shutdown', '{}', 'POST')
-        self.assertEquals(200, resp.status)
-        resp = self.request('/plugins/kimchi/host/reboot', '{}', 'POST')
-        self.assertEquals(200, resp.status)
-
-        # Test system update
-        resp = self.request('/plugins/kimchi/host/packagesupdate', None, 'GET')
-        pkgs = json.loads(resp.read())
-        self.assertEquals(3, len(pkgs))
-
-        pkg_keys = ['package_name', 'repository', 'arch', 'version']
-        for p in pkgs:
-            name = p['package_name']
-            resp = self.request('/plugins/kimchi/host/packagesupdate/' + name,
-                                None, 'GET')
-            info = json.loads(resp.read())
-            self.assertEquals(sorted(pkg_keys), sorted(info.keys()))
-
-        resp = self.request('/plugins/kimchi/host/swupdate', '{}', 'POST')
-        task = json.loads(resp.read())
-        task_params = [u'id', u'message', u'status', u'target_uri']
-        self.assertEquals(sorted(task_params), sorted(task.keys()))
-
-        resp = self.request('/plugins/kimchi/tasks/' + task[u'id'], None,
-                            'GET')
-        task_info = json.loads(resp.read())
-        self.assertEquals(task_info['status'], 'running')
-        wait_task(_task_lookup, task_info['id'])
-        resp = self.request('/plugins/kimchi/tasks/' + task[u'id'], None,
-                            'GET')
-        task_info = json.loads(resp.read())
-        self.assertEquals(task_info['status'], 'finished')
-        self.assertIn(u'All packages updated', task_info['message'])
-        pkgs = model.packagesupdate_get_list()
-        self.assertEquals(0, len(pkgs))
-
-    def test_host_partitions(self):
-        resp = self.request('/plugins/kimchi/host/partitions')
-        self.assertEquals(200, resp.status)
-        partitions = json.loads(resp.read())
-
-        keys = ['name', 'path', 'type', 'fstype', 'size', 'mountpoint',
-                'available']
-        for item in partitions:
-            resp = self.request('/plugins/kimchi/host/partitions/%s' %
-                                item['name'])
-            info = json.loads(resp.read())
-            self.assertEquals(sorted(info.keys()), sorted(keys))
 
     def test_host_devices(self):
         def asset_devices_type(devices, dev_type):

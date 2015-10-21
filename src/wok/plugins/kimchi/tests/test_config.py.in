@@ -23,7 +23,6 @@ from cherrypy.lib.reprconf import Parser
 from wok.config import CACHEEXPIRES, SESSIONSTIMEOUT
 from wok.config import Paths, PluginPaths
 
-from wok.plugins.kimchi.config import get_debugreports_path
 from wok.plugins.kimchi.config import get_screenshot_path
 from wok.plugins.kimchi.config import KimchiConfig, KimchiPaths
 
@@ -158,13 +157,6 @@ class ConfigTests(unittest.TestCase):
                 'tools.staticfile.filename': '%s/ui/config/tab-ext.xml' %
                 pluginPrefix,
             },
-            '/data/debugreports': {
-                'tools.wokauth.on': True,
-                'tools.nocache.on': False,
-                'tools.staticdir.dir': get_debugreports_path(),
-                'tools.staticdir.content_types': {'xz': 'application/x-xz'},
-                'tools.staticdir.on': True
-            }
         }
 
         kimchi_config = Parser().dict_from_file(KimchiPaths().conf_file)

@@ -1266,60 +1266,6 @@ class RestTests(unittest.TestCase):
             # Distro not found error
             self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
-    def test_debugreports(self):
-        resp = request(host, ssl_port, '/plugins/kimchi/debugreports')
-        self.assertEquals(200, resp.status)
-
-    def _report_delete(self, name):
-        request(host, ssl_port, '/plugins/kimchi/debugreports/%s' % name, '{}',
-                'DELETE')
-
-    def test_create_debugreport(self):
-        req = json.dumps({'name': 'report1'})
-        with RollbackContext() as rollback:
-            resp = request(host, ssl_port, '/plugins/kimchi/debugreports', req,
-                           'POST')
-            self.assertEquals(202, resp.status)
-            task = json.loads(resp.read())
-            # make sure the debugreport doesn't exist until the
-            # the task is finished
-            wait_task(self._task_lookup, task['id'])
-            rollback.prependDefer(self._report_delete, 'report2')
-            resp = request(host, ssl_port,
-                           '/plugins/kimchi/debugreports/report1')
-            debugreport = json.loads(resp.read())
-            self.assertEquals("report1", debugreport['name'])
-            self.assertEquals(200, resp.status)
-            req = json.dumps({'name': 'report2'})
-            resp = request(host, ssl_port,
-                           '/plugins/kimchi/debugreports/report1', req, 'PUT')
-            self.assertEquals(303, resp.status)
-
-    def test_debugreport_download(self):
-        req = json.dumps({'name': 'report1'})
-        with RollbackContext() as rollback:
-            resp = request(host, ssl_port, '/plugins/kimchi/debugreports', req,
-                           'POST')
-            self.assertEquals(202, resp.status)
-            task = json.loads(resp.read())
-            # make sure the debugreport doesn't exist until the
-            # the task is finished
-            wait_task(self._task_lookup, task['id'], 20)
-            rollback.prependDefer(self._report_delete, 'report1')
-            resp = request(host, ssl_port,
-                           '/plugins/kimchi/debugreports/report1')
-            debugreport = json.loads(resp.read())
-            self.assertEquals("report1", debugreport['name'])
-            self.assertEquals(200, resp.status)
-            resp = request(host, ssl_port,
-                           '/plugins/kimchi/debugreports/report1/content')
-            self.assertEquals(200, resp.status)
-            resp = request(host, ssl_port,
-                           '/plugins/kimchi/debugreports/report1')
-            debugre = json.loads(resp.read())
-            resp = request(host, ssl_port, '/' + debugre['uri'])
-            self.assertEquals(200, resp.status)
-
     def test_repositories(self):
         def verify_repo(t, res):
             for field in ('repo_id', 'enabled', 'baseurl', 'config'):

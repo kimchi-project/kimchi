@@ -28,13 +28,10 @@ from wok.utils import run_command, wok_log
 
 from wok.plugins.kimchi.config import find_qemu_binary
 from wok.plugins.kimchi.distroloader import DistroLoader
-from wok.plugins.kimchi.model.debugreports import DebugReportsModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_VM_NAME
-from wok.plugins.kimchi.repositories import Repositories
 from wok.plugins.kimchi.screenshot import VMScreenshot
-from wok.plugins.kimchi.swupdate import SoftwareUpdate
 from wok.plugins.kimchi.utils import check_url_path
 
 
@@ -116,28 +113,10 @@ class CapabilitiesModel(object):
         return False
 
     def lookup(self, *ident):
-        report_tool = DebugReportsModel.get_system_report_tool()
-        try:
-            SoftwareUpdate()
-        except Exception:
-            update_tool = False
-        else:
-            update_tool = True
-
-        try:
-            repo = Repositories()
-        except Exception:
-            repo_mngt_tool = None
-        else:
-            repo_mngt_tool = repo._pkg_mnger.TYPE
-
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_spice': self._qemu_support_spice(),
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
-                'system_report_tool': bool(report_tool),
-                'update_tool': update_tool,
-                'repo_mngt_tool': repo_mngt_tool,
                 'federation': kconfig.get("server", "federation"),
                 'auth': kconfig.get("authentication", "method"),
                 'kernel_vfio': self.kernel_vfio,
