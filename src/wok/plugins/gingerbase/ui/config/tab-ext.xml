@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs-ext>
+    <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+
+        <title>Host</title>
+        <path>plugins/gingerbase/host.html</path>
+    </tab>
+</tabs-ext>
