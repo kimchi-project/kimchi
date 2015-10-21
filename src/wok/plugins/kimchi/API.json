@@ -428,7 +428,7 @@
                 "icon": {
                     "description": "The template icon path",
                     "type": "string",
-                    "pattern": "^/plugins/kimchi/images/",
+                    "pattern": "^plugins/kimchi/images/",
                     "error": "KCHTMPL0009E"
                 },
                 "os_distro": {
@@ -600,7 +600,7 @@
                 "icon": {
                     "description": "The template icon path",
                     "type": "string",
-                    "pattern": "^/plugins/kimchi/images/",
+                    "pattern": "^plugins/kimchi/images/",
                     "error": "KCHTMPL0009E"
                 },
                 "os_distro": {
