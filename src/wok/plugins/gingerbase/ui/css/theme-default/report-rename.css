@@ -1,7 +1,9 @@
 /*
- * Project Kimchi
+ * Project Ginger Base
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2014-2015
+ *
+ * Code derived from Project Kimchi
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +17,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#report-add-window {
+#report-rename-window {
     height: 300px;
     width: 400px;
 }
 
-#report-add-window .field {
+#report-rename-window .field {
     font-size: 12px;
 }
 
 #report-name-textbox {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     width: 100%;
 }
 
-.info-add-debug-report {
+.info-debug-report-rename {
     font-size: 12px;
     color: #999999;
     font-weight: lighter;
