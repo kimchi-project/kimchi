@@ -65,7 +65,8 @@ class MockModelTests(unittest.TestCase):
         # Create a VM
         req = json.dumps({'name': 'test', 'cdrom': fake_iso})
         request(host, ssl_port, '/plugins/kimchi/templates', req, 'POST')
-        req = json.dumps({'name': 'test-vm', 'template': '/templates/test'})
+        req = json.dumps({'name': 'test-vm',
+                          'template': '/plugins/kimchi/templates/test'})
         resp = request(host, ssl_port, '/plugins/kimchi/vms', req, 'POST')
         task = json.loads(resp.read())
         wait_task(model.task_lookup, task['id'])
