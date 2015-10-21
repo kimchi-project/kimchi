@@ -1,7 +1,9 @@
 #
-# Project Kimchi
+# Project Ginger Base
 #
 # Copyright IBM, Corp. 2014-2015
+#
+# Code derived from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,8 +31,8 @@ from wok.basemodel import Singleton
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 
-from wok.plugins.kimchi.config import kimchiLock
-from wok.plugins.kimchi.yumparser import get_yum_packages_list_update
+from wok.plugins.gingerbase.config import gingerBaseLock
+from wok.plugins.gingerbase.yumparser import get_yum_packages_list_update
 
 
 class SoftwareUpdate(object):
@@ -40,8 +42,9 @@ class SoftwareUpdate(object):
     Class to represent and operate with OS software update.
     """
     def __init__(self):
-        # This stores all packages to be updated for Kimchi perspective. It's a
-        # dictionary of dictionaries, in the format {'package_name': package},
+        # This stores all packages to be updated for Ginger Base perspective.
+        # It's a dictionary of dictionaries, in the format
+        # {'package_name': package},
         # where:
         # package = {'package_name': <string>, 'version': <string>,
         #           'arch': <string>, 'repository': <string>
@@ -104,7 +107,7 @@ class SoftwareUpdate(object):
         Return a dictionary with all info from a given package name.
         """
         if name not in self._packages.keys():
-            raise NotFoundError('KCHPKGUPD0002E', {'name': name})
+            raise NotFoundError('GGBPKGUPD0002E', {'name': name})
 
         return self._packages[name]
 
@@ -236,12 +239,12 @@ class YumUpdate(object):
         Update the list of packages to be updated in the system.
         """
         try:
-            kimchiLock.acquire()
+            gingerBaseLock.acquire()
             self._pkgs = get_yum_packages_list_update()
         except Exception, e:
-            raise OperationFailed('KCHPKGUPD0003E', {'err': str(e)})
+            raise OperationFailed('GGBPKGUPD0003E', {'err': str(e)})
         finally:
-            kimchiLock.release()
+            gingerBaseLock.release()
 
     def getPackagesList(self):
         """
@@ -251,7 +254,7 @@ class YumUpdate(object):
                    'arch': <string>, 'repository': <string>}
         """
         if self.isRunning():
-            raise OperationFailed('KCHPKGUPD0005E')
+            raise OperationFailed('GGBPKGUPD0005E')
 
         self._refreshUpdateList()
         pkg_list = []
@@ -304,8 +307,8 @@ class AptUpdate(object):
                 apt_cache.upgrade()
                 self._pkgs = apt_cache.get_changes()
         except Exception, e:
-            kimchiLock.release()
-            raise OperationFailed('KCHPKGUPD0003E', {'err': e.message})
+            gingerBaseLock.release()
+            raise OperationFailed('GGBPKGUPD0003E', {'err': e.message})
 
     def getPackagesList(self):
         """
@@ -315,11 +318,11 @@ class AptUpdate(object):
                    'arch': <string>, 'repository': <string>}
         """
         if self.isRunning():
-            raise OperationFailed('KCHPKGUPD0005E')
+            raise OperationFailed('GGBPKGUPD0005E')
 
-        kimchiLock.acquire()
+        gingerBaseLock.acquire()
         self._refreshUpdateList()
-        kimchiLock.release()
+        gingerBaseLock.release()
         pkg_list = []
         for pkg in self._pkgs:
             package = {'package_name': pkg.shortname,
@@ -368,7 +371,7 @@ class ZypperUpdate(object):
         (stdout, stderr, returncode) = run_command(cmd)
 
         if len(stderr) > 0:
-            raise OperationFailed('KCHPKGUPD0003E', {'err': stderr})
+            raise OperationFailed('GGBPKGUPD0003E', {'err': stderr})
 
         for line in stdout.split('\n'):
             if line.find('v |') >= 0:
@@ -385,11 +388,11 @@ class ZypperUpdate(object):
                    'arch': <string>, 'repository': <string>}
         """
         if self.isRunning():
-            raise OperationFailed('KCHPKGUPD0005E')
+            raise OperationFailed('GGBPKGUPD0005E')
 
-        kimchiLock.acquire()
+        gingerBaseLock.acquire()
         self._refreshUpdateList()
-        kimchiLock.release()
+        gingerBaseLock.release()
         return self._pkgs
 
     def isRunning(self):
