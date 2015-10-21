@@ -64,4 +64,5 @@ class VMScreenShot(Resource):
 
     def get(self):
         self.lookup()
-        raise internal_redirect(self.info)
+        internal_uri = self.info.replace('plugins/kimchi', '')
+        raise internal_redirect(internal_uri)
