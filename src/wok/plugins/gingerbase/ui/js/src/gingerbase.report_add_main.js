@@ -1,7 +1,9 @@
 /*
- * Project Kimchi
+ * Project Ginger Base
  *
- * Copyright IBM, Corp. 2013-2014
+ * Copyright IBM, Corp. 2013-2015
+ *
+ * Code derived from Project Kimchi
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +31,7 @@ kimchi.report_add_main = function() {
         var reportName = nameTextbox.val();
         var validator = RegExp("^[_A-Za-z0-9-]*$");
         if (!validator.test(reportName)) {
-            wok.message.error.code('KCHDR6011M');
+            wok.message.error.code('GGBDR6011M');
             return false;
         }
         var formData = addReportForm.serializeObject();
