@@ -1,7 +1,9 @@
 #
-# Project Kimchi
+# Project Ginger Base
 #
 # Copyright IBM, Corp. 2014-2015
+#
+# Code derived from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,7 +33,7 @@ from wok.utils import add_task, wok_log
 from wok.utils import run_command
 from wok.model.tasks import TaskModel
 
-from wok.plugins.kimchi import config
+from wok.plugins.gingerbase import config
 
 
 class DebugReportsModel(object):
@@ -46,7 +48,7 @@ class DebugReportsModel(object):
             ident = 'report-' + str(int(time.time() * 1000))
         else:
             if ident in self.get_list():
-                raise InvalidParameter("KCHDR0008E", {"name": ident})
+                raise InvalidParameter("GGBDR0008E", {"name": ident})
         taskid = self._gen_debugreport_file(ident)
         return self.task.lookup(taskid)
 
@@ -63,10 +65,10 @@ class DebugReportsModel(object):
         gen_cmd = self.get_system_report_tool()
 
         if gen_cmd is not None:
-            return add_task('/plugins/kimchi/debugreports/%s' % name, gen_cmd,
-                            self.objstore, name)
+            return add_task('/plugins/gingerbase/debugreports/%s' % name,
+                            gen_cmd, self.objstore, name)
 
-        raise OperationFailed("KCHDR0002E")
+        raise OperationFailed("GGBDR0002E")
 
     @staticmethod
     def sosreport_generate(cb, name):
@@ -79,7 +81,7 @@ class DebugReportsModel(object):
             output, error, retcode = run_command(command)
 
             if retcode != 0:
-                raise OperationFailed("KCHDR0003E", {'name': name,
+                raise OperationFailed("GGBDR0003E", {'name': name,
                                                      'err': retcode})
 
             # SOSREPORT might create file in /tmp or /var/tmp
@@ -99,7 +101,7 @@ class DebugReportsModel(object):
                 wok_log.error('Debug report file not found. See sosreport '
                               'output for detail:\n%s', output)
                 fname = (patterns[0] % name).split('/')[-1]
-                raise OperationFailed('KCHDR0004E', {'name': fname})
+                raise OperationFailed('GGBDR0004E', {'name': fname})
 
             md5_report_file = reportFile + '.md5'
             report_file_extension = '.' + reportFile.split('.', 1)[1]
@@ -133,7 +135,7 @@ class DebugReportsModel(object):
             # The task object will catch the exception raised here
             # and update the task status there
             log_error(e)
-            raise OperationFailed("KCHDR0005E", {'name': name, 'err': e})
+            raise OperationFailed("GGBDR0005E", {'name': name, 'err': e})
 
     @staticmethod
     def get_system_report_tool():
@@ -168,12 +170,12 @@ class DebugReportModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError("KCHDR0001E", {'name': name})
+            raise NotFoundError("GGBDR0001E", {'name': name})
 
         ctime = os.stat(file_target).st_mtime
         ctime = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime(ctime))
         file_target = os.path.split(file_target)[-1]
-        file_target = os.path.join("plugins/kimchi/data/debugreports",
+        file_target = os.path.join("plugins/gingerbase/data/debugreports",
                                    file_target)
         return {'uri': file_target,
                 'ctime': ctime}
@@ -184,11 +186,11 @@ class DebugReportModel(object):
         try:
             file_source = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError("KCHDR0001E", {'name': name})
+            raise NotFoundError("GGBDR0001E", {'name': name})
 
         file_target = file_source.replace(name, params['name'])
         if os.path.isfile(file_target):
-            raise InvalidParameter('KCHDR0008E', {'name': params['name']})
+            raise InvalidParameter('GGBDR0008E', {'name': params['name']})
 
         shutil.move(file_source, file_target)
         wok_log.info('%s renamed to %s' % (file_source, file_target))
@@ -200,7 +202,7 @@ class DebugReportModel(object):
         try:
             file_target = glob.glob(file_pattern)[0]
         except IndexError:
-            raise NotFoundError("KCHDR0001E", {'name': name})
+            raise NotFoundError("GGBDR0001E", {'name': name})
 
         os.remove(file_target)
 
