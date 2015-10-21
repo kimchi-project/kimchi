@@ -259,7 +259,7 @@ class RestTests(unittest.TestCase):
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'disks': [{'size': 1}],
-                          'icon': 'images/icon-debian.png',
+                          'icon': 'plugins/kimchi/images/icon-debian.png',
                           'cdrom': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -275,7 +275,7 @@ class RestTests(unittest.TestCase):
         # Verify the VM
         vm = json.loads(self.request('/plugins/kimchi/vms/test-vm').read())
         self.assertEquals('shutoff', vm['state'])
-        self.assertEquals('images/icon-debian.png', vm['icon'])
+        self.assertEquals('plugins/kimchi/images/icon-debian.png', vm['icon'])
 
         # Verify the volume was created
         vol_uri = '/plugins/kimchi/storagepools/default-pool/storagevolumes/' \

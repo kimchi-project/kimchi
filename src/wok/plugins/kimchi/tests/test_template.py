@@ -161,11 +161,12 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(tmpl, update_tmpl)
 
         # Update icon
-        req = json.dumps({'icon': 'kimchi/images/icon-fedora.png'})
+        req = json.dumps({'icon': 'plugins/kimchi/images/icon-fedora.png'})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
-        self.assertEquals('kimchi/images/icon-fedora.png', update_tmpl['icon'])
+        self.assertEquals('plugins/kimchi/images/icon-fedora.png',
+                          update_tmpl['icon'])
 
         # Update os_distro and os_version
         req = json.dumps({'os_distro': 'fedora', 'os_version': '21'})
