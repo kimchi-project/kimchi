@@ -31,7 +31,7 @@ Requires:	libguestfs-tools
 Requires:	python-magic
 BuildRequires:	libxslt
 BuildRequires:	python-lxml
-BuildRequires:	python-dev
+BuildRequires:	python-devel
 BuildRequires:	python-pip
 
 %if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
@@ -75,11 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(-,root,root)
-%{python_sitelib}/wok/plugins/kimchi/*.py*
-%{python_sitelib}/wok/plugins/kimchi/control/*.py*
-%{python_sitelib}/wok/plugins/kimchi/control/vm/*.py*
-%{python_sitelib}/wok/plugins/kimchi/model/*.py*
-%{python_sitelib}/wok/plugins/kimchi/API.json
 %{python_sitelib}/wok/plugins/kimchi/
 %{_datadir}/kimchi/doc/API.md
 %{_datadir}/kimchi/doc/README.md
@@ -87,22 +82,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kimchi/doc/kimchi-guest.png
 %{_datadir}/kimchi/doc/kimchi-templates.png
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
-%{_datadir}/wok/plugins/kimchi/ui/config/*.xml
-%{_datadir}/wok/plugins/kimchi/ui/
-%{_datadir}/wok/plugins/kimchi
+%{_datadir}/wok/plugins/kimchi/
 %{_sysconfdir}/wok/plugins.d/kimchi.conf
 %{_sysconfdir}/wok/plugins.d/template.conf
-%{_sysconfdir}/kimchi/distros.d/debian.json
-%{_sysconfdir}/kimchi/distros.d/fedora.json
-%{_sysconfdir}/kimchi/distros.d/opensuse.json
-%{_sysconfdir}/kimchi/distros.d/ubuntu.json
-%{_sysconfdir}/kimchi/distros.d/gentoo.json
 %{_sysconfdir}/kimchi/
-%{_sharedstatedir}/kimchi/debugreports/
-%{_sharedstatedir}/kimchi/isos/
-%{_sharedstatedir}/kimchi/screenshots/
-%{_sharedstatedir}/kimchi/vnc-tokens/
 %{_sharedstatedir}/kimchi/
+%{_sysconfdir}/systemd/system/wokd.service.d/kimchi.conf
 
 
 %changelog
