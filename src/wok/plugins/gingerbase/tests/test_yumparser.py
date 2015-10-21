@@ -1,7 +1,9 @@
 #
-# Project Kimchi
+# Project Ginger Base
 #
 # Copyright IBM, Corp. 2015
+#
+# Code derived from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,18 +25,19 @@ import unittest
 
 from wok.rollbackcontext import RollbackContext
 
-from wok.plugins.kimchi.model import model
-from wok.plugins.kimchi.yumparser import delete_repo_from_file, get_repo_files
-from wok.plugins.kimchi.yumparser import get_yum_packages_list_update
-from wok.plugins.kimchi.yumparser import get_yum_repositories
-from wok.plugins.kimchi.yumparser import write_repo_to_file, YumRepoObject
+from wok.plugins.gingerbase.model import model
+from wok.plugins.gingerbase.yumparser \
+    import delete_repo_from_file, get_repo_files
+from wok.plugins.gingerbase.yumparser import get_yum_packages_list_update
+from wok.plugins.gingerbase.yumparser import get_yum_repositories
+from wok.plugins.gingerbase.yumparser import write_repo_to_file, YumRepoObject
 
 
 TEMP_REPO_FILE = ''
 
 
 def _is_yum_distro():
-    inst = model.Model('test:///default')
+    inst = model.Model()
     repo_type = inst.capabilities_lookup()['repo_mngt_tool']
     return repo_type == 'yum'
 
