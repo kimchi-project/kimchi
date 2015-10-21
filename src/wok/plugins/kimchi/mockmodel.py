@@ -20,22 +20,19 @@
 import libvirt
 import lxml.etree as ET
 import os
-import random
 import time
 from lxml import objectify
 from lxml.builder import E
 
 from wok.exception import NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
-from wok.utils import add_task, get_next_clone_name, wok_log
+from wok.utils import add_task, get_next_clone_name
 from wok.xmlutils.utils import xml_item_update
 
-from wok.plugins.kimchi import config
 from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.model import cpuinfo
 from wok.plugins.kimchi.model import vmifaces
-from wok.plugins.kimchi.model.debugreports import DebugReportsModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import IscsiPoolDef
 from wok.plugins.kimchi.model.libvirtstoragepool import NetfsPoolDef
@@ -77,10 +74,7 @@ class MockModel(Model):
         osinfo.defaults = dict(defaults)
 
         self._mock_devices = MockDevices()
-        self._mock_partitions = MockPartitions()
         self._mock_storagevolumes = MockStorageVolumes()
-        self._mock_swupdate = MockSoftwareUpdate()
-        self._mock_repositories = MockRepositories()
 
         cpuinfo.get_topo_capabilities = MockModel.get_topo_capabilities
         vmifaces.getDHCPLeases = MockModel.getDHCPLeases
@@ -121,7 +115,6 @@ class MockModel(Model):
         StoragePoolModel._update_lvm_disks = self._update_lvm_disks
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
         StorageVolumeModel.doUpload = self._mock_storagevolume_doUpload
-        DebugReportsModel._gen_debugreport_file = self._gen_debugreport_file
         LibvirtVMTemplate._get_volume_path = self._get_volume_path
         VMTemplate.get_iso_info = self._probe_image
         imageinfo.probe_image = self._probe_image
@@ -129,8 +122,6 @@ class MockModel(Model):
     def reset(self):
         MockModel._mock_vms = {}
         MockModel._mock_snapshots = {}
-        self._mock_swupdate = MockSoftwareUpdate()
-        self._mock_repositories = MockRepositories()
 
         if hasattr(self, 'objstore'):
             self.objstore = ObjectStore(self.objstore_loc)
@@ -260,22 +251,6 @@ class MockModel(Model):
 
         return MockModel._libvirt_get_vol_path(pool, vol)
 
-    def _gen_debugreport_file(self, name):
-        return add_task('/plugins/kimchi/debugreports/%s' % name,
-                        self._create_log, self.objstore, name)
-
-    def _create_log(self, cb, name):
-        path = config.get_debugreports_path()
-        tmpf = os.path.join(path, name + '.tmp')
-        realf = os.path.join(path, name + '.txt')
-        length = random.randint(1000, 10000)
-        with open(tmpf, 'w') as fd:
-            while length:
-                fd.write('I am logged')
-                length = length - 1
-        os.rename(tmpf, realf)
-        cb("OK", True)
-
     def _update_lvm_disks(self, pool_name, disks):
         conn = self.conn.get()
         pool = conn.storagePoolLookupByName(pool_name.encode('utf-8'))
@@ -289,12 +264,6 @@ class MockModel(Model):
             source.append(dev)
 
         conn.storagePoolDefineXML(ET.tostring(root), 0)
-
-    def _mock_host_shutdown(self, *name):
-        wok_log.info("The host system will be shutted down")
-
-    def _mock_host_reboot(self, *name):
-        wok_log.info("The host system will be rebooted")
 
     def _mock_storagevolumes_create(self, pool, params):
         vol_source = ['url', 'capacity']
@@ -343,12 +312,6 @@ class MockModel(Model):
             cb('', False)
             raise OperationFailed("KCHVOL0029E", {"err": e.message})
 
-    def _mock_partitions_get_list(self):
-        return self._mock_partitions.partitions.keys()
-
-    def _mock_partition_lookup(self, name):
-        return self._mock_partitions.partitions[name]
-
     def _mock_devices_get_list(self, _cap=None, _passthrough=None,
                                _passthrough_affected_by=None,
                                _available_only=None):
@@ -363,56 +326,6 @@ class MockModel(Model):
 
     def _mock_device_lookup(self, dev_name):
         return self._mock_devices.devices[dev_name]
-
-    def _mock_packagesupdate_get_list(self):
-        return self._mock_swupdate.pkgs.keys()
-
-    def _mock_packageupdate_lookup(self, pkg_name):
-        return self._mock_swupdate.pkgs[pkg_name]
-
-    def _mock_host_swupdate(self, args=None):
-        task_id = add_task('/plugins/kimchi/host/swupdate',
-                           self._mock_swupdate.doUpdate, self.objstore)
-        return self.task_lookup(task_id)
-
-    def _mock_repositories_get_list(self):
-        return self._mock_repositories.repos.keys()
-
-    def _mock_repositories_create(self, params):
-        # Create a repo_id if not given by user. The repo_id will follow
-        # the format kimchi_repo_<integer>, where integer is the number of
-        # seconds since the Epoch (January 1st, 1970), in UTC.
-        repo_id = params.get('repo_id', None)
-        if repo_id is None:
-            repo_id = "kimchi_repo_%s" % str(int(time.time() * 1000))
-            params.update({'repo_id': repo_id})
-
-        config = params.get('config', {})
-        info = {'repo_id': repo_id,
-                'baseurl': params['baseurl'],
-                'enabled': True,
-                'config': {'repo_name': config.get('repo_name', repo_id),
-                           'gpgkey': config.get('gpgkey', []),
-                           'gpgcheck': True,
-                           'mirrorlist': params.get('mirrorlist', '')}}
-        self._mock_repositories.repos[repo_id] = info
-        return repo_id
-
-    def _mock_repository_lookup(self, repo_id):
-        return self._mock_repositories.repos[repo_id]
-
-    def _mock_repository_delete(self, repo_id):
-        del self._mock_repositories.repos[repo_id]
-
-    def _mock_repository_enable(self, repo_id):
-        self._mock_repositories.repos[repo_id]['enabled'] = True
-
-    def _mock_repository_disable(self, repo_id):
-        self._mock_repositories.repos[repo_id]['enabled'] = False
-
-    def _mock_repository_update(self, repo_id, params):
-        self._mock_repositories.repos[repo_id].update(params)
-        return repo_id
 
     def _mock_vm_clone(self, name):
         new_name = get_next_clone_name(self.vms_get_list(), name)
@@ -498,18 +411,6 @@ class MockStorageVolumes(object):
                                             'isvalid': True}}
 
 
-class MockPartitions(object):
-    def __init__(self):
-        self.partitions = {"vdx": {"available": True, "name": "vdx",
-                                   "fstype": "", "path": "/dev/vdx",
-                                   "mountpoint": "", "type": "disk",
-                                   "size": "2147483648"},
-                           "vdz": {"available": True, "name": "vdz",
-                                   "fstype": "", "path": "/dev/vdz",
-                                   "mountpoint": "", "type": "disk",
-                                   "size": "2147483648"}}
-
-
 class MockDevices(object):
     def __init__(self):
         self.devices = {
@@ -585,51 +486,6 @@ class MockDevices(object):
                            'name': 'scsi_host2',
                            'parent': 'computer',
                            'path': '/sys/devices/pci0000:00/0000:40:00.0/2'}}
-
-
-class MockSoftwareUpdate(object):
-    def __init__(self):
-        self.pkgs = {
-            'udevmountd': {'repository': 'openSUSE-13.1-Update',
-                           'version': '0.81.5-14.1',
-                           'arch': 'x86_64',
-                           'package_name': 'udevmountd'},
-            'sysconfig-network': {'repository': 'openSUSE-13.1-Extras',
-                                  'version': '0.81.5-14.1',
-                                  'arch': 'x86_64',
-                                  'package_name': 'sysconfig-network'},
-            'libzypp': {'repository': 'openSUSE-13.1-Update',
-                        'version': '13.9.0-10.1',
-                        'arch': 'noarch',
-                        'package_name': 'libzypp'}}
-        self._num2update = 3
-
-    def doUpdate(self, cb, params):
-        msgs = []
-        for pkg in self.pkgs.keys():
-            msgs.append("Updating package %s" % pkg)
-            cb('\n'.join(msgs))
-            time.sleep(1)
-
-        time.sleep(2)
-        msgs.append("All packages updated")
-        cb('\n'.join(msgs), True)
-
-        # After updating all packages any package should be listed to be
-        # updated, so reset self._packages
-        self.pkgs = {}
-
-
-class MockRepositories(object):
-    def __init__(self):
-        self.repos = {"kimchi_repo_1392167832":
-                      {"repo_id": "kimchi_repo_1392167832",
-                       "enabled": True,
-                       "baseurl": "http://www.fedora.org",
-                       "config": {"repo_name": "kimchi_repo_1392167832",
-                                  "gpgkey": [],
-                                  "gpgcheck": True,
-                                  "mirrorlist": ""}}}
 
 
 class MockVMSnapshot(object):

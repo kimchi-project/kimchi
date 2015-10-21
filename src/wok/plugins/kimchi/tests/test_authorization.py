@@ -77,12 +77,6 @@ class AuthorizationTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/host/shutdown', '{}', 'POST')
         self.assertEquals(403, resp.status)
 
-        # Non-root users can not get or debug reports
-        resp = self.request('/plugins/kimchi/debugreports', '{}', 'GET')
-        self.assertEquals(403, resp.status)
-        resp = self.request('/plugins/kimchi/debugreports', '{}', 'POST')
-        self.assertEquals(403, resp.status)
-
         # Non-root users can not create or delete network (only get)
         resp = self.request('/plugins/kimchi/networks', '{}', 'GET')
         self.assertEquals(200, resp.status)

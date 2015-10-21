@@ -2,13 +2,6 @@
 <tabs-ext>
     <tab>
         <access role="admin" mode="admin"/>
-        <access role="user" mode="none"/>
-
-        <title>Host</title>
-        <path>plugins/kimchi/host.html</path>
-    </tab>
-    <tab>
-        <access role="admin" mode="admin"/>
         <access role="user" mode="byInstance"/>
 
         <title>Guests</title>
