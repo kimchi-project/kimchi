@@ -1,0 +1,150 @@
+#*
+ * Project Ginger Base
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Code derived from Project Kimchi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+{
+    "GGBAUTH6001E": "$_("The username or password you entered is incorrect. Please try again.")",
+    "GGBAUTH6002E": "$_("This field is required.")",
+
+    "GGBAUTH6001M": "$_("Log in")",
+    "GGBAUTH6002M": "$_("Logging in...")",
+
+    "Host": "$_("Host")",
+    "Guests": "$_("Guests")",
+    "Templates": "$_("Templates")",
+    "Storage": "$_("Storage")",
+    "Network": "$_("Network")",
+
+    "GGBAPI6002E": "$_("Failed to get application configuration")",
+    "GGBAPI6003E": "$_("This is not a valid Linux path")",
+    "GGBAPI6004E": "$_("This is not a valid URL.")",
+    "GGBAPI6005E": "$_("No such data available.")",
+    "GGBAPI6007E": "$_("Can not contact the host system. Verify the host system is up and that you have network connectivity to it. HTTP request response %1. ")",
+    "GGBAPI6008E": "$_("Unable to read file.")",
+    "GGBAPI6009E": "$_("Error while uploading file.")",
+
+    "GGBAPI6001M": "$_("Delete Confirmation")",
+    "GGBAPI6002M": "$_("OK")",
+    "GGBAPI6003M": "$_("Cancel")",
+    "GGBAPI6004M": "$_("Confirm")",
+    "GGBAPI6005M": "$_("Create")",
+    "GGBAPI6006M": "$_("Warning")",
+    "GGBAPI6007M": "$_("Save")",
+    "GGBAPI6008M": "$_("Creating...")",
+    "GGBAPI6009M": "$_("Cloning...")",
+
+    "GGBGRD6001M": "$_("Loading...")",
+    "GGBGRD6002M": "$_("An error occurred while retrieving system information.")",
+    "GGBGRD6003M": "$_("Retry")",
+    "GGBGRD6004M": "$_("Detailed message:")",
+
+    "GGBHOST6001E": "$_("Unable to shut down system as there are some virtual machines running!")",
+
+    "GGBHOST6001M": "$_("Max:")",
+    "GGBHOST6002M": "$_("Utilization")",
+    "GGBHOST6003M": "$_("Available")",
+    "GGBHOST6004M": "$_("Read Rate")",
+    "GGBHOST6005M": "$_("Write Rate")",
+    "GGBHOST6006M": "$_("Received")",
+    "GGBHOST6007M": "$_("Sent")",
+    "GGBHOST6008M": "$_("Shutting down or restarting host will cause unsaved work lost. Continue to shut down/restarting?")",
+
+
+    "GGBREPO6001M": "$_("Confirm")",
+    "GGBREPO6002M": "$_("Repository will be removed permanently and can't be recovered. Do you want to continue?")",
+    "GGBREPO6003M": "$_("Repositories")",
+    "GGBREPO6004M": "$_("ID")",
+    "GGBREPO6005M": "$_("Name")",
+    "GGBREPO6006M": "$_("Base URL")",
+    "GGBREPO6007M": "$_("Is Mirror")",
+    "GGBREPO6008M": "$_("URL Args")",
+    "GGBREPO6009M": "$_("Enabled")",
+    "GGBREPO6010M": "$_("GPG Check")",
+    "GGBREPO6011M": "$_("GPG Key")",
+    "GGBREPO6012M": "$_("Add")",
+    "GGBREPO6013M": "$_("Edit")",
+    "GGBREPO6014M": "$_("Remove")",
+    "GGBREPO6016M": "$_("Enable")",
+    "GGBREPO6017M": "$_("Disable")",
+
+
+    "GGBUPD6001M": "$_("Software Updates")",
+    "GGBUPD6002M": "$_("Package Name")",
+    "GGBUPD6003M": "$_("Version")",
+    "GGBUPD6004M": "$_("Architecture")",
+    "GGBUPD6005M": "$_("Repository")",
+    "GGBUPD6006M": "$_("Update All")",
+    "GGBUPD6007M": "$_("Updating...")",
+    "GGBUPD6008M": "$_("Failed to retrieve packages update information.")",
+    "GGBUPD6009M": "$_("Failed to update package(s).")",
+
+
+    "GGBDR6001M": "$_("Debug report will be removed permanently and can't be recovered. Do you want to continue?")",
+    "GGBDR6002M": "$_("Debug Reports")",
+    "GGBDR6003M": "$_("Name")",
+    "GGBDR6005M": "$_("Generated Time")",
+    "GGBDR6006M": "$_("Generate")",
+    "GGBDR6007M": "$_("Generating...")",
+    "GGBDR6008M": "$_("Rename")",
+    "GGBDR6009M": "$_("Remove")",
+    "GGBDR6010M": "$_("Download")",
+    "GGBDR6011M": "$_("Report name should contain only letters, digits, underscore ('_') and/or hyphen ('-').")",
+    "GGBDR6012M": "$_("Pending...")",
+    "GGBDR6013M": "$_("Report name is the same as the original one.")",
+
+    "GGBVM6001M": "$_("This will delete the virtual machine and its virtual disks. This operation cannot be undone. Would you like to continue?")",
+    "GGBVM6002M": "$_("Power off Confirmation")",
+    "GGBVM6003M": "$_("This action may produce undesirable results, "
+                      "for example unflushed disk cache in the guest. "
+                      "Would you like to continue?")",
+    "GGBVM6004M": "$_("Reset Confirmation")",
+    "GGBVM6005M": "$_("There is a risk of data loss caused by reset without"
+                      " the guest OS shutdown. Would you like to continue?")",
+    "GGBVM6006M": "$_("Shut Down Confirmation")",
+    "GGBVM6007M": "$_("Note the guest OS may ignore this request. Would you like to continue?")",
+    "GGBVM6008M": "$_("Virtual Machine delete Confirmation")",
+    "GGBVM6009M": "$_("This virtual machine is not persistent. Power Off will delete it. Continue?")",
+    "GGBVM6010M": "$_("When the target guest has SCSI or iSCSI volumes, they will be cloned on default storage pool. The same will happen when the target pool does not have enough space to clone the volumes. Do you want to continue?")",
+
+    "GGBVMCD6001M": "$_("This CDROM will be detached permanently and you can re-attach it. Continue to detach it?")",
+    "GGBVMCD6002M": "$_("Attach")",
+    "GGBVMCD6003M": "$_("Attaching...")",
+    "GGBVMCD6004M": "$_("Replace")",
+    "GGBVMCD6005M": "$_("Replacing...")",
+    "GGBVMCD6006M": "$_("Successfully attached!")",
+    "GGBVMCD6007M": "$_("Successfully replaced!")",
+    "GGBVMCD6008M": "$_("Successfully detached!")",
+    "GGBVMCD6009M": "$_("This disk will be detached permanently and you can re-attach it. Continue to detach it?")",
+
+    "GGBVMED6001M": "$_("interface:")",
+    "GGBVMED6002M": "$_("address:")",
+    "GGBVMED6003M": "$_("link_type:")",
+    "GGBVMED6004M": "$_("block:")",
+    "GGBVMED6005M": "$_("drive_type:")",
+    "GGBVMED6006M": "$_("model:")",
+    "GGBVMED6007M": "$_("Affected devices:")",
+
+    "GGBVMSTOR0001E": "$_("CDROM path needs to be a valid local/remote path and cannot be blank.")",
+    "GGBVMSTOR0002E": "$_("Disk pool or volume cannot be blank.")"
+}
