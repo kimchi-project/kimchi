@@ -66,12 +66,12 @@ class Resource(object):
                 if arg is None:
                     arg = ''
                 uri_params.append(urllib2.quote(arg.encode('utf-8'), safe=""))
-            raise internal_redirect(self.uri_fmt % tuple(uri_params))
+            raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
         elif action_result is not None and action_result != self.ident:
             uri_params = list(self.model_args[:-1])
             uri_params += [urllib2.quote(action_result.encode('utf-8'),
                            safe="")]
-            raise internal_redirect(self.uri_fmt % tuple(uri_params))
+            raise cherrypy.HTTPRedirect(self.uri_fmt % tuple(uri_params), code)
 
     def generate_action_handler(self, action_name, action_args=None,
                                 destructive=False):
