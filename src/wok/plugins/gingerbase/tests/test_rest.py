@@ -140,7 +140,7 @@ class RestTests(unittest.TestCase):
             resp = request(host, ssl_port,
                            '/plugins/gingerbase/debugreports/report1')
             debugre = json.loads(resp.read())
-            resp = request(host, ssl_port, debugre['uri'])
+            resp = request(host, ssl_port, '/' + debugre['uri'])
             self.assertEquals(200, resp.status)
 
     def test_repositories(self):
