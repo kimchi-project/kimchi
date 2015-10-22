@@ -52,4 +52,6 @@ for ((i=0;i<${#LIST[@]};i++)); do
     fi
 done
 
-PYTHONPATH=../plugins:../src:../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
+# ../../../../ refers to wok directory
+# ../../../ refers to plugins directory
+PYTHONPATH=../../../../:../../../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
