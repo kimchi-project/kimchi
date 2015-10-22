@@ -60,5 +60,5 @@ class DebugReportContent(Resource):
 
     def get(self):
         self.lookup()
-        internal_uri = self.info['uri'].replace('plugins/kimchi', '')
+        internal_uri = self.info['uri'].replace('plugins/gingerbase', '')
         raise internal_redirect(internal_uri)
