@@ -1,9 +1,7 @@
 #
-# Project Ginger Base
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2013-2015
-#
-# Code derived from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -53,7 +51,7 @@ def _get_lsblk_devs(keys, devs=[]):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = lsblk.communicate()
     if lsblk.returncode != 0:
-        raise OperationFailed("GGBDISKS0001E", {'err': err})
+        raise OperationFailed("KCHDISKS0001E", {'err': err})
 
     return _parse_lsblk_output(out, keys)
 
@@ -69,7 +67,7 @@ def _get_dev_major_min(name):
             maj_min = dev['maj:min']
             break
     else:
-        raise OperationFailed("GGBDISKS0002E", {'device': name})
+        raise OperationFailed("KCHDISKS0002E", {'device': name})
 
     return maj_min
 

@@ -119,3 +119,16 @@ class HostTests(unittest.TestCase):
         available_devs = [dev['name'] for dev in json.loads(resp.read())]
 
         self.assertLessEqual(len(available_devs), len(all_devs))
+
+    def test_host_partitions(self):
+        resp = self.request('/plugins/kimchi/host/partitions')
+        self.assertEquals(200, resp.status)
+        partitions = json.loads(resp.read())
+
+        keys = ['name', 'path', 'type', 'fstype', 'size', 'mountpoint',
+                'available']
+        for item in partitions:
+            resp = self.request('/plugins/kimchi/host/partitions/%s' %
+                                item['name'])
+            info = json.loads(resp.read())
+            self.assertEquals(sorted(info.keys()), sorted(keys))

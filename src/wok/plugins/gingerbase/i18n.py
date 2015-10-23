@@ -27,9 +27,6 @@ _ = gettext.gettext
 messages = {
     "GGBAPI0001E": _("Unknown parameter %(value)s"),
 
-    "GGBDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
-    "GGBDISKS0002E": _("Error while getting block device information for %(device)s."),
-
     "GGBDR0001E": _("Debug report %(name)s does not exist"),
     "GGBDR0002E": _("Debug report tool not found in system"),
     "GGBDR0003E": _("Unable to create debug report %(name)s. Details: %(err)s."),
@@ -39,8 +36,6 @@ messages = {
     "GGBDR0007E": _("Debug report name must be a string. Only letters, digits, underscore ('_') and "
                     "hyphen ('-') are allowed."),
     "GGBDR0008E": _("The debug report with specified name \"%(name)s\" already exists. Please use another one."),
-
-    "GGBPART0001E": _("Partition %(name)s does not exist in the host"),
 
     "GGBHOST0001E": _("Unable to shutdown host machine as there are running virtual machines"),
     "GGBHOST0002E": _("Unable to reboot host machine as there are running virtual machines"),

@@ -73,6 +73,7 @@ class MockModel(Model):
         defaults.update(mockmodel_defaults)
         osinfo.defaults = dict(defaults)
 
+        self._mock_partitions = MockPartitions()
         self._mock_devices = MockDevices()
         self._mock_storagevolumes = MockStorageVolumes()
 
@@ -327,6 +328,12 @@ class MockModel(Model):
     def _mock_device_lookup(self, dev_name):
         return self._mock_devices.devices[dev_name]
 
+    def _mock_partitions_get_list(self):
+        return self._mock_partitions.partitions.keys()
+
+    def _mock_partition_lookup(self, name):
+        return self._mock_partitions.partitions[name]
+
     def _mock_vm_clone(self, name):
         new_name = get_next_clone_name(self.vms_get_list(), name)
         snapshots = MockModel._mock_snapshots.get(name, [])
@@ -409,6 +416,18 @@ class MockStorageVolumes(object):
                                             'path': base_path + '2',
                                             'used_by': [],
                                             'isvalid': True}}
+
+
+class MockPartitions(object):
+    def __init__(self):
+        self.partitions = {"vdx": {"available": True, "name": "vdx",
+                                   "fstype": "", "path": "/dev/vdx",
+                                   "mountpoint": "", "type": "disk",
+                                   "size": "2147483648"},
+                           "vdz": {"available": True, "name": "vdz",
+                                   "fstype": "", "path": "/dev/vdz",
+                                   "mountpoint": "", "type": "disk",
+                                   "size": "2147483648"}}
 
 
 class MockDevices(object):

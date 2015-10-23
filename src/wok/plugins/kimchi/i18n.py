@@ -27,6 +27,11 @@ messages = {
 
     "KCHAUTH0004E": _("User %(user_id)s not found with given LDAP settings."),
 
+    "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
+    "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),
+
+    "KCHPART0001E": _("Partition %(name)s does not exist in the host"),
+
     "KCHDEVS0001E": _('Unknown "_cap" specified'),
     "KCHDEVS0002E": _('"_passthrough" should be "true" or "false"'),
     "KCHDEVS0003E": _('"_passthrough_affected_by" should be a device name string'),
