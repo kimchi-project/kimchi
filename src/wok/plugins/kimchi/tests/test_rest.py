@@ -1265,43 +1265,6 @@ class RestTests(unittest.TestCase):
             # Distro not found error
             self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
-    def test_repositories(self):
-        def verify_repo(t, res):
-            for field in ('repo_id', 'enabled', 'baseurl', 'config'):
-                if field in t.keys():
-                    self.assertEquals(t[field], res[field])
-
-        base_uri = '/plugins/kimchi/host/repositories'
-        resp = self.request(base_uri)
-        self.assertEquals(200, resp.status)
-        # Already have one repo in Kimchi's system
-        self.assertEquals(1, len(json.loads(resp.read())))
-
-        # Create a repository
-        repo = {'repo_id': 'fedora-fake',
-                'baseurl': 'http://www.fedora.org'}
-        req = json.dumps(repo)
-        resp = self.request(base_uri, req, 'POST')
-        self.assertEquals(201, resp.status)
-
-        # Verify the repository
-        res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
-        verify_repo(repo, res)
-
-        # Update the repository
-        params = {}
-        params['baseurl'] = repo['baseurl'] = 'http://www.fedoraproject.org'
-        resp = self.request('%s/fedora-fake' % base_uri, json.dumps(params),
-                            'PUT')
-
-        # Verify the repository
-        res = json.loads(self.request('%s/fedora-fake' % base_uri).read())
-        verify_repo(repo, res)
-
-        # Delete the repository
-        resp = self.request('%s/fedora-fake' % base_uri, '{}', 'DELETE')
-        self.assertEquals(204, resp.status)
-
 
 class HttpsRestTests(RestTests):
     """
