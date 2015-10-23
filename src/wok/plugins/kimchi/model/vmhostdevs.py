@@ -23,6 +23,7 @@ import os
 import platform
 from lxml import etree, objectify
 from lxml.builder import E
+from operator import itemgetter
 
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
@@ -62,6 +63,9 @@ class VMHostDevsModel(object):
         self._passthrough_device_validate(dev_name)
         dev_info = DeviceModel(conn=self.conn).lookup(dev_name)
 
+        if dev_info['device_type'] == 'pci':
+            return self._attach_pci_device(vmid, dev_info)
+
         with RollbackContext() as rollback:
             try:
                 dev = self.conn.get().nodeDeviceLookupByName(dev_name)
@@ -79,7 +83,7 @@ class VMHostDevsModel(object):
 
         return info
 
-    def _get_pci_device_xml(self, dev_info):
+    def _get_pci_device_xml(self, dev_info, slot, is_multifunction):
         if 'detach_driver' not in dev_info:
             dev_info['detach_driver'] = 'kvm'
 
@@ -88,8 +92,29 @@ class VMHostDevsModel(object):
                                     slot=str(dev_info['slot']),
                                     function=str(dev_info['function'])))
         driver = E.driver(name=dev_info['detach_driver'])
-        host_dev = E.hostdev(source, driver,
-                             mode='subsystem', type='pci', managed='yes')
+
+        if is_multifunction:
+            multi = E.address(type='pci',
+                              domain='0',
+                              bus='0',
+                              slot=str(slot),
+                              function=str(dev_info['function']))
+
+            if dev_info['function'] == 0:
+                multi = E.address(type='pci',
+                                  domain='0',
+                                  bus='0',
+                                  slot=str(slot),
+                                  function=str(dev_info['function']),
+                                  multifunction='on')
+
+
+            host_dev = E.hostdev(source, driver, multi,
+                                 mode='subsystem', type='pci', managed='yes')
+
+        else:
+            host_dev = E.hostdev(source, driver,
+                                 mode='subsystem', type='pci', managed='yes')
 
         return etree.tostring(host_dev)
 
@@ -109,6 +134,27 @@ class VMHostDevsModel(object):
                                         'virt_use_sysfs=on'])
             if rc != 0:
                 wok_log.warning("Unable to turn on sebool virt_use_sysfs")
+
+    def _available_slot(self, dom):
+        xmlstr = dom.XMLDesc(0)
+        root = objectify.fromstring(xmlstr)
+        slots = []
+        try:
+            devices = root.devices
+            slots = [DeviceModel._toint(dev.attrib['slot'])
+                     for dev in devices.findall('.//address')
+                     if 'slot' in dev.attrib]
+
+        except AttributeError:
+            return 1
+
+        slots = sorted(slots)
+
+        for free, slot in enumerate(slots, start=1):
+            if free < slot:
+                return free
+
+        return free+1
 
     def _attach_pci_device(self, vmid, dev_info):
         self._validate_pci_passthrough_env()
@@ -135,6 +181,10 @@ class VMHostDevsModel(object):
         pci_infos = [dev_model.lookup(dev_name) for dev_name in group_names]
         pci_infos.append(dev_info)
 
+        is_multifunction = len(pci_infos) > 1 and \
+                DOM_STATE_MAP[dom.info()[0]] == "shutoff"
+        pci_infos = sorted(pci_infos, key=itemgetter('name'))
+
         # all devices in the group that is going to be attached to the vm
         # must be detached from the host first
         with RollbackContext() as rollback:
@@ -153,10 +203,15 @@ class VMHostDevsModel(object):
 
         device_flags = get_vm_config_flag(dom, mode='all')
 
+        slot = 0
+        if is_multifunction:
+            slot = self._available_slot(dom)
         with RollbackContext() as rollback:
             for pci_info in pci_infos:
                 pci_info['detach_driver'] = driver
-                xmlstr = self._get_pci_device_xml(pci_info)
+                xmlstr = self._get_pci_device_xml(pci_info,
+                                                  slot,
+                                                  is_multifunction)
                 try:
                     dom.attachDeviceFlags(xmlstr, device_flags)
                 except libvirt.libvirtError:
