@@ -38,7 +38,7 @@ EXTRA_DIST = \
 	$(NULL)
 
 
-PEP8_BLACKLIST = *src/wok/config.py,*src/wok/i18n.py,*src/wok/plugins/kimchi,*tests/test_config.py
+PEP8_BLACKLIST = *src/wok/plugins,*src/wok/config.py,*src/wok/i18n.py,*tests/test_config.py
 
 SKIP_PYFLAKES_ERR = "\./src/wok/websocket\.py"
 
