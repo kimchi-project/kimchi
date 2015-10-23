@@ -63,20 +63,6 @@ class AuthorizationTests(unittest.TestCase):
         model.reset()
 
     def test_nonroot_access(self):
-        # Non-root users can access static host information
-        resp = self.request('/plugins/kimchi/host', '{}', 'GET')
-        self.assertEquals(403, resp.status)
-
-        # Non-root users can access host stats
-        resp = self.request('/plugins/kimchi/host/stats', '{}', 'GET')
-        self.assertEquals(403, resp.status)
-
-        # Non-root users can not reboot/shutdown host system
-        resp = self.request('/plugins/kimchi/host/reboot', '{}', 'POST')
-        self.assertEquals(403, resp.status)
-        resp = self.request('/plugins/kimchi/host/shutdown', '{}', 'POST')
-        self.assertEquals(403, resp.status)
-
         # Non-root users can not create or delete network (only get)
         resp = self.request('/plugins/kimchi/networks', '{}', 'GET')
         self.assertEquals(200, resp.status)
