@@ -28,18 +28,15 @@ from collections import defaultdict
 import glob
 
 from wok.basemodel import Singleton
+from wok.config import config as kconfig
 from wok.exception import InvalidOperation
 from wok.exception import OperationFailed
 from wok.utils import add_task, wok_log
 from wok.model.tasks import TaskModel
-from wok.config import config as kconfig
 
-
-from wok.plugins.gingerbase import disks
+from wok.plugins.gingerbase.model.debugreports import DebugReportsModel
 from wok.plugins.gingerbase.repositories import Repositories
 from wok.plugins.gingerbase.swupdate import SoftwareUpdate
-from wok.plugins.gingerbase.model.debugreports import DebugReportsModel
-
 
 HOST_STATS_INTERVAL = 1
 
@@ -345,23 +342,6 @@ class CapabilitiesModel(object):
                 'repo_mngt_tool': repo_mngt_tool,
                 'federation': kconfig.get("server", "federation")
                 }
-
-
-class PartitionsModel(object):
-    def __init__(self, **kargs):
-        pass
-
-    def get_list(self):
-        result = disks.get_partitions_names()
-        return result
-
-
-class PartitionModel(object):
-    def __init__(self, **kargs):
-        pass
-
-    def lookup(self, name):
-        return disks.get_partition_details(name)
 
 
 class PackagesUpdateModel(object):

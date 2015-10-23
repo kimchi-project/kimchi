@@ -42,7 +42,6 @@ class MockModel(Model):
         # Override osinfo.defaults to ajust the values according to
         # test:///default driver
 
-        self._mock_partitions = MockPartitions()
         self._mock_swupdate = MockSoftwareUpdate()
         self._mock_repositories = MockRepositories()
 
@@ -105,12 +104,6 @@ class MockModel(Model):
     def _mock_host_reboot(self, *name):
         wok_log.info("The host system will be rebooted")
 
-    def _mock_partitions_get_list(self):
-        return self._mock_partitions.partitions.keys()
-
-    def _mock_partition_lookup(self, name):
-        return self._mock_partitions.partitions[name]
-
     def _mock_packagesupdate_get_list(self):
         return self._mock_swupdate.pkgs.keys()
 
@@ -161,18 +154,6 @@ class MockModel(Model):
     def _mock_repository_update(self, repo_id, params):
         self._mock_repositories.repos[repo_id].update(params)
         return repo_id
-
-
-class MockPartitions(object):
-    def __init__(self):
-        self.partitions = {"vdx": {"available": True, "name": "vdx",
-                                   "fstype": "", "path": "/dev/vdx",
-                                   "mountpoint": "", "type": "disk",
-                                   "size": "2147483648"},
-                           "vdz": {"available": True, "name": "vdz",
-                                   "fstype": "", "path": "/dev/vdz",
-                                   "mountpoint": "", "type": "disk",
-                                   "size": "2147483648"}}
 
 
 class MockSoftwareUpdate(object):

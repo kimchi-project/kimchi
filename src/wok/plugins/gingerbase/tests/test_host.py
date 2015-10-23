@@ -139,16 +139,3 @@ class HostTests(unittest.TestCase):
         self.assertIn(u'All packages updated', task_info['message'])
         pkgs = model.packagesupdate_get_list()
         self.assertEquals(0, len(pkgs))
-
-    def test_host_partitions(self):
-        resp = self.request('/plugins/gingerbase/host/partitions')
-        self.assertEquals(200, resp.status)
-        partitions = json.loads(resp.read())
-
-        keys = ['name', 'path', 'type', 'fstype', 'size', 'mountpoint',
-                'available']
-        for item in partitions:
-            resp = self.request('/plugins/gingerbase/host/partitions/%s' %
-                                item['name'])
-            info = json.loads(resp.read())
-            self.assertEquals(sorted(info.keys()), sorted(keys))

@@ -20,6 +20,7 @@
 from wok.control.base import Collection
 from wok.control.base import Resource, SimpleCollection
 from wok.control.utils import UrlSubNode
+from wok.exception import NotFoundError
 
 from wok.plugins.kimchi.control.cpuinfo import CPUInfo
 
@@ -33,22 +34,23 @@ class Host(Resource):
         self.uri_fmt = '/host/%s'
         self.devices = Devices(self.model)
         self.cpuinfo = CPUInfo(self.model)
+        self.partitions = Partitions(self.model)
 
     @property
     def data(self):
         return self.info
 
 
-class Devices(Collection):
-    def __init__(self, model):
-        super(Devices, self).__init__(model)
-        self.resource = Device
-
-
 class VMHolders(SimpleCollection):
     def __init__(self, model, device_id):
         super(VMHolders, self).__init__(model)
         self.model_args = (device_id, )
+
+
+class Devices(Collection):
+    def __init__(self, model):
+        super(Devices, self).__init__(model)
+        self.resource = Device
 
 
 class Device(Resource):
@@ -58,4 +60,34 @@ class Device(Resource):
 
     @property
     def data(self):
+        return self.info
+
+
+class Partitions(Collection):
+    def __init__(self, model):
+        super(Partitions, self).__init__(model)
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
+        self.resource = Partition
+
+    # Defining get_resources in order to return list of partitions in UI
+    # sorted by their path
+    def _get_resources(self, flag_filter):
+        res_list = super(Partitions, self)._get_resources(flag_filter)
+        res_list = filter(lambda x: x.info['available'], res_list)
+        res_list.sort(key=lambda x: x.info['path'])
+        return res_list
+
+
+class Partition(Resource):
+    def __init__(self, model, id):
+        self.role_key = 'storage'
+        self.admin_methods = ['GET']
+        super(Partition, self).__init__(model, id)
+
+    @property
+    def data(self):
+        if not self.info['available']:
+            raise NotFoundError("KCHPART0001E", {'name': self.info['name']})
+
         return self.info

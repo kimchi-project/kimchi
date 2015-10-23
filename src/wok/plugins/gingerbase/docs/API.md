@@ -197,32 +197,6 @@ stats history
 
 *No actions defined*
 
-### Collection: Partitions
-
-**URI:** /plugins/gingerbase/host/partitions
-
-**Methods:**
-
-* **GET**: Retrieves a detailed list of all partitions of the host.
-
-### Resource: Partition
-
-**URI:** /plugins/gingerbase/host/partitions/*:name*
-
-**Methods:**
-
-* **GET**: Retrieve the description of a single Partition:
-    * name: The name of the partition. Used to identify it in this API
-    * path: The device path of this partition.
-    * type: The type of the partition:
-        * part: a standard partition
-        * lvm: a partition that belongs to a lvm
-    * fstype: The file system type of the partition
-    * size: The total size of the partition, in bytes
-    * mountpoint: If the partition is mounted, represents the mountpoint.
-      Otherwise blank.
-    * available: false, if the partition is in use by system; true, otherwise.
-
 ### Collection: Host Packages Update
 
 **URI:** /plugins/gingerbase/host/packagesupdate

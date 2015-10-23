@@ -26,10 +26,10 @@ from wok.exception import NotFoundError
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
+from wok.plugins.kimchi import disks
 from wok.plugins.kimchi.model import hostdev
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.vms import VMModel, VMsModel
-
 
 HOST_STATS_INTERVAL = 1
 
@@ -262,3 +262,20 @@ class DeviceModel(object):
             if ebus == ibus and edevice == idevice:
                 return usb_info['name']
         return unknown_dev
+
+
+class PartitionsModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def get_list(self):
+        result = disks.get_partitions_names()
+        return result
+
+
+class PartitionModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def lookup(self, name):
+        return disks.get_partition_details(name)

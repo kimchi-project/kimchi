@@ -221,17 +221,6 @@ var kimchi = {
         });
     },
 
-    listHostPartitions : function(suc, err) {
-        wok.requestJSON({
-            url : 'plugins/gingerbase/host/partitions',
-            type : 'GET',
-            contentType : 'application/json',
-            dataType : 'json',
-            success : suc,
-            error : err
-        });
-    },
-
     listSoftwareUpdates : function(suc, err) {
         wok.requestJSON({
             url : 'plugins/gingerbase/host/packagesupdate',
