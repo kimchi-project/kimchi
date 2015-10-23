@@ -38,7 +38,7 @@ class Host(Resource):
 
     @property
     def data(self):
-        return self.info
+        return {}
 
 
 class VMHolders(SimpleCollection):
