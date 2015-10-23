@@ -18,54 +18,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
-import psutil
 from lxml import objectify
 
 from wok.exception import InvalidParameter
 from wok.exception import NotFoundError
 from wok.xmlutils.utils import xpath_get_text
-from wok.model.tasks import TaskModel
 
 from wok.plugins.kimchi import disks
 from wok.plugins.kimchi.model import hostdev
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.vms import VMModel, VMsModel
-
-HOST_STATS_INTERVAL = 1
-
-
-class HostModel(object):
-    def __init__(self, **kargs):
-        self.conn = kargs['conn']
-        self.objstore = kargs['objstore']
-        self.task = TaskModel(**kargs)
-        self.host_info = {}
-
-    def lookup(self, *name):
-        cpus = 0
-
-        # psutil is unstable on how to get the number of
-        # cpus, different versions call it differently
-        if hasattr(psutil, 'cpu_count'):
-            cpus = psutil.cpu_count()
-
-        elif hasattr(psutil, 'NUM_CPUS'):
-            cpus = psutil.NUM_CPUS
-
-        elif hasattr(psutil, '_psplatform'):
-            for method_name in ['_get_num_cpus', 'get_num_cpus']:
-
-                method = getattr(psutil._psplatform, method_name, None)
-                if method is not None:
-                    cpus = method()
-                    break
-
-        self.host_info['cpus'] = cpus
-        if hasattr(psutil, 'phymem_usage'):
-            self.host_info['memory'] = psutil.phymem_usage().total
-        elif hasattr(psutil, 'virtual_memory'):
-            self.host_info['memory'] = psutil.virtual_memory().total
-        return self.host_info
 
 
 class DevicesModel(object):
