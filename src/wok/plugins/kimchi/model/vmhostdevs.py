@@ -108,7 +108,6 @@ class VMHostDevsModel(object):
                                   function=str(dev_info['function']),
                                   multifunction='on')
 
-
             host_dev = E.hostdev(source, driver, multi,
                                  mode='subsystem', type='pci', managed='yes')
 
@@ -182,7 +181,7 @@ class VMHostDevsModel(object):
         pci_infos.append(dev_info)
 
         is_multifunction = len(pci_infos) > 1 and \
-                DOM_STATE_MAP[dom.info()[0]] == "shutoff"
+            DOM_STATE_MAP[dom.info()[0]] == "shutoff"
         pci_infos = sorted(pci_infos, key=itemgetter('name'))
 
         # all devices in the group that is going to be attached to the vm
