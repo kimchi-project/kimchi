@@ -592,6 +592,17 @@ var kimchi = {
         });
     },
 
+    listHostPartitions : function(suc, err) {
+        wok.requestJSON({
+            url : 'plugins/kimchi/host/partitions',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     getStorageServers: function(type, suc, err) {
         var url = 'plugins/kimchi/storageservers?_target_type=' + type;
         wok.requestJSON({
