@@ -896,6 +896,7 @@ class VMModel(object):
             self.stats[vm_uuid].update({'timestamp': timestamp})
 
             self._get_percentage_cpu_usage(vm_uuid, info, seconds)
+            self._get_percentage_mem_usage(vm_uuid, dom, seconds)
             self._get_network_io_rate(vm_uuid, dom, seconds)
             self._get_disk_io_rate(vm_uuid, dom, seconds)
         except Exception as e:
@@ -913,6 +914,19 @@ class VMModel(object):
         percentage = max(0.0, min(100.0, base / cpus))
 
         self.stats[vm_uuid].update({'cputime': info[4], 'cpu': percentage})
+
+    def _get_percentage_mem_usage(self, vm_uuid, dom, seconds):
+        # Get the guest's memory stats
+        memStats = dom.memoryStats()
+        if memStats:
+            memUsed = memStats.get('available') - memStats.get('unused')
+        else:
+            wok_log.debug('Failed to measure memory usage of the guest.')
+
+        percentage = max(0.0, min(100.0, ((memUsed * 100.0) /
+                                          memStats.get('available'))))
+
+        self.stats[vm_uuid].update({'mem_usage': percentage})
 
     def _get_network_io_rate(self, vm_uuid, dom, seconds):
         prevNetRxKB = self.stats[vm_uuid].get('netRxKB', 0)
@@ -1000,6 +1014,7 @@ class VMModel(object):
         vm_stats = self.stats.get(dom.UUIDString(), {})
         res = {}
         res['cpu_utilization'] = vm_stats.get('cpu', 0)
+        res['mem_utilization'] = vm_stats.get('mem_usage', 0)
         res['net_throughput'] = vm_stats.get('net_io', 0)
         res['net_throughput_peak'] = vm_stats.get('max_net_io', 100)
         res['io_throughput'] = vm_stats.get('disk_io', 0)

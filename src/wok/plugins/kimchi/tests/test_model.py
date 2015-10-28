@@ -95,7 +95,7 @@ class ModelTests(unittest.TestCase):
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
                     'access', 'persistent'))
 
-        stats_keys = set(('cpu_utilization',
+        stats_keys = set(('cpu_utilization', 'mem_utilization',
                           'net_throughput', 'net_throughput_peak',
                           'io_throughput', 'io_throughput_peak'))
         info = inst.vm_lookup('test')

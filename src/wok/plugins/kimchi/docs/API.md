@@ -107,6 +107,8 @@ server.
     * stats: Virtual machine statistics:
         * cpu_utilization: A number between 0 and 100 which indicates the
           percentage of CPU utilization.
+        * mem_utilization: A number between 0 and 100 which indicates the
+          percentage of memory utilization.
         * net_throughput: Expresses total network throughput for reads and
           writes across all virtual interfaces (kb/s).
         * net_throughput_peak: The highest recent value of 'net_throughput'.
