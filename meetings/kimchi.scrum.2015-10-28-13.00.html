@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:00:24 UTC
+(<a href="kimchi.scrum.2015-10-28-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-6'>alinefm</a>,
+    13:00:41)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2015-10-28-13.00.log.html#l-9'>alinefm</a>, 13:03:13)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-10'>alinefm</a>,
+    13:03:13)</span></li>
+  <li><span class="INFO">WalterNik, Working on assembling the SCSI LUN
+    scan</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-11'>WalterNik</a>,
+    13:04:02)</span></li>
+  <li><span class="INFO">alinefm fixed all failing test cases for Wok
+    and Kimchi on Ubuntu. There are just a few test failing on Fedora. I
+    will investigate later</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-12'>alinefm</a>,
+    13:04:06)</span></li>
+  <li><span class="INFO">WalterNik, Working on assembling the SCSI LUN
+    scan usecase</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-13'>WalterNik</a>,
+    13:04:25)</span></li>
+  <li><span class="INFO">alinefm sent some patches to make gingerbase
+    more stable</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-14'>alinefm</a>,
+    13:04:26)</span></li>
+  <li><span class="INFO">jansch working on ui design</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-15'>jansch</a>,
+    13:04:42)</span></li>
+  <li><span class="INFO">alinefm sent patch to properly launch guest
+    console (spice/vnc)</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-16'>alinefm</a>,
+    13:04:46)</span></li>
+  <li><span class="INFO">alinefm is now working on creating a logical
+    pool from an existing VG as ziviani is out this month</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-17'>alinefm</a>,
+    13:05:19)</span></li>
+  <li><span class="INFO">danielhb reviewed patches in the ML and sent a
+    version of Live migration backend.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-18'>danielhb</a>,
+    13:05:48)</span></li>
+  <li><span class="INFO">danielhb will send a v2 of the live migration
+    backend today/tomorrow</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-19'>danielhb</a>,
+    13:06:06)</span></li>
+  <li><span class="INFO">chandra working on #743</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-20'>chandra</a>,
+    13:06:39)</span></li>
+  <li><span class="INFO">pooja sent patch for filesystem management in
+    ginger, working on review comments received</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-21'>pooja</a>,
+    13:06:48)</span></li>
+  <li><span class="INFO">atreyee working on displaying host management
+    storage componenents in UI</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-23'>atreyee</a>,
+    13:07:06)</span></li>
+  <li><span class="INFO">samhenri porting Edit Guest modal window to
+    new-ui</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-24'>samhenri</a>,
+    13:07:32)</span></li>
+  <li><span class="INFO">andreteodoro Trying to setup the environment
+    and working at the new ui Storage screen</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-25'>andreteodoro</a>,
+    13:07:47)</span></li>
+  <li><span class="INFO">ramonn working on a solution to deal with
+    bridge deletion with libvirt api. If i can't work with api, i will
+    write some code to threat it directly</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-26'>ramonn</a>,
+    13:07:57)</span></li>
+  <li><span class="INFO">lucio reworked issue 738 fixes</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-27'>lcorreia</a>,
+    13:08:08)</span></li>
+  <li><span class="INFO">lucio sent patch to fix issue with tasks in
+    kimchi tests</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-28'>lcorreia</a>,
+    13:08:08)</span></li>
+  <li><span class="INFO">lucio worked on ovs support feature (bug
+    110627) - seems not a bug, doing verification tests</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-29'>lcorreia</a>,
+    13:08:08)</span></li>
+  <li><span class="INFO">ramonn just received a notification that
+    sosreport bug with special character is fixed in rhel 7.1</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-30'>ramonn</a>,
+    13:08:26)</span></li>
+  <li><span class="INFO">pvital has been working in WoK and Kimchi
+    stabilization.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-34'>pvital</a>,
+    13:10:52)</span></li>
+  <li><span class="INFO">pvital worked on issue #740.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-35'>pvital</a>,
+    13:10:53)</span></li>
+  <li><span class="INFO">pvital worked in objectstore information update
+    when upgrading from Kimchi 1.5.1 to Kimchi 2.0 .</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-36'>pvital</a>,
+    13:10:53)</span></li>
+  <li><span class="INFO">pvital submitted the patches: Fix package name
+    of some dependencies; Issue #740: Solving UI dependencies checking;
+    Copy missing files to build Kimchi RPM; Fix Kimchi RPM spec files;
+    Upgrade to Kimchi 2.0 (patch-set with 4 parts).</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-37'>pvital</a>,
+    13:10:53)</span></li>
+  <li><span class="INFO">pvital reviewed some patches from Kimchi,
+    Ginger and GingerBase.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-38'>pvital</a>,
+    13:10:53)</span></li>
+  <li><span class="INFO">pvital is working in the 'Guest memory usage'
+    task.</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-39'>pvital</a>,
+    13:10:55)</span></li>
+  <li><span class="INFO">jkatta, working activate/deactivate of
+    interface</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-40'>jkatta</a>,
+    13:11:08)</span></li>
+  <li><span class="INFO">jkatta, working on activate/deactivate of
+    interface</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-41'>jkatta</a>,
+    13:11:32)</span></li>
+  <li><span class="INFO">Archana  gingers390x base patches pushed
+    upstream</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-44'>Archana</a>,
+    13:13:01)</span></li>
+  <li><span class="INFO">Abhiram18, Working on editing
+    ipv4(automatic/dns) configuration for an interface</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-45'>Abhiram18</a>,
+    13:13:19)</span></li>
+  <li><span class="INFO">samhenri sent some new-ui patches yesterday,
+    some screens are still working in progress but Gingerbase is 99%
+    done</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-46'>samhenri</a>,
+    13:13:36)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2015-10-28-13.00.log.html#l-52'>alinefm</a>, 13:16:36)</span>
+<ol type="a">
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">atreyee will
+    send a patch to fix software update on new ui</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-85'>alinefm</a>,
+    13:31:19)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">atreyee will
+    send a patch to fix Repositories in wok.list and
+    gingerbase.host.js</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-89'>alinefm</a>,
+    13:32:08)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">samhenri and
+    andreteodoro will work to have host + network + storage tabs fully
+    working with the new UI by the end of Oct 30</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-102'>alinefm</a>,
+    13:38:08)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">samhenri and
+    andreteodoro will work to have guests + templates tabs fully working
+    with the new UI by the end of Nov 06</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-112'>alinefm</a>,
+    13:41:14)</span></li>
+  <li><i class="itemtype">ACTION</i>: <span class="ACTION">samhenri and
+    andreteodoro will work to have administration tab fully working with
+    the new UI by the end of Nov 13</span> <span class="details">(<a
+    href='kimchi.scrum.2015-10-28-13.00.log.html#l-138'>alinefm</a>,
+    13:52:33)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 14:11:38 UTC
+(<a href="kimchi.scrum.2015-10-28-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>atreyee will send a patch to fix software update on new ui</li>
+  <li>atreyee will send a patch to fix Repositories in wok.list and gingerbase.host.js</li>
+  <li>samhenri and andreteodoro will work to have host + network + storage tabs fully working with the new UI by the end of Oct 30</li>
+  <li>samhenri and andreteodoro will work to have guests + templates tabs fully working with the new UI by the end of Nov 06</li>
+  <li>samhenri and andreteodoro will work to have administration tab fully working with the new UI by the end of Nov 13</li>
+</ol>
+<br><br>
+
+
+
+<h3>Action items, by person</h3>
+<ol>
+  <li> andreteodoro <ol>
+    <li>samhenri and andreteodoro will work to have host + network + storage tabs fully working with the new UI by the end of Oct 30</li>
+    <li>samhenri and andreteodoro will work to have guests + templates tabs fully working with the new UI by the end of Nov 06</li>
+    <li>samhenri and andreteodoro will work to have administration tab fully working with the new UI by the end of Nov 13</li>
+  </ol></li>
+  <li> atreyee <ol>
+    <li>atreyee will send a patch to fix software update on new ui</li>
+    <li>atreyee will send a patch to fix Repositories in wok.list and gingerbase.host.js</li>
+  </ol></li>
+  <li> samhenri <ol>
+    <li>samhenri and andreteodoro will work to have host + network + storage tabs fully working with the new UI by the end of Oct 30</li>
+    <li>samhenri and andreteodoro will work to have guests + templates tabs fully working with the new UI by the end of Nov 06</li>
+    <li>samhenri and andreteodoro will work to have administration tab fully working with the new UI by the end of Nov 13</li>
+  </ol></li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (94)</li>
+  <li>samhenri (44)</li>
+  <li>WalterNik (17)</li>
+  <li>pvital (9)</li>
+  <li>atreyee (3)</li>
+  <li>lcorreia (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>jkatta (2)</li>
+  <li>ramonn (2)</li>
+  <li>Archana (2)</li>
+  <li>danielhb (2)</li>
+  <li>Abhiram18 (2)</li>
+  <li>pooja (1)</li>
+  <li>chandra (1)</li>
+  <li>jansch (1)</li>
+  <li>andreteodoro (1)</li>
+  <li>rotru (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

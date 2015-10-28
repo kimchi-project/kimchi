@@ -1,0 +1,188 @@
+13:00:24 <alinefm> #startmeeting
+13:00:24 <kimchi-bot> Meeting started Wed Oct 28 13:00:24 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:24 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:24 <alinefm> #meetingname scrum
+13:00:24 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:41 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:00:41 <alinefm> anything else?
+13:03:11 <alinefm> ok... so let's get started
+13:03:13 <alinefm> #topic Status
+13:03:13 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:04:02 <WalterNik> #info WalterNik, Working on assembling the SCSI LUN scan
+13:04:06 <alinefm> #info alinefm fixed all failing test cases for Wok and Kimchi on Ubuntu. There are just a few test failing on Fedora. I will investigate later
+13:04:25 <WalterNik> #info WalterNik, Working on assembling the SCSI LUN scan usecase
+13:04:26 <alinefm> #info alinefm sent some patches to make gingerbase more stable
+13:04:42 <jansch> #info jansch working on ui design
+13:04:46 <alinefm> #info alinefm sent patch to properly launch guest console (spice/vnc)
+13:05:19 <alinefm> #info alinefm is now working on creating a logical pool from an existing VG as ziviani is out this month
+13:05:48 <danielhb> #info danielhb reviewed patches in the ML and sent a version of Live migration backend.
+13:06:06 <danielhb> #info danielhb will send a v2 of the live migration backend today/tomorrow
+13:06:39 <chandra> #info chandra working on #743
+13:06:48 <pooja> #info pooja sent patch for filesystem management in ginger, working on review comments received
+13:07:05 <alinefm> pooja, rotru, ramonn, samhenri, andreteodoro, anything else to share with us?
+13:07:06 <atreyee> #info atreyee working on displaying host management storage componenents in UI
+13:07:32 <samhenri> #info samhenri porting Edit Guest modal window to new-ui
+13:07:47 <andreteodoro> #info andreteodoro Trying to setup the environment and working at the new ui Storage screen
+13:07:57 <ramonn> #info ramonn working on a solution to deal with bridge deletion with libvirt api. If i can't work with api, i will write some code to threat it directly
+13:08:08 <lcorreia> #info lucio reworked issue 738 fixes
+13:08:08 <lcorreia> #info lucio sent patch to fix issue with tasks in kimchi tests
+13:08:08 <lcorreia> #info lucio worked on ovs support feature (bug 110627) - seems not a bug, doing verification tests
+13:08:26 <ramonn> #info ramonn just received a notification that sosreport bug with special character is fixed in rhel 7.1
+13:10:15 <rotru> alinefm,  I have nothing for this week
+13:10:24 <alinefm> pvital, anything else from your side?
+13:10:45 <pvital> alinefm, ops! sorry! was focused in my code :-P
+13:10:52 <pvital> #info pvital has been working in WoK and Kimchi stabilization.
+13:10:53 <pvital> #info pvital worked on issue #740.
+13:10:53 <pvital> #info pvital worked in objectstore information update when upgrading from Kimchi 1.5.1 to Kimchi 2.0 .
+13:10:53 <pvital> #info pvital submitted the patches: Fix package name of some dependencies; Issue #740: Solving UI dependencies checking; Copy missing files to build Kimchi RPM; Fix Kimchi RPM spec files; Upgrade to Kimchi 2.0 (patch-set with 4 parts).
+13:10:53 <pvital> #info pvital reviewed some patches from Kimchi, Ginger and GingerBase.
+13:10:55 <pvital> #info pvital is working in the 'Guest memory usage' task.
+13:11:08 <jkatta> #info jkatta, working activate/deactivate of interface
+13:11:32 <jkatta> #info jkatta, working on activate/deactivate of interface
+13:12:18 <alinefm> anything else team?
+13:12:30 <Abhiram18> #info Abhiram18, Sent patches for listing the information of network interfaces from ifcfg config files. Working on review comments
+13:13:01 <Archana> #info Archana  gingers390x base patches pushed upstream
+13:13:19 <Abhiram18> #info Abhiram18, Working on editing ipv4(automatic/dns) configuration for an interface
+13:13:36 <samhenri> #info samhenri sent some new-ui patches yesterday, some screens are still working in progress but Gingerbase is 99% done
+13:15:03 <alinefm> good progress!!
+13:15:06 <samhenri> the 1% is jquery-ui theme which is part of Wok assets and it is shared with Ginger and Edit Guests / Edit Template modal windows that I'm working
+13:16:08 <alinefm> ok
+13:16:14 <alinefm> can we move on?
+13:16:26 <samhenri> sure
+13:16:36 <alinefm> #topic Open Discussion
+13:16:41 <alinefm> I have some topics for today =P
+13:16:51 <alinefm> 1) New UI
+13:17:09 <alinefm> samhenri, andreteodoro, I have tested the latest patches sent to the ML
+13:17:36 <alinefm> I saw some issues but the most important is on storage tab
+13:17:54 <alinefm> I am not able to display the storage volumes or open the create dialog
+13:18:03 <alinefm> I know you are still working on them
+13:18:13 <alinefm> but I want to know on how to proceed on that
+13:18:26 <alinefm> should I create a separated branch to merge the unstable patches?
+13:18:34 <alinefm> when are you going to send more stable patches?
+13:21:02 <samhenri> right now i'm working on edit guests and edit template dialogs
+13:21:17 <samhenri> I can make a quick fix to display the modal window and investigate the volume collapsible
+13:21:35 <samhenri> we are already tracking these two bugs
+13:22:13 <samhenri> I'm sending all the patches to my fork so I don't think we need a branch
+13:22:41 <alinefm> ok
+13:23:00 <alinefm> when do you expect to have ALL the tabs completed and stable to be merged on master?
+13:23:45 <samhenri> does it include the list views for templates and guests and Ginger updated with the new-ui?
+13:24:45 <alinefm> yeap! everything up and running to we start working on UI for the new features (https://github.com/kimchi-project/kimchi/wiki/Todo-2.0)
+13:24:57 <alinefm> it does not include the gallery view as I said before
+13:26:04 <pvital> samhenri, please send a msg to ML with your fork to let us clone it and test
+13:27:00 <alinefm> pvital, He has already done that =)
+13:27:29 <Archana> ok.. I also have one topic to discuss: get_list API call is getting timeout if resource is 2500+
+13:27:45 <samhenri> I believe by the end of this week we'll have all modal windows fixed and then we'll move to guests and templates lists view
+13:27:56 <pvital> alinefm, in that sea of messages I probably lost it :-P
+13:28:39 <alinefm> samhenri, so by the end of *this* week we will have Host + Network + Storage fully working?
+13:29:13 <samhenri> host is already fully working, its just the Software Update that is not updated with the new-ui theme
+13:29:45 <samhenri> I have not included the fix that atreyee sent by e-mail
+13:29:46 <alinefm> yes - correct
+13:30:04 <alinefm> atreyee, please, send your fix AS a patch to the ML
+13:30:10 <alinefm> it is easier to apply and test
+13:30:20 <samhenri> Networks - Fixing modal window, If i'm done with it today I'll send a v2
+13:30:40 <atreyee> alinefm, sure
+13:30:54 <samhenri> Storages - andreteodoro is working on the current issues
+13:31:19 <alinefm> #action atreyee will send a patch to fix software update on new ui
+13:31:52 <alinefm> samhenri, ok
+13:31:52 <samhenri> alinefm i think you meant the Repositories in wok.list and gingerbase.host.js
+13:32:01 <alinefm> ops...
+13:32:08 <alinefm> #action atreyee will send a patch to fix Repositories in wok.list and gingerbase.host.js
+13:32:10 <alinefm> =)
+13:32:11 <alinefm> samhenri, thanks
+13:32:17 <samhenri> :)
+13:32:28 <atreyee> ok
+13:32:33 <alinefm> samhenri, so the summary is: host + network + storage fully working by the end of this week
+13:32:45 <alinefm> and when will we have guest + template fully working?
+13:35:04 <alinefm> and when we will have the administration tab (ginger tab) merged into Host tab?
+13:35:06 <alinefm> =)
+13:35:59 <alinefm> samhenri, andreteodoro  any idea ^?
+13:36:19 <samhenri> guests and templates next week, templates almost done actually, the main problem is the edit template window that uses jquery-ui assets
+13:36:42 <samhenri> the main issue here is that, we use jquery-ui for Edit Guests / Templates and Create Network AND Ginger
+13:37:20 <samhenri> so I'll have to create two separate "themes" because jquery-ui uses the same CSS classes for almost every html element
+13:38:08 <alinefm> #action samhenri and andreteodoro will work to have host + network + storage tabs fully working with the new UI by the end of Oct 30
+13:38:21 <samhenri> in other words, jquery-ui tabs and accordions uses the same classes and properties
+13:38:36 <alinefm> ok - I understand the problem
+13:38:44 <samhenri> about administration tab, i'm not following
+13:38:52 <samhenri> should we move functionality from ginger to gingerbase?
+13:39:06 <alinefm> by 'next week', do you mean end of next week or next Wed?
+13:39:26 <samhenri> I mean, the apis, all the files, like chandra did with hosts tab from kimchi?
+13:40:08 <samhenri> end of next week
+13:40:33 <alinefm> the Ginger APIs will continue the same! We will only update the UI part to do not launch a new tab (administration) but instead of that the Host tab (launched by gingerbase) will be extended to display the ginger features
+13:41:12 <WalterNik> alinefm, on the host and administration tab we are planning do a grouping of functionalities
+13:41:14 <alinefm> #action samhenri and andreteodoro will work to have guests + templates tabs fully working with the new UI by the end of Nov 06
+13:42:06 <alinefm> WalterNik, yeap! but we haven't agreed on what to group and how, right?
+13:42:20 <WalterNik> alinefm, yes we di
+13:42:43 <WalterNik> alinefm, we had the discussion in the ginger ML
+13:43:02 <alinefm> WalterNik, I didn't check it - I will do it later
+13:43:12 <alinefm> but the grouping only make sense for the new nav proposal
+13:43:31 <alinefm> samhenri, when will we have the administration tab merged on host tab and all using the new UI?
+13:43:55 <samhenri> wait, so we'll have all the collapsible panels from ginger in hosts for this release?
+13:44:06 <alinefm> samhenri, yeap
+13:44:32 <alinefm> samhenri, it is not a surprise, is it?
+13:45:22 <WalterNik> samhenri, that's not all on your plate to implement
+13:45:54 <WalterNik> samhenri, I mean the ginger functionalities will be extended/changed
+13:46:24 <samhenri> yes it is, I can copy and update the html and js files but I don't know how Ginger works in the back-end
+13:46:24 <WalterNik> and atreyee, jansch and rajat will jump in there as well
+13:47:16 <alinefm> samhenri, are you working to have the Administration tab AS IT IS TODAY converted to the new UI?
+13:47:41 <alinefm> samhenri, so while running, we will have Host + Administration tabs?
+13:47:42 <samhenri> exactly
+13:48:01 <alinefm> samhenri, ok
+13:48:03 <samhenri> correct
+13:48:09 <alinefm> when will it be fully working?
+13:50:19 <samhenri> by nov 13 if and only if I have to rewrite html markup
+13:50:58 <alinefm> otherwise...?
+13:51:04 <samhenri> the jQuery-UI theme should do it all since we're not dropping jquery-ui from ginger
+13:51:29 <samhenri> otherwise next week with some minor fixes to do like, updating the buttons and texts styles
+13:51:42 <samhenri> non disruptive issues
+13:52:29 <alinefm> ok - I will assume Nov 13 by now
+13:52:33 <alinefm> #action samhenri and andreteodoro will work to have administration tab fully working with the new UI by the end of Nov 13
+13:53:19 <alinefm> after all those deliverables, probably there will be bugs to fix and also the @media to smaller screen
+13:53:21 <alinefm> right?
+13:53:40 <alinefm> or are you counting the @media in those dates you compromised?
+13:53:44 <alinefm> samhenri, andreteodoro ^
+13:54:23 <samhenri> media queries not included for now
+13:54:56 <WalterNik> sanhenri, please keep atreyee and jansch in the loop for the ginger stuff, lets join forces here
+13:54:57 <alinefm> how much time do you think it will take to have them for smaller screens?
+13:55:05 <alinefm> note, I am not saying about mobile support
+13:55:40 <samhenri> well, we're talking about reworking all screens at the same time
+13:56:06 <alinefm> yes
+13:56:35 <samhenri> probably three days max
+13:57:42 <samhenri> but should take less time since I've already set all the sizes in variables
+13:57:49 <alinefm> #action samhenri and andreteodoro will work to have on media queries for all screens by the end of Nov 18
+13:58:05 <alinefm> samhenri, ok - I just want to have a clear view about the dates
+13:58:15 <samhenri> I'd say three days because we'll have to test the whole application
+13:58:17 <alinefm> I am considering all those dates the worst scenario =)
+13:58:28 <alinefm> asap we have all done it is better
+13:58:33 <alinefm> samhenri, ok
+13:59:15 <alinefm> I don't have more question  by now
+13:59:19 <alinefm> WalterNik, do you have?
+13:59:32 <WalterNik> alinefm, yes I do :-)
+13:59:55 <samhenri> as for ginger and hosts, you can start merging from the last patches because like I've said, Ginger is almost 100% just CSS changes
+14:00:19 <samhenri> the only extra effort would be add the i18n labels to the buttons
+14:00:31 <WalterNik> samhenri, we are working on mockups for changing network, storage area in ginger
+14:00:39 <WalterNik> they are ready for review
+14:01:00 <alinefm> samhenri, but if apply them the storage tab will be useless
+14:01:12 <alinefm> samhenri, because of the issues I explained before
+14:01:36 <samhenri> ok
+14:01:48 <WalterNik> samhenri, how can collaborate here to avoid work duplication ? not having you to port stuff which will chenge ?
+14:01:52 <alinefm> samhenri, is there a way to apply only the host patches and keep the tabs in the old UI?
+14:03:06 <WalterNik> alinefm, why would you want to keep the host stuff on the old UI after we have come this far ?
+14:03:25 <samhenri> can they work on top of the patches, instead of on master?
+14:03:49 <alinefm> WalterNik, I am talking about how to apply patches in a better way to do not break any other tab
+14:04:31 <alinefm> samhenri, yes, they can =)
+14:04:34 <alinefm> WalterNik, ^
+14:05:13 <samhenri> if they apply just the first 4 patches and then Gingerbase then it is ok
+14:05:36 <samhenri> unless there are some shared features with the other tabs
+14:07:04 <WalterNik> alinefm, I have still not undestood your staement about  keep the tabs in the old UI. This is about some pending patches to be applied right now ?
+14:07:39 <alinefm> WalterNik, yes - and how apply them
+14:07:52 <WalterNik> alinefm thx
+14:08:26 <alinefm> anything else about the new UI?
+14:08:39 <alinefm> I think someone has a topic
+14:08:43 <alinefm> but we are over time
+14:09:03 <WalterNik> samhenri, pls lets synch on how can we help getting the stuff togehter
+14:10:55 <samhenri> WalterNik sure
+14:11:10 <alinefm> I will end the meeting by now
+14:11:15 <alinefm> we can continue on ML
+14:11:30 <alinefm> Archana, sorry about that! but we can also continue here after the meeting
+14:11:36 <alinefm> thanks everyone for joining!
+14:11:38 <alinefm> #endmeeting

@@ -1,0 +1,148 @@
+===============
+#kimchi Meeting
+===============
+
+
+Meeting started by alinefm at 13:00:24 UTC.  The full logs are available
+at
+http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2015-10-28-13.00.log.html
+.
+
+
+
+Meeting summary
+---------------
+
+* Agenda 1) Status 2) Open discussion  (alinefm, 13:00:41)
+* Status  (alinefm, 13:03:13)
+  * Please provide your status using the #info command: #info <nickname>
+    <status>  (alinefm, 13:03:13)
+  * WalterNik, Working on assembling the SCSI LUN scan  (WalterNik,
+    13:04:02)
+  * alinefm fixed all failing test cases for Wok and Kimchi on Ubuntu.
+    There are just a few test failing on Fedora. I will investigate
+    later  (alinefm, 13:04:06)
+  * WalterNik, Working on assembling the SCSI LUN scan usecase
+    (WalterNik, 13:04:25)
+  * alinefm sent some patches to make gingerbase more stable  (alinefm,
+    13:04:26)
+  * jansch working on ui design  (jansch, 13:04:42)
+  * alinefm sent patch to properly launch guest console (spice/vnc)
+    (alinefm, 13:04:46)
+  * alinefm is now working on creating a logical pool from an existing
+    VG as ziviani is out this month  (alinefm, 13:05:19)
+  * danielhb reviewed patches in the ML and sent a version of Live
+    migration backend.  (danielhb, 13:05:48)
+  * danielhb will send a v2 of the live migration backend today/tomorrow
+    (danielhb, 13:06:06)
+  * chandra working on #743  (chandra, 13:06:39)
+  * pooja sent patch for filesystem management in ginger, working on
+    review comments received  (pooja, 13:06:48)
+  * atreyee working on displaying host management storage componenents
+    in UI  (atreyee, 13:07:06)
+  * samhenri porting Edit Guest modal window to new-ui  (samhenri,
+    13:07:32)
+  * andreteodoro Trying to setup the environment and working at the new
+    ui Storage screen  (andreteodoro, 13:07:47)
+  * ramonn working on a solution to deal with bridge deletion with
+    libvirt api. If i can't work with api, i will write some code to
+    threat it directly  (ramonn, 13:07:57)
+  * lucio reworked issue 738 fixes  (lcorreia, 13:08:08)
+  * lucio sent patch to fix issue with tasks in kimchi tests  (lcorreia,
+    13:08:08)
+  * lucio worked on ovs support feature (bug 110627) - seems not a bug,
+    doing verification tests  (lcorreia, 13:08:08)
+  * ramonn just received a notification that sosreport bug with special
+    character is fixed in rhel 7.1  (ramonn, 13:08:26)
+  * pvital has been working in WoK and Kimchi stabilization.  (pvital,
+    13:10:52)
+  * pvital worked on issue #740.  (pvital, 13:10:53)
+  * pvital worked in objectstore information update when upgrading from
+    Kimchi 1.5.1 to Kimchi 2.0 .  (pvital, 13:10:53)
+  * pvital submitted the patches: Fix package name of some dependencies;
+    Issue #740: Solving UI dependencies checking; Copy missing files to
+    build Kimchi RPM; Fix Kimchi RPM spec files; Upgrade to Kimchi 2.0
+    (patch-set with 4 parts).  (pvital, 13:10:53)
+  * pvital reviewed some patches from Kimchi, Ginger and GingerBase.
+    (pvital, 13:10:53)
+  * pvital is working in the 'Guest memory usage' task.  (pvital,
+    13:10:55)
+  * jkatta, working activate/deactivate of interface  (jkatta, 13:11:08)
+  * jkatta, working on activate/deactivate of interface  (jkatta,
+    13:11:32)
+  * Archana  gingers390x base patches pushed upstream  (Archana,
+    13:13:01)
+  * Abhiram18, Working on editing ipv4(automatic/dns) configuration for
+    an interface  (Abhiram18, 13:13:19)
+  * samhenri sent some new-ui patches yesterday, some screens are still
+    working in progress but Gingerbase is 99% done  (samhenri, 13:13:36)
+
+* Open Discussion  (alinefm, 13:16:36)
+  * ACTION: atreyee will send a patch to fix software update on new ui
+    (alinefm, 13:31:19)
+  * ACTION: atreyee will send a patch to fix Repositories in wok.list
+    and gingerbase.host.js  (alinefm, 13:32:08)
+  * ACTION: samhenri and andreteodoro will work to have host + network +
+    storage tabs fully working with the new UI by the end of Oct 30
+    (alinefm, 13:38:08)
+  * ACTION: samhenri and andreteodoro will work to have guests +
+    templates tabs fully working with the new UI by the end of Nov 06
+    (alinefm, 13:41:14)
+  * ACTION: samhenri and andreteodoro will work to have administration
+    tab fully working with the new UI by the end of Nov 13  (alinefm,
+    13:52:33)
+
+
+
+Meeting ended at 14:11:38 UTC.
+
+
+
+Action items, by person
+-----------------------
+
+* andreteodoro
+  * samhenri and andreteodoro will work to have host + network + storage
+    tabs fully working with the new UI by the end of Oct 30
+  * samhenri and andreteodoro will work to have guests + templates tabs
+    fully working with the new UI by the end of Nov 06
+  * samhenri and andreteodoro will work to have administration tab fully
+    working with the new UI by the end of Nov 13
+* atreyee
+  * atreyee will send a patch to fix software update on new ui
+  * atreyee will send a patch to fix Repositories in wok.list and
+    gingerbase.host.js
+* samhenri
+  * samhenri and andreteodoro will work to have host + network + storage
+    tabs fully working with the new UI by the end of Oct 30
+  * samhenri and andreteodoro will work to have guests + templates tabs
+    fully working with the new UI by the end of Nov 06
+  * samhenri and andreteodoro will work to have administration tab fully
+    working with the new UI by the end of Nov 13
+
+
+
+People present (lines said)
+---------------------------
+
+* alinefm (94)
+* samhenri (44)
+* WalterNik (17)
+* pvital (9)
+* atreyee (3)
+* lcorreia (3)
+* kimchi-bot (3)
+* jkatta (2)
+* ramonn (2)
+* Archana (2)
+* danielhb (2)
+* Abhiram18 (2)
+* pooja (1)
+* chandra (1)
+* jansch (1)
+* andreteodoro (1)
+* rotru (1)
+
+
+
+Generated by `MeetBot`_ 0.1.4

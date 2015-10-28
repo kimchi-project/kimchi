@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 28 13:00:24 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:00:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:03:11</span><span class="nk"> &lt;alinefm&gt;</span> ok... so let's get started
+<a name="l-9"></a><span class="tm">13:03:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:03:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:04:02</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik, Working on assembling the SCSI LUN scan</span>
+<a name="l-12"></a><span class="tm">13:04:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed all failing test cases for Wok and Kimchi on Ubuntu. There are just a few test failing on Fedora. I will investigate later</span>
+<a name="l-13"></a><span class="tm">13:04:25</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik, Working on assembling the SCSI LUN scan usecase</span>
+<a name="l-14"></a><span class="tm">13:04:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent some patches to make gingerbase more stable</span>
+<a name="l-15"></a><span class="tm">13:04:42</span><span class="nk"> &lt;jansch&gt;</span> <span class="cmd">#info </span><span class="cmdline">jansch working on ui design</span>
+<a name="l-16"></a><span class="tm">13:04:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to properly launch guest console (spice/vnc)</span>
+<a name="l-17"></a><span class="tm">13:05:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on creating a logical pool from an existing VG as ziviani is out this month</span>
+<a name="l-18"></a><span class="tm">13:05:48</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed patches in the ML and sent a version of Live migration backend.</span>
+<a name="l-19"></a><span class="tm">13:06:06</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb will send a v2 of the live migration backend today/tomorrow</span>
+<a name="l-20"></a><span class="tm">13:06:39</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">chandra working on #743</span>
+<a name="l-21"></a><span class="tm">13:06:48</span><span class="nk"> &lt;pooja&gt;</span> <span class="cmd">#info </span><span class="cmdline">pooja sent patch for filesystem management in ginger, working on review comments received</span>
+<a name="l-22"></a><span class="tm">13:07:05</span><span class="nk"> &lt;alinefm&gt;</span> pooja, rotru, ramonn, samhenri, andreteodoro, anything else to share with us?
+<a name="l-23"></a><span class="tm">13:07:06</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">atreyee working on displaying host management storage componenents in UI</span>
+<a name="l-24"></a><span class="tm">13:07:32</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri porting Edit Guest modal window to new-ui</span>
+<a name="l-25"></a><span class="tm">13:07:47</span><span class="nk"> &lt;andreteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">andreteodoro Trying to setup the environment and working at the new ui Storage screen</span>
+<a name="l-26"></a><span class="tm">13:07:57</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn working on a solution to deal with bridge deletion with libvirt api. If i can't work with api, i will write some code to threat it directly</span>
+<a name="l-27"></a><span class="tm">13:08:08</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio reworked issue 738 fixes</span>
+<a name="l-28"></a><span class="tm">13:08:08</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio sent patch to fix issue with tasks in kimchi tests</span>
+<a name="l-29"></a><span class="tm">13:08:08</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio worked on ovs support feature (bug 110627) - seems not a bug, doing verification tests</span>
+<a name="l-30"></a><span class="tm">13:08:26</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn just received a notification that sosreport bug with special character is fixed in rhel 7.1</span>
+<a name="l-31"></a><span class="tm">13:10:15</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I have nothing for this week
+<a name="l-32"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> pvital, anything else from your side?
+<a name="l-33"></a><span class="tm">13:10:45</span><span class="nk"> &lt;pvital&gt;</span> alinefm, ops! sorry! was focused in my code :-P
+<a name="l-34"></a><span class="tm">13:10:52</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital has been working in WoK and Kimchi stabilization.</span>
+<a name="l-35"></a><span class="tm">13:10:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital worked on issue #740.</span>
+<a name="l-36"></a><span class="tm">13:10:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital worked in objectstore information update when upgrading from Kimchi 1.5.1 to Kimchi 2.0 .</span>
+<a name="l-37"></a><span class="tm">13:10:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted the patches: Fix package name of some dependencies; Issue #740: Solving UI dependencies checking; Copy missing files to build Kimchi RPM; Fix Kimchi RPM spec files; Upgrade to Kimchi 2.0 (patch-set with 4 parts).</span>
+<a name="l-38"></a><span class="tm">13:10:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches from Kimchi, Ginger and GingerBase.</span>
+<a name="l-39"></a><span class="tm">13:10:55</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in the 'Guest memory usage' task.</span>
+<a name="l-40"></a><span class="tm">13:11:08</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">jkatta, working activate/deactivate of interface</span>
+<a name="l-41"></a><span class="tm">13:11:32</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">jkatta, working on activate/deactivate of interface</span>
+<a name="l-42"></a><span class="tm">13:12:18</span><span class="nk"> &lt;alinefm&gt;</span> anything else team?
+<a name="l-43"></a><span class="tm">13:12:30</span><span class="nk"> &lt;Abhiram18&gt;</span> <span class="cmd">#info </span><span class="cmdline">Abhiram18, Sent patches for listing the information of network interfaces from ifcfg config files. Working on review comments</span>
+<a name="l-44"></a><span class="tm">13:13:01</span><span class="nk"> &lt;Archana&gt;</span> <span class="cmd">#info </span><span class="cmdline">Archana  gingers390x base patches pushed upstream</span>
+<a name="l-45"></a><span class="tm">13:13:19</span><span class="nk"> &lt;Abhiram18&gt;</span> <span class="cmd">#info </span><span class="cmdline">Abhiram18, Working on editing ipv4(automatic/dns) configuration for an interface</span>
+<a name="l-46"></a><span class="tm">13:13:36</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri sent some new-ui patches yesterday, some screens are still working in progress but Gingerbase is 99% done</span>
+<a name="l-47"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> good progress!!
+<a name="l-48"></a><span class="tm">13:15:06</span><span class="nk"> &lt;samhenri&gt;</span> the 1% is jquery-ui theme which is part of Wok assets and it is shared with Ginger and Edit Guests / Edit Template modal windows that I'm working
+<a name="l-49"></a><span class="tm">13:16:08</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-50"></a><span class="tm">13:16:14</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-51"></a><span class="tm">13:16:26</span><span class="nk"> &lt;samhenri&gt;</span> sure
+<a name="l-52"></a><span class="tm">13:16:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-53"></a><span class="tm">13:16:41</span><span class="nk"> &lt;alinefm&gt;</span> I have some topics for today =P
+<a name="l-54"></a><span class="tm">13:16:51</span><span class="nk"> &lt;alinefm&gt;</span> 1) New UI
+<a name="l-55"></a><span class="tm">13:17:09</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, andreteodoro, I have tested the latest patches sent to the ML
+<a name="l-56"></a><span class="tm">13:17:36</span><span class="nk"> &lt;alinefm&gt;</span> I saw some issues but the most important is on storage tab
+<a name="l-57"></a><span class="tm">13:17:54</span><span class="nk"> &lt;alinefm&gt;</span> I am not able to display the storage volumes or open the create dialog
+<a name="l-58"></a><span class="tm">13:18:03</span><span class="nk"> &lt;alinefm&gt;</span> I know you are still working on them
+<a name="l-59"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> but I want to know on how to proceed on that
+<a name="l-60"></a><span class="tm">13:18:26</span><span class="nk"> &lt;alinefm&gt;</span> should I create a separated branch to merge the unstable patches?
+<a name="l-61"></a><span class="tm">13:18:34</span><span class="nk"> &lt;alinefm&gt;</span> when are you going to send more stable patches?
+<a name="l-62"></a><span class="tm">13:21:02</span><span class="nk"> &lt;samhenri&gt;</span> right now i'm working on edit guests and edit template dialogs
+<a name="l-63"></a><span class="tm">13:21:17</span><span class="nk"> &lt;samhenri&gt;</span> I can make a quick fix to display the modal window and investigate the volume collapsible
+<a name="l-64"></a><span class="tm">13:21:35</span><span class="nk"> &lt;samhenri&gt;</span> we are already tracking these two bugs
+<a name="l-65"></a><span class="tm">13:22:13</span><span class="nk"> &lt;samhenri&gt;</span> I'm sending all the patches to my fork so I don't think we need a branch
+<a name="l-66"></a><span class="tm">13:22:41</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-67"></a><span class="tm">13:23:00</span><span class="nk"> &lt;alinefm&gt;</span> when do you expect to have ALL the tabs completed and stable to be merged on master?
+<a name="l-68"></a><span class="tm">13:23:45</span><span class="nk"> &lt;samhenri&gt;</span> does it include the list views for templates and guests and Ginger updated with the new-ui?
+<a name="l-69"></a><span class="tm">13:24:45</span><span class="nk"> &lt;alinefm&gt;</span> yeap! everything up and running to we start working on UI for the new features (https://github.com/kimchi-project/kimchi/wiki/Todo-2.0)
+<a name="l-70"></a><span class="tm">13:24:57</span><span class="nk"> &lt;alinefm&gt;</span> it does not include the gallery view as I said before
+<a name="l-71"></a><span class="tm">13:26:04</span><span class="nk"> &lt;pvital&gt;</span> samhenri, please send a msg to ML with your fork to let us clone it and test
+<a name="l-72"></a><span class="tm">13:27:00</span><span class="nk"> &lt;alinefm&gt;</span> pvital, He has already done that =)
+<a name="l-73"></a><span class="tm">13:27:29</span><span class="nk"> &lt;Archana&gt;</span> ok.. I also have one topic to discuss: get_list API call is getting timeout if resource is 2500+
+<a name="l-74"></a><span class="tm">13:27:45</span><span class="nk"> &lt;samhenri&gt;</span> I believe by the end of this week we'll have all modal windows fixed and then we'll move to guests and templates lists view
+<a name="l-75"></a><span class="tm">13:27:56</span><span class="nk"> &lt;pvital&gt;</span> alinefm, in that sea of messages I probably lost it :-P
+<a name="l-76"></a><span class="tm">13:28:39</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so by the end of *this* week we will have Host + Network + Storage fully working?
+<a name="l-77"></a><span class="tm">13:29:13</span><span class="nk"> &lt;samhenri&gt;</span> host is already fully working, its just the Software Update that is not updated with the new-ui theme
+<a name="l-78"></a><span class="tm">13:29:45</span><span class="nk"> &lt;samhenri&gt;</span> I have not included the fix that atreyee sent by e-mail
+<a name="l-79"></a><span class="tm">13:29:46</span><span class="nk"> &lt;alinefm&gt;</span> yes - correct
+<a name="l-80"></a><span class="tm">13:30:04</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, please, send your fix AS a patch to the ML
+<a name="l-81"></a><span class="tm">13:30:10</span><span class="nk"> &lt;alinefm&gt;</span> it is easier to apply and test
+<a name="l-82"></a><span class="tm">13:30:20</span><span class="nk"> &lt;samhenri&gt;</span> Networks - Fixing modal window, If i'm done with it today I'll send a v2
+<a name="l-83"></a><span class="tm">13:30:40</span><span class="nk"> &lt;atreyee&gt;</span> alinefm, sure
+<a name="l-84"></a><span class="tm">13:30:54</span><span class="nk"> &lt;samhenri&gt;</span> Storages - andreteodoro is working on the current issues
+<a name="l-85"></a><span class="tm">13:31:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">atreyee will send a patch to fix software update on new ui</span>
+<a name="l-86"></a><span class="tm">13:31:52</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-87"></a><span class="tm">13:31:52</span><span class="nk"> &lt;samhenri&gt;</span> alinefm i think you meant the Repositories in wok.list and gingerbase.host.js
+<a name="l-88"></a><span class="tm">13:32:01</span><span class="nk"> &lt;alinefm&gt;</span> ops...
+<a name="l-89"></a><span class="tm">13:32:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">atreyee will send a patch to fix Repositories in wok.list and gingerbase.host.js</span>
+<a name="l-90"></a><span class="tm">13:32:10</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-91"></a><span class="tm">13:32:11</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, thanks
+<a name="l-92"></a><span class="tm">13:32:17</span><span class="nk"> &lt;samhenri&gt;</span> :)
+<a name="l-93"></a><span class="tm">13:32:28</span><span class="nk"> &lt;atreyee&gt;</span> ok
+<a name="l-94"></a><span class="tm">13:32:33</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so the summary is: host + network + storage fully working by the end of this week
+<a name="l-95"></a><span class="tm">13:32:45</span><span class="nk"> &lt;alinefm&gt;</span> and when will we have guest + template fully working?
+<a name="l-96"></a><span class="tm">13:35:04</span><span class="nk"> &lt;alinefm&gt;</span> and when we will have the administration tab (ginger tab) merged into Host tab?
+<a name="l-97"></a><span class="tm">13:35:06</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-98"></a><span class="tm">13:35:59</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, andreteodoro  any idea ^?
+<a name="l-99"></a><span class="tm">13:36:19</span><span class="nk"> &lt;samhenri&gt;</span> guests and templates next week, templates almost done actually, the main problem is the edit template window that uses jquery-ui assets
+<a name="l-100"></a><span class="tm">13:36:42</span><span class="nk"> &lt;samhenri&gt;</span> the main issue here is that, we use jquery-ui for Edit Guests / Templates and Create Network AND Ginger
+<a name="l-101"></a><span class="tm">13:37:20</span><span class="nk"> &lt;samhenri&gt;</span> so I'll have to create two separate "themes" because jquery-ui uses the same CSS classes for almost every html element
+<a name="l-102"></a><span class="tm">13:38:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">samhenri and andreteodoro will work to have host + network + storage tabs fully working with the new UI by the end of Oct 30</span>
+<a name="l-103"></a><span class="tm">13:38:21</span><span class="nk"> &lt;samhenri&gt;</span> in other words, jquery-ui tabs and accordions uses the same classes and properties
+<a name="l-104"></a><span class="tm">13:38:36</span><span class="nk"> &lt;alinefm&gt;</span> ok - I understand the problem
+<a name="l-105"></a><span class="tm">13:38:44</span><span class="nk"> &lt;samhenri&gt;</span> about administration tab, i'm not following
+<a name="l-106"></a><span class="tm">13:38:52</span><span class="nk"> &lt;samhenri&gt;</span> should we move functionality from ginger to gingerbase?
+<a name="l-107"></a><span class="tm">13:39:06</span><span class="nk"> &lt;alinefm&gt;</span> by 'next week', do you mean end of next week or next Wed?
+<a name="l-108"></a><span class="tm">13:39:26</span><span class="nk"> &lt;samhenri&gt;</span> I mean, the apis, all the files, like chandra did with hosts tab from kimchi?
+<a name="l-109"></a><span class="tm">13:40:08</span><span class="nk"> &lt;samhenri&gt;</span> end of next week
+<a name="l-110"></a><span class="tm">13:40:33</span><span class="nk"> &lt;alinefm&gt;</span> the Ginger APIs will continue the same! We will only update the UI part to do not launch a new tab (administration) but instead of that the Host tab (launched by gingerbase) will be extended to display the ginger features
+<a name="l-111"></a><span class="tm">13:41:12</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, on the host and administration tab we are planning do a grouping of functionalities
+<a name="l-112"></a><span class="tm">13:41:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">samhenri and andreteodoro will work to have guests + templates tabs fully working with the new UI by the end of Nov 06</span>
+<a name="l-113"></a><span class="tm">13:42:06</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yeap! but we haven't agreed on what to group and how, right?
+<a name="l-114"></a><span class="tm">13:42:20</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, yes we di
+<a name="l-115"></a><span class="tm">13:42:43</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, we had the discussion in the ginger ML
+<a name="l-116"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, I didn't check it - I will do it later
+<a name="l-117"></a><span class="tm">13:43:12</span><span class="nk"> &lt;alinefm&gt;</span> but the grouping only make sense for the new nav proposal
+<a name="l-118"></a><span class="tm">13:43:31</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, when will we have the administration tab merged on host tab and all using the new UI?
+<a name="l-119"></a><span class="tm">13:43:55</span><span class="nk"> &lt;samhenri&gt;</span> wait, so we'll have all the collapsible panels from ginger in hosts for this release?
+<a name="l-120"></a><span class="tm">13:44:06</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, yeap
+<a name="l-121"></a><span class="tm">13:44:32</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, it is not a surprise, is it?
+<a name="l-122"></a><span class="tm">13:45:22</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, that's not all on your plate to implement
+<a name="l-123"></a><span class="tm">13:45:54</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, I mean the ginger functionalities will be extended/changed
+<a name="l-124"></a><span class="tm">13:46:24</span><span class="nk"> &lt;samhenri&gt;</span> yes it is, I can copy and update the html and js files but I don't know how Ginger works in the back-end
+<a name="l-125"></a><span class="tm">13:46:24</span><span class="nk"> &lt;WalterNik&gt;</span> and atreyee, jansch and rajat will jump in there as well
+<a name="l-126"></a><span class="tm">13:47:16</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, are you working to have the Administration tab AS IT IS TODAY converted to the new UI?
+<a name="l-127"></a><span class="tm">13:47:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so while running, we will have Host + Administration tabs?
+<a name="l-128"></a><span class="tm">13:47:42</span><span class="nk"> &lt;samhenri&gt;</span> exactly
+<a name="l-129"></a><span class="tm">13:48:01</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-130"></a><span class="tm">13:48:03</span><span class="nk"> &lt;samhenri&gt;</span> correct
+<a name="l-131"></a><span class="tm">13:48:09</span><span class="nk"> &lt;alinefm&gt;</span> when will it be fully working?
+<a name="l-132"></a><span class="tm">13:50:19</span><span class="nk"> &lt;samhenri&gt;</span> by nov 13 if and only if I have to rewrite html markup
+<a name="l-133"></a><span class="tm">13:50:58</span><span class="nk"> &lt;alinefm&gt;</span> otherwise...?
+<a name="l-134"></a><span class="tm">13:51:04</span><span class="nk"> &lt;samhenri&gt;</span> the jQuery-UI theme should do it all since we're not dropping jquery-ui from ginger
+<a name="l-135"></a><span class="tm">13:51:29</span><span class="nk"> &lt;samhenri&gt;</span> otherwise next week with some minor fixes to do like, updating the buttons and texts styles
+<a name="l-136"></a><span class="tm">13:51:42</span><span class="nk"> &lt;samhenri&gt;</span> non disruptive issues
+<a name="l-137"></a><span class="tm">13:52:29</span><span class="nk"> &lt;alinefm&gt;</span> ok - I will assume Nov 13 by now
+<a name="l-138"></a><span class="tm">13:52:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">samhenri and andreteodoro will work to have administration tab fully working with the new UI by the end of Nov 13</span>
+<a name="l-139"></a><span class="tm">13:53:19</span><span class="nk"> &lt;alinefm&gt;</span> after all those deliverables, probably there will be bugs to fix and also the @media to smaller screen
+<a name="l-140"></a><span class="tm">13:53:21</span><span class="nk"> &lt;alinefm&gt;</span> right?
+<a name="l-141"></a><span class="tm">13:53:40</span><span class="nk"> &lt;alinefm&gt;</span> or are you counting the @media in those dates you compromised?
+<a name="l-142"></a><span class="tm">13:53:44</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, andreteodoro ^
+<a name="l-143"></a><span class="tm">13:54:23</span><span class="nk"> &lt;samhenri&gt;</span> media queries not included for now
+<a name="l-144"></a><span class="tm">13:54:56</span><span class="nk"> &lt;WalterNik&gt;</span> sanhenri, please keep atreyee and jansch in the loop for the ginger stuff, lets join forces here
+<a name="l-145"></a><span class="tm">13:54:57</span><span class="nk"> &lt;alinefm&gt;</span> how much time do you think it will take to have them for smaller screens?
+<a name="l-146"></a><span class="tm">13:55:05</span><span class="nk"> &lt;alinefm&gt;</span> note, I am not saying about mobile support
+<a name="l-147"></a><span class="tm">13:55:40</span><span class="nk"> &lt;samhenri&gt;</span> well, we're talking about reworking all screens at the same time
+<a name="l-148"></a><span class="tm">13:56:06</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-149"></a><span class="tm">13:56:35</span><span class="nk"> &lt;samhenri&gt;</span> probably three days max
+<a name="l-150"></a><span class="tm">13:57:42</span><span class="nk"> &lt;samhenri&gt;</span> but should take less time since I've already set all the sizes in variables
+<a name="l-151"></a><span class="tm">13:57:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#action </span><span class="cmdline">samhenri and andreteodoro will work to have on media queries for all screens by the end of Nov 18</span>
+<a name="l-152"></a><span class="tm">13:58:05</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok - I just want to have a clear view about the dates
+<a name="l-153"></a><span class="tm">13:58:15</span><span class="nk"> &lt;samhenri&gt;</span> I'd say three days because we'll have to test the whole application
+<a name="l-154"></a><span class="tm">13:58:17</span><span class="nk"> &lt;alinefm&gt;</span> I am considering all those dates the worst scenario =)
+<a name="l-155"></a><span class="tm">13:58:28</span><span class="nk"> &lt;alinefm&gt;</span> asap we have all done it is better
+<a name="l-156"></a><span class="tm">13:58:33</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-157"></a><span class="tm">13:59:15</span><span class="nk"> &lt;alinefm&gt;</span> I don't have more question  by now
+<a name="l-158"></a><span class="tm">13:59:19</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, do you have?
+<a name="l-159"></a><span class="tm">13:59:32</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, yes I do :-)
+<a name="l-160"></a><span class="tm">13:59:55</span><span class="nk"> &lt;samhenri&gt;</span> as for ginger and hosts, you can start merging from the last patches because like I've said, Ginger is almost 100% just CSS changes
+<a name="l-161"></a><span class="tm">14:00:19</span><span class="nk"> &lt;samhenri&gt;</span> the only extra effort would be add the i18n labels to the buttons
+<a name="l-162"></a><span class="tm">14:00:31</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, we are working on mockups for changing network, storage area in ginger
+<a name="l-163"></a><span class="tm">14:00:39</span><span class="nk"> &lt;WalterNik&gt;</span> they are ready for review
+<a name="l-164"></a><span class="tm">14:01:00</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, but if apply them the storage tab will be useless
+<a name="l-165"></a><span class="tm">14:01:12</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, because of the issues I explained before
+<a name="l-166"></a><span class="tm">14:01:36</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-167"></a><span class="tm">14:01:48</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, how can collaborate here to avoid work duplication ? not having you to port stuff which will chenge ?
+<a name="l-168"></a><span class="tm">14:01:52</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is there a way to apply only the host patches and keep the tabs in the old UI?
+<a name="l-169"></a><span class="tm">14:03:06</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, why would you want to keep the host stuff on the old UI after we have come this far ?
+<a name="l-170"></a><span class="tm">14:03:25</span><span class="nk"> &lt;samhenri&gt;</span> can they work on top of the patches, instead of on master?
+<a name="l-171"></a><span class="tm">14:03:49</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, I am talking about how to apply patches in a better way to do not break any other tab
+<a name="l-172"></a><span class="tm">14:04:31</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, yes, they can =)
+<a name="l-173"></a><span class="tm">14:04:34</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, ^
+<a name="l-174"></a><span class="tm">14:05:13</span><span class="nk"> &lt;samhenri&gt;</span> if they apply just the first 4 patches and then Gingerbase then it is ok
+<a name="l-175"></a><span class="tm">14:05:36</span><span class="nk"> &lt;samhenri&gt;</span> unless there are some shared features with the other tabs
+<a name="l-176"></a><span class="tm">14:07:04</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I have still not undestood your staement about  keep the tabs in the old UI. This is about some pending patches to be applied right now ?
+<a name="l-177"></a><span class="tm">14:07:39</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yes - and how apply them
+<a name="l-178"></a><span class="tm">14:07:52</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm thx
+<a name="l-179"></a><span class="tm">14:08:26</span><span class="nk"> &lt;alinefm&gt;</span> anything else about the new UI?
+<a name="l-180"></a><span class="tm">14:08:39</span><span class="nk"> &lt;alinefm&gt;</span> I think someone has a topic
+<a name="l-181"></a><span class="tm">14:08:43</span><span class="nk"> &lt;alinefm&gt;</span> but we are over time
+<a name="l-182"></a><span class="tm">14:09:03</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, pls lets synch on how can we help getting the stuff togehter
+<a name="l-183"></a><span class="tm">14:10:55</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik sure
+<a name="l-184"></a><span class="tm">14:11:10</span><span class="nk"> &lt;alinefm&gt;</span> I will end the meeting by now
+<a name="l-185"></a><span class="tm">14:11:15</span><span class="nk"> &lt;alinefm&gt;</span> we can continue on ML
+<a name="l-186"></a><span class="tm">14:11:30</span><span class="nk"> &lt;alinefm&gt;</span> Archana, sorry about that! but we can also continue here after the meeting
+<a name="l-187"></a><span class="tm">14:11:36</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-188"></a><span class="tm">14:11:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
