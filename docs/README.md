@@ -78,7 +78,7 @@ channel at RHN Classic or Red Hat Satellite.
 
 **For Ubuntu (Debian-based):**
 
-    $ sudo apt-get install gcc make autoconf automake gettext git \
+    $ sudo apt-get install gcc make autoconf automake gettext git pkgconf \
                            python-cherrypy3 python-cheetah python-imaging \
                            python-pam python-m2crypto python-jsonschema \
                            python-psutil python-ldap python-lxml nginx \
