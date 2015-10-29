@@ -22,6 +22,7 @@ import libvirt
 import lxml.etree as ET
 import os
 import random
+import socket
 import string
 import threading
 import time
@@ -36,7 +37,7 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
 from wok.utils import add_task, convert_data_size, get_next_clone_name
-from wok.utils import import_class, run_setfacl_set_attr, wok_log
+from wok.utils import import_class, run_setfacl_set_attr, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text, xml_item_update
 from wok.xmlutils.utils import dictize
 
@@ -1308,6 +1309,78 @@ class VMModel(object):
         except libvirt.libvirtError, e:
             raise OperationFailed('KCHVM0040E', {'name': name,
                                                  'err': e.message})
+
+    def _check_if_host_not_localhost(self, remote_host):
+        hostname = socket.gethostname()
+
+        if remote_host in ['localhost', '127.0.0.1', hostname]:
+            raise OperationFailed("KCHVM0055E", {'host': remote_host})
+
+    def _check_if_password_less_login_enabled(self, remote_host, user):
+        username_host = "%s@%s" % (user, remote_host)
+        ssh_cmd = ['ssh', '-oNumberOfPasswordPrompts=0',
+                   '-oStrictHostKeyChecking=no', username_host,
+                   'echo', 'hello']
+        stdout, stderr, returncode = run_command(ssh_cmd, 5, silent=True)
+        if returncode != 0:
+            raise OperationFailed("KCHVM0056E",
+                                  {'host': remote_host, 'user': user})
+
+    def _get_remote_libvirt_conn(self, remote_host,
+                                 user='root', transport='ssh'):
+        dest_uri = 'qemu+%s://%s@%s/system' % (transport, user, remote_host)
+        # TODO: verify why LibvirtConnection(dest_uri) does not work here
+        return libvirt.open(dest_uri)
+
+    def migration_pre_check(self, remote_host, user):
+        self._check_if_host_not_localhost(remote_host)
+        self._check_if_password_less_login_enabled(remote_host, user)
+
+    def migrate(self, name, remote_host, user='root'):
+        name = name.decode('utf-8')
+        remote_host = remote_host.decode('utf-8')
+
+        self.migration_pre_check(remote_host, user)
+        dest_conn = self._get_remote_libvirt_conn(remote_host)
+
+        params = {'name': name,
+                  'dest_conn': dest_conn}
+        task_id = add_task('/vms/%s/migrate' % name, self._migrate_task,
+                           self.objstore, params)
+
+        return self.task.lookup(task_id)
+
+    def _migrate_task(self, cb, params):
+        name = params['name'].decode('utf-8')
+        dest_conn = params['dest_conn']
+
+        cb('starting a migration')
+
+        dom = self.get_vm(name, self.conn)
+        state = DOM_STATE_MAP[dom.info()[0]]
+
+        flags = libvirt.VIR_MIGRATE_PEER2PEER
+        if state == 'shutoff':
+            flags |= (libvirt.VIR_MIGRATE_OFFLINE |
+                      libvirt.VIR_MIGRATE_PERSIST_DEST)
+        elif state in ['running', 'paused']:
+            flags |= libvirt.VIR_MIGRATE_LIVE | libvirt.VIR_MIGRATE_TUNNELLED
+            if dom.isPersistent():
+                flags |= libvirt.VIR_MIGRATE_PERSIST_DEST
+        else:
+            dest_conn.close()
+            raise OperationFailed("KCHVM0057E", {'name': name,
+                                                 'state': state})
+        try:
+            dom.migrate(dest_conn, flags)
+        except libvirt.libvirtError as e:
+            cb('Migrate failed', False)
+            raise OperationFailed('KCHVM0058E', {'err': e.message,
+                                                 'name': name})
+        finally:
+            dest_conn.close()
+
+        cb('Migrate finished', True)
 
 
 class VMScreenshotModel(object):
