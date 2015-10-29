@@ -309,6 +309,24 @@
             },
             "additionalProperties": false
         },
+        "vm_migrate": {
+            "type": "object",
+            "properties": {
+                "remote_host": {
+                    "description": "IP address or hostname of the remote server",
+                    "type": "string",
+                    "minLength": 1,
+                    "error": "KCHVM0060E"
+                },
+                "user": {
+                    "description": "User of the remote server",
+                    "type": "string",
+                    "minLength": 1,
+                    "error": "KCHVM0059E"
+                }
+            },
+            "additionalProperties": false
+        },
         "networks_create": {
             "type": "object",
             "error": "KCHNET0016E",

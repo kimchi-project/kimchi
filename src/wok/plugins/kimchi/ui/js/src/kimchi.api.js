@@ -1018,6 +1018,19 @@ var kimchi = {
         });
     },
 
+    migrateGuest: function(vm, suc, err) {
+        wok.requestJSON({
+            url : 'plugins/kimchi/vms/' + encodeURIComponent(vm) + "/migrate",
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err ? err : function(data) {
+                wok.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
     listSnapshots : function(vm, suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/vms/' + encodeURIComponent(vm) + '/snapshots',

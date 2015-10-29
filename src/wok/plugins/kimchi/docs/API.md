@@ -182,6 +182,11 @@ server.
 * resume: Resume a suspended domain. The process is restarted from the state
           where it was frozen by calling "suspend".
 
+* migrate: Migrate a virtual machine to a remote server, only support live
+mode without block migration.
+    * remote_host: IP address or hostname of the remote server.
+    * user: User to log on at the remote server.
+
 ### Sub-resource: Virtual Machine Screenshot
 
 **URI:** /plugins/kimchi/vms/*:name*/screenshot
