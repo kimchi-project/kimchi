@@ -109,6 +109,13 @@ messages = {
     "KCHVM0050E": _("Cannot shutdown %(name)s. Virtual machine is shut off."),
     "KCHVM0051E": _("Cannot reset %(name)s. Virtual machine is already shut off."),
 
+    "KCHVM0055E": _("Migrate to localhost %(host)s is not allowed."),
+    "KCHVM0056E": _("To migrate a virtual machine to the remote host %(host)s the user %(user)s must have password-less login to the remote host."),
+    "KCHVM0057E": _("Can not migrate virtual machine %(name)s when its in %(state)s state."),
+    "KCHVM0058E": _("Failed to migrate virtual machine %(name)s due error: %(err)s"),
+    "KCHVM0059E": _("User name of the remote server must be a string."),
+    "KCHVM0060E": _("Destination host of the migration must be a string."),
+
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
     "KCHVMHDEV0003E": _("No IOMMU groups found. Host PCI pass through needs IOMMU group to function correctly. "
