@@ -22,7 +22,6 @@
 import cherrypy
 import gettext
 
-
 from wok.i18n import messages as _messages
 from wok.template import get_lang, validate_language
 
@@ -51,6 +50,7 @@ class WokException(Exception):
 
         msg = unicode(msg, 'utf-8') % args
         pattern = "%s: %s" % (code, msg)
+        cherrypy.log.error_log.error(pattern)
         Exception.__init__(self, pattern)
 
     def _get_translation(self):
