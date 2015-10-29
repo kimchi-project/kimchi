@@ -114,8 +114,11 @@ def import_class(class_path):
     try:
         mod = import_module(module_name, class_name)
         return getattr(mod, class_name)
-    except (ImportError, AttributeError):
-        raise ImportError('Class %s can not be imported' % class_path)
+    except (ImportError, AttributeError), e:
+        raise ImportError(
+            'Class %s can not be imported, '
+            'error: %s' % (class_path, e.message)
+        )
 
 
 def import_module(module_name, class_name=''):

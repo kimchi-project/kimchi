@@ -158,9 +158,11 @@ class Server(object):
 
             try:
                 plugin_app = import_class(plugin_class)(options)
-            except ImportError:
-                cherrypy.log.error_log.error("Failed to import plugin %s" %
-                                             plugin_class)
+            except ImportError, e:
+                cherrypy.log.error_log.error(
+                    "Failed to import plugin %s, "
+                    "error: %s" % (plugin_class, e.message)
+                )
                 continue
 
             # dynamically extend plugin config with custom data, if provided
@@ -173,10 +175,11 @@ class Server(object):
                 try:
                     authed_apis = import_class(('plugins.%s.%s' %
                                                 (plugin_name, extra_auth)))
-                except ImportError:
-                    cherrypy.log.error_log.error("Failed to import subnodes "
-                                                 "for plugin %s" %
-                                                 plugin_class)
+                except ImportError, e:
+                    cherrypy.log.error_log.error(
+                        "Failed to import subnodes for plugin %s, "
+                        "error: %s" % (plugin_class, e.message)
+                    )
                     continue
 
                 urlSubNodes = {}
