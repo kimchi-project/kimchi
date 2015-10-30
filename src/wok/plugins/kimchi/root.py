@@ -30,6 +30,15 @@ from wok.root import WokRoot
 
 class KimchiRoot(WokRoot):
     def __init__(self, wok_options):
+        make_dirs = [
+            os.path.dirname(os.path.abspath(config.get_object_store())),
+            os.path.abspath(config.get_distros_store()),
+            os.path.abspath(config.get_screenshot_path())
+        ]
+        for directory in make_dirs:
+            if not os.path.isdir(directory):
+                os.makedirs(directory)
+
         if hasattr(wok_options, "model"):
             self.model = wok_options.model
         elif wok_options.test:
@@ -52,15 +61,6 @@ class KimchiRoot(WokRoot):
         self.paths = config.kimchiPaths
         self.domain = 'kimchi'
         self.messages = messages
-
-        make_dirs = [
-            os.path.dirname(os.path.abspath(config.get_object_store())),
-            os.path.abspath(config.get_distros_store()),
-            os.path.abspath(config.get_screenshot_path())
-        ]
-        for directory in make_dirs:
-            if not os.path.isdir(directory):
-                os.makedirs(directory)
 
     def get_custom_conf(self):
         return config.KimchiConfig()
