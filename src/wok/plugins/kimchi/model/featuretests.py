@@ -162,7 +162,7 @@ class FeatureTests(object):
     def qemu_supports_iso_stream():
         host = cherrypy.server.socket_host
         port = cherrypy.server.socket_port
-        cmd = "qemu-io -r http://%s:%d/images/icon-fedora.png \
+        cmd = "qemu-io -r http://%s:%d/plugins/kimchi/images/icon-fedora.png \
               -c 'read -v 0 512'" % (host, port)
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, shell=True)
