@@ -27,12 +27,12 @@ gingerBaseLock = threading.Lock()
 
 
 def get_debugreports_path():
-    return os.path.join('/var/lib/kimchi', 'debugreports')
+    return os.path.join(PluginPaths('gingerbase').state_dir, 'debugreports')
 
 
 def get_object_store():
-    return os.path.join('/var/lib/kimchi',
-                        'objectstore' + '_gingerbase')
+    return os.path.join(PluginPaths('gingerbase').state_dir,
+                        'objectstore')
 
 
 class GingerBasePaths(PluginPaths):
