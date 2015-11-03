@@ -23,7 +23,7 @@ import os
 import unittest
 from functools import partial
 
-from wok.plugins.kimchi import mockmodel
+from wok.plugins.gingerbase import mockmodel
 
 from utils import get_free_port, patch_auth, request, run_server
 

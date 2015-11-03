@@ -37,7 +37,7 @@ TEMP_REPO_FILE = ''
 
 
 def _is_yum_distro():
-    inst = model.Model()
+    inst = model.Model("/tmp/objectstore")
     repo_type = inst.capabilities_lookup()['repo_mngt_tool']
     return repo_type == 'yum'
 
