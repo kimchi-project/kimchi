@@ -80,8 +80,8 @@ do_substitution = \
 	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'         \
 	-e 's,[@]wokdir[@],$(wokdir),g'           \
 	-e 's,[@]gingerbasedir[@],$(gingerbasedir),g'           \
-	-e 's,[@]kimchiversion[@],$(PACKAGE_VERSION),g' \
-	-e 's,[@]kimchirelease[@],$(PACKAGE_RELEASE),g' \
+	-e 's,[@]gingerbaseversion[@],$(PACKAGE_VERSION),g' \
+	-e 's,[@]gingerbaserelease[@],$(PACKAGE_RELEASE),g' \
 	-e 's,[@]withspice[@],$(WITH_SPICE),g'
 
 config.py: config.py.in Makefile
@@ -94,8 +94,8 @@ config.py: config.py.in Makefile
 
 install-deb: install
 	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
-	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi
-	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/gingerbase
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/gingerbase/debugreports
 
 
 deb: contrib/make-deb.sh
@@ -131,18 +131,17 @@ ChangeLog:
 	fi
 
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/kimchi/
+	$(MKDIR_P) $(DESTDIR)/$(localstatedir)/lib/gingerbase/
 	$(MKDIR_P) $(DESTDIR)$(gingerbasedir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(gingerbasedir)/API.json
-	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/gingerbase/debugreports
 
 uninstall-local:
 	@if test -f $(DESTDIR)/etc/systemd/system/wokd.service.d/gingerbase.conf; then \
 		$(RM) $(DESTDIR)/etc/systemd/system/wokd.service.d/gingerbase.conf; \
 	fi; \
 	$(RM) $(DESTDIR)$(gingerbasedir)/API.json
-	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/kimchi/debugreports
-	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/kimchi/objectstore_gingerbase
+	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/gingerbase/debugreports
 
 VERSION:
 	@if test -d .git; then                                \
