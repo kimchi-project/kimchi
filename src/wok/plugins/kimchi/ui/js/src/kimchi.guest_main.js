@@ -28,6 +28,7 @@ kimchi.sampleGuestObject = {
         "net_throughput": 0,
         "io_throughput_peak": 100,
         "cpu_utilization": 0,
+        "mem_utilization": 0,
         "io_throughput": 0,
         "net_throughput_peak": 100
     },
@@ -372,6 +373,8 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     kimchi.circleGaugeInit(result, "io_throughput",gaugeValue,(gaugeValue*100/stats.io_throughput_peak));
     gaugeValue=parseInt(stats.cpu_utilization);
     kimchi.circleGaugeInit(result, "cpu_utilization",gaugeValue+"%",gaugeValue);
+    gaugeValue=parseInt(stats.mem_utilization);
+    kimchi.circleGaugeInit(result, "mem_utilization",gaugeValue+"%",gaugeValue);
 
     //Setup the VM Actions
     var guestActions=result.find("div[name=guest-actions]");
