@@ -1,4 +1,4 @@
-Name:		Ginger Base
+Name:		ginger-base
 Version:	@PACKAGE_VERSION@
 Release:	@PACKAGE_RELEASE@%{?dist}
 Summary:	Wok plugin for base host management
@@ -11,6 +11,8 @@ Requires:	wok
 Requires:	python-psutil >= 0.6.0
 BuildRequires:	libxslt-tools
 BuildRequires:	python-lxml
+BuildRequires:	python-devel
+BuildRequires:	python-pip
 
 %if 0%{?suse_version} == 1100
 Requires:       python-ordereddict
@@ -28,6 +30,11 @@ common tools for configuring and managing the Linux systems.
 %prep
 %setup
 
+%build
+%configure
+make
+
+
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
@@ -38,25 +45,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(-,root,root)
-%{python_sitelib}/wok/plugins/gingerbase/*.py*
-%{python_sitelib}/wok/plugins/gingerbase/control/*.py*
-%{python_sitelib}/wok/plugins/gingerbase/model/*.py*
-%{python_sitelib}/wok/plugins/gingerbase/API.json
-%{python_sitelib}/wok/plugins/gingerbase/
-%{_datadir}/wok/plugins/gingerbase/doc/API.md
-%{_datadir}/wok/plugins/gingerbase/doc/README.md
-%{_datadir}/wok/plugins/gingerbase/doc/README-federation.md
+%{python_sitelib}/wok/plugins/gingerbase
+%{_datadir}/gingerbase
 %{_prefix}/share/locale/*/LC_MESSAGES/gingerbase.mo
-%{_datadir}/wok/plugins/gingerbase/ui/config/*.xml
-%{_datadir}/wok/plugins/gingerbase/ui/
 %{_datadir}/wok/plugins/gingerbase
 %{_sysconfdir}/wok/plugins.d/gingerbase.conf
-%{_sysconfdir}/wok/
-%{_var}/lib/wok/debugreports/
-%{_var}/lib/wok/
-
+%{_sharedstatedir}/gingerbase/
 
 
 %changelog
-* Thu Aug 25 2015 Chandra Shehkhar Reddy Potula <chandra@linux.vnet.ibm.com> 0.0-1
+* Tue Aug 25 2015 Chandra Shehkhar Reddy Potula <chandra@linux.vnet.ibm.com> 0.0-1
 - First build

@@ -31,6 +31,9 @@ gingerbasedir = $(pythondir)/wok/plugins/gingerbase
 confdir = $(sysconfdir)/wok/plugins.d
 dist_conf_DATA = gingerbase.conf
 
+name=ginger-base
+distdir=$(name)-$(PACKAGE_VERSION)
+
 AUTOMAKE_OPTIONS = foreign
 
 ACLOCAL_AMFLAGS = --install -I m4
