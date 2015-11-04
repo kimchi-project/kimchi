@@ -1,14 +1,12 @@
-Package: @PACKAGE_NAME@
+Package: ginger-base
 Version: @PACKAGE_VERSION@
 Section: base
 Priority: optional
 Architecture: all
 Depends: wok,
          python-psutil (>= 0.6.0),
-         sosreport,
+         sosreport
 Build-Depends: libxslt,
                python-lxml
 Maintainer: Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
-Description: Ginger Base is an open source base host management plugin for Wok
-(Webserver Originated from Kimchi), that provides an intuitive web panel with
-common tools for configuring and managing the Linux systems.
+Description: Ginger Base is an open source base host management plugin for Wok (Webserver Originated from Kimchi), that provides an intuitive web panel with common tools for configuring and managing the Linux systems.
