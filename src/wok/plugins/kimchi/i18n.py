@@ -262,6 +262,7 @@ messages = {
     "KCHHOST0004E": _("Conflicting flag filters specified."),
 
     "KCHUTILS0003E": _("Unable to choose a virtual machine name"),
+    "KCHUTILS0006E": _("Cannot upgrade objectstore data."),
 
     "KCHVMSTOR0002E": _("Invalid storage type. Types supported: 'cdrom', 'disk'"),
     "KCHVMSTOR0003E": _("The path '%(value)s' is not a valid local/remote path for the device"),

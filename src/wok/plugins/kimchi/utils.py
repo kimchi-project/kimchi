@@ -19,14 +19,17 @@
 #
 
 import contextlib
+import json
 import os
 import re
+import sqlite3
 import urllib2
 from httplib import HTTPConnection, HTTPException
 from urlparse import urlparse
 
-from wok.exception import InvalidParameter
-
+from wok.exception import InvalidParameter, OperationFailed
+from wok.plugins.kimchi import config
+from wok.utils import wok_log
 
 MAX_REDIRECTION_ALLOWED = 5
 
@@ -95,3 +98,76 @@ def validate_repo_url(url):
             raise InvalidParameter("WOKUTILS0001E", {'url': url})
     else:
         raise InvalidParameter("KCHREPOS0002E")
+
+
+def get_objectstore_fields():
+    """
+        Return a list with all fields of the objectstore.
+    """
+    conn = sqlite3.connect(config.get_object_store(), timeout=10)
+    cursor = conn.cursor()
+    schema_fields = []
+    sql = "PRAGMA table_info('objects')"
+    cursor.execute(sql)
+    for row in cursor.fetchall():
+        schema_fields.append(row[1])
+    return schema_fields
+
+
+def upgrade_objectstore_schema(field=None):
+    """
+        Add a new column (of type TEXT) in the objectstore schema.
+    """
+    if field is None:
+        wok_log.error("Cannot upgrade objectstore schema.")
+        return False
+
+    if field in get_objectstore_fields():
+        return False
+    try:
+        conn = sqlite3.connect(config.get_object_store(), timeout=10)
+        cursor = conn.cursor()
+        sql = "ALTER TABLE objects ADD COLUMN %s TEXT" % field
+        cursor.execute(sql)
+        wok_log.info("Objectstore schema sucessfully upgraded.")
+        conn.close()
+    except sqlite3.Error, e:
+        if conn:
+            conn.rollback()
+            conn.close()
+        wok_log.error("Cannot upgrade objectstore schema: ", e.args[0])
+        return False
+    return True
+
+
+def upgrade_objectstore_data(item, old_uri, new_uri):
+    """
+        Upgrade the value of a given JSON's item of all Template and VM entries
+        of the objectstore from old_uri to new_uri.
+    """
+    total = 0
+    try:
+        conn = sqlite3.connect(config.get_object_store(), timeout=10)
+        cursor = conn.cursor()
+        sql = "SELECT id, json FROM objects WHERE type='template' OR type='vm'"
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            # execute update here
+            template = json.loads(row[1])
+            path = (template[item] if item in template else 'none')
+            if path.startswith(old_uri):
+                template[item] = new_uri + path
+                sql = "UPDATE objects SET json=?, version=? WHERE id=?"
+                cursor.execute(sql, (json.dumps(template),
+                                     config.get_kimchi_version(), row[0]))
+                conn.commit()
+                total += 1
+    except sqlite3.Error, e:
+        if conn:
+            conn.rollback()
+        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error("Error while upgrading objectstore data:", e.args[0])
+    finally:
+        if conn:
+            conn.close()
+        wok_log.info("%d '%s' entries upgraded in objectstore.", total, item)
