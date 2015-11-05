@@ -43,7 +43,7 @@ from wok.xmlutils.utils import dictize
 
 from wok.plugins.kimchi import model
 from wok.plugins.kimchi import vnc
-from wok.plugins.kimchi.config import READONLY_POOL_TYPE
+from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
@@ -138,7 +138,8 @@ class VMsModel(object):
         if icon:
             try:
                 with self.objstore as session:
-                    session.store('vm', vm_uuid, {'icon': icon})
+                    session.store('vm', vm_uuid, {'icon': icon},
+                                  get_kimchi_version())
             except Exception as e:
                 # It is possible to continue Kimchi executions without store
                 # vm icon info
@@ -480,7 +481,8 @@ class VMModel(object):
             # set the new disk's used_by
             with self.objstore as session:
                 session.store('storagevolume', new_vol['path'],
-                              {'used_by': [domain_name]})
+                              {'used_by': [domain_name]},
+                              get_kimchi_version())
             rollback.prependDefer(_delete_disk_from_objstore, new_vol['path'])
 
             # remove the new volume should an error occur later
@@ -502,7 +504,8 @@ class VMModel(object):
             try:
                 vm = session.get('vm', old_uuid)
                 icon = vm['icon']
-                session.store('vm', new_uuid, {'icon': icon})
+                session.store('vm', new_uuid, {'icon': icon},
+                              get_kimchi_version())
             except NotFoundError:
                 # if we cannot find an object store entry for the original VM,
                 # don't store one with an empty value.
@@ -1143,7 +1146,8 @@ class VMModel(object):
                         used_by = session.get('storagevolume', path)['used_by']
                         used_by.remove(name)
                         session.store('storagevolume', path,
-                                      {'used_by': used_by})
+                                      {'used_by': used_by},
+                                      get_kimchi_version())
             except Exception as e:
                 raise OperationFailed('KCHVOL0017E', {'err': e.message})
 
@@ -1402,7 +1406,8 @@ class VMScreenshotModel(object):
         # screenshot info changed after scratch generation
         try:
             with self.objstore as session:
-                session.store('screenshot', vm_uuid, screenshot.info)
+                session.store('screenshot', vm_uuid, screenshot.info,
+                              get_kimchi_version())
         except Exception as e:
             # It is possible to continue Kimchi executions without store
             # screenshots
@@ -1418,7 +1423,8 @@ class VMScreenshotModel(object):
                     params = session.get('screenshot', vm_uuid)
                 except NotFoundError:
                     params = {'uuid': vm_uuid}
-                    session.store('screenshot', vm_uuid, params)
+                    session.store('screenshot', vm_uuid, params,
+                                  get_kimchi_version())
         except Exception as e:
             # The 'except' outside of 'with' is necessary to catch possible
             # exception from '__exit__' when calling 'session.store'
