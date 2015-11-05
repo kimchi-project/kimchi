@@ -28,6 +28,7 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
+from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
@@ -251,7 +252,8 @@ class StoragePoolsModel(object):
         # Record scanning-task/storagepool mapping for future querying
         try:
             with self.objstore as session:
-                session.store('scanning', params['name'], task_id)
+                session.store('scanning', params['name'], task_id,
+                              get_kimchi_version())
             return task_id
         except Exception as e:
             raise OperationFailed('KCHPOOL0037E', {'err': e.message})

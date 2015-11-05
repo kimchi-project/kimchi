@@ -29,9 +29,14 @@ from wok.xmlutils.utils import xpath_get_text
 kimchiLock = threading.Lock()
 
 __with_spice__ = "@withspice@"
+__version__ = "@kimchiversion@"
 
 # Storage pool constant for read-only pool types
 READONLY_POOL_TYPE = ['iscsi', 'scsi', 'mpath']
+
+
+def get_kimchi_version():
+    return __version__
 
 
 def get_distros_store():

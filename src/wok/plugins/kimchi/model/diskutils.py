@@ -20,6 +20,7 @@
 from wok.exception import OperationFailed, NotFoundError
 from wok.utils import wok_log
 
+from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.model.vms import VMModel, VMsModel
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
@@ -49,7 +50,8 @@ def get_disk_used_by(objstore, conn, path):
                             used_by.append(vm)
                 try:
                     session.store('storagevolume', path,
-                                  {'used_by': used_by})
+                                  {'used_by': used_by},
+                                  get_kimchi_version())
                 except Exception as e:
                     # Let the exception be raised. If we allow disks'
                     #   used_by to be out of sync, data corruption could
@@ -71,6 +73,7 @@ def get_disk_used_by(objstore, conn, path):
 def set_disk_used_by(objstore, path, new_used_by):
     try:
         with objstore as session:
-            session.store('storagevolume', path, {'used_by': new_used_by})
+            session.store('storagevolume', path, {'used_by': new_used_by},
+                          get_kimchi_version())
     except Exception as e:
         raise OperationFailed('KCHVOL0017E', {'err': e.message})

@@ -37,6 +37,7 @@ from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import osinfo
+from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.config import kimchiPaths as paths
 from wok.plugins.kimchi.model import model
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
@@ -268,7 +269,8 @@ class ModelTests(unittest.TestCase):
                          "storagepool": "/plugins/kimchi/storagepools/default"}
 
             with inst.objstore as session:
-                session.store('template', tmpl_name, tmpl_info)
+                session.store('template', tmpl_name, tmpl_info,
+                              get_kimchi_version())
 
             params = {'name': 'kimchi-vm',
                       'template': '/plugins/kimchi/templates/img-tmpl'}

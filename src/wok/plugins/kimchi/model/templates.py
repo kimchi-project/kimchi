@@ -27,6 +27,7 @@ from wok.exception import NotFoundError, OperationFailed
 from wok.utils import probe_file_permission_as_user, run_setfacl_set_attr
 from wok.xmlutils.utils import xpath_get_text
 
+from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.utils import pool_name_from_uri
@@ -98,7 +99,8 @@ class TemplatesModel(object):
             with self.objstore as session:
                 if name in session.get_list('template'):
                     raise InvalidOperation("KCHTMPL0001E", {'name': name})
-                session.store('template', name, t.info)
+                session.store('template', name, t.info,
+                              get_kimchi_version())
         except InvalidOperation:
             raise
         except Exception, e:
