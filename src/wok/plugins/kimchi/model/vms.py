@@ -919,13 +919,15 @@ class VMModel(object):
     def _get_percentage_mem_usage(self, vm_uuid, dom, seconds):
         # Get the guest's memory stats
         memStats = dom.memoryStats()
-        if memStats:
+        if ('available' in memStats) and ('unused' in memStats):
             memUsed = memStats.get('available') - memStats.get('unused')
+            percentage = ((memUsed * 100.0) / memStats.get('available'))
+        elif ('rss' in memStats) and ('actual' in memStats):
+            percentage = memStats.get('rss') * 100.0 / memStats.get('actual')
         else:
-            wok_log.debug('Failed to measure memory usage of the guest.')
+            wok_log.error('Failed to measure memory usage of the guest.')
 
-        percentage = max(0.0, min(100.0, ((memUsed * 100.0) /
-                                          memStats.get('available'))))
+        percentage = max(0.0, min(100.0, percentage))
 
         self.stats[vm_uuid].update({'mem_usage': percentage})
 
