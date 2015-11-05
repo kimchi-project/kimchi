@@ -26,6 +26,7 @@ import threading
 import unittest
 
 from wok import objectstore
+from wok.config import get_version
 from wok.exception import NotFoundError
 
 
@@ -76,6 +77,10 @@ class ObjectStoreTests(unittest.TestCase):
             session.store('fǒǒ', 'těst1', {'α': 2})
             item = session.get('fǒǒ', 'těst1')
             self.assertEquals(2, item[u'α'])
+
+            # Test get version of object
+            item = session.get_object_version('fǒǒ', 'těst1')
+            self.assertEquals(get_version().split('-')[0], item[0])
 
     def test_object_store_threaded(self):
         def worker(ident):

@@ -63,6 +63,12 @@ class ObjectStoreSession(object):
             raise NotFoundError("WOKOBJST0001E", {'item': ident})
         return json.loads(jsonstr)
 
+    def get_object_version(self, obj_type, ident):
+        c = self.conn.cursor()
+        res = c.execute('SELECT version FROM objects WHERE type=? AND id=?',
+                        (obj_type, ident))
+        return [x[0] for x in res]
+
     def delete(self, obj_type, ident, ignore_missing=False):
         c = self.conn.cursor()
         c.execute('DELETE FROM objects WHERE type=? AND id=?',
@@ -72,13 +78,18 @@ class ObjectStoreSession(object):
             raise NotFoundError("WOKOBJST0001E", {'item': ident})
         self.conn.commit()
 
-    def store(self, obj_type, ident, data):
+    def store(self, obj_type, ident, data, version=None):
+        # Get Wok version if none was provided
+        if version is None:
+            version = config.get_version().split('-')[0]
+
         jsonstr = json.dumps(data)
         c = self.conn.cursor()
         c.execute('DELETE FROM objects WHERE type=? AND id=?',
                   (obj_type, ident))
-        c.execute('INSERT INTO objects (id, type, json) VALUES (?,?,?)',
-                  (ident, obj_type, jsonstr))
+        c.execute('''INSERT INTO objects (id, type, json, version)
+                  VALUES (?,?,?,?)''',
+                  (ident, obj_type, jsonstr, version))
         self.conn.commit()
 
 
@@ -100,7 +111,8 @@ class ObjectStore(object):
         # are purged every time the daemon startup
         if len(res) == 0:
             c.execute('''CREATE TABLE objects
-                (id TEXT, type TEXT, json TEXT, PRIMARY KEY (id, type))''')
+                      (id TEXT, type TEXT, json TEXT, version TEXT,
+                      PRIMARY KEY (id, type))''')
             conn.commit()
             return
 
