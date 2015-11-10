@@ -19,23 +19,32 @@ kimchi.doListTemplates = function() {
     kimchi.listTemplates(function(result) {
         if (result && result.length) {
             $('#noTemplates').hide();
-            var listHtml = '';
+            var listHtml = '<li class="wok-vm-header">' +
+                '<span class="column-name">Template Name (ID)</span><!--' +
+                '--><span class="column-type">OS</span><!--' +
+                '--><span class="column-version">Version</span><!--' +
+                '--><span class="column-processors">CPUs</span><!--' +
+                '--><span class="column-memory">Memory</span><!-- ' +
+                '--><span class="column-action" style="display:none">   ' +
+                '    <span class="sr-only">Actions</span><!-- ' +
+                '--></span> ' +
+                '</li>';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
                 var isLocal;
-                if(value.cdrom){
+                if (value.cdrom) {
                     isLocal = /^\//.test(value['cdrom']);
-                }else{
-                    for(var i=0;i<value.disks.length;i++){
-                        if(value.disks[i].base){
+                } else {
+                    for (var i = 0; i < value.disks.length; i++) {
+                        if (value.disks[i].base) {
                             isLocal = /^\//.test(value.disks[i].base);
                             break;
                         }
                     }
                 }
-                if(isLocal){
+                if (isLocal) {
                     value.location = "plugins/kimchi/images/theme-default/icon-local.png";
-                }else{
+                } else {
                     value.location = "plugins/kimchi/images/theme-default/icon-remote.png";
                 }
                 listHtml += wok.substitute(templateHtml, value);
@@ -54,28 +63,31 @@ kimchi.doListTemplates = function() {
 };
 
 kimchi.templateBindClick = function() {
-    $('.template-edit').on('click', function(event) {
+    $('.template-edit a').on('click', function(event) {
+        event.preventDefault();
         var templateName = $(this).data('template');
         kimchi.selectedTemplate = templateName;
         wok.window.open("plugins/kimchi/template-edit.html");
     });
-    $('.template-clone').on('click', function(event) {
+    $('.template-clone a').on('click', function(event) {
+        event.preventDefault();
         kimchi.selectedTemplate = $(this).data('template');
         $('html').addClass('processing');
         kimchi.cloneTemplate(kimchi.selectedTemplate, function() {
-                kimchi.doListTemplates();
-            }, function(err) {
-                wok.message.error(err.responseJSON.reason);
-                kimchi.doListTemplates();
-            });
+            kimchi.doListTemplates();
+        }, function(err) {
+            wok.message.error(err.responseJSON.reason);
+            kimchi.doListTemplates();
+        });
     });
-    $('.template-delete').on('click', function(event) {
+    $('.template-delete a').on('click', function(event) {
+        event.preventDefault();
         var $template = $(this);
         var settings = {
-            title : i18n['KCHAPI6001M'],
-            content : i18n['KCHTMPL6003M'],
-            confirm : i18n['KCHAPI6002M'],
-            cancel : i18n['KCHAPI6003M']
+            title: i18n['KCHAPI6001M'],
+            content: i18n['KCHTMPL6003M'],
+            confirm: i18n['KCHAPI6002M'],
+            cancel: i18n['KCHAPI6003M']
         };
         wok.confirm(settings, function() {
             var templateName = $template.data('template');
@@ -84,8 +96,7 @@ kimchi.templateBindClick = function() {
             }, function(err) {
                 wok.message.error(err.responseJSON.reason);
             });
-        }, function() {
-        });
+        }, function() {});
     });
 }
 kimchi.hideTitle = function() {
@@ -93,8 +104,8 @@ kimchi.hideTitle = function() {
 };
 
 kimchi.template_main = function() {
-    if(wok.tabMode['templates'] === 'admin') {
-        $('.tools').attr('style','display');
+    if (wok.tabMode['templates'] === 'admin') {
+        $('.tools').attr('style', 'display');
         $("#template-add").on("click", function(event) {
             wok.window.open({
                 url: 'plugins/kimchi/template-add.html',

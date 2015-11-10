@@ -1,0 +1,126 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+/* Template & Guests Modal Windows */
+
+#template-add-window.modal-content,
+#guest-add-window.modal-content {
+    label.box-iso-outer {
+        font-family: $font-family-sans-serif;
+        font-size: 14px !important;
+        font-weight: 400;
+        border-radius: 3px;
+        overflow: hidden;
+        display: block;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    label.box-iso-outer span.box-iso-border {
+        display: block;
+        border: 3px solid transparent;
+        transition: all .1s ease-in-out;
+    }
+    label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
+    label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border {
+        border-color: $guests-color;
+    }
+    label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border > .box-iso-inner,
+    label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border > .box-iso-inner {
+        border-color: $gray-base;
+    }
+    label.box-iso-outer span.box-iso-inner {
+        display: block;
+        border: 1px solid transparent;
+        background: $gray-lighter;
+        transition: all .1s ease-in-out;
+    }
+    ul.list-template,
+    ul.list-iso {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 462px;
+        list-style: none;
+        margin: 0 -5px 10px -5px;
+        padding: 0;
+    }
+    label.box-iso-outer span.box-iso-inner dl {
+        margin-bottom: 16px;
+    }
+    label.box-iso-outer span.box-iso-inner dt,
+    label.box-iso-outer span.box-iso-inner dd {
+        padding: 0 12px 0 20px;
+    }
+    label.box-iso-outer span.box-iso-inner dt {
+        padding-top: 5px;
+        text-transform: capitalize;
+    }
+    label.box-iso-outer span.box-iso-inner dd {
+        padding-bottom: 5px;
+    }
+    ul#templateTile input[type="radio"].iso-radio-hidden,
+    ul#list-local-iso input[type="checkbox"].iso-checkbox-hidden,
+    ul#list-remote-iso input[type="checkbox"].iso-checkbox-hidden {
+        display: none;
+    }
+    label.box-iso-outer {
+        cursor: pointer;
+    }
+    ul#list-local-iso li.col-md-3,
+    ul#list-remote-iso li.col-md-3 {
+        width: 241px;
+        margin: 10px 5px 0;
+    }
+    h3.iso-title {
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 22px;
+        margin: 0;
+        padding: 13px 40px 13px 20px;
+        background-color: transparent;
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 27px;
+        background-origin: padding-box;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &.centos {
+            background-image: url('#{$wok-icon-path}/icon-centos.png');
+        }
+        &.debian {
+            background-image: url('#{$wok-icon-path}/icon-debian.png');
+        }
+        &.fedora {
+            background-image: url('#{$wok-icon-path}/icon-fedora.png');
+        }
+        &.opensuse {
+            background-image: url('#{$wok-icon-path}/icon-opensuse.png');
+        }
+        &.ubuntu {
+            background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
+        }
+        &.gentoo {
+            background-image: url('#{$wok-icon-path}/icon-gentoo.png');
+        }
+        &.unknown {
+            background-image: url('#{$wok-icon-path}/icon-unknown.png');
+        }
+    }
+}

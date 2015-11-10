@@ -1,0 +1,304 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+/* Add Template Modal Window */
+
+.templates-modal {
+    .modal-dialog {
+        width: 1100px;
+    }
+    .page-list {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+    .page {
+        position: absolute;
+        left: 100%;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding: 10px 30px;
+    }
+}
+
+#template-edit-window {
+    .tab-content {
+        overflow: hidden;
+    }
+    .tab-content .tab-pane {
+        position: relative;
+    }
+    form {
+        margin: 15px 0 0;
+    }
+    .hide {
+        display: none;
+    }
+    .form-template-inline-wrapper {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .template-edit-wrapper-label {
+        vertical-align: top;
+        min-width: 100px;
+        height: 35px;
+        line-height: 35px;
+        margin: 7px 0 8px;
+    }
+    .template-edit-wrapper-controls {
+        vertical-align: top;
+        width: 400px;
+        vertical-align: top;
+        min-width: 100px;
+        height: 35px;
+        line-height: 35px;
+        margin: 7px 0 8px;
+    }
+    .template-tab-header {
+        background: $table-bg;
+        display: block;
+        border-top: 1px solid $table-border-color;
+        > span {
+            padding: $table-cell-padding;
+            display: inline-block;
+            font-family: $font-family-light;
+            font-weight: 400;
+            font-size: 12.5pt;
+            vertical-align: bottom;
+            border-bottom: none;
+            border-top: 0;
+            line-height: $line-height-base;
+            height: 40px;
+        }
+    }
+    .template-tab-body {
+        .item {
+            border-top: 1px solid $table-border-color;
+            height: 53px;
+            &:first-child {
+                border-top: 0;
+            }
+            &:nth-child('even') {
+                background-color: $table-bg-accent;
+            }
+            &:nth-child('odd') {
+                background-color: $table-bg;
+            }
+            > span {
+                padding: $table-cell-padding;
+                display: inline-block;
+            }
+        }
+    }
+    .manual {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    .topology {
+        margin: 0 24px;
+    }
+    .topology .form-inline {
+        margin-bottom: 10px;
+    }
+    .template-storage-cell.storage-pool {
+        width: 220px !important;
+    }
+    .template-storage-cell.type {
+        width: 100px;
+    }
+    .template-storage-cell.disk {
+        width: 100px;
+    }
+    .template-storage-cell.format {
+        width: 320px;
+    }
+    .template-interface-cell.network {
+        width: 220px;
+    }
+    .template-interface-cell.type {
+        width: 250px;
+    }
+}
+
+#template-add-window {
+    .modal-body {
+        margin: 0;
+        padding: 0;
+    }
+    .modal-footer {
+        margin-top: 0;
+    }
+    .modal-footer .btn + .btn {
+        margin-left: 0;
+    }
+    .modal-footer .btn {
+        margin-right: 5px;
+    }
+    .template-modal-container {
+        padding: 10px 30px;
+        position: relative;
+    }
+    .template-pager {
+        background: $table-border-color;
+        width: 1082px;
+        height: 689px;
+        position: relative;
+        overflow: hidden;
+    }
+    .template-pager-container {
+        position: absolute;
+        height: 664px;
+        width: 2164px;
+        left: 0;
+        transition: left .2s ease-in-out;
+    }
+    &.modal-content p {
+        margin: 0;
+    }
+    &.modal-content h5 {
+        font-size: 13pt;
+        font-weight: 400;
+        margin-top: 0;
+    }
+    &.modal-content label {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: $font-family-sans-serif;
+    }
+    &.modal-content button#iso-more,
+    &.modal-content button#iso-more-loading {
+        margin-bottom: 17px;
+        clear: both;
+    }
+    &.modal-content div#iso-remote-box {
+        left: 1082px;
+    }
+    &.modal-content div#iso-local-box {
+        left: 0;
+    }
+}
+
+
+/* VM List View classes*/
+
+#templates-root-container {
+    .wok-vm-list {
+        display: block;
+        width: 100%;
+        list-style-type: none;
+        background: $table-bg;
+        > li:nth-child(2n+2) {
+            background-color: $table-bg-accent;
+        }
+        > li:nth-child(2n+3) {
+            background-color: $table-bg;
+        }
+        .wok-vm-header {
+            border-top: 0 none;
+            > span {
+                padding: $table-cell-padding;
+                display: inline-block;
+                vertical-align: bottom;
+                height: 36px;
+                font-family: $font-family-light;
+                font-weight: 400;
+                font-size: 12.5pt;
+                line-height: $line-height-base;
+                border-bottom: none;
+                border-top: 0;
+                background-color: $table-bg;
+            }
+        }
+        .wok-vm-body {
+            border-top: 1px solid $table-border-color;
+            &:first-child {
+                border-color: $table-first-row-border-color;
+            }
+            border-top: 1px solid $table-border-color;
+            > span {
+                padding: $table-cell-padding;
+                display: inline-block;
+                vertical-align: top;
+                font-family: $font-family-sans-serif;
+                font-size: 12.5pt;
+                line-height: (1 + $line-height-base);
+            }
+            .column-type {
+                padding-left: 40px !important;
+            }
+        }
+        .column-name {
+            width: 17.4900%;
+            font-weight: bold;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .column-type {
+            width: 14.2435%;
+            font-weight: bold;
+        }
+        .column-version {
+            width: 14.2435%;
+            font-weight: bold;
+        }
+        .column-processors {
+            width: 12.8413%;
+        }
+        .column-memory {
+            width: 7.3800%;
+        }
+        .column-action {
+            width: 33.8000%;
+        }
+        .item-hidden {
+            display: none !important;
+        }
+        .distro-icon {
+            background-color: transparent;
+            background-size: 27px 27px;
+            background-repeat: no-repeat;
+            background-position: 8px 50%;
+            &.icon-centos {
+                background-image: url('#{$wok-icon-path}/icon-centos.png');
+            }
+            &.icon-debian {
+                background-image: url('#{$wok-icon-path}/icon-debian.png');
+            }
+            &.icon-fedora {
+                background-image: url('#{$wok-icon-path}/icon-fedora.png');
+            }
+            &.icon-opensuse {
+                background-image: url('#{$wok-icon-path}/images/icon-opensuse.png');
+            }
+            &.icon-ubuntu {
+                background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
+            }
+            &.icon-gentoo {
+                background-image: url('#{$wok-icon-path}/icon-gentoo.png');
+            }
+            &.icon-unknown {
+                background-image: url('#{$wok-icon-path}/icon-unknown.png');
+            }
+        }
+    }
+}
