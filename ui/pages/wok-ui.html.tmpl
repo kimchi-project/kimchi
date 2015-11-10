@@ -24,118 +24,134 @@
 #silent _ = t.gettext
 #silent _t = t.gettext
 #from wok.config import get_version
-<!DOCTYPE html>
 <html lang="$lang.lang[0]">
 <head>
-<meta charset="UTF-8">
-<title>Kimchi</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Wok">
-<link href="images/apple-touch-icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-76.png" sizes="76x76" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-180x180.png" sizes="120x120" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
-<link rel="icon" type="image/png" href="images/android-chrome-192x192.png" sizes="192x192">
-<!--[if IE  lte 9]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
-<link rel="shortcut icon" href="images/favicon.png">
-<meta name="application-name" content="Wok">
-<meta name="msapplication-config" content="none" />
-<meta name="msapplication-TileColor" content="#4f4f4f"/>
-<meta name="msapplication-square70x70logo" content="images/tiny.png"/>
-<meta name="msapplication-square150x150logo" content="images/square.png"/>
-<meta name="msapplication-wide310x150logo" content="images/wide.png"/>
-<meta name="msapplication-square310x310logo" content="images/large.png"/>
-<link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
-<link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
-<link rel="stylesheet" href="$href('css/theme-default.min.css')">
-
-<script src="$href('libs/jquery/jquery.min.js')"></script>
-<script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
-<script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
-<script src="$href('base64/jquery.base64.js')"></script>
-<script src="$href('js/wok.min.js')"></script>
-
-<!-- This is used for detecting if the UI needs to be built -->
-<style type="text/css">
-#buildme {
-    position: fixed;
-    background: rgba(0, 0, 0, 0.5);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-}
-
-#buildme div {
-    background-color: #FFB2C0;
-    border-style: solid;
-    border-color: #FF0000;
-    padding: 30px;
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-}
-</style>
-</head>
+    <meta charset="UTF-8">
+    <title>Kimchi</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Wok">
+    <link href="images/apple-touch-icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-76.png" sizes="76x76" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-180x180.png" sizes="120x120" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
+    <link rel="icon" type="image/png" href="images/android-chrome-192x192.png" sizes="192x192">
+    <!--[if IE  lte 9]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="application-name" content="Wok">
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-TileColor" content="#4f4f4f" />
+    <meta name="msapplication-square70x70logo" content="images/tiny.png" />
+    <meta name="msapplication-square150x150logo" content="images/square.png" />
+    <meta name="msapplication-wide310x150logo" content="images/wide.png" />
+    <meta name="msapplication-square310x310logo" content="images/large.png" />
+    <link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
+    <link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap.custom.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-select/dist/css/bootstrap-select.min.css')">
+    <link rel="stylesheet" href="$href('css/fontawesome/fontawesome.css')">
+    <link rel="stylesheet" href="$href('css/opensans/opensans.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap-select.custom.css')">
+    <link rel="stylesheet" href="$href('css/wok.css')">
+    <script src="$href('libs/es5-shim/es5-shim.min.js')"></script>
+    <script src="$href('libs/jquery/jquery.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
+    <script src="$href('libs/jquery-i18n/jquery.i18n.min.js')"></script>
+    <script src="$href('libs/bootstrap/bootstrap.min.js')"></script>
+    <script src="$href('libs/bootstrap-select/dist/js/bootstrap-select.min.js')"></script>
+    <script src="$href('base64/jquery.base64.js')"></script>
+    <script src="$href('js/wok.min.js')"></script>
+    <!-- This is used for detecting if the UI needs to be built -->
+    <style type="text/css">
+    #buildme {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+    }
+    #buildme div {
+        background-color: #FFB2C0;
+        border-style: solid;
+        border-color: #FF0000;
+        padding: 30px;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        -moz-border-radius: 15px;
+        border-radius: 15px;
+    }
+    </style>
+    </head>
 <body onload="wok.main()">
-<div class="container">
-<header class="topbar">
-    <h1 id="logo"><img alt="Project Wok" src="images/theme-default/logo-white.png"></h1>
-    <ul class="nav-top">
-        <li>
-            <div id="peers" class="peers hide-content popable">
-                <span>$_("Peers")</span>
-                <span class="arrow"></span>
-                <div class="dropdown popover right-side">
-                    <p id="search-peers">$_("Searching")...</p>
-                    <p id="no-peers" class="hide-content">$_("No peers found.")</p>
-                </div>
+    <div class="topbar">
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <a id="logo" class="navbar-brand" href="#" title="Project Kimchi">Kimchi</a>
             </div>
-        </li>
-        <li>
-            <div id="user" class="popable">
-                <span id="user-icon"></span>
-                <span id="user-name" class="empty-when-logged-off"></span>
-                <span class="arrow"></span>
-                <div class="action-panel popover right-side">
-                    <a id="btn-help" class="user-menu-item" href="javascript:void(0);">$_("Help")</a>
-                    <br/>
-                    <br/>
-                    <a id="btn-about" class="user-menu-item" href="javascript:void(0);">$_("About")</a>
-                    <br/>
-                    <hr/>
-                    <a id="btn-logout" class="user-menu-item" href="javascript: void(0);">$_("Log out")</a>
-                </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown hide-content peers" id="peers">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="topbar-text">$_("Peers")</span><span class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li id="search-peers"><span>$_("Searching")...</span></li>
+                       <li id="no-peers" class="hide-content">$_("No peers found.")</li>
+                   </ul>
+                </li>
+                <li class="dropdown" id="user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user" id="user-icon"></i><span class="topbar-text empty-when-logged-off" id="user-name"></span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="critical"><a id="btn-logout" href="javascript: void(0);"><i class="fa fa-ban"></i><span>$_("Log out")</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle"></i><span class="topbar-text">$_("Help")</span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a id="btn-help" href="javascript: void(0);">$_("Help")</a></li>
+                        <li><a id="btn-about" href="javascript:void(0);">$_("About")</a></li>
+                    </ul>
+                </li>
+            </ul>
+          </div>
+      </nav>
+      <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"><!-- Hamburguer button here --></span>
+                </button>
             </div>
-        </li>
-    </ul>
-</header>
-<div class="content">
-    <nav class="navbar">
-        <ul id="nav-menu" class="nav-menu">
-            <li class="menu-arrow"></li>
-        </ul>
-    </nav>
-    <div id="main">
+            <div class="collapse navbar-collapse" id="nav-menu">
+                <ul class="nav navbar-nav">                
+                    <li class="hostname"><span class="host-location"></span></li>
+                </ul>
+            </div>
+        </div>
+      </nav>
     </div>
-</div>
-</div>
+    <div class="content">
+        <div id="main">
+        </div>
+    </div>
+    </div>
 
-<div id="buildme">
-    <div><p>Oops!  It looks like I am running from a source tree and you forgot to build!
+    <div id="buildme" style="display:none">
+        <div><p>Oops!  It looks like I am running from a source tree and you forgot to build!
     Please run the following command from the wok and kimchi directories and reload this page:</p>
-    <p><code>make</code></p>
+        <p><code>make</code></p>
+        </div>
     </div>
-</div>
 
 <script id="about-tmpl" type="wok/template">
     <div class="window about-window">

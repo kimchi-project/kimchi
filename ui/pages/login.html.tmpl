@@ -28,95 +28,109 @@
 <!DOCTYPE html>
 <html lang="$lang.lang[0]">
 <head>
-<meta charset="UTF-8">
-<title>Kimchi</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Wok">
-<link href="images/apple-touch-icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-76.png" sizes="76x76" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-180x180.png" sizes="120x120" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
-<link href="images/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
-<link rel="icon" type="image/png" href="images/android-chrome-192x192.png" sizes="192x192">
-<!--[if IE  lte 9]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
-<link rel="shortcut icon" href="images/favicon.png">
-<meta name="application-name" content="Wok">
-<meta name="msapplication-config" content="none" />
-<meta name="msapplication-TileColor" content="#4f4f4f"/>
-<meta name="msapplication-square70x70logo" content="images/tiny.png"/>
-<meta name="msapplication-square150x150logo" content="images/square.png"/>
-<meta name="msapplication-wide310x150logo" content="images/wide.png"/>
-<meta name="msapplication-square310x310logo" content="images/large.png"/>
-<link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
-<link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
-<link rel="stylesheet" href="$href('css/theme-default.min.css')">
-<script src="$href('libs/jquery/jquery.min.js')"></script>
-<script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
-<script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
-<script src="$href('js/wok.min.js')"></script>
-<style type="text/css">
-.topbar select {
-    float: right;
-    margin-top: 12px;
-    margin-right: 10px;
-}
-.login-area {
-    margin: 120px auto 0;
-}
-#login-window {
-    width: 315px;
-}
-.err-area {
-    height: auto;
-    margin-bottom: 10px;
-}
-.err-mess {
-    color: #C85305;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Kimchi</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Wok">
+    <link href="images/apple-touch-icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-76.png" sizes="76x76" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-180x180.png" sizes="120x120" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link href="images/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
+    <link rel="icon" type="image/png" href="images/android-chrome-192x192.png" sizes="192x192">
+    <!--[if IE  lte 9]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
+    <link rel="shortcut icon" href="images/favicon.png">
+    <meta name="application-name" content="Wok">
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-TileColor" content="#4f4f4f" />
+    <meta name="msapplication-square70x70logo" content="images/tiny.png" />
+    <meta name="msapplication-square150x150logo" content="images/square.png" />
+    <meta name="msapplication-wide310x150logo" content="images/wide.png" />
+    <meta name="msapplication-square310x310logo" content="images/large.png" />
+    <link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
+    <link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap.custom.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-select/dist/css/bootstrap-select.min.css')">
+    <link rel="stylesheet" href="$href('css/fontawesome/fontawesome.css')">
+    <link rel="stylesheet" href="$href('css/opensans/opensans.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap-select.custom.css')">
+    <link rel="stylesheet" href="$href('css/wok.css')">
+    <script src="$href('libs/es5-shim/es5-shim.min.js')"></script>
+    <script src="$href('libs/jquery/jquery.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
+    <script src="$href('libs/jquery-i18n/jquery.i18n.min.js')"></script>
+    <script src="$href('libs/bootstrap/bootstrap.min.js')"></script>
+    <script src="$href('libs/bootstrap-select/dist/js/bootstrap-select.min.js')"></script>
+    <script src="$href('js/wok.min.js')"></script>
 </head>
 <body onload="wok.login_main()">
-<div class="container topbar">
-    <span id="logo"><img alt="Project Wok" src="images/theme-default/logo-white.png"></span>
-    <select id="userLang">
-        <option value="en_US">English (US)</option>
-        <option value="zh_CN">中文（简体）</option>
-        <option value="pt_BR">Português (Brasil)</option>
-        <option value="de_DE">Deutsch (Deutschland)</option>
-        <option value="es_ES">Español (España)</option>
-        <option value="fr_FR">Français (France)</option>
-        <option value="it_IT">Italiano (Italia)</option>
-        <option value="ja_JP">日本語 (日本)</option>
-        <option value="ko_KR">한국어 (대한민국)</option>
-        <option value="ru_RU">Русский (Россия)</option>
-        <option value="zh_TW">中文（繁體）</option>
-    </select>
-</div>
-<div id="login-window" class="login-area">
-    <div class="err-area">
-        <div id="messUserPass" class="err-mess" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
-        <div id="messSession" class="err-mess" style="display: none;">$_("Session timeout, please re-login.")</div>
+    <div class="topbar">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Kimchi</a>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"><!-- Hamburguer button here --></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="nav-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="hostname"><span class="host-location"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-    <form id="form-login" class="login-panel" method="post">
-        <div class="row">
-            <input type="text" id="username" name="username" required="required" placeholder="$_("User Name")" autofocus/>
-            <div id="username-msg" class="msg-required"></div>
+    <div class="content">
+        <div id="login-window" class="login-area">
+            <div class="err-area">
+                <div id="messUserPass" class="alert alert-danger" style="display: none;">$_("The username or password you entered is incorrect. Please try again.")</div>
+                <div id="messSession" class="alert alert-danger" style="display: none;">$_("Session timeout, please re-login.")</div>
+            </div>
+            <form id="form-login" class="form-horizontal" method="post">
+                <div class="form-group">
+                    <label for="username" class="sr-only">$_("User Name")</label>
+                    <input type="text" class="form-control" id="username" name="username" required="required" placeholder="$_(" User Name ")" autofocus autocomplete="off" />
+                    <div id="username-msg" class="msg-required"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">$_("Password")</label>
+                    <input type="password" class="form-control" id="password" name="password" required="required" placeholder="$_(" Password ")"  autocomplete="off" />
+                    <div id="password-msg" class="msg-required"></div>
+                </div>
+                <div class="form-group">
+                    <button id="btn-login" class="btn btn-login col-md-12 col-lg-12">
+                        <span id="login">$_("Log in")</span>
+                        <span id="logging" style="display: none;">$_("Logging in...")</span>
+                    </button>
+                </div>
+                <select id="userLang" class="selectpicker col-md-12 col-lg-12">
+                    <option value="en_US">English (US)</option>
+                    <option value="zh_CN">中文（简体）</option>
+                    <option value="pt_BR">Português (Brasil)</option>
+                    <option value="de_DE">Deutsch (Deutschland)</option>
+                    <option value="es_ES">Español (España)</option>
+                    <option value="fr_FR">Français (France)</option>
+                    <option value="it_IT">Italiano (Italia)</option>
+                    <option value="ja_JP">日本語 (日本)</option>
+                    <option value="ko_KR">한국어 (대한민국)</option>
+                    <option value="ru_RU">Русский (Россия)</option>
+                    <option value="zh_TW">中文（繁體）</option>
+                </select>
+            </form>
         </div>
-        <div class="row">
-            <input type="password" id="password" name="password" required="required" placeholder="$_("Password")" />
-            <div id="password-msg" class="msg-required"></div>
-        </div>
-        <div class="row">
-        <button id="btn-login" class="btn-normal-1">
-            <label id="login">$_("Log in")</label>
-            <label id="logging" style="display: none;">$_("Logging in...")</label>
-        </button>
-        </div>
-    </form>
-</div>
+    </div>
 </body>
 </html>
