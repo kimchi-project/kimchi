@@ -22,7 +22,6 @@ contrib/DEBIAN/control
 contrib/gingerbase.spec.fedora
 contrib/gingerbase.spec.suse
 contrib/make-deb.sh
-*.min.css
 *.min.js
 *.gmo
 stamp-po
@@ -35,3 +34,4 @@ po/gen-pot
 *.rej
 *.pem
 ui/pages/help/*/*.html
+ui/css/gingerbase.css

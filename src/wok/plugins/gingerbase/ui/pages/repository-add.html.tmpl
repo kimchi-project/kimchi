@@ -23,93 +23,51 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-<div id="repository-add-window" class="window">
-    <form id="form-repository-add">
-        <header class="window-header">
-            <h1 class="title h1 grey">$_("Add a Repository")</h1>
-        </header>
-        <section>
-            <div class="content">
-                <div class="form-section yum">
-                    <h2>$_("Identifier")</h2>
-                    <div class="field">
-                        <div class="textbox-wrapper">
-                            <input type="text" class="text" name="repo_id" />
-                        </div>
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <p class="text-help help-inline">
-                            $_("Single word, unique identifier for the repository.")
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">$_("Add a Repository")</h4>
+    </div>
+    <div class="modal-body">
+        <form id="form-repository-add">
+                <div class="form-group yum">
+                        <label for="repo_id">$_("Identifier")</label>
+                        <input type="text" class="form-control" name="repo_id" />
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Single word, unique identifier for the repository.")
                         </p>
-                    </div>
                 </div>
-                <section class="form-section yum">
-                    <h2>$_("Name")</h2>
-                    <div class="field">
-                        <div class="textbox-wrapper">
-                            <input type="text" class="text" name="config[repo_name]" />
-                        </div>
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <p class="text-help help-inline">
-                            $_("Textual name for the repository.")
+                <div class="form-group yum">
+                    <label for="repo_name">$_("Name")</label>
+                        <input type="text" class="form-control" id="repo_name" name="config[repo_name]" />
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Textual name for the repository.")
                         </p>
-                    </div>
-                </section>
-                <section class="form-section">
-                    <h2>$_("URL")<span class="required" role="presentation" title='$_("Required Field")'>*</span></h2>
-                    <div class="field">
-                        <div class="textbox-wrapper">
-                            <input type="text" class="text required" name="baseurl" />
-                        </div>
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <p class="text-help help-inline">
-                            $_("URL to the repository. Supported protocols are http, ftp, and file.")
-                        </p>
-                    </div>
-                    <div class="field yum">
-                        <p class="yum">
-                            <input type="checkbox" name="isMirror" value="true" id="isMirror" />
-                            <label id="isMirrorLabel" for="isMirror">$_("Repository is a mirror")</label>
-                        </p>
-                    </div>
-                </section>
-                <section class="form-section repository-dist deb">
-                    <h2>$_("Distribution")</h2>
-                    <div class="field">
-                        <div class="textbox-wrapper">
-                            <input type="text" class="text" name="config[dist]" />
-                        </div>
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <p class="text-help help-inline">
-                            $_("Distribution of the DEB repository.")
-                        </p>
-                    </div>
-                </section>
-                <section class="form-section repository-comps deb">
-                    <h2>$_("Components")</h2>
-                    <div class="field">
-                        <div class="textbox-wrapper">
-                            <input type="text" class="text" name="config[comps]" />
-                        </div>
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <p class="text-help help-inline">
-                            $_("List of components in DEB repository.")
-                        </p>
-                    </div>
-                </section>
-            </div>
-        </section>
-        <footer>
-            <div class="btn-group">
-                <button type="submit" id="button-repository-add" class="btn-normal" disabled="disabled">
-                    <span class="text">$_("Add")</span>
-                </button>
-                <button type="button" id="button-repository-close" class="btn-normal close">
-                    <span class="text">$("Cancel")</span>
-                </button>
-            </div>
-        </footer>
-    </form>
+                </div>
+                <div class="form-group">                
+                        <label for="baseurl">$_("URL")<span class="required" role="presentation" title='$_("Required Field")'>*</span></label>
+                        <input type="text" class="form-control required" id="baseurl" name="baseurl" />
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("URL to the repository. Supported protocols are http, ftp, and file.")</p>
+                </div>
+                <div class="checkbox yum">
+                            <label id="isMirrorLabel" for="isMirror">
+                            <input type="checkbox" name="isMirror" value="true" id="isMirror" /> $_("Repository is a mirror")</label>
+                </div>
+                <div class="form-group repository-dist deb">
+                    <label>$_("Distribution")</label>
+                    <input type="text" class="form-control" name="config[dist]" />
+                    <p class="help-block"><i class="fa fa-info-circle"></i> $_("Distribution of the DEB repository.")</p>
+                </div>
+                <div class="form-group repository-comps deb">
+                    <label>$_("Components")</label>
+                    <input type="text" class="form-control" name="config[comps]" />
+                    <p class="help-block"><i class="fa fa-info-circle"></i> $_("List of components in DEB repository.")</p>
+                </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+                <button type="submit" id="button-repository-add" class="btn btn-default" disabled="disabled">$_("Add")</button>
+                <button type="button" id="button-repository-close" data-dismiss="modal" class="btn btn-default">$("Cancel")</button>
+    </div>
 </div>
 <script>
     kimchi.repository_add_main();
 </script>
+ 

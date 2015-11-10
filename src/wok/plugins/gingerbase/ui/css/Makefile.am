@@ -15,12 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-EXTRA_DIST = theme-default
-
 cssdir = $(datadir)/wok/plugins/gingerbase/ui/css
-dist_css_DATA = theme-default.min.css
+dist_css_DATA = gingerbase.css
 
-theme-default.min.css: theme-default/*.css
-	cat $^ > $@
-
-CLEANFILES = theme-default.min.css
+gingerbase.css: src/gingerbase.scss
+	echo "Compiling .scss file $<"
+	sassc -s expanded $< $(@:.scss=.css)

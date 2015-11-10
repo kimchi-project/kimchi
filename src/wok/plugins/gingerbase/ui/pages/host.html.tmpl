@@ -27,151 +27,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="plugins/gingerbase/css/theme-default.min.css">
+<link rel="stylesheet" href="plugins/gingerbase/css/gingerbase.css">
 <script src="plugins/gingerbase/js/gingerbase.min.js"></script>
 </head>
 <body>
 <div id="host-root-container">
-    <div class="toolbar">
-        <div class="tools">
-        </div>
+<nav class="navbar navbar-default toolbar">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="toolbar">
+      <ul class="nav navbar-nav navbar-right tools">
+        <li><a id="host-button-restart" href="javascript:void(0);"><i class="fa fa-undo"></i><span>$_("Restart")</span></a></li>
+        <li><a id="host-button-shutdown" href="javascript:void(0);"><i class="fa fa-ban"></i><span>$_("Shut down")</span></a></li>
+        <!-- <li><a href="javascript:void(0);"><i class="fa fa-desktop"></i><span>$_("Connect")</span></a></li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
     <div id="host-content-container" class="empty-when-logged-off"></div>
 </div>
 
-<script id="host-tmpl" type="gingerbase/template">
-    <div class="host-panel">
-        <div class="logo-container">
-            <div class="logo" style="background-image: url({logo});"></div>
+<script id="host-tmpl" type="kimchi/template">
+<div class="host-dashboard">
+    <div class="container">
+        <div id="alert-container"></div>
+        <div id="content-sys-statistics" class="row">
+            <div class="col-md-3">
+                <div id="cpu-dashboard">
+                    <h3 class="section-label">$_("CPU")</h3>
+                    <div class="section-value">
+                        <div id="container-chart-cpu" class="inline-block"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="memory-dashboard">
+                    <h3 class="section-label">$_("Memory")</h3>
+                    <div class="section-value">
+                        <div id="container-chart-memory" class="inline-block"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="disk-dashboard">
+                    <h3 class="section-label">$_("Disk I/O")</h3>
+                    <div class="section-value">
+                        <div id="container-chart-disk-io" class="inline-block"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="network-dashboard">
+                    <h3 class="section-label">$_("Network I/O")</h3>
+                    <div class="section-value">
+                        <div id="container-chart-network-io" class="inline-block"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="host-info-container" class="info-container">
-            <h2 class="hostname">{hostname}</h2>
-            <div class="action-panel">
-                <button id="host-button-shutdown" class="btn-normal-1 stop">
-                    <div class="button-icon action-icon-stop"></div>
-                    $_("Shut down")
-                </button>
-                <button id="host-button-restart" class="btn-normal-1 restart">
-                    <div class="button-icon action-icon-restart"></div>
-                    $_("Restart")
-                </button>
-                <button class="btn-normal-1 connect" disabled="disabled">
-                    <div class="button-icon action-icon-connect"></div>
-                    $_("Connect")
-                </button>
-            </div>
-            <div class="host-section">
-                <h3 class="section-header"
-                    aria-expanded="false"
-                    aria-controls="content-sys-info">
-                    $_("Basic Information")
-                </h3>
-                <div id="content-sys-info" class="section-content">
-                    <div class="section-row">
-                        <div class="section-label">$_("OS Distro")</div>
-                        <div class="section-value">{os_distro}</div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("OS Version")</div>
-                        <div class="section-value">{os_version}</div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("OS Code Name")</div>
-                        <div class="section-value">{os_codename}</div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("Processor")</div>
-                        <div class="section-value">{cpu_model}</div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("CPU(s)")</div>
-                        <div class="section-value">{cpus}</div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("Memory")</div>
-                        <div class="section-value">{memory}</div>
-                    </div>
+    </div>
+</div>
+<div class="host-panel">
+    <div class="container">
+        <div id="host-info-container" class="row">
+            <div id="content-sys-info" class="panel panel-default col-md-12">
+                <div class="panel-heading">
+                    <h3 class="panel-title">$_("Basic Information")</h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="basic-information-list">
+                        <dt>{os_distro}</dt>
+                        <dd>$_("OS Distro")</dd>
+                        <dt>{os_version}</dt>
+                        <dd>$_("OS Version")</dd>
+                        <dt>{os_codename}</dt>
+                        <dd>$_("OS Code Name")</dd>
+                        <dt>{cpu_model}</dt>
+                        <dd>$_("Processor")</dd>
+                        <dt>{cpus}</dt>
+                        <dd>$_("CPU(s)")</dd>
+                        <dt>{memory}</dt>
+                        <dd>$_("Memory")</dd>
+                    </dl>
                 </div>
             </div>
-            <div class="host-section">
-                <h3 class="section-header"
-                    aria-controls="content-sys-statistics">
-                    $_("System Statistics")
-                </h3>
-                <div id="content-sys-statistics" class="section-content">
-                    <div class="section-row">
-                        <div class="section-label">$_("CPU")</div>
-                        <div class="section-value">
-                            <div id="container-chart-cpu" class="inline-block"></div>
-                        </div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("Memory")</div>
-                        <div class="section-value">
-                            <div id="container-chart-memory" class="inline-block"></div>
-                        </div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("Disk I/O")</div>
-                        <div class="section-value">
-                            <div id="container-chart-disk-io" class="inline-block"></div>
-                        </div>
-                    </div>
-                    <div class="section-row">
-                        <div class="section-label">$_("Network I/O")</div>
-                        <div class="section-value">
-                            <div id="container-chart-network-io" class="inline-block"></div>
-                        </div>
-                    </div>
+            <div id="repositories-section" class="col-md-8 hidden"></div>
+            <div id="debug-report-section" class="col-md-8 hidden"></div>
+        </div>
+        <div class="row">
+            <div id="software-update-section" class="panel panel-default col-md-12 hidden">
+                <div class="panel-heading">
+                    <h3 class="panel-title">$_("Software Updates")</h3>
                 </div>
-            </div>
-            <div id="software-update-section" class="host-section hidden">
-                <h3 class="section-header"
-                    aria-controls="content-software-update">
-                    $_("Software Updates")
-                </h3>
-                <div id="content-software-update" class="section-content">
-                    <div class="section-row">
-                        <div class="section-value">
-                            <div id="software-updates-grid-container"></div>
-                            <div id="software-updates-progress-container" class="hidden">
-                                <label for="software-updates-progress-textarea">$_("Update Progress")</label>
-                                <textarea id="software-updates-progress-textarea" readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="repositories-section" class="host-section hidden">
-                <h3 class="section-header"
-                    aria-controls="content-repositories">
-                    $_("Repositories")
-                </h3>
-                <div id="content-repositories" class="section-content">
-                    <div class="section-row">
-                        <div class="section-value">
-                            <div id="repositories-grid-container"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="debug-report-section" class="host-section hidden">
-                <h3 class="section-header"
-                    aria-controls="content-sys-reports">
-                    $_("Debug Reports")
-                </h3>
-                <div id="content-sys-reports" class="section-content">
-                    <div class="section-row">
-                        <div class="section-value">
-                            <div id="available-reports-grid-container"></div>
+                <div id="content-software-update" class="panel panel-default">
+                    <div id="software-updates-grid-container"></div>
+                    <div id="software-updates-progress-container" class="hidden">
+                        <div class="software-updates-main">
+                            <h3>
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#software-updates-progress-textarea" aria-expanded="true" aria-controls="software-updates-progress-textarea" class="">
+                                <span class="accordion-icon"></span><span class="accordion-text">$_("Update Progress")</span>
+                            </a>
+                            </h3>
+                            <textarea class="collapse in" id="software-updates-progress-textarea" readonly></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </script>
-
+<div id="modalWindow" class="modal fade host-modal" tabindex="-1" role="dialog" aria-labelledby="hostsModalLabel" aria-hidden="true">
+</div>
 <script type="text/javascript">
     kimchi.host_main();
 </script>
