@@ -30,6 +30,8 @@ messages = {
     "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
     "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),
 
+    "KCHLVM0001E": _("Unable to retrieve LVM information. Details: %(err)s"),
+
     "KCHPART0001E": _("Partition %(name)s does not exist in the host"),
 
     "KCHDEVS0001E": _('Unknown "_cap" specified'),
@@ -210,6 +212,7 @@ messages = {
     "KCHPOOL0035E": _("Unable to delete pool %(name)s as it is associated with some templates"),
     "KCHPOOL0036E": _("A volume group named '%(name)s' already exists. Please, choose another name to create the logical pool."),
     "KCHPOOL0037E": _("Unable to update database with deep scan information due error: %(err)s"),
+    "KCHPOOL0038E": _("No volume group '%(name)s' found. Please, specify an existing volume group to create the logical pool from."),
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),
@@ -304,5 +307,7 @@ messages = {
     "KCHCPUINF0001E": _("The number of vCPUs is too large for this system."),
     "KCHCPUINF0002E": _("Invalid vCPU/topology combination."),
     "KCHCPUINF0003E": _("This host (or current configuration) does not allow CPU topology."),
+
+    "KCHLVMS0001E": _("Invalid volume group name parameter: %(name)s."),
 
 }

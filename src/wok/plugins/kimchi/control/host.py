@@ -35,10 +35,32 @@ class Host(Resource):
         self.devices = Devices(self.model)
         self.cpuinfo = CPUInfo(self.model)
         self.partitions = Partitions(self.model)
+        self.vgs = VolumeGroups(self.model)
 
     @property
     def data(self):
         return {}
+
+
+class VolumeGroups(Collection):
+    def __init__(self, model):
+        super(VolumeGroups, self).__init__(model)
+        self.role_key = 'host'
+        self.uri_fmt = "/host/vgs"
+        self.admin_methods = ['GET']
+        self.resource = VolumeGroup
+
+
+class VolumeGroup(Resource):
+    def __init__(self, model, id=None):
+        super(VolumeGroup, self).__init__(model, id)
+        self.role_key = 'host'
+        self.uri_fmt = "/host/vgs/%s"
+        self.admin_methods = ['GET']
+
+    @property
+    def data(self):
+        return self.info
 
 
 class VMHolders(SimpleCollection):

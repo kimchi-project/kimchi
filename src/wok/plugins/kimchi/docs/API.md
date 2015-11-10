@@ -445,7 +445,8 @@ A interface represents available network interface on VM.
 
 * **GET**: Retrieve a summarized list of all defined Storage Pools
 * **POST**: Create a new Storage Pool
-    * name: The name of the Storage Pool.
+    * name: The name of the Storage Pool. It corresponds to the VG name while
+            creating a logical storage pool from an existing VG.
     * type: The type of the defined Storage Pool.
             Supported types: 'dir', 'kimchi-iso', 'netfs', 'logical', 'iscsi', 'scsi'
     * path: The path of the defined Storage Pool.
@@ -467,6 +468,8 @@ A interface represents available network interface on VM.
             * username: Login username of the iSCSI target.
             * password: Login password of the iSCSI target.
         * adapter_name: SCSI host name.
+        * from_vg: Indicate if a logical pool will be created from an
+                   existing VG or not.
 
 ### Resource: Storage Pool
 
@@ -898,6 +901,26 @@ List of available groups.
       Otherwise blank.
     * available: false, if the partition is in use by system; true, otherwise.
 
+### Collection: Volume Groups
+
+**URI:** /plugins/kimchi/host/vgs
+
+**Methods:**
+
+* **GET**: Retrieves a detailed list of all volume groups in the host.
+
+### Resource: Volume Group
+
+**URI:** /plugins/kimchi/host/vgs/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the description of a single Volume Group:
+    * name: The volume group name. Used to identify it in this API.
+    * lvs: The logical volumes associated to this volume group.
+    * pvs: The phisical volumes associated to this volume group.
+    * free: Amount of free space in the volume group.
+    * size: Total size of the volume group.
 
 ### Collection: Peers
 

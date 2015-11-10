@@ -144,11 +144,12 @@ class LogicalPoolDef(StoragePoolDef):
         pool = E.pool(type='logical')
         pool.append(E.name(self.poolArgs['name']))
 
-        source = E.source()
-        for device_path in self.poolArgs['source']['devices']:
-            source.append(E.device(path=device_path))
+        if not self.poolArgs['source'].get('from_vg', False):
+            source = E.source()
+            for device_path in self.poolArgs['source']['devices']:
+                source.append(E.device(path=device_path))
+            pool.append(source)
 
-        pool.append(source)
         pool.append(E.target(E.path(self.path)))
         return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
