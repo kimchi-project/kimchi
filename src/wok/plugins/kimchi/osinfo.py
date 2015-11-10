@@ -216,7 +216,10 @@ def lookup(distro, version):
         params.update(template_specs[arch]['old'])
 
     # Get custom specifications
-    params.update(custom_specs.get(distro, {}).get(version, {}))
+    specs = custom_specs.get(distro, {})
+    for v, config in specs.iteritems():
+        if LooseVersion(version) >= LooseVersion(v):
+            params.update(config)
 
     if distro in icon_available_distros:
         params['icon'] = 'plugins/kimchi/images/icon-%s.png' % distro
