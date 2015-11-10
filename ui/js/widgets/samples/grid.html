@@ -57,9 +57,9 @@ input {
 </style>
 <script>
 function init(){
-    $('#ibmers').grid({enableSorting: true});
+    $('#ibmers').dataGrid({enableSorting: true});
     $('input').on('keyup', function(){
-        $('#ibmers').grid('filter', ($(this).val()));
+        $('#ibmers').dataGrid('filter', ($(this).val()));
     });
 }
 </script>

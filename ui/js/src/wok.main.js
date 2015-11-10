@@ -27,6 +27,7 @@ wok.main = function() {
         var tabsHtml = [];
         $(tabs).each(function(i, tab) {
             var title = tab['title'];
+            var cssClass = tab['css'];
             var path = tab['path'];
             var mode = tab['mode'];
             if (mode != 'none') {
@@ -34,10 +35,10 @@ wok.main = function() {
                 var disableHelp = (helpPath.length == 0 ? "disableHelp" : helpPath);
                 tabsHtml.push(
                     '<li>',
-                        '<a class="item ', disableHelp,'" href="', path, '">',
+                        '<a class="item ', disableHelp,' ',cssClass,'" href="', path, '">',
                             title,
                         '</a>',
-                        '<input id="helpPathId" name="helpPath" value="' + helpPath + '" type="hidden"/>',
+                        '<input id="helpPathId" name="helpPath" class="sr-only" value="' + helpPath + '" type="hidden"/>',
                     '</li>'
                 );
             }
@@ -51,6 +52,7 @@ wok.main = function() {
             var $tab = $(this);
             var titleKey = $tab.find('title').text();
             var title = i18n[titleKey] ? i18n[titleKey] : titleKey;
+            var css = $tab.find('class').text();
             var path = $tab.find('path').text();
             var roles = wok.cookie.get('roles');
             if (roles) {
@@ -60,6 +62,7 @@ wok.main = function() {
                 tabs.push({
                     title: title,
                     path: path,
+                    css: css,
                     mode: mode
                 });
             } else {
@@ -113,7 +116,8 @@ wok.main = function() {
             DEFAULT_HASH = defaultTabPath &&
                 defaultTabPath.substring(0, defaultTabPath.lastIndexOf('.'))
             }
-            $('#nav-menu').append(genTabs(tabs));
+            $('#nav-menu ul.navbar-nav li.hostname').after(genTabs(tabs));
+            wok.getHostname();
 
             callback && callback();
         }, function(data) {
@@ -142,7 +146,7 @@ wok.main = function() {
          * point to the tab. If nothing found, inform user the URL is invalid
          * and clear location.hash to jump to home page.
          */
-        var tab = $('#nav-menu a[href="' + url + '"]');
+        var tab = $('#nav-menu ul li a[href="' + url + '"]');
         if (tab.length === 0 && url!='wok-empty.html') {
             location.hash = '';
             return;
@@ -150,20 +154,14 @@ wok.main = function() {
 
         //Remove the tab arrow indicator for no plugin
         if(url=='wok-empty.html'){
-          $('.menu-arrow').hide();
           $('#main').html('No plugins installed currently.You can download the available plugins <a href="https://github.com/kimchi-project/kimchi">Kimchi</a> and <a href="https://github.com/kimchi-project/ginger">Ginger</a> from Github').addClass('noPluginMessage');
         }else{
-        // Animate arrow indicator.
-        var left = $(tab).parent().position().left;
-        var width = $(tab).parent().width();
-        $('.menu-arrow').stop().animate({
-            left : left + width / 2 - 10
-        });
-
+        
         // Update the visual style of tabs; focus the selected one.
-        $('#nav-menu a').removeClass('current');
-        $(tab).addClass('current');
+        $('#nav-menu ul li').removeClass('active');
+        $(tab).parent().addClass('active');
         $(tab).focus();
+
         // Disable Help button according to selected tab
         if ($(tab).hasClass("disableHelp")) {
             $('#btn-help').css('cursor', "not-allowed");
@@ -240,7 +238,7 @@ wok.main = function() {
          * Register click listener of tabs. Replace the default reloading page
          * behavior of <a> with Ajax loading.
          */
-        $('#nav-menu').on('click', 'a.item', function(event) {
+        $('#nav-menu ul li').on('click', 'a.item', function(event) {
             var href = $(this).attr('href');
             // Remove file extension from 'href'
             location.hash = href.substring(0,href.lastIndexOf('.'))
@@ -279,7 +277,7 @@ wok.main = function() {
         $('#peers').on('click', function() {
 
             // Check if any request is in progress
-            if ($('.popover', '#peers').is(':visible') || searchingPeers == true)
+            if ($('.dropdown', '#peers').is('.open') || searchingPeers == true)
                 return
 
             $('#search-peers').show();
@@ -294,7 +292,7 @@ wok.main = function() {
                     $('#no-peers').removeClass('hide-content');
 
                 for(var i=0; i<data.length; i++){
-                    $('.dropdown', '#peers').append("<a href='"+data[i]+"' target='_blank'>"+data[i]+"</a>");
+                    $('.dropdown-menu ', '#peers').append("<li><a href='"+data[i]+"' target='_blank'>"+data[i]+"</a></li>");
                 }
                 searchingPeers = false;
             });
@@ -329,6 +327,28 @@ wok.main = function() {
         wok.user.showUser(true);
         initListeners();
         updatePage();
+        
+        // Overriding Bootstrap Modal windows to allow a stack of modal windows and backdrops
+        $(document).on({
+            'show.bs.modal': function () {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function() {
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                }, 0);
+            },
+            'hidden.bs.modal': function() {
+                if ($('.modal:visible').length > 0) {
+                    // restore the modal-open class to the body element, so that scrolling works
+                    // properly after de-stacking a modal.
+                    setTimeout(function() {
+                        $(document.body).addClass('modal-open');
+                    }, 0);
+                }
+            }
+        }, '.modal'); 
+
+
     };
 
     // Load i18n translation strings first and then render the page.
@@ -361,6 +381,11 @@ wok.checkHelpFile = function(path) {
     return url;
 };
 
+wok.getHostname = function(e) {
+    host = window.location.hostname;
+    $('span.host-location').text(host);
+    return host;
+}
 
 wok.openHelp = function(e) {
     var tab = $('#nav-menu a.current');

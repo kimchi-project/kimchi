@@ -18,13 +18,15 @@
  * limitations under the License.
  */
 
-/**
+/*
  * new wok.widget.LineChart({
  *   node: 'line-chart-cpu',
  *   id: 'line-chart',
  *   type: 'value'
  * });
  */
+ 
+ 
 wok.widget.LineChart = function(params) {
     var container = $('#' + params['node']);
     container.addClass('chart-container');
@@ -82,6 +84,14 @@ wok.widget.LineChart = function(params) {
                 }
             });
         }
+        
+        var defs = [
+            '<defs>',
+                '<pattern id="patternbg" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">',
+                    '<rect x="0" y="0" width="3" height="6" style="stroke:none; fill: #eeeeee;"></rect>',
+                '</pattern>',
+            '</defs>'
+        ].join('');
 
         var canvasNode = $('#' + canvasID);
         canvasNode.length && canvasNode.remove();
@@ -89,25 +99,10 @@ wok.widget.LineChart = function(params) {
           '<svg id="', canvasID, '" class="line-chart"',
               ' height="', height, '" width="', width, '"',
           '>',
+            defs,
             '<rect height="', height, '" width="', width, '" class="background" />'
         ];
 
-        for(var x = linesOffset; x < width; x += linesSpace) {
-            htmlStr.push(
-                '<line x1="', x, '" y1="', 0, '" x2="', x, '" y2="', height, '" />'
-            );
-        }
-
-        linesOffset -= xFactor;
-        while(linesOffset < 0) {
-            linesOffset = linesSpace + linesOffset;
-        }
-
-        for(var y = height - linesSpace; y > 0; y -= linesSpace) {
-            htmlStr.push(
-                '<line x1="', 0, '" y1="', y, '" x2="', width, '" y2="', y, '" />'
-            );
-        }
 
         var maxValueLabel = i18n['KCHHOST6001M'] + ' ' +
             (type === 'value'
@@ -124,12 +119,34 @@ wok.widget.LineChart = function(params) {
             chartVAxis.text(maxValueLabel);
         }
 
+
         seriesNames = [];
         $.each(data, function(i, series) {
             var points = series['points'];
             var className = series['class'];
             var latestPoint = points.slice(-1).pop();
             xStart = latestPoint['x'] - period;
+            htmlStr.push('<path',
+                ' class="series', className ? ' ' + className : '', '"',
+                ' d="M 0,92 '
+            );
+            var first = true;
+            $.each(points, function(i, point) {
+                if(first) {
+                    first = false;
+                }
+                else {
+                    htmlStr.push(' ');
+                }
+
+                var x = xFactor * (point['x'] - xStart);
+                var y = height - yFactor * (type === 'value' ?
+                    point['y'] * 100 / maxValue :
+                    point['y']
+                );
+                htmlStr.push(x, ',', y);
+            });
+            htmlStr.push(' 310,92z" />');
 
             htmlStr.push('<polyline',
                 ' class="series', className ? ' ' + className : '', '"',
@@ -152,6 +169,7 @@ wok.widget.LineChart = function(params) {
                 htmlStr.push(x, ',', y);
             });
             htmlStr.push('" />');
+
         });
 
         htmlStr.push('</svg>');
@@ -160,7 +178,7 @@ wok.widget.LineChart = function(params) {
 
         if(!chartLegend) {
             chartLegend = $('<div class="chart-legend-container"></div>');
-            container.after(chartLegend);
+            container.before(chartLegend);
         }
         else {
             chartLegend.empty();
@@ -169,18 +187,15 @@ wok.widget.LineChart = function(params) {
             var wrapper = $('<div class="legend-wrapper"></div>')
                 .appendTo(chartLegend);
             $([
-                '<svg class="legend-icon" width="20" height="10">',
-                    '<line x1="0" y1="5" x2="20" y2="5"/>',
+                '<svg class="legend-icon" width="5" height="40">',
+                    '<rect  width="5" height="40" />',
                 '</svg>'
             ].join('')).appendTo(wrapper);
-            $('line', wrapper).css({
-                stroke: $(polyline).css('stroke'),
-                'stroke-width': $(polyline).css('stroke-width')
+            $('rect', wrapper).css({
+                fill: $(polyline).css('stroke')
             });
             var label = data[i]['legend'];
             var base = data[i]['base'];
-            $('<label class="legend-label">' + label + '</label>')
-                .appendTo(wrapper);
             var latestPoint = data[i]['points'].slice(-1).pop();
             var latestValue = latestPoint['y'];
             if(type === 'value') {
@@ -189,11 +204,12 @@ wok.widget.LineChart = function(params) {
                     formatSettings
                 );
             }
-            else {
-                latestValue += '%';
+            else {           
+                 latestValue = { v: latestValue, s: '%' };
             }
-            $('<div class="latest-value">' + latestValue + '</div>')
-                .appendTo(wrapper);
+            $('<div class="latest-value"><span class="number">' + latestValue.v + '</span></div>').appendTo(wrapper);
+            $('<span class="legend-label">'+ latestValue.s +'</span><span class="legend-string">'+ label + '</span>').appendTo(wrapper[0].children[1]);
+
         });
     };
 

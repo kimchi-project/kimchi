@@ -18,12 +18,15 @@
  * limitations under the License.
  */
 wok.window = (function() {
+    "use strict";
     var _windows = [];
     var _listeners = {};
-    var open = function(settings) {
-        var settings = jQuery.type(settings) === 'object' ? settings : {
+    var open = function(settings, target) {
+        settings = jQuery.type(settings) === 'object' ? settings : {
             url: settings
         };
+
+        target = (typeof target === 'undefined') ? 'modalWindow' : target;
 
         var windowID = settings['id'] || 'window-' + _windows.length;
 
@@ -33,14 +36,15 @@ wok.window = (function() {
 
         _windows.push(windowID);
         _listeners[windowID] = settings['close'];
-        var windowNode = $('<div></div>', {
-            id: windowID,
-            'class': settings['class'] ? settings['class'] + ' bgmask remove-when-logged-off' : 'bgmask remove-when-logged-off'
+        var windowNode = $('<div id="' + windowID + '" class="modal-dialog"></div>');
+
+        $('#' + target).modal('show');
+
+        $('#' + target).on('hidden.bs.modal', function() {
+            $('#' + windowID).remove();
         });
 
-        $(windowNode).css(settings['style'] || '');
-
-        $(windowNode).appendTo('body').on('click', '.window .close', function() {
+        $(windowNode).appendTo('#' + target).on('click', '.window .close', function() {
             wok.window.close();
         });
 
@@ -54,15 +58,16 @@ wok.window = (function() {
 
     var close = function() {
         var windowID = _windows.pop();
-        if(_listeners[windowID]) {
+        if (_listeners[windowID]) {
             _listeners[windowID]();
             _listeners[windowID] = null;
         }
-        delete _listeners[windowID];
+        $('#' + windowID).parent().modal('toggle');
+        $('#' + windowID).parent().on('hidden.bs.modal', function() {
+            delete _listeners[windowID];
+            $('#' + windowID).remove();
+        })
 
-        $('#' + windowID).fadeOut(100, function() {
-            $(this).remove();
-        });
     };
 
     return {
