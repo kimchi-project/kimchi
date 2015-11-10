@@ -19,4 +19,4 @@
 
 imagedir = $(datadir)/wok/ui/images/theme-default
 
-dist_image_DATA = *.png *.gif
+dist_image_DATA = *.png *.svg
