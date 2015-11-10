@@ -1,0 +1,227 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Code derived from Project Kimchi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+/* Main Host Dashboard section */
+
+.host-dashboard {
+    padding-top: 40px;
+    padding-bottom: 50px;
+    background: #eee;
+    .container {
+        padding-left: 83px !important; // Overriding container padding to align according to mockups
+        padding-right: 73px !important;
+    }
+    h3 {
+        font-family: $font-family-light;
+        font-size: 21pt;
+        margin: 0 0 13px 0;
+    }
+}
+
+.host-dashboard .col-md-3 {
+    padding: 0 14px;
+    > div {
+        background: #fff;
+        padding: 13px 20px 20px;
+    }
+}
+
+
+/* End of Host Dashboard */
+
+
+/* Line chart objects related to Hosts page */
+
+#container-chart-cpu,
+#container-chart-memory,
+#container-chart-disk-io,
+#container-chart-network-io {
+    border-top: 1px solid #eeeeee;
+    border-bottom: 2px solid #3a393b;
+    padding: 2px 0;
+    height: 99px;
+    width: 310px;
+}
+
+
+/* End of Line chart objects */
+
+
+/* Host Panels Container and Panels */
+
+#host-info-container {
+    padding-top: 53px;
+    margin: 0 -8px;
+}
+
+#host-info-container .col-md-4 {
+    width: 486px;
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+#software-update-section {
+    margin-top: 24px;
+    border-top: 1px solid #b0b0b0;
+    padding-top: 24px;
+}
+
+// TEMPORARY FIX TO LAYOUT UNTIL WOK.LIST WIDGET IS DONE
+#repositories-grid,
+#available-reports-grid {
+    .wok-list-content {
+        height: 517px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .dropdown.menu-flat {
+        float: right;
+        margin-right: 1px;
+    }
+}
+
+// END OF TEMPORARY FIX
+
+/* Basic Information */
+
+#host-info-container {
+    padding-top: 10px;
+    .basic-information-list {
+        height: 517px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin: 0;
+        @extend .row; // Extending bootstrap .row clearfix util
+        .basic-information-list dt {
+            font-weight: 600;
+            font-size: 14.5pt;
+            line-height: 12px;
+        }
+        .basic-information-list dd {
+            font-size: 12.5pt;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+    }
+}
+
+
+/* End of Basic Information */
+
+
+/* Debug Report */
+
+#available-reports-grid .wok-list-cell {
+    padding-left: 10px;
+}
+
+
+/* End of Debug Report */
+
+
+/* Software Updates */
+
+
+/* Colgroups for low resolution screens */
+
+.software-update-name,
+.software-update-repos {
+    min-width: 224px;
+}
+
+.software-update-version,
+.software-update-arch {
+    min-width: 200px;
+}
+
+
+/* End of Colgroups */
+
+
+/* Software Update Accordion */
+
+.host-panel #software-updates-progress-textarea {
+    width: 100%;
+    height: 100px;
+    padding-left: 60px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid transparent;
+}
+
+.host-panel #software-updates-progress-container {
+    padding: 15px;
+    background: #eee;
+}
+
+#software-updates-progress-container .software-updates-main {
+    background: #fff;
+}
+
+#software-updates-progress-container h3 {
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 2px 2px 0 0;
+}
+
+#software-updates-progress-container a {
+    color: #9e9e9e;
+    text-decoration: none;
+}
+
+#software-updates-progress-container > div > h3 > a {
+    display: block;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 2px solid transparent;
+}
+
+#software-updates-progress-container h3 > a > span.accordion-icon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 30px;
+    color: #5a595b;
+}
+
+#software-updates-progress-container h3 > a > span.accordion-text {
+    margin-left: 20px;
+}
+
+#software-updates-progress-container h3 > a[aria-expanded="true"] > span.accordion-icon:before {
+    content: "\f01b";
+}
+
+#software-updates-progress-container h3 > a[aria-expanded="false"] > span.accordion-icon:before {
+    content: "\f01a";
+}
+
+#software-updates-progress-container > div > h3 > a[aria-expanded="true"] {
+    border-color: #eee;
+}
+
+
+/* End of Software Update Accordion */
+
+
+/* End of Software Updates */

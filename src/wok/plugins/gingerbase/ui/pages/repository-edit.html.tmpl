@@ -23,97 +23,57 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-
-<div id="repository-edit-window" class="window">
-    <form id="form-repository-edit">
-        <header>
-            <h1 class="title h1 grey">$_("Edit Repository")</h1>
-        </header>
-        <div class="content">
-            <section id="form-repository-edit">
-                <fieldset class="repository-edit-fieldset">
-                    <div class="repository-id yum">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-id-textbox">$_("ID")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-id-textbox" name="repo_id" type="text" disabled="disabled" readonly="readonly"/>
-                        </div>
-                    </div>
-                    <div class="repository-name yum">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-name-textbox">$_("Name")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-name-textbox" class="yum" name="config[repo_name]" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-url">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-baseurl-textbox">$_("URL")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-baseurl-textbox" name="baseurl" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-dist deb">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-urlargs-textbox">$_("Distribution")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-urlargs-textbox" class="deb" name="config[dist]" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-mirrorlist yum">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-urlargs-textbox">$_("Mirror List URL")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-urlargs-textbox" class="yum" name="config[mirrorlist]" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-comps deb">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-urlargs-textbox">$_("Components")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-urlargs-textbox" class="deb" name="config[comps]" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-gpgkey yum">
-                        <div class="repository-edit-wrapper-label">
-                            <label for="repository-edit-gpgkey-textbox">$_("GPG Key")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-gpgkey-textbox" class="yum" name="config[gpgkey]" type="text" />
-                        </div>
-                    </div>
-                    <div class="repository-gpgcheck yum">
-                        <div class="repository-edit-wrapper-label">
-                            <label>$_("GPG Check")</label>
-                        </div>
-                        <div class="repository-edit-wrapper-controls">
-                            <input id="repository-edit-gpgcheck-radio-true" class="yum" name="config[gpgcheck]" type="radio" value="true" />
-                            <label for="repository-edit-gpgcheck-radio-true">$_("Yes")</label>
-                            <input id="repository-edit-gpgcheck-radio-false" class="yum" name="config[gpgcheck]" type="radio" value="false" />
-                            <label for="repository-edit-gpgcheck-radio-false">$_("No")</label>
-                        </div>
-                    </div>
-                </fieldset>
-            </section>
-        </div>
-        <footer>
-            <div class="btn-group">
-                <button type="submit" id="repository-edit-button-save" class="btn-normal">
-                    <span class="text">$_("Save")</span>
-                </button>
-                <button type="button" id="repository-edit-button-cancel" class="close btn-normal">
-                    <span class="text">$_("Cancel")</span>
-                </button>
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">$_("Edit Repository")</h4>
+    </div>
+    <div class="modal-body">
+        <form id="form-repository-edit">
+            <div class="form-group repository-id yum">
+                <label for="repository-edit-id-textbox">$_("ID")</label>
+                <input id="repository-edit-id-textbox" class="form-control" name="repo_id" type="text" disabled="disabled" readonly="readonly" />
             </div>
-        </footer>
-    </form>
+            <div class="form-group repository-name yum">
+                <label for="repository-edit-name-textbox">$_("Name")</label>
+                <input id="repository-edit-name-textbox" class="form-control yum" name="config[repo_name]" type="text" />
+            </div>
+            <div class="form-group repository-url">
+                <label for="repository-edit-baseurl-textbox">$_("URL")</label>
+                <input id="repository-edit-baseurl-textbox" class="form-control" name="baseurl" type="text" />
+            </div>
+            <div class="form-group repository-dist deb">
+                <label for="repository-edit-urlargs-textbox">$_("Distribution")</label>
+                <input id="repository-edit-urlargs-textbox" class="form-control deb" name="config[dist]" type="text" />
+            </div>
+            <div class="form-group repository-mirrorlist yum">
+                <label for="repository-edit-urlargs-textbox">$_("Mirror List URL")</label>
+                <input id="repository-edit-urlargs-textbox" class="form-control yum" name="config[mirrorlist]" type="text" />
+            </div>
+            <div class="form-group repository-comps deb">
+                <label for="repository-edit-urlargs-textbox">$_("Components")</label>
+                <input id="repository-edit-urlargs-textbox" class="form-control deb" name="config[comps]" type="text" />
+            </div>
+            <div class="form-group repository-gpgkey yum">
+                <label for="repository-edit-gpgkey-textbox">$_("GPG Key")</label>
+                <input id="repository-edit-gpgkey-textbox" class="form-control yum" name="config[gpgkey]" type="text" />
+            </div>
+            <div class="form-group repository-gpgcheck yum">
+                <label>$_("GPG Check")</label>
+                <label for="repository-edit-gpgcheck-radio-true" class="radio inline control-label">
+                    <input id="repository-edit-gpgcheck-radio-true" class="yum" name="config[gpgcheck]" type="radio" value="true" /> $_("Yes")
+                </label>
+                <label for="repository-edit-gpgcheck-radio-false" class="radio inline control-label">
+                    <input id="repository-edit-gpgcheck-radio-false" class="yum" name="config[gpgcheck]" type="radio" value="false" /> $_("No")
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="repository-edit-button-save" class="btn btn-default">$_("Save")</button>
+        <button type="button" id="repository-edit-button-cancel" class="btn btn-default">$_("Cancel")</button>
+    </div>
 </div>
 <script type="text/javascript">
     kimchi.repository_edit_main();
 </script>
+ 

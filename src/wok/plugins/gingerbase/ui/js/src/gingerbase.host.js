@@ -3,8 +3,6 @@
  *
  * Copyright IBM, Corp. 2013-2015
  *
- * Code derived from Project Kimchi
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,87 +15,92 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.host={};
+kimchi.host = {};
 
 kimchi.host_main = function() {
-    var expand = function(header, toExpand) {
-        var controlledNode = $(header).attr('aria-controls');
-        $('#' + controlledNode)[toExpand ? 'removeClass' : 'addClass']('hidden');
-        $(header).attr('aria-expanded', toExpand ? 'true' : 'false');
-    };
-
+    "use strict";
     var repositoriesGrid = null;
     var initRepositoriesGrid = function(repo_type) {
-        var gridFields=[];
-        if (repo_type == "yum") {
-                gridFields=[{
-                    name: 'repo_id',
-                    label: i18n['GGBREPO6004M'],
-                    'class': 'repository-id'
-                }, {
-                    name: 'config[repo_name]',
-                    label: i18n['GGBREPO6005M'],
-                    'class': 'repository-name'
-                }, {
-                    name: 'enabled',
-                    label: i18n['GGBREPO6009M'],
-                    'class': 'repository-enabled'
-                }];
-        }
-        else if (repo_type == "deb") {
-                gridFields=[{
-                    name: 'baseurl',
-                    label: i18n['GGBREPO6006M'],
-                    makeTitle: true,
-                    'class': 'repository-baseurl deb'
-                }, {
-                    name: 'enabled',
-                    label: i18n['GGBREPO6009M'],
-                    'class': 'repository-enabled deb'
-                }, {
-                    name: 'config[dist]',
-                    label: "dist",
-                    'class': 'repository-gpgcheck deb'
-                }, {
-                    name: 'config[comps]',
-                    label: "comps",
-                    'class': 'repository-gpgcheck deb'
-                }];
-        }
-        else {
-            gridFields=[{
+        var gridFields = [];
+        if (repo_type === "yum") {
+            gridFields = [{
                 name: 'repo_id',
                 label: i18n['GGBREPO6004M'],
-                'class': 'repository-id'
-                }, {
-                    name: 'enabled',
-                    label: i18n['GGBREPO6009M'],
-                    'class': 'repository-enabled'
-                }, {
-                    name: 'baseurl',
-                    label: i18n['GGBREPO6006M'],
-                    makeTitle: true,
-                    'class': 'repository-baseurl'
-                }];
+                'class': 'repository-id',
+                type: 'name'
+            }, {
+                name: 'config[display_repo_name]',
+                label: i18n['GGBREPO6005M'],
+                'class': 'repository-name',
+                type: 'description'
+            }, {
+                name: 'enabled',
+                label: i18n['GGBREPO6009M'],
+                'class': 'repository-enabled',
+                type: 'status'
+            }];
+        } else if (repo_type === "deb") {
+            gridFields = [{
+                name: 'baseurl',
+                label: i18n['GGBREPO6006M'],
+                makeTitle: true,
+                'class': 'repository-baseurl deb',
+                type: 'description'
+            }, {
+                name: 'enabled',
+                label: i18n['GGBREPO6009M'],
+                'class': 'repository-enabled deb',
+                type: 'status'
+            }, {
+                name: 'config[dist]',
+                label: "dist",
+                'class': 'repository-gpgcheck deb'
+            }, {
+                name: 'config[comps]',
+                label: "comps",
+                'class': 'repository-gpgcheck deb'
+            }];
+        } else {
+            gridFields = [{
+                name: 'repo_id',
+                label: i18n['GGBREPO6004M'],
+                'class': 'repository-id',
+                type: 'name'
+            }, {
+                name: 'enabled',
+                label: i18n['GGBREPO6009M'],
+                'class': 'repository-enabled',
+                type: 'status'
+            }, {
+                name: 'baseurl',
+                label: i18n['GGBREPO6006M'],
+                makeTitle: true,
+                'class': 'repository-baseurl',
+                type: 'description'
+            }];
         }
-        repositoriesGrid = new wok.widget.Grid({
-            container: 'repositories-grid-container',
+        repositoriesGrid = new wok.widget.List({
+            container: 'repositories-section',
             id: 'repositories-grid',
             title: i18n['GGBREPO6003M'],
             toolbarButtons: [{
                 id: 'repositories-grid-add-button',
                 label: i18n['GGBREPO6012M'],
+                class: 'fa fa-plus-circle',
                 onClick: function(event) {
-                    wok.window.open({url:'plugins/gingerbase/repository-add.html',
-                                    class: repo_type});
+                    wok.window.open({
+                        url: 'plugins/gingerbase/repository-add.html',
+                        class: repo_type
+                    });
                 }
             }, {
                 id: 'repositories-grid-enable-button',
                 label: i18n['GGBREPO6016M'],
+                class: 'fa fa-play-circle-o',
                 disabled: true,
                 onClick: function(event) {
                     var repository = repositoriesGrid.getSelected();
-                    if(!repository) {
+                    if (!repository) {
                         return;
                     }
                     var name = repository['repo_id'];
@@ -110,31 +113,36 @@ kimchi.host_main = function() {
             }, {
                 id: 'repositories-grid-edit-button',
                 label: i18n['GGBREPO6013M'],
+                class: 'fa fa-pencil',
                 disabled: true,
                 onClick: function(event) {
                     var repository = repositoriesGrid.getSelected();
-                    if(!repository) {
+                    if (!repository) {
                         return;
                     }
                     kimchi.selectedRepository = repository['repo_id'];
-                    wok.window.open({url:'plugins/gingerbase/repository-edit.html',
-                                    class: repo_type});
+                    wok.window.open({
+                        url: 'plugins/gingerbase/repository-edit.html',
+                        class: repo_type
+                    });
                 }
             }, {
                 id: 'repositories-grid-remove-button',
                 label: i18n['GGBREPO6014M'],
+                class: 'fa fa-minus-circle',
+                critical: true,
                 disabled: true,
                 onClick: function(event) {
                     var repository = repositoriesGrid.getSelected();
-                    if(!repository) {
+                    if (!repository) {
                         return;
                     }
 
                     var settings = {
-                        title : i18n['GGBREPO6001M'],
-                        content : i18n['GGBREPO6002M'],
-                        confirm : i18n['GGBAPI6004M'],
-                        cancel : i18n['GGBAPI6003M']
+                        title: i18n['GGBREPO6001M'],
+                        content: i18n['GGBREPO6002M'],
+                        confirm: i18n['GGBAPI6004M'],
+                        cancel: i18n['GGBAPI6003M']
                     };
 
                     wok.confirm(settings, function() {
@@ -142,15 +150,15 @@ kimchi.host_main = function() {
                             repository['repo_id'],
                             function(result) {
                                 wok.topic('kimchi/repositoryDeleted').publish(result);
-                            }, function(error) {
-                            }
+                            },
+                            function(error) {}
                         );
                     });
                 }
             }],
             onRowSelected: function(row) {
                 var repository = repositoriesGrid.getSelected();
-                if(!repository) {
+                if (!repository) {
                     return;
                 }
                 $('#repositories-grid-remove-button').prop('disabled', false);
@@ -168,28 +176,26 @@ kimchi.host_main = function() {
 
     var listRepositories = function(gridCallback) {
         kimchi.listRepositories(function(repositories) {
-            if($.isFunction(gridCallback)) {
-                gridCallback(repositories);
-            }
-            else {
-                if(repositoriesGrid) {
-                    repositoriesGrid.setData(repositories);
+                if ($.isFunction(gridCallback)) {
+                    gridCallback(repositories);
+                } else {
+                    if (repositoriesGrid) {
+                        repositoriesGrid.setData(repositories);
+                    } else {
+                        initRepositoriesGrid();
+                        repositoriesGrid.setData(repositories);
+                    }
                 }
-                else {
-                    initRepositoriesGrid();
-                    repositoriesGrid.setData(repositories);
-                }
-            }
-        },
-        function(error) {
-            var message = error && error['responseJSON'] && error['responseJSON']['reason'];
+            },
+            function(error) {
+                var message = error && error['responseJSON'] && error['responseJSON']['reason'];
 
-            if($.isFunction(gridCallback)) {
-                gridCallback([]);
-            }
-            repositoriesGrid &&
-                repositoriesGrid.showMessage(message || i18n['GGBUPD6008M']);
-        });
+                if ($.isFunction(gridCallback)) {
+                    gridCallback([]);
+                }
+                repositoriesGrid &&
+                    repositoriesGrid.showMessage(message || i18n['GGBUPD6008M']);
+            });
 
         $('#repositories-grid-remove-button').prop('disabled', true);
         $('#repositories-grid-edit-button').prop('disabled', true);
@@ -272,22 +278,20 @@ kimchi.host_main = function() {
             wok.topic('kimchi/softwareUpdated').publish({
                 result: result
             });
-            wok.message.warn(i18n['KCHUPD6010M']);
+            wok.message.warn(i18n['GGBUPD6010M']);
         }, function(error) {
-            wok.message.error(i18n['KCHUPD6011M']);
+            wok.message.error(i18n['GGBUPD6011M']);
         }, reloadProgressArea);
     };
 
     var listSoftwareUpdates = function(gridCallback) {
         kimchi.listSoftwareUpdates(function(softwareUpdates) {
-            if($.isFunction(gridCallback)) {
+            if ($.isFunction(gridCallback)) {
                 gridCallback(softwareUpdates);
-            }
-            else {
-                if(softwareUpdatesGrid) {
+            } else {
+                if (softwareUpdatesGrid) {
                     softwareUpdatesGrid.setData(softwareUpdates);
-                }
-                else {
+                } else {
                     initSoftwareUpdatesGrid(softwareUpdates);
                 }
             }
@@ -301,13 +305,13 @@ kimchi.host_main = function() {
             // package manager instance running, so follow that instance updates
             if (message.indexOf("GGBPKGUPD0005E") !== -1) {
                 startSoftwareUpdateProgress();
-                if($.isFunction(gridCallback)) {
+                if ($.isFunction(gridCallback)) {
                     gridCallback([]);
                 }
                 return;
             }
 
-            if($.isFunction(gridCallback)) {
+            if ($.isFunction(gridCallback)) {
                 gridCallback([]);
             }
             softwareUpdatesGrid &&
@@ -327,23 +331,25 @@ kimchi.host_main = function() {
         });
     };
     var initReportGrid = function(reports) {
-        reportGrid = new wok.widget.Grid({
-            container: 'available-reports-grid-container',
+        reportGrid = new wok.widget.List({
+            container: 'debug-report-section',
             id: reportGridID,
             title: i18n['GGBDR6002M'],
             toolbarButtons: [{
                 id: reportGridID + '-generate-button',
+                class: 'fa fa-plus-circle',
                 label: i18n['GGBDR6006M'],
                 onClick: function(event) {
                     wok.window.open('plugins/gingerbase/report-add.html');
                 }
             }, {
                 id: reportGridID + '-rename-button',
+                class: 'fa fa-pencil',
                 label: i18n['GGBDR6008M'],
                 disabled: true,
                 onClick: function(event) {
                     var report = reportGrid.getSelected();
-                    if(!report) {
+                    if (!report) {
                         return;
                     }
 
@@ -351,20 +357,37 @@ kimchi.host_main = function() {
                     wok.window.open('plugins/gingerbase/report-rename.html');
                 }
             }, {
-                id: reportGridID + '-remove-button',
-                label: i18n['GGBDR6009M'],
+                id: reportGridID + '-download-button',
+                label: i18n['GGBDR6010M'],
+                class: 'fa fa-download',
                 disabled: true,
                 onClick: function(event) {
                     var report = reportGrid.getSelected();
-                    if(!report) {
+                    if (!report) {
+                        return;
+                    }
+
+                    kimchi.downloadReport({
+                        file: report['uri']
+                    });
+                }
+            }, {
+                id: reportGridID + '-remove-button',
+                class: 'fa fa-minus-circle',
+                label: i18n['GGBDR6009M'],
+                critical: true,
+                disabled: true,
+                onClick: function(event) {
+                    var report = reportGrid.getSelected();
+                    if (!report) {
                         return;
                     }
 
                     var settings = {
-                        title : i18n['GGBAPI6004M'],
-                        content : i18n['GGBDR6001M'],
-                        confirm : i18n['GGBAPI6002M'],
-                        cancel : i18n['GGBAPI6003M']
+                        title: i18n['GGBAPI6004M'],
+                        content: i18n['GGBDR6001M'],
+                        confirm: i18n['GGBAPI6002M'],
+                        cancel: i18n['GGBAPI6003M']
                     };
 
                     wok.confirm(settings, function() {
@@ -373,22 +396,8 @@ kimchi.host_main = function() {
                         }, function(result) {
                             listDebugReports();
                         }, function(error) {
-                           wok.message.error(error.responseJSON.reason);
+                            wok.message.error(error.responseJSON.reason);
                         });
-                    });
-                }
-            }, {
-                id: reportGridID + '-download-button',
-                label: i18n['GGBDR6010M'],
-                disabled: true,
-                onClick: function(event) {
-                    var report = reportGrid.getSelected();
-                    if(!report) {
-                        return;
-                    }
-
-                    kimchi.downloadReport({
-                        file: report['uri']
                     });
                 }
             }],
@@ -396,13 +405,12 @@ kimchi.host_main = function() {
                 var report = reportGrid.getSelected();
                 // Only enable report buttons if the selected line is not a
                 // pending report
-                if (report['time'] == i18n['GGBDR6007M']) {
-                    var gridElement = $('#'+ reportGridID);
+                if (report['time'] === i18n['GGBDR6007M']) {
+                    var gridElement = $('#' + reportGridID);
                     var row = $('tr:contains(' + report['name'] + ')', gridElement);
                     enableReportButtons(false);
                     row.attr('class', '');
-                }
-                else {
+                } else {
                     enableReportButtons(true);
                 }
             },
@@ -410,26 +418,31 @@ kimchi.host_main = function() {
             fields: [{
                 name: 'name',
                 label: i18n['GGBDR6003M'],
-                'class': 'debug-report-name'
+                'class': 'debug-report-name',
+                type: 'name'
             }, {
                 name: 'time',
                 label: i18n['GGBDR6005M'],
-                'class': 'debug-report-time'
+                'class': 'debug-report-time',
+                type: 'description'
             }],
             data: reports
         });
     };
 
     var getPendingReports = function() {
-        var reports = []
-        var filter = 'status=running&target_uri=' + encodeURIComponent('^/plugins/gingerbase/debugreports/*')
+        var reports = [];
+        var filter = 'status=running&target_uri=' + encodeURIComponent('^/plugins/gingerbase/debugreports/*');
 
         kimchi.getTasksByFilter(filter, function(tasks) {
-            for(var i = 0; i < tasks.length; i++) {
-                reportName = tasks[i].target_uri.replace(/^\/plugins\/gingerbase\/debugreports\//, '') || i18n['GGBDR6012M'];
-                reports.push({'name': reportName, 'time': i18n['GGBDR6007M']})
+            for (var i = 0; i < tasks.length; i++) {
+                var reportName = tasks[i].target_uri.replace(/^\/plugins\/kimchi\/debugreports\//, '') || i18n['GGBDR6012M'];
+                reports.push({
+                    'name': reportName,
+                    'time': i18n['GGBDR6007M']
+                });
 
-                if(kimchi.trackingTasks.indexOf(tasks[i].id) >= 0) {
+                if (kimchi.trackingTasks.indexOf(tasks[i].id) >= 0) {
                     continue;
                 }
 
@@ -455,33 +468,64 @@ kimchi.host_main = function() {
 
     var listDebugReports = function() {
         kimchi.listReports(function(reports) {
-            pendingReports = getPendingReports();
-            allReports = pendingReports.concat(reports);
+            var pendingReports = getPendingReports();
+            var allReports = pendingReports.concat(reports);
             $('#debug-report-section').removeClass('hidden');
+            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+                $('#debug-report-section, #repositories-section').removeClass('col-md-8');
+                $('#debug-report-section, #repositories-section').addClass('col-md-4');
+            } else {
+                $('#content-sys-info').removeClass('col-md-12');
+                $('#content-sys-info').addClass('col-md-4');
+            }
+
 
             // Row selection will be cleared so disable buttons here
             enableReportButtons(false);
 
-            if(reportGrid) {
+            if (reportGrid) {
                 reportGrid.setData(allReports);
-            }
-            else {
+            } else {
                 initReportGrid(allReports);
+            }
+
+            if (!allReports.length) {
+                $('#available-reports-grid-btn-group').removeClass('hidden');
+            } else {
+                $('#available-reports-grid-btn-group').addClass('hidden');
             }
 
             // Set id-debug-img to pending reports
             // It will display a loading icon
             var gridElement = $('#' + reportGridID);
-                $.each($('td:contains(' + i18n['GGBDR6007M']  + ')', gridElement), function(index, row) {
-                $(row).parent().addClass('no-hover');
-                $(row).attr('id', 'id-debug-img');
+            //  "Generating..."
+            $.each($('td:contains(' + i18n['GGBDR6007M'] + ')', gridElement), function(index, row) {
+                console.log(row);
+                $(row).parent().addClass('generating');
+                $(row).parent().find('.dropdown-toggle').addClass('disabled');
+                //$(row).attr('id', 'id-debug-img');
             });
         }, function(error) {
-            if(error['status'] == 403) {
+            if (error['status'] === 403) {
                 $('#debug-report-section').addClass('hidden');
+                // Check Repositories and resize column
+                if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+                    $('#repositories-section').removeClass('col-md-4');
+                    $('#repositories-section').addClass('col-md-8');
+                } else {
+                    $('#content-sys-info').removeClass('col-md-4');
+                    $('#content-sys-info').addClass('col-md-12');
+                }
                 return;
             }
             $('#debug-report-section').removeClass('hidden');
+            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+                $('#debug-report-section, #repositories-section').removeClass('col-md-8');
+                $('#debug-report-section, #repositories-section').addClass('col-md-4');
+            } else {
+                $('#content-sys-info').removeClass('col-md-12');
+                $('#content-sys-info').addClass('col-md-4');
+            }
         });
     };
 
@@ -489,10 +533,9 @@ kimchi.host_main = function() {
     var restartButtonID = '#host-button-restart';
     var shutdownHost = function(params) {
         var settings = {
-            title : i18n['GGBAPI6004M'],
-            content : i18n['GGBHOST6008M'],
-            confirm : i18n['GGBAPI6002M'],
-            cancel : i18n['GGBAPI6003M']
+            content: i18n['GGBHOST6008M'],
+            confirm: i18n['GGBAPI6002M'],
+            cancel: i18n['GGBAPI6003M']
         };
 
         wok.confirm(settings, function() {
@@ -500,53 +543,45 @@ kimchi.host_main = function() {
             $(shutdownButtonID).prop('disabled', true);
             $(restartButtonID).prop('disabled', true);
             // Check if there is any VM is running.
-            // FIXME : Find alternative way to figure out if any vms running
-            // kimchi.listVMs(function(vms) {
-            //     for(var i = 0; i < vms.length; i++) {
-            //         if(vms[i]['state'] === 'running') {
-            //             wok.message.error.code('GGBHOST6001E');
-            //             $(shutdownButtonID).prop('disabled', false);
-            //             $(restartButtonID).prop('disabled', false);
-            //             return;
-            //         }
-            //     }
-            //
-            // });
-        }, function() {
-        });
+            kimchi.listVMs(function(vms) {
+                for (var i = 0; i < vms.length; i++) {
+                    if (vms[i]['state'] === 'running') {
+                        wok.message.error.code('GGBHOST6001E');
+                        $(shutdownButtonID).prop('disabled', false);
+                        $(restartButtonID).prop('disabled', false);
+                        return;
+                    }
+                }
+
+            });
+        }, function() {});
     };
 
     var initPage = function() {
-        $('#host-info-container .section-header').each(function(i, header) {
-            $('<span class="arrow"></span>').prependTo(header);
-            var toExpand = $(header).attr('aria-expanded') !== 'false';
-            expand(header, toExpand);
-        });
-
-        $('#host-info-container').on('click', '.section-header', function(event) {
-            var toExpand = $(this).attr('aria-expanded') === 'false';
-            expand(this, toExpand);
-        });
 
         $('#host-button-shutdown').on('click', function(event) {
+            event.preventDefault();
             shutdownHost(null);
         });
 
         $('#host-button-restart').on('click', function(event) {
+            event.preventDefault();
             shutdownHost({
                 reboot: true
             });
         });
 
         var setupUI = function() {
-            if (kimchi.capabilities == undefined) {
+            if (kimchi.capabilities === undefined) {
                 setTimeout(setupUI, 2000);
                 return;
             }
 
-            if((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool']!="None")) {
+            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
                 initRepositoriesGrid(kimchi.capabilities['repo_mngt_tool']);
                 $('#repositories-section').switchClass('hidden', kimchi.capabilities['repo_mngt_tool']);
+                $('#content-sys-info').removeClass('col-md-12', kimchi.capabilities['repo_mngt_tool']);
+                $('#content-sys-info').addClass('col-md-4', kimchi.capabilities['repo_mngt_tool']);
                 wok.topic('kimchi/repositoryAdded')
                     .subscribe(listRepositories);
                 wok.topic('kimchi/repositoryUpdated')
@@ -555,17 +590,14 @@ kimchi.host_main = function() {
                     .subscribe(listRepositories);
             }
 
-            if(kimchi.capabilities['update_tool']) {
+            if (kimchi.capabilities['update_tool']) {
                 $('#software-update-section').removeClass('hidden');
                 initSoftwareUpdatesGrid();
                 wok.topic('kimchi/softwareUpdated')
                     .subscribe(listSoftwareUpdates);
-                $('#software-updates-progress-container').accordion({
-                    collapsible: true
-                });
             }
 
-            if(kimchi.capabilities['system_report_tool']) {
+            if (kimchi.capabilities['system_report_tool']) {
                 listDebugReports();
                 wok.topic('kimchi/debugReportAdded')
                     .subscribe(listDebugReports);
@@ -608,14 +640,6 @@ kimchi.host_main = function() {
                 }
             },
             diskIO: {
-                r: {
-                    type: 'value',
-                    base: 2,
-                    fixed: 2,
-                    unit: 'B/s',
-                    legend: i18n['GGBHOST6004M'],
-                    points: []
-                },
                 w: {
                     type: 'value',
                     base: 2,
@@ -624,17 +648,17 @@ kimchi.host_main = function() {
                     legend: i18n['GGBHOST6005M'],
                     'class': 'disk-write',
                     points: []
-                }
-            },
-            networkIO: {
+                },
                 r: {
                     type: 'value',
                     base: 2,
                     fixed: 2,
                     unit: 'B/s',
-                    legend: i18n['GGBHOST6006M'],
+                    legend: i18n['GGBHOST6004M'],
                     points: []
-                },
+                }
+            },
+            networkIO: {
                 s: {
                     type: 'value',
                     base: 2,
@@ -643,6 +667,14 @@ kimchi.host_main = function() {
                     legend: i18n['GGBHOST6007M'],
                     'class': 'network-sent',
                     points: []
+                },
+                r: {
+                    type: 'value',
+                    base: 2,
+                    fixed: 2,
+                    unit: 'B/s',
+                    legend: i18n['GGBHOST6006M'],
+                    points: []
                 }
             }
         };
@@ -650,38 +682,36 @@ kimchi.host_main = function() {
         var cursor = SIZE;
 
         var add = function(stats) {
-            for(var key in stats) {
+            for (var key in stats) {
                 var item = stats[key];
-                for(var metrics in item) {
+                for (var metrics in item) {
                     var value = item[metrics]['v'];
                     var max = item[metrics]['max'];
                     var unifiedMetrics = statsArray[key][metrics];
                     var ps = unifiedMetrics['points'];
-                    if(!Array.isArray(value)){
+                    if (!Array.isArray(value)) {
                         ps.push(value);
-                        if(ps.length > SIZE + 1) {
+                        if (ps.length > SIZE + 1) {
                             ps.shift();
                         }
+                    } else {
+                        ps = ps.concat(value);
+                        ps.splice(0, ps.length - SIZE - 1);
+                        unifiedMetrics['points'] = ps;
                     }
-                    else{
-                        ps=ps.concat(value);
-                        ps.splice(0, ps.length-SIZE-1);
-                        unifiedMetrics['points']=ps;
-                    }
-                    if(max !== undefined) {
+                    if (max !== undefined) {
                         unifiedMetrics['max'] = max;
-                    }
-                    else {
-                        if(unifiedMetrics['type'] !== 'value') {
+                    } else {
+                        if (unifiedMetrics['type'] !== 'value') {
                             continue;
                         }
                         max = -Infinity;
                         $.each(ps, function(i, value) {
-                            if(value > max) {
+                            if (value > max) {
                                 max = value;
                             }
                         });
-                        if(max === 0) {
+                        if (max === 0) {
                             ++max;
                         }
                         max *= 1.1;
@@ -695,7 +725,7 @@ kimchi.host_main = function() {
         var get = function(which) {
             var stats = statsArray[which];
             var lines = [];
-            for(var k in stats) {
+            for (var k in stats) {
                 var obj = stats[k];
                 var line = {
                     type: obj['type'],
@@ -704,10 +734,10 @@ kimchi.host_main = function() {
                     fixed: obj['fixed'],
                     legend: obj['legend']
                 };
-                if(obj['max']) {
+                if (obj['max']) {
                     line['max'] = obj['max'];
                 }
-                if(obj['class']) {
+                if (obj['class']) {
                     line['class'] = obj['class'];
                 }
                 var ps = obj['points'];
@@ -732,104 +762,102 @@ kimchi.host_main = function() {
     };
 
     var Tracker = function(charts) {
-      var charts = charts;
-      var timer = null;
-      var statsPool = new StatsMgr();
-      var setCharts = function(newCharts) {
-          charts = newCharts;
-          for(var key in charts) {
-              var chart = charts[key];
-              chart.updateUI(statsPool.get(key));
-          }
-      };
+        var charts = charts;
+        var timer = null;
+        var statsPool = new StatsMgr();
+        var setCharts = function(newCharts) {
+            charts = newCharts;
+            for (var key in charts) {
+                var chart = charts[key];
+                chart.updateUI(statsPool.get(key));
+            }
+        };
 
-      var self = this;
+        var self = this;
 
-      var UnifyStats = function(stats) {
-          var result= {
-              cpu: {
-                  u: {
-                      v: stats['cpu_utilization']
-                  }
-              },
-              memory: {
-                  u: {
-                  }
-              },
-              diskIO: {
-                  r: {
-                      v: stats['disk_read_rate']
-                  },
-                  w: {
-                      v: stats['disk_write_rate']
-                  }
-              },
-              networkIO: {
-                  r: {
-                      v: stats['net_recv_rate']
-                  },
-                  s: {
-                      v: stats['net_sent_rate']
-                  }
-              }
-          };
-          if(Array.isArray(stats['memory'])){
-              result.memory.u['v']=[];
-              result.memory.u['max']=-Infinity;
-              for(var i=0;i<stats['memory'].length;i++){
-                  result.memory.u['v'].push(stats['memory'][i]['avail']);
-                  result.memory.u['max']=Math.max(result.memory.u['max'],stats['memory'][i]['total']);
-              }
-          }
-          else {
-              result.memory.u['v']=stats['memory']['avail'],
-              result.memory.u['max']=stats['memory']['total']
-          }
-          return(result);
-      };
+        var UnifyStats = function(stats) {
+            var result = {
+                cpu: {
+                    u: {
+                        v: stats['cpu_utilization']
+                    }
+                },
+                memory: {
+                    u: {}
+                },
+                diskIO: {
+                    w: {
+                        v: stats['disk_write_rate']
+                    },
+                    r: {
+                        v: stats['disk_read_rate']
+                    }
+                },
+                networkIO: {
+                    s: {
+                        v: stats['net_sent_rate']
+                    },
+                    r: {
+                        v: stats['net_recv_rate']
+                    }
+                }
+            };
+            if (Array.isArray(stats['memory'])) {
+                result.memory.u['v'] = [];
+                result.memory.u['max'] = -Infinity;
+                for (var i = 0; i < stats['memory'].length; i++) {
+                    result.memory.u['v'].push(stats['memory'][i]['avail']);
+                    result.memory.u['max'] = Math.max(result.memory.u['max'], stats['memory'][i]['total']);
+                }
+            } else {
+                result.memory.u['v'] = stats['memory']['avail'],
+                    result.memory.u['max'] = stats['memory']['total']
+            }
+            return (result);
+        };
 
 
-      var statsCallback = function(stats) {
-              var unifiedStats = UnifyStats(stats);
-              statsPool.add(unifiedStats);
-              for(var key in charts) {
-                  var chart = charts[key];
-                  chart.updateUI(statsPool.get(key));
-              }
-              timer = setTimeout(function() {
-                  continueTrack();
-              }, 1000);
-          };
-
-      var track = function() {
-          kimchi.getHostStatsHistory(statsCallback,
-            function() {
+        var statsCallback = function(stats) {
+            var unifiedStats = UnifyStats(stats);
+            statsPool.add(unifiedStats);
+            for (var key in charts) {
+                var chart = charts[key];
+                chart.updateUI(statsPool.get(key));
+            }
+            timer = setTimeout(function() {
                 continueTrack();
-            });
-      };
+            }, 1000);
+        };
 
-      var continueTrack = function() {
-          kimchi.getHostStats(statsCallback,
-            function() {
-                continueTrack();
-            });
-      };
+        var track = function() {
+            kimchi.getHostStatsHistory(statsCallback,
+                function() {
+                    continueTrack();
+                });
+        };
 
-      var destroy = function() {
-          timer && clearTimeout(timer);
-          timer = null;
-      };
+        var continueTrack = function() {
+            kimchi.getHostStats(statsCallback,
+                function() {
+                    continueTrack();
+                });
+        };
 
-      return {
-        setCharts: setCharts,
-        start: track,
-        stop: destroy
-      };
+        var destroy = function() {
+            timer && clearTimeout(timer);
+            timer = null;
+        };
+
+        return {
+            setCharts: setCharts,
+            start: track,
+            stop: destroy
+        };
     };
 
     var initTracker = function() {
         // TODO: Extend tabs with onUnload event to unregister timers.
-        if(kimchi.hostTimer) {
+        if (kimchi.hostTimer) {
             kimchi.hostTimer.stop();
             delete kimchi.hostTimer;
         }
@@ -857,20 +885,19 @@ kimchi.host_main = function() {
             })
         };
 
-        if(kimchi.hostTimer) {
+        if (kimchi.hostTimer) {
             kimchi.hostTimer.setCharts(trackedCharts);
-        }
-        else {
+        } else {
             kimchi.hostTimer = new Tracker(trackedCharts);
             kimchi.hostTimer.start();
         }
     };
 
     $('#host-root-container').on('remove', function() {
-        if(kimchi.hostTimer) {
+        if (kimchi.hostTimer) {
             kimchi.hostTimer.stop();
             delete kimchi.hostTimer;
-            }
+        }
 
         repositoriesGrid && repositoriesGrid.destroy();
         wok.topic('kimchi/repositoryAdded')
