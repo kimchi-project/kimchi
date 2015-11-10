@@ -142,9 +142,27 @@ class StoragePoolsModel(object):
             raise OperationFailed("KCHPOOL0006E",
                                   {'err': e.get_error_message()})
 
+    def _check_lvm(self, name, from_vg):
+        vgdisplay_cmd = ['vgdisplay', name.encode('utf-8')]
+        output, error, returncode = run_command(vgdisplay_cmd)
+        # From vgdisplay error codes:
+        # 1  error reading VGDA
+        # 2  volume group doesn't exist
+        # 3  not all physical volumes of volume group online
+        # 4  volume group not found
+        # 5  no volume groups found at all
+        # 6  error reading VGDA from lvmtab
+        if from_vg and returncode in [2, 4, 5]:
+            raise InvalidOperation("KCHPOOL0038E", {'name': name})
+
+        if not from_vg and returncode not in [2, 4, 5]:
+            raise InvalidOperation("KCHPOOL0036E", {'name': name})
+
     def create(self, params):
         task_id = None
         conn = self.conn.get()
+        from_vg = params.get('source', {}).get('from_vg', False)
+
         try:
             name = params['name']
             if name == ISO_POOL_NAME:
@@ -154,17 +172,7 @@ class StoragePoolsModel(object):
             # used before but a volume group will already exist with this name
             # So check the volume group does not exist to create the pool
             if params['type'] == 'logical':
-                vgdisplay_cmd = ['vgdisplay', name.encode('utf-8')]
-                output, error, returncode = run_command(vgdisplay_cmd)
-                # From vgdisplay error codes:
-                # 1  error reading VGDA
-                # 2  volume group doesn't exist
-                # 3  not all physical volumes of volume group online
-                # 4  volume group not found
-                # 5  no volume groups found at all
-                # 6  error reading VGDA from lvmtab
-                if returncode not in [2, 4, 5]:
-                    raise InvalidOperation("KCHPOOL0036E", {'name': name})
+                self._check_lvm(name, from_vg)
 
             if params['type'] == 'kimchi-iso':
                 task_id = self._do_deep_scan(params)

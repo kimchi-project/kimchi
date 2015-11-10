@@ -65,6 +65,10 @@ class MockStoragepoolTests(unittest.TestCase):
         )
 
     def test_storagepool(self):
+        # MockModel always returns 2 VGs (hostVG, kimchiVG)
+        vgs = json.loads(self.request('/plugins/kimchi/host/vgs').read())
+        vg_names = [vg['name'] for vg in vgs]
+
         # MockModel always returns 2 partitions (vdx, vdz)
         partitions = json.loads(
             self.request('/plugins/kimchi/host/partitions').read()
@@ -89,7 +93,9 @@ class MockStoragepoolTests(unittest.TestCase):
              'source': {'host': '127.0.0.1',
                         'target': 'iqn.2015-01.localhost.kimchiUnitTest'}},
             {'type': 'logical', 'name': u'kīмсhīUnitTestLogicalPool',
-             'source': {'devices': [devs[0]]}}]
+             'source': {'devices': [devs[0]]}},
+            {'type': 'logical', 'name': vg_names[0],
+             'source': {'from_vg': True}}]
 
         def _do_test(params):
             name = params['name']

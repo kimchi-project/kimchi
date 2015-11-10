@@ -241,3 +241,30 @@ class PartitionModel(object):
 
     def lookup(self, name):
         return disks.get_partition_details(name)
+
+
+class VolumeGroupsModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def get_list(self):
+        return [vg['vgname'] for vg in disks.vgs()]
+
+
+class VolumeGroupModel(object):
+    def __init__(self, **kargs):
+        pass
+
+    def lookup(self, name):
+        def _format(vg):
+            return {'name': vg['vgname'],
+                    'size': vg['size'],
+                    'free': vg['free'],
+                    'pvs': [pv['pvname'] for pv in disks.pvs(vg['vgname'])],
+                    'lvs': [lv['lvname'] for lv in disks.lvs(vg['vgname'])]}
+
+        vgs = [_format(vg) for vg in disks.vgs() if vg['vgname'] == name]
+        if not vgs:
+            raise InvalidParameter("KCHLVMS0001E", {'name': name})
+
+        return vgs[0]

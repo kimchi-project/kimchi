@@ -141,6 +141,11 @@
                                     "error": "KCHPOOL0025E"
                                 }
                             }
+                        },
+                        "from_vg": {
+                            "description": "Indicate if a logical pool will be created from an existing VG or not",
+                            "type": "boolean",
+                            "error": "KCHPOOL0026E"
                         }
                     }
                 }

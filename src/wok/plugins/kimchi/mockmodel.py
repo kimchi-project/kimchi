@@ -39,6 +39,7 @@ from wok.plugins.kimchi.model.libvirtstoragepool import NetfsPoolDef
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 from wok.plugins.kimchi.model.model import Model
 from wok.plugins.kimchi.model.storagepools import StoragePoolModel
+from wok.plugins.kimchi.model.storagepools import StoragePoolsModel
 from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
 from wok.plugins.kimchi.model.storagevolumes import StorageVolumesModel
 from wok.plugins.kimchi.model import storagevolumes
@@ -73,6 +74,7 @@ class MockModel(Model):
         defaults.update(mockmodel_defaults)
         osinfo.defaults = dict(defaults)
 
+        self._mock_vgs = MockVolumeGroups()
         self._mock_partitions = MockPartitions()
         self._mock_devices = MockDevices()
         self._mock_storagevolumes = MockStorageVolumes()
@@ -113,6 +115,7 @@ class MockModel(Model):
                 setattr(self, m, mock_method)
 
         DeviceModel.lookup = self._mock_device_lookup
+        StoragePoolsModel._check_lvm = self._check_lvm
         StoragePoolModel._update_lvm_disks = self._update_lvm_disks
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
         StorageVolumeModel.doUpload = self._mock_storagevolume_doUpload
@@ -252,6 +255,10 @@ class MockModel(Model):
 
         return MockModel._libvirt_get_vol_path(pool, vol)
 
+    def _check_lvm(self, name, from_vg):
+        # do not do any verification while using MockModel
+        pass
+
     def _update_lvm_disks(self, pool_name, disks):
         conn = self.conn.get()
         pool = conn.storagePoolLookupByName(pool_name.encode('utf-8'))
@@ -333,6 +340,12 @@ class MockModel(Model):
 
     def _mock_partition_lookup(self, name):
         return self._mock_partitions.partitions[name]
+
+    def _mock_volumegroups_get_list(self):
+        return self._mock_vgs.data.keys()
+
+    def _mock_volumegroup_lookup(self, name):
+        return self._mock_vgs.data[name]
 
     def _mock_vm_clone(self, name):
         new_name = get_next_clone_name(self.vms_get_list(), name)
@@ -416,6 +429,20 @@ class MockStorageVolumes(object):
                                             'path': base_path + '2',
                                             'used_by': [],
                                             'isvalid': True}}
+
+
+class MockVolumeGroups(object):
+    def __init__(self):
+        self.data = {"hostVG": {"lvs": [],
+                                "name": "hostVG",
+                                "pvs": ["/dev/vdx"],
+                                "free": 5347737600,
+                                "size": 5347737600},
+                     "kimchiVG": {"lvs": [],
+                                  "name": "kimchiVG",
+                                  "pvs": ["/dev/vdz", "/dev/vdw"],
+                                  "free": 10695475200,
+                                  "size": 10695475200}}
 
 
 class MockPartitions(object):
