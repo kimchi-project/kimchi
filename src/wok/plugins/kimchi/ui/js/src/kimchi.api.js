@@ -500,6 +500,32 @@ var kimchi = {
         });
     },
 
+    trackTask : function(taskID, suc, err, progress) {
+        var onTaskResponse = function(result) {
+            var taskStatus = result['status'];
+            switch(taskStatus) {
+            case 'running':
+                progress && progress(result);
+                setTimeout(function() {
+                    kimchi.trackTask(taskID, suc, err, progress);
+                }, 2000);
+                break;
+            case 'finished':
+                suc && suc(result);
+                break;
+            case 'failed':
+                err && err(result);
+                break;
+            default:
+                break;
+            }
+        };
+
+        kimchi.getTask(taskID, onTaskResponse, err);
+        if(kimchi.trackingTasks.indexOf(taskID) < 0)
+            kimchi.trackingTasks.push(taskID);
+    },
+
     deleteStoragePool : function(poolName, suc, err) {
         $.ajax({
             url : 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName),
