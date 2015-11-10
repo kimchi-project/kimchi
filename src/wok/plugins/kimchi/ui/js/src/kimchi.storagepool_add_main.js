@@ -142,21 +142,27 @@ kimchi.initStorageAddPage = function() {
     });
 
     kimchi.getHostFCDevices(function(data){
+        $scsiSelect = $('#scsiAdapter');
         if(data.length>0){
             for(var i=0;i<data.length;i++){
                 data[i].label = data[i].name;
                 data[i].value = data[i].name;
             }
-            $('#scsiAdapter').selectMenu();
-            $("input", "#scsiAdapter").val(data[0].name);
-            $('#scsiAdapter').selectMenu("setData", data);
+            //$('#scsiAdapter').selectMenu();
+            var scsiOptionHtml = '';
+            for (var i=0;i<data.length;i++){
+              scsiOptionHtml += '<option value="'+ data[i].value + '">' + data[i].label + '</option>';
+            }
+            $scsiSelect.append(scsiOptionHtml);
+            $scsiSelect.selectpicker();
         } else {
-            $('#scsiAdapter').html(i18n['KCHPOOL6005M']);
-            $('#scsiAdapter').addClass('text-help');
+            $scsiSelect.remove();
+            $('.scsi-adapters-list').html(i18n['KCHPOOL6005M']);
+            $('.scsi-adapters-list').addClass('text-help');
         }
     });
 
-    $('#poolTypeId').selectMenu();
+    //$('#poolTypeId').selectMenu();
     $('#serverComboboxId').combobox();
     $('#targetFilterSelectId').filterselect();
     var options = [ {
@@ -175,7 +181,13 @@ kimchi.initStorageAddPage = function() {
         label : i18n.KCHPOOL6004M,
         value : "scsi"
     } ];
-    $('#poolTypeId').selectMenu("setData", options);
+    var $select = $('#poolTypeInputId');
+    var optionHtml = '';
+    for (var i=0;i<options.length;i++){
+      optionHtml += '<option value="'+ options[i].value + '">' + options[i].label + '</option>';
+    }
+    $select.append(optionHtml);
+    $select.selectpicker();
 
     kimchi.getStorageServers('netfs', function(data) {
         var serverContent = [];
@@ -230,17 +242,17 @@ kimchi.initStorageAddPage = function() {
         var selectType = $(this).val();
         $.each(poolObject, function(type, value) {
             if(selectType == type){
-                $(value).removeClass('tmpl-html');
+                $(value).removeClass('hidden');
             } else {
-                $(value).addClass('tmpl-html');
+                $(value).addClass('hidden');
             }
         });
     });
     $('#authId').click(function() {
         if ($(this).prop("checked")) {
-            $('.authenticationfield').removeClass('tmpl-html');
+            $('.authenticationfield').removeClass('hidden');
         } else {
-            $('.authenticationfield').addClass('tmpl-html');
+            $('.authenticationfield').addClass('hidden');
         }
     });
     $('#iscsiportId').keyup(function(event) {

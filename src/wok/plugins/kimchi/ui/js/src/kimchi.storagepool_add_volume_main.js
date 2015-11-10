@@ -175,5 +175,6 @@ kimchi.sp_add_volume_main = function() {
             uploadFile();
         }
         event.preventDefault();
+        $('#modalWindow').modal("hide");
     });
 };

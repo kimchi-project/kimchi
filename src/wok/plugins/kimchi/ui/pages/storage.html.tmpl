@@ -28,76 +28,110 @@
 <script src="plugins/kimchi/js/kimchi.min.js"></script>
 </head>
 <body>
-<div class="toolbar">
-    <div class="tools" style="display:none">
-        <a id="storage-pool-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+<div id="storage-root-container">
+    <nav class="navbar navbar-default toolbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="toolbar">
+                <ul class="nav navbar-nav navbar-right tools" display="none">
+                    <li><a id="storage-pool-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Storage</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class='storage'>
+        <div class="container">
+            <div class="row grid-control">
+                <div class="pull-right">
+                    <label for="storage-filter" class="sr-only">$_("Filter"):</label>
+                    <input type="text" class="filter form-control" placeholder="$_("Filter")">
+                </div>
+            </div>
+            <div id="alert-container"></div>
+            <div id='storageGrid'>
+                <div>
+                    <span class="column-state"><span class="sr-only">$_("State")</span></span><!--
+                    --><span class="column-name">$_("Name")</span><!--
+                    --><span class="column-type">$_("Type")</span><!--
+                    --><span class="column-location">$_("Location")</span><!--
+                    --><span class="column-usage">$_("%Used")</span><!--
+                    --><span class="column-allocated">$_("Allocated")</span><!--
+                    --><span class="column-capacity">$_("Capacity")</span><!--
+                    --><span class="column-disks">$_("Disks")</span><!--
+                    --><span class="column-action" display="none"><span class="sr-only">$_("Actions")</span></span>
+                </div>
+                <div id="storagepoolsList" class="list-storage empty-when-logged-off"></div>
+            </div>
+            <div id="logicalPoolExtend" class="modal fade logicalpool-modal" tabindex="-2" role="dialog" aria-labelledby="logicalPoolExtendLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="logicalPoolExtendLabel">$_("Device path")</h4>
+                          </div>
+                          <div class="modal-body">
+                                <p  id="loading-info" class="hidden"><span class="wok-loading-icon"></span><span>$_("Looking for available partitions ...")</span></p>
+                                <div class="host-partition">
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" id="savePartitions" class="btn btn-default" disabled="disabled">$_("Save")</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+                          </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class='storage'>
-<div class="grid-control"><input type="text" class="filter" placeholder="$_("Filter")"></div>
-<div id='storageGrid'>
-    <div>
-        <span class="storage-name">
-            <span>$_("Name")</span>
-            <span class="usage">$_("%Used")</span>
-        </span>
-        <span class="storage-state" >$_("State")</span>
-        <span class="storage-type">$_("Type")</span>
-        <span class="storage-capacity">$_("Capacity")</span>
-        <span class="storage-allocate">$_("Allocated")</span>
-        <span class="storage-location">$_("Location")</span>
-    </div>
-    <div id="storagepoolsList" class="list-storage empty-when-logged-off"></div>
-</div>
-</div>
-<div id="logicalPoolExtend" title="$_("Device path")">
-     <p id="loading-info" class="text-help">
-         <img src = "plugins/kimchi/images/theme-default/loading.gif" />
-         $_("Looking for available partitions ...")
-     </p>
-     <div class="host-partition">
-     </div>
 </div>
 <script id="storageTmpl" type="html/text">
         <div id="{name}" class="storage-li in" data-name="{name}" data-stat="{state}">
-            <span class="storage-name" val="{name}{usage}%">
-                <span title="{name}">{name}</span>
-                <span class="usage">{usage}%</span>
-            </span>
-            <span class="storage-state">
-                <div class="status-dot toolable active" data-state="{state}">
-                    <label class="tooltip">$_("active")</label>
+               <span class='column-state' val="{state}">
+                    <span class='storage-state {state}'>
+                        <i class="fa fa-power-off"></i>
+                    </span>
+                </span><!--
+            --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
+            --><span class='column-type' val="{type}">{type}</span><!--
+            --><span class='column-location' val="{path}">{path}</span><!--
+            --><span class='column-usage {state}' val="{usage}" ><span class='usage-icon {icon}'>{usage}</span>%</span><!--
+            --><span class='column-allocated' val="{allocated}">{allocated}</span><!--
+            --><span class='column-capacity' val="{capacity}">{capacity}</span><!--
+            --><span class="column-disks {state}">
+                    <div class="handle arrow-down"></div>
+                </span><!--
+            --><span class="column-action storage-button" style="display:none">
+                <span class="pull-right">
+                <div class="dropdown menu-flat storage-action" data-state="{state}" data-type="{type}" data-name="{name}">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
+                    <ul class="dropdown-menu actionsheet">
+                        <li role="presentation">
+                            <a href="#" class="pool-deactivate" data-stat="{state}" data-name="{name}" data-persistent="{persistent}" href="#"><i class="fa fa-minus-circle"></i>$_("Deactivate")</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="pool-activate" data-stat="{state}" data-name="{name}"><i class="fa fa-power-off"></i>$_("Activate")</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><i class="fa fa-plus-circle"></i>$_("Add Volume")</a>
+                        </li>
+                        <li role="presentation" class="{enableExt}">
+                            <a href="#" class="pool-extend" data-stat="{state}" data-name="{name}" data-toggle="modal" data-target="#logicalPoolExtend"><i class="fa fa-external-link-square"></i>$_("Extend")</a>
+                        </li>
+                        <li role="presentation" class="critical">
+                            <a href="#" class="pool-delete" data-stat="{state}" data-name="{name}"><i class="fa fa-ban"></i>$_("Undefine")</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="status-dot toolable inactive" data-state="{state}">
-                    <label class="tooltip">$_("inactive")</label>
-                </div>
-            </span>
-            <span class="storage-type" val="{type}">
-                <div>{type}</div>
-            </span>
-            <span class="storage-capacity" val="{capacity}">
-                <div data-type="{type}">{capacity}</div>
-            </span>
-            <span class="storage-allocate" val="{allocated}">
-                <div data-type="{type}">{allocated}</div>
-            </span>
-            <span class="storage-location" val="{path}">
-                <div>{path}</div>
-            </span>
-            <span class="bottom storage-button" style="display:none">
-                <div class="btn dropdown popable storage-action" data-state="{state}" data-type="{type}" data-name="{name}">
-                    <span class="text">$_("Actions")</span><span class="arrow"></span>
-                    <div class="popover actionsheet right-side" style="width: 250px">
-                        <button class="button-big pool-deactivate" data-stat="{state}" data-name="{name}" data-persistent="{persistent}"><span class="text">$_("Deactivate")</span></button>
-                        <button class="button-big pool-activate" data-stat="{state}" data-name="{name}"><span class="text">$_("Activate")</span></button>
-                        <button class="button-big pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><span class="text">$_("Add Volume")</span></button>
-                        <button class="button-big pool-extend {enableExt}" data-stat="{state}" data-name="{name}"><span class="text">$_("Extend")</span></button>
-                        <button class="button-big red pool-delete" data-stat="{state}" data-name="{name}"><span class="text">$_("Undefine")</span></button>
-                    </div>
-                </div>
-            </span>
-            <span class="handle">
-                <div class="arrow-down"></div>
+                </span>
             </span>
         <div class="volumes">
            <div id="volume{name}" class="volumeslist" data-name="{name}" ></div>
@@ -106,11 +140,13 @@
         </div>
 </script>
 <script id="volumeTmpl" type="html/text">
-        <div class="volume-box white-box" data-volume-name="{name}">
-            <div class="storage-icon volume-default icon-{format} ">
-            </div>
+        <div class="volume-box" data-volume-name="{name}">
             <div class="volume-title">
                 <div class="volume-name" title="{name}">{name}</div>
+                <div class="volume-utilization">
+                    <span class="volume-icon {capacityIcon}"></span>
+                    <span class="volume-usage">{capacityLevel}%</span>
+                </div>
                 <div class="volume-progress hidden">
                     <div class="progress-bar-outer">
                         <div class="progress-bar-inner"></div>
@@ -123,24 +159,40 @@
             </div>
             <div class="volume-setting">
             </div>
-            <div class="volume-type-position">
-                <div title="{type}" class="volume-text">$_("Type"): {type}</div>
-                <div title="{format}" class="volume-text">$_("Format"): {format}</div>
-            </div>
-            <div class="volume-quota-position">
-                <div title="{capacity}" class="volume-textquota">$_("Capacity"): {capacity}</div>
-                <div title="{allocation}"class="volume-textquota">$_("Allocation"): {allocation}</div>
-            </div>
+            <ul class="volume-data">
+                <li>
+                    <span class="value"  title="{format}">{format}</span>
+                    <span class="key">$_("Format")</span>
+                </li>
+                <li>
+                    <span class="value"  title="{type}">{type}</span>
+                    <span class="key">$_("Type")</span>
+                </li>
+                <li>
+                    <span class="value"  title="{allocation}">{allocation}</span>
+                    <span class="key">$_("Allocation")</span>
+                </li>
+                <li>
+                    <span class="value"  title="{capacity}">{capacity}</span>
+                    <span class="key">$_("Capacity")</span>
+                </li>
+            </ul>
       </div>
 </script>
 <script id="logicalPoolExtendTmpl" type="html/text">
     <div>
-        <input type="checkbox" value="{path}" name="devices">
-        <label for="{name}">{path}</label>
+        <input type="checkbox" class="wok-checkbox" id="{name}" value="{path}" name="devices">
+        <label for="{name}">
+            <div>
+                <span class="device-name">{name}</span>
+                <span class="device-path">{path}</span>
+            </div>
+        </label>
     </div>
 </script>
 <script>
     kimchi.storage_main();
 </script>
+<div id="modalWindow" class="modal fade storage-modal" tabindex="-1" role="dialog" aria-labelledby="storageModalLabel" aria-hidden="true"> </div>
 </body>
 </html>

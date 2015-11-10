@@ -1,0 +1,393 @@
+//
+// Project Wok
+//
+// Copyright IBM, Corp. 2015
+//
+// Code derived from Project Kimchi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// .handle {
+//     display: inline-block;
+//     font: normal normal normal 14px/1 FontAwesome;
+//     font-size: inherit;
+//     text-rendering: auto;
+//     -webkit-font-smoothing: antialiased;
+// }
+// .arrow-down:before {
+//     content: "\f078"
+// }
+// .arrow-up:before {
+//     content: "\f077"
+// }
+// .icon {
+//     padding-left: 30px;
+//     display: inline-block;
+// }
+#storage-root-container {
+    .wok-datagrid-body {
+        span > .fa {
+            font-size: 22px;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 10px;
+        }
+        .handle {
+            user-select: none;
+            position: relative;
+            top: 11px;
+        }
+        .active {
+            .handle {
+                cursor: pointer;
+            }
+            .fa-power-off {
+                color: #a8d46f;
+            }
+        }
+        .inactive {
+            .handle {
+                cursor: default;
+            }
+            .fa-power-off {
+                display: none;
+            }
+            .usage-icon.icon-high {
+                background-image: url('#{$wok-icon-path}/high_disabled.png') !important;
+            }
+            .usage-icon.icon-med {
+                background-image: url('#{$wok-icon-path}/med_disabled.png') !important;
+            }
+            .usage-icon.icon-low {
+                background-image: url('#{$wok-icon-path}/low_disabled.png') !important;
+            }
+        }
+    }
+    .volumes {
+        width: 100%;
+        background: $navbar-default-toggle-hover-bg;
+        display: none;
+        > .footer {
+            z-index: 100;
+        }
+        .volumeslist {
+            padding: 11px;
+            max-height: 285px;
+            min-height: 136px;
+            overflow: auto;
+        }
+        .volume-box {
+            background: $navbar-inverse-toggle-icon-bar-bg;
+            padding: 4px 20px;
+            margin: 11px;
+            display: inline-block;
+            width: 409px;
+            height: 110px;
+        }
+        .volume-title {
+            height: 46px;
+            width: 100%;
+            border-bottom: 1px solid $input-border;
+            position: relative;
+        }
+        .volume-name {
+            font-size: 15pt;
+            font-weight: 300;
+            width: 274px;
+            line-height: 46px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .volume-utilization {
+            vertical-align: top;
+            text-align: right;
+            display: inline-block;
+            width: 90px;
+            height: 46px;
+            line-height: 46px;
+        }
+        .volume-icon {
+            display: inline-block;
+            width: 27px;
+            height: 46px;
+            line-height: 46px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-color: transparent;
+        }
+        .volume-usage {
+            vertical-align: top;
+            font-size: 15pt;
+            font-weight: 400;
+            display: inline-block;
+            text-align: right;
+            line-height: 46px;
+            padding-left: 0;
+            margin-left: 5px;
+        }
+        .volume-icon.icon-high {
+            background-image: url('#{$wok-icon-path}/high.png');
+        }
+        .volume-icon.icon-med {
+            background-image: url('#{$wok-icon-path}/med.png');
+        }
+        .volume-icon.icon-low {
+            background-image: url('#{$wok-icon-path}/low.png');
+        }
+        .volume-progress {
+            position: absolute;
+            margin: 0;
+            width: 409px;
+            top: -4px;
+            left: -20px;
+            .progress-bar-outer {
+                background: transparent;
+                height: 6px;
+                overflow: hidden;
+                width: 100%;
+            }
+            .progress-bar-inner {
+                background: $storages-low;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .volume-data {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            > li {
+                display: inline-block;
+                width: 89px;
+                span {
+                    display: block;
+                    font-size: 12pt;
+                }
+                span.value {
+                    font-weight: 600;
+                }
+                span.key {
+                    font-weight: 300;
+                }
+            }
+        }
+        .pool-empty {
+            text-align: center;
+            line-height: 136px;
+        }
+    }
+    .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row[data-stat="inactive"] {
+        color: $gray-light !important;
+    }
+    .wok-datagrid > .wok-datagrid-header,
+    .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
+        > span.column-state {
+            width: 3.0519%;
+            text-align: center;
+        }
+        > span.column-name {
+            width: 12.7272%;
+            text-overflow: ellipsis;
+        }
+        > span.column-type {
+            width: 11.6883%;
+        }
+        > span.column-location {
+            width: 21.4285%;
+        }
+        > span.column-usage {
+            width: 9.41558%;
+            .usage-icon {
+                padding-left: 35px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-position: 0 50%;
+                background-color: transparent;
+                &.icon-high {
+                    background-image: url('#{$wok-icon-path}/high.png');
+                }
+                &.icon-med {
+                    background-image: url('#{$wok-icon-path}/med.png');
+                }
+                &.icon-low {
+                    background-image: url('#{$wok-icon-path}/low.png');
+                }
+            }
+        }
+        > span.column-capacity {
+            width: 8.701298%;
+        }
+        > span.column-allocated {
+            width: 9.35064%;
+        }
+        > span.column-disks {
+            text-align: center;
+            width: 2.9870%;
+        }
+        > span.column-action {
+            width: 20.64%;
+            text-align: right;
+        }
+    }
+    .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
+        &.column-state {
+            height: 53px;
+            vertical-align: middle;
+        }
+        &.column-disks {
+            height: 53px;
+            vertical-align: middle;
+            .arrow-down,
+            .arrow-up {
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            .arrow-down:before {
+                content: "\f078";
+            }
+            .arrow-up:before {
+                content: "\f077";
+            }
+        }
+    }
+}
+
+#storage-root-container #logicalPoolExtend {
+    .modal-body {
+        max-height: 438px;
+        p span {
+            vertical-align: middle !important;
+        }
+    }
+}
+
+#storage-root-container #logicalPoolExtend,
+.storage-modal {
+    form {
+        margin: 0 !important;
+    }
+    .host-partition {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 430px;
+        label {
+            display: block;
+            > div {
+                vertical-align: top;
+                display: inline-block;
+            }
+            span.device-name,
+            span.device-path {
+                display: block;
+            }
+            span.device-name {
+                font-weight: 600;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            span.device-path {
+                font-weight: 400;
+                word-wrap: break-word;
+            }
+        }
+    }
+}
+
+#storage-root-container #logicalPoolExtend {
+    .host-partition label > div {
+        width: 388px;
+        span.device-path {
+            width: 388px;
+        }
+    }
+}
+
+.storage-modal {
+    // Wok Popable
+    .filter-select.popable,
+    .storage-target-input,
+    .storage-add-input {
+        .popover {
+            max-width: 100% !important;
+            width: 100%;
+            top: 34px;
+            left: -2px;
+            border: 0 !important;
+            background: 0 !important;
+            box-shadow: none !important;
+            ul {
+                z-index: $zindex-dropdown;
+                padding: 5px 0;
+                margin: 2px 2px 0;
+                list-style: none;
+                font-size: $font-size-base;
+                text-align: left;
+                background-color: $dropdown-bg;
+                border: 1px solid $dropdown-fallback-border;
+                border: 1px solid $dropdown-border;
+                border-radius: $border-radius-base;
+                @include box-shadow(0 6px 12px rgba(0,
+                0,
+                0,
+                .175));
+                background-clip: padding-box;
+                li {
+                    cursor: pointer;
+                    display: block;
+                    padding: 3px 20px;
+                    clear: both;
+                    font-weight: normal;
+                    line-height: $line-height-base;
+                    color: $dropdown-link-color;
+                    white-space: nowrap;
+                    &:hover,
+                    &:focus {
+                        text-decoration: none;
+                        color: $dropdown-link-hover-color;
+                        background-color: $dropdown-link-hover-bg;
+                    }
+                }
+            }
+        }
+    }
+    #nfspathId[style],
+    #nfsserverId[style] {
+        // overriding style definition
+        width: 100% !important;
+    }
+    .iscsi-section .form-group > .col-md-12 > .col-md-10 + .col-md-2 {
+        padding-left: 5px;
+    }
+    .iscsi-section .form-group > .col-md-12 > .col-md-10 {
+        padding-right: 5px;
+    }
+    .authenticationfield > div > .col-md-6 + .col-md-6 {
+        padding-left: 5px;
+    }
+    .authenticationfield > div > .col-md-6 {
+        padding-right: 5px;
+    }
+    .host-partition label > div {
+        width: 688px;
+        span.device-path {
+            width: 688px;
+        }
+    }
+}
