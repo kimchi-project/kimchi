@@ -76,7 +76,7 @@
   border-radius: 0;
   border: 3px solid #999;   
   background-clip: padding-box;
-  @include box-shadow(none !important);
+  box-shadow: none !important;
   border-radius: 0;
   outline: 0;
 }

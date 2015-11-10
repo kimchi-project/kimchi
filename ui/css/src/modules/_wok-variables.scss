@@ -42,6 +42,7 @@ $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 $kimchi-dropdown:      #4d4c4e !default;
+$storages-low:              #8BC53E !default;
 
 
 //## Kimchi default colors - TODO remove these references and link do Sass Maps below
@@ -86,14 +87,14 @@ $link-hover-decoration: underline !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$font-family-sans-serif:  'Open Sans', Helvetica, Arial, "Lucida Grande", sans-serif !default;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
-$font-family-light:    "HelveticaNeueLight", "HelveticaNeue-Light", "HelveticaNeue Light", "HelveticaNeue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
-$font-family-bold:    "HelveticaNeueBold", "HelveticaNeue-Bold", "HelveticaNeue Bold", "Helvetica Neue Bold", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
-$font-family-alternate:  "Helvetica Neue LT W1G 55 Roman", "Helvetica Neue LT W1G", "HelveticaNeue Roman", "HelveticaNeue-Roman", "Helvetica Neue Roman", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$font-family-light:         $font-family-sans-serif !default;
+$font-family-bold:         $font-family-sans-serif !default;
+$font-family-alternate: $font-family-sans-serif !default;
 
 
 $font-size-base:          14px !default;
@@ -241,7 +242,7 @@ $btn-border-radius-small:        $border-radius-small !default;
 //** `<input>` background color
 $input-bg:                       #fff !default;
 //** `<input disabled>` background color
-$input-bg-disabled:              $gray-lighter !default;
+$input-bg-disabled:              #eee !default;
 
 //** Text color for `<input>`s
 $input-color:                    $gray !default;

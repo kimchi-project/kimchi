@@ -1,0 +1,72 @@
+    //
+    // Project Wok
+    //
+    // Copyright IBM, Corp. 2015
+    //
+    // Licensed under the Apache License, Version 2.0 (the "License");
+    // you may not use this file except in compliance with the License.
+    // You may obtain a copy of the License at
+    //
+    //     http://www.apache.org/licenses/LICENSE-2.0
+    //
+    // Unless required by applicable law or agreed to in writing, software
+    // distributed under the License is distributed on an "AS IS" BASIS,
+    // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    // See the License for the specific language governing permissions and
+    // limitations under the License.
+    //
+    .grid-control {
+        padding: 5px;
+    }
+    
+    .grid-control input[type="text"] {
+        width: 514px;
+    }
+    
+    .wok-datagrid {
+        background: $table-bg;
+        .wok-datagrid-header,
+        .wok-datagrid-body > .wok-datagrid-row {
+            display: block;
+            width: 100%;
+            > span,
+            >.wok-datagrid-row > span {
+                padding: $table-cell-padding;
+                display: inline-block;
+            }
+        }
+        > .wok-datagrid-header > span {
+            font-family: $font-family-light;
+            font-weight: 400;
+            font-size: 12.5pt;
+            vertical-align: bottom;
+            border-bottom: none;
+            border-top: 0;
+            line-height: $line-height-base;
+            height: 36px;
+        }
+
+        > .wok-datagrid-body > .wok-datagrid-row{
+            border-top: 1px solid $table-border-color;
+            
+            > span {
+              font-family: $font-family-sans-serif;
+              line-height: (1 + $line-height-base);
+              vertical-align: top;
+              font-size: 12.5pt;
+            }
+
+        }
+        .wok-datagrid-hybrid > .wok-datagrid-body > .wok-datagrid-row:first-child {
+            border-color: $table-first-row-border-color;
+        }
+        .wok-datagrid-row.odd {
+            background-color: $table-bg-accent;
+        }
+        .wok-datagrid-row.even {
+            background-color: $table-bg;
+        }
+        .wok-datagrid-body.wok-datagrid-row {
+            border-top: 1px solid $table-bg-accent;
+        }
+    }

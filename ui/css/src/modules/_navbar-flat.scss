@@ -188,7 +188,7 @@
   background: transparent url($kimchi-logo) no-repeat 24px 3px;
   color: $highlights-color;
   font-family: $font-family-bold; 
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.571em;
   line-height: 55px;
   cursor: default;
@@ -355,7 +355,7 @@
     margin-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    @include box-shadow(none);
+    box-shadow: none;
   }
 }
 
@@ -418,7 +418,7 @@
   background-color: $menu-flat-dropdown-bg;
   border: 0;
   border-radius: 0;
-  @include box-shadow(none !important);
+  box-shadow: none !important;
   background-clip: padding-box;
   height: auto;
   max-height: 400px;
@@ -576,7 +576,7 @@
       margin: 0 !important;
       font-size: 13pt;
       font-family: $font-family-bold;
-      font-weight: 600;
+      font-weight: 700;
       color: $navbar-default-link-color;
       text-decoration: none;
       outline: none;
@@ -641,7 +641,11 @@
         &,
         &:hover,
         &:focus {
+          height: 41px;
           background-color: $bgcolor !important;
+          @if $page == 'storage' {
+            color: $gray-base !important;
+          }
         }
       }
     }

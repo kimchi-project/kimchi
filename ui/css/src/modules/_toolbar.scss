@@ -16,7 +16,7 @@
 // limitations under the License.
 //
 
-.toolbar {
+.navbar-default.toolbar {
     height: 40px;
     padding: 0;
     margin: 0;
@@ -27,15 +27,29 @@
         height: 40px;
     }
 
-    a {
+    .navbar-nav > li > a.dropdown-toggle > .caret {
+        margin-top: -5px;
+        width: 20px;
+        margin-left: 5px;
+    }
+
+    .navbar-nav > li > a.dropdown-toggle > .caret:before {
+        top: 15px;
+        margin-left: 0;
+    }
+
+    .navbar-right.tools > li > a {
         font-family: $font-family-alternate;
         display: inline-block;
         color: $highlights-color;
         text-decoration: none;
         font-size: 13pt;
         vertical-align: middle;
-        padding: 6px 0;
-        margin-left: 50px;
+        padding: 6px 0  !important;
+        margin-left: 50px  !important;
+        font-weight: 600;
+        width: auto;
+        min-width: auto;
     }
 
     span, .fa {
@@ -52,7 +66,12 @@
 
 @each $page, $bgcolor in $colors {
 
-##{$page}-root-container .toolbar {
+##{$page}-root-container .navbar-default.toolbar {
       background-color: $bgcolor !important;
+      @if $page == 'storage' {
+            .navbar-right.tools > li > a {
+                color: $gray-base !important;
+            }
+      }
     }
 }
