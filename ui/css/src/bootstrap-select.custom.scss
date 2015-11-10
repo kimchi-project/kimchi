@@ -25,6 +25,7 @@
     &.btn-group {
         .btn {
             .caret {
+                position: absolute;
                 top: 0;
                 right: 40px;
                 margin-top: 0;
@@ -57,6 +58,9 @@
             .btn:hover .caret {
                 border-left-color: darken($btn-default-border, 25%);
             }
+        }
+        .dropdown-menu {
+            z-index: 2035;
         }
         .dropdown-menu li a {
             outline: none;

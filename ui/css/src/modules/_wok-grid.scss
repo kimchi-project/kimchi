@@ -95,7 +95,6 @@
 .wok-list-description {
     font-weight: 300;
     font-size: 10pt;
-    width: 196px;
     overflow: hidden;
 }
 
@@ -108,6 +107,11 @@
     cursor: pointer;
 }
 
+.wok-list-content tbody tr.generating:hover {
+    text-decoration: none;
+    cursor: default;
+}
+
 .wok-list-content tbody tr.selected {
     background: #ddd;
 }
@@ -118,4 +122,23 @@ span.wok-repository-status.disabled {
 
 .wok-list-cell.disabled span {
     color: #999;
+}
+
+.wok-single-button {
+    padding-bottom: 16px;
+    margin-top: -11px;
+}
+
+.generating .wok-list-description {
+    padding-left: 24px;
+}
+
+.generating .wok-list-loading-icon-inline {
+    background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%; 
+    @include animation(spin 3s infinite linear);
+    height: 16px;
+    width: 16px;
+    background-size: 100%;
+    display: block;
+    position: absolute;
 }

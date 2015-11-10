@@ -127,7 +127,7 @@
       background-color: $menu-flat-dropdown-bg;
       border: 0;
       border-radius: 0;
-      @include box-shadow(none !important);
+      box-shadow: none !important;
       background-clip: padding-box;
 
           // Aligns the dropdown menu to right
@@ -143,6 +143,10 @@
             @include nav-divider($menu-flat-dropdown-divider-bg);
           }
 
+          > li.wok-hide-action-item {
+            display: none;
+          }
+
           > li > a {
             border-top: 1px solid $menu-flat-dropdown-border;
             @include box-shadow(inset 0px 1px 0px 0px $menu-flat-dropdown-divider-bg);
@@ -150,11 +154,12 @@
 
           > li:first-child > a {
             border-top: 1px solid $menu-flat-dropdown-bg;
-            @include box-shadow(none);
+            box-shadow: none;
           }
 
-          > li.critical:last-child > a {
-            @include box-shadow(none);
+          > li.critical:last-child > a,
+          > li.critical:last-child > a:hover {
+            box-shadow: none;
           }
 
           // Links within the dropdown menu
@@ -204,7 +209,8 @@
     }
 
 
-    .dropdown-menu > li.critical > a {
+    .dropdown-menu > li.critical > a,
+    .dropdown-menu > li.critical > a:hover {
         background: $menu-flat-dropdown-critical-bg;
     }
 

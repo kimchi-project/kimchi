@@ -20,37 +20,35 @@
 
 // Core variables
 @import "modules/wok-variables";
-
 // Compass Mixins
 @import "vendor/compass-mixins/lib/compass";
-
 // Override Bootstrap CSS
 .container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-left:  80px !important;
-  padding-right: 60px !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 80px !important;
+    padding-right: 60px !important;
 }
 
 // Override alert
-
 .alert {
-  border-width: $alert-border-width;
-  margin-bottom: 10px;
+    border-width: $alert-border-width;
+    margin-bottom: 10px;
 }
 
 .alert-fields {
-  margin-top: -20px;
-  padding-bottom: 10px;
+    margin-top: -20px;
+    padding-bottom: 10px;
 }
 
-.alert-dismissable .close, .alert-dismissible .close {
+.alert-dismissable .close,
+.alert-dismissible .close {
     right: 15px !important;
     top: 0 !important;
 }
 
 .close {
-  opacity: 1 !important;
+    opacity: 1 !important;
 }
 
 .hide-content {
@@ -58,39 +56,58 @@
 }
 
 .help-block {
-  color: #aaa;
+    color: #aaa;
 }
 
 // Override panels
-
 .panel {
-  @include box-shadow(none);
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
 }
 
 .panel-title {
-  font-size: 21.5pt;
+    font-size: 21.5pt;
 }
 
+// Override forms
+
+
+.form-control.invalid-field {
+    border-color: $brand-danger;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(217, 83, 79, 0.6);
+}
 
 // Login
 @import "modules/login";
-
 // Topbar and navigation
 @import "modules/toolbar";
-
 // Buttons
 @import "modules/buttons";
-
 // Dropdown Button - Flat
 @import "modules/menu-flat";
-
-@import "modules/host";
-
+// Line Charts
 @import "modules/line-chart";
-
 // Wok Grid & Wok List
 @import "modules/wok-grid";
-
+// Wok Datagrid
+@import "modules/datagrid";
+// Wok Confirm Dialog
+@import "modules/wok-confirm";
+// Wok jQuery-UI Accordion
+@import "modules/jqueryui";
+// Wok ISO / VM / Template list
+@import "modules/iso-list";
+// To do - Group into Kimchi
+// Templates - To do: move to Kimchi
+@import "modules/guests";
+// Templates - To do: move to Kimchi
+@import "modules/templates";
+// Networks - To do: move to Kimchi
+@import "modules/network";
+// Networks - To do: move to Kimchi
+@import "modules/storage";
+// Admin - To do: move to Ginger
+@import "modules/administration";
 // Utils
 .absolute-middle {
     margin: auto;
@@ -102,29 +119,64 @@
     text-align: center;
 }
 
+.wok-loading-icon {
+    background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%;
+    @include animation(spin 3s infinite linear);
+    height: 16px;
+    width: 16px;
+    background-size: 100%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+// Custom check-boxes and radios
+input[type=checkbox].wok-checkbox,
+input[type=radio].wok-radio {
+    display: none;
+}
+
+input[type=checkbox].wok-checkbox + label:before,
+input[type=radio].wok-radio + label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+input[type=checkbox].wok-checkbox + label:before {
+    content: "\f096";
+    letter-spacing: 10px;
+}
+
+input[type=checkbox].wok-checkbox:checked + label:before {
+    content: "\f14a";
+    letter-spacing: 8px;
+}
+
+input[type=radio].wok-radio + label:before {
+    content: "\f10c";
+    letter-spacing: 5px;
+}
+
+input[type=radio].wok-radio:checked + label:before {
+    content: "\f192";
+    letter-spacing: 5px;
+}
+
 // Animation
 @import "modules/animation";
-
 // Documentation
-
 pre {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 // Media queries
-
 @media screen and (min-width: 768px) {
-
-  .container {
-    width: 1540px;
-  }
-
+    .container {
+        width: 1540px;
+    }
 }
 
 @media screen and (min-width: 1680px) {
-
-  .container {
-    width: 1680px;
-  }
-
+    .container {
+        width: 1680px;
+    }
 }
