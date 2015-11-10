@@ -22,11 +22,11 @@
 #silent _ = t.gettext
 #silent _t = t.gettext
 <div id="guest-storage-add-window" class="window">
-    <header>
-        <h1 class="title">$_("Add a Storage Device to VM")</h1>
-        <div class="close">X</div>
-    </header>
-    <div class="content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">$_("Add a Storage Device to VM")</hh>
+    </div>
+    <div class="modal-body">
         <form id="form-guest-storage-add">
             <section class="form-section">
                 <h2>1. $_("Device Type")</h2>
@@ -90,13 +90,10 @@
             </fieldset>
         </form>
     </div>
-    <footer>
-        <div class="btn-group">
-            <button id="guest-storage-button-add" class="btn-normal" disabled="disabled">
-            <span class="text">$_("Attach")</span>
-            </button>
-        </div>
-    </footer>
+    <div class="modal-footer">
+            <button id="guest-storage-button-add" class="btn btn-default" disabled="disabled">$_("Attach")</button>
+            <button class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+    </div>
 </div>
 <script type="text/javascript">
     kimchi.guest_storage_add_main();

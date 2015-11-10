@@ -24,72 +24,64 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div class="window" style="width: 900px;height: 580px;">
-    <header>
-        <h1 class="title h1 grey">$_("Create a New Virtual Machine")</h1>
-    </header>
-    <div class="content">
-        <form id="form-vm-add">
-        <section class="form-section">
-            <h2>1. $_("Virtual Machine Name")</h2>
-            <div class="field">
-                <input type="text" class="text" style="width: 300px" name="name"><br>
-                <div class="icon-info-circled light-grey c1 help-inline"></div>
-                <p class="text-help help-inline">
-                    $_("The name used to identify the virtual machine. If omitted, a name will be chosen based on the template used.")
-                </p>
+<div id="guest-add-window" class="window modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="guestsModalLabel">$_("Create a New Virtual Machine")</h4>
             </div>
-        </section>
-        <section class="form-section">
-            <h2>2. $_("Template")</h2>
-            <div class="field">
-                <div class="text-help">
-                    <div id="prompt-create-template" class="hidden">
-                        <div class="icon-info-circled light-grey c1 help-inline"></div>
-                        <div class="text-help help-inline">$_("Please create a template first.")</div>
-                        <a id="btn-create-template" class="btn-normal" href="templates.html">
-                            <span class="text">$_("Create a Template")</span>
-                        </a>
+            <div class="modal-body">
+                <form id="form-vm-add">
+                    <div class="guest-modal-container">
+                        <div class="form-group">
+                            <label for="guest-vm-name">$_("Virtual Machine Name")</label>
+                            <input type="text" class="form-control" name="name" id="guest-vm-name" />
+                            <p class="help-block"><i class="fa fa-info-circle"></i> $_("The name used to identify the virtual machine. If omitted, a name will be chosen based on the template used.")
+                            </p>
+                        </div>
                     </div>
-                    <div id="prompt-choose-template" class="hidden">
-                        <span class="icon-info-circled light-grey c1"></span>
-                        <span class="text-help">$_("Please choose a template.")</span>
-                    </div>
-                </div>
-                <ul id="templateTile" class="tile-check tile-template">
-                </ul>
-                <script type="html/text" id="tmpl-template" class="tmpl-html">
-                    <li>
-                        <label>
-                            <input type="radio" name="template" value="/plugins/kimchi/templates/{name}">
-                            <div class="info">
-                                <div class="summary os-icon">
-                                    <img src="{icon}">
-                                    <span class="title">{name}</span>
-                                </div>
-                                <ul class="list-info">
-                                    <li><label>$_("OS")</label><span>{os_distro}</span></li>
-                                    <li><label>$_("OS Version")</label><span>{os_version}</span></li>
-                                    <li><label>$_("CPUS")</label><span>{cpus}</span></li>
-                                    <li><label>$_("Memory")</label><span>{memory}M</span></li>
-                                </ul>
+                    <div class="guest-pager">
+                        <div class="page-list">
+                        <div class="page">
+                            <div class="row">
+                                    <div id="prompt-create-template" class="hidden">
+                                        <p>$_("Please create a template first.")</p>
+                                        <a id="btn-create-template" class="btn btn-primary" href="templates.html">$_("Create a Template")</a>
+                                    </div>
+                                    <p id="prompt-choose-template" class="hidden">$_("Please choose a template.")</p>
                             </div>
-                        </label>
-                    </li>
-                </script>
+                            <ul id="templateTile" class="list-template tile-check tile-template">
+                            </ul>
+                                <script type="html/text" id="tmpl-template" class="tmpl-html">
+                                    <li class="col-md-3">
+                                        <label class="box-iso-outer">
+                                            <input type="radio" name="template" value="/plugins/kimchi/templates/{name}" class="iso-radio-hidden">
+                                            <span class="box-iso-border">
+                                                <span class="box-iso-inner">
+                                                    <h3 class="iso-title {os_distro}" title="{name}">{name}</h3>
+                                                        <dl class="iso-info">
+                                                            <dt>{os_distro}</dt>
+                                                            <dd>$_("OS: ")</dd>
+                                                            <dt>{os_version}</dt>
+                                                            <dd>$_("Version: ")</dd>
+                                                            <dt>{cpus}</dt>
+                                                            <dd>$_("CPUS")</dd>
+                                                            <dt>{memory}M</dt>
+                                                            <dd>$_("Memory")</dd>
+                                                        </dl>
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </li>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </section>
-        </form>
+    <div class="modal-footer">
+            <button id="vm-doAdd" class="btn btn-default" disabled="disabled" href="javascript:void(0);">$_("Create")</button>
+            <button id="vm-doAdding" class="btn btn-default" disabled="disabled" style="display:none" href="javascript:void(0);"><span class="wok-loading-icon"></span> $_("Creating...")</button>
+            <button id="vm-add=cancel" class="btn btn-default" data-dismiss="modal" type="button">$_("Cancel")</button>
     </div>
-    <footer>
-        <div class="btn-group">
-            <button id="vm-doAdd" class="btn-normal" disabled="disabled" href="javascript:void(0);"><span class="text">$_("Create")</span></button>
-            <button id="vm-doAdding" class="btn-normal" disabled="disabled" style="display:none" href="javascript:void(0);"><span class="text">$_("Creating...")</span></button>
-            <button id="vm-add=cancel" class="btn-normal close" type="button">
-                <span class="text">$_("Cancel")</span>
-            </button>
-        </div>
-    </footer>
 </div>
 <script>
     kimchi.guest_add_main();
