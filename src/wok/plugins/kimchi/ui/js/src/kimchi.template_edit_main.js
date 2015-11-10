@@ -22,7 +22,14 @@ kimchi.template_edit_main = function() {
     var origNetworks;
     var templateDiskSize;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
-    templateEditMain.tabs();
+    //templateEditMain.tabs();
+    $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {    
+        var target = $(this).attr('href');
+
+        $(target).css('left','-'+$(window).width()+'px');   
+        var left = $(target).offset().left;
+        $(target).css({left:left}).animate({"left":"0px"}, "10");
+    });
 
     var initTemplate = function(template) {
         origDisks =  template.disks;
@@ -44,18 +51,14 @@ kimchi.template_edit_main = function() {
             $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
 
-        var vncOpt = [{label: 'VNC', value: 'vnc'}];
-        $('#template-edit-graphics').append('<option selected>VNC</option>');
-        $('#template-edit-graphics').append('<option>Spice</option>');
-        wok.select('template-edit-graphics-list', vncOpt);
+        $('#template-edit-graphics').append('<option value="vnc" selected="selected">VNC</option>');
         var enableSpice = function() {
             if (kimchi.capabilities == undefined) {
                 setTimeout(enableSpice, 2000);
                 return;
             }
             if (kimchi.capabilities.qemu_spice == true) {
-                spiceOpt = [{label: 'Spice', value: 'spice'}]
-                wok.select('template-edit-graphics-list', spiceOpt);
+                $('#template-edit-graphics').append('<option value="spice">Spice</option>');
             }
         };
         var isImageBasedTemplate = function() {
@@ -92,6 +95,7 @@ kimchi.template_edit_main = function() {
                     }
                 });
                 $('#selectStorageName').append(storageOptions);
+                $('select','#form-template-storage').selectpicker();
 
                 // Set disk format
                 if (isImageBasedTemplate()) {
@@ -180,13 +184,7 @@ kimchi.template_edit_main = function() {
                 });
             }
 
-            $('#template-edit-storage-add-button').button({
-                icons: {
-                    primary: "ui-icon-plusthick"
-                },
-                text: false,
-                disabled: true
-            }).click(function(event) {
+            $('#template-edit-storage-add-button').on("click", function(event) {
                 event.preventDefault();
                 var storageNodeData = {
                     viewMode : 'hide',
@@ -195,7 +193,7 @@ kimchi.template_edit_main = function() {
                     storageType : 'dir',
                     storageDisk : '10'
                 }
-                addStorageItem(storageNodeData);
+                addStorageItem(storageNodeData);                
             });
         };
         var initInterface = function(result) {
@@ -204,11 +202,8 @@ kimchi.template_edit_main = function() {
                 var networkName = networkData.networkV;
                 var nodeInterface = $.parseHTML(wok.substitute($('#template-interface-tmpl').html(), networkData));
                 $('.template-tab-body', '#form-template-interface').append(nodeInterface);
-                $('.delete', '#form-template-interface').button({
-                    icons : {primary : 'ui-icon-trash'},
-                    text : false
-                }).click(function(evt) {
-                    evt.preventDefault();
+                $('.delete', '#form-template-interface').on( "click",function(event) {
+                    event.preventDefault();
                     $(this).parent().parent().remove();
                 });
                 var networkOptions = '';
@@ -219,6 +214,7 @@ kimchi.template_edit_main = function() {
                     }
                 }
                 $('select', '#form-template-interface #networkID' + networkItemNum).append(networkOptions);
+                $('select', '#form-template-interface #networkID' + networkItemNum).selectpicker();
                 networkItemNum += 1;
             };
             if(result && result.length > 0) {
@@ -230,13 +226,8 @@ kimchi.template_edit_main = function() {
                     });
                 }
             }
-            $('#template-edit-interface-add-button').button({
-                icons: {
-                    primary: 'ui-icon-plusthick'
-                },
-                text: false
-            }).click(function(evt) {
-                evt.preventDefault();
+            $('#template-edit-interface-add-button').on( "click", function(event) {
+                event.preventDefault();
                 addInterfaceItem({
                     networkID : 'networkID' + networkItemNum,
                     networkV : 'default',
@@ -271,6 +262,7 @@ kimchi.template_edit_main = function() {
                     options += "<option"+lastOne+">"+Math.pow(2,i)+"</option>";
                 }
                 $('select', '#form-template-processor').append(options);
+                $('select', '#form-template-processor').selectpicker();
                 if(template.cpus) $("#cpus").val(template.cpus);
                 var topo = template.cpu_info.topology;
                 if(topo&&topo.cores) $("#cores").val(topo.cores);
@@ -354,7 +346,7 @@ kimchi.template_edit_main = function() {
             kimchi.doListTemplates();
             wok.window.close();
         }, function(err) {
-            wok.message.error(err.responseJSON.reason);
+            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
         });
     });
 };

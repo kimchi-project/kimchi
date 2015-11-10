@@ -1,20 +1,20 @@
 #*
- * Project Kimchi
- *
- * Copyright IBM, Corp. 2013-2014
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *#
+* Project Kimchi
+*
+* Copyright IBM, Corp. 2013-2014
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*#
 #unicode UTF-8
 #import gettext
 #from wok.cachebust import href
@@ -24,54 +24,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="plugins/kimchi/css/theme-default.min.css">
-<script src="plugins/kimchi/js/kimchi.min.js"></script>
+    <link rel="stylesheet" href="plugins/kimchi/css/theme-default.min.css">
+    <script src="plugins/kimchi/js/kimchi.min.js"></script>
 </head>
 <body>
-<div class="toolbar">
-    <div class="tools" style="display:none">
-        <a id="template-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
-    </div>
-</div>
-<div>
-    <div id="noTemplates" class="list-no-result" style="display: none;">
-        $_("No templates found.")
-    </div>
-
-    <ul id="templateList" class="empty-when-logged-off"></ul>
-
-    <script id="templateTmpl" type="html/text">
-
-        <div class="template-box white-box template-border">
-            <div class="btn dropdown popable" style="width: 70px">
-                <span class="text">$_("Actions")</span><span class="arrow"></span>
-                <div class="popover actionsheet right-side" style="width: 250px">
-                    <a class="button-big template-edit" data-template='{name}'>$_("Edit")</a>
-                    <a class="button-big template-clone" data-template='{name}'>$_("Clone")</a>
-                    <a class="button-big red template-delete" data-template='{name}'>$_("Delete")</a>
-                </div>
+    <div id="templates-root-container">
+        <nav class="navbar navbar-default toolbar">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-
-            <div class="template-icon template-icon-position">
-                <img alt="" src="{icon}">
-                <img alt="" src="{location}" class="template-type-icon-position">
-            </div>
-            <div class="template-general template-title template-title-position">
-                <h2 class="title" title="{name}">{name}</h2>
-            </div>
-            <div class="template-os-position">
-                <div class="template-text">$_("OS"): {os_distro}</div>
-                <div class="template-text">$_("Version"): {os_version}</div>
-            </div>
-            <div class="template-cpu-position">
-                <div class="template-text">$_("CPUs"): {cpus}</div>
-                <div class="template-text">$_("Memory"): {memory}M</div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="toolbar">
+                <ul class="nav navbar-nav navbar-right tools" display="none">
+                    <li><a id="template-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Template</span></a></li>
+                </ul>
             </div>
         </div>
-    </script>
-</div>
-<script>
+    </nav>
+    <div class="templates">
+        <div class="container">
+            <div class="row grid-control">
+                <div class="pull-right">
+                    <label for="templates-filter" class="sr-only">$_("Filter"):</label>
+                    <input type="text" class="filter form-control" placeholder="$_("Filter")">
+                </div>
+            </div>
+            <div id="alert-container"></div>
+            <div id="noTemplates" class="list-no-result" style="display: none;">
+                $_("No templates found.")
+            </div>
+            <div id="alert-container"></div>
+            <ul id="templateList" class="wok-vm-list empty-when-logged-off">
+                <script id="templateTmpl" type="html/text">
+                    <li class="wok-vm-body">
+                        <span class='column-name' title="{name}" val="{name}">{name}</span><!--
+                        --><span class='column-action pull-right'>
+                            <span class="pull-right">
+                                <div class="dropdown menu-flat">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li role="presentation" nwAct="edit" class='template-edit'><a href="#" data-template='{name}'><i class="fa fa-pencil"></i>$_("Edit")</a></li>
+                                        <li role="presentation" nwAct="clone" class='template-clone'><a href="#" data-template='{name}'><i class="fa fa-files-o"></i>$_("Clone")</a></li>
+                                        <li role="presentation" nwAct="delete" class='critical template-delete'><a href="#" data-template='{name}'><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </span><!--
+                        --><span class='column-type distro-icon icon-{os_distro}' val="{os_distro}">{os_distro}</span><!--
+                        --><span class="item-hidden">$_("OS")</span><!--
+                        --><span class='column-version' val="{os_version}">{os_version}</span><!--
+                        --><span class="item-hidden">$_("Version")</span><!--
+                        --><span class='column-processors' val="{cpus}"><strong>{cpus}</strong> cores</span><!--
+                        --><span class="item-hidden">$_("CPUs")</span><!--
+                        --><span class='column-memory' val="{memory}"><strong>{memory}</strong> M</span><!--
+                        --><span class="item-hidden">$_("Memory")</span>
+                    </li>
+
+                </script>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modalWindow" class="modal fade host-modal templates-modal" tabindex="-1" role="dialog" aria-labelledby="templatesModalLabel" aria-hidden="true">
+    </div>
+    <script>
     kimchi.template_main();
-</script>
+    </script>
 </body>
 </html>
