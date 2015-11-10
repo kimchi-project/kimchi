@@ -29,102 +29,74 @@
 <script src="plugins/kimchi/js/kimchi.min.js"></script>
 </head>
 <body>
-<div class="toolbar">
-    <div class="tools" style="display:none">
-        <a id="networkAdd" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
-    </div>
-</div>
-<div id="network-content" class="network">
-    <div class="grid-control"><input type="text" class="filter" placeholder="$_("Filter")"></div>
-    <div id="networkGrid" class="list">
-        <div>
-        <span class="column-name">$_("Network Name")</span><!--
-     --><span class="column-state">$_("State")</span><!--
-     --><span class="column-type">$_("Network Type")</span><!--
-     --><span class="column-interface">$_("Interface")</span><!--
-     --><span class="column-space">$_("Address Space")</span><!--
-     --><span style="display:none">$_("Actions")</span>
-        </div>
-        <div id="networkBody" class="empty-when-logged-off"></div>
-    </div>
-    <div id="networkConfig" class="network-config">
-        <div class="section-container">
-            <div class="section-header">1. $_("Network Name")</div>
-            <div class="section-content">
-                <input type="text" id="networkName" />
-                <div class="input-hint">
-                    <span class="icon-info-circled light-grey c1 help-inline"></span>
-                    <span class="input-hint-text help-inline">$_("Name should not contain '/' and '\"'.")</span>
-                </div>
+<div id="network-root-container">
+    <nav class="navbar navbar-default toolbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="toolbar">
+                <ul class="nav navbar-nav navbar-right tools" display="none">
+                    <li><a id="networkAdd" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Network</span></a></li>
+                </ul>
             </div>
         </div>
-        <div class="section-container">
-            <div class="section-header">2. $_("Network Type")</div>
-            <div class="section-content">
-                <div class="input-container">
-                    <input type="radio" id="networkTypeIso" name="networkType" value="isolated" />
-                    <label for="networkTypeIso">$_("Isolated: no external network connection")</label>
-                </div>
-                <div class="input-container">
-                    <input type="radio" id="networkTypeNat" name="networkType" value="nat" />
-                    <label for="networkTypeNat">$_("NAT: outbound physical network connection only")</label>
-                </div>
-                <div class="input-container">
-                    <div class="bridged-inline">
-                        <input type="radio" id="networkTypeBri" name="networkType" value="bridged" />
-                    </div>
-                    <div class="bridged-inline">
-                        <label for="networkTypeBri">$_("Bridged: Virtual machines are connected to physical network directly")</label><br />
-                        <label id="networkBriDisabledLabel" style="display:none">$_("(No interfaces found)")</label>
-                    </div>
-                </div>
-                <div id="bridgeOptions">
-                    <div>
-                        <div class="bridge-option-column">
-                            <label for="networkInterface">$_("Destination"): </label>
-                        </div>
-                        <div class="bridge-option-column">
-                            <div class="network-type-wrapper-controls">
-                                <div id ="networkDestinationID">
-                                    <input id="networkDestinationInputId" name="type" type="hidden"/>
-                                    <span id="networkDestinationLabel" type="text"></span><span class="arrow"></span>
-                                    <div>
-                                        <ul id="networkInterface"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <input id="enableVlan" type="checkbox" value="" />
-                        <label for="enableVlan" id="labelEnableVlan">$_("Enable VLAN") </label>
-                    </div>
-                        <label for="networkVlanID" id="labelNetworkVlanID">$_("VLAN ID"): </label>
-                        <input type="text" id="networkVlanID" class="network-label"/>
-                    </div>
+    </nav>
+    <div id="network-content-container">
+        <div class="container">
+            <div class="row grid-control">
+                <div class="pull-right">
+                    <label for="network-filter" class="sr-only">$_("Filter"):</label>
+                    <input type="text" class="filter form-control" placeholder="$_("Filter")">
                 </div>
             </div>
+            <div id="alert-container"></div>
+            <div id="networkGrid">
+                <div>
+                    <span class="column-state"><span class="sr-only">$_("State")</span></span><!--
+                    --><span class="column-name">$_("Network Name")</span><!--
+                    --><span class="column-type">$_("Network Type")</span><!--
+                    --><span class="column-interface">$_("Interface")</span><!--
+                    --><span class="column-space">$_("Address Space")</span><!--
+                    --><span class="column-action" style="display:none">
+                            <span class="sr-only">$_("Actions")</span><!--
+                    --></span>
+                </div>
+                <div id="networkBody" class="empty-when-logged-off"></div>
+            </div>
+
+            </div>
         </div>
-    </div>
 </div>
+<div id="modalWindow" class="modal fade network-modal" tabindex="-1" role="dialog" aria-labelledby="networkModalLabel" aria-hidden="true"> </div>
 <script id="networkItem" type="text/html">
-    <div id='{name}' class='remove-when-logged-off'>
-    <span class='column-name' title="{name}" val="{name}">{name}</span><!--
- --><span class='column-state' val="{state}"><span class='network-state {state}'></span></span><!--
- --><span class='column-type' val="{type}">{type}</span><!--
- --><span class='column-interface' val="{interface}">{interface}</span><!--
- --><span class='column-space' val="{addrSpace}">{addrSpace}</span><!--
- --><span class='column-action' style="display:none">
-        <span class="ui-button-secondary dropdown popable action-button">
-            $_("Actions")
-            <ul class='popover actionsheet right-side menu-container'>
-                <li nwAct="start" class='{startClass}'><a class='button-big'>$_("Start")</a></li>
-                <li nwAct="stop" class='{stopClass}'><a {stopDisabled} class='button-big'>$_("Stop")</a></li>
-                <li nwAct="delete" class='{deleteClass}'><a {deleteDisabled} class='red'>$_("Delete")</a></li>
-            </ul>
-        </span>
-    </span>
-    </div>
+    <div id='{name}' class='wok-nw-grid-body remove-when-logged-off '>
+        <span class='column-state' val="{state}"><span class='network-state {state}'><i class="fa fa-power-off"></i><span class="wok-nw-loading-icon"></span></span></span><!--
+                    --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
+                    --><span class='column-type' val="{type}">{type}</span><!--
+                    --><span class='column-interface' val="{interface}">{interface}</span><!--
+                    --><span class='column-space' val="{addrSpace}">{addrSpace}</span><!--
+                    --><span class='column-action' style="display:none">
+                                <span class="pull-right">
+                                    <div class="dropdown menu-flat">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation" nwAct="start" class='{startClass}'><a><i class="fa fa-undo"></i>$_("Start")</a></li>
+                                            <li role="presentation" nwAct="stop" class='{stopClass}'><a {stopDisabled}><i class="fa fa-ban"></i>$_("Stop")</a></li>
+                                            <li role="presentation" nwAct="delete" class='critical {deleteClass}'><a {deleteDisabled}><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                        </span>
+            </div>
 </script>
 <script>
     kimchi.initNetwork();
