@@ -22,6 +22,13 @@ kimchi.doListStoragePools = function() {
             var listHtml = '';
             $.each(result, function(index, value) {
                 value.usage = Math.round(value.allocated / value.capacity * 100) || 0;
+                if (value.usage <= 100 && value.usage >= 85) {
+                    value.icon = 'icon-high';
+                }else if (value.usage <= 85 && value.usage >= 75 ) {
+                    value.icon = 'icon-med';
+                } else {
+                    value.icon = 'icon-low';
+                }                
                 value.capacity = wok.changetoProperUnit(value.capacity,1);
                 value.allocated = wok.changetoProperUnit(value.allocated,1);
                 value.enableExt = value.type==="logical" ? "" : "hide-content";
@@ -29,17 +36,17 @@ kimchi.doListStoragePools = function() {
                     listHtml += wok.substitute(storageHtml, value);
                 }
             });
-            if($('#storageGrid').hasClass('grid'))
-                $('#storageGrid').grid('destroy');
+            if($('#storageGrid').hasClass('wok-datagrid'))
+                $('#storageGrid').dataGrid('destroy');
             $('#storagepoolsList').html(listHtml);
             if(wok.tabMode['storage'] === 'admin') {
                 $('.storage-button').attr('style','display');
             } else {
                 $('.storage-allocate').addClass('storage-allocate-padding-user');
             }
-            $('#storageGrid').grid({enableSorting: false});
+            $('#storageGrid').dataGrid({enableSorting: false});
             $('input', $('.grid-control', '.storage')).on('keyup', function(){
-                $('#storageGrid').grid('filter', $(this).val());
+                $('#storageGrid').dataGrid('filter', $(this).val());
             });
             kimchi.storageBindClick();
         } else {
@@ -99,6 +106,7 @@ kimchi.storageBindClick = function() {
 
     if(wok.tabMode['storage'] === 'admin') {
         $('.pool-delete').on('click', function(event) {
+            event.preventDefault();
             var $pool = $(this);
             var settings = {
                 title : i18n['KCHAPI6001M'],
@@ -117,6 +125,7 @@ kimchi.storageBindClick = function() {
         });
 
         $('.pool-activate').on('click', function(event) {
+            event.preventDefault();
             var poolName = $(this).data('name');
             kimchi.changePoolState(poolName, 'activate', function() {
                 kimchi.doListStoragePools();
@@ -126,6 +135,7 @@ kimchi.storageBindClick = function() {
         });
 
         $('.pool-deactivate').on('click', function(event) {
+            event.preventDefault();
             var poolName = $(this).data('name');
             var settings = {
                 title : i18n['KCHAPI6001M'],
@@ -154,12 +164,14 @@ kimchi.storageBindClick = function() {
         });
 
         $('.pool-add-volume').on('click', function(event) {
+            event.preventDefault();
             var poolName = $(this).data('name');
             kimchi.selectedSP = poolName;
             wok.window.open('plugins/kimchi/storagepool-add-volume.html');
         });
 
-        $('.storage-action').on('click', function() {
+        $('.storage-action').on('click', function(event) {
+            event.preventDefault();
             var storage_action = $(this);
             var deleteButton = storage_action.find('.pool-delete');
             if ('active' === deleteButton.data('stat')) {
@@ -169,18 +181,24 @@ kimchi.storageBindClick = function() {
             }
         });
 
-        $('.pool-extend').on('click', function() {
-            $("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
-            $("#logicalPoolExtend").dialog("open");
+        $('.pool-extend').on('click', function(event) {
+            event.preventDefault();
+            //$("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
+            //$("#logicalPoolExtend").dialog("open");
+            partitions = $(this).data('name');
+            //$("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
         });
+
+
+
     }
 
-    $('.row').on('click', function(event) {
+    $('.wok-datagrid-row .handle ').on('click', function(event) {
         if (!$(event.target).parents().hasClass('bottom')) {
-            if ($(this).data('stat') === 'active') {
-                var that = $(this);
+            if ($(this).parent().parent().data('stat') === 'active') {
+                var that = $(this).parent().parent();
                 var volumeDiv = $('#volume' + that.data('name'));
-                var slide = $('.volumes', this);
+                var slide = $('.volumes', $(this).parent().parent());
                 if (that.hasClass('in')) {
                     that.css('height','auto');
                     kimchi.doListVolumes(that);
@@ -189,7 +207,7 @@ kimchi.storageBindClick = function() {
                         that.css('height','');
                     });
                     that.addClass('in');
-                    kimchi.changeArrow($('.arrow-up', this));
+                    kimchi.changeArrow($('.arrow-up', $(this).parent().parent()));
                 }
             }
         }
@@ -201,6 +219,17 @@ kimchi._generateVolumeHTML = function(volume) {
         return '';
     }
     var volumeHtml = $('#volumeTmpl').html();
+    volume.capacityLevel = Math.round(volume.allocation / volume.capacity * 100) || 0;
+    if (volume.capacityLevel > 100) {
+        volume.capacityIcon = 'icon-high';
+        volume.capacityLevel = 100;
+    } else if (volume.capacityLevel <= 100 && volume.capacityLevel >= 85) {
+        volume.capacityIcon = 'icon-high';
+    }else if (volume.capacityLevel <= 85 && volume.capacityLevel >= 75 ) {
+        volume.capacityIcon = 'icon-med';
+    } else {
+        volume.capacityIcon = 'icon-low';
+    }
     volume.capacity = wok.changetoProperUnit(volume.capacity,1);
     volume.allocation = wok.changetoProperUnit(volume.allocation,1);
     return wok.substitute(volumeHtml, volume);
@@ -255,7 +284,9 @@ kimchi.doListVolumes = function(poolObj) {
                 allocation: 0,
                 os_version: '',
                 path: '',
-                type: 'file'
+                type: 'file',
+                capacityLevel: 0,
+                capacityIcon: ''
             };
             listHtml += kimchi._generateVolumeHTML(volume);
         });
@@ -285,53 +316,101 @@ kimchi.doListVolumes = function(poolObj) {
     });
 }
 
-kimchi.initLogicalPoolExtend = function() {
-    $("#logicalPoolExtend").dialog({
-        autoOpen : false,
-        modal : true,
-        width : 600,
-        resizable : false,
-        closeText: "X",
-        open : function(){
+    kimchi.initLogicalPoolExtend = function() {
+
+    // $("#logicalPoolExtend").dialog({
+    //     autoOpen : false,
+    //     modal : true,
+    //     width : 600,
+    //     resizable : false,
+    //     closeText: "X",
+    //     open : function(){
+    //         $('#loading-info', '#logicalPoolExtend').removeClass('hidden');
+    //         $(".ui-dialog-titlebar-close", $("#logicalPoolExtend").parent()).removeAttr("title");
+    //         kimchi.listHostPartitions(function(data) {
+    //             $('#loading-info', '#logicalPoolExtend').addClass('hidden');
+    //             if (data.length > 0) {
+    //                 for(var i=0;i<data.length;i++){
+    //                     if (data[i].type === 'part' || data[i].type === 'disk') {
+    //                         $('.host-partition', '#logicalPoolExtend').append(wok.substitute($('#logicalPoolExtendTmpl').html(), data[i]));
+    //                     }
+    //                 }
+    //             } else {
+    //                 $('.host-partition').html(i18n['KCHPOOL6011M']);
+    //                 $('.host-partition').addClass('text-help');
+    //             }
+    //         }, function(err) {
+    //             $('#loading-info', '#logicalPoolExtend').addClass('hidden');
+    //             $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
+    //             $('.host-partition').addClass('text-help');
+    //         });
+    //     },
+    //     beforeClose : function() { $('.host-partition', '#logicalPoolExtend').empty(); },
+    //     buttons : [{
+    //         class: "ui-button-primary",
+    //         text: i18n.KCHAPI6007M,
+    //         click: function(){
+    //             var devicePaths = [];
+    //             $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function(){
+    //                 devicePaths.push($(this).prop('value'));
+    //             })
+    //             kimchi.updateStoragePool($("#logicalPoolExtend").dialog("option", "poolName"),{disks: devicePaths},function(data){
+    //                 var item = $("#"+$("#logicalPoolExtend").dialog("option", "poolName"));
+    //                 $(".usage", $(".storage-name", item)).text((Math.round(data.allocated/data.capacity*100)||0)+"%");
+    //                 $(".storage-text", $(".storage-capacity", item)).text(wok.changetoProperUnit(data.capacity,1));
+    //                 $(".storage-text", $(".storage-allocate", item)).text(wok.changetoProperUnit(data.allocated,1));
+    //             });
+    //             $(this).dialog("close");
+    //         }
+    //     }]
+    // });
+
+    $('#logicalPoolExtend').on('hidden.bs.modal', function () {
+        $('.host-partition', '#logicalPoolExtend').empty();
+    })
+
+    $('#logicalPoolExtend').on('show.bs.modal', function() {
+        //$('#logicalPoolExtend2').find('.modal-content').html();
+        kimchi.listHostPartitions(function(partitions) {
             $('#loading-info', '#logicalPoolExtend').removeClass('hidden');
-            $(".ui-dialog-titlebar-close", $("#logicalPoolExtend").parent()).removeAttr("title");
-            kimchi.listHostPartitions(function(data) {
-                $('#loading-info', '#logicalPoolExtend').addClass('hidden');
-                if (data.length > 0) {
-                    for(var i=0;i<data.length;i++){
-                        if (data[i].type === 'part' || data[i].type === 'disk') {
-                            $('.host-partition', '#logicalPoolExtend').append(wok.substitute($('#logicalPoolExtendTmpl').html(), data[i]));
-                        }
+            if (partitions.length > 0) {
+                for (var i = 0; i < partitions.length; i++) {
+                    if (partitions[i].type === 'part' || partitions[i].type === 'disk') {
+                        $('.host-partition', '#logicalPoolExtend').append(wok.substitute($('#logicalPoolExtendTmpl').html(), partitions[i]));
+                        $('#savePartitions', '#logicalPoolExtend').prop('disabled', false);
                     }
-                } else {
-                    $('.host-partition').html(i18n['KCHPOOL6011M']);
-                    $('.host-partition').addClass('text-help');
                 }
-            }, function(err) {
+            } else {
                 $('#loading-info', '#logicalPoolExtend').addClass('hidden');
-                $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
-                $('.host-partition').addClass('text-help');
-            });
-        },
-        beforeClose : function() { $('.host-partition', '#logicalPoolExtend').empty(); },
-        buttons : [{
-            class: "ui-button-primary",
-            text: i18n.KCHAPI6007M,
-            click: function(){
-                var devicePaths = [];
-                $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function(){
-                    devicePaths.push($(this).prop('value'));
-                })
-                kimchi.updateStoragePool($("#logicalPoolExtend").dialog("option", "poolName"),{disks: devicePaths},function(data){
-                    var item = $("#"+$("#logicalPoolExtend").dialog("option", "poolName"));
-                    $(".usage", $(".storage-name", item)).text((Math.round(data.allocated/data.capacity*100)||0)+"%");
-                    $(".storage-text", $(".storage-capacity", item)).text(wok.changetoProperUnit(data.capacity,1));
-                    $(".storage-text", $(".storage-allocate", item)).text(wok.changetoProperUnit(data.allocated,1));
-                });
-                $(this).dialog("close");
+                $('.host-partition').html(i18n['KCHPOOL6011M']);
             }
-        }]
+        }, function(err) {
+            $('#loading-info', '#logicalPoolExtend').addClass('hidden');
+            $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
+        });
+
+        $('#savePartitions', '#logicalPoolExtend').on('click', function(event) {
+            event.preventDefault();
+            var devicePaths = [];
+            $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function() {
+                devicePaths.push($(this).prop('value'));
+            })
+            kimchi.updateStoragePool($("#logicalPoolExtend"), {
+                disks: devicePaths
+            }, function(partitions) {
+                var item = $("#" + $("#logicalPoolExtend").dialog("option", "poolName"));
+                $('#logicalPoolExtend').modal('hide');
+                $(".usage", $(".storage-name", item)).text((Math.round(partitions.allocated / partitions.capacity * 100) || 0) + "%");
+                $(".storage-text", $(".storage-capacity", item)).text(wok.changetoProperUnit(partitions.capacity, 1));
+                $(".storage-text", $(".storage-allocate", item)).text(wok.changetoProperUnit(partitions.allocated, 1));
+            }, function(err) {
+                $('#savePartitions', '#logicalPoolExtend').prop('disabled', true);
+                $('#logicalPoolExtend').modal('hide');
+            });
+        });
+
     });
+
 }
 
 kimchi.storage_main = function() {
