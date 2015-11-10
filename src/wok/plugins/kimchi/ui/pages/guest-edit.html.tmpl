@@ -20,12 +20,11 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-
-<div id="guest-edit-window" class="window">
-    <header>
-        <h1 class="title h1 grey">$_("Edit Guest")</h1>
-    </header>
-    <div class="content">
+<div id="guest-edit-window" class="window modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">$_("Edit Guest")</h4>
+    </div>
+    <div class="modal-body">
         <div id="guest-edit-tabs">
             <ul>
                 <li>
@@ -48,54 +47,22 @@
                 </li>
             </ul>
             <form id="form-guest-edit-general">
-                <fieldset class="guest-edit-fieldset">
-                    <div class="edit-general-inline">
-                        <div class="guest-edit-wrapper-label">
-                            <label for="guest-edit-id-textbox">
-                                $_("Name")
-                            </label>
-                        </div>
-                        <div class="guest-edit-wrapper-label">
-                            <label for="guest-edit-cores-textbox">
-                                $_("CPUs")
-                            </label>
-                        </div>
-                        <div class="guest-edit-wrapper-label">
-                            <label for="guest-edit-memory-textbox">
-                                $_("Memory (MB)")
-                            </label>
-                        </div>
-                        <div class="guest-edit-wrapper-label">
-                            <label for="guest-edit-icon-textbox">
-                                $_("Icon")
-                            </label>
-                        </div>
-                    </div>
-                    <div class="edit-general-inline">
-                        <div class="guest-edit-wrapper-controls">
-                            <input id="guest-edit-id-textbox"
-                                name="name" type="text" />
-                        </div>
-                        <div class="guest-edit-wrapper-controls">
-                            <input
-                                id="guest-edit-cores-textbox"
-                                name="cpus"
-                                type="text" />
-                        </div>
-                        <div class="guest-edit-wrapper-controls">
-                            <input id="guest-edit-memory-textbox"
-                                name="memory"
-                                type="text" />
-                        </div>
-                        <div class="guest-edit-wrapper-controls">
-                            <input
-                                id="guest-edit-icon-textbox"
-                                name="icon"
-                                type="text"
-                                disabled="disabled" />
-                        </div>
-                    </div>
-                </fieldset>
+                <div class="form-group">
+                    <label for="guest-edit-id-textbox">$_("Name")</label>
+                    <input id="guest-edit-id-textbox" class="form-control" name="name" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="guest-edit-cores-textbox">$_("CPUs")</label>
+                    <input id="guest-edit-cores-textbox" class="form-control" name="cpus" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="guest-edit-memory-textbox">$_("Memory (MB)")</label>
+                    <input id="guest-edit-memory-textbox" class="form-control" name="memory" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="guest-edit-icon-textbox">$_("Icon")</label>
+                    <input id="guest-edit-icon-textbox" class="form-control" name="icon" type="text" disabled="disabled"  />
+                </div>
             </form>
             <form id="form-guest-edit-storage">
                 <div class="header">
@@ -106,11 +73,11 @@
                 <div class="body"></div>
             </form>
             <form id="form-guest-edit-interface" class="guest-edit-interface">
+                <button class="add btn btn-primary"><i class="fa fa-plus-circle"></i> Add</button>
                 <div class="header">
                     <span class="cell">$_("Network")</span>
                     <span class="cell">$_("Type")</span>
                     <span class="cell">$_("MAC Address")</span>
-                    <button class="add action-area"></button>
                 </div>
                 <div class="body"></div>
             </form>
@@ -129,8 +96,8 @@
                         </div>
                     </div>
                     <div class="column control">
-                        <button id="permissionGo"> > </button>
-                        <button id="permissionBack"> < </button>
+                        <button id="permissionGo"> &lt; </button>
+                        <button id="permissionBack"> &gt; </button>
                     </div>
                     <div class="column selected">
                         <div class="title">$_("Selected system users and groups")</div>
@@ -157,7 +124,7 @@
                 <div class="guest-scroll-indent">
                     <div class="filter">
                         <span class="group">
-                            <select class="control">
+                            <select class="control selectpicker">
                                 <option value="all">$_("All")</option>
                                 <option value="toAdd">$_("To Add")</option>
                                 <option value="added">$_("Added")</option>
@@ -184,16 +151,12 @@
             </form>
         </div>
     </div>
-    <footer>
-        <div id="action-button-container" class="btn-group hidden">
-            <button id="guest-edit-button-save" class="btn-normal">
-                <span class="text">$_("Save")</span>
-            </button>
+    <div class="modal-footer">
+        <div id="action-button-container" class="hidden">
+            <button id="guest-edit-button-save" class="btn btn-default">$_("Save")</button>
         </div>
-        <button id="guest-edit-button-cancel" class="btn-normal close">
-            <span class="text">$_("Cancel")</span>
-        </button>
-    </footer>
+        <button id="guest-edit-button-cancel" class="btn btn-default">$_("Cancel")</button>
+    </div>
 </div>
 <script id="cdrom-row-tmpl" type="text/html">
     <div class="item view" id="cdrom-{dev}">

@@ -34,27 +34,52 @@
 </head>
 <body>
 <div id="guests-root-container">
-    <div class="toolbar">
-        <div class="tools" style="display:none">
-            <a id="vm-add" class="btn-tool" href="javascript:void(0);"><span class="icon add">+</span></a>
+    <nav class="navbar navbar-default toolbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="toolbar">
+                <ul class="nav navbar-nav navbar-right tools" display="none">
+                    <li><a id="vm-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Guest</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="guest-content-container">
+        <div class="container">
+        <div id="alert-container"></div>
+            <div id="guestListField" style="display: none">
+                <ul class="list-title">
+                    <li class="guest-type">$_("Name")</li>
+                    <li class="guest-cpu">$_("CPU")</li>
+            <li class="guest-memory">$_("Memory")</li>
+                    <li class="guest-storage">$_("Disk I/O")</li>
+                    <li class="guest-network">$_("Network I/O")</li>
+                    <li class="guest-tile">$_("Livetile")</li>
+                    <li class="guest-actions">$_("Actions")</li>
+                </ul>
+                <ul id="guestList" class="list-vm empty-when-logged-off">
+                </ul>
+            </div>
+            <div id="noGuests" class="list-no-result" style="display: none;">
+                $_("No guests found.")
+            </div>
         </div>
     </div>
-    <div id="guestListField" style="display: none">
-        <ul class="list-title">
-            <li class="guest-type">$_("Name")</li>
-            <li class="guest-cpu">$_("CPU")</li>
-            <li class="guest-memory">$_("Memory")</li>
-            <li class="guest-storage">$_("Disk I/O")</li>
-            <li class="guest-network">$_("Network I/O")</li>
-            <li class="guest-tile">$_("Livetile")</li>
-            <li class="guest-actions">$_("Actions")</li>
-        </ul>
-        <ul id="guestList" class="list-vm empty-when-logged-off">
-        </ul>
-    </div>
-    <div id="noGuests" class="list-no-result" style="display: none;">
-        $_("No guests found.")
-    </div>
+<div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">
+</div>
+<div id="extendCreateTemplate" class="modal fade host-modal templates-modal" tabindex="-1" role="dialog" aria-labelledby="templateModalLabel" aria-hidden="true">
+</div>
+<div id="extendCreateStorage" class="modal fade host-modal storage-modal" tabindex="-1" role="dialog" aria-labelledby="storageModalLabel" aria-hidden="true">
+</div>
     <script id="guest-tmpl" type="kimchi/template">
     $ht(file=$data.ui_dir + "/pages/guest.html.tmpl", searchList=[self, {'lang':$lang}])
     </script>

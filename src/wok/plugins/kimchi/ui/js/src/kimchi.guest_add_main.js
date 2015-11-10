@@ -22,6 +22,10 @@ kimchi.guest_add_main = function() {
             if (result && result.length) {
                 $('#prompt-create-template').addClass('hidden');
                 $('#prompt-choose-template').removeClass('hidden');
+                $('#guest-add-window .guest-pager').animate({
+                            height: "530px"
+                });
+
                 var html = '';
                 var tmpl = $('#tmpl-template').html();
                 $.each(result, function(index, value) {
@@ -34,13 +38,17 @@ kimchi.guest_add_main = function() {
             $('#btn-create-template').on('click', function(event) {
                 wok.topic('templateCreated').subscribe(showTemplates);
 
-                wok.window.open('plugins/kimchi/template-add.html');
+                wok.window.open('plugins/kimchi/template-add.html','extendCreateTemplate');
 
                 event.preventDefault();
             });
 
             $('#prompt-choose-template').addClass('hidden');
             $('#prompt-create-template').removeClass('hidden');
+            $('#guest-add-window .guest-pager').animate({
+                height: "90px"
+            });
+
         }, function(err) {
             wok.message.error(err.responseJSON.reason);
         });
