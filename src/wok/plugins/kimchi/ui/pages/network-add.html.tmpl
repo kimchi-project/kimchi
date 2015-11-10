@@ -1,0 +1,70 @@
+#*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2014-2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<div id="add-network-window" class="window modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title" id="networkModalLabel">$_("Create a network")</h4>
+    </div>
+    <div id="networkConfig" class="modal-body">
+        <span id="alert-modal-container"></span>
+        <div class="form-group">
+            <label for="networkName">$_("Network Name")</label>
+            <input type="text" class="form-control" id="networkName" />
+            <p class="help-block">
+                <i class="fa fa-info-circle"></i> $_("Name should not contain '/' and '\"'.")</p>
+        </div>
+        <div class="form-group">
+            <label for="networkType">$_("Network Type")</label>
+            <select id="networkType" class="selectpicker col-md-12 col-lg-12">
+                <option value="isolated">$_("Isolated: no external network connection")</option>
+                <option value="nat">$_("NAT: outbound physical network connection only")</option>
+                <option value="bridged">$_("Bridged: Virtual machines are connected to physical network directly")</option>
+            </select>
+        </div>
+        <div id="networkBriDisabledLabel" class="form-group hidden">
+            <p>$_("(No interfaces found)")</p>
+        </div>
+        <div id="bridgedContent">
+            <div class="form-group">
+                <label for="networkDestinationID">$_("Destination"): </label>
+                <select id="networkDestinationID"  class="selectpicker col-md-12 col-lg-12">
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="enableVlan" class="wok-checkbox" type="checkbox" value="" />
+                <label for="enableVlan" id="labelEnableVlan">$_("Enable VLAN") </label>
+                <div id="vlan-enabled">
+                    <label for="networkVlanID" id="labelNetworkVlanID">$_("VLAN ID"): </label>
+                    <input type="text" id="networkVlanID" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="networkFormOk" class="btn btn-default">$_("Create")</button>
+        <button type="button" id="networkFormCancel" data-dismiss="modal" class="btn btn-default">$_("Cancel")</button>
+    </div>
+</div>
+<script type="text/javascript">
+kimchi.network_add_main();
+</script>
