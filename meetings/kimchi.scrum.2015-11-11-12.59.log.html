@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:59:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:59:54</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 11 12:59:54 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:59:54</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:59:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:59:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-6"></a><span class="tm">12:59:54</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-7"></a><span class="tm">13:00:04</span><span class="nk"> &lt;alinefm&gt;</span> anything else to add to the agenda?
+<a name="l-8"></a><span class="tm">13:00:38</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-9"></a><span class="tm">13:01:42</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-10"></a><span class="tm">13:01:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:01:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:02:31</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik working on the definition of the usecase for setup uplinks in Open vSwitch in ginger.</span>
+<a name="l-13"></a><span class="tm">13:03:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patches to fix some issues: deb build for gingerbase, ISO streaming detection support, video model for Fedora22+, track task while creating/cloning guests</span>
+<a name="l-14"></a><span class="tm">13:03:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working on creating a logical pool from an exiting VG</span>
+<a name="l-15"></a><span class="tm">13:04:36</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital worked in the task 'Guest memory usage'.</span>
+<a name="l-16"></a><span class="tm">13:04:36</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital worked in the V2 of the issue related to objectstore information update when upgrading from Kimchi 1.5.1 to Kimchi 2.0. Waiting review.</span>
+<a name="l-17"></a><span class="tm">13:04:36</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital worked in the task 'Create storage volume when attaching disk to a guest'</span>
+<a name="l-18"></a><span class="tm">13:04:36</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patches to Wok/Kimchi community: Guest memory utilization; Issue #751: Fix guest memory utilization calculation; Upgrade ObjectStore data to Kimchi-2.0 (V2); Create new storage volume when attaching disk to a guest.</span>
+<a name="l-19"></a><span class="tm">13:04:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches and RFCs from Kimchi, Ginger Base and Ginger.</span>
+<a name="l-20"></a><span class="tm">13:04:40</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in the V2 of the patches submitted and reviewed.</span>
+<a name="l-21"></a><span class="tm">13:04:58</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">suresh pushed patch to fix issue 1 in gingers390x</span>
+<a name="l-22"></a><span class="tm">13:05:21</span><span class="nk"> &lt;alinefm&gt;</span> pvital, the patch to update the database was already applied upstream
+<a name="l-23"></a><span class="tm">13:05:26</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio sent host part of OVS bridges recognition to review last week</span>
+<a name="l-24"></a><span class="tm">13:05:26</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio discussed design around Linux bridge support</span>
+<a name="l-25"></a><span class="tm">13:05:26</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio applied code review for Linux bridge support feature - missing test cases and test</span>
+<a name="l-26"></a><span class="tm">13:05:26</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio will do the OVS bridges recognition guest network part (and test cases) after finishing linux bridge support</span>
+<a name="l-27"></a><span class="tm">13:05:31</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">atreyee working on issue # 746 new navigation bar</span>
+<a name="l-28"></a><span class="tm">13:05:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed and tested patches in the ML</span>
+<a name="l-29"></a><span class="tm">13:05:59</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri sent new-ui patches yesterday</span>
+<a name="l-30"></a><span class="tm">13:06:01</span><span class="nk"> &lt;pvital&gt;</span> alinefm, yeap but this is my log since the last scrum meeting :-P
+<a name="l-31"></a><span class="tm">13:06:04</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a version of the non shared storage live migration  for review</span>
+<a name="l-32"></a><span class="tm">13:06:10</span><span class="nk"> &lt;alinefm&gt;</span> pvital, hehehe
+<a name="l-33"></a><span class="tm">13:06:28</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri currently working on edit guests modal windows</span>
+<a name="l-34"></a><span class="tm">13:07:08</span><span class="nk"> &lt;andreteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">andreteodoro working on Guests screen new ui</span>
+<a name="l-35"></a><span class="tm">13:08:57</span><span class="nk"> &lt;alinefm&gt;</span> pvital, to attach a new volume to the VM, I don't think we need to craete a new API. Couldn't we use POST /storagepools/&lt;pool&gt;/storagevolumes {capacity: ..} + POST /vms/&lt;name&gt;/storages {...}
+<a name="l-36"></a><span class="tm">13:09:26</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, as Samuel patches have already been merged upstream, maybe you can rebase on master now
+<a name="l-37"></a><span class="tm">13:09:59</span><span class="nk"> &lt;atreyee&gt;</span> alinefm, sure
+<a name="l-38"></a><span class="tm">13:10:05</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you plan to continue maintaining your repository from now on? or will you discontinued it as your patches were applied upstream?
+<a name="l-39"></a><span class="tm">13:10:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, anything else to share?
+<a name="l-40"></a><span class="tm">13:10:30</span><span class="nk"> &lt;samhenri&gt;</span> until guests screen is not finished i will use my fork
+<a name="l-41"></a><span class="tm">13:10:47</span><span class="nk"> &lt;samhenri&gt;</span> once guests and edit guests are applied I'll send patches to upstream
+<a name="l-42"></a><span class="tm">13:11:28</span><span class="nk"> &lt;samhenri&gt;</span> The same goes for Ginger
+<a name="l-43"></a><span class="tm">13:11:51</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-44"></a><span class="tm">13:12:10</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, any ETA for the Ginger UI ?
+<a name="l-45"></a><span class="tm">13:13:00</span><span class="nk"> &lt;samhenri&gt;</span> I can send a patch now for the new-ui UI toolbar, I'm going to pick some Ginger panels after Edit Guests
+<a name="l-46"></a><span class="tm">13:13:12</span><span class="nk"> &lt;samhenri&gt;</span> new-ui toolbar and tab-ext.xml
+<a name="l-47"></a><span class="tm">13:13:31</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Finished porting of Multiple Disks in Template edit window - Sent patch to upstream, need to rebase with new UI</span>
+<a name="l-48"></a><span class="tm">13:13:36</span><span class="nk"> &lt;samhenri&gt;</span> after applying the new-ui some panels and buttons from ginger are not displaying correctly
+<a name="l-49"></a><span class="tm">13:13:47</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Finished porting of Memory 256MiB alignment and slots &lt;= 0 for PowerPC - Sent patchset to kimchi upstream;</span>
+<a name="l-50"></a><span class="tm">13:14:11</span><span class="nk"> &lt;samhenri&gt;</span> and I also have to create a new widget for Batch Delete and Backup dialogs
+<a name="l-51"></a><span class="tm">13:14:32</span><span class="nk"> &lt;pvital&gt;</span> alinefm, them I'll add a new disk with the same size of the current disk. The idea is to let user decide the size of the new volume in the UI
+<a name="l-52"></a><span class="tm">13:15:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, from the last scrum meeting you said the Administration tab would be done by Nov 13
+<a name="l-53"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is the date still right?
+<a name="l-54"></a><span class="tm">13:15:33</span><span class="nk"> &lt;samhenri&gt;</span> correct, if I manage to finish Edit Guests today
+<a name="l-55"></a><span class="tm">13:15:42</span><span class="nk"> &lt;rotru&gt;</span> samhenri,  alinefm  have you tested the new UI in Firefox ?
+<a name="l-56"></a><span class="tm">13:15:42</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-57"></a><span class="tm">13:15:48</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yes
+<a name="l-58"></a><span class="tm">13:16:16</span><span class="nk"> &lt;pvital&gt;</span> alinefm, as well the new volume format - user should select one inthe UI
+<a name="l-59"></a><span class="tm">13:16:19</span><span class="nk"> &lt;samhenri&gt;</span> rotru, i've been using Firefox developer edition
+<a name="l-60"></a><span class="tm">13:16:26</span><span class="nk"> &lt;WalterNik&gt;</span> sanhenri, what do you mean with:  I can send a patch now for the new-ui UI toolbar ?
+<a name="l-61"></a><span class="tm">13:16:37</span><span class="nk"> &lt;alinefm&gt;</span> pvital, sure! but it can be done by POST /storagepools/&lt;pool&gt;/storagevolumes {capacity: .. format:...}
+<a name="l-62"></a><span class="tm">13:16:49</span><span class="nk"> &lt;pvital&gt;</span> alinefm, and which capacity and volume should I take if my VM already have 10 volumes of different sizes?
+<a name="l-63"></a><span class="tm">13:16:55</span><span class="nk"> &lt;rotru&gt;</span> alinefm, samhenri  the template edit is not OK in firefox for me
+<a name="l-64"></a><span class="tm">13:17:33</span><span class="nk"> &lt;alinefm&gt;</span> pvital, sorry! not sure I followed you
+<a name="l-65"></a><span class="tm">13:17:48</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, asking because atreyee is working on the new UI-navigation right now
+<a name="l-66"></a><span class="tm">13:17:55</span><span class="nk"> &lt;rotru&gt;</span> alinefm, samhenri  the template edit  window (storages and interface
+<a name="l-67"></a><span class="tm">13:17:58</span><span class="nk"> &lt;rotru&gt;</span> )
+<a name="l-68"></a><span class="tm">13:18:05</span><span class="nk"> &lt;danielhb&gt;</span> rotru, have you tested the new UI in Firefox? how did it look?
+<a name="l-69"></a><span class="tm">13:18:37</span><span class="nk"> &lt;rotru&gt;</span> danielhb,  ?? thats what I am talking about
+<a name="l-70"></a><span class="tm">13:18:39</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik, I mean apply the red toolbar for Ginger
+<a name="l-71"></a><span class="tm">13:18:41</span><span class="nk"> &lt;alinefm&gt;</span> seems it is time to move on to open discussion hehe
+<a name="l-72"></a><span class="tm">13:18:43</span><span class="nk"> &lt;WalterNik&gt;</span> sanhenri, and I guess that would affect the tab-ext.xml as well :-)
+<a name="l-73"></a><span class="tm">13:18:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-74"></a><span class="tm">13:19:04</span><span class="nk"> &lt;danielhb&gt;</span> rotru, in your opinion the UI needs fixes when running in Firefox. Is that it?
+<a name="l-75"></a><span class="tm">13:19:38</span><span class="nk"> &lt;alinefm&gt;</span> pvital, POST /storagepools/&lt;pool&gt;/storagevolumes {capacity: .. format:...} create a volume with a given size and format
+<a name="l-76"></a><span class="tm">13:19:44</span><span class="nk"> &lt;alinefm&gt;</span> pvital, agree?
+<a name="l-77"></a><span class="tm">13:19:49</span><span class="nk"> &lt;rotru&gt;</span> danielhb,  yeap ...   I did not open all windows yet ... I am just warning about Template Edit
+<a name="l-78"></a><span class="tm">13:19:55</span><span class="nk"> &lt;alinefm&gt;</span> pvital, user can select any size and any format
+<a name="l-79"></a><span class="tm">13:19:58</span><span class="nk"> &lt;danielhb&gt;</span> rotru, got it
+<a name="l-80"></a><span class="tm">13:20:21</span><span class="nk"> &lt;alinefm&gt;</span> pvital, after having the volume created we can attach it to the vm by using the existing API POST /vms/&lt;name&gt;/storages/
+<a name="l-81"></a><span class="tm">13:20:45</span><span class="nk"> &lt;pvital&gt;</span> alinefm, yeah but I guess what you are suggesting is: 1st add a volume in the pool; and then, 2) attach the volume in the VM
+<a name="l-82"></a><span class="tm">13:21:15</span><span class="nk"> &lt;pvital&gt;</span> the idea is create the volume in the pool, at the same time of attaching it to the VM
+<a name="l-83"></a><span class="tm">13:21:44</span><span class="nk"> &lt;alinefm&gt;</span> pvital, from a user point of view, yeap!
+<a name="l-84"></a><span class="tm">13:21:49</span><span class="nk"> &lt;pvital&gt;</span> the backend process is what you suggest. 1st i create the volume then I attach it
+<a name="l-85"></a><span class="tm">13:22:01</span><span class="nk"> &lt;alinefm&gt;</span> pvital, but the background task would be splitted into 2
+<a name="l-86"></a><span class="tm">13:22:20</span><span class="nk"> &lt;alinefm&gt;</span> rotru, jus testes here and I don't see issues with the edit template dialog
+<a name="l-87"></a><span class="tm">13:22:38</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I mean, there are some elements not fully aligned but the dialog is useful
+<a name="l-88"></a><span class="tm">13:22:47</span><span class="nk"> &lt;pvital&gt;</span> alinefm, it is!!! first I create the volume, then I attach it to the VM
+<a name="l-89"></a><span class="tm">13:23:17</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  yeap... thats my point
+<a name="l-90"></a><span class="tm">13:23:24</span><span class="nk"> &lt;pvital&gt;</span> but I need to that using only one REST command
+<a name="l-91"></a><span class="tm">13:23:36</span><span class="nk"> &lt;alinefm&gt;</span> rotru, don't have elements aligned means it is broken on firefox?
+<a name="l-92"></a><span class="tm">13:23:59</span><span class="nk"> &lt;alinefm&gt;</span> pvital, my point is: do we need a new API to do that? Or let the UI do the 2 API calls?
+<a name="l-93"></a><span class="tm">13:24:04</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  yes
+<a name="l-94"></a><span class="tm">13:24:23</span><span class="nk"> &lt;rotru&gt;</span> alinefm, but not a big issue
+<a name="l-95"></a><span class="tm">13:24:38</span><span class="nk"> &lt;rotru&gt;</span> :)
+<a name="l-96"></a><span class="tm">13:24:46</span><span class="nk"> &lt;samhenri&gt;</span> rotru, just confirmed that the fields are not aligned on master, I think I forgot one commit that fixed that :\
+<a name="l-97"></a><span class="tm">13:25:02</span><span class="nk"> &lt;alinefm&gt;</span> rotru, whew!
+<a name="l-98"></a><span class="tm">13:25:16</span><span class="nk"> &lt;alinefm&gt;</span> rotru, "by not working" I thought in something really broken
+<a name="l-99"></a><span class="tm">13:25:17</span><span class="nk"> &lt;alinefm&gt;</span> heheh
+<a name="l-100"></a><span class="tm">13:25:27</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can send the patch separated to the ML
+<a name="l-101"></a><span class="tm">13:25:37</span><span class="nk"> &lt;samhenri&gt;</span> yes, I going to do this asap
+<a name="l-102"></a><span class="tm">13:25:42</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, I guess that red coloring on Admin tab is not up to date anymore ... pls check issue # 746 (new navigation bar ) atreyee is almost finished on the new navigation:  Virtualization (green) and Host (blue) Tab as first lvl and the active 2nd lvl tab will simply get a darker color shade
+<a name="l-103"></a><span class="tm">13:26:13</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I don't like the UI, so I think that API must be changed to address the same usability by the REST commands
+<a name="l-104"></a><span class="tm">13:26:26</span><span class="nk"> &lt;rotru&gt;</span> samhenri, alinefm  I understand what happened ... I had open in Firefox and I think it used some old CSS, so, first time, it was a mess .... when I opened in Firefox private window, I just saw the alignment problem ...
+<a name="l-105"></a><span class="tm">13:26:36</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, atreyee was working on top of your repo so the changes should fit
+<a name="l-106"></a><span class="tm">13:26:51</span><span class="nk"> &lt;alinefm&gt;</span> pvital, don't you like to do UI code? or... ?
+<a name="l-107"></a><span class="tm">13:27:11</span><span class="nk"> &lt;pvital&gt;</span> LOL
+<a name="l-108"></a><span class="tm">13:27:17</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik, yes, I know. I've applied the patch Chandra sent on e-mail locally
+<a name="l-109"></a><span class="tm">13:27:19</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, LOL pvital likes to code javascript in his free time!
+<a name="l-110"></a><span class="tm">13:27:37</span><span class="nk"> &lt;pvital&gt;</span> alinefm, that was sarcasm!! just trying to convince you!
+<a name="l-111"></a><span class="tm">13:27:49</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I am not telling/asking you to do the UI part of code
+<a name="l-112"></a><span class="tm">13:27:51</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, but atreyee is facing a problem: she doesn't get her source css being compiled ... can you help with a hint ?
+<a name="l-113"></a><span class="tm">13:27:57</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik, but I also created a fork for Ginger
+<a name="l-114"></a><span class="tm">13:28:01</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  "not working"  ... I overreacted ... sorry (hate cache)
+<a name="l-115"></a><span class="tm">13:28:02</span><span class="nk"> &lt;alinefm&gt;</span> pvital, just to confirm the existing APIs we have are enought to this feature
+<a name="l-116"></a><span class="tm">13:28:02</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik, sure
+<a name="l-117"></a><span class="tm">13:28:13</span><span class="nk"> &lt;alinefm&gt;</span> pvital, if so, I will ask Socorro to do the UI code
+<a name="l-118"></a><span class="tm">13:29:08</span><span class="nk"> &lt;pvital&gt;</span> alinefm, that's the point!!!! I just thought to provide a way to attach a new disk once - by the UI or REST commands!
+<a name="l-119"></a><span class="tm">13:29:18</span><span class="nk"> &lt;rotru&gt;</span> alinefm, danielhb , samhenri  have not observed issues in Chrome
+<a name="l-120"></a><span class="tm">13:29:33</span><span class="nk"> &lt;alinefm&gt;</span> rotru, great! thanks for the feedbacks
+<a name="l-121"></a><span class="tm">13:30:32</span><span class="nk"> &lt;atreyee&gt;</span> samhenri, I added a new variable in _wok_variable.scss , but after compilation I find that it's not available in css file
+<a name="l-122"></a><span class="tm">13:30:43</span><span class="nk"> &lt;alinefm&gt;</span> pvital, it is arguably! as having 2 ways to do the same thing may require more maintenance
+<a name="l-123"></a><span class="tm">13:30:51</span><span class="nk"> &lt;atreyee&gt;</span> i mean it's value did not reflected
+<a name="l-124"></a><span class="tm">13:30:54</span><span class="nk"> &lt;alinefm&gt;</span> but I am open to hear all opinions on that =)
+<a name="l-125"></a><span class="tm">13:32:04</span><span class="nk"> &lt;atreyee&gt;</span> it's happening for me in all scss changes.
+<a name="l-126"></a><span class="tm">13:32:11</span><span class="nk"> &lt;samhenri&gt;</span> atreyee are you running sassc command directly on css/src folder?
+<a name="l-127"></a><span class="tm">13:32:26</span><span class="nk"> &lt;atreyee&gt;</span> no.
+<a name="l-128"></a><span class="tm">13:32:49</span><span class="nk"> &lt;atreyee&gt;</span> samhenri, Do I need to?
+<a name="l-129"></a><span class="tm">13:33:08</span><span class="nk"> &lt;atreyee&gt;</span> I am just using make command
+<a name="l-130"></a><span class="tm">13:33:27</span><span class="nk"> &lt;jansch&gt;</span> samhenri, can we integrate this into the make?
+<a name="l-131"></a><span class="tm">13:33:38</span><span class="nk"> &lt;samhenri&gt;</span> atreyee just to get the full output error
+<a name="l-132"></a><span class="tm">13:34:04</span><span class="nk"> &lt;samhenri&gt;</span> jansch it is already there
+<a name="l-133"></a><span class="tm">13:34:12</span><span class="nk"> &lt;samhenri&gt;</span> I've updated gingerbase makefile
+<a name="l-134"></a><span class="tm">13:34:20</span><span class="nk"> &lt;jansch&gt;</span> thx
+<a name="l-135"></a><span class="tm">13:34:25</span><span class="nk"> &lt;atreyee&gt;</span> samhenri, I did not see any error in log
+<a name="l-136"></a><span class="tm">13:35:42</span><span class="nk"> &lt;samhenri&gt;</span> have you changed _wok-variables in kimchi/ui/css/src/modules or somewhere else?
+<a name="l-137"></a><span class="tm">13:36:00</span><span class="nk"> &lt;samhenri&gt;</span> because gingerbase.scss is pointing to this location location
+<a name="l-138"></a><span class="tm">13:36:16</span><span class="nk"> &lt;samhenri&gt;</span> i mean, getting wok-variables from kimchi/ui/css/
+<a name="l-139"></a><span class="tm">13:36:46</span><span class="nk"> &lt;atreyee&gt;</span> in _wok-variables in kimchi/ui/css/src/module
+<a name="l-140"></a><span class="tm">13:39:29</span><span class="nk"> &lt;samhenri&gt;</span> try running  sassc src/gingerbase.scss gingerbase.css
+<a name="l-141"></a><span class="tm">13:39:41</span><span class="nk"> &lt;samhenri&gt;</span> if there's an error the output should be something like this:
+<a name="l-142"></a><span class="tm">13:39:51</span><span class="nk"> &lt;samhenri&gt;</span> <span class="hi">sassc:</span> error: Error: top-level @import directive must be terminated by ';'
+<a name="l-143"></a><span class="tm">13:39:53</span><span class="nk"> &lt;samhenri&gt;</span> on line 29 of src/gingerbase.scss
+<a name="l-144"></a><span class="tm">13:39:54</span><span class="nk"> &lt;samhenri&gt;</span> &gt;&gt; @import "modules/host"
+<a name="l-145"></a><span class="tm">13:39:56</span><span class="nk"> &lt;samhenri&gt;</span> ----------------------^
+<a name="l-146"></a><span class="tm">13:40:22</span><span class="nk"> &lt;samhenri&gt;</span> this appears on the makefiles as well but sometimes it compiles the other makefiles too fast and you won't spot the error message
+<a name="l-147"></a><span class="tm">13:40:54</span><span class="nk"> &lt;samhenri&gt;</span> if the variable is really missing, then should be something like this: sassc: error: Error: Undefined variable: "$test-variable".
+<a name="l-148"></a><span class="tm">13:41:22</span><span class="nk"> &lt;atreyee&gt;</span> ok, I will try that
+<a name="l-149"></a><span class="tm">13:41:55</span><span class="nk"> &lt;atreyee&gt;</span> samhenri, thank you
+<a name="l-150"></a><span class="tm">13:42:11</span><span class="nk"> &lt;samhenri&gt;</span> I'll see if creating a symlink to kimchi/ui/css/src/modules works with sassc
+<a name="l-151"></a><span class="tm">13:42:31</span><span class="nk"> &lt;samhenri&gt;</span> atreyee yw
+<a name="l-152"></a><span class="tm">13:43:30</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-153"></a><span class="tm">13:43:41</span><span class="nk"> &lt;rotru&gt;</span> nope
+<a name="l-154"></a><span class="tm">13:44:33</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-155"></a><span class="tm">13:44:47</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-156"></a><span class="tm">13:44:50</span><span class="nk"> &lt;WalterNik&gt;</span> no
+<a name="l-157"></a><span class="tm">13:44:58</span><span class="nk"> &lt;jansch&gt;</span> no
+<a name="l-158"></a><span class="tm">13:45:40</span><span class="nk"> &lt;alinefm&gt;</span> just a reminder: we have only 2 weeks for the code freeze
+<a name="l-159"></a><span class="tm">13:45:51</span><span class="nk"> &lt;alinefm&gt;</span> so all the features must be upstream prior to Nov 25
+<a name="l-160"></a><span class="tm">13:46:03</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-161"></a><span class="tm">13:46:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

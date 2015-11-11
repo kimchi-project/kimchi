@@ -1,0 +1,161 @@
+12:59:54 <alinefm> #startmeeting
+12:59:54 <kimchi-bot> Meeting started Wed Nov 11 12:59:54 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:59:54 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:59:54 <alinefm> #meetingname scrum
+12:59:54 <alinefm> #info Agenda 1) Status 2) Open discussion
+12:59:54 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:04 <alinefm> anything else to add to the agenda?
+13:00:38 <pvital> no
+13:01:42 <alinefm> so let's get started
+13:01:44 <alinefm> #topic Status
+13:01:44 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:02:31 <WalterNik> #info WalterNik working on the definition of the usecase for setup uplinks in Open vSwitch in ginger.
+13:03:06 <alinefm> #info alinefm sent patches to fix some issues: deb build for gingerbase, ISO streaming detection support, video model for Fedora22+, track task while creating/cloning guests
+13:03:21 <alinefm> #info alinefm is now working on creating a logical pool from an exiting VG
+13:04:36 <pvital> #info pvital worked in the task 'Guest memory usage'.
+13:04:36 <pvital> #info pvital worked in the V2 of the issue related to objectstore information update when upgrading from Kimchi 1.5.1 to Kimchi 2.0. Waiting review.
+13:04:36 <pvital> #info pvital worked in the task 'Create storage volume when attaching disk to a guest'
+13:04:36 <pvital> #info pvital submitted patches to Wok/Kimchi community: Guest memory utilization; Issue #751: Fix guest memory utilization calculation; Upgrade ObjectStore data to Kimchi-2.0 (V2); Create new storage volume when attaching disk to a guest.
+13:04:38 <pvital> #info pvital reviewed some patches and RFCs from Kimchi, Ginger Base and Ginger.
+13:04:40 <pvital> #info pvital is working in the V2 of the patches submitted and reviewed.
+13:04:58 <suresh> #info suresh pushed patch to fix issue 1 in gingers390x
+13:05:21 <alinefm> pvital, the patch to update the database was already applied upstream
+13:05:26 <lcorreia> #info lucio sent host part of OVS bridges recognition to review last week
+13:05:26 <lcorreia> #info lucio discussed design around Linux bridge support
+13:05:26 <lcorreia> #info lucio applied code review for Linux bridge support feature - missing test cases and test
+13:05:26 <lcorreia> #info lucio will do the OVS bridges recognition guest network part (and test cases) after finishing linux bridge support
+13:05:31 <atreyee> #info atreyee working on issue # 746 new navigation bar
+13:05:43 <danielhb> #info danielhb reviewed and tested patches in the ML
+13:05:59 <samhenri> #info samhenri sent new-ui patches yesterday
+13:06:01 <pvital> alinefm, yeap but this is my log since the last scrum meeting :-P
+13:06:04 <danielhb> #info danielhb sent a version of the non shared storage live migration  for review
+13:06:10 <alinefm> pvital, hehehe
+13:06:28 <samhenri> #info samhenri currently working on edit guests modal windows
+13:07:08 <andreteodoro> #info andreteodoro working on Guests screen new ui
+13:08:57 <alinefm> pvital, to attach a new volume to the VM, I don't think we need to craete a new API. Couldn't we use POST /storagepools/<pool>/storagevolumes {capacity: ..} + POST /vms/<name>/storages {...}
+13:09:26 <alinefm> atreyee, as Samuel patches have already been merged upstream, maybe you can rebase on master now
+13:09:59 <atreyee> alinefm, sure
+13:10:05 <alinefm> samhenri, do you plan to continue maintaining your repository from now on? or will you discontinued it as your patches were applied upstream?
+13:10:24 <alinefm> rotru, anything else to share?
+13:10:30 <samhenri> until guests screen is not finished i will use my fork
+13:10:47 <samhenri> once guests and edit guests are applied I'll send patches to upstream
+13:11:28 <samhenri> The same goes for Ginger
+13:11:51 <alinefm> ok
+13:12:10 <danielhb> samhenri, any ETA for the Ginger UI ?
+13:13:00 <samhenri> I can send a patch now for the new-ui UI toolbar, I'm going to pick some Ginger panels after Edit Guests
+13:13:12 <samhenri> new-ui toolbar and tab-ext.xml
+13:13:31 <rotru> #info rotru Finished porting of Multiple Disks in Template edit window - Sent patch to upstream, need to rebase with new UI
+13:13:36 <samhenri> after applying the new-ui some panels and buttons from ginger are not displaying correctly
+13:13:47 <rotru> #info rotru Finished porting of Memory 256MiB alignment and slots <= 0 for PowerPC - Sent patchset to kimchi upstream;
+13:14:11 <samhenri> and I also have to create a new widget for Batch Delete and Backup dialogs
+13:14:32 <pvital> alinefm, them I'll add a new disk with the same size of the current disk. The idea is to let user decide the size of the new volume in the UI
+13:15:04 <alinefm> samhenri, from the last scrum meeting you said the Administration tab would be done by Nov 13
+13:15:10 <alinefm> samhenri, is the date still right?
+13:15:33 <samhenri> correct, if I manage to finish Edit Guests today
+13:15:42 <rotru> samhenri,  alinefm  have you tested the new UI in Firefox ?
+13:15:42 <alinefm> ok
+13:15:48 <alinefm> rotru, yes
+13:16:16 <pvital> alinefm, as well the new volume format - user should select one inthe UI
+13:16:19 <samhenri> rotru, i've been using Firefox developer edition
+13:16:26 <WalterNik> sanhenri, what do you mean with:  I can send a patch now for the new-ui UI toolbar ?
+13:16:37 <alinefm> pvital, sure! but it can be done by POST /storagepools/<pool>/storagevolumes {capacity: .. format:...}
+13:16:49 <pvital> alinefm, and which capacity and volume should I take if my VM already have 10 volumes of different sizes?
+13:16:55 <rotru> alinefm, samhenri  the template edit is not OK in firefox for me
+13:17:33 <alinefm> pvital, sorry! not sure I followed you
+13:17:48 <WalterNik> samhenri, asking because atreyee is working on the new UI-navigation right now
+13:17:55 <rotru> alinefm, samhenri  the template edit  window (storages and interface
+13:17:58 <rotru> )
+13:18:05 <danielhb> rotru, have you tested the new UI in Firefox? how did it look?
+13:18:37 <rotru> danielhb,  ?? thats what I am talking about
+13:18:39 <samhenri> WalterNik, I mean apply the red toolbar for Ginger
+13:18:41 <alinefm> seems it is time to move on to open discussion hehe
+13:18:43 <WalterNik> sanhenri, and I guess that would affect the tab-ext.xml as well :-)
+13:18:48 <alinefm> #topic Open Discussion
+13:19:04 <danielhb> rotru, in your opinion the UI needs fixes when running in Firefox. Is that it?
+13:19:38 <alinefm> pvital, POST /storagepools/<pool>/storagevolumes {capacity: .. format:...} create a volume with a given size and format
+13:19:44 <alinefm> pvital, agree?
+13:19:49 <rotru> danielhb,  yeap ...   I did not open all windows yet ... I am just warning about Template Edit
+13:19:55 <alinefm> pvital, user can select any size and any format
+13:19:58 <danielhb> rotru, got it
+13:20:21 <alinefm> pvital, after having the volume created we can attach it to the vm by using the existing API POST /vms/<name>/storages/
+13:20:45 <pvital> alinefm, yeah but I guess what you are suggesting is: 1st add a volume in the pool; and then, 2) attach the volume in the VM
+13:21:15 <pvital> the idea is create the volume in the pool, at the same time of attaching it to the VM
+13:21:44 <alinefm> pvital, from a user point of view, yeap!
+13:21:49 <pvital> the backend process is what you suggest. 1st i create the volume then I attach it
+13:22:01 <alinefm> pvital, but the background task would be splitted into 2
+13:22:20 <alinefm> rotru, jus testes here and I don't see issues with the edit template dialog
+13:22:38 <alinefm> rotru, I mean, there are some elements not fully aligned but the dialog is useful
+13:22:47 <pvital> alinefm, it is!!! first I create the volume, then I attach it to the VM
+13:23:17 <rotru> alinefm,  yeap... thats my point
+13:23:24 <pvital> but I need to that using only one REST command
+13:23:36 <alinefm> rotru, don't have elements aligned means it is broken on firefox?
+13:23:59 <alinefm> pvital, my point is: do we need a new API to do that? Or let the UI do the 2 API calls?
+13:24:04 <rotru> alinefm,  yes
+13:24:23 <rotru> alinefm, but not a big issue
+13:24:38 <rotru> :)
+13:24:46 <samhenri> rotru, just confirmed that the fields are not aligned on master, I think I forgot one commit that fixed that :\
+13:25:02 <alinefm> rotru, whew!
+13:25:16 <alinefm> rotru, "by not working" I thought in something really broken
+13:25:17 <alinefm> heheh
+13:25:27 <alinefm> samhenri, you can send the patch separated to the ML
+13:25:37 <samhenri> yes, I going to do this asap
+13:25:42 <WalterNik> samhenri, I guess that red coloring on Admin tab is not up to date anymore ... pls check issue # 746 (new navigation bar ) atreyee is almost finished on the new navigation:  Virtualization (green) and Host (blue) Tab as first lvl and the active 2nd lvl tab will simply get a darker color shade
+13:26:13 <pvital> alinefm, I don't like the UI, so I think that API must be changed to address the same usability by the REST commands
+13:26:26 <rotru> samhenri, alinefm  I understand what happened ... I had open in Firefox and I think it used some old CSS, so, first time, it was a mess .... when I opened in Firefox private window, I just saw the alignment problem ...
+13:26:36 <WalterNik> samhenri, atreyee was working on top of your repo so the changes should fit
+13:26:51 <alinefm> pvital, don't you like to do UI code? or... ?
+13:27:11 <pvital> LOL
+13:27:17 <samhenri> WalterNik, yes, I know. I've applied the patch Chandra sent on e-mail locally
+13:27:19 <danielhb> alinefm, LOL pvital likes to code javascript in his free time!
+13:27:37 <pvital> alinefm, that was sarcasm!! just trying to convince you!
+13:27:49 <alinefm> pvital, I am not telling/asking you to do the UI part of code
+13:27:51 <WalterNik> samhenri, but atreyee is facing a problem: she doesn't get her source css being compiled ... can you help with a hint ?
+13:27:57 <samhenri> WalterNik, but I also created a fork for Ginger
+13:28:01 <rotru> alinefm,  "not working"  ... I overreacted ... sorry (hate cache)
+13:28:02 <alinefm> pvital, just to confirm the existing APIs we have are enought to this feature
+13:28:02 <samhenri> WalterNik, sure
+13:28:13 <alinefm> pvital, if so, I will ask Socorro to do the UI code
+13:29:08 <pvital> alinefm, that's the point!!!! I just thought to provide a way to attach a new disk once - by the UI or REST commands!
+13:29:18 <rotru> alinefm, danielhb , samhenri  have not observed issues in Chrome
+13:29:33 <alinefm> rotru, great! thanks for the feedbacks
+13:30:32 <atreyee> samhenri, I added a new variable in _wok_variable.scss , but after compilation I find that it's not available in css file
+13:30:43 <alinefm> pvital, it is arguably! as having 2 ways to do the same thing may require more maintenance
+13:30:51 <atreyee> i mean it's value did not reflected
+13:30:54 <alinefm> but I am open to hear all opinions on that =)
+13:32:04 <atreyee> it's happening for me in all scss changes.
+13:32:11 <samhenri> atreyee are you running sassc command directly on css/src folder?
+13:32:26 <atreyee> no.
+13:32:49 <atreyee> samhenri, Do I need to?
+13:33:08 <atreyee> I am just using make command
+13:33:27 <jansch> samhenri, can we integrate this into the make?
+13:33:38 <samhenri> atreyee just to get the full output error
+13:34:04 <samhenri> jansch it is already there
+13:34:12 <samhenri> I've updated gingerbase makefile
+13:34:20 <jansch> thx
+13:34:25 <atreyee> samhenri, I did not see any error in log
+13:35:42 <samhenri> have you changed _wok-variables in kimchi/ui/css/src/modules or somewhere else?
+13:36:00 <samhenri> because gingerbase.scss is pointing to this location location
+13:36:16 <samhenri> i mean, getting wok-variables from kimchi/ui/css/
+13:36:46 <atreyee> in _wok-variables in kimchi/ui/css/src/module
+13:39:29 <samhenri> try running  sassc src/gingerbase.scss gingerbase.css
+13:39:41 <samhenri> if there's an error the output should be something like this:
+13:39:51 <samhenri> sassc: error: Error: top-level @import directive must be terminated by ';'
+13:39:53 <samhenri> on line 29 of src/gingerbase.scss
+13:39:54 <samhenri> >> @import "modules/host"
+13:39:56 <samhenri> ----------------------^
+13:40:22 <samhenri> this appears on the makefiles as well but sometimes it compiles the other makefiles too fast and you won't spot the error message
+13:40:54 <samhenri> if the variable is really missing, then should be something like this: sassc: error: Error: Undefined variable: "$test-variable".
+13:41:22 <atreyee> ok, I will try that
+13:41:55 <atreyee> samhenri, thank you
+13:42:11 <samhenri> I'll see if creating a symlink to kimchi/ui/css/src/modules works with sassc
+13:42:31 <samhenri> atreyee yw
+13:43:30 <alinefm> anything else, team?
+13:43:41 <rotru> nope
+13:44:33 <lcorreia> no
+13:44:47 <danielhb> no
+13:44:50 <WalterNik> no
+13:44:58 <jansch> no
+13:45:40 <alinefm> just a reminder: we have only 2 weeks for the code freeze
+13:45:51 <alinefm> so all the features must be upstream prior to Nov 25
+13:46:03 <alinefm> thanks everyone for joining!
+13:46:06 <alinefm> #endmeeting
