@@ -8,6 +8,7 @@ autom4te.cache
 Makefile
 Makefile.in
 aclocal.m4
+m4/pkg.m4
 build-aux/compile
 build-aux/config.guess
 build-aux/config.sub
