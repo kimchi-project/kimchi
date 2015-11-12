@@ -393,12 +393,13 @@ var kimchi = {
         });
     },
 
-    listStorageVolumes : function(poolName, suc, err) {
+    listStorageVolumes : function(poolName, suc, err, sync) {
         $.ajax({
             url : 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/storagevolumes',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
+	    async : !sync,
             success : suc,
             error : err
         });
@@ -452,7 +453,7 @@ var kimchi = {
                                 return;
                             }
                             suc(isos, true);
-                        }, err);
+                        }, err, false);
                     } else if (status === "running") {
                         if (deepScanHandler.stop) {
                             return;
@@ -463,7 +464,7 @@ var kimchi = {
                             }
                             suc(isos, false);
                             setTimeout(monitorTask, 2000);
-                        }, err);
+                        }, err, false);
                     } else if (status === "failed") {
                         if (deepScanHandler.stop) {
                             return;
