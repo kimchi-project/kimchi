@@ -169,8 +169,8 @@ def get_remote_iso_path():
     """
     host_arch = os.uname()[4]
     remote_path = ''
-    with open(os.path.join(PluginPaths('gingerbase').conf_dir, 'distros.d', 'fedora.json')) \
-            as fedora_isos:
+    with open(os.path.join(PluginPaths('gingerbase').conf_dir, 'distros.d',
+              'fedora.json')) as fedora_isos:
         # Get a list of dicts
         json_isos_list = json.load(fedora_isos)
         for iso in json_isos_list:
