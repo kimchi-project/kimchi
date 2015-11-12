@@ -94,7 +94,7 @@ kimchi.guest_storage_add_main = function() {
                 }
             }
             $('#guest-disk').selectMenu("setData", options);
-        });
+        }, null, false);
     });
 
 

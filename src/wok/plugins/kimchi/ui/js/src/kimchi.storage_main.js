@@ -313,7 +313,7 @@ kimchi.doListVolumes = function(poolObj) {
         slide.slideDown('slow');
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
-    });
+    }, false);
 }
 
     kimchi.initLogicalPoolExtend = function() {
