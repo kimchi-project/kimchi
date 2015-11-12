@@ -17,12 +17,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.capabilities = undefined;
-kimchi.getCapabilities(function(result) {
-    kimchi.capabilities = result;
+gingerbase.capabilities = undefined;
+gingerbase.getCapabilities(function(result) {
+    gingerbase.capabilities = result;
 
-    if(kimchi.capabilities.federation=="on")
+    if(gingerbase.capabilities.federation=="on")
         $('#peers').removeClass('hide-content');
 }, function() {
-    kimchi.capabilities = {};
+    gingerbase.capabilities = {};
 });

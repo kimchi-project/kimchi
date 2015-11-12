@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var kimchi = {
+var gingerbase = {
 
     widget: {},
 
@@ -144,7 +144,7 @@ var kimchi = {
             case 'running':
                 progress && progress(result);
                 setTimeout(function() {
-                    kimchi.trackTask(taskID, suc, err, progress);
+                    gingerbase.trackTask(taskID, suc, err, progress);
                 }, 2000);
                 break;
             case 'finished':
@@ -158,15 +158,15 @@ var kimchi = {
             }
         };
 
-        kimchi.getTask(taskID, onTaskResponse, err);
-        if(kimchi.trackingTasks.indexOf(taskID) < 0)
-            kimchi.trackingTasks.push(taskID);
+        gingerbase.getTask(taskID, onTaskResponse, err);
+        if(gingerbase.trackingTasks.indexOf(taskID) < 0)
+            gingerbase.trackingTasks.push(taskID);
     },
 
     createReport: function(settings, suc, err, progress) {
         var onResponse = function(data) {
             taskID = data['id'];
-            kimchi.trackTask(taskID, suc, err, progress);
+            gingerbase.trackTask(taskID, suc, err, progress);
         };
 
         wok.requestJSON({
@@ -241,7 +241,7 @@ var kimchi = {
         };
 
         var trackTask = function() {
-            kimchi.getTask(taskID, onTaskResponse, err);
+            gingerbase.getTask(taskID, onTaskResponse, err);
         };
 
         var onTaskResponse = function(result) {

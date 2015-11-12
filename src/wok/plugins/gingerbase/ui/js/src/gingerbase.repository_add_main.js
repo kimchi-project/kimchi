@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.repository_add_main = function() {
+gingerbase.repository_add_main = function() {
 
     var addForm = $('#form-repository-add');
     var addButton = $('#button-repository-add');
@@ -82,8 +82,8 @@ kimchi.repository_add_main = function() {
             }
         }
 
-        kimchi.createRepository(formData, function() {
-            wok.topic('kimchi/repositoryAdded').publish();
+        gingerbase.createRepository(formData, function() {
+            wok.topic('gingerbase/repositoryAdded').publish();
             wok.window.close();
         }, function(jqXHR, textStatus, errorThrown) {
             var reason = jqXHR &&

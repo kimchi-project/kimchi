@@ -17,20 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.repository_edit_main = function() {
+gingerbase.repository_edit_main = function() {
 
     var editForm = $('#form-repository-edit');
 
     var saveButton = $('#repository-edit-button-save');
 
-    if(kimchi.capabilities['repo_mngt_tool']=="yum") {
+    if(gingerbase.capabilities['repo_mngt_tool']=="yum") {
         editForm.find('input.deb').prop('disabled', true);
     }
-    else if(kimchi.capabilities['repo_mngt_tool']=="deb") {
+    else if(gingerbase.capabilities['repo_mngt_tool']=="deb") {
         editForm.find('input.yum').prop('disabled', true);
     }
 
-    kimchi.retrieveRepository(kimchi.selectedRepository, function(repository) {
+    gingerbase.retrieveRepository(gingerbase.selectedRepository, function(repository) {
         editForm.fillWithObject(repository);
 
         $('input', editForm).on('input propertychange', function(event) {
@@ -58,8 +58,8 @@ kimchi.repository_edit_main = function() {
             }
         }
 
-        kimchi.updateRepository(kimchi.selectedRepository, formData, function() {
-            wok.topic('kimchi/repositoryUpdated').publish();
+        gingerbase.updateRepository(gingerbase.selectedRepository, formData, function() {
+            wok.topic('gingerbase/repositoryUpdated').publish();
             wok.window.close();
         }, function(jqXHR, textStatus, errorThrown) {
             var reason = jqXHR &&
