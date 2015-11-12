@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gingerbase 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-01 16:11-0300\n"
+"POT-Creation-Date: 2015-11-12 12:01-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -35,825 +35,6 @@ msgstr ""
 
 #, python-format
 msgid "Unknown parameter %(value)s"
-msgstr ""
-
-#, python-format
-msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr ""
-
-#, python-format
-msgid "User %(user_id)s not found with given LDAP settings."
-msgstr ""
-
-msgid "Unknown \"_cap\" specified"
-msgstr ""
-
-msgid "\"_passthrough\" should be \"true\" or \"false\""
-msgstr ""
-
-msgid "\"_passthrough_affected_by\" should be a device name string"
-msgstr ""
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "블록 장치를 가져오는 중에 오류가 발생했습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "%(device)s에 대한 블록 장치 정보를 가져오는 중에 오류가 발생했습니다."
-
-#, python-format
-msgid "Unable to find distro file: %(filename)s"
-msgstr "distro 파일을 찾을 수 없음: %(filename)s"
-
-#, python-format
-msgid ""
-"Unable to parse distro file: %(filename)s. Make sure, it is a JSON file."
-msgstr ""
-"distro 파일(%(filename)s)을 구문 분석할 수 없습니다. JSON 파일인지 확인하십시"
-"오."
-
-#, python-format
-msgid "Unable to login to iSCSI host target %(portal)s. Details: %(err)s"
-msgstr "iSCSI 호스트 대상 %(portal)s에 로그인할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to login to iSCSI host %(host)s target %(target)s"
-msgstr "iSCSI host %(host)s 대상 %(target)s에 로그인할 수 없습니다."
-
-#, python-format
-msgid "Unable to find ISO file %(filename)s"
-msgstr ""
-
-#, python-format
-msgid "The ISO file %(filename)s is not bootable"
-msgstr "ISO 파일 %(filename)s은(는) 부트 가능하지 않습니다."
-
-#, python-format
-msgid "The ISO file %(filename)s does not have a valid El Torito boot record"
-msgstr "ISO 파일 %(filename)s에 유효한 El Torito 부트 레코드가 없습니다."
-
-#, python-format
-msgid "Invalid El Torito validation entry in ISO %(filename)s"
-msgstr ""
-"ISO %(filename)s에 올바르지 않은 El Torito 유효성 검증 항목이 있습니다."
-
-#, python-format
-msgid "Invalid El Torito boot indicator in ISO %(filename)s"
-msgstr "ISO %(filename)s에 올바르지 않은 El Torito 부트 표시기가 있습니다."
-
-#, python-format
-msgid "Unexpected volume type for primary volume in ISO %(filename)s"
-msgstr "ISO %(filename)s에서 기본 볼륨이 예상치 않은 볼륨 유형입니다."
-
-#, python-format
-msgid "Bad format while reading volume descriptor in ISO %(filename)s"
-msgstr ""
-"ISO %(filename)s에서 볼륨 디스크립터를 읽는 중에 잘못된 형식이 발견되었습니"
-"다."
-
-#, python-format
-msgid ""
-"The hypervisor doesn't have permission to use this ISO %(filename)s. "
-"Consider moving it under /var/lib/libvirt,  or set the search permission to "
-"file access control lists for '%(user)s' user if possible, or add the "
-"'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x "
-"'path_to_iso'.Details: %(err)s"
-msgstr ""
-"하이퍼바이저가 이 ISO %(filename)s을(를) 사용할 권한이 없습니다. 이를 /var/"
-"lib/libvirt 아래로 이동시키거나, (가능한 경우) 검색 권한을 '%(user)s' 사용자"
-"의 파일 액세스 제어 목록에 설정하거나, '%(user)s'을(를) ISO 경로 그룹에 추가"
-"하거나, 'chmod -R o+x 'path_to_iso'(권장되지 않음)에 추가하십시오. 세부사항: "
-"%(err)s"
-
-msgid "An error occurred when probing image OS information."
-msgstr ""
-
-msgid "No OS information found in given image."
-msgstr ""
-
-#, python-format
-msgid "Unable to read image file %(filename)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Image file must be an existing file on system. %(filename)s is not a valid "
-"input."
-msgstr ""
-
-#, python-format
-msgid "Virtual machine %(name)s already exists"
-msgstr "가상 머신 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid "Virtual machine %(name)s does not exist"
-msgstr "가상 머신 %(name)s이(가) 없습니다."
-
-#, python-format
-msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
-"in use or the virtual machine is not powered off."
-msgstr ""
-
-#, python-format
-msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
-msgstr "중지된 가상 머신 %(name)s에 대한 스크린샷을 검색할 수 없습니다."
-
-msgid "Remote ISO image is not supported by this server."
-msgstr "원격 ISO 이미지는 이 서버에서 지원하지 않습니다."
-
-#, python-format
-msgid "Screenshot is not supported on virtual machine %(name)s"
-msgstr ""
-
-#, python-format
-msgid "Unable to create virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to update virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to retrieve virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 검색할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to connect to powered off virtual machine %(name)s."
-msgstr ""
-
-msgid "Virtual machine name must be a string without slashes (/)"
-msgstr ""
-
-#, python-format
-msgid "Invalid template URI %(value)s specified for virtual machine"
-msgstr ""
-
-#, python-format
-msgid "Invalid storage pool URI %(value)s specified for virtual machine"
-msgstr ""
-
-msgid "Supported virtual machine graphics are Spice or VNC"
-msgstr ""
-
-msgid "Graphics address to listen on must be IPv4 or IPv6"
-msgstr "청취 대상 그래픽 주소는 IPv4 또는 IPv6여야 합니다."
-
-msgid "Specify a template to create a virtual machine from"
-msgstr "가상 머신을 작성하기 위한 템플리트를 지정하십시오."
-
-#, python-format
-msgid "Unable to start virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 시작할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to power off virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 중지할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to delete virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 삭제할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to reset virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s의 이름을 바꿀 수 없습니다. 세부사항: %(err)s"
-
-msgid "User name list must be an array"
-msgstr ""
-
-msgid "User name must be a string"
-msgstr "네트워크 이름은 문자열이어야 합니다."
-
-msgid "Group name list must be an array"
-msgstr ""
-
-msgid "Group name must be a string"
-msgstr "네트워크 이름은 문자열이어야 합니다."
-
-#, python-format
-msgid "User(s) '%(users)s' do not exist"
-msgstr "'%(users)s' 사용자가 없습니다."
-
-#, python-format
-msgid "Group(s) '%(groups)s' do not exist"
-msgstr "'%(groups)s' 사용자가 없습니다."
-
-#, python-format
-msgid "Unable to shutdown virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 중지할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get access metadata of virtual machine %(name)s. Details: %(err)s"
-msgstr "가상 머신 %(name)s을(를) 시작할 수 없습니다. 세부사항: %(err)s"
-
-msgid "The guest console password must be a string."
-msgstr ""
-
-msgid "The life time for the guest console password must be a number."
-msgstr ""
-
-#, python-format
-msgid "Virtual machine '%(name)s' must be stopped before cloning it."
-msgstr ""
-
-#, python-format
-msgid "Insufficient disk space to clone virtual machine '%(name)s'"
-msgstr ""
-
-#, python-format
-msgid "Unable to clone VM '%(name)s'. Details: %(err)s"
-msgstr ""
-
-#, python-format
-msgid "Invalid operation for non-persistent virtual machine %(name)s"
-msgstr ""
-
-#, python-format
-msgid "Cannot suspend VM '%(name)s' because it is not running."
-msgstr ""
-
-#, python-format
-msgid "Unable to suspend VM '%(name)s'. Details: %(err)s"
-msgstr ""
-
-#, python-format
-msgid "Cannot resume VM '%(name)s' because it is not paused."
-msgstr ""
-
-#, python-format
-msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
-msgstr ""
-
-msgid "Memory assigned is higher then the maximum allowed in the host."
-msgstr ""
-
-#, python-format
-msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
-msgstr ""
-
-msgid "Only increase memory is allowed in active VMs"
-msgstr ""
-
-msgid ""
-"For live memory update, new memory value must be equal old memory value plus "
-"multiples of 1024 Mib"
-msgstr ""
-
-msgid "There are not enough free slots of 1024 Mib in the guest."
-msgstr ""
-
-msgid ""
-"Host's libvirt version does not support memory devices. Libvirt must be >= "
-"1.2.14"
-msgstr ""
-
-#, python-format
-msgid "Error attaching memory device. Details: %(error)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
-msgstr ""
-
-#, python-format
-msgid "The host device %(dev_name)s is not allowed to directly assign to VM."
-msgstr ""
-
-msgid ""
-"No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
-"correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
-msgstr ""
-
-msgid "\"name\" should be a device name string"
-msgstr ""
-
-#, python-format
-msgid ""
-"The device %(name)s is probably in use by the host. Unable to attach it to "
-"the guest."
-msgstr ""
-
-#, python-format
-msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
-msgstr "가상 머신 %(name)s에 %(iface)s 인터페이스가 없습니다."
-
-#, python-format
-msgid ""
-"Network %(network)s specified for virtual machine %(name)s does not exist"
-msgstr "가상 머신 %(name)s에 대해 지정된 %(network)s 네트워크가 없습니다."
-
-msgid "Supported virtual machine interfaces type is only network"
-msgstr "지원되는 가상 머신 인터페이스 유형은 네트워크뿐입니다."
-
-msgid "Network name for virtual machine interface must be a string"
-msgstr "가상 머신 인터페이스의 네트워크 이름은 문자열이어야 합니다."
-
-msgid "Invalid network model card specified for virtual machine interface"
-msgstr ""
-"가상 머신 인터페이스에 대해 올바르지 않은 네트워크 모델 카드가 지정되었습니"
-"다."
-
-msgid "Specify type and network to add a new virtual machine interface"
-msgstr "새 가상 머신 인터페이스를 추가할 유형 및 네트워크를 지정하십시오."
-
-msgid "MAC Address must respect this format FF:FF:FF:FF:FF:FF"
-msgstr ""
-
-#, python-format
-msgid "MAC Address %(mac)s already exists in virtual machine %(name)s"
-msgstr ""
-
-msgid "Invalid MAC Address"
-msgstr ""
-
-msgid "Cannot change MAC address of a running virtual machine"
-msgstr ""
-
-#, python-format
-msgid "Template %(name)s already exists"
-msgstr "템플리트 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid ""
-"Network '%(network)s' specified for template %(template)s does not exist"
-msgstr "템플리트 %(template)s에 대해 지정된 '%(network)s' 네트워크가 없습니다."
-
-#, python-format
-msgid ""
-"Storage pool %(pool)s specified for template %(template)s does not exist"
-msgstr ""
-"템플리트 %(template)s에 대해 지정된 스토리지 풀 %(pool)s이(가) 없습니다."
-
-#, python-format
-msgid "Storage pool %(pool)s specified for template %(template)s is not active"
-msgstr ""
-"템플리트 %(template)s에 대해 지정된 스토리지 풀 %(pool)s이(가) 활성이 아닙니"
-"다."
-
-#, python-format
-msgid "Invalid parameter '%(param)s' specified for CDROM."
-msgstr "CDROM에 대해 올바르지 않은 매개변수 '%(param)s'이(가) 지정되었습니다."
-
-#, python-format
-msgid "Network %(network)s specified for template %(template)s is not active"
-msgstr ""
-"템플리트 %(template)s에 대해 지정된 %(network)s 네트워크가 활성이 아닙니다."
-
-msgid "Template name must be a string"
-msgstr "템플리트 이름은 문자열이어야 합니다."
-
-msgid "Template icon must be a path to the image"
-msgstr "템플리트 아이콘은 이미지의 경로여야 합니다."
-
-msgid "Template distribution must be a string"
-msgstr "템플리트 배포는 문자열이어야 합니다."
-
-msgid "Template distribution version must be a string"
-msgstr "템플리트 배포 버전은 문자열이어야 합니다."
-
-msgid "The number of CPUs must be an integer greater than 0"
-msgstr "CPU 수는 정수여야 합니다."
-
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "메모리 용량(MB)은 512보다 큰 정수여야 합니다."
-
-msgid "Template CDROM must be a local or remote ISO file"
-msgstr "템플리트 CDROM은 로컬 또는 원격 ISO 파일이어야 합니다."
-
-#, python-format
-msgid "Invalid storage pool URI %(value)s specified for template"
-msgstr ""
-"템플리트에 대해 올바르지 않은 스토리지 풀 URI %(value)s이(가) 지정되었습니다."
-
-msgid "Specify an ISO image as CDROM or a base image to create a template"
-msgstr "템플리트를 작성하려면 ISO 이미지를 CDROM으로 지정하십시오."
-
-msgid "All networks for the template must be specified in a list."
-msgstr "템플리트의 모든 네트워크가 목록에 지정되어야 합니다."
-
-msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
-msgstr ""
-
-#, python-format
-msgid "The volume %(volume)s is not in storage pool %(pool)s"
-msgstr ""
-
-#, python-format
-msgid "Unable to create template due error: %(err)s"
-msgstr "오류 때문에 템플리트를 작성할 수 없음: %(err)s"
-
-#, python-format
-msgid "Unable to delete template due error: %(err)s"
-msgstr "오류 때문에 템플리트를 삭제할 수 없음: %(err)s"
-
-msgid "Disk size must be an integer greater than 1GB."
-msgstr ""
-
-msgid "Template base image must be a valid local image file"
-msgstr "템플리트 CDROM은 로컬 또는 원격 ISO 파일이어야 합니다."
-
-#, python-format
-msgid "Cannot identify base image %(path)s format"
-msgstr ""
-
-msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr ""
-
-msgid ""
-"When specifying CPU topology, each element must be an integer greater than "
-"zero."
-msgstr ""
-
-msgid ""
-"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
-"qcow2, qed, raw, vmdk, vpc."
-msgstr ""
-
-#, python-format
-msgid "Storage pool %(name)s already exists"
-msgstr "스토리지 풀 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid "Storage pool %(name)s does not exist"
-msgstr "스토리지 풀 %(name)s이(가) 없습니다."
-
-#, python-format
-msgid "Specify %(item)s in order to create the storage pool %(name)s"
-msgstr "스토리지 풀 %(name)s을(를) 작성하려면 %(item)s을(를) 지정하십시오."
-
-#, python-format
-msgid "Unable to delete active storage pool %(name)s"
-msgstr "활성 스토리지 풀 %(name)s을(를) 삭제할 수 없습니다."
-
-#, python-format
-msgid "Unable to list storage pools. Details: %(err)s"
-msgstr "스토리지 풀을 나열할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to create storage pool %(name)s. Details: %(err)s"
-msgstr "스토리지 풀 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr ""
-"스토리지 풀 %(name)s에 있는 스토리지 볼륨의 수를 가져올 수 없습니다. 세부사"
-"항: %(err)s"
-
-#, python-format
-msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
-msgstr "스토리지 풀 %(name)s을(를) 활성화할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to deactivate storage pool %(name)s. Details: %(err)s"
-msgstr "스토리지 풀 %(name)s을(를) 비활성화할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to delete storage pool %(name)s. Details: %(err)s"
-msgstr "스토리지 풀 %(name)s을(를) 삭제할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to create NFS Pool as export path %(path)s may block during mount"
-msgstr ""
-"내보내기 경로 %(path)s이(가) 마운트 중에 차단될 수 있으므로 NFS 풀을 작성할 "
-"수 없습니다."
-
-#, python-format
-msgid "Unable to create NFS Pool as export path %(path)s mount failed"
-msgstr ""
-"내보내기 경로 %(path)s 마운트가 실패했으므로 NFS 풀을 작성할 수 없습니다."
-
-#, python-format
-msgid "Unsupported storage pool type: %(type)s"
-msgstr "지원되지 않는 스토리지 풀 유형: %(type)s"
-
-#, python-format
-msgid "Error while retrieving storage pool XML to %(pool)s"
-msgstr ""
-
-msgid "Storage pool name must be a string without slashes (/)"
-msgstr ""
-
-msgid ""
-"Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
-"iso"
-msgstr ""
-
-msgid "Storage pool path must be a string"
-msgstr "스토리지 풀 경로는 문자열이어야 합니다."
-
-msgid "Storage pool host must be a IP or hostname"
-msgstr "스토리지 풀 호스트는 IP 또는 호스트 이름이어야 합니다."
-
-msgid "Storage pool device must be the absolute path to the block device"
-msgstr ""
-
-msgid "Storage pool devices parameter must be a list"
-msgstr "스토리지 풀 장치는 목록이어야 합니다."
-
-msgid "Target IQN of an iSCSI pool must be a string"
-msgstr "iSCSI 풀의 대상 IQN은 문자열이어야 합니다."
-
-msgid "Port of a remote storage server must be an integer between 1 and 65535"
-msgstr "원격 스토리지 서버의 포트는 1과 65535 사이의 정수여야 합니다."
-
-msgid "iSCSI target username must be a string"
-msgstr ""
-
-msgid "iSCSI target password must be a string"
-msgstr ""
-
-msgid "Specify name and type to create a storage pool"
-msgstr "스토리지 풀을 작성하려면 이름 및 유형을 지정하십시오."
-
-#, python-format
-msgid ""
-"%(disk)s is not a valid disk/partition. Could not add it to the pool "
-"%(pool)s."
-msgstr ""
-"%(disk)s은(는) 유효한 디스크/파티션이 아닙니다. 이를 %(pool)s 풀에 추가할 수 "
-"없습니다."
-
-#, python-format
-msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
-msgstr ""
-
-msgid "The parameter disks only can be updated for logical storage pool."
-msgstr "논리 스토리지 풀의 매개변수 디스크만 업데이트할 수 있습니다."
-
-msgid "The SCSI host adapter name must be a string."
-msgstr "SCSI 호스트 어댑터 이름은 문자열이어야 합니다."
-
-msgid "The storage pool kimchi_isos is reserved for internal use"
-msgstr "스토리지 풀 kimchi_isos는 내부 용도로 예약되었습니다."
-
-#, python-format
-msgid ""
-"Unable to activate NFS storage pool %(name)s. NFS server %(server)s is "
-"unreachable."
-msgstr ""
-"NFS 스토리지 풀 %(name)s을(를) 활성화할 수 없습니다. NFS 서버 %(server)s에 연"
-"결할 수 없습니다."
-
-#, python-format
-msgid ""
-"Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is "
-"unreachable."
-msgstr ""
-"NFS 스토리지 풀 %(name)s을(를) 비활성화할 수 없습니다. NFS 서버 %(server)s에 "
-"연결할 수 없습니다."
-
-#, python-format
-msgid ""
-"Unable to deactivate pool %(name)s as it is associated with some templates"
-msgstr ""
-"일부 템플리트와 연관되어 있으므로 %(name)s 풀을 비활성화할 수 없습니다."
-
-#, python-format
-msgid "Unable to delete pool %(name)s as it is associated with some templates"
-msgstr "일부 템플리트와 연관되어 있으므로 %(name)s 풀을 삭제할 수 없습니다."
-
-#, python-format
-msgid ""
-"A volume group named '%(name)s' already exists. Please, choose another name "
-"to create the logical pool."
-msgstr ""
-"이름이 '%(name)s'인 볼륨 그룹이 이미 존재합니다. 논리 풀을 작성하려면 다른 이"
-"름을 선택하십시오."
-
-#, python-format
-msgid "Unable to update database with deep scan information due error: %(err)s"
-msgstr ""
-"오류 때문에 자세한 스캔 정보로 데이터베이스를 업데이트할 수 없음: %(err)s"
-
-#, python-format
-msgid "Storage volume %(name)s already exists"
-msgstr "스토리지 볼륨 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid "Storage volume %(name)s does not exist in storage pool %(pool)s"
-msgstr "스토리지 볼륨 %(name)s이(가) 스토리지 풀 %(pool)s에 없습니다."
-
-#, python-format
-msgid ""
-"Unable to create storage volume %(volume)s because storage pool %(pool)s is "
-"not active"
-msgstr ""
-
-#, python-format
-msgid "Specify %(item)s in order to create storage volume %(volume)s"
-msgstr "스토리지 볼륨 %(volume)s을(를) 작성하려면 %(item)s을(를) 지정하십시오."
-
-#, python-format
-msgid ""
-"Unable to list storage volumes because storage pool %(pool)s is not active"
-msgstr ""
-"스토리지 풀 %(pool)s이(가) 활성이 아니므로 스토리지 볼륨을 나열할 수 없습니"
-"다."
-
-#, python-format
-msgid ""
-"Unable to create storage volume %(name)s in storage pool %(pool)s. Details: "
-"%(err)s"
-msgstr ""
-"스토리지 볼륨 %(name)s을(를) 스토리지 풀 %(pool)s에 작성할 수 없습니다. 세부"
-"사항: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr ""
-"스토리지 풀 %(pool)s의 스토리지 볼륨을 나열할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
-msgstr "스토리지 풀 %(name)s을(를) 삭제할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to delete storage volume %(name)s. Details: %(err)s"
-msgstr "스토리지 볼륨 %(name)s을(를) 삭제할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to resize storage volume %(name)s. Details: %(err)s"
-msgstr "스토리지 볼륨 %(name)s의 크기를 조정할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Storage type %(type)s does not support volume create and delete"
-msgstr "스토리지 유형 %(type)s은(는) 볼륨 작성 및 삭제를 지원하지 않습니다."
-
-msgid "Storage volume name must be a string"
-msgstr "스토리지 볼륨 이름은 문자열이어야 합니다."
-
-msgid "Storage volume allocation must be an integer number"
-msgstr "스토리지 볼륨 할당은 정수여야 합니다."
-
-msgid ""
-"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
-"qcow, qcow2, qed, raw, vmdk, vpc."
-msgstr ""
-
-msgid "Storage volume requires a volume name"
-msgstr "스토리지 볼륨은 볼륨 이름이 필요합니다."
-
-#, python-format
-msgid ""
-"Unable to update database with storage volume information due error: %(err)s"
-msgstr ""
-"오류 때문에 스토리지 볼륨 정보로 데이터베이스를 업데이트할 수 없음: %(err)s"
-
-#, python-format
-msgid "Only one of parameter %(param)s can be specified"
-msgstr ""
-
-#, python-format
-msgid "Create volume from %(param)s is not supported"
-msgstr ""
-
-msgid "Storage volume capacity must be an integer number."
-msgstr ""
-
-msgid "Storage volume URL must be http://, https://, ftp:// or ftps://."
-msgstr ""
-
-#, python-format
-msgid "Unable to access file %(url)s. Please, check it."
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
-"%(err)s"
-msgstr ""
-
-msgid "Specify chunk data and its size to upload a file."
-msgstr ""
-
-msgid "In order to upload a storage volume, specify the 'upload' parameter."
-msgstr ""
-
-msgid ""
-"Unable to upload chunk data as it does not match with requested chunk size."
-msgstr ""
-
-#, python-format
-msgid "The storage volume %(vol)s is not under an upload process."
-msgstr ""
-
-msgid "The upload chunk data will exceed the storage volume size."
-msgstr ""
-
-#, python-format
-msgid "Unable to upload chunk data to storage volume. Details: %(err)s."
-msgstr ""
-
-#, python-format
-msgid "Interface %(name)s does not exist"
-msgstr "인터페이스 %(name)s이(가) 없습니다."
-
-#, python-format
-msgid "Network %(name)s already exists"
-msgstr "네트워크 %(name)s이(가) 이미 존재합니다."
-
-#, python-format
-msgid "Network %(name)s does not exist"
-msgstr "네트워크 %(name)s이(가) 없습니다."
-
-#, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
-msgstr ""
-"네트워크 %(network)s에 대해 지정된 서브넷 %(subnet)s이(가) 유효하지 않습니다."
-
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
-msgstr ""
-"브릿지된 네트워크 %(name)s을(를) 작성할 네트워크 인터페이스를 지정하십시오."
-
-#, python-format
-msgid "Unable to delete active network %(name)s"
-msgstr "활성 네트워크 %(name)s을(를) 삭제할 수 없습니다."
-
-#, python-format
-msgid "Interface %(iface)s specified for network %(network)s is already in use"
-msgstr ""
-"네트워크 %(network)s에 대해 지정된 인터페이스 %(iface)s이(가) 이미 사용 중입"
-"니다."
-
-msgid "Interface should be bare NIC, bonding or bridge device."
-msgstr "인터페이스는 순수 NIC, 본딩 또는 브릿지 장치여야 합니다."
-
-#, python-format
-msgid "Unable to create network %(name)s. Details: %(err)s"
-msgstr "네트워크 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Unable to find a free IP address for network '%(name)s'"
-msgstr "네트워크 '%(name)s'에 대한 여유 IP 주소를 찾을 수 없습니다."
-
-#, python-format
-msgid "The interface %(iface)s already exists."
-msgstr ""
-
-msgid "Network name must be a string without slashes (/) or quotes (\")"
-msgstr ""
-
-msgid "Supported network types are isolated, NAT and bridge"
-msgstr "지원되는 네트워크 유형은 격리, NAT 및 브릿지입니다."
-
-msgid "Network subnet must be a string with IP address and prefix or netmask"
-msgstr ""
-"네트워크 서브넷은 IP 주소 및 접두부 또는 넷마스크가 있는 문자열이어야 합니다."
-
-msgid "Network interface must be a string"
-msgstr "네트워크 인터페이스는 문자열이어야 합니다."
-
-msgid "Network VLAN ID must be an integer between 1 and 4094"
-msgstr "네트워크 VLAN ID는 1과 4094 사이의 정수여야 합니다."
-
-msgid "Specify name and type to create a Network"
-msgstr "네트워크를 작성하려면 이름 및 유형을 지정하십시오."
-
-#, python-format
-msgid ""
-"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
-"and/or templates linked to this network."
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines "
-"%(vms)s and/or templates linked to this network."
-msgstr ""
-
-#, python-format
-msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
-msgstr "브릿지 장치 %(name)s은(는) VLAN의 트렁크 장치가 될 수 없습니다."
-
-#, python-format
-msgid "Failed to activate interface %(iface)s: %(err)s."
-msgstr "%(iface)s 인터페이스를 활성화하지 못함: %(err)s."
-
-#, python-format
-msgid ""
-"Failed to activate interface %(iface)s. Please check the physical link "
-"status."
-msgstr ""
-"%(iface)s 인터페이스를 활성화하지 못했습니다. 물리적 링크 상태를 확인하십시"
-"오."
-
-#, python-format
-msgid "Failed to start network %(name)s. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -891,29 +72,15 @@ msgstr ""
 "이름이 '%(name)s'인 볼륨 그룹이 이미 존재합니다. 논리 풀을 작성하려면 다른 이"
 "름을 선택하십시오."
 
-#, python-format
-msgid "Storage server %(server)s was not used by Kimchi"
-msgstr "스토리지 서버 %(server)s은(는) Kimchi에서 사용되지 않았습니다."
-
-#, python-format
-msgid "Distro '%(name)s' does not exist"
-msgstr "Distro '%(name)s'이(가) 없습니다."
-
-#, python-format
-msgid "Partition %(name)s does not exist in the host"
-msgstr "파티션 %(name)s이(가) 호스트에 없습니다."
-
 msgid "Unable to shutdown host machine as there are running virtual machines"
 msgstr "가상 머신을 실행 중인 호스트 머신을 종료할 수 없습니다."
 
 msgid "Unable to reboot host machine as there are running virtual machines"
 msgstr "가상 머신을 실행 중인 호스트 머신을 다시 부팅할 수 없습니다."
 
-#, python-format
-msgid "Node device '%(name)s' not found"
-msgstr "노드 장치 '%(name)s'이(가) 없습니다."
-
-msgid "Conflicting flag filters specified."
+msgid ""
+"When specifying CPU topology, each element must be an integer greater than "
+"zero."
 msgstr ""
 
 msgid "No packages marked for update"
@@ -932,72 +99,7 @@ msgstr ""
 msgid "There is no compatible package manager for this system."
 msgstr "이 시스템에 대해 호환 가능한 패키지 관리자가 없습니다."
 
-#, python-format
-msgid "Invalid URI %(uri)s"
-msgstr "올바르지 않은 URI %(uri)s"
-
-msgid "Unable to choose a virtual machine name"
-msgstr ""
-
-msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
-msgstr "올바르지 않은 스토리지 유형입니다. 지원되는 유형: 'cdrom'"
-
-#, python-format
-msgid "The path '%(value)s' is not a valid local/remote path for the device"
-msgstr ""
-
-msgid "Only CDROM path can be update."
-msgstr ""
-
-#, python-format
-msgid ""
-"The storage device %(dev_name)s does not exist in the virtual machine "
-"%(vm_name)s"
-msgstr ""
-
-#, python-format
-msgid "Error while creating new storage device: %(error)s"
-msgstr "새 스토리지 장치를 작성하는 중에 오류 발생: %(error)s"
-
-#, python-format
-msgid "Error while updating storage device: %(error)s"
-msgstr "스토리지 장치를 업데이트하는 중에 오류 발생: %(error)s"
-
-#, python-format
-msgid "Error while removing storage device: %(error)s"
-msgstr "스토리지 장치를 제거하는 중에 오류 발생: %(error)s"
-
-msgid "Do not support IDE device hot plug"
-msgstr ""
-
-msgid ""
-"Specify type and path or type and pool/volume to add a new virtual machine "
-"disk"
-msgstr "새 가상 머신 디스크를 추가할 유형 및 경로를 지정하십시오."
-
-msgid "Specify path to update virtual machine disk"
-msgstr "가상 머신 디스크를 업데이트할 경로를 지정하십시오."
-
-#, python-format
-msgid "Controller type %(type)s limitation of %(limit)s devices reached"
-msgstr ""
-
-#, python-format
-msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
-msgstr ""
-
-msgid "Volume already in use by other virtual machine."
-msgstr ""
-
-msgid ""
-"Only one of path or pool/volume can be specified to add a new virtual "
-"machine disk"
-msgstr "새 가상 머신 디스크를 추가할 유형 및 경로를 지정하십시오."
-
-#, python-format
-msgid ""
-"Volume chosen with format %(format)s does not fit in the storage type "
-"%(type)s"
+msgid "There is a package manager instance running in the system."
 msgstr ""
 
 msgid "YUM Repository ID must be one word only string."
@@ -1108,55 +210,6 @@ msgstr ""
 msgid "Cannot specify mirrorlist and metalink at the same time."
 msgstr ""
 
-#, python-format
-msgid ""
-"Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
-"%(err)s"
-msgstr ""
-
-#, python-format
-msgid "Snapshot '%(name)s' does not exist on virtual machine '%(vm)s'."
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to retrieve snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
-"%(err)s"
-msgstr ""
-
-#, python-format
-msgid "Unable to list snapshots on virtual machine '%(vm)s'. Details: %(err)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to delete snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
-"%(err)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to retrieve current snapshot of virtual machine '%(vm)s'. Details: "
-"%(err)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: "
-"%(err)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Unable to create snapshot of virtual machine '%(vm)s' because it contains a "
-"disk with format '%(format)s'; only 'qcow2' is supported."
-msgstr ""
-
 msgid "The number of vCPUs is too large for this system."
 msgstr ""
 
@@ -1166,189 +219,38 @@ msgstr ""
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr ""
 
-msgid "ERROR CODE"
-msgstr "오류 코드"
-
-msgid "REASON"
-msgstr "이유"
-
-msgid "STACK"
-msgstr "스택"
-
-msgid "Go to Homepage"
-msgstr "홈 페이지로 이동"
-
-msgid "Create a New Virtual Machine"
-msgstr "새 가상 머신 작성"
-
-msgid "Virtual Machine Name"
-msgstr "가상 머신 이름"
+msgid ""
+"This host (or current configuration) does not allow to fetch lscpu details."
+msgstr ""
 
 msgid ""
-"The name used to identify the virtual machine. If omitted, a name will be "
-"chosen based on the template used."
-msgstr ""
-"가상 머신을 식별하는 데 사용되는 이름입니다. 생략되면 이름은 사용된 템플리트"
-"를 기반으로 선택됩니다."
-
-msgid "Template"
-msgstr "템플리트"
-
-msgid "Please create a template first."
-msgstr "템플리트를 먼저 작성하십시오."
-
-msgid "Create a Template"
-msgstr "템플리트 작성"
-
-msgid "Please choose a template."
-msgstr "템플리트를 선택하십시오."
-
-msgid "OS"
-msgstr "OS"
-
-msgid "OS Version"
-msgstr "OS 버전"
-
-msgid "CPUS"
-msgstr "CPUS"
-
-msgid "Memory"
-msgstr "메모리"
-
-msgid "Create"
-msgstr "작성"
-
-msgid "Creating..."
+"This host (or current configuration) does not provide Socket(s) information."
 msgstr ""
 
-msgid "Cancel"
-msgstr "취소"
-
-msgid "Edit Guest"
-msgstr "게스트 편집"
-
-msgid "General"
-msgstr "일반"
-
-msgid "Storage"
-msgstr "스토리지"
-
-msgid "Interface"
-msgstr "인터페이스"
-
-msgid "Permission"
-msgstr "버전"
-
-msgid "Host PCI Device"
+msgid ""
+"This host (or current configuration) does not provide Core(s) per socket "
+"information."
 msgstr ""
 
-msgid "Snapshot"
+msgid ""
+"This host (or current configuration) does not provide Thread(s) per core "
+"information."
 msgstr ""
 
-msgid "Name"
-msgstr "이름"
+msgid "Restart"
+msgstr "다시 시작"
 
-msgid "CPUs"
-msgstr "CPU"
-
-msgid "Memory (MB)"
-msgstr "메모리"
-
-msgid "Icon"
-msgstr "아이콘"
-
-msgid "Device"
-msgstr "장치 이름"
-
-msgid "Path"
-msgstr "NFS 경로"
-
-msgid "Network"
-msgstr "네트워크"
-
-msgid "Type"
-msgstr "유형"
-
-msgid "MAC Address"
-msgstr ""
-
-msgid "Available system users and groups"
-msgstr ""
-
-msgid "Selected system users and groups"
-msgstr ""
-
-msgid "User"
-msgstr ""
-
-msgid "All"
-msgstr "모두"
-
-msgid "To Add"
-msgstr ""
-
-msgid "Added"
-msgstr ""
-
-msgid "filter"
-msgstr ""
-
-msgid "Product"
-msgstr ""
-
-msgid "Vendor"
-msgstr "공급업체"
-
-msgid "Created"
-msgstr ""
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Replace"
-msgstr "교체"
-
-msgid "Detach"
-msgstr "분리"
-
-msgid "revert"
-msgstr ""
-
-msgid "Start"
-msgstr "시작"
-
-msgid "Reset"
-msgstr "다시 설정"
-
-msgid "Pause"
-msgstr ""
-
-msgid "Resume"
-msgstr ""
-
-msgid "Power Off"
-msgstr ""
-
-msgid "Actions"
-msgstr "조치"
+msgid "Shut down"
+msgstr "시스템 종료"
 
 msgid "Connect"
 msgstr "연결"
 
-msgid "Clone"
-msgstr ""
-
-msgid "Edit"
-msgstr "편집"
-
-msgid "Shut Down"
-msgstr "시스템 종료"
-
-msgid "Delete"
-msgstr "삭제"
-
 msgid "CPU"
 msgstr "CPU"
+
+msgid "Memory"
+msgstr "메모리"
 
 msgid "Disk I/O"
 msgstr "디스크 I/O"
@@ -1356,53 +258,14 @@ msgstr "디스크 I/O"
 msgid "Network I/O"
 msgstr "네트워크 I/O"
 
-msgid "Livetile"
-msgstr "라이브타일"
-
-msgid "No guests found."
-msgstr "게스트가 없습니다."
-
-msgid "Add a Storage Device to VM"
-msgstr "스토리지 장치를 VM에 추가"
-
-msgid "Device Type"
-msgstr "장치 유형"
-
-msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
-msgstr "장치 유형입니다. 현재 \"cdrom\"만 지원됩니다."
-
-msgid "Storage Pool"
-msgstr "스토리지 풀"
-
-msgid "Storage pool which volume located in"
-msgstr "스토리지 풀 경로는 문자열이어야 합니다."
-
-msgid "Storage Volume"
-msgstr "스토리지 풀 이름"
-
-msgid "Storage volume to be attached"
-msgstr "스토리지 볼륨 이름은 문자열이어야 합니다."
-
-msgid "File Path"
-msgstr "파일 경로"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "CDROM을 위한 서버의 ISO 파일 경로입니다."
-
-msgid "Attach"
-msgstr "연결"
-
-msgid "Shut down"
-msgstr "시스템 종료"
-
-msgid "Restart"
-msgstr "다시 시작"
-
 msgid "Basic Information"
 msgstr "기본 정보"
 
 msgid "OS Distro"
 msgstr "OS Distro"
+
+msgid "OS Version"
+msgstr "OS 버전"
 
 msgid "OS Code Name"
 msgstr "OS 코드 이름"
@@ -1413,20 +276,11 @@ msgstr "프로세서"
 msgid "CPU(s)"
 msgstr ""
 
-msgid "System Statistics"
-msgstr "시스템 통계"
-
 msgid "Software Updates"
 msgstr "소프트웨어 업데이트"
 
 msgid "Update Progress"
 msgstr "진행상태 업데이트"
-
-msgid "Repositories"
-msgstr "저장소"
-
-msgid "Debug Reports"
-msgstr "디버그 보고서"
 
 msgid "The username or password you entered is incorrect. Please try again."
 msgstr ""
@@ -1449,6 +303,12 @@ msgstr "게스트"
 
 msgid "Templates"
 msgstr "템플리트"
+
+msgid "Storage"
+msgstr "스토리지"
+
+msgid "Network"
+msgstr "네트워크"
 
 msgid "Failed to get application configuration"
 msgstr "애플리케이션 구성을 가져오지 못했습니다."
@@ -1481,11 +341,23 @@ msgstr "삭제 확인"
 msgid "OK"
 msgstr "확인"
 
+msgid "Cancel"
+msgstr "취소"
+
 msgid "Confirm"
 msgstr "확인"
 
+msgid "Create"
+msgstr "작성"
+
 msgid "Warning"
 msgstr "경고"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Creating..."
+msgstr ""
 
 msgid "Cloning..."
 msgstr ""
@@ -1501,18 +373,6 @@ msgstr "재시도"
 
 msgid "Detailed message:"
 msgstr "세부 메시지:"
-
-msgid "No ISO found"
-msgstr ""
-
-msgid "This is not a valid ISO file."
-msgstr "올바른 ISO 파일이 아닙니다."
-
-msgid "This may take a long time. Do you want to continue?"
-msgstr "시간이 오래 걸립니다. 계속하시겠습니까?"
-
-msgid "This will permanently delete the template. Would you like to continue?"
-msgstr "템플리트가 영구적으로 삭제됩니다. 계속하시겠습니까?"
 
 msgid "Unable to shut down system as there are some virtual machines running!"
 msgstr "일부 가상 머신이 실행 중이므로 시스템을 종료할 수 없습니다."
@@ -1550,8 +410,14 @@ msgid ""
 "to continue?"
 msgstr "저장소가 영구적으로 제거되어 복구할 수 없습니다. 계속하시겠습니까?"
 
+msgid "Repositories"
+msgstr "저장소"
+
 msgid "ID"
 msgstr "ID"
+
+msgid "Name"
+msgstr "이름"
 
 msgid "Base URL"
 msgstr "기본 URL"
@@ -1573,6 +439,9 @@ msgstr "GPG 키"
 
 msgid "Add"
 msgstr "추가"
+
+msgid "Edit"
+msgstr "편집"
 
 msgid "Remove"
 msgstr "제거"
@@ -1612,6 +481,9 @@ msgid ""
 "to continue?"
 msgstr ""
 "디버그 보고서가 영구적으로 제거되어 복구할 수 없습니다. 계속하시겠습니까?"
+
+msgid "Debug Reports"
+msgstr "디버그 보고서"
 
 msgid "Generated Time"
 msgstr "생성 시간"
@@ -1688,8 +560,14 @@ msgstr ""
 "이 CDROM은 영구적으로 분리되며 다시 연결할 수 있습니다. 분리를 계속하시겠습니"
 "까?"
 
+msgid "Attach"
+msgstr "연결"
+
 msgid "Attaching..."
 msgstr "연결 중..."
+
+msgid "Replace"
+msgstr "교체"
 
 msgid "Replacing..."
 msgstr "교체 중..."
@@ -1729,153 +607,11 @@ msgstr ""
 msgid "Affected devices:"
 msgstr ""
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "VLAN ID는 1과 4094 사이여야 합니다."
-
-msgid "unavailable"
-msgstr "사용 불가능"
-
-msgid ""
-"This action will interrupt network connectivity for any virtual machine that "
-"depend on this network."
-msgstr ""
-"이 조치는 이 네트워크에 의존하는 가상 머신의 네트워크 연결을 인터럽트합니다."
-
-msgid "Create a network"
-msgstr "네트워크 작성"
-
-msgid ""
-"This network is not persistent. Instead of stop, this action will "
-"permanently delete it. Would you like to continue?"
-msgstr ""
-"이 스토리지 풀은 지속적이지 않습니다. 이 조치는 풀을 비활성화하지 않고 영구적"
-"으로 삭제합니다. 계속하시겠습니까?"
-
-msgid ""
-"The bridged VLAN tag may not work well with NetworkManager enabled. You "
-"should consider disabling it."
-msgstr ""
-
-msgid ""
-"This will permanently delete the storage pool. Would you like to continue?"
-msgstr "스토리지 풀이 영구적으로 삭제됩니다. 계속하시겠습니까?"
-
-msgid "This storage pool is empty."
-msgstr "이 스토리지 풀은 비어 있습니다."
-
-msgid ""
-"It will format your disk and you will loose any data in there, are you sure "
-"to continue? "
-msgstr "디스크가 포맷되고 데이터가 손실됩니다. 계속하시겠습니까? "
-
-msgid "SCSI Fibre Channel"
-msgstr "SCSI 파이버 채널"
-
-msgid "No SCSI adapters found."
-msgstr "SCSI 어댑터가 없습니다."
-
-msgid "Loading iSCSI targets..."
-msgstr ""
-
-msgid "No iSCSI found. Please input one."
-msgstr ""
-
-msgid "Failed to load iSCSI targets."
-msgstr ""
-
-msgid "The storage pool name can not be blank."
-msgstr "스토리지 풀 이름은 비워둘 수 없습니다."
-
-msgid "The storage pool path can not be blank."
-msgstr "스토리지 풀 경로는 비워둘 수 없습니다."
-
-msgid "NFS server mount path can not be blank."
-msgstr "NFS 서버 마운트 경로는 비워둘 수 없습니다."
-
-msgid "Invalid NFS mount path."
-msgstr "올바르지 않은 NFS 마운트 경로입니다."
-
-msgid "No logical device selected."
-msgstr "논리 장치가 선택되지 않았습니다."
-
-msgid "The iSCSI target can not be blank."
-msgstr "iSCSI 대상은 비워둘 수 없습니다."
-
-msgid "Server name can not be blank."
-msgstr "서버 이름은 비워둘 수 없습니다."
-
-msgid "This is not a valid Server Name or IP. Please, modify it."
-msgstr ""
-
-msgid "Looking for available partitions ..."
-msgstr "사용 가능한 파티션을 찾는 중..."
-
-msgid "No available partitions found."
-msgstr "사용 가능한 파티션이 없습니다."
-
-msgid ""
-"This storage pool is not persistent. Instead of deactivate, this action will "
-"permanently delete it. Would you like to continue?"
-msgstr ""
-"이 스토리지 풀은 지속적이지 않습니다. 이 조치는 풀을 비활성화하지 않고 영구적"
-"으로 삭제합니다. 계속하시겠습니까?"
-
-msgid "Unable to retrieve partitions information."
-msgstr "저장소 정보를 나열할 수 없습니다. 세부사항: '%(err)s'"
-
-msgid "In progress..."
-msgstr ""
-
-msgid "Failed!"
-msgstr ""
-
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "스토리지 풀 이름은 비워둘 수 없습니다."
-
-msgid "Filter"
-msgstr ""
-
-msgid "Network Name"
-msgstr "네트워크 이름"
-
-msgid "State"
-msgstr "상태"
-
-msgid "Network Type"
-msgstr "네트워크 유형"
-
-msgid "Address Space"
-msgstr "주소 공간"
-
-msgid "Name should not contain '/' and '\"'."
-msgstr "올바르지 않은 스토리지 풀 이름입니다. '/'를 포함하지 않아야 합니다."
-
-msgid "Isolated: no external network connection"
-msgstr "격리됨: 물리적 네트워크 연결 없음"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT: 아웃바운드 물리적 네트워크 연결만"
-
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "브릿지됨: 가상 머신이 물리적 네트워크에 직접 연결됨"
-
-msgid "(No interfaces found)"
-msgstr ""
-
-msgid "Destination"
-msgstr "대상:"
-
-msgid "Enable VLAN"
-msgstr "VLAN 사용:"
-
-msgid "VLAN ID"
-msgstr "VLAN ID:"
-
-msgid "Stop"
-msgstr "중지"
 
 msgid "Generate a New Debug Report"
 msgstr "새 디버그 보고서 생성"
@@ -1951,214 +687,3 @@ msgstr "예"
 
 msgid "No"
 msgstr "아니오"
-
-msgid "Capacity"
-msgstr "용량"
-
-msgid "Allocated"
-msgstr "할당됨"
-
-msgid "Location"
-msgstr "위치"
-
-msgid "Device path"
-msgstr "장치 경로"
-
-msgid "active"
-msgstr "활성"
-
-msgid "inactive"
-msgstr "비활성"
-
-msgid "Deactivate"
-msgstr "비활성화"
-
-msgid "Activate"
-msgstr "활성화"
-
-msgid "Add Volume"
-msgstr ""
-
-msgid "Extend"
-msgstr ""
-
-msgid "Undefine"
-msgstr "정의 취소"
-
-msgid "Format"
-msgstr "포맷:"
-
-msgid "Allocation"
-msgstr "할당:"
-
-msgid "Define a New Storage Pool"
-msgstr "새 스토리지 풀 정의"
-
-msgid "Storage Pool Name"
-msgstr "스토리지 풀 이름"
-
-msgid ""
-"The name used to identify the storage pools, and it should not be empty."
-msgstr "스토리지 풀을 식별하는 데 사용되는 이름이며 비어 있지 않아야 합니다."
-
-msgid "Storage Pool Type"
-msgstr "스토리지 풀 유형"
-
-msgid "Storage Path"
-msgstr "스토리지 경로"
-
-msgid ""
-"The path of the Storage Pool. Each Storage Pool must have a unique path."
-msgstr "스토리지 풀의 경로입니다. 각 스토리지 풀은 고유 경로를 가져야 합니다."
-
-msgid ""
-"Kimchi will try to create the directory when it does not already exist in "
-"your system."
-msgstr ""
-"디렉토리가 시스템에 이미 존재하지 않으면 Kimchi가 디렉토리 작성을 시도합니다."
-
-msgid "NFS Server IP"
-msgstr "NFS 서버 IP"
-
-msgid "NFS server IP or hostname. It can be input or chosen from history."
-msgstr ""
-"NFS 서버 IP 또는 호스트 이름입니다. 이것은 입력하거나 히스토리에서 선택할 수 "
-"있습니다."
-
-msgid "NFS Path"
-msgstr "NFS 경로"
-
-msgid "The NFS exported path on NFS server."
-msgstr "NFS 서버에서 NFS의 내보낸 경로입니다."
-
-msgid "iSCSI Server"
-msgstr "iSCSI 서버"
-
-msgid "Server"
-msgstr "서버"
-
-msgid "Port"
-msgstr "포트"
-
-msgid "iSCSI server IP or hostname. It should not be empty."
-msgstr "iSCSI 서버 IP 또는 호스트 이름입니다. 비어 있지 않아야 합니다."
-
-msgid "Target"
-msgstr "대상"
-
-msgid "The iSCSI target on iSCSI server"
-msgstr "iSCSI 서버의 iSCSI 대상"
-
-msgid "Add iSCSI Authentication"
-msgstr "iSCSI 인증 추가"
-
-msgid "iSCSI Authentication"
-msgstr "iSCSI 인증"
-
-msgid "User Name"
-msgstr "사용자 이름"
-
-msgid "Password"
-msgstr "비밀번호"
-
-msgid "SCSI Adapter"
-msgstr "SCSI 어댑터"
-
-msgid "Please, wait..."
-msgstr "잠시 기다려 주십시오."
-
-msgid "Add a Volume to Storage Pool"
-msgstr ""
-
-msgid "Fetch from remote URL"
-msgstr ""
-
-msgid "Enter the remote URL here."
-msgstr ""
-
-msgid "Upload a file"
-msgstr ""
-
-msgid "Choose the file you want to upload."
-msgstr ""
-
-msgid "Add Template"
-msgstr "템플리트 추가"
-
-msgid "Where is the source media for this template? "
-msgstr "이 템플리트의 소스 매체는 어디에 있습니까?"
-
-msgid "Local ISO Image"
-msgstr "로컬 ISO 이미지"
-
-msgid "Local Image File"
-msgstr ""
-
-msgid "Remote ISO Image"
-msgstr "원격 ISO 이미지"
-
-msgid "Search ISOs"
-msgstr "ISO 검색"
-
-msgid "The following ISOs are available:"
-msgstr "다음 ISO가 사용 가능합니다."
-
-msgid "OS: "
-msgstr "OS: "
-
-msgid "Version: "
-msgstr "버전: "
-
-msgid "Size: "
-msgstr "크기: "
-
-msgid "Search more ISOs"
-msgstr "추가 ISO 검색"
-
-msgid "Create Templates from Selected ISO"
-msgstr "선택한 ISO로부터 템플리트 작성"
-
-msgid "I want to use a specific ISO file"
-msgstr "특정 ISO 파일을 사용하려고 합니다."
-
-msgid "Loading default remote ISOs ..."
-msgstr "기본 원격 ISO 로드 중..."
-
-msgid "Arch: "
-msgstr "Arch: "
-
-msgid "I want to use a custom URL"
-msgstr "사용자 정의 URL을 사용하려고 합니다."
-
-msgid "Edit Template"
-msgstr "템플리트 편집"
-
-msgid "CDROM"
-msgstr "CDROM"
-
-msgid "Image File"
-msgstr ""
-
-msgid "Graphics"
-msgstr "그래픽"
-
-msgid "Disk(GB)"
-msgstr ""
-
-msgid "Disk Format"
-msgstr ""
-
-msgid "CPU Number"
-msgstr "CPU 번호"
-
-msgid "Manually set CPU topology"
-msgstr ""
-
-msgid "Cores"
-msgstr ""
-
-msgid "Threads"
-msgstr ""
-
-msgid "No templates found."
-msgstr "템플리트가 없습니다."
