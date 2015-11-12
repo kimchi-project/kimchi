@@ -28,7 +28,6 @@ from wok.config import paths
 from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
-from wok.plugins.kimchi.mockmodel import MockModel
 from wok.plugins.kimchi.model.model import Model
 
 from utils import fake_auth_header, get_free_port, patch_auth, request
@@ -107,19 +106,13 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             self.assertEquals(2147483648, storagevolume['capacity'])
 
             # Resize the storage volume: decrease its capacity to 512 MiB
-            # FIXME: Due a libvirt bug it is not possible to decrease the
-            # volume capacity
-            # For reference:
-            # - https://bugzilla.redhat.com/show_bug.cgi?id=1021802
+            # This test case may fail if libvirt does not include the fix for
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1021802
             req = json.dumps({'size': 536870912})  # 512 MiB
             resp = self.request(vol_uri + '/resize', req, 'POST')
-            # It is only possible when using MockModel
-            if isinstance(model, MockModel):
-                self.assertEquals(200, resp.status)
-                storagevolume = json.loads(self.request(vol_uri).read())
-                self.assertEquals(536870912, storagevolume['capacity'])
-            else:
-                self.assertEquals(500, resp.status)
+            self.assertEquals(200, resp.status)
+            storagevolume = json.loads(self.request(vol_uri).read())
+            self.assertEquals(536870912, storagevolume['capacity'])
 
             # Wipe the storage volume
             resp = self.request(vol_uri + '/wipe', '{}', 'POST')
