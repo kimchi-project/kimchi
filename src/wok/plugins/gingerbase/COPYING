@@ -1,13 +1,7 @@
-Wok/Kimchi are distributed pursuant to the terms of two different licenses.
-The user interface (located in ui/ and plugins/kimchi/ui in this distribution)
-is governed by the Apache License version 2.0.
+Ginger Base is distributed pursuant to the terms of two different licenses.
+The user interface (located in ui/) is governed by the Apache License version 2.0.
 
 The rest of this distribution is governed by the GNU Lesser General Public
 License version 2.1.
 
 See COPYING.LGPL and COPYING.ASL2.
-
-The name "Gentoo" and the "g" logo are trademarks of Gentoo Foundation, Inc.
-The content, project, site, product or any other type of item with which the
-"Gentoo" name is associated is not part of the Gentoo project and is not
-directed or managed by Gentoo Foundation, Inc.
