@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.report_rename_main = function() {
+gingerbase.report_rename_main = function() {
     var renameReportForm = $('#form-report-rename');
     var submitButton = $('#button-report-rename');
     var nameTextbox = $('input[name="name"]', renameReportForm);
@@ -29,7 +29,7 @@ kimchi.report_rename_main = function() {
 
         // if the user hasn't changed the report's name,
         // nothing should be done.
-        if (reportName == kimchi.selectedReport) {
+        if (reportName == gingerbase.selectedReport) {
             wok.message.error.code('GGBDR6013M');
             return false;
         }
@@ -42,11 +42,11 @@ kimchi.report_rename_main = function() {
         var formData = renameReportForm.serializeObject();
         submitButton.prop('disabled', true);
         nameTextbox.prop('disabled', true);
-        kimchi.renameReport(kimchi.selectedReport, formData, function(result) {
+        gingerbase.renameReport(gingerbase.selectedReport, formData, function(result) {
             submitButton.prop('disabled', false);
             nameTextbox.prop('disabled', false);
             wok.window.close();
-            wok.topic('kimchi/debugReportRenamed').publish({
+            wok.topic('gingerbase/debugReportRenamed').publish({
                 result: result
             });
         }, function(result) {
@@ -64,5 +64,5 @@ kimchi.report_rename_main = function() {
     renameReportForm.on('submit', submitForm);
     submitButton.on('click', submitForm);
 
-    nameTextbox.val(kimchi.selectedReport).select();
+    nameTextbox.val(gingerbase.selectedReport).select();
 };

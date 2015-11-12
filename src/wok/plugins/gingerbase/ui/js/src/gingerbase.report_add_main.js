@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.report_add_main = function() {
+gingerbase.report_add_main = function() {
     var reportGridID = 'available-reports-grid';
     var addReportForm = $('#form-report-add');
     var submitButton = $('#button-report-add');
@@ -42,18 +42,18 @@ kimchi.report_add_main = function() {
             }
             taskAccepted = true;
             wok.window.close();
-            wok.topic('kimchi/debugReportAdded').publish();
+            wok.topic('gingerbase/debugReportAdded').publish();
         };
 
-        kimchi.createReport(formData, function(result) {
+        gingerbase.createReport(formData, function(result) {
             onTaskAccepted();
-            wok.topic('kimchi/debugReportAdded').publish();
+            wok.topic('gingerbase/debugReportAdded').publish();
         }, function(result) {
             // Error message from Async Task status
             if (result['message']) {
                 var errText = result['message'];
             }
-            // Error message from standard kimchi exception
+            // Error message from standard gingerbase exception
             else {
                 var errText = result['responseJSON']['reason'];
             }

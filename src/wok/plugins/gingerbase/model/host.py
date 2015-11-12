@@ -178,7 +178,7 @@ class SoftwareUpdateProgressModel(object):
         except:
             raise OperationFailed('GGBPKGUPD0004E')
 
-        taskid = add_task('/plugins/kimchi/host/swupdateprogress',
+        taskid = add_task('/plugins/gingerbase/host/swupdateprogress',
                           swupdate.tailUpdateLogs, self.objstore, None)
         return self.task.lookup(taskid)
 
@@ -229,7 +229,7 @@ class HostStatsModel(object):
         # The psutil.cpu_percent works as non blocking.
         # psutil.cpu_percent maintains a cpu time sample.
         # It will update the cpu time sample when it is called.
-        # So only this producer can call psutil.cpu_percent in kimchi.
+        # So only this producer can call psutil.cpu_percent in gingerbase.
         self.host_stats['cpu_utilization'].append(psutil.cpu_percent(None))
 
     def _get_host_memory_stats(self):

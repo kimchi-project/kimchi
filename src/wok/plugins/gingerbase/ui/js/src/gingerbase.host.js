@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.host = {};
+gingerbase.host = {};
 
-kimchi.host_main = function() {
+gingerbase.host_main = function() {
     "use strict";
     var repositoriesGrid = null;
     var initRepositoriesGrid = function(repo_type) {
@@ -106,8 +106,8 @@ kimchi.host_main = function() {
                     var name = repository['repo_id'];
                     var enable = !repository['enabled'];
                     $(this).prop('disabled', true);
-                    kimchi.enableRepository(name, enable, function() {
-                        wok.topic('kimchi/repositoryUpdated').publish();
+                    gingerbase.enableRepository(name, enable, function() {
+                        wok.topic('gingerbase/repositoryUpdated').publish();
                     });
                 }
             }, {
@@ -120,7 +120,7 @@ kimchi.host_main = function() {
                     if (!repository) {
                         return;
                     }
-                    kimchi.selectedRepository = repository['repo_id'];
+                    gingerbase.selectedRepository = repository['repo_id'];
                     wok.window.open({
                         url: 'plugins/gingerbase/repository-edit.html',
                         class: repo_type
@@ -146,10 +146,10 @@ kimchi.host_main = function() {
                     };
 
                     wok.confirm(settings, function() {
-                        kimchi.deleteRepository(
+                        gingerbase.deleteRepository(
                             repository['repo_id'],
                             function(result) {
-                                wok.topic('kimchi/repositoryDeleted').publish(result);
+                                wok.topic('gingerbase/repositoryDeleted').publish(result);
                             },
                             function(error) {}
                         );
@@ -175,7 +175,7 @@ kimchi.host_main = function() {
     };
 
     var listRepositories = function(gridCallback) {
-        kimchi.listRepositories(function(repositories) {
+        gingerbase.listRepositories(function(repositories) {
                 if ($.isFunction(gridCallback)) {
                     gridCallback(repositories);
                 } else {
@@ -231,10 +231,10 @@ kimchi.host_main = function() {
                         progressArea.scrollIntoView();
                     $(updateButton).text(i18n['GGBUPD6007M']).prop('disabled', true);
 
-                    kimchi.updateSoftware(function(result) {
+                    gingerbase.updateSoftware(function(result) {
                         reloadProgressArea(result);
                         $(updateButton).text(i18n['GGBUPD6006M']).prop('disabled', false);
-                        wok.topic('kimchi/softwareUpdated').publish({
+                        wok.topic('gingerbase/softwareUpdated').publish({
                             result: result
                         });
                     }, function(error) {
@@ -273,9 +273,9 @@ kimchi.host_main = function() {
         !wok.isElementInViewport(progressArea) &&
             progressArea.scrollIntoView();
 
-        kimchi.softwareUpdateProgress(function(result) {
+        gingerbase.softwareUpdateProgress(function(result) {
             reloadProgressArea(result);
-            wok.topic('kimchi/softwareUpdated').publish({
+            wok.topic('gingerbase/softwareUpdated').publish({
                 result: result
             });
             wok.message.warn(i18n['GGBUPD6010M']);
@@ -285,7 +285,7 @@ kimchi.host_main = function() {
     };
 
     var listSoftwareUpdates = function(gridCallback) {
-        kimchi.listSoftwareUpdates(function(softwareUpdates) {
+        gingerbase.listSoftwareUpdates(function(softwareUpdates) {
             if ($.isFunction(gridCallback)) {
                 gridCallback(softwareUpdates);
             } else {
@@ -353,7 +353,7 @@ kimchi.host_main = function() {
                         return;
                     }
 
-                    kimchi.selectedReport = report['name'];
+                    gingerbase.selectedReport = report['name'];
                     wok.window.open('plugins/gingerbase/report-rename.html');
                 }
             }, {
@@ -367,7 +367,7 @@ kimchi.host_main = function() {
                         return;
                     }
 
-                    kimchi.downloadReport({
+                    gingerbase.downloadReport({
                         file: report['uri']
                     });
                 }
@@ -391,7 +391,7 @@ kimchi.host_main = function() {
                     };
 
                     wok.confirm(settings, function() {
-                        kimchi.deleteReport({
+                        gingerbase.deleteReport({
                             name: report['name']
                         }, function(result) {
                             listDebugReports();
@@ -434,31 +434,31 @@ kimchi.host_main = function() {
         var reports = [];
         var filter = 'status=running&target_uri=' + encodeURIComponent('^/plugins/gingerbase/debugreports/*');
 
-        kimchi.getTasksByFilter(filter, function(tasks) {
+        gingerbase.getTasksByFilter(filter, function(tasks) {
             for (var i = 0; i < tasks.length; i++) {
-                var reportName = tasks[i].target_uri.replace(/^\/plugins\/kimchi\/debugreports\//, '') || i18n['GGBDR6012M'];
+                var reportName = tasks[i].target_uri.replace(/^\/plugins\/gingerbase\/debugreports\//, '') || i18n['GGBDR6012M'];
                 reports.push({
                     'name': reportName,
                     'time': i18n['GGBDR6007M']
                 });
 
-                if (kimchi.trackingTasks.indexOf(tasks[i].id) >= 0) {
+                if (gingerbase.trackingTasks.indexOf(tasks[i].id) >= 0) {
                     continue;
                 }
 
-                kimchi.trackTask(tasks[i].id, function(result) {
-                    wok.topic('kimchi/debugReportAdded').publish();
+                gingerbase.trackTask(tasks[i].id, function(result) {
+                    wok.topic('gingerbase/debugReportAdded').publish();
                 }, function(result) {
                     // Error message from Async Task status
                     if (result['message']) {
                         var errText = result['message'];
                     }
-                    // Error message from standard kimchi exception
+                    // Error message from standard gingerbase exception
                     else {
                         var errText = result['responseJSON']['reason'];
                     }
                     result && wok.message.error(errText);
-                    wok.topic('kimchi/debugReportAdded').publish();
+                    wok.topic('gingerbase/debugReportAdded').publish();
                 }, null);
             }
         }, null, true);
@@ -467,11 +467,11 @@ kimchi.host_main = function() {
     };
 
     var listDebugReports = function() {
-        kimchi.listReports(function(reports) {
+        gingerbase.listReports(function(reports) {
             var pendingReports = getPendingReports();
             var allReports = pendingReports.concat(reports);
             $('#debug-report-section').removeClass('hidden');
-            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+            if ((gingerbase.capabilities['repo_mngt_tool']) && (gingerbase.capabilities['repo_mngt_tool'] !== "None")) {
                 $('#debug-report-section, #repositories-section').removeClass('col-md-8');
                 $('#debug-report-section, #repositories-section').addClass('col-md-4');
             } else {
@@ -509,7 +509,7 @@ kimchi.host_main = function() {
             if (error['status'] === 403) {
                 $('#debug-report-section').addClass('hidden');
                 // Check Repositories and resize column
-                if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+                if ((gingerbase.capabilities['repo_mngt_tool']) && (gingerbase.capabilities['repo_mngt_tool'] !== "None")) {
                     $('#repositories-section').removeClass('col-md-4');
                     $('#repositories-section').addClass('col-md-8');
                 } else {
@@ -519,7 +519,7 @@ kimchi.host_main = function() {
                 return;
             }
             $('#debug-report-section').removeClass('hidden');
-            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
+            if ((gingerbase.capabilities['repo_mngt_tool']) && (gingerbase.capabilities['repo_mngt_tool'] !== "None")) {
                 $('#debug-report-section, #repositories-section').removeClass('col-md-8');
                 $('#debug-report-section, #repositories-section').addClass('col-md-4');
             } else {
@@ -539,11 +539,11 @@ kimchi.host_main = function() {
         };
 
         wok.confirm(settings, function() {
-            kimchi.shutdown(params);
+            gingerbase.shutdown(params);
             $(shutdownButtonID).prop('disabled', true);
             $(restartButtonID).prop('disabled', true);
             // Check if there is any VM is running.
-            kimchi.listVMs(function(vms) {
+            gingerbase.listVMs(function(vms) {
                 for (var i = 0; i < vms.length; i++) {
                     if (vms[i]['state'] === 'running') {
                         wok.message.error.code('GGBHOST6001E');
@@ -572,43 +572,43 @@ kimchi.host_main = function() {
         });
 
         var setupUI = function() {
-            if (kimchi.capabilities === undefined) {
+            if (gingerbase.capabilities === undefined) {
                 setTimeout(setupUI, 2000);
                 return;
             }
 
-            if ((kimchi.capabilities['repo_mngt_tool']) && (kimchi.capabilities['repo_mngt_tool'] !== "None")) {
-                initRepositoriesGrid(kimchi.capabilities['repo_mngt_tool']);
-                $('#repositories-section').switchClass('hidden', kimchi.capabilities['repo_mngt_tool']);
-                $('#content-sys-info').removeClass('col-md-12', kimchi.capabilities['repo_mngt_tool']);
-                $('#content-sys-info').addClass('col-md-4', kimchi.capabilities['repo_mngt_tool']);
-                wok.topic('kimchi/repositoryAdded')
+            if ((gingerbase.capabilities['repo_mngt_tool']) && (gingerbase.capabilities['repo_mngt_tool'] !== "None")) {
+                initRepositoriesGrid(gingerbase.capabilities['repo_mngt_tool']);
+                $('#repositories-section').switchClass('hidden', gingerbase.capabilities['repo_mngt_tool']);
+                $('#content-sys-info').removeClass('col-md-12', gingerbase.capabilities['repo_mngt_tool']);
+                $('#content-sys-info').addClass('col-md-4', gingerbase.capabilities['repo_mngt_tool']);
+                wok.topic('gingerbase/repositoryAdded')
                     .subscribe(listRepositories);
-                wok.topic('kimchi/repositoryUpdated')
+                wok.topic('gingerbase/repositoryUpdated')
                     .subscribe(listRepositories);
-                wok.topic('kimchi/repositoryDeleted')
+                wok.topic('gingerbase/repositoryDeleted')
                     .subscribe(listRepositories);
             }
 
-            if (kimchi.capabilities['update_tool']) {
+            if (gingerbase.capabilities['update_tool']) {
                 $('#software-update-section').removeClass('hidden');
                 initSoftwareUpdatesGrid();
-                wok.topic('kimchi/softwareUpdated')
+                wok.topic('gingerbase/softwareUpdated')
                     .subscribe(listSoftwareUpdates);
             }
 
-            if (kimchi.capabilities['system_report_tool']) {
+            if (gingerbase.capabilities['system_report_tool']) {
                 listDebugReports();
-                wok.topic('kimchi/debugReportAdded')
+                wok.topic('gingerbase/debugReportAdded')
                     .subscribe(listDebugReports);
-                wok.topic('kimchi/debugReportRenamed')
+                wok.topic('gingerbase/debugReportRenamed')
                     .subscribe(listDebugReports);
             }
         };
         setupUI();
     };
 
-    kimchi.getHost(function(data) {
+    gingerbase.getHost(function(data) {
         var htmlTmpl = $('#host-tmpl').html();
         data['logo'] = data['logo'] || '';
         data['memory'] = wok.formatMeasurement(data['memory'], {
@@ -830,14 +830,14 @@ kimchi.host_main = function() {
         };
 
         var track = function() {
-            kimchi.getHostStatsHistory(statsCallback,
+            gingerbase.getHostStatsHistory(statsCallback,
                 function() {
                     continueTrack();
                 });
         };
 
         var continueTrack = function() {
-            kimchi.getHostStats(statsCallback,
+            gingerbase.getHostStats(statsCallback,
                 function() {
                     continueTrack();
                 });
@@ -857,9 +857,9 @@ kimchi.host_main = function() {
 
     var initTracker = function() {
         // TODO: Extend tabs with onUnload event to unregister timers.
-        if (kimchi.hostTimer) {
-            kimchi.hostTimer.stop();
-            delete kimchi.hostTimer;
+        if (gingerbase.hostTimer) {
+            gingerbase.hostTimer.stop();
+            delete gingerbase.hostTimer;
         }
 
         var trackedCharts = {
@@ -885,33 +885,33 @@ kimchi.host_main = function() {
             })
         };
 
-        if (kimchi.hostTimer) {
-            kimchi.hostTimer.setCharts(trackedCharts);
+        if (gingerbase.hostTimer) {
+            gingerbase.hostTimer.setCharts(trackedCharts);
         } else {
-            kimchi.hostTimer = new Tracker(trackedCharts);
-            kimchi.hostTimer.start();
+            gingerbase.hostTimer = new Tracker(trackedCharts);
+            gingerbase.hostTimer.start();
         }
     };
 
     $('#host-root-container').on('remove', function() {
-        if (kimchi.hostTimer) {
-            kimchi.hostTimer.stop();
-            delete kimchi.hostTimer;
+        if (gingerbase.hostTimer) {
+            gingerbase.hostTimer.stop();
+            delete gingerbase.hostTimer;
         }
 
         repositoriesGrid && repositoriesGrid.destroy();
-        wok.topic('kimchi/repositoryAdded')
+        wok.topic('gingerbase/repositoryAdded')
             .unsubscribe(listRepositories);
-        wok.topic('kimchi/repositoryUpdated')
+        wok.topic('gingerbase/repositoryUpdated')
             .unsubscribe(listRepositories);
-        wok.topic('kimchi/repositoryDeleted')
+        wok.topic('gingerbase/repositoryDeleted')
             .unsubscribe(listRepositories);
 
         softwareUpdatesGrid && softwareUpdatesGrid.destroy();
-        wok.topic('kimchi/softwareUpdated').unsubscribe(listSoftwareUpdates);
+        wok.topic('gingerbase/softwareUpdated').unsubscribe(listSoftwareUpdates);
 
         reportGrid && reportGrid.destroy();
-        wok.topic('kimchi/debugReportAdded').unsubscribe(listDebugReports);
-        wok.topic('kimchi/debugReportRenamed').unsubscribe(listDebugReports);
+        wok.topic('gingerbase/debugReportAdded').unsubscribe(listDebugReports);
+        wok.topic('gingerbase/debugReportRenamed').unsubscribe(listDebugReports);
     });
 };

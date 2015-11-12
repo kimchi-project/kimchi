@@ -128,9 +128,9 @@ class SoftwareUpdate(object):
 
     def tailUpdateLogs(self, cb, params):
         """
-        When the package manager is already running (started outside kimchi or
-        if wokd is restarted) we can only know what's happening by reading the
-        logfiles. This method acts like a 'tail -f' on the default package
+        When the package manager is already running (started outside gingerbase
+        or if wokd is restarted) we can only know what's happening by reading
+        the logfiles. This method acts like a 'tail -f' on the default package
         manager logfile. If the logfile is not found, a simple '*' is
         displayed to track progress. This will be until the process finishes.
         """

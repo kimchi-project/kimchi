@@ -165,7 +165,7 @@ def request(host, port, path, data=None, method='GET', headers=None):
 def get_remote_iso_path():
     """
     Get a remote iso with the right arch from the distro files shipped
-    with kimchi.
+    with gingerbase.
     """
     host_arch = os.uname()[4]
     remote_path = ''
