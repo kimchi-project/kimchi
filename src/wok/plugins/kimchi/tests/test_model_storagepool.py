@@ -20,6 +20,7 @@
 
 import json
 import os
+import shutil
 import tempfile
 import unittest
 from functools import partial
@@ -72,11 +73,12 @@ class StoragepoolTests(unittest.TestCase):
             # Now add a couple of storage pools
             for i in xrange(3):
                 name = u'kīмсhī-storagepool-%i' % i
-                req = json.dumps({'name': name, 'type': 'dir',
-                                  'path': '/var/lib/libvirt/images/%i' % i})
+                path = '/var/lib/libvirt/images/%i' % i
+                req = json.dumps({'name': name, 'type': 'dir', 'path': path})
                 resp = self.request('/plugins/kimchi/storagepools', req,
                                     'POST')
                 rollback.prependDefer(model.storagepool_delete, name)
+                rollback.prependDefer(shutil.rmtree, path)
 
                 self.assertEquals(201, resp.status)
 
