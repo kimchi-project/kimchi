@@ -55,6 +55,7 @@ from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -1342,6 +1343,87 @@ class VMModel(object):
         self._check_if_host_not_localhost(remote_host)
         self._check_if_password_less_login_enabled(remote_host, user)
 
+    def _check_if_path_exists_in_remote_host(self, path, remote_host, user):
+        username_host = "%s@%s" % (user, remote_host)
+        cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
+               'test', '-f', path]
+        _, _, returncode = run_command(cmd, 5, silent=True)
+        return returncode == 0
+
+    def _get_vm_devices_infos(self, vm_name):
+        dom = VMModel.get_vm(vm_name, self.conn)
+        infos = [get_vm_disk_info(dom, dev_name)
+                 for dev_name in get_vm_disks(dom).keys()]
+        return infos
+
+    def _check_if_nonshared_migration(self, vm_name, remote_host, user):
+        for dev_info in self._get_vm_devices_infos(vm_name):
+            dev_path = dev_info.get('path')
+            if not self._check_if_path_exists_in_remote_host(
+                    dev_path, remote_host, user):
+                return True
+        return False
+
+    def _create_remote_path(self, path, remote_host, user):
+        username_host = "%s@%s" % (user, remote_host)
+        cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
+               'touch', path]
+        _, _, returncode = run_command(cmd, 5, silent=True)
+        if returncode != 0:
+            raise OperationFailed(
+                "KCHVM0061E",
+                {'path': path, 'host': remote_host, 'user': user}
+            )
+
+    def _get_img_size(self, disk_path):
+        try:
+            conn = self.conn.get()
+            vol_obj = conn.storageVolLookupByPath(disk_path)
+            return vol_obj.info()[1]
+        except Exception, e:
+            raise OperationFailed(
+                "KCHVM0062E",
+                {'path': disk_path, 'error': e.message}
+            )
+
+    def _create_remote_disk(self, disk_info, remote_host, user):
+        username_host = "%s@%s" % (user, remote_host)
+        disk_fmt = disk_info.get('format')
+        disk_path = disk_info.get('path')
+        disk_size = self._get_img_size(disk_path)
+        cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
+               'qemu-img', 'create', '-f', disk_fmt,
+               disk_path, str(disk_size)]
+        out, err, returncode = run_command(cmd, silent=True)
+        if returncode != 0:
+            raise OperationFailed(
+                "KCHVM0063E",
+                {
+                    'error': err,
+                    'path': disk_path,
+                    'host': remote_host,
+                    'user': user
+                }
+            )
+
+    def _create_vm_remote_paths(self, vm_name, remote_host, user):
+        for dev_info in self._get_vm_devices_infos(vm_name):
+            dev_path = dev_info.get('path')
+            if not self._check_if_path_exists_in_remote_host(
+                    dev_path, remote_host, user):
+                if dev_info.get('type') == 'cdrom':
+                    self._create_remote_path(
+                        dev_path,
+                        remote_host,
+                        user
+                    )
+                else:
+                    self._create_remote_disk(
+                        dev_info,
+                        remote_host,
+                        user
+                    )
+
     def migrate(self, name, remote_host, user='root'):
         name = name.decode('utf-8')
         remote_host = remote_host.decode('utf-8')
@@ -1349,8 +1431,17 @@ class VMModel(object):
         self.migration_pre_check(remote_host, user)
         dest_conn = self._get_remote_libvirt_conn(remote_host)
 
+        non_shared = self._check_if_nonshared_migration(
+            name,
+            remote_host,
+            user
+        )
+
         params = {'name': name,
-                  'dest_conn': dest_conn}
+                  'dest_conn': dest_conn,
+                  'non_shared': non_shared,
+                  'remote_host': remote_host,
+                  'user': user}
         task_id = add_task('/vms/%s/migrate' % name, self._migrate_task,
                            self.objstore, params)
 
@@ -1359,6 +1450,9 @@ class VMModel(object):
     def _migrate_task(self, cb, params):
         name = params['name'].decode('utf-8')
         dest_conn = params['dest_conn']
+        non_shared = params['non_shared']
+        remote_host = params['remote_host']
+        user = params['user']
 
         cb('starting a migration')
 
@@ -1377,6 +1471,14 @@ class VMModel(object):
             dest_conn.close()
             raise OperationFailed("KCHVM0057E", {'name': name,
                                                  'state': state})
+        if non_shared:
+            flags |= libvirt.VIR_MIGRATE_NON_SHARED_DISK
+            self._create_vm_remote_paths(
+                name,
+                remote_host,
+                user
+            )
+
         try:
             dom.migrate(dest_conn, flags)
         except libvirt.libvirtError as e:
