@@ -21,7 +21,6 @@ import json
 import libvirt
 import os
 import socket
-import shutil
 import unittest
 from functools import partial
 
@@ -29,6 +28,7 @@ from functools import partial
 from wok.basemodel import Singleton
 from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext
+from wok.utils import run_command
 
 
 from wok.plugins.kimchi.model import model
@@ -42,14 +42,14 @@ from utils import get_free_port, patch_auth, request
 from utils import run_server, wait_task
 
 
-TMP_DIR = '/var/lib/kimchi/tests/'
-UBUNTU_ISO = TMP_DIR + 'ubuntu14.04.iso'
+ISO_DIR = '/var/lib/libvirt/images/'
+UBUNTU_ISO = ISO_DIR + 'ubuntu_kimchi_migration_test_14.04.iso'
 KIMCHI_LIVE_MIGRATION_TEST = None
 
 
 def setUpModule():
-    if not os.path.exists(TMP_DIR):
-        os.makedirs(TMP_DIR)
+    if not os.path.exists(ISO_DIR):
+        os.makedirs(ISO_DIR)
     iso_gen.construct_fake_iso(UBUNTU_ISO, True, '14.04', 'ubuntu')
     # Some FeatureTests functions depend on server to validate their result.
     # As CapabilitiesModel is a Singleton class it will get the first result
@@ -61,7 +61,7 @@ def setUpModule():
 
 
 def tearDownModule():
-    shutil.rmtree(TMP_DIR)
+    os.remove(UBUNTU_ISO)
 
 
 def remoteserver_environment_defined():
@@ -89,9 +89,18 @@ def check_if_vm_migration_test_possible():
 class LiveMigrationTests(unittest.TestCase):
     def setUp(self):
         self.tmp_store = '/tmp/kimchi-store-test'
-        self.inst = model.Model(objstore_loc=self.tmp_store)
+        self.inst = model.Model(
+            'qemu:///system',
+            objstore_loc=self.tmp_store
+        )
         params = {'name': u'template_test_vm_migrate',
                   'disks': [],
+                  'cdrom': UBUNTU_ISO,
+                  'memory': 2048,
+                  'max_memory': 4096*1024}
+        self.inst.templates_create(params)
+        params = {'name': u'template_test_vm_migrate_nonshared',
+                  'disks': [{'name': 'test_vm_migrate.img', 'size': 1}],
                   'cdrom': UBUNTU_ISO,
                   'memory': 2048,
                   'max_memory': 4096*1024}
@@ -99,14 +108,21 @@ class LiveMigrationTests(unittest.TestCase):
 
     def tearDown(self):
         self.inst.template_delete('template_test_vm_migrate')
+        self.inst.template_delete('template_test_vm_migrate_nonshared')
 
         os.unlink(self.tmp_store)
 
-    def create_vm_test(self):
+    def create_vm_test(self, non_shared_storage=False):
         params = {
             'name': u'test_vm_migrate',
             'template': u'/plugins/kimchi/templates/template_test_vm_migrate'
         }
+        if non_shared_storage:
+            params = {
+                'name': u'test_vm_migrate',
+                'template': u'/plugins/kimchi/templates/'
+                'template_test_vm_migrate_nonshared'
+            }
         task = self.inst.vms_create(params)
         self.inst.task_wait(task['id'])
 
@@ -171,8 +187,6 @@ class LiveMigrationTests(unittest.TestCase):
     @unittest.skipUnless(check_if_vm_migration_test_possible(),
                          'not possible to test a live migration')
     def test_vm_livemigrate_persistent(self):
-        inst = model.Model(libvirt_uri='qemu:///system',
-                           objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             self.create_vm_test()
@@ -189,9 +203,9 @@ class LiveMigrationTests(unittest.TestCase):
             except Exception, e:
                 self.fail('Failed to start the vm, reason: %s' % e.message)
             try:
-                task = inst.vm_migrate('test_vm_migrate',
-                                       KIMCHI_LIVE_MIGRATION_TEST)
-                inst.task_wait(task['id'])
+                task = self.inst.vm_migrate('test_vm_migrate',
+                                            KIMCHI_LIVE_MIGRATION_TEST)
+                self.inst.task_wait(task['id'])
                 self.assertIn('test_vm_migrate', self.get_remote_vm_list())
 
                 remote_conn = self.get_remote_conn()
@@ -208,9 +222,6 @@ class LiveMigrationTests(unittest.TestCase):
     @unittest.skipUnless(check_if_vm_migration_test_possible(),
                          'not possible to test a live migration')
     def test_vm_livemigrate_transient(self):
-        inst = model.Model(libvirt_uri='qemu:///system',
-                           objstore_loc=self.tmp_store)
-
         self.create_vm_test()
 
         with RollbackContext() as rollback:
@@ -229,9 +240,9 @@ class LiveMigrationTests(unittest.TestCase):
                 )
                 vm.undefine()
 
-                task = inst.vm_migrate('test_vm_migrate',
-                                       KIMCHI_LIVE_MIGRATION_TEST)
-                inst.task_wait(task['id'])
+                task = self.inst.vm_migrate('test_vm_migrate',
+                                            KIMCHI_LIVE_MIGRATION_TEST)
+                self.inst.task_wait(task['id'])
                 self.assertIn('test_vm_migrate', self.get_remote_vm_list())
 
                 remote_conn = self.get_remote_conn()
@@ -258,9 +269,6 @@ class LiveMigrationTests(unittest.TestCase):
     @unittest.skipUnless(check_if_vm_migration_test_possible(),
                          'not possible to test shutdown migration')
     def test_vm_coldmigrate(self):
-        inst = model.Model(libvirt_uri='qemu:///system',
-                           objstore_loc=self.tmp_store)
-
         with RollbackContext() as rollback:
             self.create_vm_test()
             rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
@@ -272,9 +280,9 @@ class LiveMigrationTests(unittest.TestCase):
             self.inst.vmstorage_delete('test_vm_migrate',  dev_list[0])
 
             try:
-                task = inst.vm_migrate('test_vm_migrate',
-                                       KIMCHI_LIVE_MIGRATION_TEST)
-                inst.task_wait(task['id'])
+                task = self.inst.vm_migrate('test_vm_migrate',
+                                            KIMCHI_LIVE_MIGRATION_TEST)
+                self.inst.task_wait(task['id'])
                 self.assertIn('test_vm_migrate', self.get_remote_vm_list())
 
                 remote_conn = self.get_remote_conn()
@@ -287,6 +295,55 @@ class LiveMigrationTests(unittest.TestCase):
                 self.assertEqual(state, libvirt.VIR_DOMAIN_SHUTOFF)
 
                 remote_vm.undefine()
+            except Exception, e:
+                self.fail('Migration test failed: %s' % e.message)
+
+    def _erase_remote_file(self, path):
+        username_host = "root@%s" % KIMCHI_LIVE_MIGRATION_TEST
+        cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
+               'rm', '-f', path]
+        _, _, returncode = run_command(cmd, silent=True)
+        if returncode != 0:
+            print 'cannot erase remote file ', path
+
+    @unittest.skipUnless(check_if_vm_migration_test_possible(),
+                         'not possible to test a live migration')
+    def test_vm_livemigrate_persistent_nonshared(self):
+
+        with RollbackContext() as rollback:
+            self.create_vm_test(non_shared_storage=True)
+            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+                                  u'test_vm_migrate')
+
+            # getting disk path info to clean it up later
+            storage_list = self.inst.vmstorages_get_list('test_vm_migrate')
+            disk_info = self.inst.vmstorage_lookup(
+                'test_vm_migrate',
+                storage_list[0]
+            )
+            disk_path = disk_info.get('path')
+
+            try:
+                self.inst.vm_start('test_vm_migrate')
+            except Exception, e:
+                self.fail('Failed to start the vm, reason: %s' % e.message)
+            try:
+                task = self.inst.vm_migrate('test_vm_migrate',
+                                            KIMCHI_LIVE_MIGRATION_TEST)
+                self.inst.task_wait(task['id'], 3600)
+                self.assertIn('test_vm_migrate', self.get_remote_vm_list())
+
+                remote_conn = self.get_remote_conn()
+                rollback.prependDefer(remote_conn.close)
+
+                remote_vm = remote_conn.lookupByName('test_vm_migrate')
+                self.assertTrue(remote_vm.isPersistent())
+
+                remote_vm.destroy()
+                remote_vm.undefine()
+
+                self._erase_remote_file(disk_path)
+                self._erase_remote_file(UBUNTU_ISO)
             except Exception, e:
                 self.fail('Migration test failed: %s' % e.message)
 

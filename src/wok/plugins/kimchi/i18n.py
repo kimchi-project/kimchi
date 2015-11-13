@@ -115,6 +115,10 @@ messages = {
     "KCHVM0058E": _("Failed to migrate virtual machine %(name)s due error: %(err)s"),
     "KCHVM0059E": _("User name of the remote server must be a string."),
     "KCHVM0060E": _("Destination host of the migration must be a string."),
+    "KCHVM0061E": _("Unable to create file %(path)s at %(host)s using user %(user)s."),
+    "KCHVM0062E": _("Unable to read disk size of %(path)s, error: %(error)s"),
+    "KCHVM0063E": _("Unable to create disk image %(path)s at %(host)s using user %(user)s. Error: %(error)s"),
+
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
