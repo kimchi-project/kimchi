@@ -539,22 +539,23 @@ gingerbase.host_main = function() {
         };
 
         wok.confirm(settings, function() {
-            gingerbase.shutdown(params);
             $(shutdownButtonID).prop('disabled', true);
             $(restartButtonID).prop('disabled', true);
             // Check if there is any VM is running.
-            gingerbase.listVMs(function(vms) {
-                for (var i = 0; i < vms.length; i++) {
-                    if (vms[i]['state'] === 'running') {
-                        wok.message.error.code('GGBHOST6001E');
-                        $(shutdownButtonID).prop('disabled', false);
-                        $(restartButtonID).prop('disabled', false);
-                        return;
-                    }
-                }
-
-            });
-        }, function() {});
+            // Based on the success will shutdown/reboot
+            gingerbase.shutdown(params, function(success) {
+                wok.message.success(i18n['GGBHOST6009M'])
+                $(shutdownButtonID).prop('disabled', false);
+                $(restartButtonID).prop('disabled', false);
+                return;
+            }, function(error) {
+            // Looks like VMs are running.
+            wok.message.error.code('GGBHOST6001E');
+            $(shutdownButtonID).prop('disabled', false);
+            $(restartButtonID).prop('disabled', false);
+        });
+        }, function() {
+        });
     };
 
     var initPage = function() {

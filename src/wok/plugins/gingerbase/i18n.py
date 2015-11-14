@@ -39,6 +39,7 @@ messages = {
 
     "GGBHOST0001E": _("Unable to shutdown host machine as there are running virtual machines"),
     "GGBHOST0002E": _("Unable to reboot host machine as there are running virtual machines"),
+    "GGBHOST0003E": _("There may be virtual machines running on the host"),
     "GGBHOST0005E": _("When specifying CPU topology, each element must be an integer greater than zero."),
 
     "GGBPKGUPD0001E": _("No packages marked for update"),
