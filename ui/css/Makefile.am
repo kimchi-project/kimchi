@@ -31,4 +31,4 @@ dist_css_DATA = theme-default.min.css jquery-ui.custom.css wok.css  bootstrap.cu
 theme-default.min.css: theme-default/*.css
 	cat $^ > $@
 
-CLEANFILES = theme-default.min.css
+CLEANFILES = theme-default.min.css wok.css bootstrap.custom.css bootstrap-select.custom.css
