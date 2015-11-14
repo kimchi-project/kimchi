@@ -39,6 +39,14 @@ from wok.plugins.gingerbase.repositories import Repositories
 from wok.plugins.gingerbase.swupdate import SoftwareUpdate
 
 HOST_STATS_INTERVAL = 1
+DOM_STATE_MAP = {0: 'nostate',
+                 1: 'running',
+                 2: 'blocked',
+                 3: 'paused',
+                 4: 'shutdown',
+                 5: 'shutoff',
+                 6: 'crashed',
+                 7: 'pmsuspended'}
 
 
 class HostModel(object):
@@ -142,29 +150,40 @@ class HostModel(object):
 
     def shutdown(self, args=None):
         # Check for running vms before shutdown
-        # FIXME : Find alternative way to figure out if any vms running
-        # running_vms = self._get_vms_list_by_state('running')
-        # if len(running_vms) > 0:
-        #     raise OperationFailed("GGBHOST0001E")
+        running_vms = self.get_vmlist_bystate('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("GGBHOST0001E")
 
         wok_log.info('Host is going to shutdown.')
         os.system('shutdown -h now')
 
     def reboot(self, args=None):
-        # Find running VMs
-        # FIXME : Find alternative way to figure out if any vms running
-        # running_vms = self._get_vms_list_by_state('running')
-        # if len(running_vms) > 0:
-        #     raise OperationFailed("GGBHOST0002E")
+        # Check for running vms before reboot
+        running_vms = self.get_vmlist_bystate('running')
+        if len(running_vms) > 0:
+            raise OperationFailed("GGBHOST0002E")
 
         wok_log.info('Host is going to reboot.')
         os.system('reboot')
 
-    # def _get_vms_list_by_state(self, state):
-    #     conn = self.conn.get()
-    #     return [dom.name().decode('utf-8')
-    #             for dom in conn.listAllDomains(0)
-    #             if (DOM_STATE_MAP[dom.info()[0]]) == state]
+    def get_vmlist_bystate(self, state='running'):
+        try:
+            libvirt_mod = __import__('libvirt')
+        except Exception, e:
+            wok_log.info("Unable to import libvirt module. Details:",
+                         e.message)
+            # Ignore any error and assume there is no vm running in the host
+            return []
+
+        try:
+            conn = libvirt_mod.open(None)
+            return [dom.name().decode('utf-8')
+                    for dom in conn.listAllDomains(0)
+                    if (DOM_STATE_MAP[dom.info()[0]] == state)]
+        except Exception, e:
+            wok_log.info("Unable to get virtual machines information. "
+                         "Details:", e.message)
+            raise OperationFailed("GGBHOST0003E")
 
 
 class SoftwareUpdateProgressModel(object):
