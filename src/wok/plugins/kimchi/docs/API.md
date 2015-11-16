@@ -185,7 +185,8 @@ server.
 * migrate: Migrate a virtual machine to a remote server, only support live
 mode without block migration.
     * remote_host: IP address or hostname of the remote server.
-    * user: User to log on at the remote server.
+    * user *(optional)*: User to log on at the remote server.
+    * password *(optional)*: password of the user in the remote server.
 
 ### Sub-resource: Virtual Machine Screenshot
 

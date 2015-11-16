@@ -51,7 +51,8 @@ class VM(Resource):
         self.clone = self.generate_action_handler_task('clone')
         self.migrate = self.generate_action_handler_task('migrate',
                                                          ['remote_host',
-                                                          'user'])
+                                                          'user',
+                                                          'password'])
         self.suspend = self.generate_action_handler('suspend')
         self.resume = self.generate_action_handler('resume')
 

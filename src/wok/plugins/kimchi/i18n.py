@@ -118,6 +118,14 @@ messages = {
     "KCHVM0061E": _("Unable to create file %(path)s at %(host)s using user %(user)s."),
     "KCHVM0062E": _("Unable to read disk size of %(path)s, error: %(error)s"),
     "KCHVM0063E": _("Unable to create disk image %(path)s at %(host)s using user %(user)s. Error: %(error)s"),
+    "KCHVM0064E": _("Unable to migrate virtual machine to remote host %(host)s with arch %(destarch)s using localhost with arch %(srcarch)s."),
+    "KCHVM0065E": _("Unable to migrate virtual machine to remote host %(host)s with hypervisor %(desthyp)s because localhost uses hypervisor %(srchyp)s."),
+    "KCHVM0066E": _("Unable to determine remote host hypervisor and architecture. Error: %(error)s"),
+    "KCHVM0067E": _("Unable to migrate virtual machine: subcores per core setting from localhostand remote host %(host)s differs."),
+    "KCHVM0068E": _("Unable to setup password-less login at remote host %(host)s using user %(user)s. Error: %(error)s"),
+    "KCHVM0069E": _("Password field must be a string."),
+    "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
+
 
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
