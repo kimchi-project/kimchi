@@ -54,7 +54,7 @@ Install Dependencies
                         nfs-utils iscsi-initiator-utils pyparted \
                         python-libguestfs libguestfs-tools \
                         python-websockify novnc spice-html5 \
-                        python-configobj python-magic
+                        python-configobj python-magic python-paramiko
 
      # If using RHEL, install the following additional packages:
      $ sudo yum install python-unittest2 python-ordereddict
@@ -64,6 +64,8 @@ Install Dependencies
 
     # These dependencies are only required if you want to run the tests:
     $ sudo yum install pyflakes python-pep8 python-requests
+    $ sudo pip install mock
+
 
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
 EPEL repositories.  See
@@ -80,7 +82,7 @@ channel at RHN Classic or Red Hat Satellite.
                            qemu-kvm python-parted python-ethtool sosreport \
                            xsltproc python-ipaddr python-lxml open-iscsi \
                            python-guestfs libguestfs-tools spice-html5 \
-                           python-magic \
+                           python-magic python-paramiko \
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests

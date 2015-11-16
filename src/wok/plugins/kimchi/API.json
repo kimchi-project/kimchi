@@ -315,6 +315,7 @@
                 "remote_host": {
                     "description": "IP address or hostname of the remote server",
                     "type": "string",
+                    "required": true,
                     "minLength": 1,
                     "error": "KCHVM0060E"
                 },
@@ -323,6 +324,11 @@
                     "type": "string",
                     "minLength": 1,
                     "error": "KCHVM0059E"
+                },
+                "password": {
+                    "description": "Password of the user in the remote server",
+                    "type": "string",
+                    "error": "KCHVM0069E"
                 }
             },
             "additionalProperties": false
