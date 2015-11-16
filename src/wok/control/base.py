@@ -109,7 +109,10 @@ class Resource(object):
                 model_args = list(self.model_args)
                 if action_args is not None:
                     request = parse_request()
-                    model_args.extend(request[key] for key in action_args)
+                    model_args.extend(
+                        request[key] for key in action_args
+                        if key in request.keys()
+                    )
 
                 action_fn = getattr(self.model, model_fn(self, action_name))
                 action_result = action_fn(*model_args)
