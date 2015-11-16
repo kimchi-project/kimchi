@@ -21,8 +21,11 @@ import copy
 import libvirt
 import lxml.etree as ET
 import os
+import paramiko
+import platform
 import random
 import socket
+import subprocess
 import string
 import threading
 import time
@@ -1323,15 +1326,156 @@ class VMModel(object):
         if remote_host in ['localhost', '127.0.0.1', hostname]:
             raise OperationFailed("KCHVM0055E", {'host': remote_host})
 
-    def _check_if_password_less_login_enabled(self, remote_host, user):
-        username_host = "%s@%s" % (user, remote_host)
+    def _check_if_migrating_same_arch_hypervisor(self, remote_host,
+                                                 user='root'):
+        remote_conn = None
+        try:
+            remote_conn = self._get_remote_libvirt_conn(
+                remote_host,
+                user
+            )
+            source_hyp = self.conn.get().getType()
+            dest_hyp = remote_conn.getType()
+            if source_hyp != dest_hyp:
+                raise OperationFailed(
+                    "KCHVM0065E",
+                    {
+                        'host': remote_host,
+                        'srchyp': source_hyp,
+                        'desthyp': dest_hyp
+                    }
+                )
+            source_arch = self.conn.get().getInfo()[0]
+            dest_arch = remote_conn.getInfo()[0]
+            if source_arch != dest_arch:
+                raise OperationFailed(
+                    "KCHVM0064E",
+                    {
+                        'host': remote_host,
+                        'srcarch': source_arch,
+                        'destarch': dest_arch
+                    }
+                )
+        except Exception, e:
+            raise OperationFailed("KCHVM0066E", {'error': e.message})
+
+        finally:
+            if remote_conn:
+                remote_conn.close()
+
+    def _check_ppc64_subcores_per_core(self, remote_host, user):
+        """
+        Output expected from command-line:
+
+        $ ppc64_cpu --subcores-per-core
+        Subcores per core: N
+        """
+
+        def _get_local_ppc64_subpercore():
+            local_cmd = ['ppc64_cpu', '--subcores-per-core']
+            out, err, returncode = run_command(local_cmd, 5, silent=True)
+            if returncode != 0:
+                return None
+            local_sub_per_core = out.strip()[-1]
+            return local_sub_per_core
+
+        def _get_remote_ppc64_subpercore(remote_host, user):
+            username_host = "%s@%s" % ('root', remote_host)
+            ssh_cmd = ['ssh', '-oNumberOfPasswordPrompts=0',
+                       '-oStrictHostKeyChecking=no', username_host,
+                       'ppc64_cpu', '--subcores-per-core']
+            out, err, returncode = run_command(ssh_cmd, 5, silent=True)
+            if returncode != 0:
+                return None
+            remote_sub_per_core = out.strip()[-1]
+            return remote_sub_per_core
+
+        local_sub_per_core = _get_local_ppc64_subpercore()
+        if local_sub_per_core is None:
+            return
+
+        remote_sub_per_core = _get_remote_ppc64_subpercore(remote_host, user)
+
+        if local_sub_per_core != remote_sub_per_core:
+            raise OperationFailed("KCHVM0067E", {'host': remote_host})
+
+    def _check_if_password_less_login_enabled(self, remote_host,
+                                              user, password):
+        username_host = "%s@%s" % ('root', remote_host)
         ssh_cmd = ['ssh', '-oNumberOfPasswordPrompts=0',
                    '-oStrictHostKeyChecking=no', username_host,
                    'echo', 'hello']
         stdout, stderr, returncode = run_command(ssh_cmd, 5, silent=True)
         if returncode != 0:
-            raise OperationFailed("KCHVM0056E",
-                                  {'host': remote_host, 'user': user})
+            if password is None:
+                raise OperationFailed("KCHVM0056E",
+                                      {'host': remote_host, 'user': 'root'})
+            else:
+                self._set_password_less_login(remote_host, user, password)
+
+    def _set_password_less_login(self, remote_host, user, passwd):
+        id_rsa_file = "/root/.ssh/id_rsa.pub"
+        ssh_port = 22
+        ssh_client = None
+
+        def create_root_ssh_key_if_required():
+            if not os.path.isfile(id_rsa_file):
+
+                with open("/dev/zero") as zero_input:
+                    cmd = ['ssh-keygen', '-q', '-N', '']
+                    proc = subprocess.Popen(
+                        cmd,
+                        stdin=zero_input,
+                        stdout=open(os.devnull, 'wb')
+                    )
+                    out, err = proc.communicate()
+                    if not os.path.isfile(id_rsa_file):
+                        raise OperationFailed("KCHVM0070E")
+
+        def read_id_rsa_pub_file():
+            data = None
+            with open(id_rsa_file, "r") as id_file:
+                data = id_file.read()
+            return data
+
+        def get_ssh_client(remote_host, user, passwd):
+            ssh_client = paramiko.SSHClient()
+            ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh_client.connect(remote_host, ssh_port, username=user,
+                               password=passwd, timeout=4)
+            return ssh_client
+
+        def append_id_rsa_to_remote_authorized_keys(ssh_client, id_rsa_data):
+            sftp_client = ssh_client.open_sftp()
+
+            file_handler = sftp_client.file(
+                '/root/.ssh/authorized_keys',
+                mode='a',
+                bufsize=1
+            )
+            file_handler.write(id_rsa_data)
+            file_handler.flush()
+            file_handler.close()
+
+            sftp_client.close()
+
+        try:
+            create_root_ssh_key_if_required()
+            id_rsa_data = read_id_rsa_pub_file()
+            ssh_client = get_ssh_client(remote_host, user, passwd)
+            append_id_rsa_to_remote_authorized_keys(
+                ssh_client,
+                id_rsa_data
+            )
+        except Exception, e:
+            raise OperationFailed(
+                "KCHVM0068E",
+                {'host': remote_host, 'user': user, 'error': e.message}
+            )
+
+        finally:
+            if ssh_client:
+                ssh_client.close()
 
     def _get_remote_libvirt_conn(self, remote_host,
                                  user='root', transport='ssh'):
@@ -1339,12 +1483,20 @@ class VMModel(object):
         # TODO: verify why LibvirtConnection(dest_uri) does not work here
         return libvirt.open(dest_uri)
 
-    def migration_pre_check(self, remote_host, user):
+    def migration_pre_check(self, remote_host, user, password):
         self._check_if_host_not_localhost(remote_host)
-        self._check_if_password_less_login_enabled(remote_host, user)
+        self._check_if_password_less_login_enabled(
+           remote_host,
+           user,
+           password
+        )
+        self._check_if_migrating_same_arch_hypervisor(remote_host, user)
+
+        if platform.machine() in ['ppc64', 'ppc64le']:
+            self._check_ppc64_subcores_per_core(remote_host, user)
 
     def _check_if_path_exists_in_remote_host(self, path, remote_host, user):
-        username_host = "%s@%s" % (user, remote_host)
+        username_host = "%s@%s" % ('root', remote_host)
         cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
                'test', '-f', path]
         _, _, returncode = run_command(cmd, 5, silent=True)
@@ -1365,7 +1517,7 @@ class VMModel(object):
         return False
 
     def _create_remote_path(self, path, remote_host, user):
-        username_host = "%s@%s" % (user, remote_host)
+        username_host = "%s@%s" % ('root', remote_host)
         cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
                'touch', path]
         _, _, returncode = run_command(cmd, 5, silent=True)
@@ -1387,7 +1539,7 @@ class VMModel(object):
             )
 
     def _create_remote_disk(self, disk_info, remote_host, user):
-        username_host = "%s@%s" % (user, remote_host)
+        username_host = "%s@%s" % ('root', remote_host)
         disk_fmt = disk_info.get('format')
         disk_path = disk_info.get('path')
         disk_size = self._get_img_size(disk_path)
@@ -1424,11 +1576,14 @@ class VMModel(object):
                         user
                     )
 
-    def migrate(self, name, remote_host, user='root'):
+    def migrate(self, name, remote_host, user=None, password=None):
         name = name.decode('utf-8')
         remote_host = remote_host.decode('utf-8')
 
-        self.migration_pre_check(remote_host, user)
+        if user is None:
+            user = 'root'
+
+        self.migration_pre_check(remote_host, user, password)
         dest_conn = self._get_remote_libvirt_conn(remote_host)
 
         non_shared = self._check_if_nonshared_migration(
