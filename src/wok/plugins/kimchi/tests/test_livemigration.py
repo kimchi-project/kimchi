@@ -19,6 +19,7 @@
 
 import json
 import libvirt
+import mock
 import os
 import socket
 import unittest
@@ -77,7 +78,11 @@ def running_root_and_remoteserver_defined():
 def check_if_vm_migration_test_possible():
     inst = model.Model(objstore_loc='/tmp/kimchi-store-test')
     try:
-        inst.vm_migration_pre_check(KIMCHI_LIVE_MIGRATION_TEST, 'root')
+        inst.vm_migration_pre_check(
+            KIMCHI_LIVE_MIGRATION_TEST,
+            'root',
+            None
+        )
     except:
         return False
     return True
@@ -169,8 +174,58 @@ class LiveMigrationTests(unittest.TestCase):
             self.assertRaises(OperationFailed,
                               self.inst.vm_migrate,
                               'test_vm_migrate',
-                              KIMCHI_LIVE_MIGRATION_TEST,
-                              user='test_vm_migrate_fake_user')
+                              'this_is_a_fake_remote_host')
+
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_get_remote_libvirt_conn')
+    def test_vm_migrate_fails_different_remote_hypervisor(
+            self, mock_get_remote_conn):
+
+        class MockRemoteConnObj(object):
+            def getType(self):
+                return 'another_hypervisor'
+
+            def close(self):
+                pass
+
+        mock_get_remote_conn.return_value = MockRemoteConnObj()
+
+        with RollbackContext() as rollback:
+            self.create_vm_test()
+            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+                                  u'test_vm_migrate')
+
+            self.assertRaises(OperationFailed,
+                              self.inst.vm_migrate,
+                              'test_vm_migrate',
+                              KIMCHI_LIVE_MIGRATION_TEST)
+
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_get_remote_libvirt_conn')
+    def test_vm_migrate_fails_different_remote_arch(
+            self, mock_get_remote_conn):
+
+        class MockRemoteConnObj(object):
+            def getType(self):
+                return 'QEMU'
+
+            def getInfo(self):
+                return ['another_arch', 'QEMU']
+
+            def close(self):
+                pass
+
+        mock_get_remote_conn.return_value = MockRemoteConnObj()
+
+        with RollbackContext() as rollback:
+            self.create_vm_test()
+            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+                                  u'test_vm_migrate')
+
+            self.assertRaises(OperationFailed,
+                              self.inst.vm_migrate,
+                              'test_vm_migrate',
+                              KIMCHI_LIVE_MIGRATION_TEST)
 
     def get_remote_conn(self):
         remote_uri = 'qemu+ssh://%s@%s/system' % \
@@ -411,3 +466,23 @@ class LiveMigrationTests(unittest.TestCase):
                 remote_vm.undefine()
             except Exception, e:
                 self.fail('Migration test failed: %s' % e.message)
+
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_set_password_less_login')
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_check_if_migrating_same_arch_hypervisor')
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_check_ppc64_subcores_per_core')
+    def test_set_passwordless_login(self, mock_ppc64_subpercore,
+                                    mock_same_arch,
+                                    mock_password_less_login):
+        self.inst.vm_migration_pre_check(
+            'this_is_a_fake_remote_host',
+            'test_vm_migrate_fake_user',
+            'fake_password'
+        )
+        mock_password_less_login.assert_called_once_with(
+            'this_is_a_fake_remote_host',
+            'test_vm_migrate_fake_user',
+            'fake_password'
+        )
