@@ -161,11 +161,21 @@ gingerbase.host_main = function() {
                 if (!repository) {
                     return;
                 }
-                $('#repositories-grid-remove-button').prop('disabled', false);
-                $('#repositories-grid-edit-button').prop('disabled', false);
+                var selectedRow = $('tr',repositoriesGrid.bodyContainer);
+                $('#repositories-grid-remove-button',selectedRow).prop('disabled', false);
+                $('#repositories-grid-edit-button',selectedRow).prop('disabled', false);
                 var enabled = repository['enabled'];
-                $('#repositories-grid-enable-button')
-                    .text(i18n[enabled ? 'GGBREPO6017M' : 'GGBREPO6016M'])
+                var actionHtml,actionText,actionIcon ='';
+                if(enabled){
+                    actionText= i18n['GGBREPO6017M'];
+                    actionIcon = 'fa-pause';
+                }else{
+                    actionText= i18n['GGBREPO6016M'];
+                    actionIcon = 'fa-play-circle-o';
+                }
+                actionHtml = ['<i class="fa',' ',actionIcon,'"></i>','',actionText].join('');
+                $('#repositories-grid-enable-button',selectedRow)
+                    .html(actionHtml)
                     .prop('disabled', false);
             },
             frozenFields: [],
