@@ -78,6 +78,7 @@
                     <span class="cell">$_("Network")</span>
                     <span class="cell">$_("Type")</span>
                     <span class="cell">$_("MAC Address")</span>
+                    <span class="cell">$_("IP Address")</span>
                 </div>
                 <div class="body"></div>
             </form>
@@ -202,6 +203,9 @@
             <label id="label-mac-{id}" class="{viewMode}">{mac}</label>
             <input class="{editMode}" type="text" 
                id="edit-mac-{id}" name="{mac}" value="{mac}" />
+        </span>
+        <span class="cell">
+            <span class=ipText>{ips}</span>
         </span>
         <span class="action-area {editMode}">
             <button class="save"></button><button class="cancel"></button>
