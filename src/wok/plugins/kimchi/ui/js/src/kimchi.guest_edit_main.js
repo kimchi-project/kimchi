@@ -145,6 +145,7 @@ kimchi.guest_edit_main = function() {
             addItem({
                 id: -1,
                 mac: "",
+                ips: "",
                 network: "",
                 type: "network",
                 viewMode: "hide",
@@ -161,6 +162,11 @@ kimchi.guest_edit_main = function() {
         var addItem = function(data) {
             if (data.id == -1) {
                 data.id = $('#form-guest-edit-interface > .body').children().size()
+            }
+            if (data.ips == "" || data.ips == null){
+                data.ips = i18n["KCHNET6001M"];
+            }else{
+                data.ips = data.ips;
             }
             var itemNode = $.parseHTML(wok.substitute($('#interface-tmpl').html(),data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
@@ -188,7 +194,8 @@ kimchi.guest_edit_main = function() {
                 var interface = {
                     network: $("select", item).val(),
                     type: "network",
-                    mac: $(":text", item).val()
+                    mac: $(":text", item).val(),
+                    ips: $(".ipText", item).val()
                 };
                 var postUpdate = function(mac){
                     $("#label-network-" + data.id, item).text(interface.network);
