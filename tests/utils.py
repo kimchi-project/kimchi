@@ -44,7 +44,11 @@ from wok.utils import wok_log
 
 
 _ports = {}
-fake_user = {'test': 'passw0rd'}
+fake_user = {'root': 'letmein!'}
+
+
+def get_fake_user():
+    return fake_user
 
 # provide missing unittest decorators and API for python 2.6; these decorators
 # do not actually work, just avoid the syntax failure
