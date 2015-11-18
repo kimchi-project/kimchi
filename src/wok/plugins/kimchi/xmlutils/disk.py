@@ -53,6 +53,7 @@ def get_disk_xml(params):
     driver = E.driver(name='qemu', type=params['format'])
     if params['type'] != 'cdrom':
         driver.set('cache', 'none')
+        driver.set("io", "native")
 
     disk.append(driver)
 
