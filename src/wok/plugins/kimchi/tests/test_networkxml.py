@@ -21,11 +21,12 @@ import ipaddr
 import lxml.etree as ET
 import unittest
 
+
+from tests.utils import normalize_xml
+
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi.xmlutils import network as nxml
-
-import utils
 
 
 class NetworkXmlTests(unittest.TestCase):
@@ -169,4 +170,4 @@ class InterfaceXmlTests(unittest.TestCase):
             </interface>
             """
         actual_xml = nxml.create_vlan_tagged_bridge_xml('br10', 'em1', '10')
-        self.assertEquals(actual_xml, utils.normalize_xml(expected_xml))
+        self.assertEquals(actual_xml, normalize_xml(expected_xml))

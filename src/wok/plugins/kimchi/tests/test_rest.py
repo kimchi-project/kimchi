@@ -27,6 +27,9 @@ import urllib2
 import urlparse
 from functools import partial
 
+from tests.utils import get_free_port, patch_auth, request
+from tests.utils import run_server, wait_task
+
 from wok.rollbackcontext import RollbackContext
 from wok.utils import add_task
 
@@ -34,8 +37,6 @@ from wok.plugins.kimchi import mockmodel
 from wok.plugins.kimchi.osinfo import get_template_default
 
 import iso_gen
-from utils import get_free_port, patch_auth, request
-from utils import run_server, wait_task
 
 
 test_server = None

@@ -25,22 +25,19 @@ import socket
 import unittest
 from functools import partial
 
+from tests.utils import get_free_port, patch_auth, request, rollback_wrapper
+from tests.utils import run_server, running_as_root, wait_task
 
 from wok.basemodel import Singleton
 from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command
 
-
 from wok.plugins.kimchi.model import model
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 from wok.plugins.kimchi.model.vms import VMModel
 
-
 import iso_gen
-import utils
-from utils import get_free_port, patch_auth, request
-from utils import run_server, wait_task
 
 
 ISO_DIR = '/var/lib/libvirt/images/'
@@ -72,7 +69,7 @@ def remoteserver_environment_defined():
 
 
 def running_root_and_remoteserver_defined():
-    return utils.running_as_root() and remoteserver_environment_defined()
+    return running_as_root() and remoteserver_environment_defined()
 
 
 def check_if_vm_migration_test_possible():
@@ -134,7 +131,7 @@ class LiveMigrationTests(unittest.TestCase):
     def test_vm_migrate_fails_if_remote_is_localhost(self):
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             self.assertRaises(OperationFailed,
@@ -157,7 +154,7 @@ class LiveMigrationTests(unittest.TestCase):
     def test_vm_migrate_fails_if_remotehost_unreachable(self):
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             self.assertRaises(OperationFailed,
@@ -168,7 +165,7 @@ class LiveMigrationTests(unittest.TestCase):
     def test_vm_migrate_fails_if_not_passwordless_login(self):
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             self.assertRaises(OperationFailed,
@@ -192,7 +189,7 @@ class LiveMigrationTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             self.assertRaises(OperationFailed,
@@ -219,7 +216,7 @@ class LiveMigrationTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             self.assertRaises(OperationFailed,
@@ -245,7 +242,7 @@ class LiveMigrationTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             # removing cdrom because it is not shared storage and will make
@@ -326,7 +323,7 @@ class LiveMigrationTests(unittest.TestCase):
     def test_vm_coldmigrate(self):
         with RollbackContext() as rollback:
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             # removing cdrom because it is not shared storage and will make
@@ -367,7 +364,7 @@ class LiveMigrationTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             self.create_vm_test(non_shared_storage=True)
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             # getting disk path info to clean it up later
@@ -428,7 +425,7 @@ class LiveMigrationTests(unittest.TestCase):
             self.request = partial(request, host, ssl_port)
 
             self.create_vm_test()
-            rollback.prependDefer(utils.rollback_wrapper, self.inst.vm_delete,
+            rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,
                                   u'test_vm_migrate')
 
             # removing cdrom because it is not shared storage and will make

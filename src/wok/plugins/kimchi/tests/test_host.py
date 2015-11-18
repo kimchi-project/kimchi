@@ -24,9 +24,9 @@ import tempfile
 import unittest
 from functools import partial
 
-from wok.plugins.kimchi.mockmodel import MockModel
+from tests.utils import get_free_port, patch_auth, request, run_server
 
-from utils import get_free_port, patch_auth, request, run_server
+from wok.plugins.kimchi.mockmodel import MockModel
 
 
 test_server = None

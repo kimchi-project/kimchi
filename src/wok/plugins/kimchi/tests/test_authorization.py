@@ -22,11 +22,12 @@ import os
 import unittest
 from functools import partial
 
+from tests.utils import get_fake_user, get_free_port, patch_auth
+from tests.utils import request, run_server, wait_task
+
 from wok.plugins.kimchi import mockmodel
 
 from iso_gen import construct_fake_iso
-from utils import get_free_port, patch_auth, request
-from utils import run_server, wait_task
 
 
 test_server = None
@@ -107,8 +108,10 @@ class AuthorizationTests(unittest.TestCase):
         })
         wait_task(model.task_lookup, task_info['id'])
 
+        fake_user = get_fake_user()
+
         model.vm_update(u'test-me',
-                        {'users': [mockmodel.fake_user.keys()[0]],
+                        {'users': [fake_user.keys()[0]],
                          'groups': []})
 
         task_info = model.vms_create({
