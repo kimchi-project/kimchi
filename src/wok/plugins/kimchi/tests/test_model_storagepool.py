@@ -29,8 +29,8 @@ from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.model.model import Model
 
-from utils import get_free_port, patch_auth, request
-from utils import run_server
+from tests.utils import get_free_port, patch_auth, request
+from tests.utils import run_server
 
 
 model = None

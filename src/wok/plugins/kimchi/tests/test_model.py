@@ -26,6 +26,8 @@ import shutil
 import time
 import unittest
 
+import tests.utils as utils
+
 import wok.objectstore
 from wok.basemodel import Singleton
 from wok.config import config
@@ -44,7 +46,6 @@ from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 from wok.plugins.kimchi.model.vms import VMModel
 
 import iso_gen
-import utils
 
 
 invalid_repository_urls = ['www.fedora.org',       # missing protocol

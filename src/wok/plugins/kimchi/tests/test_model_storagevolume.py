@@ -24,14 +24,15 @@ import requests
 import unittest
 from functools import partial
 
+
+from tests.utils import fake_auth_header, get_free_port, patch_auth, request
+from tests.utils import rollback_wrapper, run_server, wait_task
+
 from wok.config import paths
 from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.model.model import Model
-
-from utils import fake_auth_header, get_free_port, patch_auth, request
-from utils import rollback_wrapper, run_server, wait_task
 
 
 model = None

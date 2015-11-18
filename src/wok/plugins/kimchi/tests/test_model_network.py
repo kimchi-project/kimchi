@@ -23,12 +23,12 @@ import os
 import unittest
 from functools import partial
 
+from tests.utils import get_free_port, patch_auth, request, rollback_wrapper
+from tests.utils import run_server
+
 from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.model.model import Model
-
-from utils import get_free_port, patch_auth, request, rollback_wrapper
-from utils import run_server
 
 
 model = None
