@@ -23,9 +23,10 @@ import os
 import unittest
 from functools import partial
 
+from tests.utils import get_free_port, patch_auth, request, run_server
+
 from wok.plugins.gingerbase import mockmodel
 
-from utils import get_free_port, patch_auth, request, run_server
 
 test_server = None
 model = None
