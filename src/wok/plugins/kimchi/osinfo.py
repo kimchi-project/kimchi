@@ -27,6 +27,9 @@ from distutils.version import LooseVersion
 
 from wok.config import PluginPaths
 
+# In PowerPC, memories must be aligned to 256 MiB
+PPC_MEM_ALIGN = 256
+
 
 SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'power': ('ppc', 'ppc64'),
@@ -204,6 +207,10 @@ def lookup(distro, version):
     # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
     if params["arch"] == "ppc64le":
         params["arch"] = "ppc64"
+        # in Power, memory must be aligned in 256MiB
+        if (params['max_memory'] >> 10) % PPC_MEM_ALIGN != 0:
+            alignment = params['max_memory'] % (PPC_MEM_ALIGN << 10)
+            params['max_memory'] -= alignment
 
     if distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
