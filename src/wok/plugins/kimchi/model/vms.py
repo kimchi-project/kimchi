@@ -833,7 +833,7 @@ class VMModel(object):
 
             if maxMem is None:
                 max_mem_xml = E.maxMemory(
-                    str(host_mem * 1024),
+                    str(host_mem << 10),
                     unit='Kib',
                     slots=str(slots))
                 root.insert(0, max_mem_xml)
@@ -881,7 +881,7 @@ class VMModel(object):
 
         # Check slot spaces:
         total_slots = int(xpath_get_text(xml, './maxMemory/@slots')[0])
-        needed_slots = (new_mem - old_mem) / 1024
+        needed_slots = (new_mem - old_mem) >> 10
         used_slots = len(xpath_get_text(xml, './devices/memory'))
         if needed_slots > (total_slots - used_slots):
             raise OperationFailed('KCHVM0045E')
