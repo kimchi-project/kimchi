@@ -125,8 +125,7 @@ messages = {
     "KCHVM0068E": _("Unable to setup password-less login at remote host %(host)s using user %(user)s. Error: %(error)s"),
     "KCHVM0069E": _("Password field must be a string."),
     "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
-
-
+    "KCHVM0071E": _("Memory value %(mem)s must be aligned to %(alignment)sMiB."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),

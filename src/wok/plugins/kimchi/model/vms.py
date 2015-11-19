@@ -48,6 +48,7 @@ from wok.plugins.kimchi import model
 from wok.plugins.kimchi import vnc
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
+from wok.plugins.kimchi.osinfo import PPC_MEM_ALIGN
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.templates import TemplateModel
@@ -237,6 +238,14 @@ class VMModel(object):
             vm_locks[name] = lock
 
         with lock:
+            # make sure memory is alingned in 256MiB
+            distro, _, _ = platform.linux_distribution()
+            if 'memory' in params and distro != "IBM_PowerKVM":
+                if params['memory'] % PPC_MEM_ALIGN != 0:
+                    raise InvalidParameter('KCHVM0071E',
+                                           {'mem': str(params['memory']),
+                                            'alignment': str(PPC_MEM_ALIGN)})
+
             dom = self.get_vm(name, self.conn)
             vm_name, dom = self._static_vm_update(name, dom, params)
             self._live_vm_update(dom, params)
@@ -807,6 +816,17 @@ class VMModel(object):
                 raise OperationFailed("KCHVM0041E")
             elif slots == 0:
                 slots = 1
+
+            force_max_mem_update = False
+            distro, _, _ = platform.linux_distribution()
+            if distro == "IBM_PowerKVM":
+                # max memory 256MiB alignment
+                host_mem -= (host_mem % PPC_MEM_ALIGN)
+                # force max memory update if it exists but it's wrong.
+                if maxMem is not None and\
+                   int(maxMem.text) != (host_mem << 10):
+                    force_max_mem_update = True
+
             if maxMem is None:
                 max_mem_xml = E.maxMemory(
                     str(host_mem * 1024),
@@ -820,6 +840,12 @@ class VMModel(object):
                                           './maxMemory',
                                           str(slots),
                                           attr='slots')
+
+                if force_max_mem_update:
+                    new_xml = xml_item_update(new_xml,
+                                              './maxMemory',
+                                              str(host_mem << 10))
+
             return new_xml
         return ET.tostring(root, encoding="utf-8")
 
