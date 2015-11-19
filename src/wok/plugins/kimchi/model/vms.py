@@ -827,6 +827,10 @@ class VMModel(object):
                    int(maxMem.text) != (host_mem << 10):
                     force_max_mem_update = True
 
+                # max 32 slots on Power
+                if slots > 32:
+                    slots = 32
+
             if maxMem is None:
                 max_mem_xml = E.maxMemory(
                     str(host_mem * 1024),
@@ -884,6 +888,10 @@ class VMModel(object):
         elif needed_slots == 0:
             # New memory value is same that current memory set
             return
+
+        distro, _, _ = platform.linux_distribution()
+        if distro == "IBM_PowerKVM" and needed_slots > 32:
+            raise OperationFailed('KCHVM0045E')
 
         # Finally, we are ok to hot add the memory devices
         try:
