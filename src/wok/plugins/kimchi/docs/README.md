@@ -63,8 +63,7 @@ Install Dependencies
      $ sudo service libvirtd restart
 
     # These dependencies are only required if you want to run the tests:
-    $ sudo yum install pyflakes python-pep8 python-requests
-    $ sudo pip install mock
+    $ sudo yum install pyflakes python-pep8 python-requests python-mock
 
 
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
@@ -85,7 +84,7 @@ channel at RHN Classic or Red Hat Satellite.
                            python-magic python-paramiko \
 
     # These dependencies are only required if you want to run the tests:
-    $ sudo apt-get install pep8 pyflakes python-requests
+    $ sudo apt-get install pep8 pyflakes python-requests python-mock
 
 **For openSUSE:**
 
@@ -97,7 +96,7 @@ channel at RHN Classic or Red Hat Satellite.
                           novnc python-magic
 
     # These dependencies are only required if you want to run the tests:
-    $ sudo zypper install python-pyflakes python-pep8 python-requests
+    $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
 
 *Note for openSUSE users*: Some of the above packages are located in different
 openSUSE repositories. See
