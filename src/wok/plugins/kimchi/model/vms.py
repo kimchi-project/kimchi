@@ -238,9 +238,9 @@ class VMModel(object):
             vm_locks[name] = lock
 
         with lock:
-            # make sure memory is alingned in 256MiB
+            # make sure memory is alingned in 256MiB in PowerPC
             distro, _, _ = platform.linux_distribution()
-            if 'memory' in params and distro != "IBM_PowerKVM":
+            if 'memory' in params and distro == "IBM_PowerKVM":
                 if params['memory'] % PPC_MEM_ALIGN != 0:
                     raise InvalidParameter('KCHVM0071E',
                                            {'mem': str(params['memory']),
