@@ -51,6 +51,7 @@ class StoragePools(Collection):
         name = create(*args)
         args = self.resource_args + [name]
         res = self.resource(self.model, *args)
+        res.lookup()
         resp = res.get()
 
         if 'task_id' in res.data:

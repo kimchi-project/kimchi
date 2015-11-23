@@ -213,11 +213,10 @@ class Resource(object):
         args = list(self.model_args) + [params]
         ident = update(*args)
         self._redirect(ident)
-
+        self.lookup()
         return self.get()
 
     def get(self):
-        self.lookup()
         return wok.template.render(get_class_name(self), self.data)
 
     @property
@@ -286,7 +285,7 @@ class Collection(object):
         cherrypy.response.status = 201
         args = self.resource_args + [name]
         res = self.resource(self.model, *args)
-
+        res.lookup()
         return res.get()
 
     def _get_resources(self, flag_filter):
