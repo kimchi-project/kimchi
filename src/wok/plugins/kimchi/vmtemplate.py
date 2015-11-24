@@ -38,6 +38,7 @@ from wok.plugins.kimchi.xmlutils.disk import get_disk_xml
 from wok.plugins.kimchi.xmlutils.graphics import get_graphics_xml
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
+from wok.plugins.kimchi.xmlutils.serial import get_serial_xml
 
 
 class VMTemplate(object):
@@ -312,6 +313,7 @@ class VMTemplate(object):
         params['qemu-stream-cmdline'] = ''
         params['cpu_info'] = self._get_cpu_xml()
         params['disks'] = self._get_disks_xml(vm_uuid)
+        params['serial'] = get_serial_xml(params)
 
         graphics = dict(self.info['graphics'])
         graphics.update(kwargs.get('graphics', {}))
@@ -371,19 +373,11 @@ class VMTemplate(object):
             %(networks)s
             %(graphics)s
             %(input_output)s
+            %(serial)s
             <memballoon model='virtio' />
           </devices>
         </domain>
         """ % params
-
-        # Adding PPC console configuration
-        if params['arch'] in ['ppc', 'ppc64']:
-            ppc_console = """<memballoon model='virtio' />
-            <console type='pty'>
-              <target type='serial' port='1'/>
-              <address type='spapr-vio' reg='0x30001000'/>
-            </console>"""
-            xml = xml.replace("<memballoon model='virtio' />", ppc_console)
 
         return xml
 
