@@ -627,14 +627,17 @@ A interface represents available interface on host.
                   networks visible to this host.
         * isolated: Create a private, isolated virtual network.
         * nat: Outgoing traffic will be routed through the host.
-        * bridge: All traffic on this network will be bridged through the indicated
-                  interface.
+        * macvtap: All traffic on this network will be bridged through the
+                   specified interface.
+        * bridge: All traffic on this network will be bridged through a Linux
+                  bridged, which is created upon specified interface in case
+                  it is not already a Linux bridge.
     * subnet *(optional)*: Network segment in slash-separated format with ip address and
                            prefix or netmask used to create nat network.
     * interface *(optional)*: The name of a network interface on the host.
-                 For bridge network, the interface can be a bridge or nic/bonding
-                 device.
-    * vlan_id *(optional)*: VLAN tagging ID for the bridge network.
+                              For "macvtap" and "bridge" connections, the
+                              interface can be a nic, bridge or bonding device.
+    * vlan_id *(optional)*: VLAN tagging ID for the macvtap bridge network.
 
 ### Resource: Network
 

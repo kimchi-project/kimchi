@@ -142,6 +142,8 @@ class NetworkTests(unittest.TestCase):
         )
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
+            networks.append({'name': u'macvtap-network',
+                             'connection': 'macvtap', 'interface': iface})
             networks.append({'name': u'bridge-network', 'connection': 'bridge',
                              'interface': iface})
 

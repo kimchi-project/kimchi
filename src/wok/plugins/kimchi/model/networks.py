@@ -21,19 +21,21 @@ import ipaddr
 import libvirt
 import sys
 import time
+from libvirt import VIR_INTERFACE_XML_INACTIVE
 from xml.sax.saxutils import escape
 
 from wok.config import PluginPaths
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
-from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import network as knetwork
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
+from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
 from wok.plugins.kimchi.xmlutils.network import create_vlan_tagged_bridge_xml
+from wok.plugins.kimchi.xmlutils.network import get_no_network_config_xml
 from wok.plugins.kimchi.xmlutils.network import to_network_xml
 
 
@@ -82,7 +84,9 @@ class NetworksModel(object):
 
         connection = params["connection"]
         # set forward mode, isolated do not need forward
-        if connection != 'isolated':
+        if connection == 'macvtap':
+            params['forward'] = {'mode': 'bridge'}
+        elif connection != 'isolated':
             params['forward'] = {'mode': connection}
 
         # set subnet, bridge network do not need subnet
@@ -90,7 +94,7 @@ class NetworksModel(object):
             self._set_network_subnet(params)
 
         # only bridge network need bridge(linux bridge) or interface(macvtap)
-        if connection == 'bridge':
+        if connection in ['bridge', 'macvtap']:
             self._set_network_bridge(params)
 
         params['name'] = escape(params['name'])
@@ -159,6 +163,7 @@ class NetworksModel(object):
 
     def _set_network_bridge(self, params):
         try:
+            # fails if host interface is already in use by a libvirt network
             iface = params['interface']
             if iface in self.get_all_networks_interfaces():
                 msg_args = {'iface': iface, 'network': params['name']}
@@ -166,11 +171,23 @@ class NetworksModel(object):
         except KeyError:
             raise MissingParameter("KCHNET0004E", {'name': params['name']})
 
+        # Linux bridges cannot be the trunk device of a VLAN
+        if 'vlan_id' in params and \
+           (netinfo.is_bridge(iface) or params['connection'] == "bridge"):
+            raise InvalidParameter('KCHNET0019E', {'name': iface})
+
+        # User specified bridge interface, simply use it
         self._ensure_iface_up(iface)
         if netinfo.is_bridge(iface):
-            if 'vlan_id' in params:
-                raise InvalidParameter('KCHNET0019E', {'name': iface})
             params['bridge'] = iface
+
+        # User wants Linux bridge network, but didn't specify bridge interface
+        elif params['connection'] == "bridge":
+            # create Linux bridge interface first and use it as actual iface
+            iface = self._create_linux_bridge(iface)
+            params['bridge'] = iface
+
+        # connection == macvtap and iface is not bridge
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
             if params.get('vlan_id') is None:
                 params['forward']['dev'] = iface
@@ -196,35 +213,73 @@ class NetworksModel(object):
             net_dict['bridge'] and interfaces.append(net_dict['bridge'])
         return interfaces
 
+    def _create_bridge(self, name, xml):
+        conn = self.conn.get()
+
+        # check if name exists
+        if name in netinfo.all_interfaces():
+            raise InvalidOperation("KCHNET0010E", {'iface': name})
+
+        # create bridge through libvirt
+        try:
+            bridge = conn.interfaceDefineXML(xml)
+            bridge.create()
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHNET0025E", {'name': name,
+                                  'err': e.get_error_message()})
+
+    def _create_linux_bridge(self, interface):
+        # get xml definition of interface
+        iface_xml = self._get_interface_desc_xml(interface)
+
+        # Truncate the interface name if it exceeds 13 characters to make sure
+        # the length of bridge name is less than 15 (its maximum value).
+        br_name = KIMCHI_BRIDGE_PREFIX + interface[-13:]
+        br_xml = create_linux_bridge_xml(br_name, interface, iface_xml)
+
+        # drop network config from interface
+        self._redefine_iface_no_network(interface)
+
+        # create and start bridge
+        self._create_bridge(br_name, br_xml)
+
+        return br_name
+
     def _create_vlan_tagged_bridge(self, interface, vlan_id):
         # Truncate the interface name if it exceeds 8 characters to make sure
         # the length of bridge name is less than 15 (its maximum value).
         br_name = KIMCHI_BRIDGE_PREFIX + interface[-8:] + '-' + vlan_id
         br_xml = create_vlan_tagged_bridge_xml(br_name, interface, vlan_id)
+
+        self._create_bridge(br_name, br_xml)
+
+        return br_name
+
+    def _get_interface_desc_xml(self, name):
         conn = self.conn.get()
 
-        bridges = []
-        for net in conn.listAllNetworks():
-            # Bridged networks do not have a bridge name
-            # So in those cases, libvirt raises an error when trying to get
-            # the bridge name
-            try:
-                bridges.append(net.bridgeName())
-            except libvirt.libvirtError, e:
-                wok_log.error(e.message)
+        try:
+            iface = conn.interfaceLookupByName(name)
+            xml = iface.XMLDesc(flags=VIR_INTERFACE_XML_INACTIVE)
+        except libvirt.libvirtError, e:
+            raise OperationFailed("KCHNET0023E",
+                                  {'name': name, 'err': e.get_error_message()})
 
-        if br_name in bridges:
-            raise InvalidOperation("KCHNET0010E", {'iface': br_name})
+        return xml
 
-        with RollbackContext() as rollback:
-            try:
-                vlan_tagged_br = conn.interfaceDefineXML(br_xml, 0)
-                rollback.prependDefer(vlan_tagged_br.destroy)
-                vlan_tagged_br.create(0)
-            except libvirt.libvirtError as e:
-                raise OperationFailed(e.message)
-            else:
-                return br_name
+    def _redefine_iface_no_network(self, name):
+        conn = self.conn.get()
+
+        # drop network config from definition of interface
+        iface_xml = self._get_interface_desc_xml(name)
+        xml = get_no_network_config_xml(iface_xml.encode("utf-8"))
+
+        try:
+            # redefine interface
+            conn.interfaceDefineXML(xml.encode("utf-8"))
+        except libvirt.libvirtError as e:
+            raise OperationFailed("KCHNET0024E", {'name': name,
+                                  'err': e.get_error_message()})
 
 
 class NetworkModel(object):
@@ -333,7 +388,7 @@ class NetworkModel(object):
         if network.isActive():
             raise InvalidOperation("KCHNET0005E", {'name': name})
 
-        self._remove_vlan_tagged_bridge(network)
+        self._remove_bridge(network)
         network.undefine()
 
     @staticmethod
@@ -369,7 +424,7 @@ class NetworkModel(object):
                             'interface': forward_if,
                             'pf': forward_pf}}
 
-    def _remove_vlan_tagged_bridge(self, network):
+    def _remove_bridge(self, network):
         try:
             bridge = network.bridgeName()
         except libvirt.libvirtError:

@@ -256,7 +256,7 @@ messages = {
     "KCHNET0009E": _("Unable to find a free IP address for network '%(name)s'"),
     "KCHNET0010E": _("The interface %(iface)s already exists."),
     "KCHNET0011E": _("Network name must be a string without slashes (/) or quotes (\")"),
-    "KCHNET0012E": _("Supported network types are isolated, NAT and bridge"),
+    "KCHNET0012E": _("Supported network types are isolated, NAT, macvtap and bridge"),
     "KCHNET0013E": _("Network subnet must be a string with IP address and prefix or netmask"),
     "KCHNET0014E": _("Network interface must be a string"),
     "KCHNET0015E": _("Network VLAN ID must be an integer between 1 and 4094"),
@@ -267,6 +267,9 @@ messages = {
     "KCHNET0020E": _("Failed to activate interface %(iface)s: %(err)s."),
     "KCHNET0021E": _("Failed to activate interface %(iface)s. Please check the physical link status."),
     "KCHNET0022E": _("Failed to start network %(name)s. Details: %(err)s"),
+    "KCHNET0023E": _("Unable to get XML definition for interface %(name)s. Details: %(err)s"),
+    "KCHNET0024E": _("Unable to redefine interface %(name)s. Details: %(err)s"),
+    "KCHNET0025E": _("Unable to create bridge %(name)s. Details: %(err)s"),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),
 

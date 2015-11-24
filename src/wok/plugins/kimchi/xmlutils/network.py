@@ -120,3 +120,30 @@ def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
         type='bridge',
         name=bridge)
     return ET.tostring(m)
+
+
+def create_linux_bridge_xml(bridge, interface, iface_xml):
+    m = E.interface(
+        E.start(mode='onboot'),
+        E.bridge(
+            E.interface(
+                type='ethernet',
+                name=interface)),
+        type='bridge',
+        name=bridge)
+
+    # use same network configuration of lower interface
+    iface = ET.fromstring(iface_xml)
+    for element in iface.iter("protocol"):
+        m.append(element)
+
+    return ET.tostring(m)
+
+
+def get_no_network_config_xml(iface_xml):
+    # remove all protocol elements from interface xml
+    xml = ET.fromstring(iface_xml)
+    for element in xml.iter("protocol"):
+        element.getparent().remove(element)
+
+    return ET.tostring(xml)

@@ -277,9 +277,11 @@ class TemplateTests(unittest.TestCase):
         )
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
-            networks.append({'name': u'bridge-network', 'connection': 'bridge',
+            networks.append({'name': u'bridge-network',
+                             'connection': 'macvtap',
                              'interface': iface})
-            networks.append({'name': u'bridge-network', 'connection': 'bridge',
+            networks.append({'name': u'bridge-network',
+                             'connection': 'macvtap',
                              'interface': iface, 'vlan_id': 987})
 
         tmpl_nets = []

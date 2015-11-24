@@ -171,3 +171,27 @@ class InterfaceXmlTests(unittest.TestCase):
             """
         actual_xml = nxml.create_vlan_tagged_bridge_xml('br10', 'em1', '10')
         self.assertEquals(actual_xml, normalize_xml(expected_xml))
+
+    def test_linux_bridge_no_ip(self):
+        em1_xml = """
+            <interface type='ethernet' name='em1'>
+                <start mode='onboot'/>
+                <protocol family='ipv4'>
+                    <dhcp/>
+                </protocol>
+            </interface>
+            """
+        expected_xml = """
+            <interface type='bridge' name='br10'>
+                <start mode='onboot'/>
+                <bridge>
+                    <interface type='ethernet' name='em1' />
+                </bridge>
+                <protocol family='ipv4'>
+                    <dhcp/>
+                </protocol>
+            </interface>
+            """
+        actual_xml = nxml.create_linux_bridge_xml('br10', 'em1',
+                                                  normalize_xml(em1_xml))
+        self.assertEquals(actual_xml, normalize_xml(expected_xml))
