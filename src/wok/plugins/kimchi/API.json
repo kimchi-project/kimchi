@@ -353,7 +353,7 @@
                 "connection": {
                     "description": "Specifies how this network should be connected to the other networks",
                     "type": "string",
-                    "pattern": "^isolated|nat|bridge$",
+                    "pattern": "^isolated|nat|bridge|macvtap$",
                     "required": true,
                     "error": "KCHNET0012E"
                 },

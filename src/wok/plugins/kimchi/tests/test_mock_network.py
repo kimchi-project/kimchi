@@ -69,6 +69,6 @@ class MockNetworkTests(unittest.TestCase):
         )
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
-            _do_network_test(self, model, {'name': u'bridge-network',
-                                           'connection': 'bridge',
+            _do_network_test(self, model, {'name': u'macvtap-network',
+                                           'connection': 'macvtap',
                                            'interface': iface, 'vlan_id': 987})
