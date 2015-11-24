@@ -67,11 +67,23 @@
 @each $page, $bgcolor in $colors {
 
 ##{$page}-root-container .navbar-default.toolbar {
-      background-color: $bgcolor !important;
-      @if $page == 'storage' {
-            .navbar-right.tools > li > a {
-                color: $gray-base !important;
-            }
-      }
+    @if $page=='guests' or $page=='templates' or $page == 'storage' or $page=='network'{
+        background-color: $guests-color !important;
+    } @else if $page =='host' or $page=='administration'{
+        background-color: $hosts-color !important;
     }
+
+    @if $page == 'storage' {
+        .navbar-right.tools > li > a {
+            color: $gray-base !important;
+        }
+    }
+}
+}
+
+@each $tab, $bgcolor in $colors {
+
+#tabPanel.#{$tab}{
+    background-color:  map-get($colors,$tab) !important;
+   }
 }

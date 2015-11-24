@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs-ext>
+    <functionality>Host</functionality>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="none"/>
-        <class>host</class>
         <title>Host</title>
         <path>plugins/gingerbase/host.html</path>
     </tab>

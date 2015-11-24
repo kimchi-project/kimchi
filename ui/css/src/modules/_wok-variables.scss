@@ -55,12 +55,16 @@ $networks-color:           #7f1c7d !default;
 $administration-color:    #d9182d !default;
 
 $colors: (
+    hostSelected:        #008abf,
     host:                #008abf,
     guests:              #8cc63f,
-    templates:         #00a6a0, 
+    templates:           #00a6a0,
     storage:             #feb813,
-    network:           #7f1c7d,
-    administration:    #d9182d
+    network:             #7f1c7d,
+    administration:      #d9182d,
+    virtualizationTab:   #59930c,
+    hostTab:             #00578c,
+    virtualizationSelected: #8cc63f
 );
 
 
@@ -978,4 +982,4 @@ $color-grey-arrow: rgb(204, 204, 204);
 
 $width-default: 220px;
 
-$zindex-select-dropdown: 1035 !default; 
+$zindex-select-dropdown: 1035 !default;
