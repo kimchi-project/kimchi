@@ -56,8 +56,8 @@ wok.confirm = function(settings, confirmCallback, cancelCallback) {
                     settings.content,
                 '</div>',
                 '<div class="modal-footer">',
-                    '<button id="button-confirm" class="btn btn-default">' + (settings.confirm || i18n['KCHAPI6004M']) + '</button>',
-                    '<button id="button-cancel" class="btn btn-default">' + (settings.cancel || i18n['KCHAPI6003M']) + '</button>',
+                    '<button id="button-confirm" class="btn btn-default">' + (settings.confirm || i18n['WOKAPI6004M']) + '</button>',
+                    '<button id="button-cancel" class="btn btn-default">' + (settings.cancel || i18n['WOKAPI6003M']) + '</button>',
                 '</div>',
             '</div>',
         '</div>'

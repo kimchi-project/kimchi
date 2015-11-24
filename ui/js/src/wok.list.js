@@ -237,10 +237,10 @@ wok.widget.List.prototype = (function() {
         var rowSelection = this.opts.rowSelection || 'single';
         var domNode = $(wok.substitute(htmlStr, {
             id: gridID,
-            loading: i18n.KCHGRD6001M,
-            message: i18n.KCHGRD6002M,
-            buttonLabel: i18n.KCHGRD6003M,
-            detailedLabel: i18n.KCHGRD6004
+            loading: i18n.WOKGRD6001M,
+            message: i18n.WOKGRD6002M,
+            buttonLabel: i18n.WOKGRD6003M,
+            detailedLabel: i18n.WOKGRD6004M
         })).appendTo(container);
         this.domNode = domNode;
 
