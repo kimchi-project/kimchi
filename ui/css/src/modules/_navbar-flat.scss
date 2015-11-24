@@ -580,7 +580,7 @@
       color: $navbar-default-link-color;
       text-decoration: none;
       outline: none;
-      min-width: 190px;
+      min-width: 210px;
       text-align: center;
       height: $navbar-height;
 
@@ -654,7 +654,7 @@
       margin: 0;
       padding: 8px 0;
       vertical-align: top;
-      width: 180px;
+      width:210px;
       padding-right: 24px;
       @include box-sizing(border-box);
 
@@ -668,6 +668,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        margin-left:80px;
       }
 
     }

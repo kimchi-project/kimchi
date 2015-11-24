@@ -30,6 +30,12 @@
     padding-right: 60px !important;
 }
 
+#navigation-bar {
+    padding-left: 0 !important;
+    padding-right:0 !important;
+    width:100%;
+}
+
 // Override alert
 .alert {
     border-width: $alert-border-width;
