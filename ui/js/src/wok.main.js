@@ -380,7 +380,7 @@ wok.main = function() {
                 return;
             }
             else if((jqXHR['status'] == 0) && ("error"==jqXHR.statusText) && !wok.isLoggingOut && errorMsg == "") {
-               errorMsg = i18n['KCHAPI6007E'].replace("%1", jqXHR.state());
+               errorMsg = i18n['WOKAPI6007E'].replace("%1", jqXHR.state());
                wok.message.error(errorMsg);
             }
             if(ajaxSettings['originalError']) {

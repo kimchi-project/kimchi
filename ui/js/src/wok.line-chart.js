@@ -104,7 +104,7 @@ wok.widget.LineChart = function(params) {
         ];
 
 
-        var maxValueLabel = i18n['KCHHOST6001M'] + ' ' +
+        var maxValueLabel = i18n['WOKHOST6001M'] + ' ' +
             (type === 'value'
                 ? wok.formatMeasurement(maxValue, formatSettings)
                 : '100%');
