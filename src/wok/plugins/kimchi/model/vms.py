@@ -1520,9 +1520,9 @@ class VMModel(object):
     def migration_pre_check(self, remote_host, user, password):
         self._check_if_host_not_localhost(remote_host)
         self._check_if_password_less_login_enabled(
-           remote_host,
-           user,
-           password
+            remote_host,
+            user,
+            password
         )
         self._check_if_migrating_same_arch_hypervisor(remote_host, user)
 
