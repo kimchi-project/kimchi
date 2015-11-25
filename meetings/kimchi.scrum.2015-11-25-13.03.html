@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:03:53 UTC
+(<a href="kimchi.scrum.2015-11-25-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda 1) Status 2) Open discussion</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-6'>alinefm</a>,
+    13:04:12)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2015-11-25-13.03.log.html#l-10'>alinefm</a>, 13:05:29)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-11'>alinefm</a>,
+    13:05:29)</span></li>
+  <li><span class="INFO">pvital is working to fix all kimchi and wok
+    tests errors in Fedora 23</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-12'>pvital</a>,
+    13:05:52)</span></li>
+  <li><span class="INFO">sureshab pushed patch for Issue 728 - Processor
+    Info in s390 architecture</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-13'>suresh</a>,
+    13:06:30)</span></li>
+  <li><span class="INFO">Archana Sent patch for FVT testcases base
+    framework for review</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-14'>Archana</a>,
+    13:06:37)</span></li>
+  <li><span class="INFO">sureshab is now working on ui changes for the
+    same patch</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-15'>suresh</a>,
+    13:06:49)</span></li>
+  <li><span class="INFO">alinefm sent some patches for gingerbase
+    stabilization</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-16'>alinefm</a>,
+    13:08:54)</span></li>
+  <li><span class="INFO">alinefm fixed some failing tests on Ubuntu
+    15.10</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-17'>alinefm</a>,
+    13:09:05)</span></li>
+  <li><span class="INFO">alinefm sent patch to allow user creates a
+    logical pool from existing VG</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-18'>alinefm</a>,
+    13:09:24)</span></li>
+  <li><span class="INFO">lucio sent V4 to fix tests for "Linux bridge
+    support" feature</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-19'>lcorreia</a>,
+    13:09:33)</span></li>
+  <li><span class="INFO">lucio sent V3 for "OVS Bridge recognition
+    support"</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-20'>lcorreia</a>,
+    13:09:33)</span></li>
+  <li><span class="INFO">lucio is working on issue 766</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-21'>lcorreia</a>,
+    13:09:33)</span></li>
+  <li><span class="INFO">rotru Sent V3 of "Memory 256MiB alignment and
+    slots &lt;= 0 for PowerPC"</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-22'>rotru</a>,
+    13:13:48)</span></li>
+  <li><span class="INFO">rotru Sent patches to fix README.md and to fix
+    memory alignment to 256 MiB in PPC</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-24'>rotru</a>,
+    13:14:14)</span></li>
+  <li><span class="INFO">rotru Finished and sent patchset of task
+    "Memory hotplug: Allow user to setup max memory value" to Kimchi
+    mailing list</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-25'>rotru</a>,
+    13:14:32)</span></li>
+  <li><span class="INFO">ziviani is working on  the 'Improve VM CPU
+    update code' patch to send it for review upstream</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-26'>ziviani</a>,
+    13:14:38)</span></li>
+  <li><span class="INFO">danielhb pushed a handful of patches to fix
+    test dependencies and Live migration backend</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-27'>danielhb</a>,
+    13:14:47)</span></li>
+  <li><span class="INFO">rotru Sent V3 of "Implement multiple disks
+    support in Template edit window"</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-28'>rotru</a>,
+    13:15:01)</span></li>
+  <li><span class="INFO">alteodoro Applying the new ui at SEP
+    Configuration (Admin tab)</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-29'>alteodoro</a>,
+    13:15:27)</span></li>
+  <li><span class="INFO">rebasing edit guests patch</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-30'>samhenri</a>,
+    13:15:29)</span></li>
+  <li><span class="INFO">WalterNik finalzed the details on the s390
+    specific usecases for FCP</span> <span class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-31'>WalterNik</a>,
+    13:16:58)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2015-11-25-13.03.log.html#l-35'>alinefm</a>, 13:19:23)</span>
+<ol type="a">
+  <li><span class="INFO">, chandra implementing split the host tab
+    functionality into "Dashboard" and "Updates"</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2015-11-25-13.03.log.html#l-62'>chandra</a>,
+    13:29:16)</span></li>
+</ol>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:53:34 UTC
+(<a href="kimchi.scrum.2015-11-25-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (62)</li>
+  <li>WalterNik (21)</li>
+  <li>chandra (13)</li>
+  <li>samhenri (9)</li>
+  <li>lcorreia (4)</li>
+  <li>rotru (4)</li>
+  <li>pvital (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>danielhb (2)</li>
+  <li>suresh (2)</li>
+  <li>ziviani (1)</li>
+  <li>alteodoro (1)</li>
+  <li>Archana (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

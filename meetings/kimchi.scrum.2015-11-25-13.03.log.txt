@@ -1,0 +1,126 @@
+13:03:53 <alinefm> #startmeeting
+13:03:53 <kimchi-bot> Meeting started Wed Nov 25 13:03:53 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:53 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:53 <alinefm> #meetingname scrum
+13:03:53 <kimchi-bot> The meeting name has been set to 'scrum'
+13:04:12 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:04:12 <alinefm> anything else?
+13:04:16 <pvital> no
+13:05:12 <alinefm> so let's get started
+13:05:29 <alinefm> #topic Status
+13:05:29 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:52 <pvital> #info pvital is working to fix all kimchi and wok tests errors in Fedora 23
+13:06:30 <suresh> #info sureshab pushed patch for Issue 728 - Processor Info in s390 architecture
+13:06:37 <Archana> #info Archana Sent patch for FVT testcases base framework for review
+13:06:49 <suresh> #info sureshab is now working on ui changes for the same patch
+13:08:54 <alinefm> #info alinefm sent some patches for gingerbase stabilization
+13:09:05 <alinefm> #info alinefm fixed some failing tests on Ubuntu 15.10
+13:09:24 <alinefm> #info alinefm sent patch to allow user creates a logical pool from existing VG
+13:09:33 <lcorreia> #info lucio sent V4 to fix tests for "Linux bridge support" feature
+13:09:33 <lcorreia> #info lucio sent V3 for "OVS Bridge recognition support"
+13:09:33 <lcorreia> #info lucio is working on issue 766
+13:13:48 <rotru> #info rotru Sent V3 of "Memory 256MiB alignment and slots <= 0 for PowerPC"
+13:13:58 <alinefm> alteodoro, danielhb, ramonn, samhenri, ziviani, anything else to share with us?
+13:14:14 <rotru> #info rotru Sent patches to fix README.md and to fix memory alignment to 256 MiB in PPC
+13:14:32 <rotru> #info rotru Finished and sent patchset of task "Memory hotplug: Allow user to setup max memory value" to Kimchi mailing list
+13:14:38 <ziviani> #info ziviani is working on  the 'Improve VM CPU update code' patch to send it for review upstream
+13:14:47 <danielhb> #info danielhb pushed a handful of patches to fix test dependencies and Live migration backend
+13:15:01 <rotru> #info rotru Sent V3 of "Implement multiple disks support in Template edit window"
+13:15:27 <alteodoro> #info alteodoro Applying the new ui at SEP Configuration (Admin tab)
+13:15:29 <samhenri> #info rebasing edit guests patch
+13:16:58 <WalterNik> #info WalterNik finalzed the details on the s390 specific usecases for FCP
+13:18:19 <alinefm> alteodoro, samhenri, Will the new UI be done by this Friday?
+13:18:45 <samhenri> yes
+13:19:12 <alinefm> great! =)
+13:19:23 <alinefm> #topic Open Discussion
+13:19:31 <alinefm> I have one topic related to the code freeze
+13:20:08 <alinefm> It was originally scheduled to happen today, but to be able to get the new UI done for 2.0 I propose to postpone it to this Friday
+13:20:36 <alinefm> any objection?
+13:20:53 <WalterNik> samhenri, by when will the Ginger UI be available ?
+13:21:07 <pvital> I agree
+13:21:35 <alinefm> WalterNik, also by this Friday
+13:22:12 <samhenri> andreteodoro is working on ginger panels, i'll be fixing the dialogs / modal windows
+13:22:24 <WalterNik> alinefm, I would like to get the chance to release the new grouping in ginger into this release
+13:22:58 <WalterNik> alinefm, Chandra started on the Ginger-common side and that looks good ...
+13:23:29 <alinefm> WalterNik, how much time do you need to get it done? is it blocked due the new UI?
+13:23:44 <WalterNik> but in order to do this on Ginger base I understood that he needs the new UI
+13:24:13 <WalterNik> alinefm, yes this is my understanding
+13:24:52 <WalterNik> alinefm, but I guess if he has a private base from samhenri he could work on that one
+13:24:56 <alinefm> WalterNik, so my suggestion is to have it included in the next release (wok/kimchi/ginger/gingerbase 2.1)
+13:25:21 <alinefm> we need to have some time for testing prior to release
+13:25:36 <alinefm> I am afraid about the amount of issues we can found
+13:26:18 <alinefm> WalterNik, I was talking to danielhb to keep a 'next' branch during the code freeze phase to apply the new features patches
+13:26:38 <alinefm> WalterNik, so once, we release 2.0, the master branch will be updated with 'next'
+13:26:42 <WalterNik> alinefm, sure but it would be great to have the base navigation established in order to be able to continue with development ...
+13:27:10 <alinefm> WalterNik, the code freeze phase is only for 2 weeks
+13:27:29 <alinefm> so during that time, the new devel can be done on top of 'next' branch
+13:27:44 <samhenri> WalterNik I can publish alteodoro patches in my fork if it is blocking development now
+13:28:16 <WalterNik> alinefm, if we don't get it done we'll have to wait.
+13:28:46 <alinefm> oh... now I understood your concern
+13:28:58 <alinefm> WalterNik, as samhenri said it is better to get his patch updated for ginger
+13:29:05 <alinefm> so anyone can work on top of it
+13:29:16 <chandra> #info, chandra implementing split the host tab functionality into "Dashboard" and "Updates"
+13:29:29 <alinefm> samhenri, I thought your branch was already updated with your last changes for kimchi/ginger new UI
+13:30:09 <WalterNik> samhenri, thanks I'll ask chandra to start on that base and if it's going well we can evaluate if we'll integrate it ... otherwise it has to wait for another 2 weeks
+13:30:11 <chandra> alinefm, I have tried yesterday of samhenri but it still shows old ui
+13:30:34 <chandra> *ginger repository
+13:30:37 <samhenri> alinefm my ginger fork is a few commits behind
+13:30:44 <alinefm> WalterNik, during those 2 weeks, the team can continue to send patches and so
+13:30:53 <alinefm> WalterNik, the patches will be applied on next branch
+13:31:16 <alinefm> samhenri, ok - update it so chandra can work on top of it
+13:31:39 <WalterNik> alinefm, that sounds good.
+13:31:45 <samhenri> i can merge with current ginger master
+13:32:01 <samhenri> but I don't think it will look good now because it is not finished
+13:32:32 <samhenri> some panels may be finished but the dialog windows are still old-ui, it is all mixed
+13:33:23 <alinefm> samhenri, np! at least we have an ideia on what is going on there and do what we can in parallel
+13:34:05 <samhenri> ok
+13:34:40 <WalterNik> chandra, the current outlook is to have the ginger code in by Friday ... but that wouldn't allow you to implement the new grouping on top. Aline's proposal is to implement this grouping in the next branch because this one is going to be merged to master afetr 2 weeks anyhow.
+13:35:34 <WalterNik> chandra, is this ok with you ?
+13:37:00 <chandra> When we say grouping we are talking withe respect ginger only right ?
+13:37:23 <chandra> I can still make gingerbase grouping parallel
+13:37:53 <WalterNik> chandra, good point ... since you have that one working ?
+13:38:46 <chandra> yes
+13:38:53 <WalterNik> alinefm, danielhb, would it make sense to get the new grouping for ginger-common integrated this week ?
+13:38:57 <chandra> I will deliver patch as early as possible
+13:39:14 <chandra> in a day ...
+13:39:31 <alinefm> WalterNik, yeap
+13:39:39 <alinefm> it is done by Friday it will be in for 2.0
+13:39:53 <alinefm> WalterNik, chandra I have a comment related to that so
+13:40:11 <alinefm> WalterNik, chandra, I was to reply to the ML but always forget
+13:40:43 <alinefm> WalterNik, chandra, Kimchi will depend on ginger base which should launch one tab IMO
+13:40:47 <alinefm> the Dashboard tab
+13:41:08 <alinefm> WalterNik, chandra, so for that I'd like to have the host information + host stats + debug reports in that tab
+13:41:16 <chandra> yes
+13:41:17 <alinefm> I saw the debug reports was moved to other tab
+13:41:36 <alinefm> which will make it odd while running only kimchi + gingerbase
+13:41:52 <WalterNik> alinefm, with the discussed split it would launch 3 tabs: Dashboard, Updates and Administration
+13:42:09 <alinefm> WalterNik, chandra what do you think in have those 3 functionalities (host info + host stats + debug report) in the Dashboard?
+13:42:48 <alinefm> WalterNik, really?! the last time I read about it there would be Storage and Network tabs as well
+13:43:33 <WalterNik> alinefm, only if ginger-common is installed
+13:44:01 <WalterNik> alinefm, if we have ginger installed it will add network, storage and power
+13:44:23 <alinefm> WalterNik, ok
+13:44:44 <chandra> make sense
+13:44:46 <alinefm> WalterNik, but the administration tab will contain only the debug reports?
+13:44:52 <alinefm> for ginger-base
+13:45:05 <alinefm> and it will be extended by ginger
+13:45:06 <alinefm> ?
+13:45:11 <alinefm> is that correct?
+13:45:17 <chandra> yes
+13:45:20 <danielhb> what is ginger-common ?
+13:45:40 <alinefm> danielhb, I am assuming it is gingerbase
+13:45:41 <alinefm> =P
+13:45:51 <WalterNik> alinefm, assuming User Management, Configuration Backup and SEP Config is in Ginger then yes
+13:46:03 <alinefm> ok
+13:46:16 <WalterNik> alinefm, sorry ginger-common is gingerbase
+13:46:30 <alinefm> ok ok
+13:47:38 <alinefm> anything else, team?
+13:49:00 <WalterNik> no, not from my side.
+13:49:25 <chandra> I guess that is all from my side either
+13:50:01 <alinefm> just one more update
+13:50:17 <alinefm> I plan to apply all the gingerbase patches pending on ML today
+13:50:23 <alinefm> and then separated it into a new git repo \o/
+13:50:39 <alinefm> chandra, so you can start working on this new repo for the tabs grouping tomorrow
+13:51:21 <lcorreia> \o/
+13:52:39 <chandra> yep
+13:53:29 <alinefm> so thanks everyone for joining!
+13:53:34 <alinefm> #endmeeting

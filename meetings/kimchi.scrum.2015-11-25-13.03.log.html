@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 25 13:03:53 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:04:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-7"></a><span class="tm">13:04:12</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-8"></a><span class="tm">13:04:16</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-9"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-10"></a><span class="tm">13:05:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-11"></a><span class="tm">13:05:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-12"></a><span class="tm">13:05:52</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working to fix all kimchi and wok tests errors in Fedora 23</span>
+<a name="l-13"></a><span class="tm">13:06:30</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">sureshab pushed patch for Issue 728 - Processor Info in s390 architecture</span>
+<a name="l-14"></a><span class="tm">13:06:37</span><span class="nk"> &lt;Archana&gt;</span> <span class="cmd">#info </span><span class="cmdline">Archana Sent patch for FVT testcases base framework for review</span>
+<a name="l-15"></a><span class="tm">13:06:49</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">sureshab is now working on ui changes for the same patch</span>
+<a name="l-16"></a><span class="tm">13:08:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent some patches for gingerbase stabilization</span>
+<a name="l-17"></a><span class="tm">13:09:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm fixed some failing tests on Ubuntu 15.10</span>
+<a name="l-18"></a><span class="tm">13:09:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to allow user creates a logical pool from existing VG</span>
+<a name="l-19"></a><span class="tm">13:09:33</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio sent V4 to fix tests for "Linux bridge support" feature</span>
+<a name="l-20"></a><span class="tm">13:09:33</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio sent V3 for "OVS Bridge recognition support"</span>
+<a name="l-21"></a><span class="tm">13:09:33</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio is working on issue 766</span>
+<a name="l-22"></a><span class="tm">13:13:48</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent V3 of "Memory 256MiB alignment and slots &lt;= 0 for PowerPC"</span>
+<a name="l-23"></a><span class="tm">13:13:58</span><span class="nk"> &lt;alinefm&gt;</span> alteodoro, danielhb, ramonn, samhenri, ziviani, anything else to share with us?
+<a name="l-24"></a><span class="tm">13:14:14</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to fix README.md and to fix memory alignment to 256 MiB in PPC</span>
+<a name="l-25"></a><span class="tm">13:14:32</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Finished and sent patchset of task "Memory hotplug: Allow user to setup max memory value" to Kimchi mailing list</span>
+<a name="l-26"></a><span class="tm">13:14:38</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on  the 'Improve VM CPU update code' patch to send it for review upstream</span>
+<a name="l-27"></a><span class="tm">13:14:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb pushed a handful of patches to fix test dependencies and Live migration backend</span>
+<a name="l-28"></a><span class="tm">13:15:01</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent V3 of "Implement multiple disks support in Template edit window"</span>
+<a name="l-29"></a><span class="tm">13:15:27</span><span class="nk"> &lt;alteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">alteodoro Applying the new ui at SEP Configuration (Admin tab)</span>
+<a name="l-30"></a><span class="tm">13:15:29</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">rebasing edit guests patch</span>
+<a name="l-31"></a><span class="tm">13:16:58</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik finalzed the details on the s390 specific usecases for FCP</span>
+<a name="l-32"></a><span class="tm">13:18:19</span><span class="nk"> &lt;alinefm&gt;</span> alteodoro, samhenri, Will the new UI be done by this Friday?
+<a name="l-33"></a><span class="tm">13:18:45</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-34"></a><span class="tm">13:19:12</span><span class="nk"> &lt;alinefm&gt;</span> great! =)
+<a name="l-35"></a><span class="tm">13:19:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-36"></a><span class="tm">13:19:31</span><span class="nk"> &lt;alinefm&gt;</span> I have one topic related to the code freeze
+<a name="l-37"></a><span class="tm">13:20:08</span><span class="nk"> &lt;alinefm&gt;</span> It was originally scheduled to happen today, but to be able to get the new UI done for 2.0 I propose to postpone it to this Friday
+<a name="l-38"></a><span class="tm">13:20:36</span><span class="nk"> &lt;alinefm&gt;</span> any objection?
+<a name="l-39"></a><span class="tm">13:20:53</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, by when will the Ginger UI be available ?
+<a name="l-40"></a><span class="tm">13:21:07</span><span class="nk"> &lt;pvital&gt;</span> I agree
+<a name="l-41"></a><span class="tm">13:21:35</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, also by this Friday
+<a name="l-42"></a><span class="tm">13:22:12</span><span class="nk"> &lt;samhenri&gt;</span> andreteodoro is working on ginger panels, i'll be fixing the dialogs / modal windows
+<a name="l-43"></a><span class="tm">13:22:24</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I would like to get the chance to release the new grouping in ginger into this release
+<a name="l-44"></a><span class="tm">13:22:58</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, Chandra started on the Ginger-common side and that looks good ...
+<a name="l-45"></a><span class="tm">13:23:29</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, how much time do you need to get it done? is it blocked due the new UI?
+<a name="l-46"></a><span class="tm">13:23:44</span><span class="nk"> &lt;WalterNik&gt;</span> but in order to do this on Ginger base I understood that he needs the new UI
+<a name="l-47"></a><span class="tm">13:24:13</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, yes this is my understanding
+<a name="l-48"></a><span class="tm">13:24:52</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, but I guess if he has a private base from samhenri he could work on that one
+<a name="l-49"></a><span class="tm">13:24:56</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, so my suggestion is to have it included in the next release (wok/kimchi/ginger/gingerbase 2.1)
+<a name="l-50"></a><span class="tm">13:25:21</span><span class="nk"> &lt;alinefm&gt;</span> we need to have some time for testing prior to release
+<a name="l-51"></a><span class="tm">13:25:36</span><span class="nk"> &lt;alinefm&gt;</span> I am afraid about the amount of issues we can found
+<a name="l-52"></a><span class="tm">13:26:18</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, I was talking to danielhb to keep a 'next' branch during the code freeze phase to apply the new features patches
+<a name="l-53"></a><span class="tm">13:26:38</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, so once, we release 2.0, the master branch will be updated with 'next'
+<a name="l-54"></a><span class="tm">13:26:42</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, sure but it would be great to have the base navigation established in order to be able to continue with development ...
+<a name="l-55"></a><span class="tm">13:27:10</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, the code freeze phase is only for 2 weeks
+<a name="l-56"></a><span class="tm">13:27:29</span><span class="nk"> &lt;alinefm&gt;</span> so during that time, the new devel can be done on top of 'next' branch
+<a name="l-57"></a><span class="tm">13:27:44</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik I can publish alteodoro patches in my fork if it is blocking development now
+<a name="l-58"></a><span class="tm">13:28:16</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, if we don't get it done we'll have to wait.
+<a name="l-59"></a><span class="tm">13:28:46</span><span class="nk"> &lt;alinefm&gt;</span> oh... now I understood your concern
+<a name="l-60"></a><span class="tm">13:28:58</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, as samhenri said it is better to get his patch updated for ginger
+<a name="l-61"></a><span class="tm">13:29:05</span><span class="nk"> &lt;alinefm&gt;</span> so anyone can work on top of it
+<a name="l-62"></a><span class="tm">13:29:16</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info, </span><span class="cmdline">chandra implementing split the host tab functionality into "Dashboard" and "Updates"</span>
+<a name="l-63"></a><span class="tm">13:29:29</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I thought your branch was already updated with your last changes for kimchi/ginger new UI
+<a name="l-64"></a><span class="tm">13:30:09</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, thanks I'll ask chandra to start on that base and if it's going well we can evaluate if we'll integrate it ... otherwise it has to wait for another 2 weeks
+<a name="l-65"></a><span class="tm">13:30:11</span><span class="nk"> &lt;chandra&gt;</span> alinefm, I have tried yesterday of samhenri but it still shows old ui
+<a name="l-66"></a><span class="tm">13:30:34</span><span class="nk"> &lt;chandra&gt;</span> *ginger repository
+<a name="l-67"></a><span class="tm">13:30:37</span><span class="nk"> &lt;samhenri&gt;</span> alinefm my ginger fork is a few commits behind
+<a name="l-68"></a><span class="tm">13:30:44</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, during those 2 weeks, the team can continue to send patches and so
+<a name="l-69"></a><span class="tm">13:30:53</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, the patches will be applied on next branch
+<a name="l-70"></a><span class="tm">13:31:16</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok - update it so chandra can work on top of it
+<a name="l-71"></a><span class="tm">13:31:39</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, that sounds good.
+<a name="l-72"></a><span class="tm">13:31:45</span><span class="nk"> &lt;samhenri&gt;</span> i can merge with current ginger master
+<a name="l-73"></a><span class="tm">13:32:01</span><span class="nk"> &lt;samhenri&gt;</span> but I don't think it will look good now because it is not finished
+<a name="l-74"></a><span class="tm">13:32:32</span><span class="nk"> &lt;samhenri&gt;</span> some panels may be finished but the dialog windows are still old-ui, it is all mixed
+<a name="l-75"></a><span class="tm">13:33:23</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, np! at least we have an ideia on what is going on there and do what we can in parallel
+<a name="l-76"></a><span class="tm">13:34:05</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-77"></a><span class="tm">13:34:40</span><span class="nk"> &lt;WalterNik&gt;</span> chandra, the current outlook is to have the ginger code in by Friday ... but that wouldn't allow you to implement the new grouping on top. Aline's proposal is to implement this grouping in the next branch because this one is going to be merged to master afetr 2 weeks anyhow.
+<a name="l-78"></a><span class="tm">13:35:34</span><span class="nk"> &lt;WalterNik&gt;</span> chandra, is this ok with you ?
+<a name="l-79"></a><span class="tm">13:37:00</span><span class="nk"> &lt;chandra&gt;</span> When we say grouping we are talking withe respect ginger only right ?
+<a name="l-80"></a><span class="tm">13:37:23</span><span class="nk"> &lt;chandra&gt;</span> I can still make gingerbase grouping parallel
+<a name="l-81"></a><span class="tm">13:37:53</span><span class="nk"> &lt;WalterNik&gt;</span> chandra, good point ... since you have that one working ?
+<a name="l-82"></a><span class="tm">13:38:46</span><span class="nk"> &lt;chandra&gt;</span> yes
+<a name="l-83"></a><span class="tm">13:38:53</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, danielhb, would it make sense to get the new grouping for ginger-common integrated this week ?
+<a name="l-84"></a><span class="tm">13:38:57</span><span class="nk"> &lt;chandra&gt;</span> I will deliver patch as early as possible
+<a name="l-85"></a><span class="tm">13:39:14</span><span class="nk"> &lt;chandra&gt;</span> in a day ...
+<a name="l-86"></a><span class="tm">13:39:31</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yeap
+<a name="l-87"></a><span class="tm">13:39:39</span><span class="nk"> &lt;alinefm&gt;</span> it is done by Friday it will be in for 2.0
+<a name="l-88"></a><span class="tm">13:39:53</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra I have a comment related to that so
+<a name="l-89"></a><span class="tm">13:40:11</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra, I was to reply to the ML but always forget
+<a name="l-90"></a><span class="tm">13:40:43</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra, Kimchi will depend on ginger base which should launch one tab IMO
+<a name="l-91"></a><span class="tm">13:40:47</span><span class="nk"> &lt;alinefm&gt;</span> the Dashboard tab
+<a name="l-92"></a><span class="tm">13:41:08</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra, so for that I'd like to have the host information + host stats + debug reports in that tab
+<a name="l-93"></a><span class="tm">13:41:16</span><span class="nk"> &lt;chandra&gt;</span> yes
+<a name="l-94"></a><span class="tm">13:41:17</span><span class="nk"> &lt;alinefm&gt;</span> I saw the debug reports was moved to other tab
+<a name="l-95"></a><span class="tm">13:41:36</span><span class="nk"> &lt;alinefm&gt;</span> which will make it odd while running only kimchi + gingerbase
+<a name="l-96"></a><span class="tm">13:41:52</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, with the discussed split it would launch 3 tabs: Dashboard, Updates and Administration
+<a name="l-97"></a><span class="tm">13:42:09</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, chandra what do you think in have those 3 functionalities (host info + host stats + debug report) in the Dashboard?
+<a name="l-98"></a><span class="tm">13:42:48</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, really?! the last time I read about it there would be Storage and Network tabs as well
+<a name="l-99"></a><span class="tm">13:43:33</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, only if ginger-common is installed
+<a name="l-100"></a><span class="tm">13:44:01</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, if we have ginger installed it will add network, storage and power
+<a name="l-101"></a><span class="tm">13:44:23</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, ok
+<a name="l-102"></a><span class="tm">13:44:44</span><span class="nk"> &lt;chandra&gt;</span> make sense
+<a name="l-103"></a><span class="tm">13:44:46</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, but the administration tab will contain only the debug reports?
+<a name="l-104"></a><span class="tm">13:44:52</span><span class="nk"> &lt;alinefm&gt;</span> for ginger-base
+<a name="l-105"></a><span class="tm">13:45:05</span><span class="nk"> &lt;alinefm&gt;</span> and it will be extended by ginger
+<a name="l-106"></a><span class="tm">13:45:06</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-107"></a><span class="tm">13:45:11</span><span class="nk"> &lt;alinefm&gt;</span> is that correct?
+<a name="l-108"></a><span class="tm">13:45:17</span><span class="nk"> &lt;chandra&gt;</span> yes
+<a name="l-109"></a><span class="tm">13:45:20</span><span class="nk"> &lt;danielhb&gt;</span> what is ginger-common ?
+<a name="l-110"></a><span class="tm">13:45:40</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I am assuming it is gingerbase
+<a name="l-111"></a><span class="tm">13:45:41</span><span class="nk"> &lt;alinefm&gt;</span> =P
+<a name="l-112"></a><span class="tm">13:45:51</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, assuming User Management, Configuration Backup and SEP Config is in Ginger then yes
+<a name="l-113"></a><span class="tm">13:46:03</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-114"></a><span class="tm">13:46:16</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, sorry ginger-common is gingerbase
+<a name="l-115"></a><span class="tm">13:46:30</span><span class="nk"> &lt;alinefm&gt;</span> ok ok
+<a name="l-116"></a><span class="tm">13:47:38</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-117"></a><span class="tm">13:49:00</span><span class="nk"> &lt;WalterNik&gt;</span> no, not from my side.
+<a name="l-118"></a><span class="tm">13:49:25</span><span class="nk"> &lt;chandra&gt;</span> I guess that is all from my side either
+<a name="l-119"></a><span class="tm">13:50:01</span><span class="nk"> &lt;alinefm&gt;</span> just one more update
+<a name="l-120"></a><span class="tm">13:50:17</span><span class="nk"> &lt;alinefm&gt;</span> I plan to apply all the gingerbase patches pending on ML today
+<a name="l-121"></a><span class="tm">13:50:23</span><span class="nk"> &lt;alinefm&gt;</span> and then separated it into a new git repo \o/
+<a name="l-122"></a><span class="tm">13:50:39</span><span class="nk"> &lt;alinefm&gt;</span> chandra, so you can start working on this new repo for the tabs grouping tomorrow
+<a name="l-123"></a><span class="tm">13:51:21</span><span class="nk"> &lt;lcorreia&gt;</span> \o/
+<a name="l-124"></a><span class="tm">13:52:39</span><span class="nk"> &lt;chandra&gt;</span> yep
+<a name="l-125"></a><span class="tm">13:53:29</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-126"></a><span class="tm">13:53:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
