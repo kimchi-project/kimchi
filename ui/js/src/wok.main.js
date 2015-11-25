@@ -17,6 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
 wok.tabMode = {};
 
 wok.main = function() {
@@ -152,9 +153,9 @@ wok.main = function() {
                 }
                 $('#nav-menu ul.navbar-nav li.hostname').after(genFunctTabs(orderedtabs));
                 $('#nav-menu ul.navbar-nav li a.item').first().parent().addClass('active').focus();
-                $('#tabPanel').addClass(defaultFunctionalTab+'Tab');
+                $('#tabPanel').addClass(defaultFunctionalTab.toLowerCase()+'Tab');
                 $(genTabs(tabs[defaultFunctionalTab])).appendTo('#tabPanel ul');
-                $('#tabPanel ul li a.item').first().addClass(defaultFunctionalTab+'Selected').focus();
+                $('#tabPanel ul li a.item').first().addClass(defaultFunctionalTab.toLowerCase()+'Selected').focus();
 
                 wok.getHostname();
 
@@ -199,7 +200,7 @@ wok.main = function() {
             // Update the visual style of tabs; focus the selected one.
             $('#tabPanel ul li').removeClass('active');
             $(tab).parent().addClass('active');
-            $(tab).addClass(plugin+'Selected').focus();
+            $(tab).addClass(plugin.toLowerCase()+'Selected').focus();
 
             // Disable Help button according to selected tab
             if ($(tab).hasClass("disableHelp")) {
@@ -300,18 +301,18 @@ wok.main = function() {
          $('#nav-menu ul li').on('click', 'a.item', function(event) {
              var functionalTab = $(this).text();
              var previousSelection = $('#nav-menu ul li.active a').text();
-             $('#tabPanel').removeClass(previousSelection+'Tab');
+             $('#tabPanel').removeClass(previousSelection.toLowerCase()+'Tab');
 
              $('#nav-menu ul li').removeClass('active');
              $(this).parent().addClass('active').focus();
 
-             $('#tabPanel').addClass(functionalTab+'Tab');
+             $('#tabPanel').addClass(functionalTab.toLowerCase()+'Tab');
              var tabs = JSON.parse(wok.cookie.get('tabs'));
              $('#tabPanel ul').empty();
              $(genTabs(tabs[functionalTab])).appendTo('#tabPanel ul');
              var firstTab = $('#tabPanel ul.navbar-nav li').first();
              $(firstTab).addClass('active');
-             $('a.item',firstTab).addClass(functionalTab+'Selected');
+             $('a.item',firstTab).addClass(functionalTab.toLowerCase()+'Selected');
              var href= $('a.item',firstTab).attr('href');
              location.hash = href.substring(0,href.lastIndexOf('.'));
              event.preventDefault();

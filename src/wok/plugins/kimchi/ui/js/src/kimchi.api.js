@@ -950,7 +950,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -964,7 +964,7 @@ var kimchi = {
             data : JSON.stringify(device),
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -977,7 +977,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },

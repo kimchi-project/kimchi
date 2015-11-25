@@ -212,30 +212,37 @@
 .modal-body .nav {
     margin-left: -30px;
     margin-right: -30px;
+    display: table;
+    width: 1082px; // Rewrite for mediaqueries later;
+    width: calc(100% + 60px);
 }
 
 .modal-body .nav-tabs {
-    border-bottom: 5px solid #eee;
+    border-bottom: 0;
 }
 
 .modal-body .nav-tabs > li.active > a, .modal-body .nav-tabs > li.active > a:hover, .modal-body .nav-tabs > li.active > a:focus {
-    border: none;
+    border: 0;
     border-radius: 0;
     border-bottom: 5px solid map-get($colors, guests);
     font-weight: 600;
-    padding: 8px 15px;
 }
 
 .modal-body .nav-tabs > li {
-    margin-bottom: -5px;
-    width: 190px;
+    margin-bottom: 0;
+    width: auto;
+    float: none;
+    position: static;
+    display: table-cell;
+    border: 0;
 }
 
 .modal-body .nav-tabs > li > a {
     font-size: 17px;
     font-weight: 300;
     font-family: $font-family-light;
-    border: none;
+    border: 0;
+    border-bottom: 5px solid $table-border-color;
     text-align: center;
     border-radius: 0;
     margin: 0;
