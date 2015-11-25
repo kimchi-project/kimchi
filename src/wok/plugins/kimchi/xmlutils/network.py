@@ -95,6 +95,11 @@ def to_network_xml(**kwargs):
     if bridge:
         network.append(E.bridge(name=bridge))
 
+        # Add virtualport element for openvswitch bridges
+        ovs = kwargs.get('ovs')
+        if ovs:
+            network.append(E.virtualport(type='openvswitch'))
+
     # None means is Isolated network, {} means default mode nat
     params = kwargs.get('forward', {"mode": None})
     forward = _get_forward_elem(**params)

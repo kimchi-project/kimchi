@@ -21,6 +21,9 @@ import ethtool
 import glob
 import os
 
+from distutils.spawn import find_executable
+from wok.utils import run_command
+from wok.utils import wok_log
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
@@ -73,11 +76,49 @@ def is_vlan(iface):
 
 
 def bridges():
-    return [b.split('/')[-2] for b in glob.glob(BRIDGE_PATH)]
+    return list(set([b.split('/')[-2] for b in glob.glob(BRIDGE_PATH)] +
+                    ovs_bridges()))
 
 
 def is_bridge(iface):
     return iface in bridges()
+
+
+# In some distributions, like Fedora, the files bridge and brif are not created
+# under /sys/class/net/<ovsbridge> for OVS bridges. These specific functions
+# allows one to differentiate OVS bridges from other types of bridges.
+def ovs_bridges():
+    ovs_cmd = find_executable("ovs-vsctl")
+
+    # openvswitch not installed: there is no OVS bridge configured
+    if ovs_cmd is None:
+        return []
+
+    out, error, rc = run_command([ovs_cmd, '--oneline', 'list-br'])
+    if rc != 0:
+        wok_log.info("Error listing OVS bridges")
+        return []
+
+    return list(set(out.split('\n')) - set(['']))
+
+
+def is_ovs_bridge(iface):
+    return iface in ovs_bridges()
+
+
+def ovs_bridge_ports(ovsbr):
+    ovs_cmd = find_executable("ovs-vsctl")
+
+    # openvswitch not installed: there is no OVS bridge configured
+    if ovs_cmd is None:
+        return []
+
+    out, error, rc = run_command([ovs_cmd, '--oneline', 'list-ports', ovsbr])
+    if rc != 0:
+        wok_log.info("Error listing OVS bridge ports for %s" % str(ovsbr))
+        return []
+
+    return list(set(out.split('\n')) - set(['']))
 
 
 def all_interfaces():
@@ -91,11 +132,19 @@ def slaves(bonding):
 
 
 def ports(bridge):
+    if bridge in ovs_bridges():
+        return ovs_bridge_ports(bridge)
+
     return os.listdir(BRIDGE_PORTS % bridge)
 
 
 def is_brport(nic):
-    return os.path.exists(NET_BRPORT % nic)
+    ovs_brports = []
+
+    for ovsbr in ovs_bridges():
+        ovs_brports += ovs_bridge_ports(ovsbr)
+
+    return os.path.exists(NET_BRPORT % nic) or nic in ovs_brports
 
 
 def is_bondlave(nic):

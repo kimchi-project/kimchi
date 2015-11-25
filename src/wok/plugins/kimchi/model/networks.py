@@ -178,8 +178,16 @@ class NetworksModel(object):
 
         # User specified bridge interface, simply use it
         self._ensure_iface_up(iface)
+        params['ovs'] = False
         if netinfo.is_bridge(iface):
             params['bridge'] = iface
+
+            if netinfo.is_ovs_bridge(iface):
+                params['ovs'] = True
+
+                # OVS bridges don't work with macvtap
+                if params['connection'] != "bridge":
+                    raise InvalidParameter('KCHNET0026E')
 
         # User wants Linux bridge network, but didn't specify bridge interface
         elif params['connection'] == "bridge":
