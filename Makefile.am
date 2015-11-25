@@ -56,6 +56,7 @@ check-local:
 	$(PEP8) --version
 	$(PEP8) --filename '*.py,*.py.in' --exclude="$(PEP8_BLACKLIST)" .
 
+	/bin/bash check_ui_code_errors.sh
 
 # Link built mo files in the source tree to enable use of translations from
 # within the source tree
