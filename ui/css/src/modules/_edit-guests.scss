@@ -1,0 +1,362 @@
+#guest-edit-window {
+    .tab-content {
+        overflow: hidden;
+        height: 559px;
+    }
+    .tab-content .tab-pane {
+        position: relative;
+    }
+    #form-guest-edit-interface {
+        .column-actions {
+            width: 23%;
+        }
+    }
+    #form-guest-edit-storage {
+        .column-actions {
+            width: 26%;
+        }
+    }
+    #form-guest-edit-snapshot {
+        .column-actions {
+            width: 22%;
+        }
+    }
+    #form-guest-edit-pci {
+        .column-actions {
+            width: 4.47%;
+        }
+    }
+    form {
+        margin: 15px 0 0;
+        .header,
+        .body {
+            .column-actions {
+                text-align: right;
+            }
+            .column-device {
+                width: 12.7%;
+            }
+            .column-path {
+                width: 60.25%;
+            }
+            .cell.column-network {
+                width: 18%;
+                > span {
+                    width: 100%;
+                    display: inline-block;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+                    width: 180px;
+                }
+            }
+            .cell.column-type {
+                width: 11.35%;
+            }
+            .cell.column-mac {
+                width: 14.5%;
+            }
+            .cell.column-ip {
+                width: 31%;
+            }
+            .cell.column-sel {
+                width: 1.77%;
+            }
+            .cell.column-snapshot-name {
+                width: 58%;
+            }
+            .cell.column-snapshot-created {
+                width: 16.5%;
+            }
+            .cell.column-pci-status {
+                width: 3.7%;
+                .fa {
+                    color: $guests-color;
+                    font-size: 24px;
+                }
+            }
+            .cell.column-pci-name {
+                width: 21%;
+            }
+            .cell.column-product {
+                width: 45%;
+            }
+            .cell.column-vendor {
+                width: 24.1%;
+            }
+        }
+        .header {
+            background: $table-bg;
+            display: block;
+            border-bottom: 1px solid $table-border-color;
+            overflow: hidden;
+            clear: both;
+            > span {
+                padding: $table-cell-padding;
+                display: inline-block;
+                font-family: $font-family-light;
+                font-weight: 400;
+                font-size: 12.5pt;
+                vertical-align: bottom;
+                border-bottom: none;
+                border-top: 0;
+                line-height: $line-height-base;
+                &.column-actions {
+                    height: 36px;
+                }
+            }
+        }
+        .body {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 471px;
+            .item {
+                border-top: 1px solid $table-border-color;
+                height: 53px;
+                &:first-child {
+                    border-top: 0;
+                }
+                &:nth-child(even) {
+                    background-color: $table-bg-accent;
+                }
+                &:nth-child(odd) {
+                    background-color: $table-bg;
+                }
+                > span {
+                    padding: $table-cell-padding;
+                    display: inline-block;
+                    vertical-align: middle;
+                    input[type="text"] {
+                        height: 40px;
+                    }
+                    input[readonly],
+                    input[readonly]:hover,
+                    input[readonly]:focus,
+                    input[readonly]:active {
+                        background-color: transparent !important;
+                        border-color: transparent !important;
+                        box-shadow: none !important;
+                        border-radius: 0 !important;
+                        text-overflow: ellipsis;
+                        padding-right: 0 !important;
+                        padding-left: 0 !important;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.guest-edit-snapshot .hide,
+.guest-edit-interface .hide {
+    display: none !important;
+}
+
+.guest-edit-pci {
+    .filter {
+        height: 40px;
+        overflow: visible;
+        clear: both;
+    }
+    .pull-right .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+        width: 133px;
+    }
+    .filter input[type="text"].form-control {
+        width: 460px;
+        height: 40px;
+        float: right;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .filter .bootstrap-select.btn-group .btn .caret {
+        border-left: 0;
+    }
+    .filter button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        background: $table-bg-accent;
+        border-right: 0;
+    }
+    .body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 442px !important;
+    }
+    .body .item.disabled input[type="text"].form-control {
+        color: $gray-light;
+    }
+    .body .item.disabled span.column-pci-status i {
+        display: none;
+    }
+}
+
+.guest-edit-permission {
+    .pam {
+        height: 540px;
+        .column {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .v-center {
+            min-height: 532px;
+            display: flex;
+            justify-content: center;
+            flex-flow: column wrap;
+        }
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .center-block + .center-block {
+            margin-top: 5px;
+        }
+        .title {
+            font-size: 13pt;
+        }
+        .body {
+            margin-top: 4px;
+            border-radius: 3px;
+            border: 1px solid $table-border-color;
+            height: 460px !important;
+        }
+        .body .head {
+            .item {
+                display: block;
+                padding: $table-cell-padding;
+                margin-bottom: 5px;
+                font-family: $font-family-light;
+                font-weight: 400;
+                font-size: 12.5pt;
+                vertical-align: bottom;
+                line-height: $line-height-base;
+                height: auto !important;
+                background: $table-bg;
+                border-top: 0;
+                border-bottom: 1px solid $table-border-color;
+                cursor: default;
+            }
+        }
+        .body > .column-user .item,
+        .body > .column-group .item {
+            height: auto !important;
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+        .body > .column-group .item {
+            margin-right: 5px;
+        }
+        .column-user label,
+        .column-group label {
+            cursor: pointer;
+            margin-bottom: 0;
+            margin-left: 5px;
+            width: 160px;
+            height: 24px;
+            line-height: 22px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        .body > .column .item {
+            background-color: $btn-default-bg !important;
+            border: 1px solid $table-border-color !important;
+            margin-bottom: 3px;
+            display: block;
+            padding: .2em .6em .3em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: left;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-radius: .25em;
+            overflow: hidden;
+        }
+        .body > .column .item:hover {
+            color: $btn-default-color !important;
+            background-color: #e6e6e6 !important;
+            border-color: #adadad !important;
+            label {
+                color: $btn-default-color !important;
+            }
+        }
+        .body > .column .item.item-picked {
+            color: $btn-primary-color !important;
+            background-color: $btn-primary-bg !important;
+            border-color: #1b1b1c !important;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+            label {
+                color: $btn-primary-color !important;
+            }
+        }
+    }
+    .hide {
+        display: none;
+    }
+}
+
+// .guest-edit-permission .pam .body .item:hover {
+//     background-color: #AAAAAA;
+// }
+// .guest-edit-permission .pam .body .item-picked {
+//     background-color: #BBBBBB;
+// }
+// .guest-edit-permission .pam .body .item .icon {
+//     display: inline-block;
+//     height: 15px;
+//     width: 15px;
+//     vertical-align: bottom;
+// }
+#form-guest-edit-permission .ldap .body .item {
+    margin: 8px 0;
+}
+
+#form-guest-edit-permission .ldap .cell {
+    width: 250px;
+}
+
+#form-guest-edit-permission .ldap .action-area {
+    float: right;
+    line-height: 24px;
+}
+
+#form-guest-edit-permission .ldap .header button {
+    margin-bottom: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked {
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked.hide {
+    display: none;
+}
+
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2014
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#guest-storage-add-window {}
+
+#form-guest-storage-add .form-section .field {
+    overflow: visible;
+}

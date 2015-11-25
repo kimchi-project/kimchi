@@ -76,7 +76,7 @@
     .template-tab-header {
         background: $table-bg;
         display: block;
-        border-top: 1px solid $table-border-color;
+        border-bottom: 1px solid $table-border-color;
         > span {
             padding: $table-cell-padding;
             display: inline-block;
@@ -87,7 +87,7 @@
             border-bottom: none;
             border-top: 0;
             line-height: $line-height-base;
-            height: 40px;
+            height: 42px;
         }
     }
     .template-tab-body {
@@ -97,15 +97,21 @@
             &:first-child {
                 border-top: 0;
             }
-            &:nth-child('even') {
+            &:nth-child(even) {
                 background-color: $table-bg-accent;
             }
-            &:nth-child('odd') {
+            &:nth-child(odd) {
                 background-color: $table-bg;
             }
             > span {
                 padding: $table-cell-padding;
                 display: inline-block;
+                vertical-align: middle;
+
+                input[type="text"].form-control {
+                    height: 40px;
+                }
+
             }
         }
     }
@@ -229,11 +235,11 @@
             }
         }
         .wok-vm-body {
+            clear: both;
             border-top: 1px solid $table-border-color;
             &:first-child {
                 border-color: $table-first-row-border-color;
             }
-            border-top: 1px solid $table-border-color;
             > span {
                 padding: $table-cell-padding;
                 display: inline-block;

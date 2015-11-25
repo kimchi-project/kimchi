@@ -16,26 +16,58 @@
  * limitations under the License.
  */
 kimchi.guest_edit_main = function() {
-    var buttonContainer = $('#action-button-container');
-    $('#guest-edit-tabs').tabs({
-        beforeActivate: function(event, ui) {
-            var display_list = null;
-            if(kimchi.thisVMState === "running") {
-                display_list = ['form-guest-edit-permission'];
-            } else {
-                display_list = ['form-guest-edit-general', 'form-guest-edit-permission'];
-            }
-            $(buttonContainer).addClass('hidden');
-            var deactivated = ui['newPanel'];
-            if(display_list.indexOf($(deactivated).attr('id')) >= 0) {
-                $(buttonContainer).removeClass('hidden');
-            }
+    var authType;
+    var formTargetId;
+    var guestEditForm = $('#form-guest-edit-general');
+    var saveButton = $('#guest-edit-button-save');
+
+    $('#guest-edit-window a[data-toggle="tab"]').on('show.bs.tab', function(tab) {
+        tab.target // newly activated tab
+        tab.relatedTarget // previous active tab
+        var display_list = null;
+        if (kimchi.thisVMState === "running") {
+            display_list = ['form-guest-edit-permission'];
+        } else {
+            display_list = ['form-guest-edit-general', 'form-guest-edit-permission'];
+        }
+        $(saveButton).prop('disabled', true);
+        formTargetId = $(tab.target).data('id');
+        var deactivated = $('form#' + formTargetId);
+        if (display_list.indexOf($(deactivated).attr('id')) >= 0) {
+            $(saveButton).prop('disabled', false);
         }
     });
 
-    var guestEditForm = $('#form-guest-edit-general');
-    var saveButton = $('#guest-edit-button-save');
-    var authType;
+    var submitForm = function(event) {
+
+        // tap map, "general": 0, "storage": 1, "interface": 2, "permission": 3, "password": 4
+        var submit_map = {
+            0: generalSubmit,
+            3: permissionSubmit
+        };        
+        var currentTab = $('#guest-edit-window li.active a[data-toggle="tab"]').data('id');
+        var toSubmit = parseInt($('#'+currentTab).index());
+        var submitFun = submit_map[toSubmit];
+        submitFun && submitFun(event);
+        event.preventDefault();
+    };
+
+    $(guestEditForm).on('submit', submitForm);
+    $(saveButton).on('click', submitForm);
+
+
+    $('#guest-edit-window a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        var target = $(this).attr('href');
+        $(target).css('left', '-' + $(window).width() + 'px');
+        var left = $(target).offset().left;
+        $(target).css({
+            left: left
+        }).animate({
+            "left": "0px"
+        }, "10");
+    });
+
+    $('#guest-edit-window a[data-toggle="tab"]:first').tab('show');
 
     var refreshCDROMs = function() {
         kimchi.listVMStorages({
@@ -50,17 +82,9 @@ kimchi.guest_edit_main = function() {
                 container.append(templated);
             });
 
-            $('.replace', container).button();
-
-            $('.detach', container).button();
-
             if (kimchi.thisVMState === 'running') {
                 $('.detach[data-type="cdrom"]', container).remove();
             }
-
-            $('.save', container).button();
-
-            $('.cancel', container).button();
 
         });
     };
@@ -68,10 +92,8 @@ kimchi.guest_edit_main = function() {
     var initStorageListeners = function() {
         var container = $('#form-guest-edit-storage .body');
         var toggleCDROM = function(rowNode, toEdit) {
-            $('button.replace,button.detach', rowNode)
-                [(toEdit ? 'add' : 'remove') + 'Class']('hidden');
-            $('button.save,button.cancel', rowNode)
-                [(toEdit ? 'remove' : 'add') + 'Class']('hidden');
+            $('button.replace,button.detach', rowNode)[(toEdit ? 'add' : 'remove') + 'Class']('hidden');
+            $('button.save,button.cancel', rowNode)[(toEdit ? 'remove' : 'add') + 'Class']('hidden');
             var pathBox = $('.path input', rowNode)
                 .prop('readonly', !toEdit);
             toEdit && pathBox.select();
@@ -93,10 +115,10 @@ kimchi.guest_edit_main = function() {
         $(container).on('click', 'button.detach', function(e) {
             e.preventDefault();
             var settings = {
-                title : i18n['KCHAPI6004M'],
-                content : i18n['KCHVMCD6001M'],
-                confirm : i18n['KCHAPI6002M'],
-                cancel : i18n['KCHAPI6003M']
+                title: i18n['KCHAPI6004M'],
+                content: i18n['KCHVMCD6001M'],
+                confirm: i18n['KCHAPI6002M'],
+                cancel: i18n['KCHAPI6003M']
             };
             if ($(this).data('type') == "disk")
                 settings['content'] = i18n['KCHVMCD6009M'];
@@ -128,7 +150,7 @@ kimchi.guest_edit_main = function() {
             }, function(result) {
                 var errText = result['reason'] ||
                     result['responseJSON']['reason'];
-                wok.message.error(errText);
+                wok.message.error(errText, '#alert-modal-container');
             });
         });
 
@@ -140,7 +162,7 @@ kimchi.guest_edit_main = function() {
     };
 
     var setupInterface = function() {
-        $(".add", "#form-guest-edit-interface").button().click(function(evt){
+        $(".add", "#form-guest-edit-interface").on('click', function(evt) {
             evt.preventDefault();
             addItem({
                 id: -1,
@@ -152,88 +174,89 @@ kimchi.guest_edit_main = function() {
                 editMode: ""
             });
         });
-        var toggleEdit = function(item, on, itemId){
+        var toggleEdit = function(item, on, itemId) {
             $("#label-mac-" + itemId, item).toggleClass("hide", on);
             $("#edit-mac-" + itemId, item).toggleClass("hide", !on);
             $("#label-network-" + itemId, item).toggleClass("hide", false);
             $("select", item).toggleClass("hide", true);
+            $(".bootstrap-select", item).toggleClass("hide", true);
             $(".action-area", item).toggleClass("hide");
         };
         var addItem = function(data) {
             if (data.id == -1) {
                 data.id = $('#form-guest-edit-interface > .body').children().size()
             }
-            if (data.ips == "" || data.ips == null){
+            if (data.ips == "" || data.ips == null) {
                 data.ips = i18n["KCHNET6001M"];
-            }else{
+            } else {
                 data.ips = data.ips;
             }
-            var itemNode = $.parseHTML(wok.substitute($('#interface-tmpl').html(),data));
+            var itemNode = $.parseHTML(wok.substitute($('#interface-tmpl').html(), data));
             $(".body", "#form-guest-edit-interface").append(itemNode);
             $("select", itemNode).append(networkOptions);
-            if(data.network!==""){
+            $("select", itemNode).selectpicker();
+            if (data.network !== "") {
                 $("select", itemNode).val(data.network);
             }
-            $(".edit", itemNode).button({ disabled: kimchi.thisVMState === "running" }).click(function(evt){
+            $('.edit', itemNode).attr('disabled', kimchi.thisVMState === "running");
+            $(".edit", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 toggleEdit($(this).closest('div'), true, data.id);
             });
-            $(".delete", itemNode).button({
-                icons: { primary: "ui-icon-trash" },
-                text: false
-            }).click(function(evt){
+            $(".delete", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                kimchi.deleteGuestInterface(kimchi.selectedGuest, item.prop("id"), function(){
+                kimchi.deleteGuestInterface(kimchi.selectedGuest, item.prop("id"), function() {
                     item.remove();
                 });
             });
-            $(".save", itemNode).button().click(function(evt){
+            $(".save", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
                 var interface = {
                     network: $("select", item).val(),
-                    type: "network",
-                    mac: $(":text", item).val(),
-                    ips: $(".ipText", item).val()
+                        type: "network",
+                        mac: $(":text", item).val(),
+                        ips: $(".ipText", item).val()
                 };
-                var postUpdate = function(mac){
+                var postUpdate = function(mac) {
                     $("#label-network-" + data.id, item).text(interface.network);
                     $("#label-mac-" + data.id, item).text(mac);
                     $("#edit-mac-" + data.id, item).val(mac);
                     toggleEdit(item, false, data.id);
                 };
-                if(item.prop("id")==""){
-                    kimchi.createGuestInterface(kimchi.selectedGuest, interface, function(data){
+                if (item.prop("id") == "") {
+                    kimchi.createGuestInterface(kimchi.selectedGuest, interface, function(data) {
                         item.prop("id", data.mac);
                         postUpdate(data.mac);
                     });
-                }else{
+                } else {
                     if (item.prop('id') == interface.mac) {
                         toggleEdit(item, false, data.id);
                     } else {
                         kimchi.updateGuestInterface(kimchi.selectedGuest, item.prop('id'),
-                                interface, function(data){
-                            item.prop("id", data.mac);
-                            postUpdate(data.mac);
-                        });
+                            interface,
+                            function(data) {
+                                item.prop("id", data.mac);
+                                postUpdate(data.mac);
+                            });
                     }
                 }
             });
-            $(".cancel", itemNode).button().click(function(evt){
+            $(".cancel", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                $("label", item).text()==="" ? item.remove() : toggleEdit(item, false, data.id);
+                $("label", item).text() === "" ? item.remove() : toggleEdit(item, false, data.id);
             });
         };
         var networkOptions = "";
-        kimchi.listNetworks(function(data){
-            for(var i=0;i<data.length;i++){
-                var isSlected = i==0 ? " selected" : "";
-                networkOptions += "<option"+isSlected+">"+data[i].name+"</option>";
+        kimchi.listNetworks(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                var isSlected = i == 0 ? " selected" : "";
+                networkOptions += "<option" + isSlected + ">" + data[i].name + "</option>";
             }
-            kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data){
-                for(var i=0;i<data.length;i++){
+            kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data) {
+                for (var i = 0; i < data.length; i++) {
                     data[i].viewMode = "";
                     data[i].editMode = "hide";
                     data[i].id = i;
@@ -244,8 +267,8 @@ kimchi.guest_edit_main = function() {
     };
 
     var setupPermission = function() {
-       //set up for LDAP
-       $(".add", "#form-guest-edit-permission").button().click(function(evt){
+        //set up for LDAP
+        $(".add", "#form-guest-edit-permission").on('click', function(evt) {
             evt.preventDefault();
             addItem({
                 user: "",
@@ -256,16 +279,16 @@ kimchi.guest_edit_main = function() {
             });
         });
         var addItem = function(data) {
-            var itemNode = $.parseHTML(wok.substitute($('#ldap-user-tmpl').html(),data));
+            var itemNode = $.parseHTML(wok.substitute($('#ldap-user-tmpl').html(), data));
             $(".body", "#form-guest-edit-permission .ldap").append(itemNode);
-            $(".delete", itemNode).button().click(function(evt){
+            $(".delete", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
                 item.remove();
             });
             $("input").focusout(function() {
                 var item = $(this).parent().parent();
-                var user= $(this).val();
+                var user = $(this).val();
                 item.prop("id", user);
                 $("label", item).text(user);
             });
@@ -277,95 +300,98 @@ kimchi.guest_edit_main = function() {
                 $(".checked", itemNode).addClass("hide");
             }
         };
-        var toggleEdit = function(item, on){
-            $("label", item).toggleClass("hide", on);
+        var toggleEdit = function(item, on) {
+            $(".cell span", item).toggleClass("hide", on);
             $("input", item).toggleClass("hide", !on);
             $(".action-area", item).toggleClass("hide");
         };
         //set up for PAM
-        var userNodes = {}, groupNodes = {};
+        var userNodes = {},
+            groupNodes = {};
         authType = kimchi.capabilities['auth']
         if (authType == 'pam') {
             $("#form-guest-edit-permission .ldap").hide();
-            kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
-                kimchi.getUsers(function(users){
-                    kimchi.getGroups(function(groups){
-                        var subArray = function(a1, a2){ //a1-a2
-                            for(var i=0; i<a2.length; i++){
-                                for(var j=0; j<a1.length; j++){
-                                    if(a2[i] == a1[j]){
+            kimchi.retrieveVM(kimchi.selectedGuest, function(vm) {
+                kimchi.getUsers(function(users) {
+                    kimchi.getGroups(function(groups) {
+                        var subArray = function(a1, a2) { //a1-a2
+                            for (var i = 0; i < a2.length; i++) {
+                                for (var j = 0; j < a1.length; j++) {
+                                    if (a2[i] == a1[j]) {
                                         a1.splice(j, 1);
                                         break;
                                     }
                                 }
                             }
                         };
-                        subArray(users, vm.users); subArray(groups, vm.groups);
+                        subArray(users, vm.users);
+                        subArray(groups, vm.groups);
                         init(users, groups, vm.users, vm.groups);
                     });
                 });
             });
         } else if (authType == 'ldap') {
             $("#form-guest-edit-permission .pam").hide();
-            kimchi.retrieveVM(kimchi.selectedGuest, function(vm){
-                for (var i=0; i<vm.users.length; i++) {
+            kimchi.retrieveVM(kimchi.selectedGuest, function(vm) {
+                for (var i = 0; i < vm.users.length; i++) {
                     addItem({
                         user: vm.users[i],
                         viewMode: "",
                         freeze: true,
                         editMode: "hide",
-                        checked: true});
+                        checked: true
+                    });
                 }
-           });
+            });
         }
-        var sortNodes = function(container, isUser){
+        var sortNodes = function(container, isUser) {
             nodes = container.children();
             var keys = [];
-            nodes.each(function(){
+            nodes.each(function() {
                 keys.push($("label", this).text());
             });
             keys.sort();
             container.empty();
-            for(var i=0; i<keys.length; i++){
+            for (var i = 0; i < keys.length; i++) {
                 var itemNode = isUser ? userNodes[keys[i]] : groupNodes[keys[i]];
-                $(itemNode).click(function(){
+                $(itemNode).click(function() {
                     $(this).toggleClass("item-picked");
                 });
                 container.append(itemNode);
             }
         };
-        var init = function(availUsers, availGroups, selUsers, selGroups){
-            var initNode = function(key, isUserNode){
+        var init = function(availUsers, availGroups, selUsers, selGroups) {
+            var initNode = function(key, isUserNode) {
                 var nodeGroups = isUserNode ? userNodes : groupNodes;
                 nodeGroups[key] = $.parseHTML(wok.substitute($('#permission-item-pam').html(), {
                     val: key,
-                    class: isUserNode? "user-icon" : "group-icon"
+                    class: isUserNode ? "fa-user" : "fa-users"
                 }));
             };
-            for(var i=0; i<availUsers.length; i++){
+            for (var i = 0; i < availUsers.length; i++) {
                 initNode(availUsers[i], true);
                 $("#permission-avail-users").append(userNodes[availUsers[i]]);
             }
             sortNodes($("#permission-avail-users"), true);
-            for(var i=0; i<selUsers.length; i++){
+            for (var i = 0; i < selUsers.length; i++) {
                 initNode(selUsers[i], true);
                 $("#permission-sel-users").append(userNodes[selUsers[i]]);
             }
             sortNodes($("#permission-sel-users"), true);
-            for(var i=0; i<availGroups.length; i++){
+            for (var i = 0; i < availGroups.length; i++) {
                 initNode(availGroups[i], false);
                 $("#permission-avail-groups").append(groupNodes[availGroups[i]]);
             }
             sortNodes($("#permission-avail-groups"), false);
-            for(var i=0; i<selGroups.length; i++){
+            for (var i = 0; i < selGroups.length; i++) {
                 initNode(selGroups[i], false);
                 $("#permission-sel-groups").append(groupNodes[selGroups[i]]);
             }
             sortNodes($("#permission-sel-groups"), false);
         };
-        var filterNodes = function(key, container){
-            container.children().each(function(){
-                $(this).css("display", $("label", this).text().indexOf(key)==-1 ? "none" : "");
+        var filterNodes = function(key, container) {
+            container.children().each(function() {
+                $(this).css("display", $("label", this).text().indexOf(key) == -1 ? "none" : "");
             });
         }
         $("#permission-avail-searchBox").on("keyup", function() {
@@ -378,7 +404,7 @@ kimchi.guest_edit_main = function() {
             filterNodes(key, $("#permission-sel-users"));
             filterNodes(key, $("#permission-sel-groups"));
         });
-        $('#permissionGo').button().click(function(evt) {
+        $('#permissionGo').on('click', function(evt) {
             evt.preventDefault();
             $("#permission-avail-users").children(".item-picked").appendTo("#permission-sel-users").removeClass("item-picked");
             sortNodes($("#permission-sel-users"), true);
@@ -388,7 +414,7 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-sel-users"));
             filterNodes("", $("#permission-sel-groups"));
         });
-        $('#permissionBack').button().click(function(evt) {
+        $('#permissionBack').on('click', function(evt) {
             evt.preventDefault();
             $("#permission-sel-users").children(".item-picked").appendTo("#permission-avail-users").removeClass("item-picked");
             sortNodes($("#permission-avail-users"), true);
@@ -399,120 +425,123 @@ kimchi.guest_edit_main = function() {
             filterNodes("", $("#permission-avail-groups"));
         });
     }
-    var filterPCINodes = function(group, text, targetName, targetIcon){
+
+    var filterPCINodes = function(group, text, targetName) {
         text = text.toLowerCase();
         targetName = targetName.toLowerCase();
-        $(".body", "#form-guest-edit-pci").children().each(function(){
-            var currentName = $(".name", this).text().toLowerCase();
-            var textFilter = currentName.indexOf(text)!=-1;
-            textFilter = textFilter || $(".product", this).text().toLowerCase().indexOf(text)!=-1;
-            textFilter = textFilter || $(".vendor", this).text().toLowerCase().indexOf(text)!=-1;
-            var display = "none";
-            var itemGroup = $("button", this).button("option", "icons").primary;
-            if (currentName == targetName){
-                itemGroup = targetIcon;                 
-            }
-            if(textFilter){
-                if(group == "all"){
-                    display = "";
-                }else if(group=="toAdd" && itemGroup=="ui-icon-plus"){
-                    display = ""
-                }else if(group == "added" && itemGroup=="ui-icon-minus"){
-                    display = ""
+        $('.body', '#form-guest-edit-pci').children().each(function() {
+            var currentName = $('.name', this).text().toLowerCase();
+            var textFilter = currentName.indexOf(text) !== -1;
+            textFilter = textFilter || $('.product', this).text().toLowerCase().indexOf(text) !== -1;
+            textFilter = textFilter || $('.vendor', this).text().toLowerCase().indexOf(text) !== -1;
+            var display = 'none';
+            var itemGroup = $('button i', this);
+            if (textFilter) {
+                if (group === 'all') {
+                    display = '';
+                } else if (group === 'toAdd' && itemGroup.hasClass('fa-power-off')) {
+                    display = '';
+                } else if (group === 'added' && itemGroup.hasClass('fa-ban')) {
+                    display = '';
                 }
             }
-            $(this).css("display", display);
-        });
-    }
-    var setupPCIDevice = function(){
-        kimchi.getAvailableHostPCIDevices(function(hostPCIs){
-            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs){
-                setupNode(hostPCIs, "ui-icon-plus");
-                setupNode(vmPCIs, "ui-icon-minus");
-            });
-        });
-        $("select", "#form-guest-edit-pci").change(function(){
-            filterPCINodes($(this).val(), $("input", "#form-guest-edit-pci").val(), "", "");
-        });
-        $("input", "#form-guest-edit-pci").on("keyup", function() {
-            filterPCINodes($("select", "#form-guest-edit-pci").val(), $(this).val(), "", "");
+            $(this).css('display', display);
         });
     };
-    var setupNode = function(arrPCIDevices, iconClass){
+    var setupPCIDevice = function() {
+        kimchi.getAvailableHostPCIDevices(function(hostPCIs) {
+            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs) {
+                setupNode(hostPCIs, 'fa-power-off');
+                setupNode(vmPCIs, 'fa-ban');
+            });
+        });
+        $('select', '#form-guest-edit-pci').change(function() {
+            filterPCINodes($(this).val(), $('input', '#form-guest-edit-pci').val(), '');
+        });
+        $('select', '#form-guest-edit-pci').selectpicker();
+        $('input', '#form-guest-edit-pci').on('keyup', function() {
+            filterPCINodes($('select', '#form-guest-edit-pci').val(), $(this).val(), '');
+        });
+    };
+    var setupNode = function(arrPCIDevices, iconClass) {
         var pciEnabled = kimchi.capabilities.kernel_vfio;
-        var pciDeviceName, pciDeviceProduct, pciDeviceProductDesc, pciDeviceVendor, pciDeviceVendorDesc;        
-        for(var i=0; i<arrPCIDevices.length; i++){
+        var pciDeviceName, pciDeviceProduct, pciDeviceProductDesc, pciDeviceVendor, pciDeviceVendorDesc, pciDeviceStatus;
+        for (var i = 0; i < arrPCIDevices.length; i++) {
             pciDeviceName = arrPCIDevices[i].name;
             pciDeviceProduct = arrPCIDevices[i].product;
             pciDeviceVendor = arrPCIDevices[i].vendor;
-            if(pciDeviceProduct!=null){
+            pciDeviceStatus = (iconClass === 'fa-ban') ? 'enabled' : 'disabled';
+            if (pciDeviceProduct !== null) {
                 pciDeviceProductDesc = pciDeviceProduct.description;
             }
-            if(pciDeviceVendor!=null){
+            if (pciDeviceVendor !== null) {
                 pciDeviceVendorDesc = pciDeviceVendor.description;
             }
-            var itemNode = $.parseHTML(wok.substitute($('#pci-tmpl').html(),{
-                  name: pciDeviceName,
-                  product: pciDeviceProductDesc,
-                  vendor: pciDeviceVendorDesc
+            var itemNode = $.parseHTML(wok.substitute($('#pci-tmpl').html(), {
+                status: pciDeviceStatus,
+                name: pciDeviceName,
+                product: pciDeviceProductDesc,
+                vendor: pciDeviceVendorDesc
             }));
-            $(".body", "#form-guest-edit-pci").append(itemNode);
-            pciEnabled || $("button", itemNode).remove();
-            $("button", itemNode).button({
-                icons: { primary: iconClass },
-                text: false
-            }).click(function(){
+            $('.body', '#form-guest-edit-pci').append(itemNode);
+            pciEnabled || $('button', itemNode).remove();
+            $('button i', itemNode).addClass(iconClass);
+            $('button', itemNode).on('click', function(event) {
+                event.preventDefault();
                 var obj = $(this);
-                var id = obj.parent().prop("id");
-                if(obj.button("option", "icons").primary == "ui-icon-minus"){
-                    kimchi.removeVMPCIDevice(kimchi.selectedGuest, id, function(){
-                        kimchi.getAvailableHostPCIDevices(function(arrPCIDevices1){
-                            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
-                                for(var k=0; k<arrPCIDevices1.length; k++) {
-                                    $("button", "#" + arrPCIDevices1[k].name).button("option", "icons", {primary: "ui-icon-plus"});
+                var objIcon = obj.find('i');
+                var id = obj.parent().parent().attr('id');
+                if (objIcon.hasClass('fa-ban')) {
+                    kimchi.removeVMPCIDevice(kimchi.selectedGuest, id, function() {
+                        kimchi.getAvailableHostPCIDevices(function(arrPCIDevices1) {
+                            kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1) {
+                                for (var k = 0; k < arrPCIDevices1.length; k++) {
+                                    $('button i', '#' + arrPCIDevices1[k].name).removeClass('fa-ban').addClass('fa-power-off');
                                 }
-                                for(var k=0; k<vmPCIs1.length; k++) {
-                                    $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
+                                for (var k = 0; k < vmPCIs1.length; k++) {
+                                    $('button i', '#' + arrPCIDevices1[k].name).removeClass('fa-power-off').addClass('fa-ban');
                                 }
                             });
                         });
                         //id is for the object that is being added back to the available PCI devices
-                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val(), id, "ui-icon-plus");
+                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input', '#form-guest-edit-pci').val(), id);
                     });
                 } else {
-                    kimchi.addVMPCIDevice(kimchi.selectedGuest, { name: id }, function(){
-                        kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1){
-                            for(var k=0; k<vmPCIs1.length; k++) {
-                                $("button", "#" + vmPCIs1[k].name).button("option", "icons", {primary: "ui-icon-minus"});
+                    kimchi.addVMPCIDevice(kimchi.selectedGuest, {
+                        name: id
+                    }, function() {
+                        kimchi.getVMPCIDevices(kimchi.selectedGuest, function(vmPCIs1) {
+                            for (var k = 0; k < vmPCIs1.length; k++) {
+                                $('button i', '#' + arrPCIDevices1[k].name).removeClass('fa-power-off').addClass('fa-ban');
                             }
                         });
                         //id is for the object that is being removed from the available PCI devices
-                        filterPCINodes($("select", "#form-guest-edit-pci").val(), $("input", "#form-guest-edit-pci").val(), id, "ui-icon-minus");
+                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input', '#form-guest-edit-pci').val(), id);
                     });
                 }
             });
             kimchi.getPCIDeviceCompanions(pciDeviceName, function(infoData) {
-                var pciTitle = i18n["KCHVMED6007M"] + "\n";
+                var pciTitle = i18n['KCHVMED6007M'] + '\n';
                 var haveCompanions = false;
-                for(var p=0; p<infoData.length; p++) {
-                    if(infoData[p].device_type === "net") {
+                for (var p = 0; p < infoData.length; p++) {
+                    if (infoData[p].device_type === 'net') {
                         haveCompanions = true;
-                        pciTitle += "   " + infoData[p].name + "\n";
-                        pciTitle += "      " + i18n["KCHVMED6001M"] + " " + infoData[p].interface;
-                        pciTitle += ", " + i18n["KCHVMED6002M"] + " " + infoData[p].address;
-                        pciTitle += ", " + i18n["KCHVMED6003M"] + " " + infoData[p].link_type + "\n";
-                    } else if(infoData[p].device_type === "storage") {
+                        pciTitle += '   ' + infoData[p].name + '\n';
+                        pciTitle += '      ' + i18n['KCHVMED6001M'] + ' ' + infoData[p].interface;
+                        pciTitle += ', ' + i18n['KCHVMED6002M'] + ' ' + infoData[p].address;
+                        pciTitle += ', ' + i18n['KCHVMED6003M'] + ' ' + infoData[p].link_type + '\n';
+                    } else if (infoData[p].device_type === 'storage') {
                         haveCompanions = true;
-                        pciTitle += "   " + infoData[p].name + "\n";
-                        pciTitle += "      " + i18n["KCHVMED6004M"] + " " + infoData[p].block;
-                        pciTitle += ", " + i18n["KCHVMED6005M"] + " " + infoData[p].drive_type;
-                        pciTitle += ", " + i18n["KCHVMED6006M"] + " " + infoData[p].model + "\n";
+                        pciTitle += '   ' + infoData[p].name + '\n';
+                        pciTitle += '      ' + i18n['KCHVMED6004M'] + ' ' + infoData[p].block;
+                        pciTitle += ', ' + i18n['KCHVMED6005M'] + ' ' + infoData[p].drive_type;
+                        pciTitle += ', ' + i18n['KCHVMED6006M'] + ' ' + infoData[p].model + '\n';
                     }
                 }
-                for(var q=0; q<infoData.length; q++) {
-                    haveCompanions && $(".name", "#" + infoData[q].parent).attr("title", pciTitle);
-                    haveCompanions && $(".product", "#" + infoData[q].parent).attr("title", pciTitle);
-                    haveCompanions && $(".vendor", "#" + infoData[q].parent).attr("title", pciTitle);
+                for (var q = 0; q < infoData.length; q++) {
+                    haveCompanions && $('.name', '#' + infoData[q].parent).attr('title', pciTitle);
+                    haveCompanions && $('.product', '#' + infoData[q].parent).attr('title', pciTitle);
+                    haveCompanions && $('.vendor', '#' + infoData[q].parent).attr('title', pciTitle);
                 }
             });
         }
@@ -520,90 +549,84 @@ kimchi.guest_edit_main = function() {
 
     var setupSnapshot = function() {
         var currentSnapshot;
-        var setCurrentSnapshot = function(aSnapshot){
-            if(!aSnapshot)
-                kimchi.getCurrentSnapshot(kimchi.selectedGuest, function(snapshot){
-                    if(snapshot&&snapshot.name) aSnapshot = snapshot.name;
+        var setCurrentSnapshot = function(aSnapshot) {
+            if (!aSnapshot)
+                kimchi.getCurrentSnapshot(kimchi.selectedGuest, function(snapshot) {
+                    if (snapshot && snapshot.name) aSnapshot = snapshot.name;
                 }, null, true);
-            if(aSnapshot){
-                if(currentSnapshot) $(".ui-icon-check", "#"+currentSnapshot).addClass("hide");
-                $(".ui-icon-check", "#"+aSnapshot).removeClass("hide");
+            if (aSnapshot) {
+                if (currentSnapshot) $(".fa.fa-check", "#" + currentSnapshot).addClass("hide");
+                $(".fa.fa-check", "#" + aSnapshot).removeClass("hide");
                 currentSnapshot = aSnapshot;
             }
         };
         var addItem = function(data, container) {
-            var itemNode = $.parseHTML(wok.substitute($('#snapshot-tmpl').html(),data));
-            $("."+container, "#form-guest-edit-snapshot").append(itemNode);
-            $(".delete", itemNode).button({
-                icons: { primary: "ui-icon-trash" },
-                text: false
-            }).click(function(evt){
+            var itemNode = $.parseHTML(wok.substitute($('#snapshot-tmpl').html(), data));
+            $("." + container, "#form-guest-edit-snapshot").append(itemNode);
+            $(".delete", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                $("button", "#form-guest-edit-snapshot").button("disable");
-                kimchi.deleteSnapshot(kimchi.selectedGuest, item.prop("id"), function(){
+                $("button", "#form-guest-edit-snapshot").prop("disabled", true);
+                kimchi.deleteSnapshot(kimchi.selectedGuest, item.prop("id"), function() {
                     item.remove();
                     setCurrentSnapshot();
-                    $("button", "#form-guest-edit-snapshot").button("enable");
-                }, function(data){
-                    wok.message.error(data.responseJSON.reason);
-                    $("button", "#form-guest-edit-snapshot").button("enable");
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
+                }, function(data) {
+                    wok.message.error(data.responseJSON.reason, '#alert-modal-container');
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
                 });
             });
-            $(".revert", itemNode).button({
-                icons: { primary: "ui-icon-arrowthick-1-ne" },
-                text: false
-            }).click(function(evt){
+            $(".revert", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                $(".ui-icon-check", item).addClass("hide");
-                $(".icon", item).removeClass("hide");
-                $("button", "#form-guest-edit-snapshot").button("disable");
-                kimchi.revertSnapshot(kimchi.selectedGuest, item.prop("id"), function(){
-                    $(".icon", item).addClass("hide");
-                    $("button", "#form-guest-edit-snapshot").button("enable");
+                $(".fa.fa-check", item).addClass("hide");
+                $(".wok-loading", item).removeClass("hide");
+                $("button", "#form-guest-edit-snapshot").prop("disabled", true);
+                kimchi.revertSnapshot(kimchi.selectedGuest, item.prop("id"), function() {
+                    $(".wok-loading", item).addClass("hide");
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
                     setCurrentSnapshot(item.prop("id"));
                     kimchi.listVmsAuto();
                     wok.window.close();
-                }, function(data){
-                    wok.message.error(data.responseJSON.reason);
-                    $(".icon", item).addClass("hide");
-                    $("button", "#form-guest-edit-snapshot").button("enable");
+                }, function(data) {
+                    wok.message.error(data.responseJSON.reason, '#alert-modal-container');
+                    $(".wok-loading-icon", item).addClass("hide");
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
                 });
             });
         };
-        var addOngoingItem = function(task){
+        var addOngoingItem = function(task) {
             var uri = task.target_uri;
             addItem({
-                name: uri.substring(uri.lastIndexOf('/')+1, uri.length),
+                name: uri.substring(uri.lastIndexOf('/') + 1, uri.length),
                 created: "",
                 listMode: "hide",
                 createMode: ""
             }, 'task');
-            if(kimchi.trackingTasks.indexOf(task.id)==-1)
-                kimchi.trackTask(task.id, function(task){
+            if (kimchi.trackingTasks.indexOf(task.id) == -1)
+                kimchi.trackTask(task.id, function(task) {
                     listGeneratingSnapshots();
-                    $("button", "#form-guest-edit-snapshot").button("enable");
-                }, function(err){
-                    wok.message.error(err.message);
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
+                }, function(err) {
+                    wok.message.error(err.message, '#alert-modal-container');
                     listGeneratingSnapshots();
-                    $("button", "#form-guest-edit-snapshot").button("enable");
+                    $("button", "#form-guest-edit-snapshot").prop("disabled", false);
                 });
         };
-        var listGeneratingSnapshots = function(){
-            kimchi.getTasksByFilter('status=running&target_uri='+encodeURIComponent('^/plugins/kimchi/snapshots/*'), function(tasks) {
+        var listGeneratingSnapshots = function() {
+            kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/snapshots/*'), function(tasks) {
                 $(".task", "#form-guest-edit-snapshot").empty();
-                for(var i=0;i<tasks.length;i++){
+                for (var i = 0; i < tasks.length; i++) {
                     addOngoingItem(tasks[i]);
                 }
-                if(tasks.length==0) listSnapshots();
+                if (tasks.length == 0) listSnapshots();
             });
         };
-        var listSnapshots = function(){
-            kimchi.listSnapshots(kimchi.selectedGuest, function(data){
+        var listSnapshots = function() {
+            kimchi.listSnapshots(kimchi.selectedGuest, function(data) {
                 $(".body", "#form-guest-edit-snapshot").empty();
-                for(var i=0;i<data.length;i++){
-                    data[i].created = new Date(data[i].created*1000).toLocaleString();
+                for (var i = 0; i < data.length; i++) {
+                    data[i].created = new Date(data[i].created * 1000).toLocaleString();
                     data[i].createMode = "hide";
                     data[i].listMode = "";
                     addItem(data[i], 'body');
@@ -612,17 +635,14 @@ kimchi.guest_edit_main = function() {
             });
         };
         listGeneratingSnapshots();
-        $(".add", "#form-guest-edit-snapshot").button({
-            icons: { primary: "ui-icon-plusthick" },
-            text: false
-        }).click(function(evt){
+        $(".add", "#form-guest-edit-snapshot").on('click', function(evt) {
             evt.preventDefault();
-            kimchi.createSnapshot(kimchi.selectedGuest, function(task){
-                $("button", "#form-guest-edit-snapshot").button("disable");
+            kimchi.createSnapshot(kimchi.selectedGuest, function(task) {
+                $("button", "#form-guest-edit-snapshot").prop("disabled", true);
                 addOngoingItem(task);
             });
         });
-        if(kimchi.thisVMState=="running") $("button", "#form-guest-edit-snapshot").remove();
+        if (kimchi.thisVMState == "running") $("button", "#form-guest-edit-snapshot").remove();
     };
 
     var initContent = function(guest) {
@@ -630,19 +650,12 @@ kimchi.guest_edit_main = function() {
         $('#form-guest-edit-general').fillWithObject(guest);
         kimchi.thisVMState = guest['state'];
         refreshCDROMs();
-        $('#guest-edit-attach-cdrom-button').button({
-                icons: {
-                    primary: "ui-icon-plusthick"
-                },
-                text: false
-            }).click(function(event) {
-                event.preventDefault();
-                wok.window.open('plugins/kimchi/guest-storage-add.html','extendCreateStorage');
-            });
+        $('#guest-edit-attach-cdrom-button').on('click', function(event) {
+            event.preventDefault();
+            wok.window.open('plugins/kimchi/guest-storage-add.html', 'extendCreateStorage');
+        });
         if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
             $("#form-guest-edit-general input").prop("disabled", true);
-        } else {
-            $("#action-button-container").removeClass("hidden");
         }
 
         var onAttached = function(params) {
@@ -676,71 +689,64 @@ kimchi.guest_edit_main = function() {
 
     var generalSubmit = function(event) {
         $(saveButton).prop('disabled', true);
-        var data=$('#form-guest-edit-general').serializeObject();
-        if(data['memory']!=undefined) {
+        var data = $('#form-guest-edit-general').serializeObject();
+        if (data['memory'] != undefined) {
             data['memory'] = Number(data['memory']);
         }
-        if(data['cpus']!=undefined) {
-            data['cpus']   = Number(data['cpus']);
+        if (data['cpus'] != undefined) {
+            data['cpus'] = Number(data['cpus']);
         }
 
         kimchi.updateVM(kimchi.selectedGuest, data, function() {
             kimchi.listVmsAuto();
             wok.window.close();
         }, function(err) {
-            wok.message.error(err.responseJSON.reason);
+            wok.message.error(err.responseJSON.reason, '#alert-modal-container');
             $(saveButton).prop('disabled', false);
         });
     }
 
     var permissionSubmit = function(event) {
-        var content = { users: [], groups: [] };
+        var content = {
+            users: [],
+            groups: []
+        };
         authType = kimchi.capabilities['auth']
         if (authType == 'pam') {
-            $("#permission-sel-users").children().each(function(){
+            $("#permission-sel-users").children().each(function() {
                 content.users.push($("label", this).text());
             });
-            $("#permission-sel-groups").children().each(function(){
+            $("#permission-sel-groups").children().each(function() {
                 content.groups.push($("label", this).text());
             });
-            kimchi.updateVM(kimchi.selectedGuest, content, function(){
+            kimchi.updateVM(kimchi.selectedGuest, content, function() {
                 wok.window.close();
             });
         } else if (authType == 'ldap') {
             $(saveButton).prop('disabled', true);
             var errors = 0;
 
-            $(".body", "#form-guest-edit-permission .ldap").children().each(function () {
+            $(".body", "#form-guest-edit-permission .ldap").children().each(function() {
                 var elem = $(this);
                 content.users.push(elem.attr("id"));
 
                 if (!$('input', elem).hasClass('hide')) {
-                    var user = {'user_id': $(this).attr("id")};
-                    kimchi.getUserById(user, null, function (data) {
+                    var user = {
+                        'user_id': $(this).attr("id")
+                    };
+                    kimchi.getUserById(user, null, function(data) {
                         errors += 1;
                         $("input", elem).addClass("checked");
                     });
                 }
             });
             if (errors == 0) {
-                kimchi.updateVM(kimchi.selectedGuest, content, function(){
-                   wok.window.close();
+                kimchi.updateVM(kimchi.selectedGuest, content, function() {
+                    wok.window.close();
                 });
             } else {
                 $(saveButton).prop('disabled', false);
             }
         }
     }
-
-    // tap map, "general": 0, "storage": 1, "interface": 2, "permission": 3, "password": 4
-    var submit_map = {0: generalSubmit, 3:permissionSubmit};
-    var submitForm = function(event) {
-        var current = $('#guest-edit-tabs').tabs( "option", "active" );
-        var submitFun = submit_map[current];
-        submitFun && submitFun(event);
-        event.preventDefault();
-    };
-
-    $(guestEditForm).on('submit', submitForm);
-    $(saveButton).on('click', submitForm);
 };

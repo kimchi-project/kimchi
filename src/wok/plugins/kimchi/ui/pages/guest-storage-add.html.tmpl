@@ -22,77 +22,44 @@
 #silent _ = t.gettext
 #silent _t = t.gettext
 <div id="guest-storage-add-window" class="window">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">$_("Add a Storage Device to VM")</hh>
-    </div>
-    <div class="modal-body">
-        <form id="form-guest-storage-add">
-            <section class="form-section">
-                <h2>1. $_("Device Type")</h2>
-                <div class="field">
-                    <p class="text-help">
-                        $_("The device type. Currently,  \"cdrom\" and \"disk\" are supported.")
-                    </p>
-                    <div class="btn dropdown popable">
-                        <input id="guest-storage-type" name="type" value="cdrom" type="hidden" />
-                        <span class="text" id="guest-storage-type-label"></span>
-                        <span class="arrow"></span>
-                        <div class="popover">
-                            <ul class="select-list" id="guest-storage-type-list" data-target="guest-storage-type" data-label="guest-storage-type-label"></ul>
-                        </div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">$_("Add a Storage Device to VM")</h4>
+        </div>
+        <div class="modal-body">
+            <form id="form-guest-storage-add">
+                <div class="form-group">
+                    <label>$_("Device Type")</label>
+                    <select id="guest-storage-type" class="selectpicker col-md-12 col-lg-12">
+                    </select>
+                    <p class="help-block"><i class="fa fa-info-circle"></i> $_("The device type. Currently, \"cdrom\" and \"disk\" are supported.")</p>
+                </div>
+                <div class="volume-section hidden">
+                    <div class="form-group">
+                        <label>$_("Storage Pool")</label>
+                        <select id="guest-disk-pool" class="selectpicker col-md-12 col-lg-12">
+                        </select>
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage pool which volume located in")</p>
+                    </div>
+                    <div class="form-group">
+                        <label>$_("Storage Volume")</label>
+                        <select id="guest-disk-vol" class="selectpicker col-md-12 col-lg-12">
+                        </select>
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage volume to be attached")</p>
                     </div>
                 </div>
-            </section>
-            <div class="volume-section hidden">
-                <section class="form-section">
-                    <h2>2. $_("Storage Pool")</h2>
-                    <div class="field storage-field">
-                        <p class="text-help">
-                            $_("Storage pool which volume located in")
-                        </p>
-                        <div class="btn dropdown popable">
-                            <input value="default" id="guest-disk-pool" name="pool" type="hidden"/>
-                            <span class="text" id="guest-disk-pool-label">default</span><span class="arrow"></span>
-                            <div class="popover" style="width: 100%">
-                                <ul class="select-list" id="guest-add-storage-pool-list" data-target="guest-disk-pool" data-label="guest-disk-pool-label"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="form-section">
-                    <h2>3. $_("Storage Volume")</h2>
-                    <div class="field storage-field">
-                        <p class="text-help">
-                            $_("Storage volume to be attached")
-                        </p>
-                        <div class="btn dropdown popable" id="guest-disk">
-                            <input id="guest-disk-vol" name="vol" type="hidden">
-                            <span class="text" id="guest-disk-vol-label"></span><span class="arrow"></span>
-                            <div class="popover" style="width: 100%">
-                                <ul class="select-list" id="guest-add-storage-pool-list" data-target="guest-disk-vol" data-label="guest-disk-vol-label"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="path-section">
-                <section class="form-section">
-                    <h2>2. $_("File Path")</h2>
-                    <div class="field">
-                        <p class="text-help">
-                            $_("The ISO file path in the server for CDROM.")
-                        </p>
-                        <input type="text" class="text" name="path" />
-                    </div>
-                </section>
-            </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="modal-footer">
+                <div class="path-section form-group">
+                    <label for="path">$_("File Path")</label>
+                    <input type="text" class="form-control" name="path" id="path" />
+                    <p class="help-block"><i class="fa fa-info-circle"></i> $_("The ISO file path in the server for CDROM.")</p>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
             <button id="guest-storage-button-add" class="btn btn-default" disabled="disabled">$_("Attach")</button>
             <button class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+        </div>
     </div>
 </div>
 <script type="text/javascript">

@@ -22,31 +22,21 @@
 #silent _t = t.gettext
 <div id="guest-edit-window" class="window modal-content">
     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">$_("Edit Guest")</h4>
     </div>
     <div class="modal-body">
-        <div id="guest-edit-tabs">
-            <ul>
-                <li>
-                    <a href="#form-guest-edit-general">$_("General")</a>
-                </li>
-                <li>
-                    <a href="#form-guest-edit-storage">$_("Storage")</a>
-                </li>
-                <li>
-                    <a href="#form-guest-edit-interface">$_("Interface")</a>
-                </li>
-                <li>
-                    <a href="#form-guest-edit-permission">$_("Permission")</a>
-                </li>
-                <li>
-                    <a href="#form-guest-edit-pci">$_("Host PCI Device")</a>
-                </li>
-                <li>
-                    <a href="#form-guest-edit-snapshot">$_("Snapshot")</a>
-                </li>
-            </ul>
-            <form id="form-guest-edit-general">
+    <span id="alert-modal-container"></span>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#form-guest-edit-general" aria-controls="form-guest-edit-general" role="tab" data-id="form-guest-edit-general" data-toggle="tab">General</a></li>
+    <li role="presentation"><a href="#form-guest-edit-storage" aria-controls="form-guest-edit-storage" role="tab" data-id="form-guest-edit-storage" data-toggle="tab">Storage</a></li>
+    <li role="presentation"><a href="#form-guest-edit-interface" aria-controls="form-guest-edit-interface" role="tab" data-id="form-guest-edit-interface" data-toggle="tab">Interface</a></li>
+    <li role="presentation"><a href="#form-guest-edit-permission" aria-controls="form-guest-edit-permission" role="tab" data-id="form-guest-edit-permission" data-toggle="tab">Permission</a></li>
+    <li role="presentation"><a href="#form-guest-edit-pci" aria-controls="form-guest-edit-pci" role="form-guest-edit-pci" data-id="form-guest-edit-pci" data-toggle="tab">Pci</a></li>
+    <li role="presentation"><a href="#form-guest-edit-snapshot" aria-controls="form-guest-edit-snapshot" role="tab" data-id="form-guest-edit-snapshot" data-toggle="tab">Snapshot</a></li>
+  </ul>
+        <div class="tab-content" id="guest-edit-tabs">
+            <form role="tabpanel" class="tab-pane active" id="form-guest-edit-general">
                 <div class="form-group">
                     <label for="guest-edit-id-textbox">$_("Name")</label>
                     <input id="guest-edit-id-textbox" class="form-control" name="name" type="text" />
@@ -64,88 +54,104 @@
                     <input id="guest-edit-icon-textbox" class="form-control" name="icon" type="text" disabled="disabled"  />
                 </div>
             </form>
-            <form id="form-guest-edit-storage">
+            <form role="tabpanel" class="tab-pane" id="form-guest-edit-storage">
+                <div class="btn-group action-area">
+                    <button type="button" id="guest-edit-attach-cdrom-button" class="attach btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                </div>
                 <div class="header">
-                    <span class="cell">$_("Device")</span>
-                    <span class="cell">$_("Path")</span>
-                    <button type="button" id="guest-edit-attach-cdrom-button" class="action-area attach"></button>
+                    <span class="cell column-device">$_("Device")</span>
+                    <span class="cell column-path">$_("Path")</span>
+                    <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div class="body"></div>
             </form>
-            <form id="form-guest-edit-interface" class="guest-edit-interface">
+            <form role="tabpanel" class="guest-edit-interface tab-pane" id="form-guest-edit-interface">
                 <button class="add btn btn-primary"><i class="fa fa-plus-circle"></i> Add</button>
                 <div class="header">
-                    <span class="cell">$_("Network")</span>
-                    <span class="cell">$_("Type")</span>
-                    <span class="cell">$_("MAC Address")</span>
-                    <span class="cell">$_("IP Address")</span>
+                    <span class="cell column-network">$_("Network")</span>
+                    <span class="cell column-type">$_("Type")</span>
+                    <span class="cell column-mac">$_("MAC Address")</span>
+                    <span class="cell column-ip">$_("IP Address")</span>
+                    <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div class="body"></div>
             </form>
-            <form id="form-guest-edit-permission" class="guest-edit-permission">
-                <div class="pam">
-                    <div class="column avail">
-                        <div class="title">$_("Available system users and groups")</div>
-                        <input type="text" id="permission-avail-searchBox">
-                        <div class="body">
+            <form role="tabpanel" class="guest-edit-permission tab-pane" id="form-guest-edit-permission">
+                <div class="pam col-md-12">
+                    <div class="column avail col-md-5">
+                        <h4 class="title">$_("Available system users and groups")</h4>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" id="permission-avail-searchBox" class="form-control">
+                        </div>
+                        <div class="body col-md-12">
                             <div class="head">
-                                <div class="column column-user"><div class="item">$_("Users")</div></div>
-                                <div class="column column-group"><div class="item">$_("Groups")</div></div>
+                                <div class="column column-user col-md-6"><div class="item">$_("Users")</div></div>
+                                <div class="column column-group col-md-6"><div class="item">$_("Groups")</div></div>
                             </div>
-                            <div id="permission-avail-users" class="column column-user"></div>
-                            <div id="permission-avail-groups"  class="column column-group"></div>
+                            <div id="permission-avail-users" class="column column-user col-md-6"></div>
+                            <div id="permission-avail-groups"  class="column column-group col-md-6"></div>
                         </div>
                     </div>
-                    <div class="column control">
-                        <button id="permissionGo"> &lt; </button>
-                        <button id="permissionBack"> &gt; </button>
+                    <div class="column control col-md-2 v-center">
+                        <button id="permissionBack" class="center-block btn btn-primary btn-lg"><i class="fa fa-chevron-left"></i></button>
+                        <button id="permissionGo" class="center-block btn btn-primary btn-lg"><i class="fa fa-chevron-right"></i></button>
                     </div>
-                    <div class="column selected">
-                        <div class="title">$_("Selected system users and groups")</div>
-                        <input type="text" id="permission-sel-searchBox">
-                        <div class="body">
+                    <div class="column selected col-md-5">
+                        <h4 class="title">$_("Selected system users and groups")</h4>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" id="permission-sel-searchBox" class="form-control">
+                        </div>
+                        <div class="body col-md-12">
                             <div class="head">
-                                <div class="column column-user"><div class="item">$_("Users")</div></div>
-                                <div class="column column-group"><div class="item">$_("Groups")</div></div>
+                                <div class="column column-user col-md-6"><div class="item">$_("Users")</div></div>
+                                <div class="column column-group col-md-6"><div class="item">$_("Groups")</div></div>
                             </div>
-                            <div id="permission-sel-users" class="column column-user"></div>
-                            <div id="permission-sel-groups"  class="column column-group"></div>
+                            <div id="permission-sel-users" class="column column-user col-md-6"></div>
+                            <div id="permission-sel-groups"  class="column column-group col-md-6"></div>
                         </div>
                     </div>
                 </div>
                 <div class="ldap">
                     <div class="header">
                         <span class="cell">$_("User")</span>
-                        <button type="button" id="guest-edit-add-user-button" class="action-area add"></button>
+                        <button type="button" id="guest-edit-add-user-button" class="action-area add btn btn-primary">$_("Add")</button>
                     </div>
                     <div class="body"></div>
                 </div>
             </form>
-            <form id="form-guest-edit-pci" class="guest-edit-pci">
+            <form role="tabpanel" class="guest-edit-pci tab-pane" id="form-guest-edit-pci">
                 <div class="guest-scroll-indent">
                     <div class="filter">
-                        <span class="group">
+                        <div class="form-group pull-right">
                             <select class="control selectpicker">
                                 <option value="all">$_("All")</option>
                                 <option value="toAdd">$_("To Add")</option>
                                 <option value="added">$_("Added")</option>
-                            </select><input type="text" class="control" placeholder="$_("filter")">
-                        </span>
+                            </select>
+                            <input type="text" class="form-control" placeholder="$_("Filter")" />
+                        </div>
                     </div>
                     <div class="header">
-                        <span class="cell name">$_("Name")</span>
-                        <span class="cell product">$_("Product")</span>
-                        <span class="cell vendor">$_("Vendor")</span>
+                        <span class="cell status column-pci-status"><span class="sr-only">$_("Status")</span></span>
+                        <span class="cell name column-pci-name">$_("Name")</span>
+                        <span class="cell product column-product">$_("Product")</span>
+                        <span class="cell vendor column-vendor">$_("Vendor")</span>
+                        <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                     </div>
                     <div class="body"></div>
                 </div>
             </form>
-            <form id="form-guest-edit-snapshot" class="guest-edit-snapshot">
+            <form role="tabpanel" id="form-guest-edit-snapshot" class="guest-edit-snapshot tab-pane">
+                <div class="btn-group">
+                    <button class="add btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                </div>
                 <div class="header">
-                    <span class="cell sel"></span>
-                    <span class="cell name">$_("Name")</span>
-                    <span class="cell created">$_("Created")</span>
-                    <button class="add action-area"></button>
+                    <span class="cell column-sel"><span class="sr-only">$_("Status")</span></span>
+                    <span class="cell column-snapshot-name">$_("Name")</span>
+                    <span class="cell column-snapshot-created">$_("Created")</span>
+                    <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div class="task"></div>
                 <div class="body"></div>
@@ -153,123 +159,124 @@
         </div>
     </div>
     <div class="modal-footer">
-        <div id="action-button-container" class="hidden">
-            <button id="guest-edit-button-save" class="btn btn-default">$_("Save")</button>
-        </div>
-        <button id="guest-edit-button-cancel" class="btn btn-default">$_("Cancel")</button>
+        <button id="guest-edit-button-save" class="btn btn-default">$_("Save")</button>
+        <button id="guest-edit-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
     </div>
 </div>
 <script id="cdrom-row-tmpl" type="text/html">
     <div class="item view" id="cdrom-{dev}">
-        <span class="cell dev">
+        <span class="cell dev column-device">
             <input type="text" readonly="readonly"
-                id="cdrom-dev-{dev}" name="cdrom-dev-{dev}" value="{dev}" />
+                id="cdrom-dev-{dev}" name="cdrom-dev-{dev}" value="{dev}" class="form-control" />
         </span>
-        <span class="cell path">
+        <span class="cell path column-path">
             <input id="cdrom-path-{dev}" name="cdrom" type="text"
                 data-vm="{vm}" data-dev="{dev}"
-                value="{path}" readonly="readonly" />
+                value="{path}" readonly="readonly" class="form-control" />
         </span>
-        <span class="action-area">
-            <button type="button" class="guest-edit-cdrom-button replace"
+        <span class="cell action-area column-actions">
+            <button type="button" class="guest-edit-cdrom-button replace btn btn-link"
                 data-vm="{vm}" data-dev="{dev}"
-                title='$_("Replace")'>
-            </button>
-            <button type="button" class="guest-edit-cdrom-button detach"
+                title='$_("Replace")'><i class="fa fa-pencil"></i> $_("Replace")</button>
+
+            <button type="button" class="guest-edit-cdrom-button detach btn btn-link"
                 data-vm="{vm}" data-dev="{dev}" data-type="{type}"
-                title='$_("Detach")'>
-            </button>
-            <button type="button" class="guest-edit-cdrom-button save hidden"
+                title='$_("Detach")'><i class="fa fa-minus-circle"></i> $_("Detach")</button>
+
+            <button type="button" class="guest-edit-cdrom-button save hidden btn btn-primary"
                 data-vm="{vm}" data-dev="{dev}"
-                title='$_("Save")'>
-            </button>
-            <button type="button" class="guest-edit-cdrom-button cancel hidden"
+                title='$_("Save")'>$_("Save")</button>
+
+            <button type="button" class="guest-edit-cdrom-button cancel hidden btn btn-primary"
                 data-vm="{vm}" data-dev="{dev}"
-                title='$_("Cancel")'>
-            </button>
+                title='$_("Cancel")'>$_("Cancel")</button>
         </span>
     </div>
 </script>
 <script id="interface-tmpl" type="text/html">
     <div class="item" id="{mac}">
-        <span class="cell">
-            <label id="label-network-{id}" class="{viewMode}">{network}</label>
+        <span class="cell column-network">
+            <span id="label-network-{id}" class="{viewMode}">{network}</span>
             <select class="{editMode}"></select>
         </span>
-        <span class="cell">
-            <span>{type}</span>
+        <span class="cell column-type">
+            {type}
         </span>
-        <span class="cell">
-            <label id="label-mac-{id}" class="{viewMode}">{mac}</label>
-            <input class="{editMode}" type="text" 
-               id="edit-mac-{id}" name="{mac}" value="{mac}" />
+        <span class="cell column-mac">
+            <span id="label-mac-{id}" class="{viewMode}">{mac}</span>
+            <input class="form-control {editMode}" type="text" 
+               id="edit-mac-{id}" class="form-control" name="{mac}" value="{mac}" />
         </span>
-        <span class="cell">
+        <span class="cell column-ip">
             <span class=ipText>{ips}</span>
         </span>
-        <span class="action-area {editMode}">
-            <button class="save"></button><button class="cancel"></button>
+        <span class="cell {editMode} column-actions action-area">
+                <button class="btn btn-primary save">$_("Save")</button>
+                <button class="btn btn-primary cancel">$_("Remove")</button>
         </span>
-        <span class="action-area {viewMode}">
-            <button class="edit"></button><button class="delete"></button>
+        <span class="cell {viewMode} column-actions action-area">
+            <button class="btn btn-link edit"><i class="fa fa-pencil"></i> $_("Edit")</button>
+            <button class="btn btn-link delete"><i class="fa fa-minus-circle"></i> $_("Remove")</button>
         </span>
     <div>
 </script>
 <script id="ldap-user-tmpl" type="text/html">
     <div class="item" id="{user}">
         <span class="cell">
-            <label class="{viewMode}">{user}</label>
-            <input type="text"  placeholder=$_("LDAP User ID,e.g.foo@foo.com") class="{editMode}"/>
+            <span class="{viewMode}">{user}</span>
+            <input type="text" placeholder=$_("LDAP User ID,e.g.foo@foo.com") class="form-control {editMode}" />
         </span>
         <span class="action-area">
-            <button class="delete"></button>
+            <button class="btn btn-default delete"><i class="fa fa-minus-circle"></i> $_("Remove")</button>
         </span>
     <div>
 </script>
 <script id="disk-row-tmpl" type="text/html">
     <div class="item" id="cdrom-{dev}">
-        <span class="cell dev">
+        <span class="cell dev column-device">
             <input type="text" readonly="readonly"
-                id="disk-dev-{dev}" name="disk-dev-{dev}" value="{dev}" />
+                id="disk-dev-{dev}" name="disk-dev-{dev}" class="form-control" value="{dev}" />
         </span>
-        <span class="cell path">
-            <input id="disk-path-{dev}" name="path-{dev}" type="text"
+        <span class="cell path column-path">
+            <input id="disk-path-{dev}" class="" name="path-{dev}" type="text"
                 data-vm="{vm}" data-dev="{dev}"
-                value="{path}" readonly="readonly" />
+                value="{path}" readonly="readonly" class="form-control" />
         </span>
-        <span class="action-area">
-            <button type="button" class="guest-edit-cdrom-button detach"
+        <span class="action-area column-actions">
+            <button type="button" class="guest-edit-cdrom-button detach btn btn-link"
                 data-vm="{vm}" data-dev="{dev}" data-type="{type}"
-                title="$_("Detach")">
-            </button>
+                title="$_("Detach")"><i class="fa fa-minus-circle"></i> $_("Detach")</button>
         </span>
     </div>
 </script>
 <script id="permission-item-pam" type="text/html">
 <div class="item">
-    <span class="icon {class}"></span>
+    <i class="fa {class}"></i>
     <label>{val}</label>
 </div>
 </script>
 <script id="pci-tmpl" type="text/html">
-<div class="item" id="{name}">
-    <span class="cell name" title="{name}">{name}</span>
-    <span class="cell product" title="{product}">{product}</span>
-    <span class="cell vendor" title="{vendor}">{vendor}</span>
-    <button></button>
+<div class="item {status}" id="{name}">
+    <span class="cell status column-pci-status">
+        <i class="fa fa-power-off"></i>
+    </span>
+    <span class="cell name column-pci-name"><input type="text" readonly="readonly" value="{name}" title="{name}" class="form-control" /></span>
+    <span class="cell product column-product"><input type="text" readonly="readonly" value="{product}" title="{product}" class="form-control" /></span>
+    <span class="cell vendor column-vendor"><input type="text" readonly="readonly" value="{vendor}" title="{vendor}" class="form-control" /></span>
+    <span class="cell column-actions action-area"><button class="btn btn-link"><i class="fa"></i></button></span>
 </div>
 </script>
 <script id="snapshot-tmpl" type="text/html">
     <div class="item" id="{name}">
-        <span class="cell sel">
-            <span class="icon {createMode}"></span>
-            <span class="ui-icon ui-icon-check hide"></span>
+        <span class="cell column-sel">
+            <span class="wok-loading-icon {createMode}"></span>
+            <i class="fa fa-check hide"></i>
         </span>
-        <span class="cell name">{name}</span>
-        <span class="cell created">{created}</span>
-        <span class="action-area">
-            <button class="revert {listMode}" title="$_("revert")"></button>
-            <button class="delete {listMode}"></button>
+        <span class="cell column-snapshot-name name"><input type="text" readonly="readonly" value="{name}" class="form-control" /></span>
+        <span class="cell column-snapshot-created created"><input type="text" readonly="readonly" value="{created}" class="form-control" /></span>
+        <span class="cell column-actions action-area">
+            <button class="revert {listMode} btn btn-link" title="$_("Revert")"><i class="fa fa-undo"></i> $_("Revert")</button>
+            <button class="delete {listMode} btn btn-link"><i class="fa fa-minus-circle"></i> $_("Remove")</button>
         </span>
     <div>
 </script>

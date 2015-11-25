@@ -31,10 +31,13 @@ kimchi.guest_storage_add_main = function() {
 
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
-    var typeTextbox = $('input[name="type"]', storageAddForm);
+    var typeTextbox = $('select#guest-storage-type', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
-    var poolTextbox = $('input[name="pool"]', storageAddForm);
-    var volTextbox = $('input[name="vol"]', storageAddForm);
+    var poolTextbox = $('select#guest-disk-pool', storageAddForm);
+    var volTextbox = $('select#guest-disk-vol', storageAddForm);
+    var selectStorageTypeHTML = '';
+    var selectStoragePoolHTML = '';
+    var selectStorageVolHTML  = '';
 
     typeTextbox.change(function() {
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
@@ -56,6 +59,7 @@ kimchi.guest_storage_add_main = function() {
             $(poolTextbox).val("");
             $(volTextbox).val("");
         }
+        $('.selectpicker').selectpicker('refresh');
     });
 
     kimchi.listStoragePools(function(result) {
@@ -67,17 +71,22 @@ kimchi.guest_storage_add_main = function() {
                         label: storagePool.name,
                         value: storagePool.name
                         });
+                    selectStoragePoolHTML += '<option value="'+ storagePool.name + '">' + storagePool.name + '</option>';
                     }
+
                 });
-                wok.select('guest-add-storage-pool-list', options);
+            poolTextbox.append(selectStoragePoolHTML);
+            poolTextbox.val(options[0].value);
+            poolTextbox.selectpicker();
         }
     });
 
     poolTextbox.change(function() {
         var options = [];
+        selectStorageVolHTML = '';
+        volTextbox.empty();
         kimchi.listStorageVolumes($(this).val(), function(result) {
             var validVolType = { cdrom: /iso/, disk: /^(raw|qcow|qcow2|bochs|qed|vmdk)$/};
-            $('#guest-disk').selectMenu();
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
@@ -89,11 +98,20 @@ kimchi.guest_storage_add_main = function() {
                     }
                 });
                 if (options.length) {
+                    for (var i = 0; i < options.length; i++) {
+                        selectStorageVolHTML += '<option value="'+ options[i].value + '">' + options[i].label + '</option>';
+                    }
+                    volTextbox.append(selectStorageVolHTML);
                     $(volTextbox).val(options[0].value);
                     $(volTextbox).change();
+                    $(volTextbox).prop('disabled',false);
+                }else {
+                    $(volTextbox).prop('disabled',true);
+                    $(submitButton).prop('disabled', true);
                 }
-            }
-            $('#guest-disk').selectMenu("setData", options);
+                volTextbox.selectpicker();
+                $('.selectpicker').selectpicker('refresh');
+            } 
         }, null, false);
     });
 
@@ -117,7 +135,12 @@ kimchi.guest_storage_add_main = function() {
         poolTextbox.change();
     }
     var selectType = $(typeTextbox).val();
-    wok.select('guest-storage-type-list', types);
+    for (var i = 0; i < types.length; i++) {
+        selectStorageTypeHTML += '<option value="'+ types[i].value + '">' + types[i].label + '</option>';
+    }
+    typeTextbox.append(selectStorageTypeHTML);
+    typeTextbox.find('option:first').attr('selected','selected');
+    typeTextbox.selectpicker();
 
     var validateCDROM = function(settings) {
         if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path']))
