@@ -4,7 +4,13 @@
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="none"/>
-        <title>Host</title>
-        <path>plugins/gingerbase/host.html</path>
+        <title>Dashboard</title>
+        <path>plugins/gingerbase/host-dashboard.html</path>
+    </tab>
+    <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+        <title>Updates</title>
+        <path>plugins/gingerbase/host-update.html</path>
     </tab>
 </tabs-ext>

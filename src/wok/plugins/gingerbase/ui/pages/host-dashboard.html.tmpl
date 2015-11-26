@@ -57,7 +57,7 @@
     <div id="host-content-container" class="empty-when-logged-off"></div>
 </div>
 
-<script id="host-tmpl" type="gingerbase/template">
+<script id="host-dashboard-tmpl" type="gingerbase/template">
 <div class="host-dashboard">
     <div class="container">
         <div id="alert-container"></div>
@@ -100,7 +100,7 @@
 <div class="host-panel">
     <div class="container">
         <div id="host-info-container" class="row">
-            <div id="content-sys-info" class="panel panel-default col-md-12">
+            <div id="content-sys-info" class="panel panel-default col-md-6">
                 <div class="panel-heading">
                     <h3 class="panel-title">$_("Basic Information")</h3>
                 </div>
@@ -121,28 +121,7 @@
                     </dl>
                 </div>
             </div>
-            <div id="repositories-section" class="col-md-8 hidden"></div>
-            <div id="debug-report-section" class="col-md-8 hidden"></div>
-        </div>
-        <div class="row">
-            <div id="software-update-section" class="panel panel-default col-md-12 hidden">
-                <div class="panel-heading">
-                    <h3 class="panel-title">$_("Software Updates")</h3>
-                </div>
-                <div id="content-software-update" class="panel panel-default">
-                    <div id="software-updates-grid-container"></div>
-                    <div id="software-updates-progress-container" class="hidden">
-                        <div class="software-updates-main">
-                            <h3>
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#software-updates-progress-textarea" aria-expanded="true" aria-controls="software-updates-progress-textarea" class="">
-                                <span class="accordion-icon"></span><span class="accordion-text">$_("Update Progress")</span>
-                            </a>
-                            </h3>
-                            <textarea class="collapse in" id="software-updates-progress-textarea" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="debug-report-section" class="col-md-6 hidden"></div>
         </div>
     </div>
 </div>
@@ -150,7 +129,7 @@
 <div id="modalWindow" class="modal fade host-modal" tabindex="-1" role="dialog" aria-labelledby="hostsModalLabel" aria-hidden="true">
 </div>
 <script type="text/javascript">
-    gingerbase.host_main();
+    gingerbase.host_dashboard();
 </script>
 </body>
 </html>
