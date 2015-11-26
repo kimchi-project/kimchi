@@ -104,22 +104,23 @@
 #host-info-container {
     padding-top: 10px;
     .basic-information-list {
-        height: 517px;
+        height: auto;
         overflow-x: hidden;
         overflow-y: auto;
         margin: 0;
         @extend .row; // Extending bootstrap .row clearfix util
-        .basic-information-list dt {
+
+    }
+    .panel-body dt {
             font-weight: 600;
             font-size: 14.5pt;
             line-height: 12px;
         }
-        .basic-information-list dd {
+    .panel-body dd {
             font-size: 12.5pt;
             font-weight: 400;
             margin-bottom: 12px;
         }
-    }
 }
 
 

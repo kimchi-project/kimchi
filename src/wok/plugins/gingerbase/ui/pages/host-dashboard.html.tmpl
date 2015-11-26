@@ -106,6 +106,8 @@
                 </div>
                 <div class="panel-body">
                     <dl class="basic-information-list">
+                        <dt>{architecture}</dt>
+                        <dd>$_("Architecture")</dd>
                         <dt>{os_distro}</dt>
                         <dd>$_("OS Distro")</dd>
                         <dt>{os_version}</dt>
@@ -118,6 +120,12 @@
                         <dd>$_("CPU(s)")</dd>
                         <dt>{memory}</dt>
                         <dd>$_("Memory")</dd>
+                    </dl>
+                    <dl id="s390x-info" class="hidden">
+                        <dt>{lpar_details}</dt>
+                        <dd>$_("LPAR Details")</dd>
+                        <dt>{hypervisor_details}</dt>
+                        <dd>$_("Hypervisor Details")</dd>
                     </dl>
                 </div>
             </div>
