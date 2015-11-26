@@ -55,18 +55,31 @@
     </nav>
     <div id="guest-content-container">
         <div class="container">
+            <div class="row grid-control hidden">
+                <div class="pull-right">
+                    <label for="guests-filter" class="sr-only">$_("Filter"):</label>
+                    <input type="text" class="filter form-control" placeholder="$_("Filter")">
+                </div>
+            </div>        
         <div id="alert-container"></div>
             <div id="guestListField" style="display: none">
-                <ul class="list-title">
-                    <li class="guest-type">$_("Name")</li>
-                    <li class="guest-cpu">$_("CPU")</li>
-            <li class="guest-memory">$_("Memory")</li>
-                    <li class="guest-storage">$_("Disk I/O")</li>
-                    <li class="guest-network">$_("Network I/O")</li>
-                    <li class="guest-tile">$_("Livetile")</li>
-                    <li class="guest-actions">$_("Actions")</li>
-                </ul>
-                <ul id="guestList" class="list-vm empty-when-logged-off">
+                <ul class="wok-guest-list">
+                    <li class="wok-guest-list-header">
+                      <span class="column-state"><span class="sr-only">$_("State")</span></span><!--
+                      --><span class="column-name"><span>$_("Guest Name ID")</span></span><!--
+                      --><span class="column-type"><span>$_("OS Type")</span></span><!--
+                      --><span class="column-vnc"><span>$_("VNC")</span></span><!--
+                      --><span class="column-processors"><span>$_("Processors Used")</span></span><!--
+                      --><span class="column-memory"><span>$_("Memory Utilization")</span></span><!--
+                      --><span class="column-storage"><span>$_("Storage I/O")</span></span><!--
+                      --><span class="column-network"><span>$_("Network I/O")</span></span><!--
+                      --><span class="column-action" style="display:none">
+                          <span class="sr-only">Actions</span><!--
+                      --></span>
+                    </li>
+                    <li class="wok-guest-list-body">
+                        <ul id="guestList" class="wok-guest-list empty-when-logged-off" style="-webkit-padding-start: 0px;">
+                    </li>
                 </ul>
             </div>
             <div id="noGuests" class="list-no-result" style="display: none;">

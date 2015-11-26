@@ -21,60 +21,80 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-        <li name="guest" class="guest">
-            <div class="sortable guest-type">
-                <div class="guest-general">
-                    <h2 class="title" title="{name}">{name}</h2>
-                </div>
-                <div class="guest-pending hide-content">
-                    <span class="icon"></span><span class="text"></span>
-                </div>
-            </div>
-            <div name="cpu_utilization" class="sortable">
-                <div class="circleGauge"></div>
-            </div>
-            <div name="mem_utilization" class="sortable">
-                <div class="circleGauge"></div>
-            </div>
-            <div name="io_throughput" class="sortable">
-                <div class="circleGauge"></div>
-                <div class="subtitle">KB/s</div>
-            </div>
-            <div name="net_throughput" class="sortable">
-                <div class="circleGauge"></div>
-                <div class="subtitle">KB/s</div>
-            </div>
-            <div name="guest-tile" class="sortable guest-tile">
-                <div class="tile ">
-                    <img class="imgactive" alt="" src="">
-                    <img class="imgload" alt="" src="">
-                    <img class="overlay shutoff-hidden" alt="$_("Start")" src="plugins/kimchi/images/theme-default/icon-power-down.png" >
-                </div>
-            </div>
-           <div class="sortable guest-actions" name="guest-actions">
-                <div class="top">
-                    <button class="btn reset-disabled" name="vm-reset" href="javascript:void(0);" title="$_("Reset")"><span class="icon reset"></span></button>
-		    <button class="btn pause-disabled" name="vm-pause" href="javascript:void(0);" title="$_("Pause")"><span class="icon pause"></span></button>
-		    <button class="btn resume-hidden" name="vm-resume" href="javascript:void(0);" title="$_("Resume")"><span class="icon resume"></span></button>
-                    <button class="btn running-hidden" name="vm-start" href="javascript:void(0);" title="$_("Start")"><span class="icon power-down"></span></button>
-                    <button class="btn shutoff-hidden" name="vm-poweroff" href="javascript:void(0);" title="$_("Power Off")"><span class="icon power-up"></span></button>
-                </div>
-                <div class="bottom">
-                    <div name="actionmenu" class="btn dropdown popable vm-action" style="width: 126px">
-                        <span class="text">$_("Actions")</span><span class="arrow"></span>
-                        <div class="popover actionsheet right-side" style="width: 250px">
-                            <button class="button-big shutoff-disabled" name="vm-console" ><span class="text">$_("Connect")</span></button>
-                            <button class="button-big running-disabled" name="vm-clone"><span class="text">$_("Clone")</span></button>
-                            <button class="button-big" name="vm-edit"><span class="text">$_("Edit")</span></button>
-                            <button class="button-big shutoff-hidden non-persistent-disabled" name="vm-reset"><span class="text">$_("Reset")</span></button>
-			    <button class="button-big pause-hidden non-persistent-disabled" name="vm-pause"><span class="text">$_("Pause")</span></button>
-			    <button class="button-big resume-hidden" name="vm-resume"><span class="text">$_("Resume")</span></button>
-                            <button class="button-big shutoff-hidden" name="vm-shutdown"><span class="text">$_("Shut Down")</span></button>
-                            <button class="button-big running-hidden" name="vm-start"><span class="text">$_("Start")</span></button>
-                            <button class="button-big shutoff-hidden" name="vm-poweroff"><span class="text">$_("Power Off")</span></button>
-                            <button class="button-big red non-persistent-disabled" name="vm-delete">$_("Delete")</button>
-                        </div>
+        <li name="guest" class="wok-guest-list-body">
+            <span class='column-state'>
+                    <span class='guest-state'>
+                        <i class="fa fa-power-off"></i>
+                        <i class="fa fa-ban"></i>
+                        <i class="fa fa-undo"></i>
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </span>
+                </span><!--
+            --><span class='column-name title'></span><!--
+            --><span class='column-action pull-right'>
+                <span class="pull-right">
+                    <div class="dropdown menu-flat guest-actions" name="guest-actions" style="margin-top: 6px">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a nwAct="connect-vnc" class='shutoff-disabled' name="vm-console" href="#"><i class="fa fa-list-alt"></i>$_("Connect VNC")</a></li>
+                        <!--     <li role="presentation"><a nwAct="view-vnc" class='shutoff-disabled' name="vm-view-vnc" href="#"><i class="fa fa-eye"></i>$_("View VNC Console")</a></li> -->
+                            <li role="presentation"><a nwAct="edit" name="vm-edit" href="#"><i class="fa fa-pencil"></i>$_("Edit")</a></li>
+                            <li role="presentation"><a href="#" nwAct="clone" class='running-disabled' name="vm-clone"><i class="fa fa-copy"></i>$_("Clone")</a></li>
+                            <li role="presentation"><a nwAct="reset" class='shutoff-hidden non-persistent-disabled' name="vm-reset" href="#"><i class="fa fa-refresh"></i>$_("Reset")</a></li>
+                            <li role="presentation"><a nwAct="pause" class='pause-hidden non-persistent-disabled' name="vm-pause" href="#"><i class="fa fa-pause"></i>$_("Pause")</a></li>
+                            <li role="presentation"><a nwAct="resume" class='resume-hidden' name="vm-resume" href="#"><i class="fa fa-play-circle"></i>$_("Resume")</a></li>
+                            <li role="presentation"><a nwAct="shutdown" class='shutoff-hidden' name="vm-shutdown" href="#"><i class="fa fa-ban"></i>$_("Shut Down")</a></li>
+                            <li role="presentation"><a nwAct="start" class='running-hidden' name="vm-start" href="#"><i class="fa fa-power-off"></i>$_("Start")</a></li>
+                            <li role="presentation"><a nwAct="power-off" class='shutoff-hidden' name="vm-poweroff" href="#"><i class="fa fa-power-off"></i>$_("Power Off")</a></li>
+                            <li role="presentation" class='critical'><a nwAct="delete" class='non-persistent-disabled' name="vm-delete" href="#"><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+                        </ul>
                     </div>
+                </span>
+            </span><!--
+            --><span class='column-type distro-icon' style='padding-left: 40px !important'></span><!--
+        --><span class='column-vnc'><i class="fa fa-spinner fa-spin"></i><a nwAct="connect-vnc" name="vm-console" class="vnc-link" href="#">$_("View Console")</a></span><!--
+            --><span class='column-processors'>
+                <div class="percentage-label processors-percentage">
                 </div>
-            </div>
+                <div class="progress">
+                    <div class="progress-bar dark-grey cpu" style="width: 100%"></div>
+                    <div class="progress-bar medium-grey cpu"></div>
+                    <div class="progress-bar light-grey cpu"></div>
+                    <div class="progress-bar cpu-progress-bar"></div>
+                </div>
+            </span><!--
+            --><span class="item-hidden">$_("Processors Used")</span><!--
+            --><span class='column-memory'>
+                <div class='percentage-label memory-percentage'></div>
+                <div class="progress">
+                    <div class="progress-bar dark-grey" style="width: 100%"></div>
+                    <div class="progress-bar medium-grey memory"></div>
+                    <div class="progress-bar light-grey memory"></div>
+                    <div class="progress-bar memory-progress-bar"></div>
+                </div>
+            </span><!--
+            --><span class="item-hidden">$_("Memory Available")</span><!--
+            --><span class='column-storage'>
+                <div class='measure-label storage-percentage'></div>
+                <div class="progress">
+                    <div class="progress-bar dark-grey" style="width: 100%"></div>
+                    <div class="progress-bar medium-grey io"></div>
+                    <div class="progress-bar light-grey io"></div>
+                    <div class="progress-bar storage-progress-bar"></div>
+                </div>
+            </span><!--
+            --><span class="item-hidden">$_("Storage I/O")</span><!--
+            --><span class='column-network'>
+                <div class='measure-label network-percentage'></div>
+                <div class="progress">
+                    <div class="progress-bar dark-grey" style="width: 100%"></div>
+                    <div class="progress-bar medium-grey network" style="width: 85%"></div>
+                    <div class="progress-bar light-grey network" style="width: 75%"></div>
+                    <div class="progress-bar network-progress-bar"></div>
+                </div>
+            </span><!--
+            --><span class="item-hidden">$_("Network I/O")</span>
         </li>
+
+
