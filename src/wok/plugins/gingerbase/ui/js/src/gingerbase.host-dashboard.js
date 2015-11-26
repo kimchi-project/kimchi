@@ -267,15 +267,36 @@ gingerbase.host_dashboard = function() {
 
     gingerbase.getHost(function(data) {
         var htmlTmpl = $('#host-dashboard-tmpl').html();
+        var memory = null
+        var cpus = null
         data['logo'] = data['logo'] || '';
-        data['memory'] = wok.formatMeasurement(data['memory'], {
+        // Memory fetch online, offline details
+        data['memory']['online'] = wok.formatMeasurement(data['memory']['online'], {
             fixed: 2
         });
+        data['memory']['offline'] = wok.formatMeasurement(data['memory']['offline'], {
+            fixed: 2
+        });
+        memory = "Online: " + data['memory']['online'] + ", Offline: " + data['memory']['offline'];
+        // CPU fetch online, offline details
+        cpus = 'Online: ' + data['cpus']['online'] + ', Offline: ' + data['cpus']['offline'];
+        // This code is only for s390x architecture where hypervisor details required.
+        if (data['architecture'] == 's390x'){
+            cpus += ', Shared: ' + data['cpus']['shared'] + ', Dedicated: ' + data['cpus']['dedicated'];
+            data['lpar_details'] = 'Name: ' + data['virtualization']['lpar_name'] + ', ID: ' + data['virtualization']['lpar_number'];
+            data['hypervisor_details'] = 'Name: ' + data['virtualization']['hypervisor'] + ', Vendor :' + data['virtualization']['hypervisor_vendor'];
+        }
+        data['memory'] = memory
+        data['cpus'] = cpus
         var templated = wok.substitute(htmlTmpl, data);
         $('#host-content-container').html(templated);
 
         initPage();
         initTracker();
+        // Enable hypervisor, LPAR details on s390x architechture
+        if (data['architecture'] == 's390x'){
+            $('#s390x-info').removeClass();
+        }
     });
 
     var StatsMgr = function() {
