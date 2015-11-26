@@ -33,6 +33,7 @@ from wok.xmlutils.utils import xpath_get_text
 from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import network as knetwork
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
+from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
 from wok.plugins.kimchi.xmlutils.network import create_vlan_tagged_bridge_xml
 from wok.plugins.kimchi.xmlutils.network import get_no_network_config_xml
@@ -240,13 +241,29 @@ class NetworksModel(object):
         # get xml definition of interface
         iface_xml = self._get_interface_desc_xml(interface)
 
+        # interface not defined in libvirt: try to define it
+        iface_defined = False
+        conn = self.conn.get()
+        if iface_xml is None:
+            try:
+                mac = knetwork.get_dev_macaddr(str(interface))
+                iface_xml = get_iface_xml({'type': 'ethernet',
+                                           'name': interface,
+                                           'mac': mac,
+                                           'startmode': "onboot"})
+                conn.interfaceDefineXML(iface_xml.encode("utf-8"))
+                iface_defined = True
+            except libvirt.libvirtError, e:
+                raise OperationFailed("KCHNET0024E", {'name': interface,
+                                      'err': e.get_error_message()})
+
         # Truncate the interface name if it exceeds 13 characters to make sure
         # the length of bridge name is less than 15 (its maximum value).
         br_name = KIMCHI_BRIDGE_PREFIX + interface[-13:]
         br_xml = create_linux_bridge_xml(br_name, interface, iface_xml)
 
         # drop network config from interface
-        self._redefine_iface_no_network(interface)
+        iface_defined or self._redefine_iface_no_network(interface, iface_xml)
 
         # create and start bridge
         self._create_bridge(br_name, br_xml)
@@ -269,17 +286,15 @@ class NetworksModel(object):
         try:
             iface = conn.interfaceLookupByName(name)
             xml = iface.XMLDesc(flags=VIR_INTERFACE_XML_INACTIVE)
-        except libvirt.libvirtError, e:
-            raise OperationFailed("KCHNET0023E",
-                                  {'name': name, 'err': e.get_error_message()})
+        except libvirt.libvirtError:
+            return None
 
         return xml
 
-    def _redefine_iface_no_network(self, name):
+    def _redefine_iface_no_network(self, name, iface_xml):
         conn = self.conn.get()
 
         # drop network config from definition of interface
-        iface_xml = self._get_interface_desc_xml(name)
         xml = get_no_network_config_xml(iface_xml.encode("utf-8"))
 
         try:
