@@ -65,7 +65,7 @@ kimchi.template_add_main = function() {
                 $(button).show();
             }
         }, function(err) {
-            wok.message.error(err.responseJSON.reason);
+            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
             $(button + '-loading').hide();
             $(button).show();
         });
@@ -168,7 +168,7 @@ kimchi.template_add_main = function() {
             $('#iso-search').show();
         }
     }, function(err) {
-        wok.message.error(err.responseJSON.reason);
+        wok.message.error(err.responseJSON.reason,'#alert-modal-container');
     });
     $('#template-add-window .modal-body .template-pager').animate({
     height: "689px"
@@ -208,7 +208,7 @@ kimchi.template_add_main = function() {
                     $('#iso-search').show();
                 }
             }, function(err) {
-                wok.message.error(err.responseJSON.reason);
+                wok.message.error(err.responseJSON.reason,'#alert-modal-container');
             });
         }
     });
@@ -549,7 +549,7 @@ kimchi.template_add_main = function() {
             wok.topic('templateCreated').publish();
         }, function(err) {
             if(callback) callback();
-            wok.message.error(err.responseJSON.reason);
+            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
         });
     };
 
@@ -574,7 +574,7 @@ kimchi.template_add_main = function() {
                         wok.window.close();
                     }
                 }, function(err) {
-                    wok.message.error(err.responseJSON.reason);
+                    wok.message.error(err.responseJSON.reason,'#alert-modal-container');
                 });
             };
             if (formData.iso instanceof Array) {

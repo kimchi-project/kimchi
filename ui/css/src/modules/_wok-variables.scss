@@ -43,7 +43,14 @@ $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 $kimchi-dropdown:      #4d4c4e !default;
 $storages-low:              #8BC53E !default;
+$fa-green:              #a8d46f !default;
+$vnc-blue:              #5ab3d4;
 
+$guestCharts: (
+    lightGray:     #e6e7e8,
+    mediumGray: #bbbdbf,
+    darkGray: #929497
+);
 
 //## Kimchi default colors - TODO remove these references and link do Sass Maps below
 
@@ -978,7 +985,7 @@ $hr-border:                   $gray-lighter !default;
 
 $color-red-error: rgb(185, 74, 72);
 $color-blue-hover: rgb(100, 177, 216);
-$color-grey-arrow: rgb(204, 204, 204);
+$color-gray-arrow: rgb(204, 204, 204);
 
 $width-default: 220px;
 
