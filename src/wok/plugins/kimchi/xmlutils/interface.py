@@ -26,15 +26,27 @@ from wok.plugins.kimchi import osinfo
 
 def get_iface_xml(params, arch=None, os_distro=None, os_version=None):
     """
-    <interface type='network'>
+    <interface type='network' name='ethX'>
+      <start mode='onboot'/>
       <source network='default'/>
       <model type='virtio'/>
     </interface>
     """
-    interface = E.interface(type=params['type'])
-    interface.append(E.source(network=params['network']))
+    name = params.get('name', None)
+    if name:
+        interface = E.interface(type=params.get('type', 'network'), name=name)
+    else:
+        interface = E.interface(type=params.get('type', 'network'))
 
-    model = params.get('model')
+    stmode = params.get('startmode', None)
+    if stmode:
+        interface.append(E.start(mode=stmode))
+
+    nw = params.get('network', None)
+    if nw:
+        interface.append(E.source(network=nw))
+
+    model = params.get('model', None)
 
     # no model specified; let's try querying osinfo
     if model is None:

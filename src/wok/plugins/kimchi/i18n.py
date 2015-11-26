@@ -267,7 +267,6 @@ messages = {
     "KCHNET0020E": _("Failed to activate interface %(iface)s: %(err)s."),
     "KCHNET0021E": _("Failed to activate interface %(iface)s. Please check the physical link status."),
     "KCHNET0022E": _("Failed to start network %(name)s. Details: %(err)s"),
-    "KCHNET0023E": _("Unable to get XML definition for interface %(name)s. Details: %(err)s"),
     "KCHNET0024E": _("Unable to redefine interface %(name)s. Details: %(err)s"),
     "KCHNET0025E": _("Unable to create bridge %(name)s. Details: %(err)s"),
     "KCHNET0026E": _("Open VSwitch bridges can only host bridged networks."),

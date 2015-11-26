@@ -31,6 +31,11 @@ DefaultNetsPool = [ipaddr.IPNetwork('192.168.122.0/23'),
                    ipaddr.IPNetwork('192.168.128.0/17')]
 
 
+def get_dev_macaddr(dev):
+    info = ethtool.get_interfaces_info(dev)[0]
+    return info.mac_address
+
+
 def get_dev_netaddr(dev):
     info = ethtool.get_interfaces_info(dev)[0]
     return (info.ipv4_address and
