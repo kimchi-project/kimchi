@@ -95,13 +95,25 @@ Contains information of host.
 **Methods:**
 
 * **GET**: Retrieve host static information
-    * memory: Total size of host physical memory
-              The unit is Bytes
+    * memory: Memory details of the host. The unit is Bytes
+                * online: Total size of physical memory currently available to host
+                * offline: Total offline memory(for s390x), zero for other architectures.
     * cpu_model: The model name of host CPU
-    * cpus: The number of online CPUs available on host
+    * cpus: The host cpus information
+                * online: Number of online CPUs
+                * offline: Number of offline CPUs
+                * shared *(s390x only)*: Number of shared CPUs
+                * dedicated *(s390x only)*: Number of dedicated  CPUs
     * os_distro: The OS distribution that runs on host
     * os_version: The version of OS distribution
     * os_codename: The code name of OS distribution
+    * host: Host name of the network node
+    * architecture: Architecture of the host
+    * virtualization *(s390x only)*: This is a json with following keys
+                * hypervisor: Hypervisor name of the host
+                * hypervisor_vendor: Hypervisor Vendor name
+                * lpar_number: LPAR Number of host
+                * lpar_name: Name of host LPAR
 
 * **POST**: *See Host Actions*
 

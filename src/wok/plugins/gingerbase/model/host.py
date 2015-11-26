@@ -22,6 +22,7 @@
 import os
 import platform
 import psutil
+import re
 import time
 from cherrypy.process.plugins import BackgroundTask
 from collections import defaultdict
@@ -31,9 +32,10 @@ from wok.basemodel import Singleton
 from wok.config import config as kconfig
 from wok.exception import InvalidOperation
 from wok.exception import OperationFailed
-from wok.utils import add_task, wok_log
+from wok.utils import add_task, run_command, wok_log
 from wok.model.tasks import TaskModel
 
+from wok.plugins.gingerbase.lscpu import LsCpu
 from wok.plugins.gingerbase.model.debugreports import DebugReportsModel
 from wok.plugins.gingerbase.repositories import Repositories
 from wok.plugins.gingerbase.swupdate import SoftwareUpdate
@@ -48,17 +50,29 @@ DOM_STATE_MAP = {0: 'nostate',
                  6: 'crashed',
                  7: 'pmsuspended'}
 
+ARCH = platform.machine()
+PROC_CPUINFO = '/proc/cpuinfo'
+PROC_SYSINFO = '/proc/sysinfo'
+LSMEM = 'lsmem'
+CPUS_DEDICATED = 'cpus_dedicated'
+CPUS_SHARED = 'cpus_shared'
+LPAR_NAME = 'lpar_name'
+LPAR_NUMBER = 'lpar_number'
+
 
 class HostModel(object):
     def __init__(self, **kargs):
         # self.conn = kargs['conn']
         self.objstore = kargs['objstore']
         self.task = TaskModel(**kargs)
-        self.host_info = self._get_host_info()
+        self.lscpu = LsCpu()
 
-    def _get_ppc_cpu_info(self):
+    def _get_ppc_cpu_model(self):
+        """
+        method to get cpu_model for ppc architecture
+        """
         res = {}
-        with open('/proc/cpuinfo') as f:
+        with open(PROC_CPUINFO) as f:
             for line in f.xreadlines():
                 # Parse CPU, CPU's revision and CPU's clock information
                 for key in ['cpu', 'revision', 'clock']:
@@ -81,56 +95,227 @@ class HostModel(object):
 
         return ""
 
-    def _get_host_info(self):
-        res = {}
-        if platform.machine().startswith('ppc'):
-            res['cpu_model'] = self._get_ppc_cpu_info()
-        else:
-            with open('/proc/cpuinfo') as f:
+    def _get_x86_cpu_model(self):
+        """
+        method to get cpu_model for x86 architecture
+        """
+        try:
+            with open(PROC_CPUINFO) as f:
                 for line in f.xreadlines():
                     if "model name" in line:
-                        res['cpu_model'] = line.split(':')[1].strip()
+                        return line.split(':')[1].strip()
                         break
+        except Exception as e:
+            wok_log.error("Failed to retrive cpu_model for "
+                          "%s. Error: %s", ARCH, e.__str__())
+        return ""
 
-        res['cpus'] = 0
-        res['memory'] = 0L
+    def _get_s390x_host_info(self):
+        """
+        method to get additional host details
+        specific to s390x architecture
+        :return: dictionary
+        """
+        host_info = {}
+        host_info['cpus'] = self._get_cpus()
+        host_info['cpus']['dedicated'] = 0
+        host_info['cpus']['shared'] = 0
+        host_info['cpu_model'] = ""
+        host_info['virtualization'] = {}
+        s390x_sysinfo = self._get_s390x_sysinfo()
+        if 'manufacturer' in s390x_sysinfo.keys():
+            host_info['cpu_model'] = s390x_sysinfo['manufacturer']
+        if 'type' in s390x_sysinfo.keys():
+            host_info['cpu_model'] = \
+                host_info['cpu_model'] + "/" + s390x_sysinfo['type']
+        if 'model' in s390x_sysinfo.keys():
+            host_info['cpu_model'] = \
+                host_info['cpu_model'] + "/" + s390x_sysinfo['model']
+        if CPUS_DEDICATED in s390x_sysinfo.keys():
+            host_info['cpus']['dedicated'] = s390x_sysinfo[CPUS_DEDICATED]
+        if CPUS_SHARED in s390x_sysinfo.keys():
+            host_info['cpus']['shared'] = s390x_sysinfo[CPUS_SHARED]
+        host_info['virtualization']['hypervisor'] = \
+            self.lscpu.get_hypervisor()
+        host_info['virtualization']['hypervisor_vendor'] = \
+            self.lscpu.get_hypervisor_vendor()
+        host_info['virtualization'][LPAR_NAME] = ''
+        host_info['virtualization'][LPAR_NUMBER] = ''
+        if LPAR_NAME in s390x_sysinfo.keys():
+            host_info['virtualization'][LPAR_NAME] = s390x_sysinfo[LPAR_NAME]
+        if LPAR_NUMBER in s390x_sysinfo.keys():
+            host_info['virtualization'][LPAR_NUMBER] = \
+                s390x_sysinfo[LPAR_NUMBER]
 
-        # Include IBM PowerKVM name to supported distro names
-        _sup_distros = platform._supported_dists + ('ibm_powerkvm',)
-        # 'fedora' '17' 'Beefy Miracle'
-        distro, version, codename = platform.linux_distribution(
-            supported_dists=_sup_distros)
-        res['os_distro'] = distro
-        res['os_version'] = version
-        res['os_codename'] = unicode(codename, "utf-8")
+        return host_info
 
-        return res
+    def _get_s390x_sysinfo(self):
+        """
+        This method retrieves following system information
+        for s390 architecture
+        * manufacturer: Manufacturer of host machine
+        * type: Type of the host machine
+        * model:Model of host machine
+        * LPAR_NUMBER: LPAR Number of host
+        * LPAR_NAME: Name of host LPAR
+        * CPUS_DEDICATED: LPAR CPUs Dedicated
+        * CPUS_SHARED: LPAR CPUs Shared
 
-    def lookup(self, *name):
-        cpus = psutil.NUM_CPUS
+        :param self: object of the class self
+        :return: dictionary with following keys -
+                 'manufacturer', 'type', 'model', CPUS_SHARED,
+                 CPUS_DEDICATED, LPAR_NUMBER, LPAR_NAME
+        """
+        s390x_sysinfo = {}
+        try:
+            with open(PROC_SYSINFO) as f:
+                for line in f.xreadlines():
+                    if ":" in line and (len(line.split(':')) == 2):
+                        info = line.split(':')
+                        if info[0] == 'Model' and (len(info[1].split()) == 2):
+                            s390x_sysinfo['model'] = \
+                                info[1].split()[0].strip() +\
+                                " "+info[1].split()[1].strip()
+                        elif info[0] == 'Manufacturer':
+                            s390x_sysinfo['manufacturer'] = info[1].strip()
+                        elif info[0] == 'Type':
+                            s390x_sysinfo['type'] = info[1].strip()
+                        elif info[0] == 'LPAR Number':
+                            s390x_sysinfo[LPAR_NUMBER] = int(info[1].strip())
+                        elif info[0] == 'LPAR Name':
+                            s390x_sysinfo[LPAR_NAME] = info[1].strip()
+                        elif info[0] == 'LPAR CPUs Dedicated':
+                            s390x_sysinfo[CPUS_DEDICATED] =\
+                                int(info[1].strip())
+                        elif info[0] == 'LPAR CPUs Shared':
+                            s390x_sysinfo[CPUS_SHARED] = int(info[1].strip())
+        except Exception as e:
+            wok_log.error("Failed to retrieve information from %s file. "
+                          "Error: %s", PROC_SYSINFO, e.__str__())
 
+        return s390x_sysinfo
+
+    def _get_memory(self):
+        """
+        method to retrieve memory information for all architecture
+        :return: dictionary with keys "online" and "offline"
+        """
+        memory = {}
+        online_memory = 0
+        offline_memory = 0
+        if ARCH.startswith('s390x'):
+            online_mem_pat = r'^Total online memory :\s+(\d+)\s+MB$'
+            offline_mem_pat = r'^Total offline memory:\s+(\d+)\s+MB$'
+            out, err, rc = run_command(LSMEM)
+            # output of lsmem in s390x architecture is expected to be
+            # Address Range                          Size (MB)  State\
+            #     Removable  Device
+            # ========================================================\
+            # =======================
+            # 0x0000000000000000-0x000000000fffffff        256  online\
+            #    no         0
+            # 0x0000000010000000-0x000000002fffffff        512  online\
+            #    yes        1-2
+            # 0x0000000030000000-0x000000007fffffff       1280  online\
+            #    no         3-7
+            # 0x0000000080000000-0x00000000ffffffff       2048  offline\
+            #   -          8-15
+            #
+            # Memory device size  : 256 MB
+            # Memory block size   : 256 MB
+            # Total online memory : 2048 MB
+            # Total offline memory: 2048 MB
+            if not rc:
+                online_mem =\
+                    re.search(online_mem_pat, out.strip(), re.M | re.I)
+                offline_mem =\
+                    re.search(offline_mem_pat, out.strip(), re.M | re.I)
+                if online_mem and len(online_mem.groups()) == 1:
+                    online_memory = int(online_mem.group(1)) * 1024 * 1024
+                    # converting MB to bytes
+                    # lsmem always returns memory in MB
+                if offline_mem and len(offline_mem.groups()) == 1:
+                    offline_memory = int(offline_mem.group(1)) * 1024 * 1024
+            else:
+                wok_log.error('Failed to retrieve memory information with'
+                              ' command %s. Error: %s' % (LSMEM, err))
+        else:
+            if hasattr(psutil, 'phymem_usage'):
+                online_memory = psutil.phymem_usage().total
+            elif hasattr(psutil, 'virtual_memory'):
+                online_memory = psutil.virtual_memory().total
+
+        memory['online'] = online_memory
+        memory['offline'] = offline_memory
+        return memory
+
+    def _get_cpus(self):
+        """
+        method to retrieve online cpus count and offline cpus
+        count for all architecture
+        :return: dictionary with keys "online" and "offline"
+        """
+        cpus = {}
+        total_cpus = int(self.lscpu.get_total_cpus())
+        offline_cpus = 0
+
+        online_cpus = psutil.NUM_CPUS
         # psutil is unstable on how to get the number of
         # cpus, different versions call it differently
         if hasattr(psutil, 'cpu_count'):
-            cpus = psutil.cpu_count()
+            online_cpus = psutil.cpu_count()
 
         elif hasattr(psutil, 'NUM_CPUS'):
-            cpus = psutil.NUM_CPUS
+            online_cpus = psutil.NUM_CPUS
 
         elif hasattr(psutil, '_psplatform'):
             for method_name in ['_get_num_cpus', 'get_num_cpus']:
 
                 method = getattr(psutil._psplatform, method_name, None)
                 if method is not None:
-                    cpus = method()
+                    online_cpus = method()
                     break
+        if total_cpus >= online_cpus:
+            offline_cpus = total_cpus - online_cpus
+        cpus['online'] = online_cpus
+        cpus['offline'] = offline_cpus
+        return cpus
 
-        self.host_info['cpus'] = cpus
-        if hasattr(psutil, 'phymem_usage'):
-            self.host_info['memory'] = psutil.phymem_usage().total
-        elif hasattr(psutil, 'virtual_memory'):
-            self.host_info['memory'] = psutil.virtual_memory().total
-        return self.host_info
+    def _get_base_info(self):
+        """
+        method to retrieve common host information for all architectures
+        :return: dictionary with keys 'os_distro', 'os_version', 'os_codename'
+                 'architecture', 'host', memory
+        """
+        common_info = {}
+        # Include IBM PowerKVM name to supported distro names
+        _sup_distros = platform._supported_dists + ('ibm_powerkvm',)
+        # 'fedora' '17' 'Beefy Miracle'
+        distro, version, codename = platform.linux_distribution(
+            supported_dists=_sup_distros)
+        common_info['os_distro'] = distro
+        common_info['os_version'] = version
+        common_info['os_codename'] = unicode(codename, "utf-8")
+        common_info['architecture'] = ARCH
+        common_info['host'] = platform.node()
+        common_info['memory'] = self._get_memory()
+
+        return common_info
+
+    def lookup(self, *name):
+        """
+        method to get basic information for host
+        """
+        host_info = self._get_base_info()
+        if ARCH.startswith('s390x'):
+            host_info.update(self._get_s390x_host_info())
+        elif ARCH.startswith('ppc'):
+            host_info['cpus'] = self._get_cpus()
+            host_info['cpu_model'] = self._get_ppc_cpu_model()
+        else:
+            host_info['cpus'] = self._get_cpus()
+            host_info['cpu_model'] = self._get_x86_cpu_model()
+        return host_info
 
     def swupdate(self, *name):
         try:

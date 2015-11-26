@@ -68,15 +68,21 @@ class HostTests(unittest.TestCase):
     def test_hostinfo(self):
         resp = self.request('/plugins/gingerbase/host').read()
         info = json.loads(resp)
-        keys = ['os_distro', 'os_version', 'os_codename', 'cpu_model',
-                'memory', 'cpus']
+        if platform.machine().startswith('s390x'):
+            keys = ['os_distro', 'os_version', 'os_codename', 'cpu_model',
+                    'memory', 'cpus', 'architecture', 'host', 'virtualization']
+        else:
+            keys = ['os_distro', 'os_version', 'os_codename', 'cpu_model',
+                    'memory', 'cpus', 'architecture', 'host']
+            self.assertEquals(psutil.TOTAL_PHYMEM, info['memory']['online'])
         self.assertEquals(sorted(keys), sorted(info.keys()))
 
         distro, version, codename = platform.linux_distribution()
         self.assertEquals(distro, info['os_distro'])
         self.assertEquals(version, info['os_version'])
         self.assertEquals(unicode(codename, "utf-8"), info['os_codename'])
-        self.assertEquals(psutil.TOTAL_PHYMEM, info['memory'])
+        self.assertEqual(platform.node(), info['host'])
+        self.assertEqual(platform.machine(), info['architecture'])
 
     def test_hoststats(self):
         time.sleep(1)
