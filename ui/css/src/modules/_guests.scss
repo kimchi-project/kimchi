@@ -90,3 +90,240 @@
         width: 592px;
     }
 }
+
+#guest-content-container {
+    .wok-guest-list {
+        display: block;
+        width: 100%;
+        list-style-type: none;
+        > li:nth-child(even) {
+            background-color: $table-bg-accent;
+        }
+        > li:nth-child(odd) {
+            background-color: $table-bg;
+        }
+        > li:first-child {
+            border-top: 0;
+        }
+        .wok-guest-list-header {
+            border-top: 0 none;
+            height: 36px;
+            > span {
+                height: 36px;
+                padding: 6px 2px;
+                display: inline-block;
+                vertical-align: middle;
+                font-family: $font-family-sans-serif;
+                font-weight: 400;
+                font-size: 12.5pt;
+                line-height: 1.42857;
+                border-bottom: none;
+                border-top: 0;
+            }
+            > span.column-state {
+                width: 2.9272%;
+                text-align: center;
+            }
+        }
+        .wok-guest-list-body {
+            border-top: 1px solid $table-border-color;
+            > span {
+                padding: 6px 2px;
+                display: inline-block;
+                vertical-align: middle;
+                font-family: $font-family-sans-serif;
+                font-size: 12.5pt;
+                line-height: 2.42857;
+                font-weight: bold;
+            }
+            .progress {
+                display: inline-block;
+                width: 60%;
+                position: relative;
+                vertical-align: top;
+                margin-top: 15px;
+                border-radius: 0;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+            .progress-bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                &.dark-grey {
+                    background-color: map-get($guestCharts, darkGray);
+                }
+                &.medium-grey {
+                    background-color: map-get($guestCharts, mediumGray);
+                }
+                &.light-grey {
+                    background-color: map-get($guestCharts, lightGray);
+                }
+            }
+            div.percentage-label {
+                display: inline-block;
+                width: 25%;
+                margin-top: 6px;
+            }
+            div.measure-label {
+                display: inline-block;
+                width: 35%;
+                margin-top: 6px;
+            }
+        }
+    }
+    .wok-guest-list .wok-guest-list-header,
+    .wok-guest-list .wok-guest-list-body {
+        > span.column-state {
+            width: 2.9272%;
+            text-align: center;
+            > span.guest-state {
+                font-size: 22px;
+                position: relative;
+            }
+            > span.guest-state.running > .fa-ban {
+                display: none;
+            }
+            > span.guest-state.running > .fa-power-off {
+                color: $fa-green;
+            }
+            > span.guest-state.running > .fa-undo {
+                display: none;
+            }
+            > span.guest-state.running > .fa-refresh {
+                display: none;
+            }
+            > span.guest-state.shutoff > .fa-ban {
+                color: $gray-light;
+            }
+            > span.guest-state.shutoff > .fa-power-off {
+                display: none;
+            }
+            > span.guest-state.shutoff > .fa-undo {
+                display: none;
+            }
+            > span.guest-state.shutoff > .fa-refresh {
+                display: none;
+            }
+            > span.guest-state.starting > .fa-ban {
+                display: none;
+            }
+            > span.guest-state.starting > .fa-power-off {
+                display: none;
+            }
+            > span.guest-state.starting > .fa-undo {
+                color: $gray-light;
+            }
+            > span.guest-state.starting > .fa-refresh {
+                display: none;
+            }
+            > span.guest-state.resetting > .fa-ban {
+                display: none;
+            }
+            > span.guest-state.resetting > .fa-power-off {
+                display: none;
+            }
+            > span.guest-state.resetting > .fa-undo {
+                display: none;
+            }
+            > span.guest-state.resetting > .fa-refresh {
+                color: $fa-green;
+            }
+            > span.guest-state.paused > .fa {
+                display: none;
+            }
+        }
+        > span.column-name {
+            width: 13.6867%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        > span.column-type {
+            width: 9.9683%;
+        }
+        > span.column-vnc {
+            width: 11.8670%;
+            > a {
+                font-weight: normal;
+                color: $vnc-blue !important;
+            }
+            .fa-spin {
+                display: none
+            }
+            .fa-spin.active {
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 22px;
+                color: $vnc-blue !important;
+            }
+        }
+        > span.column-processors {
+            width: 12.1838%;
+            > div > div.progress-bar.cpu-progress-bar {
+                background-color: map-get($colors, administration);
+            }
+        }
+        > span.column-memory {
+            width: 12.1838%;
+            > div > div.progress-bar.memory-progress-bar {
+                background-color: map-get($colors, host);
+            }
+        }
+        > span.column-storage {
+            width: 12.9746%;
+            > div > div.progress-bar.storage-progress-bar {
+                background-color: $state-warning-border;
+            }
+        }
+        > span.column-network {
+            width: 12.9746%;
+            > div > div.progress-bar.network-progress-bar {
+                background-color: map-get($colors, network);
+            }
+        }
+        > span.column-action {
+            width: 10.9968%;
+        }
+        > span.item-hidden {
+            display: none !important;
+        }
+    }
+    .wok-guest-list .distro-icon {
+        background-color: transparent;
+        background-size: 27px 27px;
+        background-repeat: no-repeat;
+        background-position: left;
+    }
+    .wok-guest-list .distro-icon.inactive {
+        -webkit-filter: grayscale(100%) contrast(0.8) brightness(110%);
+        -moz-filter: grayscale(100%) contrast(0.8) brightness(110%);
+        filter: grayscale(100%) contrast(0.8) brightness(110%); 
+    }
+    .wok-guest-list .distro-icon.icon-centos {
+        background-image: url('#{$wok-icon-path}/icon-centos.png');
+    }
+    .wok-guest-list .distro-icon.icon-debian {
+        background-image: url('#{$wok-icon-path}/icon-debian.png');
+    }
+    .wok-guest-list .distro-icon.icon-fedora {
+        background-image: url('#{$wok-icon-path}/icon-fedora.png');
+    }
+    .wok-guest-list .distro-icon.icon-opensuse {
+        background-image: url('#{$wok-icon-path}/icon-opensuse.png');
+    }
+    .wok-guest-list .distro-icon.icon-ubuntu {
+        background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
+    }
+    .wok-guest-list .distro-icon.icon-gentoo {
+        background-image: url('#{$wok-icon-path}/icon-gentoo.png');
+    }
+    .wok-guest-list .distro-icon.icon-unknown {
+        background-image: url('#{$wok-icon-path}/icon-unknown.png');
+    }
+    .wok-guest-list .wok-guest-list-body.inactive {
+        color: $disabled-color !important;
+    }
+}
