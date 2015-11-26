@@ -17,9 +17,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import logging
+import platform
 
 from wok.utils import run_command
 from wok.exception import NotFoundError
+
+ARCH = platform.machine()
 
 
 class LsCpu(object):
@@ -64,6 +67,28 @@ class LsCpu(object):
             # L2 cache:              256K
             # L3 cache:              3072K
             # NUMA node0 CPU(s):     0-3
+            #
+            # Output of lscpu in s390x is expected to be
+            # Architecture:          s390x
+            # CPU op-mode(s):        32-bit, 64-bit
+            # Byte Order:            Big Endian
+            # CPU(s):                4
+            # On-line CPU(s) list:   0,1
+            # Off-line CPU(s) list:  2,3
+            # Thread(s) per core:    1
+            # Core(s) per socket:    6
+            # Socket(s) per book:    6
+            # Book(s):               4
+            # Vendor ID:             IBM/S390
+            # BogoMIPS:              18115.00
+            # Hypervisor:            PR/SM
+            # Hypervisor vendor:     IBM
+            # Virtualization type:   full
+            # Dispatching mode:      horizontal
+            # L1d cache:             96K
+            # L1i cache:             64K
+            # L2d cache:             1024K
+            # L2i cache:             1024K
 
             if not rc and (not out.isspace()):
                 lscpuout = out.split('\n')
@@ -85,6 +110,8 @@ class LsCpu(object):
         """
         try:
             sockets = "Socket(s)"
+            if ARCH.startswith('s390x'):
+                sockets = "Socket(s) per book"
             if len(self.lsCpuInfo) > 0 and sockets in self.lsCpuInfo.keys():
                 return int(self.lsCpuInfo[sockets])
             else:
@@ -124,3 +151,36 @@ class LsCpu(object):
         except IndexError, e:
             self.log_error(e)
             raise NotFoundError("GGBCPUINF0007E")
+
+    def get_total_cpus(self):
+        """
+        method to get total cpus retrieved from CPU(s) field of lscpu
+        :return: total cpus
+        """
+        total_cpus = 'CPU(s)'
+        if len(self.lsCpuInfo) > 0 and total_cpus in self.lsCpuInfo.keys():
+            return int(self.lsCpuInfo[total_cpus])
+        else:
+            self.log_error("Failed to fetch total cpus count in lscpu output")
+            raise NotFoundError("GGBCPUINF0008E")
+
+    def get_hypervisor(self):
+        """
+        method to get hypervisor name if present in lscpu o/p
+        :return: Hypervisor Name
+        """
+        hypervisor = 'Hypervisor'
+        if len(self.lsCpuInfo) > 0 and hypervisor in self.lsCpuInfo.keys():
+            return self.lsCpuInfo[hypervisor]
+        return None
+
+    def get_hypervisor_vendor(self):
+        """
+        method to get hypervisor vendor if present in lscpu o/p
+        :return: Hypervisor Vendor
+        """
+        hypervisor_vendor = 'Hypervisor vendor'
+        if len(self.lsCpuInfo) > 0 and hypervisor_vendor in \
+                self.lsCpuInfo.keys():
+            return self.lsCpuInfo[hypervisor_vendor]
+        return None
