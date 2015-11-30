@@ -4,3 +4,6 @@
 [submodule "src/wok/plugins/ginger"]
 	path = src/wok/plugins/ginger
 	url = https://github.com/kimchi-project/ginger.git
+[submodule "src/wok/plugins/gingerbase"]
+	path = src/wok/plugins/gingerbase
+	url = https://github.com/kimchi-project/gingerbase
