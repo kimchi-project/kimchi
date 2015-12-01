@@ -1,9 +1,7 @@
 #
-# Project Wok
+# Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
-#
-# Code derived from Project Kimchi
+# Copyright IBM, Corp. 2013
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-imagedir = $(datadir)/wok/ui/images/theme-default
+imagedir = $(datadir)/wok/plugins/kimchi/ui/images/theme-default
 
-dist_image_DATA = *.png *.svg
+dist_image_DATA = *.png *.gif

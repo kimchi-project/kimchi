@@ -1,7 +1,7 @@
 #
-# Project Wok
+# Project Kimchi
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2014-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import unittest
+from cherrypy.lib.reprconf import Parser
 
-from wok.config import CACHEEXPIRES, Paths, WokConfig
+from wok.config import CACHEEXPIRES, SESSIONSTIMEOUT
+from wok.config import Paths, PluginPaths
+
+from wok.plugins.kimchi.config import get_screenshot_path
+from wok.plugins.kimchi.config import KimchiConfig, KimchiPaths
 
 
 get_prefix = None
@@ -31,44 +36,51 @@ def setUpModule():
 
 
 def tearDownModule():
-    Paths.get_prefix = get_prefix
+    Paths.get_prefix = KimchiPaths.get_prefix = get_prefix
 
 
 class ConfigTests(unittest.TestCase):
     def assertInstalledPath(self, actual, expected):
-        if '@pkgdatadir@' != '/usr/share/wok':
+        if '@pkgdatadir@' != '/usr/share/kimchi':
             usr_local = '/usr/local'
             if not expected.startswith('/usr'):
                 expected = usr_local + expected
         self.assertEquals(actual, expected)
 
-    def test_installed_paths(self):
-        Paths.get_prefix = lambda self: '@datadir@/wok'
-        paths = Paths()
-        self.assertInstalledPath(paths.state_dir, '/var/lib/wok')
-        self.assertInstalledPath(paths.log_dir, '/var/log/wok')
-        self.assertInstalledPath(paths.conf_dir, '/etc/wok')
-        self.assertInstalledPath(paths.src_dir, '@wokdir@')
-        self.assertInstalledPath(paths.plugins_dir, '@wokdir@/plugins')
-        self.assertInstalledPath(paths.ui_dir, '@datadir@/wok/ui')
+    def test_installed_plugin_paths(self):
+        KimchiPaths.get_prefix = lambda self: '@datadir@/wok'
+        paths = KimchiPaths()
+        self.assertInstalledPath(paths.conf_dir, '/etc/wok/plugins.d')
+        self.assertInstalledPath(paths.conf_file,
+                                 '/etc/wok/plugins.d/kimchi.conf')
+        self.assertInstalledPath(paths.src_dir, '@wokdir@/plugins/kimchi')
+        self.assertInstalledPath(paths.ui_dir,
+                                 '@datadir@/wok/plugins/kimchi/ui')
         self.assertInstalledPath(paths.mo_dir, '@prefix@/share/locale')
 
-    def test_uninstalled_paths(self):
-        Paths.get_prefix = lambda self: '/home/user/wok'
-        paths = Paths()
-        self.assertEquals(paths.state_dir, '/home/user/wok/data')
-        self.assertEquals(paths.log_dir, '/home/user/wok/log')
-        self.assertEquals(paths.conf_dir, '/home/user/wok/src')
-        self.assertEquals(paths.src_dir, '/home/user/wok/src/wok')
-        self.assertEquals(paths.plugins_dir, '/home/user/wok/src/wok/plugins')
-        self.assertEquals(paths.ui_dir, '/home/user/wok/ui')
-        self.assertEquals(paths.mo_dir, '/home/user/wok/mo')
+    def test_uninstalled_plugin_paths(self):
+        paths = KimchiPaths()
+        prefix = paths.prefix
+        self.assertEquals(paths.conf_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEquals(paths.conf_file,
+                          '%s/src/wok/plugins/kimchi/kimchi.conf' % prefix)
+        self.assertEquals(paths.src_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEquals(paths.ui_dir,
+                          '%s/src/wok/plugins/kimchi/ui' % prefix)
+        self.assertEquals(paths.mo_dir,
+                          '%s/src/wok/plugins/kimchi/mo' % prefix)
 
-    def test_wok_config(self):
-        Paths.get_prefix = get_prefix
-        paths = Paths()
-        SESSIONSTIMEOUT = 10
+    def test_kimchi_config(self):
+        KimchiPaths.get_prefix = PluginPaths.get_prefix = get_prefix
+        paths = KimchiPaths()
+        pluginPrefix = paths.add_prefix(paths.plugin_dir)
         configObj = {
+            'wok': {
+                'plugin_class': 'KimchiRoot',
+                'enable': True,
+                'uri': '/plugins/kimchi',
+                'extra_auth_api_class': 'control.sub_nodes'
+            },
             '/': {
                 'tools.trailing_slash.on': False,
                 'request.methods_with_bodies': ('POST', 'PUT'),
@@ -81,30 +93,41 @@ class ConfigTests(unittest.TestCase):
                 'tools.sessions.locking': 'explicit',
                 'tools.sessions.storage_type': 'ram',
                 'tools.sessions.timeout': SESSIONSTIMEOUT,
-                'tools.wokauth.on': False
-            },
-            '/base64/jquery.base64.js': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/base64/jquery.base64.js' %
-                                             paths.ui_dir,
-                'tools.nocache.on': True,
-            },
-            '/wok-ui.html': {
                 'tools.wokauth.on': True
             },
-            '/favicon.ico': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/images/logo.ico' %
-                                             paths.ui_dir
+            '/novnc': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticdir.dir': paths.novnc_dir,
+                'tools.staticdir.on': True
             },
-            '/robots.txt': {
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename': '%s/robots.txt' % paths.ui_dir
+            '/spice-html5': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticdir.dir': paths.spice_dir,
+                'tools.staticdir.on': True
             },
-            '/libs': {
+            '/spice_auto.html': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': paths.spice_file,
+            },
+            '/spice-html5/spice.css': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': paths.spice_css_file,
+            },
+            '/help': {
+                'tools.nocache.on': True,
+                'tools.staticdir.dir': '%s/ui/pages/help' % pluginPrefix,
+                'tools.staticdir.on': True
+            },
+            '/js': {
                 'tools.wokauth.on': False,
                 'tools.nocache.on': False,
-                'tools.staticdir.dir': '%s/ui/libs' % paths.prefix,
+                'tools.staticdir.dir': '%s/ui/js' % pluginPrefix,
                 'tools.expires.on': True,
                 'tools.expires.secs': CACHEEXPIRES,
                 'tools.staticdir.on': True
@@ -112,15 +135,7 @@ class ConfigTests(unittest.TestCase):
             '/css': {
                 'tools.wokauth.on': False,
                 'tools.nocache.on': False,
-                'tools.staticdir.dir': '%s/ui/css' % paths.prefix,
-                'tools.expires.on': True,
-                'tools.expires.secs': CACHEEXPIRES,
-                'tools.staticdir.on': True
-            },
-            '/js': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticdir.dir': '%s/ui/js' % paths.prefix,
+                'tools.staticdir.dir': '%s/ui/css' % pluginPrefix,
                 'tools.expires.on': True,
                 'tools.expires.secs': CACHEEXPIRES,
                 'tools.staticdir.on': True
@@ -128,87 +143,22 @@ class ConfigTests(unittest.TestCase):
             '/images': {
                 'tools.wokauth.on': False,
                 'tools.nocache.on': False,
-                'tools.staticdir.dir': '%s/ui/images' % paths.prefix,
+                'tools.staticdir.dir': '%s/ui/images' % pluginPrefix,
                 'tools.staticdir.on': True
             },
-            '/fonts/fontawesome-webfont.ttf': {
-                'tools.wokauth.on': False,
+            '/data/screenshots': {
                 'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/fontawesome-webfont.ttf' % paths.fontawesome_dir
+                'tools.staticdir.dir': get_screenshot_path(),
+                'tools.staticdir.on': True
             },
-            '/fonts/OpenSans-LightItalic.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
+            '/ui/config/tab-ext.xml': {
+                'tools.nocache.on': True,
                 'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-LightItalic.ttf' % paths.opensans_dir
+                'tools.staticfile.filename': '%s/ui/config/tab-ext.xml' %
+                pluginPrefix,
             },
-            '/fonts/OpenSans-Bold.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-Bold.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-Italic.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-Italic.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-Semibold.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-Semibold.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-Light.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-Light.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-SemiboldItalic.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-SemiboldItalic.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-ExtraBold.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-ExtraBold.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-BoldItalic.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-BoldItalic.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-ExtraBoldItalic.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-ExtraBoldItalic.ttf' % paths.opensans_dir
-            },
-            '/fonts/OpenSans-Regular.ttf': {
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False,
-                'tools.staticfile.on': True,
-                'tools.staticfile.filename':
-                    '%s/OpenSans-Regular.ttf' % paths.opensans_dir
-            }
         }
 
-        wok_config = WokConfig()
-        self.assertEquals(wok_config, configObj)
+        kimchi_config = Parser().dict_from_file(KimchiPaths().conf_file)
+        kimchi_config.update(KimchiConfig())
+        self.assertEquals(kimchi_config, configObj)

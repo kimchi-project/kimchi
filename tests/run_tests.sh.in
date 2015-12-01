@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Project Wok
+# Project Kimchi
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2013-2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -52,4 +52,7 @@ for ((i=0;i<${#LIST[@]};i++)); do
     fi
 done
 
-PYTHONPATH=../src:../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
+# ../../../../../ refers to the project root
+# ../../../../ refers to wok directory
+# ../../../ refers to plugins directory
+PYTHONPATH=../../../../../:../../../../:../../../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}

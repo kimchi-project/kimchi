@@ -1,9 +1,7 @@
 #
-# Project Wok
+# Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
-#
-# Code derived from Project Kimchi
+# Copyright IBM, Corp. 2013
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = base64 css images js libs pages
+SUBDIRS = config css images js pages spice-html5
 
-uidir = $(datadir)/wok/ui
-
-dist_ui_DATA = robots.txt
+uidir = $(datadir)/wok/plugins/kimchi/ui
