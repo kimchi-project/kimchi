@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<service>
-  <short>wokd</short>
-  <description>wokd is a daemon service for wok which is a web framework.</description>
-  <port protocol="tcp" port="8000"/>
-  <port protocol="tcp" port="8001"/>
-  <port protocol="tcp" port="64667"/>
-</service>

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-for src in $@; do
-    if [ ${src: -3} == ".py" ]; then
-        cat $src
-    else
-        cat $src | @CHEETAH@ compile -
-    fi
-done | xgettext --no-location -o kimchi.pot -L Python -

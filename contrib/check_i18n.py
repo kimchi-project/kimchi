@@ -1,10 +1,8 @@
 #!/usr/bin/env python2
 #
-# Project Wok
+# Project Kimchi
 #
 # Copyright IBM, Corp. 2014-2015
-#
-# Code derived from Project Kimchi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,7 +37,7 @@ BAD_PATTERN = re.compile(r"%\([^)]*?\)")
 
 def load_i18n_module(i18nfile):
     path = os.path.dirname(i18nfile)
-    mname = i18nfile.replace("/", "_").rstrip(".py")
+    mname = i18nfile.replace("./", "_").replace("/", "_").rstrip(".py")
     mobj = imp.find_module("i18n", [path])
     return imp.load_module(mname, *mobj)
 
