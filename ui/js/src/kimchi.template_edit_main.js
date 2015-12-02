@@ -22,7 +22,6 @@ kimchi.template_edit_main = function() {
     var origNetworks;
     var templateDiskSize;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
-    //templateEditMain.tabs();
     $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {    
         var target = $(this).attr('href');
 
@@ -32,7 +31,7 @@ kimchi.template_edit_main = function() {
     });
 
     var initTemplate = function(template) {
-        origDisks =  template.disks;
+        origDisks = template.disks;
         origPool = template.storagepool;
         origNetworks = template.networks;
         for(var i=0;i<template.disks.length;i++){
@@ -68,134 +67,132 @@ kimchi.template_edit_main = function() {
             return false;
         }
         enableSpice();
+
         var initStorage = function(result) {
-            var scsipools = {};
+            // Gather storagepools data
+            var storagePoolsInfo = new Object();
+            $.each(result, function(index, pool) {
+               if (pool.state === 'active' && pool.type != 'kimchi-iso') {
+                    if (pool.type === 'iscsi' || pool.type === 'scsi') {
+                        volumes = new Object();
+                        kimchi.listStorageVolumes(pool.name, function(vols) {
+                            $.each(vols, function(i, vol) {
+                                storagePoolsInfo[pool.name + "/" + vol.name] = {
+                                    'type' : pool.type,
+                                    'volSize': vol.capacity / Math.pow(1024, 3)};
+                            });
+                        }, null, true);
+                    } else {
+                        storagePoolsInfo[pool.name] = { 'type' : pool.type };
+                    }
+                }
+            });
+
             var addStorageItem = function(storageData) {
                 var thisName = storageData.storageName;
+                // Compatibility with old versions
+                if (storageData.storageVolume) {
+                    storageData.storageDisk = storagePoolsInfo[thisName].volSize;
+                }
+                if (!storageData.storageType) {
+                    storageData.storageType = storagePoolsInfo[thisName].type;
+                }
+
                 var nodeStorage = $.parseHTML(wok.substitute($('#template-storage-pool-tmpl').html(), storageData));
                 $('.template-tab-body', '#form-template-storage').append(nodeStorage);
+                var storageRow = '#storageRow' + storageData.storageIndex;
+
                 var storageOptions = '';
-                var scsiOptions = '';
-                $('#selectStorageName').find('option').remove();
-                $.each(result, function(index, storageEntities) {
-                    if((storageEntities.state === 'active') && (storageEntities.type != 'kimchi-iso')) {
-                        if(storageEntities.type === 'iscsi' || storageEntities.type === 'scsi') {
-                            kimchi.listStorageVolumes(storageEntities.name, function(currentVolume) {
-                                $.each(currentVolume, function(indexSCSI, scsiEntities) {
-                                    var tmpPath = storageEntities.name + '/' + scsiEntities.name;
-                                    var isSlected = tmpPath === thisName ? ' selected' : '';
-                                    scsiOptions += '<option' + isSlected + '>' + tmpPath + '</option>';
-                                });
-                                $('#selectStorageName').append(scsiOptions);
-                            }, function() {});
-                        } else {
-                            var isSlected = storageEntities.name === thisName ? ' selected' : '';
-                            storageOptions += '<option' + isSlected + '>' + storageEntities.name + '</option>';
-                        }
-                    }
+                $.each(storagePoolsInfo, function(poolName, value) {
+                    storageOptions += '<option value="' + poolName + '">' + poolName + '</option>';
                 });
-                $('#selectStorageName').append(storageOptions);
-                $('select','#form-template-storage').selectpicker();
+
+                $(storageRow + ' #selectStorageName').append(storageOptions);
+                $(storageRow + ' #selectStorageName').val(storageData.storageName);
+                $(storageRow + ' #selectStorageName').selectpicker();
+
+                if (storageData.storageType === 'iscsi' || storageData.storageType  === 'scsi') {
+                    $(storageRow + ' .template-storage-disk').attr('readonly', true).prop('disabled', true);
+                    $(storageRow + ' #diskFormat').val('raw');
+                    $(storageRow + ' #diskFormat').prop('disabled', true).change();
+                } else if (storageData.storageType === 'logical') {
+                    $(storageRow + ' #diskFormat').val('raw');
+                    $(storageRow + ' #diskFormat').prop('disabled', true).change();
+                }
 
                 // Set disk format
                 if (isImageBasedTemplate()) {
-                    $('#diskFormat').val('qcow2');
-                    $('#diskFormat').prop('disabled', 'disabled');
+                    $(storageRow + ' #diskFormat').val('qcow2');
+                    $(storageRow + ' #diskFormat').prop('disabled', 'disabled');
                 }
                 else {
-                    $('#diskFormat').val(storageData.storageDiskFormat);
-                    $('#diskFormat').on('change', function() {
-                        $('.template-storage-disk-format').val($(this).val());
+                    $(storageRow + ' #diskFormat').val(storageData.storageDiskFormat);
+                    $(storageRow + ' #diskFormat').on('change', function() {
+                        $(storageRow + ' .template-storage-disk-format').val($(this).val());
                     });
                 }
+                $(storageRow + ' #diskFormat').selectpicker();
 
-                $('#selectStorageName').change(function() {
-                    var selectedItem = $(this).parent().parent();
-                    var tempStorageNameFull = $(this).val();
-                    var tempName = tempStorageNameFull.split('/');
-                    var tempStorageName = tempName[0];
-                    $('.template-storage-name').val(tempStorageNameFull);
-                    kimchi.getStoragePool(tempStorageName, function(info) {
-                        tempType = info.type;
-                        selectedItem.find('.template-storage-type').val(tempType);
-                        if (tempType === 'iscsi' || tempType === 'scsi') {
-                            kimchi.getStoragePoolVolume(tempStorageName, tempName[tempName.length-1], function(info) {
-                                volSize = info.capacity / Math.pow(1024, 3);
-                                $('.template-storage-disk', selectedItem).attr('readonly', true).val(volSize);
-                                if (!isImageBasedTemplate()) {
-                                    $('#diskFormat').val('raw');
-                                    $('#diskFormat').prop('disabled', true).change();
-                                }
-                            });
-                        } else if (tempType === 'logical') {
-                            $('.template-storage-disk', selectedItem).attr('readonly', false);
-                            if (!isImageBasedTemplate()) {
-                                $('#diskFormat').val('raw');
-                                $('#diskFormat').prop('disabled', true).change();
-                            }
-                        } else {
-                            $('.template-storage-disk', selectedItem).attr('readonly', false);
-                            if ($('#diskFormat').prop('disabled') == true &&
-                               !isImageBasedTemplate()) {
-                                $('#diskFormat').val('qcow2');
-                                $('#diskFormat').prop('disabled', false).change();
-                            }
-                        }
-                    });
+                $('.delete', '#form-template-storage').on( "click",function(event) {
+                    event.preventDefault();
+                    $(this).parent().parent().remove();
                 });
-            };
+
+                $(storageRow + ' #selectStorageName').change(function() {
+                    var poolType = storagePoolsInfo[$(this).val()].type;
+                    $(storageRow + ' .template-storage-name').val($(this).val());
+                    $(storageRow + ' .template-storage-type').val(poolType);
+                    if (poolType === 'iscsi' || poolType === 'scsi') {
+                        $(storageRow + ' .template-storage-disk').attr('readonly', true).prop('disabled', true).val(storagePoolsInfo[$(this).val()].volSize);
+                        if (!isImageBasedTemplate()) {
+                            $(storageRow + ' #diskFormat').val('raw').prop('disabled', true).change();
+                        }
+                    } else if (poolType === 'logical') {
+                        $(storageRow + ' .template-storage-disk').attr('readonly', false).prop('disabled', false);
+                        if (!isImageBasedTemplate()) {
+                            $(storageRow + ' #diskFormat').val('raw').prop('disabled', true).change();
+                        }
+                    } else {
+                        $(storageRow + ' .template-storage-disk').attr('readonly', false).prop('disabled', false);
+                        if ($(storageRow + ' #diskFormat').prop('disabled') == true && !isImageBasedTemplate()) {
+                            $(storageRow + ' #diskFormat').val('qcow2').prop('disabled', false).change();
+                        }
+                    }
+                    $(storageRow + ' #diskFormat').selectpicker('refresh');
+                });
+            };  // End of addStorageItem funtion
 
             if ((origDisks && origDisks.length) && (origPool && origPool.length)) {
-                splitPool = origPool.split('/');
-                var defaultPool = splitPool[splitPool.length-1];
-                var defaultType;
-
-                kimchi.getStoragePool(defaultPool, function(info) {
-                    defaultType = info.type;
-                    $.each(origDisks, function(index, diskEntities) {
-                        var storageNodeData = {
-                            viewMode : '',
-                            editMode : 'hide',
-                            storageName : defaultPool,
-                            storageType : defaultType,
-                            storageDisk : diskEntities.size,
-                            storageDiskFormat : diskEntities.format ? diskEntities.format : 'qcow2'
-                        }
-
-                        if (diskEntities.volume) {
-                            kimchi.getStoragePoolVolume(defaultPool, diskEntities.volume, function(info) {
-                                var volSize = info.capacity / Math.pow(1024, 3);
-                                var nodeData = storageNodeData
-                                nodeData.storageName = defaultPool + '/' + diskEntities.volume;
-                                nodeData.storageDisk = volSize;
-                                addStorageItem(nodeData);
-                                $('.template-storage-disk').attr('readonly', true);
-                                $('#diskFormat').val('raw');
-                                $('#diskFormat').prop('disabled', true).change();
-                            });
-                        } else if (defaultType === 'logical') {
-                            addStorageItem(storageNodeData);
-                            $('#diskFormat').val('raw');
-                            $('#diskFormat').prop('disabled', true).change();
-                        } else {
-                            addStorageItem(storageNodeData);
-                        }
-                    });
+                origDisks.sort(function(a, b){return a.index-b.index});
+                $.each(origDisks, function(index, diskEntities) {
+                    var defaultPool = diskEntities.pool.name ? diskEntities.pool.name.split('/').pop() : origPool.split('/').pop()
+                    var storageNodeData = {
+                        storageIndex : diskEntities.index,
+                        storageName : diskEntities.volume ? defaultPool + '/' + diskEntities.volume : defaultPool,
+                        storageType : diskEntities.pool.type,
+                        storageDisk : diskEntities.size,
+                        storageDiskFormat : diskEntities.format ? diskEntities.format : 'qcow2',
+                        storageVolume : diskEntities.volume
+                    }
+                    addStorageItem(storageNodeData);
                 });
             }
 
+            var storageID = origDisks.length -1;
             $('#template-edit-storage-add-button').on("click", function(event) {
                 event.preventDefault();
+                storageID = storageID + 1;
                 var storageNodeData = {
-                    viewMode : 'hide',
-                    editMode : '',
-                    storageName : 'null',
+                    storageName : 'default',
                     storageType : 'dir',
-                    storageDisk : '10'
+                    storageDisk : '10',
+                    storageDiskFormat : 'qcow2',
+                    storageIndex : storageID
                 }
                 addStorageItem(storageNodeData);                
             });
         };
+
         var initInterface = function(result) {
             var networkItemNum = 0;
             var addInterfaceItem = function(networkData) {
@@ -235,6 +232,7 @@ kimchi.template_edit_main = function() {
                 });
             });
         };
+
         var initProcessor = function(){
             var setCPUValue = function(){
                 if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
@@ -278,36 +276,30 @@ kimchi.template_edit_main = function() {
     };
     kimchi.retrieveTemplate(kimchi.selectedTemplate, initTemplate);
 
-
     $('#tmpl-edit-button-save').on('click', function() {
-        var editableFields = [ 'name', 'memory', 'disks', 'graphics'];
+        var editableFields = [ 'name', 'memory', 'graphics'];
         var data = {};
-        //Fix me: Only support one storage pool now
-        var storages = $('.template-tab-body .item', '#form-template-storage');
-        var tempName = $('.template-storage-name', storages).val();
-        var tmpItem = $('#form-template-storage .item');
-        tempName = tempName.split('/');
-        var tempNameHead = tempName[0];
-        var tempNameTail = tempNameHead;
-        if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() == 'scsi') {
-            tempNameTail = tempName[tempName.length-1];
-        }
-        tempName = '/plugins/kimchi/storagepools/' + tempNameHead;
-        data['storagepool'] = tempName;
-        $.each(editableFields, function(i, field) {
-            /* Support only 1 disk at this moment */
-            if (field == 'disks') {
-                if($('.template-storage-type', tmpItem).val() === 'iscsi' || $('.template-storage-type', tmpItem).val() == 'scsi') {
-                    origDisks[0]['size'] && delete origDisks[0]['size'];
-                    origDisks[0]['volume'] = tempNameTail;
-                } else {
-                    origDisks[0]['volume'] && delete origDisks[0]['volume'];
-                    origDisks[0].size = Number($('.template-storage-disk', tmpItem).val());
-                }
-                origDisks[0].format = $('.template-storage-disk-format', tmpItem).val();
-                data[field] = origDisks;
+        var disks = $('.template-tab-body .item', '#form-template-storage');
+        var disksForUpdate = new Array();
+        $.each(disks, function(index, diskEntity) {
+            var newDisk = {
+                'index' : index,
+                'pool' : '/plugins/kimchi/storagepools/' + $(diskEntity).find('.template-storage-name').val(),
+                'size' : Number($(diskEntity).find('.template-storage-disk').val()),
+                'format' : $(diskEntity).find('.template-storage-disk-format').val()
+            };
+
+            var storageType = $(diskEntity).find('.template-storage-type').val();
+            if(storageType === 'iscsi' || storageType === 'scsi') {
+                newDisk['volume'] = newDisk['pool'].split('/').pop();
+                newDisk['pool'] =  newDisk['pool'].slice(0,  newDisk['pool'].lastIndexOf('/'));
             }
-            else if (field == 'graphics') {
+            disksForUpdate.push(newDisk);
+        });
+        data.disks = disksForUpdate;
+
+        $.each(editableFields, function(i, field) {
+            if (field == 'graphics') {
                var type = $('#form-template-general [name="' + field + '"]').val();
                data[field] = {'type': type};
             }

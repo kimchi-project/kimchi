@@ -156,7 +156,7 @@
     kimchi.template_edit_main();
 </script>
 <script id="template-storage-pool-tmpl" type="text/html">
-    <div class='item'>
+    <div id="storageRow{storageIndex}" class='item'>
         <span class="template-storage-cell storage-pool">
             <input class="template-storage-name" value={storageName} type="text" style="display:none" />
             <select id="selectStorageName"></select>
@@ -181,6 +181,9 @@
                <option value="vmdk">vmdk</option>
                <option value="vpc">vpc</option>
             </select>
+        </span>
+        <span class="pull-right">
+            <button class="delete btn-primary btn"><i class="fa fa-minus-circle"></i> $_("Delete")</button>
         </span>
     </div>
 </script>
