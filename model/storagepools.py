@@ -34,7 +34,6 @@ from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.scan import Scanner
-from wok.plugins.kimchi.utils import pool_name_from_uri
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -72,7 +71,7 @@ class StoragePoolsModel(object):
     def _check_default_pools(self):
         pools = {}
 
-        default_pool = tmpl_defaults['storagepool']
+        default_pool = tmpl_defaults['disks'][0]['pool']['name']
         default_pool = default_pool.split('/')[-1]
 
         pools[default_pool] = {}
@@ -446,9 +445,10 @@ class StoragePoolModel(object):
             templates = session.get_list('template')
             for tmpl in templates:
                 t_info = session.get('template', tmpl)
-                t_pool = pool_name_from_uri(t_info['storagepool'])
-                if t_pool == pool_name:
-                    return True
+                for disk in t_info['disks']:
+                    t_pool = disk['pool']['name']
+                    if t_pool == pool_name:
+                        return True
             return False
 
     def deactivate(self, name):

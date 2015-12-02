@@ -76,35 +76,22 @@ class VMTemplate(object):
             graphics.update(graph_args)
             args['graphics'] = graphics
 
-        # Provide compatibility with old template version and sets data to
-        # correct output format if necessary
-        def _fix_disk_compatibilities(disks):
-            for i, disk in enumerate(disks):
-                if 'pool' not in disk:
-                    disk['pool'] = {'name': self.info['storagepool']}
-                if (isinstance(disk['pool'], str) or
-                        isinstance(disk['pool'], unicode)):
-                    disk['pool'] = {'name': disk['pool']}
-                disk['pool']['type'] = \
-                    self._get_storage_type(disk['pool']['name'])
-
-        if self.info.get('disks') is not None:
-            _fix_disk_compatibilities(self.info['disks'])
-        if args.get('disks') is not None:
-            _fix_disk_compatibilities(args['disks'])
-
-        # Merge disks dict with disks provided by user
-        default_disk = self.info['disks'][0]
-        for i, d in enumerate(args.get('disks', [])):
-            disk = dict(default_disk)
-            disk['index'] = i
-            disk.update(d)
-            if disk['pool']['type'] in ['logical', 'iscsi', 'scsi']:
-                disk['format'] = 'raw'
-            args['disks'][i] = disk
-
         # Override template values according to 'args'
         self.info.update(args)
+
+        # Find pool type for each disk
+        disks = self.info.get('disks')
+        for disk in disks:
+            pool_name = disk.get('pool', {}).get('name')
+            if pool_name is None:
+                raise MissingParameter('KCHTMPL0029E')
+
+            pool_type = self._get_storage_type(disk['pool']['name'])
+            disk['pool']['type'] = pool_type
+
+            if pool_type in ['logical', 'iscsi', 'scsi']:
+                if disk['format'] != 'raw':
+                    raise InvalidParameter('KCHTMPL0029E')
 
     def _get_os_info(self, args, scan):
         distro = version = 'unknown'
@@ -197,9 +184,9 @@ class VMTemplate(object):
         for index, disk in enumerate(self.info['disks']):
             params = dict(base_disk_params)
             params['format'] = disk['format']
+            params['index'] = index
             params.update(locals().get('%s_disk_params' %
                                        disk['pool']['type'], {}))
-            params['index'] = index
 
             volume = disk.get('volume')
             if volume is not None:
@@ -459,10 +446,11 @@ class VMTemplate(object):
             invalid['networks'] = invalid_networks
 
         # validate storagepools integrity
-        pool_uri = self.info['storagepool']
-        pool_name = pool_name_from_uri(pool_uri)
-        if pool_name not in self._get_all_storagepools_name():
-            invalid['storagepools'] = [pool_name]
+        for disk in self.info['disks']:
+            pool_uri = disk['pool']['name']
+            pool_name = pool_name_from_uri(pool_uri)
+            if pool_name not in self._get_all_storagepools_name():
+                invalid['storagepools'] = [pool_name]
 
         # validate iso integrity
         # FIXME when we support multiples cdrom devices

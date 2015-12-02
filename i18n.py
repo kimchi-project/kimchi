@@ -128,7 +128,6 @@ messages = {
     "KCHVM0069E": _("Password field must be a string."),
     "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
     "KCHVM0071E": _("Memory value %(mem)s must be aligned to %(alignment)sMiB."),
-    "KCHVM0072E": _("Template given has multiple disks assigned to different types of storage pools, conflicting with storage pool provided."),
     "KCHVM0073E": _("Unable to update the following parameters while the VM is offline: %(params)s"),
     "KCHVM0074E": _("Unable to update the following parameters while the VM is online: %(params)s"),
     "KCHVM0075E": _("Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: %(sockets)s, cores: %(cores)s, threads: %(threads)s."),
@@ -179,6 +178,8 @@ messages = {
     "KCHTMPL0025E": _("When specifying CPU topology, VCPUs must be a product of sockets, cores, and threads."),
     "KCHTMPL0026E": _("When specifying CPU topology, each element must be an integer greater than zero."),
     "KCHTMPL0027E": _("Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
+    "KCHTMPL0028E": _("When setting template disks, following parameters are required: 'index', 'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"),
+    "KCHTMPL0029E": _("Disk format must be 'raw', for logical, iscsi, and scsi pools."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
