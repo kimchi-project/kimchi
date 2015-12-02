@@ -147,6 +147,16 @@ class TemplateModel(object):
             params = session.get('template', name)
         if overrides:
             params.update(overrides)
+            if 'storagepool' in params:
+                libvVMT = LibvirtVMTemplate(params, conn=conn)
+                poolType = libvVMT._get_storage_type(params['storagepool'])
+                for i, disk in enumerate(params['disks']):
+                    if disk['pool']['type'] != poolType:
+                        raise InvalidOperation('KCHVM0072E')
+                    else:
+                        params['disks'][i]['pool']['name'] = \
+                            params['storagepool']
+
         return LibvirtVMTemplate(params, False, conn)
 
     def lookup(self, name):
@@ -274,8 +284,8 @@ class LibvirtVMTemplate(VMTemplate):
                 raise InvalidParameter("KCHTMPL0007E", {'network': name,
                                                         'template': self.name})
 
-    def _get_storage_path(self):
-        pool = self._storage_validate()
+    def _get_storage_path(self, pool_uri=None):
+        pool = self._storage_validate(pool_uri)
         xml = pool.XMLDesc(0)
         return xpath_get_text(xml, "/pool/target/path")[0]
 
@@ -285,7 +295,7 @@ class LibvirtVMTemplate(VMTemplate):
         return xpath_get_text(xml, "/pool/@type")[0]
 
     def _get_volume_path(self, pool, vol):
-        pool = self._storage_validate()
+        pool = self._storage_validate(pool)
         try:
             return pool.storageVolLookupByName(vol).path()
         except:
@@ -293,12 +303,11 @@ class LibvirtVMTemplate(VMTemplate):
                                                 'pool': pool})
 
     def fork_vm_storage(self, vm_uuid):
-        # Provision storage:
-        # TODO: Rebase on the storage API once upstream
-        pool = self._storage_validate()
+        # Provision storages:
         vol_list = self.to_volume_list(vm_uuid)
         try:
             for v in vol_list:
+                pool = self._storage_validate(v['pool'])
                 # outgoing text to libvirt, encode('utf-8')
                 pool.createXML(v['xml'].encode('utf-8'), 0)
         except libvirt.libvirtError as e:

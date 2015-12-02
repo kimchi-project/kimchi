@@ -151,28 +151,22 @@ class VMsModel(object):
                 wok_log.error('Error trying to update database with guest '
                               'icon information due error: %s', e.message)
 
-        # If storagepool is SCSI, volumes will be LUNs and must be passed by
-        # the user from UI or manually.
-        cb('Provisioning storage for new VM')
-        vol_list = []
-        if t._get_storage_type() not in ["iscsi", "scsi"]:
-            vol_list = t.fork_vm_storage(vm_uuid)
+        cb('Provisioning storages for new VM')
+        vol_list = t.fork_vm_storage(vm_uuid)
 
         graphics = params.get('graphics', {})
         stream_protocols = self.caps.libvirt_stream_protocols
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,
-                          graphics=graphics,
-                          volumes=vol_list)
+                          graphics=graphics)
 
         cb('Defining new VM')
         try:
             conn.defineXML(xml.encode('utf-8'))
         except libvirt.libvirtError as e:
-            if t._get_storage_type() not in READONLY_POOL_TYPE:
-                for v in vol_list:
-                    vol = conn.storageVolLookupByPath(v['path'])
-                    vol.delete(0)
+            for v in vol_list:
+                vol = conn.storageVolLookupByPath(v['path'])
+                vol.delete(0)
             raise OperationFailed("KCHVM0007E", {'name': name,
                                                  'err': e.get_error_message()})
 
