@@ -75,7 +75,7 @@ class MockModel(Model):
         # test:///default driver
         defaults = dict(osinfo.defaults)
         defaults.update(mockmodel_defaults)
-        defaults['disks'][0]['pool'] = DEFAULT_POOL
+        defaults['disks'][0]['pool'] = {'name': DEFAULT_POOL}
         osinfo.defaults = dict(defaults)
 
         self._mock_vgs = MockVolumeGroups()

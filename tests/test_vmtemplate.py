@@ -26,6 +26,11 @@ from wok.xmlutils.utils import xpath_get_text
 from wok.plugins.kimchi.osinfo import get_template_default
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
+DISKS = [{'size': 10, 'format': 'raw', 'index': 0, 'pool': {'name':
+          '/plugins/kimchi/storagepools/default-pool'}},
+         {'size': 5, 'format': 'qcow2', 'index': 1, 'pool': {'name':
+          '/plugins/kimchi/storagepools/default-pool'}}]
+
 
 class VMTemplateTests(unittest.TestCase):
     def setUp(self):
@@ -53,7 +58,7 @@ class VMTemplateTests(unittest.TestCase):
 
     def test_construct_overrides(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
-        args = {'name': 'test', 'disks': [{'size': 10}, {'size': 20}],
+        args = {'name': 'test', 'disks': DISKS,
                 'graphics': graphics, "cdrom": self.iso}
         t = VMTemplate(args)
         self.assertEquals(2, len(t.info['disks']))
@@ -62,7 +67,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_specified_graphics(self):
         # Test specified listen
         graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
-        args = {'name': 'test', 'disks': [{'size': 10}, {'size': 20}],
+        args = {'name': 'test', 'disks': DISKS,
                 'graphics': graphics, 'cdrom': self.iso}
         t = VMTemplate(args)
         self.assertEquals(graphics, t.info['graphics'])

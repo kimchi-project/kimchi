@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import copy
 import json
 import os
 import re
@@ -46,6 +47,9 @@ port = None
 ssl_port = None
 cherrypy_port = None
 fake_iso = '/tmp/fake.iso'
+
+DISKS = [{'size': 10, 'format': 'qcow2', 'index': 0, 'pool': {
+    'name': '/plugins/kimchi/storagepools/default-pool'}}]
 
 
 def setUpModule():
@@ -267,7 +271,7 @@ class RestTests(unittest.TestCase):
 
     def test_vm_lifecycle(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'disks': [{'size': 1}],
+        req = json.dumps({'name': 'test', 'disks': DISKS,
                           'icon': 'plugins/kimchi/images/icon-debian.png',
                           'cdrom': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
@@ -291,7 +295,7 @@ class RestTests(unittest.TestCase):
                   + '%s-0.img'
         resp = self.request(vol_uri % vm['uuid'])
         vol = json.loads(resp.read())
-        self.assertEquals(1 << 30, vol['capacity'])
+        self.assertEquals(10 << 30, vol['capacity'])
         self.assertEquals(['test-vm'], vol['used_by'])
 
         # verify if poweroff command returns correct status
@@ -868,7 +872,7 @@ class RestTests(unittest.TestCase):
     def test_vm_customise_storage(self):
         # Create a Template
         req = json.dumps({'name': 'test', 'cdrom': fake_iso,
-                                          'disks': [{'size': 1}]})
+                                          'disks': DISKS})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -905,7 +909,7 @@ class RestTests(unittest.TestCase):
                   % vm_info['uuid']
         resp = self.request(vol_uri)
         vol = json.loads(resp.read())
-        self.assertEquals(1 << 30, vol['capacity'])
+        self.assertEquals(10 << 30, vol['capacity'])
 
         # Delete the VM
         resp = self.request('/plugins/kimchi/vms/test-vm', '{}', 'DELETE')
@@ -943,8 +947,8 @@ class RestTests(unittest.TestCase):
         )
         lun_name = json.loads(resp.read())[0]['name']
         pool_name = tmpl_params['disks'][0]['pool']['name']
-        tmpl_params['disks'] = [{'index': 0, 'volume': lun_name,
-                                 'pool': {'name': pool_name}}]
+        tmpl_params['disks'] = [{'index': 0, 'volume': lun_name, 'pool': {
+            'name': pool_name}, 'format': 'raw'}]
         req = json.dumps(tmpl_params)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -1016,7 +1020,9 @@ class RestTests(unittest.TestCase):
         # Create a Template
         mock_base = '/tmp/mock.img'
         open(mock_base, 'w').close()
-        req = json.dumps({'name': 'test', 'disks': [{'base': mock_base}]})
+        disks = copy.deepcopy(DISKS)
+        disks[0]['base'] = mock_base
+        req = json.dumps({'name': 'test', 'disks': disks})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 

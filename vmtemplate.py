@@ -76,22 +76,39 @@ class VMTemplate(object):
             graphics.update(graph_args)
             args['graphics'] = graphics
 
+        default_disk = self.info['disks'][0]
         # Override template values according to 'args'
         self.info.update(args)
-
-        # Find pool type for each disk
         disks = self.info.get('disks')
-        for disk in disks:
-            pool_name = disk.get('pool', {}).get('name')
-            if pool_name is None:
-                raise MissingParameter('KCHTMPL0029E')
+
+        basic_disk = ['index', 'format', 'pool', 'size']
+        ro_disk = ['index', 'format', 'pool', 'volume']
+        base_disk = ['index', 'base', 'pool', 'size', 'format']
+
+        for index, disk in enumerate(disks):
+            disk_info = dict(default_disk)
 
             pool_type = self._get_storage_type(disk['pool']['name'])
-            disk['pool']['type'] = pool_type
+            if pool_type in ['iscsi', 'scsi']:
+                disk_info = {'index': 0, 'format': 'raw', 'volume': None}
+
+            disk_info.update(disk)
+            pool_name = disk_info.get('pool', {}).get('name')
+            if pool_name is None:
+                raise MissingParameter('KCHTMPL0028E')
+
+            keys = sorted(disk_info.keys())
+            if ((keys != sorted(basic_disk)) and (keys != sorted(ro_disk)) and
+                    (keys != sorted(base_disk))):
+                raise MissingParameter('KCHTMPL0028E')
 
             if pool_type in ['logical', 'iscsi', 'scsi']:
-                if disk['format'] != 'raw':
+                if disk_info['format'] != 'raw':
                     raise InvalidParameter('KCHTMPL0029E')
+
+            disk_info['pool']['type'] = pool_type
+            disk_info['index'] = disk_info.get('index', index)
+            self.info['disks'][index] = disk_info
 
     def _get_os_info(self, args, scan):
         distro = version = 'unknown'
@@ -406,7 +423,9 @@ class VMTemplate(object):
         return xml
 
     def validate(self):
-        self._storage_validate()
+        for disk in self.info.get('disks'):
+            pool_uri = disk.get('pool', {}).get('name')
+            self._storage_validate(pool_uri)
         self._network_validate()
         self._iso_validate()
 
