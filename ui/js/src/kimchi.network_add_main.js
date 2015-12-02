@@ -135,7 +135,7 @@ kimchi.getNetworkDialogValues = function() {
         type : $("#networkType").val()
     };
     if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
-        network.interface = $("#networkDestinationLabel").text();
+        network.interface = $("#networkDestinationID").val();
         network.vlan_id = parseInt($("#networkVlanID").val());
     }
     return network;
