@@ -22,7 +22,7 @@ import libvirt
 import os
 import stat
 
-from wok.exception import InvalidOperation, InvalidParameter
+from wok.exception import InvalidOperation, InvalidParameter, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import probe_file_permission_as_user, run_setfacl_set_attr
 from wok.xmlutils.utils import xpath_get_text
@@ -32,6 +32,43 @@ from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
+
+
+def _check_disks_params(params, conn, objstore):
+    if 'disks' not in params:
+            return
+
+    basic_disk = ['index', 'format', 'pool', 'size']
+    ro_disk = ['index', 'format', 'pool', 'volume']
+    base_disk = ['index', 'base', 'pool']
+    for disk in params['disks']:
+        keys = sorted(disk.keys())
+        if ((keys == sorted(basic_disk)) or (keys == sorted(ro_disk)) or
+                (keys == sorted(base_disk))):
+            pass
+        else:
+            raise MissingParameter('KCHTMPL0028E')
+
+        if disk.get('pool', {}).get('name') is None:
+            raise MissingParameter('KCHTMPL0028E')
+
+        pool_uri = disk['pool']['name']
+        try:
+            pool_name = pool_name_from_uri(pool_uri)
+            conn.get().storagePoolLookupByName(pool_name.encode("utf-8"))
+        except Exception:
+            raise InvalidParameter("KCHTMPL0004E",
+                                   {'pool': pool_uri,
+                                    'template': pool_name})
+        if 'volume' in disk:
+            kwargs = {'conn': conn, 'objstore': objstore}
+            storagevolumes = __import__(
+                "wok.plugins.kimchi.model.storagevolumes", fromlist=[''])
+            pool_volumes = storagevolumes.StorageVolumesModel(
+                **kwargs).get_list(pool_name)
+            if disk['volume'] not in pool_volumes:
+                raise InvalidParameter("KCHTMPL0019E", {'pool': pool_name,
+                                       'volume': disk['volume']})
 
 
 class TemplatesModel(object):
@@ -54,6 +91,9 @@ class TemplatesModel(object):
                                            {'filename': iso, 'user': user,
                                             'err': excp})
 
+        # Check disks information
+        _check_disks_params(params, self.conn, self.objstore)
+
         cpu_info = params.get('cpu_info')
         if cpu_info:
             topology = cpu_info.get('topology')
@@ -71,19 +111,6 @@ class TemplatesModel(object):
                     check_topology(params['cpus'], topology)
 
         conn = self.conn.get()
-        pool_uri = params.get(u'storagepool', '')
-        if pool_uri:
-            try:
-                pool_name = pool_name_from_uri(pool_uri)
-                pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
-            except Exception:
-                raise InvalidParameter("KCHTMPL0004E", {'pool': pool_uri,
-                                                        'template': name})
-
-            tmp_volumes = [disk['volume'] for disk in params.get('disks', [])
-                           if 'volume' in disk]
-            self.template_volume_validate(tmp_volumes, pool)
-
         for net_name in params.get(u'networks', []):
             try:
                 conn.networkLookupByName(net_name.encode('utf-8'))
@@ -112,27 +139,22 @@ class TemplatesModel(object):
         with self.objstore as session:
             return session.get_list('template')
 
-    def template_volume_validate(self, tmp_volumes, pool):
+    def template_volume_validate(self, volume, pool):
         kwargs = {'conn': self.conn, 'objstore': self.objstore}
         pool_type = xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
         pool_name = unicode(pool.name(), 'utf-8')
 
-        # as we discussion, we do not mix disks from 2 different types of
-        # storage pools, for instance: we do not create a template with 2
-        # disks, where one comes from a SCSI pool and other is a .img in
-        # a DIR pool.
         if pool_type in ['iscsi', 'scsi']:
-            if not tmp_volumes:
+            if not volume:
                 raise InvalidParameter("KCHTMPL0018E")
 
             storagevolumes = __import__(
                 "wok.plugins.kimchi.model.storagevolumes", fromlist=[''])
             pool_volumes = storagevolumes.StorageVolumesModel(
                 **kwargs).get_list(pool_name)
-            vols = set(tmp_volumes) - set(pool_volumes)
-            if vols:
+            if volume not in pool_volumes:
                 raise InvalidParameter("KCHTMPL0019E", {'pool': pool_name,
-                                                        'volume': vols})
+                                                        'volume': volume})
 
 
 class TemplateModel(object):
@@ -146,17 +168,14 @@ class TemplateModel(object):
         with objstore as session:
             params = session.get('template', name)
         if overrides:
-            params.update(overrides)
-            if 'storagepool' in params:
-                libvVMT = LibvirtVMTemplate(params, conn=conn)
-                poolType = libvVMT._get_storage_type(params['storagepool'])
+            if 'storagepool' in overrides:
                 for i, disk in enumerate(params['disks']):
-                    if disk['pool']['type'] != poolType:
-                        raise InvalidOperation('KCHVM0072E')
-                    else:
-                        params['disks'][i]['pool']['name'] = \
-                            params['storagepool']
+                    params['disks'][i]['pool']['name'] = \
+                        overrides['storagepool']
+                del overrides['storagepool']
+            params.update(overrides)
 
+        _check_disks_params(params, conn, objstore)
         return LibvirtVMTemplate(params, False, conn)
 
     def lookup(self, name):
@@ -193,27 +212,15 @@ class TemplateModel(object):
         new_t = copy.copy(old_t)
         new_t.update(params)
 
+        # Check disks information
+        _check_disks_params(new_t, self.conn, self.objstore)
+
         if not self._validate_updated_cpu_params(new_t):
             raise InvalidParameter('KCHTMPL0025E')
 
-        ident = name
-
-        conn = self.conn.get()
-        pool_uri = new_t.get(u'storagepool', '')
-
-        if pool_uri:
-            try:
-                pool_name = pool_name_from_uri(pool_uri)
-                pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
-            except Exception:
-                raise InvalidParameter("KCHTMPL0004E", {'pool': pool_uri,
-                                                        'template': name})
-            tmp_volumes = [disk['volume'] for disk in new_t.get('disks', [])
-                           if 'volume' in disk]
-            self.templates.template_volume_validate(tmp_volumes, pool)
-
         for net_name in params.get(u'networks', []):
             try:
+                conn = self.conn.get()
                 conn.networkLookupByName(net_name.encode('utf-8'))
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,

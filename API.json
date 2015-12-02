@@ -512,12 +512,6 @@
                     "minItems": 1,
                     "uniqueItems": true
                 },
-                "storagepool": {
-                    "description": "Location of the storage pool",
-                    "type": "string",
-                    "pattern": "^/plugins/kimchi/storagepools/[^/]+/?$",
-                    "error": "KCHTMPL0015E"
-                },
                 "networks": {
                     "description": "list of which networks will be assigned to the new VM.",
                     "type": "array",
@@ -694,12 +688,6 @@
                     },
                     "minItems": 1,
                     "uniqueItems": true
-                },
-                "storagepool": {
-                    "description": "Location of the storage pool",
-                    "type": "string",
-                    "pattern": "^/plugins/kimchi/storagepools/[^/]+/?$",
-                    "error": "KCHTMPL0015E"
                 },
                 "networks": {
                     "description": "list of which networks will be assigned to the new VM.",

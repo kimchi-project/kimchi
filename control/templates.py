@@ -50,7 +50,6 @@ class Template(Resource):
             'memory': self.info['memory'],
             'cdrom': self.info.get('cdrom', None),
             'disks': self.info['disks'],
-            'storagepool': self.info['storagepool'],
             'networks': self.info['networks'],
             'folder': self.info.get('folder', []),
             'graphics': self.info['graphics'],
