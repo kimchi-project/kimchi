@@ -508,7 +508,7 @@ kimchi.template_add_main = function() {
         setTimeout(function(){
             var isValid = kimchi.template_check_path($('input', '#vm-image-local-box').val());
             $('input', '#vm-image-local-box').toggleClass('invalid-field', !isValid);
-            $('#vm-image-local-box-button').attr('disabled', (isValid ? "false" : "true"));
+            $('#vm-image-local-box-button').attr('disabled', (isValid ? false : true));
         }, 0);
     });
     $('button', $('#vm-image-local-box')).button({
