@@ -18,7 +18,6 @@
 kimchi.template_edit_main = function() {
     var templateEditMain = $('#edit-template-tabs');
     var origDisks;
-    var origPool;
     var origNetworks;
     var templateDiskSize;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
@@ -32,7 +31,6 @@ kimchi.template_edit_main = function() {
 
     var initTemplate = function(template) {
         origDisks = template.disks;
-        origPool = template.storagepool;
         origNetworks = template.networks;
         for(var i=0;i<template.disks.length;i++){
             if(template.disks[i].base){
@@ -162,10 +160,10 @@ kimchi.template_edit_main = function() {
                 });
             };  // End of addStorageItem funtion
 
-            if ((origDisks && origDisks.length) && (origPool && origPool.length)) {
+            if (origDisks && origDisks.length) {
                 origDisks.sort(function(a, b){return a.index-b.index});
                 $.each(origDisks, function(index, diskEntities) {
-                    var defaultPool = diskEntities.pool.name ? diskEntities.pool.name.split('/').pop() : origPool.split('/').pop()
+                    var defaultPool = diskEntities.pool.name.split('/').pop()
                     var storageNodeData = {
                         storageIndex : diskEntities.index,
                         storageName : diskEntities.volume ? defaultPool + '/' + diskEntities.volume : defaultPool,
@@ -284,15 +282,16 @@ kimchi.template_edit_main = function() {
         $.each(disks, function(index, diskEntity) {
             var newDisk = {
                 'index' : index,
-                'pool' : '/plugins/kimchi/storagepools/' + $(diskEntity).find('.template-storage-name').val(),
+                'pool' : {'name': '/plugins/kimchi/storagepools/' + $(diskEntity).find('.template-storage-name').val()},
                 'size' : Number($(diskEntity).find('.template-storage-disk').val()),
                 'format' : $(diskEntity).find('.template-storage-disk-format').val()
             };
 
             var storageType = $(diskEntity).find('.template-storage-type').val();
             if(storageType === 'iscsi' || storageType === 'scsi') {
-                newDisk['volume'] = newDisk['pool'].split('/').pop();
-                newDisk['pool'] =  newDisk['pool'].slice(0,  newDisk['pool'].lastIndexOf('/'));
+                newDisk['volume'] = newDisk['pool']['name'].split('/').pop();
+                newDisk['pool']['name'] =  newDisk['pool']['name'].slice(0,  newDisk['pool']['name'].lastIndexOf('/'));
+                delete newDisk.size;
             }
             disksForUpdate.push(newDisk);
         });
