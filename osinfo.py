@@ -118,8 +118,8 @@ def _get_tmpl_defaults():
     The default values should be like below:
 
     {'main': {'networks': ['default'], 'memory': '1024'},
-     'storage': {'pool': 'default',
-                 'disk.0': {'format': 'qcow2', 'size': '10'}},
+     'storage': { 'disk.0': {'format': 'qcow2', 'size': '10',
+                             'pool': '/plugins/kimchi/storagepools/default'}},
      'processor': {'cpus': '1'},
      'graphics': {'type': 'spice', 'listen': '127.0.0.1'}}
     """
@@ -127,8 +127,8 @@ def _get_tmpl_defaults():
     tmpl_defaults = defaultdict(dict)
     tmpl_defaults['main']['networks'] = ['default']
     tmpl_defaults['main']['memory'] = _get_default_template_mem()
-    tmpl_defaults['storage']['pool'] = 'default'
-    tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2'}
+    tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
+                                          'pool': 'default'}
     tmpl_defaults['processor']['cpus'] = 1
     tmpl_defaults['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
 
@@ -150,14 +150,14 @@ def _get_tmpl_defaults():
     main_section = default_config.pop('main')
     defaults.update(main_section)
 
-    # Parse storage section to get storage pool and disks values
+    # Parse storage section to get disks values
     storage_section = default_config.pop('storage')
-    defaults['storagepool'] = '/plugins/kimchi/storagepools/' + \
-                              storage_section.pop('pool')
     defaults['disks'] = []
     for disk in storage_section.keys():
         data = storage_section[disk]
         data['index'] = int(disk.split('.')[1])
+        data['pool'] = {"name": '/plugins/kimchi/storagepools/' +
+                        storage_section[disk].pop('pool')}
         defaults['disks'].append(data)
 
     # Parse processor section to get cpus and cpu_topology values

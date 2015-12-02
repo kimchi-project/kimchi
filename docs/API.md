@@ -289,6 +289,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
       (either *size* or *volume* must be specified):
         * index: The device index
         * size: The device size in GB
+        * format: Format of the image. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc
+        * pool: Storage pool information
+            * name: URI of the storagepool where disk will be created
         * base: Base image of this disk
 
     * graphics *(optional)*: The graphics paramenters of this template
@@ -388,6 +391,9 @@ A interface represents available network interface on VM.
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
         * format: Format of the image. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc.
+        * pool: Information about the pool where disk or volume will be created
+            * name: URI of the storagepool
+            * type: Type of the storagepool (dir, nfs, scsci, iscsi, etc)
     * graphics: A dict of graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
@@ -422,6 +428,8 @@ A interface represents available network interface on VM.
         * size: The device size in GB
         * volume: A volume name that contains the initial disk contents
         * format: Format of the image. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc.
+        * pool: Storage pool information
+            * name: URI of the storagepool where template allocates vm disk.
     * graphics *(optional)*: A dict of graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
