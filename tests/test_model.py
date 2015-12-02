@@ -76,6 +76,16 @@ def tearDownModule():
     shutil.rmtree(TMP_DIR)
 
 
+def _setDiskPoolDefault():
+    osinfo.defaults['disks'][0]['pool'] = \
+        '/plugins/kimchi/storagepools/default'
+
+
+def _setDiskPoolDefaultTest():
+    osinfo.defaults['disks'][0]['pool'] = \
+        '/plugins/kimchi/storagepools/default-pool'
+
+
 class ModelTests(unittest.TestCase):
     def setUp(self):
         self.tmp_store = '/tmp/kimchi-store-test'
@@ -266,8 +276,8 @@ class ModelTests(unittest.TestCase):
                          "networks": ["default"], "memory": 1024, "folder": [],
                          "icon": "images/icon-vm.png",
                          "os_distro": "unknown", "os_version": "unknown",
-                         "disks": [{"base": vol_path, "size": 10}],
-                         "storagepool": "/plugins/kimchi/storagepools/default"}
+                         "disks": [{"base": vol_path, "size": 10, "pool": {
+                             "name": "/plugins/kimchi/storagepools/default"}}]}
 
             with inst.objstore as session:
                 session.store('template', tmpl_name, tmpl_info,
@@ -1046,10 +1056,12 @@ class ModelTests(unittest.TestCase):
                 'name': 'test',
                 'disks': [],
                 'cdrom': UBUNTU_ISO,
-                'storagepool': '/plugins/kimchi/storagepools/default-pool',
                 'domain': 'test',
                 'arch': 'i686'
             }
+
+            _setDiskPoolDefaultTest()
+            rollback.prependDefer(_setDiskPoolDefault)
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')

@@ -226,6 +226,8 @@ class RestTests(unittest.TestCase):
         vm = json.loads(
             self.request('/plugins/kimchi/vms/∨м-црdαtеd', req).read()
         )
+        # Memory was hot plugged
+        params['memory'] += 1024
         for key in params.keys():
             self.assertEquals(params[key], vm[key])
 
@@ -895,7 +897,7 @@ class RestTests(unittest.TestCase):
 
         # Test template not changed after vm customise its pool
         t = json.loads(self.request('/plugins/kimchi/templates/test').read())
-        self.assertEquals(t['storagepool'],
+        self.assertEquals(t['disks'][0]['pool']['name'],
                           '/plugins/kimchi/storagepools/default-pool')
 
         # Verify the volume was created
@@ -928,9 +930,9 @@ class RestTests(unittest.TestCase):
 
         # Create template fails because SCSI volume is missing
         tmpl_params = {
-            'name': 'test_fc_pool', 'cdrom': fake_iso,
-            'storagepool': '/plugins/kimchi/storagepools/scsi_fc_pool'
-        }
+            'name': 'test_fc_pool', 'cdrom': fake_iso, 'disks': [{'pool': {
+                'name': '/plugins/kimchi/storagepools/scsi_fc_pool'}}]}
+
         req = json.dumps(tmpl_params)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(400, resp.status)
@@ -940,8 +942,9 @@ class RestTests(unittest.TestCase):
             '/plugins/kimchi/storagepools/scsi_fc_pool/storagevolumes'
         )
         lun_name = json.loads(resp.read())[0]['name']
-
-        tmpl_params['disks'] = [{'index': 0, 'volume': lun_name}]
+        pool_name = tmpl_params['disks'][0]['pool']['name']
+        tmpl_params['disks'] = [{'index': 0, 'volume': lun_name,
+                                 'pool': {'name': pool_name}}]
         req = json.dumps(tmpl_params)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
