@@ -184,11 +184,6 @@ class VMTemplate(object):
         return xml
 
     def _get_disks_xml(self, vm_uuid):
-        # Current implementation just allows to create disk in one single
-        # storage pool, so we cannot mix the types (scsi volumes vs img file)
-        storage_type = self._get_storage_type()
-        storage_path = self._get_storage_path()
-
         base_disk_params = {'type': 'disk', 'disk': 'file',
                             'bus': self.info['disk_bus']}
         logical_disk_params = {'format': 'raw'}
@@ -199,37 +194,44 @@ class VMTemplate(object):
                             'format': 'raw', 'bus': 'scsi'}
 
         disks_xml = ''
-        pool_name = pool_name_from_uri(self.info['storagepool'])
         for index, disk in enumerate(self.info['disks']):
             params = dict(base_disk_params)
             params['format'] = disk['format']
-            params.update(locals().get('%s_disk_params' % storage_type, {}))
+            params.update(locals().get('%s_disk_params' %
+                                       disk['pool']['type'], {}))
             params['index'] = index
 
             volume = disk.get('volume')
             if volume is not None:
-                params['path'] = self._get_volume_path(pool_name, volume)
+                params['path'] = self._get_volume_path(disk['pool']['name'],
+                                                       volume)
             else:
-                volume = "%s-%s.img" % (vm_uuid, params['index'])
-                params['path'] = os.path.join(storage_path, volume)
+                img = "%s-%s.img" % (vm_uuid, params['index'])
+                storage_path = self._get_storage_path(disk['pool']['name'])
+                params['path'] = os.path.join(storage_path, img)
 
             disks_xml += get_disk_xml(params)[1]
 
         return unicode(disks_xml, 'utf-8')
 
     def to_volume_list(self, vm_uuid):
-        storage_path = self._get_storage_path()
         ret = []
         for i, d in enumerate(self.info['disks']):
+            # Create only .img. If storagepool is (i)SCSI, volumes will be LUNs
+            if d['pool']['type'] in ["iscsi", "scsi"]:
+                continue
+
             index = d.get('index', i)
             volume = "%s-%s.img" % (vm_uuid, index)
 
+            storage_path = self._get_storage_path(d['pool']['name'])
             info = {'name': volume,
                     'capacity': d['size'],
                     'format': d['format'],
-                    'path': '%s/%s' % (storage_path, volume)}
+                    'path': '%s/%s' % (storage_path, volume),
+                    'pool': d['pool']['name']}
 
-            if 'logical' == self._get_storage_type() or \
+            if 'logical' == d['pool']['type'] or \
                info['format'] not in ['qcow2', 'raw']:
                 info['allocation'] = info['capacity']
             else:
@@ -414,7 +416,7 @@ class VMTemplate(object):
     def fork_vm_storage(self, vm_uuid):
         pass
 
-    def _get_storage_path(self):
+    def _get_storage_path(self, pool_uri=None):
         return ''
 
     def _get_storage_type(self, pool=None):

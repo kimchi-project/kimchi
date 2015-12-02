@@ -128,6 +128,7 @@ messages = {
     "KCHVM0069E": _("Password field must be a string."),
     "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
     "KCHVM0071E": _("Memory value %(mem)s must be aligned to %(alignment)sMiB."),
+    "KCHVM0072E": _("Template given has multiple disks assigned to different types of storage pools, conflicting with storage pool provided."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
