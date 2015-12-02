@@ -21,6 +21,8 @@ import libvirt
 import lxml.etree as ET
 import os
 import time
+
+from collections import defaultdict
 from lxml import objectify
 from lxml.builder import E
 
@@ -60,10 +62,9 @@ storagevolumes.VALID_RAW_CONTENT = ['dos/mbr boot sector',
 
 
 class MockModel(Model):
-    _mock_vms = {}
+    _mock_vms = defaultdict(list)
     _mock_snapshots = {}
     _XMLDesc = libvirt.virDomain.XMLDesc
-    _defineXML = libvirt.virConnect.defineXML
     _undefineDomain = libvirt.virDomain.undefine
     _libvirt_get_vol_path = LibvirtVMTemplate._get_volume_path
 
@@ -81,7 +82,6 @@ class MockModel(Model):
 
         cpuinfo.get_topo_capabilities = MockModel.get_topo_capabilities
         vmifaces.getDHCPLeases = MockModel.getDHCPLeases
-        libvirt.virConnect.defineXML = MockModel.domainDefineXML
         libvirt.virDomain.XMLDesc = MockModel.domainXMLDesc
         libvirt.virDomain.undefine = MockModel.undefineDomain
         libvirt.virDomain.attachDeviceFlags = MockModel.attachDeviceFlags
@@ -124,7 +124,7 @@ class MockModel(Model):
         imageinfo.probe_image = self._probe_image
 
     def reset(self):
-        MockModel._mock_vms = {}
+        MockModel._mock_vms = defaultdict(list)
         MockModel._mock_snapshots = {}
 
         if hasattr(self, 'objstore'):
@@ -157,21 +157,14 @@ class MockModel(Model):
         return ET.fromstring(xml)
 
     @staticmethod
-    def domainDefineXML(conn, xml):
-        name = objectify.fromstring(xml).name.text
-        try:
-            dom = conn.lookupByName(name)
-            if not dom.isActive():
-                MockModel._mock_vms[name] = xml
-        except:
-            pass
-
-        return MockModel._defineXML(conn, xml)
-
-    @staticmethod
     def domainXMLDesc(dom, flags=0):
-        return MockModel._mock_vms.get(dom.name(),
-                                       MockModel._XMLDesc(dom, flags))
+        xml = MockModel._XMLDesc(dom, flags)
+        root = objectify.fromstring(xml)
+
+        for dev_xml in MockModel._mock_vms.get(dom.name(), []):
+            dev = objectify.fromstring(dev_xml)
+            root.devices.append(dev)
+        return ET.tostring(root, encoding="utf-8")
 
     @staticmethod
     def undefineDomain(dom):
@@ -182,12 +175,7 @@ class MockModel(Model):
 
     @staticmethod
     def attachDeviceFlags(dom, xml, flags=0):
-        old_xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
-        root = objectify.fromstring(old_xml)
-        dev = objectify.fromstring(xml)
-        root.devices.append(dev)
-
-        MockModel._mock_vms[dom.name()] = ET.tostring(root, encoding="utf-8")
+        MockModel._mock_vms[dom.name()].append(xml)
 
     @staticmethod
     def _get_device_node(dom, xml):
@@ -213,16 +201,18 @@ class MockModel(Model):
 
     @staticmethod
     def detachDeviceFlags(dom, xml, flags=0):
-        root, dev = MockModel._get_device_node(dom, xml)
-        root.devices.remove(dev)
-
-        MockModel._mock_vms[dom.name()] = ET.tostring(root, encoding="utf-8")
+        node = ET.fromstring(xml)
+        xml = ET.tostring(node, encoding="utf-8", pretty_print=True)
+        if xml in MockModel._mock_vms[dom.name()]:
+            MockModel._mock_vms[dom.name()].remove(xml)
 
     @staticmethod
     def updateDeviceFlags(dom, xml, flags=0):
-        root, old_dev = MockModel._get_device_node(dom, xml)
-        root.devices.replace(old_dev, objectify.fromstring(xml))
-        MockModel._mock_vms[dom.name()] = ET.tostring(root, encoding="utf-8")
+        _, old_dev = MockModel._get_device_node(dom, xml)
+        old_xml = ET.tostring(old_dev, encoding="utf-8", pretty_print=True)
+        if old_xml in MockModel._mock_vms[dom.name()]:
+            MockModel._mock_vms[dom.name()].remove(old_xml)
+        MockModel._mock_vms[dom.name()].append(xml)
 
     @staticmethod
     def volResize(vol, size, flags=0):

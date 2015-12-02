@@ -316,7 +316,7 @@ class VMTemplate(object):
         cpu_info = self.info.get('cpu_info')
         if cpu_info is not None:
             cpu_topo = cpu_info.get('topology')
-        return get_cpu_xml(self.info.get('cpus'),
+        return get_cpu_xml(0,
                            self.info.get('memory') << 10,
                            cpu_topo)
 
@@ -329,7 +329,6 @@ class VMTemplate(object):
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
         params['qemu-stream-cmdline'] = ''
-        params['cpu_info'] = self._get_cpu_xml()
         params['disks'] = self._get_disks_xml(vm_uuid)
         params['serial'] = get_serial_xml(params)
 
@@ -339,6 +338,8 @@ class VMTemplate(object):
 
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
         cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols)
+
+        max_vcpus = kwargs.get('max_vcpus', 1)
 
         if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
                 libvirt_stream_protocols and \
@@ -362,6 +363,24 @@ class VMTemplate(object):
             if distro == "IBM_PowerKVM":
                 params['slots'] = 32
 
+        cpu_topo = self.info.get('cpu_info').get('topology')
+        if (cpu_topo is not None):
+            sockets = int(max_vcpus / (cpu_topo['cores'] *
+                          cpu_topo['threads']))
+            self.info['cpu_info']['topology']['sockets'] = sockets
+
+            # Reduce maxvcpu to fit number of sockets if necessary
+            total_max_vcpu = sockets * cpu_topo['cores'] * cpu_topo['threads']
+            if total_max_vcpu != max_vcpus:
+                max_vcpus = total_max_vcpu
+
+            params['vcpus'] = "<vcpu current='%s'>%d</vcpu>" % \
+                              (params['cpus'], max_vcpus)
+        else:
+            params['vcpus'] = "<vcpu current='%s'>%d</vcpu>" % \
+                              (params['cpus'], max_vcpus)
+        params['cpu_info'] = self._get_cpu_xml()
+
         xml = """
         <domain type='%(domain)s'>
           %(qemu-stream-cmdline)s
@@ -369,7 +388,7 @@ class VMTemplate(object):
           <uuid>%(uuid)s</uuid>
           <maxMemory slots='%(slots)s' unit='KiB'>%(max_memory)s</maxMemory>
           <memory unit='MiB'>%(memory)s</memory>
-          <vcpu>%(cpus)s</vcpu>
+          %(vcpus)s
           %(cpu_info)s
           <os>
             <type arch='%(arch)s'>hvm</type>
