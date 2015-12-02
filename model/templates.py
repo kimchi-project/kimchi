@@ -234,8 +234,9 @@ class LibvirtVMTemplate(VMTemplate):
         self.conn = conn
         VMTemplate.__init__(self, args, scan)
 
-    def _storage_validate(self):
-        pool_uri = self.info['storagepool']
+    def _storage_validate(self, pool_uri=None):
+        if pool_uri is None:
+            pool_uri = self.info['storagepool']
         pool_name = pool_name_from_uri(pool_uri)
         try:
             conn = self.conn.get()
@@ -278,8 +279,8 @@ class LibvirtVMTemplate(VMTemplate):
         xml = pool.XMLDesc(0)
         return xpath_get_text(xml, "/pool/target/path")[0]
 
-    def _get_storage_type(self):
-        pool = self._storage_validate()
+    def _get_storage_type(self, pool_uri=None):
+        pool = self._storage_validate(pool_uri)
         xml = pool.XMLDesc(0)
         return xpath_get_text(xml, "/pool/@type")[0]
 

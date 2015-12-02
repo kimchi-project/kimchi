@@ -76,14 +76,30 @@ class VMTemplate(object):
             graphics.update(graph_args)
             args['graphics'] = graphics
 
-        # Merge disks dict
+        # Provide compatibility with old template version and sets data to
+        # correct output format if necessary
+        def _fix_disk_compatibilities(disks):
+            for i, disk in enumerate(disks):
+                if 'pool' not in disk:
+                    disk['pool'] = {'name': self.info['storagepool']}
+                if (isinstance(disk['pool'], str) or
+                        isinstance(disk['pool'], unicode)):
+                    disk['pool'] = {'name': disk['pool']}
+                disk['pool']['type'] = \
+                    self._get_storage_type(disk['pool']['name'])
+
+        if self.info.get('disks') is not None:
+            _fix_disk_compatibilities(self.info['disks'])
+        if args.get('disks') is not None:
+            _fix_disk_compatibilities(args['disks'])
+
+        # Merge disks dict with disks provided by user
         default_disk = self.info['disks'][0]
         for i, d in enumerate(args.get('disks', [])):
             disk = dict(default_disk)
+            disk['index'] = i
             disk.update(d)
-
-            # Assign right disk format to logical and [i]scsi storagepools
-            if self._get_storage_type() in ['logical', 'iscsi', 'scsi']:
+            if disk['pool']['type'] in ['logical', 'iscsi', 'scsi']:
                 disk['format'] = 'raw'
             args['disks'][i] = disk
 
@@ -401,7 +417,7 @@ class VMTemplate(object):
     def _get_storage_path(self):
         return ''
 
-    def _get_storage_type(self):
+    def _get_storage_type(self, pool=None):
         return ''
 
     def _get_volume_path(self):
