@@ -48,17 +48,19 @@ from wok.plugins.kimchi.model import storagevolumes
 from wok.plugins.kimchi.model.templates import LibvirtVMTemplate
 from wok.plugins.kimchi.model.users import PAMUsersModel
 from wok.plugins.kimchi.model.groups import PAMGroupsModel
+from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 
 fake_user = {'root': 'letmein!'}
 mockmodel_defaults = {
-    'storagepool': '/plugins/kimchi/storagepools/default-pool',
     'domain': 'test', 'arch': 'i686'
 }
 storagevolumes.VALID_RAW_CONTENT = ['dos/mbr boot sector',
                                     'x86 boot sector',
                                     'data', 'empty']
+
+DEFAULT_POOL = '/plugins/kimchi/storagepools/default-pool'
 
 
 class MockModel(Model):
@@ -73,6 +75,7 @@ class MockModel(Model):
         # test:///default driver
         defaults = dict(osinfo.defaults)
         defaults.update(mockmodel_defaults)
+        defaults['disks'][0]['pool'] = DEFAULT_POOL
         osinfo.defaults = dict(defaults)
 
         self._mock_vgs = MockVolumeGroups()
@@ -238,7 +241,8 @@ class MockModel(Model):
     def _probe_image(self, path):
         return ('unknown', 'unknown')
 
-    def _get_volume_path(self, pool, vol):
+    def _get_volume_path(self, pool_uri, vol):
+        pool = pool_name_from_uri(pool_uri)
         pool_info = self.storagepool_lookup(pool)
         if pool_info['type'] == 'scsi':
             return self._mock_storagevolumes.scsi_volumes[vol]['path']
