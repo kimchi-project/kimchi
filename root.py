@@ -27,6 +27,7 @@ from wok.plugins.kimchi.control import sub_nodes
 from wok.plugins.kimchi.model import model as kimchiModel
 from wok.plugins.kimchi.utils import upgrade_objectstore_data
 from wok.plugins.kimchi.utils import upgrade_objectstore_schema
+from wok.plugins.kimchi.utils import upgrade_objectstore_template_disks
 from wok.root import WokRoot
 
 
@@ -71,6 +72,7 @@ class KimchiRoot(WokRoot):
             upgrade_objectstore_data('icon', 'images', 'plugins/kimchi/')
             upgrade_objectstore_data('storagepool', '/storagepools',
                                      '/plugins/kimchi')
+            upgrade_objectstore_template_disks(self.model.conn)
 
     def get_custom_conf(self):
         return config.KimchiConfig()

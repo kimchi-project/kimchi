@@ -30,6 +30,7 @@ from urlparse import urlparse
 from wok.exception import InvalidParameter, OperationFailed
 from wok.plugins.kimchi import config
 from wok.utils import wok_log
+from wok.xmlutils.utils import xpath_get_text
 
 MAX_REDIRECTION_ALLOWED = 5
 
@@ -171,3 +172,49 @@ def upgrade_objectstore_data(item, old_uri, new_uri):
         if conn:
             conn.close()
         wok_log.info("%d '%s' entries upgraded in objectstore.", total, item)
+
+
+def upgrade_objectstore_template_disks(libv_conn):
+    """
+        Upgrade the value of a given JSON's item of all Templates.
+        Removes 'storagepool' entry and adds
+        'pool: { name: ..., type: ... }'
+    """
+    total = 0
+    try:
+        conn = sqlite3.connect(config.get_object_store(), timeout=10)
+        cursor = conn.cursor()
+        sql = "SELECT id, json FROM objects WHERE type='template'"
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            template = json.loads(row[1])
+
+            # Get pool info
+            pool_uri = template['storagepool']
+            pool_name = pool_name_from_uri(pool_uri)
+            pool = libv_conn.get().storagePoolLookupByName(
+                pool_name.encode("utf-8"))
+            pool_type = xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
+
+            # Update json
+            new_disks = []
+            for disk in template['disks']:
+                disk['pool'] = {'name': pool_uri,
+                                'type': pool_type}
+                new_disks.append(disk)
+            template['disks'] = new_disks
+            del template['storagepool']
+
+            sql = "UPDATE objects SET json=? WHERE id=?"
+            cursor.execute(sql, (json.dumps(template), row[0]))
+            conn.commit()
+            total += 1
+    except sqlite3.Error, e:
+        if conn:
+            conn.rollback()
+        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error("Error while upgrading objectstore data:", e.args[0])
+    finally:
+        if conn:
+            conn.close()
+        wok_log.info("%d 'template' entries upgraded in objectstore.", total)
