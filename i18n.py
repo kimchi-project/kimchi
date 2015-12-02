@@ -129,6 +129,9 @@ messages = {
     "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
     "KCHVM0071E": _("Memory value %(mem)s must be aligned to %(alignment)sMiB."),
     "KCHVM0072E": _("Template given has multiple disks assigned to different types of storage pools, conflicting with storage pool provided."),
+    "KCHVM0073E": _("Unable to update the following parameters while the VM is offline: %(params)s"),
+    "KCHVM0074E": _("Unable to update the following parameters while the VM is online: %(params)s"),
+    "KCHVM0075E": _("Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: %(sockets)s, cores: %(cores)s, threads: %(threads)s."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),

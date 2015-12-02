@@ -144,6 +144,10 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/plugins/kimchi/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
 
+        req = json.dumps({'cpus': 3})
+        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
         resp = self.request('/plugins/kimchi/vms/vm-1/start', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
@@ -155,9 +159,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'cpus': 3})
+        # Unable to do CPU hotplug
+        req = json.dumps({'cpus': 5})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
-        self.assertEquals(200, resp.status)
+        self.assertEquals(400, resp.status)
 
         # Check if there is support to memory hotplug, once vm is running
         resp = self.request('/plugins/kimchi/config/capabilities').read()
@@ -171,6 +176,7 @@ class RestTests(unittest.TestCase):
 
         req = json.dumps({"graphics": {'passwd': "abcdef"}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+        self.assertEquals(200, resp.status)
         info = json.loads(resp.read())
         self.assertEquals('abcdef', info["graphics"]["passwd"])
         self.assertEquals(None, info["graphics"]["passwdValidTo"])
