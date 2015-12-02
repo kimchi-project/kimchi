@@ -35,7 +35,7 @@ kimchi.initNetworkListView = function() {
                 in_use : data[i].in_use,
                 state : data[i].state === "active" ? "up" : "down"
             };
-            if (data[i].connection === "bridge") {
+            if (data[i].connection === "macvtap") {
                 network.type = kimchi.NETWORK_TYPE_BRIDGE;
             } else {
                 network.type = data[i].connection;

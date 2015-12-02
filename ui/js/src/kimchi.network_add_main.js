@@ -34,7 +34,7 @@ kimchi.startNetworkCreation = function() {
         connection: network.type
     };
     if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
-        data.connection = "bridge";
+        data.connection = "macvtap";
         data.interface = network.interface;
         if ($("#enableVlan").prop("checked")) {
             data.vlan_id = network.vlan_id;
