@@ -360,7 +360,8 @@ kimchi.addPool = function(event) {
     if (kimchi.validateForm()) {
         var formData = $('#form-pool-add').serializeObject();
         delete formData.authname;
-        var poolType = $('#poolTypeId').selectMenu('value');
+        var poolType = $('#poolTypeInputId').val();
+        formData.type = poolType;
         if (poolType === 'dir') {
             formData.path = $('#pathId').val();
         } else if (poolType === 'logical') {
